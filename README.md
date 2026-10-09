@@ -4,7 +4,7 @@
 
 A local-first desktop app for ADHD-friendly everyday productivity. Capture a thought, choose one next action, start a focus session, and return after an interruption. Built with Electron, with an optional desktop companion and optional AI assistance.
 
-[简体中文](README.zh-CN.md) · [Downloads & builds](#downloads--builds) · [Get started](#run-from-source) · [Documentation](#documentation)
+[Project website](https://jemicyzhu-0333.github.io/im-adhder/) · [简体中文](README.zh-CN.md) · [Downloads & builds](#downloads--builds) · [Get started](#run-from-source) · [Documentation](#documentation)
 
 This project is in development (`0.0.1-dev`). It is an executive-function support tool, not a medical device, and does not diagnose, treat, or promise clinical benefits for ADHD. The current app interface is in Chinese; this README is available in English and Chinese.
 
@@ -26,25 +26,27 @@ These are unaltered, app-only captures from native Electron testing on Linux, us
 - **Make the next step clear.** Create a task with just a title, then add steps, dates, recurrence, tags, or time estimates as needed. Local suggestions offer both overall priority and an easier place to start.
 - **Focus, pause, and come back.** Use a focus timer, take a break, or try a two-minute start. Leave a “next time, start here” step. Sessions that expire while the app is offline need your confirmation before they count.
 - **Keep everyday life separate from work.** Set routine reminders, record what happened, and review your timeline and progress. Missed days do not erase progress; there are no streak penalties. Energy estimates are everyday planning aids, not medical measurements.
-- **Have a desktop companion nearby.** Interact with Dango and Usagi forms, feed them, and use food tickets for outfits. Do Not Disturb, reduced motion, and low-stimulation settings are separate controls.
+- **Have a desktop companion nearby.** Interact with Dango and Usagi forms, feed them, spend food tickets on food, and choose available outfits. Do Not Disturb, reduced motion, and low-stimulation settings are separate controls.
 - **Use AI only if you want it.** Bring your own OpenAI-compatible provider for task breakdown, next-step suggestions, and ongoing collaboration. Choose the reference context, inspect proposed changes, and confirm before applying them. Core features work without AI.
 
 The main panel has **Now / Plan / Review** sections (现在 / 安排 / 回顾). Plan includes tasks, routines, inbox, and archives. The app lives in the system tray or menu bar.
 
 ## Downloads & builds
 
-- **Published packages:** check [GitHub Releases](https://github.com/jemicyzhu-0333/im-adhder/releases). Only assets actually attached to a release are downloadable releases; a build script or workflow is not a published installer.
-- **Development builds:** the manual [Build Windows and macOS (unsigned) workflow](https://github.com/jemicyzhu-0333/im-adhder/actions/workflows/build-desktop.yml) targets Windows x64 and macOS arm64. When a run succeeds, its installer artifacts can be downloaded from that run while retained. GitHub may require sign-in. These are unsigned development builds, and the workflow does not create a Release.
-- **Build locally:** follow the commands below. Windows and macOS are the primary targets. Linux has limited native testing and known rendering issues; see [validation and limitations](docs/VALIDATION.md).
+- **Project website:** visit the [project page](https://jemicyzhu-0333.github.io/im-adhder/) for an overview and current download notices.
+- **Published packages:** [v0.0.1-dev](https://github.com/jemicyzhu-0333/im-adhder/releases/tag/v0.0.1-dev) is an earlier testing build. Its attached packages have not been replaced with the latest `fix/dev-ai-experience` changes described here. **Installation of that release's Mac package is currently paused** after macOS reported it as damaged.
+- **New test builds:** the manual [Build Windows and macOS (test) workflow](https://github.com/jemicyzhu-0333/im-adhder/actions/workflows/build-desktop.yml) targets **Windows x64** and **macOS ARM64**. Download a successful run's artifacts while retained; GitHub may require sign-in. Check the run's branch and commit. The workflow does not create a Release.
 
-Code signing, notarization, actual installation, system integration, and cross-version updates require separate target-platform validation. This README does not claim those checks have passed. Do not use an existing or older user profile to try a development build.
+Windows test builds are unsigned. New Mac test builds use **ad-hoc signing**, without an Apple Developer ID or notarization. Signature integrity and isolated DMG startup have passed CI, but Gatekeeper's distribution assessment still rejects the Mac build. These checks do not establish that a browser-downloaded app will open normally. Do not disable Gatekeeper or remove quarantine to install it.
+
+This is a development test version, not a stable release. **In-app updates are not currently available**; update metadata has not been published. Download test builds manually. Use a fresh test profile. Linux has limited native testing and known rendering issues; see [validation and limitations](docs/VALIDATION.md).
 
 ## Run from source
 
 Requirements: **Node.js 22.12.0+**, npm, and a desktop environment capable of running Electron. Install the full dependencies, including devDependencies.
 
 ```bash
-git clone https://github.com/jemicyzhu-0333/im-adhder.git
+git clone --branch fix/dev-ai-experience https://github.com/jemicyzhu-0333/im-adhder.git
 cd im-adhder
 npm ci
 npm run dev
@@ -65,9 +67,9 @@ These are validation commands, not a claim that every platform has passed them. 
 
 ### AI setup & privacy
 
-AI is **off by default**. To use it, enable AI in Settings, provide a public HTTPS OpenAI-compatible Base URL, model name, and API key, then save the configuration. Keys use the operating system's secure storage; the development profile needs its own configuration.
+AI is **off by default**. To use it, enable AI in Settings, provide a public HTTPS OpenAI-compatible Base URL, model name, and API key, then save the configuration. Keys are stored using Electron's `safeStorage`; protection depends on the operating system and its credential backend. Saving fails when Electron reports encryption unavailable. The development profile needs its own configuration.
 
-Local-first means the core data and workflow stay on your machine; it does not mean the app never connects to the network. When AI is enabled, your selected context is sent to the configured provider. Available update checks and downloads also use the network. Optional activity mirroring is off by default and uses local activity categories, not desktop contents, music contents, or AI conversation text.
+Local-first means the core data and workflow stay on your machine; it does not mean the app never connects to the network. When you use AI, your messages and the context assembled for that request are sent to the configured provider. Review the reference scope and your provider's data policy before sending sensitive information. No working in-app update channel is currently published. Optional activity mirroring is off by default and uses local activity categories, not desktop contents, music contents, or AI conversation text.
 
 ### Build an installer
 

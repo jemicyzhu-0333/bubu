@@ -1,6 +1,6 @@
 # I'm ADHDer
 
-[English](README.md) · 简体中文
+[项目网站](https://jemicyzhu-0333.github.io/im-adhder/) · [English](README.md) · 简体中文
 
 一个本地优先的 ADHD 日常效率与桌面陪伴应用：随手记下想法，把任务拆成下一步，用专注计时器开始，再和桌面伙伴一起回来继续。
 
@@ -24,23 +24,27 @@
 - **任务与下一步**：标题即可新建；按需添加步骤、日期、重复规则、标签和估时。本地推荐支持“综合优先”和“最容易开始”。
 - **专注与续接**：专注计时、暂停、休息和落点记录；中断后可继续，离线到点需本人确认结算。
 - **日常与回顾**：独立的生活提醒与记录、能量自评和日常估计、活动时间线与累计进展。没有连续打卡惩罚。
-- **桌面伙伴**：团子兽与乌沙奇形态、互动、喂食、食票换装和陪伴动作；免打扰、低刺激和减少动效分别可控。
+- **桌面伙伴**：团子兽与乌沙奇形态、互动、喂食、食票购买食物、可用装扮和陪伴动作；免打扰、低刺激和减少动效分别可控。
 - **可选 AI**：任务拆解、补全、卡住建议与持续协作。可选择参考范围，查看修改差异，确认后才应用建议；未配置时核心功能仍可用。
 
 主面板分为“现在 / 安排 / 回顾”；“安排”包含任务、日常、收件箱和已归档。应用驻留托盘或菜单栏。
 
 ## 下载与开发版本
 
-- 已发布安装包请看 [GitHub Releases](https://github.com/jemicyzhu-0333/im-adhder/releases)。只有实际附在 Release 上的文件才是可下载的发布包；构建入口或工作流不代表已经发布安装包。
-- 开发包请看 [Build Windows and macOS (unsigned)](https://github.com/jemicyzhu-0333/im-adhder/actions/workflows/build-desktop.yml)：手动工作流面向 Windows x64 与 macOS arm64。成功运行后可在保留期内下载对应 artifact，GitHub 可能要求登录。这些是未签名开发包，工作流不创建 Release。
-- 也可按下方命令从源码运行或本机构建。当前不是正式发布版本，请勿用已有或旧版用户档案试运行。
+- [项目网站](https://jemicyzhu-0333.github.io/im-adhder/)提供功能介绍与当前下载提示。
+- 已公开的 [v0.0.1-dev](https://github.com/jemicyzhu-0333/im-adhder/releases/tag/v0.0.1-dev) 是较早的测试包，附件尚未替换为本文所述 `fix/dev-ai-experience` 分支的新修订。**该 Release 的 Mac 包目前暂停安装**：已有 macOS 报告“已损坏”的问题。
+- 新测试包来自手动 [Build Windows and macOS (test)](https://github.com/jemicyzhu-0333/im-adhder/actions/workflows/build-desktop.yml) 工作流，面向 **Windows x64** 和 **macOS ARM64**。成功运行后可在保留期内下载 artifact，GitHub 可能要求登录；请核对运行的分支与提交。工作流不会创建 Release。
+
+Windows 测试包未签名；新的 Mac 测试包采用 **ad-hoc 本地签名**，没有 Apple Developer ID 签名或公证。代码签名完整性、隔离档案下的 DMG 启动已通过 CI，但 Gatekeeper 分发评估仍拒绝该 Mac 包，不能据此保证浏览器下载后正常双击打开。请勿关闭 Gatekeeper 或移除隔离标记来安装。
+
+这是开发测试版，不是稳定版。**当前没有可用的应用内更新**，尚未发布更新元数据，请手动下载测试包。请使用全新测试档案。
 
 ## 进入开发环境
 
 需要 Node.js **22.12.0+**、npm 和可运行 Electron 的桌面环境。Windows/macOS 是主要桌面目标；Linux 已有有限原生验证，仍有已知呈现问题，详见 [验证说明](docs/VALIDATION.md)。
 
 ```bash
-git clone https://github.com/jemicyzhu-0333/im-adhder.git
+git clone --branch fix/dev-ai-experience https://github.com/jemicyzhu-0333/im-adhder.git
 cd im-adhder
 npm ci
 npm run dev          # 独立开发档案
@@ -61,9 +65,9 @@ npm run test:electron   # 需要可用的原生桌面
 
 ### AI 设置与联网
 
-AI 默认关闭。在设置中启用 AI，填写 OpenAI 兼容的公网 HTTPS Base URL、模型名和 API 密钥，再点击“保存配置”。密钥通过系统安全存储保存；开发档案需要单独配置。
+AI 默认关闭。在设置中启用 AI，填写 OpenAI 兼容的公网 HTTPS Base URL、模型名和 API 密钥，再点击“保存配置”。密钥使用 Electron 的 `safeStorage` 保存，保护能力取决于操作系统及其凭据后端；Electron 报告加密不可用时会拒绝保存。开发档案需要单独配置。
 
-Local-first 表示核心数据与执行闭环在本机，不表示应用绝不联网：启用 AI 后，所选上下文会发送给配置的 Provider；更新功能在可用且执行检查或下载时也会联网。活动镜像默认关闭，仅处理本地活动类别，不读取桌面内容、音乐内容或 AI 对话正文。
+Local-first 表示核心数据与执行闭环在本机，不表示应用绝不联网：使用 AI 时，消息和为该请求组织的参考上下文会发送给配置的 Provider；发送敏感信息前，请检查参考范围与服务商的数据政策。目前尚未发布可用的应用内更新通道。活动镜像默认关闭，仅处理本地活动类别，不读取桌面内容、音乐内容或 AI 对话正文。
 
 ## 构建
 
@@ -77,7 +81,7 @@ npm run build:linux
 
 也提供 `pack:win`、`pack:mac`、`pack:linux`。支持 x64/arm64；macOS 还需要 Xcode Command Line Tools。构建脚本不会自动发布，不能在 Windows 上直接构建 macOS 包。
 
-仓库的手动 GitHub Actions 工作流 **Build Windows and macOS (unsigned)** 分别生成 Windows x64 和 macOS arm64 开发包，不创建 Release。工作流存在不代表两端已经构建成功。签名、公证、实际安装与系统集成仍需目标平台验证；当前不是正式发布版本。
+构建命令支持 x64/arm64，不表示所有系统与架构组合都经过原生验收。测试包的签名与安装限制见上方“下载与开发版本”。
 
 ## 快捷键
 
