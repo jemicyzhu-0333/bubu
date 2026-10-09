@@ -226,7 +226,8 @@ function installPorts(t, mode = 'success') {
     spawnChild(executable, args) {
       calls.push(['spawn', executable]);
       assert.equal(executable, path.join(fixture.root, 'Applications/I’m ADHDer.app/Contents/MacOS/I’m ADHDer'));
-      assert.deepEqual(args, [`--user-data-dir=${fixture.userDataPath}`, '--dev']);
+      assert.deepEqual(args, [`--user-data-dir=${fixture.userDataPath}`]);
+      assert.equal(args.includes('--dev'), false, 'packaged smoke must not enable source hot reload');
       const repo = createSqliteStateAdapter({ userDataPath: fixture.userDataPath, now: () => NOW });
       try {
         if (mode !== 'no-startup-write') repo.update(state => {
@@ -428,4 +429,34 @@ test('output truncation cannot conceal a later startup error or admit SQL accept
   await assert.rejects(verifyInstall(f.ports), /output exceeded diagnostic bound/);
   assert.equal(f.reads(), 0);
   assert.equal(f.calls.some(([command]) => command === 'report'), false);
+});
+
+
+test('unhandled bootstrap rejection diagnostics retain safe OS kind and ASAR source frame', () => {
+  const report = summarizeStartupOutput('UnhandledPromiseRejectionWarning: Error: ENOTDIR watch /private/fixture\n' +
+    'at watch (/tmp/app/Contents/Resources/app.asar/src/platform/electron/dev/pet-hot-reload.js:9:64)');
+  assert.deepEqual(report.errorKinds, ['UnhandledPromiseRejectionWarning', 'ENOTDIR']);
+  assert.deepEqual(report.stackFrames, ['src/platform/electron/dev/pet-hot-reload.js:9:64']);
+  assert.doesNotMatch(JSON.stringify(report), /private\/fixture/);
+});
+
+test('installed all-scenario seed requires a real production daily-reset commit without developer mode', t => {
+  const profile = profileFor(t, 'all');
+  const repository = createSqliteStateAdapter({ userDataPath: profile.userDataPath, now: () => NOW });
+  try {
+    const { createRunDailyResetWorkflow } = require('../src/application');
+    const result = createRunDailyResetWorkflow({
+      unitOfWork: createUnitOfWork({ repository }),
+      clock: { now: () => NOW, dayKey: localDayKey },
+      idFactory: () => 'unexpected-new-occurrence'
+    }).execute();
+    assert.equal(result.ok, true);
+    assert.ok(repository.revision() > profile.revision);
+  } finally { repository.close(); }
+  const { state, revision } = readDisposableProfile(profile);
+  assert.ok(revision > profile.revision);
+  assert.equal(state.tasks.find(task => task.seriesId).occurrenceDate, localDayKey(NOW));
+  assert.deepEqual(state.tasks.map(task => [task.id, task.title]), profile.initial.tasks.map(task => [task.id, task.title]));
+  assert.equal(state.xp, profile.initial.xp);
+  assert.deepEqual(state.rewardLedger, profile.initial.rewardLedger);
 });

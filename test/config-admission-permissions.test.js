@@ -4,7 +4,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
-const { validAclReport, verifyProbePermissions, verifyWindowsProbePermissions, ACL_PROGRAM } = require('../src/platform/persistence/sqlite/config-admission-permissions');
+const { validAclReport, verifyProbePermissions, verifyWindowsProbePermissions, ACL_PROGRAM, createProbeWaitBudget, PROBE_WAIT_BUDGET_MS } = require('../src/platform/persistence/sqlite/config-admission-permissions');
 const SID = 'S-1-5-21-100-200-300-1001';
 const allow = (sid = SID, flags = 0) => ({ sid, type: 'AccessAllowed', flags });
 const report = (count = 1) => ({ sid: SID, entries: Array.from({ length: count }, (_, index) => ({
@@ -54,7 +54,7 @@ test('read-only fixed system command receives literal paths through stdin with b
     calls++; assert.equal(executable, 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe');
     assert.deepEqual(args, ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command', ACL_PROGRAM]);
     assert.deepEqual(JSON.parse(options.input), [f.directory, f.file]);
-    assert.equal(options.shell, false); assert.equal(options.windowsHide, true); assert.equal(options.timeout, 5000);
+    assert.equal(options.shell, false); assert.equal(options.windowsHide, true); assert.equal(options.timeout, PROBE_WAIT_BUDGET_MS);
     assert.equal(options.maxBuffer, 65536); assert.doesNotMatch(ACL_PROGRAM, /Set-Acl|ExecutionPolicy|icacls/i);
     return { status: 0, signal: null, stdout: JSON.stringify(report(2)), stderr: '' };
   } }); assert.equal(calls, 1);
@@ -192,7 +192,7 @@ test('native Windows PowerShell 5.1 protocol rejects empty/nested input and pres
   const f = fixture(t), executable = path.win32.join(process.env.SystemRoot, 'System32', 'WindowsPowerShell', 'v1.0', 'powershell.exe');
   function run(paths) {
     return spawnSync(executable, ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command', ACL_PROGRAM], {
-      input: JSON.stringify(paths), encoding: 'utf8', shell: false, windowsHide: true, timeout: 5000, maxBuffer: 65536,
+      input: JSON.stringify(paths), encoding: 'utf8', shell: false, windowsHide: true, timeout: PROBE_WAIT_BUDGET_MS, maxBuffer: 65536,
       env: Object.fromEntries(Object.entries(process.env).filter(([key]) => key.toUpperCase() !== 'PSMODULEPATH'))
     });
   }
@@ -285,4 +285,76 @@ test('an environment without PSModulePath is cloned without changing any keys', 
     assert.notEqual(options.env, environment); assert.deepEqual(options.env, environment);
     return { status: 0, stdout: JSON.stringify(report()), stderr: '' };
   } });
+});
+
+test('one admission wait budget allows a cold first probe and charges all three fresh checks', t => {
+  const f = fixture(t); let now = 0, calls = 0;
+  const waitBudget = createProbeWaitBudget({ now: () => now }), timeouts = [], durations = [6000, 700, 800];
+  for (let index = 0; index < 3; index++) {
+    verifyWindowsProbePermissions(f.directory, [], { environment: { SystemRoot: 'C:\\Windows' }, waitBudget, run(_file, _args, options) {
+      timeouts.push(options.timeout); now += durations[calls++];
+      return { status: 0, stderr: '', stdout: JSON.stringify(report()) };
+    } });
+    now += 200000; // Source copying and non-process work do not consume this budget.
+  }
+  assert.equal(calls, 3); assert.deepEqual(timeouts, [15000, 9000, 8300]);
+});
+test('exhausted aggregate wait rejects late success and never starts another process', t => {
+  const f = fixture(t); let now = 0, calls = 0;
+  const waitBudget = createProbeWaitBudget({ now: () => now });
+  const options = { environment: { SystemRoot: 'C:\\Windows' }, waitBudget, run(_file, _args, controls) {
+    calls++; assert.equal(controls.timeout, calls === 1 ? 15000 : 1000);
+    now += calls === 1 ? 14000 : 1001;
+    return { status: 0, stderr: '', stdout: JSON.stringify(report()) };
+  } };
+  verifyWindowsProbePermissions(f.directory, [], options);
+  for (let index = 0; index < 2; index++) assert.throws(() => verifyWindowsProbePermissions(f.directory, [], options), error => error.diagnostic === 'timeout');
+  assert.equal(calls, 2);
+});
+test('separate admission budgets do not retain waiting allowance or ACL results', () => {
+  let now = 0;
+  const first = createProbeWaitBudget({ now: () => now });
+  first.run(timeout => { assert.equal(timeout, 15000); now += 14999; });
+  const second = createProbeWaitBudget({ now: () => now });
+  second.run(timeout => assert.equal(timeout, 15000));
+  first.run(timeout => assert.equal(timeout, 1));
+});
+for (const invalid of [99, NaN, Infinity]) {
+  test('non-monotonic or invalid clock readings exhaust the budget without extension', () => {
+    let now = 100, calls = 0;
+    const budget = createProbeWaitBudget({ now: () => now });
+    assert.throws(() => budget.run(() => { calls++; now = invalid; }), error => error.diagnostic === 'timeout');
+    now = 200;
+    assert.throws(() => budget.run(() => { calls++; }), error => error.diagnostic === 'timeout');
+    assert.equal(calls, 1);
+  });
+}
+test('admission shares one wait budget across its exact three gates and never across admissions', t => {
+  const { admitConfigCopy } = require('../src/platform/persistence/sqlite/config-admission-copy');
+  const f = fixture(t), identityPath = path.join(f.directory, 'identity.sqlite');
+  fs.writeFileSync(identityPath, 'synthetic identity', { mode: 0o600 });
+  const sessions = [];
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const budgets = [];
+    assert.throws(() => admitConfigCopy({ filePath: f.file, identityPath }, { makeHandle() {}, driver: { open() { throw Error('stop copied validation'); } },
+      verifyPermissions(_directory, _files, options) { budgets.push(options.waitBudget); }
+    }), /config-identity-invalid/);
+    assert.equal(budgets.length, 3); assert.ok(budgets.every(budget => budget === budgets[0]));
+    sessions.push(budgets[0]);
+  }
+  assert.notEqual(sessions[0], sessions[1]);
+});
+test('child timeout at the first admission gate leaves private bytes uncopied and originals unopened', t => {
+  const { admitConfigCopy } = require('../src/platform/persistence/sqlite/config-admission-copy');
+  const f = fixture(t), before = fs.readFileSync(f.file); let calls = 0, writes = 0, opened = 0, probe;
+  assert.throws(() => admitConfigCopy({ filePath: f.file, identityPath: path.join(f.directory, 'absent-identity'), io: { ...fs,
+    writeSync(...args) { writes++; return fs.writeSync(...args); }
+  } }, { driver: { open() { opened++; } }, makeHandle() {}, verifyPermissions(directory, files, options) {
+    probe = directory;
+    verifyWindowsProbePermissions(directory, files, { waitBudget: options.waitBudget, environment: { SystemRoot: 'C:\\Windows' }, run() {
+      calls++; return { error: { code: 'ETIMEDOUT' } };
+    } });
+  } }), error => error.diagnostic === 'timeout');
+  assert.equal(calls, 1); assert.equal(writes, 0); assert.equal(opened, 0);
+  assert.deepEqual(fs.readFileSync(f.file), before); assert.equal(fs.existsSync(probe), false);
 });

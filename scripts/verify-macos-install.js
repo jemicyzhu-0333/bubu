@@ -12,7 +12,7 @@ const { verifyCodeSignature } = require('./macos-code-signature');
 // Child output is untrusted even for a synthetic profile. Publish only bounded,
 // allowlisted diagnostic facts, never arbitrary log lines or environment values.
 function summarizeStartupOutput(output) {
-  const errorKinds = [...new Set(output.match(/\b(?:TypeError|ReferenceError|SyntaxError|RangeError|Uncaught|ERR_[A-Z_]+)\b/g) || [])].slice(0, 20);
+  const errorKinds = [...new Set(output.match(/\b(?:TypeError|ReferenceError|SyntaxError|RangeError|Uncaught|UnhandledPromiseRejectionWarning|ENOTDIR|ENOENT|EACCES|EPERM|ERR_[A-Z_]+)\b/g) || [])].slice(0, 20);
   const missingModules = [...output.matchAll(/Cannot find module ['"]([@a-zA-Z0-9_.\/-]+)['"]/g)]
     .map(match => match[1]).filter(name => !name.startsWith('/') && !name.includes('..')).slice(0, 10);
   const stackFrames = [...output.matchAll(/app\.asar\/(src\/[a-zA-Z0-9_./-]+:\d+:\d+)/g)]
@@ -89,9 +89,12 @@ async function verifyInstall({ platform = process.platform, argv = process.argv,
     const hash = sha256(path.join(installed, 'Contents/Resources/app.asar'));
     assert.equal(hash, sha256(path.join(mount, 'I’m ADHDer.app/Contents/Resources/app.asar')));
     const codeSignature = verifyCodeSignature(installed, { platform, execFile });
+    // Match a normal packaged launch. --dev also enables source hot reload,
+    // which cannot watch an immutable ASAR; profile isolation comes solely
+    // from Electron's explicit user-data-dir switch, not developer mode.
     stage = 'launch-installed-app';
     child = spawnChild(path.join(installed, 'Contents/MacOS/I’m ADHDer'),
-      [`--user-data-dir=${fixture.userDataPath}`, '--dev'], { stdio: ['ignore', 'pipe', 'pipe'] });
+      [`--user-data-dir=${fixture.userDataPath}`], { stdio: ['ignore', 'pipe', 'pipe'] });
     child.stdout.on('data', captureOutput);
     child.stderr.on('data', captureOutput);
     completion = new Promise(resolve => {
@@ -105,7 +108,7 @@ async function verifyInstall({ platform = process.platform, argv = process.argv,
     await closeInstalledChild(child, completion, installed, { execFile, wait });
     assert.equal(closed, true, 'the application owner must close before SQL verification');
     stage = 'application-startup-output';
-    assert.equal(/App threw an error|ReferenceError|TypeError|Uncaught/.test(output), false, 'installed app reported a startup error');
+    assert.equal(/App threw an error|ReferenceError|TypeError|Uncaught|UnhandledPromiseRejection/.test(output), false, 'installed app reported a startup error');
     assert.equal(omittedOutputCharacters, 0, 'installed app output exceeded diagnostic bound; startup cannot be accepted');
     stage = 'read-seeded-sql-authority';
     const { state: persisted, revision } = readProfile(fixture);
@@ -117,13 +120,13 @@ async function verifyInstall({ platform = process.platform, argv = process.argv,
     assert.equal(persisted.xp, initial.xp);
     assert.deepEqual(persisted.rewardLedger, initial.rewardLedger);
     assert.equal(persisted.tasks.find(task => task.seriesId).occurrenceDate, localDayKey(now));
-    assert.equal(/App threw an error|ReferenceError|TypeError|Uncaught/.test(output), false, 'installed app reported a startup error');
+    assert.equal(/App threw an error|ReferenceError|TypeError|Uncaught|UnhandledPromiseRejection/.test(output), false, 'installed app reported a startup error');
     report = {
       result: 'passed', sourceCommit: process.env.GITHUB_SHA || null,
       dmg, dmgSha256: sha256(dmg), installed, profile: fixture.userDataPath,
       asarSha256: hash, persistedRevision: revision, preservedTasks: persisted.tasks.length, recurrenceCaughtUp: true,
       codeSignature,
-      launchAcceptance: 'direct executable launch from disposable DMG copy; no Internet quarantine added or removed',
+      launchAcceptance: 'production-mode direct executable launch from disposable DMG copy; no Internet quarantine added or removed',
       gatekeeperAcceptance: 'not asserted; Developer ID and notarization are separate distribution requirements'
     };
   } catch (error) {

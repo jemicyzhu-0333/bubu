@@ -1,6 +1,7 @@
 'use strict';
 const fs = require('node:fs');
 const path = require('node:path');
+const { performance } = require('node:perf_hooks');
 const { spawnSync } = require('node:child_process');
 
 // Fixed read-only program. Paths are JSON stdin, never PowerShell source or argv.
@@ -90,7 +91,32 @@ function aclReportFailure(report, count) {
 }
 function validAclReport(report, count) { return aclReportFailure(report, count) === null; }
 
-function verifyWindowsProbePermissions(directory, files = [], { run = spawnSync, environment = process.env } = {}) {
+// Reallocate the former three independent 5s waits to one admission budget.
+// Cold PowerShell startup may use more than 5s; all three fresh ACL checks still
+// share a 15s child-process timeout allowance. Copy/validation is not charged;
+// process termination and OS scheduling may add overhead beyond that allowance.
+const PROBE_WAIT_BUDGET_MS = 15000;
+function createProbeWaitBudget({ now = () => performance.now() } = {}) {
+  let remaining = PROBE_WAIT_BUDGET_MS, lastTick = -Infinity;
+  function tick() {
+    let value;
+    try { value = now(); } catch (_) { remaining = 0; throw unavailable('timeout'); }
+    if (!Number.isFinite(value) || value < 0 || value < lastTick) { remaining = 0; throw unavailable('timeout'); }
+    lastTick = value; return value;
+  }
+  return Object.freeze({ run(invoke) {
+    const timeout = Math.floor(remaining);
+    if (timeout <= 0) throw unavailable('timeout');
+    const started = tick();
+    try { return invoke(timeout); }
+    finally {
+      remaining = Math.max(0, remaining - (tick() - started));
+      if (remaining <= 0) throw unavailable('timeout');
+    }
+  } });
+}
+
+function verifyWindowsProbePermissions(directory, files = [], { run = spawnSync, environment = process.env, waitBudget = createProbeWaitBudget() } = {}) {
   try {
     if (!path.isAbsolute(directory) || files.length > 6 || files.some(file => path.dirname(file) !== directory)
       || new Set(files).size !== files.length) throw unavailable('paths');
@@ -102,10 +128,10 @@ function verifyWindowsProbePermissions(directory, files = [], { run = spawnSync,
     // Through Node, inherited PS7 paths can resolve incompatible system modules.
     // Child-only removal follows Microsoft's about_PSModulePath guidance.
     const childEnvironment = Object.fromEntries(Object.entries(environment).filter(([key]) => key.toUpperCase() !== 'PSMODULEPATH'));
-    const result = run(executable, ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command', ACL_PROGRAM], {
+    const result = waitBudget.run(timeout => run(executable, ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command', ACL_PROGRAM], {
       input: JSON.stringify([directory, ...files]), encoding: 'utf8', shell: false, windowsHide: true,
-      timeout: 5000, maxBuffer: 64 * 1024, env: childEnvironment
-    });
+      timeout, maxBuffer: 64 * 1024, env: childEnvironment
+    }));
     if (result.error) throw unavailable(result.error.code === 'ETIMEDOUT' ? 'timeout' : 'spawn');
     if (result.status !== 0 || result.signal) {
       const stage = /^config-admission-acl:(streams|input|identity|item|acl(?:-access-denied|-module-load|-command-not-found|-path-not-found|-parameter|-other)?|descriptor|aces|serialize)$/.exec(result.stderr || '')?.[1];
@@ -120,7 +146,7 @@ function verifyWindowsProbePermissions(directory, files = [], { run = spawnSync,
     if (failure) throw unavailable(failure);
   } catch (error) { throw sanitized(error, 'spawn'); }
 }
-function verifyProbePermissions(directory, files = [], { platform = process.platform, io = fs, verifyWindows = verifyWindowsProbePermissions } = {}) {
+function verifyProbePermissions(directory, files = [], { platform = process.platform, io = fs, verifyWindows = verifyWindowsProbePermissions, waitBudget } = {}) {
   try {
     const names = files.map(file => path.basename(file)).sort();
     const checkMembers = () => {
@@ -131,7 +157,7 @@ function verifyProbePermissions(directory, files = [], { platform = process.plat
     const before = paths.map(target => io.lstatSync(target, { bigint: true }));
     if (before.some((value, index) => index === 0 ? !value.isDirectory() : !value.isFile())) throw unavailable('file-type');
     checkMembers();
-    if (platform === 'win32') verifyWindows(directory, files);
+    if (platform === 'win32') verifyWindows(directory, files, { waitBudget });
     else if (before.some(value => (value.mode & 0o077n) !== 0n)) throw unavailable('mode');
     paths.forEach((target, index) => {
       const after = io.lstatSync(target, { bigint: true }), prior = before[index];
@@ -140,4 +166,4 @@ function verifyProbePermissions(directory, files = [], { platform = process.plat
     checkMembers();
   } catch (error) { throw sanitized(error, 'filesystem'); }
 }
-module.exports = { verifyProbePermissions, verifyWindowsProbePermissions, validAclReport, ACL_PROGRAM };
+module.exports = { verifyProbePermissions, verifyWindowsProbePermissions, validAclReport, ACL_PROGRAM, createProbeWaitBudget, PROBE_WAIT_BUDGET_MS };

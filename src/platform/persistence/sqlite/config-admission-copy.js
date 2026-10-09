@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { createHash } = require('node:crypto');
-const { verifyProbePermissions } = require('./config-admission-permissions');
+const { verifyProbePermissions, createProbeWaitBudget } = require('./config-admission-permissions');
 const { readIdentity } = require('./config-authority-identity');
 const { readAuthoritySnapshot, verifyEvidence } = require('./config-authority-schema');
 
@@ -129,11 +129,11 @@ function admitConfigCopy({ filePath, identityPath, io = fs, prepareInitial, vali
   while (members.some(member => sourceNames.has(`${prefix}-${member.index}.sqlite${member.suffix}`))) prefix += '-probe';
   for (const member of members) member.name = `${prefix}-${member.index}.sqlite${member.suffix}`;
   let initial, owned;
-  const allocated = [];
+  const allocated = [], waitBudget = createProbeWaitBudget();
   try {
     owned = stat(io, directory);
     if (!owned?.isDirectory() || (process.platform !== 'win32' && (owned.mode & 0o077n) !== 0n)) throw fail('config-admission-file-invalid');
-    verifyPermissions(directory, [], { io });
+    verifyPermissions(directory, [], { io, waitBudget });
     // Validate actual empty-file DACLs before copying private bytes: a safe
     // directory without inheritable ACEs need not imply a safe token default.
     for (const member of members) if (member.stat) {
@@ -142,10 +142,10 @@ function admitConfigCopy({ filePath, identityPath, io = fs, prepareInitial, vali
       item.empty = io.fstatSync(fd, { bigint: true });
     }
     const copiedPaths = allocated.map(item => item.destination);
-    verifyPermissions(directory, copiedPaths, { io });
+    verifyPermissions(directory, copiedPaths, { io, waitBudget });
     for (const item of allocated) copyMember(io, item.member, item.destination, item.fd, item.empty);
     closeAllocated(io, allocated);
-    verifyPermissions(directory, copiedPaths, { io });
+    verifyPermissions(directory, copiedPaths, { io, waitBudget });
     initial = validateProbe({ filePath: path.join(directory, members[0].name), identityPath: path.join(directory, members[3].name),
       io, driver, makeHandle, prepareInitial, validateCurrent });
   } finally {
