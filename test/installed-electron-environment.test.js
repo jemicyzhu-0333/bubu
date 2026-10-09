@@ -8,6 +8,18 @@ const { createEmptyProfile, verifyProfileLaunch } = require('../scripts/installe
 const { createUpgradeFixture } = require('../scripts/installed-upgrade-profile');
 const { verifyPendingLock, runUpgradeChild } = require('../scripts/verify-installed-upgrade');
 const { summarizeStartupOutput } = require('../scripts/verify-macos-install');
+function assertPreservedEntries(source, actual) {
+  // process.env lookups are case-insensitive on Windows; a cloned plain object
+  // preserves the enumerated spelling instead. Compare actual keys and values.
+  const expected = Object.entries(source).filter(([name]) => name.toUpperCase() !== 'ELECTRON_RUN_AS_NODE');
+  // A failure must not print unrelated live CI environment values.
+  assert.equal(Object.keys(actual).length, expected.length, 'preserved environment key count');
+  for (const [name, value] of expected) {
+    assert.equal(Object.hasOwn(actual, name), true, `preserved environment key: ${name}`);
+    assert.equal(actual[name] === value, true, `preserved environment value for key: ${name}`);
+  }
+}
+
 for (const value of ['', '1', '0']) test(`native Electron env omits all Node-mode casing aliases with value ${JSON.stringify(value)}`, () => {
   const original = Object.freeze({ ELECTRON_RUN_AS_NODE: value, electron_run_as_node: value, Electron_Run_As_Node: value,
     PATH: '/retained/path', SystemRoot: 'C:\\Windows', NODE_OPTIONS: '--retained-option', ordinary: '' });
@@ -18,6 +30,31 @@ for (const value of ['', '1', '0']) test(`native Electron env omits all Node-mod
 test('an absent Node-mode variable remains absent without changing any unrelated env key', () => {
   const original = { Path: 'preserve exact key casing', ELECTRON_ENABLE_LOGGING: '1', HOME: '/owned/home' };
   assert.deepEqual(installedElectronEnvironment(original), original);
+});
+for (const [pathKey, rootKey, nodeKey] of [
+  ['PATH', 'SYSTEMROOT', 'ELECTRON_RUN_AS_NODE'],
+  ['Path', 'SystemRoot', 'Electron_Run_As_Node'],
+  ['pAtH', 'systemroot', 'electron_run_as_node']
+]) test(`enumerated ${pathKey}/${rootKey} keys survive Windows-style case-insensitive source lookups`, () => {
+  const raw = { [pathKey]: 'C:\\synthetic\\bin', [rootKey]: 'C:\\Windows', [nodeKey]: '', NODE_OPTIONS: '--retained', ordinary: '' };
+  const before = { ...raw };
+  const find = name => typeof name === 'string' ? Object.keys(raw).find(key => key.toUpperCase() === name.toUpperCase()) : undefined;
+  const source = new Proxy(raw, {
+    get(target, name) { return target[find(name)]; },
+    getOwnPropertyDescriptor(target, name) { return Object.getOwnPropertyDescriptor(target, find(name)); }
+  });
+  // Reproduce the original failing assumption on Linux as well as Windows:
+  // PATH is a supported source alias, but only its enumerated spelling is copied.
+  assert.equal(Object.hasOwn(source, 'PATH'), true); assert.equal(source.PATH, raw[pathKey]);
+  const result = installedElectronEnvironment(source);
+  assertPreservedEntries(source, result);
+  assert.equal(Object.hasOwn(result, pathKey), true); assert.equal(result[pathKey], raw[pathKey]);
+  if (pathKey !== 'PATH') assert.equal(Object.hasOwn(result, 'PATH'), false);
+  assert.equal(Object.keys(result).some(name => name.toUpperCase() === 'ELECTRON_RUN_AS_NODE'), false);
+  assert.deepEqual(raw, before);
+  const dropped = { ...result }; delete dropped[pathKey];
+  assert.throws(() => assertPreservedEntries(source, dropped));
+  assert.throws(() => assertPreservedEntries(source, { ...result, [pathKey]: 'changed' }));
 });
 test('CLI failure diagnostics admit known option names without raw arguments, paths or secrets', () => {
   const report = summarizeStartupOutput('C:\\private\\secret.exe: bad option: --user-data-dir=C:\\private\\profile\n' +
@@ -36,9 +73,7 @@ test('all installed verifier child paths omit inherited Node mode and retain exa
   function spawnChild(executable, args, options) {
     assert.equal(executable, '/owned/bubu');
     assert.equal(Object.keys(options.env).some(name => name.toUpperCase() === 'ELECTRON_RUN_AS_NODE'), false);
-    for (const name of ['PATH', 'Path', 'SystemRoot', 'NODE_OPTIONS']) {
-      if (Object.hasOwn(process.env, name)) assert.equal(options.env[name], process.env[name]);
-    }
+    assertPreservedEntries(process.env, options.env);
     captured.push(args);
     const child = new EventEmitter(); child.stdout = new EventEmitter(); child.stderr = new EventEmitter(); child.kill = () => {};
     queueMicrotask(() => child.emit('close', 0, null)); return child;
