@@ -33,7 +33,7 @@ test('Windows one-shot is independent of activity mirroring and returns known pr
   assert.equal(h.calls.length, 1);
   const call = h.calls[0];
   assert.equal(call.file, 'powershell.exe');
-  assert.deepEqual(call.args, ['-NoLogo', '-NoProfile', '-NonInteractive', '-File', '/synthetic/app/native/windows/nudge-foreground.ps1']);
+  assert.deepEqual(call.args, ['-NoLogo', '-NoProfile', '-NonInteractive', '-File', path.join('/synthetic', 'app', 'native', 'windows', 'nudge-foreground.ps1')]);
   assert.equal(call.options.shell, false);
   assert.equal(call.options.timeout, 3000);
   assert.equal(call.options.maxBuffer, 512);
@@ -121,8 +121,8 @@ test('packaged/dev helpers resolve exactly, missing packaged helper never falls 
     const h = harness({ isPackaged, whitelist: ['$(payload)', '"; Write-Host secret'],
       exists: file => { existsCalls.push(file); return true; } });
     const pending = h.probe();
-    const expected = isPackaged ? '/synthetic/resources/nudge-foreground/nudge-foreground.ps1'
-      : '/synthetic/app/native/windows/nudge-foreground.ps1';
+    const expected = isPackaged ? path.join('/synthetic', 'resources', 'nudge-foreground', 'nudge-foreground.ps1')
+      : path.join('/synthetic', 'app', 'native', 'windows', 'nudge-foreground.ps1');
     assert.deepEqual(existsCalls, [expected]); assert.equal(h.calls[0].args.at(-1), expected);
     assert.equal(JSON.stringify(h.calls[0]).includes('payload'), false);
     h.calls[0].callback(null, 'foreground-v1:Editor'); await pending;
@@ -133,7 +133,7 @@ test('packaged/dev helpers resolve exactly, missing packaged helper never falls 
   assert.equal(missing.length, 1);
   assert.equal(windowsForegroundCommand({ isPackaged: true, resourcesPath: undefined }), null);
   assert.equal(windowsForegroundCommand({ appPath: '/synthetic/resources/app.asar', resourcesPath: '/synthetic/resources',
-    exists: () => true }).args.at(-1), '/synthetic/resources/nudge-foreground/nudge-foreground.ps1');
+    exists: () => true }).args.at(-1), path.join('/synthetic', 'resources', 'nudge-foreground', 'nudge-foreground.ps1'));
 });
 
 test('macOS preserves application matching while rejecting duplicate/malformed/oversized output; unsupported never launches', async () => {

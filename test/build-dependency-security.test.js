@@ -5,6 +5,26 @@ const assert = require('node:assert/strict');
 const pkg = require('../package.json');
 const lock = require('../package-lock.json');
 
+test('real Canvas tests have a locked development backend for both native CI targets', () => {
+  const name = '@napi-rs/canvas';
+  assert.equal(pkg.devDependencies[name], '1.0.10');
+  assert.equal(pkg.dependencies[name], undefined, 'native test rendering is not an application runtime dependency');
+  assert.equal(lock.packages[''].devDependencies[name], pkg.devDependencies[name]);
+  const backend = lock.packages[`node_modules/${name}`];
+  assert.equal(backend.version, pkg.devDependencies[name]);
+  assert.equal(backend.dev, true);
+  for (const [platform, arch, suffix] of [['darwin', 'arm64', 'darwin-arm64'], ['win32', 'x64', 'win32-x64-msvc']]) {
+    const binaryName = `${name}-${suffix}`;
+    const binary = lock.packages[`node_modules/${binaryName}`];
+    assert.equal(backend.optionalDependencies[binaryName], backend.version);
+    assert.equal(binary.version, backend.version);
+    assert.equal(binary.dev, true);
+    assert.equal(binary.optional, true);
+    assert.deepEqual(binary.os, [platform]);
+    assert.deepEqual(binary.cpu, [arch]);
+  }
+});
+
 test('packaging uses the pinned upstream fetch downloader without vulnerable legacy chains', () => {
   assert.equal(pkg.devDependencies['electron-builder'], '27.0.0-alpha.10');
   assert.equal(lock.packages[''].devDependencies['electron-builder'], pkg.devDependencies['electron-builder']);

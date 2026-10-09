@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
-export async function cataloguePoses(root) {
+export async function cataloguePoses(root, { includeValues = false } = {}) {
   const load = file => import(pathToFileURL(path.join(root, file)).href);
   const [{default: rig}, {PET_ACTIONS}, {SESSION_ACTIVITIES}, {COMPANION_ACTIVITY_STORIES}, {sampleActivityStory},
     {createRigArtist}, {createPathCache}, {default: support}] = await Promise.all([
@@ -18,8 +18,10 @@ export async function cataloguePoses(root) {
       const artwork = artist.resolve(rig,{action,motion:action.motion,view,progress,calmVisual});
       const world = Object.fromEntries(Object.entries(artwork.pose.world).filter(([key]) => !free || !/^(arm|hand)_/.test(key)));
       const {props,propPoses} = artwork.pose.sample;
+      const values = {world,props,propPoses};
       records.push({id:action.id,stage,progress,view,calmVisual,excludeHands:free,
-        hash:crypto.createHash('sha256').update(JSON.stringify({world,props,propPoses})).digest('hex')});
+        hash:crypto.createHash('sha256').update(JSON.stringify(values)).digest('hex'),
+        ...(includeValues ? {values} : {})});
     }
   };
   for (const action of Object.values(PET_ACTIONS)) for (const progress of [0,.04,.12,.25,.5,.75,.88,.96,.999]) add(action,progress,null);

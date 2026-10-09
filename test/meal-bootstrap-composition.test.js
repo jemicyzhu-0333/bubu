@@ -1,6 +1,8 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const path = require('node:path');
+const { pathToFileURL } = require('node:url');
 const { EventEmitter } = require('node:events');
 const { createAiCollaboration } = require('../src/bootstrap/ai-collaboration');
 const { createRendererIpcRegistrar } = require('../src/bootstrap/renderer-ipc');
@@ -13,18 +15,20 @@ const { runtimeFixture, START } = require('../test-support/meal-runtime-fixture'
 
 test('extracted real renderer registrar preserves URL allowlists, closed payloads and contextual admission', async () => {
   const handlers = new Map();
-  const register = createRendererIpcRegistrar({ rendererDirectory: '/synthetic/renderer',
+  const rendererDirectory = path.resolve('/synthetic/renderer');
+  const popoverUrl = pathToFileURL(path.join(rendererDirectory, 'popover.html')).href;
+  const register = createRendererIpcRegistrar({ rendererDirectory,
     ipcHost: { handle: (name, handler) => handlers.set(name, handler) }, allowedSurfacesFor, assertIpcPayload,
     readTasks: () => [], getSettings: () => ({}) });
   register('settings:update', (_event, patch) => patch);
   const invoke = handlers.get('settings:update'), event = url => ({ senderFrame: { url } });
-  assert.deepEqual(await invoke(event('file:///synthetic/renderer/popover.html'), { aiPetMealsEnabled: true }), { aiPetMealsEnabled: true });
-  for (const url of ['https://synthetic/renderer/popover.html', 'file:///synthetic/renderer/pet.html', 'file:///other/popover.html', 'not a url']) {
+  assert.deepEqual(await invoke(event(popoverUrl), { aiPetMealsEnabled: true }), { aiPetMealsEnabled: true });
+  for (const url of ['https://synthetic/renderer/popover.html', pathToFileURL(path.join(rendererDirectory, 'pet.html')).href, pathToFileURL(path.resolve('/other/popover.html')).href, 'not a url']) {
     await assert.rejects(invoke(event(url), { aiPetMealsEnabled: true }), /not allowed/);
   }
-  await assert.rejects(invoke(event('file:///synthetic/renderer/popover.html'), { aiPetMealsEnabled: true, unknown: 'private' }));
+  await assert.rejects(invoke(event(popoverUrl), { aiPetMealsEnabled: true, unknown: 'private' }));
   register('unregistered:route', () => assert.fail('unknown route admitted'));
-  await assert.rejects(handlers.get('unregistered:route')(event('file:///synthetic/renderer/popover.html'), {}), /not allowed/);
+  await assert.rejects(handlers.get('unregistered:route')(event(popoverUrl), {}), /not allowed/);
 });
 
 test('meal and session interruptions share exactly one real power-host subscription', async () => {

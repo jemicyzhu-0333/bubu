@@ -3,6 +3,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { createHash } = require('node:crypto');
+const { verifyProbePermissions } = require('./config-admission-permissions');
 const { readIdentity } = require('./config-authority-identity');
 const { readAuthoritySnapshot, verifyEvidence } = require('./config-authority-schema');
 
@@ -40,23 +41,30 @@ function readBytes(io, target, expected, consume = () => {}) {
     return hash.digest('hex');
   } finally { io.closeSync(fd); }
 }
-function copyMember(io, member, destination) {
-  const fd = io.openSync(destination, 'wx', 0o600);
-  try {
-    member.hash = readBytes(io, member.source, member.stat, chunk => {
-      let written = 0;
-      while (written < chunk.length) {
-        const count = io.writeSync(fd, chunk, written, chunk.length - written);
-        if (count <= 0) throw fail('config-admission-copy-failed');
-        written += count;
-      }
-    });
-  } finally { io.closeSync(fd); }
+function copyMember(io, member, destination, fd, empty) {
+  if (!sameFile(empty, io.fstatSync(fd, { bigint: true })) || !sameFile(empty, regular(io, destination))) {
+    throw fail('config-admission-copy-failed');
+  }
+  member.hash = readBytes(io, member.source, member.stat, chunk => {
+    let written = 0;
+    while (written < chunk.length) {
+      const count = io.writeSync(fd, chunk, written, chunk.length - written);
+      if (count <= 0) throw fail('config-admission-copy-failed');
+      written += count;
+    }
+  });
   const copied = regular(io, destination);
   if (!copied || (process.platform !== 'win32' && (copied.mode & 0o077n) !== 0n)
     || copied.size !== member.stat.size || readBytes(io, destination, copied) !== member.hash) {
     throw fail('config-admission-copy-failed');
   }
+}
+function closeAllocated(io, allocated) {
+  let failed = false;
+  for (const item of allocated) if (item.fd !== undefined) {
+    try { io.closeSync(item.fd); item.fd = undefined; } catch (_) { failed = true; }
+  }
+  if (failed) throw fail('config-admission-cleanup-failed');
 }
 function cleanProbe(io, directory, owned, names) {
   // Before identity is known, only try removing the newly allocated empty
@@ -104,7 +112,7 @@ function validateProbe({ filePath, identityPath, io, driver, makeHandle, prepare
   validateCurrent({ state: initial.state, payloadVersion: initial.state.schemaVersion });
   return initial;
 }
-function admitConfigCopy({ filePath, identityPath, io = fs, prepareInitial, validateCurrent }, { driver, makeHandle }) {
+function admitConfigCopy({ filePath, identityPath, io = fs, prepareInitial, validateCurrent }, { driver, makeHandle, verifyPermissions = verifyProbePermissions }) {
   const members = [filePath, identityPath].flatMap((source, index) => suffixes.map(suffix => ({
     source: source + suffix, index, suffix, stat: regular(io, source + suffix)
   })));
@@ -121,13 +129,29 @@ function admitConfigCopy({ filePath, identityPath, io = fs, prepareInitial, vali
   while (members.some(member => sourceNames.has(`${prefix}-${member.index}.sqlite${member.suffix}`))) prefix += '-probe';
   for (const member of members) member.name = `${prefix}-${member.index}.sqlite${member.suffix}`;
   let initial, owned;
+  const allocated = [];
   try {
     owned = stat(io, directory);
     if (!owned?.isDirectory() || (process.platform !== 'win32' && (owned.mode & 0o077n) !== 0n)) throw fail('config-admission-file-invalid');
-    for (const member of members) if (member.stat) copyMember(io, member, path.join(directory, member.name));
+    verifyPermissions(directory, [], { io });
+    // Validate actual empty-file DACLs before copying private bytes: a safe
+    // directory without inheritable ACEs need not imply a safe token default.
+    for (const member of members) if (member.stat) {
+      const destination = path.join(directory, member.name), fd = io.openSync(destination, 'wx', 0o600);
+      const item = { member, destination, fd }; allocated.push(item);
+      item.empty = io.fstatSync(fd, { bigint: true });
+    }
+    const copiedPaths = allocated.map(item => item.destination);
+    verifyPermissions(directory, copiedPaths, { io });
+    for (const item of allocated) copyMember(io, item.member, item.destination, item.fd, item.empty);
+    closeAllocated(io, allocated);
+    verifyPermissions(directory, copiedPaths, { io });
     initial = validateProbe({ filePath: path.join(directory, members[0].name), identityPath: path.join(directory, members[3].name),
       io, driver, makeHandle, prepareInitial, validateCurrent });
-  } finally { cleanProbe(io, directory, owned, members.map(member => member.name)); }
+  } finally {
+    try { closeAllocated(io, allocated); }
+    finally { cleanProbe(io, directory, owned, members.map(member => member.name)); }
+  }
   // This detects observed drift; it is not a lock or a transactional snapshot of
   // an external writer. Never restore source sidecars to make this check pass.
   for (const item of directories) if (!sameDirectory(item.stat, stat(io, item.target))) throw fail('config-admission-source-drift');

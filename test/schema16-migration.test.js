@@ -7,14 +7,16 @@ const path = require('node:path');
 const { normalizePersistedState, PERSISTED_SCHEMA_VERSION } = require('../src/platform/persistence/persisted-schema');
 const { createElectronStoreAdapter: productionAdapter } = require('../src/platform/persistence/electron-store-adapter');
 // Exercise the production SQL authority; legacy Store fixtures must never be constructed.
-function createElectronStoreAdapter(options) { return productionAdapter(options); }
+const { trackStateAdapters } = require('../test-support/tracked-state-adapters');
+const adapters = trackStateAdapters(productionAdapter);
+function createElectronStoreAdapter(options) { return adapters.open(options); }
 const { prepareStoreMigration } = require('../src/core/store-migration');
 const { aiChangeLedger: ledger } = require('../src/capabilities/guidance');
 const { NOW, appendFixture } = require('../test-support/ai-change-ledger-fixture');
 
 function fixture(t, patch = {}) {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'ai-schema16-'));
-  t.after(() => fs.rmSync(directory, { recursive: true, force: true }));
+  t.after(() => { adapters.closeDirectory(directory); fs.rmSync(directory, { recursive: true, force: true }); });
   const file = path.join(directory, 'config.json');
   const canonical = normalizePersistedState({ tasks: [{ id: 'task-1', title: 'Existing task', createdAt: NOW }],
     impulses: [{ id: 'capture-1', text: 'Existing inbox capture', createdAt: NOW }], xp: 42,

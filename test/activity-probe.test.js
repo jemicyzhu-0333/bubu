@@ -1,6 +1,7 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const path = require('node:path');
 const { EventEmitter } = require('node:events');
 const { parseProbeLine, parseLsappinfoValue } = require('../src/platform/activity/probe-line');
 const { createActivityProbeHost, resolveProbeCommand, MAX_RESTARTS } = require('../src/platform/activity/activity-probe-host');
@@ -18,7 +19,7 @@ test('probe lines are closed: version, bounded identifiers, deduplicated audio',
 test('the helper path resolves inside packaged resources or the repository, with a macOS fallback', () => {
   const none = () => false, all = () => true;
   assert.deepEqual(resolveProbeCommand({ platform: 'darwin', isPackaged: true, resourcesPath: '/R', appPath: '/A', exists: all }),
-    { kind: 'helper', file: '/R/activity-probe/activity-probe', args: [] });
+    { kind: 'helper', file: path.join('/R', 'activity-probe', 'activity-probe'), args: [] });
   assert.deepEqual(resolveProbeCommand({ platform: 'darwin', isPackaged: false, resourcesPath: '/R', appPath: '/A', exists: none }), { kind: 'lsappinfo' });
   const windows = resolveProbeCommand({ platform: 'win32', isPackaged: false, resourcesPath: '/R', appPath: '/A', exists: all });
   assert.equal(windows.file, 'powershell.exe');

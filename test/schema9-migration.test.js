@@ -13,7 +13,9 @@ const {
 } = require('../src/platform/persistence/persisted-schema');
 const storeMigration = require('../src/core/store-migration');
 const { createElectronStoreAdapter: productionAdapter } = require('../src/platform/persistence/electron-store-adapter');
-function createElectronStoreAdapter(options) { return productionAdapter(options); }
+const { trackStateAdapters } = require('../test-support/tracked-state-adapters');
+const adapters = trackStateAdapters(productionAdapter);
+function createElectronStoreAdapter(options) { return adapters.open(options); }
 const { validateIpcPayload } = require('../src/application/ipc/route-catalog');
 
 // Schema 9 is additive: it opens slots (worn accessories, routines and their
@@ -214,7 +216,7 @@ function schema8Snapshot() {
 
 function withTempStore(t, contents) {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'focuspix-schema9-'));
-  t.after(() => fs.rmSync(directory, { recursive: true, force: true }));
+  t.after(() => { adapters.closeDirectory(directory); fs.rmSync(directory, { recursive: true, force: true }); });
   const storePath = path.join(directory, 'config.json');
   if (contents !== undefined) fs.writeFileSync(storePath, `${JSON.stringify(contents, null, 2)}\n`);
   return { directory, storePath };

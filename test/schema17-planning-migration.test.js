@@ -11,7 +11,9 @@ const PLANNING_SCHEMA_VERSION = 17;
 const normalizePersistedState = (raw, options) => ({ ...normalizeCurrentState(raw, options), schemaVersion: PLANNING_SCHEMA_VERSION });
 const { createElectronStoreAdapter: productionAdapter } = require('../src/platform/persistence/electron-store-adapter');
 // Exercise the historical generic SQL adapter; legacy Store fixtures must never be constructed.
-function createElectronStoreAdapter(options) { return productionAdapter(options); }
+const { trackStateAdapters } = require('../test-support/tracked-state-adapters');
+const adapters = trackStateAdapters(productionAdapter);
+function createElectronStoreAdapter(options) { return adapters.open(options); }
 const { planningState: v } = require('../src/capabilities/guidance');
 const { createUnitOfWork } = require('../src/application/state/unit-of-work');
 const { createPlanEnergyPreferenceWorkflow } = require('../src/application/workflows/plan-energy-preference');
@@ -19,7 +21,7 @@ const { NOW, planningFixture } = require('../test-support/planning-guidance-fixt
 const FIELDS = ['planningPreferences', 'energySelfReports', 'energyCurveTrials'];
 function fixture(t) {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'hiadhd-planning-schema17-'));
-  t.after(() => fs.rmSync(directory, { recursive: true, force: true }));
+  t.after(() => { adapters.closeDirectory(directory); fs.rmSync(directory, { recursive: true, force: true }); });
   const file = path.join(directory, 'config.json');
   const canonical = normalizePersistedState({ energyCheckIn: { level: 65, state: 'medium', timestamp: NOW },
     settings: { aiBreakdownEnabled: false, activityMirrorEnabled: false } }, { now: NOW });

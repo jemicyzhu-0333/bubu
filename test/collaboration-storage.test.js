@@ -39,7 +39,8 @@ test('identity is created only after lock and is stable across restarts', () => 
   const original = fs.readFileSync(filePath);
   assert.deepEqual(openProfileIdentity({ filePath, databasePath, lockAcquired: true, idFactory: () => 'different-owner-0001' }), identity);
   assert.deepEqual(fs.readFileSync(filePath), original);
-  assert.equal(fs.statSync(filePath).mode & 0o777, 0o600);
+  // Node mode bits on Windows do not describe the file DACL.
+  if (process.platform !== 'win32') assert.equal(fs.statSync(filePath).mode & 0o777, 0o600);
 });
 
 test('missing identity for an existing database, WAL, or malformed identity fails closed', () => {

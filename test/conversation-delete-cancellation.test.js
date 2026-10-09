@@ -55,14 +55,14 @@ function database(t) {
     const store = openAuthoritativeCollaborationDatabase({ filePath, ownerId: OWNER }, { selectDriver: () => driver, makeHandle });
     assert.equal(store.status, 'available', store.reason); stores.push(store); return store;
   }
-  const store = open();
-  t.after(() => { stores.forEach(store => store.close()); fs.rmSync(directory, { recursive: true, force: true }); });
+  const store = open(), cleanup = [];
+  t.after(() => { for (const close of cleanup.reverse()) close(); stores.forEach(store => store.close()); fs.rmSync(directory, { recursive: true, force: true }); });
   function row(id) {
     const raw = new DatabaseSync(filePath, { readOnly: true });
     try { const value = raw.prepare('SELECT snapshot FROM conversations WHERE id=?').get(id); return value ? JSON.parse(value.snapshot) : null; }
     finally { raw.close(); }
   }
-  return { directory, filePath, faults, counts, store, open, row };
+  return { directory, filePath, faults, counts, store, open, row, cleanup };
 }
 function composition(t, db, { nativeClient = false, sqlConfig = false } = {}) {
   let sequence = 0, revision = 0, configProven = true;
@@ -94,7 +94,7 @@ function composition(t, db, { nativeClient = false, sqlConfig = false } = {}) {
   const repository = sqlConfig ? { snapshot: () => sqlRepository.snapshot(), revision: () => sqlRepository.revision(),
     commit: (...args) => sqlRepository.commit(...args), authoritativeWrites: {
       verify: () => sqlRepository.authoritativeWrites.verify(), status: () => sqlRepository.authoritativeWrites.status() } } : synthetic;
-  if (sqlConfig) { repository.commit(state, { now: NOW }); t.after(() => sqlRepository.close()); }
+  if (sqlConfig) { repository.commit(state, { now: NOW }); db.cleanup.push(() => sqlRepository.close()); }
   const sent = []; let respond = async () => answer('SYNTHETIC SOURCE-DERIVED ANSWER');
   const service = createAiCollaboration({ storage: { ownerId: OWNER, identityAvailable: true,
       repository: db.store.repository, close: () => db.store.close() },
@@ -116,7 +116,7 @@ function composition(t, db, { nativeClient = false, sqlConfig = false } = {}) {
     state.settings = { ...state.settings, ...patch }; const result = { ok: true, settings: structuredClone(state.settings) };
     onSuccessBeforePublish?.(result); return result;
   } } });
-  t.after(() => service.dispose());
+  db.cleanup.push(() => service.dispose());
   const opened = service.start({ purpose: 'stuck', mode: 'talk', taskId: 'task-a', retentionMode: 'saved' });
   assert.equal(opened.ok, true, opened.reason);
   return { service, routes, sent, repository, opened, id: opened.conversation.id,

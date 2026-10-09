@@ -15,9 +15,41 @@ const { applyPoint } = require('../src/capabilities/companion/presentation/rig/p
 const { USAGI_FORM } = require('../src/content/companion/usagi-form.mjs');
 const artist = createRigArtist({ fallback: support, paths: createPathCache({ createPath: d => ({ d }) }) });
 
-test('R1 catalogue world, grips and prop tracks remain exact outside the declared free hands', async () => {
+test('R1 catalogue world, grips and prop tracks preserve the authenticated baseline within machine roundoff', async t => {
+  const crypto = require('node:crypto');
+  const values = require('../test-support/fixtures/usagi-r1-preserved-values.json');
+  const { comparePoseValues } = require('../test-support/assert-pose-baseline');
   const { cataloguePoses } = await import('../tools/usagi-pose-extension/pose-fixtures.mjs');
-  assert.deepEqual(await cataloguePoses(path.resolve(__dirname, '..')), expected);
+  // These full values were recovered only after all 4536 records reproduced
+  // the original golden hashes. Authenticate them again; never refresh hashes.
+  for (const [hash, value] of Object.entries(values)) {
+    assert.equal(crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex'), hash);
+  }
+  const actual = await cataloguePoses(path.resolve(__dirname, '..'), { includeValues: true });
+  assert.equal(actual.length, expected.length);
+  const report = { maxAbsolute: 0, maxScaledEpsilons: 0, path: null };
+  for (let i = 0; i < expected.length; i++) {
+    const { hash: originalHash, ...identity } = expected[i];
+    const { hash, values: current, ...currentIdentity } = actual[i];
+    assert.deepEqual(currentIdentity, identity, `record ${i}: sample identity changed`);
+    assert.ok(values[originalHash], `record ${i}: original baseline values missing`);
+    comparePoseValues(current, values[originalHash], `${i}/${identity.id}/${identity.view}/${identity.progress}`, report);
+  }
+  t.diagnostic(`Pose baseline numeric drift: ${JSON.stringify(report)}`);
+});
+
+test('pose baseline comparator rejects geometry, identity, shape and nonfinite regressions', () => {
+  const { comparePoseValues } = require('../test-support/assert-pose-baseline');
+  const value = { world: { hand: [1, 0, 0, 1, 20, 30] }, props: ['book'], propPoses: { book: { x: .1 } } };
+  assert.doesNotThrow(() => comparePoseValues(structuredClone(value), value, 'same'));
+  const roundoff = structuredClone(value); roundoff.world.hand[0] += Number.EPSILON;
+  assert.doesNotThrow(() => comparePoseValues(roundoff, value, 'one epsilon'));
+  for (const mutate of [v => { v.world.hand[4] += 1e-7; }, v => { v.props[0] = 'other'; },
+    v => { v.world.hand[0] += 129 * Number.EPSILON; },
+    v => { v.world.hand.pop(); }, v => { v.propPoses.book.x = NaN; }]) {
+    const changed = structuredClone(value); mutate(changed);
+    assert.throws(() => comparePoseValues(changed, value, 'mutation'));
+  }
 });
 
 test('integrated tool contours retain exact production wrist targets', () => {

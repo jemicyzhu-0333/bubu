@@ -1,6 +1,7 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const path = require('node:path');
 const { createActivityMirror } = require('../src/bootstrap/activity-mirror');
 
 function harness({ enabled = true, platform = 'darwin', deferStart = false } = {}) {
@@ -42,7 +43,7 @@ test('the mirror follows the setting: probe and receiver run only while it is on
   h.settings.activityMirrorEnabled = true;
   h.mirror.sync();
   await Promise.resolve();
-  assert.equal(h.probes[0].command.file, '/R/activity-probe/activity-probe');
+  assert.equal(h.probes[0].command.file, path.join('/R', 'activity-probe', 'activity-probe'));
   assert.equal(h.probes[0].started, 1);
   assert.equal(h.servers[0].port, 47614);
   h.settings.activityMirrorEnabled = false;
@@ -74,8 +75,8 @@ test('the panel shows install text for the bundled plugin and when each tool las
   const h = harness();
   const projection = h.mirror.projection();
   assert.deepEqual(projection.tools.map(tool => tool.id), ['claude-code', 'codex', 'cursor', 'qoder', 'codebuddy', 'agent']);
-  assert.equal(projection.tools[0].command, 'claude plugin marketplace add "/R/integrations" && claude plugin install imadhder-companion@imadhder');
-  assert.match(projection.tools.find(tool => tool.id === 'qoder').command, /^qoder plugins install "\/R\/integrations\/plugins\/imadhder-companion"$/);
+  assert.equal(projection.tools[0].command, `claude plugin marketplace add "${path.join('/R', 'integrations')}" && claude plugin install imadhder-companion@imadhder`);
+  assert.equal(projection.tools.find(tool => tool.id === 'qoder').command, `qoder plugins install "${path.join('/R', 'integrations', 'plugins', 'imadhder-companion')}"`);
   assert.ok(projection.tools.every(tool => tool.lastSignalAt === null), 'nothing is assumed installed');
   const windows = harness({ platform: 'win32' }).mirror.projection().tools;
   assert.deepEqual(windows.map(tool => tool.id), ['claude-code', 'qoder', 'codebuddy', 'agent'], 'only steps known to work on Windows');
@@ -90,7 +91,7 @@ test('the panel shows install text for the bundled plugin and when each tool las
   const handlers = new Map();
   h.mirror.register((channel, handler) => handlers.set(channel, handler));
   assert.deepEqual(handlers.get('activity:copy-plugin-command')(null, { tool: 'cursor' }), { ok: true });
-  assert.match(h.clipboard[0], /cp -R "\/R\/integrations\/plugins\/imadhder-companion\/\." ~\/\.cursor\/plugins\/local\/imadhder-companion\/$/);
+  assert.equal(h.clipboard[0], `mkdir -p ~/.cursor/plugins/local/imadhder-companion && cp -R "${path.join('/R', 'integrations', 'plugins', 'imadhder-companion')}/." ~/.cursor/plugins/local/imadhder-companion/`);
 });
 
 test('a cancelled receiver completion cannot overwrite a newer run', async () => {

@@ -21,7 +21,8 @@ test('AI credentials are encrypted outside canonical state and never returned by
   assert.equal(store.get(), 'secret-key');
   assert.deepEqual(store.status(), { available: true, configured: true });
   assert.doesNotMatch(fs.readFileSync(store.filePath, 'utf8'), /^secret-key$/);
-  assert.equal(fs.statSync(store.filePath).mode & 0o777, 0o600);
+  // Node mode bits on Windows do not describe the file DACL.
+  if (process.platform !== 'win32') assert.equal(fs.statSync(store.filePath).mode & 0o777, 0o600);
   assert.equal(store.clear(), true);
   assert.equal(store.get(), null);
 });

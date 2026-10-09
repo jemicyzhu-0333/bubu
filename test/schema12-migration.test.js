@@ -11,14 +11,16 @@ const os = require('node:os');
 const path = require('node:path');
 const { PERSISTED_SCHEMA_VERSION, normalizePersistedState } = require('../src/platform/persistence/persisted-schema');
 const { createElectronStoreAdapter: productionAdapter } = require('../src/platform/persistence/electron-store-adapter');
-function createElectronStoreAdapter(options) { return productionAdapter(options); }
+const { trackStateAdapters } = require('../test-support/tracked-state-adapters');
+const adapters = trackStateAdapters(productionAdapter);
+function createElectronStoreAdapter(options) { return adapters.open(options); }
 const storeMigration = require('../src/core/store-migration');
 
 const NOW = 1_764_000_000_000;
 
 function tempStore(t, contents) {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'focuspix-schema12-'));
-  t.after(() => fs.rmSync(directory, { recursive: true, force: true }));
+  t.after(() => { adapters.closeDirectory(directory); fs.rmSync(directory, { recursive: true, force: true }); });
   const storePath = path.join(directory, 'config.json');
   fs.writeFileSync(storePath, `${JSON.stringify(contents, null, 2)}\n`);
   return storePath;

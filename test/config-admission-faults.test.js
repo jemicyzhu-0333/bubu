@@ -4,6 +4,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { DatabaseSync } = require('node:sqlite');
+const { verifyProbePermissions } = require('../src/platform/persistence/sqlite/config-admission-permissions');
 const { MAX_ADMISSION_BYTES } = require('../src/platform/persistence/sqlite/config-admission-copy');
 const { capture, facts, seed, tracedFactory, fixture } = require('../test-support/config-admission-fixture');
 function compare(before, after) {
@@ -51,8 +52,7 @@ test('private probe has bounded membership and owner-only permissions and is rem
     if (event.kind !== 'open') return;
     if (path.dirname(event.filePath) === f.directory) { assert.ok(checked); assert.ok(f.probes.every(directory => !fs.existsSync(directory))); return; }
     const directory = path.dirname(event.filePath); checked = true;
-    assert.equal(fs.statSync(directory).mode & 0o077, 0);
-    for (const name of fs.readdirSync(directory)) assert.equal(fs.statSync(path.join(directory, name)).mode & 0o077, 0);
+    verifyProbePermissions(directory, fs.readdirSync(directory).map(name => path.join(directory, name)));
   }) }); repo.close(); assert.equal(checked, true);
 });
 test('unexpected probe member prevents cleanup/admission without deleting unrelated content', t => {
