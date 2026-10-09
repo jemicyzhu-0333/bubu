@@ -6,7 +6,7 @@ bubu (小步) is a local-first desktop app for ADHD-friendly everyday productivi
 
 [Project website](https://jemicyzhu-0333.github.io/bubu/) · [简体中文](README.zh-CN.md) · [Downloads & builds](#downloads--builds) · [Get started](#run-from-source) · [Documentation](#documentation)
 
-This source is the `0.0.2-dev.1` development candidate. It is an executive-function support tool, not a medical device, and does not diagnose, treat, or promise clinical benefits for ADHD. General settings offer Simplified Chinese / English preview and System / Light / Dark appearance.
+The current testing preview is [`0.0.2-dev.1`](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.1). It is an executive-function support tool, not a medical device, and does not diagnose, treat, or promise clinical benefits for ADHD. General settings offer Simplified Chinese / English preview and System / Light / Dark appearance.
 
 ## A look inside
 
@@ -34,16 +34,19 @@ The main panel has **Now / Plan / Review** sections (现在 / 安排 / 回顾). 
 ## Downloads & builds
 
 - **Project website:** visit the [project page](https://jemicyzhu-0333.github.io/bubu/) for an overview and current download notices.
-- **Current source: `0.0.2-dev.1`.** This candidate combines the Windows first-launch fix, compact language/theme settings, an AI connection test and explicitly confirmed bubu18→19 data upgrade. New installers are pending native checks and publication; no `0.0.2-dev.1` download is announced here yet. Check [published releases](https://github.com/jemicyzhu-0333/bubu/releases) for verified assets and checksums.
+- **Current testing preview: [`v0.0.2-dev.1`](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.1).** App/package version: `0.0.2-dev.1`. It combines the Windows first-launch fix, compact language/theme settings, an AI connection test and explicitly confirmed bubu18→19 data upgrade.
+- **Verified downloads:** [Windows x64 · unsigned](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.1/bubu-0.0.2-dev.1-win-x64.exe) · [macOS Apple Silicon · ad-hoc restricted test](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.1/bubu-0.0.2-dev.1-mac-arm64-adhoc-test.dmg) · [SHA256SUMS.txt](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.1/SHA256SUMS.txt). Public downloads were checked against the original installer sizes and SHA-256 hashes; see the release notes for exact filenames and hashes.
 - **Previous test packages:** [v0.0.1-dev-r4](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r4) came from commit `df3242a`, with app version `0.0.1-dev`. The Windows r4 installer has a confirmed first-launch profile-admission failure; use it only as a historical diagnostic baseline. Its names and historical validation evidence remain unchanged.
 - **Earlier releases:** [r3](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r3), [r2](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r2) and [v0.0.1-dev](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev) are retained for history. Do not install the initial v0.0.1-dev Mac package, which was reported as damaged.
 - **New test builds:** the manual [Build Windows and macOS (test) workflow](https://github.com/jemicyzhu-0333/bubu/actions/workflows/build-desktop.yml) targets **Windows x64** and **macOS ARM64**. Download a successful run's artifacts while retained; GitHub may require sign-in. Check the run's branch and commit. The workflow does not create a Release.
 
-Windows test builds are unsigned. Mac test builds use **ad-hoc signing**, without an Apple Developer ID or notarization. For the published r4 Mac build, strict signature integrity, direct startup of a DMG-installed copy with an isolated profile, and SQLite persistence passed CI, but Gatekeeper's distribution assessment rejected it. These checks do not establish that a browser-downloaded app will open normally. Do not disable Gatekeeper or remove quarantine to install it.
+Windows test builds are **unsigned**; SmartScreen may warn or block installation. The current Mac test build uses **ad-hoc signing**, without an Apple Developer ID or notarization. Strict signature integrity, bundle identity, direct startup of a DMG-installed copy, and SQLite persistence passed CI, but **Gatekeeper's local distribution assessment rejects this build**. Browser-download/Finder acceptance was not tested. No quarantine attribute was added or removed during validation. Do not disable operating-system security protections or remove quarantine to install it.
+
+Both published installers passed native installation/startup and persistence checks. See [validation scope and remaining limitations](docs/VALIDATION.md#002-dev1-已发布测试包的证据边界) and the [release notes](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.1) for the exact source, original build provenance and test limits.
 
 The Mac app remains `小步.app`. The earlier rename introduced the bubu application/profile/credential identity; `0.0.2-dev.1` keeps that same identity. Older pre-bubu apps, directories and credentials remain untouched and are not imported. Existing valid bubu18 data uses the explicit backed-up upgrade below. A changed ad-hoc-signed binary may still trigger a macOS Keychain prompt.
 
-This is a development test version, not a stable release. **In-app updates are not currently available**; update metadata has not been published. Download published test builds manually. Use disposable profiles for validation; an existing valid bubu18 profile is never silently reset. Linux has limited native testing and known rendering issues; see [validation and limitations](docs/VALIDATION.md).
+This is a development test version, not a stable release. **In-app updates are not currently available**; the separate testing-updates feature is not included, and no in-app update channel is published. Install and update published test builds manually. Use disposable profiles for validation; an existing valid bubu18 profile is never silently reset. Linux has limited native testing and known rendering issues; see [validation and limitations](docs/VALIDATION.md).
 
 ## Run from source
 
@@ -66,7 +69,9 @@ The upgrade retains the original authority and credential identity. Its private 
 node scripts/extract-profile-upgrade-backup.js --backup /absolute/profile-backup.sqlite --new-directory /absolute/new-profile
 ```
 
-The tool verifies the backup, preserves file contents and authority binding, and does not switch the running profile. See [persistence and upgrade rules](docs/ARCHITECTURE.md#持久化与迁移) for failure/recovery limits. Own-cloud Linux manual consent/cancel/lock/relaunch testing passed on the isolated upgrade source. The combined candidate still requires its own Windows/macOS native runtime and packaging checks; instrumented consent tests do not establish manual dialog accessibility or OS distribution trust.
+The tool verifies the backup, preserves file contents and authority binding, and does not automatically roll back or switch the live profile. See [persistence and upgrade rules](docs/ARCHITECTURE.md#持久化与迁移) for failure/recovery limits.
+
+Both published installers passed instrumented upgrade/private-backup checks and a separate reopen of the upgraded profile. Manual dialog interaction/accessibility, native automatic relaunch, real credentials and OS trust-warning acceptance remain unproven; see the [native validation details](docs/VALIDATION.md#002-dev1-已发布测试包的证据边界).
 
 ```bash
 npm run check               # Unit, syntax, architecture, and generated-resource checks

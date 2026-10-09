@@ -4,7 +4,7 @@
 
 小步（英文名 bubu）是一个本地优先的 ADHD 日常效率与桌面陪伴应用：随手记下想法，把任务拆成下一步，用专注计时器开始，再和桌面伙伴一起回来继续。
 
-当前源码为 `0.0.2-dev.1` 开发候选；通用设置提供简体中文/English 预览和跟随系统/浅色/深色主题。这是执行功能辅助工具，不提供 ADHD 诊断、治疗或医疗疗效承诺。
+当前测试版为 [`0.0.2-dev.1`](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.1)；通用设置提供简体中文/English 预览和跟随系统/浅色/深色主题。这是执行功能辅助工具，不提供 ADHD 诊断、治疗或医疗疗效承诺。
 
 ## 真实界面
 
@@ -32,16 +32,19 @@
 ## 下载与开发版本
 
 - [项目网站](https://jemicyzhu-0333.github.io/bubu/)提供功能介绍与当前下载提示。
-- **当前源码：`0.0.2-dev.1`。** 本候选包含 Windows 首次启动修复、精简的语言/主题设置、AI 连接测试与需本人确认的 bubu18→19 数据升级。新安装包仍待原生验收及发布，目前没有在此宣布 `0.0.2-dev.1` 下载。请以[已发布版本](https://github.com/jemicyzhu-0333/bubu/releases)中的实际资产和校验值为准。
+- **当前测试版：[`v0.0.2-dev.1`](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.1)。** 应用/包版本为 `0.0.2-dev.1`，包含 Windows 首次启动修复、精简的语言/主题设置、AI 连接测试与需本人确认的 bubu18→19 数据升级。
+- **已核验下载**：[Windows x64 · 未签名](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.1/bubu-0.0.2-dev.1-win-x64.exe) · [macOS Apple Silicon · ad-hoc 受限测试](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.1/bubu-0.0.2-dev.1-mac-arm64-adhoc-test.dmg) · [SHA256SUMS.txt](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.1/SHA256SUMS.txt)。公开下载的字节数与 SHA-256 已和原安装包核对；完整文件名与哈希见发布说明。
 - **上一测试包**：[v0.0.1-dev-r4](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r4) 来自提交 `df3242a`，内部版本为 `0.0.1-dev`。Windows r4 已确认存在首次启动档案准入错误，仅保留作历史诊断基线；原文件名与历史验证记录不改写。
 - **历史版本**：[r3](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r3)、[r2](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r2) 与 [v0.0.1-dev](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev) 保留作历史记录；请勿安装初版 v0.0.1-dev 中已报告“已损坏”的旧 Mac 包。
 - 新测试包来自手动 [Build Windows and macOS (test)](https://github.com/jemicyzhu-0333/bubu/actions/workflows/build-desktop.yml) 工作流，面向 **Windows x64** 和 **macOS ARM64**。成功运行后可在保留期内下载 artifact，GitHub 可能要求登录；请核对运行的分支与提交。工作流不会创建 Release。
 
-Windows 测试包未签名；Mac 测试包采用 **ad-hoc 本地签名**，没有 Apple Developer ID 签名或公证。已发布的 r4 Mac 包通过了严格代码签名校验、DMG 安装副本在隔离档案下直接启动及 SQLite 持久化 CI，但 Gatekeeper 分发评估拒绝了该包。这些检查不能保证浏览器下载后正常双击打开。请勿关闭 Gatekeeper 或移除隔离标记来安装。
+Windows 测试包**未签名**，SmartScreen 可能警告或阻止安装；当前 Mac 测试包采用 **ad-hoc 本地签名**，没有 Apple Developer ID 签名或公证。严格代码签名完整性、应用身份、DMG 安装副本直接启动及 SQLite 持久化通过 CI，但 **Gatekeeper 本地分发评估拒绝该包**。浏览器下载/Finder 打开未验收；验证未添加或移除隔离标记。请勿关闭系统安全保护或移除隔离标记来安装。
+
+两个已发布安装包通过原生安装/启动与持久化检查；准确源码、原始构建来源与验收边界见[验证范围与剩余限制](docs/VALIDATION.md#002-dev1-已发布测试包的证据边界)及[发布说明](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.1)。
 
 Mac 应用仍为 `小步.app`。此前更名建立的 bubu 应用、档案与凭据身份在 `0.0.2-dev.1` 保持不变；更早的旧品牌应用、目录与凭据保留原样，不导入。完整有效的既有 bubu18 按下方流程明确备份升级。变化后的 ad-hoc 签名二进制仍可能触发 macOS 钥匙串提示。
 
-这是开发测试版，不是稳定版。**当前没有可用的应用内更新**，尚未发布更新元数据，请手动下载已发布的测试包。验收仅使用可删除档案；既有完整 bubu18 不会被静默重置。
+这是开发测试版，不是稳定版。**当前没有可用的应用内更新**；独立的 testing-updates 功能未包含在本版，也未发布应用内更新通道，请手动安装与更新测试包。验收仅使用可删除档案；既有完整 bubu18 不会被静默重置。
 
 ## 进入开发环境
 
@@ -66,7 +69,9 @@ npm run test:integration
 node scripts/extract-profile-upgrade-backup.js --backup /绝对路径/profile-backup.sqlite --new-directory /绝对路径/新档案
 ```
 
-工具先核验备份，保留文件内容与权威绑定，不切换正在使用的档案。故障边界见[持久化与迁移](docs/ARCHITECTURE.md#持久化与迁移)；独立升级源码已完成云端 Linux 真实确认/取消/锁保留/重启验证；组合候选仍须 Windows/macOS 原生运行与打包验收，带注入的确认测试不代表真实对话框辅助技术或系统分发信任。可删除的测试场景用：
+工具先核验备份，保留文件内容与权威绑定，不会自动回滚或切换正在使用的档案。故障边界见[持久化与迁移](docs/ARCHITECTURE.md#持久化与迁移)。
+
+两个已发布安装包通过带注入的升级/私有备份检查及升级档独立重开。真实对话框交互/辅助技术、原生自动重启、真实凭据及系统信任警告接受仍未证明；详见[原生验证说明](docs/VALIDATION.md#002-dev1-已发布测试包的证据边界)。可删除的测试场景用：
 
 ```bash
 npm run dev:bench -- --scenario=level-up
