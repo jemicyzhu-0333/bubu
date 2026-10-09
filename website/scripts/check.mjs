@@ -47,7 +47,9 @@ assert(!html.includes('/v0.0.1-dev-r3/')&&!html.includes('r3 pre-rename test bui
 assert(!html.includes('github.io/im-adhder/')&&!html.includes('github.com/jemicyzhu-0333/im-adhder'),'Public links must use the renamed repository');
 const css=fs.readFileSync(path.join(dist,'style.css'),'utf8');
 assert(css.includes('aspect-ratio:1086/1348')&&css.includes('translateY(-6.9060773481%)'),'Retain exact top-header framing without editing supplied artwork');
-assert(css.includes('@media(prefers-reduced-motion:reduce)'),'Retain reduced-motion CSS');
+// ScrollTrigger can restore an inline smooth-scroll style when its animations revert.
+assert(css.includes('@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}}'),'System reduced motion must override inline smooth scrolling');
+assert(css.includes('html[data-reduced-motion="true"]{scroll-behavior:auto!important}'),'Manual reduced motion must override inline smooth scrolling');
 const app=fs.readFileSync(path.join(dist,'app.js'),'utf8');
 assert(app.includes("window.matchMedia('(prefers-reduced-motion: reduce)')")&&app.includes('media.revert()'),'Retain GSAP reduced-motion handling');
 console.log('PASS: script syntax, assets, /bubu/ project base, current brand, poster framing, local-only runtime, verified r4 downloads and platform cautions.');
