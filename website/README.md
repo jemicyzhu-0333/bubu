@@ -37,9 +37,9 @@ The published URL is the `page_url` returned by GitHub's deployment action. Conf
 
 ## Downloads and current caution
 
-Links target the verified `v0.0.1-dev` Windows x64 and macOS Apple silicon release assets. They are unsigned test builds; the Mac build is not notarized. The site does not promise in-app updates or successful native installation.
+Links target the verified `v0.0.1-dev-r2` Windows x64 and macOS Apple silicon release assets. The app's internal version remains `0.0.1-dev`; r2 identifies this release revision. These are test builds with manual downloads, not a stable release or an in-app update channel. Windows is unsigned and may trigger SmartScreen.
 
-A macOS launch report says the app is damaged. The visible bilingual warning asks visitors to wait before installing that build while it is investigated. Retain the warning until the issue has been resolved and verified. Updating the website does not change the binary or release tag.
+The Mac r2 bundle is ad-hoc signed and not notarized. Its signature integrity and direct-launch checks passed in macOS CI, but Gatekeeper assessment with security policy enabled still rejects it. Keep the prominent bilingual restricted-test warning: direct launch validation does not establish normal downloaded-app installation. The original release is retained as history; its damaged-app report does not establish the status of r2.
 
 ## Content and licensing
 

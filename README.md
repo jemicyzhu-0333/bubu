@@ -34,10 +34,11 @@ The main panel has **Now / Plan / Review** sections (现在 / 安排 / 回顾). 
 ## Downloads & builds
 
 - **Project website:** visit the [project page](https://jemicyzhu-0333.github.io/im-adhder/) for an overview and current download notices.
-- **Published packages:** [v0.0.1-dev](https://github.com/jemicyzhu-0333/im-adhder/releases/tag/v0.0.1-dev) is an earlier testing build. Its attached packages have not been replaced with the latest `fix/dev-ai-experience` changes described here. **Installation of that release's Mac package is currently paused** after macOS reported it as damaged.
+- **Current test packages:** [v0.0.1-dev-r2](https://github.com/jemicyzhu-0333/im-adhder/releases/tag/v0.0.1-dev-r2) provides Windows x64 and macOS ARM64 builds from the updated `main` source. The app version remains `0.0.1-dev`; `r2` identifies this release's replacement test packages. Read the Mac limitations below before downloading.
+- **Earlier release:** [v0.0.1-dev](https://github.com/jemicyzhu-0333/im-adhder/releases/tag/v0.0.1-dev) is retained for history. Do not install its old Mac package, which was reported as damaged.
 - **New test builds:** the manual [Build Windows and macOS (test) workflow](https://github.com/jemicyzhu-0333/im-adhder/actions/workflows/build-desktop.yml) targets **Windows x64** and **macOS ARM64**. Download a successful run's artifacts while retained; GitHub may require sign-in. Check the run's branch and commit. The workflow does not create a Release.
 
-Windows test builds are unsigned. New Mac test builds use **ad-hoc signing**, without an Apple Developer ID or notarization. Signature integrity and isolated DMG startup have passed CI, but Gatekeeper's distribution assessment still rejects the Mac build. These checks do not establish that a browser-downloaded app will open normally. Do not disable Gatekeeper or remove quarantine to install it.
+Windows test builds are unsigned. New Mac test builds use **ad-hoc signing**, without an Apple Developer ID or notarization. Strict signature integrity, direct startup of a DMG-installed copy with an isolated profile, and SQLite persistence have passed CI, but Gatekeeper's distribution assessment still rejects the Mac build. These checks do not establish that a browser-downloaded app will open normally. Do not disable Gatekeeper or remove quarantine to install it.
 
 This is a development test version, not a stable release. **In-app updates are not currently available**; update metadata has not been published. Download test builds manually. Use a fresh test profile. Linux has limited native testing and known rendering issues; see [validation and limitations](docs/VALIDATION.md).
 
@@ -46,7 +47,7 @@ This is a development test version, not a stable release. **In-app updates are n
 Requirements: **Node.js 22.12.0+**, npm, and a desktop environment capable of running Electron. Install the full dependencies, including devDependencies.
 
 ```bash
-git clone --branch fix/dev-ai-experience https://github.com/jemicyzhu-0333/im-adhder.git
+git clone https://github.com/jemicyzhu-0333/im-adhder.git
 cd im-adhder
 npm ci
 npm run dev
