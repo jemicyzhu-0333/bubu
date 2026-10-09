@@ -18,7 +18,11 @@ function summarizeStartupOutput(output) {
   const stackFrames = [...output.matchAll(/app\.asar\/(src\/[a-zA-Z0-9_./-]+:\d+:\d+)/g)]
     .map(match => match[1]).slice(0, 20);
   const factStoreTiers = [...output.matchAll(/\[fact-store\] tier=(sqlite|jsonl|none)\b/g)].map(match => match[1]);
-  return { errorKinds, missingModules, stackFrames, factStoreTiers,
+  // Classify only verifier-owned option names; never expose argument values,
+  // environment values, executable paths, or arbitrary stderr text.
+  const rejectedCliOptions = [...new Set([...output.matchAll(/\bbad option:\s*(--user-data-dir|--inspect-brk|--inspect)(?=[=\s]|$)/g)]
+    .map(match => match[1]))].slice(0, 3);
+  return { errorKinds, missingModules, stackFrames, factStoreTiers, rejectedCliOptions,
     appThrewError: output.includes('App threw an error'),
     outputCharacters: output.length, outputSha256: crypto.createHash('sha256').update(output).digest('hex') };
 }

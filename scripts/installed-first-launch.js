@@ -5,6 +5,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const os = require('node:os');
 const { spawn } = require('node:child_process');
+const { installedElectronEnvironment } = require('./installed-electron-environment');
 const { DatabaseSync } = require('node:sqlite');
 const { createHash } = require('node:crypto');
 const { performance } = require('node:perf_hooks');
@@ -112,13 +113,14 @@ async function verifyProfileLaunch(executable, { fixture, fresh = true, spawnChi
   wait = waitForOutcome, createProfile = createEmptyProfile, readProfile = readFreshAuthority } = {}) {
   const ownedFixture = !fixture;
   fixture ||= createProfile();
-  let child, closed = false, completion, inspector, failure;
+  let child, closed = false, completion, inspector, failure, terminalOutcome;
+  const launchEnvironment = installedElectronEnvironment();
   let output = '', omitted = 0, stage = 'empty-profile';
   try {
     if (fresh) assert.deepEqual(fs.readdirSync(fixture.userDataPath), [], 'profile must be genuinely empty before executable launch');
     stage = 'launch';
     child = spawnChild(executable, [`--user-data-dir=${fixture.userDataPath}`, '--inspect=127.0.0.1:0'], {
-      stdio: ['ignore', 'pipe', 'pipe'], env: { ...process.env, ELECTRON_RUN_AS_NODE: '' }
+      stdio: ['ignore', 'pipe', 'pipe'], env: launchEnvironment
     });
     const capture = data => {
       const text = String(data), available = Math.max(0, 65536 - output.length);
@@ -128,7 +130,7 @@ async function verifyProfileLaunch(executable, { fixture, fresh = true, spawnChi
     completion = new Promise(resolve => {
       let error;
       child.once('error', caught => { error = caught; });
-      child.once('close', (code, signal) => { closed = true; resolve({ code, signal, error }); });
+      child.once('close', (code, signal) => { closed = true; terminalOutcome = { code, signal, error }; resolve(terminalOutcome); });
     });
     for (let attempt = 0; attempt < 30 && !inspector; attempt++) {
       assert.equal(await wait(completion, 200), null, 'installed app exited before inspector readiness');
@@ -156,7 +158,8 @@ async function verifyProfileLaunch(executable, { fixture, fresh = true, spawnChi
       acceptance: 'installed executable, genuinely empty profile, production bootstrap; loopback inspector observes UI readiness and requests app.quit; no manual UI or OS trust acceptance asserted' };
   } catch (error) {
     failure = error;
-    error.diagnostic = { stage, closed, omitted,
+    error.diagnostic = { stage, closed, omitted, exitCode: terminalOutcome?.code ?? null, exitSignal: terminalOutcome?.signal ?? null,
+      electronRunAsNodePresent: Object.keys(launchEnvironment).some(name => name.toUpperCase() === 'ELECTRON_RUN_AS_NODE'),
       startupCodes: [...new Set(output.match(/config-(?:profile-brand-required|profile-brand-mismatch|identity-invalid|authority-invalid)/g) || [])],
       profileFiles: Object.fromEntries(['lockfile', 'Preferences', 'Local State', 'config.sqlite', 'config.sqlite.identity.sqlite', 'bubu.sqlite'].map(name => [name, fs.existsSync(path.join(fixture.userDataPath, name))])),
       output: summarizeStartupOutput(output) };

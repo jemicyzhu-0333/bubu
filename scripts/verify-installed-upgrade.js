@@ -2,15 +2,16 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const { spawn } = require('node:child_process');
+const { installedElectronEnvironment } = require('./installed-electron-environment');
 const { createHash } = require('node:crypto');
 const { waitForOutcome, summarizeStartupOutput } = require('./verify-macos-install');
 const { verifyProfileLaunch } = require('./installed-first-launch');
-const { createUpgradeFixture, verifyUnchanged, verifyApproved, verifyReopened } = require('./installed-upgrade-profile');
+const { createUpgradeFixture, preservationEvidence, verifyUnchanged, verifyApproved, verifyReopened } = require('./installed-upgrade-profile');
 const { openSession, interceptInstalledEntry, responseExpression, ELECTRON, STATE } = require('./installed-upgrade-inspector');
 
 async function verifyPendingLock(executable, fixture, { spawnChild = spawn, wait = waitForOutcome } = {}) {
   const child = spawnChild(executable, [`--user-data-dir=${fixture.userDataPath}`],
-    { stdio: ['ignore', 'pipe', 'pipe'], env: { ...process.env, ELECTRON_RUN_AS_NODE: '' } });
+    { stdio: ['ignore', 'pipe', 'pipe'], env: installedElectronEnvironment() });
   fixture.secondaryChildClosed = false;
   let output = '', exceeded = false, closed = false;
   const capture = data => { const text = String(data); exceeded ||= output.length + text.length > 65536; output += text.slice(0, Math.max(0, 65536 - output.length)); };
@@ -33,16 +34,17 @@ async function verifyPendingLock(executable, fixture, { spawnChild = spawn, wait
 }
 async function runUpgradeChild(executable, fixture, approved, { spawnChild = spawn, connect = openSession,
   intercept = interceptInstalledEntry, unchanged = verifyUnchanged, upgraded = verifyApproved, secondary = verifyPendingLock, wait = waitForOutcome } = {}) {
-  let child, session, closed = false, completion, stage = 'launch-upgrade-child', output = '', omitted = 0;
+  let failure, child, session, closed = false, completion, terminalOutcome, stage = 'launch-upgrade-child', output = '', omitted = 0;
+  const launchEnvironment = installedElectronEnvironment();
   const capture = data => { const value = String(data), remaining = Math.max(0, 65536 - output.length); output += value.slice(0, remaining); omitted += Math.max(0, value.length - remaining); };
   try {
     child = spawnChild(executable, [`--user-data-dir=${fixture.userDataPath}`, '--inspect-brk=127.0.0.1:0'],
-      { stdio: ['ignore', 'pipe', 'pipe'], env: { ...process.env, ELECTRON_RUN_AS_NODE: '' } });
+      { stdio: ['ignore', 'pipe', 'pipe'], env: launchEnvironment });
     child.stdout.on('data', capture); child.stderr.on('data', capture);
     completion = new Promise(resolve => {
       let error;
       child.once('error', caught => { error = caught; });
-      child.once('close', (code, signal) => { closed = true; resolve({ code, signal, error }); });
+      child.once('close', (code, signal) => { closed = true; terminalOutcome = { code, signal, error }; resolve(terminalOutcome); });
     });
     for (let attempt = 0; attempt < 40 && !session; attempt++) {
       assert.equal(await wait(completion, 250), null, 'upgrade child exited before debugger');
@@ -66,10 +68,10 @@ async function runUpgradeChild(executable, fixture, approved, { spawnChild = spa
     stage = 'before-consent';
     const confirm = await waitPhase('confirm');
     assert.deepEqual(confirm.calls, ['confirm']); assert.equal(confirm.relaunches, 0);
-    unchanged(fixture);
+    const beforeConsent = unchanged(fixture);
     stage = 'consent-source-lock-retained';
     const lock = await secondary(executable, fixture, { spawnChild, wait });
-    unchanged(fixture);
+    const afterSecondary = unchanged(fixture);
     const sourceBeforeSha256 = createHash('sha256').update(JSON.stringify(Object.entries(fixture.before).map(([name, value]) => [name, value.sha256, value.mtimeNs]))).digest('hex');
     stage = approved ? 'approved-native-upgrade' : 'declined-native-upgrade';
     assert.equal(await session.evaluate(responseExpression(approved)), true);
@@ -91,11 +93,18 @@ async function runUpgradeChild(executable, fixture, approved, { spawnChild = spa
     assert.equal(/App threw an error|Uncaught|UnhandledPromiseRejection/.test(output), false);
     const relaunches = (output.match(/BUBU_UPGRADE_TEST_RELAUNCH/g) || []).length;
     assert.equal(relaunches, approved ? 1 : 0, 'test must record the exact production relaunch request');
-    if (!approved) unchanged(fixture);
-    return { entrySha256, sourceBeforeSha256, lock, beforeConsentBytesAndMtimesUnchanged: true,
+    const declinedProof = !approved ? unchanged(fixture) : null;
+    return { beforeConsent, afterSecondary, declinedProof, entrySha256, sourceBeforeSha256, lock, beforeConsentBytesAndMtimesUnchanged: true,
       declinedBytesAndMtimesUnchanged: !approved, normalExit: true, relaunchRequestedButSuppressed: approved, upgrade: upgradeResult };
   } catch (error) {
-    error.diagnostic = { stage, approved, childClosed: closed, omitted,
+    failure = error;
+    let preCleanupSource = error.preservationDiagnostic;
+    if (!preCleanupSource) {
+      try { preCleanupSource = preservationEvidence(fixture); }
+      catch (_) { preCleanupSource = { unavailable: true }; }
+    }
+    error.diagnostic = { stage, approved, childClosedAtFailure: closed, childClosed: closed, omitted, preCleanupSource, exitCode: terminalOutcome?.code ?? null, exitSignal: terminalOutcome?.signal ?? null,
+      electronRunAsNodePresent: Object.keys(launchEnvironment).some(name => name.toUpperCase() === 'ELECTRON_RUN_AS_NODE'),
       startupCodes: [...new Set(output.match(/config-(?:upgrade-[a-z-]+|admission-permissions-unavailable|profile-brand-required)/g) || [])].slice(0, 12),
       output: summarizeStartupOutput(output) };
     throw error;
@@ -106,8 +115,15 @@ async function runUpgradeChild(executable, fixture, approved, { spawnChild = spa
       session.close(); session = null;
       await wait(completion, 5000);
     }
-    if (child && !closed) { child.kill('SIGKILL'); await wait(completion, 5000); }
+    if (child && !closed) {
+      if (failure) failure.diagnostic.cleanupForcedKill = true;
+      child.kill('SIGKILL'); await wait(completion, 5000);
+    }
     fixture.childClosed = (!child || closed) && fixture.secondaryChildClosed !== false;
+    if (failure) {
+      failure.diagnostic.childClosed = fixture.childClosed;
+      failure.diagnostic.secondaryChildClosed = fixture.secondaryChildClosed !== false;
+    }
   }
 }
 async function verifyInstalledUpgrade(executable, { createFixture = createUpgradeFixture, run = runUpgradeChild, reopen = verifyProfileLaunch } = {}) {

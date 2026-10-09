@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const os = require('node:os');
 const { createHash } = require('node:crypto');
+const { isDeepStrictEqual } = require('node:util');
 const { spawnSync } = require('node:child_process');
 const { DatabaseSync } = require('node:sqlite');
 const { createEmptyProfile } = require('./installed-first-launch');
@@ -91,9 +92,44 @@ function copySnapshot(directory) {
     } finally { db.close(); identity.close(); }
   } finally { fs.rmSync(root, { recursive: true, force: true }); }
 }
+// Only runtime additions observed in the installed Electron gate are recognized.
+// This is not a *.db exclusion: every pre-existing file remains byte/mtime exact.
+function isRuntimeAddition(name) {
+  return name === 'Local State'
+    || /^GPUPersistentCache\/GPUCache\/[A-Z2-7]{32}\/(?:cache\.db(?:-wal)?|cache\.journal)$/.test(name);
+}
+function preservationEvidence(fixture) {
+  const current = captureFiles(fixture.userDataPath);
+  const originals = Object.entries(fixture.before).map(([name, before]) => {
+    const after = current[name];
+    return { path: name, before: { sha256: before.sha256, mtimeNs: before.mtimeNs, bytes: before.bytes.length },
+      after: after ? { sha256: after.sha256, mtimeNs: after.mtimeNs, bytes: after.bytes.length } : null,
+      bytesUnchanged: !!after && before.bytes.equals(after.bytes), mtimeUnchanged: !!after && before.mtimeNs === after.mtimeNs };
+  });
+  const additions = Object.entries(current).filter(([name]) => !Object.hasOwn(fixture.before, name))
+    .map(([name, value]) => ({ path: name, kind: isRuntimeAddition(name) ? 'electron-runtime' : 'unexpected',
+      sha256: value.sha256, mtimeNs: value.mtimeNs, bytes: value.bytes.length }));
+  assert.ok(originals.length <= 32 && additions.length <= 128, 'synthetic preservation evidence exceeds bound');
+  const originalFilesUnchanged = originals.every(item => item.bytesUnchanged && item.mtimeUnchanged);
+  let authorityUnchanged = false, schemaVersion = null;
+  if (originalFilesUnchanged) {
+    const snapshot = copySnapshot(fixture.userDataPath);
+    schemaVersion = snapshot.state.schemaVersion;
+    authorityUnchanged = schemaVersion === 18 && isDeepStrictEqual({ ...snapshot.row }, fixture.original)
+      && isDeepStrictEqual(snapshot.identity, fixture.identity) && snapshot.evidence.length === 0;
+  }
+  return { originals, originalFilesUnchanged, additions, authorityUnchanged, schemaVersion,
+    noBackupBeforeConsent: fs.readdirSync(fixture.root).every(name => !name.endsWith('.backup')) };
+}
 function verifyUnchanged(fixture) {
-  assert.deepEqual(captureFiles(fixture.userDataPath), fixture.before, 'consent/cancel must preserve source bytes and mtimes');
-  assert.deepEqual(fs.readdirSync(fixture.root).filter(name => name.endsWith('.backup')), []);
+  const proof = preservationEvidence(fixture);
+  try {
+    assert.equal(proof.originalFilesUnchanged, true, 'consent/cancel must preserve source bytes and mtimes');
+    assert.equal(proof.additions.every(item => item.kind === 'electron-runtime'), true, 'unexpected file added before consent/cancel');
+    assert.equal(proof.authorityUnchanged, true, 'consent/cancel must preserve exact BUBU18 authority without migration evidence');
+    assert.equal(proof.noBackupBeforeConsent, true, 'consent/cancel must not create a backup');
+  } catch (error) { error.preservationDiagnostic = proof; throw error; }
+  return proof;
 }
 function verifyApproved(fixture) {
   const snapshot = copySnapshot(fixture.userDataPath);
@@ -118,15 +154,18 @@ function verifyApproved(fixture) {
     assert.equal(verified.verificationCount, 1);
     assert.equal(verified.manifest.binding.sourceHash, fixture.original.payload_hash);
     const rows = db.prepare("SELECT relative_path,bytes,mtime_ns FROM upgrade_files WHERE kind='file'").all();
-    const originals = rows.filter(row => !LOCKS.has(row.relative_path));
+    const members = rows.filter(row => !LOCKS.has(row.relative_path));
+    const originals = members.filter(row => Object.hasOwn(fixture.before, row.relative_path));
+    const runtime = members.filter(row => !Object.hasOwn(fixture.before, row.relative_path));
     assert.deepEqual(originals.map(row => row.relative_path).sort(), Object.keys(fixture.before).sort());
+    assert.equal(runtime.every(row => isRuntimeAddition(row.relative_path)), true, 'backup contains an unexpected added file');
     for (const row of originals) {
       assert.deepEqual(Buffer.from(row.bytes), fixture.before[row.relative_path].bytes);
       assert.equal(row.mtime_ns, fixture.before[row.relative_path].mtimeNs);
     }
     const restored = fs.mkdtempSync(path.join(os.tmpdir(), 'bubu-backup-verify-'));
     try {
-      for (const row of originals) {
+      for (const row of members) {
         const target = path.join(restored, row.relative_path);
         fs.mkdirSync(path.dirname(target), { recursive: true, mode: 0o700 });
         fs.writeFileSync(target, Buffer.from(row.bytes), { mode: 0o600, flag: 'wx' });
@@ -138,6 +177,7 @@ function verifyApproved(fixture) {
     } finally { fs.rmSync(restored, { recursive: true, force: true }); }
     return { exactAdditiveBeforeRestart: true, identityPreserved: true, oneMigrationReceipt: true, backupReopenedFromCopy: true,
       completePrivateBackup: true, originalBytesAndMtimesPreservedInBackup: true,
+      runtimeFilesIncludedInBackup: runtime.map(row => row.relative_path).sort(),
       nativePermissionVerification: process.platform === 'win32' ? 'Windows DACL' : 'POSIX mode', backupManifestSha256: verified.manifestHash };
   } finally { db.close(); }
 }
@@ -153,4 +193,4 @@ function verifyReopened(fixture) {
   return { authorityId: result.row.authority_id, revision: result.row.revision, schemaVersion: 19,
     taskStepInboxPreserved: true, systemDefaultsPreserved: true, oneMigrationReceipt: true };
 }
-module.exports = { createUpgradeFixture, captureFiles, copySnapshot, verifyUnchanged, verifyApproved, verifyReopened };
+module.exports = { createUpgradeFixture, captureFiles, copySnapshot, isRuntimeAddition, preservationEvidence, verifyUnchanged, verifyApproved, verifyReopened };

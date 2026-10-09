@@ -41,7 +41,7 @@ function launchPorts({ startupError = false, noWindow = false, abnormalExit = fa
     spawnChild(executable, argv, options) {
       assert.equal(executable, '/synthetic-installed/bubu');
       assert.deepEqual(argv, [`--user-data-dir=${profile.userDataPath}`, '--inspect=127.0.0.1:0']);
-      assert.equal(options.env.ELECTRON_RUN_AS_NODE, '');
+      assert.equal(Object.keys(options.env).some(name => name.toUpperCase() === 'ELECTRON_RUN_AS_NODE'), false);
       if (launches++ === 0) {
         assert.deepEqual(fs.readdirSync(profile.userDataPath), []);
         if (!startupError) initialize(profile);
