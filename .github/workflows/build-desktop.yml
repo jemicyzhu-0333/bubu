@@ -42,6 +42,7 @@ jobs:
       - name: Check native admission permissions and builder schema early
         run: node --test test/config-admission-permissions.test.js test/build-schema.test.js
       - name: Verify native macOS pet viewport without resizing
+        timeout-minutes: 2
         if: matrix.platform == 'mac'
         run: npm run verify:pet-viewport
       - name: Check tests, architecture and generated resources

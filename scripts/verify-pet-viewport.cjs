@@ -93,13 +93,14 @@ async function main() {
       await closed;
     }
     fs.rmSync(profile, { recursive: true, force: true });
-    clearTimeout(timeout);
-    app.quit();
+
   }
+  clearTimeout(timeout);
+  app.exit(0);
 }
 
-if (require.main === module) main().catch(() => {
+function reportFailure() {
   console.error(`pet-viewport-probe: failed (${stage})`);
   require('electron').app.exit(1);
-});
-module.exports = { trackedWindowClass, verifyRounds };
+}
+module.exports = { trackedWindowClass, verifyRounds, main, reportFailure };
