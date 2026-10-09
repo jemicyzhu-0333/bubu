@@ -13,4 +13,11 @@ function resolveLocale(preference, systemLanguages = []) {
   const language = systemLanguages.find(value => typeof value === 'string' && /^(?:zh|en)(?:-|$)/i.test(value)) || 'en';
   return /^zh(?:-|$)/i.test(language) ? 'zh-CN' : 'en';
 }
-module.exports = { LOCALES, THEMES, projectInterfacePreferences, resolveLocale };
+function upgradeSchema18Settings(settings) {
+  if (!settings || typeof settings !== 'object' || Array.isArray(settings)
+      || Object.hasOwn(settings, 'locale') || Object.hasOwn(settings, 'theme')) {
+    throw new Error('config-preferences-upgrade-settings-invalid');
+  }
+  return { ...settings, locale: 'system', theme: 'system' };
+}
+module.exports = { LOCALES, THEMES, projectInterfacePreferences, resolveLocale, upgradeSchema18Settings };

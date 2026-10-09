@@ -57,7 +57,7 @@ async function closeInstalledChild(child, completion, installed, { execFile = ex
 async function verifyInstall({ platform = process.platform, argv = process.argv, now = Date.now(),
   execFile = execFileSync, spawnChild = spawn, wait = waitForOutcome,
   createProfile = createDisposableProfile, readProfile = readDisposableProfile,
-  removeProfile = removeDisposableProfile, log = console.log, diagnosticFile = null } = {}) {
+  removeProfile = removeDisposableProfile, log = console.log, diagnosticFile = null, freshLaunch = null, upgradeLaunch = null } = {}) {
   assert.equal(platform, 'darwin', 'installation verification requires macOS');
   const root = path.resolve(__dirname, '..');
   const version = require('../package.json').version;
@@ -121,7 +121,13 @@ async function verifyInstall({ platform = process.platform, argv = process.argv,
     assert.deepEqual(persisted.rewardLedger, initial.rewardLedger);
     assert.equal(persisted.tasks.find(task => task.seriesId).occurrenceDate, localDayKey(now));
     assert.equal(/App threw an error|ReferenceError|TypeError|Uncaught|UnhandledPromiseRejection/.test(output), false, 'installed app reported a startup error');
+    stage = 'empty-profile-first-launch-and-reopen';
+    const freshProfile = freshLaunch ? await freshLaunch(path.join(installed, 'Contents/MacOS/小步')) : null;
+    stage = 'installed-explicit-preferences-upgrade';
+    assert.ok(!upgradeLaunch || freshProfile, 'empty-profile launch must pass before upgrade coverage');
+    const preferencesUpgrade = upgradeLaunch ? await upgradeLaunch(path.join(installed, 'Contents/MacOS/小步')) : null;
     report = {
+      freshProfile, preferencesUpgrade,
       result: 'passed', sourceCommit: process.env.GITHUB_SHA || null,
       dmg, dmgSha256: sha256(dmg), installed, profile: fixture.userDataPath,
       asarSha256: hash, persistedRevision: revision, preservedTasks: persisted.tasks.length, recurrenceCaughtUp: true,
@@ -133,7 +139,7 @@ async function verifyInstall({ platform = process.platform, argv = process.argv,
     // This verifier launches only its own synthetic, disposable profile. Keep
     // bounded child diagnostics on failure: a surviving Electron error dialog
     // is not evidence that application startup or the SQL owner was ready.
-    const diagnostic = { stage, seedRevision: fixture.revision, persistedRevision,
+    const diagnostic = { freshStartup: error.diagnostic || null, stage, seedRevision: fixture.revision, persistedRevision,
       childClosed: closed, omittedOutputCharacters,
       fixtureFiles: Object.fromEntries(['config.sqlite', 'config.sqlite.identity.sqlite', 'bubu.sqlite', 'Preferences', 'Local State'].map(name => [name, fs.existsSync(path.join(fixture.userDataPath, name))])),
       childOutput: summarizeStartupOutput(output) };
@@ -160,5 +166,7 @@ async function verifyInstall({ platform = process.platform, argv = process.argv,
   return report;
 }
 
-if (require.main === module) verifyInstall({ diagnosticFile: path.resolve(__dirname, '../dist/macos-install-diagnostic.json') }).catch(error => { console.error(error.stack); process.exitCode = 1; });
+if (require.main === module) verifyInstall({ diagnosticFile: path.resolve(__dirname, '../dist/macos-install-diagnostic.json'),
+  freshLaunch: executable => require('./installed-first-launch').verifyFreshLaunch(executable),
+  upgradeLaunch: executable => require('./verify-installed-upgrade').verifyInstalledUpgrade(executable) }).catch(error => { console.error(error.stack); process.exitCode = 1; });
 module.exports = { summarizeStartupOutput, sha256, waitForOutcome, closeInstalledChild, verifyInstall };

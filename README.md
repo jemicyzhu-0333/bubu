@@ -6,7 +6,7 @@ bubu (小步) is a local-first desktop app for ADHD-friendly everyday productivi
 
 [Project website](https://jemicyzhu-0333.github.io/bubu/) · [简体中文](README.zh-CN.md) · [Downloads & builds](#downloads--builds) · [Get started](#run-from-source) · [Documentation](#documentation)
 
-This project is in development (`0.0.1-dev`). It is an executive-function support tool, not a medical device, and does not diagnose, treat, or promise clinical benefits for ADHD. The current app interface is in Chinese; this README is available in English and Chinese.
+This source is the `0.0.2-dev.1` development candidate. It is an executive-function support tool, not a medical device, and does not diagnose, treat, or promise clinical benefits for ADHD. General settings offer Simplified Chinese / English preview and System / Light / Dark appearance.
 
 ## A look inside
 
@@ -34,15 +34,16 @@ The main panel has **Now / Plan / Review** sections (现在 / 安排 / 回顾). 
 ## Downloads & builds
 
 - **Project website:** visit the [project page](https://jemicyzhu-0333.github.io/bubu/) for an overview and current download notices.
-- **Latest published test packages (before the bubu rename):** [v0.0.1-dev-r3](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r3) provides Windows x64 and macOS ARM64 builds from commit `8b53043`. These existing installers and their filenames still use the former I'm ADHDer name; they have not been rebuilt or relabeled as bubu. The app version remains `0.0.1-dev`; `r3` identifies that test release revision. Read the Mac limitations below before downloading.
-- **Earlier releases:** [r2](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r2) and [v0.0.1-dev](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev) are retained for history. Do not install the initial v0.0.1-dev Mac package, which was reported as damaged.
+- **Current source: `0.0.2-dev.1`.** This candidate combines the Windows first-launch fix, compact language/theme settings, an AI connection test and explicitly confirmed bubu18→19 data upgrade. New installers are pending native checks and publication; no `0.0.2-dev.1` download is announced here yet. Check [published releases](https://github.com/jemicyzhu-0333/bubu/releases) for verified assets and checksums.
+- **Previous test packages:** [v0.0.1-dev-r4](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r4) came from commit `df3242a`, with app version `0.0.1-dev`. The Windows r4 installer has a confirmed first-launch profile-admission failure; use it only as a historical diagnostic baseline. Its names and historical validation evidence remain unchanged.
+- **Earlier releases:** [r3](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r3), [r2](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r2) and [v0.0.1-dev](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev) are retained for history. Do not install the initial v0.0.1-dev Mac package, which was reported as damaged.
 - **New test builds:** the manual [Build Windows and macOS (test) workflow](https://github.com/jemicyzhu-0333/bubu/actions/workflows/build-desktop.yml) targets **Windows x64** and **macOS ARM64**. Download a successful run's artifacts while retained; GitHub may require sign-in. Check the run's branch and commit. The workflow does not create a Release.
 
-Windows test builds are unsigned. Mac test builds use **ad-hoc signing**, without an Apple Developer ID or notarization. For the published r3 Mac build, strict signature integrity, direct startup of a DMG-installed copy with an isolated profile, and SQLite persistence passed CI, but Gatekeeper's distribution assessment rejected it. This is evidence for that earlier build; renamed bubu binaries require their own native checks. These checks do not establish that a browser-downloaded app will open normally. Do not disable Gatekeeper or remove quarantine to install it.
+Windows test builds are unsigned. Mac test builds use **ad-hoc signing**, without an Apple Developer ID or notarization. For the published r4 Mac build, strict signature integrity, direct startup of a DMG-installed copy with an isolated profile, and SQLite persistence passed CI, but Gatekeeper's distribution assessment rejected it. These checks do not establish that a browser-downloaded app will open normally. Do not disable Gatekeeper or remove quarantine to install it.
 
-For builds made from the renamed source, the Mac app is `小步.app`; the older `I’m ADHDer.app` may remain alongside it until you remove that copy yourself. The renamed build uses a new bubu application and credential identity with a fresh default test profile. Existing test apps, data directories, and credentials are left untouched; nothing is automatically imported, migrated, or removed. Configure AI credentials again in the new profile. macOS may show a Keychain prompt for the new application identity or changed ad-hoc-signed binary.
+The Mac app remains `小步.app`. The earlier rename introduced the bubu application/profile/credential identity; `0.0.2-dev.1` keeps that same identity. Older pre-bubu apps, directories and credentials remain untouched and are not imported. Existing valid bubu18 data uses the explicit backed-up upgrade below. A changed ad-hoc-signed binary may still trigger a macOS Keychain prompt.
 
-This is a development test version, not a stable release. **In-app updates are not currently available**; update metadata has not been published. Download test builds manually. Use a fresh test profile. Linux has limited native testing and known rendering issues; see [validation and limitations](docs/VALIDATION.md).
+This is a development test version, not a stable release. **In-app updates are not currently available**; update metadata has not been published. Download published test builds manually. Use disposable profiles for validation; an existing valid bubu18 profile is never silently reset. Linux has limited native testing and known rendering issues; see [validation and limitations](docs/VALIDATION.md).
 
 ## Run from source
 
@@ -55,9 +56,17 @@ npm ci
 npm run dev
 ```
 
-`npm run dev` uses the isolated `bubu-dev` development profile. `npm start` uses the `bubu` everyday profile. Their data, credentials, and Chromium storage are separate. The full rename introduces new bubu internal identifiers and fresh empty default profiles, with no old-name compatibility aliases. Previous test directories and credentials remain untouched; there is no automatic import, migration, or deletion. An explicit `--user-data-dir` remains respected and does not authorize importing or rewriting an older profile.
+`npm run dev` uses the isolated `bubu-dev` development profile. `npm start` uses the `bubu` everyday profile. Their data, credentials, and Chromium storage are separate. The earlier brand rename has no old-name compatibility aliases. Pre-bubu directories and credentials remain untouched. An explicit `--user-data-dir` remains respected; only a separately confirmed, fully validated bubu18 upgrade may change its payload version.
 
-Current production data admission requires both complete, canonical **schema 18** data and a **bubu-branded configuration identity**. Unmarked, foreign-brand, damaged, or orphaned persistent profiles are rejected without automatic import, conversion, repair, or reset. Use a new empty test directory after a refusal; an explicit path does not bypass this boundary.
+`0.0.2-dev.1` uses canonical **schema 19** with a **bubu-branded configuration identity**. An existing, fully valid bubu schema18 profile has one explicit upgrade path: the startup dialog asks before making a complete private backup and adding the two preferences. Cancel quits without upgrading. Old-brand, unmarked, damaged, orphaned and unsupported profiles are still refused; they are never imported, reset or replaced.
+
+The upgrade retains the original authority and credential identity. Its private sibling backup contains all ordinary profile files, including committed WAL data and opaque credential files; keep it private. Only the three top-level Electron runtime locks are omitted. A symlink, unsupported member, failed privacy check, quota error, file larger than 64 MiB, total above 512 MiB or more than 10,000 members stops the upgrade. Older bubu versions cannot open schema19. To extract a verified backup offline into a **new, nonexistent** directory (never over the live profile), close bubu and run:
+
+```bash
+node scripts/extract-profile-upgrade-backup.js --backup /absolute/profile-backup.sqlite --new-directory /absolute/new-profile
+```
+
+The tool verifies the backup, preserves file contents and authority binding, and does not switch the running profile. See [persistence and upgrade rules](docs/ARCHITECTURE.md#持久化与迁移) for failure/recovery limits. Own-cloud Linux manual consent/cancel/lock/relaunch testing passed on the isolated upgrade source. The combined candidate still requires its own Windows/macOS native runtime and packaging checks; instrumented consent tests do not establish manual dialog accessibility or OS distribution trust.
 
 ```bash
 npm run check               # Unit, syntax, architecture, and generated-resource checks
@@ -71,6 +80,8 @@ These are validation commands, not a claim that every platform has passed them. 
 ### AI setup & privacy
 
 AI is **off by default**. To use it, enable AI in Settings, provide a public HTTPS OpenAI-compatible Base URL, model name, and API key, then save the configuration. Keys are stored using Electron's `safeStorage`; protection depends on the operating system and its credential backend. Saving fails when Electron reports encryption unavailable. The development profile needs its own configuration.
+
+**Test Connection** checks the current inputs without saving them or enabling AI. It sends a short fixed prompt to the configured provider, without task or conversation content; the provider may charge for the request. You can cancel the test.
 
 Local-first means the core data and workflow stay on your machine; it does not mean the app never connects to the network. When you use AI, your messages and the context assembled for that request are sent to the configured provider. Review the reference scope and your provider's data policy before sending sensitive information. No working in-app update channel is currently published. Optional activity mirroring is off by default and uses local activity categories, not desktop contents, music contents, or AI conversation text.
 

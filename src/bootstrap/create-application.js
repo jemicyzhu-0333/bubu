@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('node:fs');
+const { beginPreferencesUpgrade } = require('./preferences-upgrade');
 const path = require('node:path');
 const { isDevProfile, profileUserDataPath } = require('../core/runtime-profile');
 const { createAppHost } = require('../platform/electron/app-host');
@@ -52,6 +53,7 @@ function createApplication({
   createCredentialStore = createSecureCredentialStore,
   openFactStore = openFactStoreAt,
   openCollaborationStorage = openCollaborationStorageAt,
+  beginUpgrade = beginPreferencesUpgrade,
   factStoreLogger = reportFactStoreTier
 } = {}) {
   if (!Array.isArray(argv)) throw new TypeError('application argv must be an array');
@@ -109,7 +111,14 @@ function createApplication({
     resources.push(requestScope);
     return Object.freeze({ status: 'primary-instance', profile, userDataPath, appHost,
       stateRepository, credentialStore, collaborationStorage, factStore, closeStorage, memoryAuthority, requestScope });
-  } catch (error) { closeStorage(); throw error; }
+  } catch (error) {
+    closeStorage();
+    if (resources.length === 0 && error?.message === 'config-payload-current-schema-required') {
+      const upgrade = beginUpgrade({ error, userDataPath, appHost, argv });
+      return Object.freeze({ ...upgrade, profile, userDataPath });
+    }
+    throw error;
+  }
 }
 
 module.exports = { createApplication };

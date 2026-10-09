@@ -3,6 +3,8 @@ html { color-scheme: light dark; }
 :where(button, select, input, textarea, summary):focus-visible {
   outline: 2px solid var(--ui-primary, var(--primary)); outline-offset: 3px;
 }
+/* The theme option owns the keyboard ring; keep native radio semantics. */
+body[data-surface="popover"] .interface-theme input:focus-visible { outline: none; }
 html[lang="en"] .setting-group-title { letter-spacing: normal; text-transform: none; }
 html[lang="en"] .setting-row { gap: 10px; }
 html[lang="en"] .segmented { flex-wrap: wrap; }

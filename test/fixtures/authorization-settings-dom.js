@@ -42,7 +42,7 @@ function createAuthorizationSettingsDom() {
     'appShell', 'configStorageStatus', 'setPomodoro', 'setBreak', 'setSoft',
     'setHydration', 'setWorkStart', 'setWorkEnd', 'setFocusLvl', 'setRestLvl',
     'aiPrivacyStatus', 'energyCalibrationStatus', 'energyCalibrationFeedback',
-    'btnResetEnergyCalibration', 'settingGroupEnergy'
+    'btnResetEnergyCalibration', 'settingGroupEnergy', 'settingGroupPlanning'
   ]) node(`#${id}`);
   node('#settingsMask', {}, ['hidden']);
   for (const key of [

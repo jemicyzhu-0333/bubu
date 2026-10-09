@@ -125,20 +125,42 @@ test('settings are folded by functional module so the drawer opens as a short me
   }
   assert.equal(stack.length, 0, 'all settings disclosures close');
   assert.deepEqual(groups.map(group => group.id), [
-    'settingGroupGeneral', 'settingGroupAppearance', 'settingGroupSensory', 'settingGroupActivityMirror', 'settingGroupWorkHours', 'settingGroupNudges',
-    'settingGroupAssist', 'settingGroupEnergy', 'settingGroupPlanning', 'appUpdateGroup', 'settingGroupAi'
+    'settingGroupGeneral', 'settingGroupSensory', 'settingGroupWorkHours', 'settingGroupNudges',
+    'settingGroupPlanning', 'settingGroupAi', 'appUpdateGroup'
   ]);
   for (const control of drawer.matchAll(/<(?:input|select|textarea|button)\b[^>]*>/g)) {
     assert.equal(groups.filter(group => control.index > group.start && control.index < group.end).length, 1,
       `${control[0]} belongs to exactly one functional group`);
   }
+  const general = groups.find(group => group.id === 'settingGroupGeneral');
+  const generalMarkup = drawer.slice(general.start, general.end);
+  assert.match(generalMarkup, /id="setLanguage"/);
+  assert.deepEqual([...generalMarkup.matchAll(/name="interfaceTheme" value="([^"]+)"/g)].map(match => match[1]), ['system', 'light', 'dark']);
+  assert.match(generalMarkup, /id="interfaceSaveStatus"[^>]*role="status"/);
+  assert.match(generalMarkup, /<option value="en" lang="en">English \(preview\)<\/option>/);
+  assert.doesNotMatch(generalMarkup, /setting-help|languageHelp|themeHelp|data-i18n="已保存/,
+    'General stays concise and save receipts remain owned by the live settings feature');
+  const updates = groups.find(group => group.id === 'appUpdateGroup');
+  const updatesMarkup = drawer.slice(updates.start, updates.end);
+  assert.match(updatesMarkup, /data-icon="sync" data-i18n="应用更新"/);
+  assert.match(updatesMarkup, /id="appUpdateStatus" role="status"/);
+  assert.match(updatesMarkup, /重启前，请先保存尚未提交的输入。现在重启？/,
+    'removing explanatory prose must not remove the restart safety confirmation');
   const workHours = groups.find(group => group.id === 'settingGroupWorkHours');
   assert.match(drawer.slice(workHours.start, workHours.end), /id="settingGroupTiming"/);
   assert.match(drawer.slice(workHours.start, workHours.end), /data-setting="workStart"/);
   assert.match(drawer.slice(workHours.start, workHours.end), /data-setting="pomodoro"/);
-  const assist = groups.find(group => group.id === 'settingGroupAssist');
-  assert.match(drawer.slice(assist.start, assist.end), /id="settingGroupShortcuts"/);
-  assert.match(drawer.slice(assist.start, assist.end), /id="quickPanelRecorder"/);
+  assert.match(generalMarkup, /id="settingGroupShortcuts"/);
+  assert.match(generalMarkup, /id="quickPanelRecorder"/);
+  assert.match(drawer.slice(workHours.start, workHours.end), /id="strategyGuidanceLabel"/);
+  const companion = groups.find(group => group.id === 'settingGroupSensory');
+  assert.match(drawer.slice(companion.start, companion.end), /id="settingGroupActivityMirror"/);
+  const nudges = groups.find(group => group.id === 'settingGroupNudges');
+  assert.match(drawer.slice(nudges.start, nudges.end), /id="soundEnabledLabel"/);
+  const planning = groups.find(group => group.id === 'settingGroupPlanning');
+  assert.match(drawer.slice(planning.start, planning.end), /id="settingGroupEnergy"/);
+  assert.match(drawer, /id="settingsSaveStatus"[^>]*><\/p>/);
+  assert.doesNotMatch(drawer, /class="setting-tip/);
   // 标题就是 summary 本身，不再存在一个与内容无关联的裸标题。
   assert.equal((drawer.match(/class="setting-group-title"/g) || []).length, groups.length);
   assert.doesNotMatch(html, /setting-section-title/);

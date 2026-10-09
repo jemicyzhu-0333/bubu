@@ -312,4 +312,16 @@ function readSqliteMigrationBackup(options = {}) {
   return readBackupContainer(options, { driver, makeHandle });
 }
 
-module.exports = { openDatabase, openCollaborationDatabase, openProfileIdentityDatabase, markProfileIdentityDatabaseReady, openForgettingLedger, openConfigAuthority, verifySqliteMigrationBackup, readSqliteMigrationBackup };
+function prepareConfigPreferencesUpgrade(options = {}) {
+  const driver = selectSqliteDriver(options.driver);
+  if (!driver) throw new Error('config-authority-unavailable');
+  return require('./config-preferences-upgrade').prepareConfigPreferencesUpgrade(options, { driver, makeHandle });
+}
+
+function extractProfileUpgradeBackup(options = {}) {
+  const driver = selectSqliteDriver(options.driver);
+  if (!driver) throw new Error('config-authority-unavailable');
+  return require('./profile-upgrade-backup-extraction').extractProfileUpgradeBackup(options, { driver, makeHandle });
+}
+
+module.exports = { extractProfileUpgradeBackup, prepareConfigPreferencesUpgrade, openDatabase, openCollaborationDatabase, openProfileIdentityDatabase, markProfileIdentityDatabaseReady, openForgettingLedger, openConfigAuthority, verifySqliteMigrationBackup, readSqliteMigrationBackup };

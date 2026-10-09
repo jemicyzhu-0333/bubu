@@ -1,0 +1,44 @@
+name: Diagnose released Windows first launch
+
+# Manual only. Uses public release bytes, no secrets or publishing permissions.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    env:
+      CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - name: Build candidate installer without publishing
+        run: npm run build:win -- --x64
+      - name: Download exact official released r4 installer
+        shell: pwsh
+        run: |
+          Invoke-WebRequest -Uri 'https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.1-dev-r4/bubu-0.0.1-dev-win-x64.exe' -OutFile "$env:RUNNER_TEMP/bubu-r4.exe"
+          if ((Get-FileHash "$env:RUNNER_TEMP/bubu-r4.exe" -Algorithm SHA256).Hash.ToLowerInvariant() -ne 'af7b632eb87d5ff7cc6f2d728852fe1ebb220e56dba83b1f42aff7bb06ec52dd') { throw 'Released installer hash mismatch' }
+      - name: Compare released failure residue with candidate same-profile and empty-profile startup
+        timeout-minutes: 6
+        shell: pwsh
+        run: |
+          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          node scripts/diagnose-windows-first-launch.js "$env:RUNNER_TEMP/bubu-r4.exe" "dist/bubu-$version-win-x64.exe"
+      - name: Store bounded synthetic residue and startup diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-first-launch-diagnosis-${{ github.sha }}
+          path: dist/windows-first-launch-diagnosis.json
+          if-no-files-found: error
+          retention-days: 7

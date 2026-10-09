@@ -34,6 +34,8 @@ function createPopoverSurfaceClient(bridge = typeof window !== 'undefined' ? win
     'getAiCredentialStatus',
     'importAiCredential',
     'saveAiCredential',
+    'testAiConnection',
+    'cancelAiConnectionTest',
     'clearAiCredential',
     'requestStrategy',
     'sendStrategyFeedback',

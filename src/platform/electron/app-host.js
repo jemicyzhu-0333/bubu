@@ -1,4 +1,6 @@
 'use strict';
+const fs = require('node:fs');
+const path = require('node:path');
 const { defaultStoragePath } = require('../../core/runtime-profile');
 const { configureNativeBranding } = require('./native-branding');
 
@@ -8,7 +10,7 @@ const APP_EVENTS = Object.freeze({
   onWillQuit: 'will-quit'
 });
 
-function createAppHost({ app = require('electron').app } = {}) {
+function createAppHost({ app = require('electron').app, platform = process.platform, io = fs } = {}) {
   const requiredMethods = [
     'getPath',
     'setPath',
@@ -43,6 +45,26 @@ function createAppHost({ app = require('electron').app } = {}) {
 
   function userDataPath() {
     return app.getPath('userData');
+  }
+
+  function acquireSingleInstanceLock() {
+    if (platform === 'win32') {
+      const directory = userDataPath();
+      // Chromium uses CREATE_ALWAYS for its delete-on-close Windows lock.
+      // Refuse observed foreign contents before that native call can truncate
+      // them. This is a preflight, not protection from concurrent replacement.
+      for (const [target, valid] of [
+        [directory, entry => entry.isDirectory()],
+        [path.join(directory, 'lockfile'), entry => entry.isFile() && entry.size === 0n]
+      ]) {
+        let entry;
+        try { entry = io.lstatSync(target, { bigint: true }); }
+        catch (error) { if (error.code === 'ENOENT') continue; throw error; }
+        if (!valid(entry)) throw Object.assign(new Error('config-profile-brand-required: Select a new empty profile directory for bubu; this directory contains unbound data.'),
+          { code: 'config-profile-brand-required' });
+      }
+    }
+    return app.requestSingleInstanceLock() === true;
   }
 
   function setDataDirectory(directory) {
@@ -109,7 +131,7 @@ function createAppHost({ app = require('electron').app } = {}) {
     userDataPath,
     hasExplicitUserDataPath: () => explicitDirectory,
     setDataDirectory,
-    acquireSingleInstanceLock: () => app.requestSingleInstanceLock() === true,
+    acquireSingleInstanceLock,
     isPackaged: () => app.isPackaged === true,
     appPath: () => app.getAppPath(),
     isReady: () => app.isReady(),

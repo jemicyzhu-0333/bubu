@@ -1,3 +1,4 @@
+import { createAiConnectionTest } from './ai-connection-test.mjs';
 import { t, getLocale, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 
 const AUTHORIZATION_WARNING_CODE = 'collaboration-authorization-incomplete';
@@ -59,11 +60,12 @@ function formatAuthorizationWarning(...warnings) {
 
 // Explicit AI configuration draft: persistence receipts and effective routing
 // remain separate, so projection refreshes never erase unsaved input or errors.
-function createAiConfiguration({ $, getState, surfaceClient }) {
+function createAiConfiguration({ $, document, getState, surfaceClient }) {
   let dirty = false, saving = false, mounted = false;
   let revision = 0, lifetime = 0, request = 0;
   let acknowledged = null, credentialAcknowledged = null;
   const teardown = [];
+  const connectionTest = createAiConnectionTest({ $, document, surfaceClient, isSaving: () => saving });
   let feedbackCopy = () => '', feedbackState = 'saved', feedbackProjectionUnavailable = false;
   let routingCopy = null;
   const fieldIds = ['aiModelInput', 'aiBaseUrlInput', 'aiApiKeyInput'];
@@ -84,6 +86,7 @@ function createAiConfiguration({ $, getState, surfaceClient }) {
     repaintFeedback();
   }
   function repaintFeedback() {
+    connectionTest.render();
     const status = $('#aiConfigStatus');
     if (status) {
       status.textContent = feedbackCopy();
@@ -121,6 +124,7 @@ function createAiConfiguration({ $, getState, surfaceClient }) {
     feedbackProjectionUnavailable = projectionUnavailable;
   }
   function render(ticket) {
+    connectionTest.render();
     const state = getState();
     if (ticket && !owns(ticket)) return;
     if (!state) return false;
@@ -181,6 +185,7 @@ function createAiConfiguration({ $, getState, surfaceClient }) {
   }
   async function save() {
     if (!mounted || saving) return;
+    connectionTest.cancel({ clear: true });
     const model = $('#aiModelInput').value.trim();
     const baseUrl = $('#aiBaseUrlInput').value.trim();
     const secret = $('#aiApiKeyInput').value.trim();
@@ -244,6 +249,7 @@ function createAiConfiguration({ $, getState, surfaceClient }) {
   }
   async function manageCredential(kind) {
     if (!mounted || saving) return;
+    connectionTest.cancel({ clear: true });
     const ticket = { lifetime, request: ++request };
     saving = true;
     feedback('正在保存…', 'saving');
@@ -275,12 +281,14 @@ function createAiConfiguration({ $, getState, surfaceClient }) {
   function mount() {
     if (mounted) return;
     mounted = true;
+    connectionTest.mount();
     teardown.push(onLocaleChanged(() => { repaintFeedback(); repaintRouting(); }));
     lifetime++;
     saving = false;
     feedback(dirty ? '修改待保存' : '已保存', dirty ? 'dirty' : 'saved');
     for (const id of fieldIds) {
       listen(id, 'input', () => {
+        connectionTest.cancel({ clear: true });
         dirty = true;
         revision++;
         fieldRevisions[id]++;
@@ -298,11 +306,12 @@ function createAiConfiguration({ $, getState, surfaceClient }) {
     listen('aiClearCredential', 'click', () => { void manageCredential('clear'); });
   }
   function dispose() {
+    connectionTest.dispose();
     mounted = false;
     lifetime++;
     saving = false;
     while (teardown.length) teardown.pop()();
   }
-  return Object.freeze({ mount, render, dispose, save });
+  return Object.freeze({ mount, render, dispose, save, cancelTest: () => connectionTest.cancel({ clear: true }) });
 }
 export { createAiConfiguration, formatAuthorizationWarning };

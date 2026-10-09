@@ -1,4 +1,5 @@
 'use strict';
+const { createAiConnectionTesting } = require('./ai-connection-testing');
 const { createCollaborationSessions } = require('../application/ai/conversation-sessions');
 const { createContextGrants } = require('../application/ai/context-grants');
 const { createContextReads } = require('../application/ai/context-reads');
@@ -14,6 +15,7 @@ const { createApiClient, DEFAULT_AI_BASE_URL } = require('../core/llm');
 
 function createAiCollaboration({ storage, readSnapshot, factStore, credentialStore, getSettings, requestScope,
   onProviderChanged = () => {}, trace, timeoutMs, negotiation, now, idFactory, lifecycle, changePorts, stateRepository, memoryAuthority, publishChange, clientFactory = createApiClient } = {}) {
+  const connectionTesting = createAiConnectionTesting({ credentialStore, getSettings, requestScope, lifecycle });
   const unavailable = () => ({ ok: false, reason: storage.reason || 'conversation-storage-unavailable' });
   const repository = storage.repository || Object.freeze({ load: unavailable, listPage: unavailable,
     saveSnapshot: unavailable, delete: unavailable, pruneRetention: unavailable });
@@ -88,6 +90,7 @@ function createAiCollaboration({ storage, readSnapshot, factStore, credentialSto
     if (memoryAuthority && !memoryManagement) memoryManagement = createMemoryManagement({ authority: memoryAuthority,
       collaboration: { sessions, reads, invalidateScopes: () => { grants.clear(); changes.invalidate(); } }, now, lifecycle, publishChange });
     memoryManagement?.register(registerIpc);
+    connectionTesting.register(registerIpc);
     registerIpc('ai:credential-status', () => credentialStore.status());
     registerIpc('ai:credential-import', (_event, payload) => {
       const secret = payload?.secret || readEnvironmentCredential();
@@ -131,7 +134,7 @@ function createAiCollaboration({ storage, readSnapshot, factStore, credentialSto
       return { ...removed, receiptDetailsRedacted: privacy.changed === true };
     });
   }
-  function dispose() { admission.close(); requestScope?.close(); sessions.dispose(); storage.close(); }
+  function dispose() { connectionTesting.dispose(); admission.close(); requestScope?.close(); sessions.dispose(); storage.close(); }
   if (lifecycle) lifecycle.register('ai:collaboration', dispose);
   return Object.freeze({ register, dispose, sessions, grants, reads, turns, getProvider, changes, ...access, invalidateAll,
     isContextMessageAllowed: (message, context) => memoryManagement?.isContextMessageAllowed(message, context) === true });

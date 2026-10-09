@@ -114,3 +114,33 @@ test('acknowledged save status follows a later locale broadcast', async () => {
   setLocale('zh-CN'); assert.equal(f.status.textContent, '已保存并生效');
   f.feature.dispose();
 });
+
+
+test('theme options retain exactly one checked native radio across selection and locale changes', async () => {
+  let f;
+  f = settingsFixture(async patch => { Object.assign(f.state.settings, patch); return { ok: true }; });
+  for (const value of ['dark', 'light', 'system']) {
+    const radio = f.radios.find(node => node.value === value);
+    radio.checked = true; radio.fire('change'); await tick();
+    for (const locale of ['en', 'zh-CN']) {
+      setLocale(locale); f.feature.render();
+      assert.equal(f.radios.filter(node => node.checked).length, 1);
+      assert.equal(f.radios.find(node => node.checked).value, value);
+      assert.equal(radio.disabled, false);
+    }
+  }
+  f.feature.dispose();
+});
+
+test('theme keyboard focus has one option-level ring without the inner radio outline', () => {
+  const fs = require('node:fs'), path = require('node:path');
+  const root = path.join(__dirname, '..');
+  const chrome = fs.readFileSync(path.join(root, 'src/surfaces/shared/interface/chrome.css'), 'utf8');
+  const settings = fs.readFileSync(path.join(root, 'src/surfaces/popover/styles/features/settings.css'), 'utf8');
+  assert.match(chrome, /body\[data-surface="popover"\] \.interface-theme input:focus-visible \{ outline: none; \}/);
+  assert.match(settings, /\.interface-theme label:has\(input:focus-visible\) \{ outline: 2px solid var\(--primary-ink\); outline-offset: -2px; \}/);
+  const selected = settings.match(/\.interface-theme label:has\(input:checked\) \{([^}]+)\}/)[1];
+  assert.match(selected, /background:/); assert.doesNotMatch(selected, /border-color|outline/);
+  assert.match(chrome, /:where\(button, select, input, textarea, summary\):focus-visible/,
+    'focus styling for every other control remains available');
+});

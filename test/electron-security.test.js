@@ -50,6 +50,7 @@ const EXPECTED_PRELOAD_CHANNELS = Object.freeze({
   'src/preload-popover.js': [
     'settings:get-interface',
     'ai:clear-credential', 'ai:credential-import', 'ai:credential-status',
+    'ai:test-connection', 'ai:cancel-connection-test',
     'ai:draft-discard', 'ai:draft-turn',
     'ai:conversation-start', 'ai:conversation-list', 'ai:conversation-open', 'ai:conversation-scope',
     'ai:conversation-mode', 'ai:conversation-turn', 'ai:conversation-pause', 'ai:conversation-cancel',

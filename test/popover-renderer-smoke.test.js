@@ -16,6 +16,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { webcrypto } = require('node:crypto');
 const { URL } = require('node:url');
 const { createRendererModuleLoader } = require('../test-support/renderer-modules');
 const { DEFAULT_SETTINGS } = require('../src/capabilities/preferences');
@@ -274,6 +275,7 @@ async function loadPopoverRenderer({ responses: extraResponses = {} } = {}) {
     }
   });
   const sandbox = {
+    crypto: webcrypto,
     AbortController, Image: RasterBrowserImage,
     document,
     console,

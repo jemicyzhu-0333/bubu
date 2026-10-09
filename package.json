@@ -1,6 +1,6 @@
 {
   "name": "bubu",
-  "version": "0.0.1-dev",
+  "version": "0.0.2-dev.1",
   "description": "小步 (bubu) — Local-first ADHD productivity, desktop pet, focus timer and task breakdown",
   "main": "src/main.js",
   "author": "bubu",
@@ -62,7 +62,8 @@
     "build:linux": "node scripts/build-app.js --platform=linux",
     "pack:linux": "node scripts/build-app.js --platform=linux --dir",
     "validate:mac": "npm run check && npm run pack:mac -- --arm64 && npm run verify:mac-app",
-    "app-icons:check": "node scripts/make-icon.js --check"
+    "app-icons:check": "node scripts/make-icon.js --check",
+    "verify:win-install": "node scripts/verify-windows-install.js"
   },
   "devDependencies": {
     "@napi-rs/canvas": "1.0.10",

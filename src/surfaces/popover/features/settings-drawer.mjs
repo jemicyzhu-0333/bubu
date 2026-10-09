@@ -4,7 +4,7 @@ import { createInterfaceSettings } from './interface-settings.mjs';
 import { createDesktopUpdateFeature } from './desktop-updates.mjs';
 import { createAiConfiguration, formatAuthorizationWarning } from './ai-configuration.mjs';
 
-// 设置抽屉这一层:开合与背景失活、六个分组里的每一个步进与开关、AI 那一组的模型、
+// 设置抽屉这一层:开合与背景失活、各分组里的每一个步进与开关、AI 那一组的模型、
 // 地址与密钥，以及把当前设置画回抽屉的那一次渲染。
 //
 // 它拥有一处防闪烁的上一次键值——以前是面板顶上的模块级 lastSettingsKey——并且这个
@@ -32,13 +32,13 @@ function createPopoverSettingsDrawer({
   if (!surfaceClient) throw new TypeError('popover settings drawer requires surfaceClient');
 
   const interfaceSettings = createInterfaceSettings({ document, getState, surfaceClient });
-  const aiConfiguration = createAiConfiguration({ $, getState, surfaceClient });
+  const aiConfiguration = createAiConfiguration({ document, $, getState, surfaceClient });
   const desktopUpdates = createDesktopUpdateFeature({ $, getState, surfaceClient, isVisible: isSettingsOpen });
   let lastSettingsKey = '';
   let pendingCalibrationReset = false;
   let mounted = false;
   let saveRequest = 0, lifetime = 0;
-  let saveStatusCopy = () => t('已同步');
+  let saveStatusCopy = () => '';
   let calibrationFeedbackSource = '';
   const teardown = [];
 
@@ -72,6 +72,8 @@ function createPopoverSettingsDrawer({
   function closeSettingsDrawer() {
     if (!isSettingsOpen()) return;
     interfaceSettings.clearFeedback();
+    clearPendingCalibrationReset();
+    aiConfiguration.cancelTest?.();
     const mask = $('#settingsMask');
     mask.classList.add('hidden');
     mask.setAttribute('aria-hidden', 'true');
@@ -307,10 +309,14 @@ function createPopoverSettingsDrawer({
       });
     }
 
+    listen($('#settingGroupAi'), 'toggle', event => {
+      if (event.currentTarget?.open === false) aiConfiguration.cancelTest?.();
+    });
+
     listen($('#btnResetEnergyCalibration'), 'click', pressResetCalibration);
     // 这一组收起来就等于放弃那半下确认，和「全部忘掉」同一套:收起的 details 里
     // 那颗写着「真的重置」的按钮下次展开时会一按就生效，这不是用户按下去的东西。
-    listen($('#settingGroupEnergy'), 'toggle', event => {
+    listen($('#settingGroupPlanning'), 'toggle', event => {
       const group = event && event.currentTarget;
       if (group && group.open === false) clearPendingCalibrationReset();
     });

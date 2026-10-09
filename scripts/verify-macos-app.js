@@ -95,7 +95,7 @@ function gitIdentity() {
 }
 
 function validateBuildConfig(pkg) {
-  invariant(pkg.version === '0.0.1-dev', `expected development version 0.0.1-dev, got ${pkg.version}`);
+  invariant(pkg.version === '0.0.2-dev.1', `expected development version 0.0.2-dev.1, got ${pkg.version}`);
   invariant(pkg.build?.mac?.sign?.identity === '-', 'development macOS bundle must request ad-hoc signing');
   invariant(pkg.main === 'src/main.js', `unexpected main entry: ${pkg.main}`);
   const targets = pkg.build && pkg.build.mac && pkg.build.mac.target;

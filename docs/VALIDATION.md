@@ -40,6 +40,8 @@ git diff --check
 
 ### AI 持续协作验证合同
 
+- 手动连接测试仅用合成密钥与 mock HTTP：验证草稿不保存、AI 关闭时只因显式按钮发送、变更地址不复用已存密钥、模型文本结构、三请求/32-token/20秒边界、401/403/429/5xx 不重试、错误不带密钥或正文，以及重复点击、取消、输入修改、设置关闭、窗口隐藏/销毁和迟到结果。浅/深主题与中/英状态均需检查；mock 结果不证明真实服务商可用。
+
 - 共享执行器保留场景上限；协作与一次性调用、自动餐分别检查实际 HTTP 次数、repair、读取、字节和总期限。零读取/零 repair 不能被默认值放宽。
 - Provider 返回、每次 await 后及 owner apply 前重核活性与授权；关闭 AI、修改 Provider/密钥、关闭会话或来源变化使旧请求失效。
 - 场景与当次 grant 的交集限制读取。来源文本不提供权限，工具不能使用动态 SQL、路径、IPC 或通用 store。
@@ -51,7 +53,7 @@ git diff --check
 
 ## 隔离运行
 
-仅用工具创建的全新可删除 schema19 SQL 档案，不拿真实用户档案或旧资料试开、迁移、修复或重置。历史 generic adapter 测试不授权当前生产读取旧档。
+仅用工具创建的可删除 schema19 或完整品牌schema18 SQL 合成档案，不拿真实用户档案或旧资料试开、迁移、修复或重置。历史 generic adapter 测试不授权当前生产读取旧档。
 
 ```bash
 npm run dev:bench -- --scenario=level-up
@@ -115,6 +117,13 @@ macOS 构建门禁必须对产出 app 和 DMG 复制出的 app 分别执行 `cod
 
 安装验证使用可删除新 profile，检查 ASAR、资源过滤、原生 helper、正常退出、同档重开和安装器清理。正式发布还需签名、公证/Gatekeeper/SmartScreen、各架构及跨版本更新证据。
 
+`verify:win-install` 仅在可删除的 Windows Actions runner 上运行实际 NSIS 安装，启动安装后的生产 exe；`verify:mac-install` 在 DMG 副本的播种数据保留检查之外，另跑真正空目录首次启动及原档重开。两者以仅回环地址、随机端口的子进程 inspector 观察可见本地窗口完成加载并请求正常 `app.quit()`，闭库后只读检查 BUBU 身份、READY、绑定、候选当前 schema 的完整 canonical payload 和提交版本。同档重开不得更换 authority。Windows 还记录原生单实例零字节 lockfile。此为带观测的安装后启动检查，不代表真人输入、SmartScreen 或 Gatekeeper 认可。
+
+安装后升级检查在真正空档门禁通过后另建含 task/step/inbox、opaque marker 和遗留 WAL/SHM 的合成 BUBU18 档。仅在已核对源码哈希的安装版 main 入口暂停，尚未运行 createApplication 时替换本次子进程的精确 consent/report 对话框端口；未知标题、消息、按钮、顺序一律失败。检查决定前与取消后的文件字节/mtime、不释放的同档单实例锁、原生私有备份及其独立副本重开、重启前只有 schemaVersion/locale/theme 的添加。批准分支记录并抑制该测试子进程的 app.relaunch，再以安装版 exe 独立重开检查 authority、任务/步骤/收件箱、System 默认值和单次迁移回执。它证明原生运行、文件系统/SQLite 与 Windows DACL 或 POSIX 权限端口，不证明真人对话框输入、自动原生重启或可访问性。整体超时给真实权限检查留余量，不缓存或绕过检查。
+
+手动 `Diagnose released Windows first launch` workflow 固定 r4 官方 EXE 字节数及 SHA-256，顺序安装旧版、记录独立空档失败、卸载旧版，再安装候选并尝试同一失败档；另验候选空档与重开。诊断仅上传合成目录的名称、类型、长度、哈希和有界错误事实，不上传档案原文。候选仍拒绝旧版残留时必须单独报告恢复未解决，不得把新档成功当作现有用户恢复成功，也不得自动清除残留或放宽身份准入。
+
+
 ## 当前验证范围与仍未关闭的项
 
 已有有限 Linux 原生运行观察覆盖新测试档案中的任务/步骤、首步成长、暂停/恢复、多窗口可见投影、部分形态/穿戴与喂食，以及一次正常退出后的同档可见状态恢复。这不是完整 SQL 字段、全部配饰、到期结算、异常终止或目标平台安装验收。
@@ -145,5 +154,7 @@ macOS 构建门禁必须对产出 app 和 DMG 复制出的 app 分别执行 `cod
 - 检查浅/深/系统模式、显式模式不受系统事件覆盖、所有现有和新开窗口一致、陈旧读回/推送、关闭后监听清理，以及角色画笔不被工具主题改色。
 - 中文→英文→中文的标签、aria/title/placeholder、键盘Tab/方向键/焦点圈、长文案和小尺寸。带SVG/计数的标签保留子节点；用户中文任务、英文输入、伙伴名、Provider回复与实际错误详情保留原文。
 - 设置在途重复操作合并，关闭/重开不接受旧保存反馈；语言切换不能清空任务/快捷草稿、重置会话计时、撤销确认或制造第二条命令。
-- schema18拒绝及全部原文件字节保留只是开发保护，不能当作18→19升级通过。受控升级须按ARCHITECTURE对应门禁另行实现和测试；在该项关闭前不得把本分支合入自动更新通道。
+- 普通schema18拒绝及全部原文件字节保留继续验证。另运行 `node --test test/preferences-profile-upgrade.test.js test/preferences-upgrade-recovery.test.js test/preferences-upgrade-bootstrap.test.js` 覆盖显式18→19；不得用普通拒绝测试代替升级。
+- 升级分别核验原writer前byte/mtime完全相等、writer后回滚逻辑不变及完整备份、DB+identity+live-WAL、opaque凭据/嵌套文件、partial/foreign/malformed/future/权限/空间失败、consent绑定、同事务证据、COMMIT未知、进程中断恢复、重复/重开固定点及显式解出拒绝逃逸/覆盖。
+- 在同源码Windows/macOS真实构建上验证升级确认框默认退出、取消不写源档、源锁一直持有且第二实例不能写入、同意成功后以原profile参数重启、业务与凭据身份保留。端口mock和Node崩溃测试不等于原生验收；本版本只合入语言/主题与Windows首次启动修复，安装版门禁按上面的真实空档与独立合成18路径执行，并明确自动化对话框注入的限制。自动更新feature继续独立，未完成它自己的同源码签名包跨版本门禁前，不启用自动更新通道。
 - Node对比度/事件测试不代表原生VoiceOver/NVDA、Windows/macOS或系统外观实时切换验收。英文覆盖范围与遗漏必须随交付列明。

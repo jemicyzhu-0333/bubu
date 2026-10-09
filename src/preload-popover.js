@@ -80,6 +80,8 @@ contextBridge.exposeInMainWorld('bubu', {
     targetTaskId: (options && options.targetTaskId) || null,
     scope: (options && options.scope) || undefined
   }),
+  testAiConnection: draft => ipcRenderer.invoke('ai:test-connection', draft),
+  cancelAiConnectionTest: requestId => ipcRenderer.invoke('ai:cancel-connection-test', { requestId }),
   getAiCredentialStatus: () => ipcRenderer.invoke('ai:credential-status'),
   importAiCredential: () => ipcRenderer.invoke('ai:credential-import'),
   saveAiCredential: secret => ipcRenderer.invoke('ai:credential-import', { secret }),

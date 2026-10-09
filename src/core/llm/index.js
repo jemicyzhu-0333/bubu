@@ -7,6 +7,7 @@ const { COLLABORATION_TASK, validateCollaborationResult, validateTaskDraft } = r
 const { TASKS, describeClarifyFields, CLARIFY_MEMORY_FIELDS } = require('./tasks');
 const { resolveTimeout, DEFAULT_TIMEOUT_MS, MAX_TIMEOUT_MS } = require('./transport');
 const { createLlmTrace, NO_LLM_TRACE } = require('./trace');
+const { probeConnection, connectionFailure } = require('./connection-probe');
 const { proposalValidationDetail } = require('./proposal-validation-detail');
 
 // LLM Provider 运行时的公开出口；纯静态契约另由 contracts.js 提供。
@@ -121,6 +122,7 @@ function failureReason(error) {
 }
 
 module.exports = {
+  probeConnection, connectionFailure,
   DEFAULT_AI_BASE_URL: DEFAULT_BASE_URL,
   DEFAULT_TIMEOUT_MS,
   MAX_TIMEOUT_MS,

@@ -25,7 +25,7 @@ function walk(relative) {
   });
 }
 
-test('测试构建配置为 0.0.1-dev，本机入口通过显式 arm64 路径验证 macOS', () => {
+test('测试构建配置为 0.0.2-dev.1，本机入口通过显式 arm64 路径验证 macOS', () => {
   const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
   assert.doesNotThrow(() => validateBuildConfig(pkg));
   assert.deepEqual(pkg.build.files.filter(pattern => !pattern.startsWith('!')), ['src/**/*', 'assets/**/*', 'package.json']);

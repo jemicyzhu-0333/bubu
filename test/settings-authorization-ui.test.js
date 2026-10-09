@@ -566,3 +566,36 @@ test('null or undefined postcommit projection replaces stale readiness with unkn
     h.feature.dispose();
   }
 });
+
+
+test('idle settings do not show Synced while actual save receipts remain visible', async () => {
+  const h = drawerHarness(async () => ({ ok: true }));
+  h.feature.renderSettings(); assert.equal(h.status().textContent, '');
+  h.save(); assert.equal(h.status().textContent, '正在保存…');
+  await settle(); assert.equal(h.status().textContent, '已保存并生效');
+  h.feature.dispose();
+});
+
+test('closing the merged planning group disarms the calibration reset', async () => {
+  let resets = 0;
+  const h = drawerHarness(async () => ({ ok: true }), { resetEnergyCalibration: async () => { resets++; return { ok: true, changed: true }; } });
+  h.fire('#btnResetEnergyCalibration', 'click');
+  assert.equal(h.$('#btnResetEnergyCalibration').textContent, '真的重置');
+  h.$('#settingGroupPlanning').open = false;
+  h.fire('#settingGroupPlanning', 'toggle');
+  assert.equal(h.$('#btnResetEnergyCalibration').textContent, '重置校准');
+  h.fire('#btnResetEnergyCalibration', 'click'); await settle();
+  assert.equal(resets, 0, 'reopening requires a new two-step confirmation');
+  h.feature.dispose();
+});
+
+
+test('closing settings also disarms calibration before the next visit', context => {
+  const previous = global.requestAnimationFrame; global.requestAnimationFrame = () => {};
+  context.after(() => { if (previous) global.requestAnimationFrame = previous; else delete global.requestAnimationFrame; });
+  const h = drawerHarness(async () => ({ ok: true })); context.after(() => h.feature.dispose());
+  h.$('#settingsMask').classList.remove('hidden');
+  h.fire('#btnResetEnergyCalibration', 'click');
+  assert.equal(h.$('#btnResetEnergyCalibration').textContent, '真的重置');
+  h.feature.close(); assert.equal(h.$('#btnResetEnergyCalibration').textContent, '重置校准');
+});

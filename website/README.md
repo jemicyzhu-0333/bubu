@@ -37,9 +37,11 @@ The intended project URL after renaming the repository is `https://jemicyzhu-033
 
 ## Downloads and current caution
 
-Links target the existing `v0.0.1-dev-r3` Windows x64 and macOS Apple silicon release assets from commit `8b53043`. They predate the bubu rename and still contain the former I'm ADHDer branding and exact historical filenames. Do not invent bubu-named downloads or relabel those binaries. Repository URLs use `/bubu/` after the repository rename; verify the resulting release links before publishing. The app's internal version remains `0.0.1-dev`; r3 identifies this release revision. These are test builds with manual downloads, not a stable release or an in-app update channel. Windows is unsigned and may trigger SmartScreen.
+The site package and current candidate source are `0.0.2-dev.1`. Both platform cards are explicitly pending and have no download URL until the actual release assets, hashes and native checks exist. The only release links point to the repository release listing and the preserved historical r4 notes. Do not guess future asset URLs or relabel historical binaries.
 
-The Mac r3 bundle is ad-hoc signed and not notarized. Its signature integrity and direct-launch checks passed in macOS CI, but Gatekeeper assessment with security policy enabled still rejects it. Keep the prominent bilingual restricted-test warning: direct launch validation does not establish normal downloaded-app installation. The original release is retained as history; its damaged-app report does not establish the status of r3.
+The candidate contains the Windows first-launch sentinel fix, General language/theme controls and explicitly confirmed bubu18→19 upgrade. Published r4 (`df3242a`, internal version `0.0.1-dev`) remains historical; its Windows first-launch failure is known. Its previous macOS signature/direct-launch results and Gatekeeper rejection are historical evidence, not proof for this candidate. Windows signing and macOS Developer ID/notarization are not claimed. In-app updater feature work remains separate.
+
+After an actual release is verified, update both platform links and this check together with the precise published artifact names/checksums. Until then the release-pending state is intentional, not a broken download.
 
 ## Content and licensing
 

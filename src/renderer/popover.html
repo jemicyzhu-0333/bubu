@@ -494,38 +494,50 @@
   <section id="settingsDrawer" class="settings-drawer" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
     <div class="settings-drawer-head"><h2 id="settingsTitle" data-icon="sliders" data-i18n="设置">设置</h2><button type="button" class="modal-close" id="btnSettingsClose" aria-label="关闭设置" data-i18n-aria-label="关闭设置">✕</button></div>
     <div class="settings-drawer-scroll">
-    <p id="settingsSaveStatus" class="settings-save-status" role="status" aria-live="polite">已同步</p>
+    <p id="settingsSaveStatus" class="settings-save-status" role="status" aria-live="polite"></p>
     <!-- 设置按功能模块折叠，默认全部收起：一屏就能看完全部分组，要改哪一项
          就展开那一组。之前六个分组平铺在同一根滚动条上，找一个开关要先滚过
          十几行不相关的参数。 -->
     <p id="configStorageStatus" class="setting-help hidden" role="status"></p>
     <details class="setting-group" id="settingGroupGeneral">
-      <summary><span class="setting-group-title" data-i18n="通用">通用</span></summary>
-      <div class="setting-row col">
+      <summary><span class="setting-group-title" data-icon="window" data-i18n="通用">通用</span></summary>
+<div class="setting-row col">
         <label for="setLanguage" data-i18n="语言">语言</label>
-        <select id="setLanguage" class="interface-language" aria-describedby="languageHelp">
+        <select id="setLanguage" class="interface-language">
           <option value="system" data-i18n="跟随系统">跟随系统</option>
           <option value="zh-CN" lang="zh-CN">简体中文</option>
-          <option value="en" lang="en">English</option>
+          <option value="en" lang="en">English (preview)</option>
         </select>
-        <p id="languageHelp" class="setting-help" data-i18n="即时切换界面语言。任务、输入内容和伙伴名字保持原样。">即时切换界面语言。任务、输入内容和伙伴名字保持原样。</p>
-        <p class="setting-help" data-i18n="English 为预览：部分伙伴叙事内容保留原文，原生界面仍在验证。">English 为预览：部分伙伴叙事内容保留原文，原生界面仍在验证。</p>
       </div>
-    </details>
-    <details class="setting-group" id="settingGroupAppearance">
-      <summary><span class="setting-group-title" data-i18n="外观">外观</span></summary>
-      <fieldset class="interface-theme" aria-describedby="themeHelp">
+      <fieldset class="interface-theme">
         <legend data-i18n="界面主题">界面主题</legend>
         <label><input type="radio" name="interfaceTheme" value="system" checked><span data-i18n="跟随系统">跟随系统</span></label>
         <label><input type="radio" name="interfaceTheme" value="light"><span data-i18n="浅色">浅色</span></label>
         <label><input type="radio" name="interfaceTheme" value="dark"><span data-i18n="深色">深色</span></label>
       </fieldset>
-      <p id="themeHelp" class="setting-help" data-i18n="所有窗口即时生效。跟随系统会随系统外观自动切换，伙伴形象不变。">所有窗口即时生效。跟随系统会随系统外观自动切换，伙伴形象不变。</p>
-    </details>
-    <p id="interfaceSaveStatus" class="settings-save-status" role="status" aria-live="polite"></p>
-    <details class="setting-group" id="settingGroupSensory">
-      <summary><span class="setting-group-title" data-icon="sliders" data-i18n="感官负荷">感官负荷</span></summary>
+      <p id="interfaceSaveStatus" class="settings-save-status" role="status" aria-live="polite"></p>
+<section class="settings-subsection" id="settingGroupShortcuts">
+      <h3 class="settings-subtitle" data-icon="keyboard" data-i18n="快捷键">快捷键</h3>
+    <div class="setting-row">
+      <label id="quickPanelEnabledLabel" data-i18n="闪念快捷键">闪念快捷键</label>
+      <div class="toggle-group" role="group" aria-labelledby="quickPanelEnabledLabel">
+        <button type="button" class="toggle-btn" data-toggle="quickPanelEnabled" aria-label="闪念快捷键" aria-pressed="true" data-i18n-aria-label="闪念快捷键">开</button>
+      </div>
+    </div>
     <div class="setting-row col">
+      <!-- label 用 aria-labelledby 而不是 for:for 指向 button 不成立。把标签和按钮自己
+           串起来念成「组合键 ⌥⇧Space」,如果改用 aria-label,可见的那个组合反而会被读屏
+           忽略 —— 而那串字正是这个控件当前的值。 -->
+      <label id="quickPanelRecorderLabel" data-i18n="组合键">组合键</label>
+      <button type="button" class="pixel-input shortcut-recorder" id="quickPanelRecorder" aria-labelledby="quickPanelRecorderLabel quickPanelRecorder" aria-describedby="quickPanelEffective" aria-pressed="false">⌥⇧Space</button>
+      <p class="capability-note" id="quickPanelEffective" aria-live="polite">正在读取生效的组合…</p>
+    </div>
+    </section>
+    </details>
+
+    <details class="setting-group" id="settingGroupSensory">
+      <summary><span class="setting-group-title" data-icon="paw" data-i18n="伙伴与动效">伙伴与动效</span></summary>
+<div class="setting-row col">
       <label data-i18n="动效强度">动效强度</label>
       <div class="segmented" role="group" aria-label="动效强度" data-i18n-aria-label="动效强度">
         <button type="button" class="chip motion-mode" data-value="reduced" aria-pressed="false" data-i18n="减少">减少</button>
@@ -551,19 +563,8 @@
         <button type="button" class="chip pet-activity-mode" data-value="chaos" aria-pressed="false">Chaos</button>
       </div>
     </div>
-    <div class="setting-row">
-      <label id="soundEnabledLabel" data-i18n="提醒声音">提醒声音</label>
-      <div class="toggle-group" role="group" aria-labelledby="soundEnabledLabel">
-        <button type="button" class="toggle-btn" data-toggle="soundEnabled" aria-label="提醒声音" aria-pressed="true" data-i18n-aria-label="提醒声音">开</button>
-      </div>
-    </div>
-    </details>
-
-    <!-- 活动镜像：默认关闭；只在本机看最前面的应用和正在出声的播放器，伙伴换成对应姿势
-         (ARCHITECTURE「活动镜像」)。命令由主进程生成，这里只按工具 id 请求复制。 -->
-    <details class="setting-group" id="settingGroupActivityMirror">
-      <summary><span class="setting-group-title" data-icon="paw" data-i18n="伙伴跟着你">伙伴跟着你</span></summary>
-    <div class="setting-row">
+<section class="settings-subsection" id="settingGroupActivityMirror"><h3 class="settings-subtitle" data-i18n="活动跟随">活动跟随</h3>
+<div class="setting-row">
       <div class="setting-label-with-help"><label id="activityMirrorLabel" data-i18n="跟着当前活动">跟着当前活动</label><details class="inline-help"><summary aria-label="了解跟着当前活动" data-i18n-aria-label="了解跟着当前活动">?</summary><p data-i18n="在本机查看最前面的应用和正在出声的音乐播放器，伙伴换成听音乐、写代码或和 AI 对话的姿势。不读取窗口标题、歌名或对话内容，不保存，也不发送。">在本机查看最前面的应用和正在出声的音乐播放器，伙伴换成听音乐、写代码或和 AI 对话的姿势。不读取窗口标题、歌名或对话内容，不保存，也不发送。</p></details></div>
       <div class="toggle-group" role="group" aria-labelledby="activityMirrorLabel"><button type="button" class="toggle-btn" id="activityMirrorToggle" aria-label="跟着当前活动" aria-pressed="false" data-i18n-aria-label="跟着当前活动">关</button></div>
     </div>
@@ -573,10 +574,12 @@
       <p class="setting-note" data-i18n="在你用的 AI 工具里装上随附的 bubu-companion 插件，提问和回答时伙伴会立刻切到“和 AI 对话”。插件只通知“提问了 / 回答完了”，不带提问、回答或文件内容；收到过信号的工具会在这里显示。">在你用的 AI 工具里装上随附的 bubu-companion 插件，提问和回答时伙伴会立刻切到“和 AI 对话”。插件只通知“提问了 / 回答完了”，不带提问、回答或文件内容；收到过信号的工具会在这里显示。</p>
       <div class="activity-hook-list" id="activityHookList"></div>
     </div>
+</section>
     </details>
 
     <details class="setting-group" id="settingGroupWorkHours">
-      <summary><span class="setting-group-title" data-icon="clock" data-i18n="时间与节奏">时间与节奏</span></summary><h3 class="settings-subtitle" data-i18n="一天的作息">一天的作息</h3>
+      <summary><span class="setting-group-title" data-icon="clock" data-i18n="专注与节奏">专注与节奏</span></summary>
+<div class="settings-subheading"><h3 class="settings-subtitle" data-i18n="一天的作息">一天的作息</h3><details class="inline-help"><summary aria-label="工作时间用在哪" data-i18n-aria-label="工作时间用在哪">?</summary><p data-i18n="能量曲线、宠物台词、喝水/站立提醒都按这个区间走；">能量曲线、宠物台词、喝水/站立提醒都按这个区间走；</p><p data-i18n="非工作时间不会唠叨，下班点会提醒收工。">非工作时间不会唠叨，下班点会提醒收工。</p></details></div>
     <div class="setting-row">
       <label id="workStartLabel" data-i18n="上班时间">上班时间</label>
       <div class="stepper" role="group" aria-labelledby="workStartLabel">
@@ -612,10 +615,7 @@
         <button type="button" class="chip ttl-set-chip" data-ttl-set="72" aria-pressed="false" data-i18n="72 小时">72 小时</button>
       </div>
     </div>
-    <details class="setting-tip ai-advanced"><summary data-i18n-text="工作时间用在哪">工作时间用在哪 <span aria-hidden="true">ⓘ</span></summary><div class="tip-body">
-        <span data-i18n="能量曲线、宠物台词、喝水/站立提醒都按这个区间走；">能量曲线、宠物台词、喝水/站立提醒都按这个区间走；</span><br>
-        <span data-i18n="非工作时间不会唠叨，下班点会提醒收工。">非工作时间不会唠叨，下班点会提醒收工。</span>
-      </div></details>
+    
 
     <h3 class="settings-subtitle" id="settingGroupTiming" data-i18n="专注与休息">专注与休息</h3>
     <div class="setting-row">
@@ -654,15 +654,34 @@
         <span class="unit" data-i18n="分钟">分钟</span>
       </div>
     </div>
-
+<section class="settings-subsection" id="settingGroupAssist"><h3 class="settings-subtitle" data-icon="accessibility" data-i18n="本地辅助">本地辅助</h3>
+<div class="setting-row">
+      <label id="strategyGuidanceLabel" data-i18n="本地策略建议">本地策略建议</label>
+      <div class="toggle-group" role="group" aria-labelledby="strategyGuidanceLabel">
+        <button type="button" class="toggle-btn" data-toggle="strategyGuidanceEnabled" aria-label="本地策略建议" aria-pressed="true" data-i18n-aria-label="本地策略建议">开</button>
+      </div>
+    </div>
+    <div class="setting-row">
+      <label id="dailyReviewLabel" data-i18n="收尾与启动回顾">收尾与启动回顾</label>
+      <div class="toggle-group" role="group" aria-labelledby="dailyReviewLabel">
+        <button type="button" class="toggle-btn" data-toggle="dailyReviewEnabled" aria-label="收尾与启动回顾" aria-pressed="true" data-i18n-aria-label="收尾与启动回顾">开</button>
+      </div>
+    </div>
+</section>
     </details>
 
     <details class="setting-group" id="settingGroupNudges">
       <summary><span class="setting-group-title" data-icon="bell" data-i18n="提醒与免打扰">提醒与免打扰</span></summary>
-    <div class="setting-row">
+<div class="setting-row">
       <label id="dndLabel" data-i18n="免打扰模式">免打扰模式</label>
       <div class="toggle-group" role="group" aria-labelledby="dndLabel">
         <button type="button" class="toggle-btn" data-toggle="dnd" aria-label="免打扰模式" aria-pressed="false" data-i18n-aria-label="免打扰模式">关</button>
+      </div>
+    </div>
+<div class="setting-row">
+      <label id="soundEnabledLabel" data-i18n="提醒声音">提醒声音</label>
+      <div class="toggle-group" role="group" aria-labelledby="soundEnabledLabel">
+        <button type="button" class="toggle-btn" data-toggle="soundEnabled" aria-label="提醒声音" aria-pressed="true" data-i18n-aria-label="提醒声音">开</button>
       </div>
     </div>
     <div class="setting-row">
@@ -673,7 +692,8 @@
         <button type="button" class="chip char-chip" data-char="robot" aria-pressed="false">BEEP</button>
       </div>
     </div>
-    <div class="setting-row">
+    <div class="settings-subheading"><h3 class="settings-subtitle" data-i18n="提醒等级">提醒等级</h3><details class="inline-help"><summary aria-label="提醒等级说明" data-i18n-aria-label="提醒等级说明">?</summary><p><b>L1</b> <span data-i18n="日常由桌宠提示；计时到点等使用系统通知">日常由桌宠提示；计时到点等使用系统通知</span></p><p><b>L2</b> <span data-i18n="屏幕右下角像素角色浮现（60 秒后）">屏幕右下角像素角色浮现（60 秒后）</span></p><p><b>L3</b> <span data-i18n="四角角色向中心聚集（再过 90 秒）">四角角色向中心聚集（再过 90 秒）</span></p><p><b>L4</b> <span data-i18n="半屏遮罩强提醒（再过 60 秒）">半屏遮罩强提醒（再过 60 秒）</span></p><p data-i18n="点角色可关闭；L2/L3 可按 ⌥⇧N 进入键盘操作，再用 Tab 选择、Esc 关闭。低刺激模式不会做四角聚拢，免打扰模式完全静默。">点角色可关闭；L2/L3 可按 ⌥⇧N 进入键盘操作，再用 Tab 选择、Esc 关闭。低刺激模式不会做四角聚拢，免打扰模式完全静默。</p></details></div>
+<div class="setting-row">
       <label id="focusMaxLevelLabel" data-i18n="专注中最高提醒">专注中最高提醒</label>
       <div class="stepper" role="group" aria-labelledby="focusMaxLevelLabel">
         <button type="button" class="pixel-btn btn-mini" data-setting="focusMaxLevel" data-delta="-1" aria-label="专注中最高提醒降低 1 级" aria-describedby="setFocusLvl" data-i18n-aria-label="专注中最高提醒降低 1 级">−</button>
@@ -710,61 +730,13 @@
       </div>
     </div>
 
-    <details class="setting-tip ai-advanced"><summary data-i18n-text="提醒等级说明">提醒等级说明 <span aria-hidden="true">ⓘ</span></summary><div class="tip-body">
-        <b>L1</b> <span data-i18n="日常由桌宠提示；计时到点等使用系统通知">日常由桌宠提示；计时到点等使用系统通知</span><br>
-        <b>L2</b> <span data-i18n="屏幕右下角像素角色浮现（60 秒后）">屏幕右下角像素角色浮现（60 秒后）</span><br>
-        <b>L3</b> <span data-i18n="四角角色向中心聚集（再过 90 秒）">四角角色向中心聚集（再过 90 秒）</span><br>
-        <b>L4</b> <span data-i18n="半屏遮罩强提醒（再过 60 秒）">半屏遮罩强提醒（再过 60 秒）</span><br>
-        <span data-i18n="点角色可关闭；L2/L3 可按 ⌥⇧N 进入键盘操作，再用 Tab 选择、Esc 关闭。低刺激模式不会做四角聚拢，免打扰模式完全静默。">点角色可关闭；L2/L3 可按 ⌥⇧N 进入键盘操作，再用 Tab 选择、Esc 关闭。低刺激模式不会做四角聚拢，免打扰模式完全静默。</span>
-      </div></details>
-
+    
     </details>
 
-    <!-- 快捷键这一组写的是「实际按下去有用的那个组合」,不是你填过的那个。绑定是一
-         道阶梯:配置的组合被别的程序占着时会自动退到内置候选,所以界面上永远有两
-         行 —— 录制键显示你的配置值,下面那句说现在真正生效的是哪一个。两者不一致
-         时也不改配置:占用的程序关掉以后,你本来想要的组合会自己回来。 -->
-  <details class="setting-group" id="settingGroupAssist">
-      <summary><span class="setting-group-title" data-icon="accessibility" data-i18n="辅助能力">辅助能力</span></summary>
-    <div class="setting-row">
-      <label id="strategyGuidanceLabel" data-i18n="本地策略建议">本地策略建议</label>
-      <div class="toggle-group" role="group" aria-labelledby="strategyGuidanceLabel">
-        <button type="button" class="toggle-btn" data-toggle="strategyGuidanceEnabled" aria-label="本地策略建议" aria-pressed="true" data-i18n-aria-label="本地策略建议">开</button>
-      </div>
-    </div>
-    <div class="setting-row">
-      <label id="dailyReviewLabel" data-i18n="收尾与启动回顾">收尾与启动回顾</label>
-      <div class="toggle-group" role="group" aria-labelledby="dailyReviewLabel">
-        <button type="button" class="toggle-btn" data-toggle="dailyReviewEnabled" aria-label="收尾与启动回顾" aria-pressed="true" data-i18n-aria-label="收尾与启动回顾">开</button>
-      </div>
-    </div>
-    <section class="settings-subsection" id="settingGroupShortcuts">
-      <h3 class="settings-subtitle" data-icon="keyboard" data-i18n="快捷键">快捷键</h3>
-    <div class="setting-row">
-      <label id="quickPanelEnabledLabel" data-i18n="闪念快捷键">闪念快捷键</label>
-      <div class="toggle-group" role="group" aria-labelledby="quickPanelEnabledLabel">
-        <button type="button" class="toggle-btn" data-toggle="quickPanelEnabled" aria-label="闪念快捷键" aria-pressed="true" data-i18n-aria-label="闪念快捷键">开</button>
-      </div>
-    </div>
-    <div class="setting-row col">
-      <!-- label 用 aria-labelledby 而不是 for:for 指向 button 不成立。把标签和按钮自己
-           串起来念成「组合键 ⌥⇧Space」,如果改用 aria-label,可见的那个组合反而会被读屏
-           忽略 —— 而那串字正是这个控件当前的值。 -->
-      <label id="quickPanelRecorderLabel" data-i18n="组合键">组合键</label>
-      <button type="button" class="pixel-input shortcut-recorder" id="quickPanelRecorder" aria-labelledby="quickPanelRecorderLabel quickPanelRecorder" aria-describedby="quickPanelEffective" aria-pressed="false">⌥⇧Space</button>
-      <p class="capability-note" id="quickPanelEffective" aria-live="polite">正在读取生效的组合…</p>
-    </div>
-    </section>
-
-
-    </details>
-
-    <!-- 能量曲线（ARCHITECTURE「日常与能量」）。开关不是可选项：一条量化自己状态的曲线会让一部分人
-         更焦虑，关掉之后今天页和 timeline 两处都不画。重置校准放在同一组里，因为
-         「别画了」和「画的不像我」是同一件事的两种答案。 -->
-    <details class="setting-group" id="settingGroupEnergy">
-      <summary><span class="setting-group-title" data-icon="bolt" data-i18n="能量曲线">能量曲线</span></summary>
-    <div class="setting-row">
+    <details class="setting-group planning-controls" id="settingGroupPlanning">
+      <summary><span class="setting-group-title" data-icon="calendar" data-i18n="安排与能量">安排与能量</span></summary>
+<section class="settings-subsection" id="settingGroupEnergy"><h3 class="settings-subtitle" data-i18n="能量曲线">能量曲线</h3>
+<div class="setting-row">
       <label id="energyCurveLabel" data-i18n="显示能量曲线">显示能量曲线</label>
       <div class="toggle-group" role="group" aria-labelledby="energyCurveLabel">
         <button type="button" class="toggle-btn" data-toggle="energyCurveEnabled" aria-label="显示能量曲线" aria-pressed="true" data-i18n-aria-label="显示能量曲线">开</button>
@@ -776,11 +748,8 @@
     </div>
     <p class="capability-note" id="energyCalibrationStatus"></p>
     <p class="capability-note" id="energyCalibrationFeedback" role="status" aria-live="polite"></p>
-    </details>
+</section>
 
-    <details class="setting-group planning-controls" id="settingGroupPlanning">
-      <summary><span class="setting-group-title" data-icon="calendar" data-i18n="安排偏好与曲线试用">安排偏好与曲线试用</span></summary>
-      <p class="capability-note" data-i18n="每项修改单独预览、确认。">每项修改单独预览、确认。</p>
       <p class="capability-note" id="planningStatus" role="status" aria-live="polite"></p>
       <button type="button" class="chip chip-action" id="planningRefresh" data-i18n="重新读取">重新读取</button>
       <section class="settings-subsection" aria-labelledby="planningPreferenceTitle">
@@ -807,9 +776,9 @@
         <p class="capability-note" id="planningCoverage"></p>
       </section>
       <section class="settings-subsection" aria-labelledby="planningTrialTitle">
-        <h3 class="settings-subtitle" id="planningTrialTitle" data-i18n="曲线试用">曲线试用</h3>
+        <div class="settings-subheading"><h3 class="settings-subtitle" id="planningTrialTitle" data-i18n="曲线试用">曲线试用</h3><details class="inline-help"><summary aria-label="试用条件与范围" data-i18n-aria-label="试用条件与范围">?</summary><p data-i18n="至少 10 条自评、覆盖 7 个日期且跨度满 7 天。每次只调整一个参数，幅度不超过可编辑范围的 2%；可在保存前比较曲线。">至少 10 条自评、覆盖 7 个日期且跨度满 7 天。每次只调整一个参数，幅度不超过可编辑范围的 2%；可在保存前比较曲线。</p></details></div>
         <p class="capability-note" data-i18n="曲线是非医学日常估计，试用效果尚待观察。">曲线是非医学日常估计，试用效果尚待观察。</p>
-        <details class="ai-advanced"><summary data-i18n="试用条件与范围">试用条件与范围</summary><p class="capability-note" data-i18n="至少 10 条自评、覆盖 7 个日期且跨度满 7 天。每次只调整一个参数，幅度不超过可编辑范围的 2%；可在保存前比较曲线。">至少 10 条自评、覆盖 7 个日期且跨度满 7 天。每次只调整一个参数，幅度不超过可编辑范围的 2%；可在保存前比较曲线。</p></details>
+        
         <p class="capability-note" id="planningTrialStatus"></p>
         <form id="planningTrialForm" class="planning-form">
           <label for="planningTrialParameter" data-i18n="参数">参数</label><select id="planningTrialParameter"><option value="chronotypeShift" data-i18n="曲线时段偏移">曲线时段偏移</option><option value="morningRampMinutes" data-i18n="上午上升时长">上午上升时长</option></select>
@@ -828,24 +797,6 @@
       </section>
     </details>
 
-    <!-- AI 总开关控制出网；闪念能量判断另有默认关闭的细分授权。 -->
-    <details class="setting-group" id="appUpdateGroup">
-      <summary><span class="setting-group-title" data-i18n="应用更新">应用更新</span></summary>
-      <p id="appUpdateVersion" class="capability-note"></p>
-      <p id="appUpdateStatus" role="status" class="capability-note"></p>
-      <div class="setting-row"><label for="appUpdateAuto" data-i18n="自动检查更新">自动检查更新</label><input type="checkbox" id="appUpdateAuto" style="accent-color:var(--primary);width:16px;height:16px"></div>
-      <div class="ai-save-row">
-        <button type="button" class="pixel-btn" id="appUpdateCheck" data-i18n="检查更新">检查更新</button>
-        <button type="button" class="pixel-btn" id="appUpdateDownload" hidden data-i18n="下载">下载</button>
-        <button type="button" class="pixel-btn" id="appUpdateCancel" hidden data-i18n="取消下载">取消下载</button>
-        <button type="button" class="pixel-btn" id="appUpdateInstall" hidden data-i18n="重启更新">重启更新</button>
-      </div>
-      <div id="appUpdateConfirm" hidden>
-        <p data-i18n="重启前，请先保存尚未提交的输入。现在重启？">重启前，请先保存尚未提交的输入。现在重启？</p>
-        <button type="button" class="pixel-btn" id="appUpdateConfirmNo" data-i18n="暂不重启">暂不重启</button>
-        <button type="button" class="pixel-btn" id="appUpdateConfirmYes" data-i18n="重启安装">重启安装</button>
-      </div>
-    </details>
     <details class="setting-group" id="settingGroupAi">
       <summary><span class="setting-group-title" data-icon="sparkle" data-i18n="AI 助手">AI 助手</span></summary>
     <p class="ai-mode-badge" id="aiActiveMode" role="status" aria-live="polite"></p>
@@ -860,7 +811,9 @@
       <div class="setting-row col"><label for="aiModelInput" data-i18n="模型名称">模型名称</label><input type="text" id="aiModelInput" class="pixel-input" maxlength="80" autocomplete="off" spellcheck="false" placeholder="输入服务商的模型名称" data-i18n-placeholder="输入服务商的模型名称"></div>
       <div class="setting-row col"><div class="setting-label-with-help"><label for="aiBaseUrlInput" data-i18n="服务地址">服务地址</label><details class="inline-help"><summary aria-label="了解服务地址" data-i18n-aria-label="了解服务地址">?</summary><p data-i18n="使用 OpenAI 兼容接口。填 HTTPS 地址，留空使用官方默认地址。">使用 OpenAI 兼容接口。填 HTTPS 地址，留空使用官方默认地址。</p></details></div><input type="url" id="aiBaseUrlInput" class="pixel-input" maxlength="200" autocomplete="off" spellcheck="false" placeholder="https://api.openai.com/v1"><span id="aiBaseUrlHint" class="sr-only" data-i18n="OpenAI 兼容 HTTPS 接口">OpenAI 兼容 HTTPS 接口</span></div>
       <div class="setting-row col"><label for="aiApiKeyInput" data-i18n-text="API 密钥">API 密钥 <span id="aiCredentialState"></span></label><input type="password" id="aiApiKeyInput" class="pixel-input" maxlength="4096" autocomplete="off" spellcheck="false" placeholder="留空保留已保存密钥" data-i18n-placeholder="留空保留已保存密钥"><span id="aiApiKeyHint" class="sr-only" data-i18n="密钥保存在系统安全存储，保存后不回显。">密钥保存在系统安全存储，保存后不回显。</span></div>
-      <div class="ai-save-row"><button type="button" class="pixel-btn btn-focus" id="aiSaveConfig">保存配置</button><span id="aiConfigStatus" role="status" aria-live="polite">已保存</span></div>
+      <div class="ai-save-row"><button type="button" class="pixel-btn btn-focus" id="aiSaveConfig">保存配置</button><div class="ai-test-action"><button type="button" class="pixel-btn" id="aiTestConnection">测试连接</button><details class="inline-help"><summary aria-label="连接测试说明" data-i18n-aria-label="连接测试说明">?</summary><p data-i18n="测试当前输入，不保存配置；仅发送固定测试文字，可能产生少量费用。">测试当前输入，不保存配置；仅发送固定测试文字，可能产生少量费用。</p></details></div></div>
+      <p id="aiConfigStatus" role="status" aria-live="polite"></p>
+      <p id="aiConnectionTestStatus" role="status" aria-live="polite"></p>
       <p class="capability-note" id="aiKeyFeedback" role="status" aria-live="polite"></p>
       <details class="ai-advanced"><summary data-i18n="密钥管理">密钥管理</summary><div class="chip-row"><button type="button" class="chip" id="aiImportCredential" data-i18n="从环境变量导入">从环境变量导入</button><button type="button" class="chip" id="aiClearCredential" data-i18n="清除密钥">清除密钥</button></div></details>
     </div>
@@ -921,7 +874,25 @@
     </section>
     </details>
 
-    <div class="version" data-i18n="小步 v0.0.1-dev">小步 v0.0.1-dev</div>
+    <details class="setting-group" id="appUpdateGroup">
+      <summary><span class="setting-group-title" data-icon="sync" data-i18n="应用更新">应用更新</span></summary>
+      <p id="appUpdateVersion" class="capability-note"></p>
+      <p id="appUpdateStatus" role="status" class="capability-note"></p>
+      <div class="setting-row"><label for="appUpdateAuto" data-i18n="自动检查更新">自动检查更新</label><input type="checkbox" id="appUpdateAuto" style="accent-color:var(--primary);width:16px;height:16px"></div>
+      <div class="ai-save-row">
+        <button type="button" class="pixel-btn" id="appUpdateCheck" data-i18n="检查更新">检查更新</button>
+        <button type="button" class="pixel-btn" id="appUpdateDownload" hidden data-i18n="下载">下载</button>
+        <button type="button" class="pixel-btn" id="appUpdateCancel" hidden data-i18n="取消下载">取消下载</button>
+        <button type="button" class="pixel-btn" id="appUpdateInstall" hidden data-i18n="重启更新">重启更新</button>
+      </div>
+      <div id="appUpdateConfirm" hidden>
+        <p data-i18n="重启前，请先保存尚未提交的输入。现在重启？">重启前，请先保存尚未提交的输入。现在重启？</p>
+        <button type="button" class="pixel-btn" id="appUpdateConfirmNo" data-i18n="暂不重启">暂不重启</button>
+        <button type="button" class="pixel-btn" id="appUpdateConfirmYes" data-i18n="重启安装">重启安装</button>
+      </div>
+    </details>
+
+    <div class="version" data-i18n="小步 v0.0.2-dev.1">小步 v0.0.2-dev.1</div>
     </div>
   </section>
   </div>

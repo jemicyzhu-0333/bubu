@@ -11,7 +11,7 @@ jobs:
   package:
     name: ${{ matrix.platform }}-${{ matrix.arch }}
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 30
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
@@ -53,6 +53,18 @@ jobs:
         run: node --test test/build-app.test.js test/build-dependency-security.test.js test/build-schema.test.js
       - name: Build test installer without publishing
         run: npm run build:${{ matrix.platform }} -- --${{ matrix.arch }}
+      - name: Verify NSIS first launch, reopen and explicit profile upgrade
+        if: matrix.platform == 'win'
+        timeout-minutes: 12
+        run: npm run verify:win-install
+      - name: Store allowlisted Windows startup failure diagnostic
+        if: failure() && matrix.platform == 'win'
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-startup-diagnostic-${{ github.sha }}
+          path: dist/windows-install-diagnostic.json
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Verify macOS bundle architecture and package identity
         if: matrix.platform == 'mac'
         run: npm run verify:mac-app
@@ -61,7 +73,8 @@ jobs:
         run: |
           /usr/bin/codesign --display --verbose=4 "dist/mac-arm64/小步.app"
           /usr/bin/codesign --display --entitlements :- "dist/mac-arm64/小步.app"
-      - name: Verify macOS DMG copy, code integrity and disposable-profile launch
+      - name: Verify macOS DMG first launch, preservation and explicit profile upgrade
+        timeout-minutes: 12
         if: matrix.platform == 'mac'
         run: npm run verify:mac-install
       - name: Store allowlisted macOS startup failure diagnostic

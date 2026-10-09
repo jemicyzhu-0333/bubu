@@ -104,7 +104,7 @@ function validateProbe({ filePath, identityPath, io, driver, makeHandle, prepare
       if (startup) verifyEvidence(handle, identity);
     } finally { handle.close(); }
   }
-  if (startup) { validateCurrent(startup); return null; }
+  if (startup) { validateCurrent(startup, identity); return null; }
   if (identity.phase !== 'INITIALIZING') throw fail('config-authority-uninitialized');
   const initial = prepareInitial();
   if (initial.source.exists !== identity.sourceExists || initial.source.hash !== identity.sourceHash
@@ -113,7 +113,7 @@ function validateProbe({ filePath, identityPath, io, driver, makeHandle, prepare
   return initial;
 }
 
-function admitFreshDirectory(io, directory) {
+function admitFreshDirectory(io, directory, platform) {
   const current = stat(io, directory);
   if (!current) return;
   if (!current.isDirectory()) throw fail('config-admission-file-invalid');
@@ -122,19 +122,28 @@ function admitFreshDirectory(io, directory) {
   // The application already owns its instance lock. Missing authority files in
   // any other nonempty directory are not permission to create replacement data.
   const lockNames = ['SingletonLock', 'SingletonCookie', 'SingletonSocket'];
-  if (names.some(name => !lockNames.includes(name))) {
+  // Chromium's Windows singleton holds an empty, delete-on-close `lockfile`
+  // instead of the POSIX Singleton entries. Never treat arbitrary contents,
+  // directories or symlinks with that name as a runtime lock.
+  const isRuntimeLock = name => {
+    if (lockNames.includes(name)) return true;
+    if (platform !== 'win32' || name !== 'lockfile') return false;
+    const member = stat(io, path.join(directory, name));
+    return member?.isFile() === true && member.size === 0n;
+  };
+  if (names.some(name => !isRuntimeLock(name))) {
     const error = fail('config-profile-brand-required');
     error.message += ': Select a new empty profile directory for bubu; this directory contains unbound data.';
     throw error;
   }
 }
 
-function admitConfigCopy({ filePath, identityPath, io = fs, prepareInitial, validateCurrent }, { driver, makeHandle, verifyPermissions = verifyProbePermissions }) {
+function admitConfigCopy({ filePath, identityPath, io = fs, prepareInitial, validateCurrent }, { driver, makeHandle, verifyPermissions = verifyProbePermissions, platform = process.platform }) {
   const members = [filePath, identityPath].flatMap((source, index) => suffixes.map(suffix => ({
     source: source + suffix, index, suffix, stat: regular(io, source + suffix)
   })));
   if (!members.some(member => member.stat)) {
-    for (const directory of new Set([path.dirname(filePath), path.dirname(identityPath)])) admitFreshDirectory(io, directory);
+    for (const directory of new Set([path.dirname(filePath), path.dirname(identityPath)])) admitFreshDirectory(io, directory, platform);
     return null;
   }
   const bytes = members.reduce((total, member) => total + (member.stat?.size || 0n), 0n);

@@ -382,7 +382,9 @@
   .bd-step,.task-option-group { box-shadow: none; border: 0; border-radius: var(--radius); background: var(--bg-1); }
   .bd-step-input { font: inherit; font-size: 14px; line-height: 1.55; color: var(--fg-0); background: transparent; resize: vertical; white-space: pre-wrap; overflow-wrap: anywhere; }
   .inline-help { display: inline-block; position: static; }
-  .inline-help > summary { display: inline-grid; place-items: center; width: 24px; height: 24px; border: 1px solid var(--line-strong); border-radius: 50%; color: var(--fg-2); font-size: 12px; list-style: none; }
+  .inline-help > summary { display: inline-grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 4px; color: var(--fg-2); font-size: 0; list-style: none; cursor: pointer; }
+  .inline-help > summary::before { content: "?"; display: grid; place-items: center; box-sizing: border-box; width: 14px; height: 14px; border: 1px solid var(--line-strong); border-radius: 50%; font-size: 11px; line-height: 1; font-weight: 500; }
+  .inline-help > summary:hover::before { color: var(--fg-0); border-color: var(--fg-2); }
   .inline-help[open] { display: inline-block; }
   .inline-help > p { display: none; }
   .inline-help > summary::-webkit-details-marker { display: none; }
@@ -405,6 +407,13 @@
   .setting-label-with-help { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; min-width: 0; }
   .setting-label-with-help .inline-help[open] { flex-basis: auto; }
   .settings-subtitle,.ai-section-label { font-size: 12px; font-weight: 500; color: var(--fg-2); margin: 20px 0 4px; }
+  .settings-subheading { display: flex; align-items: center; gap: 4px; margin: 20px 0 4px; }
+  .settings-subheading > .settings-subtitle { margin: 0; }
+  .ai-test-action { display: inline-flex; align-items: center; gap: 2px; }
+  #aiConnectionTestStatus { font-size: 12px; color: var(--fg-2); margin: 4px 0 8px; }
+  #aiConnectionTestStatus[data-state="error"] { color: var(--danger); }
+  #aiConnectionTestStatus[data-state="success"] { color: var(--fg-1); }
+  :is(#settingsSaveStatus,#aiConfigStatus,#aiConnectionTestStatus):empty { display: none; }
   .ai-connection-fields { display: grid; gap: 0; min-width: 0; }
   .ai-connection-fields .setting-row { border: 0; padding: 10px 0; }
   .ai-save-row { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; padding: 12px 0 4px; }

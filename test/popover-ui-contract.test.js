@@ -132,7 +132,7 @@ const breakdownFeatureJs = feature('features/breakdown.js');
 const layersCss = feature('styles/layers.css');
 
 function settingGroupSource(id) {
-  const start = html.indexOf(`<details class="setting-group" id="${id}">`);
+  const start = html.search(new RegExp(`<details class="[^\"]*\\bsetting-group\\b[^\"]*" id="${id}">`));
   assert.notEqual(start, -1, `missing setting group ${id}`);
   let depth = 0;
   for (const match of html.slice(start).matchAll(/<\/?details\b[^>]*>/g)) {
@@ -196,7 +196,7 @@ test('0.1.2 strategy, AI, review, history, and recurrence controls are wired end
 test('the energy curve has a switch that turns it off and a way to discard what it learned', () => {
   // ARCHITECTURE「日常与能量」: 「这个开关不是可选项」—— a curve that quantifies your own state makes
   // some people more anxious, and there has to be somewhere to turn it off.
-  const group = settingGroupSource('settingGroupEnergy');
+  const group = settingGroupSource('settingGroupPlanning');
   assert.match(group, /data-toggle="energyCurveEnabled"/);
   assert.match(group, /id="btnResetEnergyCalibration"/);
   assert.match(group, /id="energyCalibrationStatus"/);
