@@ -32,11 +32,11 @@
 ## 下载与开发版本
 
 - [项目网站](https://jemicyzhu-0333.github.io/bubu/)提供功能介绍与当前下载提示。
-- **最新已发布测试包（更名前）**：[v0.0.1-dev-r3](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r3) 提供提交 `8b53043` 构建的 Windows x64 与 macOS ARM64 包。现有安装包及文件名仍使用原名 I'm ADHDer，尚未重新构建或改称为小步安装包。应用版本仍为 `0.0.1-dev`，`r3` 用于区分该次测试发布。下载 Mac 包前请先阅读下方限制。
-- **历史版本**：[r2](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r2) 与 [v0.0.1-dev](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev) 保留作历史记录；请勿安装初版 v0.0.1-dev 中已报告“已损坏”的旧 Mac 包。
+- **当前小步测试包**：[v0.0.1-dev-r4](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r4) 提供提交 `df3242a` 构建的 Windows x64 与 macOS ARM64 包，安装包已使用小步 / bubu 名称。应用版本仍为 `0.0.1-dev`，`r4` 用于区分本次测试发布。下载 Mac 包前请先阅读下方限制。
+- **历史版本**：[r3](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r3)、[r2](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r2) 与 [v0.0.1-dev](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev) 保留作历史记录；请勿安装初版 v0.0.1-dev 中已报告“已损坏”的旧 Mac 包。
 - 新测试包来自手动 [Build Windows and macOS (test)](https://github.com/jemicyzhu-0333/bubu/actions/workflows/build-desktop.yml) 工作流，面向 **Windows x64** 和 **macOS ARM64**。成功运行后可在保留期内下载 artifact，GitHub 可能要求登录；请核对运行的分支与提交。工作流不会创建 Release。
 
-Windows 测试包未签名；Mac 测试包采用 **ad-hoc 本地签名**，没有 Apple Developer ID 签名或公证。已发布的 r3 Mac 包通过了严格代码签名校验、DMG 安装副本在隔离档案下直接启动及 SQLite 持久化 CI，但 Gatekeeper 分发评估拒绝了该包。这是旧构建的证据，更名后的 bubu 二进制仍需单独原生验证，也不能据此保证浏览器下载后正常双击打开。请勿关闭 Gatekeeper 或移除隔离标记来安装。
+Windows 测试包未签名；Mac 测试包采用 **ad-hoc 本地签名**，没有 Apple Developer ID 签名或公证。已发布的 r4 Mac 包通过了严格代码签名校验、DMG 安装副本在隔离档案下直接启动及 SQLite 持久化 CI，但 Gatekeeper 分发评估拒绝了该包。这些检查不能保证浏览器下载后正常双击打开。请勿关闭 Gatekeeper 或移除隔离标记来安装。
 
 从更名后源码构建的 Mac 应用名为 `小步.app`；旧的 `I’m ADHDer.app` 可能继续与它并存，直至你自行移除旧副本。新构建使用全新的 bubu 应用与凭据身份，默认从空测试档案开始。旧测试应用、数据目录和凭据保持原样，不会自动导入、迁移或删除。请在新档案中重新配置 AI 凭据；新应用身份或变化后的 ad-hoc 签名二进制可能触发 macOS 钥匙串提示。
 

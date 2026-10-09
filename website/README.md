@@ -37,9 +37,9 @@ The intended project URL after renaming the repository is `https://jemicyzhu-033
 
 ## Downloads and current caution
 
-Links target the existing `v0.0.1-dev-r3` Windows x64 and macOS Apple silicon release assets from commit `8b53043`. They predate the bubu rename and still contain the former I'm ADHDer branding and exact historical filenames. Do not invent bubu-named downloads or relabel those binaries. Repository URLs use `/bubu/` after the repository rename; verify the resulting release links before publishing. The app's internal version remains `0.0.1-dev`; r3 identifies this release revision. These are test builds with manual downloads, not a stable release or an in-app update channel. Windows is unsigned and may trigger SmartScreen.
+Links target the published `v0.0.1-dev-r4` Windows x64 and macOS Apple silicon release assets from commit `df3242a`: `bubu-0.0.1-dev-win-x64.exe`, `bubu-0.0.1-dev-mac-arm64-adhoc-test.dmg`, and `SHA256SUMS.txt`. These exact names and URLs come from the published release, not a rename of historical binaries. Earlier releases and their original filenames remain unchanged. The app's internal version remains `0.0.1-dev`; r4 identifies this release revision. These are test builds with manual downloads, not a stable release or an in-app update channel. Windows is unsigned and may trigger SmartScreen.
 
-The Mac r3 bundle is ad-hoc signed and not notarized. Its signature integrity and direct-launch checks passed in macOS CI, but Gatekeeper assessment with security policy enabled still rejects it. Keep the prominent bilingual restricted-test warning: direct launch validation does not establish normal downloaded-app installation. The original release is retained as history; its damaged-app report does not establish the status of r3.
+The Mac r4 bundle is ad-hoc signed and not notarized. Its signature integrity and direct-launch checks passed in macOS CI, but Gatekeeper assessment with security policy enabled still rejects it. Keep the prominent bilingual restricted-test warning: direct launch validation does not establish normal downloaded-app installation. The original release is retained as history; its damaged-app report does not establish the status of r4.
 
 ## Content and licensing
 
