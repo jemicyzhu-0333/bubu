@@ -96,7 +96,8 @@ function copySnapshot(directory) {
 // This is not a *.db exclusion: every pre-existing file remains byte/mtime exact.
 function isRuntimeAddition(name) {
   return name === 'Local State'
-    || /^GPUPersistentCache\/GPUCache\/[A-Z2-7]{32}\/(?:cache\.db(?:-wal)?|cache\.journal)$/.test(name);
+    || /^GPUPersistentCache\/(?:GPUCache|DawnGraphiteCache)\/[A-Z2-7]{32}\/(?:cache\.db(?:-wal)?|cache\.journal)$/.test(name)
+    || /^ShaderCache\/(?:data_[0-3]|index)$/.test(name);
 }
 function preservationEvidence(fixture) {
   const current = captureFiles(fixture.userDataPath);

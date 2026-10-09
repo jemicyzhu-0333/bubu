@@ -8,12 +8,15 @@ const { createUpgradeFixture, captureFiles, verifyUnchanged, verifyApproved, isR
 const { runUpgradeChild } = require('../scripts/verify-installed-upgrade');
 const { prepareConfigPreferencesUpgrade } = require('../src/platform/persistence/sqlite/sqlite-database');
 const CACHE = 'GPUPersistentCache/GPUCache/ZBVFTVEKBSX72Y7WF25TMOWFX3JUICO4/';
+const WINDOWS_CACHE = 'GPUPersistentCache/DawnGraphiteCache/JDILZQMYHSFMNNX7CM2QEGAFD2VTODWT/';
+const WINDOWS_ADDITIONS = [...['cache.db', 'cache.db-wal', 'cache.journal'].map(name => WINDOWS_CACHE + name),
+  ...['data_0', 'data_1', 'data_2', 'data_3', 'index'].map(name => 'ShaderCache/' + name)];
 function fixture(t) { const f = createUpgradeFixture(); t.after(() => fs.rmSync(f.root, { recursive: true, force: true })); return f; }
 function write(f, name, bytes = 'synthetic runtime') {
   const file = path.join(f.userDataPath, name); fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, bytes); return file;
 }
 test('known Electron additions preserve exact original seven files and remain in the verified backup', t => {
-  const f = fixture(t), names = ['Local State', ...['cache.db', 'cache.db-wal', 'cache.journal'].map(name => CACHE + name)];
+  const f = fixture(t), names = ['Local State', ...['cache.db', 'cache.db-wal', 'cache.journal'].map(name => CACHE + name), ...WINDOWS_ADDITIONS];
   for (const name of names) write(f, name);
   const proof = verifyUnchanged(f);
   assert.equal(proof.originals.length, 7); assert.equal(proof.originalFilesUnchanged, true);
@@ -32,13 +35,34 @@ test('runtime classification never applies to pre-existing files, including Loca
 for (const name of ['config.sqlite', 'config.sqlite-wal', 'config.sqlite-shm', 'config.sqlite.identity.sqlite',
   'config.sqlite.identity.sqlite-wal', 'config.sqlite.identity.sqlite-shm', 'nested/marker.bin']) {
   test(`recognized runtime additions cannot hide original mutation: ${name}`, t => {
-    const f = fixture(t); write(f, 'Local State'); write(f, name, 'changed');
+    const f = fixture(t); write(f, 'Local State');
+    for (const runtime of WINDOWS_ADDITIONS) write(f, runtime);
+    write(f, name, 'changed');
     assert.throws(() => verifyUnchanged(f), error => {
       const proof = error.preservationDiagnostic; assert.equal(proof.originalFilesUnchanged, false);
       assert.equal(proof.originals.find(item => item.path === name).bytesUnchanged, false); return true;
     });
   });
 }
+for (const name of [WINDOWS_CACHE + 'cache.db', 'ShaderCache/data_0']) {
+  test(`newly recognized Windows runtime names never exempt pre-existing bytes: ${name}`, t => {
+    const f = fixture(t); write(f, name, 'original runtime bytes'); f.before = captureFiles(f.userDataPath);
+    write(f, name, 'changed runtime bytes');
+    assert.throws(() => verifyUnchanged(f), /preserve source bytes and mtimes/);
+  });
+}
+test('observed Windows cache classification rejects neighboring names and arbitrary databases', () => {
+  for (const name of WINDOWS_ADDITIONS) assert.equal(isRuntimeAddition(name), true, name);
+  for (const name of [WINDOWS_CACHE + 'cache.db-shm', WINDOWS_CACHE + 'other.db', WINDOWS_CACHE + 'nested/cache.db',
+    'GPUPersistentCache/DawnGraphiteCache/not-a-reviewed-bucket/cache.db',
+    'GPUPersistentCache/DawnGraphiteCache/' + 'A'.repeat(31) + '/cache.db',
+    'GPUPersistentCache/DawnGraphiteCache/' + 'A'.repeat(33) + '/cache.db',
+    'GPUPersistentCache/DawnOtherCache/' + 'A'.repeat(32) + '/cache.db',
+    'ShaderCache/data_4', 'ShaderCache/data_00', 'ShaderCache/data_a', 'ShaderCache/index.db',
+    'ShaderCache/nested/index', 'ShaderCache/../config.sqlite', 'nested/ShaderCache/index', 'shadercache/index']) {
+    assert.equal(isRuntimeAddition(name), false, name);
+  }
+});
 test('runtime classifier is anchored to specific observed file names and directory shape', () => {
   for (const name of ['other.db', 'nested/Local State', CACHE + 'config.sqlite', CACHE + 'cache.db-shm',
     'GPUPersistentCache/GPUCache/arbitrary/cache.db', 'GPUPersistentCache/other/cache.db', CACHE + 'nested/cache.db']) {
