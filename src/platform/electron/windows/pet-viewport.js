@@ -1,7 +1,7 @@
 'use strict';
 const { planOpen } = require('../pet-menu-expansion');
 
-// Win32 transparent surfaces keep a stable backing store across menu toggles.
+// Windows and macOS transparent surfaces keep a stable backing store across menu toggles.
 // Public bounds remain the 220 DIP pet anchor, including persisted positions.
 function createPetViewport({ bounds, screen, size = { w: 520, h: 360 }, interval = setInterval, cancelInterval = clearInterval }) {
   let anchor = { ...bounds };

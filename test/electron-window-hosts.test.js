@@ -65,6 +65,7 @@ function createWindowHarness({ withShowInactive = true } = {}) {
       this.bounds = { ...this.bounds, ...bounds };
       this.calls.push(['setBounds', bounds, animate]);
     }
+    setIgnoreMouseEvents(value, options) { this.calls.push(['setIgnoreMouseEvents', value, options]); }
     setResizable(value) { this.calls.push(['setResizable', value]); }
     setFocusable(value) { this.focusable = value; this.calls.push(['setFocusable', value]); }
     setSkipTaskbar(value) { this.calls.push(['setSkipTaskbar', value]); }
@@ -412,4 +413,34 @@ test('all native popover hide events notify only its scoped renderer lifecycle',
     preloadPath: '/app/preload-popover.js', pagePath: '/app/popover.html' });
   harness.instances[0].emit('hide');
   assert.deepEqual(harness.instances[0].webContents.messages.at(-1), { channel: 'popover:hidden', payload: undefined });
+});
+
+for (const platform of ['darwin', 'win32']) test(`${platform} pet menus retain native bounds and logical anchor for 30 round trips`, () => {
+  const harness = createWindowHarness();
+  let cursor = { x: 1601, y: 801 };
+  const anchor = { x: 1600, y: 800, width: 220, height: 220 };
+  const screen = { getCursorScreenPoint: () => cursor, getDisplayNearestPoint: () => ({ workArea: { x: 0, y: 0, width: 1920, height: 1080 } }) };
+  const host = createPetWindowHost({ BrowserWindow: harness.BrowserWindow, platform, screen,
+    preloadPath: '/app/preload-pet.js', pagePath: '/app/pet.html', bounds: anchor });
+  const native = harness.instances[0], original = native.getBounds();
+  assertHardened(native, '/app/preload-pet.js', '/app/pet.html');
+  for (let i = 0; i < 30; i++) {
+    for (const open of [true, false]) {
+      const geo = host.setMenuOpen(open);
+      assert.deepEqual(native.getBounds(), original);
+      assert.deepEqual(host.getBounds(), anchor);
+      assert.equal(original.x + geo.width / 2 + geo.stageOffset.x, anchor.x + 110);
+      assert.equal(original.y + geo.height / 2 + geo.stageOffset.y, anchor.y + 110);
+    }
+  }
+  assert.equal(native.calls.some(call => ['setBounds', 'setResizable', 'setPosition', 'focus', 'setFocusable'].includes(call[0])), false);
+  cursor = { x: original.x + 1, y: original.y + 1 };
+  host.setMenuOpen(false); assert.equal(native.calls.at(-1)[1], true);
+  host.setMenuOpen(true); assert.equal(native.calls.at(-1)[1], false);
+  host.setMenuOpen(false); assert.equal(native.calls.at(-1)[1], true);
+  host.setPosition(1200, 650);
+  assert.deepEqual(host.getBounds(), { ...anchor, x: 1200, y: 650 });
+  host.setBounds({ x: 1100, y: 600, width: 220, height: 220 });
+  assert.deepEqual(host.getBounds(), { ...anchor, x: 1100, y: 600 });
+  native.emit('closed');
 });

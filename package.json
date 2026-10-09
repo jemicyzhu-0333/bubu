@@ -36,6 +36,7 @@
     "build": "node scripts/build-app.js",
     "pack": "node scripts/build-app.js --dir",
     "verify:mac-app": "node scripts/verify-macos-app.js",
+    "verify:pet-viewport": "electron scripts/verify-pet-viewport.cjs",
     "release:preflight": "node scripts/release-macos.js",
     "verify:mac-install": "node scripts/verify-macos-install.js",
     "release:mac": "npm run check && npm run make-icon && npm run native:build -- --arch=arm64 && node scripts/release-macos.js --build",

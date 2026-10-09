@@ -502,3 +502,32 @@ for (const action of ['command', 'food', 'timeout', 'cancel']) {
     assert.equal(h.w.timers.pending.size, 0);
   });
 }
+
+for (const opening of [true, false]) test(`superseded ${opening ? 'open' : 'close'} acknowledgement never paints stale geometry`, async t => {
+  const responses = [], calls = [];
+  let block = false;
+  const h = menuHarness(undefined, { pet_setMenuOpen: open => {
+    calls.push(open);
+    if (!block) return Promise.resolve({ width: open ? 520 : 220, height: open ? 360 : 220 });
+    const pending = deferred(); responses.push(pending); return pending.promise;
+  } });
+  t.after(() => h.menu.dispose());
+  if (!opening) await h.menu.toggle(true);
+  block = true;
+  const first = h.menu.toggle(opening);
+  await settle();
+  const latest = h.menu.toggle(!opening);
+  const before = h.w.trace.length;
+  responses[0].resolve({ width: 999, height: 777, stageOffset: { x: 130, y: 60 } });
+  await settle();
+  assert.equal(responses.length, 2, 'latest native intent is sent after the old acknowledgement');
+  assert.deepEqual(calls.slice(-2), [opening, !opening]);
+  assert.equal(h.w.trace.slice(before).some(row => row[0] === 'style'), false, 'stale geometry never reaches CSS');
+  assert.equal(h.w.trace.slice(before).some(row => row[0] === 'stage' && row[1] === 'toggle'), false);
+  assert.notEqual(h.menu.snapshot().lastStageGeo?.width, 999);
+  responses[1].resolve({ width: !opening ? 520 : 220, height: !opening ? 360 : 220, stageOffset: { x: 0, y: 0 } });
+  await Promise.all([first, latest]);
+  assert.equal(h.menu.snapshot().commandMenuOpen, !opening);
+  assert.equal(h.w.commandMenu.classList.contains('show'), !opening);
+  assert.equal(h.menu.snapshot().lastStageGeo.width, !opening ? 520 : 220);
+});

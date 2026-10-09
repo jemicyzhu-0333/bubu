@@ -16,7 +16,7 @@ function createPetWindowHost({
   platform = process.platform,
   screen = require('electron').screen
 }) {
-  const viewport = platform === 'win32' && screen?.getDisplayNearestPoint
+  const viewport = (platform === 'win32' || platform === 'darwin') && screen?.getDisplayNearestPoint
     ? createPetViewport({ bounds, screen }) : null;
   const host = createHardenedWindow({
     BrowserWindow,

@@ -31,7 +31,7 @@ for(const platform of ['windows','mac']){
  assert.equal(url,downloads[platform],`Unexpected ${platform} release link`);
 }
 assert(html.includes('id="mac-warning"'),'Mac restricted-test warning must remain.');
-assert(html.includes('Gatekeeper assessment with security policy enabled still rejects this build'),'Missing Gatekeeper limitation');
+assert(html.includes('Gatekeeper currently blocks normal installation.'),'Missing Gatekeeper limitation');
 assert(html.includes('Ad-hoc signed, not notarized'),'Missing Mac signing disclosure');
 assert(html.includes('Unsigned; Windows may show SmartScreen warnings.'),'Missing Windows signing disclosure');
 assert(html.includes('https://github.com/jemicyzhu-0333/im-adhder/releases/tag/v0.0.1-dev-r2'),'Missing current release notes');

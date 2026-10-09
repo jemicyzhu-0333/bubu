@@ -109,13 +109,17 @@ function createPetMenu({
     commandMenu.dataset.side = geo && geo.side === 'left' ? 'left' : 'right';
   }
 
+  function needsExpandedStage() {
+    return commandMenuOpen || Boolean(callbacks.isFoodMenuOpen?.()) || Boolean(isDevtoolsOpen());
+  }
+
   function syncStageExpansion() {
     if (disposed) return Promise.resolve(lastStageGeo);
     // Re-evaluate after the preceding native resize. An old open response must
     // never overwrite the geometry of a newer close (or menu -> food switch).
     expansionTask = expansionTask.catch(() => {}).then(async () => {
       if (disposed) return lastStageGeo;
-      const needExpanded = commandMenuOpen || Boolean(callbacks.isFoodMenuOpen?.()) || Boolean(isDevtoolsOpen());
+      const needExpanded = needsExpandedStage();
       if (needExpanded !== stageExpanded) {
         let geometry;
         try { geometry = await client.pet_setMenuOpen(needExpanded); }
@@ -124,9 +128,12 @@ function createPetMenu({
           throw error;
         }
         if (disposed) return lastStageGeo;
+        // Track the acknowledged native state so the queued request can undo it,
+        // but never paint geometry belonging to an intent that has been replaced.
+        stageExpanded = needExpanded;
+        if (needExpanded !== needsExpandedStage()) return lastStageGeo;
         lastStageGeo = geometry;
         applyStageGeometry(lastStageGeo);
-        stageExpanded = needExpanded;
         stage.classList.toggle('menu-open', needExpanded);
         publishState();
       }
