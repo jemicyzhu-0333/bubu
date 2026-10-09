@@ -32,8 +32,8 @@
 ## 下载与开发版本
 
 - [项目网站](https://jemicyzhu-0333.github.io/im-adhder/)提供功能介绍与当前下载提示。
-- **当前测试包**：[v0.0.1-dev-r2](https://github.com/jemicyzhu-0333/im-adhder/releases/tag/v0.0.1-dev-r2) 提供更新后的 `main` 源码构建的 Windows x64 与 macOS ARM64 包。应用版本仍为 `0.0.1-dev`，`r2` 用于区分本次重发的测试包。下载 Mac 包前请先阅读下方限制。
-- **历史初版**：[v0.0.1-dev](https://github.com/jemicyzhu-0333/im-adhder/releases/tag/v0.0.1-dev) 保留作历史记录；请勿安装其中已报告“已损坏”的旧 Mac 包。
+- **当前测试包**：[v0.0.1-dev-r3](https://github.com/jemicyzhu-0333/im-adhder/releases/tag/v0.0.1-dev-r3) 提供更新后的 `main` 源码构建的 Windows x64 与 macOS ARM64 包。应用版本仍为 `0.0.1-dev`，`r3` 用于区分本次重发的测试包。下载 Mac 包前请先阅读下方限制。
+- **历史版本**：[r2](https://github.com/jemicyzhu-0333/im-adhder/releases/tag/v0.0.1-dev-r2) 与 [v0.0.1-dev](https://github.com/jemicyzhu-0333/im-adhder/releases/tag/v0.0.1-dev) 保留作历史记录；请勿安装初版 v0.0.1-dev 中已报告“已损坏”的旧 Mac 包。
 - 新测试包来自手动 [Build Windows and macOS (test)](https://github.com/jemicyzhu-0333/im-adhder/actions/workflows/build-desktop.yml) 工作流，面向 **Windows x64** 和 **macOS ARM64**。成功运行后可在保留期内下载 artifact，GitHub 可能要求登录；请核对运行的分支与提交。工作流不会创建 Release。
 
 Windows 测试包未签名；新的 Mac 测试包采用 **ad-hoc 本地签名**，没有 Apple Developer ID 签名或公证。严格代码签名校验、DMG 安装副本在隔离档案下直接启动及 SQLite 持久化已通过 CI，但 Gatekeeper 分发评估仍拒绝该 Mac 包，不能据此保证浏览器下载后正常双击打开。请勿关闭 Gatekeeper 或移除隔离标记来安装。

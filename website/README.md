@@ -37,9 +37,9 @@ The published URL is the `page_url` returned by GitHub's deployment action. Conf
 
 ## Downloads and current caution
 
-Links target the verified `v0.0.1-dev-r2` Windows x64 and macOS Apple silicon release assets. The app's internal version remains `0.0.1-dev`; r2 identifies this release revision. These are test builds with manual downloads, not a stable release or an in-app update channel. Windows is unsigned and may trigger SmartScreen.
+Links target the verified `v0.0.1-dev-r3` Windows x64 and macOS Apple silicon release assets. The app's internal version remains `0.0.1-dev`; r3 identifies this release revision. These are test builds with manual downloads, not a stable release or an in-app update channel. Windows is unsigned and may trigger SmartScreen.
 
-The Mac r2 bundle is ad-hoc signed and not notarized. Its signature integrity and direct-launch checks passed in macOS CI, but Gatekeeper assessment with security policy enabled still rejects it. Keep the prominent bilingual restricted-test warning: direct launch validation does not establish normal downloaded-app installation. The original release is retained as history; its damaged-app report does not establish the status of r2.
+The Mac r3 bundle is ad-hoc signed and not notarized. Its signature integrity and direct-launch checks passed in macOS CI, but Gatekeeper assessment with security policy enabled still rejects it. Keep the prominent bilingual restricted-test warning: direct launch validation does not establish normal downloaded-app installation. The original release is retained as history; its damaged-app report does not establish the status of r3.
 
 ## Content and licensing
 

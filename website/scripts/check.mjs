@@ -21,8 +21,8 @@ for(const tag of html.matchAll(/<(?:script|link|img)\b[^>]*>/g)){
  assert(!/(?:src|href)="https?:/.test(tag[0]),'Runtime resources must be self-hosted.');
 }
 const downloads={
-  "windows": "https://github.com/jemicyzhu-0333/im-adhder/releases/download/v0.0.1-dev-r2/I.m.ADHDer.Setup.0.0.1-dev.exe",
-  "mac": "https://github.com/jemicyzhu-0333/im-adhder/releases/download/v0.0.1-dev-r2/I.m.ADHDer-0.0.1-dev-mac-arm64-adhoc-test.dmg"
+  "windows": "https://github.com/jemicyzhu-0333/im-adhder/releases/download/v0.0.1-dev-r3/I.m.ADHDer.Setup.0.0.1-dev.exe",
+  "mac": "https://github.com/jemicyzhu-0333/im-adhder/releases/download/v0.0.1-dev-r3/I.m.ADHDer-0.0.1-dev-mac-arm64-adhoc-test.dmg"
 };
 for(const platform of ['windows','mac']){
  const tag=[...html.matchAll(/<a\b[^>]*>/g)].map(m=>m[0]).find(t=>t.includes(`data-platform="${platform}"`));
@@ -34,8 +34,8 @@ assert(html.includes('id="mac-warning"'),'Mac restricted-test warning must remai
 assert(html.includes('Gatekeeper currently blocks normal installation.'),'Missing Gatekeeper limitation');
 assert(html.includes('Ad-hoc signed, not notarized'),'Missing Mac signing disclosure');
 assert(html.includes('Unsigned; Windows may show SmartScreen warnings.'),'Missing Windows signing disclosure');
-assert(html.includes('https://github.com/jemicyzhu-0333/im-adhder/releases/tag/v0.0.1-dev-r2'),'Missing current release notes');
-assert(html.includes('https://github.com/jemicyzhu-0333/im-adhder/releases/download/v0.0.1-dev-r2/SHA256SUMS.downloads.txt'),'Missing current checksums');
+assert(html.includes('https://github.com/jemicyzhu-0333/im-adhder/releases/tag/v0.0.1-dev-r3'),'Missing current release notes');
+assert(html.includes('https://github.com/jemicyzhu-0333/im-adhder/releases/download/v0.0.1-dev-r3/SHA256SUMS.downloads.txt'),'Missing current checksums');
 assert(!html.includes('/v0.0.1-dev/'),'Outdated download link');
 assert(!/libfile_|appgprj_|appgver_|sediment:|workspace\/scratch/.test(html),'Internal authoring identity in public page');
 assert(!/0\.4\.0|TODO|placeholder/.test(html),'Stale release or placeholder text');
