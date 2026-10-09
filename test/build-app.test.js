@@ -71,3 +71,32 @@ test('native helper compiles selected arch and refuses invalid arch before write
   probeRun({ platform: 'win32', arch: 'x64', argv: [], ...ports });
   assert.equal(effects, 0);
 });
+
+test('installed builder resolves its CLI through the supported package entry', () => {
+  const fs = require('node:fs');
+  const calls = [];
+  const errors = [];
+  assert.equal(run({ platform: 'win32', arch: 'x64', argv: ['--dir'],
+    spawn: (...args) => { calls.push(args); return { status: 0 }; },
+    report: error => errors.push(error) }), 0, errors.join('\n'));
+  const cli = calls.at(-1)[1][0];
+  assert.equal(path.basename(cli), 'cli.js');
+  assert.ok(fs.statSync(cli).isFile());
+  assert.match(fs.readFileSync(cli, 'utf8'), /assert-node-version/);
+});
+
+test('installed builder API and exported FileMatcher retain packaging contracts', () => {
+  const { build, Platform, Arch } = require('electron-builder');
+  const { FileMatcher } = require('app-builder-lib/internal');
+  assert.equal(typeof build, 'function');
+  assert.equal(typeof Platform.MAC.createTarget, 'function');
+  assert.equal(typeof Platform.WINDOWS.createTarget, 'function');
+  assert.equal(typeof Arch.arm64, 'number');
+  assert.equal(typeof Arch.x64, 'number');
+  const root = path.resolve(__dirname, '..');
+  const accepts = new FileMatcher(root, '/unused-destination', value => value,
+    ['src/**/*', '!src/excluded/**/*']).createFilter();
+  const stats = { isDirectory: () => false, isFile: () => true, isSymbolicLink: () => false };
+  assert.equal(accepts(path.join(root, 'src/main.js'), stats), true);
+  assert.equal(accepts(path.join(root, 'src/excluded/fixture.js'), stats), false);
+});

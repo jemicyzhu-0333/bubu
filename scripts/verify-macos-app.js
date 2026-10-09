@@ -1,8 +1,8 @@
 'use strict';
 
-// Cross-platform verifier for the unsigned macOS arm64 bundle. electron-builder can
-// assemble the .app on Linux even though DMG mounting, real input and VoiceOver still
-// require macOS. This script verifies the part a sandbox can prove: target architecture,
+// Structural verifier for an unsigned macOS arm64 test bundle built on macOS.
+// Inspecting these bytes does not prove installation, real input or VoiceOver.
+// This script verifies target architecture,
 // package identity, ASAR scope and absence of restricted upstream markers in shipped code.
 
 const crypto = require('node:crypto');
@@ -10,6 +10,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { execFileSync } = require('node:child_process');
 const asar = require('@electron/asar');
+const { buildPlan } = require('./build-app');
 
 const ROOT = path.resolve(__dirname, '..');
 const ARM64_CPU_TYPE = 0x0100000c;
@@ -93,15 +94,27 @@ function gitIdentity() {
 }
 
 function validateBuildConfig(pkg) {
-  invariant(pkg.version === '0.4.0-dev', `expected development version 0.4.0-dev, got ${pkg.version}`);
+  invariant(pkg.version === '0.0.1-dev', `expected development version 0.0.1-dev, got ${pkg.version}`);
   invariant(pkg.main === 'src/main.js', `unexpected main entry: ${pkg.main}`);
   const targets = pkg.build && pkg.build.mac && pkg.build.mac.target;
   invariant(Array.isArray(targets), 'build.mac.target must be an array');
-  const dmg = targets.find(target => target && target.target === 'dmg');
-  invariant(dmg && Array.isArray(dmg.arch) && dmg.arch.includes('arm64'),
-    'build.mac.target must include an arm64 DMG');
-  invariant(/electron-builder\s+--mac\s+--arm64\s+--dir/.test(pkg.scripts && pkg.scripts.pack || ''),
-    'npm run pack must explicitly target macOS arm64');
+  const dmg = targets.find(target => target === 'dmg' || (target && target.target === 'dmg'));
+  // A string target inherits the CLI architecture; an explicit target must admit arm64.
+  invariant(dmg && (typeof dmg === 'string' || dmg.arch === undefined
+    || (Array.isArray(dmg.arch) && dmg.arch.includes('arm64'))),
+  'build.mac.target must include an arm64 DMG');
+  const scripts = pkg.scripts || {};
+  invariant(scripts.pack === 'node scripts/build-app.js --dir',
+    'npm run pack must use the host-local build entrypoint');
+  invariant(scripts['pack:mac'] === 'node scripts/build-app.js --platform=mac --dir',
+    'npm run pack:mac must use the macOS build entrypoint');
+  invariant(scripts['validate:mac'] === 'npm run check && npm run pack:mac -- --arm64 && npm run verify:mac-app',
+    'npm run validate:mac must explicitly pack and verify macOS arm64');
+  const plan = buildPlan({ platform: 'darwin', arch: 'x64', argv: ['--platform=mac', '--dir', '--arm64'] });
+  invariant(JSON.stringify(plan.builderArgs) === JSON.stringify(['--mac', '--arm64', '--dir', '--publish', 'never']),
+    'macOS verification must build arm64 without publishing');
+  invariant(plan.prepare.some(step => step[0] === 'scripts/build-activity-probe.js' && step[1] === '--arch=arm64'),
+    'macOS activity probe must match the arm64 bundle');
 }
 
 function findAppBundle(explicitPath) {

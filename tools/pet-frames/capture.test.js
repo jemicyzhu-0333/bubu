@@ -47,7 +47,7 @@ test('capture evaluation expressions are valid classic scripts, not top-level-aw
 test('the capture tool stays outside the shipped app', () => {
   // 正向发布输入仍只有三项；额外排除原始生图不扩大发布范围。
   assert.deepEqual(pkg.build.files.filter(pattern => !pattern.startsWith('!')), ['src/**/*', 'assets/**/*', 'package.json']);
-  const { FileMatcher } = require('app-builder-lib/out/fileMatcher');
+  const { FileMatcher } = require('app-builder-lib/internal');
   const accepts = new FileMatcher(ROOT, '/unused-destination', value => value, pkg.build.files).createFilter();
   const capture = path.join(ROOT, 'tools', 'pet-frames', 'capture.js');
   assert.equal(accepts(capture, fs.statSync(capture)), false);

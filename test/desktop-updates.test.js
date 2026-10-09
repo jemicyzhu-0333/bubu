@@ -49,7 +49,7 @@ test('transport failures remain retryable and never become a saved installation'
 });
 test('development and unsupported builds never load updater or schedule a check', () => {
   for (const [app, platform, reason] of [[{ isPackaged: false }, 'darwin', 'development-build'], [{ isPackaged: true }, 'linux', 'unsupported-platform']]) {
-    const config = createUpdateTransport({ app: { ...app, getVersion: () => '0.4.0-dev' }, platform, loadUpdater: () => assert.fail('must remain local') });
+    const config = createUpdateTransport({ app: { ...app, getVersion: () => '0.0.1-dev' }, platform, loadUpdater: () => assert.fail('must remain local') });
     assert.equal(config.unavailableReason, reason);
   }
   const api = createApplicationUpdates({ stateRepository: {}, appHost: { whenReady: () => assert.fail('must not schedule') },

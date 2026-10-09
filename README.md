@@ -1,87 +1,114 @@
 # I'm ADHDer
 
-一个本地优先的 ADHD 日常效率与桌面陪伴应用：随手记下想法，把任务拆成下一步，用专注计时器开始，再和桌面伙伴一起回来继续。
+**A small next step. A visible timer. A companion for coming back.**
 
-A local-first ADHD productivity app built with Electron, combining a desktop pet, focus timer, task breakdown, quick capture, and gentle reminders. AI assistance is optional and uses a provider you configure.
+A local-first desktop app for ADHD-friendly everyday productivity. Capture a thought, choose one next action, start a focus session, and return after an interruption. Built with Electron, with an optional desktop companion and optional AI assistance.
 
-这是开发中的执行功能辅助工具，不提供 ADHD 诊断、治疗或医疗疗效承诺。
+[简体中文](README.zh-CN.md) · [Downloads & builds](#downloads--builds) · [Get started](#run-from-source) · [Documentation](#documentation)
 
-## 功能
+This project is in development (`0.0.1-dev`). It is an executive-function support tool, not a medical device, and does not diagnose, treat, or promise clinical benefits for ADHD. The current app interface is in Chinese; this README is available in English and Chinese.
 
-- **随手记与收件箱**：先保存想法，再整理为任务、日常、状态、情绪或留存记录。
-- **任务与下一步**：标题即可新建；按需添加步骤、日期、重复规则、标签和估时。本地推荐支持“综合优先”和“最容易开始”。
-- **专注与续接**：专注计时、暂停、休息和落点记录；中断后可继续，离线到点需本人确认结算。
-- **日常与回顾**：独立的生活提醒与记录、能量自评和日常估计、活动时间线与累计进展。没有连续打卡惩罚。
-- **桌面伙伴**：团子兽与乌沙奇形态、互动、喂食、食票换装和陪伴动作；免打扰、低刺激和减少动效分别可控。
-- **可选 AI**：任务拆解、补全、卡住建议与持续协作。可选择参考范围，查看修改差异，确认后才应用建议；未配置时核心功能仍可用。
+## A look inside
 
-主面板分为“现在 / 安排 / 回顾”；“安排”包含任务、日常、收件箱和已归档。应用驻留托盘或菜单栏。
+These are unaltered, app-only captures from native Electron testing on Linux, using disposable test data. Test task names are fictional. They show actual UI states, not mockups or proof of Windows/macOS validation. The characters retain their separate [rights restrictions](#license--artwork).
 
-## 进入开发环境
+| Now: one place to begin | Focus: the next action and remaining time |
+| --- | --- |
+| ![Now panel with a free-focus action, energy estimate, routines, and inbox](docs/images/now-panel.jpg) | ![Running focus session with a synthetic next action, countdown, and pause control](docs/images/focus-session.jpg) |
 
-需要 Node.js **22.12.0+**、npm 和可运行 Electron 的桌面环境。Windows/macOS 是主要桌面目标；Linux 已有有限原生验证，仍有已知呈现问题，详见 [验证说明](docs/VALIDATION.md)。
+| Your companion | On the desktop |
+| --- | --- |
+| ![Companion panel showing the Dango form and relationship progress](docs/images/companion-panel.jpg) | ![Native Usagi desktop companion in a sleeping state](docs/images/desktop-companion.jpg) |
+
+## What you can do
+
+- **Capture first, organize later.** Keep a quick-capture box close by; sort the inbox into tasks, routines, state notes, private emotion records, or saved ideas.
+- **Make the next step clear.** Create a task with just a title, then add steps, dates, recurrence, tags, or time estimates as needed. Local suggestions offer both overall priority and an easier place to start.
+- **Focus, pause, and come back.** Use a focus timer, take a break, or try a two-minute start. Leave a “next time, start here” step. Sessions that expire while the app is offline need your confirmation before they count.
+- **Keep everyday life separate from work.** Set routine reminders, record what happened, and review your timeline and progress. Missed days do not erase progress; there are no streak penalties. Energy estimates are everyday planning aids, not medical measurements.
+- **Have a desktop companion nearby.** Interact with Dango and Usagi forms, feed them, and use food tickets for outfits. Do Not Disturb, reduced motion, and low-stimulation settings are separate controls.
+- **Use AI only if you want it.** Bring your own OpenAI-compatible provider for task breakdown, next-step suggestions, and ongoing collaboration. Choose the reference context, inspect proposed changes, and confirm before applying them. Core features work without AI.
+
+The main panel has **Now / Plan / Review** sections (现在 / 安排 / 回顾). Plan includes tasks, routines, inbox, and archives. The app lives in the system tray or menu bar.
+
+## Downloads & builds
+
+- **Published packages:** check [GitHub Releases](https://github.com/jemicyzhu-0333/im-adhder/releases). Only assets actually attached to a release are downloadable releases; a build script or workflow is not a published installer.
+- **Development builds:** the manual [Build Windows and macOS (unsigned) workflow](https://github.com/jemicyzhu-0333/im-adhder/actions/workflows/build-desktop.yml) targets Windows x64 and macOS arm64. When a run succeeds, its installer artifacts can be downloaded from that run while retained. GitHub may require sign-in. These are unsigned development builds, and the workflow does not create a Release.
+- **Build locally:** follow the commands below. Windows and macOS are the primary targets. Linux has limited native testing and known rendering issues; see [validation and limitations](docs/VALIDATION.md).
+
+Code signing, notarization, actual installation, system integration, and cross-version updates require separate target-platform validation. This README does not claim those checks have passed. Do not use an existing or older user profile to try a development build.
+
+## Run from source
+
+Requirements: **Node.js 22.12.0+**, npm, and a desktop environment capable of running Electron. Install the full dependencies, including devDependencies.
 
 ```bash
+git clone https://github.com/jemicyzhu-0333/im-adhder.git
+cd im-adhder
 npm ci
-npm run dev          # 独立开发档案
-npm run check        # 单测、语法、架构边界及生成资源检查
+npm run dev
+```
+
+`npm run dev` uses an isolated development profile. `npm start` uses the everyday profile. Their data, credentials, and Chromium storage are separate (`focuspix-dev` and `focuspix` are retained internal names for compatibility).
+
+Current production data admission accepts only complete, canonical **schema 18** profiles. Use a fresh test profile. Older or damaged profiles are rejected without automatic import, conversion, repair, or reset.
+
+```bash
+npm run check               # Unit, syntax, architecture, and generated-resource checks
 npm run test:integration
+npm run dev:bench -- --scenario=level-up  # Disposable test scenario
+npm run test:electron       # Requires a usable native desktop
 ```
 
-`npm start` 使用日常档案；开发时优先用 `npm run dev`。开发档案 `focuspix-dev` 与日常档案 `focuspix` 的数据、凭据和 Chromium 存储隔离。内部旧名称用于兼容，不影响产品品牌。
+These are validation commands, not a claim that every platform has passed them. See [ARCHITECTURE](docs/ARCHITECTURE.md) for data contracts and [VALIDATION](docs/VALIDATION.md) for native checks and known limitations.
 
-当前为 `0.4.0-dev`，业务数据只接受完整规范的 **schema 18**。不要拿已有或旧版用户档案试运行；不自动导入、转换或修复旧资料。可删除的测试场景用：
+### AI setup & privacy
 
-```bash
-npm run dev:bench -- --scenario=level-up
-npm run test:electron   # 需要可用的原生桌面
-```
+AI is **off by default**. To use it, enable AI in Settings, provide a public HTTPS OpenAI-compatible Base URL, model name, and API key, then save the configuration. Keys use the operating system's secure storage; the development profile needs its own configuration.
 
-开发和运行都需要安装 devDependencies。首次运行请使用全新测试档案；详细数据与测试合同见 [ARCHITECTURE](docs/ARCHITECTURE.md) 和 [VALIDATION](docs/VALIDATION.md)。
+Local-first means the core data and workflow stay on your machine; it does not mean the app never connects to the network. When AI is enabled, your selected context is sent to the configured provider. Available update checks and downloads also use the network. Optional activity mirroring is off by default and uses local activity categories, not desktop contents, music contents, or AI conversation text.
 
-### AI 设置与联网
-
-AI 默认关闭。在设置中启用 AI，填写 OpenAI 兼容的公网 HTTPS Base URL、模型名和 API 密钥，再点击“保存配置”。密钥通过系统安全存储保存；开发档案需要单独配置。
-
-Local-first 表示核心数据与执行闭环在本机，不表示应用绝不联网：启用 AI 后，所选上下文会发送给配置的 Provider；更新功能在可用且执行检查或下载时也会联网。活动镜像默认关闭，仅处理本地活动类别，不读取桌面内容、音乐内容或 AI 对话正文。
-
-## 构建
+### Build an installer
 
 ```bash
-npm run build                   # 当前系统、当前 Node 架构的安装包
-npm run pack                    # 当前系统的未封装目录
+npm run build                  # Installer for the current OS and Node architecture
+npm run pack                   # Unpacked app for the current OS
 npm run build:win -- --x64
-npm run build:mac -- --arm64     # 需在 macOS 上运行
+npm run build:mac -- --arm64    # Run on macOS
 npm run build:linux
 ```
 
-也提供 `pack:win`、`pack:mac`、`pack:linux`。支持 x64/arm64；macOS 还需要 Xcode Command Line Tools。构建脚本不会自动发布，不能在 Windows 上直接构建 macOS 包。
+`pack:win`, `pack:mac`, and `pack:linux` are also available. Build entry points support x64/arm64; that does not imply every OS/architecture combination has passed native validation. macOS requires Xcode Command Line Tools. Build scripts do not publish automatically, and Windows cannot directly build a macOS package.
 
-仓库的手动 GitHub Actions 工作流 **Build Windows and macOS (unsigned)** 分别生成 Windows x64 和 macOS arm64 开发包，不创建 Release。工作流存在不代表两端已经构建成功。签名、公证、实际安装与系统集成仍需目标平台验证；当前不是正式发布版本。
+## Keyboard shortcuts
 
-## 快捷键
+| Shortcut | Action |
+| --- | --- |
+| `Alt/Option + Space` | Open the main panel |
+| `Alt/Option + Shift + Space` | Open the quick-action panel |
+| `Alt/Option + Shift + N` | Focus a visible reminder |
+| `/` in the main panel | Quick capture |
+| `Esc` | Close the current overlay |
 
-- `Alt/Option + Space`：主面板
-- `Alt/Option + Shift + Space`：快捷行动面板
-- `Alt/Option + Shift + N`：提醒可见时移入焦点
-- `/`：主面板随手记；`Esc`：关闭当前浮层
+If a shortcut is taken, the app tries another combination. Settings shows the actual bindings.
 
-快捷键冲突时使用下一组可用组合，设置中显示实际绑定。
+## Documentation
 
-## 文档与素材开发
+The detailed product and engineering documents are currently in Chinese.
 
-- [产品原则](docs/PRODUCT.md)：功能语义与交互边界
-- [工程架构](docs/ARCHITECTURE.md)：分层、状态所有权、IPC、SQLite 与 AI 安全
-- [验证说明](docs/VALIDATION.md)：开发检查、原生验收与已知限制
-- [桌宠视觉](docs/PET_VISUAL.md) / [分层 Rig](docs/PET_RIG.md)：生产坐标、图层与素材构建
-- [AGENTS.md](AGENTS.md)：代码代理的工作约束
+- [Product principles](docs/PRODUCT.md): feature semantics and interaction boundaries
+- [Architecture](docs/ARCHITECTURE.md): layers, state ownership, IPC, SQLite, and AI safety
+- [Validation](docs/VALIDATION.md): automated checks, native acceptance, and known limitations
+- [Pet visuals](docs/PET_VISUAL.md) and [layered rig](docs/PET_RIG.md): production geometry, layers, and asset construction
+- [AGENTS.md](AGENTS.md): repository rules for coding agents
 
-修改素材可使用 `npm run rig:check`、`npm run rig:build`、`npm run rig:preview`、`npm run raster:check` 和 `npm run usagi:wardrobe-check`。实际渲染可通过 `npm run frames` 检查；离屏帧不能代替原生桌面验收。
+For asset work, use `npm run rig:check`, `npm run rig:build`, `npm run rig:preview`, `npm run raster:check`, and `npm run usagi:wardrobe-check`. `npm run frames` checks rendered frames; offscreen output does not replace native desktop testing.
 
-公开版本包含已生成的运行素材、source-specs 与运行资源检查。完整 Dango／Usagi 设计母版重建、历史动作审批证据和 run-sample 原始样题重建保留在原作者的私有归档中，不在本仓库的可复现范围内；正常应用开发与安装包构建不依赖这些母版流程。
+The public repository includes generated runtime assets, source-specs, and runtime-resource checks. Complete Dango/Usagi design-master reconstruction, historical action-approval evidence, and original run-sample reconstruction remain in the original author's private archive and are outside this repository's reproducibility scope. Normal app development and installer builds do not depend on those master workflows.
 
-## 许可
+## License & artwork
 
-有权授权的项目代码采用 [PolyForm Noncommercial 1.0.0](LICENSE)，属于带非商业限制的 source-available 软件，不是 OSI 认可的开源许可。完整范围见 [LICENSE-SCOPE.md](LICENSE-SCOPE.md)。
+Project code that its contributors have the right to license is available under [PolyForm Noncommercial 1.0.0](LICENSE). This is **source-available software with noncommercial restrictions**, not OSI-approved open source. See [LICENSE-SCOPE.md](LICENSE-SCOPE.md) for the full scope; internal business use is not automatically allowed just because no copy is sold.
 
-第三方依赖与角色、美术等素材保留各自许可和权利限制。Usagi 素材不由项目许可重新授权；保留素材不代表已取得权利人许可，非商业发布本身也不构成免责。Dango 美术权利同样不能由项目代码许可推定，复用或再分发前须核查相应来源和授权。
+Third-party dependencies, characters, and artwork retain their own licenses and rights restrictions. **Usagi materials are not relicensed by this project.** Their inclusion does not establish permission from the rightsholders, and noncommercial distribution alone does not establish permission. Retain the [Usagi usage notice](assets/companion/usagi/USAGE.txt). Dango artwork rights likewise cannot be inferred from the code license; check the applicable sources and permissions before reuse or redistribution. These restrictions also apply to artwork shown in screenshots.

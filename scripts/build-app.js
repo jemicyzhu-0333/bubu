@@ -40,7 +40,7 @@ function buildPlan({ platform, arch, argv = [] }) {
 
 function run({ platform = process.platform, arch = process.arch, argv = process.argv.slice(2),
   root = path.resolve(__dirname, '..'), execPath = process.execPath, spawn = spawnSync,
-  resolveBuilder = () => require.resolve('electron-builder/cli.js'), report = message => console.error(message) } = {}) {
+  resolveBuilder = () => path.resolve(path.dirname(require.resolve('electron-builder')), '..', 'cli.js'), report = message => console.error(message) } = {}) {
   try {
     const plan = buildPlan({ platform, arch, argv });
     let builder;

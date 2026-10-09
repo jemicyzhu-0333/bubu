@@ -25,13 +25,21 @@ function walk(relative) {
   });
 }
 
-test('发布配置固定为 0.4.0-dev 和显式 macOS arm64 目标', () => {
+test('测试构建配置为 0.0.1-dev，本机入口通过显式 arm64 路径验证 macOS', () => {
   const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
   assert.doesNotThrow(() => validateBuildConfig(pkg));
   assert.deepEqual(pkg.build.files.filter(pattern => !pattern.startsWith('!')), ['src/**/*', 'assets/**/*', 'package.json']);
-  assert.match(pkg.scripts['validate:p6:sandbox'], /npm run check && npm run pack && npm run verify:mac-app/);
+  assert.equal(pkg.scripts['validate:p6:sandbox'], 'npm run validate:mac');
+  assert.doesNotThrow(() => validateBuildConfig({ ...pkg, build: { ...pkg.build, mac: {
+    ...pkg.build.mac, target: [{ target: 'dmg', arch: ['arm64', 'x64'] }]
+  } } }));
+  for (const [key, value] of [['pack', 'electron-builder --mac --arm64 --dir'],
+    ['pack:mac', 'node scripts/build-app.js --platform=win --dir'],
+    ['validate:mac', 'npm run check && npm run pack:mac -- --x64 && npm run verify:mac-app']]) {
+    assert.throws(() => validateBuildConfig({ ...pkg, scripts: { ...pkg.scripts, [key]: value } }), /npm run/);
+  }
 
-  assert.throws(() => validateBuildConfig({ ...pkg, version: '0.4.0' }), /development version/);
+  assert.throws(() => validateBuildConfig({ ...pkg, version: '0.0.1' }), /development version/);
   assert.throws(() => validateBuildConfig({
     ...pkg,
     build: { ...pkg.build, mac: { ...pkg.build.mac, target: [{ target: 'dmg', arch: ['x64'] }] } }

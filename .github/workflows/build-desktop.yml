@@ -37,10 +37,19 @@ jobs:
           node-version: '22'
       - name: Install locked dependencies
         run: npm ci
-      - name: Verify packaging command selection
-        run: node --test test/build-app.test.js
+      - name: Audit the locked dependency tree
+        run: npm audit --audit-level=low
+      - name: Check tests, architecture and generated resources
+        run: npm run check
+      - name: Check integration contracts
+        run: npm run test:integration
+      - name: Verify installed packaging dependencies and command selection
+        run: node --test test/build-app.test.js test/build-dependency-security.test.js
       - name: Build unsigned installer without publishing
         run: npm run build:${{ matrix.platform }} -- --${{ matrix.arch }}
+      - name: Verify macOS bundle architecture and package identity
+        if: matrix.platform == 'mac'
+        run: npm run verify:mac-app
       - name: Store installer for manual download
         uses: actions/upload-artifact@v4
         with:
