@@ -12,8 +12,7 @@ test('installed builder validates development and signed-release configuration a
   assert.deepEqual(pkg.build.mac.sign, { hardenedRuntime: false, identity: '-' });
   assert.equal(pkg.build.mac.artifactName, 'bubu-${version}-mac-${arch}-adhoc-test.${ext}');
   await validateConfiguration(pkg.build, logger);
-  const env = { RELEASE_REPOSITORY: 'example/releases', CSC_NAME: 'Developer ID Application: Example',
-    WINDOWS_PUBLISHER_NAME: 'Example' };
+  const env = require('./fixtures/update-channel').releaseEnv;
   for (const [platform, arch] of [['darwin', 'arm64'], ['win32', 'x64']]) {
     const config = updateReleaseConfig({ pkg: { ...pkg, version: '1.0.0' }, platform, arch, env });
     await validateConfiguration(config, logger);

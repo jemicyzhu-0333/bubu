@@ -1033,12 +1033,25 @@ config schema17增加独立planningPreferences、energySelfReports、energyCurve
 
 ## 桌面更新
 
-应用维护能力拥有临时更新状态；bootstrap只负责定时检查、IPC和安装门禁，Electron adapter负责electron-updater6.8.10。
-检查、下载、取消、安装分别显式执行，禁止自动下载/退出时自动安装、prerelease和降级。按架构使用latest-arm64/latest-x64通道。
-安装前重读当前会话、待收口和SQLite FULL写入证明；提示用户先保存未提交输入，不声称可替用户自动保存全部编辑草稿。
-settings.autoCheckUpdates只保存检查偏好；安装器缓存不属于业务数据，不放进SQLite。开发构建/未配置feed/不支持平台明确不可用。
-设置抽屉拥有更新UI和轮询生命周期；窗口不可见或分组关闭后不继续轮询。各操作只通过闭合的updates:get/check/download/cancel/install通道。
-销毁与微任务启动之间再次检查closed，防止关闭后才开始传输。更新运行态不写业务状态，不新增持久化writer。
+应用维护能力拥有临时更新状态；bootstrap负责定时检查、IPC与安装门禁，Electron adapter只使用官方更新引擎。更新运行态不写canonical业务状态，不新增持久化writer、设置键或schema。源码版本保持`0.0.1-dev`；签名发布命令以`extraMetadata.version`把实际递增的版本写入安装包，不再用相同内部版本配不同rN标签冒充更新。
+
+**冻结协议。** `electron-updater`精确为`7.0.0-alpha.9`，`electron-builder`精确为`27.0.0-alpha.10`，两者使用相同的`builder-util-runtime 10.0.0-alpha.9`。这是经过专项验证的预发布依赖组合，不随`next`漂移。旧6.8.10不验证builder的Ed25519 manifest签名，不能仅开启prerelease后继续沿用。官方引擎负责签名、下载、SHA-512、平台验签、缓存与安装；应用不实现密码学、下载器、远程JS/ASAR热补丁或签名绕过。
+
+**固定通道与身份。** 签名构建在包内写入闭合`bubuUpdate`身份：testing/stable、系统、架构、schema18与更新引擎版本。普通开发运行、原有未签名/ad-hoc包及缺少此身份的安装包均不能启用该通道。testing只接受`X.Y.Z-dev.N`（N为正整数），stable只接受`X.Y.Z`；不能通过renderer切换通道或提供URL。每次构建要求明确前一版本并严格递增，tag固定为`v<实际版本>`。
+
+更新源仅允许公开GitHub `jemicyzhu-0333/bubu`，拒绝自定义host、URL、token及请求认证头。当前只开放Windows x64与macOS arm64；GitHub testing使用`dev.yml`/`dev-mac.yml`，stable使用`latest.yml`/`latest-mac.yml`。不要把架构拼到`dev`通道名：官方GitHub provider以tag的首个prerelease token选择版本，并读取对应通道文件。架构由已签名文件列表及严格文件名绑定：`bubu-<version>-data18-win-x64.exe`和`bubu-<version>-data18-mac-arm64.zip/.dmg`。文件名中的data18是官方manifest签名覆盖的兼容性边界；不能用未签名的额外schema字段宣称兼容。每份完整包必须具有签名size且不超过512MiB。未知架构、缺失/重复文件、绝对地址、路径穿越、web installer、远程blockMap地址、跨通道或tag/version不一致全部拒绝。若以后支持更多架构，须先设计同一系统的聚合manifest和选择策略，不能由两个job覆盖同一YAML。
+
+**两层信任。** 本地应用内`app-update.yml`必须有可解析的Ed25519公钥，Windows还需publisherName。公钥只来自已签名基线包，不能由远程metadata替换。官方验签通过后才允许下载；SHA-512验证完整包；Windows强制Authenticode，macOS强制Developer ID、hardened runtime和公证。manifest签名与OS代码签名各自负责不同信任层，两者不能替代。发布构建缺少已获授权的签名输入即失败，不生成密钥、申请账户、导入用户数据或关闭验证。既有Apple/Windows/manifest凭据的安全设置与授权是独立前置步骤。
+
+**交互与生命周期。** 首次后台检查60秒，此后6小时，尊重`settings.autoCheckUpdates`；手动检查不改变偏好。发现更新只显示可用状态；下载、取消、重启安装是分开的显式操作。设置`autoInstallEvent: manual`，确认安装之前禁止启动、普通退出、OS关机时隐式安装，禁止降级；先完整包下载，暂不启用差分下载优化。metadata流在解析前限制2MiB，下载流在写入前不能超过签名包大小；检查共用30秒截止，下载共用10分钟截止，取消/关闭中止请求，早期404等也清理未消费response。重复操作合并，取消保持当前版本可用，迟到进度受epoch控制，不自动循环重试。检查失败清掉旧offer，不能借旧结果下载另一个版本。
+
+安装前重读专注/休息、待收口、在途Provider请求、会话未保存/unknown状态和SQLite FULL写入证明；任何不确定性拒绝安装。用户先保存尚未提交的输入，应用不声称自动保存renderer中的全部草稿。确认后取得进程内安装lease，阻止新IPC业务操作、UoW写入、Provider请求和定时任务；已准入的异步IPC必须先结束。现有窗口保持可见而输入停用，草稿不被覆盖；会话retention暂缓，已确认持久的会话在退出时不额外改写一遍。交接前再次核验持久性。已知尚未交给native的失败释放lease、恢复原输入启用/焦点并恢复定时任务；实际退出清理只解除监听器，准入/会话hold保持到存储关闭，不在退出中重新触发retention保存；lease不落盘，重启不继承锁。设置抽屉拥有更新UI及轮询生命周期，不可见或分组关闭后停止轮询；只通过原闭合`updates:get/check/download/cancel/install`通道。安装器保留bubu档案，不卸载或替换业务目录；旧im-adhder档案继续拒绝，不纳入更新兼容范围。
+
+**原生交接结果。** 只在明确安装和lease取得之后，才通过Electron公开autoUpdater API让Squirrel从官方downloader准备的本机认证feed获取签名包；不修改私有callback，不提前stage，不替代系统核验。延迟完成前持续阻止新工作。原生error或120秒无结果转为`handoff-unknown`，保留lease、显示状态与原生提示，可选择继续等待或明确退出；提示必须说明下次启动可能应用已确认更新，之后核对实际版本。原生API没有公开unstage，绝不能把撤监听器、超时或error称为取消成功；迟到成功不能在unknown状态悄悄退出。Windows调用官方quitAndInstall后也视为已交接：其spawn报错可能晚于已安排的quit，不能因此恢复写入；120秒未退出同样转入unknown。只有交接前的确定失败才恢复可写。提示对话框失败也不能解锁，设置状态保留结果未确认说明。普通退出后的应用语义、输入冻结/焦点和真实Squirrel替换仍须由签名Mac验收证明，未取得此证据前不得发布该更新链路。
+
+**恢复与schema边界。** 本阶段只发布schema18兼容的完整包。下载或交接前的失败不替换当前运行应用，也不删除/重置档案；原生安装失败不能保证旧应用仍完整可运行，须核验实际版本和档案后显式恢复，优先发更高版本修复；保留旧安装器供显式恢复，不承诺自动回滚。暂停发布可阻止新的下载安装，不能撤销已安装结果。不可运行旧版读取新版schema，也不可用空档案掩盖启动失败。
+
+language/theme引入schema19时，本发布门禁必须先失败。只有另行完成并验证以下协议才能打开18→19：仅当前BUBU身份与已核验绑定的schema18准入；应用停止写入后创建一致SQLite备份，包含配置/身份及其WAL/SHM，相关会话、事实、遗忘账本分别保持原合同；记录版本、来源身份、摘要及完成状态；显式事务或验证后的暂存替换；原档案始终可恢复，任何失败/中断不能重置或悄悄继续；测试第二次启动固定点、损坏、WAL未checkpoint、磁盘满和断点恢复。恢复须显式选择匹配快照，保留新旧证据，不自动降级。本文是未来合并门禁，不是已实现迁移，也不授权迁移任何真实用户档案。
 
 ### 情绪删除与来源清理
 

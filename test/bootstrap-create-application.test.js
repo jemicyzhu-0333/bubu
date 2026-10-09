@@ -76,7 +76,13 @@ test('development profile selection precedes the lock and storage composition', 
   assert.equal(result.status, 'primary-instance');
   assert.equal(result.profile, 'development');
   assert.equal(result.userDataPath, path.join('/profiles', 'bubu-dev'));
-  assert.equal(result.stateRepository, stateRepository);
+  assert.equal(result.stateRepository.kind, stateRepository.kind);
+  assert.equal(result.stateRepository.writesBlocked(), false);
+  const updateLease = result.updateAdmission.acquire();
+  assert.equal(result.stateRepository.writesBlocked(), true);
+  assert.throws(() => result.stateRepository.commit({}), /application-updating/);
+  updateLease.release();
+  assert.equal(result.stateRepository.writesBlocked(), false);
   assert.equal(result.credentialStore, credentialStore);
   assert.equal(result.factStore, factStore);
   assert.equal(result.appHost, harness.appHost);

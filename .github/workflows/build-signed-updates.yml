@@ -1,0 +1,82 @@
+name: Build signed update candidates
+
+# This workflow only prepares candidates. Publication remains an explicit, separate action.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Actual package version, for example 0.0.1-dev.1'
+        required: true
+        type: string
+      previous_version:
+        description: 'Exact installed baseline, for example 0.0.1-dev or 0.0.1-dev.1'
+        required: true
+        type: string
+      channel:
+        description: 'Testing and stable never share metadata'
+        required: true
+        default: testing
+        type: choice
+        options: [testing, stable]
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            platform: win32
+            arch: x64
+            payload: dist/*.exe
+          - os: macos-latest
+            platform: darwin
+            arch: arm64
+            payload: |
+              dist/*.dmg
+              dist/*.zip
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    env:
+      RELEASE_REPOSITORY: jemicyzhu-0333/bubu
+      RELEASE_VERSION: ${{ inputs.version }}
+      RELEASE_PREVIOUS_VERSION: ${{ inputs.previous_version }}
+      RELEASE_CHANNEL: ${{ inputs.channel }}
+      # Optional until separately provisioned by the owner; missing credentials fail closed.
+      ELECTRON_BUILDER_UPDATE_SIGN_KEY: ${{ secrets.UPDATE_MANIFEST_SIGNING_KEY }}
+      CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      CSC_NAME: ${{ matrix.platform == 'darwin' && vars.MAC_SIGNING_IDENTITY || '' }}
+      CSC_LINK: ${{ matrix.platform == 'darwin' && secrets.MAC_SIGNING_CERTIFICATE || secrets.WINDOWS_SIGNING_CERTIFICATE }}
+      CSC_KEY_PASSWORD: ${{ matrix.platform == 'darwin' && secrets.MAC_SIGNING_PASSWORD || secrets.WINDOWS_SIGNING_PASSWORD }}
+      WINDOWS_PUBLISHER_NAME: ${{ vars.WINDOWS_PUBLISHER_NAME }}
+      APPLE_ID: ${{ matrix.platform == 'darwin' && secrets.APPLE_ID || '' }}
+      APPLE_APP_SPECIFIC_PASSWORD: ${{ matrix.platform == 'darwin' && secrets.APPLE_APP_SPECIFIC_PASSWORD || '' }}
+      APPLE_TEAM_ID: ${{ matrix.platform == 'darwin' && vars.APPLE_TEAM_ID || '' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - run: npm audit --audit-level=low
+      - name: Verify updater in the native Electron main process
+        run: npm run verify:update-runtime
+      - name: Build and verify signed candidate without publishing
+        run: npm run release:updates
+      - name: Preserve verified candidate assets
+        uses: actions/upload-artifact@v4
+        with:
+          name: update-${{ matrix.platform }}-${{ matrix.arch }}-${{ github.sha }}
+          path: |
+            ${{ matrix.payload }}
+            dist/*.blockmap
+            dist/dev*.yml
+            dist/latest*.yml
+            dist/update-verification-*.json
+          if-no-files-found: error
+          retention-days: 14

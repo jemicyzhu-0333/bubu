@@ -10,7 +10,8 @@ function createLifecycleRegistry(options = {}) {
   const onError = typeof options.onError === 'function' ? options.onError : () => {};
   const resources = new Map();
   const registrationOrder = [];
-  let disposed = false;
+  let disposed = false, timersHeld = false;
+  const deferredTimeouts = new Map();
 
   function report(error, name) {
     try {
@@ -81,7 +82,7 @@ function createLifecycleRegistry(options = {}) {
     if (typeof callback !== 'function') throw new TypeError('interval callback must be a function');
     replaceNamedResource(name);
     if (disposed) return null;
-    const timer = timers.setInterval(callback, delay, ...args);
+    const timer = timers.setInterval((...values) => { if (!timersHeld) callback(...values); }, delay, ...args);
     addEntry(name, () => timers.clearInterval(timer), { replacing: false });
     return timer;
   }
@@ -91,11 +92,14 @@ function createLifecycleRegistry(options = {}) {
     replaceNamedResource(name);
     if (disposed) return null;
     let entry = null;
-    const timer = timers.setTimeout((...callbackArgs) => {
+    const fire = (...callbackArgs) => {
+      if (timersHeld) { deferredTimeouts.set(entry, callbackArgs); return; }
       if (!releaseEntry(entry)) return;
       callback(...callbackArgs);
-    }, delay, ...args);
-    entry = addEntry(name, () => timers.clearTimeout(timer), { replacing: false });
+    };
+    const timer = timers.setTimeout(fire, delay, ...args);
+    entry = addEntry(name, () => { deferredTimeouts.delete(entry); timers.clearTimeout(timer); }, { replacing: false });
+    entry.resume = fire;
     return timer;
   }
 
@@ -142,8 +146,22 @@ function createLifecycleRegistry(options = {}) {
     return errors;
   }
 
+  function holdTimers() {
+    if (disposed || timersHeld) throw new Error('lifecycle-timers-unavailable');
+    timersHeld = true;
+    let released = false;
+    return Object.freeze({ release() {
+      if (released) return;
+      released = true; timersHeld = false;
+      const pending = [...deferredTimeouts]; deferredTimeouts.clear();
+      if (!disposed) for (const [entry, args] of pending) if (entry.active) {
+        try { entry.resume(...args); } catch (error) { report(error, entry.name); }
+      }
+    } });
+  }
+
   return Object.freeze({
-    register,
+    holdTimers, register,
     interval,
     timeout,
     listen,

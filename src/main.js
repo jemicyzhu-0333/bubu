@@ -1509,11 +1509,11 @@ function publishCompanionInteraction(fact) {
 
 // ============ IPC ============
 const registerIpc = createRendererIpcRegistrar({
-  rendererDirectory: path.resolve(__dirname, 'renderer'), ipcHost, allowedSurfacesFor, assertIpcPayload,
+  rendererDirectory: path.resolve(__dirname, 'renderer'), ipcHost, allowedSurfacesFor, assertIpcPayload, updateAdmission: application.updateAdmission,
   readTasks: () => store.get('tasks'), getSettings
 });
 
-registerAppMaintenance({ registerIpc, getState: () => getState(), stateRepository: store, appHost, lifecycle,
+registerAppMaintenance({ registerIpc, getState: () => getState(), stateRepository: store, appHost, lifecycle, updateAdmission: application.updateAdmission, requestScope: application.requestScope, sessions: aiCollaboration.sessions,
   dismissNotice: id => dismissMigrationNoticeCommand.execute({ noticeId: id }),
   hide: () => { if (popover) popover.hide(); }
 });

@@ -35,8 +35,8 @@ test('packaging uses the pinned upstream fetch downloader without vulnerable leg
     assert.equal(Object.keys(lock.packages).some(key => key.endsWith(`/node_modules/${name}`)
       || key === `node_modules/${name}`), false, `legacy packaging dependency returned: ${name}`);
   }
-  assert.equal(pkg.dependencies['electron-updater'], '6.8.10');
-  assert.equal(lock.packages['node_modules/electron-updater'].version, '6.8.10');
+  assert.equal(pkg.dependencies['electron-updater'], '7.0.0-alpha.9');
+  assert.equal(lock.packages['node_modules/electron-updater'].version, '7.0.0-alpha.9');
   assert.equal(pkg.overrides, undefined, 'security fixes must come from upstream dependencies');
   assert.equal(pkg.version, '0.0.1-dev');
   assert.equal(lock.version, pkg.version);

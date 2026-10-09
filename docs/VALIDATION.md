@@ -115,6 +115,20 @@ macOS 构建门禁必须对产出 app 和 DMG 复制出的 app 分别执行 `cod
 
 安装验证使用可删除新 profile，检查 ASAR、资源过滤、原生 helper、正常退出、同档重开和安装器清理。正式发布还需签名、公证/Gatekeeper/SmartScreen、各架构及跨版本更新证据。
 
+## 签名测试更新发布与恢复门禁
+
+1. 更新分支固定`electron-updater 7.0.0-alpha.9`与`electron-builder 27.0.0-alpha.10`。执行`npm ci`、`npm audit --audit-level=low`、`npm run check`与`npm run test:integration`。变更依赖时核对lock integrity及真实Electron主进程的CJS→ESM载入，不以Node mock替代。
+2. 执行`node --test test/testing-update-channel.test.js test/update-artifacts.test.js test/update-release-config.test.js test/build-schema.test.js test/update-network-bounds.test.js test/update-install-admission.test.js`。这些测试使用官方provider、版本比较、builder metadata生成与官方Ed25519验签，HTTP/原生下载安装边界仍是合成端口，fixture密钥来自公开RFC8032测试向量，不可用于发布。覆盖dev.1→dev.2、equal/older、稳定版拒绝测试版、篡改/缺签名/错公钥、错架构/data19、缺文件/缺size/超512MiB、路径或外域替换、签名公钥轮换、2MiB metadata与下载流上限、超时/取消/404清理、在途/已准入异步工作、冻结期的新操作、延迟native及unknown恢复、SQL事实重开。
+3. 在两个原生构建host执行`npm run verify:update-runtime`。它使用新的可删除临时目录，加载真实Electron中的官方更新组件与验签，并用仅本机HTTP fixture测试真实net响应流、重定向、流大小/下载摘要、404清理和截止；另检查原生窗口停用/恢复时fixture输入不变，不连接更新源或执行安装。无显示服务器的Linux可运行`electron --ozone-platform=headless scripts/verify-update-runtime.cjs --loader-network-only`，明确跳过窗口输入检查；这不替代Win/Mac原生安装证据，也不能加入`--no-sandbox`或关闭系统签名政策。
+4. `npm run release:updates`仅打包不发布。必须提供`RELEASE_REPOSITORY=jemicyzhu-0333/bubu`、`RELEASE_CHANNEL=testing`、`RELEASE_VERSION=0.0.1-dev.2`和精确`RELEASE_PREVIOUS_VERSION=0.0.1-dev.1`；第一次基线可用previous `0.0.1-dev`。正式版使用stable及实际递增稳定semver。源package/lock版本保持开发版本，产物内版本由extraMetadata明确设置并重新核验。
+5. 先由所有者独立批准并配置签名材料，命令本身不生成或配置：manifest使用官方`ELECTRON_BUILDER_UPDATE_SIGN_KEY`或`ELECTRON_BUILDER_UPDATE_SIGN_KEY_FILE`；macOS选择`CSC_NAME`的Developer ID Application身份、既有证书及Apple公证配置；Windows选择`WINDOWS_PUBLISHER_NAME`与匹配证书。没有材料即失败，禁止以空签名、`updateManifest:false`、ad-hoc或关闭Authenticode替代。不得把密钥放进仓库、fixture、日志或产物报告。
+6. `.github/workflows/build-signed-updates.yml`为手动、只读仓库的候选构建，默认testing，固定Win x64/Mac arm64。它引用尚可为空的受控vars/secrets，不建立凭据；这些缺失时job应失败。两端都通过完整检查、签名构建和`verify:update-artifacts`后，收集EXE、DMG、Mac ZIP、各自blockmap及签名size/data18文件名一致的`dev.yml`/`dev-mac.yml`（stable对应latest）。Mac同时通过codesign、公证stapler和spctl。不得将开发工作流的unsigned/ad-hoc包混入此候选。
+7. 发布仍须明确授权。先锁定同一源码commit、实际包版本、签名身份、公钥ID和全部摘要，创建`v<version>`草稿Release；testing标记prerelease，stable不可标记prerelease。先放完整payload及blockmap，核对下载字节，再放两端签名YAML，最后一次发布该Release。不可覆盖已经公开版本的任何payload字节，不用同版本rN修补。少一端、Mac ZIP、签名或摘要不符时不公布metadata；旧版本可保留作显式恢复。
+8. 真实验收安装N，创建专用合成任务、偏好、已保存会话与未提交草稿，再从设置下载N+1、取消/重试、显式重启。特别核验Squirrel在明确确认后已stage、随后error/普通退出/下次启动的实际行为，不能从合成event推断已取消；验收未完成前阻止发布该链路。证明实际可执行版本、bubu身份、资料/偏好/凭据后端及再次重开不变；证明专注/休息/待落点/AI在途/保存unknown拒绝重启。负例包括离线、断下载、磁盘满、错误SHA-512/签名、错误架构、安装失败、关机和旧缓存。Windows需真实NSIS/Authenticode/SmartScreen，Mac需真实浏览器下载/Finder/Gatekeeper、公证和Squirrel替换；CI直接启动或Linux验证都不算。
+9. 若发现坏版本，立即停止后续发布并撤下其公开更新入口（保留制品与诊断证据），发更高版本修复。不可自动降级或恢复快照。需要资料恢复时先停止写入，保留完整profile并核对备份来源与schema，再由用户明确选择恢复目标；18→19之前必须另行通过ARCHITECTURE「桌面更新」中的迁移/备份/中断恢复门禁。
+
+上游合同：[7.0.0-alpha.9发布](https://github.com/electron-userland/electron-builder/releases/tag/electron-updater%407.0.0-alpha.9)、[签名manifest](https://www.electron.build/features/signed-update-manifests/)、[自动更新](https://www.electron.build/docs/features/auto-update/)。安装依赖源码与schema才是本固定组合的最终依据；不能把未来文档API当作旧版本支持。
+
 ## 当前验证范围与仍未关闭的项
 
 已有有限 Linux 原生运行观察覆盖新测试档案中的任务/步骤、首步成长、暂停/恢复、多窗口可见投影、部分形态/穿戴与喂食，以及一次正常退出后的同档可见状态恢复。这不是完整 SQL 字段、全部配饰、到期结算、异常终止或目标平台安装验收。

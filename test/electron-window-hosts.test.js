@@ -456,3 +456,14 @@ test('native windows use the visible brand before page load and permit an explic
     assert.equal(harness.instances[0].options.webPreferences.sandbox, true);
   }
 });
+
+test('input-disabled update windows stay visible when disabling input causes native blur', () => {
+  for (const makeHost of [createPopoverWindowHost, createImpulseWindowHost]) {
+    const harness = createWindowHarness();
+    makeHost({ BrowserWindow: harness.BrowserWindow, preloadPath: '/app/preload.js', pagePath: '/app/panel.html' });
+    const window = harness.instances[0]; window.visible = true; window.isEnabled = () => false;
+    window.emit('blur'); assert.equal(window.visible, true);
+    assert.equal(window.calls.filter(call => call[0] === 'hide').length, 0);
+    window.isEnabled = () => true; window.emit('blur'); assert.equal(window.visible, false);
+  }
+});

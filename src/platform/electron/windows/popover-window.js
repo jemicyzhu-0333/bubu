@@ -34,7 +34,7 @@ function createPopoverWindowHost({ BrowserWindow, preloadPath, pagePath, workAre
       nativeWindow.on('hide', () => host.send('popover:hidden'));
       nativeWindow.on('moved', () => { if (host.isVisible()) remembered = host.getBounds(); });
       nativeWindow.on('blur', () => {
-        if (!nativeWindow.webContents.isDevToolsOpened()) {
+        if (nativeWindow.isEnabled?.() !== false && !nativeWindow.webContents.isDevToolsOpened()) {
           hiddenByBlurAt = now();
           host.hide();
         }

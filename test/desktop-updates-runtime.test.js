@@ -22,7 +22,7 @@ test('scheduled checks respect preference, only pending landings block restart, 
   state.quickStartDecision.status = 'done';
   assert.equal(runtime.install().reason, 'storage-unavailable');
   storageOk = true; assert.equal(runtime.install().ok, true);
-  assert.equal(verified, 2); assert.equal(installed, 1);
+  assert.equal(verified, 3); assert.equal(installed, 1);
   runtime.close(); assert.equal(jobs.at(-1).cancelled, true);
   await jobs.at(-1).fn(); assert.equal(checks, 1);
 });

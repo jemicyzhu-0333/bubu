@@ -66,6 +66,7 @@ function createUnitOfWork({ repository } = {}) {
       throw new TypeError('expected revision must be a non-negative safe integer');
     }
 
+    if (repository.writesBlocked?.()) return { ok: false, reason: 'application-updating', committed: false, revision: repository.revision() };
     const startingRevision = repository.revision();
     if (!Number.isSafeInteger(startingRevision) || startingRevision < 0) {
       throw new Error('state repository returned an invalid revision');

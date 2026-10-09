@@ -1,7 +1,7 @@
 'use strict';
 const { createApplicationUpdates } = require('./desktop-updates');
-function registerAppMaintenance({ registerIpc, getState, stateRepository, appHost, lifecycle, dismissNotice, hide, makeUpdates = createApplicationUpdates }) {
-  const updates = makeUpdates({ stateRepository, appHost });
+function registerAppMaintenance({ registerIpc, getState, stateRepository, appHost, lifecycle, requestScope, sessions, updateAdmission, dismissNotice, hide, makeUpdates = createApplicationUpdates }) {
+  const updates = makeUpdates({ stateRepository, appHost, requestScope, sessions, updateAdmission, lifecycle });
   lifecycle.register('app:desktop-updates', () => updates.close());
   registerIpc('state:get', getState);
   registerIpc('notices:dismiss', (_event, { id }) => dismissNotice(id));

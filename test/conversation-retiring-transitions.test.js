@@ -300,3 +300,15 @@ test('eviction and restart mask restored sources; original generation zero is re
   assert.equal(reopened.messages.at(-1).contextAllowed, false);
   assert.equal(reopened.requiresAuthorization, true);
 });
+
+test('restart guard preserves active work and refuses unsaved or unknown durable conversations', () => {
+  const f = fixture(); assert.equal(f.sessions.canRestart(), true);
+  const begun = f.begin(); assert.equal(f.sessions.canRestart(), false); assert.equal(begun.signal.aborted, false);
+  f.sessions.completeTurn({ token: begun.token, providerId: 'provider', content: 'Synthetic answer' });
+  assert.equal(f.sessions.canRestart(), true);
+  f.saveMode('unknown-rollback'); f.save(); assert.equal(f.sessions.canRestart(), false);
+  const before = JSON.stringify(f.get()); assert.equal(f.sessions.canRestart(), false); assert.equal(JSON.stringify(f.get()), before);
+  const saved = fixture(); saved.answer(); assert.equal(saved.save().ok, true); assert.equal(saved.sessions.canRestart(), true);
+  saved.saveMode('refuse'); saved.sessions.pause({ conversationId: saved.conversationId, inputDraft: 'Keep this draft' });
+  assert.equal(saved.sessions.canRestart(), false); saved.sessions.dispose(); assert.equal(saved.sessions.canRestart(), false);
+});

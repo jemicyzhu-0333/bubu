@@ -39,7 +39,7 @@ function createImpulseWindowHost({ BrowserWindow, preloadPath, pagePath, onLoade
     configure: (nativeWindow, host) => {
       if (typeof onLoaded === 'function') nativeWindow.webContents.on('did-finish-load', onLoaded);
       if (typeof onHidden === 'function') nativeWindow.on('hide', onHidden);
-      nativeWindow.on('blur', () => { if (!nativeWindow.webContents.isDevToolsOpened()) host.hide(); });
+      nativeWindow.on('blur', () => { if (nativeWindow.isEnabled?.() !== false && !nativeWindow.webContents.isDevToolsOpened()) host.hide(); });
     }
   });
   return Object.freeze({

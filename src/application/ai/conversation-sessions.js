@@ -25,7 +25,7 @@ function createCollaborationSessions({ ownerId, repository = null, now, idFactor
   let retentionTimer = null;
   let retentionFailure = null;
   let sequence = 0;
-  let disposed = false;
+  let disposed = false, restartHeld = false;
   let disposalResult = null;
   const persistence = createConversationPersistence({ repository, ownerId, now: timestamp });
 
@@ -54,6 +54,7 @@ function createCollaborationSessions({ ownerId, repository = null, now, idFactor
     retentionTimer?.unref?.();
   }
   function enforceRetention() {
+    if (restartHeld) return { ok: true, deferred: true };
     const at = timestamp();
     for (const [conversationId, entry] of entries) {
       if (entry.retentionDeadline === null || entry.retentionDeadline > at) continue;
@@ -165,6 +166,7 @@ function createCollaborationSessions({ ownerId, repository = null, now, idFactor
     return true;
   }
   function owned(conversationId) {
+    if (restartHeld) return { ok: false, reason: 'application-updating' };
     if (disposed) return { ok: false, reason: 'conversation-sessions-disposed' };
     if (!id(conversationId)) return { ok: false, reason: 'conversation-id-invalid' };
     enforceRetention();
@@ -203,6 +205,7 @@ function createCollaborationSessions({ ownerId, repository = null, now, idFactor
     : { ok: true, conversation: snapshot(entry), ...extra }; }
 
   function start({ purpose = 'task', mode = 'talk', relatedEntity = null } = {}) {
+    if (restartHeld) return { ok: false, reason: 'application-updating' };
     if (disposed) return { ok: false, reason: 'conversation-sessions-disposed' };
     if (!PURPOSES.includes(purpose) || !MODES.includes(mode) || !relatedEntityValid(relatedEntity)) return { ok: false, reason: 'conversation-start-invalid' };
     enforceRetention();
@@ -573,7 +576,24 @@ function createCollaborationSessions({ ownerId, repository = null, now, idFactor
     armRetention();
     return { ok: true };
   }
+  // A restart never turns an unknown/unsaved conversation into an implicit discard.
+  function canRestart() {
+    return !disposed && !retentionFailure && [...entries.values()].every(entry => !entry.active && !entry.pendingSave
+      && (entry.expired || entry.record.retention.mode === 'ephemeral' || entry.savedRevision === entry.record.revision));
+  }
+  function holdForRestart() {
+    if (restartHeld || !canRestart()) throw new Error('unsaved-conversation');
+    restartHeld = true;
+    return Object.freeze({ release() { if (restartHeld && !disposed) { restartHeld = false; enforceRetention(); } } });
+  }
   function dispose() {
+    if (restartHeld && !disposed) {
+      disposed = true;
+      if (retentionTimer !== null) cancelSchedule(retentionTimer);
+      retentionTimer = null;
+      disposalResult = immutable({ ok: true, unsaved: [] });
+      return disposalResult;
+    }
     if (disposed) return disposalResult;
     enforceRetention();
     const unsaved = [];
@@ -592,7 +612,7 @@ function createCollaborationSessions({ ownerId, repository = null, now, idFactor
       ...(retentionFailure ? { retentionError: retentionFailure } : {}) });
     return disposalResult;
   }
-  return Object.freeze({ start, get, list, setRetention, setMode, beginTurn, completeTurn, capturePrivacyTargets,
+  return Object.freeze({ start, get, list, setRetention, setMode, beginTurn, completeTurn, capturePrivacyTargets, canRestart, holdForRestart,
     cancel: request => stop(request, 'canceled'), pause: request => stop(request, 'paused'), revoke, prepareDelete, delete: remove, dispose });
 }
 

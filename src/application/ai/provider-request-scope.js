@@ -1,7 +1,7 @@
 'use strict';
 
 // Runtime request identity only; it neither grants data access nor owns state.
-function createProviderRequestScope() {
+function createProviderRequestScope({ canBegin = () => true } = {}) {
   let epoch = Symbol('provider-requests'), closed = false;
   const active = new Set();
   function begin({ checkCurrent = () => true } = {}) {
@@ -9,7 +9,7 @@ function createProviderRequestScope() {
     let released = false;
     function assertCurrent() {
       let current = false;
-      if (!closed && !released && identity === epoch && !controller.signal.aborted) {
+      if (!closed && canBegin() && !released && identity === epoch && !controller.signal.aborted) {
         try { current = checkCurrent() === true; } catch (_) { /* Fail closed. */ }
       }
       if (!current) {
@@ -29,6 +29,6 @@ function createProviderRequestScope() {
     for (const controller of previous) controller.abort();
   }
   function close() { closed = true; invalidate(); }
-  return Object.freeze({ begin, invalidate, close });
+  return Object.freeze({ begin, invalidate, close, canRestart: () => !closed && active.size === 0 });
 }
 module.exports = { createProviderRequestScope };

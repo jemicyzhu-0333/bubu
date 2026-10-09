@@ -9,6 +9,7 @@ const { openDatabase } = require('../platform/persistence/sqlite/sqlite-database
 const { createSecureCredentialStore } = require('../platform/providers');
 const { openMemoryAuthority } = require('./memory-authority');
 const { randomUUID } = require('node:crypto');
+const { createUpdateAdmission } = require('../capabilities/app-maintenance').desktopUpdates;
 const { openCollaborationStorageAt } = require('./collaboration-storage');
 const { createProviderRequestScope } = require('../application/ai/provider-request-scope');
 
@@ -95,7 +96,8 @@ function createApplication({
     }
   }
   try {
-    const stateRepository = createStateRepository({ userDataPath, schemaVersion, normalize: normalizePersistedState });
+    const updateAdmission = createUpdateAdmission();
+    const stateRepository = updateAdmission.protectRepository(createStateRepository({ userDataPath, schemaVersion, normalize: normalizePersistedState }));
     resources.push(stateRepository);
     const credentialStore = createCredentialStore({ userDataPath });
     const collaborationStorage = openCollaborationStorage({ userDataPath });
@@ -105,10 +107,10 @@ function createApplication({
     const memoryAuthority = openMemoryAuthority({ factStore, storage: collaborationStorage, userDataPath,
       now: () => Date.now(), idFactory: kind => `${kind}-${randomUUID()}` });
     resources.push(memoryAuthority);
-    const requestScope = createProviderRequestScope();
+    const requestScope = createProviderRequestScope({ canBegin: () => !updateAdmission.isBlocked() });
     resources.push(requestScope);
     return Object.freeze({ status: 'primary-instance', profile, userDataPath, appHost,
-      stateRepository, credentialStore, collaborationStorage, factStore, closeStorage, memoryAuthority, requestScope });
+      stateRepository, credentialStore, collaborationStorage, factStore, closeStorage, memoryAuthority, requestScope, updateAdmission });
   } catch (error) { closeStorage(); throw error; }
 }
 

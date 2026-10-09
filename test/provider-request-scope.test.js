@@ -34,3 +34,10 @@ test('invalidation snapshots old leases so an abort observer can safely start a 
   scope.invalidate(); assert.equal(old.signal.aborted, true); fresh.assertCurrent();
   assert.equal(fresh.signal.aborted, false); old.release(); fresh.release(); scope.close();
 });
+
+test('restart guard is read-only and refuses an active or closed request scope', () => {
+  const scope = createProviderRequestScope();
+  assert.equal(scope.canRestart(), true);
+  const lease = scope.begin(); assert.equal(scope.canRestart(), false); lease.assertCurrent();
+  lease.release(); assert.equal(scope.canRestart(), true); scope.close(); assert.equal(scope.canRestart(), false);
+});

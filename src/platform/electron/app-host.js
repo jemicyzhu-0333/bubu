@@ -1,5 +1,6 @@
 'use strict';
 const { defaultStoragePath } = require('../../core/runtime-profile');
+const { holdUpdateWindows } = require('./update-window-hold');
 const { configureNativeBranding } = require('./native-branding');
 
 const APP_EVENTS = Object.freeze({
@@ -127,6 +128,14 @@ function createAppHost({ app = require('electron').app } = {}) {
       app.setLoginItemSettings({ openAtLogin: enabled });
       return true;
     },
+    showUpdateHandoffUnknown: async () => {
+      const result = await require('electron').dialog.showMessageBox({ type: 'warning', title: '更新仍需确认',
+        message: '更新已交给系统，尚不能确认是否完成。',
+        detail: '输入和新操作已暂停，当前窗口中的输入保留。退出后再次打开可能会应用刚才确认的更新；请核对设置中显示的实际版本。也可以继续查看当前状态，稍后从菜单退出。',
+        buttons: ['继续等待', '退出小步'], defaultId: 0, cancelId: 0, noLink: true });
+      if (result.response === 1) app.quit();
+    },
+    holdForUpdate: () => holdUpdateWindows({ app, BrowserWindow: require('electron').BrowserWindow }),
     quit: () => app.quit(),
     subscribeLifecycle
   });

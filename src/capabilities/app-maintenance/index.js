@@ -7,7 +7,8 @@ const migrationNotices = require('./domain/migration-notices');
 
 module.exports = Object.freeze({
   ipcRoutes,
-  desktopUpdates: Object.freeze({ ...require('./application/desktop-updates') }),
+  updateReleasePolicy: Object.freeze({ ...require('./domain/update-release-policy') }),
+  desktopUpdates: Object.freeze({ ...require('./application/desktop-updates'), ...require('./application/update-admission') }),
   dailyMarker: Object.freeze({ ...dailyMarker }),
   dismissMigrationNotice: Object.freeze({ ...dismissMigrationNotice }),
   migrationNotices: Object.freeze({ ...migrationNotices })

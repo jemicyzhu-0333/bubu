@@ -67,18 +67,6 @@ test('install checks canonical session, pending landing and durable storage at a
   state = {}; durable = false; assert.equal(api.install().reason, 'storage-unavailable');
   durable = true; assert.equal(api.install().ok, true); assert.equal(installs, 1); api.close();
 });
-test('release configuration refuses unsigned/unselected targets and uses architecture-specific metadata', () => {
-  const pkg = { version: '1.0.0', build: {} }, env = { RELEASE_REPOSITORY: 'owner/binaries', CSC_NAME: 'Identity', WINDOWS_PUBLISHER_NAME: 'Publisher' };
-  assert.throws(() => updateReleaseConfig({ pkg, platform: 'linux', arch: 'x64', env }));
-  assert.throws(() => updateReleaseConfig({ pkg, platform: 'darwin', arch: 'arm64', env: {} }));
-  assert.throws(() => updateReleaseConfig({ pkg: { ...pkg, version: '1.0.0-dev' }, platform: 'darwin', arch: 'arm64', env }));
-  const mac = updateReleaseConfig({ pkg, platform: 'darwin', arch: 'arm64', env });
-  assert.equal(mac.publish[0].channel, 'latest-arm64'); assert.equal(mac.publish[0].releaseType, 'draft');
-  assert.deepEqual(mac.mac.target.map(x => x.target), ['dmg', 'zip']); assert.equal(mac.forceCodeSigning, true);
-  const win = updateReleaseConfig({ pkg, platform: 'win32', arch: 'x64', env });
-  assert.equal(win.win.sign.type, 'signtool'); assert.equal(win.win.sign.publisherName, 'Publisher');
-  assert.equal(win.nsis.deleteAppDataOnUninstall, false);
-});
 
 test('dispose before the queued operation starts makes zero transport calls', async () => {
   let checks = 0, downloads = 0;

@@ -62,7 +62,9 @@
     "build:linux": "node scripts/build-app.js --platform=linux",
     "pack:linux": "node scripts/build-app.js --platform=linux --dir",
     "validate:mac": "npm run check && npm run pack:mac -- --arm64 && npm run verify:mac-app",
-    "app-icons:check": "node scripts/make-icon.js --check"
+    "app-icons:check": "node scripts/make-icon.js --check",
+    "verify:update-runtime": "electron scripts/verify-update-runtime.cjs",
+    "verify:update-artifacts": "node scripts/verify-update-artifacts.js"
   },
   "devDependencies": {
     "@napi-rs/canvas": "1.0.10",
@@ -71,7 +73,7 @@
   },
   "dependencies": {
     "electron-store": "^8.2.0",
-    "electron-updater": "6.8.10",
+    "electron-updater": "7.0.0-alpha.9",
     "gsap": "3.14.2"
   },
   "build": {
