@@ -5,6 +5,7 @@ const { energyLabel } = require('./energy-compatibility');
 const { buildEnergyCurveView } = require('./energy-curve-view');
 const { createSurfaceReadComposition } = require('./surface-read-composition');
 const { levelCost } = require('../../content/growth-policy.mjs');
+const { DIRTY_FIELDS } = require('../../core/state-channel.mjs');
 const { relationshipFor } = require('../../core/companion-state');
 function createPopoverStateQuery({ readSample, readSnapshot, readRevision, clock, skins, foods, appearanceItems, credentialStore, aiDisclosure, pomodoroView, schemaVersion: PERSISTED_SCHEMA_VERSION, countInboxHistory = null, readActivityMirror = () => null, readStorageStatus = () => null }) {
   const taskStartBlockReason = work.availability.taskStartBlockReason;
@@ -42,7 +43,11 @@ function createPopoverStateQuery({ readSample, readSnapshot, readRevision, clock
     ]));
     return { choices: selection.choices, wornIds: selection.worn.map(item => item.id), wornIdsBySkin };
   }
-  function project(sampled) {
+  function project(sampled, dirty = null) {
+    // Full queries keep the complete projection; publication only computes
+    // these expensive branches when its existing delta contract consumes them.
+    const fields = dirty && !dirty.all ? new Set(Object.entries(DIRTY_FIELDS)
+      .flatMap(([flag, names]) => dirty[flag] ? names : [])) : null;
     const { snapshot, now, settings, pomodoro, energyCurve, recommendations,
       energyEstimate, focusMinutes, quickPanel, workStart, workEnd } = sampled;
     const stats = snapshot.stats;
@@ -58,11 +63,11 @@ function createPopoverStateQuery({ readSample, readSnapshot, readRevision, clock
         && snapshot.focusSession.status === 'paused' && snapshot.focusSession.pausedFrom === 'focus'
         && snapshot.focusSession.sessionId === landing.sessionId
     } : null;
-    const historyPage = pageTaskHistory(snapshot.archivedTasks);
+    const historyPage = !fields || fields.has('history') || fields.has('archivedTasks') ? pageTaskHistory(snapshot.archivedTasks) : null;
     return {
       revision: readRevision(),
       schemaVersion: PERSISTED_SCHEMA_VERSION,
-      tasks: snapshot.tasks, archivedTasks: historyPage.items,
+      tasks: snapshot.tasks, archivedTasks: historyPage?.items,
       impulses: snapshot.impulses.filter(item => !item.resolution),
       // Resolved captures move to the fact-store archive; the count spans both places.
       activityMirror: readActivityMirror(),
@@ -70,17 +75,17 @@ function createPopoverStateQuery({ readSample, readSnapshot, readRevision, clock
       // A count read can recover without a canonical write; only inbox deltas
       // carry this generation, so unrelated changes never freshen an old count.
       inboxHistoryCountVersion: ++inboxHistoryCountVersion,
-      history: {
+      history: historyPage ? {
         total: historyPage.total,
         nextCursor: historyPage.nextCursor,
         retention: historyPage.retention
-      },
+      } : undefined,
       nowTaskId: nowTask ? nowTask.id : null, nowTask,
       xp: snapshot.xp, level: snapshot.level, levelCost: levelCost(snapshot.level),
       foodTickets: snapshot.pet.foodTickets, feedState: sampled.feedState,
       settings, stats,
       skins: companion.skinProjection.projectSkins(snapshot, skins, { now }), currentSkin: snapshot.currentSkin,
-      appearance: projectAppearanceChoices(snapshot),
+      appearance: !fields || fields.has('appearance') ? projectAppearanceChoices(snapshot) : undefined,
       companionProjection: companion.relationshipProjection.buildRelationshipProjection({ pet: snapshot.pet, companion: snapshot.companion, foods, now, currentSkin: snapshot.currentSkin }),
       foodShop: companion.foodShop.projectFoodShop({
         foods,
@@ -115,13 +120,13 @@ function createPopoverStateQuery({ readSample, readSnapshot, readRevision, clock
       quickPanel,
       reviews: snapshot.reviews,
       strategy: { enabled: settings.strategyGuidanceEnabled, phases: ['pre-start', 'distraction', 'working-memory', 'time-visibility', 'recovery'] },
-      ai: {
+      ai: !fields || fields.has('ai') ? {
         enabled: settings.aiBreakdownEnabled,
         model: settings.aiModel,
         baseUrl: settings.aiBaseUrl,
         credential: credentialStore.status(),
         disclosure: aiDisclosure(settings)
-      },
+      } : undefined,
       migrationNotices: snapshot.migrationNotices,
       // 自动失效已经不是某类任务的默认行为，只是“若现在开启会算到哪”的预览。
       autoExpiryPreview: preferences.workSchedule.computeAutoExpiry(now, settings),

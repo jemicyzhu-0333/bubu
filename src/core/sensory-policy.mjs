@@ -1,16 +1,16 @@
 'use strict';
 
-function focusPixMotionMode(value) {
+function imAdhderMotionMode(value) {
   return ['reduced', 'balanced', 'full'].includes(value) ? value : 'balanced';
 }
 
-function focusPixStimulationMode(value) {
+function imAdhderStimulationMode(value) {
   return ['low', 'balanced', 'high'].includes(value) ? value : 'balanced';
 }
 
 function resolveSensoryPolicy(input = {}) {
-  const motionMode = focusPixMotionMode(input.motionMode);
-  const stimulationMode = focusPixStimulationMode(input.stimulationMode);
+  const motionMode = imAdhderMotionMode(input.motionMode);
+  const stimulationMode = imAdhderStimulationMode(input.stimulationMode);
   const dnd = input.dnd === true;
   // "完整" is the deliberate opt-out from the operating system preference.
   // Every other mode continues to respect Reduce Motion.
@@ -33,15 +33,15 @@ function resolveSensoryPolicy(input = {}) {
   });
 }
 
-const focusPixSensoryPolicyApi = {
-  normalizeMotionMode: focusPixMotionMode,
-  normalizeStimulationMode: focusPixStimulationMode,
+const imAdhderSensoryPolicyApi = {
+  normalizeMotionMode: imAdhderMotionMode,
+  normalizeStimulationMode: imAdhderStimulationMode,
   resolveSensoryPolicy
 };
 
 
 
-export default focusPixSensoryPolicyApi;
-export const normalizeMotionMode = focusPixSensoryPolicyApi.normalizeMotionMode;
-export const normalizeStimulationMode = focusPixSensoryPolicyApi.normalizeStimulationMode;
+export default imAdhderSensoryPolicyApi;
+export const normalizeMotionMode = imAdhderSensoryPolicyApi.normalizeMotionMode;
+export const normalizeStimulationMode = imAdhderSensoryPolicyApi.normalizeStimulationMode;
 export { resolveSensoryPolicy };

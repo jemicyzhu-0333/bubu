@@ -16,8 +16,8 @@ async function run(){
   const out=path.resolve(__dirname,'../../dist/quiet-panel');fs.mkdirSync(out,{recursive:true});
   const shot=async name=>{await pause(150);fs.writeFileSync(path.join(out,name+'.png'),(await panel.webContents.capturePage()).toPNG());};
   const bounded=async selector=>assert.ok(await js(`(()=>{const e=document.querySelector(${JSON.stringify(selector)}),r=e.getBoundingClientRect();return r.left>=16&&r.right<=innerWidth-16&&r.top>=16&&r.bottom<=innerHeight-16&&e.scrollWidth<=e.clientWidth+1})()`),selector+' is bounded');
-  await js("window.focuspix.updateSettings({motionMode:'full',stimulationMode:'balanced'})");
-  await js("window.focuspix.addImpulse('给小猫补充食物，周末整理客厅，记下今天想到的一个很长很长很长的待办事项')");
+  await js("window.imAdhder.updateSettings({motionMode:'full',stimulationMode:'balanced'})");
+  await js("window.imAdhder.addImpulse('给小猫补充食物，周末整理客厅，记下今天想到的一个很长很长很长的待办事项')");
   await click('#tabArrange');await shot('01-tasks');
   assert.equal(await js("document.querySelector('#panelInbox').hidden"),true);
   await click('#btnOpenTaskCreate');await shot('02-create');
@@ -34,7 +34,7 @@ async function run(){
   assert.equal(await js("document.querySelector('#panelHelpTooltip').matches(':popover-open')"),false);
   assert.equal(await js("document.getElementById('taskCreateMask').classList.contains('hidden')"),false);
   await click('#taskCreateConfirm');
-  const task=await js("(async()=>{const s=await window.focuspix.getState();return s.tasks.find(t=>t.title==='测试紧凑新任务')})()");
+  const task=await js("(async()=>{const s=await window.imAdhder.getState();return s.tasks.find(t=>t.title==='测试紧凑新任务')})()");
   assert.ok(task.plannedFor);assert.equal(task.steps[0].title,'先打开文件');
   await click('#tabProgress');await shot('04-review');
   assert.equal(await js("document.querySelector('.history-overview')"),null);
@@ -47,7 +47,7 @@ async function run(){
   assert.equal(await js("document.getElementById('reviewInbox').open"),false);
   await click('#tabCompanion');await pause(500);await shot('06-companion');
   assert.equal(await js("getComputedStyle(document.querySelector('.companion-ambience span')).transform!=='none'"),true);
-  await js("window.focuspix.updateSettings({motionMode:'reduced'})");await pause(100);
+  await js("window.imAdhder.updateSettings({motionMode:'reduced'})");await pause(100);
   assert.equal(await js("getComputedStyle(document.querySelector('.companion-ambience span')).transform"),'none');
   for(const [button,dialog] of [['#btnOpenFood','#foodShopPanel'],['#btnOpenJourney','#journeyPanel']]){
     await click(button);await bounded(dialog);await shot(dialog.slice(1));

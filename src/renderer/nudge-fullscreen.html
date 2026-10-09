@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'nonce-focuspix-fullscreen'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'nonce-im-adhder-fullscreen'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; image-rendering: pixelated;
     font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
@@ -209,7 +209,7 @@
     <div class="actions" id="actions" aria-label="提醒操作"></div>
     <div class="escape-hint">按 <kbd>Esc</kbd> 或点击背景关闭</div>
   </div>
-<script nonce="focuspix-fullscreen">
+<script nonce="im-adhder-fullscreen">
   const canvas = document.getElementById('charCanvas');
   const ctx = canvas.getContext('2d');
   ctx.imageSmoothingEnabled = false;
@@ -334,9 +334,9 @@
     document.body.dataset.stimulation = ['low', 'balanced', 'high'].includes(data.stimulationMode) ? data.stimulationMode : 'balanced';
   }
 
-  window.focuspix.onNudgeSensoryProfile(applyNudgeSensoryProfile);
+  window.imAdhder.onNudgeSensoryProfile(applyNudgeSensoryProfile);
 
-  window.focuspix.onNudgeInit((data) => {
+  window.imAdhder.onNudgeInit((data) => {
     applyNudgeSensoryProfile(data);
     const name = drawCharacter(data.character || 'spider');
     document.getElementById('charName').textContent = '· ' + name + ' ·';
@@ -350,7 +350,7 @@
       btn.dataset.actionId = action.id;
       btn.textContent = action.label;
       btn.addEventListener('click', () => {
-        window.focuspix.dismissNudge(action.id);
+        window.imAdhder.dismissNudge(action.id);
       });
       actions.appendChild(btn);
     });
@@ -360,7 +360,7 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       e.preventDefault();
-      window.focuspix.dismissNudge('dismiss');
+      window.imAdhder.dismissNudge('dismiss');
       return;
     }
     if (e.key === 'Tab') {
@@ -383,7 +383,7 @@
   });
 
   document.body.addEventListener('click', (e) => {
-    if (!e.target.closest('#nudgeDialog')) window.focuspix.dismissNudge('dismiss');
+    if (!e.target.closest('#nudgeDialog')) window.imAdhder.dismissNudge('dismiss');
   });
 </script>
 </body>

@@ -68,7 +68,7 @@ function createHost(harness, overrides = {}) {
     Menu: harness.Menu,
     nativeImage: harness.nativeImage,
     initialIcon: { frame: 0, mood: 'idle', palette: PALETTE },
-    tooltip: 'FocusPix',
+    tooltip: 'ImAdhder',
     onClick: () => {},
     onRightClick: () => {},
     ...overrides

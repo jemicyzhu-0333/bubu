@@ -4,7 +4,7 @@
 // no code: shapes are SVG path strings plus a 2D matrix, bones are pivots in
 // the form's art space (the same 66-unit body coordinates the vector painter
 // uses). The renderer only trusts a document this validator returned.
-const RIG_FORMAT = 'focuspix-rig';
+const RIG_FORMAT = 'im-adhder-rig';
 const RIG_FORMAT_VERSION = 1;
 const RIG_VIEWS = Object.freeze(['front', 'three-quarter', 'profile', 'back']);
 const RIG_LAYERS = Object.freeze(['back', 'body', 'front']);

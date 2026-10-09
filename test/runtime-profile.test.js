@@ -5,14 +5,14 @@ const path = require('node:path');
 const assert = require('node:assert/strict');
 const { DEV_FLAG, isDevProfile, profileUserDataPath } = require('../src/core/runtime-profile');
 
-const PRODUCTION = '/Users/someone/Library/Application Support/focuspix';
+const PRODUCTION = '/Users/someone/Library/Application Support/im-adhder';
 
-test('brand change keeps storage identity while custom bench paths stay isolated', () => {
-  const { legacyStoragePath } = require('../src/core/runtime-profile');
+test('current branding selects its new default directory while custom profiles stay untouched', () => {
+  const { defaultStoragePath } = require('../src/core/runtime-profile');
   const parent = path.resolve('/profiles');
-  assert.equal(legacyStoragePath(path.join(parent, 'im-adhder')), path.join(parent, 'focuspix'));
-  assert.equal(profileUserDataPath(legacyStoragePath(path.join(parent, 'im-adhder')), ['--dev']), path.join(parent, 'focuspix-dev'));
-  assert.equal(legacyStoragePath(path.join(parent, 'bench-profile')), path.join(parent, 'bench-profile'));
+  assert.equal(defaultStoragePath(path.join(parent, 'im-adhder')), path.join(parent, 'im-adhder'));
+  assert.equal(profileUserDataPath(defaultStoragePath(path.join(parent, 'im-adhder')), ['--dev']), path.join(parent, 'im-adhder-dev'));
+  assert.equal(defaultStoragePath(path.join(parent, 'bench-profile')), path.join(parent, 'bench-profile'));
 });
 
 // 这个函数唯一的职责是回答“这一次运行可以往哪儿写”。答错的两个方向不对称：
@@ -32,7 +32,7 @@ test('the dev flag moves data to a sibling directory, not a nested one', () => {
   assert.equal(isDevProfile(['electron', '.', DEV_FLAG]), true);
   assert.equal(
     profileUserDataPath(PRODUCTION, ['electron', '.', '--dev']),
-    path.join(path.dirname(PRODUCTION), 'focuspix-dev')
+    path.join(path.dirname(PRODUCTION), 'im-adhder-dev')
   );
   // 同级而非子目录：放在里面的话，删掉开发数据就会连带删掉真实数据。
   assert.equal(profileUserDataPath(PRODUCTION, ['--dev']).startsWith(`${PRODUCTION}/`), false);
@@ -46,7 +46,7 @@ test('deriving twice does not create a third data directory', () => {
 
 test('a path we cannot safely derive from fails loudly instead of guessing', () => {
   // 相对路径拼出来的目录取决于当时的工作目录 —— 那等于随机选一份数据。
-  assert.throws(() => profileUserDataPath('focuspix', ['--dev']), TypeError);
+  assert.throws(() => profileUserDataPath('imAdhder', ['--dev']), TypeError);
   assert.throws(() => profileUserDataPath('', ['--dev']), TypeError);
   assert.throws(() => profileUserDataPath(null, ['--dev']), TypeError);
   // 根目录没有可用的兄弟位置，派生结果会落在文件系统根上。

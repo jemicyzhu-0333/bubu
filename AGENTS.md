@@ -43,7 +43,7 @@ complete merely because the UI appears to work.
   restyles; follow PRODUCT「界面语言」: pixels for the character only, system font for tools, one accent colour,
   red only for errors, no emoji as icons (inline 1.5px SVG instead), declarative copy without commands,
   self-justification or internal jargon, tabular numbers, and layout driven by `body[data-session]`.
-- Never insert `<style>` at runtime; never add a global `window.FocusPix*`.
+- Never insert `<style>` at runtime; never add a global `window.ImAdhder*`.
 
 ## State, IPC, and renderer rules
 
@@ -56,8 +56,8 @@ complete merely because the UI appears to work.
 - Every IPC command/query belongs to one capability contract with a closed payload validator and an explicit
   surface allowlist. Never expose `invoke(channel, payload)`, `ipcRenderer`, Electron, or a broad store API to a
   renderer.
-- Renderer features receive scoped clients and immutable projections. They must not call `window.focuspix`
-  directly outside the surface adapter, mutate canonical state, or add new `window.FocusPix*` globals.
+- Renderer features receive scoped clients and immutable projections. They must not call `window.imAdhder`
+  directly outside the surface adapter, mutate canonical state, or add new `window.ImAdhder*` globals.
 - Domain transitions return facts/results. Notifications, window operations, pet animation, and telemetry are
   post-commit effects; an effect failure must not turn an already committed command into a retryable failure.
 - Never hold a state transaction open across an LLM/network request. Capture a bounded intent, perform I/O, then

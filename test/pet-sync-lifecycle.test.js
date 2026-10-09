@@ -36,7 +36,7 @@ function preloadFixture() {
     require(name) {
       assert.equal(name, 'electron', 'preload receives only a synthetic Electron port');
       return { ipcRenderer: ipc, contextBridge: { exposeInMainWorld(key, value) {
-        assert.equal(key, 'focuspix'); assert.equal(client, undefined); client = value;
+        assert.equal(key, 'imAdhder'); assert.equal(client, undefined); client = value;
       } } };
     }
   }, { filename: 'preload-pet.js' });

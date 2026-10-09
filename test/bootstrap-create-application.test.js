@@ -8,10 +8,11 @@ const { createApplication } = require('../src/bootstrap/create-application');
 
 const mainSource = fs.readFileSync(path.join(__dirname, '../src/main.js'), 'utf8');
 
-function createAppHostHarness({ lock = true } = {}) {
+function createAppHostHarness({ lock = true, explicit = false, directory = '/profiles/im-adhder' } = {}) {
   const calls = [];
-  let userDataPath = '/profiles/focuspix';
+  let userDataPath = directory;
   const appHost = {
+    hasExplicitUserDataPath: () => explicit,
     userDataPath() {
       calls.push(['user-data', userDataPath]);
       return userDataPath;
@@ -63,18 +64,18 @@ test('development profile selection precedes the lock and storage composition', 
   });
 
   assert.deepEqual(harness.calls, [
-    ['user-data', '/profiles/focuspix'],
-    ['make-directory', path.join('/profiles', 'focuspix-dev')],
-    ['set-data-directory', path.join('/profiles', 'focuspix-dev')],
+    ['user-data', '/profiles/im-adhder'],
+    ['make-directory', path.join('/profiles', 'im-adhder-dev')],
+    ['set-data-directory', path.join('/profiles', 'im-adhder-dev')],
     ['acquire-lock'],
-    ['user-data', path.join('/profiles', 'focuspix-dev')],
-    ['create-state', path.join('/profiles', 'focuspix-dev'), 8],
-    ['create-credential', path.join('/profiles', 'focuspix-dev')],
-    ['open-fact-store', path.join('/profiles', 'focuspix-dev')]
+    ['user-data', path.join('/profiles', 'im-adhder-dev')],
+    ['create-state', path.join('/profiles', 'im-adhder-dev'), 8],
+    ['create-credential', path.join('/profiles', 'im-adhder-dev')],
+    ['open-fact-store', path.join('/profiles', 'im-adhder-dev')]
   ]);
   assert.equal(result.status, 'primary-instance');
   assert.equal(result.profile, 'development');
-  assert.equal(result.userDataPath, path.join('/profiles', 'focuspix-dev'));
+  assert.equal(result.userDataPath, path.join('/profiles', 'im-adhder-dev'));
   assert.equal(result.stateRepository, stateRepository);
   assert.equal(result.credentialStore, credentialStore);
   assert.equal(result.factStore, factStore);
@@ -132,3 +133,22 @@ test('the runtime consumes the profile selected by the composition root', () => 
   assert.match(mainSource, /tooltip: application\.profile === 'development'/);
   assert.doesNotMatch(mainSource, /\bisDevRun\b/);
 });
+
+
+for (const directory of ['/explicit/custom', '/explicit/I’m ADHDer']) {
+  for (const argv of [[], ['--dev']]) test(`explicit profile remains exact for ${directory} and ${argv.length ? 'dev' : 'normal'} launch`, () => {
+    const harness = createAppHostHarness({ explicit: true, directory });
+    const app = createApplication({ argv, appHost: harness.appHost, schemaVersion: 18,
+      normalizePersistedState: value => value,
+      makeDirectory: () => assert.fail('must not derive or create another explicit profile'),
+      createStateRepository: ({ userDataPath }) => { assert.equal(userDataPath, directory); return { close() {} }; },
+      createCredentialStore: ({ userDataPath }) => { assert.equal(userDataPath, directory); return {}; },
+      openCollaborationStorage: () => ({ status: 'unavailable', close() {} }),
+      openFactStore: () => ({ tier: 'none', close() {} })
+    });
+    assert.equal(app.userDataPath, directory);
+    assert.equal(app.profile, argv.length ? 'development' : 'production');
+    assert.equal(harness.calls.some(([kind]) => kind === 'set-data-directory'), false);
+    app.closeStorage();
+  });
+}

@@ -1,5 +1,5 @@
 'use strict';
-const { legacyStoragePath } = require('../../core/runtime-profile');
+const { defaultStoragePath } = require('../../core/runtime-profile');
 
 const APP_EVENTS = Object.freeze({
   onSecondInstance: 'second-instance',
@@ -31,11 +31,11 @@ function createAppHost({ app = require('electron').app } = {}) {
 
   const initialDirectory = app.getPath('userData');
   const explicitDirectory = app.commandLine?.hasSwitch?.('user-data-dir') === true;
-  const compatibleDirectory = explicitDirectory ? initialDirectory : legacyStoragePath(initialDirectory);
+  const compatibleDirectory = explicitDirectory ? initialDirectory : defaultStoragePath(initialDirectory);
   if (initialDirectory !== compatibleDirectory) setDataDirectory(compatibleDirectory);
-  // Keep the OS encryption/keychain identity used by existing installations.
-  // Windows, tray, installer and document titles use the public productName.
-  if (typeof app.setName === 'function') app.setName('focuspix');
+  // The current brand has its own OS encryption/keychain identity.
+  // No legacy credential or data migration is performed.
+  if (typeof app.setName === 'function') app.setName('im-adhder');
 
   let activeLifecycleDisposer = null;
 
@@ -105,6 +105,7 @@ function createAppHost({ app = require('electron').app } = {}) {
 
   return Object.freeze({
     userDataPath,
+    hasExplicitUserDataPath: () => explicitDirectory,
     setDataDirectory,
     acquireSingleInstanceLock: () => app.requestSingleInstanceLock() === true,
     isPackaged: () => app.isPackaged === true,

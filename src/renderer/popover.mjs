@@ -1,7 +1,7 @@
-import FocusPixTaskDates from './task-dates.mjs';
-import FocusPixSessionDuration from '../capabilities/execution/contract/session-duration.mjs';
-import FocusPixStateChannel from '../core/state-channel.mjs';
-import FocusPixKeyboardNavigation from '../core/keyboard-navigation.mjs';
+import ImAdhderTaskDates from './task-dates.mjs';
+import ImAdhderSessionDuration from '../capabilities/execution/contract/session-duration.mjs';
+import ImAdhderStateChannel from '../core/state-channel.mjs';
+import ImAdhderKeyboardNavigation from '../core/keyboard-navigation.mjs';
 import { createPopoverSurfaceClient } from '../surfaces/popover/adapter/surface-client.mjs';
 import { createPopoverDom } from '../surfaces/popover/ui/dom.mjs';
 import { createPopoverMessages } from '../surfaces/popover/ui/messages.mjs';
@@ -80,11 +80,11 @@ function createPopoverSurface({ document, window }) {
     fallbackReasonSuffix, describeSeriesRule, taskActionMessage, formatExpiry, focusActionMessage,
     scoreSummary
   } = createPopoverMessages({ pad2 });
-  const taskDates = FocusPixTaskDates;
+  const taskDates = ImAdhderTaskDates;
   // 时长的上下限、步长与预设只有一份定义，渲染层从共享模块读。之前这里自己
   // 写过一份 5–180，跟持久层和设置面板各说一套，这种分叉不能再回来。
-  const sessionDuration = FocusPixSessionDuration;
-  const stateChannel = FocusPixStateChannel;
+  const sessionDuration = ImAdhderSessionDuration;
+  const stateChannel = ImAdhderStateChannel;
   const modalPrimitive = createPopoverModalPrimitive({ $, $$ });
   const surfaceClient = createPopoverSurfaceClient();
   // 弹层的 Tab 困焦顺序、Escape 关闭顺序与“有没有弹层开着”都由登记处一处回答,
@@ -522,7 +522,7 @@ function createPopoverSurface({ document, window }) {
     getSession,
     surfaceClient,
     escapeHTML,
-    nextRovingIndex: FocusPixKeyboardNavigation.nextRovingIndex,
+    nextRovingIndex: ImAdhderKeyboardNavigation.nextRovingIndex,
     onTabShown: name => {
       if (name !== 'inbox') inbox.hide();
       inbox.visibilityChanged();

@@ -226,7 +226,7 @@ function validateClarifyResult(raw) {
 
 const CLARIFY_TASK = Object.freeze({
   name: 'clarify',
-  schemaName: 'focuspix_clarify',
+  schemaName: 'im_adhder_clarify',
   instruction: CLARIFY_INSTRUCTION,
   fields: CLARIFY_FIELDS,
   buildSchema: () => CLARIFY_JSON_SCHEMA,

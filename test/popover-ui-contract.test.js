@@ -304,9 +304,9 @@ test('the renderer reads one duration range instead of declaring its own', () =>
   // reintroduce a fourth, so it may not name these bounds at all.
   assert.doesNotMatch(js, /MIN_FULL_FOCUS_MINUTES|MAX_FULL_FOCUS_MINUTES|normalizeFullFocusMinutes/);
   assert.doesNotMatch(js, /const QUICK_START_MINUTES/);
-  assert.match(js, /const sessionDuration = FocusPixSessionDuration;/);
+  assert.match(js, /const sessionDuration = ImAdhderSessionDuration;/);
   assert.match(js, /sessionDuration\.QUICK_START_MINUTES/);
-  assert.match(js, /import FocusPixSessionDuration from '\.\.\/capabilities\/execution\/contract\/session-duration\.mjs'/);
+  assert.match(js, /import ImAdhderSessionDuration from '\.\.\/capabilities\/execution\/contract\/session-duration\.mjs'/);
 
   const shared = require('../src/capabilities/execution').sessionDuration;
   assert.equal(shared.normalizeFocusMinutes(2, 25), 5, 'engine activation signal is clamped for full focus');
@@ -482,7 +482,7 @@ test('task rows expose appointment context and impulse review names the actual s
   assert.match(js, /task\.scheduledFor/);
   assert.match(js, /预约于 \$\{escapeHTML\(scheduledLabel\)\}/);
   assert.match(js, /data-inbox-action="schedule">下个工作时段</);
-  assert.match(js, /import FocusPixTaskDates from '\.\/task-dates\.mjs'/);
+  assert.match(js, /import ImAdhderTaskDates from '\.\/task-dates\.mjs'/);
 });
 
 test('a completion suggestion lands in the draft, never in the store, and never touches the title', () => {

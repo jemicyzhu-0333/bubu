@@ -84,7 +84,7 @@ function createAiCollaboration({ storage, readSnapshot, factStore, credentialSto
   function invalidateAll() {
     return admission.invalidate('authorization-changed');
   }
-  function register(registerIpc, { updatePreferencesCommand, readEnvironmentCredential = () => process.env.FOCUSPIX_AI_API_KEY } = {}) {
+  function register(registerIpc, { updatePreferencesCommand, readEnvironmentCredential = () => process.env.IM_ADHDER_AI_API_KEY } = {}) {
     if (memoryAuthority && !memoryManagement) memoryManagement = createMemoryManagement({ authority: memoryAuthority,
       collaboration: { sessions, reads, invalidateScopes: () => { grants.clear(); changes.invalidate(); } }, now, lifecycle, publishChange });
     memoryManagement?.register(registerIpc);

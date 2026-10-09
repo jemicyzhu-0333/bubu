@@ -71,7 +71,7 @@ async function inspect({ app, BrowserWindow, profile, errors, soakMs }) {
     assert.ok(pages.some(entry => entry.url.endsWith(`/${page}.html`) && entry.ready === 'complete'));
   }
   const popover = windows.find(window => window.webContents.getURL().endsWith('/popover.html'));
-  const before = await popover.webContents.executeJavaScript('window.focuspix.getState()');
+  const before = await popover.webContents.executeJavaScript('window.imAdhder.getState()');
   assert.ok(before.tasks.length > 0);
   assert.equal(before.schemaVersion, 18);
   assert.deepEqual(before.tasks.map(task => task.id), profile.initial.tasks.map(task => task.id));
@@ -92,18 +92,18 @@ async function inspect({ app, BrowserWindow, profile, errors, soakMs }) {
     assert.equal(before.level, 1);
     assert.equal(before.skins.find(skin => skin.id === 'usagi').unlocked, true);
     assert.equal(before.skins.find(skin => skin.id === 'usagi').progress, null);
-    assert.equal(await popover.webContents.executeJavaScript("window.focuspix.switchSkin('pink')"), true);
-    assert.equal(await popover.webContents.executeJavaScript("window.focuspix.switchSkin('usagi')"), true);
-    const chosen = await popover.webContents.executeJavaScript('window.focuspix.getState()');
+    assert.equal(await popover.webContents.executeJavaScript("window.imAdhder.switchSkin('pink')"), true);
+    assert.equal(await popover.webContents.executeJavaScript("window.imAdhder.switchSkin('usagi')"), true);
+    const chosen = await popover.webContents.executeJavaScript('window.imAdhder.getState()');
     assert.equal(chosen.currentSkin, 'usagi');
   }
   let growth = null;
   if (['level-up', 'flame-near'].includes(profile.scenario)) {
     growth = await verifyManualGrowth({
-      readState: () => popover.webContents.executeJavaScript('window.focuspix.getState()'),
+      readState: () => popover.webContents.executeJavaScript('window.imAdhder.getState()'),
       completeStep: (taskId, stepId) => popover.webContents.executeJavaScript(
-        `window.focuspix.completeStep(${JSON.stringify(taskId)}, ${JSON.stringify(stepId)})`),
-      completeTask: taskId => popover.webContents.executeJavaScript(`window.focuspix.completeTask(${JSON.stringify(taskId)})`)
+        `window.imAdhder.completeStep(${JSON.stringify(taskId)}, ${JSON.stringify(stepId)})`),
+      completeTask: taskId => popover.webContents.executeJavaScript(`window.imAdhder.completeTask(${JSON.stringify(taskId)})`)
     }, before);
   }
   const pet = windows.find(window => window.webContents.getURL().endsWith('/pet.html'));
@@ -121,7 +121,7 @@ async function inspect({ app, BrowserWindow, profile, errors, soakMs }) {
     await new Promise(resolve => setTimeout(resolve, 1000));
   }
   assert.deepEqual(errors, []);
-  const finalState = await popover.webContents.executeJavaScript('window.focuspix.getState()');
+  const finalState = await popover.webContents.executeJavaScript('window.imAdhder.getState()');
   return { userDataPath, tasks: before.tasks.length, pages, reentries, soakMs, samples, errors, growth, expectedTasks: finalState.tasks };
 }
 

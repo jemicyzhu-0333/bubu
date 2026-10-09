@@ -4,7 +4,7 @@ const {createPetSurfaceClient}=require('../src/surfaces/pet/adapter/surface-clie
 const {createPopoverSurfaceClient}=require('../src/surfaces/popover/adapter/surface-client.mjs');
 const {validateIpcPayload,allowedSurfacesFor}=require('../src/application/ipc/route-catalog');
 function load(surface){let bridge;const sent=[];vm.runInNewContext(fs.readFileSync(path.join(__dirname,`../src/preload-${surface}.js`),'utf8'),{
-  require:name=>{assert.equal(name,'electron');return{contextBridge:{exposeInMainWorld:(key,value)=>{assert.equal(key,'focuspix');bridge=value;}},
+  require:name=>{assert.equal(name,'electron');return{contextBridge:{exposeInMainWorld:(key,value)=>{assert.equal(key,'imAdhder');bridge=value;}},
     ipcRenderer:{on(){},removeListener(){},invoke:(channel,payload)=>{const copy=structuredClone(payload);sent.push({channel,payload:copy});return validateIpcPayload(channel,copy);}}};}
 });return{client:surface==='pet'?createPetSurfaceClient(bridge):createPopoverSurfaceClient(bridge),sent};}
 for(const [surface,method,channel]of [['pet','pet_feed','pet:feed'],['popover','buyFood','pet:buy-food']])test(`${surface} actual preload/client preserves closed food identity and allowlist`,async()=>{

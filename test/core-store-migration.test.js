@@ -16,7 +16,7 @@ const { normalizePersistedState, FOOD_IDS, PERSISTED_SCHEMA_VERSION } = require(
 const { baseUrlFromEndpoint } = require('../src/capabilities/preferences');
 
 function withTempDirectory(run) {
-  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'focuspix-migration-'));
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'im-adhder-migration-'));
   try { return run(directory); } finally { fs.rmSync(directory, { recursive: true, force: true }); }
 }
 

@@ -27,15 +27,15 @@ async function run() {
   const shot = async (win, name) => { await pause(250); fs.writeFileSync(path.join(out, `${name}.png`), (await win.webContents.capturePage()).toPNG()); };
 
   // Autonomous cues would cover the poses in screenshots; let any greeting finish first.
-  await js("window.focuspix.updateSettings({petActivityMode:'off'})");
+  await js("window.imAdhder.updateSettings({petActivityMode:'off'})");
   await pause(9000);
   // Off by default: no category, nothing read.
-  assert.equal(await js('(async()=>(await window.focuspix.getState()).settings.activityMirrorEnabled)()'), false);
+  assert.equal(await js('(async()=>(await window.imAdhder.getState()).settings.activityMirrorEnabled)()'), false);
   await js("document.getElementById('btnSettings').click()"); await pause(250);
   await js("const g=document.getElementById('settingGroupActivityMirror');g.open=true;g.scrollIntoView({block:'start'})");
   assert.equal(await js("document.getElementById('activityMirrorStatus').textContent"), '关闭时不读取任何应用信息。');
   await js("document.getElementById('activityMirrorToggle').click()"); await pause(400);
-  assert.equal(await js('(async()=>(await window.focuspix.getState()).settings.activityMirrorEnabled)()'), true);
+  assert.equal(await js('(async()=>(await window.imAdhder.getState()).settings.activityMirrorEnabled)()'), true);
   assert.equal(await js("document.getElementById('activityMirrorToggle').getAttribute('aria-pressed')"), 'true');
   assert.equal(await js("document.getElementById('activityMirrorStatus').textContent"), '暂时没有可以跟随的活动');
   await shot(panel, '01-settings-on');
@@ -56,7 +56,7 @@ async function run() {
   assert.equal(await petJs("document.getElementById('activityLabel').textContent"), '', 'unknown categories are ignored');
 
   await js("document.getElementById('activityMirrorToggle').click()"); await pause(400);
-  assert.equal(await js('(async()=>(await window.focuspix.getState()).settings.activityMirrorEnabled)()'), false);
+  assert.equal(await js('(async()=>(await window.imAdhder.getState()).settings.activityMirrorEnabled)()'), false);
   assert.deepEqual(errors, []);
   console.log(JSON.stringify({ output: out, errors, verified: ['off by default', 'toggle and status', 'music/coding/ai poses on the pet', 'null and unknown categories'] }));
 }

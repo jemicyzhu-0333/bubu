@@ -1,6 +1,6 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
-contextBridge.exposeInMainWorld('focuspix', {
+contextBridge.exposeInMainWorld('imAdhder', {
   getState: () => ipcRenderer.invoke('state:get'),
   onPopoverHidden: callback => {
     if (typeof callback !== 'function') throw new TypeError('popover callback required');

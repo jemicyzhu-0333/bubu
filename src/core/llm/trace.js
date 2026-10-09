@@ -6,6 +6,7 @@
 const OPERATIONS = Object.freeze(['breakdown', 'enrich', 'unstick', 'clarify', 'collaborate', 'impulse-energy', 'capture-triage']);
 const PROVIDERS = Object.freeze(['api', 'deterministic', 'none']);
 const ENUM_FIELDS = Object.freeze({
+  contentKind: Object.freeze(['json', 'html', 'event-stream', 'text', 'other', 'unknown']),
   kind: OPERATIONS,
   task: OPERATIONS,
   provider: PROVIDERS,
@@ -23,6 +24,7 @@ const ERROR_CODES = Object.freeze([
   'provider-model-missing', 'invalid-provider-endpoint', 'provider-endpoint-port-not-allowed',
   'provider-endpoint-host-not-allowed', 'provider-endpoint-address-not-allowed',
   'provider-endpoint-resolves-private', 'provider-response-invalid-json',
+  'provider-response-html', 'provider-response-event-stream', 'provider-response-empty',
   'provider-response-missing-output', 'provider-response-too-large', 'provider-http-error',
   'provider-network-error', 'proposal-rejected', 'forced-local', 'turn-limit-forced-local'
 ]);
@@ -121,8 +123,8 @@ function createLlmTrace(options = {}) {
       resolved() {
         emitSpan('resolved');
       },
-      status(statusCode) {
-        emitSpan('response', { statusCode, elapsedMs: elapsedMs() });
+      status(statusCode, contentKind) {
+        emitSpan('response', { statusCode, contentKind, elapsedMs: elapsedMs() });
       },
       body(text) {
         emitSpan('response-size', { responseChars: typeof text === 'string' ? text.length : undefined });

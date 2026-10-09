@@ -259,8 +259,8 @@ function assertPlatformIsolation(files) {
     }
     if (/^src\/surfaces\//.test(file)
         && !/^src\/surfaces\/[^/]+\/adapter\//.test(file)
-        && /window\.focuspix\b/.test(source)) {
-      failures.push(`${file} accesses window.focuspix outside its surface adapter`);
+        && /window\.imAdhder\b/.test(source)) {
+      failures.push(`${file} accesses window.imAdhder outside its surface adapter`);
     }
     if (/^src\/(?:bootstrap|application|capabilities|platform|surfaces|shared)\//.test(file)
         && /(?:require|import)\(\s*[^'"\s]/.test(source)) {
@@ -293,8 +293,8 @@ function metric(source, name) {
     return [...source.matchAll(/require\(\s*['"](\.[^'"]+)['"]\s*\)/g)].length;
   }
   if (name === 'ipcRegistrations') return [...source.matchAll(/registerIpc\('([^']+)'/g)].length;
-  if (name === 'focuspixCalls') return [...source.matchAll(/window\.focuspix\.[A-Za-z0-9_]+/g)].length;
-  if (name === 'legacyGlobals') return [...source.matchAll(/window\.FocusPix[A-Za-z0-9_]*/g)].length;
+  if (name === 'imAdhderCalls') return [...source.matchAll(/window\.imAdhder\.[A-Za-z0-9_]+/g)].length;
+  if (name === 'legacyGlobals') return [...source.matchAll(/window\.ImAdhder[A-Za-z0-9_]*/g)].length;
   throw new Error(`unknown architecture metric: ${name}`);
 }
 

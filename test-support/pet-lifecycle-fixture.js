@@ -54,11 +54,11 @@ function createLifecycleHarness(options = {}) {
       observe() { observers.add(this); }
       disconnect() { observers.delete(this); }
     };
-    for (const [name, method] of Object.entries(window.focuspix)) {
+    for (const [name, method] of Object.entries(window.imAdhder)) {
       if (name.startsWith('onPet')) {
         const listeners = new Set(); subscriptions.set(name, listeners);
-        window.focuspix[name] = fn => { listeners.add(fn); callbacks.push(() => fn({ message: 'late', baseState: 'hungry', open: true })); return () => listeners.delete(fn); };
-      } else window.focuspix[name] = (...args) => { calls.push([name, ...args]); return method(...args); };
+        window.imAdhder[name] = fn => { listeners.add(fn); callbacks.push(() => fn({ message: 'late', baseState: 'hungry', open: true })); return () => listeners.delete(fn); };
+      } else window.imAdhder[name] = (...args) => { calls.push([name, ...args]); return method(...args); };
     }
     environment.setTimeout = (fn, delay) => { const id = ++nextId; timers.set(id, { fn, delay, interval: false }); callbacks.push(fn); return id; };
     environment.setInterval = (fn, delay) => { const id = ++nextId; timers.set(id, { fn, delay, interval: true }); callbacks.push(fn); return id; };

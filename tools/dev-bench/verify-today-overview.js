@@ -23,9 +23,9 @@ async function run() {
   const out = path.resolve('dist/today-overview'); fs.mkdirSync(out, { recursive: true });
   const shot = async name => { await pause(150); fs.writeFileSync(path.join(out, `${name}.png`), (await panel.webContents.capturePage()).toPNG()); };
   const now = new Date();
-  await js(`window.focuspix.addRoutine({title:'吃药',kind:'medication',schedule:{frequency:'daily',timesOfDay:['${hm(new Date(now - 300000))}'],windowMinutes:60}})`);
-  await js(`window.focuspix.addRoutine({title:'喝水',kind:'custom',schedule:{frequency:'daily',timesOfDay:['${hm(new Date(+now + 3 * 3600000))}'],windowMinutes:60}})`);
-  for (const text of ['吃完晚饭了', '想到一个周末出游的点子', '整理项目里的重复代码']) await js(`window.focuspix.addImpulse(${JSON.stringify(text)})`);
+  await js(`window.imAdhder.addRoutine({title:'吃药',kind:'medication',schedule:{frequency:'daily',timesOfDay:['${hm(new Date(now - 300000))}'],windowMinutes:60}})`);
+  await js(`window.imAdhder.addRoutine({title:'喝水',kind:'custom',schedule:{frequency:'daily',timesOfDay:['${hm(new Date(+now + 3 * 3600000))}'],windowMinutes:60}})`);
+  for (const text of ['吃完晚饭了', '想到一个周末出游的点子', '整理项目里的重复代码']) await js(`window.imAdhder.addImpulse(${JSON.stringify(text)})`);
   await pause(400);
   await click('#tabToday');
   // The headline is an action, never the tab name; tiles are on the first screen.

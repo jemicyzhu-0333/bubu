@@ -44,15 +44,15 @@ test('the default model is declared once, in the settings schema, and never in t
 test('every schema mode actually puts the schema in front of the model', () => {
   assert.deepEqual([...SCHEMA_MODES], ['json_schema', 'json_object']);
 
-  const strict = buildChatRequest({ model: 'm', messages, schema, schemaName: 'focuspix_breakdown', mode: 'json_schema' });
+  const strict = buildChatRequest({ model: 'm', messages, schema, schemaName: 'im_adhder_breakdown', mode: 'json_schema' });
   assert.deepEqual(strict.response_format, {
     type: 'json_schema',
-    json_schema: { name: 'focuspix_breakdown', strict: true, schema: strictSchema(schema) }
+    json_schema: { name: 'im_adhder_breakdown', strict: true, schema: strictSchema(schema) }
   });
   assert.equal(strict.stream, false);
   assert.deepEqual(strict.messages, messages, 'json_schema 档位不改动消息');
 
-  const loose = buildChatRequest({ model: 'm', messages, schema, schemaName: 'focuspix_breakdown', mode: 'json_object' });
+  const loose = buildChatRequest({ model: 'm', messages, schema, schemaName: 'im_adhder_breakdown', mode: 'json_object' });
   assert.deepEqual(loose.response_format, { type: 'json_object' });
   assert.equal(loose.messages.length, messages.length + 1);
   const inlined = loose.messages[0].content;
@@ -114,9 +114,9 @@ test('schema mode is negotiated from what the provider says, never from its host
 // text.format 而不是 response_format。发错字段名会被对面读成“缺参数”，
 // 而那与“协议不对”在错误信息里长得一样。
 test('the Responses shape carries the schema under text.format, and both rungs still hand it over', () => {
-  const strict = buildResponsesRequest({ model: 'm', messages, schema, schemaName: 'focuspix_breakdown', mode: 'json_schema' });
+  const strict = buildResponsesRequest({ model: 'm', messages, schema, schemaName: 'im_adhder_breakdown', mode: 'json_schema' });
   assert.deepEqual(strict.text, {
-    format: { type: 'json_schema', name: 'focuspix_breakdown', strict: true, schema: strictSchema(schema) }
+    format: { type: 'json_schema', name: 'im_adhder_breakdown', strict: true, schema: strictSchema(schema) }
   });
   assert.deepEqual(strict.input, messages, 'json_schema 档位不改动输入');
   assert.equal(strict.messages, undefined);

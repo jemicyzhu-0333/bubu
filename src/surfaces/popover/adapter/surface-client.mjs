@@ -2,8 +2,8 @@
 
 // The popover is allowed to know only this scoped client.  Keeping the bridge
 // lookup here makes it impossible for a feature module to grow a second IPC
-// surface by reaching into window.focuspix on its own.
-function createPopoverSurfaceClient(bridge = typeof window !== 'undefined' ? window.focuspix : null) {
+// surface by reaching into window.imAdhder on its own.
+function createPopoverSurfaceClient(bridge = typeof window !== 'undefined' ? window.imAdhder : null) {
   if (!bridge || typeof bridge !== 'object') {
     throw new TypeError('popover surface bridge is required');
   }

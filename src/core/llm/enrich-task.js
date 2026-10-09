@@ -33,7 +33,7 @@ const ENRICH_INSTRUCTION = [
 
 const ENRICH_TASK = Object.freeze({
   name: 'enrich',
-  schemaName: 'focuspix_enrich',
+  schemaName: 'im_adhder_enrich',
   instruction: ENRICH_INSTRUCTION,
   fields: ENRICH_FIELDS,
   buildSchema: payload => buildEnrichJsonSchema(payload.existingTags),

@@ -48,7 +48,7 @@ npm run check        # 单测、语法、架构边界及生成资源检查
 npm run test:integration
 ```
 
-`npm start` 使用日常档案；开发时优先用 `npm run dev`。开发档案 `focuspix-dev` 与日常档案 `focuspix` 的数据、凭据和 Chromium 存储隔离。内部旧名称用于兼容，不影响产品品牌。
+`npm start` 使用日常档案；开发时优先用 `npm run dev`。开发档案 `im-adhder-dev` 与日常档案 `im-adhder` 的数据、凭据和 Chromium 存储隔离。本测试修订使用新的默认档案和凭据身份，首次进入为空档案；旧目录保持原样，不自动迁移数据或凭据。显式 `--user-data-dir` 仍受尊重。
 
 当前为 `0.0.1-dev`，业务数据只接受完整规范的 **schema 18**。不要拿已有或旧版用户档案试运行；不自动导入、转换或修复旧资料。可删除的测试场景用：
 

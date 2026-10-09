@@ -135,7 +135,7 @@ async function verifyInstall({ platform = process.platform, argv = process.argv,
     // is not evidence that application startup or the SQL owner was ready.
     const diagnostic = { stage, seedRevision: fixture.revision, persistedRevision,
       childClosed: closed, omittedOutputCharacters,
-      fixtureFiles: Object.fromEntries(['config.sqlite', 'config.sqlite.identity.sqlite', 'focuspix.sqlite', 'Preferences', 'Local State'].map(name => [name, fs.existsSync(path.join(fixture.userDataPath, name))])),
+      fixtureFiles: Object.fromEntries(['config.sqlite', 'config.sqlite.identity.sqlite', 'im-adhder.sqlite', 'Preferences', 'Local State'].map(name => [name, fs.existsSync(path.join(fixture.userDataPath, name))])),
       childOutput: summarizeStartupOutput(output) };
     if (diagnosticFile) fs.writeFileSync(diagnosticFile, JSON.stringify(diagnostic, null, 2) + '\n');
     throw new Error(`${error.message}\nInstaller diagnostic: ${JSON.stringify(diagnostic)}`, { cause: error });

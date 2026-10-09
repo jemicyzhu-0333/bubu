@@ -1,6 +1,6 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
-contextBridge.exposeInMainWorld('focuspix', {
+contextBridge.exposeInMainWorld('imAdhder', {
   onNudgeInit: callback => {
     if (typeof callback === 'function') ipcRenderer.on('nudge:init', (_event, payload) => callback(payload));
   },

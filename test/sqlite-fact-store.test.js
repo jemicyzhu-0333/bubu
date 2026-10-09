@@ -18,7 +18,7 @@ const tempDirs = [];
 // Tests never touch the real user directory (AGENTS.md): everything lives in a
 // throwaway mkdtemp under the OS temp root.
 function tempDir(label) {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), `focuspix-${label}-`));
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), `im-adhder-${label}-`));
   tempDirs.push(dir);
   return dir;
 }

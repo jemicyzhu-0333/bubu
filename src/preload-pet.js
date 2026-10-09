@@ -12,7 +12,7 @@ function subscribePet(channel, callback) {
   };
 }
 
-contextBridge.exposeInMainWorld('focuspix', {
+contextBridge.exposeInMainWorld('imAdhder', {
   pet_getBounds: () => ipcRenderer.invoke('pet:getBounds'),
   pet_setPosition: (x, y) => ipcRenderer.invoke('pet:setPosition', { x, y }),
   pet_savePosition: (x, y) => ipcRenderer.invoke('pet:savePosition', { x, y }),

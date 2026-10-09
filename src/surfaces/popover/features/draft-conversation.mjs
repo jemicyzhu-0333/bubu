@@ -55,7 +55,7 @@ function createPopoverDraftConversation({
     || typeof surfaceClient.conversationTurn !== 'function') {
     throw new TypeError('popover draft conversation requires surfaceClient');
   }
-  const view = createCollaborationView({ $, escapeHTML });
+  const view = createCollaborationView({ $, escapeHTML, fallbackReasonText });
   const navigation = createCollaborationNavigation({ document, $, restoreModalFocus });
   let record = null;
   let scopeGrantId = null;

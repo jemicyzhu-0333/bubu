@@ -163,5 +163,5 @@ test('P5：画廊是显式开发入口，不接生产 main、不增加 preload �
   assert.match(launcher, /webContents\.capturePage\(\)/);
   assert.match(launcher, /setWindowOpenHandler\(\(\) => \(\{ action: 'deny' \}\)\)/);
   assert.doesNotMatch(launcher, /preload\s*:|ipcMain|ipcRenderer|webviewTag|enableRemoteModule/);
-  assert.doesNotMatch(`${html}\n${renderer}`, /window\.focuspix|ipcRenderer|require\s*\(/);
+  assert.doesNotMatch(`${html}\n${renderer}`, /window\.imAdhder|ipcRenderer|require\s*\(/);
 });

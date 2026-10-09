@@ -1,6 +1,6 @@
 'use strict';
 
-const focusPixExpressionsApi = (() => {
+const imAdhderExpressionsApi = (() => {
 
 // I’m ADHDer 的 32 套原创像素表情配置。
 //
@@ -373,10 +373,10 @@ return Object.freeze({
 
 })();
 
-export default focusPixExpressionsApi;
-export const EXPRESSIONS = focusPixExpressionsApi.EXPRESSIONS;
-export const EXPECTED_TOTAL = focusPixExpressionsApi.EXPECTED_TOTAL;
-export const EXPECTED_GROUP_COUNTS = focusPixExpressionsApi.EXPECTED_GROUP_COUNTS;
-export const EXPECTED_EXPRESSION_IDS = focusPixExpressionsApi.EXPECTED_EXPRESSION_IDS;
-export const assertExpressionLibrary = focusPixExpressionsApi.assertExpressionLibrary;
-export const EXPRESSION_LIBRARY_STATS = focusPixExpressionsApi.EXPRESSION_LIBRARY_STATS;
+export default imAdhderExpressionsApi;
+export const EXPRESSIONS = imAdhderExpressionsApi.EXPRESSIONS;
+export const EXPECTED_TOTAL = imAdhderExpressionsApi.EXPECTED_TOTAL;
+export const EXPECTED_GROUP_COUNTS = imAdhderExpressionsApi.EXPECTED_GROUP_COUNTS;
+export const EXPECTED_EXPRESSION_IDS = imAdhderExpressionsApi.EXPECTED_EXPRESSION_IDS;
+export const assertExpressionLibrary = imAdhderExpressionsApi.assertExpressionLibrary;
+export const EXPRESSION_LIBRARY_STATS = imAdhderExpressionsApi.EXPRESSION_LIBRARY_STATS;

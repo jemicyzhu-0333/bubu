@@ -232,6 +232,7 @@ test('known remote refusal codes stay bounded and preserved on local success', a
     'provider-model-missing', 'invalid-provider-endpoint', 'provider-endpoint-port-not-allowed',
     'provider-endpoint-host-not-allowed', 'provider-endpoint-address-not-allowed',
     'provider-endpoint-resolves-private', 'provider-response-invalid-json',
+    'provider-response-html', 'provider-response-event-stream', 'provider-response-empty',
     'provider-response-missing-output', 'provider-response-too-large', 'provider-http-error',
     'provider-network-error', 'proposal-rejected', 'provider-budget', 'provider-output-budget']) {
     const result = await harness().run(remote(async () => { throw Object.freeze(new Error(reason)); }),

@@ -32,7 +32,7 @@ async function run() {
     await shot('14-landing');
     await js("const input=document.getElementById('landingNote');input.value='挑一个例子放进第一部分';input.dispatchEvent(new Event('input',{bubbles:true}));document.querySelector('[data-focus-landing=save]').click()");
     await pause(250);
-    const state = await js('window.focuspix.getState()');
+    const state = await js('window.imAdhder.getState()');
     assert.equal(state.focusLandingPrompt, null);
     assert.equal(state.tasks.find(task=>task.id===state.nowTaskId).nextAction, '挑一个例子放进第一部分');
     assert.equal(await js("document.getElementById('nowNextAction').textContent"), '挑一个例子放进第一部分');
@@ -43,8 +43,8 @@ async function run() {
   }
   await pause(180); await shot('01-empty');
   assert.equal(await js('document.body.dataset.actionState'), 'empty');
-  await js("window.focuspix.addTask({title:'准备周五的分享',steps:[{title:'打开上次的文档，写下三个小标题'},{title:'挑一个例子放进第一部分'}]})");
-  await js("(async()=>{const s=await window.focuspix.getState();await window.focuspix.setNowTask(s.tasks.find(t=>t.title==='准备周五的分享').id)})()");
+  await js("window.imAdhder.addTask({title:'准备周五的分享',steps:[{title:'打开上次的文档，写下三个小标题'},{title:'挑一个例子放进第一部分'}]})");
+  await js("(async()=>{const s=await window.imAdhder.getState();await window.imAdhder.setNowTask(s.tasks.find(t=>t.title==='准备周五的分享').id)})()");
   await pause(200); await shot('02-ready');
   assert.equal(await js('document.body.dataset.actionState'), 'ready');
   assert.equal(await js("document.getElementById('durationPicker').open"), false);

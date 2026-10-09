@@ -9,7 +9,7 @@ const ROOT = path.resolve(__dirname, '../..');
 const request = process.argv.find(argument => argument.startsWith('--request='));
 if (!request) throw new Error('Launch this diagnostic with npm run pet:memory');
 const { out, options } = JSON.parse(fs.readFileSync(request.slice(10), 'utf8'));
-const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'focuspix-pet-memory-'));
+const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'im-adhder-pet-memory-'));
 app.setPath('userData', profile); app.setPath('sessionData', profile);
 let window, nativeEvents, report, writeReport, assessReport, exiting = false;
 let stopRequested = false, gpuInfoUpdated = false;

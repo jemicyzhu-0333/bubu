@@ -215,7 +215,7 @@ function schema8Snapshot() {
 }
 
 function withTempStore(t, contents) {
-  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'focuspix-schema9-'));
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'im-adhder-schema9-'));
   t.after(() => { adapters.closeDirectory(directory); fs.rmSync(directory, { recursive: true, force: true }); });
   const storePath = path.join(directory, 'config.json');
   if (contents !== undefined) fs.writeFileSync(storePath, `${JSON.stringify(contents, null, 2)}\n`);

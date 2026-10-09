@@ -45,12 +45,18 @@ function createPopoverMessages({ pad2 } = {}) {
     }
     return {
       'provider-credential-missing': '还没保存 API 密钥',
+      'provider-not-configured': '尚未配置完整的模型连接，本次使用本地回复',
       'provider model is required': '还没填模型名',
       // 这两条不是模型报错，是等待时间用完了。说成“超时”而不是原始机器码，
       // 否则用户会去查密钥和模型名，而那两样都是好的。
       'provider-request-aborted': '模型在时限内没回话（超时），本地模板已先填好',
       'provider-timeout': '连接超时，模型没在时限内回话',
-      'provider-response-invalid-json': '模型返回的不是合法 JSON',
+      'provider-response-invalid-json': '接口响应不是有效 JSON，检查 Base URL 和服务商兼容协议',
+      'provider-response-html': '接口返回了网页，检查 Base URL 是否为 API 地址，或网关是否要求登录',
+      'provider-response-event-stream': '接口返回了流式响应，当前请求需要非流式 JSON；检查服务商兼容协议',
+      'provider-response-empty': '接口返回了空响应，检查 Base URL 和服务商状态',
+      'provider-unavailable': '模型接口暂不可用，本次使用本地回复',
+      'provider-invalid-output': '模型内容未通过校验，本次使用本地回复',
       'provider-response-missing-output': '模型返回里没有内容',
       'provider-response-too-large': '模型返回过大',
       'provider-endpoint-resolves-private': 'Base URL 解析到了内网地址，只允许公网 HTTPS',

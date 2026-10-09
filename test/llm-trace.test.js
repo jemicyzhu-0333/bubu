@@ -46,7 +46,7 @@ test('a trace is silent unless explicitly enabled, and stays callable when off',
   const span = off.begin({ kind: 'enrich' });
   span.request({ endpoint: 'https://example.com/v1/responses', body: { model: 'x' } });
   span.resolved('93.184.216.34', 4);
-  span.status(200, 'application/json');
+  span.status(200, 'json');
   span.body('private response');
   span.output('private output');
   span.note('private note');
@@ -69,7 +69,7 @@ test('an enabled trace records only bounded round-trip metadata', () => {
   });
   span.resolved('93.184.216.34', 4);
   time = 1040;
-  span.status(200, 'application/json');
+  span.status(200, 'json');
   span.body('private response');
   span.output('private output');
   time = 1055;
@@ -78,7 +78,7 @@ test('an enabled trace records only bounded round-trip metadata', () => {
     '[llm] begin kind=enrich provider=api requestId=1',
     '[llm] request requestId=1 timeoutMs=8000',
     '[llm] resolved requestId=1',
-    '[llm] response requestId=1 elapsedMs=40 statusCode=200',
+    '[llm] response contentKind=json requestId=1 elapsedMs=40 statusCode=200',
     '[llm] response-size requestId=1 responseChars=16',
     '[llm] output-size requestId=1 outputChars=14',
     '[llm] ok requestId=1 repairAttempts=1 outputChars=14 elapsedMs=55'

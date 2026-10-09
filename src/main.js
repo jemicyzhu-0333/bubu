@@ -349,19 +349,19 @@ const proposalStore = new ProposalStore({
     : validateProposal(proposal))
 });
 // LLM diagnostics are metadata-only in every environment, including explicit
-// FOCUSPIX_LLM_LOG=1. The trace boundary allowlists counters, safe identifiers
+// IM_ADHDER_LLM_LOG=1. The trace boundary allowlists counters, safe identifiers
 // and mapped error codes; request/response bodies and raw errors never leave it.
 // Development may display these safe records by default; packaged builds opt in.
 // This switch cannot enable transcript, task-title or memory-content logging.
 const llmTrace = createLlmTrace({
-  enabled: process.env.FOCUSPIX_LLM_LOG === '1'
-    || (process.env.FOCUSPIX_LLM_LOG !== '0' && !appHost.isPackaged()),
+  enabled: process.env.IM_ADHDER_LLM_LOG === '1'
+    || (process.env.IM_ADHDER_LLM_LOG !== '0' && !appHost.isPackaged()),
   sink: line => console.log(line)
 });
 // 请求截止线由 core/llm/transport.js 给出默认值与上限，这里提供运行时调整口。
 // 超时参数不进入持久化配置，避免把部署参数变成用户数据的 schema 变更。
 // ARCHITECTURE「AI 与 LLM」：缩短等待不改变请求取消与代次失效边界。
-const aiTimeoutMs = Number(process.env.FOCUSPIX_AI_TIMEOUT_MS) || undefined;
+const aiTimeoutMs = Number(process.env.IM_ADHDER_AI_TIMEOUT_MS) || undefined;
 
 // “这个端点说哪种协议”是运行时协商结果，按端点保留在进程内。
 // 它不是用户配置，不写入持久化快照，也不增加设置键。

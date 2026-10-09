@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'nonce-focuspix-corner'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'nonce-im-adhder-corner'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; image-rendering: pixelated;
     font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
@@ -173,7 +173,7 @@
   </div>
   <span class="keyboard-hint" id="keyboardHint" hidden></span>
   <button type="button" class="close-hint" id="closeBtn" aria-label="关闭提醒">✕ 我知道了</button>
-<script nonce="focuspix-corner">
+<script nonce="im-adhder-corner">
   const canvas = document.getElementById('charCanvas');
   const ctx = canvas.getContext('2d');
   ctx.imageSmoothingEnabled = false;
@@ -285,9 +285,9 @@
     document.body.dataset.stimulation = ['low', 'balanced', 'high'].includes(data.stimulationMode) ? data.stimulationMode : 'balanced';
   }
 
-  window.focuspix.onNudgeSensoryProfile(applyNudgeSensoryProfile);
+  window.imAdhder.onNudgeSensoryProfile(applyNudgeSensoryProfile);
 
-  window.focuspix.onNudgeInit((data) => {
+  window.imAdhder.onNudgeInit((data) => {
     applyNudgeSensoryProfile(data);
     const container = document.getElementById('container');
     container.className = 'container ' + (data.corner || 'br') + (data.level === 3 ? ' lv3' : '');
@@ -307,29 +307,29 @@
       button.textContent = action.label || '我知道了';
       button.addEventListener('click', event => {
         event.stopPropagation();
-        window.focuspix.dismissNudge(action.id || 'dismiss');
+        window.imAdhder.dismissNudge(action.id || 'dismiss');
       });
       actions.appendChild(button);
     }
   });
 
   document.getElementById('closeBtn').addEventListener('click', () => {
-    window.focuspix.dismissNudge('dismiss');
+    window.imAdhder.dismissNudge('dismiss');
   });
 
   document.body.addEventListener('click', (e) => {
     if (e.target.id !== 'closeBtn') {
       // Click character or bubble → dismiss too
-      window.focuspix.dismissNudge('dismiss');
+      window.imAdhder.dismissNudge('dismiss');
     }
   });
 
   const interactiveNodes = [document.getElementById('bubble'), document.querySelector('.char-wrap'), document.getElementById('closeBtn')];
   interactiveNodes.forEach(node => {
-    node.addEventListener('mouseenter', () => window.focuspix.setNudgePointerInteractive(true));
+    node.addEventListener('mouseenter', () => window.imAdhder.setNudgePointerInteractive(true));
     node.addEventListener('mouseleave', (event) => {
       if (!interactiveNodes.some(candidate => candidate.contains(event.relatedTarget))) {
-        window.focuspix.setNudgePointerInteractive(false);
+        window.imAdhder.setNudgePointerInteractive(false);
       }
     });
   });
@@ -338,7 +338,7 @@
     return Array.from(document.querySelectorAll('.nudge-action:not(:disabled), #closeBtn:not(:disabled)'));
   }
 
-  window.focuspix.onNudgeFocus(() => {
+  window.imAdhder.onNudgeFocus(() => {
     const controls = focusableControls();
     const primary = controls.find(control => control.classList.contains('primary')) || controls[0];
     if (primary) primary.focus({ preventScroll: true });
@@ -347,7 +347,7 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       e.preventDefault();
-      window.focuspix.dismissNudge('dismiss');
+      window.imAdhder.dismissNudge('dismiss');
       return;
     }
     if (e.key !== 'Tab') return;

@@ -374,9 +374,9 @@ test('the reminder surfaces receive real actions and live sensory updates', () =
   assert.match(corner, /dismissNudge\(action\.id \|\| 'dismiss'\)/);
   assert.match(preload, /ipcRenderer\.on\('nudge:focus-controls'/);
   assert.match(preload, /ipcRenderer\.on\('nudge:sensory-profile'/);
-  assert.match(corner, /window\.focuspix\.onNudgeFocus/);
-  assert.match(corner, /window\.focuspix\.onNudgeSensoryProfile\(applyNudgeSensoryProfile\)/);
-  assert.match(read('src/renderer/nudge-fullscreen.html'), /window\.focuspix\.onNudgeSensoryProfile\(applyNudgeSensoryProfile\)/);
+  assert.match(corner, /window\.imAdhder\.onNudgeFocus/);
+  assert.match(corner, /window\.imAdhder\.onNudgeSensoryProfile\(applyNudgeSensoryProfile\)/);
+  assert.match(read('src/renderer/nudge-fullscreen.html'), /window\.imAdhder\.onNudgeSensoryProfile\(applyNudgeSensoryProfile\)/);
   assert.match(read('src/main.js'), /updateSensory: settings => nudge\.updateSensoryProfile\(settings\)/);
   assert.match(corner, /if \(e\.key !== 'Tab'\) return/);
 });

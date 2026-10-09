@@ -5,9 +5,9 @@
 [PET_VISUAL.md](PET_VISUAL.md)，长耳形态的分层 Rig 见 [PET_RIG.md](PET_RIG.md)。代码注释引用本文时写
 `ARCHITECTURE「小节名」`，不写已删除方案文档的编号。
 
-## 品牌与存储兼容
+## 品牌与档案身份
 
-产品和安装包使用 I'm ADHDer，npm 包为 im-adhder。Electron app host 在申请单实例锁前，将新的默认目录映射回 focuspix，开发档位继续独立使用 focuspix-dev；显式指定的数据目录保持原样。userData 与 sessionData 一起设置，OS 加密名称和 appId 保持旧身份，以避免升级丢失任务、历史或密钥。桥接名、数据库名和数据格式标识属于内部兼容协议。
+产品和安装包使用 I'm ADHDer，npm 包和默认档案为 im-adhder，开发档位独立使用 im-adhder-dev。此次测试修订明确启用新空默认档案、应用标识与OS凭据身份，不迁移、导入或删除旧档案；显式指定的数据目录保持原样。默认路径需要规范化时，在单实例锁前一起设置 userData 与 sessionData。桥接名、事实数据库名和rig格式标识同步采用当前品牌，不提供旧别名。
 
 ## 分层与能力
 
@@ -44,7 +44,7 @@ main.js（遗留组合根，冻结）
 
 依赖方向：`bootstrap → workflow → 能力 facade`；`surface → surface adapter → preload → IPC → application`；
 `platform → 内侧 port`；所有层可用 `core`、`content`、`shared`。禁止：跨能力深引用、domain 依赖外层、
-surface 触碰 Electron、renderer feature 直接用 `window.focuspix`、任何模块引用 `main.js`、新建
+surface 触碰 Electron、renderer feature 直接用 `window.imAdhder`、任何模块引用 `main.js`、新建
 `utils/helpers/common/manager/service` 大桶。纯 domain 不读 Electron、DOM、文件、网络、墙钟和随机数，
 时间、ID、随机由参数或窄 port 注入。
 
@@ -78,11 +78,12 @@ delta，发现断档时重新读取完整投影。快捷面板的完整替换投
 
 **三端发布。** application 的 `surface-read-composition` 为每次发布读取一次 canonical snapshot、
 采样一次 wall time，历史计数也使用已采样的 impulses（过滤、重叠去重与不可用语义不变），以同一 canonical session 调用既有 rollback-safe runtime clock 和 session projection，再计算一份能量／推荐。
-`popover-state.project(sample)`、quickPanel 与纯 `pet-context` 使用同一次样本；发布期间不能调用带维护的 pet getter。
+`popover-state.project(sample, dirty)`、quickPanel 与纯 `pet-context` 使用同一次样本；发布期间不能调用带维护的 pet getter。
 bootstrap 的 `surface-publication` 独占进程内 publication revision，与 repository transaction revision 不同。它集中展开
 energy／wellbeing／session／stats／settings／routines 对能量和推荐的依赖，并覆盖宠物消耗的 pet／companion／skin／appearance。
 popover 收到部分 delta；quick 只收到 `{revision, dirty, delta:{quickPanel}}`；pet 只收到原 context 白名单与 `contextRevision`。
 三端不共用宽泛 wire payload，quick／pet 不得携带 canonical snapshot、凭据状态、情绪历史或捕捉原文。
+popover部分发布复用同一DIRTY_FIELDS，仅计算本次delta需要的AI凭据状态、外观选项与归档分页；完整初始查询及all发布仍返回全部普通数据字段。此优化不缓存跨revision结果，不改变snapshot、能量计算、quick完整投影或缺号恢复协议；合成基准只证明对应分支少读，不代表整体启动或大档案性能已解决。
 提醒重核、共享采样、各端投影与发送、quick 尺寸、pet 后置策略及错误上报分别隔离；失败仅走已有完整读取恢复，不能重试业务 mutation。
 共享采样失败时 popover／quick 仍收到 invalidation-only；popover 或 pet 单独投影失败不阻止其他合法投递。
 所有既有 canonical pet 手工发送收口到共享发布，初始化加载使用相同纯 mapper；表达、speech、food、锁屏、开发与 cue 仍是独立呈现通路。
@@ -320,7 +321,7 @@ Provider读取保持当前资格规则和全部所选记录有效的要求：act
 未来FTS须先验证打包SQLite能力和双语质量，再另定同库派生索引schema/迁移；正文从canonical读取，坏索引仅在权威健康时回退有界scan。FTS表达式转义独立于SQL参数绑定，短中文保留有界literal路径。本机hybrid只在词法不足且收益可测时考虑，固定模型/维度/hash/记忆版本，先比较500条规模的精确向量；不隐式下载模型、远程embedding/rerank或索引敏感来源。
 所有未来索引/cache/vector/摘要须登记来源依赖及清理/重建方法，沿原ledger-first失效与receipt重试身份处理，晚到结果不得复活遗忘内容。两库不宣称原子提交，unknown/partial仍由原协议核对；不承诺清除外部Provider、旧备份或物理介质副本。
 
-配置SQLite快照拥有业务状态；按时间查询的普通历史、已处理收件原文和记忆放在独立的 `focuspix.sqlite`。
+配置SQLite快照拥有业务状态；按时间查询的普通历史、已处理收件原文和记忆放在独立的 `im-adhder.sqlite`。
 归档原文和确认记忆是用户权威数据，不是可丢弃缓存。唯一驱动入口为sqlite-database；支持node:sqlite及已有better-sqlite3。
 无既有SQL权威时普通历史可使用JSONL；既有SQL或身份标记存在后绝不静默降级为空库。独立INITIALIZING/READY与application_id绑定
 保护缺失/替换，全表、索引、约束与schema核验先于可写打开。WAL/FULL/FK和同步事务负责确认写入，普通时间线发布失败仍不能回滚已提交业务。
@@ -510,7 +511,7 @@ renderer 不直接访问任何模型服务。
 **失败处理。** 纯编码约定（下标从 0 还是 1、多余字段、字符串数字、代码围栏、枚举大小写）在 `repair.js`
 修掉；产品承诺（标题不在 schema 里、标签锁在现有集合 enum、3–7 步、每步要有动作词）硬拒，给回灌重试留下
 原话。回灌只有一次，并与协商共用同一条截止线：默认等待与硬上限都是 180 秒，两者保持为两个常量，
-`FOCUSPIX_AI_TIMEOUT_MS` 不能越过上限。
+`IM_ADHDER_AI_TIMEOUT_MS` 不能越过上限。
 
 **proposal。** `breakdown` 只给步骤，`enrich` 另给完成标准、能量、估时、标签；两者共用 client 选择、
 `runWithFallback`、`ProposalStore`（按 kind 分发校验，最多 5 条、10 分钟）和披露接口。披露是任务的属性：
@@ -641,7 +642,8 @@ dispose最终保存后重新计算清理状态，并固定最后结果，重复�
 `{ available, configured }`，不进日志、报错或 canonical 状态。设置存 base URL，请求路径只由
 `chatCompletionsEndpoint()` 一处拼接。诊断日志（`trace.js`）在所有环境均只输出白名单元数据：生成的请求编号、封闭操作与 Provider 枚举、计数、耗时、HTTP 状态和映射错误码。
 任务标题、消息、收件、记忆、请求/响应正文、模型名、端点、原始异常和堆栈都不能进入日志。
-源码运行可默认显示这些安全记录，打包后默认关闭；`FOCUSPIX_LLM_LOG=1` 也不能开启内容日志。
+HTTP外层响应先区分固定contentKind枚举（json/html/event-stream/text/other/unknown）；HTML、意外SSE、空体及非法JSON分别映射封闭错误码，不能把响应正文或任意Content-Type写入诊断，也不因外层非JSON盲目重试。UTF-8 BOM只作编码兼容，不是修补模型输出。已有非2xx状态的协议协商仍保留原边界。每条本地回退消息保留source与安全reason，重新打开对话仍可识别来源。
+源码运行可默认显示这些安全记录，打包后默认关闭；`IM_ADHDER_LLM_LOG=1` 也不能开启内容日志。
 
 提示词里的使用者描述（`START_FRICTION_CONTEXT`，只写行为：难启动、常被打断；不写、不问、不推断任何诊断）与“按真实场景拆”（`SCENARIO_CONTEXT`）是产品约束的复述，模型读不到
 PRODUCT.md，所以约束必须在请求里再说一遍并由测试钉住。
@@ -1030,3 +1032,8 @@ settings.autoCheckUpdates只保存检查偏好；安装器缓存不属于业务�
 删除跨配置与归档时，先提交 canonical 清理及回执脱敏并证明持久性，再清理归档；不能声称跨库原子。部分失败保留目标身份并明确 pending/unknown，按同一身份重试。
 `alreadyAbsent` 只表示已核验的当前后置条件：情绪、canonical 来源和归档均不存在且配置证明成功；不能冒充本次删除的因果回执。未知或冲突字段优先于单一 ok 标志。
 UI 保留无正文操作槽，换日期或隐藏不丢在途对象；dispose 禁止迟到绘制。重启后发现仍有来源必须重新获得明确删除确认，不推断过去授权。不承诺跨备份安全擦除或后台自动恢复。
+
+
+## 当前测试版名称与档案身份
+
+当前产品使用 `im-adhder` 默认档案、`im-adhder-dev` 开发档案、`com.imadhder.app` 应用标识和独立的系统凭据身份。此次更名明确采用新的空默认档案，不自动导入、迁移或删除旧目录与旧凭据；显式 `--user-data-dir` 路径保持原样。四个 preload 与 renderer 使用一致的 `imAdhder` 窄桥，环境入口统一为 `IM_ADHDER_*`，不提供旧名称别名。新事实库名为 `im-adhder.sqlite`，配置权威及其身份核验合同不变。

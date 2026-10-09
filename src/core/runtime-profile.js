@@ -8,11 +8,12 @@ const path = require('node:path');
 const DEV_FLAG = '--dev';
 const DEV_SUFFIX = '-dev';
 
-// Display branding may change; storage and OS credential identity must not.
-function legacyStoragePath(directory) {
+// New installations use the current product identity. No old directory is
+// imported, migrated or deleted; explicit user-data-dir bypasses this mapping.
+function defaultStoragePath(directory) {
   const name = path.basename(directory);
   return ['im-adhder', 'I’m ADHDer', "I'm ADHDer"].includes(name)
-    ? path.join(path.dirname(directory), 'focuspix') : directory;
+    ? path.join(path.dirname(directory), 'im-adhder') : directory;
 }
 
 function isDevProfile(argv = []) {
@@ -45,4 +46,4 @@ function profileUserDataPath(userDataPath, argv = []) {
   return name.endsWith(DEV_SUFFIX) ? userDataPath : path.join(parent, `${name}${DEV_SUFFIX}`);
 }
 
-module.exports = { DEV_FLAG, DEV_SUFFIX, isDevProfile, profileUserDataPath, legacyStoragePath };
+module.exports = { DEV_FLAG, DEV_SUFFIX, isDevProfile, profileUserDataPath, defaultStoragePath };

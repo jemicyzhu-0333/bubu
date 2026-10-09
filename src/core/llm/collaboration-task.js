@@ -179,7 +179,7 @@ function buildInput(payload = {}) {
   if (Buffer.byteLength(JSON.stringify(input), 'utf8') > 64 * 1024) throw new RangeError('collaboration-context-budget');
   return JSON.parse(JSON.stringify(input));
 }
-const COLLABORATION_TASK = Object.freeze({ name: 'collaborate', schemaName: 'focuspix_collaborate',
+const COLLABORATION_TASK = Object.freeze({ name: 'collaborate', schemaName: 'im_adhder_collaborate',
   instruction: INSTRUCTION, fields: FIELDS, buildSchema: () => SCHEMA, buildInput,
   repair: parseEnvelope, validate: validateCollaborationResult, validateReadRequest });
 

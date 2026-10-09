@@ -54,10 +54,11 @@ function planningCandidateFromMessage(message) {
 
 // This view renders canonical messages, including every inert proposal version.
 // It never turns model text into markup, commands, task state or success receipts.
-function createCollaborationView({ $, escapeHTML }) {
+function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' }) {
   const PAGE_SIZE = 200;
   let historyId = null, start = 0, end = 0, previousCount = 0, latestRecord = null, latestSelected = null;
   const historyWindows = new Map();
+  let listedSessions = null, listedCursor = null;
   let proposalStates = new Map();
   const text = (selector, value) => { const node = $(selector); if (node) node.textContent = value || ''; };
   const hidden = (selector, value) => { const node = $(selector); if (node) node.classList.toggle('hidden', value); };
@@ -82,6 +83,12 @@ function createCollaborationView({ $, escapeHTML }) {
     text('#draftChatInputCount', `${Array.from(input || '').length} / 8,000 字`);
     const button = $('#btnDraftChatAdopt');
     if (button) button.dataset.proposalId = selected || '';
+  }
+  function sourceMarkup(message) {
+    if (message.role !== 'assistant' || message.provenance?.source !== 'local') return '';
+    const reason = fallbackReasonText(message.provenance.reason);
+    return '<p class="chat-turn-source" data-chat-source="local">本地模板'
+      + (reason ? ` · ${escapeHTML(reason)}` : '') + '</p>';
   }
   function proposalMarkup(message, selected, purpose) {
     const body = taskDraftFromMessage(message);
@@ -147,7 +154,12 @@ function createCollaborationView({ $, escapeHTML }) {
     latestRecord = record; latestSelected = selected;
     if (historyId !== record?.id) {
       proposalStates = new Map();
+      for (const selector of ['#draftChatSettings', '#draftChatLibrary', '#draftChatManage']) {
+        const panel = $(selector);
+        if (panel) panel.open = false;
+      }
       historyId = record?.id;
+      if (listedSessions) sessions(listedSessions, listedCursor);
       const saved = historyWindows.get(historyId);
       end = saved ? Math.min(saved.end, messages.length) : messages.length;
       start = saved ? Math.min(saved.start, Math.max(0, end - 1)) : Math.max(0, end - PAGE_SIZE);
@@ -161,6 +173,7 @@ function createCollaborationView({ $, escapeHTML }) {
         const role = message.role === 'user' ? 'user' : 'assistant';
         return `<article class="chat-turn chat-turn-${role}" data-message-id="${escapeHTML(message.id)}">`
           + `<span class="chat-turn-role">${role === 'user' ? '你' : '伙伴'}</span>`
+          + sourceMarkup(message)
           + `<div class="chat-turn-content">${escapeHTML(message.content || '')}</div>`
           + proposalMarkup(message, selected, record.purpose) + '</article>';
       }).join('') : '<p class="chat-empty">可以先聊聊，也可以一起找下一步。</p>';
@@ -169,8 +182,12 @@ function createCollaborationView({ $, escapeHTML }) {
     hidden('#btnDraftChatEarlier', start === 0);
     hidden('#btnDraftChatLater', end >= messages.length);
     hidden('#btnDraftChatLatest', end >= messages.length);
-    text('#draftChatHistoryRange', messages.length ? `第 ${start + 1}–${end} 条，共 ${messages.length} 条` : '');
+    const paginated = start > 0 || end < messages.length;
+    hidden('#draftChatHistoryNav', !paginated);
+    text('#draftChatHistoryRange', paginated ? `第 ${start + 1}–${end} 条，共 ${messages.length} 条` : '');
     if (projectionOnly) return;
+    const title = record?.displayTitle || record?.title || messages.find(message => message.role === 'user')?.content || '新对话';
+    text('#draftChatSessionTitle', Array.from(title).slice(0, 60).join(''));
     const mode = record?.mode || 'talk';
     value('#draftChatMode', mode);
     text('#draftChatTitle', record?.purpose === 'stuck' ? '一起理一理' : 'AI 协作');
@@ -219,13 +236,14 @@ function createCollaborationView({ $, escapeHTML }) {
     conversation(latestRecord, latestSelected, { page: true, projectionOnly: true });
   }
   function sessions(items, nextCursor) {
+    listedSessions = items; listedCursor = nextCursor;
     const node = $('#draftChatSessions');
     if (node) node.innerHTML = items.length ? items.map(item => {
       const title = item.displayTitle || item.title || item.relatedEntity?.title || item.messages?.find(message => message.role === 'user')?.content || '一段对话';
       const saved = item.saveState === 'unsaved' ? '尚未保存' : item.retention?.mode === 'saved' ? '保留在本机' : '仅本次';
       const date = item.updatedAt ? new Date(item.updatedAt).toLocaleString('zh-CN') : '';
-      return `<button type="button" class="chat-session" data-chat-resume="${escapeHTML(item.id)}">`
-        + `<span>${escapeHTML(title)}</span><small>${escapeHTML(MODE_LABELS[item.mode] || '先聊聊')} · ${saved}${date ? ` · ${escapeHTML(date)}` : ''}</small></button>`;
+      return `<button type="button" class="chat-session" data-chat-resume="${escapeHTML(item.id)}" aria-current="${item.id === latestRecord?.id}">`
+        + `<span>${escapeHTML(title)}</span><small>${item.id === latestRecord?.id ? '当前对话 · ' : ''}${escapeHTML(MODE_LABELS[item.mode] || '先聊聊')} · ${saved}${date ? ` · ${escapeHTML(date)}` : ''}</small></button>`;
     }).join('') : '<p class="chat-empty">还没有可继续的对话</p>';
     hidden('#btnDraftChatMore', !nextCursor);
   }

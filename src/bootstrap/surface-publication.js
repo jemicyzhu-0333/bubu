@@ -35,7 +35,7 @@ function createSurfacePublisher({ readSample, projectPopover, projectPet,
     attempt('surface-projection', () => { sample = readSample(); });
     let delta;
     if (sample) attempt('popover-projection', () => {
-      delta = buildStateDelta(projectPopover(sample), flags);
+      delta = buildStateDelta(projectPopover(sample, flags), flags);
     });
     attempt('state:diff:popover', () => sendPopover({ revision: currentRevision, dirty: flags,
       ...(delta ? { delta } : {}) }));

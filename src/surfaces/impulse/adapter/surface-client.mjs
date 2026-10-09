@@ -1,9 +1,9 @@
 'use strict';
 
 // The impulse surface sees only this reviewed bridge. Feature code never reaches
-// into window.focuspix directly, so adding an action requires the preload and IPC
+// into window.imAdhder directly, so adding an action requires the preload and IPC
 // allowlist to change together.
-function createImpulseSurfaceClient(bridge = typeof window !== 'undefined' ? window.focuspix : null) {
+function createImpulseSurfaceClient(bridge = typeof window !== 'undefined' ? window.imAdhder : null) {
   if (!bridge || typeof bridge !== 'object') throw new TypeError('impulse surface bridge is required');
   const methods = [
     'getState', 'addImpulse', 'completeTask', 'completeStep', 'appendTaskStep', 'renameTaskStep',

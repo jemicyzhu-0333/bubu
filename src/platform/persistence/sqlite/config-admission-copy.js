@@ -121,7 +121,7 @@ function admitConfigCopy({ filePath, identityPath, io = fs, prepareInitial, vali
   if (bytes > BigInt(MAX_ADMISSION_BYTES)) throw fail('config-admission-capacity');
   const directories = [...new Set(members.map(member => path.dirname(member.source)))].map(target => ({ target, stat: stat(io, target) }));
   if (directories.some(item => !item.stat?.isDirectory())) throw fail('config-admission-file-invalid');
-  const directory = io.mkdtempSync(path.join(os.tmpdir(), 'focuspix-config-admission-'));
+  const directory = io.mkdtempSync(path.join(os.tmpdir(), 'im-adhder-config-admission-'));
   // Distinct probe basenames also prevent cleanup paths from naming either
   // original tuple if a faulty actor substitutes its directory with the source.
   let prefix = path.basename(directory);

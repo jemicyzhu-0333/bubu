@@ -82,7 +82,7 @@ test('P6：实际打包输入不含受限上游标记或额外源码目录', () 
 });
 
 test('the actual ASAR audit rejects restricted markers in migrated ES modules', async () => {
-  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'focuspix-asar-audit-'));
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'im-adhder-asar-audit-'));
   try {
     const source = path.join(directory, 'source');
     const archive = path.join(directory, 'app.asar');

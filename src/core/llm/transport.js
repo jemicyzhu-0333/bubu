@@ -5,6 +5,7 @@ const https = require('node:https');
 const net = require('node:net');
 const { MAX_AI_REQUEST_URL_LENGTH } = require('./endpoint');
 const { NO_LLM_SPAN } = require('./trace');
+const { responseContentKind, parseProviderResponse } = require('./provider-response');
 
 // L1：出网层。这一层不认识 LLM——它只知道“把一个 JSON POST 到一个公网 https
 // 端点，并且不许被诱导去访问本机或内网”。协议、schema、重试都在上层。
@@ -206,14 +207,14 @@ async function postJson(endpoint, body, options = {}) {
       if (options.signal?.aborted) { onAbort(); return; }
       span.resolved(resolved.address, resolved.family);
       if (settled || options.signal?.aborted) { onAbort(); return; }
-      const headers = { 'content-type': 'application/json', 'content-length': Buffer.byteLength(serialized) };
+      const headers = { accept: 'application/json', 'content-type': 'application/json', 'content-length': Buffer.byteLength(serialized) };
       if (apiKey) headers.authorization = `Bearer ${apiKey}`;
       request = https.request(url, {
         method: 'POST', servername: net.isIP(hostname) ? undefined : hostname,
         lookup: pinnedLookup(resolved), headers
       }, response => {
         if (settled) { response.destroy(); return; }
-        span.status(response.statusCode, response.headers && response.headers['content-type']);
+        span.status(response.statusCode, responseContentKind(response.headers && response.headers['content-type']));
         const failed = response.statusCode < 200 || response.statusCode >= 300;
         const limit = failed ? MAX_ERROR_BYTES : MAX_RESPONSE_BYTES;
         let size = 0;
@@ -230,8 +231,8 @@ async function postJson(endpoint, body, options = {}) {
           const text = Buffer.concat(chunks).toString('utf8');
           span.body(text);
           if (failed) return finish(reject, new ProviderHttpError(response.statusCode, errorDetail(text)));
-          try { finish(resolve, JSON.parse(text)); }
-          catch (_) { finish(reject, new TypeError('provider-response-invalid-json')); }
+          try { finish(resolve, parseProviderResponse(text, response.headers && response.headers['content-type'])); }
+          catch (error) { finish(reject, error); }
         });
       });
       request.once('error', error => finish(reject, error));

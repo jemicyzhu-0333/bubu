@@ -8,6 +8,8 @@ const { buildCollaborationContext, localCollaborationReply } = require('./collab
 const { createRunExecution } = require('./run-execution');
 
 const FAILURE_CODES = Object.freeze(['provider-credential-missing', 'provider-request-aborted',
+  'provider-response-invalid-json', 'provider-response-html', 'provider-response-event-stream',
+  'provider-response-empty', 'provider-response-missing-output', 'provider-response-too-large', 'provider-timeout',
   'provider-output-budget', 'provider-budget', 'read-budget', 'context-budget', 'context-source-budget',
   'tool-not-authorized', 'tool-args-invalid', 'tool-target-not-authorized', 'tool-fields-invalid',
   'tool-date-range-not-authorized', 'tool-limit-invalid', 'tool-query-invalid', 'tool-cursor-invalid',

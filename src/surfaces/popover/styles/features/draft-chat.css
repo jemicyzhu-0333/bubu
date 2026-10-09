@@ -14,9 +14,9 @@
   #draftChatMask .modal-header { padding: 12px 16px; }
   #draftChatMask .modal-header h2 { margin: 0; font-size: 16px; }
   #draftChatTaskContext { margin: 3px 0 0; font-size: 12px; color: var(--fg-1); overflow-wrap: anywhere; }
-  #draftChatCurrentMode { margin: 2px 0 0; font-size: 11px; color: var(--fg-2); }
-  #draftChatMask .collaboration-body { flex: 1 1 auto; min-height: 80px; overflow-y: auto; padding: 12px 16px; }
-  #draftChatDescription { margin: 0 0 10px; color: var(--fg-1); }
+  #draftChatSessionTitle { margin: 3px 0 0; max-width: 380px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 12px; color: var(--fg-2); }
+  #draftChatMask .collaboration-body { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 80px; overflow-y: auto; padding: 10px 16px; }
+  #draftChatDescription { margin: 0 0 8px; font-size: 11px; color: var(--fg-1); }
   #draftChatMask .chat-options { display: grid; grid-template-columns: 64px minmax(0, 1fr); align-items: center; gap: 7px; }
   #draftChatMask select { min-width: 0; max-width: 100%; font: inherit; height: 32px; padding: 4px 8px; }
   #draftChatSaveState { color: var(--fg-2); font-size: 11px; margin: 7px 0; }
@@ -26,11 +26,20 @@
   #draftChatMask .chat-disclosure pre { font: inherit; white-space: pre-wrap; overflow-wrap: anywhere; max-height: 180px; overflow-y: auto; padding: 8px; background: var(--bg-1); }
   #draftChatMask .chat-check { display: flex; align-items: flex-start; gap: 6px; margin: 8px 0; }
   #draftChatMask .chat-check input { margin: 3px 0 0; flex: 0 0 auto; }
-  #draftChatMask .chat-new { margin: 0 0 8px; }
-  #draftChatMask .chat-log { display: flex; flex-direction: column; gap: 10px; min-height: 90px; max-height: 48dvh; overflow-y: auto; padding: 4px 0; scrollbar-gutter: stable; }
-  #draftChatMask .chat-turn { border-left: 2px solid var(--line, var(--bg-3)); padding: 8px 10px; font-size: 12px; overflow-wrap: anywhere; background: var(--bg-1); }
-  #draftChatMask .chat-turn-user { border-left-color: var(--primary-ink); }
+  #draftChatConversationControls { display: flex; flex-direction: column; flex: 1 0 180px; min-height: 180px; }
+  #draftChatMask .chat-toolbar { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px; flex: 0 0 auto; max-height: min(240px, 35dvh); overflow-y: auto; }
+  #draftChatMask .chat-toolbar > .chat-disclosure { margin: 0; padding: 7px 10px; }
+  #draftChatMask .chat-toolbar > .chat-disclosure[open] { flex-basis: 100%; }
+  #draftChatMask .chat-settings-content { padding-top: 10px; }
+  #draftChatMask .chat-settings-label { color: var(--fg-2); }
+  #draftChatMask .chat-new { margin: 0; }
+  #draftChatMask .chat-manage { margin-bottom: 0; }
+  #draftChatMask summary:focus-visible, #draftChatMask .chat-session:focus-visible, #draftChatLog:focus-visible { outline: 2px solid var(--primary-ink); outline-offset: 2px; }
+  #draftChatMask .chat-log { display: flex; flex-direction: column; gap: 14px; flex: 1 1 0; min-height: 90px; overflow-y: auto; padding: 8px 2px 12px; scrollbar-gutter: stable; }
+  #draftChatMask .chat-turn { border-left: 2px solid var(--line, var(--bg-3)); flex: 0 0 auto; padding: 10px 12px; border-radius: 8px; font-size: 13px; line-height: 1.65; overflow-wrap: anywhere; background: var(--bg-1); }
+  #draftChatMask .chat-turn-user { align-self: flex-end; max-width: 92%; border-left-color: var(--primary-ink); }
   #draftChatMask .chat-turn-role { display: block; font-size: 11px; color: var(--fg-2); margin-bottom: 4px; }
+  #draftChatMask .chat-turn-source { margin: 0 0 6px; font-size: 11px; color: var(--fg-1); }
   #draftChatMask .chat-turn-content { white-space: pre-wrap; }
   #draftChatMask .chat-proposal { margin-top: 10px; border: 1px solid var(--line, var(--bg-3)); padding: 10px; border-radius: 8px; }
   #draftChatMask .chat-proposal h3 { margin: 4px 0; font-size: 13px; }
@@ -59,6 +68,7 @@
   #draftChatMask .chat-change-edit input, #draftChatMask .chat-change-edit select { width: 100%; min-width: 0; font: inherit; color: var(--fg-0); background: var(--bg-1); border: 1px solid var(--line, var(--bg-3)); border-radius: 4px; padding: 5px; }
   #draftChatMask .chat-change-editor summary { cursor: pointer; }
   #draftChatMask .chat-session { width: 100%; display: grid; gap: 3px; text-align: left; margin: 8px 0; padding: 8px; border: 1px solid var(--line, var(--bg-3)); border-radius: 6px; color: var(--fg-0); background: var(--bg-1); font: inherit; cursor: pointer; }
+  #draftChatMask .chat-session[aria-current="true"] { border-color: var(--primary-ink); }
   #draftChatMask .chat-session span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
   #draftChatMask .chat-session small { font-size: 11px; color: var(--fg-2); }
   #draftChatMask .chat-compose { flex: 0 0 auto; display: grid; gap: 7px; padding: 10px 16px 14px; border-top: 1px solid var(--line, var(--bg-3)); }

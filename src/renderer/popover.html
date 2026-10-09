@@ -1130,12 +1130,23 @@
   <div class="modal-mask hidden" id="draftChatMask" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="draftChatTitle" aria-describedby="draftChatDescription">
     <div class="modal collaboration-modal">
       <div class="modal-header">
-        <div><h2 class="modal-title" id="draftChatTitle">AI 协作</h2><p id="draftChatCurrentMode" class="sr-only">先聊聊</p><p id="draftChatTaskContext" class="hidden"></p></div>
+        <div><h2 class="modal-title" id="draftChatTitle">AI 协作</h2><p id="draftChatSessionTitle" class="chat-session-title">新对话</p><p id="draftChatTaskContext" class="hidden"></p></div>
         <button type="button" class="modal-close" id="draftChatClose" aria-label="暂停对话并返回草稿"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
       </div>
       <div class="collaboration-body">
         <div id="draftChatConversationControls">
         <p id="draftChatDescription">修改前会请你确认。</p>
+        <div class="chat-toolbar" aria-label="对话工具">
+          <button type="button" class="pixel-btn btn-mini chat-new" id="btnDraftChatNew">新对话</button>
+        <details class="chat-disclosure" id="draftChatLibrary">
+          <summary>切换对话</summary>
+          <button type="button" class="pixel-btn btn-mini" id="btnDraftChatList">查看对话</button>
+          <div id="draftChatSessions"></div>
+          <button type="button" class="pixel-btn btn-mini hidden" id="btnDraftChatMore">更多对话</button>
+        </details>
+          <details class="chat-disclosure chat-settings" id="draftChatSettings">
+            <summary><span id="draftChatCurrentMode">先聊聊</span><span class="chat-settings-label"> · 设置</span></summary>
+            <div class="chat-settings-content">
         <div class="chat-options">
           <label for="draftChatMode">帮助方式</label>
           <select id="draftChatMode" class="pixel-input"><option value="talk">先聊聊</option><option value="small-step">找一个小动作</option><option value="plan">一起安排</option></select>
@@ -1143,7 +1154,6 @@
           <label for="draftChatRetention">保留方式</label>
           <select id="draftChatRetention" class="pixel-input"><option value="ephemeral">仅本次</option><option value="saved">在本机保留</option></select>
         </div>
-        <p id="draftChatSaveState" role="status">仅本次 · 关闭只暂停，退出应用后不保留</p>
         <div id="draftChatRetentionConfirm" class="chat-disclosure hidden" role="group" aria-label="移除本机副本确认">
           <p>改为仅本次会移除已保存的本机副本；当前内容只保留到退出应用。</p>
           <button type="button" class="pixel-btn btn-mini" id="btnDraftChatRetentionConfirm">移除副本，改为仅本次</button>
@@ -1175,20 +1185,20 @@
           </div>
           <pre id="draftChatContextPreview">没有附加上下文</pre>
         </details>
-        <details class="chat-disclosure" id="draftChatLibrary">
-          <summary>继续已有对话</summary>
-          <button type="button" class="pixel-btn btn-mini" id="btnDraftChatList">查看对话</button>
-          <div id="draftChatSessions"></div>
-          <button type="button" class="pixel-btn btn-mini hidden" id="btnDraftChatMore">更多对话</button>
-        </details>
-        <div class="chat-compose-actions"><button type="button" class="pixel-btn btn-mini chat-new" id="btnDraftChatNew">新对话</button>
-          <button type="button" class="pixel-btn btn-mini" id="btnDraftChatDelete">删除这段对话</button></div>
+              <details class="chat-disclosure chat-manage" id="draftChatManage">
+                <summary>管理这段对话</summary>
+                <button type="button" class="pixel-btn btn-mini" id="btnDraftChatDelete">删除这段对话</button>
         <div id="draftChatDeleteConfirm" class="chat-disclosure hidden" role="group" aria-label="删除对话确认">
           <p>删除这段对话、未发送输入和本机保存副本，无法从应用中撤销。已建立的任务与已独立确认的记忆会保留；记忆可在设置中另行管理。</p>
           <button type="button" class="pixel-btn btn-mini" id="btnDraftChatDeleteConfirm">确认删除对话</button>
           <button type="button" class="pixel-btn btn-mini" id="btnDraftChatDeleteKeep">保留对话</button>
         </div>
-        <div class="chat-history-nav" aria-label="对话历史分页">
+              </details>
+            </div>
+          </details>
+        </div>
+        <p id="draftChatSaveState" role="status">仅本次 · 关闭只暂停，退出应用后不保留</p>
+        <div class="chat-history-nav hidden" id="draftChatHistoryNav" aria-label="对话历史分页">
           <button type="button" class="pixel-btn btn-mini hidden" id="btnDraftChatEarlier">更早的记录</button>
           <p id="draftChatHistoryRange"></p>
           <button type="button" class="pixel-btn btn-mini hidden" id="btnDraftChatLater">后面的记录</button>

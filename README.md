@@ -50,7 +50,7 @@ npm ci
 npm run dev
 ```
 
-`npm run dev` uses an isolated development profile. `npm start` uses the everyday profile. Their data, credentials, and Chromium storage are separate (`focuspix-dev` and `focuspix` are retained internal names for compatibility).
+`npm run dev` uses an isolated development profile. `npm start` uses the everyday profile. Their data, credentials, and Chromium storage are separate (`im-adhder-dev` and `im-adhder`). This testing revision uses a new default profile and credential identity: it starts empty, leaves previous profile directories untouched, and does not migrate old data or credentials. An explicit `--user-data-dir` remains respected.
 
 Current production data admission accepts only complete, canonical **schema 18** profiles. Use a fresh test profile. Older or damaged profiles are rejected without automatic import, conversion, repair, or reset.
 

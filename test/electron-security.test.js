@@ -150,7 +150,7 @@ test('the development expression gallery adds no preload, IPC, popup or navigati
   assert.match(launcher, /'will-navigate'[\s\S]*?preventDefault/);
   assert.match(launcher, /'will-attach-webview'[\s\S]*?preventDefault/);
   assert.doesNotMatch(launcher, /preload\s*:|ipcMain|ipcRenderer|webviewTag|enableRemoteModule/);
-  assert.doesNotMatch(`${html}\n${renderer}`, /window\.focuspix|ipcRenderer|require\s*\(/);
+  assert.doesNotMatch(`${html}\n${renderer}`, /window\.imAdhder|ipcRenderer|require\s*\(/);
 });
 
 test('preloads expose only their reviewed invoke surfaces', () => {
@@ -242,7 +242,7 @@ test('the AI credential has exactly one way in and no way back out', () => {
   const main = read('src/main.js') + '\n' + credentialSource;
   // 粘贴与从环境变量导入共用一个处理器，因而只有一处写存储。
   assert.equal((main.match(/credentialStore\.set\(/g) || []).length, 1);
-  assert.match(credentialSource, /readEnvironmentCredential = \(\) => process\.env\.FOCUSPIX_AI_API_KEY/);
+  assert.match(credentialSource, /readEnvironmentCredential = \(\) => process\.env\.IM_ADHDER_AI_API_KEY/);
   assert.match(credentialSource, /registerIpc\('ai:credential-import',[\s\S]*?payload\?\.secret \|\| readEnvironmentCredential\(\)/);
   // 投影给 renderer 的只能是 status（available / configured），不能是密钥本体。
   assert.doesNotMatch(main, /credential:\s*credentialStore\.get\(\)/);
@@ -298,7 +298,7 @@ test('a second instance cannot touch persisted state before it exits', () => {
     'the data directory must be chosen before the single-instance lock is claimed');
   // 改道只能由显式标记触发；否则一次普通启动就会看不到自己的真实数据。
   assert.match(composition, /const profile = isDevProfile\(argv\) \? 'development' : 'production';/);
-  assert.match(composition, /if \(profile === 'development'\) \{/);
+  assert.match(composition, /if \(profile === 'development' && !appHost\.hasExplicitUserDataPath\(\)\) \{/);
   // Chromium 的 cookie 与 LocalStorage 挂在 sessionData 上，漏掉它等于只搬走一半。
   assert.match(composition, /appHost\.setDataDirectory\(directory\);/);
   assert.match(appHost, /app\.setPath\('userData', directory\);[\s\S]*?app\.setPath\('sessionData', directory\);/);

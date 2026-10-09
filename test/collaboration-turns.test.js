@@ -429,3 +429,17 @@ test('a version-check port failure also fails closed and preserves readable hist
   assert.equal(f.get().messages[0].content, '报告不知道怎么开始');
   assert.equal(f.get().messages.length, 1);
 });
+
+for (const reason of ['provider-response-invalid-json', 'provider-response-html',
+  'provider-response-event-stream', 'provider-response-empty']) {
+  test(`HTTP envelope failure ${reason} remains visible in canonical local provenance`, async () => {
+    const f = fixture({ reply: () => { throw new TypeError(reason); } });
+    const result = await f.run();
+    assert.equal(result.ok, true);
+    assert.equal(result.source, 'local');
+    assert.equal(result.reason, reason);
+    assert.equal(f.get().messages.at(-1).provenance.reason, reason);
+    assert.equal(f.get().messages.at(-1).provenance.source, 'local');
+    assert.equal(f.sent.length, 1);
+  });
+}
