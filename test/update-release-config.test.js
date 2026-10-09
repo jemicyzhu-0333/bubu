@@ -12,11 +12,17 @@ test('release updates require stable versions, an explicit repository and signed
   assert.throws(() => updateReleaseConfig({ ...input, env: {} }), /RELEASE_REPOSITORY/);
   const mac = updateReleaseConfig(input);
   assert.deepEqual(mac.mac.target.map(item => item.target), ['dmg', 'zip']);
-  assert.equal(mac.mac.hardenedRuntime, true); assert.equal(mac.mac.notarize, true);
+  assert.equal(mac.mac.sign.hardenedRuntime, true); assert.equal(mac.mac.notarize, true);
+  assert.equal(mac.mac.sign.identity, env.CSC_NAME);
+  assert.equal(Object.hasOwn(mac.mac, 'identity'), false);
+  assert.equal(Object.hasOwn(mac.mac, 'hardenedRuntime'), false);
+  assert.equal(Object.hasOwn(mac.mac, 'gatekeeperAssess'), false);
   assert.equal(mac.forceCodeSigning, true); assert.equal(mac.publish[0].private, false);
   assert.equal(mac.publish[0].releaseType, 'draft'); assert.equal(mac.appId, base.build.appId);
   const win = updateReleaseConfig({ ...input, platform: 'win32', arch: 'x64' });
   assert.equal(win.win.target[0].target, 'nsis'); assert.equal(win.win.verifyUpdateCodeSignature, true);
+  assert.deepEqual(win.win.sign, { type: 'signtool', publisherName: env.WINDOWS_PUBLISHER_NAME });
+  assert.equal(Object.hasOwn(win.win, 'signtoolOptions'), false);
   assert.equal(win.nsis.deleteAppDataOnUninstall, false);
   assert.equal(JSON.stringify(win).includes('GH_TOKEN'), false);
 });

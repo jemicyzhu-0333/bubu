@@ -76,7 +76,8 @@ test('release configuration refuses unsigned/unselected targets and uses archite
   assert.equal(mac.publish[0].channel, 'latest-arm64'); assert.equal(mac.publish[0].releaseType, 'draft');
   assert.deepEqual(mac.mac.target.map(x => x.target), ['dmg', 'zip']); assert.equal(mac.forceCodeSigning, true);
   const win = updateReleaseConfig({ pkg, platform: 'win32', arch: 'x64', env });
-  assert.equal(win.win.signtoolOptions.publisherName, 'Publisher'); assert.equal(win.nsis.deleteAppDataOnUninstall, false);
+  assert.equal(win.win.sign.type, 'signtool'); assert.equal(win.win.sign.publisherName, 'Publisher');
+  assert.equal(win.nsis.deleteAppDataOnUninstall, false);
 });
 
 test('dispose before the queued operation starts makes zero transport calls', async () => {

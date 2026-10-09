@@ -85,7 +85,8 @@ test('descriptor identity change during Windows ACL observation is refused', t =
 });
 test('host private temporary directory and created file satisfy native permissions', t => {
   const f = fixture(t);
-  verifyProbePermissions(f.directory, [f.file]);
+  try { verifyProbePermissions(f.directory, [f.file]); }
+  catch (error) { t.diagnostic(`native permission stage: ${error.diagnostic}`); throw error; }
 });
 
 test('unexpected probe members are rejected before and after the ACL observation', t => {
@@ -149,3 +150,98 @@ for (const failure of ['fstat', 'close']) {
     assert.equal(fs.existsSync(probe), false);
   });
 }
+
+for (const [label, result, expected] of [
+  ['timeout', { error: { code: 'ETIMEDOUT', message: 'private detail' } }, 'timeout'],
+  ['spawn', { error: Error('private detail') }, 'spawn'],
+  ['known stage', { status: 1, stderr: 'config-admission-acl:streams' }, 'streams'],
+  ['unknown stderr', { status: 1, stderr: 'private account and path' }, 'process-exit'],
+  ['CLIXML progress', { status: 0, stdout: JSON.stringify(report()), stderr: '#< CLIXML\n<Objs>private detail</Objs>' }, 'stderr'],
+  ['extra stderr', { status: 0, stdout: JSON.stringify(report()), stderr: 'warning' }, 'stderr'],
+  ['non-JSON', { status: 0, stdout: 'private detail', stderr: '' }, 'json'],
+  ['two BOMs', { status: 0, stdout: '\uFEFF\uFEFF' + JSON.stringify(report()), stderr: '' }, 'json'],
+  ['unexpected policy', { status: 0, stdout: '{}', stderr: '' }, 'acl-shape']
+]) {
+  test(`ACL diagnostic ${label} stays bounded, sanitized and fail-closed`, t => {
+    const f = fixture(t);
+    assert.throws(() => verifyWindowsProbePermissions(f.directory, [], { environment: { SystemRoot: 'C:\\Windows' }, run: () => result }), error => {
+      assert.equal(error.message, 'config-admission-permissions-unavailable');
+      assert.equal(error.diagnostic, expected);
+      assert.equal(error.cause, undefined);
+      assert.doesNotMatch(JSON.stringify(error), /private|CLIXML/);
+      return true;
+    });
+  });
+}
+test('one optional UTF-8 BOM preserves a valid report without permitting stderr', t => {
+  const f = fixture(t);
+  verifyWindowsProbePermissions(f.directory, [], { environment: { SystemRoot: 'C:\\Windows' }, run: () => ({
+    status: 0, stdout: '\uFEFF' + JSON.stringify(report()), stderr: ''
+  }) });
+});
+test('fixed ACL script uses pipe-local UTF-8 and direct JSON-array assignment on Windows PowerShell 5.1', () => {
+  assert.match(ACL_PROGRAM, /StreamReader.*OpenStandardInput/);
+  assert.match(ACL_PROGRAM, /StreamWriter.*OpenStandardOutput/);
+  assert.doesNotMatch(ACL_PROGRAM, /\[Console\]::(?:Input|Output)Encoding\s*=/);
+  assert.match(ACL_PROGRAM, /\$paths = ConvertFrom-Json -InputObject/);
+  assert.doesNotMatch(ACL_PROGRAM, /\$paths = @\(/);
+  assert.match(ACL_PROGRAM, /\$ProgressPreference = 'SilentlyContinue'/);
+});
+test('native Windows PowerShell 5.1 protocol rejects empty/nested input and preserves one/multiple literal paths', { skip: process.platform !== 'win32' }, t => {
+  const { spawnSync } = require('node:child_process');
+  const f = fixture(t), executable = path.win32.join(process.env.SystemRoot, 'System32', 'WindowsPowerShell', 'v1.0', 'powershell.exe');
+  function run(paths) {
+    return spawnSync(executable, ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command', ACL_PROGRAM], {
+      input: JSON.stringify(paths), encoding: 'utf8', shell: false, windowsHide: true, timeout: 5000, maxBuffer: 65536
+    });
+  }
+  for (const invalid of [[], [[f.directory]], f.directory]) {
+    const result = run(invalid);
+    assert.equal(result.status, 1, 'native protocol must reject invalid input');
+    assert.ok(result.stderr === 'config-admission-acl:input', 'native protocol must reject at the input stage');
+    assert.ok(result.stdout === '', 'invalid native input must not emit a report');
+  }
+  for (const paths of [[f.directory], [f.directory, f.file]]) {
+    const result = run(paths);
+    const stage = /^config-admission-acl:(streams|input|identity|item|acl|descriptor|aces|serialize)$/.exec(result.stderr || '')?.[1];
+    assert.equal(result.status, 0, `native ACL process failed: ${stage || (result.error?.code === 'ETIMEDOUT' ? 'timeout' : 'process-exit')}`);
+    assert.equal(result.stderr.length, 0, 'native ACL process emitted stderr');
+    let parsed;
+    try { parsed = JSON.parse(result.stdout.replace(/^\uFEFF/, '')); } catch (_) { assert.fail('native ACL output is not JSON'); }
+    assert.equal(validAclReport(parsed, paths.length), true, 'native ACL report is invalid or untrusted');
+  }
+});
+
+test('native subprocess failure at the empty-directory gate prevents every copy and preserves its fixed diagnostic', t => {
+  const { admitConfigCopy } = require('../src/platform/persistence/sqlite/config-admission-copy');
+  const f = fixture(t), before = fs.readFileSync(f.file); let writes = 0, probe;
+  assert.throws(() => admitConfigCopy({ filePath: f.file, identityPath: path.join(f.directory, 'absent-identity'), io: { ...fs,
+    writeSync(...args) { writes++; return fs.writeSync(...args); }
+  } }, { driver: {}, makeHandle() {}, verifyPermissions(directory, files) {
+    probe = directory;
+    verifyProbePermissions(directory, files, { platform: 'win32', verifyWindows(dir, members) {
+      verifyWindowsProbePermissions(dir, members, { environment: { SystemRoot: 'C:\\Windows' }, run: () => ({ status: 1, stderr: 'config-admission-acl:streams' }) });
+    } });
+  } }), error => error.code === 'config-admission-permissions-unavailable' && error.diagnostic === 'streams');
+  assert.equal(writes, 0); assert.deepEqual(fs.readFileSync(f.file), before); assert.equal(fs.existsSync(probe), false);
+});
+
+test('ACL report rejection categories reveal structure only and preserve every trust guard', t => {
+  const f = fixture(t);
+  const cases = [
+    ['acl-shape', value => { value.extra = true; }],
+    ['acl-count', value => { value.entries = []; }],
+    ['acl-owner', value => { value.entries[0].owner = 'S-1-1-0'; }],
+    ['acl-dacl', value => { value.entries[0].nullDacl = true; }],
+    ['acl-reparse', value => { value.entries[0].reparse = true; }],
+    ['acl-type', value => { value.entries[0].directory = false; }],
+    ['acl-ace', value => { value.entries[0].aces[0].type = 'SystemAudit'; }],
+    ['acl-grant', value => { value.entries[0].aces.push(allow('S-1-1-0')); }]
+  ];
+  for (const [diagnostic, mutate] of cases) {
+    const value = report(); mutate(value);
+    assert.throws(() => verifyWindowsProbePermissions(f.directory, [], { environment: { SystemRoot: 'C:\\Windows' }, run: () => ({
+      status: 0, stderr: '', stdout: JSON.stringify(value)
+    }) }), error => error.message === 'config-admission-permissions-unavailable' && error.diagnostic === diagnostic);
+  }
+});

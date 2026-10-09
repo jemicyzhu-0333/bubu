@@ -16,6 +16,11 @@ function releasePrerequisites({ platform, env, identities, notarytoolAvailable }
   return Object.freeze({ ok: failures.length === 0, failures: Object.freeze(failures) });
 }
 
+function signedBuildArgs(env) {
+  return ['--mac', '--arm64', '--publish', 'never', '--config.forceCodeSigning=true',
+    `--config.mac.sign.identity=${env.CSC_NAME}`, '--config.mac.sign.hardenedRuntime=true', '--config.mac.notarize=true'];
+}
+
 function run() {
   const root = path.resolve(__dirname, '..');
   const identities = spawnSync('security', ['find-identity', '-v', '-p', 'codesigning'], { encoding: 'utf8' });
@@ -27,10 +32,8 @@ function run() {
   console.log(JSON.stringify(result, null, 2));
   if (!result.ok) return 1;
   if (!process.argv.includes('--build')) return 0;
-  const build = spawnSync(path.join(root, 'node_modules/.bin/electron-builder'), [
-    '--mac', '--arm64', '--config.forceCodeSigning=true',
-    `--config.mac.identity=${process.env.CSC_NAME}`, '--config.mac.hardenedRuntime=true', '--config.mac.notarize=true'
-  ], { cwd: root, stdio: 'inherit' });
+  const build = spawnSync(path.join(root, 'node_modules/.bin/electron-builder'), signedBuildArgs(process.env),
+    { cwd: root, stdio: 'inherit' });
   if (build.status !== 0) return build.status || 1;
   const app = path.join(root, 'dist/mac-arm64/I’m ADHDer.app');
   for (const [command, args] of [
@@ -44,4 +47,4 @@ function run() {
 }
 
 if (require.main === module) process.exitCode = run();
-module.exports = { releasePrerequisites };
+module.exports = { releasePrerequisites, signedBuildArgs };

@@ -13,9 +13,9 @@ function updateReleaseConfig({ pkg, platform, arch, env }) {
   config.publish = [{ provider: 'github', owner: match[1], repo: match[2], private: false,
     releaseType: 'draft', channel: `latest-${arch}` }];
   config.mac = { ...config.mac, target: [{ target: 'dmg', arch: [arch] }, { target: 'zip', arch: [arch] }],
-    hardenedRuntime: true, notarize: true, identity: env.CSC_NAME || undefined };
+    notarize: true, sign: { ...config.mac?.sign, hardenedRuntime: true, identity: env.CSC_NAME || undefined } };
   config.win = { ...config.win, target: [{ target: 'nsis', arch: [arch] }], verifyUpdateCodeSignature: true,
-    signtoolOptions: { publisherName: env.WINDOWS_PUBLISHER_NAME || undefined } };
+    sign: { type: 'signtool', publisherName: env.WINDOWS_PUBLISHER_NAME || undefined } };
   config.nsis = { oneClick: false, perMachine: false, allowToChangeInstallationDirectory: true,
     deleteAppDataOnUninstall: false };
   return config;

@@ -2,7 +2,15 @@
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { releasePrerequisites } = require('../scripts/release-macos');
+const { releasePrerequisites, signedBuildArgs } = require('../scripts/release-macos');
+
+test('signed macOS builder command retains explicit signing, hardening and notarization without publishing', () => {
+  assert.deepEqual(signedBuildArgs({ CSC_NAME: 'Developer ID Application: Example' }), [
+    '--mac', '--arm64', '--publish', 'never', '--config.forceCodeSigning=true',
+    '--config.mac.sign.identity=Developer ID Application: Example', '--config.mac.sign.hardenedRuntime=true',
+    '--config.mac.notarize=true'
+  ]);
+});
 
 test('release preflight rejects unsigned defaults and never serializes credentials', () => {
   const missing = releasePrerequisites({ platform: 'darwin', env: {}, identities: '0 valid identities found', notarytoolAvailable: true });

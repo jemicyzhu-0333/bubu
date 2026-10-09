@@ -7,18 +7,30 @@ const { spawnSync } = require('node:child_process');
 // No execution-policy override, ACL mutation, elevation, or fallback on rejection.
 const ACL_PROGRAM = `
 $ErrorActionPreference = 'Stop'
+$ProgressPreference = 'SilentlyContinue'
+$stage = 'streams'
 try {
-  [Console]::InputEncoding = [System.Text.UTF8Encoding]::new($false)
-  [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
-  $paths = @([Console]::In.ReadToEnd() | ConvertFrom-Json)
-  if ($paths.Count -lt 1 -or $paths.Count -gt 7) { throw 'invalid' }
+  $utf8 = [System.Text.UTF8Encoding]::new($false, $true)
+  $reader = [System.IO.StreamReader]::new([Console]::OpenStandardInput(), $utf8, $false)
+  $writer = [System.IO.StreamWriter]::new([Console]::OpenStandardOutput(), $utf8)
+  $stage = 'input'
+  # Windows PowerShell 5.1 emits the JSON array as one pipeline object.
+  # Direct assignment preserves that array; @(... pipeline ...) nests it.
+  $paths = ConvertFrom-Json -InputObject ($reader.ReadToEnd())
+  if ($paths -isnot [array] -or $paths.Count -lt 1 -or $paths.Count -gt 7) { throw 'invalid' }
+  foreach ($p in $paths) { if ($p -isnot [string] -or [string]::IsNullOrWhiteSpace($p)) { throw 'invalid' } }
+  $stage = 'identity'
   $sid = [System.Security.Principal.WindowsIdentity]::GetCurrent().User.Value
   $entries = @()
   foreach ($p in $paths) {
+    $stage = 'item'
     $item = Get-Item -LiteralPath $p -Force
     if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { throw 'invalid' }
+    $stage = 'acl'
     $acl = Get-Acl -LiteralPath $p
+    $stage = 'descriptor'
     $raw = [System.Security.AccessControl.RawSecurityDescriptor]::new($acl.GetSecurityDescriptorBinaryForm(), 0)
+    $stage = 'aces'
     $aces = @()
     if ($null -ne $raw.DiscretionaryAcl) {
       foreach ($ace in $raw.DiscretionaryAcl) {
@@ -28,65 +40,89 @@ try {
     }
     $entries += @{ index = $entries.Count; owner = $raw.Owner.Value; nullDacl = ($null -eq $raw.DiscretionaryAcl); reparse = (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0); directory = $item.PSIsContainer; aces = $aces }
   }
-  @{ sid = $sid; entries = $entries } | ConvertTo-Json -Depth 5 -Compress
-} catch { [Console]::Error.Write('config-admission-permissions-unavailable'); exit 1 }
+  $stage = 'serialize'
+  $json = ConvertTo-Json -InputObject @{ sid = $sid; entries = $entries } -Depth 5 -Compress
+  $writer.Write($json)
+  $writer.Flush()
+} catch { [Console]::Error.Write('config-admission-acl:' + $stage); exit 1 }
 `;
-const unavailable = () => Object.assign(new Error('config-admission-permissions-unavailable'), { code: 'config-admission-permissions-unavailable' });
+const DIAGNOSTICS = new Set(['paths', 'system-root', 'spawn', 'timeout', 'process-exit', 'stderr', 'stdout', 'json', 'acl-shape', 'acl-count', 'acl-owner', 'acl-dacl', 'acl-reparse', 'acl-type', 'acl-ace', 'acl-grant',
+  'streams', 'input', 'identity', 'item', 'acl', 'descriptor', 'aces', 'serialize', 'membership', 'file-type', 'mode', 'file-drift', 'filesystem']);
+const unavailable = diagnostic => Object.assign(new Error('config-admission-permissions-unavailable'), {
+  code: 'config-admission-permissions-unavailable', diagnostic: DIAGNOSTICS.has(diagnostic) ? diagnostic : 'filesystem'
+});
+const sanitized = (error, fallback) => unavailable(error?.code === 'config-admission-permissions-unavailable' ? error.diagnostic : fallback);
 const exactKeys = (value, keys) => value && typeof value === 'object' && !Array.isArray(value)
   && Object.keys(value).length === keys.length && keys.every(key => Object.hasOwn(value, key));
-function validAclReport(report, count) {
+function aclReportFailure(report, count) {
   if (!exactKeys(report, ['sid', 'entries']) || typeof report.sid !== 'string' || !/^S-1-5-\d+(?:-\d+)*$/.test(report.sid)
-    || !Array.isArray(report.entries) || report.entries.length !== count) return false;
+    || !Array.isArray(report.entries)) return 'acl-shape';
+  if (report.entries.length !== count) return 'acl-count';
   const trusted = new Set([report.sid, 'S-1-5-18', 'S-1-5-32-544']);
-  return report.entries.every((entry, index) => {
-    if (!exactKeys(entry, ['index', 'owner', 'nullDacl', 'reparse', 'directory', 'aces']) || entry.index !== index || !trusted.has(entry.owner) || entry.nullDacl !== false || entry.reparse !== false
-      || entry.directory !== (index === 0) || !Array.isArray(entry.aces) || entry.aces.length === 0) return false;
-    return entry.aces.every(ace => {
+  for (const [index, entry] of report.entries.entries()) {
+    if (!exactKeys(entry, ['index', 'owner', 'nullDacl', 'reparse', 'directory', 'aces']) || entry.index !== index) return 'acl-shape';
+    if (!trusted.has(entry.owner)) return 'acl-owner';
+    if (entry.nullDacl !== false || !Array.isArray(entry.aces) || entry.aces.length === 0) return 'acl-dacl';
+    if (entry.reparse !== false) return 'acl-reparse';
+    if (entry.directory !== (index === 0)) return 'acl-type';
+    for (const ace of entry.aces) {
       if (!exactKeys(ace, ['sid', 'type', 'flags']) || !Number.isInteger(ace.flags) || ace.flags < 0 || ace.flags > 31
-        || !['AccessAllowed', 'AccessDenied'].includes(ace.type) || typeof ace.sid !== 'string' || !/^S-1-\d+(?:-\d+)+$/.test(ace.sid)) return false;
+        || !['AccessAllowed', 'AccessDenied'].includes(ace.type) || typeof ace.sid !== 'string' || !/^S-1-\d+(?:-\d+)+$/.test(ace.sid)) return 'acl-ace';
       // Deny cannot make an untrusted Allow safe. Inspect inherited and
       // inherit-only grants too, before any private bytes are copied.
-      if (ace.type === 'AccessDenied') return true;
-      return trusted.has(ace.sid) || (index === 0 && ace.sid === 'S-1-3-0'
-        && (ace.flags & 8) !== 0 && (ace.flags & 3) !== 0); // Inheritable CREATOR OWNER template only.
-    });
-  });
+      if (ace.type === 'AccessDenied') continue;
+      const creatorTemplate = index === 0 && ace.sid === 'S-1-3-0' && (ace.flags & 8) !== 0 && (ace.flags & 3) !== 0;
+      if (!trusted.has(ace.sid) && !creatorTemplate) return 'acl-grant';
+    }
+  }
+  return null;
 }
+function validAclReport(report, count) { return aclReportFailure(report, count) === null; }
+
 function verifyWindowsProbePermissions(directory, files = [], { run = spawnSync, environment = process.env } = {}) {
   try {
     if (!path.isAbsolute(directory) || files.length > 6 || files.some(file => path.dirname(file) !== directory)
-      || new Set(files).size !== files.length) throw unavailable();
+      || new Set(files).size !== files.length) throw unavailable('paths');
     const systemRoot = environment.SystemRoot;
     if (typeof systemRoot !== 'string' || !/^[a-zA-Z]:\\[^\\]/.test(systemRoot)
-      || path.win32.normalize(systemRoot) !== systemRoot || systemRoot.split('\\').some(part => part === '.' || part === '..')) throw unavailable();
+      || path.win32.normalize(systemRoot) !== systemRoot || systemRoot.split('\\').some(part => part === '.' || part === '..')) throw unavailable('system-root');
     const executable = path.win32.join(systemRoot, 'System32', 'WindowsPowerShell', 'v1.0', 'powershell.exe');
     const result = run(executable, ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command', ACL_PROGRAM], {
       input: JSON.stringify([directory, ...files]), encoding: 'utf8', shell: false, windowsHide: true,
       timeout: 5000, maxBuffer: 64 * 1024
     });
-    if (result.error || result.status !== 0 || result.signal || result.stderr !== ''
-      || typeof result.stdout !== 'string' || Buffer.byteLength(result.stdout) > 64 * 1024
-      || !validAclReport(JSON.parse(result.stdout), files.length + 1)) throw unavailable();
-  } catch (_) { throw unavailable(); }
+    if (result.error) throw unavailable(result.error.code === 'ETIMEDOUT' ? 'timeout' : 'spawn');
+    if (result.status !== 0 || result.signal) {
+      const stage = /^config-admission-acl:(streams|input|identity|item|acl|descriptor|aces|serialize)$/.exec(result.stderr || '')?.[1];
+      throw unavailable(stage || 'process-exit');
+    }
+    if (result.stderr !== '') throw unavailable('stderr');
+    if (typeof result.stdout !== 'string' || Buffer.byteLength(result.stdout) > 64 * 1024) throw unavailable('stdout');
+    let report;
+    // A single UTF-8 BOM is transport framing, never an excuse to ignore stderr.
+    try { report = JSON.parse(result.stdout.replace(/^\uFEFF/, '')); } catch (_) { throw unavailable('json'); }
+    const failure = aclReportFailure(report, files.length + 1);
+    if (failure) throw unavailable(failure);
+  } catch (error) { throw sanitized(error, 'spawn'); }
 }
 function verifyProbePermissions(directory, files = [], { platform = process.platform, io = fs, verifyWindows = verifyWindowsProbePermissions } = {}) {
   try {
     const names = files.map(file => path.basename(file)).sort();
     const checkMembers = () => {
       const actual = io.readdirSync(directory).sort();
-      if (actual.length !== names.length || actual.some((name, index) => name !== names[index])) throw unavailable();
+      if (actual.length !== names.length || actual.some((name, index) => name !== names[index])) throw unavailable('membership');
     };
     const paths = [directory, ...files];
     const before = paths.map(target => io.lstatSync(target, { bigint: true }));
-    if (before.some((value, index) => index === 0 ? !value.isDirectory() : !value.isFile())) throw unavailable();
+    if (before.some((value, index) => index === 0 ? !value.isDirectory() : !value.isFile())) throw unavailable('file-type');
     checkMembers();
     if (platform === 'win32') verifyWindows(directory, files);
-    else if (before.some(value => (value.mode & 0o077n) !== 0n)) throw unavailable();
+    else if (before.some(value => (value.mode & 0o077n) !== 0n)) throw unavailable('mode');
     paths.forEach((target, index) => {
       const after = io.lstatSync(target, { bigint: true }), prior = before[index];
-      if (['dev', 'ino', 'mode', 'size', 'ctimeNs', 'mtimeNs'].some(key => after[key] !== prior[key])) throw unavailable();
+      if (['dev', 'ino', 'mode', 'size', 'ctimeNs', 'mtimeNs'].some(key => after[key] !== prior[key])) throw unavailable('file-drift');
     });
     checkMembers();
-  } catch (_) { throw unavailable(); }
+  } catch (error) { throw sanitized(error, 'filesystem'); }
 }
 module.exports = { verifyProbePermissions, verifyWindowsProbePermissions, validAclReport, ACL_PROGRAM };
