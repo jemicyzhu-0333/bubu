@@ -1,0 +1,33 @@
+{
+  "format": "usagi-depth-build-inputs-v1",
+  "sourceFiles": {
+    "records/recipe.json": "20acf3630ac10ae27b4c53cb92bb446015d852685f60f300da9b7ce3ca1918aa",
+    "masters/rain-layers-v2.png": "b8ab3b7e710ee664a7e4c52ab556d0567c9414dcf1e411bf490e9aa61c06086a",
+    "masks/front-native-foreground.png": "0968d5bf49ec12c87653960e6af1ade56f56e60a53158adc491155e5611b3d56",
+    "masks/three-quarter-native-foreground.png": "13ab2978bd250deb77453fae584d87cc7f601d7a307f1ed520ba22f632b6715c",
+    "masks/profile-native-foreground.png": "399efad4d086c19c2317d31b89b87dcc282d7c7755050c966fc78394bcf3c67a",
+    "masks/back-native-foreground.png": "28f79d3883ab5fffa2e7877363277be224ecf89647286da53d75f37070034a23",
+    "evidence/baseline-front.png": "857b22398ae75b497742d1180b4710bb86cb38e71bca68b38481f344f95b7063",
+    "evidence/baseline-three-quarter.png": "443a39da1593bf7500720cd45ad56d7abef0c6987b3f1f8b9e173561c63d1b7e",
+    "evidence/baseline-profile.png": "d99d4cf5c3dc3b2e9742e56dc6b93346b8ae8a02309b7b1d2f6bbbfceede2c98",
+    "evidence/baseline-back.png": "4bbd8b6a1b3571b54bd35b6fbd6b262e90cc9b8bf26b5273f26e0f4a88b37e3a"
+  },
+  "canonicalFiles": {
+    "manifest.json": "590c8e3c79c034bbbfa3c51c992345f28b9d153f4da20d04cb23451b0b82cf0f",
+    "front.png": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3",
+    "three-quarter.png": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60",
+    "profile.png": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420",
+    "back.png": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c"
+  },
+  "fontName": "DejaVuSans.ttf",
+  "fontSha256": "57f73e11f51999432bf7ab22ce55b6f945d5eca1bf824404cfa9ec2e3718c84e",
+  "environment": {
+    "python": "3.12.14",
+    "pillow": "12.3.0",
+    "numpy": "2.3.5"
+  },
+  "baselinePolicy": "Preserved baseline PNGs are frozen historical comparison inputs. Rebuild does not read or regenerate mutable runtime contracts.",
+  "canonicalSourcePolicy": "prototype-manifest canonicalSource is relative to the preserved source folder; sprite src paths are relative to the chosen output folder.",
+  "command": "python build_prototype.py --output NEWDIR",
+  "outputPolicy": "New or empty directory outside preserved sources; no overwrite option and no source writes."
+}

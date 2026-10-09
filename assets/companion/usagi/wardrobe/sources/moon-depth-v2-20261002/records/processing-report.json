@@ -1,0 +1,467 @@
+{
+  "python": "3.12.14",
+  "pillow": "12.3.0",
+  "alphaPolicy": "Preserve original RGBA in declared component crops; uniform Lanczos resizing; no white/color deletion.",
+  "sourceSha256": "b8e5db4e665c9c16593c1dfec6f9889c5a697269ddb4d8f50ea0fd9f2594e094",
+  "recipeSha256": "1753e2ef500e448d81aa6a32fac76549894c79feccf431e4157c7bc0d7362eb6",
+  "extraction": [
+    {
+      "item": "collar",
+      "view": "front",
+      "declaredCrop": [
+        85,
+        287,
+        540,
+        470
+      ],
+      "trimWithinCrop": [
+        3,
+        5,
+        452,
+        178
+      ],
+      "uniformScale": 0.44543429844098,
+      "position": [
+        156,
+        344
+      ],
+      "finalSize": [
+        200,
+        77
+      ],
+      "completeLayerHasHandCutouts": false,
+      "source": "masters/moon-collar-layers-v3.png",
+      "sourceSha256": "66a5cec21a854dbea1ab21859370593c076e2fedeb0e14c77bb95a037ceac0ec",
+      "alphaSupport": {
+        "component": "largest",
+        "threshold": 96,
+        "dilation": 3
+      }
+    },
+    {
+      "item": "collar",
+      "view": "three-quarter",
+      "declaredCrop": [
+        699,
+        289,
+        1049,
+        473
+      ],
+      "trimWithinCrop": [
+        4,
+        6,
+        347,
+        180
+      ],
+      "uniformScale": 0.5364431486880467,
+      "position": [
+        180,
+        347
+      ],
+      "finalSize": [
+        184,
+        93
+      ],
+      "completeLayerHasHandCutouts": false,
+      "source": "masters/moon-collar-layers-v3.png",
+      "sourceSha256": "66a5cec21a854dbea1ab21859370593c076e2fedeb0e14c77bb95a037ceac0ec",
+      "alphaSupport": {
+        "component": "largest",
+        "threshold": 96,
+        "dilation": 3
+      }
+    },
+    {
+      "item": "collar",
+      "view": "profile",
+      "declaredCrop": [
+        1190,
+        291,
+        1555,
+        464
+      ],
+      "trimWithinCrop": [
+        4,
+        6,
+        362,
+        169
+      ],
+      "uniformScale": 0.4301675977653631,
+      "position": [
+        208,
+        349
+      ],
+      "finalSize": [
+        154,
+        70
+      ],
+      "completeLayerHasHandCutouts": false,
+      "source": "masters/moon-collar-layers-v3.png",
+      "sourceSha256": "66a5cec21a854dbea1ab21859370593c076e2fedeb0e14c77bb95a037ceac0ec",
+      "alphaSupport": {
+        "component": "largest",
+        "threshold": 96,
+        "dilation": 3
+      }
+    },
+    {
+      "item": "collar",
+      "view": "back",
+      "declaredCrop": [
+        1680,
+        286,
+        2088,
+        391
+      ],
+      "trimWithinCrop": [
+        3,
+        6,
+        405,
+        100
+      ],
+      "uniformScale": 0.4975124378109453,
+      "position": [
+        156,
+        344
+      ],
+      "finalSize": [
+        200,
+        47
+      ],
+      "completeLayerHasHandCutouts": false,
+      "source": "masters/moon-collar-layers-v3.png",
+      "sourceSha256": "66a5cec21a854dbea1ab21859370593c076e2fedeb0e14c77bb95a037ceac0ec",
+      "alphaSupport": {
+        "component": "largest",
+        "threshold": 96,
+        "dilation": 3
+      }
+    },
+    {
+      "item": "cape",
+      "view": "front",
+      "declaredCrop": [
+        40,
+        352,
+        442,
+        508
+      ],
+      "trimWithinCrop": [
+        4,
+        5,
+        397,
+        152
+      ],
+      "uniformScale": 0.544529262086514,
+      "position": [
+        149,
+        356
+      ],
+      "finalSize": [
+        214,
+        80
+      ],
+      "completeLayerHasHandCutouts": false,
+      "alphaSupport": {
+        "component": "largest",
+        "threshold": 96,
+        "dilation": 3
+      }
+    },
+    {
+      "item": "cape",
+      "view": "three-quarter",
+      "declaredCrop": [
+        530,
+        348,
+        889,
+        513
+      ],
+      "trimWithinCrop": [
+        4,
+        5,
+        356,
+        161
+      ],
+      "uniformScale": 0.5795454545454546,
+      "position": [
+        168,
+        354
+      ],
+      "finalSize": [
+        204,
+        90
+      ],
+      "completeLayerHasHandCutouts": false,
+      "alphaSupport": {
+        "component": "largest",
+        "threshold": 96,
+        "dilation": 3
+      }
+    },
+    {
+      "item": "cape",
+      "view": "profile",
+      "declaredCrop": [
+        955,
+        352,
+        1227,
+        507
+      ],
+      "trimWithinCrop": [
+        4,
+        4,
+        268,
+        150
+      ],
+      "uniformScale": 0.6060606060606061,
+      "position": [
+        199,
+        352
+      ],
+      "finalSize": [
+        160,
+        88
+      ],
+      "completeLayerHasHandCutouts": false,
+      "alphaSupport": {
+        "component": "largest",
+        "threshold": 96,
+        "dilation": 3
+      }
+    },
+    {
+      "item": "cape",
+      "view": "back",
+      "declaredCrop": [
+        1340,
+        354,
+        1740,
+        520
+      ],
+      "trimWithinCrop": [
+        4,
+        4,
+        396,
+        161
+      ],
+      "uniformScale": 0.5357142857142857,
+      "position": [
+        151,
+        354
+      ],
+      "finalSize": [
+        210,
+        84
+      ],
+      "completeLayerHasHandCutouts": false,
+      "alphaSupport": {
+        "component": "largest",
+        "threshold": 96,
+        "dilation": 3
+      }
+    },
+    {
+      "item": "bag",
+      "view": "front",
+      "declaredCrop": [
+        72,
+        136,
+        513,
+        569
+      ],
+      "trimWithinCrop": [
+        4,
+        5,
+        436,
+        428
+      ],
+      "uniformScale": 0.4537037037037037,
+      "position": [
+        140,
+        243
+      ],
+      "finalSize": [
+        196,
+        192
+      ],
+      "completeLayerHasHandCutouts": false,
+      "source": "masters/moon-bag-layers-v2.png",
+      "sourceSha256": "6cb48f14eb1237a0aefcad3a2093682a5c55ac8e16a6f95ccae59acbc144a0c4",
+      "alphaSupport": {
+        "component": "largest",
+        "threshold": 96,
+        "dilation": 3
+      }
+    },
+    {
+      "item": "bag",
+      "view": "three-quarter",
+      "declaredCrop": [
+        622,
+        135,
+        1024,
+        579
+      ],
+      "trimWithinCrop": [
+        5,
+        5,
+        398,
+        440
+      ],
+      "uniformScale": 0.49363867684478374,
+      "position": [
+        162,
+        229
+      ],
+      "finalSize": [
+        194,
+        215
+      ],
+      "completeLayerHasHandCutouts": false,
+      "source": "masters/moon-bag-layers-v2.png",
+      "sourceSha256": "6cb48f14eb1237a0aefcad3a2093682a5c55ac8e16a6f95ccae59acbc144a0c4",
+      "alphaSupport": {
+        "component": "largest",
+        "threshold": 96,
+        "dilation": 3
+      }
+    },
+    {
+      "item": "bag",
+      "view": "profile",
+      "declaredCrop": [
+        1166,
+        135,
+        1534,
+        576
+      ],
+      "trimWithinCrop": [
+        4,
+        5,
+        364,
+        436
+      ],
+      "uniformScale": 0.4583333333333333,
+      "position": [
+        190,
+        239
+      ],
+      "finalSize": [
+        165,
+        198
+      ],
+      "completeLayerHasHandCutouts": false,
+      "source": "masters/moon-bag-layers-v2.png",
+      "sourceSha256": "6cb48f14eb1237a0aefcad3a2093682a5c55ac8e16a6f95ccae59acbc144a0c4",
+      "alphaSupport": {
+        "component": "largest",
+        "threshold": 96,
+        "dilation": 3
+      }
+    },
+    {
+      "item": "bag",
+      "view": "back",
+      "declaredCrop": [
+        1677,
+        136,
+        2101,
+        569
+      ],
+      "trimWithinCrop": [
+        4,
+        5,
+        419,
+        428
+      ],
+      "uniformScale": 0.5301204819277109,
+      "position": [
+        162,
+        228
+      ],
+      "finalSize": [
+        220,
+        224
+      ],
+      "completeLayerHasHandCutouts": false,
+      "source": "masters/moon-bag-layers-v2.png",
+      "sourceSha256": "6cb48f14eb1237a0aefcad3a2093682a5c55ac8e16a6f95ccae59acbc144a0c4",
+      "alphaSupport": {
+        "component": "largest",
+        "threshold": 96,
+        "dilation": 3
+      }
+    }
+  ],
+  "audit": [
+    {
+      "view": "front",
+      "canonicalSha256": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3",
+      "protectedFaceAndEarsRect": [
+        117,
+        55,
+        406,
+        336
+      ],
+      "protectedChangedPixels": 0,
+      "outputAlphaBounds": [
+        117,
+        58,
+        395,
+        461
+      ]
+    },
+    {
+      "view": "three-quarter",
+      "canonicalSha256": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60",
+      "protectedFaceAndEarsRect": [
+        117,
+        55,
+        406,
+        336
+      ],
+      "protectedChangedPixels": 0,
+      "outputAlphaBounds": [
+        128,
+        58,
+        396,
+        461
+      ]
+    },
+    {
+      "view": "profile",
+      "canonicalSha256": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420",
+      "protectedFaceAndEarsRect": [
+        117,
+        55,
+        406,
+        336
+      ],
+      "protectedChangedPixels": 0,
+      "outputAlphaBounds": [
+        128,
+        58,
+        400,
+        461
+      ]
+    },
+    {
+      "view": "back",
+      "canonicalSha256": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c",
+      "protectedFaceAndEarsRect": [
+        117,
+        55,
+        406,
+        336
+      ],
+      "protectedChangedPixels": 0,
+      "outputAlphaBounds": [
+        117,
+        58,
+        395,
+        461
+      ]
+    }
+  ]
+}

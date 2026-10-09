@@ -1,0 +1,37 @@
+/* 「什么时候」那一组字段：截止、自动失效、重复规则与影响范围那几枚 chip——
+   新建与编辑读的是同一份。对应 ui/task-when-fields.js。 */
+
+@layer features {
+  .deadline-row {
+    display: flex; align-items: center; gap: 6px;
+    margin-top: 4px;
+    padding: 4px;
+    background: var(--bg-2);
+    border-left: 3px solid var(--accent);
+  }
+/* 自动失效选择行 */
+  .expiry-row {
+    display: flex; align-items: center; gap: 4px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+    padding: 4px;
+    background: var(--bg-2);
+    border-left: 3px solid var(--cyan);
+  }
+  .ttl-chip { font-size: 11px; padding: 3px 6px; }
+  .ttl-chip.active { background: var(--cyan); color: var(--ink); border-color: var(--blue-dark); }
+  .expiry-preview {
+    font-size: 11px;
+    color: var(--cyan-ink);
+    font-weight: 700;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+  .ttl-set-chip { font-size: 11px; padding: 3px 6px; }
+  .ttl-set-chip.active { background: var(--cyan); color: var(--ink); border-color: var(--blue-dark); }
+  .edit-scope-chip.active, .repeat-chip.active, .repeat-strategy-chip.active, .weekday-chip.active, .edit-energy-chip.active {
+    background: var(--primary); color: var(--ink); border-color: var(--primary);
+  }
+  .weekday-chip { font-size: 11px; padding: 3px 7px; }
+  .repeat-chip, .repeat-strategy-chip, .edit-scope-chip { font-size: 11px; padding: 3px 6px; }
+}

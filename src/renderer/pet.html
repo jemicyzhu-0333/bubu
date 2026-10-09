@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<link rel="stylesheet" href="../surfaces/pet/notebook-visit.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; image-rendering: pixelated;
+    font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+    -webkit-user-select: none; user-select: none;
+  }
+  html, body { width: 100%; height: 100vh; background: transparent; overflow: visible; }
+  body { -webkit-app-region: no-drag; }
+
+  /* stage 固定 220x220 并始终居中于窗口：
+     打开喂食面板时窗口会对称扩容，宠物视觉位置保持不动 */
+  .stage {
+    position: fixed;
+    left: 50%; top: 50%;
+    width: 220px; height: 220px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .stage.devtools-open { transform: translate(calc(-50% - 150px), -50%); }
+
+  /* 宠物层：画布只负责出图，命中框只负责交互，位移与形变统一作用在这一层，
+     两者不再各自维护一套 transform。
+     几何来自 core/pet-stage.mjs：146 美术像素 × 1.5 = 219 CSS px。
+     left 0.5 = (220-219)/2；top 2.5 额外下移 2px，让身体中心停在 0.1.0 的
+     原位（stage 内 110,112），扩容画布不产生任何视觉漂移。 */
+  .pet-layer {
+    position: absolute;
+    left: 0.5px; top: 2.5px;
+    width: 219px; height: 219px;
+    pointer-events: none;
+    z-index: 2;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* 吸附态：宠物层向边缘方向"探入"，露一半（stage 保持不动避免窗口裁切） */
+  .stage.dock-bottom:not(.peek):not(.menu-open) .pet-layer { transform: translateY(var(--pet-peek-bottom, 35px)); }
+  .stage.dock-top:not(.peek):not(.menu-open) .pet-layer    { transform: translateY(calc(-1 * var(--pet-peek-top, 35px))); }
+  .stage.dock-left:not(.peek):not(.menu-open) .pet-layer   { transform: translateX(calc(-1 * var(--pet-peek-left, 35px))); }
+  .stage.dock-right:not(.peek):not(.menu-open) .pet-layer  { transform: translateX(var(--pet-peek-right, 35px)); }
+  /* 喂食时先从边缘出来吃饭 */
+  .stage.menu-open .pet-layer { transform: translate(0, 0); }
+  /* 拖动中关掉缓动，否则回弹曲线会让宠物跟不上鼠标、看着像在抖 */
+  .pet-layer.dragging { transition: none; }
+
+  /* 脚下的进度环。动画时长 = 这一轮的总时长，起点用负的延迟表示“已经走了多少”，所以主进程只需要在状态
+     变化时给一个锚点，不用每秒推一次。降低动效时不平滑地走，而是每 30 秒跳一格。 */
+  .focus-ring {
+    position: absolute; left: 50%; bottom: 44px; width: 120px; height: 26px; z-index: 1;
+    transform: translateX(-50%); opacity: 0; transition: opacity 0.3s; pointer-events: none;
+  }
+  .focus-ring svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .focus-ring path { fill: none; stroke-linecap: round; }
+  .focus-ring .ring-track { stroke: rgba(26, 27, 38, 0.24); stroke-width: 2.6; }
+  .focus-ring .ring-arc {
+    stroke: #f7768e; stroke-width: 3; stroke-dasharray: 100; stroke-dashoffset: 100;
+    animation-name: focusRingFill; animation-timing-function: linear; animation-fill-mode: forwards;
+    animation-duration: var(--ring-total, 1s); animation-delay: var(--ring-delay, 0s);
+    animation-play-state: var(--ring-state, paused);
+  }
+  .stage[data-ring="break"] .focus-ring .ring-arc { stroke: #7dcfff; }
+  .stage[data-ring="focus"] .focus-ring, .stage[data-ring="break"] .focus-ring { opacity: 0.95; }
+  body[data-motion="reduced"] .focus-ring .ring-arc { animation-timing-function: steps(var(--ring-steps, 1), end); }
+  .stage.is-docked .focus-ring { opacity: 0; }
+  @keyframes focusRingFill { to { stroke-dashoffset: 0; } }
+  /* peek 时弹回 + 小抖动 */
+  .stage.peek .pet-layer { transform: translate(0,0); animation: peekWobble 0.6s ease-out; }
+  @keyframes peekWobble {
+    0% { transform: translate(0, 0) scale(0.9); }
+    30% { transform: translate(0, -6px) scale(1.05); }
+    60% { transform: translate(0, 2px) scale(0.98); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+
+  /* 背景是陪伴氛围层，不是桌面卡片：无硬描边，并在四周羽化到透明。 */
+  .scene-frame {
+    position: absolute;
+    left: 18px; top: 27px;
+    width: 184px; height: 148px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+    background: rgba(23, 27, 39, 0.08);
+    border: 0;
+    border-radius: 22px;
+    box-shadow: none;
+    opacity: 0.56;
+    transition: opacity 0.22s ease;
+    -webkit-mask-image: radial-gradient(ellipse 90% 86% at 50% 54%, #000 42%, rgba(0,0,0,0.58) 68%, transparent 98%);
+  }
+  #sceneCanvas {
+    position: absolute;
+    left: -20px; top: -30px;
+    width: 220px; height: 220px;
+    pointer-events: none;
+  }
+
+  .stage.is-docked .scene-frame,
+  .stage.is-docked .activity-bar,
+  .stage.is-docked .feed-quick,
+  .stage.is-docked .sat-bar,
+  .stage.is-docked .food-drop-toast,
+  .stage.is-docked #overlayCanvas {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  /* 画布覆盖整个宠物层：身体只占中间 66 美术像素，四周 40 美术像素的余量
+     用来容纳四肢、道具和旋转动作，避免它们被画布边缘裁掉。
+     光栅尺寸由 pet surface controller 按设备像素比设置，这里的 CSS 尺寸是脚本执行前的版式基线。 */
+  #petCanvas {
+    position: absolute;
+    left: 0; top: 0;
+    width: 219px; height: 219px;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.26));
+  }
+  .pet-layer.pressed { transform: scale(0.94); }
+  .pet-layer.pressed #petCanvas { filter: brightness(1.12) drop-shadow(1px 2px 0 rgba(0,0,0,0.5)); }
+
+  /* 命中框：只覆盖真正的身体。画布为了容纳道具比身体大得多，
+     但“点到空气也会互动”不是我们要的手感，所以交互面积与吸附用的
+     105×105 可见矩形保持一致（left/top 57 = (219-105)/2）。 */
+  .pet-hit {
+    position: absolute;
+    left: 57px; top: 57px;
+    width: 105px; height: 105px;
+    pointer-events: auto;
+    cursor: grab;
+  }
+  .pet-hit.dragging { cursor: grabbing; }
+  .pet-hit:focus-visible {
+    outline: 3px solid var(--accent, #e0af68);
+    outline-offset: 3px;
+  }
+
+  /* Overlay canvas — over pet (halo, particles, easter eggs) */
+  #overlayCanvas {
+    position: absolute;
+    left: 0; top: 0;
+    width: 220px; height: 220px;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  /* Speech bubble：横跨整个 stage 宽度立在头顶上方，文字多就往上长。
+     以前放在 left:160px 处，220px 的窗口里只剩 60px 可用宽度，
+     长台词会被挤成一列并被窗口边缘裁掉。 */
+  .bubble {
+    position: absolute;
+    left: 6px; right: 6px;
+    bottom: 156px;
+    width: fit-content;
+    max-width: 208px;
+    margin: 0 auto;
+    text-align: center;
+    background: #ffffff;
+    color: #1a1b26;
+    padding: 5px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    border: 2px solid #1a1b26;
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+    letter-spacing: 0.3px;
+    overflow-wrap: break-word;
+    line-height: 1.4;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    z-index: 5;
+    white-space: pre-wrap;
+  }
+  .bubble.show { opacity: 1; animation: bubbleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  @keyframes bubbleIn { 0%{ transform: scale(0);} 100%{ transform: scale(1);} }
+  /* 尾巴向下指着宠物 */
+  .bubble::after {
+    content: ''; position: absolute;
+    left: 50%; margin-left: -5px; bottom: -8px;
+    width: 0; height: 0; border-style: solid;
+    border-width: 8px 5px 0 5px;
+    border-color: #1a1b26 transparent transparent transparent;
+  }
+  /* 吸附在顶边时气泡改到下方 */
+  .stage.dock-top:not(.peek) .bubble { bottom: auto; top: 156px; }
+  .stage.dock-top:not(.peek) .bubble::after {
+    bottom: auto; top: -8px;
+    border-width: 0 5px 8px 5px;
+    border-color: transparent transparent #1a1b26 transparent;
+  }
+  /* Forms with tall heads choose a side bubble in their registry. Avoid a
+     species-ID selector: later long-eared or crested forms reuse this layout. */
+  .stage[data-pet-bubble="side-start"] .bubble,
+  .stage[data-pet-bubble="side-start"].dock-top:not(.peek) .bubble {
+    left: 1px; right: auto; top: 4px; bottom: auto;
+    width: 60px; max-width: 60px;
+    padding: 2px;
+    border-width: 1px;
+    border-radius: 4px;
+    font-size: 10px; line-height: 1.2; letter-spacing: 0;
+    text-align: left;
+  }
+  .stage[data-pet-bubble="side-start"] .bubble::after,
+  .stage[data-pet-bubble="side-start"].dock-top:not(.peek) .bubble::after {
+    left: auto; right: -7px; top: 12px; bottom: auto;
+    border-width: 5px 0 5px 8px;
+    border-color: transparent transparent transparent #1a1b26;
+  }
+
+  /* 右键命令菜单：环绕宠物的放射布局，每项带文字标签。
+     打开时窗口对称扩容到 520x320，因此按钮可以溢出 220x220 的 stage。
+     左键只做互动，与这里的命令职责不重叠。 */
+  .command-menu {
+    position: absolute;
+    left: 0; top: 0;
+    width: 220px; height: 220px;
+    pointer-events: none;
+    z-index: 7;
+  }
+  .command-item {
+    position: absolute;
+    width: 76px; min-height: 26px;
+    display: flex; align-items: center; justify-content: center; gap: 3px;
+    padding: 3px 4px;
+    background: rgba(26, 27, 38, 0.98);
+    border: 2px solid var(--accent, #e0af68);
+    color: #c0caf5;
+    /* 不能用 font 简写：font-family 写 inherit 会让整条声明失效，字号退回 13px 把文字挤出按钮 */
+    font-weight: 700;
+    font-size: 9px;
+    line-height: 1.2;
+    white-space: nowrap;
+    cursor: pointer;
+    appearance: none;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.6);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.15s, background 0.15s, opacity 0.2s;
+  }
+  .command-menu.show .command-item {
+    opacity: 1; visibility: visible; pointer-events: auto;
+    animation: radialPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+  @keyframes radialPop { 0%{ transform: scale(0);} 100%{ transform: scale(1);} }
+  .command-item:hover { background: var(--primary, #f7768e); color: #1a1b26; transform: scale(1.08); }
+  .command-item:focus-visible {
+    opacity: 1;
+    outline: 3px solid var(--accent, #e0af68);
+    outline-offset: 2px;
+    background: var(--primary, #f7768e);
+    color: #1a1b26;
+  }
+  .command-item .ci-icon { font-size: 11px; }
+  /* 一级菜单只留五个即时动作。喂食有常驻入口，陪伴动作由单击/长按/动作条承接。 */
+  .command-item.c0 { left: 72px;  top: -3px;  }
+  .command-item.c1 { left: 180px; top: 35px;  }
+  .command-item.c2 { left: 180px; top: 145px; }
+  .command-item.c3 { left: -36px; top: 145px; }
+  .command-item.c4 { left: -36px; top: 35px;  }
+
+  /* ---- Long-press progress ring ---- */
+  .press-ring {
+    position: absolute;
+    left: 60px; top: 60px;
+    width: 100px; height: 100px;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 3;
+    transition: opacity 0.15s;
+  }
+  .press-ring.show { opacity: 1; }
+  .press-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .press-ring circle {
+    fill: none;
+    stroke: var(--accent, #e0af68);
+    stroke-width: 4;
+    stroke-dasharray: 289;
+    stroke-dashoffset: 289;
+    filter: drop-shadow(0 0 4px rgba(224,175,104,0.6));
+    transition: stroke-dashoffset 0.05s linear;
+  }
+  .press-ring.charging circle {
+    animation: fill-press-ring 550ms linear forwards;
+  }
+  @keyframes fill-press-ring { from { stroke-dashoffset: 289; } to { stroke-dashoffset: 0; } }
+
+  /* ---- Food panel（喂食面板：贴在宠物空间更宽的一侧，看得清能喂什么） ---- */
+  .food-panel {
+    position: fixed;
+    top: 12px;
+    width: 208px;
+    max-height: calc(100vh - 24px);
+    overflow-y: auto;
+    background: rgba(26,27,38,0.97);
+    border: 2px solid var(--accent, #e0af68);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.6);
+    padding: 6px;
+    z-index: 8;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: scale(0.92);
+    transform-origin: center center;
+    transition: opacity 0.16s, transform 0.16s;
+  }
+  .food-panel.show { opacity: 1; visibility: visible; pointer-events: auto; transform: scale(1); }
+  .food-panel.side-right { left: 300px; }
+  .food-panel.side-left  { left: 12px; }
+
+  .fp-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  .fp-title {
+    font-size: 11px; font-weight: 900; letter-spacing: 1px;
+    color: var(--accent, #e0af68);
+  }
+  .fp-close {
+    font-family: inherit;
+    width: 30px; height: 30px;
+    line-height: 1;
+    background: transparent;
+    color: #a9b1d6;
+    border: 1px solid #2f334d;
+    font-size: 9px; font-weight: 900;
+    cursor: pointer;
+    padding: 0;
+  }
+  .fp-close:hover { background: #f7768e; color: #1a1b26; border-color: #c53b53; }
+  .fp-close:focus-visible,
+  .food-item:focus-visible {
+    outline: 3px solid var(--accent, #e0af68);
+    outline-offset: 2px;
+  }
+
+  .fp-sat { display: flex; align-items: center; gap: 5px; margin-bottom: 6px; }
+  .fp-sat-bar {
+    flex: 1; height: 6px;
+    background: #16161e;
+    border: 1px solid #2f334d;
+  }
+  .fp-sat-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ff7a5c 0%, #e0af68 50%, #9ece6a 100%);
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    width: 60%;
+  }
+  .fp-sat-txt { font-size: 9px; color: #a9b1d6; white-space: nowrap; font-family: monospace; }
+
+  .fp-list { display: flex; flex-direction: column; gap: 3px; }
+  .food-item {
+    display: flex; align-items: center; gap: 6px;
+    padding: 3px 5px;
+    background: #1f2335;
+    border: 1px solid #2f334d;
+    cursor: pointer;
+    min-height: 38px;
+    transition: background 0.12s, border-color 0.12s, transform 0.12s;
+  }
+  .food-item:hover {
+    background: rgba(224,175,104,0.22);
+    border-color: var(--accent, #e0af68);
+    transform: translateX(2px);
+  }
+  .fi-emoji { font-size: 17px; line-height: 1; width: 20px; text-align: center; }
+  .fi-main { flex: 1; display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .fi-name { font-size: 10px; font-weight: 700; color: #c0caf5; letter-spacing: 0.5px; }
+  .fi-eff { font-size: 9px; color: #969fc5; font-family: monospace; white-space: nowrap; }
+  .fi-risk { color: #ff9a6c; }
+  .fi-count {
+    font-size: 9px; font-weight: 900;
+    font-family: monospace;
+    color: #1a1b26;
+    background: var(--primary, #f7768e);
+    border: 1px solid #1a1b26;
+    padding: 1px 4px;
+    min-width: 20px;
+    text-align: center;
+  }
+  .food-item.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    filter: grayscale(0.8);
+  }
+  .food-item.disabled:hover { transform: none; background: #1f2335; border-color: #2f334d; }
+  .food-item.disabled .fi-count { background: #414868; color: #a9b1d6; }
+
+  .fp-foot {
+    margin-top: 5px;
+    padding-top: 4px;
+    border-top: 1px dashed #2f334d;
+    font-size: 9px;
+    color: #969fc5;
+    text-align: center;
+    font-family: monospace;
+  }
+
+  /* ---- Satiation mini bar above pet head ---- */
+  .sat-bar {
+    position: absolute;
+    left: 65px; top: 62px;
+    width: 90px; height: 6px;
+    background: rgba(26,27,38,0.85);
+    border: 1px solid #2f334d;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 3;
+    transition: opacity 0.3s;
+  }
+  .sat-bar.show { opacity: 1; }
+  .sat-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ff7a5c 0%, #e0af68 50%, #9ece6a 100%);
+    transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    width: 60%;
+  }
+  .sat-label {
+    position: absolute;
+    left: 50%; top: -13px;
+    transform: translateX(-50%);
+    font-size: 8px;
+    color: #a9b1d6;
+    background: rgba(26,27,38,0.85);
+    padding: 1px 4px;
+    font-family: monospace;
+    white-space: nowrap;
+  }
+
+  /* ---- Food drop toast ---- */
+  .food-drop-toast {
+    position: absolute;
+    left: 90px; top: -30px;
+    font-size: 24px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 7;
+    filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.5));
+  }
+  .food-drop-toast.show {
+    animation: foodDrop 1.5s cubic-bezier(0.5, 0, 0.5, 1) forwards;
+  }
+  @keyframes foodDrop {
+    0% { opacity: 0; transform: translateY(-30px) scale(0.6) rotate(-30deg); }
+    20% { opacity: 1; transform: translateY(-10px) scale(1.1) rotate(0deg); }
+    60% { opacity: 1; transform: translateY(30px) scale(1) rotate(15deg); }
+    100% { opacity: 0; transform: translateY(80px) scale(0.4) rotate(360deg); }
+  }
+
+  /* ---- Development inspection desk ----
+     仅 development profile 由主进程打开；它与宠物舞台共享扩容窗口，
+     但不参与生产交互，也不写入 canonical state。 */
+  .dev-tools {
+    position: fixed;
+    top: 8px;
+    right: 8px;
+    bottom: 8px;
+    width: 284px;
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px;
+    color: #c0caf5;
+    background: rgba(26, 27, 38, 0.97);
+    border: 2px solid var(--accent, #e0af68);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.55);
+    pointer-events: auto;
+    z-index: 12;
+  }
+  .dev-tools.show { display: flex; }
+  .dev-head { display: flex; align-items: center; gap: 6px; }
+  .dev-title { flex: 1; color: #fff; font-size: 12px; font-weight: 800; }
+  .dev-close, .dev-action {
+    min-height: 25px;
+    padding: 3px 6px;
+    color: #c0caf5;
+    background: #1f2335;
+    border: 1px solid #565f89;
+    font: inherit;
+    font-size: 9px;
+    cursor: pointer;
+  }
+  .dev-close { padding: 2px 6px; color: #ff9a6c; }
+  .dev-close:hover, .dev-action:hover, .dev-item:hover {
+    color: #1a1b26;
+    background: var(--primary, #f7768e);
+    border-color: var(--accent, #e0af68);
+  }
+  .dev-controls { display: grid; grid-template-columns: 1fr 1fr 54px; gap: 4px; }
+  .dev-control { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .dev-control label { color: #969fc5; font-size: 8px; }
+  .dev-control select, .dev-control input {
+    width: 100%;
+    min-height: 25px;
+    padding: 2px 4px;
+    color: #c0caf5;
+    background: #16161e;
+    border: 1px solid #2f334d;
+    font: inherit;
+    font-size: 9px;
+  }
+  .dev-actions { display: flex; gap: 4px; }
+  .dev-actions .dev-action { flex: 1; }
+  .dev-list {
+    min-height: 0;
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 2px;
+  }
+  .dev-section { padding: 5px 0; border-top: 1px dashed #2f334d; }
+  .dev-section:first-child { border-top: 0; }
+  .dev-section h3 { margin-bottom: 4px; color: #e0af68; font-size: 9px; }
+  .dev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+  .dev-item {
+    min-width: 0;
+    padding: 4px;
+    overflow: hidden;
+    color: #a9b1d6;
+    background: #1f2335;
+    border: 1px solid #2f334d;
+    font: inherit;
+    font-size: 8px;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  /* Explicit sensory profiles. Canvas motion is also hidden where it is
+     purely decorative so reduced-motion users still get a stable pet. */
+  body[data-motion="balanced"] .bubble.show,
+  body[data-motion="balanced"] .command-menu.show .command-item {
+    animation-duration: 0.38s;
+  }
+  body[data-motion="full"] .food-drop-toast.show { animation-duration: 1.5s; }
+
+  body[data-motion="reduced"] *,
+  body[data-motion="reduced"] *::before,
+  body[data-motion="reduced"] *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  body[data-motion="reduced"] #overlayCanvas { visibility: hidden; }
+
+  @media (prefers-reduced-motion: reduce) {
+    body:not([data-motion="full"]) *,
+    body:not([data-motion="full"]) *::before,
+    body:not([data-motion="full"]) *::after {
+      scroll-behavior: auto !important;
+      animation-duration: 0.01ms !important;
+      animation-delay: 0ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    body:not([data-motion="full"]) #overlayCanvas { visibility: hidden; }
+  }
+
+  /* Reward confirmation remains visible in reduced mode, using opacity only. */
+  @keyframes foodDropReduced {
+    0%, 78% { opacity: 1; transform: none; }
+    100% { opacity: 0; transform: none; }
+  }
+  body[data-motion="reduced"] .food-drop-toast.show {
+    animation: foodDropReduced 1.2s linear forwards !important;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    body:not([data-motion="full"]) .food-drop-toast.show {
+      animation: foodDropReduced 1.2s linear forwards !important;
+    }
+  }
+
+  body[data-stimulation="low"] .scene-frame { opacity: 0.36; }
+  body[data-stimulation="low"] #sceneCanvas { opacity: 0.68; }
+  body[data-stimulation="low"] #overlayCanvas { opacity: 0.35; }
+  body[data-stimulation="low"] #petCanvas { filter: none; }
+  body[data-stimulation="low"] .pet-layer.pressed #petCanvas { filter: none; }
+  body[data-stimulation="low"] :is(.bubble, .command-item, .feed-quick, .food-panel, .activity-bar) {
+    box-shadow: none;
+  }
+  body[data-stimulation="balanced"] #sceneCanvas { opacity: 0.86; }
+  body[data-stimulation="balanced"] #overlayCanvas { opacity: 0.9; }
+  body[data-stimulation="high"] #sceneCanvas,
+  body[data-stimulation="high"] #overlayCanvas,
+  body[data-stimulation="high"] #petCanvas { filter: saturate(1.12); }
+  body[data-stimulation="high"] .scene-frame { opacity: 0.76; }
+
+  /* ---------- 第一版界面：宠物本身不动，周围的工具跟随原生样式 ----------
+     画布保持像素（image-rendering 在画布上），文字改用系统字体与平滑渲染；
+     气泡与菜单用圆角和 1px 边，不再是硬阴影的像素框。 */
+  :root {
+    --ui-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", system-ui, sans-serif;
+    --ui-bg: rgba(28, 28, 34, 0.96);
+    --ui-line: rgba(255, 255, 255, 0.12);
+    --ui-fg: #ecebf1;
+    --ui-fg-2: #a3a1ab;
+  }
+  body, button, .bubble, .command-item, .food-panel, .activity-bar, .sat-label, .food-drop-toast {
+    font-family: var(--ui-font);
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0;
+  }
+  .bubble, .command-item, .food-panel, .fp-close, .food-item { image-rendering: auto; }
+  .ui-icon { width: 15px; height: 15px; display: block; fill: none; stroke: currentColor;
+    stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .stage { transform: translate(calc(-50% + var(--stage-dx, 0px)), calc(-50% + var(--stage-dy, 0px))); }
+  .stage.devtools-open { transform: translate(calc(-50% - 150px), -50%); }
+
+  .bubble {
+    background: #fbfaf7; color: #26252b;
+    border: 1px solid rgba(0, 0, 0, 0.14); border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+    font-size: 12px; font-weight: 500; padding: 5px 10px;
+  }
+  .bubble::after { border-color: #fbfaf7 transparent transparent transparent; }
+  .stage.dock-top:not(.peek) .bubble::after { border-color: transparent transparent #fbfaf7 transparent; }
+  .stage[data-pet-bubble="side-start"] .bubble,
+  .stage[data-pet-bubble="side-start"].dock-top:not(.peek) .bubble { border-radius: 8px; padding: 4px 6px; font-size: 11px; }
+  .stage[data-pet-bubble="side-start"] .bubble::after,
+  .stage[data-pet-bubble="side-start"].dock-top:not(.peek) .bubble::after { border-color: transparent transparent transparent #fbfaf7; }
+
+  /* 菜单是贴着宠物的一列紧凑按钮，朝屏幕上空间大的一侧打开。 */
+  .command-menu {
+    left: auto; top: 50%; width: auto; height: auto;
+    display: flex; flex-direction: column; gap: 4px;
+    transform: translateY(-50%);
+  }
+  .command-menu[data-side="right"], .command-menu:not([data-side]) {
+    left: clamp(calc(8px - var(--pet-stage-left, 0px)), 184px, calc(100vw - var(--pet-stage-left, 0px) - 152px));
+  }
+  .command-menu[data-side="left"] {
+    right: auto; left: clamp(calc(8px - var(--pet-stage-left, 0px)), -108px, calc(100vw - var(--pet-stage-left, 0px) - 152px));
+  }
+  .command-menu { width: 144px; max-height: calc(100vh - 16px); overflow-y: auto;
+    top: clamp(calc(8px - var(--pet-stage-top, 0px)), 0px, calc(100vh - var(--pet-stage-top, 0px) - 220px)); transform: none; }
+  .command-item, .command-item.c0, .command-item.c1, .command-item.c2, .command-item.c3, .command-item.c4 {
+    position: static; width: auto; min-width: 96px; min-height: 30px;
+    justify-content: flex-start; padding: 5px 12px;
+    background: var(--ui-bg); color: var(--ui-fg);
+    border: 1px solid var(--ui-line); border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+    font-size: 12px; font-weight: 500;
+  }
+  .command-menu.show .command-item { animation: menuIn 0.14s ease-out both; }
+  @keyframes menuIn { 0% { opacity: 0; transform: translateY(2px); } 100% { opacity: 1; transform: none; } }
+  .command-item:hover, .command-item:focus-visible {
+    background: color-mix(in srgb, var(--primary, #f7768e) 22%, var(--ui-bg));
+    color: var(--ui-fg); transform: none;
+    outline: none;
+  }
+  .command-item:focus-visible { box-shadow: 0 0 0 2px var(--primary, #f7768e); }
+  /* 菜单项：图标在前，每个动作一个颜色，扫一眼就认得出来，不用逐条读字。 */
+  .command-item, .command-item.c0, .command-item.c1, .command-item.c2, .command-item.c3, .command-item.c4 {
+    min-width: 128px; min-height: 34px; padding: 6px 16px 6px 11px; gap: 0;
+  }
+  .command-item[data-icon]::before { width: 18px; height: 18px; margin: 0 10px 0 0; vertical-align: 0; transition: transform 0.15s; }
+  .command-item[data-act="focus"]::before { color: #f7768e; }
+  .command-item[data-act="impulse"]::before { color: #e0af68; }
+  .command-item[data-act="panel"]::before { color: #7dcfff; }
+  .command-item[data-act="dnd"]::before { color: #bb9af7; }
+  .command-item[data-act="hide"]::before { color: #9aa5ce; }
+  .command-item:hover[data-icon]::before, .command-item:focus-visible[data-icon]::before { transform: scale(1.18); }
+  body[data-motion="reduced"] .command-item[data-icon]::before { transition: none; }
+  body[data-motion="reduced"] .command-menu.show .command-item,
+  body[data-motion="balanced"] .command-menu.show .command-item { animation: none; }
+
+  .feed-quick { color: #ecebf1; }
+  .food-panel {
+    background: var(--ui-bg); border: 1px solid var(--ui-line); border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35); padding: 10px;
+  }
+  .food-panel { top: 8px; bottom: auto; max-height: calc(100vh - 16px); width: min(208px, calc(100vw - 16px));
+    overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--ui-fg-2) transparent;
+    transform: none; transition: opacity 0.12s; }
+  .food-panel.show { transform: none; }
+  .food-panel.side-right { left: clamp(8px, calc(50% + var(--stage-dx, 0px) + 76px), calc(100vw - 216px)); }
+  .food-panel.side-left { left: clamp(8px, calc(50% + var(--stage-dx, 0px) - 76px - 208px), calc(100vw - 216px)); }
+  .fp-title { color: var(--ui-fg); font-size: 13px; font-weight: 600; letter-spacing: 0; }
+  .fp-close { border: none; border-radius: 6px; color: var(--ui-fg-2); font-size: 12px; }
+  .fp-close:hover { background: rgba(255, 255, 255, 0.08); color: var(--ui-fg); border: none; }
+  .food-item { border-radius: 8px; }
+  /* icons:begin */
+[data-icon]::before {
+  content: ""; display: inline-block; flex: none;
+  width: 1.2em; height: 1.2em; margin-right: 0.42em; vertical-align: -0.22em;
+  background-color: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat; mask: var(--icon) center / contain no-repeat;
+}
+[data-icon][data-icon-only]::before, [data-icon][aria-label]:empty::before { margin-right: 0; }
+[data-icon="eye-off"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.5 3.5l17 17'/%3E%3Cpath d='M10.4 6.3A9.6 9.6 0 0 1 12 6.2c5 0 8.4 3.9 9.5 5.8-.5.9-1.4 2.2-2.7 3.3'/%3E%3Cpath d='M6.5 7.6C4.6 8.9 3.3 10.6 2.5 12c1.1 1.9 4.5 5.8 9.5 5.8 1.5 0 2.9-.4 4.1-1'/%3E%3Cpath d='M9.9 10.1a3 3 0 0 0 4 4'/%3E%3C/svg%3E"); }
+[data-icon="moon"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 14.6A8.2 8.2 0 1 1 9.4 4a6.6 6.6 0 0 0 10.6 10.6z'/%3E%3C/svg%3E"); }
+[data-icon="notebook"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5.5' y='3.5' width='13' height='17' rx='2.2'/%3E%3Cpath d='M9 8.5h6M9 12h6M9 15.5h3.5'/%3E%3C/svg%3E"); }
+[data-icon="play"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 5.5v13l10.5-6.5z'/%3E%3C/svg%3E"); }
+[data-icon="window"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='4.5' width='17' height='15' rx='2.4'/%3E%3Cpath d='M3.5 9.5h17M7 7h.01M10 7h.01'/%3E%3C/svg%3E"); }
+/* icons:end */
+</style>
+<link rel="stylesheet" href="../surfaces/pet/menu.css">
+<link rel="stylesheet" href="../surfaces/pet/status-footer.css">
+<link rel="stylesheet" href="../surfaces/pet/context-emphasis.css">
+<link rel="stylesheet" href="../surfaces/pet/session-orbit.css">
+</head>
+<body data-motion="reduced" data-stimulation="low">
+  <div class="stage" id="stage">
+    <div class="scene-frame" aria-hidden="true"><canvas id="sceneCanvas" width="220" height="220"></canvas></div>
+    <div class="pet-layer" id="petLayer">
+      <!-- 脚下的进度环：专注（或休息）走了多少。只是一圈安静的线，不带数字、不闪；暂停就停在那里。 -->
+      <div class="focus-ring" id="focusRing" aria-hidden="true">
+        <svg viewBox="0 0 124 30" preserveAspectRatio="none">
+          <path class="ring-track" d="M62,3 A56,11 0 1 1 62,27 A56,11 0 1 1 62,3" pathLength="100"></path>
+          <path class="ring-arc" d="M62,3 A56,11 0 1 1 62,27 A56,11 0 1 1 62,3" pathLength="100"></path>
+        </svg>
+      </div>
+      <div class="session-orbit" id="sessionOrbit" aria-hidden="true">
+        <svg viewBox="0 0 124 30" preserveAspectRatio="none" focusable="false">
+          <path class="orbit-track" d="M62 4a56 11 0 1 1 0 22 56 11 0 1 1 0-22"/>
+          <path class="orbit-arc" id="sessionOrbitArc" d="M62 4a56 11 0 1 1 0 22 56 11 0 1 1 0-22" pathLength="100" stroke-dashoffset="100"/>
+          <path class="orbit-star" id="sessionOrbitStar" d="M0-3.5 1-1 3.5 0 1 1 0 3.5-1 1-3.5 0-1-1Z"/>
+        </svg>
+      </div>
+      <canvas id="petCanvas" width="146" height="146" aria-hidden="true"></canvas>
+      <div class="pet-hit" id="petHit" role="button" tabindex="0" aria-label="I’m ADHDer 桌面宠物：点按与按住都是互动，右键打开命令菜单" aria-haspopup="menu" aria-controls="commandMenu" aria-expanded="false"></div>
+    </div>
+    <canvas id="overlayCanvas" width="220" height="220" aria-hidden="true"></canvas>
+    <div class="status-footer" id="statusFooter">
+      <div class="activity-bar" id="activityBar" role="group" aria-label="伙伴当前动作">
+        <button type="button" class="session-status" id="sessionStatus" aria-hidden="true" tabindex="-1">
+          <svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path id="sessionStatusIcon"/></svg>
+        </button>
+        <span class="activity-label" id="activityLabel"></span>
+        <button type="button" class="activity-next" id="activityNext" title="换一个陪伴动作" aria-label="切换伙伴当前动作"><svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M13 6a5 5 0 1 0 0 4M13 2v4H9"/></svg></button>
+      </div>
+<!-- 常驻喂食入口：不靠菜单就能看到喂食能力 -->
+    <button type="button" class="feed-quick" id="feedQuick" data-act="feed" title="喂它吃东西" aria-label="打开喂食" aria-haspopup="dialog" aria-controls="foodPanel" aria-expanded="false"><svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 7.5h11a5.5 5 0 0 1-11 0z"/><path d="M5.5 5.2c.4-.9 1.4-1.2 2.5-.7M8.6 4.4c.8-.6 1.9-.5 2.4.3"/></svg></button>
+      <div class="context-row" id="contextRow">
+        <button type="button" class="context-badge" id="contextBadge" aria-hidden="true" aria-expanded="false" tabindex="-1">
+          <span class="context-icons" aria-hidden="true">
+            <svg class="ui-icon context-music" viewBox="0 0 16 16" focusable="false"><path d="M3 9V7a5 5 0 0 1 10 0v2M3 8H2v5h3V8H3zm10 0h1v5h-3V8h2z"/></svg>
+            <svg class="ui-icon context-ai" viewBox="0 0 16 16" focusable="false"><rect x="2.5" y="5" width="11" height="8" rx="2"/><path d="M8 2v3M6 8h.01M10 8h.01M6 11h4"/></svg>
+            <svg class="ui-icon context-coding" viewBox="0 0 16 16" focusable="false"><path d="m5 4-4 4 4 4M11 4l4 4-4 4M9 2 7 14"/></svg>
+          </span>
+          <span class="context-label"></span><span class="context-count" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+    <div class="bubble" id="bubble" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="command-menu" id="commandMenu" role="menu" aria-label="伙伴命令" aria-hidden="true">
+      <button type="button" class="command-item c0" role="menuitem" data-act="focus" data-icon="play"><span class="ci-text">开始专注</span></button>
+      <button type="button" class="command-item c1" role="menuitem" data-act="impulse" data-icon="notebook"><span class="ci-text">快速记录</span></button>
+      <button type="button" class="command-item c2" role="menuitem" data-act="panel" data-icon="window"><span class="ci-text">打开面板</span></button>
+      <button type="button" class="command-item c3" role="menuitemcheckbox" aria-checked="false" data-act="dnd" data-icon="moon"><span class="ci-text">免打扰</span></button>
+      <button type="button" class="command-item c4" role="menuitem" data-act="hide" data-icon="eye-off"><span class="ci-text">隐藏伙伴</span></button>
+    </div>
+
+    <!-- Long-press progress ring -->
+    <div class="press-ring" id="pressRing" aria-hidden="true">
+      <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" /></svg>
+    </div>
+
+    <!-- Satiation bar above head (visible on hover / after feeding) -->
+    <div class="sat-bar" id="satBar" aria-hidden="true">
+      <div class="sat-fill" id="satFill"></div>
+      <div class="sat-label" id="satLabel">饱食 60</div>
+    </div>
+
+    <!-- Food drop toast -->
+    <div class="food-drop-toast" id="foodDrop" role="status" aria-live="polite" aria-atomic="true"></div>
+  </div>
+
+  <!-- Food panel：放在 stage 外（stage 有 transform，会成为 fixed 子元素的包含块） -->
+  <div class="food-panel side-right" id="foodPanel" role="dialog" aria-modal="false" aria-hidden="true" aria-labelledby="foodPanelTitle">
+    <div class="fp-head">
+      <span class="fp-title" id="foodPanelTitle">喂食</span>
+      <button type="button" class="fp-close" id="foodClose" title="关闭" aria-label="关闭喂食面板">✕</button>
+    </div>
+    <div class="fp-sat">
+      <div class="fp-sat-bar" id="fpSatProgress" role="progressbar" aria-label="宠物饱食度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="60" aria-valuetext="饱食 60/100"><div class="fp-sat-fill" id="fpSatFill"></div></div>
+      <span class="fp-sat-txt" id="fpSatTxt">饱食 60</span>
+    </div>
+    <div class="fp-list" id="foodList"></div>
+    <div class="fp-foot" id="foodDaily">基础餐每日最多 3 份</div>
+  </div>
+
+  <aside class="dev-tools" id="devTools" aria-hidden="true" aria-labelledby="devToolsTitle">
+    <div class="dev-head">
+      <div class="dev-title" id="devToolsTitle">宠物开发检验台</div>
+      <button type="button" class="dev-close" data-dev-action="close" aria-label="关闭开发检验台">✕</button>
+    </div>
+    <div class="dev-controls">
+      <div class="dev-control"><label for="devView">朝向</label><select id="devView"></select></div>
+      <div class="dev-control"><label for="devSkin">皮肤</label><select id="devSkin"></select></div>
+      <div class="dev-control"><label for="devLevel">等级</label><input id="devLevel" type="number" min="1" max="999" value="99" inputmode="numeric"></div>
+    </div>
+    <div class="dev-actions">
+      <button type="button" class="dev-action" data-dev-action="all">显示全部</button>
+      <button type="button" class="dev-action" data-dev-action="play-all">播放全部</button>
+      <button type="button" class="dev-action" data-dev-action="clear">清除</button>
+    </div>
+    <div class="dev-list" id="devToolsList" aria-live="polite"></div>
+  </aside>
+
+<script type="module" src="../surfaces/pet/entry.mjs"></script>
+</body>
+</html>

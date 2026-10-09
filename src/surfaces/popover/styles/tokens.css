@@ -1,0 +1,52 @@
+/* 语义变量的唯一出处。皮肤切换时 applyTheme 把主题那几个值覆到
+   documentElement 上，所以这里给的是默认皮肤那一套——这一层只声明变量，
+   一条选择器规则都不写。 */
+
+@layer tokens {
+  :root {
+    /* Base semantic constants — remain fixed across all skins */
+    --green: #9ece6a;
+    --green-dark: #528b41;
+    --yellow-const: #e0af68;
+    --blue: #7aa2f7;
+    --blue-dark: #3d59a1;
+    --purple: #bb9af7;
+    --cyan: #7dcfff;
+
+    /* Default theme (pink skin) — will be OVERRIDDEN by JS when skin changes */
+    --primary: #f7768e;
+    --primary-dark: #c53b53;
+    --accent: #e0af68;
+    --accent-dark: #c07f26;
+    --bg-0: #16161e;
+    --bg-1: #1a1b26;
+    --bg-2: #24283b;
+    --bg-3: #2f334d;
+    --fg-0: #c0caf5;
+    --fg-1: #a9b1d6;
+    --fg-2: #565f89;
+
+    /* 派生令牌：深色 / 浅色两种外观下都由 app-chrome 按 ui/panel-palette.mjs 写到根元素上，这里给的是
+       首帧之前的默认值。
+       - --primary-ink / --accent-ink：强调色拿来当**文字**时用（浅色下是更深的版本）；填充仍用 --primary / --accent。
+       - --ink：压在强调色填充上的字，永远是皮肤最深的那个底色。 */
+    --primary-ink: #f7768e;
+    --accent-ink: #e0af68;
+    --ink: #16161e;
+    /* 时间轴分类色当**文字**用时的版本，由面板配色按外观写入。 */
+    --cyan-ink: var(--cyan);
+    --green-ink: var(--green);
+    --blue-ink: var(--blue);
+    --purple-ink: var(--purple);
+    --yellow-ink: var(--yellow-const);
+    /* 阴影与遮罩的颜色（rgb 三元组，用法 rgb(var(--shadow-rgb) / .3)）。 */
+    --shadow-rgb: 0 0 0;
+    color-scheme: dark;
+
+    /* Legacy aliases — mapped to theme vars so old class names still work */
+    --pink: var(--primary);
+    --pink-dark: var(--primary-dark);
+    --yellow: var(--accent);
+    --yellow-dark: var(--accent-dark);
+  }
+}

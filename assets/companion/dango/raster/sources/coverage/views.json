@@ -1,0 +1,1165 @@
+{
+  "schemaVersion": 1,
+  "extraEffects": {
+    "source": "src/core/pet-action-particles.mjs",
+    "expressionAccents": [
+      "drowsy-zzz",
+      "sleep-zzz"
+    ],
+    "actionEffects": [
+      "bubbles",
+      "code",
+      "crumbs",
+      "dust",
+      "flash",
+      "glimmer",
+      "halo",
+      "hearts",
+      "impact",
+      "leaves",
+      "letters",
+      "none",
+      "notes",
+      "petals",
+      "puffs",
+      "rainbow",
+      "sparkles",
+      "sparks",
+      "stars",
+      "steam",
+      "sweat",
+      "thread",
+      "trail",
+      "zzz"
+    ],
+    "statuses": [
+      {
+        "id": "hungry",
+        "fallback": "renderer.drawCraving"
+      },
+      {
+        "id": "coffee",
+        "fallback": "renderer.drawCoffee"
+      }
+    ],
+    "attachedEffects": [
+      {
+        "id": "sparkle-shoes",
+        "attachment": [
+          "foot-left",
+          "foot-right"
+        ],
+        "source": "src/capabilities/companion/presentation/dango-art.mjs"
+      }
+    ],
+    "semanticWarning": "Per-foot glints, status effects and background painters are outside ordinary sampled contact tools and must be verified separately"
+  },
+  "generatedAt": "2026-10-01T17:26:40.547Z",
+  "repository": ".",
+  "claim": "Named current-production contract; enum/tool presence alone is not visual or semantic acceptance",
+  "sources": {
+    "actions": "src/content/behaviors.mjs",
+    "sessions": "src/content/session-activities.mjs",
+    "stories": "src/content/companion/activity-stories.mjs",
+    "expressions": "src/content/expressions.mjs",
+    "phrases": "src/capabilities/companion/presentation/expression-phrases.mjs",
+    "scenes": "src/content/scenes.mjs",
+    "wardrobe": "src/content/appearance.mjs",
+    "tools": "src/content/companion/dango-tools.mjs",
+    "views": "src/content/companion/dango-action-views.mjs",
+    "form": "src/content/companion/dango-form.mjs",
+    "geometry": "src/content/companion/dango-vector.mjs",
+    "skins": "src/skins.mjs",
+    "palettes": "src/core/pet-art.mjs",
+    "contacts": "src/core/pet-action-contact.mjs",
+    "actionPainter": "src/core/pet-action-vector.mjs",
+    "freePoses": "src/core/pet-action-vector-poses.mjs",
+    "details": "src/core/pet-action-vector-details.mjs",
+    "scenePainter": "src/core/pet-scene-art.mjs",
+    "particles": "src/core/pet-action-particles.mjs",
+    "appearanceSelection": "src/core/pet-appearance.mjs",
+    "playback": "src/capabilities/companion/presentation/activity-playback.mjs",
+    "desktop": "src/surfaces/pet/renderer.mjs",
+    "portrait": "src/surfaces/popover/features/companion-portrait.mjs",
+    "gallery": "src/renderer/expression-gallery.mjs"
+  },
+  "sourceSha256": {
+    "src/content/behaviors.mjs": "38c9cb896ed50e90125f08fe925cb550fe6bbcc72a2f70b3e11f71572a047a3d",
+    "src/content/session-activities.mjs": "e65fa85d12d8aef34be71d66eb9bf89229e10224532d757089c5494989b3dedb",
+    "src/content/companion/activity-stories.mjs": "9730a77812f8391d99f872bcb00fec894494ef496b0f75cbb4a35234427a12bb",
+    "src/content/expressions.mjs": "126c6d327f1a799a3a921c85fa28ac8e6b3c612847755cac29572dc3ef300921",
+    "src/capabilities/companion/presentation/expression-phrases.mjs": "d647ce5dad57c7db8ae201c6fd77d07c3c4ee925461c25f18be2d4004c991c2e",
+    "src/content/scenes.mjs": "f209ff5f1047ee96a16178cda3833d48666fa92b3125dd477703e95d91828636",
+    "src/content/appearance.mjs": "119c0d963ea2732f4a067ec564b1a0de0bd1f6c3f798d177e072b4a658309cdd",
+    "src/content/companion/dango-tools.mjs": "e0f2ab5ca03e65e37a8a99840487dbb0ab468a9c67cf15ef66508805831228b0",
+    "src/content/companion/dango-action-views.mjs": "d0ed676be8f1b93fc06c029490281a119ee2cbfa64ed5497011063ecf157b29f",
+    "src/content/companion/dango-form.mjs": "8520afda07f04d14999b4d8b6882e8a723a2b86fe3abe688cd5b7b0d9eac9324",
+    "src/content/companion/dango-vector.mjs": "c565e2236de6353e7b2e4dcebff55fb99a8940774d2256cdacd5751ed1916604",
+    "src/skins.mjs": "a196184c8a319aa547eaf41cce46f0c2c3cf1c512a37784fd07bf578dc6969d8",
+    "src/core/pet-art.mjs": "779b00dca52ad157934ec65aaf286b2965d5d3176811f8adca3c3da66521c2bf",
+    "src/core/pet-action-contact.mjs": "cf96935add7de00f879fb8cb1c20dd57ecf2e89a8390d85185fe9b06dabb6635",
+    "src/core/pet-action-vector.mjs": "dbb6541d9703ee3d29830ec3b8e5c2a2675c655807a7f3e011039320360dbe59",
+    "src/core/pet-action-vector-poses.mjs": "55c819541b6fde84b44c53571ba014bc4f655857465d15f0c405d8c4f53ac6cc",
+    "src/core/pet-action-vector-details.mjs": "ac7f397731448d555d10eda4500a6f58284a6afb711d927e4ffef4cf2cd647bc",
+    "src/core/pet-scene-art.mjs": "2f1f08a627dbf1bf80c80c0812fe05f799da6eca8da9f2b2da6c88df9789650b",
+    "src/core/pet-action-particles.mjs": "9d813f7e9b1998ce499840e86c7b5862b75620d2418ffa85fd12f35930562172",
+    "src/core/pet-appearance.mjs": "f58524f053aef2e6abfe9397e9727c2da2a5833172abd8b0a60c61efc3351698",
+    "src/capabilities/companion/presentation/activity-playback.mjs": "a5c3ad5e12872b25fb9272ed2a336820aa235d976675d56d57c53d6d1be74053",
+    "src/surfaces/pet/renderer.mjs": "4e43814e9d60daeb10ef08e59053528b2ffbe831a795aea372c22a5fe86ac9b4",
+    "src/surfaces/popover/features/companion-portrait.mjs": "e17437accadc4690c550d338bd303fe880ded3df97fa73adc1313a4a5850f63a",
+    "src/renderer/expression-gallery.mjs": "cbc7a848e423e87d0ec78335a5b18faaceddef6946c04b90c7363c84089d70dd"
+  },
+  "summary": {
+    "actions": 43,
+    "stories": 12,
+    "storyPhases": 60,
+    "expressions": 32,
+    "eyes": 16,
+    "mouths": 9,
+    "scenes": 25,
+    "wardrobe": 16,
+    "wardrobeSlots": 7,
+    "skins": 10,
+    "spriteTools": 49,
+    "usedSpriteTools": 45,
+    "proceduralDetailTypes": 20,
+    "proceduralEquipment": [
+      "ellipsis",
+      "headband",
+      "hole",
+      "laser"
+    ],
+    "namedTemporalCases": 103,
+    "actionScenePairs": 1375
+  },
+  "data": {
+    "form": {
+      "id": "dango",
+      "name": "团子兽",
+      "renderer": "vector",
+      "particleStyle": "soft",
+      "bodySize": 66,
+      "bodyGridByView": null,
+      "artBounds": {
+        "x": -2,
+        "y": -2,
+        "width": 70,
+        "height": 70
+      },
+      "faceRig": {
+        "front": {
+          "eyes": [
+            {
+              "side": "left",
+              "x": 21,
+              "y": 27.7,
+              "scaleX": 1.06,
+              "scaleY": 1.06
+            },
+            {
+              "side": "right",
+              "x": 45.7,
+              "y": 27.7,
+              "scaleX": 1.06,
+              "scaleY": 1.06
+            }
+          ],
+          "mouth": {
+            "x": 33,
+            "y": 38.4,
+            "scaleX": 1
+          },
+          "cheeks": [
+            {
+              "x": 13,
+              "y": 35,
+              "scaleX": 1
+            },
+            {
+              "x": 53,
+              "y": 35,
+              "scaleX": 1
+            }
+          ]
+        },
+        "three-quarter": {
+          "eyes": [
+            {
+              "side": "left",
+              "x": 39.9,
+              "y": 27.9,
+              "scaleX": 1,
+              "scaleY": 1
+            },
+            {
+              "side": "right",
+              "x": 56,
+              "y": 27.9,
+              "scaleX": 0.72,
+              "scaleY": 1
+            }
+          ],
+          "mouth": {
+            "x": 49.4,
+            "y": 38.6,
+            "scaleX": 0.88
+          },
+          "cheeks": [
+            {
+              "x": 33,
+              "y": 35,
+              "scaleX": 0.8
+            },
+            {
+              "x": 61,
+              "y": 34,
+              "scaleX": 0.55
+            }
+          ]
+        },
+        "back": {
+          "eyes": [],
+          "mouth": null,
+          "cheeks": []
+        },
+        "profile": {
+          "eyes": [
+            {
+              "side": "left",
+              "x": 39.9,
+              "y": 27.9,
+              "scaleX": 1,
+              "scaleY": 1
+            },
+            {
+              "side": "right",
+              "x": 56,
+              "y": 27.9,
+              "scaleX": 0.72,
+              "scaleY": 1
+            }
+          ],
+          "mouth": {
+            "x": 49.4,
+            "y": 38.6,
+            "scaleX": 0.88
+          },
+          "cheeks": [
+            {
+              "x": 33,
+              "y": 35,
+              "scaleX": 0.8
+            },
+            {
+              "x": 61,
+              "y": 34,
+              "scaleX": 0.55
+            }
+          ]
+        }
+      },
+      "anatomyRig": {
+        "front": {
+          "shoulder-left": {
+            "x": 7,
+            "y": 39
+          },
+          "shoulder-right": {
+            "x": 59,
+            "y": 39
+          },
+          "foot-left": {
+            "x": 20,
+            "y": 55
+          },
+          "foot-right": {
+            "x": 47,
+            "y": 55
+          }
+        },
+        "three-quarter": {
+          "shoulder-left": {
+            "x": 10,
+            "y": 39
+          },
+          "shoulder-right": {
+            "x": 58,
+            "y": 39
+          },
+          "foot-left": {
+            "x": 22,
+            "y": 55
+          },
+          "foot-right": {
+            "x": 47,
+            "y": 55
+          }
+        },
+        "back": {
+          "shoulder-left": {
+            "x": 7,
+            "y": 39
+          },
+          "shoulder-right": {
+            "x": 59,
+            "y": 39
+          },
+          "foot-left": {
+            "x": 20,
+            "y": 55
+          },
+          "foot-right": {
+            "x": 47,
+            "y": 55
+          }
+        },
+        "profile": {
+          "shoulder-left": {
+            "x": 10,
+            "y": 39
+          },
+          "shoulder-right": {
+            "x": 58,
+            "y": 39
+          },
+          "foot-left": {
+            "x": 22,
+            "y": 55
+          },
+          "foot-right": {
+            "x": 47,
+            "y": 55
+          }
+        }
+      },
+      "appearanceAnchors": {
+        "headwear": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "head-accent": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "head-aura": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "neckwear": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "backwear": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "sidebag": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "footwear": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      },
+      "supportedSlots": [
+        "headwear",
+        "head-accent",
+        "head-aura",
+        "neckwear",
+        "backwear",
+        "sidebag",
+        "footwear"
+      ],
+      "slotLabels": {
+        "headwear": "头饰",
+        "head-accent": "发饰",
+        "head-aura": "光环",
+        "neckwear": "颈饰",
+        "backwear": "背饰",
+        "sidebag": "随身",
+        "footwear": "鞋子"
+      },
+      "bubblePlacement": "above",
+      "hitbox": {
+        "x": -2,
+        "y": -2,
+        "width": 70,
+        "height": 70
+      },
+      "bleed": 40,
+      "motionMap": {
+        "idle": "idle",
+        "curious": "curious",
+        "wave": "wave",
+        "high-five": "high-five",
+        "reach": "reach",
+        "trade": "trade",
+        "dance": "dance",
+        "sway": "sway",
+        "spin": "spin",
+        "hop": "hop",
+        "float": "float",
+        "dash": "dash",
+        "glide": "glide",
+        "moonwalk": "moonwalk",
+        "carry": "carry",
+        "wag": "wag",
+        "stretch": "stretch",
+        "pushup": "pushup",
+        "breathe": "breathe",
+        "doze": "doze",
+        "hide": "hide",
+        "daydream": "daydream",
+        "read": "read",
+        "browse": "browse",
+        "organize": "organize",
+        "type": "type",
+        "write": "write",
+        "knit": "knit",
+        "sip": "sip",
+        "cook": "cook",
+        "picnic": "picnic",
+        "dig": "dig",
+        "build": "build",
+        "sweep": "sweep",
+        "water": "water",
+        "telescope": "telescope",
+        "look": "look",
+        "juggle": "juggle",
+        "magic": "magic",
+        "umbrella": "umbrella",
+        "drum": "drum",
+        "mirror": "mirror",
+        "pose": "pose",
+        "box": "box",
+        "fall": "fall",
+        "hiccup": "hiccup",
+        "recoil": "recoil",
+        "squish": "squish",
+        "sleep": "sleep",
+        "chew": "chew"
+      },
+      "supportedMotions": [
+        "idle",
+        "curious",
+        "wave",
+        "high-five",
+        "reach",
+        "trade",
+        "dance",
+        "sway",
+        "spin",
+        "hop",
+        "float",
+        "dash",
+        "glide",
+        "moonwalk",
+        "carry",
+        "wag",
+        "stretch",
+        "pushup",
+        "breathe",
+        "doze",
+        "hide",
+        "daydream",
+        "read",
+        "browse",
+        "organize",
+        "type",
+        "write",
+        "knit",
+        "sip",
+        "cook",
+        "picnic",
+        "dig",
+        "build",
+        "sweep",
+        "water",
+        "telescope",
+        "look",
+        "juggle",
+        "magic",
+        "umbrella",
+        "drum",
+        "mirror",
+        "pose",
+        "box",
+        "fall",
+        "hiccup",
+        "recoil",
+        "squish",
+        "sleep",
+        "chew"
+      ],
+      "fallbackMotion": "idle"
+    },
+    "policy": {
+      "workout": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "chase-butterfly": {
+        "preferred": "three-quarter",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "hiccup": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "juggle": {
+        "preferred": "front",
+        "allowed": [
+          "front"
+        ]
+      },
+      "carry-energy": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "pit-fall": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "mirror-meet": {
+        "preferred": "front",
+        "allowed": [
+          "front"
+        ]
+      },
+      "sing": {
+        "preferred": "three-quarter",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "stuck-corner": {
+        "preferred": "three-quarter",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "chase-laser": {
+        "preferred": "three-quarter",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "dig-treasure": {
+        "preferred": "three-quarter",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "yawn": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "sneeze": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "bubble-blow": {
+        "preferred": "three-quarter",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "meditate": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "wave": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "stretch": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "happy-hop": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "high-five": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "spin": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter",
+          "back"
+        ]
+      },
+      "dance": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "look-around": {
+        "preferred": "front",
+        "allowed": [
+          "front"
+        ]
+      },
+      "tail-wiggle": {
+        "preferred": "three-quarter",
+        "allowed": [
+          "front",
+          "three-quarter",
+          "back"
+        ]
+      },
+      "read-book": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "take-note": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "type-keyboard": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "sip-tea": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "paper-plane": {
+        "preferred": "three-quarter",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "sweep": {
+        "preferred": "three-quarter",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "magic-trick": {
+        "preferred": "front",
+        "allowed": [
+          "front"
+        ]
+      },
+      "telescope": {
+        "preferred": "three-quarter",
+        "allowed": [
+          "three-quarter"
+        ]
+      },
+      "plant-water": {
+        "preferred": "three-quarter",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "knit-scarf": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "drum-solo": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "moonwalk": {
+        "preferred": "three-quarter",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "hide-box": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "build-blocks": {
+        "preferred": "three-quarter",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "catch-star": {
+        "preferred": "three-quarter",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "umbrella-dance": {
+        "preferred": "three-quarter",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "snack-picnic": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "shadow-box": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "tiny-chef": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "photo-pose": {
+        "preferred": "front",
+        "allowed": [
+          "front"
+        ]
+      },
+      "focus-read": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "focus-type": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "focus-write": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "focus-browse": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "focus-charts": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "focus-notes": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "rest-daydream": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "rest-nap": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "rest-tea": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "rest-stretch": {
+        "preferred": "front",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "rest-window": {
+        "preferred": "three-quarter",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      },
+      "rest-plant": {
+        "preferred": "three-quarter",
+        "allowed": [
+          "front",
+          "three-quarter"
+        ]
+      }
+    },
+    "bodyAnchors": {
+      "front": {
+        "shoulder-left": {
+          "x": 7,
+          "y": 39
+        },
+        "shoulder-right": {
+          "x": 59,
+          "y": 39
+        },
+        "foot-left": {
+          "x": 20,
+          "y": 55
+        },
+        "foot-right": {
+          "x": 47,
+          "y": 55
+        }
+      },
+      "three-quarter": {
+        "shoulder-left": {
+          "x": 10,
+          "y": 39
+        },
+        "shoulder-right": {
+          "x": 58,
+          "y": 39
+        },
+        "foot-left": {
+          "x": 22,
+          "y": 55
+        },
+        "foot-right": {
+          "x": 47,
+          "y": 55
+        }
+      },
+      "back": {
+        "shoulder-left": {
+          "x": 7,
+          "y": 39
+        },
+        "shoulder-right": {
+          "x": 59,
+          "y": 39
+        },
+        "foot-left": {
+          "x": 20,
+          "y": 55
+        },
+        "foot-right": {
+          "x": 47,
+          "y": 55
+        }
+      },
+      "profile": {
+        "shoulder-left": {
+          "x": 10,
+          "y": 39
+        },
+        "shoulder-right": {
+          "x": 58,
+          "y": 39
+        },
+        "foot-left": {
+          "x": 22,
+          "y": 55
+        },
+        "foot-right": {
+          "x": 47,
+          "y": 55
+        }
+      }
+    },
+    "faceLayouts": {
+      "front": {
+        "eyes": [
+          {
+            "side": "left",
+            "x": 21,
+            "y": 27.7,
+            "scaleX": 1.06,
+            "scaleY": 1.06
+          },
+          {
+            "side": "right",
+            "x": 45.7,
+            "y": 27.7,
+            "scaleX": 1.06,
+            "scaleY": 1.06
+          }
+        ],
+        "mouth": {
+          "x": 33,
+          "y": 38.4,
+          "scaleX": 1
+        },
+        "cheeks": [
+          {
+            "x": 13,
+            "y": 35,
+            "scaleX": 1
+          },
+          {
+            "x": 53,
+            "y": 35,
+            "scaleX": 1
+          }
+        ]
+      },
+      "three-quarter": {
+        "eyes": [
+          {
+            "side": "left",
+            "x": 39.9,
+            "y": 27.9,
+            "scaleX": 1,
+            "scaleY": 1
+          },
+          {
+            "side": "right",
+            "x": 56,
+            "y": 27.9,
+            "scaleX": 0.72,
+            "scaleY": 1
+          }
+        ],
+        "mouth": {
+          "x": 49.4,
+          "y": 38.6,
+          "scaleX": 0.88
+        },
+        "cheeks": [
+          {
+            "x": 33,
+            "y": 35,
+            "scaleX": 0.8
+          },
+          {
+            "x": 61,
+            "y": 34,
+            "scaleX": 0.55
+          }
+        ]
+      },
+      "back": {
+        "eyes": [],
+        "mouth": null,
+        "cheeks": []
+      },
+      "profile": {
+        "eyes": [
+          {
+            "side": "left",
+            "x": 39.9,
+            "y": 27.9,
+            "scaleX": 1,
+            "scaleY": 1
+          },
+          {
+            "side": "right",
+            "x": 56,
+            "y": 27.9,
+            "scaleX": 0.72,
+            "scaleY": 1
+          }
+        ],
+        "mouth": {
+          "x": 49.4,
+          "y": 38.6,
+          "scaleX": 0.88
+        },
+        "cheeks": [
+          {
+            "x": 33,
+            "y": 35,
+            "scaleX": 0.8
+          },
+          {
+            "x": 61,
+            "y": 34,
+            "scaleX": 0.55
+          }
+        ]
+      }
+    }
+  }
+}

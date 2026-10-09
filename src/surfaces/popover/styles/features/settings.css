@@ -1,0 +1,139 @@
+/* 设置抽屉：抽屉本身、折叠分区与设置行。对应 features/settings-drawer.mjs。 */
+
+@layer features {
+/* ---------- SETTINGS ---------- */
+  .setting-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 4px;
+    border-bottom: 1px dashed var(--bg-3);
+    font-size: 11px;
+  }
+  .setting-row label { color: var(--fg-1); font-weight: 600; }
+  .setting-tip {
+    margin-top: 12px;
+    padding: 10px;
+    background: var(--bg-2);
+    border-left: 3px solid var(--purple);
+    font-size: 11px; line-height: 1.7;
+    color: var(--fg-1);
+  }
+  .tip-title { font-weight: 700; color: var(--purple-ink); margin-bottom: 4px; }
+  .tip-body { color: var(--fg-1); }
+  .version {
+    text-align: center; font-size: 11px;
+    color: var(--fg-2); margin-top: 12px; padding-bottom: 6px;
+  }
+/* 带 chip 组的设置行：标题在上，选项换行 */
+  .setting-row.col {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+/* -- Settings additions -- */
+/* 每个功能模块一个折叠区，默认收起。summary 自己就是那条分区标题，所以标题
+   和它控制的内容不会再分成两个互不相关的东西。 */
+  .setting-group { border-bottom: 2px solid var(--primary-dark); }
+  .setting-group > summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 4px;
+  }
+  .setting-group > summary::-webkit-details-marker { display: none; }
+/* 折叠指示符跟着 open 状态转，位置固定在行首，不随标题长度漂移。 */
+  .setting-group > summary::before {
+    content: '\25B8';
+    color: var(--fg-2);
+    font-size: 11px;
+    width: 10px;
+  }
+  .setting-group[open] > summary::before { content: '\25BE'; color: var(--primary-ink); }
+  .setting-group > summary:hover .setting-group-title { color: var(--cyan-ink); }
+  .setting-group > summary:focus-visible { outline: 2px solid var(--cyan); outline-offset: -2px; }
+  .setting-group-title {
+    font-size: 11px;
+    font-weight: 900;
+    color: var(--primary-ink);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .setting-group[open] { padding-bottom: 8px; }
+/* 分组内最后一行的虚线和分组自己的实线会叠成两条，去掉里面那条。 */
+  .setting-group > .setting-row:last-child { border-bottom: none; }
+  .char-chip.active {
+    background: var(--purple);
+    color: var(--ink);
+    border-color: #7a5ed6;
+  }
+  .settings-mask {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    display: flex;
+    justify-content: flex-end;
+    background: rgba(8, 8, 14, 0.72);
+  }
+  .settings-drawer {
+    width: min(390px, calc(100% - 28px));
+    height: 100%;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    background: var(--bg-1);
+    border-left: 2px solid var(--accent);
+    box-shadow: -6px 0 0 rgb(var(--shadow-rgb) / 0.35);
+  }
+  .settings-drawer-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    border-bottom: 2px dashed var(--bg-3);
+  }
+  .settings-drawer-head h2 { color: var(--accent-ink); font-size: 14px; }
+  .settings-drawer-scroll { min-height: 0; overflow-y: auto; padding: 8px 12px 16px; }
+  /* 录制键长得像输入框，因为它就是一个「这里填组合」的位置;等待按键时换成青色描边,
+     让「现在按下去会被记下来」这件事看得见 —— 否则用户按完一个组合才发现没在录。 */
+  .shortcut-recorder {
+    text-align: center;
+    cursor: pointer;
+    letter-spacing: 1px;
+  }
+  .shortcut-recorder.recording {
+    border-color: var(--cyan);
+    color: var(--cyan-ink);
+    box-shadow: inset 0 0 0 1px var(--cyan);
+  }
+
+  /* 长期记忆(features/memory-list.mjs)。它住在 AI 那一组里,而不是自己一个抽屉:
+     「模型知道我什么」和「要不要把历史发出去」是同一件事的两半,分开放会让用户在一
+     处开了开关、在另一处才发现被记了什么。样式跟着设置走,所以也不新开一张表。 */
+  .memory-section { margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--bg-3); }
+  .memory-head { display: flex; align-items: center; gap: 6px; }
+  .memory-title { font-size: 11px; color: var(--fg-1); font-weight: 700; }
+  .memory-count { font-size: 11px; color: var(--fg-2); margin-right: auto; font-variant-numeric: tabular-nums; }
+  /* 「记一件事」的入口。一行放下:类别 + 关于什么 + 一句话 + 记住。它是偶发动作,
+     不该抢走列表的位置,所以做得比一条记忆还轻 —— 一排细边框输入,不是一个卡片。 */
+  .memory-draft { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .memory-draft-kind { flex: 0 0 auto; font-size: 11px; padding: 2px 4px; background: var(--bg-1); color: var(--fg-1); border: 1px solid var(--bg-3); border-radius: 3px; }
+  .memory-draft-subject { flex: 1 1 80px; min-width: 60px; font-size: 11px; padding: 2px 5px; background: var(--bg-1); color: var(--fg-1); border: 1px solid var(--bg-3); border-radius: 3px; }
+  .memory-draft-body { flex: 1 1 100%; font-size: 11px; padding: 2px 5px; background: var(--bg-1); color: var(--fg-1); border: 1px solid var(--bg-3); border-radius: 3px; }
+  .memory-list { display: flex; flex-direction: column; gap: 4px; margin-top: 6px; }
+  .memory-empty { font-size: 11px; color: var(--fg-2); line-height: 1.7; margin: 2px 0; }
+
+  /* 一条记忆不是卡片。它是一条被记下来的事实,视觉上应该像引文而不像功能块 ——
+     实体边框会让它读起来像「一个可以操作的东西」,而这里唯一的操作是删掉它。 */
+  .memory-row { padding: 4px 0 4px 6px; border-left: 2px solid var(--bg-3); background: var(--bg-1); }
+  .memory-row-head { display: flex; align-items: center; gap: 5px; }
+  .memory-kind { font-size: 11px; color: var(--accent-ink); flex: 0 0 auto; }
+  .memory-subject { font-size: 11px; color: var(--fg-1); flex: 1 1 auto; min-width: 0; word-break: break-word; }
+  .memory-body { font-size: 11px; color: var(--fg-1); line-height: 1.6; margin: 2px 0 0; word-break: break-word; }
+  /* 来源那行压到最小但不隐藏:它是用户判断该不该信这条记忆的唯一依据(ARCHITECTURE「事实流与长期记忆」)。 */
+  .memory-meta { font-size: 11px; color: var(--fg-2); margin: 2px 0 0; }
+}
+
+@layer features {
+  #appUpdateGroup [hidden] { display: none !important; }
+}

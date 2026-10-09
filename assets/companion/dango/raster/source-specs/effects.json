@@ -1,0 +1,1457 @@
+{
+  "effects": {
+    "steam": {
+      "src": "effects/steam.png",
+      "rect": [
+        -3,
+        -11,
+        6,
+        11
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "energy-rays": {
+      "src": "effects/energy-rays.png",
+      "rect": [
+        -4,
+        -3,
+        8,
+        6
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "look-back": {
+      "src": "effects/look-back.png",
+      "rect": [
+        -3,
+        -3.5,
+        6,
+        7
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "run-dust": {
+      "src": "effects/run-dust.png",
+      "rect": [
+        -3.5,
+        -2.5,
+        7,
+        5
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "soil": {
+      "src": "effects/soil.png",
+      "rect": [
+        -2.5,
+        -1.5,
+        5,
+        3
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "plane-trail": {
+      "src": "effects/plane-trail.png",
+      "rect": [
+        -6,
+        -4,
+        12,
+        8
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "star-glow": {
+      "src": "effects/star-glow.png",
+      "rect": [
+        -4,
+        -4,
+        8,
+        8
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "page": {
+      "src": "effects/page.png",
+      "rect": [
+        -4.5,
+        -6,
+        9,
+        12
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "ink": {
+      "src": "effects/ink.png",
+      "rect": [
+        -3.5,
+        -1,
+        7,
+        2
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "scroll": {
+      "src": "effects/scroll.png",
+      "rect": [
+        -1.5,
+        -3.5,
+        3,
+        7
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "keypress": {
+      "src": "effects/keypress.png",
+      "rect": [
+        -2,
+        -2,
+        4,
+        4
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "water": {
+      "src": "effects/water.png",
+      "rect": [
+        -1.2,
+        -2,
+        2.4,
+        4
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "thread": {
+      "src": "effects/thread.png",
+      "rect": [
+        -5,
+        -2,
+        10,
+        4
+      ],
+      "pivot": [
+        0,
+        0
+      ],
+      "anchors": {
+        "start": [
+          -4.3,
+          -0.55
+        ],
+        "end": [
+          4.1,
+          0.8999999999999999
+        ]
+      }
+    },
+    "food": {
+      "src": "effects/food.png",
+      "rect": [
+        -2.5,
+        -2,
+        5,
+        4
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "reflection": {
+      "src": "effects/reflection.png",
+      "rect": [
+        -3,
+        -6,
+        6,
+        12
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "flash": {
+      "src": "effects/flash.png",
+      "rect": [
+        -4,
+        -4,
+        8,
+        8
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "hole": {
+      "src": "effects/hole.png",
+      "rect": [
+        -9,
+        -3.5,
+        18,
+        7
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "ellipsis": {
+      "src": "effects/ellipsis.png",
+      "rect": [
+        -5,
+        -1.5,
+        10,
+        3
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "laser": {
+      "src": "effects/laser.png",
+      "rect": [
+        -8,
+        -1.5,
+        16,
+        3
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "headband": {
+      "src": "effects/headband.png",
+      "rect": [
+        -22,
+        -4,
+        44,
+        8
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "ribbon": {
+      "src": "effects/ribbon.png",
+      "rect": [
+        -6,
+        -3,
+        12,
+        6
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "sleep-zzz": {
+      "src": "effects/sleep-zzz.png",
+      "rect": [
+        55,
+        -22,
+        16,
+        15
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "drowsy-zzz": {
+      "src": "effects/drowsy-zzz.png",
+      "rect": [
+        59,
+        -14,
+        9,
+        10
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "glint": {
+      "src": "effects/glint.png",
+      "rect": [
+        -1.6,
+        -1.6,
+        3.2,
+        3.2
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "hungry": {
+      "src": "effects/hungry.png",
+      "rect": [
+        65,
+        -16,
+        22,
+        22
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "coffee": {
+      "src": "effects/coffee.png",
+      "rect": [
+        69,
+        11,
+        16,
+        20
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "heart": {
+      "src": "effects/heart.png",
+      "rect": [
+        -3,
+        -3,
+        6,
+        6
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "sweat": {
+      "src": "effects/sweat.png",
+      "rect": [
+        -1.5,
+        -2.5,
+        3,
+        5
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "bubble": {
+      "src": "effects/bubble.png",
+      "rect": [
+        -3.5,
+        -3.5,
+        7,
+        7
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "shootingStar": {
+      "src": "effects/shootingStar.png",
+      "rect": [
+        -6.5,
+        -3.5,
+        13,
+        7
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "ring": {
+      "src": "effects/ring.png",
+      "rect": [
+        -4,
+        -4,
+        8,
+        8
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "petal": {
+      "src": "effects/petal.png",
+      "rect": [
+        -2,
+        -3,
+        4,
+        6
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "leaf": {
+      "src": "effects/leaf.png",
+      "rect": [
+        -2.5,
+        -3,
+        5,
+        6
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "rainbow": {
+      "src": "effects/rainbow.png",
+      "rect": [
+        -6,
+        -3.5,
+        12,
+        7
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "letter": {
+      "src": "effects/letter.png",
+      "rect": [
+        -3.5,
+        -2.5,
+        7,
+        5
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "snow": {
+      "src": "effects/snow.png",
+      "rect": [
+        -2.5,
+        -2.5,
+        5,
+        5
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "bird": {
+      "src": "effects/bird.png",
+      "rect": [
+        -4.5,
+        -3.5,
+        9,
+        7
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "cloud": {
+      "src": "effects/cloud.png",
+      "rect": [
+        -9,
+        -5,
+        18,
+        10
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "dragonfly": {
+      "src": "effects/dragonfly.png",
+      "rect": [
+        -5,
+        -3.5,
+        10,
+        7
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "firefly": {
+      "src": "effects/firefly.png",
+      "rect": [
+        -2.5,
+        -3,
+        5,
+        6
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "fish": {
+      "src": "effects/fish.png",
+      "rect": [
+        -4.5,
+        -3,
+        9,
+        6
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "codeRain": {
+      "src": "effects/codeRain.png",
+      "rect": [
+        -2,
+        -7,
+        4,
+        14
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "bat": {
+      "src": "effects/bat.png",
+      "rect": [
+        -5,
+        -3,
+        10,
+        6
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "ember": {
+      "src": "effects/ember.png",
+      "rect": [
+        -2,
+        -3.5,
+        4,
+        7
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "rain": {
+      "src": "effects/rain.png",
+      "rect": [
+        -1,
+        -4,
+        2,
+        8
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "particle-heart": {
+      "src": "effects/heart.png",
+      "rect": [
+        -3,
+        -3,
+        6,
+        6
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "particle-sweat": {
+      "src": "effects/sweat.png",
+      "rect": [
+        -1.5,
+        -2.5,
+        3,
+        5
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "particle-flash": {
+      "src": "effects/flash.png",
+      "rect": [
+        -4,
+        -4,
+        8,
+        8
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "particle-bubble": {
+      "src": "effects/bubble.png",
+      "rect": [
+        -3.5,
+        -3.5,
+        7,
+        7
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "particle-note": {
+      "src": "tools/music-note.png",
+      "rect": [
+        -2,
+        -3,
+        4,
+        6
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "particle-star": {
+      "src": "tools/star.png",
+      "rect": [
+        -3,
+        -3,
+        6,
+        6
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "particle-sparkle": {
+      "src": "effects/glint.png",
+      "rect": [
+        -2,
+        -2,
+        4,
+        4
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "particle-spark": {
+      "src": "effects/energy-rays.png",
+      "rect": [
+        -2.5,
+        -2,
+        5,
+        4
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "particle-ring": {
+      "src": "effects/ring.png",
+      "rect": [
+        -4,
+        -4,
+        8,
+        8
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "particle-petal": {
+      "src": "effects/petal.png",
+      "rect": [
+        -2,
+        -3,
+        4,
+        6
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "particle-leaf": {
+      "src": "effects/leaf.png",
+      "rect": [
+        -2.5,
+        -3,
+        5,
+        6
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "particle-rainbow": {
+      "src": "effects/rainbow.png",
+      "rect": [
+        -6,
+        -3.5,
+        12,
+        7
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "particle-z": {
+      "src": "effects/drowsy-zzz.png",
+      "rect": [
+        -3,
+        -3.5,
+        6,
+        7
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "particle-letter": {
+      "src": "effects/letter.png",
+      "rect": [
+        -3.5,
+        -2.5,
+        7,
+        5
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "particle-puff": {
+      "src": "effects/run-dust.png",
+      "rect": [
+        -3.5,
+        -2.5,
+        7,
+        5
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "particle-crumb": {
+      "src": "effects/food.png",
+      "rect": [
+        -2,
+        -1.5,
+        4,
+        3
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "particle-thread": {
+      "src": "effects/thread.png",
+      "rect": [
+        -4,
+        -1.5,
+        8,
+        3
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "particle-trail": {
+      "src": "effects/plane-trail.png",
+      "rect": [
+        -5,
+        -3,
+        10,
+        6
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    }
+  },
+  "sceneParticles": {
+    "bird": {
+      "src": "effects/bird.png",
+      "rect": [
+        -4.5,
+        -3,
+        9,
+        6
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "bubble": {
+      "src": "effects/bubble.png",
+      "rect": [
+        -3.5,
+        -3.5,
+        7,
+        7
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "butterfly": {
+      "src": "tools/butterfly.png",
+      "rect": [
+        -4.5,
+        -3.5,
+        9,
+        7
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "cloud": {
+      "src": "effects/cloud.png",
+      "rect": [
+        -11,
+        -5,
+        22,
+        10
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "codeRain": {
+      "src": "effects/codeRain.png",
+      "rect": [
+        -2,
+        -8,
+        4,
+        16
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "dragonfly": {
+      "src": "effects/dragonfly.png",
+      "rect": [
+        -5,
+        -3.5,
+        10,
+        7
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "dust": {
+      "src": "effects/run-dust.png",
+      "rect": [
+        -1.5,
+        -1.5,
+        3,
+        3
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "ember": {
+      "src": "effects/ember.png",
+      "rect": [
+        -1.5,
+        -2.5,
+        3,
+        5
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "firefly": {
+      "src": "effects/firefly.png",
+      "rect": [
+        -1.5,
+        -2,
+        3,
+        4
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "fish": {
+      "src": "effects/fish.png",
+      "rect": [
+        -5,
+        -3,
+        10,
+        6
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "flash": {
+      "src": "effects/flash.png",
+      "rect": [
+        -9,
+        -9,
+        18,
+        18
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "leaf": {
+      "src": "effects/leaf.png",
+      "rect": [
+        -2.5,
+        -2,
+        5,
+        4
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "light": {
+      "src": "effects/star-glow.png",
+      "rect": [
+        -1.5,
+        -1.5,
+        3,
+        3
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "mist": {
+      "src": "effects/cloud.png",
+      "rect": [
+        -12,
+        -5,
+        24,
+        10
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "note": {
+      "src": "tools/music-note.png",
+      "rect": [
+        -2.5,
+        -3.5,
+        5,
+        7
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "page": {
+      "src": "effects/page.png",
+      "rect": [
+        -3.5,
+        -4.5,
+        7,
+        9
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "petal": {
+      "src": "effects/petal.png",
+      "rect": [
+        -2,
+        -2.5,
+        4,
+        5
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "pixel": {
+      "src": "effects/glint.png",
+      "rect": [
+        -1,
+        -1,
+        2,
+        2
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "plane": {
+      "src": "tools/paper-plane.png",
+      "rect": [
+        -6,
+        -3.5,
+        12,
+        7
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "rain": {
+      "src": "effects/rain.png",
+      "rect": [
+        -0.75,
+        -4,
+        1.5,
+        8
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "shootingStar": {
+      "src": "effects/shootingStar.png",
+      "rect": [
+        -9,
+        -4,
+        18,
+        8
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "snow": {
+      "src": "effects/snow.png",
+      "rect": [
+        -2,
+        -2,
+        4,
+        4
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "sparkle": {
+      "src": "effects/glint.png",
+      "rect": [
+        -2,
+        -2,
+        4,
+        4
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "star": {
+      "src": "tools/star.png",
+      "rect": [
+        -1.5,
+        -1.5,
+        3,
+        3
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "starDust": {
+      "src": "effects/glint.png",
+      "rect": [
+        -1,
+        -1,
+        2,
+        2
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "steam": {
+      "src": "effects/steam.png",
+      "rect": [
+        -4,
+        -7,
+        8,
+        14
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "bat": {
+      "src": "effects/bat.png",
+      "rect": [
+        -5.5,
+        -3,
+        11,
+        6
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    "spark": {
+      "src": "effects/energy-rays.png",
+      "rect": [
+        -1.5,
+        -1.5,
+        3,
+        3
+      ],
+      "pivot": [
+        0,
+        0
+      ]
+    }
+  },
+  "provenance": {
+    "effects": {
+      "particleAliases": {
+        "heart": [
+          "heart",
+          6,
+          6
+        ],
+        "sweat": [
+          "sweat",
+          3,
+          5
+        ],
+        "flash": [
+          "flash",
+          8,
+          8
+        ],
+        "bubble": [
+          "bubble",
+          7,
+          7
+        ],
+        "note": [
+          "music-note",
+          4,
+          6
+        ],
+        "star": [
+          "star",
+          6,
+          6
+        ],
+        "sparkle": [
+          "glint",
+          4,
+          4
+        ],
+        "spark": [
+          "energy-rays",
+          5,
+          4
+        ],
+        "ring": [
+          "ring",
+          8,
+          8
+        ],
+        "petal": [
+          "petal",
+          4,
+          6
+        ],
+        "leaf": [
+          "leaf",
+          5,
+          6
+        ],
+        "rainbow": [
+          "rainbow",
+          12,
+          7
+        ],
+        "z": [
+          "drowsy-zzz",
+          6,
+          7
+        ],
+        "letter": [
+          "letter",
+          7,
+          5
+        ],
+        "puff": [
+          "run-dust",
+          7,
+          5
+        ],
+        "crumb": [
+          "food",
+          4,
+          3
+        ],
+        "thread": [
+          "thread",
+          8,
+          3
+        ],
+        "trail": [
+          "plane-trail",
+          10,
+          6
+        ]
+      },
+      "sceneAliases": {
+        "bird": [
+          "bird",
+          9,
+          6
+        ],
+        "bubble": [
+          "bubble",
+          7,
+          7
+        ],
+        "butterfly": [
+          "butterfly",
+          9,
+          7
+        ],
+        "cloud": [
+          "cloud",
+          22,
+          10
+        ],
+        "codeRain": [
+          "codeRain",
+          4,
+          16
+        ],
+        "dragonfly": [
+          "dragonfly",
+          10,
+          7
+        ],
+        "dust": [
+          "run-dust",
+          3,
+          3
+        ],
+        "ember": [
+          "ember",
+          3,
+          5
+        ],
+        "firefly": [
+          "firefly",
+          3,
+          4
+        ],
+        "fish": [
+          "fish",
+          10,
+          6
+        ],
+        "flash": [
+          "flash",
+          18,
+          18
+        ],
+        "leaf": [
+          "leaf",
+          5,
+          4
+        ],
+        "light": [
+          "star-glow",
+          3,
+          3
+        ],
+        "mist": [
+          "cloud",
+          24,
+          10
+        ],
+        "note": [
+          "music-note",
+          5,
+          7
+        ],
+        "page": [
+          "page",
+          7,
+          9
+        ],
+        "petal": [
+          "petal",
+          4,
+          5
+        ],
+        "pixel": [
+          "glint",
+          2,
+          2
+        ],
+        "plane": [
+          "paper-plane",
+          12,
+          7
+        ],
+        "rain": [
+          "rain",
+          1.5,
+          8
+        ],
+        "shootingStar": [
+          "shootingStar",
+          18,
+          8
+        ],
+        "snow": [
+          "snow",
+          4,
+          4
+        ],
+        "sparkle": [
+          "glint",
+          4,
+          4
+        ],
+        "star": [
+          "star",
+          3,
+          3
+        ],
+        "starDust": [
+          "glint",
+          2,
+          2
+        ],
+        "steam": [
+          "steam",
+          8,
+          14
+        ],
+        "bat": [
+          "bat",
+          11,
+          6
+        ],
+        "spark": [
+          "energy-rays",
+          3,
+          3
+        ]
+      },
+      "continuousAlphaKeys": [
+        "bubble",
+        "cloud",
+        "coffee",
+        "dragonfly",
+        "ember",
+        "firefly",
+        "flash",
+        "glint",
+        "laser",
+        "plane-trail",
+        "rain",
+        "reflection",
+        "ring",
+        "run-dust",
+        "shootingStar",
+        "star-glow",
+        "steam"
+      ],
+      "opaqueThresholdNotUsedForSteamOrGlow": true
+    }
+  }
+}

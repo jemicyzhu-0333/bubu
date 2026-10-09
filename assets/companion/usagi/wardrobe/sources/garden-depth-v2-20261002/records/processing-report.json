@@ -1,0 +1,451 @@
+{
+  "python": "3.12.14",
+  "pillow": "12.3.0",
+  "alphaPolicy": "Preserve original RGBA in declared component crops; uniform Lanczos resizing; no white/color deletion.",
+  "sourceSha256": "ba1c26e8243c333f539ae6b10404afc6fdd5a517323d2a99dbed0127554db509",
+  "recipeSha256": "c38f4f8ecd5c11598fe95233b0f27791b4bab3c6a8ff97f87ae36316b5af2014",
+  "extraction": [
+    {
+      "item": "collar",
+      "view": "front",
+      "declaredCrop": [
+        63,
+        170,
+        344,
+        283
+      ],
+      "trimWithinCrop": [
+        7,
+        9,
+        276,
+        103
+      ],
+      "uniformScale": 0.6691449814126395,
+      "position": [
+        166,
+        344
+      ],
+      "finalSize": [
+        180,
+        63
+      ],
+      "completeLayerHasHandCutouts": false,
+      "alphaSupport": {
+        "threshold": 96,
+        "dilation": 3,
+        "component": "largest"
+      }
+    },
+    {
+      "item": "collar",
+      "view": "three-quarter",
+      "declaredCrop": [
+        456,
+        164,
+        739,
+        278
+      ],
+      "trimWithinCrop": [
+        7,
+        10,
+        275,
+        105
+      ],
+      "uniformScale": 0.6716417910447762,
+      "position": [
+        181,
+        345
+      ],
+      "finalSize": [
+        180,
+        64
+      ],
+      "completeLayerHasHandCutouts": false,
+      "alphaSupport": {
+        "threshold": 96,
+        "dilation": 3,
+        "component": "largest"
+      }
+    },
+    {
+      "item": "collar",
+      "view": "profile",
+      "declaredCrop": [
+        837,
+        170,
+        1088,
+        277
+      ],
+      "trimWithinCrop": [
+        7,
+        9,
+        244,
+        96
+      ],
+      "uniformScale": 0.6033755274261603,
+      "position": [
+        212,
+        345
+      ],
+      "finalSize": [
+        143,
+        52
+      ],
+      "completeLayerHasHandCutouts": false,
+      "alphaSupport": {
+        "threshold": 96,
+        "dilation": 3,
+        "component": "largest"
+      }
+    },
+    {
+      "item": "collar",
+      "view": "back",
+      "declaredCrop": [
+        1215,
+        170,
+        1476,
+        264
+      ],
+      "trimWithinCrop": [
+        6,
+        8,
+        254,
+        84
+      ],
+      "uniformScale": 0.7258064516129032,
+      "position": [
+        166,
+        345
+      ],
+      "finalSize": [
+        180,
+        55
+      ],
+      "completeLayerHasHandCutouts": false,
+      "alphaSupport": {
+        "threshold": 96,
+        "dilation": 3,
+        "component": "largest"
+      }
+    },
+    {
+      "item": "apron",
+      "view": "front",
+      "declaredCrop": [
+        23,
+        445,
+        376,
+        602
+      ],
+      "trimWithinCrop": [
+        5,
+        7,
+        348,
+        151
+      ],
+      "uniformScale": 0.5189504373177842,
+      "position": [
+        167,
+        369
+      ],
+      "finalSize": [
+        178,
+        75
+      ],
+      "completeLayerHasHandCutouts": false,
+      "alphaSupport": {
+        "threshold": 96,
+        "dilation": 3,
+        "component": "largest"
+      }
+    },
+    {
+      "item": "apron",
+      "view": "three-quarter",
+      "declaredCrop": [
+        442,
+        445,
+        737,
+        602
+      ],
+      "trimWithinCrop": [
+        5,
+        7,
+        290,
+        150
+      ],
+      "uniformScale": 0.5473684210526316,
+      "position": [
+        193,
+        369
+      ],
+      "finalSize": [
+        156,
+        78
+      ],
+      "completeLayerHasHandCutouts": false,
+      "alphaSupport": {
+        "threshold": 96,
+        "dilation": 3,
+        "component": "largest"
+      }
+    },
+    {
+      "item": "apron",
+      "view": "profile",
+      "declaredCrop": [
+        834,
+        443,
+        1091,
+        601
+      ],
+      "trimWithinCrop": [
+        5,
+        7,
+        252,
+        151
+      ],
+      "uniformScale": 0.46558704453441296,
+      "position": [
+        228,
+        371
+      ],
+      "finalSize": [
+        115,
+        67
+      ],
+      "completeLayerHasHandCutouts": false,
+      "alphaSupport": {
+        "threshold": 96,
+        "dilation": 3,
+        "component": "largest"
+      }
+    },
+    {
+      "item": "apron",
+      "view": "back",
+      "declaredCrop": [
+        1200,
+        459,
+        1503,
+        588
+      ],
+      "trimWithinCrop": [
+        5,
+        7,
+        298,
+        121
+      ],
+      "uniformScale": 0.6143344709897611,
+      "position": [
+        166,
+        371
+      ],
+      "finalSize": [
+        180,
+        70
+      ],
+      "completeLayerHasHandCutouts": false,
+      "alphaSupport": {
+        "threshold": 96,
+        "dilation": 3,
+        "component": "largest"
+      }
+    },
+    {
+      "item": "pouch",
+      "view": "front",
+      "declaredCrop": [
+        126,
+        758,
+        311,
+        926
+      ],
+      "trimWithinCrop": [
+        7,
+        8,
+        177,
+        162
+      ],
+      "uniformScale": 0.3764705882352941,
+      "position": [
+        129,
+        373
+      ],
+      "finalSize": [
+        64,
+        58
+      ],
+      "completeLayerHasHandCutouts": false,
+      "alphaSupport": {
+        "threshold": 96,
+        "dilation": 3,
+        "component": "largest"
+      }
+    },
+    {
+      "item": "pouch",
+      "view": "three-quarter",
+      "declaredCrop": [
+        529,
+        760,
+        699,
+        925
+      ],
+      "trimWithinCrop": [
+        7,
+        7,
+        162,
+        159
+      ],
+      "uniformScale": 0.36129032258064514,
+      "position": [
+        153,
+        372
+      ],
+      "finalSize": [
+        56,
+        55
+      ],
+      "completeLayerHasHandCutouts": false,
+      "alphaSupport": {
+        "threshold": 96,
+        "dilation": 3,
+        "component": "largest"
+      }
+    },
+    {
+      "item": "pouch",
+      "view": "profile",
+      "declaredCrop": [
+        912,
+        758,
+        1044,
+        928
+      ],
+      "trimWithinCrop": [
+        7,
+        7,
+        125,
+        162
+      ],
+      "uniformScale": 0.2542372881355932,
+      "position": [
+        179,
+        380
+      ],
+      "finalSize": [
+        30,
+        39
+      ],
+      "completeLayerHasHandCutouts": false,
+      "alphaSupport": {
+        "threshold": 96,
+        "dilation": 3,
+        "component": "largest"
+      }
+    },
+    {
+      "item": "pouch",
+      "view": "back",
+      "declaredCrop": [
+        1269,
+        766,
+        1435,
+        929
+      ],
+      "trimWithinCrop": [
+        7,
+        8,
+        158,
+        156
+      ],
+      "uniformScale": 0.39072847682119205,
+      "position": [
+        320,
+        373
+      ],
+      "finalSize": [
+        59,
+        58
+      ],
+      "completeLayerHasHandCutouts": false,
+      "alphaSupport": {
+        "threshold": 96,
+        "dilation": 3,
+        "component": "largest"
+      }
+    }
+  ],
+  "audit": [
+    {
+      "view": "front",
+      "canonicalSha256": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3",
+      "protectedFaceAndEarsRect": [
+        117,
+        55,
+        406,
+        336
+      ],
+      "protectedChangedPixels": 0,
+      "outputAlphaBounds": [
+        117,
+        58,
+        395,
+        461
+      ]
+    },
+    {
+      "view": "three-quarter",
+      "canonicalSha256": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60",
+      "protectedFaceAndEarsRect": [
+        117,
+        55,
+        406,
+        336
+      ],
+      "protectedChangedPixels": 0,
+      "outputAlphaBounds": [
+        128,
+        58,
+        396,
+        461
+      ]
+    },
+    {
+      "view": "profile",
+      "canonicalSha256": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420",
+      "protectedFaceAndEarsRect": [
+        117,
+        55,
+        406,
+        336
+      ],
+      "protectedChangedPixels": 0,
+      "outputAlphaBounds": [
+        128,
+        58,
+        400,
+        461
+      ]
+    },
+    {
+      "view": "back",
+      "canonicalSha256": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c",
+      "protectedFaceAndEarsRect": [
+        117,
+        55,
+        406,
+        336
+      ],
+      "protectedChangedPixels": 0,
+      "outputAlphaBounds": [
+        117,
+        58,
+        395,
+        461
+      ]
+    }
+  ]
+}

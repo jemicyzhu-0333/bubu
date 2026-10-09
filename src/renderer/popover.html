@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>I’m ADHDer</title>
+<link rel="stylesheet" href="../surfaces/popover/styles/layers.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/tokens.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/base.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/components.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/app-chrome.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/companion.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/companion-drawers.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/focus-timer.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/now-card.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/quick-start-landing.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/task-list.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/task-form.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/task-when-fields.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/task-editor.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/breakdown.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/draft-chat.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/inbox.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/routines.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/review.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/progress.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/timeline.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/settings.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/memory-management.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/planning-preferences.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/stuck.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/workspace-layout.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/daily-layout.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/companion-collection.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/utilities.css">
+<!-- PRODUCT「界面语言」：统一语义主题；功能布局由各 feature 拥有。 -->
+<link rel="stylesheet" href="../surfaces/popover/styles/theme.css">
+<link rel="stylesheet" href="../surfaces/shared/icons.css">
+</head>
+<body class="pixel-body" data-motion="reduced" data-stimulation="low" data-destination="today" data-action-state="empty">
+  <div class="crt-overlay" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <div class="app-shell" id="appShell">
+  <header class="header compact-header">
+    <span class="app-title">I’m ADHDer</span>
+    <span class="mini-timer" id="headerMiniTime" role="timer" aria-label="当前计时">--:--</span>
+    <div class="header-actions">
+      <button type="button" class="header-action" id="btnQuickCapture" data-feedback="capture" aria-label="打开快捷行动面板，快捷键 Option Shift Space" title="快捷行动 ⌥⇧Space"><span class="header-glyph"><svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 3.5h10v6.5H7.5L4.5 12.5V10H3z"/></svg></span></button>
+      <button type="button" class="header-action" id="dndPill" data-feedback="bell" aria-label="切换免打扰" aria-pressed="false" title="免打扰"><span class="header-glyph"><span class="icon-on"><svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 11V7.2a4 4 0 0 1 8 0V11l1 1.2H3z"/><path d="M6.6 13.6a1.6 1.6 0 0 0 2.8 0"/></svg></span><span class="icon-off"><svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 11V7.2a4 4 0 0 1 6.6-3M12 7.4V11l1 1.2H5.6"/><path d="M6.6 13.6a1.6 1.6 0 0 0 2.8 0"/><path d="M2.5 2.5l11 11"/></svg></span></span></button>
+      <button type="button" class="header-action companion-nav" id="tabCompanion" data-feedback="companion" data-tab="companion" aria-pressed="false" aria-controls="panelCompanion" aria-label="伙伴" title="伙伴"><span class="header-glyph" data-icon="paw" data-icon-only aria-hidden="true"></span></button>
+      <button type="button" class="header-action" id="btnSettings" data-feedback="settings" aria-label="打开设置" aria-expanded="false" aria-controls="settingsDrawer" aria-haspopup="dialog" title="设置"><span class="header-glyph" data-icon="sliders" data-icon-only aria-hidden="true"></span></button>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="主要区域">
+    <button type="button" id="tabToday" data-feedback="today" class="tab-btn active" data-nav="main" data-tab="today" role="tab" aria-selected="true" aria-controls="panelToday" tabindex="0"><span class="tab-glyph" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M8 1v2m0 10v2M1 8h2m10 0h2M3 3l1 1m8 8 1 1M3 13l1-1m8-8 1-1M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/></svg></span>现在</button>
+    <button type="button" id="tabArrange" data-feedback="arrange" class="tab-btn" data-nav="main" data-tab="tasks" role="tab" aria-selected="false" aria-controls="panelTasks panelRoutines panelInbox panelArchive" tabindex="-1"><span class="tab-glyph" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M3 4h10M3 8h10M3 12h10"/></svg></span>安排</button>
+    <button type="button" id="tabProgress" data-feedback="review" class="tab-btn" data-nav="main" data-tab="progress" role="tab" aria-selected="false" aria-controls="panelProgress" tabindex="-1"><span class="tab-glyph" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M2 2.5h4a3 3 0 0 1 2 1 3 3 0 0 1 2-1h4v10h-4a3 3 0 0 0-2 1 3 3 0 0 0-2-1H2ZM8 3.5v10"/></svg></span>回顾</button>
+  </nav>
+  <nav id="arrangeNavigation" class="arrange-navigation" role="tablist" aria-label="安排" hidden>
+    <button type="button" id="tabTasks" data-feedback="tasks" class="tab-btn" data-nav="arrange" data-tab="tasks" role="tab" aria-selected="false" aria-controls="panelTasks" tabindex="-1"><span class="tab-glyph" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><path d="m2 4 1 1 2-2m-3 5 1 1 2-2m-3 5 1 1 2-2M7 4h7M7 8h7M7 12h7"/></svg></span>任务 <span class="tab-count" id="tabTaskCount">0</span></button>
+    <button type="button" id="tabRoutines" data-feedback="routines" class="tab-btn" data-nav="arrange" data-tab="routines" role="tab" aria-selected="false" aria-controls="panelRoutines" tabindex="-1"><span class="tab-glyph" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M13.5 2.5c-7-1-12 3-10 7.5 2 4.5 10 2 10-7.5ZM3 14l7-7"/></svg></span>日常 <span class="tab-count" id="routinesManageCount">0</span></button>
+    <button type="button" id="tabInbox" class="tab-btn" data-feedback="inbox" data-nav="arrange" data-tab="inbox" role="tab" aria-selected="false" aria-controls="panelInbox" tabindex="-1"><span class="tab-glyph" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M2 9l2-6h8l2 6v4H2ZM2 9h4l1 2h2l1-2h4"/></svg></span>收件箱 <span class="tab-count" id="tabImpCount">0</span></button>
+    <button type="button" id="tabArchive" class="tab-btn" data-feedback="archive" data-nav="arrange" data-tab="archive" role="tab" aria-selected="false" aria-controls="panelArchive" tabindex="-1"><span class="tab-glyph" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M2 2h12v3H2ZM3 5v9h10V5M6 8h4"/></svg></span>已归档 <span class="tab-count" id="cntArchived">0</span></button>
+  </nav>
+
+  <section id="panelToday" class="tab-content active today-page" data-tab="today" role="tabpanel" aria-labelledby="tabToday">
+
+  <!-- 迁移告知：非阻塞、可关闭、关了不再回来。升级改动了用户的数据时应该告诉
+       他一声，但不应该拦住他干活。 -->
+  <div class="notice-strip hidden" id="migrationNotices" role="status" aria-live="polite"></div>
+
+  <!-- NOW 卡片只回答一个问题：现在做哪一件、下一个动作是什么。轮次时长由底部
+       的时长选择器统一展示。 -->
+  <div class="action-surface">
+  <p class="action-state" id="nowStateLabel">从一件小事开始</p>
+  <section class="now-card" id="nowCard" aria-labelledby="nowCardTitle">
+    <div class="now-card-head">
+      <p class="task-context" id="nowCardTitle">现在</p>
+      <button type="button" class="chip chip-action" id="btnChooseCandidates" data-icon="shuffle" aria-controls="candidatePanel" aria-expanded="false">换一件</button>
+    </div>
+    <h1 class="now-action" id="nowNextAction">把脑中的一件事放下来</h1>
+    <!-- 只在这一件事被拦住时才出声（已完成、已失效、这一次跳过）。平时它是空的，
+       因为“一切正常”不需要占一行字。 -->
+    <p class="now-meta hidden" id="nowMeta" role="status"></p>
+    <div class="now-card-foot">
+      <span class="blocker-badge hidden" id="nowBlockerBadge"></span>
+      <button type="button" class="chip chip-action chip-stuck" id="btnStuck" data-icon="life-buoy" aria-haspopup="dialog" aria-controls="stuckMask">有点卡</button>
+    </div>
+  </section>
+
+  <section class="candidate-panel hidden" id="candidatePanel" aria-live="polite" aria-hidden="true">
+    <div class="candidate-heading">换一件 <button type="button" class="modal-close" id="closeCandidates" aria-label="关闭候选">✕</button></div>
+    <div class="candidate-grid" id="candidateGrid"></div>
+  </section>
+
+  <section class="pomo-panel">
+    <div class="pomo-display">
+      <svg class="focus-orbit" viewBox="0 0 240 240" aria-hidden="true"><circle class="orbit-track" cx="120" cy="120" r="110"/><circle class="orbit-progress" id="focusOrbit" cx="120" cy="120" r="110" pathLength="100"/></svg>
+      <div class="pomo-time" id="pomoTime" role="timer" aria-label="25 分钟待启动">25:00</div>
+      <div class="pomo-label" id="pomoLabel">准备好开始了吗？</div>
+    </div>
+    <div class="pomo-progress sr-only" id="pomoProgress" role="progressbar" aria-label="本轮计时进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="尚未开始">
+      <div class="pomo-progress-fill" id="pomoProgressFill"></div>
+    </div>
+    <!-- 时长选择器：范围与预设全部来自 state.focusMinutes，渲染层不再自己声明上下限。 -->
+    <details class="duration-picker" id="durationPicker"><summary><span id="durationPickerLabel">这一段</span><span id="durationSummary">60 分钟</span><span class="duration-edit">调整</span></summary><div class="duration-options">
+
+      <div class="duration-stepper">
+        <button type="button" class="icon-btn duration-step" data-duration-step="-1" aria-label="这一轮时长减少 5 分钟">−</button>
+        <span class="duration-value" id="durationValue" aria-live="polite">60 分钟</span>
+        <button type="button" class="icon-btn duration-step" data-duration-step="1" aria-label="这一轮时长增加 5 分钟">+</button>
+      </div>
+      <input type="range" id="durationSlider" min="5" max="120" step="5" value="60" aria-label="选择专注分钟数">
+      <div class="duration-presets" id="durationPresets" role="group" aria-label="常用时长"></div>
+      <p class="capability-note hidden" id="durationStatus" role="status" aria-live="polite"></p>
+    </div>
+    </details>
+    <div class="pomo-actions">
+      <button type="button" class="pixel-btn btn-focus" id="btnStartFocus"><span class="focus-play" data-icon="play" data-icon-only aria-hidden="true"></span>
+        <span id="btnStartFocusText">开始专注</span>
+      </button>
+      <button type="button" class="pixel-btn btn-stop hidden" id="btnStopFocus" data-icon="stop">
+        <span id="btnStopFocusText">结束这段</span>
+      </button>
+      <button type="button" class="pixel-btn btn-pause hidden" id="btnPauseFocus" data-icon="pause">暂停</button>
+      <button type="button" class="pixel-btn btn-focus hidden" id="btnResumeFocus" data-icon="play"><span id="btnResumeFocusText">继续</span></button>
+    </div>
+    <p class="capability-note hidden" id="focusActionStatus" role="status" aria-live="polite"></p>
+    <!-- 当前这一件的完整面貌就放在计时器下面：要调整它的人正在看这里，而不是在
+         任务页翻列表。勾选子项会把 NOW 卡片顶上那行推到下一步，形成一个闭环。 -->
+    <section class="now-task-detail hidden" id="nowTaskDetail" aria-labelledby="nowTaskDetailTitle">
+      <div class="now-task-detail-head">
+        <span class="now-task-detail-title" id="nowTaskDetailTitle"></span>
+        <div class="now-task-detail-actions">
+          <button type="button" class="icon-btn done-now" id="btnCompleteNowTask" data-icon="check" aria-label="完成当前任务" title="完成这件">完成这件</button>
+          <button type="button" class="icon-btn" id="btnEditNowTask" data-icon="pencil" aria-label="编辑当前任务">编辑</button>
+        </div>
+      </div>
+      <div id="nowTaskSteps"></div>
+      <button type="button" id="btnAddSessionStep" class="chip hidden" data-icon="plus">加一步</button>
+      <form id="sessionStepForm" class="session-step-form hidden"><label class="sr-only" for="sessionStepInput">额外的小步骤</label><input id="sessionStepInput" class="pixel-input" maxlength="200" placeholder="接下来需要做的小步骤" required><button class="chip" type="submit" id="saveSessionStep" data-icon="check">添加</button><button class="chip" type="button" id="cancelSessionStep">取消</button></form>
+    </section>
+  </section>
+
+  </div>
+  <!-- 今天：能量、日常、收件箱三块并排，各给一个数和一句话；同一时间只展开一块细节
+       (PRODUCT「面板交互」)。展开状态只是呈现，不写入持久化。能量不会因为起床问题自行展开。 -->
+  <section class="today-overview" id="todayOverview" aria-labelledby="todayOverviewTitle">
+    <h2 class="overview-title" id="todayOverviewTitle">今天</h2>
+    <div class="overview-tiles">
+      <button type="button" class="overview-tile" id="tileEnergy" data-overview="energy" aria-expanded="false" aria-controls="energyStrip">
+        <span class="tile-head"><svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M9 1.5 3.5 9H8l-1 5.5L12.5 7H8Z"/></svg>能量</span>
+        <span class="tile-value" id="energyReading" role="status">——</span>
+        <span class="tile-sub" id="energyTileSub">点开自评</span>
+      </button>
+      <button type="button" class="overview-tile" id="tileRoutines" data-overview="routines" aria-expanded="false" aria-controls="routinesStrip">
+        <span class="tile-head"><svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 2.5c-7-1-12 3-10 7.5 2 4.5 10 2 10-7.5ZM3 14l7-7"/></svg>日常</span>
+        <span class="tile-value" id="routinesCount">0</span>
+        <span class="tile-sub" id="routinesTileSub">还没有日常</span>
+      </button>
+      <button type="button" class="overview-tile" id="tileInbox" data-overview="inbox" aria-describedby="todayInboxSub">
+        <span class="tile-head"><svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 9l2-6h8l2 6v4H2ZM2 9h4l1 2h2l1-2h4"/></svg>收件箱</span>
+        <span class="tile-value" id="todayInboxCount">0</span>
+        <span class="tile-sub" id="todayInboxSub">已清空</span>
+      </button>
+    </div>
+
+    <!-- 能量这一块只写一个数:曲线上的「现在」就是上面那个读数(ARCHITECTURE「日常与能量」)。曲线关掉时
+         #energyCurve 整块隐藏，自评按钮照旧 —— 「现在感觉」始终是可以说的。
+         归因那一行是曲线的唯一解释出口:为什么此刻是这个数,答案在那一行里。 -->
+    <div class="energy-strip overview-panel" id="energyStrip" role="region" aria-labelledby="tileEnergy" hidden>
+    <div class="energy-body">
+      <div class="energy-curve hidden" id="energyCurve" data-confidence="low">
+        <div class="energy-curve-plot" id="energyCurvePlot" role="img" aria-label="今天的能量曲线"></div>
+        <div class="energy-curve-now hidden" id="energyCurveNow"></div>
+        <div class="energy-curve-axis" id="energyCurveMarks"></div>
+      </div>
+      <p class="energy-attribution hidden" id="energyAttribution"></p>
+      <!-- 每天问一次，答了或跳过就不再问：曲线的起点从你说的起床时间算，不再按上班时间去猜。 -->
+      <div class="energy-wake hidden" id="energyWake" role="group" aria-label="今天几点起的">
+        <span class="energy-wake-label" data-icon="sun">今天几点起的？</span>
+        <button type="button" class="chip energy-wake-btn" data-minutes="360">6点</button>
+        <button type="button" class="chip energy-wake-btn" data-minutes="420">7点</button>
+        <button type="button" class="chip energy-wake-btn" data-minutes="480">8点</button>
+        <button type="button" class="chip energy-wake-btn" data-minutes="540">9点</button>
+        <button type="button" class="chip energy-wake-btn" data-minutes="600">10点</button>
+        <button type="button" class="chip energy-wake-btn" data-minutes="690">11点后</button>
+        <button type="button" class="chip energy-wake-btn energy-wake-skip" data-minutes="skip">跳过</button>
+      </div>
+      <div id="moodDock" class="energy-checkin" role="group" aria-label="现在感觉怎么样，五档自评">
+
+        <button type="button" class="chip energy-checkin-btn" data-level="20" data-icon="face-1" data-icon-only aria-pressed="false" aria-label="很低"><span class="sr-only">很低</span></button>
+        <button type="button" class="chip energy-checkin-btn" data-level="35" data-icon="face-2" data-icon-only aria-pressed="false" aria-label="低"><span class="sr-only">低</span></button>
+        <button type="button" class="chip energy-checkin-btn" data-level="50" data-icon="face-3" data-icon-only aria-pressed="false" aria-label="一般"><span class="sr-only">一般</span></button>
+        <button type="button" class="chip energy-checkin-btn" data-level="65" data-icon="face-4" data-icon-only aria-pressed="false" aria-label="好"><span class="sr-only">好</span></button>
+        <button type="button" class="chip energy-checkin-btn" data-level="80" data-icon="face-5" data-icon-only aria-pressed="false" aria-label="很好"><span class="sr-only">很好</span></button>
+        <span class="energy-checkin-caption sr-only" id="energyCheckinCaption" aria-live="polite"></span>
+      </div>
+    </div>
+    </div>
+
+    <!-- 日常：今天这几件小事回答过了没有。ARCHITECTURE「日常与能量」 要求它独立成
+       features/routines.mjs，不塞进 today.mjs。
+       ARCHITECTURE「日常与能量」:完成一条日常永远不发 XP、不影响连续天数、不喂桌宠 —— 这一节和游戏化层
+       之间没有任何连线,写在这里是为了让下一个人别顺手接上去。
+       ARCHITECTURE「日常与能量」:只在用户自己设的时间提醒,只记录用户说发生过的事;没有剂量字段,也没有
+       「漏了一次,现在补上」这种话。
+       ARCHITECTURE「日常与能量」:每一行都能撤回,删掉一条日常会连带删掉它当天的记录。 -->
+    <section class="routines-strip overview-panel" id="routinesStrip" aria-labelledby="tileRoutines" hidden>
+    <!-- 过了时间窗的那条会静静地变成「没记上」:不标红、不计数、不排成一张欠账
+         清单(ARCHITECTURE「日常与能量」 与 routine-model 里 windowMinutes 的注释是同一条约定)。 -->
+    <div class="routine-rows" id="routineRows"></div>
+    <!-- 随手记:一行 chip,点一下记一笔「刚刚做了」。chip 来自用户自己的日常列表,
+         不是一张内置词表 —— logOccurrence 会拒绝 routine-not-found,点一下凭空造出
+         一条日常就等于替用户记了他没说过的事。 -->
+    <div class="routine-quick hidden" id="routineQuick" role="group" aria-labelledby="routineQuickLabel">
+      <span class="chip-label" id="routineQuickLabel">刚做了</span>
+      <div class="routine-quick-chips" id="routineQuickChips"></div>
+    </div>
+    <p class="capability-note hidden" id="routinesStatus" role="status" aria-live="polite"></p>
+      <div class="overview-panel-foot">
+        <button type="button" class="chip chip-action" id="btnManageRoutines" data-icon="sliders" aria-controls="routinesManageCard" aria-expanded="false">管理日常</button>
+      </div>
+    </section>
+  </section>
+
+  </section>
+
+  <section id="panelTasks" class="tab-content tasks-page" data-tab="tasks" role="tabpanel" aria-labelledby="tabTasks" aria-hidden="true" hidden>
+  <h1 class="sr-only">任务列表</h1>
+  <div class="task-toolbar">
+    <!-- 一份清单 + 视图筛选。筛选只是看法，不写进任务：切换筛选不会改变任何一件
+         任务的属性，也不会把它从一个“分类”搬到另一个。 -->
+    <div class="task-filters" role="group" aria-label="任务筛选">
+      <button type="button" class="chip filter-chip active" data-filter="actionable" data-icon="list-check" title="现在就能开始的" aria-pressed="true">可做 <span class="group-count" id="cntActionable">0</span></button>
+      <button type="button" class="chip filter-chip" data-filter="today" data-icon="sun" title="计划在今天，或今天这一次的重复任务" aria-pressed="false">今天 <span class="group-count" id="cntToday">0</span></button>
+      <button type="button" class="chip filter-chip" data-filter="recurring" data-icon="repeat" title="属于某个重复系列" aria-pressed="false">重复 <span class="group-count" id="cntRecurring">0</span></button>
+      <button type="button" class="chip filter-chip" data-filter="deadline" data-icon="flag" title="带外部截止时间" aria-pressed="false">有截止 <span class="group-count" id="cntDeadline">0</span></button>
+      <button type="button" class="chip filter-chip" data-filter="waiting" data-icon="clock" title="预约未到、已过期或已跳过" aria-pressed="false">等待中 <span class="group-count" id="cntWaiting">0</span></button>
+      <button type="button" class="chip filter-chip" data-filter="done" data-icon="check" title="已完成（只读）" aria-pressed="false">已完成 <span class="group-count" id="cntDone">0</span></button>
+    </div>
+    <button type="button" class="pixel-btn btn-focus btn-create-task" id="btnOpenTaskCreate" aria-haspopup="dialog" aria-controls="taskCreateMask">
+      <svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v10M3 8h10"/></svg><span>新建任务</span>
+    </button>
+  </div>
+    <p class="capability-note hidden" id="taskPanelStatus" role="status" aria-live="polite"></p>
+    <div class="tag-filters hidden" id="tagFilters" role="group" aria-label="标签筛选"></div>
+    <div class="task-list" id="taskList"></div>
+    <div class="empty-state hidden" id="emptyFilter" data-icon="list-check">
+
+      <div class="empty-title">这个筛选下没有任务</div>
+
+    </div>
+    <div class="empty-state hidden" id="emptyTasks" data-icon="list-check">
+
+      <div class="empty-title">没有任务</div>
+
+    </div>
+    <!-- 📦 从此只有一个意思：归档这个地方。任务卡上的归档动作改成溢出菜单里
+         的一行文字，不再用同一个符号既当动词又当名词。 -->
+    <!-- 日常的添加与管理位于独立页签；今天页保留记录入口。
+         要加一条、改提醒、删掉，到并列的日常页。 -->
+
+  </section>
+
+  <section id="panelInbox" class="tab-content inbox-page" data-tab="inbox" role="tabpanel" aria-labelledby="tabInbox" aria-hidden="true" hidden>
+    <div class="inbox-toolbar">
+      <div class="inbox-scopes" role="group" aria-label="收件范围">
+        <button type="button" class="chip active" data-feedback="sorting" data-inbox-scope="pending" aria-pressed="true"><span class="tab-glyph" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M2 3h12M4 7h8M6 11h4"/></svg></span>待整理</button>
+        <button type="button" class="chip" data-feedback="history" data-inbox-scope="history" aria-pressed="false"><span class="tab-glyph" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M14 8A6 6 0 1 1 2 8a6 6 0 0 1 12 0ZM8 4.5V8l2.5 1.5"/></svg></span>历史记录 <span id="inboxHistoryCount" class="group-count">0</span></button>
+      </div>
+      <div class="inbox-tools">
+        <button type="button" class="chip hidden" id="inboxKeepAll">全部留存</button>
+        <select id="inboxCategoryFilter" aria-label="按收件分类筛选"><option value="">全部分类</option></select>
+      </div>
+    </div>
+    <div id="inboxHistoryStatus" class="inbox-recovery capability-note hidden" role="status" aria-live="off">
+      <span id="inboxHistoryLabel"></span><button type="button" id="inboxHistoryRetry" class="chip hidden">重试读取</button>
+    </div>
+    <p id="inboxStatus" class="capability-note hidden" role="status" aria-live="polite"></p>
+    <div id="inboxDeleteStatus" class="inbox-recovery capability-note hidden" role="status" aria-live="off">
+      <span id="inboxDeleteLabel"></span>
+      <button type="button" id="inboxDeleteRetry" class="chip hidden">重试删除</button>
+      <button type="button" id="inboxDeleteDismiss" class="chip hidden">关闭</button>
+    </div>
+    <div class="impulse-list" id="impulseList"></div>
+    <div class="empty-state hidden" id="emptyImpulses" data-icon="inbox"><div class="empty-title" id="inboxEmptyTitle">没有待整理的收件</div><div class="empty-sub" id="inboxEmptyHint">随手记下的内容会留在这里</div></div>
+    <button type="button" class="chip hidden" id="inboxLoadMore">加载更早记录</button>
+  </section>
+  <section id="panelArchive" class="tab-content archive-page" data-tab="archive" role="tabpanel" aria-labelledby="tabArchive" aria-hidden="true" hidden>
+    <h1 class="sr-only">已归档的任务</h1>
+    <div class="archive-list" id="archiveList"></div>
+    <button type="button" class="pixel-btn btn-mini hidden" id="historyLoadMore">加载更早记录</button>
+  </section>
+
+  <section id="panelRoutines" class="tab-content routines-page" data-tab="routines" role="tabpanel" aria-labelledby="tabRoutines" aria-hidden="true" hidden>
+    <section class="routines-manage-card" id="routinesManageCard">
+      <div class="routine-page-heading"><h2 class="routine-page-title">今天的记录</h2><button type="button" class="pixel-btn btn-focus" id="btnNewRoutine" data-icon="plus">新建日常</button></div>
+    <p id="routineManageStatus" class="capability-note hidden" role="status" aria-live="polite"></p>
+    <div class="routines-manage" id="routinesManage">
+      <div class="daily-records"><div class="routine-rows" id="dailyRoutineRows"></div><div class="routine-quick hidden" id="dailyRoutineQuick"><span class="chip-label">刚做了</span><div class="routine-quick-chips" id="dailyRoutineQuickChips"></div></div></div>
+      <details class="routine-add hidden" id="routineAddDetails"><summary data-icon="plus">日常详情</summary><div class="routine-editor">
+        <input type="text" id="routineTitle" class="pixel-input" maxlength="40" autocomplete="off" placeholder="想记住哪件小事？" aria-label="日常名称" aria-describedby="routineFormStatus">
+        <div class="deadline-row">
+          <label class="chip-label" for="routineKind">类型：</label>
+          <select id="routineKind" class="hidden" aria-hidden="true" tabindex="-1"></select><div id="routineKindChoices" class="routine-kind-choices" role="group" aria-label="日常类型"></div><label id="routineCustomRow" class="hidden">类型名称<input id="routineCustomLabel" class="pixel-input" maxlength="40" list="routineCustomLabels" placeholder="例如：家务、宠物照料"><datalist id="routineCustomLabels"></datalist></label>
+        </div>
+        <div class="deadline-row">
+          <label class="chip-label" for="routineFrequency">重复：</label>
+          <select id="routineFrequency" class="hidden" aria-hidden="true" tabindex="-1">
+            <option value="">不提醒（手动记）</option>
+            <option value="daily">每天</option>
+            <option value="weekdays">工作日</option>
+            <option value="weekly">每周</option>
+          </select><div id="routineFrequencyChoices" class="routine-frequency-choices" role="group" aria-label="重复频率"><button type="button" data-frequency="" aria-pressed="true">手动记</button><button type="button" data-frequency="daily" aria-pressed="false">每天</button><button type="button" data-frequency="weekdays" aria-pressed="false">工作日</button><button type="button" data-frequency="weekly" aria-pressed="false">选星期</button></div>
+        </div>
+        <div class="chip-row hidden" id="routineWeekdayRow" role="group" aria-label="每周哪几天">
+          <span class="chip-label">在：</span>
+          <button type="button" class="chip routine-weekday-chip" data-weekday="1" aria-pressed="false">一</button>
+          <button type="button" class="chip routine-weekday-chip" data-weekday="2" aria-pressed="false">二</button>
+          <button type="button" class="chip routine-weekday-chip" data-weekday="3" aria-pressed="false">三</button>
+          <button type="button" class="chip routine-weekday-chip" data-weekday="4" aria-pressed="false">四</button>
+          <button type="button" class="chip routine-weekday-chip" data-weekday="5" aria-pressed="false">五</button>
+          <button type="button" class="chip routine-weekday-chip" data-weekday="6" aria-pressed="false">六</button>
+          <button type="button" class="chip routine-weekday-chip" data-weekday="7" aria-pressed="false">日</button>
+        </div>
+        <div class="deadline-row hidden" id="routineTimeRow">
+          <span class="chip-label">提醒时间</span><input type="hidden" id="routineTimes"><div id="routineTimeChoices" class="routine-time-choices"></div><div id="routineTimePresets" class="routine-time-presets"><button type="button" data-time="08:00">早上 8:00</button><button type="button" data-time="12:00">中午 12:00</button><button type="button" data-time="21:00">晚上 21:00</button><button type="button" id="btnAddRoutineTime" data-icon="plus">选时间</button></div><label class="routine-level-label">提醒方式<select id="routineMaxLevel" class="pixel-input"><option value="1">轻提示</option><option value="2" selected>宠物气泡</option><option value="3">气泡与提醒卡片</option></select></label>
+        </div>
+        <p class="capability-note" id="routineFormStatus" role="status" aria-live="polite"></p>
+        <div class="routine-form-actions"><button type="button" class="pixel-btn" id="btnCancelRoutine">取消</button><button type="button" class="pixel-btn btn-focus" id="btnAddRoutine" data-icon="check">添加日常</button></div>
+      </div>
+      </details>
+      <details class="routine-config"><summary data-icon="bell">提醒设置</summary><div class="routine-reminder-switch"><span>日常提醒</span><button type="button" class="chip" id="btnRoutineReminders" aria-pressed="true">已开启</button></div><div class="routine-manage-list" id="routineManageList"></div></details>
+    </div>
+    </section>
+
+  </section>
+
+  <section id="panelProgress" class="tab-content progress-page" data-tab="progress" role="tabpanel" aria-labelledby="tabProgress" aria-hidden="true" hidden>
+    <div class="stats-with-review"><div class="stats-summary">
+      <div class="stat-card" data-icon="timer"><div class="stat-label">总专注</div><div class="stat-num" id="stTotalFocus">0h</div></div>
+      <div class="stat-card" data-icon="check-circle"><div class="stat-label">任务完成</div><div class="stat-num" id="stTotalTasks">0</div></div>
+      <div class="stat-card" data-icon="sync"><div class="stat-label">回来的次数</div><div class="stat-num" id="stTotalReturns">0</div></div>
+      <div class="stat-card" data-icon="target"><div class="stat-label">专注轮次</div><div class="stat-num" id="stTotalPomo">0</div></div>
+    </div>
+    <button type="button" id="btnReviewInbox" class="review-entry" data-dialog="reviewInbox" aria-haspopup="dialog" aria-controls="reviewInbox"><span data-icon="clipboard" data-icon-only aria-hidden="true"></span><span>待回顾</span><span class="review-count" id="reviewCount">0</span></button></div>
+    <div class="heatmap-title" data-icon="chart">最近 12 周</div>
+    <div class="heatmap" id="heatmap" role="group" aria-label="最近 12 周每日专注时长和任务完成数，点一天查看时间线"></div>
+    <div class="heatmap-legend">
+      <span>专注时长</span>
+      <span>少</span>
+      <span class="hm-cell hm-lv0"></span>
+      <span class="hm-cell hm-lv1"></span>
+      <span class="hm-cell hm-lv2"></span>
+      <span class="hm-cell hm-lv3"></span>
+      <span class="hm-cell hm-lv4"></span>
+      <span>多</span>
+      <span class="hm-legend-completions">当天完成数</span>
+    </div>
+    <div class="heatmap-tip sr-only" id="heatmapTip" aria-live="off"></div>
+    <div class="heatmap-detail hidden" id="heatmapDetail" role="status" aria-live="polite"></div>
+    <div class="progress-section"><h2 class="progress-section-title">这一天</h2><div class="progress-section-body">
+    <!-- 时间线与统计详情独立：统计投影会重写详情，不能让时间线成为它的子节点。 -->
+    <div class="timeline-day hidden" id="timelineDay">
+      <div class="tl-head">
+        <span class="tl-title" id="timelineTitle" data-icon="clock"></span>
+        <span class="tl-totals" id="timelineTotals"></span>
+      </div>
+
+      <div class="tl-viewport" id="timelineViewport" role="group" tabindex="0" aria-label="当天按时间排开的记录，点一条查看详情">
+        <div class="tl-track" id="timelineTrack"></div>
+      </div>
+      <p class="tl-detail hidden" id="timelineDetail" role="status" aria-live="polite"></p>
+      <details class="inline-help timeline-help"><summary aria-label="统计和时间线有什么区别">?</summary><p>曲线为能量估计；点击活动查看详情。</p><p class="tl-guide" id="timelineGuide"></p></details>
+    </div>
+    <div class="tl-detail hidden" id="timelineDeleteStatus" role="status" aria-live="polite">
+      <span id="timelineDeleteLabel"></span>
+      <button type="button" id="timelineDeleteRetry" class="hidden">重试删除</button>
+      <button type="button" id="timelineDeleteDismiss" class="hidden">关闭</button>
+    </div>
+    </div></div>
+  </section>
+
+  <section id="panelCompanion" class="tab-content companion-page" data-tab="companion" role="region" aria-labelledby="companionName" aria-hidden="true" hidden>
+    <!-- 这一屏只回答「我的伙伴现在怎么样」。换形态与换装是偶发动作,进抽屉;
+         页面上因此只剩一只像素兽，形态与配饰按需浏览。 -->
+    <div class="companion-hero" id="companionHero">
+      <div class="companion-ambience" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="monster-stage"><canvas id="monsterCanvas" width="148" height="148" aria-hidden="true"></canvas><div class="monster-shadow" aria-hidden="true"></div></div>
+    </div>
+
+    <div class="companion-identity">
+      <div class="identity-row">
+        <span class="companion-name" id="companionName">粉粉兽</span>
+        <span class="lv-badge" id="lvBadge">LV.1</span>
+        <div class="status-pill" id="statusPill" role="status" aria-live="polite" aria-atomic="true">待机</div>
+      </div>
+      <div class="xp-bar-outer" id="xpProgress" role="progressbar" aria-label="当前等级经验值" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0 / 100 XP"><div class="xp-bar-inner" id="xpBar"></div></div>
+      <span class="xp-text" id="xpText">0 / 100 XP</span>
+      <p id="companionSummaryText">饱食 60 · 今天也在这里</p>
+    </div>
+
+    <div class="companion-section companion-bond">
+      <div class="section-head">
+        <span class="section-title" data-icon="heart">默契</span>
+        <span class="bond-stage" id="bondStage">刚认识</span>
+      </div>
+      <div class="bond-bar-outer" id="bondProgress" role="progressbar" aria-label="伙伴默契进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="刚认识"><div class="bond-bar-inner" id="bondBar"></div></div>
+      <p class="bond-meta" id="bondMeta">默契 0 点</p>
+      <p class="bond-note">进度一直保留，按自己的节奏来。</p>
+    </div>
+
+    <div class="companion-entries">
+      <button type="button" class="companion-entry" id="btnOpenSkins" data-feedback="form" aria-haspopup="dialog"><span class="entry-glyph" data-icon="paw" data-icon-only aria-hidden="true"></span>
+        <span class="entry-title">换形态</span>
+        <span class="entry-meta" id="skinEntryMeta">10 种形态</span>
+      </button>
+      <button type="button" class="companion-entry" id="btnOpenWardrobe" data-feedback="wardrobe" aria-haspopup="dialog"><span class="entry-glyph" data-icon="shirt" data-icon-only aria-hidden="true"></span>
+        <span class="entry-title">换装</span>
+        <span class="entry-meta" id="wardrobeEntryMeta">什么都没戴</span>
+      </button>
+
+
+    <!-- 兑换食物和换形态、换装一样是偶发动作:平时收成一张入口卡,点开才展开货架。
+         用原生 details,不需要脚本,键盘和读屏都自带展开状态。 -->
+    <button type="button" class="companion-entry" id="btnOpenFood" data-dialog="foodShopPanel" data-feedback="food" aria-haspopup="dialog" aria-controls="foodShopPanel"><span class="entry-glyph" data-icon="apple" data-icon-only aria-hidden="true"></span><span class="entry-title">食物图鉴</span><span class="entry-meta" id="foodCollectionMeta"></span><span class="entry-meta" id="foodShopBalance">食物券 0 张</span></button>
+    <button type="button" class="companion-entry" id="btnOpenJourney" data-dialog="journeyPanel" data-feedback="journey" aria-haspopup="dialog" aria-controls="journeyPanel"><span class="entry-glyph" data-icon="flag" data-icon-only aria-hidden="true"></span><span class="entry-title">一起走过</span><span class="entry-meta" id="journeyEntryMeta"></span></button>
+    </div>
+  </section>
+
+
+  <dialog class="panel-dialog" id="reviewInbox" aria-labelledby="reviewInboxTitle"><div class="modal-header"><h2 class="modal-title" id="reviewInboxTitle">待回顾</h2><button type="button" class="modal-close" data-dialog-close aria-label="关闭待回顾">✕</button></div><div class="modal-body"><section class="review-strip hidden" id="reviewStrip" aria-labelledby="reviewStripTitle">
+    <div class="block-head"><span class="block-title" id="reviewStripTitle" data-icon="clipboard">待回顾</span></div>
+    <div id="reviewCards"></div>
+  </section><p id="reviewEmpty">没有待回顾内容</p></div></dialog>
+
+  <dialog class="panel-dialog" id="foodShopPanel" aria-labelledby="foodShopPanelTitle"><div class="modal-header"><h2 class="modal-title" id="foodShopPanelTitle">食物图鉴</h2><button type="button" class="modal-close" data-dialog-close aria-label="关闭食物图鉴">✕</button></div><div class="modal-body"><div class="food-shop-body disclosure-body">
+        <p class="bond-note">升级解锁新口味。兑换后，在桌宠旁喂食。</p><details class="inline-help"><summary aria-label="食物如何获得">?</summary><p>兑换消耗 XP，不会降级。每天完成第一件任务赠送一颗浆果。已有库存一直保留。</p></details>
+        <p class="capability-note" id="foodShopStatus" role="status" aria-live="polite"></p>
+        <div class="food-shop-grid" id="foodShopList"></div>
+      </div></div></dialog>
+
+  <dialog class="panel-dialog" id="journeyPanel" aria-labelledby="journeyPanelTitle"><div class="modal-header"><h2 class="modal-title" id="journeyPanelTitle">一起走过</h2><button type="button" class="modal-close" data-dialog-close aria-label="关闭一起走过">✕</button></div><div class="modal-body"><div id="journeyAlbum" class="journey-album"></div><details class="companion-section collection-disclosure" id="bondMilestones"><summary class="food-shop-summary" data-icon="heart"><span class="entry-title">默契里程碑</span><svg class="ui-icon food-shop-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 4l4 4-4 4"/></svg></summary><div class="disclosure-body"><ul class="milestone-list" id="milestoneList"></ul></div></details></div></dialog>
+  <!-- 随手记：所有页签共用的最后一行。想到什么先收下，分拣留给收件箱。 -->
+  <form class="capture-bar" id="captureBar" autocomplete="off">
+    <label class="capture-label" for="captureInput">随手记</label>
+    <span class="capture-shortcut" data-icon="keyboard" tabindex="0" aria-label="聚焦输入框快捷键：斜杠键" title="按斜杠键聚焦输入框"></span>
+    <input type="text" id="captureInput" maxlength="500" enterkeyhint="send" placeholder="记下一句，稍后整理">
+
+    <button type="submit" class="capture-send" aria-label="收下这一句"><svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5"/></svg></button>
+    <p class="capture-status" id="captureStatus" role="status" aria-live="polite"></p>
+  </form>
+  </div>
+
+  <!-- 换形态:先试穿再确认。点胶片带只换上面那张大图,只有「换成这个形态」才真的
+       调 switchSkin —— 之前是点卡即切,手滑一下整个 App 主题色就变了。 -->
+  <div class="settings-mask hidden" id="skinMask" aria-hidden="true">
+  <section id="skinDrawer" class="settings-drawer companion-drawer" role="dialog" aria-modal="true" aria-labelledby="skinDrawerTitle">
+    <div class="settings-drawer-head"><h2 id="skinDrawerTitle">换形态</h2><button type="button" class="modal-close" id="btnSkinClose" aria-label="关闭换形态">✕</button></div>
+    <div class="skin-species" id="skinSpecies" role="group" aria-label="桌宠种类"></div>
+    <div class="skin-focus" id="skinFocus"></div>
+    <div class="skin-strip" id="skinStrip" role="listbox" aria-label="该桌宠的解锁形象"></div>
+  </section>
+  </div>
+
+  <!-- 换装:左列槽位 / 右列该槽位的选项。七组标签换二十四个按钮里有四组只有一件,
+       主从布局让那四组不再各占一整行。 -->
+  <div class="settings-mask hidden" id="wardrobeMask" aria-hidden="true">
+  <section id="wardrobeDrawer" class="settings-drawer companion-drawer" role="dialog" aria-modal="true" aria-labelledby="wardrobeDrawerTitle">
+    <div class="settings-drawer-head">
+      <h2 id="wardrobeDrawerTitle">换装</h2>
+      <div class="drawer-head-actions">
+        <button type="button" class="wardrobe-reset" id="wardrobeReset">恢复默认</button>
+        <button type="button" class="modal-close" id="btnWardrobeClose" aria-label="关闭换装">✕</button>
+      </div>
+    </div>
+    <div class="wardrobe-stage">
+      <canvas id="wardrobePreview" width="135" height="135" aria-hidden="true"></canvas>
+      <p class="wardrobe-summary" id="wardrobeSummary" role="status" aria-live="polite">现在什么都没戴</p>
+      <div class="wardrobe-looks" id="wardrobeLooks"></div>
+    </div>
+    <div class="wardrobe-master">
+      <div class="wardrobe-slots" id="wardrobeSlots" role="tablist" aria-label="配饰槽位" aria-orientation="vertical"></div>
+      <div class="wardrobe-options" id="wardrobeOptions" role="tabpanel" tabindex="-1"></div>
+    </div>
+  </section>
+  </div>
+
+  <div class="settings-mask hidden" id="settingsMask" aria-hidden="true">
+  <section id="settingsDrawer" class="settings-drawer" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="settings-drawer-head"><h2 id="settingsTitle" data-icon="sliders">设置</h2><button type="button" class="modal-close" id="btnSettingsClose" aria-label="关闭设置">✕</button></div>
+    <div class="settings-drawer-scroll">
+    <p id="settingsSaveStatus" class="settings-save-status" role="status" aria-live="polite">已同步</p>
+    <!-- 设置按功能模块折叠，默认全部收起：一屏就能看完全部分组，要改哪一项
+         就展开那一组。之前六个分组平铺在同一根滚动条上，找一个开关要先滚过
+         十几行不相关的参数。 -->
+    <p id="configStorageStatus" class="setting-help hidden" role="status"></p>
+    <details class="setting-group" id="settingGroupSensory">
+      <summary><span class="setting-group-title" data-icon="sliders">感官负荷</span></summary>
+    <div class="setting-row col">
+      <label>动效强度</label>
+      <div class="segmented" role="group" aria-label="动效强度">
+        <button type="button" class="chip motion-mode" data-value="reduced" aria-pressed="false">减少</button>
+        <button type="button" class="chip motion-mode" data-value="balanced" aria-pressed="true">平衡</button>
+        <button type="button" class="chip motion-mode" data-value="full" aria-pressed="false">完整</button>
+      </div>
+    </div>
+    <div class="setting-row col">
+      <label>视觉刺激</label>
+      <div class="segmented" role="group" aria-label="视觉刺激">
+        <button type="button" class="chip stimulation-mode" data-value="low" aria-pressed="false">低</button>
+        <button type="button" class="chip stimulation-mode" data-value="balanced" aria-pressed="true">平衡</button>
+        <button type="button" class="chip stimulation-mode" data-value="high" aria-pressed="false">高</button>
+      </div>
+    </div>
+    <div class="setting-row col">
+      <label>伙伴主动程度</label>
+      <div class="segmented" role="group" aria-label="伙伴主动程度">
+        <button type="button" class="chip pet-activity-mode" data-value="off" aria-pressed="false">关闭</button>
+        <button type="button" class="chip pet-activity-mode" data-value="quiet" aria-pressed="false">安静</button>
+        <button type="button" class="chip pet-activity-mode" data-value="balanced" aria-pressed="true">平衡</button>
+        <button type="button" class="chip pet-activity-mode" data-value="lively" aria-pressed="false">活泼</button>
+        <button type="button" class="chip pet-activity-mode" data-value="chaos" aria-pressed="false">Chaos</button>
+      </div>
+    </div>
+    <div class="setting-row">
+      <label id="soundEnabledLabel">提醒声音</label>
+      <div class="toggle-group" role="group" aria-labelledby="soundEnabledLabel">
+        <button type="button" class="toggle-btn" data-toggle="soundEnabled" aria-label="提醒声音" aria-pressed="true">开</button>
+      </div>
+    </div>
+    </details>
+
+    <!-- 活动镜像：默认关闭；只在本机看最前面的应用和正在出声的播放器，伙伴换成对应姿势
+         (ARCHITECTURE「活动镜像」)。命令由主进程生成，这里只按工具 id 请求复制。 -->
+    <details class="setting-group" id="settingGroupActivityMirror">
+      <summary><span class="setting-group-title" data-icon="paw">伙伴跟着你</span></summary>
+    <div class="setting-row">
+      <div class="setting-label-with-help"><label id="activityMirrorLabel">跟着当前活动</label><details class="inline-help"><summary aria-label="了解跟着当前活动">?</summary><p>在本机查看最前面的应用和正在出声的音乐播放器，伙伴换成听音乐、写代码或和 AI 对话的姿势。不读取窗口标题、歌名或对话内容，不保存，也不发送。</p></details></div>
+      <div class="toggle-group" role="group" aria-labelledby="activityMirrorLabel"><button type="button" class="toggle-btn" id="activityMirrorToggle" aria-label="跟着当前活动" aria-pressed="false">关</button></div>
+    </div>
+    <p class="capability-note" id="activityMirrorStatus" role="status" aria-live="polite"></p>
+    <div class="activity-hooks" id="activityHooks" hidden>
+      <h3 class="settings-subtitle">接入 AI 工具</h3>
+      <p class="setting-note">在你用的 AI 工具里装上随附的 imadhder-companion 插件，提问和回答时伙伴会立刻切到“和 AI 对话”。插件只通知“提问了 / 回答完了”，不带提问、回答或文件内容；收到过信号的工具会在这里显示。</p>
+      <div class="activity-hook-list" id="activityHookList"></div>
+    </div>
+    </details>
+
+    <details class="setting-group" id="settingGroupWorkHours">
+      <summary><span class="setting-group-title" data-icon="clock">时间与节奏</span></summary><h3 class="settings-subtitle">一天的作息</h3>
+    <div class="setting-row">
+      <label id="workStartLabel">上班时间</label>
+      <div class="stepper" role="group" aria-labelledby="workStartLabel">
+        <button type="button" class="pixel-btn btn-mini" data-setting="workStart" data-delta="-1" aria-label="上班时间减少 1 小时" aria-describedby="setWorkStart">−</button>
+        <span id="setWorkStart" aria-live="polite" aria-atomic="true">10</span>
+        <button type="button" class="pixel-btn btn-mini" data-setting="workStart" data-delta="1" aria-label="上班时间增加 1 小时" aria-describedby="setWorkStart">+</button>
+        <span class="unit">点</span>
+      </div>
+    </div>
+    <div class="setting-row">
+      <label id="workEndLabel">下班时间</label>
+      <div class="stepper" role="group" aria-labelledby="workEndLabel">
+        <button type="button" class="pixel-btn btn-mini" data-setting="workEnd" data-delta="-1" aria-label="下班时间减少 1 小时" aria-describedby="setWorkEnd">−</button>
+        <span id="setWorkEnd" aria-live="polite" aria-atomic="true">21</span>
+        <button type="button" class="pixel-btn btn-mini" data-setting="workEnd" data-delta="1" aria-label="下班时间增加 1 小时" aria-describedby="setWorkEnd">+</button>
+        <span class="unit">点</span>
+      </div>
+    </div>
+    <div class="setting-row">
+      <label id="workEndReminderLabel">到点收工提醒</label>
+      <div class="toggle-group" role="group" aria-labelledby="workEndReminderLabel">
+        <button type="button" class="toggle-btn" data-toggle="workEndReminder" aria-label="到点收工提醒" aria-pressed="true">开</button>
+      </div>
+    </div>
+    <div class="setting-row col">
+      <label>临时任务默认时效</label>
+      <div class="chip-row" style="gap:4px;" role="group" aria-label="临时任务默认时效">
+        <button type="button" class="chip ttl-set-chip" data-ttl-set="midnight" aria-pressed="true">当天 24 点</button>
+        <button type="button" class="chip ttl-set-chip" data-ttl-set="6" aria-pressed="false">6 小时</button>
+        <button type="button" class="chip ttl-set-chip" data-ttl-set="12" aria-pressed="false">12 小时</button>
+        <button type="button" class="chip ttl-set-chip" data-ttl-set="24" aria-pressed="false">24 小时</button>
+        <button type="button" class="chip ttl-set-chip" data-ttl-set="48" aria-pressed="false">48 小时</button>
+        <button type="button" class="chip ttl-set-chip" data-ttl-set="72" aria-pressed="false">72 小时</button>
+      </div>
+    </div>
+    <details class="setting-tip ai-advanced"><summary>工作时间用在哪 <span aria-hidden="true">ⓘ</span></summary><div class="tip-body">
+        能量曲线、宠物台词、喝水/站立提醒都按这个区间走；<br>
+        非工作时间不会唠叨，下班点会提醒收工。
+      </div></details>
+
+    <h3 class="settings-subtitle" id="settingGroupTiming">专注与休息</h3>
+    <div class="setting-row">
+      <label id="pomodoroLabel">专注时长</label>
+      <div class="stepper" role="group" aria-labelledby="pomodoroLabel">
+        <button type="button" class="pixel-btn btn-mini" data-setting="pomodoro" data-delta="-5" aria-label="专注时长减少 5 分钟" aria-describedby="setPomodoro">−</button>
+        <span id="setPomodoro" aria-live="polite" aria-atomic="true">25</span>
+        <button type="button" class="pixel-btn btn-mini" data-setting="pomodoro" data-delta="5" aria-label="专注时长增加 5 分钟" aria-describedby="setPomodoro">+</button>
+        <span class="unit">分钟</span>
+      </div>
+    </div>
+    <div class="setting-row">
+      <label id="breakLabel">休息时长</label>
+      <div class="stepper" role="group" aria-labelledby="breakLabel">
+        <button type="button" class="pixel-btn btn-mini" data-setting="break" data-delta="-1" aria-label="休息时长减少 1 分钟" aria-describedby="setBreak">−</button>
+        <span id="setBreak" aria-live="polite" aria-atomic="true">5</span>
+        <button type="button" class="pixel-btn btn-mini" data-setting="break" data-delta="1" aria-label="休息时长增加 1 分钟" aria-describedby="setBreak">+</button>
+        <span class="unit">分钟</span>
+      </div>
+    </div>
+    <div class="setting-row">
+      <label id="softReminderLabel">专注途中软提醒</label>
+      <div class="stepper" role="group" aria-labelledby="softReminderLabel">
+        <button type="button" class="pixel-btn btn-mini" data-setting="softReminder" data-delta="-5" aria-label="专注途中软提醒间隔减少 5 分钟" aria-describedby="setSoft">−</button>
+        <span id="setSoft" aria-live="polite" aria-atomic="true">15</span>
+        <button type="button" class="pixel-btn btn-mini" data-setting="softReminder" data-delta="5" aria-label="专注途中软提醒间隔增加 5 分钟" aria-describedby="setSoft">+</button>
+        <span class="unit">分钟</span>
+      </div>
+    </div>
+    <div class="setting-row">
+      <label id="hydrationLabel">空闲喝水/站立提醒</label>
+      <div class="stepper" role="group" aria-labelledby="hydrationLabel">
+        <button type="button" class="pixel-btn btn-mini" data-setting="hydration" data-delta="-15" aria-label="空闲喝水和站立提醒间隔减少 15 分钟" aria-describedby="setHydration">−</button>
+        <span id="setHydration" aria-live="polite" aria-atomic="true">45</span>
+        <button type="button" class="pixel-btn btn-mini" data-setting="hydration" data-delta="15" aria-label="空闲喝水和站立提醒间隔增加 15 分钟" aria-describedby="setHydration">+</button>
+        <span class="unit">分钟</span>
+      </div>
+    </div>
+
+    </details>
+
+    <details class="setting-group" id="settingGroupNudges">
+      <summary><span class="setting-group-title" data-icon="bell">提醒与免打扰</span></summary>
+    <div class="setting-row">
+      <label id="dndLabel">免打扰模式</label>
+      <div class="toggle-group" role="group" aria-labelledby="dndLabel">
+        <button type="button" class="toggle-btn" data-toggle="dnd" aria-label="免打扰模式" aria-pressed="false">关</button>
+      </div>
+    </div>
+    <div class="setting-row">
+      <label>提醒角色</label>
+      <div class="chip-row" style="gap:4px;" role="group" aria-label="提醒角色">
+        <button type="button" class="chip char-chip" data-char="spider" aria-pressed="true">Peter</button>
+        <button type="button" class="chip char-chip" data-char="cat" aria-pressed="false">Mochi</button>
+        <button type="button" class="chip char-chip" data-char="robot" aria-pressed="false">BEEP</button>
+      </div>
+    </div>
+    <div class="setting-row">
+      <label id="focusMaxLevelLabel">专注中最高提醒</label>
+      <div class="stepper" role="group" aria-labelledby="focusMaxLevelLabel">
+        <button type="button" class="pixel-btn btn-mini" data-setting="focusMaxLevel" data-delta="-1" aria-label="专注中最高提醒降低 1 级" aria-describedby="setFocusLvl">−</button>
+        <span id="setFocusLvl" aria-live="polite" aria-atomic="true">2</span>
+        <button type="button" class="pixel-btn btn-mini" data-setting="focusMaxLevel" data-delta="1" aria-label="专注中最高提醒提高 1 级" aria-describedby="setFocusLvl">+</button>
+        <span class="unit">/ 4 级</span>
+      </div>
+    </div>
+    <div class="setting-row">
+      <label id="restMaxLevelLabel">休息期最高提醒</label>
+      <div class="stepper" role="group" aria-labelledby="restMaxLevelLabel">
+        <button type="button" class="pixel-btn btn-mini" data-setting="restMaxLevel" data-delta="-1" aria-label="休息期最高提醒降低 1 级" aria-describedby="setRestLvl">−</button>
+        <span id="setRestLvl" aria-live="polite" aria-atomic="true">4</span>
+        <button type="button" class="pixel-btn btn-mini" data-setting="restMaxLevel" data-delta="1" aria-label="休息期最高提醒提高 1 级" aria-describedby="setRestLvl">+</button>
+        <span class="unit">/ 4 级</span>
+      </div>
+    </div>
+    <div class="setting-row">
+      <label id="testRestNudgeLabel">测试休息提醒</label>
+      <div class="toggle-group nudge-test-row" role="group" aria-labelledby="testRestNudgeLabel">
+        <button type="button" class="pixel-btn btn-mini" data-test-nudge="rest" data-level="1" aria-label="测试休息提醒 L1">L1</button>
+        <button type="button" class="pixel-btn btn-mini" data-test-nudge="rest" data-level="2" aria-label="测试休息提醒 L2">L2</button>
+        <button type="button" class="pixel-btn btn-mini" data-test-nudge="rest" data-level="3" aria-label="测试休息提醒 L3">L3</button>
+        <button type="button" class="pixel-btn btn-mini" data-test-nudge="rest" data-level="4" aria-label="测试休息提醒 L4">L4</button>
+      </div>
+    </div>
+    <div class="setting-row">
+      <label id="testFocusNudgeLabel">测试专注提醒</label>
+      <div class="toggle-group nudge-test-row" role="group" aria-labelledby="testFocusNudgeLabel">
+        <button type="button" class="pixel-btn btn-mini" data-test-nudge="focus" data-level="1" aria-label="测试专注提醒 L1">L1</button>
+        <button type="button" class="pixel-btn btn-mini" data-test-nudge="focus" data-level="2" aria-label="测试专注提醒 L2">L2</button>
+        <button type="button" class="pixel-btn btn-mini" data-test-nudge="focus" data-level="3" aria-label="测试专注提醒 L3">L3</button>
+        <button type="button" class="pixel-btn btn-mini" data-test-nudge="focus" data-level="4" aria-label="测试专注提醒 L4">L4</button>
+      </div>
+    </div>
+
+    <details class="setting-tip ai-advanced"><summary>提醒等级说明 <span aria-hidden="true">ⓘ</span></summary><div class="tip-body">
+        <b>L1</b> 日常由桌宠提示；计时到点等使用系统通知<br>
+        <b>L2</b> 屏幕右下角像素角色浮现（60 秒后）<br>
+        <b>L3</b> 四角角色向中心聚集（再过 90 秒）<br>
+        <b>L4</b> 半屏遮罩强提醒（再过 60 秒）<br>
+        点角色可关闭；L2/L3 可按 ⌥⇧N 进入键盘操作，再用 Tab 选择、Esc 关闭。低刺激模式不会做四角聚拢，免打扰模式完全静默。
+      </div></details>
+
+    </details>
+
+    <!-- 快捷键这一组写的是「实际按下去有用的那个组合」,不是你填过的那个。绑定是一
+         道阶梯:配置的组合被别的程序占着时会自动退到内置候选,所以界面上永远有两
+         行 —— 录制键显示你的配置值,下面那句说现在真正生效的是哪一个。两者不一致
+         时也不改配置:占用的程序关掉以后,你本来想要的组合会自己回来。 -->
+  <details class="setting-group" id="settingGroupAssist">
+      <summary><span class="setting-group-title" data-icon="accessibility">辅助能力</span></summary>
+    <div class="setting-row">
+      <label id="strategyGuidanceLabel">本地策略建议</label>
+      <div class="toggle-group" role="group" aria-labelledby="strategyGuidanceLabel">
+        <button type="button" class="toggle-btn" data-toggle="strategyGuidanceEnabled" aria-label="本地策略建议" aria-pressed="true">开</button>
+      </div>
+    </div>
+    <div class="setting-row">
+      <label id="dailyReviewLabel">收尾与启动回顾</label>
+      <div class="toggle-group" role="group" aria-labelledby="dailyReviewLabel">
+        <button type="button" class="toggle-btn" data-toggle="dailyReviewEnabled" aria-label="收尾与启动回顾" aria-pressed="true">开</button>
+      </div>
+    </div>
+    <section class="settings-subsection" id="settingGroupShortcuts">
+      <h3 class="settings-subtitle" data-icon="keyboard">快捷键</h3>
+    <div class="setting-row">
+      <label id="quickPanelEnabledLabel">闪念快捷键</label>
+      <div class="toggle-group" role="group" aria-labelledby="quickPanelEnabledLabel">
+        <button type="button" class="toggle-btn" data-toggle="quickPanelEnabled" aria-label="闪念快捷键" aria-pressed="true">开</button>
+      </div>
+    </div>
+    <div class="setting-row col">
+      <!-- label 用 aria-labelledby 而不是 for:for 指向 button 不成立。把标签和按钮自己
+           串起来念成「组合键 ⌥⇧Space」,如果改用 aria-label,可见的那个组合反而会被读屏
+           忽略 —— 而那串字正是这个控件当前的值。 -->
+      <label id="quickPanelRecorderLabel">组合键</label>
+      <button type="button" class="pixel-input shortcut-recorder" id="quickPanelRecorder" aria-labelledby="quickPanelRecorderLabel quickPanelRecorder" aria-describedby="quickPanelEffective" aria-pressed="false">⌥⇧Space</button>
+      <p class="capability-note" id="quickPanelEffective" aria-live="polite">正在读取生效的组合…</p>
+    </div>
+    </section>
+
+
+    </details>
+
+    <!-- 能量曲线（ARCHITECTURE「日常与能量」）。开关不是可选项：一条量化自己状态的曲线会让一部分人
+         更焦虑，关掉之后今天页和 timeline 两处都不画。重置校准放在同一组里，因为
+         「别画了」和「画的不像我」是同一件事的两种答案。 -->
+    <details class="setting-group" id="settingGroupEnergy">
+      <summary><span class="setting-group-title" data-icon="bolt">能量曲线</span></summary>
+    <div class="setting-row">
+      <label id="energyCurveLabel">显示能量曲线</label>
+      <div class="toggle-group" role="group" aria-labelledby="energyCurveLabel">
+        <button type="button" class="toggle-btn" data-toggle="energyCurveEnabled" aria-label="显示能量曲线" aria-pressed="true">开</button>
+      </div>
+    </div>
+    <div class="setting-row">
+      <label for="btnResetEnergyCalibration">校准</label>
+      <button type="button" class="chip chip-action" id="btnResetEnergyCalibration" aria-describedby="energyCalibrationStatus">重置校准</button>
+    </div>
+    <p class="capability-note" id="energyCalibrationStatus"></p>
+    <p class="capability-note" id="energyCalibrationFeedback" role="status" aria-live="polite"></p>
+    </details>
+
+    <details class="setting-group planning-controls" id="settingGroupPlanning">
+      <summary><span class="setting-group-title" data-icon="calendar">安排偏好与曲线试用</span></summary>
+      <p class="capability-note">每项修改单独预览、确认。</p>
+      <p class="capability-note" id="planningStatus" role="status" aria-live="polite"></p>
+      <button type="button" class="chip chip-action" id="planningRefresh">重新读取</button>
+      <section class="settings-subsection" aria-labelledby="planningPreferenceTitle">
+        <h3 class="settings-subtitle" id="planningPreferenceTitle">安排偏好</h3>
+        <p class="capability-note hidden" id="planningProposalContext">来自对话的安排建议，确认后保存。</p>
+        <form id="planningPreferenceForm" class="planning-form" autocomplete="off">
+          <label for="planningPreferenceTarget">偏好</label><select id="planningPreferenceTarget"><option value="">新增偏好</option></select>
+          <div class="planning-time-band"><label for="planningStart">开始时间<input type="time" id="planningStart" value="13:00" required></label><label for="planningEnd">结束时间<input type="text" inputmode="numeric" pattern="(?:[01][0-9]|2[0-3]):[0-5][0-9]|24:00" maxlength="5" placeholder="HH:MM" id="planningEnd" value="17:00" required></label></div>
+          <label for="planningDemand">这个时段更想安排</label><select id="planningDemand"><option value="low">轻一些的事</option><option value="medium">一般难度的事</option><option value="high">需要更多投入的事</option></select>
+          <label for="planningScope">有效期</label><select id="planningScope"><option value="today">今天</option><option value="7days">七天</option><option value="saved">保存为偏好</option></select>
+          <button type="submit" class="chip chip-action" id="planningPreferencePreview">查看变更</button>
+        </form>
+        <p class="capability-note" id="planningPreferenceSummary"></p>
+        <button type="button" class="chip chip-action" id="planningPreferenceUndo" disabled>撤销上次偏好变更</button>
+      </section>
+      <section class="settings-subsection" aria-labelledby="planningHistoryTitle">
+        <h3 class="settings-subtitle" id="planningHistoryTitle">本机自评记录</h3>
+        <p class="capability-note">默认关闭。开启后在本机保存新的自评和当时的估计；关闭不会清除已有记录。</p>
+        <form id="planningHistoryForm" class="planning-form">
+          <label class="planning-check"><input type="checkbox" id="planningHistoryEnabled">保留新的自评记录，仅保存在本机</label>
+          <label class="planning-check"><input type="checkbox" id="planningHistoryClear">清除已有的自评历史</label>
+          <button type="submit" class="chip chip-action" id="planningHistoryPreview">查看记录范围</button>
+        </form>
+        <p class="capability-note" id="planningCoverage"></p>
+      </section>
+      <section class="settings-subsection" aria-labelledby="planningTrialTitle">
+        <h3 class="settings-subtitle" id="planningTrialTitle">曲线试用</h3>
+        <p class="capability-note">曲线是非医学日常估计，试用效果尚待观察。</p>
+        <details class="ai-advanced"><summary>试用条件与范围</summary><p class="capability-note">至少 10 条自评、覆盖 7 个日期且跨度满 7 天。每次只调整一个参数，幅度不超过可编辑范围的 2%；可在保存前比较曲线。</p></details>
+        <p class="capability-note" id="planningTrialStatus"></p>
+        <form id="planningTrialForm" class="planning-form">
+          <label for="planningTrialParameter">参数</label><select id="planningTrialParameter"><option value="chronotypeShift">曲线时段偏移</option><option value="morningRampMinutes">上午上升时长</option></select>
+          <label for="planningTrialValue">试用值（分钟）</label><input type="number" id="planningTrialValue" step="1" inputmode="numeric">
+          <p class="capability-note" id="planningTrialBounds"></p>
+          <label for="planningTrialScope">试用期限</label><select id="planningTrialScope"><option value="today">今天</option><option value="7days">七天</option></select>
+          <button type="submit" class="chip chip-action" id="planningTrialPreview" disabled>比较当前与建议曲线</button>
+        </form>
+        <button type="button" class="chip chip-action" id="planningTrialUndo" disabled>结束试用并恢复</button>
+      </section>
+      <section id="planningReview" class="planning-review hidden" aria-labelledby="planningReviewTitle">
+        <h3 id="planningReviewTitle">变更预览</h3>
+        <p id="planningReviewText"></p><p class="capability-note" id="planningReviewExpiry"></p>
+        <div id="planningCurveComparison" class="planning-curve-comparison hidden"></div>
+        <div class="planning-review-actions"><button type="button" class="chip chip-action" id="planningConfirm" disabled>确认保存</button><button type="button" class="chip" id="planningCancel">取消</button></div>
+      </section>
+    </details>
+
+    <!-- AI 总开关控制出网；闪念能量判断另有默认关闭的细分授权。 -->
+    <details class="setting-group" id="appUpdateGroup">
+      <summary><span class="setting-group-title">应用更新</span></summary>
+      <p id="appUpdateVersion" class="capability-note"></p>
+      <p id="appUpdateStatus" role="status" class="capability-note"></p>
+      <div class="setting-row"><label for="appUpdateAuto">自动检查更新</label><input type="checkbox" id="appUpdateAuto" style="accent-color:var(--primary);width:16px;height:16px"></div>
+      <div class="ai-save-row">
+        <button type="button" class="pixel-btn" id="appUpdateCheck">检查更新</button>
+        <button type="button" class="pixel-btn" id="appUpdateDownload" hidden>下载</button>
+        <button type="button" class="pixel-btn" id="appUpdateCancel" hidden>取消下载</button>
+        <button type="button" class="pixel-btn" id="appUpdateInstall" hidden>重启更新</button>
+      </div>
+      <div id="appUpdateConfirm" hidden>
+        <p>重启前，请先保存尚未提交的输入。现在重启？</p>
+        <button type="button" class="pixel-btn" id="appUpdateConfirmNo">暂不重启</button>
+        <button type="button" class="pixel-btn" id="appUpdateConfirmYes">重启安装</button>
+      </div>
+    </details>
+    <details class="setting-group" id="settingGroupAi">
+      <summary><span class="setting-group-title" data-icon="sparkle">AI 助手</span></summary>
+    <p class="ai-mode-badge" id="aiActiveMode" role="status" aria-live="polite"></p>
+    <div class="setting-row">
+      <label id="aiBreakdownLabel">启用 AI</label>
+      <div class="toggle-group" role="group" aria-labelledby="aiBreakdownLabel">
+        <button type="button" class="toggle-btn" data-toggle="aiBreakdownEnabled" aria-label="启用 AI" aria-pressed="false">关</button>
+      </div>
+    </div>
+<div class="ai-section-label">连接模型</div>
+    <div class="ai-connection-fields">
+      <div class="setting-row col"><label for="aiModelInput">模型名称</label><input type="text" id="aiModelInput" class="pixel-input" maxlength="80" autocomplete="off" spellcheck="false" placeholder="输入服务商的模型名称"></div>
+      <div class="setting-row col"><div class="setting-label-with-help"><label for="aiBaseUrlInput">服务地址</label><details class="inline-help"><summary aria-label="了解服务地址">?</summary><p>使用 OpenAI 兼容接口。填 HTTPS 地址，留空使用官方默认地址。</p></details></div><input type="url" id="aiBaseUrlInput" class="pixel-input" maxlength="200" autocomplete="off" spellcheck="false" placeholder="https://api.openai.com/v1"><span id="aiBaseUrlHint" class="sr-only">OpenAI 兼容 HTTPS 接口</span></div>
+      <div class="setting-row col"><label for="aiApiKeyInput">API 密钥 <span id="aiCredentialState"></span></label><input type="password" id="aiApiKeyInput" class="pixel-input" maxlength="4096" autocomplete="off" spellcheck="false" placeholder="留空保留已保存密钥"><span id="aiApiKeyHint" class="sr-only">密钥保存在系统安全存储，保存后不回显。</span></div>
+      <div class="ai-save-row"><button type="button" class="pixel-btn btn-focus" id="aiSaveConfig">保存配置</button><span id="aiConfigStatus" role="status" aria-live="polite">已保存</span></div>
+      <p class="capability-note" id="aiKeyFeedback" role="status" aria-live="polite"></p>
+      <details class="ai-advanced"><summary>密钥管理</summary><div class="chip-row"><button type="button" class="chip" id="aiImportCredential">从环境变量导入</button><button type="button" class="chip" id="aiClearCredential">清除密钥</button></div></details>
+    </div>
+    <div class="ai-section-label">使用范围</div>
+    <div class="setting-row"><div class="setting-label-with-help"><label id="aiClarifyLabel">聊两句</label><details class="inline-help"><summary aria-label="了解聊两句">?</summary><p>新建任务时，通过问答理清下一步；只发送你在对话里输入的内容。</p></details></div><div class="toggle-group" role="group" aria-labelledby="aiClarifyLabel"><button type="button" class="toggle-btn" data-toggle="aiClarifyEnabled" aria-label="聊两句" aria-pressed="false">关</button></div></div>
+    <div class="setting-row"><div class="setting-label-with-help"><label id="aiImpulseEnergyLabel">闪念校准能量</label><details class="inline-help"><summary aria-label="了解闪念校准能量">?</summary><p>发送刚保存的闪念，仅明确的当前状态用于短期校准。</p></details></div><div class="toggle-group" role="group" aria-labelledby="aiImpulseEnergyLabel"><button type="button" class="toggle-btn" data-toggle="aiImpulseEnergyEnabled" aria-label="闪念校准能量" aria-pressed="false">关</button></div></div>
+    <div class="setting-row"><div class="setting-label-with-help"><label id="aiCaptureTriageLabel">整理随手记</label><details class="inline-help"><summary aria-label="了解整理随手记">?</summary><p>发送刚保存的一句，建议转任务、日常或状态，确认后才应用。</p></details></div><div class="toggle-group" role="group" aria-labelledby="aiCaptureTriageLabel"><button type="button" class="toggle-btn" data-toggle="aiCaptureTriageEnabled" aria-label="整理随手记" aria-pressed="false">关</button></div></div>
+    <div class="setting-row"><div class="setting-label-with-help"><label id="aiPetMealsLabel">伙伴 AI 用餐建议</label><details class="inline-help"><summary aria-label="了解伙伴 AI 用餐建议">?</summary><p>默认关闭。伙伴会按本地规则自动用餐；开启本项和 AI 总开关并配置模型、密钥后，可将角色、饱食、餐次、可用食物和喜好发送给所选 Provider。每天最多 3 次，每次最多等待 5 秒；失败按本地规则用餐。不发送任务、情绪、用药、随手记、桌面或聊天内容。</p></details></div><div class="toggle-group" role="group" aria-labelledby="aiPetMealsLabel"><button type="button" class="toggle-btn" data-toggle="aiPetMealsEnabled" aria-label="伙伴 AI 用餐建议" aria-pressed="false">关</button></div></div>
+    <details class="ai-advanced"><summary>数据与隐私</summary><p class="capability-note" id="aiPrivacyStatus"></p></details>
+    <!-- 长期记忆：这一段是「模型知道我什么」的唯一出口。开关默认关着，列表通常是
+         空的 —— 但空不等于不画这一段：只在有数据时才出现的管理入口，等于让用户
+         在被记住东西之前无法确认这件事的存在（ARCHITECTURE「事实流与长期记忆」 末条、ARCHITECTURE「日常与能量」 的披露义务）。 -->
+    <div class="setting-row">
+      <label id="aiMemoryLabel">带上长期记忆</label>
+      <div class="toggle-group" role="group" aria-labelledby="aiMemoryLabel">
+        <button type="button" class="toggle-btn" data-toggle="aiMemoryEnabled" aria-label="带上长期记忆" aria-pressed="false">关</button>
+      </div>
+    </div>
+    <section class="memory-section" id="memorySection" aria-labelledby="memoryTitle">
+      <div class="memory-head"><h3 class="memory-title" id="memoryTitle">AI 记得什么</h3><span class="memory-count" id="memoryCount"></span>
+        <button type="button" class="chip chip-action" id="btnRefreshMemories">刷新</button></div>
+      <p class="memory-note">候选内容不会自动成为记忆。带上长期记忆的开关仍单独控制发送。</p>
+      <div class="memory-tabs" id="memoryTabs" role="tablist" aria-label="记忆状态">
+        <button type="button" id="memoryTabActive" role="tab" data-memory-status="active" aria-selected="true" aria-controls="memoryList">有效</button>
+        <button type="button" id="memoryTabCandidate" role="tab" data-memory-status="candidate" aria-selected="false" aria-controls="memoryList" tabindex="-1">待确认</button>
+        <button type="button" id="memoryTabPaused" role="tab" data-memory-status="paused" aria-selected="false" aria-controls="memoryList" tabindex="-1">暂停使用</button>
+        <button type="button" id="memoryTabRemoved" role="tab" data-memory-status="removed" aria-selected="false" aria-controls="memoryList" tabindex="-1">已移除</button>
+      </div>
+      <div class="memory-list" id="memoryList" role="tabpanel" aria-labelledby="memoryTabActive"></div>
+      <button type="button" class="chip chip-action hidden" id="btnMoreMemories">更多记忆</button>
+      <button type="button" class="chip chip-action" id="btnNewMemory">记一件事</button>
+      <form class="memory-draft memory-versioned-draft hidden" id="memoryDraft" autocomplete="off" aria-labelledby="memoryDraftTitle">
+        <h4 id="memoryDraftTitle">记一件事</h4><p id="memoryDraftTarget" class="memory-meta"></p>
+        <label for="memoryDraftKind">类别</label><select id="memoryDraftKind"><option value="preference">偏好</option><option value="rhythm">节律</option><option value="context">背景</option><option value="friction">卡点</option><option value="pattern">完成模式</option></select>
+        <label for="memoryDraftSubject">关于什么</label><input id="memoryDraftSubject" type="text" maxlength="200">
+        <label for="memoryDraftBody">内容</label><textarea id="memoryDraftBody" rows="3" maxlength="500"></textarea>
+        <label for="memoryDraftScope">适用范围</label><select id="memoryDraftScope"><option value="global">通用</option><option value="work">工作</option><option value="personal">个人</option></select>
+        <label for="memoryDraftExpiry">有效至（留空表示不设到期）</label><input id="memoryDraftExpiry" type="datetime-local">
+        <label for="memoryDraftPrivacy">隐私范围</label><select id="memoryDraftPrivacy"><option value="standard">普通，可在授权后参考</option><option value="sensitive">敏感，仅在本机保留</option></select>
+        <div class="memory-actions"><button type="submit" class="chip chip-action" id="btnRememberMemory">查看保存差异</button><button type="button" class="chip chip-action" id="btnCancelMemoryDraft">取消编辑</button></div>
+      </form>
+      <div id="memoryDuplicates" class="memory-note hidden" aria-label="已有记忆替换选择"></div>
+      <section class="memory-review hidden" id="memoryReview" aria-labelledby="memoryReviewTitle">
+        <h4 id="memoryReviewTitle">记忆变更核对</h4><div id="memoryReviewContent"></div>
+        <div class="memory-permanent hidden" id="memoryPermanentNotice">
+          <p>永久移除无法从应用内撤销。下列记忆、旧版本与相关派生内容会一并处理；相关来源不能再用于模型上下文。</p>
+          <p>来源对话仍可能按原设置保留在本机。此操作不能删除已发送给外部模型服务商的副本。</p>
+          <label class="memory-check"><input type="checkbox" id="memoryPermanentAcknowledge">已核对影响范围和无法撤销的限制</label>
+        </div>
+        <div class="memory-actions"><button type="button" class="chip chip-action" id="btnConfirmMemoryChange">确认保存</button>
+          <button type="button" class="chip chip-action" id="btnCancelMemoryChange">保留原状</button></div>
+      </section>
+      <section class="memory-receipt hidden" id="memoryReceipt" aria-label="记忆提交回执"><p id="memoryReceiptText"></p>
+        <button type="button" class="chip chip-action hidden" id="btnUndoMemoryChange">查看撤销差异</button>
+        <button type="button" class="chip chip-action hidden" id="btnRefreshMemoryReceipt">刷新回执</button></section>
+      <button type="button" class="chip chip-action hidden" id="btnRetryMemoryChange">核对这次确认的结果</button>
+      <p class="capability-note" id="memoryStatus" role="status" aria-live="polite"></p>
+    </section>
+    </details>
+
+    <div class="version">I’m ADHDer v0.4.0-dev</div>
+    </div>
+  </section>
+  </div>
+
+  <!-- Breakdown modal：只服务已经存在的任务。步骤属于一件已经写下来的事，所以
+       这个对话框不再兼职创建任务，产物只经既有任务编辑事务加步骤。 -->
+  <div class="modal-mask hidden" id="breakdownMask" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="breakdownTitle" aria-describedby="breakdownDescription">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title" id="breakdownTitle">拆成几步</span>
+        <button type="button" class="modal-close" id="bdClose" aria-label="关闭拆解任务对话框">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="bd-original" id="bdOriginal">大任务标题</div>
+        <div class="bd-hint" id="breakdownDescription">确认后添加到现有步骤。</div>
+        <p class="capability-note hidden" id="breakdownProvider"></p>
+        <p class="capability-note hidden" id="breakdownQuestion"></p>
+        <div class="bd-steps" id="bdSteps"></div>
+        <button type="button" class="pixel-btn btn-mini bd-add" id="bdAddStep">+ 加一步</button>
+        <!-- 重复任务必须说清改的是哪一层：猜一个会默默重写用户的未来。 -->
+        <div class="chip-row hidden" id="bdScopeRow" role="group" aria-label="拆解修改范围">
+          <span class="chip-label">这次修改：</span>
+          <button type="button" class="chip bd-scope-chip" data-bd-scope="current" aria-pressed="false">仅本次</button>
+          <button type="button" class="chip bd-scope-chip" data-bd-scope="current-and-future" aria-pressed="false">本次及以后</button>
+        </div>
+        <p class="capability-note hidden" id="breakdownError" role="alert"></p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="pixel-btn" id="bdCancel">不用了</button>
+        <button type="button" class="pixel-btn btn-focus" id="bdConfirm">加到步骤里</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 「卡住了」：一个入口，先问卡在哪，再给三条出路。三条出路的区别是实打实的
+       ——「更小的下一步」会改任务，「小办法」只给一句话，「只迈第一步」只降门槛
+       启动。之前它们分散成一个折叠区和一个常驻区块，看起来像两条一样的提示。 -->
+  <div class="modal-mask hidden" id="stuckMask" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="stuckTitle" aria-describedby="stuckDescription">
+    <div class="modal stuck-modal">
+      <div class="modal-header">
+        <span class="modal-title" id="stuckTitle">卡在哪？</span>
+        <button type="button" class="modal-close" id="stuckClose" aria-label="关闭卡住了对话框">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="bd-hint" id="stuckDescription">哪里卡住了？</p>
+        <button type="button" class="pixel-btn stuck-collaborate" id="btnStuckCollaborate" data-icon="message" aria-haspopup="dialog" aria-controls="draftChatMask">和 AI 一起理一理</button>
+        <p class="capability-note hidden" id="stuckCollaborationStatus" role="status"></p>
+
+        <div class="stuck-step" id="stuckStepBlocker">
+          <div class="blocker-chips" role="group" aria-label="选择卡点">
+            <button type="button" class="chip blocker-chip" data-blocker="unclear" aria-pressed="false">不清楚</button>
+            <button type="button" class="chip blocker-chip" data-blocker="too-big" aria-pressed="false">太大</button>
+            <button type="button" class="chip blocker-chip" data-blocker="boring" aria-pressed="false">无聊</button>
+            <button type="button" class="chip blocker-chip" data-blocker="anxious" aria-pressed="false">有压力</button>
+            <button type="button" class="chip blocker-chip" data-blocker="low-energy" aria-pressed="false">没电</button>
+            <button type="button" class="chip blocker-chip" data-blocker="interrupted" aria-pressed="false">被打断</button>
+          </div>
+        </div>
+
+        <div class="stuck-step hidden" id="stuckStepRoute">
+          <button type="button" class="stuck-route" id="btnRouteShrink">
+            <span class="stuck-route-title">换个更小的下一步</span>
+            <span class="stuck-route-note">会改这件任务的下一步</span>
+          </button>
+          <button type="button" class="stuck-route" id="btnRouteTip">
+            <span class="stuck-route-title">试个小办法</span>
+            <span class="stuck-route-note">只给一句话，不动任务</span>
+          </button>
+          <!-- 两分钟仍然必须先有一个写下来的下一步，否则它只是把“不知道从哪开始”
+               推迟两分钟。没有落点时它不可用。 -->
+          <div class="rescue-row">
+            <button type="button" class="pixel-btn btn-kickstart" id="btnNowKickstart" data-icon="timer" disabled>只做第一步（2 分钟）</button>
+            <p class="capability-note" id="rescueNote" role="status" aria-live="polite">先写下一步，两分钟才有落点。</p>
+          </div>
+        </div>
+
+        <div class="stuck-step hidden" id="stuckStepShrink">
+          <input id="shrinkNextAction" class="pixel-input" type="text" maxlength="200" autocomplete="off" aria-label="更小的下一步">
+          <p class="capability-note" id="shrinkSource"></p>
+          <div class="stuck-actions">
+            <button type="button" class="pixel-btn btn-mini" id="btnShrinkAnother">换一个</button>
+            <button type="button" class="pixel-btn btn-mini" id="shrinkCancel">保留原样</button>
+            <button type="button" class="pixel-btn btn-mini btn-focus" id="shrinkConfirm">用这个</button>
+          </div>
+          <p class="capability-note hidden" id="clarifyCapabilityNote" role="status"></p>
+        </div>
+
+        <div class="stuck-step hidden" id="stuckStepTip">
+          <div class="unstick-block hidden" id="unstickBlock" role="status"></div>
+          <article class="strategy-card" id="strategyCard">
+            <div class="strategy-copy" id="strategyText"></div>
+            <details class="strategy-why" id="strategyWhy">
+              <summary>为什么</summary>
+              <p class="capability-note" id="strategyDetail"></p>
+            </details>
+          </article>
+          <div class="stuck-actions">
+            <button type="button" class="chip strategy-feedback" data-helpful="true">有用</button>
+            <button type="button" class="chip strategy-feedback" data-helpful="false">不合适</button>
+            <button type="button" class="chip chip-action" id="btnStrategyRequest">换一个</button>
+          </div>
+          <p class="capability-note hidden" id="strategyStatus" role="status"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 新任务：只有标题和“什么时候做”在主区。其余属性一个也没删 —— 它们都有
+       真实消费方（推荐、可执行性、Today 视图）—— 只是默认不张开，不再把一张表单
+       横在“想起一件事”和“存下来”之间。 -->
+  <div class="modal-mask hidden" id="taskCreateMask" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="taskCreateTitle" aria-describedby="taskCreateDescription">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title" id="taskCreateTitle" data-icon="plus">新任务</span>
+        <button type="button" class="modal-close" id="taskCreateClose" aria-label="关闭新任务对话框">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="sr-only" id="taskCreateDescription">填写任务名称即可保存，其他选项可稍后编辑。</p>
+        <div class="edit-field">
+          <label class="sr-only" for="taskInput">要做什么</label>
+          <input type="text" class="pixel-input" id="taskInput" maxlength="100" autocomplete="off" placeholder="想做什么？" aria-describedby="taskFormStatus">
+        </div>
+        <div class="chip-row create-date-row" role="group" aria-label="什么时候做">
+          <span class="chip-label" data-icon="calendar" aria-hidden="true"></span>
+          <div class="date-segments"><button type="button" class="chip when-chip" data-when="today" title="计划在今天看到它" aria-pressed="false">今天</button>
+          <button type="button" class="chip when-chip" data-when="tomorrow" title="计划在明天看到它" aria-pressed="false">明天</button>
+          <button type="button" class="chip when-chip active" data-when="none" title="不绑到某一天" aria-pressed="true">不指定</button></div>
+        </div>
+        <!-- 补全只往这张草稿里填，不写库；标题是用户写下的事实，模型不碰。 -->
+        <!-- 状态行紧贴触发它的按钮：放表单底部时它在折叠区之后、滚动区外，
+             “AI 为何没生效”写了也没人看得到，看上去就是“点了没反应”。 -->
+        <button type="button" class="chip create-step-entry" id="createAddStep" data-icon="plus">添加步骤</button>
+        <div class="edit-steps-block task-disclosure hidden" id="createStepsBlock">
+          <span class="sr-only" id="createStepsLabel">步骤</span><div class="bd-steps" id="createSteps" role="group" aria-labelledby="createStepsLabel"></div>
+        </div>
+        <div class="create-assist">
+          <button type="button" class="pixel-btn btn-mini" id="btnEnrichDraft" data-icon="sparkles">拆成步骤</button>
+          <button type="button" class="pixel-btn btn-mini" id="btnOpenDraftChat" data-icon="message" aria-haspopup="dialog" aria-controls="draftChatMask">AI 协作</button>
+          <div class="assist-note"><span>建议填入草稿，保存后生效</span><details class="inline-help"><summary aria-label="任务助手说明">?</summary><p id="enrichDraftNote">建议只填入草稿，确认保存后才会生效。</p></details></div>
+          <p class="capability-note hidden" id="taskFormStatus" role="status" aria-live="polite"></p>
+        </div>
+        <details class="task-advanced" id="taskAdvanced">
+          <summary><svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="3" cy="8" r=".7"/><circle cx="8" cy="8" r=".7"/><circle cx="13" cy="8" r=".7"/></svg>更多选项</summary>
+        <!-- 重复、计划日、预约、截止、自动失效彼此独立：选一个不会默认帮你定下其他字段。 -->
+        <fieldset class="task-option-group"><legend>备注</legend>
+        <div class="deadline-row task-description-row">
+          <label class="sr-only" for="taskDescriptionInput">备注</label>
+          <textarea id="taskDescriptionInput" class="pixel-input" maxlength="1000" rows="2" placeholder="可选：补充背景或完成标准" aria-describedby="taskFormStatus"></textarea>
+        </div>
+        </fieldset><fieldset class="task-option-group"><legend data-icon="repeat">重复</legend>
+        <div class="chip-row" role="group" aria-label="重复规则">
+          <button type="button" class="chip repeat-chip active" data-repeat="none" title="只做一次" aria-pressed="true">不重复</button>
+          <button type="button" class="chip repeat-chip" data-repeat="daily" title="每天一次，完成后自动排下一次" aria-pressed="false">每天</button>
+          <button type="button" class="chip repeat-chip" data-repeat="weekly" title="按选定的星期重复" aria-pressed="false">每周</button>
+          <button type="button" class="chip repeat-chip" data-repeat="monthly" title="每月同一天，月小自动夹到最后一天" aria-pressed="false">每月</button>
+        </div>
+        <div class="chip-row hidden" id="weekdayRow" role="group" aria-label="每周重复的星期">
+          <span class="chip-label">星期：</span>
+          <button type="button" class="chip weekday-chip" data-weekday="1" aria-pressed="false">一</button>
+          <button type="button" class="chip weekday-chip" data-weekday="2" aria-pressed="false">二</button>
+          <button type="button" class="chip weekday-chip" data-weekday="3" aria-pressed="false">三</button>
+          <button type="button" class="chip weekday-chip" data-weekday="4" aria-pressed="false">四</button>
+          <button type="button" class="chip weekday-chip" data-weekday="5" aria-pressed="false">五</button>
+          <button type="button" class="chip weekday-chip" data-weekday="6" aria-pressed="false">六</button>
+          <button type="button" class="chip weekday-chip" data-weekday="7" aria-pressed="false">日</button>
+        </div>
+        <div class="chip-row hidden" id="repeatStrategyRow" role="group" aria-label="下一次什么时候排">
+          <span class="chip-label">下一次：</span>
+          <button type="button" class="chip repeat-strategy-chip active" data-strategy="fixed" title="按日历走，漏了不补债" aria-pressed="true">按日历</button>
+          <button type="button" class="chip repeat-strategy-chip" data-strategy="after-completion" title="从完成那天开始重新计算" aria-pressed="false">完成后再算</button>
+        </div>
+        <div class="deadline-row hidden" id="repeatIntervalRow">
+          <label class="chip-label" for="repeatIntervalInput">每隔：</label>
+          <input type="number" id="repeatIntervalInput" class="pixel-date" min="1" max="365" step="1" value="1" aria-describedby="taskFormStatus">
+          <span class="chip-label">个周期</span>
+        </div>
+        </fieldset><fieldset class="task-option-group"><legend data-icon="calendar">日期</legend>
+        <div class="deadline-row">
+          <label class="chip-label" for="deadlineInput">截止：</label>
+          <input type="date" id="deadlineInput" class="pixel-date" aria-describedby="taskFormStatus">
+          <button type="button" class="chip chip-action" id="clearDeadline">清除</button>
+        </div>
+        <div class="deadline-row">
+          <label class="chip-label" for="scheduledForInput">可开始：</label>
+          <input type="datetime-local" id="scheduledForInput" class="pixel-date" aria-describedby="taskFormStatus">
+          <button type="button" class="chip chip-action" id="clearScheduledFor">清除</button>
+        </div>
+        <div class="deadline-row">
+          <label class="chip-label" for="plannedForInput">放在哪天：</label>
+          <input type="date" id="plannedForInput" class="pixel-date" aria-describedby="taskFormStatus">
+          <button type="button" class="chip chip-action" id="clearPlannedFor">清除</button>
+        </div>
+        </fieldset><fieldset class="task-option-group"><legend data-icon="sliders">能量、估时与标签</legend>
+        <div class="expiry-row" id="expiryRow" role="group" aria-label="自动失效">
+          <span class="chip-label">自动失效：</span>
+          <button type="button" class="chip ttl-chip active" data-ttl="none" title="默认不开：没做完不应该自动变成一条过期提醒" aria-pressed="true">不开启</button>
+          <button type="button" class="chip ttl-chip" data-ttl="default" title="跟随设置里的默认时效" aria-pressed="false">按设置</button>
+          <button type="button" class="chip ttl-chip" data-ttl="midnight" aria-pressed="false">今晚24点</button>
+          <button type="button" class="chip ttl-chip" data-ttl="2h" aria-pressed="false">+2h</button>
+          <button type="button" class="chip ttl-chip" data-ttl="4h" aria-pressed="false">+4h</button>
+          <button type="button" class="chip ttl-chip" data-ttl="tomorrow" aria-pressed="false">明晚24点</button>
+          <span class="expiry-preview" id="expiryPreview"></span>
+        </div>
+        <div class="chip-row energy-row-2" role="group" aria-label="任务所需能量">
+          <span class="chip-label">能量：</span>
+          <button type="button" class="chip energy-chip active" data-energy="auto" title="根据任务标题自动推断" aria-pressed="true">自动</button>
+          <button type="button" class="chip energy-chip" data-energy="low" aria-pressed="false">低</button>
+          <button type="button" class="chip energy-chip" data-energy="medium" aria-pressed="false">中</button>
+          <button type="button" class="chip energy-chip" data-energy="high" aria-pressed="false">高</button>
+        </div>
+        <div class="deadline-row">
+          <label class="chip-label" for="estimateInput">估时（分钟）：</label>
+          <input type="number" id="estimateInput" class="pixel-date" min="1" max="1440" step="5" aria-describedby="taskFormStatus">
+        </div>
+        <div class="deadline-row">
+          <label class="chip-label" for="tagsInput">标签：</label>
+          <input type="text" id="tagsInput" class="pixel-input" maxlength="167" autocomplete="off" placeholder="逗号分隔，最多 8 个" aria-describedby="taskFormStatus">
+        </div>
+        </fieldset>
+        </details>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="pixel-btn" id="taskCreateCancel">取消</button>
+        <button type="button" class="pixel-btn btn-focus" id="taskCreateConfirm" data-icon="check">添加任务</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 新任务与卡住协作共用会话、历史和草稿版本。关闭只暂停；采纳只填入
+       既有表单，任务写入仍由原来的保存或确认动作完成。 -->
+  <div class="modal-mask hidden" id="draftChatMask" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="draftChatTitle" aria-describedby="draftChatDescription">
+    <div class="modal collaboration-modal">
+      <div class="modal-header">
+        <div><h2 class="modal-title" id="draftChatTitle">AI 协作</h2><p id="draftChatCurrentMode" class="sr-only">先聊聊</p><p id="draftChatTaskContext" class="hidden"></p></div>
+        <button type="button" class="modal-close" id="draftChatClose" aria-label="暂停对话并返回草稿"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+      </div>
+      <div class="collaboration-body">
+        <div id="draftChatConversationControls">
+        <p id="draftChatDescription">修改前会请你确认。</p>
+        <div class="chat-options">
+          <label for="draftChatMode">帮助方式</label>
+          <select id="draftChatMode" class="pixel-input"><option value="talk">先聊聊</option><option value="small-step">找一个小动作</option><option value="plan">一起安排</option></select>
+          <span id="draftChatModeNote" class="hidden"></span>
+          <label for="draftChatRetention">保留方式</label>
+          <select id="draftChatRetention" class="pixel-input"><option value="ephemeral">仅本次</option><option value="saved">在本机保留</option></select>
+        </div>
+        <p id="draftChatSaveState" role="status">仅本次 · 关闭只暂停，退出应用后不保留</p>
+        <div id="draftChatRetentionConfirm" class="chat-disclosure hidden" role="group" aria-label="移除本机副本确认">
+          <p>改为仅本次会移除已保存的本机副本；当前内容只保留到退出应用。</p>
+          <button type="button" class="pixel-btn btn-mini" id="btnDraftChatRetentionConfirm">移除副本，改为仅本次</button>
+          <button type="button" class="pixel-btn btn-mini" id="btnDraftChatRetentionKeep">继续保留</button>
+        </div>
+        <details id="draftChatRetentionOptions" class="chat-disclosure hidden">
+          <summary>保留期限</summary>
+          <label for="draftChatRetentionDays">保留天数</label><select id="draftChatRetentionDays" class="pixel-input"><option value="7">7 天</option><option value="30" selected>30 天</option><option value="90">90 天</option></select>
+          <label class="chat-check"><input type="checkbox" id="draftChatPinned">固定这段对话，不自动到期</label>
+        </details>
+        <details class="chat-disclosure" id="draftChatDisclosure">
+          <summary>本轮会参考什么</summary>
+          <p>以下是本机预览，发送后才交给已配置的模型。</p>
+          <p id="draftChatDisclosureText">仅参考你在这段对话中提供的内容</p>
+          <p id="draftChatProvider"></p>
+          <label class="chat-check"><input type="checkbox" id="draftChatFocusSummary">加入今天已记录的专注摘要</label>
+          <label class="chat-check"><input type="checkbox" id="draftChatPlanningPreferences">加入有效的已确认安排偏好</label>
+          <p>未记录的时段是未知，不会当作休息或拖延。</p>
+          <div id="draftChatContextPicker" class="hidden">
+            <p>逐项选择参考内容；不含用药、兴奋剂、自定义日常或日常发生记录。</p>
+            <label for="draftChatContextKind">内容类别</label>
+            <select id="draftChatContextKind"><option value="task">任务</option><option value="inbox">收件原文</option><option value="routine">普通日常排程</option><option value="memory">已确认记忆</option></select>
+            <label for="draftChatContextSearch">本机搜索</label><input id="draftChatContextSearch" type="search" class="pixel-input" placeholder="搜索本机内容">
+            <button type="button" class="pixel-btn btn-mini" id="btnDraftChatContextSearch">查看内容</button>
+            <div id="draftChatContextChoices" class="chat-context-choices"></div>
+            <button type="button" class="pixel-btn btn-mini hidden" id="btnDraftChatContextMore">更多内容</button>
+            <p id="draftChatScopeSelection"></p><p id="draftChatScopePending" role="status"></p>
+            <button type="button" class="pixel-btn btn-mini" id="btnDraftChatScopeApply" disabled>更新本轮预览</button>
+          </div>
+          <pre id="draftChatContextPreview">没有附加上下文</pre>
+        </details>
+        <details class="chat-disclosure" id="draftChatLibrary">
+          <summary>继续已有对话</summary>
+          <button type="button" class="pixel-btn btn-mini" id="btnDraftChatList">查看对话</button>
+          <div id="draftChatSessions"></div>
+          <button type="button" class="pixel-btn btn-mini hidden" id="btnDraftChatMore">更多对话</button>
+        </details>
+        <div class="chat-compose-actions"><button type="button" class="pixel-btn btn-mini chat-new" id="btnDraftChatNew">新对话</button>
+          <button type="button" class="pixel-btn btn-mini" id="btnDraftChatDelete">删除这段对话</button></div>
+        <div id="draftChatDeleteConfirm" class="chat-disclosure hidden" role="group" aria-label="删除对话确认">
+          <p>删除这段对话、未发送输入和本机保存副本，无法从应用中撤销。已建立的任务与已独立确认的记忆会保留；记忆可在设置中另行管理。</p>
+          <button type="button" class="pixel-btn btn-mini" id="btnDraftChatDeleteConfirm">确认删除对话</button>
+          <button type="button" class="pixel-btn btn-mini" id="btnDraftChatDeleteKeep">保留对话</button>
+        </div>
+        <div class="chat-history-nav" aria-label="对话历史分页">
+          <button type="button" class="pixel-btn btn-mini hidden" id="btnDraftChatEarlier">更早的记录</button>
+          <p id="draftChatHistoryRange"></p>
+          <button type="button" class="pixel-btn btn-mini hidden" id="btnDraftChatLater">后面的记录</button>
+          <button type="button" class="pixel-btn btn-mini hidden" id="btnDraftChatLatest">最新记录</button>
+        </div>
+        <div class="chat-log" id="draftChatLog" role="log" aria-live="polite" aria-label="对话与草稿版本，可分段查看完整历史" tabindex="0"></div>
+        </div>
+        <details class="chat-disclosure hidden" id="draftChatReceiptHistory"><summary>已确认的修改与撤销</summary>
+          <p id="draftChatReceiptsStatus" role="status"></p><div id="draftChatReceipts"></div><button type="button" class="pixel-btn btn-mini hidden" id="btnDraftChatReceiptsMore">更多提交记录</button>
+        </details>
+        <section class="chat-changes hidden" id="draftChatChanges" aria-labelledby="draftChatChangeTitle">
+          <h3 id="draftChatChangeTitle">变更前核对</h3><p id="draftChatChangeStatus" role="status"></p>
+          <div id="draftChatChangeCards"></div>
+        </section>
+      </div>
+      <div class="chat-compose">
+        <p class="capability-note hidden" id="draftChatStatus" role="status" aria-live="polite"></p>
+        <div id="draftChatConversationComposer">
+        <div class="chat-input-label"><label for="draftChatInput">你的想法</label><span id="draftChatInputCount">0 / 8,000 字</span></div>
+        <textarea class="pixel-input chat-input" id="draftChatInput" rows="2" placeholder="想到什么写什么，写不全也行" aria-describedby="draftChatInputCount draftChatStatus"></textarea>
+        <div class="chat-compose-actions">
+          <button type="button" class="pixel-btn btn-mini" id="btnDraftChatDiscard">暂停并返回</button>
+          <button type="button" class="pixel-btn btn-mini hidden" id="btnDraftChatCancel">取消生成</button>
+          <button type="button" class="pixel-btn btn-mini btn-focus" id="btnDraftChatSend">发送</button>
+        </div>
+        <button type="button" class="pixel-btn hidden" id="btnDraftChatAdopt">放进任务草稿</button>
+        </div>
+        <button type="button" class="pixel-btn btn-mini hidden" id="btnDraftChatReceiptClose">返回时间线</button>
+        <div class="chat-change-actions" aria-label="核对后的变更操作">
+          <button type="button" class="pixel-btn btn-mini hidden" id="btnDraftChatChangePreview">重新查看差异</button>
+          <button type="button" class="pixel-btn btn-mini btn-focus hidden" id="btnDraftChatChangeConfirm">确认以上修改</button>
+          <button type="button" class="pixel-btn btn-mini hidden" id="btnDraftChatChangeRetry">核对提交结果</button>
+          <button type="button" class="pixel-btn btn-mini hidden" id="btnDraftChatChangeCancel">取消这次变更</button>
+          <button type="button" class="pixel-btn btn-mini hidden" id="btnDraftChatReceiptRefresh">刷新提交状态</button>
+          <button type="button" class="pixel-btn btn-mini hidden" id="btnDraftChatUndo">查看撤销差异</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-mask hidden" id="quickStartMask" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="quickStartTitle" aria-describedby="landingDescription landingNoteHint">
+    <div class="modal landing-modal">
+      <div class="modal-header"><span class="modal-title" id="quickStartTitle">两分钟到了，已经启动成功</span></div>
+      <div class="modal-body">
+        <p id="landingDescription">不用证明什么。选择此刻最适合你的落点：</p>
+        <label class="landing-note-label"><input type="checkbox" id="landingProgressMade">这一段有实际推进</label>
+        <div id="landingNoteField">
+          <label class="landing-note-label" for="landingNote">我停在 / 下次先做（可选）</label>
+          <input type="text" id="landingNote" class="landing-note-input" maxlength="200" autocomplete="off" aria-describedby="landingNoteHint" placeholder="例如：打开草稿，补上结论第一句">
+          <p class="landing-note-hint" id="landingNoteHint">下次从这里继续</p>
+        </div>
+        <p class="capability-note hidden" id="quickStartError" role="alert"></p>
+      </div>
+      <div class="landing-actions" id="quickStartLandingActions">
+        <button type="button" class="pixel-btn" data-quick-resolution="stop">到这里就好</button>
+        <button type="button" class="pixel-btn btn-kickstart" data-quick-resolution="extend-8">再做 8 分钟</button>
+        <button type="button" class="pixel-btn btn-focus" data-quick-resolution="full-round">完整一轮</button>
+      </div>
+      <div class="landing-actions hidden" id="focusLandingActions">
+        <button type="button" class="pixel-btn" data-focus-landing="skip">暂时跳过</button>
+        <button type="button" class="pixel-btn btn-focus" data-focus-landing="save" disabled>保存落点</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 统一任务编辑面板：全部属性与步骤都在这一个地方改，不再靠任务卡上的循环按钮。 -->
+  <div class="modal-mask hidden" id="taskEditMask" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="taskEditTitle" aria-describedby="taskEditDescription">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title" id="taskEditTitle">编辑任务</span>
+        <button type="button" class="modal-close" id="taskEditClose" aria-label="关闭编辑任务对话框">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="sr-only" id="taskEditDescription">修改标题、备注和步骤；日期与其他属性可展开。</p>
+        <div class="edit-field">
+          <label class="chip-label" for="editTitle">标题</label>
+          <input type="text" id="editTitle" class="pixel-input" maxlength="100" autocomplete="off">
+        </div>
+        <div class="edit-field">
+          <label class="chip-label" for="editDescription">备注（可选）</label>
+          <input type="text" id="editDescription" class="pixel-input" maxlength="1000" autocomplete="off">
+        </div>
+        <div class="edit-steps-block">
+          <span class="chip-label" id="editStepsLabel">步骤</span>
+          <div class="bd-steps" id="editSteps" role="group" aria-labelledby="editStepsLabel"></div>
+          <button type="button" class="pixel-btn btn-mini bd-add" id="editAddStep">+ 加一步</button>
+        </div>
+<details class="edit-options" id="editDates"><summary>安排日期 <span id="editDatesSummary"></span></summary>        <div class="edit-field">
+          <label class="chip-label" for="editPlannedFor">放在哪天</label>
+          <input type="date" id="editPlannedFor" class="pixel-date">
+        </div>
+        <div class="edit-field">
+          <label class="chip-label" for="editScheduledFor">开始时间</label>
+          <input type="datetime-local" id="editScheduledFor" class="pixel-date">
+        </div>
+        <div class="edit-field">
+          <label class="chip-label" for="editDeadline">截止</label>
+          <input type="date" id="editDeadline" class="pixel-date">
+        </div>
+        <div class="edit-field">
+          <label class="chip-label" for="editExpiresAt">有效期限</label>
+          <input type="date" id="editExpiresAt" class="pixel-date">
+        </div>
+</details>
+<details class="edit-options" id="editAttributes"><summary>其他属性 <span id="editAttributesSummary"></span></summary>        <div class="chip-row" role="group" aria-label="编辑能量">
+          <span class="chip-label">能量：</span>
+          <button type="button" class="chip edit-energy-chip" data-edit-energy="auto" aria-pressed="false">自动</button>
+          <button type="button" class="chip edit-energy-chip" data-edit-energy="low" aria-pressed="false">低</button>
+          <button type="button" class="chip edit-energy-chip" data-edit-energy="medium" aria-pressed="false">中</button>
+          <button type="button" class="chip edit-energy-chip" data-edit-energy="high" aria-pressed="false">高</button>
+        </div>
+        <div class="edit-field">
+          <label class="chip-label" for="editEstimate">估时（分钟）</label>
+          <input type="number" id="editEstimate" class="pixel-date" min="1" max="1440" step="5">
+        </div>
+        <div class="edit-field">
+          <label class="chip-label" for="editTags">标签</label>
+          <input type="text" id="editTags" class="pixel-input" maxlength="167" autocomplete="off" placeholder="逗号分隔，最多 8 个">
+        </div>
+</details>
+        <!-- 重复任务必须说清改的是哪一层：猜一个会默默重写用户的未来。 -->
+        <div class="chip-row hidden" id="editScopeRow" role="group" aria-label="修改范围">
+          <span class="chip-label">这次修改：</span>
+          <button type="button" class="chip edit-scope-chip" data-scope="current" aria-pressed="false">仅本次</button>
+          <button type="button" class="chip edit-scope-chip" data-scope="current-and-future" aria-pressed="false">本次及以后</button>
+        </div>
+        <div class="edit-series-block hidden" id="editSeriesRow" aria-labelledby="editSeriesSummary">
+          <span class="chip-label" id="editSeriesSummary"></span>
+          <div class="edit-field">
+            <label class="chip-label" for="editSeriesFrequency">未来频率</label>
+            <select id="editSeriesFrequency" class="pixel-input">
+              <option value="daily">每天</option><option value="weekly">每周</option><option value="monthly">每月</option>
+            </select>
+          </div>
+          <div class="edit-field">
+            <label class="chip-label" for="editSeriesInterval">间隔周期</label>
+            <input type="number" id="editSeriesInterval" class="pixel-date" min="1" max="365" step="1">
+          </div>
+          <div class="edit-field">
+            <label class="chip-label" for="editSeriesStrategy">推进方式</label>
+            <select id="editSeriesStrategy" class="pixel-input">
+              <option value="fixed">按日历</option><option value="after-completion">完成后再算</option>
+            </select>
+          </div>
+          <div class="chip-row" id="editSeriesWeekdays" role="group" aria-label="未来重复星期">
+            <button type="button" class="chip edit-series-weekday" data-weekday="1" aria-pressed="false">一</button>
+            <button type="button" class="chip edit-series-weekday" data-weekday="2" aria-pressed="false">二</button>
+            <button type="button" class="chip edit-series-weekday" data-weekday="3" aria-pressed="false">三</button>
+            <button type="button" class="chip edit-series-weekday" data-weekday="4" aria-pressed="false">四</button>
+            <button type="button" class="chip edit-series-weekday" data-weekday="5" aria-pressed="false">五</button>
+            <button type="button" class="chip edit-series-weekday" data-weekday="6" aria-pressed="false">六</button>
+            <button type="button" class="chip edit-series-weekday" data-weekday="7" aria-pressed="false">日</button>
+          </div>
+          <div class="chip-row">
+            <button type="button" class="chip chip-action" id="editSeriesSave">保存未来规则</button>
+            <button type="button" class="chip chip-action" id="editSeriesPause">暂停重复</button>
+            <button type="button" class="chip chip-action hidden" id="editSeriesResume">恢复重复</button>
+            <button type="button" class="chip chip-action" id="editSeriesEnd">结束重复</button>
+          </div>
+        </div>
+        <p class="capability-note hidden" id="taskEditError" role="alert"></p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="pixel-btn" id="taskEditCancel">取消</button>
+        <button type="button" class="pixel-btn btn-focus" id="taskEditConfirm">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 完成是终态，没有“重新打开”，所以还有未完步骤时必须先问一句。 -->
+  <div class="modal-mask hidden" id="completeConfirmMask" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="completeConfirmTitle" aria-describedby="completeConfirmDescription">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title" id="completeConfirmTitle">还有步骤没勾完</span>
+        <button type="button" class="modal-close" id="completeConfirmClose" aria-label="取消完成任务">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="bd-hint" id="completeConfirmDescription">完成之后不能重新打开。确认现在就结束它吗？</p>
+        <p class="bd-original" id="completeConfirmTask"></p>
+        <p class="capability-note hidden" id="completeConfirmError" role="alert"></p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="pixel-btn" id="completeConfirmCancel">先不完成</button>
+        <button type="button" class="pixel-btn btn-focus" id="completeConfirmOk">就这样完成</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-mask hidden" id="reviewMask" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="reviewTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title" id="reviewTitle">今日回顾</span>
+        <button type="button" class="modal-close" id="reviewClose" aria-label="稍后继续回顾">✕</button>
+      </div>
+      <div class="modal-body" id="reviewBody"></div>
+      <p class="capability-note hidden" id="reviewError" role="alert"></p>
+      <div class="modal-actions">
+        <button type="button" class="pixel-btn" id="reviewDismiss">这次略过</button>
+        <button type="button" class="pixel-btn btn-focus" id="reviewDone">完成回顾</button>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="confetti" class="confetti-canvas" aria-hidden="true"></canvas>
+  <div class="finish-toast hidden" id="finishToast" role="status" aria-live="polite"></div>
+  <div class="levelup-card hidden" id="levelUpCard" role="status" aria-live="polite" aria-hidden="true">
+    <div class="levelup-badge" id="levelUpBadge">LV.2</div>
+    <div class="levelup-title">升级啦！</div>
+    <div class="levelup-sub">又靠自己往前走了一步</div>
+  </div>
+
+  <script type="module" src="popover.mjs"></script>
+</body>
+</html>

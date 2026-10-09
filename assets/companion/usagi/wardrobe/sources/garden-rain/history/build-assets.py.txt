@@ -1,0 +1,114 @@
+from pathlib import Path
+import json, hashlib, sys, platform
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
+from scipy.ndimage import label, binary_dilation, binary_fill_holes
+ROOT=Path(__file__).resolve().parents[1]
+OUT=Path(sys.argv[1]).resolve() if len(sys.argv)>1 else ROOT
+VIEWS=['front','three-quarter','profile','back']
+SOURCES=ROOT/'sources';ASSETS=OUT/'assets'; PROOFS=OUT/'proofs'
+ASSETS.mkdir(parents=True,exist_ok=True); PROOFS.mkdir(parents=True,exist_ok=True)
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+recipe=json.loads((ROOT/'recipe.json').read_text())
+manifest={'format':'usagi-raster-appearance-v1','canonicalSource':'../canonical/manifest.json','sourceToArt':{'scale':4.2,'x':117.4,'y':175},'appearance':{},'limitations':[]}
+logs=[]; fitted={}; descriptor_layers={}
+def extract(source,crop,flip=False,color_mode=None):
+ im=Image.open(SOURCES/source).convert('RGBA').crop(tuple(crop));a=np.array(im)
+ # Select the declared inspected component. Dilate the shape support 3px to retain soft edge alpha.
+ if color_mode=='sage-worn':
+  rgb=a[:,:,:3].astype(int); core=(rgb[:,:,1]-rgb[:,:,0]>5)&(rgb[:,:,1]-rgb[:,:,2]>8)&(a[:,:,3]>96)
+  dark=(rgb.max(axis=2)<150)
+  support=binary_fill_holes(core|(binary_dilation(core,iterations=6)&dark))
+  # One-pixel soft mask keeps extracted internal boundaries antialiased without keeping body-colored fringe.
+  soft=Image.fromarray((support*255).astype('uint8')).filter(ImageFilter.GaussianBlur(0.35))
+  a[:,:,3]=(a[:,:,3].astype(float)*np.array(soft)/255).round().astype('uint8')
+  support=binary_dilation(support,iterations=1)
+ else:
+  lab,n=label(a[:,:,3]>96);counts=np.bincount(lab.ravel());counts[0]=0
+  if not counts.any(): raise ValueError((source,crop))
+  support=binary_dilation(lab==counts.argmax(),iterations=3)
+ a[:,:,3]=np.where(support,a[:,:,3],0)
+ a[a[:,:,3]==0,:3]=0
+ im=Image.fromarray(a)
+ box=im.getbbox();im=im.crop(box)
+ if flip:im=im.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
+ return im,[crop[0]+box[0],crop[1]+box[1],crop[0]+box[2],crop[1]+box[3]]
+def fit(im,width,center,top=None,bottom=None):
+ h=round(im.height*width/im.width);im=im.resize((width,h),Image.Resampling.LANCZOS)
+ # Discard Lanczos nonphysical alpha ringing only below 2/255, keep genuine soft alpha.
+ a=np.array(im);a[a[:,:,3]<2]=0;im=Image.fromarray(a)
+ x=round(center-width/2); y=top if top is not None else bottom-h
+ canvas=Image.new('RGBA',(512,512));canvas.alpha_composite(im,(x,y));return canvas,{'scale':width/im.width,'size':[width,h],'position':[x,y]}
+def export_layer(item,view,name,im,bone,plane):
+ bbox=im.getbbox()
+ if not bbox:return None
+ piece=im.crop(bbox);rel=f'assets/{item}/{view}-{name}.png';p=OUT/rel;p.parent.mkdir(parents=True,exist_ok=True);piece.save(p)
+ rect=[round((bbox[0]-117.4)/4.2,6),round((bbox[1]-175)/4.2,6),round((bbox[2]-bbox[0])/4.2,6),round((bbox[3]-bbox[1])/4.2,6)]
+ d={'src':rel,'bone':bone,'layer':plane,'rect':rect,'sourceRect':list(bbox),'sha256':sha(p)}
+ return d
+for item,spec in recipe['items'].items():
+ key=item.replace('.','-');row={'itemId':item,'slot':spec['slot'],'allowedViews':VIEWS.copy(),'views':{}}
+ if spec.get('replaces'):row['replaces']=spec['replaces']
+ for j,view in enumerate(VIEWS):
+  planes={'back':[],'front':[]};layers=[];info=[]
+  for k,part in enumerate(spec['parts']):
+   c=part['crops'][j]; raw,crop=extract(part.get('sources',[part['source']]*4)[j],c,part.get('flip', [False]*4)[j],part.get('colorMode'));w=part['widths'][j];s=w/raw.width
+   placed,f=fit(raw,w,part['centers'][j],top=part.get('tops',[None]*4)[j],bottom=part.get('bottoms',[None]*4)[j]);f['uniformScale']=s
+   layer=part.get('layer','front');bone=part.get('bone','root')
+   # Full authored shape stays intact; it can be occluded by actual moving arms in runtime.
+   d=export_layer(item,view,f'part-{k}',placed,bone,layer)
+   if d:planes[layer].append(d);layers.append((layer,placed,bone))
+   info.append({'source':part.get('sources',[part['source']]*4)[j],'sourceSha256':sha(SOURCES/part.get('sources',[part['source']]*4)[j]),'extractionMethod':part.get('colorMode','declared isolated component'),'declaredCrop':c,'trimmedCrop':crop,'reflection':part.get('flip',[False]*4)[j],**f})
+  row['views'][view]=planes;fitted[(item,view)]=layers;logs.append({'item':item,'view':view,'parts':info})
+ manifest['appearance'][key]=row
+# Render actual original-body composites. Hands in production are drawn after appearance, so restore exact body pixels only within authoritative native hand masks.
+for view in VIEWS:
+ base=Image.open(ROOT/'references'/f'{view}.png').convert('RGBA')
+ hand_path=ROOT/'masks'/f'{view}-hands.png'
+ hand=Image.open(hand_path).getchannel('A') if hand_path.exists() else Image.new('L',(512,512))
+ def compose(ids):
+  c=Image.new('RGBA',(512,512))
+  for i in ids:
+   for plane,im,bone in fitted[(i,view)]:
+    if plane=='back':c.alpha_composite(im)
+  c.alpha_composite(base)
+  for i in ids:
+   for plane,im,bone in fitted[(i,view)]:
+    if plane=='front':c.alpha_composite(im)
+  # body copy, not a regenerated body. Masks express the real runtime hand occlusion order.
+  c.paste(base,(0,0),hand)
+  return c
+ for outfit,ids in recipe['outfits'].items():compose(ids).save(PROOFS/f'{outfit}-{view}.png')
+ for item in recipe['items']:compose([item]).save(PROOFS/f'{item}-{view}.png')
+font=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',13)
+# Strict character-height scaling: canonical alpha bounds height is measured, common factor keeps accessories truthful.
+for outfit in recipe['outfits']:
+ sheet=Image.new('RGB',(1120,770),'#e8e5dd');d=ImageDraw.Draw(sheet)
+ for row,(height,bg) in enumerate([(99,'#faf7ef'),(99,'#27262b'),(198,'#faf7ef'),(198,'#27262b')]):
+  rh=[135,135,250,250][row];yy=sum([135,135,250,250][:row]);d.rectangle((0,yy,1120,yy+rh),fill=bg)
+  for col,view in enumerate(VIEWS):
+   base=Image.open(ROOT/'references'/f'{view}.png');bh=base.getbbox()[3]-base.getbbox()[1];scale=height/bh
+   im=Image.open(PROOFS/f'{outfit}-{view}.png');crop=(75,45,430,475);im=im.crop(crop).resize((round(355*scale),round(430*scale)),Image.Resampling.LANCZOS)
+   x=col*280+(280-im.width)//2;y=yy+22;sheet.paste(im,(x,y),im)
+   d.text((col*280+10,yy+4),f'{outfit} {view} · body {height}px',fill='#c9c6c0' if row%2 else '#51453e',font=font)
+ sheet.save(PROOFS/f'{outfit}-actual-size-light-dark.png')
+# Individual piece proof at 198px canonical height.
+for outfit,ids in recipe['outfits'].items():
+ sheet=Image.new('RGB',(960,len(ids)*236),'#f6f2e9');d=ImageDraw.Draw(sheet)
+ for row,item in enumerate(ids):
+  d.text((8,row*236+3),item,fill='#42362f',font=font)
+  for col,view in enumerate(VIEWS):
+   b=Image.open(ROOT/'references'/f'{view}.png');s=198/(b.getbbox()[3]-b.getbbox()[1]);im=Image.open(PROOFS/f'{item}-{view}.png').crop((75,45,430,475));im=im.resize((round(355*s),round(430*s)),Image.Resampling.LANCZOS)
+   sheet.paste(im,(col*240+(240-im.width)//2,row*236+22),im)
+ sheet.save(PROOFS/f'{outfit}-individual-pieces.png')
+# Explicit protected eye / cheek / two-wave-mouth region, not hat/neck band.
+audit=[]
+for outfit in recipe['outfits']:
+ for view in VIEWS:
+  base=np.array(Image.open(ROOT/'references'/f'{view}.png').convert('RGBA'));out=np.array(Image.open(PROOFS/f'{outfit}-{view}.png'))
+  rect=[120,222,403,336] if view!='back' else [130,222,390,336]
+  l,t,r,b=rect;delta=np.abs(out[t:b,l:r].astype(int)-base[t:b,l:r].astype(int))
+  audit.append({'outfit':outfit,'view':view,'protectedRect':rect,'changedPixels':int(np.any(delta,axis=2).sum()),'maxChannelDifference':int(delta.max()),'bodyRuntimeSourceUnchanged':True})
+(OUT/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+(OUT/'processing-report.json').write_text(json.dumps({'python':platform.python_version(),'pillow':Image.__version__,'alphaPolicy':'Preserve soft source alpha within 3px dilated inspected component; below-2 Lanczos ringing removal only; no white/color deletion','registration':logs,'faceAudit':audit,'recipeSha256':sha(ROOT/'recipe.json'),'scriptSha256':sha(__file__)},indent=2)+'\n')
+print(json.dumps({'items':len(manifest['appearance']),'layers':sum(len(p) for v in manifest['appearance'].values() for d in v['views'].values() for p in d.values()),'faceAudit':audit},indent=2))

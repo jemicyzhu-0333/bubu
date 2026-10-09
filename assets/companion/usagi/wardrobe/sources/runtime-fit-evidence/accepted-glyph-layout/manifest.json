@@ -1,0 +1,201 @@
+{
+  "generatedAt": "2026-10-01T20:38:33.527Z",
+  "renderer": "Offscreen Skia Canvas / exact production createPetRenderer / real Path2D; browser page unverified",
+  "form": "usagi",
+  "baselineCommit": "74d1986e7ae18cd994d6e034abc92351a4f8bd18",
+  "backend": "1.0.9",
+  "node": "v24.19.0",
+  "elapsedSeconds": 0.128,
+  "entries": [
+    {
+      "kind": "action",
+      "id": "happy-hop",
+      "variant": "current",
+      "label": "开心蹦跳",
+      "sourceMotion": "hop",
+      "sourceProp": "none",
+      "durationMs": 7500,
+      "options": {
+        "scene": "cozy-room",
+        "view": "auto",
+        "outfit": [
+          "usagi.moon-beret",
+          "usagi.star-collar",
+          "usagi.starlit-cape",
+          "usagi.envelope-pouch",
+          "usagi.constellation",
+          "usagi.moon-boots"
+        ],
+        "calm": false,
+        "dpr": 2,
+        "variants": [
+          "current"
+        ],
+        "frames": 5,
+        "dense": false,
+        "level": 25
+      },
+      "summary": {
+        "frames": 5,
+        "uniqueFrames": 5,
+        "frozen": false,
+        "blankFrames": 0,
+        "edgeTouchFrames": 0,
+        "maxAdjacentChange": 0.7322400857449088,
+        "note": "Whole-body change may be only bobbing or blinking. Judge semantic action, facial articulation and prop contact from the strip/playback."
+      },
+      "samples": [
+        {
+          "atMs": 0,
+          "hash": "b884621b",
+          "occupied": 39708,
+          "edge": 0,
+          "bounds": {
+            "left": 120,
+            "top": 35,
+            "right": 317,
+            "bottom": 332
+          },
+          "difference": null,
+          "expression": "react.happy"
+        },
+        {
+          "atMs": 1873,
+          "hash": "e83d8250",
+          "occupied": 39364,
+          "edge": 0,
+          "bounds": {
+            "left": 127,
+            "top": 4,
+            "right": 328,
+            "bottom": 302
+          },
+          "difference": {
+            "changedPixels": 34159,
+            "changedOfActive": 0.7322400857449088,
+            "meanChannelDelta": 21.153321188048622
+          },
+          "expression": "react.happy"
+        },
+        {
+          "atMs": 3746,
+          "hash": "6fb55b35",
+          "occupied": 41171,
+          "edge": 0,
+          "bounds": {
+            "left": 118,
+            "top": 26,
+            "right": 319,
+            "bottom": 321
+          },
+          "difference": {
+            "changedPixels": 32935,
+            "changedOfActive": 0.7040251384108933,
+            "meanChannelDelta": 19.830446873501387
+          },
+          "expression": "react.happy"
+        },
+        {
+          "atMs": 5619,
+          "hash": "9d54cbd5",
+          "occupied": 41484,
+          "edge": 0,
+          "bounds": {
+            "left": 109,
+            "top": 11,
+            "right": 311,
+            "bottom": 313
+          },
+          "difference": {
+            "changedPixels": 31418,
+            "changedOfActive": 0.6716548731214058,
+            "meanChannelDelta": 18.31765392714914
+          },
+          "expression": "react.happy"
+        },
+        {
+          "atMs": 7493,
+          "hash": "ab44da8c",
+          "occupied": 41409,
+          "edge": 0,
+          "bounds": {
+            "left": 118,
+            "top": 16,
+            "right": 319,
+            "bottom": 319
+          },
+          "difference": {
+            "changedPixels": 26023,
+            "changedOfActive": 0.5696055684454756,
+            "meanChannelDelta": 14.622024926502784
+          },
+          "expression": "react.happy"
+        }
+      ],
+      "dense": null,
+      "face": {
+        "frames": 5,
+        "uniqueFrames": 5,
+        "frozen": false,
+        "blankFrames": 0,
+        "edgeTouchFrames": 0,
+        "maxAdjacentChange": 0.7418546365914787,
+        "note": "Actual face-only painter, fixed canvas, automatic blinking explicitly disabled, no whole-body bob. Gaze from expression loops remains. A single unique frame means no internal visible change at these sample times.",
+        "samples": [
+          {
+            "atMs": 0,
+            "hash": "42f0b43c",
+            "occupied": 886,
+            "edge": 0,
+            "difference": null
+          },
+          {
+            "atMs": 1873,
+            "hash": "896960c8",
+            "occupied": 888,
+            "edge": 0,
+            "difference": {
+              "changedPixels": 154,
+              "changedOfActive": 0.16666666666666666,
+              "meanChannelDelta": 0.16661565146413632
+            }
+          },
+          {
+            "atMs": 3746,
+            "hash": "f7c7471f",
+            "occupied": 1272,
+            "edge": 0,
+            "difference": {
+              "changedPixels": 1184,
+              "changedOfActive": 0.7418546365914787,
+              "meanChannelDelta": 2.487341852872156
+            }
+          },
+          {
+            "atMs": 5619,
+            "hash": "7d5ee4bc",
+            "occupied": 888,
+            "edge": 0,
+            "difference": {
+              "changedPixels": 1180,
+              "changedOfActive": 0.7393483709273183,
+              "meanChannelDelta": 2.4929025099479647
+            }
+          },
+          {
+            "atMs": 7493,
+            "hash": "e8341e9c",
+            "occupied": 886,
+            "edge": 0,
+            "difference": {
+              "changedPixels": 162,
+              "changedOfActive": 0.17532467532467533,
+              "meanChannelDelta": 0.17204877053361903
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "errors": []
+}

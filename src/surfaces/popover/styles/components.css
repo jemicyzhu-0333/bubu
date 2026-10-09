@@ -1,0 +1,172 @@
+/* 跨 feature 复用的原子：按钮、输入、chip、图标按钮、空状态、弹层外壳、开关组。
+   它们只说“长什么样”，不说“在哪一页上”——后者归 features 层。features 排在这一层
+   后面，所以 feature 里的同权重规则天然盖得住这里，不必再靠选择器堆权重。 */
+
+@layer components {
+/* ---------- BUTTONS ---------- */
+  .pixel-btn {
+    font-family: inherit; font-size: 11px; font-weight: 700;
+    color: var(--fg-0);
+    background: var(--bg-3);
+    border: 2px solid var(--bg-0);
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: transform 0.08s, box-shadow 0.08s, background 0.15s;
+    box-shadow: 3px 3px 0 rgb(var(--shadow-rgb) / 0.5);
+    display: inline-flex; align-items: center; gap: 5px; justify-content: center;
+    letter-spacing: 0.5px;
+    flex: 1;
+  }
+  .pixel-btn:hover { background: var(--bg-2); transform: translate(-1px, -1px); box-shadow: 4px 4px 0 rgb(var(--shadow-rgb) / 0.6); }
+  .pixel-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 rgb(var(--shadow-rgb) / 0.5); }
+  .pixel-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-kickstart { background: var(--yellow); color: var(--ink); border-color: var(--yellow-dark); }
+  .btn-kickstart:hover { background: #f4c37d; }
+  .btn-focus { background: var(--pink); color: var(--ink); border-color: var(--pink-dark); }
+  .btn-focus:hover { background: #ff8fa3; }
+  .btn-stop { background: var(--fg-2); color: var(--bg-3); border-color: var(--bg-0); }
+  .btn-icon { font-size: 12px; }
+  .btn-mini {
+    min-width: 30px; min-height: 30px;
+    padding: 3px 8px; font-size: 12px; flex: 0 0 auto;
+    box-shadow: 2px 2px 0 rgb(var(--shadow-rgb) / 0.5);
+  }
+  .pixel-input {
+    flex: 1; font-family: inherit; font-size: 12px;
+    color: var(--fg-0); background: var(--bg-1);
+    border: 2px solid var(--bg-3);
+    padding: 8px 10px; outline: none;
+    -webkit-user-select: text; user-select: text;
+    transition: border-color 0.15s;
+  }
+  .pixel-input:focus { border-color: var(--cyan); box-shadow: inset 0 0 0 1px var(--cyan); }
+  .pixel-input::placeholder { color: var(--fg-2); }
+  .chip-row { display: flex; gap: 5px; flex-wrap: wrap; }
+  .chip {
+    font-family: inherit; font-size: 11px;
+    min-height: 28px;
+    padding: 4px 8px;
+    background: var(--bg-2); color: var(--fg-1);
+    border: 1px solid var(--bg-3);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-weight: 600;
+  }
+  .chip:hover { background: var(--bg-3); color: var(--fg-0); }
+  .chip.active { background: var(--blue); color: var(--ink); border-color: var(--blue-dark); }
+  .chip-action { background: transparent; border: 1px dashed var(--fg-2); color: var(--fg-2); }
+  .chip-action:hover { border-color: var(--yellow); color: var(--accent-ink); background: transparent; }
+  .icon-btn {
+    min-width: 30px; width: 30px; height: 30px;
+    background: transparent;
+    border: 1px solid var(--bg-3);
+    color: var(--fg-1);
+    cursor: pointer;
+    font-size: 11px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+    font-weight: 700;
+  }
+  .icon-btn:hover { border-color: var(--pink); color: var(--primary-ink); background: var(--bg-1); }
+  .icon-btn:disabled,
+  .icon-btn:disabled:hover {
+    opacity: 0.32;
+    cursor: not-allowed;
+    color: var(--fg-2);
+    border-color: var(--bg-3);
+    background: transparent;
+  }
+/* ---------- EMPTY STATE ---------- */
+  .empty-state { text-align: center; padding: 32px 12px; color: var(--fg-2); }
+  .empty-pixel { font-size: 36px; margin-bottom: 8px; animation: bob 3s ease-in-out infinite; }
+  .empty-title { font-size: 13px; font-weight: 700; color: var(--fg-1); margin-bottom: 4px; }
+  .empty-sub { font-size: 11px; color: var(--fg-2); line-height: 1.6; }
+  .stepper { display: flex; align-items: center; gap: 6px; }
+  .stepper span:not(.unit) { min-width: 24px; text-align: center; color: var(--cyan-ink); font-weight: 700; font-size: 13px; }
+  .stepper .unit { color: var(--fg-2); font-size: 11px; }
+/* ---------- MODAL (breakdown) ---------- */
+  .modal-mask {
+    position: fixed; inset: 0;
+    background: rgb(var(--shadow-rgb) / 0.6);
+    z-index: 500;
+    display: flex; align-items: center; justify-content: center;
+    padding: 12px;
+    animation: fadeIn 0.15s ease-out;
+  }
+  .modal-mask.hidden { display: none; }
+  .modal {
+    background: var(--bg-1);
+    border: 2px solid var(--yellow);
+    box-shadow: 6px 6px 0 rgb(var(--shadow-rgb) / 0.7), 0 0 30px rgba(224,175,104,0.3);
+    width: 100%;
+    max-height: 90%;
+    display: flex; flex-direction: column;
+    animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes modalPop {
+    0% { transform: scale(0.85); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .modal-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 12px;
+    background: var(--bg-2);
+    border-bottom: 2px dashed var(--bg-3);
+  }
+  .modal-title { font-size: 12px; font-weight: 900; color: var(--accent-ink); letter-spacing: 1px; }
+  .modal-close {
+    background: transparent; border: 1px solid var(--bg-3);
+    color: var(--fg-2); cursor: pointer;
+    width: 30px; height: 30px;
+    font-size: 12px;
+    transition: all 0.15s;
+  }
+  .modal-close:hover { border-color: var(--pink); color: var(--primary-ink); }
+  .modal-body {
+    padding: 12px;
+    overflow-y: auto;
+    flex: 1;
+  }
+  .modal-actions {
+    display: flex; gap: 6px;
+    padding: 10px 12px;
+    background: var(--bg-2);
+    border-top: 2px dashed var(--bg-3);
+  }
+  .chip-label {
+    font-size: 11px;
+    color: var(--fg-2);
+    padding: 4px 4px;
+    font-weight: 700;
+  }
+  .pixel-date {
+    font-family: inherit;
+    font-size: 11px;
+    background: var(--bg-1);
+    color: var(--fg-0);
+    border: 1px solid var(--bg-3);
+    padding: 3px 6px;
+    outline: none;
+    -webkit-user-select: text; user-select: text;
+    color-scheme: dark;
+  }
+  .toggle-group { display: flex; gap: 4px; align-items: center; }
+  .toggle-btn {
+    font-family: inherit; font-size: 11px; font-weight: 700;
+    padding: 4px 12px;
+    background: var(--bg-3);
+    color: var(--fg-2);
+    border: 2px solid var(--bg-0);
+    cursor: pointer;
+    transition: all 0.15s;
+    box-shadow: 2px 2px 0 rgb(var(--shadow-rgb) / 0.4);
+    letter-spacing: 1px;
+    min-height: 32px;
+  }
+  .toggle-btn.on {
+    background: var(--green);
+    color: var(--ink);
+    border-color: var(--green-dark);
+  }
+  .segmented { display: flex; flex-wrap: wrap; gap: 5px; }
+}

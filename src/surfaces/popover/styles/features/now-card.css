@@ -1,0 +1,74 @@
+/* 「此刻这一件」：NOW 卡、候选面板、今日能量、⚠ 徽标与卡片下面那一屏步骤。
+   对应 features/now-card.js。 */
+
+@layer features {
+/* ADHD execution loop: one visible target, explainable choices, gentle landing. */
+  .now-card, .candidate-panel, .energy-checkin {
+    margin: 8px 10px;
+    padding: 10px;
+    border: 2px solid var(--primary-dark);
+    background: var(--bg-2);
+  }
+  .now-card { box-shadow: 3px 3px 0 var(--bg-0); }
+  .now-card-head, .candidate-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .eyebrow, .candidate-role {
+    color: var(--cyan-ink);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+  }
+  .now-card h2, .candidate-card h3 { margin: 3px 0 6px; font-size: 14px; }
+  .now-action { padding: 7px; border-left: 3px solid var(--accent); background: var(--bg-1); color: var(--fg-0); }
+  .now-meta, .candidate-score, .capability-note { color: var(--fg-2); font-size: 11px; }
+/* “生效”那一行带着真正打开的 endpoint，而一个没有空格的长 URL 默认不换行：
+   在 440px 的面板里它会横着溢出，而被裁掉的那半段恰好是排查时要看的那段。 */
+  .capability-note { overflow-wrap: anywhere; }
+  .now-actions, .blocker-chips, .landing-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .now-card-foot {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    margin-top: 8px;
+  }
+  .blocker-badge {
+    padding: 2px 6px;
+    border: 1px solid var(--yellow-dark);
+    background: rgba(224,175,104,0.12);
+    color: var(--accent-ink);
+    font-size: 11px; font-weight: 900;
+  }
+  .blocker-badge.hidden, .now-meta.hidden, .now-task-detail.hidden { display: none; }
+  .chip-stuck { margin-left: auto; border-color: var(--pink-dark); color: var(--primary-ink); }
+  .candidate-heading { color: var(--primary-ink); font-weight: 900; }
+  .candidate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 8px; }
+  .candidate-card { border: 1px solid var(--bg-3); background: var(--bg-1); padding: 8px; min-width: 0; }
+  .candidate-card p { color: var(--fg-1); font-size: 11px; min-height: 28px; }
+  .energy-checkin { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; padding: 6px 10px; border-width: 1px; }
+  .energy-checkin-btn.active, .blocker-chip.active, .segmented .active { background: var(--cyan); color: var(--ink); border-color: var(--cyan); }
+/* -- 计时器下面的当前任务与子项 -- */
+  .now-task-detail {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--bg-3);
+    text-align: left;
+  }
+  .now-task-detail-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  }
+  .now-task-detail-title { font-size: 11px; font-weight: 900; color: var(--fg-0); }
+  .now-task-detail .task-steps { margin-top: 6px; }
+  .step-item.step-next { color: var(--cyan-ink); }
+  .step-item.step-next .step-check { border-color: var(--cyan); }
+}
+
+/* 起床时间是展开能量后可选的补充信息。 */
+@layer features {
+  .energy-wake { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; }
+  .energy-wake.hidden { display: none; }
+  .energy-wake > span { font-size: 12px; color: var(--fg-1); margin-right: 4px; white-space: nowrap; }
+  .energy-wake-btn { padding: 4px 10px; font-size: 12px; }
+  .energy-wake-skip { color: var(--fg-2); }
+}

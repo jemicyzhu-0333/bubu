@@ -1,0 +1,683 @@
+{
+  "id": "milestone.boots",
+  "renderKey": "boots",
+  "kind": "footwear",
+  "canvas": [
+    768,
+    768
+  ],
+  "origin512": [
+    -128,
+    -192
+  ],
+  "threeQuarterSource": "three-quarter-right",
+  "leftFacingPolicy": "runtime-mirror",
+  "views": {
+    "front": {
+      "sources": {
+        "worn": {
+          "path": "../../masters/boots-sheet.png",
+          "crop": [
+            0,
+            0,
+            512,
+            640
+          ],
+          "transform": {
+            "scale": 1.0,
+            "translate": [
+              -13,
+              -46
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather boots and cream cuff with stepped outline; removes generated low-alpha haze"
+          },
+          "registrationBasis": "Design-only wearer; oversized generated boot position is not used for final shoe fitting"
+        },
+        "isolated": {
+          "path": "../../masters/boots-sheet.png",
+          "crop": [
+            0,
+            640,
+            512,
+            1024
+          ],
+          "transform": {
+            "scale": 1,
+            "translate": [
+              0,
+              0
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather boots and cream cuff with stepped outline; removes generated low-alpha haze"
+          },
+          "registrationBasis": "Unfitted isolated source for provenance only; separate boot sources below use independent uniform fitting"
+        },
+        "isolated-foot-left": {
+          "path": "../../masters/boots-sheet.png",
+          "crop": [
+            0,
+            640,
+            256,
+            1024
+          ],
+          "transform": {
+            "scale": 0.821917808219178,
+            "translate": [
+              35.45205479452056,
+              217.04109589041096
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather boots and cream cuff with stepped outline; removes generated low-alpha haze"
+          },
+          "role": "isolated",
+          "registrationBasis": "Independent uniform scale to measured original foot width; bottom aligned to approved y448; cuff covers lower torso, no added body height"
+        },
+        "isolated-foot-right": {
+          "path": "../../masters/boots-sheet.png",
+          "crop": [
+            256,
+            640,
+            512,
+            1024
+          ],
+          "transform": {
+            "scale": 0.821917808219178,
+            "translate": [
+              235.36986301369865,
+              217.04109589041096
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather boots and cream cuff with stepped outline; removes generated low-alpha haze"
+          },
+          "role": "isolated",
+          "registrationBasis": "Independent uniform scale to measured original foot width; bottom aligned to approved y448; cuff covers lower torso, no added body height"
+        }
+      },
+      "faceProtected": {
+        "rectangles": [
+          [
+            131,
+            184,
+            211,
+            272
+          ],
+          [
+            299,
+            184,
+            378,
+            272
+          ],
+          [
+            231,
+            276,
+            279,
+            310
+          ]
+        ]
+      },
+      "footZones": {
+        "foot-left": {
+          "rectangles": [
+            [
+              115,
+              343,
+              237,
+              448
+            ]
+          ]
+        },
+        "foot-right": {
+          "rectangles": [
+            [
+              273,
+              342,
+              395,
+              448
+            ]
+          ]
+        }
+      },
+      "footBodyPaintMasks": {
+        "foot-left": {
+          "file": "front-foot-left-body-paint-mask.png"
+        },
+        "foot-right": {
+          "file": "front-foot-right-body-paint-mask.png"
+        }
+      },
+      "footComponentMinPixels": 12,
+      "fitEvidence": {
+        "foot-left": {
+          "sourceBoundsAfterCrop": [
+            98,
+            154,
+            244,
+            281
+          ],
+          "uniformScale": 0.821917808219178,
+          "normalizedBounds512": [
+            116,
+            344,
+            236,
+            448
+          ],
+          "approvedBaseline512": 448,
+          "underlyingFootSample": "approved original pixels y>=425, matching image half",
+          "originalFootSamplePixels": 2022,
+          "samplePixelsNotCoveredByBoot": 0,
+          "exposedPinkFootPaintPixels": 0,
+          "limitation": "One uniform scale cannot match both wide/shallow original foot and taller boot proportions. Width and baseline matched; cuff extends upward only. Inspect pose deformation separately."
+        },
+        "foot-right": {
+          "sourceBoundsAfterCrop": [
+            47,
+            153,
+            193,
+            281
+          ],
+          "uniformScale": 0.821917808219178,
+          "normalizedBounds512": [
+            274,
+            343,
+            394,
+            448
+          ],
+          "approvedBaseline512": 448,
+          "underlyingFootSample": "approved original pixels y>=425, matching image half",
+          "originalFootSamplePixels": 2037,
+          "samplePixelsNotCoveredByBoot": 0,
+          "exposedPinkFootPaintPixels": 0,
+          "limitation": "One uniform scale cannot match both wide/shallow original foot and taller boot proportions. Width and baseline matched; cuff extends upward only. Inspect pose deformation separately."
+        }
+      },
+      "hiddenMaterialStatus": {
+        "status": "not-required",
+        "reason": "Two complete isolated boots include cuffs and soles, each independently bound to the matching original foot; no third/static duplicate shoe sprite"
+      },
+      "layers": [
+        {
+          "id": "foot-left",
+          "source": "isolated-foot-left",
+          "plane": "front",
+          "purpose": "visible",
+          "attachment": "foot-left",
+          "pivot512": [
+            176,
+            403
+          ],
+          "mask": {
+            "file": "front-foot-left-mask.png"
+          }
+        },
+        {
+          "id": "foot-right",
+          "source": "isolated-foot-right",
+          "plane": "front",
+          "purpose": "visible",
+          "attachment": "foot-right",
+          "pivot512": [
+            334,
+            403
+          ],
+          "mask": {
+            "file": "front-foot-right-mask.png"
+          }
+        }
+      ]
+    },
+    "three-quarter": {
+      "sources": {
+        "worn": {
+          "path": "../../masters/boots-sheet.png",
+          "crop": [
+            512,
+            0,
+            1024,
+            640
+          ],
+          "transform": {
+            "scale": 1.0,
+            "translate": [
+              -17,
+              -46
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather boots and cream cuff with stepped outline; removes generated low-alpha haze"
+          },
+          "registrationBasis": "Design-only wearer; oversized generated boot position is not used for final shoe fitting"
+        },
+        "isolated": {
+          "path": "../../masters/boots-sheet.png",
+          "crop": [
+            512,
+            640,
+            1024,
+            1024
+          ],
+          "transform": {
+            "scale": 1,
+            "translate": [
+              0,
+              0
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather boots and cream cuff with stepped outline; removes generated low-alpha haze"
+          },
+          "registrationBasis": "Unfitted isolated source for provenance only; separate boot sources below use independent uniform fitting"
+        },
+        "isolated-foot-left": {
+          "path": "../../masters/boots-sheet.png",
+          "crop": [
+            512,
+            640,
+            768,
+            1024
+          ],
+          "transform": {
+            "scale": 0.8533333333333334,
+            "translate": [
+              34.54666666666665,
+              203.0933333333333
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather boots and cream cuff with stepped outline; removes generated low-alpha haze"
+          },
+          "role": "isolated",
+          "registrationBasis": "Independent uniform scale to measured original foot width; bottom aligned to approved y448; cuff covers lower torso, no added body height"
+        },
+        "isolated-foot-right": {
+          "path": "../../masters/boots-sheet.png",
+          "crop": [
+            768,
+            640,
+            1024,
+            1024
+          ],
+          "transform": {
+            "scale": 0.7295597484276729,
+            "translate": [
+              256.11320754716985,
+              242.26415094339623
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather boots and cream cuff with stepped outline; removes generated low-alpha haze"
+          },
+          "role": "isolated",
+          "registrationBasis": "Independent uniform scale to measured original foot width; bottom aligned to approved y448; cuff covers lower torso, no added body height"
+        }
+      },
+      "faceProtected": {
+        "rectangles": [
+          [
+            267,
+            184,
+            344,
+            273
+          ],
+          [
+            389,
+            184,
+            445,
+            273
+          ],
+          [
+            349,
+            276,
+            398,
+            313
+          ]
+        ]
+      },
+      "footZones": {
+        "foot-left": {
+          "rectangles": [
+            [
+              124,
+              334,
+              254,
+              448
+            ]
+          ]
+        },
+        "foot-right": {
+          "rectangles": [
+            [
+              277,
+              354,
+              395,
+              448
+            ]
+          ]
+        }
+      },
+      "footBodyPaintMasks": {
+        "foot-left": {
+          "file": "three-quarter-foot-left-body-paint-mask.png"
+        },
+        "foot-right": {
+          "file": "three-quarter-foot-right-body-paint-mask.png"
+        }
+      },
+      "footComponentMinPixels": 12,
+      "fitEvidence": {
+        "foot-left": {
+          "sourceBoundsAfterCrop": [
+            106,
+            155,
+            256,
+            287
+          ],
+          "uniformScale": 0.8533333333333334,
+          "normalizedBounds512": [
+            125,
+            335,
+            253,
+            448
+          ],
+          "approvedBaseline512": 448,
+          "underlyingFootSample": "approved original pixels y>=425, matching image half",
+          "originalFootSamplePixels": 2299,
+          "samplePixelsNotCoveredByBoot": 103,
+          "exposedPinkFootPaintPixels": 0,
+          "limitation": "One uniform scale cannot match both wide/shallow original foot and taller boot proportions. Width and baseline matched; cuff extends upward only. Inspect pose deformation separately."
+        },
+        "foot-right": {
+          "sourceBoundsAfterCrop": [
+            30,
+            155,
+            189,
+            282
+          ],
+          "uniformScale": 0.7295597484276729,
+          "normalizedBounds512": [
+            278,
+            355,
+            394,
+            448
+          ],
+          "approvedBaseline512": 448,
+          "underlyingFootSample": "approved original pixels y>=425, matching image half",
+          "originalFootSamplePixels": 2005,
+          "samplePixelsNotCoveredByBoot": 70,
+          "exposedPinkFootPaintPixels": 0,
+          "limitation": "One uniform scale cannot match both wide/shallow original foot and taller boot proportions. Width and baseline matched; cuff extends upward only. Inspect pose deformation separately."
+        }
+      },
+      "hiddenMaterialStatus": {
+        "status": "not-required",
+        "reason": "Two complete isolated boots include cuffs and soles, each independently bound to the matching original foot; no third/static duplicate shoe sprite"
+      },
+      "layers": [
+        {
+          "id": "foot-left",
+          "source": "isolated-foot-left",
+          "plane": "front",
+          "purpose": "visible",
+          "attachment": "foot-left",
+          "pivot512": [
+            189,
+            411
+          ],
+          "mask": {
+            "file": "three-quarter-foot-left-mask.png"
+          }
+        },
+        {
+          "id": "foot-right",
+          "source": "isolated-foot-right",
+          "plane": "front",
+          "purpose": "visible",
+          "attachment": "foot-right",
+          "pivot512": [
+            336,
+            411
+          ],
+          "mask": {
+            "file": "three-quarter-foot-right-mask.png"
+          }
+        }
+      ]
+    },
+    "back": {
+      "sources": {
+        "worn": {
+          "path": "../../masters/boots-sheet.png",
+          "crop": [
+            1024,
+            0,
+            1536,
+            640
+          ],
+          "transform": {
+            "scale": 1.0,
+            "translate": [
+              12,
+              -46
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather boots and cream cuff with stepped outline; removes generated low-alpha haze"
+          },
+          "registrationBasis": "Design-only wearer; oversized generated boot position is not used for final shoe fitting"
+        },
+        "isolated": {
+          "path": "../../masters/boots-sheet.png",
+          "crop": [
+            1024,
+            640,
+            1536,
+            1024
+          ],
+          "transform": {
+            "scale": 1,
+            "translate": [
+              0,
+              0
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather boots and cream cuff with stepped outline; removes generated low-alpha haze"
+          },
+          "registrationBasis": "Unfitted isolated source for provenance only; separate boot sources below use independent uniform fitting"
+        },
+        "isolated-foot-left": {
+          "path": "../../masters/boots-sheet.png",
+          "crop": [
+            1024,
+            640,
+            1280,
+            1024
+          ],
+          "transform": {
+            "scale": 0.8802816901408451,
+            "translate": [
+              39.83802816901408,
+              199.76056338028167
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather boots and cream cuff with stepped outline; removes generated low-alpha haze"
+          },
+          "role": "isolated",
+          "registrationBasis": "Independent uniform scale to measured original foot width; bottom aligned to approved y448; cuff covers lower torso, no added body height"
+        },
+        "isolated-foot-right": {
+          "path": "../../masters/boots-sheet.png",
+          "crop": [
+            1280,
+            640,
+            1536,
+            1024
+          ],
+          "transform": {
+            "scale": 0.8928571428571429,
+            "translate": [
+              263.42857142857144,
+              196.2142857142857
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather boots and cream cuff with stepped outline; removes generated low-alpha haze"
+          },
+          "role": "isolated",
+          "registrationBasis": "Independent uniform scale to measured original foot width; bottom aligned to approved y448; cuff covers lower torso, no added body height"
+        }
+      },
+      "faceProtected": {},
+      "footZones": {
+        "foot-left": {
+          "rectangles": [
+            [
+              108,
+              335,
+              235,
+              448
+            ]
+          ]
+        },
+        "foot-right": {
+          "rectangles": [
+            [
+              278,
+              334,
+              405,
+              448
+            ]
+          ]
+        }
+      },
+      "footBodyPaintMasks": {
+        "foot-left": {
+          "file": "back-foot-left-body-paint-mask.png"
+        },
+        "foot-right": {
+          "file": "back-foot-right-body-paint-mask.png"
+        }
+      },
+      "footComponentMinPixels": 12,
+      "fitEvidence": {
+        "foot-left": {
+          "sourceBoundsAfterCrop": [
+            78,
+            155,
+            220,
+            282
+          ],
+          "uniformScale": 0.8802816901408451,
+          "normalizedBounds512": [
+            109,
+            336,
+            234,
+            448
+          ],
+          "approvedBaseline512": 448,
+          "underlyingFootSample": "approved original pixels y>=425, matching image half",
+          "originalFootSamplePixels": 2143,
+          "samplePixelsNotCoveredByBoot": 46,
+          "exposedPinkFootPaintPixels": 0,
+          "limitation": "One uniform scale cannot match both wide/shallow original foot and taller boot proportions. Width and baseline matched; cuff extends upward only. Inspect pose deformation separately."
+        },
+        "foot-right": {
+          "sourceBoundsAfterCrop": [
+            18,
+            155,
+            158,
+            282
+          ],
+          "uniformScale": 0.8928571428571429,
+          "normalizedBounds512": [
+            279,
+            335,
+            404,
+            448
+          ],
+          "approvedBaseline512": 448,
+          "underlyingFootSample": "approved original pixels y>=425, matching image half",
+          "originalFootSamplePixels": 2190,
+          "samplePixelsNotCoveredByBoot": 59,
+          "exposedPinkFootPaintPixels": 0,
+          "limitation": "One uniform scale cannot match both wide/shallow original foot and taller boot proportions. Width and baseline matched; cuff extends upward only. Inspect pose deformation separately."
+        }
+      },
+      "hiddenMaterialStatus": {
+        "status": "not-required",
+        "reason": "Two complete isolated boots include cuffs and soles, each independently bound to the matching original foot; no third/static duplicate shoe sprite"
+      },
+      "layers": [
+        {
+          "id": "foot-left",
+          "source": "isolated-foot-left",
+          "plane": "front",
+          "purpose": "visible",
+          "attachment": "foot-left",
+          "pivot512": [
+            171,
+            403
+          ],
+          "mask": {
+            "file": "back-foot-left-mask.png"
+          }
+        },
+        {
+          "id": "foot-right",
+          "source": "isolated-foot-right",
+          "plane": "front",
+          "purpose": "visible",
+          "attachment": "foot-right",
+          "pivot512": [
+            342,
+            403
+          ],
+          "mask": {
+            "file": "back-foot-right-mask.png"
+          }
+        }
+      ]
+    }
+  }
+}

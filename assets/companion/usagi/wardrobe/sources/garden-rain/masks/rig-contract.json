@@ -1,0 +1,479 @@
+{
+  "front": {
+    "bones": {
+      "root": {
+        "parent": null,
+        "pivot": [
+          33,
+          64
+        ]
+      },
+      "ear_l": {
+        "parent": "root",
+        "pivot": [
+          25,
+          3
+        ]
+      },
+      "ear_r": {
+        "parent": "root",
+        "pivot": [
+          40,
+          3
+        ]
+      },
+      "leg_l": {
+        "parent": "root",
+        "pivot": [
+          21,
+          59
+        ]
+      },
+      "leg_r": {
+        "parent": "root",
+        "pivot": [
+          45,
+          59
+        ]
+      },
+      "arm_l": {
+        "parent": "root",
+        "pivot": [
+          11,
+          44
+        ]
+      },
+      "hand_l": {
+        "parent": "arm_l",
+        "pivot": [
+          11,
+          50
+        ]
+      },
+      "arm_r": {
+        "parent": "root",
+        "pivot": [
+          55,
+          44
+        ]
+      },
+      "hand_r": {
+        "parent": "arm_r",
+        "pivot": [
+          55,
+          50
+        ]
+      }
+    },
+    "anchors": {
+      "usagi.earwear": {
+        "bone": "ear_r",
+        "x": 40,
+        "y": -3
+      },
+      "usagi.footwear": {
+        "bone": "leg_l",
+        "x": 21,
+        "y": 63
+      },
+      "usagi.footwear-r": {
+        "bone": "leg_r",
+        "x": 45,
+        "y": 63
+      },
+      "usagi.umbrella-grip": {
+        "bone": "hand_r",
+        "x": 55,
+        "y": 50
+      },
+      "usagi.neckwear": {
+        "bone": "root",
+        "x": 33,
+        "y": 44
+      },
+      "usagi.backwear": {
+        "bone": "root",
+        "x": 33,
+        "y": 44
+      },
+      "usagi.headwear": {
+        "bone": "root",
+        "x": 33,
+        "y": -1
+      },
+      "usagi.sidebag": {
+        "bone": "root",
+        "x": 5,
+        "y": 49
+      },
+      "usagi.aura": {
+        "bone": "root",
+        "x": 33,
+        "y": -29
+      }
+    }
+  },
+  "three-quarter": {
+    "bones": {
+      "root": {
+        "parent": null,
+        "pivot": [
+          33,
+          64
+        ]
+      },
+      "ear_l": {
+        "parent": "root",
+        "pivot": [
+          29,
+          3
+        ]
+      },
+      "ear_r": {
+        "parent": "root",
+        "pivot": [
+          39,
+          3
+        ]
+      },
+      "leg_l": {
+        "parent": "root",
+        "pivot": [
+          27,
+          59
+        ]
+      },
+      "leg_r": {
+        "parent": "root",
+        "pivot": [
+          45,
+          59
+        ]
+      },
+      "tail": {
+        "parent": "root",
+        "pivot": [
+          15,
+          56
+        ]
+      },
+      "arm_l": {
+        "parent": "root",
+        "pivot": [
+          17,
+          44
+        ]
+      },
+      "hand_l": {
+        "parent": "arm_l",
+        "pivot": [
+          17,
+          50
+        ]
+      },
+      "arm_r": {
+        "parent": "root",
+        "pivot": [
+          48,
+          44
+        ]
+      },
+      "hand_r": {
+        "parent": "arm_r",
+        "pivot": [
+          48,
+          50
+        ]
+      }
+    },
+    "anchors": {
+      "usagi.earwear": {
+        "bone": "ear_r",
+        "x": 39,
+        "y": -3
+      },
+      "usagi.footwear": {
+        "bone": "leg_l",
+        "x": 27,
+        "y": 63
+      },
+      "usagi.footwear-r": {
+        "bone": "leg_r",
+        "x": 45,
+        "y": 63
+      },
+      "usagi.umbrella-grip": {
+        "bone": "hand_r",
+        "x": 48,
+        "y": 50
+      },
+      "usagi.neckwear": {
+        "bone": "root",
+        "x": 33,
+        "y": 44
+      },
+      "usagi.backwear": {
+        "bone": "root",
+        "x": 33,
+        "y": 44
+      },
+      "usagi.headwear": {
+        "bone": "root",
+        "x": 33,
+        "y": -1
+      },
+      "usagi.sidebag": {
+        "bone": "root",
+        "x": 10,
+        "y": 49
+      },
+      "usagi.aura": {
+        "bone": "root",
+        "x": 33,
+        "y": -29
+      }
+    }
+  },
+  "profile": {
+    "bones": {
+      "root": {
+        "parent": null,
+        "pivot": [
+          33,
+          64
+        ]
+      },
+      "ear_l": {
+        "parent": "root",
+        "pivot": [
+          33,
+          3
+        ]
+      },
+      "ear_r": {
+        "parent": "root",
+        "pivot": [
+          40,
+          3
+        ]
+      },
+      "leg_l": {
+        "parent": "root",
+        "pivot": [
+          31,
+          59
+        ]
+      },
+      "leg_r": {
+        "parent": "root",
+        "pivot": [
+          45,
+          59
+        ]
+      },
+      "tail": {
+        "parent": "root",
+        "pivot": [
+          15,
+          56
+        ]
+      },
+      "arm_l": {
+        "parent": "root",
+        "pivot": [
+          19,
+          44
+        ]
+      },
+      "hand_l": {
+        "parent": "arm_l",
+        "pivot": [
+          19,
+          50
+        ]
+      },
+      "arm_r": {
+        "parent": "root",
+        "pivot": [
+          45,
+          44
+        ]
+      },
+      "hand_r": {
+        "parent": "arm_r",
+        "pivot": [
+          45,
+          50
+        ]
+      }
+    },
+    "anchors": {
+      "usagi.earwear": {
+        "bone": "ear_r",
+        "x": 40,
+        "y": -3
+      },
+      "usagi.footwear": {
+        "bone": "leg_l",
+        "x": 31,
+        "y": 63
+      },
+      "usagi.footwear-r": {
+        "bone": "leg_r",
+        "x": 45,
+        "y": 63
+      },
+      "usagi.umbrella-grip": {
+        "bone": "hand_r",
+        "x": 45,
+        "y": 50
+      },
+      "usagi.neckwear": {
+        "bone": "root",
+        "x": 33,
+        "y": 44
+      },
+      "usagi.backwear": {
+        "bone": "root",
+        "x": 33,
+        "y": 44
+      },
+      "usagi.headwear": {
+        "bone": "root",
+        "x": 33,
+        "y": -1
+      },
+      "usagi.sidebag": {
+        "bone": "root",
+        "x": 14,
+        "y": 49
+      },
+      "usagi.aura": {
+        "bone": "root",
+        "x": 33,
+        "y": -29
+      }
+    }
+  },
+  "back": {
+    "bones": {
+      "root": {
+        "parent": null,
+        "pivot": [
+          33,
+          64
+        ]
+      },
+      "ear_l": {
+        "parent": "root",
+        "pivot": [
+          25,
+          3
+        ]
+      },
+      "ear_r": {
+        "parent": "root",
+        "pivot": [
+          40,
+          3
+        ]
+      },
+      "leg_l": {
+        "parent": "root",
+        "pivot": [
+          21,
+          59
+        ]
+      },
+      "leg_r": {
+        "parent": "root",
+        "pivot": [
+          45,
+          59
+        ]
+      },
+      "tail": {
+        "parent": "root",
+        "pivot": [
+          33,
+          56
+        ]
+      },
+      "arm_l": {
+        "parent": "root",
+        "pivot": [
+          11,
+          44
+        ]
+      },
+      "hand_l": {
+        "parent": "arm_l",
+        "pivot": [
+          11,
+          50
+        ]
+      },
+      "arm_r": {
+        "parent": "root",
+        "pivot": [
+          55,
+          44
+        ]
+      },
+      "hand_r": {
+        "parent": "arm_r",
+        "pivot": [
+          55,
+          50
+        ]
+      }
+    },
+    "anchors": {
+      "usagi.earwear": {
+        "bone": "ear_r",
+        "x": 40,
+        "y": -3
+      },
+      "usagi.footwear": {
+        "bone": "leg_l",
+        "x": 21,
+        "y": 63
+      },
+      "usagi.footwear-r": {
+        "bone": "leg_r",
+        "x": 45,
+        "y": 63
+      },
+      "usagi.umbrella-grip": {
+        "bone": "hand_r",
+        "x": 55,
+        "y": 50
+      },
+      "usagi.neckwear": {
+        "bone": "root",
+        "x": 33,
+        "y": 44
+      },
+      "usagi.backwear": {
+        "bone": "root",
+        "x": 33,
+        "y": 44
+      },
+      "usagi.headwear": {
+        "bone": "root",
+        "x": 33,
+        "y": -1
+      },
+      "usagi.sidebag": {
+        "bone": "root",
+        "x": 5,
+        "y": 49
+      },
+      "usagi.aura": {
+        "bone": "root",
+        "x": 33,
+        "y": -29
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "authoredContract": "contracts/{garden-rain,moon}.json remains the original 80-piece extraction descriptor authority.",
+  "runtimeContract": "contracts/runtime/{garden-rain,moon}.json adds runtimeFit metadata; original per-view authored descriptor arrays are unchanged.",
+  "adjustments": [
+    {
+      "item": "usagi.pastel-scarf",
+      "view": "three-quarter",
+      "method": "descriptor translation",
+      "translate": [
+        0,
+        2
+      ],
+      "unit": "art units",
+      "reason": "Preserve two-unit clearance from open-mouth ink; no PNG edits."
+    },
+    {
+      "item": "usagi.constellation",
+      "method": "Extract original three gold-star glyphs, uniformly resize each with a common per-view scale, and connect them with a lower, wider sparse lavender arc.",
+      "input": "items/usagi.constellation/{view}-part-0.png",
+      "output": "runtime-fits/constellation/{view}.png",
+      "generator": "tools/usagi-wardrobe/generation/fit_constellation.py",
+      "record": "contracts/runtime/constellation-fit.json",
+      "postOverrideTranslate": [
+        0,
+        1
+      ],
+      "reason": "Keep generated star glyphs readable while lowering their arc around the ears inside the existing dynamic stage. Tall original and rejected uniform-shrink proof are preserved. One additional art unit of lower clearance protects the fractional-DPR hiccup peak."
+    }
+  ],
+  "accounting": {
+    "originalAuthoredPngs": 80,
+    "addedFitPngs": 4,
+    "preservedPngs": 84,
+    "activeReferencedPngs": 80,
+    "retainedUnused": [
+      "items/usagi.constellation/front-part-0.png",
+      "items/usagi.constellation/three-quarter-part-0.png",
+      "items/usagi.constellation/profile-part-0.png",
+      "items/usagi.constellation/back-part-0.png"
+    ]
+  },
+  "integratedAssetDigest": "b09a15b75b6e666501a1c7406e73f10a1074fbb6fd391701fb9dea1c3a0c627a",
+  "proofScope": "Saved candidate and glyph-layout happy-hop production-renderer samples precede the final one-unit metadata translation. Full motion QA remains a separate integration report."
+}

@@ -1,0 +1,500 @@
+{
+  "sourceRevision": "rain-depth-v2-20261002",
+  "replaces": {
+    "usagi-pastel-scarf": "cfba4768d7c9d1fac1f65c35e4be7105b87094b5c8424fd554cccc51dffedbd3",
+    "usagi-rain-cape": "f2ba12fde392a407b7eba312d26855bf04cc551238a81be38914104b6f4a1d29",
+    "usagi-rain-satchel": "9d823d7d3f2e314c0f4b6e6ec8bcbcafe72cefe4140488368a6203609d2cbed0"
+  },
+  "appearance": {
+    "usagi-pastel-scarf": {
+      "itemId": "usagi.pastel-scarf",
+      "slot": "usagi.neckwear",
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "wrapsBody": true,
+      "depthReference": "sources/rain-depth-v2-20261002/records/prototype-manifest.json",
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.pastel-scarf/front-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                9.190476190476188,
+                40.238095238095234,
+                47.61904761904762,
+                8.333333333333332
+              ],
+              "sourceRect": [
+                156,
+                344,
+                356,
+                379
+              ],
+              "depthRole": "far-wrap",
+              "sha256": "66fa4dd8813860003ed4e92cadb1f9ecc8f313e87fe425e46c0f023bc35a7271"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.pastel-scarf/front-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                11.095238095238093,
+                41.19047619047619,
+                43.80952380952381,
+                11.904761904761905
+              ],
+              "sourceRect": [
+                164,
+                348,
+                348,
+                398
+              ],
+              "depthRole": "near-wrap",
+              "sha256": "4c1650eeb7f7eaddc5fce6fa59c75bebaefa39faf20a38b08f0d64ebf31eeaf8"
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.pastel-scarf/three-quarter-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                14.428571428571427,
+                41.19047619047619,
+                44.52380952380952,
+                7.619047619047619
+              ],
+              "sourceRect": [
+                178,
+                348,
+                365,
+                380
+              ],
+              "depthRole": "far-wrap",
+              "sha256": "f4a3a42827bd93cc8f4f90ca7d67b2fb3df325d7157157f1676473b6487e40c6"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.pastel-scarf/three-quarter-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                17.285714285714285,
+                41.19047619047619,
+                38.80952380952381,
+                11.19047619047619
+              ],
+              "sourceRect": [
+                190,
+                348,
+                353,
+                395
+              ],
+              "depthRole": "near-wrap",
+              "sha256": "d0192751b126f0cf95acc4520ad2b74efb1273cfc6c621608b733b209090408f"
+            }
+          ]
+        },
+        "profile": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.pastel-scarf/profile-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                21.57142857142857,
+                42.14285714285714,
+                35.95238095238095,
+                6.904761904761904
+              ],
+              "sourceRect": [
+                208,
+                352,
+                359,
+                381
+              ],
+              "depthRole": "far-wrap",
+              "sha256": "957c379c880d85cccf56e71608bb4aaa4fad8a5505905f124f3c95ea171524f5"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.pastel-scarf/profile-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                22.047619047619044,
+                41.666666666666664,
+                33.57142857142857,
+                11.19047619047619
+              ],
+              "sourceRect": [
+                210,
+                350,
+                351,
+                397
+              ],
+              "depthRole": "near-wrap",
+              "sha256": "d9c2884e5d26df1a4836cdf6b53ea6dc78d5d4367da5c2f06df8df7d5e42067e"
+            }
+          ]
+        },
+        "back": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.pastel-scarf/back-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                9.190476190476188,
+                40.238095238095234,
+                47.61904761904762,
+                6.904761904761904
+              ],
+              "sourceRect": [
+                156,
+                344,
+                356,
+                373
+              ],
+              "depthRole": "far-wrap",
+              "sha256": "31a81938050e03c787433f0776c9f9628f9cae8ef42ceb6a2127a3feb6dacb0f"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.pastel-scarf/back-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                11.809523809523808,
+                40.476190476190474,
+                42.61904761904762,
+                10.714285714285714
+              ],
+              "sourceRect": [
+                167,
+                345,
+                346,
+                390
+              ],
+              "depthRole": "near-wrap",
+              "sha256": "3e48b9301943169d4ae60c45985e8c649672343bc01cedb6ee1c06e8322c481f"
+            }
+          ]
+        }
+      }
+    },
+    "usagi-rain-cape": {
+      "itemId": "usagi.rain-cape",
+      "slot": "usagi.backwear",
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "wrapsBody": true,
+      "depthReference": "sources/rain-depth-v2-20261002/records/prototype-manifest.json",
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.rain-cape/front-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                6.571428571428569,
+                45.714285714285715,
+                52.857142857142854,
+                15
+              ],
+              "sourceRect": [
+                145,
+                367,
+                367,
+                430
+              ],
+              "depthRole": "far-drape",
+              "sha256": "a1cbf01155c455400d418b3eefd887031ab80e6d8ff0724c469a41920de5113c"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.rain-cape/front-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                10.857142857142856,
+                45.714285714285715,
+                44.52380952380952,
+                16.904761904761905
+              ],
+              "sourceRect": [
+                163,
+                367,
+                350,
+                438
+              ],
+              "depthRole": "near-drape",
+              "sha256": "d71aadf0ca820e67bdd45963c5adf614f8f80a297db239787e05104a95cd00ef"
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.rain-cape/three-quarter-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                11.095238095238093,
+                46.19047619047619,
+                50.95238095238095,
+                18.333333333333332
+              ],
+              "sourceRect": [
+                164,
+                369,
+                378,
+                446
+              ],
+              "depthRole": "far-drape",
+              "sha256": "9d685d12e72e2fefc4ac353d7b4188ae7c807a3fb8c345cffacbaa9c5b87e53e"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.rain-cape/three-quarter-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                12.76190476190476,
+                45.95238095238095,
+                37.14285714285714,
+                18.57142857142857
+              ],
+              "sourceRect": [
+                171,
+                368,
+                327,
+                446
+              ],
+              "depthRole": "near-drape",
+              "sha256": "61131a5fad21d990b0bac79bf1c20f19afcc6848610212be06ae0379d6cb6fe5"
+            }
+          ]
+        },
+        "profile": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.rain-cape/profile-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                12.523809523809522,
+                45.238095238095234,
+                45.95238095238095,
+                20.476190476190474
+              ],
+              "sourceRect": [
+                170,
+                365,
+                363,
+                451
+              ],
+              "depthRole": "far-drape",
+              "sha256": "c279590a4020fe9ce1340544b32c44b9bdaf3297357dbdb756fe4226ffda4d06"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.rain-cape/profile-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                15.14285714285714,
+                45.238095238095234,
+                36.904761904761905,
+                18.57142857142857
+              ],
+              "sourceRect": [
+                181,
+                365,
+                336,
+                443
+              ],
+              "depthRole": "near-drape",
+              "sha256": "ebf80b4b02eac4360e94e59056cedada5057915282b96f5e77a97257bfe76d33"
+            }
+          ]
+        },
+        "back": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.rain-cape/back-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                6.8095238095238075,
+                47.857142857142854,
+                52.38095238095238,
+                17.38095238095238
+              ],
+              "sourceRect": [
+                146,
+                376,
+                366,
+                449
+              ],
+              "depthRole": "far-drape",
+              "sha256": "dcb28e69f1aa34dc4720d08589106b06bbfe21dd9389e5b1400ca333d5396a74"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.rain-cape/back-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                11.57142857142857,
+                45.238095238095234,
+                43.095238095238095,
+                18.095238095238095
+              ],
+              "sourceRect": [
+                166,
+                365,
+                347,
+                441
+              ],
+              "depthRole": "near-drape",
+              "sha256": "33237b7211054a40450d7c2843b2d8a90c646f27ff5886295a7e420f3c7320eb"
+            }
+          ]
+        }
+      }
+    },
+    "usagi-rain-satchel": {
+      "itemId": "usagi.rain-satchel",
+      "slot": "usagi.sidebag",
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "wrapsBody": false,
+      "depthReference": "sources/rain-depth-v2-20261002/records/prototype-manifest.json",
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.rain-satchel/front-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                2.7619047619047605,
+                46.42857142857142,
+                52.38095238095238,
+                19.761904761904763
+              ],
+              "sourceRect": [
+                129,
+                370,
+                349,
+                453
+              ],
+              "depthRole": "hip-and-hidden-strap",
+              "sha256": "46086de059a11d70b2f1d41f016c39937b2b1021d5503d562f3ba734de312f45"
+            }
+          ],
+          "front": []
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.rain-satchel/three-quarter-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                10.38095238095238,
+                46.904761904761905,
+                46.19047619047619,
+                19.285714285714285
+              ],
+              "sourceRect": [
+                161,
+                372,
+                355,
+                453
+              ],
+              "depthRole": "hip-and-hidden-strap",
+              "sha256": "58b92cd585f2bda973d8add08157b8e2b7f40c87f27d70fb4e7f809469a0f515"
+            }
+          ],
+          "front": []
+        },
+        "profile": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.rain-satchel/profile-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                15.619047619047617,
+                46.666666666666664,
+                41.904761904761905,
+                16.904761904761905
+              ],
+              "sourceRect": [
+                183,
+                371,
+                359,
+                442
+              ],
+              "depthRole": "hip-and-hidden-strap",
+              "sha256": "ebc9809da757bd74c82b33b42d72606faa647a4402988da7541acae8063d9613"
+            }
+          ],
+          "front": []
+        },
+        "back": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.rain-satchel/back-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                10.38095238095238,
+                46.904761904761905,
+                52.38095238095238,
+                20
+              ],
+              "sourceRect": [
+                161,
+                372,
+                381,
+                456
+              ],
+              "depthRole": "hip-and-hidden-strap",
+              "sha256": "cc92e4fe1c5143be8466e09d5edd7e82e0d6ef0a611d18d298f1d3edbd1b20e5"
+            }
+          ],
+          "front": []
+        }
+      }
+    }
+  }
+}

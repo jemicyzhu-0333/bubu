@@ -1,0 +1,22 @@
+/* One menu surface, rather than five independently elevated buttons. */
+.command-menu { gap: 2px; padding: 5px; border: 1px solid var(--ui-line); border-radius: 14px; background: var(--ui-bg); box-shadow: 0 6px 20px #0002; visibility: hidden; scrollbar-width: thin; }
+.command-menu.show { visibility: visible; pointer-events: auto; }
+.command-item, .command-item.c0, .command-item.c1, .command-item.c2, .command-item.c3, .command-item.c4 {
+  width: 100%; min-width: 0; min-height: 34px; padding: 7px 8px; background: transparent; border: 0; border-radius: 9px; box-shadow: none; font-size: 12px; font-weight: 500;
+}
+.command-menu.show .command-item { animation: none; }
+.command-item[data-icon]::before { width: 16px; height: 16px; margin-right: 9px; color: var(--ui-fg-2); }
+.command-item:hover[data-icon]::before { color: var(--ui-fg); transform: none; }
+.command-item:hover, .command-item:focus-visible { background: color-mix(in srgb,var(--ui-fg) 8%,transparent); }
+.command-item[aria-checked='true'] { background: color-mix(in srgb,var(--primary) 15%,transparent); }
+.command-item:active { background: color-mix(in srgb,var(--primary) 23%,transparent); }
+.food-panel { border-radius: 14px; padding: 10px; box-shadow: 0 6px 20px #0002; }
+.food-item { background: transparent; border: 0; border-radius: 9px; padding: 9px 8px; color: var(--ui-fg); }
+.food-item + .food-item { border-top: 1px solid var(--ui-line); }
+.food-item:hover { background: color-mix(in srgb,var(--ui-fg) 8%,transparent); transform: none; border-color: var(--ui-line); }
+.fi-effect, .fp-footer { color: var(--ui-fg-2); }
+.fi-count { border-radius: 6px; background: color-mix(in srgb,var(--primary) 25%,var(--ui-bg)); color: var(--ui-fg); }
+@media (prefers-color-scheme: light) {
+  :root { --ui-bg: #faf9fc; --ui-line: #24232f1a; --ui-fg: #272631; --ui-fg-2: #676575; }
+}
+@media (prefers-reduced-motion: reduce) { .command-item, .food-item { transition: none; } }

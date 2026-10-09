@@ -1,0 +1,1593 @@
+{
+  "version": 1,
+  "status": "static-assets-reviewed-runtime-QA-pending",
+  "artSpace": "66art; x=33+(x512-256)*64/390; y=64+(y512-448)*64/390",
+  "appearance": {
+    "sprout": {
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "wardrobe/sprout-front-outer-piece.png",
+              "rect": [
+                19.871794871794872,
+                -5.579487179487174,
+                26.256410256410255,
+                12.635897435897435
+              ]
+            },
+            {
+              "src": "wardrobe/sprout-front-hidden-root.png",
+              "rect": [
+                30.53846153846154,
+                6.892307692307689,
+                4.758974358974359,
+                3.9384615384615387
+              ]
+            }
+          ],
+          "front": []
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "wardrobe/sprout-three-quarter-outer-piece.png",
+              "rect": [
+                19.871794871794872,
+                -5.907692307692301,
+                26.256410256410255,
+                12.964102564102564
+              ]
+            },
+            {
+              "src": "wardrobe/sprout-three-quarter-hidden-root.png",
+              "rect": [
+                21.02051282051282,
+                0.32820512820512704,
+                14.441025641025641,
+                10.502564102564103
+              ]
+            }
+          ],
+          "front": []
+        },
+        "back": {
+          "back": [
+            {
+              "src": "wardrobe/sprout-back-outer-piece.png",
+              "rect": [
+                19.871794871794872,
+                -5.579487179487174,
+                26.256410256410255,
+                12.635897435897435
+              ]
+            },
+            {
+              "src": "wardrobe/sprout-back-hidden-root.png",
+              "rect": [
+                30.53846153846154,
+                7.05641025641026,
+                4.758974358974359,
+                3.7743589743589743
+              ]
+            }
+          ],
+          "front": []
+        }
+      },
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "back"
+      ],
+      "bounds": {
+        "front": {
+          "x": 19.871794871794872,
+          "y": -5.579487179487174,
+          "width": 26.256410256410252,
+          "height": 16.4102564102564
+        },
+        "three-quarter": {
+          "x": 19.871794871794872,
+          "y": -5.907692307692301,
+          "width": 26.256410256410252,
+          "height": 16.73846153846153
+        },
+        "back": {
+          "x": 19.871794871794872,
+          "y": -5.579487179487174,
+          "width": 26.256410256410252,
+          "height": 16.41025641025641
+        }
+      },
+      "leftFacingPolicy": "runtime-mirror"
+    },
+    "sunhat": {
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "wardrobe/sunhat-front-outer-piece.png",
+              "rect": [
+                0.1794871794871824,
+                -14.933333333333337,
+                65.64102564102564,
+                25.27179487179487
+              ]
+            },
+            {
+              "src": "wardrobe/sunhat-front-hidden-root.png",
+              "rect": [
+                8.056410256410256,
+                0.32820512820512704,
+                49.723076923076924,
+                11.97948717948718
+              ]
+            }
+          ],
+          "front": []
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "wardrobe/sunhat-three-quarter-outer-piece.png",
+              "rect": [
+                0.1794871794871824,
+                -18.379487179487185,
+                65.64102564102564,
+                29.53846153846154
+              ]
+            },
+            {
+              "src": "wardrobe/sunhat-three-quarter-hidden-root.png",
+              "rect": [
+                7.564102564102566,
+                0.32820512820512704,
+                47.91794871794872,
+                11.97948717948718
+              ]
+            }
+          ],
+          "front": []
+        },
+        "back": {
+          "back": [
+            {
+              "src": "wardrobe/sunhat-back-outer-piece.png",
+              "rect": [
+                0.1794871794871824,
+                -17.230769230769226,
+                65.64102564102564,
+                26.584615384615386
+              ]
+            },
+            {
+              "src": "wardrobe/sunhat-back-hidden-root.png",
+              "rect": [
+                9.205128205128204,
+                0.32820512820512704,
+                47.58974358974359,
+                11.97948717948718
+              ]
+            }
+          ],
+          "front": []
+        }
+      },
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "back"
+      ],
+      "bounds": {
+        "front": {
+          "x": 0.1794871794871824,
+          "y": -14.933333333333337,
+          "width": 65.64102564102564,
+          "height": 27.241025641025644
+        },
+        "three-quarter": {
+          "x": 0.1794871794871824,
+          "y": -18.379487179487185,
+          "width": 65.64102564102564,
+          "height": 30.687179487179492
+        },
+        "back": {
+          "x": 0.1794871794871824,
+          "y": -17.230769230769226,
+          "width": 65.64102564102564,
+          "height": 29.538461538461533
+        }
+      },
+      "leftFacingPolicy": "runtime-mirror"
+    },
+    "satchel": {
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "wardrobe/satchel-front-hidden-return.png",
+              "rect": [
+                -1.46153846153846,
+                33.96923076923077,
+                66.46153846153847,
+                24.45128205128205
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "wardrobe/satchel-front-strap.png",
+              "rect": [
+                7.399999999999999,
+                36.92307692307692,
+                58.42051282051282,
+                18.215384615384615
+              ]
+            },
+            {
+              "src": "wardrobe/satchel-front-pouch.png",
+              "rect": [
+                -11.143589743589743,
+                40.04102564102564,
+                21.497435897435896,
+                19.364102564102563
+              ]
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "wardrobe/satchel-three-quarter-hidden-return.png",
+              "rect": [
+                -1.789743589743587,
+                34.13333333333333,
+                65.96923076923076,
+                24.77948717948718
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "wardrobe/satchel-three-quarter-strap.png",
+              "rect": [
+                9.205128205128204,
+                38.4,
+                53.16923076923077,
+                17.55897435897436
+              ]
+            },
+            {
+              "src": "wardrobe/satchel-three-quarter-pouch.png",
+              "rect": [
+                -11.307692307692307,
+                40.697435897435895,
+                22.646153846153847,
+                19.856410256410257
+              ]
+            }
+          ]
+        },
+        "back": {
+          "back": [],
+          "front": [
+            {
+              "src": "wardrobe/satchel-back-strap.png",
+              "rect": [
+                0.1794871794871824,
+                37.41538461538461,
+                59.733333333333334,
+                16.574358974358976
+              ]
+            },
+            {
+              "src": "wardrobe/satchel-back-pouch.png",
+              "rect": [
+                57.12307692307692,
+                39.712820512820514,
+                21.98974358974359,
+                20.184615384615384
+              ]
+            }
+          ]
+        }
+      },
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "back"
+      ],
+      "bounds": {
+        "front": {
+          "x": -11.143589743589743,
+          "y": 33.96923076923077,
+          "width": 76.96410256410256,
+          "height": 25.435897435897438
+        },
+        "three-quarter": {
+          "x": -11.307692307692307,
+          "y": 34.13333333333333,
+          "width": 75.48717948717949,
+          "height": 26.42051282051282
+        },
+        "back": {
+          "x": 0.1794871794871824,
+          "y": 37.41538461538461,
+          "width": 78.93333333333334,
+          "height": 22.482051282051287
+        }
+      },
+      "leftFacingPolicy": "runtime-mirror"
+    },
+    "scarf": {
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "wardrobe/scarf-front-hidden-return.png",
+              "rect": [
+                2.3128205128205117,
+                40.86153846153846,
+                60.88205128205128,
+                15.097435897435897
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "wardrobe/scarf-front-visible-cloth.png",
+              "rect": [
+                -3.102564102564102,
+                32.16410256410256,
+                74.17435897435898,
+                25.92820512820513
+              ]
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "wardrobe/scarf-three-quarter-hidden-return.png",
+              "rect": [
+                2.148717948717948,
+                41.189743589743586,
+                61.86666666666667,
+                14.276923076923078
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "wardrobe/scarf-three-quarter-visible-cloth.png",
+              "rect": [
+                -1.6256410256410234,
+                32,
+                70.07179487179488,
+                27.56923076923077
+              ]
+            }
+          ]
+        },
+        "back": {
+          "back": [
+            {
+              "src": "wardrobe/scarf-back-hidden-return.png",
+              "rect": [
+                1,
+                41.02564102564102,
+                64.16410256410256,
+                14.933333333333334
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "wardrobe/scarf-back-visible-cloth.png",
+              "rect": [
+                -4.08717948717949,
+                32.98461538461538,
+                72.86153846153846,
+                25.107692307692307
+              ]
+            }
+          ]
+        }
+      },
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "back"
+      ],
+      "bounds": {
+        "front": {
+          "x": -3.102564102564102,
+          "y": 32.16410256410256,
+          "width": 74.17435897435898,
+          "height": 25.92820512820513
+        },
+        "three-quarter": {
+          "x": -1.6256410256410234,
+          "y": 32,
+          "width": 70.07179487179488,
+          "height": 27.56923076923077
+        },
+        "back": {
+          "x": -4.08717948717949,
+          "y": 32.98461538461538,
+          "width": 72.86153846153846,
+          "height": 25.107692307692304
+        }
+      },
+      "leftFacingPolicy": "runtime-mirror"
+    },
+    "halo": {
+      "views": {
+        "front": {
+          "back": [],
+          "front": [
+            {
+              "src": "wardrobe/halo-front-ring.png",
+              "rect": [
+                22.333333333333336,
+                -10.502564102564108,
+                21.333333333333332,
+                5.087179487179487
+              ]
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [],
+          "front": [
+            {
+              "src": "wardrobe/halo-three-quarter-ring.png",
+              "rect": [
+                22.333333333333336,
+                -10.666666666666671,
+                21.333333333333332,
+                5.251282051282051
+              ]
+            }
+          ]
+        },
+        "back": {
+          "back": [],
+          "front": [
+            {
+              "src": "wardrobe/halo-back-ring.png",
+              "rect": [
+                22.333333333333336,
+                -10.502564102564108,
+                21.333333333333332,
+                5.087179487179487
+              ]
+            }
+          ]
+        }
+      },
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "back"
+      ],
+      "bounds": {
+        "front": {
+          "x": 22.333333333333336,
+          "y": -10.502564102564108,
+          "width": 21.333333333333336,
+          "height": 5.087179487179487
+        },
+        "three-quarter": {
+          "x": 22.333333333333336,
+          "y": -10.666666666666671,
+          "width": 21.333333333333336,
+          "height": 5.251282051282051
+        },
+        "back": {
+          "x": 22.333333333333336,
+          "y": -10.502564102564108,
+          "width": 21.333333333333336,
+          "height": 5.087179487179487
+        }
+      },
+      "leftFacingPolicy": "runtime-mirror",
+      "auraLift": 14.5
+    },
+    "boots": {
+      "views": {
+        "front": {
+          "back": [],
+          "front": [
+            {
+              "src": "wardrobe/boots-front-foot-left.png",
+              "rect": [
+                10.025641025641026,
+                46.93333333333334,
+                19.692307692307693,
+                17.066666666666666
+              ],
+              "attachment": "foot-left",
+              "pivot": [
+                19.871794871794872,
+                56.61538461538461
+              ]
+            },
+            {
+              "src": "wardrobe/boots-front-foot-right.png",
+              "rect": [
+                35.95384615384616,
+                46.769230769230774,
+                19.692307692307693,
+                17.23076923076923
+              ],
+              "attachment": "foot-right",
+              "pivot": [
+                45.8,
+                56.61538461538461
+              ]
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [],
+          "front": [
+            {
+              "src": "wardrobe/boots-three-quarter-foot-left.png",
+              "rect": [
+                11.502564102564104,
+                45.45641025641025,
+                21.005128205128205,
+                18.543589743589745
+              ],
+              "attachment": "foot-left",
+              "pivot": [
+                22.005128205128205,
+                57.92820512820513
+              ]
+            },
+            {
+              "src": "wardrobe/boots-three-quarter-foot-right.png",
+              "rect": [
+                36.61025641025641,
+                48.738461538461536,
+                19.035897435897436,
+                15.261538461538462
+              ],
+              "attachment": "foot-right",
+              "pivot": [
+                46.128205128205124,
+                57.92820512820513
+              ]
+            }
+          ]
+        },
+        "back": {
+          "back": [],
+          "front": [
+            {
+              "src": "wardrobe/boots-back-foot-left.png",
+              "rect": [
+                8.876923076923077,
+                45.62051282051282,
+                20.512820512820515,
+                18.379487179487178
+              ],
+              "attachment": "foot-left",
+              "pivot": [
+                19.05128205128205,
+                56.61538461538461
+              ]
+            },
+            {
+              "src": "wardrobe/boots-back-foot-right.png",
+              "rect": [
+                36.774358974358975,
+                45.45641025641025,
+                20.512820512820515,
+                18.543589743589745
+              ],
+              "attachment": "foot-right",
+              "pivot": [
+                47.11282051282051,
+                56.61538461538461
+              ]
+            }
+          ]
+        }
+      },
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "back"
+      ],
+      "bounds": {
+        "front": {
+          "x": 10.025641025641026,
+          "y": 46.769230769230774,
+          "width": 45.62051282051283,
+          "height": 17.230769230769226
+        },
+        "three-quarter": {
+          "x": 11.502564102564104,
+          "y": 45.45641025641025,
+          "width": 44.14358974358974,
+          "height": 18.54358974358975
+        },
+        "back": {
+          "x": 8.876923076923077,
+          "y": 45.45641025641025,
+          "width": 48.41025641025641,
+          "height": 18.54358974358975
+        }
+      },
+      "leftFacingPolicy": "runtime-mirror"
+    },
+    "cape": {
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "wardrobe/cape-front-left-panel.png",
+              "rect": [
+                -13.93333333333333,
+                31.343589743589746,
+                41.02564102564103,
+                32.82051282051282
+              ]
+            },
+            {
+              "src": "wardrobe/cape-front-right-panel.png",
+              "rect": [
+                38.90769230769231,
+                31.01538461538462,
+                41.02564102564103,
+                33.14871794871795
+              ]
+            }
+          ],
+          "front": []
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "wardrobe/cape-three-quarter-left-panel.png",
+              "rect": [
+                -13.93333333333333,
+                25.6,
+                41.02564102564103,
+                38.56410256410256
+              ]
+            },
+            {
+              "src": "wardrobe/cape-three-quarter-right-panel.png",
+              "rect": [
+                38.90769230769231,
+                27.07692307692308,
+                41.02564102564103,
+                31.015384615384615
+              ]
+            }
+          ],
+          "front": []
+        },
+        "back": {
+          "back": [],
+          "front": [
+            {
+              "src": "wardrobe/cape-back-rear-surface.png",
+              "rect": [
+                -8.025641025641029,
+                25.92820512820513,
+                82.05128205128206,
+                34.95384615384615
+              ]
+            }
+          ]
+        }
+      },
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "back"
+      ],
+      "bounds": {
+        "front": {
+          "x": -13.93333333333333,
+          "y": 31.01538461538462,
+          "width": 93.86666666666667,
+          "height": 33.148717948717945
+        },
+        "three-quarter": {
+          "x": -13.93333333333333,
+          "y": 25.6,
+          "width": 93.86666666666667,
+          "height": 38.56410256410256
+        },
+        "back": {
+          "x": -8.025641025641029,
+          "y": 25.92820512820513,
+          "width": 82.05128205128204,
+          "height": 34.95384615384615
+        }
+      },
+      "leftFacingPolicy": "runtime-mirror"
+    },
+    "forest-leaf": {
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "wardrobe/forest-leaf-front-hidden-return.png",
+              "rect": [
+                59.74871794871795,
+                11.323076923076925,
+                1.641025641025641,
+                1.3128205128205128
+              ]
+            },
+            {
+              "src": "wardrobe/forest-leaf-front-visible-material.png",
+              "rect": [
+                57.287179487179486,
+                3.774358974358975,
+                16.574358974358976,
+                18.70769230769231
+              ]
+            }
+          ],
+          "front": []
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "wardrobe/forest-leaf-three-quarter-hidden-return.png",
+              "rect": [
+                55.48205128205128,
+                10.994871794871798,
+                10.338461538461539,
+                10.502564102564103
+              ]
+            },
+            {
+              "src": "wardrobe/forest-leaf-three-quarter-visible-material.png",
+              "rect": [
+                59.42051282051282,
+                4.102564102564102,
+                15.425641025641026,
+                18.871794871794872
+              ]
+            }
+          ],
+          "front": []
+        },
+        "back": {
+          "back": [
+            {
+              "src": "wardrobe/forest-leaf-back-hidden-return.png",
+              "rect": [
+                1.4923076923076906,
+                6.728205128205126,
+                12.635897435897435,
+                14.441025641025641
+              ]
+            },
+            {
+              "src": "wardrobe/forest-leaf-back-visible-material.png",
+              "rect": [
+                -6.876923076923077,
+                3.774358974358975,
+                16.08205128205128,
+                19.2
+              ]
+            }
+          ],
+          "front": []
+        }
+      },
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "back"
+      ],
+      "bounds": {
+        "front": {
+          "x": 57.287179487179486,
+          "y": 3.774358974358975,
+          "width": 16.574358974358972,
+          "height": 18.70769230769231
+        },
+        "three-quarter": {
+          "x": 55.48205128205128,
+          "y": 4.102564102564102,
+          "width": 19.36410256410256,
+          "height": 18.871794871794872
+        },
+        "back": {
+          "x": -6.876923076923077,
+          "y": 3.774358974358975,
+          "width": 21.0051282051282,
+          "height": 19.2
+        }
+      },
+      "leftFacingPolicy": "runtime-mirror"
+    },
+    "sakura-flower": {
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "wardrobe/sakura-flower-front-outer-piece.png",
+              "rect": [
+                54.0051282051282,
+                -3.6102564102564116,
+                20.676923076923078,
+                18.379487179487178
+              ]
+            },
+            {
+              "src": "wardrobe/sakura-flower-front-hidden-root.png",
+              "rect": [
+                53.676923076923075,
+                3.117948717948721,
+                7.712820512820513,
+                11.65128205128205
+              ]
+            }
+          ],
+          "front": []
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "wardrobe/sakura-flower-three-quarter-outer-piece.png",
+              "rect": [
+                53.676923076923075,
+                -5.251282051282047,
+                21.005128205128205,
+                20.02051282051282
+              ]
+            },
+            {
+              "src": "wardrobe/sakura-flower-three-quarter-hidden-root.png",
+              "rect": [
+                53.676923076923075,
+                2.6256410256410234,
+                7.384615384615385,
+                11.323076923076924
+              ]
+            }
+          ],
+          "front": []
+        },
+        "back": {
+          "back": [
+            {
+              "src": "wardrobe/sakura-flower-back-outer-piece.png",
+              "rect": [
+                -8.682051282051283,
+                -4.758974358974356,
+                21.005128205128205,
+                19.52820512820513
+              ]
+            },
+            {
+              "src": "wardrobe/sakura-flower-back-hidden-root.png",
+              "rect": [
+                4.446153846153845,
+                3.6102564102564116,
+                7.876923076923077,
+                10.830769230769231
+              ]
+            }
+          ],
+          "front": []
+        }
+      },
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "back"
+      ],
+      "bounds": {
+        "front": {
+          "x": 53.676923076923075,
+          "y": -3.6102564102564116,
+          "width": 21.0051282051282,
+          "height": 18.379487179487185
+        },
+        "three-quarter": {
+          "x": 53.676923076923075,
+          "y": -5.251282051282047,
+          "width": 21.0051282051282,
+          "height": 20.02051282051282
+        },
+        "back": {
+          "x": -8.682051282051283,
+          "y": -4.758974358974356,
+          "width": 21.005128205128205,
+          "height": 19.52820512820513
+        }
+      },
+      "leftFacingPolicy": "runtime-mirror"
+    },
+    "moon-crescent": {
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "wardrobe/moon-crescent-front-outer-piece.png",
+              "rect": [
+                55.64615384615385,
+                -5.743589743589737,
+                15.753846153846155,
+                16.73846153846154
+              ]
+            },
+            {
+              "src": "wardrobe/moon-crescent-front-hidden-root.png",
+              "rect": [
+                54.66153846153846,
+                4.594871794871793,
+                5.087179487179487,
+                6.4
+              ]
+            }
+          ],
+          "front": []
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "wardrobe/moon-crescent-three-quarter-outer-piece.png",
+              "rect": [
+                55.64615384615385,
+                -5.41538461538461,
+                15.753846153846155,
+                16.41025641025641
+              ]
+            },
+            {
+              "src": "wardrobe/moon-crescent-three-quarter-hidden-root.png",
+              "rect": [
+                54.66153846153846,
+                4.758974358974356,
+                2.1333333333333333,
+                4.5948717948717945
+              ]
+            }
+          ],
+          "front": []
+        },
+        "back": {
+          "back": [
+            {
+              "src": "wardrobe/moon-crescent-back-outer-piece.png",
+              "rect": [
+                -5.399999999999999,
+                -6.892307692307696,
+                16.41025641025641,
+                17.887179487179488
+              ]
+            },
+            {
+              "src": "wardrobe/moon-crescent-back-hidden-root.png",
+              "rect": [
+                6.087179487179487,
+                4.758974358974356,
+                5.251282051282051,
+                6.235897435897436
+              ]
+            }
+          ],
+          "front": []
+        }
+      },
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "back"
+      ],
+      "bounds": {
+        "front": {
+          "x": 54.66153846153846,
+          "y": -5.743589743589737,
+          "width": 16.738461538461543,
+          "height": 16.73846153846154
+        },
+        "three-quarter": {
+          "x": 54.66153846153846,
+          "y": -5.41538461538461,
+          "width": 16.738461538461543,
+          "height": 16.41025641025641
+        },
+        "back": {
+          "x": -5.399999999999999,
+          "y": -6.892307692307696,
+          "width": 16.738461538461536,
+          "height": 17.887179487179488
+        }
+      },
+      "leftFacingPolicy": "runtime-mirror"
+    },
+    "flame-tip": {
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "wardrobe/flame-tip-front-outer-piece.png",
+              "rect": [
+                22.16923076923077,
+                -10.666666666666671,
+                21.661538461538463,
+                17.723076923076924
+              ]
+            },
+            {
+              "src": "wardrobe/flame-tip-front-hidden-root.png",
+              "rect": [
+                22.16923076923077,
+                3.2820512820512846,
+                21.661538461538463,
+                7.384615384615385
+              ]
+            }
+          ],
+          "front": []
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "wardrobe/flame-tip-three-quarter-outer-piece.png",
+              "rect": [
+                24.630769230769232,
+                -9.025641025641022,
+                19.035897435897436,
+                16.08205128205128
+              ]
+            },
+            {
+              "src": "wardrobe/flame-tip-three-quarter-hidden-root.png",
+              "rect": [
+                22.16923076923077,
+                1.8051282051282058,
+                21.661538461538463,
+                8.861538461538462
+              ]
+            }
+          ],
+          "front": []
+        },
+        "back": {
+          "back": [
+            {
+              "src": "wardrobe/flame-tip-back-outer-piece.png",
+              "rect": [
+                22.16923076923077,
+                -10.502564102564108,
+                21.661538461538463,
+                17.55897435897436
+              ]
+            },
+            {
+              "src": "wardrobe/flame-tip-back-hidden-root.png",
+              "rect": [
+                22.16923076923077,
+                3.6102564102564116,
+                21.661538461538463,
+                7.056410256410256
+              ]
+            }
+          ],
+          "front": []
+        }
+      },
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "back"
+      ],
+      "bounds": {
+        "front": {
+          "x": 22.16923076923077,
+          "y": -10.666666666666671,
+          "width": 21.661538461538466,
+          "height": 21.333333333333343
+        },
+        "three-quarter": {
+          "x": 22.16923076923077,
+          "y": -9.025641025641022,
+          "width": 21.661538461538466,
+          "height": 19.69230769230769
+        },
+        "back": {
+          "x": 22.16923076923077,
+          "y": -10.502564102564108,
+          "width": 21.661538461538466,
+          "height": 21.169230769230776
+        }
+      },
+      "leftFacingPolicy": "runtime-mirror"
+    },
+    "crown": {
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "wardrobe/crown-front-outer-piece.png",
+              "rect": [
+                18.23076923076923,
+                -8.04102564102564,
+                29.53846153846154,
+                15.097435897435897
+              ]
+            },
+            {
+              "src": "wardrobe/crown-front-hidden-root.png",
+              "rect": [
+                18.23076923076923,
+                0.32820512820512704,
+                29.53846153846154,
+                10.174358974358974
+              ]
+            }
+          ],
+          "front": []
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "wardrobe/crown-three-quarter-outer-piece.png",
+              "rect": [
+                18.23076923076923,
+                -9.025641025641022,
+                29.53846153846154,
+                16.08205128205128
+              ]
+            },
+            {
+              "src": "wardrobe/crown-three-quarter-hidden-root.png",
+              "rect": [
+                18.23076923076923,
+                0.32820512820512704,
+                29.53846153846154,
+                10.174358974358974
+              ]
+            }
+          ],
+          "front": []
+        },
+        "back": {
+          "back": [
+            {
+              "src": "wardrobe/crown-back-outer-piece.png",
+              "rect": [
+                18.23076923076923,
+                -7.384615384615387,
+                29.53846153846154,
+                14.441025641025641
+              ]
+            },
+            {
+              "src": "wardrobe/crown-back-hidden-root.png",
+              "rect": [
+                18.23076923076923,
+                0.49230769230769056,
+                29.53846153846154,
+                10.01025641025641
+              ]
+            }
+          ],
+          "front": []
+        }
+      },
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "back"
+      ],
+      "bounds": {
+        "front": {
+          "x": 18.23076923076923,
+          "y": -8.04102564102564,
+          "width": 29.538461538461544,
+          "height": 18.54358974358974
+        },
+        "three-quarter": {
+          "x": 18.23076923076923,
+          "y": -9.025641025641022,
+          "width": 29.538461538461544,
+          "height": 19.528205128205123
+        },
+        "back": {
+          "x": 18.23076923076923,
+          "y": -7.384615384615387,
+          "width": 29.538461538461544,
+          "height": 17.887179487179488
+        }
+      },
+      "leftFacingPolicy": "runtime-mirror"
+    },
+    "robot-antenna": {
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "wardrobe/robot-antenna-front-outer-piece.png",
+              "rect": [
+                25.123076923076923,
+                -16.246153846153845,
+                15.753846153846155,
+                23.3025641025641
+              ]
+            },
+            {
+              "src": "wardrobe/robot-antenna-front-hidden-root.png",
+              "rect": [
+                25.123076923076923,
+                4.92307692307692,
+                15.753846153846155,
+                5.579487179487179
+              ]
+            }
+          ],
+          "front": []
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "wardrobe/robot-antenna-three-quarter-outer-piece.png",
+              "rect": [
+                26.27179487179487,
+                -15.425641025641028,
+                14.605128205128205,
+                22.48205128205128
+              ]
+            },
+            {
+              "src": "wardrobe/robot-antenna-three-quarter-hidden-root.png",
+              "rect": [
+                25.123076923076923,
+                3.117948717948721,
+                15.753846153846155,
+                7.384615384615385
+              ]
+            }
+          ],
+          "front": []
+        },
+        "back": {
+          "back": [
+            {
+              "src": "wardrobe/robot-antenna-back-outer-piece.png",
+              "rect": [
+                25.123076923076923,
+                -16.574358974358972,
+                15.753846153846155,
+                23.630769230769232
+              ]
+            },
+            {
+              "src": "wardrobe/robot-antenna-back-hidden-root.png",
+              "rect": [
+                25.123076923076923,
+                5.08717948717949,
+                15.753846153846155,
+                5.415384615384616
+              ]
+            }
+          ],
+          "front": []
+        }
+      },
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "back"
+      ],
+      "bounds": {
+        "front": {
+          "x": 25.123076923076923,
+          "y": -16.246153846153845,
+          "width": 15.753846153846155,
+          "height": 26.748717948717946
+        },
+        "three-quarter": {
+          "x": 25.123076923076923,
+          "y": -15.425641025641028,
+          "width": 15.753846153846155,
+          "height": 25.928205128205136
+        },
+        "back": {
+          "x": 25.123076923076923,
+          "y": -16.574358974358972,
+          "width": 15.753846153846155,
+          "height": 27.07692307692308
+        }
+      },
+      "leftFacingPolicy": "runtime-mirror"
+    },
+    "woodsman-cap": {
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "wardrobe/woodsman-cap-front-outer-piece.png",
+              "rect": [
+                8.056410256410256,
+                -11.97948717948718,
+                50.05128205128205,
+                22.153846153846153
+              ]
+            },
+            {
+              "src": "wardrobe/woodsman-cap-front-hidden-root.png",
+              "rect": [
+                8.056410256410256,
+                0.32820512820512704,
+                44.30769230769231,
+                13.948717948717949
+              ]
+            }
+          ],
+          "front": []
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "wardrobe/woodsman-cap-three-quarter-outer-piece.png",
+              "rect": [
+                7.892307692307693,
+                -14.11282051282052,
+                50.215384615384615,
+                23.138461538461538
+              ]
+            },
+            {
+              "src": "wardrobe/woodsman-cap-three-quarter-hidden-root.png",
+              "rect": [
+                13.47179487179487,
+                0.32820512820512704,
+                41.18974358974359,
+                13.948717948717949
+              ]
+            }
+          ],
+          "front": []
+        },
+        "back": {
+          "back": [
+            {
+              "src": "wardrobe/woodsman-cap-back-outer-piece.png",
+              "rect": [
+                7.892307692307693,
+                -19.03589743589744,
+                50.05128205128205,
+                27.24102564102564
+              ]
+            },
+            {
+              "src": "wardrobe/woodsman-cap-back-hidden-root.png",
+              "rect": [
+                13.307692307692307,
+                0.32820512820512704,
+                43.15897435897436,
+                13.948717948717949
+              ]
+            }
+          ],
+          "front": []
+        }
+      },
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "back"
+      ],
+      "bounds": {
+        "front": {
+          "x": 8.056410256410256,
+          "y": -11.97948717948718,
+          "width": 50.051282051282044,
+          "height": 26.256410256410255
+        },
+        "three-quarter": {
+          "x": 7.892307692307693,
+          "y": -14.11282051282052,
+          "width": 50.21538461538461,
+          "height": 28.389743589743595
+        },
+        "back": {
+          "x": 7.892307692307693,
+          "y": -19.03589743589744,
+          "width": 50.051282051282044,
+          "height": 33.312820512820515
+        }
+      },
+      "leftFacingPolicy": "runtime-mirror"
+    },
+    "ocean-fin": {
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "wardrobe/ocean-fin-front-outer-piece.png",
+              "rect": [
+                60.56923076923077,
+                38.235897435897435,
+                18.379487179487178,
+                17.887179487179488
+              ]
+            },
+            {
+              "src": "wardrobe/ocean-fin-front-hidden-root.png",
+              "rect": [
+                60.56923076923077,
+                47.58974358974359,
+                2.6256410256410256,
+                4.430769230769231
+              ]
+            }
+          ],
+          "front": []
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "wardrobe/ocean-fin-three-quarter-outer-piece.png",
+              "rect": [
+                -12.784615384615385,
+                38.235897435897435,
+                18.215384615384615,
+                17.887179487179488
+              ]
+            },
+            {
+              "src": "wardrobe/ocean-fin-three-quarter-hidden-root.png",
+              "rect": [
+                -1.789743589743587,
+                41.68205128205128,
+                7.384615384615385,
+                12.143589743589743
+              ]
+            }
+          ],
+          "front": []
+        },
+        "back": {
+          "back": [],
+          "front": [
+            {
+              "src": "wardrobe/ocean-fin-back-rear-surface.png",
+              "rect": [
+                24.630769230769232,
+                35.93846153846154,
+                21.333333333333332,
+                18.379487179487178
+              ]
+            }
+          ]
+        }
+      },
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "back"
+      ],
+      "bounds": {
+        "front": {
+          "x": 60.56923076923077,
+          "y": 38.235897435897435,
+          "width": 18.379487179487185,
+          "height": 17.887179487179488
+        },
+        "three-quarter": {
+          "x": -12.784615384615385,
+          "y": 38.235897435897435,
+          "width": 18.379487179487185,
+          "height": 17.887179487179488
+        },
+        "back": {
+          "x": 24.630769230769232,
+          "y": 35.93846153846154,
+          "width": 21.33333333333333,
+          "height": 18.379487179487178
+        }
+      },
+      "leftFacingPolicy": "runtime-mirror"
+    },
+    "bat-wings": {
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "wardrobe/bat-wings-front-outer-piece.png",
+              "rect": [
+                -13.44102564102564,
+                27.405128205128207,
+                92.71794871794872,
+                28.38974358974359
+              ]
+            },
+            {
+              "src": "wardrobe/bat-wings-front-hidden-root.png",
+              "rect": [
+                -1.46153846153846,
+                24.615384615384613,
+                68.75897435897436,
+                29.702564102564104
+              ]
+            }
+          ],
+          "front": []
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "wardrobe/bat-wings-three-quarter-outer-piece.png",
+              "rect": [
+                -12.620512820512822,
+                22.646153846153844,
+                89.92820512820512,
+                33.14871794871795
+              ]
+            },
+            {
+              "src": "wardrobe/bat-wings-three-quarter-hidden-root.png",
+              "rect": [
+                -1.789743589743587,
+                21.333333333333336,
+                69.74358974358974,
+                32.98461538461538
+              ]
+            }
+          ],
+          "front": []
+        },
+        "back": {
+          "back": [],
+          "front": [
+            {
+              "src": "wardrobe/bat-wings-back-rear-surface.png",
+              "rect": [
+                -13.276923076923076,
+                24.287179487179486,
+                92.55384615384615,
+                31.50769230769231
+              ]
+            }
+          ]
+        }
+      },
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "back"
+      ],
+      "bounds": {
+        "front": {
+          "x": -13.44102564102564,
+          "y": 24.615384615384613,
+          "width": 92.71794871794873,
+          "height": 31.179487179487182
+        },
+        "three-quarter": {
+          "x": -12.620512820512822,
+          "y": 21.333333333333336,
+          "width": 89.92820512820512,
+          "height": 34.46153846153846
+        },
+        "back": {
+          "x": -13.276923076923076,
+          "y": 24.287179487179486,
+          "width": 92.55384615384617,
+          "height": 31.50769230769231
+        }
+      },
+      "leftFacingPolicy": "runtime-mirror"
+    }
+  },
+  "missing": [],
+  "complete": true
+}

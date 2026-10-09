@@ -1,0 +1,87 @@
+/* Task composer and progress information architecture. Geometry is owned here;
+   motion is scoped to shared/motion and never changes layout dimensions. */
+@layer features {
+  .app-shell { overflow: clip; }
+  html, body { overflow: clip; }
+  .app-shell.reveal { animation: none; }
+  #btnStartFocus { min-height: 44px; padding: 8px 14px; font-size: 15px; box-shadow: 0 3px 10px color-mix(in srgb,var(--primary) 14%,transparent); }
+  #btnStartFocus .focus-play { padding: 5px; }
+  .compact-header { -webkit-app-region: drag; }
+  .compact-header :is(button, input, a, details, .header-actions) { -webkit-app-region: no-drag; }
+  .header-actions { gap: 4px; }
+  .header-actions :is(.header-action, #btnReviewInbox) { width: 34px; height: 34px; padding: 7px; border: 0; border-radius: 10px; background: transparent; color: var(--fg-2); transition: background .18s, color .18s; }
+  .header-actions :is(.header-action, #btnReviewInbox):hover { background: var(--surface-hover); color: var(--fg-0); }
+  .header-glyph { display: grid; place-items: center; width: 18px; height: 18px; pointer-events: none; }
+  .header-glyph::before { width: 18px; height: 18px; margin: 0; }
+  .header-glyph .ui-icon { width: 18px; height: 18px; }
+  .header-actions #btnSettings::before { content: none; }
+  #settingsTitle::before { animation: settings-arrive .3s ease-out; }
+  .tasks-page > .add-panel { display: block; padding: 0; min-height: 0; margin: 4px 0 16px; border: 0; }
+  .tasks-page .btn-create-task { display: flex; justify-content: flex-start; width: 100%; min-height: 48px; padding: 12px 18px; gap: 12px; border: 1px solid color-mix(in srgb, var(--primary) 25%, var(--line)); border-radius: 16px; box-shadow: none; background: color-mix(in srgb, var(--primary) 14%, var(--bg-1)); color: var(--primary-ink); font-size: 15px; font-weight: 600; }
+  .tasks-page .btn-create-task .btn-icon { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 9px; background: var(--primary); color: var(--ink); font-size: 22px; font-weight: 400; }
+  .tasks-page .btn-create-task:hover { background: color-mix(in srgb, var(--primary) 22%, var(--bg-1)); color: var(--primary-ink); box-shadow: 0 4px 18px #00000009; transform: none; }
+  /* A single list surface: candidate rows are the action, with no inner card/button. */
+  #panelToday > .candidate-panel { padding: 10px 0; margin: 0 0 12px; background: transparent; border: 0; border-radius: 0; box-shadow: none; }
+  .candidate-heading { font-size: 12px; color: var(--fg-2); padding: 0 4px 6px; }
+  .candidate-grid { display: flex; flex-direction: column; gap: 0; }
+  .candidate-card { display: grid; grid-template-columns: 88px minmax(0,1fr) 20px; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 12px; border: 0; border-radius: 10px; background: transparent; color: var(--fg-0); cursor: pointer; transition: background .18s; }
+  .candidate-card + .candidate-card { border-top: 1px solid var(--line); }
+  .candidate-card:hover { background: var(--surface-hover); }
+  .candidate-card strong { font-size: 14px; font-weight: 550; overflow-wrap: anywhere; }
+  .candidate-role { font-size: 11px; color: var(--fg-2); }
+  .candidate-arrow { color: var(--primary-ink); font-size: 18px; }
+  #taskCreateMask .modal { width: min(520px, calc(100vw - 32px)); max-height: calc(100dvh - 40px); min-height: 0; border: 1px solid var(--line); border-radius: 22px; background: var(--bg-1); overflow: hidden; animation: none; }
+  #taskCreateMask .modal-header { padding: 18px 22px 10px; border: 0; background: transparent; flex-shrink: 0; }
+  #taskCreateMask .modal-title { font-size: 14px; font-weight: 600; color: var(--fg-2); }
+  #taskCreateMask .modal-body { flex: 0 1 auto; min-height: 0; padding: 0 22px 14px; overflow-y: auto; scrollbar-width: thin; }
+  #taskCreateMask .edit-field { margin: 4px 0 10px; }
+  #taskCreateMask #taskInput { height: 54px; padding: 6px 0; font-size: 23px; font-weight: 500; letter-spacing: -.02em; background: transparent; border: 0; border-radius: 0; box-shadow: none; }
+  #taskCreateMask #taskInput:focus { outline: 0; box-shadow: inset 0 -1px var(--primary-ink); }
+  #taskCreateMask .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+  #taskCreateMask .create-assist { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 18px 0 10px; }
+  #taskCreateMask .create-assist .pixel-btn { width: auto; min-height: 32px; padding: 7px 10px; font-size: 12px; font-weight: 500; background: var(--bg-2); border: 0; box-shadow: none; }
+  #taskFormStatus { flex-basis: 100%; }
+  #taskCreateMask .create-step-entry { padding: 7px 10px; font-size: 12px; border: 0; background: transparent; color: var(--primary-ink); margin: 0 0 10px; }
+  #taskCreateMask .task-disclosure { border: 0; padding: 0; margin: 0 0 12px; }
+  #taskCreateMask .bd-steps:empty { display: none; }
+  #taskCreateMask .bd-step { margin: 6px 0; border-radius: 10px; background: var(--bg-2); }
+  #taskCreateMask .task-advanced { border: 0; border-top: 1px solid var(--line); background: transparent; border-radius: 0; padding: 0; margin: 0; }
+  #taskCreateMask .task-advanced > summary { padding: 12px 0; font-size: 12px; color: var(--fg-2); cursor: pointer; }
+  #taskCreateMask .task-option-group { border: 0; padding: 14px; margin: 10px 0; background: var(--bg-2); border-radius: 12px; min-width: 0; }
+  #taskCreateMask .task-option-group legend { float: left; width: 100%; font-size: 12px; font-weight: 600; color: var(--fg-1); padding: 0 0 10px; }
+  #taskCreateMask .task-option-group legend + * { clear: both; }
+  #taskCreateMask .task-option-group .deadline-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; border: 0; margin: 0 0 10px; padding: 0; }
+  #taskCreateMask .task-option-group .chip-label { font-size: 12px; min-width: 64px; color: var(--fg-2); }
+  #taskCreateMask .task-option-group .pixel-input, #taskCreateMask .task-option-group .pixel-date { flex: 1; min-width: 120px; max-width: 100%; }
+  #taskCreateMask .task-option-group textarea { width: 100%; }
+  #taskCreateMask .expiry-row { display: flex; flex-wrap: wrap; gap: 6px; }
+  #taskCreateMask .modal-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 14px 22px 18px; background: var(--bg-1); border-top: 1px solid var(--line); flex-shrink: 0; }
+  #taskCreateMask .modal-actions .pixel-btn { flex: 0 1 auto; width: auto; min-width: 78px; min-height: 38px; padding: 9px 18px; font-size: 13px; border-radius: 11px; }
+  .progress-section { margin-bottom: 22px; }
+  .progress-section-title { display: flex; align-items: center; gap: 4px; margin: 0 4px 10px; font-size: 14px; font-weight: 600; color: var(--fg-1); }
+  .progress-section-title::before { color: var(--accent-ink); }
+  .progress-section-body { padding: 16px; border: 1px solid var(--line); border-radius: 16px; background: var(--bg-1); }
+  .progress-section .progress-identity { border: 0; border-radius: 0; padding: 0; margin: 0 0 18px; background: transparent; box-shadow: none; justify-content: flex-start; }
+  .progress-section .week-facts { border: 0; padding: 0; background: none; font-size: 12px; color: var(--fg-2); font-weight: 400; }
+  .progress-section .week-facts::after { display: none; }
+  .progress-section .stats-summary { gap: 8px; margin-bottom: 16px; }
+  .progress-section .stat-card { padding: 10px 4px; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
+  .progress-section .stat-card + .stat-card { border-left: 1px solid var(--line); }
+  .progress-section .stat-num { font-size: 24px; margin: 8px 0; }
+  .progress-section .stat-label { font-size: 11px; }
+  .progress-section .heatmap-title { font-size: 12px; color: var(--fg-2); font-weight: 500; letter-spacing: 0; }
+  .progress-section .heatmap { padding: 5px; gap: 5px; max-width: 420px; }
+  .progress-section .hm-week { gap: 5px; }
+  .progress-section .hm-cell { transition: background-color .15s; }
+  .progress-section .heatmap-detail { border: 0; border-top: 1px solid var(--line); border-radius: 0; margin-top: 20px; padding: 14px 0 0; box-shadow: none; background: transparent; }
+  .progress-section .hm-detail-head { font-size: 12px; }
+  .progress-section .hm-detail-facts { margin-top: 8px; font-size: 12px; gap: 8px 16px; align-items: center; }
+  .progress-section .timeline-day { padding: 0; margin: 0; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
+  .progress-section .tl-title { font-size: 13px; }
+  .progress-section .tl-totals { font-size: 12px; color: var(--fg-2); }
+  .progress-section .tl-title::before { display: none; }
+  .timeline-help { margin-top: 12px; }
+  @media (max-width: 480px) { .progress-section-body { padding: 14px; } .progress-section .stat-num { font-size: 20px; } #taskCreateMask .modal { max-height: calc(100dvh - 24px); } }
+  @media (prefers-reduced-motion: reduce) { #btnSettings::before, #settingsTitle::before { animation: none; transition: none; } }
+  body:is([data-motion='reduced'], [data-stimulation='low']) :is(#btnSettings, #settingsTitle)::before { animation: none; transition: none; }
+}

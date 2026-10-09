@@ -1,0 +1,66 @@
+/* 新任务弹层：输入行、分类 / 精力 chip、备注、带动作的输入框与「更多选项」。
+   对应 features/task-draft.mjs。 */
+
+@layer features {
+/* ---------- ADD PANEL ---------- */
+  .add-panel {
+    padding: 10px 14px;
+    border-bottom: 2px dashed var(--bg-3);
+    flex-shrink: 0;
+  }
+  .input-row { display: flex; gap: 6px; margin-bottom: 8px; }
+  .btn-add { flex: 0 0 32px; padding: 0; font-size: 18px; font-weight: 900; background: var(--cyan); color: var(--ink); border-color: var(--blue-dark); }
+/* -- Category chips -- */
+  .cat-chip {
+    background: var(--bg-2);
+    border-color: var(--bg-3);
+  }
+  .cat-chip.active {
+    background: var(--primary);
+    color: var(--ink);
+    border-color: var(--primary-dark);
+    box-shadow: 2px 2px 0 rgb(var(--shadow-rgb) / 0.4);
+  }
+  .energy-chip.active {
+    background: var(--accent);
+    color: var(--ink);
+    border-color: var(--accent-dark);
+  }
+  .energy-row-2 { margin-top: 4px; }
+  .task-description-row { align-items: flex-start; }
+/* 备注里现在会落进 AI 写的完成标准，两行装不下。让它跟着内容长，到顶才滚动：
+   一句“做完的判断”看不全，用户就得先滚动一次才知道要不要改。 */
+  .task-description-row textarea {
+    min-height: 48px;
+    max-height: 160px;
+    field-sizing: content;
+    resize: vertical;
+  }
+/* 输入框带一个推不走的动作按钮：粘贴完就在这一行把它存下，不用去别处找。 */
+  .input-with-action {
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+    width: 100%;
+  }
+  .input-with-action .pixel-input { flex: 1; min-width: 0; }
+  .input-with-action .chip { flex: 0 0 auto; }
+  .task-advanced { margin-top: 8px; color: var(--fg-1); font-size: 11px; }
+  .task-advanced summary { cursor: pointer; color: var(--cyan-ink); padding: 4px 0; }
+  .task-advanced > .chip-row, .task-advanced > div { margin-top: 6px; }
+  .primary-create-actions { justify-content: flex-end; }
+/* 页面上只有它是主色实心块。之前最亮的元素是那个 32px 的 ➕，而旁边虚线 chip
+   里的“拆解”做的事更多 —— 视觉权重和实际语义正好反着。 */
+  .btn-create-task {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 11px 10px;
+    font-size: 12px;
+    font-weight: 900;
+  }
+  .btn-create-task .btn-icon { font-size: 14px; }
+  .create-assist { margin-top: 8px; display: grid; gap: 4px; }
+}

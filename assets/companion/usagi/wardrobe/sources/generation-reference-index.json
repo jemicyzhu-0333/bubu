@@ -1,0 +1,386 @@
+{
+  "generationCount": 12,
+  "scope": "Exact saved prompts and attachment order; no model version or seed was returned. Historical prompt JSON is preserved verbatim even where it records original absolute attachment locations; every executable input is mapped here to a repository-relative file.",
+  "generations": [
+    {
+      "id": "garden-worn",
+      "master": {
+        "path": "garden-rain/masters/garden-worn.png",
+        "sha256": "0a84a8cef02d7288d1096d84eddf208829579637f0bec52c56837a8ec49be5e9"
+      },
+      "prompt": {
+        "path": "garden-rain/prompts/garden-worn.txt",
+        "sha256": "27d7d08ac3ec366089406bbdd8278acc307ba4ca03dd50f72d088bcd3598974a"
+      },
+      "referenceOrder": [
+        {
+          "path": "canonical/front.png",
+          "sha256": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3"
+        },
+        {
+          "path": "canonical/three-quarter.png",
+          "sha256": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60"
+        },
+        {
+          "path": "canonical/profile.png",
+          "sha256": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420"
+        },
+        {
+          "path": "canonical/back.png",
+          "sha256": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c"
+        },
+        {
+          "path": "references/wardrobe-reference.png",
+          "sha256": "0e6b34b2cf9e3b40fd8aefdcfc3fd7110e32b4268a3e9dc0efb8147b412f14f8"
+        }
+      ],
+      "tool": "image_gen.imagegen",
+      "modelVersion": "unknown",
+      "seed": "unknown",
+      "transparentBackgroundRequested": true
+    },
+    {
+      "id": "rain-worn",
+      "master": {
+        "path": "garden-rain/masters/rain-worn.png",
+        "sha256": "0ac887418bee191b1310663da35844ff5c8cb05454e4ddcd3f4236e8ba996e81"
+      },
+      "prompt": {
+        "path": "garden-rain/prompts/rain-worn.txt",
+        "sha256": "1a591ea329332c1d9699eed9311153c05152336cf619266dea752b3725849ca2"
+      },
+      "referenceOrder": [
+        {
+          "path": "canonical/front.png",
+          "sha256": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3"
+        },
+        {
+          "path": "canonical/three-quarter.png",
+          "sha256": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60"
+        },
+        {
+          "path": "canonical/profile.png",
+          "sha256": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420"
+        },
+        {
+          "path": "canonical/back.png",
+          "sha256": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c"
+        },
+        {
+          "path": "references/wardrobe-reference.png",
+          "sha256": "0e6b34b2cf9e3b40fd8aefdcfc3fd7110e32b4268a3e9dc0efb8147b412f14f8"
+        }
+      ],
+      "tool": "image_gen.imagegen",
+      "modelVersion": "unknown",
+      "seed": "unknown",
+      "transparentBackgroundRequested": true
+    },
+    {
+      "id": "garden-extraction",
+      "master": {
+        "path": "garden-rain/masters/garden-extraction.png",
+        "sha256": "162905b46f31887106c33ce3f3588bdce241d7d846b6b8369d9cca5cce5d93da"
+      },
+      "prompt": {
+        "path": "garden-rain/prompts/garden-extraction.txt",
+        "sha256": "e9df122419eaee34a35048d42cff887de92f0a1b1309007284b07004419fa44a"
+      },
+      "referenceOrder": [
+        {
+          "path": "garden-rain/masters/garden-worn.png",
+          "sha256": "0a84a8cef02d7288d1096d84eddf208829579637f0bec52c56837a8ec49be5e9"
+        },
+        {
+          "path": "canonical/front.png",
+          "sha256": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3"
+        },
+        {
+          "path": "canonical/three-quarter.png",
+          "sha256": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60"
+        },
+        {
+          "path": "canonical/profile.png",
+          "sha256": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420"
+        },
+        {
+          "path": "canonical/back.png",
+          "sha256": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c"
+        }
+      ],
+      "tool": "image_gen.imagegen",
+      "modelVersion": "unknown",
+      "seed": "unknown",
+      "transparentBackgroundRequested": true
+    },
+    {
+      "id": "rain-extraction",
+      "master": {
+        "path": "garden-rain/masters/rain-extraction.png",
+        "sha256": "5fc057ccf3e55cc4ca2a47176f3b143c63d5f744c9fa07ca1f7b801fc9ee3d5b"
+      },
+      "prompt": {
+        "path": "garden-rain/prompts/rain-extraction.txt",
+        "sha256": "0eaabe5f47d8c3e31fe4027f65bc14f5fa90e9740fbc63e0c480ae83b7c0fcc8"
+      },
+      "referenceOrder": [
+        {
+          "path": "garden-rain/masters/rain-worn.png",
+          "sha256": "0ac887418bee191b1310663da35844ff5c8cb05454e4ddcd3f4236e8ba996e81"
+        },
+        {
+          "path": "canonical/front.png",
+          "sha256": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3"
+        },
+        {
+          "path": "canonical/three-quarter.png",
+          "sha256": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60"
+        },
+        {
+          "path": "canonical/profile.png",
+          "sha256": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420"
+        },
+        {
+          "path": "canonical/back.png",
+          "sha256": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c"
+        }
+      ],
+      "tool": "image_gen.imagegen",
+      "modelVersion": "unknown",
+      "seed": "unknown",
+      "transparentBackgroundRequested": true
+    },
+    {
+      "id": "garden-repair",
+      "master": {
+        "path": "garden-rain/masters/garden-repair.png",
+        "sha256": "a389769d190fe9e90147cc981ec2829770713765dc9d93e488a73f17061f3de0"
+      },
+      "prompt": {
+        "path": "garden-rain/prompts/garden-repair.txt",
+        "sha256": "a6876fb59afe0f22106de6f200d23bad26e4f520a77df6dbd60082e4c1d907f0"
+      },
+      "referenceOrder": [
+        {
+          "path": "garden-rain/masters/garden-extraction.png",
+          "sha256": "162905b46f31887106c33ce3f3588bdce241d7d846b6b8369d9cca5cce5d93da"
+        }
+      ],
+      "tool": "image_gen.imagegen",
+      "modelVersion": "unknown",
+      "seed": "unknown",
+      "transparentBackgroundRequested": true
+    },
+    {
+      "id": "footwear-independent",
+      "master": {
+        "path": "garden-rain/masters/footwear-independent.png",
+        "sha256": "4ec0a5cdfb046dfc4f051c15cb3f962ac640f07f9cf13fd43b811a7323345ed3"
+      },
+      "prompt": {
+        "path": "garden-rain/prompts/footwear-independent.txt",
+        "sha256": "3f7d8ead7ed2e0782055e3586375c7905fc558c112d30096543a7d77cf2adbef"
+      },
+      "referenceOrder": [
+        {
+          "path": "garden-rain/masters/garden-repair.png",
+          "sha256": "a389769d190fe9e90147cc981ec2829770713765dc9d93e488a73f17061f3de0"
+        },
+        {
+          "path": "garden-rain/masters/rain-extraction.png",
+          "sha256": "5fc057ccf3e55cc4ca2a47176f3b143c63d5f744c9fa07ca1f7b801fc9ee3d5b"
+        }
+      ],
+      "tool": "image_gen.imagegen",
+      "modelVersion": "unknown",
+      "seed": "unknown",
+      "transparentBackgroundRequested": true
+    },
+    {
+      "id": "moon-post-v1",
+      "master": {
+        "path": "moon/masters/moon-post-v1.png",
+        "sha256": "dd82018393022b51d662b823dd218ca99dc4c9ff26b59b907d8dafd2545b2f0d"
+      },
+      "prompt": {
+        "path": "moon/prompts/moon-post-v1.json",
+        "sha256": "0845865552636bd7232ab3324aacde2e656b3b0011a78ccdca35b73d9168b7be"
+      },
+      "referenceOrder": [
+        {
+          "path": "canonical/front.png",
+          "sha256": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3"
+        },
+        {
+          "path": "canonical/three-quarter.png",
+          "sha256": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60"
+        },
+        {
+          "path": "canonical/profile.png",
+          "sha256": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420"
+        },
+        {
+          "path": "canonical/back.png",
+          "sha256": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c"
+        },
+        {
+          "path": "references/wardrobe-reference.png",
+          "sha256": "0e6b34b2cf9e3b40fd8aefdcfc3fd7110e32b4268a3e9dc0efb8147b412f14f8"
+        }
+      ],
+      "tool": "image_gen.imagegen",
+      "modelVersion": "unknown",
+      "seed": "unknown",
+      "transparentBackgroundRequested": true
+    },
+    {
+      "id": "moon-cape-only-v1",
+      "master": {
+        "path": "moon/masters/moon-cape-only-v1.png",
+        "sha256": "0755997456b3125f1238577578e9715e32071134aea635d3cb6de9363271e8f0"
+      },
+      "prompt": {
+        "path": "moon/prompts/moon-cape-only-v1.json",
+        "sha256": "5b730c05c1ab75d69d54cb0d9adf67287eade8c22a4e01be3fd9394f5a96d8dd"
+      },
+      "referenceOrder": [
+        {
+          "path": "moon/masters/moon-post-v1.png",
+          "sha256": "dd82018393022b51d662b823dd218ca99dc4c9ff26b59b907d8dafd2545b2f0d"
+        },
+        {
+          "path": "canonical/front.png",
+          "sha256": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3"
+        },
+        {
+          "path": "canonical/three-quarter.png",
+          "sha256": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60"
+        },
+        {
+          "path": "canonical/profile.png",
+          "sha256": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420"
+        },
+        {
+          "path": "canonical/back.png",
+          "sha256": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c"
+        }
+      ],
+      "tool": "image_gen.imagegen",
+      "modelVersion": "unknown",
+      "seed": "unknown",
+      "transparentBackgroundRequested": true
+    },
+    {
+      "id": "moon-collar-only-v1",
+      "master": {
+        "path": "moon/masters/moon-collar-only-v1.png",
+        "sha256": "f4920c231b4ce5d237d0ff53854b319e2aa787b0fd3bbe34424421ce544aa05f"
+      },
+      "prompt": {
+        "path": "moon/prompts/moon-star-collar-only-v1.json",
+        "sha256": "86480eff2f01f558cca73236503b2910e13284d13c627ce2e6bba5fb9a01f79d"
+      },
+      "referenceOrder": [
+        {
+          "path": "moon/masters/moon-post-v1.png",
+          "sha256": "dd82018393022b51d662b823dd218ca99dc4c9ff26b59b907d8dafd2545b2f0d"
+        },
+        {
+          "path": "canonical/front.png",
+          "sha256": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3"
+        },
+        {
+          "path": "canonical/three-quarter.png",
+          "sha256": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60"
+        },
+        {
+          "path": "canonical/profile.png",
+          "sha256": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420"
+        },
+        {
+          "path": "canonical/back.png",
+          "sha256": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c"
+        }
+      ],
+      "tool": "image_gen.imagegen",
+      "modelVersion": "unknown",
+      "seed": "unknown",
+      "transparentBackgroundRequested": true
+    },
+    {
+      "id": "moon-accessories-v1",
+      "master": {
+        "path": "moon/masters/moon-accessories-v1.png",
+        "sha256": "282f5591e2006c0fa9e54cdc7b3bc19c909214b57b1a73c426a404c25109c429"
+      },
+      "prompt": {
+        "path": "moon/prompts/moon-accessories-v1.json",
+        "sha256": "c7489626dcdb373b4eb5fa0e487dde540ab30fe965742f8e1d512da063e06271"
+      },
+      "referenceOrder": [
+        {
+          "path": "moon/masters/moon-post-v1.png",
+          "sha256": "dd82018393022b51d662b823dd218ca99dc4c9ff26b59b907d8dafd2545b2f0d"
+        },
+        {
+          "path": "moon/masters/moon-cape-only-v1.png",
+          "sha256": "0755997456b3125f1238577578e9715e32071134aea635d3cb6de9363271e8f0"
+        },
+        {
+          "path": "moon/masters/moon-collar-only-v1.png",
+          "sha256": "f4920c231b4ce5d237d0ff53854b319e2aa787b0fd3bbe34424421ce544aa05f"
+        }
+      ],
+      "tool": "image_gen.imagegen",
+      "modelVersion": "unknown",
+      "seed": "unknown",
+      "transparentBackgroundRequested": true
+    },
+    {
+      "id": "moon-cape-profile-hand-repair",
+      "master": {
+        "path": "moon/masters/moon-cape-profile-hand-repair.png",
+        "sha256": "f5d787e147be5ed3a9eab68188941668feb32a923f4bc4a60eba37c681514609"
+      },
+      "prompt": {
+        "path": "moon/prompts/profile-cape-hand-repair.txt",
+        "sha256": "2f8926f95c7abc6e0ea6392d084027068a5aa9518eeba3809dda2b7b79f65def"
+      },
+      "referenceOrder": [
+        {
+          "path": "moon/derived/moon-cape-profile-pre-repair.png",
+          "sha256": "bfcbbeb144095a5a81b9bbd7113ded1252e9b8fc272c691808a7231b356b0c04"
+        },
+        {
+          "path": "moon/derived/moon-cape-only-v1-profile.png",
+          "sha256": "d93065c7362b58e7998f17c788ede0450aff50988da17d427fe77d8786dce1c6"
+        }
+      ],
+      "tool": "image_gen.imagegen",
+      "modelVersion": "unknown",
+      "seed": "unknown",
+      "transparentBackgroundRequested": true
+    },
+    {
+      "id": "moon-cape-profile-hand-repair-v2",
+      "master": {
+        "path": "moon/masters/moon-cape-profile-hand-repair-v2.png",
+        "sha256": "32b1859e717ec04361ce0f3fda21585f7372a5f2b7d332670b91c174b3d7f7b4"
+      },
+      "prompt": {
+        "path": "moon/prompts/profile-cape-hand-repair-v2.txt",
+        "sha256": "28c729ce1016baa659c91290e71ca24e110cf8c345aea4e97692895ab5e7d4e8"
+      },
+      "referenceOrder": [
+        {
+          "path": "moon/masters/moon-cape-profile-hand-repair.png",
+          "sha256": "f5d787e147be5ed3a9eab68188941668feb32a923f4bc4a60eba37c681514609"
+        }
+      ],
+      "tool": "image_gen.imagegen",
+      "modelVersion": "unknown",
+      "seed": "unknown",
+      "transparentBackgroundRequested": true
+    }
+  ]
+}

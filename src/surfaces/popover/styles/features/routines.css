@@ -1,0 +1,82 @@
+/* 今天的日常：占位很轻的一节,对应 features/routines.mjs。
+
+   视觉上刻意和任务卡不一样:任务是要推进的东西,日常只是问一句"这件小事今天发生
+   过没有"。所以这里没有实体卡片、没有阴影、没有入场动画 —— 一行一条,答过的那条
+   淡下去。ARCHITECTURE「日常与能量」 说完成一条日常不进游戏化层,那么它在视觉上也不该长得像一次胜利。 */
+
+@layer features {
+  .routines-strip.hidden { display: none; }
+
+  .routine-rows { display: flex; flex-direction: column; gap: 2px; margin-top: 6px; }
+  .routine-empty { font-size: 11px; color: var(--fg-2); line-height: 1.6; margin: 2px 0; }
+
+  .routine-row {
+    display: flex; align-items: center; gap: 6px;
+    padding: 4px 6px;
+    background: var(--bg-1);
+    border-left: 2px solid var(--bg-3);
+  }
+  .routine-when { font-size: 11px; color: var(--fg-2); min-width: 34px; font-variant-numeric: tabular-nums; }
+  .routine-kind { font-size: 11px; }
+  .routine-title { flex: 1; font-size: 11px; color: var(--fg-1); word-break: break-word; }
+  .routine-answer { font-size: 11px; color: var(--fg-2); }
+
+  /* 「现在该做」是这一节里唯一需要被看见的状态。 */
+  .routine-row[data-state="due"] { border-left-color: var(--accent); }
+  /* 过了时间窗那条:压暗,不标红。红色会把"没记上"读成一条错误,而它只是一件没被
+     记录的事(ARCHITECTURE「日常与能量」)。 */
+  .routine-row[data-state="missed"] { opacity: 0.55; }
+  .routine-row[data-state="done"] { border-left-color: var(--green); opacity: 0.7; }
+  .routine-row[data-state="skipped"] { opacity: 0.6; }
+  .routine-row[data-state="done"] .routine-answer { color: var(--green-ink); }
+
+  .routine-quick { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+  .routine-quick.hidden { display: none; }
+  .routine-quick-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+
+  .routines-manage {
+    margin-top: 8px; padding: 8px;
+    background: var(--bg-1);
+    border: 1px dashed var(--bg-3);
+  }
+  .routines-manage.hidden { display: none; }
+  .routine-editor { display: flex; flex-direction: column; gap: 6px; }
+  .routine-editor .pixel-input { width: 100%; }
+  .routine-manage-list { display: flex; flex-direction: column; gap: 3px; margin-top: 8px; }
+  .routine-manage-row {
+    display: flex; align-items: center; gap: 6px;
+    padding: 4px 0;
+    border-top: 1px solid var(--bg-3);
+  }
+  .routine-manage-row .routine-title { flex: 1 1 auto; min-width: 0; }
+  .routine-schedule { font-size: 11px; color: var(--fg-2); font-variant-numeric: tabular-nums; }
+  .routine-weekday-chip[aria-pressed="true"] { border-color: var(--primary); color: var(--primary-ink); }
+}
+
+@layer features {
+  .routines-strip .routine-quick { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .routines-strip .routine-quick .chip-label { color: var(--fg-2); font-size: 12px; }
+  #routinesStatus:empty, #routinesStatus.hidden { display: none; }
+
+  .routines-manage-card .routines-manage { border: none; background: none; }
+  .routines-manage-card .routine-editor { display: flex; flex-direction: column; gap: 10px; }
+  .routines-manage-card .deadline-row {
+    display: flex; align-items: center; gap: 10px; padding: 0; margin: 0; border: none; background: none;
+  }
+  .routines-manage-card .deadline-row .chip-label { flex: none; width: 44px; font-size: 12px; color: var(--fg-2); }
+  .routines-manage-card .deadline-row .pixel-input { flex: 1; min-width: 0; }
+  .routines-manage-card .pixel-input {
+    font: inherit; font-size: 13px; color: var(--fg-0); padding: 8px 10px;
+    background: var(--bg-0); border: 1px solid var(--line); border-radius: 8px; outline: none;
+  }
+  .routines-manage-card .pixel-input:focus {
+    border-color: color-mix(in srgb, var(--primary) 60%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 14%, transparent);
+  }
+  .routines-manage-card .chip-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .routines-manage-card .capability-note { margin: 0; font-size: 12px; color: var(--fg-2); }
+  .routines-manage-card #btnAddRoutine { font-size: 13px; padding: 9px 14px; }
+  .routine-manage-list { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+}
+
+/* 时间线上的情绪记录：只有自己看得到，颜色淡一点，删除按钮悬停或聚焦才出现。 */

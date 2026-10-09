@@ -1,0 +1,679 @@
+{
+  "format": "usagi-depth-prototype-v1",
+  "status": "extracted-static-proof-only",
+  "sourceToArt": {
+    "scale": 4.2,
+    "x": 117.4,
+    "y": 175
+  },
+  "appearance": {
+    "usagi.pastel-scarf": {
+      "itemId": "usagi.pastel-scarf",
+      "wrapsBody": true,
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "slot": "usagi.neckwear",
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "derived/layers/scarf/front-back.png",
+              "sha256": "66fa4dd8813860003ed4e92cadb1f9ecc8f313e87fe425e46c0f023bc35a7271",
+              "size": [
+                200,
+                35
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                200,
+                35
+              ],
+              "bone": "root",
+              "sourceRect": [
+                156,
+                344,
+                356,
+                379
+              ],
+              "depthRole": "far-wrap",
+              "rect": [
+                9.190476190476188,
+                40.238095238095234,
+                47.61904761904762,
+                8.333333333333332
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "derived/layers/scarf/front-front.png",
+              "sha256": "4c1650eeb7f7eaddc5fce6fa59c75bebaefa39faf20a38b08f0d64ebf31eeaf8",
+              "size": [
+                184,
+                50
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                184,
+                50
+              ],
+              "bone": "root",
+              "sourceRect": [
+                164,
+                348,
+                348,
+                398
+              ],
+              "depthRole": "near-wrap",
+              "rect": [
+                11.095238095238093,
+                41.19047619047619,
+                43.80952380952381,
+                11.904761904761905
+              ]
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "derived/layers/scarf/three-quarter-back.png",
+              "sha256": "f4a3a42827bd93cc8f4f90ca7d67b2fb3df325d7157157f1676473b6487e40c6",
+              "size": [
+                187,
+                32
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                187,
+                32
+              ],
+              "bone": "root",
+              "sourceRect": [
+                178,
+                348,
+                365,
+                380
+              ],
+              "depthRole": "far-wrap",
+              "rect": [
+                14.428571428571427,
+                41.19047619047619,
+                44.52380952380952,
+                7.619047619047619
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "derived/layers/scarf/three-quarter-front.png",
+              "sha256": "d0192751b126f0cf95acc4520ad2b74efb1273cfc6c621608b733b209090408f",
+              "size": [
+                163,
+                47
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                163,
+                47
+              ],
+              "bone": "root",
+              "sourceRect": [
+                190,
+                348,
+                353,
+                395
+              ],
+              "depthRole": "near-wrap",
+              "rect": [
+                17.285714285714285,
+                41.19047619047619,
+                38.80952380952381,
+                11.19047619047619
+              ]
+            }
+          ]
+        },
+        "profile": {
+          "back": [
+            {
+              "src": "derived/layers/scarf/profile-back.png",
+              "sha256": "957c379c880d85cccf56e71608bb4aaa4fad8a5505905f124f3c95ea171524f5",
+              "size": [
+                151,
+                29
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                151,
+                29
+              ],
+              "bone": "root",
+              "sourceRect": [
+                208,
+                352,
+                359,
+                381
+              ],
+              "depthRole": "far-wrap",
+              "rect": [
+                21.57142857142857,
+                42.14285714285714,
+                35.95238095238095,
+                6.904761904761904
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "derived/layers/scarf/profile-front.png",
+              "sha256": "d9c2884e5d26df1a4836cdf6b53ea6dc78d5d4367da5c2f06df8df7d5e42067e",
+              "size": [
+                141,
+                47
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                141,
+                47
+              ],
+              "bone": "root",
+              "sourceRect": [
+                210,
+                350,
+                351,
+                397
+              ],
+              "depthRole": "near-wrap",
+              "rect": [
+                22.047619047619044,
+                41.666666666666664,
+                33.57142857142857,
+                11.19047619047619
+              ]
+            }
+          ]
+        },
+        "back": {
+          "back": [
+            {
+              "src": "derived/layers/scarf/back-back.png",
+              "sha256": "31a81938050e03c787433f0776c9f9628f9cae8ef42ceb6a2127a3feb6dacb0f",
+              "size": [
+                200,
+                29
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                200,
+                29
+              ],
+              "bone": "root",
+              "sourceRect": [
+                156,
+                344,
+                356,
+                373
+              ],
+              "depthRole": "far-wrap",
+              "rect": [
+                9.190476190476188,
+                40.238095238095234,
+                47.61904761904762,
+                6.904761904761904
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "derived/layers/scarf/back-front.png",
+              "sha256": "3e48b9301943169d4ae60c45985e8c649672343bc01cedb6ee1c06e8322c481f",
+              "size": [
+                179,
+                45
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                179,
+                45
+              ],
+              "bone": "root",
+              "sourceRect": [
+                167,
+                345,
+                346,
+                390
+              ],
+              "depthRole": "near-wrap",
+              "rect": [
+                11.809523809523808,
+                40.476190476190474,
+                42.61904761904762,
+                10.714285714285714
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "usagi.rain-cape": {
+      "itemId": "usagi.rain-cape",
+      "wrapsBody": true,
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "slot": "usagi.backwear",
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "derived/layers/cape/front-back.png",
+              "sha256": "a1cbf01155c455400d418b3eefd887031ab80e6d8ff0724c469a41920de5113c",
+              "size": [
+                222,
+                63
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                222,
+                63
+              ],
+              "bone": "root",
+              "sourceRect": [
+                145,
+                367,
+                367,
+                430
+              ],
+              "depthRole": "far-drape",
+              "rect": [
+                6.571428571428569,
+                45.714285714285715,
+                52.857142857142854,
+                15.0
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "derived/layers/cape/front-front.png",
+              "sha256": "d71aadf0ca820e67bdd45963c5adf614f8f80a297db239787e05104a95cd00ef",
+              "size": [
+                187,
+                71
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                187,
+                71
+              ],
+              "bone": "root",
+              "sourceRect": [
+                163,
+                367,
+                350,
+                438
+              ],
+              "depthRole": "near-drape",
+              "rect": [
+                10.857142857142856,
+                45.714285714285715,
+                44.52380952380952,
+                16.904761904761905
+              ]
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "derived/layers/cape/three-quarter-back.png",
+              "sha256": "9d685d12e72e2fefc4ac353d7b4188ae7c807a3fb8c345cffacbaa9c5b87e53e",
+              "size": [
+                214,
+                77
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                214,
+                77
+              ],
+              "bone": "root",
+              "sourceRect": [
+                164,
+                369,
+                378,
+                446
+              ],
+              "depthRole": "far-drape",
+              "rect": [
+                11.095238095238093,
+                46.19047619047619,
+                50.95238095238095,
+                18.333333333333332
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "derived/layers/cape/three-quarter-front.png",
+              "sha256": "61131a5fad21d990b0bac79bf1c20f19afcc6848610212be06ae0379d6cb6fe5",
+              "size": [
+                156,
+                78
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                156,
+                78
+              ],
+              "bone": "root",
+              "sourceRect": [
+                171,
+                368,
+                327,
+                446
+              ],
+              "depthRole": "near-drape",
+              "rect": [
+                12.76190476190476,
+                45.95238095238095,
+                37.14285714285714,
+                18.57142857142857
+              ]
+            }
+          ]
+        },
+        "profile": {
+          "back": [
+            {
+              "src": "derived/layers/cape/profile-back.png",
+              "sha256": "c279590a4020fe9ce1340544b32c44b9bdaf3297357dbdb756fe4226ffda4d06",
+              "size": [
+                193,
+                86
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                193,
+                86
+              ],
+              "bone": "root",
+              "sourceRect": [
+                170,
+                365,
+                363,
+                451
+              ],
+              "depthRole": "far-drape",
+              "rect": [
+                12.523809523809522,
+                45.238095238095234,
+                45.95238095238095,
+                20.476190476190474
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "derived/layers/cape/profile-front.png",
+              "sha256": "ebf80b4b02eac4360e94e59056cedada5057915282b96f5e77a97257bfe76d33",
+              "size": [
+                155,
+                78
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                155,
+                78
+              ],
+              "bone": "root",
+              "sourceRect": [
+                181,
+                365,
+                336,
+                443
+              ],
+              "depthRole": "near-drape",
+              "rect": [
+                15.14285714285714,
+                45.238095238095234,
+                36.904761904761905,
+                18.57142857142857
+              ]
+            }
+          ]
+        },
+        "back": {
+          "back": [
+            {
+              "src": "derived/layers/cape/back-back.png",
+              "sha256": "dcb28e69f1aa34dc4720d08589106b06bbfe21dd9389e5b1400ca333d5396a74",
+              "size": [
+                220,
+                73
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                220,
+                73
+              ],
+              "bone": "root",
+              "sourceRect": [
+                146,
+                376,
+                366,
+                449
+              ],
+              "depthRole": "far-drape",
+              "rect": [
+                6.8095238095238075,
+                47.857142857142854,
+                52.38095238095238,
+                17.38095238095238
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "derived/layers/cape/back-front.png",
+              "sha256": "33237b7211054a40450d7c2843b2d8a90c646f27ff5886295a7e420f3c7320eb",
+              "size": [
+                181,
+                76
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                181,
+                76
+              ],
+              "bone": "root",
+              "sourceRect": [
+                166,
+                365,
+                347,
+                441
+              ],
+              "depthRole": "near-drape",
+              "rect": [
+                11.57142857142857,
+                45.238095238095234,
+                43.095238095238095,
+                18.095238095238095
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "usagi.rain-satchel": {
+      "itemId": "usagi.rain-satchel",
+      "wrapsBody": true,
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "slot": "usagi.sidebag",
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "derived/layers/satchel/front-back.png",
+              "sha256": "46086de059a11d70b2f1d41f016c39937b2b1021d5503d562f3ba734de312f45",
+              "size": [
+                220,
+                83
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                220,
+                83
+              ],
+              "bone": "root",
+              "sourceRect": [
+                129,
+                370,
+                349,
+                453
+              ],
+              "depthRole": "hip-and-hidden-strap",
+              "rect": [
+                2.7619047619047605,
+                46.42857142857142,
+                52.38095238095238,
+                19.761904761904763
+              ]
+            }
+          ],
+          "front": []
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "derived/layers/satchel/three-quarter-back.png",
+              "sha256": "58b92cd585f2bda973d8add08157b8e2b7f40c87f27d70fb4e7f809469a0f515",
+              "size": [
+                194,
+                81
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                194,
+                81
+              ],
+              "bone": "root",
+              "sourceRect": [
+                161,
+                372,
+                355,
+                453
+              ],
+              "depthRole": "hip-and-hidden-strap",
+              "rect": [
+                10.38095238095238,
+                46.904761904761905,
+                46.19047619047619,
+                19.285714285714285
+              ]
+            }
+          ],
+          "front": []
+        },
+        "profile": {
+          "back": [
+            {
+              "src": "derived/layers/satchel/profile-back.png",
+              "sha256": "ebc9809da757bd74c82b33b42d72606faa647a4402988da7541acae8063d9613",
+              "size": [
+                176,
+                71
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                176,
+                71
+              ],
+              "bone": "root",
+              "sourceRect": [
+                183,
+                371,
+                359,
+                442
+              ],
+              "depthRole": "hip-and-hidden-strap",
+              "rect": [
+                15.619047619047617,
+                46.666666666666664,
+                41.904761904761905,
+                16.904761904761905
+              ]
+            }
+          ],
+          "front": []
+        },
+        "back": {
+          "back": [
+            {
+              "src": "derived/layers/satchel/back-back.png",
+              "sha256": "cc92e4fe1c5143be8466e09d5edd7e82e0d6ef0a611d18d298f1d3edbd1b20e5",
+              "size": [
+                220,
+                84
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                220,
+                84
+              ],
+              "bone": "root",
+              "sourceRect": [
+                161,
+                372,
+                381,
+                456
+              ],
+              "depthRole": "hip-and-hidden-strap",
+              "rect": [
+                10.38095238095238,
+                46.904761904761905,
+                52.38095238095238,
+                20.0
+              ]
+            }
+          ],
+          "front": []
+        }
+      }
+    }
+  },
+  "canonicalSource": "../canonical/manifest.json"
+}

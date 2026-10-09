@@ -1,0 +1,156 @@
+{
+  "sourcePlate": "body/masters/front-clean-torso-v1.png",
+  "plateLargestComponentCrop": [
+    108,
+    215,
+    1147,
+    1071
+  ],
+  "alphaThreshold": 128,
+  "views": {
+    "front": {
+      "approvedSilhouetteX": [
+        44,
+        467
+      ],
+      "targetSizePx": [
+        423,
+        300
+      ],
+      "placementPx": [
+        44,
+        110
+      ],
+      "croppedOutputBounds": [
+        44,
+        110,
+        467,
+        410
+      ],
+      "originalPreservedThroughY": 339,
+      "interiorTransferPixels": 90686,
+      "rect": [
+        -1.789743589743587,
+        8.533333333333331,
+        69.41538461538461,
+        49.23076923076923
+      ]
+    },
+    "three-quarter-right": {
+      "approvedSilhouetteX": [
+        42,
+        471
+      ],
+      "targetSizePx": [
+        429,
+        300
+      ],
+      "placementPx": [
+        42,
+        110
+      ],
+      "croppedOutputBounds": [
+        42,
+        110,
+        471,
+        410
+      ],
+      "originalPreservedThroughY": 339,
+      "interiorTransferPixels": 91812,
+      "rect": [
+        -2.117948717948721,
+        8.533333333333331,
+        70.4,
+        49.23076923076923
+      ]
+    },
+    "three-quarter-left": {
+      "approvedSilhouetteX": [
+        34,
+        479
+      ],
+      "targetSizePx": [
+        445,
+        300
+      ],
+      "placementPx": [
+        34,
+        110
+      ],
+      "croppedOutputBounds": [
+        34,
+        110,
+        479,
+        410
+      ],
+      "originalPreservedThroughY": 339,
+      "interiorTransferPixels": 95315,
+      "rect": [
+        -3.4307692307692292,
+        8.533333333333331,
+        73.02564102564102,
+        49.23076923076923
+      ]
+    },
+    "back": {
+      "approvedSilhouetteX": [
+        35,
+        477
+      ],
+      "targetSizePx": [
+        442,
+        300
+      ],
+      "placementPx": [
+        35,
+        110
+      ],
+      "croppedOutputBounds": [
+        35,
+        110,
+        477,
+        410
+      ],
+      "originalPreservedThroughY": 339,
+      "interiorTransferPixels": 94561,
+      "rect": [
+        -3.2666666666666657,
+        8.533333333333331,
+        72.53333333333333,
+        49.23076923076923
+      ]
+    }
+  },
+  "feet": {
+    "left": {
+      "source": "parts/run-foot-left.png",
+      "output": "parts/running-left-forward.png",
+      "mirrored": true,
+      "rect": [
+        19.66,
+        52.31131901840491,
+        13.0,
+        12.521472392638037
+      ],
+      "pivot": [
+        22.0,
+        53.0
+      ]
+    },
+    "right": {
+      "source": "parts/run-foot-right.png",
+      "output": "parts/running-right-forward.png",
+      "mirrored": false,
+      "rect": [
+        41.66,
+        52.3092,
+        13.0,
+        12.56
+      ],
+      "pivot": [
+        44.0,
+        53.0
+      ]
+    }
+  }
+}

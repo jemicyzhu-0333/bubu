@@ -1,0 +1,500 @@
+{
+  "sourceRevision": "garden-depth-v2-20261002",
+  "replaces": {
+    "usagi-petal-collar": "22015a2b18d0397056bd0aaa55a4e9b9e13df44d9165765a386a002bfbd439e1",
+    "usagi-garden-apron": "00f5bc85857c3b650608ab9cee3ff8a6c08dd54f41397219be9f1aedf395336c",
+    "usagi-seed-pouch": "4520d9dcd4d88fdff77ca9f681eabdc5cbd2c371ff53b0ab2de5a739bb434adf"
+  },
+  "appearance": {
+    "usagi-petal-collar": {
+      "itemId": "usagi.petal-collar",
+      "slot": "usagi.neckwear",
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "wrapsBody": true,
+      "depthReference": "sources/garden-depth-v2-20261002/records/prototype-manifest.json",
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.petal-collar/front-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                11.57142857142857,
+                41.42857142857142,
+                42.857142857142854,
+                7.142857142857142
+              ],
+              "sourceRect": [
+                166,
+                349,
+                346,
+                379
+              ],
+              "depthRole": "far-collar-return",
+              "sha256": "9d9cd301d786b07ba3b71da40ef152211efbb10a4417092f95c8181beaad4355"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.petal-collar/front-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                13.714285714285712,
+                40.238095238095234,
+                39.047619047619044,
+                15
+              ],
+              "sourceRect": [
+                175,
+                344,
+                339,
+                407
+              ],
+              "depthRole": "near-petal-arc",
+              "sha256": "82924921481d54a6f7bebae42b5775949850d45f5e326e4845a3a9f969a6ee41"
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.petal-collar/three-quarter-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                15.14285714285714,
+                40.476190476190474,
+                42.857142857142854,
+                13.095238095238095
+              ],
+              "sourceRect": [
+                181,
+                345,
+                361,
+                400
+              ],
+              "depthRole": "far-collar-return",
+              "sha256": "a05426adbb102c4217e25464e770fba97f740a46fa5cd39dcf70c51ea7c07580"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.petal-collar/three-quarter-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                18.238095238095237,
+                40.476190476190474,
+                37.38095238095238,
+                15.238095238095237
+              ],
+              "sourceRect": [
+                194,
+                345,
+                351,
+                409
+              ],
+              "depthRole": "near-petal-arc",
+              "sha256": "66c679eb28e12fbc2e8e335a013ece058a02836dcddbe035e2a28972f99cfd5b"
+            }
+          ]
+        },
+        "profile": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.petal-collar/profile-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                22.523809523809522,
+                41.42857142857142,
+                34.047619047619044,
+                9.761904761904761
+              ],
+              "sourceRect": [
+                212,
+                349,
+                355,
+                390
+              ],
+              "depthRole": "far-collar-return",
+              "sha256": "97090ee463a9bb2ab742acf6a96ee0e06148ebfa411697c9351284409c61eb22"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.petal-collar/profile-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                23.476190476190474,
+                40.476190476190474,
+                33.095238095238095,
+                12.38095238095238
+              ],
+              "sourceRect": [
+                216,
+                345,
+                355,
+                397
+              ],
+              "depthRole": "near-petal-arc",
+              "sha256": "46979b2a60f255f80b080756ae2712a0f0d9a63e3027a9a20ce3e2fc538e15ce"
+            }
+          ]
+        },
+        "back": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.petal-collar/back-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                11.57142857142857,
+                43.33333333333333,
+                42.857142857142854,
+                4.761904761904762
+              ],
+              "sourceRect": [
+                166,
+                357,
+                346,
+                377
+              ],
+              "depthRole": "far-collar-return",
+              "sha256": "603497dc524c60a4536aed4400e8c8120f37f85caeae619a943b55aba2c37cf5"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.petal-collar/back-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                12.285714285714285,
+                40.476190476190474,
+                41.666666666666664,
+                13.095238095238095
+              ],
+              "sourceRect": [
+                169,
+                345,
+                344,
+                400
+              ],
+              "depthRole": "near-petal-arc",
+              "sha256": "ae2f6731c0ade4655e759647163e7b26e5bded22daa4c79746fdbdf1e2aabe66"
+            }
+          ]
+        }
+      }
+    },
+    "usagi-garden-apron": {
+      "itemId": "usagi.garden-apron",
+      "slot": "usagi.backwear",
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "wrapsBody": true,
+      "depthReference": "sources/garden-depth-v2-20261002/records/prototype-manifest.json",
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.garden-apron/front-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                11.809523809523808,
+                46.666666666666664,
+                42.38095238095238,
+                12.857142857142856
+              ],
+              "sourceRect": [
+                167,
+                371,
+                345,
+                425
+              ],
+              "depthRole": "far-apron-ties-and-return",
+              "sha256": "74fe0bc28ef7278a2a04f0c7f17489b95191ab1a80fcdb9ec1508a69b276d81d"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.garden-apron/front-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                17.523809523809522,
+                46.19047619047619,
+                32.14285714285714,
+                17.857142857142858
+              ],
+              "sourceRect": [
+                191,
+                369,
+                326,
+                444
+              ],
+              "depthRole": "near-apron-panel-or-back-knot",
+              "sha256": "2fc025f99c8447655c1b4c4522ddea652b12216a28140d02926fa3a3715218fa"
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.garden-apron/three-quarter-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                17.999999999999996,
+                46.19047619047619,
+                6.904761904761904,
+                13.571428571428571
+              ],
+              "sourceRect": [
+                193,
+                369,
+                222,
+                426
+              ],
+              "depthRole": "far-apron-ties-and-return",
+              "sha256": "a14280868b92ceac705a0d5e3fd41702ab8e22e35391664db8fa532f28f9d159"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.garden-apron/three-quarter-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                23.95238095238095,
+                46.19047619047619,
+                31.19047619047619,
+                18.57142857142857
+              ],
+              "sourceRect": [
+                218,
+                369,
+                349,
+                447
+              ],
+              "depthRole": "near-apron-panel-or-back-knot",
+              "sha256": "1438faf58a2ed4c5eb6b2cbdc96fee5b929ddabd13501450895df55bea0a945b"
+            }
+          ]
+        },
+        "profile": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.garden-apron/profile-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                26.333333333333332,
+                47.14285714285714,
+                17.857142857142858,
+                10.952380952380953
+              ],
+              "sourceRect": [
+                228,
+                373,
+                303,
+                419
+              ],
+              "depthRole": "far-apron-ties-and-return",
+              "sha256": "e68dfb215799950e1d7e39bba5cd7c7c8188f4fc05216e4b451b8da57733ac08"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.garden-apron/profile-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                44.19047619047619,
+                46.666666666666664,
+                9.523809523809524,
+                15.952380952380953
+              ],
+              "sourceRect": [
+                303,
+                371,
+                343,
+                438
+              ],
+              "depthRole": "near-apron-panel-or-back-knot",
+              "sha256": "69220214c29fecd6115d7af83fdf17ae09d4ae2838d6ee7bfc5e449b046e7aa6"
+            }
+          ]
+        },
+        "back": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.garden-apron/back-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                11.57142857142857,
+                52.61904761904761,
+                42.857142857142854,
+                6.428571428571428
+              ],
+              "sourceRect": [
+                166,
+                396,
+                346,
+                423
+              ],
+              "depthRole": "far-apron-ties-and-return",
+              "sha256": "5b2d075498b68e5ada5146fdce0956174efb14a49cd98b9c7ded771f826b90d1"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.garden-apron/back-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                12.76190476190476,
+                46.666666666666664,
+                41.19047619047619,
+                16.666666666666664
+              ],
+              "sourceRect": [
+                171,
+                371,
+                344,
+                441
+              ],
+              "depthRole": "near-apron-panel-or-back-knot",
+              "sha256": "661c6f4e92b8b77100651af29e8813683231d23f4b2105784dfac53db66a6651"
+            }
+          ]
+        }
+      }
+    },
+    "usagi-seed-pouch": {
+      "itemId": "usagi.seed-pouch",
+      "slot": "usagi.sidebag",
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "wrapsBody": false,
+      "depthReference": "sources/garden-depth-v2-20261002/records/prototype-manifest.json",
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.seed-pouch/front-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                2.7619047619047605,
+                47.14285714285714,
+                15.238095238095237,
+                13.809523809523808
+              ],
+              "sourceRect": [
+                129,
+                373,
+                193,
+                431
+              ],
+              "depthRole": "far-hip-pouch-and-strap",
+              "sha256": "491f907b4f0fb4b585e6eb986bf82891fcfa939d0f86c2692c2c4604454ea0cc"
+            }
+          ],
+          "front": []
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.seed-pouch/three-quarter-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                8.476190476190474,
+                46.904761904761905,
+                13.333333333333332,
+                13.095238095238095
+              ],
+              "sourceRect": [
+                153,
+                372,
+                209,
+                427
+              ],
+              "depthRole": "far-hip-pouch-and-strap",
+              "sha256": "d3550c8cd5c5371664df25268df880c227d392ec269d19bd26c9d3c4be648145"
+            }
+          ],
+          "front": []
+        },
+        "profile": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.seed-pouch/profile-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                14.666666666666664,
+                48.80952380952381,
+                7.142857142857142,
+                9.285714285714285
+              ],
+              "sourceRect": [
+                179,
+                380,
+                209,
+                419
+              ],
+              "depthRole": "far-hip-pouch-and-strap",
+              "sha256": "fe0c78a65d4bbb24f9c3cb4ea22ed61088ebe4b70c85edbf01a45647a2010388"
+            }
+          ],
+          "front": []
+        },
+        "back": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.seed-pouch/back-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                48.238095238095234,
+                47.14285714285714,
+                14.047619047619047,
+                13.809523809523808
+              ],
+              "sourceRect": [
+                320,
+                373,
+                379,
+                431
+              ],
+              "depthRole": "far-hip-pouch-and-strap",
+              "sha256": "7d4b2b0cb63d7c37d3ab0bb037bd030c70d74ee6d5d0e302544f21146dfda65b"
+            }
+          ],
+          "front": []
+        }
+      }
+    }
+  }
+}

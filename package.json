@@ -1,0 +1,159 @@
+{
+  "name": "im-adhder",
+  "version": "0.4.0-dev",
+  "description": "I'm ADHDer — Local-first ADHD productivity, desktop pet, focus timer and task breakdown",
+  "main": "src/main.js",
+  "author": "I’m ADHDer",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "dev:bench": "electron tools/dev-bench/launch.js --dev",
+    "gallery": "electron scripts/expression-gallery.js",
+    "gallery:capture": "electron --headless scripts/expression-gallery.js --capture=dist/expression-gallery.png",
+    "frames": "electron tools/pet-frames/capture.js",
+    "rig:build": "node tools/rig-build/cli.mjs build",
+    "rig:check": "node tools/rig-build/cli.mjs check",
+    "rig:demo": "node tools/rig-build/cli.mjs demo",
+    "rig:preview": "node tools/rig-build/cli.mjs preview",
+    "test": "node --test",
+    "test:integration": "node --test test/ipc-integration.test.js test/main-workflow-contract.test.js test/electron-security.test.js",
+    "test:electron": "electron tools/dev-bench/smoke.js --scenario=all && electron tools/dev-bench/smoke.js --scenario=level-up",
+    "test:coverage": "node --test --experimental-test-coverage",
+    "lint": "node scripts/check-syntax.js",
+    "boundaries": "node scripts/check-boundaries.js",
+    "architecture": "node scripts/check-architecture.js",
+    "check": "npm test && npm run lint && npm run boundaries && npm run architecture && npm run icons:check && npm run raster:check && npm run usagi:wardrobe-check && npm run app-icons:check",
+    "raster:build": "node tools/dango-raster/assemble.mjs",
+    "raster:check": "node tools/dango-raster/assemble.mjs --check",
+    "usagi:wardrobe-build": "node tools/usagi-wardrobe/assemble.mjs",
+    "usagi:wardrobe-check": "node tools/usagi-wardrobe/assemble.mjs --check",
+    "make-icon": "node scripts/make-icon.js",
+    "native:build": "node scripts/build-activity-probe.js",
+    "build": "node scripts/build-app.js",
+    "pack": "node scripts/build-app.js --dir",
+    "verify:mac-app": "node scripts/verify-macos-app.js",
+    "release:preflight": "node scripts/release-macos.js",
+    "verify:mac-install": "node scripts/verify-macos-install.js",
+    "release:mac": "npm run check && npm run make-icon && npm run native:build -- --arch=arm64 && node scripts/release-macos.js --build",
+    "validate:p6:sandbox": "npm run validate:mac",
+    "icons:build": "node tools/icons/build.mjs",
+    "icons:check": "node tools/icons/build.mjs --check",
+    "pet:memory": "node tools/pet-memory/run.mjs",
+    "pet:memory:smoke": "node tools/pet-memory/run.mjs --smoke",
+    "test:pet-memory": "node --test tools/pet-memory/*.test.mjs",
+    "run-sample:preview": "node tools/dango-run-preview/capture.mjs",
+    "run-rig:preview": "node tools/dango-rig-refinement-preview/capture.mjs",
+    "scarf:preview": "node tools/dango-scarf-preview/capture.mjs",
+    "eyes:preview": "node tools/dango-eye-preview/capture.mjs",
+    "state-cycle:preview": "node tools/dango-state-cycle-preview/capture.mjs",
+    "wardrobe:preview": "node tools/dango-wardrobe-preview/capture.mjs",
+    "front:preview": "node tools/dango-front-preview/capture.mjs",
+    "dango:capture": "node tools/dango-complete-audit/run.mjs",
+    "release:updates": "node scripts/build-release-updates.js",
+    "build:win": "node scripts/build-app.js --platform=win",
+    "pack:win": "node scripts/build-app.js --platform=win --dir",
+    "build:mac": "node scripts/build-app.js --platform=mac",
+    "pack:mac": "node scripts/build-app.js --platform=mac --dir",
+    "build:linux": "node scripts/build-app.js --platform=linux",
+    "pack:linux": "node scripts/build-app.js --platform=linux --dir",
+    "validate:mac": "npm run check && npm run pack:mac -- --arm64 && npm run verify:mac-app",
+    "app-icons:check": "node scripts/make-icon.js --check"
+  },
+  "devDependencies": {
+    "electron": "^44.0.0",
+    "electron-builder": "^26.15.3"
+  },
+  "dependencies": {
+    "electron-store": "^8.2.0",
+    "electron-updater": "6.8.10",
+    "gsap": "3.14.2"
+  },
+  "build": {
+    "appId": "com.focuspix.app",
+    "productName": "I’m ADHDer",
+    "asar": true,
+    "mac": {
+      "extendInfo": {
+        "LSUIElement": true
+      },
+      "extraResources": [
+        {
+          "from": "build/native/darwin/activity-probe",
+          "to": "activity-probe/activity-probe"
+        }
+      ],
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg"
+      ],
+      "icon": "assets/icon.icns",
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false,
+      "identity": null
+    },
+    "dmg": {
+      "title": "I’m ADHDer ${version}",
+      "backgroundColor": "#1a1b26",
+      "window": {
+        "width": 540,
+        "height": 360
+      },
+      "contents": [
+        {
+          "x": 140,
+          "y": 180,
+          "type": "file"
+        },
+        {
+          "x": 400,
+          "y": 180,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "extraResources": [
+        {
+          "from": "native/windows/activity-probe.ps1",
+          "to": "activity-probe/activity-probe.ps1"
+        },
+        {
+          "from": "native/windows/nudge-foreground.ps1",
+          "to": "nudge-foreground/nudge-foreground.ps1"
+        }
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "extraResources": [
+      {
+        "from": "integrations",
+        "to": "integrations",
+        "filter": [
+          "**/*",
+          "**/.*",
+          "**/.*/**"
+        ]
+      }
+    ],
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "!assets/companion/dango/raster/sources/**/*",
+      "!assets/companion/usagi/wardrobe/sources/**/*",
+      "!assets/companion/usagi/real-events/sources/**/*",
+      "!assets/companion/dango/real-events/sources/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "linux": {
+      "icon": "assets/icon.png"
+    }
+  }
+}

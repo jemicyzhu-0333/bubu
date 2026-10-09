@@ -1,0 +1,544 @@
+{
+  "schemaVersion": 1,
+  "currentPhase": "P7",
+  "capabilities": {
+    "work": {
+      "statePaths": [
+        "tasks",
+        "archivedTasks",
+        "recurrenceSeries",
+        "impulses"
+      ]
+    },
+    "execution": {
+      "statePaths": [
+        "nowTaskId",
+        "focusSession",
+        "quickStartDecision",
+        "focusLandingPrompt"
+      ]
+    },
+    "guidance": {
+      "statePaths": [
+        "energyCheckIn",
+        "energySignals",
+        "wakeTimes",
+        "moodNotes",
+        "strategyFeedback",
+        "reviews",
+        "energyProfile",
+        "aiCollaboration",
+        "planningPreferences",
+        "energySelfReports",
+        "energyCurveTrials"
+      ]
+    },
+    "progress": {
+      "statePaths": [
+        "xp",
+        "level",
+        "lastCompletedDate",
+        "stats",
+        "rewardLedger"
+      ]
+    },
+    "companion": {
+      "statePaths": [
+        "pet",
+        "companion",
+        "unlockedSkins",
+        "currentSkin",
+        "achievements"
+      ]
+    },
+    "attention": {
+      "statePaths": [
+        "lastWorkEndNotifyDate"
+      ]
+    },
+    "routines": {
+      "statePaths": [
+        "routines",
+        "routineLog"
+      ]
+    },
+    "preferences": {
+      "statePaths": [
+        "settings"
+      ]
+    },
+    "app-maintenance": {
+      "statePaths": [
+        "schemaVersion",
+        "lastResetDate",
+        "migrationNotices"
+      ]
+    }
+  },
+  "layers": [
+    {
+      "name": "content",
+      "paths": [
+        "src/content"
+      ]
+    },
+    {
+      "name": "core",
+      "paths": [
+        "src/core",
+        "src/pet-content.js",
+        "src/skins.mjs"
+      ]
+    },
+    {
+      "name": "shared",
+      "paths": [
+        "src/shared"
+      ]
+    },
+    {
+      "name": "capabilities",
+      "paths": [
+        "src/capabilities"
+      ]
+    },
+    {
+      "name": "application",
+      "paths": [
+        "src/application"
+      ]
+    },
+    {
+      "name": "platform",
+      "paths": [
+        "src/platform",
+        "src/preload-impulse.js",
+        "src/preload-nudge.js",
+        "src/preload-pet.js",
+        "src/preload-popover.js"
+      ]
+    },
+    {
+      "name": "surfaces",
+      "paths": [
+        "src/surfaces",
+        "src/renderer"
+      ]
+    },
+    {
+      "name": "bootstrap",
+      "paths": [
+        "src/bootstrap",
+        "src/main.js"
+      ]
+    }
+  ],
+  "workflowWrites": {
+    "analyze-impulse-energy": [
+      "energySignals"
+    ],
+    "triage-capture": [
+      "impulses"
+    ],
+    "organize-inbox": [
+      "impulses",
+      "routines",
+      "routineLog",
+      "energyCheckIn",
+      "energySignals"
+    ],
+    "archive-inbox-records": [
+      "impulses"
+    ],
+    "delete-inbox-record": [
+      "impulses",
+      "aiCollaboration"
+    ],
+    "wellbeing": [
+      "wakeTimes",
+      "impulses",
+      "moodNotes",
+      "energySignals",
+      "aiCollaboration"
+    ],
+    "buy-companion-food": [
+      "pet"
+    ],
+    "accept-healthy-shutdown": [
+      "focusSession",
+      "quickStartDecision",
+      "focusLandingPrompt",
+      "tasks",
+      "xp",
+      "level",
+      "lastCompletedDate",
+      "stats",
+      "rewardLedger",
+      "companion",
+      "unlockedSkins",
+      "pet"
+    ],
+    "adjust-focus-duration": [
+      "focusSession",
+      "settings"
+    ],
+    "archive-work-item": [
+      "tasks",
+      "archivedTasks",
+      "nowTaskId",
+      "aiCollaboration"
+    ],
+    "clarify-work-item": [
+      "tasks",
+      "nowTaskId"
+    ],
+    "complete-due-session": [
+      "focusSession",
+      "quickStartDecision",
+      "focusLandingPrompt",
+      "tasks",
+      "xp",
+      "level",
+      "lastCompletedDate",
+      "stats",
+      "rewardLedger",
+      "companion",
+      "unlockedSkins"
+    ],
+    "create-work-item": [
+      "tasks",
+      "recurrenceSeries",
+      "nowTaskId",
+      "stats"
+    ],
+    "expire-work-items": [
+      "tasks",
+      "nowTaskId"
+    ],
+    "resolve-focus-landing": [
+      "tasks",
+      "focusLandingPrompt",
+      "xp",
+      "level",
+      "rewardLedger",
+      "pet",
+      "companion",
+      "unlockedSkins"
+    ],
+    "classify-inbox-draft": [
+      "impulses",
+      "energySignals"
+    ],
+    "resolve-impulse": [
+      "impulses",
+      "tasks",
+      "archivedTasks",
+      "nowTaskId",
+      "stats",
+      "energySignals"
+    ],
+    "resolve-quick-start": [
+      "focusSession",
+      "quickStartDecision",
+      "nowTaskId",
+      "tasks",
+      "stats",
+      "rewardLedger",
+      "xp",
+      "level",
+      "pet",
+      "companion",
+      "unlockedSkins"
+    ],
+    "resume-focus-session": [
+      "focusSession",
+      "stats",
+      "rewardLedger"
+    ],
+    "run-daily-reset": [
+      "tasks",
+      "archivedTasks",
+      "recurrenceSeries",
+      "nowTaskId",
+      "lastResetDate",
+      "routineLog",
+      "energyProfile"
+    ],
+    "start-focus-session": [
+      "focusSession",
+      "quickStartDecision",
+      "nowTaskId",
+      "stats",
+      "tasks"
+    ],
+    "stop-focus-session": [
+      "focusSession",
+      "quickStartDecision",
+      "focusLandingPrompt",
+      "tasks",
+      "xp",
+      "level",
+      "lastCompletedDate",
+      "stats",
+      "rewardLedger",
+      "companion",
+      "unlockedSkins"
+    ],
+    "complete-work-item": [
+      "tasks",
+      "recurrenceSeries",
+      "nowTaskId",
+      "focusSession",
+      "xp",
+      "level",
+      "lastCompletedDate",
+      "stats",
+      "rewardLedger",
+      "pet",
+      "companion",
+      "unlockedSkins"
+    ],
+    "complete-work-step": [
+      "tasks",
+      "xp",
+      "level",
+      "lastCompletedDate",
+      "stats",
+      "rewardLedger",
+      "pet",
+      "companion",
+      "unlockedSkins"
+    ],
+    "skip-work-occurrence": [
+      "tasks",
+      "recurrenceSeries",
+      "nowTaskId"
+    ],
+    "settle-focus-session": [
+      "focusSession",
+      "quickStartDecision",
+      "focusLandingPrompt",
+      "tasks",
+      "xp",
+      "level",
+      "lastCompletedDate",
+      "stats",
+      "rewardLedger",
+      "companion",
+      "unlockedSkins"
+    ],
+    "select-now": [
+      "tasks",
+      "nowTaskId"
+    ],
+    "update-work-item": [
+      "tasks",
+      "recurrenceSeries",
+      "nowTaskId"
+    ],
+    "resolve-review": [
+      "reviews",
+      "tasks",
+      "nowTaskId"
+    ],
+    "feed-companion": [
+      "pet",
+      "companion",
+      "rewardLedger"
+    ],
+    "record-companion-interaction": [
+      "xp",
+      "level",
+      "rewardLedger",
+      "companion",
+      "unlockedSkins"
+    ],
+    "record-task-avoidance": [
+      "tasks"
+    ],
+    "apply-guidance-proposal": [
+      "tasks",
+      "recurrenceSeries",
+      "nowTaskId",
+      "stats"
+    ],
+    "apply-ai-change-set": [
+      "tasks",
+      "recurrenceSeries",
+      "impulses",
+      "routines",
+      "energySignals",
+      "aiCollaboration"
+    ],
+    "acknowledge-ai-change-delivery": [
+      "aiCollaboration"
+    ],
+    "prune-ai-change-details": [
+      "aiCollaboration"
+    ],
+    "redact-ai-change-details": [
+      "aiCollaboration"
+    ],
+    "plan-energy-preference": [
+      "planningPreferences"
+    ],
+    "consent-energy-history": [
+      "energySelfReports"
+    ],
+    "trial-energy-curve": [
+      "energyCurveTrials"
+    ],
+    "advance-meal-care": [
+      "pet",
+      "companion",
+      "rewardLedger"
+    ],
+    "resolve-meal-decision": [
+      "pet",
+      "companion",
+      "rewardLedger"
+    ],
+    "start-break-session": [
+      "focusSession",
+      "xp",
+      "level",
+      "rewardLedger",
+      "pet",
+      "companion",
+      "unlockedSkins"
+    ],
+    "update-preferences": [
+      "settings",
+      "pet"
+    ],
+    "record-session-growth": [
+      "xp",
+      "level",
+      "rewardLedger",
+      "pet",
+      "companion",
+      "unlockedSkins"
+    ]
+  },
+  "capabilityWrites": {
+    "guidance/adjust-energy": [
+      "energyCheckIn",
+      "energySelfReports"
+    ],
+    "guidance/impulse-energy-classifier": [],
+    "guidance/proposal-preview": [],
+    "guidance/recommendations": [],
+    "progress/record-timeline": [],
+    "app-maintenance/dismiss-migration-notice": [
+      "migrationNotices"
+    ],
+    "guidance/record-energy-check-in": [
+      "energyCheckIn",
+      "energySelfReports"
+    ],
+    "guidance/reset-energy-calibration": [
+      "energyProfile"
+    ],
+    "guidance/record-strategy-shown": [
+      "strategyFeedback"
+    ],
+    "guidance/record-strategy-feedback": [
+      "strategyFeedback"
+    ],
+    "execution/pause-for-interruption": [
+      "focusSession"
+    ],
+    "execution/pause-session": [
+      "focusSession"
+    ],
+    "execution/recover-session": [
+      "focusSession"
+    ],
+    "work/activate-scheduled-work": [
+      "tasks"
+    ],
+    "work/capture-impulse": [
+      "impulses"
+    ],
+    "work/discard-impulse": [
+      "impulses"
+    ],
+    "work/duplicate-work-item": [
+      "tasks"
+    ],
+    "work/restore-work-item": [
+      "tasks",
+      "archivedTasks"
+    ],
+    "work/update-recurrence-series": [
+      "tasks",
+      "recurrenceSeries"
+    ],
+    "guidance/materialize-due-reviews": [
+      "reviews"
+    ],
+    "attention/sitting-reminder": [],
+    "attention/record-work-end-reminder": [
+      "lastWorkEndNotifyDate"
+    ],
+    "companion/equip-appearance": [
+      "companion"
+    ],
+    "routines/manage-routine": [
+      "routines",
+      "routineLog"
+    ],
+    "routines/log-routine-occurrence": [
+      "routineLog"
+    ],
+    "routines/routine-reminder": [],
+    "companion/level-up-feedback": [],
+    "companion/persist-surprise-state": [
+      "companion"
+    ],
+    "companion/select-skin": [
+      "currentSkin",
+      "pet"
+    ],
+    "app-maintenance/desktop-updates": [],
+    "companion/invalidate-meal-care": [
+      "pet"
+    ]
+  },
+  "legacyRatchet": {
+    "src/main.js": {
+      "lines": 2156,
+      "requires": 19,
+      "ipcRegistrations": 71
+    }
+  },
+  "sizeReview": {
+    "productionModule": 300,
+    "entryOrFacade": 180,
+    "function": 50
+  },
+  "exceptions": [
+    {
+      "rule": "layer-direction",
+      "path": "src/core/schema8-migration.js",
+      "dependencies": [
+        "src/capabilities/execution/index.js",
+        "src/capabilities/work/index.js"
+      ],
+      "owner": "platform/persistence",
+      "reason": "一次性数据迁移放在 core，却要调用能力门面来重建结构。迁移与 schema 同属持久化关注点，应整体迁到 src/platform/persistence/ 与 persisted-schema 放在一起。",
+      "removeByPhase": "P8"
+    },
+    {
+      "rule": "layer-direction",
+      "path": "src/core/store-migration.js",
+      "dependencies": [
+        "src/capabilities/preferences/index.js",
+        "src/platform/persistence/persisted-schema.js"
+      ],
+      "owner": "platform/persistence",
+      "reason": "同 schema8-migration：它已经直接依赖 persisted-schema，位置本身就是错的。迁到 src/platform/persistence/ 后这两条边都变成同层。",
+      "removeByPhase": "P8"
+    }
+  ]
+}

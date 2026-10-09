@@ -1,0 +1,520 @@
+{
+  "sourceRevision": "moon-depth-v2-20261002",
+  "replaces": {
+    "usagi-star-collar": "de4effeda99312c492839513121c93143f9d7aa4df4388361e5d2b4e5d0c1cc8",
+    "usagi-starlit-cape": "39863267e149b797867e8c1e27236054ef75231c092ff22821243d469980d28a",
+    "usagi-envelope-pouch": "4cf43a9f677d14a902092d808194dffa01214fccb5bb211b2fd9b3cfedf48f04"
+  },
+  "appearance": {
+    "usagi-star-collar": {
+      "itemId": "usagi.star-collar",
+      "slot": "usagi.neckwear",
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "wrapsBody": true,
+      "depthReference": "sources/moon-depth-v2-20261002/records/prototype-manifest.json",
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.star-collar/front-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                9.190476190476188,
+                40.714285714285715,
+                47.61904761904762,
+                3.8095238095238093
+              ],
+              "sourceRect": [
+                156,
+                346,
+                356,
+                362
+              ],
+              "depthRole": "receding-collar-tips",
+              "sha256": "08dbfa3a2600083c0814dc51cfe1162ac2f2227af4ff89fa557903965d1c8e5d"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.star-collar/front-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                9.428571428571427,
+                40.238095238095234,
+                47.38095238095238,
+                18.333333333333332
+              ],
+              "sourceRect": [
+                157,
+                344,
+                356,
+                421
+              ],
+              "depthRole": "near-collar-and-star",
+              "sha256": "4918c149efbed06ee4570ce9892e7bfba22566d96b96cc1118057e88e08bb2db"
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.star-collar/three-quarter-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                14.904761904761903,
+                41.666666666666664,
+                0.9523809523809523,
+                5
+              ],
+              "sourceRect": [
+                180,
+                350,
+                184,
+                371
+              ],
+              "depthRole": "receding-collar-tips",
+              "sha256": "3f35f813c8e5816d0930afc7d97b6bd14f03486607e4193f30e241d2703825b4"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.star-collar/three-quarter-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                15.619047619047617,
+                40.95238095238095,
+                43.095238095238095,
+                22.142857142857142
+              ],
+              "sourceRect": [
+                183,
+                347,
+                364,
+                440
+              ],
+              "depthRole": "near-collar-and-star",
+              "sha256": "28bcaf0ce040b750bc9dbe930e6065ac4afb4d92f79cb8f3dbab392b6acb519a"
+            }
+          ]
+        },
+        "profile": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.star-collar/profile-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                21.57142857142857,
+                41.904761904761905,
+                1.1904761904761905,
+                4.761904761904762
+              ],
+              "sourceRect": [
+                208,
+                351,
+                213,
+                371
+              ],
+              "depthRole": "receding-collar-tips",
+              "sha256": "991a6c0373a9562aebb63e2db635c79373061e39e31ac7465d2f979b21de4a55"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.star-collar/profile-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                22.523809523809522,
+                41.42857142857142,
+                35.714285714285715,
+                16.666666666666664
+              ],
+              "sourceRect": [
+                212,
+                349,
+                362,
+                419
+              ],
+              "depthRole": "near-collar-and-star",
+              "sha256": "e683bfe6e0e8b981c0a31397e2f03b97b0fb2e88479259952cc7dbb3ca39d98e"
+            }
+          ]
+        },
+        "back": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.star-collar/back-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                9.190476190476188,
+                41.19047619047619,
+                47.61904761904762,
+                4.285714285714286
+              ],
+              "sourceRect": [
+                156,
+                348,
+                356,
+                366
+              ],
+              "depthRole": "receding-collar-tips",
+              "sha256": "e1a00f4b4f3727ecea0e1261cc167bef1a52ba0f5b60efb5f594afbf3b96045b"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.star-collar/back-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                9.428571428571427,
+                40.238095238095234,
+                47.38095238095238,
+                11.19047619047619
+              ],
+              "sourceRect": [
+                157,
+                344,
+                356,
+                391
+              ],
+              "depthRole": "near-collar-and-star",
+              "sha256": "636cb39fdbbd01a8e0fb040180e38bcaa6dcb5ca4e311ded63bf88d5a7950268"
+            }
+          ]
+        }
+      }
+    },
+    "usagi-starlit-cape": {
+      "itemId": "usagi.starlit-cape",
+      "slot": "usagi.backwear",
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "wrapsBody": true,
+      "depthReference": "sources/moon-depth-v2-20261002/records/prototype-manifest.json",
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.starlit-cape/front-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                7.523809523809522,
+                43.095238095238095,
+                50.95238095238095,
+                14.761904761904761
+              ],
+              "sourceRect": [
+                149,
+                356,
+                363,
+                418
+              ],
+              "depthRole": "far-shoulder-and-flank-return",
+              "sha256": "0a9bd093f83f4259db7a1793929c105967b00687fef7ff7d868620c74623eb5f"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.starlit-cape/front-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                11.095238095238093,
+                44.047619047619044,
+                44.047619047619044,
+                18.095238095238095
+              ],
+              "sourceRect": [
+                164,
+                360,
+                349,
+                436
+              ],
+              "depthRole": "near-star-mantle",
+              "sha256": "29bf934af323ef91a8499c587d69b85a2714b51a2607e8e6b4342ffeaf498f10"
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.starlit-cape/three-quarter-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                12.047619047619046,
+                42.61904761904762,
+                48.57142857142857,
+                19.285714285714285
+              ],
+              "sourceRect": [
+                168,
+                354,
+                372,
+                435
+              ],
+              "depthRole": "far-shoulder-and-flank-return",
+              "sha256": "2de7cc28cbeda62e6147b227c41ee7fad6b2faeb01ed867a088c31d6fc4a4289"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.starlit-cape/three-quarter-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                12.76190476190476,
+                44.047619047619044,
+                39.76190476190476,
+                20
+              ],
+              "sourceRect": [
+                171,
+                360,
+                338,
+                444
+              ],
+              "depthRole": "near-star-mantle",
+              "sha256": "d2a9e6e81dee6cc9b9e4109b55200f344a4d88735d249429bd799ba85a2c3d1e"
+            }
+          ]
+        },
+        "profile": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.starlit-cape/profile-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                31.57142857142857,
+                42.14285714285714,
+                19.047619047619047,
+                1.9047619047619047
+              ],
+              "sourceRect": [
+                250,
+                352,
+                330,
+                360
+              ],
+              "depthRole": "far-shoulder-and-flank-return",
+              "sha256": "961872188cd2dbad8596b7f11f6971bc4fdc4f9cf4260be98b22d17d0696951e"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.starlit-cape/profile-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                19.428571428571427,
+                44.047619047619044,
+                38.095238095238095,
+                19.047619047619047
+              ],
+              "sourceRect": [
+                199,
+                360,
+                359,
+                440
+              ],
+              "depthRole": "near-star-mantle",
+              "sha256": "8691de6f5ce993903c32e560c2bb219c294d23209131c0ecc828a08702b5beec"
+            }
+          ]
+        },
+        "back": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.starlit-cape/back-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                7.999999999999998,
+                42.61904761904762,
+                50,
+                15
+              ],
+              "sourceRect": [
+                151,
+                354,
+                361,
+                417
+              ],
+              "depthRole": "far-shoulder-and-flank-return",
+              "sha256": "0ab39c273978237ddd2180330981badf3ae93cf5a9d828e425732508bb544895"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.starlit-cape/back-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                11.809523809523808,
+                43.80952380952381,
+                42.61904761904762,
+                18.80952380952381
+              ],
+              "sourceRect": [
+                167,
+                359,
+                346,
+                438
+              ],
+              "depthRole": "near-star-mantle",
+              "sha256": "a80ecca02b95bd6bd86c85d93671b2232f95ba9cfacee5fb649309e71023c064"
+            }
+          ]
+        }
+      }
+    },
+    "usagi-envelope-pouch": {
+      "itemId": "usagi.envelope-pouch",
+      "slot": "usagi.sidebag",
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "wrapsBody": false,
+      "depthReference": "sources/moon-depth-v2-20261002/records/prototype-manifest.json",
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.envelope-pouch/front-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                9.190476190476188,
+                16.19047619047619,
+                42.857142857142854,
+                43.80952380952381
+              ],
+              "sourceRect": [
+                156,
+                243,
+                336,
+                427
+              ],
+              "depthRole": "far-hip-bag-and-hidden-strap",
+              "sha256": "583e366bfea5cde49910f738b852f51d97f4aee5cc3495334e5af1c7f8e3cdd9"
+            }
+          ],
+          "front": [
+            {
+              "src": "items-depth-v2/usagi.envelope-pouch/front-front-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                5.38095238095238,
+                48.095238095238095,
+                20.952380952380953,
+                13.809523809523808
+              ],
+              "sourceRect": [
+                140,
+                377,
+                228,
+                435
+              ],
+              "depthRole": "near-bag-face",
+              "sha256": "4b884e83779287d9a0e8a6360a7d527d46f9c4bf71c6582905c3e81d911bd449"
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.envelope-pouch/three-quarter-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                10.619047619047617,
+                12.857142857142856,
+                46.19047619047619,
+                51.19047619047619
+              ],
+              "sourceRect": [
+                162,
+                229,
+                356,
+                444
+              ],
+              "depthRole": "far-hip-bag-and-hidden-strap",
+              "sha256": "187ca240eadddb0563cdcde554ebea0d73b40468c3d89ff9817fc62429a928aa"
+            }
+          ],
+          "front": []
+        },
+        "profile": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.envelope-pouch/profile-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                17.285714285714285,
+                15.238095238095237,
+                39.285714285714285,
+                47.14285714285714
+              ],
+              "sourceRect": [
+                190,
+                239,
+                355,
+                437
+              ],
+              "depthRole": "far-hip-bag-and-hidden-strap",
+              "sha256": "0dc9bf05d4a0ea486ef23af726f6498e78405149f215b83ed83d6922e6a0cf1d"
+            }
+          ],
+          "front": []
+        },
+        "back": {
+          "back": [
+            {
+              "src": "items-depth-v2/usagi.envelope-pouch/back-back-0.png",
+              "bone": "root",
+              "layer": "back",
+              "rect": [
+                10.619047619047617,
+                12.619047619047619,
+                52.38095238095238,
+                53.33333333333333
+              ],
+              "sourceRect": [
+                162,
+                228,
+                382,
+                452
+              ],
+              "depthRole": "far-hip-bag-and-hidden-strap",
+              "sha256": "3e768c6b62502bb43b14cbbd70e8490932f5ec10f41d7a70ec015a4b33a7151e"
+            }
+          ],
+          "front": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "id": "milestone.cape",
+  "renderKey": "cape",
+  "views": {
+    "front": {
+      "back": [
+        {
+          "src": "wardrobe/cape-front-left-panel.png",
+          "rect": [
+            -13.93333333333333,
+            31.343589743589746,
+            41.02564102564103,
+            32.82051282051282
+          ]
+        },
+        {
+          "src": "wardrobe/cape-front-right-panel.png",
+          "rect": [
+            38.90769230769231,
+            31.01538461538462,
+            41.02564102564103,
+            33.14871794871795
+          ]
+        },
+        {
+          "src": "wardrobe/cape-front-hidden-panel.png",
+          "rect": [
+            -1.46153846153846,
+            26.42051282051282,
+            68.75897435897436,
+            34.95384615384615
+          ]
+        }
+      ],
+      "front": []
+    },
+    "three-quarter": {
+      "back": [
+        {
+          "src": "wardrobe/cape-three-quarter-left-panel.png",
+          "rect": [
+            -13.93333333333333,
+            25.6,
+            41.02564102564103,
+            38.56410256410256
+          ]
+        },
+        {
+          "src": "wardrobe/cape-three-quarter-right-panel.png",
+          "rect": [
+            38.90769230769231,
+            27.07692307692308,
+            41.02564102564103,
+            31.015384615384615
+          ]
+        },
+        {
+          "src": "wardrobe/cape-three-quarter-hidden-panel.png",
+          "rect": [
+            -1.789743589743587,
+            26.42051282051282,
+            69.74358974358974,
+            34.95384615384615
+          ]
+        }
+      ],
+      "front": []
+    },
+    "back": {
+      "back": [],
+      "front": [
+        {
+          "src": "wardrobe/cape-back-rear-surface.png",
+          "rect": [
+            -8.025641025641029,
+            25.92820512820513,
+            82.05128205128206,
+            34.95384615384615
+          ]
+        }
+      ]
+    }
+  },
+  "status": "technical-pass-visual-review-required",
+  "warning": "Candidate descriptors only; not a production integration manifest"
+}

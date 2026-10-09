@@ -1,0 +1,58 @@
+/* 计时：番茄面板、倒数、进度条与本轮时长选择器。对应 features/focus-timer.mjs。 */
+
+@layer features {
+/* ---------- POMODORO ---------- */
+  .pomo-panel {
+    padding: 12px 14px;
+    background: var(--bg-1);
+    border-bottom: 2px dashed var(--bg-3);
+    flex-shrink: 0;
+  }
+  .pomo-display { text-align: center; margin-bottom: 8px; }
+  .pomo-time {
+    font-size: 32px; font-weight: 900;
+    color: var(--cyan-ink);
+    text-shadow: 3px 3px 0 var(--blue-dark), 0 0 20px rgba(125,207,255,0.4);
+    letter-spacing: 3px;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .pomo-time.focus { color: var(--primary-ink); text-shadow: 3px 3px 0 var(--pink-dark), 0 0 20px rgba(247,118,142,0.4); }
+  .pomo-time.break { color: var(--green-ink); text-shadow: 3px 3px 0 var(--green-dark), 0 0 20px rgba(158,206,106,0.4); }
+  .pomo-label { font-size: 11px; color: var(--fg-2); margin-top: 2px; letter-spacing: 1px; }
+  .pomo-progress {
+    height: 8px;
+    background: var(--bg-0); border: 2px solid var(--bg-3);
+    margin: 8px 0;
+    overflow: hidden;
+  }
+  .pomo-progress-fill {
+    height: 100%; width: 0%;
+    background: repeating-linear-gradient(90deg,
+      var(--pink) 0 4px, var(--pink-dark) 4px 6px);
+    transition: width 0.5s linear;
+  }
+  .pomo-actions { display: flex; gap: 6px; }
+/* -- 本轮时长选择器 -- */
+  .duration-picker {
+    display: flex; align-items: center; gap: 6px;
+    flex-wrap: wrap;
+    margin: 6px 0;
+    padding: 4px 6px;
+    background: var(--bg-2);
+    border-left: 3px solid var(--cyan);
+  }
+  .duration-stepper { display: flex; align-items: center; gap: 4px; }
+  .duration-value {
+    min-width: 56px;
+    text-align: center;
+    font-weight: 900;
+    font-size: 11px;
+    color: var(--fg-0);
+  }
+  .duration-presets { display: flex; gap: 4px; flex-wrap: wrap; }
+  .duration-chip { font-size: 11px; padding: 3px 6px; }
+  .duration-chip.active { background: var(--cyan); color: var(--ink); border-color: var(--blue-dark); }
+  .duration-step:disabled, .duration-chip:disabled { opacity: 0.35; cursor: not-allowed; }
+  .btn-pause { border-color: var(--accent); color: var(--accent-ink); }
+}

@@ -1,0 +1,1303 @@
+{
+  "schemaVersion": 1,
+  "extraEffects": {
+    "source": "src/core/pet-action-particles.mjs",
+    "expressionAccents": [
+      "drowsy-zzz",
+      "sleep-zzz"
+    ],
+    "actionEffects": [
+      "bubbles",
+      "code",
+      "crumbs",
+      "dust",
+      "flash",
+      "glimmer",
+      "halo",
+      "hearts",
+      "impact",
+      "leaves",
+      "letters",
+      "none",
+      "notes",
+      "petals",
+      "puffs",
+      "rainbow",
+      "sparkles",
+      "sparks",
+      "stars",
+      "steam",
+      "sweat",
+      "thread",
+      "trail",
+      "zzz"
+    ],
+    "statuses": [
+      {
+        "id": "hungry",
+        "fallback": "renderer.drawCraving"
+      },
+      {
+        "id": "coffee",
+        "fallback": "renderer.drawCoffee"
+      }
+    ],
+    "attachedEffects": [
+      {
+        "id": "sparkle-shoes",
+        "attachment": [
+          "foot-left",
+          "foot-right"
+        ],
+        "source": "src/capabilities/companion/presentation/dango-art.mjs"
+      }
+    ],
+    "semanticWarning": "Per-foot glints, status effects and background painters are outside ordinary sampled contact tools and must be verified separately"
+  },
+  "generatedAt": "2026-10-01T17:26:40.547Z",
+  "repository": ".",
+  "claim": "Named current-production contract; enum/tool presence alone is not visual or semantic acceptance",
+  "sources": {
+    "actions": "src/content/behaviors.mjs",
+    "sessions": "src/content/session-activities.mjs",
+    "stories": "src/content/companion/activity-stories.mjs",
+    "expressions": "src/content/expressions.mjs",
+    "phrases": "src/capabilities/companion/presentation/expression-phrases.mjs",
+    "scenes": "src/content/scenes.mjs",
+    "wardrobe": "src/content/appearance.mjs",
+    "tools": "src/content/companion/dango-tools.mjs",
+    "views": "src/content/companion/dango-action-views.mjs",
+    "form": "src/content/companion/dango-form.mjs",
+    "geometry": "src/content/companion/dango-vector.mjs",
+    "skins": "src/skins.mjs",
+    "palettes": "src/core/pet-art.mjs",
+    "contacts": "src/core/pet-action-contact.mjs",
+    "actionPainter": "src/core/pet-action-vector.mjs",
+    "freePoses": "src/core/pet-action-vector-poses.mjs",
+    "details": "src/core/pet-action-vector-details.mjs",
+    "scenePainter": "src/core/pet-scene-art.mjs",
+    "particles": "src/core/pet-action-particles.mjs",
+    "appearanceSelection": "src/core/pet-appearance.mjs",
+    "playback": "src/capabilities/companion/presentation/activity-playback.mjs",
+    "desktop": "src/surfaces/pet/renderer.mjs",
+    "portrait": "src/surfaces/popover/features/companion-portrait.mjs",
+    "gallery": "src/renderer/expression-gallery.mjs"
+  },
+  "sourceSha256": {
+    "src/content/behaviors.mjs": "38c9cb896ed50e90125f08fe925cb550fe6bbcc72a2f70b3e11f71572a047a3d",
+    "src/content/session-activities.mjs": "e65fa85d12d8aef34be71d66eb9bf89229e10224532d757089c5494989b3dedb",
+    "src/content/companion/activity-stories.mjs": "9730a77812f8391d99f872bcb00fec894494ef496b0f75cbb4a35234427a12bb",
+    "src/content/expressions.mjs": "126c6d327f1a799a3a921c85fa28ac8e6b3c612847755cac29572dc3ef300921",
+    "src/capabilities/companion/presentation/expression-phrases.mjs": "d647ce5dad57c7db8ae201c6fd77d07c3c4ee925461c25f18be2d4004c991c2e",
+    "src/content/scenes.mjs": "f209ff5f1047ee96a16178cda3833d48666fa92b3125dd477703e95d91828636",
+    "src/content/appearance.mjs": "119c0d963ea2732f4a067ec564b1a0de0bd1f6c3f798d177e072b4a658309cdd",
+    "src/content/companion/dango-tools.mjs": "e0f2ab5ca03e65e37a8a99840487dbb0ab468a9c67cf15ef66508805831228b0",
+    "src/content/companion/dango-action-views.mjs": "d0ed676be8f1b93fc06c029490281a119ee2cbfa64ed5497011063ecf157b29f",
+    "src/content/companion/dango-form.mjs": "8520afda07f04d14999b4d8b6882e8a723a2b86fe3abe688cd5b7b0d9eac9324",
+    "src/content/companion/dango-vector.mjs": "c565e2236de6353e7b2e4dcebff55fb99a8940774d2256cdacd5751ed1916604",
+    "src/skins.mjs": "a196184c8a319aa547eaf41cce46f0c2c3cf1c512a37784fd07bf578dc6969d8",
+    "src/core/pet-art.mjs": "779b00dca52ad157934ec65aaf286b2965d5d3176811f8adca3c3da66521c2bf",
+    "src/core/pet-action-contact.mjs": "cf96935add7de00f879fb8cb1c20dd57ecf2e89a8390d85185fe9b06dabb6635",
+    "src/core/pet-action-vector.mjs": "dbb6541d9703ee3d29830ec3b8e5c2a2675c655807a7f3e011039320360dbe59",
+    "src/core/pet-action-vector-poses.mjs": "55c819541b6fde84b44c53571ba014bc4f655857465d15f0c405d8c4f53ac6cc",
+    "src/core/pet-action-vector-details.mjs": "ac7f397731448d555d10eda4500a6f58284a6afb711d927e4ffef4cf2cd647bc",
+    "src/core/pet-scene-art.mjs": "2f1f08a627dbf1bf80c80c0812fe05f799da6eca8da9f2b2da6c88df9789650b",
+    "src/core/pet-action-particles.mjs": "9d813f7e9b1998ce499840e86c7b5862b75620d2418ffa85fd12f35930562172",
+    "src/core/pet-appearance.mjs": "f58524f053aef2e6abfe9397e9727c2da2a5833172abd8b0a60c61efc3351698",
+    "src/capabilities/companion/presentation/activity-playback.mjs": "a5c3ad5e12872b25fb9272ed2a336820aa235d976675d56d57c53d6d1be74053",
+    "src/surfaces/pet/renderer.mjs": "4e43814e9d60daeb10ef08e59053528b2ffbe831a795aea372c22a5fe86ac9b4",
+    "src/surfaces/popover/features/companion-portrait.mjs": "e17437accadc4690c550d338bd303fe880ded3df97fa73adc1313a4a5850f63a",
+    "src/renderer/expression-gallery.mjs": "cbc7a848e423e87d0ec78335a5b18faaceddef6946c04b90c7363c84089d70dd"
+  },
+  "summary": {
+    "actions": 43,
+    "stories": 12,
+    "storyPhases": 60,
+    "expressions": 32,
+    "eyes": 16,
+    "mouths": 9,
+    "scenes": 25,
+    "wardrobe": 16,
+    "wardrobeSlots": 7,
+    "skins": 10,
+    "spriteTools": 49,
+    "usedSpriteTools": 45,
+    "proceduralDetailTypes": 20,
+    "proceduralEquipment": [
+      "ellipsis",
+      "headband",
+      "hole",
+      "laser"
+    ],
+    "namedTemporalCases": 103,
+    "actionScenePairs": 1375
+  },
+  "data": {
+    "entries": [
+      {
+        "id": "dawn-window",
+        "name": "晨曦窗边",
+        "periods": [
+          "morning"
+        ],
+        "feature": "window",
+        "sky": [
+          "#ffd6a5",
+          "#f5a7b8"
+        ],
+        "ground": "#5a4055",
+        "emitters": [
+          {
+            "type": "cloud",
+            "chance": 0.018,
+            "max": 4,
+            "colors": [
+              "#fff2dc",
+              "#f5d9dd"
+            ],
+            "speed": 0.16
+          },
+          {
+            "type": "bird",
+            "chance": 0.004,
+            "max": 2,
+            "colors": [
+              "#5f6b87"
+            ],
+            "speed": 1
+          }
+        ],
+        "accents": [
+          "#ffe09b"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "rainy-window",
+        "name": "雨滴玻璃",
+        "periods": [
+          "morning",
+          "afternoon",
+          "evening"
+        ],
+        "feature": "window",
+        "sky": [
+          "#61738f",
+          "#34435d"
+        ],
+        "ground": "#283347",
+        "emitters": [
+          {
+            "type": "rain",
+            "chance": 0.28,
+            "max": 70,
+            "colors": [
+              "#8fc7e8",
+              "#b5dff5"
+            ],
+            "speed": 2.8
+          },
+          {
+            "type": "mist",
+            "chance": 0.018,
+            "max": 8,
+            "colors": [
+              "#b7c9dc"
+            ],
+            "speed": 0.12
+          }
+        ],
+        "accents": [
+          "#7dcfff"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "sunny-desk",
+        "name": "晴日书桌",
+        "periods": [
+          "morning",
+          "forenoon"
+        ],
+        "feature": "desk",
+        "sky": [
+          "#9fdcff",
+          "#e8f6ff"
+        ],
+        "ground": "#a77a52",
+        "emitters": [
+          {
+            "type": "dust",
+            "chance": 0.08,
+            "max": 25,
+            "colors": [
+              "#ffe29a",
+              "#ffffff"
+            ],
+            "speed": 0.08
+          },
+          {
+            "type": "sparkle",
+            "chance": 0.012,
+            "max": 8,
+            "colors": [
+              "#fff1a8"
+            ],
+            "speed": 0.18
+          }
+        ],
+        "accents": [
+          "#ffd558",
+          "#9ece6a"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "morning-library",
+        "name": "晨间书房",
+        "periods": [
+          "morning",
+          "forenoon"
+        ],
+        "feature": "library",
+        "sky": [
+          "#7996b4",
+          "#d9bc8c"
+        ],
+        "ground": "#5b3d2e",
+        "emitters": [
+          {
+            "type": "dust",
+            "chance": 0.07,
+            "max": 28,
+            "colors": [
+              "#e7c98f"
+            ],
+            "speed": 0.06
+          },
+          {
+            "type": "page",
+            "chance": 0.003,
+            "max": 2,
+            "colors": [
+              "#f4e5c3"
+            ],
+            "speed": 0.35
+          }
+        ],
+        "accents": [
+          "#c9986a",
+          "#e0af68"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "garden-breeze",
+        "name": "庭院微风",
+        "periods": [
+          "morning",
+          "forenoon",
+          "noon"
+        ],
+        "feature": "garden",
+        "sky": [
+          "#a7ddc4",
+          "#dff4cf"
+        ],
+        "ground": "#557a46",
+        "emitters": [
+          {
+            "type": "leaf",
+            "chance": 0.035,
+            "max": 22,
+            "colors": [
+              "#9ece6a",
+              "#6aa55a",
+              "#d8e88b"
+            ],
+            "speed": 0.55
+          },
+          {
+            "type": "butterfly",
+            "chance": 0.008,
+            "max": 4,
+            "colors": [
+              "#f7768e",
+              "#e0af68",
+              "#bb9af7"
+            ],
+            "speed": 0.45
+          }
+        ],
+        "accents": [
+          "#9ece6a",
+          "#f7768e"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "coffee-shop",
+        "name": "咖啡小店",
+        "periods": [
+          "forenoon",
+          "noon",
+          "afternoon"
+        ],
+        "feature": "cafe",
+        "sky": [
+          "#bd906c",
+          "#725246"
+        ],
+        "ground": "#49352e",
+        "emitters": [
+          {
+            "type": "steam",
+            "chance": 0.05,
+            "max": 14,
+            "colors": [
+              "#f4e9dc",
+              "#d9c9bd"
+            ],
+            "speed": 0.34
+          },
+          {
+            "type": "note",
+            "chance": 0.006,
+            "max": 5,
+            "colors": [
+              "#e0af68",
+              "#f7768e"
+            ],
+            "speed": 0.28
+          }
+        ],
+        "accents": [
+          "#e0af68",
+          "#c9986a"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "lunch-park",
+        "name": "午间公园",
+        "periods": [
+          "noon"
+        ],
+        "feature": "park",
+        "sky": [
+          "#7dcfff",
+          "#d4f4c7"
+        ],
+        "ground": "#6a9b52",
+        "emitters": [
+          {
+            "type": "butterfly",
+            "chance": 0.018,
+            "max": 7,
+            "colors": [
+              "#f7768e",
+              "#e0af68",
+              "#bb9af7"
+            ],
+            "speed": 0.55
+          },
+          {
+            "type": "petal",
+            "chance": 0.025,
+            "max": 18,
+            "colors": [
+              "#ffb3c8",
+              "#fff0a8"
+            ],
+            "speed": 0.52
+          }
+        ],
+        "accents": [
+          "#9ece6a",
+          "#ffd558"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "cloud-terrace",
+        "name": "云上露台",
+        "periods": [
+          "noon",
+          "afternoon"
+        ],
+        "feature": "terrace",
+        "sky": [
+          "#73c7ef",
+          "#d8f3ff"
+        ],
+        "ground": "#6f7e94",
+        "emitters": [
+          {
+            "type": "cloud",
+            "chance": 0.026,
+            "max": 7,
+            "colors": [
+              "#ffffff",
+              "#dcecff"
+            ],
+            "speed": 0.23
+          },
+          {
+            "type": "plane",
+            "chance": 0.003,
+            "max": 1,
+            "colors": [
+              "#f5f7ff"
+            ],
+            "speed": 1.3
+          }
+        ],
+        "accents": [
+          "#c0caf5"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "afternoon-studio",
+        "name": "午后工作室",
+        "periods": [
+          "afternoon"
+        ],
+        "feature": "studio",
+        "sky": [
+          "#e6b887",
+          "#d48976"
+        ],
+        "ground": "#594052",
+        "emitters": [
+          {
+            "type": "dust",
+            "chance": 0.09,
+            "max": 32,
+            "colors": [
+              "#ffe0a8",
+              "#f8c98c"
+            ],
+            "speed": 0.07
+          },
+          {
+            "type": "sparkle",
+            "chance": 0.009,
+            "max": 7,
+            "colors": [
+              "#ffcf78"
+            ],
+            "speed": 0.16
+          }
+        ],
+        "accents": [
+          "#bb9af7",
+          "#e0af68"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "summer-storm",
+        "name": "夏日阵雨",
+        "periods": [
+          "afternoon",
+          "evening"
+        ],
+        "feature": "storm",
+        "sky": [
+          "#53647c",
+          "#26354c"
+        ],
+        "ground": "#26323d",
+        "emitters": [
+          {
+            "type": "rain",
+            "chance": 0.34,
+            "max": 84,
+            "colors": [
+              "#7dcfff",
+              "#aacbea"
+            ],
+            "speed": 3.4
+          },
+          {
+            "type": "flash",
+            "chance": 0.0015,
+            "max": 1,
+            "colors": [
+              "#f4ecb8"
+            ],
+            "speed": 0
+          }
+        ],
+        "accents": [
+          "#7dcfff",
+          "#e0af68"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "sunset-rooftop",
+        "name": "落日天台",
+        "periods": [
+          "evening"
+        ],
+        "feature": "rooftop",
+        "sky": [
+          "#ff9a6c",
+          "#ad6e9b"
+        ],
+        "ground": "#34334a",
+        "emitters": [
+          {
+            "type": "bird",
+            "chance": 0.005,
+            "max": 4,
+            "colors": [
+              "#333044"
+            ],
+            "speed": 0.82
+          },
+          {
+            "type": "dragonfly",
+            "chance": 0.006,
+            "max": 4,
+            "colors": [
+              "#d7a6e8"
+            ],
+            "speed": 0.42
+          }
+        ],
+        "accents": [
+          "#ff7a5c",
+          "#bb9af7"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "train-window",
+        "name": "归途列车",
+        "periods": [
+          "evening",
+          "night"
+        ],
+        "feature": "train",
+        "sky": [
+          "#bd7f78",
+          "#36415c"
+        ],
+        "ground": "#262a38",
+        "emitters": [
+          {
+            "type": "light",
+            "chance": 0.06,
+            "max": 24,
+            "colors": [
+              "#ffd558",
+              "#f7768e",
+              "#7dcfff"
+            ],
+            "speed": 1.5
+          },
+          {
+            "type": "rain",
+            "chance": 0.06,
+            "max": 24,
+            "colors": [
+              "#8fb7d8"
+            ],
+            "speed": 2.2
+          }
+        ],
+        "accents": [
+          "#e0af68"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "city-evening",
+        "name": "城市初灯",
+        "periods": [
+          "evening"
+        ],
+        "feature": "city",
+        "sky": [
+          "#655b86",
+          "#27334f"
+        ],
+        "ground": "#1f2638",
+        "emitters": [
+          {
+            "type": "light",
+            "chance": 0.035,
+            "max": 20,
+            "colors": [
+              "#ffd558",
+              "#f7768e",
+              "#7dcfff"
+            ],
+            "speed": 0.25
+          },
+          {
+            "type": "plane",
+            "chance": 0.002,
+            "max": 1,
+            "colors": [
+              "#dce4ff"
+            ],
+            "speed": 1
+          }
+        ],
+        "accents": [
+          "#ffd558",
+          "#7dcfff"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "cozy-room",
+        "name": "暖灯房间",
+        "periods": [
+          "evening",
+          "night"
+        ],
+        "feature": "room",
+        "sky": [
+          "#755366",
+          "#332d46"
+        ],
+        "ground": "#3c2f3b",
+        "emitters": [
+          {
+            "type": "dust",
+            "chance": 0.045,
+            "max": 20,
+            "colors": [
+              "#f2c879"
+            ],
+            "speed": 0.05
+          },
+          {
+            "type": "steam",
+            "chance": 0.025,
+            "max": 8,
+            "colors": [
+              "#ead7c4"
+            ],
+            "speed": 0.26
+          }
+        ],
+        "accents": [
+          "#e0af68",
+          "#f7768e"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "night-city",
+        "name": "霓虹夜城",
+        "periods": [
+          "night",
+          "lateNight"
+        ],
+        "feature": "neon",
+        "sky": [
+          "#20274c",
+          "#111427"
+        ],
+        "ground": "#12121e",
+        "emitters": [
+          {
+            "type": "light",
+            "chance": 0.045,
+            "max": 28,
+            "colors": [
+              "#f7768e",
+              "#7dcfff",
+              "#bb9af7"
+            ],
+            "speed": 0.18
+          },
+          {
+            "type": "rain",
+            "chance": 0.1,
+            "max": 40,
+            "colors": [
+              "#526f9a"
+            ],
+            "speed": 2.1
+          }
+        ],
+        "accents": [
+          "#f7768e",
+          "#7dcfff"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "moon-balcony",
+        "name": "月光阳台",
+        "periods": [
+          "night"
+        ],
+        "feature": "moon",
+        "sky": [
+          "#272b59",
+          "#15172e"
+        ],
+        "ground": "#20273b",
+        "emitters": [
+          {
+            "type": "star",
+            "chance": 0.05,
+            "max": 20,
+            "colors": [
+              "#c0caf5",
+              "#e0af68",
+              "#bb9af7"
+            ],
+            "speed": 0
+          },
+          {
+            "type": "firefly",
+            "chance": 0.02,
+            "max": 8,
+            "colors": [
+              "#e0af68",
+              "#9ece6a"
+            ],
+            "speed": 0.18
+          }
+        ],
+        "accents": [
+          "#c0caf5",
+          "#bb9af7"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "star-camp",
+        "name": "星空营地",
+        "periods": [
+          "night",
+          "lateNight"
+        ],
+        "feature": "camp",
+        "sky": [
+          "#171c3c",
+          "#090b20"
+        ],
+        "ground": "#18251f",
+        "emitters": [
+          {
+            "type": "star",
+            "chance": 0.075,
+            "max": 30,
+            "colors": [
+              "#ffffff",
+              "#e0af68",
+              "#7dcfff"
+            ],
+            "speed": 0
+          },
+          {
+            "type": "ember",
+            "chance": 0.06,
+            "max": 18,
+            "colors": [
+              "#ff7a5c",
+              "#e0af68"
+            ],
+            "speed": 0.7
+          }
+        ],
+        "accents": [
+          "#ff7a5c",
+          "#e0af68"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "late-night-desk",
+        "name": "深夜书桌",
+        "periods": [
+          "lateNight"
+        ],
+        "feature": "lateDesk",
+        "sky": [
+          "#20243c",
+          "#11131f"
+        ],
+        "ground": "#2c2631",
+        "emitters": [
+          {
+            "type": "dust",
+            "chance": 0.035,
+            "max": 15,
+            "colors": [
+              "#d5b477"
+            ],
+            "speed": 0.04
+          },
+          {
+            "type": "star",
+            "chance": 0.035,
+            "max": 12,
+            "colors": [
+              "#c0caf5"
+            ],
+            "speed": 0
+          }
+        ],
+        "accents": [
+          "#e0af68",
+          "#c0caf5"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "aurora",
+        "name": "极光夜",
+        "periods": [
+          "night",
+          "lateNight"
+        ],
+        "feature": "aurora",
+        "sky": [
+          "#17294a",
+          "#12142d"
+        ],
+        "ground": "#172d2c",
+        "emitters": [
+          {
+            "type": "starDust",
+            "chance": 0.1,
+            "max": 38,
+            "colors": [
+              "#7dcfff",
+              "#9ece6a",
+              "#bb9af7"
+            ],
+            "speed": 0.08
+          },
+          {
+            "type": "shootingStar",
+            "chance": 0.002,
+            "max": 2,
+            "colors": [
+              "#ffffff"
+            ],
+            "speed": 2
+          }
+        ],
+        "accents": [
+          "#7dcfff",
+          "#9ece6a",
+          "#bb9af7"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "snowy-window",
+        "name": "落雪窗前",
+        "periods": [
+          "morning",
+          "evening",
+          "night",
+          "lateNight"
+        ],
+        "feature": "snow",
+        "sky": [
+          "#6d7899",
+          "#27304c"
+        ],
+        "ground": "#e8edf5",
+        "emitters": [
+          {
+            "type": "snow",
+            "chance": 0.16,
+            "max": 55,
+            "colors": [
+              "#ffffff",
+              "#dce7f5",
+              "#b9c9e4"
+            ],
+            "speed": 0.55
+          },
+          {
+            "type": "steam",
+            "chance": 0.025,
+            "max": 8,
+            "colors": [
+              "#ffffff"
+            ],
+            "speed": 0.22
+          }
+        ],
+        "accents": [
+          "#ffffff",
+          "#7dcfff"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "ocean-window",
+        "name": "海底舷窗",
+        "periods": [
+          "morning",
+          "noon",
+          "afternoon",
+          "night"
+        ],
+        "feature": "ocean",
+        "sky": [
+          "#237da0",
+          "#102e59"
+        ],
+        "ground": "#0d2944",
+        "emitters": [
+          {
+            "type": "bubble",
+            "chance": 0.11,
+            "max": 42,
+            "colors": [
+              "rgba(180,235,255,0.8)",
+              "rgba(125,207,255,0.75)"
+            ],
+            "speed": 0.72
+          },
+          {
+            "type": "fish",
+            "chance": 0.006,
+            "max": 5,
+            "colors": [
+              "#e0af68",
+              "#f7768e",
+              "#9ece6a"
+            ],
+            "speed": 0.52
+          }
+        ],
+        "accents": [
+          "#7dcfff",
+          "#9ece6a"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "forest-clearing",
+        "name": "森林空地",
+        "periods": [
+          "morning",
+          "forenoon",
+          "afternoon",
+          "evening"
+        ],
+        "feature": "forest",
+        "sky": [
+          "#75a983",
+          "#294f3e"
+        ],
+        "ground": "#27412f",
+        "emitters": [
+          {
+            "type": "leaf",
+            "chance": 0.055,
+            "max": 30,
+            "colors": [
+              "#9ece6a",
+              "#528b41",
+              "#d1dc75"
+            ],
+            "speed": 0.52
+          },
+          {
+            "type": "firefly",
+            "chance": 0.018,
+            "max": 10,
+            "colors": [
+              "#e0af68"
+            ],
+            "speed": 0.16
+          }
+        ],
+        "accents": [
+          "#9ece6a",
+          "#528b41"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "sakura-lane",
+        "name": "樱花小径",
+        "periods": [
+          "morning",
+          "noon",
+          "afternoon",
+          "evening"
+        ],
+        "feature": "sakura",
+        "sky": [
+          "#ffc4d6",
+          "#c99fc5"
+        ],
+        "ground": "#76556f",
+        "emitters": [
+          {
+            "type": "petal",
+            "chance": 0.11,
+            "max": 52,
+            "colors": [
+              "#ffb3c8",
+              "#ffe1eb",
+              "#f7768e"
+            ],
+            "speed": 0.62
+          },
+          {
+            "type": "sparkle",
+            "chance": 0.015,
+            "max": 8,
+            "colors": [
+              "#ffffff"
+            ],
+            "speed": 0.12
+          }
+        ],
+        "accents": [
+          "#ffb3c8",
+          "#f7768e"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "pixel-arcade",
+        "name": "像素游戏厅",
+        "periods": [
+          "evening",
+          "night",
+          "lateNight"
+        ],
+        "feature": "arcade",
+        "sky": [
+          "#29204d",
+          "#111125"
+        ],
+        "ground": "#171528",
+        "emitters": [
+          {
+            "type": "pixel",
+            "chance": 0.07,
+            "max": 32,
+            "colors": [
+              "#f7768e",
+              "#7dcfff",
+              "#9ece6a",
+              "#e0af68"
+            ],
+            "speed": 0.42
+          },
+          {
+            "type": "sparkle",
+            "chance": 0.025,
+            "max": 12,
+            "colors": [
+              "#ffffff"
+            ],
+            "speed": 0.2
+          }
+        ],
+        "accents": [
+          "#f7768e",
+          "#7dcfff",
+          "#9ece6a"
+        ],
+        "source": "src/content/scenes.mjs"
+      },
+      {
+        "id": "robot-lab",
+        "name": "机器人实验室",
+        "periods": [
+          "forenoon",
+          "afternoon",
+          "night"
+        ],
+        "feature": "lab",
+        "sky": [
+          "#27344c",
+          "#141927"
+        ],
+        "ground": "#1c2630",
+        "emitters": [
+          {
+            "type": "codeRain",
+            "chance": 0.06,
+            "max": 24,
+            "colors": [
+              "#7dcfff",
+              "#9ece6a"
+            ],
+            "speed": 1.1
+          },
+          {
+            "type": "sparkle",
+            "chance": 0.015,
+            "max": 9,
+            "colors": [
+              "#7dcfff"
+            ],
+            "speed": 0.18
+          }
+        ],
+        "accents": [
+          "#7dcfff",
+          "#a9b1d6"
+        ],
+        "source": "src/content/scenes.mjs"
+      }
+    ],
+    "automaticSchedule": {
+      "morning": [
+        "sunny-desk",
+        "dawn-window",
+        "morning-library",
+        "garden-breeze"
+      ],
+      "forenoon": [
+        "sunny-desk",
+        "morning-library",
+        "garden-breeze",
+        "coffee-shop"
+      ],
+      "noon": [
+        "cloud-terrace",
+        "garden-breeze",
+        "coffee-shop",
+        "lunch-park"
+      ],
+      "afternoon": [
+        "afternoon-studio",
+        "cloud-terrace",
+        "forest-clearing",
+        "coffee-shop"
+      ],
+      "evening": [
+        "cozy-room",
+        "sunset-rooftop",
+        "city-evening",
+        "forest-clearing"
+      ],
+      "night": [
+        "cozy-room",
+        "moon-balcony",
+        "star-camp"
+      ],
+      "lateNight": [
+        "late-night-desk",
+        "star-camp"
+      ]
+    },
+    "manualSchedule": {
+      "morning": [
+        "sunny-desk",
+        "dawn-window",
+        "morning-library",
+        "garden-breeze",
+        "snowy-window",
+        "ocean-window"
+      ],
+      "forenoon": [
+        "sunny-desk",
+        "morning-library",
+        "garden-breeze",
+        "coffee-shop",
+        "robot-lab"
+      ],
+      "noon": [
+        "cloud-terrace",
+        "garden-breeze",
+        "coffee-shop",
+        "lunch-park",
+        "ocean-window",
+        "sakura-lane"
+      ],
+      "afternoon": [
+        "afternoon-studio",
+        "cloud-terrace",
+        "forest-clearing",
+        "coffee-shop",
+        "rainy-window",
+        "summer-storm",
+        "robot-lab"
+      ],
+      "evening": [
+        "cozy-room",
+        "sunset-rooftop",
+        "city-evening",
+        "forest-clearing",
+        "train-window",
+        "snowy-window",
+        "summer-storm"
+      ],
+      "night": [
+        "cozy-room",
+        "moon-balcony",
+        "night-city",
+        "star-camp",
+        "aurora",
+        "pixel-arcade",
+        "ocean-window"
+      ],
+      "lateNight": [
+        "late-night-desk",
+        "star-camp",
+        "aurora",
+        "night-city",
+        "pixel-arcade"
+      ]
+    },
+    "skinPreferences": {
+      "forest": [
+        "forest-clearing",
+        "garden-breeze"
+      ],
+      "ocean": [
+        "ocean-window",
+        "cloud-terrace"
+      ],
+      "sakura": [
+        "sakura-lane",
+        "dawn-window"
+      ],
+      "moon": [
+        "moon-balcony",
+        "aurora"
+      ],
+      "flame": [
+        "star-camp",
+        "sunset-rooftop"
+      ],
+      "crown": [
+        "city-evening",
+        "sunset-rooftop"
+      ],
+      "robot": [
+        "robot-lab",
+        "pixel-arcade"
+      ],
+      "woodsman": [
+        "forest-clearing",
+        "morning-library"
+      ],
+      "bat": [
+        "night-city",
+        "moon-balcony"
+      ]
+    },
+    "sessionBackdropModes": [
+      "focused",
+      "resting"
+    ],
+    "sessionBackdropSource": "src/core/pet-scene-art.mjs"
+  }
+}

@@ -1,0 +1,1301 @@
+{
+  "version": 1,
+  "backend": "Pillow extraction and static alpha compositing; production Canvas runtime QA separate",
+  "generation": "built-in image_gen transparent wear-first per-item sheets, no vector rasterization",
+  "bodyPolicy": "All approved body pixels copied unchanged; generated wearer bodies are reference only",
+  "sourceSheets": {
+    "bat-wings-sheet.png": {
+      "sha256": "533b0f9595f3767515e6d1655043f34004dda13e2c3d9e312fc6cc0766eacb68",
+      "bytes": 1372327,
+      "prompt": "authoring-workspace/pet-raster-production/wardrobe/prompts/bat-wings.txt"
+    },
+    "boots-sheet.png": {
+      "sha256": "3f2f7e92db7075ba1e230c463f6fae614676988328ab1ad86ab2d610eeae2b76",
+      "bytes": 1291078,
+      "prompt": "authoring-workspace/pet-raster-production/wardrobe/prompts/boots.txt"
+    },
+    "cape-coequip-v2-sheet.png": {
+      "sha256": "ebf688c12e0c7eca0eafdb7ad2c9b063912d5b68fffa7466ab079ab983a202cd",
+      "bytes": 1492729,
+      "prompt": "authoring-workspace/pet-raster-production/wardrobe/prompts/cape-coequip-v2.txt"
+    },
+    "cape-sheet.png": {
+      "sha256": "2944722e5d4eda098ab5f46548208ba5412dd9d9b5f68be65ec8e99dfd35129f",
+      "bytes": 1423820,
+      "prompt": "authoring-workspace/pet-raster-production/wardrobe/prompts/cape.txt"
+    },
+    "crown-sheet.png": {
+      "sha256": "243682d39ba255b4d9e82f91ec981cdeb9e5e9dac7d567673864a677c8d7349a",
+      "bytes": 1257130,
+      "prompt": "authoring-workspace/pet-raster-production/wardrobe/prompts/crown.txt"
+    },
+    "flame-tip-sheet.png": {
+      "sha256": "c7dca6a29dba080bbe0c14568bc2e960ea0016047da6ace8aa365311a9a823f0",
+      "bytes": 1249482,
+      "prompt": "authoring-workspace/pet-raster-production/wardrobe/prompts/flame-tip.txt"
+    },
+    "forest-leaf-sheet.png": {
+      "sha256": "eebe8354a6a1eb340fc15e892717661947002809e64e1e201aab1ae35a0a1486",
+      "bytes": 1182993,
+      "prompt": "authoring-workspace/pet-raster-production/wardrobe/prompts/forest-leaf.txt"
+    },
+    "halo-sheet.png": {
+      "sha256": "a59f43e16085017849d3c6978413dc843f6f1135e6f7c88b6aa61a0ca16b955c",
+      "bytes": 1303255,
+      "prompt": "authoring-workspace/pet-raster-production/wardrobe/prompts/halo.txt"
+    },
+    "halo-thin-v2-sheet.png": {
+      "sha256": "5c76a81d5af7cf87f6a2369e178a5e7766fc539ccfba9596011f0a89ee01e5d9",
+      "bytes": 1263602,
+      "prompt": "authoring-workspace/pet-raster-production/wardrobe/prompts/halo-thin-v2.txt"
+    },
+    "moon-crescent-sheet.png": {
+      "sha256": "78abcfa94e2e981ec7a5b7dde282efe3f1315be345cfa6411ce99f9de2b08664",
+      "bytes": 1266331,
+      "prompt": "authoring-workspace/pet-raster-production/wardrobe/prompts/moon-crescent.txt"
+    },
+    "ocean-fin-sheet.png": {
+      "sha256": "e2edd42d53e81194ecfd376c861cfdc9fbaceb264c2256a0f55aafb6d44db9d0",
+      "bytes": 1268125,
+      "prompt": "authoring-workspace/pet-raster-production/wardrobe/prompts/ocean-fin.txt"
+    },
+    "robot-antenna-sheet.png": {
+      "sha256": "06addb13c165deb7882093c77833d85fc5435233675484e0ccf2b0af1503c03a",
+      "bytes": 1267899,
+      "prompt": "authoring-workspace/pet-raster-production/wardrobe/prompts/robot-antenna.txt"
+    },
+    "sakura-flower-sheet.png": {
+      "sha256": "8caebce083578be9f45e6102b55c0d1fc51808391e2e01c5da19bb63f843bd82",
+      "bytes": 1338024,
+      "prompt": "authoring-workspace/pet-raster-production/wardrobe/prompts/sakura-flower.txt"
+    },
+    "satchel-outboard-v3-sheet.png": {
+      "sha256": "dfb9bf62e9fb4160c8b2dafa237e087f1d7b0cd959287e74ac21dc8cc9988e13",
+      "bytes": 1301589,
+      "prompt": "authoring-workspace/pet-raster-production/wardrobe/prompts/satchel-outboard-v3.txt"
+    },
+    "satchel-sheet.png": {
+      "sha256": "fa10a72f744c28300fead83e23065a451da107b162f4092ffdb64f0044ee97b1",
+      "bytes": 1339231,
+      "prompt": "authoring-workspace/pet-raster-production/wardrobe/prompts/satchel.txt"
+    },
+    "scarf-satchel-coequip-v2-sheet.png": {
+      "sha256": "f13ccb3db3adb9bdba5fbfedad1ac963de4982c49a3e8c61523f828709804a97",
+      "bytes": 1451433,
+      "prompt": "authoring-workspace/pet-raster-production/wardrobe/prompts/scarf-satchel-coequip-v2.txt"
+    },
+    "scarf-sheet.png": {
+      "sha256": "e0be6a29c6150f0014bb41a8bd5b4e176122909ec87dad0a8e17406c1160d9bc",
+      "bytes": 1380400,
+      "prompt": "authoring-workspace/pet-raster-production/wardrobe/prompts/scarf.txt"
+    },
+    "sprout-sheet.png": {
+      "sha256": "2ca6c2f6b4ce7301219869f0bb9454f33f341a948bc283693c3ee15c3a9fcd55",
+      "bytes": 1260390,
+      "prompt": "authoring-workspace/pet-raster-production/wardrobe/prompts/sprout.txt"
+    },
+    "sunhat-sheet.png": {
+      "sha256": "2c76fab68a3667bbd5721b342629a166422d34a21b2adc949d7b2b602c1f3a89",
+      "bytes": 1355014,
+      "prompt": "authoring-workspace/pet-raster-production/wardrobe/prompts/sunhat.txt"
+    },
+    "woodsman-cap-sheet.png": {
+      "sha256": "6066df3477616eea9bba9728d9811d7db80766335175fc553b3798f64dd1de2f",
+      "bytes": 1336699,
+      "prompt": "authoring-workspace/pet-raster-production/wardrobe/prompts/woodsman-cap.txt"
+    }
+  },
+  "items": {
+    "sprout": {
+      "candidate": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/sprout-candidate",
+      "reportSha256": "dc9cb948fc5cb0379cdfc0692dde77bd7a1e048929c31ccf275fe06259c735ac",
+      "qaFailures": [],
+      "views": {
+        "front": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "three-quarter": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "back": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        }
+      }
+    },
+    "sunhat": {
+      "candidate": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/sunhat-candidate",
+      "reportSha256": "3afa00b69600167fbe45f07d812b7c6171b8869c36df86e16403022cab0ce872",
+      "qaFailures": [],
+      "views": {
+        "front": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "three-quarter": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "back": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        }
+      }
+    },
+    "satchel": {
+      "candidate": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/satchel-coequip-candidate",
+      "reportSha256": "2c97c61740db78156ba1050e3441f6e1be6139e2a5dd839299866c465d6e6bf9",
+      "qaFailures": [],
+      "views": {
+        "front": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Earlier isolated opposite-face strap return is entirely concealed by opaque approved body pixels; fixed pose only, no visible turn interpolation"
+          }
+        },
+        "three-quarter": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Earlier isolated opposite-face strap return is entirely concealed by opaque approved body pixels; fixed pose only, no visible turn interpolation"
+          }
+        },
+        "back": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Earlier isolated opposite-face strap return is entirely concealed by opaque approved body pixels; fixed pose only, no visible turn interpolation"
+          }
+        }
+      }
+    },
+    "scarf": {
+      "candidate": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/scarf-coequip-candidate",
+      "reportSha256": "b5b7e18515200741078a29731e453b96c1b535d9aa3fbbc4a11258f522ec3727",
+      "qaFailures": [],
+      "views": {
+        "front": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Prior complete isolated cuff rear arc adapted behind fully opaque original body. It is concealed material only; no visible turn interpolation or independent scarf deformation."
+          }
+        },
+        "three-quarter": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Prior complete isolated cuff rear arc adapted behind fully opaque original body. It is concealed material only; no visible turn interpolation or independent scarf deformation."
+          }
+        },
+        "back": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Prior complete isolated cuff rear arc adapted behind fully opaque original body. It is concealed material only; no visible turn interpolation or independent scarf deformation."
+          }
+        }
+      }
+    },
+    "halo": {
+      "candidate": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/halo-candidate",
+      "reportSha256": "260fd662a18e3a8a20ed95d0a6e38ea441b967f1615774c752cf094b989f86f5",
+      "qaFailures": [],
+      "views": {
+        "front": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "not-required",
+            "reason": "Entire standalone component is visible in this view; no occluded material needs reconstruction."
+          }
+        },
+        "three-quarter": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "not-required",
+            "reason": "Entire standalone component is visible in this view; no occluded material needs reconstruction."
+          }
+        },
+        "back": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "not-required",
+            "reason": "Entire standalone component is visible in this view; no occluded material needs reconstruction."
+          }
+        }
+      }
+    },
+    "boots": {
+      "candidate": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/boots-candidate",
+      "reportSha256": "5fa0ccf58df150a1b6c54037b682d8beec01db9069ba6a08e59f5e919c933ea5",
+      "qaFailures": [],
+      "views": {
+        "front": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "not-required",
+            "reason": "Two complete isolated boots include cuffs and soles, each independently bound to the matching original foot; no third/static duplicate shoe sprite"
+          }
+        },
+        "three-quarter": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "not-required",
+            "reason": "Two complete isolated boots include cuffs and soles, each independently bound to the matching original foot; no third/static duplicate shoe sprite"
+          }
+        },
+        "back": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "not-required",
+            "reason": "Two complete isolated boots include cuffs and soles, each independently bound to the matching original foot; no third/static duplicate shoe sprite"
+          }
+        }
+      }
+    },
+    "cape": {
+      "candidate": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/cape-candidate",
+      "reportSha256": "07c19750a0aae765c4d718d2057e5458314f4b159ae54ff8bf83b1c4a98f6af3",
+      "qaFailures": [],
+      "views": {
+        "front": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "three-quarter": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "back": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "not-required",
+            "reason": "Entire standalone component is visible in this view; no occluded material needs reconstruction."
+          }
+        }
+      }
+    },
+    "forest-leaf": {
+      "candidate": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/forest-leaf-candidate",
+      "reportSha256": "648224a9b0755b1b3491cdc51744e6f87f6808764ab694773ffdbb5461199dfa",
+      "qaFailures": [],
+      "views": {
+        "front": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Generated isolated material retained only under opaque approved body pixels. Rigid clip only; visible leaves remain from fitted worn reference and original ears/body occlude the attachment."
+          }
+        },
+        "three-quarter": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Generated isolated material retained only under opaque approved body pixels. Rigid clip only; visible leaves remain from fitted worn reference and original ears/body occlude the attachment."
+          }
+        },
+        "back": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Generated isolated material retained only under opaque approved body pixels. Rigid clip only; visible leaves remain from fitted worn reference and original ears/body occlude the attachment."
+          }
+        }
+      }
+    },
+    "sakura-flower": {
+      "candidate": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/sakura-flower-candidate",
+      "reportSha256": "4e2cc3776163f7e08bc0eee9b03e1476d1b54a71642caac07b9d3c8a982720cf",
+      "qaFailures": [],
+      "views": {
+        "front": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "three-quarter": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "back": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        }
+      }
+    },
+    "moon-crescent": {
+      "candidate": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/moon-crescent-candidate",
+      "reportSha256": "31668df9e7e3e770a55de65d75b6839b4102d4c1a2006ff1beacdc6be0e77b36",
+      "qaFailures": [],
+      "views": {
+        "front": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "three-quarter": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "back": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        }
+      }
+    },
+    "flame-tip": {
+      "candidate": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/flame-tip-candidate",
+      "reportSha256": "397274a62445b41e888dcd8f3815162c27705218417e4a2ab58a9ad3ee76175b",
+      "qaFailures": [],
+      "views": {
+        "front": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "three-quarter": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "back": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        }
+      }
+    },
+    "crown": {
+      "candidate": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/crown-candidate",
+      "reportSha256": "4d12ff71b6122edfd3e0646fd81ad80718185734d94bf8535ef4715abd7d68a0",
+      "qaFailures": [],
+      "views": {
+        "front": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "three-quarter": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "back": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        }
+      }
+    },
+    "robot-antenna": {
+      "candidate": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/robot-antenna-candidate",
+      "reportSha256": "181e966cf2b7846e71d0c1bea6fc9dbffe31c85a466eca44fbb9fb53e39e87f6",
+      "qaFailures": [],
+      "views": {
+        "front": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "three-quarter": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "back": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        }
+      }
+    },
+    "woodsman-cap": {
+      "candidate": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/woodsman-cap-candidate",
+      "reportSha256": "d71a16cbe13f5de0c15fa7878cd03ea59574a6e541ce3b71115a91502de0d71e",
+      "qaFailures": [],
+      "views": {
+        "front": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "three-quarter": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "back": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        }
+      }
+    },
+    "ocean-fin": {
+      "candidate": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/ocean-fin-candidate",
+      "reportSha256": "3eee804341dd3b64063e353fcc8dcb36bfd0f8636717a3b7e6acdeccef23d1e8",
+      "qaFailures": [],
+      "views": {
+        "front": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "three-quarter": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "back": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "not-required",
+            "reason": "Entire standalone component is visible in this view; no occluded material needs reconstruction."
+          }
+        }
+      }
+    },
+    "bat-wings": {
+      "candidate": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/bat-wings-candidate",
+      "reportSha256": "4aa5dbd48ad29b132b6275ddb173c9257459a705085a98d507c6b01f0bfc3c66",
+      "qaFailures": [],
+      "views": {
+        "front": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "three-quarter": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "reconstructed",
+            "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+          }
+        },
+        "back": {
+          "bodyPreserved": true,
+          "facePreserved": true,
+          "hiddenMaterialStatus": {
+            "status": "not-required",
+            "reason": "Entire standalone component is visible in this view; no occluded material needs reconstruction."
+          }
+        }
+      }
+    }
+  },
+  "assets": {
+    "wardrobe/sprout-front-outer-piece.png": {
+      "sha256": "e311d458381d2c333d6f5b79777b2b1e1c2528a41e0e53c7446ba3732c33fb4d",
+      "bytes": 10961,
+      "renderKey": "sprout",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/sprout-front-hidden-root.png": {
+      "sha256": "829d9fa8706eca769899e916279dff2f8286db0fe24d275012218a8208712d74",
+      "bytes": 789,
+      "renderKey": "sprout",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/sprout-three-quarter-outer-piece.png": {
+      "sha256": "d036a3a1da9b938cda9de2a4e07e8670224093e1a5f7a76acee940446eb4bc47",
+      "bytes": 10782,
+      "renderKey": "sprout",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/sprout-three-quarter-hidden-root.png": {
+      "sha256": "0a76d8ffa4b7edccc04f8534bca0a4e1023f5a624d680e6bdbe4855e86406704",
+      "bytes": 2252,
+      "renderKey": "sprout",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/sprout-back-outer-piece.png": {
+      "sha256": "7d695d5815935ff5b6301d33a676b8e6a283e389e9242867dc75dc6a1e2e1048",
+      "bytes": 10977,
+      "renderKey": "sprout",
+      "view": "back",
+      "plane": "back"
+    },
+    "wardrobe/sprout-back-hidden-root.png": {
+      "sha256": "6bcc8f9161d806af13b1c17895899cba13d48b06b71a54033c746e553777abaf",
+      "bytes": 733,
+      "renderKey": "sprout",
+      "view": "back",
+      "plane": "back"
+    },
+    "wardrobe/sunhat-front-outer-piece.png": {
+      "sha256": "76af4d765b17b99c39e7b95e0f135dc67f736d0ff6369ae23ea7334d84d166e9",
+      "bytes": 34361,
+      "renderKey": "sunhat",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/sunhat-front-hidden-root.png": {
+      "sha256": "4834fd7c4250e7f0ca319f8f4adc85a2e70086f07533e0b83b4cb161e97c497e",
+      "bytes": 12694,
+      "renderKey": "sunhat",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/sunhat-three-quarter-outer-piece.png": {
+      "sha256": "437863cbbb148697912db6daf448c186a8ab874d9c9276b5e2d0d2fc95d7443e",
+      "bytes": 43736,
+      "renderKey": "sunhat",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/sunhat-three-quarter-hidden-root.png": {
+      "sha256": "853c6d4b1e810fd7e2d9a9a5ff7c6fdc650032e658f0e61f4cf6b8e9686f44d0",
+      "bytes": 10024,
+      "renderKey": "sunhat",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/sunhat-back-outer-piece.png": {
+      "sha256": "42df6364e1956f9c0da8bb56a3426f2d947d41388ffd927ac532519982b48158",
+      "bytes": 40853,
+      "renderKey": "sunhat",
+      "view": "back",
+      "plane": "back"
+    },
+    "wardrobe/sunhat-back-hidden-root.png": {
+      "sha256": "ebeb3f01e42fe13a6bd8d25aa883d4d427944292536f30edb0a904f369d41062",
+      "bytes": 12215,
+      "renderKey": "sunhat",
+      "view": "back",
+      "plane": "back"
+    },
+    "wardrobe/satchel-front-hidden-return.png": {
+      "sha256": "d5baa8e6d7b5856309a449f4aa88b37ea3b665b0ba696b846d34d920a81abf95",
+      "bytes": 24349,
+      "renderKey": "satchel",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/satchel-front-strap.png": {
+      "sha256": "c4de4b09422e521a070f871a9942ebe10b4c6f51e74069d4db6da60a8fad2937",
+      "bytes": 13598,
+      "renderKey": "satchel",
+      "view": "front",
+      "plane": "front"
+    },
+    "wardrobe/satchel-front-pouch.png": {
+      "sha256": "9b15845f59c27b9214e73d110f0d9ff10e3c75da6f8fa3d56f76f09d41d5721a",
+      "bytes": 16489,
+      "renderKey": "satchel",
+      "view": "front",
+      "plane": "front"
+    },
+    "wardrobe/satchel-three-quarter-hidden-return.png": {
+      "sha256": "a8fb5503be253e0ffe08ca333efef75f9abc84d7835d8807e2539cfdb83b668c",
+      "bytes": 25300,
+      "renderKey": "satchel",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/satchel-three-quarter-strap.png": {
+      "sha256": "064a68a2591dde08542367e3764964122f73d3af1bb383851058dbbe1133a8ce",
+      "bytes": 11922,
+      "renderKey": "satchel",
+      "view": "three-quarter",
+      "plane": "front"
+    },
+    "wardrobe/satchel-three-quarter-pouch.png": {
+      "sha256": "f2f5b4c18806e4898f87c68f81f0916388465921e3e82afb8967fac0b3bbf3ab",
+      "bytes": 17507,
+      "renderKey": "satchel",
+      "view": "three-quarter",
+      "plane": "front"
+    },
+    "wardrobe/satchel-back-hidden-return.png": {
+      "sha256": "0173b040587a950b902b5fa8459e5d210e1f48f171446b99439ebe1f272819fc",
+      "bytes": 33406,
+      "renderKey": "satchel",
+      "view": "back",
+      "plane": "back"
+    },
+    "wardrobe/satchel-back-strap.png": {
+      "sha256": "b1844f6715701638f1a9003746ca41ff9bf9a336a1e6d007e5ab45ab2af7c7a8",
+      "bytes": 13373,
+      "renderKey": "satchel",
+      "view": "back",
+      "plane": "front"
+    },
+    "wardrobe/satchel-back-pouch.png": {
+      "sha256": "4661ec54b08389e50b9901b48a311d4137bc2c6a7a3196acc2718adbd9cdcf2c",
+      "bytes": 16753,
+      "renderKey": "satchel",
+      "view": "back",
+      "plane": "front"
+    },
+    "wardrobe/scarf-front-hidden-return.png": {
+      "sha256": "1a644d0872af3185789ed74ca7d847d8035449996565ae3ead73945f7f01cd57",
+      "bytes": 25018,
+      "renderKey": "scarf",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/scarf-front-visible-cloth.png": {
+      "sha256": "b8e0c7b031bbd79bc1570c503d879830f260f3f5be6e3f2297b9e52a6710deff",
+      "bytes": 37664,
+      "renderKey": "scarf",
+      "view": "front",
+      "plane": "front"
+    },
+    "wardrobe/scarf-three-quarter-hidden-return.png": {
+      "sha256": "a76866fcb113e1f5ad5811b419fb208b3900723e7ed7d496de6b0ac9cefa9a9c",
+      "bytes": 25362,
+      "renderKey": "scarf",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/scarf-three-quarter-visible-cloth.png": {
+      "sha256": "e93408d216d849c22fe2e57c4afbd597f328037a71ca2236f3cf38c90386626d",
+      "bytes": 35146,
+      "renderKey": "scarf",
+      "view": "three-quarter",
+      "plane": "front"
+    },
+    "wardrobe/scarf-back-hidden-return.png": {
+      "sha256": "bf0119acf6725979d30ee5d8286cf86ef8c387f46f85a1f45d0f76e28453eada",
+      "bytes": 27856,
+      "renderKey": "scarf",
+      "view": "back",
+      "plane": "back"
+    },
+    "wardrobe/scarf-back-visible-cloth.png": {
+      "sha256": "1f487e24dbb2ba06fd569e82fcba4c7d6b98a455a22ab102c71dd4c7e115a489",
+      "bytes": 36645,
+      "renderKey": "scarf",
+      "view": "back",
+      "plane": "front"
+    },
+    "wardrobe/halo-front-ring.png": {
+      "sha256": "b55d200d3f46669efa5bec5d1b8560dd54627288bcf9ce41db23450e303acb03",
+      "bytes": 5327,
+      "renderKey": "halo",
+      "view": "front",
+      "plane": "front"
+    },
+    "wardrobe/halo-three-quarter-ring.png": {
+      "sha256": "8b9ad2249d206c41e2ac683fd00872415618ab5b73b83e4d1b9327d60cd703e1",
+      "bytes": 5660,
+      "renderKey": "halo",
+      "view": "three-quarter",
+      "plane": "front"
+    },
+    "wardrobe/halo-back-ring.png": {
+      "sha256": "701939e4596428324447e4568be02e9d9231d8e08266e3f234a4b6eb98399db9",
+      "bytes": 5294,
+      "renderKey": "halo",
+      "view": "back",
+      "plane": "front"
+    },
+    "wardrobe/boots-front-foot-left.png": {
+      "sha256": "fc68b78bb56e992b5ba260161515ac5e0b1347f899e42e75f42c177177bb2da3",
+      "bytes": 12325,
+      "renderKey": "boots",
+      "view": "front",
+      "plane": "front"
+    },
+    "wardrobe/boots-front-foot-right.png": {
+      "sha256": "8074baf7bf80dc3c5456e1f51024e581e4d7cd683f630d3facd8107330bad17a",
+      "bytes": 12484,
+      "renderKey": "boots",
+      "view": "front",
+      "plane": "front"
+    },
+    "wardrobe/boots-three-quarter-foot-left.png": {
+      "sha256": "a60bdae64a805ecd89bc7587b90a4e0fadb2a5a300e35f65d01f9d3bee99f9b7",
+      "bytes": 14399,
+      "renderKey": "boots",
+      "view": "three-quarter",
+      "plane": "front"
+    },
+    "wardrobe/boots-three-quarter-foot-right.png": {
+      "sha256": "2c09694cce68e09d93dd427019dc4bd8903cad960923768e6161b34a3c1ec65b",
+      "bytes": 11021,
+      "renderKey": "boots",
+      "view": "three-quarter",
+      "plane": "front"
+    },
+    "wardrobe/boots-back-foot-left.png": {
+      "sha256": "b29a5ed56de9cc17542f35bb2cce1d0e74aa39555109c8a8d7335c4d0e8f14de",
+      "bytes": 13123,
+      "renderKey": "boots",
+      "view": "back",
+      "plane": "front"
+    },
+    "wardrobe/boots-back-foot-right.png": {
+      "sha256": "6e5f92399a29a09ec826bb27ff087b4577864c33e46a723529d839222ed2125e",
+      "bytes": 13102,
+      "renderKey": "boots",
+      "view": "back",
+      "plane": "front"
+    },
+    "wardrobe/cape-front-left-panel.png": {
+      "sha256": "a7fe0ef3c50654b6b7ab40afed3f64c7b4bf96a7baf85381927415a02152cd78",
+      "bytes": 35933,
+      "renderKey": "cape",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/cape-front-right-panel.png": {
+      "sha256": "dab8bdfd15e25a7c8ee343cfc3bb80a7728b1ced8c74b27b1eb50d6f0e1eb170",
+      "bytes": 36643,
+      "renderKey": "cape",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/cape-front-hidden-panel.png": {
+      "sha256": "472f82245f6f286c6d384164a76d4409244a1f6d4d5a677d315352bb9a8cf894",
+      "bytes": 65139,
+      "renderKey": "cape",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/cape-three-quarter-left-panel.png": {
+      "sha256": "a456cefec934fe9a87bba7a7daa2846400de8a325edf91196311d3a04d34ce08",
+      "bytes": 43559,
+      "renderKey": "cape",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/cape-three-quarter-right-panel.png": {
+      "sha256": "1d079890ac79ff5346690cb0b13145df87643a4a420768e3b79335612a732ef3",
+      "bytes": 29245,
+      "renderKey": "cape",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/cape-three-quarter-hidden-panel.png": {
+      "sha256": "341d9be0d109f1f29979a25709bcbee5e1cd08078e874d21cf25cb67ff78f3b4",
+      "bytes": 67077,
+      "renderKey": "cape",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/cape-back-rear-surface.png": {
+      "sha256": "56f815ff3ee2082ad738274c1e842609bae55d07ba29be163008e485193153ac",
+      "bytes": 84150,
+      "renderKey": "cape",
+      "view": "back",
+      "plane": "front"
+    },
+    "wardrobe/forest-leaf-front-hidden-return.png": {
+      "sha256": "f26eafd44593329049173dac3d50300e7ab41dd6cbd9744f7f7870973d26c1df",
+      "bytes": 185,
+      "renderKey": "forest-leaf",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/forest-leaf-front-visible-material.png": {
+      "sha256": "cbbd8c6a112a178d524d12e5ddb19681455191b7f183021b91da7daf61179171",
+      "bytes": 10857,
+      "renderKey": "forest-leaf",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/forest-leaf-three-quarter-hidden-return.png": {
+      "sha256": "6ddf5627c175dfb120ef46f8630497607c19b264c7fd8edc7b53c11392c12980",
+      "bytes": 1516,
+      "renderKey": "forest-leaf",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/forest-leaf-three-quarter-visible-material.png": {
+      "sha256": "47fc53e0b8c4e1dfbf1ac1bcb10271c991c076aeb04c6d2b50134c4741ae553b",
+      "bytes": 10572,
+      "renderKey": "forest-leaf",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/forest-leaf-back-hidden-return.png": {
+      "sha256": "a3609746b6d9390b08ffb172b50f90f7cd45569335c7c5d7cc7cadfa23e6c92d",
+      "bytes": 4191,
+      "renderKey": "forest-leaf",
+      "view": "back",
+      "plane": "back"
+    },
+    "wardrobe/forest-leaf-back-visible-material.png": {
+      "sha256": "903c10189f1254d811771d07b6bef151e2929a79734544ba12ab9659ef8ecdda",
+      "bytes": 10773,
+      "renderKey": "forest-leaf",
+      "view": "back",
+      "plane": "back"
+    },
+    "wardrobe/sakura-flower-front-outer-piece.png": {
+      "sha256": "1f69807632d1fe4e81ccf8c45c3a5fdd302be9904405be7e9b99fc93f482e53d",
+      "bytes": 14188,
+      "renderKey": "sakura-flower",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/sakura-flower-front-hidden-root.png": {
+      "sha256": "60ee12f7abf25693b01f3c9afb6bc362f2aa8b2437033d4bb329324ab7a268c4",
+      "bytes": 2262,
+      "renderKey": "sakura-flower",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/sakura-flower-three-quarter-outer-piece.png": {
+      "sha256": "397dbfc921d5123aa37965437f2945f56b22d0c3c1ca074e9473776a510713df",
+      "bytes": 15915,
+      "renderKey": "sakura-flower",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/sakura-flower-three-quarter-hidden-root.png": {
+      "sha256": "82e2cbb18fbe4eda0542dc285eb06bcd8ed90c2ac40dcd66f0b28bd769dff689",
+      "bytes": 1549,
+      "renderKey": "sakura-flower",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/sakura-flower-back-outer-piece.png": {
+      "sha256": "d562b7575a7aaa5a118d52967803f1dc878ec25e220cb8b7578187b3fbfc5df8",
+      "bytes": 15122,
+      "renderKey": "sakura-flower",
+      "view": "back",
+      "plane": "back"
+    },
+    "wardrobe/sakura-flower-back-hidden-root.png": {
+      "sha256": "45ae055fdbd17fd7187f78dc41badca9f919c9ab4ba17b58e52a4adcec6daa8f",
+      "bytes": 1767,
+      "renderKey": "sakura-flower",
+      "view": "back",
+      "plane": "back"
+    },
+    "wardrobe/moon-crescent-front-outer-piece.png": {
+      "sha256": "4a3d1a626a6779c7380e6bcf68b25dc74f25bfc0c0d59faf260b301cd4b35599",
+      "bytes": 9593,
+      "renderKey": "moon-crescent",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/moon-crescent-front-hidden-root.png": {
+      "sha256": "bf067bfa7a08d4df5c78bcbcfbf0294fde624f01bf68f88d9507e07de6ff6d86",
+      "bytes": 568,
+      "renderKey": "moon-crescent",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/moon-crescent-three-quarter-outer-piece.png": {
+      "sha256": "3986c8793317736a010cffe99c6e5b660a44488b22abf94c95860f75da8c9bc4",
+      "bytes": 9282,
+      "renderKey": "moon-crescent",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/moon-crescent-three-quarter-hidden-root.png": {
+      "sha256": "5a2c3cdefb26bf4e77e305954f6910dae0b4ab1878e24719d5bf2fb59a71d34b",
+      "bytes": 417,
+      "renderKey": "moon-crescent",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/moon-crescent-back-outer-piece.png": {
+      "sha256": "b13f03ba94470adedf3043c91311159ae7901e2435c3ced32581cd132d925802",
+      "bytes": 11177,
+      "renderKey": "moon-crescent",
+      "view": "back",
+      "plane": "back"
+    },
+    "wardrobe/moon-crescent-back-hidden-root.png": {
+      "sha256": "23d0a18ea9a567322df4e5497674b3576489b5fbd2e1c767bbbf84053ef3cff3",
+      "bytes": 306,
+      "renderKey": "moon-crescent",
+      "view": "back",
+      "plane": "back"
+    },
+    "wardrobe/flame-tip-front-outer-piece.png": {
+      "sha256": "cad6ea3729be332fe9c0697a8c06e56cad039f411dfdee390944dc8e0c239dfe",
+      "bytes": 11837,
+      "renderKey": "flame-tip",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/flame-tip-front-hidden-root.png": {
+      "sha256": "fee1127234772901d4e5ce7d1f612e9bc015de5916e7e9a4dfc5794804ebd010",
+      "bytes": 3906,
+      "renderKey": "flame-tip",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/flame-tip-three-quarter-outer-piece.png": {
+      "sha256": "2d232944139be0c82486dc0b6b3dddd54f8d15b4f57dfb7cd7d0f41bc120e9f3",
+      "bytes": 9250,
+      "renderKey": "flame-tip",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/flame-tip-three-quarter-hidden-root.png": {
+      "sha256": "e2d9640562405b6b17b7402a9f56ccba7b8e1bd38a638fca9c432f75ca0112eb",
+      "bytes": 5491,
+      "renderKey": "flame-tip",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/flame-tip-back-outer-piece.png": {
+      "sha256": "a88c57723953b8067ab45a1b437915d50b1c05e6c345ed4d1af05f8e02c74d71",
+      "bytes": 11565,
+      "renderKey": "flame-tip",
+      "view": "back",
+      "plane": "back"
+    },
+    "wardrobe/flame-tip-back-hidden-root.png": {
+      "sha256": "9d448c632ad9a20afd797d315868f581b0220d09066da1e569d7c0b205c8a50a",
+      "bytes": 3548,
+      "renderKey": "flame-tip",
+      "view": "back",
+      "plane": "back"
+    },
+    "wardrobe/crown-front-outer-piece.png": {
+      "sha256": "bb86c2217d5fc61c32abf69da722304d65f9eb2577fdef27e7db464d49b95f75",
+      "bytes": 13780,
+      "renderKey": "crown",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/crown-front-hidden-root.png": {
+      "sha256": "965cda79d878f29a778736b6cf728489253241302feaa8323c03573f7e394379",
+      "bytes": 5373,
+      "renderKey": "crown",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/crown-three-quarter-outer-piece.png": {
+      "sha256": "9bbca72c1cb7b59ac8b607754c3c2ec7ffe8629feef397f137ee20c714651979",
+      "bytes": 13782,
+      "renderKey": "crown",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/crown-three-quarter-hidden-root.png": {
+      "sha256": "3b93013ff80ae03a117b5e947cca70a0bc35358097061f5f9a09f734d9f36f3c",
+      "bytes": 6427,
+      "renderKey": "crown",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/crown-back-outer-piece.png": {
+      "sha256": "ee18f2094fd740bc03620c4a3b5790fd68f4a582716df6c855311e7e60bee3d7",
+      "bytes": 12281,
+      "renderKey": "crown",
+      "view": "back",
+      "plane": "back"
+    },
+    "wardrobe/crown-back-hidden-root.png": {
+      "sha256": "9dd13ccc051d72e4ab44fb5fc5e47a2ee6f84d612d0b2ec3c9bf04cb6f3aa001",
+      "bytes": 5164,
+      "renderKey": "crown",
+      "view": "back",
+      "plane": "back"
+    },
+    "wardrobe/robot-antenna-front-outer-piece.png": {
+      "sha256": "4abc8c9de5e9cf9792149e3ed89ffa31dcd09cb7ef5b56f53c4c4d368067ac81",
+      "bytes": 10508,
+      "renderKey": "robot-antenna",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/robot-antenna-front-hidden-root.png": {
+      "sha256": "5da57fd46fc4371090b0f4302db49fc44944c3697db7ba70c1f9deb1d298e777",
+      "bytes": 1994,
+      "renderKey": "robot-antenna",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/robot-antenna-three-quarter-outer-piece.png": {
+      "sha256": "5967942ba468ce5c15adfc14d761c9e19a426bbcc734e5da4b66924b4314d85f",
+      "bytes": 10210,
+      "renderKey": "robot-antenna",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/robot-antenna-three-quarter-hidden-root.png": {
+      "sha256": "ddac05fbb94a565473fc48a3e235246505f23c5e8b6d9c0b852c3f2678c53be6",
+      "bytes": 3051,
+      "renderKey": "robot-antenna",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/robot-antenna-back-outer-piece.png": {
+      "sha256": "84bd98ad2a1aba4d502721cf94652beecd633634e8003432d012d89124532145",
+      "bytes": 10720,
+      "renderKey": "robot-antenna",
+      "view": "back",
+      "plane": "back"
+    },
+    "wardrobe/robot-antenna-back-hidden-root.png": {
+      "sha256": "2cf807cf7424cc0201f3ed2986d138e73af3729187d4badd93b22721cddba1f6",
+      "bytes": 1822,
+      "renderKey": "robot-antenna",
+      "view": "back",
+      "plane": "back"
+    },
+    "wardrobe/woodsman-cap-front-outer-piece.png": {
+      "sha256": "dcc1aa7f1af586abfff94651f4eb8b4094853e989c42581cf32814511a6d3211",
+      "bytes": 25348,
+      "renderKey": "woodsman-cap",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/woodsman-cap-front-hidden-root.png": {
+      "sha256": "ecb029c3e2ea04193381f1b3a6387348236a4dd1c4bc1d583bb9d6dba009bbda",
+      "bytes": 13254,
+      "renderKey": "woodsman-cap",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/woodsman-cap-three-quarter-outer-piece.png": {
+      "sha256": "a5251c3f0502455ec241f1ec41e07e74ef0521a1c3a2cb0b42cef432c2e24a99",
+      "bytes": 29962,
+      "renderKey": "woodsman-cap",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/woodsman-cap-three-quarter-hidden-root.png": {
+      "sha256": "c751c8120447f44930bd6c6a63b2c981a3f1652c583732566ac48169120ce04e",
+      "bytes": 10955,
+      "renderKey": "woodsman-cap",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/woodsman-cap-back-outer-piece.png": {
+      "sha256": "dc4ab65741532b2a8f9465b7b2e384fb7cefeef0324a94b5d28640cd34b20c0f",
+      "bytes": 32695,
+      "renderKey": "woodsman-cap",
+      "view": "back",
+      "plane": "back"
+    },
+    "wardrobe/woodsman-cap-back-hidden-root.png": {
+      "sha256": "391142761e8680196570469a16c7e52c073ca16ba8f20101795e8953c14ca7a3",
+      "bytes": 13830,
+      "renderKey": "woodsman-cap",
+      "view": "back",
+      "plane": "back"
+    },
+    "wardrobe/ocean-fin-front-outer-piece.png": {
+      "sha256": "3e3297df053cf9f2007d3b03fae789ad53e827bc96b1e4a386b73099e6bc9e66",
+      "bytes": 12411,
+      "renderKey": "ocean-fin",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/ocean-fin-front-hidden-root.png": {
+      "sha256": "23f3a8104c20d0171facd012f7f8e5402e0ffc0aa90f29c6f97ccd80c7349489",
+      "bytes": 207,
+      "renderKey": "ocean-fin",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/ocean-fin-three-quarter-outer-piece.png": {
+      "sha256": "2eb1a11501789f82dfdc2fd983687822e3b5b8fa55ec38e7cc5d816df3f99ab7",
+      "bytes": 11702,
+      "renderKey": "ocean-fin",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/ocean-fin-three-quarter-hidden-root.png": {
+      "sha256": "8655ff2c1f693ca9691a5242c746d00ac8e8bed1671478e91faeb360894248c7",
+      "bytes": 1486,
+      "renderKey": "ocean-fin",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/ocean-fin-back-rear-surface.png": {
+      "sha256": "4007fc4321fb9d39ed88a9bd7429b79433a91c9af74e35ec4e0b7f6d9c4a13e2",
+      "bytes": 15146,
+      "renderKey": "ocean-fin",
+      "view": "back",
+      "plane": "front"
+    },
+    "wardrobe/bat-wings-front-outer-piece.png": {
+      "sha256": "e442321c447e7b52c6ac1a42d01261faec4cb3e37c8ca325770367d7810e2284",
+      "bytes": 23092,
+      "renderKey": "bat-wings",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/bat-wings-front-hidden-root.png": {
+      "sha256": "e921602768e321fe63bf16566b0619f4ab513da0900268611de5bcae91aee48b",
+      "bytes": 42252,
+      "renderKey": "bat-wings",
+      "view": "front",
+      "plane": "back"
+    },
+    "wardrobe/bat-wings-three-quarter-outer-piece.png": {
+      "sha256": "c35b7ae1dcf89d7d69fbd3a7c06351f27ec7b1f4aefb578fb89fae0bf8ba532f",
+      "bytes": 17846,
+      "renderKey": "bat-wings",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/bat-wings-three-quarter-hidden-root.png": {
+      "sha256": "e0726f218618ca13d9f97ed368c3df843102779d7b3e49b55382e824b5679b3f",
+      "bytes": 44714,
+      "renderKey": "bat-wings",
+      "view": "three-quarter",
+      "plane": "back"
+    },
+    "wardrobe/bat-wings-back-rear-surface.png": {
+      "sha256": "1298f3cfc4988fec1eccd70a8b3a50cf9c22a0999764d730e48f4a272441ce11",
+      "bytes": 63025,
+      "renderKey": "bat-wings",
+      "view": "back",
+      "plane": "front"
+    }
+  },
+  "constraints": [
+    "Only front, right-source two-eye three-quarter and back authored",
+    "Left-facing is explicit runtime mirroring, not independently authored wardrobe",
+    "No full one-eye profile; view resolver must use allowed views",
+    "Wardrobe rear-return fill is valid for authored poses; interpolation cannot manufacture new rotation",
+    "Running boot placement requires renderer variant-anchor rebasing and movement proof"
+  ],
+  "complete": true,
+  "keys": [
+    "sprout",
+    "sunhat",
+    "satchel",
+    "scarf",
+    "halo",
+    "boots",
+    "cape",
+    "forest-leaf",
+    "sakura-flower",
+    "moon-crescent",
+    "flame-tip",
+    "crown",
+    "robot-antenna",
+    "woodsman-cap",
+    "ocean-fin",
+    "bat-wings"
+  ],
+  "assetCount": 95,
+  "assetBytes": 1624120
+}

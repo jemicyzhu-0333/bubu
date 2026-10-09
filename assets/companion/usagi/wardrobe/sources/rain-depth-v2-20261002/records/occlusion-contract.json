@@ -1,0 +1,32 @@
+{
+  "compositionOrder": [
+    "far limb policy supplied by runtime",
+    "scarf/cape/satchel back layers",
+    "unchanged canonical body and face",
+    "cape and scarf near layers",
+    "native near/contact arms and visible tail"
+  ],
+  "front": {
+    "scarf": "Side return tips are behind body; shallow center wrap is in front and below mouth, then near paws occlude it.",
+    "cape": "Two shallow near chest panels are in front; side returns are behind body.",
+    "satchel": "Entire authored bag/strap is behind body; only outside hip volume remains visible, under original paw."
+  },
+  "three-quarter": {
+    "scarf": "Narrower independent view with far end tucked behind body.",
+    "cape": "Broad near panel in front; separate smaller far flap in back, body hides its attachment.",
+    "satchel": "Back-plane bag becomes mostly hidden by body/hip and tail; do not force full flap into foreground."
+  },
+  "profile": {
+    "scarf": "Independent side arc is 151 canonical pixels wide vs 200 front; far tip goes behind body.",
+    "cape": "Broad near-side drape is in front under near arm; opposite narrow flap and rear edge are behind body.",
+    "satchel": "Edge-on authored pouch is entirely behind body. Only exposed rear contour can show, never a frontal bag on the belly."
+  },
+  "back": {
+    "scarf": "Camera sees rear knot; that near rear surface is runtime front layer. Far side-return tips remain back layer.",
+    "cape": "Visible back panel is camera-near front layer; edge returns are back layer. Original tail must cover cloth at runtime.",
+    "satchel": "Back-plane pouch/strap is mostly body-occluded, exposing outside hip volume."
+  },
+  "movingArms": "Keep latent complete garment art intact. Do not subtract rest-hand masks from garment assets. Draw correct current native near/contact hand after near cloth. Rig can hide far hand behind body; this static proof does not choose dynamic policy.",
+  "feet": "No generated feet or leg patches. Existing canonical small feet remain attached. Boot stems need the same body/clothes occlusion review in the runtime work; no boot identity changes in this prototype.",
+  "interpretation": "These are garment role splits in camera depth; front means camera-near, not anatomical chest. Entries should opt into wrapsBody semantics when parent integrates."
+}

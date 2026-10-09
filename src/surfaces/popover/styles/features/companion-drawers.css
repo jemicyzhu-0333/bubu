@@ -1,0 +1,232 @@
+/* 换形态 / 换装两个抽屉。覆盖层本身（.settings-mask / .settings-drawer /
+   .settings-drawer-head）和 .modal-close 直接复用 settings.css 与 components.css，
+   这里只写这两个抽屉自己的排布：
+   - #skinDrawer：上面一张大图 + 一颗确认键，下面一条横向胶片带。
+   - #wardrobeDrawer：上面预览，下面左槽位 / 右选项的主从两列。
+   对应 features/skin-picker.mjs 与 features/wardrobe.mjs。 */
+
+@layer features {
+  .companion-drawer .settings-drawer-head h2 { color: var(--primary-ink); }
+  .drawer-head-actions { display: flex; align-items: center; gap: 8px; }
+/* ---------- 换形态 ---------- */
+  #skinDrawer { grid-template-rows: auto auto minmax(220px, 1fr) minmax(100px, 0.8fr); }
+  .skin-species { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 14px; border-bottom: 1px solid var(--bg-3); }
+  .skin-species-option { display: grid; grid-template-columns: 42px 1fr; gap: 2px 8px; text-align: left;
+    align-items: center; flex: 1; min-width: 150px; border: 1px solid var(--bg-3); border-radius: 10px;
+    background: var(--bg-1); color: var(--fg-0); padding: 8px; cursor: pointer; font: inherit; }
+  .skin-species-option canvas { grid-row: span 2; }
+  .skin-species-option small { color: var(--fg-2); }
+  .skin-species-option[aria-pressed="true"] { border-color: var(--primary); background: var(--bg-2); }
+  #skinStrip { display: grid; grid-template-columns: repeat(auto-fill, minmax(94px, 1fr)); align-content: start;
+    gap: 8px; overflow: auto; padding: 12px 14px; }
+  #skinStrip .skin-thumb { width: auto; height: auto; min-height: 98px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 4px; padding: 8px 4px; border-radius: 8px; color: var(--fg-0); }
+  .skin-thumb-name { font-size: 12px; }
+  .skin-thumb small { font-size: 11px; color: var(--fg-2); }
+  .skin-thumb:focus-visible, .skin-species-option:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+  .skin-focus {
+    min-height: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 14px 16px;
+    text-align: center;
+  }
+/* 聚焦卡只用该皮肤的 accent 描边和垫底：主题色要等按下确认才变，
+   所以这里绝不能去写 documentElement 上的那几个变量。 */
+  .skin-focus-art {
+    position: relative;
+    width: 99px;
+    height: 99px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .skin-focus-art canvas { image-rendering: pixelated; }
+  .skin-focus-art::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    width: 120px;
+    height: 8px;
+    transform: translateX(-50%);
+    background:
+      repeating-linear-gradient(90deg,
+        var(--focus-primary, var(--primary)) 0 2px, transparent 2px 4px);
+    opacity: 0.35;
+  }
+  .skin-focus-name { font-size: 14px; font-weight: 900; color: var(--fg-0); letter-spacing: 0.04em; }
+  .skin-focus-desc { margin: 0; font-size: 11px; color: var(--fg-2); line-height: 1.5; }
+  .skin-apply {
+    width: 100%;
+    margin-top: 6px;
+    padding: 9px 10px;
+    border: 2px solid var(--focus-accent, var(--accent));
+    background: var(--bg-2);
+    color: var(--fg-0);
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 900;
+    cursor: pointer;
+  }
+  .skin-apply:hover:not(:disabled) { background: var(--focus-primary, var(--primary)); color: var(--ink); }
+  .skin-apply:disabled { border-color: var(--bg-3); color: var(--fg-2); cursor: default; }
+/* 胶片带：十种形态全在这一条里，33px 缩略图（cssPerArtPixel 0.5）横向滚动。
+   锁住的压暗 + 🔒，但仍可聚焦 —— 看不到解锁目标就没有解锁的动力。 */
+  .skin-strip {
+    display: flex;
+    gap: 6px;
+    padding: 8px 12px 10px;
+    overflow-x: auto;
+    border-top: 2px dashed var(--bg-3);
+    scrollbar-width: thin;
+  }
+  .skin-thumb {
+    position: relative;
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 2px solid var(--bg-3);
+    background: var(--bg-2);
+    cursor: pointer;
+  }
+  .skin-thumb canvas { image-rendering: pixelated; }
+  .skin-thumb:hover { border-color: var(--primary); }
+  .skin-thumb[aria-selected="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+  .skin-thumb.current::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 50%;
+    width: 16px; height: 3px;
+    transform: translateX(-50%);
+    background: var(--yellow);
+  }
+  .skin-thumb.locked { opacity: 0.4; }
+  .skin-thumb .skin-thumb-lock {
+    position: absolute;
+    top: 1px; right: 2px;
+    font-size: 11px;
+  }
+/* 解锁进度条：只有未解锁的形态才画，已解锁的画一条空槽会读成「还没满」。 */
+  .skin-progress-outer {
+    width: 100%;
+    height: 6px;
+    background: var(--bg-1);
+    border: 1px solid var(--bg-3);
+    overflow: hidden;
+  }
+  .skin-progress-inner { height: 100%; width: 0%; background: var(--cyan); }
+  .skin-progress-text { margin: 2px 0 0; color: var(--cyan-ink); font-size: 11px; font-weight: 900; }
+/* ---------- 换装 ---------- */
+  #wardrobeDrawer { grid-template-rows: auto auto minmax(0, 1fr); }
+  .wardrobe-reset {
+    background: var(--bg-1);
+    border: 2px solid var(--bg-3);
+    color: var(--fg-2);
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 900;
+    padding: 3px 7px;
+    cursor: pointer;
+  }
+  .wardrobe-reset:hover { color: var(--fg-0); border-color: var(--primary); }
+  .wardrobe-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 12px 14px;
+    border-bottom: 2px dashed var(--bg-3);
+  }
+  /* 画布尺寸由 drawPetPreview 按舞台余量写成行内样式，这里只管不要被插值抹平。 */
+  #wardrobePreview { image-rendering: pixelated; flex-shrink: 0; }
+  .wardrobe-summary { margin: 0; color: var(--fg-1); font-size: 11px; font-weight: 700; line-height: 1.5; }
+  .wardrobe-looks { width: 100%; }
+  .wardrobe-looks:empty { display: none; }
+  .wardrobe-lookbook { margin-top: 4px; color: var(--fg-1); font-size: 11px; }
+  .wardrobe-lookbook summary { cursor: pointer; padding: 5px 2px; font-weight: 700; }
+  .wardrobe-lookbook summary:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+  .wardrobe-look-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px;
+    max-height: 212px; overflow-y: auto; padding-top: 4px; }
+  .wardrobe-look { margin: 0; padding: 4px 6px 8px; border: 1px solid var(--bg-3);
+    border-radius: 8px; background: var(--bg-1); text-align: center; min-width: 0; }
+  .wardrobe-look canvas { display: block; image-rendering: auto; }
+  .wardrobe-look figcaption { font-size: 11px; font-weight: 700; }
+  .wardrobe-look small { display: block; margin-top: 3px; font-size: 11px; font-weight: 400; color: var(--fg-2); }
+  .wardrobe-look p { margin: 5px 0 0; color: var(--fg-2); font-size: 11px; line-height: 1.5; overflow-wrap: anywhere; }
+  .wardrobe-master {
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 124px minmax(0, 1fr);
+  }
+  .wardrobe-slots {
+    min-height: 0;
+    overflow-y: auto;
+    border-right: 2px solid var(--bg-3);
+    background: var(--bg-0);
+  }
+  .wardrobe-slot {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    padding: 7px 9px;
+    border: none;
+    border-bottom: 1px solid var(--bg-2);
+    border-left: 3px solid transparent;
+    background: transparent;
+    color: var(--fg-1);
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  .wardrobe-slot:hover { background: var(--bg-2); }
+  .wardrobe-slot[aria-selected="true"] {
+    border-left-color: var(--primary);
+    background: var(--bg-2);
+    color: var(--fg-0);
+  }
+  .wardrobe-slot .slot-name { font-size: 11px; font-weight: 900; }
+  .wardrobe-slot .slot-worn { font-size: 11px; color: var(--fg-2); }
+  .wardrobe-slot[aria-selected="true"] .slot-worn { color: var(--accent-ink); }
+  .wardrobe-options {
+    min-height: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 10px 12px;
+  }
+  .wardrobe-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    border: 2px solid var(--bg-3);
+    background: var(--bg-1);
+    color: var(--fg-1);
+    font-family: inherit;
+    font-size: 11px;
+    text-align: left;
+    cursor: pointer;
+  }
+  .wardrobe-option:not(.locked):hover { border-color: var(--primary); color: var(--fg-0); }
+  .wardrobe-option.selected {
+    border-color: var(--yellow);
+    color: var(--fg-0);
+    font-weight: 900;
+    box-shadow: inset 0 0 0 1px var(--yellow);
+  }
+  .wardrobe-option.locked { opacity: 0.45; cursor: not-allowed; }
+  .wardrobe-option .wardrobe-lock { margin-left: auto; color: var(--cyan-ink); font-size: 11px; font-weight: 900; }
+  .wardrobe-empty,
+  .wardrobe-note { margin: 6px 0 0; color: var(--fg-2); font-size: 11px; line-height: 1.5; }
+}

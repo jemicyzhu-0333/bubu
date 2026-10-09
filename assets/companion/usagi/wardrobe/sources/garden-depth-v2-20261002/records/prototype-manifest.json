@@ -1,0 +1,679 @@
+{
+  "format": "usagi-depth-prototype-v1",
+  "status": "extracted-static-proof-only",
+  "sourceToArt": {
+    "scale": 4.2,
+    "x": 117.4,
+    "y": 175
+  },
+  "appearance": {
+    "usagi.petal-collar": {
+      "itemId": "usagi.petal-collar",
+      "wrapsBody": true,
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "slot": "usagi.neckwear",
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "derived/layers/collar/front-back.png",
+              "sha256": "9d9cd301d786b07ba3b71da40ef152211efbb10a4417092f95c8181beaad4355",
+              "size": [
+                180,
+                30
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                180,
+                30
+              ],
+              "bone": "root",
+              "sourceRect": [
+                166,
+                349,
+                346,
+                379
+              ],
+              "depthRole": "far-collar-return",
+              "rect": [
+                11.57142857142857,
+                41.42857142857142,
+                42.857142857142854,
+                7.142857142857142
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "derived/layers/collar/front-front.png",
+              "sha256": "82924921481d54a6f7bebae42b5775949850d45f5e326e4845a3a9f969a6ee41",
+              "size": [
+                164,
+                63
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                164,
+                63
+              ],
+              "bone": "root",
+              "sourceRect": [
+                175,
+                344,
+                339,
+                407
+              ],
+              "depthRole": "near-petal-arc",
+              "rect": [
+                13.714285714285712,
+                40.238095238095234,
+                39.047619047619044,
+                15.0
+              ]
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "derived/layers/collar/three-quarter-back.png",
+              "sha256": "a05426adbb102c4217e25464e770fba97f740a46fa5cd39dcf70c51ea7c07580",
+              "size": [
+                180,
+                55
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                180,
+                55
+              ],
+              "bone": "root",
+              "sourceRect": [
+                181,
+                345,
+                361,
+                400
+              ],
+              "depthRole": "far-collar-return",
+              "rect": [
+                15.14285714285714,
+                40.476190476190474,
+                42.857142857142854,
+                13.095238095238095
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "derived/layers/collar/three-quarter-front.png",
+              "sha256": "66c679eb28e12fbc2e8e335a013ece058a02836dcddbe035e2a28972f99cfd5b",
+              "size": [
+                157,
+                64
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                157,
+                64
+              ],
+              "bone": "root",
+              "sourceRect": [
+                194,
+                345,
+                351,
+                409
+              ],
+              "depthRole": "near-petal-arc",
+              "rect": [
+                18.238095238095237,
+                40.476190476190474,
+                37.38095238095238,
+                15.238095238095237
+              ]
+            }
+          ]
+        },
+        "profile": {
+          "back": [
+            {
+              "src": "derived/layers/collar/profile-back.png",
+              "sha256": "97090ee463a9bb2ab742acf6a96ee0e06148ebfa411697c9351284409c61eb22",
+              "size": [
+                143,
+                41
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                143,
+                41
+              ],
+              "bone": "root",
+              "sourceRect": [
+                212,
+                349,
+                355,
+                390
+              ],
+              "depthRole": "far-collar-return",
+              "rect": [
+                22.523809523809522,
+                41.42857142857142,
+                34.047619047619044,
+                9.761904761904761
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "derived/layers/collar/profile-front.png",
+              "sha256": "46979b2a60f255f80b080756ae2712a0f0d9a63e3027a9a20ce3e2fc538e15ce",
+              "size": [
+                139,
+                52
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                139,
+                52
+              ],
+              "bone": "root",
+              "sourceRect": [
+                216,
+                345,
+                355,
+                397
+              ],
+              "depthRole": "near-petal-arc",
+              "rect": [
+                23.476190476190474,
+                40.476190476190474,
+                33.095238095238095,
+                12.38095238095238
+              ]
+            }
+          ]
+        },
+        "back": {
+          "back": [
+            {
+              "src": "derived/layers/collar/back-back.png",
+              "sha256": "603497dc524c60a4536aed4400e8c8120f37f85caeae619a943b55aba2c37cf5",
+              "size": [
+                180,
+                20
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                180,
+                20
+              ],
+              "bone": "root",
+              "sourceRect": [
+                166,
+                357,
+                346,
+                377
+              ],
+              "depthRole": "far-collar-return",
+              "rect": [
+                11.57142857142857,
+                43.33333333333333,
+                42.857142857142854,
+                4.761904761904762
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "derived/layers/collar/back-front.png",
+              "sha256": "ae2f6731c0ade4655e759647163e7b26e5bded22daa4c79746fdbdf1e2aabe66",
+              "size": [
+                175,
+                55
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                175,
+                55
+              ],
+              "bone": "root",
+              "sourceRect": [
+                169,
+                345,
+                344,
+                400
+              ],
+              "depthRole": "near-petal-arc",
+              "rect": [
+                12.285714285714285,
+                40.476190476190474,
+                41.666666666666664,
+                13.095238095238095
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "usagi.garden-apron": {
+      "itemId": "usagi.garden-apron",
+      "wrapsBody": true,
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "slot": "usagi.backwear",
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "derived/layers/apron/front-back.png",
+              "sha256": "74fe0bc28ef7278a2a04f0c7f17489b95191ab1a80fcdb9ec1508a69b276d81d",
+              "size": [
+                178,
+                54
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                178,
+                54
+              ],
+              "bone": "root",
+              "sourceRect": [
+                167,
+                371,
+                345,
+                425
+              ],
+              "depthRole": "far-apron-ties-and-return",
+              "rect": [
+                11.809523809523808,
+                46.666666666666664,
+                42.38095238095238,
+                12.857142857142856
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "derived/layers/apron/front-front.png",
+              "sha256": "2fc025f99c8447655c1b4c4522ddea652b12216a28140d02926fa3a3715218fa",
+              "size": [
+                135,
+                75
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                135,
+                75
+              ],
+              "bone": "root",
+              "sourceRect": [
+                191,
+                369,
+                326,
+                444
+              ],
+              "depthRole": "near-apron-panel-or-back-knot",
+              "rect": [
+                17.523809523809522,
+                46.19047619047619,
+                32.14285714285714,
+                17.857142857142858
+              ]
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "derived/layers/apron/three-quarter-back.png",
+              "sha256": "a14280868b92ceac705a0d5e3fd41702ab8e22e35391664db8fa532f28f9d159",
+              "size": [
+                29,
+                57
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                29,
+                57
+              ],
+              "bone": "root",
+              "sourceRect": [
+                193,
+                369,
+                222,
+                426
+              ],
+              "depthRole": "far-apron-ties-and-return",
+              "rect": [
+                17.999999999999996,
+                46.19047619047619,
+                6.904761904761904,
+                13.571428571428571
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "derived/layers/apron/three-quarter-front.png",
+              "sha256": "1438faf58a2ed4c5eb6b2cbdc96fee5b929ddabd13501450895df55bea0a945b",
+              "size": [
+                131,
+                78
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                131,
+                78
+              ],
+              "bone": "root",
+              "sourceRect": [
+                218,
+                369,
+                349,
+                447
+              ],
+              "depthRole": "near-apron-panel-or-back-knot",
+              "rect": [
+                23.95238095238095,
+                46.19047619047619,
+                31.19047619047619,
+                18.57142857142857
+              ]
+            }
+          ]
+        },
+        "profile": {
+          "back": [
+            {
+              "src": "derived/layers/apron/profile-back.png",
+              "sha256": "e68dfb215799950e1d7e39bba5cd7c7c8188f4fc05216e4b451b8da57733ac08",
+              "size": [
+                75,
+                46
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                75,
+                46
+              ],
+              "bone": "root",
+              "sourceRect": [
+                228,
+                373,
+                303,
+                419
+              ],
+              "depthRole": "far-apron-ties-and-return",
+              "rect": [
+                26.333333333333332,
+                47.14285714285714,
+                17.857142857142858,
+                10.952380952380953
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "derived/layers/apron/profile-front.png",
+              "sha256": "69220214c29fecd6115d7af83fdf17ae09d4ae2838d6ee7bfc5e449b046e7aa6",
+              "size": [
+                40,
+                67
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                40,
+                67
+              ],
+              "bone": "root",
+              "sourceRect": [
+                303,
+                371,
+                343,
+                438
+              ],
+              "depthRole": "near-apron-panel-or-back-knot",
+              "rect": [
+                44.19047619047619,
+                46.666666666666664,
+                9.523809523809524,
+                15.952380952380953
+              ]
+            }
+          ]
+        },
+        "back": {
+          "back": [
+            {
+              "src": "derived/layers/apron/back-back.png",
+              "sha256": "5b2d075498b68e5ada5146fdce0956174efb14a49cd98b9c7ded771f826b90d1",
+              "size": [
+                180,
+                27
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                180,
+                27
+              ],
+              "bone": "root",
+              "sourceRect": [
+                166,
+                396,
+                346,
+                423
+              ],
+              "depthRole": "far-apron-ties-and-return",
+              "rect": [
+                11.57142857142857,
+                52.61904761904761,
+                42.857142857142854,
+                6.428571428571428
+              ]
+            }
+          ],
+          "front": [
+            {
+              "src": "derived/layers/apron/back-front.png",
+              "sha256": "661c6f4e92b8b77100651af29e8813683231d23f4b2105784dfac53db66a6651",
+              "size": [
+                173,
+                70
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                173,
+                70
+              ],
+              "bone": "root",
+              "sourceRect": [
+                171,
+                371,
+                344,
+                441
+              ],
+              "depthRole": "near-apron-panel-or-back-knot",
+              "rect": [
+                12.76190476190476,
+                46.666666666666664,
+                41.19047619047619,
+                16.666666666666664
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "usagi.seed-pouch": {
+      "itemId": "usagi.seed-pouch",
+      "wrapsBody": true,
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "slot": "usagi.sidebag",
+      "views": {
+        "front": {
+          "back": [
+            {
+              "src": "derived/layers/pouch/front-back.png",
+              "sha256": "491f907b4f0fb4b585e6eb986bf82891fcfa939d0f86c2692c2c4604454ea0cc",
+              "size": [
+                64,
+                58
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                64,
+                58
+              ],
+              "bone": "root",
+              "sourceRect": [
+                129,
+                373,
+                193,
+                431
+              ],
+              "depthRole": "far-hip-pouch-and-strap",
+              "rect": [
+                2.7619047619047605,
+                47.14285714285714,
+                15.238095238095237,
+                13.809523809523808
+              ]
+            }
+          ],
+          "front": []
+        },
+        "three-quarter": {
+          "back": [
+            {
+              "src": "derived/layers/pouch/three-quarter-back.png",
+              "sha256": "d3550c8cd5c5371664df25268df880c227d392ec269d19bd26c9d3c4be648145",
+              "size": [
+                56,
+                55
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                56,
+                55
+              ],
+              "bone": "root",
+              "sourceRect": [
+                153,
+                372,
+                209,
+                427
+              ],
+              "depthRole": "far-hip-pouch-and-strap",
+              "rect": [
+                8.476190476190474,
+                46.904761904761905,
+                13.333333333333332,
+                13.095238095238095
+              ]
+            }
+          ],
+          "front": []
+        },
+        "profile": {
+          "back": [
+            {
+              "src": "derived/layers/pouch/profile-back.png",
+              "sha256": "fe0c78a65d4bbb24f9c3cb4ea22ed61088ebe4b70c85edbf01a45647a2010388",
+              "size": [
+                30,
+                39
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                30,
+                39
+              ],
+              "bone": "root",
+              "sourceRect": [
+                179,
+                380,
+                209,
+                419
+              ],
+              "depthRole": "far-hip-pouch-and-strap",
+              "rect": [
+                14.666666666666664,
+                48.80952380952381,
+                7.142857142857142,
+                9.285714285714285
+              ]
+            }
+          ],
+          "front": []
+        },
+        "back": {
+          "back": [
+            {
+              "src": "derived/layers/pouch/back-back.png",
+              "sha256": "7d4b2b0cb63d7c37d3ab0bb037bd030c70d74ee6d5d0e302544f21146dfda65b",
+              "size": [
+                59,
+                58
+              ],
+              "alphaBounds": [
+                0,
+                0,
+                59,
+                58
+              ],
+              "bone": "root",
+              "sourceRect": [
+                320,
+                373,
+                379,
+                431
+              ],
+              "depthRole": "far-hip-pouch-and-strap",
+              "rect": [
+                48.238095238095234,
+                47.14285714285714,
+                14.047619047619047,
+                13.809523809523808
+              ]
+            }
+          ],
+          "front": []
+        }
+      }
+    }
+  },
+  "canonicalSource": "../canonical/manifest.json"
+}

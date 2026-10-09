@@ -1,0 +1,72 @@
+/* 感官档位：data-motion 与 data-stimulation 是持久下来的两个声明式属性，
+   这里把它们翻译成对动效与纹理的全局覆写。它是最后一层，所以就算权重比
+   feature 里的规则低也照样盖得住；那几行 !important 是从前用来压权重的，层序
+   已经让它成了多余，保留是因为改动效行为不属于这一次搬迁。 */
+
+@layer utilities {
+/* Balanced is the default: keep character, state and reward motion, but
+   slow ambient loops so they do not compete with the current task. */
+  body[data-motion="balanced"] #monsterCanvas,
+  body[data-motion="balanced"] .monster-shadow,
+  body[data-motion="balanced"] .empty-pixel {
+    animation-duration: 3.2s;
+  }
+  body[data-motion="balanced"] .status-pill.focus {
+    animation-duration: 2s;
+  }
+  body[data-motion="balanced"] .confetti-canvas {
+    opacity: 0.82;
+  }
+/* Explicit full motion retains the original arcade-style timing. */
+  body[data-motion="full"] .confetti-canvas { opacity: 1; }
+/* An explicit reduced setting always wins over every animation on the page,
+   whichever layer declared it. Opacity/state changes remain. */
+  body[data-motion="reduced"] *,
+  body[data-motion="reduced"] *::before,
+  body[data-motion="reduced"] *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+  body[data-motion="reduced"] .confetti-canvas { display: none; }
+/* Follow the OS unless the user explicitly opted into full motion. */
+  @media (prefers-reduced-motion: reduce) {
+    body:not([data-motion="full"]) *,
+    body:not([data-motion="full"]) *::before,
+    body:not([data-motion="full"]) *::after {
+      scroll-behavior: auto !important;
+      animation-duration: 0.01ms !important;
+      animation-delay: 0ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      transition-delay: 0ms !important;
+    }
+    body:not([data-motion="full"]) .confetti-canvas { display: none; }
+  }
+/* Low stimulation removes purely decorative texture and glow while keeping
+   every status and control visible. */
+  body[data-stimulation="low"] .scanlines,
+  body[data-stimulation="low"] .crt-overlay,
+  body[data-stimulation="low"] .monster-shadow {
+    display: none;
+  }
+  body[data-stimulation="low"] :is(
+    .app-title, .pomo-time, .stat-num, .task-item, .stat-card, .skin-card,
+    .pixel-btn, .modal
+  ) {
+    text-shadow: none;
+    filter: none;
+    box-shadow: none;
+  }
+  body[data-stimulation="low"] .confetti-canvas { display: none; }
+  body[data-stimulation="balanced"] .scanlines { opacity: 0.35; }
+  body[data-stimulation="balanced"] .crt-overlay { opacity: 1; }
+  body[data-stimulation="high"] .monster-stage,
+  body[data-stimulation="high"] .confetti-canvas { filter: saturate(1.12); }
+  body[data-stimulation="high"] .scanlines { opacity: 0.48; }
+  body[data-stimulation="high"] .crt-overlay { opacity: 1; }
+  body[data-stimulation="high"] .confetti-canvas { opacity: 1; }
+}

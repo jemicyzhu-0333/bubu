@@ -1,0 +1,1262 @@
+{
+  "haloLiftArt": 14.5,
+  "haloLiftSourcePixels": 88.359375,
+  "sampling": "nearest; exact floating translation transform",
+  "zOrder": {
+    "cape": 14,
+    "satchel": 24,
+    "scarf": 36,
+    "boots": 38,
+    "forest-leaf": 42,
+    "sunhat": 46,
+    "halo": 52
+  },
+  "canvas": [
+    768,
+    768
+  ],
+  "origin512": [
+    -128,
+    -192
+  ],
+  "metricDefinition": "Alpha contribution surviving all subsequent draw layers, divided by that item\u2019s visible alpha when worn alone on the unchanged original body. Already body-hidden material does not dilute the denominator.",
+  "disappearanceThreshold": "<10% of alone-visible alpha flags a candidate; numeric thresholds do not replace visual readability review",
+  "inputs": {
+    "front": {
+      "approvedBody": {
+        "path": "authoring-workspace/pet-raster-prototype/assets/multiview-v1/front.png",
+        "sha256": "08befd789abe901d90d4d8844ac296bd17fc93021ef5707063396795f61b9ac0",
+        "registration": "Unchanged original pixels; integer translation only"
+      },
+      "items": {
+        "cape": {
+          "z": 14,
+          "candidateDirectory": "cape-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/cape-candidate/qa/front-back.png",
+              "sha256": "1934b7af5f17d2830ff4ad21f0553393f6ff7b05b8df20228b70434890dae0cb"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/cape-candidate/qa/front-front.png",
+              "sha256": "b04fbfcacc63f46facf6ed9b9e77d4adee02a05c1d67a11a3be085403287ad08"
+            }
+          }
+        },
+        "satchel": {
+          "z": 24,
+          "candidateDirectory": "satchel-coequip-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/satchel-coequip-candidate/qa/front-back.png",
+              "sha256": "84144b760b7a2b9d37164d8e42c7d171d1c0ea624cd97bfad0f464f35885b813"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/satchel-coequip-candidate/qa/front-front.png",
+              "sha256": "da3801f87dc6a99ae30fb15e6f12bfa5d9336a567dfd7d83d28afaa0f5bd2e58"
+            }
+          }
+        },
+        "scarf": {
+          "z": 36,
+          "candidateDirectory": "scarf-coequip-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/scarf-coequip-candidate/qa/front-back.png",
+              "sha256": "6bce532e9f9f4802c93b7734fbc76117f1d7ced62f1af89cff7e14bde6979e8f"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/scarf-coequip-candidate/qa/front-front.png",
+              "sha256": "d212add1441e4d19e8be63f3c3bb12aa473fc47fa7e11d8cb2817ded46934f64"
+            }
+          }
+        },
+        "boots": {
+          "z": 38,
+          "candidateDirectory": "boots-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/boots-candidate/qa/front-back.png",
+              "sha256": "4969b58a1b0895fca393e36f8a9b5a86562d236dccb936df7d4082012485123b"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/boots-candidate/qa/front-front.png",
+              "sha256": "fd6b78876ef97de794717077ba37e33f32603903a17e0158315e6ff9eb020084"
+            }
+          }
+        },
+        "forest-leaf": {
+          "z": 42,
+          "candidateDirectory": "forest-leaf-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/forest-leaf-candidate/qa/front-back.png",
+              "sha256": "5e7db3c3d50fed34a3d2ee40aa33c76032c1f9a726062cb457f2a69276aaf250"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/forest-leaf-candidate/qa/front-front.png",
+              "sha256": "4969b58a1b0895fca393e36f8a9b5a86562d236dccb936df7d4082012485123b"
+            }
+          }
+        },
+        "sunhat": {
+          "z": 46,
+          "candidateDirectory": "sunhat-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/sunhat-candidate/qa/front-back.png",
+              "sha256": "08cfd24403d285905c2bac30d5fe254e4832eaa3c6e74ed90f22435b6f4a4a9e"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/sunhat-candidate/qa/front-front.png",
+              "sha256": "4969b58a1b0895fca393e36f8a9b5a86562d236dccb936df7d4082012485123b"
+            }
+          }
+        },
+        "halo": {
+          "z": 52,
+          "candidateDirectory": "halo-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/halo-candidate/qa/front-back.png",
+              "sha256": "4969b58a1b0895fca393e36f8a9b5a86562d236dccb936df7d4082012485123b"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/halo-candidate/qa/front-front.png",
+              "sha256": "92d82777a8fa2dccc7853796b673c29e855af340d231cb96fb8f892f92ae6513"
+            }
+          }
+        }
+      }
+    },
+    "three-quarter": {
+      "approvedBody": {
+        "path": "authoring-workspace/pet-raster-prototype/assets/multiview-v1/three-quarter-right.png",
+        "sha256": "ae9af5e90355d16bd9a823e45749f75ed63626dd9a67e0e8ce240da51da43795",
+        "registration": "Unchanged original pixels; integer translation only"
+      },
+      "items": {
+        "cape": {
+          "z": 14,
+          "candidateDirectory": "cape-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/cape-candidate/qa/three-quarter-back.png",
+              "sha256": "0cc85b24b82a69771040627ed3bb21f2bb701bfcb5ea885c176b55a22987929f"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/cape-candidate/qa/three-quarter-front.png",
+              "sha256": "b8c55a0cef98ca80d809270c2e681a0500a4c3e4001617e99021ae9f497c0cf1"
+            }
+          }
+        },
+        "satchel": {
+          "z": 24,
+          "candidateDirectory": "satchel-coequip-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/satchel-coequip-candidate/qa/three-quarter-back.png",
+              "sha256": "92723c1903a079ecb348a724e4f933bff695305f4f1ced568551b89a3bf743bf"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/satchel-coequip-candidate/qa/three-quarter-front.png",
+              "sha256": "dff72eb3d262542894842b1717ca0b9f66724bcefaf5d5b9d245cacbc3407823"
+            }
+          }
+        },
+        "scarf": {
+          "z": 36,
+          "candidateDirectory": "scarf-coequip-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/scarf-coequip-candidate/qa/three-quarter-back.png",
+              "sha256": "9c9d0165d306fdc764d31c4c15215fccfdfc3b46db6a7d102804dece9ed313dd"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/scarf-coequip-candidate/qa/three-quarter-front.png",
+              "sha256": "5b415bd4e6270e64f368234451036cdf07066ba4d56017007642085334cc2185"
+            }
+          }
+        },
+        "boots": {
+          "z": 38,
+          "candidateDirectory": "boots-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/boots-candidate/qa/three-quarter-back.png",
+              "sha256": "4969b58a1b0895fca393e36f8a9b5a86562d236dccb936df7d4082012485123b"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/boots-candidate/qa/three-quarter-front.png",
+              "sha256": "c81d297a6e1f1f340efee70c6534db30d6fd8b68f3eef366dbcc373a44015e15"
+            }
+          }
+        },
+        "forest-leaf": {
+          "z": 42,
+          "candidateDirectory": "forest-leaf-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/forest-leaf-candidate/qa/three-quarter-back.png",
+              "sha256": "e04b24e5f3dbc1a067fac576606630ae5b18944b7edb9e45f8401534b8d15956"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/forest-leaf-candidate/qa/three-quarter-front.png",
+              "sha256": "4969b58a1b0895fca393e36f8a9b5a86562d236dccb936df7d4082012485123b"
+            }
+          }
+        },
+        "sunhat": {
+          "z": 46,
+          "candidateDirectory": "sunhat-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/sunhat-candidate/qa/three-quarter-back.png",
+              "sha256": "e59945aec404c199aca6dbdbca72ce5e3cc24c02a8426d16067c1e49635dc6d9"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/sunhat-candidate/qa/three-quarter-front.png",
+              "sha256": "4969b58a1b0895fca393e36f8a9b5a86562d236dccb936df7d4082012485123b"
+            }
+          }
+        },
+        "halo": {
+          "z": 52,
+          "candidateDirectory": "halo-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/halo-candidate/qa/three-quarter-back.png",
+              "sha256": "4969b58a1b0895fca393e36f8a9b5a86562d236dccb936df7d4082012485123b"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/halo-candidate/qa/three-quarter-front.png",
+              "sha256": "0d258d6360c3f57886429946a97dfe1d55ab294c5cf9a55981cfc2aa445c898b"
+            }
+          }
+        }
+      }
+    },
+    "back": {
+      "approvedBody": {
+        "path": "authoring-workspace/pet-raster-prototype/assets/multiview-v1/back.png",
+        "sha256": "14f457a84b714de4c23b34c7215f3ed637b869c81e57e0cb4bc9d5034b30d456",
+        "registration": "Unchanged original pixels; integer translation only"
+      },
+      "items": {
+        "cape": {
+          "z": 14,
+          "candidateDirectory": "cape-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/cape-candidate/qa/back-back.png",
+              "sha256": "4969b58a1b0895fca393e36f8a9b5a86562d236dccb936df7d4082012485123b"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/cape-candidate/qa/back-front.png",
+              "sha256": "463622248f9f1428730d36e5754edc8f5dbed7ce566d79b83d9984854e0a9e28"
+            }
+          }
+        },
+        "satchel": {
+          "z": 24,
+          "candidateDirectory": "satchel-coequip-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/satchel-coequip-candidate/qa/back-back.png",
+              "sha256": "b177b6e905a75b43a565ca856a75416b2cc6e7aabbf97b5618f85aeec0af4f5b"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/satchel-coequip-candidate/qa/back-front.png",
+              "sha256": "de9fe1b2dfb9022bd09321b7628e27f2bcbdb63be442cd335d86b9fab705b1da"
+            }
+          }
+        },
+        "scarf": {
+          "z": 36,
+          "candidateDirectory": "scarf-coequip-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/scarf-coequip-candidate/qa/back-back.png",
+              "sha256": "2ab8baefef4c0eaea0d4006f02899ae12a3c25ccea5380dc0c30176ff157274a"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/scarf-coequip-candidate/qa/back-front.png",
+              "sha256": "27320451406d6450db213d1d851b250c4591e6b0023e9bacb676608c23ed2b2a"
+            }
+          }
+        },
+        "boots": {
+          "z": 38,
+          "candidateDirectory": "boots-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/boots-candidate/qa/back-back.png",
+              "sha256": "4969b58a1b0895fca393e36f8a9b5a86562d236dccb936df7d4082012485123b"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/boots-candidate/qa/back-front.png",
+              "sha256": "b47cbd795cb8f90bd904293c565ac22f946d75a45303ff624d92d99c8147581a"
+            }
+          }
+        },
+        "forest-leaf": {
+          "z": 42,
+          "candidateDirectory": "forest-leaf-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/forest-leaf-candidate/qa/back-back.png",
+              "sha256": "f78a6a66e78d6db515899f86ab74e05cd0d0e88270f9231bcb003a3cc3ca2750"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/forest-leaf-candidate/qa/back-front.png",
+              "sha256": "4969b58a1b0895fca393e36f8a9b5a86562d236dccb936df7d4082012485123b"
+            }
+          }
+        },
+        "sunhat": {
+          "z": 46,
+          "candidateDirectory": "sunhat-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/sunhat-candidate/qa/back-back.png",
+              "sha256": "1989cab56c7b9cecea26ff05842146ee9eec5014492c4fb4229e5289dfcab52c"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/sunhat-candidate/qa/back-front.png",
+              "sha256": "4969b58a1b0895fca393e36f8a9b5a86562d236dccb936df7d4082012485123b"
+            }
+          }
+        },
+        "halo": {
+          "z": 52,
+          "candidateDirectory": "halo-candidate",
+          "planes": {
+            "back": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/halo-candidate/qa/back-back.png",
+              "sha256": "4969b58a1b0895fca393e36f8a9b5a86562d236dccb936df7d4082012485123b"
+            },
+            "front": {
+              "path": "authoring-workspace/pet-raster-production/wardrobe/qa-tools/halo-candidate/qa/back-front.png",
+              "sha256": "1e7fcbe3b0391f5abe8a7214eaf3d8c35871a49a0ba114e81738ec0b842dc87e"
+            }
+          }
+        }
+      }
+    }
+  },
+  "views": {
+    "front": {
+      "milestones": {
+        "items": {
+          "cape": {
+            "visibleAlphaEquivalentPixels": 8270.0,
+            "aloneVisibleAlphaEquivalentPixels": 30402.0,
+            "visibleAlphaFractionAgainstAlone": 0.272022,
+            "visibleSupportPixels": 8270,
+            "aloneVisibleSupportPixels": 30402,
+            "visibleSupportFractionAgainstAlone": 0.272022,
+            "equivalentVisibleAreaAt99pxBody": 532.9,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 6009.0,
+                "aloneVisibleAlphaEquivalentPixels": 14153.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 2261.0,
+                "aloneVisibleAlphaEquivalentPixels": 16249.0
+              }
+            }
+          },
+          "satchel": {
+            "visibleAlphaEquivalentPixels": 12807.0,
+            "aloneVisibleAlphaEquivalentPixels": 22276.0,
+            "visibleAlphaFractionAgainstAlone": 0.574924,
+            "visibleSupportPixels": 12807,
+            "aloneVisibleSupportPixels": 22276,
+            "visibleSupportFractionAgainstAlone": 0.574924,
+            "equivalentVisibleAreaAt99pxBody": 825.26,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 12807.0,
+                "aloneVisibleAlphaEquivalentPixels": 22276.0
+              }
+            }
+          },
+          "scarf": {
+            "visibleAlphaEquivalentPixels": 24478.0,
+            "aloneVisibleAlphaEquivalentPixels": 26197.0,
+            "visibleAlphaFractionAgainstAlone": 0.934382,
+            "visibleSupportPixels": 24478,
+            "aloneVisibleSupportPixels": 26197,
+            "visibleSupportFractionAgainstAlone": 0.934382,
+            "equivalentVisibleAreaAt99pxBody": 1577.31,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 24478.0,
+                "aloneVisibleAlphaEquivalentPixels": 26197.0
+              }
+            }
+          },
+          "boots": {
+            "visibleAlphaEquivalentPixels": 21491.0,
+            "aloneVisibleAlphaEquivalentPixels": 21491.0,
+            "visibleAlphaFractionAgainstAlone": 1.0,
+            "visibleSupportPixels": 21491,
+            "aloneVisibleSupportPixels": 21491,
+            "visibleSupportFractionAgainstAlone": 1.0,
+            "equivalentVisibleAreaAt99pxBody": 1384.83,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 21491.0,
+                "aloneVisibleAlphaEquivalentPixels": 21491.0
+              }
+            }
+          },
+          "sunhat": {
+            "visibleAlphaEquivalentPixels": 28399.0,
+            "aloneVisibleAlphaEquivalentPixels": 28399.0,
+            "visibleAlphaFractionAgainstAlone": 1.0,
+            "visibleSupportPixels": 28399,
+            "aloneVisibleSupportPixels": 28399,
+            "visibleSupportFractionAgainstAlone": 1.0,
+            "equivalentVisibleAreaAt99pxBody": 1829.97,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 28399.0,
+                "aloneVisibleAlphaEquivalentPixels": 28399.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              }
+            }
+          },
+          "halo": {
+            "visibleAlphaEquivalentPixels": 5760.0,
+            "aloneVisibleAlphaEquivalentPixels": 5760.0,
+            "visibleAlphaFractionAgainstAlone": 1.0,
+            "visibleSupportPixels": 5760,
+            "aloneVisibleSupportPixels": 5760,
+            "visibleSupportFractionAgainstAlone": 1.0,
+            "equivalentVisibleAreaAt99pxBody": 371.16,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 5760.0,
+                "aloneVisibleAlphaEquivalentPixels": 5760.0
+              }
+            }
+          }
+        },
+        "capeMarginalVisibleAlphaRecoveredIfItemRemoved": {
+          "satchel": 7308.0,
+          "scarf": 8727.0,
+          "boots": 419.0,
+          "sunhat": 0.0,
+          "halo": 0.0
+        },
+        "originalBodyAndFaceChecks": {
+          "outsideEffectiveAccessoryExactlyPreserved": true,
+          "changedOutsideAccessoryPixels": 0,
+          "protectedFaceExactlyPreserved": true,
+          "faceOcclusionPixels": 0,
+          "protectedFacePixelCount": 10108,
+          "opaqueBodyUnderBackExactlyPreserved": true
+        }
+      },
+      "withForestLeaf": {
+        "items": {
+          "cape": {
+            "visibleAlphaEquivalentPixels": 8270.0,
+            "aloneVisibleAlphaEquivalentPixels": 30402.0,
+            "visibleAlphaFractionAgainstAlone": 0.272022,
+            "visibleSupportPixels": 8270,
+            "aloneVisibleSupportPixels": 30402,
+            "visibleSupportFractionAgainstAlone": 0.272022,
+            "equivalentVisibleAreaAt99pxBody": 532.9,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 6009.0,
+                "aloneVisibleAlphaEquivalentPixels": 14153.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 2261.0,
+                "aloneVisibleAlphaEquivalentPixels": 16249.0
+              }
+            }
+          },
+          "satchel": {
+            "visibleAlphaEquivalentPixels": 12807.0,
+            "aloneVisibleAlphaEquivalentPixels": 22276.0,
+            "visibleAlphaFractionAgainstAlone": 0.574924,
+            "visibleSupportPixels": 12807,
+            "aloneVisibleSupportPixels": 22276,
+            "visibleSupportFractionAgainstAlone": 0.574924,
+            "equivalentVisibleAreaAt99pxBody": 825.26,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 12807.0,
+                "aloneVisibleAlphaEquivalentPixels": 22276.0
+              }
+            }
+          },
+          "scarf": {
+            "visibleAlphaEquivalentPixels": 24478.0,
+            "aloneVisibleAlphaEquivalentPixels": 26197.0,
+            "visibleAlphaFractionAgainstAlone": 0.934382,
+            "visibleSupportPixels": 24478,
+            "aloneVisibleSupportPixels": 26197,
+            "visibleSupportFractionAgainstAlone": 0.934382,
+            "equivalentVisibleAreaAt99pxBody": 1577.31,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 24478.0,
+                "aloneVisibleAlphaEquivalentPixels": 26197.0
+              }
+            }
+          },
+          "boots": {
+            "visibleAlphaEquivalentPixels": 21491.0,
+            "aloneVisibleAlphaEquivalentPixels": 21491.0,
+            "visibleAlphaFractionAgainstAlone": 1.0,
+            "visibleSupportPixels": 21491,
+            "aloneVisibleSupportPixels": 21491,
+            "visibleSupportFractionAgainstAlone": 1.0,
+            "equivalentVisibleAreaAt99pxBody": 1384.83,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 21491.0,
+                "aloneVisibleAlphaEquivalentPixels": 21491.0
+              }
+            }
+          },
+          "forest-leaf": {
+            "visibleAlphaEquivalentPixels": 6329.0,
+            "aloneVisibleAlphaEquivalentPixels": 6592.0,
+            "visibleAlphaFractionAgainstAlone": 0.960103,
+            "visibleSupportPixels": 6329,
+            "aloneVisibleSupportPixels": 6592,
+            "visibleSupportFractionAgainstAlone": 0.960103,
+            "equivalentVisibleAreaAt99pxBody": 407.83,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 6329.0,
+                "aloneVisibleAlphaEquivalentPixels": 6592.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              }
+            }
+          },
+          "sunhat": {
+            "visibleAlphaEquivalentPixels": 28399.0,
+            "aloneVisibleAlphaEquivalentPixels": 28399.0,
+            "visibleAlphaFractionAgainstAlone": 1.0,
+            "visibleSupportPixels": 28399,
+            "aloneVisibleSupportPixels": 28399,
+            "visibleSupportFractionAgainstAlone": 1.0,
+            "equivalentVisibleAreaAt99pxBody": 1829.97,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 28399.0,
+                "aloneVisibleAlphaEquivalentPixels": 28399.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              }
+            }
+          },
+          "halo": {
+            "visibleAlphaEquivalentPixels": 5760.0,
+            "aloneVisibleAlphaEquivalentPixels": 5760.0,
+            "visibleAlphaFractionAgainstAlone": 1.0,
+            "visibleSupportPixels": 5760,
+            "aloneVisibleSupportPixels": 5760,
+            "visibleSupportFractionAgainstAlone": 1.0,
+            "equivalentVisibleAreaAt99pxBody": 371.16,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 5760.0,
+                "aloneVisibleAlphaEquivalentPixels": 5760.0
+              }
+            }
+          }
+        },
+        "capeMarginalVisibleAlphaRecoveredIfItemRemoved": {
+          "satchel": 7308.0,
+          "scarf": 8727.0,
+          "boots": 419.0,
+          "forest-leaf": 0.0,
+          "sunhat": 0.0,
+          "halo": 0.0
+        },
+        "originalBodyAndFaceChecks": {
+          "outsideEffectiveAccessoryExactlyPreserved": true,
+          "changedOutsideAccessoryPixels": 0,
+          "protectedFaceExactlyPreserved": true,
+          "faceOcclusionPixels": 0,
+          "protectedFacePixelCount": 10108,
+          "opaqueBodyUnderBackExactlyPreserved": true
+        }
+      }
+    },
+    "three-quarter": {
+      "milestones": {
+        "items": {
+          "cape": {
+            "visibleAlphaEquivalentPixels": 3926.0,
+            "aloneVisibleAlphaEquivalentPixels": 22041.0,
+            "visibleAlphaFractionAgainstAlone": 0.178123,
+            "visibleSupportPixels": 3926,
+            "aloneVisibleSupportPixels": 22041,
+            "visibleSupportFractionAgainstAlone": 0.178123,
+            "equivalentVisibleAreaAt99pxBody": 252.98,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 3101.0,
+                "aloneVisibleAlphaEquivalentPixels": 8989.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 825.0,
+                "aloneVisibleAlphaEquivalentPixels": 13052.0
+              }
+            }
+          },
+          "satchel": {
+            "visibleAlphaEquivalentPixels": 13804.0,
+            "aloneVisibleAlphaEquivalentPixels": 22585.0,
+            "visibleAlphaFractionAgainstAlone": 0.611202,
+            "visibleSupportPixels": 13804,
+            "aloneVisibleSupportPixels": 22585,
+            "visibleSupportFractionAgainstAlone": 0.611202,
+            "equivalentVisibleAreaAt99pxBody": 889.5,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 13804.0,
+                "aloneVisibleAlphaEquivalentPixels": 22585.0
+              }
+            }
+          },
+          "scarf": {
+            "visibleAlphaEquivalentPixels": 20816.0,
+            "aloneVisibleAlphaEquivalentPixels": 23196.0,
+            "visibleAlphaFractionAgainstAlone": 0.897396,
+            "visibleSupportPixels": 20816,
+            "aloneVisibleSupportPixels": 23196,
+            "visibleSupportFractionAgainstAlone": 0.897396,
+            "equivalentVisibleAreaAt99pxBody": 1341.34,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 20816.0,
+                "aloneVisibleAlphaEquivalentPixels": 23196.0
+              }
+            }
+          },
+          "boots": {
+            "visibleAlphaEquivalentPixels": 20824.0,
+            "aloneVisibleAlphaEquivalentPixels": 20824.0,
+            "visibleAlphaFractionAgainstAlone": 1.0,
+            "visibleSupportPixels": 20824,
+            "aloneVisibleSupportPixels": 20824,
+            "visibleSupportFractionAgainstAlone": 1.0,
+            "equivalentVisibleAreaAt99pxBody": 1341.85,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 20824.0,
+                "aloneVisibleAlphaEquivalentPixels": 20824.0
+              }
+            }
+          },
+          "sunhat": {
+            "visibleAlphaEquivalentPixels": 36376.0,
+            "aloneVisibleAlphaEquivalentPixels": 36376.0,
+            "visibleAlphaFractionAgainstAlone": 1.0,
+            "visibleSupportPixels": 36376,
+            "aloneVisibleSupportPixels": 36376,
+            "visibleSupportFractionAgainstAlone": 1.0,
+            "equivalentVisibleAreaAt99pxBody": 2343.99,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 36376.0,
+                "aloneVisibleAlphaEquivalentPixels": 36376.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              }
+            }
+          },
+          "halo": {
+            "visibleAlphaEquivalentPixels": 6053.0,
+            "aloneVisibleAlphaEquivalentPixels": 6053.0,
+            "visibleAlphaFractionAgainstAlone": 1.0,
+            "visibleSupportPixels": 6053,
+            "aloneVisibleSupportPixels": 6053,
+            "visibleSupportFractionAgainstAlone": 1.0,
+            "equivalentVisibleAreaAt99pxBody": 390.04,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 6053.0,
+                "aloneVisibleAlphaEquivalentPixels": 6053.0
+              }
+            }
+          }
+        },
+        "capeMarginalVisibleAlphaRecoveredIfItemRemoved": {
+          "satchel": 7161.0,
+          "scarf": 7326.0,
+          "boots": 866.0,
+          "sunhat": 0.0,
+          "halo": 0.0
+        },
+        "originalBodyAndFaceChecks": {
+          "outsideEffectiveAccessoryExactlyPreserved": true,
+          "changedOutsideAccessoryPixels": 0,
+          "protectedFaceExactlyPreserved": true,
+          "faceOcclusionPixels": 0,
+          "protectedFacePixelCount": 8957,
+          "opaqueBodyUnderBackExactlyPreserved": true
+        }
+      },
+      "withForestLeaf": {
+        "items": {
+          "cape": {
+            "visibleAlphaEquivalentPixels": 3926.0,
+            "aloneVisibleAlphaEquivalentPixels": 22041.0,
+            "visibleAlphaFractionAgainstAlone": 0.178123,
+            "visibleSupportPixels": 3926,
+            "aloneVisibleSupportPixels": 22041,
+            "visibleSupportFractionAgainstAlone": 0.178123,
+            "equivalentVisibleAreaAt99pxBody": 252.98,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 3101.0,
+                "aloneVisibleAlphaEquivalentPixels": 8989.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 825.0,
+                "aloneVisibleAlphaEquivalentPixels": 13052.0
+              }
+            }
+          },
+          "satchel": {
+            "visibleAlphaEquivalentPixels": 13804.0,
+            "aloneVisibleAlphaEquivalentPixels": 22585.0,
+            "visibleAlphaFractionAgainstAlone": 0.611202,
+            "visibleSupportPixels": 13804,
+            "aloneVisibleSupportPixels": 22585,
+            "visibleSupportFractionAgainstAlone": 0.611202,
+            "equivalentVisibleAreaAt99pxBody": 889.5,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 13804.0,
+                "aloneVisibleAlphaEquivalentPixels": 22585.0
+              }
+            }
+          },
+          "scarf": {
+            "visibleAlphaEquivalentPixels": 20816.0,
+            "aloneVisibleAlphaEquivalentPixels": 23196.0,
+            "visibleAlphaFractionAgainstAlone": 0.897396,
+            "visibleSupportPixels": 20816,
+            "aloneVisibleSupportPixels": 23196,
+            "visibleSupportFractionAgainstAlone": 0.897396,
+            "equivalentVisibleAreaAt99pxBody": 1341.34,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 20816.0,
+                "aloneVisibleAlphaEquivalentPixels": 23196.0
+              }
+            }
+          },
+          "boots": {
+            "visibleAlphaEquivalentPixels": 20824.0,
+            "aloneVisibleAlphaEquivalentPixels": 20824.0,
+            "visibleAlphaFractionAgainstAlone": 1.0,
+            "visibleSupportPixels": 20824,
+            "aloneVisibleSupportPixels": 20824,
+            "visibleSupportFractionAgainstAlone": 1.0,
+            "equivalentVisibleAreaAt99pxBody": 1341.85,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 20824.0,
+                "aloneVisibleAlphaEquivalentPixels": 20824.0
+              }
+            }
+          },
+          "forest-leaf": {
+            "visibleAlphaEquivalentPixels": 6614.0,
+            "aloneVisibleAlphaEquivalentPixels": 6614.0,
+            "visibleAlphaFractionAgainstAlone": 1.0,
+            "visibleSupportPixels": 6614,
+            "aloneVisibleSupportPixels": 6614,
+            "visibleSupportFractionAgainstAlone": 1.0,
+            "equivalentVisibleAreaAt99pxBody": 426.19,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 6614.0,
+                "aloneVisibleAlphaEquivalentPixels": 6614.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              }
+            }
+          },
+          "sunhat": {
+            "visibleAlphaEquivalentPixels": 36376.0,
+            "aloneVisibleAlphaEquivalentPixels": 36376.0,
+            "visibleAlphaFractionAgainstAlone": 1.0,
+            "visibleSupportPixels": 36376,
+            "aloneVisibleSupportPixels": 36376,
+            "visibleSupportFractionAgainstAlone": 1.0,
+            "equivalentVisibleAreaAt99pxBody": 2343.99,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 36376.0,
+                "aloneVisibleAlphaEquivalentPixels": 36376.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              }
+            }
+          },
+          "halo": {
+            "visibleAlphaEquivalentPixels": 6053.0,
+            "aloneVisibleAlphaEquivalentPixels": 6053.0,
+            "visibleAlphaFractionAgainstAlone": 1.0,
+            "visibleSupportPixels": 6053,
+            "aloneVisibleSupportPixels": 6053,
+            "visibleSupportFractionAgainstAlone": 1.0,
+            "equivalentVisibleAreaAt99pxBody": 390.04,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 6053.0,
+                "aloneVisibleAlphaEquivalentPixels": 6053.0
+              }
+            }
+          }
+        },
+        "capeMarginalVisibleAlphaRecoveredIfItemRemoved": {
+          "satchel": 7161.0,
+          "scarf": 7326.0,
+          "boots": 866.0,
+          "forest-leaf": 0.0,
+          "sunhat": 0.0,
+          "halo": 0.0
+        },
+        "originalBodyAndFaceChecks": {
+          "outsideEffectiveAccessoryExactlyPreserved": true,
+          "changedOutsideAccessoryPixels": 0,
+          "protectedFaceExactlyPreserved": true,
+          "faceOcclusionPixels": 0,
+          "protectedFacePixelCount": 8957,
+          "opaqueBodyUnderBackExactlyPreserved": true
+        }
+      }
+    },
+    "back": {
+      "milestones": {
+        "items": {
+          "cape": {
+            "visibleAlphaEquivalentPixels": 26265.0,
+            "aloneVisibleAlphaEquivalentPixels": 67081.0,
+            "visibleAlphaFractionAgainstAlone": 0.391542,
+            "visibleSupportPixels": 26265,
+            "aloneVisibleSupportPixels": 67081,
+            "visibleSupportFractionAgainstAlone": 0.391542,
+            "equivalentVisibleAreaAt99pxBody": 1692.46,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 26265.0,
+                "aloneVisibleAlphaEquivalentPixels": 67081.0
+              }
+            }
+          },
+          "satchel": {
+            "visibleAlphaEquivalentPixels": 13269.0,
+            "aloneVisibleAlphaEquivalentPixels": 23527.0,
+            "visibleAlphaFractionAgainstAlone": 0.56399,
+            "visibleSupportPixels": 13269,
+            "aloneVisibleSupportPixels": 23527,
+            "visibleSupportFractionAgainstAlone": 0.56399,
+            "equivalentVisibleAreaAt99pxBody": 855.03,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 13269.0,
+                "aloneVisibleAlphaEquivalentPixels": 23527.0
+              }
+            }
+          },
+          "scarf": {
+            "visibleAlphaEquivalentPixels": 22481.0,
+            "aloneVisibleAlphaEquivalentPixels": 25938.0,
+            "visibleAlphaFractionAgainstAlone": 0.866721,
+            "visibleSupportPixels": 22481,
+            "aloneVisibleSupportPixels": 25938,
+            "visibleSupportFractionAgainstAlone": 0.866721,
+            "equivalentVisibleAreaAt99pxBody": 1448.63,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 22481.0,
+                "aloneVisibleAlphaEquivalentPixels": 25938.0
+              }
+            }
+          },
+          "boots": {
+            "visibleAlphaEquivalentPixels": 23526.0,
+            "aloneVisibleAlphaEquivalentPixels": 23526.0,
+            "visibleAlphaFractionAgainstAlone": 1.0,
+            "visibleSupportPixels": 23526,
+            "aloneVisibleSupportPixels": 23526,
+            "visibleSupportFractionAgainstAlone": 1.0,
+            "equivalentVisibleAreaAt99pxBody": 1515.97,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 23526.0,
+                "aloneVisibleAlphaEquivalentPixels": 23526.0
+              }
+            }
+          },
+          "sunhat": {
+            "visibleAlphaEquivalentPixels": 34891.0,
+            "aloneVisibleAlphaEquivalentPixels": 34891.0,
+            "visibleAlphaFractionAgainstAlone": 1.0,
+            "visibleSupportPixels": 34891,
+            "aloneVisibleSupportPixels": 34891,
+            "visibleSupportFractionAgainstAlone": 1.0,
+            "equivalentVisibleAreaAt99pxBody": 2248.3,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 34891.0,
+                "aloneVisibleAlphaEquivalentPixels": 34891.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              }
+            }
+          },
+          "halo": {
+            "visibleAlphaEquivalentPixels": 5810.0,
+            "aloneVisibleAlphaEquivalentPixels": 5810.0,
+            "visibleAlphaFractionAgainstAlone": 1.0,
+            "visibleSupportPixels": 5810,
+            "aloneVisibleSupportPixels": 5810,
+            "visibleSupportFractionAgainstAlone": 1.0,
+            "equivalentVisibleAreaAt99pxBody": 374.38,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 5810.0,
+                "aloneVisibleAlphaEquivalentPixels": 5810.0
+              }
+            }
+          }
+        },
+        "capeMarginalVisibleAlphaRecoveredIfItemRemoved": {
+          "satchel": 4887.0,
+          "scarf": 13254.0,
+          "boots": 12214.0,
+          "sunhat": 0.0,
+          "halo": 0.0
+        },
+        "originalBodyAndFaceChecks": {
+          "outsideEffectiveAccessoryExactlyPreserved": true,
+          "changedOutsideAccessoryPixels": 0,
+          "protectedFaceExactlyPreserved": true,
+          "faceOcclusionPixels": 0,
+          "protectedFacePixelCount": 0,
+          "opaqueBodyUnderBackExactlyPreserved": true
+        }
+      },
+      "withForestLeaf": {
+        "items": {
+          "cape": {
+            "visibleAlphaEquivalentPixels": 26265.0,
+            "aloneVisibleAlphaEquivalentPixels": 67081.0,
+            "visibleAlphaFractionAgainstAlone": 0.391542,
+            "visibleSupportPixels": 26265,
+            "aloneVisibleSupportPixels": 67081,
+            "visibleSupportFractionAgainstAlone": 0.391542,
+            "equivalentVisibleAreaAt99pxBody": 1692.46,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 26265.0,
+                "aloneVisibleAlphaEquivalentPixels": 67081.0
+              }
+            }
+          },
+          "satchel": {
+            "visibleAlphaEquivalentPixels": 13269.0,
+            "aloneVisibleAlphaEquivalentPixels": 23527.0,
+            "visibleAlphaFractionAgainstAlone": 0.56399,
+            "visibleSupportPixels": 13269,
+            "aloneVisibleSupportPixels": 23527,
+            "visibleSupportFractionAgainstAlone": 0.56399,
+            "equivalentVisibleAreaAt99pxBody": 855.03,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 13269.0,
+                "aloneVisibleAlphaEquivalentPixels": 23527.0
+              }
+            }
+          },
+          "scarf": {
+            "visibleAlphaEquivalentPixels": 22481.0,
+            "aloneVisibleAlphaEquivalentPixels": 25938.0,
+            "visibleAlphaFractionAgainstAlone": 0.866721,
+            "visibleSupportPixels": 22481,
+            "aloneVisibleSupportPixels": 25938,
+            "visibleSupportFractionAgainstAlone": 0.866721,
+            "equivalentVisibleAreaAt99pxBody": 1448.63,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 22481.0,
+                "aloneVisibleAlphaEquivalentPixels": 25938.0
+              }
+            }
+          },
+          "boots": {
+            "visibleAlphaEquivalentPixels": 23526.0,
+            "aloneVisibleAlphaEquivalentPixels": 23526.0,
+            "visibleAlphaFractionAgainstAlone": 1.0,
+            "visibleSupportPixels": 23526,
+            "aloneVisibleSupportPixels": 23526,
+            "visibleSupportFractionAgainstAlone": 1.0,
+            "equivalentVisibleAreaAt99pxBody": 1515.97,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 23526.0,
+                "aloneVisibleAlphaEquivalentPixels": 23526.0
+              }
+            }
+          },
+          "forest-leaf": {
+            "visibleAlphaEquivalentPixels": 5849.0,
+            "aloneVisibleAlphaEquivalentPixels": 5889.0,
+            "visibleAlphaFractionAgainstAlone": 0.993208,
+            "visibleSupportPixels": 5849,
+            "aloneVisibleSupportPixels": 5889,
+            "visibleSupportFractionAgainstAlone": 0.993208,
+            "equivalentVisibleAreaAt99pxBody": 376.9,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 5849.0,
+                "aloneVisibleAlphaEquivalentPixels": 5889.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              }
+            }
+          },
+          "sunhat": {
+            "visibleAlphaEquivalentPixels": 34891.0,
+            "aloneVisibleAlphaEquivalentPixels": 34891.0,
+            "visibleAlphaFractionAgainstAlone": 1.0,
+            "visibleSupportPixels": 34891,
+            "aloneVisibleSupportPixels": 34891,
+            "visibleSupportFractionAgainstAlone": 1.0,
+            "equivalentVisibleAreaAt99pxBody": 2248.3,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 34891.0,
+                "aloneVisibleAlphaEquivalentPixels": 34891.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              }
+            }
+          },
+          "halo": {
+            "visibleAlphaEquivalentPixels": 5810.0,
+            "aloneVisibleAlphaEquivalentPixels": 5810.0,
+            "visibleAlphaFractionAgainstAlone": 1.0,
+            "visibleSupportPixels": 5810,
+            "aloneVisibleSupportPixels": 5810,
+            "visibleSupportFractionAgainstAlone": 1.0,
+            "equivalentVisibleAreaAt99pxBody": 374.38,
+            "effectiveDisappearanceFlag": false,
+            "planes": {
+              "back": {
+                "visibleAlphaEquivalentPixels": 0.0,
+                "aloneVisibleAlphaEquivalentPixels": 0.0
+              },
+              "front": {
+                "visibleAlphaEquivalentPixels": 5810.0,
+                "aloneVisibleAlphaEquivalentPixels": 5810.0
+              }
+            }
+          }
+        },
+        "capeMarginalVisibleAlphaRecoveredIfItemRemoved": {
+          "satchel": 4887.0,
+          "scarf": 13254.0,
+          "boots": 12214.0,
+          "forest-leaf": 0.0,
+          "sunhat": 0.0,
+          "halo": 0.0
+        },
+        "originalBodyAndFaceChecks": {
+          "outsideEffectiveAccessoryExactlyPreserved": true,
+          "changedOutsideAccessoryPixels": 0,
+          "protectedFaceExactlyPreserved": true,
+          "faceOcclusionPixels": 0,
+          "protectedFacePixelCount": 0,
+          "opaqueBodyUnderBackExactlyPreserved": true
+        }
+      }
+    }
+  },
+  "visualReview": {
+    "result": "needs-cape-fit-fix",
+    "reviewedAtBodyHeights": [
+      99,
+      198
+    ],
+    "finding": "Front and three-quarter cape is reduced mainly to cream hem fragments near boots and no longer reads clearly as a cape at99px. Other milestone items and optional leaf remain distinct.",
+    "candidateChangesMade": false,
+    "recommendedArtDirection": "Retain back-plane cape on front/three-quarter, but move substantial purple side fabric higher and/or wider beyond the bag and scarf tail. Back-view cape needs more recognizable panel above the collar. Do not resolve by hiding other items or changing their z-order."
+  }
+}

@@ -1,0 +1,748 @@
+{
+  "baselineCommit": "605e695c3cccb74a31439d8c0f3ec4b485681a1a",
+  "scope": "Synthetic pre-fix output hashes: historical non-confidence fields and complete today output. Date membership only; not a 23/25-hour sampling certification.",
+  "zones": {
+    "UTC": [
+      {
+        "kind": "historical",
+        "label": "previous-last-ms",
+        "input": {
+          "dayKey": "2026-02-17",
+          "now": 1771459200000,
+          "checkIns": [
+            {
+              "at": 1771286399999,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "low",
+        "baselineConfidence": "medium",
+        "samplesSha256": "10150318c3ceca58e6974d4853a172960a33797f4cdbdd98034c54693024117c",
+        "nonConfidenceSha256": "1cd251648b243ac8b1470ae922d8230bcf2ceec46227cf515bd8003305b96ba3"
+      },
+      {
+        "kind": "historical",
+        "label": "day-first-ms",
+        "input": {
+          "dayKey": "2026-02-17",
+          "now": 1771459200000,
+          "checkIns": [
+            {
+              "at": 1771286400000,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "medium",
+        "baselineConfidence": "medium",
+        "samplesSha256": "e4f5bc2e03a8421b81f342bcaf26dca894aaf6e7079d713217fe8f901250b01b",
+        "nonConfidenceSha256": "8cb8345ae5838e470dda37ef98c083de6be3c38dfed78ee07aeae3072ea611e8"
+      },
+      {
+        "kind": "historical",
+        "label": "day-last-ms",
+        "input": {
+          "dayKey": "2026-02-17",
+          "now": 1771459200000,
+          "checkIns": [
+            {
+              "at": 1771372799999,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "medium",
+        "baselineConfidence": "medium",
+        "samplesSha256": "35c6d0bacd56e90a3dc637f91f8f4757b835e7ad73bafd9524867f9b42893db1",
+        "nonConfidenceSha256": "6065790d40534adf0e74ba9d78c4ba381420bd4f52b562b7b28ca67b1aca2073"
+      },
+      {
+        "kind": "historical",
+        "label": "next-midnight",
+        "input": {
+          "dayKey": "2026-02-17",
+          "now": 1771459200000,
+          "checkIns": [
+            {
+              "at": 1771372800000,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "low",
+        "baselineConfidence": "medium",
+        "samplesSha256": "35c6d0bacd56e90a3dc637f91f8f4757b835e7ad73bafd9524867f9b42893db1",
+        "nonConfidenceSha256": "6065790d40534adf0e74ba9d78c4ba381420bd4f52b562b7b28ca67b1aca2073"
+      },
+      {
+        "kind": "today",
+        "label": "previous-anchor",
+        "input": {
+          "dayKey": "2026-02-17",
+          "now": 1771329600000,
+          "checkIns": [
+            {
+              "at": 1771286399999,
+              "level": 80
+            }
+          ],
+          "residualMae": 4
+        },
+        "expectedConfidence": "medium",
+        "curveSha256": "00da0864f052ff3a192b8aa06880f2f82ef5d4ee5ebeb8013b0a0cd1fd7551a9"
+      },
+      {
+        "kind": "today",
+        "label": "current-anchor",
+        "input": {
+          "dayKey": "2026-02-17",
+          "now": 1771329600000,
+          "checkIns": [
+            {
+              "at": 1771329600000,
+              "level": 80
+            }
+          ],
+          "residualMae": 4
+        },
+        "expectedConfidence": "high",
+        "curveSha256": "d4d73c43576edea0e7ce9bc129be1a24262b15d74a060dfbcbee4adf190ee949"
+      },
+      {
+        "kind": "today",
+        "label": "future-anchor",
+        "input": {
+          "dayKey": "2026-02-17",
+          "now": 1771329600000,
+          "checkIns": [
+            {
+              "at": 1771372800000,
+              "level": 80
+            }
+          ],
+          "residualMae": 4
+        },
+        "expectedConfidence": "medium",
+        "curveSha256": "47296629f0a62a8b9e83f0b4362f9617e35b0cabf50f881ec2faf9847e121cae"
+      },
+      {
+        "kind": "historical",
+        "label": "previous-last-ms",
+        "input": {
+          "dayKey": "2026-03-08",
+          "now": 1773100800000,
+          "checkIns": [
+            {
+              "at": 1772927999999,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "low",
+        "baselineConfidence": "medium",
+        "samplesSha256": "10150318c3ceca58e6974d4853a172960a33797f4cdbdd98034c54693024117c",
+        "nonConfidenceSha256": "03ddd494c4ce15a74c4d5ba3be0aba3bef36c02498ea864f99cf1c203487120b"
+      },
+      {
+        "kind": "historical",
+        "label": "day-first-ms",
+        "input": {
+          "dayKey": "2026-03-08",
+          "now": 1773100800000,
+          "checkIns": [
+            {
+              "at": 1772928000000,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "medium",
+        "baselineConfidence": "medium",
+        "samplesSha256": "e4f5bc2e03a8421b81f342bcaf26dca894aaf6e7079d713217fe8f901250b01b",
+        "nonConfidenceSha256": "20ef92f002051e11fc933b8729dc68f701dc0b7e6316e76a4b094f777ce60078"
+      },
+      {
+        "kind": "historical",
+        "label": "day-last-ms",
+        "input": {
+          "dayKey": "2026-03-08",
+          "now": 1773100800000,
+          "checkIns": [
+            {
+              "at": 1773014399999,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "medium",
+        "baselineConfidence": "medium",
+        "samplesSha256": "35c6d0bacd56e90a3dc637f91f8f4757b835e7ad73bafd9524867f9b42893db1",
+        "nonConfidenceSha256": "8a6ae1ed1bafdf7892862535aa317047275f59a1c52ec8ffcfcd8248929f0e9d"
+      },
+      {
+        "kind": "historical",
+        "label": "next-midnight",
+        "input": {
+          "dayKey": "2026-03-08",
+          "now": 1773100800000,
+          "checkIns": [
+            {
+              "at": 1773014400000,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "low",
+        "baselineConfidence": "medium",
+        "samplesSha256": "35c6d0bacd56e90a3dc637f91f8f4757b835e7ad73bafd9524867f9b42893db1",
+        "nonConfidenceSha256": "8a6ae1ed1bafdf7892862535aa317047275f59a1c52ec8ffcfcd8248929f0e9d"
+      },
+      {
+        "kind": "today",
+        "label": "previous-anchor",
+        "input": {
+          "dayKey": "2026-03-08",
+          "now": 1772971200000,
+          "checkIns": [
+            {
+              "at": 1772927999999,
+              "level": 80
+            }
+          ],
+          "residualMae": 4
+        },
+        "expectedConfidence": "medium",
+        "curveSha256": "19a0a99cbfeee5fd53fbfbcb13fb8b53bdcc4c47957f389e003760b2dda8ee94"
+      },
+      {
+        "kind": "today",
+        "label": "current-anchor",
+        "input": {
+          "dayKey": "2026-03-08",
+          "now": 1772971200000,
+          "checkIns": [
+            {
+              "at": 1772971200000,
+              "level": 80
+            }
+          ],
+          "residualMae": 4
+        },
+        "expectedConfidence": "high",
+        "curveSha256": "cbffa22212c20977a1c0211bcd6a9f7cfbb30b1baf38c7161e86809bf67e96ff"
+      },
+      {
+        "kind": "today",
+        "label": "future-anchor",
+        "input": {
+          "dayKey": "2026-03-08",
+          "now": 1772971200000,
+          "checkIns": [
+            {
+              "at": 1773014400000,
+              "level": 80
+            }
+          ],
+          "residualMae": 4
+        },
+        "expectedConfidence": "medium",
+        "curveSha256": "a5a5cdf297137b095e1738f82e892cd373bfcee602755c5bf17f13749af3894c"
+      },
+      {
+        "kind": "historical",
+        "label": "previous-last-ms",
+        "input": {
+          "dayKey": "2026-11-01",
+          "now": 1793664000000,
+          "checkIns": [
+            {
+              "at": 1793491199999,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "low",
+        "baselineConfidence": "medium",
+        "samplesSha256": "10150318c3ceca58e6974d4853a172960a33797f4cdbdd98034c54693024117c",
+        "nonConfidenceSha256": "89cd026fdf1e9385794125b7033bfa7b8a1cb7e0e2c083442758281f6068389e"
+      },
+      {
+        "kind": "historical",
+        "label": "day-first-ms",
+        "input": {
+          "dayKey": "2026-11-01",
+          "now": 1793664000000,
+          "checkIns": [
+            {
+              "at": 1793491200000,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "medium",
+        "baselineConfidence": "medium",
+        "samplesSha256": "e4f5bc2e03a8421b81f342bcaf26dca894aaf6e7079d713217fe8f901250b01b",
+        "nonConfidenceSha256": "a4b0d15ab5ae712de3407cc3b5524bd6611f22f0418deab15d7f6b0948d1f206"
+      },
+      {
+        "kind": "historical",
+        "label": "day-last-ms",
+        "input": {
+          "dayKey": "2026-11-01",
+          "now": 1793664000000,
+          "checkIns": [
+            {
+              "at": 1793577599999,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "medium",
+        "baselineConfidence": "medium",
+        "samplesSha256": "35c6d0bacd56e90a3dc637f91f8f4757b835e7ad73bafd9524867f9b42893db1",
+        "nonConfidenceSha256": "73328fa90c34a327597747db0afa57f065816c032d967050af4b5fb1ea54c9ff"
+      },
+      {
+        "kind": "historical",
+        "label": "next-midnight",
+        "input": {
+          "dayKey": "2026-11-01",
+          "now": 1793664000000,
+          "checkIns": [
+            {
+              "at": 1793577600000,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "low",
+        "baselineConfidence": "medium",
+        "samplesSha256": "35c6d0bacd56e90a3dc637f91f8f4757b835e7ad73bafd9524867f9b42893db1",
+        "nonConfidenceSha256": "73328fa90c34a327597747db0afa57f065816c032d967050af4b5fb1ea54c9ff"
+      },
+      {
+        "kind": "today",
+        "label": "previous-anchor",
+        "input": {
+          "dayKey": "2026-11-01",
+          "now": 1793534400000,
+          "checkIns": [
+            {
+              "at": 1793491199999,
+              "level": 80
+            }
+          ],
+          "residualMae": 4
+        },
+        "expectedConfidence": "medium",
+        "curveSha256": "a202dc4ee2da949f82a7a0efa345142e85a739f78010c47bf91cdbcbcf0cbbec"
+      },
+      {
+        "kind": "today",
+        "label": "current-anchor",
+        "input": {
+          "dayKey": "2026-11-01",
+          "now": 1793534400000,
+          "checkIns": [
+            {
+              "at": 1793534400000,
+              "level": 80
+            }
+          ],
+          "residualMae": 4
+        },
+        "expectedConfidence": "high",
+        "curveSha256": "15e096ad9c6abd39a8ee7b326cb9632367cea6e562d146f6adba8685d6e83af5"
+      },
+      {
+        "kind": "today",
+        "label": "future-anchor",
+        "input": {
+          "dayKey": "2026-11-01",
+          "now": 1793534400000,
+          "checkIns": [
+            {
+              "at": 1793577600000,
+              "level": 80
+            }
+          ],
+          "residualMae": 4
+        },
+        "expectedConfidence": "medium",
+        "curveSha256": "68e6ff1288909adda77e9ed40b5d12703045156fe03115dd2333df94ecccb9c6"
+      }
+    ],
+    "America/New_York": [
+      {
+        "kind": "historical",
+        "label": "previous-last-ms",
+        "input": {
+          "dayKey": "2026-02-17",
+          "now": 1771477200000,
+          "checkIns": [
+            {
+              "at": 1771304399999,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "low",
+        "baselineConfidence": "medium",
+        "samplesSha256": "10150318c3ceca58e6974d4853a172960a33797f4cdbdd98034c54693024117c",
+        "nonConfidenceSha256": "1cd251648b243ac8b1470ae922d8230bcf2ceec46227cf515bd8003305b96ba3"
+      },
+      {
+        "kind": "historical",
+        "label": "day-first-ms",
+        "input": {
+          "dayKey": "2026-02-17",
+          "now": 1771477200000,
+          "checkIns": [
+            {
+              "at": 1771304400000,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "medium",
+        "baselineConfidence": "medium",
+        "samplesSha256": "e4f5bc2e03a8421b81f342bcaf26dca894aaf6e7079d713217fe8f901250b01b",
+        "nonConfidenceSha256": "8cb8345ae5838e470dda37ef98c083de6be3c38dfed78ee07aeae3072ea611e8"
+      },
+      {
+        "kind": "historical",
+        "label": "day-last-ms",
+        "input": {
+          "dayKey": "2026-02-17",
+          "now": 1771477200000,
+          "checkIns": [
+            {
+              "at": 1771390799999,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "medium",
+        "baselineConfidence": "medium",
+        "samplesSha256": "35c6d0bacd56e90a3dc637f91f8f4757b835e7ad73bafd9524867f9b42893db1",
+        "nonConfidenceSha256": "6065790d40534adf0e74ba9d78c4ba381420bd4f52b562b7b28ca67b1aca2073"
+      },
+      {
+        "kind": "historical",
+        "label": "next-midnight",
+        "input": {
+          "dayKey": "2026-02-17",
+          "now": 1771477200000,
+          "checkIns": [
+            {
+              "at": 1771390800000,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "low",
+        "baselineConfidence": "medium",
+        "samplesSha256": "35c6d0bacd56e90a3dc637f91f8f4757b835e7ad73bafd9524867f9b42893db1",
+        "nonConfidenceSha256": "6065790d40534adf0e74ba9d78c4ba381420bd4f52b562b7b28ca67b1aca2073"
+      },
+      {
+        "kind": "today",
+        "label": "previous-anchor",
+        "input": {
+          "dayKey": "2026-02-17",
+          "now": 1771347600000,
+          "checkIns": [
+            {
+              "at": 1771304399999,
+              "level": 80
+            }
+          ],
+          "residualMae": 4
+        },
+        "expectedConfidence": "medium",
+        "curveSha256": "00da0864f052ff3a192b8aa06880f2f82ef5d4ee5ebeb8013b0a0cd1fd7551a9"
+      },
+      {
+        "kind": "today",
+        "label": "current-anchor",
+        "input": {
+          "dayKey": "2026-02-17",
+          "now": 1771347600000,
+          "checkIns": [
+            {
+              "at": 1771347600000,
+              "level": 80
+            }
+          ],
+          "residualMae": 4
+        },
+        "expectedConfidence": "high",
+        "curveSha256": "d4d73c43576edea0e7ce9bc129be1a24262b15d74a060dfbcbee4adf190ee949"
+      },
+      {
+        "kind": "today",
+        "label": "future-anchor",
+        "input": {
+          "dayKey": "2026-02-17",
+          "now": 1771347600000,
+          "checkIns": [
+            {
+              "at": 1771390800000,
+              "level": 80
+            }
+          ],
+          "residualMae": 4
+        },
+        "expectedConfidence": "medium",
+        "curveSha256": "47296629f0a62a8b9e83f0b4362f9617e35b0cabf50f881ec2faf9847e121cae"
+      },
+      {
+        "kind": "historical",
+        "label": "previous-last-ms",
+        "input": {
+          "dayKey": "2026-03-08",
+          "now": 1773115200000,
+          "checkIns": [
+            {
+              "at": 1772945999999,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "low",
+        "baselineConfidence": "medium",
+        "samplesSha256": "10150318c3ceca58e6974d4853a172960a33797f4cdbdd98034c54693024117c",
+        "nonConfidenceSha256": "03ddd494c4ce15a74c4d5ba3be0aba3bef36c02498ea864f99cf1c203487120b"
+      },
+      {
+        "kind": "historical",
+        "label": "day-first-ms",
+        "input": {
+          "dayKey": "2026-03-08",
+          "now": 1773115200000,
+          "checkIns": [
+            {
+              "at": 1772946000000,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "medium",
+        "baselineConfidence": "medium",
+        "samplesSha256": "e4f5bc2e03a8421b81f342bcaf26dca894aaf6e7079d713217fe8f901250b01b",
+        "nonConfidenceSha256": "20ef92f002051e11fc933b8729dc68f701dc0b7e6316e76a4b094f777ce60078"
+      },
+      {
+        "kind": "historical",
+        "label": "day-last-ms",
+        "input": {
+          "dayKey": "2026-03-08",
+          "now": 1773115200000,
+          "checkIns": [
+            {
+              "at": 1773028799999,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "medium",
+        "baselineConfidence": "medium",
+        "samplesSha256": "4a4862baae8948746e1290c49e40f6eb07f3aa03f6a4fad461ab7c38fab4eaef",
+        "nonConfidenceSha256": "55108baf33cd82e024bf645c81bf76d042492440d11a12983bf31dd788cc6fc8"
+      },
+      {
+        "kind": "historical",
+        "label": "next-midnight",
+        "input": {
+          "dayKey": "2026-03-08",
+          "now": 1773115200000,
+          "checkIns": [
+            {
+              "at": 1773028800000,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "low",
+        "baselineConfidence": "medium",
+        "samplesSha256": "a184bde844e7367c6ea93c1ec67fcbb79536143bd6d15e833b6862adbd9d7b71",
+        "nonConfidenceSha256": "f3b89e9e48e01dbe037e5f2a9309301353d9ec56177299141469afec93acb17b"
+      },
+      {
+        "kind": "today",
+        "label": "previous-anchor",
+        "input": {
+          "dayKey": "2026-03-08",
+          "now": 1772985600000,
+          "checkIns": [
+            {
+              "at": 1772945999999,
+              "level": 80
+            }
+          ],
+          "residualMae": 4
+        },
+        "expectedConfidence": "medium",
+        "curveSha256": "ee328810f17494f0b64152ed61903e2f2128d82f1f79ef66af254e86388759f5"
+      },
+      {
+        "kind": "today",
+        "label": "current-anchor",
+        "input": {
+          "dayKey": "2026-03-08",
+          "now": 1772985600000,
+          "checkIns": [
+            {
+              "at": 1772985600000,
+              "level": 80
+            }
+          ],
+          "residualMae": 4
+        },
+        "expectedConfidence": "high",
+        "curveSha256": "687a063b24a01c6ee6f785ed83714e446c5e06d5f5cd8cc6d2f4a6985b388e38"
+      },
+      {
+        "kind": "today",
+        "label": "future-anchor",
+        "input": {
+          "dayKey": "2026-03-08",
+          "now": 1772985600000,
+          "checkIns": [
+            {
+              "at": 1773028800000,
+              "level": 80
+            }
+          ],
+          "residualMae": 4
+        },
+        "expectedConfidence": "medium",
+        "curveSha256": "8d5cc963f75d3648633efa60131342b0027611e4005007b2828782e97cb5cda3"
+      },
+      {
+        "kind": "historical",
+        "label": "previous-last-ms",
+        "input": {
+          "dayKey": "2026-11-01",
+          "now": 1793682000000,
+          "checkIns": [
+            {
+              "at": 1793505599999,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "low",
+        "baselineConfidence": "medium",
+        "samplesSha256": "10150318c3ceca58e6974d4853a172960a33797f4cdbdd98034c54693024117c",
+        "nonConfidenceSha256": "89cd026fdf1e9385794125b7033bfa7b8a1cb7e0e2c083442758281f6068389e"
+      },
+      {
+        "kind": "historical",
+        "label": "day-first-ms",
+        "input": {
+          "dayKey": "2026-11-01",
+          "now": 1793682000000,
+          "checkIns": [
+            {
+              "at": 1793505600000,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "medium",
+        "baselineConfidence": "medium",
+        "samplesSha256": "e4f5bc2e03a8421b81f342bcaf26dca894aaf6e7079d713217fe8f901250b01b",
+        "nonConfidenceSha256": "a4b0d15ab5ae712de3407cc3b5524bd6611f22f0418deab15d7f6b0948d1f206"
+      },
+      {
+        "kind": "historical",
+        "label": "day-last-ms",
+        "input": {
+          "dayKey": "2026-11-01",
+          "now": 1793682000000,
+          "checkIns": [
+            {
+              "at": 1793595599999,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "medium",
+        "baselineConfidence": "medium",
+        "samplesSha256": "35c6d0bacd56e90a3dc637f91f8f4757b835e7ad73bafd9524867f9b42893db1",
+        "nonConfidenceSha256": "73328fa90c34a327597747db0afa57f065816c032d967050af4b5fb1ea54c9ff"
+      },
+      {
+        "kind": "historical",
+        "label": "next-midnight",
+        "input": {
+          "dayKey": "2026-11-01",
+          "now": 1793682000000,
+          "checkIns": [
+            {
+              "at": 1793595600000,
+              "level": 80
+            }
+          ]
+        },
+        "expectedConfidence": "low",
+        "baselineConfidence": "medium",
+        "samplesSha256": "35c6d0bacd56e90a3dc637f91f8f4757b835e7ad73bafd9524867f9b42893db1",
+        "nonConfidenceSha256": "73328fa90c34a327597747db0afa57f065816c032d967050af4b5fb1ea54c9ff"
+      },
+      {
+        "kind": "today",
+        "label": "previous-anchor",
+        "input": {
+          "dayKey": "2026-11-01",
+          "now": 1793552400000,
+          "checkIns": [
+            {
+              "at": 1793505599999,
+              "level": 80
+            }
+          ],
+          "residualMae": 4
+        },
+        "expectedConfidence": "medium",
+        "curveSha256": "737b336ccff11a014d5015928733c1ee8385ae8e858d29cb6b45fca80d5df451"
+      },
+      {
+        "kind": "today",
+        "label": "current-anchor",
+        "input": {
+          "dayKey": "2026-11-01",
+          "now": 1793552400000,
+          "checkIns": [
+            {
+              "at": 1793552400000,
+              "level": 80
+            }
+          ],
+          "residualMae": 4
+        },
+        "expectedConfidence": "high",
+        "curveSha256": "c0ff3c5fef6ca33d27f2a250b9912ce23f9e1dc5302bab329c9e803a7d6d89e6"
+      },
+      {
+        "kind": "today",
+        "label": "future-anchor",
+        "input": {
+          "dayKey": "2026-11-01",
+          "now": 1793552400000,
+          "checkIns": [
+            {
+              "at": 1793595600000,
+              "level": 80
+            }
+          ],
+          "residualMae": 4
+        },
+        "expectedConfidence": "medium",
+        "curveSha256": "474955353641044b3c608c1f9d5591e734dba8802ea0c13807d83e526eadabe9"
+      }
+    ]
+  }
+}

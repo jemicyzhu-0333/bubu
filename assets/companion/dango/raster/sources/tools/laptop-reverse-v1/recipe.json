@@ -1,0 +1,71 @@
+{
+  "kind": "deterministic-crop",
+  "master": "master.png",
+  "masterSha256": "032bc035a825a8d404f49e1505e0b00f1211026644ac66d8139b393e9c2e4840",
+  "generationTool": "built-in image_gen",
+  "generationDate": "2026-10-03",
+  "alphaPolicy": "Preserve source alpha; declared cell crops exclude empty margins and unrelated cells. No color removal or anatomy redrawing.",
+  "referenceRoles": [
+    "tools/laptop.png: existing laptop style/model edit target",
+    "sources/canonical/front.png: canonical body reference only",
+    "sources/canonical/three-quarter-right.png: canonical body reference only",
+    "sources/tools/masters/small-hands-approved-v2.png: approved paw anatomy reference only"
+  ],
+  "accepted": "Only isolated reverse-view laptop assets are extracted. Generated character samples are design references, never runtime body or paw replacements.",
+  "cells": [
+    {
+      "key": "laptop-reverse-front",
+      "crop": [
+        148,
+        890,
+        589,
+        1105
+      ],
+      "runtimeRect": [
+        0,
+        0,
+        42,
+        20.476190476190478
+      ],
+      "uniformScale": 0.09523809523809523,
+      "anchors": {
+        "left": [
+          3.3,
+          16.2
+        ],
+        "right": [
+          38.7,
+          16.2
+        ]
+      },
+      "sha256": "924e0e974a55a475a497ca7bfb58c7ce214d0e649fdfc6438daa378e718fa9e5"
+    },
+    {
+      "key": "laptop-reverse-three-quarter",
+      "crop": [
+        735,
+        884,
+        1174,
+        1129
+      ],
+      "runtimeRect": [
+        0,
+        0,
+        43,
+        23.997722095671982
+      ],
+      "uniformScale": 0.0979498861047836,
+      "anchors": {
+        "left": [
+          5.3,
+          17.1
+        ],
+        "right": [
+          13.3,
+          16.4
+        ]
+      },
+      "sha256": "97d86df5cefef52124f39ae58b54fd04ae51479dc2999e760bef0349f75859d3"
+    }
+  ]
+}

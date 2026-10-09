@@ -1,0 +1,734 @@
+{
+  "format": "usagi-raster-appearance-v1",
+  "canonicalSource": "../canonical/manifest.json",
+  "sourceToArt": {
+    "scale": 4.2,
+    "x": 117.4,
+    "y": 175
+  },
+  "appearance": {
+    "usagi-moon-beret": {
+      "itemId": "usagi.moon-beret",
+      "slot": "usagi.headwear",
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "views": {
+        "front": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.moon-beret/front-part-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                19.190476,
+                -9.285714,
+                27.380952,
+                15.952381
+              ],
+              "sourceRect": [
+                198,
+                136,
+                313,
+                203
+              ],
+              "sha256": "94e001f994222b264a49864498c4098dfcd52c67c7891801c12cf5511c6b1d60"
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.moon-beret/three-quarter-part-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                23.952381,
+                -8.809524,
+                26.428571,
+                15.0
+              ],
+              "sourceRect": [
+                218,
+                138,
+                329,
+                201
+              ],
+              "sha256": "7f30a85d67445be50886e9899dae3739578b31379b2b5530ba89a118ac5e89ce"
+            }
+          ]
+        },
+        "profile": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.moon-beret/profile-part-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                29.190476,
+                -8.571429,
+                22.380952,
+                14.52381
+              ],
+              "sourceRect": [
+                240,
+                139,
+                334,
+                200
+              ],
+              "sha256": "1ca68bd7781480a6dfa7e998e17d574e0aa46b7d4319605484f5c71843513c30"
+            }
+          ]
+        },
+        "back": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.moon-beret/back-part-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                18.0,
+                -9.285714,
+                28.095238,
+                16.190476
+              ],
+              "sourceRect": [
+                193,
+                136,
+                311,
+                204
+              ],
+              "sha256": "c7aa829d6747ae98869dbc815939a1a0fdfb932d5c4bf57d56816b81ca78732c"
+            }
+          ]
+        }
+      }
+    },
+    "usagi-starlit-cape": {
+      "itemId": "usagi.starlit-cape",
+      "slot": "usagi.backwear",
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "views": {
+        "front": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.starlit-cape/front-part-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                8.714286,
+                40.47619,
+                48.571429,
+                16.666667
+              ],
+              "sourceRect": [
+                154,
+                345,
+                358,
+                415
+              ],
+              "sha256": "6d34087d421b98b869fdd5ab2b422658f33d99a05478fe15af5f31771bf23a16"
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.starlit-cape/three-quarter-part-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                12.761905,
+                40.47619,
+                46.666667,
+                16.666667
+              ],
+              "sourceRect": [
+                171,
+                345,
+                367,
+                415
+              ],
+              "sha256": "200f1b0e61b8ae88e1abe1497c2008c88b0bd78fb4beb105dd2a952f28748176"
+            }
+          ]
+        },
+        "profile": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.starlit-cape/profile-part-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                18.47619,
+                40.47619,
+                37.619048,
+                16.190476
+              ],
+              "sourceRect": [
+                195,
+                345,
+                353,
+                413
+              ],
+              "sha256": "6cec7113c2008f500016ae279e5908f97cbb4efebd89e0c34e5b6d4b9cc55265"
+            }
+          ]
+        },
+        "back": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.starlit-cape/back-part-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                8.714286,
+                40.47619,
+                48.809524,
+                19.285714
+              ],
+              "sourceRect": [
+                154,
+                345,
+                359,
+                426
+              ],
+              "sha256": "1908f31a4ce48917769bebb7d14557977d19cf053e318e988465f754f9fbc16b"
+            }
+          ]
+        }
+      }
+    },
+    "usagi-star-collar": {
+      "itemId": "usagi.star-collar",
+      "slot": "usagi.neckwear",
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "views": {
+        "front": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.star-collar/front-part-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                12.047619,
+                40.238095,
+                41.904762,
+                16.666667
+              ],
+              "sourceRect": [
+                168,
+                344,
+                344,
+                414
+              ],
+              "sha256": "7a4e74a06474ddfa066b29f664851a174d3132781281c679cce5a0522478ee1d"
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.star-collar/three-quarter-part-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                16.333333,
+                40.238095,
+                39.761905,
+                17.142857
+              ],
+              "sourceRect": [
+                186,
+                344,
+                353,
+                416
+              ],
+              "sha256": "5e0d39f8bf11f0251bea94c6b145625082198513d936957e21de42e32d8e90e6"
+            }
+          ]
+        },
+        "profile": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.star-collar/profile-part-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                22.047619,
+                40.238095,
+                36.904762,
+                14.761905
+              ],
+              "sourceRect": [
+                210,
+                344,
+                365,
+                406
+              ],
+              "sha256": "8e6902a333db505e5c614fa725038ddf5d0959e14118cdd64b79378d6b214e55"
+            }
+          ]
+        },
+        "back": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.star-collar/back-part-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                12.047619,
+                40.238095,
+                42.142857,
+                8.571429
+              ],
+              "sourceRect": [
+                168,
+                344,
+                345,
+                380
+              ],
+              "sha256": "ab9c90741fb66b26baeeaf30448865361e08be893f24137d348e33eaf7ab97a1"
+            }
+          ]
+        }
+      }
+    },
+    "usagi-envelope-pouch": {
+      "itemId": "usagi.envelope-pouch",
+      "slot": "usagi.sidebag",
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "views": {
+        "front": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.envelope-pouch/front-part-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                11.333333,
+                41.904762,
+                20.0,
+                18.571429
+              ],
+              "sourceRect": [
+                165,
+                351,
+                249,
+                429
+              ],
+              "sha256": "3514720cd07d9a8910701c6267762a7ef58fa0c859641d8266feb237a25b0bf1"
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.envelope-pouch/three-quarter-part-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                20.857143,
+                41.428571,
+                20.47619,
+                16.904762
+              ],
+              "sourceRect": [
+                205,
+                349,
+                291,
+                420
+              ],
+              "sha256": "4224b7fe5117e14c271378c8265becb45020981925b1241cf6bc461b94f5c233"
+            }
+          ]
+        },
+        "profile": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.envelope-pouch/profile-part-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                35.380952,
+                41.904762,
+                17.619048,
+                15.952381
+              ],
+              "sourceRect": [
+                266,
+                351,
+                340,
+                418
+              ],
+              "sha256": "72c448ecdf6dd9397f623639f60555f508e01e26ff69f61f042f45a5abd6cecd"
+            }
+          ]
+        },
+        "back": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.envelope-pouch/back-part-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                31.571429,
+                41.666667,
+                26.904762,
+                17.380952
+              ],
+              "sourceRect": [
+                250,
+                350,
+                363,
+                423
+              ],
+              "sha256": "417c1b43f12f232a8ef3ba9e38d2af59aa72eb64ff035e46b6dd15122a1609e3"
+            }
+          ]
+        }
+      }
+    },
+    "usagi-constellation": {
+      "itemId": "usagi.constellation",
+      "slot": "usagi.aura",
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "views": {
+        "front": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.constellation/front-part-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                17.285714,
+                -39.047619,
+                31.190476,
+                13.095238
+              ],
+              "sourceRect": [
+                190,
+                11,
+                321,
+                66
+              ],
+              "sha256": "0d69c6b82263dc30b942fe0d07a5686293475a0f0e38854adbef2d809749e986"
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.constellation/three-quarter-part-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                21.571429,
+                -38.809524,
+                30.238095,
+                13.809524
+              ],
+              "sourceRect": [
+                208,
+                12,
+                335,
+                70
+              ],
+              "sha256": "d15e13c8d8468adbaec2adc208c9cbea6c24c5f9e335f5d3e179554b768f986d"
+            }
+          ]
+        },
+        "profile": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.constellation/profile-part-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                27.285714,
+                -38.571429,
+                25.952381,
+                13.333333
+              ],
+              "sourceRect": [
+                232,
+                13,
+                341,
+                69
+              ],
+              "sha256": "f4d10b11b959ba8e8990e8d4894bb641e2b557437789dc04f7b5bed852005126"
+            }
+          ]
+        },
+        "back": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.constellation/back-part-0.png",
+              "bone": "root",
+              "layer": "front",
+              "rect": [
+                17.761905,
+                -38.809524,
+                30.714286,
+                13.571429
+              ],
+              "sourceRect": [
+                192,
+                12,
+                321,
+                69
+              ],
+              "sha256": "3ff2b53d43663a52ffd42d1513befaabc19e2c8fdff324540c2f957d78125dfa"
+            }
+          ]
+        }
+      }
+    },
+    "usagi-moon-boots": {
+      "itemId": "usagi.moon-boots",
+      "slot": "usagi.footwear",
+      "allowedViews": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "views": {
+        "front": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.moon-boots/front-part-0.png",
+              "bone": "leg_l",
+              "layer": "front",
+              "rect": [
+                15.380952,
+                54.761905,
+                10.714286,
+                13.333333
+              ],
+              "sourceRect": [
+                182,
+                405,
+                227,
+                461
+              ],
+              "sha256": "97469c537e227a21366d69164b10a9ae3532599fb95ae9187413981d65091c0e"
+            },
+            {
+              "src": "items/usagi.moon-boots/front-part-1.png",
+              "bone": "leg_r",
+              "layer": "front",
+              "rect": [
+                39.666667,
+                54.761905,
+                10.714286,
+                13.333333
+              ],
+              "sourceRect": [
+                284,
+                405,
+                329,
+                461
+              ],
+              "sha256": "af4becfa794feda732ec7f5b9bca0cbb65822743d06ee3f3c77971c86fa8a5fb"
+            }
+          ]
+        },
+        "three-quarter": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.moon-boots/three-quarter-part-0.png",
+              "bone": "leg_l",
+              "layer": "front",
+              "rect": [
+                21.571429,
+                55.238095,
+                10.714286,
+                12.857143
+              ],
+              "sourceRect": [
+                208,
+                407,
+                253,
+                461
+              ],
+              "sha256": "8c93e3e02703b908f77be9a1cfc8fd0888f12f187d3aa6fca2190da7c198d1e7"
+            },
+            {
+              "src": "items/usagi.moon-boots/three-quarter-part-1.png",
+              "bone": "leg_r",
+              "layer": "front",
+              "rect": [
+                39.666667,
+                55.238095,
+                10.714286,
+                12.857143
+              ],
+              "sourceRect": [
+                284,
+                407,
+                329,
+                461
+              ],
+              "sha256": "8c93e3e02703b908f77be9a1cfc8fd0888f12f187d3aa6fca2190da7c198d1e7"
+            }
+          ]
+        },
+        "profile": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.moon-boots/profile-part-0.png",
+              "bone": "leg_l",
+              "layer": "front",
+              "rect": [
+                25.380952,
+                58.095238,
+                11.190476,
+                10.0
+              ],
+              "sourceRect": [
+                224,
+                419,
+                271,
+                461
+              ],
+              "sha256": "975aefed5513b34d9022532075ff9139b5c0aa85e92eafe1b9c619f3b9a459e7"
+            },
+            {
+              "src": "items/usagi.moon-boots/profile-part-1.png",
+              "bone": "leg_r",
+              "layer": "front",
+              "rect": [
+                39.190476,
+                58.095238,
+                11.190476,
+                10.0
+              ],
+              "sourceRect": [
+                282,
+                419,
+                329,
+                461
+              ],
+              "sha256": "975aefed5513b34d9022532075ff9139b5c0aa85e92eafe1b9c619f3b9a459e7"
+            }
+          ]
+        },
+        "back": {
+          "back": [],
+          "front": [
+            {
+              "src": "items/usagi.moon-boots/back-part-0.png",
+              "bone": "leg_l",
+              "layer": "front",
+              "rect": [
+                15.619048,
+                54.52381,
+                10.47619,
+                13.571429
+              ],
+              "sourceRect": [
+                183,
+                404,
+                227,
+                461
+              ],
+              "sha256": "d0b0ffb9e8e13aa40c66175e5a9efe3603830ac39c79ffb37f37529570fa14a2"
+            },
+            {
+              "src": "items/usagi.moon-boots/back-part-1.png",
+              "bone": "leg_r",
+              "layer": "front",
+              "rect": [
+                39.666667,
+                54.52381,
+                10.47619,
+                13.571429
+              ],
+              "sourceRect": [
+                284,
+                404,
+                328,
+                461
+              ],
+              "sha256": "66b101e3040fc66d100d2d8e2febf57e79b7123a26643d62a08165aee37d390d"
+            }
+          ]
+        }
+      },
+      "replaces": [
+        "leg_l",
+        "leg_r"
+      ]
+    }
+  },
+  "limitations": [
+    "Four explicitly authored views only; no arbitrary-angle garment reconstruction.",
+    "Named cape front/quarter/back, star collar, constellation, envelope pouch and visible hat views use worn-source pixels.",
+    "Rear beret uses completed isolated rear-cap source; it was visually checked against the worn rear view.",
+    "Profile cape contains a narrowly masked imagegen repair of its source hand notch. Outside the recorded patch, worn-source pixels remain authoritative.",
+    "The failed first profile repair retained its notch and is archived, not used.",
+    "Moon boots use isolated complete generated boot geometry; quarter/profile left and right reuse the same complete same-view near-shoe silhouette independently. Profile assets are explicitly flipped to face right.",
+    "Runtime must replace original legs only after both footwear layers are loaded; hand masks are proof overlays only, never holes in garment assets."
+  ],
+  "sourceProvenance": "provenance.json",
+  "processingRecipe": "recipe.json",
+  "processingScript": "scripts/build-assets.py",
+  "renderOrder": "back appearance, original body/face, front appearance, actual articulated hands; static proofs restore exact canonical hand pixels last",
+  "review": {
+    "stage": "extracted and visually reviewed on canonical body",
+    "runtimeIntegrated": false,
+    "nativeDesktopTested": false,
+    "actualBodyHeights": [
+      99,
+      198
+    ],
+    "protectedFaceChangedPixels": 0
+  }
+}

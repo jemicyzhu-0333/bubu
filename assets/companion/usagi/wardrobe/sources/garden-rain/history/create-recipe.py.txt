@@ -1,0 +1,33 @@
+# Archival bootstrap. The reviewed recipe.json is authoritative; rebuild with build-assets.py.
+from pathlib import Path
+import json
+ROOT=Path(__file__).resolve().parents[1]
+items={}
+def add(item,slot,parts,replaces=None):
+ items['usagi.'+item]={'slot':'usagi.'+slot,'parts':parts}
+ if replaces:items['usagi.'+item]['replaces']=replaces
+def part(source,crops,widths,centers,tops=None,bottoms=None,bone='root',flip=None):
+ d={'source':source,'crops':[[x-4,y-4,r+4,b+4]for x,y,r,b in crops],'widths':widths,'centers':centers,'bone':bone}
+ if tops:d['tops']=tops
+ if bottoms:d['bottoms']=bottoms
+ if flip:d['flip']=flip
+ return d
+G='garden-extraction.png'; R='rain-extraction.png'; F='footwear-independent.png'; H='garden-repair.png'
+add('garden-beret','headwear',[part(H,[[60,177,409,382],[517,178,836,378],[961,178,1249,387],[1372,179,1710,387]],[116,111,92,116],[249,262,274,251],[135,137,137,135])])
+add('daisy-clip','earwear',[part(G,[[133,209,260,341],[509,204,628,335],[874,207,968,343],[1191,209,1319,335]],[39,35,25,38],[309,306,312,309],[153,155,155,153],bone='ear_r')])
+add('petal-collar','neckwear',[part(G,[[63,373,326,484],[458,376,704,491],[835,373,1050,486],[1149,376,1404,463]],[179,177,146,181],[256,269,280,256],[344,344,344,344])])
+add('seed-pouch','sidebag',[part(G,[[92,531,287,688],[472,528,662,689],[858,531,994,689],[1197,532,1376,688]],[64,61,47,61],[162,172,221,349],[372,374,375,373])])
+add('garden-apron','backwear',[part(G,[[28,717,361,860],[433,717,719,860],[823,717,1024,854],[1127,717,1415,856]],[158,154,106,169],[256,269,276,256],[376,376,376,376])])
+add('ear-bow','earwear',[part(R,[[156,42,338,179],[561,42,720,175],[941,40,1025,176],[1233,64,1401,182]],[45,42,26,45],[308,307,311,309],[150,151,150,151],bone='ear_r')])
+add('pastel-scarf','neckwear',[part(R,[[89,216,406,342],[497,216,792,331],[885,214,1069,352],[1180,216,1492,339]],[190,188,105,191],[272,282,314,269],[344,344,344,344])])
+add('rain-cape','backwear',[part(R,[[31,382,402,575],[449,377,783,576],[854,377,1109,576],[1157,384,1502,581]],[186,173,125,177],[256,270,276,256],[344,344,344,344])])
+add('rain-satchel','sidebag',[part(R,[[95,806,342,969],[516,806,735,968],[881,806,1053,969],[1198,813,1455,969]],[73,69,48,69],[163,175,222,347],[373,374,375,373])])
+leftcrops=[[111,83,314,265],[458,81,714,267],[814,104,1118,269],[1247,77,1444,268]]
+rightcrops=[[113,313,314,493],[443,308,704,494],[817,339,1113,496],[1248,306,1448,494]]
+add('garden-clogs','footwear',[part(F,leftcrops,[45,48,49,45],[205,231,247,205],bottoms=[461,461,461,461],bone='leg_l'),part(F,rightcrops,[45,48,49,45],[306,306,306,306],bottoms=[461,461,461,461],bone='leg_r',flip=[False,True,True,False])],['leg_l','leg_r'])
+leftcrops=[[126,524,306,727],[473,522,709,727],[842,539,1117,729],[1265,520,1433,726]]
+rightcrops=[[121,752,306,958],[464,749,700,958],[814,773,1099,963],[1267,751,1439,954]]
+add('rain-boots','footwear',[part(F,leftcrops,[45,46,48,43],[205,231,247,205],bottoms=[461,461,461,461],bone='leg_l'),part(F,rightcrops,[45,46,48,43],[306,306,306,306],bottoms=[461,461,461,461],bone='leg_r',flip=[False,True,True,False])],['leg_l','leg_r'])
+# Ordering follows runtime backwear then head/ear, neck, sidebag, footwear; only one item per slot.
+outfits={'garden':['usagi.garden-apron','usagi.garden-beret','usagi.daisy-clip','usagi.petal-collar','usagi.seed-pouch','usagi.garden-clogs'],'rain':['usagi.rain-cape','usagi.ear-bow','usagi.pastel-scarf','usagi.rain-satchel','usagi.rain-boots']}
+(ROOT/'recipe.json').write_text(json.dumps({'items':items,'outfits':outfits},indent=2)+'\n')

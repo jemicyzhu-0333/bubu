@@ -1,0 +1,112 @@
+/* 进展页：统计卡、带完成数的热力图与身份行。 */
+
+@layer features {
+/* ---------- STATS ---------- */
+  .stats-summary {
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 6px; margin-bottom: 12px;
+  }
+  .stat-card {
+    background: var(--bg-2);
+    border: 2px solid var(--bg-3);
+    padding: 8px 4px;
+    text-align: center;
+    box-shadow: 2px 2px 0 rgb(var(--shadow-rgb) / 0.4);
+  }
+  .stat-num {
+    font-size: 16px; font-weight: 900;
+    color: var(--cyan-ink);
+    text-shadow: 2px 2px 0 var(--blue-dark);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-label { font-size: 11px; color: var(--fg-2); margin-top: 4px; }
+  .heatmap-title {
+    font-size: 11px; color: var(--fg-1); font-weight: 700;
+    margin-bottom: 6px; letter-spacing: 1px;
+  }
+  .heatmap {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2px;
+    padding: 6px;
+    max-width: 420px;
+    margin: 0 auto;
+    background: var(--bg-1);
+    border: 1px solid var(--bg-3);
+  }
+  .hm-week { display: grid; grid-template-rows: repeat(7, 1fr); gap: 2px; }
+  .hm-cell {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--bg-3);
+    border: 1px solid rgb(var(--shadow-rgb) / 0.3);
+    cursor: pointer;
+    transition: transform 0.1s;
+    position: relative;
+  }
+  .hm-cell[data-completions]::after {
+    content: attr(data-completions);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    min-width: 12px;
+    padding: 0 2px;
+    background: var(--bg-0);
+    color: var(--fg-0);
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 12px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    pointer-events: none;
+  }
+  .hm-cell:hover { filter: brightness(.94); transform: none; }
+  .hm-cell.selected { outline: none; box-shadow: inset 0 0 0 2px var(--primary-ink); }
+  .hm-lv0 { background: #24283b; }
+  .hm-lv1 { background: #3d59a1; }
+  .hm-lv2 { background: #7aa2f7; }
+  .hm-lv3 { background: #f7768e; }
+  .hm-lv4 { background: #e0af68; box-shadow: inset 0 0 4px rgba(255,255,255,0.3); }
+  .heatmap-legend {
+    display: flex; align-items: center; gap: 4px;
+    max-width: 420px;
+    margin: 8px auto 0;
+    font-size: 11px; color: var(--fg-2);
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+  .heatmap-legend .hm-cell { width: 10px; height: 10px; min-height: 10px; aspect-ratio: auto; cursor: default; }
+  .heatmap-legend .hm-cell:hover { filter: brightness(.94); transform: none; }
+  .hm-legend-completions { margin-left: auto; color: var(--fg-1); }
+  .hm-legend-completions b { color: var(--fg-0); }
+  .heatmap-tip {
+    font-size: 11px; color: var(--accent-ink);
+    margin-top: 8px; text-align: center;
+    min-height: 14px;
+    font-weight: 700;
+  }
+  .heatmap-detail {
+    margin-top: 8px;
+    padding: 8px;
+    border: 2px solid var(--bg-3);
+    background: var(--bg-2);
+  }
+  .heatmap-detail.hidden { display: none; }
+  .hm-detail-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .hm-detail-date { font-size: 11px; font-weight: 700; color: var(--fg-0); }
+  .hm-detail-close { font-size: 11px; }
+  .hm-detail-facts { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 6px; font-size: 11px; color: var(--fg-1); }
+  .hm-detail-facts b { color: var(--primary-ink); }
+  .hm-detail-note { margin: 6px 0 0; font-size: 11px; color: var(--fg-2); line-height: 1.5; }
+  .progress-identity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding: 10px;
+    border: 2px solid var(--bg-3);
+    background: var(--bg-2);
+  }
+}

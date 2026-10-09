@@ -1,0 +1,7 @@
+/* ARCHITECTURE「界面层」: surface rules choose an explicit layer.
+   theme.css follows features and only restyles them; utilities remain last. */
+@layer tokens, base, components, features, theme, utilities;
+
+@layer utilities {
+  .hidden { display: none !important; }
+}

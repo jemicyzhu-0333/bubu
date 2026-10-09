@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>I’m ADHDer 表情取帧（开发）</title>
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0;
+    background: #11131c;
+    color: #c0caf5;
+    font: 13px/1.5 'SF Mono', Menlo, Monaco, 'Courier New', monospace;
+    padding: 16px;
+  }
+  #status { white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<div id="status">正在取帧…</div>
+
+<!--
+  依赖顺序与生产渲染一致：先内容注册表，再 stage / 采样器 / face rig / 绘制，
+  最后才是取帧计划与本页脚本。截图必须走生产同一条绘制路径，否则截出来的
+  东西不能用来判断生产渲染对不对。
+
+  这个页面只是把画好的帧交给主进程：没有 preload、没有 IPC、没有联网，
+  CSP 的 connect-src 也是 'none'。
+-->
+
+<script type="module" src="./frames.mjs"></script>
+</body>
+</html>

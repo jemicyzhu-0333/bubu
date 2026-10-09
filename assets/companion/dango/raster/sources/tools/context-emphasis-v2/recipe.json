@@ -1,0 +1,163 @@
+{
+  "version": 2,
+  "master": "master.png",
+  "masterSha256": "06bb7b628a06ea1b0a96ee1d775d4090b4c252f7b42de9e855d89c25d1324a55",
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "alphaPolicy": "Preserve generated RGBA bytes inside explicit rectangular crops. No color removal, alpha thresholding, palette reduction or redraw. Transparent canvas placement only joins the two front cup source crops without resizing; each isolated component has one uniform source-to-art scale. All headband pixels are a back layer, and cups are in front. Low-alpha fringe retained for native light/dark inspection.",
+  "pythonPillow": "12.3.0",
+  "cells": [
+    {
+      "key": "headphones-front-band",
+      "crop": [
+        188,
+        114,
+        605,
+        276
+      ],
+      "scale": 0.174,
+      "anchor": [
+        -3.2,
+        -8
+      ],
+      "rect": [
+        0,
+        0,
+        72.55799999999999,
+        28.188
+      ],
+      "outputSha256": "7a847869137f38197501fefadafa1e73ccc1ba0d1dec0b2463c4d6f0aac8df7a"
+    },
+    {
+      "key": "headphones-front-cups",
+      "canvas": [
+        850,
+        190
+      ],
+      "pieces": [
+        {
+          "crop": [
+            116,
+            251,
+            273,
+            441
+          ],
+          "at": [
+            0,
+            0
+          ]
+        },
+        {
+          "crop": [
+            526,
+            251,
+            676,
+            441
+          ],
+          "at": [
+            700,
+            0
+          ]
+        }
+      ],
+      "scale": 0.095,
+      "anchor": [
+        -7.5,
+        18
+      ],
+      "rect": [
+        0,
+        0,
+        80.75,
+        18.05
+      ],
+      "outputSha256": "8739256fe751a8ee5e7fa56fb4e97b40e04365bd87bb1baf14926309eca6737e"
+    },
+    {
+      "key": "headphones-three-quarter-band",
+      "crop": [
+        946,
+        113,
+        1331,
+        284
+      ],
+      "scale": 0.175,
+      "anchor": [
+        -2,
+        -8
+      ],
+      "rect": [
+        0,
+        0,
+        67.375,
+        29.924999999999997
+      ],
+      "outputSha256": "d09c07f175deda8ea058c5065d81cedd4e2d755d99ce823d23c9a0c2513684ec"
+    },
+    {
+      "key": "headphones-three-quarter-near",
+      "crop": [
+        871,
+        247,
+        1084,
+        459
+      ],
+      "scale": 0.086,
+      "anchor": [
+        -9,
+        17.5
+      ],
+      "rect": [
+        0,
+        0,
+        18.317999999999998,
+        18.232
+      ],
+      "outputSha256": "ca4d4bf14d1f275d372029feb8739f66a64c38c8d86141751c41912e3fe8d816"
+    },
+    {
+      "key": "headphones-three-quarter-far",
+      "crop": [
+        1258,
+        252,
+        1417,
+        432
+      ],
+      "scale": 0.075,
+      "anchor": [
+        62,
+        19
+      ],
+      "rect": [
+        0,
+        0,
+        11.924999999999999,
+        13.5
+      ],
+      "outputSha256": "2e28d4bfed0c080a3b52d543ca36a62c6ec5b785fa4c8dbbe470bfc75512392b"
+    },
+    {
+      "key": "ai-robot-buddy",
+      "crop": [
+        229,
+        542,
+        618,
+        948
+      ],
+      "scale": 0.04627249357326478,
+      "anchor": [
+        78,
+        45.2133676092545
+      ],
+      "rect": [
+        0,
+        0,
+        18.0,
+        18.786632390745503
+      ],
+      "outputSha256": "97c48b26a2ae6a3edd216229ccf4b01ec36cdb8f4c38b961b06770c1c33f6306"
+    }
+  ]
+}

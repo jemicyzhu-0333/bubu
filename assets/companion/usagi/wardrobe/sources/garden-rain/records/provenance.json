@@ -1,0 +1,417 @@
+{
+  "character": "usagi",
+  "identity": "Frozen smooth cream body, long pink ears, controlled dark-brown outline, cheek hatches, two-wave upper lip; original profile one eye",
+  "canonical": [
+    {
+      "view": "front",
+      "path": "references/front.png",
+      "sha256": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3"
+    },
+    {
+      "view": "three-quarter",
+      "path": "references/three-quarter.png",
+      "sha256": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60"
+    },
+    {
+      "view": "profile",
+      "path": "references/profile.png",
+      "sha256": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420"
+    },
+    {
+      "view": "back",
+      "path": "references/back.png",
+      "sha256": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c"
+    }
+  ],
+  "sources": [
+    {
+      "source": "sources/garden-worn.png",
+      "sha256": "0a84a8cef02d7288d1096d84eddf208829579637f0bec52c56837a8ec49be5e9",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "exactPrompt": "prompts/garden-worn.txt",
+      "promptSha256": "27d7d08ac3ec366089406bbdd8278acc307ba4ca03dd50f72d088bcd3598974a",
+      "tool": "image_gen.imagegen",
+      "modelVersion": "unknown",
+      "seed": "unknown",
+      "transparentBackgroundRequested": true,
+      "referenceOrder": [
+        {
+          "path": "references/front.png",
+          "sha256": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3"
+        },
+        {
+          "path": "references/three-quarter.png",
+          "sha256": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60"
+        },
+        {
+          "path": "references/profile.png",
+          "sha256": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420"
+        },
+        {
+          "path": "references/back.png",
+          "sha256": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c"
+        },
+        {
+          "path": "references/wardrobe-reference.png",
+          "sha256": "0e6b34b2cf9e3b40fd8aefdcfc3fd7110e32b4268a3e9dc0efb8147b412f14f8"
+        }
+      ]
+    },
+    {
+      "source": "sources/rain-worn.png",
+      "sha256": "0ac887418bee191b1310663da35844ff5c8cb05454e4ddcd3f4236e8ba996e81",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "exactPrompt": "prompts/rain-worn.txt",
+      "promptSha256": "1a591ea329332c1d9699eed9311153c05152336cf619266dea752b3725849ca2",
+      "tool": "image_gen.imagegen",
+      "modelVersion": "unknown",
+      "seed": "unknown",
+      "transparentBackgroundRequested": true,
+      "referenceOrder": [
+        {
+          "path": "references/front.png",
+          "sha256": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3"
+        },
+        {
+          "path": "references/three-quarter.png",
+          "sha256": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60"
+        },
+        {
+          "path": "references/profile.png",
+          "sha256": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420"
+        },
+        {
+          "path": "references/back.png",
+          "sha256": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c"
+        },
+        {
+          "path": "references/wardrobe-reference.png",
+          "sha256": "0e6b34b2cf9e3b40fd8aefdcfc3fd7110e32b4268a3e9dc0efb8147b412f14f8"
+        }
+      ]
+    },
+    {
+      "source": "sources/garden-extraction.png",
+      "sha256": "162905b46f31887106c33ce3f3588bdce241d7d846b6b8369d9cca5cce5d93da",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "exactPrompt": "prompts/garden-extraction.txt",
+      "promptSha256": "e9df122419eaee34a35048d42cff887de92f0a1b1309007284b07004419fa44a",
+      "tool": "image_gen.imagegen",
+      "modelVersion": "unknown",
+      "seed": "unknown",
+      "transparentBackgroundRequested": true,
+      "referenceOrder": [
+        {
+          "path": "sources/garden-worn.png",
+          "sha256": "0a84a8cef02d7288d1096d84eddf208829579637f0bec52c56837a8ec49be5e9"
+        },
+        {
+          "path": "references/front.png",
+          "sha256": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3"
+        },
+        {
+          "path": "references/three-quarter.png",
+          "sha256": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60"
+        },
+        {
+          "path": "references/profile.png",
+          "sha256": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420"
+        },
+        {
+          "path": "references/back.png",
+          "sha256": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c"
+        }
+      ]
+    },
+    {
+      "source": "sources/rain-extraction.png",
+      "sha256": "5fc057ccf3e55cc4ca2a47176f3b143c63d5f744c9fa07ca1f7b801fc9ee3d5b",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        254
+      ],
+      "exactPrompt": "prompts/rain-extraction.txt",
+      "promptSha256": "0eaabe5f47d8c3e31fe4027f65bc14f5fa90e9740fbc63e0c480ae83b7c0fcc8",
+      "tool": "image_gen.imagegen",
+      "modelVersion": "unknown",
+      "seed": "unknown",
+      "transparentBackgroundRequested": true,
+      "referenceOrder": [
+        {
+          "path": "sources/rain-worn.png",
+          "sha256": "0ac887418bee191b1310663da35844ff5c8cb05454e4ddcd3f4236e8ba996e81"
+        },
+        {
+          "path": "references/front.png",
+          "sha256": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3"
+        },
+        {
+          "path": "references/three-quarter.png",
+          "sha256": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60"
+        },
+        {
+          "path": "references/profile.png",
+          "sha256": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420"
+        },
+        {
+          "path": "references/back.png",
+          "sha256": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c"
+        }
+      ]
+    },
+    {
+      "source": "sources/garden-repair.png",
+      "sha256": "a389769d190fe9e90147cc981ec2829770713765dc9d93e488a73f17061f3de0",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "exactPrompt": "prompts/garden-repair.txt",
+      "promptSha256": "a6876fb59afe0f22106de6f200d23bad26e4f520a77df6dbd60082e4c1d907f0",
+      "tool": "image_gen.imagegen",
+      "modelVersion": "unknown",
+      "seed": "unknown",
+      "transparentBackgroundRequested": true,
+      "referenceOrder": [
+        {
+          "path": "sources/garden-extraction.png",
+          "sha256": "162905b46f31887106c33ce3f3588bdce241d7d846b6b8369d9cca5cce5d93da"
+        }
+      ]
+    },
+    {
+      "source": "sources/footwear-independent.png",
+      "sha256": "4ec0a5cdfb046dfc4f051c15cb3f962ac640f07f9cf13fd43b811a7323345ed3",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        254
+      ],
+      "exactPrompt": "prompts/footwear-independent.txt",
+      "promptSha256": "3f7d8ead7ed2e0782055e3586375c7905fc558c112d30096543a7d77cf2adbef",
+      "tool": "image_gen.imagegen",
+      "modelVersion": "unknown",
+      "seed": "unknown",
+      "transparentBackgroundRequested": true,
+      "referenceOrder": [
+        {
+          "path": "sources/garden-repair.png",
+          "sha256": "a389769d190fe9e90147cc981ec2829770713765dc9d93e488a73f17061f3de0"
+        },
+        {
+          "path": "sources/rain-extraction.png",
+          "sha256": "5fc057ccf3e55cc4ca2a47176f3b143c63d5f744c9fa07ca1f7b801fc9ee3d5b"
+        }
+      ]
+    }
+  ],
+  "generatedBodyDrift": [
+    {
+      "outfit": "garden",
+      "view": "front",
+      "globalHeadRegistration": {
+        "uniformScale": 0.678,
+        "translation": [
+          64,
+          41
+        ]
+      },
+      "sampleRect": [
+        153,
+        235,
+        380,
+        331
+      ],
+      "samplePixels": 21754,
+      "changedFraction": 1.0,
+      "meanAbsoluteRgbDifference": 28.172320799239987,
+      "interpretation": "Registration itself is approximate; confirms generated body is not the canonical. No generated body pixels ship."
+    },
+    {
+      "outfit": "garden",
+      "view": "three-quarter",
+      "globalHeadRegistration": {
+        "uniformScale": 0.704,
+        "translation": [
+          71,
+          45
+        ]
+      },
+      "sampleRect": [
+        153,
+        235,
+        380,
+        331
+      ],
+      "samplePixels": 21792,
+      "changedFraction": 1.0,
+      "meanAbsoluteRgbDifference": 40.87134422418013,
+      "interpretation": "Registration itself is approximate; confirms generated body is not the canonical. No generated body pixels ship."
+    },
+    {
+      "outfit": "garden",
+      "view": "profile",
+      "globalHeadRegistration": {
+        "uniformScale": 0.723,
+        "translation": [
+          83,
+          44
+        ]
+      },
+      "sampleRect": [
+        153,
+        235,
+        380,
+        331
+      ],
+      "samplePixels": 20977,
+      "changedFraction": 1.0,
+      "meanAbsoluteRgbDifference": 31.451303808933595,
+      "interpretation": "Registration itself is approximate; confirms generated body is not the canonical. No generated body pixels ship."
+    },
+    {
+      "outfit": "garden",
+      "view": "back",
+      "globalHeadRegistration": {
+        "uniformScale": 0.68,
+        "translation": [
+          83,
+          48
+        ]
+      },
+      "sampleRect": [
+        153,
+        235,
+        380,
+        331
+      ],
+      "samplePixels": 21776,
+      "changedFraction": 1.0,
+      "meanAbsoluteRgbDifference": 4.059759980406564,
+      "interpretation": "Registration itself is approximate; confirms generated body is not the canonical. No generated body pixels ship."
+    },
+    {
+      "outfit": "rain",
+      "view": "front",
+      "globalHeadRegistration": {
+        "uniformScale": 0.689,
+        "translation": [
+          38,
+          19
+        ]
+      },
+      "sampleRect": [
+        153,
+        235,
+        380,
+        331
+      ],
+      "samplePixels": 21488,
+      "changedFraction": 1.0,
+      "meanAbsoluteRgbDifference": 41.1599342268553,
+      "interpretation": "Registration itself is approximate; confirms generated body is not the canonical. No generated body pixels ship."
+    },
+    {
+      "outfit": "rain",
+      "view": "three-quarter",
+      "globalHeadRegistration": {
+        "uniformScale": 0.718,
+        "translation": [
+          22,
+          14
+        ]
+      },
+      "sampleRect": [
+        153,
+        235,
+        380,
+        331
+      ],
+      "samplePixels": 21541,
+      "changedFraction": 1.0,
+      "meanAbsoluteRgbDifference": 45.96208780155672,
+      "interpretation": "Registration itself is approximate; confirms generated body is not the canonical. No generated body pixels ship."
+    },
+    {
+      "outfit": "rain",
+      "view": "profile",
+      "globalHeadRegistration": {
+        "uniformScale": 0.707,
+        "translation": [
+          51,
+          23
+        ]
+      },
+      "sampleRect": [
+        153,
+        235,
+        380,
+        331
+      ],
+      "samplePixels": 21043,
+      "changedFraction": 1.0,
+      "meanAbsoluteRgbDifference": 30.738741307481504,
+      "interpretation": "Registration itself is approximate; confirms generated body is not the canonical. No generated body pixels ship."
+    },
+    {
+      "outfit": "rain",
+      "view": "back",
+      "globalHeadRegistration": {
+        "uniformScale": 0.703,
+        "translation": [
+          69,
+          22
+        ]
+      },
+      "sampleRect": [
+        153,
+        235,
+        380,
+        331
+      ],
+      "samplePixels": 21545,
+      "changedFraction": 1.0,
+      "meanAbsoluteRgbDifference": 8.269080219695212,
+      "interpretation": "Registration itself is approximate; confirms generated body is not the canonical. No generated body pixels ship."
+    }
+  ],
+  "note": "Generation masters are untouched. All runtime layers contain only accessories; original body PNG remains unchanged. Derivative isolated masters complete independently wearable regions hidden in the co-fit master, not replacement bodies."
+}

@@ -1,0 +1,61 @@
+{
+  "scope": "Identifiable image-generation inputs retained as evidence. Prompt-described identities are evidence for intended references; raw tool attachment argument lists are not claimed unless recorded in an included prompt JSON.",
+  "running": {
+    "image": "references/running/running-approved-512.png",
+    "rawMaster": "references/running/running-master-v1.png",
+    "recordedOriginalImagegenArguments": "references/running/pose-generation-prompts.json",
+    "normalization": "references/running/pose-manifest.json",
+    "usedBy": "body/prompts/limb-cutouts-v1.txt"
+  },
+  "canonicalBodyOrder": [
+    "canonical/front.png",
+    "canonical/three-quarter-right.png",
+    "canonical/back.png"
+  ],
+  "wardrobeRepairs": {
+    "scarf": {
+      "candidateReferenceFiles": [
+        "references/wardrobe/scarf-worn-master.png",
+        "references/wardrobe/scarf-actual-composite.png"
+      ],
+      "attachmentChoice": "Original prompt names an accepted scarf; exact one of these attachments is not recorded"
+    },
+    "scarf-satchel-coequip-v2": {
+      "promptNamedReferences": [
+        "canonical/front.png",
+        "canonical/three-quarter-right.png",
+        "canonical/back.png",
+        "wardrobe/masters/scarf-sheet.png",
+        "wardrobe/masters/satchel-sheet.png"
+      ]
+    },
+    "satchel-outboard-v3": {
+      "promptNamedReferences": [
+        "canonical/front.png",
+        "canonical/three-quarter-right.png",
+        "canonical/back.png",
+        "wardrobe/masters/scarf-satchel-coequip-v2-sheet.png"
+      ]
+    },
+    "cape-coequip-v2": {
+      "promptNamedReferences": [
+        "references/wardrobe/front-scarf-satchel-boots.png",
+        "references/wardrobe/three-quarter-scarf-satchel-boots.png",
+        "references/wardrobe/back-scarf-satchel-boots.png",
+        "wardrobe/masters/cape-sheet.png"
+      ]
+    },
+    "halo-thin-v2": {
+      "promptNamedReferences": [
+        "canonical/front.png",
+        "canonical/three-quarter-right.png",
+        "canonical/back.png",
+        "wardrobe/masters/halo-sheet.png"
+      ]
+    }
+  },
+  "needleRepair": {
+    "promptNamedReference": "tools/masters/craft-observe.png"
+  },
+  "exactToolCallMissing": "For production category image generation, the raw PNG outputs and executed prompt text are saved; tool version, seed and complete reference path arguments are not."
+}

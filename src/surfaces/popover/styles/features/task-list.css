@@ -1,0 +1,235 @@
+/* 任务清单：每一行、行内动作、子项、筛选、状态徽标、溢出菜单与归档那一段。
+   对应 features/task-list.mjs。 */
+
+@layer features {
+/* ---------- TASK LIST ---------- */
+  .task-item {
+    background: var(--bg-2);
+    border: 2px solid var(--bg-3);
+    padding: 8px;
+    margin-bottom: 6px;
+    cursor: default;
+    transition: transform 0.15s, background 0.15s, opacity 0.3s;
+    box-shadow: 2px 2px 0 rgb(var(--shadow-rgb) / 0.4);
+    position: relative;
+    overflow: hidden;
+  }
+  .task-item.new-in { animation: taskIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+  .task-item.menu-open,
+  .task-item.menu-open:hover {
+    transition: none;
+    z-index: 40;
+    overflow: visible;
+    /* A transformed ancestor becomes the containing block for fixed descendants.
+       Keep the viewport-anchored menu out of that context while it is open. */
+    transform: none;
+    animation: none;
+  }
+  @keyframes taskIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .task-item:hover { transform: translate(-1px, -1px); background: var(--bg-3); box-shadow: 3px 3px 0 rgb(var(--shadow-rgb) / 0.5); }
+  .task-item.done { opacity: 0.5; background: var(--bg-1); }
+  .task-item.done .task-title { text-decoration: line-through; color: var(--fg-2); }
+  .task-item.current-focus {
+    border-color: var(--yellow);
+    box-shadow: 2px 2px 0 rgba(224,175,104,0.4), inset 0 0 0 1px rgba(224,175,104,0.3);
+  }
+  .task-header { display: flex; align-items: flex-start; gap: 8px; }
+  .task-checkbox {
+    appearance: none;
+    padding: 0;
+    width: 22px; height: 22px; flex-shrink: 0;
+    border: 2px solid var(--fg-2);
+    background: var(--bg-1);
+    cursor: pointer;
+    position: relative;
+    margin-top: 1px;
+    transition: all 0.15s;
+  }
+  .task-checkbox:hover { border-color: var(--green); }
+  .task-checkbox.checked { background: var(--green); border-color: var(--green-dark); }
+  .task-checkbox.checked::after {
+    content: '✓'; position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink); font-size: 12px; font-weight: 900;
+    animation: check-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes check-pop {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1); }
+  }
+  .task-main { flex: 1; min-width: 0; }
+  .task-title { font-size: 12px; font-weight: 600; color: var(--fg-0); word-break: break-word; line-height: 1.4; }
+  .task-meta {
+    display: flex; gap: 6px; margin-top: 4px;
+    align-items: center; font-size: 11px; color: var(--fg-2);
+    flex-wrap: wrap;
+  }
+  .energy-tag { padding: 1px 4px; border: 1px solid; font-weight: 700; }
+  .energy-tag.low { color: var(--purple-ink); border-color: var(--purple); }
+  .energy-tag.medium { color: var(--accent-ink); border-color: var(--yellow); }
+  .energy-tag.high { color: var(--primary-ink); border-color: var(--pink); }
+  .focus-time { color: var(--cyan-ink); }
+  .focus-badge { color: var(--accent-ink); font-weight: 700; }
+  .task-actions { display: flex; gap: 4px; flex-shrink: 0; position: relative; }
+  .icon-btn.play:hover { border-color: var(--yellow); color: var(--accent-ink); }
+  .task-steps {
+    margin-top: 6px;
+    padding-left: 24px;
+    border-left: 2px dashed var(--bg-3);
+    margin-left: 8px;
+  }
+  .step-item {
+    display: flex; align-items: center; gap: 6px;
+    width: 100%;
+    appearance: none;
+    border: 0;
+    background: transparent;
+    text-align: left;
+    padding: 3px 0;
+    font-size: 11px;
+    color: var(--fg-1);
+    cursor: pointer;
+    min-height: 30px;
+  }
+  .step-item:hover { color: var(--cyan-ink); }
+  .step-check {
+    width: 14px; height: 14px;
+    border: 1px solid var(--fg-2);
+    background: var(--bg-1);
+    flex-shrink: 0;
+    position: relative;
+  }
+  .step-check.checked { background: var(--green); border-color: var(--green-dark); }
+  .step-check.checked::after {
+    content: '✓'; position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: var(--ink); font-weight: 900;
+  }
+  .step-item.done .step-text { text-decoration: line-through; color: var(--fg-2); }
+/* -- 任务筛选（视图状态，不写进任务）-- */
+  .task-filters {
+    display: flex; align-items: center; gap: 4px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+    padding: 4px;
+    background: var(--bg-2);
+    border-left: 3px solid var(--primary);
+  }
+  .filter-chip { font-size: 11px; padding: 3px 6px; }
+  .filter-chip.active { background: var(--primary); color: var(--ink); border-color: var(--primary); }
+  .tag-filters {
+    display: flex; gap: 4px; flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+  .tag-chip { font-size: 11px; padding: 2px 6px; }
+  .tag-chip.active { background: var(--accent); color: var(--ink); border-color: var(--accent); }
+  .group-count {
+    background: var(--bg-3); color: var(--fg-1);
+    padding: 0 5px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+/* -- Task item extras -- */
+  .task-item.skipped { opacity: 0.6; }
+  .task-item.overdue {
+    border-color: #ff5c5c;
+    background: rgba(255,92,92,0.08);
+    animation: overdueShake 0.5s ease-in-out;
+  }
+  @keyframes overdueShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
+  }
+  .task-item.missed-daily {
+    border-color: var(--accent);
+    box-shadow: 2px 2px 0 rgba(224,175,104,0.3);
+  }
+  .badge-ddl {
+    padding: 1px 4px;
+    border: 1px solid;
+    font-weight: 700;
+    font-size: 11px;
+  }
+  .badge-ddl.ok { color: var(--cyan-ink); border-color: var(--cyan); }
+  .badge-ddl.warn { color: var(--accent-ink); border-color: var(--accent); }
+  .badge-ddl.late { color: #ff5c5c; border-color: #ff5c5c; }
+  .badge-missed {
+    padding: 1px 4px;
+    background: var(--accent);
+    color: var(--ink);
+    font-weight: 900;
+    font-size: 11px;
+    border: 1px solid var(--accent-dark);
+  }
+/* 临时任务已过期 */
+  .task-item.expired {
+    border-color: var(--fg-2);
+    background: var(--bg-1);
+    opacity: 0.72;
+  }
+  .task-item.expired .task-title { color: var(--fg-2); }
+  .icon-btn.cat:hover { border-color: var(--cyan); color: var(--cyan-ink); }
+  .icon-btn.renew { border-color: var(--accent); color: var(--accent-ink); }
+  .icon-btn.renew:hover { background: var(--accent); color: var(--ink); }
+  .energy-tag.auto {
+    border-style: dashed;
+    opacity: 0.85;
+  }
+  .archive-panel {
+    margin-top: 14px;
+    border-top: 2px dashed var(--bg-3);
+    padding: 8px 4px 0;
+    color: var(--fg-1);
+  }
+  .archive-panel summary { cursor: pointer; font-size: 11px; font-weight: 900; color: var(--fg-2); }
+  .archive-hint { margin: 6px 0; color: var(--fg-2); font-size: 11px; }
+  .archive-list { display: grid; gap: 5px; }
+  .archive-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 6px 8px;
+    border: 1px solid var(--bg-3);
+    background: var(--bg-1);
+  }
+  .archive-task-copy { display: flex; min-width: 0; flex-direction: column; gap: 2px; }
+  .archive-task-title { overflow: hidden; color: var(--fg-1); text-overflow: ellipsis; white-space: nowrap; }
+  .archive-task-meta { color: var(--fg-2); font-size: 11px; }
+  .archive-empty { padding: 8px; color: var(--fg-2); font-size: 11px; text-align: center; }
+/* 溢出菜单：卡片右侧只留 ⚡ 之后，其余动作在这里带着文字出现，不用猜符号。 */
+  .task-menu {
+    position: fixed;
+    z-index: 200;
+    min-width: 164px;
+    display: grid;
+    gap: 2px;
+    padding: 4px;
+    border: 2px solid var(--bg-3);
+    background: var(--bg-2);
+    box-shadow: 0 4px 0 rgb(var(--shadow-rgb) / 0.35);
+    white-space: nowrap;
+    overflow-y: auto;
+  }
+  .task-menu.hidden { display: none; }
+  .task-menu button {
+    font: inherit;
+    font-size: 11px;
+    text-align: left;
+    color: var(--fg-0);
+    background: var(--bg-1);
+    border: 1px solid transparent;
+    padding: 6px 7px;
+    cursor: pointer;
+  }
+  .task-menu button:hover, .task-menu button:focus-visible {
+    border-color: var(--pink);
+    color: var(--primary-ink);
+    outline: none;
+  }
+}

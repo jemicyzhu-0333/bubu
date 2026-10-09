@@ -1,0 +1,183 @@
+{
+  "format": "usagi-garment-generation-provenance-v1",
+  "date": "2026-10-02",
+  "tool": "built-in image_gen.imagegen",
+  "modelVersion": "not reported",
+  "seed": "not reported",
+  "environment": {
+    "python": "3.12.14",
+    "pillow": "12.3.0",
+    "numpy": "2.3.5"
+  },
+  "scope": [
+    "usagi.star-collar",
+    "usagi.starlit-cape",
+    "usagi.envelope-pouch"
+  ],
+  "immutableBody": {
+    "source": "Current frozen native Usagi artist, neutral rest; no redesign",
+    "canvas": [
+      512,
+      512
+    ],
+    "transform": {
+      "scale": 4.2,
+      "x": 117.4,
+      "y": 175
+    },
+    "views": {
+      "front": {
+        "path": "front.png",
+        "sha256": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3"
+      },
+      "three-quarter": {
+        "path": "three-quarter.png",
+        "sha256": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60"
+      },
+      "profile": {
+        "path": "profile.png",
+        "sha256": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420"
+      },
+      "back": {
+        "path": "back.png",
+        "sha256": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c"
+      }
+    }
+  },
+  "generations": [
+    {
+      "name": "moon-worn-depth-v1",
+      "output": "masters/moon-worn-depth-v1.png",
+      "sha256": "430282e37078c0ac43793268475e75cc397e1a03538c45765e92c5a6af7ee13a",
+      "dimensions": [
+        2164,
+        727
+      ],
+      "mode": "RGBA",
+      "prompt": "prompts/moon-worn-depth-v1.txt",
+      "promptSha256": "5a462c93cf66a442bebc69f889742523cc567775b9c5b95af5d305cd5b4911ba",
+      "referencesInAttachmentOrder": [
+        "rain-depth-v2-20261002/derived/canonical-exact-four-view.png",
+        "moon/masters/moon-collar-only-v1.png",
+        "moon/masters/moon-cape-only-v1.png",
+        "moon/masters/moon-post-v1.png"
+      ],
+      "assessment": "Generated wear relationship only; body identity drift remains, so this image is never used for body pixels.",
+      "transparencyRequested": true
+    },
+    {
+      "name": "moon-layers-v1",
+      "output": "masters/moon-layers-v1.png",
+      "sha256": "b8e5db4e665c9c16593c1dfec6f9889c5a697269ddb4d8f50ea0fd9f2594e094",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "prompt": "prompts/moon-layers-v1.txt",
+      "promptSha256": "44061def739f0036ad4e7f2806e8aa05d42175ffc034c86a3bd2857a86daa877",
+      "referencesInAttachmentOrder": [
+        "moon-depth-v2-20261002/masters/moon-worn-depth-v1.png"
+      ],
+      "assessment": "Accepted cape; initial collar too broad and centered handbag loop rejected. Their replacements are collar-v3 and bag-v2.",
+      "transparencyRequested": true
+    },
+    {
+      "name": "moon-collar-layers-v2",
+      "output": "masters/moon-collar-layers-v2.png",
+      "sha256": "3156acdb3ee74cbffb890ee5dd1c06f316926da4f86070152ad3f4a6e67e830f",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "prompt": "prompts/moon-collar-layers-v2.txt",
+      "promptSha256": "5c4d52f4fca67773aae6e7983586cae7196814883905c249ea1b688dfae24f5d",
+      "referencesInAttachmentOrder": [
+        "moon-depth-v2-20261002/masters/moon-layers-v1.png"
+      ],
+      "assessment": "Rejected: band remains too broad.",
+      "transparencyRequested": true
+    },
+    {
+      "name": "moon-collar-layers-v3",
+      "output": "masters/moon-collar-layers-v3.png",
+      "sha256": "66a5cec21a854dbea1ab21859370593c076e2fedeb0e14c77bb95a037ceac0ec",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "prompt": "prompts/moon-collar-layers-v3.txt",
+      "promptSha256": "0ecf062d03856e85aaf6fd15f5c06bd1bb79af914e8191df9dcb4acd81086b23",
+      "referencesInAttachmentOrder": [
+        "moon/masters/moon-collar-only-v1.png"
+      ],
+      "assessment": "Accepted thin collar. Four independently authored views, no hands or body pixels.",
+      "transparencyRequested": true
+    },
+    {
+      "name": "moon-bag-layers-v2",
+      "output": "masters/moon-bag-layers-v2.png",
+      "sha256": "6cb48f14eb1237a0aefcad3a2093682a5c55ac8e16a6f95ccae59acbc144a0c4",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "prompt": "prompts/moon-bag-layers-v2.txt",
+      "promptSha256": "66add45fc8832ecf580adabc654bbff1b0a6a62d72398cb55d85f19cdf00ca2b",
+      "referencesInAttachmentOrder": [
+        "rain-depth-v2-20261002/derived/canonical-exact-four-view.png",
+        "moon-depth-v2-20261002/masters/moon-layers-v1.png"
+      ],
+      "assessment": "Accepted cross-body strap and hip-offset pouch. Previous centered handbag loops rejected. Front pouch is camera-near, other views recede.",
+      "transparencyRequested": true
+    }
+  ],
+  "referenceIdentities": [
+    {
+      "pathRelativeToSources": "rain-depth-v2-20261002/derived/canonical-exact-four-view.png",
+      "sha256": "28cc795b04d2b0dd214dfa166ca46d531f49b671dcc1557407cc172de37a0702",
+      "dimensions": [
+        2048,
+        688
+      ]
+    },
+    {
+      "pathRelativeToSources": "moon/masters/moon-collar-only-v1.png",
+      "sha256": "f4920c231b4ce5d237d0ff53854b319e2aa787b0fd3bbe34424421ce544aa05f",
+      "dimensions": [
+        1321,
+        1191
+      ]
+    },
+    {
+      "pathRelativeToSources": "moon/masters/moon-cape-only-v1.png",
+      "sha256": "0755997456b3125f1238577578e9715e32071134aea635d3cb6de9363271e8f0",
+      "dimensions": [
+        1321,
+        1191
+      ]
+    },
+    {
+      "pathRelativeToSources": "moon/masters/moon-post-v1.png",
+      "sha256": "dd82018393022b51d662b823dd218ca99dc4c9ff26b59b907d8dafd2545b2f0d",
+      "dimensions": [
+        1320,
+        1191
+      ]
+    },
+    {
+      "role": "user fit feedback screenshot",
+      "path": "authoring-workspace/occlusion-feedback/one/e4b7c2f1-9008-4558-94cb-2a1915a51419.png",
+      "sha256": "f11f4cb493c7d0956a94dc8457c75c48583526e5eca94d5b71071444290d7f04"
+    }
+  ],
+  "deterministicProcessing": "Preserved generated RGBA. Crop-local largest 8-connected alpha>=96 support with dilation3 keeps source edge; no white/color deletion. Single uniform Lanczos scale per view. Body-depth polygons split latent full cloth; no static hand-hole subtraction.",
+  "candidateAdjustments": [
+    "Shortened cape by one uniform scale per view and moved it upward to clear feet.",
+    "Kept near collar arc and ribbons intact, only tiny lateral ends recede; avoids interior chopped edge.",
+    "Front pouch face near; long cross-body strap far. Three-quarter/profile/back bag and strap far; body/tail hide intended portions."
+  ]
+}

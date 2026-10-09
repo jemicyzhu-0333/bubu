@@ -1,0 +1,86 @@
+{
+  "status": "runtime-integrated; focused tests passed; static production-renderer fit independently reviewed; cycle capture pending",
+  "generation": "built-in image_gen tool; no seed or model version exposed",
+  "attachmentOrder": [
+    "worn-reference.png",
+    "../masters/small-hands-approved-v2.png"
+  ],
+  "canonicalAnatomy": {
+    "path": "../masters/small-hands-approved-v2.png",
+    "sha256": "0dec495233f3bc4869211a19fedb376a191b61dab55d42c131636467828b7666"
+  },
+  "files": {
+    "master-initial.png": {
+      "sha256": "b590099dba9d810b487a0656353b13f3527a6528fd827343e3cfa4da5d036b0d"
+    },
+    "master-small-cups.png": {
+      "sha256": "7266eb690039491330342090b5141b1dca504420b2c633b1d3aae3a81cdba6b2"
+    },
+    "master.png": {
+      "sha256": "59d16744c5d8e0dbcf3eb2ac1041263386539416e4312d9a9564e2fd956f0b55"
+    },
+    "prompt.txt": {
+      "sha256": "9c3dd3563449dd553434b453103d0d3a10112eb90e9344be6421bd8e0fe2c99e"
+    },
+    "recipe.json": {
+      "sha256": "ff8ef35bbca87306f3725096ec9d87006974fc3ce65e1ce87bc576eaed759fa4"
+    },
+    "repair-shallow-band-prompt.txt": {
+      "sha256": "c9325c53945280ccd548343011d86810ad406a85b80495f7ea2e8d966eb04759"
+    },
+    "repair-small-cups-prompt.txt": {
+      "sha256": "b081d133cb37c467499dc99704a972e38306831adbccf7dd98e95b046fd54f96"
+    },
+    "worn-reference.png": {
+      "sha256": "87e1a92c0f1a8c45c2bd206cdd8ac0c2ea090e027760973cffa2863a7096a39a"
+    }
+  },
+  "productionViews": [
+    "front",
+    "three-quarter (profile compatibility)"
+  ],
+  "artSpace": 66,
+  "nativeBodyDesignWidthCssPx": 99,
+  "mirror": "renderer facing, not new drawn angle",
+  "preserved": [
+    "all existing body/face/ears/feet assets",
+    "all wardrobe assets and IDs",
+    "reverse exterior laptop",
+    "small-fin open-root paw",
+    "mirror-music 24000ms",
+    "mirror-ai 30000ms"
+  ],
+  "runtimeHeadphoneFit": {
+    "front": {
+      "backBandOrigin": [
+        -6,
+        7
+      ],
+      "frontCupsOrigin": [
+        -6,
+        7
+      ],
+      "touchingPaw": "right"
+    },
+    "three-quarter": {
+      "backBandOrigin": [
+        -6,
+        7
+      ],
+      "nearCupOrigin": [
+        -6,
+        17.840255591054316
+      ],
+      "farCupOrigin": [
+        62.8,
+        22
+      ],
+      "farCupUniformScale": 0.8,
+      "touchingPaw": "left"
+    },
+    "clothes": "No suppression. Band behind body/ears/hat. Cups avoid protected eyes. Existing boots inherit actual foot matrices."
+  },
+  "reproduction": "python tools/dango-raster/generation/extract-mirror-headphones.py NEW_DIRECTORY; node tools/dango-raster/assemble.mjs --check",
+  "python": "3.12.14",
+  "pillow": "12.3.0"
+}

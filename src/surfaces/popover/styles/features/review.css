@@ -1,0 +1,58 @@
+/* 每日回顾：回顾卡、事实分组与「试个小办法」那张策略卡。对应 features/review.js。 */
+
+@layer features {
+  .review-strip {
+    margin: 8px 12px;
+    padding: 9px;
+    border: 2px solid var(--bg-3);
+    background: var(--bg-1);
+  }
+  .strategy-card { margin-top: 8px; padding: 8px; border-left: 3px solid var(--cyan); background: var(--bg-2); }
+  .strategy-copy { color: var(--fg-0); font-size: 11px; line-height: 1.6; font-weight: 800; }
+/* 针对这件事的下一步：策略卡上方那一块。边色用 yellow 而不是 cyan，
+   因为它和策略卡是两种东西——一条针对这件事，一条通用。 */
+  .unstick-block {
+    margin-top: 8px;
+    padding: 8px;
+    border-left: 3px solid var(--yellow);
+    background: var(--bg-2);
+  }
+  .unstick-head { color: var(--accent-ink); font-size: 11px; font-weight: 900; }
+  .unstick-action { margin-top: 5px; color: var(--fg-0); font-size: 11px; font-weight: 800; line-height: 1.6; }
+  .unstick-why,
+  .unstick-fallback { margin-top: 4px; color: var(--fg-1); font-size: 11px; line-height: 1.5; }
+  .unstick-pending { margin-top: 5px; color: var(--fg-2); font-size: 11px; line-height: 1.5; }
+  .unstick-steps { list-style: none; margin-top: 5px; display: flex; flex-direction: column; gap: 3px; }
+  .unstick-steps li { color: var(--fg-1); font-size: 11px; line-height: 1.5; }
+  .unstick-steps li::before { content: '· '; color: var(--accent-ink); font-weight: 900; }
+  .unstick-source { margin-top: 5px; color: var(--fg-2); font-size: 11px; font-weight: 900; }
+  .review-card-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 5px 0; }
+  .review-facts { display: flex; flex-direction: column; gap: 8px; }
+  .review-fact-group { padding: 7px; background: var(--bg-2); border: 1px solid var(--bg-3); }
+  .review-fact-group h3 { margin-bottom: 5px; color: var(--accent-ink); font-size: 11px; }
+  .review-fact-group label { display: block; margin: 4px 0; color: var(--fg-1); font-size: 11px; line-height: 1.4; }
+}
+
+@layer features {
+  .finish-toast {
+    bottom: 72px; border: 1px solid var(--line-strong); border-radius: 12px; padding: 10px 16px;
+    box-shadow: var(--card-shadow); overflow: hidden;
+  }
+  .finish-toast.has-undo { pointer-events: auto; display: flex; align-items: center; gap: 14px; padding-bottom: 13px; }
+  .finish-undo {
+    border: 1px solid color-mix(in srgb, var(--primary) 55%, transparent); border-radius: 999px;
+    background: transparent; color: var(--primary-ink); font: inherit; font-size: 12px; font-weight: 600;
+    padding: 3px 12px; cursor: pointer;
+  }
+  .finish-undo:hover, .finish-undo:focus-visible { background: color-mix(in srgb, var(--primary) 16%, transparent); outline: none; }
+  .finish-undo:disabled { opacity: 0.5; cursor: default; }
+  .finish-undo-bar {
+    position: absolute; left: 0; bottom: 0; height: 3px; width: 100%;
+    background: var(--primary); transform-origin: left center;
+    animation: finish-undo-drain linear forwards;
+  }
+  @keyframes finish-undo-drain { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+  @media (prefers-reduced-motion: reduce) { .finish-undo-bar { animation: none; transform: scaleX(0.5); } }
+}
+
+/* ---------- 浅色外观 ----------

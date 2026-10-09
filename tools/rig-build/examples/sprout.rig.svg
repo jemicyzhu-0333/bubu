@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  芽芽 (Sprout): an original demo character and the layering template for
+  FocusPix rigs. Free to copy, edit and redistribute under the repository's
+  MIT license. See docs/PET_RIG.md for the marker vocabulary.
+
+  Art space: the 66-unit body box of the long-eared form. Feet rest near
+  y=64; ears may reach y=-28. The viewBox equals the form's artBounds.
+  Palette: ink #3f4a3a, body #eaf4d3, shade #d5e6b5, leaf #8fce7a/#6fb35e.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-15 -31 96 113" width="384" height="452"
+     data-rig-id="sprout" data-rig-version="1" data-rig-form="usagi" data-rig-name="芽芽">
+
+  <!-- ============================ FRONT ============================ -->
+  <g data-view="front">
+    <g data-bone="root" data-pivot="33,64">
+      <g data-bone="body" data-pivot="33,64">
+
+        <!-- Behind the body: feet and the two sprout leaves (ears). -->
+        <g data-bone="leg_l" data-pivot="22,60" data-layer="back">
+          <ellipse cx="22" cy="62" rx="7" ry="4" fill="#eaf4d3" stroke="#3f4a3a" stroke-width="2"/>
+        </g>
+        <g data-bone="leg_r" data-pivot="44,60" data-layer="back">
+          <ellipse cx="44" cy="62" rx="7" ry="4" fill="#eaf4d3" stroke="#3f4a3a" stroke-width="2"/>
+        </g>
+        <g data-bone="ear_l" data-pivot="32,15" data-layer="back">
+          <path d="M32 16 Q30 8 26 2" fill="none" stroke="#5a9a4c" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M26 2 C18 4 11 -2 9 -10 C17 -12 25 -8 26 2 Z" fill="#8fce7a" stroke="#3f4a3a" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M25 0 Q18 -4 12 -9" fill="none" stroke="#6fb35e" stroke-width="1.2" stroke-linecap="round"/>
+        </g>
+        <g data-bone="ear_r" data-pivot="34,15" data-layer="back">
+          <path d="M34 16 Q36 7 40 0" fill="none" stroke="#5a9a4c" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M40 0 C41 -10 50 -16 60 -15 C59 -6 50 1 40 0 Z" fill="#8fce7a" stroke="#3f4a3a" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M42 -2 Q50 -9 57 -13" fill="none" stroke="#6fb35e" stroke-width="1.2" stroke-linecap="round"/>
+          <circle data-anchor="usagi.earwear" cx="44" cy="-6" r="1.5" fill="none"/>
+        </g>
+
+        <!-- Cached body: silhouette, belly, cheeks. Never moves on its own. -->
+        <g data-layer="body">
+          <path d="M33 13 C49 13 58 25 58 40 C58 55 48 63 33 63 C18 63 8 55 8 40 C8 25 17 13 33 13 Z"
+                fill="#eaf4d3" stroke="#3f4a3a" stroke-width="2.4"/>
+          <ellipse cx="33" cy="51" rx="15" ry="9" fill="#f7fbe9"/>
+          <path d="M14 55 C22 62 44 62 52 55 C45 61 21 63 14 55 Z" fill="#d5e6b5"/>
+          <ellipse cx="15" cy="37.5" rx="4" ry="2.4" fill="#f4b6b0" opacity="0.85"/>
+          <ellipse cx="51" cy="37.5" rx="4" ry="2.4" fill="#f4b6b0" opacity="0.85"/>
+        </g>
+
+        <!-- Face states. Hidden groups are fine; the builder keeps them. -->
+        <g data-face="eyes:neutral">
+          <g data-pupil="">
+            <ellipse cx="23" cy="30" rx="2.8" ry="3.4" fill="#2f3a2c"/>
+            <ellipse cx="43" cy="30" rx="2.8" ry="3.4" fill="#2f3a2c"/>
+            <circle cx="22.2" cy="28.7" r="0.95" fill="#ffffff"/>
+            <circle cx="42.2" cy="28.7" r="0.95" fill="#ffffff"/>
+          </g>
+        </g>
+        <g data-face="eyes:wide" style="display:none">
+          <g data-pupil="">
+            <ellipse cx="23" cy="29.5" rx="3.3" ry="4" fill="#2f3a2c"/>
+            <ellipse cx="43" cy="29.5" rx="3.3" ry="4" fill="#2f3a2c"/>
+            <circle cx="22" cy="28" r="1.2" fill="#ffffff"/>
+            <circle cx="42" cy="28" r="1.2" fill="#ffffff"/>
+          </g>
+        </g>
+        <g data-face="eyes:sparkle" style="display:none">
+          <g data-pupil="">
+            <ellipse cx="23" cy="29.5" rx="3.3" ry="4" fill="#2f3a2c"/>
+            <ellipse cx="43" cy="29.5" rx="3.3" ry="4" fill="#2f3a2c"/>
+            <circle cx="22" cy="28" r="1.3" fill="#ffffff"/>
+            <circle cx="42" cy="28" r="1.3" fill="#ffffff"/>
+            <circle cx="24.2" cy="31.3" r="0.7" fill="#ffffff"/>
+            <circle cx="44.2" cy="31.3" r="0.7" fill="#ffffff"/>
+          </g>
+        </g>
+        <g data-face="eyes:closed" style="display:none" fill="none" stroke="#2f3a2c" stroke-width="1.8" stroke-linecap="round">
+          <path d="M20 30 Q23 32.6 26 30"/>
+          <path d="M40 30 Q43 32.6 46 30"/>
+        </g>
+        <g data-face="eyes:smile" style="display:none" fill="none" stroke="#2f3a2c" stroke-width="1.8" stroke-linecap="round">
+          <path d="M20 31 Q23 27.4 26 31"/>
+          <path d="M40 31 Q43 27.4 46 31"/>
+        </g>
+        <g data-face="eyes:sleepy" style="display:none" fill="none" stroke="#2f3a2c" stroke-width="1.8" stroke-linecap="round">
+          <path d="M20 30.5 Q23 31.8 26 30.8"/>
+          <path d="M40 30.8 Q43 31.8 46 30.5"/>
+        </g>
+        <g data-face="eyes:half" style="display:none">
+          <path d="M20.2 29.4 L25.8 29.4 L25.8 30.2 Q23 34 20.2 30.2 Z" fill="#2f3a2c"/>
+          <path d="M40.2 29.4 L45.8 29.4 L45.8 30.2 Q43 34 40.2 30.2 Z" fill="#2f3a2c"/>
+        </g>
+
+        <g data-face="mouth:neutral" fill="none" stroke="#3f4a3a" stroke-width="1.5" stroke-linecap="round">
+          <path d="M30 38.8 Q31.5 40.8 33 39.2 Q34.5 40.8 36 38.8"/>
+        </g>
+        <g data-face="mouth:smile" style="display:none" fill="none" stroke="#3f4a3a" stroke-width="1.6" stroke-linecap="round">
+          <path d="M29.5 38.4 Q33 42.6 36.5 38.4"/>
+        </g>
+        <g data-face="mouth:open" style="display:none">
+          <ellipse cx="33" cy="40" rx="2.6" ry="2.9" fill="#b5575a" stroke="#3f4a3a" stroke-width="1.4"/>
+          <ellipse cx="33" cy="41.6" rx="1.4" ry="0.8" fill="#f2a3a0"/>
+        </g>
+        <g data-face="mouth:talk" style="display:none">
+          <ellipse cx="33" cy="39.8" rx="2.2" ry="1.7" fill="#b5575a" stroke="#3f4a3a" stroke-width="1.3"/>
+        </g>
+
+        <!-- In front: arms (hands at the ends), props held by a hand. -->
+        <g data-bone="arm_l" data-pivot="12,41" data-layer="front">
+          <g data-bone="hand_l" data-pivot="9,48">
+            <ellipse cx="9" cy="48" rx="4.4" ry="4" fill="#eaf4d3" stroke="#3f4a3a" stroke-width="1.9"/>
+            <ellipse cx="7.8" cy="47" rx="1.4" ry="0.9" fill="#ffffff"/>
+          </g>
+        </g>
+        <g data-bone="arm_r" data-pivot="54,41" data-layer="front">
+          <g data-bone="hand_r" data-pivot="57,48">
+            <ellipse cx="57" cy="48" rx="4.4" ry="4" fill="#eaf4d3" stroke="#3f4a3a" stroke-width="1.9"/>
+            <ellipse cx="55.8" cy="47" rx="1.4" ry="0.9" fill="#ffffff"/>
+            <g data-prop="cup" style="display:none">
+              <path d="M53 45 L61 45 L60 53 Q57 55 54 53 Z" fill="#fdf6ea" stroke="#3f4a3a" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M61 47 Q64.5 47.5 60.6 51" fill="none" stroke="#3f4a3a" stroke-width="1.3"/>
+              <path d="M54 46.5 L60 46.5" stroke="#b7865b" stroke-width="1.6"/>
+            </g>
+            <g data-prop="pen" style="display:none">
+              <path d="M56 50 L63 37" stroke="#3f4a3a" stroke-width="3" stroke-linecap="round"/>
+              <path d="M56 50 L63 37" stroke="#e6bd67" stroke-width="1.6" stroke-linecap="round"/>
+            </g>
+            <g data-prop="shovel" style="display:none">
+              <path d="M57 48 L63 62" stroke="#806d77" stroke-width="2" stroke-linecap="round"/>
+              <path d="M60 61 Q63 68 67 63 L65 58 Z" fill="#8ed7ce" stroke="#3f4a3a" stroke-width="1.4" stroke-linejoin="round"/>
+            </g>
+          </g>
+        </g>
+
+        <!-- Props held in front of the belly follow the root. -->
+        <g data-prop="book" style="display:none">
+          <path d="M20 43 Q27 41.5 33 45 Q39 41.5 46 43 L46 55 Q39 53 33 57 Q27 53 20 55 Z"
+                fill="#8ed7ce" stroke="#3f4a3a" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M33 45 L33 56" stroke="#579f98" stroke-width="1"/>
+        </g>
+        <g data-prop="paper" style="display:none">
+          <path d="M22 50 L46 50 L44 57 L20 57 Z" fill="#fffaf0" stroke="#3f4a3a" stroke-width="1.3" stroke-linejoin="round"/>
+          <path d="M24 53 L38 53" stroke="#9aa39a" stroke-width="0.9" stroke-linecap="round"/>
+        </g>
+        <g data-prop="snack" style="display:none">
+          <circle cx="33" cy="45" r="4.4" fill="#e6bd67" stroke="#3f4a3a" stroke-width="1.4"/>
+          <circle cx="31.6" cy="44" r="0.8" fill="#9c6b3c"/>
+          <circle cx="34.6" cy="46" r="0.8" fill="#9c6b3c"/>
+        </g>
+        <g data-prop="blanket" style="display:none">
+          <path d="M6 50 Q33 43 60 50 L59 62 Q33 67 7 62 Z" fill="#a5c0d4" stroke="#3f4a3a" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M10 55 Q33 50 56 55" fill="none" stroke="#6c8ca2" stroke-width="1"/>
+        </g>
+
+        <circle data-anchor="usagi.neckwear" cx="33" cy="47" r="1.5" fill="none"/>
+        <circle data-anchor="usagi.backwear" cx="33" cy="47" r="1.5" fill="none"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- =========================== PROFILE =========================== -->
+  <!-- Three-quarter is left undrawn on purpose: it falls back to profile. -->
+  <g data-view="profile">
+    <g data-bone="root" data-pivot="33,64">
+      <g data-bone="body" data-pivot="33,64">
+        <g data-bone="leg_l" data-pivot="26,60" data-layer="back">
+          <ellipse cx="26" cy="62" rx="7" ry="4" fill="#d5e6b5" stroke="#3f4a3a" stroke-width="2"/>
+        </g>
+        <g data-bone="leg_r" data-pivot="44,60" data-layer="back">
+          <ellipse cx="45" cy="62" rx="7" ry="4" fill="#eaf4d3" stroke="#3f4a3a" stroke-width="2"/>
+        </g>
+        <g data-bone="ear_l" data-pivot="31,15" data-layer="back">
+          <path d="M31 16 Q29 8 25 2" fill="none" stroke="#5a9a4c" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M25 2 C17 4 10 -2 8 -10 C16 -12 24 -8 25 2 Z" fill="#6fb35e" stroke="#3f4a3a" stroke-width="2" stroke-linejoin="round"/>
+        </g>
+        <g data-bone="ear_r" data-pivot="33,15" data-layer="back">
+          <path d="M33 16 Q35 7 39 0" fill="none" stroke="#5a9a4c" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M39 0 C40 -10 49 -16 59 -15 C58 -6 49 1 39 0 Z" fill="#8fce7a" stroke="#3f4a3a" stroke-width="2" stroke-linejoin="round"/>
+          <circle data-anchor="usagi.earwear" cx="43" cy="-6" r="1.5" fill="none"/>
+        </g>
+        <g data-layer="body">
+          <path d="M31 13 C47 13 60 25 60 40 C60 55 49 63 33 63 C18 63 7 55 8 40 C9 25 17 13 31 13 Z"
+                fill="#eaf4d3" stroke="#3f4a3a" stroke-width="2.4"/>
+          <ellipse cx="38" cy="51" rx="14" ry="9" fill="#f7fbe9"/>
+          <ellipse cx="49" cy="37.5" rx="3.6" ry="2.3" fill="#f4b6b0" opacity="0.85"/>
+        </g>
+        <g data-face="eyes:neutral">
+          <g data-pupil="">
+            <ellipse cx="45" cy="30" rx="2.5" ry="3.3" fill="#2f3a2c"/>
+            <circle cx="44.3" cy="28.8" r="0.85" fill="#ffffff"/>
+          </g>
+        </g>
+        <g data-face="eyes:closed" style="display:none">
+          <path d="M42.4 30 Q45 32.4 47.6 30" fill="none" stroke="#2f3a2c" stroke-width="1.8" stroke-linecap="round"/>
+        </g>
+        <g data-face="eyes:smile" style="display:none">
+          <path d="M42.4 31 Q45 27.6 47.6 31" fill="none" stroke="#2f3a2c" stroke-width="1.8" stroke-linecap="round"/>
+        </g>
+        <g data-face="mouth:neutral">
+          <path d="M50 38.5 Q51.5 40.4 53.5 38.8" fill="none" stroke="#3f4a3a" stroke-width="1.5" stroke-linecap="round"/>
+        </g>
+        <g data-face="mouth:open" style="display:none">
+          <ellipse cx="52" cy="39.6" rx="2" ry="2.4" fill="#b5575a" stroke="#3f4a3a" stroke-width="1.3"/>
+        </g>
+        <g data-bone="arm_r" data-pivot="40,42" data-layer="front">
+          <g data-bone="hand_r" data-pivot="43,49">
+            <ellipse cx="43" cy="49" rx="4.4" ry="4" fill="#eaf4d3" stroke="#3f4a3a" stroke-width="1.9"/>
+            <g data-prop="cup" style="display:none">
+              <path d="M39 46 L47 46 L46 54 Q43 56 40 54 Z" fill="#fdf6ea" stroke="#3f4a3a" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M47 48 Q50.5 48.5 46.6 52" fill="none" stroke="#3f4a3a" stroke-width="1.3"/>
+            </g>
+          </g>
+        </g>
+        <circle data-anchor="usagi.neckwear" cx="44" cy="47" r="1.5" fill="none"/>
+        <circle data-anchor="usagi.backwear" cx="30" cy="47" r="1.5" fill="none"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- ============================= BACK ============================ -->
+  <g data-view="back">
+    <g data-bone="root" data-pivot="33,64">
+      <g data-bone="body" data-pivot="33,64">
+        <g data-bone="arm_l" data-pivot="12,41" data-layer="back">
+          <ellipse cx="9" cy="48" rx="4.4" ry="4" fill="#eaf4d3" stroke="#3f4a3a" stroke-width="1.9"/>
+        </g>
+        <g data-bone="arm_r" data-pivot="54,41" data-layer="back">
+          <ellipse cx="57" cy="48" rx="4.4" ry="4" fill="#eaf4d3" stroke="#3f4a3a" stroke-width="1.9"/>
+        </g>
+        <g data-layer="body">
+          <ellipse cx="22" cy="62" rx="7" ry="4" fill="#d5e6b5" stroke="#3f4a3a" stroke-width="2"/>
+          <ellipse cx="44" cy="62" rx="7" ry="4" fill="#d5e6b5" stroke="#3f4a3a" stroke-width="2"/>
+          <path d="M33 13 C49 13 58 25 58 40 C58 55 48 63 33 63 C18 63 8 55 8 40 C8 25 17 13 33 13 Z"
+                fill="#e2eecb" stroke="#3f4a3a" stroke-width="2.4"/>
+          <path d="M33 40 C28 38 26 33 28 29 C32 31 34 35 33 40 Z" fill="#8fce7a" stroke="#3f4a3a" stroke-width="1.3"/>
+        </g>
+        <g data-bone="ear_l" data-pivot="32,15" data-layer="front">
+          <path d="M32 16 Q30 8 26 2" fill="none" stroke="#5a9a4c" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M26 2 C18 4 11 -2 9 -10 C17 -12 25 -8 26 2 Z" fill="#6fb35e" stroke="#3f4a3a" stroke-width="2" stroke-linejoin="round"/>
+        </g>
+        <g data-bone="ear_r" data-pivot="34,15" data-layer="front">
+          <path d="M34 16 Q36 7 40 0" fill="none" stroke="#5a9a4c" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M40 0 C41 -10 50 -16 60 -15 C59 -6 50 1 40 0 Z" fill="#6fb35e" stroke="#3f4a3a" stroke-width="2" stroke-linejoin="round"/>
+          <circle data-anchor="usagi.earwear" cx="44" cy="-6" r="1.5" fill="none"/>
+        </g>
+        <circle data-anchor="usagi.neckwear" cx="33" cy="47" r="1.5" fill="none"/>
+        <circle data-anchor="usagi.backwear" cx="33" cy="47" r="1.5" fill="none"/>
+      </g>
+    </g>
+  </g>
+</svg>

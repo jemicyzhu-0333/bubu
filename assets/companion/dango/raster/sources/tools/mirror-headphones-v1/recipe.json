@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "master": "master.png",
+  "masterSha256": "59d16744c5d8e0dbcf3eb2ac1041263386539416e4312d9a9564e2fd956f0b55",
+  "dimensions": [
+    1774,
+    887
+  ],
+  "alphaPolicy": "Preserve source RGBA within measured crops and declared rear-band/front-cup rectangles. No white/color removal, alpha thresholding, redrawing or palette reduction. Outer crop omits generation speckle alpha 1/255 beyond visible shapes. Front cup layers are original source crops. Band is top 104 source rows, behind body/ears/hat; three-quarter far cup is independently anchored beyond far-eye protected region.",
+  "pixelScale": "One uniform source-to-art scale per view; no raster resizing",
+  "pythonPillow": "12.3.0",
+  "cells": [
+    {
+      "view": "front",
+      "crop": [
+        120,
+        340,
+        808,
+        592
+      ],
+      "cupRegions": [
+        [
+          0,
+          104,
+          142,
+          252
+        ],
+        [
+          550,
+          104,
+          688,
+          252
+        ]
+      ],
+      "scale": 0.11337209302325581,
+      "rect": [
+        0,
+        0,
+        78,
+        28.569767441860463
+      ],
+      "outputSha256": {
+        "band": "9d10ebad916a273eb5c594517a07d758ee1dfef86ee2ae50c61508eb88ae3559",
+        "cups": "2771258c9dcdfa6c0d62c9db98c02bd4e8232384f97d9c47a94baec4d489f17c"
+      }
+    },
+    {
+      "view": "three-quarter",
+      "crop": [
+        1012,
+        340,
+        1638,
+        598
+      ],
+      "cupRegions": [
+        [
+          0,
+          87,
+          145,
+          258
+        ],
+        [
+          477,
+          103,
+          626,
+          258
+        ]
+      ],
+      "scale": 0.12460063897763578,
+      "rect": [
+        0,
+        0,
+        78,
+        32.146964856230035
+      ],
+      "outputSha256": {
+        "band": "1d0d6512cafce320938f051ca6764ddd9376dca50a4e01e0ae4bcf58b9cb1276",
+        "cups": "65f3e4ccef4b9a604da81f5b9125132d3cace1d41f11086195c25d57fd1b7345",
+        "near": "9261bd3cd4d59fa1760c886bb3a49c757e609f93e103e9a13314825114ecf649",
+        "far": "f5e884abf39f2b1034de5ba3e8f17d49cacf1babef60d407ad3fb262b3746800"
+      }
+    }
+  ]
+}

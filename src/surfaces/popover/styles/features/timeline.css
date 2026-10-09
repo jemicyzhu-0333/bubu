@@ -1,0 +1,388 @@
+@layer features {
+  .timeline-day {
+    margin-top: 12px;
+    padding: 12px;
+    border: 2px solid var(--bg-3);
+    background: var(--bg-2);
+  }
+  .timeline-day.hidden { display: none; }
+
+  .tl-head { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 6px 12px; }
+  .tl-title { font-size: 13px; font-weight: 700; color: var(--fg-0); }
+  .tl-totals { font-size: 11px; color: var(--fg-1); font-variant-numeric: tabular-nums; }
+  .tl-guide { margin: 8px 0 4px; color: var(--cyan-ink); font-size: 11px; line-height: 1.5; }
+  .tl-key { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-bottom: 8px; color: var(--fg-2); font-size: 11px; }
+
+  .tl-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: auto;
+    cursor: grab;
+    -webkit-user-select: none;
+    user-select: none;
+    overscroll-behavior-x: contain;
+  }
+  .tl-viewport.dragging { cursor: grabbing; }
+
+  .tl-track {
+    position: relative;
+    height: 380px;
+    min-width: 100%;
+    background: var(--bg-0);
+    border: 1px solid var(--bg-3);
+  }
+
+  .tl-tick {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    transform: translateX(-1px);
+    border-left: 1px solid color-mix(in srgb, var(--bg-3) 64%, transparent);
+    pointer-events: none;
+  }
+  .tl-tick-half {
+    border-left-style: dotted;
+    opacity: 0.58;
+  }
+  .tl-tick-hour > span {
+    position: absolute;
+    left: 4px;
+    padding: 1px 3px;
+    background: color-mix(in srgb, var(--bg-0) 88%, transparent);
+    font-size: 10px;
+    line-height: 15px;
+    color: var(--fg-2);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .tl-tick-hour > span { top: 2px; }
+  .tl-tick::after {
+    content: attr(data-time);
+    position: absolute;
+    bottom: 2px;
+    left: 4px;
+    padding: 1px 3px;
+    background: color-mix(in srgb, var(--bg-0) 88%, transparent);
+    color: var(--fg-1);
+    font-size: 10px;
+    line-height: 15px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .tl-tick-half::after { color: var(--fg-2); font-size: 9px; }
+  .tl-tick-end { transform: translateX(-1px); }
+  .tl-tick-end > span,
+  .tl-tick-end::after { left: auto; right: 4px; }
+
+  .tl-curve-caption { position: absolute; top: 5px; left: 8px; color: var(--fg-1); font-size: 11px; }
+  .tl-curve-plot { position: absolute; top: 22px; left: 0; width: 100%; height: 104px; }
+  .tl-energy-grid { fill: none; stroke: var(--bg-3); stroke-width: 1; }
+  .tl-energy-fill { fill: var(--cyan); opacity: 0.12; }
+  .tl-energy-line { fill: none; stroke: var(--cyan); stroke-width: 3; stroke-linecap: square; stroke-linejoin: round; }
+  .tl-energy-forecast { fill: none; stroke: var(--fg-2); stroke-width: 2; stroke-dasharray: 7 5; }
+  .tl-energy-event { fill: var(--yellow); stroke: var(--bg-0); stroke-width: 1.5; }
+  .tl-now { stroke: var(--yellow); stroke-width: 2; stroke-dasharray: 3 4; }
+  .tl-curve-unavailable {
+    position: sticky;
+    left: 12px;
+    top: 55px;
+    display: inline-block;
+    z-index: 1;
+    color: var(--fg-2);
+    font-size: 11px;
+  }
+
+  .tl-mood {
+    position: absolute;
+    top: 153px;
+    display: inline-block;
+    width: 92px;
+    padding: 2px 4px;
+    border: 1px solid var(--bg-3);
+    background: var(--bg-2);
+    color: var(--fg-1);
+    font-size: 11px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .tl-section-label {
+    position: sticky;
+    left: 8px;
+    z-index: 2;
+    display: inline-block;
+    padding: 2px 5px;
+    background: var(--bg-0);
+    color: var(--fg-2);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    pointer-events: none;
+  }
+  .tl-life-label { color: var(--accent-ink); }
+  .tl-status-label { color: var(--fg-1); }
+  .tl-task-label { color: var(--cyan-ink); }
+
+  .tl-event {
+    position: absolute;
+    top: 159px;
+    width: 176px;
+    height: 58px;
+    padding: 3px 5px;
+    border: 1px solid var(--bg-3);
+    background: var(--bg-2);
+    color: var(--fg-0);
+    cursor: pointer;
+    text-align: left;
+    overflow: hidden;
+  }
+  .tl-event-pin {
+    position: absolute;
+    top: 177px;
+    height: 23px;
+    border-left: 1px dotted var(--yellow);
+    pointer-events: none;
+  }
+  .tl-event-pin::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -3px;
+    width: 5px;
+    height: 5px;
+    background: var(--yellow);
+  }
+  .tl-event-routine { border-color: var(--yellow); }
+  .tl-event-focus { border-color: var(--primary); }
+  .tl-event-time { display: block; color: var(--fg-2); font-size: 11px; font-variant-numeric: tabular-nums; }
+  .tl-event-action { display: flex; align-items: center; gap: 4px; margin-top: 3px; }
+  .tl-event-icon { flex: none; font-size: 16px; line-height: 18px; }
+  .tl-event-icons { font-size: 12px; white-space: nowrap; }
+  .tl-event-label { font-size: 11px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+  .tl-seg {
+    position: absolute;
+    height: 24px;
+    padding: 1px 4px;
+    background: var(--primary);
+    border: 1px solid var(--primary-dark);
+    color: var(--ink);
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    cursor: pointer;
+  }
+  .tl-seg::before,
+  .tl-seg::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    bottom: -3px;
+    width: 2px;
+    background: var(--fg-0);
+    opacity: 0.75;
+  }
+  .tl-seg::before { left: 0; }
+  .tl-seg::after { right: 0; }
+  .tl-seg-time { display: block; font-size: 11px; font-variant-numeric: tabular-nums; }
+  .tl-seg-kind {
+    display: block;
+    overflow: hidden;
+    font-size: 11px;
+    line-height: 9px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .tl-task-lane {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 46px;
+    border-top: 1px dashed var(--bg-3);
+    background: color-mix(in srgb, var(--bg-1) 45%, transparent);
+  }
+  .tl-task-name {
+    position: sticky;
+    left: 8px;
+    z-index: 2;
+    display: block;
+    width: max-content;
+    max-width: 210px;
+    padding: 1px 5px;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--bg-0) 92%, transparent);
+    color: var(--fg-1);
+    font-size: 11px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .tl-task-complete {
+    position: absolute;
+    z-index: 2;
+    width: 20px;
+    height: 20px;
+    transform: translateX(-10px);
+    padding: 0;
+    border: 2px solid var(--bg-0);
+    border-radius: 50%;
+    background: var(--green);
+    color: var(--ink);
+    font: 900 10px/16px inherit;
+    cursor: pointer;
+  }
+  .tl-task-lane .tl-seg,
+  .tl-task-lane .tl-task-complete { pointer-events: auto; }
+  .tl-current-time {
+    position: absolute;
+    top: 22px;
+    z-index: 4;
+    border-left: 2px dashed var(--yellow);
+    pointer-events: none;
+  }
+  .tl-current-time::before {
+    content: attr(data-label);
+    position: sticky;
+    top: 20px;
+    display: inline-block;
+    transform: translateX(3px);
+    padding: 1px 4px;
+    background: var(--yellow);
+    color: var(--ink);
+    font-size: 11px;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+  .tl-seg:hover,
+  .tl-seg:focus-visible,
+  .tl-seg.active,
+  .tl-task-complete:hover,
+  .tl-task-complete:focus-visible,
+  .tl-task-complete.active,
+  .tl-event:hover,
+  .tl-event:focus-visible,
+  .tl-event.active { outline: 2px solid var(--fg-0); outline-offset: 1px; z-index: 3; }
+
+  .tl-detail {
+    margin: 8px 0 0;
+    padding: 7px;
+    background: var(--bg-1);
+    border-left: 2px solid var(--cyan);
+    font-size: 11px;
+    line-height: 1.6;
+    color: var(--fg-1);
+    font-variant-numeric: tabular-nums;
+  }
+  .tl-detail.hidden { display: none; }
+
+  .tl-note { margin: 8px 0 0; font-size: 11px; line-height: 1.6; color: var(--fg-2); }
+  .timeline-day.is-empty .tl-note,
+  .timeline-day.is-empty .tl-viewport { display: none; }
+}
+
+@layer features {
+  .timeline-day { border: 1px solid var(--line); border-radius: 12px; padding: 14px; box-shadow: var(--card-edge), var(--card-shadow); }
+  .tl-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .tl-title { font-size: 14px; font-weight: 700; color: var(--fg-0); }
+  .tl-totals { font-size: 12px; color: var(--fg-2); font-variant-numeric: tabular-nums; }
+  .tl-guide { margin: 4px 0 8px; font-size: 11px; color: var(--fg-2); }
+  .tl-viewport { overflow: visible; cursor: default; border: none; padding: 0; background: none; }
+  .tl-viewport:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; border-radius: 8px; }
+  .tl-track { position: static; height: auto !important; width: auto !important; min-width: 0; background: none; border: none; box-shadow: none; }
+  .tl-track::before, .tl-track::after, .tl-viewport::before, .tl-viewport::after { content: none; display: none; }
+
+  .tl-spark { margin: 0 0 10px; }
+  .tl-spark svg { display: block; width: 100%; height: 40px; }
+  .tl-spark-fill { fill: color-mix(in srgb, var(--energy-low) 12%, transparent); }
+  .tl-spark-line { fill: none; stroke: var(--energy-low); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+  .tl-spark-now { stroke: var(--fg-1); stroke-width: 1; stroke-dasharray: 2 2; vector-effect: non-scaling-stroke; }
+  .tl-spark figcaption { display: flex; justify-content: space-between; font-size: 11px; color: var(--fg-2); font-variant-numeric: tabular-nums; }
+
+  .tl-list { list-style: none; margin: 0; padding: 0; position: relative; }
+  /* 竖线：色点串在一根线上，读起来是“一天”，不是一堆卡片。 */
+  .tl-list::before { content: ""; position: absolute; left: 51px; top: 26px; bottom: 10px; width: 1px; background: var(--line); }
+  .tl-part {
+    margin: 10px 0 4px; padding-left: 64px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: var(--fg-2);
+  }
+  .tl-part:first-child { margin-top: 0; }
+  .tl-row { margin: 0; }
+  .tl-row .tl-event {
+    all: unset; box-sizing: border-box; width: 100%; cursor: pointer;
+    display: grid; grid-template-columns: 40px 24px 1fr; align-items: start;
+    padding: 6px 6px 6px 0; border-radius: 8px;
+  }
+  .tl-row .tl-event::before, .tl-row .tl-event::after { content: none; display: none; }
+  .tl-row .tl-event:hover, .tl-row .tl-event.active { background: color-mix(in srgb, var(--fg-2) 10%, transparent); }
+  .tl-row .tl-event:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+  .tl-row time { font-size: 11px; line-height: 18px; color: var(--fg-2); font-variant-numeric: tabular-nums; text-align: right; padding-right: 6px; }
+  .tl-dot {
+    justify-self: center; margin-top: 5px; width: 9px; height: 9px; border-radius: 2px; position: relative; z-index: 1;
+    background: var(--fg-2); box-shadow: 0 0 0 3px var(--surface);
+  }
+  .tl-row-focus .tl-dot { background: var(--primary); }
+  /* 专注用唯一的强调色；完成、日常、情绪各用一种低饱和分类色，读得出也分得开（PRODUCT「进展」）。 */
+  .tl-row-done .tl-dot { background: var(--green-ink); }
+  .tl-row-routine .tl-dot { background: var(--cyan-ink); }
+  .tl-row-muted .tl-dot { background: color-mix(in srgb, var(--fg-2) 55%, transparent); width: 7px; height: 7px; margin-top: 6px; }
+  .tl-text { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; min-width: 0; }
+  .tl-verb { font-size: 12px; font-weight: 600; color: var(--fg-1); white-space: nowrap; }
+  .tl-row-focus .tl-verb { color: var(--primary-ink); }
+  .tl-row-done .tl-verb { color: var(--green-ink); }
+  .tl-row-routine .tl-verb { color: var(--cyan-ink); }
+  .tl-row-muted .tl-verb, .tl-row-muted .tl-label { color: var(--fg-2); font-weight: 500; }
+  .tl-label { font-size: 13px; color: var(--fg-0); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 140px; }
+  .tl-icon { margin-right: 4px; }
+  .tl-bar {
+    flex: 0 0 100%; height: 4px; margin-top: 4px; border-radius: 999px;
+    background: linear-gradient(90deg, var(--primary) var(--w), color-mix(in srgb, var(--fg-2) 14%, transparent) var(--w));
+  }
+  .tl-gap { padding: 4px 0 4px 64px; font-size: 11px; color: var(--fg-2); }
+  .tl-gap span { border-bottom: 1px dashed var(--line-strong); padding-bottom: 1px; }
+  .tl-none { margin: 4px 0; font-size: 12px; color: var(--fg-2); line-height: 1.6; }
+  .tl-detail { border-left: 2px solid var(--primary); border-radius: 0 8px 8px 0; background: var(--bg-0); font-size: 12px; padding: 8px 10px; }
+  .tl-note { margin: 10px 0 0; font-size: 11px; color: var(--fg-2); }
+}
+
+@layer features {
+  .tl-row-mood { position: relative; }
+  .tl-row-mood .tl-dot { background: var(--purple-ink); }
+  .tl-row-mood .tl-verb { color: var(--purple-ink); }
+  .tl-row-mood .tl-label { white-space: normal; overflow: visible; }
+  .tl-del {
+    position: absolute; right: 4px; top: 4px; opacity: 0; transition: opacity 0.12s;
+    border: 1px solid var(--line); border-radius: 999px; background: var(--bg-2); color: var(--fg-2);
+    font: inherit; font-size: 11px; padding: 2px 10px; cursor: pointer;
+  }
+  .tl-row-mood:hover .tl-del, .tl-row-mood:focus-within .tl-del, .tl-del[data-armed="1"] { opacity: 1; }
+  .tl-del[data-armed="1"] { color: var(--danger, #f7768e); border-color: currentColor; }
+  @media (prefers-reduced-motion: reduce) { .tl-del { transition: none; } }
+}
+
+/* 今天几点起的：一行小按钮，问一次就消失。 */
+
+@layer features {
+  .tl-filters { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 12px; }
+  .tl-filters button, .tl-detail button {
+    border: 1px solid var(--line); border-radius: 8px; padding: 5px 9px;
+    background: var(--bg-2); color: var(--fg-1); font: inherit; font-size: 12px; cursor: pointer;
+  }
+  .tl-filters button[aria-pressed="true"] { border-color: var(--primary); color: var(--primary-ink); }
+  .tl-filters button:focus-visible, .tl-detail button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+  .tl-row .tl-dot:has(.tl-type-icon) { width: 18px; height: 18px; margin-top: 0; background: var(--surface); color: var(--fg-1); }
+  .tl-type-icon { display: block; }
+  .tl-detail { white-space: pre-wrap; overflow-wrap: anywhere; }
+  .tl-detail button { display: block; margin-top: 8px; }
+  .tl-receipt { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line); }
+  @media (prefers-reduced-motion: reduce) { .tl-row, .tl-detail { animation: none; transition: none; } }
+}
+
+@layer features {
+  #timelineDeleteStatus { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; white-space: normal; }
+  #timelineDeleteLabel { flex: 1 1 220px; }
+  #timelineDeleteStatus button { display: inline-flex; margin: 0; }
+}

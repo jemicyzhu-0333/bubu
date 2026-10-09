@@ -1,0 +1,8 @@
+/* 收件箱是安排下的独立子页，卡片与分类控件在主题层呈现。 */
+@layer features {
+  .inbox-recovery { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; white-space: normal; }
+  .inbox-recovery > span { flex: 1 1 180px; }
+  .inbox-recovery .chip { white-space: normal; }
+  .impulse-text { overflow-wrap: anywhere; white-space: pre-wrap; }
+  .inbox-card button,.inbox-card select { cursor: pointer; }
+}

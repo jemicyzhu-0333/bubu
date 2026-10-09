@@ -1,0 +1,33 @@
+/* 「卡住了」弹窗：一屏一问的分步、三条出路与两分钟救援行。对应 features/stuck.mjs。 */
+
+@layer features {
+/* -- 两分钟救援（只在“卡住了”展开后出现）-- */
+  .rescue-row {
+    display: flex; flex-direction: column; gap: 4px;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid var(--bg-3);
+  }
+  .rescue-row .capability-note { margin: 0; }
+/* -- 「卡住了」弹窗：一次只看一屏，每屏只有需要做的选择 -- */
+  .stuck-modal { max-width: 320px; }
+  .stuck-step { display: grid; gap: 8px; }
+  .stuck-step.hidden { display: none; }
+  .stuck-route {
+    display: grid; gap: 2px;
+    padding: 9px 10px;
+    text-align: left;
+    font: inherit;
+    color: var(--fg-0);
+    background: var(--bg-2);
+    border: 2px solid var(--bg-3);
+    cursor: pointer;
+  }
+  .stuck-route:hover, .stuck-route:focus-visible { border-color: var(--cyan); }
+  .stuck-route.hidden { display: none; }
+  .stuck-route-title { font-size: 11px; font-weight: 900; }
+  .stuck-route-note { color: var(--fg-2); font-size: 11px; }
+  .stuck-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+  .strategy-why summary { cursor: pointer; color: var(--cyan-ink); font-size: 11px; padding: 3px 0; }
+  .strategy-why.hidden { display: none; }
+}

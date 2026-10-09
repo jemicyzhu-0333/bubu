@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Rig 预览台</title>
+<style>
+  :root { color-scheme: light dark; --bg: #f6f5f2; --fg: #26252a; --muted: #6d6a73; --line: #dddad3; --card: #ffffff; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #19171f; --fg: #ece9f1; --muted: #9a96a3; --line: #34303c; --card: #25222c; } }
+  body { margin: 0; padding: 16px; background: var(--bg); color: var(--fg); font: 13px/1.5 -apple-system, system-ui, sans-serif; }
+  header { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: baseline; margin-bottom: 12px; }
+  h1 { font-size: 16px; margin: 0; }
+  label { color: var(--muted); }
+  #status { color: var(--muted); white-space: pre-wrap; }
+  #status.error { color: #d0453a; }
+  table { border-collapse: collapse; }
+  th { font-weight: 500; color: var(--muted); text-align: left; padding: 4px 6px; }
+  td { padding: 2px; }
+  canvas { background: var(--card); border: 1px solid var(--line); border-radius: 6px; display: block; }
+  section { margin-top: 20px; overflow-x: auto; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Rig 预览台</h1>
+  <span id="source"></span>
+  <label><input type="checkbox" id="calm"> 低刺激（静态位姿）</label>
+  <label><input type="checkbox" id="outfit" checked> 配饰</label>
+  <label><input type="checkbox" id="blink" checked> 眨眼</label>
+  <span>鼠标在画面上移动 = 眼神跟随</span>
+</header>
+<div id="status">加载中…</div>
+<section><table id="motions"></table></section>
+<section><table id="faces"></table></section>
+<script type="module" src="/page.mjs"></script>
+</body>
+</html>

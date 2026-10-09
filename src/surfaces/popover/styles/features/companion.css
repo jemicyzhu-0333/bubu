@@ -1,0 +1,246 @@
+/* 伙伴页的默认视图：一个 132px 的舞台、一行身份、两个入口、三段分隔线养成信息。
+   视觉语言只有三条规矩：
+   1. 全页只有一个焦点 —— hero 舞台。没有第二只像素兽。
+   2. 边框重新只表示「可点」。养成三段改用虚线标题行，不再各套一圈 2px 边框；
+      以前 5 个等重的盒子共用同一条 padding/border/background 配方，等重就是没层级。
+   3. 字号有真正的阶梯：名字 14/900、数字 11/700、说明 9/400。
+   换形态与换装的浏览界面在 features/companion-drawers.css。 */
+
+@layer features {
+  .finish-toast, .levelup-card {
+    position: fixed;
+    z-index: 10001;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 18px;
+    border: 2px solid var(--primary);
+    background: var(--bg-2);
+    color: var(--fg-0);
+    text-align: center;
+    pointer-events: none;
+  }
+  .finish-toast { bottom: 28px; white-space: nowrap; }
+  .levelup-card { top: 40%; }
+  .levelup-badge { font-size: 28px; color: var(--accent-ink); }
+  .levelup-title { font-weight: 700; margin: 8px 0; }
+  .levelup-sub { font-size: 11px; }
+/* 舞台尺寸 = bodyCssSize（132 = 66 美术像素 × cssPerArtPixel 2）。画布本身更大
+   （含 bleed 余量）并由 companion-art.mjs 用负 left/top 顶出去，所以这里不能按
+   画布尺寸写，否则余量会把身体挤偏。 */
+  .monster-stage { width: 132px; height: 132px; position: relative; flex-shrink: 0; }
+  #monsterCanvas { position: absolute; image-rendering: pixelated; }
+  .monster-shadow {
+    position: absolute; bottom: -2px; left: 50%;
+    width: 60px; height: 6px;
+    background: rgb(var(--shadow-rgb) / 0.4);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    filter: blur(2px);
+    animation: shadow-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes bob {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+  @keyframes shadow-pulse {
+    0%,100% { transform: translateX(-50%) scale(1); opacity: 0.4; }
+    50% { transform: translateX(-50%) scale(0.85); opacity: 0.25; }
+  }
+/* ---------- HERO ---------- */
+/* 换皮肤的回报是一整块氛围色，不是一张 66px 缩略图：底座光晕由 companion.mjs
+   把 skinAccent(id) 写成 --hero-primary / --hero-accent 两个行内变量。 */
+  .companion-hero {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 14px;
+    margin-bottom: 8px;
+  }
+  .companion-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    width: 168px;
+    height: 10px;
+    transform: translateX(-50%);
+    background:
+      repeating-linear-gradient(90deg,
+        var(--hero-primary, var(--primary)) 0 2px, transparent 2px 4px);
+    opacity: 0.32;
+  }
+  .companion-hero::before {
+    content: '';
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    width: 190px;
+    height: 78px;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at 50% 100%,
+      var(--hero-accent, var(--accent)) 0%, transparent 72%);
+    opacity: 0.16;
+    pointer-events: none;
+  }
+/* ---------- 身份 ---------- */
+  .companion-identity {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .companion-identity p { margin: 0; color: var(--fg-2); font-size: 11px; line-height: 1.5; }
+  .companion-identity .identity-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .companion-name {
+    font-size: 14px;
+    font-weight: 900;
+    color: var(--fg-0);
+    letter-spacing: 0.04em;
+  }
+  .companion-identity .status-pill { margin-left: auto; }
+/* ---------- 两个入口 ---------- */
+/* 这两颗是全页唯一还带实体边框的东西，边框因此重新变成「可点」的信号。 */
+  .companion-entries {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .companion-entry {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2px;
+    min-height: 48px;
+    padding: 6px 10px;
+    border: 2px solid var(--bg-3);
+    background: var(--bg-2);
+    box-shadow: 2px 2px 0 rgb(var(--shadow-rgb) / 0.4);
+    color: var(--fg-0);
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.12s, border-color 0.12s;
+  }
+  .companion-entry:hover { transform: translate(-1px, -1px); border-color: var(--primary); }
+  .companion-entry .entry-title { font-size: 11px; font-weight: 900; }
+  .companion-entry .entry-meta { font-size: 11px; color: var(--fg-2); }
+/* ---------- 养成三段 ---------- */
+  .companion-section { margin-bottom: 14px; }
+  .companion-section .section-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 5px;
+    margin-bottom: 7px;
+    border-bottom: 1px dashed var(--bg-3);
+  }
+  .companion-section .section-title {
+    color: var(--cyan-ink);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+  }
+  .companion-section .section-head .bond-stage { margin-left: auto; }
+  .food-shop-balance {
+    margin-left: auto;
+    color: var(--accent-ink);
+    font-size: 11px;
+    font-weight: 900;
+  }
+  .food-shop-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .food-shop-item {
+    display: grid;
+    grid-template-columns: 24px 1fr auto;
+    grid-template-areas:
+      "emoji name price"
+      "emoji stock stock";
+    align-items: center;
+    gap: 1px 6px;
+    min-width: 0;
+    padding: 6px;
+    border: 1px solid var(--bg-3);
+    background: var(--bg-2);
+    color: var(--fg-1);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  .food-shop-item:hover:not(:disabled) { border-color: var(--cyan); }
+  .food-shop-item:disabled { cursor: default; opacity: 0.42; }
+  .food-shop-emoji { grid-area: emoji; font-size: 18px; }
+  .food-shop-name { grid-area: name; font-size: 11px; font-weight: 800; }
+  .food-shop-price { grid-area: price; color: var(--accent-ink); font-size: 11px; font-weight: 900; }
+  .food-shop-stock { grid-area: stock; color: var(--fg-2); font-size: 11px; }
+  .bond-stage {
+    background: var(--primary);
+    color: var(--ink);
+    font-size: 11px;
+    font-weight: 900;
+    padding: 2px 6px;
+    border: 2px solid var(--primary-dark);
+  }
+  .bond-bar-outer {
+    position: relative;
+    height: 12px;
+    background: var(--bg-1);
+    border: 2px solid var(--bg-3);
+    overflow: hidden;
+  }
+  .bond-bar-inner {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--yellow) 100%);
+    transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .bond-meta { margin: 6px 0 0; color: var(--fg-1); font-size: 11px; font-weight: 700; line-height: 1.5; }
+  .bond-note { margin: 4px 0 0; color: var(--fg-2); font-size: 11px; line-height: 1.5; }
+  .affinity-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .affinity-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 6px;
+    border: 1px solid var(--bg-3);
+    background: var(--bg-1);
+    color: var(--fg-1);
+    font-size: 11px;
+  }
+  .affinity-item .af-count { color: var(--cyan-ink); font-size: 11px; font-weight: 900; }
+  .affinity-empty,
+  .milestone-empty { color: var(--fg-2); font-size: 11px; line-height: 1.5; }
+  .milestone-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .milestone-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    color: var(--fg-1);
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  .milestone-list li::before { content: '·'; color: var(--accent-ink); font-weight: 900; }
+  .milestone-list li.milestone-empty::before { content: none; }
+  .milestone-list .ms-hint { color: var(--fg-2); flex-shrink: 0; }
+/* ---------- CONFETTI ---------- */
+  .confetti-canvas {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 10000;
+  }
+}

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self'; style-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'">
+<title>团子兽与乌沙奇 · 动作检验台</title><link rel="stylesheet" href="/style.css"></head>
+<body><header><div class="eyebrow">LOCAL VISUAL AUDIT / PRODUCTION CANVAS</div><h1>看见每一帧，才算实现</h1>
+<p>切换角色、动作、穿搭和场景，用同一时间轴查看原版与当前版本</p><div id="status">正在加载绘制模块与本地图片…</div></header>
+<main><section class="controls" aria-label="预览设置">
+<label>角色<select id="form"><option value="usagi">乌沙奇</option><option value="dango">团子兽</option></select></label>
+<label>类别<select id="kind"><option value="action">行为动作</option><option value="session">会话活动</option><option value="expression">语义表情</option><option value="scene">场景</option><option value="appearance">配饰单品</option></select></label>
+<label class="wide">条目<select id="entry"></select></label><label>场景<select id="scene"></select></label>
+<label>朝向<select id="view"><option value="auto">语义默认</option><option>front</option><option>three-quarter</option><option>profile</option><option>back</option></select></label>
+<label>速度<select id="speed"><option value=".5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></label>
+<label class="check"><input type="checkbox" id="outfit" checked>配饰</label><label class="check"><input type="checkbox" id="calm">低刺激</label>
+<label>乌沙奇穿搭<select id="outfitLook"><option value="auto">当前自动穿搭</option></select></label>
+<label class="check"><input type="checkbox" id="sceneOverride">会话也用所选场景</label>
+<button id="play">暂停</button><button id="restart">从头播放</button></section>
+<section class="playback"><div id="players" class="triptych"></div><div class="timeline"><span id="time">0.0s</span><input id="seek" type="range" min="0" max="1000" value="0"><span id="duration"></span></div></section>
+<div class="section-title"><div><h2 id="clipTitle">连贯帧</h2><p id="clipDetail"></p></div><button id="refresh">重绘连贯帧</button></div>
+<section id="sheets"></section>
+<div class="section-title"><div><h2>完整目录</h2><p>每个条目均调用真实桌宠 renderer；点选卡片可播放并展开连贯帧</p></div><button id="overviewButton">渲染本类全部条目</button></div>
+<section id="overview"></section>
+<footer>仅本地预览 · 不连接用户数据或 IPC · 背景、粒子、脸、道具、服饰均来自对应版本的生产绘制代码<br>像素差异用于发现空白、冻结和突变，不能代替动作语义与审美验收</footer></main>
+<script type="module" src="/page.mjs"></script></body></html>

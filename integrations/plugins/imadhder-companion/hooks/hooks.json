@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "s=agent; if [ -n \"$QODER_PLUGIN_ROOT\" ]; then s=qoder; elif [ -n \"$CODEBUDDY_PLUGIN_ROOT\" ]; then s=codebuddy; elif [ -n \"$CLAUDE_PLUGIN_ROOT\" ]; then s=claude-code; elif [ -n \"$PLUGIN_ROOT\" ]; then s=codex; fi; cat >/dev/null; p=$IMADHDER_AGENT_PORT; [ -n \"$p\" ] || p=47614; curl -s -m 1 -o /dev/null -X POST -H \"X-ImADHDer-Agent: 1\" \"http://127.0.0.1:$p/v1/agent/$s/prompt\" >/dev/null 2>&1; exit 0",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "s=agent; if [ -n \"$QODER_PLUGIN_ROOT\" ]; then s=qoder; elif [ -n \"$CODEBUDDY_PLUGIN_ROOT\" ]; then s=codebuddy; elif [ -n \"$CLAUDE_PLUGIN_ROOT\" ]; then s=claude-code; elif [ -n \"$PLUGIN_ROOT\" ]; then s=codex; fi; cat >/dev/null; p=$IMADHDER_AGENT_PORT; [ -n \"$p\" ] || p=47614; curl -s -m 1 -o /dev/null -X POST -H \"X-ImADHDer-Agent: 1\" \"http://127.0.0.1:$p/v1/agent/$s/stop\" >/dev/null 2>&1; exit 0",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

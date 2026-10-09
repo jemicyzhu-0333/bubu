@@ -1,0 +1,70 @@
+// Authored reading angles for the soft dango. A one-eye full profile is not
+// part of this character's approved silhouette; side intent uses two-eye 3/4.
+const facing = (preferred = 'front', allowed = ['front', 'three-quarter']) => Object.freeze({
+  preferred, allowed: Object.freeze(allowed)
+});
+const DANGO_ACTION_VIEWS = Object.freeze({
+  workout: facing(),
+  'chase-butterfly': facing('three-quarter'),
+  hiccup: facing(),
+  juggle: facing('front', ['front']),
+  'carry-energy': facing(),
+  'pit-fall': facing(),
+  'mirror-meet': facing('front', ['front']),
+  sing: facing('three-quarter'),
+  'stuck-corner': facing('three-quarter'),
+  'chase-laser': facing('three-quarter'),
+  'dig-treasure': facing('three-quarter'),
+  yawn: facing(),
+  sneeze: facing(),
+  'bubble-blow': facing('three-quarter'),
+  meditate: facing(),
+  wave: facing(),
+  stretch: facing(),
+  'happy-hop': facing(),
+  'high-five': facing(),
+  spin: facing('front', ['front', 'three-quarter', 'back']),
+  dance: facing(),
+  'look-around': facing('front', ['front']),
+  'tail-wiggle': facing('three-quarter', ['front', 'three-quarter', 'back']),
+  'read-book': facing(),
+  'take-note': facing(),
+  'type-keyboard': facing(),
+  'sip-tea': facing(),
+  'paper-plane': facing('three-quarter'),
+  sweep: facing('three-quarter'),
+  'magic-trick': facing('front', ['front']),
+  telescope: facing('three-quarter', ['three-quarter']),
+  // PET_VISUAL「生图素材优先的候选生产流程」: the generated can pours
+  // toward the plant on the left; a right-facing 3/4 head looks away from it.
+  // Keep one authored frontal silhouette for both watering and its story.
+  'plant-water': facing('front', ['front']),
+  'knit-scarf': facing(),
+  'drum-solo': facing(),
+  moonwalk: facing('three-quarter'),
+  'hide-box': facing(),
+  'build-blocks': facing('three-quarter'),
+  'catch-star': facing('three-quarter'),
+  'umbrella-dance': facing('three-quarter'),
+  'snack-picnic': facing(),
+  'shadow-box': facing(),
+  'tiny-chef': facing(),
+  'photo-pose': facing('front', ['front']),
+  'mirror-music': facing(),
+  'mirror-coding': facing(),
+  'mirror-ai': facing(),
+  'focus-read': facing(),
+  'focus-type': facing(),
+  'focus-write': facing(),
+  'focus-browse': facing(),
+  'focus-charts': facing(),
+  'focus-notes': facing(),
+  'rest-daydream': facing(),
+  'rest-nap': facing(),
+  'rest-tea': facing(),
+  'rest-stretch': facing(),
+  'rest-window': facing('three-quarter'),
+  'rest-plant': facing('front', ['front'])
+});
+
+export { DANGO_ACTION_VIEWS };

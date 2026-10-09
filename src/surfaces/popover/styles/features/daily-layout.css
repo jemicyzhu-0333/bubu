@@ -1,0 +1,62 @@
+@layer features {
+  .mini-timer { min-width: 20ch; width: auto; font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .routine-page-heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 18px; }
+  .routine-page-heading h2 { margin: 0; }
+  .routine-page-heading .btn-focus { flex: 0 0 auto; width: auto; padding: 12px 18px; }
+  .routines-page .routines-manage { padding: 0; margin: 0; display: flex; flex-direction: column; }
+  .routines-manage:has(#routineAddDetails[open]) .daily-records { display: none; }
+  #routinesManageCard { scroll-margin-top: 120px; }
+  .routines-page .routine-editor { display: flex; flex-direction: column; gap: 12px; padding: 16px; max-height: calc(100dvh - 245px); overflow-y: auto; scrollbar-width: thin; }
+  .routine-add > summary { display: none; }
+  .routine-add { margin: 0 0 16px; order: -1; }
+  .routine-editor .chip-label { width: auto; min-width: 0; max-width: none; white-space: nowrap; }
+  .routine-editor > .deadline-row { display: flex; flex-direction: column; align-items: stretch; gap: 9px; }
+  .routine-editor #routineTitle { font-size: 20px; padding: 14px; }
+  .routine-kind-choices { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 7px; }
+  .routine-kind-choice { display: flex; flex-direction: column; align-items: center; gap: 6px; border: 1px solid transparent; background: var(--surface, var(--bg-1)); border-radius: 12px; padding: 8px 5px; color: var(--fg-2); cursor: pointer; transition: background .2s, transform .2s; }
+  .routine-kind-choice > span:first-child { width: 22px; height: 22px; font-size: 21px; }
+  .routine-kind-choice[aria-pressed="true"] { background: color-mix(in srgb, var(--primary) 17%, var(--bg-1)); border-color: var(--primary); color: var(--primary-ink); }
+  .routine-kind-choice:hover { transform: translateY(-2px); }
+  .routine-frequency-choices { display: flex; padding: 4px; gap: 4px; background: var(--bg-1); border-radius: 12px; }
+  .routine-frequency-choices button { flex: 1; padding: 10px 4px; border: 0; border-radius: 9px; background: transparent; color: var(--fg-2); cursor: pointer; }
+  .routine-frequency-choices [aria-pressed="true"] { background: var(--bg-0); box-shadow: 0 1px 6px rgb(0 0 0 / .12); color: var(--fg-1); }
+  .routine-time-choices, .routine-time-presets { display: flex; flex-wrap: wrap; gap: 8px; }
+  .routine-time-slot { display: flex; align-items: center; gap: 5px; border: 1px solid var(--line); padding: 8px; border-radius: 12px; background: var(--bg-1); }
+  .routine-time-slot select { width: 58px; font-size: 16px; padding: 6px; border: 0; background: transparent; color: var(--fg-1); font-variant-numeric: tabular-nums; }
+  .routine-time-slot button { background: transparent; border: 0; color: var(--fg-2); cursor: pointer; padding: 6px; }
+  .routine-time-presets button { border: 1px solid var(--line); border-radius: 20px; padding: 8px 12px; background: transparent; color: var(--fg-1); cursor: pointer; }
+  .routine-level-label { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 10px; }
+  .routine-level-label select { max-width: 210px; }
+  .routine-form-actions { display: flex; justify-content: flex-end; gap: 8px; position: sticky; bottom: -16px; padding: 12px 0; background: var(--bg-1); border-top: 1px solid var(--line); z-index: 2; margin-top: 2px; }
+  .routine-form-actions .pixel-btn { width: auto; min-width: 100px; }
+  .routine-config { border: 1px solid var(--line); border-radius: 16px; padding: 16px; margin-top: 20px; }
+  .routine-config > summary { font-weight: 600; cursor: pointer; }
+  .routine-reminder-switch { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; }
+  .routine-reminder-switch [aria-pressed="true"] { background: color-mix(in srgb,var(--primary) 22%,var(--bg-1)); color: var(--primary-ink); }
+  .routine-manage-row { display: grid; grid-template-columns: 24px minmax(0,1fr) auto auto auto; gap: 8px; padding: 14px 0; }
+  .routine-manage-row .routine-schedule { grid-column: 2 / -1; grid-row: 2; }
+  .routine-manage-row .routine-title { font-weight: 600; font-size: 14px; }
+  .routine-manage-row .routine-kind { font-size: 20px; }
+  .food-shop-summary .entry-title small { display: block; margin-top: 4px; font-size: 11px; font-weight: 400; color: var(--fg-2); }
+  .disclosure-body { padding: 18px; }
+  .food-shop-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; }
+  .food-collection-card { display: flex; flex-direction: column; gap: 6px; align-items: center; border: 1px solid var(--line); border-radius: 15px; padding: 15px 8px; background: var(--bg-1); }
+  .food-collection-card .food-shop-emoji { font-size: 30px; line-height: 1.2; height: 38px; }
+  .food-preference { font-size: 11px; min-height: 16px; color: var(--fg-2); }
+  .food-collection-card.is-locked { background: transparent; border-style: dashed; }
+  .food-collection-card.is-locked .food-shop-emoji { opacity: .4; filter: grayscale(1); }
+  .food-exchange { margin-top: 5px; padding: 8px 12px; }
+  .food-exchange:not(:disabled):hover { background: var(--primary); transform: translateY(-2px); }
+  .collection-disclosure { padding: 0; overflow: hidden; }
+  .collection-disclosure > summary { cursor: pointer; }
+  .bond-milestone { display: grid !important; grid-template-columns: 24px 1fr auto; padding: 14px 0 !important; align-items: center; gap: 8px; }
+  .bond-milestone::before { display: none; }
+  .bond-milestone > span:last-child { color: var(--fg-2); font-size: 12px; }
+  .bond-milestone.is-earned { color: var(--primary-ink); }
+  .tl-spark svg { height: 96px; overflow: visible; }
+  .tl-spark-caption { font-size: 11px; color: var(--fg-2); }
+  .tl-spark-plot { position: relative; height: 96px; }
+  .tl-extreme-dot { fill: var(--cyan-ink); }
+  .tl-extreme { position: absolute; transform: translate(-50%,-50%); font-size: 11px; color: var(--cyan-ink); white-space: nowrap; }
+  @media (max-width: 420px) { .food-shop-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } .mini-timer { font-size: 11px; min-width: 0; } }
+}

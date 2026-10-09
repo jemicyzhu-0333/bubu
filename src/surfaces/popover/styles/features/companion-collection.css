@@ -1,0 +1,66 @@
+@layer features {
+  .review-inbox { position: relative; flex: 0 0 auto; }
+  .review-inbox > summary { display: flex; align-items: center; justify-content: center; position: relative; width: 34px; height: 34px; border-radius: 11px; list-style: none; cursor: pointer; color: var(--fg-2); }
+  .review-inbox > summary::-webkit-details-marker { display: none; }
+  .review-inbox > summary:is(:hover, :focus-visible), .review-inbox[open] > summary { background: var(--bg-2); color: var(--accent-ink); }
+  .review-count { position: absolute; top: 6px; right: 5px; width: 6px; height: 6px; padding: 0; border-radius: 50%; background: #dd5659; box-shadow: 0 0 0 2px var(--bg-1); }
+  .review-inbox-panel { position: absolute; top: 44px; right: -112px; z-index: 100; width: min(360px, calc(100vw - 36px)); max-height: min(440px, 65vh); overflow-y: auto; padding: 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg-1); box-shadow: 0 16px 48px #0002; animation: review-arrive .22s var(--ease-panel); }
+  .review-inbox-panel .review-strip { margin: 0; padding: 0; border: 0; box-shadow: none; background: transparent; }
+  .review-inbox-panel .review-card { flex-wrap: wrap; gap: 12px; padding: 14px 0; }
+  #reviewEmpty { color: var(--fg-2); font-size: 13px; margin: 8px 0; }
+  .session-step-form { display: flex; gap: 8px; margin-top: 12px; align-items: center; animation: review-arrive .2s var(--ease-panel); }
+  .session-step-form input { min-width: 0; flex: 1; }
+  .session-step-form .chip { flex-shrink: 0; }
+  #btnAddSessionStep { margin-top: 12px; background: var(--bg-2); }
+  .journey-summary { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin: 16px 0; }
+  .journey-summary > strong { font-size: 30px; letter-spacing: -.05em; }
+  .journey-summary small, .journey-summary > span { font-size: 12px; font-weight: 400; color: var(--fg-2); letter-spacing: 0; }
+  .journey-next { display: grid; gap: 10px; padding: 16px; background: var(--bg-2); border-radius: 14px; font-size: 13px; margin: 12px 0 18px; }
+  .journey-next progress { appearance: none; width: 100%; height: 4px; border: none; border-radius: 4px; overflow: hidden; }
+  .journey-next progress::-webkit-progress-bar { background: var(--line); }
+  .journey-next progress::-webkit-progress-value { background: var(--accent-ink); transition: width .5s ease; }
+  .journey-requirements { display: flex; gap: 6px 16px; flex-wrap: wrap; color: var(--fg-2); font-size: 11px; }
+  .journey-requirements .earned { color: var(--cyan-ink); }
+  .journey-requirements b { font-variant-numeric: tabular-nums; font-weight: 500; }
+  .journey-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; align-items: start; }
+  .journey-card { --stamp-color: #b7798a; display: flex; flex-direction: column; align-items: center; padding: 14px 10px; border: 1px solid var(--line); border-radius: 16px; background: var(--bg-1); text-align: center; transition: transform .25s var(--ease-panel), box-shadow .25s; }
+  .journey-card[data-color='gold'] { --stamp-color: #ab8952; }
+  .journey-card[data-color='mint'] { --stamp-color: #6e9b8b; }
+  .journey-card[data-color='blue'] { --stamp-color: #839ac0; }
+  .journey-card > summary { display: flex; flex-direction: column; align-items: center; list-style: none; cursor: pointer; }
+  .journey-card > summary::-webkit-details-marker { display: none; }
+  .journey-card:not(.is-locked):hover { transform: translateY(-3px); box-shadow: 0 8px 20px #0001; }
+  .journey-stamp { position: relative; display: grid; place-items: center; width: 60px; height: 70px; margin: 2px 0 14px; border: 3px double currentColor; border-radius: 24px 24px 4px 4px; color: var(--stamp-color); background: color-mix(in srgb, var(--stamp-color) 12%, transparent); font: 500 24px/1 Georgia, serif; }
+  .journey-stamp::after { content: ''; position: absolute; width: 20px; height: 1px; bottom: 11px; background: currentColor; opacity: .5; }
+  .journey-card strong { font-size: 12px; font-weight: 600; line-height: 1.5; }
+  .journey-card summary > span:last-child, .journey-card > span:last-child { display: block; font-size: 11px; color: var(--fg-2); margin-top: 6px; line-height: 1.6; }
+  .journey-card p { font-size: 12px; line-height: 1.8; color: var(--fg-2); margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--line); }
+  .journey-card.is-locked { background: var(--bg-2); }
+  .journey-card.is-locked .journey-stamp { opacity: .4; filter: grayscale(.7); }
+  .taste-disclosure, .bond-history { margin-top: 16px; font-size: 12px; color: var(--fg-2); }
+  .taste-disclosure > summary, .bond-history > summary { cursor: pointer; padding: 6px 0; }
+  .taste-collection { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
+  .taste-tile { display: flex; align-items: center; flex-direction: column; gap: 5px; padding: 12px 6px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg-2); }
+  .taste-tile > span:first-child { font-size: 24px; filter: grayscale(1); opacity: .45; }
+  .taste-tile.is-tasted { background: var(--bg-1); }
+  .taste-tile.is-tasted > span:first-child { filter: none; opacity: 1; }
+  .taste-tile strong { color: var(--fg-1); font-size: 12px; }
+  .taste-tile small, .taste-count { font-size: 11px; color: var(--fg-2); }
+  @keyframes review-arrive { from { opacity: 0; transform: translateY(-5px); } }
+  @media (max-width: 520px) { .journey-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .taste-collection { grid-template-columns: repeat(3, minmax(0, 1fr)); } .session-step-form { flex-wrap: wrap; } .session-step-form input { flex-basis: 100%; } }
+  @media (prefers-reduced-motion: reduce) { #btnStartFocus .focus-play, .review-inbox-panel, .session-step-form { animation: none !important; } .journey-card { transition: none; transform: none !important; } }
+  body:is([data-motion='reduced'], [data-stimulation='low']) :is(#btnStartFocus .focus-play, .review-inbox-panel, .session-step-form) { animation: none !important; }
+  body:is([data-motion='reduced'], [data-stimulation='low']) .journey-card { transition: none; transform: none; }
+}
+@layer features {
+  .review-inbox-panel .review-strip { display: block; }
+  .review-inbox-panel .block-head { margin-bottom: 8px; }
+  .review-inbox-panel .review-card-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; }
+  .review-inbox-panel .review-card-row + .review-card-row { border-top: 1px solid var(--line); }
+  .review-inbox-panel .block-title { font-size: 13px; }
+  .journey-stamp { width: 70px; height: 80px; }
+  .journey-stamp i { font-size: 26px; margin-top: -10px; }
+  .journey-stamp small { position: absolute; bottom: 10px; font: 10px/1 var(--font-ui); letter-spacing: .15em; }
+  .journey-stamp::after { display: none; }
+  .journey-card > summary:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 5px; border-radius: 10px; }
+}

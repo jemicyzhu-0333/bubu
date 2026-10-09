@@ -1,0 +1,135 @@
+{
+  "version": 2,
+  "generatedOn": "2026-10-04",
+  "generator": "Built-in image_gen tool",
+  "modelVersion": null,
+  "seed": null,
+  "exactPrompt": "relationship-study.prompt.txt",
+  "master": {
+    "file": "relationship-study.master.png",
+    "sha256": "611ca19f93e854bd4fe601f9eb21568472d73e928e2d371837d49a3c774745e3",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      254
+    ]
+  },
+  "referenceOrder": [
+    {
+      "file": "usagi-2x-bare-sheet.png",
+      "sha256": "3bd6c6478917a4f85e2459ab1ddf2df4349c251f934fe5b21f7ade21b5f6c278",
+      "size": [
+        1752,
+        1566
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        255,
+        255
+      ]
+    },
+    {
+      "file": "usagi-2x-outfit-sheet.png",
+      "sha256": "1847285dae5f9c03d6731d15bb35c906c86c072e5ba9b94834a2d668649c4dbc",
+      "size": [
+        1752,
+        1566
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        255,
+        255
+      ]
+    },
+    {
+      "file": "乌萨奇_动作与袖口遮挡_生成设计参考.png",
+      "sha256": "9466bddbc32d88080f212c8a1230631572a70975098d40ead8b7d2d1f8c5d589",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "alphaExtrema": null
+    }
+  ],
+  "status": "Generated accessory study; bounded native-vector adaptation integrated and visually reviewed at production body width99CSSpx",
+  "accepted": [
+    "Padded lavender over-ear cup shell with pale cushion and distinct short yoke",
+    "Band behind ears and complete hats",
+    "Cream soft outlined robot with mint visor, lavender side pod, inward gaze and blank notepad"
+  ],
+  "rejected": [
+    "Generated body, face, paw and outfit alterations",
+    "Headphones accidentally remaining in AI row",
+    "Generated laptop geometry and logo changes",
+    "Master background pixels/any nontransparent fill"
+  ],
+  "runtime": {
+    "body": "Existing canonical Usagi rig unchanged",
+    "headphones": "usagi-event-actions.mjs native-path adaptation of existing cups/band",
+    "robot": "usagi-event-robot.mjs native-path adaptation matching generated cream/mint/lavender design",
+    "referenceIsRuntimeTexture": false,
+    "robotBoundsArt": {
+      "x": 75,
+      "y": 37,
+      "width": 22,
+      "height": 28
+    },
+    "actualRobotUnposedWidthArt": 18.5,
+    "envelope": "Existing event.weight from mirrorPresentation",
+    "static": "Existing calm/static sample",
+    "privacy": "Category only; no audio, BPM, AI text, progress or status"
+  },
+  "visualReview": {
+    "normalSize": [
+      "bare",
+      "sun-garden",
+      "rain-walk",
+      "moon-post"
+    ],
+    "views": [
+      "front/right",
+      "three-quarter/left"
+    ],
+    "backgrounds": [
+      "light",
+      "dark"
+    ],
+    "reviewer": "Independent context-emphasis reviewer accepted actual overview at native and2x scale",
+    "limitations": [
+      "Offscreen production Canvas, not native window/GPU acceptance",
+      "Actual event source and DOM badge integration handled separately"
+    ]
+  },
+  "checks": {
+    "focusedTests": 50,
+    "focusedFailed": 0,
+    "artSweepConditions": 96,
+    "artSweepFrames": 5856,
+    "calmStableConditions": 96,
+    "stageEdgeTouches": 0,
+    "simulatedLifecycleConditions": 16,
+    "simulatedLifecycleFrames": 352,
+    "completeLoopClips": [
+      {
+        "category": "music",
+        "durationMs": 27000,
+        "frames": 325,
+        "fps": 12,
+        "outfit": "moon-post"
+      },
+      {
+        "category": "ai",
+        "durationMs": 33000,
+        "frames": 397,
+        "fps": 12,
+        "outfit": "moon-post"
+      }
+    ]
+  },
+  "canonicalRigSha256": "5b3c1d3170d55613e8a3d749f9ba91f89784059c6dbe1586faf745a9d40b78c7"
+}

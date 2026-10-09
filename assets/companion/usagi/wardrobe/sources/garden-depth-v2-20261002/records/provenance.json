@@ -1,0 +1,188 @@
+{
+  "tool": "built-in image_gen.imagegen",
+  "seed": null,
+  "modelVersion": null,
+  "generation": [
+    {
+      "name": "garden-worn-depth-v1",
+      "master": "masters/garden-worn-depth-v1.png",
+      "sha256": "9c438491a094b13eaf86150567fb0d4215f368ccd777fc5b06b4e0971ea18335",
+      "size": [
+        2164,
+        727
+      ],
+      "mode": "RGBA",
+      "transparentPixels": 1185717,
+      "softAlphaPixels": 384518,
+      "prompt": "prompts/garden-worn-depth-v1.txt",
+      "promptSha256": "f64e4b3ea5317607fede95683a3a0cf44462e3eae83c8253735adcfd187b3fde",
+      "referencesInAttachmentOrder": [
+        {
+          "path": "../rain-depth-v2-20261002/derived/canonical-exact-four-view.png",
+          "sha256": "28cc795b04d2b0dd214dfa166ca46d531f49b671dcc1557407cc172de37a0702"
+        },
+        {
+          "path": "../garden-rain/masters/garden-worn.png",
+          "sha256": "0a84a8cef02d7288d1096d84eddf208829579637f0bec52c56837a8ec49be5e9"
+        }
+      ],
+      "status": "reference-only",
+      "review": "Garment perspective accepted for extraction planning; generated anatomy is not used. Profile shows narrow front apron and hidden pouch."
+    },
+    {
+      "name": "garden-layers-v1",
+      "master": "masters/garden-layers-v1.png",
+      "sha256": "3cb342699b80d5244132eb606b2cb0838f5e55ac339c86e43badc366fad235e3",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "transparentPixels": 1342503,
+      "softAlphaPixels": 230361,
+      "prompt": "prompts/garden-layers-v1.txt",
+      "promptSha256": "defdaae2f833dd6433b30c97d45e13c69f08e531e169f8294676377d8d7a17a5",
+      "referencesInAttachmentOrder": [
+        {
+          "path": "masters/garden-worn-depth-v1.png",
+          "sha256": "9c438491a094b13eaf86150567fb0d4215f368ccd777fc5b06b4e0971ea18335"
+        }
+      ],
+      "status": "superseded",
+      "review": "Complete cloth extracted, but leaf collar/tie too tall; retained untouched."
+    },
+    {
+      "name": "garden-layers-short-collar-v2",
+      "master": "masters/garden-layers-short-collar-v2.png",
+      "sha256": "ba1c26e8243c333f539ae6b10404afc6fdd5a517323d2a99dbed0127554db509",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "transparentPixels": 1363301,
+      "softAlphaPixels": 209563,
+      "prompt": "prompts/garden-layers-short-collar-v2.txt",
+      "promptSha256": "dc0b4853a6d2d4d4d9fcec2402fd65535b9b5022e7f8ba863c8960981f4d255e",
+      "referencesInAttachmentOrder": [
+        {
+          "path": "masters/garden-layers-v1.png",
+          "sha256": "3cb342699b80d5244132eb606b2cb0838f5e55ac339c86e43badc366fad235e3"
+        }
+      ],
+      "status": "extracted-candidate",
+      "review": "Shorter collar restored petite fit; apron and pouch designs retain original identity. Alpha support removes only detached low-alpha specks, never cream colors."
+    }
+  ],
+  "canonicalBodyPolicy": "All body pixels in exact-body proof come from preserved original canonical PNGs. No newly generated body/face/limb pixels are transferred.",
+  "processing": "build_prototype.py --output NEWDIR delegates to tools/usagi-wardrobe/generation/build_depth_prototype.py; sources, canonical inputs and frozen baselines are read-only.",
+  "recipe": "records/recipe.json",
+  "inputPins": "records/rebuild-inputs.json",
+  "bodyDepthMasks": "Complementary near/back partitions; no hand-shaped permanent holes.",
+  "alphaPolicy": "Largest 8-connected alpha>=96 component per inspected crop, square support dilation3, preserve original RGBA within, no color/white deletion.",
+  "motionReadiness": [
+    {
+      "view": "front",
+      "garment": "collar",
+      "latentSha256": "d9fa9d080799ecf4658b0f6e2ce0757d5b3c4da1e9c4a47beb66844b7e5f2e59",
+      "enclosedAlphaHoles": 0,
+      "clothPixelsBeneathRestHands": 0,
+      "visibleBeyondCanonicalBody": 0
+    },
+    {
+      "view": "front",
+      "garment": "apron",
+      "latentSha256": "b903abfbda2e091a28230ee231cdde9e24dd1e3c2e6fc099065e9b4596eaab32",
+      "enclosedAlphaHoles": 0,
+      "clothPixelsBeneathRestHands": 159,
+      "visibleBeyondCanonicalBody": 26
+    },
+    {
+      "view": "front",
+      "garment": "pouch",
+      "latentSha256": "24773b045d45be840d54a2459b8841374b012e841dcae56e8308ddd8d2eb4360",
+      "enclosedAlphaHoles": 0,
+      "clothPixelsBeneathRestHands": 739,
+      "visibleBeyondCanonicalBody": 993
+    },
+    {
+      "view": "three-quarter",
+      "garment": "collar",
+      "latentSha256": "cfa928bb67957d7c651a70a4ac5ac48848649c5b7d852bb7de2c19eeffe2111d",
+      "enclosedAlphaHoles": 0,
+      "clothPixelsBeneathRestHands": 1120,
+      "visibleBeyondCanonicalBody": 4
+    },
+    {
+      "view": "three-quarter",
+      "garment": "apron",
+      "latentSha256": "60ab86d88df72bcb388da40d8011b1ff9b6bea18cefcfd551b466de03e02fba9",
+      "enclosedAlphaHoles": 0,
+      "clothPixelsBeneathRestHands": 857,
+      "visibleBeyondCanonicalBody": 217
+    },
+    {
+      "view": "three-quarter",
+      "garment": "pouch",
+      "latentSha256": "0132cc206d6af2eb700c723e16a243a1d0b63cb43857470f025b85d06f831b55",
+      "enclosedAlphaHoles": 0,
+      "clothPixelsBeneathRestHands": 695,
+      "visibleBeyondCanonicalBody": 0
+    },
+    {
+      "view": "profile",
+      "garment": "collar",
+      "latentSha256": "7786e3c409a46b0f4974ad1a5fa3d471ec5a3b1d99477bc37277c1296dc60bad",
+      "enclosedAlphaHoles": 0,
+      "clothPixelsBeneathRestHands": 607,
+      "visibleBeyondCanonicalBody": 0
+    },
+    {
+      "view": "profile",
+      "garment": "apron",
+      "latentSha256": "cbe81c9c57bf50247be0509b43a24fc27d93573e39e7cf7313a5370a24eb23e2",
+      "enclosedAlphaHoles": 0,
+      "clothPixelsBeneathRestHands": 491,
+      "visibleBeyondCanonicalBody": 39
+    },
+    {
+      "view": "profile",
+      "garment": "pouch",
+      "latentSha256": "ff0c95c29b6ddaba6d5577e1220e85b818e5261630c5b01d50cc71a4f528b5b3",
+      "enclosedAlphaHoles": 0,
+      "clothPixelsBeneathRestHands": 0,
+      "visibleBeyondCanonicalBody": 109
+    },
+    {
+      "view": "back",
+      "garment": "collar",
+      "latentSha256": "6c70e4979fb6821bec39081e20c817ebbd72356986e8dbc7db925b969ebeb854",
+      "enclosedAlphaHoles": 0,
+      "clothPixelsBeneathRestHands": 12,
+      "visibleBeyondCanonicalBody": 0
+    },
+    {
+      "view": "back",
+      "garment": "apron",
+      "latentSha256": "0fbc0a0d221ecd19da856f3bb508da9e42ff084ad8637feb4578fd2510e57c36",
+      "enclosedAlphaHoles": 0,
+      "clothPixelsBeneathRestHands": 2,
+      "visibleBeyondCanonicalBody": 0
+    },
+    {
+      "view": "back",
+      "garment": "pouch",
+      "latentSha256": "90fd26d3710716a54c13a53e3ee58bc2fb5670f60f167e5739b0221807104a69",
+      "enclosedAlphaHoles": 0,
+      "clothPixelsBeneathRestHands": 712,
+      "visibleBeyondCanonicalBody": 859
+    }
+  ],
+  "limitations": [
+    "Static garment fit only; runtime parent must use its actual dynamic limb depth/contact policy.",
+    "Original shoes/headwear unchanged; full outfit runtime proof remains parent responsibility.",
+    "No desktop/browser/Electron validation claimed."
+  ],
+  "portableBuilderSha256": "ee11b45cf21500557175b6328e2d8c172700273c806ed67afec16cc1094fca53",
+  "wrapperSha256": "ad1a8b7c97fbc5c381a0aa7dc6f4423a44e951086f5717a7b169de69632de220"
+}

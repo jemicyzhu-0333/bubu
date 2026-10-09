@@ -1,0 +1,80 @@
+{
+  "id": "milestone.scarf",
+  "renderKey": "scarf",
+  "views": {
+    "front": {
+      "back": [
+        {
+          "src": "wardrobe/scarf-front-hidden-return.png",
+          "rect": [
+            2.3128205128205117,
+            40.86153846153846,
+            60.88205128205128,
+            15.097435897435897
+          ]
+        }
+      ],
+      "front": [
+        {
+          "src": "wardrobe/scarf-front-visible-cloth.png",
+          "rect": [
+            -3.102564102564102,
+            32.16410256410256,
+            74.17435897435898,
+            25.92820512820513
+          ]
+        }
+      ]
+    },
+    "three-quarter": {
+      "back": [
+        {
+          "src": "wardrobe/scarf-three-quarter-hidden-return.png",
+          "rect": [
+            2.148717948717948,
+            41.189743589743586,
+            61.86666666666667,
+            14.276923076923078
+          ]
+        }
+      ],
+      "front": [
+        {
+          "src": "wardrobe/scarf-three-quarter-visible-cloth.png",
+          "rect": [
+            -1.6256410256410234,
+            32.0,
+            70.07179487179488,
+            27.56923076923077
+          ]
+        }
+      ]
+    },
+    "back": {
+      "back": [
+        {
+          "src": "wardrobe/scarf-back-hidden-return.png",
+          "rect": [
+            1.0,
+            41.02564102564102,
+            64.16410256410256,
+            14.933333333333334
+          ]
+        }
+      ],
+      "front": [
+        {
+          "src": "wardrobe/scarf-back-visible-cloth.png",
+          "rect": [
+            -4.08717948717949,
+            32.98461538461538,
+            72.86153846153846,
+            25.107692307692307
+          ]
+        }
+      ]
+    }
+  },
+  "status": "technical-pass-visual-review-required",
+  "warning": "Candidate descriptors only; not a production integration manifest"
+}

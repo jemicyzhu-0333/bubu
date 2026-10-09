@@ -1,0 +1,90 @@
+{
+  "scope": "Reusable raster wardrobe lessons from this batch; asset evidence only, not a finalized skill",
+  "lessons": [
+    {
+      "finding": "Generated equal-cell instructions do not guarantee equal rows or registration",
+      "evidence": [
+        "masters/forest-leaf-sheet.png",
+        "masters/boots-sheet.png"
+      ],
+      "response": "Record measured explicit source crops and uniform registration; top characters extend below nominal512row boundary."
+    },
+    {
+      "finding": "Wear-first reference does not preserve original body pixels",
+      "evidence": [
+        "qa-tools/scarf-candidate/qa-report.json"
+      ],
+      "response": "Only transfer accessory masks onto exact approved bodyPNG; perview bodyhash and pixel equality gates."
+    },
+    {
+      "finding": "Transparent generated output may contain low-alpha exterior haze, with no alpha255pixels",
+      "evidence": [
+        "masters/scarf-sheet.png"
+      ],
+      "response": "Opaque cloth/solid-item cleanup uses recorded alpha threshold; never reuse for glow/steam."
+    },
+    {
+      "finding": "Individual fit passes do not establish outfit coexistence",
+      "evidence": [
+        "qa-tools/failed-coequip-v1/scarf-candidate/qa-report.json",
+        "masters/scarf-satchel-coequip-v2-sheet.png"
+      ],
+      "response": "Check actual zordered outfit. Wide scarf hid93percent ofbag; regenerated thinner right-tail scarf and outboard pouch."
+    },
+    {
+      "finding": "A co-equipped garment can be incomplete when wornalone",
+      "evidence": [
+        "masters/scarf-satchel-coequip-v2-sheet.png",
+        "masters/satchel-outboard-v3-sheet.png"
+      ],
+      "response": "Bagstrap wascut where scarfcovered it; generated satchel-only repair completed continuous foregroundstrap."
+    },
+    {
+      "finding": "Bootfit must use realfeet independently",
+      "evidence": [
+        "qa-tools/boots-candidate/runtime-candidate.json"
+      ],
+      "response": "Two independently attached opaque shoe sprites, uniformscale, originalsolebaseline; movingbodyvariant needs furtherphysicalfootQA."
+    },
+    {
+      "finding": "Behind-ear occlusion can erase an otherwise attractive clip",
+      "evidence": [
+        "qa/all-16-actual-99px.png"
+      ],
+      "response": "Move reviewed accessorymount outward/up, preserve originalear; validate actual99px read."
+    },
+    {
+      "finding": "Hidden fill needs explicit provenance and narrow viewclaims",
+      "evidence": [
+        "qa-tools/scarf-candidate/recipe-used.json"
+      ],
+      "response": "Complete isolatedrear source can fill only occluded region; authoredfront/2eye3q/back, no invented fullprofile or free rotation."
+    },
+    {
+      "finding": "A three-slot co-fit pass is still insufficient for the complete milestone outfit",
+      "evidence": [
+        "qa-tools/full-outfit-proof/full-outfit-report.json",
+        "qa/full-outfit-report.json",
+        "masters/cape-coequip-v2-sheet.png"
+      ],
+      "response": "Cape was reduced to cream hem fragments behind bag/scarf/boots. Generated wider panels, kept roots behind the untouched body and used complete connected source crops. Clean final static cape visibility is48.1/62.2/37.9 percent acrossfront/3q/back, with recognizable purple cloth."
+    },
+    {
+      "finding": "Generated objects can cross both nominal row and column boundaries",
+      "evidence": [
+        "masters/cape-coequip-v2-sheet.png",
+        "qa-tools/recipes/cape/recipe.json"
+      ],
+      "response": "A508px fragment from the neighboring front cape became a stray3qbar. Connected garment bounds preserve the full tip and exclude neighbor islands; do not trust fixed gridcuts."
+    },
+    {
+      "finding": "Static headwear/halo gaps do not establish safe motion extents",
+      "evidence": [
+        "masters/halo-thin-v2-sheet.png",
+        "qa-tools/recipes/halo/recipe.json",
+        "../audit/wardrobe-extremes-v3/halo-fit-probes.json"
+      ],
+      "response": "Regenerated a shallow ring and uniformly fitted to130px width, preservingcenter256 andbottom25. Actual factory overscan includes desktopbob; retain fixedstage and jumpamplitudes. Finaldynamicpass is recorded separately."
+    }
+  ]
+}

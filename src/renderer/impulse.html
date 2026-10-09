@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>I’m ADHDer - 快捷行动</title>
+<style>
+  /* 快捷行动面板：⌥⇧Space 随叫随到的一张小卡片。只做三件事——随手记（默认焦点）、
+     当前任务的“完成这一步 / 追加一步”、没在做事时“先做 2 分钟”。样式和主面板同一套原生语言。 */
+  :root {
+    --bg-0: #13141c; --bg-1: #1a1b26; --bg-2: #222433; --bg-3: #2c2f42;
+    --fg-0: #e6e9f5; --fg-1: #c0caf5; --fg-2: #8b92b5;
+    --line: rgba(192, 202, 245, 0.12); --line-strong: rgba(192, 202, 245, 0.22);
+    --primary: #f7768e; --accent: #e0af68; --danger: #f7768e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; }
+  /* 窗口是透明的：body 的背景会被“提升”去铺满整个画布，border-radius 就没用了，四个角成了不透明的方角。
+     所以 html / body 都不画，圆角卡片由 .quick-shell 自己画。 */
+  html { background: transparent; }
+  body {
+    font: 13px/1.45 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    color: var(--fg-1);
+    background: transparent;
+    -webkit-user-select: none; user-select: none;
+  }
+  .quick-shell {
+    display: flex; flex-direction: column; gap: 10px; padding: 14px 16px;
+    width: 100%; height: 100%;
+    background:
+      radial-gradient(120% 70% at 50% -20%, color-mix(in srgb, var(--primary) 10%, transparent), transparent 60%),
+      var(--bg-1);
+    border: 1px solid var(--line-strong); border-radius: 14px;
+    animation: none;
+  }
+  .scanlines { display: none; }
+  .hidden { display: none !important; }
+
+  /* 随手记：最上面、最大、默认焦点。 */
+  .capture-block { display: flex; flex-direction: column; gap: 6px; }
+  .capture-label { font-size: 11px; font-weight: 600; color: var(--fg-2); letter-spacing: 0.04em; }
+  input {
+    width: 100%; min-width: 0; height: 40px; padding: 0 12px;
+    font: inherit; font-size: 14px; color: var(--fg-0);
+    background: var(--bg-0); border: 1px solid var(--line); border-radius: 10px; outline: none;
+    -webkit-user-select: text; user-select: text;
+    transition: border-color 0.12s, box-shadow 0.12s;
+  }
+  input:focus { border-color: color-mix(in srgb, var(--primary) 60%, transparent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 16%, transparent); }
+  input::placeholder { color: var(--fg-2); }
+  .hint { display: flex; gap: 12px; font-size: 11px; color: var(--fg-2); }
+  kbd { font: 600 10px/1 ui-monospace, Menlo, monospace; padding: 2px 5px; border: 1px solid var(--line-strong); border-radius: 4px; color: var(--fg-1); }
+
+  .quick-header { display: none; }
+  .panel { display: flex; flex-direction: column; gap: 8px; min-height: 0; padding-top: 10px; border-top: 1px solid var(--line); }
+  .section-label { font-size: 11px; font-weight: 600; color: var(--fg-2); letter-spacing: 0.04em; }
+  .session-summary { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+  .session-summary strong { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 600; color: var(--fg-0); }
+  .session-state { font-size: 11px; color: var(--primary); font-weight: 600; }
+  .session-time { font-size: 12px; color: var(--fg-2); font-variant-numeric: tabular-nums; }
+  .quick-list { display: flex; flex-direction: column; gap: 4px; }
+  .quick-row {
+    width: 100%; min-height: 40px; display: grid; grid-template-columns: 22px minmax(0, 1fr); align-items: center; gap: 10px;
+    padding: 6px 10px; font: inherit; text-align: left; cursor: pointer; color: var(--fg-1);
+    background: var(--bg-2); border: 1px solid transparent; border-radius: 10px;
+  }
+  .quick-row:hover, .quick-row:focus-visible { border-color: color-mix(in srgb, var(--primary) 50%, transparent); outline: none; background: var(--bg-3); }
+  .quick-key {
+    display: grid; place-items: center; width: 22px; height: 22px; border-radius: 6px;
+    font: 700 11px/1 ui-monospace, Menlo, monospace; color: var(--fg-1); border: 1px solid var(--line-strong);
+  }
+  .quick-copy { min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+  .quick-copy strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 600; color: var(--fg-0); }
+  .quick-copy small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11px; color: var(--fg-2); }
+  .quick-empty { font-size: 12px; color: var(--fg-2); }
+  .quick-start-form { display: flex; flex-direction: column; gap: 8px; }
+  .quick-start-form strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #idlePanel { overflow-y: auto; }
+  button:disabled { opacity: 0.55; cursor: default; }
+  form { position: relative; }
+  .input-row { display: flex; gap: 6px; }
+  .input-row input { height: 34px; font-size: 13px; }
+  button { font-family: inherit; }
+  .pixel-btn {
+    min-height: 32px; padding: 0 12px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; flex: none;
+    color: var(--fg-1); background: transparent; border: 1px solid var(--line-strong); border-radius: 8px;
+  }
+  .pixel-btn:hover, .pixel-btn:focus-visible { color: var(--fg-0); border-color: color-mix(in srgb, var(--primary) 50%, transparent); outline: none; }
+  .pixel-btn.primary { color: var(--bg-0); background: var(--primary); border-color: var(--primary); }
+  /* 图标在文字前面；按钮和标签用 flex 让图标与文字垂直居中。 */
+  .pixel-btn[data-icon] { display: inline-flex; align-items: center; justify-content: center; }
+  .capture-label[data-icon], .section-label[data-icon] { display: flex; align-items: center; }
+  .capture-label[data-icon]::before, .section-label[data-icon]::before { color: var(--primary); margin-right: 0.5em; }
+  .pixel-btn[data-icon]::before { width: 1.15em; height: 1.15em; margin-right: 0.4em; }
+  #btnCompleteQuickTask::before { color: #9ece6a; }
+  #btnPauseQuickSession::before { color: var(--accent); }
+  .action-row { display: flex; gap: 6px; }
+  .action-row .pixel-btn { flex: 1; }
+  .panel-status { min-height: 0; font-size: 12px; color: var(--accent); }
+  .panel-status:empty { display: none; }
+  .panel-status[data-tone="error"] { color: var(--danger); }
+  .panel-status[data-tone="quiet"] { color: var(--fg-2); }
+  body[aria-busy="true"] button { cursor: wait; }
+  body[data-mode="fallback"] #fallbackPanel { display: none; }
+  /* 浅色：跟随系统。快捷面板没有皮肤主题，用固定的一套浅色变量。 */
+  @media (prefers-color-scheme: light) {
+    :root {
+      color-scheme: light;
+      --bg-0: #e4e6ee; --bg-1: #f3f4f8; --bg-2: #fbfbfd; --bg-3: #ffffff;
+      --fg-0: #1e2133; --fg-1: #3a3f58; --fg-2: #585d78;
+      --line: rgba(30, 33, 51, 0.14); --line-strong: rgba(30, 33, 51, 0.26);
+      --accent: #b26e14; --danger: #c1352d;
+    }
+    .session-state { color: #b83250; }
+    .pixel-btn.primary { color: #1b1a20; }
+  }
+  @media (prefers-reduced-motion: reduce) { .quick-shell { animation: none; } }
+  body[data-motion="reduced"] .quick-shell { animation: none !important; }
+  /* icons:begin */
+[data-icon]::before {
+  content: ""; display: inline-block; flex: none;
+  width: 1.2em; height: 1.2em; margin-right: 0.42em; vertical-align: -0.22em;
+  background-color: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat; mask: var(--icon) center / contain no-repeat;
+}
+[data-icon][data-icon-only]::before, [data-icon][aria-label]:empty::before { margin-right: 0; }
+[data-icon="check"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.6l4.4 4.4L19 7.4'/%3E%3C/svg%3E"); }
+[data-icon="notebook"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5.5' y='3.5' width='13' height='17' rx='2.2'/%3E%3Cpath d='M9 8.5h6M9 12h6M9 15.5h3.5'/%3E%3C/svg%3E"); }
+[data-icon="pause"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5.5v13M15 5.5v13'/%3E%3C/svg%3E"); }
+[data-icon="play"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 5.5v13l10.5-6.5z'/%3E%3C/svg%3E"); }
+[data-icon="plus"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E"); }
+[data-icon="stop"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='6.5' y='6.5' width='11' height='11' rx='2.2'/%3E%3C/svg%3E"); }
+[data-icon="timer"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='13.5' r='7.5'/%3E%3Cpath d='M12 9.5v4l2.4 1.6M9.5 3h5'/%3E%3C/svg%3E"); }
+/* icons:end */
+</style>
+<link rel="stylesheet" href="../surfaces/impulse/capture.css">
+</head>
+<body data-mode="fallback" data-motion="reduced" data-stimulation="low" aria-busy="false">
+<!-- 图标 data-icon="play" 由 quick-panel.mjs 在“继续”时设置，写在这里是为了让内联图标样式包含它。 -->
+<div class="quick-shell" id="quickShell">
+  <div class="scanlines" aria-hidden="true"></div>
+  <form class="capture-block" id="impulseForm">
+    <label class="capture-label" for="impInput" data-icon="notebook">随手记</label>
+    <div class="capture-input-row"><input type="text" id="impInput" autofocus aria-label="记录闪念" placeholder="记下一句话…" maxlength="500"><button type="submit" class="capture-send" aria-label="保存随手记">↵</button></div>
+    <div class="hint">
+      <span><kbd>Enter</kbd> 收下并关闭</span>
+      <span><kbd>Esc</kbd> 取消</span>
+    </div>
+  </form>
+
+  <header class="quick-header">
+    <div class="quick-title">快捷行动</div>
+    <div class="quick-mode" aria-live="polite"></div>
+  </header>
+
+  <section class="panel hidden" id="activePanel" aria-label="当前执行">
+    <div class="session-summary">
+      <strong id="quickTaskTitle">当前任务</strong>
+      <span class="session-state" id="quickSessionState"></span>
+      <span class="session-time" id="quickSessionTime"></span>
+    </div>
+    <div id="quickStepsSection">
+      <div class="section-label">接下来 <span data-quick-shortcut></span></div>
+      <div class="quick-list" id="quickSteps"></div>
+    </div>
+    <form id="appendStepForm">
+      <div class="input-row">
+        <input type="text" id="stepInput" maxlength="200" aria-label="追加子步骤" placeholder="追加一个可以立刻做的小步骤…">
+        <button type="submit" class="pixel-btn" data-icon="plus">追加</button>
+      </div>
+    </form>
+    <div class="action-row">
+      <button type="button" class="pixel-btn" id="btnCompleteQuickTask" data-icon="check">完成任务</button>
+      <button type="button" class="pixel-btn" id="btnPauseQuickSession" data-icon="pause">暂停</button>
+      <button type="button" class="pixel-btn" id="btnStopQuickSession" data-icon="stop">结束</button>
+    </div>
+  </section>
+
+  <section class="panel hidden" id="idlePanel" aria-label="待启动任务">
+    <div class="section-label" data-icon="timer">轻轻开始 <span data-quick-shortcut></span></div>
+    <div class="quick-list" id="quickCandidates"></div>
+    <form class="quick-start-form hidden" id="quickStartForm" aria-label="下一动作">
+      <strong id="quickStartTitle"></strong>
+      <label for="quickStartInput">接下来能做的一小步</label>
+      <input id="quickStartInput" type="text" maxlength="200" placeholder="例如：打开笔记，写下第一行">
+      <div class="action-row">
+        <button type="submit" class="pixel-btn primary" id="quickStartConfirm">开始 2 分钟</button>
+        <button type="button" class="pixel-btn" id="quickStartCancel">取消</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="panel" id="fallbackPanel" aria-label="快速记录">
+    <p class="quick-empty">记下来就回去，稍后在收件箱处理。</p>
+  </section>
+
+  <div class="panel-status hidden" id="panelStatus" role="status" aria-live="polite"></div>
+</div>
+<script type="module" src="../surfaces/impulse/entry.mjs"></script>
+</body>
+</html>

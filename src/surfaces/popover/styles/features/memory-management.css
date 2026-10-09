@@ -1,0 +1,25 @@
+/* PRODUCT「界面语言」: native tool typography and independently reviewable memory changes. */
+@layer features {
+  #memorySection { font: 12px/1.5 system-ui, sans-serif; }
+  #memorySection h3, #memorySection h4 { font-size: 13px; margin: 6px 0; }
+  #memorySection .memory-tabs, #memorySection .memory-actions { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+  #memorySection .memory-tabs button { min-height: 32px; color: var(--fg-1); background: var(--bg-1); border: 1px solid var(--bg-3); border-radius: 6px; font: inherit; padding: 4px 9px; }
+  #memorySection .memory-tabs button[aria-selected="true"] { color: var(--primary-ink); border-color: var(--primary-ink); }
+  #memorySection .memory-note, #memorySection .memory-meta { font-size: 11px; color: var(--fg-2); margin: 6px 0; overflow-wrap: anywhere; }
+  #memorySection .memory-list { max-height: 320px; overflow-y: auto; scrollbar-gutter: stable; }
+  #memorySection .memory-row { padding: 9px; border: 1px solid var(--bg-3); border-radius: 6px; margin: 7px 0; }
+  #memorySection .memory-row-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 5px; }
+  #memorySection .memory-subject, #memorySection .memory-body { font-size: 12px; overflow-wrap: anywhere; white-space: pre-wrap; }
+  #memorySection .memory-versioned-draft { display: grid; grid-template-columns: minmax(0, 1fr); gap: 5px; border: 1px solid var(--bg-3); padding: 10px; border-radius: 8px; }
+  #memorySection .memory-versioned-draft :is(input, select, textarea) { width: 100%; min-width: 0; padding: 6px; border: 1px solid var(--bg-3); border-radius: 4px; color: var(--fg-0); background: var(--bg-1); font: inherit; }
+  #memorySection .memory-review, #memorySection .memory-receipt { margin: 10px 0; padding: 10px; border: 1px solid var(--bg-3); border-radius: 8px; }
+  #memorySection .memory-diff { margin: 7px 0; }
+  #memorySection .memory-diff > div { border-top: 1px solid var(--bg-3); padding: 6px 0; }
+  #memorySection .memory-diff dt { font-weight: 600; }
+  #memorySection .memory-diff dd { margin: 4px 0; display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 6px; }
+  #memorySection .memory-diff pre { margin: 0; font: inherit; white-space: pre-wrap; overflow-wrap: anywhere; }
+  #memorySection .memory-check { display: flex; align-items: flex-start; gap: 7px; }
+  #memorySection .memory-permanent { border-top: 1px solid var(--bg-3); margin: 9px 0; padding-top: 6px; }
+  #memorySection .memory-conflict { color: var(--fg-1); font-size: 11px; }
+  #memorySection .hidden { display: none; }
+}

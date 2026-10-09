@@ -1,0 +1,422 @@
+{
+  "id": "milestone.scarf",
+  "renderKey": "scarf",
+  "kind": "neckwear",
+  "canvas": [
+    768,
+    768
+  ],
+  "origin512": [
+    -128,
+    -192
+  ],
+  "threeQuarterSource": "three-quarter-right",
+  "leftFacingPolicy": "runtime-mirror",
+  "replacementReason": "Regenerated coordinated fit because prior satchel was obscured when scarf and boots were equipped",
+  "views": {
+    "front": {
+      "sources": {
+        "worn": {
+          "path": "../../masters/scarf-satchel-coequip-v2-sheet.png",
+          "crop": [
+            0,
+            0,
+            512,
+            640
+          ],
+          "transform": {
+            "scale": 0.98,
+            "translate": [
+              -0.3,
+              -43.92
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque scarf/leather material with stepped navy outline, removing low-alpha exterior haze; contextual boots never selected"
+          },
+          "registrationBasis": "Uniform original body fit using ear-tip y104 -> approved y58; contextual boot baseline ignored. Three-quarter scarf lowered 8px to preserve original mouth plus6px safety margin."
+        },
+        "isolated": {
+          "path": "../../masters/scarf-sheet.png",
+          "crop": [
+            0,
+            512,
+            512,
+            1024
+          ],
+          "transform": {
+            "scale": 0.9798994974874372,
+            "translate": [
+              -0.254,
+              115
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque stepped cloth and navy outline only. Removes low-alpha generated exterior haze; not suitable for glow/steam."
+          },
+          "registrationBasis": "Worn: measured ear-tip y102 to approved y58, original foot baseline y448, uniform body extent. Isolated: independent visible cuff-edge correspondence; no body pixels used."
+        },
+        "cofit-isolated": {
+          "path": "../../masters/scarf-satchel-coequip-v2-sheet.png",
+          "crop": [
+            0,
+            640,
+            512,
+            1024
+          ],
+          "transform": {
+            "scale": 0.98,
+            "translate": [
+              -0.3,
+              172
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque scarf/leather material with stepped navy outline, removing low-alpha exterior haze; contextual boots never selected"
+          },
+          "role": "isolated",
+          "limitedUse": "New kit bottom row records visible isolated design only; not used to claim reconstructed hidden material"
+        }
+      },
+      "faceProtected": {
+        "rectangles": [
+          [
+            131,
+            184,
+            211,
+            272
+          ],
+          [
+            299,
+            184,
+            378,
+            272
+          ],
+          [
+            231,
+            276,
+            279,
+            310
+          ]
+        ]
+      },
+      "segmentationProvenance": {
+        "manualRegion": {
+          "coordinateSpace": "source",
+          "rectangles": [
+            [
+              17,
+              287,
+              506,
+              479
+            ]
+          ]
+        },
+        "seed": "scarf: violet/mint; satchel: caramel/leather, never pink",
+        "outline": "6px local dilation intersect dark source and semantic region",
+        "holes": "not filled",
+        "contextualBoots": "Explicitly excluded; final co-equip proof uses independent fitted boots candidate",
+        "hiddenRegion": {
+          "coordinateSpace": "source",
+          "rectangles": [
+            [
+              0,
+              185,
+              512,
+              290
+            ]
+          ]
+        }
+      },
+      "hiddenMaterialStatus": {
+        "status": "reconstructed",
+        "reason": "Prior complete isolated cuff rear arc adapted behind fully opaque original body. It is concealed material only; no visible turn interpolation or independent scarf deformation."
+      },
+      "layers": [
+        {
+          "id": "hidden-return",
+          "source": "isolated",
+          "plane": "back",
+          "purpose": "hidden-reconstruction",
+          "mask": {
+            "file": "front-hidden-mask.png"
+          }
+        },
+        {
+          "id": "visible-cloth",
+          "source": "worn",
+          "plane": "front",
+          "purpose": "visible",
+          "mask": {
+            "file": "front-visible-mask.png"
+          }
+        }
+      ]
+    },
+    "three-quarter": {
+      "sources": {
+        "worn": {
+          "path": "../../masters/scarf-satchel-coequip-v2-sheet.png",
+          "crop": [
+            512,
+            0,
+            1024,
+            640
+          ],
+          "transform": {
+            "scale": 0.98,
+            "translate": [
+              5.1,
+              -35.92
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque scarf/leather material with stepped navy outline, removing low-alpha exterior haze; contextual boots never selected"
+          },
+          "registrationBasis": "Uniform original body fit using ear-tip y104 -> approved y58; contextual boot baseline ignored. Three-quarter scarf lowered 8px to preserve original mouth plus6px safety margin."
+        },
+        "isolated": {
+          "path": "../../masters/scarf-sheet.png",
+          "crop": [
+            512,
+            512,
+            1024,
+            1024
+          ],
+          "transform": {
+            "scale": 0.9701492537313433,
+            "translate": [
+              7,
+              115
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque stepped cloth and navy outline only. Removes low-alpha generated exterior haze; not suitable for glow/steam."
+          },
+          "registrationBasis": "Worn: measured ear-tip y102 to approved y58, original foot baseline y448, uniform body extent. Isolated: independent visible cuff-edge correspondence; no body pixels used."
+        },
+        "cofit-isolated": {
+          "path": "../../masters/scarf-satchel-coequip-v2-sheet.png",
+          "crop": [
+            512,
+            640,
+            1024,
+            1024
+          ],
+          "transform": {
+            "scale": 0.98,
+            "translate": [
+              5.1,
+              172
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque scarf/leather material with stepped navy outline, removing low-alpha exterior haze; contextual boots never selected"
+          },
+          "role": "isolated",
+          "limitedUse": "New kit bottom row records visible isolated design only; not used to claim reconstructed hidden material"
+        }
+      },
+      "faceProtected": {
+        "file": "three-quarter-protected-face.png"
+      },
+      "segmentationProvenance": {
+        "manualRegion": {
+          "coordinateSpace": "source",
+          "rectangles": [
+            [
+              17,
+              287,
+              506,
+              479
+            ]
+          ]
+        },
+        "seed": "scarf: violet/mint; satchel: caramel/leather, never pink",
+        "outline": "6px local dilation intersect dark source and semantic region",
+        "holes": "not filled",
+        "contextualBoots": "Explicitly excluded; final co-equip proof uses independent fitted boots candidate",
+        "hiddenRegion": {
+          "coordinateSpace": "source",
+          "rectangles": [
+            [
+              0,
+              185,
+              512,
+              290
+            ]
+          ]
+        }
+      },
+      "hiddenMaterialStatus": {
+        "status": "reconstructed",
+        "reason": "Prior complete isolated cuff rear arc adapted behind fully opaque original body. It is concealed material only; no visible turn interpolation or independent scarf deformation."
+      },
+      "layers": [
+        {
+          "id": "hidden-return",
+          "source": "isolated",
+          "plane": "back",
+          "purpose": "hidden-reconstruction",
+          "mask": {
+            "file": "three-quarter-hidden-mask.png"
+          }
+        },
+        {
+          "id": "visible-cloth",
+          "source": "worn",
+          "plane": "front",
+          "purpose": "visible",
+          "mask": {
+            "file": "three-quarter-visible-mask.png"
+          }
+        }
+      ]
+    },
+    "back": {
+      "sources": {
+        "worn": {
+          "path": "../../masters/scarf-satchel-coequip-v2-sheet.png",
+          "crop": [
+            1024,
+            0,
+            1536,
+            640
+          ],
+          "transform": {
+            "scale": 0.98,
+            "translate": [
+              13.5,
+              -43.92
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque scarf/leather material with stepped navy outline, removing low-alpha exterior haze; contextual boots never selected"
+          },
+          "registrationBasis": "Uniform original body fit using ear-tip y104 -> approved y58; contextual boot baseline ignored. Three-quarter scarf lowered 8px to preserve original mouth plus6px safety margin."
+        },
+        "isolated": {
+          "path": "../../masters/scarf-sheet.png",
+          "crop": [
+            1024,
+            512,
+            1536,
+            1024
+          ],
+          "transform": {
+            "scale": 0.9798994974874372,
+            "translate": [
+              18,
+              115
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque stepped cloth and navy outline only. Removes low-alpha generated exterior haze; not suitable for glow/steam."
+          },
+          "registrationBasis": "Worn: measured ear-tip y102 to approved y58, original foot baseline y448, uniform body extent. Isolated: independent visible cuff-edge correspondence; no body pixels used."
+        },
+        "cofit-isolated": {
+          "path": "../../masters/scarf-satchel-coequip-v2-sheet.png",
+          "crop": [
+            1024,
+            640,
+            1536,
+            1024
+          ],
+          "transform": {
+            "scale": 0.98,
+            "translate": [
+              13.5,
+              172
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque scarf/leather material with stepped navy outline, removing low-alpha exterior haze; contextual boots never selected"
+          },
+          "role": "isolated",
+          "limitedUse": "New kit bottom row records visible isolated design only; not used to claim reconstructed hidden material"
+        }
+      },
+      "faceProtected": {},
+      "segmentationProvenance": {
+        "manualRegion": {
+          "coordinateSpace": "source",
+          "rectangles": [
+            [
+              17,
+              287,
+              506,
+              479
+            ]
+          ]
+        },
+        "seed": "scarf: violet/mint; satchel: caramel/leather, never pink",
+        "outline": "6px local dilation intersect dark source and semantic region",
+        "holes": "not filled",
+        "contextualBoots": "Explicitly excluded; final co-equip proof uses independent fitted boots candidate",
+        "hiddenRegion": {
+          "coordinateSpace": "source",
+          "rectangles": [
+            [
+              0,
+              185,
+              512,
+              290
+            ]
+          ]
+        }
+      },
+      "hiddenMaterialStatus": {
+        "status": "reconstructed",
+        "reason": "Prior complete isolated cuff rear arc adapted behind fully opaque original body. It is concealed material only; no visible turn interpolation or independent scarf deformation."
+      },
+      "layers": [
+        {
+          "id": "hidden-return",
+          "source": "isolated",
+          "plane": "back",
+          "purpose": "hidden-reconstruction",
+          "mask": {
+            "file": "back-hidden-mask.png"
+          }
+        },
+        {
+          "id": "visible-cloth",
+          "source": "worn",
+          "plane": "front",
+          "purpose": "visible",
+          "mask": {
+            "file": "back-visible-mask.png"
+          }
+        }
+      ]
+    }
+  }
+}

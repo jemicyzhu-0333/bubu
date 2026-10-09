@@ -1,0 +1,61 @@
+/* One occupied footer grid in the unchanged 220px stage. Character canvases,
+   native anchor and body hit geometry are not part of this layout. */
+.status-footer {
+  position: absolute; left: 50%; top: 184px;
+  width: min(200px, calc(100vw - 16px)); transform: translateX(-50%);
+  display: grid; grid-template: "action context feed" 26px / 72px minmax(0, 1fr) 26px;
+  gap: 6px; pointer-events: none; z-index: 5;
+}
+.context-row { grid-area: context; min-width: 0; display: grid; align-items: center; }
+.activity-bar { grid-area: action; display: flex; align-items: center; gap: 8px; min-width: 0; pointer-events: none; }
+/* Names remain in accessible labels/tooltips; idle has no text strip. */
+.activity-label { display: none; }
+.activity-next {
+  display: none; align-items: center; justify-content: center;
+  width: 26px; height: 26px; padding: 0; border: 1px solid rgba(169,177,214,0.32);
+  border-radius: 7px; background: rgba(23,27,39,0.74); color: #c0caf5; cursor: pointer; pointer-events: auto;
+}
+.stage.session-focused .activity-next, .stage.session-resting .activity-next { display: flex; }
+.activity-next:hover { background: rgba(125,207,255,0.16); color: #fff; }
+.activity-next:focus-visible { outline: 2px solid var(--accent, #e0af68); outline-offset: -3px; }
+
+  /* 常驻喂食入口：功能性外部化线索，低刺激与减少动效下同样保留 */
+  .feed-quick {
+    grid-area: feed;
+    align-self: start;
+    width: 26px; height: 26px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(26, 27, 38, 0.58);
+    border: 1px solid color-mix(in srgb, var(--accent, #e0af68) 48%, transparent);
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+    color: #ecebf1;
+    font-size: 12px;
+    line-height: 1;
+    padding: 0;
+    appearance: none;
+    cursor: pointer;
+    opacity: 0.45;
+    transition: opacity 0.2s, transform 0.15s;
+    pointer-events: auto;
+  }
+  .feed-quick:hover { opacity: 1; transform: none; }
+  .feed-quick:focus-visible {
+    opacity: 1;
+    outline: 2px solid var(--accent, #e0af68);
+    outline-offset: -3px;
+  }
+  /* 菜单或喂食面板展开时让位 */
+  .stage.menu-open .feed-quick { opacity: 0; visibility: hidden; pointer-events: none; }
+
+
+/* Menus, dragging and docking keep their established context priority. Hide
+   whole cells so invisible controls cannot remain in keyboard navigation. */
+.stage.is-docked .status-footer { visibility: hidden; }
+.stage.menu-open .activity-bar { opacity: 0; visibility: hidden; pointer-events: none; }
+/* In a constrained work area retain the action and feed row. Supplemental
+   context is the only expendable row, never the focus control. */
+@media (max-height: 217px) {
+  .status-footer { top: min(184px, calc((100vh + 220px) / 2 - 29px)); }
+  .context-row { display: none; }
+}

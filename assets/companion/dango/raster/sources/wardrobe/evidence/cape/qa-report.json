@@ -1,0 +1,2332 @@
+{
+  "tooling": {
+    "python": "3.12.14",
+    "packages": {
+      "Pillow": "12.3.0",
+      "numpy": "2.3.5",
+      "scipy": "1.17.0"
+    },
+    "scriptSha256": {
+      "wardrobe_qa.py": "269ea808eb0c9e1d4247861e0c9f4a027f7c424813472aece52273488adde139",
+      "wardrobe_common.py": "561dfd668d7bbac85146b68d4eba1d19cda7b43af8a231d30c6faf144fe9d23a",
+      "wardrobe_proof.py": "8b7636c6649602b199ec229dfa5669abbc7117816f475ac1fb82b968204d1e95"
+    }
+  },
+  "schema": 1,
+  "item": "milestone.cape",
+  "renderKey": "cape",
+  "recipeSha256": "38495dd8bf05bb413fbeb8a0778795758df8037aa516b9cd3f1d248392b20f1d",
+  "canvas": [
+    768,
+    768
+  ],
+  "origin512": [
+    -128,
+    -192
+  ],
+  "allowedViews": [
+    "front",
+    "three-quarter",
+    "back"
+  ],
+  "threeQuarterSource": "three-quarter-right",
+  "leftFacingPolicy": "runtime-mirror",
+  "claim": "Deterministic extraction/static compositing evidence, not user approval or animated-runtime validation",
+  "views": {
+    "front": {
+      "segmentationProvenance": null,
+      "fitEvidence": null,
+      "approvedBody": {
+        "path": "authoring-workspace/pet-raster-prototype/assets/multiview-v1/front.png",
+        "sha256": "08befd789abe901d90d4d8844ac296bd17fc93021ef5707063396795f61b9ac0",
+        "registration": "Unchanged original pixels; integer translation only"
+      },
+      "sources": {
+        "worn": {
+          "sourceSpec": {
+            "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+            "crop": [
+              0,
+              0,
+              512,
+              640
+            ],
+            "transform": {
+              "scale": 1.0613333333333332,
+              "translate": [
+                -19.415999999999997,
+                -111.54933333333332
+              ]
+            },
+            "sampling": "nearest",
+            "alphaPolicy": {
+              "mode": "opaque-cutout",
+              "threshold": 128,
+              "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+            },
+            "registrationBasis": "Uniform registration from measured main pink body width matched to approved front398/three-quarter403/back416 and approved pink ear-top y71; lower garment may occlude foot baseline. Body pixels never transferred.",
+            "role": "worn"
+          },
+          "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+          "sha256": "ebf688c12e0c7eca0eafdb7ad2c9b063912d5b68fffa7466ab079ab983a202cd",
+          "rawSize": [
+            1536,
+            1024
+          ],
+          "crop": [
+            0,
+            0,
+            512,
+            640
+          ],
+          "registration": {
+            "scale": 1.0613333333333332,
+            "translate": [
+              -19.415999999999997,
+              -111.54933333333332
+            ]
+          },
+          "sampling": "nearest",
+          "inputAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": false,
+            "visiblePixels": 152684,
+            "partialAlphaPixels": 152684,
+            "components": 166,
+            "componentAreas": [
+              152406,
+              18,
+              17,
+              8,
+              8,
+              7,
+              6,
+              6,
+              5,
+              5,
+              4,
+              4,
+              4,
+              4,
+              4,
+              3,
+              3,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "bounds": [
+              0,
+              5,
+              512,
+              632
+            ],
+            "touchesCanvasEdge": true
+          },
+          "processedAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": true,
+            "visiblePixels": 143241,
+            "partialAlphaPixels": 0,
+            "components": 2,
+            "componentAreas": [
+              143240,
+              1
+            ],
+            "bounds": [
+              9,
+              161,
+              512,
+              550
+            ],
+            "touchesCanvasEdge": true
+          },
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+          },
+          "normalizedBounds512": [
+            -9.863999999999997,
+            59.32533333333333,
+            523.9866666666667,
+            472.1839999999999
+          ],
+          "clippedByWorkingCanvas": false
+        },
+        "isolated": {
+          "sourceSpec": {
+            "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+            "crop": [
+              11,
+              690,
+              526,
+              900
+            ],
+            "transform": {
+              "scale": 0.9784735812133072,
+              "translate": [
+                4.043052837573413,
+                245.4774951076321
+              ]
+            },
+            "sampling": "nearest",
+            "alphaPolicy": {
+              "mode": "opaque-cutout",
+              "threshold": 128,
+              "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+            },
+            "registrationBasis": "Independent isolated-item uniform fit: reviewed accessory width 500px, center x256, bottom y449 in approved512 coordinates; hidden source preserved. No body or nonuniform warp.",
+            "role": "isolated"
+          },
+          "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+          "sha256": "ebf688c12e0c7eca0eafdb7ad2c9b063912d5b68fffa7466ab079ab983a202cd",
+          "rawSize": [
+            1536,
+            1024
+          ],
+          "crop": [
+            11,
+            690,
+            526,
+            900
+          ],
+          "registration": {
+            "scale": 0.9784735812133072,
+            "translate": [
+              4.043052837573413,
+              245.4774951076321
+            ]
+          },
+          "sampling": "nearest",
+          "inputAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": false,
+            "visiblePixels": 60945,
+            "partialAlphaPixels": 60945,
+            "components": 40,
+            "componentAreas": [
+              60899,
+              5,
+              2,
+              2,
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "bounds": [
+              0,
+              0,
+              515,
+              210
+            ],
+            "touchesCanvasEdge": true
+          },
+          "processedAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": true,
+            "visiblePixels": 52418,
+            "partialAlphaPixels": 0,
+            "components": 1,
+            "componentAreas": [
+              52418
+            ],
+            "bounds": [
+              2,
+              2,
+              513,
+              208
+            ],
+            "touchesCanvasEdge": false
+          },
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+          },
+          "normalizedBounds512": [
+            6.000000000000027,
+            247.43444227005872,
+            506.0,
+            449.0
+          ],
+          "clippedByWorkingCanvas": false
+        },
+        "left-panel": {
+          "sourceSpec": {
+            "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+            "crop": [
+              11,
+              690,
+              526,
+              900
+            ],
+            "transform": {
+              "scale": 0.9784735812133072,
+              "translate": [
+                -31.956947162426587,
+                245.4774951076321
+              ]
+            },
+            "sampling": "nearest",
+            "alphaPolicy": {
+              "mode": "opaque-cutout",
+              "threshold": 128,
+              "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+            },
+            "registrationBasis": "Independent isolated-item uniform fit: reviewed accessory width 500px, center x256, bottom y449 in approved512 coordinates; hidden source preserved. No body or nonuniform warp.; independently translate generated half-panel36px outward; attachment roots remain behind opaque original body, no foreground bridge.",
+            "role": "isolated"
+          },
+          "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+          "sha256": "ebf688c12e0c7eca0eafdb7ad2c9b063912d5b68fffa7466ab079ab983a202cd",
+          "rawSize": [
+            1536,
+            1024
+          ],
+          "crop": [
+            11,
+            690,
+            526,
+            900
+          ],
+          "registration": {
+            "scale": 0.9784735812133072,
+            "translate": [
+              -31.956947162426587,
+              245.4774951076321
+            ]
+          },
+          "sampling": "nearest",
+          "inputAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": false,
+            "visiblePixels": 60945,
+            "partialAlphaPixels": 60945,
+            "components": 40,
+            "componentAreas": [
+              60899,
+              5,
+              2,
+              2,
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "bounds": [
+              0,
+              0,
+              515,
+              210
+            ],
+            "touchesCanvasEdge": true
+          },
+          "processedAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": true,
+            "visiblePixels": 52418,
+            "partialAlphaPixels": 0,
+            "components": 1,
+            "componentAreas": [
+              52418
+            ],
+            "bounds": [
+              2,
+              2,
+              513,
+              208
+            ],
+            "touchesCanvasEdge": false
+          },
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+          },
+          "normalizedBounds512": [
+            -29.99999999999997,
+            247.43444227005872,
+            470.0,
+            449.0
+          ],
+          "clippedByWorkingCanvas": false
+        },
+        "right-panel": {
+          "sourceSpec": {
+            "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+            "crop": [
+              11,
+              690,
+              526,
+              900
+            ],
+            "transform": {
+              "scale": 0.9784735812133072,
+              "translate": [
+                40.04305283757341,
+                245.4774951076321
+              ]
+            },
+            "sampling": "nearest",
+            "alphaPolicy": {
+              "mode": "opaque-cutout",
+              "threshold": 128,
+              "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+            },
+            "registrationBasis": "Independent isolated-item uniform fit: reviewed accessory width 500px, center x256, bottom y449 in approved512 coordinates; hidden source preserved. No body or nonuniform warp.; independently translate generated half-panel36px outward; attachment roots remain behind opaque original body, no foreground bridge.",
+            "role": "isolated"
+          },
+          "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+          "sha256": "ebf688c12e0c7eca0eafdb7ad2c9b063912d5b68fffa7466ab079ab983a202cd",
+          "rawSize": [
+            1536,
+            1024
+          ],
+          "crop": [
+            11,
+            690,
+            526,
+            900
+          ],
+          "registration": {
+            "scale": 0.9784735812133072,
+            "translate": [
+              40.04305283757341,
+              245.4774951076321
+            ]
+          },
+          "sampling": "nearest",
+          "inputAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": false,
+            "visiblePixels": 60945,
+            "partialAlphaPixels": 60945,
+            "components": 40,
+            "componentAreas": [
+              60899,
+              5,
+              2,
+              2,
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "bounds": [
+              0,
+              0,
+              515,
+              210
+            ],
+            "touchesCanvasEdge": true
+          },
+          "processedAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": true,
+            "visiblePixels": 52418,
+            "partialAlphaPixels": 0,
+            "components": 1,
+            "componentAreas": [
+              52418
+            ],
+            "bounds": [
+              2,
+              2,
+              513,
+              208
+            ],
+            "touchesCanvasEdge": false
+          },
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+          },
+          "normalizedBounds512": [
+            42.00000000000003,
+            247.43444227005872,
+            542.0,
+            449.0
+          ],
+          "clippedByWorkingCanvas": false
+        },
+        "hiddenPanel": {
+          "sourceSpec": {
+            "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+            "crop": [
+              1026,
+              690,
+              1523,
+              904
+            ],
+            "transform": {
+              "scale": 1.0141987829614605,
+              "translate": [
+                3.971602434077056,
+                216.98985801217037
+              ]
+            },
+            "sampling": "nearest",
+            "alphaPolicy": {
+              "mode": "opaque-cutout",
+              "threshold": 128,
+              "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+            },
+            "registrationBasis": "Independent isolated-item uniform fit: reviewed accessory width 500px, center x256, bottom y432 in approved512 coordinates; hidden source preserved. No body or nonuniform warp.",
+            "role": "isolated"
+          },
+          "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+          "sha256": "ebf688c12e0c7eca0eafdb7ad2c9b063912d5b68fffa7466ab079ab983a202cd",
+          "rawSize": [
+            1536,
+            1024
+          ],
+          "crop": [
+            1026,
+            690,
+            1523,
+            904
+          ],
+          "registration": {
+            "scale": 1.0141987829614605,
+            "translate": [
+              3.971602434077056,
+              216.98985801217037
+            ]
+          },
+          "sampling": "nearest",
+          "inputAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": false,
+            "visiblePixels": 82509,
+            "partialAlphaPixels": 82509,
+            "components": 27,
+            "componentAreas": [
+              82475,
+              5,
+              3,
+              2,
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "bounds": [
+              0,
+              0,
+              497,
+              214
+            ],
+            "touchesCanvasEdge": true
+          },
+          "processedAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": true,
+            "visiblePixels": 75348,
+            "partialAlphaPixels": 0,
+            "components": 1,
+            "componentAreas": [
+              75348
+            ],
+            "bounds": [
+              2,
+              2,
+              495,
+              212
+            ],
+            "touchesCanvasEdge": false
+          },
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+          },
+          "normalizedBounds512": [
+            5.999999999999977,
+            219.0182555780933,
+            506.0,
+            432.0
+          ],
+          "clippedByWorkingCanvas": false
+        }
+      },
+      "layers": [
+        {
+          "id": "left-panel",
+          "source": "left-panel",
+          "plane": "back",
+          "purpose": "visible",
+          "attachment": null,
+          "maskSpec": {
+            "file": "front-left-panel-mask.png"
+          },
+          "maskSha256": "9df7794f1368c0e2b882ae99e3c31cbc286784a2eb7d32059a055ff37e5399e8",
+          "assetSha256": "a7fe0ef3c50654b6b7ab40afed3f64c7b4bf96a7baf85381927415a02152cd78",
+          "sprite": {
+            "src": "wardrobe/cape-front-left-panel.png",
+            "rect": [
+              -13.93333333333333,
+              31.343589743589746,
+              41.02564102564103,
+              32.82051282051282
+            ]
+          },
+          "alpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": true,
+            "visiblePixels": 25012,
+            "partialAlphaPixels": 0,
+            "components": 1,
+            "componentAreas": [
+              25012
+            ],
+            "bounds": [
+              98,
+              441,
+              348,
+              641
+            ],
+            "touchesCanvasEdge": false
+          }
+        },
+        {
+          "id": "right-panel",
+          "source": "right-panel",
+          "plane": "back",
+          "purpose": "visible",
+          "attachment": null,
+          "maskSpec": {
+            "file": "front-right-panel-mask.png"
+          },
+          "maskSha256": "6f3ff18049c7c2e8e5ca68d49c87ab9e6954ffb7292caf9224f9b532a2074336",
+          "assetSha256": "dab8bdfd15e25a7c8ee343cfc3bb80a7728b1ced8c74b27b1eb50d6f0e1eb170",
+          "sprite": {
+            "src": "wardrobe/cape-front-right-panel.png",
+            "rect": [
+              38.90769230769231,
+              31.01538461538462,
+              41.02564102564103,
+              33.14871794871795
+            ]
+          },
+          "alpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": true,
+            "visiblePixels": 25138,
+            "partialAlphaPixels": 0,
+            "components": 1,
+            "componentAreas": [
+              25138
+            ],
+            "bounds": [
+              420,
+              439,
+              670,
+              641
+            ],
+            "touchesCanvasEdge": false
+          }
+        },
+        {
+          "id": "hidden-panel",
+          "source": "hiddenPanel",
+          "plane": "back",
+          "purpose": "hidden-reconstruction",
+          "attachment": null,
+          "maskSpec": {
+            "file": "front-hidden-panel-mask.png"
+          },
+          "maskSha256": "21d895667ad761e3fe5a597fd0c9fa25100912696bf2d49a077df67a9ee307cd",
+          "assetSha256": "472f82245f6f286c6d384164a76d4409244a1f6d4d5a677d315352bb9a8cf894",
+          "sprite": {
+            "src": "wardrobe/cape-front-hidden-panel.png",
+            "rect": [
+              -1.46153846153846,
+              26.42051282051282,
+              68.75897435897436,
+              34.95384615384615
+            ]
+          },
+          "alpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": true,
+            "visiblePixels": 63240,
+            "partialAlphaPixels": 0,
+            "components": 1,
+            "componentAreas": [
+              63240
+            ],
+            "bounds": [
+              174,
+              411,
+              593,
+              624
+            ],
+            "touchesCanvasEdge": false
+          }
+        }
+      ],
+      "checks": {
+        "outsideEffectiveAccessoryExactlyPreserved": true,
+        "changedOutsideAccessoryPixels": 0,
+        "protectedFaceExactlyPreserved": true,
+        "faceOcclusionPixels": 0,
+        "protectedFacePixelCount": 14825,
+        "opaqueBodyUnderBackExactlyPreserved": true,
+        "canonicalFaceMissingProtectionPixels": 0,
+        "generatedBodyDriftBeforeTransfer": {
+          "samplePixels": 57889,
+          "meanAbsoluteRGBDifference": 14.678937276511945,
+          "changedPixelFraction": 0.9978579695624384,
+          "meaning": "Drift in generated exposed body; generated body pixels are never transferred"
+        }
+      },
+      "hiddenMaterialStatus": {
+        "status": "reconstructed",
+        "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+      },
+      "failures": [],
+      "warnings": [],
+      "result": "technical-pass-visual-review-required"
+    },
+    "three-quarter": {
+      "segmentationProvenance": null,
+      "fitEvidence": null,
+      "approvedBody": {
+        "path": "authoring-workspace/pet-raster-prototype/assets/multiview-v1/three-quarter-right.png",
+        "sha256": "ae9af5e90355d16bd9a823e45749f75ed63626dd9a67e0e8ce240da51da43795",
+        "registration": "Unchanged original pixels; integer translation only"
+      },
+      "sources": {
+        "worn": {
+          "sourceSpec": {
+            "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+            "crop": [
+              512,
+              0,
+              1024,
+              640
+            ],
+            "transform": {
+              "scale": 1.0359897172236503,
+              "translate": [
+                -40.811053984575835,
+                -107.19023136246784
+              ]
+            },
+            "sampling": "nearest",
+            "alphaPolicy": {
+              "mode": "opaque-cutout",
+              "threshold": 128,
+              "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+            },
+            "registrationBasis": "Uniform registration from measured main pink body width matched to approved front398/three-quarter403/back416 and approved pink ear-top y71; lower garment may occlude foot baseline. Body pixels never transferred.",
+            "role": "worn"
+          },
+          "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+          "sha256": "ebf688c12e0c7eca0eafdb7ad2c9b063912d5b68fffa7466ab079ab983a202cd",
+          "rawSize": [
+            1536,
+            1024
+          ],
+          "crop": [
+            512,
+            0,
+            1024,
+            640
+          ],
+          "registration": {
+            "scale": 1.0359897172236503,
+            "translate": [
+              -40.811053984575835,
+              -107.19023136246784
+            ]
+          },
+          "sampling": "nearest",
+          "inputAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": false,
+            "visiblePixels": 154029,
+            "partialAlphaPixels": 154029,
+            "components": 177,
+            "componentAreas": [
+              153762,
+              15,
+              13,
+              11,
+              7,
+              6,
+              4,
+              4,
+              4,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "bounds": [
+              0,
+              0,
+              512,
+              638
+            ],
+            "touchesCanvasEdge": true
+          },
+          "processedAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": true,
+            "visiblePixels": 144102,
+            "partialAlphaPixels": 0,
+            "components": 1,
+            "componentAreas": [
+              144102
+            ],
+            "bounds": [
+              19,
+              161,
+              508,
+              552
+            ],
+            "touchesCanvasEdge": false
+          },
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+          },
+          "normalizedBounds512": [
+            -21.12724935732648,
+            59.604113110539856,
+            485.4717223650385,
+            464.67609254498717
+          ],
+          "clippedByWorkingCanvas": false
+        },
+        "isolated": {
+          "sourceSpec": {
+            "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+            "crop": [
+              538,
+              690,
+              1015,
+              916
+            ],
+            "transform": {
+              "scale": 1.0570824524312896,
+              "translate": [
+                3.8858350951374234,
+                212.21353065539114
+              ]
+            },
+            "sampling": "nearest",
+            "alphaPolicy": {
+              "mode": "opaque-cutout",
+              "threshold": 128,
+              "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+            },
+            "registrationBasis": "Independent isolated-item uniform fit: reviewed accessory width 500px, center x256, bottom y449 in approved512 coordinates; hidden source preserved. No body or nonuniform warp.",
+            "role": "isolated"
+          },
+          "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+          "sha256": "ebf688c12e0c7eca0eafdb7ad2c9b063912d5b68fffa7466ab079ab983a202cd",
+          "rawSize": [
+            1536,
+            1024
+          ],
+          "crop": [
+            538,
+            690,
+            1015,
+            916
+          ],
+          "registration": {
+            "scale": 1.0570824524312896,
+            "translate": [
+              3.8858350951374234,
+              212.21353065539114
+            ]
+          },
+          "sampling": "nearest",
+          "inputAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": false,
+            "visiblePixels": 57229,
+            "partialAlphaPixels": 57229,
+            "components": 44,
+            "componentAreas": [
+              57176,
+              4,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "bounds": [
+              0,
+              0,
+              477,
+              226
+            ],
+            "touchesCanvasEdge": true
+          },
+          "processedAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": true,
+            "visiblePixels": 48758,
+            "partialAlphaPixels": 0,
+            "components": 1,
+            "componentAreas": [
+              48758
+            ],
+            "bounds": [
+              2,
+              2,
+              475,
+              224
+            ],
+            "touchesCanvasEdge": false
+          },
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+          },
+          "normalizedBounds512": [
+            6.000000000000003,
+            214.32769556025372,
+            506.0,
+            449.0
+          ],
+          "clippedByWorkingCanvas": false
+        },
+        "left-panel": {
+          "sourceSpec": {
+            "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+            "crop": [
+              538,
+              690,
+              1015,
+              916
+            ],
+            "transform": {
+              "scale": 1.0570824524312896,
+              "translate": [
+                -32.11416490486258,
+                212.21353065539114
+              ]
+            },
+            "sampling": "nearest",
+            "alphaPolicy": {
+              "mode": "opaque-cutout",
+              "threshold": 128,
+              "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+            },
+            "registrationBasis": "Independent isolated-item uniform fit: reviewed accessory width 500px, center x256, bottom y449 in approved512 coordinates; hidden source preserved. No body or nonuniform warp.; independently translate generated half-panel36px outward; attachment roots remain behind opaque original body, no foreground bridge.",
+            "role": "isolated"
+          },
+          "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+          "sha256": "ebf688c12e0c7eca0eafdb7ad2c9b063912d5b68fffa7466ab079ab983a202cd",
+          "rawSize": [
+            1536,
+            1024
+          ],
+          "crop": [
+            538,
+            690,
+            1015,
+            916
+          ],
+          "registration": {
+            "scale": 1.0570824524312896,
+            "translate": [
+              -32.11416490486258,
+              212.21353065539114
+            ]
+          },
+          "sampling": "nearest",
+          "inputAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": false,
+            "visiblePixels": 57229,
+            "partialAlphaPixels": 57229,
+            "components": 44,
+            "componentAreas": [
+              57176,
+              4,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "bounds": [
+              0,
+              0,
+              477,
+              226
+            ],
+            "touchesCanvasEdge": true
+          },
+          "processedAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": true,
+            "visiblePixels": 48758,
+            "partialAlphaPixels": 0,
+            "components": 1,
+            "componentAreas": [
+              48758
+            ],
+            "bounds": [
+              2,
+              2,
+              475,
+              224
+            ],
+            "touchesCanvasEdge": false
+          },
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+          },
+          "normalizedBounds512": [
+            -29.999999999999996,
+            214.32769556025372,
+            470.0,
+            449.0
+          ],
+          "clippedByWorkingCanvas": false
+        },
+        "right-panel": {
+          "sourceSpec": {
+            "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+            "crop": [
+              538,
+              690,
+              1015,
+              916
+            ],
+            "transform": {
+              "scale": 1.0570824524312896,
+              "translate": [
+                39.88583509513742,
+                212.21353065539114
+              ]
+            },
+            "sampling": "nearest",
+            "alphaPolicy": {
+              "mode": "opaque-cutout",
+              "threshold": 128,
+              "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+            },
+            "registrationBasis": "Independent isolated-item uniform fit: reviewed accessory width 500px, center x256, bottom y449 in approved512 coordinates; hidden source preserved. No body or nonuniform warp.; independently translate generated half-panel36px outward; attachment roots remain behind opaque original body, no foreground bridge.",
+            "role": "isolated"
+          },
+          "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+          "sha256": "ebf688c12e0c7eca0eafdb7ad2c9b063912d5b68fffa7466ab079ab983a202cd",
+          "rawSize": [
+            1536,
+            1024
+          ],
+          "crop": [
+            538,
+            690,
+            1015,
+            916
+          ],
+          "registration": {
+            "scale": 1.0570824524312896,
+            "translate": [
+              39.88583509513742,
+              212.21353065539114
+            ]
+          },
+          "sampling": "nearest",
+          "inputAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": false,
+            "visiblePixels": 57229,
+            "partialAlphaPixels": 57229,
+            "components": 44,
+            "componentAreas": [
+              57176,
+              4,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "bounds": [
+              0,
+              0,
+              477,
+              226
+            ],
+            "touchesCanvasEdge": true
+          },
+          "processedAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": true,
+            "visiblePixels": 48758,
+            "partialAlphaPixels": 0,
+            "components": 1,
+            "componentAreas": [
+              48758
+            ],
+            "bounds": [
+              2,
+              2,
+              475,
+              224
+            ],
+            "touchesCanvasEdge": false
+          },
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+          },
+          "normalizedBounds512": [
+            42.0,
+            214.32769556025372,
+            542.0,
+            449.0
+          ],
+          "clippedByWorkingCanvas": false
+        },
+        "hiddenPanel": {
+          "sourceSpec": {
+            "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+            "crop": [
+              1026,
+              690,
+              1523,
+              904
+            ],
+            "transform": {
+              "scale": 1.0141987829614605,
+              "translate": [
+                3.971602434077056,
+                216.98985801217037
+              ]
+            },
+            "sampling": "nearest",
+            "alphaPolicy": {
+              "mode": "opaque-cutout",
+              "threshold": 128,
+              "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+            },
+            "registrationBasis": "Independent isolated-item uniform fit: reviewed accessory width 500px, center x256, bottom y432 in approved512 coordinates; hidden source preserved. No body or nonuniform warp.",
+            "role": "isolated"
+          },
+          "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+          "sha256": "ebf688c12e0c7eca0eafdb7ad2c9b063912d5b68fffa7466ab079ab983a202cd",
+          "rawSize": [
+            1536,
+            1024
+          ],
+          "crop": [
+            1026,
+            690,
+            1523,
+            904
+          ],
+          "registration": {
+            "scale": 1.0141987829614605,
+            "translate": [
+              3.971602434077056,
+              216.98985801217037
+            ]
+          },
+          "sampling": "nearest",
+          "inputAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": false,
+            "visiblePixels": 82509,
+            "partialAlphaPixels": 82509,
+            "components": 27,
+            "componentAreas": [
+              82475,
+              5,
+              3,
+              2,
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "bounds": [
+              0,
+              0,
+              497,
+              214
+            ],
+            "touchesCanvasEdge": true
+          },
+          "processedAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": true,
+            "visiblePixels": 75348,
+            "partialAlphaPixels": 0,
+            "components": 1,
+            "componentAreas": [
+              75348
+            ],
+            "bounds": [
+              2,
+              2,
+              495,
+              212
+            ],
+            "touchesCanvasEdge": false
+          },
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+          },
+          "normalizedBounds512": [
+            5.999999999999977,
+            219.0182555780933,
+            506.0,
+            432.0
+          ],
+          "clippedByWorkingCanvas": false
+        }
+      },
+      "layers": [
+        {
+          "id": "left-panel",
+          "source": "left-panel",
+          "plane": "back",
+          "purpose": "visible",
+          "attachment": null,
+          "maskSpec": {
+            "file": "three-quarter-left-panel-mask.png"
+          },
+          "maskSha256": "1c3dd02ba0eb4e83cc505d9f39dab6fbd212ddf1261ec985fb9fd9875bf68f17",
+          "assetSha256": "a456cefec934fe9a87bba7a7daa2846400de8a325edf91196311d3a04d34ce08",
+          "sprite": {
+            "src": "wardrobe/cape-three-quarter-left-panel.png",
+            "rect": [
+              -13.93333333333333,
+              25.6,
+              41.02564102564103,
+              38.56410256410256
+            ]
+          },
+          "alpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": true,
+            "visiblePixels": 34811,
+            "partialAlphaPixels": 0,
+            "components": 1,
+            "componentAreas": [
+              34811
+            ],
+            "bounds": [
+              98,
+              406,
+              348,
+              641
+            ],
+            "touchesCanvasEdge": false
+          }
+        },
+        {
+          "id": "right-panel",
+          "source": "right-panel",
+          "plane": "back",
+          "purpose": "visible",
+          "attachment": null,
+          "maskSpec": {
+            "file": "three-quarter-right-panel-mask.png"
+          },
+          "maskSha256": "a3f1c7fa3ba9ebcb07ead47f0c6786b26e4f4431c4f463a76e577cd65c59e7f0",
+          "assetSha256": "1d079890ac79ff5346690cb0b13145df87643a4a420768e3b79335612a732ef3",
+          "sprite": {
+            "src": "wardrobe/cape-three-quarter-right-panel.png",
+            "rect": [
+              38.90769230769231,
+              27.07692307692308,
+              41.02564102564103,
+              31.015384615384615
+            ]
+          },
+          "alpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": true,
+            "visiblePixels": 19670,
+            "partialAlphaPixels": 0,
+            "components": 1,
+            "componentAreas": [
+              19670
+            ],
+            "bounds": [
+              420,
+              415,
+              670,
+              604
+            ],
+            "touchesCanvasEdge": false
+          }
+        },
+        {
+          "id": "hidden-panel",
+          "source": "hiddenPanel",
+          "plane": "back",
+          "purpose": "hidden-reconstruction",
+          "attachment": null,
+          "maskSpec": {
+            "file": "three-quarter-hidden-panel-mask.png"
+          },
+          "maskSha256": "2567a39e5895cf3c2aed1f9068fffe914bab05e164bbd1c5c71bc214f04e77ef",
+          "assetSha256": "341d9be0d109f1f29979a25709bcbee5e1cd08078e874d21cf25cb67ff78f3b4",
+          "sprite": {
+            "src": "wardrobe/cape-three-quarter-hidden-panel.png",
+            "rect": [
+              -1.789743589743587,
+              26.42051282051282,
+              69.74358974358974,
+              34.95384615384615
+            ]
+          },
+          "alpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": true,
+            "visiblePixels": 64952,
+            "partialAlphaPixels": 0,
+            "components": 1,
+            "componentAreas": [
+              64952
+            ],
+            "bounds": [
+              172,
+              411,
+              597,
+              624
+            ],
+            "touchesCanvasEdge": false
+          }
+        }
+      ],
+      "checks": {
+        "outsideEffectiveAccessoryExactlyPreserved": true,
+        "changedOutsideAccessoryPixels": 0,
+        "protectedFaceExactlyPreserved": true,
+        "faceOcclusionPixels": 0,
+        "protectedFacePixelCount": 14207,
+        "opaqueBodyUnderBackExactlyPreserved": true,
+        "canonicalFaceMissingProtectionPixels": 0,
+        "generatedBodyDriftBeforeTransfer": {
+          "samplePixels": 56000,
+          "meanAbsoluteRGBDifference": 19.77902380952381,
+          "changedPixelFraction": 0.9981607142857143,
+          "meaning": "Drift in generated exposed body; generated body pixels are never transferred"
+        }
+      },
+      "hiddenMaterialStatus": {
+        "status": "reconstructed",
+        "reason": "Complete isolated generated component includes hidden attachment material; split by opaque original-body occlusion for layer proof."
+      },
+      "failures": [],
+      "warnings": [],
+      "result": "technical-pass-visual-review-required"
+    },
+    "back": {
+      "segmentationProvenance": null,
+      "fitEvidence": null,
+      "approvedBody": {
+        "path": "authoring-workspace/pet-raster-prototype/assets/multiview-v1/back.png",
+        "sha256": "14f457a84b714de4c23b34c7215f3ed637b869c81e57e0cb4bc9d5034b30d456",
+        "registration": "Unchanged original pixels; integer translation only"
+      },
+      "sources": {
+        "worn": {
+          "sourceSpec": {
+            "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+            "crop": [
+              1024,
+              0,
+              1536,
+              640
+            ],
+            "transform": {
+              "scale": 1.118279569892473,
+              "translate": [
+                -23.569892473118273,
+                -121.34408602150535
+              ]
+            },
+            "sampling": "nearest",
+            "alphaPolicy": {
+              "mode": "opaque-cutout",
+              "threshold": 128,
+              "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+            },
+            "registrationBasis": "Uniform registration from measured main pink body width matched to approved front398/three-quarter403/back416 and approved pink ear-top y71; lower garment may occlude foot baseline. Body pixels never transferred.",
+            "role": "worn"
+          },
+          "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+          "sha256": "ebf688c12e0c7eca0eafdb7ad2c9b063912d5b68fffa7466ab079ab983a202cd",
+          "rawSize": [
+            1536,
+            1024
+          ],
+          "crop": [
+            1024,
+            0,
+            1536,
+            640
+          ],
+          "registration": {
+            "scale": 1.118279569892473,
+            "translate": [
+              -23.569892473118273,
+              -121.34408602150535
+            ]
+          },
+          "sampling": "nearest",
+          "inputAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": false,
+            "visiblePixels": 152600,
+            "partialAlphaPixels": 152600,
+            "components": 153,
+            "componentAreas": [
+              152206,
+              108,
+              21,
+              17,
+              14,
+              9,
+              7,
+              5,
+              5,
+              5,
+              5,
+              5,
+              4,
+              4,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "bounds": [
+              0,
+              9,
+              512,
+              630
+            ],
+            "touchesCanvasEdge": true
+          },
+          "processedAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": true,
+            "visiblePixels": 143232,
+            "partialAlphaPixels": 0,
+            "components": 1,
+            "componentAreas": [
+              143232
+            ],
+            "bounds": [
+              3,
+              161,
+              503,
+              552
+            ],
+            "touchesCanvasEdge": false
+          },
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+          },
+          "normalizedBounds512": [
+            -20.215053763440853,
+            58.698924731182814,
+            538.9247311827955,
+            495.9462365591398
+          ],
+          "clippedByWorkingCanvas": false
+        },
+        "isolated": {
+          "sourceSpec": {
+            "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+            "crop": [
+              1026,
+              690,
+              1523,
+              904
+            ],
+            "transform": {
+              "scale": 1.0141987829614605,
+              "translate": [
+                3.971602434077056,
+                213.98985801217037
+              ]
+            },
+            "sampling": "nearest",
+            "alphaPolicy": {
+              "mode": "opaque-cutout",
+              "threshold": 128,
+              "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+            },
+            "registrationBasis": "Independent isolated-item uniform fit: reviewed accessory width 500px, center x256, bottom y429 in approved512 coordinates; hidden source preserved. No body or nonuniform warp.",
+            "role": "isolated"
+          },
+          "path": "authoring-workspace/pet-raster-production/wardrobe/masters/cape-coequip-v2-sheet.png",
+          "sha256": "ebf688c12e0c7eca0eafdb7ad2c9b063912d5b68fffa7466ab079ab983a202cd",
+          "rawSize": [
+            1536,
+            1024
+          ],
+          "crop": [
+            1026,
+            690,
+            1523,
+            904
+          ],
+          "registration": {
+            "scale": 1.0141987829614605,
+            "translate": [
+              3.971602434077056,
+              213.98985801217037
+            ]
+          },
+          "sampling": "nearest",
+          "inputAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": false,
+            "visiblePixels": 82509,
+            "partialAlphaPixels": 82509,
+            "components": 27,
+            "componentAreas": [
+              82475,
+              5,
+              3,
+              2,
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "bounds": [
+              0,
+              0,
+              497,
+              214
+            ],
+            "touchesCanvasEdge": true
+          },
+          "processedAlpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": true,
+            "visiblePixels": 75348,
+            "partialAlphaPixels": 0,
+            "components": 1,
+            "componentAreas": [
+              75348
+            ],
+            "bounds": [
+              2,
+              2,
+              495,
+              212
+            ],
+            "touchesCanvasEdge": false
+          },
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque cloth/metal/leaf/solid decorative pixel art only; removes generated exterior haze. Does not apply to any glow or steam."
+          },
+          "normalizedBounds512": [
+            5.999999999999977,
+            216.0182555780933,
+            506.0,
+            429.0
+          ],
+          "clippedByWorkingCanvas": false
+        }
+      },
+      "layers": [
+        {
+          "id": "rear-surface",
+          "source": "isolated",
+          "plane": "front",
+          "purpose": "visible",
+          "attachment": null,
+          "maskSpec": {
+            "file": "back-rear-surface-mask.png"
+          },
+          "maskSha256": "668e87dbbf654db36c947b8ee1df83d440f78753c3101a333d2595f963fced44",
+          "assetSha256": "56f815ff3ee2082ad738274c1e842609bae55d07ba29be163008e485193153ac",
+          "sprite": {
+            "src": "wardrobe/cape-back-rear-surface.png",
+            "rect": [
+              -8.025641025641029,
+              25.92820512820513,
+              82.05128205128206,
+              34.95384615384615
+            ]
+          },
+          "alpha": {
+            "hasTransparentPixels": true,
+            "hasOpaquePixels": true,
+            "visiblePixels": 77547,
+            "partialAlphaPixels": 0,
+            "components": 1,
+            "componentAreas": [
+              77547
+            ],
+            "bounds": [
+              134,
+              408,
+              634,
+              621
+            ],
+            "touchesCanvasEdge": false
+          }
+        }
+      ],
+      "checks": {
+        "outsideEffectiveAccessoryExactlyPreserved": true,
+        "changedOutsideAccessoryPixels": 0,
+        "protectedFaceExactlyPreserved": true,
+        "faceOcclusionPixels": 0,
+        "protectedFacePixelCount": 0,
+        "opaqueBodyUnderBackExactlyPreserved": true,
+        "canonicalFaceMissingProtectionPixels": 0,
+        "generatedBodyDriftBeforeTransfer": {
+          "samplePixels": 58818,
+          "meanAbsoluteRGBDifference": 13.166695002663584,
+          "changedPixelFraction": 0.9955965860790914,
+          "meaning": "Drift in generated exposed body; generated body pixels are never transferred"
+        }
+      },
+      "hiddenMaterialStatus": {
+        "status": "not-required",
+        "reason": "Entire standalone component is visible in this view; no occluded material needs reconstruction."
+      },
+      "failures": [],
+      "warnings": [],
+      "result": "technical-pass-visual-review-required"
+    }
+  },
+  "failures": [],
+  "result": "technical-pass-visual-review-required"
+}

@@ -1,0 +1,38 @@
+{
+  "compositionOrder": [
+    "parent runtime chooses far/current limb depth",
+    "bag/cape/collar authored back layers",
+    "unchanged canonical body and face",
+    "cape/bag/collar authored near layers",
+    "native near/contact hands and tail"
+  ],
+  "front": {
+    "collar": "Whole narrow near arc and star remain visible. Only lateral return tips pass behind body.",
+    "cape": "Near chest lobes show over torso, lateral shoulder/flank returns pass behind body.",
+    "bag": "Small envelope pouch face at viewer-left hip is camera-near, under original hand and above nearby cape. Long cross-body strap goes behind canonical body; source mask follows top pouch attachment rather than cutting the flap."
+  },
+  "three-quarter": {
+    "collar": "Independent oblique collar with clasp toward forward side; only far return end recedes.",
+    "cape": "Near broad lobe dominates; far edge attachment is behind torso.",
+    "bag": "Far-hip bag and strap are body-occluded; no complete frontal bag should appear on belly."
+  },
+  "profile": {
+    "collar": "Independent side arc stays whole beneath chin, with foreshortened star at right; far tip behind body.",
+    "cape": "Single uninterrupted curved flank mantle; narrow forward attachment and far return behind body. No hand holes.",
+    "bag": "Independently generated slim side edge placed at rear left hip, entirely behind body. No frontal flap or pink-heart face is present in profile source."
+  },
+  "back": {
+    "collar": "Visible rear band is camera-near; clasp and ribbon absent. Lateral returns behind body.",
+    "cape": "Broad rear star mantle is camera-near; side returns behind body; original native tail overlays intact cloth.",
+    "bag": "Plain rear bag on viewer-right, body hides medial portion and strap. No heart flap."
+  },
+  "movingLimbs": "Latent cloth remains complete under all rest hands/tail. Native foreground masks are only static proof inputs copied from rain-depth-v2-20261002; parent runtime must choose current near/contact limb depth and preserve connected roots.",
+  "invariants": [
+    "No new generated body pixels are composited",
+    "No hats, ear items, star arc or shoes changed",
+    "All descriptor layers root-bound",
+    "wrapsBody true",
+    "sourceToArt scale4.2 x117.4 y175"
+  ],
+  "status": "Generated, extracted and visually inspected static proof; runtime integration and dynamic contact/limb policy are parent-owned and pending."
+}

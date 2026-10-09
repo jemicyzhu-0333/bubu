@@ -1,0 +1,81 @@
+{
+  "scope": "Deterministic extraction of saved generated masters; not a claim that image generation is deterministic or that animation/native desktop QA passed",
+  "python": "3.12.14",
+  "packages": {
+    "Pillow": "12.3.0",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0"
+  },
+  "sourceManifestSha256": "f120b8889eb6d13c9b48cd2dfcd2c2ea4f02ebfe458627a6163da78afe596a0a",
+  "generatedPngCount": 302,
+  "expectedRuntimePngCount": 302,
+  "runtimeManifestReferencedPngCount": 296,
+  "unreferencedAuthoredPngs": [
+    "face/eyes-neutral-0.png",
+    "face/eyes-neutral-1.png",
+    "face/mouth-neutral-0.png",
+    "parts/fist.png",
+    "parts/run-foot-left.png",
+    "parts/run-foot-right.png"
+  ],
+  "countsByDirectory": {
+    "effects": 45,
+    "face": 41,
+    "parts": 8,
+    "scenes": 27,
+    "tools": 49,
+    "views": 37,
+    "wardrobe": 95
+  },
+  "exactPngByteMatches": 302,
+  "pngMismatches": [],
+  "descriptorChecks": {
+    "body": true,
+    "tools": true,
+    "effects": true,
+    "scenes": true,
+    "wardrobe": true
+  },
+  "canonicalViewsReproduced": 4,
+  "neutralRestExact": true,
+  "restChecks": {
+    "front": {
+      "neutralRestChangedPixels": 0,
+      "maxDelta": 0,
+      "sourceSha256": "08befd789abe901d90d4d8844ac296bd17fc93021ef5707063396795f61b9ac0",
+      "bodyHasNoEyesMouth": true
+    },
+    "three-quarter-right": {
+      "neutralRestChangedPixels": 0,
+      "maxDelta": 0,
+      "sourceSha256": "ae9af5e90355d16bd9a823e45749f75ed63626dd9a67e0e8ce240da51da43795",
+      "bodyHasNoEyesMouth": true
+    },
+    "three-quarter-left": {
+      "neutralRestChangedPixels": 0,
+      "maxDelta": 0,
+      "sourceSha256": "f54531405f169f3852a91070008a70621ce25832b7a2e4dfacee6dc78c7c23e5",
+      "bodyHasNoEyesMouth": true
+    },
+    "back": {
+      "neutralRestChangedPixels": 0,
+      "maxDelta": 0,
+      "sourceSha256": "14f457a84b714de4c23b34c7215f3ed637b869c81e57e0cb4bc9d5034b30d456",
+      "bodyHasNoEyesMouth": true
+    }
+  },
+  "passed": true,
+  "verificationLocation": "Fresh root reconstructed solely from the three archive files listed in bundle-index.json",
+  "guardChecks": {
+    "sourceTamperRejectedBeforeProducingPngs": true,
+    "productionAndSourceOutputDirectoriesRejected": true,
+    "runtimePngBytesUnmodified": true,
+    "generationScriptsHaveNoExternalWorkspacePaths": true,
+    "noInterpreterCaches": true
+  },
+  "wardrobe": {
+    "recipes": 16,
+    "layers": 95,
+    "reproductionGaps": []
+  }
+}

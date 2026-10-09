@@ -1,0 +1,96 @@
+/* 拆解弹层：原句、建议步骤的输入行与思考中那三格。对应 features/breakdown.mjs。 */
+
+@layer features {
+  .bd-original {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--fg-0);
+    padding: 8px 10px;
+    background: var(--bg-2);
+    border-left: 3px solid var(--pink);
+    margin-bottom: 8px;
+    word-break: break-word;
+  }
+  .bd-hint {
+    font-size: 11px; color: var(--fg-2);
+    margin-bottom: 8px; line-height: 1.5;
+  }
+  .bd-steps { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
+  .bd-loading {
+    min-height: 96px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px;
+    border: 1px dashed var(--purple);
+    background: var(--bg-2);
+    color: var(--fg-1);
+    text-align: center;
+    font-size: 11px;
+  }
+  .bd-loading-pixels { display: flex; align-items: flex-end; gap: 5px; height: 18px; }
+  .bd-loading-pixels i {
+    width: 7px;
+    height: 7px;
+    background: var(--purple);
+    box-shadow: 2px 2px 0 var(--bg-0);
+    animation: breakdown-thinking 0.9s steps(2, end) infinite;
+  }
+  .bd-loading-pixels i:nth-child(2) { animation-delay: 0.15s; }
+  .bd-loading-pixels i:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes breakdown-thinking {
+    0%, 100% { transform: translateY(0); background: var(--purple); }
+    50% { transform: translateY(-7px); background: var(--cyan); }
+  }
+  #breakdownMask[data-state="loading"] .modal {
+    border-color: var(--purple);
+    box-shadow: 6px 6px 0 rgb(var(--shadow-rgb) / 0.7), 0 0 30px rgba(187,154,247,0.35);
+  }
+  .bd-step {
+    display: flex; align-items: flex-start; gap: 6px;
+    background: var(--bg-2);
+    border: 1px solid var(--bg-3);
+    padding: 4px 6px;
+  }
+  .bd-step-num {
+    width: 18px; height: 18px;
+    background: var(--yellow); color: var(--ink);
+    font-size: 11px; font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+/* AI 写的步骤是一整句话。单行输入框会把它横向裁掉，而被裁掉的那半句
+   恰好是“具体做什么”——一个看不全的步骤等于没有步骤。所以步骤框换行并跟着
+   内容长（field-sizing 不生效时退化成一行加内部滚动，仍然不静默删字）。 */
+  .bd-step-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--fg-0);
+    font-family: inherit;
+    font-size: 11px;
+    outline: none;
+    padding: 4px;
+    -webkit-user-select: text; user-select: text;
+    field-sizing: content;
+    min-height: 28px;
+    max-height: 120px;
+    line-height: 1.5;
+    resize: none;
+    overflow-y: auto;
+    overflow-wrap: anywhere;
+  }
+  .bd-step-input:focus { background: var(--bg-1); }
+  .bd-step-del {
+    background: transparent; border: 1px solid var(--bg-3);
+    color: var(--fg-2); cursor: pointer;
+    width: 30px; height: 30px;
+    font-size: 11px;
+    transition: all 0.15s;
+  }
+  .bd-step-del:hover { border-color: var(--pink); color: var(--primary-ink); }
+  .bd-add { align-self: flex-start; margin-top: 4px; }
+}

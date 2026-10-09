@@ -1,0 +1,15 @@
+from pathlib import Path
+import hashlib,json,numpy as np
+from PIL import Image
+R=Path(__file__).resolve().parents[1];sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+records=[]
+for p in sorted((R/'sources').glob('*.png')):
+ im=Image.open(p);a=np.array(im)[:,:,3];records.append({'path':str(p.relative_to(R)),'sha256':sha(p),'size':list(im.size),'mode':im.mode,'alphaRange':[int(a.min()),int(a.max())]})
+manifest=json.loads((R/'manifest.json').read_text());manifest['sourceProvenance']='provenance.json';manifest['processingRecipe']='recipe.json';manifest['processingScript']='scripts/build-assets.py';manifest['renderOrder']='back appearance, original body/face, front appearance, actual articulated hands; static proofs restore exact canonical hand pixels last'
+manifest['review']={'stage':'extracted and visually reviewed on canonical body','runtimeIntegrated':False,'nativeDesktopTested':False,'actualBodyHeights':[99,198],'protectedFaceChangedPixels':0}
+manifest['limitations']=['Four explicitly authored views only; no arbitrary-angle garment reconstruction.','Named cape front/quarter/back, star collar, constellation, envelope pouch and visible hat views use worn-source pixels.','Rear beret uses completed isolated rear-cap source; it was visually checked against the worn rear view.','Profile cape contains a narrowly masked imagegen repair of its source hand notch. Outside the recorded patch, worn-source pixels remain authoritative.','The failed first profile repair retained its notch and is archived, not used.','Moon boots use isolated complete generated boot geometry; quarter/profile left and right reuse the same complete same-view near-shoe silhouette independently. Profile assets are explicitly flipped to face right.','Runtime must replace original legs only after both footwear layers are loaded; hand masks are proof overlays only, never holes in garment assets.']
+(R/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+prompts=[]
+for p in sorted((R/'prompts').glob('*')):
+ prompts.append({'path':str(p.relative_to(R)),'sha256':sha(p)})
+(R/'provenance.json').write_text(json.dumps({'tool':'image_gen.imagegen','modelVersion':'unknown','seed':'unknown','originalReferenceOrder':'Retained verbatim in copied parent JSON prompt files','identity':'Frozen current Usagi; smooth cream body, long pink ears, brown outline, cheek hatches, one-eye native profile, two-wave upper lip. No generated body pixels in runtime assets.','sources':records,'prompts':prompts,'repairReferenceOrder':{'profile-cape-hand-repair.txt':['assets/usagi.starlit-cape/profile-part-0.png (pre-repair extraction)','sources/moon-cape-only-v1-profile.png'],'profile-cape-hand-repair-v2.txt':['sources/moon-cape-profile-hand-repair.png']},'repairStatus':{'moon-cape-profile-hand-repair.png':'rejected: retained notch','moon-cape-profile-hand-repair-v2.png':'accepted only within recipe repair polygon'},'scriptHash':sha(R/'scripts/build-assets.py'),'recipeHash':sha(R/'recipe.json')},indent=2)+'\n')

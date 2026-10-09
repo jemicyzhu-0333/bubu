@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" data-body-size="66" data-version="2" stroke-linecap="round" stroke-linejoin="round">
+<title>Dango · independent four-view body authoring source</title>
+<desc>One SVG unit is one logical pixel cell; runtime art uses two units per cell. Palette 1 outline, 2 body, 3 shadow. Face markers are top-left mask anchors and are not body artwork. Foot markers are attachment pivots. Reviewed 2026-10-01 design reference; no inferred 3D measurements.</desc>
+<g data-view="front" id="view-front">
+<circle data-anchor="shoulder-left" cx="3" cy="19.5" r=".3" fill="none"/>
+<circle data-anchor="shoulder-right" cx="30" cy="19.5" r=".3" fill="none"/>
+<g data-part="foot-left"><path d="M6.5 25.5 H14 L13 30.5 H7.6Z" fill="#dc5069" stroke="#1a1b26" stroke-width="1.15"/></g>
+<circle data-anchor="foot-left" cx="10" cy="27" r=".3" fill="none"/>
+<g data-part="foot-right"><path d="M19 25.5 H26.5 L25.4 30.5 H20Z" fill="#dc5069" stroke="#1a1b26" stroke-width="1.15"/></g>
+<circle data-anchor="foot-right" cx="23" cy="27" r=".3" fill="none"/>
+<g data-part="torso">
+<path id="front-body" d="M6.6 .5 L4.4 4.7 C1.4 8 .5 11 .5 15.5 C.5 21.5 2.7 25.6 6.5 27.8 Q16.5 29.4 26.5 27.8 C30.3 25.6 32.5 21.5 32.5 15.5 C32.5 11 31.6 8 28.6 4.7 L26.4 .5 L22.6 4.2 Q16.5 3.3 10.4 4.2 Z" fill="#f7768e"/>
+<path id="front-volume" d="M3.5 23.7 Q16.5 29 29.5 23.7 L26 27.5 Q16.5 29.5 7 27.5Z" fill="#dc5069"/>
+<path id="front-ear-0" d="M6.8 1.8 L5.5 4 L9.4 4.5Z" fill="#dc5069"/>
+<path id="front-ear-1" d="M26.2 1.8 L27.5 4 L23.6 4.5Z" fill="#dc5069"/>
+<path id="front-outline" d="M6.6 .5 L4.4 4.7 C1.4 8 .5 11 .5 15.5 C.5 21.5 2.7 25.6 6.5 27.8 M14 28.5 Q16.5 29 19 28.5 M26.5 27.8 C30.3 25.6 32.5 21.5 32.5 15.5 C32.5 11 31.6 8 28.6 4.7 L26.4 .5 L22.6 4.2 Q16.5 3.3 10.4 4.2 L6.6 .5" fill="none" stroke="#1a1b26" stroke-width="1.05"/>
+</g>
+<circle data-anchor="eye-left" cx="7" cy="10" r=".3" fill="none"/>
+<circle data-anchor="eye-right" cx="21" cy="10" r=".3" fill="none"/>
+<circle data-anchor="mouth" cx="13" cy="18" r=".3" fill="none"/>
+<circle data-anchor="cheek-left" cx="4" cy="16" r=".3" fill="none"/>
+<circle data-anchor="cheek-right" cx="27" cy="16" r=".3" fill="none"/>
+</g>
+<g data-view="three-quarter" id="view-three-quarter">
+<circle data-anchor="shoulder-left" cx="4" cy="19.5" r=".3" fill="none"/>
+<circle data-anchor="shoulder-right" cx="30" cy="19.5" r=".3" fill="none"/>
+<g data-part="foot-left"><path d="M8 26 H16 L15 30.5 H9Z" fill="#dc5069" stroke="#1a1b26" stroke-width="1.15"/></g>
+<circle data-anchor="foot-left" cx="12" cy="27" r=".3" fill="none"/>
+<g data-part="foot-right"><path d="M19.8 26 H26.5 L25.7 30.5 H20.6Z" fill="#dc5069" stroke="#1a1b26" stroke-width="1.15"/></g>
+<circle data-anchor="foot-right" cx="23" cy="27" r=".3" fill="none"/>
+<g data-part="torso">
+<path id="three-quarter-body" d="M7 .5 L5.4 4.2 C2.6 6.8 1.3 10.5 1.5 16 C1.4 22 4.4 26.2 8 28 Q17 29.8 26.5 28.2 C30.3 26 31.5 22 31.5 16 C31.5 11 30.5 7.5 27.3 5.2 L25.5 1.5 L23 4.3 Q17 3.3 12 4 Z" fill="#f7768e"/>
+<path id="three-quarter-volume" d="M5.4 5 Q1.5 10 2 17 Q2 23 8 27 Q17 30 26.5 27 Q13.2 27.8 9 23 Q5 18 5.7 12 Q6.1 8 8 6Z" fill="#dc5069"/>
+<path id="three-quarter-ear-0" d="M7 1.8 L5.9 4 L10.2 4.5Z" fill="#dc5069"/>
+<path id="three-quarter-ear-1" d="M25.5 2.1 L23.5 4.8 L27.2 5.4Z" fill="#dc5069"/>
+<path id="three-quarter-lower-volume" d="M8 26 Q17 28.5 27 26 L26 28.5 Q17 30 8 28Z" fill="#dc5069"/>
+<path id="three-quarter-outline" d="M7 .5 L5.4 4.2 C2.6 6.8 1.3 10.5 1.5 16 C1.4 22 4.4 26.2 8 28 M16 28.5 Q18 29 19.8 28.5 M26.5 28.2 C30.3 26 31.5 22 31.5 16 C31.5 11 30.5 7.5 27.3 5.2 L25.5 1.5 L23 4.3 Q17 3.3 12 4 L7 .5" fill="none" stroke="#1a1b26" stroke-width="1.05"/>
+</g>
+<circle data-anchor="eye-left" cx="13" cy="10" r=".3" fill="none"/>
+<circle data-anchor="eye-right" data-eye-width="4" cx="23" cy="10" r=".3" fill="none"/>
+<circle data-anchor="mouth" cx="18" cy="18" r=".3" fill="none"/>
+<circle data-anchor="cheek-left" cx="11" cy="16" r=".3" fill="none"/>
+<circle data-anchor="cheek-right" cx="28" cy="16" r=".3" fill="none"/>
+</g>
+<g data-view="profile" id="view-profile">
+<circle data-anchor="shoulder-left" cx="7" cy="20" r=".3" fill="none"/>
+<circle data-anchor="shoulder-right" cx="27" cy="20" r=".3" fill="none"/>
+<g data-part="foot-left"><path d="M10.2 26 H17 L16 29.5 H11Z" fill="#dc5069" stroke="#1a1b26" stroke-width="1.15"/></g>
+<circle data-anchor="foot-left" cx="14" cy="27" r=".3" fill="none"/>
+<g data-part="foot-right"><path d="M19.8 25.5 H26.8 L25.7 30.5 H20.9Z" fill="#dc5069" stroke="#1a1b26" stroke-width="1.15"/></g>
+<circle data-anchor="foot-right" cx="23" cy="27" r=".3" fill="none"/>
+<g data-part="torso">
+<path id="profile-body" d="M11.5 .5 L9.2 4.5 C5.4 6.9 3.2 11 3.4 16.2 L3.8 19 Q.3 18.4 .6 21 Q.9 23.6 5 23.2 Q7 26.2 10.2 27.8 Q19 29.4 26.5 27.5 C29 25.5 30.6 23 30.6 19.6 Q32 18.8 31.2 17.1 Q30.6 16.1 30.1 15.8 C30 10.2 26.6 6.6 22 5 L20.8 2.6 L19 4.7 L14.5 4.4 Z" fill="#f7768e"/>
+<path id="profile-volume" d="M9.2 5 Q4 9 4 16.5 L4.6 20 Q1 19.4 1.2 21.1 Q1.3 23 5.5 22.5 Q8 27 11 27.8 Q19 29.5 26.2 27 Q15.4 28.5 10 23 Q6.8 19 7 13 Q7.1 8 11 5Z" fill="#dc5069"/>
+<path id="profile-ear-0" d="M11.4 1.8 L10 4.5 L13.5 4.7Z" fill="#dc5069"/>
+<path id="profile-ear-1" d="M20.7 3.5 L19.8 4.8 L22 5.4Z" fill="#dc5069"/>
+<path id="profile-lower-volume" d="M10 26 Q19 28.5 27 26 L26 28 Q19 29.3 10.5 28Z" fill="#dc5069"/>
+<path id="profile-outline" d="M11.5 .5 L9.2 4.5 C5.4 6.9 3.2 11 3.4 16.2 L3.8 19 Q.3 18.4 .6 21 Q.9 23.6 5 23.2 Q7 26.2 10.2 27.8 M17 28 Q18.5 28.7 20 28 M26.5 27.5 C29 25.5 30.6 23 30.6 19.6 Q32 18.8 31.2 17.1 Q30.6 16.1 30.1 15.8 C30 10.2 26.6 6.6 22 5 L20.8 2.6 L19 4.7 L14.5 4.4 L11.5 .5" fill="none" stroke="#1a1b26" stroke-width="1.05"/>
+</g>
+<circle data-anchor="eye-right" cx="21" cy="10" r=".3" fill="none"/>
+<circle data-anchor="mouth" cx="22" cy="17" r=".3" fill="none"/>
+<circle data-anchor="cheek-right" cx="25" cy="15" r=".3" fill="none"/>
+</g>
+<g data-view="back" id="view-back">
+<circle data-anchor="shoulder-left" cx="3" cy="19.5" r=".3" fill="none"/>
+<circle data-anchor="shoulder-right" cx="30" cy="19.5" r=".3" fill="none"/>
+<g data-part="foot-left"><path d="M6.5 25.5 H14 L13 30.5 H7.6Z" fill="#dc5069" stroke="#1a1b26" stroke-width="1.15"/></g>
+<circle data-anchor="foot-left" cx="10" cy="27" r=".3" fill="none"/>
+<g data-part="foot-right"><path d="M19 25.5 H26.5 L25.4 30.5 H20Z" fill="#dc5069" stroke="#1a1b26" stroke-width="1.15"/></g>
+<circle data-anchor="foot-right" cx="23" cy="27" r=".3" fill="none"/>
+<g data-part="torso">
+<path id="back-body" d="M6.6 .5 L4.4 4.7 C1.4 8 .5 11 .5 15.5 C.5 21.5 2.7 25.6 6.5 27.8 Q16.5 29.4 26.5 27.8 C30.3 25.6 32.5 21.5 32.5 15.5 C32.5 11 31.6 8 28.6 4.7 L26.4 .5 L22.6 4.2 Q16.5 3.3 10.4 4.2 Z" fill="#f7768e"/>
+<path id="back-volume" d="M3.5 23.7 Q16.5 29 29.5 23.7 L26 27.5 Q16.5 29.5 7 27.5Z" fill="#dc5069"/>
+<path id="back-outline" d="M6.6 .5 L4.4 4.7 C1.4 8 .5 11 .5 15.5 C.5 21.5 2.7 25.6 6.5 27.8 M14 28.5 Q16.5 29 19 28.5 M26.5 27.8 C30.3 25.6 32.5 21.5 32.5 15.5 C32.5 11 31.6 8 28.6 4.7 L26.4 .5 L22.6 4.2 Q16.5 3.3 10.4 4.2 L6.6 .5" fill="none" stroke="#1a1b26" stroke-width="1.05"/>
+</g>
+</g>
+</svg>

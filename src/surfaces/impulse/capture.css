@@ -1,0 +1,44 @@
+/* Stable native shell: animate the controls, never flash the entire window. */
+.quick-shell { padding: 16px 18px; gap: 12px; animation: none; background: var(--bg-1); overflow-y: auto; scrollbar-width: thin; }
+.capture-block { flex-shrink: 0; gap: 7px; }
+.capture-label { -webkit-app-region: drag; font-size: 13px; min-height: 22px; }
+.capture-input-row { display: flex; align-items: center; padding: 4px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 15px; transition: border-color .2s, box-shadow .2s; }
+.capture-input-row:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in srgb,var(--primary) 14%,transparent); }
+.capture-input-row #impInput { background: transparent; border: 0; box-shadow: none; height: 42px; font-size: 15px; }
+.capture-send { width: 36px; height: 36px; flex: none; border: 0; border-radius: 11px; background: var(--primary); color: #30202a; font-size: 22px; cursor: pointer; transition: transform .2s; }
+.capture-send:hover { transform: translateY(-2px); }
+.hint { font-size: 11px; }
+.panel { gap: 10px; padding-top: 12px; }
+.section-label { display: flex; align-items: center; gap: 6px; }
+[data-quick-shortcut] { margin-left: auto; font-size: 11px; font-weight: 400;  }
+.quick-list { gap: 8px; }
+.quick-row { min-height: 46px; padding: 8px 10px; border-radius: 12px; background: transparent; border-radius: 9px; transition: background-color .18s; }
+.quick-row:hover { background: var(--bg-2); transform: none; }
+.quick-copy small {  font-size: 11px; }
+.session-summary { flex-wrap: wrap; padding: 0 0 10px; background: transparent; border-radius: 0; border-bottom: 1px solid var(--line); }
+.session-summary strong { flex-basis: 65%; }
+.session-time { font-size: 23px; font-weight: 600; letter-spacing: -.04em; color: var(--fg-0); }
+.session-time::before { content: '剩余 '; font-size: 11px; font-weight: 400; letter-spacing: 0; color: var(--fg-2); }
+.pending-step { display: flex; gap: 6px; align-items: center; }
+.pending-step .quick-step { display: block; flex: 1; white-space: normal; overflow-wrap: anywhere; }
+.step-edit-button { border: 0; background: transparent; color: var(--fg-2); font-size: 11px; border-radius: 8px; padding: 9px; cursor: pointer; }
+.step-edit-button:hover { background: var(--bg-2); }
+.step-inline-editor { display: flex; gap: 4px; width: 100%; }
+.step-inline-editor input { flex: 1; min-width: 0; }
+#quickSteps { max-height: 156px; overflow-y: auto; scrollbar-width: thin; }
+#appendStepForm .input-row { padding: 4px; background: var(--bg-2); border-radius: 12px; }
+#appendStepForm input { background: transparent; border: 0; box-shadow: none; }
+body[data-receipt='saved'] .capture-input-row { border-color: #80ad97; animation: capture-saved .45s ease-out; }
+body[data-receipt='saved'] .capture-send { background: #9fcdb7; }
+@keyframes capture-saved { 50% { transform: scale(1.012); box-shadow: 0 0 0 5px #9fcdb726; } }
+@media(prefers-reduced-motion:reduce) { .quick-shell *, .quick-row:hover { animation: none !important; transition: none !important; transform: none !important; } }
+body:is([data-motion='reduced'],[data-stimulation='low']) .quick-shell * { animation: none !important; transition: none !important; }
+
+.quick-shell.reveal { animation: none; }
+.quick-shell { --line: color-mix(in srgb,var(--fg-2) 17%,transparent); --line-strong: color-mix(in srgb,var(--fg-2) 30%,transparent); }
+.quick-copy strong { font-weight: 550; }
+.quick-row + .quick-row { border-top-color: var(--line); }
+.quick-key { border: 0; background: var(--bg-2); font-weight: 500; }
+.quick-row:focus-visible, .pixel-btn:focus-visible, .capture-send:focus-visible, .step-edit-button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.action-row .pixel-btn { border-color: var(--line); min-height: 34px; font-weight: 500; }
+#btnCompleteQuickTask { background: color-mix(in srgb,var(--primary) 14%,var(--bg-1)); }

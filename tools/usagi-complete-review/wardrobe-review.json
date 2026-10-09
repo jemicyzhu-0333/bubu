@@ -1,0 +1,4297 @@
+{
+  "reviewDate": "2026-10-02",
+  "scope": "Finite individual and interaction matrix. Not arbitrary outfit powerset; no native Electron/GPU acceptance or user aesthetic approval inferred.",
+  "identity": "Unchanged current engineering canonical Usagi SVG body; reference PNGs inspected. Two-wave upper lip, integrated short feet, cream/cocoa/pink identity preserved. No new image generation or redesigned body.",
+  "counts": {
+    "singleAccessories": 25,
+    "singleAccessoryStaticViews": 100,
+    "curatedOutfits": 3,
+    "targetedPairs": 14,
+    "pairStaticViews": 56,
+    "singleAndCuratedDynamicVideos": 28,
+    "pairDynamicVideos": 14,
+    "scenes": 25,
+    "sceneFrames": 4525
+  },
+  "status": "all listed wardrobe and scene phase frames visually reviewed; no open blocker",
+  "limitations": [
+    "Offscreen Skia actual production painter, not native window/compositor acceptance",
+    "Only named interaction pairs and curated outfits are reviewed; unrelated combinations have no new acceptance claim",
+    "Encoded normal-speed files are reproduction evidence; no browser/video-player acceptance claimed",
+    "Current body reference is engineering canonical, not newly granted final art approval"
+  ],
+  "tests": {
+    "focusedUsagiRigAndContinuity": "86/86 pass on final shared nap fixes; includes finite pair selection",
+    "finitePairSelection": "1/1 pass",
+    "syntaxAndDiffCheck": "pass"
+  },
+  "portraits": {
+    "summary": "dist/usagi-complete-review/portraits/summary.json",
+    "cachedFreshComparisons": 160,
+    "faceClearanceChecks": 1566,
+    "handPaintChecks": 60,
+    "farHandComparisons": 27,
+    "failures": 0
+  },
+  "coldLoad": {
+    "release": "dist/usagi-complete-review/cold-release/report.json",
+    "failure": "dist/usagi-complete-review/cold-failure/report.json",
+    "automaticRepaintTiers": 9,
+    "intactFailureFallbackTiers": 9,
+    "visualEvidence": [
+      "dist/usagi-complete-review/cold-release/portraits.png",
+      "dist/usagi-complete-review/cold-failure/portraits.png"
+    ]
+  },
+  "catchRepair": {
+    "file": "src/capabilities/companion/presentation/usagi-contact.mjs",
+    "test": "test/usagi-production-contact.test.js",
+    "defect": "Star bobbed over forehead without reaching the paw",
+    "fix": "Star approaches and holds actual blended near wrist at contact plateau, outside face",
+    "before": "dist/usagi-complete-review/actions/action/catch-star-auto.png",
+    "after": "dist/usagi-complete-review/catch-repair/action/catch-star-current.png",
+    "comparisonVideos": [
+      "dist/usagi-complete-review/catch-repair-video/action-catch-star-99css.mp4",
+      "dist/usagi-complete-review/catch-repair-video/action-catch-star.mp4"
+    ],
+    "independentReview": "All4views × bare/3 curated looks reviewed in actions/catch-repair-independent"
+  },
+  "sourceHashes": {
+    "src/capabilities/companion/presentation/usagi-contact.mjs": "5562d65beb528794bcba3c2b6e0d5bc5fbd859c8f90159412769d24b78bf0808",
+    "src/capabilities/companion/presentation/usagi-art.mjs": "2275b04abedf8dbbeee46be75a8da10ed2f9c8c2bf02b9075634b246536e6ee4",
+    "src/capabilities/companion/presentation/usagi-raster-wardrobe.mjs": "178ab1693a4473ad19fbf0f1af9ff3e1d0a4643ca98900106fd4919983a84345",
+    "src/capabilities/companion/presentation/usagi-view-policy.mjs": "28adf2ad8ee404a73a605513b878d1dbc5aeb9f6e18a49fa6c4972b7e2226ac4",
+    "assets/companion/usagi/rig/usagi.rig.svg": "745d48db8095f06b3ea7196c2ad63ca62cfddd47a52fd2114d932b49a545c7f7",
+    "assets/companion/usagi/rig/usagi.rig.mjs": "5b3c1d3170d55613e8a3d749f9ba91f89784059c6dbe1586faf745a9d40b78c7",
+    "assets/companion/usagi/wardrobe/usagi.wardrobe.mjs": "2588c6e32175990409a2b025af32436dd7e2881954a248d19b5086cfd70db51b",
+    "assets/companion/usagi/wardrobe/sources/canonical/front.png": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3",
+    "assets/companion/usagi/wardrobe/sources/canonical/three-quarter.png": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60",
+    "assets/companion/usagi/wardrobe/sources/canonical/profile.png": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420",
+    "assets/companion/usagi/wardrobe/sources/canonical/back.png": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c"
+  },
+  "records": [
+    {
+      "id": "bare",
+      "view": "front",
+      "hash": "52bcde7e",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "bare",
+      "view": "three-quarter",
+      "hash": "7612fe82",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "bare",
+      "view": "profile",
+      "hash": "d6f6d692",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "bare",
+      "view": "back",
+      "hash": "8f5ecde4",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.ear-bow",
+      "view": "front",
+      "hash": "34209bc0",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.ear-bow"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.ear-bow",
+      "view": "three-quarter",
+      "hash": "37fc1d5e",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.ear-bow"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.ear-bow",
+      "view": "profile",
+      "hash": "aeaae8ea",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.ear-bow"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.ear-bow",
+      "view": "back",
+      "hash": "6576ed6e",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.ear-bow"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.star-collar",
+      "view": "front",
+      "hash": "efc0c97",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.star-collar"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.star-collar",
+      "view": "three-quarter",
+      "hash": "4a3d1f7a",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.star-collar"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.star-collar",
+      "view": "profile",
+      "hash": "a1ef5402",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.star-collar"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.star-collar",
+      "view": "back",
+      "hash": "e165abe5",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.star-collar"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.travel-cape",
+      "view": "front",
+      "hash": "74e1fb24",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.travel-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.travel-cape",
+      "view": "three-quarter",
+      "hash": "8022c62",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.travel-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.travel-cape",
+      "view": "profile",
+      "hash": "e1b7fca5",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.travel-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.travel-cape",
+      "view": "back",
+      "hash": "3c2754a",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.travel-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.sprout-clip",
+      "view": "front",
+      "hash": "1e2b511",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.sprout-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.sprout-clip",
+      "view": "three-quarter",
+      "hash": "377ac505",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.sprout-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.sprout-clip",
+      "view": "profile",
+      "hash": "f48d73c2",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.sprout-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.sprout-clip",
+      "view": "back",
+      "hash": "70d93a38",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.sprout-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.sunhat",
+      "view": "front",
+      "hash": "8fc6c0f1",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.sunhat"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.sunhat",
+      "view": "three-quarter",
+      "hash": "6111d78e",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.sunhat"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.sunhat",
+      "view": "profile",
+      "hash": "ce93851f",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.sunhat"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.sunhat",
+      "view": "back",
+      "hash": "7775a644",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.sunhat"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.carrot-satchel",
+      "view": "front",
+      "hash": "9b9ff48e",
+      "bounds": {
+        "left": 118,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.carrot-satchel"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.carrot-satchel",
+      "view": "three-quarter",
+      "hash": "14f4d5c2",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.carrot-satchel"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.carrot-satchel",
+      "view": "profile",
+      "hash": "858104ed",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.carrot-satchel"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.carrot-satchel",
+      "view": "back",
+      "hash": "69c70e6c",
+      "bounds": {
+        "left": 118,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.carrot-satchel"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.pastel-scarf",
+      "view": "front",
+      "hash": "78bcb419",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.pastel-scarf"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.pastel-scarf",
+      "view": "three-quarter",
+      "hash": "75d4ea67",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.pastel-scarf"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.pastel-scarf",
+      "view": "profile",
+      "hash": "58d04d5f",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.pastel-scarf"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.pastel-scarf",
+      "view": "back",
+      "hash": "f7e24db2",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.pastel-scarf"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.halo",
+      "view": "front",
+      "hash": "bdbd72c",
+      "bounds": {
+        "left": 120,
+        "top": 27,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.halo"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.halo",
+      "view": "three-quarter",
+      "hash": "2be85cd4",
+      "bounds": {
+        "left": 127,
+        "top": 27,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.halo"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.halo",
+      "view": "profile",
+      "hash": "7c767a74",
+      "bounds": {
+        "left": 127,
+        "top": 27,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.halo"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.halo",
+      "view": "back",
+      "hash": "1c301cf6",
+      "bounds": {
+        "left": 120,
+        "top": 27,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.halo"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.soft-boots",
+      "view": "front",
+      "hash": "5cf46daf",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 326
+      },
+      "items": [
+        "usagi.soft-boots"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.soft-boots",
+      "view": "three-quarter",
+      "hash": "7c3a0d12",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 326
+      },
+      "items": [
+        "usagi.soft-boots"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.soft-boots",
+      "view": "profile",
+      "hash": "931d33ad",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 326
+      },
+      "items": [
+        "usagi.soft-boots"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.soft-boots",
+      "view": "back",
+      "hash": "55ba7d65",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 326
+      },
+      "items": [
+        "usagi.soft-boots"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.starlit-cape",
+      "view": "front",
+      "hash": "6e2b6e8f",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.starlit-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.starlit-cape",
+      "view": "three-quarter",
+      "hash": "906262ca",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.starlit-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.starlit-cape",
+      "view": "profile",
+      "hash": "5d3a0999",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.starlit-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.starlit-cape",
+      "view": "back",
+      "hash": "62195726",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.starlit-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.sakura-clip",
+      "view": "front",
+      "hash": "496d32d8",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.sakura-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.sakura-clip",
+      "view": "three-quarter",
+      "hash": "b83ddb51",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.sakura-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.sakura-clip",
+      "view": "profile",
+      "hash": "c69f7643",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.sakura-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.sakura-clip",
+      "view": "back",
+      "hash": "69fb431",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.sakura-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.tiny-crown",
+      "view": "front",
+      "hash": "7cd26ff9",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.tiny-crown"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.tiny-crown",
+      "view": "three-quarter",
+      "hash": "1d09b00e",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.tiny-crown"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.tiny-crown",
+      "view": "profile",
+      "hash": "438dbe2d",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.tiny-crown"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.tiny-crown",
+      "view": "back",
+      "hash": "36c834fe",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.tiny-crown"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.garden-beret",
+      "view": "front",
+      "hash": "6171d347",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.garden-beret"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.garden-beret",
+      "view": "three-quarter",
+      "hash": "3750a5f7",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.garden-beret"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.garden-beret",
+      "view": "profile",
+      "hash": "9c4901ab",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.garden-beret"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.garden-beret",
+      "view": "back",
+      "hash": "bdc37e59",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.garden-beret"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.daisy-clip",
+      "view": "front",
+      "hash": "55cc02c0",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.daisy-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.daisy-clip",
+      "view": "three-quarter",
+      "hash": "e3c3cfc0",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.daisy-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.daisy-clip",
+      "view": "profile",
+      "hash": "f3a74362",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.daisy-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.daisy-clip",
+      "view": "back",
+      "hash": "4336323f",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.daisy-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.petal-collar",
+      "view": "front",
+      "hash": "7d6c2795",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.petal-collar"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.petal-collar",
+      "view": "three-quarter",
+      "hash": "c07cdd24",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.petal-collar"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.petal-collar",
+      "view": "profile",
+      "hash": "9a3482ee",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.petal-collar"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.petal-collar",
+      "view": "back",
+      "hash": "c5fb5c22",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.petal-collar"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.seed-pouch",
+      "view": "front",
+      "hash": "726c8f3b",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.seed-pouch"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.seed-pouch",
+      "view": "three-quarter",
+      "hash": "fef5d3d0",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.seed-pouch"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.seed-pouch",
+      "view": "profile",
+      "hash": "50ed9ac2",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.seed-pouch"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.seed-pouch",
+      "view": "back",
+      "hash": "2a626535",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.seed-pouch"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.rain-cape",
+      "view": "front",
+      "hash": "27f59934",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.rain-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.rain-cape",
+      "view": "three-quarter",
+      "hash": "f9e48824",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.rain-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.rain-cape",
+      "view": "profile",
+      "hash": "973c93aa",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.rain-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.rain-cape",
+      "view": "back",
+      "hash": "37c5807b",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.rain-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.rain-boots",
+      "view": "front",
+      "hash": "d61fbba1",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 324
+      },
+      "items": [
+        "usagi.rain-boots"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.rain-boots",
+      "view": "three-quarter",
+      "hash": "40f40c8e",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 324
+      },
+      "items": [
+        "usagi.rain-boots"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.rain-boots",
+      "view": "profile",
+      "hash": "9ab3dcf",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 324
+      },
+      "items": [
+        "usagi.rain-boots"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.rain-boots",
+      "view": "back",
+      "hash": "fc542219",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 324
+      },
+      "items": [
+        "usagi.rain-boots"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.moon-beret",
+      "view": "front",
+      "hash": "35572546",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.moon-beret"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.moon-beret",
+      "view": "three-quarter",
+      "hash": "9304e80a",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.moon-beret"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.moon-beret",
+      "view": "profile",
+      "hash": "481faa5",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.moon-beret"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.moon-beret",
+      "view": "back",
+      "hash": "563fb9d6",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.moon-beret"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.envelope-pouch",
+      "view": "front",
+      "hash": "2d1dcf35",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.envelope-pouch"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.envelope-pouch",
+      "view": "three-quarter",
+      "hash": "202fcded",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.envelope-pouch"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.envelope-pouch",
+      "view": "profile",
+      "hash": "420c8421",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.envelope-pouch"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.envelope-pouch",
+      "view": "back",
+      "hash": "a33f05c4",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.envelope-pouch"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.constellation",
+      "view": "front",
+      "hash": "a230a836",
+      "bounds": {
+        "left": 120,
+        "top": 29,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.constellation"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.constellation",
+      "view": "three-quarter",
+      "hash": "a58a4007",
+      "bounds": {
+        "left": 127,
+        "top": 29,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.constellation"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.constellation",
+      "view": "profile",
+      "hash": "9bc71ea8",
+      "bounds": {
+        "left": 127,
+        "top": 28,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.constellation"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.constellation",
+      "view": "back",
+      "hash": "78147508",
+      "bounds": {
+        "left": 120,
+        "top": 29,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.constellation"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.garden-apron",
+      "view": "front",
+      "hash": "f324893b",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.garden-apron"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.garden-apron",
+      "view": "three-quarter",
+      "hash": "bbb988c9",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.garden-apron"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.garden-apron",
+      "view": "profile",
+      "hash": "cb6b4b05",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.garden-apron"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.garden-apron",
+      "view": "back",
+      "hash": "80028a82",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.garden-apron"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.garden-clogs",
+      "view": "front",
+      "hash": "e04c8de8",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 324
+      },
+      "items": [
+        "usagi.garden-clogs"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.garden-clogs",
+      "view": "three-quarter",
+      "hash": "ca677b8",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 324
+      },
+      "items": [
+        "usagi.garden-clogs"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.garden-clogs",
+      "view": "profile",
+      "hash": "c1764723",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 324
+      },
+      "items": [
+        "usagi.garden-clogs"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.garden-clogs",
+      "view": "back",
+      "hash": "aed0a633",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 324
+      },
+      "items": [
+        "usagi.garden-clogs"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.rain-satchel",
+      "view": "front",
+      "hash": "5a57f417",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.rain-satchel"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.rain-satchel",
+      "view": "three-quarter",
+      "hash": "b53db0ac",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.rain-satchel"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.rain-satchel",
+      "view": "profile",
+      "hash": "3e2be20d",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.rain-satchel"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.rain-satchel",
+      "view": "back",
+      "hash": "ff761d0b",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.rain-satchel"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.moon-boots",
+      "view": "front",
+      "hash": "71f511d2",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.moon-boots"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.moon-boots",
+      "view": "three-quarter",
+      "hash": "5d781217",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 322
+      },
+      "items": [
+        "usagi.moon-boots"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.moon-boots",
+      "view": "profile",
+      "hash": "8be98d6c",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 324
+      },
+      "items": [
+        "usagi.moon-boots"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.moon-boots",
+      "view": "back",
+      "hash": "e73eb4c1",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.moon-boots"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "sun-garden",
+      "view": "front",
+      "hash": "a7357bbd",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 324
+      },
+      "items": [
+        "usagi.garden-beret",
+        "usagi.daisy-clip",
+        "usagi.petal-collar",
+        "usagi.seed-pouch",
+        "usagi.garden-apron",
+        "usagi.garden-clogs"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "sun-garden",
+      "view": "three-quarter",
+      "hash": "74b8a88a",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 324
+      },
+      "items": [
+        "usagi.garden-beret",
+        "usagi.daisy-clip",
+        "usagi.petal-collar",
+        "usagi.seed-pouch",
+        "usagi.garden-apron",
+        "usagi.garden-clogs"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "sun-garden",
+      "view": "profile",
+      "hash": "60ba1eaf",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 324
+      },
+      "items": [
+        "usagi.garden-beret",
+        "usagi.daisy-clip",
+        "usagi.petal-collar",
+        "usagi.seed-pouch",
+        "usagi.garden-apron",
+        "usagi.garden-clogs"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "sun-garden",
+      "view": "back",
+      "hash": "80626c44",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 324
+      },
+      "items": [
+        "usagi.garden-beret",
+        "usagi.daisy-clip",
+        "usagi.petal-collar",
+        "usagi.seed-pouch",
+        "usagi.garden-apron",
+        "usagi.garden-clogs"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "rain-walk",
+      "view": "front",
+      "hash": "5b833644",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 324
+      },
+      "items": [
+        "usagi.ear-bow",
+        "usagi.pastel-scarf",
+        "usagi.rain-cape",
+        "usagi.rain-boots",
+        "usagi.rain-satchel"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "rain-walk",
+      "view": "three-quarter",
+      "hash": "c82d1f6",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 324
+      },
+      "items": [
+        "usagi.ear-bow",
+        "usagi.pastel-scarf",
+        "usagi.rain-cape",
+        "usagi.rain-boots",
+        "usagi.rain-satchel"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "rain-walk",
+      "view": "profile",
+      "hash": "1717dab5",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 324
+      },
+      "items": [
+        "usagi.ear-bow",
+        "usagi.pastel-scarf",
+        "usagi.rain-cape",
+        "usagi.rain-boots",
+        "usagi.rain-satchel"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "rain-walk",
+      "view": "back",
+      "hash": "746aab7c",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 324
+      },
+      "items": [
+        "usagi.ear-bow",
+        "usagi.pastel-scarf",
+        "usagi.rain-cape",
+        "usagi.rain-boots",
+        "usagi.rain-satchel"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "moon-post",
+      "view": "front",
+      "hash": "6b641c87",
+      "bounds": {
+        "left": 120,
+        "top": 29,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.moon-beret",
+        "usagi.star-collar",
+        "usagi.starlit-cape",
+        "usagi.envelope-pouch",
+        "usagi.constellation",
+        "usagi.moon-boots"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "moon-post",
+      "view": "three-quarter",
+      "hash": "7941a3d4",
+      "bounds": {
+        "left": 127,
+        "top": 29,
+        "right": 318,
+        "bottom": 322
+      },
+      "items": [
+        "usagi.moon-beret",
+        "usagi.star-collar",
+        "usagi.starlit-cape",
+        "usagi.envelope-pouch",
+        "usagi.constellation",
+        "usagi.moon-boots"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "moon-post",
+      "view": "profile",
+      "hash": "b657dcd1",
+      "bounds": {
+        "left": 127,
+        "top": 28,
+        "right": 321,
+        "bottom": 324
+      },
+      "items": [
+        "usagi.moon-beret",
+        "usagi.star-collar",
+        "usagi.starlit-cape",
+        "usagi.envelope-pouch",
+        "usagi.constellation",
+        "usagi.moon-boots"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "moon-post",
+      "view": "back",
+      "hash": "e36fcf82",
+      "bounds": {
+        "left": 120,
+        "top": 29,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.moon-beret",
+        "usagi.star-collar",
+        "usagi.starlit-cape",
+        "usagi.envelope-pouch",
+        "usagi.constellation",
+        "usagi.moon-boots"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe"
+    },
+    {
+      "id": "usagi.ear-bow",
+      "items": [
+        "usagi.ear-bow"
+      ],
+      "action": "happy-hop",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 7500,
+      "frames": 225,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 225,
+      "video": "usagi.ear-bow.mp4",
+      "contactSheet": "usagi.ear-bow.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.star-collar",
+      "items": [
+        "usagi.star-collar"
+      ],
+      "action": "wave",
+      "view": "front",
+      "fps": 30,
+      "durationMs": 7000,
+      "frames": 210,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 210,
+      "video": "usagi.star-collar.mp4",
+      "contactSheet": "usagi.star-collar.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.travel-cape",
+      "items": [
+        "usagi.travel-cape"
+      ],
+      "action": "wave",
+      "view": "front",
+      "fps": 30,
+      "durationMs": 7000,
+      "frames": 210,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 210,
+      "video": "usagi.travel-cape.mp4",
+      "contactSheet": "usagi.travel-cape.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.sprout-clip",
+      "items": [
+        "usagi.sprout-clip"
+      ],
+      "action": "happy-hop",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 7500,
+      "frames": 225,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 225,
+      "video": "usagi.sprout-clip.mp4",
+      "contactSheet": "usagi.sprout-clip.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.sunhat",
+      "items": [
+        "usagi.sunhat"
+      ],
+      "action": "happy-hop",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 7500,
+      "frames": 225,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 225,
+      "video": "usagi.sunhat.mp4",
+      "contactSheet": "usagi.sunhat.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.carrot-satchel",
+      "items": [
+        "usagi.carrot-satchel"
+      ],
+      "action": "umbrella-dance",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 10000,
+      "frames": 300,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 300,
+      "video": "usagi.carrot-satchel.mp4",
+      "contactSheet": "usagi.carrot-satchel.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.pastel-scarf",
+      "items": [
+        "usagi.pastel-scarf"
+      ],
+      "action": "wave",
+      "view": "front",
+      "fps": 30,
+      "durationMs": 7000,
+      "frames": 210,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 210,
+      "video": "usagi.pastel-scarf.mp4",
+      "contactSheet": "usagi.pastel-scarf.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.halo",
+      "items": [
+        "usagi.halo"
+      ],
+      "action": "happy-hop",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 7500,
+      "frames": 225,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 225,
+      "video": "usagi.halo.mp4",
+      "contactSheet": "usagi.halo.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.soft-boots",
+      "items": [
+        "usagi.soft-boots"
+      ],
+      "action": "moonwalk",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 9000,
+      "frames": 270,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 270,
+      "video": "usagi.soft-boots.mp4",
+      "contactSheet": "usagi.soft-boots.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.starlit-cape",
+      "items": [
+        "usagi.starlit-cape"
+      ],
+      "action": "wave",
+      "view": "front",
+      "fps": 30,
+      "durationMs": 7000,
+      "frames": 210,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 210,
+      "video": "usagi.starlit-cape.mp4",
+      "contactSheet": "usagi.starlit-cape.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.sakura-clip",
+      "items": [
+        "usagi.sakura-clip"
+      ],
+      "action": "happy-hop",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 7500,
+      "frames": 225,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 225,
+      "video": "usagi.sakura-clip.mp4",
+      "contactSheet": "usagi.sakura-clip.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.tiny-crown",
+      "items": [
+        "usagi.tiny-crown"
+      ],
+      "action": "happy-hop",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 7500,
+      "frames": 225,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 225,
+      "video": "usagi.tiny-crown.mp4",
+      "contactSheet": "usagi.tiny-crown.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.garden-beret",
+      "items": [
+        "usagi.garden-beret"
+      ],
+      "action": "happy-hop",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 7500,
+      "frames": 225,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 225,
+      "video": "usagi.garden-beret.mp4",
+      "contactSheet": "usagi.garden-beret.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.daisy-clip",
+      "items": [
+        "usagi.daisy-clip"
+      ],
+      "action": "happy-hop",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 7500,
+      "frames": 225,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 225,
+      "video": "usagi.daisy-clip.mp4",
+      "contactSheet": "usagi.daisy-clip.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.petal-collar",
+      "items": [
+        "usagi.petal-collar"
+      ],
+      "action": "wave",
+      "view": "front",
+      "fps": 30,
+      "durationMs": 7000,
+      "frames": 210,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 210,
+      "video": "usagi.petal-collar.mp4",
+      "contactSheet": "usagi.petal-collar.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.seed-pouch",
+      "items": [
+        "usagi.seed-pouch"
+      ],
+      "action": "umbrella-dance",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 10000,
+      "frames": 300,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 300,
+      "video": "usagi.seed-pouch.mp4",
+      "contactSheet": "usagi.seed-pouch.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.rain-cape",
+      "items": [
+        "usagi.rain-cape"
+      ],
+      "action": "wave",
+      "view": "front",
+      "fps": 30,
+      "durationMs": 7000,
+      "frames": 210,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 210,
+      "video": "usagi.rain-cape.mp4",
+      "contactSheet": "usagi.rain-cape.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.rain-boots",
+      "items": [
+        "usagi.rain-boots"
+      ],
+      "action": "moonwalk",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 9000,
+      "frames": 270,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 270,
+      "video": "usagi.rain-boots.mp4",
+      "contactSheet": "usagi.rain-boots.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.moon-beret",
+      "items": [
+        "usagi.moon-beret"
+      ],
+      "action": "happy-hop",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 7500,
+      "frames": 225,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 225,
+      "video": "usagi.moon-beret.mp4",
+      "contactSheet": "usagi.moon-beret.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.envelope-pouch",
+      "items": [
+        "usagi.envelope-pouch"
+      ],
+      "action": "umbrella-dance",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 10000,
+      "frames": 300,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 300,
+      "video": "usagi.envelope-pouch.mp4",
+      "contactSheet": "usagi.envelope-pouch.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.constellation",
+      "items": [
+        "usagi.constellation"
+      ],
+      "action": "happy-hop",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 7500,
+      "frames": 225,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 225,
+      "video": "usagi.constellation.mp4",
+      "contactSheet": "usagi.constellation.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.garden-apron",
+      "items": [
+        "usagi.garden-apron"
+      ],
+      "action": "wave",
+      "view": "front",
+      "fps": 30,
+      "durationMs": 7000,
+      "frames": 210,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 210,
+      "video": "usagi.garden-apron.mp4",
+      "contactSheet": "usagi.garden-apron.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.garden-clogs",
+      "items": [
+        "usagi.garden-clogs"
+      ],
+      "action": "moonwalk",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 9000,
+      "frames": 270,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 270,
+      "video": "usagi.garden-clogs.mp4",
+      "contactSheet": "usagi.garden-clogs.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.rain-satchel",
+      "items": [
+        "usagi.rain-satchel"
+      ],
+      "action": "umbrella-dance",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 10000,
+      "frames": 300,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 300,
+      "video": "usagi.rain-satchel.mp4",
+      "contactSheet": "usagi.rain-satchel.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "usagi.moon-boots",
+      "items": [
+        "usagi.moon-boots"
+      ],
+      "action": "moonwalk",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 9000,
+      "frames": 270,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 270,
+      "video": "usagi.moon-boots.mp4",
+      "contactSheet": "usagi.moon-boots.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "sun-garden",
+      "items": [
+        "usagi.garden-beret",
+        "usagi.daisy-clip",
+        "usagi.petal-collar",
+        "usagi.seed-pouch",
+        "usagi.garden-apron",
+        "usagi.garden-clogs"
+      ],
+      "action": "plant-water",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 10000,
+      "frames": 300,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 300,
+      "video": "sun-garden.mp4",
+      "contactSheet": "sun-garden.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "rain-walk",
+      "items": [
+        "usagi.ear-bow",
+        "usagi.pastel-scarf",
+        "usagi.rain-cape",
+        "usagi.rain-boots",
+        "usagi.rain-satchel"
+      ],
+      "action": "umbrella-dance",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 10000,
+      "frames": 300,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 300,
+      "video": "rain-walk.mp4",
+      "contactSheet": "rain-walk.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "moon-post",
+      "items": [
+        "usagi.moon-beret",
+        "usagi.star-collar",
+        "usagi.starlit-cape",
+        "usagi.envelope-pouch",
+        "usagi.constellation",
+        "usagi.moon-boots"
+      ],
+      "action": "moonwalk",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 9000,
+      "frames": 270,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 270,
+      "video": "moon-post.mp4",
+      "contactSheet": "moon-post.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "wardrobe-motion",
+      "evidenceRoot": "dist/usagi-complete-review/wardrobe-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "pair-crown-daisy",
+      "view": "front",
+      "hash": "993b51bf",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.tiny-crown",
+        "usagi.daisy-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-crown-daisy",
+      "view": "three-quarter",
+      "hash": "659ac3e8",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.tiny-crown",
+        "usagi.daisy-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-crown-daisy",
+      "view": "profile",
+      "hash": "bb8019b5",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.tiny-crown",
+        "usagi.daisy-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-crown-daisy",
+      "view": "back",
+      "hash": "680ce1b9",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.tiny-crown",
+        "usagi.daisy-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-sunhat-sprout",
+      "view": "front",
+      "hash": "9ff488a2",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.sunhat",
+        "usagi.sprout-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-sunhat-sprout",
+      "view": "three-quarter",
+      "hash": "33e6ffd1",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.sunhat",
+        "usagi.sprout-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-sunhat-sprout",
+      "view": "profile",
+      "hash": "7afda04b",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.sunhat",
+        "usagi.sprout-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-sunhat-sprout",
+      "view": "back",
+      "hash": "9a4dcf68",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.sunhat",
+        "usagi.sprout-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-moon-beret-bow",
+      "view": "front",
+      "hash": "cdb1992b",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.moon-beret",
+        "usagi.ear-bow"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-moon-beret-bow",
+      "view": "three-quarter",
+      "hash": "9c84bef9",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.moon-beret",
+        "usagi.ear-bow"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-moon-beret-bow",
+      "view": "profile",
+      "hash": "248b1032",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.moon-beret",
+        "usagi.ear-bow"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-moon-beret-bow",
+      "view": "back",
+      "hash": "5921938d",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.moon-beret",
+        "usagi.ear-bow"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-garden-beret-sakura",
+      "view": "front",
+      "hash": "978ecb1",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.garden-beret",
+        "usagi.sakura-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-garden-beret-sakura",
+      "view": "three-quarter",
+      "hash": "2cb27244",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.garden-beret",
+        "usagi.sakura-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-garden-beret-sakura",
+      "view": "profile",
+      "hash": "c18f13c3",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.garden-beret",
+        "usagi.sakura-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-garden-beret-sakura",
+      "view": "back",
+      "hash": "5f739e7d",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.garden-beret",
+        "usagi.sakura-clip"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-scarf-starlit-cape",
+      "view": "front",
+      "hash": "9c33f5fc",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.pastel-scarf",
+        "usagi.starlit-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-scarf-starlit-cape",
+      "view": "three-quarter",
+      "hash": "bab02b1d",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.pastel-scarf",
+        "usagi.starlit-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-scarf-starlit-cape",
+      "view": "profile",
+      "hash": "f01e25f6",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.pastel-scarf",
+        "usagi.starlit-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-scarf-starlit-cape",
+      "view": "back",
+      "hash": "7cdf0ad",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.pastel-scarf",
+        "usagi.starlit-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-petal-rain-cape",
+      "view": "front",
+      "hash": "6f7ad8e4",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.petal-collar",
+        "usagi.rain-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-petal-rain-cape",
+      "view": "three-quarter",
+      "hash": "e9daa527",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.petal-collar",
+        "usagi.rain-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-petal-rain-cape",
+      "view": "profile",
+      "hash": "a4b8d87e",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.petal-collar",
+        "usagi.rain-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-petal-rain-cape",
+      "view": "back",
+      "hash": "da562285",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.petal-collar",
+        "usagi.rain-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-collar-apron",
+      "view": "front",
+      "hash": "4c1f570",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.star-collar",
+        "usagi.garden-apron"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-collar-apron",
+      "view": "three-quarter",
+      "hash": "ce17f3c2",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.star-collar",
+        "usagi.garden-apron"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-collar-apron",
+      "view": "profile",
+      "hash": "bfdd3b6e",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.star-collar",
+        "usagi.garden-apron"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-collar-apron",
+      "view": "back",
+      "hash": "15f482da",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.star-collar",
+        "usagi.garden-apron"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-rain-cape-envelope",
+      "view": "front",
+      "hash": "46e09251",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.rain-cape",
+        "usagi.envelope-pouch"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-rain-cape-envelope",
+      "view": "three-quarter",
+      "hash": "e4047c0e",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.rain-cape",
+        "usagi.envelope-pouch"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-rain-cape-envelope",
+      "view": "profile",
+      "hash": "ca9a7b8f",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.rain-cape",
+        "usagi.envelope-pouch"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-rain-cape-envelope",
+      "view": "back",
+      "hash": "fd9de8f2",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.rain-cape",
+        "usagi.envelope-pouch"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-apron-rain-bag",
+      "view": "front",
+      "hash": "a569a7d2",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.garden-apron",
+        "usagi.rain-satchel"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-apron-rain-bag",
+      "view": "three-quarter",
+      "hash": "a913bbb2",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.garden-apron",
+        "usagi.rain-satchel"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-apron-rain-bag",
+      "view": "profile",
+      "hash": "8fbd289e",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.garden-apron",
+        "usagi.rain-satchel"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-apron-rain-bag",
+      "view": "back",
+      "hash": "a00b1a14",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.garden-apron",
+        "usagi.rain-satchel"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-travel-cape-seed",
+      "view": "front",
+      "hash": "6dfa85f1",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.travel-cape",
+        "usagi.seed-pouch"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-travel-cape-seed",
+      "view": "three-quarter",
+      "hash": "b8e7906f",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.travel-cape",
+        "usagi.seed-pouch"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-travel-cape-seed",
+      "view": "profile",
+      "hash": "e1b7fca5",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.travel-cape",
+        "usagi.seed-pouch"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-travel-cape-seed",
+      "view": "back",
+      "hash": "8cf24cff",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.travel-cape",
+        "usagi.seed-pouch"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-halo-moon-beret",
+      "view": "front",
+      "hash": "75afaee4",
+      "bounds": {
+        "left": 120,
+        "top": 27,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.halo",
+        "usagi.moon-beret"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-halo-moon-beret",
+      "view": "three-quarter",
+      "hash": "5b1f03ac",
+      "bounds": {
+        "left": 127,
+        "top": 27,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.halo",
+        "usagi.moon-beret"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-halo-moon-beret",
+      "view": "profile",
+      "hash": "22299777",
+      "bounds": {
+        "left": 127,
+        "top": 27,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.halo",
+        "usagi.moon-beret"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-halo-moon-beret",
+      "view": "back",
+      "hash": "637bd7fc",
+      "bounds": {
+        "left": 120,
+        "top": 27,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.halo",
+        "usagi.moon-beret"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-constellation-crown",
+      "view": "front",
+      "hash": "c62ecb51",
+      "bounds": {
+        "left": 120,
+        "top": 29,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.constellation",
+        "usagi.tiny-crown"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-constellation-crown",
+      "view": "three-quarter",
+      "hash": "6d4b4327",
+      "bounds": {
+        "left": 127,
+        "top": 29,
+        "right": 318,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.constellation",
+        "usagi.tiny-crown"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-constellation-crown",
+      "view": "profile",
+      "hash": "bb8fb1df",
+      "bounds": {
+        "left": 127,
+        "top": 28,
+        "right": 321,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.constellation",
+        "usagi.tiny-crown"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-constellation-crown",
+      "view": "back",
+      "hash": "22ad0c2a",
+      "bounds": {
+        "left": 120,
+        "top": 29,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.constellation",
+        "usagi.tiny-crown"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-moon-boots-travel-cape",
+      "view": "front",
+      "hash": "c4a0c41d",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.moon-boots",
+        "usagi.travel-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-moon-boots-travel-cape",
+      "view": "three-quarter",
+      "hash": "ec4b8cfe",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 322
+      },
+      "items": [
+        "usagi.moon-boots",
+        "usagi.travel-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-moon-boots-travel-cape",
+      "view": "profile",
+      "hash": "7e248d83",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 324
+      },
+      "items": [
+        "usagi.moon-boots",
+        "usagi.travel-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-moon-boots-travel-cape",
+      "view": "back",
+      "hash": "368306a",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 323
+      },
+      "items": [
+        "usagi.moon-boots",
+        "usagi.travel-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-soft-boots-rain-cape",
+      "view": "front",
+      "hash": "3cf0c0e3",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 326
+      },
+      "items": [
+        "usagi.soft-boots",
+        "usagi.rain-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-soft-boots-rain-cape",
+      "view": "three-quarter",
+      "hash": "a8ec7c9a",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 318,
+        "bottom": 326
+      },
+      "items": [
+        "usagi.soft-boots",
+        "usagi.rain-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-soft-boots-rain-cape",
+      "view": "profile",
+      "hash": "4fa30f11",
+      "bounds": {
+        "left": 127,
+        "top": 36,
+        "right": 321,
+        "bottom": 326
+      },
+      "items": [
+        "usagi.soft-boots",
+        "usagi.rain-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-soft-boots-rain-cape",
+      "view": "back",
+      "hash": "72413c43",
+      "bounds": {
+        "left": 120,
+        "top": 36,
+        "right": 317,
+        "bottom": 326
+      },
+      "items": [
+        "usagi.soft-boots",
+        "usagi.rain-cape"
+      ],
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pairs",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pairs"
+    },
+    {
+      "id": "pair-crown-daisy",
+      "items": [
+        "usagi.tiny-crown",
+        "usagi.daisy-clip"
+      ],
+      "action": "happy-hop",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 7500,
+      "frames": 225,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 225,
+      "video": "pair-crown-daisy.mp4",
+      "contactSheet": "pair-crown-daisy.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pair-motion",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pair-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "pair-sunhat-sprout",
+      "items": [
+        "usagi.sunhat",
+        "usagi.sprout-clip"
+      ],
+      "action": "happy-hop",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 7500,
+      "frames": 225,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 225,
+      "video": "pair-sunhat-sprout.mp4",
+      "contactSheet": "pair-sunhat-sprout.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pair-motion",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pair-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "pair-moon-beret-bow",
+      "items": [
+        "usagi.moon-beret",
+        "usagi.ear-bow"
+      ],
+      "action": "happy-hop",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 7500,
+      "frames": 225,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 225,
+      "video": "pair-moon-beret-bow.mp4",
+      "contactSheet": "pair-moon-beret-bow.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pair-motion",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pair-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "pair-garden-beret-sakura",
+      "items": [
+        "usagi.garden-beret",
+        "usagi.sakura-clip"
+      ],
+      "action": "happy-hop",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 7500,
+      "frames": 225,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 225,
+      "video": "pair-garden-beret-sakura.mp4",
+      "contactSheet": "pair-garden-beret-sakura.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pair-motion",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pair-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "pair-scarf-starlit-cape",
+      "items": [
+        "usagi.pastel-scarf",
+        "usagi.starlit-cape"
+      ],
+      "action": "wave",
+      "view": "front",
+      "fps": 30,
+      "durationMs": 7000,
+      "frames": 210,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 210,
+      "video": "pair-scarf-starlit-cape.mp4",
+      "contactSheet": "pair-scarf-starlit-cape.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pair-motion",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pair-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "pair-petal-rain-cape",
+      "items": [
+        "usagi.petal-collar",
+        "usagi.rain-cape"
+      ],
+      "action": "wave",
+      "view": "front",
+      "fps": 30,
+      "durationMs": 7000,
+      "frames": 210,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 210,
+      "video": "pair-petal-rain-cape.mp4",
+      "contactSheet": "pair-petal-rain-cape.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pair-motion",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pair-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "pair-collar-apron",
+      "items": [
+        "usagi.star-collar",
+        "usagi.garden-apron"
+      ],
+      "action": "wave",
+      "view": "front",
+      "fps": 30,
+      "durationMs": 7000,
+      "frames": 210,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 210,
+      "video": "pair-collar-apron.mp4",
+      "contactSheet": "pair-collar-apron.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pair-motion",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pair-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "pair-rain-cape-envelope",
+      "items": [
+        "usagi.rain-cape",
+        "usagi.envelope-pouch"
+      ],
+      "action": "umbrella-dance",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 10000,
+      "frames": 300,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 300,
+      "video": "pair-rain-cape-envelope.mp4",
+      "contactSheet": "pair-rain-cape-envelope.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pair-motion",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pair-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "pair-apron-rain-bag",
+      "items": [
+        "usagi.garden-apron",
+        "usagi.rain-satchel"
+      ],
+      "action": "umbrella-dance",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 10000,
+      "frames": 300,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 300,
+      "video": "pair-apron-rain-bag.mp4",
+      "contactSheet": "pair-apron-rain-bag.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pair-motion",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pair-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "pair-travel-cape-seed",
+      "items": [
+        "usagi.travel-cape",
+        "usagi.seed-pouch"
+      ],
+      "action": "umbrella-dance",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 10000,
+      "frames": 300,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 300,
+      "video": "pair-travel-cape-seed.mp4",
+      "contactSheet": "pair-travel-cape-seed.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pair-motion",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pair-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "pair-halo-moon-beret",
+      "items": [
+        "usagi.halo",
+        "usagi.moon-beret"
+      ],
+      "action": "happy-hop",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 7500,
+      "frames": 225,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 225,
+      "video": "pair-halo-moon-beret.mp4",
+      "contactSheet": "pair-halo-moon-beret.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pair-motion",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pair-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "pair-constellation-crown",
+      "items": [
+        "usagi.constellation",
+        "usagi.tiny-crown"
+      ],
+      "action": "happy-hop",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 7500,
+      "frames": 225,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 225,
+      "video": "pair-constellation-crown.mp4",
+      "contactSheet": "pair-constellation-crown.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pair-motion",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pair-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "pair-moon-boots-travel-cape",
+      "items": [
+        "usagi.moon-boots",
+        "usagi.travel-cape"
+      ],
+      "action": "moonwalk",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 9000,
+      "frames": 270,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 270,
+      "video": "pair-moon-boots-travel-cape.mp4",
+      "contactSheet": "pair-moon-boots-travel-cape.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pair-motion",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pair-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "pair-soft-boots-rain-cape",
+      "items": [
+        "usagi.soft-boots",
+        "usagi.rain-cape"
+      ],
+      "action": "moonwalk",
+      "view": "three-quarter",
+      "fps": 30,
+      "durationMs": 9000,
+      "frames": 270,
+      "blankFrames": 0,
+      "edgeFrames": 0,
+      "uniqueFrames": 270,
+      "video": "pair-soft-boots-rain-cape.mp4",
+      "contactSheet": "pair-soft-boots-rain-cape.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "interaction-pair-motion",
+      "evidenceRoot": "dist/usagi-complete-review/interaction-pair-motion",
+      "normalSpeedReplay": "encoded30fps; visual review performed on explicit normal-size/2x phase frames, not native playback"
+    },
+    {
+      "id": "dawn-window",
+      "feature": "window",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 92,
+      "sheet": "scenes-0.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "rainy-window",
+      "feature": "window",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 180,
+      "sheet": "scenes-0.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "sunny-desk",
+      "feature": "desk",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 175,
+      "sheet": "scenes-0.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "morning-library",
+      "feature": "library",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 174,
+      "sheet": "scenes-0.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "garden-breeze",
+      "feature": "garden",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 167,
+      "sheet": "scenes-0.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "coffee-shop",
+      "feature": "cafe",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 172,
+      "sheet": "scenes-1.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "lunch-park",
+      "feature": "park",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 162,
+      "sheet": "scenes-1.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "cloud-terrace",
+      "feature": "terrace",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 119,
+      "sheet": "scenes-1.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "afternoon-studio",
+      "feature": "studio",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 176,
+      "sheet": "scenes-1.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "summer-storm",
+      "feature": "storm",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 180,
+      "sheet": "scenes-1.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "sunset-rooftop",
+      "feature": "rooftop",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 98,
+      "sheet": "scenes-2.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "train-window",
+      "feature": "train",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 173,
+      "sheet": "scenes-2.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "city-evening",
+      "feature": "city",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 115,
+      "sheet": "scenes-2.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "cozy-room",
+      "feature": "room",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 170,
+      "sheet": "scenes-2.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "night-city",
+      "feature": "neon",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 177,
+      "sheet": "scenes-2.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "moon-balcony",
+      "feature": "moon",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 171,
+      "sheet": "scenes-3.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "star-camp",
+      "feature": "camp",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 175,
+      "sheet": "scenes-3.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "late-night-desk",
+      "feature": "lateDesk",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 167,
+      "sheet": "scenes-3.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "aurora",
+      "feature": "aurora",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 177,
+      "sheet": "scenes-3.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "snowy-window",
+      "feature": "snow",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 178,
+      "sheet": "scenes-3.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "ocean-window",
+      "feature": "ocean",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 177,
+      "sheet": "scenes-4.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "forest-clearing",
+      "feature": "forest",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 172,
+      "sheet": "scenes-4.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "sakura-lane",
+      "feature": "sakura",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 177,
+      "sheet": "scenes-4.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "pixel-arcade",
+      "feature": "arcade",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 174,
+      "sheet": "scenes-4.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    },
+    {
+      "id": "robot-lab",
+      "feature": "lab",
+      "frames": 181,
+      "normalFps": 30,
+      "durationMs": 6000,
+      "uniqueSceneFrames": 173,
+      "sheet": "scenes-4.png",
+      "visualStatus": "visually-reviewed-phase-frames",
+      "category": "scenes",
+      "evidenceRoot": "dist/usagi-complete-review/scenes"
+    }
+  ],
+  "statusEffects": {
+    "hungry": {
+      "status": "visually-reviewed",
+      "evidence": "dist/usagi-complete-review/statuses/status/hungry-current.png"
+    },
+    "coffee": {
+      "status": "visually-reviewed",
+      "evidence": "dist/usagi-complete-review/statuses/status/coffee-current.png"
+    }
+  },
+  "continuousStateCycle": {
+    "status": "visually-reviewed-four-looks",
+    "looks": [
+      "bare",
+      "sun-garden",
+      "rain-walk",
+      "moon-post"
+    ],
+    "frames": 3360,
+    "fps": 30,
+    "secondsPerLook": 28,
+    "sameRendererLifecycle": true,
+    "source": "tools/usagi-complete-review/audit-state-cycle.mjs",
+    "evidence": "dist/usagi-complete-review/state-cycle/inventory.json",
+    "observed": "Idle/focus/idle/sleep/wake transition frames preserve all clothes and lip identity; sleepy closed lids remain closed, Z disappears on explicit wake, wake eyes open gradually"
+  },
+  "actionLedger": "tools/usagi-complete-review/action-review.json"
+}

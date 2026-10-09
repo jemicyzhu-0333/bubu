@@ -1,0 +1,253 @@
+{
+  "createdUtc": "2026-10-02",
+  "tool": "built-in image_gen.imagegen",
+  "seed": null,
+  "modelVersion": null,
+  "bodyContract": "Canonical files and native rig unchanged. Generated worn copies are visual references only; clothing atlas provides all new painted pixels.",
+  "inputCritique": "Accessories appeared pasted-on; restore far-side hiding, wrap curvature, scale/depth and near-arm occlusion while retaining the compact connected body.",
+  "generation": [
+    {
+      "name": "rain-worn-depth-v1",
+      "master": "masters/rain-worn-depth-v1.png",
+      "sha256": "f327f402ec9c5c062b051c61c9f75dc519594e41df8da34bb8ee995e4a72f0db",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alphaZeroPixels": 898982,
+      "alphaSoftPixels": 670206,
+      "prompt": "prompts/rain-worn-depth-v1.txt",
+      "promptSha256": "84444fbb6cd1e777b9a057a076cc74a7702ea0ec6a8ae4487283f214f939a2cd",
+      "referencesInAttachmentOrder": [
+        {
+          "path": "../canonical/front.png",
+          "sha256": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3"
+        },
+        {
+          "path": "../canonical/three-quarter.png",
+          "sha256": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60"
+        },
+        {
+          "path": "../canonical/profile.png",
+          "sha256": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420"
+        },
+        {
+          "path": "../canonical/back.png",
+          "sha256": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c"
+        },
+        {
+          "path": "../garden-rain/masters/rain-worn.png",
+          "sha256": "0ac887418bee191b1310663da35844ff5c8cb05454e4ddcd3f4236e8ba996e81"
+        }
+      ],
+      "status": "rejected",
+      "review": "Over-followed prior worn master and changed connected canonical body; not used for extraction."
+    },
+    {
+      "name": "rain-worn-depth-v2",
+      "master": "masters/rain-worn-depth-v2.png",
+      "sha256": "b177c1fe54a1c6b7d57b6b18f45dcd5286df1628fc20aed0678796a7ea38a365",
+      "size": [
+        2164,
+        727
+      ],
+      "mode": "RGBA",
+      "alphaZeroPixels": 1226284,
+      "alphaSoftPixels": 344077,
+      "prompt": "prompts/rain-worn-depth-v2.txt",
+      "promptSha256": "3a24e61730480c06d5d10cc2fe68bc19bd12ced94747b418817061cba40f13ce",
+      "referencesInAttachmentOrder": [
+        {
+          "path": "derived/canonical-exact-four-view.png",
+          "sha256": "28cc795b04d2b0dd214dfa166ca46d531f49b671dcc1557407cc172de37a0702"
+        }
+      ],
+      "status": "superseded",
+      "review": "Canonical-aligned worn design; pointed scarf and exposed three-quarter pouch required correction."
+    },
+    {
+      "name": "rain-worn-depth-v3",
+      "master": "masters/rain-worn-depth-v3.png",
+      "sha256": "4c26024940ebd98d14862a0eb87898edc2be7f60acf698dd4f6f9b8d9c291b06",
+      "size": [
+        2163,
+        727
+      ],
+      "mode": "RGBA",
+      "alphaZeroPixels": 1210818,
+      "alphaSoftPixels": 359281,
+      "prompt": "prompts/rain-worn-depth-v3.txt",
+      "promptSha256": "c9b88b647514a22ed653a4e974d91ff2d408f87ade06e183c84ccb1a3031a3f0",
+      "referencesInAttachmentOrder": [
+        {
+          "path": "masters/rain-worn-depth-v2.png",
+          "sha256": "b177c1fe54a1c6b7d57b6b18f45dcd5286df1628fc20aed0678796a7ea38a365"
+        }
+      ],
+      "status": "worn-reference-only",
+      "review": "Candidate garment reference; generated body is never used in prototype."
+    },
+    {
+      "name": "rain-layers-v1",
+      "master": "masters/rain-layers-v1.png",
+      "sha256": "50545706c31cd510f01da462dad4d99f4a9dcfb264e392c0827625da31348a6e",
+      "size": [
+        2164,
+        727
+      ],
+      "mode": "RGBA",
+      "alphaZeroPixels": 1256409,
+      "alphaSoftPixels": 312672,
+      "prompt": "prompts/rain-layers-v1.txt",
+      "promptSha256": "817fe8048d468f9f299a5971f1061d26127a2a94cd1ef1a3956b7e5f89150781",
+      "referencesInAttachmentOrder": [
+        {
+          "path": "masters/rain-worn-depth-v3.png",
+          "sha256": "4c26024940ebd98d14862a0eb87898edc2be7f60acf698dd4f6f9b8d9c291b06"
+        }
+      ],
+      "status": "superseded",
+      "review": "Continuous recovered garment shapes; scarf remained too thick."
+    },
+    {
+      "name": "rain-layers-v2",
+      "master": "masters/rain-layers-v2.png",
+      "sha256": "b8ab3b7e710ee664a7e4c52ab556d0567c9414dcf1e411bf490e9aa61c06086a",
+      "size": [
+        2164,
+        727
+      ],
+      "mode": "RGBA",
+      "alphaZeroPixels": 1269503,
+      "alphaSoftPixels": 300392,
+      "prompt": "prompts/rain-layers-v2.txt",
+      "promptSha256": "4f9b90f25c6a42fbd3df9d661d4d80e4d260295a16be16d6432f5fb764dc8605",
+      "referencesInAttachmentOrder": [
+        {
+          "path": "masters/rain-layers-v1.png",
+          "sha256": "50545706c31cd510f01da462dad4d99f4a9dcfb264e392c0827625da31348a6e"
+        }
+      ],
+      "status": "extracted-candidate",
+      "review": "Continuous cloth beneath hands; deterministic transfer uses unchanged canonical body."
+    }
+  ],
+  "extraction": {
+    "recipe": "recipe.json",
+    "script": "../build_prototype.py",
+    "scriptSha256": "ad1a8b7c97fbc5c381a0aa7dc6f4423a44e951086f5717a7b169de69632de220",
+    "alphaPolicy": "Original RGBA retained in declared crops, uniform resizing only, no color removal. Body depth masks partition full clothing into complementary layers, never hand-shaped holes.",
+    "historicalScriptSha256": "c8e6d9716a673c9dd12a04d3e83d1c15e02b4e1a33747159f820710e89558053",
+    "portableEntry": "../../../../../../../tools/usagi-wardrobe/generation/build_depth_prototype.py",
+    "portableEntrySha256": "ee11b45cf21500557175b6328e2d8c172700273c806ed67afec16cc1094fca53",
+    "rebuildInputs": "rebuild-inputs.json",
+    "command": "python build_prototype.py --output NEWDIR",
+    "sourceWritePolicy": "All derived PNGs, regenerated depth masks, evidence and manifests go only to a new/empty output directory. Saved masters, recipes, native foreground masks, baseline evidence and canonical files are read-only."
+  },
+  "motionReadiness": [
+    {
+      "view": "front",
+      "garment": "scarf",
+      "latentSha256": "f998879cb08dbf1cf779335c3f10a6cc2bc30b61457f831afaf03a1dbb54131a",
+      "enclosedTransparentPixelsAtHalfAlpha": 0,
+      "latentClothPixelsUnderOriginalHandMask": 257,
+      "uncoveredByCanonicalBodyPixels": 6
+    },
+    {
+      "view": "front",
+      "garment": "cape",
+      "latentSha256": "6c7eef514bb5ef789d8934be6342c83e7d6c5d62279633ac3386e391ff738d2d",
+      "enclosedTransparentPixelsAtHalfAlpha": 0,
+      "latentClothPixelsUnderOriginalHandMask": 817,
+      "uncoveredByCanonicalBodyPixels": 596
+    },
+    {
+      "view": "front",
+      "garment": "satchel",
+      "latentSha256": "06800ae9f3c091221ce021aa3c9b6f97d5a14be4b285316f4cffae4210cd8633",
+      "enclosedTransparentPixelsAtHalfAlpha": 0,
+      "latentClothPixelsUnderOriginalHandMask": 933,
+      "uncoveredByCanonicalBodyPixels": 1941
+    },
+    {
+      "view": "three-quarter",
+      "garment": "scarf",
+      "latentSha256": "7d89823db41ce333c8edefe7a0dc78c8893721308a84534c99080e2bf59a3686",
+      "enclosedTransparentPixelsAtHalfAlpha": 0,
+      "latentClothPixelsUnderOriginalHandMask": 934,
+      "uncoveredByCanonicalBodyPixels": 95
+    },
+    {
+      "view": "three-quarter",
+      "garment": "cape",
+      "latentSha256": "bf8a8d3d44f76a2aa045eb96146e0e51d9eeeb0fc8125b0109c8ac40a71054c9",
+      "enclosedTransparentPixelsAtHalfAlpha": 0,
+      "latentClothPixelsUnderOriginalHandMask": 1192,
+      "uncoveredByCanonicalBodyPixels": 913
+    },
+    {
+      "view": "three-quarter",
+      "garment": "satchel",
+      "latentSha256": "aadf43ccb7a6aecf030db199655ff21a9fec92fced9d731815ec8399db2576cc",
+      "enclosedTransparentPixelsAtHalfAlpha": 0,
+      "latentClothPixelsUnderOriginalHandMask": 863,
+      "uncoveredByCanonicalBodyPixels": 473
+    },
+    {
+      "view": "profile",
+      "garment": "scarf",
+      "latentSha256": "7540829b3af12e0e42726c3919079d875044b7612724d47723b6c582d23c2cb0",
+      "enclosedTransparentPixelsAtHalfAlpha": 0,
+      "latentClothPixelsUnderOriginalHandMask": 815,
+      "uncoveredByCanonicalBodyPixels": 4
+    },
+    {
+      "view": "profile",
+      "garment": "cape",
+      "latentSha256": "cf7a0a7c0ce83145b2f6bfcf502b77a00f68651a094738cf4b0691d59676c63f",
+      "enclosedTransparentPixelsAtHalfAlpha": 0,
+      "latentClothPixelsUnderOriginalHandMask": 714,
+      "uncoveredByCanonicalBodyPixels": 645
+    },
+    {
+      "view": "profile",
+      "garment": "satchel",
+      "latentSha256": "f99269d20ff4d965011b0d61c291af3dce51a3a40113808cf677b5c544c84ee2",
+      "enclosedTransparentPixelsAtHalfAlpha": 0,
+      "latentClothPixelsUnderOriginalHandMask": 182,
+      "uncoveredByCanonicalBodyPixels": 407
+    },
+    {
+      "view": "back",
+      "garment": "scarf",
+      "latentSha256": "87f19835bf2a81c7c98e1e9a87118502a5d7e0a6e48ebc70cf8fafca32e8849a",
+      "enclosedTransparentPixelsAtHalfAlpha": 0,
+      "latentClothPixelsUnderOriginalHandMask": 24,
+      "uncoveredByCanonicalBodyPixels": 6
+    },
+    {
+      "view": "back",
+      "garment": "cape",
+      "latentSha256": "bd0cafbe7767cfecca30ab4a06f7680ab33294a9960e674e21b61ac204a2f539",
+      "enclosedTransparentPixelsAtHalfAlpha": 0,
+      "latentClothPixelsUnderOriginalHandMask": 684,
+      "uncoveredByCanonicalBodyPixels": 797
+    },
+    {
+      "view": "back",
+      "garment": "satchel",
+      "latentSha256": "9f6247543e22aa3f288a662076299677b68edea5aeebfbb8e144d5487f21121b",
+      "enclosedTransparentPixelsAtHalfAlpha": 0,
+      "latentClothPixelsUnderOriginalHandMask": 945,
+      "uncoveredByCanonicalBodyPixels": 1828
+    }
+  ],
+  "status": "Proposed / generated / extracted / static visually reviewed. Not runtime integrated or approved.",
+  "limitations": [
+    "Proof uses exact static canonical hands and tail; runtime must apply its actual per-view/contact-aware native limb policy.",
+    "No animation, browser, Electron or Windows acceptance is claimed.",
+    "Only scarf, cape and satchel are changed in comparison; existing boots and bow are intentionally outside this prototype.",
+    "No garden or moon propagation yet."
+  ]
+}

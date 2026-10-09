@@ -1,0 +1,122 @@
+'use strict';
+
+function createPopoverCompletionFeedback({ document, $, celebrate, timers = globalThis, surfaceClient = null } = {}) {
+  if (!document || typeof $ !== 'function' || typeof celebrate !== 'function') {
+    throw new TypeError('completion feedback requires document, $, and celebrate');
+  }
+
+  let finishToastTimer = null;
+  let levelUpTimer = null;
+  let levelUpHideTimer = null;
+
+  function showFinishToast(text) {
+    const toast = $('#finishToast');
+    if (!toast) return;
+    toast.classList.remove('has-undo');
+    toast.textContent = text;
+    toast.classList.remove('hidden');
+    void toast.offsetWidth;
+    toast.classList.add('show');
+    timers.clearTimeout(finishToastTimer);
+    finishToastTimer = timers.setTimeout(() => {
+      toast.classList.remove('show');
+      finishToastTimer = timers.setTimeout(() => toast.classList.add('hidden'), 260);
+    }, 2000);
+  }
+
+  // 撤销条：还是同一个提示，只是多了一个“撤销”和一条 5 秒走完的细线。撤销是一次性的，点过、过期、
+  // 或者又完成了别的事，这条就换成一句结果，不再留着一个点了会失败的按钮。
+  function showUndoToast(text, ticket) {
+    const toast = $('#finishToast');
+    if (!toast || typeof document.createElement !== 'function') { showFinishToast(text); return; }
+    const label = document.createElement('span');
+    label.textContent = text;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'finish-undo';
+    button.setAttribute('data-icon', 'undo');
+    button.textContent = '撤销';
+    const bar = document.createElement('i');
+    bar.className = 'finish-undo-bar';
+    bar.setAttribute('aria-hidden', 'true');
+    if (bar.style) bar.style.animationDuration = `${ticket.ttlMs}ms`;
+    toast.replaceChildren(label, button, bar);
+    toast.classList.add('has-undo');
+    toast.classList.remove('hidden');
+    void toast.offsetWidth;
+    toast.classList.add('show');
+    timers.clearTimeout(finishToastTimer);
+    const close = () => {
+      toast.classList.remove('show');
+      finishToastTimer = timers.setTimeout(() => { toast.classList.add('hidden'); toast.classList.remove('has-undo'); }, 260);
+    };
+    finishToastTimer = timers.setTimeout(close, ticket.ttlMs);
+    button.addEventListener('click', async () => {
+      button.disabled = true;
+      let outcome = null;
+      try { outcome = await surfaceClient.undoComplete(ticket.token); } catch (_) { outcome = null; }
+      toast.classList.remove('has-undo');
+      showFinishToast(outcome && outcome.ok ? '已撤销，这件事回到待办' : '已经不能撤销了');
+    });
+  }
+
+  function announceCompletion(result) {
+    const next = result && result.nextOccurrenceDate;
+    let text = '已完成';
+    if (next) {
+      const date = new Date(`${next}T00:00:00`);
+      const label = Number.isFinite(date.getTime())
+        ? `${date.getMonth() + 1}/${date.getDate()}`
+        : next;
+      text = `今天这次已完成，下次 ${label}`;
+    }
+    const ticket = result && result.undo;
+    if (ticket && surfaceClient && typeof surfaceClient.undoComplete === 'function'
+        && typeof ticket.token === 'string' && Number.isFinite(ticket.ttlMs) && ticket.ttlMs > 0) {
+      showUndoToast(text, ticket);
+      return;
+    }
+    showFinishToast(text);
+  }
+
+  function celebrateLevelUp(level) {
+    try { celebrate(); } catch (_) {}
+    const card = $('#levelUpCard');
+    if (!card) return;
+    const badge = $('#levelUpBadge');
+    if (badge) badge.textContent = `LV.${level}`;
+    card.classList.remove('hidden');
+    card.setAttribute('aria-hidden', 'false');
+    void card.offsetWidth;
+    card.classList.add('show');
+    timers.clearTimeout(levelUpTimer);
+    timers.clearTimeout(levelUpHideTimer);
+    levelUpTimer = timers.setTimeout(() => {
+      card.classList.remove('show');
+      levelUpHideTimer = timers.setTimeout(() => {
+        card.classList.add('hidden');
+        card.setAttribute('aria-hidden', 'true');
+      }, 280);
+    }, 1600);
+  }
+
+  function dispose() {
+    timers.clearTimeout(finishToastTimer);
+    timers.clearTimeout(levelUpTimer);
+    timers.clearTimeout(levelUpHideTimer);
+    finishToastTimer = null;
+    levelUpTimer = null;
+    levelUpHideTimer = null;
+    for (const selector of ['#finishToast', '#levelUpCard']) {
+      const node = $(selector);
+      if (!node) continue;
+      node.classList.remove('show');
+      node.classList.add('hidden');
+    }
+    $('#levelUpCard')?.setAttribute('aria-hidden', 'true');
+  }
+
+  return Object.freeze({ announceCompletion, celebrateLevelUp, showFinishToast, dispose });
+}
+
+export { createPopoverCompletionFeedback };

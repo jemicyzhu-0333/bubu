@@ -1,0 +1,415 @@
+{
+  "version": 1,
+  "status": "candidate-static-review",
+  "views": [
+    "front",
+    "three-quarter",
+    "profile",
+    "back"
+  ],
+  "source": "masters/moon-layers-v1.png",
+  "coordinateMap": {
+    "scale": 4.2,
+    "x": 117.4,
+    "y": 175
+  },
+  "outfitName": "moon",
+  "title": "Moon garments only / exact canonical body / four independent views",
+  "proofComparison": "Old: original star collar + star cape + envelope bag. New: full cloth, body depth, original hands/tail.",
+  "order": {
+    "back": [
+      "bag",
+      "cape",
+      "collar"
+    ],
+    "front": [
+      "cape",
+      "bag",
+      "collar"
+    ]
+  },
+  "items": {
+    "collar": {
+      "itemId": "usagi.star-collar",
+      "slot": "usagi.neckwear",
+      "wrapsBody": true,
+      "bone": "root",
+      "source": "masters/moon-collar-layers-v3.png",
+      "alphaSupport": {
+        "component": "largest",
+        "threshold": 96,
+        "dilation": 3
+      },
+      "depthRoles": {
+        "back": "receding-collar-tips",
+        "front": "near-collar-and-star"
+      },
+      "crops": [
+        [
+          85,
+          287,
+          540,
+          470
+        ],
+        [
+          699,
+          289,
+          1049,
+          473
+        ],
+        [
+          1190,
+          291,
+          1555,
+          464
+        ],
+        [
+          1680,
+          286,
+          2088,
+          391
+        ]
+      ],
+      "widths": [
+        200,
+        184,
+        154,
+        200
+      ],
+      "centers": [
+        256,
+        272,
+        285,
+        256
+      ],
+      "tops": [
+        344,
+        347,
+        349,
+        344
+      ],
+      "nearPolygons": [
+        [
+          [
+            160,
+            339
+          ],
+          [
+            352,
+            339
+          ],
+          [
+            361,
+            405
+          ],
+          [
+            340,
+            440
+          ],
+          [
+            172,
+            440
+          ],
+          [
+            151,
+            405
+          ]
+        ],
+        [
+          [
+            184,
+            342
+          ],
+          [
+            376,
+            342
+          ],
+          [
+            385,
+            462
+          ],
+          [
+            180,
+            462
+          ]
+        ],
+        [
+          [
+            213,
+            344
+          ],
+          [
+            374,
+            344
+          ],
+          [
+            380,
+            450
+          ],
+          [
+            207,
+            450
+          ]
+        ],
+        [
+          [
+            160,
+            339
+          ],
+          [
+            352,
+            339
+          ],
+          [
+            360,
+            405
+          ],
+          [
+            152,
+            405
+          ]
+        ]
+      ]
+    },
+    "cape": {
+      "itemId": "usagi.starlit-cape",
+      "slot": "usagi.backwear",
+      "wrapsBody": true,
+      "bone": "root",
+      "alphaSupport": {
+        "component": "largest",
+        "threshold": 96,
+        "dilation": 3
+      },
+      "depthRoles": {
+        "back": "far-shoulder-and-flank-return",
+        "front": "near-star-mantle"
+      },
+      "crops": [
+        [
+          40,
+          352,
+          442,
+          508
+        ],
+        [
+          530,
+          348,
+          889,
+          513
+        ],
+        [
+          955,
+          352,
+          1227,
+          507
+        ],
+        [
+          1340,
+          354,
+          1740,
+          520
+        ]
+      ],
+      "widths": [
+        214,
+        204,
+        160,
+        210
+      ],
+      "centers": [
+        256,
+        270,
+        279,
+        256
+      ],
+      "tops": [
+        356,
+        354,
+        352,
+        354
+      ],
+      "nearPolygons": [
+        [
+          [
+            174,
+            360
+          ],
+          [
+            338,
+            360
+          ],
+          [
+            349,
+            423
+          ],
+          [
+            326,
+            445
+          ],
+          [
+            186,
+            445
+          ],
+          [
+            163,
+            423
+          ]
+        ],
+        [
+          [
+            173,
+            360
+          ],
+          [
+            329,
+            360
+          ],
+          [
+            337,
+            431
+          ],
+          [
+            295,
+            448
+          ],
+          [
+            170,
+            441
+          ]
+        ],
+        [
+          [
+            195,
+            360
+          ],
+          [
+            360,
+            360
+          ],
+          [
+            368,
+            425
+          ],
+          [
+            314,
+            446
+          ],
+          [
+            187,
+            446
+          ]
+        ],
+        [
+          [
+            170,
+            359
+          ],
+          [
+            342,
+            359
+          ],
+          [
+            347,
+            444
+          ],
+          [
+            166,
+            444
+          ]
+        ]
+      ]
+    },
+    "bag": {
+      "itemId": "usagi.envelope-pouch",
+      "slot": "usagi.sidebag",
+      "wrapsBody": true,
+      "bone": "root",
+      "alphaSupport": {
+        "component": "largest",
+        "threshold": 96,
+        "dilation": 3
+      },
+      "depthRoles": {
+        "back": "far-hip-bag-and-hidden-strap",
+        "front": "near-bag-face"
+      },
+      "crops": [
+        [
+          72,
+          136,
+          513,
+          569
+        ],
+        [
+          622,
+          135,
+          1024,
+          579
+        ],
+        [
+          1166,
+          135,
+          1534,
+          576
+        ],
+        [
+          1677,
+          136,
+          2101,
+          569
+        ]
+      ],
+      "widths": [
+        196,
+        194,
+        165,
+        220
+      ],
+      "centers": [
+        238,
+        259,
+        273,
+        272
+      ],
+      "tops": [
+        243,
+        229,
+        239,
+        228
+      ],
+      "nearPolygons": [
+        [
+          [
+            138,
+            377
+          ],
+          [
+            216,
+            377
+          ],
+          [
+            218,
+            384
+          ],
+          [
+            227,
+            386
+          ],
+          [
+            227,
+            440
+          ],
+          [
+            138,
+            440
+          ]
+        ],
+        [],
+        [],
+        []
+      ],
+      "source": "masters/moon-bag-layers-v2.png"
+    }
+  }
+}

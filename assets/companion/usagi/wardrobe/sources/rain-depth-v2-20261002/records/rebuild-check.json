@@ -1,0 +1,43 @@
+{
+  "format": "usagi-depth-portable-rebuild-check-v1",
+  "checkedFiles": 58,
+  "pngFiles": 56,
+  "byteIdentical": true,
+  "twoIndependentOutputsIdentical": true,
+  "changed": [],
+  "sourceTreesUnchanged": {
+    "rain": {
+      "files": 84,
+      "beforeSha256": "945a98542b598c5392e32c23f95293128e8d257a0aa9a74013cca86ee3fe0fbb",
+      "afterSha256": "945a98542b598c5392e32c23f95293128e8d257a0aa9a74013cca86ee3fe0fbb"
+    },
+    "canonical": {
+      "files": 5,
+      "beforeSha256": "c9105090a2f7a6ccef94c41a8a07e4b991a3197876af7660f547181ab2552e8c",
+      "afterSha256": "c9105090a2f7a6ccef94c41a8a07e4b991a3197876af7660f547181ab2552e8c"
+    },
+    "contracts": {
+      "files": 6,
+      "beforeSha256": "f7f4d992a4221384f442ca96b59dc368b691a083ca6fb9fc61ea51bd19d65b43",
+      "afterSha256": "f7f4d992a4221384f442ca96b59dc368b691a083ca6fb9fc61ea51bd19d65b43"
+    }
+  },
+  "guards": {
+    "populatedOutputRefused": true,
+    "sourceAndAncestorOutputsRefused": true,
+    "missingOutputRefused": true
+  },
+  "optionalAlphaSupport": "Largest 8-connected alpha support preserves retained RGBA, retains nearby soft edge, removes external specks, and rejects invalid settings.",
+  "relocatedSameSchemaRecipe": "Renamed collar/apron/pouch, explicit slots/depthRoles/order, sourceToArt alias and distinct per-item source override preserve all 20 clothing PNG bytes.",
+  "outputs": [
+    "/tmp/usagi-depth-rebuild-a-i6uh9oih",
+    "/tmp/usagi-depth-rebuild-b-1weglknk"
+  ],
+  "scope": "Saved master extraction and exact static canonical composition only; no image generation, source writes, runtime, desktop, or visual acceptance claim.",
+  "entrySha256": "ee11b45cf21500557175b6328e2d8c172700273c806ed67afec16cc1094fca53",
+  "sourceTreeSnapshotNote": "Tree digests capture sources immediately before and after the two rebuilds. This validation record and file index are refreshed afterward.",
+  "commands": [
+    "python assets/companion/usagi/wardrobe/sources/rain-depth-v2-20261002/build_prototype.py --output NEWDIR",
+    "python tools/usagi-wardrobe/generation/build_depth_prototype.py --source SOURCE --output NEWDIR"
+  ]
+}

@@ -1,0 +1,22 @@
+'use strict';
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const { updateReleaseConfig } = require('../scripts/update-release-config');
+const base = require('../package.json');
+const pkg = { ...base, version: '1.0.0' };
+const env = { RELEASE_REPOSITORY: 'example/pet-releases', CSC_NAME: 'Developer ID Application: Example', WINDOWS_PUBLISHER_NAME: 'Example' };
+test('release updates require stable versions, an explicit repository and signed native builds', () => {
+  const input = { pkg, platform: 'darwin', arch: 'arm64', env };
+  assert.throws(() => updateReleaseConfig({ ...input, pkg: { ...pkg, version: '1.0.0-dev' } }), /stable/);
+  assert.throws(() => updateReleaseConfig({ ...input, platform: 'linux' }), /macOS or Windows/);
+  assert.throws(() => updateReleaseConfig({ ...input, env: {} }), /RELEASE_REPOSITORY/);
+  const mac = updateReleaseConfig(input);
+  assert.deepEqual(mac.mac.target.map(item => item.target), ['dmg', 'zip']);
+  assert.equal(mac.mac.hardenedRuntime, true); assert.equal(mac.mac.notarize, true);
+  assert.equal(mac.forceCodeSigning, true); assert.equal(mac.publish[0].private, false);
+  assert.equal(mac.publish[0].releaseType, 'draft'); assert.equal(mac.appId, base.build.appId);
+  const win = updateReleaseConfig({ ...input, platform: 'win32', arch: 'x64' });
+  assert.equal(win.win.target[0].target, 'nsis'); assert.equal(win.win.verifyUpdateCodeSignature, true);
+  assert.equal(win.nsis.deleteAppDataOnUninstall, false);
+  assert.equal(JSON.stringify(win).includes('GH_TOKEN'), false);
+});

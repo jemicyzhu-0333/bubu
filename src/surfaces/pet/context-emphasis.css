@@ -1,0 +1,77 @@
+/* Both context presentations occupy the footer's one supplemental cell.
+   Their mutually exclusive visibility is owned by context-emphasis.mjs. */
+.context-badge {
+  display: none;
+  min-width: 0;
+  width: 100%;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 1px 6px;
+  border: 1px solid rgba(241, 239, 246, 0.32);
+  border-radius: 8px;
+  background: rgba(43, 43, 55, 0.86);
+  color: #f5f2ed;
+  font-family: var(--ui-font);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  text-align: center;
+  white-space: nowrap;
+  image-rendering: auto;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  appearance: none;
+  cursor: pointer;
+}
+.context-badge.show { display: flex; visibility: visible; pointer-events: auto; }
+.context-label { display: none; min-width: 0; overflow: hidden; text-overflow: ellipsis; font: inherit; }
+.context-icons { display: flex; gap: 7px; flex: 0 0 auto; }
+.context-icons .ui-icon { display: none; width: 16px; height: 16px; }
+.context-badge[data-context*="music"] .context-music,
+.context-badge[data-context*="ai"] .context-ai,
+.context-badge[data-context*="coding"] .context-coding { display: block; }
+.context-count { display: none; font: inherit; font-variant-numeric: tabular-nums; }
+.context-badge:focus-visible { outline: 2px solid var(--accent, #e0af68); outline-offset: -2px; }
+.stage:has(.bubble.show:not([data-speech-source="context"])) .context-row,
+.stage:has(.pet-layer.dragging) .context-row,
+.stage.menu-open .context-row,
+.stage.is-docked .context-row,
+.stage.peek .context-row { display: none; }
+
+/* The single speech node is mounted here for context only, and moved back to
+   the stage for important/manual speech. No independent foot coordinates. */
+.stage[data-pet-form] .context-row .bubble[data-speech-source="context"] {
+  position: static;
+  display: none;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  height: 20px;
+  margin: 0;
+  padding: 1px 6px;
+  border-width: 1px;
+  border-radius: 8px;
+  box-shadow: none;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  animation: none;
+  transition: none;
+}
+.stage[data-pet-form] .context-row .bubble[data-speech-source="context"].show { display: block; }
+.stage[data-pet-form] .context-row .bubble[data-speech-source="context"]::after { display: none; }
+
+/* Expanded copy is an explicit disclosure in the existing bounded cell. */
+.context-badge[data-expanded="true"] .context-label { display: inline; }
+.context-badge[data-expanded="true"] .context-icons { display: none; }
+@media (max-width: 199px) {
+  .context-icons { gap: 3px; }
+  .context-icons .ui-icon { width: 12px; height: 12px; }
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>I’m ADHDer 表达画廊（开发）</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-width: 720px;
+    background: #11131c;
+    color: #c0caf5;
+    font: 14px/1.45 'SF Mono', Menlo, Monaco, 'Courier New', monospace;
+  }
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 22px;
+    background: rgba(17, 19, 28, 0.96);
+    border-bottom: 1px solid #30364a;
+  }
+  h1 { margin: 0; color: #f4e5c3; font-size: 18px; }
+  .hint { margin-top: 3px; color: #7f89ad; font-size: 11px; }
+  .toolbar { display: flex; gap: 8px; }
+  button {
+    border: 1px solid #565f89;
+    border-radius: 6px;
+    padding: 6px 10px;
+    background: #202436;
+    color: #c0caf5;
+    font: inherit;
+    cursor: pointer;
+  }
+  button:hover, button:focus-visible { border-color: #7dcfff; color: #fff; outline: none; }
+  main { padding: 20px; }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(226px, 1fr));
+    gap: 14px;
+  }
+  .expression-card {
+    display: grid;
+    justify-items: center;
+    padding: 12px;
+    border: 1px solid #30364a;
+    border-radius: 10px;
+    background: #171a26;
+  }
+  .expression-card[data-mode="static"] { border-color: #bb9af7; }
+  canvas, .expression-capture {
+    width: 219px;
+    height: 219px;
+    image-rendering: pixelated;
+    background: radial-gradient(circle, rgba(125, 207, 255, 0.08), transparent 65%);
+  }
+  .expression-id { margin-top: 7px; color: #7dcfff; font-weight: 700; }
+  .expression-label { min-height: 21px; color: #a9b1d6; font-size: 12px; }
+  .card-actions { display: flex; gap: 7px; margin-top: 9px; }
+  .mode { min-width: 42px; color: #9ece6a; font-size: 11px; text-align: center; }
+</style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>I’m ADHDer 32 表达画廊</h1>
+      <div class="hint">仅供开发验证；每张卡可独立重播或切到规范静态停帧。</div>
+    </div>
+    <div class="toolbar" role="group" aria-label="全部表达控制">
+      <button type="button" id="playAll">播放全部</button>
+      <button type="button" id="staticAll">静态全部</button>
+    </div>
+  </header>
+  <main>
+    <div id="gallery" class="gallery" aria-label="32 个 I’m ADHDer 表达"></div>
+  </main>
+
+  <script type="module" src="expression-gallery.mjs"></script>
+</body>
+</html>

@@ -1,0 +1,2561 @@
+{
+  "format": "usagi-wardrobe-reproduction-v1",
+  "canonical": [
+    {
+      "path": "canonical/front.png",
+      "sha256": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3"
+    },
+    {
+      "path": "canonical/three-quarter.png",
+      "sha256": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60"
+    },
+    {
+      "path": "canonical/profile.png",
+      "sha256": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420"
+    },
+    {
+      "path": "canonical/back.png",
+      "sha256": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c"
+    }
+  ],
+  "families": [
+    {
+      "id": "garden-rain",
+      "recipe": "garden-rain/records/recipe.json",
+      "contract": "contracts/garden-rain.json",
+      "itemCount": 11,
+      "runtimeContract": "contracts/runtime/garden-rain.json"
+    },
+    {
+      "id": "moon",
+      "recipe": "moon/records/recipe.json",
+      "contract": "contracts/moon.json",
+      "itemCount": 6,
+      "runtimeContract": "contracts/runtime/moon.json"
+    }
+  ],
+  "generationReferenceIndex": "generation-reference-index.json",
+  "extractionAndCorrections": "extraction-and-corrections.json",
+  "environment": {
+    "python": "3.12.14",
+    "packages": {
+      "Pillow": "12.3.0",
+      "numpy": "2.3.5",
+      "scipy": "1.17.0"
+    }
+  },
+  "commands": {
+    "rebuild": "python tools/usagi-wardrobe/generation/build.py --output /tmp/usagi-wardrobe-rebuild",
+    "tests": "python tools/usagi-wardrobe/generation/test_generation.py",
+    "sourceArchiveRebuild": "python tools/usagi-wardrobe/generation/build.py --source-only --output ../usagi-wardrobe-rebuild"
+  },
+  "outputGuard": "Output must be a nonexistent directory outside the repository; all hashes, package versions and current runtime contracts are checked before it is created.",
+  "archivePolicy": {
+    "sourceTreeBytes": 21034716,
+    "largestInputBytes": 1677977,
+    "maximumArchiveBytes": 33554432,
+    "layout": "Preserved individual files; entire source tree is below 32MiB, so no extra archive duplication is necessary."
+  },
+  "runtimeAssets": {
+    "items/usagi.daisy-clip/back-part-0.png": {
+      "sha256": "5ecc4dfc85178438ca4a1e4261ab6c1987e435be9565fa209c2f7dceb83d5064",
+      "bytes": 3516,
+      "size": [
+        38,
+        37
+      ]
+    },
+    "items/usagi.daisy-clip/front-part-0.png": {
+      "sha256": "a8590bbfb60ab00c923b70c7200b7478dfe4f6fc24234d97d7fa1f1cd905861e",
+      "bytes": 3569,
+      "size": [
+        39,
+        40
+      ]
+    },
+    "items/usagi.daisy-clip/profile-part-0.png": {
+      "sha256": "c38ca6579463a2b6a87add18b917a64382dc491930557023e9619de6d8c4def8",
+      "bytes": 2196,
+      "size": [
+        25,
+        36
+      ]
+    },
+    "items/usagi.daisy-clip/three-quarter-part-0.png": {
+      "sha256": "7910eeaaf2d73c35b394c312d9a845516f05d293a2010409c057db2480871329",
+      "bytes": 3282,
+      "size": [
+        35,
+        38
+      ]
+    },
+    "items/usagi.ear-bow/back-part-0.png": {
+      "sha256": "62363c12409542b58595e7d846c8c77f52324e48bf3a473e80ca9cda7c46b8ed",
+      "bytes": 3650,
+      "size": [
+        45,
+        32
+      ]
+    },
+    "items/usagi.ear-bow/front-part-0.png": {
+      "sha256": "1257401105bbe42d442260da4d2245af1bd822bff15a9decdc30970d9be35fdc",
+      "bytes": 3335,
+      "size": [
+        45,
+        34
+      ]
+    },
+    "items/usagi.ear-bow/profile-part-0.png": {
+      "sha256": "ccde955a07f5377a7afb7909ac2608bf94a5172b2a5f780da7d767cbd40386c7",
+      "bytes": 2591,
+      "size": [
+        26,
+        41
+      ]
+    },
+    "items/usagi.ear-bow/three-quarter-part-0.png": {
+      "sha256": "5b44e65745ec38fb41630dc56d464c0d358cb3b319d55a78e6a3dc2290a3ac4c",
+      "bytes": 3288,
+      "size": [
+        42,
+        35
+      ]
+    },
+    "items/usagi.envelope-pouch/back-part-0.png": {
+      "sha256": "417c1b43f12f232a8ef3ba9e38d2af59aa72eb64ff035e46b6dd15122a1609e3",
+      "bytes": 8198,
+      "size": [
+        113,
+        73
+      ]
+    },
+    "items/usagi.envelope-pouch/front-part-0.png": {
+      "sha256": "3514720cd07d9a8910701c6267762a7ef58fa0c859641d8266feb237a25b0bf1",
+      "bytes": 10291,
+      "size": [
+        84,
+        78
+      ]
+    },
+    "items/usagi.envelope-pouch/profile-part-0.png": {
+      "sha256": "72c448ecdf6dd9397f623639f60555f508e01e26ff69f61f042f45a5abd6cecd",
+      "bytes": 8485,
+      "size": [
+        74,
+        67
+      ]
+    },
+    "items/usagi.envelope-pouch/three-quarter-part-0.png": {
+      "sha256": "4224b7fe5117e14c271378c8265becb45020981925b1241cf6bc461b94f5c233",
+      "bytes": 8879,
+      "size": [
+        86,
+        71
+      ]
+    },
+    "items/usagi.garden-apron/back-part-0.png": {
+      "sha256": "7d0f038230121eae92e661543c72181dcbd66f4ed62da3fe0ec54b66dfc93fab",
+      "bytes": 20577,
+      "size": [
+        169,
+        83
+      ]
+    },
+    "items/usagi.garden-apron/front-part-0.png": {
+      "sha256": "6d99a2f0e46af015dbd9ba70aaafd205a11d72b478d13af40b53c3baf49e15f0",
+      "bytes": 17025,
+      "size": [
+        158,
+        69
+      ]
+    },
+    "items/usagi.garden-apron/profile-part-0.png": {
+      "sha256": "88ae5a21969b4d06120cbf7b986c26d9b2e11e2730330e6e3921e405059787bd",
+      "bytes": 13510,
+      "size": [
+        106,
+        73
+      ]
+    },
+    "items/usagi.garden-apron/three-quarter-part-0.png": {
+      "sha256": "83def2444d58f18d4cce1b14416f56e9b5ea4929ce50bba5a39d24d73661118b",
+      "bytes": 18680,
+      "size": [
+        154,
+        78
+      ]
+    },
+    "items/usagi.garden-beret/back-part-0.png": {
+      "sha256": "8c8a42f539ef072653a96eaa7f01de6eba854acdeb85f55b8465ebf640a450e4",
+      "bytes": 10977,
+      "size": [
+        116,
+        72
+      ]
+    },
+    "items/usagi.garden-beret/front-part-0.png": {
+      "sha256": "6713c5b735d2e3d4baedcec54d31cb2d85eca8c066f92a57dfe7c5675d1e884c",
+      "bytes": 10561,
+      "size": [
+        116,
+        69
+      ]
+    },
+    "items/usagi.garden-beret/profile-part-0.png": {
+      "sha256": "9fd55ab895921c9a935bf1905f6124542c1450e65075eef5dee59378a901d188",
+      "bytes": 8671,
+      "size": [
+        92,
+        67
+      ]
+    },
+    "items/usagi.garden-beret/three-quarter-part-0.png": {
+      "sha256": "1931011bb30e1f7e5a35175c97a690c05c4dec3dd4eda417ac8c6995151ed98c",
+      "bytes": 10440,
+      "size": [
+        111,
+        70
+      ]
+    },
+    "items/usagi.garden-clogs/back-part-0.png": {
+      "sha256": "1528d164d905fcb310539054e8fca741e4f1cfbe8deece948081e9e157314e94",
+      "bytes": 4372,
+      "size": [
+        45,
+        44
+      ]
+    },
+    "items/usagi.garden-clogs/back-part-1.png": {
+      "sha256": "717d5232b82118bb3a8c4eb648d9712c8abeec008fec889868f2786ed6206b9f",
+      "bytes": 4243,
+      "size": [
+        45,
+        42
+      ]
+    },
+    "items/usagi.garden-clogs/front-part-0.png": {
+      "sha256": "2c314b6cb0fd0e2d5924c1c9504188f1685f6589e282ca9dfc0a23cab0628b73",
+      "bytes": 4013,
+      "size": [
+        45,
+        41
+      ]
+    },
+    "items/usagi.garden-clogs/front-part-1.png": {
+      "sha256": "97621e9a282d4ff96a323110f9dcaa6adcfd1f45e9203e1b60317d32e94e69f1",
+      "bytes": 3964,
+      "size": [
+        45,
+        40
+      ]
+    },
+    "items/usagi.garden-clogs/profile-part-0.png": {
+      "sha256": "5293050f6dded4fb09e3738395f26f38c9bb6cccb38c8196d7012f7bb65020b6",
+      "bytes": 3082,
+      "size": [
+        49,
+        27
+      ]
+    },
+    "items/usagi.garden-clogs/profile-part-1.png": {
+      "sha256": "5c4ed64b5aa96ba913ac0c56686311ea71e6463deb5660c4a12333425dcc6e00",
+      "bytes": 3009,
+      "size": [
+        49,
+        26
+      ]
+    },
+    "items/usagi.garden-clogs/three-quarter-part-0.png": {
+      "sha256": "bd35d11e9695c0117c636a59dbe8f8b2f38515595d55a6c10f74a4753637d34d",
+      "bytes": 3778,
+      "size": [
+        48,
+        35
+      ]
+    },
+    "items/usagi.garden-clogs/three-quarter-part-1.png": {
+      "sha256": "ced863c82179a9fff7bdff373dff93f2feefc2138f130a7b54d937a56d83a80d",
+      "bytes": 3662,
+      "size": [
+        48,
+        34
+      ]
+    },
+    "items/usagi.moon-beret/back-part-0.png": {
+      "sha256": "c7aa829d6747ae98869dbc815939a1a0fdfb932d5c4bf57d56816b81ca78732c",
+      "bytes": 10683,
+      "size": [
+        118,
+        68
+      ]
+    },
+    "items/usagi.moon-beret/front-part-0.png": {
+      "sha256": "94e001f994222b264a49864498c4098dfcd52c67c7891801c12cf5511c6b1d60",
+      "bytes": 11391,
+      "size": [
+        115,
+        67
+      ]
+    },
+    "items/usagi.moon-beret/profile-part-0.png": {
+      "sha256": "1ca68bd7781480a6dfa7e998e17d574e0aa46b7d4319605484f5c71843513c30",
+      "bytes": 8512,
+      "size": [
+        94,
+        61
+      ]
+    },
+    "items/usagi.moon-beret/three-quarter-part-0.png": {
+      "sha256": "7f30a85d67445be50886e9899dae3739578b31379b2b5530ba89a118ac5e89ce",
+      "bytes": 10320,
+      "size": [
+        111,
+        63
+      ]
+    },
+    "items/usagi.moon-boots/back-part-0.png": {
+      "sha256": "d0b0ffb9e8e13aa40c66175e5a9efe3603830ac39c79ffb37f37529570fa14a2",
+      "bytes": 5112,
+      "size": [
+        44,
+        57
+      ]
+    },
+    "items/usagi.moon-boots/back-part-1.png": {
+      "sha256": "66b101e3040fc66d100d2d8e2febf57e79b7123a26643d62a08165aee37d390d",
+      "bytes": 5139,
+      "size": [
+        44,
+        57
+      ]
+    },
+    "items/usagi.moon-boots/front-part-0.png": {
+      "sha256": "97469c537e227a21366d69164b10a9ae3532599fb95ae9187413981d65091c0e",
+      "bytes": 5374,
+      "size": [
+        45,
+        56
+      ]
+    },
+    "items/usagi.moon-boots/front-part-1.png": {
+      "sha256": "af4becfa794feda732ec7f5b9bca0cbb65822743d06ee3f3c77971c86fa8a5fb",
+      "bytes": 5428,
+      "size": [
+        45,
+        56
+      ]
+    },
+    "items/usagi.moon-boots/profile-part-0.png": {
+      "sha256": "975aefed5513b34d9022532075ff9139b5c0aa85e92eafe1b9c619f3b9a459e7",
+      "bytes": 4342,
+      "size": [
+        47,
+        42
+      ]
+    },
+    "items/usagi.moon-boots/profile-part-1.png": {
+      "sha256": "975aefed5513b34d9022532075ff9139b5c0aa85e92eafe1b9c619f3b9a459e7",
+      "bytes": 4342,
+      "size": [
+        47,
+        42
+      ]
+    },
+    "items/usagi.moon-boots/three-quarter-part-0.png": {
+      "sha256": "8c93e3e02703b908f77be9a1cfc8fd0888f12f187d3aa6fca2190da7c198d1e7",
+      "bytes": 5134,
+      "size": [
+        45,
+        54
+      ]
+    },
+    "items/usagi.moon-boots/three-quarter-part-1.png": {
+      "sha256": "8c93e3e02703b908f77be9a1cfc8fd0888f12f187d3aa6fca2190da7c198d1e7",
+      "bytes": 5134,
+      "size": [
+        45,
+        54
+      ]
+    },
+    "items/usagi.pastel-scarf/back-part-0.png": {
+      "sha256": "f6784efab74ffd8d2ab274be509a1bfa19a346ea47845c43a89b750d13f77461",
+      "bytes": 18218,
+      "size": [
+        191,
+        78
+      ]
+    },
+    "items/usagi.pastel-scarf/front-part-0.png": {
+      "sha256": "6e47faee1d4c2a71df5a0a66b62c045d9964da00cd2cd835f5b9f7abaf2be761",
+      "bytes": 17201,
+      "size": [
+        190,
+        77
+      ]
+    },
+    "items/usagi.pastel-scarf/profile-part-0.png": {
+      "sha256": "505a343f05d11825e8c8b6f1eaa6e0c84a776ad142af3a99d47638808f789da0",
+      "bytes": 10604,
+      "size": [
+        105,
+        80
+      ]
+    },
+    "items/usagi.pastel-scarf/three-quarter-part-0.png": {
+      "sha256": "9dfea74ccb24091a31b920e7da45a7e37bc939d8c2b07e4214aa5e102a60545e",
+      "bytes": 17308,
+      "size": [
+        188,
+        75
+      ]
+    },
+    "items/usagi.petal-collar/back-part-0.png": {
+      "sha256": "b08fc65c3a776ecf10dda86d2447638a6d4e85d51924faeb6e8dc658e9721a8b",
+      "bytes": 10945,
+      "size": [
+        181,
+        45
+      ]
+    },
+    "items/usagi.petal-collar/front-part-0.png": {
+      "sha256": "54f9b07ecb98de31ff4aeea8d661a5c342742f58779429f7972d0405548b65b4",
+      "bytes": 14047,
+      "size": [
+        179,
+        58
+      ]
+    },
+    "items/usagi.petal-collar/profile-part-0.png": {
+      "sha256": "a10c0a1e5b800ccfe7716300dce30110b5263ffe75a00ab2eba7e2766b9ee822",
+      "bytes": 8618,
+      "size": [
+        146,
+        43
+      ]
+    },
+    "items/usagi.petal-collar/three-quarter-part-0.png": {
+      "sha256": "0ef77b242a8627c26e57afade08ed6c93d565892bac3f614be40db64879447a2",
+      "bytes": 13776,
+      "size": [
+        177,
+        59
+      ]
+    },
+    "items/usagi.rain-boots/back-part-0.png": {
+      "sha256": "1229a27c0c0d8c74817d2ab52ec01c82611f95f00f23248a2b549ba2df26e71e",
+      "bytes": 4625,
+      "size": [
+        43,
+        52
+      ]
+    },
+    "items/usagi.rain-boots/back-part-1.png": {
+      "sha256": "41cfd74eb319501403c5816dfafe1577ea9e58ffcddc3cdae027a05d90460797",
+      "bytes": 4369,
+      "size": [
+        43,
+        50
+      ]
+    },
+    "items/usagi.rain-boots/front-part-0.png": {
+      "sha256": "9a3fc15e733c221be8433d37a9c60b3f90af716ee9b7b969d76fe5c195d73a91",
+      "bytes": 4783,
+      "size": [
+        45,
+        51
+      ]
+    },
+    "items/usagi.rain-boots/front-part-1.png": {
+      "sha256": "96f16e9c77d79e72ca405275f36a89e2553156529e21c075daad23acae479474",
+      "bytes": 4504,
+      "size": [
+        45,
+        50
+      ]
+    },
+    "items/usagi.rain-boots/profile-part-0.png": {
+      "sha256": "a7d2f54bdaca2ffd0ad0bbaa4a59e9011c44664e770ad023cd889fc092765697",
+      "bytes": 3347,
+      "size": [
+        48,
+        34
+      ]
+    },
+    "items/usagi.rain-boots/profile-part-1.png": {
+      "sha256": "111574215e1049bbc3b144674b81390b4e1b95ef94493197e27889f92524a582",
+      "bytes": 3217,
+      "size": [
+        48,
+        32
+      ]
+    },
+    "items/usagi.rain-boots/three-quarter-part-0.png": {
+      "sha256": "37e9a40d2d284562c8c39b6e3ab788b0a43c753ae9895b427f57654bbe0ff0d2",
+      "bytes": 3792,
+      "size": [
+        46,
+        40
+      ]
+    },
+    "items/usagi.rain-boots/three-quarter-part-1.png": {
+      "sha256": "7edee727ec134c030df75c3a6fbe9ff53a704689722a0b987ef2b12e0e879eaf",
+      "bytes": 3786,
+      "size": [
+        46,
+        41
+      ]
+    },
+    "items/usagi.rain-cape/back-part-0.png": {
+      "sha256": "82ddfb60abd422160df8f867b383b8a043cfd282ab69e3106cedf807574c3e69",
+      "bytes": 24628,
+      "size": [
+        177,
+        102
+      ]
+    },
+    "items/usagi.rain-cape/front-part-0.png": {
+      "sha256": "4c2a18d5fccc9ac98955c312ecef8833248a96f86478c776c398dfd299112389",
+      "bytes": 27324,
+      "size": [
+        186,
+        98
+      ]
+    },
+    "items/usagi.rain-cape/profile-part-0.png": {
+      "sha256": "7cbfce5415594725d81c8d7cabc7f24fa6078ae748452d9a6d2d7a5e8bd7fe80",
+      "bytes": 17967,
+      "size": [
+        125,
+        98
+      ]
+    },
+    "items/usagi.rain-cape/three-quarter-part-0.png": {
+      "sha256": "96a9035665601e81be83977a5e34f83ddb0d82d33b9526ff73cad58aca663132",
+      "bytes": 26514,
+      "size": [
+        173,
+        104
+      ]
+    },
+    "items/usagi.rain-satchel/back-part-0.png": {
+      "sha256": "7dc5c6f3c5d15081ddd032e19314a81f078357cc7bf991b50df5075041f8b507",
+      "bytes": 4576,
+      "size": [
+        69,
+        42
+      ]
+    },
+    "items/usagi.rain-satchel/front-part-0.png": {
+      "sha256": "16a750f0889cca6a60c64fef1edb192846d585da658b072bed94017acd4b1b40",
+      "bytes": 5907,
+      "size": [
+        73,
+        48
+      ]
+    },
+    "items/usagi.rain-satchel/profile-part-0.png": {
+      "sha256": "b668432db9bad57e80b650d44e18bd3d0b65d173aa2e165c3c10bfa8ec59a5d4",
+      "bytes": 4018,
+      "size": [
+        48,
+        46
+      ]
+    },
+    "items/usagi.rain-satchel/three-quarter-part-0.png": {
+      "sha256": "3966a48182688ae53eb569acc0e6c5277b301691cce756e81ff60c950fbe5b5f",
+      "bytes": 6253,
+      "size": [
+        69,
+        51
+      ]
+    },
+    "items/usagi.seed-pouch/back-part-0.png": {
+      "sha256": "ca994498ae0d8ef50f35d1a8c783e16e4e9af9578f4b4cc8d84cc20a9e7bb2fa",
+      "bytes": 6451,
+      "size": [
+        61,
+        53
+      ]
+    },
+    "items/usagi.seed-pouch/front-part-0.png": {
+      "sha256": "8c1349798ea9dd804a8a518afc339ae1be6047e8a529d9ff96bdc0d7a1f18637",
+      "bytes": 7332,
+      "size": [
+        64,
+        52
+      ]
+    },
+    "items/usagi.seed-pouch/profile-part-0.png": {
+      "sha256": "8f97181379e948ee836bdea2e19a075962a910ca88d11e1c07070c87af258635",
+      "bytes": 5555,
+      "size": [
+        47,
+        54
+      ]
+    },
+    "items/usagi.seed-pouch/three-quarter-part-0.png": {
+      "sha256": "32e994d6315eca97b7e9090d95d435b21b065f096022477e629d12cd5e0e5347",
+      "bytes": 6954,
+      "size": [
+        61,
+        52
+      ]
+    },
+    "items/usagi.star-collar/back-part-0.png": {
+      "sha256": "ab9c90741fb66b26baeeaf30448865361e08be893f24137d348e33eaf7ab97a1",
+      "bytes": 9516,
+      "size": [
+        177,
+        36
+      ]
+    },
+    "items/usagi.star-collar/front-part-0.png": {
+      "sha256": "7a4e74a06474ddfa066b29f664851a174d3132781281c679cce5a0522478ee1d",
+      "bytes": 15409,
+      "size": [
+        176,
+        70
+      ]
+    },
+    "items/usagi.star-collar/profile-part-0.png": {
+      "sha256": "8e6902a333db505e5c614fa725038ddf5d0959e14118cdd64b79378d6b214e55",
+      "bytes": 10978,
+      "size": [
+        155,
+        62
+      ]
+    },
+    "items/usagi.star-collar/three-quarter-part-0.png": {
+      "sha256": "5e0d39f8bf11f0251bea94c6b145625082198513d936957e21de42e32d8e90e6",
+      "bytes": 15162,
+      "size": [
+        167,
+        72
+      ]
+    },
+    "items/usagi.starlit-cape/back-part-0.png": {
+      "sha256": "1908f31a4ce48917769bebb7d14557977d19cf053e318e988465f754f9fbc16b",
+      "bytes": 22678,
+      "size": [
+        205,
+        81
+      ]
+    },
+    "items/usagi.starlit-cape/front-part-0.png": {
+      "sha256": "6d34087d421b98b869fdd5ab2b422658f33d99a05478fe15af5f31771bf23a16",
+      "bytes": 21458,
+      "size": [
+        204,
+        70
+      ]
+    },
+    "items/usagi.starlit-cape/profile-part-0.png": {
+      "sha256": "6cec7113c2008f500016ae279e5908f97cbb4efebd89e0c34e5b6d4b9cc55265",
+      "bytes": 16846,
+      "size": [
+        158,
+        68
+      ]
+    },
+    "items/usagi.starlit-cape/three-quarter-part-0.png": {
+      "sha256": "200f1b0e61b8ae88e1abe1497c2008c88b0bd78fb4beb105dd2a952f28748176",
+      "bytes": 20440,
+      "size": [
+        196,
+        70
+      ]
+    },
+    "runtime-fits/constellation/back.png": {
+      "sha256": "b2c26642734903c751caa1b29a83c1803dcc75fb82d5ce28d854102f1278e532",
+      "bytes": 5084,
+      "size": [
+        182,
+        53
+      ]
+    },
+    "runtime-fits/constellation/front.png": {
+      "sha256": "6e7d33ac07704c86e21f8b558699fefe43115267e95b4130cfc937bb830395d1",
+      "bytes": 5158,
+      "size": [
+        182,
+        54
+      ]
+    },
+    "runtime-fits/constellation/profile.png": {
+      "sha256": "6e5131959ea294b00b63530652fb1394f6fda94f3468fe984dcb80ba11d47b3e",
+      "bytes": 5200,
+      "size": [
+        157,
+        54
+      ]
+    },
+    "runtime-fits/constellation/three-quarter.png": {
+      "sha256": "fae99a0f1b752fd52aacc66275ae283753bd05494a873cce36b2ccf74021e144",
+      "bytes": 4840,
+      "size": [
+        183,
+        53
+      ]
+    }
+  },
+  "inputFiles": {
+    "canonical/back.png": {
+      "sha256": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c",
+      "bytes": 23114
+    },
+    "canonical/front.png": {
+      "sha256": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3",
+      "bytes": 25687
+    },
+    "canonical/manifest.json": {
+      "sha256": "590c8e3c79c034bbbfa3c51c992345f28b9d153f4da20d04cb23451b0b82cf0f",
+      "bytes": 747
+    },
+    "canonical/profile.png": {
+      "sha256": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420",
+      "bytes": 27999
+    },
+    "canonical/three-quarter.png": {
+      "sha256": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60",
+      "bytes": 31535
+    },
+    "contracts/garden-rain.json": {
+      "sha256": "010e25c6883af308305b97b8a1aae73b141b804e11ceb473f679fc6038f32750",
+      "bytes": 35298
+    },
+    "contracts/moon.json": {
+      "sha256": "15959ce1ddb65024c08beee23d5de4f03de7af9d40f2738b81e25b6022f30c71",
+      "bytes": 19966
+    },
+    "contracts/runtime/compiled-wardrobe.json": {
+      "sha256": "285e13346a7ac22a8976a93bf585c619a89c14394d8e9f62c4e0e8cd43fdec52",
+      "bytes": 57007
+    },
+    "contracts/runtime/constellation-fit.json": {
+      "sha256": "3a0031760f7f764ee137415d6ad5d314b895f0aae06ab4998740a91403b55ad7",
+      "bytes": 7432
+    },
+    "contracts/runtime/garden-rain.json": {
+      "sha256": "20802f0498a556abb8111f92ac737e6425618e1724ecf7abbd192de5beed12a3",
+      "bytes": 35573
+    },
+    "contracts/runtime/moon.json": {
+      "sha256": "e7d56238dc3f305a126bcad48a5eb610ef52d52ad44eb57b21e2e90e2382dad8",
+      "bytes": 23198
+    },
+    "extraction-and-corrections.json": {
+      "sha256": "f5ee2d6e74623af26dc6559cebef2d771830713af00527e43d82cff2b5315786",
+      "bytes": 25685
+    },
+    "garden-rain/derived/garden-back-raw.png": {
+      "sha256": "31d565cec63d978ddff02174c175589ca8da491c0e0a2e01d14f9f5a5651d1cc",
+      "bytes": 264436
+    },
+    "garden-rain/derived/garden-front-raw.png": {
+      "sha256": "f1c04c10365bf0a7c357c91756cf1ed0a85188f4d793ed2cb369d53fb54d9303",
+      "bytes": 296578
+    },
+    "garden-rain/derived/garden-profile-raw.png": {
+      "sha256": "42179fe7380f82b59ac50eae3d770dc065efb5bae0a9411962ea8904edce833b",
+      "bytes": 239586
+    },
+    "garden-rain/derived/garden-three-quarter-raw.png": {
+      "sha256": "7b286ad2995040a09343a781af71d439af5b423a35cfef917572a20ac29c24e7",
+      "bytes": 291845
+    },
+    "garden-rain/derived/rain-back-raw.png": {
+      "sha256": "aa8da0acdacd9b605d7d605a64d5325bbea3fbf2ef534eff0fa1e788afb5920d",
+      "bytes": 235602
+    },
+    "garden-rain/derived/rain-front-raw.png": {
+      "sha256": "b6afc881981f9d5f7478732d8cf59a8c4d0e60b7a7df034a91ed0fb8a9fe4b70",
+      "bytes": 281125
+    },
+    "garden-rain/derived/rain-profile-raw.png": {
+      "sha256": "d63887d0bdd7b81b3747305397377b52045878d2205de493dd27175e52242e72",
+      "bytes": 226267
+    },
+    "garden-rain/derived/rain-three-quarter-raw.png": {
+      "sha256": "fe847549f385e9c1125ad9726ac0dfa2e24de732be5ddfcc8f5935125a6450ac",
+      "bytes": 273248
+    },
+    "garden-rain/evidence/garden-actual-size-light-dark.png": {
+      "sha256": "385325ef8933d8cd8da20216326e3d035a2ee6d586cd69906988ff23e8a89750",
+      "bytes": 288714
+    },
+    "garden-rain/evidence/garden-individual-pieces.png": {
+      "sha256": "61eeccfd2690524b3cb49482f0fc616877be7ab2ecd0237e405dd10701074e7d",
+      "bytes": 422329
+    },
+    "garden-rain/evidence/rain-actual-size-light-dark.png": {
+      "sha256": "85916c464aea08e9ebf5706e1e5f3b417d16a4067ba63e1af13caece2bc0b471",
+      "bytes": 260507
+    },
+    "garden-rain/evidence/rain-individual-pieces.png": {
+      "sha256": "11076d1dd58f41e46ef4323bd860abe97a6177a541fdacb1ceefa18c70e617b6",
+      "bytes": 357799
+    },
+    "garden-rain/history/audit-provenance.py.txt": {
+      "sha256": "8bc33eec8a7d678ffdadc6901319ca0a0fb943cbde0ef6be1835826844e94e5d",
+      "bytes": 4792
+    },
+    "garden-rain/history/build-assets.py.txt": {
+      "sha256": "1dc5d484fdd721ca6c518c6ae08d23c1700d027b2698d8031e105f3d91550861",
+      "bytes": 8262
+    },
+    "garden-rain/history/create-recipe.py.txt": {
+      "sha256": "5465bd7f86064e10bee09173120657c396d5c5c943d710d5c193c015e888d458",
+      "bytes": 3561
+    },
+    "garden-rain/history/export-hand-masks.mjs.txt": {
+      "sha256": "85294009264be14538365f6b12603fb55e17e5d864514ffa145a4754169b9948",
+      "bytes": 806
+    },
+    "garden-rain/masks/back-hands.png": {
+      "sha256": "a2f423b257d633e6669702d80cee303086a5e7465b5dcf0ecc80ba0ad43e41c8",
+      "bytes": 3817
+    },
+    "garden-rain/masks/back-hands.svg": {
+      "sha256": "83882ee0e23b4a5af444a214942be095f2c13b8014670d8a76005d0091f95529",
+      "bytes": 411
+    },
+    "garden-rain/masks/front-hands.png": {
+      "sha256": "a2f423b257d633e6669702d80cee303086a5e7465b5dcf0ecc80ba0ad43e41c8",
+      "bytes": 3817
+    },
+    "garden-rain/masks/front-hands.svg": {
+      "sha256": "83882ee0e23b4a5af444a214942be095f2c13b8014670d8a76005d0091f95529",
+      "bytes": 411
+    },
+    "garden-rain/masks/profile-hands.png": {
+      "sha256": "ddc1b14f4c5af038a3c30beaf1adb7ef9ea25fc89660ad945a11319a2a887bf3",
+      "bytes": 3144
+    },
+    "garden-rain/masks/profile-hands.svg": {
+      "sha256": "9f43d2858ec5df19889a61f391158a5ad7b0a7aa3c8450da7980c6e429a6b6e8",
+      "bytes": 268
+    },
+    "garden-rain/masks/rig-contract.json": {
+      "sha256": "299ca105396358a05cac1e851b7b14f17114432da07ae762c605bd9c55388c9c",
+      "bytes": 7798
+    },
+    "garden-rain/masks/three-quarter-hands.png": {
+      "sha256": "421f5d82eed5a4508844331110022a8f83e2192928f328dc0178c3836cfa3aea",
+      "bytes": 3823
+    },
+    "garden-rain/masks/three-quarter-hands.svg": {
+      "sha256": "a6900763fc13542a5306b001fdc61bf75c44779d017d1cc0010712dd5dcc5b36",
+      "bytes": 414
+    },
+    "garden-rain/masters/footwear-independent.png": {
+      "sha256": "4ec0a5cdfb046dfc4f051c15cb3f962ac640f07f9cf13fd43b811a7323345ed3",
+      "bytes": 1556766
+    },
+    "garden-rain/masters/garden-extraction.png": {
+      "sha256": "162905b46f31887106c33ce3f3588bdce241d7d846b6b8369d9cca5cce5d93da",
+      "bytes": 956757
+    },
+    "garden-rain/masters/garden-repair.png": {
+      "sha256": "a389769d190fe9e90147cc981ec2829770713765dc9d93e488a73f17061f3de0",
+      "bytes": 578334
+    },
+    "garden-rain/masters/garden-worn.png": {
+      "sha256": "0a84a8cef02d7288d1096d84eddf208829579637f0bec52c56837a8ec49be5e9",
+      "bytes": 1107004
+    },
+    "garden-rain/masters/rain-extraction.png": {
+      "sha256": "5fc057ccf3e55cc4ca2a47176f3b143c63d5f744c9fa07ca1f7b801fc9ee3d5b",
+      "bytes": 1677977
+    },
+    "garden-rain/masters/rain-worn.png": {
+      "sha256": "0ac887418bee191b1310663da35844ff5c8cb05454e4ddcd3f4236e8ba996e81",
+      "bytes": 1026944
+    },
+    "garden-rain/prompts/footwear-independent.txt": {
+      "sha256": "3f7d8ead7ed2e0782055e3586375c7905fc558c112d30096543a7d77cf2adbef",
+      "bytes": 1286
+    },
+    "garden-rain/prompts/garden-extraction.txt": {
+      "sha256": "e9df122419eaee34a35048d42cff887de92f0a1b1309007284b07004419fa44a",
+      "bytes": 1790
+    },
+    "garden-rain/prompts/garden-repair.txt": {
+      "sha256": "a6876fb59afe0f22106de6f200d23bad26e4f520a77df6dbd60082e4c1d907f0",
+      "bytes": 1243
+    },
+    "garden-rain/prompts/garden-worn.txt": {
+      "sha256": "27d7d08ac3ec366089406bbdd8278acc307ba4ca03dd50f72d088bcd3598974a",
+      "bytes": 2316
+    },
+    "garden-rain/prompts/rain-extraction.txt": {
+      "sha256": "0eaabe5f47d8c3e31fe4027f65bc14f5fa90e9740fbc63e0c480ae83b7c0fcc8",
+      "bytes": 1790
+    },
+    "garden-rain/prompts/rain-worn.txt": {
+      "sha256": "1a591ea329332c1d9699eed9311153c05152336cf619266dea752b3725849ca2",
+      "bytes": 2382
+    },
+    "garden-rain/records/generated-body-drift.json": {
+      "sha256": "808a8503a29260f5d2aa49cd679cca03a8d561b61daab7a3ffc77b8be6deeeaf",
+      "bytes": 4303
+    },
+    "garden-rain/records/manifest.json": {
+      "sha256": "77f22c71592c808925ae925e4e65e8e308b0795d56bee4520d4cb4e91b7abf10",
+      "bytes": 36946
+    },
+    "garden-rain/records/processing-report.json": {
+      "sha256": "8ed332efc393df8d4fead3bef561fd1012798f0f51d1b196ace92bff9c94ff22",
+      "bytes": 41489
+    },
+    "garden-rain/records/provenance.json": {
+      "sha256": "fbc3e37a2e48968a520258130434e1ca8a34472c3553cbe03e9b97bfa141eac4",
+      "bytes": 12492
+    },
+    "garden-rain/records/rebuild-check.json": {
+      "sha256": "8f9f2ec5811667d62a74d33eb304bf7edacf216d94bf3b7c34bddaa6a677d5c8",
+      "bytes": 110
+    },
+    "garden-rain/records/recipe.json": {
+      "sha256": "05cf5a73e7b915eed605fe235d594feb96f7cf9787e902c63eb38fce0eaac8d9",
+      "bytes": 12909
+    },
+    "garden-rain/records/relocated-rebuild-check.json": {
+      "sha256": "9e3244f4fe048dbc0d9501a3e4a00cda828c755b149e647a85d43816c2c25b13",
+      "bytes": 166
+    },
+    "generation-reference-index.json": {
+      "sha256": "deaadefb3c96baeefecce7ddab53ad554d7bf72b309f3725612cb3ef6cceb769",
+      "bytes": 13933
+    },
+    "moon/derived/moon-cape-only-v1-back.png": {
+      "sha256": "f82e2f4c0a22a4782a9e9a8e258c29addb4e438dd112ad0e9c74e458e71ff630",
+      "bytes": 177372
+    },
+    "moon/derived/moon-cape-only-v1-front.png": {
+      "sha256": "adc48bf97638afd8ec7a04324bf0b2cee6cca2b0d59ce792f86c662979326840",
+      "bytes": 204190
+    },
+    "moon/derived/moon-cape-only-v1-profile.png": {
+      "sha256": "d93065c7362b58e7998f17c788ede0450aff50988da17d427fe77d8786dce1c6",
+      "bytes": 168279
+    },
+    "moon/derived/moon-cape-only-v1-three-quarter.png": {
+      "sha256": "2a88ce7c94d68f2b9fba0ff4ff6a2f68e8579a09703259f929722a0d9f917da5",
+      "bytes": 194877
+    },
+    "moon/derived/moon-cape-profile-pre-repair.png": {
+      "sha256": "bfcbbeb144095a5a81b9bbd7113ded1252e9b8fc272c691808a7231b356b0c04",
+      "bytes": 16364
+    },
+    "moon/derived/moon-collar-only-v1-back.png": {
+      "sha256": "99eae1d1173a73e8b2edb91ad853400059983e84cf39039759fc0097d2f0da49",
+      "bytes": 151877
+    },
+    "moon/derived/moon-collar-only-v1-front.png": {
+      "sha256": "f12a35b9ea4e3096d315acf7ef2cf6163575a26ee9ebc11db8355464b56ea898",
+      "bytes": 191095
+    },
+    "moon/derived/moon-collar-only-v1-profile.png": {
+      "sha256": "869bd670092873cc473405e60164a7d159da661babed0dc0fb45612da2fe31cf",
+      "bytes": 156704
+    },
+    "moon/derived/moon-collar-only-v1-three-quarter.png": {
+      "sha256": "02641d7796d90df067010b7233abda1209bf3b3cbca57261dff6e04d6829f222",
+      "bytes": 183378
+    },
+    "moon/derived/moon-post-v1-back.png": {
+      "sha256": "4f38bac4a3a7940e7ccb21cae1067b949d25d3cbf60b5cb2eed67c3f23682b52",
+      "bytes": 193949
+    },
+    "moon/derived/moon-post-v1-front.png": {
+      "sha256": "1aaaabeb508ec2164a280c87365e5c55e64bdd1253a765bfdfc216e5b17f7bc0",
+      "bytes": 231901
+    },
+    "moon/derived/moon-post-v1-profile.png": {
+      "sha256": "58b488fcd4b73a7f949642c9fbe7fa0b2034d842547026286c4e97e9061a1743",
+      "bytes": 198141
+    },
+    "moon/derived/moon-post-v1-three-quarter.png": {
+      "sha256": "4d896bc13571c1bf25b832253fc5e085fe40f45fbd1daeecfd7e9bdbeaf3b536",
+      "bytes": 225240
+    },
+    "moon/evidence/moon-actual-size-light-dark.png": {
+      "sha256": "66a8f3e7b0e6fda98da5871067aa1a5e30515b4dd6ebeb061a5b8e99058d3035",
+      "bytes": 303625
+    },
+    "moon/evidence/moon-individual-pieces.png": {
+      "sha256": "64776d278e9c9fd762ce7bc40935e5c64472b43a4b1c8a9b3bae6875b37fc590",
+      "bytes": 440460
+    },
+    "moon/history/audit-provenance.py.txt": {
+      "sha256": "4a3f8d46c4c0b9672e06af45ee071796ab8a79cc2b187f07ab7c55b428671fe4",
+      "bytes": 3015
+    },
+    "moon/history/build-assets.py.txt": {
+      "sha256": "477dae5b67b638b8655fc6e12a78ec3ee7f97d1d2f2fc31d6c92323031d98075",
+      "bytes": 9378
+    },
+    "moon/history/create-moon-recipe.py.txt": {
+      "sha256": "d4870ca60ad7ad220f6cbe2cedf202a929bffd715c730fe359f5a9563085ce64",
+      "bytes": 5571
+    },
+    "moon/masks/back-hands.png": {
+      "sha256": "a2f423b257d633e6669702d80cee303086a5e7465b5dcf0ecc80ba0ad43e41c8",
+      "bytes": 3817
+    },
+    "moon/masks/back-hands.svg": {
+      "sha256": "83882ee0e23b4a5af444a214942be095f2c13b8014670d8a76005d0091f95529",
+      "bytes": 411
+    },
+    "moon/masks/front-hands.png": {
+      "sha256": "a2f423b257d633e6669702d80cee303086a5e7465b5dcf0ecc80ba0ad43e41c8",
+      "bytes": 3817
+    },
+    "moon/masks/front-hands.svg": {
+      "sha256": "83882ee0e23b4a5af444a214942be095f2c13b8014670d8a76005d0091f95529",
+      "bytes": 411
+    },
+    "moon/masks/profile-hands.png": {
+      "sha256": "ddc1b14f4c5af038a3c30beaf1adb7ef9ea25fc89660ad945a11319a2a887bf3",
+      "bytes": 3144
+    },
+    "moon/masks/profile-hands.svg": {
+      "sha256": "9f43d2858ec5df19889a61f391158a5ad7b0a7aa3c8450da7980c6e429a6b6e8",
+      "bytes": 268
+    },
+    "moon/masks/rig-contract.json": {
+      "sha256": "299ca105396358a05cac1e851b7b14f17114432da07ae762c605bd9c55388c9c",
+      "bytes": 7798
+    },
+    "moon/masks/three-quarter-hands.png": {
+      "sha256": "421f5d82eed5a4508844331110022a8f83e2192928f328dc0178c3836cfa3aea",
+      "bytes": 3823
+    },
+    "moon/masks/three-quarter-hands.svg": {
+      "sha256": "a6900763fc13542a5306b001fdc61bf75c44779d017d1cc0010712dd5dcc5b36",
+      "bytes": 414
+    },
+    "moon/masters/moon-accessories-v1.png": {
+      "sha256": "282f5591e2006c0fa9e54cdc7b3bc19c909214b57b1a73c426a404c25109c429",
+      "bytes": 1023303
+    },
+    "moon/masters/moon-cape-only-v1.png": {
+      "sha256": "0755997456b3125f1238577578e9715e32071134aea635d3cb6de9363271e8f0",
+      "bytes": 764155
+    },
+    "moon/masters/moon-cape-profile-hand-repair-v2.png": {
+      "sha256": "32b1859e717ec04361ce0f3fda21585f7372a5f2b7d332670b91c174b3d7f7b4",
+      "bytes": 965884
+    },
+    "moon/masters/moon-cape-profile-hand-repair.png": {
+      "sha256": "f5d787e147be5ed3a9eab68188941668feb32a923f4bc4a60eba37c681514609",
+      "bytes": 843584
+    },
+    "moon/masters/moon-collar-only-v1.png": {
+      "sha256": "f4920c231b4ce5d237d0ff53854b319e2aa787b0fd3bbe34424421ce544aa05f",
+      "bytes": 701427
+    },
+    "moon/masters/moon-post-v1.png": {
+      "sha256": "dd82018393022b51d662b823dd218ca99dc4c9ff26b59b907d8dafd2545b2f0d",
+      "bytes": 868759
+    },
+    "moon/prompts/moon-accessories-v1.json": {
+      "sha256": "c7489626dcdb373b4eb5fa0e487dde540ab30fe965742f8e1d512da063e06271",
+      "bytes": 2677
+    },
+    "moon/prompts/moon-cape-only-v1.json": {
+      "sha256": "5b730c05c1ab75d69d54cb0d9adf67287eade8c22a4e01be3fd9394f5a96d8dd",
+      "bytes": 1983
+    },
+    "moon/prompts/moon-post-v1.json": {
+      "sha256": "0845865552636bd7232ab3324aacde2e656b3b0011a78ccdca35b73d9168b7be",
+      "bytes": 3091
+    },
+    "moon/prompts/moon-star-collar-only-v1.json": {
+      "sha256": "86480eff2f01f558cca73236503b2910e13284d13c627ce2e6bba5fb9a01f79d",
+      "bytes": 2019
+    },
+    "moon/prompts/profile-cape-hand-repair-v2.txt": {
+      "sha256": "28c729ce1016baa659c91290e71ca24e110cf8c345aea4e97692895ab5e7d4e8",
+      "bytes": 846
+    },
+    "moon/prompts/profile-cape-hand-repair.txt": {
+      "sha256": "2f8926f95c7abc6e0ea6392d084027068a5aa9518eeba3809dda2b7b79f65def",
+      "bytes": 964
+    },
+    "moon/records/manifest.json": {
+      "sha256": "b62df24e71a93770cd010398fc59ae6602e99194e4432ff079b12d05af96b5b2",
+      "bytes": 19995
+    },
+    "moon/records/processing-report.json": {
+      "sha256": "484b91851a49eec76c7bf86c04df1f02f8effd046cf0f4839ea8c2cab029d38a",
+      "bytes": 23199
+    },
+    "moon/records/provenance.json": {
+      "sha256": "fd2562dbe2f8e9a31fdcf5d9c12a348ad4029cc9f10ad5e50b3125918fcbde1c",
+      "bytes": 6897
+    },
+    "moon/records/rebuild-check.json": {
+      "sha256": "c1c1c8b8df6e7c7af1f43ccd43f0c3a7ee34f6b6b56f8b12a64354c91236d258",
+      "bytes": 99
+    },
+    "moon/records/recipe.json": {
+      "sha256": "c33487e134324c5dfd34e524017d039faad57c9fc92e328eb276b8050f9ff34a",
+      "bytes": 31251
+    },
+    "moon/records/relocated-rebuild-check.json": {
+      "sha256": "0ae19cf7c7f9db6bcf8eda504dbefb64e4480fea255bb5896b6fa44b825d09c2",
+      "bytes": 166
+    },
+    "references/wardrobe-reference.png": {
+      "sha256": "0e6b34b2cf9e3b40fd8aefdcfc3fd7110e32b4268a3e9dc0efb8147b412f14f8",
+      "bytes": 1486848
+    },
+    "runtime-fit-corrections.json": {
+      "sha256": "d65bb5fe744944354e8999377c44178b1d2cd87147d9aaa9090a4a04f43a85ce",
+      "bytes": 2064
+    },
+    "runtime-fit-evidence/accepted-glyph-layout/happy-hop-current.png": {
+      "sha256": "510934b4dac1489908233a010d9920bba7dbbab72a13e76c18ce8c3a3376644c",
+      "bytes": 122238
+    },
+    "runtime-fit-evidence/accepted-glyph-layout/manifest.json": {
+      "sha256": "1dd9ea649569bc0a76810c6b8b1834199b4544f28bb83fd5325d95d7b5243565",
+      "bytes": 5556
+    },
+    "runtime-fit-evidence/rejected-native-vector/happy-hop-current.png": {
+      "sha256": "4b1cd25f1654e66756b4a65a21c98672e0f130062d556f36a648bdd7dd840d89",
+      "bytes": 119436
+    },
+    "runtime-fit-evidence/rejected-native-vector/manifest.json": {
+      "sha256": "965b326087c82c752b23fc91246640305783242bc35411efd3e57f07a8cc8ef8",
+      "bytes": 5553
+    },
+    "runtime-fit-evidence/rejected-uniform-shrink/happy-hop-current.png": {
+      "sha256": "9e0ce30cd231725aac9ceb592deb990f3b6557f36ea5a8e2b79fb031be56c820",
+      "bytes": 118311
+    },
+    "runtime-fit-evidence/rejected-uniform-shrink/manifest.json": {
+      "sha256": "f4a5adbd8587458490fbb92c8844af25f0d9384db160f7f59bf739253c88142a",
+      "bytes": 5554
+    }
+  },
+  "generationScripts": {
+    "build.py": {
+      "sha256": "f31ad6afd6fc5d63a9a91ae401dff6ca309a8f6c253075de8b6f7b4332cac852",
+      "bytes": 9883
+    },
+    "extraction.py": {
+      "sha256": "a9f38804761396645f290f73f480f8e08060c2a1b58249cb0071fedaa86a2edc",
+      "bytes": 6896
+    },
+    "fit_constellation.py": {
+      "sha256": "c76153025a44c6604d6ff3fa85b5d974132ff6d25ec2fc143f0932d16c7819fd",
+      "bytes": 4914
+    },
+    "requirements.txt": {
+      "sha256": "651a10fbf2b980c46d5ee9865efe7efe15574765bdc0e14adad2d2887c46d607",
+      "bytes": 110
+    },
+    "runtime_fit.py": {
+      "sha256": "6f0b903daac1442c1d3f87083133e62405bc1026e1ab49e28d7a038e129b18a4",
+      "bytes": 2968
+    },
+    "test_generation.py": {
+      "sha256": "165b9c33b1ebf8aaeec8aad7ee2a3405a1cd5b2ebe193b2f39afa6140a994443",
+      "bytes": 14909
+    }
+  },
+  "assetAccounting": {
+    "items": 17,
+    "runtimePngs": 80,
+    "decodedRgbaBytes": 1998524,
+    "generationMasters": 12,
+    "savedDerivedInputs": 21,
+    "canonicalViews": 4,
+    "compactProofSheets": 6,
+    "runtimeBodiesFromGeneration": 0,
+    "authoredSourcePngs": 80,
+    "runtimeFitPngs": 4,
+    "preservedPngs": 84,
+    "activeRuntimePngs": 80,
+    "unusedAuthoredPngs": [
+      "items/usagi.constellation/back-part-0.png",
+      "items/usagi.constellation/front-part-0.png",
+      "items/usagi.constellation/profile-part-0.png",
+      "items/usagi.constellation/three-quarter-part-0.png"
+    ],
+    "preservedDecodedRgbaBytes": 2110636,
+    "integratedCandidateProofSheets": 3
+  },
+  "authoredAssets": {
+    "items/usagi.constellation/back-part-0.png": {
+      "sha256": "3ff2b53d43663a52ffd42d1513befaabc19e2c8fdff324540c2f957d78125dfa",
+      "bytes": 9447,
+      "size": [
+        129,
+        57
+      ]
+    },
+    "items/usagi.constellation/front-part-0.png": {
+      "sha256": "0d69c6b82263dc30b942fe0d07a5686293475a0f0e38854adbef2d809749e986",
+      "bytes": 9258,
+      "size": [
+        131,
+        55
+      ]
+    },
+    "items/usagi.constellation/profile-part-0.png": {
+      "sha256": "f4d10b11b959ba8e8990e8d4894bb641e2b557437789dc04f7b5bed852005126",
+      "bytes": 9012,
+      "size": [
+        109,
+        56
+      ]
+    },
+    "items/usagi.constellation/three-quarter-part-0.png": {
+      "sha256": "d15e13c8d8468adbaec2adc208c9cbea6c24c5f9e335f5d3e179554b768f986d",
+      "bytes": 9350,
+      "size": [
+        127,
+        58
+      ]
+    },
+    "items/usagi.daisy-clip/back-part-0.png": {
+      "sha256": "5ecc4dfc85178438ca4a1e4261ab6c1987e435be9565fa209c2f7dceb83d5064",
+      "bytes": 3516,
+      "size": [
+        38,
+        37
+      ]
+    },
+    "items/usagi.daisy-clip/front-part-0.png": {
+      "sha256": "a8590bbfb60ab00c923b70c7200b7478dfe4f6fc24234d97d7fa1f1cd905861e",
+      "bytes": 3569,
+      "size": [
+        39,
+        40
+      ]
+    },
+    "items/usagi.daisy-clip/profile-part-0.png": {
+      "sha256": "c38ca6579463a2b6a87add18b917a64382dc491930557023e9619de6d8c4def8",
+      "bytes": 2196,
+      "size": [
+        25,
+        36
+      ]
+    },
+    "items/usagi.daisy-clip/three-quarter-part-0.png": {
+      "sha256": "7910eeaaf2d73c35b394c312d9a845516f05d293a2010409c057db2480871329",
+      "bytes": 3282,
+      "size": [
+        35,
+        38
+      ]
+    },
+    "items/usagi.ear-bow/back-part-0.png": {
+      "sha256": "62363c12409542b58595e7d846c8c77f52324e48bf3a473e80ca9cda7c46b8ed",
+      "bytes": 3650,
+      "size": [
+        45,
+        32
+      ]
+    },
+    "items/usagi.ear-bow/front-part-0.png": {
+      "sha256": "1257401105bbe42d442260da4d2245af1bd822bff15a9decdc30970d9be35fdc",
+      "bytes": 3335,
+      "size": [
+        45,
+        34
+      ]
+    },
+    "items/usagi.ear-bow/profile-part-0.png": {
+      "sha256": "ccde955a07f5377a7afb7909ac2608bf94a5172b2a5f780da7d767cbd40386c7",
+      "bytes": 2591,
+      "size": [
+        26,
+        41
+      ]
+    },
+    "items/usagi.ear-bow/three-quarter-part-0.png": {
+      "sha256": "5b44e65745ec38fb41630dc56d464c0d358cb3b319d55a78e6a3dc2290a3ac4c",
+      "bytes": 3288,
+      "size": [
+        42,
+        35
+      ]
+    },
+    "items/usagi.envelope-pouch/back-part-0.png": {
+      "sha256": "417c1b43f12f232a8ef3ba9e38d2af59aa72eb64ff035e46b6dd15122a1609e3",
+      "bytes": 8198,
+      "size": [
+        113,
+        73
+      ]
+    },
+    "items/usagi.envelope-pouch/front-part-0.png": {
+      "sha256": "3514720cd07d9a8910701c6267762a7ef58fa0c859641d8266feb237a25b0bf1",
+      "bytes": 10291,
+      "size": [
+        84,
+        78
+      ]
+    },
+    "items/usagi.envelope-pouch/profile-part-0.png": {
+      "sha256": "72c448ecdf6dd9397f623639f60555f508e01e26ff69f61f042f45a5abd6cecd",
+      "bytes": 8485,
+      "size": [
+        74,
+        67
+      ]
+    },
+    "items/usagi.envelope-pouch/three-quarter-part-0.png": {
+      "sha256": "4224b7fe5117e14c271378c8265becb45020981925b1241cf6bc461b94f5c233",
+      "bytes": 8879,
+      "size": [
+        86,
+        71
+      ]
+    },
+    "items/usagi.garden-apron/back-part-0.png": {
+      "sha256": "7d0f038230121eae92e661543c72181dcbd66f4ed62da3fe0ec54b66dfc93fab",
+      "bytes": 20577,
+      "size": [
+        169,
+        83
+      ]
+    },
+    "items/usagi.garden-apron/front-part-0.png": {
+      "sha256": "6d99a2f0e46af015dbd9ba70aaafd205a11d72b478d13af40b53c3baf49e15f0",
+      "bytes": 17025,
+      "size": [
+        158,
+        69
+      ]
+    },
+    "items/usagi.garden-apron/profile-part-0.png": {
+      "sha256": "88ae5a21969b4d06120cbf7b986c26d9b2e11e2730330e6e3921e405059787bd",
+      "bytes": 13510,
+      "size": [
+        106,
+        73
+      ]
+    },
+    "items/usagi.garden-apron/three-quarter-part-0.png": {
+      "sha256": "83def2444d58f18d4cce1b14416f56e9b5ea4929ce50bba5a39d24d73661118b",
+      "bytes": 18680,
+      "size": [
+        154,
+        78
+      ]
+    },
+    "items/usagi.garden-beret/back-part-0.png": {
+      "sha256": "8c8a42f539ef072653a96eaa7f01de6eba854acdeb85f55b8465ebf640a450e4",
+      "bytes": 10977,
+      "size": [
+        116,
+        72
+      ]
+    },
+    "items/usagi.garden-beret/front-part-0.png": {
+      "sha256": "6713c5b735d2e3d4baedcec54d31cb2d85eca8c066f92a57dfe7c5675d1e884c",
+      "bytes": 10561,
+      "size": [
+        116,
+        69
+      ]
+    },
+    "items/usagi.garden-beret/profile-part-0.png": {
+      "sha256": "9fd55ab895921c9a935bf1905f6124542c1450e65075eef5dee59378a901d188",
+      "bytes": 8671,
+      "size": [
+        92,
+        67
+      ]
+    },
+    "items/usagi.garden-beret/three-quarter-part-0.png": {
+      "sha256": "1931011bb30e1f7e5a35175c97a690c05c4dec3dd4eda417ac8c6995151ed98c",
+      "bytes": 10440,
+      "size": [
+        111,
+        70
+      ]
+    },
+    "items/usagi.garden-clogs/back-part-0.png": {
+      "sha256": "1528d164d905fcb310539054e8fca741e4f1cfbe8deece948081e9e157314e94",
+      "bytes": 4372,
+      "size": [
+        45,
+        44
+      ]
+    },
+    "items/usagi.garden-clogs/back-part-1.png": {
+      "sha256": "717d5232b82118bb3a8c4eb648d9712c8abeec008fec889868f2786ed6206b9f",
+      "bytes": 4243,
+      "size": [
+        45,
+        42
+      ]
+    },
+    "items/usagi.garden-clogs/front-part-0.png": {
+      "sha256": "2c314b6cb0fd0e2d5924c1c9504188f1685f6589e282ca9dfc0a23cab0628b73",
+      "bytes": 4013,
+      "size": [
+        45,
+        41
+      ]
+    },
+    "items/usagi.garden-clogs/front-part-1.png": {
+      "sha256": "97621e9a282d4ff96a323110f9dcaa6adcfd1f45e9203e1b60317d32e94e69f1",
+      "bytes": 3964,
+      "size": [
+        45,
+        40
+      ]
+    },
+    "items/usagi.garden-clogs/profile-part-0.png": {
+      "sha256": "5293050f6dded4fb09e3738395f26f38c9bb6cccb38c8196d7012f7bb65020b6",
+      "bytes": 3082,
+      "size": [
+        49,
+        27
+      ]
+    },
+    "items/usagi.garden-clogs/profile-part-1.png": {
+      "sha256": "5c4ed64b5aa96ba913ac0c56686311ea71e6463deb5660c4a12333425dcc6e00",
+      "bytes": 3009,
+      "size": [
+        49,
+        26
+      ]
+    },
+    "items/usagi.garden-clogs/three-quarter-part-0.png": {
+      "sha256": "bd35d11e9695c0117c636a59dbe8f8b2f38515595d55a6c10f74a4753637d34d",
+      "bytes": 3778,
+      "size": [
+        48,
+        35
+      ]
+    },
+    "items/usagi.garden-clogs/three-quarter-part-1.png": {
+      "sha256": "ced863c82179a9fff7bdff373dff93f2feefc2138f130a7b54d937a56d83a80d",
+      "bytes": 3662,
+      "size": [
+        48,
+        34
+      ]
+    },
+    "items/usagi.moon-beret/back-part-0.png": {
+      "sha256": "c7aa829d6747ae98869dbc815939a1a0fdfb932d5c4bf57d56816b81ca78732c",
+      "bytes": 10683,
+      "size": [
+        118,
+        68
+      ]
+    },
+    "items/usagi.moon-beret/front-part-0.png": {
+      "sha256": "94e001f994222b264a49864498c4098dfcd52c67c7891801c12cf5511c6b1d60",
+      "bytes": 11391,
+      "size": [
+        115,
+        67
+      ]
+    },
+    "items/usagi.moon-beret/profile-part-0.png": {
+      "sha256": "1ca68bd7781480a6dfa7e998e17d574e0aa46b7d4319605484f5c71843513c30",
+      "bytes": 8512,
+      "size": [
+        94,
+        61
+      ]
+    },
+    "items/usagi.moon-beret/three-quarter-part-0.png": {
+      "sha256": "7f30a85d67445be50886e9899dae3739578b31379b2b5530ba89a118ac5e89ce",
+      "bytes": 10320,
+      "size": [
+        111,
+        63
+      ]
+    },
+    "items/usagi.moon-boots/back-part-0.png": {
+      "sha256": "d0b0ffb9e8e13aa40c66175e5a9efe3603830ac39c79ffb37f37529570fa14a2",
+      "bytes": 5112,
+      "size": [
+        44,
+        57
+      ]
+    },
+    "items/usagi.moon-boots/back-part-1.png": {
+      "sha256": "66b101e3040fc66d100d2d8e2febf57e79b7123a26643d62a08165aee37d390d",
+      "bytes": 5139,
+      "size": [
+        44,
+        57
+      ]
+    },
+    "items/usagi.moon-boots/front-part-0.png": {
+      "sha256": "97469c537e227a21366d69164b10a9ae3532599fb95ae9187413981d65091c0e",
+      "bytes": 5374,
+      "size": [
+        45,
+        56
+      ]
+    },
+    "items/usagi.moon-boots/front-part-1.png": {
+      "sha256": "af4becfa794feda732ec7f5b9bca0cbb65822743d06ee3f3c77971c86fa8a5fb",
+      "bytes": 5428,
+      "size": [
+        45,
+        56
+      ]
+    },
+    "items/usagi.moon-boots/profile-part-0.png": {
+      "sha256": "975aefed5513b34d9022532075ff9139b5c0aa85e92eafe1b9c619f3b9a459e7",
+      "bytes": 4342,
+      "size": [
+        47,
+        42
+      ]
+    },
+    "items/usagi.moon-boots/profile-part-1.png": {
+      "sha256": "975aefed5513b34d9022532075ff9139b5c0aa85e92eafe1b9c619f3b9a459e7",
+      "bytes": 4342,
+      "size": [
+        47,
+        42
+      ]
+    },
+    "items/usagi.moon-boots/three-quarter-part-0.png": {
+      "sha256": "8c93e3e02703b908f77be9a1cfc8fd0888f12f187d3aa6fca2190da7c198d1e7",
+      "bytes": 5134,
+      "size": [
+        45,
+        54
+      ]
+    },
+    "items/usagi.moon-boots/three-quarter-part-1.png": {
+      "sha256": "8c93e3e02703b908f77be9a1cfc8fd0888f12f187d3aa6fca2190da7c198d1e7",
+      "bytes": 5134,
+      "size": [
+        45,
+        54
+      ]
+    },
+    "items/usagi.pastel-scarf/back-part-0.png": {
+      "sha256": "f6784efab74ffd8d2ab274be509a1bfa19a346ea47845c43a89b750d13f77461",
+      "bytes": 18218,
+      "size": [
+        191,
+        78
+      ]
+    },
+    "items/usagi.pastel-scarf/front-part-0.png": {
+      "sha256": "6e47faee1d4c2a71df5a0a66b62c045d9964da00cd2cd835f5b9f7abaf2be761",
+      "bytes": 17201,
+      "size": [
+        190,
+        77
+      ]
+    },
+    "items/usagi.pastel-scarf/profile-part-0.png": {
+      "sha256": "505a343f05d11825e8c8b6f1eaa6e0c84a776ad142af3a99d47638808f789da0",
+      "bytes": 10604,
+      "size": [
+        105,
+        80
+      ]
+    },
+    "items/usagi.pastel-scarf/three-quarter-part-0.png": {
+      "sha256": "9dfea74ccb24091a31b920e7da45a7e37bc939d8c2b07e4214aa5e102a60545e",
+      "bytes": 17308,
+      "size": [
+        188,
+        75
+      ]
+    },
+    "items/usagi.petal-collar/back-part-0.png": {
+      "sha256": "b08fc65c3a776ecf10dda86d2447638a6d4e85d51924faeb6e8dc658e9721a8b",
+      "bytes": 10945,
+      "size": [
+        181,
+        45
+      ]
+    },
+    "items/usagi.petal-collar/front-part-0.png": {
+      "sha256": "54f9b07ecb98de31ff4aeea8d661a5c342742f58779429f7972d0405548b65b4",
+      "bytes": 14047,
+      "size": [
+        179,
+        58
+      ]
+    },
+    "items/usagi.petal-collar/profile-part-0.png": {
+      "sha256": "a10c0a1e5b800ccfe7716300dce30110b5263ffe75a00ab2eba7e2766b9ee822",
+      "bytes": 8618,
+      "size": [
+        146,
+        43
+      ]
+    },
+    "items/usagi.petal-collar/three-quarter-part-0.png": {
+      "sha256": "0ef77b242a8627c26e57afade08ed6c93d565892bac3f614be40db64879447a2",
+      "bytes": 13776,
+      "size": [
+        177,
+        59
+      ]
+    },
+    "items/usagi.rain-boots/back-part-0.png": {
+      "sha256": "1229a27c0c0d8c74817d2ab52ec01c82611f95f00f23248a2b549ba2df26e71e",
+      "bytes": 4625,
+      "size": [
+        43,
+        52
+      ]
+    },
+    "items/usagi.rain-boots/back-part-1.png": {
+      "sha256": "41cfd74eb319501403c5816dfafe1577ea9e58ffcddc3cdae027a05d90460797",
+      "bytes": 4369,
+      "size": [
+        43,
+        50
+      ]
+    },
+    "items/usagi.rain-boots/front-part-0.png": {
+      "sha256": "9a3fc15e733c221be8433d37a9c60b3f90af716ee9b7b969d76fe5c195d73a91",
+      "bytes": 4783,
+      "size": [
+        45,
+        51
+      ]
+    },
+    "items/usagi.rain-boots/front-part-1.png": {
+      "sha256": "96f16e9c77d79e72ca405275f36a89e2553156529e21c075daad23acae479474",
+      "bytes": 4504,
+      "size": [
+        45,
+        50
+      ]
+    },
+    "items/usagi.rain-boots/profile-part-0.png": {
+      "sha256": "a7d2f54bdaca2ffd0ad0bbaa4a59e9011c44664e770ad023cd889fc092765697",
+      "bytes": 3347,
+      "size": [
+        48,
+        34
+      ]
+    },
+    "items/usagi.rain-boots/profile-part-1.png": {
+      "sha256": "111574215e1049bbc3b144674b81390b4e1b95ef94493197e27889f92524a582",
+      "bytes": 3217,
+      "size": [
+        48,
+        32
+      ]
+    },
+    "items/usagi.rain-boots/three-quarter-part-0.png": {
+      "sha256": "37e9a40d2d284562c8c39b6e3ab788b0a43c753ae9895b427f57654bbe0ff0d2",
+      "bytes": 3792,
+      "size": [
+        46,
+        40
+      ]
+    },
+    "items/usagi.rain-boots/three-quarter-part-1.png": {
+      "sha256": "7edee727ec134c030df75c3a6fbe9ff53a704689722a0b987ef2b12e0e879eaf",
+      "bytes": 3786,
+      "size": [
+        46,
+        41
+      ]
+    },
+    "items/usagi.rain-cape/back-part-0.png": {
+      "sha256": "82ddfb60abd422160df8f867b383b8a043cfd282ab69e3106cedf807574c3e69",
+      "bytes": 24628,
+      "size": [
+        177,
+        102
+      ]
+    },
+    "items/usagi.rain-cape/front-part-0.png": {
+      "sha256": "4c2a18d5fccc9ac98955c312ecef8833248a96f86478c776c398dfd299112389",
+      "bytes": 27324,
+      "size": [
+        186,
+        98
+      ]
+    },
+    "items/usagi.rain-cape/profile-part-0.png": {
+      "sha256": "7cbfce5415594725d81c8d7cabc7f24fa6078ae748452d9a6d2d7a5e8bd7fe80",
+      "bytes": 17967,
+      "size": [
+        125,
+        98
+      ]
+    },
+    "items/usagi.rain-cape/three-quarter-part-0.png": {
+      "sha256": "96a9035665601e81be83977a5e34f83ddb0d82d33b9526ff73cad58aca663132",
+      "bytes": 26514,
+      "size": [
+        173,
+        104
+      ]
+    },
+    "items/usagi.rain-satchel/back-part-0.png": {
+      "sha256": "7dc5c6f3c5d15081ddd032e19314a81f078357cc7bf991b50df5075041f8b507",
+      "bytes": 4576,
+      "size": [
+        69,
+        42
+      ]
+    },
+    "items/usagi.rain-satchel/front-part-0.png": {
+      "sha256": "16a750f0889cca6a60c64fef1edb192846d585da658b072bed94017acd4b1b40",
+      "bytes": 5907,
+      "size": [
+        73,
+        48
+      ]
+    },
+    "items/usagi.rain-satchel/profile-part-0.png": {
+      "sha256": "b668432db9bad57e80b650d44e18bd3d0b65d173aa2e165c3c10bfa8ec59a5d4",
+      "bytes": 4018,
+      "size": [
+        48,
+        46
+      ]
+    },
+    "items/usagi.rain-satchel/three-quarter-part-0.png": {
+      "sha256": "3966a48182688ae53eb569acc0e6c5277b301691cce756e81ff60c950fbe5b5f",
+      "bytes": 6253,
+      "size": [
+        69,
+        51
+      ]
+    },
+    "items/usagi.seed-pouch/back-part-0.png": {
+      "sha256": "ca994498ae0d8ef50f35d1a8c783e16e4e9af9578f4b4cc8d84cc20a9e7bb2fa",
+      "bytes": 6451,
+      "size": [
+        61,
+        53
+      ]
+    },
+    "items/usagi.seed-pouch/front-part-0.png": {
+      "sha256": "8c1349798ea9dd804a8a518afc339ae1be6047e8a529d9ff96bdc0d7a1f18637",
+      "bytes": 7332,
+      "size": [
+        64,
+        52
+      ]
+    },
+    "items/usagi.seed-pouch/profile-part-0.png": {
+      "sha256": "8f97181379e948ee836bdea2e19a075962a910ca88d11e1c07070c87af258635",
+      "bytes": 5555,
+      "size": [
+        47,
+        54
+      ]
+    },
+    "items/usagi.seed-pouch/three-quarter-part-0.png": {
+      "sha256": "32e994d6315eca97b7e9090d95d435b21b065f096022477e629d12cd5e0e5347",
+      "bytes": 6954,
+      "size": [
+        61,
+        52
+      ]
+    },
+    "items/usagi.star-collar/back-part-0.png": {
+      "sha256": "ab9c90741fb66b26baeeaf30448865361e08be893f24137d348e33eaf7ab97a1",
+      "bytes": 9516,
+      "size": [
+        177,
+        36
+      ]
+    },
+    "items/usagi.star-collar/front-part-0.png": {
+      "sha256": "7a4e74a06474ddfa066b29f664851a174d3132781281c679cce5a0522478ee1d",
+      "bytes": 15409,
+      "size": [
+        176,
+        70
+      ]
+    },
+    "items/usagi.star-collar/profile-part-0.png": {
+      "sha256": "8e6902a333db505e5c614fa725038ddf5d0959e14118cdd64b79378d6b214e55",
+      "bytes": 10978,
+      "size": [
+        155,
+        62
+      ]
+    },
+    "items/usagi.star-collar/three-quarter-part-0.png": {
+      "sha256": "5e0d39f8bf11f0251bea94c6b145625082198513d936957e21de42e32d8e90e6",
+      "bytes": 15162,
+      "size": [
+        167,
+        72
+      ]
+    },
+    "items/usagi.starlit-cape/back-part-0.png": {
+      "sha256": "1908f31a4ce48917769bebb7d14557977d19cf053e318e988465f754f9fbc16b",
+      "bytes": 22678,
+      "size": [
+        205,
+        81
+      ]
+    },
+    "items/usagi.starlit-cape/front-part-0.png": {
+      "sha256": "6d34087d421b98b869fdd5ab2b422658f33d99a05478fe15af5f31771bf23a16",
+      "bytes": 21458,
+      "size": [
+        204,
+        70
+      ]
+    },
+    "items/usagi.starlit-cape/profile-part-0.png": {
+      "sha256": "6cec7113c2008f500016ae279e5908f97cbb4efebd89e0c34e5b6d4b9cc55265",
+      "bytes": 16846,
+      "size": [
+        158,
+        68
+      ]
+    },
+    "items/usagi.starlit-cape/three-quarter-part-0.png": {
+      "sha256": "200f1b0e61b8ae88e1abe1497c2008c88b0bd78fb4beb105dd2a952f28748176",
+      "bytes": 20440,
+      "size": [
+        196,
+        70
+      ]
+    }
+  },
+  "fitAssets": {
+    "runtime-fits/constellation/back.png": {
+      "sha256": "b2c26642734903c751caa1b29a83c1803dcc75fb82d5ce28d854102f1278e532",
+      "bytes": 5084,
+      "size": [
+        182,
+        53
+      ]
+    },
+    "runtime-fits/constellation/front.png": {
+      "sha256": "6e7d33ac07704c86e21f8b558699fefe43115267e95b4130cfc937bb830395d1",
+      "bytes": 5158,
+      "size": [
+        182,
+        54
+      ]
+    },
+    "runtime-fits/constellation/profile.png": {
+      "sha256": "6e5131959ea294b00b63530652fb1394f6fda94f3468fe984dcb80ba11d47b3e",
+      "bytes": 5200,
+      "size": [
+        157,
+        54
+      ]
+    },
+    "runtime-fits/constellation/three-quarter.png": {
+      "sha256": "fae99a0f1b752fd52aacc66275ae283753bd05494a873cce36b2ccf74021e144",
+      "bytes": 4840,
+      "size": [
+        183,
+        53
+      ]
+    }
+  },
+  "preservedAssets": {
+    "items/usagi.constellation/back-part-0.png": {
+      "sha256": "3ff2b53d43663a52ffd42d1513befaabc19e2c8fdff324540c2f957d78125dfa",
+      "bytes": 9447,
+      "size": [
+        129,
+        57
+      ]
+    },
+    "items/usagi.constellation/front-part-0.png": {
+      "sha256": "0d69c6b82263dc30b942fe0d07a5686293475a0f0e38854adbef2d809749e986",
+      "bytes": 9258,
+      "size": [
+        131,
+        55
+      ]
+    },
+    "items/usagi.constellation/profile-part-0.png": {
+      "sha256": "f4d10b11b959ba8e8990e8d4894bb641e2b557437789dc04f7b5bed852005126",
+      "bytes": 9012,
+      "size": [
+        109,
+        56
+      ]
+    },
+    "items/usagi.constellation/three-quarter-part-0.png": {
+      "sha256": "d15e13c8d8468adbaec2adc208c9cbea6c24c5f9e335f5d3e179554b768f986d",
+      "bytes": 9350,
+      "size": [
+        127,
+        58
+      ]
+    },
+    "items/usagi.daisy-clip/back-part-0.png": {
+      "sha256": "5ecc4dfc85178438ca4a1e4261ab6c1987e435be9565fa209c2f7dceb83d5064",
+      "bytes": 3516,
+      "size": [
+        38,
+        37
+      ]
+    },
+    "items/usagi.daisy-clip/front-part-0.png": {
+      "sha256": "a8590bbfb60ab00c923b70c7200b7478dfe4f6fc24234d97d7fa1f1cd905861e",
+      "bytes": 3569,
+      "size": [
+        39,
+        40
+      ]
+    },
+    "items/usagi.daisy-clip/profile-part-0.png": {
+      "sha256": "c38ca6579463a2b6a87add18b917a64382dc491930557023e9619de6d8c4def8",
+      "bytes": 2196,
+      "size": [
+        25,
+        36
+      ]
+    },
+    "items/usagi.daisy-clip/three-quarter-part-0.png": {
+      "sha256": "7910eeaaf2d73c35b394c312d9a845516f05d293a2010409c057db2480871329",
+      "bytes": 3282,
+      "size": [
+        35,
+        38
+      ]
+    },
+    "items/usagi.ear-bow/back-part-0.png": {
+      "sha256": "62363c12409542b58595e7d846c8c77f52324e48bf3a473e80ca9cda7c46b8ed",
+      "bytes": 3650,
+      "size": [
+        45,
+        32
+      ]
+    },
+    "items/usagi.ear-bow/front-part-0.png": {
+      "sha256": "1257401105bbe42d442260da4d2245af1bd822bff15a9decdc30970d9be35fdc",
+      "bytes": 3335,
+      "size": [
+        45,
+        34
+      ]
+    },
+    "items/usagi.ear-bow/profile-part-0.png": {
+      "sha256": "ccde955a07f5377a7afb7909ac2608bf94a5172b2a5f780da7d767cbd40386c7",
+      "bytes": 2591,
+      "size": [
+        26,
+        41
+      ]
+    },
+    "items/usagi.ear-bow/three-quarter-part-0.png": {
+      "sha256": "5b44e65745ec38fb41630dc56d464c0d358cb3b319d55a78e6a3dc2290a3ac4c",
+      "bytes": 3288,
+      "size": [
+        42,
+        35
+      ]
+    },
+    "items/usagi.envelope-pouch/back-part-0.png": {
+      "sha256": "417c1b43f12f232a8ef3ba9e38d2af59aa72eb64ff035e46b6dd15122a1609e3",
+      "bytes": 8198,
+      "size": [
+        113,
+        73
+      ]
+    },
+    "items/usagi.envelope-pouch/front-part-0.png": {
+      "sha256": "3514720cd07d9a8910701c6267762a7ef58fa0c859641d8266feb237a25b0bf1",
+      "bytes": 10291,
+      "size": [
+        84,
+        78
+      ]
+    },
+    "items/usagi.envelope-pouch/profile-part-0.png": {
+      "sha256": "72c448ecdf6dd9397f623639f60555f508e01e26ff69f61f042f45a5abd6cecd",
+      "bytes": 8485,
+      "size": [
+        74,
+        67
+      ]
+    },
+    "items/usagi.envelope-pouch/three-quarter-part-0.png": {
+      "sha256": "4224b7fe5117e14c271378c8265becb45020981925b1241cf6bc461b94f5c233",
+      "bytes": 8879,
+      "size": [
+        86,
+        71
+      ]
+    },
+    "items/usagi.garden-apron/back-part-0.png": {
+      "sha256": "7d0f038230121eae92e661543c72181dcbd66f4ed62da3fe0ec54b66dfc93fab",
+      "bytes": 20577,
+      "size": [
+        169,
+        83
+      ]
+    },
+    "items/usagi.garden-apron/front-part-0.png": {
+      "sha256": "6d99a2f0e46af015dbd9ba70aaafd205a11d72b478d13af40b53c3baf49e15f0",
+      "bytes": 17025,
+      "size": [
+        158,
+        69
+      ]
+    },
+    "items/usagi.garden-apron/profile-part-0.png": {
+      "sha256": "88ae5a21969b4d06120cbf7b986c26d9b2e11e2730330e6e3921e405059787bd",
+      "bytes": 13510,
+      "size": [
+        106,
+        73
+      ]
+    },
+    "items/usagi.garden-apron/three-quarter-part-0.png": {
+      "sha256": "83def2444d58f18d4cce1b14416f56e9b5ea4929ce50bba5a39d24d73661118b",
+      "bytes": 18680,
+      "size": [
+        154,
+        78
+      ]
+    },
+    "items/usagi.garden-beret/back-part-0.png": {
+      "sha256": "8c8a42f539ef072653a96eaa7f01de6eba854acdeb85f55b8465ebf640a450e4",
+      "bytes": 10977,
+      "size": [
+        116,
+        72
+      ]
+    },
+    "items/usagi.garden-beret/front-part-0.png": {
+      "sha256": "6713c5b735d2e3d4baedcec54d31cb2d85eca8c066f92a57dfe7c5675d1e884c",
+      "bytes": 10561,
+      "size": [
+        116,
+        69
+      ]
+    },
+    "items/usagi.garden-beret/profile-part-0.png": {
+      "sha256": "9fd55ab895921c9a935bf1905f6124542c1450e65075eef5dee59378a901d188",
+      "bytes": 8671,
+      "size": [
+        92,
+        67
+      ]
+    },
+    "items/usagi.garden-beret/three-quarter-part-0.png": {
+      "sha256": "1931011bb30e1f7e5a35175c97a690c05c4dec3dd4eda417ac8c6995151ed98c",
+      "bytes": 10440,
+      "size": [
+        111,
+        70
+      ]
+    },
+    "items/usagi.garden-clogs/back-part-0.png": {
+      "sha256": "1528d164d905fcb310539054e8fca741e4f1cfbe8deece948081e9e157314e94",
+      "bytes": 4372,
+      "size": [
+        45,
+        44
+      ]
+    },
+    "items/usagi.garden-clogs/back-part-1.png": {
+      "sha256": "717d5232b82118bb3a8c4eb648d9712c8abeec008fec889868f2786ed6206b9f",
+      "bytes": 4243,
+      "size": [
+        45,
+        42
+      ]
+    },
+    "items/usagi.garden-clogs/front-part-0.png": {
+      "sha256": "2c314b6cb0fd0e2d5924c1c9504188f1685f6589e282ca9dfc0a23cab0628b73",
+      "bytes": 4013,
+      "size": [
+        45,
+        41
+      ]
+    },
+    "items/usagi.garden-clogs/front-part-1.png": {
+      "sha256": "97621e9a282d4ff96a323110f9dcaa6adcfd1f45e9203e1b60317d32e94e69f1",
+      "bytes": 3964,
+      "size": [
+        45,
+        40
+      ]
+    },
+    "items/usagi.garden-clogs/profile-part-0.png": {
+      "sha256": "5293050f6dded4fb09e3738395f26f38c9bb6cccb38c8196d7012f7bb65020b6",
+      "bytes": 3082,
+      "size": [
+        49,
+        27
+      ]
+    },
+    "items/usagi.garden-clogs/profile-part-1.png": {
+      "sha256": "5c4ed64b5aa96ba913ac0c56686311ea71e6463deb5660c4a12333425dcc6e00",
+      "bytes": 3009,
+      "size": [
+        49,
+        26
+      ]
+    },
+    "items/usagi.garden-clogs/three-quarter-part-0.png": {
+      "sha256": "bd35d11e9695c0117c636a59dbe8f8b2f38515595d55a6c10f74a4753637d34d",
+      "bytes": 3778,
+      "size": [
+        48,
+        35
+      ]
+    },
+    "items/usagi.garden-clogs/three-quarter-part-1.png": {
+      "sha256": "ced863c82179a9fff7bdff373dff93f2feefc2138f130a7b54d937a56d83a80d",
+      "bytes": 3662,
+      "size": [
+        48,
+        34
+      ]
+    },
+    "items/usagi.moon-beret/back-part-0.png": {
+      "sha256": "c7aa829d6747ae98869dbc815939a1a0fdfb932d5c4bf57d56816b81ca78732c",
+      "bytes": 10683,
+      "size": [
+        118,
+        68
+      ]
+    },
+    "items/usagi.moon-beret/front-part-0.png": {
+      "sha256": "94e001f994222b264a49864498c4098dfcd52c67c7891801c12cf5511c6b1d60",
+      "bytes": 11391,
+      "size": [
+        115,
+        67
+      ]
+    },
+    "items/usagi.moon-beret/profile-part-0.png": {
+      "sha256": "1ca68bd7781480a6dfa7e998e17d574e0aa46b7d4319605484f5c71843513c30",
+      "bytes": 8512,
+      "size": [
+        94,
+        61
+      ]
+    },
+    "items/usagi.moon-beret/three-quarter-part-0.png": {
+      "sha256": "7f30a85d67445be50886e9899dae3739578b31379b2b5530ba89a118ac5e89ce",
+      "bytes": 10320,
+      "size": [
+        111,
+        63
+      ]
+    },
+    "items/usagi.moon-boots/back-part-0.png": {
+      "sha256": "d0b0ffb9e8e13aa40c66175e5a9efe3603830ac39c79ffb37f37529570fa14a2",
+      "bytes": 5112,
+      "size": [
+        44,
+        57
+      ]
+    },
+    "items/usagi.moon-boots/back-part-1.png": {
+      "sha256": "66b101e3040fc66d100d2d8e2febf57e79b7123a26643d62a08165aee37d390d",
+      "bytes": 5139,
+      "size": [
+        44,
+        57
+      ]
+    },
+    "items/usagi.moon-boots/front-part-0.png": {
+      "sha256": "97469c537e227a21366d69164b10a9ae3532599fb95ae9187413981d65091c0e",
+      "bytes": 5374,
+      "size": [
+        45,
+        56
+      ]
+    },
+    "items/usagi.moon-boots/front-part-1.png": {
+      "sha256": "af4becfa794feda732ec7f5b9bca0cbb65822743d06ee3f3c77971c86fa8a5fb",
+      "bytes": 5428,
+      "size": [
+        45,
+        56
+      ]
+    },
+    "items/usagi.moon-boots/profile-part-0.png": {
+      "sha256": "975aefed5513b34d9022532075ff9139b5c0aa85e92eafe1b9c619f3b9a459e7",
+      "bytes": 4342,
+      "size": [
+        47,
+        42
+      ]
+    },
+    "items/usagi.moon-boots/profile-part-1.png": {
+      "sha256": "975aefed5513b34d9022532075ff9139b5c0aa85e92eafe1b9c619f3b9a459e7",
+      "bytes": 4342,
+      "size": [
+        47,
+        42
+      ]
+    },
+    "items/usagi.moon-boots/three-quarter-part-0.png": {
+      "sha256": "8c93e3e02703b908f77be9a1cfc8fd0888f12f187d3aa6fca2190da7c198d1e7",
+      "bytes": 5134,
+      "size": [
+        45,
+        54
+      ]
+    },
+    "items/usagi.moon-boots/three-quarter-part-1.png": {
+      "sha256": "8c93e3e02703b908f77be9a1cfc8fd0888f12f187d3aa6fca2190da7c198d1e7",
+      "bytes": 5134,
+      "size": [
+        45,
+        54
+      ]
+    },
+    "items/usagi.pastel-scarf/back-part-0.png": {
+      "sha256": "f6784efab74ffd8d2ab274be509a1bfa19a346ea47845c43a89b750d13f77461",
+      "bytes": 18218,
+      "size": [
+        191,
+        78
+      ]
+    },
+    "items/usagi.pastel-scarf/front-part-0.png": {
+      "sha256": "6e47faee1d4c2a71df5a0a66b62c045d9964da00cd2cd835f5b9f7abaf2be761",
+      "bytes": 17201,
+      "size": [
+        190,
+        77
+      ]
+    },
+    "items/usagi.pastel-scarf/profile-part-0.png": {
+      "sha256": "505a343f05d11825e8c8b6f1eaa6e0c84a776ad142af3a99d47638808f789da0",
+      "bytes": 10604,
+      "size": [
+        105,
+        80
+      ]
+    },
+    "items/usagi.pastel-scarf/three-quarter-part-0.png": {
+      "sha256": "9dfea74ccb24091a31b920e7da45a7e37bc939d8c2b07e4214aa5e102a60545e",
+      "bytes": 17308,
+      "size": [
+        188,
+        75
+      ]
+    },
+    "items/usagi.petal-collar/back-part-0.png": {
+      "sha256": "b08fc65c3a776ecf10dda86d2447638a6d4e85d51924faeb6e8dc658e9721a8b",
+      "bytes": 10945,
+      "size": [
+        181,
+        45
+      ]
+    },
+    "items/usagi.petal-collar/front-part-0.png": {
+      "sha256": "54f9b07ecb98de31ff4aeea8d661a5c342742f58779429f7972d0405548b65b4",
+      "bytes": 14047,
+      "size": [
+        179,
+        58
+      ]
+    },
+    "items/usagi.petal-collar/profile-part-0.png": {
+      "sha256": "a10c0a1e5b800ccfe7716300dce30110b5263ffe75a00ab2eba7e2766b9ee822",
+      "bytes": 8618,
+      "size": [
+        146,
+        43
+      ]
+    },
+    "items/usagi.petal-collar/three-quarter-part-0.png": {
+      "sha256": "0ef77b242a8627c26e57afade08ed6c93d565892bac3f614be40db64879447a2",
+      "bytes": 13776,
+      "size": [
+        177,
+        59
+      ]
+    },
+    "items/usagi.rain-boots/back-part-0.png": {
+      "sha256": "1229a27c0c0d8c74817d2ab52ec01c82611f95f00f23248a2b549ba2df26e71e",
+      "bytes": 4625,
+      "size": [
+        43,
+        52
+      ]
+    },
+    "items/usagi.rain-boots/back-part-1.png": {
+      "sha256": "41cfd74eb319501403c5816dfafe1577ea9e58ffcddc3cdae027a05d90460797",
+      "bytes": 4369,
+      "size": [
+        43,
+        50
+      ]
+    },
+    "items/usagi.rain-boots/front-part-0.png": {
+      "sha256": "9a3fc15e733c221be8433d37a9c60b3f90af716ee9b7b969d76fe5c195d73a91",
+      "bytes": 4783,
+      "size": [
+        45,
+        51
+      ]
+    },
+    "items/usagi.rain-boots/front-part-1.png": {
+      "sha256": "96f16e9c77d79e72ca405275f36a89e2553156529e21c075daad23acae479474",
+      "bytes": 4504,
+      "size": [
+        45,
+        50
+      ]
+    },
+    "items/usagi.rain-boots/profile-part-0.png": {
+      "sha256": "a7d2f54bdaca2ffd0ad0bbaa4a59e9011c44664e770ad023cd889fc092765697",
+      "bytes": 3347,
+      "size": [
+        48,
+        34
+      ]
+    },
+    "items/usagi.rain-boots/profile-part-1.png": {
+      "sha256": "111574215e1049bbc3b144674b81390b4e1b95ef94493197e27889f92524a582",
+      "bytes": 3217,
+      "size": [
+        48,
+        32
+      ]
+    },
+    "items/usagi.rain-boots/three-quarter-part-0.png": {
+      "sha256": "37e9a40d2d284562c8c39b6e3ab788b0a43c753ae9895b427f57654bbe0ff0d2",
+      "bytes": 3792,
+      "size": [
+        46,
+        40
+      ]
+    },
+    "items/usagi.rain-boots/three-quarter-part-1.png": {
+      "sha256": "7edee727ec134c030df75c3a6fbe9ff53a704689722a0b987ef2b12e0e879eaf",
+      "bytes": 3786,
+      "size": [
+        46,
+        41
+      ]
+    },
+    "items/usagi.rain-cape/back-part-0.png": {
+      "sha256": "82ddfb60abd422160df8f867b383b8a043cfd282ab69e3106cedf807574c3e69",
+      "bytes": 24628,
+      "size": [
+        177,
+        102
+      ]
+    },
+    "items/usagi.rain-cape/front-part-0.png": {
+      "sha256": "4c2a18d5fccc9ac98955c312ecef8833248a96f86478c776c398dfd299112389",
+      "bytes": 27324,
+      "size": [
+        186,
+        98
+      ]
+    },
+    "items/usagi.rain-cape/profile-part-0.png": {
+      "sha256": "7cbfce5415594725d81c8d7cabc7f24fa6078ae748452d9a6d2d7a5e8bd7fe80",
+      "bytes": 17967,
+      "size": [
+        125,
+        98
+      ]
+    },
+    "items/usagi.rain-cape/three-quarter-part-0.png": {
+      "sha256": "96a9035665601e81be83977a5e34f83ddb0d82d33b9526ff73cad58aca663132",
+      "bytes": 26514,
+      "size": [
+        173,
+        104
+      ]
+    },
+    "items/usagi.rain-satchel/back-part-0.png": {
+      "sha256": "7dc5c6f3c5d15081ddd032e19314a81f078357cc7bf991b50df5075041f8b507",
+      "bytes": 4576,
+      "size": [
+        69,
+        42
+      ]
+    },
+    "items/usagi.rain-satchel/front-part-0.png": {
+      "sha256": "16a750f0889cca6a60c64fef1edb192846d585da658b072bed94017acd4b1b40",
+      "bytes": 5907,
+      "size": [
+        73,
+        48
+      ]
+    },
+    "items/usagi.rain-satchel/profile-part-0.png": {
+      "sha256": "b668432db9bad57e80b650d44e18bd3d0b65d173aa2e165c3c10bfa8ec59a5d4",
+      "bytes": 4018,
+      "size": [
+        48,
+        46
+      ]
+    },
+    "items/usagi.rain-satchel/three-quarter-part-0.png": {
+      "sha256": "3966a48182688ae53eb569acc0e6c5277b301691cce756e81ff60c950fbe5b5f",
+      "bytes": 6253,
+      "size": [
+        69,
+        51
+      ]
+    },
+    "items/usagi.seed-pouch/back-part-0.png": {
+      "sha256": "ca994498ae0d8ef50f35d1a8c783e16e4e9af9578f4b4cc8d84cc20a9e7bb2fa",
+      "bytes": 6451,
+      "size": [
+        61,
+        53
+      ]
+    },
+    "items/usagi.seed-pouch/front-part-0.png": {
+      "sha256": "8c1349798ea9dd804a8a518afc339ae1be6047e8a529d9ff96bdc0d7a1f18637",
+      "bytes": 7332,
+      "size": [
+        64,
+        52
+      ]
+    },
+    "items/usagi.seed-pouch/profile-part-0.png": {
+      "sha256": "8f97181379e948ee836bdea2e19a075962a910ca88d11e1c07070c87af258635",
+      "bytes": 5555,
+      "size": [
+        47,
+        54
+      ]
+    },
+    "items/usagi.seed-pouch/three-quarter-part-0.png": {
+      "sha256": "32e994d6315eca97b7e9090d95d435b21b065f096022477e629d12cd5e0e5347",
+      "bytes": 6954,
+      "size": [
+        61,
+        52
+      ]
+    },
+    "items/usagi.star-collar/back-part-0.png": {
+      "sha256": "ab9c90741fb66b26baeeaf30448865361e08be893f24137d348e33eaf7ab97a1",
+      "bytes": 9516,
+      "size": [
+        177,
+        36
+      ]
+    },
+    "items/usagi.star-collar/front-part-0.png": {
+      "sha256": "7a4e74a06474ddfa066b29f664851a174d3132781281c679cce5a0522478ee1d",
+      "bytes": 15409,
+      "size": [
+        176,
+        70
+      ]
+    },
+    "items/usagi.star-collar/profile-part-0.png": {
+      "sha256": "8e6902a333db505e5c614fa725038ddf5d0959e14118cdd64b79378d6b214e55",
+      "bytes": 10978,
+      "size": [
+        155,
+        62
+      ]
+    },
+    "items/usagi.star-collar/three-quarter-part-0.png": {
+      "sha256": "5e0d39f8bf11f0251bea94c6b145625082198513d936957e21de42e32d8e90e6",
+      "bytes": 15162,
+      "size": [
+        167,
+        72
+      ]
+    },
+    "items/usagi.starlit-cape/back-part-0.png": {
+      "sha256": "1908f31a4ce48917769bebb7d14557977d19cf053e318e988465f754f9fbc16b",
+      "bytes": 22678,
+      "size": [
+        205,
+        81
+      ]
+    },
+    "items/usagi.starlit-cape/front-part-0.png": {
+      "sha256": "6d34087d421b98b869fdd5ab2b422658f33d99a05478fe15af5f31771bf23a16",
+      "bytes": 21458,
+      "size": [
+        204,
+        70
+      ]
+    },
+    "items/usagi.starlit-cape/profile-part-0.png": {
+      "sha256": "6cec7113c2008f500016ae279e5908f97cbb4efebd89e0c34e5b6d4b9cc55265",
+      "bytes": 16846,
+      "size": [
+        158,
+        68
+      ]
+    },
+    "items/usagi.starlit-cape/three-quarter-part-0.png": {
+      "sha256": "200f1b0e61b8ae88e1abe1497c2008c88b0bd78fb4beb105dd2a952f28748176",
+      "bytes": 20440,
+      "size": [
+        196,
+        70
+      ]
+    },
+    "runtime-fits/constellation/back.png": {
+      "sha256": "b2c26642734903c751caa1b29a83c1803dcc75fb82d5ce28d854102f1278e532",
+      "bytes": 5084,
+      "size": [
+        182,
+        53
+      ]
+    },
+    "runtime-fits/constellation/front.png": {
+      "sha256": "6e7d33ac07704c86e21f8b558699fefe43115267e95b4130cfc937bb830395d1",
+      "bytes": 5158,
+      "size": [
+        182,
+        54
+      ]
+    },
+    "runtime-fits/constellation/profile.png": {
+      "sha256": "6e5131959ea294b00b63530652fb1394f6fda94f3468fe984dcb80ba11d47b3e",
+      "bytes": 5200,
+      "size": [
+        157,
+        54
+      ]
+    },
+    "runtime-fits/constellation/three-quarter.png": {
+      "sha256": "fae99a0f1b752fd52aacc66275ae283753bd05494a873cce36b2ccf74021e144",
+      "bytes": 4840,
+      "size": [
+        183,
+        53
+      ]
+    }
+  },
+  "compiledContract": "contracts/runtime/compiled-wardrobe.json",
+  "integratedAssetDigest": "b09a15b75b6e666501a1c7406e73f10a1074fbb6fd391701fb9dea1c3a0c627a",
+  "runtimeFitCorrections": "runtime-fit-corrections.json",
+  "runtimeFits": [
+    {
+      "id": "constellation",
+      "renderKey": "usagi-constellation",
+      "script": "fit_constellation.py",
+      "inputDirectory": "items/usagi.constellation",
+      "outputDirectory": "runtime-fits/constellation",
+      "contract": "contracts/runtime/constellation-fit.json"
+    }
+  ],
+  "runtimeFitReports": {
+    "runtime-fits/constellation/fit.json": {
+      "sha256": "3a0031760f7f764ee137415d6ad5d314b895f0aae06ab4998740a91403b55ad7",
+      "bytes": 7432
+    }
+  },
+  "archiveBuildMode": "Source-only mode verifies the pinned sources, scripts, 84 output hashes and all saved contracts; it does not require or claim verification of an installed application runtime."
+}

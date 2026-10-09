@@ -1,0 +1,29 @@
+/* Same geometry as the compatible foot ring, independent of either form. */
+.session-orbit {
+  position: absolute; left: 50%; bottom: 44px; width: 120px; height: 26px;
+  transform: translateX(-50%); z-index: 1; opacity: 0; pointer-events: none;
+}
+.session-orbit.show { opacity: 0.95; }
+.session-orbit svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.session-orbit .orbit-track { fill: none; stroke: rgba(26,27,38,0.3); stroke-width: 2.6; }
+.session-orbit .orbit-arc { fill: none; stroke: var(--session-color); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 100; }
+.session-orbit .orbit-star { fill: var(--session-color); stroke: rgba(26,27,38,0.8); stroke-width: 0.7; }
+.stage { --session-color: #7dcfff; }
+.stage[data-session-phase="break"] { --session-color: #bb9af7; }
+.stage[data-session-phase="paused"] { --session-color: #c0caf5; }
+.stage[data-session-phase="confirm"], .stage[data-session-phase="attention"] { --session-color: #e0af68; }
+.stage[data-session-phase="task-completed"], .stage[data-session-phase="complete"] { --session-color: #9ece6a; }
+.session-status {
+  display: none; align-items: center; justify-content: center; width: 28px; height: 26px;
+  padding: 0; border: 1px solid currentColor; border-radius: 8px;
+  color: var(--session-color); background: rgba(23,27,39,0.86); cursor: pointer; pointer-events: auto;
+}
+.session-status.show { display: flex; }
+.session-status:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.session-status .ui-icon { width: 16px; height: 16px; }
+.stage[data-session-display="canonical"] .focus-ring { display: none; }
+.stage[data-session-display="canonical"] .focus-ring .ring-arc { animation: none; }
+.stage.is-docked .session-orbit, .stage.menu-open .session-orbit,
+.stage:has(.pet-layer.dragging) .session-orbit { visibility: hidden; }
+.stage.is-docked .session-status, .stage.menu-open .session-status,
+.stage:has(.pet-layer.dragging) .session-status { display: none; }

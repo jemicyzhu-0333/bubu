@@ -1,0 +1,33 @@
+{
+  "format": "usagi-depth-build-inputs-v1",
+  "sourceFiles": {
+    "records/recipe.json": "c38f4f8ecd5c11598fe95233b0f27791b4bab3c6a8ff97f87ae36316b5af2014",
+    "masters/garden-layers-short-collar-v2.png": "ba1c26e8243c333f539ae6b10404afc6fdd5a517323d2a99dbed0127554db509",
+    "masks/front-native-foreground.png": "0968d5bf49ec12c87653960e6af1ade56f56e60a53158adc491155e5611b3d56",
+    "masks/three-quarter-native-foreground.png": "13ab2978bd250deb77453fae584d87cc7f601d7a307f1ed520ba22f632b6715c",
+    "masks/profile-native-foreground.png": "399efad4d086c19c2317d31b89b87dcc282d7c7755050c966fc78394bcf3c67a",
+    "masks/back-native-foreground.png": "28f79d3883ab5fffa2e7877363277be224ecf89647286da53d75f37070034a23",
+    "evidence/baseline-front.png": "7ad659d2b3b7e4bdd786a571f40adbf0b9ffb6b0d66f464b3c246932b2c93c3b",
+    "evidence/baseline-three-quarter.png": "ac8f3884160affa394fd6ead2f3a74da420f1485269f9239fc4c57b1d13a14c7",
+    "evidence/baseline-profile.png": "88ff2d6e80d85673e43e3c6444125c397cec53f658f4e624adb4a633674da29a",
+    "evidence/baseline-back.png": "d46fc0a32b601d7065265b091d5473aa62c4ce184504120c803d930dd664dfa8"
+  },
+  "canonicalFiles": {
+    "manifest.json": "590c8e3c79c034bbbfa3c51c992345f28b9d153f4da20d04cb23451b0b82cf0f",
+    "front.png": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3",
+    "three-quarter.png": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60",
+    "profile.png": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420",
+    "back.png": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c"
+  },
+  "fontName": "DejaVuSans.ttf",
+  "fontSha256": "57f73e11f51999432bf7ab22ce55b6f945d5eca1bf824404cfa9ec2e3718c84e",
+  "environment": {
+    "python": "3.12.14",
+    "pillow": "12.3.0",
+    "numpy": "2.3.5"
+  },
+  "baselinePolicy": "Frozen original three-piece garden garment comparison with unchanged canonical body/native foreground; base contracts are not read during rebuild.",
+  "canonicalSourcePolicy": "CanonicalSource is relative to preserved source root; sprite src relative to selected output root.",
+  "command": "python tools/usagi-wardrobe/generation/build_depth_prototype.py --source assets/companion/usagi/wardrobe/sources/garden-depth-v2-20261002 --output NEWDIR",
+  "outputPolicy": "New/empty directory outside sources; input pixels, masks and contracts read-only."
+}

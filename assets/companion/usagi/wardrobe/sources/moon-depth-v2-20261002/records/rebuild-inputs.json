@@ -1,0 +1,35 @@
+{
+  "format": "usagi-depth-build-inputs-v1",
+  "sourceFiles": {
+    "records/recipe.json": "1753e2ef500e448d81aa6a32fac76549894c79feccf431e4157c7bc0d7362eb6",
+    "masters/moon-layers-v1.png": "b8e5db4e665c9c16593c1dfec6f9889c5a697269ddb4d8f50ea0fd9f2594e094",
+    "masters/moon-collar-layers-v3.png": "66a5cec21a854dbea1ab21859370593c076e2fedeb0e14c77bb95a037ceac0ec",
+    "masters/moon-bag-layers-v2.png": "6cb48f14eb1237a0aefcad3a2093682a5c55ac8e16a6f95ccae59acbc144a0c4",
+    "masks/front-native-foreground.png": "0968d5bf49ec12c87653960e6af1ade56f56e60a53158adc491155e5611b3d56",
+    "masks/three-quarter-native-foreground.png": "13ab2978bd250deb77453fae584d87cc7f601d7a307f1ed520ba22f632b6715c",
+    "masks/profile-native-foreground.png": "399efad4d086c19c2317d31b89b87dcc282d7c7755050c966fc78394bcf3c67a",
+    "masks/back-native-foreground.png": "28f79d3883ab5fffa2e7877363277be224ecf89647286da53d75f37070034a23",
+    "evidence/baseline-front.png": "aa1f07f3e0c57a382c74d70de057acee22c8e878c75de4cc63fd99d1c2acbcfc",
+    "evidence/baseline-three-quarter.png": "7f7a59628e5aa5214841ff6b790952fa92637c7d7f5189c73ec1383bfab975a3",
+    "evidence/baseline-profile.png": "9175e264fd4dc25c605aee99aaabc5477c45ca9a3fe3fcec416a59389c29e7e2",
+    "evidence/baseline-back.png": "6ae1e33e256a8cd19ce4e3efe44af654ffa6db7b77b7bdc20dbccc4af50587ae"
+  },
+  "canonicalFiles": {
+    "front.png": "5485378cdb47d3d8343aaba9c40335f125645690d42968a969e5c20e8aa8ffa3",
+    "manifest.json": "590c8e3c79c034bbbfa3c51c992345f28b9d153f4da20d04cb23451b0b82cf0f",
+    "three-quarter.png": "68b4f30ec72099feccd85be1c430f8b8d224c52cb439258949fe8007408f6a60",
+    "back.png": "b56aa36b68b7146a155f12c03fda247dc042ea94c6e082a2e5cd1a9a50a1a32c",
+    "profile.png": "7a5ce8aea54460c03d51a6d24f8138e381e3bef02485a0624c44fa52d3d81420"
+  },
+  "fontName": "DejaVuSans.ttf",
+  "fontSha256": "57f73e11f51999432bf7ab22ce55b6f945d5eca1bf824404cfa9ec2e3718c84e",
+  "environment": {
+    "python": "3.12.14",
+    "pillow": "12.3.0",
+    "numpy": "2.3.5"
+  },
+  "baselinePolicy": "Preserved baseline PNGs are frozen historical comparison inputs for only star collar, star cape and envelope pouch; rebuild never reads mutable runtime contracts.",
+  "canonicalSourcePolicy": "Exact original canonical four views are immutable body pixels, generated worn source is never a body input.",
+  "command": "python build_prototype.py --output NEWDIR",
+  "outputPolicy": "New or empty directory outside preserved sources; no overwrite option and no source writes."
+}

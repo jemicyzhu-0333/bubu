@@ -1,0 +1,3273 @@
+{
+  "schemaVersion": 1,
+  "extraEffects": {
+    "source": "src/core/pet-action-particles.mjs",
+    "expressionAccents": [
+      "drowsy-zzz",
+      "sleep-zzz"
+    ],
+    "actionEffects": [
+      "bubbles",
+      "code",
+      "crumbs",
+      "dust",
+      "flash",
+      "glimmer",
+      "halo",
+      "hearts",
+      "impact",
+      "leaves",
+      "letters",
+      "none",
+      "notes",
+      "petals",
+      "puffs",
+      "rainbow",
+      "sparkles",
+      "sparks",
+      "stars",
+      "steam",
+      "sweat",
+      "thread",
+      "trail",
+      "zzz"
+    ],
+    "statuses": [
+      {
+        "id": "hungry",
+        "fallback": "renderer.drawCraving"
+      },
+      {
+        "id": "coffee",
+        "fallback": "renderer.drawCoffee"
+      }
+    ],
+    "attachedEffects": [
+      {
+        "id": "sparkle-shoes",
+        "attachment": [
+          "foot-left",
+          "foot-right"
+        ],
+        "source": "src/capabilities/companion/presentation/dango-art.mjs"
+      }
+    ],
+    "semanticWarning": "Per-foot glints, status effects and background painters are outside ordinary sampled contact tools and must be verified separately"
+  },
+  "generatedAt": "2026-10-01T17:26:40.547Z",
+  "repository": ".",
+  "claim": "Named current-production contract; enum/tool presence alone is not visual or semantic acceptance",
+  "sources": {
+    "actions": "src/content/behaviors.mjs",
+    "sessions": "src/content/session-activities.mjs",
+    "stories": "src/content/companion/activity-stories.mjs",
+    "expressions": "src/content/expressions.mjs",
+    "phrases": "src/capabilities/companion/presentation/expression-phrases.mjs",
+    "scenes": "src/content/scenes.mjs",
+    "wardrobe": "src/content/appearance.mjs",
+    "tools": "src/content/companion/dango-tools.mjs",
+    "views": "src/content/companion/dango-action-views.mjs",
+    "form": "src/content/companion/dango-form.mjs",
+    "geometry": "src/content/companion/dango-vector.mjs",
+    "skins": "src/skins.mjs",
+    "palettes": "src/core/pet-art.mjs",
+    "contacts": "src/core/pet-action-contact.mjs",
+    "actionPainter": "src/core/pet-action-vector.mjs",
+    "freePoses": "src/core/pet-action-vector-poses.mjs",
+    "details": "src/core/pet-action-vector-details.mjs",
+    "scenePainter": "src/core/pet-scene-art.mjs",
+    "particles": "src/core/pet-action-particles.mjs",
+    "appearanceSelection": "src/core/pet-appearance.mjs",
+    "playback": "src/capabilities/companion/presentation/activity-playback.mjs",
+    "desktop": "src/surfaces/pet/renderer.mjs",
+    "portrait": "src/surfaces/popover/features/companion-portrait.mjs",
+    "gallery": "src/renderer/expression-gallery.mjs"
+  },
+  "sourceSha256": {
+    "src/content/behaviors.mjs": "38c9cb896ed50e90125f08fe925cb550fe6bbcc72a2f70b3e11f71572a047a3d",
+    "src/content/session-activities.mjs": "e65fa85d12d8aef34be71d66eb9bf89229e10224532d757089c5494989b3dedb",
+    "src/content/companion/activity-stories.mjs": "9730a77812f8391d99f872bcb00fec894494ef496b0f75cbb4a35234427a12bb",
+    "src/content/expressions.mjs": "126c6d327f1a799a3a921c85fa28ac8e6b3c612847755cac29572dc3ef300921",
+    "src/capabilities/companion/presentation/expression-phrases.mjs": "d647ce5dad57c7db8ae201c6fd77d07c3c4ee925461c25f18be2d4004c991c2e",
+    "src/content/scenes.mjs": "f209ff5f1047ee96a16178cda3833d48666fa92b3125dd477703e95d91828636",
+    "src/content/appearance.mjs": "119c0d963ea2732f4a067ec564b1a0de0bd1f6c3f798d177e072b4a658309cdd",
+    "src/content/companion/dango-tools.mjs": "e0f2ab5ca03e65e37a8a99840487dbb0ab468a9c67cf15ef66508805831228b0",
+    "src/content/companion/dango-action-views.mjs": "d0ed676be8f1b93fc06c029490281a119ee2cbfa64ed5497011063ecf157b29f",
+    "src/content/companion/dango-form.mjs": "8520afda07f04d14999b4d8b6882e8a723a2b86fe3abe688cd5b7b0d9eac9324",
+    "src/content/companion/dango-vector.mjs": "c565e2236de6353e7b2e4dcebff55fb99a8940774d2256cdacd5751ed1916604",
+    "src/skins.mjs": "a196184c8a319aa547eaf41cce46f0c2c3cf1c512a37784fd07bf578dc6969d8",
+    "src/core/pet-art.mjs": "779b00dca52ad157934ec65aaf286b2965d5d3176811f8adca3c3da66521c2bf",
+    "src/core/pet-action-contact.mjs": "cf96935add7de00f879fb8cb1c20dd57ecf2e89a8390d85185fe9b06dabb6635",
+    "src/core/pet-action-vector.mjs": "dbb6541d9703ee3d29830ec3b8e5c2a2675c655807a7f3e011039320360dbe59",
+    "src/core/pet-action-vector-poses.mjs": "55c819541b6fde84b44c53571ba014bc4f655857465d15f0c405d8c4f53ac6cc",
+    "src/core/pet-action-vector-details.mjs": "ac7f397731448d555d10eda4500a6f58284a6afb711d927e4ffef4cf2cd647bc",
+    "src/core/pet-scene-art.mjs": "2f1f08a627dbf1bf80c80c0812fe05f799da6eca8da9f2b2da6c88df9789650b",
+    "src/core/pet-action-particles.mjs": "9d813f7e9b1998ce499840e86c7b5862b75620d2418ffa85fd12f35930562172",
+    "src/core/pet-appearance.mjs": "f58524f053aef2e6abfe9397e9727c2da2a5833172abd8b0a60c61efc3351698",
+    "src/capabilities/companion/presentation/activity-playback.mjs": "a5c3ad5e12872b25fb9272ed2a336820aa235d976675d56d57c53d6d1be74053",
+    "src/surfaces/pet/renderer.mjs": "4e43814e9d60daeb10ef08e59053528b2ffbe831a795aea372c22a5fe86ac9b4",
+    "src/surfaces/popover/features/companion-portrait.mjs": "e17437accadc4690c550d338bd303fe880ded3df97fa73adc1313a4a5850f63a",
+    "src/renderer/expression-gallery.mjs": "cbc7a848e423e87d0ec78335a5b18faaceddef6946c04b90c7363c84089d70dd"
+  },
+  "summary": {
+    "actions": 43,
+    "stories": 12,
+    "storyPhases": 60,
+    "expressions": 32,
+    "eyes": 16,
+    "mouths": 9,
+    "scenes": 25,
+    "wardrobe": 16,
+    "wardrobeSlots": 7,
+    "skins": 10,
+    "spriteTools": 49,
+    "usedSpriteTools": 45,
+    "proceduralDetailTypes": 20,
+    "proceduralEquipment": [
+      "ellipsis",
+      "headband",
+      "hole",
+      "laser"
+    ],
+    "namedTemporalCases": 103,
+    "actionScenePairs": 1375
+  },
+  "data": {
+    "items": [
+      {
+        "id": "milestone.sprout",
+        "label": "小芽",
+        "slot": "head",
+        "layer": "back",
+        "z": 40,
+        "parts": [
+          "back"
+        ],
+        "minLevel": 3,
+        "formId": "dango",
+        "skin": null,
+        "unlockKind": "level",
+        "exclusiveGroup": "headwear",
+        "exclusivePriority": 20,
+        "renderKey": "sprout",
+        "effect": "sprout-sway",
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "anchor": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "bleed": {
+          "left": 0,
+          "top": 14,
+          "right": 0,
+          "bottom": 0
+        },
+        "source": "src/content/appearance.mjs",
+        "effectiveSlot": "headwear"
+      },
+      {
+        "id": "milestone.sunhat",
+        "label": "小草帽",
+        "slot": "head",
+        "layer": "back",
+        "z": 46,
+        "parts": [
+          "back",
+          "front"
+        ],
+        "minLevel": 5,
+        "formId": "dango",
+        "skin": null,
+        "unlockKind": "level",
+        "exclusiveGroup": "headwear",
+        "exclusivePriority": 50,
+        "renderKey": "sunhat",
+        "effect": null,
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "anchor": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "bleed": {
+          "left": 4,
+          "top": 16,
+          "right": 4,
+          "bottom": 0
+        },
+        "source": "src/content/appearance.mjs",
+        "effectiveSlot": "headwear"
+      },
+      {
+        "id": "milestone.satchel",
+        "label": "小挎包",
+        "slot": "body",
+        "layer": "front",
+        "z": 24,
+        "parts": [
+          "front"
+        ],
+        "minLevel": 8,
+        "formId": "dango",
+        "skin": null,
+        "unlockKind": "level",
+        "exclusiveGroup": "sidebag",
+        "exclusivePriority": 40,
+        "renderKey": "satchel",
+        "effect": null,
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "anchor": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "bleed": {
+          "left": 14,
+          "top": 0,
+          "right": 4,
+          "bottom": 0
+        },
+        "source": "src/content/appearance.mjs",
+        "effectiveSlot": "sidebag"
+      },
+      {
+        "id": "milestone.scarf",
+        "label": "彩虹围巾",
+        "slot": "neck",
+        "layer": "front",
+        "z": 36,
+        "parts": [
+          "front"
+        ],
+        "minLevel": 10,
+        "formId": "dango",
+        "skin": null,
+        "unlockKind": "level",
+        "exclusiveGroup": "neckwear",
+        "exclusivePriority": 50,
+        "renderKey": "scarf",
+        "effect": "scarf-flutter",
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "anchor": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "bleed": {
+          "left": 0,
+          "top": 0,
+          "right": 12,
+          "bottom": 0
+        },
+        "source": "src/content/appearance.mjs",
+        "effectiveSlot": "neckwear"
+      },
+      {
+        "id": "milestone.halo",
+        "label": "小光环",
+        "slot": "head",
+        "layer": "front",
+        "z": 52,
+        "parts": [
+          "front"
+        ],
+        "minLevel": 12,
+        "formId": "dango",
+        "skin": null,
+        "unlockKind": "level",
+        "exclusiveGroup": "head-aura",
+        "exclusivePriority": 50,
+        "renderKey": "halo",
+        "effect": "halo-glow",
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "anchor": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "bleed": {
+          "left": 0,
+          "top": 32,
+          "right": 0,
+          "bottom": 0
+        },
+        "source": "src/content/appearance.mjs",
+        "effectiveSlot": "head-aura"
+      },
+      {
+        "id": "milestone.boots",
+        "label": "闪闪鞋",
+        "slot": "body",
+        "layer": "front",
+        "z": 38,
+        "parts": [
+          "front"
+        ],
+        "minLevel": 15,
+        "formId": "dango",
+        "skin": null,
+        "unlockKind": "level",
+        "exclusiveGroup": "footwear",
+        "exclusivePriority": 50,
+        "renderKey": "boots",
+        "effect": "boots-sparkle",
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "anchor": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "bleed": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "source": "src/content/appearance.mjs",
+        "effectiveSlot": "footwear"
+      },
+      {
+        "id": "milestone.cape",
+        "label": "小披风",
+        "slot": "back",
+        "layer": "back",
+        "z": 14,
+        "parts": [
+          "back",
+          "front"
+        ],
+        "minLevel": 20,
+        "formId": "dango",
+        "skin": null,
+        "unlockKind": "level",
+        "exclusiveGroup": "backwear",
+        "exclusivePriority": 80,
+        "renderKey": "cape",
+        "effect": "cape-flutter",
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "anchor": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "bleed": {
+          "left": 18,
+          "top": 0,
+          "right": 18,
+          "bottom": 0
+        },
+        "source": "src/content/appearance.mjs",
+        "effectiveSlot": "backwear"
+      },
+      {
+        "id": "skin.forest-leaf",
+        "label": "森林叶片",
+        "slot": "head",
+        "layer": "back",
+        "z": 42,
+        "parts": [
+          "back"
+        ],
+        "minLevel": 1,
+        "formId": "dango",
+        "skin": "forest",
+        "unlockKind": "skin",
+        "exclusiveGroup": "head-accent",
+        "exclusivePriority": 30,
+        "renderKey": "forest-leaf",
+        "effect": "leaf-shimmer",
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "anchor": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "bleed": {
+          "left": 0,
+          "top": 14,
+          "right": 8,
+          "bottom": 0
+        },
+        "source": "src/content/appearance.mjs",
+        "effectiveSlot": "head-accent"
+      },
+      {
+        "id": "skin.sakura-flower",
+        "label": "樱花发饰",
+        "slot": "head",
+        "layer": "back",
+        "z": 42,
+        "parts": [
+          "back"
+        ],
+        "minLevel": 1,
+        "formId": "dango",
+        "skin": "sakura",
+        "unlockKind": "skin",
+        "exclusiveGroup": "head-accent",
+        "exclusivePriority": 30,
+        "renderKey": "sakura-flower",
+        "effect": "petal-glint",
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "anchor": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "bleed": {
+          "left": 0,
+          "top": 8,
+          "right": 8,
+          "bottom": 0
+        },
+        "source": "src/content/appearance.mjs",
+        "effectiveSlot": "head-accent"
+      },
+      {
+        "id": "skin.moon-crescent",
+        "label": "月牙",
+        "slot": "head",
+        "layer": "back",
+        "z": 45,
+        "parts": [
+          "back"
+        ],
+        "minLevel": 1,
+        "formId": "dango",
+        "skin": "moon",
+        "unlockKind": "skin",
+        "exclusiveGroup": "head-accent",
+        "exclusivePriority": 40,
+        "renderKey": "moon-crescent",
+        "effect": "moon-glow",
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "anchor": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "bleed": {
+          "left": 0,
+          "top": 12,
+          "right": 6,
+          "bottom": 0
+        },
+        "source": "src/content/appearance.mjs",
+        "effectiveSlot": "head-accent"
+      },
+      {
+        "id": "skin.flame-tip",
+        "label": "火焰尖尖",
+        "slot": "head",
+        "layer": "back",
+        "z": 44,
+        "parts": [
+          "back"
+        ],
+        "minLevel": 1,
+        "formId": "dango",
+        "skin": "flame",
+        "unlockKind": "skin",
+        "exclusiveGroup": "headwear",
+        "exclusivePriority": 70,
+        "renderKey": "flame-tip",
+        "effect": "flame-flicker",
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "anchor": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "bleed": {
+          "left": 0,
+          "top": 16,
+          "right": 0,
+          "bottom": 0
+        },
+        "source": "src/content/appearance.mjs",
+        "effectiveSlot": "headwear"
+      },
+      {
+        "id": "skin.crown",
+        "label": "王冠",
+        "slot": "head",
+        "layer": "back",
+        "z": 48,
+        "parts": [
+          "back"
+        ],
+        "minLevel": 1,
+        "formId": "dango",
+        "skin": "crown",
+        "unlockKind": "skin",
+        "exclusiveGroup": "headwear",
+        "exclusivePriority": 90,
+        "renderKey": "crown",
+        "effect": "crown-shine",
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "anchor": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "bleed": {
+          "left": 0,
+          "top": 16,
+          "right": 0,
+          "bottom": 0
+        },
+        "source": "src/content/appearance.mjs",
+        "effectiveSlot": "headwear"
+      },
+      {
+        "id": "skin.robot-antenna",
+        "label": "信号天线",
+        "slot": "head",
+        "layer": "back",
+        "z": 44,
+        "parts": [
+          "back"
+        ],
+        "minLevel": 1,
+        "formId": "dango",
+        "skin": "robot",
+        "unlockKind": "skin",
+        "exclusiveGroup": "headwear",
+        "exclusivePriority": 65,
+        "renderKey": "robot-antenna",
+        "effect": "signal-pulse",
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "anchor": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "bleed": {
+          "left": 0,
+          "top": 16,
+          "right": 0,
+          "bottom": 0
+        },
+        "source": "src/content/appearance.mjs",
+        "effectiveSlot": "headwear"
+      },
+      {
+        "id": "skin.woodsman-cap",
+        "label": "樵夫帽",
+        "slot": "head",
+        "layer": "back",
+        "z": 44,
+        "parts": [
+          "back"
+        ],
+        "minLevel": 1,
+        "formId": "dango",
+        "skin": "woodsman",
+        "unlockKind": "skin",
+        "exclusiveGroup": "headwear",
+        "exclusivePriority": 80,
+        "renderKey": "woodsman-cap",
+        "effect": null,
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "anchor": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "bleed": {
+          "left": 0,
+          "top": 16,
+          "right": 10,
+          "bottom": 0
+        },
+        "source": "src/content/appearance.mjs",
+        "effectiveSlot": "headwear"
+      },
+      {
+        "id": "skin.ocean-fin",
+        "label": "海蓝鳍",
+        "slot": "back",
+        "layer": "back",
+        "z": 12,
+        "parts": [
+          "back"
+        ],
+        "minLevel": 1,
+        "formId": "dango",
+        "skin": "ocean",
+        "unlockKind": "skin",
+        "exclusiveGroup": "backwear",
+        "exclusivePriority": 100,
+        "renderKey": "ocean-fin",
+        "effect": null,
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "anchor": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "bleed": {
+          "left": 8,
+          "top": 0,
+          "right": 22,
+          "bottom": 0
+        },
+        "source": "src/content/appearance.mjs",
+        "effectiveSlot": "backwear"
+      },
+      {
+        "id": "skin.bat-wings",
+        "label": "夜行翼",
+        "slot": "back",
+        "layer": "back",
+        "z": 8,
+        "parts": [
+          "back"
+        ],
+        "minLevel": 1,
+        "formId": "dango",
+        "skin": "bat",
+        "unlockKind": "skin",
+        "exclusiveGroup": "backwear",
+        "exclusivePriority": 100,
+        "renderKey": "bat-wings",
+        "effect": null,
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "anchor": {
+          "front": {
+            "x": 0,
+            "y": 0
+          },
+          "three-quarter": {
+            "x": 0,
+            "y": 0
+          },
+          "profile": {
+            "x": 0,
+            "y": 0
+          },
+          "back": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "bleed": {
+          "left": 18,
+          "top": 0,
+          "right": 18,
+          "bottom": 0
+        },
+        "source": "src/content/appearance.mjs",
+        "effectiveSlot": "backwear"
+      }
+    ],
+    "pairs": [
+      {
+        "ids": [
+          "milestone.sprout",
+          "milestone.sunhat"
+        ],
+        "compatible": false,
+        "retained": [
+          "milestone.sunhat"
+        ],
+        "reason": "exclusive-group-priority"
+      },
+      {
+        "ids": [
+          "milestone.sprout",
+          "milestone.satchel"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.satchel",
+          "milestone.sprout"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.sprout",
+          "milestone.scarf"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.scarf",
+          "milestone.sprout"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.sprout",
+          "milestone.halo"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.sprout",
+          "milestone.halo"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.sprout",
+          "milestone.boots"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.boots",
+          "milestone.sprout"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.sprout",
+          "milestone.cape"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.cape",
+          "milestone.sprout"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.sprout",
+          "skin.forest-leaf"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.sprout",
+          "skin.forest-leaf"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.sprout",
+          "skin.sakura-flower"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.sprout",
+          "skin.sakura-flower"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.sprout",
+          "skin.moon-crescent"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.sprout",
+          "skin.moon-crescent"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.sprout",
+          "skin.flame-tip"
+        ],
+        "compatible": false,
+        "retained": [
+          "skin.flame-tip"
+        ],
+        "reason": "exclusive-group-priority"
+      },
+      {
+        "ids": [
+          "milestone.sprout",
+          "skin.crown"
+        ],
+        "compatible": false,
+        "retained": [
+          "skin.crown"
+        ],
+        "reason": "exclusive-group-priority"
+      },
+      {
+        "ids": [
+          "milestone.sprout",
+          "skin.robot-antenna"
+        ],
+        "compatible": false,
+        "retained": [
+          "skin.robot-antenna"
+        ],
+        "reason": "exclusive-group-priority"
+      },
+      {
+        "ids": [
+          "milestone.sprout",
+          "skin.woodsman-cap"
+        ],
+        "compatible": false,
+        "retained": [
+          "skin.woodsman-cap"
+        ],
+        "reason": "exclusive-group-priority"
+      },
+      {
+        "ids": [
+          "milestone.sprout",
+          "skin.ocean-fin"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.ocean-fin",
+          "milestone.sprout"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.sprout",
+          "skin.bat-wings"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.bat-wings",
+          "milestone.sprout"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.sunhat",
+          "milestone.satchel"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.satchel",
+          "milestone.sunhat"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.sunhat",
+          "milestone.scarf"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.scarf",
+          "milestone.sunhat"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.sunhat",
+          "milestone.halo"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.sunhat",
+          "milestone.halo"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.sunhat",
+          "milestone.boots"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.boots",
+          "milestone.sunhat"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.sunhat",
+          "milestone.cape"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.cape",
+          "milestone.sunhat"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.sunhat",
+          "skin.forest-leaf"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.forest-leaf",
+          "milestone.sunhat"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.sunhat",
+          "skin.sakura-flower"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.sakura-flower",
+          "milestone.sunhat"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.sunhat",
+          "skin.moon-crescent"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.moon-crescent",
+          "milestone.sunhat"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.sunhat",
+          "skin.flame-tip"
+        ],
+        "compatible": false,
+        "retained": [
+          "skin.flame-tip"
+        ],
+        "reason": "exclusive-group-priority"
+      },
+      {
+        "ids": [
+          "milestone.sunhat",
+          "skin.crown"
+        ],
+        "compatible": false,
+        "retained": [
+          "skin.crown"
+        ],
+        "reason": "exclusive-group-priority"
+      },
+      {
+        "ids": [
+          "milestone.sunhat",
+          "skin.robot-antenna"
+        ],
+        "compatible": false,
+        "retained": [
+          "skin.robot-antenna"
+        ],
+        "reason": "exclusive-group-priority"
+      },
+      {
+        "ids": [
+          "milestone.sunhat",
+          "skin.woodsman-cap"
+        ],
+        "compatible": false,
+        "retained": [
+          "skin.woodsman-cap"
+        ],
+        "reason": "exclusive-group-priority"
+      },
+      {
+        "ids": [
+          "milestone.sunhat",
+          "skin.ocean-fin"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.ocean-fin",
+          "milestone.sunhat"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.sunhat",
+          "skin.bat-wings"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.bat-wings",
+          "milestone.sunhat"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.satchel",
+          "milestone.scarf"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.satchel",
+          "milestone.scarf"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.satchel",
+          "milestone.halo"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.satchel",
+          "milestone.halo"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.satchel",
+          "milestone.boots"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.satchel",
+          "milestone.boots"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.satchel",
+          "milestone.cape"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.cape",
+          "milestone.satchel"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.satchel",
+          "skin.forest-leaf"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.satchel",
+          "skin.forest-leaf"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.satchel",
+          "skin.sakura-flower"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.satchel",
+          "skin.sakura-flower"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.satchel",
+          "skin.moon-crescent"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.satchel",
+          "skin.moon-crescent"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.satchel",
+          "skin.flame-tip"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.satchel",
+          "skin.flame-tip"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.satchel",
+          "skin.crown"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.satchel",
+          "skin.crown"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.satchel",
+          "skin.robot-antenna"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.satchel",
+          "skin.robot-antenna"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.satchel",
+          "skin.woodsman-cap"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.satchel",
+          "skin.woodsman-cap"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.satchel",
+          "skin.ocean-fin"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.ocean-fin",
+          "milestone.satchel"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.satchel",
+          "skin.bat-wings"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.bat-wings",
+          "milestone.satchel"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.scarf",
+          "milestone.halo"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.scarf",
+          "milestone.halo"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.scarf",
+          "milestone.boots"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.scarf",
+          "milestone.boots"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.scarf",
+          "milestone.cape"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.cape",
+          "milestone.scarf"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.scarf",
+          "skin.forest-leaf"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.scarf",
+          "skin.forest-leaf"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.scarf",
+          "skin.sakura-flower"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.scarf",
+          "skin.sakura-flower"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.scarf",
+          "skin.moon-crescent"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.scarf",
+          "skin.moon-crescent"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.scarf",
+          "skin.flame-tip"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.scarf",
+          "skin.flame-tip"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.scarf",
+          "skin.crown"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.scarf",
+          "skin.crown"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.scarf",
+          "skin.robot-antenna"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.scarf",
+          "skin.robot-antenna"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.scarf",
+          "skin.woodsman-cap"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.scarf",
+          "skin.woodsman-cap"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.scarf",
+          "skin.ocean-fin"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.ocean-fin",
+          "milestone.scarf"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.scarf",
+          "skin.bat-wings"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.bat-wings",
+          "milestone.scarf"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.halo",
+          "milestone.boots"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.boots",
+          "milestone.halo"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.halo",
+          "milestone.cape"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.cape",
+          "milestone.halo"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.halo",
+          "skin.forest-leaf"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.forest-leaf",
+          "milestone.halo"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.halo",
+          "skin.sakura-flower"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.sakura-flower",
+          "milestone.halo"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.halo",
+          "skin.moon-crescent"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.moon-crescent",
+          "milestone.halo"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.halo",
+          "skin.flame-tip"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.flame-tip",
+          "milestone.halo"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.halo",
+          "skin.crown"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.crown",
+          "milestone.halo"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.halo",
+          "skin.robot-antenna"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.robot-antenna",
+          "milestone.halo"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.halo",
+          "skin.woodsman-cap"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.woodsman-cap",
+          "milestone.halo"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.halo",
+          "skin.ocean-fin"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.ocean-fin",
+          "milestone.halo"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.halo",
+          "skin.bat-wings"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.bat-wings",
+          "milestone.halo"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.boots",
+          "milestone.cape"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.cape",
+          "milestone.boots"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.boots",
+          "skin.forest-leaf"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.boots",
+          "skin.forest-leaf"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.boots",
+          "skin.sakura-flower"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.boots",
+          "skin.sakura-flower"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.boots",
+          "skin.moon-crescent"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.boots",
+          "skin.moon-crescent"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.boots",
+          "skin.flame-tip"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.boots",
+          "skin.flame-tip"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.boots",
+          "skin.crown"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.boots",
+          "skin.crown"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.boots",
+          "skin.robot-antenna"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.boots",
+          "skin.robot-antenna"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.boots",
+          "skin.woodsman-cap"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.boots",
+          "skin.woodsman-cap"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.boots",
+          "skin.ocean-fin"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.ocean-fin",
+          "milestone.boots"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.boots",
+          "skin.bat-wings"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.bat-wings",
+          "milestone.boots"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.cape",
+          "skin.forest-leaf"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.cape",
+          "skin.forest-leaf"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.cape",
+          "skin.sakura-flower"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.cape",
+          "skin.sakura-flower"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.cape",
+          "skin.moon-crescent"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.cape",
+          "skin.moon-crescent"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.cape",
+          "skin.flame-tip"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.cape",
+          "skin.flame-tip"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.cape",
+          "skin.crown"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.cape",
+          "skin.crown"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.cape",
+          "skin.robot-antenna"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.cape",
+          "skin.robot-antenna"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.cape",
+          "skin.woodsman-cap"
+        ],
+        "compatible": true,
+        "retained": [
+          "milestone.cape",
+          "skin.woodsman-cap"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "milestone.cape",
+          "skin.ocean-fin"
+        ],
+        "compatible": false,
+        "retained": [
+          "skin.ocean-fin"
+        ],
+        "reason": "exclusive-group-priority"
+      },
+      {
+        "ids": [
+          "milestone.cape",
+          "skin.bat-wings"
+        ],
+        "compatible": false,
+        "retained": [
+          "skin.bat-wings"
+        ],
+        "reason": "exclusive-group-priority"
+      },
+      {
+        "ids": [
+          "skin.forest-leaf",
+          "skin.sakura-flower"
+        ],
+        "compatible": false,
+        "retained": [
+          "skin.forest-leaf"
+        ],
+        "reason": "exclusive-group-priority"
+      },
+      {
+        "ids": [
+          "skin.forest-leaf",
+          "skin.moon-crescent"
+        ],
+        "compatible": false,
+        "retained": [
+          "skin.moon-crescent"
+        ],
+        "reason": "exclusive-group-priority"
+      },
+      {
+        "ids": [
+          "skin.forest-leaf",
+          "skin.flame-tip"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.forest-leaf",
+          "skin.flame-tip"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.forest-leaf",
+          "skin.crown"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.forest-leaf",
+          "skin.crown"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.forest-leaf",
+          "skin.robot-antenna"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.forest-leaf",
+          "skin.robot-antenna"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.forest-leaf",
+          "skin.woodsman-cap"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.forest-leaf",
+          "skin.woodsman-cap"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.forest-leaf",
+          "skin.ocean-fin"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.ocean-fin",
+          "skin.forest-leaf"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.forest-leaf",
+          "skin.bat-wings"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.bat-wings",
+          "skin.forest-leaf"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.sakura-flower",
+          "skin.moon-crescent"
+        ],
+        "compatible": false,
+        "retained": [
+          "skin.moon-crescent"
+        ],
+        "reason": "exclusive-group-priority"
+      },
+      {
+        "ids": [
+          "skin.sakura-flower",
+          "skin.flame-tip"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.sakura-flower",
+          "skin.flame-tip"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.sakura-flower",
+          "skin.crown"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.sakura-flower",
+          "skin.crown"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.sakura-flower",
+          "skin.robot-antenna"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.sakura-flower",
+          "skin.robot-antenna"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.sakura-flower",
+          "skin.woodsman-cap"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.sakura-flower",
+          "skin.woodsman-cap"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.sakura-flower",
+          "skin.ocean-fin"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.ocean-fin",
+          "skin.sakura-flower"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.sakura-flower",
+          "skin.bat-wings"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.bat-wings",
+          "skin.sakura-flower"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.moon-crescent",
+          "skin.flame-tip"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.flame-tip",
+          "skin.moon-crescent"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.moon-crescent",
+          "skin.crown"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.moon-crescent",
+          "skin.crown"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.moon-crescent",
+          "skin.robot-antenna"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.robot-antenna",
+          "skin.moon-crescent"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.moon-crescent",
+          "skin.woodsman-cap"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.woodsman-cap",
+          "skin.moon-crescent"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.moon-crescent",
+          "skin.ocean-fin"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.ocean-fin",
+          "skin.moon-crescent"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.moon-crescent",
+          "skin.bat-wings"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.bat-wings",
+          "skin.moon-crescent"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.flame-tip",
+          "skin.crown"
+        ],
+        "compatible": false,
+        "retained": [
+          "skin.crown"
+        ],
+        "reason": "exclusive-group-priority"
+      },
+      {
+        "ids": [
+          "skin.flame-tip",
+          "skin.robot-antenna"
+        ],
+        "compatible": false,
+        "retained": [
+          "skin.flame-tip"
+        ],
+        "reason": "exclusive-group-priority"
+      },
+      {
+        "ids": [
+          "skin.flame-tip",
+          "skin.woodsman-cap"
+        ],
+        "compatible": false,
+        "retained": [
+          "skin.woodsman-cap"
+        ],
+        "reason": "exclusive-group-priority"
+      },
+      {
+        "ids": [
+          "skin.flame-tip",
+          "skin.ocean-fin"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.ocean-fin",
+          "skin.flame-tip"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.flame-tip",
+          "skin.bat-wings"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.bat-wings",
+          "skin.flame-tip"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.crown",
+          "skin.robot-antenna"
+        ],
+        "compatible": false,
+        "retained": [
+          "skin.crown"
+        ],
+        "reason": "exclusive-group-priority"
+      },
+      {
+        "ids": [
+          "skin.crown",
+          "skin.woodsman-cap"
+        ],
+        "compatible": false,
+        "retained": [
+          "skin.crown"
+        ],
+        "reason": "exclusive-group-priority"
+      },
+      {
+        "ids": [
+          "skin.crown",
+          "skin.ocean-fin"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.ocean-fin",
+          "skin.crown"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.crown",
+          "skin.bat-wings"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.bat-wings",
+          "skin.crown"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.robot-antenna",
+          "skin.woodsman-cap"
+        ],
+        "compatible": false,
+        "retained": [
+          "skin.woodsman-cap"
+        ],
+        "reason": "exclusive-group-priority"
+      },
+      {
+        "ids": [
+          "skin.robot-antenna",
+          "skin.ocean-fin"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.ocean-fin",
+          "skin.robot-antenna"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.robot-antenna",
+          "skin.bat-wings"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.bat-wings",
+          "skin.robot-antenna"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.woodsman-cap",
+          "skin.ocean-fin"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.ocean-fin",
+          "skin.woodsman-cap"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.woodsman-cap",
+          "skin.bat-wings"
+        ],
+        "compatible": true,
+        "retained": [
+          "skin.bat-wings",
+          "skin.woodsman-cap"
+        ],
+        "reason": "different-or-unrestricted-slot"
+      },
+      {
+        "ids": [
+          "skin.ocean-fin",
+          "skin.bat-wings"
+        ],
+        "compatible": false,
+        "retained": [
+          "skin.ocean-fin"
+        ],
+        "reason": "exclusive-group-priority"
+      }
+    ],
+    "automaticOutfits": [
+      {
+        "skin": "pink",
+        "levels": [
+          {
+            "level": 1,
+            "items": []
+          },
+          {
+            "level": 3,
+            "items": [
+              "milestone.sprout"
+            ]
+          },
+          {
+            "level": 5,
+            "items": [
+              "milestone.sunhat"
+            ]
+          },
+          {
+            "level": 7,
+            "items": [
+              "milestone.sunhat"
+            ]
+          },
+          {
+            "level": 9,
+            "items": [
+              "milestone.satchel",
+              "milestone.sunhat"
+            ]
+          },
+          {
+            "level": 12,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 15,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 18,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 20,
+            "items": [
+              "milestone.cape",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 25,
+            "items": [
+              "milestone.cape",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          }
+        ]
+      },
+      {
+        "skin": "forest",
+        "levels": [
+          {
+            "level": 1,
+            "items": [
+              "skin.forest-leaf"
+            ]
+          },
+          {
+            "level": 3,
+            "items": [
+              "milestone.sprout",
+              "skin.forest-leaf"
+            ]
+          },
+          {
+            "level": 5,
+            "items": [
+              "skin.forest-leaf",
+              "milestone.sunhat"
+            ]
+          },
+          {
+            "level": 7,
+            "items": [
+              "skin.forest-leaf",
+              "milestone.sunhat"
+            ]
+          },
+          {
+            "level": 9,
+            "items": [
+              "milestone.satchel",
+              "skin.forest-leaf",
+              "milestone.sunhat"
+            ]
+          },
+          {
+            "level": 12,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "skin.forest-leaf",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 15,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.forest-leaf",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 18,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.forest-leaf",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 20,
+            "items": [
+              "milestone.cape",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.forest-leaf",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 25,
+            "items": [
+              "milestone.cape",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.forest-leaf",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          }
+        ]
+      },
+      {
+        "skin": "ocean",
+        "levels": [
+          {
+            "level": 1,
+            "items": [
+              "skin.ocean-fin"
+            ]
+          },
+          {
+            "level": 3,
+            "items": [
+              "skin.ocean-fin",
+              "milestone.sprout"
+            ]
+          },
+          {
+            "level": 5,
+            "items": [
+              "skin.ocean-fin",
+              "milestone.sunhat"
+            ]
+          },
+          {
+            "level": 7,
+            "items": [
+              "skin.ocean-fin",
+              "milestone.sunhat"
+            ]
+          },
+          {
+            "level": 9,
+            "items": [
+              "skin.ocean-fin",
+              "milestone.satchel",
+              "milestone.sunhat"
+            ]
+          },
+          {
+            "level": 12,
+            "items": [
+              "skin.ocean-fin",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 15,
+            "items": [
+              "skin.ocean-fin",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 18,
+            "items": [
+              "skin.ocean-fin",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 20,
+            "items": [
+              "skin.ocean-fin",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 25,
+            "items": [
+              "skin.ocean-fin",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          }
+        ]
+      },
+      {
+        "skin": "sakura",
+        "levels": [
+          {
+            "level": 1,
+            "items": [
+              "skin.sakura-flower"
+            ]
+          },
+          {
+            "level": 3,
+            "items": [
+              "milestone.sprout",
+              "skin.sakura-flower"
+            ]
+          },
+          {
+            "level": 5,
+            "items": [
+              "skin.sakura-flower",
+              "milestone.sunhat"
+            ]
+          },
+          {
+            "level": 7,
+            "items": [
+              "skin.sakura-flower",
+              "milestone.sunhat"
+            ]
+          },
+          {
+            "level": 9,
+            "items": [
+              "milestone.satchel",
+              "skin.sakura-flower",
+              "milestone.sunhat"
+            ]
+          },
+          {
+            "level": 12,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "skin.sakura-flower",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 15,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.sakura-flower",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 18,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.sakura-flower",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 20,
+            "items": [
+              "milestone.cape",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.sakura-flower",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 25,
+            "items": [
+              "milestone.cape",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.sakura-flower",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          }
+        ]
+      },
+      {
+        "skin": "moon",
+        "levels": [
+          {
+            "level": 1,
+            "items": [
+              "skin.moon-crescent"
+            ]
+          },
+          {
+            "level": 3,
+            "items": [
+              "milestone.sprout",
+              "skin.moon-crescent"
+            ]
+          },
+          {
+            "level": 5,
+            "items": [
+              "skin.moon-crescent",
+              "milestone.sunhat"
+            ]
+          },
+          {
+            "level": 7,
+            "items": [
+              "skin.moon-crescent",
+              "milestone.sunhat"
+            ]
+          },
+          {
+            "level": 9,
+            "items": [
+              "milestone.satchel",
+              "skin.moon-crescent",
+              "milestone.sunhat"
+            ]
+          },
+          {
+            "level": 12,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "skin.moon-crescent",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 15,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.moon-crescent",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 18,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.moon-crescent",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 20,
+            "items": [
+              "milestone.cape",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.moon-crescent",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 25,
+            "items": [
+              "milestone.cape",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.moon-crescent",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          }
+        ]
+      },
+      {
+        "skin": "flame",
+        "levels": [
+          {
+            "level": 1,
+            "items": [
+              "skin.flame-tip"
+            ]
+          },
+          {
+            "level": 3,
+            "items": [
+              "skin.flame-tip"
+            ]
+          },
+          {
+            "level": 5,
+            "items": [
+              "skin.flame-tip"
+            ]
+          },
+          {
+            "level": 7,
+            "items": [
+              "skin.flame-tip"
+            ]
+          },
+          {
+            "level": 9,
+            "items": [
+              "milestone.satchel",
+              "skin.flame-tip"
+            ]
+          },
+          {
+            "level": 12,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "skin.flame-tip",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 15,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.flame-tip",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 18,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.flame-tip",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 20,
+            "items": [
+              "milestone.cape",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.flame-tip",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 25,
+            "items": [
+              "milestone.cape",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.flame-tip",
+              "milestone.halo"
+            ]
+          }
+        ]
+      },
+      {
+        "skin": "crown",
+        "levels": [
+          {
+            "level": 1,
+            "items": [
+              "skin.crown"
+            ]
+          },
+          {
+            "level": 3,
+            "items": [
+              "skin.crown"
+            ]
+          },
+          {
+            "level": 5,
+            "items": [
+              "skin.crown"
+            ]
+          },
+          {
+            "level": 7,
+            "items": [
+              "skin.crown"
+            ]
+          },
+          {
+            "level": 9,
+            "items": [
+              "milestone.satchel",
+              "skin.crown"
+            ]
+          },
+          {
+            "level": 12,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "skin.crown",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 15,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.crown",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 18,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.crown",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 20,
+            "items": [
+              "milestone.cape",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.crown",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 25,
+            "items": [
+              "milestone.cape",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.crown",
+              "milestone.halo"
+            ]
+          }
+        ]
+      },
+      {
+        "skin": "robot",
+        "levels": [
+          {
+            "level": 1,
+            "items": [
+              "skin.robot-antenna"
+            ]
+          },
+          {
+            "level": 3,
+            "items": [
+              "skin.robot-antenna"
+            ]
+          },
+          {
+            "level": 5,
+            "items": [
+              "skin.robot-antenna"
+            ]
+          },
+          {
+            "level": 7,
+            "items": [
+              "skin.robot-antenna"
+            ]
+          },
+          {
+            "level": 9,
+            "items": [
+              "milestone.satchel",
+              "skin.robot-antenna"
+            ]
+          },
+          {
+            "level": 12,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "skin.robot-antenna",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 15,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.robot-antenna",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 18,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.robot-antenna",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 20,
+            "items": [
+              "milestone.cape",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.robot-antenna",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 25,
+            "items": [
+              "milestone.cape",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.robot-antenna",
+              "milestone.halo"
+            ]
+          }
+        ]
+      },
+      {
+        "skin": "woodsman",
+        "levels": [
+          {
+            "level": 1,
+            "items": [
+              "skin.woodsman-cap"
+            ]
+          },
+          {
+            "level": 3,
+            "items": [
+              "skin.woodsman-cap"
+            ]
+          },
+          {
+            "level": 5,
+            "items": [
+              "skin.woodsman-cap"
+            ]
+          },
+          {
+            "level": 7,
+            "items": [
+              "skin.woodsman-cap"
+            ]
+          },
+          {
+            "level": 9,
+            "items": [
+              "milestone.satchel",
+              "skin.woodsman-cap"
+            ]
+          },
+          {
+            "level": 12,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "skin.woodsman-cap",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 15,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.woodsman-cap",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 18,
+            "items": [
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.woodsman-cap",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 20,
+            "items": [
+              "milestone.cape",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.woodsman-cap",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 25,
+            "items": [
+              "milestone.cape",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "skin.woodsman-cap",
+              "milestone.halo"
+            ]
+          }
+        ]
+      },
+      {
+        "skin": "bat",
+        "levels": [
+          {
+            "level": 1,
+            "items": [
+              "skin.bat-wings"
+            ]
+          },
+          {
+            "level": 3,
+            "items": [
+              "skin.bat-wings",
+              "milestone.sprout"
+            ]
+          },
+          {
+            "level": 5,
+            "items": [
+              "skin.bat-wings",
+              "milestone.sunhat"
+            ]
+          },
+          {
+            "level": 7,
+            "items": [
+              "skin.bat-wings",
+              "milestone.sunhat"
+            ]
+          },
+          {
+            "level": 9,
+            "items": [
+              "skin.bat-wings",
+              "milestone.satchel",
+              "milestone.sunhat"
+            ]
+          },
+          {
+            "level": 12,
+            "items": [
+              "skin.bat-wings",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 15,
+            "items": [
+              "skin.bat-wings",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 18,
+            "items": [
+              "skin.bat-wings",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 20,
+            "items": [
+              "skin.bat-wings",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          },
+          {
+            "level": 25,
+            "items": [
+              "skin.bat-wings",
+              "milestone.satchel",
+              "milestone.scarf",
+              "milestone.boots",
+              "milestone.sunhat",
+              "milestone.halo"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,59 @@
+# Archival bootstrap. The reviewed recipe.json is authoritative; rebuild with build-assets.py.
+from pathlib import Path
+import json
+ROOT=Path(__file__).resolve().parents[1];V=['front','three-quarter','profile','back'];items={}
+def p(sources,crops,widths,centers,tops=None,bottoms=None,mode=None,polygons=None,bone='root',flip=None):
+ d={'source':sources[0] if isinstance(sources,list) else sources,'sources':sources if isinstance(sources,list) else [sources]*4,'crops':crops,'widths':widths,'centers':centers,'bone':bone}
+ if tops:d['tops']=tops
+ if bottoms:d['bottoms']=bottoms
+ if mode:d['colorMode']=mode
+ if polygons:d['polygons']=polygons
+ if flip:d['flip']=flip
+ return d
+def add(name,slot,parts,replaces=None):
+ d={'slot':'usagi.'+slot,'parts':parts}
+ if replaces:d['replaces']=replaces
+ items['usagi.'+name]=d
+wear=[f'moon-post-v1-{v}.png' for v in V];cape=[f'moon-cape-only-v1-{v}.png'for v in V];collar=[f'moon-collar-only-v1-{v}.png'for v in V]
+# Visible hat and cape pixels are cut from the fitted wear masters. The back hat uses the completed rear cap only where the head/ears hide its interior.
+add('moon-beret','headwear',[p(wear[:3]+['moon-accessories-v1.png'],[[366,167,523,256],[257,169,414,255],[403,145,542,234],[1038,75,1267,222]],[115,111,94,118],[256,273,287,252],[136,138,139,136],mode=['purple-worn','purple-worn','purple-worn',None])])
+add('starlit-cape','backwear',[p(cape,[[237,398,578,512],[130,398,451,514],[249,343,530,459],[135,345,468,479]],[204,196,158,205],[256,269,274,256],[345,345,345,345],mode='purple-worn')])
+# Cream charm and ribbon tails are exact source pixels inside explicit silhouette masks; the narrow purple band uses a material mask.
+polys=[[
+ [[408,409],[414,416],[424,416],[430,425],[425,433],[428,442],[417,448],[410,445],[399,448],[391,443],[392,434],[387,427],[392,418],[402,417]],
+ [[393,439],[407,447],[392,484],[386,487],[366,473],[370,465]],
+ [[418,439],[427,442],[449,470],[444,477],[424,487],[409,450]]
+ ],[
+ [[319,410],[325,417],[335,417],[341,425],[337,433],[341,444],[329,448],[321,443],[311,449],[301,444],[302,435],[297,428],[302,419],[312,419]],
+ [[303,440],[317,447],[299,484],[292,488],[274,474],[278,466]],
+ [[329,440],[338,443],[356,470],[353,477],[333,487],[320,449]]
+ ],[
+ [[494,359],[500,366],[510,366],[517,377],[510,386],[512,395],[502,399],[493,393],[484,398],[477,390],[480,382],[477,374],[485,370],[488,364]],
+ [[483,391],[495,399],[488,429],[483,434],[468,423]],
+ [[501,391],[512,395],[529,414],[528,421],[511,432],[494,399]]
+ ],[]]
+add('star-collar','neckwear',[p(collar,[[298,400,528,491],[188,399,398,491],[309,348,535,438],[203,350,411,393]],[176,167,155,177],[256,269,287,256],[344,344,344,344],mode='purple-worn',polygons=polys)])
+# Exact short strap and envelope front are independently preserved; no detached atlas double loops.
+bagpolys=[[
+ [[299,460],[377,471],[383,478],[376,509],[372,527],[365,535],[292,525],[282,519],[284,496],[290,473]],
+ [[330,461],[390,426],[400,430],[341,466]]
+ ],[
+ [[212,468],[291,479],[297,484],[289,516],[283,533],[277,540],[202,529],[191,523],[195,496],[204,476]],
+ [[252,471],[312,432],[324,433],[265,477]]
+ ],[
+ [[445,440],[500,446],[505,454],[500,489],[496,505],[487,512],[412,499],[405,491],[405,463],[415,455],[431,459]],
+ [[470,439],[507,412],[515,419],[486,443]]
+ ],[
+ [[404,430],[427,432],[437,452],[438,477],[434,487],[424,494],[396,495],[399,474],[404,451]],
+ [[281,394],[293,394],[316,407],[349,425],[407,448],[407,468],[392,462],[352,444],[315,423],[287,404]]
+ ]]
+add('envelope-pouch','sidebag',[p(wear,[[277,421,405,540],[185,428,330,544],[397,407,521,518],[274,390,443,500]],[84,86,74,113],[176,194,271,300],[367,367,368,366],mode='polygon',polygons=bagpolys)])
+arcPolys=[[[[324,7],[503,7],[506,83],[464,84],[454,52],[375,54],[369,85],[325,85]]],[[[212,7],[382,7],[382,89],[339,87],[332,53],[258,53],[251,83],[214,83]]],[[[354,5],[510,5],[510,89],[466,90],[459,63],[404,55],[402,83],[354,83]]],[[[211,7],[388,7],[389,88],[344,87],[337,57],[260,57],[255,85],[212,85]]]]
+add('constellation','aura',[p(wear,[[321,8,510,88],[210,8,388,92],[351,6,513,94],[208,8,391,93]],[131,127,109,129],[256,271,286,256],[11,12,13,12],mode='polygon',polygons=arcPolys)])
+# Fully visible isolated boot silhouettes only. Quarter/profile use the full visible near boot for both independent legs with declared bilateral duplication and profile reflection.
+A='moon-accessories-v1.png'
+bootNearPolys=[[],[[[425,991],[515,991],[523,1004],[519,1035],[512,1047],[515,1070],[534,1105],[536,1129],[517,1139],[471,1143],[429,1137],[411,1125],[411,1104],[419,1071],[421,1049],[416,1037],[416,1009]]],[[[862,1016],[944,1016],[956,1029],[956,1049],[947,1064],[954,1108],[955,1122],[945,1133],[908,1143],[847,1143],[818,1132],[815,1117],[818,1104],[833,1087],[850,1073],[852,1057],[852,1036]]],[]]
+bootCrops=[[54,980,178,1140],[404,980,541,1148],[808,1008,963,1149],[1040,983,1156,1142]]
+rightCrops=[[181,980,299,1140],[404,980,541,1148],[808,1008,963,1149],[1156,983,1280,1142]]
+add('moon-boots','footwear',[p(A,bootCrops,[45,45,47,44],[205,231,247,205],bottoms=[461]*4,mode=[None,'polygon','polygon',None],polygons=bootNearPolys,bone='leg_l',flip=[False,False,True,False]),p(A,rightCrops,[45,45,47,44],[306]*4,bottoms=[461]*4,mode=[None,'polygon','polygon',None],polygons=bootNearPolys,bone='leg_r',flip=[False,False,True,False])],['leg_l','leg_r'])
+(ROOT/'recipe.json').write_text(json.dumps({'items':items,'outfits':{'moon':['usagi.starlit-cape','usagi.moon-beret','usagi.star-collar','usagi.envelope-pouch','usagi.constellation','usagi.moon-boots']}},indent=2)+'\n')

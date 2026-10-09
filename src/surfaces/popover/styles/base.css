@@ -1,0 +1,62 @@
+/* 元素默认值、窗口外壳、CRT 覆盖层与全局焦点环。一条规则该不该在这里，
+   看它是不是与哪一个 feature 都无关：拆掉哪一页它都还得留着。 */
+
+@layer base {
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+    -webkit-font-smoothing: none;
+    font-smooth: never;
+    image-rendering: pixelated;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  html, body { width: 100%; height: 100vh; overflow: hidden; }
+  body.pixel-body {
+    /* Keep muted copy readable even when a skin provides an overly dim fg-2. */
+    --fg-2: color-mix(in srgb, var(--fg-1) 85%, var(--bg-1));
+    background: linear-gradient(180deg, rgba(22,22,30,0.94) 0%, rgba(26,27,38,0.96) 100%);
+    color: var(--fg-0);
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    border-radius: 12px;
+    border: 2px solid var(--bg-3);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+/* CRT overlays — hardware-accelerated fixed layer, won't cause reflow flicker */
+  .scanlines {
+    position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+    background: repeating-linear-gradient(0deg,
+      rgb(var(--shadow-rgb) / 0.13) 0px, rgb(var(--shadow-rgb) / 0.13) 1px,
+      transparent 1px, transparent 3px);
+    border-radius: 12px;
+    mix-blend-mode: multiply;
+    opacity: 0.35;
+    will-change: transform;
+  }
+  .crt-overlay {
+    position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+    /* 暗角的颜色取自当前皮肤的 --bg-0,不再写死成黑色。换上浅色皮肤时暗角随之变浅、
+       与页面同调,那层「灰蒙蒙的雾」就消失了;深色皮肤下 --bg-0 本就接近黑,四角照旧
+       压暗。这正是下面那条注释一直想要、却只在 body 上做了一半的「暗角跟着皮肤走」——
+       之前 body 底色跟了皮肤,而这层暗角还是死黑,于是浅色皮肤一换就露出一整圈黑框。
+       stimulation=low 仍把整层关掉(见 utilities.css);这里只修 balanced/high 下的着色。 */
+    background: radial-gradient(ellipse at center,
+      transparent 60%,
+      color-mix(in srgb, var(--bg-0) 60%, transparent) 100%);
+    border-radius: 12px;
+  }
+/* body 底色早就跟着皮肤走(下面这条);上面那层暗角刚刚才补齐同一件事。 */
+  body.pixel-body {
+    background: linear-gradient(180deg,
+      color-mix(in srgb, var(--bg-0) 94%, transparent) 0%,
+      color-mix(in srgb, var(--bg-1) 96%, transparent) 100%);
+  }
+  :where(button, input, summary, [role="button"], [role="checkbox"], [tabindex]):focus-visible {
+    outline: 3px solid var(--cyan);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--bg-0), 0 0 0 5px color-mix(in srgb, var(--cyan) 55%, transparent);
+  }
+}

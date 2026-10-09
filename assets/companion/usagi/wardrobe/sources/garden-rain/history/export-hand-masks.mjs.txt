@@ -1,0 +1,8 @@
+import fs from 'node:fs';
+import rig from '/workspace/shared/Hi-adhd/assets/companion/usagi/rig/usagi.rig.mjs';
+const out=new URL('../masks/',import.meta.url);
+for(const[v,d]of Object.entries(rig.views)){
+ const p=d.parts.filter(p=>p.layer==='front'&&(p.bone==='hand_l'||p.bone==='hand_r')).flatMap(p=>p.shapes).map(s=>`<path d="${s.d}" fill="white" stroke="white" stroke-width="${s.width}" stroke-linecap="round" stroke-linejoin="round"/>`).join('');
+ fs.writeFileSync(new URL(`${v}-hands.svg`,out),`<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512"><g transform="translate(117.4 175) scale(4.2)">${p}</g></svg>`);
+}
+fs.writeFileSync(new URL('rig-contract.json',out),JSON.stringify(Object.fromEntries(Object.entries(rig.views).map(([v,d])=>[v,{bones:d.bones,anchors:d.anchors}])),null,2));

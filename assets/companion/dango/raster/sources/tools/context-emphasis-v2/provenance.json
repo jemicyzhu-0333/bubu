@@ -1,0 +1,54 @@
+{
+  "version": 2,
+  "generatedWith": "built-in image_gen image editing tool; no seed or specific model revision exposed",
+  "generationDate": "2026-10-04",
+  "master": {
+    "file": "master.png",
+    "sha256": "06bb7b628a06ea1b0a96ee1d775d4090b4c252f7b42de9e855d89c25d1324a55",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "prompt": "prompt-2.txt",
+    "referenceOrder": [
+      "wear-fit-reference.png"
+    ]
+  },
+  "wearReference": {
+    "file": "wear-fit-reference.png",
+    "sha256": "fdf56413e0742a7dbf2f693d5e17a35bab7aeab4a56e4eaee9eb522b95147197",
+    "dimensions": [
+      1774,
+      887
+    ],
+    "prompt": "prompt-1.txt",
+    "referenceOrder": [
+      {
+        "role": "approved actual rendered body, clothing, laptop",
+        "path": "pet-real-event-evidence/dango-fit-final/native-and-2x.png",
+        "sha256": "0338d4cec9047d30fa704467899224ba71fad95bc3e25441b2c9df435ae27f15"
+      },
+      {
+        "role": "approved tiny integrated paws anatomy",
+        "path": "assets/companion/dango/raster/sources/tools/masters/small-hands-approved-v2.png",
+        "sha256": "0dec495233f3bc4869211a19fedb376a191b61dab55d42c131636467828b7666"
+      }
+    ]
+  },
+  "inspection": {
+    "wearReference": "Design direction only. Generated body/outfit pixels are rejected; AI row wrongly repeats headphones. No generated character, clothing or laptop pixels enter runtime.",
+    "productionMaster": "Accept headphone and notebook robot shapes only. Pointing robot retained in untouched master but not used. Low-alpha fringe preserved, not stripped; actual light/dark small-scale composite inspected.",
+    "characterProfile": "Original round pink body, short triangular ears, tiny black facial marks and short integrated fin paws; front and double-eye three-quarter only. No body, face, laptop, clothes or shoes edits.",
+    "runtimeSize": "66 art body at1.5CSS/art =99CSS body design width;146art stage. Robot18art wide ×18.7866323907455art high (uniform scale), x78..96 y45.2133676092545..64 before gentle rooted tilt.",
+    "palette": "Headphones pale lavender cushions and dark navy-purple outline. Robot cream shell, mint visor, lavender pods, blank cream notebook. No claim of AI processing phase or music BPM.",
+    "layering": "Headband before ears/body/outfit. Cups in front outside face. Robot front outside clothing at right edge, never in lower badge CSS y183..204. All special props share existing propOpacity, actionReady, and mirrorPresentation; static low-stimulation whole pose."
+  },
+  "reproduction": "python tools/dango-raster/generation/extract-context-emphasis.py NEW_DIRECTORY; compare recipe hashes; node tools/dango-raster/assemble.mjs --check",
+  "approvedRuntimeInvariants": {
+    "assets/companion/dango/raster/views/front/body.png": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+    "assets/companion/dango/raster/views/three-quarter-right/body.png": "8d76b379f2d0e2816e19dc2ef9b5efdfe8d64567a4c866e84471cf8fbe44f450",
+    "assets/companion/dango/raster/tools/small-fin.png": "93a4101e19ee9d99eee8a71de3e33497e9e205e905199c3e7eb9499f41ebcb1f",
+    "assets/companion/dango/raster/tools/laptop-reverse-front.png": "924e0e974a55a475a497ca7bfb58c7ce214d0e649fdfc6438daa378e718fa9e5",
+    "assets/companion/dango/raster/tools/laptop-reverse-three-quarter.png": "97d86df5cefef52124f39ae58b54fd04ae51479dc2999e760bef0349f75859d3"
+  }
+}

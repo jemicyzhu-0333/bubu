@@ -1,0 +1,267 @@
+/* 常驻外壳：头上那一条（等级、XP、免打扰、迷你计时）、下面那排页签与
+   它们的滚动区、能量条、迁移告知条、恢复摘要，以及今天与工作两页的版式。
+   对应 features/app-chrome.js。 */
+
+@layer features {
+/* ---------- HEADER ---------- */
+  .header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 14px 10px 14px;
+    background: linear-gradient(180deg, var(--bg-2) 0%, transparent 100%);
+    border-bottom: 2px dashed var(--bg-3);
+    flex-shrink: 0;
+  }
+  .header-info { flex: 1; min-width: 0; }
+  .title-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .app-title {
+    font-size: 14px; font-weight: 900;
+    color: var(--primary-ink);
+    text-shadow: 2px 2px 0 var(--pink-dark);
+    letter-spacing: 2px;
+  }
+  .lv-badge {
+    background: var(--yellow); color: var(--ink);
+    font-size: 11px; font-weight: 900;
+    padding: 2px 6px;
+    border: 2px solid var(--yellow-dark);
+    box-shadow: 2px 2px 0 rgb(var(--shadow-rgb) / 0.5);
+  }
+  .xp-bar-outer {
+    position: relative; height: 14px;
+    background: var(--bg-1); border: 2px solid var(--bg-3);
+    overflow: hidden;
+  }
+  .xp-bar-inner {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green) 0%, var(--cyan) 100%);
+    width: 0%;
+    transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+  }
+  .xp-bar-inner::after {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(90deg,
+      rgba(255,255,255,0.2) 0 2px, transparent 2px 4px);
+  }
+  .xp-text {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700;
+    color: var(--fg-0);
+    text-shadow: 1px 1px 0 rgb(var(--shadow-rgb) / 0.8);
+    letter-spacing: 1px;
+  }
+  .meta-row {
+    margin-top: 6px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 11px;
+  }
+  .streak { color: var(--accent-ink); font-weight: 700; }
+  .status-pill {
+    background: var(--bg-3); padding: 2px 6px;
+    border: 1px solid var(--bg-3);
+    font-size: 11px; color: var(--fg-1);
+  }
+  .status-pill.focus { background: var(--pink); color: var(--ink); border-color: var(--pink-dark); animation: pulse-focus 1.2s ease-in-out infinite; }
+  .status-pill.break { background: var(--green); color: var(--ink); border-color: var(--green-dark); }
+  @keyframes pulse-focus {
+    0%,100% { box-shadow: 0 0 0 0 rgba(247,118,142,0.6); }
+    50% { box-shadow: 0 0 0 4px rgba(247,118,142,0); }
+  }
+/* ---------- TABS ---------- */
+  .tabs {
+    display: flex;
+    border-bottom: 2px solid var(--bg-3);
+    background: var(--bg-1);
+    flex-shrink: 0;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 10px 2px;
+    font-family: inherit; font-size: 11px; font-weight: 700;
+    color: var(--fg-2); background: transparent;
+    border: none; cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+    letter-spacing: 0.3px;
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    min-height: 46px;
+  }
+  .tab-btn:hover { color: var(--fg-0); background: var(--bg-2); }
+  .tab-btn.active { color: var(--primary-ink); background: var(--bg-0); }
+  .tab-btn.active::after {
+    content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+    height: 2px; background: var(--pink);
+  }
+  .tab-count {
+    display: inline-block; min-width: 14px;
+    padding: 0 3px;
+    background: var(--bg-3); color: var(--fg-1);
+    font-size: 11px;
+  }
+  .tab-btn.active .tab-count { background: var(--pink-dark); color: var(--fg-0); }
+/* ---------- TAB CONTENT ---------- */
+  .tab-content {
+    display: none;
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 10px;
+    min-height: 0;
+  }
+  .tab-content.active {
+    display: block;
+    animation: fadeIn 0.2s ease-out;
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .tab-content::-webkit-scrollbar { width: 6px; }
+  .tab-content::-webkit-scrollbar-track { background: var(--bg-1); }
+  .tab-content::-webkit-scrollbar-thumb { background: var(--bg-3); border: 1px solid var(--bg-0); }
+/* ============================================================
+   Additions: energy meter, categories, DDL, DND, recovery
+   ============================================================ */
+
+/* -- DND pill in header -- */
+  .dnd-pill {
+    background: var(--purple);
+    color: var(--ink);
+    font-size: 11px;
+    padding: 1px 5px;
+    border: 1px solid #7a5ed6;
+    margin-left: 4px;
+    animation: dndPulse 2s ease-in-out infinite;
+  }
+  @keyframes dndPulse {
+    0%,100% { opacity: 0.8; }
+    50% { opacity: 1; box-shadow: 0 0 8px rgba(187,154,247,0.6); }
+  }
+/* -- 能量:一条曲线 + 一个读数 + 一行归因 + 自评按钮(ARCHITECTURE「日常与能量」)。
+      这里没有单独的一条“能量进度条”:条与曲线并排就是同一件事画两遍,而两个算法
+      早晚会在同一屏上写出两个数。曲线上的「现在」那一列就是读数本身。 -- */
+  .energy-strip {
+    margin-top: 6px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .energy-curve {
+    position: relative;
+    height: 34px;
+    background: var(--bg-0);
+    border: 2px solid var(--bg-3);
+    padding-bottom: 4px;   /* 给底下那排干预刻度留位置 */
+  }
+  /* 置信度低就画得更淡:一条已知不准的推算不该和一条对得上的画成一样实
+     (ARCHITECTURE「日常与能量」)。这是唯一一处让模型的不确定性看得见的地方。 */
+  .energy-curve[data-confidence="medium"] .energy-curve-plot { opacity: 0.75; }
+  .energy-curve[data-confidence="low"] .energy-curve-plot { opacity: 0.45; }
+  .energy-curve-plot { height: 100%; }
+  .energy-curve-plot svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .energy-area { fill: color-mix(in srgb,var(--primary) 12%,transparent); }
+  .energy-line { fill: none; stroke: var(--primary-ink); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .energy-forecast { stroke-dasharray: 3 4; opacity: .55; }
+  .energy-curve-now {
+    position: absolute; top: 0; bottom: 0;
+    width: 2px; margin-left: -1px;
+    background: var(--fg-0);
+    box-shadow: 0 0 4px rgba(192,202,245,0.5);
+    pointer-events: none;
+  }
+  .energy-curve-axis {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 4px;
+  }
+  .energy-curve-axis b {
+    position: absolute; bottom: 0;
+    width: 3px; height: 4px; margin-left: -1px;
+    background: var(--cyan);
+  }
+  .energy-attribution {
+    margin: 0;
+    font-size: 11px; line-height: 1.5;
+    color: var(--fg-2);
+  }
+/* -- 迁移告知条（非阻塞）-- */
+  .notice-strip { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
+  .notice-item {
+    display: flex; align-items: center; gap: 6px;
+    padding: 5px 6px;
+    background: var(--bg-2);
+    border-left: 3px solid var(--accent);
+    font-size: 11px;
+    color: var(--fg-1);
+  }
+  .notice-text { flex: 1; }
+/* -- Recovery summary in stats -- */
+  .recovery-list {
+    margin-top: 12px;
+    border-top: 2px dashed var(--bg-3);
+    padding-top: 8px;
+  }
+  .recovery-list:empty { display: none; }
+  .recovery-item {
+    background: color-mix(in srgb, var(--green) 8%, transparent);
+    border-left: 3px solid var(--green);
+    padding: 6px 8px;
+    margin-bottom: 4px;
+    font-size: 11px;
+  }
+  .recovery-launches { color: var(--green-ink); font-weight: 700; }
+  .recovery-returns { color: var(--accent-ink); font-weight: 900; margin-left: 6px; }
+  .recovery-note { color: var(--fg-2); margin-top: 2px; }
+/* P0 information architecture: the app shell owns the fixed header/tab rows;
+   exactly one tabpanel owns the remaining scroll area. */
+  .app-shell {
+    height: 100%;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: 52px 48px minmax(0, 1fr);
+  }
+  .compact-header {
+    min-height: 52px;
+    padding: 8px 10px;
+    gap: 10px;
+    justify-content: space-between;
+  }
+  .compact-header .app-title { flex: 1; }
+  .mini-timer {
+    min-width: 58px;
+    color: var(--cyan-ink);
+    font-size: 12px;
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+  }
+  .header-actions { display: flex; align-items: center; gap: 5px; }
+  .header-action {
+    width: 32px;
+    min-height: 32px;
+    padding: 0;
+    border: 1px solid var(--bg-3);
+    background: var(--bg-1);
+    color: var(--fg-0);
+    font: inherit;
+    cursor: pointer;
+  }
+  .header-action[aria-pressed="true"] { background: var(--purple); color: var(--ink); }
+  .tabs { min-height: 48px; }
+  .tab-btn { min-height: 46px; padding: 6px 2px; }
+  .tab-content {
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .tab-content.active { display: block; }
+  .tab-content[hidden] { display: none !important; }
+  .today-page { padding: 8px 10px 12px; }
+  .today-page .now-card,
+  .today-page .candidate-panel,
+  .today-page .energy-checkin { margin-left: 0; margin-right: 0; }
+  .today-page .now-card { margin-top: 0; }
+  .today-page .now-card > .now-actions { display: none; }
+  .today-page .pomo-panel {
+    margin-top: 8px;
+    padding: 12px 10px;
+    border: 2px solid var(--bg-3);
+  }
+  .today-page .pomo-actions .btn-kickstart { background: var(--bg-3); color: var(--fg-0); border-color: var(--bg-0); }
+  .tasks-page { padding-top: 0; }
+  .tasks-page .add-panel { padding: 10px 4px; }
+}

@@ -1,0 +1,606 @@
+{
+  "id": "milestone.satchel",
+  "renderKey": "satchel",
+  "kind": "sidebag",
+  "canvas": [
+    768,
+    768
+  ],
+  "origin512": [
+    -128,
+    -192
+  ],
+  "threeQuarterSource": "three-quarter-right",
+  "leftFacingPolicy": "runtime-mirror",
+  "replacementReason": "Complete standalone visible strap and outboard pouch, repairing coordinated-kit occlusion cutoff",
+  "views": {
+    "front": {
+      "fitEvidence": {
+        "pouchTranslation512": [
+          -44,
+          8.828947368421051
+        ],
+        "strapUniformScaleMultiplier": 1.1499325236167341,
+        "sourceJunction": [
+          176,
+          454
+        ],
+        "sourceOppositeBodyEdgeAnchor": [
+          480,
+          393
+        ],
+        "junctionPolicy": "Overlapping extracted material from the same new source only; no old foreground, paint or nonuniform warp"
+      },
+      "sources": {
+        "worn": {
+          "path": "../../masters/satchel-outboard-v3-sheet.png",
+          "crop": [
+            0,
+            0,
+            512,
+            640
+          ],
+          "transform": {
+            "scale": 0.9653465346534653,
+            "translate": [
+              -12,
+              -82.94059405940592
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather, clasp and navy outline only; removes generated exterior haze"
+          },
+          "registrationBasis": "Uniform original body registration; ear y146->58 and original complete body baseline550->448"
+        },
+        "isolated": {
+          "path": "../../masters/satchel-outboard-v3-sheet.png",
+          "crop": [
+            0,
+            640,
+            512,
+            1024
+          ],
+          "transform": {
+            "scale": 0.9653465346534653,
+            "translate": [
+              -12,
+              240
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather, clasp and navy outline only; removes generated exterior haze"
+          },
+          "limitedUse": "New complete visible isolated strap/pouch evidence; foreground uses worn source only"
+        },
+        "isolated-return": {
+          "path": "../../masters/satchel-sheet.png",
+          "crop": [
+            1024,
+            640,
+            1536,
+            1024
+          ],
+          "transform": {
+            "scale": 0.9307875894988067,
+            "translate": [
+              13.5,
+              198.4
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather/leaf/metal material with stepped navy edging; removes generated low-alpha exterior haze"
+          },
+          "role": "isolated",
+          "limitedUse": "Only fully occluded pixels from opposite-face strap; fixed resting poses, no visible turn interpolation"
+        },
+        "fitted-pouch": {
+          "path": "../../masters/satchel-outboard-v3-sheet.png",
+          "crop": [
+            0,
+            0,
+            512,
+            640
+          ],
+          "transform": {
+            "scale": 0.9653465346534653,
+            "translate": [
+              -56,
+              -74.11164669098487
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather, clasp and navy outline only; removes generated exterior haze"
+          },
+          "registrationBasis": "Intact same-source pouch translated outward -44px and down 8.8289px; no deformation"
+        },
+        "fitted-strap": {
+          "path": "../../masters/satchel-outboard-v3-sheet.png",
+          "crop": [
+            0,
+            0,
+            512,
+            640
+          ],
+          "transform": {
+            "scale": 1.1100833767587284,
+            "translate": [
+              -81.4736842105263,
+              -139.82217300677434
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather, clasp and navy outline only; removes generated exterior haze"
+          },
+          "registrationBasis": "Same-source complete strap uniformly scaled by 1.14993252 about opposite body-edge anchor; original junction overlaps translated pouch"
+        }
+      },
+      "faceProtected": {
+        "rectangles": [
+          [
+            131,
+            184,
+            211,
+            272
+          ],
+          [
+            299,
+            184,
+            378,
+            272
+          ],
+          [
+            231,
+            276,
+            279,
+            310
+          ]
+        ]
+      },
+      "segmentationProvenance": {
+        "manualRegion": {
+          "coordinateSpace": "source",
+          "rectangles": [
+            [
+              16,
+              370,
+              506,
+              527
+            ]
+          ]
+        },
+        "method": "Opaque caramel color seeds plus6px local navy outline, no hole filling, original worn full strap retained continuously",
+        "foregroundSources": "Only newly generated satchel-outboard-v3 worn cell; no old foreground stitching"
+      },
+      "hiddenMaterialStatus": {
+        "status": "reconstructed",
+        "reason": "Earlier isolated opposite-face strap return is entirely concealed by opaque approved body pixels; fixed pose only, no visible turn interpolation"
+      },
+      "layers": [
+        {
+          "id": "hidden-return",
+          "source": "isolated-return",
+          "plane": "back",
+          "purpose": "hidden-reconstruction",
+          "mask": {
+            "file": "front-hidden-mask.png"
+          }
+        },
+        {
+          "id": "strap",
+          "source": "fitted-strap",
+          "plane": "front",
+          "purpose": "visible",
+          "mask": {
+            "file": "front-strap-mask.png"
+          }
+        },
+        {
+          "id": "pouch",
+          "source": "fitted-pouch",
+          "plane": "front",
+          "purpose": "visible",
+          "mask": {
+            "file": "front-pouch-mask.png"
+          }
+        }
+      ]
+    },
+    "three-quarter": {
+      "fitEvidence": {
+        "pouchTranslation512": [
+          -59,
+          12.835087719298253
+        ],
+        "strapUniformScaleMultiplier": 1.2144489428699956,
+        "sourceJunction": [
+          194,
+          455
+        ],
+        "sourceOppositeBodyEdgeAnchor": [
+          479,
+          393
+        ],
+        "junctionPolicy": "Overlapping extracted material from the same new source only; no old foreground, paint or nonuniform warp"
+      },
+      "sources": {
+        "worn": {
+          "path": "../../masters/satchel-outboard-v3-sheet.png",
+          "crop": [
+            512,
+            0,
+            1024,
+            640
+          ],
+          "transform": {
+            "scale": 0.9653465346534653,
+            "translate": [
+              -8.5,
+              -82.94059405940592
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather, clasp and navy outline only; removes generated exterior haze"
+          },
+          "registrationBasis": "Uniform original body registration; ear y146->58 and original complete body baseline550->448"
+        },
+        "isolated": {
+          "path": "../../masters/satchel-outboard-v3-sheet.png",
+          "crop": [
+            512,
+            640,
+            1024,
+            1024
+          ],
+          "transform": {
+            "scale": 0.9653465346534653,
+            "translate": [
+              -8.5,
+              240
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather, clasp and navy outline only; removes generated exterior haze"
+          },
+          "limitedUse": "New complete visible isolated strap/pouch evidence; foreground uses worn source only"
+        },
+        "isolated-return": {
+          "path": "../../masters/satchel-sheet.png",
+          "crop": [
+            1024,
+            640,
+            1536,
+            1024
+          ],
+          "transform": {
+            "scale": 0.9307875894988067,
+            "translate": [
+              8.5,
+              198.4
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather/leaf/metal material with stepped navy edging; removes generated low-alpha exterior haze"
+          },
+          "role": "isolated",
+          "limitedUse": "Only fully occluded pixels from opposite-face strap; fixed resting poses, no visible turn interpolation"
+        },
+        "fitted-pouch": {
+          "path": "../../masters/satchel-outboard-v3-sheet.png",
+          "crop": [
+            512,
+            0,
+            1024,
+            640
+          ],
+          "transform": {
+            "scale": 0.9653465346534653,
+            "translate": [
+              -67.5,
+              -70.10550634010767
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather, clasp and navy outline only; removes generated exterior haze"
+          },
+          "registrationBasis": "Intact same-source pouch translated outward -59px and down 12.8351px; no deformation"
+        },
+        "fitted-strap": {
+          "path": "../../masters/satchel-outboard-v3-sheet.png",
+          "crop": [
+            512,
+            0,
+            1024,
+            640
+          ],
+          "transform": {
+            "scale": 1.1723640785131146,
+            "translate": [
+              -107.66140350877203,
+              -164.29848879624802
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather, clasp and navy outline only; removes generated exterior haze"
+          },
+          "registrationBasis": "Same-source complete strap uniformly scaled by 1.21444894 about opposite body-edge anchor; original junction overlaps translated pouch"
+        }
+      },
+      "faceProtected": {
+        "rectangles": [
+          [
+            267,
+            184,
+            344,
+            273
+          ],
+          [
+            389,
+            184,
+            445,
+            273
+          ],
+          [
+            349,
+            276,
+            398,
+            313
+          ]
+        ]
+      },
+      "segmentationProvenance": {
+        "manualRegion": {
+          "coordinateSpace": "source",
+          "rectangles": [
+            [
+              16,
+              370,
+              506,
+              527
+            ]
+          ]
+        },
+        "method": "Opaque caramel color seeds plus6px local navy outline, no hole filling, original worn full strap retained continuously",
+        "foregroundSources": "Only newly generated satchel-outboard-v3 worn cell; no old foreground stitching"
+      },
+      "hiddenMaterialStatus": {
+        "status": "reconstructed",
+        "reason": "Earlier isolated opposite-face strap return is entirely concealed by opaque approved body pixels; fixed pose only, no visible turn interpolation"
+      },
+      "layers": [
+        {
+          "id": "hidden-return",
+          "source": "isolated-return",
+          "plane": "back",
+          "purpose": "hidden-reconstruction",
+          "mask": {
+            "file": "three-quarter-hidden-mask.png"
+          }
+        },
+        {
+          "id": "strap",
+          "source": "fitted-strap",
+          "plane": "front",
+          "purpose": "visible",
+          "mask": {
+            "file": "three-quarter-strap-mask.png"
+          }
+        },
+        {
+          "id": "pouch",
+          "source": "fitted-pouch",
+          "plane": "front",
+          "purpose": "visible",
+          "mask": {
+            "file": "three-quarter-pouch-mask.png"
+          }
+        }
+      ]
+    },
+    "back": {
+      "fitEvidence": {
+        "pouchTranslation512": [
+          56,
+          11.128205128205133
+        ],
+        "strapUniformScaleMultiplier": 1.1859303090072322,
+        "sourceJunction": [
+          341,
+          455
+        ],
+        "sourceOppositeBodyEdgeAnchor": [
+          29,
+          393
+        ],
+        "junctionPolicy": "Overlapping extracted material from the same new source only; no old foreground, paint or nonuniform warp"
+      },
+      "sources": {
+        "worn": {
+          "path": "../../masters/satchel-outboard-v3-sheet.png",
+          "crop": [
+            1024,
+            0,
+            1536,
+            640
+          ],
+          "transform": {
+            "scale": 0.9653465346534653,
+            "translate": [
+              29.2,
+              -82.94059405940592
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather, clasp and navy outline only; removes generated exterior haze"
+          },
+          "registrationBasis": "Uniform original body registration; ear y146->58 and original complete body baseline550->448"
+        },
+        "isolated": {
+          "path": "../../masters/satchel-outboard-v3-sheet.png",
+          "crop": [
+            1024,
+            640,
+            1536,
+            1024
+          ],
+          "transform": {
+            "scale": 0.9653465346534653,
+            "translate": [
+              29.2,
+              240
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather, clasp and navy outline only; removes generated exterior haze"
+          },
+          "limitedUse": "New complete visible isolated strap/pouch evidence; foreground uses worn source only"
+        },
+        "isolated-return": {
+          "path": "../../masters/satchel-sheet.png",
+          "crop": [
+            0,
+            640,
+            512,
+            1024
+          ],
+          "transform": {
+            "scale": 0.9307875894988067,
+            "translate": [
+              26.3,
+              198.4
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather/leaf/metal material with stepped navy edging; removes generated low-alpha exterior haze"
+          },
+          "role": "isolated",
+          "limitedUse": "Only fully occluded pixels from opposite-face strap; fixed resting poses, no visible turn interpolation"
+        },
+        "fitted-pouch": {
+          "path": "../../masters/satchel-outboard-v3-sheet.png",
+          "crop": [
+            1024,
+            0,
+            1536,
+            640
+          ],
+          "transform": {
+            "scale": 0.9653465346534653,
+            "translate": [
+              85.2,
+              -71.81238893120079
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather, clasp and navy outline only; removes generated exterior haze"
+          },
+          "registrationBasis": "Intact same-source pouch translated outward 56px and down 11.1282px; no deformation"
+        },
+        "fitted-strap": {
+          "path": "../../masters/satchel-outboard-v3-sheet.png",
+          "crop": [
+            1024,
+            0,
+            1536,
+            640
+          ],
+          "transform": {
+            "scale": 1.1448337141406448,
+            "translate": [
+              23.99487179487179,
+              -153.47905559786744
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather, clasp and navy outline only; removes generated exterior haze"
+          },
+          "registrationBasis": "Same-source complete strap uniformly scaled by 1.18593031 about opposite body-edge anchor; original junction overlaps translated pouch"
+        }
+      },
+      "faceProtected": {},
+      "segmentationProvenance": {
+        "manualRegion": {
+          "coordinateSpace": "source",
+          "rectangles": [
+            [
+              16,
+              370,
+              506,
+              527
+            ]
+          ]
+        },
+        "method": "Opaque caramel color seeds plus6px local navy outline, no hole filling, original worn full strap retained continuously",
+        "foregroundSources": "Only newly generated satchel-outboard-v3 worn cell; no old foreground stitching"
+      },
+      "hiddenMaterialStatus": {
+        "status": "not-required",
+        "reason": "The complete visible worn panels already establish this fixed view. Retired reconstructed rear layer leaked below the integrated feet in the actual production painter; no hidden material is invented."
+      },
+      "layers": [
+        {
+          "id": "strap",
+          "source": "fitted-strap",
+          "plane": "front",
+          "purpose": "visible",
+          "mask": {
+            "file": "back-strap-mask.png"
+          }
+        },
+        {
+          "id": "pouch",
+          "source": "fitted-pouch",
+          "plane": "front",
+          "purpose": "visible",
+          "mask": {
+            "file": "back-pouch-mask.png"
+          }
+        }
+      ]
+    }
+  }
+}

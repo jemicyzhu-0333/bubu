@@ -1,0 +1,38 @@
+/* 落点提示：一段计时到点后那一问，以及只在这里出现的那行备注输入。
+   对应 features/quick-start-landing.js。 */
+
+@layer features {
+  .landing-modal { max-width: 360px; }
+  .landing-actions { flex-direction: column; }
+  .landing-note-label {
+    display: block;
+    margin-top: 10px;
+    color: var(--cyan-ink);
+    font-size: 11px;
+    font-weight: 900;
+  }
+  .landing-note-input {
+    width: 100%;
+    margin-top: 5px;
+    padding: 9px 10px;
+    border: 2px solid var(--bg-3);
+    background: var(--bg-0);
+    color: var(--fg-0);
+    font: inherit;
+    font-size: 11px;
+    line-height: 1.4;
+    outline: none;
+    -webkit-user-select: text;
+    user-select: text;
+  }
+  .landing-note-input:focus {
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--cyan) 22%, transparent);
+  }
+  .landing-note-hint {
+    margin-top: 5px;
+    color: var(--fg-2);
+    font-size: 11px;
+    line-height: 1.5;
+  }
+}

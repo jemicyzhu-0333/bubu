@@ -1,0 +1,24 @@
+/* 统一编辑面板：字段行、步骤编辑块与重复系列那一段。对应 features/task-editor.mjs。 */
+
+@layer features {
+/* -- 统一编辑面板 -- */
+  .edit-field {
+    display: flex; align-items: center; gap: 6px;
+    margin-top: 6px;
+  }
+  .edit-field .chip-label { min-width: 92px; }
+  .edit-field .pixel-input, .edit-field .pixel-date { flex: 1; }
+  .edit-steps-block { margin-top: 8px; }
+  .edit-step { display: flex; align-items: flex-start; gap: 4px; }
+  .edit-step-title {
+    flex: 1; font-size: 11px; padding: 3px 5px;
+    field-sizing: content;
+    min-height: 26px;
+    max-height: 120px;
+    line-height: 1.5;
+    resize: none;
+    overflow-y: auto;
+    overflow-wrap: anywhere;
+  }
+  .edit-series-block { margin-top: 8px; padding: 8px; border: 1px dashed var(--bg-3); }
+}

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'nonce-focuspix-corner'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; image-rendering: pixelated;
+    font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+    -webkit-user-select: none; user-select: none;
+  }
+  html, body {
+    width: 100%; height: 100vh;
+    background: transparent;
+    overflow: hidden;
+    position: relative;
+  }
+  .container {
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 6px 8px 18px 8px;
+    animation: appear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+  }
+  /* 屏幕左侧的两个角：角色在左、气泡在右 */
+  .container.bl, .container.tl { flex-direction: row-reverse; }
+  @keyframes appear {
+    0% { transform: translateY(30px) scale(0.5); opacity: 0; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+  }
+  .char-wrap {
+    display: flex; flex-direction: column; align-items: center;
+    flex: 0 0 auto;
+  }
+  #charCanvas {
+    width: 80px; height: 80px;
+    animation: bounce 1.2s ease-in-out infinite;
+    filter: drop-shadow(2px 3px 0 rgba(0,0,0,0.6));
+  }
+  .container.lv3 #charCanvas { width: 96px; height: 96px; }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-4px) rotate(-3deg); }
+    50% { transform: translateY(0) rotate(0deg); }
+    75% { transform: translateY(-4px) rotate(3deg); }
+  }
+  .bubble {
+    position: relative;
+    flex: 0 1 auto;
+    background: #ffffff;
+    color: #1a1b26;
+    padding: 7px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    max-width: 216px;
+    line-height: 1.5;
+    border: 2px solid #1a1b26;
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+    animation: bubbleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+    letter-spacing: 0.5px;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    z-index: 2;
+  }
+  .bubble-copy { white-space: pre-wrap; }
+  .nudge-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 7px;
+  }
+  .nudge-actions:empty { display: none; }
+  .nudge-action {
+    appearance: none;
+    border: 1px solid #1a1b26;
+    background: #e9e9f0;
+    color: #1a1b26;
+    padding: 4px 6px;
+    font: 700 8px/1.2 inherit;
+    cursor: pointer;
+  }
+  .nudge-action.primary { background: #1a1b26; color: #fff; }
+  .nudge-action:hover { transform: translateY(-1px); }
+  .nudge-action:focus-visible { outline: 3px solid #7dcfff; outline-offset: 1px; }
+  @keyframes bubbleIn {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+  }
+  .bubble::after {
+    content: '';
+    position: absolute;
+    width: 0; height: 0;
+    border-style: solid;
+    top: 50%; margin-top: -6px;
+  }
+  /* 尾巴指向角色那一侧 */
+  .container.br .bubble::after,
+  .container.tr .bubble::after {
+    right: -10px;
+    border-width: 6px 0 6px 10px;
+    border-color: transparent transparent transparent #1a1b26;
+  }
+  .container.bl .bubble::after,
+  .container.tl .bubble::after {
+    left: -10px;
+    border-width: 6px 10px 6px 0;
+    border-color: transparent #1a1b26 transparent transparent;
+  }
+  .name-tag {
+    margin-top: 4px;
+    font-size: 9px;
+    font-weight: 900;
+    color: white;
+    background: rgba(0,0,0,0.7);
+    padding: 2px 6px;
+    letter-spacing: 1px;
+    border: 1px solid rgba(255,255,255,0.3);
+    white-space: nowrap;
+  }
+  .close-hint {
+    position: absolute;
+    bottom: 4px; right: 4px;
+    font-size: 8px;
+    color: rgba(255,255,255,0.7);
+    background: rgba(0,0,0,0.5);
+    padding: 2px 4px;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.35);
+    font-family: inherit;
+  }
+  .close-hint:hover { background: rgba(0,0,0,0.8); color: white; }
+  .close-hint:focus-visible { outline: 3px solid #7dcfff; outline-offset: 2px; }
+  .keyboard-hint {
+    position: absolute;
+    left: 6px; bottom: 4px;
+    font-size: 8px;
+    color: rgba(255,255,255,0.78);
+    background: rgba(0,0,0,0.52);
+    padding: 2px 4px;
+    border: 1px solid rgba(255,255,255,0.28);
+    pointer-events: none;
+  }
+  .keyboard-hint[hidden] { display: none; }
+  @media (prefers-reduced-motion: reduce) {
+    body:not([data-motion="full"]) .container,
+    body:not([data-motion="full"]) #charCanvas,
+    body:not([data-motion="full"]) .bubble { animation: none !important; }
+  }
+  body[data-motion="reduced"] .container,
+  body[data-motion="reduced"] #charCanvas,
+  body[data-motion="reduced"] .bubble { animation: none !important; }
+  body[data-stimulation="low"] .container,
+  body[data-stimulation="low"] #charCanvas,
+  body[data-stimulation="low"] .bubble { animation: none !important; }
+  body[data-stimulation="low"] .name-tag { display: none; }
+  body[data-stimulation="low"] .bubble { box-shadow: 2px 2px 0 rgba(0,0,0,0.4); }
+  body[data-stimulation="high"] .bubble { box-shadow: 3px 3px 0 rgba(0,0,0,0.5), 0 0 18px rgba(125,207,255,0.45); }
+</style>
+</head>
+<body data-motion="reduced" data-stimulation="low">
+  <div class="container br" id="container" role="status" aria-live="polite">
+    <div class="bubble" id="bubble">
+      <div class="bubble-copy" id="bubbleCopy">...</div>
+      <div class="nudge-actions" id="nudgeActions" aria-label="提醒操作"></div>
+    </div>
+    <div class="char-wrap">
+      <canvas id="charCanvas" width="80" height="80" aria-hidden="true"></canvas>
+      <div class="name-tag" id="nameTag">·</div>
+    </div>
+  </div>
+  <span class="keyboard-hint" id="keyboardHint" hidden></span>
+  <button type="button" class="close-hint" id="closeBtn" aria-label="关闭提醒">✕ 我知道了</button>
+<script nonce="focuspix-corner">
+  const canvas = document.getElementById('charCanvas');
+  const ctx = canvas.getContext('2d');
+  ctx.imageSmoothingEnabled = false;
+
+  const CHARACTERS = {
+    // Spider-Man
+    spider: {
+      name: 'PETER',
+      // 20x20 grid, 0 empty, 1 red, 2 dark, 3 web/white, 4 eye
+      grid: [
+        '....11111111........',
+        '..1111111111111.....',
+        '.1111111111111111...',
+        '11114411111144111...',
+        '11141114111411411...',
+        '11141114111411411...',
+        '11114411111144111...',
+        '11111111112211111...',
+        '11111111122211111...',
+        '.1111111122211111...',
+        '.11111111211111111..',
+        '..111111111111111...',
+        '...1111111111111....',
+        '....11111111111.....',
+        '....11.111111.11....',
+        '...11...111...11....',
+        '..11.....1.....11...',
+        '.11............11...',
+        '11..............11..',
+        '..................'
+      ],
+      colors: { 1: '#c53b1a', 2: '#1a1b26', 3: '#c0caf5', 4: '#c0caf5' }
+    },
+    // Cat
+    cat: {
+      name: 'MOCHI',
+      grid: [
+        '..1......1..........',
+        '.111....111.........',
+        '.1112..2111.........',
+        '.11122.22111........',
+        '.111222.2111........',
+        '.11122222111........',
+        '.1112222211111......',
+        '.111412221411111....',
+        '.11122222222211111..',
+        '1111222332222211111.',
+        '11112222.22222211111',
+        '.11122222222222111..',
+        '..11122222222211....',
+        '...1122222221.......',
+        '....11222211........',
+        '.....11221..........',
+        '....11..11..........',
+        '...11....11.........',
+        '..11......11........',
+        '..................'
+      ],
+      colors: { 1: '#e0af68', 2: '#f7c98a', 3: '#f7768e', 4: '#1a1b26' }
+    },
+    // Robot
+    robot: {
+      name: 'BEEP',
+      grid: [
+        '......111111........',
+        '.....11111111.......',
+        '....1111111111......',
+        '...111.4444.111.....',
+        '...111.4444.111.....',
+        '...11144444411......',
+        '...11122222211......',
+        '....11111111........',
+        '..111111111111......',
+        '.11122222222111.....',
+        '.11122222222111.....',
+        '.11122.....2111.....',
+        '.11122.....2111.....',
+        '.11122333322111.....',
+        '.11122222222111.....',
+        '.11111111111111.....',
+        '..111111111111......',
+        '..11........11......',
+        '..11........11......',
+        '.111........111.....'
+      ],
+      colors: { 1: '#565f89', 2: '#a9b1d6', 3: '#7dcfff', 4: '#f7768e' }
+    }
+  };
+
+  function drawCharacter(charId) {
+    const c = CHARACTERS[charId] || CHARACTERS.spider;
+    const cell = 4;
+    ctx.clearRect(0, 0, 80, 80);
+    for (let y = 0; y < c.grid.length; y++) {
+      for (let x = 0; x < c.grid[y].length; x++) {
+        const ch = c.grid[y][x];
+        if (ch === '.' || ch === ' ') continue;
+        const color = c.colors[ch];
+        if (!color) continue;
+        ctx.fillStyle = color;
+        ctx.fillRect(x * cell, y * cell, cell, cell);
+      }
+    }
+    return c.name;
+  }
+
+  function applyNudgeSensoryProfile(data = {}) {
+    document.body.dataset.motion = data.motionMode === 'reduced' || data.motionMode === 'full' ? data.motionMode : 'balanced';
+    document.body.dataset.stimulation = ['low', 'balanced', 'high'].includes(data.stimulationMode) ? data.stimulationMode : 'balanced';
+  }
+
+  window.focuspix.onNudgeSensoryProfile(applyNudgeSensoryProfile);
+
+  window.focuspix.onNudgeInit((data) => {
+    applyNudgeSensoryProfile(data);
+    const container = document.getElementById('container');
+    container.className = 'container ' + (data.corner || 'br') + (data.level === 3 ? ' lv3' : '');
+    const name = drawCharacter(data.character || 'spider');
+    document.getElementById('bubbleCopy').textContent = data.message || '...';
+    document.getElementById('nameTag').textContent = '· ' + name + ' ·';
+    const keyboardHint = document.getElementById('keyboardHint');
+    const showKeyboardHint = Boolean(data.keyboardShortcut) && (data.corner || 'br') === 'br';
+    keyboardHint.hidden = !showKeyboardHint;
+    keyboardHint.textContent = showKeyboardHint ? `${data.keyboardShortcut} 操作` : '';
+    const actions = document.getElementById('nudgeActions');
+    actions.innerHTML = '';
+    for (const action of Array.isArray(data.actions) ? data.actions : []) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'nudge-action' + (action.primary ? ' primary' : '');
+      button.textContent = action.label || '我知道了';
+      button.addEventListener('click', event => {
+        event.stopPropagation();
+        window.focuspix.dismissNudge(action.id || 'dismiss');
+      });
+      actions.appendChild(button);
+    }
+  });
+
+  document.getElementById('closeBtn').addEventListener('click', () => {
+    window.focuspix.dismissNudge('dismiss');
+  });
+
+  document.body.addEventListener('click', (e) => {
+    if (e.target.id !== 'closeBtn') {
+      // Click character or bubble → dismiss too
+      window.focuspix.dismissNudge('dismiss');
+    }
+  });
+
+  const interactiveNodes = [document.getElementById('bubble'), document.querySelector('.char-wrap'), document.getElementById('closeBtn')];
+  interactiveNodes.forEach(node => {
+    node.addEventListener('mouseenter', () => window.focuspix.setNudgePointerInteractive(true));
+    node.addEventListener('mouseleave', (event) => {
+      if (!interactiveNodes.some(candidate => candidate.contains(event.relatedTarget))) {
+        window.focuspix.setNudgePointerInteractive(false);
+      }
+    });
+  });
+
+  function focusableControls() {
+    return Array.from(document.querySelectorAll('.nudge-action:not(:disabled), #closeBtn:not(:disabled)'));
+  }
+
+  window.focuspix.onNudgeFocus(() => {
+    const controls = focusableControls();
+    const primary = controls.find(control => control.classList.contains('primary')) || controls[0];
+    if (primary) primary.focus({ preventScroll: true });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      window.focuspix.dismissNudge('dismiss');
+      return;
+    }
+    if (e.key !== 'Tab') return;
+    const controls = focusableControls();
+    if (controls.length === 0) return;
+    const first = controls[0];
+    const last = controls[controls.length - 1];
+    if (e.shiftKey && (document.activeElement === first || !controls.includes(document.activeElement))) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
+</script>
+</body>
+</html>

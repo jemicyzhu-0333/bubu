@@ -1,0 +1,14 @@
+.notebook-portal { display: none; position: absolute; left: 46px; top: 80px; width: 130px; height: 112px; border: 4px solid #d6b2ff; border-radius: 50%; box-shadow: inset 0 0 18px #caa6ff, 0 0 18px #b293df; background: radial-gradient(ellipse,#514078b3, #f1d7ff33 66%, transparent 70%); z-index: 1; pointer-events: none; }
+body[data-notebook] .scene-frame { opacity: 0; }
+body[data-notebook] .pet-layer { transform: none !important; transition: none; }
+body[data-notebook='depart'] .notebook-portal, body[data-notebook='arrive'] .notebook-portal { display: block; animation: portal-open .28s ease-out both; }
+body[data-notebook='depart'] #petCanvas { animation: portal-depart .24s ease-in both; }
+body[data-notebook='arrive'] #petCanvas { animation: portal-arrive .34s cubic-bezier(.2,.8,.2,1) both; }
+body[data-notebook='completed'] #petCanvas { animation: notebook-cheer .55s ease-out 2; }
+@keyframes portal-open { from { opacity: 0; transform: scaleX(.1); } to { opacity: 1; transform: scaleX(1); } }
+@keyframes portal-depart { to { opacity: 0; transform: translateY(22px) scale(.15); } }
+@keyframes portal-arrive { from { opacity: 0; transform: translateY(22px) scale(.15); } to { opacity: 1; transform: none; } }
+@keyframes notebook-cheer { 50% { transform: translateY(-10px) rotate(-4deg); } }
+body:is([data-motion='reduced'],[data-stimulation='low']) .notebook-portal { visibility: hidden; }
+@media(prefers-reduced-motion: reduce) { body[data-notebook] :is(#petCanvas,.notebook-portal) { animation: none !important; } .notebook-portal { visibility: hidden; } }
+body:is([data-motion='reduced'],[data-stimulation='low']) :is(#petCanvas,.notebook-portal) { animation: none !important; }

@@ -1,0 +1,389 @@
+{
+  "id": "skin.forest-leaf",
+  "renderKey": "forest-leaf",
+  "kind": "head-accent",
+  "canvas": [
+    768,
+    768
+  ],
+  "origin512": [
+    -128,
+    -192
+  ],
+  "threeQuarterSource": "three-quarter-right",
+  "leftFacingPolicy": "runtime-mirror",
+  "views": {
+    "front": {
+      "sources": {
+        "worn": {
+          "path": "../../masters/forest-leaf-sheet.png",
+          "crop": [
+            0,
+            0,
+            512,
+            640
+          ],
+          "transform": {
+            "scale": 1.0372340425531914,
+            "translate": [
+              -15.4,
+              -147.3723404255319
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather/leaf/metal material with stepped navy edging; removes generated low-alpha exterior haze"
+          }
+        },
+        "isolated": {
+          "path": "../../masters/forest-leaf-sheet.png",
+          "crop": [
+            0,
+            640,
+            512,
+            1024
+          ],
+          "transform": {
+            "scale": 0.6,
+            "translate": [
+              308,
+              22
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather/leaf/metal material with stepped navy edging; removes generated low-alpha exterior haze"
+          }
+        },
+        "fitted-leaf": {
+          "path": "../../masters/forest-leaf-sheet.png",
+          "crop": [
+            0,
+            0,
+            512,
+            640
+          ],
+          "transform": {
+            "scale": 1.0372340425531914,
+            "translate": [
+              16.6,
+              -147.3723404255319
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather/leaf/metal material with stepped navy edging; removes generated low-alpha exterior haze"
+          },
+          "registrationBasis": "Accessory-only x adjustment 32px to the approved side silhouette; original body remains fixed, original ears occlude root"
+        }
+      },
+      "faceProtected": {
+        "rectangles": [
+          [
+            131,
+            184,
+            211,
+            272
+          ],
+          [
+            299,
+            184,
+            378,
+            272
+          ],
+          [
+            231,
+            276,
+            279,
+            310
+          ]
+        ]
+      },
+      "segmentationProvenance": {
+        "manualRegion": {
+          "coordinateSpace": "source",
+          "rectangles": [
+            [
+              365,
+              202,
+              491,
+              342
+            ]
+          ]
+        },
+        "method": "Opaque color seeds plus local 7px dark outline; components >=16px; holes never filled"
+      },
+      "hiddenMaterialStatus": {
+        "status": "reconstructed",
+        "reason": "Generated isolated material retained only under opaque approved body pixels. Rigid clip only; visible leaves remain from fitted worn reference and original ears/body occlude the attachment."
+      },
+      "layers": [
+        {
+          "id": "hidden-return",
+          "source": "isolated",
+          "plane": "back",
+          "purpose": "hidden-reconstruction",
+          "mask": {
+            "file": "front-hidden-mask.png"
+          }
+        },
+        {
+          "id": "visible-material",
+          "source": "fitted-leaf",
+          "plane": "back",
+          "purpose": "visible",
+          "mask": {
+            "file": "front-visible-mask.png"
+          }
+        }
+      ]
+    },
+    "three-quarter": {
+      "sources": {
+        "worn": {
+          "path": "../../masters/forest-leaf-sheet.png",
+          "crop": [
+            512,
+            0,
+            1024,
+            640
+          ],
+          "transform": {
+            "scale": 1.0372340425531914,
+            "translate": [
+              -10.0,
+              -147.3723404255319
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather/leaf/metal material with stepped navy edging; removes generated low-alpha exterior haze"
+          }
+        },
+        "isolated": {
+          "path": "../../masters/forest-leaf-sheet.png",
+          "crop": [
+            512,
+            640,
+            1024,
+            1024
+          ],
+          "transform": {
+            "scale": 0.6,
+            "translate": [
+              301,
+              26
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather/leaf/metal material with stepped navy edging; removes generated low-alpha exterior haze"
+          }
+        },
+        "fitted-leaf": {
+          "path": "../../masters/forest-leaf-sheet.png",
+          "crop": [
+            512,
+            0,
+            1024,
+            640
+          ],
+          "transform": {
+            "scale": 1.0372340425531914,
+            "translate": [
+              15.0,
+              -147.3723404255319
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather/leaf/metal material with stepped navy edging; removes generated low-alpha exterior haze"
+          },
+          "registrationBasis": "Accessory-only x adjustment 25px to the approved side silhouette; original body remains fixed, original ears occlude root"
+        }
+      },
+      "faceProtected": {
+        "rectangles": [
+          [
+            267,
+            184,
+            344,
+            273
+          ],
+          [
+            389,
+            184,
+            445,
+            273
+          ],
+          [
+            349,
+            276,
+            398,
+            313
+          ]
+        ]
+      },
+      "segmentationProvenance": {
+        "manualRegion": {
+          "coordinateSpace": "source",
+          "rectangles": [
+            [
+              365,
+              202,
+              491,
+              342
+            ]
+          ]
+        },
+        "method": "Opaque color seeds plus local 7px dark outline; components >=16px; holes never filled"
+      },
+      "hiddenMaterialStatus": {
+        "status": "reconstructed",
+        "reason": "Generated isolated material retained only under opaque approved body pixels. Rigid clip only; visible leaves remain from fitted worn reference and original ears/body occlude the attachment."
+      },
+      "layers": [
+        {
+          "id": "hidden-return",
+          "source": "isolated",
+          "plane": "back",
+          "purpose": "hidden-reconstruction",
+          "mask": {
+            "file": "three-quarter-hidden-mask.png"
+          }
+        },
+        {
+          "id": "visible-material",
+          "source": "fitted-leaf",
+          "plane": "back",
+          "purpose": "visible",
+          "mask": {
+            "file": "three-quarter-visible-mask.png"
+          }
+        }
+      ]
+    },
+    "back": {
+      "sources": {
+        "worn": {
+          "path": "../../masters/forest-leaf-sheet.png",
+          "crop": [
+            1024,
+            0,
+            1536,
+            640
+          ],
+          "transform": {
+            "scale": 1.0372340425531914,
+            "translate": [
+              -5.0,
+              -147.3723404255319
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather/leaf/metal material with stepped navy edging; removes generated low-alpha exterior haze"
+          }
+        },
+        "isolated": {
+          "path": "../../masters/forest-leaf-sheet.png",
+          "crop": [
+            1024,
+            640,
+            1536,
+            1024
+          ],
+          "transform": {
+            "scale": 0.6,
+            "translate": [
+              -55,
+              26
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather/leaf/metal material with stepped navy edging; removes generated low-alpha exterior haze"
+          }
+        },
+        "fitted-leaf": {
+          "path": "../../masters/forest-leaf-sheet.png",
+          "crop": [
+            1024,
+            0,
+            1536,
+            640
+          ],
+          "transform": {
+            "scale": 1.0372340425531914,
+            "translate": [
+              -44.0,
+              -147.3723404255319
+            ]
+          },
+          "sampling": "nearest",
+          "alphaPolicy": {
+            "mode": "opaque-cutout",
+            "threshold": 128,
+            "reason": "Opaque leather/leaf/metal material with stepped navy edging; removes generated low-alpha exterior haze"
+          },
+          "registrationBasis": "Accessory-only x adjustment -39px to the approved side silhouette; original body remains fixed, original ears occlude root"
+        }
+      },
+      "faceProtected": {},
+      "segmentationProvenance": {
+        "manualRegion": {
+          "coordinateSpace": "source",
+          "rectangles": [
+            [
+              28,
+              201,
+              164,
+              343
+            ]
+          ]
+        },
+        "method": "Opaque color seeds plus local 7px dark outline; components >=16px; holes never filled"
+      },
+      "hiddenMaterialStatus": {
+        "status": "reconstructed",
+        "reason": "Generated isolated material retained only under opaque approved body pixels. Rigid clip only; visible leaves remain from fitted worn reference and original ears/body occlude the attachment."
+      },
+      "layers": [
+        {
+          "id": "hidden-return",
+          "source": "isolated",
+          "plane": "back",
+          "purpose": "hidden-reconstruction",
+          "mask": {
+            "file": "back-hidden-mask.png"
+          }
+        },
+        {
+          "id": "visible-material",
+          "source": "fitted-leaf",
+          "plane": "back",
+          "purpose": "visible",
+          "mask": {
+            "file": "back-visible-mask.png"
+          }
+        }
+      ]
+    }
+  }
+}
