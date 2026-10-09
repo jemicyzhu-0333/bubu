@@ -1,4 +1,4 @@
-# I'm ADHDer activity probe for Windows 10/11 (ARCHITECTURE「活动镜像」).
+# bubu activity probe for Windows 10/11 (ARCHITECTURE「活动镜像」).
 #
 # Prints one JSON line every two seconds and nothing else:
 #   {"v":1,"front":"<process name or null>","audio":["<process name>", ...]}
@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-public static class ImAdhderActivityProbe {
+public static class BubuActivityProbe {
   [DllImport("user32.dll")] static extern IntPtr GetForegroundWindow();
   [DllImport("user32.dll")] static extern uint GetWindowThreadProcessId(IntPtr window, out uint processId);
 
@@ -106,7 +106,7 @@ public static class ImAdhderActivityProbe {
 '@
 
 while ($true) {
-  $line = [ordered]@{ v = 1; front = [ImAdhderActivityProbe]::Foreground(); audio = @([ImAdhderActivityProbe]::Audible()) }
+  $line = [ordered]@{ v = 1; front = [BubuActivityProbe]::Foreground(); audio = @([BubuActivityProbe]::Audible()) }
   [Console]::Out.WriteLine(($line | ConvertTo-Json -Compress))
   [Console]::Out.Flush()
   Start-Sleep -Milliseconds 2000

@@ -4,6 +4,9 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const { createPopoverTaskDraft } = require('../src/surfaces/popover/features/task-draft.mjs');
 const { createCollaborationDom } = require('../test-support/collaboration-dom');
+const { createPopoverMessages } = require('../src/surfaces/popover/ui/messages.mjs');
+const { proposalPreviewFixture, validSteps } = require('../test-support/proposal-preview-fixture');
+const messages = createPopoverMessages({ pad2: value => String(value).padStart(2, '0') });
 
 function deferred() {
   let resolve, reject;
@@ -61,7 +64,7 @@ function harness(t, { save, enrich } = {}) {
     bindStepTitleField: (input, onInput) => { input.input = onInput; },
     parseTagList: value => value ? value.split('，') : [], tagInputError: () => '',
     estimateInputError: () => '', maxSteps: 100, surfaceClient: client,
-    breakdownProviderLabel: () => 'AI', fallbackReasonSuffix: () => '',
+    breakdownProviderLabel: () => 'AI', fallbackReasonSuffix: messages.fallbackReasonSuffix,
     whenFields: { values: () => ({}), validate: () => '', reset() {}, mount() {}, dispose() {} },
     restoreModalFocus: target => restored.push(target),
     showStatus: text => { dom.$('#taskFormStatus').textContent = text; }
@@ -235,4 +238,22 @@ test('queued focus callbacks cannot steal focus after close or a newer open', t 
   h.feature.open({ title: 'Second' }); h.feature.open({ title: 'Third' });
   h.frames.shift()(); assert.equal(h.dom.$('#taskInput').focused, 0);
   h.frames.shift()(); assert.equal(h.dom.$('#taskInput').focused, 1);
+});
+
+test('real enrichment validation detail reaches the draft status through the mock IPC client', async t => {
+  for (const fallbackError of [undefined, new Error('no-local-fallback')]) {
+    const provider = proposalPreviewFixture({ steps: validSteps(), completionCriteria: null,
+      energy: null, estimateMinutes: 999, tags: [] }, { fallbackError });
+    const h = harness(t, { enrich: async payload => structuredClone(await provider.preview.previewEnrichProposal(payload)) });
+    h.feature.open({ title: 'PRIVATE_DRAFT_TITLE' });
+    h.dom.$('#taskDescriptionInput').value = 'PRIVATE_DRAFT_NOTES';
+    await h.enrich();
+    assert.match(h.status(), /estimateMinutes is invalid/);
+    assert.doesNotMatch(h.status(), /PRIVATE|proposal-rejected/);
+    assert.equal(h.dom.$('#taskFormStatus').innerHTML, '');
+    assert.equal(h.dom.$('#taskDescriptionInput').value, 'PRIVATE_DRAFT_NOTES');
+    assert.deepEqual(h.steps(), []);
+    assert.equal(provider.sent.length, 2);
+    h.feature.dispose();
+  }
 });

@@ -3,7 +3,7 @@
 import { BODY_GRIDS } from '../content/companion/dango-body.mjs';
 
 const petArtApi = (() => {
-// I’m ADHDer 像素角色的共享绘制层。
+// 小步 像素角色的共享绘制层。
 //
 // 生产桌宠与开发表达画廊都从这里读取同一身体网格、皮肤调色板和活动脸
 // 合成函数，避免“画廊看起来正确、真正桌宠却画了另一套”的分叉。模块只

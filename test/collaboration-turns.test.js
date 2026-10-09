@@ -114,8 +114,67 @@ test('unknown model write fields are rejected with useful local draft and no bus
   assert.equal(result.ok, true);
   assert.equal(result.source, 'local');
   assert.equal(result.reason, 'provider-invalid-output');
+  assert.equal(result.providerReason, 'provider-invalid-output|collaboration envelope contains unknown or missing fields');
+  assert.equal(result.conversation.messages.at(-1).provenance.reason, 'provider-invalid-output');
+  assert.equal(Object.hasOwn(result.conversation.messages.at(-1), 'providerReason'), false);
   assert.equal(result.conversation.messages.at(-1).proposal.kind, 'task-draft');
   assert.doesNotMatch(result.answer, /已应用|已保存/);
+});
+
+test('native collaboration repair exposes safe structural detail only in the current response', async () => {
+  const f = fixture();
+  let posts = 0;
+  f.provider.client = createApiClient({ baseUrl: 'https://synthetic-provider.example.test/v1', model: 'synthetic-model',
+    getCredential: () => 'synthetic-credential', post: async (_endpoint, body) => {
+      posts += 1;
+      const value = draft();
+      if (posts <= 2) value.changeProposal.steps[0].safeStopAfter = false;
+      if (posts === 2) assert.match(body.messages.at(-1).content, /collaboration-step-final-stop-required/);
+      return { choices: [{ message: { content: JSON.stringify(value) } }] };
+    } });
+  const result = structuredClone(await f.run('PRIVATE_USER_MESSAGE'));
+  assert.equal(posts, 2);
+  assert.equal(result.ok, true);
+  assert.equal(result.reason, 'provider-invalid-output');
+  assert.equal(result.providerReason, 'provider-invalid-output|collaboration-step-final-stop-required');
+  assert.deepEqual(f.get().messages.at(-1).provenance, { source: 'local', reason: 'provider-invalid-output', providerId: null });
+  assert.doesNotMatch(JSON.stringify(f.get()), /collaboration-step-final-stop-required|providerReason|synthetic-credential/);
+  const next = await f.run('Next message');
+  assert.equal(next.source, 'provider');
+  assert.equal(Object.hasOwn(next, 'providerReason'), false);
+});
+
+test('collaboration does not trust forged validation stages or execute diagnostic getters', async () => {
+  let getterCalls = 0;
+  const getter = {};
+  for (const key of ['message', 'stage']) Object.defineProperty(getter, key, { get() { getterCalls += 1; throw new Error('PRIVATE_GETTER'); } });
+  for (const error of [
+    Object.assign(new Error('PRIVATE_PROVIDER_BODY'), { stage: 'validate' }),
+    Object.assign(new Error('collaboration-step-final-stop-required'), { stage: 'validate' }), getter
+  ]) {
+    const f = fixture({ mode: 'talk', reply: () => { throw error; } });
+    const result = await f.run('A normal message');
+    assert.equal(result.ok, true); assert.equal(result.source, 'local');
+    assert.equal(Object.hasOwn(result, 'providerReason'), false);
+    assert.doesNotMatch(JSON.stringify(result), /PRIVATE|collaboration-step-final-stop-required/);
+  }
+  assert.equal(getterCalls, 0);
+});
+
+test('cancellation with a hostile diagnostic getter keeps cancellation priority and never evaluates it', async () => {
+  let getterCalls = 0, f;
+  const error = {};
+  Object.defineProperty(error, 'message', { get() { getterCalls += 1; throw new Error('PRIVATE_GETTER'); } });
+  f = fixture({ reply: () => {
+    f.sessions.cancel({ conversationId: f.conversationId, inputDraft: 'Keep this draft' });
+    throw error;
+  } });
+  const result = await f.run();
+  assert.equal(result.ok, false);
+  assert.equal(result.reason, 'turn-canceled');
+  assert.equal(getterCalls, 0);
+  assert.equal(Object.hasOwn(result, 'providerReason'), false);
+  assert.equal(f.get().messages.filter(message => message.role === 'assistant').length, 0);
 });
 
 test('cross-target reads and ungranted registered tools never execute', async () => {

@@ -268,7 +268,8 @@ function createPopoverDraftConversation({
       view.draft('', selected);
       snapshot();
       const local = result.source === 'local' || result.fallback;
-      const note = local ? `本地模板${result.reason ? `：${fallbackReasonText(result.reason) || '模型暂不可用'}` : ''}。` : '';
+      const reason = result.providerReason || result.reason;
+      const note = local ? `本地模板${reason ? `：${fallbackReasonText(reason) || '模型暂不可用'}` : ''}。` : '';
       const notice = result.notice === 'summary-available' ? '已有草稿可以带回编辑，也可以继续聊。' : '';
       view.status(`${note}${notice}`);
       $('#draftChatInput')?.focus();

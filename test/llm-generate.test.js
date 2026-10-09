@@ -195,8 +195,8 @@ test('the fallback ladder tells a rejected answer apart from a connection that n
   const fallback = createDeterministicClient({
     breakdown: () => buildDeterministicProposal(['打开仓库', '写第一段', '保存'])
   });
-  const rejected = Object.assign(new RangeError('steps[0].title must name an action: 项目文件'), { stage: 'validate' });
-  assert.equal(failureReason(rejected), 'proposal-rejected|steps[0].title must name an action: 项目文件');
+  const rejected = Object.assign(new RangeError('steps[0].safeStopAfter must be boolean'), { stage: 'validate' });
+  assert.equal(failureReason(rejected), 'proposal-rejected');
   assert.equal(failureReason(new Error('provider-timeout')), 'provider-timeout');
   assert.equal(failureReason(null), 'provider-failed');
 

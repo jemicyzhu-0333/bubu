@@ -13,7 +13,7 @@ for (const phase of ['state', 'content', 'menu']) {
     const h = createLifecycleHarness({ bridgeOverrides: { [method]: () => pending.promise } });
     await settle();
     h.runtime.stop();
-    const next = createPetRuntime({ environment: h.environment, clients: createPetSurfaceClient(h.window.imAdhder) });
+    const next = createPetRuntime({ environment: h.environment, clients: createPetSurfaceClient(h.window.bubu) });
     const before = h.writes(), calls = h.calls.length;
     pending.resolve(phase === 'state' ? snapshot() : phase === 'content' ? PET_CONTENT_PAYLOAD : null);
     await settle();
@@ -57,7 +57,7 @@ test('a controller stopped before start remains terminal, and a fresh owner star
   const calls = h.calls.length;
   await h.runtime.start();
   assert.equal(h.calls.length, calls);
-  const next = createPetRuntime({ environment: h.environment, clients: createPetSurfaceClient(h.window.imAdhder) });
+  const next = createPetRuntime({ environment: h.environment, clients: createPetSurfaceClient(h.window.bubu) });
   await next.start();
   assert.equal(h.subscriptionCount(), 8);
   h.emit('onPetSync', { message: 'new owner' });
@@ -116,7 +116,7 @@ for (const action of ['focus', 'dnd']) for (const outcome of ['resolve', 'reject
     await settle();
     assert.equal(h.calls.filter(([name]) => name === method).length, 1);
     h.runtime.stop();
-    const next = createPetRuntime({ environment: h.environment, clients: createPetSurfaceClient(h.window.imAdhder) });
+    const next = createPetRuntime({ environment: h.environment, clients: createPetSurfaceClient(h.window.bubu) });
     await next.start();
     const before = h.writes(), calls = h.calls.length;
     pending[outcome](outcome === 'resolve' ? { ok: true, dnd: false } : new Error('synthetic command rejection'));
@@ -139,7 +139,7 @@ test('stop clears owned devtools and dock presentation before a fresh controller
   assert.equal(stage.classList.contains('is-docked'), true);
   h.runtime.stop();
   for (const name of ['devtools-open', 'dock-right', 'is-docked', 'peek']) assert.equal(stage.classList.contains(name), false, name);
-  const next = createPetRuntime({ environment: h.environment, clients: createPetSurfaceClient(h.window.imAdhder) });
+  const next = createPetRuntime({ environment: h.environment, clients: createPetSurfaceClient(h.window.bubu) });
   await next.start();
   h.emit('onPetDevtools', { open: true });
   h.emit('onPetDock', { edge: 'left' });

@@ -6,8 +6,6 @@ const {
   MAX_STEPS,
   MAX_STEP_TITLE,
   MAX_SERIALIZED_BYTES,
-  ACTION_WORDS,
-  ACTION_PATTERN,
   DEPENDS_ON_DESCRIPTION,
   SAFE_STOP_DESCRIPTION,
   STEP_TITLE_DESCRIPTION,
@@ -64,9 +62,7 @@ function buildDeterministicProposal(steps) {
   while (source.length < MIN_STEPS) source.push({ title: '检查当前结果' });
   return validateProposal({
     steps: source.map((step, index) => ({
-      title: ACTION_PATTERN.test(typeof step === 'string' ? step : step.title)
-        ? (typeof step === 'string' ? step : step.title)
-        : `完成：${typeof step === 'string' ? step : step.title}`,
+      title: typeof step === 'string' ? step : step.title,
       dependsOn: index === 0 ? null : index - 1,
       safeStopAfter: index === source.length - 1
     })),
@@ -81,8 +77,6 @@ module.exports = {
   MAX_SERIALIZED_BYTES,
   MAX_PROPOSALS,
   PROPOSAL_TTL_MS,
-  ACTION_WORDS,
-  ACTION_PATTERN,
   DEPENDS_ON_DESCRIPTION,
   SAFE_STOP_DESCRIPTION,
   STEP_TITLE_DESCRIPTION,

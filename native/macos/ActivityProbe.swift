@@ -1,4 +1,4 @@
-// I’m ADHDer activity probe for macOS 14.2+ (ARCHITECTURE「活动镜像」).
+// bubu activity probe for macOS 14.2+ (ARCHITECTURE「活动镜像」).
 //
 // Prints one JSON line every two seconds and nothing else:
 //   {"v":1,"front":"<bundle id or null>","audio":["<bundle id>", ...]}

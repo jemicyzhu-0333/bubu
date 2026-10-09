@@ -384,8 +384,8 @@ test('the timeline reads the day from the one channel and reaches only ids that 
     assert.match(html, new RegExp(`id="${id}"`), `#${id} must exist in popover.html`);
   }
   // Renderers may not reach past the surface adapter, and this feature owns exactly
-  // scoped day/receipt queries, no window.imAdhder.
-  assert.doesNotMatch(source, /window\.imAdhder/);
+  // scoped day/receipt queries, no window.bubu.
+  assert.doesNotMatch(source, /window\.bubu/);
   // Day, owner-scoped canonical receipt, and existing own-mood deletion only.
   const calls = [...new Set([...source.matchAll(/surfaceClient\.(\w+)/g)].map(match => match[1]))].sort();
   assert.deepEqual(calls, ['deleteMoodNote', 'getChangeReceipt', 'getTimelineDay', 'onPopoverHidden']);

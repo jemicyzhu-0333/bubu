@@ -10,7 +10,7 @@ test('installed builder validates development and signed-release configuration a
   const { validateConfiguration } = require('app-builder-lib/internal');
   const logger = { isEnabled: false };
   assert.deepEqual(pkg.build.mac.sign, { hardenedRuntime: false, identity: '-' });
-  assert.equal(pkg.build.mac.artifactName, '${productName}-${version}-mac-${arch}-adhoc-test.${ext}');
+  assert.equal(pkg.build.mac.artifactName, 'bubu-${version}-mac-${arch}-adhoc-test.${ext}');
   await validateConfiguration(pkg.build, logger);
   const env = { RELEASE_REPOSITORY: 'example/releases', CSC_NAME: 'Developer ID Application: Example',
     WINDOWS_PUBLISHER_NAME: 'Example' };

@@ -26,15 +26,15 @@ async function run() {
     await pause(280);
     fs.writeFileSync(path.join(output, name + '.png'), (await win.webContents.capturePage()).toPNG());
   };
-  await js(`window.imAdhder.addImpulse('想给阳台上的植物换一个花盆')`);
-  await js(`window.imAdhder.addImpulse('晚点再查一下咖啡豆的配送时间')`);
-  await js(`window.imAdhder.addImpulse('这是一条较长的收件箱消息，需要跨越多行来验证文字完整显示。'.repeat(5))`);
+  await js(`window.bubu.addImpulse('想给阳台上的植物换一个花盆')`);
+  await js(`window.bubu.addImpulse('晚点再查一下咖啡豆的配送时间')`);
+  await js(`window.bubu.addImpulse('这是一条较长的收件箱消息，需要跨越多行来验证文字完整显示。'.repeat(5))`);
   await js(`document.getElementById('tabToday').click()`);
   const widthsBefore = await js(`[...document.querySelectorAll('.tab-btn')].map(x=>x.getBoundingClientRect().width)`);
   await js(`(() => { const slider=document.getElementById('durationSlider'); slider.value=45;
     slider.dispatchEvent(new Event('input',{bubbles:true})); slider.dispatchEvent(new Event('change',{bubbles:true})); })()`);
   await pause(220);
-  assert.equal(await js(`window.imAdhder.getState().then(s=>s.focusMinutes.chosen)`), 45);
+  assert.equal(await js(`window.bubu.getState().then(s=>s.focusMinutes.chosen)`), 45);
   await shot('today');
   await js("document.getElementById('reviewInbox').open=true");
   assert.ok(await js("(() => { const r=document.querySelector('.review-inbox-panel').getBoundingClientRect(); return r.left>=0 && r.right<=innerWidth && r.bottom<=innerHeight })()"));
@@ -55,8 +55,8 @@ async function run() {
   assert.equal(await js("document.querySelector('#btnSettings .header-glyph').dataset.icon===document.getElementById('settingsTitle').dataset.icon"),true);
   await shot('tasks');
   await js(`(async () => {
-    const state=await window.imAdhder.getState();
-    await window.imAdhder.archiveTask(state.tasks.find(task=>!task.seriesId).id);
+    const state=await window.bubu.getState();
+    await window.bubu.archiveTask(state.tasks.find(task=>!task.seriesId).id);
     const archive=document.getElementById('archivePanel'); archive.open=true;
     archive.scrollIntoView({block:'end'});
   })()`);
@@ -81,7 +81,7 @@ async function run() {
   await js("document.getElementById('taskAdvanced').open=false");
   await js(`document.getElementById('taskInput').value='整理桌面'; document.getElementById('taskCreateConfirm').click()`);
   await pause(180);
-  assert.ok(await js(`window.imAdhder.getState().then(s=>s.tasks.some(t=>t.title==='整理桌面'))`));
+  assert.ok(await js(`window.bubu.getState().then(s=>s.tasks.some(t=>t.title==='整理桌面'))`));
   await js(`document.getElementById('tabRoutines').click()`);
   assert.ok(await js(`document.getElementById('routinesManage').offsetHeight > 0`));
   await js(`document.getElementById('btnNewRoutine').click(); document.getElementById('routineKind').value='custom'; document.getElementById('routineCustomLabel').value='生活'; document.getElementById('routineTitle').value='喝一杯水'; document.getElementById('btnAddRoutine').click()`);
@@ -90,7 +90,7 @@ async function run() {
   await pause(120);
   assert.ok(await js(`document.querySelector('#dailyRoutineRows [data-act="undo"]') !== null`));
   await shot('routines');
-  assert.ok(await js(`window.imAdhder.getState().then(s=>s.routines.items.some(t=>t.title==='喝一杯水'))`));
+  assert.ok(await js(`window.bubu.getState().then(s=>s.routines.items.some(t=>t.title==='喝一杯水'))`));
   await js(`document.getElementById('tabToday').click(); if(document.getElementById('energyStrip').hidden)document.getElementById('tileEnergy').click(); document.getElementById('moodDock').scrollIntoView({block:'center'})`);
   const dockPoints = await js(`[...document.querySelectorAll('.energy-checkin-btn')].map(b=>{const r=b.getBoundingClientRect();return {x:Math.round(r.x+r.width/2),y:Math.round(r.y+r.height/2)}})`);
   win.webContents.sendInputEvent({type:'mouseMove',...dockPoints[1]});
@@ -123,15 +123,15 @@ async function run() {
     const group=document.querySelector('[data-toggle="aiClarifyEnabled"]').closest('.setting-group');
     group.open=true; group.scrollIntoView({block:'start'});`);
   await pause(100);
-  const clarifyBefore = await js(`window.imAdhder.getState().then(s=>s.settings.aiClarifyEnabled)`);
+  const clarifyBefore = await js(`window.bubu.getState().then(s=>s.settings.aiClarifyEnabled)`);
   await js(`document.querySelector('[data-toggle="aiClarifyEnabled"]').click()`);
   await pause(100);
-  assert.equal(await js(`window.imAdhder.getState().then(s=>s.settings.aiClarifyEnabled)`), !clarifyBefore);
+  assert.equal(await js(`window.bubu.getState().then(s=>s.settings.aiClarifyEnabled)`), !clarifyBefore);
   await js(`const model=document.getElementById('aiModelInput'); model.value='demo-model'; model.dispatchEvent(new Event('input',{bubbles:true}));`);
   assert.equal(await js(`document.getElementById('aiConfigStatus').dataset.state`), 'dirty');
   await js(`document.getElementById('aiSaveConfig').click()`);
   await pause(220);
-  assert.equal(await js(`window.imAdhder.getState().then(s=>s.settings.aiModel)`), 'demo-model');
+  assert.equal(await js(`window.bubu.getState().then(s=>s.settings.aiModel)`), 'demo-model');
   assert.equal(await js(`document.getElementById('aiConfigStatus').dataset.state`), 'saved');
   await shot('settings-ai');
   await js(`document.getElementById('btnSettingsClose').click(); document.getElementById('tabToday').click();`);
@@ -148,7 +148,7 @@ async function run() {
   assert.ok(await js("!document.getElementById('btnAddSessionStep').classList.contains('hidden')"));
   await js("document.getElementById('btnAddSessionStep').click(); document.getElementById('sessionStepInput').value='整理过程中发现的附件'; document.getElementById('sessionStepForm').requestSubmit()");
   await pause(150);
-  assert.ok(await js("window.imAdhder.getState().then(s=>s.tasks.find(t=>t.title==='整理桌面').steps.some(step=>step.title==='整理过程中发现的附件'))"));
+  assert.ok(await js("window.bubu.getState().then(s=>s.tasks.find(t=>t.title==='整理桌面').steps.some(step=>step.title==='整理过程中发现的附件'))"));
   await shot('focus');
   await js(`document.getElementById('btnPauseFocus').click()`);
   await pause(100);
@@ -170,7 +170,7 @@ async function run() {
   assert.ok(await js(`[...document.querySelectorAll('.tab-btn')].every(b=>b.scrollWidth <= b.clientWidth)`));
   await shot('daily-narrow');
   const petWindow = BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().endsWith('/pet.html'));
-  const fed = await petWindow.webContents.executeJavaScript("window.imAdhder.pet_feed('fish')");
+  const fed = await petWindow.webContents.executeJavaScript("window.bubu.pet_feed('fish')");
   assert.ok(fed.ok);
   await pause(200);
   await js("document.getElementById('tabCompanion').click()");

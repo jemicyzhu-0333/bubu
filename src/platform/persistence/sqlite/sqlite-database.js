@@ -221,7 +221,7 @@ function resolveTierOrder(driver) {
  * Open the fact store, auto-selecting the best available tier.
  *
  * @param {object}   options
- * @param {string}   options.filePath  DB path (userData/im-adhder.sqlite in prod), or ':memory:'.
+ * @param {string}   options.filePath  DB path (userData/bubu.sqlite in prod), or ':memory:'.
  * @param {string}   [options.driver]  'auto' (default) | 'node:sqlite' | 'better-sqlite3' | 'jsonl' — forcing is for tests.
  * @param {function} [options.logger]  receives structured trace records; the only place tier choice is visible.
  * @param {function} [options.now]     injected clock for deterministic tests.

@@ -1,6 +1,6 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
-contextBridge.exposeInMainWorld('imAdhder', {
+contextBridge.exposeInMainWorld('bubu', {
   getState: () => ipcRenderer.invoke('state:get'),
   addImpulse: text => ipcRenderer.invoke('impulses:add', String(text || '').trim().slice(0, 500)),
   completeTask: (id, confirmUnfinishedSteps = false) => ipcRenderer.invoke('tasks:complete', {

@@ -20,7 +20,7 @@ const { createPlanEnergyPreferenceWorkflow } = require('../src/application/workf
 const { NOW, planningFixture } = require('../test-support/planning-guidance-fixture');
 const FIELDS = ['planningPreferences', 'energySelfReports', 'energyCurveTrials'];
 function fixture(t) {
-  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'hiadhd-planning-schema17-'));
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'bubu-planning-schema17-'));
   t.after(() => { adapters.closeDirectory(directory); fs.rmSync(directory, { recursive: true, force: true }); });
   const file = path.join(directory, 'config.json');
   const canonical = normalizePersistedState({ energyCheckIn: { level: 65, state: 'medium', timestamp: NOW },

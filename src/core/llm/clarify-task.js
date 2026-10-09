@@ -202,9 +202,6 @@ function validateClarifyResult(raw) {
     if (!question || typeof result.question !== 'string' || result.question.trim().length > MAX_CLARIFY_QUESTION) {
       throw new RangeError('clarify question is invalid');
     }
-    if ((question.match(/[?？]/g) || []).length > 1) {
-      throw new TypeError('clarify question must ask exactly one question');
-    }
     if (!Array.isArray(result.missing) || result.missing.length > MAX_CLARIFY_MISSING) {
       throw new RangeError(`clarify missing must contain at most ${MAX_CLARIFY_MISSING} entries`);
     }
@@ -226,7 +223,7 @@ function validateClarifyResult(raw) {
 
 const CLARIFY_TASK = Object.freeze({
   name: 'clarify',
-  schemaName: 'im_adhder_clarify',
+  schemaName: 'bubu_clarify',
   instruction: CLARIFY_INSTRUCTION,
   fields: CLARIFY_FIELDS,
   buildSchema: () => CLARIFY_JSON_SCHEMA,

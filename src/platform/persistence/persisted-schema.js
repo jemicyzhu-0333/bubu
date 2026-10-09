@@ -133,7 +133,7 @@ function normalizeRecurrenceSeriesList(raw, options = {}) {
     .filter(isPlainObject)
     .map((item, index) => normalizeRecurrenceSeries(item, { ...options, index, usedIds }));
   if (series.length > MAX_RECURRENCE_SERIES) {
-    throw new RangeError(`I’m ADHDer data holds more than ${MAX_RECURRENCE_SERIES} recurrence series`);
+    throw new RangeError(`bubu data holds more than ${MAX_RECURRENCE_SERIES} recurrence series`);
   }
   return series;
 }
@@ -153,7 +153,7 @@ function normalizeStrategyFeedback(raw) {
     }]);
   }
   if (entries.length > MAX_STRATEGY_FEEDBACK_KEYS) {
-    throw new RangeError(`I’m ADHDer data holds more than ${MAX_STRATEGY_FEEDBACK_KEYS} strategy feedback entries`);
+    throw new RangeError(`bubu data holds more than ${MAX_STRATEGY_FEEDBACK_KEYS} strategy feedback entries`);
   }
   entries.sort(([left], [right]) => left.localeCompare(right));
   return Object.fromEntries(entries);
@@ -358,10 +358,10 @@ function assertUniquePersistedIds(source) {
 function normalizePersistedState(raw, options = {}) {
   const source = isPlainObject(raw) ? raw : {};
   if (source.schemaVersion != null && (!Number.isSafeInteger(source.schemaVersion) || source.schemaVersion < 0)) {
-    throw new TypeError('I’m ADHDer data has an invalid schemaVersion');
+    throw new TypeError('bubu data has an invalid schemaVersion');
   }
   if (source.schemaVersion > PERSISTED_SCHEMA_VERSION) {
-    throw new RangeError('I’m ADHDer data uses a future schemaVersion');
+    throw new RangeError('bubu data uses a future schemaVersion');
   }
   // Legacy stores are repaired below after a byte-for-byte backup is made.
   // A store already claiming the current schema must be losslessly valid:

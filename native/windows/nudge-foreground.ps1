@@ -7,7 +7,7 @@ using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-public static class ImAdhderReminderForeground {
+public static class BubuReminderForeground {
   [DllImport("user32.dll")] static extern IntPtr GetForegroundWindow();
   [DllImport("user32.dll")] static extern uint GetWindowThreadProcessId(IntPtr window, out uint processId);
 
@@ -29,7 +29,7 @@ public static class ImAdhderReminderForeground {
   }
 }
 '@
-$name = [ImAdhderReminderForeground]::Read()
+$name = [BubuReminderForeground]::Read()
 if ($null -eq $name -or $name.Length -gt 200 -or $name -notmatch '^[A-Za-z0-9][A-Za-z0-9._ -]*$' -or $name -ne $name.Trim()) {
   $name = ''
 }

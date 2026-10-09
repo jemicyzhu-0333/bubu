@@ -24,7 +24,7 @@ const {
 const NOW = 1_764_000_000_000;
 
 function tempStore(t, contents) {
-  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'im-adhder-schema11-'));
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'bubu-schema11-'));
   t.after(() => { adapters.closeDirectory(directory); fs.rmSync(directory, { recursive: true, force: true }); });
   const storePath = path.join(directory, 'config.json');
   fs.writeFileSync(storePath, `${JSON.stringify(contents, null, 2)}\n`);

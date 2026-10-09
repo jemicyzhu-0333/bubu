@@ -5,7 +5,7 @@ const path = require('node:path');
 const { verifyCodeSignature } = require('../scripts/macos-code-signature');
 
 test('macOS code-integrity gate verifies nested code strictly without claiming Gatekeeper trust', () => {
-  const app = path.resolve('synthetic app/I’m ADHDer.app'), calls = [];
+  const app = path.resolve('synthetic app/小步.app'), calls = [];
   const result = verifyCodeSignature(app, { platform: 'darwin', execFile: (...args) => calls.push(args) });
   assert.deepEqual(calls, [['/usr/bin/codesign', ['--verify', '--deep', '--strict', '--verbose=2', app],
     { stdio: 'pipe', timeout: 60000 }]]);

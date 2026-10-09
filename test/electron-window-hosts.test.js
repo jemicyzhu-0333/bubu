@@ -84,6 +84,7 @@ function createWindowHarness({ withShowInactive = true } = {}) {
 }
 
 function assertHardened(instance, preloadPath, pagePath) {
+  assert.equal(instance.options.title, '小步');
   assert.equal(instance.options.webPreferences.preload, preloadPath);
   assert.equal(instance.options.webPreferences.contextIsolation, true);
   assert.equal(instance.options.webPreferences.nodeIntegration, false);
@@ -443,4 +444,15 @@ for (const platform of ['darwin', 'win32']) test(`${platform} pet menus retain n
   host.setBounds({ x: 1100, y: 600, width: 220, height: 220 });
   assert.deepEqual(host.getBounds(), { ...anchor, x: 1100, y: 600 });
   native.emit('closed');
+});
+
+
+test('native windows use the visible brand before page load and permit an explicit surface title', () => {
+  for (const [options, expected] of [[{}, '小步'], [{ title: '小步 - 指定窗口' }, '小步 - 指定窗口']]) {
+    const harness = createWindowHarness();
+    createHardenedWindow({ BrowserWindow: harness.BrowserWindow, options: { width: 100, height: 100, ...options },
+      preloadPath: '/app/preload.js', pagePath: '/app/page.html' });
+    assert.equal(harness.instances[0].options.title, expected);
+    assert.equal(harness.instances[0].options.webPreferences.sandbox, true);
+  }
 });

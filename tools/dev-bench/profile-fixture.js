@@ -49,7 +49,7 @@ function createDisposableProfile(options = {}, { repositoryFactory = createSqlit
   if (!SCENARIOS.includes(scenario) || !['bench', 'install'].includes(purpose)
     || !Number.isSafeInteger(now) || now < 0) throw new TypeError('fixture-options-invalid');
   const initial = buildScenario(scenario, now);
-  const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), `im-adhder-${purpose}-`)));
+  const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), `bubu-${purpose}-`)));
   const userDataPath = path.join(root, 'profile-dev');
   fs.mkdirSync(userDataPath);
   const repository = repositoryFactory({ userDataPath, now: () => now });
@@ -78,7 +78,7 @@ function admitCopiedAuthority(profile, owned, repositoryFactory) {
   // SQLite may update SHM read marks even on a read-only connection. Admit an
   // exact closed-profile copy first, so refusal cannot alter the source bytes.
   // The copy is never substituted for the application's persisted authority.
-  const probePath = fs.mkdtempSync(path.join(os.tmpdir(), 'im-adhder-admission-'));
+  const probePath = fs.mkdtempSync(path.join(os.tmpdir(), 'bubu-admission-'));
   const captured = [];
   try {
     for (const [file] of owned.authorities) for (const suffix of ['', '-wal', '-shm']) {

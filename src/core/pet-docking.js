@@ -2,14 +2,14 @@
 
 const { PET_HIT_CSS_SIZE } = require('./pet-stage.mjs');
 
-const imAdhderDockEdges = Object.freeze(['left', 'right', 'top', 'bottom']);
+const bubuDockEdges = Object.freeze(['left', 'right', 'top', 'bottom']);
 
 // 桌宠在屏幕上的可见尺寸。窗口比它大得多（透明画布要留出四肢与动作的余量），
 // 所以吸附、注视、点击都得用这个矩形而不是窗口矩形。它与命中框必须同宽 ——
 // 否则会出现“贴边贴的是画布、点击却落在别处”，因此尺寸只有 pet-stage 一个所有者。
 const PET_VISUAL_SIZE = Object.freeze({ width: PET_HIT_CSS_SIZE, height: PET_HIT_CSS_SIZE });
 
-function imAdhderFiniteRect(rect, name) {
+function bubuFiniteRect(rect, name) {
   if (!rect || !['x', 'y', 'width', 'height'].every(key => Number.isFinite(rect[key]))) {
     throw new TypeError(`${name} must be a finite rectangle`);
   }
@@ -18,8 +18,8 @@ function imAdhderFiniteRect(rect, name) {
 }
 
 function petVisibleRect(windowBounds, visualSize) {
-  const bounds = imAdhderFiniteRect(windowBounds, 'windowBounds');
-  const size = imAdhderFiniteRect({ x: 0, y: 0, ...visualSize }, 'visualSize');
+  const bounds = bubuFiniteRect(windowBounds, 'windowBounds');
+  const size = bubuFiniteRect({ x: 0, y: 0, ...visualSize }, 'visualSize');
   const offsetX = visualSize.offsetX === undefined ? 0 : visualSize.offsetX;
   const offsetY = visualSize.offsetY === undefined ? 0 : visualSize.offsetY;
   if (!Number.isFinite(offsetX) || !Number.isFinite(offsetY)) {
@@ -37,8 +37,8 @@ function petVisibleRect(windowBounds, visualSize) {
 // (visual CENTER stays at least 20px on screen) but shift it for a tall form
 // whose ear-inclusive hitbox is no longer centered inside the window.
 function clampPetWindowPosition({ target, windowBounds, visualSize, workArea, centerInset = 20 } = {}) {
-  const bounds = imAdhderFiniteRect(windowBounds, 'windowBounds');
-  const area = imAdhderFiniteRect(workArea, 'workArea');
+  const bounds = bubuFiniteRect(windowBounds, 'windowBounds');
+  const area = bubuFiniteRect(workArea, 'workArea');
   if (!target || !Number.isFinite(target.x) || !Number.isFinite(target.y)) {
     throw new TypeError('target must contain finite coordinates');
   }
@@ -58,8 +58,8 @@ function clampPetWindowPosition({ target, windowBounds, visualSize, workArea, ce
 }
 
 function petEdgeDistances(visibleRect, workArea) {
-  const pet = imAdhderFiniteRect(visibleRect, 'visibleRect');
-  const area = imAdhderFiniteRect(workArea, 'workArea');
+  const pet = bubuFiniteRect(visibleRect, 'visibleRect');
+  const area = bubuFiniteRect(workArea, 'workArea');
   return {
     left: pet.x - area.x,
     right: area.x + area.width - (pet.x + pet.width),
@@ -71,9 +71,9 @@ function petEdgeDistances(visibleRect, workArea) {
 function nearestPetDockEdge(distances) {
   // Prefer side edges at exact corners. They preserve more usable height and
   // avoid the macOS menu bar / Dock while remaining deterministic.
-  return imAdhderDockEdges.reduce((best, edge) => (
+  return bubuDockEdges.reduce((best, edge) => (
     distances[edge] < distances[best] ? edge : best
-  ), imAdhderDockEdges[0]);
+  ), bubuDockEdges[0]);
 }
 
 function resolvePetDockEdge({
@@ -85,7 +85,7 @@ function resolvePetDockEdge({
 }) {
   if (leaveThreshold <= enterThreshold) throw new RangeError('leaveThreshold must exceed enterThreshold');
   const distances = petEdgeDistances(visibleRect, workArea);
-  if (imAdhderDockEdges.includes(currentEdge) && distances[currentEdge] <= leaveThreshold) {
+  if (bubuDockEdges.includes(currentEdge) && distances[currentEdge] <= leaveThreshold) {
     return currentEdge;
   }
   const nearest = nearestPetDockEdge(distances);
@@ -93,7 +93,7 @@ function resolvePetDockEdge({
 }
 
 module.exports = {
-  DOCK_EDGES: imAdhderDockEdges,
+  DOCK_EDGES: bubuDockEdges,
   PET_VISUAL_SIZE,
   petVisibleRect,
   clampPetWindowPosition,

@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import rig from '/workspace/shared/Hi-adhd/assets/companion/usagi/rig/usagi.rig.mjs';
+import rig from '/workspace/shared/bubu/assets/companion/usagi/rig/usagi.rig.mjs';
 const out=new URL('../masks/',import.meta.url);
 for(const[v,d]of Object.entries(rig.views)){
  const p=d.parts.filter(p=>p.layer==='front'&&(p.bone==='hand_l'||p.bone==='hand_r')).flatMap(p=>p.shapes).map(s=>`<path d="${s.d}" fill="white" stroke="white" stroke-width="${s.width}" stroke-linecap="round" stroke-linejoin="round"/>`).join('');

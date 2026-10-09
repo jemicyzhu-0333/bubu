@@ -81,7 +81,7 @@ test('chat candidate edits allow only bounded editable fields and an exact repla
 test('production preload and scoped client forward memory payloads to only named reviewed routes', async () => {
   let bridge;
   vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../src/preload-popover.js'), 'utf8'), {
-    require(name) { assert.equal(name, 'electron'); return { contextBridge: { exposeInMainWorld(key, value) { assert.equal(key, 'imAdhder'); bridge = value; } },
+    require(name) { assert.equal(name, 'electron'); return { contextBridge: { exposeInMainWorld(key, value) { assert.equal(key, 'bubu'); bridge = value; } },
       ipcRenderer: { invoke: async (channel, payload) => ({ channel, payload }), on() {}, removeListener() {} } }; }
   });
   const client = createPopoverSurfaceClient(bridge);

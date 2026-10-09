@@ -6,3 +6,14 @@
 @media(max-width:420px){.nav{gap:10px;row-gap:14px;flex-wrap:wrap;padding-block:18px}.nav .brand{font-size:1rem;gap:8px}.nav .brand img{width:28px}.hero h1{font-size:clamp(3.1rem,15vw,3.8rem)}.hero-actions{align-items:flex-start}.download-grid p{overflow-wrap:anywhere}}
 
 .mac-warning{background:#432f2c;border:1px solid #c38b67;border-radius:6px;padding:17px 18px;margin:22px 0 8px;max-width:520px}.mac-warning strong{color:#ffdaab;font-size:1rem}.download-grid .mac-warning p{color:#f0ddd0;font-size:.9rem;margin:9px 0 0;line-height:1.6}
+
+/* Preserve supplied artwork pixels; replace only the displayed former-name header with live brand text. */
+.brand-chinese{font-size:.76em;font-weight:500;letter-spacing:.02em;margin-left:2px;color:var(--muted)}
+.campaign-art{background:#faf8f2;border:1px solid #e1d6e9;border-radius:8px;overflow:hidden;box-shadow:0 20px 30px #39223e16}
+.poster-brand{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 22px 11px;color:#201a30;background:#faf8f2;font-size:1.15rem;font-weight:750;letter-spacing:-.04em}
+.poster-brand span:last-child{font-size:.88rem;letter-spacing:.08em;font-weight:600}
+.art-frame{aspect-ratio:1086/1348;overflow:hidden}
+.art-frame img{display:block;width:100%;max-width:none;height:auto;transform:translateY(-6.9060773481%)}
+.campaign-card .art-frame img{border:0;border-radius:0;box-shadow:none}
+.poster-front .campaign-art,.poster-back .campaign-art{border:0;border-radius:0;box-shadow:none}
+@media(max-width:420px){.poster-brand{padding:10px 16px;font-size:1.05rem}.poster-brand span:last-child{font-size:.78rem}.brand-chinese{font-size:.76em}}

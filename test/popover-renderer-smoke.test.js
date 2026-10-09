@@ -259,7 +259,7 @@ async function loadPopoverRenderer({ responses: extraResponses = {} } = {}) {
   const intervals = new Map();
   let nextInterval = 0;
   let stateSubscriptions = 0;
-  const imAdhder = new Proxy({}, {
+  const bubu = new Proxy({}, {
     get: (_target, key) => {
       if (key === 'then') return undefined;
       const respond = responses[key];
@@ -277,7 +277,7 @@ async function loadPopoverRenderer({ responses: extraResponses = {} } = {}) {
     AbortController, Image: RasterBrowserImage,
     document,
     console,
-    imAdhder,
+    bubu,
     setTimeout, clearTimeout,
     setInterval: callback => { intervals.set(++nextInterval, callback); return nextInterval; },
     clearInterval: id => intervals.delete(id),
@@ -288,7 +288,7 @@ async function loadPopoverRenderer({ responses: extraResponses = {} } = {}) {
   };
   sandbox.window = sandbox;
   sandbox.globalThis = sandbox;
-  sandbox.window.imAdhder = imAdhder;
+  sandbox.window.bubu = bubu;
   sandbox.addEventListener = noop;
   sandbox.removeEventListener = noop;
   sandbox.devicePixelRatio = 1;

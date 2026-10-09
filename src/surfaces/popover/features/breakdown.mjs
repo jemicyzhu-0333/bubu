@@ -194,9 +194,10 @@ function createPopoverBreakdownFeature({
       finishLoading();
       $('#bdSteps').innerHTML = '';
       $('#breakdownProvider').textContent = '生成没有完成；任务本身没有变化，你也可以手动加一步。';
-      const message = preview && preview.reason
+      const failure = preview && preview.reason
         ? taskActionMessage(preview.reason)
         : '这次没能生成拆解建议，任务本身没有变。';
+      const message = preview?.providerReason ? `${failure} ${fallbackReasonText(preview.providerReason)}` : failure;
       showError(message);
       showTaskPanelStatus(message);
       return;

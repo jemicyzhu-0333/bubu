@@ -35,7 +35,7 @@ function requestQuit(child, installed, execFile) {
   assert.ok(Number.isSafeInteger(child.pid) && child.pid > 0, 'installed process identity is required');
   // AppKit targets the exact launched PID and checks its executable. A bundle-ID
   // quit request could instead reach an unrelated daily instance of this app.
-  const executable = path.join(installed, 'Contents/MacOS/I’m ADHDer');
+  const executable = path.join(installed, 'Contents/MacOS/小步');
   const script = `ObjC.import('AppKit'); const app = $.NSRunningApplication.runningApplicationWithProcessIdentifier(${child.pid});
     if (!app || app.isTerminated || app.executableURL.path.js !== ${JSON.stringify(executable)}) throw new Error('installed process changed');
     if (!app.terminate) throw new Error('installed app refused graceful quit');`;
@@ -61,10 +61,10 @@ async function verifyInstall({ platform = process.platform, argv = process.argv,
   assert.equal(platform, 'darwin', 'installation verification requires macOS');
   const root = path.resolve(__dirname, '..');
   const version = require('../package.json').version;
-  const dmg = path.resolve(argv[2] || path.join(root, `dist/I’m ADHDer-${version}-mac-arm64-adhoc-test.dmg`));
+  const dmg = path.resolve(argv[2] || path.join(root, `dist/bubu-${version}-mac-arm64-adhoc-test.dmg`));
   const fixture = createProfile({ scenario: 'all', purpose: 'install', now });
   const mount = path.join(fixture.root, 'volume');
-  const installed = path.join(fixture.root, 'Applications/I’m ADHDer.app');
+  const installed = path.join(fixture.root, 'Applications/小步.app');
   let attached = false;
   let child;
   let completion;
@@ -85,15 +85,15 @@ async function verifyInstall({ platform = process.platform, argv = process.argv,
     execFile('hdiutil', ['verify', dmg], { stdio: 'pipe' });
     execFile('hdiutil', ['attach', '-readonly', '-nobrowse', '-mountpoint', mount, dmg], { stdio: 'pipe' });
     attached = true;
-    execFile('ditto', [path.join(mount, 'I’m ADHDer.app'), installed]);
+    execFile('ditto', [path.join(mount, '小步.app'), installed]);
     const hash = sha256(path.join(installed, 'Contents/Resources/app.asar'));
-    assert.equal(hash, sha256(path.join(mount, 'I’m ADHDer.app/Contents/Resources/app.asar')));
+    assert.equal(hash, sha256(path.join(mount, '小步.app/Contents/Resources/app.asar')));
     const codeSignature = verifyCodeSignature(installed, { platform, execFile });
     // Match a normal packaged launch. --dev also enables source hot reload,
     // which cannot watch an immutable ASAR; profile isolation comes solely
     // from Electron's explicit user-data-dir switch, not developer mode.
     stage = 'launch-installed-app';
-    child = spawnChild(path.join(installed, 'Contents/MacOS/I’m ADHDer'),
+    child = spawnChild(path.join(installed, 'Contents/MacOS/小步'),
       [`--user-data-dir=${fixture.userDataPath}`], { stdio: ['ignore', 'pipe', 'pipe'] });
     child.stdout.on('data', captureOutput);
     child.stderr.on('data', captureOutput);
@@ -135,7 +135,7 @@ async function verifyInstall({ platform = process.platform, argv = process.argv,
     // is not evidence that application startup or the SQL owner was ready.
     const diagnostic = { stage, seedRevision: fixture.revision, persistedRevision,
       childClosed: closed, omittedOutputCharacters,
-      fixtureFiles: Object.fromEntries(['config.sqlite', 'config.sqlite.identity.sqlite', 'im-adhder.sqlite', 'Preferences', 'Local State'].map(name => [name, fs.existsSync(path.join(fixture.userDataPath, name))])),
+      fixtureFiles: Object.fromEntries(['config.sqlite', 'config.sqlite.identity.sqlite', 'bubu.sqlite', 'Preferences', 'Local State'].map(name => [name, fs.existsSync(path.join(fixture.userDataPath, name))])),
       childOutput: summarizeStartupOutput(output) };
     if (diagnosticFile) fs.writeFileSync(diagnosticFile, JSON.stringify(diagnostic, null, 2) + '\n');
     throw new Error(`${error.message}\nInstaller diagnostic: ${JSON.stringify(diagnostic)}`, { cause: error });

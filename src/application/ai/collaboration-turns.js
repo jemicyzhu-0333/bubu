@@ -6,6 +6,7 @@ const { authorizeRead, selectedContextRequests } = require('./context-grants');
 const { mergeSourceRefs } = require('./conversation-record');
 const { buildCollaborationContext, localCollaborationReply } = require('./collaboration-context');
 const { createRunExecution } = require('./run-execution');
+const { rememberProposalValidationDetail, proposalValidationDetail } = require('../../core/llm/proposal-validation-detail');
 
 const FAILURE_CODES = Object.freeze(['provider-credential-missing', 'provider-request-aborted',
   'provider-response-invalid-json', 'provider-response-html', 'provider-response-event-stream',
@@ -15,10 +16,15 @@ const FAILURE_CODES = Object.freeze(['provider-credential-missing', 'provider-re
   'tool-date-range-not-authorized', 'tool-limit-invalid', 'tool-query-invalid', 'tool-cursor-invalid',
   'tool-kinds-invalid', 'context-read-unavailable', 'memory-disabled', 'memory-selection-budget',
   'memory-context-budget', 'memory-context-invalid', 'memory-authority-unavailable']);
+function failureField(error, key) {
+  try { return Object.getOwnPropertyDescriptor(error, key)?.value; }
+  catch (_) { return undefined; }
+}
 function safeFailure(error) {
-  const reason = error?.message || '';
+  const reason = failureField(error, 'message'), stage = failureField(error, 'stage');
   if (FAILURE_CODES.includes(reason)) return reason;
-  return error?.stage === 'validate' || /^collaboration-/.test(reason) ? 'provider-invalid-output' : 'provider-unavailable';
+  return stage === 'validate' || (typeof reason === 'string' && /^collaboration-/.test(reason))
+    ? 'provider-invalid-output' : 'provider-unavailable';
 }
 function publicProvider(provider) {
   return { id: provider.fingerprint, model: typeof provider.model === 'string' ? provider.model : null,
@@ -242,7 +248,7 @@ function createCollaborationTurns({ sessions, grants, reads, getProvider, now, v
         usage: { ...counts, elapsedMs, tokens: tokenUsage?.totalTokens ?? null } };
       return finalDisclosure;
     }
-    function finish(reply, source, reason = null) {
+    function finish(reply, source, reason = null, providerReason = null) {
       checkFresh(source === 'provider');
       if (reply.changeProposal?.operations && source === 'provider') {
         const unreadTarget = reply.changeProposal.operations.some(operation => {
@@ -274,6 +280,7 @@ function createCollaborationTurns({ sessions, grants, reads, getProvider, now, v
       const proposal = reply.changeProposal ? { id: begun.token.requestId, version: 1,
         kind: proposalKind, body: JSON.stringify(reply.changeProposal) } : null;
       const responseFields = { answer: reply.answer, proposal: reply.changeProposal, proposalKind, source, reason,
+        ...(providerReason ? { providerReason } : {}),
         provider: source === 'provider' ? publicProvider(provider) : null };
       if (source === 'provider') checkFresh(true);
       else assertOwnerCurrent();
@@ -336,7 +343,11 @@ function createCollaborationTurns({ sessions, grants, reads, getProvider, now, v
       if (execution.counts().providerCalls === before) throw new Error('provider-attempt-contract-invalid');
       let reply;
       try { reply = validateCollaborationResult(raw); }
-      catch (error) { error.stage = 'validate'; throw error; }
+      catch (error) {
+        error.stage = 'validate';
+        rememberProposalValidationDetail(error, 'collaborate');
+        throw error;
+      }
       if (unicodeLength(JSON.stringify(reply)) > limits.maxOutputChars) throw new Error('provider-output-budget');
       return reply;
     }
@@ -416,12 +427,14 @@ function createCollaborationTurns({ sessions, grants, reads, getProvider, now, v
       // even when a transport resolves successfully after its abort signal.
       if (invalidated || execution.signal.aborted || !execution.budgetStatus().ok || begun.signal.aborted) {
         cancelOwned();
-        return finalize({ ok: false, reason: invalidated || (!execution.budgetStatus().ok || error.message === 'turn-deadline' ? 'turn-deadline' : 'turn-canceled'),
+        return finalize({ ok: false, reason: invalidated || (!execution.budgetStatus().ok || failureField(error, 'message') === 'turn-deadline' ? 'turn-deadline' : 'turn-canceled'),
           conversation: sessions.get({ conversationId }).conversation, disclosure: disclosure('local') });
       }
       try {
         checkFresh();
-        return finalize(finish(localCollaborationReply({ mode: begun.conversation.mode, message }), 'local', safeFailure(error)));
+        const detail = proposalValidationDetail(error);
+        return finalize(finish(localCollaborationReply({ mode: begun.conversation.mode, message }), 'local', safeFailure(error),
+          detail ? `provider-invalid-output|${detail}` : null));
       } catch (_) {
         if (acceptedResult) return finalize(acceptedResult);
         cancelOwned();

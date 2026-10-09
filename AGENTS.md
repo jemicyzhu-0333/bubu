@@ -1,4 +1,4 @@
-# I'm ADHDer repository rules for coding agents
+# bubu repository rules for coding agents
 
 Read `docs/ARCHITECTURE.md` (especially 「分层与能力」 and 「事务、投影与 IPC」) before any structural or
 cross-module change. Product invariants in `docs/PRODUCT.md`, the data rules of each feature in
@@ -15,7 +15,7 @@ complete merely because the UI appears to work.
 
 ## Architecture direction
 
-- I'm ADHDer is a modular monolith. Organize new work by capability, with explicit application workflows and
+- bubu is a modular monolith. Organize new work by capability, with explicit application workflows and
   Electron/platform adapters; do not introduce microservices, a generic service locator, or a generic event bus.
 - `src/main.js` is a legacy composition hotspot under active extraction. Do not add a new business rule, IPC
   family, persistence mutation, timer, or window concern to it. A necessary defect fix may touch it, but must not
@@ -43,7 +43,7 @@ complete merely because the UI appears to work.
   restyles; follow PRODUCT「界面语言」: pixels for the character only, system font for tools, one accent colour,
   red only for errors, no emoji as icons (inline 1.5px SVG instead), declarative copy without commands,
   self-justification or internal jargon, tabular numbers, and layout driven by `body[data-session]`.
-- Never insert `<style>` at runtime; never add a global `window.ImAdhder*`.
+- Never insert `<style>` at runtime; never add a global `window.Bubu*`.
 
 ## State, IPC, and renderer rules
 
@@ -56,8 +56,8 @@ complete merely because the UI appears to work.
 - Every IPC command/query belongs to one capability contract with a closed payload validator and an explicit
   surface allowlist. Never expose `invoke(channel, payload)`, `ipcRenderer`, Electron, or a broad store API to a
   renderer.
-- Renderer features receive scoped clients and immutable projections. They must not call `window.imAdhder`
-  directly outside the surface adapter, mutate canonical state, or add new `window.ImAdhder*` globals.
+- Renderer features receive scoped clients and immutable projections. They must not call `window.bubu`
+  directly outside the surface adapter, mutate canonical state, or add new `window.Bubu*` globals.
 - Domain transitions return facts/results. Notifications, window operations, pet animation, and telemetry are
   post-commit effects; an effect failure must not turn an already committed command into a retryable failure.
 - Never hold a state transaction open across an LLM/network request. Capture a bounded intent, perform I/O, then
@@ -95,7 +95,7 @@ the exception narrow. “The AI generated it” and “it was faster” are neve
 
 ## Data, publication, and asset safety
 
-- Production accepts only complete canonical payload schema 18 in its bound SQLite profile. Never use a real user profile for migration tests or silently import/reset old data. Use disposable fixtures and retain fail-closed behavior.
+- Production requires complete canonical payload schema 18 and a BUBU-branded configuration identity in its bound SQLite profile. Reject unmarked, foreign-brand, or orphan persistent profiles without migration or replacement. Never use a real user profile for migration tests or silently import/reset old data. Use disposable fixtures and retain fail-closed behavior.
 - Local-first does not mean network-free. AI is opt-in; preserve provider grants, cancellation, freshness checks, and explicit change confirmation.
 - Keep project code under the root license and preserve third-party notices. Noncommercial licensing does not establish character/artwork rights. Do not claim Usagi or Dango permissions are settled.
 - Record current validation evidence separately from requirements. Do not describe PET12's intermittent Linux stripes as fixed, or Node/offscreen tests as native Windows/macOS validation.

@@ -377,7 +377,7 @@ function createPopoverTaskDraft({
       // 一份迟到的建议写进新草稿，就是替下一件事预设上一件事的计划——宁可丢掉。
       if (!isCurrentRequest()) return;
       if (!suggestion || suggestion.ok === false) {
-        showStatus('这次没能给出建议，已填的内容都还在。');
+        showStatus(`这次没能给出建议，已填的内容都还在。${fallbackReasonSuffix(suggestion)}`);
         return;
       }
       applyEnrichSuggestion(suggestion);

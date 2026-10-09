@@ -77,7 +77,7 @@ test('fixed contrasting outline and fill do not disappear with unlocked low-cont
 });
 
 test('packaged status icon uses only bundled PNGs and narrow platform adapters', t => {
-  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'adhder-tray-package-'));
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bubu-tray-package-'));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   const adapter = path.join(root, 'src/platform/electron'); fs.mkdirSync(adapter, { recursive: true });
   for (const file of ['tray-icon.js', 'tray-palette.js']) fs.copyFileSync(path.join(ROOT, 'src/platform/electron', file), path.join(adapter, file));

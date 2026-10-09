@@ -349,19 +349,19 @@ const proposalStore = new ProposalStore({
     : validateProposal(proposal))
 });
 // LLM diagnostics are metadata-only in every environment, including explicit
-// IM_ADHDER_LLM_LOG=1. The trace boundary allowlists counters, safe identifiers
+// BUBU_LLM_LOG=1. The trace boundary allowlists counters, safe identifiers
 // and mapped error codes; request/response bodies and raw errors never leave it.
 // Development may display these safe records by default; packaged builds opt in.
 // This switch cannot enable transcript, task-title or memory-content logging.
 const llmTrace = createLlmTrace({
-  enabled: process.env.IM_ADHDER_LLM_LOG === '1'
-    || (process.env.IM_ADHDER_LLM_LOG !== '0' && !appHost.isPackaged()),
+  enabled: process.env.BUBU_LLM_LOG === '1'
+    || (process.env.BUBU_LLM_LOG !== '0' && !appHost.isPackaged()),
   sink: line => console.log(line)
 });
 // 请求截止线由 core/llm/transport.js 给出默认值与上限，这里提供运行时调整口。
 // 超时参数不进入持久化配置，避免把部署参数变成用户数据的 schema 变更。
 // ARCHITECTURE「AI 与 LLM」：缩短等待不改变请求取消与代次失效边界。
-const aiTimeoutMs = Number(process.env.IM_ADHDER_AI_TIMEOUT_MS) || undefined;
+const aiTimeoutMs = Number(process.env.BUBU_AI_TIMEOUT_MS) || undefined;
 
 // “这个端点说哪种协议”是运行时协商结果，按端点保留在进程内。
 // 它不是用户配置，不写入持久化快照，也不增加设置键。
@@ -758,7 +758,7 @@ const {
   onError: error => {
     // Notifications are post-commit feedback. A host failure must never make
     // a committed command look retryable to the renderer.
-    console.warn('I’m ADHDer notification failed:', error && error.message ? error.message : error);
+    console.warn('小步 notification failed:', error && error.message ? error.message : error);
   }
 });
 
@@ -777,7 +777,7 @@ const { lifecycle, surpriseDirector } = createBootstrapRuntime({
     deliver: envelope => safeWindowSend(petWindow, 'pet:cue', envelope)
   },
   onLifecycleError: (error, resource) => {
-    console.warn(`I’m ADHDer lifecycle cleanup failed (${resource.name}):`, error && error.message ? error.message : error);
+    console.warn(`小步 lifecycle cleanup failed (${resource.name}):`, error && error.message ? error.message : error);
   }
 });
 lifecycle.register('electron:ipc-host', () => ipcHost.dispose());
@@ -800,10 +800,10 @@ function activatePrimaryWindow() {
 const showPrivateTaskNotification = createPrivateTaskNotifications(payload => showNotification(payload));
 
 const startNudgeBestEffort = createNudgeDelivery({ nudge, presentCompanion: petTalk,
-  reportError: error => console.warn('I’m ADHDer nudge failed:', error?.message || error) });
+  reportError: error => console.warn('小步 nudge failed:', error?.message || error) });
 
 function reportWindowDeliveryError(error, { channel = 'unknown' } = {}) {
-  console.warn(`I’m ADHDer renderer delivery failed (${channel}):`, error && error.message ? error.message : error);
+  console.warn(`小步 renderer delivery failed (${channel}):`, error && error.message ? error.message : error);
 }
 
 function safeWindowSend(win, channel, payload) {
@@ -1740,7 +1740,7 @@ registerIpc('nudge:test', async (_, payload) => {
       ? { ok: true }
       : { ok: false, reason: result && result.reason || 'nudge-not-shown' };
   } catch (error) {
-    console.warn('I’m ADHDer test nudge failed:', error && error.message ? error.message : error);
+    console.warn('小步 test nudge failed:', error && error.message ? error.message : error);
     return { ok: false, reason: 'nudge-failed' };
   }
 });
@@ -2079,8 +2079,8 @@ appHost.whenReady().then(() => {
   tray = createTrayHost({
     initialIcon: trayIconAppearance(0, 'idle'),
     tooltip: application.profile === 'development'
-      ? 'I’m ADHDer（开发档位 · 独立数据）'
-      : 'I’m ADHDer — 你的像素专注伙伴',
+      ? '小步（开发档位 · 独立数据）'
+      : '小步 — 你的像素专注伙伴',
     onClick: () => togglePopover(true),
     onRightClick: () => {
       const settings = getSettings();
@@ -2118,7 +2118,7 @@ appHost.whenReady().then(() => {
       { type: 'separator' },
       { label: '开机自启', type: 'checkbox', checked: appHost.openAtLogin(),
         click: (mi) => appHost.setOpenAtLogin(mi.checked) },
-      { label: '退出 I’m ADHDer', click: () => appHost.quit() }
+      { label: '退出 小步', click: () => appHost.quit() }
       ]);
     }
   });
@@ -2143,7 +2143,7 @@ appHost.whenReady().then(() => {
     { accelerator: 'Alt+Space', handler: togglePopover }
   ]);
   if (!shortcutRegistration.ok) {
-    showNotification({ title: '⌨️ 快捷键未完全注册', body: '可能与其他应用冲突；仍可从菜单栏打开 I’m ADHDer。' });
+    showNotification({ title: '⌨️ 快捷键未完全注册', body: '可能与其他应用冲突；仍可从菜单栏打开 小步。' });
   }
   // 闪念面板的全局热键由 quickPanelHost 的绑定阶梯认领，不进入 registerAll；
   // 先 setEnabled 定下开关，再 rebind 把配置的组合记下并（开启时）认领。阶梯自己处理降级，

@@ -42,12 +42,12 @@ function isPlainObject(value) {
 
 function persistedSchemaVersion(raw) {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) {
-    throw new TypeError('I’m ADHDer data file must contain a JSON object');
+    throw new TypeError('bubu data file must contain a JSON object');
   }
   if (raw.schemaVersion === undefined || raw.schemaVersion === null) return 0;
   const version = Number(raw.schemaVersion);
   if (!Number.isInteger(version) || version < 0) {
-    throw new RangeError('I’m ADHDer data file has an invalid schemaVersion');
+    throw new RangeError('bubu data file has an invalid schemaVersion');
   }
   return version;
 }
@@ -272,7 +272,7 @@ function createVerifiedBackup(storePath, backupPath, sourceBytes, fileSystem) {
       // A racing process may have completed the same exclusive copy. Any
       // other failure must stop migration so the only original is untouched.
       if (error.code !== 'EEXIST') {
-        throw new Error(`Cannot back up I’m ADHDer data before migration: ${error.message}`, { cause: error });
+        throw new Error(`Cannot back up bubu data before migration: ${error.message}`, { cause: error });
       }
     }
   }
@@ -281,10 +281,10 @@ function createVerifiedBackup(storePath, backupPath, sourceBytes, fileSystem) {
   try {
     backupBytes = asBuffer(fileSystem.readFileSync(backupPath));
   } catch (error) {
-    throw new Error(`Cannot verify I’m ADHDer migration backup: ${error.message}`, { cause: error });
+    throw new Error(`Cannot verify bubu migration backup: ${error.message}`, { cause: error });
   }
   if (!backupBytes.equals(expectedBytes)) {
-    throw new Error('I’m ADHDer migration backup does not match the current source data; refusing to overwrite either file');
+    throw new Error('bubu migration backup does not match the current source data; refusing to overwrite either file');
   }
   return { backupPath, backupCreated };
 }
@@ -300,10 +300,10 @@ function prepareCurrentSchemaMigrationBackup(storePath, expectedRaw, migrationKi
     sourceBytes = asBuffer(fileSystem.readFileSync(storePath));
     diskRaw = JSON.parse(sourceBytes.toString('utf8'));
   } catch (error) {
-    throw new Error(`Cannot read I’m ADHDer data before migration: ${error.message}`, { cause: error });
+    throw new Error(`Cannot read bubu data before migration: ${error.message}`, { cause: error });
   }
   if (!isDeepStrictEqual(diskRaw, expectedRaw)) {
-    throw new Error('I’m ADHDer data changed while preparing migration; refusing to overwrite it');
+    throw new Error('bubu data changed while preparing migration; refusing to overwrite it');
   }
   // 版本号来自文件自身，而不是一张按修复种类写死的表：这样每种修复在任何
   // schema 上都落在自己的名字下，已经存在的备份名也不会被改写。
@@ -332,12 +332,12 @@ function prepareStoreMigration(storePath, targetVersion, options = {}) {
     sourceBytes = asBuffer(fileSystem.readFileSync(storePath));
     raw = JSON.parse(sourceBytes.toString('utf8'));
   } catch (error) {
-    throw new Error(`Cannot read I’m ADHDer data before migration: ${error.message}`, { cause: error });
+    throw new Error(`Cannot read bubu data before migration: ${error.message}`, { cause: error });
   }
 
   const sourceVersion = persistedSchemaVersion(raw);
   if (sourceVersion > targetVersion) {
-    throw new Error(`I’m ADHDer data schema ${sourceVersion} is newer than this app supports (${targetVersion})`);
+    throw new Error(`bubu data schema ${sourceVersion} is newer than this app supports (${targetVersion})`);
   }
   if (sourceVersion === targetVersion) {
     return { exists: true, raw, sourceVersion, backupPath: null, backupCreated: false };

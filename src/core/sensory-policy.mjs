@@ -1,16 +1,16 @@
 'use strict';
 
-function imAdhderMotionMode(value) {
+function bubuMotionMode(value) {
   return ['reduced', 'balanced', 'full'].includes(value) ? value : 'balanced';
 }
 
-function imAdhderStimulationMode(value) {
+function bubuStimulationMode(value) {
   return ['low', 'balanced', 'high'].includes(value) ? value : 'balanced';
 }
 
 function resolveSensoryPolicy(input = {}) {
-  const motionMode = imAdhderMotionMode(input.motionMode);
-  const stimulationMode = imAdhderStimulationMode(input.stimulationMode);
+  const motionMode = bubuMotionMode(input.motionMode);
+  const stimulationMode = bubuStimulationMode(input.stimulationMode);
   const dnd = input.dnd === true;
   // "完整" is the deliberate opt-out from the operating system preference.
   // Every other mode continues to respect Reduce Motion.
@@ -33,15 +33,15 @@ function resolveSensoryPolicy(input = {}) {
   });
 }
 
-const imAdhderSensoryPolicyApi = {
-  normalizeMotionMode: imAdhderMotionMode,
-  normalizeStimulationMode: imAdhderStimulationMode,
+const bubuSensoryPolicyApi = {
+  normalizeMotionMode: bubuMotionMode,
+  normalizeStimulationMode: bubuStimulationMode,
   resolveSensoryPolicy
 };
 
 
 
-export default imAdhderSensoryPolicyApi;
-export const normalizeMotionMode = imAdhderSensoryPolicyApi.normalizeMotionMode;
-export const normalizeStimulationMode = imAdhderSensoryPolicyApi.normalizeStimulationMode;
+export default bubuSensoryPolicyApi;
+export const normalizeMotionMode = bubuSensoryPolicyApi.normalizeMotionMode;
+export const normalizeStimulationMode = bubuSensoryPolicyApi.normalizeStimulationMode;
 export { resolveSensoryPolicy };

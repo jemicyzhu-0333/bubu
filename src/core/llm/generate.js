@@ -13,6 +13,7 @@ const {
 } = require('./openai');
 const { NO_LLM_TRACE } = require('./trace');
 const { responseUsage } = require('./usage');
+const { rememberProposalValidationDetail } = require('./proposal-validation-detail');
 
 // L3b：一次结构化生成的编排。这一层决定“失败之后做什么”，而这正是旧实现里
 // 完全缺失的一格：一次校验不过就整份回退本地模板，一个整数的起点约定因此拥有
@@ -179,6 +180,7 @@ async function generateStructured(options = {}) {
       } catch (error) {
         if (abortReason(signal)) throw new Error('provider-request-aborted');
         const failure = markValidationFailure(error, text);
+        rememberProposalValidationDetail(failure, task.name);
         if (repairAttempts >= maxRepairAttempts || abortReason(signal)) throw failure;
         repairAttempts += 1;
         span.note(`validation failed (${failure.message}); feeding it back, attempt ${repairAttempts}/${maxRepairAttempts}`);

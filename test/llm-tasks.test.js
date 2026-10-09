@@ -172,10 +172,9 @@ test('a field the model simply omitted becomes null instead of voiding the answe
   assert.deepEqual(repaired.tags, []);
 });
 
-// 产品承诺继续硬拒：一个只有名词的步骤在 ADHD 这边等于没有步骤，它把“下一步做
-// 什么”又推回给了用户。这类失败现在有了修复通道——错误里点名了那句标题，
-// 回灌回去模型能照着改。
-test('product promises stay hard failures, so the retry loop has something to say', () => {
+// Runtime validation checks structure; wording quality stays with the model and
+// the person's editable draft rather than a language-specific action dictionary.
+test('wording passes through repair unchanged while structural bounds still fail', () => {
   const payload = { title: '写周报', existingTags: [] };
   const nounOnly = JSON.stringify({
     steps: [
@@ -185,11 +184,7 @@ test('product promises stay hard failures, so the retry loop has something to sa
     ],
     completionCriteria: null, energy: null, estimateMinutes: null, tags: []
   });
-  assert.throws(
-    () => ENRICH_TASK.validate(ENRICH_TASK.repair(nounOnly, payload), payload),
-    /steps\[0\]\.title must name an action: 项目文件/,
-    '错误必须点名那句标题，否则重试只能碰运气'
-  );
+  assert.equal(ENRICH_TASK.validate(ENRICH_TASK.repair(nounOnly, payload), payload).steps[0].title, '项目文件');
 
   const tooMany = JSON.stringify({
     steps: Array.from({ length: MAX_STEPS + 1 }, (_, index) => ({
@@ -227,20 +222,20 @@ test('clarify is a strict union and ready reuses the shared breakdown step rules
   assert.throws(() => CLARIFY_TASK.validate({
     status: 'waiting', question: '要做什么？', missing: []
   }, { turnIndex: 0 }), /status/);
-  assert.throws(() => CLARIFY_TASK.validate({
+  assert.equal(CLARIFY_TASK.validate({
     status: 'need-more', question: '交给谁？什么时候交？', missing: ['对象', '时间']
-  }, { turnIndex: 0 }), /exactly one question/);
+  }, { turnIndex: 0 }).question, '交给谁？什么时候交？');
 
   const nounOnly = [
     { title: '项目文件', dependsOn: null, safeStopAfter: true },
     { title: '打开周报文档', dependsOn: 0, safeStopAfter: true },
     { title: '保存并发出', dependsOn: 1, safeStopAfter: true }
   ];
-  assert.throws(() => BREAKDOWN_TASK.validate({ steps: nounOnly, clarifyingQuestion: null }), /must name an action/);
-  assert.throws(() => CLARIFY_TASK.validate({
+  assert.deepEqual(BREAKDOWN_TASK.validate({ steps: nounOnly, clarifyingQuestion: null }).steps, nounOnly);
+  assert.deepEqual(CLARIFY_TASK.validate({
     status: 'ready',
     proposal: { title: '写周报', steps: nounOnly, estimateMinutes: 25, energy: 'high', notes: null }
-  }, { turnIndex: 0 }), /must name an action/);
+  }, { turnIndex: 0 }).proposal.steps, nounOnly);
 });
 
 test('clarify uses a six-turn zero-based budget and refuses another question on index five', () => {
@@ -284,17 +279,16 @@ test('the clarify schema has an object root and a flat answer folds back into th
   assert.equal(ready.proposal.steps.length, 3);
 });
 
-// 一个“填三条进展”曾让整份建议作废并回退本地模板。
-test('common office and errand verbs count as actions, bare nouns still do not', () => {
+test('ordinary step titles and noun phrases pass without lexical rejection', () => {
   const steps = titles => titles.map((title, index) => ({ title, dependsOn: index ? index - 1 : null, safeStopAfter: true }));
   for (const title of ['填三条进展', '把数据贴进表格', '给老板打电话', '改第二段', 'Draft the intro', '起草邀请函']) {
     assert.doesNotThrow(() => BREAKDOWN_TASK.validate({
       steps: steps(['打开文档', title, '保存']), clarifyingQuestion: null
     }), title);
   }
-  assert.throws(() => BREAKDOWN_TASK.validate({
+  assert.equal(BREAKDOWN_TASK.validate({
     steps: steps(['项目文件', '打开文档', '保存']), clarifyingQuestion: null
-  }), /must name an action/);
+  }).steps[0].title, '项目文件');
 });
 
 // 使用者有没有某种状况是他自己的事：任何会发给模型的提示词都不写诊断名称，也不让模型去推断。

@@ -35,7 +35,7 @@ const BREAKDOWN_INSTRUCTION = [
 
 const BREAKDOWN_TASK = Object.freeze({
   name: 'breakdown',
-  schemaName: 'im_adhder_breakdown',
+  schemaName: 'bubu_breakdown',
   instruction: BREAKDOWN_INSTRUCTION,
   fields: BREAKDOWN_FIELDS,
   buildSchema: () => PROPOSAL_JSON_SCHEMA,

@@ -9,7 +9,7 @@ function updateReleaseConfig({ pkg, platform, arch, env }) {
   if (platform === 'win32' && !env.WINDOWS_PUBLISHER_NAME) throw new Error('WINDOWS_PUBLISHER_NAME must match the signing certificate');
   const config = structuredClone(pkg.build);
   config.forceCodeSigning = true;
-  config.artifactName = '${productName}-${version}-${os}-${arch}.${ext}';
+  config.artifactName = 'bubu-${version}-${os}-${arch}.${ext}';
   config.publish = [{ provider: 'github', owner: match[1], repo: match[2], private: false,
     releaseType: 'draft', channel: `latest-${arch}` }];
   config.mac = { ...config.mac, target: [{ target: 'dmg', arch: [arch] }, { target: 'zip', arch: [arch] }],

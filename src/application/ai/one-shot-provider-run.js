@@ -1,6 +1,7 @@
 'use strict';
 
 const { createRunExecution } = require('./run-execution');
+const { proposalValidationDetail } = require('../../core/llm/proposal-validation-detail');
 
 const TASKS = new Set(['breakdown', 'enrich', 'unstick', 'impulse-energy', 'capture-triage']);
 const STAGES = new Set(['ports', 'freshness', 'budget', 'listener', 'clock', 'schedule', 'unknown']);
@@ -32,7 +33,10 @@ function cleanupReport(value, missing = 'unconfirmed') {
     timer: boundedTimer, listener: boundedListener });
 }
 function remoteReason(error) {
-  if (own(error, 'stage') === 'validate') return 'proposal-rejected';
+  if (own(error, 'stage') === 'validate') {
+    const detail = proposalValidationDetail(error);
+    return detail ? `proposal-rejected|${detail}` : 'proposal-rejected';
+  }
   const code = own(error, 'code');
   if (REASONS.has(code)) return code;
   const message = own(error, 'message');
@@ -158,7 +162,8 @@ function createOneShotProviderRun({ now, schedule, cancelSchedule } = {}) {
           } catch (fallbackError) {
             try { assertOwner(); } catch (_) { /* Preserve cancellation priority. */ }
             outcome = { ok: false, reason: ownerRefused ? 'provider-request-aborted'
-              : own(fallbackError, 'message') === 'no-local-fallback' ? 'no-local-fallback' : 'local-fallback-failed' };
+              : own(fallbackError, 'message') === 'no-local-fallback' ? 'no-local-fallback' : 'local-fallback-failed',
+              ...(!ownerRefused && reason.startsWith('proposal-rejected|') ? { providerReason: reason } : {}) };
           }
         }
       }

@@ -1,4 +1,4 @@
-# I'm ADHDer 工程架构
+# 小步（bubu） 工程架构
 
 本文是工程契约的唯一出处：分层、状态所有权、事务、持久化，以及各功能必须保持的数据规则。产品语义见
 [PRODUCT.md](PRODUCT.md)，验证方法见 [VALIDATION.md](VALIDATION.md)，桌宠美术坐标见
@@ -7,11 +7,11 @@
 
 ## 品牌与档案身份
 
-产品和安装包使用 I'm ADHDer，npm 包和默认档案为 im-adhder，开发档位独立使用 im-adhder-dev。此次测试修订明确启用新空默认档案、应用标识与OS凭据身份，不迁移、导入或删除旧档案；显式指定的数据目录保持原样。默认路径需要规范化时，在单实例锁前一起设置 userData 与 sessionData。桥接名、事实数据库名和rig格式标识同步采用当前品牌，不提供旧别名。
+产品中文名为小步，英文名与 npm 包名为小写 bubu，安装后的应用名称为小步。此次完整更名统一使用新的 `bubu` 默认档案、`bubu-dev` 开发档案、应用标识、OS 凭据身份和内部协议名，不提供旧名称别名。新默认档案从空状态开始；旧测试目录与凭据保留原样，不自动迁移、导入或删除。显式指定的数据目录保持原样，不借更名读取或改写旧档。默认路径需要规范化时，在单实例锁前同时设置 userData 与 sessionData。
 
 ## 分层与能力
 
-I'm ADHDer 是**模块化单体 + 纵向能力切片 + 端口与适配器**：单用户、本地优先、单主进程事实源的 Electron
+小步（bubu） 是**模块化单体 + 纵向能力切片 + 端口与适配器**：单用户、本地优先、单主进程事实源的 Electron
 应用。不拆微服务，不用通用事件总线、服务定位器或目录扫描式自动注册。
 
 ```text
@@ -44,7 +44,7 @@ main.js（遗留组合根，冻结）
 
 依赖方向：`bootstrap → workflow → 能力 facade`；`surface → surface adapter → preload → IPC → application`；
 `platform → 内侧 port`；所有层可用 `core`、`content`、`shared`。禁止：跨能力深引用、domain 依赖外层、
-surface 触碰 Electron、renderer feature 直接用 `window.imAdhder`、任何模块引用 `main.js`、新建
+surface 触碰 Electron、renderer feature 直接用 `window.bubu`、任何模块引用 `main.js`、新建
 `utils/helpers/common/manager/service` 大桶。纯 domain 不读 Electron、DOM、文件、网络、墙钟和随机数，
 时间、ID、随机由参数或窄 port 注入。
 
@@ -103,20 +103,21 @@ preload：前者不加主进程拒收，后者不加 renderer 调不到。`npm r
 
 业务状态的唯一权威为 `config.sqlite` 的完整JSON快照行（SQL user_version=1），包括业务数据、AI回执和outbox。
 生产组合根使用 `sqlite-state-adapter`，复用现有CAS与持久性证明实现并强制关闭JSON镜像。当前payload `PERSISTED_SCHEMA_VERSION` 为 18。
+配置身份库 `config.sqlite.identity.sqlite` 的 `PRAGMA application_id` 必须为 `0x42554255`（ASCII `BUBU`）。它不同于配置库 `config.sqlite` 与 `config_identity` 行之间绑定的随机每档application_id；身份schema1与业务payload18不变。品牌标记是准入边界，不提供旧品牌兼容或迁移。
 已有 `config.json` 保留原字节但不读取作权威、不重写；只有JSON而没有初始化SQL身份的profile拒绝启动，等待显式导入。
 启动顺序：
 
 1. 先选择生产/开发数据目录，再取得profile单实例锁；失败的第二实例不接触持久化文件。
-2. 全新profile建立独立INITIALIZING身份；仅JSON的旧profile失败关闭，不能隐式导入或清空。底层历史导入实现仅用于既有兼容测试，不是生产默认入口。
+2. 全新profile建立带BUBU标记的独立INITIALIZING身份。没有配置DB/身份DB及其WAL/SHM任一成员时，目录须不存在、为空或仅含精确的Electron单实例锁成员 `SingletonLock`、`SingletonCookie`、`SingletonSocket`；其他任何成员（含孤立数据库、journal或凭据符号链接）均拒绝，不能新建替代事实库或凭据。仅JSON的旧profile仍以需显式导入的错误失败关闭，生产不提供自动导入入口。
 3. 配置SQLite完整快照、revision/hash CAS与业务receipt/outbox同一WAL/FULL事务提交，再核验绑定application_id并标记READY。
 4. READY后只读SQL权威；丢失、替换、截断、未知schema或损坏保留DB/WAL/SHM并失败关闭，不能重新导入可能过时的JSON。
-5. 生产只接受规范完整的payload18；旧版／未来版／损坏18在调用配置normalizer、迁移证据写入和启动proof前拒绝。拒绝保留SQL、身份、revision/hash、证据、proof计数和WAL/SHM。历史generic adapter兼容测试不构成生产导入／迁移入口。
+5. 生产同时要求BUBU配置身份与规范完整的payload18；身份未标记／其他品牌、旧版／未来版／损坏18在调用配置normalizer、迁移证据写入和启动proof前拒绝。拒绝保留SQL、身份、revision/hash、证据、proof计数和WAL/SHM。历史generic adapter兼容测试不构成生产导入／迁移入口。
 6. 生产不构造JSON镜像writer；已有JSON文件不影响SQL成功，也不会触发镜像同步。凭据、资源、缓存和诊断文件不属于业务快照，不能宣称所有文件都在SQLite。
 7. COMMIT异常后先按精确revision/hash核对，再执行不改变业务revision、payload或回执的verification_count FULL事务并重新读回；每次启动也先只读核验payload再做同类证明。证明失败保持unknown并阻止新写入，只重试原身份核对。应用退出先完成会话保存，再关闭所有仓库。
 
-current-only的既有配置档先经`config-admission-copy`：在连接原配置库或原身份库前，仅捕获两者各自DB及存在的WAL/SHM，记录缺失成员，合计最多512 MiB，以1 MiB缓冲复制到独占私有临时目录（目录仅属主访问、文件创建模式0600）。普通文件、文件身份、长度与摘要均核对；不能只复制主DB，已提交的旧payload可能仅在WAL中。副本只读复用SQL／身份／证据／raw validator，不跑完整adapter、迁移或proof；拒绝及清理只触及自有副本，绝不恢复、删除、checkpoint或替换原侧车。清理失败也拒绝原库连接。通过后清理副本，再核对原目录／文件身份、成员存在性及摘要，才走原库既有重验和一次启动proof。
+current-only的既有配置档先经`config-admission-copy`：在连接原配置库或原身份库前，仅捕获两者各自DB及存在的WAL/SHM，记录缺失成员，合计最多512 MiB，以1 MiB缓冲复制到独占私有临时目录（目录仅属主访问、文件创建模式0600）。普通文件、文件身份、长度与摘要均核对；不能只复制主DB，已提交的旧payload可能仅在WAL中。副本先只读核验BUBU品牌标记，再复用SQL／身份／证据／raw validator，不跑完整adapter、迁移或proof；拒绝及清理只触及自有副本，绝不恢复、删除、checkpoint或替换原侧车。清理失败也拒绝原库连接。通过后清理副本，再核对原目录／文件身份、成员存在性及摘要，才走原库既有重验和一次启动proof。
 Windows不能用POSIX mode位证明私有权限：先以固定系统PowerShell的只读常量程序检查新建空目录，再以`wx`建立全部空副本、持有句柄并检查实际文件DACL，确认后才写入私有字节，复制完成后再次检查。路径只通过UTF-8 JSON标准输入传递，不拼入命令；禁止修改ACL、执行策略、提权或拒绝后的替代路线。owner及有效Allow仅接受当前SID、SYSTEM和Administrators；目录上仅允许可继承且InheritOnly的CREATOR OWNER模板，实际文件仍逐个重验。陌生Allow不能由Deny抵消；空／null DACL、未知ACE、reparse point、成员／身份变化、工具不可用、超时及无法确定的结果均失败关闭。三次子进程等待共享本次准入独有的15秒预算（原三次各5秒的总额），按单调时钟扣除实际等待，冷启动可使用剩余额度；每次仍重新取证，不重试、不缓存权限、不跨档共享。超限、时钟异常或余额耗尽均拒绝；复制与验证空档不计入该等待预算，进程终止及清理也可能增加开销，因此不承诺整个启动15秒内结束。三次批量权限检查保留精确目录成员和文件身份复核，不承诺防护同用户、SYSTEM或管理员的恶意替换；此信任边界也不能写成Windows chmod提供owner-only保证。
-此准入以既有profile单实例锁、启动源静止及私有临时目录独占为前提；保留打开但无活动的句柄测试不构成并发复制授权。临时清理逐成员复查目录身份，异常立即停止；未取得初始身份时只尝试非递归删除空目录。Node路径操作并非原子inode条件删除，不承诺对恶意同UID进程在每次检查与unlink之间替换私有目录的防护；探针文件名独立于原六成员，不能用清理去恢复原档。摘要复查不是锁，不能阻止外部writer在检查之后竞写；发现漂移失败关闭，不重放旧侧车。字节合同覆盖六个成员的内容和存在性，不承诺atime等全部文件元数据不变。全新空档不复制；INITIALIZING仅按既有空库／缺主库及source binding恢复，已提交快照仍须完整校验。该有限临时探针不是备份、恢复或新兼容入口；超限资料保留原件并拒绝。
+此准入以既有profile单实例锁、启动源静止及私有临时目录独占为前提；保留打开但无活动的句柄测试不构成并发复制授权。临时清理逐成员复查目录身份，异常立即停止；未取得初始身份时只尝试非递归删除空目录。Node路径操作并非原子inode条件删除，不承诺对恶意同UID进程在每次检查与unlink之间替换私有目录的防护；探针文件名独立于原六成员，不能用清理去恢复原档。摘要复查不是锁，不能阻止外部writer在检查之后竞写；发现漂移失败关闭，不重放旧侧车。字节合同覆盖六个成员的内容和存在性，不承诺atime等全部文件元数据不变。全新空档不复制；仅带BUBU标记且source binding一致的INITIALIZING可按既有空库／缺主库合同恢复，已提交快照仍须完整校验，READY缺主库拒绝。显式数据目录同样受此准入约束；拒绝后须另选新的空测试目录，不修补、重置或迁移原目录。该有限临时探针不是备份、恢复或新兼容入口；超限资料保留原件并拒绝。
 
 SQLite WAL/FULL是这里的跨平台普通事务合同，不以POSIX目录同步作为Windows功能开关，也不等于物理断电认证。
 完整备份建议关闭应用后保留整个profile；至少包含配置SQLite及绑定身份、协作库、事实/记忆库、遗忘账本和任何仍存在的WAL/SHM。
@@ -321,7 +322,7 @@ Provider读取保持当前资格规则和全部所选记录有效的要求：act
 未来FTS须先验证打包SQLite能力和双语质量，再另定同库派生索引schema/迁移；正文从canonical读取，坏索引仅在权威健康时回退有界scan。FTS表达式转义独立于SQL参数绑定，短中文保留有界literal路径。本机hybrid只在词法不足且收益可测时考虑，固定模型/维度/hash/记忆版本，先比较500条规模的精确向量；不隐式下载模型、远程embedding/rerank或索引敏感来源。
 所有未来索引/cache/vector/摘要须登记来源依赖及清理/重建方法，沿原ledger-first失效与receipt重试身份处理，晚到结果不得复活遗忘内容。两库不宣称原子提交，unknown/partial仍由原协议核对；不承诺清除外部Provider、旧备份或物理介质副本。
 
-配置SQLite快照拥有业务状态；按时间查询的普通历史、已处理收件原文和记忆放在独立的 `im-adhder.sqlite`。
+配置SQLite快照拥有业务状态；按时间查询的普通历史、已处理收件原文和记忆放在独立的 `bubu.sqlite`。
 归档原文和确认记忆是用户权威数据，不是可丢弃缓存。唯一驱动入口为sqlite-database；支持node:sqlite及已有better-sqlite3。
 无既有SQL权威时普通历史可使用JSONL；既有SQL或身份标记存在后绝不静默降级为空库。独立INITIALIZING/READY与application_id绑定
 保护缺失/替换，全表、索引、约束与schema核验先于可写打开。WAL/FULL/FK和同步事务负责确认写入，普通时间线发布失败仍不能回滚已提交业务。
@@ -509,9 +510,19 @@ renderer 不直接访问任何模型服务。
 被去掉的限制由本地校验器照样强制。`json_object` 档位贴进提示词的是完整 schema。
 
 **失败处理。** 纯编码约定（下标从 0 还是 1、多余字段、字符串数字、代码围栏、枚举大小写）在 `repair.js`
-修掉；产品承诺（标题不在 schema 里、标签锁在现有集合 enum、3–7 步、每步要有动作词）硬拒，给回灌重试留下
-原话。回灌只有一次，并与协商共用同一条截止线：默认等待与硬上限都是 180 秒，两者保持为两个常量，
-`IM_ADHDER_AI_TIMEOUT_MS` 不能越过上限。
+修掉；结构与边界限制（闭合对象、字段类型、非空有界文本、拆解/补全 3–7 步、协作草稿 1–7 步、只引用此前步骤、
+最后一步可安全停下、估时范围与现有标签集合）继续硬拒。动作词、语序与语言不作为验收条件，不以其他词句语义启发式替代；
+具体可执行性仍写在模型指导里，由用户编辑确认；本地确定性模板保留输入措辞与结构补齐，不追加动作前缀。
+旧澄清合同保留响应类型、单一 question 字段、非空长度与轮次预算，不按问号数量判断问题个数。
+回灌只有一次，并与协商共用同一条截止线：默认等待与硬上限都是 180 秒，两者保持为两个常量，
+`BUBU_AI_TIMEOUT_MS` 不能越过上限。
+
+拆解/补全的失败原因可在既有 `proposal-rejected|...` 中附带真实本地校验详情：仅生成层登记的封闭规则文本与
+有界步骤下标可出站，最多 200 字符；外部异常的 `stage`、`message` 或同形前缀不能自行获得资格，不执行 getter。
+不透传模型原文、字段值、HTTP 正文、密钥或异常堆栈，日志仍只留错误类别。界面按原校验文本以纯文本显示；本地
+回退也失败时保留原拒绝详情于只读 `providerReason`，取消或来源失效仍优先且不保留旧详情，不增加持久化字段。
+协作沿用 `provider-invalid-output` 历史来源类别，本地结构校验详情仅在当次返回的 `providerReason` 中显示；
+不写入 canonical 消息或历史来源字段，重开后仅保留既有错误类别。
 
 **proposal。** `breakdown` 只给步骤，`enrich` 另给完成标准、能量、估时、标签；两者共用 client 选择、
 `runWithFallback`、`ProposalStore`（按 kind 分发校验，最多 5 条、10 分钟）和披露接口。披露是任务的属性：
@@ -643,7 +654,7 @@ dispose最终保存后重新计算清理状态，并固定最后结果，重复�
 `chatCompletionsEndpoint()` 一处拼接。诊断日志（`trace.js`）在所有环境均只输出白名单元数据：生成的请求编号、封闭操作与 Provider 枚举、计数、耗时、HTTP 状态和映射错误码。
 任务标题、消息、收件、记忆、请求/响应正文、模型名、端点、原始异常和堆栈都不能进入日志。
 HTTP外层响应先区分固定contentKind枚举（json/html/event-stream/text/other/unknown）；HTML、意外SSE、空体及非法JSON分别映射封闭错误码，不能把响应正文或任意Content-Type写入诊断，也不因外层非JSON盲目重试。UTF-8 BOM只作编码兼容，不是修补模型输出。已有非2xx状态的协议协商仍保留原边界。每条本地回退消息保留source与安全reason，重新打开对话仍可识别来源。
-源码运行可默认显示这些安全记录，打包后默认关闭；`IM_ADHDER_LLM_LOG=1` 也不能开启内容日志。
+源码运行可默认显示这些安全记录，打包后默认关闭；`BUBU_LLM_LOG=1` 也不能开启内容日志。
 
 提示词里的使用者描述（`START_FRICTION_CONTEXT`，只写行为：难启动、常被打断；不写、不问、不推断任何诊断）与“按真实场景拆”（`SCENARIO_CONTEXT`）是产品约束的复述，模型读不到
 PRODUCT.md，所以约束必须在请求里再说一遍并由测试钉住。
@@ -836,12 +847,12 @@ pet 的 `sync` 以 canonical publication revision 和逐字段到达所有权处
   `GetForegroundWindow` 取进程名，WASAPI `IAudioSessionManager2` + `IAudioMeterInformation` 取峰值高于静音的会话，暂停即停止计入）。
   `activity-probe-host.js` 管理子进程：按行切分、崩溃按 2 / 8 / 30 秒退避重启，连续 5 次失败后放弃；关闭 stdin 即让 helper 退出。
   闲置时间来自 Electron `powerMonitor`。私有 MediaRemote、窗口标题与录屏授权都不使用。
-- **AI 工具通知** `agent-signal-server.js` 只在功能开启时监听 `127.0.0.1:47614`（开发 profile 47615，插件侧用 `IMADHDER_AGENT_PORT` 覆盖），
-  只接受 `POST /v1/agent/<source>/<event>`、必须带 `X-ImADHDer-Agent: 1`、不得带 Origin 和请求体，返回 204，每分钟最多 60 次；
+- **AI 工具通知** `agent-signal-server.js` 只在功能开启时监听 `127.0.0.1:47614`（开发 profile 47615，插件侧用 `BUBU_AGENT_PORT` 覆盖），
+  只接受 `POST /v1/agent/<source>/<event>`、必须带 `X-Bubu-Agent: 1`、不得带 Origin 和请求体，返回 204，每分钟最多 60 次；
   自定义头迫使浏览器先做预检而预检永不放行，网页因此无法触发。`source` 是 1–32 位小写字母、数字与连字符组成的工具名，
   不再是固定枚举；`event` 只能是 `prompt` / `stop`。端口被占用时面板说明收不到通知。
 - **随附插件** `integrations/` 本身是一个插件市场：`.claude-plugin/marketplace.json`（Claude Code、CodeBuddy）与
-  `.agents/plugins/marketplace.json`（Codex），内含唯一插件 `plugins/imadhder-companion/`。插件带五份只有元数据的清单：
+  `.agents/plugins/marketplace.json`（Codex），内含唯一插件 `plugins/bubu-companion/`。插件带五份只有元数据的清单：
   根目录 `plugin.json`（Agent Plugins 标准，Codex 读取）、`.claude-plugin/`、`.qoder-plugin/`、`.codebuddy-plugin/`
   （WorkBuddy 共用）与 `.cursor-plugin/`。`hooks/hooks.json` 是 Claude 格式（`UserPromptSubmit` / `Stop`），被 Claude Code、
   Codex、Qoder、CodeBuddy / WorkBuddy 共用；Cursor 的事件名与结构不同，清单另指 `hooks/cursor-hooks.json`
@@ -1038,7 +1049,7 @@ UI 保留无正文操作槽，换日期或隐藏不丢在途对象；dispose 禁
 
 ## 当前测试版名称与档案身份
 
-当前产品使用 `im-adhder` 默认档案、`im-adhder-dev` 开发档案、`com.imadhder.app` 应用标识和独立的系统凭据身份。此次更名明确采用新的空默认档案，不自动导入、迁移或删除旧目录与旧凭据；显式 `--user-data-dir` 路径保持原样。四个 preload 与 renderer 使用一致的 `imAdhder` 窄桥，环境入口统一为 `IM_ADHDER_*`，不提供旧名称别名。新事实库名为 `im-adhder.sqlite`，配置权威及其身份核验合同不变。
+小步 / bubu 同时统一对外品牌与内部命名：日常档案 `bubu`、开发档案 `bubu-dev`、应用标识 `com.bubu.app`、Electron 应用及系统凭据身份 `bubu`。新默认档案为空，不自动导入、迁移或删除旧测试目录和旧凭据；显式 `--user-data-dir` 路径保持原样。四个 preload 与 renderer 使用一致的 `bubu` 窄桥，环境入口统一为 `BUBU_*`，事实库名为 `bubu.sqlite`，hook 标头为 `X-Bubu-Agent`，rig 格式标识为 `bubu-rig`。集成插件 ID 为 `bubu-companion`，目录为 `integrations/plugins/bubu-companion/`，marketplace ID 为 `bubu`。不提供旧名兼容别名；完整规范 schema 18、BUBU配置身份双重准入，以及配置权威、显式目录身份核验与失败关闭合同必须同时满足。
 
 
 饱食度的实时文字、进度宽度与可访问数值共用纯展示函数：有限数值先限制0–100再四舍五入，异常非有限输入显示0；缺省伙伴摘要仍使用原65默认值。业务快照、衰减计算、喂食与成长保留原小数精度，不把显示舍入写回资料。

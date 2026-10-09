@@ -67,7 +67,7 @@ async function capture() {
     height: 600,
     show: false,
     backgroundColor: '#11131c',
-    title: 'I’m ADHDer 表情取帧（开发）',
+    title: '小步 表情取帧（开发）',
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,

@@ -17,8 +17,10 @@ const OWNER = 'synthetic-delete-defense-owner', NOW = Date.UTC(2026, 9, 7, 12);
 const answer = text => ({ type: 'answer', answer: text, readRequest: null, changeProposal: null });
 const tick = () => new Promise(resolve => setImmediate(resolve));
 function deferred() { let resolve; const promise = new Promise(done => { resolve = done; }); return { promise, resolve }; }
-function database(t) {
+function database(t, { sqlConfig = false } = {}) {
   const directory = fs.mkdtempSync(path.join(require('node:os').tmpdir(), 'conversation-delete-defense-'));
+  // Match production admission: establish the branded config before other stores.
+  if (sqlConfig) createSqliteStateAdapter({ userDataPath: directory, now: () => NOW }).close();
   const filePath = path.join(directory, 'collaboration.sqlite');
   const faults = { business: null, marker: false }, counts = { business: 0, deletes: 0 }, stores = [];
   const driver = { name: 'node-sqlite-synthetic', open: (file, options = {}) => new DatabaseSync(file, options) };
@@ -201,7 +203,7 @@ for (const kind of ['stale', 'missing', 'wrong-session']) {
 
 for (const phase of ['before', 'after']) {
   test(`real config SQLite cleanup ${phase}-COMMIT failure withdraws provider authority and keeps source until proof`, async t => {
-    const db = database(t), h = composition(t, db, { sqlConfig: true }), scope = await receipt(h), late = deferred();
+    const db = database(t, { sqlConfig: true }), h = composition(t, db, { sqlConfig: true }), scope = await receipt(h), late = deferred();
     h.respond(() => late.promise); const pending = h.run('Synthetic provider input', scope); await tick();
     const intent = confirmation(h), disk = db.row(h.id), current = h.service.sessions.get({ conversationId: h.id }).conversation;
     h.configFaults.commit = phase;

@@ -4,6 +4,8 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const { createPopoverDraftConversation } = require('../src/surfaces/popover/features/draft-conversation.mjs');
 const { createCollaborationDom } = require('../test-support/collaboration-dom');
+const { createPopoverMessages } = require('../src/surfaces/popover/ui/messages.mjs');
+const messages = createPopoverMessages({ pad2: value => String(value).padStart(2, '0') });
 
 const escapeHTML = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const deferred = () => { let resolve; const promise = new Promise(done => { resolve = done; }); return { promise, resolve }; };
@@ -64,7 +66,7 @@ function harness({ enabled = true, initial, turn, start, stage } = {}) {
     clarifyNowTask() { throw new Error('chat cannot write tasks'); }
   };
   const feature = createPopoverDraftConversation({ document: dom.document, $: dom.$, escapeHTML, surfaceClient: client,
-    fallbackReasonText: () => '模型暂不可用', adoptProposal: value => adopted.push(value),
+    fallbackReasonText: messages.fallbackReasonText, adoptProposal: value => adopted.push(value),
     stageStuckProposal: stage || ((value, taskId) => { calls.push(['stage', { value, taskId }]); dom.$('#stuckMask').classList.remove('hidden'); return { ok: true }; }),
     restoreModalFocus: target => restored.push(target), isAiClarifyEnabled: () => enabled,
     showEntryStatus: text => entryStatus.push(text) });
@@ -145,6 +147,30 @@ test('closing while a turn is running never repaints after a different session o
   pending.resolve({ ok: true, conversation: session('c1', { messages: [proposal()] }) }); await sending;
   assert.equal(h.log(), before); assert.equal(h.status(), beforeStatus);
   assert.equal(h.dom.$('#draftChatInput').value, '');
+});
+
+test('current safe collaboration detail is shown as text and a stale detail cannot repaint reopened chat', async () => {
+  const detail = 'provider-invalid-output|collaboration-step-final-stop-required';
+  const h = harness({ turn: async (_args, record) => ({ ok: true, source: 'local', reason: 'provider-invalid-output',
+    providerReason: detail, conversation: clone(record) }) });
+  await h.feature.open(); await h.say('A normal message');
+  assert.match(h.status(), /collaboration-step-final-stop-required/);
+  assert.equal(h.dom.$('#draftChatStatus').innerHTML, '');
+  assert.doesNotMatch(h.log(), /collaboration-step-final-stop-required/);
+  h.feature.dispose();
+  const pending = deferred();
+  const stale = harness({ turn: () => pending.promise });
+  await stale.feature.open();
+  const sending = stale.say('Old message');
+  stale.feature.close();
+  await stale.feature.open({ purpose: 'stuck', mode: 'small-step', taskId: 'task2' });
+  const status = stale.status();
+  pending.resolve({ ok: true, source: 'local', reason: 'provider-invalid-output', providerReason: detail,
+    conversation: session('c1') });
+  await sending;
+  assert.equal(stale.status(), status);
+  assert.doesNotMatch(stale.log(), /collaboration-step-final-stop-required/);
+  stale.feature.dispose();
 });
 
 test('8,000 Unicode characters are accepted; 8,001 stay intact and no transport call occurs', async () => {

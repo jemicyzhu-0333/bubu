@@ -30,8 +30,8 @@ function createPopoverMessages({ pad2 } = {}) {
     if (!reason) return '';
     // 模型答了但答得不合约定，与“根本没连上”是两件事。不分开说，用户会去查
     // 密钥和 Base URL，而那两样都是好的。
-    const rejected = /^proposal-rejected\|(.+)$/.exec(reason);
-    if (rejected) return `模型给的内容不符合约定，重试后仍未通过：${rejected[1]}`;
+    const rejected = /^(?:proposal-rejected|provider-invalid-output)\|(.+)$/.exec(reason);
+    if (rejected) return rejected[1].slice(0, 200);
     const httpStatus = /^provider-http-(\d{3})(?:\|(.+))?$/.exec(reason);
     if (httpStatus) {
       const status = httpStatus[1];
@@ -57,6 +57,7 @@ function createPopoverMessages({ pad2 } = {}) {
       'provider-response-empty': '接口返回了空响应，检查 Base URL 和服务商状态',
       'provider-unavailable': '模型接口暂不可用，本次使用本地回复',
       'provider-invalid-output': '模型内容未通过校验，本次使用本地回复',
+      'proposal-rejected': 'Proposal validation failed; no safe detail is available.',
       'provider-response-missing-output': '模型返回里没有内容',
       'provider-response-too-large': '模型返回过大',
       'provider-endpoint-resolves-private': 'Base URL 解析到了内网地址，只允许公网 HTTPS',
@@ -69,8 +70,10 @@ function createPopoverMessages({ pad2 } = {}) {
   }
 
   function fallbackReasonSuffix(result) {
-    if (!result || !result.fallback || !result.reason) return '';
-    return `（AI 未生效：${fallbackReasonText(result.reason)}）`;
+    if (!result) return '';
+    const reason = result.providerReason || (result.fallback && result.reason);
+    if (!reason) return '';
+    return `（AI 未生效：${fallbackReasonText(reason)}）`;
   }
 
   function describeSeriesRule(series) {

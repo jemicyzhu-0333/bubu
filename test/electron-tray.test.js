@@ -73,7 +73,7 @@ function createHost(harness, overrides = {}) {
     nativeImage: harness.nativeImage,
     platform: 'linux',
     initialIcon: { frame: 0, mood: 'idle', palette: PALETTE },
-    tooltip: 'ImAdhder',
+    tooltip: 'Bubu',
     onClick: () => {},
     onRightClick: () => {},
     ...overrides

@@ -120,7 +120,7 @@ test('enrich-only validation preserves fields, vocabulary and first error', () =
 test('deterministic fallbacks retain padding, dependency and effort behavior', () => {
   const basic = breakdown.buildDeterministicProposal(['草稿']);
   assert.equal(basic.steps.length, 3);
-  assert.equal(basic.steps[0].title, '完成：草稿');
+  assert.equal(basic.steps[0].title, '草稿');
   assert.deepEqual(basic.steps.map(step => step.dependsOn), [null, 0, 1]);
   assert.deepEqual(basic.steps.map(step => step.safeStopAfter), [false, false, true]);
   const enhanced = enrich.buildDeterministicEnrich({ steps: ['草稿'], energy: 'unknown', estimateMinutes: 9999 });

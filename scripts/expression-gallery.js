@@ -24,7 +24,7 @@ async function createGalleryWindow() {
     minHeight: 520,
     show: false,
     backgroundColor: '#11131c',
-    title: 'I’m ADHDer 表达画廊（开发）',
+    title: '小步 表达画廊（开发）',
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,

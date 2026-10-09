@@ -59,8 +59,8 @@ jobs:
       - name: Report macOS bundle signing identity and actual entitlements
         if: matrix.platform == 'mac'
         run: |
-          /usr/bin/codesign --display --verbose=4 "dist/mac-arm64/I’m ADHDer.app"
-          /usr/bin/codesign --display --entitlements :- "dist/mac-arm64/I’m ADHDer.app"
+          /usr/bin/codesign --display --verbose=4 "dist/mac-arm64/小步.app"
+          /usr/bin/codesign --display --entitlements :- "dist/mac-arm64/小步.app"
       - name: Verify macOS DMG copy, code integrity and disposable-profile launch
         if: matrix.platform == 'mac'
         run: npm run verify:mac-install

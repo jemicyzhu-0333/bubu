@@ -86,7 +86,7 @@ function validateCaptureTriageResult(raw) {
 
 const CAPTURE_TRIAGE_TASK = Object.freeze({
   name: 'capture-triage',
-  schemaName: 'im_adhder_capture_triage',
+  schemaName: 'bubu_capture_triage',
   instruction: CAPTURE_TRIAGE_INSTRUCTION,
   fields: CAPTURE_TRIAGE_FIELDS,
   buildSchema: () => CAPTURE_TRIAGE_JSON_SCHEMA,

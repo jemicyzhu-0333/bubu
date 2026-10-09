@@ -112,16 +112,36 @@ function validateProbe({ filePath, identityPath, io, driver, makeHandle, prepare
   validateCurrent({ state: initial.state, payloadVersion: initial.state.schemaVersion });
   return initial;
 }
+
+function admitFreshDirectory(io, directory) {
+  const current = stat(io, directory);
+  if (!current) return;
+  if (!current.isDirectory()) throw fail('config-admission-file-invalid');
+  const names = io.readdirSync(directory);
+  if (names.includes('config.json')) throw fail('legacy-json-profile-requires-explicit-import');
+  // The application already owns its instance lock. Missing authority files in
+  // any other nonempty directory are not permission to create replacement data.
+  const lockNames = ['SingletonLock', 'SingletonCookie', 'SingletonSocket'];
+  if (names.some(name => !lockNames.includes(name))) {
+    const error = fail('config-profile-brand-required');
+    error.message += ': Select a new empty profile directory for bubu; this directory contains unbound data.';
+    throw error;
+  }
+}
+
 function admitConfigCopy({ filePath, identityPath, io = fs, prepareInitial, validateCurrent }, { driver, makeHandle, verifyPermissions = verifyProbePermissions }) {
   const members = [filePath, identityPath].flatMap((source, index) => suffixes.map(suffix => ({
     source: source + suffix, index, suffix, stat: regular(io, source + suffix)
   })));
-  if (!members.some(member => member.stat)) return null;
+  if (!members.some(member => member.stat)) {
+    for (const directory of new Set([path.dirname(filePath), path.dirname(identityPath)])) admitFreshDirectory(io, directory);
+    return null;
+  }
   const bytes = members.reduce((total, member) => total + (member.stat?.size || 0n), 0n);
   if (bytes > BigInt(MAX_ADMISSION_BYTES)) throw fail('config-admission-capacity');
   const directories = [...new Set(members.map(member => path.dirname(member.source)))].map(target => ({ target, stat: stat(io, target) }));
   if (directories.some(item => !item.stat?.isDirectory())) throw fail('config-admission-file-invalid');
-  const directory = io.mkdtempSync(path.join(os.tmpdir(), 'im-adhder-config-admission-'));
+  const directory = io.mkdtempSync(path.join(os.tmpdir(), 'bubu-config-admission-'));
   // Distinct probe basenames also prevent cleanup paths from naming either
   // original tuple if a faulty actor substitutes its directory with the source.
   let prefix = path.basename(directory);

@@ -16,7 +16,7 @@ const { normalizePersistedState, FOOD_IDS, PERSISTED_SCHEMA_VERSION } = require(
 const { baseUrlFromEndpoint } = require('../src/capabilities/preferences');
 
 function withTempDirectory(run) {
-  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'im-adhder-migration-'));
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'bubu-migration-'));
   try { return run(directory); } finally { fs.rmSync(directory, { recursive: true, force: true }); }
 }
 
@@ -97,7 +97,7 @@ test('fails closed for unreadable, invalid, or future-schema data', () => {
   withTempDirectory(directory => {
     const storePath = path.join(directory, 'config.json');
     fs.writeFileSync(storePath, '{not-json');
-    assert.throws(() => prepareStoreMigration(storePath, 6), /Cannot read I’m ADHDer data/);
+    assert.throws(() => prepareStoreMigration(storePath, 6), /Cannot read bubu data/);
     fs.writeFileSync(storePath, JSON.stringify({ schemaVersion: 7 }));
     assert.throws(() => prepareStoreMigration(storePath, 6), /newer than this app supports/);
   });
@@ -120,7 +120,7 @@ test('does not proceed when the safety copy cannot be created', () => {
   };
   assert.throws(
     () => prepareStoreMigration('/data/config.json', 6, { fs: fakeFs }),
-    /Cannot back up I’m ADHDer data/
+    /Cannot back up bubu data/
   );
 });
 

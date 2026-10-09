@@ -2,7 +2,8 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'nonce-im-adhder-fullscreen'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>小步 - 强提醒</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'nonce-bubu-fullscreen'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; image-rendering: pixelated;
     font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
@@ -197,7 +198,7 @@
 <body data-motion="reduced" data-stimulation="low">
   <div class="scanlines" aria-hidden="true"></div>
   <div class="card" id="nudgeDialog" role="dialog" aria-modal="true" aria-labelledby="nudgeTitle" aria-describedby="message" tabindex="-1">
-    <h1 class="sr-only" id="nudgeTitle">I’m ADHDer 强提醒</h1>
+    <h1 class="sr-only" id="nudgeTitle">小步 强提醒</h1>
     <div class="spark tl" aria-hidden="true">✦</div>
     <div class="spark tr" aria-hidden="true">✧</div>
     <div class="spark bl" aria-hidden="true">✧</div>
@@ -205,11 +206,11 @@
     <canvas id="charCanvas" width="160" height="160" aria-hidden="true"></canvas>
     <div class="char-name" id="charName">· CHARACTER ·</div>
     <div class="message" id="message" aria-live="assertive" aria-atomic="true">...</div>
-    <div class="sub">I’m ADHDer 强提醒 · Level 4</div>
+    <div class="sub">小步 强提醒 · Level 4</div>
     <div class="actions" id="actions" aria-label="提醒操作"></div>
     <div class="escape-hint">按 <kbd>Esc</kbd> 或点击背景关闭</div>
   </div>
-<script nonce="im-adhder-fullscreen">
+<script nonce="bubu-fullscreen">
   const canvas = document.getElementById('charCanvas');
   const ctx = canvas.getContext('2d');
   ctx.imageSmoothingEnabled = false;
@@ -334,9 +335,9 @@
     document.body.dataset.stimulation = ['low', 'balanced', 'high'].includes(data.stimulationMode) ? data.stimulationMode : 'balanced';
   }
 
-  window.imAdhder.onNudgeSensoryProfile(applyNudgeSensoryProfile);
+  window.bubu.onNudgeSensoryProfile(applyNudgeSensoryProfile);
 
-  window.imAdhder.onNudgeInit((data) => {
+  window.bubu.onNudgeInit((data) => {
     applyNudgeSensoryProfile(data);
     const name = drawCharacter(data.character || 'spider');
     document.getElementById('charName').textContent = '· ' + name + ' ·';
@@ -350,7 +351,7 @@
       btn.dataset.actionId = action.id;
       btn.textContent = action.label;
       btn.addEventListener('click', () => {
-        window.imAdhder.dismissNudge(action.id);
+        window.bubu.dismissNudge(action.id);
       });
       actions.appendChild(btn);
     });
@@ -360,7 +361,7 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       e.preventDefault();
-      window.imAdhder.dismissNudge('dismiss');
+      window.bubu.dismissNudge('dismiss');
       return;
     }
     if (e.key === 'Tab') {
@@ -383,7 +384,7 @@
   });
 
   document.body.addEventListener('click', (e) => {
-    if (!e.target.closest('#nudgeDialog')) window.imAdhder.dismissNudge('dismiss');
+    if (!e.target.closest('#nudgeDialog')) window.bubu.dismissNudge('dismiss');
   });
 </script>
 </body>

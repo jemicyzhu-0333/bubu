@@ -63,7 +63,7 @@ test('the capture tool is an explicit dev entry with no preload, IPC, or network
   // 与开发画廊同一条约束：不接生产 main，也不新增任何能力面。
   assert.doesNotMatch(launcher, /require\('\.\.\/\.\.\/src\/main'\)|require\("\.\.\/\.\.\/src\/main"\)/);
   assert.doesNotMatch(launcher, /preload\s*:|ipcMain|ipcRenderer|webviewTag|enableRemoteModule/);
-  assert.doesNotMatch(`${html}\n${renderer}`, /window\.imAdhder|ipcRenderer|require\s*\(/);
+  assert.doesNotMatch(`${html}\n${renderer}`, /window\.bubu|ipcRenderer|require\s*\(/);
 
   assert.match(launcher, /contextIsolation:\s*true/);
   assert.match(launcher, /nodeIntegration:\s*false/);

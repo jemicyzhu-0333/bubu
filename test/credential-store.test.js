@@ -8,7 +8,7 @@ const path = require('node:path');
 const { createSecureCredentialStore } = require('../src/platform/providers');
 
 test('AI credentials are encrypted outside canonical state and never returned by status', t => {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'im-adhder-credential-'));
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'bubu-credential-'));
   t.after(() => fs.rmSync(dir, { recursive: true, force: true }));
   const safeStorage = {
     isEncryptionAvailable: () => true,

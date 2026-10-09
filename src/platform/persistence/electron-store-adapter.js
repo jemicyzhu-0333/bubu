@@ -8,7 +8,7 @@ const { openConfigAuthority } = require('./sqlite/sqlite-database');
 const { hashBytes, MAX_BYTES } = require('./sqlite/config-authority-schema');
 const { prepareStoreMigration, detectCurrentSchemaMigration, prepareCurrentSchemaMigrationBackup } = require('../../core/store-migration');
 
-const UNSUPPORTED = 'Current I’m ADHDer data failed validation; refusing to rewrite it without a migration backup';
+const UNSUPPORTED = 'Current bubu data failed validation; refusing to rewrite it without a migration backup';
 function createElectronStoreAdapter({ userDataPath, schemaVersion, normalize, now = () => Date.now(), io = fs,
   platform = process.platform, migration = {}, authorityFactory = openConfigAuthority,
   mirrorWriterFactory = createAuthoritativeConfigWriter, driver = 'auto', jsonMirror = true,

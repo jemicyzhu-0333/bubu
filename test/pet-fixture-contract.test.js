@@ -95,7 +95,7 @@ for (const live of [false, true]) {
     const harness = createHarness({ deterministicRandom: true });
     t.after(() => harness.runtime.stop());
     await settle();
-    assert.equal(await harness.window.imAdhder.pet_getContent(), contentPayload);
+    assert.equal(await harness.window.bubu.pet_getContent(), contentPayload);
     const style = harness.document.getElementById('fixture-node').style;
     if (live) {
       style.setProperty('--probe', 12);

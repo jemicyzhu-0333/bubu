@@ -122,10 +122,28 @@ function validateBuildConfig(pkg) {
 function findAppBundle(explicitPath) {
   if (explicitPath) return path.resolve(ROOT, explicitPath);
   const candidates = [
-    path.join(ROOT, 'dist', 'mac-arm64', 'I’m ADHDer.app'),
-    path.join(ROOT, 'dist', 'mac', 'I’m ADHDer.app')
+    path.join(ROOT, 'dist', 'mac-arm64', '小步.app'),
+    path.join(ROOT, 'dist', 'mac', '小步.app')
   ];
   return candidates.find(candidate => fs.existsSync(candidate)) || candidates[0];
+}
+
+function verifyBundleIdentity(appPath, pkg, readKey = (plist, key) => (
+  execFileSync('/usr/bin/plutil', ['-extract', key, 'raw', '-o', '-', plist], {
+    encoding: 'utf8', timeout: 10000, maxBuffer: 4096
+  }).trim()
+)) {
+  const plist = path.join(appPath, 'Contents', 'Info.plist');
+  const expected = {
+    CFBundleDisplayName: pkg.build.productName,
+    CFBundleName: pkg.build.productName,
+    CFBundleExecutable: pkg.build.mac.executableName || pkg.build.productName,
+    CFBundleIdentifier: pkg.build.appId
+  };
+  for (const [key, value] of Object.entries(expected)) {
+    invariant(readKey(plist, key) === value, `bundle ${key} must match ${value}`);
+  }
+  return expected;
 }
 
 function verifyAsar(archivePath, expectedPackage) {
@@ -162,10 +180,11 @@ function verifyAppBundle(appPath) {
   validateBuildConfig(pkg);
   invariant(fs.statSync(appPath).isDirectory(), `macOS app bundle not found: ${appPath}`);
 
-  const executable = path.join(appPath, 'Contents', 'MacOS', 'I’m ADHDer');
+  const executable = path.join(appPath, 'Contents', 'MacOS', '小步');
   const archive = path.join(appPath, 'Contents', 'Resources', 'app.asar');
   invariant(fs.existsSync(executable), `bundle executable not found: ${executable}`);
   invariant(fs.existsSync(archive), `bundle archive not found: ${archive}`);
+  const bundleIdentity = verifyBundleIdentity(appPath, pkg);
 
   const machFiles = [];
   for (const file of walk(appPath)) {
@@ -192,6 +211,7 @@ function verifyAppBundle(appPath) {
     ...gitIdentity(),
     artifact: path.relative(ROOT, appPath),
     version: pkg.version,
+    bundleIdentity,
     codeSignature,
     machOBinaries: machFiles.length,
     asarEntries: archiveResult.entries,
@@ -216,6 +236,7 @@ module.exports = {
   RESTRICTED_MARKERS,
   detectMachArchitectures,
   validateBuildConfig,
+  verifyBundleIdentity,
   verifyAsar,
   verifyAppBundle
 };

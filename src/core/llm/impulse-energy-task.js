@@ -70,7 +70,7 @@ function validateImpulseEnergyResult(raw) {
 
 const IMPULSE_ENERGY_TASK = Object.freeze({
   name: 'impulse-energy',
-  schemaName: 'im_adhder_impulse_energy',
+  schemaName: 'bubu_impulse_energy',
   instruction: IMPULSE_ENERGY_INSTRUCTION,
   fields: IMPULSE_ENERGY_FIELDS,
   buildSchema: () => IMPULSE_ENERGY_JSON_SCHEMA,

@@ -102,6 +102,7 @@ function createHardenedWindow({
   }
 
   const nativeWindow = new BrowserWindow({
+    title: '小步',
     // macOS：浮在别的应用上的无边框窗口不是“当前窗口”时，第一次点击默认只用来激活窗口、不会传给页面，
     // 用户得点两次（桌宠、提醒气泡最明显）。这些窗口的每一次点击都是有意的，所以默认接住第一下。
     acceptFirstMouse: true,

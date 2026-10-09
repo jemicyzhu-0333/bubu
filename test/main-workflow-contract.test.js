@@ -156,16 +156,16 @@ test('native task notifications expose only aggregate state, never task-authored
     // Deadlines and due times stay native notifications even while the pet is hidden.
     {
       title: '⌛ 2 个任务到期',
-      body: '打开 I’m ADHDer 查看并选择顺延或归档。'
+      body: '打开 小步 查看并选择顺延或归档。'
     },
     {
       title: '⏰ 3 个预约已到时间',
-      body: '打开 I’m ADHDer 查看预约内容。'
+      body: '打开 小步 查看预约内容。'
     },
     {
       delivery: 'companion',
       title: '下一次已经排好',
-      body: '打开 I’m ADHDer 查看下一次安排。'
+      body: '打开 小步 查看下一次安排。'
     }
   ]);
 

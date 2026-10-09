@@ -26,16 +26,16 @@ function createAppHarness() {
   return { app, calls, paths };
 }
 
-test('current branding uses its new storage identity without changing explicit profiles', () => {
+test('branding uses the bubu storage and encryption identities without changing explicit profiles', () => {
   const path = require('node:path');
   const harness = createAppHarness();
-  harness.app.setPath('userData', path.resolve('/profiles/I’m ADHDer'));
+  harness.app.setPath('userData', path.resolve('/profiles/小步'));
   const names = [];
   harness.app.setName = name => names.push(name);
   const host = createAppHost({ app: harness.app });
-  assert.equal(host.userDataPath(), path.resolve('/profiles/im-adhder'));
+  assert.equal(host.userDataPath(), path.resolve('/profiles/bubu'));
   assert.equal(harness.app.getPath('sessionData'), host.userDataPath());
-  assert.deepEqual(names, ['im-adhder']);
+  assert.deepEqual(names, ['bubu']);
 });
 
 test('app host keeps profile selection and process controls behind a narrow API', async () => {
@@ -114,7 +114,7 @@ test('menu-bar activation policy is applied only when macOS is ready', () => {
 test('explicit user-data-dir preserves even a product-named custom directory', () => {
   const path = require('node:path');
   const harness = createAppHarness();
-  const explicit = path.resolve('/isolated/I’m ADHDer');
+  const explicit = path.resolve('/isolated/小步');
   harness.app.setPath('userData', explicit);
   harness.app.commandLine = { hasSwitch: name => name === 'user-data-dir' };
   harness.calls.length = 0;

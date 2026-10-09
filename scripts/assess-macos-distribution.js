@@ -25,7 +25,7 @@ function assessDistribution(appPath, { platform = process.platform, run = spawnS
 
 if (require.main === module) {
   try {
-    const app = path.resolve(process.argv[2] || 'dist/mac-arm64/I’m ADHDer.app');
+    const app = path.resolve(process.argv[2] || 'dist/mac-arm64/小步.app');
     console.log(JSON.stringify(assessDistribution(app), null, 2));
   } catch (error) { console.error(error.message); process.exitCode = 1; }
 }

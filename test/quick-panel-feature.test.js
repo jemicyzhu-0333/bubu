@@ -116,7 +116,7 @@ test('quick panel HTML exposes three exclusive modes and the feature uses a scop
     assert.match(html, new RegExp(`id="${id}"`));
   }
   assert.match(html, /type="module" src="\.\.\/surfaces\/impulse\/entry\.mjs"/);
-  assert.doesNotMatch(source, /window\.imAdhder/);
+  assert.doesNotMatch(source, /window\.bubu/);
 
   const module = await import(pathToFileURL(path.join(ROOT, 'src/surfaces/impulse/quick-panel.mjs')).href);
   assert.equal(module.formatDuration(65_000), '01:05');

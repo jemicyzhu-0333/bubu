@@ -27,7 +27,7 @@ function createPetHitLayout({ hit, canvas, root, getStage } = {}) {
       else root.style[property] = `${distance}px`;
     }
     const name = SKINS[skinId]?.name || SKINS.pink.name;
-    hit.setAttribute('aria-label', `I’m ADHDer ${name}：点按与按住都是互动，右键打开命令菜单`);
+    hit.setAttribute('aria-label', `小步 ${name}：点按与按住都是互动，右键打开命令菜单`);
     return rectangle;
   }
 

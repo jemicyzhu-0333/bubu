@@ -2,7 +2,7 @@
 
 import { VIEW_LAYOUTS } from '../content/companion/dango-body.mjs';
 
-// I’m ADHDer 原创团子兽的活动脸：16 种眼形 + 9 种嘴形。
+// 小步 原创团子兽的活动脸：16 种眼形 + 9 种嘴形。
 //
 // mask 使用身体的 33×33 网格坐标（每格 = cell×cell 美术像素）：
 //   - 眼形 5×5，锚在左眼 (7,10) / 右眼 (21,10)；

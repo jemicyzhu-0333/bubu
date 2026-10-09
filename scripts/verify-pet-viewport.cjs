@@ -53,7 +53,7 @@ async function main() {
   const { app, BrowserWindow, screen } = require('electron');
   assert.ok(!['headless', 'no-sandbox', 'disable-gpu'].some(flag => app.commandLine.hasSwitch(flag)), 'normal-GUI-security-required');
   stage = 'profile';
-  const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'im-adhder-viewport-probe-'));
+  const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'bubu-viewport-probe-'));
   app.setPath('userData', profile);
   fs.writeFileSync(path.join(profile, 'preload.cjs'), "'use strict';\n");
   fs.writeFileSync(path.join(profile, 'probe.html'), '<!doctype html><meta charset="utf-8"><title>Viewport probe</title><style>html,body{margin:0;background:transparent}</style>');

@@ -2,6 +2,7 @@
 const path = require('node:path');
 const { randomUUID, randomInt } = require('node:crypto');
 const { hashValid } = require('./config-authority-schema');
+const IDENTITY_APPLICATION_ID = 0x42554255; // BUBU; separate from each profile's random authority binding.
 const SCHEMA = `CREATE TABLE config_identity (
   singleton INTEGER PRIMARY KEY CHECK(singleton = 1), authority_id TEXT NOT NULL UNIQUE,
   application_id INTEGER NOT NULL, source_exists INTEGER NOT NULL CHECK(source_exists IN (0, 1)),
@@ -10,6 +11,10 @@ const SCHEMA = `CREATE TABLE config_identity (
 )`;
 const canonical = sql => String(sql).replace(/\s+/g, ' ').trim();
 function verify(handle) {
+  if (Number(handle.get('PRAGMA application_id')?.application_id) !== IDENTITY_APPLICATION_ID) {
+    throw Object.assign(new Error('config-profile-brand-mismatch: Select a new empty profile directory for bubu; this profile will not be imported automatically.'),
+      { code: 'config-profile-brand-mismatch' });
+  }
   if (handle.userVersion() !== 1 || Object.values(handle.get('PRAGMA quick_check') || {})[0] !== 'ok') throw new Error('config-identity-invalid');
   const schema = handle.all("SELECT type,sql FROM sqlite_master WHERE name NOT LIKE 'sqlite_%'");
   const rows = handle.all('SELECT * FROM config_identity'), row = rows[0];
@@ -33,7 +38,10 @@ function readIdentity({ identityPath, io, driver, makeHandle }) {
   }
   let handle;
   try { handle = makeHandle(driver.open(identityPath, { readOnly: true })); return verify(handle); }
-  catch (_) { throw new Error('config-identity-invalid'); }
+  catch (error) {
+    if (error.code === 'config-profile-brand-mismatch') throw error;
+    throw new Error('config-identity-invalid');
+  }
   finally { if (handle) handle.close(); }
 }
 function createIdentity(ports, source) {
@@ -46,6 +54,7 @@ function createIdentity(ports, source) {
     handle = makeHandle(driver.open(identityPath)); setDurability(handle);
     handle.exec('BEGIN IMMEDIATE');
     try {
+      handle.exec(`PRAGMA application_id=${IDENTITY_APPLICATION_ID}`);
       handle.exec(SCHEMA);
       handle.run("INSERT INTO config_identity VALUES(1,?,?,?,?,?,'INITIALIZING')",
         [authorityId, applicationId, source.exists ? 1 : 0, source.hash, source.bytes.length]);
@@ -71,4 +80,4 @@ function markReady(ports, identity) {
   } finally { if (handle) handle.close(); }
   if (readIdentity(ports).phase !== 'READY') throw new Error('config-identity-unavailable');
 }
-module.exports = { readIdentity, createIdentity, markReady, setDurability };
+module.exports = { IDENTITY_APPLICATION_ID, readIdentity, createIdentity, markReady, setDurability };

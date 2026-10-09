@@ -24,7 +24,7 @@ function reportFactStoreTier(record) {
 // Fact storage selects an available SQLite driver. Unavailable storage is
 // explicit; an established authority never becomes an empty replacement.
 function openFactStoreAt({ userDataPath, logger }) {
-  return openDatabase({ filePath: path.join(userDataPath, 'im-adhder.sqlite'), logger });
+  return openDatabase({ filePath: path.join(userDataPath, 'bubu.sqlite'), logger });
 }
 
 const REQUIRED_APP_HOST_METHODS = Object.freeze([

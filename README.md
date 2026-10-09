@@ -1,16 +1,16 @@
-# I'm ADHDer
+# bubu · 小步
 
 **A small next step. A visible timer. A companion for coming back.**
 
-A local-first desktop app for ADHD-friendly everyday productivity. Capture a thought, choose one next action, start a focus session, and return after an interruption. Built with Electron, with an optional desktop companion and optional AI assistance.
+bubu (小步) is a local-first desktop app for ADHD-friendly everyday productivity. Capture a thought, choose one next action, start a focus session, and return after an interruption. Built with Electron, with an optional desktop companion and optional AI assistance.
 
-[Project website](https://jemicyzhu-0333.github.io/im-adhder/) · [简体中文](README.zh-CN.md) · [Downloads & builds](#downloads--builds) · [Get started](#run-from-source) · [Documentation](#documentation)
+[Project website](https://jemicyzhu-0333.github.io/bubu/) · [简体中文](README.zh-CN.md) · [Downloads & builds](#downloads--builds) · [Get started](#run-from-source) · [Documentation](#documentation)
 
 This project is in development (`0.0.1-dev`). It is an executive-function support tool, not a medical device, and does not diagnose, treat, or promise clinical benefits for ADHD. The current app interface is in Chinese; this README is available in English and Chinese.
 
 ## A look inside
 
-These are unaltered, app-only captures from native Electron testing on Linux, using disposable test data. Test task names are fictional. They show actual UI states, not mockups or proof of Windows/macOS validation. The characters retain their separate [rights restrictions](#license--artwork).
+These are unaltered, app-only captures from native Electron testing on Linux, using disposable test data. Test task names are fictional. They were captured before the bubu rename and show actual UI states, not mockups or proof of Windows/macOS validation. The characters retain their separate [rights restrictions](#license--artwork).
 
 | Now: one place to begin | Focus: the next action and remaining time |
 | --- | --- |
@@ -33,12 +33,14 @@ The main panel has **Now / Plan / Review** sections (现在 / 安排 / 回顾). 
 
 ## Downloads & builds
 
-- **Project website:** visit the [project page](https://jemicyzhu-0333.github.io/im-adhder/) for an overview and current download notices.
-- **Current test packages:** [v0.0.1-dev-r3](https://github.com/jemicyzhu-0333/im-adhder/releases/tag/v0.0.1-dev-r3) provides Windows x64 and macOS ARM64 builds from the updated `main` source. The app version remains `0.0.1-dev`; `r3` identifies this release's replacement test packages. Read the Mac limitations below before downloading.
-- **Earlier releases:** [r2](https://github.com/jemicyzhu-0333/im-adhder/releases/tag/v0.0.1-dev-r2) and [v0.0.1-dev](https://github.com/jemicyzhu-0333/im-adhder/releases/tag/v0.0.1-dev) are retained for history. Do not install the initial v0.0.1-dev Mac package, which was reported as damaged.
-- **New test builds:** the manual [Build Windows and macOS (test) workflow](https://github.com/jemicyzhu-0333/im-adhder/actions/workflows/build-desktop.yml) targets **Windows x64** and **macOS ARM64**. Download a successful run's artifacts while retained; GitHub may require sign-in. Check the run's branch and commit. The workflow does not create a Release.
+- **Project website:** visit the [project page](https://jemicyzhu-0333.github.io/bubu/) for an overview and current download notices.
+- **Latest published test packages (before the bubu rename):** [v0.0.1-dev-r3](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r3) provides Windows x64 and macOS ARM64 builds from commit `8b53043`. These existing installers and their filenames still use the former I'm ADHDer name; they have not been rebuilt or relabeled as bubu. The app version remains `0.0.1-dev`; `r3` identifies that test release revision. Read the Mac limitations below before downloading.
+- **Earlier releases:** [r2](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r2) and [v0.0.1-dev](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev) are retained for history. Do not install the initial v0.0.1-dev Mac package, which was reported as damaged.
+- **New test builds:** the manual [Build Windows and macOS (test) workflow](https://github.com/jemicyzhu-0333/bubu/actions/workflows/build-desktop.yml) targets **Windows x64** and **macOS ARM64**. Download a successful run's artifacts while retained; GitHub may require sign-in. Check the run's branch and commit. The workflow does not create a Release.
 
-Windows test builds are unsigned. New Mac test builds use **ad-hoc signing**, without an Apple Developer ID or notarization. Strict signature integrity, direct startup of a DMG-installed copy with an isolated profile, and SQLite persistence have passed CI, but Gatekeeper's distribution assessment still rejects the Mac build. These checks do not establish that a browser-downloaded app will open normally. Do not disable Gatekeeper or remove quarantine to install it.
+Windows test builds are unsigned. Mac test builds use **ad-hoc signing**, without an Apple Developer ID or notarization. For the published r3 Mac build, strict signature integrity, direct startup of a DMG-installed copy with an isolated profile, and SQLite persistence passed CI, but Gatekeeper's distribution assessment rejected it. This is evidence for that earlier build; renamed bubu binaries require their own native checks. These checks do not establish that a browser-downloaded app will open normally. Do not disable Gatekeeper or remove quarantine to install it.
+
+For builds made from the renamed source, the Mac app is `小步.app`; the older `I’m ADHDer.app` may remain alongside it until you remove that copy yourself. The renamed build uses a new bubu application and credential identity with a fresh default test profile. Existing test apps, data directories, and credentials are left untouched; nothing is automatically imported, migrated, or removed. Configure AI credentials again in the new profile. macOS may show a Keychain prompt for the new application identity or changed ad-hoc-signed binary.
 
 This is a development test version, not a stable release. **In-app updates are not currently available**; update metadata has not been published. Download test builds manually. Use a fresh test profile. Linux has limited native testing and known rendering issues; see [validation and limitations](docs/VALIDATION.md).
 
@@ -47,15 +49,15 @@ This is a development test version, not a stable release. **In-app updates are n
 Requirements: **Node.js 22.12.0+**, npm, and a desktop environment capable of running Electron. Install the full dependencies, including devDependencies.
 
 ```bash
-git clone https://github.com/jemicyzhu-0333/im-adhder.git
-cd im-adhder
+git clone https://github.com/jemicyzhu-0333/bubu.git
+cd bubu
 npm ci
 npm run dev
 ```
 
-`npm run dev` uses an isolated development profile. `npm start` uses the everyday profile. Their data, credentials, and Chromium storage are separate (`im-adhder-dev` and `im-adhder`). This testing revision uses a new default profile and credential identity: it starts empty, leaves previous profile directories untouched, and does not migrate old data or credentials. An explicit `--user-data-dir` remains respected.
+`npm run dev` uses the isolated `bubu-dev` development profile. `npm start` uses the `bubu` everyday profile. Their data, credentials, and Chromium storage are separate. The full rename introduces new bubu internal identifiers and fresh empty default profiles, with no old-name compatibility aliases. Previous test directories and credentials remain untouched; there is no automatic import, migration, or deletion. An explicit `--user-data-dir` remains respected and does not authorize importing or rewriting an older profile.
 
-Current production data admission accepts only complete, canonical **schema 18** profiles. Use a fresh test profile. Older or damaged profiles are rejected without automatic import, conversion, repair, or reset.
+Current production data admission requires both complete, canonical **schema 18** data and a **bubu-branded configuration identity**. Unmarked, foreign-brand, damaged, or orphaned persistent profiles are rejected without automatic import, conversion, repair, or reset. Use a new empty test directory after a refusal; an explicit path does not bypass this boundary.
 
 ```bash
 npm run check               # Unit, syntax, architecture, and generated-resource checks

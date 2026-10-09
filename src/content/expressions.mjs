@@ -1,8 +1,8 @@
 'use strict';
 
-const imAdhderExpressionsApi = (() => {
+const bubuExpressionsApi = (() => {
 
-// I’m ADHDer 的 32 套原创像素表情配置。
+// 小步 的 32 套原创像素表情配置。
 //
 // 这是语义合同，不是对任何上游项目编号或视觉数据的翻译。每一项都是闭合、
 // 有限、可验证的纯数据：不引用 DOM、不使用计时器、不产生随机数、不写业务
@@ -373,10 +373,10 @@ return Object.freeze({
 
 })();
 
-export default imAdhderExpressionsApi;
-export const EXPRESSIONS = imAdhderExpressionsApi.EXPRESSIONS;
-export const EXPECTED_TOTAL = imAdhderExpressionsApi.EXPECTED_TOTAL;
-export const EXPECTED_GROUP_COUNTS = imAdhderExpressionsApi.EXPECTED_GROUP_COUNTS;
-export const EXPECTED_EXPRESSION_IDS = imAdhderExpressionsApi.EXPECTED_EXPRESSION_IDS;
-export const assertExpressionLibrary = imAdhderExpressionsApi.assertExpressionLibrary;
-export const EXPRESSION_LIBRARY_STATS = imAdhderExpressionsApi.EXPRESSION_LIBRARY_STATS;
+export default bubuExpressionsApi;
+export const EXPRESSIONS = bubuExpressionsApi.EXPRESSIONS;
+export const EXPECTED_TOTAL = bubuExpressionsApi.EXPECTED_TOTAL;
+export const EXPECTED_GROUP_COUNTS = bubuExpressionsApi.EXPECTED_GROUP_COUNTS;
+export const EXPECTED_EXPRESSION_IDS = bubuExpressionsApi.EXPECTED_EXPRESSION_IDS;
+export const assertExpressionLibrary = bubuExpressionsApi.assertExpressionLibrary;
+export const EXPRESSION_LIBRARY_STATS = bubuExpressionsApi.EXPRESSION_LIBRARY_STATS;

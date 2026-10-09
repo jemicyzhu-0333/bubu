@@ -36,7 +36,7 @@ function run() {
   const build = spawnSync(path.join(root, 'node_modules/.bin/electron-builder'), signedBuildArgs(process.env),
     { cwd: root, stdio: 'inherit' });
   if (build.status !== 0) return build.status || 1;
-  const app = path.join(root, 'dist/mac-arm64/I’m ADHDer.app');
+  const app = path.join(root, 'dist/mac-arm64/小步.app');
   for (const [command, args] of [
     ['codesign', ['--verify', '--deep', '--strict', app]],
     ['xcrun', ['stapler', 'validate', app]],

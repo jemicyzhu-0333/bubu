@@ -1,7 +1,7 @@
-import ImAdhderTaskDates from './task-dates.mjs';
-import ImAdhderSessionDuration from '../capabilities/execution/contract/session-duration.mjs';
-import ImAdhderStateChannel from '../core/state-channel.mjs';
-import ImAdhderKeyboardNavigation from '../core/keyboard-navigation.mjs';
+import BubuTaskDates from './task-dates.mjs';
+import BubuSessionDuration from '../capabilities/execution/contract/session-duration.mjs';
+import BubuStateChannel from '../core/state-channel.mjs';
+import BubuKeyboardNavigation from '../core/keyboard-navigation.mjs';
 import { createPopoverSurfaceClient } from '../surfaces/popover/adapter/surface-client.mjs';
 import { createPopoverDom } from '../surfaces/popover/ui/dom.mjs';
 import { createPopoverMessages } from '../surfaces/popover/ui/messages.mjs';
@@ -47,7 +47,7 @@ import { createPopoverSettingsFeature } from '../surfaces/popover/features/setti
 import { createPopoverShellFeature } from '../surfaces/popover/features/shell.mjs';
 
 // ============================================================
-// I’m ADHDer — 面板的组合根
+// 小步 — 面板的组合根
 // ============================================================
 // 这一面上不再有任何一处业务判断、DOM 写入或防闪烁键值:它们各自住在
 // src/surfaces/popover 下面的那些层里。这里只做四件事，也只按这四段来读:
@@ -80,11 +80,11 @@ function createPopoverSurface({ document, window }) {
     fallbackReasonSuffix, describeSeriesRule, taskActionMessage, formatExpiry, focusActionMessage,
     scoreSummary
   } = createPopoverMessages({ pad2 });
-  const taskDates = ImAdhderTaskDates;
+  const taskDates = BubuTaskDates;
   // 时长的上下限、步长与预设只有一份定义，渲染层从共享模块读。之前这里自己
   // 写过一份 5–180，跟持久层和设置面板各说一套，这种分叉不能再回来。
-  const sessionDuration = ImAdhderSessionDuration;
-  const stateChannel = ImAdhderStateChannel;
+  const sessionDuration = BubuSessionDuration;
+  const stateChannel = BubuStateChannel;
   const modalPrimitive = createPopoverModalPrimitive({ $, $$ });
   const surfaceClient = createPopoverSurfaceClient();
   // 弹层的 Tab 困焦顺序、Escape 关闭顺序与“有没有弹层开着”都由登记处一处回答,
@@ -522,7 +522,7 @@ function createPopoverSurface({ document, window }) {
     getSession,
     surfaceClient,
     escapeHTML,
-    nextRovingIndex: ImAdhderKeyboardNavigation.nextRovingIndex,
+    nextRovingIndex: BubuKeyboardNavigation.nextRovingIndex,
     onTabShown: name => {
       if (name !== 'inbox') inbox.hide();
       inbox.visibilityChanged();

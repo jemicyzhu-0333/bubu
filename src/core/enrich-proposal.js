@@ -5,7 +5,6 @@ const {
   MIN_STEPS,
   MAX_STEPS,
   MAX_SERIALIZED_BYTES,
-  ACTION_PATTERN,
   buildStepsJsonSchema,
   exactKeys,
   parseRawProposal,
@@ -153,7 +152,7 @@ function buildDeterministicEnrich(input = {}) {
     steps: source.map((step, index) => {
       const title = typeof step === 'string' ? step : step.title;
       return {
-        title: ACTION_PATTERN.test(title) ? title : `完成：${title}`,
+        title,
         dependsOn: index === 0 ? null : index - 1,
         safeStopAfter: index === source.length - 1
       };

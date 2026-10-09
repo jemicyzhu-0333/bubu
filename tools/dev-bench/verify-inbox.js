@@ -18,7 +18,7 @@ async function run() {
   const choose = async (selector, value) => { await js(`(()=>{const e=document.querySelector(${JSON.stringify(selector)});e.value=${JSON.stringify(value)};e.dispatchEvent(new Event('change',{bubbles:true}));})()`); await pause(180); };
   const out = path.resolve('dist/inbox-panel'); fs.mkdirSync(out, { recursive: true });
   const shot = async name => { await pause(100); fs.writeFileSync(path.join(out, `${name}.png`), (await panel.webContents.capturePage()).toPNG()); };
-  await js("window.imAdhder.updateSettings({aiBreakdownEnabled:false,motionMode:'full',stimulationMode:'balanced'})");
+  await js("window.bubu.updateSettings({aiBreakdownEnabled:false,motionMode:'full',stimulationMode:'balanced'})");
   const examples = [
     ['吃完晚饭了', 'log', 'meal'], ['每天散步十分钟', 'routine', 'movement'],
     ['今天有点委屈', 'feeling'], ['想到一个周末出游的点子', 'note'],
@@ -26,9 +26,9 @@ async function run() {
   ];
   const ids = {};
   for (const [text, category, routineKind] of examples) {
-    const id = await js(`(async()=>{await window.imAdhder.addImpulse(${JSON.stringify(text)});return (await window.imAdhder.getState()).impulses.find(i=>i.text===${JSON.stringify(text)}).id})()`);
+    const id = await js(`(async()=>{await window.bubu.addImpulse(${JSON.stringify(text)});return (await window.bubu.getState()).impulses.find(i=>i.text===${JSON.stringify(text)}).id})()`);
     ids[category] = id;
-    if (category !== 'unclassified') assert.equal((await js(`window.imAdhder.organizeImpulse(${JSON.stringify({ id, action: 'classify', category, routineKind: routineKind || null, level: category === 'state' ? 65 : null })})`)).ok, true);
+    if (category !== 'unclassified') assert.equal((await js(`window.bubu.organizeImpulse(${JSON.stringify({ id, action: 'classify', category, routineKind: routineKind || null, level: category === 'state' ? 65 : null })})`)).ok, true);
   }
   await click('#tabArrange'); await shot('01-tasks');
   assert.ok(await js("(()=>{const a=document.querySelector('.task-filters').getBoundingClientRect(),b=document.querySelector('#btnOpenTaskCreate').getBoundingClientRect();return Math.abs(a.top-b.top)<2 && b.left>=a.right})()"), 'task controls share a row');
@@ -46,7 +46,7 @@ async function run() {
   // Missing routine metadata reveals the editor, and classification rerenders preserve draft/focus.
   // Browsing labels is a local draft: nothing is written until the primary action.
   await choose(row('routine') + ' .inbox-category', 'note');
-  assert.equal(await js(`(async()=>(await window.imAdhder.getState()).impulses.find(i=>i.id===${JSON.stringify(ids.routine)}).classification.category)()`), 'routine');
+  assert.equal(await js(`(async()=>(await window.bubu.getState()).impulses.find(i=>i.id===${JSON.stringify(ids.routine)}).classification.category)()`), 'routine');
   assert.equal(await js(`document.querySelector(${JSON.stringify(row('routine') + ' .inbox-source')}).textContent`), '未保存');
   await choose(row('routine') + ' .inbox-category', 'routine');
   assert.equal(await js(`document.querySelector(${JSON.stringify(row('routine') + ' .inbox-details')}).open`), false, 'complete details stay folded');
@@ -63,7 +63,7 @@ async function run() {
   await click(row('unclassified') + ' [data-inbox-pick=feeling]');
   assert.equal(await js(`document.querySelector(${JSON.stringify(row('unclassified') + ' [data-inbox-action=feeling]')}).textContent`), '保存情绪');
   await click(row('log') + ' [data-inbox-action=log]');
-  assert.equal(await js(`(async()=>{return (await window.imAdhder.getInboxHistory({})).items.find(i=>i.id===${JSON.stringify(ids.log)}).resolution.action})()`), 'log');
+  assert.equal(await js(`(async()=>{return (await window.bubu.getInboxHistory({})).items.find(i=>i.id===${JSON.stringify(ids.log)}).resolution.action})()`), 'log');
   await click(row('routine') + ' [data-inbox-action=routine]');
   await click('#tabRoutines'); await shot('09-routines');
   assert.ok(await js("document.querySelector('#tabRoutines #routinesManageCount').textContent==='2'"));
@@ -78,7 +78,7 @@ async function run() {
   assert.equal(await js("document.getElementById('breakdownMask').classList.contains('hidden')"), false);
   await js("document.querySelector('#breakdownMask .modal-close').click()"); await pause(100);
   // Keep-all needs two deliberate clicks and moves every pending capture to history.
-  for (const text of ['想到的一句话', '另一句']) await js(`window.imAdhder.addImpulse(${JSON.stringify(text)})`);
+  for (const text of ['想到的一句话', '另一句']) await js(`window.bubu.addImpulse(${JSON.stringify(text)})`);
   await pause(250);
   await click('#inboxKeepAll');
   assert.match(await js("document.querySelector('#inboxKeepAll').textContent"), /^确认留存 3 条$/);
@@ -107,7 +107,7 @@ async function run() {
   assert.ok(await js("(async()=>{const button=document.querySelector('#dndPill'),icon=button.querySelector('.header-glyph'),before=getComputedStyle(icon).transform;button.focus();button.click();await Promise.resolve();return getComputedStyle(icon).transform===before})()"), 'focus/click must not reset the live hover transform');
   await pause(650);
   assert.equal(await js("getComputedStyle(document.querySelector('#dndPill .header-glyph')).transform"), 'none');
-  await js("window.imAdhder.updateSettings({motionMode:'reduced'})"); await pause(80);
+  await js("window.bubu.updateSettings({motionMode:'reduced'})"); await pause(80);
   await js("document.querySelector('#tabInbox').dispatchEvent(new Event('pointerenter'))"); await pause(60);
   assert.equal(await js("getComputedStyle(document.querySelector('#tabInbox .tab-glyph')).transform"), 'none');
   assert.deepEqual(errors, []);

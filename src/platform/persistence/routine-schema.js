@@ -202,7 +202,7 @@ function normalizeRoutines(raw) {
     });
   }
   if (routines.length > MAX_ROUTINES) {
-    throw new RangeError(`I’m ADHDer data holds more than ${MAX_ROUTINES} routines`);
+    throw new RangeError(`bubu data holds more than ${MAX_ROUTINES} routines`);
   }
   return routines;
 }
@@ -286,7 +286,7 @@ function normalizeEnergyProfile(raw) {
     scales.push([profileId, scale]);
   }
   if (scales.length > MAX_EFFECT_SCALE_KEYS) {
-    throw new RangeError(`I’m ADHDer data holds more than ${MAX_EFFECT_SCALE_KEYS} energy effect scales`);
+    throw new RangeError(`bubu data holds more than ${MAX_EFFECT_SCALE_KEYS} energy effect scales`);
   }
   scales.sort(([left], [right]) => left.localeCompare(right));
   return {

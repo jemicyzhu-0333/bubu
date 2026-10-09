@@ -6,7 +6,6 @@ const {
   validateProposal,
   buildDeterministicProposal,
   MAX_SERIALIZED_BYTES,
-  ACTION_WORDS,
   PROPOSAL_JSON_SCHEMA
 } = require('../src/core/breakdown-proposal');
 const { ProposalStore } = require('../src/application/ai/proposal-store');
@@ -26,7 +25,7 @@ function proposal(count = 3) {
   };
 }
 
-test('proposal schema is closed, bounded and requires action-first ordered steps', () => {
+test('proposal schema is closed, bounded and requires ordered step references', () => {
   assert.equal(validateProposal(proposal()).steps.length, 3);
   assert.throws(() => validateProposal({ ...proposal(), hidden: true }), /unknown/);
   assert.throws(() => validateProposal(proposal(2)), /3–7/);
@@ -36,7 +35,7 @@ test('proposal schema is closed, bounded and requires action-first ordered steps
   assert.throws(() => validateProposal(lateDependency), /earlier/);
   const nounOnly = proposal();
   nounOnly.steps[0].title = '项目文件';
-  assert.throws(() => validateProposal(nounOnly), /action/);
+  assert.equal(validateProposal(nounOnly).steps[0].title, '项目文件');
   const noSafeStop = proposal();
   noSafeStop.steps.forEach(step => { step.safeStopAfter = false; });
   assert.throws(() => validateProposal(noSafeStop), /final step must be a safe stop/);
@@ -45,7 +44,6 @@ test('proposal schema is closed, bounded and requires action-first ordered steps
 
 test('schema and runtime validation use the same shared step contract', () => {
   const stepSchema = PROPOSAL_JSON_SCHEMA.properties.steps;
-  assert.strictEqual(ACTION_WORDS, sharedStepContract.ACTION_WORDS);
   assert.equal(stepSchema.minItems, sharedStepContract.MIN_STEPS);
   assert.equal(stepSchema.maxItems, sharedStepContract.MAX_STEPS);
   assert.equal(stepSchema.items.properties.title.maxLength, sharedStepContract.MAX_STEP_TITLE);
@@ -53,10 +51,8 @@ test('schema and runtime validation use the same shared step contract', () => {
   assert.equal(stepSchema.items.properties.safeStopAfter.description, sharedStepContract.SAFE_STOP_DESCRIPTION);
 });
 
-// 中文语序里动词很少落在第一个字上。一份前缀白名单会把下面这些完全可用的步骤
-// 整份否掉（一步不合格就全部回退），而“买东西、订车票、打包行李”这类非办公
-// 任务过去一个动词都不在词表里，结果是“AI 就是从来不生效”。
-test('an action anywhere in the title counts, and a bare noun phrase still does not', () => {
+// Action-oriented wording remains model guidance, never a local acceptance rule.
+test('step wording is preserved without judging word order or action vocabulary', () => {
   const withTitles = titles => validateProposal({
     steps: titles.map((title, index) => ({
       title,
@@ -67,8 +63,7 @@ test('an action anywhere in the title counts, and a bare noun phrase still does 
   });
   assert.equal(withTitles(['提前查看西双版纳天气', '把要带的衣物列出来', '机票和酒店预订好']).steps.length, 3);
   assert.doesNotThrow(() => withTitles(['买防晒霜和驱蚊液', '订接机车辆', '行李打包完']));
-  // 只有名词的一行仍然不是步骤，而且错误里要能看到是哪一句。
-  assert.throws(() => withTitles(['行李清单', '打开背包', '收尾并保存']), /must name an action: 行李清单/);
+  assert.equal(withTitles(['行李清单', '打开背包', '收尾并保存']).steps[0].title, '行李清单');
 });
 
 test('deterministic fallback conforms and proposal storage is memory-only, bounded and expiring', () => {

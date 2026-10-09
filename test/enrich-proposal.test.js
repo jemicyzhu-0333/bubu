@@ -112,7 +112,7 @@ test('validation rejects unknown fields, unowned tags and out-of-range planning 
   );
 });
 
-test('enrich steps keep the breakdown step contract: bounded, action-first and forward-only', () => {
+test('enrich steps keep the breakdown step contract: bounded text and earlier-only references', () => {
   assert.throws(() => validateEnrichProposal(enrich({ steps: enrich().steps.slice(0, 2) })), /3–7/);
   assert.throws(() => validateEnrichProposal(enrich({
     steps: Array.from({ length: 8 }, (_, index) => ({
@@ -124,7 +124,7 @@ test('enrich steps keep the breakdown step contract: bounded, action-first and f
 
   const nounOnly = enrich();
   nounOnly.steps[0].title = '仓库分支';
-  assert.throws(() => validateEnrichProposal(nounOnly), /action/);
+  assert.equal(validateEnrichProposal(nounOnly).steps[0].title, '仓库分支');
 
   const forwardDependency = enrich();
   forwardDependency.steps[1].dependsOn = 2;
@@ -162,8 +162,8 @@ test('switching AI off still produces a real suggestion from local rules', () =>
   assert.equal(fallback.completionCriteria, null);
   assert.deepEqual(fallback.tags, []);
 
-  // 名词化的本地步骤会被补上动作前缀，否则它过不了自己的校验。
-  assert.equal(buildDeterministicEnrich({ steps: ['周报草稿'] }).steps[0].title, '完成：周报草稿');
+  // 本地模板保留输入措辞，不按动作词表加前缀。
+  assert.equal(buildDeterministicEnrich({ steps: ['周报草稿'] }).steps[0].title, '周报草稿');
   const clamped = buildDeterministicEnrich({ steps: ['打开草稿'], estimateMinutes: 9_999, energy: 'extreme' });
   assert.equal(clamped.estimateMinutes, MAX_ESTIMATE_MINUTES);
   assert.equal(clamped.energy, null);

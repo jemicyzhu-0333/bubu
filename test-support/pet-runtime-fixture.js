@@ -149,7 +149,7 @@ function createHarness({ devicePixelRatio = 2, deterministicRandom = false, init
 
   const bridge = { handlers: {} };
   const noop = () => Promise.resolve(null);
-  window.imAdhder = {
+  window.bubu = {
     onPetViewport: handler => { bridge.handlers.viewport = handler; },
     onPetSync: handler => { bridge.handlers.sync = handler; },
     onPetDock: handler => { bridge.handlers.dock = handler; },
@@ -246,7 +246,7 @@ function createHarness({ devicePixelRatio = 2, deterministicRandom = false, init
   sandbox.globalThis = sandbox;
 
   prepareEnvironment?.({ window, document, environment: sandbox, bridge, elements });
-  const runtime = createPetRuntime({ environment: sandbox, clients: createPetSurfaceClient(window.imAdhder) });
+  const runtime = createPetRuntime({ environment: sandbox, clients: createPetSurfaceClient(window.bubu) });
   if (autoStart) runtime.start();
 
   const petContext = contexts.find(item => item.id === '#petCanvas').context;

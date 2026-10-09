@@ -1,7 +1,7 @@
 const { classifyWorkPeriod } = require('./work-period.mjs');
 
 // ================================================================
-// I’m ADHDer v0.1.0 — Pet Content Library
+// 小步 v0.1.0 — Pet Content Library
 // ADHD-friendly, autonomy-supportive lines + easter eggs + scene decorators
 // ================================================================
 

@@ -204,7 +204,7 @@ function installPorts(t, mode = 'success') {
       calls.push([command, args]);
       if (command === 'hdiutil' && args[0] === 'attach') {
         assert.ok(args.includes('-readonly'));
-        writeAsar(path.join(args.at(-2), 'I’m ADHDer.app/Contents/Resources/app.asar'));
+        writeAsar(path.join(args.at(-2), '小步.app/Contents/Resources/app.asar'));
       }
       if (command === 'hdiutil' && args[0] === 'detach' && mode === 'detach-error') throw new Error('synthetic detach failure');
       if (command === 'ditto') {
@@ -215,7 +215,7 @@ function installPorts(t, mode = 'success') {
       if (command === '/usr/bin/codesign' && mode === 'signature-error') throw new Error('synthetic invalid code signature');
       if (command === 'osascript') {
         assert.match(args.at(-1), /runningApplicationWithProcessIdentifier\(12345\)/);
-        assert.ok(args.at(-1).includes(JSON.stringify(path.join(fixture.root, 'Applications/I’m ADHDer.app/Contents/MacOS/I’m ADHDer'))));
+        assert.ok(args.at(-1).includes(JSON.stringify(path.join(fixture.root, 'Applications/小步.app/Contents/MacOS/小步'))));
         if (mode === 'quit-error') throw new Error('synthetic quit failure');
         if (mode !== 'quit-timeout') {
           completed = true;
@@ -225,7 +225,7 @@ function installPorts(t, mode = 'success') {
     },
     spawnChild(executable, args) {
       calls.push(['spawn', executable]);
-      assert.equal(executable, path.join(fixture.root, 'Applications/I’m ADHDer.app/Contents/MacOS/I’m ADHDer'));
+      assert.equal(executable, path.join(fixture.root, 'Applications/小步.app/Contents/MacOS/小步'));
       assert.deepEqual(args, [`--user-data-dir=${fixture.userDataPath}`]);
       assert.equal(args.includes('--dev'), false, 'packaged smoke must not enable source hot reload');
       const repo = createSqliteStateAdapter({ userDataPath: fixture.userDataPath, now: () => NOW });

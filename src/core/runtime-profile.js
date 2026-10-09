@@ -8,12 +8,12 @@ const path = require('node:path');
 const DEV_FLAG = '--dev';
 const DEV_SUFFIX = '-dev';
 
-// New installations use the current product identity. No old directory is
-// imported, migrated or deleted; explicit user-data-dir bypasses this mapping.
+// The product uses one bubu identity for fresh default profiles. Explicit
+// user-data-dir bypasses this mapping; no old directory is imported or migrated.
 function defaultStoragePath(directory) {
   const name = path.basename(directory);
-  return ['im-adhder', 'I’m ADHDer', "I'm ADHDer"].includes(name)
-    ? path.join(path.dirname(directory), 'im-adhder') : directory;
+  return ['bubu', '小步'].includes(name)
+    ? path.join(path.dirname(directory), 'bubu') : directory;
 }
 
 function isDevProfile(argv = []) {

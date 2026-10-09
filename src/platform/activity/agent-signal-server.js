@@ -4,8 +4,8 @@ const http = require('node:http');
 
 // The bundled plugin (integrations/) sends this header to this port; a development
 // profile listens one port up so it never collides with an installed app
-// (set IMADHDER_AGENT_PORT=47615 in the tool to test against it).
-const SIGNAL_HEADER = 'X-ImADHDer-Agent';
+// (set BUBU_AGENT_PORT=47615 in the tool to test against it).
+const SIGNAL_HEADER = 'X-Bubu-Agent';
 const PORTS = Object.freeze({ production: 47614, development: 47615 });
 const RATE_WINDOW_MS = 60_000;
 const RATE_LIMIT = 60;

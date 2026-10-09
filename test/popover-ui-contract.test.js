@@ -257,7 +257,7 @@ test('a silent fallback is not allowed: both proposal paths say why AI did not r
   assert.match(js, /function fallbackReasonText\(reason\)/);
   // 拆解弹层与草稿补全两条路都得拿到同一句人话。
   assert.match(js, /providerNote\.textContent = preview\.fallback[\s\S]*?fallbackReasonText\(preview\.reason\)/);
-  assert.match(js, /function fallbackReasonSuffix\(result\)[\s\S]*?fallbackReasonText\(result\.reason\)/);
+  assert.match(js, /function fallbackReasonSuffix\(result\)[\s\S]*?fallbackReasonText\(reason\)/);
   assert.match(taskDraftJs, /showStatus\([\s\S]*?fallbackReasonSuffix\(suggestion\)/);
   // 认不出的原因码原样呈上，不能吞成空字符串。
   assert.match(js, /\}\[reason\] \|\| reason;/);
@@ -304,9 +304,9 @@ test('the renderer reads one duration range instead of declaring its own', () =>
   // reintroduce a fourth, so it may not name these bounds at all.
   assert.doesNotMatch(js, /MIN_FULL_FOCUS_MINUTES|MAX_FULL_FOCUS_MINUTES|normalizeFullFocusMinutes/);
   assert.doesNotMatch(js, /const QUICK_START_MINUTES/);
-  assert.match(js, /const sessionDuration = ImAdhderSessionDuration;/);
+  assert.match(js, /const sessionDuration = BubuSessionDuration;/);
   assert.match(js, /sessionDuration\.QUICK_START_MINUTES/);
-  assert.match(js, /import ImAdhderSessionDuration from '\.\.\/capabilities\/execution\/contract\/session-duration\.mjs'/);
+  assert.match(js, /import BubuSessionDuration from '\.\.\/capabilities\/execution\/contract\/session-duration\.mjs'/);
 
   const shared = require('../src/capabilities/execution').sessionDuration;
   assert.equal(shared.normalizeFocusMinutes(2, 25), 5, 'engine activation signal is clamped for full focus');
@@ -482,7 +482,7 @@ test('task rows expose appointment context and impulse review names the actual s
   assert.match(js, /task\.scheduledFor/);
   assert.match(js, /预约于 \$\{escapeHTML\(scheduledLabel\)\}/);
   assert.match(js, /data-inbox-action="schedule">下个工作时段</);
-  assert.match(js, /import ImAdhderTaskDates from '\.\/task-dates\.mjs'/);
+  assert.match(js, /import BubuTaskDates from '\.\/task-dates\.mjs'/);
 });
 
 test('a completion suggestion lands in the draft, never in the store, and never touches the title', () => {
@@ -1041,7 +1041,7 @@ test('the settings footer shows the real package version and no tagline', () => 
   const { version } = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
   const footer = html.match(/<div class="version">([^<]*)<\/div>/);
   assert.ok(footer, 'settings footer exists');
-  assert.equal(footer[1], `I’m ADHDer v${version}`);
+  assert.equal(footer[1], `小步 v${version}`);
 });
 
 // PRODUCT「界面语言」：角色是像素，工具是原生。theme.css 是 features 之后的一层，去掉那一个

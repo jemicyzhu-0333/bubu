@@ -31,7 +31,7 @@ function resolveFocusDisplay({ screenHost, ownsSender, BrowserWindow = require('
       ? BrowserWindow.getFocusedWindow()
       : null;
     const alive = focused && (typeof focused.isDestroyed !== 'function' || !focused.isDestroyed());
-    // A focused I’m ADHDer surface must not anchor the next one to itself; only a
+    // A focused 小步 surface must not anchor the next one to itself; only a
     // genuinely external window contributes its position.
     const ownsFocus = focused && owns(focused.webContents);
     if (alive && !ownsFocus && typeof focused.getBounds === 'function') {

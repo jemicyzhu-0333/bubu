@@ -237,7 +237,7 @@ test('actual controller stop leaves closed command DOM for a replacement control
   hit.dispatch('contextmenu'); await settle();
   assert.equal(menu.classList.contains('show'), true);
   h.runtime.stop();
-  const next = createPetRuntime({ environment: h.environment, clients: createPetSurfaceClient(h.window.imAdhder) });
+  const next = createPetRuntime({ environment: h.environment, clients: createPetSurfaceClient(h.window.bubu) });
   t.after(() => next.stop());
   await next.start();
   assert.equal(menu.classList.contains('show'), false);

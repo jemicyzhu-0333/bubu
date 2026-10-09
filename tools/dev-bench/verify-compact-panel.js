@@ -27,7 +27,7 @@ async function run() {
   const visibleFooter = async id => assert.ok(await js(`(()=>{const r=document.getElementById(${JSON.stringify(id)}).getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight})()`),id+' is visible');
   const noOverflow = async selector => assert.ok(await js(`(()=>{const e=document.querySelector(${JSON.stringify(selector)});return e.scrollWidth<=e.clientWidth+1})()`),selector+' does not overflow');
   nativeTheme.themeSource='light';
-  await js("window.imAdhder.updateSettings({motionMode:'full',stimulationMode:'balanced',energyCurveEnabled:true})");
+  await js("window.bubu.updateSettings({motionMode:'full',stimulationMode:'balanced',energyCurveEnabled:true})");
   await pause(200);
   await shot('01-now');
   console.log('Motion policy', await js("({hidden:document.hidden,motion:document.body.dataset.motion,stimulation:document.body.dataset.stimulation,reduce:matchMedia('(prefers-reduced-motion: reduce)').matches})"));
@@ -44,14 +44,14 @@ async function run() {
   panel.webContents.sendInputEvent({type:'mouseMove',...face}); await pause(100);
   assert.ok(await js("Number(document.querySelectorAll('.energy-checkin-btn')[2].style.getPropertyValue('--dock-scale'))>1.2"));
   await shot('02-energy-dock');
-  await js("window.imAdhder.updateSettings({motionMode:'reduced'})"); await pause(100);
+  await js("window.bubu.updateSettings({motionMode:'reduced'})"); await pause(100);
   assert.equal(await js("getComputedStyle(document.querySelectorAll('.energy-checkin-btn')[2]).transform"),'none');
-  await js("window.imAdhder.updateSettings({motionMode:'full'})");
-  await js("window.imAdhder.addImpulse('周末给绿萝换盆')");
-  await js("window.imAdhder.addImpulse('把今天的问题留到明天整理')");
-  await js("window.imAdhder.addTask({title:'优化水导激光代码工程',description:'先完成一个小的优化版本。',estimateMinutes:180,tags:['本周'],steps:[{title:'打开项目并检查现有代码与测试'},{title:'记录第一个明显的耗时、重复或异常之处'},{title:'完成一个相关修改，再验证同一段代码'}]})");
-  const taskId = await js("(async()=>{const s=await window.imAdhder.getState();return s.tasks.find(t=>t.title==='优化水导激光代码工程').id})()");
-  await js(`window.imAdhder.setNowTask(${JSON.stringify(taskId)})`);
+  await js("window.bubu.updateSettings({motionMode:'full'})");
+  await js("window.bubu.addImpulse('周末给绿萝换盆')");
+  await js("window.bubu.addImpulse('把今天的问题留到明天整理')");
+  await js("window.bubu.addTask({title:'优化水导激光代码工程',description:'先完成一个小的优化版本。',estimateMinutes:180,tags:['本周'],steps:[{title:'打开项目并检查现有代码与测试'},{title:'记录第一个明显的耗时、重复或异常之处'},{title:'完成一个相关修改，再验证同一段代码'}]})");
+  const taskId = await js("(async()=>{const s=await window.bubu.getState();return s.tasks.find(t=>t.title==='优化水导激光代码工程').id})()");
+  await js(`window.bubu.setNowTask(${JSON.stringify(taskId)})`);
   await click('tabArrange'); await shot('03-tasks');
   assert.equal(await js("document.getElementById('inboxPager')"),null);
   assert.equal(await js("document.querySelector('#tabInbox .tab-glyph svg')!==null"),true);
@@ -68,7 +68,7 @@ async function run() {
   await shot('06-editor-options'); await noOverflow('#taskEditMask .modal-body');
   await js("document.getElementById('editDates').open=false;document.getElementById('editAttributes').open=false;document.getElementById('editDescription').value='只做一个可验证的小修改'");
   await click('taskEditConfirm');
-  const saved = await js(`(async()=>{const s=await window.imAdhder.getState();return s.tasks.find(t=>t.id===${JSON.stringify(taskId)})})()`);
+  const saved = await js(`(async()=>{const s=await window.bubu.getState();return s.tasks.find(t=>t.id===${JSON.stringify(taskId)})})()`);
   assert.equal(saved.plannedFor,'2026-10-02'); assert.equal(saved.estimateMinutes,180);
   assert.deepEqual(saved.tags,['本周']); assert.equal(saved.description,'只做一个可验证的小修改');
   await click('tabCompanion'); await shot('07-companion');
@@ -90,7 +90,7 @@ async function run() {
   assert.ok(await js("document.getElementById('aiBaseUrlInput').getBoundingClientRect().width>innerWidth-90"));
   await js("document.getElementById('aiModelInput').value='demo-model';document.getElementById('aiModelInput').dispatchEvent(new Event('input',{bubbles:true}));document.getElementById('aiBaseUrlInput').value='https://example.invalid/v1';document.getElementById('aiBaseUrlInput').dispatchEvent(new Event('input',{bubbles:true}))");
   await click('aiSaveConfig');
-  const settings = await js('(async()=>{const s=await window.imAdhder.getState();return s.settings})()');
+  const settings = await js('(async()=>{const s=await window.bubu.getState();return s.settings})()');
   assert.equal(settings.aiModel,'demo-model'); assert.equal(settings.aiBaseUrl,'https://example.invalid/v1');
   // The disabled AI switch prevents any request; saving configuration is a local operation.
   assert.equal(settings.aiBreakdownEnabled,false);

@@ -38,7 +38,7 @@ test('schema 6 migrates to the canonical current schema with the specified defau
 });
 
 test('schema 6 is backed up byte-for-byte before schema 7 migration and backup failures stop startup', () => {
-  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'im-adhder-schema7-'));
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'bubu-schema7-'));
   try {
     const storePath = path.join(directory, 'config.json');
     const bytes = '{\n  "schemaVersion": 6,\n  "xp": 9\n}\n';

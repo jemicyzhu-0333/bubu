@@ -2,7 +2,7 @@
 
 const { isPlainObject } = require('../field-normalizers');
 const { CURSOR_PATTERN, cursorOffset } = require('../ai-read-cursor');
-const { exactKeys, ACTION_PATTERN, DEPENDS_ON_DESCRIPTION, SAFE_STOP_DESCRIPTION } = require('./validate-steps');
+const { exactKeys, DEPENDS_ON_DESCRIPTION, SAFE_STOP_DESCRIPTION } = require('./validate-steps');
 
 const { validateMemoryProposal, memoryProposalSchemas } = require('../ai-memory-protocol');
 const { validateCandidateOperations, changeProposalSchema, closed: closedCandidate } = require('../ai-change-protocol');
@@ -122,7 +122,6 @@ function validateTaskDraft(value) {
   const steps = value.steps.map((step, index) => {
     closed(step, ['title', 'dependsOn', 'safeStopAfter'], 'step');
     const stepTitle = boundedText(step.title, 'step-title', 200);
-    if (!ACTION_PATTERN.test(stepTitle)) throw new TypeError('collaboration-step-action-required');
     if (step.dependsOn !== null && (!Number.isInteger(step.dependsOn) || step.dependsOn < 0 || step.dependsOn >= index)) {
       throw new TypeError('collaboration-step-dependency-invalid');
     }
@@ -179,7 +178,7 @@ function buildInput(payload = {}) {
   if (Buffer.byteLength(JSON.stringify(input), 'utf8') > 64 * 1024) throw new RangeError('collaboration-context-budget');
   return JSON.parse(JSON.stringify(input));
 }
-const COLLABORATION_TASK = Object.freeze({ name: 'collaborate', schemaName: 'im_adhder_collaborate',
+const COLLABORATION_TASK = Object.freeze({ name: 'collaborate', schemaName: 'bubu_collaborate',
   instruction: INSTRUCTION, fields: FIELDS, buildSchema: () => SCHEMA, buildInput,
   repair: parseEnvelope, validate: validateCollaborationResult, validateReadRequest });
 

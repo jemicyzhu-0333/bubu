@@ -13,7 +13,7 @@ function launchBench({ app, argv = process.argv, createProfile = createDisposabl
   app.setPath('userData', profile.userDataPath);
   app.setPath('sessionData', profile.userDataPath);
   if (!argv.includes('--dev')) argv.push('--dev');
-  log(`I’m ADHDer isolated bench (${scenario}): ${profile.userDataPath}`);
+  log(`小步 isolated bench (${scenario}): ${profile.userDataPath}`);
   if (argv.includes('--devtools')) {
     app.on('browser-window-created', (_event, window) => {
       window.webContents.once('did-finish-load', () => window.webContents.openDevTools({ mode: 'detach', activate: false }));

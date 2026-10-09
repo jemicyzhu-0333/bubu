@@ -100,7 +100,7 @@ async function run() {
       throw new Error('Rig animated ink exceeds declared bounds: '+JSON.stringify(ink));
     return {samples,ink,bounds:b};
   })()`);
-  await popover.webContents.executeJavaScript("window.imAdhder.switchSkin('usagi')");
+  await popover.webContents.executeJavaScript("window.bubu.switchSkin('usagi')");
   await pause(250);
   await save(pet.webContents, '#petCanvas', 'pet.png');
   popover.showInactive();
@@ -120,7 +120,7 @@ async function run() {
       .map(([x,y]) => ({display, area, x, y}));
   });
   for (const {display, area, x, y} of corners) {
-    await pet.webContents.executeJavaScript(`window.imAdhder.pet_setPosition(${x},${y})`);
+    await pet.webContents.executeJavaScript(`window.bubu.pet_setPosition(${x},${y})`);
     const before=pet.getBounds();
     const stageBefore=await pet.webContents.executeJavaScript("(() => { const r=document.getElementById('stage').getBoundingClientRect();return {x:r.x,y:r.y}; })()");
     await pet.webContents.executeJavaScript("document.getElementById('petHit').dispatchEvent(new MouseEvent('contextmenu',{bubbles:true}))");

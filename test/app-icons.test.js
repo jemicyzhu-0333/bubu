@@ -52,7 +52,7 @@ test('ICNS container uses the same current PNG pixels for normal and Retina size
   assert.equal(count, 11);
 });
 test('content checks reject stale, missing and corrupt files; rebuild repairs, unchanged build preserves mtime', async t => {
-  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'adhder-icons-'));
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bubu-icons-'));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   const files = new Map([['assets/icon.icns', (await assets).get('assets/icon.icns')]]);
   assert.throws(() => syncAssets(root, files, true), /Stale or missing/);

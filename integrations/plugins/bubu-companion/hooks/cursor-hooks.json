@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeSubmitPrompt": [
+      {
+        "command": "cat >/dev/null; p=$BUBU_AGENT_PORT; [ -n \"$p\" ] || p=47614; curl -s -m 1 -o /dev/null -X POST -H \"X-Bubu-Agent: 1\" \"http://127.0.0.1:$p/v1/agent/cursor/prompt\" >/dev/null 2>&1; echo '{\"continue\":true}'"
+      }
+    ],
+    "stop": [
+      {
+        "command": "cat >/dev/null; p=$BUBU_AGENT_PORT; [ -n \"$p\" ] || p=47614; curl -s -m 1 -o /dev/null -X POST -H \"X-Bubu-Agent: 1\" \"http://127.0.0.1:$p/v1/agent/cursor/stop\" >/dev/null 2>&1; echo '{}'"
+      }
+    ]
+  }
+}

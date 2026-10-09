@@ -1,9 +1,9 @@
 {
-  "name": "im-adhder",
+  "name": "bubu",
   "version": "0.0.1-dev",
-  "description": "I'm ADHDer — Local-first ADHD productivity, desktop pet, focus timer and task breakdown",
+  "description": "小步 (bubu) — Local-first ADHD productivity, desktop pet, focus timer and task breakdown",
   "main": "src/main.js",
-  "author": "I’m ADHDer",
+  "author": "bubu",
   "license": "PolyForm-Noncommercial-1.0.0",
   "engines": {
     "node": ">=22.12.0"
@@ -75,8 +75,8 @@
     "gsap": "3.14.2"
   },
   "build": {
-    "appId": "com.imadhder.app",
-    "productName": "I’m ADHDer",
+    "appId": "com.bubu.app",
+    "productName": "小步",
     "asar": true,
     "mac": {
       "extendInfo": {
@@ -93,14 +93,14 @@
         "dmg"
       ],
       "icon": "assets/icon.icns",
-      "artifactName": "${productName}-${version}-mac-${arch}-adhoc-test.${ext}",
+      "artifactName": "bubu-${version}-mac-${arch}-adhoc-test.${ext}",
       "sign": {
         "hardenedRuntime": false,
         "identity": "-"
       }
     },
     "dmg": {
-      "title": "I’m ADHDer ${version}",
+      "title": "小步 ${version}",
       "backgroundColor": "#1a1b26",
       "window": {
         "width": 540,
@@ -131,7 +131,8 @@
           "to": "nudge-foreground/nudge-foreground.ps1"
         }
       ],
-      "icon": "assets/icon.ico"
+      "icon": "assets/icon.ico",
+      "executableName": "bubu"
     },
     "extraResources": [
       {
@@ -157,7 +158,21 @@
       "output": "dist"
     },
     "linux": {
-      "icon": "assets/icon.png"
+      "icon": "assets/icon.png",
+      "executableName": "bubu"
+    },
+    "artifactName": "bubu-${version}-${os}-${arch}.${ext}",
+    "nsis": {
+      "deleteAppDataOnUninstall": false
     }
+  },
+  "productName": "小步",
+  "homepage": "https://jemicyzhu-0333.github.io/bubu/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jemicyzhu-0333/bubu.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jemicyzhu-0333/bubu/issues"
   }
 }

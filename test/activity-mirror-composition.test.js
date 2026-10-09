@@ -75,8 +75,8 @@ test('the panel shows install text for the bundled plugin and when each tool las
   const h = harness();
   const projection = h.mirror.projection();
   assert.deepEqual(projection.tools.map(tool => tool.id), ['claude-code', 'codex', 'cursor', 'qoder', 'codebuddy', 'agent']);
-  assert.equal(projection.tools[0].command, `claude plugin marketplace add "${path.join('/R', 'integrations')}" && claude plugin install imadhder-companion@imadhder`);
-  assert.equal(projection.tools.find(tool => tool.id === 'qoder').command, `qoder plugins install "${path.join('/R', 'integrations', 'plugins', 'imadhder-companion')}"`);
+  assert.equal(projection.tools[0].command, `claude plugin marketplace add "${path.join('/R', 'integrations')}" && claude plugin install bubu-companion@bubu`);
+  assert.equal(projection.tools.find(tool => tool.id === 'qoder').command, `qoder plugins install "${path.join('/R', 'integrations', 'plugins', 'bubu-companion')}"`);
   assert.ok(projection.tools.every(tool => tool.lastSignalAt === null), 'nothing is assumed installed');
   const windows = harness({ platform: 'win32' }).mirror.projection().tools;
   assert.deepEqual(windows.map(tool => tool.id), ['claude-code', 'qoder', 'codebuddy', 'agent'], 'only steps known to work on Windows');
@@ -91,7 +91,7 @@ test('the panel shows install text for the bundled plugin and when each tool las
   const handlers = new Map();
   h.mirror.register((channel, handler) => handlers.set(channel, handler));
   assert.deepEqual(handlers.get('activity:copy-plugin-command')(null, { tool: 'cursor' }), { ok: true });
-  assert.equal(h.clipboard[0], `mkdir -p ~/.cursor/plugins/local/imadhder-companion && cp -R "${path.join('/R', 'integrations', 'plugins', 'imadhder-companion')}/." ~/.cursor/plugins/local/imadhder-companion/`);
+  assert.equal(h.clipboard[0], `mkdir -p ~/.cursor/plugins/local/bubu-companion && cp -R "${path.join('/R', 'integrations', 'plugins', 'bubu-companion')}/." ~/.cursor/plugins/local/bubu-companion/`);
 });
 
 test('a cancelled receiver completion cannot overwrite a newer run', async () => {

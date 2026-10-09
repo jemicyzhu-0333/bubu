@@ -245,7 +245,7 @@ test('layer membership matches whole path segments and reports ambiguity', () =>
 // 唯一的下降办法（把一族处理器搬出去）会被闭集判据判成“已声明但没有处理器”，两条规则互锁。
 // 用临时目录而不是往真实 src 里塞探针：node --test 并行跑文件，改动 src 会串到别的测试。
 test('IPC registration collection is independent of which module holds the handler', () => {
-  const fixture = fs.mkdtempSync(path.join(os.tmpdir(), 'im-adhder-ipc-'));
+  const fixture = fs.mkdtempSync(path.join(os.tmpdir(), 'bubu-ipc-'));
   try {
     fs.mkdirSync(path.join(fixture, 'src/platform/electron'), { recursive: true });
     fs.writeFileSync(path.join(fixture, 'src/main.js'), "registerIpc('state:get', () => {});\n");

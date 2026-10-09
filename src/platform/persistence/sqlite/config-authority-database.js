@@ -4,7 +4,7 @@ const path = require('node:path');
 const { SQL_VERSION, SCHEMA, encodePayload, readSnapshot, readAuthoritySnapshot, verifySchema, verifyEvidence } = require('./config-authority-schema');
 const { admitConfigCopy } = require('./config-admission-copy');
 const { proveConfigSnapshotDurable } = require('./config-authority-proof');
-const { readIdentity, createIdentity, markReady, setDurability } = require('./config-authority-identity');
+const { IDENTITY_APPLICATION_ID, readIdentity, createIdentity, markReady, setDurability } = require('./config-authority-identity');
 
 const failure = reason => Object.assign(new Error(reason), { code: reason });
 function openSqliteConfigAuthority({ filePath, identityPath = `${filePath}.identity.sqlite`, prepareInitial,
@@ -115,7 +115,8 @@ function openSqliteConfigAuthority({ filePath, identityPath = `${filePath}.ident
     if (Number(reader.get('PRAGMA schema_version')?.schema_version) !== schemaToken
       || Number(identityReader.get('PRAGMA schema_version')?.schema_version) !== identitySchemaToken) throw failure('config-authority-schema-invalid');
     const marker = identityReader.get('SELECT authority_id,application_id,source_hash,source_length,source_exists,phase FROM config_identity WHERE singleton=1');
-    if (identityReader.userVersion() !== 1 || marker?.authority_id !== identity.authorityId
+    if (Number(identityReader.get('PRAGMA application_id')?.application_id) !== IDENTITY_APPLICATION_ID
+      || identityReader.userVersion() !== 1 || marker?.authority_id !== identity.authorityId
       || marker.application_id !== identity.applicationId || marker.source_hash !== identity.sourceHash
       || marker.source_length !== identity.sourceLength || marker.source_exists !== (identity.sourceExists ? 1 : 0)
       || marker.phase !== 'READY') throw failure('config-identity-mismatch');

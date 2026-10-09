@@ -8,7 +8,7 @@ const PET_METHODS = Object.freeze([
   'pet_startFocus', 'pet_openImpulse', 'pet_openPanel', 'pet_toggleDnd', 'pet_hide'
 ]);
 
-function createPetSurfaceClient(bridge = typeof window !== 'undefined' ? window.imAdhder : null) {
+function createPetSurfaceClient(bridge = typeof window !== 'undefined' ? window.bubu : null) {
   if (!bridge || typeof bridge !== 'object') throw new TypeError('pet surface bridge is required');
   for (const method of PET_METHODS) {
     if (typeof bridge[method] !== 'function') throw new TypeError(`pet bridge is missing ${method}`);

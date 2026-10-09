@@ -1,5 +1,6 @@
 'use strict';
 const { defaultStoragePath } = require('../../core/runtime-profile');
+const { configureNativeBranding } = require('./native-branding');
 
 const APP_EVENTS = Object.freeze({
   onSecondInstance: 'second-instance',
@@ -33,9 +34,10 @@ function createAppHost({ app = require('electron').app } = {}) {
   const explicitDirectory = app.commandLine?.hasSwitch?.('user-data-dir') === true;
   const compatibleDirectory = explicitDirectory ? initialDirectory : defaultStoragePath(initialDirectory);
   if (initialDirectory !== compatibleDirectory) setDataDirectory(compatibleDirectory);
-  // The current brand has its own OS encryption/keychain identity.
-  // No legacy credential or data migration is performed.
-  if (typeof app.setName === 'function') app.setName('im-adhder');
+  // The runtime and OS safeStorage identity use bubu. No earlier credentials
+  // are imported or migrated into this product identity.
+  if (typeof app.setName === 'function') app.setName('bubu');
+  configureNativeBranding({ app });
 
   let activeLifecycleDisposer = null;
 

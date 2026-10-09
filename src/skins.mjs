@@ -1,5 +1,5 @@
 // ================================================================
-// I’m ADHDer — skins:一份定义,主进程 require,面板作为 classic script 读 window。
+// 小步 — skins:一份定义,主进程 require,面板作为 classic script 读 window。
 // 每个皮肤 = 像素兽调色板 + 界面主题。
 // 面板曾经自己抄了一份调色板（“mirror of main.js”),两份十六进制靠人眼对齐;
 // 现在只有这一份,改一次颜色两边同时变。

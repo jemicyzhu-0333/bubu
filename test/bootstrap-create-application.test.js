@@ -8,7 +8,7 @@ const { createApplication } = require('../src/bootstrap/create-application');
 
 const mainSource = fs.readFileSync(path.join(__dirname, '../src/main.js'), 'utf8');
 
-function createAppHostHarness({ lock = true, explicit = false, directory = '/profiles/im-adhder' } = {}) {
+function createAppHostHarness({ lock = true, explicit = false, directory = '/profiles/bubu' } = {}) {
   const calls = [];
   let userDataPath = directory;
   const appHost = {
@@ -64,18 +64,18 @@ test('development profile selection precedes the lock and storage composition', 
   });
 
   assert.deepEqual(harness.calls, [
-    ['user-data', '/profiles/im-adhder'],
-    ['make-directory', path.join('/profiles', 'im-adhder-dev')],
-    ['set-data-directory', path.join('/profiles', 'im-adhder-dev')],
+    ['user-data', '/profiles/bubu'],
+    ['make-directory', path.join('/profiles', 'bubu-dev')],
+    ['set-data-directory', path.join('/profiles', 'bubu-dev')],
     ['acquire-lock'],
-    ['user-data', path.join('/profiles', 'im-adhder-dev')],
-    ['create-state', path.join('/profiles', 'im-adhder-dev'), 8],
-    ['create-credential', path.join('/profiles', 'im-adhder-dev')],
-    ['open-fact-store', path.join('/profiles', 'im-adhder-dev')]
+    ['user-data', path.join('/profiles', 'bubu-dev')],
+    ['create-state', path.join('/profiles', 'bubu-dev'), 8],
+    ['create-credential', path.join('/profiles', 'bubu-dev')],
+    ['open-fact-store', path.join('/profiles', 'bubu-dev')]
   ]);
   assert.equal(result.status, 'primary-instance');
   assert.equal(result.profile, 'development');
-  assert.equal(result.userDataPath, path.join('/profiles', 'im-adhder-dev'));
+  assert.equal(result.userDataPath, path.join('/profiles', 'bubu-dev'));
   assert.equal(result.stateRepository, stateRepository);
   assert.equal(result.credentialStore, credentialStore);
   assert.equal(result.factStore, factStore);
@@ -135,7 +135,7 @@ test('the runtime consumes the profile selected by the composition root', () => 
 });
 
 
-for (const directory of ['/explicit/custom', '/explicit/I’m ADHDer']) {
+for (const directory of ['/explicit/custom', '/explicit/bubu', '/explicit/小步']) {
   for (const argv of [[], ['--dev']]) test(`explicit profile remains exact for ${directory} and ${argv.length ? 'dev' : 'normal'} launch`, () => {
     const harness = createAppHostHarness({ explicit: true, directory });
     const app = createApplication({ argv, appHost: harness.appHost, schemaVersion: 18,

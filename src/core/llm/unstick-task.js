@@ -66,7 +66,7 @@ function validateUnstickResult(raw) {
 
 const UNSTICK_TASK = Object.freeze({
   name: 'unstick',
-  schemaName: 'im_adhder_unstick',
+  schemaName: 'bubu_unstick',
   instruction: UNSTICK_INSTRUCTION,
   fields: UNSTICK_FIELDS,
   buildSchema: () => UNSTICK_JSON_SCHEMA,

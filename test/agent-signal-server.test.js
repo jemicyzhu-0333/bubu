@@ -20,7 +20,7 @@ test('the loopback receiver accepts only the bodiless plugin request and rate-li
   const events = [];
   const server = createAgentSignalServer({ port: 47999, onEvent: event => { events.push(event); return event.source !== 'refused'; } });
   assert.equal((await server.start()).ok, true);
-  const header = { 'X-ImADHDer-Agent': '1' };
+  const header = { 'X-Bubu-Agent': '1' };
   assert.equal(await request(47999, { url: '/v1/agent/qoder/prompt', headers: header }), 204);
   assert.equal(await request(47999, { url: '/v1/agent/refused/prompt', headers: header }), 404, 'the sink decides what is valid');
   assert.equal(await request(47999, { url: '/v1/agent/Bad_Name/prompt', headers: header }), 404);
@@ -86,7 +86,7 @@ test('a restarted receiver ignores stale listen, error and request callbacks', a
 
   let status;
   h.candidates[0].handle({ method: 'POST', url: '/v1/agent/codex/prompt',
-    headers: { 'x-imadhder-agent': '1' }, resume() {} }, { writeHead(code) { status = code; }, end() {} });
+    headers: { 'x-bubu-agent': '1' }, resume() {} }, { writeHead(code) { status = code; }, end() {} });
   assert.equal(status, 404);
   assert.deepEqual(h.events, []);
   h.receiver.stop();

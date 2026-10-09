@@ -2,11 +2,12 @@
 
 const { chatCompletionsEndpoint, protocolEndpoint, PROTOCOLS, DEFAULT_BASE_URL } = require('./endpoint');
 const { requiredModel } = require('./openai');
-const { generateStructured, isValidationFailure } = require('./generate');
+const { generateStructured } = require('./generate');
 const { COLLABORATION_TASK, validateCollaborationResult, validateTaskDraft } = require('./contracts');
 const { TASKS, describeClarifyFields, CLARIFY_MEMORY_FIELDS } = require('./tasks');
 const { resolveTimeout, DEFAULT_TIMEOUT_MS, MAX_TIMEOUT_MS } = require('./transport');
 const { createLlmTrace, NO_LLM_TRACE } = require('./trace');
+const { proposalValidationDetail } = require('./proposal-validation-detail');
 
 // LLM Provider 运行时的公开出口；纯静态契约另由 contracts.js 提供。
 // 四层内部结构仍不向调用方开放。
@@ -107,8 +108,16 @@ function createDeterministicClient(builders = {}) {
 // 校验失败要和网络失败区分开再交给界面。两者都会回退，但一个说明“模型答得
 // 不合约定”，另一个说明“根本没连上”——用户按前者去查密钥和 Base URL 是白查。
 function failureReason(error) {
-  const message = error && error.message ? error.message : 'provider-failed';
-  return isValidationFailure(error) ? `proposal-rejected|${message}` : message;
+  let stage, message;
+  try {
+    stage = Object.getOwnPropertyDescriptor(error, 'stage')?.value;
+    message = Object.getOwnPropertyDescriptor(error, 'message')?.value;
+  } catch (_) { return 'provider-failed'; }
+  if (stage === 'validate') {
+    const detail = proposalValidationDetail(error);
+    return detail ? `proposal-rejected|${detail}` : 'proposal-rejected';
+  }
+  return typeof message === 'string' && message ? message : 'provider-failed';
 }
 
 module.exports = {
