@@ -95,7 +95,7 @@ the exception narrow. “The AI generated it” and “it was faster” are neve
 
 ## Data, publication, and asset safety
 
-- Production requires complete canonical payload schema 18 and a BUBU-branded configuration identity in its bound SQLite profile. Reject unmarked, foreign-brand, or orphan persistent profiles without migration or replacement. Never use a real user profile for migration tests or silently import/reset old data. Use disposable fixtures and retain fail-closed behavior.
+- Production requires complete canonical payload schema 19 and a BUBU-branded configuration identity in its bound SQLite profile. Reject unmarked, foreign-brand, or orphan persistent profiles without migration or replacement. Never use a real user profile for migration tests or silently import/reset old data. Use disposable fixtures and retain fail-closed behavior.
 - Local-first does not mean network-free. AI is opt-in; preserve provider grants, cancellation, freshness checks, and explicit change confirmation.
 - Keep project code under the root license and preserve third-party notices. Noncommercial licensing does not establish character/artwork rights. Do not claim Usagi or Dango permissions are settled.
 - Record current validation evidence separately from requirements. Do not describe PET12's intermittent Linux stripes as fixed, or Node/offscreen tests as native Windows/macOS validation.

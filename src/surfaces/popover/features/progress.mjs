@@ -1,3 +1,4 @@
+import { t, getLocale } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 function createPopoverProgressFeature({
@@ -9,7 +10,8 @@ function createPopoverProgressFeature({
     throw new TypeError('progress feature requires its scoped renderer dependencies');
   }
 
-  let lastStatsKey = '';
+  let lastStatsKey = '', lastStatsData = '';
+  let heatmapCopies = [], detailCopies = [];
   let selectedHeatmapDay = null;
   let todayOpened = false;
   let unsubscribe = null;
@@ -46,16 +48,23 @@ function createPopoverProgressFeature({
     const focusMs = sumValues(stats.dailyFocus, keys);
     const done = sumValues(stats.dailyCompletions, keys);
     const returns = sumValues(stats.dailyReturns, keys);
-    host.textContent = `最近 7 天：专注 ${formatMs(focusMs)} · 完成 ${done} 件 · 回来 ${returns} 次`;
+    host.textContent = t('最近 7 天：专注 {time} · 完成 {done} 件 · 回来 {returns} 次', { time: formatMs(focusMs), done, returns });
   }
 
   function renderStats(state = getState()) {
     if (!state) return;
     const stats = state.stats || {};
     const day = localDateKey(new Date(state.serverNow ?? Date.now()));
-    const key = `${day}|${JSON.stringify(stats)}|${selectedHeatmapDay || ''}`;
+    const dataKey = `${day}|${JSON.stringify(stats)}|${selectedHeatmapDay || ''}`;
+    const key = `${getLocale()}|${dataKey}`;
     if (key === lastStatsKey) return;
     lastStatsKey = key;
+    if (dataKey === lastStatsData) {
+      renderWeekFacts(stats, day);
+      heatmapCopies.forEach(paint => paint()); detailCopies.forEach(paint => paint());
+      return;
+    }
+    lastStatsData = dataKey;
 
     $('#stTotalFocus').textContent = formatMs(stats.totalFocusMs || 0);
     $('#stTotalTasks').textContent = stats.totalTasksDone || 0;
@@ -72,9 +81,10 @@ function createPopoverProgressFeature({
     const completions = (state.stats && state.stats.dailyCompletions) || {};
     // 统计一变整块热力图就重建；重建前焦点在哪一天，重建后还给同一天，不然键盘用户正在挪的时候焦点会掉回页面顶上。
     const focusedDay = container.contains(document.activeElement) ? document.activeElement.getAttribute('data-day') : null;
-    container.innerHTML = '';
+    container.innerHTML = ''; heatmapCopies = [];
     container.setAttribute('role', 'group');
-    container.setAttribute('aria-label', '最近 12 周，每天一格；用方向键移动，回车查看当天');
+    const headingCopy = () => container.setAttribute('aria-label', t('最近 12 周，每天一格；用方向键移动，回车查看当天'));
+    heatmapCopies.push(headingCopy); headingCopy();
     const today = new Date(state.serverNow ?? Date.now());
     today.setHours(0, 0, 0, 0);
     const grid = [];
@@ -93,13 +103,16 @@ function createPopoverProgressFeature({
         const cell = grid[week * 7 + day];
         const cellEl = document.createElement('div');
         cellEl.className = `hm-cell ${msToLevel(cell.ms)}${cell.key === selectedHeatmapDay ? ' selected' : ''}`;
-        cellEl.title = `${cell.key} · 专注 ${formatMs(cell.ms)} · 完成 ${cell.done} 件`;
+        const cellCopy = () => {
+          cellEl.title = t('{day} · 专注 {time} · 完成 {count} 件', { day: cell.key, time: formatMs(cell.ms), count: cell.done });
+          cellEl.setAttribute('aria-label', t('{day}，专注 {time}，完成 {count} 件，查看当天时间线', { day: cell.key, time: formatMs(cell.ms), count: cell.done }));
+        };
+        heatmapCopies.push(cellCopy); cellCopy();
         if (cell.done > 0) cellEl.setAttribute('data-completions', cell.done > 9 ? '9+' : String(cell.done));
         cellEl.setAttribute('role', 'button');
         cellEl.setAttribute('data-day', cell.key);
         cellEl.tabIndex = cell.key === stopKey ? 0 : -1;
         cellEl.setAttribute('aria-pressed', String(cell.key === selectedHeatmapDay));
-        cellEl.setAttribute('aria-label', `${cell.key}，专注 ${formatMs(cell.ms)}，完成 ${cell.done} 件，查看当天时间线`);
         cellEl.addEventListener('mouseenter', () => {
           const tip = $('#heatmapTip');
           if (tip) tip.textContent = cellEl.title;
@@ -168,6 +181,7 @@ function createPopoverProgressFeature({
   }
 
   function renderHeatmapDetail(state = getState()) {
+    detailCopies = [];
     const host = $('#heatmapDetail');
     if (!host) return;
     if (!selectedHeatmapDay || !state) {
@@ -184,16 +198,31 @@ function createPopoverProgressFeature({
     host.classList.remove('hidden');
     host.innerHTML = `
       <div class="hm-detail-head">
-        <span class="hm-detail-date">${escapeHTML(day)} · 周${weekdayLabels[heatmapWeekday(day)]}</span>
-        <button type="button" class="modal-close hm-detail-close" aria-label="关闭 ${escapeHTML(day)} 的详情">✕</button>
+        <span class="hm-detail-date">${escapeHTML(t('{day} · 周{weekday}', { day, weekday: t(weekdayLabels[heatmapWeekday(day)]) }))}</span>
+        <button type="button" class="modal-close hm-detail-close" aria-label="${escapeHTML(t('关闭 {day} 的详情', { day }))}">✕</button>
       </div>
       <div class="hm-detail-facts">
-        <span data-progress-metric="focus"><b>${escapeHTML(formatMs(focusMs))}</b> 专注</span>
-        <span data-progress-metric="completions"><b>${done}</b> 件完成</span>
-        <span data-progress-metric="launches"><b>${launches}</b> 次启动</span>
-        <span data-progress-metric="returns"><b>${returns}</b> 次返回</span><details class="inline-help"><summary aria-label="统计和活动记录如何计算">?</summary><p>启动：开始一轮专注或两分钟起步。返回：恢复已暂停的专注，或确认两分钟起步后的继续、收口。它们来自每日统计，不代表任务完成数。</p><p>日常等具体活动记录在下方时间线中。统计为零，不代表没有行动。</p></details>
+        <span data-progress-metric="focus"><b>${escapeHTML(formatMs(focusMs))}</b> ${t('专注')}</span>
+        <span data-progress-metric="completions"><b>${done}</b> ${t('件完成')}</span>
+        <span data-progress-metric="launches"><b>${launches}</b> ${t('次启动')}</span>
+        <span data-progress-metric="returns"><b>${returns}</b> ${t('次返回')}</span><details class="inline-help"><summary aria-label="${t('统计和活动记录如何计算')}">?</summary><p>${t('启动：开始一轮专注或两分钟起步。返回：恢复已暂停的专注，或确认两分钟起步后的继续、收口。它们来自每日统计，不代表任务完成数。')}</p><p>${t('日常等具体活动记录在下方时间线中。统计为零，不代表没有行动。')}</p></details>
       </div>
 `;
+    const paintDetail = () => {
+      const date = host.querySelector('.hm-detail-date');
+      if (date) date.textContent = t('{day} · 周{weekday}', { day, weekday: t(weekdayLabels[heatmapWeekday(day)]) });
+      host.querySelector('.hm-detail-close')?.setAttribute('aria-label', t('关闭 {day} 的详情', { day }));
+      for (const [metric, source] of [['focus', '专注'], ['completions', '件完成'], ['launches', '次启动'], ['returns', '次返回']]) {
+        const node = host.querySelector(`[data-progress-metric="${metric}"]`);
+        const text = [...(node?.childNodes || [])].find(item => item.nodeType === 3 && item.textContent.trim());
+        if (text) text.textContent = ` ${t(source)}`;
+      }
+      const help = host.querySelector('.inline-help');
+      help?.querySelector('summary')?.setAttribute('aria-label', t('统计和活动记录如何计算'));
+      const sources = ['启动：开始一轮专注或两分钟起步。返回：恢复已暂停的专注，或确认两分钟起步后的继续、收口。它们来自每日统计，不代表任务完成数。', '日常等具体活动记录在下方时间线中。统计为零，不代表没有行动。'];
+      help?.querySelectorAll('p').forEach((node, index) => { if (sources[index]) node.textContent = t(sources[index]); });
+    };
+    detailCopies.push(paintDetail);
     const close = host.querySelector('.hm-detail-close');
     if (close) close.addEventListener('click', () => selectHeatmapDay(day));
   }
@@ -224,6 +253,12 @@ function createPopoverProgressFeature({
     }
     if (unsubscribe) return;
     unsubscribe = projectionStore.subscribe(change => {
+      if (change.localeOnly) {
+        const state = change.state || getState();
+        if (state) renderWeekFacts(state.stats || {}, localDateKey(new Date(state.serverNow ?? Date.now())));
+        heatmapCopies.forEach(paint => paint()); detailCopies.forEach(paint => paint());
+        return; // A language change keeps selected-day controls and focus intact.
+      }
       const dirty = change.dirty || {};
       if (dirty.all || dirty.stats) renderStats(change.state);
     });
@@ -234,7 +269,7 @@ function createPopoverProgressFeature({
     unsubscribe = null;
     selectedHeatmapDay = null;
     todayOpened = false;
-    lastStatsKey = '';
+    lastStatsKey = ''; lastStatsData = ''; heatmapCopies = []; detailCopies = [];
   }
 
   return Object.freeze({ mount, dispose, renderStats, renderHeatmap, renderHeatmapDetail, selectHeatmapDay, showToday });

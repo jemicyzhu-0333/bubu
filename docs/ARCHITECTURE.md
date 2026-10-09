@@ -102,8 +102,8 @@ preload：前者不加主进程拒收，后者不加 renderer 调不到。`npm r
 ## 持久化与迁移
 
 业务状态的唯一权威为 `config.sqlite` 的完整JSON快照行（SQL user_version=1），包括业务数据、AI回执和outbox。
-生产组合根使用 `sqlite-state-adapter`，复用现有CAS与持久性证明实现并强制关闭JSON镜像。当前payload `PERSISTED_SCHEMA_VERSION` 为 18。
-配置身份库 `config.sqlite.identity.sqlite` 的 `PRAGMA application_id` 必须为 `0x42554255`（ASCII `BUBU`）。它不同于配置库 `config.sqlite` 与 `config_identity` 行之间绑定的随机每档application_id；身份schema1与业务payload18不变。品牌标记是准入边界，不提供旧品牌兼容或迁移。
+生产组合根使用 `sqlite-state-adapter`，复用现有CAS与持久性证明实现并强制关闭JSON镜像。本功能分支当前payload `PERSISTED_SCHEMA_VERSION` 为 19。
+配置身份库 `config.sqlite.identity.sqlite` 的 `PRAGMA application_id` 必须为 `0x42554255`（ASCII `BUBU`）。它不同于配置库 `config.sqlite` 与 `config_identity` 行之间绑定的随机每档application_id；身份schema1与品牌身份schema不变；业务payload19仅用于此功能分支。品牌标记是准入边界，不提供旧品牌兼容或迁移。
 已有 `config.json` 保留原字节但不读取作权威、不重写；只有JSON而没有初始化SQL身份的profile拒绝启动，等待显式导入。
 启动顺序：
 
@@ -111,7 +111,7 @@ preload：前者不加主进程拒收，后者不加 renderer 调不到。`npm r
 2. 全新profile建立带BUBU标记的独立INITIALIZING身份。没有配置DB/身份DB及其WAL/SHM任一成员时，目录须不存在、为空或仅含精确的Electron单实例锁成员 `SingletonLock`、`SingletonCookie`、`SingletonSocket`；其他任何成员（含孤立数据库、journal或凭据符号链接）均拒绝，不能新建替代事实库或凭据。仅JSON的旧profile仍以需显式导入的错误失败关闭，生产不提供自动导入入口。
 3. 配置SQLite完整快照、revision/hash CAS与业务receipt/outbox同一WAL/FULL事务提交，再核验绑定application_id并标记READY。
 4. READY后只读SQL权威；丢失、替换、截断、未知schema或损坏保留DB/WAL/SHM并失败关闭，不能重新导入可能过时的JSON。
-5. 生产同时要求BUBU配置身份与规范完整的payload18；身份未标记／其他品牌、旧版／未来版／损坏18在调用配置normalizer、迁移证据写入和启动proof前拒绝。拒绝保留SQL、身份、revision/hash、证据、proof计数和WAL/SHM。历史generic adapter兼容测试不构成生产导入／迁移入口。
+5. 生产同时要求BUBU配置身份与规范完整的payload19；身份未标记／其他品牌、旧版／未来版／损坏19在调用配置normalizer、迁移证据写入和启动proof前拒绝。拒绝保留SQL、身份、revision/hash、证据、proof计数和WAL/SHM。历史generic adapter兼容测试不构成生产导入／迁移入口。
 6. 生产不构造JSON镜像writer；已有JSON文件不影响SQL成功，也不会触发镜像同步。凭据、资源、缓存和诊断文件不属于业务快照，不能宣称所有文件都在SQLite。
 7. COMMIT异常后先按精确revision/hash核对，再执行不改变业务revision、payload或回执的verification_count FULL事务并重新读回；每次启动也先只读核验payload再做同类证明。证明失败保持unknown并阻止新写入，只重试原身份核对。应用退出先完成会话保存，再关闭所有仓库。
 
@@ -123,10 +123,10 @@ SQLite WAL/FULL是这里的跨平台普通事务合同，不以POSIX目录同步
 完整备份建议关闭应用后保留整个profile；至少包含配置SQLite及绑定身份、协作库、事实/记忆库、遗忘账本和任何仍存在的WAL/SHM。
 旧JSON导入备份与SQL内迁移证据仍可能包含旧内容；应用删除不是备份范围的安全擦除。
 
-生产 `sqlite-state-adapter` 在options之后强制current-only、版本18及严格raw validator；调用方不能改回兼容模式。
-`assertCanonicalPersistedState`使用固定时点的纯canonical派生核对完整键和值，不调用注入的normalizer；非法18不能靠同版本legacy detector修补。
-首次空档生成完整18；`autoCheckUpdates:false`重开不变，缺该键或`aiPetMealsEnabled`的18拒绝。提交候选也需严格canonical。
-配置SQL user_version仍为1、奖励账本内部仍为3；协作SQL独立升级为4，见「可恢复会话存储」。这不放开配置payload18的current-only限制。
+生产 `sqlite-state-adapter` 在options之后强制current-only、版本19及严格raw validator；调用方不能改回兼容模式。
+`assertCanonicalPersistedState`使用固定时点的纯canonical派生核对完整键和值，不调用注入的normalizer；非法19不能靠同版本legacy detector修补。
+首次空档生成完整19；`autoCheckUpdates:false`重开不变，缺该键或`aiPetMealsEnabled`的19拒绝。提交候选也需严格canonical。
+配置SQL user_version仍为1、奖励账本内部仍为3；协作SQL独立升级为4，见「可恢复会话存储」。这不放开配置payload19的current-only限制。
 历史兼容测试不授权生产迁移旧用户资料；没有自动转换、删除、重置或替代档案入口。
 
 历史与记忆不在这份文件里，见「事实流与长期记忆」。
@@ -661,7 +661,7 @@ PRODUCT.md，所以约束必须在请求里再说一遍并由测试钉住。
 
 ## 日常与能量
 
-Schema 13 为 custom 日常增加可选 `customLabel`（1–40 字）；仍由 routines 写入，其他种类不保留此字段。既有 schema 12 数据原样保留，仅升级版本；持久层在打开前逐字节备份，当前版本损坏拒绝覆盖，回退须使用升级前备份。新档食物库存仅浆果2颗；schema18生产路径拒绝旧档，不执行迁移。`routine-controls.mjs` 只拥有选择器草稿，提醒时间仍经关闭式 IPC 与领域验证；编辑排程保留已有窗口长度和未改动的能量效应。
+Schema 13 为 custom 日常增加可选 `customLabel`（1–40 字）；仍由 routines 写入，其他种类不保留此字段。既有 schema 12 数据原样保留，仅升级版本；持久层在打开前逐字节备份，当前版本损坏拒绝覆盖，回退须使用升级前备份。新档食物库存仅浆果2颗；schema19特性开发路径拒绝旧档，不执行迁移。`routine-controls.mjs` 只拥有选择器草稿，提醒时间仍经关闭式 IPC 与领域验证；编辑排程保留已有窗口长度和未改动的能量效应。
 
 **一个实体，一份记录。** “我 9:00 吃了药”既是提醒的完成，又是能量曲线的输入，所以只有 `routines`
 （定义，≤40 条）与 `routineLog`（今天与昨天两天，每天 ≤60 条）两个顶层键，归 `routines` 能力。
@@ -687,7 +687,7 @@ App 关着的那几天不补写“漏了”。提醒采样挂在既有 30 秒 `l
 
 Windows使用独立的`native/windows/nudge-foreground.ps1`：固定PowerShell `-NoLogo -NoProfile -NonInteractive -File`参数，`execFile`不经shell、不拼接白名单/用户内容、不设ExecutionPolicy或任何绕过标志。仅用GetForegroundWindow、GetWindowThreadProcessId与ProcessName；读取后再核对窗口/进程身份，变化则unknown。一次输出`foreground-v1:<process>`，无循环、音频、窗口标题、路径、内容、持久化或遥测；与可选activity mirror及其helper完全分离。开发从仓库native/windows取helper，现有asar包从resources/nudge-foreground取helper；只补该资源声明，不新增Windows发布流水线。缺helper、策略拒绝、进程错误、超时、取消、未知平台、非唯一/错误/过长输出或非空stderr均unknown。
 
-白名单默认词汇、100项上限和每项100字符上限由preferences契约拥有，attention只经其公开settings门面读取；Windows等价组仍归attention。settings:update、规范化与提醒求值使用同一容量。默认Teams词汇只影响新默认值，不补写已有显式数组、顺序或大小写；schema18、存储形状和writer不变。提醒宿主在balanced（含未知值回退）下的系统动效探测取任一明确true，缺失或抛错不覆盖另一探测的true；full/reduced显式选择保留原语义。
+白名单默认词汇、100项上限和每项100字符上限由preferences契约拥有，attention只经其公开settings门面读取；Windows等价组仍归attention。settings:update、规范化与提醒求值使用同一容量。默认Teams词汇只影响新默认值，不补写已有显式数组、顺序或大小写；该白名单改动自身不改变存储形状和writer。提醒宿主在balanced（含未知值回退）下的系统动效探测取任一明确true，缺失或抛错不覆盖另一探测的true；full/reduced显式选择保留原语义。
 
 前台端口3秒超时、stdout/stderr各512字节上限，身份至多200个字符；Windows只接受保守ASCII进程名，规范为小写并去末尾`.exe`，其他身份视unknown。macOS保留固定lsappinfo name调用，但只接受一份完整LSDisplayName结果，等号周围仅允许空格/横向tab。两平台仅允许无终止符或一个LF/CRLF，裸CR及内部换行拒绝。白名单原有大小写不敏感substring策略保留；Windows另有显式等价组：tencent meeting/腾讯会议/wemeetapp/wemeet/tencentmeeting；钉钉会议/dingtalk；wechat/weixin；飞书/lark/feishu；obs/obs32/obs64；quicktime/quicktimeplayer；camtasia/camrecorder；powerpoint/powerpnt；teams/microsoft teams/ms-teams。只有本人白名单含组内条目才启用该组，默认名单补teams/microsoft teams。其余如zoom、steam、game及自定义项沿用substring。这是合成身份匹配合同，不推断本机安装、浏览器内会议、窗口内容或真实会议状态；原生验收另列。
 
@@ -920,9 +920,17 @@ pet 的 `sync` 以 canonical publication revision 和逐字段到达所有权处
 用到的图标都有定义、定义的图标都被用到、只有图形的按钮有名字。脚本里动态换图标用 `el.dataset.icon = 'play'`
 （快捷面板的“暂停 / 继续”），并且要在页面 HTML 里出现一次该图标名（注释也行），好让内联子集包含它。
 
-**深色 / 浅色。** 跟随系统 `prefers-color-scheme`，不新增持久化设置。`ui/panel-palette.mjs` 为工具提供固定的浅/深色语义配色，独立于伙伴皮肤；`app-chrome.applyTheme` 在挂载时标记外观并监听系统切换，只以外观作为缓存键。`theme-appearance.mjs` 只剩变量映射与 WCAG 对比度计算；按皮肤推导浅色主题的旧函数已删除。配色另有五个低饱和分类墨色，只供时间轴区分完成、日常、情绪等行，在两种外观下对 bg1/bg2 均 ≥ 4.5。
-正文和说明使用 `--fg-*`，强调文字使用 `--primary-ink`，填充按钮文字使用 `--ink`；`test/action-workspace.test.js` 覆盖两种外观的对比度。
-快捷面板没有皮肤主题，在 `impulse.html` 里自带一套固定的浅色变量。
+**语言与外观（feature/language-theme）。** `preferences` 仍独占 `settings`，新增闭合枚举 `locale: system|zh-CN|en` 和 `theme: system|light|dark`，默认均为 system。更新复用唯一 `settings:update` workflow/UoW；没有 localStorage、第二设置文件或第二 writer。功能分支配置 payload 为19；SQLite user_version、品牌身份与业务事实库不变。
+
+`settings:get-interface` 是五个受限 surface 均可读取的无参数查询，仅返回 locale/theme/resolvedLocale/revision，不返回完整设置、任务或凭据。四个 preload 各暴露两个具名接口。bootstrap 的 renderer registrar 在成功设置提交后发布独立的窄呈现快照；系统语言读取或窗口送达失败不改变已提交业务成功结果；下次窄查询重试呈现，跟随系统解析变化只更新临时呈现，不写业务设置。新开/重新聚焦窗口通过查询恢复，旧 revision 不覆盖新推送。此呈现 revision 不是业务事务 revision。
+
+Electron adapter 设置进程级 `nativeTheme.themeSource`，同步原生控件和所有窗口的 prefers-color-scheme；system 恢复系统默认。renderer 的共享 interface/presentation 用 panelPalette 的固定浅/深语义色，给 pet 只写 `--ui-*`，不改角色主色。系统切换监听在卸载时释放。正文/说明用 `--fg-*`，强调文字用 `--primary-ink`，实心按钮用 `--ink`。五种时间轴分类墨色在两种外观下对 bg1/bg2 均 ≥4.5。
+
+`surfaces/shared/interface` 拥有本地文案目录与显式标记渲染。目录以受代码控制的中文源文案为稳定键，不做全 DOM 文本匹配；改变源文案必须同步目录及占位符测试。t(source, parameters) 只翻译产品字面量，插值不递归翻译；HTML 仍由原调用方转义。data-i18n 仅标记静态叶文本；data-i18n-text 仅替换指定控件唯一直接文本节点，保留 SVG 和计数。禁止遍历替换未标记 DOM 或用户内容。语言通知使用独立 localeOnly 展示事件或 owner 的 copy-only 回调重绘文案，不走数据变更订阅；新 DOM 在各自作者处显式调用 t。不能重新提交命令、刷新草稿、重置计时锚点、重建有焦点的动作节点、清除确认态或延长回执计时。原生托盘与提示使用同一已确认 resolvedLocale 的临时文案适配器，不形成第二持久化设置源。共享入口同步安装订阅后异步读取呈现，不以 top-level await 阻塞提醒/domain init。界面用系统字体并允许英文控件换行。
+
+**合入前的18→19升级门禁。** 此开发分支仍为 current-only19；现有 bubu18 在连接原库/normalizer/proof 前明确拒绝并保留原 DB/identity/WAL/SHM，不自动导入、补字段、重置或换空档案。这个拒绝是安全开发边界，不是无损升级功能完成。旧 im-adhder 的档案身份继续拒绝，不能借本功能导入。
+
+合入稳定版前必须另行实现并验收用户明确触发的 bubu18→19 升级：应用关闭并取得 profile 锁；核验 BUBU 标记、完整 canonical18、库绑定及侧车；将完整 profile 逐字节备份到新私有目录并读回校验；以纯转换只添加 locale/theme 和提升 payload 版本，任务/会话/伙伴/凭据等不变；配置 payload、schema 证据/回执使用同一 SQL 事务。确定的预提交失败必须零写原档；COMMIT 结果未知时保留原身份并核对 revision/hash 与持久性证明，不猜测成功或重跑迁移。二次启动必须固定点。源版本/品牌/损坏/备份失败/磁盘不足/并发漂移/提交未知/重启恢复均需故障测试；旧版本打开19须失败关闭，备份恢复只能显式离线执行。这一受控升级目前未实现，本分支不自动合入、不发布安装包。
 
 popover 的页面职责固定：**现在 = 执行面**（选一件、开始、计时、落点），**任务 = 仓库面**（捕捉、澄清、组织、
 找回），日常保持独立的生活记录与提醒能力（不参与任务奖励），伙伴与回顾消费各自投影。一个控件的 `aria-controls` 目标必须和它在同一个面内或是弹层，否则切页后它
@@ -1001,7 +1009,7 @@ Control-click 走去重的 `contextmenu` 命令入口；双击不绑定命令。
 ## 扩展规则
 
 1. 先写出归属能力与它写的状态路径；在对应注册表加唯一 ID 与完整元数据。
-2. 新持久化字段必须提升 schema，并带逐字节备份、幂等、损坏拒绝测试；生产 schema 18 禁止通过同版本修补绕过准入；历史兼容测试不授权生产迁移。
+2. 新持久化字段必须提升 schema，并带逐字节备份、幂等、损坏拒绝测试；当前 schema 19 禁止通过同版本修补绕过准入；历史兼容测试不授权生产迁移。
 3. 新 IPC 放进所属能力的 codec 与最小 preload，同时加 sender、payload、非法输入与安全回归测试。
 4. 新的可视运动覆盖 DND、低刺激、Reduce Motion、专注、吸附与运行中切换策略，并落在舞台安全区内。
 5. 测试放在最低有效层；源码字符串断言只用于“禁止某 API/路径”这类架构检查。
@@ -1049,7 +1057,7 @@ UI 保留无正文操作槽，换日期或隐藏不丢在途对象；dispose 禁
 
 ## 当前测试版名称与档案身份
 
-小步 / bubu 同时统一对外品牌与内部命名：日常档案 `bubu`、开发档案 `bubu-dev`、应用标识 `com.bubu.app`、Electron 应用及系统凭据身份 `bubu`。新默认档案为空，不自动导入、迁移或删除旧测试目录和旧凭据；显式 `--user-data-dir` 路径保持原样。四个 preload 与 renderer 使用一致的 `bubu` 窄桥，环境入口统一为 `BUBU_*`，事实库名为 `bubu.sqlite`，hook 标头为 `X-Bubu-Agent`，rig 格式标识为 `bubu-rig`。集成插件 ID 为 `bubu-companion`，目录为 `integrations/plugins/bubu-companion/`，marketplace ID 为 `bubu`。不提供旧名兼容别名；完整规范 schema 18、BUBU配置身份双重准入，以及配置权威、显式目录身份核验与失败关闭合同必须同时满足。
+小步 / bubu 同时统一对外品牌与内部命名：日常档案 `bubu`、开发档案 `bubu-dev`、应用标识 `com.bubu.app`、Electron 应用及系统凭据身份 `bubu`。新默认档案为空，不自动导入、迁移或删除旧测试目录和旧凭据；显式 `--user-data-dir` 路径保持原样。四个 preload 与 renderer 使用一致的 `bubu` 窄桥，环境入口统一为 `BUBU_*`，事实库名为 `bubu.sqlite`，hook 标头为 `X-Bubu-Agent`，rig 格式标识为 `bubu-rig`。集成插件 ID 为 `bubu-companion`，目录为 `integrations/plugins/bubu-companion/`，marketplace ID 为 `bubu`。不提供旧名兼容别名；完整规范 schema 19、BUBU配置身份双重准入，以及配置权威、显式目录身份核验与失败关闭合同必须同时满足。
 
 
 饱食度的实时文字、进度宽度与可访问数值共用纯展示函数：有限数值先限制0–100再四舍五入，异常非有限输入显示0；缺省伙伴摘要仍使用原65默认值。业务快照、衰减计算、喂食与成长保留原小数精度，不把显示舍入写回资料。

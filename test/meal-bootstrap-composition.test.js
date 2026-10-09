@@ -17,7 +17,7 @@ test('extracted real renderer registrar preserves URL allowlists, closed payload
   const handlers = new Map();
   const rendererDirectory = path.resolve('/synthetic/renderer');
   const popoverUrl = pathToFileURL(path.join(rendererDirectory, 'popover.html')).href;
-  const register = createRendererIpcRegistrar({ rendererDirectory,
+  const register = createRendererIpcRegistrar({ rendererDirectory, interfaceHost: { languages: () => ['zh-CN'], apply() {} },
     ipcHost: { handle: (name, handler) => handlers.set(name, handler) }, allowedSurfacesFor, assertIpcPayload,
     readTasks: () => [], getSettings: () => ({}) });
   register('settings:update', (_event, patch) => patch);

@@ -1,3 +1,4 @@
+import { t, onLocaleChanged } from '../shared/interface/i18n.mjs';
 // One explicit local action belongs to one draft and panel visit. Closing it
 // releases UI ownership only; a dispatched command is never cancelled/retried.
 function createQuickStartEditor({ window, document, client, runCommand, releaseCommand,
@@ -8,7 +9,13 @@ function createQuickStartEditor({ window, document, client, runCommand, releaseC
   let disposed = false;
   const teardown = [];
   const owns = owner => !disposed && draft === owner && owner.visit === getVisit() && isVisitOpen();
+  function renderCopy() {
+    const confirm = $('#quickStartConfirm'), cancel = $('#quickStartCancel');
+    if (confirm) confirm.textContent = t('开始 2 分钟');
+    if (cancel) cancel.textContent = t('取消');
+  }
   function controls() {
+    renderCopy();
     const form = $('#quickStartForm');
     if (form) form.classList.toggle('hidden', !draft || draft.intent !== 'clarify-and-start' || draft.committed);
     const confirm = $('#quickStartConfirm');
@@ -24,7 +31,7 @@ function createQuickStartEditor({ window, document, client, runCommand, releaseC
   function cancel() {
     const sent = draft?.pending;
     reset();
-    setStatus(sent ? '输入已收起；已发送的启动仍会按原任务处理。' : '');
+    setStatus(sent ? () => t('输入已收起；已发送的启动仍会按原任务处理。') : '');
     const cancelled = generation, visit = getVisit();
     window.requestAnimationFrame(() => {
       if (!disposed && generation === cancelled && visit === getVisit() && isVisitOpen()) $('#impInput')?.focus();
@@ -54,7 +61,7 @@ function createQuickStartEditor({ window, document, client, runCommand, releaseC
     // pending command still owns its receipt, including its own postcommit push.
     if (!action?.enabled || action.taskVersion !== draft.taskVersion || action.intent !== draft.intent) {
       draft.stale = true;
-      if (!draft.pending) setStatus('任务状态已变化；输入仍保留，取消后可重新选择。', 'quiet');
+      if (!draft.pending) setStatus(() => t('任务状态已变化；输入仍保留，取消后可重新选择。'), 'quiet');
     }
     controls();
   }
@@ -65,12 +72,12 @@ function createQuickStartEditor({ window, document, client, runCommand, releaseC
     if (owner.intent === 'clarify-and-start') {
       const nextAction = $('#quickStartInput').value.trim();
       if (!nextAction || nextAction.length > 200) {
-        setStatus('下一动作需要 1–200 个字，输入内容还在。', 'error'); return;
+        setStatus(() => t('下一动作需要 1–200 个字，输入内容还在。'), 'error'); return;
       }
       clarification = { nextAction, taskVersion: owner.taskVersion };
     }
     if (typeof client.kickstart !== 'function') {
-      setStatus('两分钟启动暂不可用，请重新打开面板。', 'error'); return;
+      setStatus(() => t('两分钟启动暂不可用，请重新打开面板。'), 'error'); return;
     }
     owner.pending = true;
     controls();
@@ -85,7 +92,7 @@ function createQuickStartEditor({ window, document, client, runCommand, releaseC
     if (!result || result.ok === false) { controls(); return; }
     owner.committed = true;
     controls();
-    setStatus('两分钟已开始。');
+    setStatus(() => t('两分钟已开始。'));
     try {
       if (!owns(owner)) return;
       const hidden = await client.hideImpulse();
@@ -93,10 +100,11 @@ function createQuickStartEditor({ window, document, client, runCommand, releaseC
     } catch (_) {
       if (!owns(owner)) return;
       await refresh();
-      if (owns(owner)) setStatus('两分钟已开始；窗口未能关闭，可以继续计时。', 'quiet');
+      if (owns(owner)) setStatus(() => t('两分钟已开始；窗口未能关闭，可以继续计时。'), 'quiet');
     }
   }
   function mount() {
+    teardown.push(onLocaleChanged(renderCopy));
     for (const [selector, event, handler] of [
       ['#quickStartForm', 'submit', event => { event.preventDefault(); void submit(); }],
       ['#quickStartCancel', 'click', cancel]

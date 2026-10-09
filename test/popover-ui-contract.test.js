@@ -205,7 +205,7 @@ test('the energy curve has a switch that turns it off and a way to discard what 
   assert.match(js, /'aiMemoryEnabled', 'aiImpulseEnergyEnabled', 'aiCaptureTriageEnabled', 'aiPetMealsEnabled', 'energyCurveEnabled'\]\) \{\n\s*listen/);
   // ARCHITECTURE「事实流与长期记忆」's way back is two presses, like 全部忘掉: one press swaps the label, the
   // second one commits, and folding the group away forgets the first press.
-  assert.match(js, /if \(!pendingCalibrationReset\) \{[\s\S]*?button\.textContent = '真的重置'/);
+  assert.match(js, /if \(!pendingCalibrationReset\) \{[\s\S]*?button\.textContent = t\('真的重置'\)/);
   assert.match(js, /await surfaceClient\.resetEnergyCalibration\(\)/);
   assert.match(js, /if \(group && group\.open === false\) clearPendingCalibrationReset\(\)/);
   // changed=false is a distinct answer, not a silent success: "本来就没学过" and
@@ -234,7 +234,7 @@ test('the AI section exposes one master switch plus the two parameters a request
   assert.match(group, /data-toggle="aiClarifyEnabled"/);
   assert.match(group, /id="aiSaveConfig"/);
   assert.match(group, /id="aiConfigStatus"[^>]*role="status"/);
-  assert.match(group, /<summary>数据与隐私<\/summary>/);
+  assert.match(group, /<summary[^>]*>数据与隐私<\/summary>/);
   assert.match(group, /id="aiPrivacyStatus"/);
   assert.doesNotMatch(js, /describeAiFields|field-disclosure-required/);
   assert.ok(!preload.includes('ai:describe-fields'));
@@ -256,11 +256,11 @@ test('a silent fallback is not allowed: both proposal paths say why AI did not r
   // 回退是设计内的，但只说“用了本地模板”等于把一个可修的配置错误变成“模型不好用”。
   assert.match(js, /function fallbackReasonText\(reason\)/);
   // 拆解弹层与草稿补全两条路都得拿到同一句人话。
-  assert.match(js, /providerNote\.textContent = preview\.fallback[\s\S]*?fallbackReasonText\(preview\.reason\)/);
+  assert.match(js, /setProviderCopy\(\(\) => preview\.fallback[\s\S]*?fallbackReasonText\(preview\.reason\)/);
   assert.match(js, /function fallbackReasonSuffix\(result\)[\s\S]*?fallbackReasonText\(reason\)/);
   assert.match(taskDraftJs, /showStatus\([\s\S]*?fallbackReasonSuffix\(suggestion\)/);
   // 认不出的原因码原样呈上，不能吞成空字符串。
-  assert.match(js, /\}\[reason\] \|\| reason;/);
+  assert.match(js, /return message \? t\(message\) : reason;/);
   // 四个最可能撞上的 HTTP 状态各自有可操作的说法。
   for (const status of ['401', '404', '429', '400']) {
     assert.ok(js.includes(`status === '${status}'`), `HTTP ${status} 没有单独的说法`);
@@ -384,7 +384,7 @@ test('one edit panel owns every task attribute and a recurring edit must declare
   assert.match(whenFieldsJs, /recurrenceIntervalError\(\w+\.interval, \{ keepsInput: true \}\)/);
   assert.doesNotMatch(js, /Math\.round\(Number\(input\.value\)\)/);
   assert.match(taskEditorJs, /draft\.steps\.length >= maxSteps[\s\S]*?每个任务最多/);
-  assert.match(breakdownFeatureJs, /breakdownContext\.steps\.length >= maxSteps[\s\S]*?showError\(`每个任务最多/);
+  assert.match(breakdownFeatureJs, /breakdownContext\.steps\.length >= maxSteps[\s\S]*?showError\(\(\) => t\('每个任务最多/);
   // 上限是注进来的,不是这一层自己抄的:面板与主进程规范化任务读同一份 contract。
   assert.match(js, /maxSteps: MAX_TASK_STEPS/);
   // 分类循环按钮没了：改属性只有一个入口，而且它是一个真正的表单。
@@ -457,7 +457,7 @@ test('the task panel is one list with orthogonal filters that never rewrite a ta
   assert.doesNotMatch(js, /dailyMissedCount/);
   assert.match(js, /const missedRounds = series && !task\.done && !task\.skippedAt && isCurrentRound \? \(series\.missedCount \|\| 0\) : 0/);
   assert.match(js, /function describeSeriesRule\(series\)/);
-  assert.match(js, /interval > 1 && intervalUnit[\s\S]*?`每 \$\{interval\} \$\{intervalUnit\}`/);
+  assert.match(js, /interval > 1 && intervalUnit[\s\S]*?t\('每 \{count\} \{unit\}', \{ count: interval, unit: t\(intervalUnit\) \}\)/);
 });
 
 test('new-task advanced fields expose every implemented planning input without dropping payload data', () => {
@@ -480,8 +480,8 @@ test('new-task advanced fields expose every implemented planning input without d
 
 test('task rows expose appointment context and impulse review names the actual schedule', () => {
   assert.match(js, /task\.scheduledFor/);
-  assert.match(js, /预约于 \$\{escapeHTML\(scheduledLabel\)\}/);
-  assert.match(js, /data-inbox-action="schedule">下个工作时段</);
+  assert.match(js, /t\('预约于 \{time\}', \{ time: scheduledLabel \}\)/);
+  assert.match(js, /data-inbox-action="schedule" data-i18n="下个工作时段">\$\{t\('下个工作时段'\)\}</);
   assert.match(js, /import BubuTaskDates from '\.\/task-dates\.mjs'/);
 });
 
@@ -497,8 +497,8 @@ test('a completion suggestion lands in the draft, never in the store, and never 
   // 没用到模型就不替这件事想：一个字段都不填，只说清楚并把光标放到“加一步”；用到模型才填并说出口。
   assert.match(apply, /const usedModel = suggestion\.provider === 'api' && !suggestion\.fallback;\s+if \(!usedModel\) \{[\s\S]*?没有用 AI，所以没替你拆[\s\S]*?return;\s+\}/);
   assert.doesNotMatch(apply, /通用模板/);
-  assert.match(apply, /showStatus\(filled\.length[\s\S]*?已按 AI 建议填好/);
-  assert.match(js, /title="\$\{task\.energyAuto \? '按标题自动推断' : '手动设定'\}"/);
+  assert.match(apply, /showStatus\(\(\) => filled\.length[\s\S]*?已按 AI 建议填好/);
+  assert.match(js, /title="\$\{t\(task\.energyAuto \? '按标题自动推断' : '手动设定'\)\}"/);
   // 失败关闭：报错不能把已填的内容抓走。
   assert.match(taskDraftJs, /function runEnrich\(\)[\s\S]*?catch \(_\) \{[\s\S]*?已填的内容都还在/);
   assert.match(taskDraftJs, /function runEnrich\(\)[\s\S]*?proposalId = suggestion[\s\S]*?finally \{[\s\S]*?dismissBreakdownProposal\(proposalId\)/,
@@ -529,7 +529,7 @@ test('Now blockers are task-scoped and shrinking persists a genuinely smaller ac
   // 而不是自己再存一份。两份不同步的表现是“弹层里选了,卡片上还是旧的”。
   assert.match(stuckJs, /if \(selectedBlockerTaskId !== task\.id\)/);
   assert.match(stuckJs, /selectedBlocker = task\.blocker \|\| null/);
-  assert.match(stuckJs, /return blockerLabels\[selectedBlocker\] \|\| selectedBlocker \|\| ''/);
+  assert.match(stuckJs, /return t\(blockerLabels\[selectedBlocker\] \|\| selectedBlocker \|\| ''\)/);
   // 卡片自己只知道「问一次,拿回该写的话」,那个「谁来回答」由组合根接上。
   assert.match(nowCardJs, /const blockerLabel = syncBlocker\(activeTask\)/);
   assert.match(js, /syncBlocker: task => stuck\.syncBlockerForTask\(task\)/);
@@ -612,7 +612,7 @@ test('the running task shows its own steps under the timer and ticks them throug
   assert.doesNotMatch(js, /renderSessionTaskName/);
   // 运行、暂停与未开始三种状态由同一个取数函数覆盖。
   assert.match(nowCardJs, /function sessionOrLaunchTask\(\)[\s\S]*?if \(session\.taskId\) \{[\s\S]*?item\.id === session\.taskId[\s\S]*?return currentTask\(\)/);
-  assert.match(nowCardJs, /function renderDetail\(\)[\s\S]*?completeStep\(task\.id, stepId\)/);
+  assert.match(nowCardJs, /function renderDetail\([^)]*\)[\s\S]*?completeStep\(task\.id, stepId\)/);
   assert.match(nowCardJs, /if \(isReadOnly \|\| !step \|\| step\.done\) return;/);
   assert.match(js, /step-next/, '下一步需要一个可见标记');
   assert.match(todayFeatureJs, /if \(all \|\| dirty\.tasks \|\| dirty\.pomodoro \|\| dirty\.focusSession \|\| dirty\.recommendations\) \{[\s\S]*?renderers\.renderNowTaskDetail\(\);/);
@@ -701,7 +701,7 @@ test('task action messages use the canonical core refusal reasons', () => {
 test('focus launch reports both timer conflict reasons returned by the session core', () => {
   assert.match(js, /'already-running': '这段计时已经在进行或暂停中。'/);
   assert.match(js, /'session-active': '已有另一段计时正在进行或暂停中，请先处理当前计时。'/);
-  assert.match(js, /showFocusActionStatus\(focusActionMessage\(result && result\.reason\)\)/);
+  assert.match(js, /showFocusActionStatus\(\(\) => focusActionMessage\(result && result\.reason\)\)/);
 });
 
 test('quick-start failures remain visible inside the still-modal landing decision', () => {
@@ -711,12 +711,12 @@ test('quick-start failures remain visible inside the still-modal landing decisio
 });
 
 test('one landing modal captures a real restart cue for quick-start and full focus', () => {
-  assert.match(html, /for="landingNote">我停在 \/ 下次先做（可选）/);
+  assert.match(html, /for="landingNote"[^>]*>我停在 \/ 下次先做（可选）/);
   assert.match(html, /id="landingNoteField"/);
   assert.match(html, /id="landingNote"[^>]*maxlength="200"/);
   assert.match(html, /id="quickStartLandingActions"/);
   assert.match(html, /id="focusLandingActions"/);
-  assert.match(html, /data-focus-landing="skip">暂时跳过/);
+  assert.match(html, /data-focus-landing="skip"[^>]*>暂时跳过/);
   assert.match(html, /data-focus-landing="save"[^>]*>保存落点/);
 
   assert.match(js, /state\.focusLandingPrompt/);
@@ -894,7 +894,7 @@ test('settings steppers and toggles have unique programmatic names and labelled 
   // Restored independent conversation toggle; the activity mirror adds one.
   assert.equal(labelledControlGroups.length, 24);
   for (const [, labelId] of labelledControlGroups) {
-    assert.match(html, new RegExp(`<label id="${labelId}">`));
+    assert.match(html, new RegExp(`<label id="${labelId}"[^>]*>`));
   }
 });
 
@@ -912,8 +912,8 @@ test('breakdown dialog names and describes itself, traps focus, and restores its
   assert.match(modalLayerEntry('breakdown'), /trap: '#breakdownMask'/);
   assert.match(functionSource('close', breakdownFeatureJs),
     /setAttribute\('aria-hidden', 'true'\)[\s\S]*?restoreModalFocus\(trigger\)/);
-  assert.match(js, /class="bd-step-input"[^>]*aria-label="\u7b2c \$\{i \+ 1\} \u6b65"/);
-  assert.match(js, /class="bd-step-del"[^>]*aria-label="\u5220\u9664\u7b2c \$\{i \+ 1\} \u6b65"/);
+  assert.match(js, /class="bd-step-input"[^>]*aria-label="\$\{escapeHTML\(t\('第 \{number\} 步', \{ number: i \+ 1 \}\)\)\}"/);
+  assert.match(js, /class="bd-step-del"[^>]*aria-label="\$\{escapeHTML\(t\('删除第 \{number\} 步', \{ number: i \+ 1 \}\)\)\}"/);
 });
 
 function panelSource(id) {
@@ -940,7 +940,7 @@ test('the level badge and experience bar belong beside the companion, not to the
   assert.doesNotMatch(progress, /id="weekFacts"|history-overview/);
   assert.match(progress, /id="btnReviewInbox"/);
   assert.doesNotMatch(progress, /id="streakText"|连击/);
-  assert.match(progress, /class="stat-label">回来的次数<\/div><div class="stat-num" id="stTotalReturns"/);
+  assert.match(progress, /class="stat-label"[^>]*>回来的次数<\/div><div class="stat-num" id="stTotalReturns"/);
   assert.doesNotMatch(html, /<div class="progress-identity">\s*<\/div>/, 'no empty container may be left behind');
 });
 
@@ -962,7 +962,7 @@ test('the companion tab renders bond, food affinity, and milestones from the pro
 
   assert.match(companionFeatureJs, /function renderCompanion\(state = getState\(\)\)[\s\S]*?state\.companionProjection/);
   assert.ok(companionFeatureJs.includes('if (bondBar) bondBar.style.width = `${bond.percent}%`;'));
-  assert.ok(companionFeatureJs.includes("bondProgress.setAttribute('aria-valuenow', String(bond.percent));"));
+  assert.ok(companionFeatureJs.includes("$('#bondProgress')?.setAttribute('aria-valuenow', String(bond.percent));"));
   assert.match(companionFeatureJs, /bondMeta\.textContent = bond\.nextLabel[\s\S]*?bond\.toNext[\s\S]*?bond\.nextLabel/);
   assert.match(companionFeatureJs, /renderFoodCollection/);
   assert.match(companionFeatureJs, /projection\.bondRoadmap/);
@@ -976,9 +976,9 @@ test('locked skins show their real unlock progress and unlocked skins show none'
   // \u8fdb\u5ea6\u6761\u642c\u5230\u4e86\u6362\u5f62\u6001\u62bd\u5c49\u7684\u805a\u7126\u5361\u4e0a:\u9ed8\u8ba4\u89c6\u56fe\u4e0d\u518d\u540c\u5c4f\u6446\u5341\u5f20\u5361,\u6240\u4ee5\u8fd9\u6761\u5951\u7ea6\u8ddf\u7740
   // \u642c\u5230 skin-picker,\u4f19\u4f34\u9875\u90a3\u4e00\u5c42\u53ea\u7559\u300cN \u79cd \u00b7 \u5df2\u89e3\u9501 M\u300d\u8fd9\u884c\u526f\u6807\u9898\u3002
   assert.ok(companionFeatureJs.includes('if (dirty.all || dirty.skin || dirty.stats || dirty.tasks) renderCompanionSkin(change.state);'));
-  assert.match(companionFeatureJs, /\$\('#skinEntryMeta'\)[\s\S]*?\u5df2\u89e3\u9501 \$\{unlocked\}/);
+  assert.match(companionFeatureJs, /\$\('#skinEntryMeta'\)[\s\S]*?t\('\{total\} 种 · 已解锁 \{count\}', \{ total: skins\.length, count: unlocked \}\)/);
   assert.ok(skinPickerJs.includes("skin.progress ? skin.progress.current : '-'"), 'the memo key must invalidate when progress moves');
-  assert.match(skinPickerJs, /const progressText = skin\.progress \? `\u5f53\u524d \$\{skin\.progress\.current\}\/\$\{skin\.progress\.target\}` : '';/);
+  assert.match(skinPickerJs, /const progressText = skin\.progress \? t\('当前 \{current\}\/\{target\}', skin\.progress\) : '';/);
   assert.match(skinPickerJs, /skin\.progress \? `<div class="skin-progress-outer"[\s\S]*?skin-progress-inner" style="width:\$\{progressPercent\}%"/);
   assert.match(skinPickerJs, /const progressPercent = skin\.progress && skin\.progress\.target > 0[\s\S]*?Math\.min\(100, Math\.round\(\(skin\.progress\.current \/ skin\.progress\.target\) \* 100\)\)/);
 });
@@ -995,8 +995,8 @@ test('switching form is a confirmed action, not a side effect of browsing', () =
   assert.match(stripClickBody, /focusSkin\(getState\(\), thumb\.dataset\.skin\)/);
   assert.doesNotMatch(stripClickBody, /switchSkin/, '点胶片只换大图,不换形态');
   // \u672a\u89e3\u9501\u4e0e\u300c\u5df2\u662f\u5f53\u524d\u300d\u90fd\u9760\u7981\u7528\u952e\u8bf4\u660e\u7406\u7531,\u800c\u4e0d\u662f\u53ea\u628a\u952e\u7070\u6389\u3002
-  assert.match(skinPickerJs, /\u5f53\u524d\u5f62\u6001', disabled: true/);
-  assert.match(skinPickerJs, /text: `\u672a\u89e3\u9501 \u00b7 \$\{skin\.unlockDesc\}`, disabled: true/);
+  assert.match(skinPickerJs, /const apply = skin\.current[\s\S]*?text: applyLabel\(skin\), disabled: true/);
+  assert.match(skinPickerJs, /: skin\.unlocked[\s\S]*?disabled: false[\s\S]*?text: applyLabel\(skin\), disabled: true/);
   assert.match(skinPickerJs, /if \(!button \|\| button\.disabled\) return;/);
 });
 
@@ -1008,22 +1008,22 @@ test('the Now card never borrows another task next step when its own task drops 
     /const candidate = recommendationForTask\(activeTask\) \|\| fallback/,
     'the Now card must not fall back to the first candidate for its next step'
   );
-  assert.match(js, /actionPresentation\(getState\(\), session, activeTask, recommendationForTask\(activeTask\), \{ hasOpenTasks \}\)/);
+  assert.match(js, /actionPresentation\(getState\(\), session, activeTask, ownCandidate, \{ hasOpenTasks \}\)/);
   assert.doesNotMatch(js, /const fallback = candidates\[0\];/, 'the borrowed candidate must be gone, not merely unused');
 });
 
 test('a paused session tells the truth when its task is already complete', () => {
   // 截图里同一屏出现了「← 正在专注」「专注中，别分心」和「这件任务已经完成」
-  assert.match(js, /focusState === 'running' \? ' <span class="focus-badge">← 正在专注<\/span>'/,
+  assert.match(js, /focusState === 'running' \? '← 正在专注' : '← 计时已暂停'/,
     'only a running session may claim 正在专注');
-  assert.match(js, /focusState === 'paused' \? ' <span class="focus-badge">← 计时已暂停<\/span>'/,
+  assert.match(js, /const focusLabel = \(\) => t\(focusState === 'running' \? '← 正在专注' : '← 计时已暂停'\)/,
     'a paused session needs its own badge');
   // The application projection is the authorization source; behavior and actual
   // button payloads are covered in focus-timer-feature/session-resume tests.
   assert.match(js, /p\.resumeAction/);
   assert.match(js, /action\?\.intent, action\?\.enabled, action\?\.reason/);
   assert.doesNotMatch(js, /重新打开任务后才能继续计时/);
-  assert.match(js, /next\.textContent = presentation\.action/); // Completed-task behavior is exercised in action-workspace.test.js.
+  assert.match(js, /next\.textContent = activeTask\.done \|\| !writtenAction \? t\(presentation\.action\) : presentation\.action/); // Completed-task behavior is exercised in action-workspace.test.js.
 });
 
 test('the task list re-renders when the session starts or pauses so its badge stays current', () => {
@@ -1039,7 +1039,7 @@ test('the task list re-renders when the session starts or pauses so its badge st
 
 test('the settings footer shows the real package version and no tagline', () => {
   const { version } = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
-  const footer = html.match(/<div class="version">([^<]*)<\/div>/);
+  const footer = html.match(/<div class="version"[^>]*>([^<]*)<\/div>/);
   assert.ok(footer, 'settings footer exists');
   assert.equal(footer[1], `小步 v${version}`);
 });

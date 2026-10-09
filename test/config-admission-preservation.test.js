@@ -6,7 +6,7 @@ const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const { DatabaseSync } = require('node:sqlite');
 const { facts, inspect, seed, tracedFactory, fixture } = require('../test-support/config-admission-fixture');
-const kinds = ['old17', 'future19', 'malformed18', 'wrong-application', 'wrong-identity', 'invalid-evidence'];
+const kinds = ['old17', 'future20', 'malformed19', 'wrong-application', 'wrong-identity', 'invalid-evidence'];
 const modes = ['closed-clean', 'live-unwarmed', 'live-warmed', 'unclean-exit', 'unclean-no-shm'];
 function seedMode(f, kind, mode) {
   if (mode.startsWith('unclean')) {
@@ -46,7 +46,7 @@ for (const kind of ['missing-main', 'missing-identity', 'corrupt-main', 'corrupt
     refused(f);
   });
 }
-test('committed old17 in WAL must not be masked by the valid18 main file', t => {
+test('committed old17 in WAL must not be masked by the valid19 main file', t => {
   const f = fixture(t); seedMode(f, 'old17', 'unclean-exit');
   const before = f.capture();
   const version = bytes => inspect(bytes, directory => {
@@ -54,11 +54,11 @@ test('committed old17 in WAL must not be masked by the valid18 main file', t => 
     try { return db.prepare('SELECT payload_version FROM config_snapshot').get().payload_version; } finally { db.close(); }
   });
   assert.equal(version(before), 17);
-  assert.equal(version(Object.fromEntries(Object.entries(before).filter(([name]) => !/-wal$|-shm$/.test(name)))), 18);
+  assert.equal(version(Object.fromEntries(Object.entries(before).filter(([name]) => !/-wal$|-shm$/.test(name)))), 19);
   refused(f);
 });
-for (const mode of modes) test(`valid18 ${mode} retains original and proves only once before subsequent commit/reopen`, t => {
-  const f = fixture(t); seedMode(f, 'valid18', mode);
+for (const mode of modes) test(`valid19 ${mode} retains original and proves only once before subsequent commit/reopen`, t => {
+  const f = fixture(t); seedMode(f, 'valid19', mode);
   const before = facts(f.capture()), key = fs.statSync(f.database).ino, events = [];
   const repo = f.open({ authorityFactory: tracedFactory(events) });
   assert.equal(fs.statSync(f.database).ino, key);

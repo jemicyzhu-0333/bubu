@@ -1,5 +1,6 @@
 'use strict';
 
+const { nativeCopy, onNativeLocaleChanged } = require('./interface-copy');
 const { createTrayIcon } = require('./tray-icon');
 
 function copyRectangle(rectangle) {
@@ -40,10 +41,11 @@ function createTrayHost({
   }
 
   const nativeTray = new Tray(createTrayIcon({ nativeImage, ...initialIcon, platform }));
-  nativeTray.setToolTip(tooltip);
+  nativeTray.setToolTip(nativeCopy(tooltip));
   nativeTray.on('click', onClick);
   nativeTray.on('right-click', onRightClick);
   let disposed = false;
+  const stopLocale = onNativeLocaleChanged(() => { if (isAlive()) nativeTray.setToolTip(nativeCopy(tooltip)); });
 
   function isAlive() {
     return !disposed
@@ -65,13 +67,23 @@ function createTrayHost({
   function showMenu(template) {
     if (!isAlive()) return false;
     if (!Array.isArray(template)) throw new TypeError('tray menu template must be an array');
-    nativeTray.popUpContextMenu(Menu.buildFromTemplate(template));
+    const translateItem = item => {
+      const label = item.label?.startsWith('快捷行动  ')
+        ? nativeCopy('快捷行动  {shortcut}', { shortcut: item.label.slice('快捷行动  '.length) })
+        : typeof item.label === 'string' ? nativeCopy(item.label) : item.label;
+      return { ...item, ...(typeof label === 'string' ? { label } : {}),
+        ...(Array.isArray(item.submenu) ? { submenu: item.submenu.map(translateItem) } : {}) };
+    };
+    nativeTray.popUpContextMenu(Menu.buildFromTemplate(template.map(translateItem)));
     return true;
   }
 
   function dispose() {
-    if (!isAlive()) return false;
+    if (disposed) return false;
+    const alive = isAlive();
     disposed = true;
+    stopLocale();
+    if (!alive) return false;
     if (typeof nativeTray.removeListener === 'function') {
       nativeTray.removeListener('click', onClick);
       nativeTray.removeListener('right-click', onRightClick);

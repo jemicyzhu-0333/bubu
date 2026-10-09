@@ -40,7 +40,14 @@ function createPopoverTodayFeature({ renderers } = {}) {
       throw new TypeError('today feature requires a projection store');
     }
     if (unsubscribe) return;
-    unsubscribe = projectionStore.subscribe(change => render(change.dirty || {}));
+    unsubscribe = projectionStore.subscribe(change => {
+      if (change.localeOnly) {
+        renderers.renderHeader(); renderers.renderPomoStructure({ copyOnly: true }); renderers.renderPomoTick();
+        renderers.renderNowCard(); renderers.renderNowTaskDetail({ copyOnly: true });
+        return; // A copy change must not reopen or reset a landing decision.
+      }
+      render(change.dirty || {});
+    });
   }
 
   function dispose() {

@@ -38,7 +38,7 @@ function fixture(t, patch = {}) {
 }
 
 test('schema 15 upgrades to current schema with an empty guidance ledger', t => {
-  assert.equal(PERSISTED_SCHEMA_VERSION, 18);
+  assert.equal(PERSISTED_SCHEMA_VERSION, 19);
   const f = fixture(t);
   const opened = f.open();
   assert.equal(opened.migration.sourceVersion, 15);

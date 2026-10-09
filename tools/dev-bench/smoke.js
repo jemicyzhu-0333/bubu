@@ -36,7 +36,7 @@ async function verifyManualGrowth({ readState, completeStep, completeTask }, bef
 
 function verifyPersistedScenario(profile, persisted, growth, expectedTasks) {
   const { state, revision } = persisted;
-  assert.equal(state.schemaVersion, 18);
+  assert.equal(state.schemaVersion, 19);
   assert.ok(revision >= profile.revision);
   assert.deepEqual(state.tasks.map(task => [task.id, task.title]), profile.initial.tasks.map(task => [task.id, task.title]));
   if (expectedTasks) assert.deepEqual(state.tasks, expectedTasks, 'shutdown must retain the last scoped task projection');
@@ -73,7 +73,7 @@ async function inspect({ app, BrowserWindow, profile, errors, soakMs }) {
   const popover = windows.find(window => window.webContents.getURL().endsWith('/popover.html'));
   const before = await popover.webContents.executeJavaScript('window.bubu.getState()');
   assert.ok(before.tasks.length > 0);
-  assert.equal(before.schemaVersion, 18);
+  assert.equal(before.schemaVersion, 19);
   assert.deepEqual(before.tasks.map(task => task.id), profile.initial.tasks.map(task => task.id));
   const reentries = await popover.webContents.executeJavaScript(`import('./popover.mjs').then(async module => {
     module.popoverSurface.dispose();

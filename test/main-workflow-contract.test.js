@@ -1838,7 +1838,7 @@ test('the pet renderer keeps long press interactive and exposes five primary com
   assert.match(petHtml, /id="feedQuick"[^>]*data-act="feed"/);
   const commandItems = [...petHtml.matchAll(/<button[^>]*class="command-item[^"]*"[^>]*role="menuitem(?:checkbox)?"[^>]*>/g)];
   assert.equal(commandItems.length, 5, 'the primary menu stays within one quick decision');
-  const labels = [...petHtml.matchAll(/<span class="ci-text">([^<]+)<\/span>/g)].map(match => match[1]);
+  const labels = [...petHtml.matchAll(/<span class="ci-text"[^>]*>([^<]+)<\/span>/g)].map(match => match[1]);
   assert.deepEqual(labels, ['开始专注', '快速记录', '打开面板', '免打扰', '隐藏伙伴']);
   for (const removed of ['喂点心', '聊一句', '击个掌', '跳支舞', '伸懒腰', '换风景']) {
     assert.equal(labels.includes(removed), false, `${removed} must not occupy the primary menu`);

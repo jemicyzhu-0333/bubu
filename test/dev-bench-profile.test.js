@@ -54,7 +54,7 @@ function tracedFactory(events) {
   }) });
 }
 
-test('fixture creates canonical18 SQL and identity, closes, then reopens at the same revision without a JSON mirror', t => {
+test('fixture creates canonical19 SQL and identity, closes, then reopens at the same revision without a JSON mirror', t => {
   const profile = profileFor(t);
   assert.equal(profile.initial.level, 1);
   assert.equal(profile.initial.xp, 0);
@@ -66,7 +66,7 @@ test('fixture creates canonical18 SQL and identity, closes, then reopens at the 
   const db = new DatabaseSync(path.join(profile.userDataPath, 'config.sqlite'), { readOnly: true });
   try {
     assert.equal(db.prepare('PRAGMA user_version').get().user_version, 1);
-    assert.equal(db.prepare('SELECT payload_version FROM config_snapshot').get().payload_version, 18);
+    assert.equal(db.prepare('SELECT payload_version FROM config_snapshot').get().payload_version, 19);
   } finally { db.close(); }
   assert.deepEqual(readDisposableProfile(profile), persisted);
 });
@@ -79,7 +79,7 @@ test('fixture verification rejects arbitrary paths and copied handles before ope
   assert.throws(() => createDisposableProfile({ userDataPath: profile.userDataPath }), /options-invalid/);
 });
 
-for (const failure of ['missing SQL', 'missing identity', 'JSON only', 'corrupt SQL', 'old payload', 'future payload', 'malformed18', 'changed identity']) {
+for (const failure of ['missing SQL', 'missing identity', 'JSON only', 'corrupt SQL', 'old payload', 'future payload', 'malformed19', 'changed identity']) {
   test(`fixture read refuses ${failure} with zero mutation, replacement or proof`, t => {
     const profile = profileFor(t);
     const sql = path.join(profile.userDataPath, 'config.sqlite');
@@ -89,8 +89,8 @@ for (const failure of ['missing SQL', 'missing identity', 'JSON only', 'corrupt 
     if (failure === 'JSON only') fs.writeFileSync(path.join(profile.userDataPath, 'config.json'), JSON.stringify(profile.initial));
     if (failure === 'corrupt SQL') fs.writeFileSync(sql, 'synthetic corrupt database');
     if (failure === 'old payload') mutatePayload(profile, state => { state.schemaVersion = 17; });
-    if (failure === 'future payload') mutatePayload(profile, state => { state.schemaVersion = 19; });
-    if (failure === 'malformed18') mutatePayload(profile, state => { delete state.pet.foodTickets; });
+    if (failure === 'future payload') mutatePayload(profile, state => { state.schemaVersion = 20; });
+    if (failure === 'malformed19') mutatePayload(profile, state => { delete state.pet.foodTickets; });
     if (failure === 'changed identity') fs.writeFileSync(identity, 'synthetic changed identity');
     const before = bytes(profile.userDataPath), events = [];
     assert.throws(() => readDisposableProfile(profile, { repositoryFactory: tracedFactory(events) }));

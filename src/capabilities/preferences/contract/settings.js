@@ -25,6 +25,7 @@ const {
 // 只提供选错的机会。`aiBreakdownEnabled` 仍然是唯一的 AI 总开关。
 // Model ids come from many vendors: `gpt-5-mini`, `anthropic/claude-sonnet-4`,
 // `qwen2.5:7b`. Bound the charset instead of guessing a vendor's naming.
+const { LOCALES, THEMES } = require('../domain/interface-preferences');
 const AI_MODEL_PATTERN = /^[A-Za-z0-9][A-Za-z0-9._:/-]{0,79}$/;
 // User input stays compact, but WHATWG serializes Unicode hosts, paths and
 // queries as punycode / percent escapes. A valid 200-code-unit input can thus
@@ -55,6 +56,8 @@ const MAX_SHORTCUT_LENGTH = 80;
 const MIN_TIMELINE_RETENTION_DAYS = 30;
 const MAX_TIMELINE_RETENTION_DAYS = 3650;
 const DEFAULT_SETTINGS = Object.freeze({
+  locale: 'system',
+  theme: 'system',
   pomodoroMinutes: DEFAULT_FOCUS_MINUTES,
   lastChosenFocusMinutes: null,
   breakMinutes: 5,
@@ -137,6 +140,8 @@ function normalizeSettings(raw) {
     : DEFAULT_SETTINGS.aiBaseUrl;
 
   return {
+    locale: LOCALES.includes(source.locale) ? source.locale : DEFAULT_SETTINGS.locale,
+    theme: THEMES.includes(source.theme) ? source.theme : DEFAULT_SETTINGS.theme,
     pomodoroMinutes: numberInRange(
       source.pomodoroMinutes,
       DEFAULT_SETTINGS.pomodoroMinutes,

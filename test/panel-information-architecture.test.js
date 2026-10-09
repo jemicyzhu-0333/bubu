@@ -125,7 +125,7 @@ test('settings are folded by functional module so the drawer opens as a short me
   }
   assert.equal(stack.length, 0, 'all settings disclosures close');
   assert.deepEqual(groups.map(group => group.id), [
-    'settingGroupSensory', 'settingGroupActivityMirror', 'settingGroupWorkHours', 'settingGroupNudges',
+    'settingGroupGeneral', 'settingGroupAppearance', 'settingGroupSensory', 'settingGroupActivityMirror', 'settingGroupWorkHours', 'settingGroupNudges',
     'settingGroupAssist', 'settingGroupEnergy', 'settingGroupPlanning', 'appUpdateGroup', 'settingGroupAi'
   ]);
   for (const control of drawer.matchAll(/<(?:input|select|textarea|button)\b[^>]*>/g)) {
@@ -163,11 +163,11 @@ test('every place that names the quick-capture chord is written from the effecti
   }
   // 关掉或一级都没抢到时不能再写出任何组合：写一个按不动的键比不写更糟。
   assert.match(shortcutJs, /function effectiveLabel\(\)[\s\S]*?!describe\.enabled \|\| !describe\.registered\) return ''/);
-  assert.match(shortcutJs, /label \? `快捷行动 \$\{label\}` : '打开快捷行动面板'/);
+  assert.match(shortcutJs, /label \? t\('快捷行动 \{shortcut\}', \{ shortcut: label \}\) : t\('打开快捷行动面板'\)/);
 
   // 录制键上画的是**配置值**，生效值只出现在下面那一行。退级绝不回写配置：
   // 占用的程序关掉之后，用户本来想要的组合应当自己回来。
-  assert.match(shortcutJs, /recorder\.textContent = configured \|\| '未设置'/);
+  assert.match(shortcutJs, /recorder\.textContent = configured \|\| t\('未设置'\)/);
   assert.doesNotMatch(shortcutJs, /quickPanelShortcut:\s*describe/);
   assert.equal((shortcutJs.match(/quickPanelShortcut:/g) || []).length, 1,
     '配置值只在用户录制时被写入一次，任何退级路径都不得改写它');

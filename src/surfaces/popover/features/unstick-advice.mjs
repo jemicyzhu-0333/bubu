@@ -1,3 +1,4 @@
+import { t } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 // 「针对这件事的下一步」：卡住弹层里策略卡上方的一块。
@@ -17,7 +18,7 @@ function createPopoverUnstickAdvice({ $, escapeHTML, surfaceClient } = {}) {
     throw new TypeError('popover unstick advice requires surfaceClient.suggestUnstick');
   }
 
-  const HEAD = '<div class="unstick-head">针对这件事的下一步</div>';
+  const HEAD = () => `<div class="unstick-head">${t('针对这件事的下一步')}</div>`;
   // 主进程拒绝的四种情形都是「目标不在了」,各自有一句人话。别的原因不猜,统一
   // 落到那句「这次没想出来」,因为把内部原因码摆到面上帮不了任何人。
   const REFUSALS = Object.freeze({
@@ -28,6 +29,8 @@ function createPopoverUnstickAdvice({ $, escapeHTML, surfaceClient } = {}) {
   });
 
   let requestSeq = 0;
+  let copy = null;
+  function repaintCopy() { copy?.(); }
 
   function show(html) {
     const node = $('#unstickBlock');
@@ -37,12 +40,17 @@ function createPopoverUnstickAdvice({ $, escapeHTML, surfaceClient } = {}) {
   }
 
   function note(text) {
-    show(`${HEAD}<p class="unstick-pending">${escapeHTML(text)}</p>`);
+    show(`${HEAD()}<p class="unstick-pending">${escapeHTML(t(text))}</p>`);
+    copy = () => {
+      const node = $('#unstickBlock');
+      const head = node?.querySelector?.('.unstick-head'), pending = node?.querySelector?.('.unstick-pending');
+      if (head) head.textContent = t('针对这件事的下一步'); if (pending) pending.textContent = t(text);
+    };
   }
 
   // 关掉弹层、换一件任务都要清一次:留在面上的旧建议会被当成对新任务说的。
   function clear() {
-    requestSeq += 1;
+    requestSeq += 1; copy = null;
     const node = $('#unstickBlock');
     if (!node) return;
     node.innerHTML = '';
@@ -51,21 +59,27 @@ function createPopoverUnstickAdvice({ $, escapeHTML, surfaceClient } = {}) {
 
   function renderAdvice(result) {
     // 回退了就说清楚回退到哪、为什么:静默换一个来源,用户会把本地模板当成模型说的。
-    const source = result.fallback
-      ? `本地建议（${result.reason || '未提供原因'}）`
-      : result.provider === 'api' ? 'AI 建议' : '本地建议';
-    const parts = [HEAD, `<p class="unstick-action">${escapeHTML(result.nextAction)}</p>`];
+    const source = () => result.fallback
+      ? t('本地建议（{reason}）', { reason: result.reason || t('未提供原因') })
+      : t(result.provider === 'api' ? 'AI 建议' : '本地建议');
+    const parts = [HEAD(), `<p class="unstick-action">${escapeHTML(result.nextAction)}</p>`];
     if (result.why) parts.push(`<p class="unstick-why">${escapeHTML(result.why)}</p>`);
     // 和下一步一字不差的兜底不值得占一行——那不是「另一条路」。
     if (result.fallbackAction && result.fallbackAction !== result.nextAction) {
-      parts.push(`<p class="unstick-fallback">做不动就先做：${escapeHTML(result.fallbackAction)}</p>`);
+      parts.push(`<p class="unstick-fallback">${escapeHTML(t('做不动就先做：{action}', { action: result.fallbackAction }))}</p>`);
     }
     const steps = Array.isArray(result.splitSteps) ? result.splitSteps.filter(Boolean) : [];
     if (steps.length) {
       parts.push(`<ul class="unstick-steps">${steps.map(step => `<li>${escapeHTML(step)}</li>`).join('')}</ul>`);
     }
-    parts.push(`<p class="unstick-source">${escapeHTML(source)}</p>`);
+    parts.push(`<p class="unstick-source">${escapeHTML(source())}</p>`);
     show(parts.join(''));
+    copy = () => {
+      const node = $('#unstickBlock');
+      const head = node?.querySelector?.('.unstick-head'), label = node?.querySelector?.('.unstick-source'), fallback = node?.querySelector?.('.unstick-fallback');
+      if (head) head.textContent = t('针对这件事的下一步'); if (label) label.textContent = source();
+      if (fallback) fallback.textContent = t('做不动就先做：{action}', { action: result.fallbackAction });
+    };
   }
 
   // 没有选定任务就没有「这件事」,不发请求:一句没有对象的下一步等于噪音。
@@ -90,7 +104,7 @@ function createPopoverUnstickAdvice({ $, escapeHTML, surfaceClient } = {}) {
     renderAdvice(result);
   }
 
-  return Object.freeze({ request, clear });
+  return Object.freeze({ request, clear, repaintCopy });
 }
 
 export { createPopoverUnstickAdvice };

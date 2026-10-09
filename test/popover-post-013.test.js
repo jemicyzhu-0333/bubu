@@ -165,7 +165,7 @@ test('completion is single-flight and a presentation failure cannot report the c
     } },
     celebrate: () => { throw new Error('canvas unavailable'); },
     onCompleted: result => announcements.push(result), restoreModalFocus() {},
-    showPanelStatus: value => statuses.push(value), taskActionMessage: String
+    showPanelStatus: value => statuses.push(typeof value === 'function' ? value() : value), taskActionMessage: String
   });
   const pending = feature.completeTask({ id: 'task' });
   await feature.completeTask({ id: 'task' });
@@ -262,4 +262,24 @@ test('a completion that carries an undo ticket shows an undo button that runs on
   plain.announceCompletion({});
   assert.equal(toast.textContent, '已完成');
   assert.equal(toast.classList.contains('has-undo'), false);
+});
+
+test('completion confirmation translates count and errors without changing its pending task', async t => {
+  const { setLocale } = require('../src/surfaces/shared/interface/i18n.mjs');
+  setLocale('zh-CN'); t.after(() => setLocale('zh-CN'));
+  const { $, document } = documentFixture(); const calls = []; let resolve;
+  const feature = createPopoverCompleteConfirm({ document, $, requestFrame: callback => callback(),
+    surfaceClient: { completeTask: (id, options) => { calls.push([id, options]);
+      return !options ? Promise.resolve({ ok: false, reason: 'unfinished-steps-need-confirmation', unfinishedCount: 2 })
+        : new Promise(done => { resolve = done; }); } },
+    celebrate() {}, restoreModalFocus() {}, showPanelStatus() {}, taskActionMessage: String });
+  feature.mount(); t.after(() => feature.dispose());
+  await feature.completeTask({ id: 'one', title: '任务 <raw>' });
+  const confirm = $('#completeConfirmOk'); const pending = confirm.dispatch('click');
+  setLocale('en'); assert.equal($('#completeConfirmOk'), confirm); assert.equal(confirm.disabled, true);
+  assert.equal($('#completeConfirmTask').textContent, '“任务 <raw>” has 2 unfinished steps.');
+  await confirm.dispatch('click'); assert.equal(calls.length, 2);
+  resolve({ ok: false }); await pending;
+  assert.match($('#completeConfirmError').textContent, /Completion failed/);
+  setLocale('zh-CN'); assert.match($('#completeConfirmError').textContent, /没有完成成功/);
 });

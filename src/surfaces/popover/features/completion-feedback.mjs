@@ -1,3 +1,4 @@
+import { t, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 function createPopoverCompletionFeedback({ document, $, celebrate, timers = globalThis, surfaceClient = null } = {}) {
@@ -8,12 +9,15 @@ function createPopoverCompletionFeedback({ document, $, celebrate, timers = glob
   let finishToastTimer = null;
   let levelUpTimer = null;
   let levelUpHideTimer = null;
+  let repaintToast = null;
+  const stopLocale = onLocaleChanged(() => repaintToast?.());
 
   function showFinishToast(text) {
     const toast = $('#finishToast');
     if (!toast) return;
     toast.classList.remove('has-undo');
-    toast.textContent = text;
+    const copy = typeof text === 'function' ? text : () => t(text);
+    repaintToast = () => { toast.textContent = copy(); }; repaintToast();
     toast.classList.remove('hidden');
     void toast.offsetWidth;
     toast.classList.add('show');
@@ -30,12 +34,14 @@ function createPopoverCompletionFeedback({ document, $, celebrate, timers = glob
     const toast = $('#finishToast');
     if (!toast || typeof document.createElement !== 'function') { showFinishToast(text); return; }
     const label = document.createElement('span');
-    label.textContent = text;
+    const copy = typeof text === 'function' ? text : () => t(text);
+    label.textContent = copy();
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'finish-undo';
     button.setAttribute('data-icon', 'undo');
-    button.textContent = '撤销';
+    button.textContent = t('撤销');
+    repaintToast = () => { label.textContent = copy(); button.textContent = t('撤销'); };
     const bar = document.createElement('i');
     bar.className = 'finish-undo-bar';
     bar.setAttribute('aria-hidden', 'true');
@@ -62,13 +68,13 @@ function createPopoverCompletionFeedback({ document, $, celebrate, timers = glob
 
   function announceCompletion(result) {
     const next = result && result.nextOccurrenceDate;
-    let text = '已完成';
+    let text = () => t('已完成');
     if (next) {
       const date = new Date(`${next}T00:00:00`);
       const label = Number.isFinite(date.getTime())
         ? `${date.getMonth() + 1}/${date.getDate()}`
         : next;
-      text = `今天这次已完成，下次 ${label}`;
+      text = () => t('今天这次已完成，下次 {date}', { date: label });
     }
     const ticket = result && result.undo;
     if (ticket && surfaceClient && typeof surfaceClient.undoComplete === 'function'
@@ -101,6 +107,7 @@ function createPopoverCompletionFeedback({ document, $, celebrate, timers = glob
   }
 
   function dispose() {
+    stopLocale(); repaintToast = null;
     timers.clearTimeout(finishToastTimer);
     timers.clearTimeout(levelUpTimer);
     timers.clearTimeout(levelUpHideTimer);

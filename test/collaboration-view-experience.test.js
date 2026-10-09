@@ -164,5 +164,5 @@ test('session scrolling is constrained to the focusable list; page toolbar and f
   assert.match(css, /#draftChatLibrary \{[^}]*display: flex;[^}]*flex-direction: column;[^}]*overflow: hidden;/);
   assert.match(css, /#draftChatSessions \{[^}]*min-height: 0;[^}]*max-height: 420px;[^}]*overflow-y: auto;/);
   assert.match(css, /chat-session-title-row > span:first-child \{[^}]*min-width: 0;[^}]*text-overflow: ellipsis;/);
-  assert.match(html, /id="draftChatSessions" tabindex="0" role="region" aria-label="可继续的对话，可滚动"><\/div>\s*<div class="chat-list-actions">/);
+  assert.match(html, /id="draftChatSessions" tabindex="0" role="region" aria-label="可继续的对话，可滚动"[^>]*><\/div>\s*<div class="chat-list-actions">/);
 });

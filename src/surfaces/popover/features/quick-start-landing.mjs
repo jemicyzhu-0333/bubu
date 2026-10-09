@@ -1,3 +1,4 @@
+import { t, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 // 落点提示：一段计时结束之后，那一问。
@@ -39,6 +40,8 @@ function createPopoverQuickStartLanding({
   let returnFocus = null; // 它出现之前焦点在哪
   let mounted = false;
   let generation = 0;
+  let displayedPrompt = null;
+  let errorCopy = () => '';
   const pendingRequests = new Map();
   const teardown = [];
 
@@ -120,6 +123,26 @@ function createPopoverQuickStartLanding({
     });
   }
 
+  function paintPromptCopy() {
+    const prompt = displayedPrompt; if (!prompt) return;
+    const isQuickStart = prompt.mode === 'quick-start';
+    const isHealthyShutdown = !isQuickStart && prompt.healthyShutdown === true;
+    $('#quickStartTitle').textContent = t(isQuickStart
+      ? '两分钟到了，已经启动成功'
+      : isHealthyShutdown
+        ? '收工前，给下次留个入口'
+        : '给下一次留个入口');
+    $('#landingDescription').textContent = t(isQuickStart
+      ? '不用证明什么。选择此刻最适合你的落点：'
+      : isHealthyShutdown
+        ? '这不是一次完成结算。留一句下次能直接动手的提示，或安心跳过。'
+        : prompt.breakState === 'running'
+          ? '休息正在进行。你可以留一句落点，也可以跳过，之后再决定。'
+          : prompt.breakState === 'paused'
+            ? '休息已经暂停。上一轮落点仍保留，准备好时再处理。'
+            : '这段专注的落点仍为你保留，可以留一句下次入口，也可以跳过。');
+  }
+
   function render() {
     if (!getState()) return;
     const prompt = activePrompt();
@@ -136,7 +159,7 @@ function createPopoverQuickStartLanding({
     mask.setAttribute('aria-hidden', visible ? 'false' : 'true');
     if (!pending) {
       if (promptKey) generation += 1;
-      promptKey = '';
+      promptKey = ''; displayedPrompt = null;
       if (wasVisible) restoreFocusAfterLanding();
       return;
     }
@@ -145,21 +168,7 @@ function createPopoverQuickStartLanding({
     mask.dataset.landingHasTask = prompt.taskId ? 'true' : 'false';
     mask.dataset.landingTaskEditable = prompt.taskEditable ? 'true' : 'false';
     const isQuickStart = prompt.mode === 'quick-start';
-    const isHealthyShutdown = !isQuickStart && prompt.healthyShutdown === true;
-    $('#quickStartTitle').textContent = isQuickStart
-      ? '两分钟到了，已经启动成功'
-      : isHealthyShutdown
-        ? '收工前，给下次留个入口'
-        : '给下一次留个入口';
-    $('#landingDescription').textContent = isQuickStart
-      ? '不用证明什么。选择此刻最适合你的落点：'
-      : isHealthyShutdown
-        ? '这不是一次完成结算。留一句下次能直接动手的提示，或安心跳过。'
-        : prompt.breakState === 'running'
-          ? '休息正在进行。你可以留一句落点，也可以跳过，之后再决定。'
-          : prompt.breakState === 'paused'
-            ? '休息已经暂停。上一轮落点仍保留，准备好时再处理。'
-            : '这段专注的落点仍为你保留，可以留一句下次入口，也可以跳过。';
+    displayedPrompt = prompt; paintPromptCopy();
     $('#quickStartLandingActions').classList.toggle('hidden', !isQuickStart);
     $('#focusLandingActions').classList.toggle('hidden', isQuickStart);
     $('#landingNoteField').classList.toggle('hidden', !prompt.taskEditable);
@@ -170,7 +179,7 @@ function createPopoverQuickStartLanding({
     if (changedPrompt) {
       generation += 1;
       const error = $('#quickStartError');
-      error.textContent = '';
+      error.textContent = ''; errorCopy = () => '';
       error.classList.add('hidden');
       $('#landingNote').value = '';
       if ($('#landingProgressMade')) $('#landingProgressMade').checked = false;
@@ -198,7 +207,8 @@ function createPopoverQuickStartLanding({
 
   function showError(message = '') {
     const error = $('#quickStartError');
-    error.textContent = message;
+    errorCopy = typeof message === 'function' ? message : () => t(message);
+    error.textContent = errorCopy();
     error.classList.toggle('hidden', !message);
   }
 
@@ -226,7 +236,7 @@ function createPopoverQuickStartLanding({
         progressMade: $('#landingProgressMade')?.checked === true,
         landingNote: mode === 'focus' && action !== 'save' ? null : note || null
       });
-      if (owns() && (!result || result.ok === false)) showError(focusActionMessage(result?.reason));
+      if (owns() && (!result || result.ok === false)) showError(() => focusActionMessage(result?.reason));
     } catch (_) {
       if (owns()) showError('这次结果尚未确认，当前决定仍保留，请重试。');
     } finally {
@@ -240,6 +250,10 @@ function createPopoverQuickStartLanding({
   function mount() {
     if (mounted) return;
     mounted = true;
+    teardown.push(onLocaleChanged(() => {
+      paintPromptCopy();
+      $('#quickStartError').textContent = errorCopy();
+    }));
     listen($('#landingNote'), 'input', updateSaveAvailability);
     if (typeof surfaceClient.onPopoverHidden === 'function') {
       const unsubscribe = surfaceClient.onPopoverHidden(() => { generation += 1; });
@@ -258,7 +272,7 @@ function createPopoverQuickStartLanding({
     mounted = false;
     generation += 1;
     while (teardown.length) teardown.pop()();
-    promptKey = '';
+    promptKey = ''; displayedPrompt = null; errorCopy = () => '';
     returnFocus = null;
   }
 

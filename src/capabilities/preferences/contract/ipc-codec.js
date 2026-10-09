@@ -49,6 +49,8 @@ function decodeSettingsPatch(validation) {
     'aiCaptureTriageEnabled', 'aiPetMealsEnabled', 'activityMirrorEnabled'
   ]);
   const enums = {
+    locale: ['system', 'zh-CN', 'en'],
+    theme: ['system', 'light', 'dark'],
     nudgeCharacter: ['spider', 'cat', 'robot'],
     adhocTtlMode: ['midnight', 'hours'],
     motionMode: ['reduced', 'balanced', 'full'],
@@ -123,6 +125,7 @@ function decodeSettingsPatch(validation) {
 
 const codec = createCapabilityCodec({
   'settings:update': decodeSettingsPatch,
+  'settings:get-interface': emptyPayload,
   'pet:toggleDnd': emptyPayload,
   'pet:hide': emptyPayload,
   // ARCHITECTURE「快捷行动面板」: a read-only query for the accelerator that actually registered. It
@@ -133,9 +136,10 @@ const codec = createCapabilityCodec({
 
 const ipcRoutes = describeRoutes('preferences', codec, {
   'settings:update': ['popover'],
+  'settings:get-interface': ['popover', 'impulse', 'pet', 'nudgeCorner', 'nudgeFullscreen'],
   'pet:toggleDnd': ['pet'],
   'pet:hide': ['pet'],
   'quickPanel:describeShortcut': ['popover']
-}, ['quickPanel:describeShortcut']);
+}, ['quickPanel:describeShortcut', 'settings:get-interface']);
 
 module.exports = { ipcRoutes };

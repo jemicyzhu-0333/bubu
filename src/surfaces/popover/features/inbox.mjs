@@ -1,5 +1,6 @@
+import { t, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 import { CATEGORIES, classificationOf, effectiveClassification } from './inbox-triage.mjs';
-import { inboxCard } from './inbox-card.mjs';
+import { inboxCard, repaintInboxCard } from './inbox-card.mjs';
 import { createInboxHistory } from './inbox-history.mjs';
 
 const ERRORS = {
@@ -35,8 +36,10 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
   };
   const findHistorySource = id => { const item = history.findSource(id); return item && !sourceMasked(item) ? item : null; };
   function patchDraft(id, patch) { drafts.set(id, { ...draftOf(id), ...patch }); }
+  let statusCopy = () => '';
   function status(message = '') {
-    $('#inboxStatus').textContent = message;
+    statusCopy = typeof message === 'function' ? message : () => t(message);
+    $('#inboxStatus').textContent = statusCopy();
     $('#inboxStatus').classList.toggle('hidden', !message);
   }
   function pendingItems() {
@@ -59,7 +62,7 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
     if (key === entry.key) return;
     const optionsOpen = entry.row.querySelector('.inbox-options')?.open;
     const focus = focusedEditor(entry.row);
-    entry.key = key;
+    entry.key = key; entry.copy = { item, state, draft: scope === 'history' ? undefined : draft };
     entry.row.innerHTML = inboxCard(item, state, escapeHTML, scope === 'history' ? undefined : draft);
     const more = entry.row.querySelector('.inbox-options');
     if (more) more.open = Boolean(optionsOpen);
@@ -70,7 +73,7 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
     if (!button) return;
     const count = Math.min(items.length, KEEP_ALL_LIMIT);
     button.classList.toggle('hidden', scope !== 'pending' || count < 2);
-    button.textContent = keepAllArmed ? `确认留存 ${count} 条` : '全部留存';
+    button.textContent = keepAllArmed ? t('确认留存 {count} 条', { count }) : t('全部留存');
     button.classList.toggle('chip-action', Boolean(keepAllArmed));
   }
   function draw() {
@@ -80,7 +83,7 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
     $('#tabImpCount').textContent = (state.impulses || []).length;
     history.acceptCount(state.inboxHistoryTotal, state.inboxHistoryCountVersion);
     const page = history.view();
-    $('#inboxHistoryCount').textContent = page.globalTotal === null ? '暂不可用' : String(page.globalTotal);
+    $('#inboxHistoryCount').textContent = page.globalTotal === null ? t('暂不可用') : String(page.globalTotal);
     const items = scope === 'history' ? page.items.filter(item => !sourceMasked(item)) : pendingItems();
     const ids = new Set(items.map(item => item.id));
     for (const [id, entry] of rows) if (!ids.has(id)) { entry.row.remove(); rows.delete(id); }
@@ -97,7 +100,7 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
       if (list.children[index] !== entry.row) list.insertBefore(entry.row, list.children[index] || null);
     });
     $('#emptyImpulses').classList.toggle('hidden', items.length !== 0 || (scope === 'history' && (page.loading || page.available !== true || page.items.length > 0)));
-    $('#inboxEmptyTitle').textContent = scope === 'history' ? '还没有这类历史记录' : category ? '这个分类下没有待整理的收件' : '没有待整理的收件';
+    $('#inboxEmptyTitle').textContent = t(scope === 'history' ? '还没有这类历史记录' : category ? '这个分类下没有待整理的收件' : '没有待整理的收件');
     $('#inboxLoadMore').classList.toggle('hidden', scope !== 'history' || !page.nextCursor || page.available !== true);
     $('#inboxLoadMore').disabled = page.loading;
     drawHistoryStatus(page);
@@ -111,7 +114,7 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
       const button = entry.row.querySelector('[data-inbox-action="delete-mood-source"]');
       if (button) {
         const deletion = moodDeletion?.view();
-        button.textContent = deletion?.armedSourceId === id ? '确认删除这条情绪的全部关联原文' : '删除关联来源';
+        button.textContent = t(deletion?.armedSourceId === id ? '确认删除这条情绪的全部关联原文' : '删除关联来源');
         button.disabled = !moodDeletion || !findHistorySource(id) || (Boolean(deletion?.phase) && deletion.phase !== 'complete');
       }
     }
@@ -124,7 +127,7 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
       ? page.items.length ? '部分历史暂不可用，当前显示已读取的记录。' : '历史记录暂不可用。' : '';
     host.classList.toggle('hidden', scope !== 'history' || !message);
     host.setAttribute('aria-live', visible() && scope === 'history' ? 'polite' : 'off');
-    label.textContent = message;
+    label.textContent = t(message);
     retry.classList.toggle('hidden', !page.canRetry); retry.disabled = page.loading;
   }
   function drawMoodDeletion(view) {
@@ -135,10 +138,10 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
     host.setAttribute('aria-busy', view?.busy ? 'true' : 'false');
     const labels = { sending: '正在删除', refused: '来源暂不可用，这次未删除', partial: '来源清理尚未完成',
       unknown: '删除结果尚待核对', complete: view?.alreadyAbsent ? '这条记录与来源已不在应用记录中' : '记录与来源已删除' };
-    $('#inboxDeleteLabel').textContent = view?.phase ? `${view.dayKey || ''} · ${labels[view.phase]}` : '';
+    $('#inboxDeleteLabel').textContent = view?.phase ? `${view.dayKey || ''} · ${t(labels[view.phase])}` : '';
     const retry = $('#inboxDeleteRetry');
     retry.disabled = Boolean(view?.busy); retry.classList.toggle('hidden', !view?.canRetry);
-    retry.textContent = view?.phase === 'partial' ? '继续清理' : view?.phase === 'unknown' ? '重试核对' : '重试删除';
+    retry.textContent = t(view?.phase === 'partial' ? '继续清理' : view?.phase === 'unknown' ? '重试核对' : '重试删除');
     $('#inboxDeleteDismiss').classList.toggle('hidden', !view?.canDismiss);
   }
   function loadHistory(append = false) { moodDeletion?.resetArming(); return history.load(append); }
@@ -260,7 +263,7 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
     busy = true; status(); draw();
     try {
       const result = await surfaceClient.keepAllImpulses(ids);
-      if (!disposed) status(result?.ok ? `已留存 ${result.kept} 条，可在历史记录中查看。` : '没有保存成功，原文仍在，请稍后重试。');
+      if (!disposed) status(() => result?.ok ? t('已留存 {count} 条，可在历史记录中查看。', { count: result.kept }) : t('没有保存成功，原文仍在，请稍后重试。'));
       if (result?.ok) ids.forEach(id => drafts.delete(id));
     } catch { if (!disposed) status('连接暂时中断，原文仍在，请稍后重试。'); }
     finally {
@@ -271,7 +274,16 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
   }
   function listen(node, type, handler, options) { node?.addEventListener?.(type, handler, options); cleanup.push(() => node?.removeEventListener?.(type, handler, options)); }
   function mount() {
-    $('#inboxCategoryFilter').innerHTML = '<option value="">全部分类</option>' + Object.entries(CATEGORIES).map(([value, label]) => `<option value="${value}">${label}</option>`).join('');
+    $('#inboxCategoryFilter').innerHTML = `<option value="" data-i18n="全部分类">${t('全部分类')}</option>` + Object.entries(CATEGORIES).map(([value, label]) => `<option value="${value}" data-i18n="${label}">${t(label)}</option>`).join('');
+    cleanup.push(onLocaleChanged(() => {
+      if (disposed) return;
+      // No history reads, arming reset, DOM rebuild or command on language changes.
+      draw();
+      for (const entry of rows.values()) if (entry.copy) {
+        const { item, state, draft } = entry.copy; repaintInboxCard(entry.row, item, state, draft);
+      }
+      $('#inboxStatus').textContent = statusCopy();
+    }));
     listen($('#inboxCategoryFilter'), 'change', event => {
       category = event.target.value; moodDeletion?.resetArming(); history.setScope(scope, category); status(); renderList();
     });

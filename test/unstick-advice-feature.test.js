@@ -53,7 +53,7 @@ const ADVICE = Object.freeze({
 test('the unstick advice block exposes a frozen surface and refuses to run without its dependencies', () => {
   const { advice } = createHarness();
   assert.ok(Object.isFrozen(advice));
-  assert.deepEqual(Object.keys(advice).sort(), ['clear', 'request']);
+  assert.deepEqual(Object.keys(advice).sort(), ['clear', 'repaintCopy', 'request']);
   assert.throws(() => createPopoverUnstickAdvice({}), TypeError);
   assert.throws(
     () => createPopoverUnstickAdvice({ $: () => null, escapeHTML }),

@@ -1,3 +1,4 @@
+import { t, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 const KINDS = Object.freeze({ task: '任务', inbox: '收件原文', routine: '普通日常排程', memory: '已确认记忆' });
@@ -15,10 +16,10 @@ function createCollaborationContextSelection({ $, escapeHTML, surfaceClient, get
   const node = id => $(`#${id}`);
   function summary() {
     const counts = Object.entries(FIELD).filter(([, field]) => selection[field].length)
-      .map(([key, field]) => `${KINDS[key]} ${selection[field].length}`);
-    if (node('draftChatScopeSelection')) node('draftChatScopeSelection').textContent = counts.length ? `已选：${counts.join(' · ')}` : '未选择额外内容';
+      .map(([key, field]) => `${t(KINDS[key])} ${selection[field].length}`);
+    if (node('draftChatScopeSelection')) node('draftChatScopeSelection').textContent = counts.length ? t('已选：{counts}', { counts: counts.join(' · ') }) : t('未选择额外内容');
     if (node('draftChatScopePending')) {
-      node('draftChatScopePending').textContent = dirty ? '选择有变，更新预览后才可发送。' : '仅参考已选内容 · 今天';
+      node('draftChatScopePending').textContent = t(dirty ? '选择有变，更新预览后才可发送。' : '仅参考已选内容 · 今天');
     }
     if (node('btnDraftChatScopeApply')) node('btnDraftChatScopeApply').disabled = !dirty || isBusy();
   }
@@ -31,9 +32,9 @@ function createCollaborationContextSelection({ $, escapeHTML, surfaceClient, get
       return `<label class="chat-context-choice"><input type="checkbox" data-context-id="${escapeHTML(item.id)}"`
         + `${selected ? ' checked' : ''}${unavailable || isBusy() ? ' disabled' : ''}>`
         + `<span>${escapeHTML(item.title || item.text || item.subject || item.name || item.id)}`
-        + `${item.textTruncated ? '<small>原文仅显示前 500 字；发送范围见本轮预览</small>' : ''}`
-        + `${unavailable ? '<small>不在可选范围内</small>' : ''}</span></label>`;
-    }).join('') : '<p class="chat-empty">暂无可选内容，可搜索或更换类别。</p>';
+        + `${item.textTruncated ? `<small data-context-copy="原文仅显示前 500 字；发送范围见本轮预览">${t('原文仅显示前 500 字；发送范围见本轮预览')}</small>` : ''}`
+        + `${unavailable ? `<small data-context-copy="不在可选范围内">${t('不在可选范围内')}</small>` : ''}</span></label>`;
+    }).join('') : `<p class="chat-empty" data-context-copy="暂无可选内容，可搜索或更换类别。">${t('暂无可选内容，可搜索或更换类别。')}</p>`;
     node('btnDraftChatContextMore')?.classList.toggle('hidden', !nextCursor);
     summary();
   }
@@ -98,6 +99,12 @@ function createCollaborationContextSelection({ $, escapeHTML, surfaceClient, get
     target.addEventListener(type, handler); teardown.push(() => target.removeEventListener(type, handler));
   }
   function mount() {
+    teardown.push(onLocaleChanged(() => {
+      summary();
+      node('draftChatContextChoices')?.querySelectorAll?.('[data-context-copy]').forEach(item => {
+        item.textContent = t(item.dataset.contextCopy);
+      });
+    }));
     listen('btnDraftChatContextSearch', 'click', () => void load());
     listen('btnDraftChatContextMore', 'click', () => void load({ more: true }));
     listen('draftChatContextKind', 'change', () => void load());

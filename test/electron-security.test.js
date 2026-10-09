@@ -29,15 +29,18 @@ function sourceFiles(relative = 'src') {
 
 const EXPECTED_PRELOAD_CHANNELS = Object.freeze({
   'src/preload-impulse.js': [
+    'settings:get-interface',
     'impulse:hide', 'impulses:add',
     // 快捷面板的“先做 2 分钟”（ARCHITECTURE「快捷行动面板」）。
     'pomodoro:kickstart', 'pomodoro:pause', 'pomodoro:resume', 'pomodoro:start', 'pomodoro:stop',
     'state:get', 'tasks:complete', 'tasks:complete-step', 'tasks:update'
   ],
   'src/preload-nudge.js': [
+    'settings:get-interface',
     'nudge:dismiss', 'nudge:pointer-interactive', 'routines:log'
   ],
   'src/preload-pet.js': [
+    'settings:get-interface',
     'pet:cueAck', 'pet:dragEnd', 'pet:dragStart', 'pet:feed', 'pet:getBounds', 'pet:getContent',
     'pet:getContextualLine', 'pet:getFeedState', 'pet:getState',
     'pet:hide', 'pet:interaction', 'pet:openImpulse', 'pet:openPanel', 'pet:savePosition',
@@ -45,6 +48,7 @@ const EXPECTED_PRELOAD_CHANNELS = Object.freeze({
     'pet:updateRuntime'
   ],
   'src/preload-popover.js': [
+    'settings:get-interface',
     'ai:clear-credential', 'ai:credential-import', 'ai:credential-status',
     'ai:draft-discard', 'ai:draft-turn',
     'ai:conversation-start', 'ai:conversation-list', 'ai:conversation-open', 'ai:conversation-scope',
@@ -228,7 +232,7 @@ test('every renderer invocation is registered and every registration is validate
   const router = read('src/application/ipc/registrar.js');
   const composition = read('src/bootstrap/renderer-ipc.js');
   assert.match(main, /const registerIpc = createRendererIpcRegistrar\(\{/);
-  assert.match(composition, /return createIpcRegistrar\(\{/);
+  assert.match(composition, /const registerIpc = createIpcRegistrar\(\{/);
   assert.match(router, /if \(!page \|\| !Array\.isArray\(allowed\) \|\| !allowed\.includes\(page\)\)/);
   assert.match(main, /require\('\.\/application\/ipc'\)/);
   assert.match(composition, /return assertIpcPayload\(channel, payload,/);

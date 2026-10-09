@@ -89,7 +89,7 @@ const {
 // Schema 15 adds settings.activityMirrorEnabled (default false).
 // Schema 16 adds the guidance-owned atomic AI receipt and durable outbox ledger.
 // Schema18 is a fresh-profile foundation, never an implicit pre18 migration.
-const PERSISTED_SCHEMA_VERSION = 18;
+const PERSISTED_SCHEMA_VERSION = 19;
 // The schema at which tasks became orthogonal (tags / description / estimate
 // instead of one mutually exclusive `category`). The task-model migration is
 // keyed on *this* number rather than on "is not the current version": from

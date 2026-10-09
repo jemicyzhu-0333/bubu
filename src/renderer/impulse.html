@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<title>小步 - 快捷行动</title>
+<title data-i18n="小步 - 快捷行动">小步 - 快捷行动</title>
 <style>
   /* 快捷行动面板：⌥⇧Space 随叫随到的一张小卡片。只做三件事——随手记（默认焦点）、
      当前任务的“完成这一步 / 追加一步”、没在做事时“先做 2 分钟”。样式和主面板同一套原生语言。 */
@@ -135,39 +135,40 @@
 /* icons:end */
 </style>
 <link rel="stylesheet" href="../surfaces/impulse/capture.css">
+<link rel="stylesheet" href="../surfaces/shared/interface/chrome.css">
 </head>
-<body data-mode="fallback" data-motion="reduced" data-stimulation="low" aria-busy="false">
+<body data-surface="impulse" data-mode="fallback" data-motion="reduced" data-stimulation="low" aria-busy="false">
 <!-- 图标 data-icon="play" 由 quick-panel.mjs 在“继续”时设置，写在这里是为了让内联图标样式包含它。 -->
 <div class="quick-shell" id="quickShell">
   <div class="scanlines" aria-hidden="true"></div>
   <form class="capture-block" id="impulseForm">
-    <label class="capture-label" for="impInput" data-icon="notebook">随手记</label>
-    <div class="capture-input-row"><input type="text" id="impInput" autofocus aria-label="记录闪念" placeholder="记下一句话…" maxlength="500"><button type="submit" class="capture-send" aria-label="保存随手记">↵</button></div>
+    <label class="capture-label" for="impInput" data-icon="notebook" data-i18n="随手记">随手记</label>
+    <div class="capture-input-row"><input type="text" id="impInput" autofocus aria-label="记录闪念" placeholder="记下一句话…" maxlength="500" data-i18n-aria-label="记录闪念" data-i18n-placeholder="记下一句话…"><button type="submit" class="capture-send" aria-label="保存随手记" data-i18n-aria-label="保存随手记">↵</button></div>
     <div class="hint">
-      <span><kbd>Enter</kbd> 收下并关闭</span>
-      <span><kbd>Esc</kbd> 取消</span>
+      <span data-i18n-text="收下并关闭"><kbd>Enter</kbd> 收下并关闭</span>
+      <span data-i18n-text="取消"><kbd>Esc</kbd> 取消</span>
     </div>
   </form>
 
   <header class="quick-header">
-    <div class="quick-title">快捷行动</div>
+    <div class="quick-title" data-i18n="快捷行动">快捷行动</div>
     <div class="quick-mode" aria-live="polite"></div>
   </header>
 
-  <section class="panel hidden" id="activePanel" aria-label="当前执行">
+  <section class="panel hidden" id="activePanel" aria-label="当前执行" data-i18n-aria-label="当前执行">
     <div class="session-summary">
       <strong id="quickTaskTitle">当前任务</strong>
       <span class="session-state" id="quickSessionState"></span>
       <span class="session-time" id="quickSessionTime"></span>
     </div>
     <div id="quickStepsSection">
-      <div class="section-label">接下来 <span data-quick-shortcut></span></div>
+      <div class="section-label" data-i18n-text="接下来">接下来 <span data-quick-shortcut></span></div>
       <div class="quick-list" id="quickSteps"></div>
     </div>
     <form id="appendStepForm">
       <div class="input-row">
-        <input type="text" id="stepInput" maxlength="200" aria-label="追加子步骤" placeholder="追加一个可以立刻做的小步骤…">
-        <button type="submit" class="pixel-btn" data-icon="plus">追加</button>
+        <input type="text" id="stepInput" maxlength="200" aria-label="追加子步骤" placeholder="追加一个可以立刻做的小步骤…" data-i18n-aria-label="追加子步骤" data-i18n-placeholder="追加一个可以立刻做的小步骤…">
+        <button type="submit" class="pixel-btn" data-icon="plus" data-i18n="追加">追加</button>
       </div>
     </form>
     <div class="action-row">
@@ -177,13 +178,13 @@
     </div>
   </section>
 
-  <section class="panel hidden" id="idlePanel" aria-label="待启动任务">
-    <div class="section-label" data-icon="timer">轻轻开始 <span data-quick-shortcut></span></div>
+  <section class="panel hidden" id="idlePanel" aria-label="待启动任务" data-i18n-aria-label="待启动任务">
+    <div class="section-label" data-icon="timer" data-i18n-text="轻轻开始">轻轻开始 <span data-quick-shortcut></span></div>
     <div class="quick-list" id="quickCandidates"></div>
-    <form class="quick-start-form hidden" id="quickStartForm" aria-label="下一动作">
+    <form class="quick-start-form hidden" id="quickStartForm" aria-label="下一动作" data-i18n-aria-label="下一动作">
       <strong id="quickStartTitle"></strong>
-      <label for="quickStartInput">接下来能做的一小步</label>
-      <input id="quickStartInput" type="text" maxlength="200" placeholder="例如：打开笔记，写下第一行">
+      <label for="quickStartInput" data-i18n="接下来能做的一小步">接下来能做的一小步</label>
+      <input id="quickStartInput" type="text" maxlength="200" placeholder="例如：打开笔记，写下第一行" data-i18n-placeholder="例如：打开笔记，写下第一行">
       <div class="action-row">
         <button type="submit" class="pixel-btn primary" id="quickStartConfirm">开始 2 分钟</button>
         <button type="button" class="pixel-btn" id="quickStartCancel">取消</button>
@@ -191,8 +192,8 @@
     </form>
   </section>
 
-  <section class="panel" id="fallbackPanel" aria-label="快速记录">
-    <p class="quick-empty">记下来就回去，稍后在收件箱处理。</p>
+  <section class="panel" id="fallbackPanel" aria-label="快速记录" data-i18n-aria-label="快速记录">
+    <p class="quick-empty" data-i18n="记下来就回去，稍后在收件箱处理。">记下来就回去，稍后在收件箱处理。</p>
   </section>
 
   <div class="panel-status hidden" id="panelStatus" role="status" aria-live="polite"></div>

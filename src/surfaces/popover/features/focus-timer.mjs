@@ -1,3 +1,4 @@
+import { t, getLocale } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 // 计时这一层:头上那枚迷你计时、⚡ 那一排按钮、每一秒的倒数,以及底下那个时长
@@ -133,22 +134,24 @@ function createPopoverFocusTimer({
     return null;
   }
 
+  let actionStatusCopy = () => '';
   function showFocusActionStatus(message = '') {
-    setStatusLine('#focusActionStatus', message);
+    actionStatusCopy = typeof message === 'function' ? message : () => t(message);
+    setStatusLine('#focusActionStatus', actionStatusCopy());
   }
 
   async function runFocusAction(kind, task, minutes) {
     try {
       const blockReason = taskLaunchBlockReason(task);
       if (['task-expired', 'task-completed', 'occurrence-skipped'].includes(blockReason)) {
-        showFocusActionStatus(focusActionMessage(blockReason));
+        showFocusActionStatus(() => focusActionMessage(blockReason));
         return { ok: false, reason: blockReason };
       }
       if (blockReason === 'task-scheduled') {
         const selected = await surfaceClient.setNowTask(task.id);
         if (!selected || selected.ok === false) {
           const reason = selected && selected.reason || blockReason;
-          showFocusActionStatus(focusActionMessage(reason));
+          showFocusActionStatus(() => focusActionMessage(reason));
           return { ok: false, reason };
         }
       }
@@ -164,25 +167,47 @@ function createPopoverFocusTimer({
         ? await surfaceClient.kickstart(task ? task.id : null)
         : await surfaceClient.startPomodoro(task ? task.id : null, fullFocusMinutes);
       if (!result || result.ok === false) {
-        showFocusActionStatus(focusActionMessage(result && result.reason));
+        showFocusActionStatus(() => focusActionMessage(result && result.reason));
         return result || { ok: false, reason: 'unknown' };
       }
       showFocusActionStatus('');
       return result;
     } catch (_) {
-      showFocusActionStatus(focusActionMessage());
+      showFocusActionStatus(() => focusActionMessage());
       return { ok: false, reason: 'ipc-failed' };
     }
   }
 
   // -- Pomodoro time & label (called from local ticker, cheap, only touches numeric text)
-  function renderPomoStructure() {
+  function renderPomoStructure({ copyOnly = false } = {}) {
     const state = getState();
     if (!state) return;
     const p = getSession();
     const launch = focusLaunchContext();
     const launchBlockReason = taskLaunchBlockReason(launch.task);
     const action = visible && p.paused && p.resumeAction?.sessionId === p.sessionId ? p.resumeAction : null;
+    if (copyOnly) {
+      setStatusLine('#focusActionStatus', actionStatusCopy());
+      // Presentation-only updates cannot invalidate a pending stop/resume receipt.
+      const held = renderedHeld || renderedAction?.intent === 'confirm-completion';
+      $('#btnStopFocusText').textContent = held ? t('放弃本轮') : t('结束这段');
+      $('#btnResumeFocusText').textContent = held ? t('确认计入完成') : t('继续');
+      $('#btnStopFocus').setAttribute('aria-label', held ? t('放弃本轮，不发完成奖励') : t('结束这段计时'));
+      $('#btnResumeFocus').setAttribute('aria-label', held ? t('确认本轮计入完成') : t('继续计时'));
+      if (p.running) $('#pomoLabel').textContent = p.mode === 'break' ? t('休息中') : p.kind === 'quick-start' ? t('先做两分钟') : t('专注中');
+      else if (p.paused) {
+        $('#pomoLabel').textContent = renderedAction?.reason === 'recovery-state-inconsistent' ? t('计时等待核对') : held
+          ? t('这一轮已到点，等待确认计入完成') : p.mode === 'break' ? t('休息已暂停') : t('已暂停');
+        if ($('#btnResumeFocus').disabled) $('#btnResumeFocus').setAttribute('aria-label', focusActionMessage(renderedAction?.reason || 'resume-action-unavailable'));
+      } else {
+        $('#btnStartFocusText').textContent = launch.task ? t('开始专注') : t('开始自由专注');
+        $('#btnStartFocus').setAttribute('aria-label', launch.task ? t('为当前任务“{title}”专注 {minutes} 分钟', { title: launch.task.title, minutes: launch.minutes }) : t('开始不关联任务的 {minutes} 分钟自由专注', { minutes: launch.minutes }));
+        $('#pomoProgress').setAttribute('aria-valuetext', t('尚未开始'));
+        $('#pomoTime').setAttribute('aria-label', t('{minutes} 分钟待启动', { minutes: launch.minutes }));
+      }
+      renderHeaderMiniTimer(p);
+      return;
+    }
     const actionKey = [p.sessionId, action?.intent, action?.enabled, action?.reason].join('|');
     const key = `${actionKey}|${p.status}|${p.mode}|${p.taskId}|${p.paused ? p.remainingMs : ''}|${p.awaitingOfflineConfirmation ? 1 : 0}|${state.settings.pomodoroMinutes}|${launch.taskId || ''}|${launch.minutes}|${launch.task ? launch.task.title : ''}|${launchBlockReason || ''}`;
     if (key === lastPomoStructureKey) return;
@@ -198,18 +223,18 @@ function createPopoverFocusTimer({
     const btnPause = $('#btnPauseFocus');
     const btnResume = $('#btnResumeFocus');
     const btnResumeText = $('#btnResumeFocusText');
-    btnStopText.textContent = '结束这段';
-    btnResumeText.textContent = '继续';
-    btnStop.setAttribute('aria-label', '结束这段计时');
-    btnResume.setAttribute('aria-label', '继续计时');
+    btnStopText.textContent = t('结束这段');
+    btnResumeText.textContent = t('继续');
+    btnStop.setAttribute('aria-label', t('结束这段计时'));
+    btnResume.setAttribute('aria-label', t('继续计时'));
     btnResume.disabled = false;
     btnStop.disabled = renderedHeld && !renderedAction;
 
     if (p.running) {
       showFocusActionStatus('');
       pomoLabel.textContent = p.mode === 'break'
-        ? '休息中'
-        : p.kind === 'quick-start' ? '先做两分钟' : '专注中';
+        ? t('休息中')
+        : p.kind === 'quick-start' ? t('先做两分钟') : t('专注中');
       btnStart.classList.add('hidden');
       btnStop.classList.remove('hidden');
       btnPause.classList.toggle('hidden', p.mode === 'break');
@@ -217,13 +242,13 @@ function createPopoverFocusTimer({
     } else if (p.paused) {
       showFocusActionStatus('');
       const awaitingConfirmation = renderedHeld || action?.intent === 'confirm-completion';
-      pomoLabel.textContent = action?.reason === 'recovery-state-inconsistent' ? '计时等待核对' : awaitingConfirmation
-        ? '这一轮已到点，等待确认计入完成'
-        : (p.mode === 'break' ? '休息已暂停' : '已暂停');
-      btnStopText.textContent = awaitingConfirmation ? '放弃本轮' : '结束这段';
-      btnResumeText.textContent = awaitingConfirmation ? '确认计入完成' : '继续';
-      btnStop.setAttribute('aria-label', awaitingConfirmation ? '放弃本轮，不发完成奖励' : '结束这段计时');
-      btnResume.setAttribute('aria-label', awaitingConfirmation ? '确认本轮计入完成' : '继续计时');
+      pomoLabel.textContent = action?.reason === 'recovery-state-inconsistent' ? t('计时等待核对') : awaitingConfirmation
+        ? t('这一轮已到点，等待确认计入完成')
+        : (p.mode === 'break' ? t('休息已暂停') : t('已暂停'));
+      btnStopText.textContent = awaitingConfirmation ? t('放弃本轮') : t('结束这段');
+      btnResumeText.textContent = awaitingConfirmation ? t('确认计入完成') : t('继续');
+      btnStop.setAttribute('aria-label', awaitingConfirmation ? t('放弃本轮，不发完成奖励') : t('结束这段计时'));
+      btnResume.setAttribute('aria-label', awaitingConfirmation ? t('确认本轮计入完成') : t('继续计时'));
       btnResume.disabled = !action || action.enabled !== true;
       if (btnResume.disabled) {
         const message = focusActionMessage(action?.reason || 'resume-action-unavailable');
@@ -241,16 +266,16 @@ function createPopoverFocusTimer({
       btnPause.classList.add('hidden');
       btnResume.classList.add('hidden');
       $('#btnStartFocusText').textContent = launch.task
-        ? '开始专注'
-        : '开始自由专注';
+        ? t('开始专注')
+        : t('开始自由专注');
       const hardBlocked = ['task-completed', 'task-expired', 'occurrence-skipped'].includes(launchBlockReason);
       btnStart.disabled = hardBlocked;
-      btnStart.setAttribute('aria-label', launch.task ? `为当前任务“${launch.task.title}”专注 ${launch.minutes} 分钟` : `开始不关联任务的 ${launch.minutes} 分钟自由专注`);
+      btnStart.setAttribute('aria-label', launch.task ? t('为当前任务“{title}”专注 {minutes} 分钟', { title: launch.task.title, minutes: launch.minutes }) : t('开始不关联任务的 {minutes} 分钟自由专注', { minutes: launch.minutes }));
       $('#pomoProgressFill').style.width = '0%';
       $('#pomoProgress').setAttribute('aria-valuenow', '0');
-      $('#pomoProgress').setAttribute('aria-valuetext', '尚未开始');
+      $('#pomoProgress').setAttribute('aria-valuetext', t('尚未开始'));
       $('#pomoTime').textContent = `${pad2(launch.minutes)}:00`;
-      $('#pomoTime').setAttribute('aria-label', `${launch.minutes} 分钟待启动`);
+      $('#pomoTime').setAttribute('aria-label', t('{minutes} 分钟待启动', { minutes: launch.minutes }));
       $('#pomoTime').className = 'pomo-time';
     }
     renderHeaderMiniTimer(p);
@@ -276,6 +301,7 @@ function createPopoverFocusTimer({
   const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六'];
   function todayLabel(now = Date.now()) {
     const date = new Date(now);
+    if (getLocale() === 'en') return new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false }).format(date);
     return `${date.getMonth() + 1}月${date.getDate()}日 周${WEEKDAYS[date.getDay()]} ${pad2(date.getHours())}:${pad2(date.getMinutes())}`;
   }
 
@@ -287,7 +313,7 @@ function createPopoverFocusTimer({
     if (mini.textContent === label) return;
     mini.textContent = label;
     mini.classList.add('is-idle');
-    mini.setAttribute('aria-label', `当前时间 ${mini.textContent}`);
+    mini.setAttribute('aria-label', t('当前时间 {time}', { time: mini.textContent }));
   }
 
   // -- Pomo countdown (per-second, only text nodes, no rebuild)
@@ -311,7 +337,7 @@ function createPopoverFocusTimer({
     const newText = `${pad2(m)}:${pad2(s)}`;
     if (pomoTime.textContent !== newText) pomoTime.textContent = newText;
     renderHeaderMiniTimer(p);
-    pomoTime.setAttribute('aria-label', `剩余 ${m} 分 ${s} 秒`);
+    pomoTime.setAttribute('aria-label', t('剩余 {minutes} 分 {seconds} 秒', { minutes: m, seconds: s }));
 
     const wantClass = 'pomo-time ' + (p.mode === 'break' ? 'break' : 'focus');
     if (pomoTime.className !== wantClass) pomoTime.className = wantClass;
@@ -324,15 +350,17 @@ function createPopoverFocusTimer({
     if (orbit) orbit.style.strokeDashoffset = String(100 - pct);
     const progress = $('#pomoProgress');
     progress.setAttribute('aria-valuenow', String(Math.round(pct)));
-    progress.setAttribute('aria-valuetext', `已完成 ${Math.round(pct)}%`);
+    progress.setAttribute('aria-valuetext', t('已完成 {percent}%', { percent: Math.round(pct) }));
   }
 
   // 时长选择器：未开始时改的是下一轮的计划，进行/暂停中改的是本轮。
   // 两种情形都只能落在 [min, max] 里，而且本轮不能缩到已投入时长之下。
+  let durationStatusSource = '';
   function showDurationStatus(message = '') {
+    durationStatusSource = message;
     const status = $('#durationStatus');
     if (!status) return;
-    status.textContent = message;
+    status.textContent = t(message);
     status.classList.toggle('hidden', !message);
   }
 
@@ -343,7 +371,7 @@ function createPopoverFocusTimer({
     return sessionDuration.minimumAdjustableMinutes(session.elapsedMs || 0);
   }
 
-  function renderDurationPicker() {
+  function renderDurationPicker({ copyOnly = false } = {}) {
     if (!getState()) return;
     const host = $('#durationPresets');
     if (!host) return;
@@ -354,21 +382,34 @@ function createPopoverFocusTimer({
       ? Math.round((session.plannedDurationMs || 0) / 60000)
       : range.chosen;
     const floor = durationFloorMinutes();
+    if (copyOnly) {
+      const status = $('#durationStatus'); if (status) status.textContent = t(durationStatusSource);
+      const value = $('#durationValue'), summary = $('#durationSummary'), slider = $('#durationSlider');
+      if (value) value.textContent = t('{minutes} 分钟', { minutes: slider?.value || current });
+      if (summary) summary.textContent = t('{minutes} 分钟', { minutes: current });
+      slider?.setAttribute('aria-valuetext', t('{minutes} 分钟', { minutes: slider.value || current }));
+      const label = $('#durationPickerLabel');
+      if (label) label.textContent = live ? t('本轮时长') : t('这一段');
+      for (const button of host.querySelectorAll?.('[data-minutes]') || []) {
+        if (button.disabled) button.title = t('已经投入 {minutes} 分钟，不能缩到这之下', { minutes: floor });
+      }
+      return;
+    }
     const key = `${range.presets.join(',')}|${range.min}|${range.max}|${current}|${floor}|${live ? 1 : 0}`;
     if (key === lastDurationKey) return;
     lastDurationKey = key;
 
-    $('#durationValue').textContent = `${current} 分钟`;
+    $('#durationValue').textContent = t('{minutes} 分钟', { minutes: current });
     const summary = $('#durationSummary');
-    if (summary) summary.textContent = `${current} 分钟`;
+    if (summary) summary.textContent = t('{minutes} 分钟', { minutes: current });
     const slider = $('#durationSlider');
     if (slider) {
       slider.min = String(live ? Math.max(range.min, floor) : range.min);
       slider.max = String(range.max);
       slider.value = String(current);
-      slider.setAttribute('aria-valuetext', `${current} 分钟`);
+      slider.setAttribute('aria-valuetext', t('{minutes} 分钟', { minutes: current }));
     }
-    $('#durationPickerLabel').textContent = live ? '本轮时长' : '这一段';
+    $('#durationPickerLabel').textContent = live ? t('本轮时长') : t('这一段');
     const stepDown = $('[data-duration-step="-1"]');
     const stepUp = $('[data-duration-step="1"]');
     if (stepDown) stepDown.disabled = current - sessionDuration.FOCUS_MINUTE_STEP < Math.max(range.min, live ? floor : range.min);
@@ -384,7 +425,7 @@ function createPopoverFocusTimer({
       button.textContent = `${preset}`;
       if (live && preset < floor) {
         button.disabled = true;
-        button.title = `已经投入 ${floor} 分钟，不能缩到这之下`;
+        button.title = t('已经投入 {minutes} 分钟，不能缩到这之下', { minutes: floor });
       }
       button.addEventListener('click', () => { void applyChosenMinutes(preset); });
       host.appendChild(button);
@@ -431,8 +472,8 @@ function createPopoverFocusTimer({
       else void reopenActions();
     });
     listen($('#durationSlider'), 'input', event => {
-      $('#durationValue').textContent = `${event.target.value} 分钟`;
-      event.target.setAttribute('aria-valuetext', `${event.target.value} 分钟`);
+      $('#durationValue').textContent = t('{minutes} 分钟', { minutes: event.target.value });
+      event.target.setAttribute('aria-valuetext', t('{minutes} 分钟', { minutes: event.target.value }));
     });
     listen($('#durationSlider'), 'change', event => { void applyChosenMinutes(Number(event.target.value)); });
     listen($('#btnStartFocus'), 'click', async () => {
@@ -485,11 +526,11 @@ function createPopoverFocusTimer({
         ? await surfaceClient.resumePomodoro({ sessionId: action.sessionId, intent: action.intent })
         : await surfaceClient.stopPomodoro(action?.intent === 'confirm-completion' ? { sessionId: action.sessionId } : undefined);
       if (mounted && generation === actionGeneration) {
-        showFocusActionStatus(result?.ok === false ? focusActionMessage(result.reason) : '');
+        showFocusActionStatus(() => result?.ok === false ? focusActionMessage(result.reason) : '');
       }
       return result;
     } catch (_) {
-      if (mounted && generation === actionGeneration) showFocusActionStatus(focusActionMessage());
+      if (mounted && generation === actionGeneration) showFocusActionStatus(() => focusActionMessage());
     } finally {
       if (pendingAction === token) pendingAction = null;
     }

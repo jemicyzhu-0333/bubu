@@ -1,3 +1,4 @@
+import { t, getLocale, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 // 拆解弹层:对手里这件已经存在的任务说“帮我拆一下”。
@@ -39,7 +40,9 @@ function createPopoverBreakdownFeature({
   // 件任务的编辑上下文。
   let requestGeneration = 0;
   let breakdownTrigger = null;
-  let mounted = false;
+  let mounted = false, stopLocale = null;
+  let errorCopy = () => '', providerCopy = () => '', questionCopy = () => '';
+  const setProviderCopy = copy => { providerCopy = typeof copy === 'function' ? copy : () => t(copy); $('#breakdownProvider').textContent = providerCopy(); };
 
   function isOpen() {
     return !$('#breakdownMask').classList.contains('hidden');
@@ -52,7 +55,8 @@ function createPopoverBreakdownFeature({
   function showError(message = '') {
     const error = $('#breakdownError');
     if (!error) return;
-    error.textContent = message;
+    errorCopy = typeof message === 'function' ? message : () => t(message);
+    error.textContent = errorCopy();
     error.classList.toggle('hidden', !message);
   }
 
@@ -69,12 +73,10 @@ function createPopoverBreakdownFeature({
     };
     $('#bdOriginal').textContent = task.title;
     const providerNote = $('#breakdownProvider');
-    providerNote.textContent = aiEnabled
-      ? 'AI 正在拆这件事…'
-      : '正在按通用模板拆…';
+    setProviderCopy(aiEnabled ? 'AI 正在拆这件事…' : '正在按通用模板拆…');
     providerNote.classList.remove('hidden');
     const question = $('#breakdownQuestion');
-    question.textContent = '';
+    questionCopy = () => ''; question.textContent = '';
     question.classList.add('hidden');
     $('#bdScopeRow').classList.add('hidden');
     syncPressedButtons('.bd-scope-chip', () => false);
@@ -82,10 +84,11 @@ function createPopoverBreakdownFeature({
     $('#bdSteps').innerHTML = `
     <div class="bd-loading" role="status" aria-live="polite">
       <span class="bd-loading-pixels" aria-hidden="true"><i></i><i></i><i></i></span>
-      <span>正在把任务整理成可以直接开始的小步骤</span>
+      <span class="bd-loading-copy">${t('正在把任务整理成可以直接开始的小步骤')}</span>
     </div>`;
     $('#bdAddStep').disabled = true;
     $('#bdConfirm').disabled = true;
+    $('#bdConfirm').textContent = t('加到步骤里');
     const mask = $('#breakdownMask');
     mask.dataset.state = 'loading';
     mask.setAttribute('aria-busy', 'true');
@@ -99,7 +102,7 @@ function createPopoverBreakdownFeature({
     $('#breakdownMask').setAttribute('aria-busy', 'false');
     $('#bdAddStep').disabled = false;
     $('#bdConfirm').disabled = false;
-    $('#bdConfirm').textContent = '加到步骤里';
+    $('#bdConfirm').textContent = t('加到步骤里');
   }
 
   function setSaving(saving) {
@@ -108,7 +111,7 @@ function createPopoverBreakdownFeature({
     mask.dataset.state = saving ? 'saving' : 'ready';
     mask.setAttribute('aria-busy', String(saving));
     $('#bdConfirm').disabled = saving;
-    $('#bdConfirm').textContent = saving ? '正在保存…' : '加到步骤里';
+    $('#bdConfirm').textContent = t(saving ? '正在保存…' : '加到步骤里');
     $('#bdAddStep').disabled = saving || breakdownContext.steps.length >= maxSteps;
     $$('#bdSteps .bd-step-input, #bdSteps .bd-step-del, .bd-scope-chip').forEach(control => {
       control.disabled = saving;
@@ -123,8 +126,8 @@ function createPopoverBreakdownFeature({
       row.className = 'bd-step';
       row.innerHTML = `
       <div class="bd-step-num">${i + 1}</div>
-      <textarea class="bd-step-input" maxlength="200" rows="1" placeholder="这一步做什么..." aria-label="第 ${i + 1} 步">${escapeHTML(s.title)}</textarea>
-      <button type="button" class="bd-step-del" aria-label="删除第 ${i + 1} 步">✕</button>
+      <textarea class="bd-step-input" maxlength="200" rows="1" placeholder="${t('这一步做什么...')}" aria-label="${escapeHTML(t('第 {number} 步', { number: i + 1 }))}">${escapeHTML(s.title)}</textarea>
+      <button type="button" class="bd-step-del" aria-label="${escapeHTML(t('删除第 {number} 步', { number: i + 1 }))}">✕</button>
     `;
       bindStepTitleField(row.querySelector('.bd-step-input'), value => {
         breakdownContext.steps[i].title = value;
@@ -138,7 +141,7 @@ function createPopoverBreakdownFeature({
     const addButton = $('#bdAddStep');
     if (addButton) {
       addButton.disabled = breakdownContext.steps.length >= maxSteps;
-      addButton.title = addButton.disabled ? `每个任务最多 ${maxSteps} 个步骤` : '';
+      addButton.title = addButton.disabled ? t('每个任务最多 {count} 个步骤', { count: maxSteps }) : '';
     }
   }
 
@@ -175,9 +178,9 @@ function createPopoverBreakdownFeature({
       if (generation !== requestGeneration) return;
       finishLoading();
       $('#bdSteps').innerHTML = '';
-      $('#breakdownProvider').textContent = '生成没有完成；任务本身没有变化，你也可以手动加一步。';
+      setProviderCopy('生成没有完成；任务本身没有变化，你也可以手动加一步。');
       showError('这次没能生成拆解建议，请稍后重试。');
-      showTaskPanelStatus('这次没能生成拆解建议，任务本身没有变。');
+      showTaskPanelStatus(() => t('这次没能生成拆解建议，任务本身没有变。'));
       return;
     }
     if (generation !== requestGeneration) {
@@ -193,13 +196,12 @@ function createPopoverBreakdownFeature({
       }
       finishLoading();
       $('#bdSteps').innerHTML = '';
-      $('#breakdownProvider').textContent = '生成没有完成；任务本身没有变化，你也可以手动加一步。';
-      const failure = preview && preview.reason
-        ? taskActionMessage(preview.reason)
-        : '这次没能生成拆解建议，任务本身没有变。';
-      const message = preview?.providerReason ? `${failure} ${fallbackReasonText(preview.providerReason)}` : failure;
-      showError(message);
-      showTaskPanelStatus(message);
+      setProviderCopy('生成没有完成；任务本身没有变化，你也可以手动加一步。');
+      const message = () => {
+        const failure = preview?.reason ? taskActionMessage(preview.reason) : t('这次没能生成拆解建议，任务本身没有变。');
+        return preview?.providerReason ? `${failure} ${fallbackReasonText(preview.providerReason)}` : failure;
+      };
+      showError(message); showTaskPanelStatus(message);
       return;
     }
     // preview 跨了 IPC。它在路上时会话可能刚好结束并弹出那个必须表态的落点提示,
@@ -223,12 +225,13 @@ function createPopoverBreakdownFeature({
     };
     finishLoading();
     const providerNote = $('#breakdownProvider');
-    providerNote.textContent = preview.fallback
-      ? `Provider 不可用，已安全回退到本地确定性模板（${fallbackReasonText(preview.reason) || '未提供原因'}）。`
-      : preview.provider === 'api' ? '这份只读建议来自已启用的 API。' : '这份建议来自本地确定性模板。';
+    setProviderCopy(() => preview.fallback
+      ? t('Provider 不可用，已安全回退到本地确定性模板（{reason}）。', { reason: fallbackReasonText(preview.reason) || t('未提供原因') })
+      : t(preview.provider === 'api' ? '这份只读建议来自已启用的 API。' : '这份建议来自本地确定性模板。'));
     providerNote.classList.remove('hidden');
     const question = $('#breakdownQuestion');
-    question.textContent = preview.clarifyingQuestion ? `可选澄清：${preview.clarifyingQuestion}` : '';
+    questionCopy = () => preview.clarifyingQuestion ? t('可选澄清：{question}', { question: preview.clarifyingQuestion }) : '';
+    question.textContent = questionCopy();
     question.classList.toggle('hidden', !preview.clarifyingQuestion);
     $('#bdScopeRow').classList.toggle('hidden', !breakdownContext.seriesId);
     syncPressedButtons('.bd-scope-chip', () => false);
@@ -242,6 +245,7 @@ function createPopoverBreakdownFeature({
 
   function close() {
     requestGeneration += 1;
+    errorCopy = () => ''; providerCopy = () => ''; questionCopy = () => '';
     const proposalId = breakdownContext.proposalId;
     const trigger = breakdownTrigger;
     breakdownContext = { ...EMPTY_CONTEXT };
@@ -274,7 +278,7 @@ function createPopoverBreakdownFeature({
 
   const onAddStep = () => {
     if (breakdownContext.steps.length >= maxSteps) {
-      showError(`每个任务最多 ${maxSteps} 个步骤。`);
+      showError(() => t('每个任务最多 {count} 个步骤。', { count: maxSteps }));
       return;
     }
     breakdownContext.steps.push({ title: '', done: false });
@@ -292,7 +296,7 @@ function createPopoverBreakdownFeature({
       return;
     }
     if (validSteps.length > maxSteps) {
-      showError(`每个任务最多 ${maxSteps} 个步骤。`);
+      showError(() => t('每个任务最多 {count} 个步骤。', { count: maxSteps }));
       return;
     }
     if (breakdownContext.seriesId && !breakdownContext.scope) {
@@ -329,20 +333,39 @@ function createPopoverBreakdownFeature({
     if (submissionGeneration !== requestGeneration) return;
     if (!result || result.ok === false) {
       setSaving(false);
-      showError(result && result.reason === 'proposal-expired'
-        ? '建议已过期，请关闭后重新生成。'
+      showError(() => result && result.reason === 'proposal-expired'
+        ? t('建议已过期，请关闭后重新生成。')
         : result && result.reason
           ? taskActionMessage(result.reason)
-          : '这次没有保存，当前编辑仍然保留。');
+          : t('这次没有保存，当前编辑仍然保留。'));
       return;
     }
     breakdownContext.proposalId = null;
     close();
   };
 
+  function repaintCopy() {
+    if (!isOpen()) return;
+    $('#breakdownError').textContent = errorCopy();
+    $('#breakdownProvider').textContent = providerCopy();
+    $('#breakdownQuestion').textContent = questionCopy();
+    $('#bdConfirm').textContent = t(breakdownContext.saving ? '正在保存…' : '加到步骤里');
+    const loading = $('#bdSteps').querySelector('.bd-loading-copy');
+    if (loading) loading.textContent = t('正在把任务整理成可以直接开始的小步骤');
+    $('#bdSteps').querySelectorAll('.bd-step').forEach((row, index) => {
+      const input = row.querySelector('.bd-step-input');
+      input?.setAttribute('placeholder', t('这一步做什么...'));
+      input?.setAttribute('aria-label', t('第 {number} 步', { number: index + 1 }));
+      row.querySelector('.bd-step-del')?.setAttribute('aria-label', t('删除第 {number} 步', { number: index + 1 }));
+    });
+    const add = $('#bdAddStep');
+    if (add) add.title = add.disabled ? t('每个任务最多 {count} 个步骤', { count: maxSteps }) : '';
+  }
+
   function mount() {
     if (mounted) return;
     mounted = true;
+    stopLocale = onLocaleChanged(repaintCopy);
     $('#bdClose').addEventListener('click', onClose);
     $('#bdCancel').addEventListener('click', onClose);
     $$('.bd-scope-chip').forEach(chip => {
@@ -357,6 +380,8 @@ function createPopoverBreakdownFeature({
   function dispose() {
     if (!mounted) return;
     mounted = false;
+    stopLocale?.(); stopLocale = null;
+    errorCopy = () => ''; providerCopy = () => ''; questionCopy = () => '';
     // 挂在 in-flight 请求上的代号也要作废:面板关掉之后回来的响应不该再碰 DOM。
     requestGeneration += 1;
     $('#bdClose').removeEventListener('click', onClose);

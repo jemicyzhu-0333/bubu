@@ -1,3 +1,4 @@
+import { t, getLocale } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 // 面板要说给人听的每一句话都在这里。它不认识 DOM，也不认识状态：给它一个机器
@@ -7,7 +8,10 @@
 function createPopoverMessages({ pad2 } = {}) {
   if (typeof pad2 !== 'function') throw new TypeError('popover messages requires pad2');
 
-  const BLOCKER_LABELS = Object.freeze({
+  const labels = source => Object.freeze(Object.defineProperties({}, Object.fromEntries(
+    Object.entries(source).map(([key, value]) => [key, { enumerable: true, get: () => t(value) }])
+  )));
+  const BLOCKER_LABELS = labels({
     unclear: '不清楚',
     'too-big': '太大',
     boring: '无聊',
@@ -15,13 +19,13 @@ function createPopoverMessages({ pad2 } = {}) {
     'low-energy': '没电',
     interrupted: '被打断'
   });
-  const WEEKDAY_LABELS = Object.freeze(['', '一', '二', '三', '四', '五', '六', '日']);
-  const REPEAT_LABELS = Object.freeze({ daily: '每天', weekly: '每周', monthly: '每月' });
+  const WEEKDAY_LABELS = labels({ 0: '', 1: '一', 2: '二', 3: '三', 4: '四', 5: '五', 6: '六', 7: '日' });
+  const REPEAT_LABELS = labels({ daily: '每天', weekly: '每周', monthly: '每月' });
 
   function breakdownProviderLabel(result) {
-    if (result.fallback) return '本地确定性模板';
-    if (result.provider === 'api') return '已启用的 API';
-    return '本地规则';
+    if (result.fallback) return t('本地确定性模板');
+    if (result.provider === 'api') return t('已启用的 API');
+    return t('本地规则');
   }
 
   // 回退本身是设计内的，但“为什么回退”不说就只剩下“模型好像不好用”。主进程给的
@@ -36,14 +40,14 @@ function createPopoverMessages({ pad2 } = {}) {
     if (httpStatus) {
       const status = httpStatus[1];
       const detail = httpStatus[2] ? `：${httpStatus[2]}` : '';
-      if (status === '401' || status === '403') return `密钥被拒（HTTP ${status}），检查 API 密钥是否正确、是否过期${detail}`;
-      if (status === '404') return `这个地址上没有可用接口（HTTP 404），检查 Base URL${detail}`;
-      if (status === '429') return 'HTTP 429 限流，稍后再试';
-      if (status === '400') return `HTTP 400，通常是模型名或该密钥授权范围不匹配${detail}`;
-      if (status === '402') return `HTTP 402，账户余额不足${detail}`;
+      if (status === '401' || status === '403') return t('密钥被拒（HTTP {status}），检查 API 密钥是否正确、是否过期{detail}', { status, detail });
+      if (status === '404') return t('这个地址上没有可用接口（HTTP 404），检查 Base URL{detail}', { detail });
+      if (status === '429') return t('HTTP 429 限流，稍后再试');
+      if (status === '400') return t('HTTP 400，通常是模型名或该密钥授权范围不匹配{detail}', { detail });
+      if (status === '402') return t('HTTP 402，账户余额不足{detail}', { detail });
       return `HTTP ${status}${detail}`;
     }
-    return {
+    const message = {
       'provider-credential-missing': '还没保存 API 密钥',
       'provider-not-configured': '尚未配置完整的模型连接，本次使用本地回复',
       'provider model is required': '还没填模型名',
@@ -66,14 +70,15 @@ function createPopoverMessages({ pad2 } = {}) {
       'invalid-provider-endpoint': 'Base URL 不合法',
       'provider-endpoint-port-not-allowed': '只允许 443 端口',
       'provider-failed': '请求没成功'
-    }[reason] || reason;
+    }[reason];
+    return message ? t(message) : reason;
   }
 
   function fallbackReasonSuffix(result) {
     if (!result) return '';
     const reason = result.providerReason || (result.fallback && result.reason);
     if (!reason) return '';
-    return `（AI 未生效：${fallbackReasonText(reason)}）`;
+    return t('（AI 未生效：{reason}）', { reason: fallbackReasonText(reason) });
   }
 
   function describeSeriesRule(series) {
@@ -82,19 +87,19 @@ function createPopoverMessages({ pad2 } = {}) {
     const interval = Number.isInteger(rule.interval) && rule.interval > 1 ? rule.interval : 1;
     const intervalUnit = ({ daily: '天', weekly: '周', monthly: '月' })[rule.frequency];
     const base = interval > 1 && intervalUnit
-      ? `每 ${interval} ${intervalUnit}`
+      ? t('每 {count} {unit}', { count: interval, unit: t(intervalUnit) })
       : (REPEAT_LABELS[rule.frequency] || rule.frequency);
     const days = rule.frequency === 'weekly' && Array.isArray(rule.weekdays) && rule.weekdays.length
-      ? ` ${rule.weekdays.map(day => WEEKDAY_LABELS[day]).join('')}`
+      ? ` ${rule.weekdays.map(day => WEEKDAY_LABELS[day]).join(getLocale() === 'en' ? ', ' : '')}`
       : '';
-    const strategy = rule.strategy === 'after-completion' ? ' · 完成后再算' : '';
-    const paused = series.state === 'paused' ? '已暂停 · ' : series.state === 'ended' ? '已结束 · ' : '';
+    const strategy = rule.strategy === 'after-completion' ? t(' · 完成后再算') : '';
+    const paused = series.state === 'paused' ? t('已暂停 · ') : series.state === 'ended' ? t('已结束 · ') : '';
     return `${paused}${base}${days}${strategy}`;
   }
 
   function taskActionMessage(reason) {
-    if (reason === 'task-in-focus') return '专注期间只可加步骤；结束这一轮后再编辑整件任务。';
-    return ({
+    if (reason === 'task-in-focus') return t('专注期间只可加步骤；结束这一轮后再编辑整件任务。');
+    return t(({
       'task-not-found': '这件任务已不在列表中，面板刷新后可以重新选择。',
       'task-completed': '这件任务已经完成了；需要的话可以再做一遍。',
       'occurrence-skipped': '这一次已经跳过，下一次已经排好了。',
@@ -106,7 +111,7 @@ function createPopoverMessages({ pad2 } = {}) {
       'open-recurrence-occurrence': '开放中的重复任务不能直接归档；请先完成或跳过这一次。',
       'step-limit-reached': '这个任务已经有 100 个步骤，请先整理现有步骤。',
       'next-action-required': '请先写下一个具体、可动手的下一步。'
-    })[reason] || '这次没有成功，任务内容仍然保留，请重试。';
+    })[reason] || '这次没有成功，任务内容仍然保留，请重试。');
   }
   // “今天 23:59” / “明天 23:59” / “8/30 23:59”
   function formatExpiry(iso) {
@@ -114,14 +119,14 @@ function createPopoverMessages({ pad2 } = {}) {
     const hm = `${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
     const today = new Date(); today.setHours(0, 0, 0, 0);
     const dayDiff = Math.round((new Date(d.getFullYear(), d.getMonth(), d.getDate()) - today) / 86400000);
-    if (dayDiff === 0) return `今天 ${hm}`;
-    if (dayDiff === 1) return `明天 ${hm}`;
-    if (dayDiff === -1) return `昨天 ${hm}`;
+    if (dayDiff === 0) return t('今天 {time}', { time: hm });
+    if (dayDiff === 1) return t('明天 {time}', { time: hm });
+    if (dayDiff === -1) return t('昨天 {time}', { time: hm });
     return `${d.getMonth() + 1}/${d.getDate()} ${hm}`;
   }
 
   function focusActionMessage(reason) {
-    return ({
+    return t(({
       'task-not-found': '关联任务已不在列表中；刷新后可改选任务，或选择自由专注。',
       'task-completed': '这件任务已经完成，不能继续计时；可以结束这段。',
       'occurrence-skipped': '这一次已经跳过，下一次已经排好了。',
@@ -146,7 +151,7 @@ function createPopoverMessages({ pad2 } = {}) {
       'not-running': '现在没有正在进行的专注，时长会在下一轮生效。',
       'session-kind-not-adjustable': '两分钟救援与休息是固定时长，不可调整。',
       'duration-below-invested': '不能缩到已经投入的时长之下；想现在停下请选“结束这段”。'
-    })[reason] || '这次没有启动成功，状态和任务都已保留，请重试。';
+    })[reason] || '这次没有启动成功，状态和任务都已保留，请重试。');
   }
 
   function scoreSummary(candidate) {
@@ -156,7 +161,7 @@ function createPopoverMessages({ pad2 } = {}) {
       .filter(([, value]) => typeof value === 'number' && value !== 0)
       .sort((a, b2) => Math.abs(b2[1]) - Math.abs(a[1]))
       .slice(0, 3)
-      .map(([key, value]) => `${labels[key] || key} ${value > 0 ? '+' : ''}${Math.round(value)}`)
+      .map(([key, value]) => `${t(labels[key] || key)} ${value > 0 ? '+' : ''}${Math.round(value)}`)
       .join(' · ');
   }
 

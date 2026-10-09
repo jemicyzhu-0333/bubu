@@ -1,3 +1,5 @@
+import { foodName } from '../companion/food-labels.mjs';
+import { t, onLocaleChanged } from '../shared/interface/i18n.mjs';
 import { displaySatiation } from '../companion/satiation-display.mjs';
 import { createPetFeeding, foodEffectText, foodInventorySummary, FOOD_ORDER } from './feeding.mjs';
 import { isFeedSnapshot } from '../companion/food-request-lifecycle.mjs';
@@ -16,6 +18,12 @@ function createPetFoodMenu({ document, client, content, setOpen, available, befo
   const trigger = () => document.querySelector('[data-act="feed"]');
   const feed = createPetFeeding({ ...options, client, content, refresh: read,
     render: () => render(), onBusyChanged: () => render() });
+
+  let copyPainters = [];
+  const stopLocale = onLocaleChanged(() => {
+    if (!opened || disposed) return;
+    copyPainters.forEach(paint => paint());
+  });
 
   function clearButtons() {
     for (const remove of buttonListeners.splice(0)) remove();
@@ -53,7 +61,7 @@ function createPetFoodMenu({ document, client, content, setOpen, available, befo
     const foods = content()?.FOODS;
     const list = document.getElementById('foodList');
     if (!opened || !foods || !list || !state) return;
-    clearButtons();
+    clearButtons(); copyPainters = [];
     list.innerHTML = '';
     for (const id of FOOD_ORDER) {
       const food = foods[id];
@@ -67,10 +75,16 @@ function createPetFoodMenu({ document, client, content, setOpen, available, befo
       button.className = `food-item${button.disabled ? ' disabled' : ''}`; button.dataset.food = id;
       const icon = document.createElement('span'); icon.className = 'fi-emoji'; icon.textContent = food.emoji;
       const main = document.createElement('span'); main.className = 'fi-main';
-      const name = document.createElement('span'); name.className = 'fi-name'; name.textContent = food.name;
+      const name = document.createElement('span'); name.className = 'fi-name';
       const effect = document.createElement('span'); effect.className = 'fi-eff';
-      effect.textContent = feed.pending(id) ? '核对上次喂食结果' : basic ? (count === 0 ? '今日已用完' : eligible ? `免费 · 饱食最多到 ${BASIC_MEAL.baseline}` : `饱食不高于 ${BASIC_MEAL.hungryAt} 时可用`) : foodEffectText(food);
-      const stock = document.createElement('span'); stock.className = 'fi-count'; stock.textContent = basic ? `今日余 ${count}` : `×${count}`;
+
+      const stock = document.createElement('span'); stock.className = 'fi-count';
+      const paintCopy = () => {
+        name.textContent = foodName(id, food.name);
+        effect.textContent = feed.pending(id) ? t('核对上次喂食结果') : basic ? (count === 0 ? t('今日已用完') : eligible ? t('免费 · 饱食最多到 {value}', { value: BASIC_MEAL.baseline }) : t('饱食不高于 {value} 时可用', { value: BASIC_MEAL.hungryAt })) : foodEffectText(food);
+        stock.textContent = basic ? t('今日余 {count}', { count }) : `×${count}`;
+      };
+      copyPainters.push(paintCopy); paintCopy();
       main.append(name, effect); button.append(icon, main, stock);
       let active = true;
       const click = event => {
@@ -83,14 +97,19 @@ function createPetFoodMenu({ document, client, content, setOpen, available, befo
       list.appendChild(button);
     }
     const total = FOOD_ORDER.filter(id => id !== 'basic').reduce((sum, id) => sum + (state.foodInventory?.[id] || 0), 0);
-    document.getElementById('foodDaily').textContent = foodInventorySummary(state, total);
+    const paintDaily = () => { document.getElementById('foodDaily').textContent = foodInventorySummary(state, total); };
+    copyPainters.push(paintDaily); paintDaily();
     const value = displaySatiation(state.satiation);
     const fill = document.getElementById('fpSatFill'), text = document.getElementById('fpSatTxt');
     if (fill) fill.style.width = `${value}%`;
-    if (text) text.textContent = `饱食 ${value}/100`;
+    const paintSatiation = () => {
+      if (text) text.textContent = t('饱食 {value}/100', { value });
+      document.getElementById('fpSatProgress')?.setAttribute('aria-valuetext', t('饱食 {value}/100', { value }));
+    };
+    copyPainters.push(paintSatiation); paintSatiation();
     const progress = document.getElementById('fpSatProgress');
     progress?.setAttribute('aria-valuenow', String(value));
-    progress?.setAttribute('aria-valuetext', `饱食 ${value}/100`);
+    progress?.setAttribute('aria-valuetext', t('饱食 {value}/100', { value }));
     updateSatBar(value);
   }
   async function open() {
@@ -145,7 +164,7 @@ function createPetFoodMenu({ document, client, content, setOpen, available, befo
   };
   return Object.freeze({ open, close, update, outside, feed, render, dispose() {
     if (disposed) return;
-    disposed = true;
+    disposed = true; stopLocale(); copyPainters = [];
     generation += 1; opened = false; opening = false; state = null;
     clearFocus(); clearButtons(); hide(); feed.dispose(); setOpen(false);
   } });

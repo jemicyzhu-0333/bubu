@@ -1,3 +1,4 @@
+import { t, onLocaleChanged } from '../shared/interface/i18n.mjs';
 'use strict';
 import { orbitPointAtProgress } from './session-orbit-geometry.mjs';
 
@@ -23,6 +24,7 @@ function createSessionOrbit({ document, now, isCalm, isHidden = () => document.h
   const star = document.getElementById('sessionOrbitStar');
   const button = document.getElementById('sessionStatus');
   const icon = document.getElementById('sessionStatusIcon');
+  let displayedSeconds = null;
   let anchor = null, owned = false, disposed = false, visible = null, previousRender = '';
   const elapsed = at => anchor ? clamp(anchor.elapsedMs + (anchor.running ? Math.max(0, at - anchor.receivedAt) : 0), anchor.plannedMs) : 0;
   function hide() {
@@ -32,6 +34,18 @@ function createSessionOrbit({ document, now, isCalm, isHidden = () => document.h
     button.classList.remove('show');
     button.setAttribute('aria-hidden', 'true');
     button.setAttribute('tabindex', '-1');
+  }
+  function labelFor(seconds) {
+    const summary = t(PHASES[anchor.phase].label);
+    return anchor.plannedMs > 0
+      ? t('{summary}，剩余 {time}，打开面板', { summary, time: `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}` })
+      : t('{summary}，打开面板', { summary });
+  }
+  function repaintCopy() {
+    if (disposed || !anchor || displayedSeconds === null) return;
+    const label = labelFor(displayedSeconds);
+    button.setAttribute('aria-label', label);
+    button.setAttribute('title', label);
   }
   function render() {
     if (disposed) return;
@@ -44,10 +58,8 @@ function createSessionOrbit({ document, now, isCalm, isHidden = () => document.h
     const position = Math.round(fraction * 10000) / 10000;
     const remaining = Math.max(0, Math.ceil((anchor.plannedMs - spent) / 1000));
     const seconds = isCalm() && anchor.running ? Math.ceil(remaining / 30) * 30 : remaining;
-    const summary = PHASES[anchor.phase].label;
-    const label = anchor.plannedMs > 0
-      ? `${summary}，剩余 ${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}，打开面板`
-      : `${summary}，打开面板`;
+    displayedSeconds = seconds;
+    const label = labelFor(seconds);
     const key = `${anchor.phase}:${position}:${label}`;
     if (key === previousRender) return;
     previousRender = key;
@@ -69,7 +81,7 @@ function createSessionOrbit({ document, now, isCalm, isHidden = () => document.h
     if (!value || !Object.hasOwn(PHASES, value.phase)
       || !Number.isFinite(value.plannedMs) || value.plannedMs < 0
       || (value.phase !== 'complete' && value.plannedMs <= 0)) {
-      anchor = null; previousRender = '';
+      anchor = null; displayedSeconds = null; previousRender = '';
       delete stage.dataset.sessionPhase;
       button.removeAttribute('aria-label'); button.removeAttribute('title');
       icon.removeAttribute('d'); arc.setAttribute('stroke-dashoffset', '100');
@@ -94,12 +106,13 @@ function createSessionOrbit({ document, now, isCalm, isHidden = () => document.h
     if (disposed || !anchor || isHidden()) return;
     try { Promise.resolve(openPanel()).catch(() => {}); } catch (_) { /* panel failure is display-only */ }
   }
+  const stopLocale = onLocaleChanged(repaintCopy);
   button.addEventListener('click', click);
   hide();
   return Object.freeze({ sync, render, ownsDisplay: () => owned,
     dispose() {
       if (disposed) return;
-      sync(null); disposed = true;
+      sync(null); disposed = true; stopLocale();
       button.removeEventListener('click', click);
     } });
 }

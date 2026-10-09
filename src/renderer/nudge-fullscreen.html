@@ -2,8 +2,8 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>小步 - 强提醒</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'nonce-bubu-fullscreen'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title data-i18n="小步 - 强提醒">小步 - 强提醒</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'nonce-bubu-fullscreen'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; image-rendering: pixelated;
     font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
@@ -194,11 +194,12 @@
     box-shadow: 8px 8px 0 rgba(0,0,0,0.7), 0 0 80px rgba(247,118,142,0.55);
   }
 </style>
+<link rel="stylesheet" href="../surfaces/shared/interface/chrome.css">
 </head>
-<body data-motion="reduced" data-stimulation="low">
+<body data-surface="nudge-fullscreen" data-motion="reduced" data-stimulation="low">
   <div class="scanlines" aria-hidden="true"></div>
   <div class="card" id="nudgeDialog" role="dialog" aria-modal="true" aria-labelledby="nudgeTitle" aria-describedby="message" tabindex="-1">
-    <h1 class="sr-only" id="nudgeTitle">小步 强提醒</h1>
+    <h1 class="sr-only" id="nudgeTitle" data-i18n="小步 强提醒">小步 强提醒</h1>
     <div class="spark tl" aria-hidden="true">✦</div>
     <div class="spark tr" aria-hidden="true">✧</div>
     <div class="spark bl" aria-hidden="true">✧</div>
@@ -206,11 +207,22 @@
     <canvas id="charCanvas" width="160" height="160" aria-hidden="true"></canvas>
     <div class="char-name" id="charName">· CHARACTER ·</div>
     <div class="message" id="message" aria-live="assertive" aria-atomic="true">...</div>
-    <div class="sub">小步 强提醒 · Level 4</div>
-    <div class="actions" id="actions" aria-label="提醒操作"></div>
-    <div class="escape-hint">按 <kbd>Esc</kbd> 或点击背景关闭</div>
+    <div class="sub" data-i18n="小步 强提醒 · Level 4">小步 强提醒 · Level 4</div>
+    <div class="actions" id="actions" aria-label="提醒操作" data-i18n-aria-label="提醒操作"></div>
+    <div class="escape-hint"><span data-i18n="按">按</span> <kbd>Esc</kbd> <span data-i18n="或点击背景关闭">或点击背景关闭</span></div>
   </div>
-<script nonce="bubu-fullscreen">
+<script type="module" nonce="bubu-fullscreen">
+import "../surfaces/shared/interface/entry.mjs";
+import { t, onLocaleChanged } from "../surfaces/shared/interface/i18n.mjs";
+let actionCopies = [], latestData = null;
+function repaintNudgeCopy() {
+  for (const [node, source] of actionCopies) node.textContent = t(source);
+  const hint = document.getElementById('keyboardHint');
+  if (hint && latestData) hint.textContent = latestData.keyboardShortcut && (latestData.corner || 'br') === 'br'
+    ? t('{shortcut} 操作', { shortcut: latestData.keyboardShortcut }) : '';
+}
+const stopLocaleCopy = onLocaleChanged(repaintNudgeCopy);
+window.addEventListener('pagehide', () => { stopLocaleCopy(); actionCopies = []; latestData = null; }, { once: true });
   const canvas = document.getElementById('charCanvas');
   const ctx = canvas.getContext('2d');
   ctx.imageSmoothingEnabled = false;
@@ -338,6 +350,7 @@
   window.bubu.onNudgeSensoryProfile(applyNudgeSensoryProfile);
 
   window.bubu.onNudgeInit((data) => {
+    latestData = data; actionCopies = [];
     applyNudgeSensoryProfile(data);
     const name = drawCharacter(data.character || 'spider');
     document.getElementById('charName').textContent = '· ' + name + ' ·';
@@ -349,7 +362,7 @@
       btn.type = 'button';
       btn.className = 'pixel-btn' + (action.primary ? ' primary' : '');
       btn.dataset.actionId = action.id;
-      btn.textContent = action.label;
+      btn.textContent = t(action.label); actionCopies.push([btn, action.label]);
       btn.addEventListener('click', () => {
         window.bubu.dismissNudge(action.id);
       });

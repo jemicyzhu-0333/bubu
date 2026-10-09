@@ -1,3 +1,4 @@
+import { t, getLocale } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 const MODE_LABELS = Object.freeze({ talk: '先聊聊', 'small-step': '找一个小动作', plan: '一起安排' });
@@ -67,7 +68,34 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
   let listedSessions = null, listedCursor = null;
   let currentPage = 'detail';
   let proposalStates = new Map();
-  const text = (selector, value) => { const node = $(selector); if (node) node.textContent = value || ''; };
+  const textCopies = new Map(), markupCopies = new Map();
+  let region = '';
+  const text = (selector, value, { raw = false } = {}) => {
+    const paint = () => { const next = typeof value === 'function' ? value() : raw ? value : t(value || '');
+      const node = $(selector); if (node) node.textContent = next || ''; return next; };
+    textCopies.set(selector, paint); return paint();
+  };
+  const startRegion = selector => { region = selector; markupCopies.set(selector, []); };
+  const register = paint => { const copies = markupCopies.get(region), index = copies.length; copies.push(paint); return index; };
+  const leaf = (tag, attributes, paint) => `<${tag} data-chat-copy="${register(paint)}" ${attributes}>${escapeHTML(paint())}</${tag}>`;
+  const copyValue = paint => `<span data-chat-copy="${register(paint)}">${escapeHTML(paint())}</span>`;
+  const copy = (source, parameters = {}) => copyValue(() => t(source, typeof parameters === 'function' ? parameters() : parameters));
+  const copyAria = (source, parameters = {}) => {
+    const paint = () => t(source, typeof parameters === 'function' ? parameters() : parameters);
+    return `data-chat-copy-aria="${register(paint)}" aria-label="${escapeHTML(paint())}"`;
+  };
+  function repaintCopy() {
+    textCopies.forEach(paint => paint());
+    $('#draftChatLog')?.querySelectorAll?.('details.chat-proposal-note > summary').forEach(node => { node.textContent = t('记录详情'); });
+    markupCopies.forEach((copies, selector) => {
+      $(selector)?.querySelectorAll?.('[data-chat-copy]').forEach(node => {
+        const paint = copies[Number(node.dataset.chatCopy)]; if (paint) node.textContent = paint();
+      });
+      $(selector)?.querySelectorAll?.('[data-chat-copy-aria]').forEach(node => {
+        const paint = copies[Number(node.dataset.chatCopyAria)]; if (paint) node.setAttribute('aria-label', paint());
+      });
+    });
+  }
   const hidden = (selector, value) => { const node = $(selector); if (node) node.classList.toggle('hidden', value); };
   const value = (selector, next) => { const node = $(selector); if (node) node.value = next; };
   function showPage(name = 'detail', { focus = true } = {}) {
@@ -86,8 +114,8 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
     if (focus) $(name === 'detail' ? '#draftChatInput' : name === 'list' ? '#btnDraftChatNew' : '#draftChatMode')?.focus();
   }
   function status(message = '') {
-    text('#draftChatStatus', message);
-    hidden('#draftChatStatus', !message);
+    const shown = text('#draftChatStatus', message);
+    hidden('#draftChatStatus', !shown);
   }
   function busy(on) {
     for (const selector of ['#btnDraftChatSend', '#draftChatInput', '#draftChatRetention',
@@ -102,15 +130,16 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
   }
   function draft(input, selected) {
     value('#draftChatInput', input);
-    text('#draftChatInputCount', `${Array.from(input || '').length} / 8,000 字`);
+    const count = Array.from(input || '').length;
+    text('#draftChatInputCount', () => t('{count} / 8,000 字', { count }));
     const button = $('#btnDraftChatAdopt');
     if (button) button.dataset.proposalId = selected || '';
   }
   function sourceMarkup(message) {
     if (message.role !== 'assistant' || message.provenance?.source !== 'local') return '';
-    const reason = fallbackReasonText(message.provenance.reason);
-    return '<p class="chat-turn-source" data-chat-source="local">本地模板'
-      + (reason ? ` · ${escapeHTML(reason)}` : '') + '</p>';
+    const reason = message.provenance.reason;
+    return leaf('p', 'class="chat-turn-source" data-chat-source="local"', () => t('本地模板')
+      + (reason ? ` · ${fallbackReasonText(reason)}` : ''));
   }
   function proposalMarkup(message, selected, purpose) {
     const body = taskDraftFromMessage(message);
@@ -122,50 +151,51 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
     const state = proposalStates.get(ref?.id);
     const stateMarkup = ref ? proposalStatusMarkup(ref.id, state) : '';
     const reviewed = state && ['applied', 'reverted', 'removed'].includes(state.status);
-    if (memoryChange) return `<section class="chat-proposal" aria-label="待核对的记忆变更建议"><p class="chat-proposal-version">${memoryChange.operation === 'forget' ? '永久遗忘建议' : '记忆修改建议'} · 版本 ${Number(ref.version) || 1}</p>`
-      + `<p>目标记忆：${escapeHTML(memoryChange.id)}</p>`
+    if (memoryChange) return `<section class="chat-proposal" ${copyAria('待核对的记忆变更建议')}><p class="chat-proposal-version">${copy('{kind} · 版本 {version}', () => ({ kind: t(memoryChange.operation === 'forget' ? '永久遗忘建议' : '记忆修改建议'), version: Number(ref.version) || 1 }))}</p>`
+      + `<p>${copy('目标记忆：{id}', { id: memoryChange.id })}</p>`
       + (memoryChange.input ? `<h3>${escapeHTML(memoryChange.input.subject)}</h3><p>${escapeHTML(memoryChange.input.body)}</p>` : '')
-      + `<p class="chat-proposal-note">${memoryChange.operation === 'forget' ? '核对原文、关联来源和全部影响范围后，永久遗忘需单独确认，无法撤销。' : '核对当前内容与差异，确认后更新原条目。'}</p>`
-      + stateMarkup + `<button type="button" class="pixel-btn btn-mini" data-chat-memory="${escapeHTML(ref.id)}">${reviewed ? '核对记录' : memoryChange.operation === 'forget' ? '核对永久遗忘范围' : '核对记忆修改'}</button></section>`;
+      + `<p class="chat-proposal-note">${copy(memoryChange.operation === 'forget' ? '核对原文、关联来源和全部影响范围后，永久遗忘需单独确认，无法撤销。' : '核对当前内容与差异，确认后更新原条目。')}</p>`
+      + stateMarkup + `<button type="button" class="pixel-btn btn-mini" data-chat-memory="${escapeHTML(ref.id)}">${copy(reviewed ? '核对记录' : memoryChange.operation === 'forget' ? '核对永久遗忘范围' : '核对记忆修改')}</button></section>`;
     if (planning) {
       const time = minute => `${String(Math.floor(minute / 60)).padStart(2, '0')}:${String(minute % 60).padStart(2, '0')}`;
       const demand = { low: '轻一些的事', medium: '一般难度的事', high: '需要更多投入的事' }[planning.demand];
       const scope = { today: '今天', '7days': '七天', saved: '保存为偏好' }[planning.scope];
-      return `<section class="chat-proposal" aria-label="待核对的安排建议"><p class="chat-proposal-version">安排建议 · 版本 ${Number(ref.version) || 1}</p>`
-        + `<p>${time(planning.startMinute)}–${time(planning.endMinute)} · ${demand} · ${scope}</p>`
-        + '<p class="chat-proposal-note">可编辑并单独确认，不改变自评或能量曲线。</p>'
-        + stateMarkup + `<button type="button" class="pixel-btn btn-mini" data-chat-planning="${escapeHTML(ref.id)}">${reviewed ? '核对记录' : '核对安排建议'}</button></section>`;
+      return `<section class="chat-proposal" ${copyAria('待核对的安排建议')}><p class="chat-proposal-version">${copy('安排建议 · 版本 {version}', { version: Number(ref.version) || 1 })}</p>`
+        + `<p>${time(planning.startMinute)}–${time(planning.endMinute)} · ${copy(demand)} · ${copy(scope)}</p>`
+        + `<p class="chat-proposal-note">${copy('可编辑并单独确认，不改变自评或能量曲线。')}</p>`
+        + stateMarkup + `<button type="button" class="pixel-btn btn-mini" data-chat-planning="${escapeHTML(ref.id)}">${copy(reviewed ? '核对记录' : '核对安排建议')}</button></section>`;
     }
-    if (memory) return `<section class="chat-proposal" aria-label="待核对的记忆建议"><p class="chat-proposal-version">记忆建议 · 版本 ${Number(ref.version) || 1}</p>`
+    if (memory) return `<section class="chat-proposal" ${copyAria('待核对的记忆建议')}><p class="chat-proposal-version">${copy('记忆建议 · 版本 {version}', { version: Number(ref.version) || 1 })}</p>`
       + `<h3>${escapeHTML(memory.subject)}</h3><p>${escapeHTML(memory.body)}</p>`
-      + '<p class="chat-proposal-note">内容、范围和有效期确认后才保存。</p>'
-      + stateMarkup + `<button type="button" class="pixel-btn btn-mini" data-chat-memory="${escapeHTML(ref.id)}">${reviewed ? '核对记录' : '核对记忆建议'}</button></section>`;
-    if (candidate) return `<section class="chat-proposal" aria-label="变更建议版本 ${Number(ref.version) || 1}">`
-      + `<p class="chat-proposal-version">变更建议 · 版本 ${Number(ref.version) || 1}</p>`
-      + `<p>${candidate.operations.length} 项建议，查看差异后确认。</p>`
-      + stateMarkup + `<button type="button" class="pixel-btn btn-mini" data-chat-change="${escapeHTML(ref.id)}">${reviewed ? '核对记录' : '查看变更差异'}</button></section>`;
+      + `<p class="chat-proposal-note">${copy('内容、范围和有效期确认后才保存。')}</p>`
+      + stateMarkup + `<button type="button" class="pixel-btn btn-mini" data-chat-memory="${escapeHTML(ref.id)}">${copy(reviewed ? '核对记录' : '核对记忆建议')}</button></section>`;
+    if (candidate) return `<section class="chat-proposal" ${copyAria('变更建议版本 {version}', { version: Number(ref.version) || 1 })}>`
+      + `<p class="chat-proposal-version">${copy('变更建议 · 版本 {version}', { version: Number(ref.version) || 1 })}</p>`
+      + `<p>${copy('{count} 项建议，查看差异后确认。', { count: candidate.operations.length })}</p>`
+      + stateMarkup + `<button type="button" class="pixel-btn btn-mini" data-chat-change="${escapeHTML(ref.id)}">${copy(reviewed ? '核对记录' : '查看变更差异')}</button></section>`;
     if (!body) return '';
     const steps = Array.isArray(body.steps) ? body.steps : [];
-    return `<section class="chat-proposal" aria-label="草稿版本 ${Number(ref.version) || 1}">`
-      + `<p class="chat-proposal-version">草稿 · 版本 ${Number(ref.version) || 1}</p>`
+    return `<section class="chat-proposal" ${copyAria('草稿版本 {version}', { version: Number(ref.version) || 1 })}>`
+      + `<p class="chat-proposal-version">${copy('草稿 · 版本 {version}', { version: Number(ref.version) || 1 })}</p>`
       + stateMarkup
       + `<h3>${escapeHTML(body.title)}</h3>`
       + (body.notes ? `<p>${escapeHTML(body.notes)}</p>` : '')
-      + (body.nextAction ? `<p>下一动作：${escapeHTML(body.nextAction)}</p>` : '')
+      + (body.nextAction ? `<p>${copy('下一动作：{action}', { action: body.nextAction })}</p>` : '')
       + `<ol>${steps.map(step => `<li>${escapeHTML(step.title || '')}</li>`).join('')}</ol>`
       + `<button type="button" class="pixel-btn btn-mini" data-chat-proposal="${escapeHTML(ref.id)}" aria-pressed="${ref.id === selected}">`
-      + `${ref.id === selected ? '已选版本' : '选择这个版本'}</button>`
-      + `<p class="chat-proposal-note">${purpose === 'stuck' ? '填入当前任务的下一步草稿，确认后保存' : '填入新任务草稿，可编辑后保存'}</p></section>`;
+      + `${copy(ref.id === selected ? '已选版本' : '选择这个版本')}</button>`
+      + `<p class="chat-proposal-note">${copy(purpose === 'stuck' ? '填入当前任务的下一步草稿，确认后保存' : '填入新任务草稿，可编辑后保存')}</p></section>`;
   }
   function proposalStatusMarkup(id, item) {
     const label = { proposal: '建议记录 · 尚无对应提交回执', applied: '已提交', reverted: '已撤销', removed: '已移除', unavailable: '提交状态暂不可用' };
     const store = { config: '任务与日常', memory: '记忆', planning: '安排偏好' };
-    const details = [item?.receiptId ? `回执 ${escapeHTML(item.receiptId)}` : '',
-      item?.version ? `当前版本 ${item.version}` : '',
-      item?.targetId ? `目标 ${escapeHTML(item.targetId)}` : ''].filter(Boolean).join(' · ');
-    return `<p class="chat-proposal-note" data-proposal-status="${escapeHTML(id)}">${item ? `${store[item.store]} · ${label[item.status]}` : '提交状态待核对'}`
-      + (item?.historyStatus ? ` · ${item.historyStatus === 'pending' ? '时间线待同步' : '时间线已同步'}` : '') + '</p>'
-      + (details ? `<details class="chat-proposal-note"><summary>记录详情</summary><p>${details}</p></details>` : '');
+    const details = [item?.receiptId ? copy('回执 {receipt}', { receipt: item.receiptId }) : '',
+      item?.version ? copy('当前版本 {version}', { version: item.version }) : '',
+      item?.targetId ? copy('目标 {id}', { id: item.targetId }) : ''].filter(Boolean).join(' · ');
+    return leaf('p', `class="chat-proposal-note" data-proposal-status="${escapeHTML(id)}"`, () =>
+      (item ? `${t(store[item.store])} · ${t(label[item.status])}` : t('提交状态待核对'))
+      + (item?.historyStatus ? ` · ${t(item.historyStatus === 'pending' ? '时间线待同步' : '时间线已同步')}` : ''))
+      + (details ? `<details class="chat-proposal-note"><summary>${t('记录详情')}</summary><p>${details}</p></details>` : '');
   }
   function conversation(record, selected, { scrollTop, toBottom = false, page = false, projectionOnly = false } = {}) {
     const log = $('#draftChatLog');
@@ -191,14 +221,15 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
     previousCount = messages.length;
     if (historyId) historyWindows.set(historyId, { start, end });
     if (log) {
+      startRegion('#draftChatLog');
       log.innerHTML = messages.length ? messages.slice(start, end).map(message => {
         const role = message.role === 'user' ? 'user' : 'assistant';
         return `<article class="chat-turn chat-turn-${role}" data-message-id="${escapeHTML(message.id)}">`
-          + `<div class="chat-turn-heading"><span class="chat-avatar chat-avatar-${role}" aria-hidden="true">${CHAT_AVATARS[role]}</span><span class="chat-turn-role">${role === 'user' ? '你' : 'AI 伙伴'}</span></div>`
+          + `<div class="chat-turn-heading"><span class="chat-avatar chat-avatar-${role}" aria-hidden="true">${CHAT_AVATARS[role]}</span>${leaf('span', 'class="chat-turn-role"', () => t(role === 'user' ? '你' : 'AI 伙伴'))}</div>`
           + sourceMarkup(message)
           + `<div class="chat-turn-content">${escapeHTML(message.content || '')}</div>`
           + proposalMarkup(message, selected, record.purpose) + '</article>';
-      }).join('') : '<p class="chat-empty">可以先聊聊，也可以一起找下一步。</p>';
+      }).join('') : `<p class="chat-empty">${copy('可以先聊聊，也可以一起找下一步。')}</p>`;
       log.scrollTop = toBottom && atBottom ? log.scrollHeight : (scrollTop ?? previousScroll);
     }
     hidden('#btnDraftChatEarlier', start === 0);
@@ -206,10 +237,12 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
     hidden('#btnDraftChatLatest', end >= messages.length);
     const paginated = start > 0 || end < messages.length;
     hidden('#draftChatHistoryNav', !paginated);
-    text('#draftChatHistoryRange', paginated ? `第 ${start + 1}–${end} 条，共 ${messages.length} 条` : '');
+    const rangeStart = start + 1, rangeEnd = end, count = messages.length;
+    text('#draftChatHistoryRange', () => paginated ? t('第 {start}–{end} 条，共 {count} 条', { start: rangeStart, end: rangeEnd, count }) : '');
     if (projectionOnly) return;
-    const title = record?.displayTitle || record?.title || messages.find(message => message.role === 'user')?.content || '新对话';
-    text('#draftChatSessionTitle', Array.from(title).slice(0, 60).join(''));
+    const title = record?.displayTitle || record?.title || messages.find(message => message.role === 'user')?.content;
+    if (title) text('#draftChatSessionTitle', Array.from(title).slice(0, 60).join(''), { raw: true });
+    else text('#draftChatSessionTitle', '新对话');
     const mode = record?.mode || 'talk';
     value('#draftChatMode', mode);
     showPage(currentPage, { focus: false });
@@ -221,20 +254,20 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
     value('#draftChatRetentionDays', String(retention.days || 30));
     if ($('#draftChatPinned')) $('#draftChatPinned').checked = Boolean(retention.pinned);
     hidden('#draftChatRetentionOptions', retention.mode !== 'saved');
-    const saveText = record?.saveState === 'unsaved' ? '尚未保存到本机；内容仍保留在本次运行中'
-      : record?.saveState === 'saved' ? `已保存到本机 · ${retention.pinned ? '已固定' : `${retention.days || 30} 天`}`
-        : '仅本次 · 关闭只暂停，退出应用后不保留';
-    text('#draftChatSaveState', saveText);
+    text('#draftChatSaveState', () => record?.saveState === 'unsaved' ? t('尚未保存到本机；内容仍保留在本次运行中')
+      : record?.saveState === 'saved' ? t('已保存到本机 · {retention}', { retention: retention.pinned ? t('已固定') : t('{days} 天', { days: retention.days || 30 }) })
+        : t('仅本次 · 关闭只暂停，退出应用后不保留'));
     text('#draftChatCurrentMode', MODE_LABELS[mode] || MODE_LABELS.talk);
   }
   function context(disclosure, contextPreview) {
     const fields = Array.isArray(disclosure?.fields) ? disclosure.fields : [];
-    text('#draftChatDisclosureText', fields.length ? `本轮参考字段：${fields.join('、')}` : '仅参考你在这段对话中提供的内容');
-    text('#draftChatProvider', disclosure?.provider ? `接收模型：${disclosure.provider.model || '未提供'} · ${disclosure.provider.endpoint || '未提供地址'}` : '接收模型：尚未提供模型信息；以发送前的配置为准');
+    text('#draftChatDisclosureText', () => fields.length ? t('本轮参考字段：{fields}', { fields: fields.join(getLocale() === 'en' ? ', ' : '、') }) : t('仅参考你在这段对话中提供的内容'));
+    text('#draftChatProvider', () => disclosure?.provider ? t('接收模型：{model} · {endpoint}', { model: disclosure.provider.model || t('未提供'), endpoint: disclosure.provider.endpoint || t('未提供地址') }) : t('接收模型：尚未提供模型信息；以发送前的配置为准'));
     if (contextPreview !== undefined) {
-      text('#draftChatContextPreview', contextPreview ? JSON.stringify(contextPreview, null, 2) : '没有附加上下文');
+      if (contextPreview) text('#draftChatContextPreview', JSON.stringify(contextPreview, null, 2), { raw: true });
+      else text('#draftChatContextPreview', '没有附加上下文');
       const task = Array.isArray(contextPreview) ? contextPreview.flatMap(read => read.items || []).find(item => typeof item.title === 'string') : null;
-      text('#draftChatTaskContext', task ? `当前任务：${task.title}` : '');
+      text('#draftChatTaskContext', () => task ? t('当前任务：{title}', { title: task.title }) : '');
       hidden('#draftChatTaskContext', !task);
     }
   }
@@ -260,16 +293,17 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
   function sessions(items, nextCursor) {
     listedSessions = items; listedCursor = nextCursor;
     const node = $('#draftChatSessions');
+    startRegion('#draftChatSessions');
     if (node) node.innerHTML = items.length ? items.map(item => {
-      const title = item.displayTitle || item.title || item.relatedEntity?.title || item.messages?.find(message => message.role === 'user')?.content || '一段对话';
+      const title = item.displayTitle || item.title || item.relatedEntity?.title || item.messages?.find(message => message.role === 'user')?.content;
       const saved = item.saveState === 'unsaved' ? '尚未保存' : item.retention?.mode === 'saved' ? '保留在本机' : '仅本次';
-      const date = item.updatedAt ? new Date(item.updatedAt).toLocaleString('zh-CN') : '';
+      const date = () => item.updatedAt ? new Date(item.updatedAt).toLocaleString(getLocale()) : '';
       return `<button type="button" class="chat-session" data-chat-resume="${escapeHTML(item.id)}" aria-current="${item.id === latestRecord?.id}">`
-        + `<span class="chat-session-title-row"><span>${escapeHTML(title)}</span><span class="chat-session-arrow" aria-hidden="true">›</span></span><small>${item.id === latestRecord?.id ? '当前对话 · ' : ''}${escapeHTML(MODE_LABELS[item.mode] || '先聊聊')} · ${saved}</small>${date ? `<small class="chat-session-date">${escapeHTML(date)}</small>` : ''}</button>`;
-    }).join('') : '<p class="chat-empty">还没有可继续的对话</p>';
+        + `<span class="chat-session-title-row"><span>${title ? escapeHTML(title) : copy('一段对话')}</span><span class="chat-session-arrow" aria-hidden="true">›</span></span><small>${item.id === latestRecord?.id ? copy('当前对话 · ') : ''}${copy(MODE_LABELS[item.mode] || '先聊聊')} · ${copy(saved)}</small>${item.updatedAt ? `<small class="chat-session-date">${copyValue(date)}</small>` : ''}</button>`;
+    }).join('') : `<p class="chat-empty">${copy('还没有可继续的对话')}</p>`;
     hidden('#btnDraftChatMore', !nextCursor);
   }
-  return Object.freeze({ status, busy, draft, conversation, context, sessions, pageHistory, visibleProposalRefs, proposalStatuses, page: showPage, currentPage: () => currentPage });
+  return Object.freeze({ text, repaintCopy, status, busy, draft, conversation, context, sessions, pageHistory, visibleProposalRefs, proposalStatuses, page: showPage, currentPage: () => currentPage });
 }
 
 export { createCollaborationView, taskDraftFromMessage, changeCandidateFromMessage, memoryCandidateFromMessage, memoryChangeFromMessage };

@@ -28,3 +28,26 @@ test('shared stuck proposal fills the existing editor without creating or mutati
   assert.deepEqual(writes, [['t1', { nextAction: '打开空白文档', blocker: 'too-big' }]]);
   feature.dispose();
 });
+
+test('locale repaint preserves staged raw next action and its pending confirmation', async t => {
+  const { setLocale } = require('../src/surfaces/shared/interface/i18n.mjs');
+  setLocale('zh-CN'); t.after(() => setLocale('zh-CN'));
+  const dom = createCollaborationDom(), writes = []; let resolve;
+  const feature = createPopoverStuck({ document: dom.document, $: dom.$, $$: () => [],
+    syncPressedButtons() {}, showTransientStatus: (id, message) => { dom.$(id).textContent = message; }, hideTransientStatus() {},
+    blockerLabels: {}, surfaceClient: { clarifyNowTask: (...args) => { writes.push(args); return new Promise(done => { resolve = done; }); },
+      previewBreakdown() {}, requestStrategy() {} }, taskActionMessage: value => value,
+    unstickAdvice: { request() {}, clear() {} }, currentTask: () => ({ id: 't1', title: '私有标题' }),
+    renderNowCard() {}, canReceiveFocus: () => true, restoreModalFocus() {}, isAiEnabled: () => true, isStrategyGuidanceEnabled: () => true });
+  feature.mount(); t.after(() => feature.dispose());
+  feature.stageNextAction({ nextAction: '设置 <raw> {number}' }, 't1');
+  const input = dom.$('#shrinkNextAction'); input.focus();
+  dom.fire('#shrinkConfirm', 'click');
+  setLocale('en');
+  assert.equal(dom.$('#shrinkNextAction'), input); assert.equal(input.value, '设置 <raw> {number}');
+  assert.equal(dom.document.activeElement, input); assert.equal(writes.length, 1);
+  assert.match(dom.$('#shrinkSource').textContent, /Collaboration draft/);
+  dom.fire('#shrinkConfirm', 'click'); assert.equal(writes.length, 1);
+  resolve({ ok: false, reason: 'task-in-focus' }); await Promise.resolve(); await Promise.resolve();
+  assert.equal(feature.isOpen(), true); assert.equal(input.value, '设置 <raw> {number}');
+});

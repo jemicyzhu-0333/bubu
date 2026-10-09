@@ -144,7 +144,7 @@ for (const state of ['fresh', 'initializing-empty', 'initializing-missing', 'ini
       }
     }
     const events = [], repo = f.open({ authorityFactory: tracedFactory(events) });
-    assert.equal(repo.snapshot().schemaVersion, 18); const snapshot = repo.snapshot(), revision = repo.revision(); repo.close();
+    assert.equal(repo.snapshot().schemaVersion, 19); const snapshot = repo.snapshot(), revision = repo.revision(); repo.close();
     const proof = events.filter(event => event.sql?.startsWith('UPDATE config_snapshot SET verification_count='));
     assert.equal(proof.length, 1); assert.equal(proof[0].filePath, f.database);
     const next = f.open(); assert.deepEqual(next.snapshot(), snapshot); assert.equal(next.revision(), revision); next.close();

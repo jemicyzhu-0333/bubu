@@ -137,3 +137,15 @@
 @layer features {
   #appUpdateGroup [hidden] { display: none !important; }
 }
+
+@layer features {
+  .interface-language { min-height: 36px; width: 100%; padding: 6px 10px; font: inherit; color: var(--fg-0); background: var(--bg-2); border: 1px solid var(--line-strong); border-radius: 8px; }
+  .interface-theme { display: flex; flex-wrap: wrap; gap: 8px; border: 0; margin: 12px 0 8px; padding: 0; min-width: 0; }
+  .interface-theme legend { margin-bottom: 8px; color: var(--fg-1); font-weight: 600; }
+  .interface-theme label { flex: 1 1 88px; display: flex; align-items: center; gap: 6px; min-height: 38px; padding: 6px 8px; border: 1px solid var(--line-strong); border-radius: 8px; cursor: pointer; }
+  .interface-theme label:has(input:checked) { border-color: var(--primary-ink); background: color-mix(in srgb, var(--primary) 12%, var(--bg-1)); }
+  .interface-theme input { accent-color: var(--primary); width: 16px; height: 16px; margin: 0; flex: none; }
+  .interface-theme label:has(input:focus-visible) { outline: 2px solid var(--primary-ink); outline-offset: 2px; }
+  .interface-theme label:has(input:disabled) { cursor: wait; }
+  #interfaceSaveStatus:empty { display: none; }
+}

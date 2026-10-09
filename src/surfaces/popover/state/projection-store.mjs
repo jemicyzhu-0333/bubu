@@ -1,3 +1,4 @@
+import { onLocaleChanged } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 function createPopoverProjectionStore({ client, stateChannel } = {}) {
@@ -14,6 +15,10 @@ function createPopoverProjectionStore({ client, stateChannel } = {}) {
   let readGeneration = 0;
   let latestRead = null;
   const listeners = new Set();
+
+  const stopLocale = onLocaleChanged(() => {
+    if (!disposed && state) notify({ state, dirty: { all: true }, initial: false, localeOnly: true });
+  });
 
   function notify(change) {
     for (const listener of [...listeners]) listener(change);
@@ -73,6 +78,7 @@ function createPopoverProjectionStore({ client, stateChannel } = {}) {
   function dispose() {
     if (disposed) return;
     disposed = true;
+    stopLocale();
     listeners.clear();
     if (typeof unsubscribe === 'function') unsubscribe();
     unsubscribe = null;

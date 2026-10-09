@@ -49,6 +49,7 @@ function harness(t, { updateTask, updateSeries, seriesState = 'active' } = {}) {
     });
   Object.defineProperty(dom.$('#editSteps'), 'innerHTML', { get: () => '', set() { rows.length = 0; } });
   dom.$('#editSteps').appendChild = row => rows.push(row);
+  dom.$('#editSteps').querySelectorAll = selector => selector === '.edit-step' ? rows : [];
   dom.document.createElement = () => {
     const children = {};
     return {
@@ -82,7 +83,7 @@ function harness(t, { updateTask, updateSeries, seriesState = 'active' } = {}) {
     },
     taskActionMessage: reason => `Rejected: ${reason}`, describeSeriesRule: () => 'Weekly',
     findTask: id => records.get(id), seriesForTask: record => record.seriesId ? { ...series, state: seriesState } : null,
-    restoreModalFocus: target => restored.push(target), showPanelStatus: message => { dom.$('#taskEditError').textContent = message; }
+    restoreModalFocus: target => restored.push(target), showPanelStatus: message => { dom.$('#taskEditError').textContent = typeof message === 'function' ? message() : message; }
   });
   feature.mount(); t.after(() => feature.dispose());
   return {
@@ -313,4 +314,24 @@ test('detached step controls cannot use obsolete indexes after a current-display
   old.querySelector('.edit-step-remove').handlers.click();
   old.querySelector('.edit-step-title').input('Obsolete');
   await h.save(); assert.deepEqual(h.calls[0][2], { steps: [{ op: 'reorder', stepIds: ['s2', 's1'] }] });
+});
+
+test('locale changes keep task edit fields, step nodes, focus and pending save identity', async t => {
+  const { setLocale } = require('../src/surfaces/shared/interface/i18n.mjs');
+  setLocale('zh-CN'); t.after(() => setLocale('zh-CN'));
+  const pending = deferred(), h = harness(t, { updateTask: () => pending.promise });
+  h.open(task('A', { title: '任务 <raw>', plannedFor: '2026-10-10', steps: [{ id: 's', title: '下一步 <raw>', done: false }] }));
+  const input = h.rows[0].querySelector('.edit-step-title');
+  input.input('草稿 {number}'); input.focus();
+  h.$('#editTitle').value = '私有草稿';
+  const saving = h.fire('#taskEditConfirm', 'click');
+  setLocale('en');
+  assert.equal(h.rows[0].querySelector('.edit-step-title'), input);
+  assert.equal(h.document.activeElement, input); assert.equal(input.value, '草稿 {number}');
+  assert.equal(h.$('#editTitle').value, '私有草稿'); assert.equal(h.calls.length, 1);
+  assert.equal(input.attributes['aria-label'], 'Step 1 title');
+  assert.equal(h.$('#editDatesSummary').textContent, 'Planned');
+  pending.resolve({ ok: false }); await saving;
+  assert.match(h.$('#taskEditError').textContent, /Saving failed/);
+  setLocale('zh-CN'); assert.match(h.$('#taskEditError').textContent, /没有保存成功/);
 });

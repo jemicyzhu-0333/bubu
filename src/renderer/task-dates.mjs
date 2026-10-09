@@ -1,3 +1,4 @@
+import { t } from '../surfaces/shared/interface/i18n.mjs';
 'use strict';
 
 const taskDatesApi = (function createTaskDates() {
@@ -31,15 +32,15 @@ const taskDatesApi = (function createTaskDates() {
 
     const dayDiff = localCalendarDayDiff(deadline, now);
     if (dayDiff < 0) {
-      return { text: `逾期 ${Math.abs(dayDiff)} 天`, tone: 'late', overdue: true, dayDiff };
+      return { text: t('逾期 {days} 天', { days: Math.abs(dayDiff) }), tone: 'late', overdue: true, dayDiff };
     }
     if (dayDiff === 0 && deadline.getTime() < now.getTime()) {
-      return { text: '已逾期', tone: 'late', overdue: true, dayDiff };
+      return { text: t('已逾期'), tone: 'late', overdue: true, dayDiff };
     }
-    if (dayDiff === 0) return { text: '今天 DDL', tone: 'warn', overdue: false, dayDiff };
-    if (dayDiff === 1) return { text: '明天 DDL', tone: 'warn', overdue: false, dayDiff };
+    if (dayDiff === 0) return { text: t('今天 DDL'), tone: 'warn', overdue: false, dayDiff };
+    if (dayDiff === 1) return { text: t('明天 DDL'), tone: 'warn', overdue: false, dayDiff };
     return {
-      text: `${dayDiff} 天后`,
+      text: t('{days} 天后', { days: dayDiff }),
       tone: dayDiff <= 3 ? 'warn' : 'ok',
       overdue: false,
       dayDiff
@@ -51,9 +52,9 @@ const taskDatesApi = (function createTaskDates() {
     if (!scheduled || !validDate(reference)) return '';
     const dayDiff = localCalendarDayDiff(scheduled, reference);
     const time = `${String(scheduled.getHours()).padStart(2, '0')}:${String(scheduled.getMinutes()).padStart(2, '0')}`;
-    if (dayDiff === 0) return `今天 ${time}`;
-    if (dayDiff === 1) return `明天 ${time}`;
-    if (dayDiff === -1) return `昨天 ${time}`;
+    if (dayDiff === 0) return t('今天 {time}', { time });
+    if (dayDiff === 1) return t('明天 {time}', { time });
+    if (dayDiff === -1) return t('昨天 {time}', { time });
     return `${scheduled.getMonth() + 1}/${scheduled.getDate()} ${time}`;
   }
 

@@ -23,7 +23,7 @@ const {
 
 test('schema 6 migrates to the canonical current schema with the specified defaults', () => {
   const migrated = normalizePersistedState({ schemaVersion: 6, settings: {} }, { now: 1234 });
-  assert.equal(PERSISTED_SCHEMA_VERSION, 18);
+  assert.equal(PERSISTED_SCHEMA_VERSION, 19);
   // schema 11 的两份个人记录：老数据里没有，就是空的，不是缺字段。
   assert.deepEqual(migrated.wakeTimes, {});
   assert.deepEqual(migrated.moodNotes, []);

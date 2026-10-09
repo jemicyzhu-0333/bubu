@@ -1,3 +1,4 @@
+import { t, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 import { createCollaborationChangeView } from '../ui/collaboration-change-view.mjs';
@@ -106,7 +107,7 @@ function createCollaborationChangeReview({ $, escapeHTML, surfaceClient, getStat
     // Do not rebuild a focused input on each keystroke.
     $('#btnDraftChatChangeConfirm')?.classList.add('hidden');
     $('#btnDraftChatChangePreview')?.classList.remove('hidden');
-    if ($('#draftChatChangeStatus')) $('#draftChatChangeStatus').textContent = message;
+    view.text('draftChatChangeStatus', message);
   }
   function acceptReceipt(result, expected = null) {
     const value = result?.receipt;
@@ -227,17 +228,26 @@ function createCollaborationChangeReview({ $, escapeHTML, surfaceClient, getStat
     pendingProposals.delete(id);
     for (const [key, value] of pendingConfirmations) if (value.binding.conversationId === id) pendingConfirmations.delete(key);
   }
+  const receiptLabel = item => t(item.durability === 'unconfirmed' ? '本机变更待确认持久保存' : item.revertsReceiptId ? '已提交撤销' : item.status === 'reverted' ? '修改已撤销' : '已确认修改');
+  function repaintListCopy() {
+    $('#draftChatReceipts')?.querySelectorAll('[data-chat-receipt]').forEach((button, index) => {
+      const item = listed[index]; if (!item) return;
+      const label = button.querySelector('span'), detail = button.querySelector('small');
+      if (label) label.textContent = receiptLabel(item);
+      if (detail) detail.textContent = t('回执 {receipt} · 版本 {version}', { receipt: item.receiptId, version: Number(item.appliedRevision) });
+    });
+  }
   function renderList() {
     const node = $('#draftChatReceipts');
     if (node) node.innerHTML = listed.map(item => `<button type="button" class="chat-session" data-chat-receipt="${escapeHTML(item.receiptId)}">`
-      + `<span>${item.durability === 'unconfirmed' ? '本机变更待确认持久保存' : item.revertsReceiptId ? '已提交撤销' : item.status === 'reverted' ? '修改已撤销' : '已确认修改'}</span>`
-      + `<small>回执 ${escapeHTML(item.receiptId)} · 版本 ${Number(item.appliedRevision)}</small></button>`).join('');
+      + `<span>${receiptLabel(item)}</span>`
+      + `<small>${escapeHTML(t('回执 {receipt} · 版本 {version}', { receipt: item.receiptId, version: Number(item.appliedRevision) }))}</small></button>`).join('');
     $('#draftChatReceiptHistory')?.classList.toggle('hidden', !listed.length);
     $('#btnDraftChatReceiptsMore')?.classList.toggle('hidden', !nextCursor);
   }
   function receiptListFailure() {
     $('#draftChatReceiptHistory')?.classList.remove('hidden');
-    if ($('#draftChatReceiptsStatus')) $('#draftChatReceiptsStatus').textContent = '提交历史暂不可用；不能据此判断没有提交记录。';
+    view.text('draftChatReceiptsStatus', '提交历史暂不可用；不能据此判断没有提交记录。');
   }
   async function listReceipts({ more = false } = {}) {
     const state = current();
@@ -247,7 +257,7 @@ function createCollaborationChangeReview({ $, escapeHTML, surfaceClient, getStat
       const result = await surfaceClient.getConversationReceipts({ conversationId: id, limit: 20, ...(more && nextCursor ? { cursor: nextCursor } : {}) });
       if (token !== listEpoch || !current().open || current().record?.id !== id) return;
       if (!result?.ok || result.availability === 'unavailable') { receiptListFailure(); return; }
-      if ($('#draftChatReceiptsStatus')) $('#draftChatReceiptsStatus').textContent = '';
+      view.text('draftChatReceiptsStatus', '');
       const items = (result.items || []).map(item => item?.ok === true && item.receipt
         ? { ...item.receipt, durability: item.durability, historyStatus: item.historyStatus } : item);
       listed = [...new Map([...(more ? listed : []), ...items].filter(item =>
@@ -256,6 +266,7 @@ function createCollaborationChangeReview({ $, escapeHTML, surfaceClient, getStat
     } catch (_) { if (token === listEpoch && current().open && current().record?.id === id) receiptListFailure(); }
   }
   function mount() {
+    teardown.push(onLocaleChanged(() => { view.repaintCopy(); repaintListCopy(); }));
     const listen = (id, type, handler) => { const node = $(`#${id}`); if (!node) return; node.addEventListener(type, handler); teardown.push(() => node.removeEventListener(type, handler)); };
     listen('draftChatChangeCards', 'change', event => {
       const target = event.target.closest?.('[data-change-select]'); if (target) select(target.dataset.changeSelect, target.checked);

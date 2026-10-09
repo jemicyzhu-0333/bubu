@@ -1,3 +1,4 @@
+import { t, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 // 随手记：面板底部常驻的一行输入。
@@ -17,6 +18,9 @@ function createPopoverCaptureBar({ document, $, surfaceClient } = {}) {
   const listeners = [];
   let statusTimer = null;
   let busy = false;
+  let statusSource = '';
+  let stopLocale = null;
+  let mounted = false, visit = 0;
 
   function listen(target, type, handler) {
     if (!target || typeof target.addEventListener !== 'function') return;
@@ -26,28 +30,31 @@ function createPopoverCaptureBar({ document, $, surfaceClient } = {}) {
 
   function setStatus(text, tone = '') {
     const status = $('#captureStatus');
-    if (!status) return;
-    status.textContent = text;
+    if (!mounted || !status) return;
+    statusSource = text;
+    status.textContent = t(text);
     status.dataset.tone = tone;
     if (statusTimer) clearTimeout(statusTimer);
-    statusTimer = text ? setTimeout(() => { status.textContent = ''; status.dataset.tone = ''; }, STATUS_MS) : null;
+    statusTimer = text ? setTimeout(() => { statusSource = ''; status.textContent = ''; status.dataset.tone = ''; }, STATUS_MS) : null;
   }
 
   function placeholderFor(session) {
     return session === 'focus' || session === 'paused'
-      ? '专注中想到别的？先丢这里，不打断'
-      : '脑子里冒出什么，写一句丢进来';
+      ? t('专注中想到别的？先丢这里，不打断')
+      : t('脑子里冒出什么，写一句丢进来');
   }
 
   async function submit(event) {
     if (event && typeof event.preventDefault === 'function') event.preventDefault();
     const input = $('#captureInput');
-    if (!input || busy) return;
+    if (!mounted || !input || busy) return;
     const text = String(input.value || '').trim();
     if (!text) return;
     busy = true;
+    const generation = visit;
     try {
       const result = await surfaceClient.addImpulse(text);
+      if (!mounted || generation !== visit) return;
       if (result && result.ok === false) {
         setStatus('没存上，文字还在，稍后再试一次', 'error');
         return;
@@ -55,6 +62,7 @@ function createPopoverCaptureBar({ document, $, surfaceClient } = {}) {
       input.value = '';
       setStatus('收下了，在收件箱里等你处理', 'ok');
     } catch {
+      if (!mounted || generation !== visit) return;
       setStatus('没存上，文字还在，稍后再试一次', 'error');
     } finally {
       busy = false;
@@ -70,6 +78,15 @@ function createPopoverCaptureBar({ document, $, surfaceClient } = {}) {
     const form = $('#captureBar');
     const input = $('#captureInput');
     if (!form || !input) return;
+    if (mounted) return;
+    mounted = true;
+    const repaintCopy = () => {
+      input.placeholder = placeholderFor(document.body?.dataset?.session);
+      const status = $('#captureStatus');
+      if (status) status.textContent = t(statusSource);
+    };
+    stopLocale = onLocaleChanged(repaintCopy);
+    repaintCopy();
     listen(form, 'submit', submit);
     listen(input, 'focus', () => {
       const session = document.body && document.body.dataset ? document.body.dataset.session : '';
@@ -93,10 +110,13 @@ function createPopoverCaptureBar({ document, $, surfaceClient } = {}) {
   }
 
   function dispose() {
+    mounted = false; visit++;
     for (const { target, type, handler } of listeners) target.removeEventListener(type, handler);
     listeners.length = 0;
     if (statusTimer) clearTimeout(statusTimer);
     statusTimer = null;
+    statusSource = '';
+    stopLocale?.(); stopLocale = null;
   }
 
   return Object.freeze({ mount, dispose, submit, placeholderFor });

@@ -1,3 +1,4 @@
+import { t } from '../shared/interface/i18n.mjs';
 'use strict';
 
 function createPetCommands({ menu, client, state, setState, runAction, report } = {}) {
@@ -18,9 +19,9 @@ function createPetCommands({ menu, client, state, setState, runAction, report } 
     if (act === 'focus') {
       const result = await client.pet_startFocus();
       const decisionMessage = result && ({
-        'awaiting-confirmation': '上轮已经到点，请在面板确认计入完成或放弃本轮',
-        'quick-start-decision-pending': '两分钟已经完成，请先在面板选择下一步',
-        'focus-landing-pending': '先保存或跳过上一轮的落点，再开始新一轮'
+        'awaiting-confirmation': t('上轮已经到点，请在面板确认计入完成或放弃本轮'),
+        'quick-start-decision-pending': t('两分钟已经完成，请先在面板选择下一步'),
+        'focus-landing-pending': t('先保存或跳过上一轮的落点，再开始新一轮')
       })[result.reason];
       if (decisionMessage) {
         await client.pet_openPanel();

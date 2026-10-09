@@ -1,3 +1,4 @@
+import { t, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 // 面板这一面的 DOM 与格式化原语。它不认识任何业务概念，只提供“怎么读一个控件、
@@ -10,6 +11,11 @@ function createPopoverDom({ document, window } = {}) {
   const $ = sel => document.querySelector(sel);
   const $$ = sel => document.querySelectorAll(sel);
 
+  const statusCopies = new Map();
+  const stopLocale = onLocaleChanged(() => {
+    for (const [selector, copy] of statusCopies) setStatusLine(selector, copy);
+  });
+
   const pad2 = n => String(n).padStart(2, '0');
 
   function escapeHTML(s) {
@@ -20,7 +26,7 @@ function createPopoverDom({ document, window } = {}) {
 
   function formatMs(ms) {
     const totalMin = Math.floor(ms / 60000);
-    if (totalMin < 60) return `${totalMin}分`;
+    if (totalMin < 60) return t('{minutes}分', { minutes: totalMin });
     const h = Math.floor(totalMin / 60);
     const m = totalMin % 60;
     return m ? `${h}h${m}m` : `${h}h`;
@@ -74,6 +80,8 @@ function createPopoverDom({ document, window } = {}) {
   function setStatusLine(selector, message = '') {
     const status = $(selector);
     if (!status) return;
+    if (typeof message === 'function') { statusCopies.set(selector, message); message = message(); }
+    else statusCopies.delete(selector);
     status.textContent = message;
     status.classList.toggle('hidden', !message);
   }
@@ -110,6 +118,7 @@ function createPopoverDom({ document, window } = {}) {
   }
 
   function dispose() {
+    stopLocale(); statusCopies.clear();
     for (const timer of transientStatusTimers.values()) clearTimeout(timer);
     transientStatusTimers.clear();
   }

@@ -28,7 +28,7 @@ git diff --check
 
 | 改动 | 至少追加的检查 |
 | --- | --- |
-| 持久化 | current-only schema18 准入、拒绝前零写入/零 proof、DB/身份/WAL/SHM 原字节、未知提交核对、损坏/未来版本、重开与故障注入。另获授权的库迁移须核验逐字节备份和二次启动固定点 |
+| 持久化 | current-only schema19 准入、拒绝前零写入/零 proof、DB/身份/WAL/SHM 原字节、未知提交核对、损坏/未来版本、重开与故障注入。另获授权的库迁移须核验逐字节备份和二次启动固定点 |
 | IPC / preload | sender、闭合 payload、非法输入、surface allowlist 与最小 preload |
 | workflow / 状态投影 | 单次提交、写集、回执/幂等、effect 失败隔离、publication revision 与断档恢复 |
 | 遗留入口 | `architecture/manifest.json` 棘轮同步收紧，不新增职责 |
@@ -51,7 +51,7 @@ git diff --check
 
 ## 隔离运行
 
-仅用工具创建的全新可删除 schema18 SQL 档案，不拿真实用户档案或旧资料试开、迁移、修复或重置。历史 generic adapter 测试不授权当前生产读取旧档。
+仅用工具创建的全新可删除 schema19 SQL 档案，不拿真实用户档案或旧资料试开、迁移、修复或重置。历史 generic adapter 测试不授权当前生产读取旧档。
 
 ```bash
 npm run dev:bench -- --scenario=level-up
@@ -138,3 +138,12 @@ macOS 构建门禁必须对产出 app 和 DMG 复制出的 app 分别执行 `cod
 ## 结果记录格式
 
 交付中写明源码身份、平台/工具版本、命令、通过/失败/跳过/未运行范围、可重放步骤及剩余风险。测试日志和一次性截图按相应测试或发布保留，不持续堆入本文。
+
+## 语言与外观功能分支门禁
+
+- 使用同一feature源码验证locale/theme闭合枚举、单次事务、保存失败不改变选择、fresh/reopen保留设置及其他完整字段。五个surface只读窄投影，只有popover能改设置；未知payload/来源拒绝。
+- 检查浅/深/系统模式、显式模式不受系统事件覆盖、所有现有和新开窗口一致、陈旧读回/推送、关闭后监听清理，以及角色画笔不被工具主题改色。
+- 中文→英文→中文的标签、aria/title/placeholder、键盘Tab/方向键/焦点圈、长文案和小尺寸。带SVG/计数的标签保留子节点；用户中文任务、英文输入、伙伴名、Provider回复与实际错误详情保留原文。
+- 设置在途重复操作合并，关闭/重开不接受旧保存反馈；语言切换不能清空任务/快捷草稿、重置会话计时、撤销确认或制造第二条命令。
+- schema18拒绝及全部原文件字节保留只是开发保护，不能当作18→19升级通过。受控升级须按ARCHITECTURE对应门禁另行实现和测试；在该项关闭前不得把本分支合入自动更新通道。
+- Node对比度/事件测试不代表原生VoiceOver/NVDA、Windows/macOS或系统外观实时切换验收。英文覆盖范围与遗漏必须随交付列明。

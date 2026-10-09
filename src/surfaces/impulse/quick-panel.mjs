@@ -1,3 +1,4 @@
+import { t, onLocaleChanged } from '../shared/interface/i18n.mjs';
 'use strict';
 import { createQuickStepEditor } from './step-editor.mjs';
 import { createQuickStartEditor } from './quick-start-editor.mjs';
@@ -40,8 +41,8 @@ function formatDuration(ms) {
 }
 
 function commandMessage(result) {
-  if (!result) return '这次没有完成，请再试一次。';
-  return REASON_TEXT[result.reason] || '状态已经变化，请检查主面板后再试。';
+  if (!result) return t('这次没有完成，请再试一次。');
+  return t(REASON_TEXT[result.reason] || '状态已经变化，请检查主面板后再试。');
 }
 
 function createQuickPanelFeature({ window, document, client } = {}) {
@@ -65,6 +66,7 @@ function createQuickPanelFeature({ window, document, client } = {}) {
   let appendDraftVersion = 0;
   const pendingReads = new Map();
   let pendingFocus = null;
+  let statusCopy = () => '', statusTone = '';
   function supersedeReads() {
     requestGeneration++;
     for (const settle of pendingReads.values()) settle();
@@ -83,12 +85,19 @@ function createQuickPanelFeature({ window, document, client } = {}) {
     teardown.push(() => target.removeEventListener(type, handler));
   }
 
-  function setStatus(message = '', tone = '') {
+  function paintStatus() {
     const line = $('#panelStatus');
     if (!line) return;
+    const message = statusCopy();
     line.textContent = message;
-    line.dataset.tone = tone;
+    line.dataset.tone = statusTone;
     line.classList.toggle('hidden', !message);
+  }
+
+  function setStatus(source = '', tone = '') {
+    statusCopy = typeof source === 'function' ? source : () => source;
+    statusTone = tone;
+    paintStatus();
   }
 
   function setBusy(next) {
@@ -99,7 +108,7 @@ function createQuickPanelFeature({ window, document, client } = {}) {
   function resetCompletionConfirmation() {
     completeConfirmationTaskId = null;
     const button = $('#btnCompleteQuickTask');
-    if (button) button.textContent = '完成任务';
+    if (button) button.textContent = t('完成任务');
   }
 
   function showMode(mode) {
@@ -132,7 +141,7 @@ function createQuickPanelFeature({ window, document, client } = {}) {
       ? Math.max(0, window.performance.now() - timerAnchor.sampledAt)
       : 0;
     node.textContent = formatDuration(timerAnchor.remainingMs - delta);
-    node.setAttribute('aria-label', `剩余 ${node.textContent}，已投入 ${formatDuration(timerAnchor.elapsedMs + delta)}`);
+    node.setAttribute('aria-label', t('剩余 {remaining}，已投入 {elapsed}', { remaining: node.textContent, elapsed: formatDuration(timerAnchor.elapsedMs + delta) }));
   }
 
   function makeChoiceButton({ index, title, meta, onClick, className }) {
@@ -157,18 +166,35 @@ function createQuickPanelFeature({ window, document, client } = {}) {
     return button;
   }
 
-  function renderActive() {
+  function renderActiveCopy() {
     const session = view.session || {};
     const task = session.kind === 'break' ? null : view.task || null;
     $('#quickTaskTitle').textContent = task
       ? task.title
-      : (session.kind === 'break' ? '休息中' : '自由专注');
+      : (session.kind === 'break' ? t('休息中') : t('自由专注'));
     const confirm = isHeld() || renderedAction?.intent === 'confirm-completion';
     $('#quickSessionState').textContent = renderedAction?.reason === 'recovery-state-inconsistent'
-      ? '计时等待核对' : confirm ? '这一轮已到点，等待确认计入完成' : session.paused ? '已暂停' : '进行中';
-    syncTimerAnchor();
+      ? t('计时等待核对') : confirm ? t('这一轮已到点，等待确认计入完成') : session.paused ? t('已暂停') : t('进行中');
     renderTimer();
 
+    const pause = $('#btnPauseQuickSession');
+    pause.textContent = confirm ? t('确认计入完成') : session.paused ? t('继续') : t('暂停');
+    pause.dataset.icon = session.paused ? 'play' : 'pause';
+    pause.disabled = session.paused && renderedAction?.enabled !== true;
+    $('#btnStopQuickSession').textContent = confirm ? t('放弃本轮') : t('结束这段');
+    $('#btnStopQuickSession').disabled = isHeld() && !renderedAction;
+    const complete = $('#btnCompleteQuickTask');
+    if (complete) complete.textContent = completeConfirmationTaskId === task?.id
+      ? t('仍然完成') : t('完成任务');
+  }
+
+  function renderActive() {
+    syncTimerAnchor();
+    renderActiveCopy();
+    if ($('#btnPauseQuickSession').disabled) {
+      const reason = renderedAction?.reason || 'resume-action-unavailable';
+      setStatus(() => commandMessage({ reason }), 'quiet');
+    }
     const canEdit = Boolean(actionableTask());
     const steps = canEdit && Array.isArray(view.steps) ? view.steps : [];
     const stepSection = $('#quickStepsSection');
@@ -177,14 +203,14 @@ function createQuickPanelFeature({ window, document, client } = {}) {
 
     $('#appendStepForm').classList.toggle('hidden', !canEdit);
     $('#btnCompleteQuickTask').classList.toggle('hidden', !canEdit);
-    const pause = $('#btnPauseQuickSession');
-    pause.textContent = confirm ? '确认计入完成' : session.paused ? '继续' : '暂停';
-    pause.dataset.icon = session.paused ? 'play' : 'pause';
-    pause.disabled = session.paused && renderedAction?.enabled !== true;
-    $('#btnStopQuickSession').textContent = confirm ? '放弃本轮' : '结束这段';
-    $('#btnStopQuickSession').disabled = isHeld() && !renderedAction;
-    if (pause.disabled) setStatus(commandMessage({ reason: renderedAction?.reason || 'resume-action-unavailable' }), 'quiet');
     resetCompletionConfirmation();
+  }
+
+  function candidateMeta(candidate) {
+    const action = candidate.quickStartAction;
+    return action?.enabled
+      ? (action.intent === 'clarify-and-start' ? t('写下一步，开始 2 分钟') : t('先做 2 分钟'))
+      : commandMessage({ reason: action?.reason });
   }
 
   function renderIdle() {
@@ -194,7 +220,7 @@ function createQuickPanelFeature({ window, document, client } = {}) {
     if (!candidates.length) {
       const empty = document.createElement('p');
       empty.className = 'quick-empty';
-      empty.textContent = '先留下一句话。';
+      empty.textContent = t('先留下一句话。');
       list.appendChild(empty);
       return;
     }
@@ -203,8 +229,7 @@ function createQuickPanelFeature({ window, document, client } = {}) {
       const button = makeChoiceButton({
       index: index + 1,
       title: candidate.title,
-      meta: action?.enabled ? (action.intent === 'clarify-and-start' ? '写下一步，开始 2 分钟' : '先做 2 分钟')
-        : commandMessage({ reason: action?.reason }),
+      meta: candidateMeta(candidate),
       className: 'quick-row quick-candidate',
       onClick: () => startCandidate(candidate)
       });
@@ -260,7 +285,7 @@ function createQuickPanelFeature({ window, document, client } = {}) {
       if (generation !== requestGeneration || closing) return false;
       appliedRevision = -1;
       render({ mode: 'fallback' });
-      setStatus('当前状态暂时不可用，仍可快速记录。', 'quiet');
+      setStatus(() => t('当前状态暂时不可用，仍可快速记录。'), 'quiet');
     }
     return true;
   }
@@ -299,7 +324,7 @@ function createQuickPanelFeature({ window, document, client } = {}) {
       const result = await operation();
       if (!current()) return null;
       if (result && result.ok === false) {
-        setStatus(commandMessage(result), 'error');
+        setStatus(() => commandMessage(result), 'error');
         return result;
       }
       if (refreshAfter) await refresh();
@@ -307,7 +332,7 @@ function createQuickPanelFeature({ window, document, client } = {}) {
       return result || { ok: true };
     } catch (_) {
       if (!current()) return null;
-      setStatus('这次没有完成，请再试一次。', 'error');
+      setStatus(() => t('这次没有完成，请再试一次。'), 'error');
       return null;
     } finally {
       if (pendingCommand === token) { pendingCommand = null; setBusy(false); }
@@ -346,8 +371,8 @@ function createQuickPanelFeature({ window, document, client } = {}) {
     );
     if (result && result.ok === false && result.reason === 'unfinished-steps-need-confirmation') {
       completeConfirmationTaskId = view.task.id;
-      $('#btnCompleteQuickTask').textContent = '仍然完成';
-      setStatus(`还有 ${result.unfinishedCount || '几'} 个步骤没勾；再按一次确认完成。`, 'warning');
+      $('#btnCompleteQuickTask').textContent = t('仍然完成');
+      setStatus(() => t('还有 {count} 个步骤没勾；再按一次确认完成。', { count: result.unfinishedCount || t('几') }), 'warning');
       return;
     }
     resetCompletionConfirmation();
@@ -375,7 +400,7 @@ function createQuickPanelFeature({ window, document, client } = {}) {
       closing = true;
       input.value = '';
       document.body.dataset.receipt = 'saved';
-      setStatus('记好了');
+      setStatus(() => t('记好了'));
       await new Promise(resolve => window.setTimeout(resolve, 600));
       if (visit !== visitGeneration) return;
       await client.hideImpulse();
@@ -420,6 +445,22 @@ function createQuickPanelFeature({ window, document, client } = {}) {
   }
 
   function mount() {
+    teardown.push(onLocaleChanged(() => {
+      // Copy-only refresh keeps the monotonic clock, pending command identity,
+      // confirmation choice, and any in-progress step/next-action drafts intact.
+      if (view.mode === 'active') renderActiveCopy();
+      paintStatus();
+      if (view.mode === 'idle') {
+        const rows = $('#quickCandidates')?.querySelectorAll('.quick-candidate') || [];
+        rows.forEach((row, index) => {
+          const copy = row.querySelector('small');
+          const candidate = view.candidates?.[index];
+          if (copy && candidate) copy.textContent = candidateMeta(candidate);
+        });
+        const empty = $('#quickCandidates')?.querySelector('.quick-empty');
+        if (empty) empty.textContent = t('先留下一句话。');
+      }
+    }));
     quickStartEditor.mount();
     listen($('#impulseForm'), 'submit', event => {
       event.preventDefault();

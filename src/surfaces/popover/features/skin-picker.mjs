@@ -1,5 +1,30 @@
 'use strict';
 
+import { t, getLocale } from '../../shared/interface/i18n.mjs';
+
+// Translate only the built-in unlock descriptions; supplied content remains raw.
+function unlockDescription(skin) {
+  const source = skin.unlockDesc;
+  const level = /^Lv\.(\d+) 解锁$/.exec(source || '');
+  if (level) return t('Lv.{level} 解锁', { level: level[1] });
+  const authored = ['默认皮肤', 'Lv.7 解锁 · 飘落花瓣', 'Lv.6 解锁 · 会发光',
+    'Lv.10 解锁 · 头顶皇冠', 'Lv.10 解锁 · 像素电路', '默认可用 · 长耳形态与专属动作'];
+  return authored.includes(source) ? t(source) : source;
+}
+function thumbLabel(skin) {
+  return skin.unlocked
+    ? (skin.current ? t('{name}，当前形态', { name: skin.name }) : skin.name)
+    : t('{name}，未解锁', { name: skin.name });
+}
+function thumbDetail(skin) {
+  return `${skin.unlockLevel ? `Lv.${skin.unlockLevel}` : t('成就解锁')} · ${skin.unlocked ? t('已解锁') : t('未解锁')}`;
+}
+function applyLabel(skin) {
+  return skin.current ? t('当前形态') : skin.unlocked ? t('换成这个形态')
+    : t('未解锁 · {detail}', { detail: unlockDescription(skin) });
+}
+
+
 // 换形态：种类选择 → 该种类的形象网格 → 预览确认。
 // selectedFormId 与 previewedSkinId 都是本地状态，只有确认键调用 switchSkin。
 // 缩略图仅在清单变化时重画，移动焦点只更新选择状态。
@@ -23,6 +48,7 @@ function createPopoverSkinPicker({
   let lastSpeciesKey = '';
   let lastStripKey = '';
   let lastFocusKey = '';
+  let repaintSpecies = () => {}, repaintStrip = () => {}, repaintFocus = () => {};
   let trigger = null;
   let unsubscribe = null;
   let bound = false;
@@ -48,10 +74,18 @@ function createPopoverSkinPicker({
       if (!groups.has(id)) groups.set(id, { name: skin.formName || '团子兽', skin: skin.id, count: 0 });
       if (skin.unlocked) groups.get(id).count += 1;
     }
-    const key = JSON.stringify([...groups]) + selectedFormId;
+    const dataKey = JSON.stringify([...groups]) + selectedFormId;
+    const key = `${getLocale()}|${dataKey}`;
     if (key === lastSpeciesKey) return;
     lastSpeciesKey = key;
-    root.innerHTML = [...groups].map(([id, group]) => `<button type="button" class="skin-species-option" data-form="${escapeHTML(id)}" aria-pressed="${id === selectedFormId}"><canvas data-skin="${escapeHTML(group.skin)}"></canvas><span>${escapeHTML(group.name)}</span><small>已解锁 ${group.count}</small></button>`).join('');
+    root.innerHTML = [...groups].map(([id, group]) => `<button type="button" class="skin-species-option" data-form="${escapeHTML(id)}" aria-pressed="${id === selectedFormId}"><canvas data-skin="${escapeHTML(group.skin)}"></canvas><span>${escapeHTML(group.name)}</span><small>${escapeHTML(t('已解锁 {count}', { count: group.count }))}</small></button>`).join('');
+    repaintSpecies = () => {
+      lastSpeciesKey = `${getLocale()}|${dataKey}`;
+      for (const button of root.querySelectorAll('[data-form]')) {
+        const label = button.querySelector('small'), group = groups.get(button.dataset.form);
+        if (label && group) label.textContent = t('已解锁 {count}', { count: group.count });
+      }
+    };
     for (const canvas of root.querySelectorAll('canvas')) drawPetPreview(canvas, { skinId: canvas.dataset.skin, size: 'thumb' });
   }
 
@@ -72,7 +106,8 @@ function createPopoverSkinPicker({
     const strip = $('#skinStrip');
     if (!strip) return;
     const skins = formSkins(state);
-    const key = skins.map(skin => `${skin.id}:${skin.unlocked ? 1 : 0}:${skin.current ? 1 : 0}`).join(',');
+    const dataKey = skins.map(skin => `${skin.id}:${skin.unlocked ? 1 : 0}:${skin.current ? 1 : 0}`).join(',');
+    const key = `${getLocale()}|${dataKey}`;
     if (key === lastStripKey) {
       syncStripSelection();
       return;
@@ -83,16 +118,24 @@ function createPopoverSkinPicker({
       const classes = ['skin-thumb'];
       if (!skin.unlocked) classes.push('locked');
       if (skin.current) classes.push('current');
-      const label = skin.unlocked
-        ? `${skin.name}${skin.current ? '，当前形态' : ''}`
-        : `${skin.name}，未解锁`;
+      const label = thumbLabel(skin);
       return `<button type="button" class="${classes.join(' ')}" role="option"`
         + ` data-skin="${escapeHTML(skin.id)}" aria-selected="false" tabindex="-1"`
         + ` aria-label="${escapeHTML(label)}"><canvas></canvas>`
-        + `<span class="skin-thumb-name">${escapeHTML(skin.name)}</span><small>${skin.unlockLevel ? `Lv.${skin.unlockLevel}` : '成就解锁'} · ${skin.unlocked ? '已解锁' : '未解锁'}</small>`
+        + `<span class="skin-thumb-name">${escapeHTML(skin.name)}</span><small>${escapeHTML(thumbDetail(skin))}</small>`
         + '</button>';
     }).join('');
 
+    repaintStrip = () => {
+      lastStripKey = `${getLocale()}|${dataKey}`;
+      for (const thumb of strip.querySelectorAll('.skin-thumb')) {
+        const skin = skins.find(item => item.id === thumb.dataset.skin);
+        if (!skin) continue;
+        thumb.setAttribute('aria-label', thumbLabel(skin));
+        const detail = thumb.querySelector('small');
+        if (detail) detail.textContent = thumbDetail(skin);
+      }
+    };
     for (const thumb of strip.querySelectorAll('.skin-thumb')) {
       const canvas = thumb.querySelector('canvas');
       if (canvas) drawPetPreview(canvas, { skinId: thumb.dataset.skin, size: 'thumb' });
@@ -117,7 +160,11 @@ function createPopoverSkinPicker({
     if (!focus) return;
     const skin = findSkin(state, previewedSkinId);
     if (!skin) {
-      focus.innerHTML = '<p class="skin-focus-desc">还没有可选的形态。</p>';
+      focus.innerHTML = `<p class="skin-focus-desc">${escapeHTML(t('还没有可选的形态。'))}</p>`;
+      repaintFocus = () => {
+        const label = focus.querySelector('.skin-focus-desc');
+        if (label) label.textContent = t('还没有可选的形态。');
+      };
       lastFocusKey = '';
       return;
     }
@@ -125,32 +172,43 @@ function createPopoverSkinPicker({
     const wornIds = Array.isArray(bySkin?.[skin.id])
       ? bySkin[skin.id]
       : Array.isArray(state?.appearance?.wornIds) ? state.appearance.wornIds : [];
-    const key = `${skin.id}:${skin.unlocked ? 1 : 0}:${skin.current ? 1 : 0}`
+    const dataKey = `${skin.id}:${skin.unlocked ? 1 : 0}:${skin.current ? 1 : 0}`
       + `:${skin.progress ? skin.progress.current : '-'}:${wornIds.join('+')}`;
+    const key = `${getLocale()}|${dataKey}`;
     if (key === lastFocusKey) return;
     lastFocusKey = key;
 
-    const progressText = skin.progress ? `当前 ${skin.progress.current}/${skin.progress.target}` : '';
+    const progressText = skin.progress ? t('当前 {current}/{target}', skin.progress) : '';
     const progressPercent = skin.progress && skin.progress.target > 0
       ? Math.min(100, Math.round((skin.progress.current / skin.progress.target) * 100))
       : 0;
     // 三种确认键的样子对应三种事实,一句话说清为什么按不下去,而不是只灰掉。
     const apply = skin.current
-      ? { text: '当前形态', disabled: true }
+      ? { text: applyLabel(skin), disabled: true }
       : skin.unlocked
-        ? { text: '换成这个形态', disabled: false }
-        : { text: `未解锁 · ${skin.unlockDesc}`, disabled: true };
+        ? { text: applyLabel(skin), disabled: false }
+        : { text: applyLabel(skin), disabled: true };
 
     focus.innerHTML = `
       <div class="skin-focus-art"><canvas></canvas></div>
       <div class="skin-focus-name">${escapeHTML(skin.name)}</div>
-      <p class="skin-focus-desc">${escapeHTML(skin.unlockDesc)}</p>
+      <p class="skin-focus-desc">${escapeHTML(unlockDescription(skin))}</p>
       ${skin.progress ? `<div class="skin-progress-outer" aria-hidden="true"><div class="skin-progress-inner" style="width:${progressPercent}%"></div></div><p class="skin-progress-text">${escapeHTML(progressText)}</p>` : ''}
       <button type="button" class="skin-apply" id="btnSkinApply" data-skin="${escapeHTML(skin.id)}"${apply.disabled ? ' disabled' : ''}>${escapeHTML(apply.text)}</button>
     `;
 
+    repaintFocus = () => {
+      lastFocusKey = `${getLocale()}|${dataKey}`;
+      const description = focus.querySelector('.skin-focus-desc');
+      if (description) description.textContent = unlockDescription(skin);
+      const progress = focus.querySelector('.skin-progress-text');
+      if (progress && skin.progress) progress.textContent = t('当前 {current}/{target}', skin.progress);
+      const button = focus.querySelector('#btnSkinApply');
+      if (button) button.textContent = applyLabel(skin);
+    };
+
     // 聚焦卡的描边取该形态自己的颜色 —— 这是换形态在确认之前唯一被允许改的颜色。
-    // documentElement 上的主题色由 applyTheme 拥有,要等 switchSkin 成功才轮到它变。
+    // documentElement 的界面主题独立保存，预览和换形态都不会更改它。
     const accent = skinAccent(skin.id);
     focus.style.setProperty('--focus-primary', accent.primary);
     focus.style.setProperty('--focus-accent', accent.accent);
@@ -213,7 +271,7 @@ function createPopoverSkinPicker({
   }
 
   // 确认是整个抽屉唯一一次写动作。成功之后不做乐观更新:投影回流会把 current
-  // 换过来,按钮随之变成「当前形态」,App 主题色也在那一刻才变 —— 那就是回报。
+  // 换过来，按钮随之变成「当前形态」，伙伴使用新形态；界面主题保持不变。
   function onFocusClick(event) {
     const button = event.target && typeof event.target.closest === 'function'
       ? event.target.closest('#btnSkinApply')
@@ -281,6 +339,7 @@ function createPopoverSkinPicker({
     // 关着的时候不画:抽屉里那 11 张画布的栅格化没有理由跟着每次升级跑一遍。
     // 换皮肤改 current、升级与连续天数改解锁进度,换装改大图上戴着什么。
     unsubscribe = projectionStore.subscribe(change => {
+      if (change.localeOnly) { repaintSpecies(); repaintStrip(); repaintFocus(); return; }
       if (!isOpen()) return;
       const dirty = change.dirty || {};
       if (dirty.all || dirty.skin || dirty.stats || dirty.tasks || dirty.appearance) {
@@ -297,6 +356,7 @@ function createPopoverSkinPicker({
   function dispose() {
     if (typeof unsubscribe === 'function') unsubscribe();
     unsubscribe = null;
+    repaintSpecies = repaintStrip = repaintFocus = () => {};
     if (bound) {
       bound = false;
       const entry = $('#btnOpenSkins');

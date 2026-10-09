@@ -1,3 +1,4 @@
+import { t } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 const COPY_KEYS = Object.freeze({
@@ -16,29 +17,29 @@ function editableOperation(operation) {
   return Object.fromEntries(['opId', 'type', ...keys].filter(key => operation[key] !== undefined)
     .map(key => [key, structuredClone(operation[key])]));
 }
-function editorMarkup(operation, escapeHTML) {
+function editorMarkup(operation, escapeHTML, copy = (source, params = {}) => escapeHTML(t(source, params))) {
   const op = editableOperation(operation);
   if (!op) return '';
   const attr = field => `data-change-edit="${escapeHTML(op.opId)}" data-change-field="${field}"`;
-  const input = (field, title, value, type = 'text') => `<label class="chat-change-edit">${title}<input type="${type}" ${attr(field)} value="${escapeHTML(value ?? '')}"></label>`;
+  const input = (field, title, value, type = 'text', parameters = {}) => `<label class="chat-change-edit">${copy(title, parameters)}<input type="${type}" ${attr(field)} value="${escapeHTML(value ?? '')}"></label>`;
   const fields = op.input || op.patch;
   let markup = fields ? Object.keys(fields).filter(key => Object.hasOwn(LABELS, key)).map(key => input(key, LABELS[key],
     Array.isArray(fields[key]) ? fields[key].join(', ') : fields[key], key === 'plannedFor' ? 'date' : key === 'estimateMinutes' ? 'number' : 'text')).join('') : '';
   const steps = op.steps || op.input?.steps;
-  if (steps) markup += steps.map((step, index) => input(`step:${index}`, `${step.op === 'rename' ? '改写步骤' : '新增步骤'} ${index + 1}`, step.title)).join('');
-  if (op.type === 'task.update' || op.type === 'task.steps') markup += `<label class="chat-change-edit">重复任务作用范围<select ${attr('scope')}>`
-    + `<option value="current"${op.scope !== 'current-and-future' ? ' selected' : ''}>仅本次</option>`
-    + `<option value="current-and-future"${op.scope === 'current-and-future' ? ' selected' : ''}>本次及以后</option></select></label>`;
-  if (op.type === 'inbox.keep') markup += `<label class="chat-change-edit">留存分类<select ${attr('category')}>`
-    + [['unclassified', '未分类'], ['task', '要做的事'], ['note', '想法']].map(([key, title]) => `<option value="${key}"${op.classification.category === key ? ' selected' : ''}>${title}</option>`).join('') + '</select></label>';
+  if (steps) markup += steps.map((step, index) => input(`step:${index}`, step.op === 'rename' ? '改写步骤 {index}' : '新增步骤 {index}', step.title, 'text', { index: index + 1 })).join('');
+  if (op.type === 'task.update' || op.type === 'task.steps') markup += `<label class="chat-change-edit">${copy('重复任务作用范围')}<select ${attr('scope')}>`
+    + `<option data-change-option-copy="仅本次" value="current"${op.scope !== 'current-and-future' ? ' selected' : ''}>${t('仅本次')}</option>`
+    + `<option data-change-option-copy="本次及以后" value="current-and-future"${op.scope === 'current-and-future' ? ' selected' : ''}>${t('本次及以后')}</option></select></label>`;
+  if (op.type === 'inbox.keep') markup += `<label class="chat-change-edit">${copy('留存分类')}<select ${attr('category')}>`
+    + [['unclassified', '未分类'], ['task', '要做的事'], ['note', '想法']].map(([key, title]) => `<option data-change-option-copy="${escapeHTML(title)}" value="${key}"${op.classification.category === key ? ' selected' : ''}>${t(title)}</option>`).join('') + '</select></label>';
   if (op.type === 'routine.schedule' && op.schedule) {
-    markup += `<label class="chat-change-edit">重复范围<select ${attr('frequency')}>`
-      + [['daily', '每天'], ['weekdays', '工作日'], ['weekly', '所选星期']].map(([key, title]) => `<option value="${key}"${op.schedule.frequency === key ? ' selected' : ''}>${title}</option>`).join('') + '</select></label>';
+    markup += `<label class="chat-change-edit">${copy('重复范围')}<select ${attr('frequency')}>`
+      + [['daily', '每天'], ['weekdays', '工作日'], ['weekly', '所选星期']].map(([key, title]) => `<option data-change-option-copy="${escapeHTML(title)}" value="${key}"${op.schedule.frequency === key ? ' selected' : ''}>${t(title)}</option>`).join('') + '</select></label>';
     markup += input('timesOfDay', '提醒时间（HH:MM，逗号分隔）', op.schedule.timesOfDay.join(', '));
     markup += input('weekdays', '星期（1–7，逗号分隔；仅所选星期时使用）', op.schedule.weekdays.join(', '));
     markup += input('windowMinutes', '提醒时间窗口（分钟）', op.schedule.windowMinutes, 'number');
   }
-  return markup ? `<details class="chat-change-editor"><summary>编辑这项建议</summary>${markup}<p>编辑后需要重新查看差异，旧确认失效。</p></details>` : '';
+  return markup ? `<details class="chat-change-editor"><summary>${copy('编辑这项建议')}</summary>${markup}<p>${copy('编辑后需要重新查看差异，旧确认失效。')}</p></details>` : '';
 }
 function editOperation(operation, field, value) {
   const op = editableOperation(operation);

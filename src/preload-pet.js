@@ -13,6 +13,18 @@ function subscribePet(channel, callback) {
 }
 
 contextBridge.exposeInMainWorld('bubu', {
+  getInterfacePreferences: () => ipcRenderer.invoke('settings:get-interface'),
+  onInterfacePreferences: callback => {
+    if (typeof callback !== 'function') return () => {};
+    let active = true;
+    const listener = (_event, payload) => { if (active) callback(payload); };
+    ipcRenderer.on('settings:interface-changed', listener);
+    return () => {
+      if (!active) return;
+      active = false;
+      ipcRenderer.removeListener('settings:interface-changed', listener);
+    };
+  },
   pet_getBounds: () => ipcRenderer.invoke('pet:getBounds'),
   pet_setPosition: (x, y) => ipcRenderer.invoke('pet:setPosition', { x, y }),
   pet_savePosition: (x, y) => ipcRenderer.invoke('pet:savePosition', { x, y }),

@@ -1,3 +1,4 @@
+import { t } from '../../shared/interface/i18n.mjs';
 import { ROUTINE_KINDS } from '../../../content/energy-effects.mjs';
 import { routineSymbol } from './routine-symbols.mjs';
 
@@ -9,7 +10,7 @@ function createRoutineControls({ $, escapeHTML: esc, getState, listen, syncSched
     const host = $('#routineKindChoices');
     if (!host) return;
     const value = $('#routineKind').value;
-    host.innerHTML = ROUTINE_KINDS.map(kind => `<button type="button" class="routine-kind-choice" data-kind="${kind}" aria-pressed="${value === kind}">${routineSymbol(kind).icon}<span>${kind === 'custom' ? '自定义' : routineSymbol(kind).label}</span></button>`).join('');
+    host.innerHTML = ROUTINE_KINDS.map(kind => `<button type="button" class="routine-kind-choice" data-kind="${kind}" aria-pressed="${value === kind}">${routineSymbol(kind).icon}<span data-kind-label>${t(kind === 'custom' ? '自定义' : routineSymbol(kind).label)}</span></button>`).join('');
     $('#routineCustomRow')?.classList.toggle('hidden', value !== 'custom');
     const names = [...new Set((getState()?.routines?.items || []).map(r => r.customLabel).filter(Boolean))];
     if ($('#routineCustomLabels')) $('#routineCustomLabels').innerHTML = names.map(name => `<option value="${esc(name)}"></option>`).join('');
@@ -19,8 +20,21 @@ function createRoutineControls({ $, escapeHTML: esc, getState, listen, syncSched
     if (!host) return;
     $('#routineTimes').value = times.join(',');
     const options = (count, selected) => Array.from({ length: count }, (_, n) => `<option value="${pad(n)}" ${pad(n) === selected ? 'selected' : ''}>${pad(n)}</option>`).join('');
-    host.innerHTML = times.map((time, i) => `<div class="routine-time-slot"><span data-icon="clock" data-icon-only></span><select data-time-index="${i}" data-part="0" aria-label="第${i+1}次提醒的小时">${options(24,time.slice(0,2))}</select><span>:</span><select data-time-index="${i}" data-part="1" aria-label="第${i+1}次提醒的分钟">${options(60,time.slice(3))}</select><button type="button" data-remove-time="${i}" aria-label="移除 ${time}">×</button></div>`).join('');
+    host.innerHTML = times.map((time, i) => `<div class="routine-time-slot"><span data-icon="clock" data-icon-only></span><select data-time-index="${i}" data-part="0" aria-label="${t('第{index}次提醒的小时', { index: i + 1 })}">${options(24,time.slice(0,2))}</select><span>:</span><select data-time-index="${i}" data-part="1" aria-label="${t('第{index}次提醒的分钟', { index: i + 1 })}">${options(60,time.slice(3))}</select><button type="button" data-remove-time="${i}" aria-label="${t('移除 {time}', { time })}">×</button></div>`).join('');
     if ($('#btnAddRoutineTime')) $('#btnAddRoutineTime').disabled = times.length >= 6;
+  }
+  function repaintCopy() {
+    $('#routineKindChoices')?.querySelectorAll('[data-kind]').forEach(button => {
+      const label = button.querySelector('[data-kind-label]');
+      if (label) label.textContent = t(routineSymbol(button.dataset.kind).label);
+    });
+    $('#routineTimeChoices')?.querySelectorAll('[data-time-index]').forEach(select => {
+      select.setAttribute('aria-label', t(select.dataset.part === '0' ? '第{index}次提醒的小时' : '第{index}次提醒的分钟', { index: Number(select.dataset.timeIndex) + 1 }));
+    });
+    $('#routineTimeChoices')?.querySelectorAll('[data-remove-time]').forEach(button => {
+      button.setAttribute('aria-label', t('移除 {time}', { time: times[Number(button.dataset.removeTime)] }));
+    });
+    for (const option of $('#routineKind')?.options || []) option.textContent = t(routineSymbol(option.value).label);
   }
   function renderFrequency() {
     const value = $('#routineFrequency')?.value || '';
@@ -67,6 +81,6 @@ function createRoutineControls({ $, escapeHTML: esc, getState, listen, syncSched
       if (times.length < 6) { times.push('09:00'); renderTimes(); }
     });
   }
-  return { mount, fill, renderKinds };
+  return { mount, fill, renderKinds, repaintCopy };
 }
 export { createRoutineControls };

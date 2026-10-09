@@ -1,3 +1,4 @@
+import { t, getLocale } from '../../shared/interface/i18n.mjs';
 import { energyPath } from '../ui/energy-path.mjs';
 import { createMoodDock } from '../ui/mood-dock.mjs';
 'use strict';
@@ -90,7 +91,7 @@ function createPopoverEnergyStrip({ $, $$, getState, surfaceClient, escapeHTML, 
       // 的全部意义。标题按 routineId 回查(ARCHITECTURE「日常与能量」),不从曲线里复制。
       const ticks = Array.isArray(curve.marks) ? curve.marks : [];
       marks.innerHTML = ticks.filter(mark => mark && mark.minute >= from && mark.minute <= to).map(mark => {
-        const title = titleOf(mark) || '一次日常';
+        const title = titleOf(mark) || t('一次日常');
         return `<b style="left:${percentIn(mark.minute, from, span)}" title="${escapeHTML(title)}"></b>`;
       }).join('');
     }
@@ -103,12 +104,12 @@ function createPopoverEnergyStrip({ $, $$, getState, surfaceClient, escapeHTML, 
     if (!rows.length) return '';
     return rows.map(row => {
       const name = row.source === 'check-in'
-        ? '你的自评'
+        ? t('你的自评')
         : row.source === 'focus-load'
-          ? '专注负荷'
+          ? t('专注负荷')
         : row.source === 'impulse-ai'
-          ? `闪念判断${row.label ? `（${row.label}）` : ''}`
-          : (titleOf(row) || '日常');
+          ? row.label ? t('闪念判断（{label}）', { label: row.label }) : t('闪念判断')
+          : (titleOf(row) || t('日常'));
       return `${name} ${row.delta > 0 ? '+' : '−'}${Math.abs(row.delta)}`;
     }).join(' · ');
   }
@@ -134,6 +135,7 @@ function createPopoverEnergyStrip({ $, $$, getState, surfaceClient, escapeHTML, 
     const rows = Array.isArray(curve && curve.attribution) ? curve.attribution : [];
     const ticks = Array.isArray(curve && curve.marks) ? curve.marks : [];
     const key = [
+      getLocale(),
       estimate.level, label.text || estimate.band,
       curve ? curve.levels.join(',') : 'off',
       curve ? `${curve.nowMinute}|${curve.confidence}|${curve.trend}` : '',
@@ -147,7 +149,7 @@ function createPopoverEnergyStrip({ $, $$, getState, surfaceClient, escapeHTML, 
     // 的悬停文字跟着变 —— 复制一份进曲线的那种做法会让它一直显示旧名字。
     const items = state.routines && Array.isArray(state.routines.items) ? state.routines.items : [];
     const titleOf = row => {
-      if (row && row.source === 'impulse-ai' && row.label) return `闪念判断：${row.label}`;
+      if (row && row.source === 'impulse-ai' && row.label) return t('闪念判断：{label}', { label: row.label });
       const found = row && row.id ? items.find(item => item && item.id === row.id) : null;
       return found ? found.title : null;
     };
@@ -155,7 +157,8 @@ function createPopoverEnergyStrip({ $, $$, getState, surfaceClient, escapeHTML, 
     const reading = $('#energyReading');
     if (reading) {
       // 读数是一句陈述：档位加数字，不带天气图标。它坐在「能量」那块上，所以不再重复标签。
-      const text = label.text || estimate.band || '未知';
+      const source = label.text || estimate.band || '未知';
+      const text = ['精力充沛', '状态良好', '中等', '有点累', '需要休息', '未知'].includes(source) ? t(source) : source;
       reading.textContent = `${text} · ${Math.round(estimate.level)}`;
     }
 
@@ -171,7 +174,9 @@ function createPopoverEnergyStrip({ $, $$, getState, surfaceClient, escapeHTML, 
         // 一片 96 根柱子的色块对读屏没有意义,所以整块只留一句话:趋势 + 置信度。
         if (plot) {
           plot.setAttribute('aria-label',
-            `今天的能量曲线，现在约 ${Math.round(estimate.level)}${TREND_TEXT[curve.trend] ? `，${TREND_TEXT[curve.trend].slice(2)}` : ''}${CONFIDENCE_TEXT[curve.confidence] || ''}`);
+            t('今天的能量曲线，现在约 {level}{trend}{confidence}', { level: Math.round(estimate.level),
+              trend: TREND_TEXT[curve.trend] ? `${getLocale() === 'en' ? ', ' : '，'}${t(TREND_TEXT[curve.trend]).slice(2)}` : '',
+              confidence: t(CONFIDENCE_TEXT[curve.confidence] || '') }));
         }
       }
     }
@@ -180,11 +185,11 @@ function createPopoverEnergyStrip({ $, $$, getState, surfaceClient, escapeHTML, 
     if (note) {
       const parts = [];
       if (curve) {
-        if (TREND_TEXT[curve.trend]) parts.push(TREND_TEXT[curve.trend]);
+        if (TREND_TEXT[curve.trend]) parts.push(t(TREND_TEXT[curve.trend]));
         const because = attributionText(curve, titleOf);
         if (because) parts.push(because);
         // 「误差大就把置信度写出来」(ARCHITECTURE「日常与能量」)：淡一点只是提示,说出来才是交代。
-        if (CONFIDENCE_TEXT[curve.confidence]) parts.push(CONFIDENCE_TEXT[curve.confidence]);
+        if (CONFIDENCE_TEXT[curve.confidence]) parts.push(t(CONFIDENCE_TEXT[curve.confidence]));
       }
       note.textContent = parts.join(' · ');
       note.classList.toggle('hidden', parts.length === 0);
@@ -196,7 +201,7 @@ function createPopoverEnergyStrip({ $, $$, getState, surfaceClient, escapeHTML, 
     syncPressedButtons('.energy-checkin-btn', button => Number(button.dataset.level) === nearest);
     // 五张脸没有字，选中的那一档在旁边用一个词说出来：图形为主，但不让人猜。
     const caption = $('#energyCheckinCaption');
-    if (caption) caption.textContent = CHECK_IN_LABELS[nearest] || '';
+    if (caption) caption.textContent = t(CHECK_IN_LABELS[nearest] || '');
   }
 
   function nearestCheckInLevel(level) {

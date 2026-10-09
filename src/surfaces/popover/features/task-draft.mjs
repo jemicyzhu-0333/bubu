@@ -1,3 +1,4 @@
+import { t, getLocale, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 // 新任务弹层：一张草稿，一次提交。
@@ -14,7 +15,7 @@ function createPopoverTaskDraft({
   document, $, $$, escapeHTML, syncPressedButtons, readNumberInput,
   bindStepTitleField, parseTagList, tagInputError, estimateInputError, maxSteps,
   surfaceClient, breakdownProviderLabel, fallbackReasonSuffix,
-  whenFields, restoreModalFocus, showStatus
+  whenFields, restoreModalFocus, showStatus: reportStatus
 } = {}) {
   if (!document || typeof $ !== 'function' || typeof $$ !== 'function') {
     throw new TypeError('popover task draft requires document, $ and $$');
@@ -30,7 +31,7 @@ function createPopoverTaskDraft({
     ['breakdownProviderLabel', breakdownProviderLabel],
     ['fallbackReasonSuffix', fallbackReasonSuffix],
     ['restoreModalFocus', restoreModalFocus],
-    ['showStatus', showStatus]
+    ['showStatus', reportStatus]
   ]) {
     if (typeof fn !== 'function') throw new TypeError(`popover task draft requires ${name}`);
   }
@@ -50,6 +51,26 @@ function createPopoverTaskDraft({
   let draftGeneration = 0;
   let saving = false;
   let enrichRequest = null;
+  let statusCopy = () => '';
+  function showStatus(source = '') {
+    statusCopy = typeof source === 'function' ? source : () => t(source);
+    reportStatus(statusCopy());
+  }
+  function repaintCopy() {
+    if (!enrichRequest && $('#btnEnrichDraft')) $('#btnEnrichDraft').textContent = t('拆成步骤');
+    if (!isOpen()) return;
+    reportStatus(statusCopy());
+    $('#createSteps').querySelectorAll('.bd-step').forEach((row, index) => {
+      const input = row.querySelector('.bd-step-input');
+      input?.setAttribute('placeholder', t('这一步做什么...'));
+      input?.setAttribute('aria-label', t('第 {number} 步', { number: index + 1 }));
+      row.querySelector('.bd-step-del')?.setAttribute('aria-label', t('删除第 {number} 步', { number: index + 1 }));
+    });
+    const add = $('#createAddStep');
+    if (add) add.title = add.disabled ? t('每个任务最多 {count} 个步骤', { count: maxSteps }) : '';
+    if (enrichRequest) enrichRequest.repaint?.();
+  }
+
 
   function isCurrent(generation) {
     return generation === draftGeneration && isOpen();
@@ -59,7 +80,7 @@ function createPopoverTaskDraft({
     if (!enrichRequest) return;
     clearInterval(enrichRequest.ticking);
     enrichRequest.button.disabled = false;
-    enrichRequest.button.textContent = enrichRequest.label;
+    enrichRequest.button.textContent = t('拆成步骤');
     enrichRequest = null;
   }
 
@@ -67,6 +88,7 @@ function createPopoverTaskDraft({
   // Invalidating the view does not cancel or retry an in-flight task commit.
   function invalidateDraft() {
     draftGeneration += 1;
+    statusCopy = () => '';
     saving = false;
     clearEnrich();
     const confirmButton = $('#taskCreateConfirm');
@@ -117,13 +139,13 @@ function createPopoverTaskDraft({
   // 捕捉只需要标题。没有任何字段能再把保存拦在门外：中期任务强制 DDL 那条
   // 规则跟着 category 一起没了，想起一件事就能直接写下来。
   async function submit(extra, { breakdown = false, generation, onSuccess } = {}) {
-    for (const message of [
-      tagInputError($('#tagsInput') ? $('#tagsInput').value : ''),
-      estimateInputError('#estimateInput'),
-      whenFields.validate()
+    for (const validate of [
+      () => tagInputError($('#tagsInput') ? $('#tagsInput').value : ''),
+      () => estimateInputError('#estimateInput'),
+      () => whenFields.validate()
     ]) {
-      if (message) {
-        showStatus(message);
+      if (validate()) {
+        showStatus(validate);
         return false;
       }
     }
@@ -167,6 +189,7 @@ function createPopoverTaskDraft({
     if (!mask) return;
     mask.classList.remove('hidden');
     mask.setAttribute('aria-hidden', 'false');
+    repaintCopy();
     const generation = draftGeneration;
     requestAnimationFrame(() => {
       if (isCurrent(generation)) $('#taskInput').focus();
@@ -197,8 +220,8 @@ function createPopoverTaskDraft({
       row.className = 'bd-step';
       row.innerHTML = `
       <div class="bd-step-num">${index + 1}</div>
-      <textarea class="bd-step-input" maxlength="200" rows="1" placeholder="这一步做什么..." aria-label="第 ${index + 1} 步">${escapeHTML(step.title)}</textarea>
-      <button type="button" class="bd-step-del" aria-label="删除第 ${index + 1} 步">✕</button>
+      <textarea class="bd-step-input" maxlength="200" rows="1" placeholder="${t('这一步做什么...')}" aria-label="${escapeHTML(t('第 {number} 步', { number: index + 1 }))}">${escapeHTML(step.title)}</textarea>
+      <button type="button" class="bd-step-del" aria-label="${escapeHTML(t('删除第 {number} 步', { number: index + 1 }))}">✕</button>
     `;
       bindStepTitleField(row.querySelector('.bd-step-input'), value => {
         createStepsDraft[index].title = value;
@@ -212,13 +235,13 @@ function createPopoverTaskDraft({
     const addButton = $('#createAddStep');
     if (addButton) {
       addButton.disabled = createStepsDraft.length >= maxSteps;
-      addButton.title = addButton.disabled ? `每个任务最多 ${maxSteps} 个步骤` : '';
+      addButton.title = addButton.disabled ? t('每个任务最多 {count} 个步骤', { count: maxSteps }) : '';
     }
   }
 
   function addStep() {
     if (createStepsDraft.length >= maxSteps) {
-      showStatus(`每个任务最多 ${maxSteps} 个步骤。`);
+      showStatus(() => t('每个任务最多 {count} 个步骤。', { count: maxSteps }));
       return;
     }
     createStepsDraft.push({ title: '' });
@@ -239,7 +262,7 @@ function createPopoverTaskDraft({
     }
     const blankStep = createStepsDraft.findIndex(step => !step.title.trim());
     if (blankStep !== -1) {
-      showStatus(`第 ${blankStep + 1} 步还没有标题；要删掉它请按 ✕。`);
+      showStatus(() => t('第 {number} 步还没有标题；要删掉它请按 ✕。', { number: blankStep + 1 }));
       return;
     }
     // 步骤对象在 tasks:add / tasks:add-with-breakdown 上是封闭的，只收 title：
@@ -249,7 +272,7 @@ function createPopoverTaskDraft({
       .map(step => ({ title: step.title.trim() }))
       .filter(step => step.title);
     if (steps.length > maxSteps) {
-      showStatus(`每个任务最多 ${maxSteps} 个步骤。`);
+      showStatus(() => t('每个任务最多 {count} 个步骤。', { count: maxSteps }));
       return;
     }
     const confirmButton = $('#taskCreateConfirm');
@@ -279,7 +302,7 @@ function createPopoverTaskDraft({
     // 所以这里一个字段都不填，只说清楚为什么，并把光标放到“加一步”上，让人自己写下第一个看得见的动作。
     const usedModel = suggestion.provider === 'api' && !suggestion.fallback;
     if (!usedModel) {
-      showStatus(`没有用 AI，所以没替你拆。先写下第一个看得见的动作，比如“打开……”。${fallbackReasonSuffix(suggestion)}`);
+      showStatus(() => t('没有用 AI，所以没替你拆。先写下第一个看得见的动作，比如“打开……”。{detail}', { detail: fallbackReasonSuffix(suggestion) }));
       const addStep = $('#createAddStep');
       if (addStep && typeof addStep.focus === 'function') addStep.focus();
       return;
@@ -291,34 +314,34 @@ function createPopoverTaskDraft({
         .map(step => ({ title: step.title }));
       createStepsFromSuggestion = true;
       renderSteps();
-      filled.push(`${createStepsDraft.length} 个步骤`);
+      const count = createStepsDraft.length; filled.push(() => t('{count} 个步骤', { count }));
     }
     const description = $('#taskDescriptionInput');
     if (suggestion.completionCriteria && description && !description.value.trim()) {
-      description.value = `做完的判断：${suggestion.completionCriteria}`;
-      filled.push('完成标准');
+      description.value = t('做完的判断：{criteria}', { criteria: suggestion.completionCriteria });
+      filled.push(() => t('完成标准'));
     }
     if (suggestion.energy) {
       selectedEnergy = suggestion.energy;
       syncPressedButtons('.energy-chip', button => button.dataset.energy === selectedEnergy);
-      filled.push('能量');
+      filled.push(() => t('能量'));
     }
     const estimate = $('#estimateInput');
     if (Number.isInteger(suggestion.estimateMinutes) && estimate && !estimate.value.trim()) {
       estimate.value = String(suggestion.estimateMinutes);
-      filled.push('估时');
+      filled.push(() => t('估时'));
     }
     const tagsInput = $('#tagsInput');
     if (Array.isArray(suggestion.tags) && suggestion.tags.length && tagsInput && !tagsInput.value.trim()) {
       tagsInput.value = suggestion.tags.join('，');
-      filled.push('标签');
+      filled.push(() => t('标签'));
     }
     const advanced = $('#taskAdvanced');
     if (advanced && filled.length) advanced.open = true;
     // 能量与估时来自模型的推断就要说出口：用户在按保存之前就知道哪几项不是自己填的。
-    showStatus(filled.length
-      ? `已按 AI 建议填好：${filled.join('、')}。每一项都能改或清空，标题没有动。`
-      : `这次没有可补的字段，已填内容保持原样。`);
+    showStatus(() => filled.length
+      ? t('已按 AI 建议填好：{fields}。每一项都能改或清空，标题没有动。', { fields: filled.map(copy => copy()).join(getLocale() === 'en' ? ', ' : '、') })
+      : t('这次没有可补的字段，已填内容保持原样。'));
   }
 
   // 澄清谈出来的提案接到同一张草稿上。它跟「让伙伴补全」只差一处：标题也是谈出来
@@ -361,8 +384,9 @@ function createPopoverTaskDraft({
     // 多久说出来——秒数是唯一能让人判断“还要不要继续等”的信息。
     const startedAt = Date.now();
     const showElapsed = () => {
-      if (isCurrentRequest()) button.textContent = `正在补全… ${Math.round((Date.now() - startedAt) / 1000)}s`;
+      if (isCurrentRequest()) button.textContent = t('正在补全… {seconds}s', { seconds: Math.round((Date.now() - startedAt) / 1000) });
     };
+    request.repaint = showElapsed;
     showElapsed();
     request.ticking = setInterval(showElapsed, 1000);
     let proposalId = null;
@@ -377,7 +401,7 @@ function createPopoverTaskDraft({
       // 一份迟到的建议写进新草稿，就是替下一件事预设上一件事的计划——宁可丢掉。
       if (!isCurrentRequest()) return;
       if (!suggestion || suggestion.ok === false) {
-        showStatus(`这次没能给出建议，已填的内容都还在。${fallbackReasonSuffix(suggestion)}`);
+        showStatus(() => t('这次没能给出建议，已填的内容都还在。{detail}', { detail: fallbackReasonSuffix(suggestion) }));
         return;
       }
       applyEnrichSuggestion(suggestion);
@@ -394,7 +418,9 @@ function createPopoverTaskDraft({
   function mount() {
     if (mounted) return;
     mounted = true;
+    teardown.push(onLocaleChanged(repaintCopy));
     whenFields.mount();
+    repaintCopy();
     listen($('#btnOpenTaskCreate'), 'click', () => open());
     listen($('#taskCreateClose'), 'click', close);
     listen($('#taskCreateCancel'), 'click', close);
@@ -424,7 +450,7 @@ function createPopoverTaskDraft({
     whenFields.dispose();
   }
 
-  return Object.freeze({ mount, dispose, isOpen, open, close, adopt });
+  return Object.freeze({ mount, dispose, isOpen, open, close, adopt, showStatus });
 }
 
 

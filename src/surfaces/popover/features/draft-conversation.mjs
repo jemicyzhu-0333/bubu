@@ -1,3 +1,4 @@
+import { t, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 import { createCollaborationView, taskDraftFromMessage } from '../ui/collaboration-view.mjs';
@@ -84,7 +85,7 @@ function createPopoverDraftConversation({
       view.busy(busy || value);
       if ($('#btnDraftChatSend')) $('#btnDraftChatSend').disabled = busy || value || !scopeGrantId
         || record?.contextEligibilityPending === true || contextSelection.isDirty();
-      if (value && $('#btnDraftChatSend')) $('#btnDraftChatSend').textContent = '处理中…';
+      if (value) view.text('#btnDraftChatSend', '处理中…');
       if (value) $('#btnDraftChatCancel')?.classList.add('hidden');
       receiptMode();
       if (!value) void proposalStatus.refresh();
@@ -104,8 +105,8 @@ function createPopoverDraftConversation({
     $('#btnDraftChatReceiptClose')?.classList.toggle('hidden', !local);
     if (local) {
       $('#btnDraftChatAdopt')?.classList.add('hidden');
-      if ($('#draftChatTitle')) $('#draftChatTitle').textContent = '本机变更回执';
-      if ($('#draftChatCurrentMode')) $('#draftChatCurrentMode').textContent = '只核对提交记录与可用撤销，不开启对话或模型请求';
+      view.text('#draftChatTitle', '本机变更回执');
+      view.text('#draftChatCurrentMode', '只核对提交记录与可用撤销，不开启对话或模型请求');
       $('#draftChatTaskContext')?.classList.add('hidden');
     }
   }
@@ -130,7 +131,7 @@ function createPopoverDraftConversation({
   }
   function markDraftStatus() {
     if (record?.saveState === 'saved' && record?.retention?.mode === 'saved' && (input() !== record.inputDraft || selected !== record.selectedProposalId)
-      && $('#draftChatSaveState')) $('#draftChatSaveState').textContent = '当前输入或草稿选择待保存 · 暂停时保留';
+      && $('#draftChatSaveState')) view.text('#draftChatSaveState', '当前输入或草稿选择待保存 · 暂停时保留');
   }
   function snapshot() {
     const draft = { inputDraft: input(), selectedProposalId: selected, scrollTop: $('#draftChatLog')?.scrollTop || 0 };
@@ -200,7 +201,7 @@ function createPopoverDraftConversation({
     const next = { purpose: options.purpose || 'task', mode: options.mode || 'talk' };
     if (options.taskId) next.taskId = options.taskId;
     if (!isAiClarifyEnabled(next.purpose)) {
-      showEntryStatus(REFUSALS['clarify-disabled'], next.purpose);
+      showEntryStatus(() => t(REFUSALS['clarify-disabled']), next.purpose);
       return;
     }
     if (next.purpose !== entry.purpose || next.taskId !== entry.taskId) resumeId = null;
@@ -232,11 +233,11 @@ function createPopoverDraftConversation({
         scrollTop: draft?.scrollTop ?? result.conversation.scrollTop ?? 0 });
     }) : null]).then(results => results.find(result => result?.ok === false) || results.find(result => result?.conversation?.saveState === 'unsaved') || results[0]).then(result => {
       if (result?.ok === false || result?.conversation?.saveState === 'unsaved') {
-        if (!navigation.isOpen()) showEntryStatus('对话已暂停，输入草稿尚未保存到本机；再次打开仍可继续。', closingPurpose);
+        if (!navigation.isOpen()) showEntryStatus(() => t('对话已暂停，输入草稿尚未保存到本机；再次打开仍可继续。'), closingPurpose);
       }
       return result;
     }).catch(() => {
-      if (!navigation.isOpen()) showEntryStatus('暂停保存未确认，输入草稿仍保留在本次运行中。', closingPurpose);
+      if (!navigation.isOpen()) showEntryStatus(() => t('暂停保存未确认，输入草稿仍保留在本次运行中。'), closingPurpose);
       return null;
     });
     navigation.close({ adopted });
@@ -269,9 +270,9 @@ function createPopoverDraftConversation({
       snapshot();
       const local = result.source === 'local' || result.fallback;
       const reason = result.providerReason || result.reason;
-      const note = local ? `本地模板${reason ? `：${fallbackReasonText(reason) || '模型暂不可用'}` : ''}。` : '';
-      const notice = result.notice === 'summary-available' ? '已有草稿可以带回编辑，也可以继续聊。' : '';
-      view.status(`${note}${notice}`);
+      const hasSummary = result.notice === 'summary-available';
+      view.status(() => (local ? t('本地模板{detail}。', { detail: reason ? t('：{detail}', { detail: fallbackReasonText(reason) || t('模型暂不可用') }) : '' }) : '')
+        + (hasSummary ? t('已有草稿可以带回编辑，也可以继续聊。') : ''));
       $('#draftChatInput')?.focus();
     } catch (_) { if (valid(token)) showFailure(); }
     finally { if (valid(token)) { setBusy(false); $('#draftChatInput')?.focus(); } }
@@ -286,7 +287,7 @@ function createPopoverDraftConversation({
     view.draft(currentDraft.inputDraft, selected);
     markDraftStatus();
     const applied = kind === 'cancel' ? '先前生成已取消' : kind === 'mode' ? '模式已更改' : '旧参考范围已撤回';
-    view.status(`${applied}，输入内容仍在。新的参考内容尚未准备好，请重新打开对话后选择。`);
+    view.status(() => t('{action}，输入内容仍在。新的参考内容尚未准备好，请重新打开对话后选择。', { action: t(applied) }));
     return true;
   }
   async function cancel() {
@@ -435,7 +436,7 @@ function createPopoverDraftConversation({
       view.draft('', null); view.conversation(null, null); view.sessions(listed, null);
       setBusy(false);
       navigation.close();
-      showEntryStatus('这段对话已删除。已建立的任务未改动。', entry.purpose);
+      showEntryStatus(() => t('这段对话已删除。已建立的任务未改动。'), entry.purpose);
     } catch (_) { if (valid(token)) showFailure(); }
     finally { if (valid(token)) setBusy(false); }
   }
@@ -499,6 +500,7 @@ function createPopoverDraftConversation({
   function mount() {
     if (mounted) return;
     mounted = true;
+    teardown.push(onLocaleChanged(view.repaintCopy));
     contextSelection.mount();
     changes.mount();
     const unsubscribeHidden = surfaceClient.onPopoverHidden?.(() => close());

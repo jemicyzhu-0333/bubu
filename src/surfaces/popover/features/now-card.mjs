@@ -1,3 +1,4 @@
+import { t } from '../../shared/interface/i18n.mjs';
 import { createSessionStep } from './session-step.mjs';
 import { createSurfaceMotion } from '../../shared/motion.mjs';
 import { actionPresentation } from '../state/action-presentation.mjs';
@@ -106,26 +107,27 @@ function createPopoverNowCard({
     const session = getSession();
     const freeSession = !activeTask && (session.running || session.paused);
     const hasOpenTasks = (getState().tasks || []).some(task => !task.done);
-    const presentation = actionPresentation(getState(), session, activeTask, recommendationForTask(activeTask), { hasOpenTasks });
+    const ownCandidate = recommendationForTask(activeTask);
+    const presentation = actionPresentation(getState(), session, activeTask, ownCandidate, { hasOpenTasks });
     // 没有可换的就不显示“换一件”；没有选定任务时“有点卡”没有对象。
     $('#btnChooseCandidates')?.classList.toggle('hidden', !hasOpenTasks);
     $('#btnStuck')?.classList.toggle('hidden', !activeTask);
     document.body.dataset.actionState = presentation.phase;
     const stateLabel = $('#nowStateLabel');
-    if (stateLabel) stateLabel.textContent = presentation.label;
+    if (stateLabel) stateLabel.textContent = t(presentation.label);
     $('#nowCard').dataset.freeSession = freeSession ? 'true' : 'false';
     if (!activeTask) {
       syncBlocker(null);
       title.textContent = freeSession
-        ? session.mode === 'break' ? '休息一下' : '自由专注'
-        : '还没有选定任务';
+        ? session.mode === 'break' ? t('休息一下') : t('自由专注')
+        : t('还没有选定任务');
       next.textContent = freeSession
-        ? session.mode === 'break' ? '放松片刻，给自己一点空隙' : '这一段时间，留给手边的事'
-        : presentation.action;
+        ? session.mode === 'break' ? t('放松片刻，给自己一点空隙') : t('这一段时间，留给手边的事')
+        : t(presentation.action);
       showMeta('');
       badge.classList.add('hidden');
       kick.disabled = true;
-      if (rescueNote) rescueNote.textContent = '先选定一件事，两分钟才有落点。';
+      if (rescueNote) rescueNote.textContent = t('先选定一件事，两分钟才有落点。');
       return;
     }
     // 卡在哪归「卡住了」那一层：这里问它一次，顺手让它认领当前这件任务，
@@ -139,8 +141,10 @@ function createPopoverNowCard({
     title.textContent = activeTask.title;
     // 一件已完成的任务没有下一物理动作，即使它的子项还没勾完；
     // 否则会和下面那句“这件任务已经完成”相互矛盾。
-    next.textContent = presentation.action;
-    badge.textContent = blockerLabel ? `卡在：${blockerLabel}` : '';
+    const writtenAction = activeTask.nextAction || ownCandidate?.nextStep?.title
+      || activeTask.steps?.find(step => !step.done)?.title;
+    next.textContent = activeTask.done || !writtenAction ? t(presentation.action) : presentation.action;
+    badge.textContent = blockerLabel ? t('卡在：{blocker}', { blocker: blockerLabel }) : '';
     badge.classList.toggle('hidden', !blockerLabel);
     showMeta(launchBlockReason ? focusActionMessage(launchBlockReason) : '');
     const hardBlocked = ['task-completed', 'task-expired', 'occurrence-skipped'].includes(launchBlockReason);
@@ -151,17 +155,26 @@ function createPopoverNowCard({
       rescueNote.textContent = hardBlocked
         ? focusActionMessage(launchBlockReason)
         : hasLanding
-          ? `两分钟内只做：${activeTask.nextAction}`
-          : '先用“换个更小的下一步”写下落点。';
+          ? t('两分钟内只做：{action}', { action: activeTask.nextAction })
+          : t('先用“换个更小的下一步”写下落点。');
     }
   }
 
   // 当前这一件只在一个地方披露：计时器下面的 #nowTaskDetail。之前进度条上方还有
   // 一行“当前：XXX”，同一屏把任务名说两遍。
-  function renderDetail() {
+  function renderDetail({ copyOnly = false } = {}) {
     if (!getState()) return;
     const host = $('#nowTaskDetail');
     const task = sessionOrLaunchTask();
+    if (copyOnly) {
+      if (!task) return;
+      const readOnly = task.done || Boolean(task.skippedAt);
+      for (const button of $('#nowTaskSteps').querySelectorAll('.step-item')) {
+        const step = (task.steps || []).find(item => item.id === button.dataset.stepId);
+        if (step) button.setAttribute('aria-label', `${t(step.done ? '已完成步骤' : readOnly ? '只读步骤' : '完成步骤')}：${step.title}`);
+      }
+      return; // Keep the focused step node and in-flight completion handler.
+    }
     sessionStep.render(task);
     if (!task) {
       host.classList.add('hidden');
@@ -193,7 +206,7 @@ function createPopoverNowCard({
     // 步骤勾选是单向的：勾上就是做完了，没有“标记未完成”这个动作。
     list.className = 'task-steps';
     list.innerHTML = steps.map(step => `
-      <button type="button" class="step-item ${step.done ? 'done' : ''}${nextStepId && step.id === nextStepId.id ? ' step-next' : ''}" data-step-id="${escapeHTML(step.id)}" aria-pressed="${step.done ? 'true' : 'false'}" aria-label="${step.done ? '已完成步骤' : isReadOnly ? '只读步骤' : '完成步骤'}：${escapeHTML(step.title)}"${isReadOnly || step.done ? ' disabled' : ''}>
+      <button type="button" class="step-item ${step.done ? 'done' : ''}${nextStepId && step.id === nextStepId.id ? ' step-next' : ''}" data-step-id="${escapeHTML(step.id)}" aria-pressed="${step.done ? 'true' : 'false'}" aria-label="${step.done ? t('已完成步骤') : isReadOnly ? t('只读步骤') : t('完成步骤')}：${escapeHTML(step.title)}"${isReadOnly || step.done ? ' disabled' : ''}>
         <span class="step-check ${step.done ? 'checked' : ''}"></span>
         <span class="step-text">${escapeHTML(step.title)}</span>
       </button>`).join('');
@@ -205,7 +218,7 @@ function createPopoverNowCard({
         if (sessionOrLaunchTask()?.id !== task.id) return;
         const result = await surfaceClient.completeStep(task.id, stepId);
         if (result && result.ok === false) {
-          showFocusStatus(taskActionMessage(result.reason));
+          showFocusStatus(() => taskActionMessage(result.reason));
           return;
         }
         celebrate();
@@ -245,26 +258,26 @@ function createPopoverNowCard({
       const sourceRole = candidate.role || candidate.label || (index === 0 ? '综合优先' : '最容易开始');
       const role = candidate.strategy === 'priority' || candidate.strategy === 'importance' || sourceRole === '最重要'
         ? '综合优先' : sourceRole;
-      const shortRole = role.includes('同时') ? '适合现在' : role.includes('容易') ? '容易开始' : '优先考虑';
+      const shortRole = role.includes('同时') ? t('适合现在') : role.includes('容易') ? t('容易开始') : t('优先考虑');
       const summary = scoreSummary(candidate);
       const card = document.createElement('button');
       card.type = 'button';
       card.className = 'candidate-card';
       card.innerHTML = `<span class="candidate-role">${escapeHTML(shortRole)}</span>
         <strong>${escapeHTML(task.title)}</strong><span class="candidate-arrow" aria-hidden="true">↗</span>`;
-      card.setAttribute('aria-label', `换成${task.title}`);
+      card.setAttribute('aria-label', t('换成{title}', { title: task.title }));
       // 排序依据是内部术语，只放进工具提示：想知道的人悬停就能看到。
-      card.title = `排序依据：${summary || '能量、时长和启动成本'}`;
+      card.title = t('排序依据：{summary}', { summary: summary || t('能量、时长和启动成本') });
       card.addEventListener('click', async () => {
         if (choosing) return;
         choosing = true;
         card.disabled = true;
         try {
           const result = await surfaceClient.setNowTask(task.id);
-          if (result?.ok === false) { showFocusStatus(taskActionMessage(result.reason)); return; }
+          if (result?.ok === false) { showFocusStatus(() => taskActionMessage(result.reason)); return; }
           closePanel({ focusNow: true });
           render();
-        } catch { showFocusStatus('切换未完成，请再试一次。'); }
+        } catch { showFocusStatus(() => t('切换未完成，请再试一次。')); }
         finally { choosing = false; card.disabled = false; }
       });
       grid.appendChild(card);
@@ -287,8 +300,8 @@ function createPopoverNowCard({
       if (version !== requestVersion) return;
       const candidates = result && Array.isArray(result.candidates) ? result.candidates : (result ? [result] : []);
       if (candidates.length) renderCandidates(candidates);
-      else showFocusStatus('暂无可切换的任务。');
-    } catch { showFocusStatus('暂时无法读取任务，请再试一次。'); }
+      else showFocusStatus(() => t('暂无可切换的任务。'));
+    } catch { showFocusStatus(() => t('暂时无法读取任务，请再试一次。')); }
     finally { picking = false; }
   }
 

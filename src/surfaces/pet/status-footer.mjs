@@ -1,3 +1,4 @@
+import { t, onLocaleChanged } from '../shared/interface/i18n.mjs';
 'use strict';
 
 import { activityLabelFor } from './activity-mirror.mjs';
@@ -9,6 +10,7 @@ function createStatusFooter({ stage, label, next, badge } = {}) {
   const count = badge.querySelector?.('.context-count');
   let displayedLabel = null;
   let disposed = false;
+  let activityCopy = null, contextCopy = null;
 
   function collapse() {
     if (disposed) return;
@@ -39,9 +41,14 @@ function createStatusFooter({ stage, label, next, badge } = {}) {
     const visible = ['focused', 'resting'].includes(activity?.state);
     next?.setAttribute('tabindex', visible ? '0' : '-1');
     next?.setAttribute('aria-hidden', String(!visible));
-    const value = activityLabelFor(activity);
-    next?.setAttribute('title', `${value}，换一个陪伴动作`);
-    next?.setAttribute('aria-label', `${value}，切换伙伴当前动作`);
+    activityCopy = activity;
+    paintActivityCopy();
+  }
+
+  function paintActivityCopy() {
+    const value = activityLabelFor(activityCopy);
+    next?.setAttribute('title', t('{activity}，换一个陪伴动作', { activity: value }));
+    next?.setAttribute('aria-label', t('{activity}，切换伙伴当前动作', { activity: value }));
     if (!label || displayedLabel === value) return;
     displayedLabel = value;
     label.textContent = value;
@@ -51,6 +58,7 @@ function createStatusFooter({ stage, label, next, badge } = {}) {
 
   function hideContext() {
     if (disposed) return;
+    contextCopy = null;
     badge.classList.remove('show');
     badge.setAttribute('aria-hidden', 'true');
     badge.setAttribute('tabindex', '-1');
@@ -61,23 +69,34 @@ function createStatusFooter({ stage, label, next, badge } = {}) {
   function showContext({ copy, context, calmVisual, opacity }) {
     if (disposed) return;
     if (badge.dataset.context !== context) collapse();
-    text.textContent = copy;
+    contextCopy = copy;
+    text.textContent = translateContext(copy);
     if (count) count.textContent = String(copy.split(' · ').filter(value => value !== '专注').length);
     badge.dataset.context = context;
     badge.dataset.motion = calmVisual ? 'static' : 'normal';
     badge.style.opacity = String(opacity);
-    badge.setAttribute('aria-label', copy);
-    badge.setAttribute('title', copy);
+    badge.setAttribute('aria-label', translateContext(copy));
+    badge.setAttribute('title', translateContext(copy));
     badge.setAttribute('aria-hidden', 'false');
     badge.setAttribute('tabindex', '0');
     badge.classList.add('show');
   }
 
+  const badgeParts = new Set(['音乐疗愈中', 'AI协作中', '音乐', 'AI协作', '编程', '专注', 'AI']);
+  function translateContext(copy) { return String(copy).split(' · ').map(part => badgeParts.has(part) ? t(part) : part).join(' · '); }
+  const stopLocale = onLocaleChanged(() => {
+    if (disposed) return;
+    if (activityCopy) paintActivityCopy();
+    if (contextCopy !== null) {
+      const copy = translateContext(contextCopy);
+      text.textContent = copy; badge.setAttribute('aria-label', copy); badge.setAttribute('title', copy);
+    }
+  });
   return Object.freeze({ syncActivity, hideContext, showContext,
     dispose() {
       if (disposed) return;
       hideContext();
-      disposed = true;
+      disposed = true; stopLocale(); activityCopy = null; contextCopy = null;
       badge.removeEventListener?.('click', toggle);
       badge.removeEventListener?.('keydown', keydown);
       badge.removeEventListener?.('blur', collapse);

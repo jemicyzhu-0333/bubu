@@ -1,6 +1,18 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('bubu', {
+  getInterfacePreferences: () => ipcRenderer.invoke('settings:get-interface'),
+  onInterfacePreferences: callback => {
+    if (typeof callback !== 'function') return () => {};
+    let active = true;
+    const listener = (_event, payload) => { if (active) callback(payload); };
+    ipcRenderer.on('settings:interface-changed', listener);
+    return () => {
+      if (!active) return;
+      active = false;
+      ipcRenderer.removeListener('settings:interface-changed', listener);
+    };
+  },
   getState: () => ipcRenderer.invoke('state:get'),
   onPopoverHidden: callback => {
     if (typeof callback !== 'function') throw new TypeError('popover callback required');

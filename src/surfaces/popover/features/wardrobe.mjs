@@ -11,6 +11,7 @@
 // 排布是主从两列:左边七个槽位(各自写着现在戴着什么),右边只画聚焦槽位的选项。
 // 之前七组标签平铺着换二十四个按钮,其中四组只有一件——「光环 ［不戴］［小光环］」
 // 为一件东西花掉一整行。左列现在还顺便是一张「整套搭配」清单,一眼读完。
+import { t, getLocale } from '../../shared/interface/i18n.mjs';
 import { forms } from '../../../capabilities/companion/index.mjs';
 import { renderWardrobeOutfitPreviews } from './wardrobe-outfit-preview.mjs';
 
@@ -19,7 +20,7 @@ import { renderWardrobeOutfitPreviews } from './wardrobe-outfit-preview.mjs';
 function formFor(state) { return forms.resolvePetForm(state?.currentSkin); }
 
 function groupLabel(form, group) {
-  return form.slotLabels[group] || group;
+  return t(form.slotLabels[group] || group);
 }
 
 function orderChoices(choices, form) {
@@ -50,6 +51,7 @@ function createPopoverWardrobeFeature({
   }
 
   let lastKey = '';
+  let repaintCopy = () => {};
   let focusedSlot = null;      // 左列聚焦的槽位,这一层自己的视图状态
   let pendingFocusItem = null; // 刚点过的那颗选项:重绘后焦点要还给它
   let trigger = null;
@@ -66,8 +68,8 @@ function createPopoverWardrobeFeature({
   function lockText(state, lockReason) {
     if (!lockReason) return '';
     if (lockReason.kind === 'level') return `Lv.${lockReason.minLevel}`;
-    if (lockReason.kind === 'skin') return `${skinName(state, lockReason.skin)}专属`;
-    return '未解锁';
+    if (lockReason.kind === 'skin') return t('{name}专属', { name: skinName(state, lockReason.skin) });
+    return t('未解锁');
   }
 
   // 左列每个槽位都写着现在戴着什么,于是它同时是一张「整套搭配」清单。名字只有
@@ -96,8 +98,8 @@ function createPopoverWardrobeFeature({
     const label = escapeHTML(option.label);
     const hint = lock ? `<span class="wardrobe-lock" data-icon="lock">${escapeHTML(lock)}</span>` : '';
     const aria = option.available
-      ? `${option.label}${isSelected ? '，已佩戴' : ''}`
-      : `${option.label}，未解锁：${lock}`;
+      ? (isSelected ? t('{name}，已佩戴', { name: option.label }) : option.label)
+      : t('{name}，未解锁：{reason}', { name: option.label, reason: lock });
     return `<button type="button" class="${classes.join(' ')}"`
       + ` data-group="${escapeHTML(group)}" data-item="${escapeHTML(option.id)}"`
       + ` aria-pressed="${isSelected ? 'true' : 'false'}"`
@@ -111,7 +113,7 @@ function createPopoverWardrobeFeature({
     const empty = `<button type="button" class="wardrobe-option${choice.selected ? '' : ' selected'}"`
       + ` data-group="${escapeHTML(choice.group)}" data-item=""`
       + ` aria-pressed="${choice.selected ? 'false' : 'true'}"`
-      + ` aria-label="${escapeHTML(`不戴${groupLabel(form, choice.group)}`)}">不戴</button>`;
+      + ` aria-label="${escapeHTML(t('不戴{slot}', { slot: groupLabel(form, choice.group) }))}">${escapeHTML(t('不戴'))}</button>`;
     const options = choice.options.map(option => optionMarkup(state, choice.group, option, choice.selected));
     return empty + options.join('');
   }
@@ -126,7 +128,8 @@ function createPopoverWardrobeFeature({
     if (!choices.some(choice => choice.group === focusedSlot)) {
       focusedSlot = choices.length ? choices[0].group : null;
     }
-    const key = JSON.stringify([state.currentSkin, wornIds, choices, focusedSlot]);
+    const dataKey = JSON.stringify([state.currentSkin, wornIds, choices, focusedSlot]);
+    const key = `${getLocale()}|${dataKey}`;
     if (key === lastKey) return;
     lastKey = key;
 
@@ -140,28 +143,57 @@ function createPopoverWardrobeFeature({
       const focused = choices.find(choice => choice.group === focusedSlot);
       options.innerHTML = focused
         ? optionsMarkup(state, form, focused)
-        : '<p class="wardrobe-empty">还没有可搭配的配饰。升级和解锁皮肤都会往这里添件。</p>';
+        : `<p class="wardrobe-empty">${escapeHTML(t('还没有可搭配的配饰。升级和解锁皮肤都会往这里添件。'))}</p>`;
     }
 
     const canvas = $('#wardrobePreview');
     if (canvas) {
       drawPetPreview(canvas, { skinId: state.currentSkin || 'pink', itemIds: wornIds, size: 'preview' });
     }
-    renderWardrobeOutfitPreviews({ container: $('#wardrobeLooks'), state, formId: form.id, escapeHTML, drawPetPreview });
+    const repaintOutfits = renderWardrobeOutfitPreviews({ container: $('#wardrobeLooks'), state, formId: form.id, escapeHTML, drawPetPreview });
 
     const summary = $('#wardrobeSummary');
     if (summary) {
       summary.textContent = wornIds.length
-        ? `正戴着 ${wornIds.length} 件`
-        : '现在什么都没戴';
+        ? t('正戴着 {count} 件', { count: wornIds.length })
+        : t('现在什么都没戴');
     }
 
     // 默认视图上「换装」入口的副标题也归这一层写:配饰只有一个所有者,两处各数
     // 一遍迟早会对不上。
     const entryMeta = $('#wardrobeEntryMeta');
     if (entryMeta) {
-      entryMeta.textContent = wornIds.length ? `戴着 ${wornIds.length} 件` : '什么都没戴';
+      entryMeta.textContent = wornIds.length ? t('戴着 {count} 件', { count: wornIds.length }) : t('什么都没戴');
     }
+
+    // Language changes only repaint copy on the existing controls and canvases.
+    repaintCopy = () => {
+      lastKey = `${getLocale()}|${dataKey}`;
+      for (const slot of slots?.querySelectorAll('.wardrobe-slot') || []) {
+        const label = slot.querySelector('.slot-name');
+        if (label) label.textContent = groupLabel(form, slot.dataset.group);
+      }
+      const focused = choices.find(choice => choice.group === focusedSlot);
+      for (const button of options?.querySelectorAll('.wardrobe-option') || []) {
+        const option = focused?.options.find(item => item.id === button.dataset.item);
+        if (!option) {
+          button.textContent = t('不戴');
+          button.setAttribute('aria-label', t('不戴{slot}', { slot: groupLabel(form, button.dataset.group) }));
+          continue;
+        }
+        const lock = option.available ? '' : lockText(state, option.lockReason);
+        button.setAttribute('aria-label', option.available
+          ? (option.id === focused.selected ? t('{name}，已佩戴', { name: option.label }) : option.label)
+          : t('{name}，未解锁：{reason}', { name: option.label, reason: lock }));
+        const hint = button.querySelector('.wardrobe-lock');
+        if (hint) hint.textContent = lock;
+      }
+      const empty = options?.querySelector('.wardrobe-empty');
+      if (empty) empty.textContent = t('还没有可搭配的配饰。升级和解锁皮肤都会往这里添件。');
+      if (summary) summary.textContent = wornIds.length ? t('正戴着 {count} 件', { count: wornIds.length }) : t('现在什么都没戴');
+      if (entryMeta) entryMeta.textContent = wornIds.length ? t('戴着 {count} 件', { count: wornIds.length }) : t('什么都没戴');
+      repaintOutfits();
+    };
 
     // 投影回流会把整块选项重画掉,键盘用户的焦点会掉到 body 上。把它还给刚点过
     // 的那颗按钮 —— 连着换两件是常见动作,每次都要重新 Tab 进来是不能接受的。
@@ -285,6 +317,7 @@ function createPopoverWardrobeFeature({
     // 换皮肤会改变自动兜底戴哪件,升级会解锁新件,所以这三个边界都要重画。抽屉
     // 关着时也照样走一遍:默认视图上「戴着 N 件」那行字归这一层写。
     unsubscribe = projectionStore.subscribe(change => {
+      if (change.localeOnly) { repaintCopy(); return; }
       const dirty = change.dirty || {};
       if (dirty.all || dirty.appearance || dirty.skin || dirty.stats) render(change.state);
     });
@@ -293,6 +326,7 @@ function createPopoverWardrobeFeature({
   function dispose() {
     if (typeof unsubscribe === 'function') unsubscribe();
     unsubscribe = null;
+    repaintCopy = () => {};
     if (bound) {
       bound = false;
       const entry = $('#btnOpenWardrobe');

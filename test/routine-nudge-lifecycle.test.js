@@ -582,3 +582,16 @@ test('a completed safe companion L1 is not duplicated when a later foreground ch
   assert.equal(companion, 1); assert.equal(h.notifications.length, 0); assert.equal(h.windows.length, 0);
   h.api.dispose(); assert.equal(h.timers.size, 0);
 });
+
+test('native reminder chrome uses the acknowledged locale but preserves a user-authored routine title', async t => {
+  const { setNativeLocale } = require('../src/platform/electron/interface-copy');
+  setNativeLocale('en'); t.after(() => setNativeLocale('zh-CN'));
+  const h = harness(); t.after(() => h.api.dispose());
+  h.replace(routine({ message: '关闭 {count} 是我的日常标题', maxLevel: 1 }));
+  await h.api.startNudgeSequence(h.request());
+  const shown = h.notifications[0].options;
+  assert.match(shown.title, /Routine reminder/);
+  assert.equal(shown.body, '关闭 {count} 是我的日常标题');
+  assert.equal(shown.closeButtonText, 'Close');
+  assert.deepEqual(shown.actions.map(action => action.text), ['Completed', 'Later (+15 min)']);
+});

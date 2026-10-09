@@ -55,14 +55,14 @@ test('a control that shows only a picture still has a name', () => {
   const offenders = [];
   for (const match of html.matchAll(/<button\b([^>]*\bdata-icon-only\b[^>]*)>([\s\S]*?)<\/button>/g)) {
     const attrs = match[1];
-    const visibleText = match[2].replace(/<span class="sr-only">[\s\S]*?<\/span>/g, '').replace(/<[^>]+>/g, '').trim();
+    const visibleText = match[2].replace(/<span class="sr-only"[^>]*>[\s\S]*?<\/span>/g, '').replace(/<[^>]+>/g, '').trim();
     const named = /aria-label="[^"]+"/.test(attrs) || /class="sr-only"/.test(match[2]);
     if (visibleText === '' && !named) offenders.push(attrs.slice(0, 80));
   }
   assert.deepEqual(offenders, []);
   // 五张脸保留 aria-label 和读屏文字；可见说明由 dock 底部标签承载。
   for (const level of [20, 35, 50, 65, 80]) {
-    assert.match(html, new RegExp(`data-level="${level}" data-icon="face-\\d" data-icon-only aria-pressed="false" aria-label="[^"]+"><span class="sr-only">`));
+    assert.match(html, new RegExp(`data-level="${level}" data-icon="face-\\d" data-icon-only aria-pressed="false" aria-label="[^"]+"[^>]*><span class="sr-only"[^>]*>`));
   }
 });
 

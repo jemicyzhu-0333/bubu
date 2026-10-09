@@ -157,3 +157,32 @@ test('macOS template flag and Retina representations survive host icon updates',
     assert.equal(decodePNG(image.representations[0].buffer).width, 32);
   }
 });
+
+test('acknowledged locale updates native tray copy without changing commands and unsubscribes on disposal', t => {
+  const { setNativeLocale } = require('../src/platform/electron/interface-copy');
+  setNativeLocale('zh-CN'); t.after(() => setNativeLocale('zh-CN'));
+  const harness = createTrayHarness();
+  const host = createHost(harness, { tooltip: '小步（开发档位 · 独立数据）' });
+  const command = () => {};
+  setNativeLocale('en');
+  assert.equal(harness.calls.at(-1)[1], 'bubu (development · separate data)');
+  const source = [{ label: '打开面板', click: command }, { label: '快捷行动  Ctrl+Shift+X', click: command },
+    { label: 'A custom provider name', click: command }];
+  host.showMenu(source);
+  const template = harness.calls.at(-1)[1].template;
+  assert.deepEqual(template.map(item => item.label), ['Open panel', 'Quick action  Ctrl+Shift+X', 'A custom provider name']);
+  assert.equal(template[0].click, command); assert.equal(source[0].label, '打开面板');
+  setNativeLocale('zh-CN'); assert.equal(harness.calls.at(-1)[1], '小步（开发档位 · 独立数据）');
+  host.dispose(); const count = harness.calls.length;
+  setNativeLocale('en'); assert.equal(harness.calls.length, count);
+});
+
+test('locale listener is released even when the native tray was destroyed first', t => {
+  const { setNativeLocale } = require('../src/platform/electron/interface-copy');
+  setNativeLocale('zh-CN'); t.after(() => setNativeLocale('zh-CN'));
+  const h = createTrayHarness(), host = createHost(h);
+  h.nativeTray.destroy(); assert.equal(host.dispose(), false);
+  // A retained callback would consult the destroyed native object again.
+  let checks = 0; h.nativeTray.isDestroyed = () => { checks++; return true; };
+  setNativeLocale('en'); assert.equal(checks, 0); assert.equal(host.dispose(), false);
+});

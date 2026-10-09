@@ -2,8 +2,8 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>小步 - 提醒</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'nonce-bubu-corner'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title data-i18n="小步 - 提醒">小步 - 提醒</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'nonce-bubu-corner'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; image-rendering: pixelated;
     font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
@@ -160,8 +160,9 @@
   body[data-stimulation="low"] .bubble { box-shadow: 2px 2px 0 rgba(0,0,0,0.4); }
   body[data-stimulation="high"] .bubble { box-shadow: 3px 3px 0 rgba(0,0,0,0.5), 0 0 18px rgba(125,207,255,0.45); }
 </style>
+<link rel="stylesheet" href="../surfaces/shared/interface/chrome.css">
 </head>
-<body data-motion="reduced" data-stimulation="low">
+<body data-surface="nudge-corner" data-motion="reduced" data-stimulation="low">
   <div class="container br" id="container" role="status" aria-live="polite">
     <div class="bubble" id="bubble">
       <div class="bubble-copy" id="bubbleCopy">...</div>
@@ -173,8 +174,19 @@
     </div>
   </div>
   <span class="keyboard-hint" id="keyboardHint" hidden></span>
-  <button type="button" class="close-hint" id="closeBtn" aria-label="关闭提醒">✕ 我知道了</button>
-<script nonce="bubu-corner">
+  <button type="button" class="close-hint" id="closeBtn" aria-label="关闭提醒" data-i18n-aria-label="关闭提醒" data-i18n="✕ 我知道了">✕ 我知道了</button>
+<script type="module" nonce="bubu-corner">
+import "../surfaces/shared/interface/entry.mjs";
+import { t, onLocaleChanged } from "../surfaces/shared/interface/i18n.mjs";
+let actionCopies = [], latestData = null;
+function repaintNudgeCopy() {
+  for (const [node, source] of actionCopies) node.textContent = t(source);
+  const hint = document.getElementById('keyboardHint');
+  if (hint && latestData) hint.textContent = latestData.keyboardShortcut && (latestData.corner || 'br') === 'br'
+    ? t('{shortcut} 操作', { shortcut: latestData.keyboardShortcut }) : '';
+}
+const stopLocaleCopy = onLocaleChanged(repaintNudgeCopy);
+window.addEventListener('pagehide', () => { stopLocaleCopy(); actionCopies = []; latestData = null; }, { once: true });
   const canvas = document.getElementById('charCanvas');
   const ctx = canvas.getContext('2d');
   ctx.imageSmoothingEnabled = false;
@@ -289,6 +301,7 @@
   window.bubu.onNudgeSensoryProfile(applyNudgeSensoryProfile);
 
   window.bubu.onNudgeInit((data) => {
+    latestData = data; actionCopies = [];
     applyNudgeSensoryProfile(data);
     const container = document.getElementById('container');
     container.className = 'container ' + (data.corner || 'br') + (data.level === 3 ? ' lv3' : '');
@@ -298,14 +311,14 @@
     const keyboardHint = document.getElementById('keyboardHint');
     const showKeyboardHint = Boolean(data.keyboardShortcut) && (data.corner || 'br') === 'br';
     keyboardHint.hidden = !showKeyboardHint;
-    keyboardHint.textContent = showKeyboardHint ? `${data.keyboardShortcut} 操作` : '';
+    keyboardHint.textContent = showKeyboardHint ? t('{shortcut} 操作', { shortcut: data.keyboardShortcut }) : '';
     const actions = document.getElementById('nudgeActions');
     actions.innerHTML = '';
     for (const action of Array.isArray(data.actions) ? data.actions : []) {
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'nudge-action' + (action.primary ? ' primary' : '');
-      button.textContent = action.label || '我知道了';
+      button.textContent = t(action.label || '我知道了'); actionCopies.push([button, action.label || '我知道了']);
       button.addEventListener('click', event => {
         event.stopPropagation();
         window.bubu.dismissNudge(action.id || 'dismiss');

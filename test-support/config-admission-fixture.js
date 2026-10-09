@@ -32,15 +32,15 @@ function facts(captured) {
     return result;
   });
 }
-function seed(directory, kind = 'valid18', mode = 'closed-clean') {
+function seed(directory, kind = 'valid19', mode = 'closed-clean') {
   const repo = createSqliteStateAdapter({ userDataPath: directory, now: () => NOW });
   repo.update(state => { state.settings.autoCheckUpdates = false; }, { now: NOW }); repo.close();
   const db = new DatabaseSync(path.join(directory, 'config.sqlite'));
   const identity = new DatabaseSync(path.join(directory, 'config.sqlite.identity.sqlite'));
   const state = JSON.parse(db.prepare('SELECT payload_json FROM config_snapshot').get().payload_json);
   if (kind === 'old17') state.schemaVersion = 17;
-  if (kind === 'future19') state.schemaVersion = 19;
-  if (kind === 'malformed18') delete state.pet.foodTickets;
+  if (kind === 'future20') state.schemaVersion = 20;
+  if (kind === 'malformed19') delete state.pet.foodTickets;
   const value = encodePayload(state);
   db.prepare('UPDATE config_snapshot SET payload_version=?,payload_hash=?,payload_json=?,mirror_target_hash=?').run(value.version, value.hash, value.json, value.mirrorHash);
   identity.prepare('UPDATE config_identity SET source_length=source_length').run();

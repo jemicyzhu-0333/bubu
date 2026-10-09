@@ -1,3 +1,4 @@
+import { t } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 // 输入边界是共享 contract 的一份定义,由 popover.html 作为 classic script 先加载。
@@ -36,10 +37,10 @@ function createPopoverTaskInput({ $, limits = popoverTaskInputLimits } = {}) {
   function tagInputError(raw) {
     const tags = parseTagList(raw);
     if (tags.some(tag => tag.length > limits.TAG)) {
-      return `每个标签最多 ${limits.TAG} 个字符；输入仍然保留。`;
+      return t('每个标签最多 {count} 个字符；输入仍然保留。', { count: limits.TAG });
     }
     if (tags.length > limits.TAGS) {
-      return `每个任务最多 ${limits.TAGS} 个标签；输入仍然保留。`;
+      return t('每个任务最多 {count} 个标签；输入仍然保留。', { count: limits.TAGS });
     }
     return null;
   }
@@ -50,7 +51,7 @@ function createPopoverTaskInput({ $, limits = popoverTaskInputLimits } = {}) {
     const minutes = Number(input.value);
     if (!Number.isInteger(minutes)
         || minutes < limits.ESTIMATE_MINUTES_MIN || minutes > limits.ESTIMATE_MINUTES_MAX) {
-      return `估时必须是 ${limits.ESTIMATE_MINUTES_MIN}–${limits.ESTIMATE_MINUTES_MAX} 的整数分钟；输入仍然保留。`;
+      return t('估时必须是 {min}–{max} 的整数分钟；输入仍然保留。', { min: limits.ESTIMATE_MINUTES_MIN, max: limits.ESTIMATE_MINUTES_MAX });
     }
     return null;
   }
@@ -63,8 +64,8 @@ function createPopoverTaskInput({ $, limits = popoverTaskInputLimits } = {}) {
     }
     const range = `1–${limits.RECURRENCE_INTERVAL_MAX}`;
     return keepsInput
-      ? `重复间隔必须是 ${range} 的整数；当前输入不会丢。`
-      : `重复间隔必须是 ${range} 的整数。`;
+      ? t('重复间隔必须是 {range} 的整数；当前输入不会丢。', { range })
+      : t('重复间隔必须是 {range} 的整数。', { range });
   }
 
   // 步骤标题是单行的:textarea 只是为了能换行显示长标题,Enter 不该在里面留下

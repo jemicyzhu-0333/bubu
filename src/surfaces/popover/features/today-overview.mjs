@@ -1,3 +1,4 @@
+import { t } from '../../shared/interface/i18n.mjs';
 // 现在页下方的「今天」：能量、日常、收件箱三块并排。这里只拥有呈现状态——哪一块
 // 展开、收件箱那块的数字——不写入任何状态。各块的读数归各自的 feature：能量读数归
 // energy-strip，日常计数归 routines；收件箱只是一条到「安排 › 收件箱」的捷径。
@@ -31,13 +32,13 @@ function createPopoverTodayOverview({ $, getState, openInbox }) {
     const value = $('#todayInboxCount');
     const sub = $('#todayInboxSub');
     if (value) value.textContent = String(count);
-    if (sub) sub.textContent = count ? '条待整理' : '已清空';
+    if (sub) sub.textContent = count ? t('条待整理') : t('已清空');
     $('#tileInbox')?.classList.toggle('is-empty', count === 0);
   }
 
   function renderEnergySub(state) {
     const sub = $('#energyTileSub');
-    if (sub) sub.textContent = state?.wake?.ask ? '今天几点起？' : '点开自评';
+    if (sub) sub.textContent = state?.wake?.ask ? t('今天几点起？') : t('点开自评');
   }
 
   function render(state = getState()) {

@@ -1,3 +1,4 @@
+import { t, getLocale, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 import { localCalendarDayDiff } from '../../../renderer/task-dates.mjs';
@@ -9,8 +10,8 @@ import { localCalendarDayDiff } from '../../../renderer/task-dates.mjs';
 function reviewTitle(card, reference = Date.now()) {
   const [year, month, day] = String(card && card.dayKey || '').split('-').map(Number);
   const diff = year ? localCalendarDayDiff(new Date(year, month - 1, day), reference) : null;
-  const when = diff === 0 ? '今天' : diff === -1 ? '昨天' : year ? `${month}月${day}日` : '';
-  return `${when}的${card && card.kind === 'closeout' ? '收口' : '启动'}`;
+  const when = diff === 0 ? t('今天') : diff === -1 ? t('昨天') : year ? t('{month}月{day}日', { month, day }) : '';
+  return t(card && card.kind === 'closeout' ? '{when}的收口' : '{when}的启动', { when });
 }
 //
 // 这一层拥有的状态只有一样——此刻打开的是哪一张回顾卡。以前它是面板顶上的模块
@@ -39,6 +40,19 @@ function createPopoverReviewFeature({
   let active = null;   // 此刻打开的是哪一张回顾卡
   let mounted = false;
   const teardown = [];
+  let cardCopies = [], factCopies = [];
+  let lastCardData = '', lastCardKey = '';
+  function factCopy(node, source, parameters = {}) {
+    const paint = () => { node.textContent = t(source, parameters); };
+    factCopies.push(paint); paint();
+  }
+  function repaintActive() {
+    if (!active) return;
+    $('#reviewTitle').textContent = reviewTitle(active.card, getState()?.serverNow || Date.now());
+    const done = $('#reviewDone');
+    if (done) done.textContent = t(active.card.kind === 'startup' ? '就这样开始' : '完成回顾');
+    factCopies.forEach(paint => paint());
+  }
 
   function listen(target, type, handler) {
     if (!target) return;
@@ -54,12 +68,12 @@ function createPopoverReviewFeature({
     const section = document.createElement('section');
     section.className = 'review-fact-group';
     const heading = document.createElement('h3');
-    heading.textContent = title;
+    factCopy(heading, title);
     section.appendChild(heading);
     if (!items || !items.length) {
       const empty = document.createElement('p');
       empty.className = 'capability-note';
-      empty.textContent = '这里暂时没有内容。';
+      factCopy(empty, '这里暂时没有内容。');
       section.appendChild(empty);
       return section;
     }
@@ -72,7 +86,10 @@ function createPopoverReviewFeature({
         input.checked = options.checked === true;
         row.appendChild(input);
       }
-      row.appendChild(document.createTextNode(item.title || item.text || '未命名'));
+      const text = document.createTextNode(item.title || item.text || t('未命名'));
+      if (item.copySource) factCopy(text, item.copySource, item.parameters);
+      else if (!item.title && !item.text) factCopy(text, '未命名');
+      row.appendChild(text);
       section.appendChild(row);
     }
     return section;
@@ -84,22 +101,31 @@ function createPopoverReviewFeature({
     const pending = state.reviews && Array.isArray(state.reviews.pending)
       ? state.reviews.pending.filter(item => item.status === 'pending')
       : [];
+    const dataKey = JSON.stringify([pending, state.serverNow]);
+    const key = `${getLocale()}|${dataKey}`;
+    if (key === lastCardKey) return;
+    lastCardKey = key;
+    if (dataKey === lastCardData) { cardCopies.forEach(paint => paint()); return; }
+    lastCardData = dataKey; cardCopies = [];
     $('#reviewStrip').classList.toggle('hidden', pending.length === 0);
     const count = $('#reviewCount');
     if (count) { count.textContent = String(pending.length); count.setAttribute('aria-hidden', 'true'); count.classList.remove('hidden'); }
     $('#reviewEmpty')?.classList.toggle('hidden', pending.length > 0);
-    $('#btnReviewInbox')?.setAttribute('aria-label', `待回顾 ${pending.length} 条`);
+    const countCopy = () => $('#btnReviewInbox')?.setAttribute('aria-label', t('待回顾 {count} 条', { count: pending.length }));
+    cardCopies.push(countCopy); countCopy();
     const host = $('#reviewCards');
     host.innerHTML = '';
     for (const item of pending) {
       const row = document.createElement('div');
       row.className = 'review-card-row';
       const label = document.createElement('span');
-      label.textContent = `${reviewTitle(item, state.serverNow || Date.now())}${item.progress ? ` · ${item.progress}%` : ''}`;
+      const labelCopy = () => { label.textContent = `${reviewTitle(item, state.serverNow || Date.now())}${item.progress ? ` · ${item.progress}%` : ''}`; };
+      cardCopies.push(labelCopy); labelCopy();
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'pixel-btn btn-mini';
-      button.textContent = item.progress ? '继续' : '打开';
+      const buttonCopy = () => { button.textContent = t(item.progress ? '继续' : '打开'); };
+      cardCopies.push(buttonCopy); buttonCopy();
       button.addEventListener('click', () => { void open(item.id); });
       row.append(label, button);
       host.appendChild(row);
@@ -117,11 +143,11 @@ function createPopoverReviewFeature({
     }
     const inbox = $('#reviewInbox');
     if (inbox?.close) inbox.close();
-    active = result;
+    active = result; factCopies = [];
     const state = getState();
     $('#reviewTitle').textContent = reviewTitle(result.card, (state && state.serverNow) || Date.now());
     const done = $('#reviewDone');
-    if (done) done.textContent = result.card.kind === 'startup' ? '就这样开始' : '完成回顾';
+    if (done) done.textContent = t(result.card.kind === 'startup' ? '就这样开始' : '完成回顾');
     const body = $('#reviewBody');
     body.innerHTML = '';
     body.className = 'modal-body review-facts';
@@ -129,7 +155,7 @@ function createPopoverReviewFeature({
     if (facts.kind === 'closeout') {
       body.append(
         factGroup('真实完成', facts.completed),
-        factGroup('专注片段', [{ text: `${Math.round(facts.focusMs / 60000)} 分钟（来自本地会话事实）` }]),
+        factGroup('专注片段', [{ copySource: '{minutes} 分钟（来自本地会话事实）', parameters: { minutes: Math.round(facts.focusMs / 60000) } }]),
         factGroup('留下的落点', facts.landings),
         factGroup('仍在收件箱', facts.impulses)
       );
@@ -153,7 +179,7 @@ function createPopoverReviewFeature({
         progress: Math.max(1, active.card.progress || 50)
       });
     }
-    active = null;
+    active = null; factCopies = [];
     $('#reviewMask').classList.add('hidden');
     $('#reviewMask').setAttribute('aria-hidden', 'true');
     $('#btnReviewInbox')?.focus();
@@ -166,6 +192,10 @@ function createPopoverReviewFeature({
   function mount() {
     if (mounted) return;
     mounted = true;
+    teardown.push(onLocaleChanged(() => {
+      // Repaint only authored copy, retaining checked tasks and pending receipt owners.
+      renderCards(); repaintActive();
+    }));
     listen($('#reviewClose'), 'click', () => { void close(); });
     listen($('#reviewDismiss'), 'click', async () => {
       if (!active) return;
@@ -186,7 +216,7 @@ function createPopoverReviewFeature({
     if (!mounted) return;
     mounted = false;
     while (teardown.length) teardown.pop()();
-    active = null;
+    active = null; cardCopies = []; factCopies = []; lastCardData = ''; lastCardKey = '';
   }
 
   return Object.freeze({ mount, dispose, isOpen, open, close, renderCards });

@@ -1,3 +1,4 @@
+import { t, getLocale } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 import { levelCost } from '../../../content/growth-policy.mjs';
@@ -54,7 +55,7 @@ function createPopoverAppChrome({
     const needed = state.levelCost || levelCost(state.level);
     const session = getSession();
     const running = session.running;
-    const key = `${state.level}|${state.xp}|${needed}|${session.status}`;
+    const key = `${getLocale()}|${state.level}|${state.xp}|${needed}|${session.status}`;
     if (key === lastHeaderKey) return;
     lastHeaderKey = key;
 
@@ -69,17 +70,17 @@ function createPopoverAppChrome({
     const pill = $('#statusPill');
     if (running) {
       if (session.mode === 'break') {
-        pill.textContent = '休息中';
+        pill.textContent = t('休息中');
         pill.className = 'status-pill break';
       } else {
-        pill.textContent = '专注中';
+        pill.textContent = t('专注中');
         pill.className = 'status-pill focus';
       }
     } else if (session.paused) {
-      pill.textContent = '已暂停';
+      pill.textContent = t('已暂停');
       pill.className = 'status-pill';
     } else {
-      pill.textContent = '待机';
+      pill.textContent = t('待机');
       pill.className = 'status-pill';
     }
   }
@@ -125,7 +126,7 @@ function createPopoverAppChrome({
     if (!state) return;
     const pill = document.getElementById('dndPill');
     pill.setAttribute('aria-pressed', String(Boolean(state.settings.dnd)));
-    pill.setAttribute('aria-label', state.settings.dnd ? '关闭免打扰' : '开启免打扰');
+    pill.setAttribute('aria-label', state.settings.dnd ? t('关闭免打扰') : t('开启免打扰'));
   }
 
   // 迁移告知只说一次，关了就不再回来（dismiss 写入持久层）。
@@ -134,7 +135,7 @@ function createPopoverAppChrome({
     const host = $('#migrationNotices');
     if (!host || !state) return;
     const notices = Array.isArray(state.migrationNotices) ? state.migrationNotices : [];
-    const key = notices.map(notice => notice.id).join('|');
+    const key = `${getLocale()}|${notices.map(notice => notice.id).join('|')}`;
     if (key === lastNoticeKey) return;
     lastNoticeKey = key;
     host.classList.toggle('hidden', notices.length === 0);
@@ -144,7 +145,7 @@ function createPopoverAppChrome({
       row.className = 'notice-item';
       row.innerHTML = `
       <span class="notice-text">${escapeHTML(notice.message || '')}</span>
-      <button type="button" class="modal-close notice-dismiss" aria-label="知道了，不再提醒：${escapeHTML(notice.message || '')}">✕</button>`;
+      <button type="button" class="modal-close notice-dismiss" aria-label="${escapeHTML(t('知道了，不再提醒：{message}', { message: notice.message || '' }))}">✕</button>`;
       row.querySelector('.notice-dismiss').addEventListener('click', () => {
         void surfaceClient.dismissNotice(notice.id);
       });

@@ -1,3 +1,5 @@
+import { t, getLocale } from '../../shared/interface/i18n.mjs';
+import { createInterfaceSettings } from './interface-settings.mjs';
 'use strict';
 import { createDesktopUpdateFeature } from './desktop-updates.mjs';
 import { createAiConfiguration, formatAuthorizationWarning } from './ai-configuration.mjs';
@@ -29,12 +31,15 @@ function createPopoverSettingsDrawer({
   if (!sessionDuration) throw new TypeError('popover settings drawer requires sessionDuration');
   if (!surfaceClient) throw new TypeError('popover settings drawer requires surfaceClient');
 
+  const interfaceSettings = createInterfaceSettings({ document, getState, surfaceClient });
   const aiConfiguration = createAiConfiguration({ $, getState, surfaceClient });
   const desktopUpdates = createDesktopUpdateFeature({ $, getState, surfaceClient, isVisible: isSettingsOpen });
   let lastSettingsKey = '';
   let pendingCalibrationReset = false;
   let mounted = false;
   let saveRequest = 0, lifetime = 0;
+  let saveStatusCopy = () => t('已同步');
+  let calibrationFeedbackSource = '';
   const teardown = [];
 
   function listen(target, type, handler) {
@@ -66,6 +71,7 @@ function createPopoverSettingsDrawer({
 
   function closeSettingsDrawer() {
     if (!isSettingsOpen()) return;
+    interfaceSettings.clearFeedback();
     const mask = $('#settingsMask');
     mask.classList.add('hidden');
     mask.setAttribute('aria-hidden', 'true');
@@ -80,16 +86,23 @@ function createPopoverSettingsDrawer({
   }
 
   function renderSettings() {
+    interfaceSettings.render();
     const state = getState();
     if (!state) return;
     const storage = $('#configStorageStatus');
     if (storage) {
       const pending = state.storageStatus?.mirrorPending === true;
       storage.classList.toggle('hidden', !pending);
-      storage.textContent = pending ? '本机数据已保存到数据库。兼容文件待同步或存在外部修改，完整备份不能只复制 config.json。' : '';
+      storage.textContent = pending ? t('本机数据已保存到数据库。兼容文件待同步或存在外部修改，完整备份不能只复制 config.json。') : '';
     }
+    const saveLine = $('#settingsSaveStatus');
+    if (saveLine) saveLine.textContent = saveStatusCopy();
+    const feedbackLine = $('#energyCalibrationFeedback');
+    if (feedbackLine && calibrationFeedbackSource) feedbackLine.textContent = t(calibrationFeedbackSource);
+    const resetButton = $('#btnResetEnergyCalibration');
+    if (resetButton) resetButton.textContent = pendingCalibrationReset ? t('真的重置') : t('重置校准');
     const s = state.settings;
-    const key = `${s.pomodoroMinutes}|${s.breakMinutes}|${s.softReminderEvery}|${s.hydrationEvery}`
+    const key = `${getLocale()}|${s.pomodoroMinutes}|${s.breakMinutes}|${s.softReminderEvery}|${s.hydrationEvery}`
       + `|${s.workStartHour}|${s.workEndHour}|${s.workEndReminder}|${s.adhocTtlMode}|${s.adhocTtlHours}`
       + `|${s.motionMode}|${s.stimulationMode}|${s.petActivityMode}|${s.soundEnabled}`
       + `|${s.dnd}|${s.focusMaxLevel}|${s.restMaxLevel}|${s.nudgeCharacter}`
@@ -116,7 +129,7 @@ function createPopoverSettingsDrawer({
     if (we) we.textContent = s.workEndHour !== undefined ? s.workEndHour : 21;
     const wt = document.querySelector('[data-toggle="workEndReminder"]');
     if (wt) {
-      wt.textContent = s.workEndReminder ? '开' : '关';
+      wt.textContent = s.workEndReminder ? t('开') : t('关');
       wt.classList.toggle('on', !!s.workEndReminder);
       wt.setAttribute('aria-pressed', String(Boolean(s.workEndReminder)));
     }
@@ -136,14 +149,14 @@ function createPopoverSettingsDrawer({
     syncPressedButtons('.pet-activity-mode', button => button.dataset.value === (s.petActivityMode || 'balanced'));
     const soundToggle = document.querySelector('[data-toggle="soundEnabled"]');
     if (soundToggle) {
-      soundToggle.textContent = s.soundEnabled ? '开' : '关';
+      soundToggle.textContent = s.soundEnabled ? t('开') : t('关');
       soundToggle.classList.toggle('on', Boolean(s.soundEnabled));
       soundToggle.setAttribute('aria-pressed', String(Boolean(s.soundEnabled)));
     }
     // 免打扰、两级上限与角色:头上那枚徽标归外壳，这三样只在抽屉里出现。
     const dndToggle = document.querySelector('[data-toggle="dnd"]');
     if (dndToggle) {
-      dndToggle.textContent = s.dnd ? '开' : '关';
+      dndToggle.textContent = s.dnd ? t('开') : t('关');
       dndToggle.classList.toggle('on', !!s.dnd);
       dndToggle.setAttribute('aria-pressed', String(Boolean(s.dnd)));
     }
@@ -158,7 +171,7 @@ function createPopoverSettingsDrawer({
       'aiClarifyEnabled', 'aiMemoryEnabled', 'aiImpulseEnergyEnabled', 'aiCaptureTriageEnabled', 'aiPetMealsEnabled', 'energyCurveEnabled']) {
       const toggle = document.querySelector(`[data-toggle="${keyName}"]`);
       if (!toggle) continue;
-      toggle.textContent = s[keyName] ? '开' : '关';
+      toggle.textContent = s[keyName] ? t('开') : t('关');
       toggle.classList.toggle('on', Boolean(s[keyName]));
       toggle.setAttribute('aria-pressed', String(Boolean(s[keyName])));
     }
@@ -176,13 +189,13 @@ function createPopoverSettingsDrawer({
     if (!line) return;
     const curve = state.energyCurve;
     if (!curve) {
-      line.textContent = '曲线关着：今天页和时间线都不画它，也不再学你的作息。';
+      line.textContent = t('曲线关着：今天页和时间线都不画它，也不再学你的作息。');
       return;
     }
     const seen = Number.isFinite(curve.observations) ? curve.observations : 0;
     line.textContent = curve.calibrated
-      ? `已按你的 ${seen} 次自评微调过这条曲线。`
-      : `校准进度 ${seen}/10 次自评`;
+      ? t('已按你的 {count} 次自评微调过这条曲线。', { count: seen })
+      : t('校准进度 {count}/10 次自评', { count: seen });
   }
 
   // 两级确认,和「全部忘掉」同一套:第一下换字，第二下才真的丢。这一组折叠起来时
@@ -192,7 +205,7 @@ function createPopoverSettingsDrawer({
     if (!button) return;
     if (!pendingCalibrationReset) {
       pendingCalibrationReset = true;
-      button.textContent = '真的重置';
+      button.textContent = t('真的重置');
       button.classList.add('danger');
       return;
     }
@@ -200,18 +213,19 @@ function createPopoverSettingsDrawer({
     const result = await surfaceClient.resetEnergyCalibration();
     const feedback = $('#energyCalibrationFeedback');
     if (!feedback) return;
-    feedback.textContent = !result || !result.ok
+    calibrationFeedbackSource = !result || !result.ok
       ? '没能重置，稍后再试。'
       : result.changed
         ? '已丢掉学到的参数，曲线回到未校准的样子。'
         : '本来就没学过什么，没有可丢的。';
+    feedback.textContent = t(calibrationFeedbackSource);
   }
 
   function clearPendingCalibrationReset() {
     pendingCalibrationReset = false;
     const button = $('#btnResetEnergyCalibration');
     if (!button) return;
-    button.textContent = '重置校准';
+    button.textContent = t('重置校准');
     button.classList.remove('danger');
   }
 
@@ -222,26 +236,34 @@ function createPopoverSettingsDrawer({
   function describeAiDisclosure(ai) {
     const disclosure = (ai && ai.disclosure) || {};
     const fields = Array.isArray(disclosure.fields) ? disclosure.fields.join('、') : '';
-    const outbound = disclosure.network ? `出网字段：${fields}` : '不发往公网';
-    return `${outbound} · 密钥只存系统安全存储`;
+    const outbound = disclosure.network ? t('出网字段：{fields}', { fields }) : t('不发往公网');
+    return t('{outbound} · 密钥只存系统安全存储', { outbound });
   }
 
   async function saveSettings(patch) {
     const ticket = { request: ++saveRequest, lifetime };
     const owns = () => mounted && ticket.request === saveRequest && ticket.lifetime === lifetime;
     const line = $('#settingsSaveStatus');
-    if (line) { line.textContent = '正在保存…'; line.dataset.state = 'saving'; }
+    saveStatusCopy = () => t('正在保存…');
+    if (line) { line.textContent = saveStatusCopy(); line.dataset.state = 'saving'; }
     try {
       const result = await surfaceClient.updateSettings(patch);
       if (result?.ok === false) throw new Error('rejected');
       if (line && owns()) {
         const warning = formatAuthorizationWarning(result?.authorizationWarning);
-        line.textContent = warning ? `设置已保存；${warning}` : '已保存并生效';
+        saveStatusCopy = () => {
+          const currentWarning = formatAuthorizationWarning(result?.authorizationWarning);
+          return currentWarning ? t('设置已保存；{warning}', { warning: currentWarning }) : t('已保存并生效');
+        };
+        line.textContent = saveStatusCopy();
         line.dataset.state = warning ? 'warning' : 'saved';
       }
       return result;
     } catch (_) {
-      if (line && owns()) { line.textContent = '未保存，请重试'; line.dataset.state = 'error'; }
+      if (line && owns()) {
+        saveStatusCopy = () => t('未保存，请重试');
+        line.textContent = saveStatusCopy(); line.dataset.state = 'error';
+      }
       return { ok: false };
     }
   }
@@ -329,6 +351,7 @@ function createPopoverSettingsDrawer({
       surfaceClient.testNudge(kind, level);
     }));
 
+    interfaceSettings.mount();
     aiConfiguration.mount();
     desktopUpdates.mount();
   }
@@ -337,6 +360,7 @@ function createPopoverSettingsDrawer({
     if (!mounted) return;
     mounted = false;
     lifetime++;
+    interfaceSettings.dispose();
     aiConfiguration.dispose();
     desktopUpdates.dispose();
     while (teardown.length) teardown.pop()();

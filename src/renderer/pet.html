@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>小步 - 桌面伙伴</title>
+<title data-i18n="小步 - 桌面伙伴">小步 - 桌面伙伴</title>
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <link rel="stylesheet" href="../surfaces/pet/notebook-visit.css">
 <style>
@@ -705,8 +705,9 @@
 <link rel="stylesheet" href="../surfaces/pet/status-footer.css">
 <link rel="stylesheet" href="../surfaces/pet/context-emphasis.css">
 <link rel="stylesheet" href="../surfaces/pet/session-orbit.css">
+<link rel="stylesheet" href="../surfaces/shared/interface/chrome.css">
 </head>
-<body data-motion="reduced" data-stimulation="low">
+<body data-surface="pet" data-motion="reduced" data-stimulation="low">
   <div class="stage" id="stage">
     <div class="scene-frame" aria-hidden="true"><canvas id="sceneCanvas" width="220" height="220"></canvas></div>
     <div class="pet-layer" id="petLayer">
@@ -729,7 +730,7 @@
     </div>
     <canvas id="overlayCanvas" width="220" height="220" aria-hidden="true"></canvas>
     <div class="status-footer" id="statusFooter">
-      <div class="activity-bar" id="activityBar" role="group" aria-label="伙伴当前动作">
+      <div class="activity-bar" id="activityBar" role="group" aria-label="伙伴当前动作" data-i18n-aria-label="伙伴当前动作">
         <button type="button" class="session-status" id="sessionStatus" aria-hidden="true" tabindex="-1">
           <svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path id="sessionStatusIcon"/></svg>
         </button>
@@ -737,7 +738,7 @@
         <button type="button" class="activity-next" id="activityNext" title="换一个陪伴动作" aria-label="切换伙伴当前动作"><svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M13 6a5 5 0 1 0 0 4M13 2v4H9"/></svg></button>
       </div>
 <!-- 常驻喂食入口：不靠菜单就能看到喂食能力 -->
-    <button type="button" class="feed-quick" id="feedQuick" data-act="feed" title="喂它吃东西" aria-label="打开喂食" aria-haspopup="dialog" aria-controls="foodPanel" aria-expanded="false"><svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 7.5h11a5.5 5 0 0 1-11 0z"/><path d="M5.5 5.2c.4-.9 1.4-1.2 2.5-.7M8.6 4.4c.8-.6 1.9-.5 2.4.3"/></svg></button>
+    <button type="button" class="feed-quick" id="feedQuick" data-act="feed" title="喂它吃东西" aria-label="打开喂食" aria-haspopup="dialog" aria-controls="foodPanel" aria-expanded="false" data-i18n-title="喂它吃东西" data-i18n-aria-label="打开喂食"><svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 7.5h11a5.5 5 0 0 1-11 0z"/><path d="M5.5 5.2c.4-.9 1.4-1.2 2.5-.7M8.6 4.4c.8-.6 1.9-.5 2.4.3"/></svg></button>
       <div class="context-row" id="contextRow">
         <button type="button" class="context-badge" id="contextBadge" aria-hidden="true" aria-expanded="false" tabindex="-1">
           <span class="context-icons" aria-hidden="true">
@@ -750,12 +751,12 @@
       </div>
     </div>
     <div class="bubble" id="bubble" role="status" aria-live="polite" aria-atomic="true"></div>
-    <div class="command-menu" id="commandMenu" role="menu" aria-label="伙伴命令" aria-hidden="true">
-      <button type="button" class="command-item c0" role="menuitem" data-act="focus" data-icon="play"><span class="ci-text">开始专注</span></button>
-      <button type="button" class="command-item c1" role="menuitem" data-act="impulse" data-icon="notebook"><span class="ci-text">快速记录</span></button>
-      <button type="button" class="command-item c2" role="menuitem" data-act="panel" data-icon="window"><span class="ci-text">打开面板</span></button>
+    <div class="command-menu" id="commandMenu" role="menu" aria-label="伙伴命令" aria-hidden="true" data-i18n-aria-label="伙伴命令">
+      <button type="button" class="command-item c0" role="menuitem" data-act="focus" data-icon="play"><span class="ci-text" data-i18n="开始专注">开始专注</span></button>
+      <button type="button" class="command-item c1" role="menuitem" data-act="impulse" data-icon="notebook"><span class="ci-text" data-i18n="快速记录">快速记录</span></button>
+      <button type="button" class="command-item c2" role="menuitem" data-act="panel" data-icon="window"><span class="ci-text" data-i18n="打开面板">打开面板</span></button>
       <button type="button" class="command-item c3" role="menuitemcheckbox" aria-checked="false" data-act="dnd" data-icon="moon"><span class="ci-text">免打扰</span></button>
-      <button type="button" class="command-item c4" role="menuitem" data-act="hide" data-icon="eye-off"><span class="ci-text">隐藏伙伴</span></button>
+      <button type="button" class="command-item c4" role="menuitem" data-act="hide" data-icon="eye-off"><span class="ci-text" data-i18n="隐藏伙伴">隐藏伙伴</span></button>
     </div>
 
     <!-- Long-press progress ring -->
@@ -776,11 +777,11 @@
   <!-- Food panel：放在 stage 外（stage 有 transform，会成为 fixed 子元素的包含块） -->
   <div class="food-panel side-right" id="foodPanel" role="dialog" aria-modal="false" aria-hidden="true" aria-labelledby="foodPanelTitle">
     <div class="fp-head">
-      <span class="fp-title" id="foodPanelTitle">喂食</span>
-      <button type="button" class="fp-close" id="foodClose" title="关闭" aria-label="关闭喂食面板">✕</button>
+      <span class="fp-title" id="foodPanelTitle" data-i18n="喂食">喂食</span>
+      <button type="button" class="fp-close" id="foodClose" title="关闭" aria-label="关闭喂食面板" data-i18n-title="关闭" data-i18n-aria-label="关闭喂食面板">✕</button>
     </div>
     <div class="fp-sat">
-      <div class="fp-sat-bar" id="fpSatProgress" role="progressbar" aria-label="宠物饱食度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="60" aria-valuetext="饱食 60/100"><div class="fp-sat-fill" id="fpSatFill"></div></div>
+      <div class="fp-sat-bar" id="fpSatProgress" role="progressbar" aria-label="宠物饱食度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="60" aria-valuetext="饱食 60/100" data-i18n-aria-label="宠物饱食度"><div class="fp-sat-fill" id="fpSatFill"></div></div>
       <span class="fp-sat-txt" id="fpSatTxt">饱食 60</span>
     </div>
     <div class="fp-list" id="foodList"></div>
@@ -789,18 +790,18 @@
 
   <aside class="dev-tools" id="devTools" aria-hidden="true" aria-labelledby="devToolsTitle">
     <div class="dev-head">
-      <div class="dev-title" id="devToolsTitle">宠物开发检验台</div>
-      <button type="button" class="dev-close" data-dev-action="close" aria-label="关闭开发检验台">✕</button>
+      <div class="dev-title" id="devToolsTitle" data-i18n="宠物开发检验台">宠物开发检验台</div>
+      <button type="button" class="dev-close" data-dev-action="close" aria-label="关闭开发检验台" data-i18n-aria-label="关闭开发检验台">✕</button>
     </div>
     <div class="dev-controls">
-      <div class="dev-control"><label for="devView">朝向</label><select id="devView"></select></div>
-      <div class="dev-control"><label for="devSkin">皮肤</label><select id="devSkin"></select></div>
-      <div class="dev-control"><label for="devLevel">等级</label><input id="devLevel" type="number" min="1" max="999" value="99" inputmode="numeric"></div>
+      <div class="dev-control"><label for="devView" data-i18n="朝向">朝向</label><select id="devView"></select></div>
+      <div class="dev-control"><label for="devSkin" data-i18n="皮肤">皮肤</label><select id="devSkin"></select></div>
+      <div class="dev-control"><label for="devLevel" data-i18n="等级">等级</label><input id="devLevel" type="number" min="1" max="999" value="99" inputmode="numeric"></div>
     </div>
     <div class="dev-actions">
-      <button type="button" class="dev-action" data-dev-action="all">显示全部</button>
-      <button type="button" class="dev-action" data-dev-action="play-all">播放全部</button>
-      <button type="button" class="dev-action" data-dev-action="clear">清除</button>
+      <button type="button" class="dev-action" data-dev-action="all" data-i18n="显示全部">显示全部</button>
+      <button type="button" class="dev-action" data-dev-action="play-all" data-i18n="播放全部">播放全部</button>
+      <button type="button" class="dev-action" data-dev-action="clear" data-i18n="清除">清除</button>
     </div>
     <div class="dev-list" id="devToolsList" aria-live="polite"></div>
   </aside>

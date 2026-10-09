@@ -1,3 +1,5 @@
+import { t } from '../shared/interface/i18n.mjs';
+import { SESSION_ACTIVITIES, MIRROR_ACTIVITIES } from '../../content/session-activities.mjs';
 // ARCHITECTURE「活动镜像」: the chosen primary shares the existing activity
 // controller; concurrent accessories are composed without a second action clock.
 export { applyActivityMirrorSync } from './activity-combination.mjs';
@@ -31,8 +33,9 @@ function mirrorBaseExpressionFor(baseExpression, activity, mirror) {
 
 function activityLabelFor(activity) {
   if (!activity) return '';
-  const prefix = activity.state === 'focused' ? '专注 · ' : activity.state === 'resting' ? '休息 · ' : '';
-  return `${activity.icon} ${prefix}${activity.label}`;
+  const prefix = activity.state === 'focused' ? t('专注 · ') : activity.state === 'resting' ? t('休息 · ') : '';
+  const source = (SESSION_ACTIVITIES[activity.id] || MIRROR_ACTIVITIES[activity.id])?.label;
+  return `${activity.icon} ${prefix}${source === activity.label ? t(source) : activity.label}`;
 }
 
 export { MIRROR_MODES, normalizeMirror, activityModeFor, activityControllerContent, activityLabelFor, mirrorBaseExpressionFor };

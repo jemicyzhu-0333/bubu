@@ -1,3 +1,5 @@
+import { t, getLocale, onLocaleChanged } from '../../shared/interface/i18n.mjs';
+
 const AUTHORIZATION_WARNING_CODE = 'collaboration-authorization-incomplete';
 const AUTHORIZATION_COUNTS = Object.freeze([
   'pendingConversations', 'unsavedConversations', 'unknownSaves',
@@ -28,29 +30,31 @@ function formatAuthorizationWarning(...warnings) {
   }
   if (!combined) return '';
   const pending = key => combined[key] === null || combined[key] > 0;
-  const count = (key, label) => `${label}${combined[key] === null ? '数量未知' : ` ${combined[key]}`}`;
+  const count = (key, label) => combined[key] === null
+    ? t('{label}数量未知', { label: t(label) }) : t('{label} {count}', { label: t(label), count: combined[key] });
+  const joinDetails = detail => detail.join(getLocale() === 'en' ? ', ' : '，');
   const parts = [];
   const livePending = combined.authorityUnavailable || pending('pendingConversations');
   if (livePending) {
     const detail = [];
     if (pending('pendingConversations')) detail.push(count('pendingConversations', '待处理会话'));
-    if (combined.authorityUnavailable) detail.push('授权状态不可用');
-    parts.push(`引用授权尚未就绪（${detail.join('，')}）`);
+    if (combined.authorityUnavailable) detail.push(t('授权状态不可用'));
+    parts.push(t('引用授权尚未就绪（{details}）', { details: joinDetails(detail) }));
   }
   if (pending('unsavedConversations') || pending('unknownSaves')) {
-    if (!livePending) parts.push('引用授权已在本次运行中更新');
+    if (!livePending) parts.push(t('引用授权已在本次运行中更新'));
     const detail = [];
     if (pending('unsavedConversations')) detail.push(count('unsavedConversations', '未保存会话'));
     if (pending('unknownSaves')) detail.push(count('unknownSaves', '保存结果未知的会话'));
-    parts.push(`本机会话保存未确认（${detail.join('，')}）`);
+    parts.push(t('本机会话保存未确认（{details}）', { details: joinDetails(detail) }));
   }
   if (pending('unconfirmedClosures') || pending('unconfirmedNotifications')) {
     const detail = [];
     if (pending('unconfirmedClosures')) detail.push(count('unconfirmedClosures', '资源释放'));
     if (pending('unconfirmedNotifications')) detail.push(count('unconfirmedNotifications', '通知'));
-    parts.push(`先前请求清理未确认（${detail.join('，')}）`);
+    parts.push(t('先前请求清理未确认（{details}）', { details: joinDetails(detail) }));
   }
-  return parts.join('；');
+  return parts.join(getLocale() === 'en' ? '; ' : '；');
 }
 
 // Explicit AI configuration draft: persistence receipts and effective routing
@@ -60,6 +64,8 @@ function createAiConfiguration({ $, getState, surfaceClient }) {
   let revision = 0, lifetime = 0, request = 0;
   let acknowledged = null, credentialAcknowledged = null;
   const teardown = [];
+  let feedbackCopy = () => '', feedbackState = 'saved', feedbackProjectionUnavailable = false;
+  let routingCopy = null;
   const fieldIds = ['aiModelInput', 'aiBaseUrlInput', 'aiApiKeyInput'];
   const fieldRevisions = { aiModelInput: 0, aiBaseUrlInput: 0, aiApiKeyInput: 0 };
   function listen(id, event, handler) {
@@ -72,15 +78,21 @@ function createAiConfiguration({ $, getState, surfaceClient }) {
     return mounted && ticket.lifetime === lifetime && ticket.request === request;
   }
   function feedback(text, state = 'saved') {
+    feedbackCopy = typeof text === 'function' ? text : () => t(text);
+    feedbackState = state;
+    feedbackProjectionUnavailable = false;
+    repaintFeedback();
+  }
+  function repaintFeedback() {
     const status = $('#aiConfigStatus');
     if (status) {
-      status.textContent = text;
-      status.dataset.state = state;
+      status.textContent = feedbackCopy();
+      status.dataset.state = feedbackState;
     }
     const button = $('#aiSaveConfig');
     if (button) {
       button.disabled = saving;
-      button.textContent = saving ? '正在保存…' : '保存配置';
+      button.textContent = t(saving ? '正在保存…' : '保存配置');
     }
   }
   function acknowledgeCredential(result) {
@@ -100,10 +112,13 @@ function createAiConfiguration({ $, getState, surfaceClient }) {
     }
   }
   function outcomeFeedback(text, state, warnings, credentialUnavailable = false, projectionUnavailable = false) {
-    const warning = formatAuthorizationWarning(...warnings);
-    const suffix = [warning, credentialUnavailable ? '密钥状态暂不可确认' : '',
-      projectionUnavailable ? '界面状态暂不可确认' : ''].filter(Boolean);
-    feedback([text, ...suffix].join('；'), state === 'error' ? state : suffix.length ? 'warning' : state);
+    const hasWarning = Boolean(formatAuthorizationWarning(...warnings) || credentialUnavailable || projectionUnavailable);
+    feedback(() => {
+      const suffix = [formatAuthorizationWarning(...warnings), credentialUnavailable ? t('密钥状态暂不可确认') : '',
+        projectionUnavailable ? t('界面状态暂不可确认') : ''].filter(Boolean);
+      return [typeof text === 'function' ? text() : t(text), ...suffix].join(getLocale() === 'en' ? '; ' : '；');
+    }, state === 'error' ? state : hasWarning ? 'warning' : state);
+    feedbackProjectionUnavailable = projectionUnavailable;
   }
   function render(ticket) {
     const state = getState();
@@ -132,17 +147,19 @@ function createAiConfiguration({ $, getState, surfaceClient }) {
         : projected.configured === credentialAcknowledged.configured)) credentialAcknowledged = null;
     const configured = credentialAcknowledged
       ? credentialAcknowledged.configured : verified ? projected.configured : null;
+    routingCopy = { configured, ai };
+    repaintRouting();
+  }
+  function repaintRouting() {
+    if (!routingCopy) return;
+    const { configured, ai, unavailable } = routingCopy;
     const credential = $('#aiCredentialState');
-    if (credential) credential.textContent = configured === null ? '状态未知' : configured ? '已配置' : '未配置';
+    if (credential) credential.textContent = t(configured === null ? '状态未知' : configured ? '已配置' : '未配置');
     const mode = $('#aiActiveMode');
-    if (mode)
-      mode.textContent = !ai?.enabled
-        ? 'AI 已关闭'
-        : configured === null
-          ? '尚未就绪 · 密钥状态未知'
-          : configured && ai.disclosure?.activeProvider === 'api'
-            ? `已就绪 · ${ai.model}`
-            : '尚未就绪 · 请保存模型与密钥';
+    if (mode) mode.textContent = unavailable ? t('状态暂不可确认') : !ai?.enabled
+      ? t('AI 已关闭') : configured === null ? t('尚未就绪 · 密钥状态未知')
+        : configured && ai.disclosure?.activeProvider === 'api'
+          ? t('已就绪 · {model}', { model: ai.model }) : t('尚未就绪 · 请保存模型与密钥');
   }
   function finish(ticket) {
     if (!owns(ticket)) return;
@@ -150,18 +167,17 @@ function createAiConfiguration({ $, getState, surfaceClient }) {
     const button = $('#aiSaveConfig');
     if (button) {
       button.disabled = false;
-      button.textContent = '保存配置';
+      button.textContent = t('保存配置');
     }
     let observed = false;
     try { observed = render(ticket) !== false; }
     catch (_) { /* A missing or failed projection cannot undo a known commit. */ }
     if (observed || !owns(ticket)) return;
-    const credential = $('#aiCredentialState'), mode = $('#aiActiveMode');
-    if (credential) credential.textContent = '状态未知';
-    if (mode) mode.textContent = '状态暂不可确认';
+    routingCopy = { configured: null, unavailable: true };
+    repaintRouting();
     const status = $('#aiConfigStatus');
-    if (status && !status.textContent.includes('界面状态暂不可确认'))
-      outcomeFeedback(status.textContent, status.dataset.state, [], false, true);
+    if (status && !feedbackProjectionUnavailable)
+      outcomeFeedback(feedbackCopy, feedbackState, [], false, true);
   }
   async function save() {
     if (!mounted || saving) return;
@@ -242,7 +258,8 @@ function createAiConfiguration({ $, getState, surfaceClient }) {
       const failed = result?.ok === false;
       const text = failed
         ? kind === 'import' ? '未导入 · 环境变量或安全存储不可用' : '未清除 · 系统安全存储不可用'
-        : `${kind === 'import' ? '密钥已导入' : '密钥已清除'}${dirty ? ' · 其他修改待保存' : ''}`;
+        : dirty ? kind === 'import' ? '密钥已导入 · 其他修改待保存' : '密钥已清除 · 其他修改待保存'
+          : kind === 'import' ? '密钥已导入' : '密钥已清除';
       outcomeFeedback(text, failed ? 'error' : dirty ? 'dirty' : 'saved',
         [result?.authorizationWarning], result?.credentialStatus === 'unavailable', projectionUnavailable);
     } catch (_) {
@@ -258,6 +275,7 @@ function createAiConfiguration({ $, getState, surfaceClient }) {
   function mount() {
     if (mounted) return;
     mounted = true;
+    teardown.push(onLocaleChanged(() => { repaintFeedback(); repaintRouting(); }));
     lifetime++;
     saving = false;
     feedback(dirty ? '修改待保存' : '已保存', dirty ? 'dirty' : 'saved');

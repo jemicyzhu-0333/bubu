@@ -1,0 +1,41 @@
+/* Shared tool chrome; character paint and semantic skin accents remain untouched. */
+html { color-scheme: light dark; }
+:where(button, select, input, textarea, summary):focus-visible {
+  outline: 2px solid var(--ui-primary, var(--primary)); outline-offset: 3px;
+}
+html[lang="en"] .setting-group-title { letter-spacing: normal; text-transform: none; }
+html[lang="en"] .setting-row { gap: 10px; }
+html[lang="en"] .segmented { flex-wrap: wrap; }
+body[data-surface="impulse"] .pixel-btn.primary { color: var(--ink); }
+body[data-surface="impulse"] .session-state { color: var(--primary-ink); }
+body[data-surface="impulse"] .action-row { flex-wrap: wrap; }
+body[data-surface="impulse"] .action-row .pixel-btn { min-width: 100px; white-space: normal; }
+body[data-surface="pet"] :is(.command-item[aria-checked="true"], .fi-count) {
+  background: color-mix(in srgb, var(--ui-primary) 20%, var(--ui-bg));
+}
+body[data-surface="pet"] .command-item:active { background: color-mix(in srgb, var(--ui-primary) 25%, var(--ui-bg)); }
+body[data-surface="pet"] .ci-text { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
+body[data-surface="pet"] .command-item:focus-visible { outline-offset: -2px; }
+body[data-surface="nudge-corner"] .bubble {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--ui-bg); color: var(--ui-fg); border-color: var(--ui-line);
+}
+body[data-surface="nudge-corner"] .nudge-action { background: var(--bg-2); color: var(--fg-0); border-color: var(--line-strong); }
+body[data-surface="nudge-corner"] .nudge-action.primary { background: var(--primary); color: var(--ink); }
+body[data-surface="nudge-fullscreen"] .card {
+  background: var(--ui-bg); color: var(--ui-fg); border-color: var(--ui-primary); border-width: 2px;
+  border-radius: 16px; box-shadow: 0 12px 40px #0005;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+body[data-surface="nudge-fullscreen"] .card :is(.message, .sub, .pixel-btn) { font-family: inherit; letter-spacing: normal; text-shadow: none; }
+body[data-surface="nudge-fullscreen"] .message { color: var(--ui-fg); }
+body[data-surface="nudge-fullscreen"] .sub { color: var(--ui-fg-2); }
+body[data-surface="nudge-fullscreen"] .pixel-btn { background: var(--bg-2); color: var(--fg-0); border-color: var(--line-strong); border-width: 1px; border-radius: 8px; box-shadow: none; }
+body[data-surface="nudge-fullscreen"] .pixel-btn.primary { background: var(--primary); color: var(--ink); border-color: var(--primary); }
+body[data-surface="nudge-fullscreen"] .scanlines { display: none; }
+
+body[data-surface="pet"] :is(.command-menu, .food-panel, .food-item) {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+body[data-surface="nudge-corner"] .container:is(.br, .tr) .bubble::after { border-left-color: var(--ui-bg); }
+body[data-surface="nudge-corner"] .container:is(.bl, .tl) .bubble::after { border-right-color: var(--ui-bg); }

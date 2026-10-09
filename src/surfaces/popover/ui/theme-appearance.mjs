@@ -1,6 +1,6 @@
 'use strict';
 
-// 浅色 / 深色：跟随系统（prefers-color-scheme），没有设置项，也就没有持久化字段。面板配色来自
+// 浅色 / 深色 / 跟随系统由 canonical preferences 与共享 interface presentation 驱动。面板配色来自
 // ui/panel-palette.mjs，与伙伴皮肤无关（PRODUCT「界面语言」）；这里只剩把配色写到根元素的变量表，
 // 以及测试与配色共用的 WCAG 对比度计算。
 const parse = hex => [1, 3, 5].map(index => parseInt(hex.slice(index, index + 2), 16));

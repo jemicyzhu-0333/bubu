@@ -1,3 +1,4 @@
+import { t } from '../shared/interface/i18n.mjs';
 import {
   createFoodRequest,
   foodRequestResolved,
@@ -63,14 +64,14 @@ function isFeedSnapshot(value) {
 }
 
 function foodRequestMessage(outcome, action = '喂食') {
-  if (outcome.refreshFailed) return '上次结果还未核对，刷新失败。再次点击会先核对库存。';
-  if (outcome.retryRequired) return '库存已刷新，上次请求已过核对期限。核对后可再次点击。';
-  if (outcome.unresolved) return `上次${action}结果尚未确认，再次点击会核对同一请求。`;
+  if (outcome.refreshFailed) return t('上次结果还未核对，刷新失败。再次点击会先核对库存。');
+  if (outcome.retryRequired) return t('库存已刷新，上次请求已过核对期限。核对后可再次点击。');
+  if (outcome.unresolved) return t('上次{action}结果尚未确认，再次点击会核对同一请求。', { action: t(action) });
   const messages = {
     'out-of-stock': '这份食物已经没有库存了。',
     'basic-meal-limit': '今天的基础餐已经用完。',
-    'basic-meal-not-needed': `现在还不饿，基础餐留到饱食不高于 ${BASIC_MEAL.hungryAt} 时。`,
-    'insufficient-food-tickets': `食物券不足，今天首次推进后可获得 ${FOOD_ECONOMY.dailyTickets} 张。`,
+    'basic-meal-not-needed': t('现在还不饿，基础餐留到饱食不高于 {value} 时。', { value: BASIC_MEAL.hungryAt }),
+    'insufficient-food-tickets': t('食物券不足，今天首次推进后可获得 {count} 张。', { count: FOOD_ECONOMY.dailyTickets }),
     'food-inventory-full': '这份食物的库存已满。',
     'food-locked': '达到对应等级后解锁。',
     'food-command-capacity': '当前请求记录已满，稍后再试。',
@@ -80,7 +81,7 @@ function foodRequestMessage(outcome, action = '喂食') {
     'food-counter-capacity': '喂食记录已达到上限。',
     'meal-version-capacity': '照料记录已达到上限。'
   };
-  return messages[outcome.result?.reason] || `这次没有完成${action}。`;
+  return messages[outcome.result?.reason] ? t(messages[outcome.result.reason]) : t('这次没有完成{action}。', { action: t(action) });
 }
 
 export { createFoodRequestLifecycle, isFeedSnapshot, foodRequestMessage };

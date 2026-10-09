@@ -1,3 +1,4 @@
+import { t, getLocale } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 const ICONS = Object.freeze({
@@ -24,23 +25,23 @@ function storedClock(at, offset) {
   return new Date(at + offset * 60000).toISOString().slice(11, 16);
 }
 function changeDescription(marker) {
-  if (marker.redactionState === 'redacted') return { label: '内容已移除', verb: '记录', category: 'muted' };
-  if (marker.visibility === 'private') return { label: '私密记录', verb: '记录', category: 'muted' };
-  if (marker.kind === 'ai.change.reverted') return { label: `${marker.change.count} 项操作`, verb: '已确认撤销', category: 'muted' };
-  return { label: `${marker.change.count} 项操作`, verb: '已确认修改', category: 'muted' };
+  if (marker.redactionState === 'redacted') return { label: t('内容已移除'), verb: t('记录'), category: 'muted' };
+  if (marker.visibility === 'private') return { label: t('私密记录'), verb: t('记录'), category: 'muted' };
+  if (marker.kind === 'ai.change.reverted') return { label: t('{count} 项操作', { count: marker.change.count }), verb: t('已确认撤销'), category: 'muted' };
+  return { label: t('{count} 项操作', { count: marker.change.count }), verb: t('已确认修改'), category: 'muted' };
 }
 function changeDetail(marker) {
-  if (marker.redactionState === 'redacted') return '内容已移除';
-  if (marker.visibility === 'private') return '私密记录';
-  const labels = { 'task.changed': '任务调整', 'inbox.resolved': '收件已处理', 'routine.schedule.changed': '日常计划调整' };
-  const lines = ['来源：经本人确认的 AI 协作', '状态：已提交'];
+  if (marker.redactionState === 'redacted') return t('内容已移除');
+  if (marker.visibility === 'private') return t('私密记录');
+  const labels = { 'task.changed': t('任务调整'), 'inbox.resolved': t('收件已处理'), 'routine.schedule.changed': t('日常计划调整') };
+  const lines = [t('来源：经本人确认的 AI 协作'), t('状态：已提交')];
   for (const change of marker.changes || []) {
-    const ids = (change.change?.entityRefs || []).map(ref => `${({ task: '任务', inbox: '收件', routine: '日常' })[ref.kind]} ${ref.id}`);
-    lines.push(`${labels[change.kind] || '变更'}${ids.length ? `：${ids.join('、')}` : ''}`);
+    const ids = (change.change?.entityRefs || []).map(ref => `${({ task: t('任务'), inbox: t('收件'), routine: t('日常') })[ref.kind]} ${ref.id}`);
+    lines.push(ids.length ? t('{label}：{items}', { label: labels[change.kind] || t('变更'), items: ids.join(getLocale() === 'en' ? ', ' : '、') }) : labels[change.kind] || t('变更'));
   }
-  lines.push(`回执：${marker.change.receiptId}`);
-  if (marker.timezone) lines.push(`发生时区：${marker.timezone} (UTC${marker.utcOffsetMinutes < 0 ? '' : '+'}${marker.utcOffsetMinutes / 60})`);
-  if (Number.isFinite(marker.receivedAt) && marker.receivedAt !== marker.occurredAt) lines.push(`补录时间：${new Date(marker.receivedAt).toISOString()}`);
+  lines.push(t('回执：{receipt}', { receipt: marker.change.receiptId }));
+  if (marker.timezone) lines.push(t('发生时区：{timezone} (UTC{offset})', { timezone: marker.timezone, offset: `${marker.utcOffsetMinutes < 0 ? '' : '+'}${marker.utcOffsetMinutes / 60}` }));
+  if (Number.isFinite(marker.receivedAt) && marker.receivedAt !== marker.occurredAt) lines.push(t('补录时间：{time}', { time: new Date(marker.receivedAt).toISOString() }));
   return lines.join('\n');
 }
 export { timelineCategory, timelineIcon, storedClock, changeDescription, changeDetail };

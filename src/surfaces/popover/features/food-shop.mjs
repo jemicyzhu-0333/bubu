@@ -1,8 +1,12 @@
+import { t, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 import { createFoodRequestLifecycle, foodRequestMessage } from '../../companion/food-request-lifecycle.mjs';
 
 function createPopoverFoodShop({ $, surfaceClient, getState, render, now, nonce, onSuccess } = {}) {
   let mounted = false, visit = 0, store = null;
   const cleanup = [];
+  let statusCopy = () => '';
+  const paintStatus = () => { const status = $('#foodShopStatus'); if (status) status.textContent = statusCopy(); };
+  const say = copy => { statusCopy = copy; paintStatus(); };
   const requests = createFoodRequestLifecycle({
     send: request => surfaceClient.buyFood(request),
     refresh: () => store?.refresh ? store.refresh() : surfaceClient.getState(),
@@ -22,16 +26,17 @@ function createPopoverFoodShop({ $, surfaceClient, getState, render, now, nonce,
     const foodId = button.dataset.foodId, owner = visit;
     if (requests.busy(foodId)) return;
     const status = $('#foodShopStatus');
-    if (status) status.textContent = '兑换中…';
+    say(() => t('兑换中…'));
     const pending = requests.run(foodId);
     render();
     const outcome = await pending;
     if (outcome.ignored) return;
     if (mounted) render();
     if (!owns(owner)) return;
-    if (status) status.textContent = outcome.result?.ok
-      ? `已放入食物袋 · 食物券 ${outcome.result.foodTickets ?? getState()?.foodShop?.foodTickets ?? 0} 张`
-      : foodRequestMessage(outcome, '兑换');
+    const tickets = outcome.result?.foodTickets ?? getState()?.foodShop?.foodTickets ?? 0;
+    say(() => outcome.result?.ok
+      ? t('已放入食物袋 · 食物券 {count} 张', { count: tickets })
+      : foodRequestMessage(outcome, '兑换'));
     if (outcome.result?.ok) {
       try { onSuccess?.(foodId, status); } catch (_) { /* committed receipt stays successful */ }
     }
@@ -39,6 +44,7 @@ function createPopoverFoodShop({ $, surfaceClient, getState, render, now, nonce,
   function mount(projectionStore) {
     if (mounted) return;
     mounted = true; visit += 1; store = projectionStore;
+    cleanup.push(onLocaleChanged(paintStatus));
     listen($('#foodShopList'), 'click', click);
     const leave = () => { visit += 1; };
     listen(panel(), 'close', leave);

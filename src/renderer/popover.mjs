@@ -265,7 +265,8 @@ function createPopoverSurface({ document, window }) {
   const activityMirrorSettings = createActivityMirrorSettings({ $, getState: () => state, escapeHTML, surfaceClient });
   activityMirrorSettings.mount(projectionStore);
   timelineFeature.mount(projectionStore);
-  createPopoverCaptureBar({ document, $, surfaceClient }).mount();
+  const captureBar = createPopoverCaptureBar({ document, $, surfaceClient });
+  captureBar.mount();
 
   // ---- 落点提示 ----
   // 计时结束后那一问自己成一层：它露不露面由投影决定,不由谁去点开;它拥有的只
@@ -304,7 +305,7 @@ function createPopoverSurface({ document, window }) {
     },
     isAiClarifyEnabled: purpose => Boolean(state?.settings?.aiBreakdownEnabled
       && (purpose === 'stuck' || state.settings.aiClarifyEnabled)),
-    showStuckStatus: text => showTransientStatus('#stuckCollaborationStatus', text)
+    showStuckStatus: source => stuck.showStatus(source)
   });
 
   // ---- 统一任务编辑面板 ----
@@ -614,6 +615,9 @@ function createPopoverSurface({ document, window }) {
   // 然后才轮到那四片脏标记各自决定重画什么。升级那一下的庆祝也在这里,因为只有
   // 这里同时看得见换之前与换之后。
   projectionStore.subscribe(change => {
+    // A locale repaint is not a new domain snapshot. Never reset timer anchors,
+    // transient decisions or celebration state from an unchanged projection.
+    if (change.localeOnly) return;
     const prev = state;
     state = change.state;
     focusTimer.syncPomoCountdownAnchor();
@@ -689,7 +693,7 @@ function createPopoverSurface({ document, window }) {
     clearInterval(expiryTicker);
     document.removeEventListener('keydown', handleKeydown);
     window.removeEventListener('pagehide', dispose);
-    const features = [dom, moodDeletion, companionArt, companionFeature, skinPicker, wardrobeFeature,
+    const features = [dom, captureBar, moodDeletion, companionArt, companionFeature, skinPicker, wardrobeFeature,
       progressFeature, routinesFeature, todayOverview, activityMirrorSettings, timelineFeature, completionFeedback,
       landing, draftConversation, taskDraft, taskEditor, completeConfirm, focusTimer, taskList, nowCard, inbox,
       review, breakdownFeature, stuck, appChrome, settingsDrawer, shortcutSetting, memoryList, planningPreferences, energyStrip,

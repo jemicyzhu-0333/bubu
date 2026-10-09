@@ -1,3 +1,4 @@
+import { t } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 // 一天的故事：竖着读的时间线。
@@ -44,17 +45,17 @@ function partOf(timestamp, offsetMinutes = null) {
     : new Date(timestamp).getHours();
   let found = PARTS[0];
   for (const part of PARTS) if (hour >= part.from) found = part;
-  return found.label;
+  return t(found.label);
 }
 
 function taskTitle(taskId, state) {
-  if (!taskId) return '自由专注';
+  if (!taskId) return t('自由专注');
   for (const pool of [state.tasks, state.archivedTasks]) {
     if (!Array.isArray(pool)) continue;
     const found = pool.find(task => task && task.id === taskId);
     if (found && found.title) return found.title;
   }
-  return '不在当前列表里的任务';
+  return t('不在当前列表里的任务');
 }
 
 function routineTitle(marker, state) {
@@ -66,46 +67,46 @@ function routineTitle(marker, state) {
 // 每条记录一句话。category 决定色点：focus 伙伴色、done 琥珀、routine 青、muted 灰。
 function describeMarker(marker, state) {
   if (marker.change) return { icon: '', ...changeDescription(marker) };
-  if (marker.redactionState === 'redacted') return { icon: '', label: '内容已移除', verb: '记录', category: 'muted' };
-  if (marker.visibility === 'private') return { icon: '', label: '私密记录', verb: '记录', category: 'muted' };
-  if (marker.kind === 'inbox.captured') return { icon: '', label: '1 条便签', verb: '收下', category: 'muted' };
-  if (marker.kind === 'inbox.resolved') return { icon: '', label: '1 条收件', verb: '已处理', category: 'muted' };
-  if (marker.kind === 'task.changed') return { icon: '', label: '任务', verb: '已修改', category: 'muted' };
-  if (marker.kind === 'routine.schedule.changed') return { icon: '', label: '日常计划', verb: '已修改', category: 'routine' };
+  if (marker.redactionState === 'redacted') return { icon: '', label: t('内容已移除'), verb: t('记录'), category: 'muted' };
+  if (marker.visibility === 'private') return { icon: '', label: t('私密记录'), verb: t('记录'), category: 'muted' };
+  if (marker.kind === 'inbox.captured') return { icon: '', label: t('1 条便签'), verb: t('收下'), category: 'muted' };
+  if (marker.kind === 'inbox.resolved') return { icon: '', label: t('1 条收件'), verb: t('已处理'), category: 'muted' };
+  if (marker.kind === 'task.changed') return { icon: '', label: t('任务'), verb: t('已修改'), category: 'muted' };
+  if (marker.kind === 'routine.schedule.changed') return { icon: '', label: t('日常计划'), verb: t('已修改'), category: 'routine' };
   if (marker.kind.startsWith('routine.')) {
     const title = routineTitle(marker, state);
-    const name = title || '已移除的日常';
+    const name = title || t('已移除的日常');
     const icon = title ? routineSymbol(marker.routineKind).icon : '';
     if (marker.kind === 'routine.logged') {
-      if (marker.status === 'done') return { icon, label: name, verb: '做了', category: 'routine' };
-      if (marker.status === 'skipped') return { icon, label: name, verb: '跳过', category: 'muted' };
-      return { icon, label: name, verb: '记录', category: 'muted' };
+      if (marker.status === 'done') return { icon, label: name, verb: t('做了'), category: 'routine' };
+      if (marker.status === 'skipped') return { icon, label: name, verb: t('跳过'), category: 'muted' };
+      return { icon, label: name, verb: t('记录'), category: 'muted' };
     }
-    if (marker.kind === 'routine.reminded') return { icon, label: name, verb: '提醒', category: 'muted' };
-    if (marker.kind === 'routine.missed') return { icon, label: name, verb: '提醒时段结束', category: 'muted' };
+    if (marker.kind === 'routine.reminded') return { icon, label: name, verb: t('提醒'), category: 'muted' };
+    if (marker.kind === 'routine.missed') return { icon, label: name, verb: t('提醒时段结束'), category: 'muted' };
   }
   if (marker.kind === 'session.started') {
-    const verb = marker.sessionKind === 'quick-start' ? '两分钟启动' : '开始专注';
+    const verb = marker.sessionKind === 'quick-start' ? t('两分钟启动') : t('开始专注');
     return { icon: '', label: taskTitle(marker.taskId, state), verb, category: 'focus' };
   }
   if (marker.kind === 'session.completed') {
-    return { icon: '', label: taskTitle(marker.taskId, state), verb: '专注结束', category: 'focus' };
+    return { icon: '', label: taskTitle(marker.taskId, state), verb: t('专注结束'), category: 'focus' };
   }
   if (marker.kind === 'task.completed') {
-    return { icon: '', label: taskTitle(marker.taskId, state), verb: '完成', category: 'done' };
+    return { icon: '', label: taskTitle(marker.taskId, state), verb: t('完成'), category: 'done' };
   }
-  if (marker.kind === 'energy.profile.changed') return { icon: '', label: '你确认的估计试用', verb: '已调整', category: 'muted' };
-  if (marker.kind === 'planning.preference.changed') return { icon: '', label: '安排偏好', verb: '已调整', category: 'muted' };
+  if (marker.kind === 'energy.profile.changed') return { icon: '', label: t('你确认的估计试用'), verb: t('已调整'), category: 'muted' };
+  if (marker.kind === 'planning.preference.changed') return { icon: '', label: t('安排偏好'), verb: t('已调整'), category: 'muted' };
   if (marker.kind === 'energy.profile-calibrated') {
-    return { icon: '', label: '按你的自评更新了能量模型', verb: '校准', category: 'muted' };
+    return { icon: '', label: t('按你的自评更新了能量模型'), verb: t('校准'), category: 'muted' };
   }
-  return { icon: '', label: '记录类型暂不可用', verb: '其他记录', category: 'muted' };
+  return { icon: '', label: t('记录类型暂不可用'), verb: t('其他记录'), category: 'muted' };
 }
 
 function focusEntries(day, state) {
   const entries = [];
   for (const lane of (Array.isArray(day.lanes) ? day.lanes : [])) {
-    const label = lane.other ? '其他' : taskTitle(lane.taskId, state);
+    const label = lane.other ? t('其他') : taskTitle(lane.taskId, state);
     for (const segment of (lane.segments || [])) {
       if (!Number.isFinite(segment.startMs) || !Number.isFinite(segment.endMs)) continue;
       const durationMs = Number.isFinite(segment.durationMs) && segment.durationMs > 0
@@ -160,14 +161,14 @@ function energySpark(curve, day, state, escapeHTML) {
   const previousDay = today ? new Date(state.serverNow) : null;
   if (previousDay) previousDay.setDate(previousDay.getDate() - 1);
   if (today && day.dayKey !== today && day.dayKey !== localDayKey(previousDay.getTime())) {
-    return { label: '较早日期的能量打卡未完整保留，不画失真的曲线', markup: '', levelAt: () => null };
+    return { label: t('较早日期的能量打卡未完整保留，不画失真的曲线'), markup: '', levelAt: () => null };
   }
   if (Number.isFinite(day.dayStart) && Number.isFinite(day.dayEnd)
       && day.dayEnd - day.dayStart !== 24 * HOUR_MS) {
-    return { label: '夏令时切换日的能量采样无法准确覆盖当天，不画失真的曲线', markup: '', levelAt: () => null };
+    return { label: t('夏令时切换日的能量采样无法准确覆盖当天，不画失真的曲线'), markup: '', levelAt: () => null };
   }
   if (!curve || curve.dayKey !== day.dayKey || !Array.isArray(curve.levels) || curve.levels.length < 2) {
-    return { label: '估计能量曲线未启用或不可用', markup: '', levelAt: () => null };
+    return { label: t('估计能量曲线未启用或不可用'), markup: '', levelAt: () => null };
   }
   const start = day.dayStart;
   const perSample = Number.isFinite(curve.sampleMinutes) && curve.sampleMinutes > 0
@@ -179,7 +180,7 @@ function energySpark(curve, day, state, escapeHTML) {
   const points = curve.levels
     .map((level, index) => ({ minute: index * perSample, level }))
     .filter(point => Number.isFinite(point.level));
-  if (points.length < 2) return { label: '这天没有足够的能量记录', markup: '', levelAt: () => null };
+  if (points.length < 2) return { label: t('这天没有足够的能量记录'), markup: '', levelAt: () => null };
   const levelAt = timestamp => {
     const minute = (timestamp - start) / MINUTE_MS;
     if (!Number.isFinite(minute) || minute < 0 || minute >= 1440) return null;
@@ -194,17 +195,17 @@ function energySpark(curve, day, state, escapeHTML) {
   const valid = points.map(point => point.level);
   const low = Math.round(Math.min(...valid));
   const high = Math.round(Math.max(...valid));
-  const label = `估计能量 ${low}–${high}（10–90，仅为估计）`;
+  const label = t('估计能量 {low}–{high}（10–90，仅为估计）', { low, high });
   const extremes = points.length ? [points.reduce((a,b) => a.level <= b.level ? a : b), points.reduce((a,b) => a.level >= b.level ? a : b)] : [];
   const dots = extremes.map(point => `<circle class="tl-extreme-dot" cx="${x(point.minute)}" cy="${y(point.level)}" r="2"/>`).join('');
   // HTML labels keep their font proportions when the SVG stretches across the panel.
   const annotations = extremes.map((point, index) => {
     const left = Math.max(7, Math.min(93, x(point.minute) / W * 100));
     const top = Math.max(10, Math.min(90, (y(point.level) + (index ? -10 : 12)) / H * 100));
-    return `<span class="tl-extreme" style="left:${left}%;top:${top}%">${index ? '高' : '低'} ${Math.round(point.level)}</span>`;
+    return `<span class="tl-extreme" style="left:${left}%;top:${top}%">${index ? t('高') : t('低')} ${Math.round(point.level)}</span>`;
   }).join('');
   const markup = `<figure class="tl-spark" aria-label="${escapeHTML(label)}">`
-    + '<span class="tl-spark-caption">能量估计</span>'
+    + `<span class="tl-spark-caption">${t('能量估计')}</span>`
     + `<div class="tl-spark-plot"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">`
     + `<path class="tl-spark-fill" d="${path} L${W},${H} L0,${H} Z"></path>`
     + `<path class="tl-spark-line" d="${path}"></path>${now}${dots}</svg>${annotations}</div>`
@@ -223,18 +224,18 @@ function entryMarkup(entry, formatMs, escapeHTML, levelAt) {
   const clock = storedClock(entry.at, entry.marker?.utcOffsetMinutes) || hhmm(entry.at);
   const typeIcon = timelineIcon(timelineCategory(entry));
   const level = levelAt(entry.at);
-  const energyNote = Number.isFinite(level) ? ` · 当时估计能量约 ${Math.round(level)}` : '';
+  const energyNote = Number.isFinite(level) ? t(' · 当时估计能量约 {level}', { level: Math.round(level) }) : '';
   if (entry.type === 'mood') {
-    const detail = `${hhmm(entry.at)} · 你留下的情绪记录 · ${entry.text}`;
+    const detail = t('{time} · 你留下的情绪记录 · {text}', { time: hhmm(entry.at), text: entry.text });
     return `<li class="tl-row tl-row-mood"><button type="button" class="tl-event" ${attrs} data-detail="${escapeHTML(detail)}">`
       + `<time>${clock}</time><i class="tl-dot" aria-hidden="true">${typeIcon}</i>`
-      + `<span class="tl-text"><span class="tl-verb">心情</span><span class="tl-label">${escapeHTML(entry.text)}</span></span>`
+      + `<span class="tl-text"><span class="tl-verb">${t('心情')}</span><span class="tl-label">${escapeHTML(entry.text)}</span></span>`
       + '</button>'
-      + `<button type="button" class="tl-del" data-mood-id="${escapeHTML(entry.id)}" aria-label="删除这条情绪记录">删除</button></li>`;
+      + `<button type="button" class="tl-del" data-mood-id="${escapeHTML(entry.id)}" aria-label="${t('删除这条情绪记录')}">${t('删除')}</button></li>`;
   }
   if (entry.type === 'focus') {
-    const verb = entry.quick ? '两分钟启动' : '专注';
-    const duration = entry.durationMs < MINUTE_MS ? (entry.durationMs > 0 ? `${Math.max(1, Math.floor(entry.durationMs / 1000))}秒` : '刚开始') : formatMs(entry.durationMs);
+    const verb = entry.quick ? t('两分钟启动') : t('专注');
+    const duration = entry.durationMs < MINUTE_MS ? (entry.durationMs > 0 ? t('{seconds}秒', { seconds: Math.max(1, Math.floor(entry.durationMs / 1000)) }) : t('刚开始')) : formatMs(entry.durationMs);
     const detail = `${hhmm(entry.at)}–${hhmm(entry.end)} · ${verb} ${duration} · ${entry.label}${energyNote}`;
     return `<li class="tl-row tl-row-focus"><button type="button" class="tl-event tl-seg" ${attrs} data-detail="${escapeHTML(detail)}">`
       + `<time>${clock}</time><i class="tl-dot" aria-hidden="true">${typeIcon}</i>`
@@ -259,8 +260,8 @@ function entryMarkup(entry, formatMs, escapeHTML, levelAt) {
 function gapMarkup(ms) {
   const hours = Math.floor(ms / HOUR_MS);
   const minutes = Math.round((ms % HOUR_MS) / MINUTE_MS);
-  const text = hours ? `${hours} 小时${minutes ? ` ${minutes} 分` : ''}` : `${minutes} 分钟`;
-  return `<li class="tl-gap" aria-hidden="true"><span>${text}没有记录</span></li>`;
+  const text = hours ? t('{hours} 小时{minutes}', { hours, minutes: minutes ? t(' {minutes} 分', { minutes }) : '' }) : t('{minutes} 分钟', { minutes });
+  return `<li class="tl-gap" aria-hidden="true"><span>${t('{time}没有记录', { time: text })}</span></li>`;
 }
 
 function buildTimelineStory({ day, energyCurve, state = {}, formatMs, escapeHTML, filter = 'all' }) {
@@ -297,7 +298,7 @@ function buildTimelineStory({ day, energyCurve, state = {}, formatMs, escapeHTML
   }
   const list = rows.length
     ? `<ol class="tl-list">${rows.join('')}</ol>`
-    : '<p class="tl-none">暂无活动记录。没有逐条记录，不代表没有行动。</p>';
+    : `<p class="tl-none">${t('暂无活动记录。没有逐条记录，不代表没有行动。')}</p>`;
   return {
     width: 0,
     height: 0,

@@ -1,3 +1,4 @@
+import { t, onLocaleChanged } from '../shared/interface/i18n.mjs';
 'use strict';
 
 import petInput from '../../core/pet-input.mjs';
@@ -148,6 +149,16 @@ function createPetMenu({
     applyStageGeometry(geo);
   });
 
+  function renderDndCopy() {
+    const dndItem = commandMenu.querySelector('[data-act="dnd"]');
+    if (dndItem) {
+      const dnd = Boolean(callbacks.isDnd?.());
+      dndItem.setAttribute('aria-checked', String(dnd));
+      dndItem.querySelector('.ci-text').textContent = dnd ? t('关闭免打扰') : t('免打扰');
+    }
+  }
+  listeners.push(onLocaleChanged(() => { if (!disposed) renderDndCopy(); }));
+
   async function toggle(show, { focus = false, restoreFocus = true, keyboard = false } = {}) {
     if (disposed) return;
     if (show === undefined) show = !commandMenuOpen;
@@ -182,12 +193,7 @@ function createPetMenu({
       return;
     }
     menuReturnFocus = petHit;
-    const dndItem = commandMenu.querySelector('[data-act="dnd"]');
-    if (dndItem) {
-      const dnd = Boolean(callbacks.isDnd?.());
-      dndItem.setAttribute('aria-checked', String(dnd));
-      dndItem.querySelector('.ci-text').textContent = dnd ? '关闭免打扰' : '免打扰';
-    }
+    renderDndCopy();
     await syncStageExpansion();
     if (!commandMenuOpen || disposed || revision !== menuRevision) return;
     commandMenu.classList.add('show');

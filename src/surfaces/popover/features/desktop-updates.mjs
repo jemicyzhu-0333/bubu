@@ -1,3 +1,5 @@
+import { t, onLocaleChanged } from '../../shared/interface/i18n.mjs';
+
 const REASONS = Object.freeze({
   'development-build': '开发运行不检查更新，安装正式版后可用',
   'unsupported-platform': '此平台暂不支持应用内更新',
@@ -13,15 +15,24 @@ const REASONS = Object.freeze({
 function createDesktopUpdateFeature({ $, getState, surfaceClient, isVisible = () => true, setTimer = setTimeout, clearTimer = clearTimeout }) {
   let mounted = false, timer = null, sequence = 0, current = null;
   const releases = [];
+  let statusCopy = { source: '', parameters: {} };
+  function showStatus(source, parameters = {}) {
+    statusCopy = { source, parameters };
+    $('#appUpdateStatus').textContent = t(source, parameters);
+  }
+  function repaintCopy() {
+    if (current) $('#appUpdateVersion').textContent = t('当前版本 {version}', { version: current.currentVersion });
+    $('#appUpdateStatus').textContent = t(statusCopy.source, statusCopy.parameters);
+  }
   const listen = (node, event, fn) => { if (node) { node.addEventListener(event, fn); releases.push(() => node.removeEventListener(event, fn)); } };
   function render(state) {
     current = state;
     const phase = state.phase;
-    $('#appUpdateVersion').textContent = `当前版本 ${state.currentVersion}`;
+    $('#appUpdateVersion').textContent = t('当前版本 {version}', { version: state.currentVersion });
     const message = { idle: '可检查是否有新版本', checking: '正在检查…', current: '已是最新版本',
-      available: `发现新版本 ${state.version}`, downloading: `下载中 ${state.percent}%`,
-      cancelling: '正在取消下载…', downloaded: `版本 ${state.version} 已准备好`, installing: '正在重启更新…' };
-    $('#appUpdateStatus').textContent = REASONS[state.reason] || message[phase] || '更新暂不可用';
+      available: '发现新版本 {version}', downloading: '下载中 {percent}%',
+      cancelling: '正在取消下载…', downloaded: '版本 {version} 已准备好', installing: '正在重启更新…' };
+    showStatus(REASONS[state.reason] || message[phase] || '更新暂不可用', { version: state.version, percent: state.percent });
     $('#appUpdateCheck').disabled = ['unavailable', 'checking', 'downloading', 'cancelling', 'downloaded', 'installing'].includes(phase);
     $('#appUpdateDownload').hidden = !(phase === 'available' || phase === 'error' && state.version);
     $('#appUpdateCancel').hidden = phase !== 'downloading';
@@ -33,7 +44,7 @@ function createDesktopUpdateFeature({ $, getState, surfaceClient, isVisible = ()
     if (!mounted) return;
     const ticket = ++sequence;
     try { const state = await surfaceClient.getUpdateStatus(); if (mounted && ticket === sequence) render(state); }
-    catch (_) { if (mounted) $('#appUpdateStatus').textContent = '暂时无法读取更新状态'; }
+    catch (_) { if (mounted) showStatus('暂时无法读取更新状态'); }
     finally {
       clearTimer(timer);
       if (mounted && isVisible() && $('#appUpdateGroup').open) timer = setTimer(refresh, 1500);
@@ -46,13 +57,14 @@ function createDesktopUpdateFeature({ $, getState, surfaceClient, isVisible = ()
       const result = await operation;
       if (!mounted) return;
       if (result?.state) render(result.state);
-      if (result?.ok === false) $('#appUpdateStatus').textContent = REASONS[result.reason] || '暂时无法完成，请稍后重试';
-    } catch (_) { if (mounted) $('#appUpdateStatus').textContent = '暂时无法完成，请稍后重试'; }
+      if (result?.ok === false) showStatus(REASONS[result.reason] || '暂时无法完成，请稍后重试');
+    } catch (_) { if (mounted) showStatus('暂时无法完成，请稍后重试'); }
     finally { if (mounted) void refresh(); }
   }
   function mount() {
     if (mounted || !$('#appUpdateGroup') || typeof surfaceClient.getUpdateStatus !== 'function') return;
     mounted = true;
+    releases.push(onLocaleChanged(repaintCopy));
     listen($('#appUpdateGroup'), 'toggle', () => { if ($('#appUpdateGroup').open) void refresh(); else clearTimer(timer); });
     for (const [id, name] of [['Check', 'checkForUpdates'], ['Download', 'downloadUpdate'], ['Cancel', 'cancelUpdate']]) {
       listen($(`#appUpdate${id}`), 'click', () => { void command(name); });
@@ -65,7 +77,7 @@ function createDesktopUpdateFeature({ $, getState, surfaceClient, isVisible = ()
     listen($('#appUpdateAuto'), 'change', async () => {
       const enabled = $('#appUpdateAuto').checked;
       try { const result = await surfaceClient.updateSettings({ autoCheckUpdates: enabled }); if (result?.ok === false) throw new Error('not-saved'); }
-      catch (_) { if (mounted) { $('#appUpdateAuto').checked = !enabled; $('#appUpdateStatus').textContent = '设置未保存，请重试'; } }
+      catch (_) { if (mounted) { $('#appUpdateAuto').checked = !enabled; showStatus('设置未保存，请重试'); } }
     });
     void refresh();
   }

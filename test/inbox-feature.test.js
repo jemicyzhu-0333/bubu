@@ -261,3 +261,25 @@ test('window focus after native hide restores the same tab without needing visib
   assert.equal(h.$('#inboxHistoryStatus').getAttribute('aria-live'), 'polite');
   h.feature.dispose(); h.fire('window', 'focus'); assert.equal(h.queries.length, 2);
 });
+
+test('locale repaint preserves inbox history row, armed source deletion and focused control without rereading', async t => {
+  const { setLocale } = require('../src/surfaces/shared/interface/i18n.mjs');
+  setLocale('zh-CN'); t.after(() => setLocale('zh-CN'));
+  const dom = domFixture(), deletion = controller(); let reads = 0;
+  const state = { impulses: [], routines: { items: [] }, moodNotes: [], inboxHistoryTotal: 1, inboxHistoryCountVersion: 1 };
+  const feature = createPopoverInboxFeature({ ...dom, getState: () => state, escapeHTML: String,
+    moodDeletion: deletion.feature, openBreakdown() {}, surfaceClient: { getInboxHistory: async () => { reads++; return page([row()]); } } });
+  feature.mount(); t.after(() => feature.dispose());
+  dom.fire('history'); await tick();
+  const article = dom.$('#impulseList').children[0];
+  const button = article.querySelector('[data-inbox-action="delete-mood-source"]');
+  deletion.feature.activateSource('source', 'm', '2026-10-09'); button.focus();
+  const beforeReads = reads;
+  setLocale('en');
+  assert.equal(dom.$('#impulseList').children[0], article); assert.equal(dom.document.activeElement, button);
+  assert.equal(article.querySelector('[data-inbox-action="delete-mood-source"]'), button);
+  assert.match(button.textContent, /Confirm deleting all original sources/);
+  assert.equal(deletion.feature.view().armedSourceId, 'source'); assert.equal(reads, beforeReads);
+  assert.match(article.innerHTML, /Synthetic private source/);
+  setLocale('zh-CN'); assert.match(button.textContent, /确认删除这条情绪/);
+});

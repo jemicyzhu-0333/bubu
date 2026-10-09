@@ -40,15 +40,16 @@ function harness(t, { save, enrich } = {}) {
     set() { rows.length = 0; }, get() { return ''; }
   });
   dom.$('#createSteps').appendChild = row => rows.push(row);
+  dom.$('#createSteps').querySelectorAll = () => rows;
   dom.document.createElement = () => {
-    const input = { value: '', focus() {} };
-    const remove = { addEventListener(type, handler) { this[type] = handler; } };
+    const input = { value: '', focus() {}, setAttribute() {} };
+    const remove = { setAttribute() {}, addEventListener(type, handler) { this[type] = handler; } };
     return {
       set innerHTML(html) { input.value = html.match(/<textarea[^>]*>([\s\S]*?)<\/textarea>/)[1]; },
       querySelector: selector => selector === '.bd-step-input' ? input : remove
     };
   };
-  dom.$('#btnEnrichDraft').textContent = '让伙伴补全';
+  dom.$('#btnEnrichDraft').textContent = '拆成步骤';
   const client = {
     addTask(payload) { calls.push(['addTask', structuredClone(payload)]); return save ? save(payload) : Promise.resolve({ ok: true }); },
     addWithBreakdown(payload) { calls.push(['addWithBreakdown', structuredClone(payload)]); return save ? save(payload) : Promise.resolve({ ok: true }); },
@@ -140,7 +141,7 @@ test('old enrichment rejection and finally cannot repaint a newer running previe
   assert.equal(h.tickers.size, 1);
   current.resolve(suggestion('preview-2')); await second;
   assert.deepEqual(h.steps(), ['Open the report']); assert.equal(h.tickers.size, 0);
-  assert.equal(h.dom.$('#btnEnrichDraft').textContent, '让伙伴补全');
+  assert.equal(h.dom.$('#btnEnrichDraft').textContent, '拆成步骤');
 });
 
 test('adopting a proposal invalidates previous enrichment even for the same title', async t => {
@@ -256,4 +257,20 @@ test('real enrichment validation detail reaches the draft status through the moc
     assert.equal(provider.sent.length, 2);
     h.feature.dispose();
   }
+});
+
+test('first English draft initializes the idle enrichment label without replacing an in-flight label', async context => {
+  const { setLocale, getLocale } = require('../src/surfaces/shared/interface/i18n.mjs');
+  const before = getLocale(); context.after(() => setLocale(before)); setLocale('en');
+  const pending = deferred(), h = harness(context, { enrich: () => pending.promise });
+  assert.equal(h.dom.$('#btnEnrichDraft').textContent, 'Break into steps');
+  h.feature.open({ title: '设置 {minutes}' });
+  assert.equal(h.dom.$('#btnEnrichDraft').textContent, 'Break into steps');
+  const request = h.enrich();
+  setLocale('zh-CN'); assert.match(h.dom.$('#btnEnrichDraft').textContent, /正在补全/);
+  setLocale('en'); assert.match(h.dom.$('#btnEnrichDraft').textContent, /Filling/);
+  assert.equal(h.calls.filter(([name]) => name === 'preview').length, 1);
+  assert.equal(h.dom.$('#taskInput').value, '设置 {minutes}');
+  pending.resolve(suggestion()); await request;
+  assert.equal(h.dom.$('#btnEnrichDraft').textContent, 'Break into steps');
 });

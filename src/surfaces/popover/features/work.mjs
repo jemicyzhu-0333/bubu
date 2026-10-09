@@ -23,7 +23,11 @@ function createPopoverWorkFeature({ renderers } = {}) {
       throw new TypeError('work feature requires a projection store');
     }
     if (unsubscribe) return;
-    unsubscribe = projectionStore.subscribe(change => render(change.dirty || {}));
+    unsubscribe = projectionStore.subscribe(change => {
+      // Task rows translate their existing copy in place; rebuilding here would
+      // discard the open overflow menu and focused control.
+      if (!change.localeOnly) render(change.dirty || {});
+    });
   }
 
   function dispose() {

@@ -1,5 +1,7 @@
 'use strict';
 
+import { t, getLocale, onLocaleChanged } from '../../shared/interface/i18n.mjs';
+
 // 任务清单:筛选、清单本身、每一行的动作、溢出菜单,以及归档那一段与它的翻页。
 //
 // 这一层拥有四样状态,以前它们都是面板顶上的模块级 let:此刻选中的筛选与标签
@@ -32,6 +34,8 @@ function createPopoverTaskList({
   let selectedFilter = 'actionable';   // 视图筛选，不写进任务
   let selectedTagFilter = null;
   let renderedRows = new Map();        // id -> element（任务 id 全局唯一）
+  const rowCopies = new Map();
+  let archiveCopies = [];
   let openOverflowMenu = null;
   let historyLoading = false;
   let mounted = false;
@@ -129,6 +133,7 @@ function createPopoverTaskList({
       emptyFilter.classList.add('hidden');
       list.innerHTML = '';
       renderedRows.clear();
+      rowCopies.clear();
       return;
     }
     empty.classList.add('hidden');
@@ -149,7 +154,7 @@ function createPopoverTaskList({
 
     const visibleIds = new Set(visible.map(task => task.id));
     for (const [id, el] of renderedRows) {
-      if (!visibleIds.has(id)) { el.remove(); renderedRows.delete(id); }
+      if (!visibleIds.has(id)) { el.remove(); renderedRows.delete(id); rowCopies.delete(id); }
     }
 
     let prevEl = null;
@@ -170,8 +175,9 @@ function createPopoverTaskList({
       const scheduledState = task.scheduledFor ? taskDates.formatScheduledFor(task.scheduledFor, now) : '';
       const series = seriesForTask(task);
       const sig = `${task.title}|${task.done?1:0}|${task.energy}|${task.energyAuto?1:0}|${task.focusedMs||0}|${task.focusSessions||0}|${stepsSig}|${currentFocusId===task.id?(session.running?'r':'p'):'-'}|${task.deadline||''}|${deadlineState ? deadlineState.text : ''}|${task.occurrenceDate||''}|${series ? `${series.state}:${describeSeriesRule(series)}:${series.missedCount||0}` : ''}|${task.overdueCount||0}|${task.expiresAt||''}|${task.expired?1:0}|${minsLeft}|${task.scheduledFor||''}|${scheduledState}|${(task.tags||[]).join(',')}|${task.estimateMinutes||''}|${task.skippedAt?1:0}`;
-      if (el.dataset.sig !== sig) {
+      if (el.dataset.sig !== sig || el.dataset.locale !== getLocale()) {
         el.dataset.sig = sig;
+        el.dataset.locale = getLocale();
         renderRow(el, task, currentFocusId === task.id ? (session.running ? 'running' : 'paused') : null);
       }
       if (el.parentNode !== list) list.appendChild(el);
@@ -211,39 +217,47 @@ function createPopoverTaskList({
 
     // 步骤勾选是单向的：勾上就是做完了，没有“标记未完成”这个动作，
     // 因为步骤奖励已经发出去了而账本只增不减。
+    const stepLabel = step => t(step.done ? '已完成步骤：{title}' : isSkipped ? '已跳过任务的只读步骤：{title}'
+      : task.done ? '已完成任务的只读步骤：{title}' : '完成步骤：{title}', { title: step.title });
     const stepsHTML = (task.steps && task.steps.length)
       ? `<div class="task-steps">${task.steps.map(s => `
-        <button type="button" class="step-item ${s.done ? 'done' : ''}" data-step-id="${escapeHTML(s.id)}" aria-pressed="${s.done ? 'true' : 'false'}" aria-label="${s.done ? '已完成步骤' : isSkipped ? '已跳过任务的只读步骤' : task.done ? '已完成任务的只读步骤' : '完成步骤'}：${escapeHTML(s.title)}"${isReadOnly || s.done ? ' disabled' : ''}>
+        <button type="button" class="step-item ${s.done ? 'done' : ''}" data-step-id="${escapeHTML(s.id)}" aria-pressed="${s.done ? 'true' : 'false'}" aria-label="${escapeHTML(stepLabel(s))}"${isReadOnly || s.done ? ' disabled' : ''}>
           <span class="step-check ${s.done ? 'checked' : ''}"></span>
           <span class="step-text">${escapeHTML(s.title)}</span>
         </button>`).join('')}</div>`
       : '';
     // 属性是一行灰字，不是一排带框徽章：视线要先落在标题上。只有需要注意的
     // （快到期、已逾期、已失效）才带颜色。
-    const energyLabel = { low: '低能量', medium: '中等能量', high: '高能量' }[task.energy || 'medium'];
-    const meta = [];
-    // icon：每条属性前面一个小图标（见 shared/icons.css），一眼分得清是重复、截止还是能量，不用逐条读字。
-    const add = (text, tone = '', icon = '') => {
-      if (text) meta.push(`<span class="meta-item${tone ? ` ${tone}` : ''}"${icon ? ` data-icon="${icon}"` : ''}>${text}</span>`);
-    };
-    if (series) add(escapeHTML(describeSeriesRule(series)), '', 'repeat');
-    if (deadlineState) add(escapeHTML(deadlineState.text), deadlineState.tone === 'ok' ? '' : deadlineState.tone, 'flag');
-    const scheduledLabel = task.scheduledFor ? taskDates.formatScheduledFor(task.scheduledFor, now) : '';
-    if (scheduledLabel) add(`预约于 ${escapeHTML(scheduledLabel)}`, '', 'calendar');
-    if (msLeft !== null) {
-      if (isExpired) add('已失效', 'late', 'timer');
-      else if (msLeft < 3600000) add(`剩 ${Math.max(1, Math.round(msLeft / 60000))} 分钟失效`, 'warn', 'timer');
-      else if (msLeft < 12 * 3600000) add(`剩 ${Math.round(msLeft / 3600000)} 小时失效`, 'warn', 'timer');
-      else add(escapeHTML(formatExpiry(task.expiresAt)), '', 'timer');
-    }
-    if (task.estimateMinutes) add(`约 ${task.estimateMinutes} 分钟`, '', 'clock');
-    add(`<span title="${task.energyAuto ? '按标题自动推断' : '手动设定'}">${energyLabel}</span>`, `energy energy-${task.energy || 'medium'}`, { low: 'battery-low', medium: 'battery-mid', high: 'battery-high' }[task.energy || 'medium']);
-    if ((task.tags || []).length) add(escapeHTML((task.tags || []).map(tag => `#${tag}`).join(' ')), '', 'tag');
-    if (isSkipped) add('这一次已跳过');
-    // “漏了几轮”是一句陈述，不是一笔债：不扣分、不堆任务，只提一下今天可以重新开始。
-    if (missedRounds >= 1) add(`漏了 ${missedRounds} 轮，今天可以重新开始`);
-    if (task.focusedMs && task.focusedMs > 0) {
-      add(`已专注 ${formatMs(task.focusedMs)}${task.focusSessions ? ` · ${task.focusSessions} 次` : ''}`, '', 'target');
+    function metadataCopy() {
+      const energyLabel = t({ low: '低能量', medium: '中等能量', high: '高能量' }[task.energy || 'medium']);
+      const meta = [];
+      // icon：每条属性前面一个小图标（见 shared/icons.css），一眼分得清是重复、截止还是能量，不用逐条读字。
+      const add = (text, tone = '', icon = '') => {
+        if (text) meta.push(`<span class="meta-item${tone ? ` ${tone}` : ''}"${icon ? ` data-icon="${icon}"` : ''}>${text}</span>`);
+      };
+      if (series) add(escapeHTML(describeSeriesRule(series)), '', 'repeat');
+      if (deadlineState) add(escapeHTML(deadlineState.text), deadlineState.tone === 'ok' ? '' : deadlineState.tone, 'flag');
+      const scheduledLabel = task.scheduledFor ? taskDates.formatScheduledFor(task.scheduledFor, now) : '';
+      if (scheduledLabel) add(escapeHTML(t('预约于 {time}', { time: scheduledLabel })), '', 'calendar');
+      if (msLeft !== null) {
+        if (isExpired) add(t('已失效'), 'late', 'timer');
+        else if (msLeft < 3600000) add(t('剩 {minutes} 分钟失效', { minutes: Math.max(1, Math.round(msLeft / 60000)) }), 'warn', 'timer');
+        else if (msLeft < 12 * 3600000) add(t('剩 {hours} 小时失效', { hours: Math.round(msLeft / 3600000) }), 'warn', 'timer');
+        else add(escapeHTML(formatExpiry(task.expiresAt)), '', 'timer');
+      }
+      if (task.estimateMinutes) add(t('约 {minutes} 分钟', { minutes: task.estimateMinutes }), '', 'clock');
+      add(`<span title="${t(task.energyAuto ? '按标题自动推断' : '手动设定')}">${energyLabel}</span>`, `energy energy-${task.energy || 'medium'}`, { low: 'battery-low', medium: 'battery-mid', high: 'battery-high' }[task.energy || 'medium']);
+      if ((task.tags || []).length) add(escapeHTML((task.tags || []).map(tag => `#${tag}`).join(' ')), '', 'tag');
+      if (isSkipped) add(t('这一次已跳过'));
+      // “漏了几轮”是一句陈述，不是一笔债：不扣分、不堆任务，只提一下今天可以重新开始。
+      if (missedRounds >= 1) add(t('漏了 {count} 轮，今天可以重新开始', { count: missedRounds }));
+      if (task.focusedMs && task.focusedMs > 0) {
+        add(escapeHTML(task.focusSessions
+          ? t('已专注 {time} · {count} 次', { time: formatMs(task.focusedMs), count: task.focusSessions })
+          : t('已专注 {time}', { time: formatMs(task.focusedMs) })), '', 'target');
+      }
+
+      return meta.join('<span class="meta-sep" aria-hidden="true"> · </span>');
     }
 
     // 卡片上只留一个高频动作。其余全部进溢出菜单并带上文字：440px 宽的窗口里
@@ -269,29 +283,52 @@ function createPopoverTaskList({
 
     const menuId = `task-menu-${String(task.id).replace(/[^a-zA-Z0-9_-]/g, '_')}`;
     const overflowHTML = `
-        <button type="button" class="icon-btn more" title="更多动作" aria-label="更多动作：${escapeHTML(task.title)}" aria-haspopup="true" aria-controls="${menuId}" aria-expanded="false">⋯</button>
+        <button type="button" class="icon-btn more" title="${t('更多动作')}" aria-label="${escapeHTML(t('更多动作：{title}', { title: task.title }))}" aria-haspopup="true" aria-controls="${menuId}" aria-expanded="false">⋯</button>
         <div class="task-menu hidden" id="${menuId}" role="menu" aria-hidden="true">
-          ${overflowItems.map(item => `<button type="button" role="menuitem" data-task-action="${item.action}" data-icon="${MENU_ICONS[item.action] || 'sparkle'}">${escapeHTML(item.label)}</button>`).join('')}
+          ${overflowItems.map(item => `<button type="button" role="menuitem" data-task-action="${item.action}" data-icon="${MENU_ICONS[item.action] || 'sparkle'}">${escapeHTML(t(item.label))}</button>`).join('')}
         </div>`;
-    const startLabel = task.done
-      ? `已完成的任务不再计时：${task.title}`
-      : isSkipped ? `这一次已跳过：${task.title}`
-        : hasElapsedExpiry ? `任务已失效，请先续期：${task.title}`
-          : launchBlockReason === 'task-scheduled' ? `提前开始预约任务：${task.title}` : `开始专注：${task.title}`;
+    const startLabel = () => t(task.done
+      ? '已完成的任务不再计时：{title}'
+      : isSkipped ? '这一次已跳过：{title}'
+        : hasElapsedExpiry ? '任务已失效，请先续期：{title}'
+          : launchBlockReason === 'task-scheduled' ? '提前开始预约任务：{title}' : '开始专注：{title}', { title: task.title });
+    const completionLabel = () => t(task.done ? '已完成任务：{title}'
+      : isSkipped ? '已跳过任务，只读：{title}' : '完成任务：{title}', { title: task.title });
+    const focusLabel = () => t(focusState === 'running' ? '← 正在专注' : '← 计时已暂停');
 
     el.innerHTML = `
     <div class="task-header">
-      <button type="button" class="task-checkbox ${task.done ? 'checked' : ''}" aria-pressed="${task.done ? 'true' : 'false'}" aria-label="${task.done ? '已完成任务' : isSkipped ? '已跳过任务，只读' : '完成任务'}：${escapeHTML(task.title)}"${isReadOnly ? ' disabled' : ''}></button>
+      <button type="button" class="task-checkbox ${task.done ? 'checked' : ''}" aria-pressed="${task.done ? 'true' : 'false'}" aria-label="${escapeHTML(completionLabel())}"${isReadOnly ? ' disabled' : ''}></button>
       <div class="task-main">
-        <div class="task-title">${escapeHTML(task.title)}${focusState === 'running' ? ' <span class="focus-badge">← 正在专注</span>' : focusState === 'paused' ? ' <span class="focus-badge">← 计时已暂停</span>' : ''}</div>
-        <div class="task-meta">${meta.join('<span class="meta-sep" aria-hidden="true"> · </span>')}</div>
+        <div class="task-title">${escapeHTML(task.title)}${focusState ? ` <span class="focus-badge">${focusLabel()}</span>` : ''}</div>
+        <div class="task-meta">${metadataCopy()}</div>
       </div>
       <div class="task-actions">
-        <button type="button" class="icon-btn play" data-icon="play" title="${escapeHTML(startLabel)}" aria-label="${escapeHTML(startLabel)}"${canStart ? '' : ' disabled'}>开始</button>${overflowHTML}
+        <button type="button" class="icon-btn play" data-icon="play" title="${escapeHTML(startLabel())}" aria-label="${escapeHTML(startLabel())}"${canStart ? '' : ' disabled'}>${t('开始')}</button>${overflowHTML}
       </div>
     </div>
     ${stepsHTML}
   `;
+
+    rowCopies.set(task.id, () => {
+      el.dataset.locale = getLocale();
+      el.querySelector('.task-checkbox').setAttribute('aria-label', completionLabel());
+      const play = el.querySelector('.icon-btn.play');
+      play.textContent = t('开始');
+      play.setAttribute('title', startLabel());
+      play.setAttribute('aria-label', startLabel());
+      const more = el.querySelector('.icon-btn.more');
+      more.setAttribute('title', t('更多动作'));
+      more.setAttribute('aria-label', t('更多动作：{title}', { title: task.title }));
+      const badge = el.querySelector('.focus-badge');
+      if (badge) badge.textContent = focusLabel();
+      el.querySelector('.task-meta').innerHTML = metadataCopy();
+      el.querySelectorAll('.step-item').forEach((node, index) => node.setAttribute('aria-label', stepLabel(task.steps[index])));
+      el.querySelectorAll('[data-task-action]').forEach(node => {
+        const item = overflowItems.find(item => item.action === node.dataset.taskAction);
+        if (item) node.textContent = t(item.label);
+      });
+    });
 
     const checkbox = el.querySelector('.task-checkbox');
     if (!isReadOnly) {
@@ -334,7 +371,7 @@ function createPopoverTaskList({
         if (isReadOnly || !step || step.done) return;
         const result = await surfaceClient.completeStep(task.id, stepId);
         if (result && result.ok === false) {
-          showPanelStatus(taskActionMessage(result.reason));
+          showPanelStatus(() => taskActionMessage(result.reason));
           return;
         }
         celebrate();
@@ -398,7 +435,7 @@ function createPopoverTaskList({
     if (action === 'edit') { openTaskEditor(task); return; }
     if (action === 'enrich') { await openBreakdown(task, trigger); return; }
     if (action === 'delete') {
-      if (!window.confirm('删除后会移到可恢复归档。继续吗？')) {
+      if (!window.confirm(t('删除后会移到可恢复归档。继续吗？'))) {
         if (trigger.isConnected) trigger.focus();
         return;
       }
@@ -410,8 +447,16 @@ function createPopoverTaskList({
         : action === 'skip' ? await surfaceClient.skipOccurrence(task.id)
           : action === 'duplicate' ? await surfaceClient.duplicateTask(task.id)
             : null;
-    if (result && result.ok === false) showPanelStatus(taskActionMessage(result.reason));
+    if (result && result.ok === false) showPanelStatus(() => taskActionMessage(result.reason));
     else showPanelStatus('');
+  }
+
+  function repaintArchiveCopy() {
+    const loadMore = $('#historyLoadMore');
+    if (loadMore) loadMore.textContent = t(historyLoading ? '加载中…' : '加载更早记录');
+    const empty = $('#archiveList').querySelector('.archive-empty');
+    if (empty) empty.textContent = t('归档目前是空的');
+    archiveCopies.forEach(repaint => repaint());
   }
 
   function renderArchive() {
@@ -429,11 +474,12 @@ function createPopoverTaskList({
     if (loadMore) {
       loadMore.classList.toggle('hidden', !(state.history && state.history.nextCursor));
       loadMore.disabled = historyLoading;
-      loadMore.textContent = historyLoading ? '加载中…' : '加载更早记录';
+      loadMore.textContent = t(historyLoading ? '加载中…' : '加载更早记录');
     }
     list.innerHTML = '';
+    archiveCopies = [];
     if (archived.length === 0) {
-      list.innerHTML = '<div class="archive-empty">归档目前是空的</div>';
+      list.innerHTML = `<div class="archive-empty">${t('归档目前是空的')}</div>`;
       return;
     }
     for (const task of archived) {
@@ -442,9 +488,16 @@ function createPopoverTaskList({
       row.innerHTML = `
       <div class="archive-task-copy">
         <span class="archive-task-title">${escapeHTML(task.title)}</span>
-        <span class="archive-task-meta">${task.done ? '已完成 · ' : ''}${escapeHTML(task.seriesId ? '重复任务的某一次' : '一次性任务')}</span>
+        <span class="archive-task-meta">${task.done ? `${t('已完成')} · ` : ''}${escapeHTML(t(task.seriesId ? '重复任务的某一次' : '一次性任务'))}</span>
       </div>
-      <button type="button" class="pixel-btn btn-mini" aria-label="恢复任务：${escapeHTML(task.title)}">↩ 恢复</button>`;
+      <button type="button" class="pixel-btn btn-mini" aria-label="${escapeHTML(t('恢复任务：{title}', { title: task.title }))}">↩ ${t('恢复')}</button>`;
+      archiveCopies.push(() => {
+        row.querySelector('.archive-task-meta').textContent = (task.done ? `${t('已完成')} · ` : '')
+          + t(task.seriesId ? '重复任务的某一次' : '一次性任务');
+        const restore = row.querySelector('button');
+        restore.textContent = `↩ ${t('恢复')}`;
+        restore.setAttribute('aria-label', t('恢复任务：{title}', { title: task.title }));
+      });
       row.querySelector('button').addEventListener('click', () => surfaceClient.restoreTask(task.id));
       list.appendChild(row);
     }
@@ -470,6 +523,12 @@ function createPopoverTaskList({
   function mount() {
     if (mounted) return;
     mounted = true;
+    teardown.push(onLocaleChanged(() => {
+      // Copy-only repaint keeps open menus, focus and in-flight actions intact.
+      rowCopies.forEach(repaint => repaint());
+      repaintArchiveCopy();
+      if (openOverflowMenu) setOverflowMenuOpen(openOverflowMenu.trigger, openOverflowMenu.menu, true);
+    }));
     // 筛选只改视图，所以它写的是这一层自己的选中项，不落任何任务字段。
     document.querySelectorAll('.filter-chip').forEach(chip => {
       listen(chip, 'click', () => {
@@ -495,6 +554,8 @@ function createPopoverTaskList({
     while (teardown.length) teardown.pop()();
     closeOverflowMenu();
     renderedRows = new Map();
+    rowCopies.clear();
+    archiveCopies = [];
     historyLoading = false;
     for (const selector of ['#taskList', '#archiveList', '#tagFilters']) {
       const host = $(selector);

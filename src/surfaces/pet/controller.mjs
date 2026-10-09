@@ -1,3 +1,4 @@
+import { createSatiationLabel, receivedFoodMessage } from './feeding-copy.mjs';
 import { displaySatiation } from '../companion/satiation-display.mjs';
 import petMotion from '../../core/pet-motion.mjs';
 import petExpression from '../../core/pet-expression.mjs';
@@ -60,6 +61,7 @@ const sceneCanvas = $('#sceneCanvas');
 const overlayCanvas = $('#overlayCanvas');
 const stage = $('#stage');
 const bubble = $('#bubble');
+const satiationLabel = createSatiationLabel({ label: document.getElementById('satLabel') });
 
 const pctx = petCanvas.getContext('2d'); pctx.imageSmoothingEnabled = false;
 const sctx = sceneCanvas.getContext('2d'); sctx.imageSmoothingEnabled = false;
@@ -1509,17 +1511,16 @@ function showFoodReward(foodId) {
   toast.classList.remove('show');
   void toast.offsetWidth;
   toast.classList.add('show');
-  say(`得到 ${foods[foodId].name}，点旁边的喂食按钮给我。`, 3500);
+  say(receivedFoodMessage(foods[foodId].name), 3500);
 }
 
 function updateSatBar(satiation) {
   if (satiation === undefined || satiation === null) return;
   const bar = document.getElementById('satBar');
   const fill = document.getElementById('satFill');
-  const label = document.getElementById('satLabel');
   const displayed = displaySatiation(satiation);
   fill.style.width = displayed + '%';
-  label.textContent = `饱食 ${displayed}`;
+  satiationLabel.update(displayed);
   bar.classList.add('show');
   clearTimeout(updateSatBar._t);
   updateSatBar._t = setTimeout(() => bar.classList.remove('show'), 3000);
@@ -1663,6 +1664,8 @@ async function init() {
     petSync.dispose();
     lifetime.dispose();
     petPointer.dispose();
+    petHitLayout.dispose();
+    satiationLabel.dispose();
     petMenu.dispose();
     petDevtools.dispose();
     stage.classList.remove('devtools-open');

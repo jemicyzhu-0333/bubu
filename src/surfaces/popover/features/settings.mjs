@@ -36,7 +36,14 @@ function createPopoverSettingsFeature({ renderers } = {}) {
       throw new TypeError('settings feature requires a projection store');
     }
     if (unsubscribe) return;
-    unsubscribe = projectionStore.subscribe(change => render(change.dirty || {}));
+    unsubscribe = projectionStore.subscribe(change => {
+      if (change.localeOnly) {
+        renderers.renderSettings(); renderers.renderShortcutSetting();
+        renderers.renderDurationPicker({ copyOnly: true }); renderers.renderMigrationNotices();
+        return; // Review/strategy decisions own their in-place copy updates.
+      }
+      render(change.dirty || {});
+    });
   }
 
   function dispose() {

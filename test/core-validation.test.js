@@ -13,7 +13,7 @@ function normalizeSettings(settings) {
 }
 
 test('outer schema protects unresolved landing prompts from schema-5 downgrade', () => {
-  assert.equal(PERSISTED_SCHEMA_VERSION, 18);
+  assert.equal(PERSISTED_SCHEMA_VERSION, 19);
 });
 
 test('normalizes malformed persisted state without losing recoverable task text', () => {

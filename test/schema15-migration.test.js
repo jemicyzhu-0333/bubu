@@ -19,7 +19,7 @@ function schema14File(directory) {
 }
 
 test('schema 14 upgrades byte-for-byte backed up, with the activity mirror off, and reopens as a fixed point', () => {
-  assert.equal(PERSISTED_SCHEMA_VERSION, 18);
+  assert.equal(PERSISTED_SCHEMA_VERSION, 19);
   fs.mkdirSync(path.resolve('dist'), { recursive: true });
   const directory = fs.mkdtempSync(path.resolve('dist/schema15-'));
   const { file, original } = schema14File(directory);

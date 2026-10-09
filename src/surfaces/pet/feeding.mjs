@@ -1,3 +1,4 @@
+import { t } from '../shared/interface/i18n.mjs';
 'use strict';
 export { FOOD_ORDER } from '../../content/food-progression.mjs';
 import { foodRitual } from '../../content/food-rituals.mjs';
@@ -15,13 +16,13 @@ function foodPresentationSteps(foodId) {
 const FEED_PRESENTATION_STEPS = foodPresentationSteps('basic');
 
 function foodEffectText(food) {
-  return `饱食+${Math.max(0, Number(food && food.satiation) || 0)}`;
+  return t('饱食+{value}', { value: Math.max(0, Number(food && food.satiation) || 0) });
 }
 
 function foodInventorySummary(feedState, total) {
   return total > 0
-    ? `库存 ${total} 份 · 总喂食 ${Math.max(0, Number(feedState && feedState.totalFeeds) || 0)}`
-    : '库存空了 · 伙伴页可用食物券兑换';
+    ? t('库存 {count} 份 · 总喂食 {total}', { count: total, total: Math.max(0, Number(feedState && feedState.totalFeeds) || 0) })
+    : t('库存空了 · 伙伴页可用食物券兑换');
 }
 
 function createPetFeeding({

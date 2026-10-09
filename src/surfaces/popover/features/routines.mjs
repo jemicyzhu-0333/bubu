@@ -1,3 +1,4 @@
+import { t, getLocale } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 // 「今天的日常」这一节：今天这几件小事回答过了没有、随手记一笔、管理那张列表。
@@ -64,6 +65,8 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
   // 它当天的记录(ARCHITECTURE「日常与能量」),这个代价值一次确认,但不值一个弹层。
   let pendingRemoveId = null;
   let lastKey = '';
+  let lastDataKey = '';
+  let lastStatus = { source: '', parameters: {} };
   let unsubscribe = null;
   const teardown = [];
 
@@ -91,7 +94,9 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
     };
   }
 
-  function say(message) {
+  function say(source, parameters = {}) {
+    lastStatus = { source: source || '', parameters };
+    const message = t(lastStatus.source, parameters);
     const line = $('#routinesStatus');
     for (const target of [line, $('#routineFormStatus'), $('#routineManageStatus')]) {
       if (!target) continue;
@@ -115,13 +120,13 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
   }
 
   function scheduleText(schedule) {
-    if (!schedule || typeof schedule !== 'object') return '不提醒';
+    if (!schedule || typeof schedule !== 'object') return t('不提醒');
     const times = Array.isArray(schedule.timesOfDay) ? schedule.timesOfDay.join(' / ') : '';
-    const frequency = FREQUENCY_LABELS[schedule.frequency] || schedule.frequency || '';
+    const frequency = FREQUENCY_LABELS[schedule.frequency] ? t(FREQUENCY_LABELS[schedule.frequency]) : schedule.frequency || '';
     if (schedule.frequency === 'weekly') {
       const days = (Array.isArray(schedule.weekdays) ? schedule.weekdays : [])
-        .map(day => WEEKDAY_LABELS[day] || day).join('、');
-      return `每周${days} ${times}`.trim();
+        .map(day => WEEKDAY_LABELS[day] ? t(WEEKDAY_LABELS[day]) : day).join(getLocale() === 'en' ? ', ' : '、');
+      return t('每周{days} {times}', { days, times }).trim();
     }
     return `${frequency} ${times}`.trim();
   }
@@ -129,18 +134,18 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
   // 只画钟点,不画日期:这一节永远只说今天。
   function whenText(occurrence) {
     if (occurrence.timeOfDay) return occurrence.timeOfDay;
-    if (!occurrence.loggedAt) return '随手';
+    if (!occurrence.loggedAt) return t('随手');
     const at = new Date(occurrence.loggedAt);
     const pad = value => String(value).padStart(2, '0');
     return `${pad(at.getHours())}:${pad(at.getMinutes())}`;
   }
 
   function answerText(occurrence) {
-    if (occurrence.status === 'done') return '做了';
-    if (occurrence.status === 'skipped') return '跳过了';
+    if (occurrence.status === 'done') return t('做了');
+    if (occurrence.status === 'skipped') return t('跳过了');
     // `missed` 只是"没记上"。这里刻意不写"逾期""欠"这类词,也不提"现在补上"——
     // 那就成了建议(ARCHITECTURE「日常与能量」 禁止的那一类)。
-    if (occurrence.status === 'missed') return '没记上';
+    if (occurrence.status === 'missed') return t('没记上');
     return '';
   }
 
@@ -156,8 +161,8 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
     if (!host) return;
     if (!view.occurrences.length) {
       host.innerHTML = view.items.length
-        ? '<p class="routine-empty">今天没有提醒</p>'
-        : '<p class="routine-empty">还没有日常</p>';
+        ? `<p class="routine-empty">${t('今天没有提醒')}</p>`
+        : `<p class="routine-empty">${t('还没有日常')}</p>`;
       return;
     }
     host.innerHTML = view.occurrences.map(occurrence => {
@@ -165,9 +170,9 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
       const title = escapeHTML(occurrence.title || '');
       const answered = occurrence.answered;
       const buttons = answered
-        ? `<button type="button" class="chip chip-action" data-act="undo" aria-label="撤回 ${title}">撤回</button>`
-        : `<button type="button" class="chip routine-act" data-act="done" aria-label="${title} 做了">做了</button>`
-          + `<button type="button" class="chip routine-act" data-act="skipped" aria-label="${title} 跳过">跳过</button>`;
+        ? `<button type="button" class="chip chip-action" data-act="undo" aria-label="${escapeHTML(t('撤回 {title}', { title: occurrence.title || '' }))}">${t('撤回')}</button>`
+        : `<button type="button" class="chip routine-act" data-act="done" aria-label="${escapeHTML(t('{title} 做了', { title: occurrence.title || '' }))}">${t('做了')}</button>`
+          + `<button type="button" class="chip routine-act" data-act="skipped" aria-label="${escapeHTML(t('{title} 跳过', { title: occurrence.title || '' }))}">${t('跳过')}</button>`;
       return `<div class="routine-row" data-state="${rowState(occurrence)}" `
         + `data-occurrence="${escapeHTML(occurrence.occurrenceId)}" data-routine="${escapeHTML(occurrence.routineId)}">`
         + `<span class="routine-when">${escapeHTML(whenText(occurrence))}</span>`
@@ -191,7 +196,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
       const kind = kindOf(item.kind);
       const title = escapeHTML(item.title || '');
       return `<button type="button" class="chip routine-quick-chip" data-act="quick" `
-        + `data-routine="${escapeHTML(item.id)}" aria-label="记一笔 ${title}">`
+        + `data-routine="${escapeHTML(item.id)}" aria-label="${escapeHTML(t('记一笔 {title}', { title: item.title || '' }))}">`
         + `${kind.icon} ${title}</button>`;
     }).join('');
   }
@@ -202,7 +207,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
     const list = $('#routineManageList');
     if (panel) panel.classList.toggle('hidden', !manageOpen);
     const reminderToggle = $('#btnRoutineReminders');
-    if (reminderToggle) { reminderToggle.textContent = view.remindersEnabled ? '已开启' : '已关闭'; reminderToggle.setAttribute('aria-pressed', String(view.remindersEnabled)); }
+    if (reminderToggle) { reminderToggle.textContent = t(view.remindersEnabled ? '已开启' : '已关闭'); reminderToggle.setAttribute('aria-pressed', String(view.remindersEnabled)); }
     controls.renderKinds();
     // 日常页常驻管理区；今天页的入口只负责导航。
     const total = $('#routinesManageCount');
@@ -213,19 +218,19 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
       const kind = kindOf(item.kind);
       const title = escapeHTML(item.title || '');
       const reminding = item.active !== false;
-      const activityLabel = item.schedule ? (reminding ? '提醒中' : '已静音') : (reminding ? '已启用' : '已停用');
+      const activityLabel = t(item.schedule ? (reminding ? '提醒中' : '已静音') : (reminding ? '已启用' : '已停用'));
       const removing = pendingRemoveId === item.id;
       return `<div class="routine-manage-row" data-routine="${escapeHTML(item.id)}">`
         + `<span class="routine-kind" aria-hidden="true">${kind.icon}</span>`
         + `<span class="routine-title">${title}</span>`
-        + `<span class="routine-schedule">${escapeHTML(item.customLabel || kind.label)} · ${escapeHTML(scheduleText(item.schedule))}</span>`
-        + `<button type="button" class="chip chip-action" data-act="edit" aria-label="编辑 ${title} 提醒">编辑</button>`
+        + `<span class="routine-schedule">${escapeHTML(item.customLabel || t(kind.label))} · ${escapeHTML(scheduleText(item.schedule))}</span>`
+        + `<button type="button" class="chip chip-action" data-act="edit" aria-label="${escapeHTML(t('编辑 {title} 提醒', { title: item.title || '' }))}">${t('编辑')}</button>`
         + `<button type="button" class="chip routine-act" data-act="active" aria-pressed="${reminding}" `
-        + `aria-label="${title} 提醒">${activityLabel}</button>`
+        + `aria-label="${escapeHTML(t('{title} 提醒', { title: item.title || '' }))}">${activityLabel}</button>`
         + `<button type="button" class="chip chip-action" data-act="remove" `
-        + `aria-label="${removing ? `确认删除 ${title}` : `删除 ${title}`}">${removing ? '真的删' : '删除'}</button>`
+        + `aria-label="${escapeHTML(t(removing ? '确认删除 {title}' : '删除 {title}', { title: item.title || '' }))}">${t(removing ? '真的删' : '删除')}</button>`
         + '</div>';
-    }).join('') : '<p class="routine-empty">添加日常后，在这里修改时间和提醒方式。</p>';
+    }).join('') : `<p class="routine-empty">${t('添加日常后，在这里修改时间和提醒方式。')}</p>`;
   }
 
   // 「今天」里日常那块的数字和一句话：数字是今天该答的几件里答了几件，那句话只说
@@ -236,11 +241,11 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
     const { total = 0, done = 0, due = 0 } = view.counts;
     if (target) target.textContent = total ? `${done}/${total}` : String(view.items.length);
     if (!sub) return;
-    sub.textContent = !view.items.length ? '还没有日常'
-      : !view.remindersEnabled ? '提醒已关'
-        : due ? `${due} 件到时间了`
-          : total && done >= total ? '今天都记过了'
-            : total ? '今天的记录' : '随手记一笔';
+    sub.textContent = !view.items.length ? t('还没有日常')
+      : !view.remindersEnabled ? t('提醒已关')
+        : due ? t('{count} 件到时间了', { count: due })
+          : total && done >= total ? t('今天都记过了')
+            : t(total ? '今天的记录' : '随手记一笔');
   }
 
   // 重画整段就会丢焦点,所以先记下焦点落在哪颗按钮上(按它的动作和它属于谁),
@@ -268,6 +273,56 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
     if (next && typeof next.focus === 'function') next.focus();
   }
 
+  function repaintCopy(view) {
+    renderCount(view); controls.repaintCopy();
+    say(lastStatus.source, lastStatus.parameters);
+    const submit = $('#btnAddRoutine');
+    if (submit) submit.textContent = t(editingId ? '保存日常' : '添加日常');
+    const toggle = $('#btnRoutineReminders');
+    if (toggle) toggle.textContent = t(view.remindersEnabled ? '已开启' : '已关闭');
+    for (const selector of ['#routineRows', '#dailyRoutineRows']) {
+      const host = $(selector);
+      const empty = host?.querySelector?.('.routine-empty');
+      if (empty) empty.textContent = t(view.items.length ? '今天没有提醒' : '还没有日常');
+      host?.querySelectorAll?.('.routine-row').forEach(row => {
+        const occurrence = view.occurrences.find(item => item.occurrenceId === row.dataset.occurrence);
+        if (!occurrence) return;
+        const when = row.querySelector('.routine-when'), answer = row.querySelector('.routine-answer');
+        if (when) when.textContent = whenText(occurrence);
+        if (answer) answer.textContent = answerText(occurrence);
+        row.querySelectorAll('[data-act]').forEach(button => {
+          const act = button.dataset.act;
+          button.textContent = t({ undo: '撤回', done: '做了', skipped: '跳过' }[act]);
+          button.setAttribute('aria-label', t({ undo: '撤回 {title}', done: '{title} 做了', skipped: '{title} 跳过' }[act], { title: occurrence.title || '' }));
+        });
+      });
+    }
+    for (const selector of ['#routineQuickChips', '#dailyRoutineQuickChips']) {
+      $(selector)?.querySelectorAll?.('[data-routine]').forEach(button => {
+        const item = view.items.find(item => item.id === button.dataset.routine);
+        if (item) button.setAttribute('aria-label', t('记一笔 {title}', { title: item.title || '' }));
+      });
+    }
+    const list = $('#routineManageList');
+    const empty = list?.querySelector?.('.routine-empty');
+    if (empty) empty.textContent = t('添加日常后，在这里修改时间和提醒方式。');
+    list?.querySelectorAll?.('.routine-manage-row').forEach(row => {
+      const item = view.items.find(item => item.id === row.dataset.routine);
+      if (!item) return;
+      const label = row.querySelector('.routine-schedule');
+      if (label) label.textContent = `${item.customLabel || t(kindOf(item.kind).label)} · ${scheduleText(item.schedule)}`;
+      const active = item.active !== false, removing = pendingRemoveId === item.id;
+      row.querySelectorAll('[data-act]').forEach(button => {
+        const act = button.dataset.act;
+        const source = act === 'edit' ? '编辑' : act === 'remove' ? removing ? '真的删' : '删除'
+          : item.schedule ? active ? '提醒中' : '已静音' : active ? '已启用' : '已停用';
+        button.textContent = t(source);
+        button.setAttribute('aria-label', t(act === 'edit' ? '编辑 {title} 提醒' : act === 'remove'
+          ? removing ? '确认删除 {title}' : '删除 {title}' : '{title} 提醒', { title: item.title || '' }));
+      });
+    });
+  }
+
   function render(state = getState()) {
     const view = band(state);
     const strip = $('#routinesStrip');
@@ -276,9 +331,12 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
       return;
     }
     if (strip) strip.classList.remove('hidden');
-    const key = JSON.stringify([view, manageOpen, pendingRemoveId]);
+    const dataKey = JSON.stringify([view, manageOpen, pendingRemoveId]);
+    const key = `${getLocale()}|${dataKey}`;
     if (key === lastKey) return;
     lastKey = key;
+    if (dataKey === lastDataKey) { repaintCopy(view); return; }
+    lastDataKey = dataKey;
     const mark = focusMark();
     renderCount(view);
     renderRows(view);
@@ -321,7 +379,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
     if (!frequency) return { ok: true, schedule: null };
     const raw = (($('#routineTimes') || {}).value || '').split(/[,，、\s]+/).filter(Boolean);
     if (!raw.length) return { ok: false, message: '选择一个提醒时间。' };
-    if (raw.length > MAX_TIMES_OF_DAY) return { ok: false, message: `一条日常最多 ${MAX_TIMES_OF_DAY} 个时间。` };
+    if (raw.length > MAX_TIMES_OF_DAY) return { ok: false, message: '一条日常最多 {count} 个时间。', parameters: { count: MAX_TIMES_OF_DAY } };
     const times = raw.map(timeOfHhmm);
     if (times.some(time => time === null)) {
       return { ok: false, message: '请选择有效的小时和分钟。' };
@@ -348,7 +406,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
     const kind = ($('#routineKind') || {}).value || '';
     const schedule = readSchedule();
     if (!schedule.ok) {
-      say(schedule.message);
+      say(schedule.message, schedule.parameters);
       return;
     }
     const draft = { title, kind };
@@ -387,7 +445,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
     const select = $('#routineKind');
     if (!select || select.options && select.options.length) return;
     select.innerHTML = ROUTINE_KINDS
-      .map(kind => `<option value="${kind}">${kindOf(kind).label}</option>`)
+      .map(kind => `<option value="${kind}">${t(kindOf(kind).label)}</option>`)
       .join('');
   }
 
@@ -475,7 +533,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
     controls.fill(item);
     const add = $('#routineAddDetails');
     if (add) { add.open = true; add.classList.remove('hidden'); $('#routinesManageCard')?.scrollIntoView?.({ block: 'start' }); }
-    $('#btnAddRoutine').textContent = item ? '保存日常' : '添加日常';
+    $('#btnAddRoutine').textContent = t(item ? '保存日常' : '添加日常');
     $('#routineTitle').focus?.(); say('');
   }
 
@@ -493,6 +551,11 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
     listen($('#routineFrequency'), 'change', syncScheduleFields);
     // settings 也订:提醒开关关掉时这一节的标题要说出来,而开关住在另一段里。
     unsubscribe = projectionStore.subscribe(change => {
+      if (change.localeOnly) {
+        const view = band(change.state || getState());
+        if (view) repaintCopy(view);
+        return;
+      }
       const dirty = change.dirty || {};
       if (dirty.all || dirty.routines || dirty.settings) render(change.state);
     });
@@ -506,7 +569,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
     while (teardown.length) teardown.pop()();
     manageOpen = true;
     pendingRemoveId = null;
-    lastKey = '';
+    lastKey = ''; lastDataKey = ''; lastStatus = { source: '', parameters: {} };
   }
 
   return Object.freeze({ mount, dispose, render, isManageOpen: () => manageOpen });

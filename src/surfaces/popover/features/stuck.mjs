@@ -1,8 +1,9 @@
+import { t, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 // Owns the stuck dialog, its task-bound drafts and request lifecycle.
 function createPopoverStuck({
-  document, $, $$, syncPressedButtons, showTransientStatus, hideTransientStatus,
+  document, $, $$, syncPressedButtons, showTransientStatus: reportTransientStatus, hideTransientStatus,
   blockerLabels, surfaceClient, taskActionMessage, unstickAdvice,
   currentTask, renderNowCard, canReceiveFocus, restoreModalFocus,
   isAiEnabled, isStrategyGuidanceEnabled, openCollaboration
@@ -12,7 +13,7 @@ function createPopoverStuck({
   }
   for (const [name, fn] of Object.entries({
     syncPressedButtons,
-    showTransientStatus,
+    showTransientStatus: reportTransientStatus,
     hideTransientStatus,
     taskActionMessage,
     currentTask,
@@ -49,7 +50,7 @@ function createPopoverStuck({
   let selectedBlockerTaskId = null; // 上面那个答案属于哪件任务
   let shrinkCandidates = [];        // 一批更小的下一步，「换一个」就是在其中往后走
   let shrinkCandidateIndex = 0;
-  let shrinkSourceLabel = '';
+  let shrinkSourceLabel = () => '';
   let shrinkEditorTaskId = null;    // 这批候选是为哪件任务生成的
   let activeStrategy = null;        // 正在展示的那条策略；看一眼不评价就关掉是正当的
   let trigger = null;               // 打开它的那个控件；关闭后焦点回到这里
@@ -57,6 +58,22 @@ function createPopoverStuck({
   let requestEpoch = 0;
   let savingEpoch = null;
   const teardown = [];
+  const statusCopies = new Map();
+  let titleCopy = () => '', strategyCopy = () => {};
+  function showTransientStatus(selector, source) {
+    const copy = typeof source === 'function' ? source : () => t(source);
+    statusCopies.set(selector, copy); reportTransientStatus(selector, copy());
+  }
+  function repaintCopy() {
+    if (!isOpen()) return;
+    $('#stuckTitle').textContent = titleCopy();
+    renderShrinkSource(); strategyCopy();
+    for (const [selector, copy] of statusCopies) {
+      const node = $(selector); if (node && !node.classList.contains('hidden')) node.textContent = copy();
+    }
+    unstickAdvice.repaintCopy?.();
+  }
+
 
   function listen(target, type, handler) {
     if (!target) return;
@@ -87,19 +104,15 @@ function createPopoverStuck({
     if (shrinkEditorTaskId && shrinkEditorTaskId !== task.id) {
       shrinkCandidates = [];
     }
-    return blockerLabels[selectedBlocker] || selectedBlocker || '';
+    return t(blockerLabels[selectedBlocker] || selectedBlocker || '');
   }
 
   // 当前停在哪一屏由 DOM 自己说得清（谁没有 hidden 就是谁),所以不再另存一份：
   // 那一份从来没有人读，只会在两者不一致时骗人。
   function setStep(step) {
-    const titles = {
-      blocker: '卡在哪？',
-      route: `${blockerLabels[selectedBlocker] || ''} · 三条出路`,
-      shrink: '更小的下一步',
-      tip: '一个小办法'
-    };
-    $('#stuckTitle').textContent = titles[step] || titles.blocker;
+    titleCopy = () => step === 'route' ? t('{blocker} · 三条出路', { blocker: t(blockerLabels[selectedBlocker] || '') })
+      : t(({ blocker: '卡在哪？', shrink: '更小的下一步', tip: '一个小办法' })[step] || '卡在哪？');
+    $('#stuckTitle').textContent = titleCopy();
     $('#stuckDescription').classList.toggle('hidden', step !== 'blocker');
     for (const [id, name] of [
       ['#stuckStepBlocker', 'blocker'], ['#stuckStepRoute', 'route'],
@@ -128,7 +141,8 @@ function createPopoverStuck({
     shrinkCandidates = [];
     shrinkCandidateIndex = 0;
     shrinkEditorTaskId = null;
-    activeStrategy = null;
+    activeStrategy = null; strategyCopy = () => {}; statusCopies.clear();
+    shrinkSourceLabel = () => '';
     unstickAdvice.clear();
     hideTransientStatus('#strategyStatus');
     hideTransientStatus('#clarifyCapabilityNote');
@@ -147,7 +161,8 @@ function createPopoverStuck({
     requestEpoch += 1;
     $('#stuckMask').classList.add('hidden');
     $('#stuckMask').setAttribute('aria-hidden', 'true');
-    activeStrategy = null;
+    activeStrategy = null; strategyCopy = () => {}; statusCopies.clear();
+    shrinkSourceLabel = () => '';
     unstickAdvice.clear();
     const closing = trigger;
     trigger = null;
@@ -177,7 +192,7 @@ function createPopoverStuck({
     shrinkEditorTaskId = task.id;
     const aiOn = Boolean(isAiEnabled());
     let steps = [];
-    let source = '本地模板';
+    let source = () => t('本地模板');
     let proposalId = null;
     try {
       if (aiOn) {
@@ -192,9 +207,9 @@ function createPopoverStuck({
         if (preview && preview.ok !== false && Array.isArray(preview.steps)) {
           steps = preview.steps;
           // 静默回退是不允许的：回退了就要说清楚为何回退。
-          source = preview.fallback
-            ? `已回退本地模板（${preview.reason || '未提供原因'}）`
-            : preview.provider === 'api' ? 'AI 建议' : '本地模板';
+          source = () => preview.fallback
+            ? t('已回退本地模板（{reason}）', { reason: preview.reason || t('未提供原因') })
+            : t(preview.provider === 'api' ? 'AI 建议' : '本地模板');
         }
       }
       if (!steps.length) steps = await surfaceClient.previewBreakdown(task.title) || [];
@@ -212,7 +227,7 @@ function createPopoverStuck({
     setStep('shrink');
     if (!shrinkCandidates.length) {
       $('#shrinkNextAction').value = '';
-      $('#shrinkSource').textContent = '';
+      shrinkSourceLabel = () => ''; $('#shrinkSource').textContent = '';
       showTransientStatus('#clarifyCapabilityNote', '这次没生成建议，可以自己写一步。');
       focusWhenCurrent(() => $('#shrinkNextAction').focus());
       return;
@@ -225,9 +240,12 @@ function createPopoverStuck({
 
   function applyShrinkCandidate() {
     $('#shrinkNextAction').value = shrinkCandidates[shrinkCandidateIndex] || '';
-    $('#shrinkSource').textContent = shrinkCandidates.length > 1
-      ? `${shrinkSourceLabel} · ${shrinkCandidateIndex + 1}/${shrinkCandidates.length}`
-      : shrinkSourceLabel;
+    renderShrinkSource();
+  }
+
+  function renderShrinkSource() {
+    const source = shrinkSourceLabel();
+    $('#shrinkSource').textContent = shrinkCandidates.length > 1 ? `${source} · ${shrinkCandidateIndex + 1}/${shrinkCandidates.length}` : source;
   }
 
   function nextShrinkCandidate() {
@@ -264,7 +282,7 @@ function createPopoverStuck({
       const result = await surfaceClient.clarifyNowTask(task.id, patch);
       if (epoch !== requestEpoch || !isOpen() || currentTask()?.id !== task.id) return;
       if (!result || result.ok === false) {
-        showTransientStatus('#clarifyCapabilityNote', taskActionMessage(result && result.reason));
+        showTransientStatus('#clarifyCapabilityNote', () => taskActionMessage(result && result.reason));
         return;
       }
       shrinkEditorTaskId = null;
@@ -313,17 +331,19 @@ function createPopoverStuck({
     }
     if (!result || result.ok === false) {
       activeStrategy = null;
-      $('#strategyText').textContent = result && result.reason === 'strategy-guidance-disabled'
-        ? '本地策略建议已关。'
-        : '现在没有合适的。';
+      strategyCopy = () => { $('#strategyText').textContent = t(result && result.reason === 'strategy-guidance-disabled' ? '本地策略建议已关。' : '现在没有合适的。'); };
+      strategyCopy();
       $('#strategyDetail').textContent = '';
       $('#strategyWhy').classList.add('hidden');
       return;
     }
     activeStrategy = result.strategy;
-    $('#strategyText').textContent = result.strategy.text;
+    strategyCopy = () => {
+      $('#strategyText').textContent = t(result.strategy.text);
+      $('#strategyDetail').textContent = t('{detail} · 来源：{source}', { detail: t(result.strategy.detail), source: result.strategy.sourceTier });
+    };
+    strategyCopy();
     // detail 和来源层级是内部术语，默认收起：一屏全是字 ADHD 会失去耐心。
-    $('#strategyDetail').textContent = `${result.strategy.detail} · 来源：${result.strategy.sourceTier}`;
     $('#strategyWhy').classList.remove('hidden');
     $('#strategyWhy').open = false;
     hideTransientStatus('#strategyStatus');
@@ -365,7 +385,7 @@ function createPopoverStuck({
     shrinkEditorTaskId = task.id;
     shrinkCandidates = [];
     $('#shrinkNextAction').value = nextAction;
-    $('#shrinkSource').textContent = '协作草稿 · 未保存';
+    shrinkSourceLabel = () => t('协作草稿 · 未保存'); renderShrinkSource();
     setStep('shrink');
     $('#stuckMask').classList.remove('hidden');
     $('#stuckMask').setAttribute('aria-hidden', 'false');
@@ -383,6 +403,7 @@ function createPopoverStuck({
   function mount() {
     if (mounted) return;
     mounted = true;
+    teardown.push(onLocaleChanged(repaintCopy));
     listen($('#btnStuck'), 'click', open);
     listen($('#stuckClose'), 'click', close);
     listen($('#btnStuckCollaborate'), 'click', collaborate);
@@ -411,12 +432,14 @@ function createPopoverStuck({
     shrinkCandidates = [];
     shrinkCandidateIndex = 0;
     shrinkEditorTaskId = null;
-    activeStrategy = null;
+    activeStrategy = null; strategyCopy = () => {}; statusCopies.clear();
+    shrinkSourceLabel = () => '';
     unstickAdvice.clear();
     trigger = null;
   }
 
-  return Object.freeze({ mount, dispose, isOpen, close, syncBlockerForTask, renderStrategyRoute, stageNextAction });
+  return Object.freeze({ mount, dispose, isOpen, close, syncBlockerForTask, renderStrategyRoute, stageNextAction,
+    showStatus: source => showTransientStatus('#stuckCollaborationStatus', source) });
 }
 
 

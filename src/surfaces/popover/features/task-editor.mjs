@@ -1,3 +1,4 @@
+import { t, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 // 统一任务编辑面板：一件任务的全部属性只有这一个入口。
@@ -52,6 +53,7 @@ function createPopoverTaskEditor({
   let trigger = null;  // 打开它的那个控件；关闭后焦点回到这里
   let operation = null;
   let mounted = false;
+  let errorCopy = () => '', summaryCopy = null;
   const teardown = [];
   const operationControls = ['#taskEditConfirm', '#editSeriesSave', '#editSeriesPause', '#editSeriesResume', '#editSeriesEnd'];
 
@@ -98,15 +100,17 @@ function createPopoverTaskEditor({
       mask.setAttribute('aria-hidden', 'true');
     }
     draft = null;
+    summaryCopy = null; errorCopy = () => '';
     trigger = null;
     operation = null;
     if (closing) restoreModalFocus(closing);
   }
 
   function showError(message = '') {
+    errorCopy = typeof message === 'function' ? message : () => t(message);
     const error = $('#taskEditError');
     if (!error) return;
-    error.textContent = message;
+    error.textContent = errorCopy();
     error.classList.toggle('hidden', !message);
   }
 
@@ -145,10 +149,10 @@ function createPopoverTaskEditor({
       const row = document.createElement('div');
       row.className = 'bd-step edit-step';
       row.innerHTML = `
-      <textarea class="pixel-input edit-step-title" maxlength="200" rows="1" aria-label="第 ${index + 1} 步标题"${step.done ? ' disabled' : ''}>${escapeHTML(step.title)}</textarea>
-      <button type="button" class="icon-btn edit-step-up" aria-label="把第 ${index + 1} 步往上移"${index === 0 ? ' disabled' : ''}>↑</button>
-      <button type="button" class="icon-btn edit-step-down" aria-label="把第 ${index + 1} 步往下移"${index === draft.steps.length - 1 ? ' disabled' : ''}>↓</button>
-      <button type="button" class="icon-btn edit-step-remove" aria-label="删除第 ${index + 1} 步"${step.done ? ' disabled' : ''}>✕</button>`;
+      <textarea class="pixel-input edit-step-title" maxlength="200" rows="1" aria-label="${escapeHTML(t('第 {number} 步标题', { number: index + 1 }))}"${step.done ? ' disabled' : ''}>${escapeHTML(step.title)}</textarea>
+      <button type="button" class="icon-btn edit-step-up" aria-label="${escapeHTML(t('把第 {number} 步往上移', { number: index + 1 }))}"${index === 0 ? ' disabled' : ''}>↑</button>
+      <button type="button" class="icon-btn edit-step-down" aria-label="${escapeHTML(t('把第 {number} 步往下移', { number: index + 1 }))}"${index === draft.steps.length - 1 ? ' disabled' : ''}>↓</button>
+      <button type="button" class="icon-btn edit-step-remove" aria-label="${escapeHTML(t('删除第 {number} 步', { number: index + 1 }))}"${step.done ? ' disabled' : ''}>✕</button>`;
       bindStepTitleField(row.querySelector('.edit-step-title'), value => {
         if (ownsRow()) step.title = value;
       });
@@ -164,7 +168,7 @@ function createPopoverTaskEditor({
     const addButton = $('#editAddStep');
     if (addButton) {
       addButton.disabled = draft.steps.length >= maxSteps;
-      addButton.title = addButton.disabled ? `每个任务最多 ${maxSteps} 个步骤` : '';
+      addButton.title = addButton.disabled ? t('每个任务最多 {count} 个步骤', { count: maxSteps }) : '';
     }
   }
 
@@ -173,9 +177,9 @@ function createPopoverTaskEditor({
     if (!mounted || !mask || !task) return;
     // 完成是终态：已完成的任务不提供编辑，出口是“再做一遍”。
     if (task.done || task.skippedAt) {
-      showPanelStatus(task.skippedAt
+      showPanelStatus(() => t(task.skippedAt
         ? '这一次已经跳过，只作为历史保留。'
-        : '已完成的任务不再修改；需要的话可以再做一遍。');
+        : '已完成的任务不再修改；需要的话可以再做一遍。'));
       return;
     }
     trigger = document.activeElement && document.activeElement !== document.body
@@ -194,17 +198,21 @@ function createPopoverTaskEditor({
       const control = $(selector);
       if (control) control.disabled = false;
     }
-    $('#taskEditTitle').textContent = '编辑任务';
     for (const id of ['#editDates', '#editAttributes']) {
       const details = $(id);
       if (details) details.open = false;
     }
-    const dateSummary = $('#editDatesSummary');
-    if (dateSummary) dateSummary.textContent = [task.plannedFor && '已安排', task.scheduledFor && '有开始时间',
-      task.deadline && '有截止日期', task.expiresAt && '有有效期限'].filter(Boolean).join(' · ') || '未设置';
-    const attributeSummary = $('#editAttributesSummary');
-    if (attributeSummary) attributeSummary.textContent = [task.estimateMinutes && `${task.estimateMinutes} 分钟`,
-      task.tags?.length && `${task.tags.length} 个标签`].filter(Boolean).join(' · ') || '能量、估时、标签';
+    summaryCopy = () => {
+      $('#taskEditTitle').textContent = t('编辑任务');
+      const dateSummary = $('#editDatesSummary');
+      if (dateSummary) dateSummary.textContent = [task.plannedFor && t('已安排'), task.scheduledFor && t('有开始时间'),
+        task.deadline && t('有截止日期'), task.expiresAt && t('有有效期限')].filter(Boolean).join(' · ') || t('未设置');
+      const attributeSummary = $('#editAttributesSummary');
+      if (attributeSummary) attributeSummary.textContent = [task.estimateMinutes && t('{minutes} 分钟', { minutes: task.estimateMinutes }),
+        task.tags?.length && t('{count} 个标签', { count: task.tags.length })].filter(Boolean).join(' · ') || t('能量、估时、标签');
+      if (series) $('#editSeriesSummary').textContent = t('重复：{rule}', { rule: describeSeriesRule(series) });
+    };
+    summaryCopy();
     $('#editTitle').value = task.title || '';
     $('#editDescription').value = task.description || '';
     $('#editPlannedFor').value = task.plannedFor || '';
@@ -220,7 +228,6 @@ function createPopoverTaskEditor({
     syncPressedButtons('.edit-scope-chip', () => false);
     $('#editSeriesRow').classList.toggle('hidden', !series);
     if (series) {
-      $('#editSeriesSummary').textContent = `重复：${describeSeriesRule(series)}`;
       $('#editSeriesFrequency').value = series.rule.frequency;
       $('#editSeriesInterval').value = String(series.rule.interval);
       $('#editSeriesStrategy').value = series.rule.strategy;
@@ -327,17 +334,17 @@ function createPopoverTaskEditor({
     }
     const blankStep = draft.steps.findIndex(step => !step.title.trim());
     if (blankStep !== -1) {
-      showError(`第 ${blankStep + 1} 步还没有标题；要删掉它请按 ✕。`);
+      showError(() => t('第 {number} 步还没有标题；要删掉它请按 ✕。', { number: blankStep + 1 }));
       return;
     }
     const tagsError = tagInputError($('#editTags').value);
     if (tagsError) {
-      showError(tagsError);
+      showError(() => tagInputError($('#editTags').value));
       return;
     }
     const estimateError = estimateInputError('#editEstimate');
     if (estimateError) {
-      showError(estimateError);
+      showError(() => estimateInputError('#editEstimate'));
       return;
     }
     const patch = buildPatch(task);
@@ -363,7 +370,7 @@ function createPopoverTaskEditor({
   function addStep() {
     if (!draft) return;
     if (draft.steps.length >= maxSteps) {
-      showError(`每个任务最多 ${maxSteps} 个步骤。`);
+      showError(() => t('每个任务最多 {count} 个步骤。', { count: maxSteps }));
       return;
     }
     draft.steps = [...draft.steps, { id: null, title: '', done: false }];
@@ -383,7 +390,7 @@ function createPopoverTaskEditor({
       : null;
     const intervalError = recurrenceIntervalError(interval);
     if (intervalError) {
-      showError(intervalError);
+      showError(() => recurrenceIntervalError(interval));
       return;
     }
     if (frequency === 'weekly' && weekdays.length === 0) {
@@ -414,7 +421,7 @@ function createPopoverTaskEditor({
     try {
       const result = await surfaceClient.updateSeries(owner.display.seriesId, patch);
       if (!ownsOperation(owner)) return;
-      showError(result && result.ok === false ? taskActionMessage(result.reason) : note);
+      showError(() => result && result.ok === false ? taskActionMessage(result.reason) : t(note));
     } catch (_) {
       if (ownsOperation(owner)) showError('这次没有保存成功。修改仍在输入框里，请检查后重试。');
     } finally {
@@ -422,9 +429,25 @@ function createPopoverTaskEditor({
     }
   }
 
+  function repaintCopy() {
+    if (!draft) return;
+    summaryCopy?.();
+    const error = $('#taskEditError');
+    if (error) { error.textContent = errorCopy(); error.classList.toggle('hidden', !error.textContent); }
+    $('#editSteps').querySelectorAll('.edit-step').forEach((row, index) => {
+      for (const [selector, source] of [['.edit-step-title', '第 {number} 步标题'], ['.edit-step-up', '把第 {number} 步往上移'],
+        ['.edit-step-down', '把第 {number} 步往下移'], ['.edit-step-remove', '删除第 {number} 步']]) {
+        row.querySelector(selector)?.setAttribute('aria-label', t(source, { number: index + 1 }));
+      }
+    });
+    const add = $('#editAddStep');
+    if (add) add.title = add.disabled ? t('每个任务最多 {count} 个步骤', { count: maxSteps }) : '';
+  }
+
   function mount() {
     if (mounted) return;
     mounted = true;
+    teardown.push(onLocaleChanged(repaintCopy));
     listen($('#taskEditConfirm'), 'click', submit);
     listen($('#taskEditClose'), 'click', close);
     listen($('#taskEditCancel'), 'click', close);
@@ -458,6 +481,7 @@ function createPopoverTaskEditor({
     mounted = false;
     while (teardown.length) teardown.pop()();
     draft = null;
+    summaryCopy = null; errorCopy = () => '';
     trigger = null;
     operation = null;
   }

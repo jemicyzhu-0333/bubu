@@ -1,4 +1,5 @@
 'use strict';
+const { nativeCopy } = require('../platform/electron/interface-copy');
 
 const { localDayKey: todayKey, addDaysToKey, compareDayKeys } = require('../core/calendar');
 
@@ -47,8 +48,8 @@ function createWorkBoundaryReminder({
         || workEndReminderInFlight.has(boundaryDay)) return;
     const actionable = readTasks().filter(task => taskStartBlockReason(task, now.getTime()) === null).length;
     const msg = actionable > 0
-      ? `到点收工了。还有 ${actionable} 件可行动事项，先给明天留一个轻松落点。`
-      : '到点收工了，今天已经足够了 🌙';
+      ? nativeCopy('到点收工了。还有 {count} 件可行动事项，先给明天留一个轻松落点。', { count: actionable })
+      : nativeCopy('到点收工了，今天已经足够了 🌙');
     workEndReminderInFlight.add(boundaryDay);
     try {
       const result = await startNudgeSequence({

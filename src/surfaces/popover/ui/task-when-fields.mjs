@@ -1,3 +1,4 @@
+import { t, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 // 新任务表单里「什么时候」这一组字段：放在哪天看（plannedFor）、什么时候可开始
@@ -46,6 +47,7 @@ function createPopoverTaskWhenFields({
   let selectedDeadline = null;         // 外部截止
   let selectedExpiryMode = 'none';     // 自动失效:默认不开
   let mounted = false;
+  let expiryPreviewIso = null;
 
   const teardown = [];
   function listen(target, type, handler) {
@@ -103,7 +105,7 @@ function createPopoverTaskWhenFields({
     const intervalError = rule && recurrenceIntervalError(rule.interval, { keepsInput: true });
     if (intervalError) return intervalError;
     if (selectedRepeat === 'weekly' && selectedWeekdays.length === 0) {
-      return '每周重复需要至少选一个星期；当前输入不会丢。';
+      return t('每周重复需要至少选一个星期；当前输入不会丢。');
     }
     return '';
   }
@@ -130,8 +132,13 @@ function createPopoverTaskWhenFields({
   function renderExpiryPreview() {
     const el = $('#expiryPreview');
     if (!el) return;
-    const iso = expiresAt();
-    el.textContent = iso ? `→ ${formatExpiry(iso)} 失效` : '→ 不会自动失效';
+    expiryPreviewIso = expiresAt();
+    paintExpiryCopy();
+  }
+
+  function paintExpiryCopy() {
+    const el = $('#expiryPreview');
+    if (el) el.textContent = expiryPreviewIso ? t('→ {time} 失效', { time: formatExpiry(expiryPreviewIso) }) : t('→ 不会自动失效');
   }
 
   // “什么时候做”只写 plannedFor 这一个字段。它不顺手设截止、不顺手设预约：
@@ -219,7 +226,7 @@ function createPopoverTaskWhenFields({
     if (input.value && !scheduledFor) {
       selectedScheduledFor = null;
       input.setAttribute('aria-invalid', 'true');
-      showStatus('可开始时间无效，当前输入不会保存。');
+      showStatus(() => t('可开始时间无效，当前输入不会保存。'));
       return;
     }
     setScheduledFor(scheduledFor);
@@ -229,6 +236,7 @@ function createPopoverTaskWhenFields({
   function mount() {
     if (mounted) return;
     mounted = true;
+    teardown.push(onLocaleChanged(paintExpiryCopy));
     for (const chip of $$('.when-chip')) {
       listen(chip, 'click', () => {
         applyWhen(chip.dataset.when);

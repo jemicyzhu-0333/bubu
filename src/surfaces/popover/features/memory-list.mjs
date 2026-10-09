@@ -1,3 +1,4 @@
+import { t, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 import { createMemoryManagementView, KIND_LABELS, SOURCE_LABELS, TABS } from '../ui/memory-management-view.mjs';
@@ -94,7 +95,7 @@ function createPopoverMemoryList({ $, escapeHTML, surfaceClient, now = () => Dat
     duplicateIds = []; view.hide('memoryDuplicates', true);
     editTarget = item ? { id: item.id, version: item.version } : null;
     view.text('memoryDraftTitle', item ? '修改这条记忆' : '记一件事');
-    view.text('memoryDraftTarget', item ? `保持 ID ${item.id} · 当前版本 ${item.version}` : '先查看差异，确认后才保存');
+    view.text('memoryDraftTarget', () => item ? t('保持 ID {id} · 当前版本 {version}', { id: item.id, version: item.version }) : t('先查看差异，确认后才保存'));
     if (!preserveInput) fillDraft(item);
     view.hide('memoryDraft', false); node('memoryDraftSubject')?.focus();
   }
@@ -137,8 +138,8 @@ function createPopoverMemoryList({ $, escapeHTML, surfaceClient, now = () => Dat
         say(ERRORS[result?.reason] || '未能准备记忆差异；内容仍在，没有确认修改。');
         if (result?.reason === 'memory-duplicate' && Array.isArray(result.duplicateIds)) {
           duplicateIds = result.duplicateIds;
-          if (node('memoryDuplicates')) node('memoryDuplicates').innerHTML = '<p>选择现有条目后，会保留当前输入并重新核对替换差异。</p>'
-            + duplicateIds.map(id => `<button type="button" class="chip chip-action" data-memory-replace="${escapeHTML(id)}">核对替换 ${escapeHTML(known(id)?.subject || id)}</button>`).join('');
+          if (node('memoryDuplicates')) node('memoryDuplicates').innerHTML = `<p>${t('选择现有条目后，会保留当前输入并重新核对替换差异。')}</p>`
+            + duplicateIds.map(id => `<button type="button" class="chip chip-action" data-memory-replace="${escapeHTML(id)}">${escapeHTML(t('核对替换 {subject}', { subject: known(id)?.subject || id }))}</button>`).join('');
           view.hide('memoryDuplicates', false);
         }
       }
@@ -189,8 +190,9 @@ function createPopoverMemoryList({ $, escapeHTML, surfaceClient, now = () => Dat
         else {
           fillDraft(preview.after);
           view.text('memoryDraftTitle', preview.operation === 'update' ? '核对这条记忆的修改' : '核对并修改这条对话建议');
-          view.text('memoryDraftTarget', (preview.before ? `保持 ID ${preview.before.id} · 当前版本 ${preview.expectedVersion}。` : '')
-            + '来源仍关联原对话建议；修改后需要重新查看差异，确认前不会保存记忆。');
+          const draftTarget = { id: preview.before?.id, version: preview.expectedVersion };
+          view.text('memoryDraftTarget', () => (draftTarget.id ? t('保持 ID {id} · 当前版本 {version}。', { id: draftTarget.id, version: draftTarget.version }) : '')
+            + t('来源仍关联原对话建议；修改后需要重新查看差异，确认前不会保存记忆。'));
           view.hide('memoryDraft', false);
         }
       }
@@ -327,6 +329,16 @@ function createPopoverMemoryList({ $, escapeHTML, surfaceClient, now = () => Dat
   }
   function mount() {
     if (mounted) return; mounted = true;
+    teardown.push(onLocaleChanged(() => {
+      view.repaintCopy();
+      const duplicates = node('memoryDuplicates');
+      const caption = duplicates?.querySelector('p');
+      if (caption) caption.textContent = t('选择现有条目后，会保留当前输入并重新核对替换差异。');
+      duplicates?.querySelectorAll('[data-memory-replace]').forEach(button => {
+        const id = button.dataset.memoryReplace;
+        button.textContent = t('核对替换 {subject}', { subject: known(id)?.subject || id });
+      });
+    }));
     const listen = (id, type, handler) => { const target = node(id); if (!target) return; target.addEventListener(type, handler); teardown.push(() => target.removeEventListener(type, handler)); };
     listen('settingGroupAi', 'toggle', event => { if (event.currentTarget.open === false) close(); else { active = true; render(); void load({ quiet: blocked() }); } });
     listen('btnSettingsClose', 'click', close);

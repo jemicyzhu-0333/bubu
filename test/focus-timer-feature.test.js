@@ -30,7 +30,7 @@ function harness(overrides = {}, options = {}) {
   const feature = createPopoverFocusTimer({
     document, $, $$: () => [], refreshProjection: options.refreshProjection,
     getState: () => state, getSession: () => session, pad2: n => String(n).padStart(2, '0'),
-    setStatusLine() {}, sessionDuration, currentTask: () => null, focusActionMessage: () => 'failed',
+    setStatusLine(selector, text) { $(selector).textContent = text; }, sessionDuration, currentTask: () => null, focusActionMessage: () => 'failed',
     surfaceClient: {
       updateSettings: async patch => { calls.push(patch); return { ok: true }; },
       startPomodoro: async (taskId, minutes) => { calls.push({ taskId, minutes }); return { ok: true }; },
@@ -184,4 +184,24 @@ test('a superseded reopen read waits for the newer revision-gap read before unlo
   await gap; await new Promise(resolve => setImmediate(resolve));
   await h.$('#btnResumeFocus').fire('click');
   assert.deepEqual(sent, [{ sessionId: 'new', intent: 'resume' }]);
+});
+
+test('locale copy repaint preserves pending resume receipt and uncommitted duration preview', async t => {
+  const { setLocale } = require('../src/surfaces/shared/interface/i18n.mjs');
+  setLocale('zh-CN'); let finish;
+  const h = harness({ resumePomodoro: () => new Promise(resolve => { finish = resolve; }) });
+  t.after(() => { h.feature.dispose(); setLocale('zh-CN'); });
+  Object.assign(h.session, { paused: true, status: 'paused', mode: 'focus', kind: 'focus', sessionId: 'one', remainingMs: 30000,
+    resumeAction: { sessionId: 'one', intent: 'resume', enabled: true, reason: null } });
+  h.feature.renderPomoStructure(); h.feature.renderDurationPicker();
+  const pending = h.$('#btnResumeFocus').fire('click');
+  const slider = h.$('#durationSlider'); slider.value = '45'; slider.fire('input');
+  const buttons = [...h.$('#durationPresets').children];
+  setLocale('en');
+  h.feature.renderPomoStructure({ copyOnly: true }); h.feature.renderDurationPicker({ copyOnly: true });
+  h.feature.renderPomoStructure(); h.feature.renderDurationPicker();
+  assert.equal(slider.value, '45'); assert.equal(h.$('#durationValue').textContent, '45 min');
+  assert.deepEqual(h.$('#durationPresets').children, buttons);
+  finish({ ok: false, reason: 'session-changed' }); await pending;
+  assert.equal(h.$('#focusActionStatus').textContent, 'failed');
 });

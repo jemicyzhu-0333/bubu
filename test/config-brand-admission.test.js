@@ -30,7 +30,7 @@ test('fresh bubu profiles brand the identity database while preserving random au
     const binding = identity.prepare('SELECT application_id FROM config_identity').get().application_id;
     assert.ok(Number.isInteger(binding) && binding > 0 && binding < 2147483647);
     assert.equal(main.prepare('PRAGMA application_id').get().application_id, binding);
-    assert.equal(before.schemaVersion, 18);
+    assert.equal(before.schemaVersion, 19);
   } finally { identity.close(); main.close(); }
   const reopened = f.open();
   try { assert.deepEqual(reopened.snapshot(), before); assert.equal(reopened.revision(), revision); }

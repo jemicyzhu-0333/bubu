@@ -69,7 +69,7 @@ function harness({ enabled = true, initial, turn, start, stage } = {}) {
     fallbackReasonText: messages.fallbackReasonText, adoptProposal: value => adopted.push(value),
     stageStuckProposal: stage || ((value, taskId) => { calls.push(['stage', { value, taskId }]); dom.$('#stuckMask').classList.remove('hidden'); return { ok: true }; }),
     restoreModalFocus: target => restored.push(target), isAiClarifyEnabled: () => enabled,
-    showEntryStatus: text => entryStatus.push(text) });
+    showEntryStatus: source => entryStatus.push(typeof source === 'function' ? source() : source) });
   feature.mount();
   const say = async value => { dom.$('#draftChatInput').value = value; await feature.send(); };
   return { feature, dom, calls, client, records, response, adopted, restored, entryStatus, say, hide: () => hiddenCallback?.(),

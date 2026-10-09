@@ -9,12 +9,14 @@ const { EventEmitter } = require('node:events');
 const { createPetSync } = require('../src/surfaces/pet/sync.mjs');
 
 const EVENTS = Object.freeze({
+  onInterfacePreferences: 'settings:interface-changed',
   onPetSync: 'pet:sync', onPetViewport: 'pet:viewport', onPetFeedState: 'pet:feedState',
   onPetDock: 'pet:dock', onPetPeek: 'pet:peek', onPetCue: 'pet:cue',
   onPetGaze: 'pet:gaze', onPetDevtools: 'pet:devtools'
 });
-const SYNC_EVENTS = Object.entries(EVENTS).filter(([name]) => name !== 'onPetViewport');
+const SYNC_EVENTS = Object.entries(EVENTS).filter(([name]) => !['onPetViewport', 'onInterfacePreferences'].includes(name));
 const COMMANDS = Object.freeze({
+  getInterfacePreferences: 'settings:get-interface',
   pet_getBounds: 'pet:getBounds', pet_setPosition: 'pet:setPosition', pet_savePosition: 'pet:savePosition',
   pet_dragStart: 'pet:dragStart', pet_dragEnd: 'pet:dragEnd', pet_getFeedState: 'pet:getFeedState',
   pet_feed: 'pet:feed', pet_interaction: 'pet:interaction', pet_setMenuOpen: 'pet:setMenuOpen',

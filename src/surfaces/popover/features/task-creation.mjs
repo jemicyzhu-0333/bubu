@@ -14,12 +14,13 @@ function createPopoverTaskCreation({
   breakdownProviderLabel, fallbackReasonSuffix, fallbackReasonText, restoreModalFocus,
   showTaskFormStatus, stageStuckProposal, isAiClarifyEnabled, showStuckStatus, onMemoryCandidateReview, onPlanningCandidateReview
 }) {
+  let taskDraft;
   const taskWhenFields = createPopoverTaskWhenFields({
     $, $$, syncPressedButtons, localDateInputValue, localDateTimeInputValue, endOfDayISO,
     scheduledFromDateTimeInput, endOfLocalDateISO, formatExpiry, recurrenceIntervalError,
-    autoExpiryPreview, showStatus: showTaskFormStatus
+    autoExpiryPreview, showStatus: source => taskDraft?.showStatus(source)
   });
-  const taskDraft = createPopoverTaskDraft({
+  taskDraft = createPopoverTaskDraft({
     document, $, $$, escapeHTML, syncPressedButtons, readNumberInput, bindStepTitleField,
     parseTagList, tagInputError, estimateInputError, maxSteps, surfaceClient,
     breakdownProviderLabel, fallbackReasonSuffix, whenFields: taskWhenFields,
@@ -29,7 +30,7 @@ function createPopoverTaskCreation({
     document, $, escapeHTML, surfaceClient, fallbackReasonText,
     adoptProposal: taskDraft.adopt, stageStuckProposal, restoreModalFocus, onMemoryCandidateReview, onPlanningCandidateReview,
     isAiClarifyEnabled,
-    showEntryStatus: (text, purpose) => purpose === 'stuck' ? showStuckStatus(text) : showTaskFormStatus(text)
+    showEntryStatus: (text, purpose) => purpose === 'stuck' ? showStuckStatus(text) : taskDraft.showStatus(text)
   });
   taskDraft.mount();
   draftConversation.mount();

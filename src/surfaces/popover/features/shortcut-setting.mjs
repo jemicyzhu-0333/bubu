@@ -1,3 +1,4 @@
+import { t } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 // 闪念快捷键这一层:一个开关、一个录制键、一行「现在真正生效的是哪个组合」。
@@ -80,21 +81,21 @@ function createPopoverShortcutSetting({ document, $, getState, surfaceClient } =
   // 四种状态各说一句实话。措辞里不含「错误」「失败」:退级和抢不到都不是用户的
   // 过失,面板也照样从菜单栏打得开。
   function effectiveNote() {
-    if (!describe) return '正在读取生效的组合…';
-    if (!describe.enabled) return '已关闭。仍可用伙伴右键菜单里的快速记录';
-    if (!describe.registered) return '这台机器上的组合键都被占用了。仍可用伙伴右键菜单里的快速记录，或从菜单栏打开';
+    if (!describe) return t('正在读取生效的组合…');
+    if (!describe.enabled) return t('已关闭。仍可用伙伴右键菜单里的快速记录');
+    if (!describe.registered) return t('这台机器上的组合键都被占用了。仍可用伙伴右键菜单里的快速记录，或从菜单栏打开');
     if (describe.usedFallback) {
-      return `现在生效：${describe.label} · 你设的 ${describe.configuredLabel} 被别的程序占着,先用这个`
-        + '（配置没被改掉,那个程序关掉后会自己回来）';
+      return t('现在生效：{shortcut} · 你设的 {configured} 被别的程序占着,先用这个', { shortcut: describe.label, configured: describe.configuredLabel })
+        + t('（配置没被改掉,那个程序关掉后会自己回来）');
     }
-    return `现在生效：${describe.label}`;
+    return t('现在生效：{shortcut}', { shortcut: describe.label });
   }
 
   function paintToggle() {
     const toggle = document.querySelector('[data-toggle="quickPanelEnabled"]');
     if (!toggle) return;
     const on = enabledNow();
-    toggle.textContent = on ? '开' : '关';
+    toggle.textContent = on ? t('开') : t('关');
     toggle.classList.toggle('on', on);
     toggle.setAttribute('aria-pressed', String(on));
   }
@@ -105,13 +106,13 @@ function createPopoverShortcutSetting({ document, $, getState, surfaceClient } =
     const label = effectiveLabel();
     const capture = $('#btnQuickCapture');
     if (capture) {
-      capture.title = label ? `快捷行动 ${label}` : '打开快捷行动面板';
+      capture.title = label ? t('快捷行动 {shortcut}', { shortcut: label }) : t('打开快捷行动面板');
       capture.setAttribute('aria-label', label
-        ? `打开快捷行动面板，快捷键 ${label}`
-        : '打开快捷行动面板');
+        ? t('打开快捷行动面板，快捷键 {shortcut}', { shortcut: label })
+        : t('打开快捷行动面板'));
     }
     const hint = $('#inboxEmptyHint');
-    if (hint) hint.textContent = label ? `按 ${label} 随时记下闪念` : '用伙伴右键菜单里的快速记录随时记下闪念';
+    if (hint) hint.textContent = label ? t('按 {shortcut} 随时记下闪念', { shortcut: label }) : t('用伙伴右键菜单里的快速记录随时记下闪念');
   }
 
   function render() {
@@ -119,18 +120,18 @@ function createPopoverShortcutSetting({ document, $, getState, surfaceClient } =
     const recorder = $('#quickPanelRecorder');
     if (recorder) {
       if (recording) {
-        recorder.textContent = '按下想用的组合…';
+        recorder.textContent = t('按下想用的组合…');
       } else {
         const state = getState();
         const configured = (describe && (describe.configuredLabel || describe.configured))
           || (state && state.settings && state.settings.quickPanelShortcut) || '';
-        recorder.textContent = configured || '未设置';
+        recorder.textContent = configured || t('未设置');
       }
       recorder.classList.toggle('recording', recording);
       recorder.setAttribute('aria-pressed', String(recording));
     }
     const note = $('#quickPanelEffective');
-    if (note) note.textContent = recording ? 'Esc 取消 · 至少要带一个修饰键（⌘ ⌃ ⌥ ⇧）' : effectiveNote();
+    if (note) note.textContent = recording ? t('Esc 取消 · 至少要带一个修饰键（⌘ ⌃ ⌥ ⇧）') : effectiveNote();
     paintMentions();
   }
 
@@ -155,7 +156,7 @@ function createPopoverShortcutSetting({ document, $, getState, surfaceClient } =
   async function commit(accelerator) {
     recording = false;
     const note = $('#quickPanelEffective');
-    if (note) note.textContent = `正在绑定 ${accelerator}…`;
+    if (note) note.textContent = t('正在绑定 {shortcut}…', { shortcut: accelerator });
     try {
       await surfaceClient.updateSettings({ quickPanelShortcut: accelerator });
     } catch (_) {
@@ -181,11 +182,11 @@ function createPopoverShortcutSetting({ document, $, getState, surfaceClient } =
     const key = keyToken(event.code);
     const note = $('#quickPanelEffective');
     if (!key) {
-      if (note) note.textContent = '这个键不能用于全局快捷键 · 请用字母、数字、F1–F24 或空格等按键';
+      if (note) note.textContent = t('这个键不能用于全局快捷键 · 请用字母、数字、F1–F24 或空格等按键');
       return;
     }
     if (!modifiers.length) {
-      if (note) note.textContent = '至少要带一个修饰键（⌘ ⌃ ⌥ ⇧）· Esc 取消';
+      if (note) note.textContent = t('至少要带一个修饰键（⌘ ⌃ ⌥ ⇧）· Esc 取消');
       return;
     }
     void commit([...modifiers, key].join('+'));

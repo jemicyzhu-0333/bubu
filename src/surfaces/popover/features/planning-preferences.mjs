@@ -1,3 +1,4 @@
+import { onLocaleChanged } from '../../shared/interface/i18n.mjs';
 import { createPlanningPreferencesView, comparisonValid, time } from '../ui/planning-preferences-view.mjs';
 const ERRORS = Object.freeze({
   'guidance-preview-expired': '预览已到期，重新查看后可以确认。',
@@ -236,6 +237,7 @@ function createPlanningPreferencesFeature({ document, client, $ = selector => do
   function close() { proposalContext = null; return invalidate(); }
   function on(id, event, handler) { const target = node(id); if (target) { target.addEventListener(event, handler); listeners.push(() => target.removeEventListener(event, handler)); } }
   function init() {
+    listeners.push(onLocaleChanged(view.repaintCopy));
     for (const [id, value] of Object.entries({ planningStart: '13:00', planningEnd: '17:00', planningDemand: 'low', planningScope: 'today', planningTrialParameter: 'chronotypeShift', planningTrialScope: 'today' })) if (node(id) && !node(id).value) node(id).value = value;
     for (const [kind, id] of Object.entries({ preference: 'planningPreferenceForm', history: 'planningHistoryForm', trial: 'planningTrialForm' })) on(id, 'submit', event => { event.preventDefault(); void preview(kind); });
     for (const id of FIELDS) for (const event of ['input', 'change']) on(id, event, () => invalidate(pending ? '表单已改变，请重新查看变更。' : ''));

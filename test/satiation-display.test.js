@@ -4,6 +4,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { createSatiationLabel } = require('../src/surfaces/pet/feeding-copy.mjs');
 const { displaySatiation } = require('../src/surfaces/companion/satiation-display.mjs');
 const { createPetFoodMenu } = require('../src/surfaces/pet/food-menu.mjs');
 const { createPopoverCompanionFeature } = require('../src/surfaces/popover/features/companion.mjs');
@@ -47,11 +48,13 @@ test('companion summary rounds only satiation and preserves the projected value'
   assert.equal(state.companionProjection.bond.points, 2.5);
 });
 
-test('actual pet floating bar function uses the same integer display and finite fallback', () => {
+test('actual pet floating bar function uses the same integer display and finite fallback', contextTest => {
   const source = fs.readFileSync(path.join(__dirname, '../src/surfaces/pet/controller.mjs'), 'utf8');
   const body = source.slice(source.indexOf('function updateSatBar(satiation) {'), source.indexOf('// 关闭：', source.indexOf('function updateSatBar(satiation) {')));
   const { $, document } = dom();
-  const context = { document, displaySatiation, clearTimeout() {}, setTimeout: () => 1 };
+  const satiationLabel = createSatiationLabel({ label: $('#satLabel') });
+  contextTest.after(() => satiationLabel.dispose());
+  const context = { document, displaySatiation, satiationLabel, clearTimeout() {}, setTimeout: () => 1 };
   vm.runInNewContext(`${body}\nupdateSatBar(99.6);`, context);
   assert.equal($('#satLabel').textContent, '饱食 100');
   assert.equal($('#satFill').style.width, '100%');

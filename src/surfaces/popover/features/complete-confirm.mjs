@@ -1,3 +1,4 @@
+import { t, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 'use strict';
 
 // 完成确认：只有还剩未完步骤时才会出现的那一问。
@@ -42,6 +43,11 @@ function createPopoverCompleteConfirm({
   let mounted = false;
   let submitting = false;
   let presentationVersion = 0;
+  let titleCopy = null, errorCopy = '';
+  function repaintCopy() {
+    if (titleCopy) $('#completeConfirmTask').textContent = t('「{title}」还有 {count} 步没勾。', titleCopy);
+    if (errorCopy) $('#completeConfirmError').textContent = t(errorCopy);
+  }
   const teardown = [];
 
   function listen(target, type, handler) {
@@ -64,6 +70,7 @@ function createPopoverCompleteConfirm({
       mask.setAttribute('aria-hidden', 'true');
     }
     pending = null;
+    titleCopy = null; errorCopy = '';
     trigger = null;
     restoreModalFocus(closing);
   }
@@ -76,7 +83,7 @@ function createPopoverCompleteConfirm({
       ? document.activeElement
       : $('#taskInput');
     pending = task.id;
-    $('#completeConfirmTask').textContent = `「${task.title}」还有 ${unfinishedCount} 步没勾。`;
+    titleCopy = { title: task.title, count: unfinishedCount }; errorCopy = ''; repaintCopy();
     $('#completeConfirmError').classList.add('hidden');
     mask.classList.remove('hidden');
     mask.setAttribute('aria-hidden', 'false');
@@ -95,7 +102,7 @@ function createPopoverCompleteConfirm({
     try {
       result = await surfaceClient.completeTask(task.id);
     } catch (_) {
-      if (version === presentationVersion) showPanelStatus(taskActionMessage('task-complete-rejected'));
+      if (version === presentationVersion) showPanelStatus(() => taskActionMessage('task-complete-rejected'));
       return;
     } finally {
       submitting = false;
@@ -109,7 +116,7 @@ function createPopoverCompleteConfirm({
       open(task, result.unfinishedCount || 0);
       return;
     }
-    showPanelStatus(taskActionMessage(result && result.reason));
+    showPanelStatus(() => taskActionMessage(result && result.reason));
   }
 
   async function confirm() {
@@ -126,7 +133,7 @@ function createPopoverCompleteConfirm({
       if (!result || result.ok === false) throw new Error((result && result.reason) || 'task-complete-rejected');
     } catch (_) {
       if (version !== presentationVersion) return;
-      error.textContent = '这次没有完成成功，任务与步骤都保留，请重试。';
+      errorCopy = '这次没有完成成功，任务与步骤都保留，请重试。'; repaintCopy();
       error.classList.remove('hidden');
       return;
     } finally {
@@ -150,6 +157,7 @@ function createPopoverCompleteConfirm({
   function mount() {
     if (mounted) return;
     mounted = true;
+    teardown.push(onLocaleChanged(repaintCopy));
     listen($('#completeConfirmOk'), 'click', confirm);
     listen($('#completeConfirmClose'), 'click', close);
     listen($('#completeConfirmCancel'), 'click', close);
@@ -161,6 +169,7 @@ function createPopoverCompleteConfirm({
     mounted = false;
     while (teardown.length) teardown.pop()();
     pending = null;
+    titleCopy = null; errorCopy = '';
     trigger = null;
   }
 

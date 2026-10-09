@@ -1,4 +1,5 @@
 'use strict';
+const { nativeCopy } = require('./interface-copy');
 
 const { exec: execCommand, execFile: execFileCommand } = require('child_process');
 const { probeForegroundApp } = require('./nudge-foreground');
@@ -385,11 +386,11 @@ function createNudgeHost({
   function showNotification(title, body, generation, silent, actions, receipt, attempt) {
     const offered = (Array.isArray(actions) ? actions : []).slice(0, MAX_L1_ACTIONS);
     const notification = notifications.show({
-      title,
+      title: nativeCopy(title),
       body,
       silent,
-      actions: offered.map(action => ({ type: 'button', text: action.label })),
-      closeButtonText: '关闭'
+      actions: offered.map(action => ({ type: 'button', text: nativeCopy(action.label) })),
+      closeButtonText: nativeCopy('关闭')
     }, value => {
       if (!state || state.generation !== generation || state.attempt !== attempt) return;
       receipt.settle({ ...value, level: 1 });
@@ -530,7 +531,7 @@ function createNudgeHost({
 
     const generation = resetVisibleNudge();
     const instanceId = Number.isSafeInteger(internal.instanceId) ? internal.instanceId : nextInstanceId++;
-    const message = request.message || nudgePolicy.chooseLine(reminderLines(request.character, request.type), random());
+    const message = request.message || nativeCopy(nudgePolicy.chooseLine(reminderLines(request.character, request.type), random()));
     const live = { ...request, message, instanceId, generation, timers: [], attempt: 0,
       signature: signature(request), deferralOwner: internal.deferralOwner || null, probe: new AbortController() };
     state = live;
@@ -626,7 +627,7 @@ function createNudgeHost({
     const level = nudgePolicy.clampLevelForType(opts && opts.type, opts && opts.level);
     const request = nudgePolicy.normalizeReminderRequest({ ...opts, maxLevel: level, whitelist: [] });
     const generation = resetVisibleNudge();
-    const message = request.message || nudgePolicy.chooseLine(reminderLines(request.character, request.type), random());
+    const message = request.message || nativeCopy(nudgePolicy.chooseLine(reminderLines(request.character, request.type), random()));
     const live = { ...request, message, instanceId: nextInstanceId++, generation, timers: [], attempt: 0, preview: true };
     state = live;
     currentLevel = level;

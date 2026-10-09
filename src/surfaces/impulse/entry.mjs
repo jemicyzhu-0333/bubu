@@ -1,3 +1,4 @@
+import '../shared/interface/entry.mjs';
 'use strict';
 
 import { createImpulseSurfaceClient } from './adapter/surface-client.mjs';

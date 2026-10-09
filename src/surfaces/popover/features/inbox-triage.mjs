@@ -1,3 +1,4 @@
+import { t } from '../../shared/interface/i18n.mjs';
 // Presentation labels match the six existing internal categories; uncertainty is explicit.
 const CATEGORIES = Object.freeze({ unclassified: '未分类', task: '任务', routine: '日常计划', log: '日常记录', state: '状态', feeling: '情绪', note: '想法' });
 // One-tap choices for an unclassified capture, in the order people usually mean them.
@@ -24,15 +25,15 @@ function effectiveClassification(impulse, draft = {}) {
 function describeTriage(impulse, state, draft) {
   const classification = effectiveClassification(impulse, draft);
   const matching = (state?.routines?.items || []).filter(item => item.active !== false && item.kind === classification.routineKind);
-  const kind = ROUTINE_KINDS[classification.routineKind] || '日常';
+  const kind = ROUTINE_KINDS[classification.routineKind] || t('日常');
   switch (classification.category) {
-    case 'task': return { text: '一件准备去做的事', action: { kind: 'next-step', label: '转为任务' } };
-    case 'routine': return { text: '需要重复做的日常，创建后可以设置提醒', action: { kind: 'routine', label: '建成日常' } };
-    case 'log': return { text: matching.length ? '确认刚做过的事情，记录到所选日常' : `创建「${kind}」并记录一次，不设置提醒`, action: { kind: 'log', label: matching.length ? '记录一次' : '创建并记一次' } };
-    case 'state': return { text: '确认后记录当时的能量状态', action: { kind: 'state', label: '确认状态' } };
-    case 'feeling': return { text: '留一条情绪记录，不自动改变能量', action: { kind: 'feeling', label: '保存情绪' } };
-    case 'note': return { text: '保留想法，不创建待办', action: { kind: 'keep', label: '保存想法' } };
-    default: return { text: '选一个类型，或原样留存', action: { kind: 'keep', label: '先留存' } };
+    case 'task': return { text: t('一件准备去做的事'), action: { kind: 'next-step', label: t('转为任务') } };
+    case 'routine': return { text: t('需要重复做的日常，创建后可以设置提醒'), action: { kind: 'routine', label: t('建成日常') } };
+    case 'log': return { text: matching.length ? t('确认刚做过的事情，记录到所选日常') : t('创建「{kind}」并记录一次，不设置提醒', { kind: t(kind) }), action: { kind: 'log', label: matching.length ? t('记录一次') : t('创建并记一次') } };
+    case 'state': return { text: t('确认后记录当时的能量状态'), action: { kind: 'state', label: t('确认状态') } };
+    case 'feeling': return { text: t('留一条情绪记录，不自动改变能量'), action: { kind: 'feeling', label: t('保存情绪') } };
+    case 'note': return { text: t('保留想法，不创建待办'), action: { kind: 'keep', label: t('保存想法') } };
+    default: return { text: t('选一个类型，或原样留存'), action: { kind: 'keep', label: t('先留存') } };
   }
 }
 
