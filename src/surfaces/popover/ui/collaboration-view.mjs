@@ -2,6 +2,12 @@
 
 const MODE_LABELS = Object.freeze({ talk: '先聊聊', 'small-step': '找一个小动作', plan: '一起安排' });
 
+// Original, decorative vector marks. Text labels, not the avatar, identify roles.
+const CHAT_AVATARS = Object.freeze({
+  assistant: '<svg viewBox="0 0 32 32" width="28" height="28" fill="none" aria-hidden="true" focusable="false"><path d="M6 22c-2-8 2-16 10-16s12 8 10 16c-1 4-6 5-10 5S7 26 6 22Z" fill="currentColor" fill-opacity=".12" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="17" r="1.5" fill="currentColor"/><circle cx="20" cy="17" r="1.5" fill="currentColor"/><path d="M13 22q3 2 6 0M16 3v3M14 3h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  user: '<svg viewBox="0 0 32 32" width="28" height="28" fill="none" aria-hidden="true" focusable="false"><rect x="3" y="3" width="26" height="26" rx="9" fill="currentColor" fill-opacity=".08" stroke="currentColor" stroke-width="1.5"/><circle cx="16" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M9 25v-2a7 7 0 0 1 14 0v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'
+});
+
 function taskDraftFromMessage(message) {
   const ref = message && message.proposal;
   if (!ref || ref.kind !== 'task-draft' || typeof ref.body !== 'string') return null;
@@ -59,10 +65,26 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
   let historyId = null, start = 0, end = 0, previousCount = 0, latestRecord = null, latestSelected = null;
   const historyWindows = new Map();
   let listedSessions = null, listedCursor = null;
+  let currentPage = 'detail';
   let proposalStates = new Map();
   const text = (selector, value) => { const node = $(selector); if (node) node.textContent = value || ''; };
   const hidden = (selector, value) => { const node = $(selector); if (node) node.classList.toggle('hidden', value); };
   const value = (selector, next) => { const node = $(selector); if (node) node.value = next; };
+  function showPage(name = 'detail', { focus = true } = {}) {
+    if (!['detail', 'list', 'settings'].includes(name)) return;
+    currentPage = name;
+    if ($('#draftChatMask')) $('#draftChatMask').dataset.chatPage = name;
+    hidden('#draftChatDetail', name !== 'detail');
+    hidden('#draftChatComposeShell', name !== 'detail');
+    hidden('#draftChatLibrary', name !== 'list');
+    hidden('#draftChatSettings', name !== 'settings');
+    hidden('#btnDraftChatBack', name === 'detail');
+    hidden('#draftChatPageActions', name !== 'detail');
+    text('#draftChatTitle', name === 'list' ? '对话' : name === 'settings' ? '对话设置'
+      : latestRecord?.purpose === 'stuck' ? '一起理一理' : 'AI 协作');
+    hidden('#draftChatSessionTitle', name !== 'detail');
+    if (focus) $(name === 'detail' ? '#draftChatInput' : name === 'list' ? '#btnDraftChatNew' : '#draftChatMode')?.focus();
+  }
   function status(message = '') {
     text('#draftChatStatus', message);
     hidden('#draftChatStatus', !message);
@@ -70,7 +92,7 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
   function busy(on) {
     for (const selector of ['#btnDraftChatSend', '#draftChatInput', '#draftChatRetention',
       '#draftChatRetentionDays', '#draftChatPinned', '#draftChatFocusSummary', '#btnDraftChatNew',
-      '#btnDraftChatList', '#btnDraftChatMore', '#btnDraftChatAdopt', '#draftChatMode']) {
+      '#btnDraftChatList', '#btnDraftChatSettings', '#btnDraftChatRefresh', '#btnDraftChatMore', '#btnDraftChatAdopt', '#draftChatMode']) {
       const node = $(selector);
       if (node) node.disabled = on;
     }
@@ -172,7 +194,7 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
       log.innerHTML = messages.length ? messages.slice(start, end).map(message => {
         const role = message.role === 'user' ? 'user' : 'assistant';
         return `<article class="chat-turn chat-turn-${role}" data-message-id="${escapeHTML(message.id)}">`
-          + `<span class="chat-turn-role">${role === 'user' ? '你' : '伙伴'}</span>`
+          + `<div class="chat-turn-heading"><span class="chat-avatar chat-avatar-${role}" aria-hidden="true">${CHAT_AVATARS[role]}</span><span class="chat-turn-role">${role === 'user' ? '你' : 'AI 伙伴'}</span></div>`
           + sourceMarkup(message)
           + `<div class="chat-turn-content">${escapeHTML(message.content || '')}</div>`
           + proposalMarkup(message, selected, record.purpose) + '</article>';
@@ -190,7 +212,7 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
     text('#draftChatSessionTitle', Array.from(title).slice(0, 60).join(''));
     const mode = record?.mode || 'talk';
     value('#draftChatMode', mode);
-    text('#draftChatTitle', record?.purpose === 'stuck' ? '一起理一理' : 'AI 协作');
+    showPage(currentPage, { focus: false });
     const selectedMessage = messages.find(message => message.proposal?.id === selected);
     hidden('#btnDraftChatAdopt', !taskDraftFromMessage(selectedMessage));
     text('#btnDraftChatAdopt', record?.purpose === 'stuck' ? '放进下一步草稿' : '放进任务草稿');
@@ -243,11 +265,11 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
       const saved = item.saveState === 'unsaved' ? '尚未保存' : item.retention?.mode === 'saved' ? '保留在本机' : '仅本次';
       const date = item.updatedAt ? new Date(item.updatedAt).toLocaleString('zh-CN') : '';
       return `<button type="button" class="chat-session" data-chat-resume="${escapeHTML(item.id)}" aria-current="${item.id === latestRecord?.id}">`
-        + `<span>${escapeHTML(title)}</span><small>${item.id === latestRecord?.id ? '当前对话 · ' : ''}${escapeHTML(MODE_LABELS[item.mode] || '先聊聊')} · ${saved}${date ? ` · ${escapeHTML(date)}` : ''}</small></button>`;
+        + `<span class="chat-session-title-row"><span>${escapeHTML(title)}</span><span class="chat-session-arrow" aria-hidden="true">›</span></span><small>${item.id === latestRecord?.id ? '当前对话 · ' : ''}${escapeHTML(MODE_LABELS[item.mode] || '先聊聊')} · ${saved}</small>${date ? `<small class="chat-session-date">${escapeHTML(date)}</small>` : ''}</button>`;
     }).join('') : '<p class="chat-empty">还没有可继续的对话</p>';
     hidden('#btnDraftChatMore', !nextCursor);
   }
-  return Object.freeze({ status, busy, draft, conversation, context, sessions, pageHistory, visibleProposalRefs, proposalStatuses });
+  return Object.freeze({ status, busy, draft, conversation, context, sessions, pageHistory, visibleProposalRefs, proposalStatuses, page: showPage, currentPage: () => currentPage });
 }
 
 export { createCollaborationView, taskDraftFromMessage, changeCandidateFromMessage, memoryCandidateFromMessage, memoryChangeFromMessage };

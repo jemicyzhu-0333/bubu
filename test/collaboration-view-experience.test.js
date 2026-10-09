@@ -125,3 +125,44 @@ test('authoritative list refresh replaces cached metadata and deleted sessions s
   view.conversation(first);
   assert.ok(!$('#draftChatSessions').innerHTML.includes('data-chat-resume='));
 });
+
+test('original decorative avatars distinguish roles without replacing source or accessible role text', () => {
+  const { $, view } = harness();
+  view.conversation(record('c1', [
+    { id: 'u', role: 'user', content: 'A user message' },
+    { id: 'a', role: 'assistant', content: 'A local reply', provenance: { source: 'local', reason: 'provider-not-configured' } }
+  ]));
+  const markup = $('#draftChatLog').innerHTML;
+  assert.match(markup, /chat-avatar-user/);
+  assert.match(markup, /chat-avatar-assistant/);
+  assert.equal((markup.match(/<svg /g) || []).length, 2);
+  assert.equal((markup.match(/focusable="false"/g) || []).length, 2);
+  assert.match(markup, /chat-turn-role">你</);
+  assert.match(markup, /chat-turn-role">AI 伙伴</);
+  assert.match(markup, /data-chat-source="local">本地模板/);
+  assert.doesNotMatch(markup, /<img|https?:|<image|<use /);
+});
+
+test('session region supports empty and 200-item pages without losing cursor or safe long titles', () => {
+  const { $, view } = harness();
+  view.sessions([], null);
+  assert.match($('#draftChatSessions').innerHTML, /还没有可继续/);
+  const items = Array.from({ length: 200 }, (_, i) => ({ ...record(`session-${i}`), title: '<unsafe>' + 'Long'.repeat(80) }));
+  view.sessions(items, 'next-200');
+  assert.equal(($('#draftChatSessions').innerHTML.match(/data-chat-resume=/g) || []).length, 200);
+  assert.ok(!$('#draftChatSessions').innerHTML.includes('<unsafe>'));
+  assert.equal($('#btnDraftChatMore').classList.contains('hidden'), false);
+  view.sessions([record('next-page')], null);
+  assert.equal(($('#draftChatSessions').innerHTML.match(/data-chat-resume=/g) || []).length, 1);
+  assert.equal($('#btnDraftChatMore').classList.contains('hidden'), true);
+});
+
+test('session scrolling is constrained to the focusable list; page toolbar and footer stay outside it', () => {
+  const fs = require('node:fs'), path = require('node:path');
+  const css = fs.readFileSync(path.join(__dirname, '../src/surfaces/popover/styles/features/draft-chat.css'), 'utf8');
+  const html = fs.readFileSync(path.join(__dirname, '../src/renderer/popover.html'), 'utf8');
+  assert.match(css, /#draftChatLibrary \{[^}]*display: flex;[^}]*flex-direction: column;[^}]*overflow: hidden;/);
+  assert.match(css, /#draftChatSessions \{[^}]*min-height: 0;[^}]*max-height: 420px;[^}]*overflow-y: auto;/);
+  assert.match(css, /chat-session-title-row > span:first-child \{[^}]*min-width: 0;[^}]*text-overflow: ellipsis;/);
+  assert.match(html, /id="draftChatSessions" tabindex="0" role="region" aria-label="可继续的对话，可滚动"><\/div>\s*<div class="chat-list-actions">/);
+});

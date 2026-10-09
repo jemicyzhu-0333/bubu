@@ -99,6 +99,7 @@ function createPopoverDraftConversation({
   function receiptMode() {
     const local = Boolean(receiptContext);
     $('#draftChatConversationControls')?.classList.toggle('hidden', local);
+    $('#draftChatPageActions')?.classList.toggle('hidden', local || view.currentPage() !== 'detail');
     $('#draftChatConversationComposer')?.classList.toggle('hidden', local);
     $('#btnDraftChatReceiptClose')?.classList.toggle('hidden', !local);
     if (local) {
@@ -183,6 +184,7 @@ function createPopoverDraftConversation({
       if ($('#draftChatFocusSummary')) $('#draftChatFocusSummary').checked = false;
       if ($('#draftChatPlanningPreferences')) $('#draftChatPlanningPreferences').checked = Boolean(result.selection?.planningPreferences);
       accept(result, { restore: true });
+      view.page('detail');
       contextSelection.reset(record, result.selection);
       if (record.contextEligibilityPending === true) contextSelection.applied(false);
       changes.restorePending();
@@ -207,6 +209,7 @@ function createPopoverDraftConversation({
     receiptMode();
     $('#draftChatRetentionConfirm')?.classList.add('hidden');
     navigation.open(entry.purpose);
+    view.page('detail');
     await load({ conversationId: options.conversationId || resumeId });
   }
   function close({ adopted = false } = {}) {
@@ -348,6 +351,9 @@ function createPopoverDraftConversation({
   }
   async function list({ more = false } = {}) {
     if (receiptContext || isBusy() || listing) return;
+    snapshot();
+    if (!more) view.page('list');
+    view.status('正在读取对话列表…');
     listing = true;
     const token = epoch;
     try {
@@ -357,9 +363,7 @@ function createPopoverDraftConversation({
       listed = more ? [...listed, ...result.items] : result.items;
       nextCursor = result.nextCursor;
       view.sessions(listed, nextCursor);
-      if (result.availability === 'unavailable') view.status('本机保存列表暂不可用；这里只显示当前运行中的对话。');
-      const library = $('#draftChatLibrary');
-      if (library) library.open = true;
+      view.status(result.availability === 'unavailable' ? '本机保存列表暂不可用；这里只显示当前运行中的对话。' : '');
     } catch (_) { if (valid(token)) showFailure(); }
     finally { listing = false; }
   }
@@ -389,6 +393,7 @@ function createPopoverDraftConversation({
     if (token !== epoch) return;
     clearDelete(); record = null; selected = null; scopeGrantId = null;
     receiptContext = { receiptId, conversationId: null };
+    view.page('detail', { focus: false });
     changes.invalidate({ clear: true }); contextSelection.invalidate();
     navigation.open('review'); view.conversation(null, null); receiptMode();
     view.status('本机提交记录可以独立核对；对话已关闭或删除也不会伪造恢复。');
@@ -476,6 +481,20 @@ function createPopoverDraftConversation({
         fallback: message.provenance?.source !== 'provider', reason: message.provenance?.reason || null });
     }
   }
+  function backToConversation() {
+    clearDelete();
+    $('#draftChatRetentionConfirm')?.classList.add('hidden');
+    if (record) view.conversation(record, selected);
+    view.page('detail');
+    view.status('');
+    receiptMode();
+  }
+  function openSettings() {
+    if (receiptContext || isBusy()) return;
+    snapshot();
+    view.status('');
+    view.page('settings');
+  }
   function mount() {
     if (mounted) return;
     mounted = true;
@@ -503,6 +522,14 @@ function createPopoverDraftConversation({
     });
     listen('#btnDraftChatNew', 'click', () => void startNew());
     listen('#btnDraftChatList', 'click', () => void list());
+    listen('#btnDraftChatRefresh', 'click', () => void list());
+    listen('#btnDraftChatSettings', 'click', openSettings);
+    listen('#btnDraftChatBack', 'click', backToConversation);
+    listen('#draftChatMask', 'keydown', event => {
+      if (event.key !== 'Escape' || view.currentPage() === 'detail') return;
+      event.preventDefault(); event.stopPropagation?.();
+      backToConversation();
+    });
     listen('#btnDraftChatMore', 'click', () => void list({ more: true }));
     for (const [selector, direction] of [['#btnDraftChatEarlier', 'earlier'], ['#btnDraftChatLater', 'later'], ['#btnDraftChatLatest', 'latest']]) {
       listen(selector, 'click', () => { view.pageHistory(direction); void proposalStatus.refresh(); });

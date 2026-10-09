@@ -1,3 +1,4 @@
+import { displaySatiation } from '../companion/satiation-display.mjs';
 import { createPetFeeding, foodEffectText, foodInventorySummary, FOOD_ORDER } from './feeding.mjs';
 import { isFeedSnapshot } from '../companion/food-request-lifecycle.mjs';
 import { BASIC_MEAL } from '../../content/growth-policy.mjs';
@@ -83,7 +84,7 @@ function createPetFoodMenu({ document, client, content, setOpen, available, befo
     }
     const total = FOOD_ORDER.filter(id => id !== 'basic').reduce((sum, id) => sum + (state.foodInventory?.[id] || 0), 0);
     document.getElementById('foodDaily').textContent = foodInventorySummary(state, total);
-    const value = Math.max(0, Math.min(100, state.satiation));
+    const value = displaySatiation(state.satiation);
     const fill = document.getElementById('fpSatFill'), text = document.getElementById('fpSatTxt');
     if (fill) fill.style.width = `${value}%`;
     if (text) text.textContent = `饱食 ${value}/100`;

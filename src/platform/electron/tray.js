@@ -22,6 +22,7 @@ function createTrayHost({
   Tray = require('electron').Tray,
   Menu = require('electron').Menu,
   nativeImage = require('electron').nativeImage,
+  platform = process.platform,
   initialIcon,
   tooltip,
   onClick,
@@ -38,7 +39,7 @@ function createTrayHost({
     throw new TypeError('tray click handlers are required');
   }
 
-  const nativeTray = new Tray(createTrayIcon({ nativeImage, ...initialIcon }));
+  const nativeTray = new Tray(createTrayIcon({ nativeImage, ...initialIcon, platform }));
   nativeTray.setToolTip(tooltip);
   nativeTray.on('click', onClick);
   nativeTray.on('right-click', onRightClick);
@@ -51,7 +52,7 @@ function createTrayHost({
 
   function setIcon(icon) {
     if (!isAlive()) return false;
-    nativeTray.setImage(createTrayIcon({ nativeImage, ...icon }));
+    nativeTray.setImage(createTrayIcon({ nativeImage, ...icon, platform }));
     return true;
   }
 

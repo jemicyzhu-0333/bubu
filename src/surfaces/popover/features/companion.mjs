@@ -1,4 +1,5 @@
 'use strict';
+import { displaySatiation } from '../../companion/satiation-display.mjs';
 import { createSurfaceMotion } from '../../shared/motion.mjs';
 import { createPopoverFoodShop } from './food-shop.mjs';
 import { renderFoodCollection } from './food-collection.mjs';
@@ -49,7 +50,7 @@ function createPopoverCompanionFeature({ getState, $, escapeHTML, skinAccent, su
     if (summary) {
       const days = projection.daysTogether || 0;
       const met = days > 0 ? `相识 ${days} 天` : '今天刚认识';
-      summary.textContent = `${met} · 饱食 ${projection.satiation ?? 65} · 一起吃过 ${projection.totalFeeds || 0} 次`;
+      summary.textContent = `${met} · 饱食 ${displaySatiation(projection.satiation ?? 65)} · 一起吃过 ${projection.totalFeeds || 0} 次`;
     }
 
     const stagePill = $('#bondStage');

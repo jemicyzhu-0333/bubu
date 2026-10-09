@@ -3,6 +3,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { createTrayHost } = require('../src/platform/electron');
+const { decodePNG } = require('../scripts/app-icon-png');
 
 const PALETTE = Object.freeze({
   1: '#1a1b26',
@@ -21,6 +22,9 @@ function createTrayHarness() {
       const image = {
         buffer,
         representations: [],
+        isEmpty() { return false; },
+        getScaleFactors() { return [1, ...this.representations.map(item => item.scaleFactor)]; },
+        setTemplateImage(value) { this.template = value; },
         addRepresentation(representation) {
           this.representations.push(representation);
         }
@@ -67,6 +71,7 @@ function createHost(harness, overrides = {}) {
     Tray: harness.Tray,
     Menu: harness.Menu,
     nativeImage: harness.nativeImage,
+    platform: 'linux',
     initialIcon: { frame: 0, mood: 'idle', palette: PALETTE },
     tooltip: 'ImAdhder',
     onClick: () => {},
@@ -80,13 +85,12 @@ test('tray host builds deterministic 1x and 2x pixel icon representations', () =
   const host = createHost(harness);
   const initialImage = harness.images[0];
 
-  assert.equal(initialImage.buffer.subarray(0, 2).toString('ascii'), 'BM');
-  assert.equal(initialImage.buffer.readInt32LE(18), 22);
-  assert.equal(initialImage.buffer.readInt32LE(22), -22);
+  assert.equal(decodePNG(initialImage.buffer).width, 22);
+  assert.equal(decodePNG(initialImage.buffer).height, 22);
   assert.equal(initialImage.representations.length, 1);
   assert.equal(initialImage.representations[0].scaleFactor, 2);
-  assert.equal(initialImage.representations[0].buffer.readInt32LE(18), 44);
-  assert.equal(initialImage.representations[0].buffer.readInt32LE(22), -44);
+  assert.equal(decodePNG(initialImage.representations[0].buffer).width, 44);
+  assert.equal(decodePNG(initialImage.representations[0].buffer).height, 44);
 
   assert.equal(host.setIcon({ frame: 7, mood: 'idle', palette: PALETTE }), true);
   assert.notDeepEqual(harness.images[1].buffer, initialImage.buffer);
@@ -140,4 +144,16 @@ test('tray host rejects malformed platform dependencies and icon inputs', () => 
     () => createHost(harness, { initialIcon: { frame: 0, mood: 'focus', palette: { 1: '#fff' } } }),
     /six-digit hex|missing color/
   );
+});
+
+test('macOS template flag and Retina representations survive host icon updates', () => {
+  const harness = createTrayHarness();
+  const host = createHost(harness, { platform: 'darwin' });
+  host.setIcon({ frame: 7, mood: 'idle', palette: PALETTE });
+  for (const image of harness.images) {
+    assert.equal(image.template, true);
+    assert.equal(decodePNG(image.buffer).width, 16);
+    assert.equal(image.representations[0].scaleFactor, 2);
+    assert.equal(decodePNG(image.representations[0].buffer).width, 32);
+  }
 });

@@ -4,42 +4,62 @@
   #draftChatMask .collaboration-modal {
     display: flex;
     flex-direction: column;
-    height: min(760px, calc(100dvh - 48px));
+    height: min(760px, calc(100dvh - 40px));
     width: min(520px, 100%);
     min-height: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: 12px;
     line-height: 1.5;
   }
-  #draftChatMask .modal-header { padding: 12px 16px; }
-  #draftChatMask .modal-header h2 { margin: 0; font-size: 16px; }
+  #draftChatMask .modal-header { padding: 16px 20px; }
+  #draftChatMask .chat-header { display: flex; align-items: center; gap: 10px; }
+  #draftChatMask .chat-heading { flex: 1; min-width: 0; }
+  #draftChatMask .chat-header-actions { display: flex; gap: 2px; }
+  #draftChatMask .chat-nav-button { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; flex: 0 0 auto; border: 0; border-radius: 7px; background: transparent; color: var(--fg-1); cursor: pointer; }
+  #draftChatMask .chat-nav-button:hover { background: var(--bg-1); }
+  #draftChatMask .chat-nav-button:focus-visible { outline: 2px solid var(--primary-ink); outline-offset: 2px; }
+  #draftChatMask .chat-nav-button:disabled { opacity: .45; cursor: default; }
+  #draftChatMask[data-chat-page="list"] #draftChatTaskContext,
+  #draftChatMask[data-chat-page="settings"] #draftChatTaskContext { display: none; }
+  #draftChatMask .modal-header h2 { margin: 0; font-size: 17px; }
   #draftChatTaskContext { margin: 3px 0 0; font-size: 12px; color: var(--fg-1); overflow-wrap: anywhere; }
-  #draftChatSessionTitle { margin: 3px 0 0; max-width: 380px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 12px; color: var(--fg-2); }
-  #draftChatMask .collaboration-body { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 80px; overflow-y: auto; padding: 10px 16px; }
-  #draftChatDescription { margin: 0 0 8px; font-size: 11px; color: var(--fg-1); }
-  #draftChatMask .chat-options { display: grid; grid-template-columns: 64px minmax(0, 1fr); align-items: center; gap: 7px; }
+  #draftChatSessionTitle { margin: 3px 0 0; max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 12px; color: var(--fg-2); }
+  #draftChatMask .collaboration-body { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; overflow: hidden; padding: 0; }
+
+  #draftChatMask .chat-options { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: center; gap: 16px 12px; margin-bottom: 24px; }
   #draftChatMask select { min-width: 0; max-width: 100%; font: inherit; height: 32px; padding: 4px 8px; }
-  #draftChatSaveState { color: var(--fg-2); font-size: 11px; margin: 7px 0; }
-  #draftChatMask .chat-disclosure { margin: 8px 0; border: 1px solid var(--line, var(--bg-3)); border-radius: 8px; padding: 8px 10px; font-size: 11px; }
+  #draftChatMask .chat-detail { display: flex; flex-direction: column; flex: 1; min-height: 0; overflow-y: auto; padding: 0 20px; }
+  #draftChatMask .chat-page { flex: 1; min-height: 0; overflow-y: auto; padding: 18px 20px; }
+  #draftChatMask #draftChatLibrary { display: flex; flex-direction: column; overflow: hidden; }
+  #draftChatMask #draftChatSessions { flex: 1 1 auto; min-height: 0; max-height: 420px; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; scrollbar-gutter: stable; padding: 3px; }
+  #draftChatMask #draftChatSessions:focus-visible { outline: 2px solid var(--primary-ink); outline-offset: -2px; }
+  #draftChatMask #draftChatLibrary .chat-page-toolbar, #draftChatMask .chat-list-actions { flex: 0 0 auto; }
+  #draftChatMask .chat-page-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+  #draftChatMask .chat-page-toolbar p, #draftChatMask .chat-settings-intro { margin: 0; color: var(--fg-2); font-size: 12px; }
+  #draftChatMask .chat-settings-intro { margin-bottom: 24px; line-height: 1.7; }
+  #draftChatMask .chat-list-actions { display: flex; gap: 8px; margin-top: 12px; }
+  #draftChatMask .chat-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; padding: 10px 0 12px; font-size: 11px; color: var(--fg-2); }
+  #draftChatCurrentMode { font-weight: 600; color: var(--fg-1); }
+  #draftChatSaveState { font-size: 11px; margin: 0; }
+  #draftChatMask .chat-disclosure { margin: 12px 0; border: 0; border-top: 1px solid var(--line, var(--bg-3)); border-radius: 0; padding: 16px 0; font-size: 12px; }
   #draftChatMask .chat-disclosure summary { cursor: pointer; color: var(--fg-1); }
   #draftChatMask .chat-disclosure p { margin: 7px 0; }
   #draftChatMask .chat-disclosure pre { font: inherit; white-space: pre-wrap; overflow-wrap: anywhere; max-height: 180px; overflow-y: auto; padding: 8px; background: var(--bg-1); }
   #draftChatMask .chat-check { display: flex; align-items: flex-start; gap: 6px; margin: 8px 0; }
   #draftChatMask .chat-check input { margin: 3px 0 0; flex: 0 0 auto; }
-  #draftChatConversationControls { display: flex; flex-direction: column; flex: 1 0 180px; min-height: 180px; }
-  #draftChatMask .chat-toolbar { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px; flex: 0 0 auto; max-height: min(240px, 35dvh); overflow-y: auto; }
-  #draftChatMask .chat-toolbar > .chat-disclosure { margin: 0; padding: 7px 10px; }
-  #draftChatMask .chat-toolbar > .chat-disclosure[open] { flex-basis: 100%; }
-  #draftChatMask .chat-settings-content { padding-top: 10px; }
-  #draftChatMask .chat-settings-label { color: var(--fg-2); }
-  #draftChatMask .chat-new { margin: 0; }
-  #draftChatMask .chat-manage { margin-bottom: 0; }
+  #draftChatConversationControls { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+  #draftChatMask .chat-manage { margin-top: 28px; }
+  #draftChatMask .chat-manage > button { margin-top: 16px; }
   #draftChatMask summary:focus-visible, #draftChatMask .chat-session:focus-visible, #draftChatLog:focus-visible { outline: 2px solid var(--primary-ink); outline-offset: 2px; }
-  #draftChatMask .chat-log { display: flex; flex-direction: column; gap: 14px; flex: 1 1 0; min-height: 90px; overflow-y: auto; padding: 8px 2px 12px; scrollbar-gutter: stable; }
-  #draftChatMask .chat-turn { border-left: 2px solid var(--line, var(--bg-3)); flex: 0 0 auto; padding: 10px 12px; border-radius: 8px; font-size: 13px; line-height: 1.65; overflow-wrap: anywhere; background: var(--bg-1); }
-  #draftChatMask .chat-turn-user { align-self: flex-end; max-width: 92%; border-left-color: var(--primary-ink); }
-  #draftChatMask .chat-turn-role { display: block; font-size: 11px; color: var(--fg-2); margin-bottom: 4px; }
-  #draftChatMask .chat-turn-source { margin: 0 0 6px; font-size: 11px; color: var(--fg-1); }
+  #draftChatMask .chat-log { display: flex; flex-direction: column; gap: 24px; flex: 1 1 0; min-height: 90px; overflow-y: auto; padding: 12px 2px 24px; scrollbar-gutter: stable; }
+  #draftChatMask .chat-turn { border: 0; flex: 0 0 auto; padding: 0 4px; border-radius: 0; font-size: 14px; line-height: 1.75; overflow-wrap: anywhere; background: transparent; }
+  #draftChatMask .chat-turn-user { align-self: flex-end; max-width: 86%; padding: 10px 14px; border-radius: 12px 12px 3px 12px; background: var(--bg-1); }
+  #draftChatMask .chat-turn-heading { display: flex; align-items: center; gap: 7px; margin-bottom: 8px; }
+  #draftChatMask .chat-turn-user .chat-turn-heading { flex-direction: row-reverse; }
+  #draftChatMask .chat-avatar { display: inline-flex; flex: 0 0 28px; width: 28px; height: 28px; color: var(--primary-ink); }
+  #draftChatMask .chat-avatar-user { color: var(--fg-1); }
+  #draftChatMask .chat-turn-role { display: block; font-size: 11px; font-weight: 600; color: var(--fg-2); margin: 0; }
+  #draftChatMask .chat-turn-source { margin: 0 0 8px; font-size: 11px; line-height: 1.5; color: var(--fg-2); }
   #draftChatMask .chat-turn-content { white-space: pre-wrap; }
   #draftChatMask .chat-proposal { margin-top: 10px; border: 1px solid var(--line, var(--bg-3)); padding: 10px; border-radius: 8px; }
   #draftChatMask .chat-proposal h3 { margin: 4px 0; font-size: 13px; }
@@ -67,23 +87,34 @@
   #draftChatMask .chat-change-edit { display: grid; gap: 3px; margin: 8px 0; }
   #draftChatMask .chat-change-edit input, #draftChatMask .chat-change-edit select { width: 100%; min-width: 0; font: inherit; color: var(--fg-0); background: var(--bg-1); border: 1px solid var(--line, var(--bg-3)); border-radius: 4px; padding: 5px; }
   #draftChatMask .chat-change-editor summary { cursor: pointer; }
-  #draftChatMask .chat-session { width: 100%; display: grid; gap: 3px; text-align: left; margin: 8px 0; padding: 8px; border: 1px solid var(--line, var(--bg-3)); border-radius: 6px; color: var(--fg-0); background: var(--bg-1); font: inherit; cursor: pointer; }
-  #draftChatMask .chat-session[aria-current="true"] { border-color: var(--primary-ink); }
-  #draftChatMask .chat-session span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  #draftChatMask .chat-session { width: 100%; min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 3px; text-align: left; margin: 0; padding: 10px 12px; border: 0; border-bottom: 1px solid var(--line, var(--bg-3)); border-left: 3px solid transparent; border-radius: 0; color: var(--fg-0); background: transparent; font: inherit; cursor: pointer; }
+  #draftChatMask .chat-session:hover { background: var(--bg-1); }
+  #draftChatMask .chat-session[aria-current="true"] { border-left-color: var(--primary-ink); background: var(--bg-1); }
+  #draftChatMask .chat-session-title-row { display: flex; min-width: 0; align-items: center; gap: 12px; font-size: 14px; font-weight: 600; }
+  #draftChatMask .chat-session-title-row > span:first-child { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  #draftChatMask .chat-session-arrow { font-size: 20px; font-weight: 400; color: var(--fg-2); }
   #draftChatMask .chat-session small { font-size: 11px; color: var(--fg-2); }
-  #draftChatMask .chat-compose { flex: 0 0 auto; display: grid; gap: 7px; padding: 10px 16px 14px; border-top: 1px solid var(--line, var(--bg-3)); }
+  #draftChatMask .chat-session-date { font-variant-numeric: tabular-nums; }
+  #draftChatMask .chat-compose { flex: 0 0 auto; display: grid; gap: 7px; padding: 14px 20px 16px; border-top: 1px solid var(--line, var(--bg-3)); }
   #draftChatMask .chat-input-label { display: flex; justify-content: space-between; gap: 8px; }
   #draftChatInputCount { font-size: 11px; font-variant-numeric: tabular-nums; color: var(--fg-2); }
-  #draftChatMask .chat-input { width: 100%; min-height: 58px; max-height: 110px; resize: vertical; font: inherit; }
-  #draftChatMask .chat-compose-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+  #draftChatMask .chat-input { width: 100%; min-height: 70px; max-height: 110px; resize: vertical; font: inherit; font-size: 13px; line-height: 1.6; padding: 10px 12px; border-radius: 10px; }
+  #draftChatMask .chat-compose-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding-top: 8px; }
+  #draftChatInputCount { margin-left: auto; }
   #draftChatMask .pixel-btn { min-height: 32px; font-size: 12px; }
-  #draftChatMask #draftChatStatus { margin: 0; max-height: 54px; overflow-y: auto; font-size: 11px; }
-  #draftChatMask .hidden { display: none; }
+  #draftChatMask #draftChatStatus { margin: 0; padding: 8px 20px; border-bottom: 1px solid var(--line, var(--bg-3)); max-height: 70px; overflow-y: auto; font-size: 11px; }
+  #draftChatMask .hidden, #draftChatMask #draftChatLibrary.hidden { display: none; }
   .stuck-collaborate { margin-bottom: 12px; width: 100%; }
   @media (max-height: 480px) {
     #draftChatMask .modal-header { padding: 6px 12px; }
     #draftChatMask .chat-compose { padding: 6px 12px; gap: 4px; }
     #draftChatMask .chat-input { min-height: 42px; max-height: 60px; }
-    #draftChatMask .collaboration-body { padding: 8px 12px; }
+    #draftChatMask .chat-detail, #draftChatMask .chat-page { padding-left: 12px; padding-right: 12px; }
   }
+}
+
+/* The theme normalizes textarea wrapping after features. Keep this scoped
+   exception in the same layer so long unsent text stays inside its composer. */
+@layer theme {
+  #draftChatMask .chat-input { white-space: pre-wrap; overflow-wrap: anywhere; }
 }

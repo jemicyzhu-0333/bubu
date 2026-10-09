@@ -1,3 +1,4 @@
+import { displaySatiation } from '../companion/satiation-display.mjs';
 import petMotion from '../../core/pet-motion.mjs';
 import petExpression from '../../core/pet-expression.mjs';
 import petPresentation from '../../core/pet-presentation.mjs';
@@ -1516,8 +1517,9 @@ function updateSatBar(satiation) {
   const bar = document.getElementById('satBar');
   const fill = document.getElementById('satFill');
   const label = document.getElementById('satLabel');
-  fill.style.width = Math.max(0, Math.min(100, satiation)) + '%';
-  label.textContent = `饱食 ${satiation}`;
+  const displayed = displaySatiation(satiation);
+  fill.style.width = displayed + '%';
+  label.textContent = `饱食 ${displayed}`;
   bar.classList.add('show');
   clearTimeout(updateSatBar._t);
   updateSatBar._t = setTimeout(() => bar.classList.remove('show'), 3000);

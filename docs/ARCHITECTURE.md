@@ -968,6 +968,8 @@ Control-click 走去重的 `contextmenu` 命令入口；双击不绑定命令。
 主面板的 `ui/chrome-motion.mjs` 只协调头部、伙伴入口图标与可见内容；每个图标绑定的监听器在 dispose 时移除。快捷面板和宠物菜单分别在自身内容就绪、窗口定位完成后进入。
 动效不参与窗口尺寸、业务命令或状态写入，加载失败时内容保持可用。外壳禁止成为滚动容器，页面只滚动内部内容，避免聚焦或 `scrollIntoView` 带动头部。
 主面板默认尺寸由 `core/window-placement` 的 560 × 680 DIP 钳制函数提供，窗口创建及跨工作区重新定位共用同一策略。表单遮罩、弹层与设置抽屉使用 `overflow: clip` 防止程序化滚动外壳，只有内容区使用 `overflow-y: auto`，因此展开帮助或定位字段不会卷走标题和关闭按钮。
+托盘使用独立的小尺寸应用标记，不从大应用图标或角色原画缩小取样。macOS提供16/32像素黑色加alpha模板并显式设置template，随系统菜单栏深浅色呈现；Windows提供16/20/24/32像素的1/1.25/1.5/2倍表示；Linux使用22/44像素。非macOS使用固定高对比轮廓与浅粉填充，不随皮肤调色，保留睁眼、半闭、闭眼和庆祝状态。PNG来自可复现的自有矢量轮廓生成器，runtime仅读打包小图；大app图标、桌宠原画与业务状态不变。scale标记与像素合同测试不替代各原生系统菜单栏实际显示验收。
+
 所有 Electron 窗口由 hardened window host 强制 skipTaskbar；恢复 focusable 后重新应用 skipTaskbar，避免 Windows 重新显示任务栏入口。macOS 在 app ready 后使用 accessory activation policy 并 hide Dock，打包的 Info.plist 通过 LSUIElement 声明菜单栏应用。托盘入口、退出菜单与单实例行为保留。
 通知分流属于 Electron 投递适配层。NotificationHost 默认走系统通知；只有显式标记 `delivery: 'companion'` 的日常反馈（升级、皮肤解锁、温和归档、下一次已排好、回顾卡、2 分钟启动、已记下）交给可见桌宠，桌宠隐藏时丢弃且不强行唤出，桌宠气泡去掉 emoji。到期、预约、计时到点与启动恢复等不依赖桌宠是否可见。DND外且前台已确认非白名单时，attention 的 `prefersCompanionReminder` 保留低优先级日常和 focus-check 的既有桌宠回执；不可用时回退原通知。会议白名单、未知前台先行，高优先级延后和会话到点保持原路径，配置的后续升级仍生效。`nudge-delivery` 返回真实host结果并包含投递异常，避免桌宠消息重复镜像；这些效果不写持久化状态。
 
@@ -1037,3 +1039,6 @@ UI 保留无正文操作槽，换日期或隐藏不丢在途对象；dispose 禁
 ## 当前测试版名称与档案身份
 
 当前产品使用 `im-adhder` 默认档案、`im-adhder-dev` 开发档案、`com.imadhder.app` 应用标识和独立的系统凭据身份。此次更名明确采用新的空默认档案，不自动导入、迁移或删除旧目录与旧凭据；显式 `--user-data-dir` 路径保持原样。四个 preload 与 renderer 使用一致的 `imAdhder` 窄桥，环境入口统一为 `IM_ADHDER_*`，不提供旧名称别名。新事实库名为 `im-adhder.sqlite`，配置权威及其身份核验合同不变。
+
+
+饱食度的实时文字、进度宽度与可访问数值共用纯展示函数：有限数值先限制0–100再四舍五入，异常非有限输入显示0；缺省伙伴摘要仍使用原65默认值。业务快照、衰减计算、喂食与成长保留原小数精度，不把显示舍入写回资料。
