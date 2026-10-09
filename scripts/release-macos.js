@@ -18,6 +18,7 @@ function releasePrerequisites({ platform, env, identities, notarytoolAvailable }
 
 function signedBuildArgs(env) {
   return ['--mac', '--arm64', '--publish', 'never', '--config.forceCodeSigning=true',
+    '--config.mac.artifactName=${productName}-${version}-${os}-${arch}.${ext}',
     `--config.mac.sign.identity=${env.CSC_NAME}`, '--config.mac.sign.hardenedRuntime=true', '--config.mac.notarize=true'];
 }
 

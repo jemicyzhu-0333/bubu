@@ -212,6 +212,7 @@ function installPorts(t, mode = 'success') {
         writeAsar(file);
         if (mode === 'hash-mismatch') fs.appendFileSync(file, 'changed');
       }
+      if (command === '/usr/bin/codesign' && mode === 'signature-error') throw new Error('synthetic invalid code signature');
       if (command === 'osascript') {
         assert.match(args.at(-1), /runningApplicationWithProcessIdentifier\(12345\)/);
         assert.ok(args.at(-1).includes(JSON.stringify(path.join(fixture.root, 'Applications/I’m ADHDer.app/Contents/MacOS/I’m ADHDer'))));
@@ -223,6 +224,7 @@ function installPorts(t, mode = 'success') {
       }
     },
     spawnChild(executable, args) {
+      calls.push(['spawn', executable]);
       assert.equal(executable, path.join(fixture.root, 'Applications/I’m ADHDer.app/Contents/MacOS/I’m ADHDer'));
       assert.deepEqual(args, [`--user-data-dir=${fixture.userDataPath}`, '--dev']);
       const repo = createSqliteStateAdapter({ userDataPath: fixture.userDataPath, now: () => NOW });
@@ -261,14 +263,20 @@ test('installer fake OS ports verify SQL only after graceful child close, then d
   const f = installPorts(t);
   const report = await verifyInstall(f.ports);
   assert.equal(report.result, 'passed');
+  assert.equal(report.codeSignature.integrity, 'codesign-deep-strict-verified');
+  assert.match(report.gatekeeperAcceptance, /not asserted/);
+  const commands = f.calls.map(call => call[0]);
+  assert.ok(commands.indexOf('ditto') < commands.indexOf('/usr/bin/codesign'));
+  assert.ok(commands.indexOf('/usr/bin/codesign') < commands.indexOf('spawn'));
   assert.equal(f.reads(), 1);
   assert.equal(f.calls.at(-2)[1][0], 'detach');
   assert.equal(f.calls.at(-1)[0], 'report');
   assert.equal(fs.existsSync(f.fixture().root), false);
 });
-for (const mode of ['early-exit', 'quit-timeout', 'no-startup-write', 'spawn-error', 'detach-error', 'cleanup-error', 'hash-mismatch', 'quit-error', 'exit-signal']) test(`installer refuses ${mode} without a native acceptance result`, async t => {
+for (const mode of ['signature-error', 'early-exit', 'quit-timeout', 'no-startup-write', 'spawn-error', 'detach-error', 'cleanup-error', 'hash-mismatch', 'quit-error', 'exit-signal']) test(`installer refuses ${mode} without a native acceptance result`, async t => {
   const f = installPorts(t, mode);
   await assert.rejects(verifyInstall(f.ports));
+  if (mode === 'signature-error') assert.equal(f.calls.some(([command]) => command === 'spawn'), false);
   assert.equal(f.reads(), ['no-startup-write', 'detach-error', 'cleanup-error'].includes(mode) ? 1 : 0);
   assert.equal(f.calls.some(([command]) => command === 'report'), false);
   assert.equal(f.calls.at(-1)[1][0], 'detach');

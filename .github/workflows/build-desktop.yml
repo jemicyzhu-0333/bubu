@@ -1,4 +1,4 @@
-name: Build Windows and macOS (unsigned)
+name: Build Windows and macOS (test)
 
 # Manual only: private repositories may consume paid Actions minutes.
 on:
@@ -24,7 +24,7 @@ jobs:
           - os: macos-latest
             platform: mac
             arch: arm64
-            artifact: macos-arm64-unsigned
+            artifact: macos-arm64-adhoc
             file: dist/*.dmg
     env:
       CSC_IDENTITY_AUTO_DISCOVERY: 'false'
@@ -47,11 +47,22 @@ jobs:
         run: npm run test:integration
       - name: Verify installed packaging dependencies, configuration and command selection
         run: node --test test/build-app.test.js test/build-dependency-security.test.js test/build-schema.test.js
-      - name: Build unsigned installer without publishing
+      - name: Build test installer without publishing
         run: npm run build:${{ matrix.platform }} -- --${{ matrix.arch }}
       - name: Verify macOS bundle architecture and package identity
         if: matrix.platform == 'mac'
         run: npm run verify:mac-app
+      - name: Report macOS bundle signing identity and actual entitlements
+        if: matrix.platform == 'mac'
+        run: |
+          /usr/bin/codesign --display --verbose=4 "dist/mac-arm64/I’m ADHDer.app"
+          /usr/bin/codesign --display --entitlements :- "dist/mac-arm64/I’m ADHDer.app"
+      - name: Verify macOS DMG copy, code integrity and disposable-profile launch
+        if: matrix.platform == 'mac'
+        run: npm run verify:mac-install
+      - name: Report local macOS distribution policy separately from runtime verification
+        if: matrix.platform == 'mac'
+        run: node scripts/assess-macos-distribution.js
       - name: Store installer for manual download
         uses: actions/upload-artifact@v4
         with:

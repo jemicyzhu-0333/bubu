@@ -14,6 +14,8 @@ test('release updates require stable versions, an explicit repository and signed
   assert.deepEqual(mac.mac.target.map(item => item.target), ['dmg', 'zip']);
   assert.equal(mac.mac.sign.hardenedRuntime, true); assert.equal(mac.mac.notarize, true);
   assert.equal(mac.mac.sign.identity, env.CSC_NAME);
+  assert.equal(mac.mac.artifactName, mac.artifactName);
+  assert.doesNotMatch(mac.mac.artifactName, /adhoc/);
   assert.equal(Object.hasOwn(mac.mac, 'identity'), false);
   assert.equal(Object.hasOwn(mac.mac, 'hardenedRuntime'), false);
   assert.equal(Object.hasOwn(mac.mac, 'gatekeeperAssess'), false);

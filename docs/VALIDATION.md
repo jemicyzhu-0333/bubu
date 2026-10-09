@@ -109,7 +109,9 @@ npm run release:preflight
 
 `validate:p6:sandbox` 仅是 `validate:mac` 的兼容别名，不再表示 Linux 交叉构建 macOS。macOS 需要 Xcode Command Line Tools，活动 helper 与包架构一致；签名/公证检查不能降级为未签名通过。
 
-手动 Actions 工作流生成 Windows x64 与 macOS arm64 未签名开发产物，禁自动 publish。两个 job 都成功才是双端构建通过；当前文档不声明该工作流或两端真实构建已经执行。
+手动 Actions 工作流生成 Windows x64 未签名测试包与 macOS arm64 ad-hoc 签名候选，禁自动 publish。macOS 候选文件名含 `adhoc-test`，与旧未签名 DMG 区分；源码 SHA 与 DMG SHA256 须一同交付。两个 job 都成功才是同源码双端构建通过。
+
+macOS 构建门禁必须对产出 app 和 DMG 复制出的 app 分别执行 `codesign --verify --deep --strict`，再使用可删除测试档案执行真实启动、正常退出与 SQL 保存核验。签名无效即拒绝启动验收，不移除 quarantine、不关闭 Gatekeeper、不改变 sandbox 或系统策略。独立 `spctl` 诊断先读取策略状态，再记录本机接受／拒绝；CI 策略未确认启用时必须写明未评估。ad-hoc 仅提供代码完整性，不建立 Developer ID 身份或公证。无互联网 quarantine 的 CI 二进制启动不是浏览器下载后 Finder 启动验收，不能据此承诺默认 Gatekeeper 可运行；公开分发的正式信任仍需 Developer ID 与公证。
 
 安装验证使用可删除新 profile，检查 ASAR、资源过滤、原生 helper、正常退出、同档重开和安装器清理。正式发布还需签名、公证/Gatekeeper/SmartScreen、各架构及跨版本更新证据。
 

@@ -1,6 +1,6 @@
 'use strict';
 
-// Structural verifier for an unsigned macOS arm64 test bundle built on macOS.
+// Structural and code-integrity verifier for a macOS arm64 test bundle.
 // Inspecting these bytes does not prove installation, real input or VoiceOver.
 // This script verifies target architecture,
 // package identity, ASAR scope and absence of restricted upstream markers in shipped code.
@@ -11,6 +11,7 @@ const path = require('node:path');
 const { execFileSync } = require('node:child_process');
 const asar = require('@electron/asar');
 const { buildPlan } = require('./build-app');
+const { verifyCodeSignature } = require('./macos-code-signature');
 
 const ROOT = path.resolve(__dirname, '..');
 const ARM64_CPU_TYPE = 0x0100000c;
@@ -95,6 +96,7 @@ function gitIdentity() {
 
 function validateBuildConfig(pkg) {
   invariant(pkg.version === '0.0.1-dev', `expected development version 0.0.1-dev, got ${pkg.version}`);
+  invariant(pkg.build?.mac?.sign?.identity === '-', 'development macOS bundle must request ad-hoc signing');
   invariant(pkg.main === 'src/main.js', `unexpected main entry: ${pkg.main}`);
   const targets = pkg.build && pkg.build.mac && pkg.build.mac.target;
   invariant(Array.isArray(targets), 'build.mac.target must be an array');
@@ -185,10 +187,12 @@ function verifyAppBundle(appPath) {
   invariant(machFiles.length > 0, 'bundle contains no recognizable Mach-O binaries');
 
   const archiveResult = verifyAsar(archive, pkg);
+  const codeSignature = verifyCodeSignature(appPath);
   return {
     ...gitIdentity(),
     artifact: path.relative(ROOT, appPath),
     version: pkg.version,
+    codeSignature,
     machOBinaries: machFiles.length,
     asarEntries: archiveResult.entries,
     inspectedOwnedTextEntries: archiveResult.ownedTextEntries,

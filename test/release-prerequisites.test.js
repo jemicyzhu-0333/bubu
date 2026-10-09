@@ -7,6 +7,7 @@ const { releasePrerequisites, signedBuildArgs } = require('../scripts/release-ma
 test('signed macOS builder command retains explicit signing, hardening and notarization without publishing', () => {
   assert.deepEqual(signedBuildArgs({ CSC_NAME: 'Developer ID Application: Example' }), [
     '--mac', '--arm64', '--publish', 'never', '--config.forceCodeSigning=true',
+    '--config.mac.artifactName=${productName}-${version}-${os}-${arch}.${ext}',
     '--config.mac.sign.identity=Developer ID Application: Example', '--config.mac.sign.hardenedRuntime=true',
     '--config.mac.notarize=true'
   ]);

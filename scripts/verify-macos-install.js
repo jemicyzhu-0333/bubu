@@ -7,6 +7,7 @@ const crypto = require('node:crypto');
 const { execFileSync, spawn } = require('node:child_process');
 const { createDisposableProfile, readDisposableProfile, removeDisposableProfile } = require('../tools/dev-bench/profile-fixture');
 const { localDayKey } = require('../src/core/calendar');
+const { verifyCodeSignature } = require('./macos-code-signature');
 
 function sha256(file) {
   return crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
@@ -46,7 +47,7 @@ async function verifyInstall({ platform = process.platform, argv = process.argv,
   assert.equal(platform, 'darwin', 'installation verification requires macOS');
   const root = path.resolve(__dirname, '..');
   const version = require('../package.json').version;
-  const dmg = path.resolve(argv[2] || path.join(root, `dist/I’m ADHDer-${version}-arm64.dmg`));
+  const dmg = path.resolve(argv[2] || path.join(root, `dist/I’m ADHDer-${version}-mac-arm64-adhoc-test.dmg`));
   const fixture = createProfile({ scenario: 'all', purpose: 'install', now });
   const mount = path.join(fixture.root, 'volume');
   const installed = path.join(fixture.root, 'Applications/I’m ADHDer.app');
@@ -64,6 +65,7 @@ async function verifyInstall({ platform = process.platform, argv = process.argv,
     execFile('ditto', [path.join(mount, 'I’m ADHDer.app'), installed]);
     const hash = sha256(path.join(installed, 'Contents/Resources/app.asar'));
     assert.equal(hash, sha256(path.join(mount, 'I’m ADHDer.app/Contents/Resources/app.asar')));
+    const codeSignature = verifyCodeSignature(installed, { platform, execFile });
     child = spawnChild(path.join(installed, 'Contents/MacOS/I’m ADHDer'),
       [`--user-data-dir=${fixture.userDataPath}`, '--dev'], { stdio: ['ignore', 'pipe', 'pipe'] });
     child.stdout.on('data', data => { output += data; });
@@ -86,9 +88,12 @@ async function verifyInstall({ platform = process.platform, argv = process.argv,
     assert.equal(persisted.tasks.find(task => task.seriesId).occurrenceDate, localDayKey(now));
     assert.doesNotMatch(output, /App threw an error|ReferenceError|TypeError|Uncaught/);
     report = {
-      result: 'passed', dmg, dmgSha256: sha256(dmg), installed, profile: fixture.userDataPath,
+      result: 'passed', sourceCommit: process.env.GITHUB_SHA || null,
+      dmg, dmgSha256: sha256(dmg), installed, profile: fixture.userDataPath,
       asarSha256: hash, persistedRevision: revision, preservedTasks: persisted.tasks.length, recurrenceCaughtUp: true,
-      signingAcceptance: 'not asserted; separate release gate required'
+      codeSignature,
+      launchAcceptance: 'direct executable launch from disposable DMG copy; no Internet quarantine added or removed',
+      gatekeeperAcceptance: 'not asserted; Developer ID and notarization are separate distribution requirements'
     };
   } finally {
     // Failure cleanup may force-stop this exact child, but can never count as a

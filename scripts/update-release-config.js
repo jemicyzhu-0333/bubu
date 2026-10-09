@@ -13,6 +13,7 @@ function updateReleaseConfig({ pkg, platform, arch, env }) {
   config.publish = [{ provider: 'github', owner: match[1], repo: match[2], private: false,
     releaseType: 'draft', channel: `latest-${arch}` }];
   config.mac = { ...config.mac, target: [{ target: 'dmg', arch: [arch] }, { target: 'zip', arch: [arch] }],
+    artifactName: config.artifactName,
     notarize: true, sign: { ...config.mac?.sign, hardenedRuntime: true, identity: env.CSC_NAME || undefined } };
   config.win = { ...config.win, target: [{ target: 'nsis', arch: [arch] }], verifyUpdateCodeSignature: true,
     sign: { type: 'signtool', publisherName: env.WINDOWS_PUBLISHER_NAME || undefined } };

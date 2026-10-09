@@ -9,7 +9,8 @@ test('installed builder validates development and signed-release configuration a
   // downloads or publishing. It must use npm ci's real pinned builder package.
   const { validateConfiguration } = require('app-builder-lib/internal');
   const logger = { isEnabled: false };
-  assert.deepEqual(pkg.build.mac.sign, { hardenedRuntime: false, identity: null });
+  assert.deepEqual(pkg.build.mac.sign, { hardenedRuntime: false, identity: '-' });
+  assert.equal(pkg.build.mac.artifactName, '${productName}-${version}-mac-${arch}-adhoc-test.${ext}');
   await validateConfiguration(pkg.build, logger);
   const env = { RELEASE_REPOSITORY: 'example/releases', CSC_NAME: 'Developer ID Application: Example',
     WINDOWS_PUBLISHER_NAME: 'Example' };

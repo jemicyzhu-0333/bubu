@@ -92,9 +92,10 @@
         "dmg"
       ],
       "icon": "assets/icon.icns",
+      "artifactName": "${productName}-${version}-mac-${arch}-adhoc-test.${ext}",
       "sign": {
         "hardenedRuntime": false,
-        "identity": null
+        "identity": "-"
       }
     },
     "dmg": {
