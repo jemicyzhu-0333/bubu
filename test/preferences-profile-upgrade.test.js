@@ -36,7 +36,10 @@ for (const live of [false, true]) test(`explicit branded18 upgrade preserves all
   assert.equal(verified.verificationCount, 1); assert.equal(verified.manifest.binding.sourceHash, f.original.payload_hash);
   assert.deepEqual(verified.manifest.omittedRuntimeLocks, ['SingletonLock']);
   const files = read(result.backupFile, "SELECT relative_path,bytes FROM upgrade_files WHERE kind='file'");
-  for (const row of files) assert.deepEqual(Buffer.from(row.bytes), before[row.relative_path].bytes);
+  for (const row of files) {
+    assert.ok(Object.hasOwn(before, row.relative_path), `snapshot lacks ${row.relative_path}`);
+    assert.deepEqual(Buffer.from(row.bytes), before[row.relative_path].bytes);
+  }
   assert.ok(files.some(row => row.relative_path === 'nested/SingletonLock'));
   if (live) assert.ok(files.some(row => row.relative_path === 'config.sqlite-wal'));
   assert.equal(fs.readFileSync(path.join(f.directory, 'credentials.enc')).toString(), 'SYNTHETIC-OPAQUE-ENCRYPTED-BYTES');
@@ -110,11 +113,17 @@ test('symlink in any non-lock member refuses backup without touching source', t 
 test('permission verifier rejection and backup SQLite quota failures cannot open source writer', t => {
   for (const kind of ['permissions', 'quota']) {
     const f = fixture(t), before = f.capture(), events = [];
-    const upgrade = f.prepare({ verifyPermissions(directory) { if (kind === 'permissions' && directory.endsWith('.backup')) throw Error('ACL denied'); } }, event => {
+    let injected = 0;
+    const upgrade = f.prepare({ verifyPermissions(directory) {
+      if (kind === 'permissions' && directory.endsWith('.backup')) { injected++; throw Error('ACL denied'); }
+    } }, event => {
       events.push(event);
-      if (kind === 'quota' && event.filePath.includes('.backup/') && event.sql?.startsWith('INSERT INTO upgrade_files')) throw Error('SQLITE_FULL');
+      if (kind === 'quota' && path.dirname(event.filePath).endsWith('.backup') && event.sql?.startsWith('INSERT INTO upgrade_files')) {
+        injected++; throw Error('SQLITE_FULL');
+      }
     });
     assert.throws(() => upgrade.execute(upgrade.confirmation), /ACL denied|SQLITE_FULL/);
+    assert.equal(injected, 1, `${kind} fault must reach the actual backup on every platform`);
     assert.deepEqual(f.capture(), before);
     assert.ok(events.every(event => path.dirname(event.filePath) !== f.directory));
   }
@@ -174,17 +183,21 @@ test('source or authority changes while creating backup revoke the prior consent
 });
 
 test('actual backup WAL and SHM are permission-verified before private INSERT and proof writes', t => {
-  const f = fixture(t); let checked = [];
+  const f = fixture(t); let checked = [], insertObserved = false, proofObserved = false;
   const u = f.prepare({ verifyPermissions(directory, files = []) {
     if (directory.endsWith('.backup')) checked = [...files];
   } }, event => {
-    if (event.filePath.includes('.backup/') && event.type === 'before'
+    if (path.dirname(event.filePath).endsWith('.backup') && event.type === 'before'
       && (event.sql?.startsWith('INSERT INTO upgrade_files') || event.sql?.startsWith('UPDATE upgrade_backup SET verification_count'))) {
+      if (event.sql.startsWith('INSERT INTO upgrade_files')) insertObserved = true;
+      if (event.sql.startsWith('UPDATE upgrade_backup SET verification_count')) proofObserved = true;
       assert.ok(checked.includes(event.filePath + '-wal'), `WAL missing before ${event.sql}`);
       assert.ok(checked.includes(event.filePath + '-shm'), `SHM missing before ${event.sql}`);
     }
   });
   assert.equal(u.execute(u.confirmation).status, 'upgraded');
+  assert.equal(insertObserved, true, 'must check actual private INSERT sidecars');
+  assert.equal(proofObserved, true, 'must check actual proof-write sidecars');
 });
 test('rejecting a newly materialized backup sidecar cannot publish any private source bytes', t => {
   const f = fixture(t), before = f.capture();

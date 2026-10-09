@@ -29,14 +29,18 @@ function tree(root) {
   const result = {};
   function walk(relative) {
     const target = path.join(root, relative), stat = fs.lstatSync(target, { bigint: true });
-    result[relative] = { mode: stat.mode, mtime: stat.mtimeNs,
+    // Match the backup container's portable relative-path representation.
+    result[relative.split(path.sep).join('/')] = { mode: stat.mode, mtime: stat.mtimeNs,
       bytes: stat.isFile() ? fs.readFileSync(target) : stat.isSymbolicLink() ? fs.readlinkSync(target) : null };
     if (stat.isDirectory()) for (const name of fs.readdirSync(target).sort()) walk(path.join(relative, name));
   }
   walk(''); return result;
 }
 function fixture(t, { live = false } = {}) {
-  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bubu-upgrade-test-'));
+  // macOS may expose its temporary directory through /var -> /private/var.
+  // Synthetic extraction destinations must use the actual directory, while the
+  // production extraction path continues to reject every symlink ancestor.
+  const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bubu-upgrade-test-')));
   const directory = path.join(root, 'bubu'); fs.mkdirSync(directory, { mode: 0o700 });
   const repo = createSqliteStateAdapter({ userDataPath: directory, now: () => NOW });
   const populated = normalizePersistedState({ ...repo.snapshot(), tasks: [{ id: 'synthetic-task', title: 'Keep 中文 task',

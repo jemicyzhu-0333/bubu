@@ -7,6 +7,7 @@ const os = require('node:os');
 const { spawn } = require('node:child_process');
 const { DatabaseSync } = require('node:sqlite');
 const { createHash } = require('node:crypto');
+const { performance } = require('node:perf_hooks');
 const { assertCanonicalPersistedState, PERSISTED_SCHEMA_VERSION } = require('../src/platform/persistence/persisted-schema');
 const { summarizeStartupOutput, waitForOutcome } = require('./verify-macos-install');
 const ELECTRON = "process.getBuiltinModule('module').createRequire(process.resourcesPath + '/app.asar/package.json')('electron')";
@@ -73,10 +74,11 @@ function connectInspector(url) {
     socket.addEventListener('open', () => {
       clearTimeout(timer);
       resolve({
-        evaluate(expression) {
+        evaluate(expression, timeoutMs = 5000) {
+          assert.ok(Number.isFinite(timeoutMs) && timeoutMs > 0 && timeoutMs <= 120000, 'bounded inspector request budget required');
           const id = ++nextId;
           return new Promise((done, fail) => {
-            const timer = setTimeout(() => { pending.delete(id); fail(new Error('inspector request timeout')); }, 5000);
+            const timer = setTimeout(() => { pending.delete(id); fail(new Error('inspector request timeout')); }, timeoutMs);
             pending.set(id, { resolve: done, reject: fail, timer });
             socket.send(JSON.stringify({ id, method: 'Runtime.evaluate', params: { expression, returnByValue: true } }));
           });
@@ -85,6 +87,25 @@ function connectInspector(url) {
       });
     }, { once: true });
   });
+}
+
+// Native Windows bootstrap performs synchronous, real DACL inspections. A
+// queued main-thread evaluation can therefore take longer than a loopback
+// connection or quit request. Share one monotonic readiness budget across all
+// probes instead of multiplying a long per-request timeout by the poll count.
+async function waitForInstalledWindow(inspector, completion, { wait = waitForOutcome,
+  now = () => performance.now(), budgetMs = 120000 } = {}) {
+  assert.ok(Number.isFinite(budgetMs) && budgetMs > 0 && budgetMs <= 120000, 'bounded readiness budget required');
+  const deadline = now() + budgetMs;
+  for (let probes = 0; probes < 480; probes++) {
+    const remaining = deadline - now();
+    if (remaining <= 0) break;
+    const ready = await inspector.evaluate(`(() => { const e = ${ELECTRON}; return e.app.isReady() && e.BrowserWindow.getAllWindows().some(w => !w.isDestroyed() && w.isVisible() && !w.webContents.isLoading() && w.webContents.getURL().startsWith('file:')); })()`, remaining);
+    if (now() >= deadline) break;
+    if (ready === true) return;
+    assert.equal(await wait(completion, Math.min(250, deadline - now())), null, 'installed app exited before UI boot');
+  }
+  throw new Error('production app did not finish a visible local window within readiness deadline');
 }
 
 async function verifyProfileLaunch(executable, { fixture, fresh = true, spawnChild = spawn, connect = connectInspector,
@@ -116,12 +137,7 @@ async function verifyProfileLaunch(executable, { fixture, fresh = true, spawnChi
     }
     assert.ok(inspector, 'loopback child inspector not ready');
     stage = 'production-window-readiness';
-    let ready = false;
-    for (let attempt = 0; attempt < 60 && !ready; attempt++) {
-      ready = await inspector.evaluate(`(() => { const e = ${ELECTRON}; return e.app.isReady() && e.BrowserWindow.getAllWindows().some(w => !w.isDestroyed() && w.isVisible() && !w.webContents.isLoading() && w.webContents.getURL().startsWith('file:')); })()`);
-      if (!ready) assert.equal(await wait(completion, 250), null, 'installed app exited before UI boot');
-    }
-    assert.equal(ready, true, 'production app did not finish a visible local window');
+    await waitForInstalledWindow(inspector, completion, { wait });
     assert.equal(await wait(completion, 1000), null, 'installed app exited after readiness');
     const lockfile = path.join(fixture.userDataPath, 'lockfile');
     const lockfileObserved = fs.existsSync(lockfile) && fs.lstatSync(lockfile).isFile() && fs.lstatSync(lockfile).size === 0;
@@ -173,4 +189,4 @@ async function verifyFreshLaunch(executable, ports = {}) {
     if (fixture.childClosed) fs.rmSync(fixture.root, { recursive: true, force: true });
   }
 }
-module.exports = { createEmptyProfile, readFreshAuthority, connectInspector, verifyProfileLaunch, verifyFreshLaunch };
+module.exports = { createEmptyProfile, readFreshAuthority, connectInspector, waitForInstalledWindow, verifyProfileLaunch, verifyFreshLaunch };

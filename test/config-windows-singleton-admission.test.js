@@ -7,7 +7,7 @@ const { DatabaseSync } = require('node:sqlite');
 const { admitConfigCopy } = require('../src/platform/persistence/sqlite/config-admission-copy');
 const { createApplication } = require('../src/bootstrap/create-application');
 const { createSqliteStateAdapter } = require('../src/platform/persistence/sqlite-state-adapter');
-const { PERSISTED_SCHEMA_VERSION } = require('../src/platform/persistence/persisted-schema');
+const { PERSISTED_SCHEMA_VERSION, normalizePersistedState } = require('../src/platform/persistence/persisted-schema');
 const { fixture, NOW } = require('../test-support/config-admission-fixture');
 
 function admit(f, platform) {
@@ -69,20 +69,23 @@ for (const name of ['Preferences', 'Local State', 'foreign.sqlite', 'ai-credenti
   });
 }
 
-test('native Windows production composition locks before fresh admission and reopens the branded current schema', { skip: process.platform !== 'win32' }, t => {
+test('production composition normalizes fresh admission after its singleton lock and reopens the branded current schema', t => {
   const f = fixture(t), calls = [];
+  // Exercise the real SQLite composition on every host with a synthetic Electron lock.
+  const lockPath = path.join(f.directory, process.platform === 'win32' ? 'lockfile' : 'SingletonLock');
   const appHost = {
     userDataPath: () => f.directory, hasExplicitUserDataPath: () => true,
     setDataDirectory: () => assert.fail('explicit profile must remain exact'),
-    acquireSingleInstanceLock: () => { calls.push('lock'); fs.writeFileSync(path.join(f.directory, 'lockfile'), ''); return true; },
+    acquireSingleInstanceLock: () => { calls.push('lock'); fs.writeFileSync(lockPath, ''); return true; },
     isPackaged: () => true, isReady: () => false, whenReady: () => Promise.resolve(),
     hideDock() {}, openAtLogin: () => false, setOpenAtLogin() {}, quit() {}, subscribeLifecycle() {}
   };
   function launch() {
-    return createApplication({ argv: [], schemaVersion: PERSISTED_SCHEMA_VERSION, normalizePersistedState: value => value, appHost,
+    return createApplication({ argv: [], schemaVersion: PERSISTED_SCHEMA_VERSION, normalizePersistedState, appHost,
       createStateRepository: options => {
         calls.push('admission');
-        assert.equal(fs.statSync(path.join(f.directory, 'lockfile')).size, 0);
+        assert.equal(options.normalize, normalizePersistedState);
+        assert.equal(fs.statSync(lockPath).size, 0);
         return createSqliteStateAdapter({ ...options, now: () => NOW });
       },
       createCredentialStore: () => { calls.push('credentials'); return {}; },
@@ -95,6 +98,8 @@ test('native Windows production composition locks before fresh admission and reo
   first.closeStorage();
   assert.deepEqual(calls, ['lock', 'admission', 'credentials']);
   assert.equal(state.schemaVersion, PERSISTED_SCHEMA_VERSION);
+  assert.equal(state.settings.locale, 'system');
+  assert.equal(state.settings.theme, 'system');
   const identity = new DatabaseSync(f.identity, { readOnly: true });
   try { assert.equal(identity.prepare('PRAGMA application_id').get().application_id, 0x42554255); }
   finally { identity.close(); }

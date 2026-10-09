@@ -105,7 +105,7 @@ test('OS-language projection failure after commit preserves success and a later 
     readTasks: () => [], getSettings: () => settings,
     interfaceHost: { languages() { if (fail) throw Error('OS language unavailable'); return ['en']; }, apply: next => applied.push(next) } });
   register('settings:update', (_event, patch) => { settings = { ...settings, ...patch }; commits++; fail = true; return { ok: true }; });
-  const event = { senderFrame: { url: 'file:///fixture/renderer/popover.html' } };
+  const event = { senderFrame: { url: pathToFileURL(path.join('/fixture/renderer', 'popover.html')).href } };
   assert.deepEqual(await handlers.get('settings:update')(event, { locale: 'en' }), { ok: true });
   assert.equal(commits, 1); assert.equal(settings.locale, 'en');
   fail = false;

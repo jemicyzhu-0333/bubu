@@ -10,6 +10,9 @@ const { createSqliteStateAdapter } = require('../src/platform/persistence/sqlite
 const { extractProfileUpgradeBackup } = require('../src/platform/persistence/sqlite/profile-upgrade-backup-extraction');
 const { inspectProfileUpgradeBackup, validRelative } = require('../src/platform/persistence/sqlite/profile-upgrade-backup-container');
 const { hashBytes } = require('../src/platform/persistence/sqlite/config-authority-schema');
+// Native Windows DACL probes spawn PowerShell; keep a finite allowance for the
+// full crash-stage path, without treating a timeout as the expected exit.
+const CHILD_TIMEOUT_MS = process.platform === 'win32' ? 60_000 : 15_000;
 function snapshot(file) { const db = new DatabaseSync(file, { readOnly: true }); try { return db.prepare('SELECT * FROM config_snapshot').get(); } finally { db.close(); } }
 for (const stage of ['backup-copied', 'backup-verified', 'evidence-written', 'payload-written', 'before-commit', 'after-commit']) {
   test(`process exits at ${stage}: reopening establishes old or complete new authority`, t => {
@@ -18,7 +21,9 @@ for (const stage of ['backup-copied', 'backup-verified', 'evidence-written', 'pa
       const {prepareConfigPreferencesUpgrade} = require(process.argv[1]);
       const upgrade=prepareConfigPreferencesUpgrade({userDataPath:process.argv[2],checkpoint(stage){if(stage===process.argv[3])process.exit(73);}});
       upgrade.execute(upgrade.confirmation);
-    `, modulePath, f.directory, stage], { encoding: 'utf8', timeout: 15000 });
+    `, modulePath, f.directory, stage], { encoding: 'utf8', timeout: CHILD_TIMEOUT_MS });
+    assert.ifError(result.error);
+    assert.equal(result.signal, null, result.stderr);
     assert.equal(result.status, 73, result.stderr);
     // Inspect a copy: a live crash WAL must never be repaired by this assertion.
     const copied = path.join(f.root, 'inspection'); fs.cpSync(f.directory, copied, { recursive: true });
@@ -99,5 +104,30 @@ test('extraction cannot follow a symbolic-link parent', t => {
   fs.mkdirSync(actual); fs.symlinkSync(actual, path.join(f.root, 'linked'));
   assert.throws(() => extractProfileUpgradeBackup({ backupFile: result.backupFile,
     destination: path.join(f.root, 'linked', 'restore') }, ports()), /destination-invalid/);
+  assert.deepEqual(fs.readdirSync(actual), []);
+});
+
+// Exercise the platform temp alias independently of the host OS. Only test
+// allocation resolves it; an explicitly linked extraction destination remains
+// forbidden by the production test immediately above.
+test('synthetic upgrade fixtures canonicalize an aliased OS temporary directory', t => {
+  const f = fixture(t), actual = path.join(f.root, 'temp-actual'), alias = path.join(f.root, 'temp-alias');
+  fs.mkdirSync(actual); fs.symlinkSync(actual, alias, process.platform === 'win32' ? 'junction' : 'dir');
+  const modulePath = path.resolve(__dirname, '../test-support/preferences-upgrade-fixture');
+  const result = spawnSync(process.execPath, ['-e', `
+    const assert = require('node:assert/strict');
+    const fs = require('node:fs');
+    const { fixture } = require(process.argv[1]);
+    const cleanup = [];
+    try {
+      const f = fixture({ after(fn) { cleanup.push(fn); } });
+      assert.equal(f.root, fs.realpathSync(f.root));
+      assert.equal(f.prepare().status, 'verified-upgrade-required');
+    } finally { for (const close of cleanup.reverse()) close(); }
+  `, modulePath], { encoding: 'utf8', timeout: CHILD_TIMEOUT_MS,
+    env: { ...process.env, TMPDIR: alias, TMP: alias, TEMP: alias } });
+  assert.ifError(result.error);
+  assert.equal(result.signal, null, result.stderr);
+  assert.equal(result.status, 0, result.stderr);
   assert.deepEqual(fs.readdirSync(actual), []);
 });
