@@ -27,7 +27,18 @@ try {
     $item = Get-Item -LiteralPath $p -Force
     if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { throw 'invalid' }
     $stage = 'acl'
-    $acl = Get-Acl -LiteralPath $p
+    try { $acl = Get-Acl -LiteralPath $p } catch {
+      $kind = $_.Exception.GetType().FullName
+      $category = $_.CategoryInfo.Category.ToString()
+      $errorId = ($_.FullyQualifiedErrorId -split ',')[0]
+      if ($category -eq 'PermissionDenied' -or $category -eq 'SecurityError' -or $kind -eq 'System.UnauthorizedAccessException') { $stage = 'acl-access-denied' }
+      elseif ($errorId -eq 'CouldNotAutoloadMatchingModule' -or $errorId -eq 'CouldNotAutoloadModule') { $stage = 'acl-module-load' }
+      elseif ($kind -eq 'System.Management.Automation.CommandNotFoundException') { $stage = 'acl-command-not-found' }
+      elseif ($category -eq 'ObjectNotFound') { $stage = 'acl-path-not-found' }
+      elseif ($category -eq 'InvalidArgument' -or $kind -eq 'System.Management.Automation.ParameterBindingException') { $stage = 'acl-parameter' }
+      else { $stage = 'acl-other' }
+      throw
+    }
     $stage = 'descriptor'
     $raw = [System.Security.AccessControl.RawSecurityDescriptor]::new($acl.GetSecurityDescriptorBinaryForm(), 0)
     $stage = 'aces'
@@ -46,7 +57,7 @@ try {
   $writer.Flush()
 } catch { [Console]::Error.Write('config-admission-acl:' + $stage); exit 1 }
 `;
-const DIAGNOSTICS = new Set(['paths', 'system-root', 'spawn', 'timeout', 'process-exit', 'stderr', 'stdout', 'json', 'acl-shape', 'acl-count', 'acl-owner', 'acl-dacl', 'acl-reparse', 'acl-type', 'acl-ace', 'acl-grant',
+const DIAGNOSTICS = new Set(['paths', 'system-root', 'spawn', 'timeout', 'process-exit', 'stderr', 'stdout', 'json', 'acl-access-denied', 'acl-module-load', 'acl-command-not-found', 'acl-path-not-found', 'acl-parameter', 'acl-other', 'acl-shape', 'acl-count', 'acl-owner', 'acl-dacl', 'acl-reparse', 'acl-type', 'acl-ace', 'acl-grant',
   'streams', 'input', 'identity', 'item', 'acl', 'descriptor', 'aces', 'serialize', 'membership', 'file-type', 'mode', 'file-drift', 'filesystem']);
 const unavailable = diagnostic => Object.assign(new Error('config-admission-permissions-unavailable'), {
   code: 'config-admission-permissions-unavailable', diagnostic: DIAGNOSTICS.has(diagnostic) ? diagnostic : 'filesystem'
@@ -87,13 +98,17 @@ function verifyWindowsProbePermissions(directory, files = [], { run = spawnSync,
     if (typeof systemRoot !== 'string' || !/^[a-zA-Z]:\\[^\\]/.test(systemRoot)
       || path.win32.normalize(systemRoot) !== systemRoot || systemRoot.split('\\').some(part => part === '.' || part === '..')) throw unavailable('system-root');
     const executable = path.win32.join(systemRoot, 'System32', 'WindowsPowerShell', 'v1.0', 'powershell.exe');
+    // PS7 only fixes module paths when launching powershell.exe directly.
+    // Through Node, inherited PS7 paths can resolve incompatible system modules.
+    // Child-only removal follows Microsoft's about_PSModulePath guidance.
+    const childEnvironment = Object.fromEntries(Object.entries(environment).filter(([key]) => key.toUpperCase() !== 'PSMODULEPATH'));
     const result = run(executable, ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command', ACL_PROGRAM], {
       input: JSON.stringify([directory, ...files]), encoding: 'utf8', shell: false, windowsHide: true,
-      timeout: 5000, maxBuffer: 64 * 1024
+      timeout: 5000, maxBuffer: 64 * 1024, env: childEnvironment
     });
     if (result.error) throw unavailable(result.error.code === 'ETIMEDOUT' ? 'timeout' : 'spawn');
     if (result.status !== 0 || result.signal) {
-      const stage = /^config-admission-acl:(streams|input|identity|item|acl|descriptor|aces|serialize)$/.exec(result.stderr || '')?.[1];
+      const stage = /^config-admission-acl:(streams|input|identity|item|acl(?:-access-denied|-module-load|-command-not-found|-path-not-found|-parameter|-other)?|descriptor|aces|serialize)$/.exec(result.stderr || '')?.[1];
       throw unavailable(stage || 'process-exit');
     }
     if (result.stderr !== '') throw unavailable('stderr');

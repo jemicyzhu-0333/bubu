@@ -192,7 +192,8 @@ test('native Windows PowerShell 5.1 protocol rejects empty/nested input and pres
   const f = fixture(t), executable = path.win32.join(process.env.SystemRoot, 'System32', 'WindowsPowerShell', 'v1.0', 'powershell.exe');
   function run(paths) {
     return spawnSync(executable, ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command', ACL_PROGRAM], {
-      input: JSON.stringify(paths), encoding: 'utf8', shell: false, windowsHide: true, timeout: 5000, maxBuffer: 65536
+      input: JSON.stringify(paths), encoding: 'utf8', shell: false, windowsHide: true, timeout: 5000, maxBuffer: 65536,
+      env: Object.fromEntries(Object.entries(process.env).filter(([key]) => key.toUpperCase() !== 'PSMODULEPATH'))
     });
   }
   for (const invalid of [[], [[f.directory]], f.directory]) {
@@ -203,7 +204,7 @@ test('native Windows PowerShell 5.1 protocol rejects empty/nested input and pres
   }
   for (const paths of [[f.directory], [f.directory, f.file]]) {
     const result = run(paths);
-    const stage = /^config-admission-acl:(streams|input|identity|item|acl|descriptor|aces|serialize)$/.exec(result.stderr || '')?.[1];
+    const stage = /^config-admission-acl:(streams|input|identity|item|acl(?:-access-denied|-module-load|-command-not-found|-path-not-found|-parameter|-other)?|descriptor|aces|serialize)$/.exec(result.stderr || '')?.[1];
     assert.equal(result.status, 0, `native ACL process failed: ${stage || (result.error?.code === 'ETIMEDOUT' ? 'timeout' : 'process-exit')}`);
     assert.equal(result.stderr.length, 0, 'native ACL process emitted stderr');
     let parsed;
@@ -244,4 +245,44 @@ test('ACL report rejection categories reveal structure only and preserve every t
       status: 0, stderr: '', stdout: JSON.stringify(value)
     }) }), error => error.message === 'config-admission-permissions-unavailable' && error.diagnostic === diagnostic);
   }
+});
+
+test('Windows probe removes inherited PSModulePath case variants only from its copied child environment', t => {
+  const f = fixture(t), environment = Object.freeze({ SystemRoot: 'C:\\Windows', PSModulePath: 'synthetic PS7 modules',
+    PSMODULEPATH: 'synthetic uppercase modules', pSmOdUlEpAtH: 'synthetic mixed modules', KEEP: 'unchanged', WinPSModulePath: 'unchanged alternate' });
+  verifyWindowsProbePermissions(f.directory, [], { environment, run(_file, _args, options) {
+    assert.notEqual(options.env, environment);
+    assert.deepEqual(options.env, { SystemRoot: 'C:\\Windows', KEEP: 'unchanged', WinPSModulePath: 'unchanged alternate' });
+    return { status: 0, stdout: JSON.stringify(report()), stderr: '' };
+  } });
+  assert.equal(environment.PSModulePath, 'synthetic PS7 modules');
+  assert.equal(environment.PSMODULEPATH, 'synthetic uppercase modules');
+  assert.equal(environment.pSmOdUlEpAtH, 'synthetic mixed modules');
+});
+for (const diagnostic of ['acl-access-denied', 'acl-module-load', 'acl-command-not-found', 'acl-path-not-found', 'acl-parameter', 'acl-other']) {
+  test(`native ${diagnostic} is a bounded rejection with no alternate attempt`, t => {
+    const f = fixture(t); let calls = 0;
+    assert.throws(() => verifyWindowsProbePermissions(f.directory, [], { environment: { SystemRoot: 'C:\\Windows' }, run() {
+      calls++; return { status: 1, stderr: `config-admission-acl:${diagnostic}` };
+    } }), error => error.code === 'config-admission-permissions-unavailable' && error.diagnostic === diagnostic);
+    assert.equal(calls, 1);
+  });
+}
+test('native Windows ACL reader works through an intermediate process with polluted module search without mutating it', { skip: process.platform !== 'win32' }, t => {
+  const f = fixture(t), original = fs.readFileSync(f.file), inherited = process.env.PSModulePath;
+  const poisoned = path.join(f.directory, 'nonexistent-foreign-modules');
+  const environment = { ...process.env, PSModulePath: poisoned };
+  try { verifyWindowsProbePermissions(f.directory, [f.file], { environment }); }
+  catch (error) { t.diagnostic(`native polluted-environment permission stage: ${error.diagnostic}`); throw error; }
+  assert.ok(environment.PSModulePath === poisoned, 'supplied parent environment remains unchanged');
+  assert.ok(process.env.PSModulePath === inherited, 'process environment remains unchanged');
+  assert.deepEqual(fs.readFileSync(f.file), original);
+});
+
+test('an environment without PSModulePath is cloned without changing any keys', t => {
+  const f = fixture(t), environment = Object.freeze({ SystemRoot: 'C:\\Windows', Path: 'unchanged', KEEP: 'value' });
+  verifyWindowsProbePermissions(f.directory, [], { environment, run(_file, _args, options) {
+    assert.notEqual(options.env, environment); assert.deepEqual(options.env, environment);
+    return { status: 0, stdout: JSON.stringify(report()), stderr: '' };
+  } });
 });
