@@ -60,6 +60,14 @@ jobs:
       - name: Verify macOS DMG copy, code integrity and disposable-profile launch
         if: matrix.platform == 'mac'
         run: npm run verify:mac-install
+      - name: Store allowlisted macOS startup failure diagnostic
+        if: failure() && matrix.platform == 'mac'
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-startup-diagnostic-${{ github.sha }}
+          path: dist/macos-install-diagnostic.json
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Report local macOS distribution policy separately from runtime verification
         if: matrix.platform == 'mac'
         run: node scripts/assess-macos-distribution.js

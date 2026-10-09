@@ -9,6 +9,20 @@ const { createDisposableProfile, readDisposableProfile, removeDisposableProfile 
 const { localDayKey } = require('../src/core/calendar');
 const { verifyCodeSignature } = require('./macos-code-signature');
 
+// Child output is untrusted even for a synthetic profile. Publish only bounded,
+// allowlisted diagnostic facts, never arbitrary log lines or environment values.
+function summarizeStartupOutput(output) {
+  const errorKinds = [...new Set(output.match(/\b(?:TypeError|ReferenceError|SyntaxError|RangeError|Uncaught|ERR_[A-Z_]+)\b/g) || [])].slice(0, 20);
+  const missingModules = [...output.matchAll(/Cannot find module ['"]([@a-zA-Z0-9_.\/-]+)['"]/g)]
+    .map(match => match[1]).filter(name => !name.startsWith('/') && !name.includes('..')).slice(0, 10);
+  const stackFrames = [...output.matchAll(/app\.asar\/(src\/[a-zA-Z0-9_./-]+:\d+:\d+)/g)]
+    .map(match => match[1]).slice(0, 20);
+  const factStoreTiers = [...output.matchAll(/\[fact-store\] tier=(sqlite|jsonl|none)\b/g)].map(match => match[1]);
+  return { errorKinds, missingModules, stackFrames, factStoreTiers,
+    appThrewError: output.includes('App threw an error'),
+    outputCharacters: output.length, outputSha256: crypto.createHash('sha256').update(output).digest('hex') };
+}
+
 function sha256(file) {
   return crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 }
@@ -43,7 +57,7 @@ async function closeInstalledChild(child, completion, installed, { execFile = ex
 async function verifyInstall({ platform = process.platform, argv = process.argv, now = Date.now(),
   execFile = execFileSync, spawnChild = spawn, wait = waitForOutcome,
   createProfile = createDisposableProfile, readProfile = readDisposableProfile,
-  removeProfile = removeDisposableProfile, log = console.log } = {}) {
+  removeProfile = removeDisposableProfile, log = console.log, diagnosticFile = null } = {}) {
   assert.equal(platform, 'darwin', 'installation verification requires macOS');
   const root = path.resolve(__dirname, '..');
   const version = require('../package.json').version;
@@ -56,6 +70,15 @@ async function verifyInstall({ platform = process.platform, argv = process.argv,
   let completion;
   let closed = false;
   let output = '';
+  let omittedOutputCharacters = 0;
+  let stage = 'verify-dmg';
+  let persistedRevision = null;
+  const captureOutput = data => {
+    const text = String(data);
+    const remaining = Math.max(0, 65536 - output.length);
+    output += text.slice(0, remaining);
+    omittedOutputCharacters += Math.max(0, text.length - remaining);
+  };
   let report;
   try {
     fs.mkdirSync(mount);
@@ -66,27 +89,35 @@ async function verifyInstall({ platform = process.platform, argv = process.argv,
     const hash = sha256(path.join(installed, 'Contents/Resources/app.asar'));
     assert.equal(hash, sha256(path.join(mount, 'I’m ADHDer.app/Contents/Resources/app.asar')));
     const codeSignature = verifyCodeSignature(installed, { platform, execFile });
+    stage = 'launch-installed-app';
     child = spawnChild(path.join(installed, 'Contents/MacOS/I’m ADHDer'),
       [`--user-data-dir=${fixture.userDataPath}`, '--dev'], { stdio: ['ignore', 'pipe', 'pipe'] });
-    child.stdout.on('data', data => { output += data; });
-    child.stderr.on('data', data => { output += data; });
+    child.stdout.on('data', captureOutput);
+    child.stderr.on('data', captureOutput);
     completion = new Promise(resolve => {
       let error;
       child.once('error', caught => { error = caught; });
       child.once('close', (code, signal) => { closed = true; resolve({ code, signal, error }); });
     });
     const early = await wait(completion, 6000);
-    assert.equal(early, null, `installed app exited before readiness: ${output}`);
+    assert.equal(early, null, 'installed app exited before readiness');
+    stage = 'graceful-shutdown';
     await closeInstalledChild(child, completion, installed, { execFile, wait });
     assert.equal(closed, true, 'the application owner must close before SQL verification');
+    stage = 'application-startup-output';
+    assert.equal(/App threw an error|ReferenceError|TypeError|Uncaught/.test(output), false, 'installed app reported a startup error');
+    assert.equal(omittedOutputCharacters, 0, 'installed app output exceeded diagnostic bound; startup cannot be accepted');
+    stage = 'read-seeded-sql-authority';
     const { state: persisted, revision } = readProfile(fixture);
+    persistedRevision = revision;
+    stage = 'verify-startup-commit';
     const initial = fixture.initial;
     assert.ok(revision > fixture.revision, 'startup must commit to the seeded SQL authority');
     assert.deepEqual(persisted.tasks.map(task => [task.id, task.title]), initial.tasks.map(task => [task.id, task.title]));
     assert.equal(persisted.xp, initial.xp);
     assert.deepEqual(persisted.rewardLedger, initial.rewardLedger);
     assert.equal(persisted.tasks.find(task => task.seriesId).occurrenceDate, localDayKey(now));
-    assert.doesNotMatch(output, /App threw an error|ReferenceError|TypeError|Uncaught/);
+    assert.equal(/App threw an error|ReferenceError|TypeError|Uncaught/.test(output), false, 'installed app reported a startup error');
     report = {
       result: 'passed', sourceCommit: process.env.GITHUB_SHA || null,
       dmg, dmgSha256: sha256(dmg), installed, profile: fixture.userDataPath,
@@ -95,6 +126,16 @@ async function verifyInstall({ platform = process.platform, argv = process.argv,
       launchAcceptance: 'direct executable launch from disposable DMG copy; no Internet quarantine added or removed',
       gatekeeperAcceptance: 'not asserted; Developer ID and notarization are separate distribution requirements'
     };
+  } catch (error) {
+    // This verifier launches only its own synthetic, disposable profile. Keep
+    // bounded child diagnostics on failure: a surviving Electron error dialog
+    // is not evidence that application startup or the SQL owner was ready.
+    const diagnostic = { stage, seedRevision: fixture.revision, persistedRevision,
+      childClosed: closed, omittedOutputCharacters,
+      fixtureFiles: Object.fromEntries(['config.sqlite', 'config.sqlite.identity.sqlite', 'focuspix.sqlite', 'Preferences', 'Local State'].map(name => [name, fs.existsSync(path.join(fixture.userDataPath, name))])),
+      childOutput: summarizeStartupOutput(output) };
+    if (diagnosticFile) fs.writeFileSync(diagnosticFile, JSON.stringify(diagnostic, null, 2) + '\n');
+    throw new Error(`${error.message}\nInstaller diagnostic: ${JSON.stringify(diagnostic)}`, { cause: error });
   } finally {
     // Failure cleanup may force-stop this exact child, but can never count as a
     // successful shutdown or trigger persistence assertions afterward.
@@ -116,5 +157,5 @@ async function verifyInstall({ platform = process.platform, argv = process.argv,
   return report;
 }
 
-if (require.main === module) verifyInstall().catch(error => { console.error(error.stack); process.exitCode = 1; });
-module.exports = { sha256, waitForOutcome, closeInstalledChild, verifyInstall };
+if (require.main === module) verifyInstall({ diagnosticFile: path.resolve(__dirname, '../dist/macos-install-diagnostic.json') }).catch(error => { console.error(error.stack); process.exitCode = 1; });
+module.exports = { summarizeStartupOutput, sha256, waitForOutcome, closeInstalledChild, verifyInstall };

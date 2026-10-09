@@ -10,7 +10,7 @@ const { DatabaseSync } = require('node:sqlite');
 const { createDisposableProfile, readDisposableProfile, removeDisposableProfile } = require('../tools/dev-bench/profile-fixture');
 const { launchBench } = require('../tools/dev-bench/launch');
 const { verifyManualGrowth, verifyPersistedScenario, finishSmoke } = require('../tools/dev-bench/smoke');
-const { verifyInstall, waitForOutcome } = require('../scripts/verify-macos-install');
+const { verifyInstall, waitForOutcome, summarizeStartupOutput } = require('../scripts/verify-macos-install');
 const { createSqliteStateAdapter } = require('../src/platform/persistence/sqlite-state-adapter');
 const { assertCanonicalPersistedState } = require('../src/platform/persistence/persisted-schema');
 const { encodePayload } = require('../src/platform/persistence/sqlite/config-authority-schema');
@@ -239,6 +239,8 @@ function installPorts(t, mode = 'success') {
         child.emit('error', new Error('synthetic spawn failure'));
         completed = true; child.emit('close', -2, null);
       });
+      if (mode === 'late-startup-error') queueMicrotask(() => child.stderr.emit('data', 'x'.repeat(70000) + '\nTypeError: sensitive-late-value'));
+      if (mode === 'startup-error-output') queueMicrotask(() => child.stderr.emit('data', 'App threw an error\nTypeError: sensitive-value\n' + 'x'.repeat(70000)));
       return child;
     },
     async wait(completion, delay) {
@@ -374,4 +376,56 @@ test('cleanup accepts only its own unchanged disposable directories', t => {
   removeDisposableProfile(profile);
   assert.equal(fs.existsSync(profile.root), false);
   assert.throws(() => readDisposableProfile(profile), /not-owned/);
+});
+
+
+test('startup diagnostic admits only safe structured evidence and excludes raw output', () => {
+  const output = 'TOKEN=secret-value\nApp threw an error during load\nTypeError: private-data\n' +
+    "Cannot find module 'electron-log'\nCannot find module '/private/secret'\n" +
+    'at fn (/tmp/name.app/Contents/Resources/app.asar/src/main.js:55:7)\n[fact-store] tier=sqlite\n';
+  const report = summarizeStartupOutput(output);
+  assert.deepEqual(report.errorKinds, ['TypeError']);
+  assert.deepEqual(report.missingModules, ['electron-log']);
+  assert.deepEqual(report.stackFrames, ['src/main.js:55:7']);
+  assert.deepEqual(report.factStoreTiers, ['sqlite']);
+  assert.equal(report.appThrewError, true);
+  assert.doesNotMatch(JSON.stringify(report), /secret-value|private-data|private\/secret/);
+});
+
+test('failed startup keeps revision assertion and writes only its allowlisted diagnostic', async t => {
+  const f = installPorts(t, 'no-startup-write');
+  const diagnosticFile = path.join(fs.mkdtempSync(path.join(require('node:os').tmpdir(), 'install-diagnostic-')), 'report.json');
+  t.after(() => fs.rmSync(path.dirname(diagnosticFile), { recursive: true, force: true }));
+  await assert.rejects(verifyInstall({ ...f.ports, diagnosticFile }), /startup must commit to the seeded SQL authority/);
+  const report = JSON.parse(fs.readFileSync(diagnosticFile, 'utf8'));
+  assert.equal(report.stage, 'verify-startup-commit');
+  assert.equal(report.seedRevision, report.persistedRevision);
+  assert.equal(report.childClosed, true);
+  assert.equal(report.fixtureFiles['config.sqlite'], true);
+  assert.equal(report.childOutput.outputCharacters, 0);
+  assert.equal(fs.existsSync(f.fixture().root), false);
+});
+
+
+test('startup error output is diagnosed before SQL, bounded, and never published verbatim', async t => {
+  const f = installPorts(t, 'startup-error-output');
+  let error;
+  try { await verifyInstall(f.ports); } catch (caught) { error = caught; }
+  assert.ok(error);
+  assert.match(error.message, /installed app reported a startup error/);
+  assert.doesNotMatch(error.message, /sensitive-value|xxxx/);
+  const report = JSON.parse(error.message.split('Installer diagnostic: ')[1]);
+  assert.equal(report.stage, 'application-startup-output');
+  assert.equal(report.childOutput.outputCharacters, 65536);
+  assert.ok(report.omittedOutputCharacters > 0);
+  assert.deepEqual(report.childOutput.errorKinds, ['TypeError']);
+  assert.equal(f.reads(), 0);
+});
+
+
+test('output truncation cannot conceal a later startup error or admit SQL acceptance', async t => {
+  const f = installPorts(t, 'late-startup-error');
+  await assert.rejects(verifyInstall(f.ports), /output exceeded diagnostic bound/);
+  assert.equal(f.reads(), 0);
+  assert.equal(f.calls.some(([command]) => command === 'report'), false);
 });
