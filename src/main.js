@@ -76,7 +76,7 @@ const {
   createShortcutHost,
   createTrayHost,
   createPopoverWindowHost,
-  createImpulseWindowHost, createPetWindowHost, createPetDevelopment, createPetMenuExpansion, createPetDragSession
+  createImpulseWindowHost, registerImpulseWindowIpc, createPetWindowHost, createPetDevelopment, createPetMenuExpansion, createPetDragSession
 } = require('./platform/electron');
 const { RuntimeSessionClock } = execution.runtimeClock;
 const { relationshipProjection } = companionCapability;
@@ -1844,10 +1844,9 @@ registerIpc('pet:hide', () => {
   return result.ok ? undefined : result;
 });
 
-registerIpc('impulse:open', () => { toggleImpulseWindow(true); return { ok: true }; });
-registerIpc('impulse:hide', () => quickPanelHost.hide());
-// 只读查询：返回实际注册上的组合（生效值），设置界面据此显示「配了这个到底注册上没有」。
-registerIpc('quickPanel:describeShortcut', () => quickPanelHost.describeShortcut());
+registerImpulseWindowIpc({ registerIpc, open: () => toggleImpulseWindow(true),
+  hide: () => quickPanelHost.hide(), getWindow: () => impulseWindow,
+  describeShortcut: () => quickPanelHost.describeShortcut() });
 const timelineDayQuery = createTimelineDayQuery({ timeline: factStore.timeline,
   energyCurveForDay: dayKey => popoverStateQuery.energyCurveForDay(dayKey) });
 registerIpc('timeline:getDay', (_, payload) => timelineDayQuery.execute(payload));
@@ -1877,6 +1876,7 @@ function createImpulseWindow() {
   impulseWindow = createImpulseWindowHost({
     preloadPath: path.join(__dirname, 'preload-impulse.js'),
     pagePath: path.join(__dirname, 'renderer', 'impulse.html'),
+    getWorkArea: bounds => screenHost.nearestDisplay({ x: bounds.x + bounds.width / 2, y: bounds.y + bounds.height / 2 }).workArea,
     onLoaded: pushImpulseSensoryProfile,
     onHidden: () => quickPanelHost.panelHidden(),
     onDeliveryError: reportWindowDeliveryError

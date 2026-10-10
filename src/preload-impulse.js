@@ -34,6 +34,7 @@ contextBridge.exposeInMainWorld('bubu', {
   stopPomodoro: action => ipcRenderer.invoke('pomodoro:stop', action),
   pausePomodoro: () => ipcRenderer.invoke('pomodoro:pause'),
   resumePomodoro: action => ipcRenderer.invoke('pomodoro:resume', action),
+  resizeImpulse: height => ipcRenderer.invoke('impulse:resize', { height }),
   hideImpulse: () => ipcRenderer.invoke('impulse:hide'),
   onStateDiff: callback => {
     if (typeof callback !== 'function') return () => {};

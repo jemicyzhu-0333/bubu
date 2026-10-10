@@ -3,12 +3,17 @@ import '../shared/interface/entry.mjs';
 
 import { createImpulseSurfaceClient } from './adapter/surface-client.mjs';
 import { createQuickPanelFeature } from './quick-panel.mjs';
+import { createQuickPanelLayout } from './panel-layout.mjs';
+
+const client = createImpulseSurfaceClient();
+const layout = createQuickPanelLayout({ window, document, client });
 
 const feature = createQuickPanelFeature({
   window,
   document,
-  client: createImpulseSurfaceClient()
+  client
 });
 
 feature.mount();
-window.addEventListener('pagehide', () => feature.dispose(), { once: true });
+layout.mount();
+window.addEventListener('pagehide', () => { layout.dispose(); feature.dispose(); }, { once: true });

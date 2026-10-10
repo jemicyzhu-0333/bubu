@@ -38,17 +38,21 @@ function harness(action, { refuseDestination = false, petFailure = false } = {})
   const initial = query.execute();
   let sequence = 0;
   const inbox = createInboxOrganization({ unitOfWork: app.createUnitOfWork({ repository }), readSnapshot: repository.snapshot,
-    clock: { now: () => NOW }, idFactory: kind => refuseDestination && action === 'feeling' ? '' : `${kind}-${++sequence}`,
-    archive: UNAVAILABLE_INBOX_ARCHIVE, taskPolicies: refuseDestination ? { ...taskPolicies, suggestNextStep: () => null } : taskPolicies,
+    clock: { now: () => NOW }, idFactory: kind => refuseDestination ? '' : `${kind}-${++sequence}`,
+    archive: UNAVAILABLE_INBOX_ARCHIVE, taskPolicies,
     publishChange: publisher.publish, reportEffectError: error => errors.push(error.message) });
   inbox.register((name, callback) => handlers.set(name, callback));
   const checkIn = guidance.recordEnergyCheckIn.createRecordEnergyCheckInCommand({
     unitOfWork: app.createUnitOfWork({ repository }), clock: { now: () => NOW },
     publish: () => publisher.publish({ energy: true, recommendations: true }), reportEffectError: error => errors.push(error.message) });
-  const result = action === 'check-in' ? checkIn.execute({ checkIn: { level: 80, state: 'high', timestamp: NOW } })
+  const invoke = () => action === 'check-in' ? checkIn.execute({ checkIn: { level: 80, state: 'high', timestamp: NOW } })
     : action === 'feeling' ? handlers.get('impulses:keep-mood')(null, 'capture')
     : action === 'promote' ? handlers.get('impulses:promote')(null, 'capture')
       : handlers.get('impulses:review')(null, { id: 'capture', action });
+  let result;
+  if (refuseDestination && action === 'next-step') {
+    assert.throws(invoke, /unique task identity/); result = { ok: false };
+  } else result = invoke();
   return { repository, messages, modes, errors, initial, result, final: query.execute(), currentEnergy: readComposition.sample().energyEstimate,
     surpriseRefreshes: () => surpriseRefreshes, purePet: () => projectPet(readComposition.sample(), publisher.readRevision()), checkIn };
 }

@@ -87,6 +87,15 @@ const codec = createCapabilityCodec({
   },
   'impulse:open': emptyPayload,
   'impulse:hide': emptyPayload,
+  'impulse:resize': validation => {
+    const object = validation.requireObject();
+    if (!object) return undefined;
+    validation.rejectUnknown(object, ['height']);
+    if (!Number.isInteger(object.height) || object.height < 1 || object.height > 4096) {
+      validation.fail('height must be an integer from 1 to 4096');
+    }
+    return { height: object.height };
+  },
   'pet:openImpulse': emptyPayload
 });
 
@@ -115,6 +124,7 @@ const surfaces = Object.freeze({
   'impulses:review': ['popover'],
   'impulse:open': ['popover'],
   'impulse:hide': ['impulse'],
+  'impulse:resize': ['impulse'],
   'pet:openImpulse': ['pet']
 });
 

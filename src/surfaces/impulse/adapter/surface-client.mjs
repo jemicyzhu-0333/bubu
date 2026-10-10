@@ -8,7 +8,7 @@ function createImpulseSurfaceClient(bridge = typeof window !== 'undefined' ? win
   const methods = [
     'getState', 'addImpulse', 'completeTask', 'completeStep', 'appendTaskStep', 'renameTaskStep',
     'startPomodoro', 'kickstart', 'stopPomodoro', 'pausePomodoro', 'resumePomodoro',
-    'hideImpulse', 'onStateDiff', 'onSensoryProfile'
+    'hideImpulse', 'resizeImpulse', 'onStateDiff', 'onSensoryProfile'
   ];
   for (const method of methods) {
     if (typeof bridge[method] !== 'function') throw new TypeError(`impulse bridge is missing ${method}`);

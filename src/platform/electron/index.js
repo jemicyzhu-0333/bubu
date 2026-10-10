@@ -17,7 +17,7 @@ const { createShortcutHost } = require('./shortcuts');
 const { createTrayHost } = require('./tray');
 const {
   createPopoverWindowHost,
-  createImpulseWindowHost,
+  createImpulseWindowHost, registerImpulseWindowIpc,
   createPetWindowHost
 } = require('./windows');
 const { createPetDevelopment } = require('./dev/pet-development');
@@ -39,7 +39,7 @@ module.exports = {
   createShortcutHost,
   createTrayHost,
   createPopoverWindowHost,
-  createImpulseWindowHost,
+  createImpulseWindowHost, registerImpulseWindowIpc,
   createPetWindowHost,
   createPetDevelopment
 };

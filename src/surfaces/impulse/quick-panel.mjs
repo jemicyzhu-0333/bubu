@@ -414,6 +414,7 @@ function createQuickPanelFeature({ window, document, client } = {}) {
   }
 
   function onKeydown(event) {
+    if (event.isComposing || event.keyCode === 229) return;
     if (event.key === 'Escape') {
       event.preventDefault();
       if (quickStartEditor.isOpen()) { quickStartEditor.cancel(); return; }

@@ -19,7 +19,7 @@ test('work routes retain ordered descriptors, query kinds and frozen surface lis
     ['tasks:skip-occurrence', 'popover'], ['tasks:duplicate', 'popover'], ['history:list', 'popover'],
     ['impulses:add', 'popover,impulse'], ['impulses:promote', 'popover'], ['impulses:delete', 'popover'],
     ['impulses:keep-mood', 'popover'], ['impulses:review', 'popover'], ['impulse:open', 'popover'],
-    ['impulse:hide', 'impulse'], ['pet:openImpulse', 'pet']
+    ['impulse:hide', 'impulse'], ['impulse:resize', 'impulse'], ['pet:openImpulse', 'pet']
   ];
   assert.equal(Object.isFrozen(ipcRoutes), true);
   assert.deepEqual(ipcRoutes.map(({ channel, surfaces }) => [channel, surfaces.join(',')]), expected);

@@ -30,7 +30,7 @@ function sourceFiles(relative = 'src') {
 const EXPECTED_PRELOAD_CHANNELS = Object.freeze({
   'src/preload-impulse.js': [
     'settings:get-interface',
-    'impulse:hide', 'impulses:add',
+    'impulse:hide', 'impulse:resize', 'impulses:add',
     // 快捷面板的“先做 2 分钟”（ARCHITECTURE「快捷行动面板」）。
     'pomodoro:kickstart', 'pomodoro:pause', 'pomodoro:resume', 'pomodoro:start', 'pomodoro:stop',
     'state:get', 'tasks:complete', 'tasks:complete-step', 'tasks:update'

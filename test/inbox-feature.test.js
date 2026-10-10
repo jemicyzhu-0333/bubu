@@ -84,7 +84,6 @@ for (const action of ['next-step', 'schedule', 'feeling']) {
   test(`production renderer ${action} failure preserves canonical state and local draft until explicit retry`, async t => {
     let fail = true, sequence = 0;
     const h = destinationHarness('state', {
-      suggestNextStep: () => fail ? null : { title: 'Synthetic first step' },
       nextWorkStart: () => { if (fail) throw new Error('Synthetic schedule failure'); return NOW + HOUR; },
       idFactory: prefix => fail ? '' : `${prefix}-${++sequence}`
     });

@@ -192,32 +192,32 @@ test('impulse host wires load and blur while exposing only its required operatio
   const instance = harness.instances[0];
 
   assertHardened(instance, '/app/preload-impulse.js', '/app/impulse.html');
-  assert.deepEqual(instance.bounds, { x: 0, y: 0, width: 480, height: 160 });
+  assert.deepEqual(instance.bounds, { x: 0, y: 0, width: 480, height: 144 });
   instance.webContents.emit('did-finish-load');
   instance.emit('blur');
   instance.emit('hide');
   assert.equal(loaded, 1);
   assert.equal(hidden, 1);
   assert.equal(instance.visible, false);
-  assert.deepEqual(host.setMode('idle'), { width: 480, height: 320 });
-  assert.deepEqual(instance.bounds, { x: 0, y: 0, width: 480, height: 320 });
+  assert.deepEqual(host.setMode('idle'), { width: 480, height: 356 });
+  assert.deepEqual(instance.bounds, { x: 0, y: 0, width: 480, height: 356 });
   assert.deepEqual(host.setMode('active'), { width: 480, height: 500 });
   assert.deepEqual(instance.bounds, { x: 0, y: 0, width: 480, height: 500 });
-  assert.deepEqual(host.setMode('unknown'), { width: 480, height: 180 });
+  assert.deepEqual(host.setMode('unknown'), { width: 480, height: 144 });
   assert.deepEqual(Object.keys(host).sort(), [
-    'close', 'getBounds', 'hide', 'isAlive', 'isLoading', 'isVisible', 'send', 'setMode', 'setPosition', 'showAndFocus'
+    'close', 'getBounds', 'hide', 'isAlive', 'isLoading', 'isVisible', 'resizeContent', 'send', 'setMode', 'setPosition', 'showAndFocus'
   ]);
 });
 
-test('impulse sizing reserves only the local clarification form and stays inside the work area', () => {
+test('impulse sizing reserves no unopened clarification form and stays inside the work area', () => {
   const harness = createWindowHarness();
   const host = createImpulseWindowHost({ BrowserWindow: harness.BrowserWindow,
     preloadPath: '/app/preload-impulse.js', pagePath: '/app/impulse.html' });
   const view = { mode: 'idle', candidates: [{ quickStartAction: { intent: 'start', enabled: true } }] };
   const original = host.setMode(view);
   view.candidates[0].quickStartAction.intent = 'clarify-and-start';
-  assert.equal(host.setMode(view).height, original.height + 156);
-  assert.deepEqual(host.setMode(view, { width: 440, height: 300 }), { width: 424, height: 284 });
+  assert.equal(host.setMode(view).height, original.height);
+  assert.deepEqual(host.setMode(view, { width: 440, height: 220 }), { width: 424, height: 204 });
 });
 
 test('pet host keeps the passive companion focusable without stealing focus', () => {
@@ -455,4 +455,42 @@ test('native windows use the visible brand before page load and permit an explic
     assert.equal(harness.instances[0].options.title, expected);
     assert.equal(harness.instances[0].options.webPreferences.sandbox, true);
   }
+});
+
+
+test('impulse measured content expands, shrinks, deduplicates and clamps its real native bounds', () => {
+  const harness = createWindowHarness();
+  let area = { x: -800, y: 30, width: 800, height: 700 };
+  const host = createImpulseWindowHost({ BrowserWindow: harness.BrowserWindow,
+    preloadPath: '/app/preload-impulse.js', pagePath: '/app/impulse.html', getWorkArea: () => area });
+  const native = harness.instances[0];
+  const sender = { sender: native.webContents };
+  for (const count of [0, 1, 3]) {
+    const size = host.setMode({ mode: 'idle', candidates: Array(count).fill({}) }, area);
+    assert.equal(size.height, 190 + count * 56);
+  }
+  native.setPosition(-500, 600);
+  assert.deepEqual(host.resizeContent(sender, { height: 380 }), { ok: true, width: 480, height: 380 });
+  assert.equal(native.bounds.y, 342);
+  assert.ok(native.bounds.x >= area.x + 8);
+  const writes = native.calls.length;
+  host.resizeContent(sender, { height: 380 });
+  assert.equal(native.calls.length, writes);
+  host.setMode({ mode: 'idle', candidates: [] });
+  assert.equal(native.bounds.height, 380, 'state pushes do not erase a local draft height');
+  host.resizeContent(sender, { height: 132 });
+  assert.equal(native.bounds.height, 132);
+  host.resizeContent(sender, { height: 1800 });
+  assert.equal(native.bounds.height, 620);
+  area = { x: 100, y: 60, width: 350, height: 300 };
+  host.resizeContent(sender, { height: 1800 });
+  assert.deepEqual(native.bounds, { x: 108, y: 68, width: 334, height: 284 });
+  for (const height of [NaN, Infinity, -1, 0, 4097, 12.5, '200']) {
+    assert.deepEqual(host.resizeContent(sender, { height }), { ok: false });
+  }
+  assert.deepEqual(host.resizeContent({ sender: {} }, { height: 200 }), { ok: false });
+  host.setMode({ mode: 'idle', candidates: [{}] });
+  assert.deepEqual(native.bounds, { x: 108, y: 68, width: 334, height: 284 }, 'projection push stays on the current display');
+  host.setMode({ mode: 'idle', candidates: [{}] }, area);
+  assert.equal(native.bounds.height, 246, 'reopen does not reuse the hidden fallback measurement');
 });

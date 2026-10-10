@@ -140,10 +140,11 @@
 <body data-surface="impulse" data-mode="fallback" data-motion="reduced" data-stimulation="low" aria-busy="false">
 <!-- 图标 data-icon="play" 由 quick-panel.mjs 在“继续”时设置，写在这里是为了让内联图标样式包含它。 -->
 <div class="quick-shell" id="quickShell">
+<div class="quick-content" id="quickContent">
   <div class="scanlines" aria-hidden="true"></div>
   <form class="capture-block" id="impulseForm">
     <label class="capture-label" for="impInput" data-icon="notebook" data-i18n="随手记">随手记</label>
-    <div class="capture-input-row"><input type="text" id="impInput" autofocus aria-label="记录闪念" placeholder="记下一句话…" maxlength="500" data-i18n-aria-label="记录闪念" data-i18n-placeholder="记下一句话…"><button type="submit" class="capture-send" aria-label="保存随手记" data-i18n-aria-label="保存随手记">↵</button></div>
+    <div class="capture-input-row"><textarea rows="1" id="impInput" autofocus aria-label="记录闪念" placeholder="记下一句话…" maxlength="500" data-i18n-aria-label="记录闪念" data-i18n-placeholder="记下一句话…"></textarea><button type="submit" class="capture-send" aria-label="保存随手记" data-i18n-aria-label="保存随手记">↵</button></div>
     <div class="hint">
       <span data-i18n-text="收下并关闭"><kbd>Enter</kbd> 收下并关闭</span>
       <span data-i18n-text="取消"><kbd>Esc</kbd> 取消</span>
@@ -197,6 +198,7 @@
   </section>
 
   <div class="panel-status hidden" id="panelStatus" role="status" aria-live="polite"></div>
+</div>
 </div>
 <script type="module" src="../surfaces/impulse/entry.mjs"></script>
 </body>

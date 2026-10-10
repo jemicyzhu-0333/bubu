@@ -80,7 +80,7 @@ test('colliding mood target rejects the whole draft and preserves all existing n
 });
 
 for (const [name, action, overrides, error] of [
-  ['next-step refusal', 'next-step', { suggestNextStep: () => null }],
+  ['next-step invalid target', 'next-step', { idFactory: () => '' }, /unique task identity/],
   ['schedule throw', 'schedule', { nextWorkStart() { throw new Error('Synthetic schedule failure'); } }, /Synthetic schedule/],
   ['task policy throw', 'promote', { inferEnergy() { throw new Error('Synthetic energy failure'); } }, /Synthetic energy/],
   ['invalid mood target', 'feeling', { idFactory: () => '' }]

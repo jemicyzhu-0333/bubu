@@ -26,10 +26,9 @@ function requireTaskPolicies({
   idFactory,
   inferEnergy,
   suggestDuration,
-  suggestNextStep,
   nextWorkStart
 }) {
-  if ([idFactory, inferEnergy, suggestDuration, suggestNextStep, nextWorkStart]
+  if ([idFactory, inferEnergy, suggestDuration, nextWorkStart]
     .some(policy => typeof policy !== 'function')) {
     throw new TypeError('resolve-impulse workflow requires task and schedule policies');
   }
@@ -39,13 +38,9 @@ function taskInputFor(action, impulse, resolvedAt, policies) {
   const title = impulse.text.slice(0, work.taskModel.LIMITS.TITLE);
   const task = { title, energy: 'auto', steps: [],
     ...(impulse.text.length > title.length ? { description: impulse.text } : {}) };
-  if (action === 'next-step') {
-    const step = policies.suggestNextStep(title);
-    if (!step || typeof step.title !== 'string' || !step.title.trim()) {
-      return { ok: false, reason: 'impulse-next-step-unavailable' };
-    }
-    task.steps = [{ title: step.title.trim() }];
-  }
+  // PRODUCT「捕捉与任务」: conversion opens an editable preview. Only its
+  // confirmed steps may be added; a hidden starter would survive cancel and
+  // be prepended to the person's approved suggestions.
   if (action === 'schedule') {
     const scheduledAt = policies.nextWorkStart(resolvedAt);
     if (typeof scheduledAt !== 'number' || !Number.isFinite(scheduledAt)
@@ -63,7 +58,6 @@ function createResolvedTask(state, action, impulse, resolvedAt, policies) {
   const created = createWorkItemDraft(state, {
     task: input.task,
     createdAt: resolvedAt,
-    breakdown: action === 'next-step',
     selectAsNow: action === 'promote'
   }, policies);
   if (!created.ok) return created;
@@ -99,7 +93,6 @@ function createResolveImpulseWorkflow({
   idFactory,
   inferEnergy,
   suggestDuration,
-  suggestNextStep,
   nextWorkStart,
   publish = () => {},
   reportEffectError = () => {}
@@ -110,7 +103,7 @@ function createResolveImpulseWorkflow({
   if (!clock || typeof clock.now !== 'function') {
     throw new TypeError('resolve-impulse workflow requires a clock');
   }
-  const policies = { idFactory, inferEnergy, suggestDuration, suggestNextStep, nextWorkStart };
+  const policies = { idFactory, inferEnergy, suggestDuration, nextWorkStart };
   requireTaskPolicies(policies);
   if (typeof publish !== 'function' || typeof reportEffectError !== 'function') {
     throw new TypeError('resolve-impulse workflow effects must be functions');

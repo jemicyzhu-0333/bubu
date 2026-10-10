@@ -88,7 +88,7 @@ test('promoting an impulse creates and optionally selects one task in a single c
   ]);
 });
 
-test('next-step creates a deterministic first step, records breakdown and takes over Now', () => {
+test('next-step creates a task for preview without unconfirmed steps or breakdown credit and takes over Now', () => {
   const repository = createRepository(baseState({
     tasks: [{ id: 'existing', title: '原来的 Now', createdAt: RESOLVED_AT - 20_000 }],
     nowTaskId: 'existing',
@@ -100,12 +100,13 @@ test('next-step creates a deterministic first step, records breakdown and takes 
 
   assert.equal(result.ok, true);
   assert.equal(result.action, 'next-step');
-  assert.equal(result.task.steps[0].title, '打开：整理发布说明');
+  assert.deepEqual(result.task.steps, []);
+  assert.equal(result.task.nextAction, null);
   const persisted = repository.inspect();
   assert.equal(persisted.commits, 1);
   assert.equal(persisted.state.nowTaskId, result.task.id);
   assert.equal(persisted.state.tasks.some(task => task.id === 'existing'), true);
-  assert.equal(persisted.state.stats.totalBreakdowns, 5);
+  assert.equal(persisted.state.stats.totalBreakdowns, 4);
   assert.equal(persisted.state.impulses.filter(item => !item.resolution).length, 0);
   assert.equal(persisted.state.impulses[0].resolution.targetId, result.task.id);
 });
