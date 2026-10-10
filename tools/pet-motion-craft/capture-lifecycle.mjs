@@ -6,31 +6,42 @@ import crypto from 'node:crypto';
 import { fileURLToPath,pathToFileURL } from 'node:url';
 import { createRequire } from 'node:module';
 import { performance } from 'node:perf_hooks';
+import { execFileSync } from 'node:child_process';
+import { resolveLifecycleSuite } from './lifecycle-suites.mjs';
 import { createManualActionPlayback } from '../../src/surfaces/pet/interaction-playback.mjs';
 import { installOffscreenImages } from '../usagi-gallery/offscreen-images.mjs';
 import { loadSource,createRenderHarness } from '../usagi-gallery/runtime-harness.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const arg=(name,fallback)=>process.argv.find(v=>v.startsWith(`--${name}=`))?.slice(name.length+3)||fallback;
+const suiteName=arg('suite','base'),suite=resolveLifecycleSuite(suiteName);
 const out=path.resolve(arg('out',path.join(root,'dist/motion-lifecycle')));fs.mkdirSync(out,{recursive:true});
 const backend=createRequire(import.meta.url)(arg('canvas-package',path.join(root,'node_modules/@napi-rs/canvas')));
 installOffscreenImages(backend);globalThis.Path2D=backend.Path2D;globalThis.document={createElement:()=>backend.createCanvas(1,1)};globalThis.window={devicePixelRatio:2};
 const source=await loadSource(pathToFileURL(root).href);
 let requestSequence=0;
 const manual=(id,formId)=>({...createManualActionPlayback(source.behaviors,id,{formId}),presentationEventId:`capture.${id}.${++requestSequence}`});
-const sourceSeal=JSON.parse(fs.readFileSync(arg('seal'),'utf8'));
+let sourceRevision='unsealed-working-tree';
+try {
+ const top=execFileSync('git',['-C',root,'rev-parse','--show-toplevel'],{encoding:'utf8',stdio:['ignore','pipe','ignore']}).trim();
+ if(path.resolve(top)===root){
+  const revision=execFileSync('git',['-C',root,'rev-parse','HEAD'],{encoding:'utf8'}).trim();
+  const dirty=execFileSync('git',['-C',root,'status','--porcelain','--untracked-files=no'],{encoding:'utf8'}).trim();
+  sourceRevision=revision+(dirty?'+dirty':'');
+ }
+} catch { /* A restored frozen snapshot need not contain .git. */ }
+const sourceSeal=arg('seal')?JSON.parse(fs.readFileSync(arg('seal'),'utf8')):{seal:null,baseCommit:null};
+if(arg('seal')&&(!/^[a-f0-9]{64}$/.test(sourceSeal.seal||'')||!/^[a-f0-9]{40}$/.test(sourceSeal.baseCommit||'')))throw new TypeError('Invalid source seal identity');
 const outfits={pink:['milestone.sunhat','milestone.scarf','milestone.satchel','milestone.cape','milestone.boots'],
  usagi:['usagi.moon-beret','usagi.paper-plane-clip','usagi.star-collar','usagi.starlit-cape','usagi.envelope-pouch','usagi.constellation','usagi.moon-boots']};
-const cases=[{id:'complete',end:11800},{id:'interrupt-hold',cut:2500,end:4700},
- {id:'interrupt-flight',cut:5500,end:7700},{id:'interrupt-catch',cut:7750,end:9950},
- {id:'reduced-midflight',calmAt:5000,resumeAt:7500,end:11800},
- {id:'pause-resume',pauseAt:4300,pauseFor:900,end:12700}];
-const index={surface:'offscreen-skia-production-renderer',sourceSeal:sourceSeal.seal,baseCommit:sourceSeal.baseCommit,
+const cases=suite.cases;
+const index={suite:suiteName,sourceRevision,surface:'offscreen-skia-production-renderer',sourceSeal:sourceSeal.seal,baseCommit:sourceSeal.baseCommit,
  toolSha256:crypto.createHash('sha256').update(fs.readFileSync(fileURLToPath(import.meta.url))).digest('hex'),
  dpr:2,bodyWidthCss:99,stageCss:219,fps:30,cases:[],limitations:['No native desktop/GPU or memory signoff.',
+ ...(!sourceSeal.seal?['No source seal supplied: local preview only, not sealed acceptance evidence.']:[]),
  'Host clock pause is replayed by repeated equal animation time; no real user profile or OS event is used.',
  'Visibility/occlusion requires pixel review; action labels alone do not prove visible equipment.',
  'requestedBehavior is currentEgg input (same renderer/state preserved across switches); observed fields are production renderer public updates/state. observedActionId is null because the renderer intentionally does not expose its transient action object.']};
-for(const skin of ['pink','usagi'])for(const dressed of [false,true])for(const scenario of cases){
+for(const skin of ['pink','usagi'])for(const dressed of suite.dressed)for(const scenario of cases){
  const name=`${skin}-${dressed?'dressed':'bare'}-${scenario.id}`,dir=path.join(out,name);fs.mkdirSync(dir,{recursive:true});
  const options={skin,dpr:2,view:'three-quarter',blink:false,outfit:dressed?outfits[skin]:[],calm:false,expressionFor:state=>source.behaviors.PET_ACTIONS[state.currentEgg?.id]?.expression || 'life.idle'};
  const h=createRenderHarness(source,options);h.select('expression','life.idle');
@@ -42,7 +53,8 @@ for(const skin of ['pink','usagi'])for(const dressed of [false,true])for(const s
   if(scenario.pauseAt&&timeMs>=scenario.pauseAt)now-=Math.min(scenario.pauseFor,timeMs-scenario.pauseAt);
   if(now>=600&&!began){h.updateState({devPreview:null,currentEgg:manual('paper-return',h.form.id),actionStartedAt:600});began=true;}
   if(scenario.cut&&now>=600+scenario.cut&&!interrupted){h.updateState({currentEgg:manual('sip-tea',h.form.id),actionStartedAt:now});interrupted=true;}
-  if(interrupted&&now>=600+scenario.cut+500&&!settled){h.updateState({currentEgg:null});settled=true;}
+  if(scenario.forceAt&&now>=scenario.forceAt&&!settled){h.updateState(scenario.force==='drag'?{currentEgg:null,state:'dragged',dragging:true}:{currentEgg:manual('wave',h.form.id),actionStartedAt:now});settled=true;}
+  if(interrupted&&now>=600+scenario.cut+suite.replacementHoldMs&&!settled){h.updateState({currentEgg:null});settled=true;}
   if(!scenario.cut&&now>=11100&&!finished){h.updateState({currentEgg:null});finished=true;}
   if(scenario.calmAt)options.calm=now>=scenario.calmAt&&now<scenario.resumeAt;
   const before=performance.now(),frame=h.draw(now),renderMs=performance.now()-before;
