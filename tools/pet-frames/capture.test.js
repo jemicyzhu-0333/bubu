@@ -24,10 +24,10 @@ test('the native frame module publishes readiness before returning its lazy capt
   try {
     const { frameCapture } = require('./frames.mjs');
     assert.equal(global.document.documentElement.dataset.captureReady, 'true');
-    assert.equal(frameCapture.total, 112);
-    assert.equal(frameCapture.plannedFrames, 545);
+    assert.equal(frameCapture.total, 113);
+    assert.equal(frameCapture.plannedFrames, 551);
     assert.equal(typeof frameCapture.prepare, 'function');
-    assert.match(status.textContent, /112/);
+    assert.match(status.textContent, /113/);
   } finally {
     if (previous === undefined) delete global.document;
     else global.document = previous;

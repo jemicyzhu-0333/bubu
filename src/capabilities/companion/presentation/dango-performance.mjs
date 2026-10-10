@@ -1,4 +1,5 @@
 'use strict';
+import { sampleGroundedMoonwalk } from './grounded-moonwalk.mjs';
 import { PART_GRIDS, BODY_ANCHORS, BODY_VERSION } from '../../../content/companion/dango-body.mjs';
 import { sampleFaceChoreography } from './face-choreography.mjs';
 const TAU = Math.PI * 2;
@@ -15,6 +16,11 @@ function sampleFeet(motion, progress, view, calmVisual, authoredAnchors = null) 
   const p = Number.isFinite(progress) ? progress : 0;
   const rate = { walk: 1, dash: 6, glide: 2, moonwalk: 3, dance: 2, sway: 1, hop: 2, umbrella: 2, wag: 3 }[motion] || 0;
   const feet = {};
+  if (motion === 'moonwalk') {
+    const pose = sampleGroundedMoonwalk(p, calmVisual);
+    return Object.freeze(Object.fromEntries(['foot-left', 'foot-right'].map((id, i) =>
+      [id, calmVisual ? IDENTITY : footMatrix(anchors[id], pose.feet[i])])));
+  }
   for (const [index, side] of ['foot-left', 'foot-right'].entries()) {
     let x = 0, y = 0, r = 0;
     if (!calmVisual && rate) {

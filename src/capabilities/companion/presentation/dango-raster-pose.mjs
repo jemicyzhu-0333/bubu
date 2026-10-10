@@ -1,5 +1,7 @@
 'use strict';
 
+import { paperReturnFace } from './paper-return-story.mjs';
+import { refinePaperReturn } from './dango-paper-return.mjs';
 import { bodyOffset } from '../../../core/pet-action-art.mjs';
 import { sampleVectorAction } from '../../../core/pet-action-vector.mjs';
 import { sampleFeet, footMatrix } from './dango-performance.mjs';
@@ -42,6 +44,7 @@ function sampleRasterPose(data, { view = 'front', motion = 'idle', action = null
     progress: p, elapsedMs: frozen ? 0 : elapsedMs,
     calmVisual: frozen, expressionId, expressionElapsedMs: frozen ? 0 : expressionElapsedMs };
   let sampledFace = sampleDangoFace(face || { eyes: 'neutral', mouth: 'neutral' }, faceOptions);
+  sampledFace = paperReturnFace(sampledFace, faceOptions) || sampledFace;
   const expected = action?.baseExpression || action?.expression;
   const activityWins = !expressionId || !expected || expressionId === expected;
   if (activityWins && mirror) sampledFace = Object.freeze({ ...sampledFace, eyes: 'neutral', mouth: 'neutral',
@@ -80,6 +83,7 @@ function sampleRasterPose(data, { view = 'front', motion = 'idle', action = null
     }
   }
   const groundShift = motion === 'pushup' && action ? bodyOffset(action, p, { calmVisual: frozen }).y * (action.id === 'workout' ? .45 : 1) : 0;
+  refinePaperReturn(contact, action, p, toolSprites);
   refineSmallPawContact(contact, action, view, toolSprites, groundShift);
   refineMirrorContact(contact, action, view, toolSprites, mirror);
   contact = appendCombinationAccessories(contact, action, view, toolSprites);
@@ -116,7 +120,7 @@ function sampleRasterPose(data, { view = 'front', motion = 'idle', action = null
     detail.amount = lookback.cue; detail.at = [-1, 8];
   }
   const feet = mirrorFeet(data.anchors, mirror) || (motion === 'dash' ? sampleRasterRunningFeet(data, p, frozen, runFootTiming)
-    : sampleFeet(walking || action?.id === 'carry-energy' ? 'walk' : motion,
+    : sampleFeet(walking || action?.id === 'carry-energy' ? 'walk' : action?.id === 'paper-return' ? 'idle' : motion,
       walking ? elapsedMs % 760 / 760 : p, view, frozen || Boolean(lookback), data.anchors));
   const matrices = {};
   for (const [side, bone] of [['left', 'ear_l'], ['right', 'ear_r']]) {

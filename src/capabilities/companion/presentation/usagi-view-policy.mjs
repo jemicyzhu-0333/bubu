@@ -9,6 +9,9 @@ function resolveUsagiView(requested, options = {}) {
   if (['mirror-music', 'mirror-ai'].includes(options.action?.id)) {
     return ['front', 'three-quarter'].includes(requested) ? requested : 'front';
   }
+  if (options.action?.id === 'paper-return') {
+    return ['front', 'three-quarter'].includes(requested) ? requested : 'three-quarter';
+  }
   const motion = options.action?.viewMotion || options.action?.motion;
   let allowed = VIEWS, preferred = derivePetView(options);
   if (FRONT.has(motion)) { allowed = ['front']; preferred = 'front'; }

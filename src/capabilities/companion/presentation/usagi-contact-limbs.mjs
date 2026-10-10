@@ -16,7 +16,8 @@ function extendedReleaseHand(artwork, side) {
 function expandedContactPaw(sample, side, artwork) {
   if (!sample || sample.contactAction === 'rest-nap') return false;
   const has = id => sample.props.includes(id);
-  return (has('book') && ['read', 'organize', 'breathe'].includes(sample.motion))
+  return (sample.contactAction === 'paper-return' && side === 'r')
+    || (has('book') && ['read', 'organize', 'breathe'].includes(sample.motion))
     || (['paper', 'notes', 'chart'].some(has) && ['write', 'read', 'organize', 'trade'].includes(sample.motion))
     || (has('keyboard') && sample.motion === 'type')
     || (has('laptop') && (['browse', 'organize'].includes(sample.motion)

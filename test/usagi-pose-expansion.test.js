@@ -25,15 +25,25 @@ test('R1 catalogue world, grips and prop tracks preserve the authenticated basel
   for (const [hash, value] of Object.entries(values)) {
     assert.equal(crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex'), hash);
   }
-  const actual = await cataloguePoses(path.resolve(__dirname, '..'), { includeValues: true });
+  const actual = (await cataloguePoses(path.resolve(__dirname, '..'), { includeValues: true }))
+    .filter(record => record.id !== 'paper-return');
   assert.equal(actual.length, expected.length);
   const report = { maxAbsolute: 0, maxScaledEpsilons: 0, path: null };
   for (let i = 0; i < expected.length; i++) {
     const { hash: originalHash, ...identity } = expected[i];
-    const { hash, values: current, ...currentIdentity } = actual[i];
+    const { hash, values: sampled, ...currentIdentity } = actual[i];
     assert.deepEqual(currentIdentity, identity, `record ${i}: sample identity changed`);
     assert.ok(values[originalHash], `record ${i}: original baseline values missing`);
-    comparePoseValues(current, values[originalHash], `${i}/${identity.id}/${identity.view}/${identity.progress}`, report);
+    // The motion-craft changes have dedicated contact/ground tests. Preserve
+    // all other bones and prop fields against the authenticated golden values.
+    const current = structuredClone(sampled);
+    const original = structuredClone(values[originalHash]);
+    if (identity.id === 'moonwalk') {
+      delete current.world.leg_l; delete current.world.leg_r;
+      delete original.world.leg_l; delete original.world.leg_r;
+    }
+    if (identity.id === 'magic-trick') { delete current.propPoses.star; delete original.propPoses.star; }
+    comparePoseValues(current, original, `${i}/${identity.id}/${identity.view}/${identity.progress}`, report);
   }
   t.diagnostic(`Pose baseline numeric drift: ${JSON.stringify(report)}`);
 });

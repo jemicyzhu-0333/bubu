@@ -1,5 +1,6 @@
 'use strict';
 
+import { paperReturnFace } from './paper-return-story.mjs';
 import { combinationAccessory, quietAccessorySample } from './combination-accessories.mjs';
 import support from './usagi-support.mjs';
 import { SKINS } from '../../../skins.mjs';
@@ -34,7 +35,7 @@ function resolveArtwork({ view, motion, face, calmVisual, progress, elapsedMs, c
   expressionId, expressionElapsedMs, appearance: outfit } = {}) {
   const rig = rigSource.get();
   const timing = { action, motion, progress, elapsedMs, calmVisual, expressionId, expressionElapsedMs };
-  const animatedFace = sampleUsagiEventFace(face, timing)
+  const animatedFace = paperReturnFace(face, timing) || sampleUsagiEventFace(face, timing)
     || sampleUsagiFaceTiming(sampleFaceChoreography(face, timing), face, timing);
   if (rig) {
     // The selected headwear owns the head. This gate does not depend on image

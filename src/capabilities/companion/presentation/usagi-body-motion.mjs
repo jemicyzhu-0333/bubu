@@ -1,4 +1,5 @@
 'use strict';
+import { sampleGroundedMoonwalk } from './grounded-moonwalk.mjs';
 import { sampleUsagiFall } from './usagi-ground.mjs';
 import { sampleUsagiEventBody } from './usagi-event-actions.mjs';
 const TAU = Math.PI * 2;
@@ -18,7 +19,7 @@ function sampleBodyMotion(motion, progress) {
     case 'spin': x = s * 2; y = -lift * 2.5; r = TAU * ease(p); break;
     case 'dash': x = s * 5; y = -Math.abs(Math.sin(TAU * p * 3)) * 2; r = s * .055; break;
     case 'glide': x = s * 5; y = -lift * 3; r = s * .07; break;
-    case 'moonwalk': x = -s * 5; y = -Math.abs(Math.sin(TAU * p * 2)) * .8; r = -s * .035; break;
+    case 'moonwalk': x = sampleGroundedMoonwalk(p).x; break;
     case 'float': x = s * 2; y = -lift * 4; r = s * .045; break;
     case 'carry': x = s * 1.3; y = Math.abs(Math.sin(TAU * p * 2)) * 1; r = s * .035; break;
     case 'stretch': y = -lift * 1.7; sx = 1 - lift * .025; sy = 1 + lift * .035; break;
@@ -41,12 +42,12 @@ function sampleBodyMotion(motion, progress) {
   return Object.freeze({ x, y, r, sx, sy });
 }
 function motionOffset(motion, progress, calmVisual, { action } = {}) {
-  if (calmVisual) return { x: 0, y: 0 };
+  if (calmVisual || action?.id === 'paper-return') return { x: 0, y: 0 };
   const { x, y } = sampleUsagiEventBody(action, progress, calmVisual) || sampleBodyMotion(motion, progress);
   return { x, y };
 }
 function applyMotionTransform(ctx, motion, progress, { calmVisual, size, translate, action }) {
-  if (calmVisual) return;
+  if (calmVisual || action?.id === 'paper-return') return;
   const pose = sampleUsagiEventBody(action, progress, calmVisual) || sampleBodyMotion(motion, progress);
   const move = translate || ((x, y) => ctx.translate(x, y));
   move(size / 2, size / 2);

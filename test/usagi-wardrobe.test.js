@@ -81,8 +81,8 @@ function paint(item, view, motion = 'idle', progress = 0, calmVisual = false) {
   return { ctx, artwork };
 }
 
-test('Usagi has twenty-five distinct choices in seven independent ordered slots', () => {
-  assert.equal(items.length, 25);
+test('Usagi has twenty-seven distinct choices in seven independent ordered slots', () => {
+  assert.equal(items.length, 27);
   assert.equal(new Set(items.map(item => item.label)).size, items.length);
   assert.equal(form.supportedSlots.length, 7);
   for (const item of items) {
@@ -214,7 +214,7 @@ test('hat and ear-clasp pairs retain separation or explicit near-ear profile occ
     }
     const head = extent(hat, view), ear = extent(clip, view);
     assert.ok(head.right < ear.left || ear.right < head.left || head.bottom < ear.top || ear.bottom < head.top,
-      `${hat.id} + ${clip.id}@${view} keep the headwear and earwear spaces separate`);
+      `${hat.id} + ${clip.id}@${view} keep the headwear and earwear spaces separate ${JSON.stringify({head,ear})}`);
   }
 });
 

@@ -1,5 +1,7 @@
 'use strict';
 
+import { sampleGroundedMoonwalk } from './grounded-moonwalk.mjs';
+
 import { createDangoRunSample } from './clips/dango-run-sample.mjs';
 import { PALETTES } from '../../../core/pet-art.mjs';
 import petActionArt from '../../../core/pet-action-art.mjs';
@@ -203,6 +205,8 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
     return true;
   }
   function motionOffset(motion, progress, calmVisual, options = {}) {
+    if (options.action?.id === 'paper-return') return { x: 0, y: 0 };
+    if (motion === 'moonwalk') return { x: sampleGroundedMoonwalk(progress, calmVisual).x, y: 0 };
     const mirror = sampleRasterMirror(options.action, progress, calmVisual || options.reducedMotion || options.state === 'dragged');
     if (mirror) return Object.freeze({ x: 0, y: mirror.nod });
     if (motion === 'dash' && options.state === 'dragged') return Object.freeze({ x: 0, y: 0 });
@@ -213,7 +217,8 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
   function applyMotionTransform(context, motion, progress, options = {}) {
     const mirror = options.artwork?.mirror || sampleRasterMirror(options.action, progress, options.calmVisual || options.reducedMotion || options.state === 'dragged');
     if (mirror) { context.rotate(mirror.tilt); return; }
-    if (options.artwork?.clip || hasRasterLookback(options.action) || motion === 'pushup') return;
+    if (options.action?.id === 'paper-return') return;
+    if (options.artwork?.clip || hasRasterLookback(options.action) || ['pushup', 'moonwalk'].includes(motion)) return;
     if (motion === 'dash') return applyRunningTransform(context, progress,
       { ...options, calmVisual: options.calmVisual || options.state === 'dragged' });
     return petActionArt.applyBodyTransform(context, options.action, progress, options);

@@ -1,3 +1,4 @@
+import { bodyStateOffset, resolveActionBodyPose } from './body-presentation.mjs';
 'use strict';
 
 import petExpression from '../../core/pet-expression.mjs';
@@ -9,7 +10,7 @@ import petMotion from '../../core/pet-motion.mjs';
 import { resolveActionEffectVisual } from '../../core/pet-effect-visuals.mjs';
 import { forms, formArt } from '../../capabilities/companion/index.mjs';
 import { copyFrameData, freezeFrameData } from './frame-context.mjs';
-import { createActionPlayback, resolvePlaybackAccent, resolveMirrorBodyPose } from './action-playback.mjs';
+import { createActionPlayback, resolvePlaybackAccent } from './action-playback.mjs';
 import { createSleepTransition } from './sleep-transition.mjs';
 import { contextMirrorBlocked } from './context-emphasis.mjs';
 import { projectEffectOrigins } from './effect-origin.mjs';
@@ -187,12 +188,8 @@ function drawPet() {
   runtimeState.currentActionProgress = actionT;
   runtimeState.currentRenderedAction = actionConfig;
 
-  if (runtimeState.state === 'sleeping') offY += 4;
-  else if (runtimeState.state === 'resting') offY += 6;
-  else if (runtimeState.state === 'celebrating' && !calmVisual) offY -= Math.abs(Math.sin(legacyFrames * 0.4)) * 8;
-  else if (runtimeState.state === 'walking' && !calmVisual) offY += Math.abs(Math.sin(legacyFrames * 0.3)) * 2;
-  else if (runtimeState.state === 'dragged') { /* 拖动中不加任何抖动：跟手比好看重要 */ }
-  else if (!(form.id === 'dango' && actionConfig?.motion === 'pushup')) offY += bob;
+  offY += bodyStateOffset({ state: runtimeState.state, formId: form.id, action: actionConfig,
+    calmVisual, legacyFrames, bob, expressionId: selectedExpression ?? previewConfig?.expression, source: presentationSource });
 
   // Every behavior owns a body motion; overlays are supporting details rather
   // than the whole animation, so the companion itself stays expressive.
@@ -288,7 +285,7 @@ function drawPet() {
     facePose = { eyes: 'neutral', mouth: 'neutral', eyeOffsetX: 0, eyeOffsetY: 0, eyeInsetX: 0, openness: 1 };
     bodyPose = null;
   }
-  bodyPose = resolveMirrorBodyPose(bodyPose, { action: actionConfig, expressionId: exprId, source: presentationSource });
+  bodyPose = resolveActionBodyPose(bodyPose, { action: actionConfig, expressionId: exprId, source: presentationSource });
   facePose = formArt.faceForView(form, facePose, view);
 
   // 注视与交互反馈：用真实步长推进弹簧，再作用到脸/身体。

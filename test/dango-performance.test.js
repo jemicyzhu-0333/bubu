@@ -27,7 +27,7 @@ test('authored foot pivots rotate in place and locomotion alternates bounded ind
       assert.ok(seen.size > 40, `${motion}/${view} must articulate over time`);
       assert.deepEqual(sampleFeet(motion, .37, view, true), { 'foot-left': IDENTITY, 'foot-right': IDENTITY });
     }
-    const feet = sampleFeet('moonwalk', .08, view, false);
+    const feet = sampleFeet('moonwalk', .17, view, false);
     const left = at(feet['foot-left'], anchors['foot-left'])[0] - anchors['foot-left'].x;
     const right = at(feet['foot-right'], anchors['foot-right'])[0] - anchors['foot-right'].x;
     assert.ok(left * right < 0, 'feet slide in opposite directions');

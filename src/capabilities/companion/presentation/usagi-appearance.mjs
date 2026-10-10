@@ -1,5 +1,6 @@
 'use strict';
 
+import { paperPlaneClip, compassClip } from './usagi-messenger-clips.mjs';
 import { IDENTITY, multiply } from './rig/pose.mjs';
 
 // Native vector wardrobe, in the same cream-bunny scale and cocoa ink as the
@@ -176,6 +177,8 @@ function footwear(ctx, { artwork, anchor, view }, drawBoot = boot) {
 
 const PAINTERS = Object.freeze({
   ...SEASONAL_PAINTERS,
+  'usagi-paper-plane-clip': paperPlaneClip,
+  'usagi-compass-clip': compassClip,
   'usagi-ear-bow': earBow,
   'usagi-star-collar': collar,
   'usagi-travel-cape': cape,

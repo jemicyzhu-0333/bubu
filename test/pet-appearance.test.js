@@ -45,7 +45,7 @@ test('appearance content is a closed layered slot registry', () => {
   const result = validateAppearanceItems(PET_APPEARANCE_ITEMS);
   assert.equal(result.total, PET_APPEARANCE_ITEMS.length);
   assert.equal(PIXEL_ITEMS.length, 16);
-  assert.equal(result.total, 41);
+  assert.equal(result.total, 43);
   assert.ok(PET_APPEARANCE_ITEMS.every(item => item.views.includes('front')));
   assert.ok(PET_APPEARANCE_ITEMS.every(item => item.anchor && item.anchor.profile));
   assert.ok(PET_APPEARANCE_ITEMS.every(item => item.bleed && item.bleed.top >= 0));
@@ -120,6 +120,7 @@ test('每个动作的视图归属都是显式决定的（穷举表，不得默�
     'chase-laser': 'profile',
     moonwalk: 'profile',
     'paper-plane': 'profile',
+    'paper-return': 'profile',
     'carry-energy': 'profile',
     'dig-treasure': 'profile',
     'plant-water': 'profile',

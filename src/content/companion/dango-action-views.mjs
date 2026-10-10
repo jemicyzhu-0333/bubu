@@ -32,6 +32,7 @@ const DANGO_ACTION_VIEWS = Object.freeze({
   'type-keyboard': facing(),
   'sip-tea': facing(),
   'paper-plane': facing('three-quarter'),
+  'paper-return': facing('three-quarter', ['front', 'three-quarter']),
   sweep: facing('three-quarter'),
   'magic-trick': facing('front', ['front']),
   telescope: facing('three-quarter', ['three-quarter']),

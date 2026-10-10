@@ -189,7 +189,7 @@ test('the three original Usagi accessories remain wearable at level one while ne
 
 test('each new Usagi option unlocks at its own exact level and a refused request cannot overwrite the outfit', () => {
   const additions = PET_APPEARANCE_ITEMS.filter(item => item.formId === 'usagi' && item.unlockKind === 'level');
-  assert.equal(additions.length, 22);
+  assert.equal(additions.length, 24);
   for (const item of additions) {
     const state = draft({ level: item.minLevel - 1, currentSkin: 'usagi', unlockedSkins: ['pink'] });
     equip(state, 'usagi.earwear', 'usagi.ear-bow');

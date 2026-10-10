@@ -178,12 +178,25 @@ test('每帧的身体位移不会把身体本体推出画布', () => {
   const drawPet = sourceBetween(petSource, 'function drawPet(', 'pctx.clearRect(0, 0, size, size)');
 
   const offsets = [...drawPet.matchAll(/off([XY])\s*([+-])=\s*([^;]+);/g)];
-  assert.ok(offsets.length >= 7, `只解析到 ${offsets.length} 处 renderer 身体位移，扫描器与源码已经脱节`);
+  assert.ok(offsets.length >= 3, `只解析到 ${offsets.length} 处 renderer 身体位移，扫描器与源码已经脱节`);
 
   let minX = 0, maxX = 0, minY = 0, maxY = 0;
   for (const [, axis, sign, expression] of offsets) {
     // 特殊动作位移由下方对共享 action layer 的全量数值扫描覆盖。
     if (expression.trim().startsWith('actionOffset.')) continue;
+    if (expression.trim().startsWith('bodyStateOffset(')) {
+      // The extracted production module is sampled across its actual states;
+      // source-text expression evaluation no longer represents these branches.
+      const { bodyStateOffset } = require('../src/surfaces/pet/body-presentation.mjs');
+      for (const state of ['idle','sleeping','resting','celebrating','walking','dragged'])
+        for (const formId of ['dango','usagi']) for (const calmVisual of [false,true])
+          for (let frame = 0; frame <= 400; frame++) {
+            const value = bodyStateOffset({ state, formId, calmVisual, legacyFrames: frame / 2,
+              bob: calmVisual ? 0 : Math.round(Math.sin(frame / 2 * .15) * 2) });
+            assert.ok(Number.isFinite(value));minY = Math.min(minY, value);maxY = Math.max(maxY, value);
+          }
+      continue;
+    }
     const range = expressionRange(expression);
     assert.ok(range, `无法求值的身体位移表达式：${expression}`);
     const low = sign === '+' ? range.min : -range.max;
