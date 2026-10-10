@@ -7,10 +7,10 @@ const root = path.resolve(__dirname, '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 const json = file => JSON.parse(read(file));
 const releaseRoot = 'https://github.com/jemicyzhu-0333/bubu/releases';
-const releaseTag = 'v0.0.2-dev.3';
+const releaseTag = 'v0.0.2-dev.4';
 const filenames = {
-  windows: 'bubu-0.0.2-dev.3-win-x64.exe',
-  mac: 'bubu-0.0.2-dev.3-mac-arm64-adhoc-test.dmg',
+  windows: 'bubu-0.0.2-dev.4-win-x64.exe',
+  mac: 'bubu-0.0.2-dev.4-mac-arm64-adhoc-test.dmg',
   checksums: 'SHA256SUMS.txt',
 };
 const urlFor = name => `${releaseRoot}/download/${releaseTag}/${filenames[name]}`;
@@ -38,7 +38,7 @@ test('published site offers exactly the verified installers and checksum file wi
     const tag = tags[0];
     assert.equal(attribute(tag, 'href'), urlFor(platform));
     assert.equal(attribute(tag, 'data-release-state'), 'verified');
-    assert.equal(attribute(tag, 'data-release-version'), '0.0.2-dev.3');
+    assert.equal(attribute(tag, 'data-release-version'), '0.0.2-dev.4');
     assert.doesNotMatch(tag, /\s(?:aria-disabled|disabled|hidden)(?:=|\s|>)/);
     assert.doesNotMatch(tag, /tabindex="-\d+"/);
     if (platform === 'mac') assert.equal(attribute(tag, 'aria-describedby'), 'mac-warning');
@@ -53,7 +53,7 @@ test('published site offers exactly the verified installers and checksum file wi
 test('published site keeps concise signing, upgrade and manual-update cautions', () => {
   const html = read('website/public/index.html');
   for (const text of [
-    'Testing preview: 0.0.2-dev.3.', 'Release tag: v0.0.2-dev.3.',
+    'Testing preview: 0.0.2-dev.4.', 'Release tag: v0.0.2-dev.4.',
     'Unsigned; SmartScreen may warn or block installation.',
     'Ad-hoc signed, without Developer ID or notarization.',
     "Gatekeeper's local distribution assessment rejects this build.",
@@ -73,6 +73,11 @@ test('published site keeps concise signing, upgrade and manual-update cautions',
 test('validation keeps the original artifact provenance and unproven trust and recovery limits', () => {
   const text = read('docs/VALIDATION.md');
   for (const fact of [
+    'e3e1e2a647be618eb2e11cf6dbdb9f607a73a917',
+    'https://github.com/jemicyzhu-0333/bubu/actions/runs/38048314336',
+    '136201500', '148884509',
+    'f238578de2b5c0b3983cd73760819d91108f0ef4d8f6af68b353fe8a860b7447',
+    '6f0df9133219b55b4560889b239759b2cf7f387fd78bc9ec8bc5f27b3de391c1',
     '1112b47abdcf96c6a772f03ac7b599cdccf0f993',
     'https://github.com/jemicyzhu-0333/bubu/actions/runs/38035697902',
     '136172193', '148843050',
@@ -98,9 +103,10 @@ test('English and Chinese setup docs agree on the exact published links and pres
   for (const filename of ['README.md', 'README.zh-CN.md']) {
     const text = read(filename);
     for (const url of Object.keys(filenames).map(urlFor)) assert.ok(text.includes(url), `${filename}: missing ${url}`);
-    for (const tag of [releaseTag, 'v0.0.2-dev.2', 'v0.0.2-dev.1', 'v0.0.1-dev-r4', 'v0.0.1-dev-r3', 'v0.0.1-dev-r2', 'v0.0.1-dev']) {
+    for (const tag of [releaseTag, 'v0.0.2-dev.3', 'v0.0.2-dev.2', 'v0.0.2-dev.1', 'v0.0.1-dev-r4', 'v0.0.1-dev-r3', 'v0.0.1-dev-r2', 'v0.0.1-dev']) {
       assert.ok(text.includes(`${releaseRoot}/tag/${tag}`), `${filename}: missing historical/current release ${tag}`);
     }
+    assert.ok(text.includes('docs/VALIDATION.md#002-dev4-已发布测试包的证据边界'));
     assert.ok(text.includes('docs/VALIDATION.md#002-dev3-已发布测试包的证据边界'));
     assert.ok(text.includes('docs/VALIDATION.md#002-dev2-已发布测试包的证据边界'));
     assert.ok(text.includes('docs/VALIDATION.md#002-dev1-已发布测试包的证据边界'));

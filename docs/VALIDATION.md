@@ -141,6 +141,23 @@ macOS 构建门禁必须对产出 app 和 DMG 复制出的 app 分别执行 `cod
 
 已有有限 Linux 原生运行观察覆盖新测试档案中的任务/步骤、首步成长、暂停/恢复、多窗口可见投影、部分形态/穿戴与喂食，以及一次正常退出后的同档可见状态恢复。这不是完整 SQL 字段、全部配饰、到期结算、异常终止或目标平台安装验收。
 
+### 0.0.2-dev.4 已发布测试包的证据边界
+
+[v0.0.2-dev.4](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.4) 指向 `e3e1e2a647be618eb2e11cf6dbdb9f607a73a917`，为已公开的 prerelease。安装包来自[双端 run 38048314336（#24）](https://github.com/jemicyzhu-0333/bubu/actions/runs/38048314336) attempt 1 的原始 artifact；Windows x64 与 macOS arm64 两个 job 均通过，未重新打包。原始 Actions ZIP 官方 digest、解包安装包 SHA-256 与 CI 记录一致；2026-10-10 对公开 EXE、DMG 与 SHA256SUMS.txt 的匿名完整下载均返回 HTTP 200，字节数与 SHA-256 和原始产物一致。
+
+| 原始安装包 | 字节数 | SHA-256 |
+| --- | ---: | --- |
+| `bubu-0.0.2-dev.4-win-x64.exe` | 136201500 | `f238578de2b5c0b3983cd73760819d91108f0ef4d8f6af68b353fe8a860b7447` |
+| `bubu-0.0.2-dev.4-mac-arm64-adhoc-test.dmg` | 148884509 | `6f0df9133219b55b4560889b239759b2cf7f387fd78bc9ec8bc5f27b3de391c1` |
+
+- Windows 实际 NSIS 安装、Mac DMG 安装副本直接启动均通过；两端真正空目录首次启动、可见本地窗口就绪、正常退出与原档持久化重开通过，BUBU 身份、READY、schema19 与 authority 连续性已核验。Mac 包与安装副本的严格代码签名完整性通过。
+- 两端独立合成 BUBU18 升级的同意前/取消检查、完整私有备份、原生 Windows DACL / POSIX 权限、备份副本重开、仅 schemaVersion/locale/theme 的添加式变化与升级档独立重开通过。它不证明真实用户档案恢复。确认框端口被精确注入，测试子进程的 app.relaunch 被记录并抑制；真人确认框交互、辅助技术、原生自动重启、真实凭据及系统信任警告接受仍未证明。
+- 本轮包含界面简化、日常/任务/随手记交互修复、成长与套装呈现、AI 工具状态灯及分拣运行/原因反馈。公开截图为此前的代表性 Linux 界面，不是本次所有界面的截图或 Windows/macOS 人工 UI 验收。真实 Provider、真人输入/IME、Mac 网易云真实播放检测等未由本次安装门禁证明。
+- 两端测试包显式具备 AI 诊断能力，记录默认关闭，需本人开启 30 分钟本机内存会话；停止、到期、退出或授权撤回清空。只覆盖新的一次性分拣、能量、拆解、补全和卡点运行；持续聊天协作及精确能量贡献尚未覆盖。不展示隐藏推理、不追加模型调用、不自动落盘或上传，只可主动导出无正文元数据。现有能量和情绪语义未改变。
+- Windows 未签名，SmartScreen 可能警告或阻止安装。Mac 为 ad-hoc，无 Developer ID/公证；本次 Gatekeeper 策略确认启用后，本地 `spctl` 分发评估拒绝此包。浏览器下载/Finder 接受未验证，验证未添加或移除隔离标记；请勿关闭系统安全保护或移除隔离标记来安装。
+- 仍只支持完整有效 BUBU18 经明确确认及完整私有备份后的 schema19 升级；旧品牌、无标记、损坏、孤立及其他不支持档案继续拒绝。仅支持 schema18 的旧版无法打开 schema19；备份仅可离线核验后解出到尚不存在的新目录，不自动回滚或切换活跃档案。testing-updates 未包含，应用内检查/自动安装更新未启用，安装与更新均手动进行。
+- 以下 dev.3、dev.2、dev.1 与 r4 诊断是历史证据，不能代替本次源码验收；PET12 等开放项继续保留。
+
 ### 0.0.2-dev.3 已发布测试包的证据边界
 
 [v0.0.2-dev.3](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.3) 指向 `1112b47abdcf96c6a772f03ac7b599cdccf0f993`。安装包来自[双端 run 38035697902](https://github.com/jemicyzhu-0333/bubu/actions/runs/38035697902) attempt 1 的原始 artifact；Windows x64 与 macOS arm64 两个 job 均通过，未重新打包。公开 EXE、DMG 与 SHA256SUMS.txt 已通过匿名完整下载核验，与原始产物一致。
