@@ -179,7 +179,7 @@ export const EN = Object.freeze({
   "伙伴与动效": "Companion and motion",
   "小步": "bubu",
   "像素兽": "Pixel companion",
-  "小步 v0.0.2-dev.3": "bubu v0.0.2-dev.3",
+  "小步 v0.0.2-dev.4": "bubu v0.0.2-dev.4",
   "现在": "Now",
   "安排": "Plan",
   "回顾": "Review",

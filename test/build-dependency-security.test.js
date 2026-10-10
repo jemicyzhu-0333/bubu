@@ -38,7 +38,7 @@ test('packaging uses the pinned upstream fetch downloader without vulnerable leg
   assert.equal(pkg.dependencies['electron-updater'], '6.8.10');
   assert.equal(lock.packages['node_modules/electron-updater'].version, '6.8.10');
   assert.equal(pkg.overrides, undefined, 'security fixes must come from upstream dependencies');
-  assert.equal(pkg.version, '0.0.2-dev.3');
+  assert.equal(pkg.version, '0.0.2-dev.4');
   assert.equal(lock.version, pkg.version);
   assert.equal(lock.packages[''].version, pkg.version);
 });
@@ -55,6 +55,9 @@ test('manual native CI validates installed dependencies before producing unsigne
     assert.ok(workflow.indexOf(command) >= 0, `missing native CI gate: ${command}`);
     assert.ok(workflow.indexOf(command) < workflow.indexOf('run: npm run build:'), `gate runs after packaging: ${command}`);
   }
-  assert.match(workflow, /npm run verify:mac-app/);
+  assert.ok(workflow.includes('run: npm run build:${{ matrix.platform }} -- --${{ matrix.arch }} --test-diagnostics'));
+  assert.match(workflow, /npm run verify:mac-app -- --test-diagnostics/);
+  assert.match(workflow, /npm run verify:win-install/);
+  assert.match(workflow, /npm run verify:mac-install/);
   assert.match(workflow, /CSC_IDENTITY_AUTO_DISCOVERY: 'false'/);
 });
