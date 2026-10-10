@@ -34,13 +34,14 @@ test('closed fresh authority validates brand, binding and canonical persisted st
     assert.deepEqual(fs.readFileSync(identity), bytes);
   } finally { fs.rmSync(profile.root, { recursive: true, force: true }); }
 });
-function launchPorts({ startupError = false, noWindow = false, abnormalExit = false } = {}) {
+function launchPorts({ startupError = false, noWindow = false, abnormalExit = false, defaultProfile = false } = {}) {
   let profile, child, launches = 0, killed = 0;
   const ports = {
+    profileArgument: !defaultProfile,
     createProfile() { profile = createEmptyProfile(); return profile; },
     spawnChild(executable, argv, options) {
       assert.equal(executable, '/synthetic-installed/bubu');
-      assert.deepEqual(argv, [`--user-data-dir=${profile.userDataPath}`, '--inspect=127.0.0.1:0']);
+      assert.deepEqual(argv, [...(defaultProfile ? [] : [`--user-data-dir=${profile.userDataPath}`]), '--inspect=127.0.0.1:0']);
       assert.equal(Object.keys(options.env).some(name => name.toUpperCase() === 'ELECTRON_RUN_AS_NODE'), false);
       if (launches++ === 0) {
         assert.deepEqual(fs.readdirSync(profile.userDataPath), []);
@@ -58,6 +59,8 @@ function launchPorts({ startupError = false, noWindow = false, abnormalExit = fa
     },
     async connect() { return {
       async evaluate(expression) {
+        if (expression.includes("hasSwitch('user-data-dir')")) return !defaultProfile;
+        if (expression.includes("getPath('userData')")) return profile.userDataPath;
         if (expression.includes('app.quit')) { child.emit('close', abnormalExit ? 1 : 0, null); return true; }
         return !noWindow;
       }, close() {}
@@ -72,6 +75,14 @@ test('installed launch and reopen use the same unseeded profile, normal exit, th
   assert.equal(report.firstLaunch.visibleLocalWindowReady, true);
   assert.equal(report.reopen.normalExit, true);
   assert.equal(fs.existsSync(fixture.profile.root), false);
+});
+test('default-profile probe omits the override and verifies the native selected path on both launches', async () => {
+  const fixture = launchPorts({ defaultProfile: true });
+  const report = await verifyFreshLaunch('/synthetic-installed/bubu', fixture.ports);
+  assert.equal(fixture.launches, 2);
+  assert.equal(report.firstLaunch.userDataOverrideSwitch, false);
+  assert.equal(report.reopen.userDataOverrideSwitch, false);
+  assert.match(report.firstLaunch.acceptance, /native default profile/);
 });
 for (const [name, options] of [['startup error dialog', { startupError: true }], ['missing UI readiness', { noWindow: true }], ['nonzero exit', { abnormalExit: true }]]) {
   test(`installed launch rejects ${name} and never reports reopening success`, async () => {
@@ -116,10 +127,16 @@ test('NSIS verifier installs the actual exe, launches the installed target and u
         }
       },
       async launch(file) { assert.equal(file, path.join(installed, 'bubu.exe')); calls.push('launch'); return { firstLaunch: { normalExit: true }, reopen: { normalExit: true } }; },
+      async defaultProfile(file, options) {
+        assert.equal(file, path.join(installed, 'bubu.exe')); assert.equal(options.platform, 'win32');
+        calls.push('default-profile'); return { result: 'synthetic-default-profile-passed' };
+      },
       async upgrade(file) { assert.equal(file, path.join(installed, 'bubu.exe')); calls.push('upgrade'); return { result: 'passed' }; },
       log() {}
     });
-    assert.equal(report.result, 'passed'); assert.equal(calls.length, 4); assert.equal(calls[1], 'launch'); assert.equal(calls[2], 'upgrade');
+    assert.equal(report.result, 'passed'); assert.equal(calls.length, 5); assert.equal(calls[1], 'launch');
+    assert.equal(calls[2], 'default-profile'); assert.equal(calls[3], 'upgrade');
+    assert.equal(report.defaultProfiles.result, 'synthetic-default-profile-passed');
     assert.equal(fs.existsSync(installed), false);
   } finally { fs.rmSync(root, { recursive: true, force: true }); }
 });

@@ -6,6 +6,7 @@ const { createHash } = require('node:crypto');
 const { verifyProbePermissions, createProbeWaitBudget } = require('./config-admission-permissions');
 const { readIdentity } = require('./config-authority-identity');
 const { readAuthoritySnapshot, verifyEvidence } = require('./config-authority-schema');
+const { admitsWindowsRuntimeCache, runtimeTopNames } = require('./config-runtime-cache-admission');
 
 // An admission probe, not a backup/restore service. The caller owns the profile's
 // instance lock and must keep the source quiescent (ARCHITECTURE「持久化与迁移」).
@@ -113,7 +114,7 @@ function validateProbe({ filePath, identityPath, io, driver, makeHandle, prepare
   return initial;
 }
 
-function admitFreshDirectory(io, directory, platform) {
+function admitFreshDirectory(io, directory, platform, inspectRuntimeTree) {
   const current = stat(io, directory);
   if (!current) return;
   if (!current.isDirectory()) throw fail('config-admission-file-invalid');
@@ -132,18 +133,20 @@ function admitFreshDirectory(io, directory, platform) {
     return member?.isFile() === true && member.size === 0n;
   };
   if (names.some(name => !isRuntimeLock(name))) {
+    if (platform === 'win32' && runtimeTopNames(names)
+      && admitsWindowsRuntimeCache(directory, { io, platform, inspectRuntimeTree })) return;
     const error = fail('config-profile-brand-required');
     error.message += ': Select a new empty profile directory for bubu; this directory contains unbound data.';
     throw error;
   }
 }
 
-function admitConfigCopy({ filePath, identityPath, io = fs, prepareInitial, validateCurrent }, { driver, makeHandle, verifyPermissions = verifyProbePermissions, platform = process.platform }) {
+function admitConfigCopy({ filePath, identityPath, io = fs, prepareInitial, validateCurrent }, { driver, makeHandle, verifyPermissions = verifyProbePermissions, platform = process.platform, inspectRuntimeTree }) {
   const members = [filePath, identityPath].flatMap((source, index) => suffixes.map(suffix => ({
     source: source + suffix, index, suffix, stat: regular(io, source + suffix)
   })));
   if (!members.some(member => member.stat)) {
-    for (const directory of new Set([path.dirname(filePath), path.dirname(identityPath)])) admitFreshDirectory(io, directory, platform);
+    for (const directory of new Set([path.dirname(filePath), path.dirname(identityPath)])) admitFreshDirectory(io, directory, platform, inspectRuntimeTree);
     return null;
   }
   const bytes = members.reduce((total, member) => total + (member.stat?.size || 0n), 0n);

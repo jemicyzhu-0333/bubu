@@ -110,7 +110,7 @@ async function waitForInstalledWindow(inspector, completion, { wait = waitForOut
 }
 
 async function verifyProfileLaunch(executable, { fixture, fresh = true, spawnChild = spawn, connect = connectInspector,
-  wait = waitForOutcome, createProfile = createEmptyProfile, readProfile = readFreshAuthority } = {}) {
+  wait = waitForOutcome, createProfile = createEmptyProfile, readProfile = readFreshAuthority, profileArgument = true } = {}) {
   const ownedFixture = !fixture;
   fixture ||= createProfile();
   let child, closed = false, completion, inspector, failure, terminalOutcome;
@@ -119,7 +119,8 @@ async function verifyProfileLaunch(executable, { fixture, fresh = true, spawnChi
   try {
     if (fresh) assert.deepEqual(fs.readdirSync(fixture.userDataPath), [], 'profile must be genuinely empty before executable launch');
     stage = 'launch';
-    child = spawnChild(executable, [`--user-data-dir=${fixture.userDataPath}`, '--inspect=127.0.0.1:0'], {
+    assert.equal(typeof profileArgument, 'boolean', 'profile override selection must be explicit');
+    child = spawnChild(executable, [...(profileArgument ? [`--user-data-dir=${fixture.userDataPath}`] : []), '--inspect=127.0.0.1:0'], {
       stdio: ['ignore', 'pipe', 'pipe'], env: launchEnvironment
     });
     const capture = data => {
@@ -138,6 +139,11 @@ async function verifyProfileLaunch(executable, { fixture, fresh = true, spawnChi
       if (url) inspector = await connect(url);
     }
     assert.ok(inspector, 'loopback child inspector not ready');
+    if (!profileArgument) {
+      assert.equal(await inspector.evaluate(`${ELECTRON}.app.commandLine.hasSwitch('user-data-dir')`), false);
+      assert.equal(await inspector.evaluate(`${ELECTRON}.app.getPath('userData')`), fixture.userDataPath,
+        'default native profile must equal the disposable runner profile under verification');
+    }
     stage = 'production-window-readiness';
     await waitForInstalledWindow(inspector, completion, { wait });
     assert.equal(await wait(completion, 1000), null, 'installed app exited after readiness');
@@ -155,7 +161,8 @@ async function verifyProfileLaunch(executable, { fixture, fresh = true, spawnChi
     assert.equal(/App threw an error|ReferenceError|TypeError|Uncaught|UnhandledPromiseRejection|config-profile-brand-required/.test(output), false, 'installed startup reported an error');
     stage = 'closed-authority-verification';
     return { ...readProfile(fixture.userDataPath), visibleLocalWindowReady: true, normalExit: true, lockfileObserved,
-      acceptance: 'installed executable, genuinely empty profile, production bootstrap; loopback inspector observes UI readiness and requests app.quit; no manual UI or OS trust acceptance asserted' };
+      userDataOverrideSwitch: profileArgument,
+      acceptance: `installed executable, ${fresh ? 'genuinely empty' : 'supplied'} profile, ${profileArgument ? 'explicit profile argument' : 'native default profile'}, production bootstrap; loopback inspector observes UI readiness and requests app.quit; no manual UI or OS trust acceptance asserted` };
   } catch (error) {
     failure = error;
     error.diagnostic = { stage, closed, omitted, exitCode: terminalOutcome?.code ?? null, exitSignal: terminalOutcome?.signal ?? null,

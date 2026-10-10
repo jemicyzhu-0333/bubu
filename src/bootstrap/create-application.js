@@ -6,6 +6,7 @@ const { beginPreferencesUpgrade } = require('./preferences-upgrade');
 const path = require('node:path');
 const { isDevProfile, profileUserDataPath } = require('../core/runtime-profile');
 const { createAppHost } = require('../platform/electron/app-host');
+const { beginStartupRejection, startupRejectionCode } = require('./startup-rejection');
 const { createSqliteStateAdapter } = require('../platform/persistence/sqlite-state-adapter');
 const { openDatabase } = require('../platform/persistence/sqlite/sqlite-database');
 const { createSecureCredentialStore } = require('../platform/providers');
@@ -55,6 +56,7 @@ function createApplication({
   openFactStore = openFactStoreAt,
   openCollaborationStorage = openCollaborationStorageAt,
   beginUpgrade = beginPreferencesUpgrade,
+  beginRejection = beginStartupRejection,
   factStoreLogger = reportFactStoreTier
 } = {}) {
   if (!Array.isArray(argv)) throw new TypeError('application argv must be an array');
@@ -82,10 +84,15 @@ function createApplication({
     appHost.setDataDirectory(directory);
   }
 
-  if (!appHost.acquireSingleInstanceLock()) {
-    appHost.quit();
-    return Object.freeze({ status: 'secondary-instance', profile });
+  function rejectStartup(error, userDataPath = appHost.userDataPath()) {
+    return Object.freeze({ ...beginRejection({ error, userDataPath, appHost }), profile, userDataPath });
   }
+  try {
+    if (!appHost.acquireSingleInstanceLock()) {
+      appHost.quit();
+      return Object.freeze({ status: 'secondary-instance', profile });
+    }
+  } catch (error) { if (startupRejectionCode(error)) return rejectStartup(error); throw error; }
 
   const userDataPath = appHost.userDataPath();
   const resources = [];
@@ -117,9 +124,12 @@ function createApplication({
   } catch (error) {
     closeStorage();
     if (resources.length === 0 && error?.message === 'config-payload-current-schema-required') {
-      const upgrade = beginUpgrade({ error, userDataPath, appHost, argv });
-      return Object.freeze({ ...upgrade, profile, userDataPath });
+      try {
+        const upgrade = beginUpgrade({ error, userDataPath, appHost, argv });
+        return Object.freeze({ ...upgrade, profile, userDataPath });
+      } catch (caught) { if (startupRejectionCode(caught)) return rejectStartup(caught, userDataPath); throw caught; }
     }
+    if (resources.length === 0 && startupRejectionCode(error)) return rejectStartup(error, userDataPath);
     throw error;
   }
 }

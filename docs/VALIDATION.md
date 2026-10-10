@@ -231,3 +231,10 @@ macOS 构建门禁必须对产出 app 和 DMG 复制出的 app 分别执行 `cod
 - 升级分别核验原writer前byte/mtime完全相等、writer后回滚逻辑不变及完整备份、DB+identity+live-WAL、opaque凭据/嵌套文件、partial/foreign/malformed/future/权限/空间失败、consent绑定、同事务证据、COMMIT未知、进程中断恢复、重复/重开固定点及显式解出拒绝逃逸/覆盖。
 - 在同源码Windows/macOS真实构建上验证升级确认框默认退出、取消不写源档、源锁一直持有且第二实例不能写入、同意成功后以原profile参数重启、业务与凭据身份保留。端口mock和Node崩溃测试不等于原生验收；本版本只合入语言/主题与Windows首次启动修复，安装版门禁按上面的真实空档与独立合成18路径执行，并明确自动化对话框注入的限制。自动更新feature继续独立，未完成它自己的同源码签名包跨版本门禁前，不启用自动更新通道。
 - Node对比度/事件测试不代表原生VoiceOver/NVDA、Windows/macOS或系统外观实时切换验收。英文覆盖范围与遗漏必须随交付列明。
+
+## Windows 默认档案与运行时残留门禁
+
+- 原生探针仅在 GitHub hosted Windows 的可丢弃目录运行，报告只含路径结构、类型/大小、Local State 字段名/类型/长度、Electron 版本与闭合事件，不上传字段值、密钥或完整档案。Electron 44.4.5 的 run 38077986741 证明无 user-data-dir 覆盖的最小默认映射启动产生三缓存目录与 Local State；开窗探针产生的 Network/Local Storage 等更宽目录不得因此加入新档例外。探针本身不证明修复后的安装应用启动成功。
+- `verify-windows-install.js` 在显式空档之外运行 `verify-windows-default-profile.js`：要求 hosted Windows、默认 APPDATA/bubu 原先不存在并独占创建，分别验证真正空默认档、从纯 Electron 最小启动保留的截图缓存组合；两例均不传 user-data-dir，各首启和重开，断言 native lockfile、默认路径、无覆盖开关及 authority 身份连续。已有默认目录直接拒绝，清理只限本次持有身份且子进程明确关闭的临时目录。
+- Node 合成测试单独覆盖闭合缓存树、中文/空格路径、未知与嵌套业务文件、凭据、大小写、隐藏/reparse 元数据、链接/硬链接、Local State 大小/编码/重复键/结构、枚举及 descriptor 身份漂移、缓存叶子不读与准入前后原字节不变。元数据端口模拟不是 Windows 原生属性证明；安装原生门禁还必须实际运行固定 PowerShell 枚举与真实默认路径。
+- C 的依赖注入覆盖拒绝时其他 stores 不启动、原档位置、升级前置拒绝、未知编程错误不伪装成可恢复档案错误、退出生命周期。对话框自动化不代替人工视觉、NVDA、SmartScreen 或用户真机验证。最终交付须分别列出 Node、原生探针、同源码安装版各自通过或未运行的范围。

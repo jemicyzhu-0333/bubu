@@ -8,9 +8,11 @@ const { execFileSync } = require('node:child_process');
 const { sha256 } = require('./verify-macos-install');
 const { verifyFreshLaunch } = require('./installed-first-launch');
 const { verifyInstalledUpgrade } = require('./verify-installed-upgrade');
+const { verifyWindowsDefaultProfile } = require('./verify-windows-default-profile');
 
 async function verifyWindowsInstall({ platform = process.platform, env = process.env,
-  argv = process.argv, execFile = execFileSync, launch = verifyFreshLaunch, upgrade = verifyInstalledUpgrade, log = console.log } = {}) {
+  argv = process.argv, execFile = execFileSync, launch = verifyFreshLaunch, upgrade = verifyInstalledUpgrade,
+  defaultProfile = verifyWindowsDefaultProfile, log = console.log } = {}) {
   assert.equal(platform, 'win32', 'NSIS installed verification requires Windows');
   // Installation registers an application. Only run on a disposable hosted CI
   // machine; never install/uninstall over a person's daily application.
@@ -36,10 +38,12 @@ async function verifyWindowsInstall({ platform = process.platform, env = process
     assert.ok(fs.statSync(asar).isFile(), 'installed production ASAR missing');
     stage = 'installed-first-launch-and-reopen';
     const launches = await launch(executable);
+    stage = 'installed-default-profile-and-runtime-residue';
+    const defaultProfiles = await defaultProfile(executable, { platform, env });
     stage = 'installed-explicit-preferences-upgrade';
     const preferencesUpgrade = await upgrade(executable);
     const report = { result: 'passed', sourceCommit: env.GITHUB_SHA || null,
-      installerSha256: sha256(installer), installedAsarSha256: sha256(asar), ...launches, preferencesUpgrade,
+      installerSha256: sha256(installer), installedAsarSha256: sha256(asar), ...launches, defaultProfiles, preferencesUpgrade,
       trustAcceptance: 'not asserted; unsigned installer and OS warning acceptance are separate checks' };
     stage = 'uninstall';
     const uninstallers = fs.readdirSync(installed).filter(name => /^Uninstall .*\.exe$/i.test(name));
@@ -51,7 +55,7 @@ async function verifyWindowsInstall({ platform = process.platform, env = process
     return report;
   } catch (error) {
     fs.mkdirSync(path.dirname(diagnosticFile), { recursive: true });
-    fs.writeFileSync(diagnosticFile, JSON.stringify({ stage, startup: error.diagnostic || null,
+    fs.writeFileSync(diagnosticFile, JSON.stringify({ stage, startup: error.diagnostic || null, defaultProfile: error.defaultProfileDiagnostic || null,
       errorCode: typeof error.code === 'string' && /^[A-Z_]+$/.test(error.code) ? error.code : null }, null, 2) + '\n');
     throw error;
   } finally {

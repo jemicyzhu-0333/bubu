@@ -108,7 +108,7 @@ preload：前者不加主进程拒收，后者不加 renderer 调不到。`npm r
 启动顺序：
 
 1. 先选择生产/开发数据目录，再取得profile单实例锁；失败的第二实例不接触持久化文件。Windows在调用原生锁前以lstat拒绝符号链接／非目录的所选profile，以及非普通／非零字节的已有`lockfile`，避免Chromium的CREATE_ALWAYS先截断未知内容；空普通锁仍由原生单实例机制判定所有权。此预检不承诺消除同用户并发替换的TOCTOU风险。
-2. 全新profile建立带BUBU标记的独立INITIALIZING身份。没有配置DB/身份DB及其WAL/SHM任一成员时，目录须不存在、为空或仅含精确的Electron单实例锁成员 `SingletonLock`、`SingletonCookie`、`SingletonSocket`；Windows另接受本进程取得单实例锁时Chromium创建的精确名`lockfile`，仅限lstat确认的零字节普通文件，不跟随符号链接、不读取或删除该锁。非Windows、非空或非普通类型的同名成员仍拒绝；其他任何成员（含孤立数据库、journal或凭据符号链接）均拒绝，不能新建替代事实库或凭据。仅JSON的旧profile仍以需显式导入的错误失败关闭，生产不提供自动导入入口。
+2. 全新profile建立带BUBU标记的独立INITIALIZING身份。没有配置DB/身份DB及其WAL/SHM任一成员时，目录须不存在、为空或仅含精确的Electron单实例锁成员 `SingletonLock`、`SingletonCookie`、`SingletonSocket`；Windows另接受本进程取得单实例锁时Chromium创建的精确名`lockfile`，仅限lstat确认的零字节普通文件，不跟随符号链接、不读取或删除该锁。非Windows、非空或非普通类型的同名成员仍拒绝；除下述 Windows 最小运行时残留例外外，其他任何成员（含孤立数据库、journal或凭据符号链接）均拒绝，不能新建替代事实库或凭据。仅JSON的旧profile仍以需显式导入的错误失败关闭，生产不提供自动导入入口。
 3. 配置SQLite完整快照、revision/hash CAS与业务receipt/outbox同一WAL/FULL事务提交，再核验绑定application_id并标记READY。
 4. READY后只读SQL权威；丢失、替换、截断、未知schema或损坏保留DB/WAL/SHM并失败关闭，不能重新导入可能过时的JSON。
 5. 生产同时要求BUBU配置身份与规范完整的payload19；身份未标记／其他品牌、旧版／未来版／损坏19在调用配置normalizer、迁移证据写入和启动proof前拒绝。拒绝保留SQL、身份、revision/hash、证据、proof计数和WAL/SHM。历史generic adapter兼容测试不构成生产导入／迁移入口。
@@ -117,7 +117,7 @@ preload：前者不加主进程拒收，后者不加 renderer 调不到。`npm r
 
 current-only的既有配置档先经`config-admission-copy`：在连接原配置库或原身份库前，仅捕获两者各自DB及存在的WAL/SHM，记录缺失成员，合计最多512 MiB，以1 MiB缓冲复制到独占私有临时目录（目录仅属主访问、文件创建模式0600）。普通文件、文件身份、长度与摘要均核对；不能只复制主DB，已提交的旧payload可能仅在WAL中。副本先只读核验BUBU品牌标记，再复用SQL／身份／证据／raw validator，不跑完整adapter、迁移或proof；拒绝及清理只触及自有副本，绝不恢复、删除、checkpoint或替换原侧车。清理失败也拒绝原库连接。通过后清理副本，再核对原目录／文件身份、成员存在性及摘要，才走原库既有重验和一次启动proof。
 Windows不能用POSIX mode位证明私有权限：先以固定系统PowerShell的只读常量程序检查新建空目录，再以`wx`建立全部空副本、持有句柄并检查实际文件DACL，确认后才写入私有字节，复制完成后再次检查。路径只通过UTF-8 JSON标准输入传递，不拼入命令；禁止修改ACL、执行策略、提权或拒绝后的替代路线。owner及有效Allow仅接受当前SID、SYSTEM和Administrators；目录上仅允许可继承且InheritOnly的CREATOR OWNER模板，实际文件仍逐个重验。陌生Allow不能由Deny抵消；空／null DACL、未知ACE、reparse point、成员／身份变化、工具不可用、超时及无法确定的结果均失败关闭。三次子进程等待共享本次准入独有的15秒预算（原三次各5秒的总额），按单调时钟扣除实际等待，冷启动可使用剩余额度；每次仍重新取证，不重试、不缓存权限、不跨档共享。超限、时钟异常或余额耗尽均拒绝；复制与验证空档不计入该等待预算，进程终止及清理也可能增加开销，因此不承诺整个启动15秒内结束。三次批量权限检查保留精确目录成员和文件身份复核，不承诺防护同用户、SYSTEM或管理员的恶意替换；此信任边界也不能写成Windows chmod提供owner-only保证。
-此准入以既有profile单实例锁、启动源静止及私有临时目录独占为前提；保留打开但无活动的句柄测试不构成并发复制授权。临时清理逐成员复查目录身份，异常立即停止；未取得初始身份时只尝试非递归删除空目录。Node路径操作并非原子inode条件删除，不承诺对恶意同UID进程在每次检查与unlink之间替换私有目录的防护；探针文件名独立于原六成员，不能用清理去恢复原档。摘要复查不是锁，不能阻止外部writer在检查之后竞写；发现漂移失败关闭，不重放旧侧车。字节合同覆盖六个成员的内容和存在性，不承诺atime等全部文件元数据不变。全新空档不复制；仅带BUBU标记且source binding一致的INITIALIZING可按既有空库／缺主库合同恢复，已提交快照仍须完整校验，READY缺主库拒绝。显式数据目录同样受此准入约束；拒绝后须另选新的空测试目录，不修补、重置或迁移原目录。该有限临时探针不是备份、恢复或新兼容入口；超限资料保留原件并拒绝。
+此准入以既有profile单实例锁、启动源静止及私有临时目录独占为前提；保留打开但无活动的句柄测试不构成并发复制授权。临时清理逐成员复查目录身份，异常立即停止；未取得初始身份时只尝试非递归删除空目录。Node路径操作并非原子inode条件删除，不承诺对恶意同UID进程在每次检查与unlink之间替换私有目录的防护；探针文件名独立于原六成员，不能用清理去恢复原档。摘要复查不是锁，不能阻止外部writer在检查之后竞写；发现漂移失败关闭，不重放旧侧车。字节合同覆盖六个成员的内容和存在性，不承诺atime等全部文件元数据不变。全新空档与严格运行时残留新档均不复制权威；仅带BUBU标记且source binding一致的INITIALIZING可按既有空库／缺主库合同恢复，已提交快照仍须完整校验，READY缺主库拒绝。显式数据目录同样受此准入约束；拒绝后须另选新的空测试目录，不修补、重置或迁移原目录。该有限临时探针不是备份、恢复或新兼容入口；超限资料保留原件并拒绝。
 
 SQLite WAL/FULL是这里的跨平台普通事务合同，不以POSIX目录同步作为Windows功能开关，也不等于物理断电认证。
 完整备份建议关闭应用后保留整个profile；至少包含配置SQLite及绑定身份、协作库、事实/记忆库、遗忘账本和任何仍存在的WAL/SHM。
@@ -130,6 +130,15 @@ SQLite WAL/FULL是这里的跨平台普通事务合同，不以POSIX目录同步
 历史兼容测试不授权生产迁移旧品牌资料；没有自动转换、删除、重置或替代档案入口。下面的18→19路径是经本人确认的单次同品牌升级，不放宽普通adapter。
 
 历史与记忆不在这份文件里，见「事实流与长期记忆」。
+
+### Windows 首次启动的运行时残留
+
+配置与 identity 六成员均不存在时，Windows 新档准入另识别 Electron 44.4.5 原生最小启动产生的闭合运行时结构：GPUPersistentCache/DawnGraphiteCache 的确定层级、GrShaderCache 与 ShaderCache 的确定缓存叶子，以及有界、严格 UTF-8、无重复键的 Local State。顶层必须恰为三缓存目录与 Local State，可附空普通 lockfile；不接受 Network、Local Storage、未知文件、业务库/凭据、大小写替代、链接、隐藏或 reparse 条目。已有 canonical/identity/sidecar 仍走原完整品牌、schema 和孤儿数据检查，不借此修复、替换或迁移业务数据。
+
+仅此例外先使用固定只读 PowerShell 有界枚举，在每层下降前检查 Windows 文件属性，再以 Node 独立核验普通类型、文件身份、目录成员、大小及前后稳定性；只打开 Local State，不读取缓存叶子内容。Local State 的已观察闭合字段与有界编码外形并不认证 DPAPI 密钥归属或可解密性，也不是 BUBU 品牌证据。准入操作保留原字节；正常 Electron 启动仍会消费 Local State 并更新运行缓存。本修复不改变 sessionData 布局或已有凭据路径，不承诺能抵抗同一用户恶意瞬时替换，亦不证明缓存格式内没有任意其他内容。
+
+可识别的启动档案拒绝通过隔离临时运行目录显示双语错误码、原档案位置与退出入口；不会先建立其他业务仓、自动重置、迁移或一次性切换用户目录。有效 BUBU schema 18 继续现有明确确认升级；升级前置拒绝同样进入可读阻断。安装目录与用户数据目录仍独立。
+
 
 ## 收件分类与原文历史
 

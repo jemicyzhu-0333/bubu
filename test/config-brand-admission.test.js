@@ -63,11 +63,16 @@ test('brand refusal precedes every credential, collaboration and facts factory e
     isPackaged: () => false, isReady: () => false, whenReady: () => Promise.resolve(),
     hideDock() {}, openAtLogin: () => false, setOpenAtLogin() {}, quit() {}, subscribeLifecycle() {}
   };
-  assert.throws(() => createApplication({ argv: [], schemaVersion: 18, normalizePersistedState: value => value, appHost,
+  const blocked = createApplication({ argv: [], schemaVersion: 18, normalizePersistedState: value => value, appHost,
     createStateRepository: options => createSqliteStateAdapter({ ...options, now: () => NOW }),
     createCredentialStore: () => reached.push('credential'),
-    openCollaborationStorage: () => reached.push('collaboration'), openFactStore: () => reached.push('facts')
-  }), /config-profile-brand-mismatch/);
+    openCollaborationStorage: () => reached.push('collaboration'), openFactStore: () => reached.push('facts'),
+    beginRejection({ error, userDataPath }) {
+      assert.equal(error.code, 'config-profile-brand-mismatch'); assert.equal(userDataPath, f.directory);
+      return { status: 'startup-blocked' };
+    }
+  });
+  assert.equal(blocked.status, 'startup-blocked');
   assert.deepEqual(reached, []);
   assert.deepEqual(fingerprint(f.directory), before);
 });
