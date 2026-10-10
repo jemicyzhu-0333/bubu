@@ -17,7 +17,7 @@ test('packaging, installer and storage use the bubu identity', () => {
   assert.equal(lock.packages[''].name, pkg.name);
   assert.equal(pkg.productName, '小步');
   assert.equal(pkg.build.productName, pkg.productName);
-  assert.equal(pkg.version, '0.0.2-dev.1');
+  assert.equal(pkg.version, '0.0.2-dev.2');
   assert.equal(pkg.build.appId, 'com.bubu.app');
   assert.equal(pkg.build.artifactName, 'bubu-${version}-${os}-${arch}.${ext}');
   assert.equal(pkg.build.mac.artifactName, 'bubu-${version}-mac-${arch}-adhoc-test.${ext}');

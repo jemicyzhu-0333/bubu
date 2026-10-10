@@ -16,11 +16,13 @@ const filenames = {
 const urlFor = name => `${releaseRoot}/download/${releaseTag}/${filenames[name]}`;
 const attribute = (tag, name) => tag.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1];
 
-test('0.0.2-dev.1 package identities, locks and versioned artifact names agree', () => {
+test('0.0.2-dev.2 candidate package identities, locks and versioned artifact names agree', () => {
   const app = json('package.json'), lock = json('package-lock.json');
   const site = json('website/package.json'), siteLock = json('website/package-lock.json');
-  assert.equal(app.version, '0.0.2-dev.1');
-  for (const version of [lock.version, lock.packages[''].version, site.version, siteLock.version, siteLock.packages[''].version]) assert.equal(version, app.version);
+  assert.equal(app.version, '0.0.2-dev.2');
+  for (const version of [lock.version, lock.packages[''].version]) assert.equal(version, app.version);
+  // The public site stays on the last verified release until both new assets are ready.
+  for (const version of [site.version, siteLock.version, siteLock.packages[''].version]) assert.equal(version, releaseTag.slice(1));
   assert.equal(app.name, 'bubu'); assert.equal(app.build.appId, 'com.bubu.app');
   assert.equal(app.build.nsis.deleteAppDataOnUninstall, false);
   assert.ok(app.build.artifactName.includes('${version}'));

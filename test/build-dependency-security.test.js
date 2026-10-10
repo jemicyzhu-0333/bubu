@@ -38,7 +38,7 @@ test('packaging uses the pinned upstream fetch downloader without vulnerable leg
   assert.equal(pkg.dependencies['electron-updater'], '6.8.10');
   assert.equal(lock.packages['node_modules/electron-updater'].version, '6.8.10');
   assert.equal(pkg.overrides, undefined, 'security fixes must come from upstream dependencies');
-  assert.equal(pkg.version, '0.0.2-dev.1');
+  assert.equal(pkg.version, '0.0.2-dev.2');
   assert.equal(lock.version, pkg.version);
   assert.equal(lock.packages[''].version, pkg.version);
 });
