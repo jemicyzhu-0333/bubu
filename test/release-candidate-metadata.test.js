@@ -7,16 +7,16 @@ const root = path.resolve(__dirname, '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 const json = file => JSON.parse(read(file));
 const releaseRoot = 'https://github.com/jemicyzhu-0333/bubu/releases';
-const releaseTag = 'v0.0.2-dev.2';
+const releaseTag = 'v0.0.2-dev.3';
 const filenames = {
-  windows: 'bubu-0.0.2-dev.2-win-x64.exe',
-  mac: 'bubu-0.0.2-dev.2-mac-arm64-adhoc-test.dmg',
+  windows: 'bubu-0.0.2-dev.3-win-x64.exe',
+  mac: 'bubu-0.0.2-dev.3-mac-arm64-adhoc-test.dmg',
   checksums: 'SHA256SUMS.txt',
 };
 const urlFor = name => `${releaseRoot}/download/${releaseTag}/${filenames[name]}`;
 const attribute = (tag, name) => tag.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1];
 
-test('0.0.2-dev.3 candidate package identities, locks and versioned artifact names agree', () => {
+test('0.0.2-dev.3 published package identities, locks and versioned artifact names agree', () => {
   const app = json('package.json'), lock = json('package-lock.json');
   const site = json('website/package.json'), siteLock = json('website/package-lock.json');
   assert.equal(app.version, '0.0.2-dev.3');
@@ -38,7 +38,7 @@ test('published site offers exactly the verified installers and checksum file wi
     const tag = tags[0];
     assert.equal(attribute(tag, 'href'), urlFor(platform));
     assert.equal(attribute(tag, 'data-release-state'), 'verified');
-    assert.equal(attribute(tag, 'data-release-version'), '0.0.2-dev.2');
+    assert.equal(attribute(tag, 'data-release-version'), '0.0.2-dev.3');
     assert.doesNotMatch(tag, /\s(?:aria-disabled|disabled|hidden)(?:=|\s|>)/);
     assert.doesNotMatch(tag, /tabindex="-\d+"/);
     if (platform === 'mac') assert.equal(attribute(tag, 'aria-describedby'), 'mac-warning');
@@ -53,7 +53,7 @@ test('published site offers exactly the verified installers and checksum file wi
 test('published site keeps concise signing, upgrade and manual-update cautions', () => {
   const html = read('website/public/index.html');
   for (const text of [
-    'Testing preview: 0.0.2-dev.2.', 'Release tag: v0.0.2-dev.2.',
+    'Testing preview: 0.0.2-dev.3.', 'Release tag: v0.0.2-dev.3.',
     'Unsigned; SmartScreen may warn or block installation.',
     'Ad-hoc signed, without Developer ID or notarization.',
     "Gatekeeper's local distribution assessment rejects this build.",
@@ -73,6 +73,12 @@ test('published site keeps concise signing, upgrade and manual-update cautions',
 test('validation keeps the original artifact provenance and unproven trust and recovery limits', () => {
   const text = read('docs/VALIDATION.md');
   for (const fact of [
+    '1112b47abdcf96c6a772f03ac7b599cdccf0f993',
+    'https://github.com/jemicyzhu-0333/bubu/actions/runs/38035697902',
+    '136172193', '148843050',
+    '5df19c2f5e975c9b47ac31309a0697ddcbf559b6a493e21a5a6e34c1bd733830',
+    'e01e364ab15bec88107172201a4dc16decf827b4824de4e1bad00ec1758fe7b3',
+    'Mac helper 准备成功不能证明真实音乐播放检测',
     'dae2958b09dcfea20cccd4ef43ea5cf7d58dcc68',
     'https://github.com/jemicyzhu-0333/bubu/actions/runs/38025816837',
     '136170648', '148838028',
@@ -92,9 +98,10 @@ test('English and Chinese setup docs agree on the exact published links and pres
   for (const filename of ['README.md', 'README.zh-CN.md']) {
     const text = read(filename);
     for (const url of Object.keys(filenames).map(urlFor)) assert.ok(text.includes(url), `${filename}: missing ${url}`);
-    for (const tag of [releaseTag, 'v0.0.2-dev.1', 'v0.0.1-dev-r4', 'v0.0.1-dev-r3', 'v0.0.1-dev-r2', 'v0.0.1-dev']) {
+    for (const tag of [releaseTag, 'v0.0.2-dev.2', 'v0.0.2-dev.1', 'v0.0.1-dev-r4', 'v0.0.1-dev-r3', 'v0.0.1-dev-r2', 'v0.0.1-dev']) {
       assert.ok(text.includes(`${releaseRoot}/tag/${tag}`), `${filename}: missing historical/current release ${tag}`);
     }
+    assert.ok(text.includes('docs/VALIDATION.md#002-dev3-已发布测试包的证据边界'));
     assert.ok(text.includes('docs/VALIDATION.md#002-dev2-已发布测试包的证据边界'));
     assert.ok(text.includes('docs/VALIDATION.md#002-dev1-已发布测试包的证据边界'));
     assert.ok(text.includes('testing-updates'));

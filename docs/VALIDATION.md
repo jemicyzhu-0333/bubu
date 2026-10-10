@@ -128,6 +128,22 @@ macOS 构建门禁必须对产出 app 和 DMG 复制出的 app 分别执行 `cod
 
 已有有限 Linux 原生运行观察覆盖新测试档案中的任务/步骤、首步成长、暂停/恢复、多窗口可见投影、部分形态/穿戴与喂食，以及一次正常退出后的同档可见状态恢复。这不是完整 SQL 字段、全部配饰、到期结算、异常终止或目标平台安装验收。
 
+### 0.0.2-dev.3 已发布测试包的证据边界
+
+[v0.0.2-dev.3](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.3) 指向 `1112b47abdcf96c6a772f03ac7b599cdccf0f993`。安装包来自[双端 run 38035697902](https://github.com/jemicyzhu-0333/bubu/actions/runs/38035697902) attempt 1 的原始 artifact；Windows x64 与 macOS arm64 两个 job 均通过，未重新打包。公开 EXE、DMG 与 SHA256SUMS.txt 已通过匿名完整下载核验，与原始产物一致。
+
+| 原始安装包 | 字节数 | SHA-256 |
+| --- | ---: | --- |
+| `bubu-0.0.2-dev.3-win-x64.exe` | 136172193 | `5df19c2f5e975c9b47ac31309a0697ddcbf559b6a493e21a5a6e34c1bd733830` |
+| `bubu-0.0.2-dev.3-mac-arm64-adhoc-test.dmg` | 148843050 | `e01e364ab15bec88107172201a4dc16decf827b4824de4e1bad00ec1758fe7b3` |
+
+- 本轮修正 AI 工具结束通知后的状态清理、Mac 开发启动原生音乐检测组件准备、单一任务日历、收件箱无隐藏快速开始区域及随手记自适应输入。没有真实网易云播放、真实 Provider、人工双端 UI 或 IME 输入验证结论；Mac helper 准备成功不能证明真实音乐播放检测。
+- Windows 实际 NSIS 安装、Mac DMG 安装副本直接启动均通过；两端真正空目录首次启动、可见本地窗口就绪、正常退出与原档持久化重开通过，BUBU 身份、READY、schema19 与 authority 连续性已核验。Mac 包与安装副本的严格代码签名完整性通过。
+- 两端独立合成 BUBU18 升级的同意前/取消检查、完整私有备份、原生 Windows DACL / POSIX 权限、备份副本重开、仅 schemaVersion/locale/theme 的添加式变化与升级档独立重开通过。它不证明真实用户档案恢复。确认框端口被精确注入，测试子进程的 app.relaunch 被记录并抑制；真人确认框交互、辅助技术、原生自动重启、真实凭据及系统信任警告接受仍未证明。
+- Windows 未签名，SmartScreen 可能警告或阻止安装。Mac 为 ad-hoc，无 Developer ID/公证；本次 Gatekeeper 策略确认启用后，本地 `spctl` 分发评估拒绝此包。浏览器下载/Finder 接受未验证，验证未添加或移除隔离标记；请勿关闭系统安全保护或移除隔离标记来安装。
+- 仍只支持完整有效 BUBU18 经明确确认及完整私有备份后的 schema19 升级；旧品牌、无标记、损坏、孤立及其他不支持档案继续拒绝。仅支持 schema18 的旧版无法打开 schema19；备份仅可离线核验后解出到尚不存在的新目录，不自动回滚或切换活跃档案。testing-updates 未包含，安装与更新均手动进行。
+- 以下 dev.2、dev.1 与 r4 诊断是历史证据，不能代替本次源码验收；PET12 等开放项继续保留。
+
 ### 0.0.2-dev.2 已发布测试包的证据边界
 
 [v0.0.2-dev.2](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.2) 指向 `dae2958b09dcfea20cccd4ef43ea5cf7d58dcc68`。安装包来自[双端 run 38025816837](https://github.com/jemicyzhu-0333/bubu/actions/runs/38025816837) attempt 1 的原始 artifact；Windows x64 与 macOS arm64 两个 job 均通过，未重新打包。公开 EXE、DMG 与 SHA256SUMS.txt 已通过匿名完整下载核验，与原始产物一致。

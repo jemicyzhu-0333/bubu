@@ -4,7 +4,7 @@
 
 小步（英文名 bubu）是一个本地优先的 ADHD 日常效率与桌面陪伴应用：随手记下想法，把任务拆成下一步，用专注计时器开始，再和桌面伙伴一起回来继续。
 
-当前测试版为 [`0.0.2-dev.2`](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.2)；通用设置提供简体中文/English 预览和跟随系统/浅色/深色主题。这是执行功能辅助工具，不提供 ADHD 诊断、治疗或医疗疗效承诺。
+当前测试版为 [`0.0.2-dev.3`](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.3)；通用设置提供简体中文/English 预览和跟随系统/浅色/深色主题。这是执行功能辅助工具，不提供 ADHD 诊断、治疗或医疗疗效承诺。
 
 ## 真实界面
 
@@ -32,18 +32,19 @@
 ## 下载与开发版本
 
 - [项目网站](https://jemicyzhu-0333.github.io/bubu/)提供功能介绍与当前下载提示。
-- **当前测试版：[`v0.0.2-dev.2`](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.2)。** 应用/包版本为 `0.0.2-dev.2`，优化设置与协作体验，新增原生任务日期选择器，让已发送消息在安全重试中保持可见，并防止迟到的 AI 建议覆盖较新的手工步骤修改。
-- **已核验下载**：[Windows x64 · 未签名](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.2/bubu-0.0.2-dev.2-win-x64.exe) · [macOS Apple Silicon · ad-hoc 受限测试](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.2/bubu-0.0.2-dev.2-mac-arm64-adhoc-test.dmg) · [SHA256SUMS.txt](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.2/SHA256SUMS.txt)。公开下载的字节数与 SHA-256 已和原安装包核对；完整文件名与哈希见发布说明。
-- **上一预览版**：[v0.0.2-dev.1](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.1) 及其[验证记录](docs/VALIDATION.md#002-dev1-已发布测试包的证据边界) 保留作历史证据。
+- **当前测试版：[`v0.0.2-dev.3`](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.3)。** 应用/包版本为 `0.0.2-dev.3`，及时清除已结束的 AI 工具协作状态，改进任务日历，移除收件箱多余的快速开始区域，并让随手记输入框随内容增长。Mac 开发启动也会准备原生音乐检测组件；真实网易云播放检测仍未完成验证。
+- **已核验下载**：[Windows x64 · 未签名](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.3/bubu-0.0.2-dev.3-win-x64.exe) · [macOS Apple Silicon · ad-hoc 受限测试](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.3/bubu-0.0.2-dev.3-mac-arm64-adhoc-test.dmg) · [SHA256SUMS.txt](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.3/SHA256SUMS.txt)。公开下载的字节数与 SHA-256 已和原安装包核对；完整文件名与哈希见发布说明。
+- **上一预览版**：[v0.0.2-dev.2](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.2) 及其[验证记录](docs/VALIDATION.md#002-dev2-已发布测试包的证据边界) 保留作历史证据。
+- **更早预览版**：[v0.0.2-dev.1](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.1) 及其[验证记录](docs/VALIDATION.md#002-dev1-已发布测试包的证据边界) 保留作历史证据。
 - **上一测试包**：[v0.0.1-dev-r4](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r4) 来自提交 `df3242a`，内部版本为 `0.0.1-dev`。Windows r4 已确认存在首次启动档案准入错误，仅保留作历史诊断基线；原文件名与历史验证记录不改写。
 - **历史版本**：[r3](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r3)、[r2](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r2) 与 [v0.0.1-dev](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev) 保留作历史记录；请勿安装初版 v0.0.1-dev 中已报告“已损坏”的旧 Mac 包。
 - 新测试包来自手动 [Build Windows and macOS (test)](https://github.com/jemicyzhu-0333/bubu/actions/workflows/build-desktop.yml) 工作流，面向 **Windows x64** 和 **macOS ARM64**。成功运行后可在保留期内下载 artifact，GitHub 可能要求登录；请核对运行的分支与提交。工作流不会创建 Release。
 
 Windows 测试包**未签名**，SmartScreen 可能警告或阻止安装；当前 Mac 测试包采用 **ad-hoc 本地签名**，没有 Apple Developer ID 签名或公证。严格代码签名完整性、应用身份、DMG 安装副本直接启动及 SQLite 持久化通过 CI，但 **Gatekeeper 本地分发评估拒绝该包**。浏览器下载/Finder 打开未验收；验证未添加或移除隔离标记。请勿关闭系统安全保护或移除隔离标记来安装。
 
-两个已发布安装包通过原生安装/启动与持久化检查；准确源码、原始构建来源与验收边界见[验证范围与剩余限制](docs/VALIDATION.md#002-dev2-已发布测试包的证据边界)及[发布说明](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.2)。
+两个已发布安装包通过原生安装/启动与持久化检查；准确源码、原始构建来源与验收边界见[验证范围与剩余限制](docs/VALIDATION.md#002-dev3-已发布测试包的证据边界)及[发布说明](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.3)。
 
-Mac 应用仍为 `小步.app`。此前更名建立的 bubu 应用、档案与凭据身份在 `0.0.2-dev.2` 保持不变；更早的旧品牌应用、目录与凭据保留原样，不导入。完整有效的既有 bubu18 按下方流程明确备份升级。变化后的 ad-hoc 签名二进制仍可能触发 macOS 钥匙串提示。
+Mac 应用仍为 `小步.app`。此前更名建立的 bubu 应用、档案与凭据身份在 `0.0.2-dev.3` 保持不变；更早的旧品牌应用、目录与凭据保留原样，不导入。完整有效的既有 bubu18 按下方流程明确备份升级。变化后的 ad-hoc 签名二进制仍可能触发 macOS 钥匙串提示。
 
 这是开发测试版，不是稳定版。**当前没有可用的应用内更新**；独立的 testing-updates 功能未包含在本版，也未发布应用内更新通道，请手动安装与更新测试包。验收仅使用可删除档案；既有完整 bubu18 不会被静默重置。
 
@@ -62,7 +63,7 @@ npm run test:integration
 
 `npm start` 使用日常档案 `bubu`；开发时优先用 `npm run dev`，使用独立开发档案 `bubu-dev`。两者的数据、凭据和 Chromium 存储隔离。此前品牌更名不提供旧名称兼容别名，更早旧品牌目录和凭据保持原样。显式 `--user-data-dir` 仍受尊重；只有单独确认且完整核验的 bubu18 升级才可改变其业务版本。
 
-`0.0.2-dev.2` 使用完整规范的 **schema 19** 与 **bubu 品牌配置身份**。完整有效的既有 bubu18 只通过启动确认框显式升级：同意后先建立完整私有备份，再添加语言/主题设置；取消即退出。旧品牌、无标记、损坏、孤立及其他不支持的档案继续拒绝，绝不导入、重置或生成替代档。
+`0.0.2-dev.3` 使用完整规范的 **schema 19** 与 **bubu 品牌配置身份**。完整有效的既有 bubu18 只通过启动确认框显式升级：同意后先建立完整私有备份，再添加语言/主题设置；取消即退出。旧品牌、无标记、损坏、孤立及其他不支持的档案继续拒绝，绝不导入、重置或生成替代档。
 
 升级保留原权威与凭据身份。私有同级备份包含普通档案文件、已提交 WAL 和不解密的凭据文件，请妥善保存；只排除顶层三个 Electron 运行锁。符号链接、特殊文件、隐私权限核验失败、空间不足、单文件超过64 MiB、总量超过512 MiB或成员超过10,000均停止升级。仅支持 schema18 的旧版不能直接打开 schema19。关闭应用后，可明确解出到**尚不存在的新目录**，不能覆盖原档：
 
@@ -72,7 +73,7 @@ node scripts/extract-profile-upgrade-backup.js --backup /绝对路径/profile-ba
 
 工具先核验备份，保留文件内容与权威绑定，不会自动回滚或切换正在使用的档案。故障边界见[持久化与迁移](docs/ARCHITECTURE.md#持久化与迁移)。
 
-两个已发布安装包通过带注入的升级/私有备份检查及升级档独立重开。真实对话框交互/辅助技术、原生自动重启、真实凭据及系统信任警告接受仍未证明；详见[原生验证说明](docs/VALIDATION.md#002-dev2-已发布测试包的证据边界)。可删除的测试场景用：
+两个已发布安装包通过带注入的升级/私有备份检查及升级档独立重开。真实对话框交互/辅助技术、原生自动重启、真实凭据及系统信任警告接受仍未证明；详见[原生验证说明](docs/VALIDATION.md#002-dev3-已发布测试包的证据边界)。可删除的测试场景用：
 
 ```bash
 npm run dev:bench -- --scenario=level-up

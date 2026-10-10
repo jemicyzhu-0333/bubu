@@ -21,12 +21,12 @@ for(const tag of html.matchAll(/<(?:script|link|img)\b[^>]*>/g)){
  assert(!/(?:src|href)="https?:/.test(tag[0]),'Runtime resources must be self-hosted.');
 }
 const version = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8')).version;
-assert.equal(version, '0.0.2-dev.2');
+assert.equal(version, '0.0.2-dev.3');
 const releaseRoot = 'https://github.com/jemicyzhu-0333/bubu/releases';
-const releaseTag = 'v0.0.2-dev.2';
+const releaseTag = 'v0.0.2-dev.3';
 const assets = {
- windows: 'bubu-0.0.2-dev.2-win-x64.exe',
- mac: 'bubu-0.0.2-dev.2-mac-arm64-adhoc-test.dmg',
+ windows: 'bubu-0.0.2-dev.3-win-x64.exe',
+ mac: 'bubu-0.0.2-dev.3-mac-arm64-adhoc-test.dmg',
 };
 const anchors = [...html.matchAll(/<a\b[^>]*>/g)].map(match => match[0]);
 const attribute = (tag, name) => tag.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1];
@@ -69,9 +69,9 @@ for(const caution of [
  'In-app updates remain unavailable.',
  'The separate testing-updates feature is not included; install and update manually.',
 ])assert(html.includes(caution), `Missing release limitation: ${caution}`);
-assert(html.includes(`${releaseRoot}/tag/v0.0.2-dev.1`), 'Previous preview evidence must remain linked');
+for (const previous of ['v0.0.2-dev.2', 'v0.0.2-dev.1']) assert(html.includes(`${releaseRoot}/tag/${previous}`), 'Previous preview evidence must remain linked');
 assert(html.includes(`${releaseRoot}/tag/v0.0.1-dev-r4`), 'Historical r4 release must remain linked');
-assert(html.includes('Release tag: v0.0.2-dev.2.'), 'Exact published tag must be disclosed');
+assert(html.includes('Release tag: v0.0.2-dev.3.'), 'Exact published tag must be disclosed');
 const releaseNote=html.match(/<div class="release-note">([\s\S]*?)<\/div>/)?.[1];
 assert(releaseNote && (releaseNote.match(/<p>/g) || []).length <= 3, 'Keep the download introduction concise');
 assert(!/libfile_|appgprj_|appgver_|sediment:|workspace\/scratch/.test(html),'Internal authoring identity in public page');
@@ -79,7 +79,7 @@ assert(!/0\.4\.0|TODO|placeholder/.test(html),'Stale release or placeholder text
 assert(html.includes('<title>bubu · 小步 —'),'Missing current bilingual product title');
 assert.equal([...html.matchAll(/class="poster-brand"/g)].length,5,'Each supplied poster needs a live bubu header');
 assert.equal([...html.matchAll(/class="art-frame"/g)].length,5,'Each supplied poster needs former-name header framing');
-assert(html.includes('Testing preview: 0.0.2-dev.2.'),'Current testing version must be disclosed');
+assert(html.includes('Testing preview: 0.0.2-dev.3.'),'Current testing version must be disclosed');
 assert(!html.includes('/v0.0.1-dev-r3/')&&!html.includes('r3 pre-rename test build'),'Outdated primary download revision');
 assert(!html.includes('github.io/im-adhder/')&&!html.includes('github.com/jemicyzhu-0333/im-adhder'),'Public links must use the renamed repository');
 const css=fs.readFileSync(path.join(dist,'style.css'),'utf8');
@@ -89,4 +89,4 @@ assert(css.includes('@media(prefers-reduced-motion:reduce){html{scroll-behavior:
 assert(css.includes('html[data-reduced-motion="true"]{scroll-behavior:auto!important}'),'Manual reduced motion must override inline smooth scrolling');
 const app=fs.readFileSync(path.join(dist,'app.js'),'utf8');
 assert(app.includes("window.matchMedia('(prefers-reduced-motion: reduce)')")&&app.includes('media.revert()'),'Retain GSAP reduced-motion handling');
-console.log('PASS: script syntax, assets, /bubu/ project base, current brand, poster framing, local-only runtime, verified v0.0.2-dev.2 asset URLs, accessible downloads and truthful release limitations.');
+console.log('PASS: script syntax, assets, /bubu/ project base, current brand, poster framing, local-only runtime, verified v0.0.2-dev.3 asset URLs, accessible downloads and truthful release limitations.');
