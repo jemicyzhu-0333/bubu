@@ -496,7 +496,9 @@
   :is(#taskCreateMask,#taskEditMask) .task-option-group { padding: 14px; background: var(--bg-1); }
   :is(#taskCreateMask,#taskEditMask) .task-date-control { display: flex; align-items: center; flex: 1 1 175px; min-width: 0; max-width: 100%; gap: 4px; }
   :is(#taskCreateMask,#taskEditMask) .task-date-control .pixel-date { flex: 1; width: 0; min-width: 0; max-width: 100%; margin: 0; background: var(--bg-1); color: var(--fg-0); }
-  .task-date-picker { display: grid; place-items: center; flex: none; width: 36px; height: 36px; padding: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--bg-1); color: var(--fg-1); cursor: pointer; }
+  .task-date-control .pixel-date[data-custom-picker="true"]::-webkit-calendar-picker-indicator { display: none; }
+  .task-date-picker { display: none; place-items: center; flex: none; width: 36px; height: 36px; padding: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--bg-1); color: var(--fg-1); cursor: pointer; }
+  .task-date-picker[data-ready="true"]:not([hidden]) { display: grid; }
   #taskCreateMask .create-assist { display: flex; flex-direction: column; align-items: stretch; gap: 10px; margin: 16px 0; padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg-1); }
   .task-assist-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 4px 10px; }
   .task-assist-heading h3 { margin: 0; font-size: 14px; font-weight: 500; }

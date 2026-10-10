@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "electron .",
-    "dev": "electron . --dev",
+    "dev": "node scripts/dev-app.js",
     "dev:bench": "electron tools/dev-bench/launch.js --dev",
     "gallery": "electron scripts/expression-gallery.js",
     "gallery:capture": "electron --headless scripts/expression-gallery.js --capture=dist/expression-gallery.png",

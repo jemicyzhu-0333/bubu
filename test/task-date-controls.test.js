@@ -26,11 +26,15 @@ test('opening, dismissing and unavailable native picker never changes the date',
   input.value = '2026-11-07'; let calls = 0;
   input.showPicker = () => { calls++; };
   const dispose = bindTaskDatePicker(input, button);
+  assert.equal(input.dataset.customPicker, 'true');
+  assert.equal(button.hidden, false);
   dom.fire('#deadlineInputPicker', 'click');
   assert.equal(calls, 1); assert.equal(input.value, '2026-11-07'); assert.equal(dom.document.activeElement, input);
   input.showPicker = () => { throw new Error('NotAllowedError'); };
   assert.doesNotThrow(() => dom.fire('#deadlineInputPicker', 'click'));
   assert.equal(input.value, '2026-11-07');
+  assert.equal(input.dataset.customPicker, 'false');
+  assert.equal(button.hidden, true, 'failed enhancement leaves only the native entry');
   input.disabled = true; dom.fire('#deadlineInputPicker', 'click'); assert.equal(calls, 1);
   dispose(); input.disabled = false; input.showPicker = () => calls++;
   dom.fire('#deadlineInputPicker', 'click'); assert.equal(calls, 1);
@@ -70,4 +74,23 @@ test('local date-time validation rejects normalization rather than silently shif
   input.value = '2026-03-08T02:30';
   assert.ok(taskDateInputError(input, () => 'normalized', () => '2026-03-08T03:30'));
   assert.equal(input.value, '2026-03-08T02:30');
+});
+
+test('unsupported picker and disposal retain native calendar and keyboard input', () => {
+  const dom = createCollaborationDom(), input = dom.$('#editDeadline'), button = dom.$('#editDeadlinePicker');
+  input.value = '2026-11-07';
+  const dispose = bindTaskDatePicker(input, button);
+  assert.equal(input.dataset.customPicker, 'false');
+  assert.equal(button.hidden, true);
+  assert.equal(input.disabled, false);
+  assert.equal(input.value, '2026-11-07');
+  dispose();
+  input.showPicker = () => {};
+  const disposeAgain = bindTaskDatePicker(input, button);
+  assert.equal(button.hidden, false);
+  assert.equal(input.dataset.customPicker, 'true');
+  disposeAgain();
+  assert.equal(input.dataset.customPicker, 'false');
+  assert.equal(button.hidden, true);
+  assert.equal(input.value, '2026-11-07');
 });

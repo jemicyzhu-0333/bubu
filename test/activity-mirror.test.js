@@ -22,10 +22,10 @@ test('apps map to categories per platform, case-insensitively and with prefix ru
   assert.equal(categoryOf('x'.repeat(201), ACTIVITY_APPS, 'darwin'), null);
 });
 
-test('precedence: agent hook, then AI app, then editor, then audible music; away keeps only music', () => {
+test('precedence: active agent hook, then editor, then audible music; AI windows alone are not active', () => {
   const prompt = { source: 'claude-code', event: 'prompt', at: NOW - 60_000 };
   assert.equal(raw({ sample: sample('com.microsoft.VSCode', ['com.spotify.client']), agent: prompt }), 'ai');
-  assert.equal(raw({ sample: sample('com.openai.chat', ['com.spotify.client']) }), 'ai');
+  assert.equal(raw({ sample: sample('com.openai.chat', ['com.spotify.client']) }), 'music');
   assert.equal(raw({ sample: sample('com.googlecode.iterm2', ['com.spotify.client']) }), 'coding');
   assert.equal(raw({ sample: sample('com.google.Chrome', ['com.spotify.client']) }), 'music');
   assert.equal(raw({ sample: sample('com.google.Chrome', ['com.google.Chrome.helper']) }), 'none', 'browser audio is not music');
@@ -34,12 +34,12 @@ test('precedence: agent hook, then AI app, then editor, then audible music; away
   assert.equal(raw({ sample: null }), 'none');
 });
 
-test('agent events expire: a prompt counts while thinking, an answer briefly after', () => {
+test('agent prompts expire and completed answers never count as active', () => {
   const at = offset => ({ source: 'cursor', event: offset.event, at: NOW - offset.ms });
   assert.equal(raw({ sample: sample('com.google.Chrome'), agent: at({ event: 'prompt', ms: DEFAULT_POLICY.agentThinkingMs - 1 }) }), 'ai');
   assert.equal(raw({ sample: sample('com.google.Chrome'), agent: at({ event: 'prompt', ms: DEFAULT_POLICY.agentThinkingMs + 1 }) }), 'none');
-  assert.equal(raw({ sample: sample('com.google.Chrome'), agent: at({ event: 'stop', ms: DEFAULT_POLICY.agentAnswerMs - 1 }) }), 'ai');
-  assert.equal(raw({ sample: sample('com.google.Chrome'), agent: at({ event: 'stop', ms: DEFAULT_POLICY.agentAnswerMs + 1 }) }), 'none');
+  assert.equal(raw({ sample: sample('com.google.Chrome'), agent: at({ event: 'stop', ms: 0 }) }), 'none');
+  assert.equal(raw({ sample: sample('com.google.Chrome'), agent: at({ event: 'stop', ms: 90_001 }) }), 'none');
   assert.equal(raw({ sample: sample('com.google.Chrome'), agent: { source: 'cursor', event: 'prompt', at: NOW + 5 } }), 'none', 'future events are ignored');
 });
 

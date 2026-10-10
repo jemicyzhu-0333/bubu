@@ -4,13 +4,28 @@ import { t } from '../../shared/interface/i18n.mjs';
 // Opening or dismissing a picker never writes a value or dispatches a change.
 function bindTaskDatePicker(input, button) {
   if (!input || !button) return () => {};
+  const setCustomPicker = enabled => {
+    input.dataset.customPicker = String(enabled);
+    button.dataset.ready = String(enabled);
+    button.hidden = !enabled;
+  };
+  setCustomPicker(typeof input.showPicker === 'function');
   const open = () => {
     if (input.disabled || input.readOnly) return;
     input.focus();
-    try { input.showPicker?.(); } catch (_) { /* Keyboard editing remains available. */ }
+    try {
+      if (typeof input.showPicker !== 'function') setCustomPicker(false);
+      else input.showPicker();
+    } catch (_) {
+      // Restore the native affordance if the enhanced entry cannot open it.
+      setCustomPicker(false);
+    }
   };
   button.addEventListener('click', open);
-  return () => button.removeEventListener('click', open);
+  return () => {
+    button.removeEventListener('click', open);
+    setCustomPicker(false);
+  };
 }
 
 function taskDateInputError(input, parse, format) {

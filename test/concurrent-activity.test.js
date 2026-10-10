@@ -52,18 +52,18 @@ test('music, front-app coding and hooked AI settle independently with unchanged 
   assert.ok(Object.isFrozen(refreshed) && Object.isFrozen(refreshed.agents) && Object.isFrozen(refreshed.agents[0]));
 });
 
-test('one source stop keeps its reading grace and cannot erase another prompt; true clear only targets its source', () => {
+test('one source stop clears only its prompt; duplicate or unknown stops never create activity', () => {
   let signals = recordAgentSignal([], { source: 'codex', event: 'prompt' }, NOW);
   signals = recordAgentSignal(signals, { source: 'cursor', event: 'prompt' }, NOW + 1_000);
   signals = recordAgentSignal(signals, { source: 'codex', event: 'stop' }, NOW + 2_000);
-  assert.deepEqual(signals.map(({ source, event }) => ({ source, event })),
-    [{ source: 'cursor', event: 'prompt' }, { source: 'codex', event: 'stop' }]);
-  assert.equal(retainAgentSignals(signals, NOW + 2_000 + DEFAULT_POLICY.agentAnswerMs).length, 2);
-  assert.deepEqual(retainAgentSignals(signals, NOW + 2_001 + DEFAULT_POLICY.agentAnswerMs).map(signal => signal.source), ['cursor']);
+  assert.deepEqual(signals.map(({ source, event }) => ({ source, event })), [{ source: 'cursor', event: 'prompt' }]);
+  signals = recordAgentSignal(signals, { source: 'codex', event: 'stop' }, NOW + 3_000);
+  signals = recordAgentSignal(signals, { source: 'unknown-tool', event: 'stop' }, NOW + 3_000);
+  assert.deepEqual(signals.map(signal => signal.source), ['cursor']);
   assert.equal(step(null, { now: NOW + 100_000, agents: signals }).projection.ai, true, 'other source still owns AI');
   assert.deepEqual(clearAgentSignal(signals, 'codex').map(signal => signal.source), ['cursor']);
-  assert.deepEqual(clearAgentSignal(signals, 'cursor').map(signal => signal.source), ['codex']);
-  assert.equal(signals.length, 2, 'clearing returns a new immutable source set');
+  assert.deepEqual(clearAgentSignal(signals, 'cursor'), []);
+  assert.equal(signals.length, 1, 'clearing returns a new immutable source set');
   assert.deepEqual(retainAgentSignals(signals, NOW + 1_001 + DEFAULT_POLICY.agentThinkingMs), []);
   assert.equal(normalizeAgentEvent({ source: 'codex', event: 'clear' }, NOW), null, 'no external protocol expansion');
 });
@@ -79,15 +79,17 @@ test('repeated prompt refreshes only its own deadline and expiring sources never
   assert.deepEqual(retainAgentSignals(expired, NOW), [], 'clock reversal cannot resurrect a pruned source');
 });
 
-test('an isolated completion uses dwell but its reading grace ends at the source deadline', () => {
-  const agents = recordAgentSignal([], { source: 'codex', event: 'stop' }, NOW);
+test('an isolated or completed stop stays inactive; a subsequent prompt starts a fresh source', () => {
+  let agents = recordAgentSignal([], { source: 'codex', event: 'stop' }, NOW);
+  assert.deepEqual(agents, []);
   let state = step(null, { sample: null, agents });
-  assert.equal(state.projection.ai, false);
   state = step(state, { now: NOW + DEFAULT_POLICY.dwellMs, sample: null, agents });
+  assert.equal(state.projection.ai, false);
+  agents = recordAgentSignal(agents, { source: 'codex', event: 'prompt' }, NOW + 20_000);
+  state = step(state, { now: NOW + 20_000, sample: null, agents });
   assert.equal(state.projection.ai, true);
-  state = step(state, { now: NOW + DEFAULT_POLICY.agentAnswerMs, sample: null, agents });
-  assert.equal(state.projection.ai, true);
-  state = step(state, { now: NOW + DEFAULT_POLICY.agentAnswerMs + 1, sample: null, agents });
+  agents = recordAgentSignal(agents, { source: 'codex', event: 'stop' }, NOW + 20_001);
+  state = step(state, { now: NOW + 20_001, sample: null, agents });
   assert.equal(state.projection.ai, false);
 });
 
@@ -107,9 +109,9 @@ test('front-app switches retain their own dwell while stopping music releases ju
   state = step(state, { now: NOW + 16_000, sample: sample(NOW + 16_000, 'com.openai.chat', []) });
   assert.deepEqual(state.projection, { v: 1, music: true, coding: true, ai: false });
   state = step(state, { now: NOW + 31_000, sample: sample(NOW + 31_000, 'com.openai.chat', []) });
-  assert.deepEqual(state.projection, { v: 1, music: true, coding: false, ai: true });
+  assert.deepEqual(state.projection, { v: 1, music: true, coding: true, ai: false });
   state = step(state, { now: NOW + 46_000, sample: sample(NOW + 46_000, 'com.openai.chat', []) });
-  assert.deepEqual(state.projection, { v: 1, music: false, coding: false, ai: true });
+  assert.deepEqual(state.projection, { v: 1, music: false, coding: false, ai: false });
 });
 
 test('stale samples lose authority after the release window and delayed ticks cannot extend it forever', () => {

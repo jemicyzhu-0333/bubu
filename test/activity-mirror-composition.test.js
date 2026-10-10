@@ -215,13 +215,14 @@ test('a rejected stale start is ignored while a current start still reports fail
   assert.deepEqual(h.errors, [{ error: failure, channel: 'activity:start' }]);
 });
 
-test('audio plus front AI share one immutable projection and removing audio leaves AI untouched', async () => {
+test('audio plus active AI share one immutable projection and removing audio leaves AI untouched', async () => {
   const h = harness();
   h.mirror.sync();
   await Promise.resolve();
   h.sample('com.openai.chat', ['com.spotify.client']);
   h.advance(15_000);
   h.sample('com.openai.chat', ['com.spotify.client']);
+  h.servers[0].onEvent({ source: 'codex', event: 'prompt' });
   assert.equal(h.mirror.current(), 'ai', 'legacy priority category is unchanged');
   assert.deepEqual(h.projections.at(-1), { v: 1, music: true, coding: false, ai: true });
   assert.ok(Object.isFrozen(h.projections.at(-1)));
@@ -267,14 +268,12 @@ test('source-specific stop preserves another agent prompt and its independent de
   event('codex', 'stop');
   h.advance(90_001);
   h.tick();
-  assert.equal(h.mirror.projection().concurrent.ai, true, 'expired codex reading grace cannot cancel cursor');
+  assert.equal(h.mirror.projection().concurrent.ai, true, 'codex completion cannot cancel cursor');
   assert.equal(h.mirror.current(), 'ai');
   h.advance(510_000);
   h.tick();
   assert.deepEqual(h.projections.at(-1), { v: 1, music: false, coding: false, ai: false });
-  h.advance(30_000);
-  h.tick();
-  assert.equal(h.mirror.current(), 'none', 'legacy primary keeps its normal release grace');
+  assert.equal(h.mirror.current(), 'none', 'compatibility primary has no second release grace');
 });
 
 test('stale helper output expires without fresh samples, with main-process idle read on every evaluation', async () => {

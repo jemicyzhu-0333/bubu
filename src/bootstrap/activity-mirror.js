@@ -41,7 +41,7 @@ function createActivityMirror({
   let sample = null;
   let agents = concurrentActivity.EMPTY_AGENT_SIGNALS;
   let concurrent = null;
-  let mirror = { activity: 'none', since: now(), pending: null, pendingSince: null };
+  let primary = 'none';
   let presentedAt = 0;
 
   function report(channel, owner = run) {
@@ -52,11 +52,11 @@ function createActivityMirror({
     const at = now();
     if (!force && at - presentedAt < REPRESENT_EVERY_MS) return;
     presentedAt = at;
-    presentMirror(mirror.activity === 'none' ? null : mirror.activity,
+    presentMirror(primary === 'none' ? null : primary,
       concurrent ? concurrent.projection : concurrentActivity.EMPTY_CONCURRENT_ACTIVITY);
   }
 
-  function evaluate({ immediate = false } = {}) {
+  function evaluate() {
     const at = now();
     let idleMs = Infinity;
     try { idleMs = readIdleMs(); } catch (error) { report('activity:idle')(error); }
@@ -64,19 +64,13 @@ function createActivityMirror({
     concurrent = concurrentActivity.advanceConcurrentActivity(concurrent,
       { sample, agents, idleMs, now: at, catalog: ACTIVITY_APPS, platform });
     agents = concurrent.agents;
-    const fresh = concurrentActivity.freshActivitySample(sample, at);
-    sample = fresh;
-    const candidate = activityMirror.rawActivity({
-      sample: { front: fresh && fresh.front, audio: fresh ? fresh.audio : [], idleMs },
-      agent: agents.at(-1), now: at, catalog: ACTIVITY_APPS, platform
-    });
-    const previous = mirror.activity;
-    mirror = activityMirror.advanceMirror(mirror, { candidate, now: at, immediate });
-    const changed = mirror.activity !== previous || ['music', 'coding', 'ai'].some(key => previousConcurrent[key] !== concurrent.projection[key]);
+    const previous = primary;
+    primary = concurrentActivity.primaryConcurrentActivity(concurrent.projection);
+    const changed = primary !== previous || ['music', 'coding', 'ai'].some(key => previousConcurrent[key] !== concurrent.projection[key]);
     if (changed) {
       present(true);
       publishChange({ activity: true });
-    } else if (mirror.activity !== 'none' || Object.values(concurrent.projection).includes(true)) present();
+    } else if (primary !== 'none' || Object.values(concurrent.projection).includes(true)) present();
     return changed;
   }
 
@@ -94,7 +88,7 @@ function createActivityMirror({
     // unbounded diagnostic history alongside the bounded active source set.
     const knownTool = tools.some(tool => tool.id === event.source);
     if (knownTool) lastSignal.set(event.source, event.at);
-    const changed = evaluate({ immediate: event.event === 'prompt' });
+    const changed = evaluate();
     if (knownTool && !changed) publishChange({ activity: true });
     return true;
   }
@@ -123,9 +117,9 @@ function createActivityMirror({
     if (timer) clearTimer(timer);
     probe = null; server = null; timer = null;
     receiver = 'off'; sample = null; agents = concurrentActivity.EMPTY_AGENT_SIGNALS; lastSignal.clear();
-    const wasActive = mirror.activity !== 'none' || (concurrent && Object.values(concurrent.projection).includes(true));
+    const wasActive = primary !== 'none' || (concurrent && Object.values(concurrent.projection).includes(true));
     concurrent = null;
-    mirror = { activity: 'none', since: now(), pending: null, pendingSince: null };
+    primary = 'none';
     presentedAt = 0;
     if (wasActive) presentMirror(null, concurrentActivity.EMPTY_CONCURRENT_ACTIVITY);
   }
@@ -152,7 +146,7 @@ function createActivityMirror({
     const enabled = getSettings().activityMirrorEnabled === true;
     return Object.freeze({
       enabled,
-      activity: enabled ? mirror.activity : 'none',
+      activity: enabled ? primary : 'none',
       concurrent: enabled && concurrent ? concurrent.projection : concurrentActivity.EMPTY_CONCURRENT_ACTIVITY,
       receiver: enabled ? receiver : 'off',
       port: agentSignalPort(profile),
@@ -175,7 +169,7 @@ function createActivityMirror({
     registerIpc('activity:copy-plugin-command', (_event, payload) => copyPluginCommand(payload));
   }
 
-  return Object.freeze({ sync, register, projection, onAgentEvent, current: () => mirror.activity, dispose: stop });
+  return Object.freeze({ sync, register, projection, onAgentEvent, current: () => primary, dispose: stop });
 }
 
 module.exports = { createActivityMirror };

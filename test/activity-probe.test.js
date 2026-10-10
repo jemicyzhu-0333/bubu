@@ -86,3 +86,56 @@ test('the macOS fallback polls lsappinfo for the front bundle and reports no aud
   timers[0].fn();
   assert.equal(samples.length, 1);
 });
+
+test('spawn error followed by close without exit retries once and can recover', () => {
+  const children = [], timers = [], errors = [], samples = [];
+  const host = createActivityProbeHost({
+    command: { kind: 'helper', file: 'probe', args: [] }, onSample: value => samples.push(value),
+    onError: error => errors.push(error),
+    spawn: () => { const child = fakeChild(); children.push(child); return child; },
+    setTimer: (fn, ms) => { timers.push({ fn, ms }); return timers.length; }, clearTimer() {}
+  });
+  host.start();
+  children[0].emit('error', Object.assign(new Error('spawn failed'), { code: 'ENOENT' }));
+  children[0].emit('close', -2);
+  assert.equal(errors.length, 1);
+  assert.equal(timers.length, 1);
+  assert.equal(timers[0].ms, 2_000);
+  timers[0].fn();
+  children[1].stdout.emit('data', '{"v":1,"front":null,"audio":["com.netease.163music"]}\n');
+  assert.deepEqual(samples[0].audio, ['com.netease.163music']);
+  children[1].emit('exit', 1);
+  children[1].emit('close', 1);
+  assert.equal(timers.length, 2, 'exit and close create only one restart');
+  assert.equal(timers[1].ms, 2_000, 'a valid sample resets the failure budget');
+  host.stop();
+  timers[1].fn();
+  children[1].emit('error', new Error('late stale child error'));
+  assert.equal(children.length, 2, 'stopping cancels pending recovery');
+  assert.equal(errors.length, 1, 'retired children cannot report errors into a later run');
+});
+
+test('repeated spawn failures exhaust the bounded retry budget', () => {
+  const children = [], timers = [], errors = [];
+  const host = createActivityProbeHost({
+    command: { kind: 'helper', file: 'probe', args: [] }, onSample() {}, onError: error => errors.push(error),
+    spawn: () => { const child = fakeChild(); children.push(child); return child; },
+    setTimer: fn => { timers.push(fn); return timers.length; }, clearTimer() {}
+  });
+  host.start();
+  for (let attempt = 0; attempt <= MAX_RESTARTS; attempt += 1) {
+    children.at(-1).emit('error', new Error('spawn failed'));
+    children.at(-1).emit('close', -2);
+    if (attempt < MAX_RESTARTS) timers[attempt]();
+  }
+  assert.equal(children.length, MAX_RESTARTS + 1);
+  assert.equal(timers.length, MAX_RESTARTS);
+  assert.ok(errors.some(error => /repeated failures/.test(error.message)));
+  host.stop();
+});
+
+test('failed dev audio preparation selects foreground-only mode without changing packaged selection', () => {
+  const common = { platform: 'darwin', resourcesPath: '/R', appPath: '/A', exists: () => true, disableDevAudio: true };
+  assert.deepEqual(resolveProbeCommand({ ...common, isPackaged: false }), { kind: 'lsappinfo' });
+  assert.equal(resolveProbeCommand({ ...common, isPackaged: true }).kind, 'helper');
+});

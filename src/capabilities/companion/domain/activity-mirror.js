@@ -13,8 +13,7 @@ const DEFAULT_POLICY = Object.freeze({
   idleMs: 120_000, // nobody at the keyboard: only music keeps a mirror going
   dwellMs: 15_000, // a candidate must hold this long before the companion follows it
   releaseMs: 30_000, // dropping back to nothing waits a little longer
-  agentThinkingMs: 10 * 60_000, // a prompt with no matching stop stops counting after this
-  agentAnswerMs: 90_000 // after an answer the person is usually still reading or replying
+  agentThinkingMs: 10 * 60_000 // a prompt with no matching stop stops counting after this
 });
 
 function normalizeIdentifier(value) {
@@ -40,13 +39,12 @@ function categoryOf(identifier, catalog, platform) {
 }
 
 function agentActive(agent, now, policy) {
-  if (!agent || !Number.isFinite(agent.at) || agent.at > now) return false;
-  const window = agent.event === 'prompt' ? policy.agentThinkingMs : policy.agentAnswerMs;
-  return now - agent.at <= window;
+  if (!agent || agent.event !== 'prompt' || !Number.isFinite(agent.at) || agent.at > now) return false;
+  return now - agent.at <= policy.agentThinkingMs;
 }
 
 // What the signals say at one instant, before any smoothing. Precedence: an agent
-// hook (precise) > an AI app in front > an editor or terminal in front > a music
+// active hook (precise) > an editor or terminal in front > a music
 // player that is audible. Away from the keyboard, only music remains.
 function rawActivity({ sample, agent, now, catalog, platform, policy = DEFAULT_POLICY }) {
   const idle = !sample || !Number.isFinite(sample.idleMs) || sample.idleMs >= policy.idleMs;
@@ -55,7 +53,8 @@ function rawActivity({ sample, agent, now, catalog, platform, policy = DEFAULT_P
   if (!idle) {
     if (agentActive(agent, now, policy)) return 'ai';
     const front = sample && categoryOf(sample.front, catalog, platform);
-    if (front === 'ai' || front === 'coding') return front;
+    if (front === 'coding') return front;
+    // A foreground AI window does not establish that a conversation is active.
   }
   return listening ? 'music' : 'none';
 }

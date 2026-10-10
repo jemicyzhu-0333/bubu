@@ -7,12 +7,11 @@ const MAX_AGENT_SOURCES = 64;
 const EMPTY_AGENT_SIGNALS = Object.freeze([]);
 
 // ARCHITECTURE「活动镜像」: independent, ephemeral source ownership. A stop is an
-// answer-complete notification with reading grace, never a clear-all instruction.
+// completion notification for only its source, never a clear-all instruction.
 function retainAgentSignals(signals, now, policy = DEFAULT_POLICY) {
   return Object.freeze((signals || []).filter(signal => {
-    if (!signal || !normalizeAgentEvent(signal, signal.at) || signal.at > now) return false;
-    const ttl = signal.event === 'prompt' ? policy.agentThinkingMs : policy.agentAnswerMs;
-    return now - signal.at <= ttl;
+    if (!signal || signal.event !== 'prompt' || !normalizeAgentEvent(signal, signal.at) || signal.at > now) return false;
+    return now - signal.at <= policy.agentThinkingMs;
   }).map(signal => normalizeAgentEvent(signal, signal.at)));
 }
 
@@ -20,7 +19,8 @@ function recordAgentSignal(signals, event, now, policy = DEFAULT_POLICY) {
   const current = retainAgentSignals(signals, now, policy);
   const next = normalizeAgentEvent(event, now);
   if (!next) return current;
-  return Object.freeze([...current.filter(signal => signal.source !== next.source), next].slice(-MAX_AGENT_SOURCES));
+  const remaining = current.filter(signal => signal.source !== next.source);
+  return Object.freeze(next.event === 'stop' ? remaining : [...remaining, next].slice(-MAX_AGENT_SOURCES));
 }
 
 // Internal lifecycle operation only. The public hook protocol stays prompt/stop.
@@ -43,6 +43,13 @@ function settleSource(previous, candidate, now, missingSince, policy) {
   return Object.freeze(advanceMirror(state, { candidate, now, policy }));
 }
 
+// The compatibility category is a projection of already-settled sources, not
+// another state machine with a second release/dwell delay.
+function primaryConcurrentActivity(projection) {
+  const valid = normalizeConcurrentActivity(projection);
+  return valid?.ai ? 'ai' : valid?.coding ? 'coding' : valid?.music ? 'music' : 'none';
+}
+
 function advanceConcurrentActivity(previous, { sample, agents = EMPTY_AGENT_SIGNALS, idleMs, now, catalog, platform, policy = DEFAULT_POLICY }) {
   const fresh = freshActivitySample(sample, now, policy);
   const idle = !Number.isFinite(idleMs) || idleMs >= policy.idleMs;
@@ -52,19 +59,18 @@ function advanceConcurrentActivity(previous, { sample, agents = EMPTY_AGENT_SIGN
   const idleSince = idle && Number.isFinite(idleMs) ? now - Math.max(0, idleMs - policy.idleMs) : null;
   const frontMissingSince = [staleSince, idleSince].filter(Number.isFinite);
   const musicState = settleSource(previous && previous.music, music ? 'music' : 'none', now, staleSince, policy);
-  const frontState = settleSource(previous && previous.front, front === 'ai' || front === 'coding' ? front : 'none', now,
+  const frontState = settleSource(previous && previous.front, front === 'coding' ? front : 'none', now,
     frontMissingSince.length ? Math.min(...frontMissingSince) : null, policy);
   const liveAgents = retainAgentSignals(agents, now, policy);
   const agentCandidate = !idle && liveAgents.length > 0 ? 'ai' : 'none';
-  // A prompt is precise and immediate. A stop received without a preceding
-  // visible prompt still follows the existing dwell. TTL/idle ends the source
-  // directly rather than inventing another reading grace after its deadline.
+  // Start and completion are precise. TTL/idle also ends the source directly;
+  // no reading grace or foreground window can prolong a completed prompt.
   const agentState = Object.freeze(advanceMirror(previous && previous.agent, { candidate: agentCandidate, now, policy,
     immediate: agentCandidate === 'none' || liveAgents.some(signal => signal.event === 'prompt') }));
   const projection = normalizeConcurrentActivity({ v: 1, music: musicState.activity === 'music',
-    coding: frontState.activity === 'coding', ai: frontState.activity === 'ai' || agentState.activity === 'ai' });
+    coding: frontState.activity === 'coding', ai: agentState.activity === 'ai' });
   return Object.freeze({ music: musicState, front: frontState, agent: agentState, agents: liveAgents, projection });
 }
 
 module.exports = { MAX_AGENT_SOURCES, EMPTY_AGENT_SIGNALS, EMPTY_CONCURRENT_ACTIVITY,
-  retainAgentSignals, recordAgentSignal, clearAgentSignal, freshActivitySample, advanceConcurrentActivity };
+  retainAgentSignals, recordAgentSignal, clearAgentSignal, freshActivitySample, advanceConcurrentActivity, primaryConcurrentActivity };

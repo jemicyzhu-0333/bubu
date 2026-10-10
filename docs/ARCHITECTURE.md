@@ -859,9 +859,9 @@ pet 的 `sync` 以 canonical publication revision 和逐字段到达所有权处
 由 preferences 拥有；整个功能不写任何其他持久化路径，也不进时间轴、记忆或模型请求。
 
 - **纯规则** `capabilities/companion/domain/activity-mirror.js`：`categoryOf` 按 `content/activity-apps.js` 的分平台名单
-  （macOS bundle ID、Windows 进程名，大小写不敏感，`*` 前缀匹配）归类；`rawActivity` 的优先级是 agent 事件 > AI 应用在前 >
-  编辑器 / IDE / 终端在前 > 名单内播放器发声，闲置 ≥ 2 分钟只保留音乐；`advanceMirror` 以 15 秒跟随、30 秒回落做迟滞，
-  agent 的 prompt 事件立即切换；prompt 最多算 10 分钟，stop 之后再算 90 秒。时间、样本和名单全部由调用方传入。
+  （macOS bundle ID、Windows 进程名，大小写不敏感，`*` 前缀匹配）归类；`rawActivity` 的优先级是未结束的 agent prompt >
+  编辑器 / IDE / 终端在前 > 名单内播放器发声，闲置 ≥ 2 分钟只保留音乐；AI 应用在前不能证明对话仍在进行，不激活AI场景。
+  `advanceMirror` 为前台/音乐以 15 秒跟随、30 秒回落做迟滞；agent prompt 立即切换，stop 立即撤回本来源。prompt 最多算10分钟，无结束后的阅读宽限。时间、样本和名单全部由调用方传入。
 - **探针** `platform/activity/`：每种系统一个常驻 helper，每 2 秒输出一行 `{"v":1,"front":…,"audio":[…]}`，
   `probe-line.js` 闭合解析（标识 ≤ 200 字、audio ≤ 32 项）。macOS 是 `native/macos/ActivityProbe.swift`
   （`NSWorkspace.frontmostApplication` + Core Audio `kAudioHardwarePropertyProcessObjectList` / `kAudioProcessPropertyIsRunningOutput`，
@@ -888,7 +888,7 @@ pet 的 `sync` 以 canonical publication revision 和逐字段到达所有权处
   **不改写任何工具的配置文件**；各工具的步骤、命令模板与平台在 `content/agent-plugin.js`，命令由主进程填入真实路径，
   面板按工具 id 请求 `activity:copy-plugin-command`（companion 合约，仅 popover）写入剪贴板。是否已接入只按“最近一次收到该来源信号”的时间显示，
   不读工具配置。DeepSeek Harness 等其他工具没有插件格式，提示用户把 `hooks/hooks.json` 中的两条加入其用户级 hooks 配置（来源记为 `agent`）。
-- **组装** `bootstrap/activity-mirror.js` 跟随设置启动 / 停止探针与接收端，把兼容主类别经 `pet:sync { activityMirror }` 交给桌宠，并附加闭合版本投影 `activityMirrorConcurrent: { v: 1, music, coding, ai }`（每 30 秒补发一次，
+- **组装** `bootstrap/activity-mirror.js` 跟随设置启动 / 停止探针与接收端，把由已平滑并发投影按AI > coding > music派生的兼容主类别经 `pet:sync { activityMirror }` 交给桌宠，并附加闭合版本投影 `activityMirrorConcurrent: { v: 1, music, coding, ai }`（每 30 秒补发一次，
   桌宠重载后会追上），并投影 `state.activityMirror`（类别、接收端状态、各工具安装步骤与最近一次收到信号的时间，dirty 键 `activity`）。
   `main.js` 只负责创建、注册和在设置变化时调用 `sync()`。每次启动以独立运行身份拥有回调；关闭先失效身份再释放探针、计时器和接收端，旧完成不能污染重开后的状态。接收端也持有待监听实例，关闭时结清待启动结果并关闭实例。
 - **桌宠** `surfaces/pet/activity-mirror.mjs` 把类别映射到会话活动模式 `mirror-music / mirror-coding / mirror-ai`
@@ -903,7 +903,7 @@ pet 的 `sync` 以 canonical publication revision 和逐字段到达所有权处
   `action-playback.mjs` 在原动作选择和 artist 采样之间附加 `mirrorPresentation`，其 enter / loop / exit 只表示可见动作阶段。
   初次进入 800 ms，回到无活动时收势 600 ms；同类补发和 24/30 秒循环不重放入场。专注、休息、写代码、手动输入与更高优先级反馈立即覆盖，
   不排队补播旧退出；隐藏、锁屏、切换形态、减少动效和低刺激清理或静置过渡。没有第二个定时器、事件总线、奖励、IPC 或持久化写入。
-  renderer 不根据补发间隔另设 TTL：闲置、prompt/stop 过期和 15/30 秒迟滞仍只由主进程原规则决定。
+  renderer 不根据补发间隔另设 TTL：闲置、prompt 过期、stop撤回和前台/音乐15/30秒迟滞仍只由主进程规则决定。面板与兼容主类别不再启动第二份迟滞。
   桌宠始终只知道有效类别布尔投影，不知道应用/source标识、采样时间、BPM、歌曲内容、提问/回答内容或 AI 当前生成阶段；动作不得据此宣称同步节拍或真实生成进度。
 - **标识、短句与叠加** `surfaces/pet/context-emphasis.mjs` 拥有临时类别观察和一次短句机会，向 renderer 提供 `activityUi` 窄端口。
   `speech.mjs` 抽取原单一 bubble 和可替换 timeout，所有讲话共用，不创建新定时器类别；旧 timeout 以 generation 身份拒绝关闭新讲话。
@@ -919,7 +919,8 @@ pet 的 `sync` 以 canonical publication revision 和逐字段到达所有权处
   “音乐疗愈中 / AI协作中”只表达陪伴语境，不能解释为医疗效果或真实 AI 执行/生成状态。
 
 - **并发信号与兼容** `domain/concurrent-activity.js` 独立平滑发声音乐与前台应用，按 source 保存最多64份有效 agent 通知；
-  stop 只更新本来源为原90秒陪伴窗口，不删除其他来源的 prompt。prompt 最长10分钟；过期来源会从临时集合移除。
+  stop 立即删除本来源，不删除其他来源的 prompt；重复或孤立stop不激活AI，新prompt可以立即重新进入。prompt 最长10分钟；过期来源会从临时集合移除。
+  协议只携带source/event，没有会话/request身份，保证跨来源并发但不承诺区分同一工具内的并发请求；未收到结束通知时只能按有界超时回退，不能从窗口关闭/隐藏、Provider错误或会话页面仍打开推断结束。
   probe 样本带主进程接收时刻，超过原30秒 release 窗口就不再作为新证据；旧呈现按原30秒回落，总计60秒回落，并在既有5秒评估tick内可见（最迟65秒），
   延迟 tick 按已过去的时间结算，不重新开始等待。闲置实时重读，只保留音乐；关闭/销毁清除全部临时信号，旧回调不能复活。
   这些时间只存在于主进程内存，不保存记录、时间线、内容或跨进程来源标识；面板诊断只保留既有已知工具最近收到通知的字段。

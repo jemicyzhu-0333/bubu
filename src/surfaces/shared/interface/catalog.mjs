@@ -164,7 +164,7 @@ export const EN = Object.freeze({
   "伙伴跟着你": "Activity companion",
   "跟着当前活动": "Follow current activity",
   "了解跟着当前活动": "About following current activity",
-  "在本机查看最前面的应用和正在出声的音乐播放器，伙伴换成听音乐、写代码或和 AI 对话的姿势。不读取窗口标题、歌名或对话内容，不保存，也不发送。": "The companion matches the foreground app or audible music player on this device with a listening, coding, or AI-chat pose. Window titles, song names, and conversation content are never read, saved, or sent.",
+  "根据前台应用、播放器音频输出和已接入 AI 工具的事件切换陪伴状态。不读取窗口标题、歌名或对话内容，不保存，也不发送。": "The companion follows the foreground app, music-player audio output, and events from connected AI tools. Window titles, song names, and conversation content are never read, saved, or sent.",
   "接入 AI 工具": "Connect AI tools",
   "在你用的 AI 工具里装上随附的 bubu-companion 插件，提问和回答时伙伴会立刻切到“和 AI 对话”。插件只通知“提问了 / 回答完了”，不带提问、回答或文件内容；收到过信号的工具会在这里显示。": "Install the included bubu-companion plugin in your AI tool to show an AI-chat pose while you ask and receive answers. It sends only “question sent / answer finished”, without questions, answers, or file contents. Tools that have sent a signal appear here.",
   "时间与节奏": "Time and rhythm",

@@ -11,8 +11,10 @@ const LSAPPINFO = '/usr/bin/lsappinfo';
 const FRONT_BUNDLE_COMMAND = `${LSAPPINFO} info -only bundleid "$(${LSAPPINFO} front)"`;
 
 // Where the helper lives: inside the packaged app's resources, or the repository in development.
-function resolveProbeCommand({ platform, isPackaged, resourcesPath, appPath, exists }) {
+function resolveProbeCommand({ platform, isPackaged, resourcesPath, appPath, exists,
+  disableDevAudio = process.env.BUBU_DEV_DISABLE_ACTIVITY_AUDIO === '1' }) {
   if (platform === 'darwin') {
+    if (!isPackaged && disableDevAudio) return { kind: 'lsappinfo' };
     const file = isPackaged
       ? path.join(resourcesPath, 'activity-probe', 'activity-probe')
       : path.join(appPath, 'build', 'native', 'darwin', 'activity-probe');
@@ -93,12 +95,16 @@ function createActivityProbeHost({
     const current = child;
     current.stdout.setEncoding('utf8');
     current.stdout.on('data', chunk => { if (current === child) consume(chunk); });
-    current.on('error', report);
-    current.on('exit', () => {
+    current.on('error', error => { if (current === child) report(error); });
+    function ended() {
       if (current !== child) return;
       child = null;
       scheduleRestart();
-    });
+    }
+    current.on('exit', ended);
+    // A failed spawn emits error + close, but may never emit exit. Keep the same
+    // bounded recovery path; ownership prevents exit + close scheduling twice.
+    current.on('close', ended);
   }
 
   function start() {
