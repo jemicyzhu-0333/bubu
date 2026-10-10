@@ -54,10 +54,25 @@ test('fresh admission integrates runtime exception without creating or interpret
   assert.equal(admitConfigCopy({ filePath: path.join(directory, 'config.sqlite'), identityPath: path.join(directory, 'config.sqlite.identity.sqlite') }, options), null);
   unchanged(before, directory); assert.equal(fs.existsSync(path.join(directory, 'config.sqlite')), false);
 });
-for (const member of ['ai-credential.bin', 'unknown.sqlite', 'config.sqlite-WAL', 'CONFIG.SQLITE', '.hidden', 'Network', 'ShaderCache/config.sqlite', 'GrShaderCache/data_4', 'ShaderCache/Index', 'GPUPersistentCache/cache.db']) {
+for (const member of ['ai-credential.bin', 'unknown.sqlite', 'config.sqlite-WAL', 'CONFIG.SQLITE', '.hidden', 'Network', 'ShaderCache/config.sqlite', 'GrShaderCache/data_4', 'GPUPersistentCache/cache.db']) {
   test(`unknown or business-shaped member remains refused: ${member}`, t => {
     const directory = fixture(t); fs.writeFileSync(path.join(directory, member), 'preserve me');
     const before = snapshot(directory); assert.equal(admitsWindowsRuntimeCache(directory, options), false); unchanged(before, directory);
+  });
+}
+for (const [canonical, variant] of [['ShaderCache/index', 'ShaderCache/Index'], ['ShaderCache/data_0', 'ShaderCache/DATA_0'], ['Local State', 'local state']]) {
+  test(`actual case-variant directory entry is refused on case-sensitive and case-insensitive filesystems: ${variant}`, t => {
+    const directory = fixture(t);
+    // Writing Index beside index overwrites the same entry on default APFS/NTFS;
+    // remove only this disposable fixture member first, then create exclusively.
+    fs.unlinkSync(path.join(directory, canonical));
+    fs.writeFileSync(path.join(directory, variant), 'preserve me', { flag: 'wx' });
+    const names = fs.readdirSync(path.dirname(path.join(directory, variant)));
+    assert.ok(names.includes(path.basename(variant)), 'fixture must contain the actual case-variant spelling');
+    assert.ok(!names.includes(path.basename(canonical)), 'fixture must not retain the canonical spelling');
+    const before = snapshot(directory);
+    assert.equal(admitsWindowsRuntimeCache(directory, options), false);
+    unchanged(before, directory);
   });
 }
 for (const modify of [s => { s.extra = true; }, s => { s.os_crypt.extra = true; }, s => { s.os_crypt.encrypted_key = 'not base64!'; }, s => { s.os_crypt.audit_enabled = 1; }, s => { s.uninstall_metrics.installation_date2 = 123; }]) {
