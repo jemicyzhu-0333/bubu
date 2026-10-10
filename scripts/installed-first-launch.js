@@ -139,13 +139,21 @@ async function verifyProfileLaunch(executable, { fixture, fresh = true, spawnChi
       if (url) inspector = await connect(url);
     }
     assert.ok(inspector, 'loopback child inspector not ready');
+    if (!profileArgument) assert.equal(await inspector.evaluate(`${ELECTRON}.app.commandLine.hasSwitch('user-data-dir')`), false);
+    stage = 'production-window-readiness';
+    await waitForInstalledWindow(inspector, completion, { wait });
+    // The inspector can open before production main and createAppHost normalize
+    // Electron's productName-derived path. Observe the selected profile only
+    // after the production window proves bootstrap completed, never by changing
+    // the path from the inspector or accepting the pre-bootstrap productName.
     if (!profileArgument) {
+      stage = 'default-profile-verification';
       assert.equal(await inspector.evaluate(`${ELECTRON}.app.commandLine.hasSwitch('user-data-dir')`), false);
       assert.equal(await inspector.evaluate(`${ELECTRON}.app.getPath('userData')`), fixture.userDataPath,
         'default native profile must equal the disposable runner profile under verification');
+      assert.equal(await inspector.evaluate(`${ELECTRON}.app.getPath('sessionData')`), fixture.userDataPath,
+        'default native session data must retain the selected profile layout');
     }
-    stage = 'production-window-readiness';
-    await waitForInstalledWindow(inspector, completion, { wait });
     assert.equal(await wait(completion, 1000), null, 'installed app exited after readiness');
     const lockfile = path.join(fixture.userDataPath, 'lockfile');
     const lockfileObserved = fs.existsSync(lockfile) && fs.lstatSync(lockfile).isFile() && fs.lstatSync(lockfile).size === 0;

@@ -34,12 +34,13 @@ test('closed fresh authority validates brand, binding and canonical persisted st
     assert.deepEqual(fs.readFileSync(identity), bytes);
   } finally { fs.rmSync(profile.root, { recursive: true, force: true }); }
 });
-function launchPorts({ startupError = false, noWindow = false, abnormalExit = false, defaultProfile = false } = {}) {
-  let profile, child, launches = 0, killed = 0;
+function launchPorts({ startupError = false, noWindow = false, abnormalExit = false, defaultProfile = false, wrongDefaultPath = false, hiddenOverride = false, wrongSessionPath = false } = {}) {
+  let profile, child, launches = 0, killed = 0, bootstrapReady = false, defaultObservations = 0;
   const ports = {
     profileArgument: !defaultProfile,
     createProfile() { profile = createEmptyProfile(); return profile; },
     spawnChild(executable, argv, options) {
+      bootstrapReady = false;
       assert.equal(executable, '/synthetic-installed/bubu');
       assert.deepEqual(argv, [...(defaultProfile ? [] : [`--user-data-dir=${profile.userDataPath}`]), '--inspect=127.0.0.1:0']);
       assert.equal(Object.keys(options.env).some(name => name.toUpperCase() === 'ELECTRON_RUN_AS_NODE'), false);
@@ -59,14 +60,19 @@ function launchPorts({ startupError = false, noWindow = false, abnormalExit = fa
     },
     async connect() { return {
       async evaluate(expression) {
-        if (expression.includes("hasSwitch('user-data-dir')")) return !defaultProfile;
-        if (expression.includes("getPath('userData')")) return profile.userDataPath;
+        if (expression.includes("hasSwitch('user-data-dir')")) return hiddenOverride || !defaultProfile;
+        if (expression.includes("getPath('userData')")) {
+          defaultObservations++;
+          return bootstrapReady && !wrongDefaultPath ? profile.userDataPath : path.join(path.dirname(profile.userDataPath), '小步');
+        }
+        if (expression.includes("getPath('sessionData')")) return bootstrapReady && !wrongSessionPath ? profile.userDataPath : path.join(path.dirname(profile.userDataPath), '小步');
         if (expression.includes('app.quit')) { child.emit('close', abnormalExit ? 1 : 0, null); return true; }
-        return !noWindow;
+        bootstrapReady = !noWindow;
+        return bootstrapReady;
       }, close() {}
     }; }
   };
-  return { ports, get launches() { return launches; }, get killed() { return killed; }, get profile() { return profile; } };
+  return { ports, get defaultObservations() { return defaultObservations; }, get launches() { return launches; }, get killed() { return killed; }, get profile() { return profile; } };
 }
 test('installed launch and reopen use the same unseeded profile, normal exit, then read SQL', async () => {
   const fixture = launchPorts();
@@ -84,6 +90,19 @@ test('default-profile probe omits the override and verifies the native selected 
   assert.equal(report.reopen.userDataOverrideSwitch, false);
   assert.match(report.firstLaunch.acceptance, /native default profile/);
 });
+test('default profile is observed after bootstrap mapping on first launch and reopen', async () => {
+  const fixture = launchPorts({ defaultProfile: true });
+  await verifyFreshLaunch('/synthetic-installed/bubu', fixture.ports);
+  assert.equal(fixture.defaultObservations, 2);
+});
+for (const [name, options] of [['wrong path after readiness', { wrongDefaultPath: true }], ['unexpected profile override', { hiddenOverride: true }], ['wrong session path after readiness', { wrongSessionPath: true }]]) {
+  test(`default profile still rejects ${name}`, async () => {
+    const fixture = launchPorts({ defaultProfile: true, ...options });
+    await assert.rejects(verifyFreshLaunch('/synthetic-installed/bubu', fixture.ports), /default native profile|default native session data|strictly equal/);
+    assert.equal(fixture.launches, 1);
+    assert.equal(fs.existsSync(fixture.profile.root), false);
+  });
+}
 for (const [name, options] of [['startup error dialog', { startupError: true }], ['missing UI readiness', { noWindow: true }], ['nonzero exit', { abnormalExit: true }]]) {
   test(`installed launch rejects ${name} and never reports reopening success`, async () => {
     const fixture = launchPorts(options);
