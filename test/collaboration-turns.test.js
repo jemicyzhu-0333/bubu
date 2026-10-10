@@ -502,3 +502,37 @@ for (const reason of ['provider-response-invalid-json', 'provider-response-html'
     assert.equal(f.sent.length, 1);
   });
 }
+
+test('simultaneous and completed retries of one message ID never duplicate provider calls', async () => {
+  const pending = deferred();
+  const f = fixture({ noTarget: true, selection: { tools: [], taskIds: [] }, reply: () => pending.promise });
+  const request = { conversationId: f.conversationId, scopeGrantId: f.scopeGrantId, messageId: 'client-deduplicate', message: 'hello' };
+  const first = f.turns.run(request);
+  await nextTick();
+  assert.equal(f.sent.length, 1);
+  const simultaneous = await f.turns.run(request);
+  assert.equal(simultaneous.reason, 'conversation-turn-active');
+  assert.equal(f.sent.length, 1);
+  pending.resolve(answer('one answer'));
+  assert.equal((await first).ok, true);
+  const completed = await f.turns.run(request);
+  assert.equal(completed.replayed, true);
+  assert.equal(completed.conversation.messages.length, 2);
+  assert.equal(f.sent.length, 1);
+  assert.equal(f.turns.captureRunOwners().length, 0);
+});
+
+test('retry retains cancellation and fresh-grant requirements without duplicating the user', async () => {
+  const pending = deferred();
+  const f = fixture({ noTarget: true, selection: { tools: [], taskIds: [] }, reply: () => pending.promise });
+  const request = { conversationId: f.conversationId, scopeGrantId: f.scopeGrantId, messageId: 'client-canceled', message: 'hello' };
+  const first = f.turns.run(request); await nextTick();
+  f.sessions.cancel({ conversationId: f.conversationId });
+  assert.equal((await first).ok, false);
+  const stale = await f.turns.run(request);
+  assert.equal(stale.ok, false);
+  assert.equal(f.sent.length, 1);
+  assert.equal(f.get().messages.length, 1);
+  pending.resolve(answer('too late')); await nextTick();
+  assert.equal(f.get().messages.length, 1);
+});

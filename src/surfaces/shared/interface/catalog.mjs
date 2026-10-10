@@ -1,5 +1,9 @@
 // App-authored interface copy only. User content and provider output are never catalog keys.
 export const EN = Object.freeze({
+  "补充要求或反馈": "Requests or feedback",
+  "例如：每一步再小一点，先从不用出门的事开始": "For example: smaller steps, starting with something I can do at home",
+  "继续讨论": "Discuss further",
+  "选择日期": "Choose a date",
   "测试失败，请检查配置与网络": "Test failed. Check your configuration and network",
   "上一次测试尚未结束，请稍后重试": "The previous test is still ending. Try again shortly",
   "网络连接失败": "Network connection failed",
@@ -1754,5 +1758,31 @@ export const EN = Object.freeze({
   "还没有可选的形态。": "No forms available yet.",
   "当前 {current}/{target}": "Current {current}/{target}",
   "饱食 {value}": "Fullness {value}",
-  "得到 {name}，点旁边的喂食按钮给我。": "Received {name}. Use the nearby feed button to share it with me."
+  "得到 {name}，点旁边的喂食按钮给我。": "Received {name}. Use the nearby feed button to share it with me.",
+  "小步协作": "Work with bubu",
+  "最近对话": "Recent conversations",
+  "建议经你确认后生效。": "Suggestions take effect after your confirmation.",
+  "来源：经本人确认的小步协作": "Source: work with bubu confirmed by you",
+  "小步协作未开启，仍可编辑草稿。": "Work with bubu is not enabled. You can still edit the draft.",
+  "想聊点什么？": "What’s on your mind?",
+  "未保存 · 退出后清除": "Not saved · Cleared on app exit",
+  "本机保存 · {retention}": "Saved locally · {retention}",
+  "仅本次 · 退出后清除": "This session · Cleared on app exit",
+  "这条消息仍在处理中，尚未再次发送。": "This message is still processing. It has not been sent again.",
+  "消息身份不一致，未再次发送。": "The message identity does not match. It has not been sent again.",
+  "这条消息已有后续对话，未再次发送。": "There are newer messages. This message has not been sent again.",
+  "等待小步回复，可以继续写下一条。": "Waiting for bubu. You can write your next message.",
+  "发送状态未确认，内容仍在；重试会先核对这条消息。": "Delivery is unconfirmed. Your message is retained; retry checks its status first.",
+  "正在取消回复，消息和草稿会保留。": "Canceling the reply. Your message and draft will be retained.",
+  "等待小步回复…": "Waiting for bubu…",
+  "回复未完成": "Reply incomplete",
+  "这条消息未发送": "Message not sent",
+  "发送状态待确认": "Delivery unconfirmed",
+  "回复已取消": "Reply canceled",
+  "重试这条消息": "Retry this message",
+  "有消息待确认，尚未确认保存": "Messages pending confirmation · Saving unconfirmed",
+  "已有对话草稿，补充要求仍保留在任务编辑页。": "Your existing conversation draft was kept. Additional instructions are still in the task editor.",
+  "对话未打开，新输入仍暂存；重新打开后可继续。": "The conversation could not be opened. Your new draft is retained for the next attempt."
+
 });
+

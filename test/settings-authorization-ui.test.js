@@ -126,7 +126,7 @@ test('actual drawer ignores older success while the newer save is pending', asyn
   await settle();
   assert.equal(h.status().dataset.state, 'saving');
   second.resolve({ ok: true }); await settle();
-  assert.equal(h.status().textContent, '已保存并生效');
+  assert.equal(h.status().textContent, '');
   h.feature.dispose();
 });
 
@@ -138,7 +138,7 @@ test('actual drawer ignores an older rejection after newer committed success', a
   second.resolve({ ok: true }); await settle();
   first.reject(new Error('synthetic private failure')); await settle();
   assert.equal(h.status().dataset.state, 'saved');
-  assert.equal(h.status().textContent, '已保存并生效');
+  assert.equal(h.status().textContent, '');
   h.feature.dispose();
 });
 
@@ -568,11 +568,11 @@ test('null or undefined postcommit projection replaces stale readiness with unkn
 });
 
 
-test('idle settings do not show Synced while actual save receipts remain visible', async () => {
+test('settings keep pending feedback but clear routine successful save copy', async () => {
   const h = drawerHarness(async () => ({ ok: true }));
   h.feature.renderSettings(); assert.equal(h.status().textContent, '');
   h.save(); assert.equal(h.status().textContent, '正在保存…');
-  await settle(); assert.equal(h.status().textContent, '已保存并生效');
+  await settle(); assert.equal(h.status().textContent, '');
   h.feature.dispose();
 });
 
@@ -599,3 +599,4 @@ test('closing settings also disarms calibration before the next visit', context 
   assert.equal(h.$('#btnResetEnergyCalibration').textContent, '真的重置');
   h.feature.close(); assert.equal(h.$('#btnResetEnergyCalibration').textContent, '重置校准');
 });
+

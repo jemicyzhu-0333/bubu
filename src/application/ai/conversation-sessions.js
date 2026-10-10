@@ -10,7 +10,7 @@ const { createConversationPersistence } = require('./conversation-persistence');
 const RESPONSE_RESERVE_BYTES = 128 * 1024;
 const DAY_MS = 86400000;
 const MAX_TIMER_MS = 2147483647;
-const TOKEN_KEYS = ['conversationId', 'turnId', 'requestId', 'authGeneration', 'providerId'];
+const TOKEN_KEYS = ['conversationId', 'turnId', 'requestId', 'authGeneration', 'providerId', 'attemptId'];
 
 // This use case owns the transcript lifecycle. The repository is a narrow port,
 // and neither saved text nor a renderer claim can authorize a new request.
@@ -314,7 +314,7 @@ function createCollaborationSessions({ ownerId, repository = null, now, idFactor
     try { if (!disposed && !entry.expired && entries.get(applied.record.id) === entry) conversation = snapshot(entry); } catch (_) {}
     return { ok: true, conversation, ...extra };
   }
-  function beginTurn({ conversationId, message, providerId, authorizationGeneration, sourceRefs = [], selectedProposalId, admissionTicket } = {}) {
+  function beginTurn({ conversationId, message, messageId, providerId, authorizationGeneration, sourceRefs = [], selectedProposalId, admissionTicket } = {}) {
     const ticket = admissionTicket === undefined ? admission?.captureAdmission() : admissionTicket;
     const allowed = () => !admission || admission.isAdmissionCurrent(ticket);
     if (!allowed()) return { ok: false, reason: 'authorization-busy' };
@@ -336,9 +336,26 @@ function createCollaborationSessions({ ownerId, repository = null, now, idFactor
       revoke({ conversationId });
       return { ok: false, reason: 'provider-changed', conversation: snapshot(entry) };
     }
-    const turnId = nextId('turn');
-    const requestId = nextId('request');
-    const user = { id: nextId('message'), role: 'user', sequence: entry.record.messages.length + 1,
+    // ARCHITECTURE「共享协作」: a client ID identifies one user message, never
+    // an authorization. Retrying an unanswered tail preserves its canonical IDs.
+    if (messageId !== undefined && (typeof messageId !== 'string' || !/^[a-zA-Z0-9_.:-]{1,200}$/.test(messageId))) return { ok: false, reason: 'conversation-message-invalid' };
+    const existing = messageId === undefined ? null : entry.record.messages.find(item => item.id === messageId);
+    if (existing && (existing.role !== 'user' || existing.content !== message)) {
+      return { ok: false, reason: 'conversation-message-conflict', conversation: snapshot(entry) };
+    }
+    if (existing) {
+      const answer = entry.record.messages.find(item => item.role === 'assistant' && item.turnId === existing.turnId);
+      if (answer) return result(entry, { replayed: true, acceptedMessageId: existing.id });
+      if (entry.active) return { ok: false, reason: 'conversation-turn-active', conversation: snapshot(entry) };
+      if (entry.record.messages.at(-1) !== existing) {
+        return { ok: false, reason: 'conversation-retry-stale', conversation: snapshot(entry) };
+      }
+    } else if (messageId !== undefined && issuedIds.has(messageId)) {
+      return { ok: false, reason: 'conversation-message-conflict' };
+    }
+    const turnId = existing?.turnId || nextId('turn');
+    const requestId = existing?.requestId || nextId('request');
+    const user = existing || { id: messageId || nextId('message'), role: 'user', sequence: entry.record.messages.length + 1,
       content: message, proposal: null, requestId, turnId, segment: entry.record.segment.index,
       createdAt: Math.max(timestamp(), entry.record.updatedAt), sourceRefs: [], contextAllowed: true, provenance: null };
     if (serializedBytes(entry.record) + serializedBytes(user) + RESPONSE_RESERVE_BYTES > MAX_SNAPSHOT_BYTES) {
@@ -346,22 +363,25 @@ function createCollaborationSessions({ ownerId, repository = null, now, idFactor
     }
     const candidate = clone(captured.record);
     if (!allowed() || !matches(entry, captured)) return { ok: false, reason: 'conversation-turn-stale' };
-    const rotated = rotateSegment(entry, candidate, serializedBytes(user));
+    const rotated = existing ? { ok: true } : rotateSegment(entry, candidate, serializedBytes(user));
     if (!rotated.ok) return { ...rotated, conversation: snapshot(entry) };
-    user.segment = candidate.segment.index;
+    if (!existing) user.segment = candidate.segment.index;
     if (selectedProposalId !== undefined) candidate.selectedProposalId = selectedProposalId;
-    const token = immutable({ conversationId, turnId, requestId, authGeneration: entry.authGeneration, providerId });
+    const token = immutable({ conversationId, turnId, requestId, authGeneration: entry.authGeneration, providerId, attemptId: nextId('attempt') });
     const active = { token, controller: new AbortController(), sourceRefs: clone(sourceRefs) };
-    candidate.messages.push(user);
-    candidate.inputDraft = '';
+    if (!existing) candidate.messages.push(user);
+    if (!existing) candidate.inputDraft = '';
     candidate.status = 'generating';
-    candidate.segment.turns += 1;
-    candidate.segment.bytes += serializedBytes(user);
+    if (!existing) {
+      candidate.segment.turns += 1;
+      candidate.segment.bytes += serializedBytes(user);
+    }
     candidate.revision += 1;
     candidate.updatedAt = Math.max(timestamp(), candidate.updatedAt);
     if (!allowed() || !matches(entry, captured) || entry.contextEligibilityPending === true) {
       return { ok: false, reason: 'conversation-turn-stale' };
     }
+    issuedIds.add(user.id);
     entry.record = candidate;
     entry.active = active;
     entry.providerId = providerId;

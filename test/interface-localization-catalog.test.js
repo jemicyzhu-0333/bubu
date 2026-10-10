@@ -625,10 +625,12 @@ localized('conversation locale event preserves an in-flight turn and raw provide
   feature.mount(); context.after(() => feature.dispose()); await feature.open();
   const input = h.$('#draftChatInput'); input.value = '开始专注 {message}'; await input.emit('input');
   const sent = feature.send(); await settle();
+  assert.equal(input.value, '');
+  input.value = '下一条 {draft}'; await input.emit('input');
   input.selectionStart = 4; input.focus(); h.$('#draftChatLog').scrollTop = 83;
   const markup = h.$('#draftChatLog').innerHTML, count = calls.length;
   setLocale('en');
-  assert.equal(input.value, '开始专注 {message}'); assert.equal(input.selectionStart, 4); assert.equal(h.document.activeElement, input);
+  assert.equal(input.value, '下一条 {draft}'); assert.equal(input.selectionStart, 4); assert.equal(h.document.activeElement, input);
   assert.equal(h.$('#draftChatLog').scrollTop, 83); assert.equal(h.$('#draftChatLog').innerHTML, markup); assert.equal(calls.length, count);
   assert.equal(h.$('#btnDraftChatSend').disabled, true); assert.equal(h.$('#btnDraftChatSend').textContent, 'Generating…');
   pending.resolve({ ...response(), source: 'local', fallback: true, providerReason: '原始诊断 {detail}' }); await sent;

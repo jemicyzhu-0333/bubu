@@ -46,8 +46,8 @@ function harness({ enabled = true, initial, turn, start, stage } = {}) {
       calls.push(['turn', args]);
       if (turn) return turn(args, records.get(args.conversationId));
       const record = records.get(args.conversationId);
-      record.messages.push({ id: `user-${record.messages.length}`, role: 'user', content: args.message });
-      record.messages.push(proposal(Math.ceil(record.messages.length / 2)));
+      record.messages.push({ id: args.messageId, turnId: args.messageId, role: 'user', content: args.message });
+      record.messages.push({ ...proposal(Math.ceil(record.messages.length / 2)), turnId: args.messageId });
       return { ...response(record), source: 'provider' };
     },
     async pauseConversation(args) {
@@ -118,12 +118,15 @@ test('saved local or unknown provenance is never mislabeled as model output', as
   }
 });
 
-test('cancel preserves submitted input and ignores a late answer including its finally callback', async () => {
+test('cancel preserves the submitted bubble and a newer draft and ignores a late answer', async () => {
   const pending = deferred(); const h = harness({ turn: () => pending.promise }); await h.feature.open();
   h.dom.$('#draftChatInput').value = '尚未说完'; const sending = h.feature.send();
+  assert.equal(h.dom.$('#draftChatInput').value, '');
+  assert.match(h.log(), /尚未说完/);
+  h.dom.$('#draftChatInput').value = '下一条草稿';
   await h.feature.cancel(); const before = h.log();
   pending.resolve({ ok: true, conversation: session('c1', { messages: [proposal()] }) }); await sending;
-  assert.equal(h.dom.$('#draftChatInput').value, '尚未说完'); assert.equal(h.log(), before);
+  assert.equal(h.dom.$('#draftChatInput').value, '下一条草稿'); assert.equal(h.log(), before);
   assert.match(h.status(), /已取消生成/); assert.equal(h.dom.$('#btnDraftChatSend').disabled, false);
 });
 
@@ -202,9 +205,9 @@ test('local retention is explicit, defaults to 30 days and reports save failures
   const h = harness(); await h.feature.open(); await h.say('保存这段');
   h.dom.$('#draftChatRetention').value = 'saved'; await h.feature.change('retention');
   assert.equal(h.calls.find(([name]) => name === 'retention')[1].retentionDays, 30);
-  assert.match(h.dom.$('#draftChatSaveState').textContent, /已保存到本机 · 30 天/);
+  assert.match(h.dom.$('#draftChatSaveState').textContent, /本机保存 · 30 天/);
   h.client.setConversationRetention = async () => ({ ok: false, reason: 'save-failed', conversation: session('c1', { messages: [proposal()], saveState: 'unsaved', retention: { mode: 'saved', days: 30, pinned: false } }) });
-  await h.feature.change('retention'); assert.match(h.dom.$('#draftChatSaveState').textContent, /尚未保存到本机/);
+  await h.feature.change('retention'); assert.match(h.dom.$('#draftChatSaveState').textContent, /未保存 · 退出后清除/);
   assert.match(h.log(), /报销 1/); assert.match(h.status(), /未成功/);
 });
 
@@ -228,7 +231,7 @@ test('stuck adoption stages only the target next action and refuses a changed ta
 test('all provider text and proposal content is escaped and never treated as executable markup', async () => {
   const dangerous = proposal(); dangerous.content = '<img onerror="run()">'; dangerous.proposal.body = JSON.stringify(body('<script>alert(1)</script>'));
   const h = harness({ initial: session('c1', { messages: [dangerous] }) }); await h.feature.open();
-  assert.doesNotMatch(h.log(), /<script>|<img/); assert.match(h.log(), /&lt;script&gt;/);
+  assert.doesNotMatch(h.log(), /<script>|<img onerror/); assert.match(h.log(), /&lt;script&gt;/);
 });
 
 test('disabled AI keeps the local form available, and IME Enter does not send', async () => {
@@ -260,7 +263,8 @@ test('cancel waits for a fresh authorization grant before retry can send', async
   await h.feature.send(); assert.equal(h.calls.filter(([name]) => name === 'turn').length, 1);
   pendingCancel.resolve({ ok: true, scopeGrantId: 'renewed' }); await canceling;
   h.client.conversationTurn = async args => { h.calls.push(['turn', args]); return h.response(h.records.get(args.conversationId)); };
-  await h.feature.send(); assert.equal(h.calls.filter(([name]) => name === 'turn').at(-1)[1].scopeGrantId, 'renewed');
+  const messageId = h.calls.find(([name]) => name === 'turn')[1].messageId;
+  await h.feature.send({ retryMessageId: messageId }); assert.equal(h.calls.filter(([name]) => name === 'turn').at(-1)[1].scopeGrantId, 'renewed');
   pendingTurn.resolve({ ok: false }); await sending;
 });
 
@@ -298,10 +302,10 @@ test('unavailable saved-session storage is disclosed alongside the accessible in
 
 test('editing a saved input makes its unsaved status visible until the exact draft is persisted', async () => {
   const h = harness({ initial: session('saved', { inputDraft: '', selectedProposalId: null, retention: { mode: 'saved', days: 30, pinned: false }, saveState: 'saved' }) });
-  await h.feature.open(); assert.match(h.dom.$('#draftChatSaveState').textContent, /已保存到本机/);
+  await h.feature.open(); assert.match(h.dom.$('#draftChatSaveState').textContent, /本机保存/);
   h.dom.$('#draftChatInput').value = '尚未保存的补充'; h.dom.fire('#draftChatInput', 'input');
   assert.match(h.dom.$('#draftChatSaveState').textContent, /待保存/);
-  h.feature.close(); await h.feature.open(); assert.match(h.dom.$('#draftChatSaveState').textContent, /已保存到本机/);
+  h.feature.close(); await h.feature.open(); assert.match(h.dom.$('#draftChatSaveState').textContent, /本机保存/);
   assert.equal(h.dom.$('#draftChatInput').value, '尚未保存的补充');
 });
 
@@ -349,9 +353,11 @@ test('explicit deletion frees a temporary session and late replies cannot revive
 test('native surface hidden pauses generation and flushes exact unsent input', async () => {
   const pending = deferred(); const h = harness({ turn: () => pending.promise });
   await h.feature.open(); h.dom.$('#draftChatInput').value = '保留这一段';
-  const sending = h.feature.send(); h.hide(); await Promise.resolve();
+  const sending = h.feature.send();
+  h.dom.$('#draftChatInput').value = '新的未发送草稿';
+  h.hide(); await Promise.resolve();
   assert.equal(h.feature.isOpen(), false);
-  assert.equal(h.calls.find(([name]) => name === 'pause')[1].inputDraft, '保留这一段');
+  assert.equal(h.calls.find(([name]) => name === 'pause')[1].inputDraft, '新的未发送草稿');
   pending.resolve(h.response(session('c1', { messages: [proposal()] }))); await sending;
   assert.doesNotMatch(h.log(), /报销/);
 });
@@ -398,4 +404,247 @@ test('a delete confirmation cannot retarget a different resumed conversation', a
   assert.equal(h.calls.some(([name]) => name === 'delete'), false);
   await h.feature.requestDelete(); await h.feature.confirmDelete();
   assert.deepEqual(h.calls.find(([name]) => name === 'delete')[1], { conversationId: 'c2', expectedRevision: 1 });
+});
+
+test('sending immediately shows one identified bubble, clears input, and keeps newer text after reply', async () => {
+  const pending = deferred(); const h = harness({ turn: () => pending.promise }); await h.feature.open();
+  h.dom.$('#draftChatInput').value = '  已发送的原文 <script>  ';
+  const sending = h.feature.send();
+  const request = h.calls.find(([name]) => name === 'turn')[1];
+  assert.match(request.messageId, /^client-message-/);
+  assert.equal(h.dom.$('#draftChatInput').value, '');
+  assert.equal(h.dom.$('#draftChatInput').disabled, false);
+  assert.match(h.log(), /已发送的原文 &lt;script&gt;/);
+  assert.match(h.log(), /等待小步回复/);
+  assert.equal(h.status(), '');
+  assert.equal(h.dom.$('#draftChatLog').getAttribute('aria-busy'), 'true');
+  h.dom.$('#draftChatInput').value = '下一条，不应清空'; h.dom.fire('#draftChatInput', 'input');
+  await h.feature.send(); assert.equal(h.calls.filter(([name]) => name === 'turn').length, 1);
+  const record = h.records.get(request.conversationId);
+  record.messages.push({ id: request.messageId, role: 'user', content: request.message, turnId: 'turn-new' },
+    { id: 'reply-new', role: 'assistant', content: '回复', turnId: 'turn-new' });
+  pending.resolve(h.response(record)); await sending;
+  assert.equal(h.dom.$('#draftChatInput').value, '下一条，不应清空');
+  assert.equal((h.log().match(new RegExp(`data-message-id="${request.messageId}"`, 'g')) || []).length, 1);
+  assert.doesNotMatch(h.log(), /data-chat-retry/);
+});
+
+test('an unconfirmed send keeps its bubble and retries the same ID without consuming newer draft', async () => {
+  const h = harness({ turn: async () => { throw new Error('synthetic lost IPC reply'); } }); await h.feature.open();
+  await h.say('同一句话');
+  const request = h.calls.find(([name]) => name === 'turn')[1];
+  assert.match(h.log(), /发送状态待确认/); assert.match(h.log(), /data-chat-retry/);
+  assert.equal(h.dom.$('#draftChatInput').value, '');
+  h.dom.$('#draftChatInput').value = '新的草稿';
+  await h.feature.send({ retryMessageId: request.messageId });
+  const retried = h.calls.filter(([name]) => name === 'turn')[1][1];
+  assert.equal(retried.messageId, request.messageId); assert.equal(retried.message, request.message);
+  assert.equal(h.dom.$('#draftChatInput').value, '新的草稿');
+  assert.equal((h.log().match(/同一句话/g) || []).length, 1);
+});
+
+test('same text in prior history and a new send remain distinct by message identity', async () => {
+  const h = harness(); await h.feature.open(); await h.say('相同文字'); await h.say('相同文字');
+  const requests = h.calls.filter(([name]) => name === 'turn').map(([, request]) => request);
+  assert.notEqual(requests[0].messageId, requests[1].messageId);
+  assert.equal(h.records.get('c1').messages.filter(message => message.role === 'user').length, 2);
+  assert.equal((h.log().match(/class="chat-turn-content">相同文字/g) || []).length, 2);
+});
+
+test('failed and ambiguous sends never claim pending bubbles were saved locally', async () => {
+  const h = harness({ initial: session('c1', { saveState: 'saved', retention: { mode: 'saved', days: 30 } }),
+    turn: async (_request, record) => ({ ok: false, reason: 'clarify-disabled', conversation: clone(record) }) });
+  await h.feature.open(); await h.say('保留原文');
+  assert.match(h.log(), /这条消息未发送/);
+  assert.match(h.dom.$('#draftChatSaveState').textContent, /尚未确认保存/);
+  assert.match(h.log(), /保留原文/);
+  assert.equal(h.records.get('c1').messages.length, 0);
+});
+
+test('cancel failure redraws retry state and a late turn cannot replace it', async () => {
+  const pending = deferred(); const h = harness({ turn: () => pending.promise }); await h.feature.open();
+  h.client.cancelConversation = async () => { throw new Error('synthetic cancel IPC failure'); };
+  h.dom.$('#draftChatInput').value = '保留消息'; const sending = h.feature.send();
+  await h.feature.cancel();
+  assert.match(h.log(), /发送状态待确认/); assert.match(h.log(), /data-chat-retry/);
+  const before = h.log(); pending.resolve({ ok: true, conversation: session('c1', { messages: [proposal()] }) }); await sending;
+  assert.equal(h.log(), before);
+});
+
+test('typing during cancellation survives its response and close/reopen retains both bubble and next draft', async () => {
+  const turn = deferred(), cancel = deferred(); const h = harness({ turn: () => turn.promise }); await h.feature.open();
+  h.client.cancelConversation = () => cancel.promise;
+  h.dom.$('#draftChatInput').value = '保留消息'; const sending = h.feature.send();
+  const canceling = h.feature.cancel(); h.dom.$('#draftChatInput').value = '取消时继续写';
+  cancel.resolve({ ok: true, scopeGrantId: 'fresh-grant' }); await canceling;
+  assert.equal(h.dom.$('#draftChatInput').value, '取消时继续写'); assert.match(h.log(), /回复已取消/);
+  h.feature.close(); await h.feature.open();
+  assert.equal(h.dom.$('#draftChatInput').value, '取消时继续写'); assert.match(h.log(), /保留消息/);
+  const before = h.log(); turn.resolve({ ok: true, conversation: session('c1', { messages: [proposal()] }) }); await sending;
+  assert.equal(h.log(), before); assert.equal(h.dom.$('#draftChatInput').value, '取消时继续写');
+});
+
+test('restored unanswered canonical message offers same-ID retry without an optimistic duplicate', async () => {
+  const initial = session('c1', { messages: [{ id: 'client-existing', role: 'user', content: '上次消息', turnId: 'original-turn' }],
+    inputDraft: '重开后的草稿', status: 'paused' });
+  const h = harness({ initial, turn: async (request, record) => {
+    assert.equal(request.messageId, 'client-existing');
+    record.messages.push({ id: 'restored-answer', role: 'assistant', content: '继续回复', turnId: 'original-turn' });
+    return { ok: true, conversation: clone(record) };
+  } });
+  await h.feature.open(); assert.match(h.log(), /data-chat-retry="client-existing"/);
+  await h.feature.send({ retryMessageId: 'client-existing' });
+  assert.equal((h.log().match(/上次消息/g) || []).length, 1);
+  assert.equal(h.dom.$('#draftChatInput').value, '重开后的草稿');
+  assert.doesNotMatch(h.log(), /data-chat-retry/);
+});
+
+test('a message ID from another session cannot target this session or its draft', async () => {
+  const h = harness({ turn: async () => { throw new Error('synthetic IPC failure'); } }); await h.feature.open(); await h.say('第一段');
+  const oldId = h.calls.find(([name]) => name === 'turn')[1].messageId;
+  await h.feature.startNew(); h.dom.$('#draftChatInput').value = '第二段草稿';
+  await h.feature.send({ retryMessageId: oldId });
+  assert.equal(h.calls.filter(([name]) => name === 'turn').length, 1);
+  assert.equal(h.dom.$('#draftChatInput').value, '第二段草稿'); assert.doesNotMatch(h.log(), /第一段/);
+});
+
+test('Continue discussion explicitly copies task assistance into an empty editable chat draft without sending', async () => {
+  const h = harness();
+  h.dom.$('#taskAssistInput').value = '  每一步再小一点 <script>  ';
+  h.dom.fire('#btnOpenDraftChat', 'click'); await new Promise(resolve => setImmediate(resolve));
+  assert.equal(h.dom.$('#draftChatInput').value, '  每一步再小一点 <script>  ');
+  assert.equal(h.dom.$('#taskAssistInput').value, '  每一步再小一点 <script>  ');
+  assert.equal(h.calls.filter(([name]) => name === 'turn').length, 0);
+  assert.doesNotMatch(h.log(), /每一步再小一点/);
+  assert.equal(h.dom.$('#draftChatInput').disabled, false);
+});
+
+test('normal open and empty assistance do not silently import task editor text', async () => {
+  const h = harness(); h.dom.$('#taskAssistInput').value = '只给任务模型的补充';
+  await h.feature.open(); assert.equal(h.dom.$('#draftChatInput').value, '');
+  h.feature.close(); h.dom.$('#taskAssistInput').value = '   ';
+  h.dom.fire('#btnOpenDraftChat', 'click'); await new Promise(resolve => setImmediate(resolve));
+  assert.equal(h.dom.$('#draftChatInput').value, '');
+  assert.equal(h.calls.filter(([name]) => name === 'turn').length, 0);
+});
+
+test('assistance prefill preserves a resumed conversation draft and reports the conflict', async () => {
+  const h = harness({ initial: session('c1', { inputDraft: '原对话草稿' }) });
+  h.dom.$('#taskAssistInput').value = '任务补充';
+  h.dom.fire('#btnOpenDraftChat', 'click'); await new Promise(resolve => setImmediate(resolve));
+  assert.equal(h.dom.$('#draftChatInput').value, '原对话草稿');
+  assert.equal(h.dom.$('#taskAssistInput').value, '任务补充');
+  assert.match(h.status(), /已有对话草稿/);
+  assert.equal(h.calls.filter(([name]) => name === 'turn').length, 0);
+});
+
+test('input typed during opening wins over assistance and saved drafts, even when cleared again', async () => {
+  for (const newer of ['加载期间的新草稿', '']) {
+    const pending = deferred(); const h = harness({ start: () => pending.promise });
+    h.dom.$('#taskAssistInput').value = '任务补充';
+    h.dom.fire('#btnOpenDraftChat', 'click'); await Promise.resolve();
+    h.dom.$('#draftChatInput').value = newer; h.dom.fire('#draftChatInput', 'input');
+    pending.resolve(h.response(session('c1', { inputDraft: '保存过的旧草稿' })));
+    await new Promise(resolve => setImmediate(resolve));
+    assert.equal(h.dom.$('#draftChatInput').value, newer);
+    assert.match(h.status(), /已有对话草稿/);
+    assert.equal(h.dom.$('#taskAssistInput').value, '任务补充');
+    assert.equal(h.calls.filter(([name]) => name === 'turn').length, 0);
+  }
+});
+
+test('closing an assistance-prefill open cannot inject it into a later conversation', async () => {
+  const pending = deferred(); let starts = 0;
+  const h = harness({ start: () => ++starts === 1 ? pending.promise : h.response(session('c2')) });
+  h.dom.$('#taskAssistInput').value = '旧任务补充';
+  h.dom.fire('#btnOpenDraftChat', 'click'); await Promise.resolve();
+  h.feature.close(); const reopened = h.feature.open({ purpose: 'stuck', taskId: 'other-task' });
+  pending.resolve(h.response(session('c1'))); await reopened;
+  assert.equal(h.dom.$('#draftChatInput').value, '');
+  assert.equal(h.dom.$('#taskAssistInput').value, '旧任务补充');
+  assert.equal(h.calls.filter(([name]) => name === 'turn').length, 0);
+});
+
+test('a failed assistance-prefill open retains source text and never submits or changes chat draft', async () => {
+  const h = harness({ start: async () => ({ ok: false, reason: 'conversation-cache-full' }) });
+  h.dom.$('#taskAssistInput').value = '保留任务补充';
+  h.dom.fire('#btnOpenDraftChat', 'click'); await new Promise(resolve => setImmediate(resolve));
+  assert.equal(h.dom.$('#taskAssistInput').value, '保留任务补充');
+  assert.equal(h.dom.$('#draftChatInput').value, '');
+  assert.match(h.status(), /容量/);
+  assert.equal(h.calls.filter(([name]) => name === 'turn').length, 0);
+});
+
+test('a draft typed while B loads never overwrites A, including a failed open and later retry', async () => {
+  for (const failFirst of [false, true]) {
+    const h = harness(); await h.feature.open();
+    h.dom.$('#draftChatInput').value = 'A的草稿'; h.dom.fire('#draftChatInput', 'input');
+    const pending = deferred(); h.client.startConversation = () => pending.promise;
+    const opening = h.feature.startNew(); await new Promise(resolve => setImmediate(resolve));
+    h.dom.$('#draftChatInput').value = 'B的新草稿'; h.dom.fire('#draftChatInput', 'input');
+    if (failFirst) {
+      pending.resolve({ ok: false, reason: 'conversation-cache-full' }); await opening;
+      assert.equal(h.dom.$('#draftChatInput').value, 'A的草稿');
+      assert.match(h.status(), /新输入仍暂存/);
+      h.client.startConversation = async () => { const next = session('B'); h.records.set('B', next); return h.response(next); };
+      await h.feature.startNew();
+    } else {
+      const next = session('B'); h.records.set('B', next); pending.resolve(h.response(next)); await opening;
+    }
+    assert.equal(h.dom.$('#draftChatInput').value, 'B的新草稿');
+    await h.feature.resume('c1'); assert.equal(h.dom.$('#draftChatInput').value, 'A的草稿');
+    await h.feature.resume('B'); assert.equal(h.dom.$('#draftChatInput').value, 'B的新草稿');
+  }
+});
+
+test('close during B loading pauses A with its own draft and saves the new draft only to B', async () => {
+  const h = harness(); await h.feature.open();
+  h.dom.$('#draftChatInput').value = 'A的草稿'; h.dom.fire('#draftChatInput', 'input');
+  const pending = deferred(); h.client.startConversation = () => pending.promise;
+  const opening = h.feature.startNew(); await new Promise(resolve => setImmediate(resolve));
+  h.dom.$('#draftChatInput').value = 'B的新草稿'; h.dom.fire('#draftChatInput', 'input');
+  h.feature.close();
+  const next = session('B'); h.records.set('B', next); pending.resolve(h.response(next)); await opening;
+  await h.feature.open();
+  assert.equal(h.dom.$('#draftChatInput').value, 'A的草稿');
+  const pauses = h.calls.filter(([name]) => name === 'pause').map(([, request]) => request);
+  assert.ok(pauses.filter(request => request.conversationId === 'c1').every(request => request.inputDraft === 'A的草稿'));
+  assert.equal(pauses.find(request => request.conversationId === 'B').inputDraft, 'B的新草稿');
+  await h.feature.resume('B'); assert.equal(h.dom.$('#draftChatInput').value, 'B的新草稿');
+});
+
+test('same-purpose close and reopen freeze each pending load draft instead of sharing a mutable key', async () => {
+  const first = deferred(); let starts = 0;
+  const h = harness({ start: () => {
+    if (++starts === 1) return first.promise;
+    const next = session('second-open'); h.records.set(next.id, next); return h.response(next);
+  } });
+  const opening = h.feature.open(); await new Promise(resolve => setImmediate(resolve));
+  h.dom.$('#draftChatInput').value = '第一个加载草稿'; h.dom.fire('#draftChatInput', 'input');
+  h.feature.close(); const reopened = h.feature.open();
+  h.dom.$('#draftChatInput').value = '第二个加载草稿'; h.dom.fire('#draftChatInput', 'input');
+  const old = session('first-open'); h.records.set(old.id, old); first.resolve(h.response(old));
+  await opening; await reopened;
+  const oldPause = h.calls.filter(([name]) => name === 'pause').map(([, request]) => request).find(request => request.conversationId === old.id);
+  assert.equal(oldPause.inputDraft, '第一个加载草稿');
+  assert.equal(h.dom.$('#draftChatInput').value, '第二个加载草稿');
+  await h.feature.resume(old.id); assert.equal(h.dom.$('#draftChatInput').value, '第一个加载草稿');
+  await h.feature.resume('second-open'); assert.equal(h.dom.$('#draftChatInput').value, '第二个加载草稿');
+});
+
+test('closing a pending load retains its captured draft even when the load later fails or rejects', async () => {
+  for (const rejects of [false, true]) {
+    const pending = deferred(); let starts = 0;
+    const h = harness({ start: () => {
+      if (++starts === 1) return pending.promise;
+      const next = session('recovered-open'); h.records.set(next.id, next); return h.response(next);
+    } });
+    const opening = h.feature.open(); await new Promise(resolve => setImmediate(resolve));
+    h.dom.$('#draftChatInput').value = '失败加载仍保留的新稿'; h.dom.fire('#draftChatInput', 'input');
+    h.feature.close();
+    pending.resolve(rejects ? Promise.reject(new Error('synthetic load failure')) : { ok: false, reason: 'conversation-cache-full' });
+    await opening; await h.feature.open();
+    assert.equal(h.dom.$('#draftChatInput').value, '失败加载仍保留的新稿');
+    assert.equal(h.calls.filter(([name]) => name === 'turn').length, 0);
+  }
 });

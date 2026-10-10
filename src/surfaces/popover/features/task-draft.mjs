@@ -82,6 +82,8 @@ function createPopoverTaskDraft({
     enrichRequest.button.disabled = false;
     enrichRequest.button.textContent = t('拆成步骤');
     enrichRequest = null;
+    const progress = $('#taskAssistProgress');
+    if (progress) { progress.textContent = ''; progress.classList.add('hidden'); }
   }
 
   // A closed, replaced or disposed draft cannot receive an earlier IPC result.
@@ -163,7 +165,7 @@ function createPopoverTaskDraft({
     createStepsFromSuggestion = false;
 
     for (const [selector, value] of [
-      ['#taskInput', title], ['#taskDescriptionInput', ''], ['#tagsInput', ''], ['#estimateInput', '']
+      ['#taskInput', title], ['#taskDescriptionInput', ''], ['#taskAssistInput', ''], ['#tagsInput', ''], ['#estimateInput', '']
     ]) {
       const input = $(selector);
       if (input) input.value = value;
@@ -314,7 +316,8 @@ function createPopoverTaskDraft({
         .map(step => ({ title: step.title }));
       createStepsFromSuggestion = true;
       renderSteps();
-      const count = createStepsDraft.length; filled.push(() => t('{count} 个步骤', { count }));
+      const count = createStepsDraft.length;
+      filled.push(() => count === 1 ? t('1 个步骤') : t('{count} 个步骤', { count }));
     }
     const description = $('#taskDescriptionInput');
     if (suggestion.completionCriteria && description && !description.value.trim()) {
@@ -365,6 +368,15 @@ function createPopoverTaskDraft({
     if (titleInput && typeof titleInput.focus === 'function') titleInput.focus();
   }
 
+  // A proposal may replace steps and energy or fill estimate/tags. Any edit to
+  // those draft fields while it is pending makes that proposal stale as well.
+  function enrichmentDraftSignature() {
+    return JSON.stringify({
+      steps: createStepsDraft, energy: selectedEnergy,
+      estimate: $('#estimateInput')?.value || '', tags: $('#tagsInput')?.value || ''
+    });
+  }
+
   async function runEnrich() {
     if (!mounted || !isOpen() || saving || enrichRequest) return;
     const titleInput = $('#taskInput');
@@ -374,17 +386,27 @@ function createPopoverTaskDraft({
       titleInput.focus();
       return;
     }
+    const clarification = $('#taskAssistInput')?.value.trim() || null;
+    const description = $('#taskDescriptionInput').value.trim() || null;
+    const signature = enrichmentDraftSignature();
     const button = $('#btnEnrichDraft');
     button.disabled = true;
     const request = { generation: draftGeneration, button, label: button.textContent, ticking: null };
     enrichRequest = request;
     const isCurrentRequest = () => enrichRequest === request && isCurrent(request.generation)
-      && titleInput.value.trim() === title;
+      && titleInput.value.trim() === title
+      && ($('#taskAssistInput')?.value.trim() || null) === clarification
+      && ($('#taskDescriptionInput').value.trim() || null) === description
+      && enrichmentDraftSignature() === signature;
     // 云端模型想十几秒是常态。一个不动的“正在想…”和卡死无法区分，所以把已经等了
     // 多久说出来——秒数是唯一能让人判断“还要不要继续等”的信息。
     const startedAt = Date.now();
     const showElapsed = () => {
-      if (isCurrentRequest()) button.textContent = t('正在补全… {seconds}s', { seconds: Math.round((Date.now() - startedAt) / 1000) });
+      if (!isCurrentRequest()) return;
+      const text = t('正在补全… {seconds}s', { seconds: Math.round((Date.now() - startedAt) / 1000) });
+      button.textContent = text;
+      const progress = $('#taskAssistProgress');
+      if (progress) { progress.textContent = text; progress.classList.remove('hidden'); }
     };
     request.repaint = showElapsed;
     showElapsed();
@@ -393,8 +415,8 @@ function createPopoverTaskDraft({
     try {
       const suggestion = await surfaceClient.previewEnrich({
         title,
-        description: $('#taskDescriptionInput').value.trim() || null,
-        clarification: null
+        description,
+        clarification
       });
       proposalId = suggestion && suggestion.proposalId ? suggestion.proposalId : null;
       // 等待期间用户可能已经保存了这件事、关掉了面板，或者把标题改成了另一件事。

@@ -5,6 +5,7 @@ import { createCollaborationView, taskDraftFromMessage } from '../ui/collaborati
 import { createCollaborationNavigation } from '../ui/collaboration-navigation.mjs';
 import { createCollaborationContextSelection } from './collaboration-context-selection.mjs';
 import { createCollaborationChangeReview } from './collaboration-change-review.mjs';
+import { createConversationOutbox } from './conversation-outbox.mjs';
 import { createCollaborationProposalStatus } from './collaboration-proposal-status.mjs';
 
 const REFUSALS = Object.freeze({
@@ -16,12 +17,15 @@ const REFUSALS = Object.freeze({
   'conversation-delete-confirmation-required': '请先核对要删除的这段对话，再确认删除。',
   'conversation-cache-full': '本次临时对话已达到容量。可以继续已有对话，或明确删除不再需要的一段后新建。',
   'conversation-expired': '这段对话已按保留期限到期。可以开始新对话。',
-  'clarify-disabled': 'AI 协作还未开启，手动草稿仍可继续编辑。',
+  'clarify-disabled': '小步协作未开启，仍可编辑草稿。',
   'clarify-unavailable': 'AI 尚未配置好，手动草稿仍可继续编辑。',
   'conversation-not-found': '这段对话已不可用，可以开始新对话。',
   'conversation-owner-mismatch': '这段对话需要重新打开。',
   'message-too-long': '单条最多 8,000 个 Unicode 字符，请拆成几段发送；原文仍在。',
   'message-required': '写点什么再发。',
+  'conversation-turn-active': '这条消息仍在处理中，尚未再次发送。',
+  'conversation-message-conflict': '消息身份不一致，未再次发送。',
+  'conversation-retry-stale': '这条消息已有后续对话，未再次发送。',
   'scope-grant-invalid': '参考范围已失效，请重新打开对话核对。',
   'authorization-required': '参考范围需要重新确认，请重新打开对话核对。',
   'target-changed': '当前任务已变化，草稿未应用。请重新核对任务。',
@@ -72,9 +76,12 @@ function createPopoverDraftConversation({
   let listing = false;
   let closeBarrier = Promise.resolve();
   let loadingRequest = null;
+  let loadingDraft = null;
+  const unopenedDrafts = new Map();
   let pendingDelete = null;
   let receiptContext = null;
   const drafts = new Map();
+  const outbox = createConversationOutbox();
   const teardown = [];
   const proposalStatus = createCollaborationProposalStatus({ surfaceClient, view,
     getState: () => ({ record: receiptContext ? null : record, open: navigation.isOpen() }) });
@@ -119,9 +126,9 @@ function createPopoverDraftConversation({
     node.addEventListener(type, handler);
     teardown.push(() => node.removeEventListener(type, handler));
   }
-  function setBusy(value) {
+  function setBusy(value, options) {
     busy = value;
-    view.busy(value || changes.isBusy());
+    view.busy(value || changes.isBusy(), options);
     if ($('#btnDraftChatSend')) $('#btnDraftChatSend').disabled = value || changes.isBusy() || !scopeGrantId
       || record?.contextEligibilityPending === true || contextSelection.isDirty();
     contextSelection.render();
@@ -134,12 +141,14 @@ function createPopoverDraftConversation({
       && $('#draftChatSaveState')) view.text('#draftChatSaveState', '当前输入或草稿选择待保存 · 暂停时保留');
   }
   function snapshot() {
+    // While another conversation loads, its input never belongs to the old record.
+    if (loadingDraft && loadingDraft.previousId === record?.id) return loadingDraft.previousDraft;
     const draft = { inputDraft: input(), selectedProposalId: selected, scrollTop: $('#draftChatLog')?.scrollTop || 0 };
     if (record) drafts.set(record.id, draft);
     return draft;
   }
   function accept(result, { restore = false, toBottom = false } = {}) {
-    if (result.conversation) record = result.conversation;
+    if (result.conversation) { record = result.conversation; outbox.reconcile(record); }
     if (Object.hasOwn(result, 'scopeGrantId')) scopeGrantId = result.scopeGrantId || null;
     if (!record) return;
     resumeId = record.id;
@@ -149,7 +158,7 @@ function createPopoverDraftConversation({
       : selected;
     if (!proposals.some(message => message.proposal.id === selected)) selected = proposals.at(-1)?.proposal.id || null;
     if (restore) view.draft(local?.inputDraft ?? record.inputDraft ?? '', selected);
-    view.conversation(record, selected, { scrollTop: restore ? (local?.scrollTop ?? record.scrollTop ?? 0) : undefined, toBottom });
+    view.conversation(outbox.projection(record), selected, { scrollTop: restore ? (local?.scrollTop ?? record.scrollTop ?? 0) : undefined, toBottom });
     if (result.disclosure || result.contextPreview) view.context(result.disclosure, result.contextPreview);
     markDraftStatus();
     void proposalStatus.refresh();
@@ -158,19 +167,29 @@ function createPopoverDraftConversation({
     if (!record) return;
     const id = record.id;
     const draft = snapshot();
-    return surfaceClient.pauseConversation({ conversationId: id, ...draft });
+    const result = await surfaceClient.pauseConversation({ conversationId: id, ...draft });
+    outbox.reconcile(result?.conversation);
+    return result;
   }
-  async function load({ conversationId, fresh = false } = {}) {
+  async function load({ conversationId, fresh = false, initialDraft = '' } = {}) {
     proposalStatus.invalidate();
     clearDelete();
     changes.invalidate({ clear: true });
     contextSelection.invalidate();
+    const previousDraft = snapshot();
     const token = ++epoch;
+    const draftKey = conversationId && !fresh ? `conversation:${conversationId}` : `new:${entry.purpose}:${entry.taskId || ''}`;
+    let cachedDraft;
+    const openingDraft = { previousId: record?.id, previousDraft, key: draftKey, inputDraft: undefined };
+    loadingDraft = openingDraft;
+    let loadFailure = null;
     setBusy(true);
     view.status('正在读取本机对话…');
     try {
       await closeBarrier;
       if (!valid(token)) return;
+      cachedDraft = unopenedDrafts.get(draftKey);
+      if (openingDraft.inputDraft === undefined) openingDraft.inputDraft = cachedDraft?.inputDraft;
       const request = Promise.resolve(conversationId && !fresh
         ? surfaceClient.getConversation({ conversationId })
         : surfaceClient.startConversation({ ...entry, retentionMode: 'ephemeral' }));
@@ -178,23 +197,45 @@ function createPopoverDraftConversation({
       const result = await request;
       if (loadingRequest === request) loadingRequest = null;
       if (!valid(token)) return;
-      if (!result?.ok) { scopeGrantId = null; showFailure(result); return; }
+      if (!result?.ok) { loadFailure = result; scopeGrantId = null; showFailure(result); return; }
       selected = null;
       scopeGrantId = null;
       scopeSelected = false;
       if ($('#draftChatFocusSummary')) $('#draftChatFocusSummary').checked = false;
       if ($('#draftChatPlanningPreferences')) $('#draftChatPlanningPreferences').checked = Boolean(result.selection?.planningPreferences);
-      accept(result, { restore: true });
+      const editedWhileLoading = openingDraft.inputDraft !== undefined;
+      const pendingInput = openingDraft.inputDraft;
+      if (loadingDraft === openingDraft) loadingDraft = null;
+      if (editedWhileLoading && pendingInput !== undefined) view.draft(pendingInput, selected);
+      accept(result, { restore: !editedWhileLoading });
+      if (unopenedDrafts.get(draftKey) === cachedDraft) unopenedDrafts.delete(draftKey);
+      // An explicit task-editor handoff only fills an untouched, empty composer.
+      const hasInitialDraft = typeof initialDraft === 'string' && Boolean(initialDraft.trim());
+      const draftConflict = hasInitialDraft && (editedWhileLoading || input() !== '' && input() !== initialDraft);
+      if (hasInitialDraft && !draftConflict && !input()) view.draft(initialDraft, selected);
+      if (editedWhileLoading || hasInitialDraft && !draftConflict) { snapshot(); markDraftStatus(); }
       view.page('detail');
       contextSelection.reset(record, result.selection);
       if (record.contextEligibilityPending === true) contextSelection.applied(false);
       changes.restorePending();
       void changes.listReceipts();
-      view.status(record.contextEligibilityPending === true ? REFUSALS['conversation-context-pending']
-        : record.saveState === 'unsaved' ? '这段对话尚未保存到本机。' : '');
+      const loadStatus = record.contextEligibilityPending === true ? REFUSALS['conversation-context-pending']
+        : record.saveState === 'unsaved' ? '这段对话尚未保存到本机。' : '';
+      view.status(() => [loadStatus, draftConflict ? '已有对话草稿，补充要求仍保留在任务编辑页。' : ''].filter(Boolean).map(copy => t(copy)).join(' '));
       $('#draftChatInput')?.focus();
     } catch (_) { if (valid(token)) showFailure(); }
-    finally { if (valid(token)) { setBusy(false); $('#draftChatInput')?.focus(); } }
+    finally {
+      if (loadingDraft === openingDraft) {
+        loadingDraft = null;
+        if (valid(token) && openingDraft.inputDraft !== undefined) {
+          unopenedDrafts.set(draftKey, { inputDraft: openingDraft.inputDraft });
+          view.draft(previousDraft.inputDraft, selected);
+          view.status(() => t(REFUSALS[loadFailure?.reason] || '这次未完成，内容仍在，可以重试或返回手动草稿。')
+            + ' ' + t('对话未打开，新输入仍暂存；重新打开后可继续。'));
+        }
+      }
+      if (valid(token)) { setBusy(false); $('#draftChatInput')?.focus(); }
+    }
   }
   async function open(options = {}) {
     if (navigation.isOpen()) return;
@@ -211,7 +252,7 @@ function createPopoverDraftConversation({
     $('#draftChatRetentionConfirm')?.classList.add('hidden');
     navigation.open(entry.purpose);
     view.page('detail');
-    await load({ conversationId: options.conversationId || resumeId });
+    await load({ conversationId: options.conversationId || resumeId, initialDraft: options.initialDraft });
   }
   function close({ adopted = false } = {}) {
     proposalStatus.invalidate();
@@ -220,13 +261,24 @@ function createPopoverDraftConversation({
     if (!navigation.isOpen()) return;
     // Capture before dismissing; both cancel and window close preserve the input.
     const closingPurpose = record?.purpose || entry.purpose;
+    outbox.interrupt(record?.id);
     const pendingLoad = loadingRequest;
+    const closingDraft = loadingDraft;
+    const closingInput = closingDraft?.inputDraft;
+    const closingBuffer = closingInput === undefined ? null : { inputDraft: closingInput };
+    if (closingBuffer) unopenedDrafts.set(closingDraft.key, closingBuffer);
     const currentPause = Promise.resolve(pause());
     // A reopened surface waits for the abandoned load and its pause. Otherwise
     // that late load could revoke the fresh session's authorization after reopen.
     closeBarrier = Promise.all([currentPause, pendingLoad ? pendingLoad.then(result => {
       if (!result?.conversation) return null;
-      const draft = drafts.get(result.conversation.id);
+      const pendingInput = closingInput;
+      const draft = pendingInput !== undefined ? { inputDraft: pendingInput, selectedProposalId: null, scrollTop: 0 }
+        : drafts.get(result.conversation.id);
+      if (pendingInput !== undefined) {
+        drafts.set(result.conversation.id, draft);
+        if (unopenedDrafts.get(closingDraft.key) === closingBuffer) unopenedDrafts.delete(closingDraft.key);
+      }
       return surfaceClient.pauseConversation({ conversationId: result.conversation.id,
         inputDraft: draft?.inputDraft ?? result.conversation.inputDraft ?? '',
         selectedProposalId: draft?.selectedProposalId ?? result.conversation.selectedProposalId ?? null,
@@ -240,41 +292,57 @@ function createPopoverDraftConversation({
       if (!navigation.isOpen()) showEntryStatus(() => t('暂停保存未确认，输入草稿仍保留在本次运行中。'), closingPurpose);
       return null;
     });
+    if (closingDraft) view.draft(closingDraft.previousDraft.inputDraft, selected);
     navigation.close({ adopted });
     changes.invalidate({ clear: true });
     contextSelection.invalidate();
     receiptContext = null;
     busy = false;
   }
-  async function send() {
+  async function send({ retryMessageId } = {}) {
     if (isBusy() || !navigation.isOpen() || !record || !scopeGrantId) return;
     if (contextSelection.isDirty()) { view.status('参考选择尚未加入本轮预览；更新预览后才可发送。'); return; }
-    const raw = input();
+    const retry = retryMessageId ? outbox.get(record.id, retryMessageId) : null;
+    if (retryMessageId && !retry) return;
+    const raw = retry ? retry.message : input();
     const message = raw.trim();
     if (!message) { view.status(REFUSALS['message-required']); return; }
     if (Array.from(raw).length > 8000) { view.status(REFUSALS['message-too-long']); return; }
+    const messageId = retry?.messageId || `client-message-${globalThis.crypto.randomUUID()}`;
     const token = ++epoch;
+    const item = outbox.begin(record, messageId, message, retry ? retry.selectedProposalId : selected);
     changes.invalidate();
     proposalStatus.invalidate();
-    setBusy(true);
+    setBusy(true, { editable: true });
+    if (!retry) view.draft('', selected);
     snapshot();
-    view.status('正在生成，可以取消；输入内容会保留。');
+    view.conversation(outbox.projection(record), selected, { toBottom: true, forceBottom: true });
+    view.status('');
     try {
-      const result = await surfaceClient.conversationTurn({ conversationId: record.id, scopeGrantId, message, selectedProposalId: selected });
+      const result = await surfaceClient.conversationTurn({ conversationId: item.conversationId, scopeGrantId,
+        messageId, message, selectedProposalId: item.selectedProposalId });
       if (!valid(token)) return;
+      outbox.settle(item, result, result?.conversation
+        ? result.conversation.messages.some(message => message.id === item.messageId) ? 'failed' : 'not-sent'
+        : 'unconfirmed');
       if (result?.ok && result.conversation?.messages?.at(-1)?.proposal) selected = result.conversation.messages.at(-1).proposal.id;
       if (result?.conversation) accept(result, { toBottom: true });
+      else view.conversation(outbox.projection(record), selected, { toBottom: true });
       if (!result?.ok) { showFailure(result); return; }
-      // No optimistic duplicate messages: render the authoritative complete history.
-      view.draft('', selected);
+      // Completion belongs to the captured message, never the newer composer draft.
       snapshot();
       const local = result.source === 'local' || result.fallback;
       const reason = result.providerReason || result.reason;
       const hasSummary = result.notice === 'summary-available';
       view.status(() => (local ? t('本地模板{detail}。', { detail: reason ? t('：{detail}', { detail: fallbackReasonText(reason) || t('模型暂不可用') }) : '' }) : '')
         + (hasSummary ? t('已有草稿可以带回编辑，也可以继续聊。') : ''));
-      $('#draftChatInput')?.focus();
-    } catch (_) { if (valid(token)) showFailure(); }
+    } catch (_) {
+      if (valid(token)) {
+        outbox.settle(item, null, 'unconfirmed');
+        view.conversation(outbox.projection(record), selected);
+        view.status('发送状态未确认，内容仍在；重试会先核对这条消息。');
+      }
+    }
     finally { if (valid(token)) { setBusy(false); $('#draftChatInput')?.focus(); } }
   }
   function showRetiredScope(result, kind) {
@@ -293,18 +361,24 @@ function createPopoverDraftConversation({
   async function cancel() {
     if (!record || !busy) return;
     const token = ++epoch;
-    const draft = snapshot();
-    view.status('正在取消生成，输入内容会保留。');
+    snapshot();
+    outbox.interrupt(record.id);
+    view.status('正在取消回复，消息和草稿会保留。');
     try {
       const result = await surfaceClient.cancelConversation({ conversationId: record.id });
       if (!valid(token)) return;
+      if (result?.ok || result?.transition?.applied) outbox.interrupt(record.id, 'canceled');
       if (result && (result.conversation || Object.hasOwn(result, 'scopeGrantId'))) accept(result);
       if (showRetiredScope(result, 'cancel')) return;
-      view.draft(draft.inputDraft, selected);
+      // The user may have continued typing while cancellation was pending.
+      view.draft(input(), selected);
       markDraftStatus();
       view.status(result?.ok === false ? '取消请求未确认，输入内容仍在；可以关闭暂停。' : '已取消生成，输入内容仍在。');
     } catch (_) { if (valid(token)) view.status('取消请求未确认，输入内容仍在；可以关闭暂停。'); }
-    finally { if (valid(token)) { setBusy(false); $('#draftChatInput')?.focus(); } }
+    finally { if (valid(token)) {
+      view.conversation(outbox.projection(record), selected);
+      setBusy(false); $('#draftChatInput')?.focus();
+    } }
   }
   async function change(kind, { confirmed = false } = {}) {
     if (!record || receiptContext || isBusy()) return;
@@ -335,7 +409,7 @@ function createPopoverDraftConversation({
       if (showRetiredScope(result, kind)) return;
       if (!result?.ok) {
         if (kind === 'scope') { scopeGrantId = null; contextSelection.applied(false); view.context(null, null); }
-        view.conversation(record, selected);
+        view.conversation(outbox.projection(record), selected);
         if ($('#draftChatFocusSummary')) $('#draftChatFocusSummary').checked = scopeSelected;
         showFailure(result); return;
       }
@@ -344,7 +418,7 @@ function createPopoverDraftConversation({
     } catch (_) {
       if (valid(token)) {
         if (kind === 'scope') { scopeGrantId = null; contextSelection.applied(false); view.context(null, null); }
-        view.conversation(record, selected);
+        view.conversation(outbox.projection(record), selected);
         if ($('#draftChatFocusSummary')) $('#draftChatFocusSummary').checked = scopeSelected;
         showFailure();
       }
@@ -425,6 +499,8 @@ function createPopoverDraftConversation({
       const result = await surfaceClient.deleteConversation({ conversationId: id, expectedRevision });
       if (result?.ok) {
         changes.forgetConversation(id);
+        outbox.forget(id);
+        unopenedDrafts.delete(`conversation:${id}`);
         drafts.delete(id); listed = listed.filter(item => item.id !== id);
         if (resumeId === id) resumeId = null;
         if (!valid(token) && record?.id === id) { record = null; selected = null; scopeGrantId = null; }
@@ -444,7 +520,7 @@ function createPopoverDraftConversation({
     if (isBusy() || !record?.messages.some(message => message.proposal?.id === id
       && ['task-draft', 'change-set', 'memory-candidate', 'planning-preference-candidate'].includes(message.proposal.kind))) return;
     selected = id;
-    view.conversation(record, selected);
+    view.conversation(outbox.projection(record), selected);
     snapshot();
     markDraftStatus();
   }
@@ -486,7 +562,7 @@ function createPopoverDraftConversation({
   function backToConversation() {
     clearDelete();
     $('#draftChatRetentionConfirm')?.classList.add('hidden');
-    if (record) view.conversation(record, selected);
+    if (record) view.conversation(outbox.projection(record), selected);
     view.page('detail');
     view.status('');
     receiptMode();
@@ -511,7 +587,7 @@ function createPopoverDraftConversation({
     listen('#btnDraftChatDelete', 'click', () => void requestDelete());
     listen('#btnDraftChatDeleteConfirm', 'click', () => void confirmDelete());
     listen('#btnDraftChatDeleteKeep', 'click', clearDelete);
-    listen('#btnOpenDraftChat', 'click', () => void open());
+    listen('#btnOpenDraftChat', 'click', () => void open({ initialDraft: $('#taskAssistInput')?.value || '' }));
     listen('#draftChatClose', 'click', () => close());
     listen('#btnDraftChatDiscard', 'click', () => close());
     listen('#btnDraftChatReceiptClose', 'click', () => close());
@@ -521,7 +597,7 @@ function createPopoverDraftConversation({
     listen('#btnDraftChatRetentionConfirm', 'click', () => void change('retention', { confirmed: true }));
     listen('#btnDraftChatRetentionKeep', 'click', () => {
       $('#draftChatRetentionConfirm')?.classList.add('hidden');
-      if (record) view.conversation(record, selected);
+      if (record) view.conversation(outbox.projection(record), selected);
     });
     listen('#btnDraftChatNew', 'click', () => void startNew());
     listen('#btnDraftChatList', 'click', () => void list());
@@ -542,6 +618,11 @@ function createPopoverDraftConversation({
       listen(selector, 'change', () => void change(kind));
     }
     listen('#draftChatInput', 'input', () => {
+      if (loadingDraft) {
+        loadingDraft.inputDraft = input();
+        view.draft(input(), selected);
+        return;
+      }
       clearDelete();
       view.draft(input(), selected); snapshot();
       markDraftStatus();
@@ -552,6 +633,8 @@ function createPopoverDraftConversation({
       void send();
     });
     listen('#draftChatLog', 'click', event => {
+      const retry = event.target.closest?.('[data-chat-retry]');
+      if (retry) void send({ retryMessageId: retry.dataset.chatRetry });
       const target = event.target.closest?.('[data-chat-proposal]');
       if (target) chooseProposal(target.dataset.chatProposal);
       const changeTarget = event.target.closest?.('[data-chat-change]');

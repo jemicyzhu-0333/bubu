@@ -274,3 +274,66 @@ test('first English draft initializes the idle enrichment label without replacin
   pending.resolve(suggestion()); await request;
   assert.equal(h.dom.$('#btnEnrichDraft').textContent, 'Break into steps');
 });
+
+test('assistant feedback reaches the existing clarification contract, stays out of task notes, and resets on reopen', async t => {
+  const h = harness(t); h.feature.open({ title: 'Report' });
+  h.dom.$('#taskAssistInput').value = '  Smaller steps, please  ';
+  await h.enrich();
+  assert.deepEqual(h.calls.find(([name]) => name === 'preview')[1], {
+    title: 'Report', description: null, clarification: 'Smaller steps, please'
+  });
+  assert.equal(h.dom.$('#taskAssistInput').value, '  Smaller steps, please  ');
+  assert.notEqual(h.dom.$('#taskDescriptionInput').value, 'Smaller steps, please');
+  assert.equal(h.dom.$('#taskAssistProgress').classList.contains('hidden'), true);
+  h.feature.close(); h.feature.open({ title: 'Another task' });
+  assert.equal(h.dom.$('#taskAssistInput').value, '');
+});
+
+test('changing feedback while a request is pending cannot apply its stale result', async t => {
+  const pending = deferred(), h = harness(t, { enrich: () => pending.promise });
+  h.feature.open({ title: 'Report' }); h.dom.$('#taskAssistInput').value = 'First request';
+  const request = h.enrich();
+  assert.equal(h.dom.$('#taskAssistProgress').classList.contains('hidden'), false);
+  h.dom.$('#taskAssistInput').value = 'New request'; pending.resolve(suggestion()); await request;
+  assert.equal(h.dom.$('#createSteps').querySelectorAll('.bd-step').length, 0); assert.equal(h.dom.$('#taskAssistInput').value, 'New request');
+  assert.equal(h.dom.$('#taskAssistProgress').classList.contains('hidden'), true);
+  assert.equal(h.dom.$('#btnEnrichDraft').disabled, false);
+});
+
+test('a pending suggestion cannot replace manual step additions, edits or removals', async t => {
+  for (const action of ['add', 'edit', 'remove']) {
+    const pending = deferred(), h = harness(t, { enrich: () => pending.promise });
+    h.feature.open({ title: 'Report' });
+    if (action !== 'add') {
+      await h.dom.fire('#createAddStep', 'click');
+      const field = h.dom.$('#createSteps').querySelectorAll('.bd-step')[0].querySelector('.bd-step-input');
+      field.value = 'Original step'; field.input(field.value);
+    }
+    const request = h.enrich(); await h.enrich();
+    assert.equal(h.calls.filter(([name]) => name === 'preview').length, 1);
+    if (action === 'add') await h.dom.fire('#createAddStep', 'click');
+    const row = h.dom.$('#createSteps').querySelectorAll('.bd-step')[0];
+    if (action === 'remove') row.querySelector('.bd-step-del').click();
+    else { const field = row.querySelector('.bd-step-input'); field.value = 'My manual step'; field.input(field.value); }
+    pending.resolve(suggestion()); await request;
+    assert.deepEqual(h.steps(), action === 'remove' ? [] : ['My manual step']);
+  }
+});
+
+test('pending enrichment preserves an edited estimate or tags instead of overwriting the draft', async t => {
+  for (const [selector, value] of [['#estimateInput', '45'], ['#tagsInput', 'mine']]) {
+    const pending = deferred(), h = harness(t, { enrich: () => pending.promise });
+    h.feature.open({ title: 'Report' }); const request = h.enrich(); h.dom.$(selector).value = value;
+    pending.resolve(suggestion()); await request;
+    assert.equal(h.dom.$(selector).value, value); assert.deepEqual(h.steps(), []);
+  }
+});
+
+test('English enrichment receipt is concise, singular, and explicitly requires saving', async t => {
+  const { setLocale } = require('../src/surfaces/shared/interface/i18n.mjs');
+  setLocale('en'); t.after(() => setLocale('zh-CN'));
+  const h = harness(t); h.feature.open({ title: 'Report' }); await h.enrich();
+  assert.match(h.status(), /^Added to draft: 1 step,/);
+  assert.match(h.status(), /Review and save to apply\.$/);
+  assert.doesNotMatch(h.status(), /1 steps/);
+});

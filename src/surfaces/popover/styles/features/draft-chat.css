@@ -57,6 +57,7 @@
   #draftChatMask .chat-turn-heading { display: flex; align-items: center; gap: 7px; margin-bottom: 8px; }
   #draftChatMask .chat-turn-user .chat-turn-heading { flex-direction: row-reverse; }
   #draftChatMask .chat-avatar { display: inline-flex; flex: 0 0 28px; width: 28px; height: 28px; color: var(--primary-ink); }
+  #draftChatMask .chat-avatar img { display: block; width: 28px; height: 28px; object-fit: contain; }
   #draftChatMask .chat-avatar-user { color: var(--fg-1); }
   #draftChatMask .chat-turn-role { display: block; font-size: 11px; font-weight: 600; color: var(--fg-2); margin: 0; }
   #draftChatMask .chat-turn-source { margin: 0 0 8px; font-size: 11px; line-height: 1.5; color: var(--fg-2); }
@@ -118,3 +119,4 @@
 @layer theme {
   #draftChatMask .chat-input { white-space: pre-wrap; overflow-wrap: anywhere; }
 }
+

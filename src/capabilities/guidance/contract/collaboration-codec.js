@@ -8,6 +8,10 @@ function object(validation, keys) {
   return value;
 }
 function conversationId(validation, value) { return validation.validateId(value.conversationId, 'conversationId'); }
+function messageIdentity(validation, value) {
+  if (typeof value !== 'string' || !/^[a-zA-Z0-9_.:-]{1,200}$/.test(value)) validation.fail('messageId is invalid');
+  return value;
+}
 function choice(validation, value, allowed, field, fallback) {
   if (value === undefined && fallback !== undefined) return fallback;
   if (!allowed.includes(value)) validation.fail(`${field} is invalid`);
@@ -70,10 +74,11 @@ const codec = createCapabilityCodec({
       mode: choice(validation, value.mode, ['talk', 'small-step', 'plan'], 'mode') } : undefined;
   },
   'ai:conversation-turn': validation => {
-    const value = object(validation, ['conversationId', 'scopeGrantId', 'message', 'selectedProposalId']);
+    const value = object(validation, ['conversationId', 'scopeGrantId', 'message', 'messageId', 'selectedProposalId']);
     return value ? { conversationId: conversationId(validation, value),
       scopeGrantId: validation.validateId(value.scopeGrantId, 'scopeGrantId'),
       message: boundedText(validation, value.message, 'message', 8000),
+      ...(value.messageId !== undefined ? { messageId: messageIdentity(validation, value.messageId) } : {}),
       ...(value.selectedProposalId !== undefined ? { selectedProposalId: value.selectedProposalId === null
         ? null : validation.validateId(value.selectedProposalId, 'selectedProposalId') } : {}) } : undefined;
   },

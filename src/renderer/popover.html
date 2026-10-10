@@ -509,12 +509,14 @@
           <option value="en" lang="en">English (preview)</option>
         </select>
       </div>
-      <fieldset class="interface-theme">
-        <legend data-i18n="界面主题">界面主题</legend>
+      <div class="setting-row">
+        <span id="interfaceThemeLabel" class="setting-label" data-i18n="界面主题">界面主题</span>
+      <fieldset class="interface-theme segmented-control" aria-labelledby="interfaceThemeLabel">
         <label><input type="radio" name="interfaceTheme" value="system" checked><span data-i18n="跟随系统">跟随系统</span></label>
         <label><input type="radio" name="interfaceTheme" value="light"><span data-i18n="浅色">浅色</span></label>
         <label><input type="radio" name="interfaceTheme" value="dark"><span data-i18n="深色">深色</span></label>
       </fieldset>
+      </div>
       <p id="interfaceSaveStatus" class="settings-save-status" role="status" aria-live="polite"></p>
 <section class="settings-subsection" id="settingGroupShortcuts">
       <h3 class="settings-subtitle" data-icon="keyboard" data-i18n="快捷键">快捷键</h3>
@@ -539,7 +541,7 @@
       <summary><span class="setting-group-title" data-icon="paw" data-i18n="伙伴与动效">伙伴与动效</span></summary>
 <div class="setting-row col">
       <label data-i18n="动效强度">动效强度</label>
-      <div class="segmented" role="group" aria-label="动效强度" data-i18n-aria-label="动效强度">
+      <div class="segmented segmented-control" role="group" aria-label="动效强度" data-i18n-aria-label="动效强度">
         <button type="button" class="chip motion-mode" data-value="reduced" aria-pressed="false" data-i18n="减少">减少</button>
         <button type="button" class="chip motion-mode" data-value="balanced" aria-pressed="true" data-i18n="平衡">平衡</button>
         <button type="button" class="chip motion-mode" data-value="full" aria-pressed="false" data-i18n="完整">完整</button>
@@ -547,7 +549,7 @@
     </div>
     <div class="setting-row col">
       <label data-i18n="视觉刺激">视觉刺激</label>
-      <div class="segmented" role="group" aria-label="视觉刺激" data-i18n-aria-label="视觉刺激">
+      <div class="segmented segmented-control" role="group" aria-label="视觉刺激" data-i18n-aria-label="视觉刺激">
         <button type="button" class="chip stimulation-mode" data-value="low" aria-pressed="false" data-i18n="低">低</button>
         <button type="button" class="chip stimulation-mode" data-value="balanced" aria-pressed="true" data-i18n="平衡">平衡</button>
         <button type="button" class="chip stimulation-mode" data-value="high" aria-pressed="false" data-i18n="高">高</button>
@@ -555,7 +557,7 @@
     </div>
     <div class="setting-row col">
       <label data-i18n="伙伴主动程度">伙伴主动程度</label>
-      <div class="segmented" role="group" aria-label="伙伴主动程度" data-i18n-aria-label="伙伴主动程度">
+      <div class="segmented segmented-control" role="group" aria-label="伙伴主动程度" data-i18n-aria-label="伙伴主动程度">
         <button type="button" class="chip pet-activity-mode" data-value="off" aria-pressed="false" data-i18n="关">关</button>
         <button type="button" class="chip pet-activity-mode" data-value="quiet" aria-pressed="false" data-i18n="安静">安静</button>
         <button type="button" class="chip pet-activity-mode" data-value="balanced" aria-pressed="true" data-i18n="平衡">平衡</button>
@@ -606,7 +608,7 @@
     </div>
     <div class="setting-row col">
       <label data-i18n="临时任务默认时效">临时任务默认时效</label>
-      <div class="chip-row" style="gap:4px;" role="group" aria-label="临时任务默认时效" data-i18n-aria-label="临时任务默认时效">
+      <div class="chip-row segmented-control" role="group" aria-label="临时任务默认时效" data-i18n-aria-label="临时任务默认时效">
         <button type="button" class="chip ttl-set-chip" data-ttl-set="midnight" aria-pressed="true" data-i18n="当天 24 点">当天 24 点</button>
         <button type="button" class="chip ttl-set-chip" data-ttl-set="6" aria-pressed="false" data-i18n="6 小时">6 小时</button>
         <button type="button" class="chip ttl-set-chip" data-ttl-set="12" aria-pressed="false" data-i18n="12 小时">12 小时</button>
@@ -756,10 +758,10 @@
         <h3 class="settings-subtitle" id="planningPreferenceTitle" data-i18n="安排偏好">安排偏好</h3>
         <p class="capability-note hidden" id="planningProposalContext" data-i18n="来自对话的安排建议，确认后保存。">来自对话的安排建议，确认后保存。</p>
         <form id="planningPreferenceForm" class="planning-form" autocomplete="off">
-          <label for="planningPreferenceTarget" data-i18n="偏好">偏好</label><select id="planningPreferenceTarget"><option value="" data-i18n="新增偏好">新增偏好</option></select>
+          <div class="setting-row"><label for="planningPreferenceTarget" data-i18n="偏好">偏好</label><select id="planningPreferenceTarget"><option value="" data-i18n="新增偏好">新增偏好</option></select></div>
           <div class="planning-time-band"><label for="planningStart" data-i18n-text="开始时间">开始时间<input type="time" id="planningStart" value="13:00" required></label><label for="planningEnd" data-i18n-text="结束时间">结束时间<input type="text" inputmode="numeric" pattern="(?:[01][0-9]|2[0-3]):[0-5][0-9]|24:00" maxlength="5" placeholder="HH:MM" id="planningEnd" value="17:00" required></label></div>
-          <label for="planningDemand" data-i18n="这个时段更想安排">这个时段更想安排</label><select id="planningDemand"><option value="low" data-i18n="轻一些的事">轻一些的事</option><option value="medium" data-i18n="一般难度的事">一般难度的事</option><option value="high" data-i18n="需要更多投入的事">需要更多投入的事</option></select>
-          <label for="planningScope" data-i18n="有效期">有效期</label><select id="planningScope"><option value="today" data-i18n="今天">今天</option><option value="7days" data-i18n="七天">七天</option><option value="saved" data-i18n="保存为偏好">保存为偏好</option></select>
+          <div class="setting-row"><label for="planningDemand" data-i18n="这个时段更想安排">这个时段更想安排</label><select id="planningDemand"><option value="low" data-i18n="轻一些的事">轻一些的事</option><option value="medium" data-i18n="一般难度的事">一般难度的事</option><option value="high" data-i18n="需要更多投入的事">需要更多投入的事</option></select></div>
+          <div class="setting-row"><label for="planningScope" data-i18n="有效期">有效期</label><select id="planningScope"><option value="today" data-i18n="今天">今天</option><option value="7days" data-i18n="七天">七天</option><option value="saved" data-i18n="保存为偏好">保存为偏好</option></select></div>
           <button type="submit" class="chip chip-action" id="planningPreferencePreview" data-i18n="查看变更">查看变更</button>
         </form>
         <p class="capability-note" id="planningPreferenceSummary"></p>
@@ -781,10 +783,10 @@
         
         <p class="capability-note" id="planningTrialStatus"></p>
         <form id="planningTrialForm" class="planning-form">
-          <label for="planningTrialParameter" data-i18n="参数">参数</label><select id="planningTrialParameter"><option value="chronotypeShift" data-i18n="曲线时段偏移">曲线时段偏移</option><option value="morningRampMinutes" data-i18n="上午上升时长">上午上升时长</option></select>
-          <label for="planningTrialValue" data-i18n="试用值（分钟）">试用值（分钟）</label><input type="number" id="planningTrialValue" step="1" inputmode="numeric">
+          <div class="setting-row"><label for="planningTrialParameter" data-i18n="参数">参数</label><select id="planningTrialParameter"><option value="chronotypeShift" data-i18n="曲线时段偏移">曲线时段偏移</option><option value="morningRampMinutes" data-i18n="上午上升时长">上午上升时长</option></select></div>
+          <div class="setting-row"><label for="planningTrialValue" data-i18n="试用值（分钟）">试用值（分钟）</label><input type="number" id="planningTrialValue" step="1" inputmode="numeric"></div>
           <p class="capability-note" id="planningTrialBounds"></p>
-          <label for="planningTrialScope" data-i18n="试用期限">试用期限</label><select id="planningTrialScope"><option value="today" data-i18n="今天">今天</option><option value="7days" data-i18n="七天">七天</option></select>
+          <div class="setting-row"><label for="planningTrialScope" data-i18n="试用期限">试用期限</label><select id="planningTrialScope"><option value="today" data-i18n="今天">今天</option><option value="7days" data-i18n="七天">七天</option></select></div>
           <button type="submit" class="chip chip-action" id="planningTrialPreview" disabled data-i18n="比较当前与建议曲线">比较当前与建议曲线</button>
         </form>
         <button type="button" class="chip chip-action" id="planningTrialUndo" disabled data-i18n="结束试用并恢复">结束试用并恢复</button>
@@ -1028,12 +1030,17 @@
         <div class="edit-steps-block task-disclosure hidden" id="createStepsBlock">
           <span class="sr-only" id="createStepsLabel" data-i18n="步骤">步骤</span><div class="bd-steps" id="createSteps" role="group" aria-labelledby="createStepsLabel"></div>
         </div>
-        <div class="create-assist">
-          <button type="button" class="pixel-btn btn-mini" id="btnEnrichDraft" data-icon="sparkles">拆成步骤</button>
-          <button type="button" class="pixel-btn btn-mini" id="btnOpenDraftChat" data-icon="message" aria-haspopup="dialog" aria-controls="draftChatMask" data-i18n="AI 协作">AI 协作</button>
-          <div class="assist-note"><span data-i18n="建议填入草稿，保存后生效">建议填入草稿，保存后生效</span><details class="inline-help"><summary aria-label="任务助手说明" data-i18n-aria-label="任务助手说明">?</summary><p id="enrichDraftNote" data-i18n="建议只填入草稿，确认保存后才会生效。">建议只填入草稿，确认保存后才会生效。</p></details></div>
+        <section class="create-assist" aria-labelledby="taskAssistTitle">
+          <div class="task-assist-heading"><h3 id="taskAssistTitle" data-i18n="小步协作">小步协作</h3><span class="assist-note" id="enrichDraftNote" data-i18n="建议填入草稿，保存后生效">建议填入草稿，保存后生效</span></div>
+          <label class="chip-label" for="taskAssistInput" data-i18n="补充要求或反馈">补充要求或反馈</label>
+          <textarea id="taskAssistInput" class="pixel-input" maxlength="200" rows="2" placeholder="例如：每一步再小一点，先从不用出门的事开始" data-i18n-placeholder="例如：每一步再小一点，先从不用出门的事开始"></textarea>
+          <div class="task-assist-actions">
+            <button type="button" class="pixel-btn btn-mini" id="btnEnrichDraft" data-icon="sparkles">拆成步骤</button>
+            <button type="button" class="pixel-btn btn-mini" id="btnOpenDraftChat" data-icon="message" aria-haspopup="dialog" aria-controls="draftChatMask" data-i18n="继续讨论">继续讨论</button>
+          </div>
+          <p class="task-assist-progress hidden" id="taskAssistProgress" role="status" aria-live="polite"></p>
           <p class="capability-note hidden" id="taskFormStatus" role="status" aria-live="polite"></p>
-        </div>
+        </section>
         <details class="task-advanced" id="taskAdvanced">
           <summary data-i18n-text="更多选项"><svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="3" cy="8" r=".7"/><circle cx="8" cy="8" r=".7"/><circle cx="13" cy="8" r=".7"/></svg>更多选项</summary>
         <!-- 重复、计划日、预约、截止、自动失效彼此独立：选一个不会默认帮你定下其他字段。 -->
@@ -1044,10 +1051,10 @@
         </div>
         </fieldset><fieldset class="task-option-group"><legend data-icon="repeat" data-i18n="重复">重复</legend>
         <div class="chip-row" role="group" aria-label="重复规则" data-i18n-aria-label="重复规则">
-          <button type="button" class="chip repeat-chip active" data-repeat="none" title="只做一次" aria-pressed="true" data-i18n="不重复" data-i18n-title="只做一次">不重复</button>
+          <div class="segmented-control"><button type="button" class="chip repeat-chip active" data-repeat="none" title="只做一次" aria-pressed="true" data-i18n="不重复" data-i18n-title="只做一次">不重复</button>
           <button type="button" class="chip repeat-chip" data-repeat="daily" title="每天一次，完成后自动排下一次" aria-pressed="false" data-i18n="每天" data-i18n-title="每天一次，完成后自动排下一次">每天</button>
           <button type="button" class="chip repeat-chip" data-repeat="weekly" title="按选定的星期重复" aria-pressed="false" data-i18n="每周" data-i18n-title="按选定的星期重复">每周</button>
-          <button type="button" class="chip repeat-chip" data-repeat="monthly" title="每月同一天，月小自动夹到最后一天" aria-pressed="false" data-i18n="每月" data-i18n-title="每月同一天，月小自动夹到最后一天">每月</button>
+          <button type="button" class="chip repeat-chip" data-repeat="monthly" title="每月同一天，月小自动夹到最后一天" aria-pressed="false" data-i18n="每月" data-i18n-title="每月同一天，月小自动夹到最后一天">每月</button></div>
         </div>
         <div class="chip-row hidden" id="weekdayRow" role="group" aria-label="每周重复的星期" data-i18n-aria-label="每周重复的星期">
           <span class="chip-label" data-i18n="星期：">星期：</span>
@@ -1061,8 +1068,8 @@
         </div>
         <div class="chip-row hidden" id="repeatStrategyRow" role="group" aria-label="下一次什么时候排" data-i18n-aria-label="下一次什么时候排">
           <span class="chip-label" data-i18n="下一次：">下一次：</span>
-          <button type="button" class="chip repeat-strategy-chip active" data-strategy="fixed" title="按日历走，漏了不补债" aria-pressed="true" data-i18n="按日历" data-i18n-title="按日历走，漏了不补债">按日历</button>
-          <button type="button" class="chip repeat-strategy-chip" data-strategy="after-completion" title="从完成那天开始重新计算" aria-pressed="false" data-i18n="完成后再算" data-i18n-title="从完成那天开始重新计算">完成后再算</button>
+          <div class="segmented-control"><button type="button" class="chip repeat-strategy-chip active" data-strategy="fixed" title="按日历走，漏了不补债" aria-pressed="true" data-i18n="按日历" data-i18n-title="按日历走，漏了不补债">按日历</button>
+          <button type="button" class="chip repeat-strategy-chip" data-strategy="after-completion" title="从完成那天开始重新计算" aria-pressed="false" data-i18n="完成后再算" data-i18n-title="从完成那天开始重新计算">完成后再算</button></div>
         </div>
         <div class="deadline-row hidden" id="repeatIntervalRow">
           <label class="chip-label" for="repeatIntervalInput" data-i18n="每隔：">每隔：</label>
@@ -1072,36 +1079,36 @@
         </fieldset><fieldset class="task-option-group"><legend data-icon="calendar" data-i18n="日期">日期</legend>
         <div class="deadline-row">
           <label class="chip-label" for="deadlineInput" data-i18n="截止：">截止：</label>
-          <input type="date" id="deadlineInput" class="pixel-date" aria-describedby="taskFormStatus">
+          <div class="task-date-control"><input type="date" id="deadlineInput" class="pixel-date" aria-describedby="taskFormStatus"><button type="button" class="task-date-picker" id="deadlineInputPicker" aria-label="选择日期" data-i18n-aria-label="选择日期" data-icon="calendar"></button></div>
           <button type="button" class="chip chip-action" id="clearDeadline" data-i18n="清除">清除</button>
         </div>
         <div class="deadline-row">
           <label class="chip-label" for="scheduledForInput" data-i18n="可开始：">可开始：</label>
-          <input type="datetime-local" id="scheduledForInput" class="pixel-date" aria-describedby="taskFormStatus">
+          <div class="task-date-control"><input type="datetime-local" id="scheduledForInput" class="pixel-date" aria-describedby="taskFormStatus"><button type="button" class="task-date-picker" id="scheduledForInputPicker" aria-label="选择日期" data-i18n-aria-label="选择日期" data-icon="calendar"></button></div>
           <button type="button" class="chip chip-action" id="clearScheduledFor" data-i18n="清除">清除</button>
         </div>
         <div class="deadline-row">
           <label class="chip-label" for="plannedForInput" data-i18n="放在哪天：">放在哪天：</label>
-          <input type="date" id="plannedForInput" class="pixel-date" aria-describedby="taskFormStatus">
+          <div class="task-date-control"><input type="date" id="plannedForInput" class="pixel-date" aria-describedby="taskFormStatus"><button type="button" class="task-date-picker" id="plannedForInputPicker" aria-label="选择日期" data-i18n-aria-label="选择日期" data-icon="calendar"></button></div>
           <button type="button" class="chip chip-action" id="clearPlannedFor" data-i18n="清除">清除</button>
         </div>
         </fieldset><fieldset class="task-option-group"><legend data-icon="sliders" data-i18n="能量、估时与标签">能量、估时与标签</legend>
         <div class="expiry-row" id="expiryRow" role="group" aria-label="自动失效" data-i18n-aria-label="自动失效">
           <span class="chip-label" data-i18n="自动失效：">自动失效：</span>
-          <button type="button" class="chip ttl-chip active" data-ttl="none" title="默认不开：没做完不应该自动变成一条过期提醒" aria-pressed="true" data-i18n="不开启" data-i18n-title="默认不开：没做完不应该自动变成一条过期提醒">不开启</button>
+          <div class="segmented-control"><button type="button" class="chip ttl-chip active" data-ttl="none" title="默认不开：没做完不应该自动变成一条过期提醒" aria-pressed="true" data-i18n="不开启" data-i18n-title="默认不开：没做完不应该自动变成一条过期提醒">不开启</button>
           <button type="button" class="chip ttl-chip" data-ttl="default" title="跟随设置里的默认时效" aria-pressed="false" data-i18n="按设置" data-i18n-title="跟随设置里的默认时效">按设置</button>
           <button type="button" class="chip ttl-chip" data-ttl="midnight" aria-pressed="false" data-i18n="今晚24点">今晚24点</button>
           <button type="button" class="chip ttl-chip" data-ttl="2h" aria-pressed="false">+2h</button>
           <button type="button" class="chip ttl-chip" data-ttl="4h" aria-pressed="false">+4h</button>
-          <button type="button" class="chip ttl-chip" data-ttl="tomorrow" aria-pressed="false" data-i18n="明晚24点">明晚24点</button>
+          <button type="button" class="chip ttl-chip" data-ttl="tomorrow" aria-pressed="false" data-i18n="明晚24点">明晚24点</button></div>
           <span class="expiry-preview" id="expiryPreview"></span>
         </div>
         <div class="chip-row energy-row-2" role="group" aria-label="任务所需能量" data-i18n-aria-label="任务所需能量">
           <span class="chip-label" data-i18n="能量：">能量：</span>
-          <button type="button" class="chip energy-chip active" data-energy="auto" title="根据任务标题自动推断" aria-pressed="true" data-i18n="自动" data-i18n-title="根据任务标题自动推断">自动</button>
+          <div class="segmented-control"><button type="button" class="chip energy-chip active" data-energy="auto" title="根据任务标题自动推断" aria-pressed="true" data-i18n="自动" data-i18n-title="根据任务标题自动推断">自动</button>
           <button type="button" class="chip energy-chip" data-energy="low" aria-pressed="false" data-i18n="低">低</button>
           <button type="button" class="chip energy-chip" data-energy="medium" aria-pressed="false" data-i18n="中">中</button>
-          <button type="button" class="chip energy-chip" data-energy="high" aria-pressed="false" data-i18n="高">高</button>
+          <button type="button" class="chip energy-chip" data-energy="high" aria-pressed="false" data-i18n="高">高</button></div>
         </div>
         <div class="deadline-row">
           <label class="chip-label" for="estimateInput" data-i18n="估时（分钟）：">估时（分钟）：</label>
@@ -1127,7 +1134,7 @@
     <div class="modal collaboration-modal">
       <div class="modal-header chat-header">
         <button type="button" class="chat-nav-button hidden" id="btnDraftChatBack" aria-label="返回当前对话" data-i18n-aria-label="返回当前对话"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
-        <div class="chat-heading"><h2 class="modal-title" id="draftChatTitle">AI 协作</h2><p id="draftChatSessionTitle" class="chat-session-title">新对话</p><p id="draftChatTaskContext" class="hidden"></p></div>
+        <div class="chat-heading"><h2 class="modal-title" id="draftChatTitle">小步协作</h2><p id="draftChatSessionTitle" class="chat-session-title">新对话</p><p id="draftChatTaskContext" class="hidden"></p></div>
         <div class="chat-header-actions" id="draftChatPageActions">
           <button type="button" class="chat-nav-button" id="btnDraftChatList" aria-label="查看对话列表" title="对话列表" data-i18n-title="对话列表" data-i18n-aria-label="查看对话列表"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 6h14M5 12h14M5 18h10"/></svg></button>
           <button type="button" class="chat-nav-button" id="btnDraftChatSettings" aria-label="对话设置" title="对话设置" data-i18n-title="对话设置" data-i18n-aria-label="对话设置"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 7h16M4 17h16M9 4v6M15 14v6"/></svg></button>
@@ -1138,12 +1145,12 @@
       <p class="capability-note hidden" id="draftChatStatus" role="status" aria-live="polite"></p>
       <div class="collaboration-body">
         <section id="draftChatLibrary" class="chat-page hidden" aria-label="对话列表" data-i18n-aria-label="对话列表">
-          <div class="chat-page-toolbar"><p data-i18n="继续一段对话，或重新开始。">继续一段对话，或重新开始。</p><button type="button" class="pixel-btn btn-mini btn-focus" id="btnDraftChatNew" data-i18n="新对话">新对话</button></div>
+          <div class="chat-page-toolbar"><p data-i18n="最近对话">最近对话</p><button type="button" class="pixel-btn btn-mini btn-focus" id="btnDraftChatNew" data-i18n="新对话">新对话</button></div>
           <div id="draftChatSessions" tabindex="0" role="region" aria-label="可继续的对话，可滚动" data-i18n-aria-label="可继续的对话，可滚动"></div>
           <div class="chat-list-actions"><button type="button" class="pixel-btn btn-mini" id="btnDraftChatRefresh" data-i18n="刷新列表">刷新列表</button><button type="button" class="pixel-btn btn-mini hidden" id="btnDraftChatMore" data-i18n="更多对话">更多对话</button></div>
         </section>
         <section id="draftChatSettings" class="chat-page hidden" aria-label="对话设置" data-i18n-aria-label="对话设置">
-          <p class="chat-settings-intro" data-i18n="调整这段对话的方式和参考内容。建议仍需你确认后才生效。">调整这段对话的方式和参考内容。建议仍需你确认后才生效。</p>
+          <p class="chat-settings-intro" data-i18n="建议经你确认后生效。">建议经你确认后生效。</p>
         <div class="chat-options">
           <label for="draftChatMode" data-i18n="帮助方式">帮助方式</label>
           <select id="draftChatMode" class="pixel-input"><option value="talk" data-i18n="先聊聊">先聊聊</option><option value="small-step" data-i18n="找一个小动作">找一个小动作</option><option value="plan" data-i18n="一起安排">一起安排</option></select>
@@ -1287,27 +1294,27 @@
         </div>
 <details class="edit-options" id="editDates"><summary data-i18n-text="安排日期">安排日期 <span id="editDatesSummary"></span></summary>        <div class="edit-field">
           <label class="chip-label" for="editPlannedFor" data-i18n="放在哪天">放在哪天</label>
-          <input type="date" id="editPlannedFor" class="pixel-date">
+          <div class="task-date-control"><input type="date" id="editPlannedFor" class="pixel-date"><button type="button" class="task-date-picker" id="editPlannedForPicker" aria-label="选择日期" data-i18n-aria-label="选择日期" data-icon="calendar"></button></div>
         </div>
         <div class="edit-field">
           <label class="chip-label" for="editScheduledFor" data-i18n="开始时间">开始时间</label>
-          <input type="datetime-local" id="editScheduledFor" class="pixel-date">
+          <div class="task-date-control"><input type="datetime-local" id="editScheduledFor" class="pixel-date"><button type="button" class="task-date-picker" id="editScheduledForPicker" aria-label="选择日期" data-i18n-aria-label="选择日期" data-icon="calendar"></button></div>
         </div>
         <div class="edit-field">
           <label class="chip-label" for="editDeadline" data-i18n="截止">截止</label>
-          <input type="date" id="editDeadline" class="pixel-date">
+          <div class="task-date-control"><input type="date" id="editDeadline" class="pixel-date"><button type="button" class="task-date-picker" id="editDeadlinePicker" aria-label="选择日期" data-i18n-aria-label="选择日期" data-icon="calendar"></button></div>
         </div>
         <div class="edit-field">
           <label class="chip-label" for="editExpiresAt" data-i18n="有效期限">有效期限</label>
-          <input type="date" id="editExpiresAt" class="pixel-date">
+          <div class="task-date-control"><input type="date" id="editExpiresAt" class="pixel-date"><button type="button" class="task-date-picker" id="editExpiresAtPicker" aria-label="选择日期" data-i18n-aria-label="选择日期" data-icon="calendar"></button></div>
         </div>
 </details>
 <details class="edit-options" id="editAttributes"><summary data-i18n-text="其他属性">其他属性 <span id="editAttributesSummary"></span></summary>        <div class="chip-row" role="group" aria-label="编辑能量" data-i18n-aria-label="编辑能量">
           <span class="chip-label" data-i18n="能量：">能量：</span>
-          <button type="button" class="chip edit-energy-chip" data-edit-energy="auto" aria-pressed="false" data-i18n="自动">自动</button>
+          <div class="segmented-control"><button type="button" class="chip edit-energy-chip" data-edit-energy="auto" aria-pressed="false" data-i18n="自动">自动</button>
           <button type="button" class="chip edit-energy-chip" data-edit-energy="low" aria-pressed="false" data-i18n="低">低</button>
           <button type="button" class="chip edit-energy-chip" data-edit-energy="medium" aria-pressed="false" data-i18n="中">中</button>
-          <button type="button" class="chip edit-energy-chip" data-edit-energy="high" aria-pressed="false" data-i18n="高">高</button>
+          <button type="button" class="chip edit-energy-chip" data-edit-energy="high" aria-pressed="false" data-i18n="高">高</button></div>
         </div>
         <div class="edit-field">
           <label class="chip-label" for="editEstimate" data-i18n="估时（分钟）">估时（分钟）</label>
@@ -1321,8 +1328,8 @@
         <!-- 重复任务必须说清改的是哪一层：猜一个会默默重写用户的未来。 -->
         <div class="chip-row hidden" id="editScopeRow" role="group" aria-label="修改范围" data-i18n-aria-label="修改范围">
           <span class="chip-label" data-i18n="这次修改：">这次修改：</span>
-          <button type="button" class="chip edit-scope-chip" data-scope="current" aria-pressed="false" data-i18n="仅本次">仅本次</button>
-          <button type="button" class="chip edit-scope-chip" data-scope="current-and-future" aria-pressed="false" data-i18n="本次及以后">本次及以后</button>
+          <div class="segmented-control"><button type="button" class="chip edit-scope-chip" data-scope="current" aria-pressed="false" data-i18n="仅本次">仅本次</button>
+          <button type="button" class="chip edit-scope-chip" data-scope="current-and-future" aria-pressed="false" data-i18n="本次及以后">本次及以后</button></div>
         </div>
         <div class="edit-series-block hidden" id="editSeriesRow" aria-labelledby="editSeriesSummary">
           <span class="chip-label" id="editSeriesSummary"></span>
@@ -1412,3 +1419,4 @@
   <script type="module" src="../surfaces/popover/entry.mjs"></script>
 </body>
 </html>
+

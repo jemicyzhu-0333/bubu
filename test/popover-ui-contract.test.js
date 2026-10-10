@@ -268,7 +268,7 @@ test('a silent fallback is not allowed: both proposal paths say why AI did not r
 
   // 写在滚动区外的提示等于没写：状态行必须与触发它的按钮同在 .create-assist 里，
   // 而不是塞在“更多设置”折叠区之后。
-  const assist = html.slice(html.indexOf('<div class="create-assist">'), html.indexOf('id="taskAdvanced"'));
+  const assist = html.slice(html.indexOf('<section class="create-assist"'), html.indexOf('id="taskAdvanced"'));
   assert.match(assist, /id="btnEnrichDraft"[\s\S]*?id="taskFormStatus"/);
   const advancedStart = html.indexOf('id="taskAdvanced"');
   assert.ok(html.indexOf('id="taskFormStatus"') < advancedStart, '状态行不得落在折叠区之后');

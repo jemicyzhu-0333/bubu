@@ -3,9 +3,9 @@ import { t, getLocale } from '../../shared/interface/i18n.mjs';
 
 const MODE_LABELS = Object.freeze({ talk: '先聊聊', 'small-step': '找一个小动作', plan: '一起安排' });
 
-// Original, decorative vector marks. Text labels, not the avatar, identify roles.
+// Reuse 小步’s canonical front portrait. Text labels identify roles; avatars are decorative.
 const CHAT_AVATARS = Object.freeze({
-  assistant: '<svg viewBox="0 0 32 32" width="28" height="28" fill="none" aria-hidden="true" focusable="false"><path d="M6 22c-2-8 2-16 10-16s12 8 10 16c-1 4-6 5-10 5S7 26 6 22Z" fill="currentColor" fill-opacity=".12" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="17" r="1.5" fill="currentColor"/><circle cx="20" cy="17" r="1.5" fill="currentColor"/><path d="M13 22q3 2 6 0M16 3v3M14 3h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  assistant: '<img src="../../assets/companion/dango/raster/views/front/neutral.png" width="28" height="28" alt="" aria-hidden="true">',
   user: '<svg viewBox="0 0 32 32" width="28" height="28" fill="none" aria-hidden="true" focusable="false"><rect x="3" y="3" width="26" height="26" rx="9" fill="currentColor" fill-opacity=".08" stroke="currentColor" stroke-width="1.5"/><circle cx="16" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M9 25v-2a7 7 0 0 1 14 0v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'
 });
 
@@ -109,7 +109,7 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
     hidden('#btnDraftChatBack', name === 'detail');
     hidden('#draftChatPageActions', name !== 'detail');
     text('#draftChatTitle', name === 'list' ? '对话' : name === 'settings' ? '对话设置'
-      : latestRecord?.purpose === 'stuck' ? '一起理一理' : 'AI 协作');
+      : latestRecord?.purpose === 'stuck' ? '一起理一理' : '小步协作');
     hidden('#draftChatSessionTitle', name !== 'detail');
     if (focus) $(name === 'detail' ? '#draftChatInput' : name === 'list' ? '#btnDraftChatNew' : '#draftChatMode')?.focus();
   }
@@ -117,13 +117,14 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
     const shown = text('#draftChatStatus', message);
     hidden('#draftChatStatus', !shown);
   }
-  function busy(on) {
-    for (const selector of ['#btnDraftChatSend', '#draftChatInput', '#draftChatRetention',
+  function busy(on, { editable = false } = {}) {
+    for (const selector of ['#btnDraftChatSend', '#draftChatRetention',
       '#draftChatRetentionDays', '#draftChatPinned', '#draftChatFocusSummary', '#btnDraftChatNew',
       '#btnDraftChatList', '#btnDraftChatSettings', '#btnDraftChatRefresh', '#btnDraftChatMore', '#btnDraftChatAdopt', '#draftChatMode']) {
       const node = $(selector);
       if (node) node.disabled = on;
     }
+    if ($('#draftChatInput')) $('#draftChatInput').disabled = on && !editable;
     text('#btnDraftChatSend', on ? '正在生成…' : '发送');
     hidden('#btnDraftChatCancel', !on);
     $('#draftChatLog')?.setAttribute('aria-busy', String(on));
@@ -140,6 +141,14 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
     const reason = message.provenance.reason;
     return leaf('p', 'class="chat-turn-source" data-chat-source="local"', () => t('本地模板')
       + (reason ? ` · ${fallbackReasonText(reason)}` : ''));
+  }
+  function deliveryMarkup(message, retryable) {
+    const labels = { sending: '等待小步回复…', failed: '回复未完成', 'not-sent': '这条消息未发送',
+      unconfirmed: '发送状态待确认', canceled: '回复已取消' };
+    if (!labels[message.localDelivery]) return '';
+    return leaf('p', 'class="chat-turn-source" role="status"', () => t(labels[message.localDelivery]))
+      + (retryable && message.localDelivery !== 'sending'
+        ? `<button type="button" class="pixel-btn btn-mini" data-chat-retry="${escapeHTML(message.id)}">${copy('重试这条消息')}</button>` : '');
   }
   function proposalMarkup(message, selected, purpose) {
     const body = taskDraftFromMessage(message);
@@ -197,12 +206,12 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
       + (item?.historyStatus ? ` · ${t(item.historyStatus === 'pending' ? '时间线待同步' : '时间线已同步')}` : ''))
       + (details ? `<details class="chat-proposal-note"><summary>${t('记录详情')}</summary><p>${details}</p></details>` : '');
   }
-  function conversation(record, selected, { scrollTop, toBottom = false, page = false, projectionOnly = false } = {}) {
+  function conversation(record, selected, { scrollTop, toBottom = false, forceBottom = false, page = false, projectionOnly = false } = {}) {
     const log = $('#draftChatLog');
     const messages = record?.messages || [];
     const previousScroll = log?.scrollTop || 0;
-    const atBottom = !log || !Number.isFinite(log.clientHeight)
-      ? previousScroll === 0 : log.scrollHeight - log.clientHeight - previousScroll <= 32;
+    const atBottom = forceBottom || (!log || !Number.isFinite(log.clientHeight)
+      ? previousScroll === 0 : log.scrollHeight - log.clientHeight - previousScroll <= 32);
     latestRecord = record; latestSelected = selected;
     if (historyId !== record?.id) {
       proposalStates = new Map();
@@ -216,7 +225,7 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
       end = saved ? Math.min(saved.end, messages.length) : messages.length;
       start = saved ? Math.min(saved.start, Math.max(0, end - 1)) : Math.max(0, end - PAGE_SIZE);
     }
-    else if (!page && toBottom && atBottom && end >= previousCount) { end = messages.length; start = Math.max(0, end - PAGE_SIZE); }
+    else if (!page && toBottom && atBottom && (forceBottom || end >= previousCount)) { end = messages.length; start = Math.max(0, end - PAGE_SIZE); }
     else if (!page) end = Math.min(messages.length, Math.max(end, Math.min(PAGE_SIZE, messages.length)));
     previousCount = messages.length;
     if (historyId) historyWindows.set(historyId, { start, end });
@@ -225,11 +234,12 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
       log.innerHTML = messages.length ? messages.slice(start, end).map(message => {
         const role = message.role === 'user' ? 'user' : 'assistant';
         return `<article class="chat-turn chat-turn-${role}" data-message-id="${escapeHTML(message.id)}">`
-          + `<div class="chat-turn-heading"><span class="chat-avatar chat-avatar-${role}" aria-hidden="true">${CHAT_AVATARS[role]}</span>${leaf('span', 'class="chat-turn-role"', () => t(role === 'user' ? '你' : 'AI 伙伴'))}</div>`
+          + `<div class="chat-turn-heading"><span class="chat-avatar chat-avatar-${role}" aria-hidden="true">${CHAT_AVATARS[role]}</span>${leaf('span', 'class="chat-turn-role"', () => t(role === 'user' ? '你' : '小步'))}</div>`
           + sourceMarkup(message)
           + `<div class="chat-turn-content">${escapeHTML(message.content || '')}</div>`
+          + deliveryMarkup(message, message === messages.at(-1))
           + proposalMarkup(message, selected, record.purpose) + '</article>';
-      }).join('') : `<p class="chat-empty">${copy('可以先聊聊，也可以一起找下一步。')}</p>`;
+      }).join('') : `<p class="chat-empty">${copy('想聊点什么？')}</p>`;
       log.scrollTop = toBottom && atBottom ? log.scrollHeight : (scrollTop ?? previousScroll);
     }
     hidden('#btnDraftChatEarlier', start === 0);
@@ -254,9 +264,9 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
     value('#draftChatRetentionDays', String(retention.days || 30));
     if ($('#draftChatPinned')) $('#draftChatPinned').checked = Boolean(retention.pinned);
     hidden('#draftChatRetentionOptions', retention.mode !== 'saved');
-    text('#draftChatSaveState', () => record?.saveState === 'unsaved' ? t('尚未保存到本机；内容仍保留在本次运行中')
-      : record?.saveState === 'saved' ? t('已保存到本机 · {retention}', { retention: retention.pinned ? t('已固定') : t('{days} 天', { days: retention.days || 30 }) })
-        : t('仅本次 · 关闭只暂停，退出应用后不保留'));
+    text('#draftChatSaveState', () => record?.hasUnconfirmedMessages ? t('有消息待确认，尚未确认保存') : record?.saveState === 'unsaved' ? t('未保存 · 退出后清除')
+      : record?.saveState === 'saved' ? t('本机保存 · {retention}', { retention: retention.pinned ? t('已固定') : t('{days} 天', { days: retention.days || 30 }) })
+        : t('仅本次 · 退出后清除'));
     text('#draftChatCurrentMode', MODE_LABELS[mode] || MODE_LABELS.talk);
   }
   function context(disclosure, contextPreview) {

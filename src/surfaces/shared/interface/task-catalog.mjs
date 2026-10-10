@@ -1,5 +1,6 @@
 // App-authored task workflow copy. Interpolated user/provider data stays verbatim.
 export const TASK_EN = Object.freeze({
+  "日期或时间无效，当前输入不会保存。": "Invalid date or time. Your input has not been saved.",
   "小步 - 提醒": "bubu - Reminder",
   "小步 - 强提醒": "bubu - Strong reminder",
   "撤销": "Undo",
@@ -44,11 +45,12 @@ export const TASK_EN = Object.freeze({
   "这一步做什么...": "What will you do in this step…",
   "先写一句要做什么，其他都可以留空。": "Write what you want to do. Everything else is optional.",
   "没有用 AI，所以没替你拆。先写下第一个看得见的动作，比如“打开……”。{detail}": "AI was not used, so no steps were generated. Write the first visible action, such as “Open…”.{detail}",
+  "1 个步骤": "1 step",
   "{count} 个步骤": "{count} steps",
   "做完的判断：{criteria}": "Done when: {criteria}",
   "完成标准": "Completion criteria",
   "估时": "Estimate",
-  "已按 AI 建议填好：{fields}。每一项都能改或清空，标题没有动。": "Filled from the AI suggestion: {fields}. You can edit or clear every field. The title is unchanged.",
+  "已按 AI 建议填好：{fields}。每一项都能改或清空，标题没有动。": "Added to draft: {fields}. Review and save to apply.",
   "这次没有可补的字段，已填内容保持原样。": "There are no fields to fill. Your existing input is unchanged.",
   "先写一句要做什么，伙伴才知道要补什么。": "Write what you want to do so your companion knows what to suggest.",
   "正在补全… {seconds}s": "Filling… {seconds}s",

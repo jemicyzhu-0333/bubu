@@ -126,7 +126,7 @@ test('authoritative list refresh replaces cached metadata and deleted sessions s
   assert.ok(!$('#draftChatSessions').innerHTML.includes('data-chat-resume='));
 });
 
-test('original decorative avatars distinguish roles without replacing source or accessible role text', () => {
+test('canonical companion portrait and decorative user avatar distinguish roles without replacing source or accessible role text', () => {
   const { $, view } = harness();
   view.conversation(record('c1', [
     { id: 'u', role: 'user', content: 'A user message' },
@@ -135,12 +135,13 @@ test('original decorative avatars distinguish roles without replacing source or 
   const markup = $('#draftChatLog').innerHTML;
   assert.match(markup, /chat-avatar-user/);
   assert.match(markup, /chat-avatar-assistant/);
-  assert.equal((markup.match(/<svg /g) || []).length, 2);
-  assert.equal((markup.match(/focusable="false"/g) || []).length, 2);
+  assert.equal((markup.match(/<svg /g) || []).length, 1);
+  assert.equal((markup.match(/focusable="false"/g) || []).length, 1);
   assert.match(markup, /chat-turn-role">你</);
-  assert.match(markup, /chat-turn-role">AI 伙伴</);
+  assert.match(markup, /chat-turn-role">小步</);
   assert.match(markup, /data-chat-source="local">本地模板/);
-  assert.doesNotMatch(markup, /<img|https?:|<image|<use /);
+  assert.match(markup, /<img src="\.\.\/\.\.\/assets\/companion\/dango\/raster\/views\/front\/neutral\.png" width="28" height="28" alt="" aria-hidden="true">/);
+  assert.doesNotMatch(markup, /https?:|<image|<use |onerror=/);
 });
 
 test('session region supports empty and 200-item pages without losing cursor or safe long titles', () => {
@@ -165,4 +166,37 @@ test('session scrolling is constrained to the focusable list; page toolbar and f
   assert.match(css, /#draftChatSessions \{[^}]*min-height: 0;[^}]*max-height: 420px;[^}]*overflow-y: auto;/);
   assert.match(css, /chat-session-title-row > span:first-child \{[^}]*min-width: 0;[^}]*text-overflow: ellipsis;/);
   assert.match(html, /id="draftChatSessions" tabindex="0" role="region" aria-label="可继续的对话，可滚动"[^>]*><\/div>\s*<div class="chat-list-actions">/);
+});
+
+
+test('branded concise chat copy preserves expiry meaning and original message text in both locales', () => {
+  const { setLocale } = require('../src/surfaces/shared/interface/i18n.mjs');
+  const original = 'AI 伙伴说：团子兽 / AI 协作';
+  try {
+    for (const locale of ['zh-CN', 'en']) {
+      setLocale(locale);
+      const { $, view } = harness();
+      view.conversation(record('identity', [{ id: 'u', role: 'user', content: original }, { id: 'a', role: 'assistant', content: original }]));
+      assert.equal($('#draftChatTitle').textContent, locale === 'en' ? 'Work with bubu' : '小步协作');
+      assert.match($('#draftChatLog').innerHTML, locale === 'en' ? /chat-turn-role">bubu</ : /chat-turn-role">小步</);
+      assert.equal(($('#draftChatLog').innerHTML.match(/AI 伙伴说：团子兽 \/ AI 协作/g) || []).length, 2);
+      assert.match($('#draftChatSaveState').textContent, locale === 'en' ? /Cleared on app exit/ : /退出后清除/);
+      view.conversation({ ...record('unsaved'), saveState: 'unsaved' });
+      assert.match($('#draftChatSaveState').textContent, locale === 'en' ? /Not saved/ : /未保存/);
+      view.conversation({ ...record('saved'), saveState: 'saved', retention: { mode: 'saved', days: 30 } });
+      assert.match($('#draftChatSaveState').textContent, locale === 'en' ? /Saved locally · 30 days/ : /本机保存 · 30 天/);
+    }
+  } finally { setLocale('zh-CN'); }
+});
+
+test('explicit send shows the latest page and pending message while passive replies retain scroll', () => {
+  const { $, view } = harness();
+  const history = Array.from({ length: 401 }, (_, index) => ({ id: `history-${index}`, role: 'user', content: `History ${index}` }));
+  view.conversation(record('paged', history)); view.pageHistory('earlier');
+  $('#draftChatLog').scrollTop = 25;
+  const pending = { id: 'client-latest', role: 'user', content: 'Newest message', localDelivery: 'sending' };
+  view.conversation(record('paged', [...history, pending]), null, { toBottom: true, forceBottom: true });
+  assert.match($('#draftChatLog').innerHTML, /Newest message/);
+  assert.equal($('#draftChatLog').scrollTop, $('#draftChatLog').scrollHeight);
+  assert.equal($('#btnDraftChatLatest').classList.contains('hidden'), true);
 });

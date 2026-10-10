@@ -15,7 +15,7 @@ const dataFor = view => DANGO_RASTER.views[['profile', 'three-quarter'].includes
 // Legacy profile selections are resolved to the approved two-eye turn before
 // any body, face, wardrobe or action is sampled.
 const DANGO_FORM = freeze({
-  id: 'dango', name: '团子兽', renderer: 'raster', particleStyle: 'soft', bodySize: 66, bodyGridByView: null,
+  id: 'dango', name: '小步', renderer: 'raster', particleStyle: 'soft', bodySize: 66, bodyGridByView: null,
   artBounds: DANGO_RASTER.artBounds,
   faceRig: Object.fromEntries(views.map(view => [view, dataFor(view).face || {}])),
   anatomyRig: Object.fromEntries(views.map(view => [view, dataFor(view).anchors])),

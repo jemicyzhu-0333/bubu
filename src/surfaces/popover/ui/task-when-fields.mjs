@@ -1,3 +1,4 @@
+import { bindTaskDatePicker, taskDateInputError } from './task-date-controls.mjs';
 import { t, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 'use strict';
 
@@ -101,6 +102,13 @@ function createPopoverTaskWhenFields({
   // 重复规则的两条硬边界要在发出去之前问出来，而且都承诺输入不会丢：一条被拒
   // 的规则不该顺手把已经填好的其他字段一起带走。
   function validate() {
+    for (const [selector, parse, format] of [
+      ['#plannedForInput', endOfLocalDateISO], ['#deadlineInput', endOfLocalDateISO],
+      ['#scheduledForInput', scheduledFromDateTimeInput, localDateTimeInputValue]
+    ]) {
+      const error = taskDateInputError($(selector), parse, format);
+      if (error) return error;
+    }
     const rule = recurrence();
     const intervalError = rule && recurrenceIntervalError(rule.interval, { keepsInput: true });
     if (intervalError) return intervalError;
@@ -150,7 +158,7 @@ function createPopoverTaskWhenFields({
       ? null
       : localDateInputValue(new Date().setDate(new Date().getDate() + offsetDays));
     const input = $('#plannedForInput');
-    if (input) input.value = selectedPlannedFor || '';
+    if (input) { input.value = selectedPlannedFor || ''; input.setAttribute('aria-invalid', 'false'); }
     syncPressedButtons('.when-chip', button => button.dataset.when === selectedWhen);
   }
 
@@ -174,7 +182,7 @@ function createPopoverTaskWhenFields({
     selectedExpiryMode = 'none';
     for (const [selector, value] of [['#plannedForInput', ''], ['#repeatIntervalInput', '1']]) {
       const input = $(selector);
-      if (input) input.value = value;
+      if (input) { input.value = value; input.setAttribute('aria-invalid', 'false'); }
     }
     setScheduledFor(null);
     setDeadline(null);
@@ -222,6 +230,8 @@ function createPopoverTaskWhenFields({
   }
 
   function onScheduledChange(input) {
+    const error = taskDateInputError(input, scheduledFromDateTimeInput, localDateTimeInputValue);
+    if (error) { showStatus(() => taskDateInputError(input, scheduledFromDateTimeInput, localDateTimeInputValue)); return; }
     const scheduledFor = scheduledFromDateTimeInput(input.value);
     if (input.value && !scheduledFor) {
       selectedScheduledFor = null;
@@ -237,6 +247,9 @@ function createPopoverTaskWhenFields({
     if (mounted) return;
     mounted = true;
     teardown.push(onLocaleChanged(paintExpiryCopy));
+    for (const id of ['plannedForInput', 'scheduledForInput', 'deadlineInput']) {
+      teardown.push(bindTaskDatePicker($('#' + id), $('#' + id + 'Picker')));
+    }
     for (const chip of $$('.when-chip')) {
       listen(chip, 'click', () => {
         applyWhen(chip.dataset.when);
@@ -262,28 +275,33 @@ function createPopoverTaskWhenFields({
 
     const plannedInput = $('#plannedForInput');
     listen(plannedInput, 'change', () => {
+      const error = taskDateInputError(plannedInput, endOfLocalDateISO);
+      if (error) { showStatus(() => taskDateInputError(plannedInput, endOfLocalDateISO)); return; }
       selectedPlannedFor = plannedInput.value || null;
       syncWhenFromPlannedFor();
       showStatus('');
     });
     listen($('#clearPlannedFor'), 'click', () => {
       selectedPlannedFor = null;
-      if (plannedInput) plannedInput.value = '';
+      if (plannedInput) { plannedInput.value = ''; plannedInput.setAttribute('aria-invalid', 'false'); }
       syncWhenFromPlannedFor();
+      showStatus('');
     });
 
     const scheduledInput = $('#scheduledForInput');
     listen(scheduledInput, 'change', () => onScheduledChange(scheduledInput));
-    listen($('#clearScheduledFor'), 'click', () => setScheduledFor(null));
+    listen($('#clearScheduledFor'), 'click', () => { setScheduledFor(null); showStatus(''); });
 
     const deadlineInput = $('#deadlineInput');
     // 已经过去的截止不是提醒，是一条开局就红着的行：让日历自己拒绝这种选择。
     if (deadlineInput) deadlineInput.min = localDateInputValue();
     listen(deadlineInput, 'change', () => {
+      const error = taskDateInputError(deadlineInput, endOfLocalDateISO);
+      if (error) { showStatus(() => taskDateInputError(deadlineInput, endOfLocalDateISO)); return; }
       setDeadline(endOfLocalDateISO(deadlineInput.value));
       showStatus('');
     });
-    listen($('#clearDeadline'), 'click', () => setDeadline(null));
+    listen($('#clearDeadline'), 'click', () => { setDeadline(null); showStatus(''); });
   }
 
   function dispose() {

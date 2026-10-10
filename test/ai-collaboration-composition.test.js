@@ -22,6 +22,10 @@ test('all collaboration routes are closed and restricted to the popover', () => 
   assert.deepEqual(allowedSurfacesFor('ai:conversation-turn'), ['popover']);
   const value = { conversationId: 'c', scopeGrantId: 'g', message: 'hello' };
   assert.equal(validateIpcPayload('ai:conversation-turn', value).ok, true);
+  assert.equal(validateIpcPayload('ai:conversation-turn', { ...value, messageId: 'client-message-test' }).ok, true);
+  for (const messageId of [null, '', {}, 'x'.repeat(201), '<script>']) {
+    assert.equal(validateIpcPayload('ai:conversation-turn', { ...value, messageId }).ok, false);
+  }
   assert.equal(validateIpcPayload('ai:conversation-turn', { ...value, consent: true }).ok, false);
   assert.equal(validateIpcPayload('ai:conversation-turn', { ...value, message: '🙂'.repeat(8000) }).ok, true);
   assert.equal(validateIpcPayload('ai:conversation-turn', { ...value, message: '🙂'.repeat(8001) }).ok, false);

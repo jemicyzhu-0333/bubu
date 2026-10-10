@@ -1,3 +1,4 @@
+import { bindTaskDatePicker, taskDateInputError } from '../ui/task-date-controls.mjs';
 import { t, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 'use strict';
 
@@ -219,6 +220,9 @@ function createPopoverTaskEditor({
     $('#editScheduledFor').value = task.scheduledFor ? localDateTimeInputValue(task.scheduledFor) : '';
     $('#editDeadline').value = task.deadline ? localDateInputValue(task.deadline) : '';
     $('#editExpiresAt').value = task.expiresAt ? localDateInputValue(task.expiresAt) : '';
+    for (const id of ['editPlannedFor', 'editScheduledFor', 'editDeadline', 'editExpiresAt']) {
+      $('#' + id).setAttribute('aria-invalid', 'false');
+    }
     $('#editEstimate').value = task.estimateMinutes === null || task.estimateMinutes === undefined
       ? ''
       : String(task.estimateMinutes);
@@ -347,6 +351,14 @@ function createPopoverTaskEditor({
       showError(() => estimateInputError('#editEstimate'));
       return;
     }
+    for (const [selector, parse, format] of [
+      ['#editPlannedFor', endOfLocalDateISO], ['#editDeadline', endOfLocalDateISO],
+      ['#editExpiresAt', endOfLocalDateISO],
+      ['#editScheduledFor', scheduledFromDateTimeInput, localDateTimeInputValue]
+    ]) {
+      const error = taskDateInputError($(selector), parse, format);
+      if (error) { showError(() => taskDateInputError($(selector), parse, format)); return; }
+    }
     const patch = buildPatch(task);
     if (Object.keys(patch).length === 0) { close(); return; }
     if (task.seriesId && !draft.scope) {
@@ -448,6 +460,9 @@ function createPopoverTaskEditor({
     if (mounted) return;
     mounted = true;
     teardown.push(onLocaleChanged(repaintCopy));
+    for (const id of ['editPlannedFor', 'editScheduledFor', 'editDeadline', 'editExpiresAt']) {
+      teardown.push(bindTaskDatePicker($('#' + id), $('#' + id + 'Picker')));
+    }
     listen($('#taskEditConfirm'), 'click', submit);
     listen($('#taskEditClose'), 'click', close);
     listen($('#taskEditCancel'), 'click', close);

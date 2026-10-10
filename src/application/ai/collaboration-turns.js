@@ -71,7 +71,7 @@ function createCollaborationTurns({ sessions, grants, reads, getProvider, now, v
     return admission ? admission.invalidate(reason) : { ok: false, reason: 'authorization-unavailable' };
   }
 
-  async function run({ conversationId, message, scopeGrantId, selectedProposalId } = {}) {
+  async function run({ conversationId, message, messageId, scopeGrantId, selectedProposalId } = {}) {
     const admissionTicket = admission?.captureAdmission();
     if (admission && !admission.isAdmissionCurrent(admissionTicket)) return { ok: false, reason: 'authorization-busy' };
     if (typeof message !== 'string' || !message.trim()) return { ok: false, reason: 'message-required' };
@@ -81,9 +81,9 @@ function createCollaborationTurns({ sessions, grants, reads, getProvider, now, v
     let provider;
     try { provider = assertProviderPort(getProvider(found.conversation)); } catch (_) { return { ok: false, reason: 'provider-configuration-unavailable' }; }
     if (provider.purposeAllowed === false) return { ok: false, reason: 'clarify-disabled', conversation: found.conversation };
-    const begun = sessions.beginTurn({ conversationId, message, providerId: provider.fingerprint,
+    const begun = sessions.beginTurn({ conversationId, message, messageId, providerId: provider.fingerprint,
       authorizationGeneration: found.conversation.authGeneration, selectedProposalId, admissionTicket });
-    if (!begun.ok) return begun;
+    if (!begun.ok || begun.replayed) return begun;
     const priorOwner = activeTurns.get(conversationId);
     let execution = null, cleanup = null, setupCleanup = null;
     let acceptedResult = null, finalDisclosure = null;

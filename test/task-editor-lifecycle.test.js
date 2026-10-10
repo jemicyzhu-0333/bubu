@@ -335,3 +335,11 @@ test('locale changes keep task edit fields, step nodes, focus and pending save i
   assert.match(h.$('#taskEditError').textContent, /Saving failed/);
   setLocale('zh-CN'); assert.match(h.$('#taskEditError').textContent, /没有保存成功/);
 });
+
+test('incomplete native date input cannot clear a saved date or submit unrelated edits', async t => {
+  const h = harness(t); h.open({ ...task(), deadline: '2026-11-07T23:59:59.999Z' });
+  h.change(); h.$('#editDeadline').value = ''; h.$('#editDeadline').validity = { badInput: true };
+  await h.save(); assert.equal(h.calls.length, 0); assert.match(h.status(), /日期|date/i);
+  h.$('#editDeadline').validity = { badInput: false }; await h.save();
+  assert.equal(h.calls[0][2].deadline, null);
+});

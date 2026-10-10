@@ -377,3 +377,98 @@ test('delete confirmation binds the exact canonical revision and stale confirmat
   assert.equal(db.repository.load({ ownerId: OWNER, conversationId: f.conversationId }).ok, false);
   f.sessions.dispose(); db.close();
 });
+
+function validStoredProjection(value) {
+  const { authGeneration, requiresAuthorization, contextEligibilityPending, savedRevision, recoverable, saveState, saveError, ...record } = value;
+  return validateConversationSnapshot(record);
+}
+
+test('message identity retries reuse one unanswered user and fence every old attempt', () => {
+  const f = fixture();
+  const request = { conversationId: f.conversationId, messageId: 'client-message-synthetic', message: 'same text', providerId: PROVIDER, authorizationGeneration: 0 };
+  const first = f.sessions.beginTurn(request);
+  assert.equal(first.ok, true);
+  assert.equal(f.sessions.beginTurn(request).reason, 'conversation-turn-active');
+  f.sessions.cancel({ conversationId: f.conversationId });
+  const next = f.sessions.beginTurn({ ...request, authorizationGeneration: f.sessions.get(request).conversation.authGeneration });
+  assert.equal(next.ok, true);
+  assert.equal(next.acceptedMessageId, first.acceptedMessageId);
+  assert.notEqual(next.token.attemptId, first.token.attemptId);
+  assert.equal(next.conversation.messages.length, 1);
+  assert.equal(next.conversation.segment.turns, 1);
+  assert.equal(validStoredProjection(next.conversation), true);
+  assert.equal(f.sessions.completeTurn({ token: first.token, providerId: PROVIDER, content: 'late' }).reason, 'conversation-turn-stale');
+  const complete = f.sessions.completeTurn({ token: next.token, providerId: PROVIDER, content: 'answer' });
+  assert.equal(complete.ok, true);
+  assert.equal(validStoredProjection(complete.conversation), true);
+  const replay = f.sessions.beginTurn({ ...request, authorizationGeneration: next.conversation.authGeneration });
+  assert.equal(replay.replayed, true);
+  assert.equal(replay.conversation.messages.length, 2);
+  assert.equal(replay.conversation.revision, complete.conversation.revision);
+});
+
+test('same text with different message identities creates distinct turns; ID conflicts do not write', () => {
+  const f = fixture();
+  const request = { conversationId: f.conversationId, message: 'same text', providerId: PROVIDER, authorizationGeneration: 0 };
+  const first = f.sessions.beginTurn({ ...request, messageId: 'client-first' });
+  f.sessions.completeTurn({ token: first.token, providerId: PROVIDER, content: 'answer' });
+  const second = f.sessions.beginTurn({ ...request, messageId: 'client-second' });
+  assert.equal(second.conversation.messages.length, 3);
+  const revision = second.conversation.revision;
+  for (const invalid of [{ messageId: 'client-first', message: 'changed' }, { messageId: '' }, { messageId: 'x'.repeat(201) }]) {
+    assert.equal(f.sessions.beginTurn({ ...request, ...invalid }).ok, false);
+    assert.equal(f.sessions.get(request).conversation.revision, revision);
+  }
+  const other = f.sessions.start().conversation;
+  const conflict = f.sessions.beginTurn({ ...request, conversationId: other.id, messageId: 'client-first' });
+  assert.equal(conflict.reason, 'conversation-message-conflict');
+  assert.equal(Object.hasOwn(conflict, 'conversation'), false);
+  assert.equal(f.sessions.get({ conversationId: other.id }).conversation.messages.length, 0);
+});
+
+test('an older unanswered message cannot be retried behind a newer user message', () => {
+  const f = fixture();
+  const request = { conversationId: f.conversationId, message: 'same text', providerId: PROVIDER, authorizationGeneration: 0 };
+  f.sessions.beginTurn({ ...request, messageId: 'client-first' });
+  f.sessions.beginTurn({ ...request, messageId: 'client-second' });
+  f.sessions.cancel(request);
+  const retried = f.sessions.beginTurn({ ...request, messageId: 'client-first', authorizationGeneration: f.sessions.get(request).conversation.authGeneration });
+  assert.equal(retried.reason, 'conversation-retry-stale');
+  assert.equal(retried.conversation.messages.length, 2);
+});
+
+test('saved unanswered message keeps its ID across restart and retry does not erase saved draft', () => {
+  const db = database();
+  const f = fixture({ repository: db.repository });
+  const request = { conversationId: f.conversationId, messageId: 'client-restart', message: 'retained message', providerId: PROVIDER, authorizationGeneration: 0 };
+  f.sessions.beginTurn(request);
+  f.sessions.pause({ conversationId: f.conversationId, inputDraft: 'next unsent draft' });
+  f.sessions.setRetention({ conversationId: f.conversationId, mode: 'saved' });
+  const restarted = fixture({ repository: db.repository }).sessions;
+  const loaded = restarted.get(request).conversation;
+  const retried = restarted.beginTurn({ ...request, authorizationGeneration: loaded.authGeneration });
+  assert.equal(retried.ok, true);
+  assert.equal(retried.conversation.messages.length, 1);
+  assert.equal(retried.conversation.messages[0].id, request.messageId);
+  assert.equal(retried.conversation.inputDraft, 'next unsent draft');
+  assert.equal(validStoredProjection(retried.conversation), true);
+  db.close();
+});
+
+test('ambiguous saved commit is not replayed or labeled saved by message identity retry', () => {
+  let writes = 0;
+  const f = fixture({ repository: { load: () => ({ ok: false }), pruneRetention: () => ({ ok: true }),
+    saveSnapshot: () => { writes++; return { ok: false, durability: 'unknown' }; },
+    reconcileSave: () => ({ ok: false, durability: 'unknown' }) } });
+  f.sessions.setRetention({ conversationId: f.conversationId, mode: 'saved' });
+  const request = { conversationId: f.conversationId, messageId: 'client-ambiguous', message: 'text', providerId: PROVIDER, authorizationGeneration: 0 };
+  const begun = f.sessions.beginTurn(request);
+  assert.equal(begun.ok, true);
+  const done = f.sessions.completeTurn({ token: begun.token, providerId: PROVIDER, content: 'answer' });
+  assert.equal(done.conversation.saveState, 'unsaved');
+  const replay = f.sessions.beginTurn(request);
+  assert.equal(replay.replayed, true);
+  assert.equal(replay.conversation.saveState, 'unsaved');
+  assert.equal(replay.conversation.messages.length, 2);
+  assert.equal(writes, 1);
+});

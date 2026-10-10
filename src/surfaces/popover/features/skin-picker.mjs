@@ -71,7 +71,7 @@ function createPopoverSkinPicker({
     const groups = new Map();
     for (const skin of skinList(state)) {
       const id = skin.formId || 'dango';
-      if (!groups.has(id)) groups.set(id, { name: skin.formName || '团子兽', skin: skin.id, count: 0 });
+      if (!groups.has(id)) groups.set(id, { name: skin.formName || '小步', skin: skin.id, count: 0 });
       if (skin.unlocked) groups.get(id).count += 1;
     }
     const dataKey = JSON.stringify([...groups]) + selectedFormId;

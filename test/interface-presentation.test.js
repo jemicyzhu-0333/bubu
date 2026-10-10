@@ -106,15 +106,25 @@ test('failed settings restore the canonical selection; a disposed save cannot up
   assert.equal(f.select.getAttribute('aria-disabled'), 'false');
   f.feature.dispose();
 });
-test('acknowledged save status follows a later locale broadcast', async () => {
+test('successful interface saves stay quiet across later locale broadcasts', async () => {
   setLocale('en');
   const f = settingsFixture(async () => ({ ok: true }));
   f.select.value = 'zh-CN'; f.select.fire('change'); await tick();
-  assert.equal(f.status.textContent, 'Saved and applied');
-  setLocale('zh-CN'); assert.equal(f.status.textContent, '已保存并生效');
+  assert.equal(f.status.textContent, '');
+  setLocale('zh-CN'); assert.equal(f.status.textContent, '');
   f.feature.dispose();
 });
 
+
+test('failed interface saves remain visible and translate without reissuing a save', async () => {
+  setLocale('zh-CN'); let calls = 0;
+  const f = settingsFixture(async () => { calls++; return { ok: false }; });
+  f.select.value = 'en'; f.select.fire('change'); await tick();
+  assert.equal(f.status.textContent, '未保存，请重试');
+  setLocale('en'); assert.equal(f.status.textContent, 'Not saved. Try again.');
+  assert.equal(calls, 1); assert.equal(f.select.value, 'system');
+  f.feature.dispose(); setLocale('zh-CN');
+});
 
 test('theme options retain exactly one checked native radio across selection and locale changes', async () => {
   let f;

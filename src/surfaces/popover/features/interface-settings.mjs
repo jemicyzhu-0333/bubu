@@ -32,7 +32,7 @@ function createInterfaceSettings({ document, getState, surfaceClient }) {
       const result = await surfaceClient.updateSettings(patch);
       if (result?.ok !== true) throw new Error('not-saved');
       if (!mounted || ticket !== generation || feedbackVisit !== visit) return;
-      showStatus('已保存并生效', 'saved');
+      showStatus('', 'saved');
     } catch (_) {
       if (mounted && ticket === generation && feedbackVisit === visit && status) {
         showStatus('未保存，请重试', 'error');
@@ -66,3 +66,4 @@ function createInterfaceSettings({ document, getState, surfaceClient }) {
   return Object.freeze({ mount, render, clearFeedback, dispose });
 }
 export { createInterfaceSettings };
+

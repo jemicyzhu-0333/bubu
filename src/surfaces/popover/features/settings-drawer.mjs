@@ -255,7 +255,7 @@ function createPopoverSettingsDrawer({
         const warning = formatAuthorizationWarning(result?.authorizationWarning);
         saveStatusCopy = () => {
           const currentWarning = formatAuthorizationWarning(result?.authorizationWarning);
-          return currentWarning ? t('设置已保存；{warning}', { warning: currentWarning }) : t('已保存并生效');
+          return currentWarning ? t('设置已保存；{warning}', { warning: currentWarning }) : '';
         };
         line.textContent = saveStatusCopy();
         line.dataset.state = warning ? 'warning' : 'saved';
@@ -386,3 +386,4 @@ function createPopoverSettingsDrawer({
 
 
 export { createPopoverSettingsDrawer };
+
