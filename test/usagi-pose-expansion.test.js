@@ -130,7 +130,7 @@ test('corner correction changes only the profile worried mouth and delegates app
   assert.equal(next.views.profile.face.eyes, rig.views.profile.face.eyes);
 });
 
-test('free-hand paint clears actual canonical open-mouth and eye pixels through all visible angle probes', t => {
+test('free-hand paint clears actual canonical open-mouth and eye pixels through all visible angle probes', async t => {
   if (!process.env.USAGI_CANVAS_PACKAGE) return t.skip('Real Canvas backend required for face clearance');
   const { createCanvas, Path2D } = require(process.env.USAGI_CANVAS_PACKAGE);
   const painter = createRigArtist({ fallback: support, paths: createPathCache({ createPath: d => new Path2D(d) }) });
@@ -143,6 +143,8 @@ test('free-hand paint clears actual canonical open-mouth and eye pixels through 
   for (const id of ['wave', 'stretch']) for (const view of ['front', 'three-quarter', 'profile']) {
     const data = rig.views[view], action = PET_ACTIONS[id];
     for (let n = 0; n <= 80; n++) {
+      // Native ImageData finalizers need an event-loop turn; keep every pixel probe.
+      if (n % 10 === 0) await new Promise(resolve => setImmediate(resolve));
       const artwork = painter.resolve(rig, { action, view, motion: action.motion, progress: n / 80, face });
       reset(fc); reset(lc);
       painter.face(fc, {}, face, false, view, USAGI_FORM.faceRig, artwork);
@@ -158,7 +160,7 @@ test('free-hand paint clears actual canonical open-mouth and eye pixels through 
   }
 });
 
-test('ordinary magic star clears resolved face ink throughout the reveal path', t => {
+test('ordinary magic star clears resolved face ink throughout the reveal path', async t => {
   if (!process.env.USAGI_CANVAS_PACKAGE) return t.skip('Real Canvas backend required for star clearance');
   const { createCanvas, Path2D } = require(process.env.USAGI_CANVAS_PACKAGE);
   const { sampleFaceChoreography } = require('../src/capabilities/companion/presentation/face-choreography.mjs');
@@ -181,6 +183,8 @@ test('ordinary magic star clears resolved face ink throughout the reveal path', 
       return value.bind(context);
     }, set(context, key, value) { context[key] = value; return true; } });
     for (let n = 0; n <= 160; n++) {
+      // Native ImageData finalizers need an event-loop turn; keep every pixel probe.
+      if (n % 10 === 0) await new Promise(resolve => setImmediate(resolve));
       const progress = n / 160;
       const base = adaptFaceForView(EXPRESSIONS.find(e => e.id === action.expression).face, view);
       const timing = { action, expressionId: action.expression, motion: action.motion, progress };

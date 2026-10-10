@@ -176,7 +176,7 @@ function drawPet() {
   const selectedExpression = runtimeState.devPreview ? null : updatePresentation();
   const presentationSource = runtimeState.presentationDirector?.current(runtimeState.animNow)?.source;
   const contextInput = { state: runtimeState, activity: sessionAction, source: presentationSource, expressionId: selectedExpression };
-  const { previewConfig, actionConfig, actionT } = actionPlayback.resolve({
+  const { previewConfig, actionConfig, actionT, viewHint } = actionPlayback.resolve({
     content: runtimeState.petContent, preview: runtimeState.devPreview,
     egg: runtimeState.currentEgg, sessionSnapshot, now: runtimeState.animNow,
     previewStartedAt: runtimeState.devPreviewStartedAt,
@@ -216,7 +216,7 @@ function drawPet() {
     : formArt.paletteForSkin(skinId, form);
   const requestedView = runtimeState.devPreview && (runtimeState.devPreview.category === 'view'
     ? runtimeState.devPreview.id : runtimeState.devPreview.view)
-    || 'auto';
+    || actionConfig?.exitTransitionView || viewHint || 'auto';
   const view = formArt.resolveView(form, requestedView, { action: actionConfig, state: runtimeState.state });
   // 三种口径,优先级从高到低:
   //   devtools 单件预览 —— 只画那一件,这是它存在的意义;

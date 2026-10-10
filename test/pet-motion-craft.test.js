@@ -147,7 +147,11 @@ test('actual production Canvas floor stays fixed across every moonwalk frame',ca
   for(const skin of ['pink','usagi']){
     const h=createRenderHarness(source,{skin,view:'auto',outfit:false,dpr:2,blink:false});h.select('action','moonwalk');
     const bottoms=[];
-    for(let n=0;n<270;n++){h.draw(n/30*1000);bottoms.push(pixels(h.body).bounds.bottom);}
+    for(let n=0;n<270;n++){
+      // Yield for native ImageData cleanup; retain all 270 production frames.
+      if(n%10===0)await new Promise(resolve=>setImmediate(resolve));
+      h.draw(n/30*1000);bottoms.push(pixels(h.body).bounds.bottom);
+    }
     assert.equal(Math.max(...bottoms)-Math.min(...bottoms),0,`${skin}: final raster floor, including renderer body composition`);h.dispose();
   }
 });

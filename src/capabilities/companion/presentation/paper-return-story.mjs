@@ -5,7 +5,8 @@ const mix = (a, b, t) => a.map((n, i) => n + (b[i] - n) * ease(t));
 const cubic = (a, b, c, d, t) => a.map((n, i) => (1-t)**3*n + 3*(1-t)**2*t*b[i] + 3*(1-t)*t*t*c[i] + t**3*d[i]);
 // Presentation-only choreography for an existing paper prop and one short
 // paw. The scene stays in the stage's right margin and returns to its grip.
-function samplePaperReturn(progress, calmVisual = false) {
+function samplePaperReturn(progress, calmVisual = false, exit = null) {
+  if (exit && !calmVisual) return samplePaperReturnExit(exit);
   const p = calmVisual ? .78 : clamp(Number(progress) || 0);
   const rest = [59, 49], ready = [64, 46], release = [69, 43];
   let hand = p < .2 ? mix(rest, ready, (p - .04) / .16)
@@ -38,3 +39,15 @@ function paperReturnFace(face, { action, progress = 0, calmVisual, expressionId 
     eyeOffsetX: returning ? .35 : 0, eyeOffsetY: p > .38 && p < .7 ? -.35 : 0 });
 }
 export { paperReturnFace };
+
+function samplePaperReturnExit({ progress, t }) {
+  const start = samplePaperReturn(progress), airborne = ['flight', 'receive'].includes(start.phase);
+  t = clamp(t);
+  const catchAt = .45, release = [69, 43], rest = [59, 49];
+  const hand = airborne && t < catchAt ? mix(start.hand, release, t / catchAt)
+    : mix(airborne ? release : start.hand, rest, (t - (airborne ? catchAt : 0)) / (airborne ? 1 - catchAt : 1));
+  const grip = airborne && t < catchAt ? mix(start.grip, release, t / catchAt) : hand;
+  return Object.freeze({ hand: Object.freeze(hand), grip: Object.freeze(grip),
+    angle: start.angle * (1 - ease(t / catchAt)), opacity: start.opacity * (1 - ease((t - .6) / .3)),
+    phase: airborne && t < catchAt ? 'flight' : 'recovery' });
+}

@@ -1,7 +1,7 @@
 'use strict';
 
 import { paperReturnFace } from './paper-return-story.mjs';
-import { refinePaperReturn } from './dango-paper-return.mjs';
+import { refinePaperReturn, refineHandoffCup } from './dango-paper-return.mjs';
 import { bodyOffset } from '../../../core/pet-action-art.mjs';
 import { sampleVectorAction } from '../../../core/pet-action-vector.mjs';
 import { sampleFeet, footMatrix } from './dango-performance.mjs';
@@ -84,6 +84,7 @@ function sampleRasterPose(data, { view = 'front', motion = 'idle', action = null
   }
   const groundShift = motion === 'pushup' && action ? bodyOffset(action, p, { calmVisual: frozen }).y * (action.id === 'workout' ? .45 : 1) : 0;
   refinePaperReturn(contact, action, p, toolSprites);
+  refineHandoffCup(contact, action, data);
   refineSmallPawContact(contact, action, view, toolSprites, groundShift);
   refineMirrorContact(contact, action, view, toolSprites, mirror);
   contact = appendCombinationAccessories(contact, action, view, toolSprites);

@@ -69,7 +69,11 @@ function prepareUsagiSample(sample, { data, view, progress = 0, calmVisual = fal
     const tilt = sipping ? hold * .14 : 0;
     const rest = [view === 'profile' ? 59 : view === 'three-quarter' ? 49 : sample.motion === 'carry' ? 33 : 43, 47];
     const rim = mix(rest, layout.mouth, sipping ? hold : 0);
-    placePaw(bones, data, 'r', pawForAnchor(rim, [-5, -3], tilt), .55 + hold * .75, tilt);
+    const recovery = action?.handoffRecovery || 0;
+    rim[1] += 5 * ease(Math.min(1, recovery / .6));
+    const release = ease(Math.max(0, (recovery - .7) / .3));
+    placePaw(bones, data, 'r', mix(pawForAnchor(rim, [-5, -3], tilt), near, release),
+      (.55 + hold * .75) * (1 - release), tilt * (1 - release));
     if (action?.prop === 'cup' && sample.motion === 'carry') {
       const support = [rim[0] - 3, rim[1] + 7];
       placePaw(bones, data, 'l', support, -.8);
@@ -120,8 +124,10 @@ function prepareUsagiSample(sample, { data, view, progress = 0, calmVisual = fal
     propPoses.plane = { opacity: t < .86 ? 1 : 1 - ease(Math.min(1, (t - .86) / .1)) };
   }
   if (action?.id === 'paper-return' && has('plane')) {
-    const story = samplePaperReturn(progress, calmVisual);
-    const engaged = calmVisual ? 1 : contactWeight(progress, 0, .14, .9, 1);
+    const story = samplePaperReturn(progress, calmVisual, action.paperReturnExit);
+    const engaged = action.paperReturnExit ? contactWeight(action.paperReturnExit.progress, 0, .14, .9, 1)
+      * (1 - ease(Math.max(0, (action.paperReturnExit.t - .55) / .45)))
+      : calmVisual ? 1 : contactWeight(progress, 0, .14, .9, 1);
     placePaw(bones, data, 'r', mix(near, story.hand, engaged), .2 * engaged, 0);
     bones.arm_l = { r: 0 }; bones.hand_l = { r: 0 };
     propPoses.plane = { opacity: story.opacity };
@@ -210,7 +216,7 @@ function prepareUsagiSample(sample, { data, view, progress = 0, calmVisual = fal
     }
   }
   return Object.freeze({ ...sample, props, bones: Object.freeze(bones), propPoses: Object.freeze(propPoses), gesture,
-    contactPhase: t, contactHold: hold, calmVisual, contactView: view, contactNear: near, contactAction: action?.id });
+    contactPhase: t, contactHold: hold, calmVisual, contactView: view, contactNear: near, contactAction: action?.id, contactExit: action?.paperReturnExit });
 }
 
 function usagiPropMatrix(matrix, { id, artwork, data }) {
@@ -238,7 +244,7 @@ function usagiPropMatrix(matrix, { id, artwork, data }) {
     return [1, 0, 0, 1, pose.x, pose.y];
   }
   if (id === 'plane' && artwork.pose.sample.contactAction === 'paper-return') {
-    const story = samplePaperReturn(artwork.pose.sample.contactPhase, artwork.pose.sample.calmVisual);
+    const story = samplePaperReturn(artwork.pose.sample.contactPhase, artwork.pose.sample.calmVisual, artwork.pose.sample.contactExit);
     const origin = data.bones.hand_r.pivot;
     const held = !['flight', 'receive'].includes(story.phase);
     const grip = held ? applyPoint(artwork.pose.world.hand_r, ...origin) : story.grip;

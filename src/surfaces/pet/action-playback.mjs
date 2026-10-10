@@ -1,13 +1,14 @@
 'use strict';
 import { formArt } from '../../capabilities/companion/index.mjs';
 import { createMirrorPlayback, resolveMirrorBodyPose } from './mirror-playback.mjs';
+import { createPaperReturnExit } from './paper-return-exit.mjs';
 import { attachActivityCombination } from './activity-combination.mjs';
 
 // Select the existing presentation source, then sample form-specific story
 // beats. Selection remains independent of drawing and adds no mutable state.
 function resolveActionPlayback({ content, preview, egg, sessionSnapshot, now,
   previewStartedAt = 0, actionStartedAt = 0, calmVisual = false, form,
-  mirrorPlayback = null, mirrorBlocked = false, combinationContext = null } = {}) {
+  mirrorPlayback = null, visualBridge = null, mirrorBlocked = false, combinationContext = null } = {}) {
   let previewConfig = null;
   if (preview?.category === 'action') previewConfig = content?.PET_ACTIONS?.[preview.id] || null;
   else if (preview?.category === 'session') previewConfig = content?.SESSION_ACTIVITIES?.[preview.id] || null;
@@ -35,18 +36,24 @@ function resolveActionPlayback({ content, preview, egg, sessionSnapshot, now,
   if (combinationContext && !preview && !egg) {
     source = attachActivityCombination(source, { ...combinationContext, calmVisual, blocked: mirrorBlocked });
   }
-  const sampled = formArt.sampleAction(form, source || null, progress, { calmVisual });
-  return Object.freeze({ previewConfig, actionConfig: sampled.action, actionT: sampled.progress, phase: sampled.phase });
+  // Remap raw global progress before story decomposition; never clamp a local cycle.
+  const visual = visualBridge?.step({ actionConfig: source || null, actionT: progress },
+    { preview, egg, now, actionStartedAt, calmVisual, form, combinationContext,
+      viewFor: action => formArt.resolveView(form, 'auto', { action, state: combinationContext?.state?.state }) });
+  const sampled = formArt.sampleAction(form, visual ? visual.actionConfig : source || null,
+    visual ? visual.actionT : progress, { calmVisual });
+  return Object.freeze({ previewConfig, actionConfig: sampled.action, actionT: sampled.progress, phase: sampled.phase, viewHint: visual?.viewHint });
 }
 function createActionPlayback() {
   const mirrorPlayback = createMirrorPlayback();
+  const paperExit = createPaperReturnExit();
   let combination = null;
   function resolve(options) {
-    const result = resolveActionPlayback({ ...options, mirrorPlayback });
+    const result = resolveActionPlayback({ ...options, mirrorPlayback, visualBridge: paperExit });
     combination = result.actionConfig?.activityCombination || null;
     return result;
   }
-  function reset() { mirrorPlayback.reset(); combination = null; }
+  function reset() { mirrorPlayback.reset(); paperExit.reset(); combination = null; }
   return Object.freeze({ resolve, reset, snapshot: mirrorPlayback.snapshot,
     combinationSnapshot: () => combination });
 }

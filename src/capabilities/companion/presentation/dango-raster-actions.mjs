@@ -144,7 +144,9 @@ function drawRasterActions(context, options, { manifest, painter }) {
       palette, toolMatrix(item, sprite), opacity) || painted;
   }
   if (contact) for (const detail of contact.details) if (detail.type !== 'hole' && (detail.layer || 'front') === layer) {
+    context.save(); context.globalAlpha *= detail.opacity ?? 1;
     painted = paintDetail(context, detail, contact, manifest, palette, painter, artwork.calmVisual) || painted;
+    context.restore();
   }
   const covered = new Set(tools.map(item => item.coversPaw).filter(Boolean));
   for (const side of ['left', 'right']) {
