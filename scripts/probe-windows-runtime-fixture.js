@@ -32,34 +32,54 @@ function manifest(directory) {
   return { members: records, localStateShape: shape(JSON.parse(fs.readFileSync(localState, 'utf8'))) };
 }
 
+const EVENT_NAMES = new Set(['entry', 'default-app-data-set', 'default-name-set', 'default-path-observed', 'default-host-mapped', 'ready', 'window-loaded', 'will-quit']);
+function readFixtureEvents(file) {
+  if (!fs.existsSync(file)) return [];
+  assert.ok(fs.statSync(file).size <= 8192, 'event evidence exceeds bound');
+  return fs.readFileSync(file, 'utf8').split(/\r?\n/).filter(Boolean).map(line => {
+    const event = JSON.parse(line);
+    assert.deepEqual(Object.keys(event).sort(), ['elapsedMs', 'event']);
+    assert.ok(EVENT_NAMES.has(event.event) && Number.isSafeInteger(event.elapsedMs) && event.elapsedMs >= 0);
+    return event;
+  });
+}
+function entryMode({ electron = !!process.versions.electron, childRequested = process.argv.includes('--fixture-child'),
+  nodeMain = require.main === module } = {}) {
+  return electron && childRequested ? 'child' : nodeMain && !electron ? 'node' : 'import';
+}
+
 async function child() {
+  const started = performance.now();
+  const event = name => {
+    const text = JSON.stringify({ event: name, elapsedMs: Math.round(performance.now() - started) });
+    if (process.env.BUBU_RUNTIME_FIXTURE_EVENTS) fs.appendFileSync(process.env.BUBU_RUNTIME_FIXTURE_EVENTS, text + '\n');
+    else console.log('__BUBU_FIXTURE_EVENT__' + text);
+  };
+  event('entry');
   const { app, BrowserWindow } = require('electron');
-  const minimal = process.argv.includes('--fixture-minimal-default');
-  if (minimal) {
-    // Exercise the no-command-line-override default-name mapping on a disposable
-    // appData root. Verify containment before allowing Electron readiness.
+  const minimalDefault = process.argv.includes('--fixture-minimal-default');
+  const minimal = minimalDefault || process.argv.includes('--fixture-minimal');
+  if (minimalDefault) {
+    // No command-line profile override: exercise default-name mapping through
+    // Electron's path service, contained in a disposable appData root.
     const root = process.env.BUBU_RUNTIME_FIXTURE_ROOT;
     assert.ok(root && path.isAbsolute(root));
-    app.setPath('appData', root); app.setName('小步');
+    app.setPath('appData', root); event('default-app-data-set');
+    app.setName('小步'); event('default-name-set');
     assert.equal(app.commandLine.hasSwitch('user-data-dir'), false);
-    assert.equal(app.getPath('userData'), path.join(root, '小步'));
+    assert.equal(app.getPath('userData'), path.join(root, '小步')); event('default-path-observed');
     fs.mkdirSync(path.join(root, 'bubu'));
     const { createAppHost } = require('../src/platform/electron/app-host');
     const host = createAppHost({ app });
     assert.equal(host.userDataPath(), path.join(root, 'bubu'));
-    assert.equal(app.getPath('sessionData'), path.join(root, 'bubu'));
+    assert.equal(app.getPath('sessionData'), path.join(root, 'bubu')); event('default-host-mapped');
   }
-  const started = performance.now();
-  const event = name => console.log('__BUBU_FIXTURE_EVENT__' + JSON.stringify({ event: name, elapsedMs: Math.round(performance.now() - started) }));
-  event('entry');
   app.on('will-quit', () => event('will-quit'));
-  await app.whenReady();
-  event('ready');
+  await app.whenReady(); event('ready');
   if (minimal) { setTimeout(() => app.quit(), 1800); return; }
   const window = new BrowserWindow({ width: 240, height: 160, show: true, webPreferences: { sandbox: true } });
   await window.loadURL('data:text/html,<canvas id="c" width="200" height="100"></canvas><script>const c=document.getElementById("c");const x=c.getContext("2d");x.fillStyle="blue";x.fillRect(0,0,200,100);</script>');
-  event('window-loaded');
-  setTimeout(() => app.quit(), 1800);
+  event('window-loaded'); setTimeout(() => app.quit(), 1800);
 }
 
 function run() {
@@ -72,35 +92,42 @@ function run() {
   const executable = require('electron');
   const report = { sourceCommit: process.env.GITHUB_SHA, electronVersion: require('electron/package.json').version,
     acceptance: 'disposable pure Electron runtime fixture; no real user data, application startup, migration, or credential acceptance asserted' };
-  try {
-    const minimalRoot = path.join(root, 'default-app-data'); fs.mkdirSync(minimalRoot);
-    const minimalStdout = execFileSync(executable, [__filename, '--fixture-child', '--fixture-minimal-default'], {
-      env: { ...installedElectronEnvironment(), BUBU_RUNTIME_FIXTURE_ROOT: minimalRoot }, stdio: 'pipe', timeout: 30000
-    });
-    const minimalEvents = String(minimalStdout).split(/\r?\n/).filter(line => line.startsWith('__BUBU_FIXTURE_EVENT__'))
-      .map(line => JSON.parse(line.slice('__BUBU_FIXTURE_EVENT__'.length)));
-    assert.ok(minimalEvents.some(event => event.event === 'ready'));
-    report.minimalDefaultLaunch = { ...manifest(path.join(minimalRoot, 'bubu')), events: minimalEvents,
-      userDataOverrideSwitch: false, defaultProductNameMappedToBubu: true,
-      acceptance: 'real Electron path service with a disposable appData root; no BrowserWindow, no real Windows account profile' };
-    for (const phase of ['firstLaunch', 'reopen']) {
-      const stdout = execFileSync(executable, [__filename, '--fixture-child', `--user-data-dir=${profile}`], {
-        env: installedElectronEnvironment(), stdio: 'pipe', timeout: 30000
+  function phase(name, args, directory, extraEnvironment, readyEvent) {
+    const eventsFile = path.join(root, name + '.events.jsonl'); fs.writeFileSync(eventsFile, '', { flag: 'wx' });
+    let result;
+    try {
+      execFileSync(executable, [__filename, '--fixture-child', ...args], {
+        env: { ...installedElectronEnvironment(), ...extraEnvironment, BUBU_RUNTIME_FIXTURE_EVENTS: eventsFile },
+        stdio: 'pipe', timeout: 30000
       });
-      const events = String(stdout).split(/\r?\n/).filter(line => line.startsWith('__BUBU_FIXTURE_EVENT__'))
-        .map(line => JSON.parse(line.slice('__BUBU_FIXTURE_EVENT__'.length)));
-      assert.ok(events.some(event => event.event === 'window-loaded'), 'native window evidence missing');
-      report[phase] = { ...manifest(profile), events };
+      const events = readFixtureEvents(eventsFile);
+      assert.ok(events.some(event => event.event === readyEvent), 'native readiness evidence missing');
+      result = { status: 'passed', ...manifest(directory), events };
+    } catch (error) {
+      result = { status: 'failed', code: /^[A-Z_]+$/.test(error.code || '') ? error.code : null,
+        events: readFixtureEvents(eventsFile) };
     }
-    const output = path.resolve(__dirname, '../dist/windows-runtime-fixture.json');
-    fs.mkdirSync(path.dirname(output), { recursive: true });
-    fs.writeFileSync(output, JSON.stringify(report, null, 2) + '\n');
-    console.log(JSON.stringify(report, null, 2));
-  } finally { fs.rmSync(root, { recursive: true, force: true }); }
+    report[name] = result;
+    return result.status === 'passed';
+  }
+  const minimalRoot = path.join(root, 'default-app-data'); fs.mkdirSync(minimalRoot);
+  phase('minimalDefaultLaunch', ['--fixture-minimal-default'], path.join(minimalRoot, 'bubu'),
+    { BUBU_RUNTIME_FIXTURE_ROOT: minimalRoot }, 'ready');
+  report.minimalDefaultLaunch.userDataOverrideSwitch = false;
+  report.minimalDefaultLaunch.defaultProductNameMappedToBubu = report.minimalDefaultLaunch.events.some(event => event.event === 'default-host-mapped');
+  if (phase('firstLaunch', [`--user-data-dir=${profile}`], profile, {}, 'window-loaded')) {
+    phase('reopen', [`--user-data-dir=${profile}`], profile, {}, 'window-loaded');
+  } else report.reopen = { status: 'not-run', reason: 'first launch did not complete; profile not reused' };
+  const output = path.resolve(__dirname, '../dist/windows-runtime-fixture.json');
+  fs.mkdirSync(path.dirname(output), { recursive: true });
+  fs.writeFileSync(output, JSON.stringify(report, null, 2) + '\n');
+  console.log(JSON.stringify(report, null, 2));
+  if (['minimalDefaultLaunch', 'firstLaunch', 'reopen'].every(name => report[name].status === 'passed')) {
+    fs.rmSync(root, { recursive: true, force: true });
+  } else process.exitCode = 1; // Failed synthetic directories remain for runner disposal.
 }
 
-if (require.main === module) {
-  if (process.versions.electron && process.argv.includes('--fixture-child')) child().catch(error => { console.error(error); require('electron').app.exit(1); });
-  else run();
-}
-module.exports = { shape, manifest };
+// Electron 44 dynamically imports CLI entries; require.main is not this module.
+if (entryMode() === 'child') child().catch(() => { console.error('runtime-fixture-child-failed'); require('electron').app.exit(1); });
+else if (entryMode() === 'node') run();
+module.exports = { shape, manifest, entryMode, readFixtureEvents };

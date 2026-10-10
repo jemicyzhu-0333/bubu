@@ -18,6 +18,7 @@ jobs:
       - name: Observe disposable native Electron runtime structure
         run: node scripts/probe-windows-runtime-fixture.js
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: windows-runtime-fixture-${{ github.sha }}
           path: dist/windows-runtime-fixture.json

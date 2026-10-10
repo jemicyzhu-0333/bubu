@@ -4,7 +4,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
-const { shape, manifest } = require('../scripts/probe-windows-runtime-fixture');
+const { shape, manifest, entryMode, readFixtureEvents } = require('../scripts/probe-windows-runtime-fixture');
 
 function fixture(t) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bubu-runtime-probe-test-'));
@@ -38,4 +38,19 @@ test('probe refuses oversized preferences', t => {
 test('probe refuses linked members without following them', { skip: process.platform === 'win32' }, t => {
   const root = fixture(t); fs.symlinkSync('/outside/not-read', path.join(root, 'linked'));
   assert.throws(() => manifest(root), /member type/);
+});
+
+test('Electron dynamically imported CLI entry runs child even when require.main differs', () => {
+  assert.equal(entryMode({ electron: true, childRequested: true, nodeMain: false }), 'child');
+  assert.equal(entryMode({ electron: false, childRequested: false, nodeMain: true }), 'node');
+  assert.equal(entryMode({ electron: false, childRequested: false, nodeMain: false }), 'import');
+  assert.equal(entryMode({ electron: true, childRequested: false, nodeMain: false }), 'import');
+});
+
+test('file-backed events survive missing GUI stdio and reject unknown metadata or values', t => {
+  const root = fixture(t), file = path.join(root, 'events.jsonl');
+  fs.writeFileSync(file, '{"event":"entry","elapsedMs":0}\n{"event":"ready","elapsedMs":9}\n');
+  assert.deepEqual(readFixtureEvents(file), [{ event: 'entry', elapsedMs: 0 }, { event: 'ready', elapsedMs: 9 }]);
+  fs.appendFileSync(file, '{"event":"ready","elapsedMs":10,"secret":"never-upload"}\n');
+  assert.throws(() => readFixtureEvents(file));
 });
