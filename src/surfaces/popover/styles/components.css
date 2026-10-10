@@ -3,6 +3,19 @@
    后面，所以 feature 里的同权重规则天然盖得住这里，不必再靠选择器堆权重。 */
 
 @layer components {
+/* Native details keeps keyboard/expanded semantics; one SVG scale covers both levels. */
+  .disclosure { --disclosure-icon-size: var(--disclosure-size); }
+  .disclosure-section { --disclosure-icon-size: var(--disclosure-size-section); }
+  .disclosure > summary { display: flex; align-items: center; gap: 8px; min-height: var(--control-target-min); list-style: none; cursor: pointer; }
+  .disclosure:not(.disclosure-section) > summary { min-height: 32px; }
+  .disclosure > summary::marker { content: ""; }
+  .disclosure > summary::-webkit-details-marker { display: none; }
+  .disclosure > summary::before { content: none; }
+  .disclosure > summary > .disclosure-icon { width: var(--disclosure-icon-size); height: var(--disclosure-icon-size); flex: 0 0 var(--disclosure-icon-size); color: var(--fg-2); pointer-events: none; }
+  .disclosure[open] > summary > .disclosure-icon { transform: rotate(90deg); }
+  .disclosure > summary:focus-visible { outline: 2px solid var(--primary-ink); outline-offset: 2px; }
+  .compact-select { min-height: 32px; flex: 0 1 var(--control-select-compact); width: var(--control-select-compact); max-width: min(100%, var(--control-select-max)); min-width: min(var(--control-select-min), 100%); }
+
 /* ---------- BUTTONS ---------- */
   .pixel-btn {
     font-family: inherit; font-size: 11px; font-weight: 700;

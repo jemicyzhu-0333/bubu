@@ -9,7 +9,7 @@ function createProposalPreview({
   getSettings, readTasks, credentialStore, providers, proposalStore, requestScope,
   presentExpression: present, cancelExpression: cancel, scheduleWaiting, now,
   requestTtlMs: PET_PRESENTATION_MAX_TTL_MS, timeoutMs: aiTimeoutMs,
-  trace: llmTrace, negotiation: llmProtocolMemory
+  diagnostics, trace: llmTrace, negotiation: llmProtocolMemory
 }) {
   const {
     createApiClient, createDeterministicClient, chatCompletionsEndpoint,
@@ -29,6 +29,9 @@ function createProposalPreview({
     } catch (_) { /* Trace failure cannot retry or reject accepted owner work. */ }
   }
   // Tag choices come from canonical tasks, never renderer-supplied vocabulary.
+  function inspect(operation) {
+    try { return operation(); } catch (_) { return null; }
+  }
   function existingTaskTags(state = { tasks: readTasks() }) {
     const tags = new Set();
     for (const task of Array.isArray(state.tasks) ? state.tasks : []) {
@@ -138,8 +141,10 @@ function createProposalPreview({
   }
 
   async function generateProposal(task, payload, context) {
+    const diagnostic = inspect(() => diagnostics?.begin(task, { taskId: context.taskId }));
+    let outcome = { code: 'application-outcome-unknown', changed: null };
     const refusal = targetRefusal(context.taskId);
-    if (refusal) return { refusal };
+    if (refusal) { inspect(() => diagnostic?.finish(refusal.reason, false)); return { refusal }; }
     const targetBefore = context.taskId ? JSON.stringify(readTasks().find(item => item.id === context.taskId)) : null;
     const settings = getSettings();
     const selected = selectedLlmClient(settings);
@@ -158,22 +163,25 @@ function createProposalPreview({
         ? (selected.client.id === 'deterministic'
             ? { proposal: await selected.client.run(task, payload), provider: 'deterministic', fallback: false, reason: null }
             : await runWithFallback(selected.client, selected.fallback, task, payload, {
-              trace: llmTrace, signal: context.signal, assertCurrent: context.assertCurrent
+              trace: llmTrace, signal: context.signal, assertCurrent: context.assertCurrent, ...(diagnostic ? { diagnostics: diagnostic } : {})
             }))
         : {
             proposal: await selected.fallback.run(task, payload),
             provider: 'deterministic', fallback: true, reason: selected.reason
           };
-      if (generated.ok === false) return { refusal: generated };
+      if (generated.ok === false) { outcome = { code: generated.reason, changed: false }; return { refusal: generated }; }
       const stale = freshnessRefusal(context.assertCurrent, generated);
-      if (stale) return { refusal: stale };
+      if (stale) { outcome = { code: stale.reason, changed: false }; return { refusal: stale }; }
       const refusal = targetRefusal(context.taskId);
-      if (refusal) return { refusal: withCleanup(refusal, generated) };
+      if (refusal) { outcome = { code: refusal.reason, changed: false }; return { refusal: withCleanup(refusal, generated) }; }
       if (context.taskId && targetBefore !== JSON.stringify(readTasks().find(item => item.id === context.taskId))) {
+        outcome = { code: 'proposal-target-changed', changed: false };
         return { refusal: withCleanup({ ok: false, reason: 'proposal-target-changed' }, generated) };
       }
-      return { generated };
+      outcome = { code: generated.fallback ? 'local-fallback-not-applied' : 'proposal-generated-not-applied', changed: false };
+      return { generated, diagnostic };
     } finally {
+      inspect(() => diagnostic?.finish(outcome.code, outcome.changed));
       cancelExpression(requestEventId, 'request-ended');
     }
   }
@@ -184,7 +192,10 @@ function createProposalPreview({
     if (result.refusal) return result;
     const stale = freshnessRefusal(context.assertCurrent, result.generated);
     if (stale) return { refusal: stale };
-    return { generated: result.generated, stored: proposalStore.put(result.generated.proposal, context) };
+    const stored = proposalStore.put(result.generated.proposal, context);
+    inspect(() => diagnostics?.bindProposal(stored.id, result.diagnostic));
+    inspect(() => result.diagnostic?.finish('proposal-awaiting-confirmation', false));
+    return { generated: result.generated, stored };
   }
 
   const inFlight = new Set();

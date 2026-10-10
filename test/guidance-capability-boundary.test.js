@@ -8,6 +8,7 @@ test('guidance exposes energy state and its command through one frozen facade', 
   assert.deepEqual(Object.keys(guidance).sort(), [
     'adjustEnergy',
     'aiChangeLedger',
+    'aiDiagnostics',
     'dailyReview',
     'energyCalibration',
     'energyCheckIn',
@@ -36,6 +37,8 @@ test('guidance exposes energy state and its command through one frozen facade', 
     'wakeTime'
   ]);
   assert.equal(Object.isFrozen(guidance), true);
+  assert.equal(Object.isFrozen(guidance.aiDiagnostics), true);
+  assert.deepEqual(Object.keys(guidance.aiDiagnostics).sort(), ['LIMITS', 'SESSION_MS', 'createAiDiagnostics']);
   assert.equal(Object.isFrozen(guidance.taskDemand), true);
   assert.equal(Object.isFrozen(guidance.energyEstimate), true);
   assert.equal(Object.isFrozen(guidance.taskRanking), true);

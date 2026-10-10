@@ -6,7 +6,7 @@
 // Coordinates are relative to the existing 66-unit body origin.
 export const USAGI_FORM = Object.freeze({
   id: 'usagi',
-  name: '乌沙奇 2.0',
+  name: '小奇',
   renderer: 'vector',
   bodySize: 66,
   bodyGridByView: null,

@@ -32,7 +32,7 @@ const CAPTURE_TRIAGE_INSTRUCTION = [
   'task: something the person intends or needs to do once (including reminders to themselves). routine: something they want to do repeatedly on a schedule. log: a life event that just happened or is happening now (ate, drank coffee, took a walk, napped, a meeting). state: a first-person report of their current energy or ability to engage (tired, wired, clear-headed). feeling: an emotion, frustration or venting that is not mainly about energy and asks for no action. note: an idea, thought or reference to keep.',
   'Do not prefer task merely because a verb appears. Require a clear future action intent. A life event is log only when explicitly done or happening, never merely planned. Repeated habits are routine, feelings without action are feeling. Use note with confidence below 60 when unsure.',
   'Examples: “我吃完晚饭了” is log/meal; “我去吃晚饭啦” is task (intended, not done); “每天晚上散步” is routine/movement; “睡觉睡觉” is ambiguous, use note with confidence below 60; “应该睡觉但是不困” is note, not a completed rest or a numeric energy report; “今天好委屈” is feeling. Never infer completion or energy level from the presence of a sleep or meal keyword.',
-  'title: for task and routine only, a short imperative title in the note\'s own language, at most 80 characters, keeping the person\'s wording where possible; otherwise null.',
+  'title: for task, a short action title in the note\'s own language, at most 80 characters. For routine and log, a concise name of the activity itself, at most 40 characters, keeping its specific subject and the person\'s language; omit first-person completion framing without inventing a future action, repetition or reminder. Example: “我刚刚完成了兵力填报” is log/custom with title “兵力填报”. Do not use a generic kind label such as “其他日常” in place of the actual activity. For other categories, null.',
   'routineKind: for routine and log only, the closest kind (medication, stimulant for caffeine and similar, meal, snack, movement, rest, meeting, custom); otherwise null.',
   'level: for state only, the closest of 20 (very low), 35 (low), 50 (okay), 65 (good), 80 (very good); otherwise null.',
   'confidence is 0 to 100 and measures only how clearly the note supports the category. The reason is a short generic explanation that never quotes private details.',
@@ -62,8 +62,12 @@ function validateCaptureTriageResult(raw) {
     throw new RangeError('capture triage confidence is invalid');
   }
   const wantsTitle = result.category === 'task' || result.category === 'routine';
+  const acceptsTitle = wantsTitle || result.category === 'log';
   const title = typeof result.title === 'string' ? result.title.trim() : null;
   if (wantsTitle && (!title || title.length > MAX_CAPTURE_TRIAGE_TITLE)) throw new TypeError('capture triage title is required');
+  // Older valid log responses contain null. Retain useful names from the same response
+  // without requiring another model request or modifying already saved captures.
+  if (result.category === 'log' && title && title.length > MAX_CAPTURE_TRIAGE_TITLE) throw new TypeError('capture triage title is too long');
   const wantsKind = result.category === 'routine' || result.category === 'log';
   if (wantsKind && !CAPTURE_TRIAGE_ROUTINE_KINDS.includes(result.routineKind)) {
     throw new TypeError('capture triage routineKind is required');
@@ -77,7 +81,7 @@ function validateCaptureTriageResult(raw) {
   return Object.freeze({
     category: result.category,
     confidence: result.confidence,
-    title: wantsTitle ? title : null,
+    title: acceptsTitle ? title || null : null,
     routineKind: wantsKind ? result.routineKind : null,
     level: result.category === 'state' ? result.level : null,
     reason

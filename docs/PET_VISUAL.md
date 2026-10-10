@@ -1,5 +1,10 @@
 # 小步（bubu） 桌面伙伴视觉规格
 
+> 本文只负责“美术部件怎么摆”：舞台坐标、配饰分层、手部与动作、四视图和外观目录。表达呈现管线与感官策略的
+> 工程契约见 [ARCHITECTURE.md](ARCHITECTURE.md)「表达呈现」「感官策略」，验收见 [VALIDATION.md](VALIDATION.md)，
+> 长耳形态的分层 Rig 见 [PET_RIG.md](PET_RIG.md)。
+> 桌宠周围的菜单、状态文字、抽屉与按钮沿用 [PRODUCT「界面语言」](PRODUCT.md#界面语言)，不另立一套像素工具界面。
+
 ## 状态组合初版冻结
 
 六格获认可设计关系图保存在各形态 `real-events/sources/state-combinations-v1/`，含原稿哈希与提示词；只用于佩戴/遮挡关系，不替换canonical身体。
@@ -37,10 +42,6 @@ idle不显示会话文字，状态以SVG图标和颜色区分，完整名称与�
   低刺激时固定完整姿势，不只停止粒子。状态语义、优先级和隐私边界见 ARCHITECTURE「活动镜像」。
 - 团子参考/提示词在 `raster/sources/event-mirror/`，耳机生产素材与拆分记录在 `raster/sources/tools/mirror-headphones-v1/`；
   乌萨奇参考在 `usagi/real-events/sources/`。生成图、实际 renderer 帧和真实系统事件验收是三个不同证据级别。
-
-> 本文只负责“美术部件怎么摆”：舞台坐标、配饰分层、手部与动作、四视图和外观目录。表达呈现管线与感官策略的
-> 工程契约见 [ARCHITECTURE.md](ARCHITECTURE.md)「表达呈现」「感官策略」，验收见 [VALIDATION.md](VALIDATION.md)，
-> 长耳形态的分层 Rig 见 [PET_RIG.md](PET_RIG.md)。
 
 ## 1. 舞台与坐标契约
 

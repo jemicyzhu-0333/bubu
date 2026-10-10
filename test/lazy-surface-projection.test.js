@@ -98,3 +98,33 @@ test('deferred credential failure stays within its effect and subsequent full pu
   assert.ok(h.messages.filter(message => message.surface === 'popover').at(-1).payload.delta.ai);
 });
 
+
+test('triage observations use existing inbox projection/deltas without changing canonical captures or historical rows', () => {
+  const { createCaptureTriageStatus } = require('../src/application/ai/capture-triage-status');
+  const state = sourceState();
+  state.impulses = [
+    { id: 'synthetic-pending', createdAt: NOW, text: 'Synthetic capture', classification: null, resolution: null },
+    { id: 'synthetic-resolved', createdAt: NOW, text: 'Synthetic saved capture', classification: null,
+      resolution: { action: 'keep', category: 'note', at: NOW, targetId: null } }
+  ];
+  const before = structuredClone(state);
+  const readSnapshot = () => structuredClone(state), clock = { now: () => NOW, dayKey: localDayKey };
+  const status = createCaptureTriageStatus({ readSnapshot });
+  const composition = createSurfaceReadComposition({ readSnapshot, clock, projectSession: execution.sessionProjection.projectSession });
+  const query = createPopoverStateQuery({ readSample: composition.sample, readSnapshot, readRevision: () => 1,
+    clock, skins: SKINS, foods: FOODS, appearanceItems: PET_APPEARANCE_ITEMS,
+    credentialStore: { status: () => ({ configured: false }) }, aiDisclosure: () => ({}), schemaVersion: 19,
+    readCaptureTriageStatus: status.read });
+  const initial = query.execute();
+  assert.equal(initial.impulses.length, 1);
+  assert.deepEqual(initial.impulses[0].triageStatus, { state: 'unknown', reason: 'unavailable' });
+  const token = status.begin({ impulseId: 'synthetic-pending', capturedAt: NOW }); status.running(token);
+  const projection = query.project(composition.sample(), { impulses: true });
+  const delta = buildStateDelta(projection, { impulses: true });
+  assert.equal(delta.impulses[0].triageStatus.state, 'running');
+  status.finish(token, { reason: 'capture-triage-unsure' });
+  assert.equal(query.execute().impulses[0].triageStatus.state, 'uncertain');
+  assert.deepEqual(state, before);
+  assert.equal(Object.hasOwn(state.impulses[1], 'triageStatus'), false);
+  status.dispose(); assert.equal(Object.hasOwn(query.execute().impulses[0], 'triageStatus'), false);
+});

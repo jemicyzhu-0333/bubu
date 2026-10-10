@@ -37,7 +37,6 @@ function createMemoryManagementView({ $, escapeHTML, now = () => Date.now() }) {
   const copy = (source, parameters = {}) => valueCopy(() => t(source, typeof parameters === 'function' ? parameters() : parameters));
   function repaintCopy() {
     textCopies.forEach(paint => paint());
-    node('memoryList')?.querySelectorAll('.memory-meta summary').forEach(summary => { summary.textContent = t('来源与使用记录'); });
     markupCopies.forEach((copies, id) => node(id)?.querySelectorAll('[data-memory-copy]').forEach(target => {
       const paint = copies[Number(target.dataset.memoryCopy)]; if (paint) target.textContent = paint();
     }));
@@ -53,7 +52,7 @@ function createMemoryManagementView({ $, escapeHTML, now = () => Date.now() }) {
       + `<p class="memory-body">${recycleExpired || memory.retentionCleanupPending ? copy('保留期已到，等待完成清理') : escapeHTML(memory.body)}</p>`
       + `<p class="memory-meta">${copy(SOURCE_LABELS[memory.sourceType] || '来源未知')} · ${copy(SCOPE_LABELS[memory.scope] || '范围未知')} · ${copy(memory.privacyLevel === 'sensitive' ? '仅本机' : '普通')}</p>`
       + (Number.isFinite(memory.expiresAt) ? `<p class="memory-meta">${copy('有效至：{expiry}', () => ({ expiry: date(memory.expiresAt) }))}</p>` : '')
-      + `<details class="memory-meta"><summary>${t('来源与使用记录')}</summary>`
+      + `<details class="memory-meta disclosure"><summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg>${copy('来源与使用记录')}</summary>`
       + `<p>${copy('版本 {version}', { version: memory.version })}</p>`
       + `<p class="memory-meta">${copy('最近使用：{used} · 有效至：{expiry}', () => ({ used: memory.lastUsedAt === null ? t('尚无使用记录') : date(memory.lastUsedAt), expiry: memory.expiresAt === null ? t('不设到期') : date(memory.expiresAt) }))}</p>`
       + `<p class="memory-meta">${copy('来源引用：{sources}', () => ({ sources: (memory.sourceRefs || []).map(ref => `${ref.kind}:${ref.id}`).join('、') || t('未提供') }))}</p></details>`
@@ -79,7 +78,7 @@ function createMemoryManagementView({ $, escapeHTML, now = () => Date.now() }) {
     for (const id of ['btnMoreMemories', 'btnNewMemory', 'btnRememberMemory']) if (node(id)) node(id).disabled = busy || blocked || unavailable;
     node('memoryList')?.setAttribute('aria-busy', String(busy));
   }
-  function review(preview, { busy, acknowledge, blocked } = {}) {
+  function review(preview, { busy, acknowledge, blocked, confirmationPending = false } = {}) {
     startRegion('memoryReviewContent');
     hide('memoryReview', !preview);
     if (!preview) {
@@ -91,7 +90,8 @@ function createMemoryManagementView({ $, escapeHTML, now = () => Date.now() }) {
     const changes = Object.entries(FIELDS).filter(([field]) => JSON.stringify(preview.before?.[field]) !== JSON.stringify(preview.after?.[field]));
     text('memoryReviewTitle', OP_LABELS[preview.operation] || '记忆变更核对');
     if (node('memoryReviewContent')) node('memoryReviewContent').innerHTML = `<p>${copy('目标：{id} · {version}', () => ({ id: preview.before?.id || preview.after?.id || '', version: preview.expectedVersion === null ? t('新增') : t('当前版本 {version}', { version: preview.expectedVersion }) }))}</p>`
-      + `<p>${copy('尚未提交；只有核对后的确认会保存。')}</p><dl class="memory-diff">`
+      + (!confirmationPending && !blocked ? `<p>${copy('尚未提交；只有核对后的确认会保存。')}</p>` : '')
+      + '<dl class="memory-diff">'
       + changes.map(([field, title]) => `<div><dt>${copy(title)}</dt><dd>${copy('原来')}<pre>${valueCopy(() => preview.before ? shown(field, preview.before[field]) : t('无此记忆'))}</pre></dd><dd>${copy('变为')}<pre>${valueCopy(() => preview.after ? shown(field, preview.after[field]) : t('移除'))}</pre></dd></div>`).join('') + '</dl>'
       + `<p>${copy('影响的记忆：{ids}', () => ({ ids: (preview.affectedIds || []).join('、') || t('无') }))}</p>`
       + `<p>${copy('来源引用：{sources}', () => ({ sources: (preview.after?.sourceRefs || preview.before?.sourceRefs || []).map(ref => `${ref.kind}:${ref.id}`).join('、') || t('未提供；不推断来源') }))}</p>`

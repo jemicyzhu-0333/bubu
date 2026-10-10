@@ -49,3 +49,13 @@ test('close/reopen retains unknown identity and ignores old successful meal spee
   pending.resolve({ok:true,reaction:'old speech'});await operation;
   assert.equal(h.speech.length,0);assert.equal(h.button('berry').disabled,false);
 });
+
+test('failed food read closes its presentation and gives actionable feedback', async () => {
+  const h = fixture(); h.setRead(async () => { throw Error('unavailable'); });
+  await h.menu.open();
+  assert.equal(h.isOpen(), false);
+  assert.equal(h.$('#foodPanel').classList.contains('show'), false);
+  assert.deepEqual(h.speech, ['食物暂不可用，请稍后再试。']);
+  h.setRead(async () => snapshot()); await h.menu.open();
+  assert.equal(h.isOpen(), true);
+});

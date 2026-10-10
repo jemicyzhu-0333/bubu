@@ -205,3 +205,38 @@ test('locale copy repaint preserves pending resume receipt and uncommitted durat
   finish({ ok: false, reason: 'session-changed' }); await pending;
   assert.equal(h.$('#focusActionStatus').textContent, 'failed');
 });
+
+test('focus launch deduplicates pending requests and stale failure stays quiet after hide', async t => {
+  let finish, calls = 0, hide;
+  const h = harness({ startPomodoro: () => { calls++; return new Promise(resolve => { finish = resolve; }); }, onPopoverHidden: callback => { hide = callback; return () => {}; } });
+  t.after(() => h.feature.dispose());
+  const first = h.feature.runFocusAction('focus', null, 25);
+  await h.feature.runFocusAction('focus', null, 25); assert.equal(calls, 1);
+  hide(); finish({ ok: false }); await first; assert.notEqual(h.$('#focusActionStatus').textContent, 'failed');
+});
+
+test('old launch failure releases busy controls after hide and reopen', async t => {
+  let finish, hide;
+  const h = harness({ startPomodoro: () => new Promise(resolve => { finish = resolve; }), onPopoverHidden: callback => { hide = callback; return () => {}; } }, { refreshProjection: async () => true });
+  t.after(() => h.feature.dispose()); const pending = h.feature.runFocusAction('focus', null, 25);
+  hide(); h.document.defaultView.fire('focus'); await new Promise(resolve => setImmediate(resolve));
+  assert.equal(h.$('#btnStartFocus').disabled, true);
+  finish({ ok: false }); await pending; assert.equal(h.$('#btnStartFocus').disabled, false);
+  assert.notEqual(h.$('#focusActionStatus').textContent, 'failed');
+});
+
+test('launch receipt from disposed instance cannot publish into its remount', async t => {
+  let finish;
+  const h = harness({ startPomodoro: () => new Promise(resolve => { finish = resolve; }) });
+  t.after(() => h.feature.dispose()); const pending = h.feature.runFocusAction('focus', null, 25);
+  h.feature.dispose(); h.feature.mount(); finish({ ok: false }); await pending;
+  assert.notEqual(h.$('#focusActionStatus').textContent, 'failed'); assert.equal(h.$('#btnStartFocus').disabled, false);
+});
+
+test('pause shares action deduplication and reports transport failure', async t => {
+  let reject, calls = 0;
+  const h = harness({ pausePomodoro: () => { calls++; return new Promise((_, no) => { reject = no; }); } });
+  t.after(() => h.feature.dispose()); h.session.running = true; h.feature.renderPomoStructure();
+  const first = h.$('#btnPauseFocus').fire('click'); await h.$('#btnPauseFocus').fire('click'); assert.equal(calls, 1);
+  reject(new Error('offline')); await first; assert.equal(h.$('#focusActionStatus').textContent, 'failed');
+});

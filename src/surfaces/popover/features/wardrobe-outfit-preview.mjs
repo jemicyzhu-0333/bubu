@@ -11,17 +11,18 @@ function renderWardrobeOutfitPreviews({ container, state, formId, escapeHTML, dr
     .flatMap(choice => choice.options || []).map(option => [option.id, option]));
   const looks = formId === 'usagi'
     ? USAGI_OUTFIT_SETS.filter(look => look.itemIds.every(id => options.has(id))) : [];
-  const expanded = Boolean(container.querySelector('details')?.open);
+  const disclosure = container.querySelector('details');
+  const expanded = disclosure ? Boolean(disclosure.open) : true;
   if (!looks.length) { container.innerHTML = ''; return () => {}; }
   const cards = looks.map(look => {
     const pieces = look.itemIds.map(id => options.get(id));
     const missing = pieces.filter(piece => !piece.available).length;
     const availability = missing ? t('还有 {count} 件待解锁', { count: missing }) : t('配饰已全部解锁');
     const labels = pieces.map(piece => piece.label).join(' · ');
-    return '<figure class="wardrobe-look">'
+    return `<figure class="wardrobe-look" title="${escapeHTML(labels)}" aria-label="${escapeHTML(look.label + ': ' + labels)}">`
       + `<canvas data-outfit-preview="${escapeHTML(look.id)}" width="135" height="135" aria-hidden="true"></canvas>`
       + `<figcaption>${escapeHTML(look.label)}<small>${escapeHTML(availability)}</small></figcaption>`
-      + `<p>${escapeHTML(labels)}</p></figure>`;
+      + `<p class="wardrobe-look-pieces">${escapeHTML(labels)}</p></figure>`;
   }).join('');
   container.innerHTML = `<details class="wardrobe-lookbook"${expanded ? ' open' : ''}>`
     + `<summary>${escapeHTML(t('搭配参考 · {count} 组', { count: looks.length }))}</summary><div class="wardrobe-look-grid">${cards}</div></details>`;

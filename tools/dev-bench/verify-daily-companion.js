@@ -46,7 +46,7 @@ async function run() {
   await js("document.querySelector('[data-food-id=berry]').click()"); await pause(250);
   assert.match(await js("document.getElementById('foodShopStatus').textContent"),/已放入/);
   await js("document.getElementById('foodShopPanel').scrollIntoView({block:'start'})"); await shot('food-collection');
-  await js("document.getElementById('foodShopPanel').open=false;document.getElementById('bondMilestones').open=true;document.getElementById('journeyPanel').open=true;document.getElementById('bondMilestones').scrollIntoView({block:'start'})");
+  await js("document.getElementById('foodShopPanel').close();document.getElementById('btnOpenJourney').click();document.getElementById('journeyBondTitle').scrollIntoView({block:'start'})");
   assert.equal(await js("document.querySelectorAll('.bond-milestone').length"),3);
   await shot('milestones');
   await js("document.getElementById('tabToday').click();window.bubu.startPomodoro(null,25)"); await pause(1000);

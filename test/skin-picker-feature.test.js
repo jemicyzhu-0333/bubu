@@ -98,16 +98,16 @@ const SKINS = Object.freeze([
 
 test('species selection filters unlock shapes without writing the current skin, including keyboard navigation', () => {
   const harness = createHarness({ skins: [...SKINS, {
-    id: 'usagi', formId: 'usagi', formName: '乌沙奇 2.0', name: '乌沙奇 2.0', unlockLevel: 1,
+    id: 'usagi', formId: 'usagi', formName: '小奇', name: '小奇', unlockLevel: 1,
     unlocked: true, current: false, unlockDesc: '默认可用'
   }] });
   assert.doesNotMatch(harness.strip(), /data-skin="usagi"/);
   harness.dom.fire('#skinSpecies', 'click', { target: { closest: () => ({ dataset: { form: 'usagi' } }) } });
   assert.match(harness.strip(), /data-skin="usagi"/);
   assert.doesNotMatch(harness.strip(), /data-skin="pink"/);
-  assert.match(harness.focus(), /乌沙奇 2.0/);
+  assert.match(harness.focus(), /小奇/);
   harness.dom.fire('#skinStrip', 'keydown', { key: 'ArrowRight', preventDefault() {} });
-  assert.match(harness.focus(), /乌沙奇 2.0/);
+  assert.match(harness.focus(), /小奇/);
   assert.deepEqual(harness.switched, []);
   harness.pressApply({ skinId: 'usagi' });
   assert.deepEqual(harness.switched, ['usagi']);
@@ -323,4 +323,26 @@ test('the ids the picker reaches for exist in the popover markup', () => {
   for (const id of ids) {
     assert.match(html, new RegExp(`id="${id}"`), `#${id} must exist in popover.html`);
   }
+});
+
+test('skin uncertainty reconciles through the canonical store before another change is allowed', async () => {
+  const dom = createDom();
+  let state = { revision: 1, currentSkin: 'pink', skins: [...SKINS], appearance: { wornIds: [] } };
+  let writes = 0, reads = 0, resolveRead;
+  const picker = createPopoverSkinPicker({ document: dom.document, $: dom.$, getState: () => state,
+    escapeHTML, skinAccent: () => ({}), restoreModalFocus() {}, drawPetPreview() {},
+    surfaceClient: { switchSkin() { writes++; throw new Error('lost receipt'); } } });
+  picker.mount({ subscribe: () => () => {}, refresh: async () => {
+    reads++; state = await new Promise(resolve => { resolveRead = resolve; }); return state;
+  } });
+  picker.open();
+  dom.fire('#skinStrip', 'click', { target: { closest: () => ({ dataset: { skin: 'mint' } }) } });
+  const press = () => dom.fire('#skinFocus', 'click', { target: { closest: () => ({ disabled: false, dataset: { skin: 'mint' } }) } });
+  press(); await new Promise(resolve => setImmediate(resolve)); press();
+  assert.equal(writes, 1); assert.equal(reads, 1);
+  resolveRead({ revision: 2, currentSkin: 'mint', skins: SKINS.map(skin => ({ ...skin, current: skin.id === 'mint' })), appearance: { wornIds: [] } });
+  await new Promise(resolve => setImmediate(resolve));
+  assert.match(dom.nodes['#skinFocus'].innerHTML, /当前形态/);
+  assert.equal(writes, 1, 'readback never repeats the mutation');
+  picker.dispose();
 });

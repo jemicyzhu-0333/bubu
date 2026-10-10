@@ -7,7 +7,7 @@ const ERRORS = {
   'impulse-not-found': '这条收件已经处理，列表已更新。',
   'impulse-category-changed': '分类已改变，请重新确认操作。',
   'routine-kind-required': '先选择日常类型。',
-  'routine-choice-required': '有多条同类日常，请选择记录到哪一条。',
+  'routine-choice-required': '请选择记录到哪一条日常，或新建日常。',
   'routine-not-found': '所选日常已经改变，请重新选择。',
   'title-required': '请为这件日常填写名称。',
   'routine-limit': '日常数量已满，可以先移除不再需要的日常。',
@@ -17,7 +17,7 @@ const ERRORS = {
   'newer-check-in-exists': '已有更新的状态记录；这条内容可以选择“只留存”。'
 };
 const MISSING_FIELDS = Object.freeze({ kind: '.inbox-kind', routine: '.inbox-routine', title: '.inbox-title', level: '.inbox-level' });
-const EDITORS = Object.freeze(['.inbox-category', '.inbox-kind', '.inbox-level', '.inbox-routine']);
+const EDITORS = Object.freeze(['.inbox-category', '.inbox-kind', '.inbox-level', '.inbox-routine', '.inbox-title']);
 const KEEP_ALL_LIMIT = 100;
 const KEEP_ALL_CONFIRM_MS = 5000;
 
@@ -49,6 +49,7 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
   function focusedEditor(row) {
     const active = row.contains(document.activeElement) ? document.activeElement : null;
     if (!active) return null;
+    if (active.matches('.inbox-triage-help summary')) return '.inbox-triage-help summary';
     const editor = EDITORS.find(selector => active.matches(selector));
     if (editor) return editor;
     const action = active.dataset?.inboxAction || active.dataset?.inboxPick;
@@ -56,17 +57,25 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
   }
   function drawCard(item, state, entry) {
     const draft = draftOf(item.id);
-    // Typing a name and unfolding details already show in the DOM; they never force a redraw.
-    const { title: _title, detailsOpen: _open, ...shape } = draft;
+    // Typing a name already shows in the DOM; it never forces a redraw.
+    const { title: _title, ...shape } = draft;
     const key = JSON.stringify([item, state.routines?.items, state.moodNotes?.map(note => note.id), shape]);
     if (key === entry.key) return;
     const optionsOpen = entry.row.querySelector('.inbox-options')?.open;
     const focus = focusedEditor(entry.row);
+    const active = document.activeElement;
+    const selection = focus && Number.isInteger(active?.selectionStart)
+      ? [active.selectionStart, active.selectionEnd, active.selectionDirection] : null;
     entry.key = key; entry.copy = { item, state, draft: scope === 'history' ? undefined : draft };
+    entry.row.classList.toggle('inbox-card-history', Boolean(item.resolution));
     entry.row.innerHTML = inboxCard(item, state, escapeHTML, scope === 'history' ? undefined : draft);
     const more = entry.row.querySelector('.inbox-options');
     if (more) more.open = Boolean(optionsOpen);
-    if (focus && !busy && visible()) entry.row.querySelector(focus)?.focus();
+    if (focus && !busy && visible()) {
+      const target = entry.row.querySelector(focus);
+      target?.focus();
+      if (selection) target?.setSelectionRange?.(...selection);
+    }
   }
   function drawKeepAll(items) {
     const button = $('#inboxKeepAll');
@@ -119,6 +128,7 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
       }
     }
     if (busy) list.querySelectorAll('button,select,input').forEach(node => { node.disabled = true; });
+    else list.querySelectorAll('[data-inbox-needs-choice]').forEach(node => { node.disabled = true; });
   }
   function drawHistoryStatus(page) {
     const host = $('#inboxHistoryStatus'), label = $('#inboxHistoryLabel'), retry = $('#inboxHistoryRetry');
@@ -146,18 +156,17 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
   }
   function loadHistory(append = false) { moodDeletion?.resetArming(); return history.load(append); }
   function renderList() { draw(); if (scope === 'history' && visible()) void loadHistory(); }
-  function hide() { hidden = true; moodDeletion?.resetArming(); history.suspend(); draw(); }
+  function hide() { closeOptions(); hidden = true; moodDeletion?.resetArming(); history.suspend(); draw(); }
   function visibilityChanged() {
     hidden = Boolean(document.hidden);
     if (hidden) hide(); else renderList();
   }
 
-  // A primary action that still lacks a field opens the card's details on it instead of failing.
+  // A missing input receives focus without hiding or expanding the whole card.
   function revealMissing(row) {
     const details = row.querySelector('.inbox-details');
     const field = details && MISSING_FIELDS[details.dataset.missing];
     if (!field || (field === '.inbox-title' && row.querySelector(field)?.value.trim())) return false;
-    details.open = true;
     row.querySelector(field)?.focus();
     status('补上这一项后就能保存。');
     return true;
@@ -204,8 +213,11 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
       for (const entry of rows.values()) entry.row.querySelectorAll('button,select,input').forEach(node => { node.disabled = false; });
       draw();
       if (!disposed && visible() && (document.activeElement === document.body || !document.activeElement || row.contains(document.activeElement))) {
-        const focus = rows.get(id)?.row.querySelector(`[data-inbox-action="${action}"]`)
-          || $('#impulseList').querySelector('.inbox-card [data-inbox-action], .inbox-options > summary')
+        const surviving = rows.get(id)?.row;
+        const requested = surviving?.querySelector(`[data-inbox-action="${action}"]`);
+        const focus = (requested?.closest('.inbox-options') ? surviving.querySelector('.inbox-options > summary') : requested)
+          || $('#impulseList').querySelector('.inbox-card-actions [data-inbox-action]:not(:disabled)')
+          || $('#impulseList').querySelector('.inbox-options > summary')
           || document.querySelector('[data-inbox-scope].active');
         focus?.focus();
       }
@@ -226,6 +238,12 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
     else return;
     status(); draw();
   }
+  function closeOptions(except = null) {
+    for (const { row } of rows.values()) {
+      const options = row.querySelector('.inbox-options');
+      if (options && options !== except) options.open = false;
+    }
+  }
   function onClick(event) {
     const row = event.target.closest('[data-impulse-id]');
     if (!row) return;
@@ -239,6 +257,7 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
       return;
     }
     const action = event.target.closest('[data-inbox-action]')?.dataset.inboxAction;
+    if (action) closeOptions();
     if (action === 'delete-mood-source') {
       if (busy || !moodDeletion) return;
       const item = findHistorySource(row.dataset.impulseId);
@@ -299,12 +318,26 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
       const disclosure = event.target.closest('details[open]');
       if (disclosure) { disclosure.open = false; disclosure.querySelector('summary').focus(); event.stopPropagation(); }
     });
-    // `toggle` does not bubble; capture keeps a person's own unfold across re-renders.
+    // Native disclosure keyboard semantics, with a single anchored action panel.
     listen($('#impulseList'), 'toggle', event => {
-      const row = event.target.closest?.('[data-impulse-id]');
-      if (row && event.target.matches('.inbox-details')) patchDraft(row.dataset.impulseId, { detailsOpen: event.target.open });
+      if (event.target.matches('.inbox-options') && event.target.open) closeOptions(event.target);
     }, true);
-    listen($('#impulseList'), 'input', event => { if (event.target.matches('.inbox-title')) patchDraft(event.target.closest('[data-impulse-id]').dataset.impulseId, { title: event.target.value }); });
+    listen(document, 'pointerdown', event => {
+      if (!event.target.closest?.('.inbox-options')) closeOptions();
+    });
+    listen(document, 'focusin', event => {
+      if (!event.target.closest?.('.inbox-options')) closeOptions();
+    });
+    listen($('#impulseList'), 'input', event => {
+      if (!event.target.matches('.inbox-title')) return;
+      const row = event.target.closest('[data-impulse-id]'), id = row.dataset.impulseId;
+      patchDraft(id, { title: event.target.value });
+      const entry = rows.get(id);
+      if (entry?.copy) {
+        entry.copy.draft = draftOf(id);
+        repaintInboxCard(row, entry.copy.item, entry.copy.state, entry.copy.draft);
+      }
+    });
     listen($('#inboxLoadMore'), 'click', () => { void loadHistory(true); });
     listen($('#inboxHistoryRetry'), 'click', () => { void loadHistory(); });
     listen($('#inboxDeleteRetry'), 'click', () => moodDeletion?.retry());

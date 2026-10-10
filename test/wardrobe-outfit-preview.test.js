@@ -7,11 +7,11 @@ const { USAGI_OUTFIT_SETS } = require('../src/content/companion/usagi-wardrobe.m
 const { PET_APPEARANCE_ITEMS } = require('../src/content/appearance.mjs');
 const { selectAppearance } = require('../src/capabilities/companion/domain/appearance-selection');
 
-function render(level, formId = 'usagi', expanded = false) {
+function render(level, formId = 'usagi', expanded = undefined) {
   const previews = [];
   const canvases = new Map(USAGI_OUTFIT_SETS.map(look => [look.id, { style: {} }]));
   const container = { innerHTML: '', querySelector(selector) {
-    return selector === 'details' ? { open: expanded }
+    return selector === 'details' ? (expanded === undefined ? null : { open: expanded })
       : canvases.get(selector.match(/data-outfit-preview="([^"]+)"/)?.[1]);
   } };
   const selection = selectAppearance({ items: PET_APPEARANCE_ITEMS, level,
@@ -28,6 +28,7 @@ function render(level, formId = 'usagi', expanded = false) {
 test('three named recipe cards preview exact IDs without an equip button or command', () => {
   const result = render(25);
   assert.equal(result.previews.length, 3);
+  assert.match(result.container.innerHTML, /<details class="wardrobe-lookbook" open>/);
   for (const [index, look] of USAGI_OUTFIT_SETS.entries()) {
     assert.match(result.container.innerHTML, new RegExp(look.label));
     assert.deepEqual(result.previews[index].options, { skinId: 'usagi', itemIds: look.itemIds, size: 'preview' });
@@ -48,6 +49,7 @@ test('locked clothes remain an explicitly labelled preview instead of appearing 
 
 test('lookbook preserves its local disclosure and never leaks to another form', () => {
   assert.match(render(25, 'usagi', true).container.innerHTML, /<details class="wardrobe-lookbook" open>/);
+  assert.match(render(25, 'usagi', false).container.innerHTML, /<details class="wardrobe-lookbook">/);
   const other = render(25, 'dango', true);
   assert.equal(other.container.innerHTML, '');
   assert.equal(other.previews.length, 0);

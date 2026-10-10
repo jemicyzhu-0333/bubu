@@ -334,6 +334,6 @@ test('English enrichment receipt is concise, singular, and explicitly requires s
   setLocale('en'); t.after(() => setLocale('zh-CN'));
   const h = harness(t); h.feature.open({ title: 'Report' }); await h.enrich();
   assert.match(h.status(), /^Added to draft: 1 step,/);
-  assert.match(h.status(), /Review and save to apply\.$/);
+  assert.match(h.status(), /Save to apply\.$/);
   assert.doesNotMatch(h.status(), /1 steps/);
 });

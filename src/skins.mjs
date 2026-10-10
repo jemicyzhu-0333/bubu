@@ -178,7 +178,7 @@ const SKINS = {
     }
   },
   usagi: {
-    name: '乌沙奇 2.0',
+    name: '小奇',
     formId: 'usagi',
     unlockDesc: '默认可用 · 长耳形态与专属动作',
     palette: {

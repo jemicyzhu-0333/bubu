@@ -93,7 +93,7 @@
   #draftChatMask .chat-session[aria-current="true"] { border-left-color: var(--primary-ink); background: var(--bg-1); }
   #draftChatMask .chat-session-title-row { display: flex; min-width: 0; align-items: center; gap: 12px; font-size: 14px; font-weight: 600; }
   #draftChatMask .chat-session-title-row > span:first-child { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-  #draftChatMask .chat-session-arrow { font-size: 20px; font-weight: 400; color: var(--fg-2); }
+  #draftChatMask .chat-session-arrow { flex: 0 0 16px; color: var(--fg-2); }
   #draftChatMask .chat-session small { font-size: 11px; color: var(--fg-2); }
   #draftChatMask .chat-session-date { font-variant-numeric: tabular-nums; }
   #draftChatMask .chat-compose { flex: 0 0 auto; display: grid; gap: 7px; padding: 14px 20px 16px; border-top: 1px solid var(--line, var(--bg-3)); }

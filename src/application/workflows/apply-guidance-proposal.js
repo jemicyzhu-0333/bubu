@@ -3,8 +3,8 @@ const { CREATE_WORK_ITEM_WRITES } = require('./create-work-item');
 const { UPDATE_WORK_ITEM_WRITES } = require('./update-work-item');
 const { runPostCommitEffect } = require('../../shared/post-commit-effects');
 const APPLY_GUIDANCE_PROPOSAL_WRITES = Object.freeze([...new Set([...CREATE_WORK_ITEM_WRITES, ...UPDATE_WORK_ITEM_WRITES])]);
-function createApplyGuidanceProposalWorkflow({ proposalStore, updateWorkItemWorkflow, createWorkItemCommand, consumeBreakdownProposal, reportEffectError = () => {} }) {
-  function execute({ proposalId, steps, targetTaskId, scope }) {
+function createApplyGuidanceProposalWorkflow({ proposalStore, updateWorkItemWorkflow, createWorkItemCommand, consumeBreakdownProposal, diagnostics, reportEffectError = () => {} }) {
+  function apply({ proposalId, steps, targetTaskId, scope }) {
     const stored = proposalStore.get(proposalId);
     if (!stored) return { ok: false, reason: 'proposal-expired' };
     if (!stored.context || stored.context.kind !== 'breakdown') {
@@ -46,6 +46,11 @@ function createApplyGuidanceProposalWorkflow({ proposalStore, updateWorkItemWork
     runPostCommitEffect(() => consumeBreakdownProposal(proposalId, 'proposal-applied'), { proposalId }, reportEffectError);
     return created;
 
+  }
+  function execute(payload) {
+    let result;
+    try { result = apply(payload); return result; }
+    finally { try { diagnostics?.proposalResult(payload?.proposalId, result); } catch (_) { /* No retry after observation. */ } }
   }
   return Object.freeze({ execute });
 }

@@ -94,7 +94,8 @@ function gitIdentity() {
   }
 }
 
-function validateBuildConfig(pkg) {
+function validateBuildConfig(pkg, { testDiagnostics = false } = {}) {
+  invariant(typeof testDiagnostics === 'boolean', 'diagnostics verification mode must be boolean');
   invariant(pkg.version === '0.0.2-dev.3', `expected development version 0.0.2-dev.3, got ${pkg.version}`);
   invariant(pkg.build?.mac?.sign?.identity === '-', 'development macOS bundle must request ad-hoc signing');
   invariant(pkg.main === 'src/main.js', `unexpected main entry: ${pkg.main}`);
@@ -112,8 +113,9 @@ function validateBuildConfig(pkg) {
     'npm run pack:mac must use the macOS build entrypoint');
   invariant(scripts['validate:mac'] === 'npm run check && npm run pack:mac -- --arm64 && npm run verify:mac-app',
     'npm run validate:mac must explicitly pack and verify macOS arm64');
-  const plan = buildPlan({ platform: 'darwin', arch: 'x64', argv: ['--platform=mac', '--dir', '--arm64'] });
-  invariant(JSON.stringify(plan.builderArgs) === JSON.stringify(['--mac', '--arm64', '--dir', '--publish', 'never']),
+  const plan = buildPlan({ platform: 'darwin', arch: 'x64', argv: ['--platform=mac', '--dir', '--arm64', ...(testDiagnostics ? ['--test-diagnostics'] : [])] });
+  invariant(JSON.stringify(plan.builderArgs) === JSON.stringify(['--mac', '--arm64', '--dir', '--publish', 'never',
+    '--config.extraMetadata.bubuCapabilities.schemaVersion=1', `--config.extraMetadata.bubuCapabilities.aiDiagnostics=${testDiagnostics}`]),
     'macOS verification must build arm64 without publishing');
   invariant(plan.prepare.some(step => step[0] === 'scripts/build-activity-probe.js' && step[1] === '--arch=arm64'),
     'macOS activity probe must match the arm64 bundle');
@@ -146,7 +148,24 @@ function verifyBundleIdentity(appPath, pkg, readKey = (plist, key) => (
   return expected;
 }
 
-function verifyAsar(archivePath, expectedPackage) {
+function verifyDiagnosticsCapability(pkg, testDiagnostics) {
+  invariant(typeof testDiagnostics === 'boolean', 'diagnostics verification mode must be boolean');
+  const value = pkg.bubuCapabilities;
+  // Older ordinary bundles have no capability and cannot enable content capture.
+  if (!testDiagnostics && value === undefined) return;
+  invariant(value?.schemaVersion === 1 && value?.aiDiagnostics === testDiagnostics,
+    'bundled diagnostics capability does not match the explicitly selected build mode');
+}
+function verificationArguments(argv) {
+  let explicitPath, testDiagnostics = false;
+  for (const arg of argv) {
+    if (arg === '--test-diagnostics' && !testDiagnostics) testDiagnostics = true;
+    else if (typeof arg === 'string' && !arg.startsWith('--') && explicitPath === undefined) explicitPath = arg;
+    else throw new Error('unsupported or repeated macOS verification argument');
+  }
+  return { explicitPath, testDiagnostics };
+}
+function verifyAsar(archivePath, expectedPackage, { testDiagnostics = false } = {}) {
   const entries = asar.listPackage(archivePath).map(entry => entry.replaceAll('\\', '/'));
   for (const required of ['/package.json', '/src/main.js']) {
     invariant(entries.includes(required), `app.asar is missing ${required}`);
@@ -160,6 +179,7 @@ function verifyAsar(archivePath, expectedPackage) {
   invariant(bundledPackage.name === expectedPackage.name, 'bundled package name does not match source');
   invariant(bundledPackage.version === expectedPackage.version, 'bundled package version does not match source');
   invariant(bundledPackage.main === expectedPackage.main, 'bundled main entry does not match source');
+  verifyDiagnosticsCapability(bundledPackage, testDiagnostics);
 
   const ownedTextEntries = entries.filter(entry =>
     /^\/(?:src|assets)\//.test(entry) && /\.(?:m?js|json|html|css|svg|txt)$/i.test(entry));
@@ -175,9 +195,9 @@ function verifyAsar(archivePath, expectedPackage) {
   return { entries: entries.length, ownedTextEntries: ownedTextEntries.length };
 }
 
-function verifyAppBundle(appPath) {
+function verifyAppBundle(appPath, { testDiagnostics = false } = {}) {
   const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
-  validateBuildConfig(pkg);
+  validateBuildConfig(pkg, { testDiagnostics });
   invariant(fs.statSync(appPath).isDirectory(), `macOS app bundle not found: ${appPath}`);
 
   const executable = path.join(appPath, 'Contents', 'MacOS', '小步');
@@ -205,12 +225,13 @@ function verifyAppBundle(appPath) {
   }
   invariant(machFiles.length > 0, 'bundle contains no recognizable Mach-O binaries');
 
-  const archiveResult = verifyAsar(archive, pkg);
+  const archiveResult = verifyAsar(archive, pkg, { testDiagnostics });
   const codeSignature = verifyCodeSignature(appPath);
   return {
     ...gitIdentity(),
     artifact: path.relative(ROOT, appPath),
     version: pkg.version,
+    testDiagnostics,
     bundleIdentity,
     codeSignature,
     machOBinaries: machFiles.length,
@@ -223,7 +244,8 @@ function verifyAppBundle(appPath) {
 
 if (require.main === module) {
   try {
-    const result = verifyAppBundle(findAppBundle(process.argv[2]));
+    const { explicitPath, testDiagnostics } = verificationArguments(process.argv.slice(2));
+    const result = verifyAppBundle(findAppBundle(explicitPath), { testDiagnostics });
     process.stdout.write(`macOS arm64 app verification passed\n${JSON.stringify(result, null, 2)}\n`);
   } catch (error) {
     process.stderr.write(`macOS app verification failed: ${error.message}\n`);
@@ -238,5 +260,7 @@ module.exports = {
   validateBuildConfig,
   verifyBundleIdentity,
   verifyAsar,
+  verifyDiagnosticsCapability,
+  verificationArguments,
   verifyAppBundle
 };

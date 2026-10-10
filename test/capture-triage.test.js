@@ -112,7 +112,10 @@ test('both impulse model calls go through the shared deadline runner with no loc
   const analyzed = await classifier.analyze({ impulseText: '好累', ignored: 'not sent' });
   assert.deepEqual(analyzed, { ok: true, classification, provider: 'api',
     cleanup: { ok: true, timer: 'released', listener: 'released' } });
-  const triaged = await classifier.triage({ impulseText: '好累', ignored: 'not sent' });
+  const failures = [];
+  const triaged = await classifier.triage({ impulseText: '好累', ignored: 'not sent' },
+    { onFailure: failure => failures.push(failure) });
+  assert.deepEqual(failures, [{ reason: 'provider-failed' }]);
   assert.deepEqual(triaged, { ok: false, reason: 'no-local-fallback',
     cleanup: { ok: true, timer: 'released', listener: 'released' } });
   assert.equal(Object.isFrozen(analyzed.cleanup), true);

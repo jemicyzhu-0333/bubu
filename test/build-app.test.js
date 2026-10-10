@@ -3,12 +3,13 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const path = require('node:path');
 const { buildPlan, run } = require('../scripts/build-app');
+const noDiagnostics = ['--config.extraMetadata.bubuCapabilities.schemaVersion=1', '--config.extraMetadata.bubuCapabilities.aiDiagnostics=false'];
 
 for (const [platform, flag] of [['win32', 'win'], ['darwin', 'mac'], ['linux', 'linux']]) {
   for (const arch of ['x64', 'arm64']) {
     test(`${platform}/${arch} defaults to its own platform and architecture`, () => {
       const plan = buildPlan({ platform, arch });
-      assert.deepEqual(plan.builderArgs, [`--${flag}`, `--${arch}`, '--publish', 'never']);
+      assert.deepEqual(plan.builderArgs, [`--${flag}`, `--${arch}`, '--publish', 'never', ...noDiagnostics]);
       assert.deepEqual(plan.prepare, [['scripts/make-icon.js'], ...(platform === 'darwin'
         ? [['scripts/build-activity-probe.js', `--arch=${arch}`]] : [])]);
     });
@@ -16,7 +17,7 @@ for (const [platform, flag] of [['win32', 'win'], ['darwin', 'mac'], ['linux', '
 }
 test('explicit targets, unpacked output and matching native architecture', () => {
   const plan = buildPlan({ platform: 'darwin', arch: 'x64', argv: ['--platform=mac', '--dir', '--arm64'] });
-  assert.deepEqual(plan.builderArgs, ['--mac', '--arm64', '--dir', '--publish', 'never']);
+  assert.deepEqual(plan.builderArgs, ['--mac', '--arm64', '--dir', '--publish', 'never', ...noDiagnostics]);
   assert.equal(plan.prepare[1][1], '--arch=arm64');
   assert.equal(buildPlan({ platform: 'darwin', arch: 'arm64', argv: ['--platform=win', '--x64'] }).target, 'win');
   assert.equal(buildPlan({ platform: 'win32', arch: 'x64', argv: ['--platform=linux'] }).target, 'linux');
@@ -42,7 +43,7 @@ test('Node invocation is shell-free and preserves spaced paths, order and exit c
   assert.equal(run(options), 0);
   assert.deepEqual(calls.map(c => c[1]), [
     [path.join(options.root, 'scripts/make-icon.js')],
-    ['/test/builder cli.js', '--win', '--x64', '--dir', '--publish', 'never']]);
+    ['/test/builder cli.js', '--win', '--x64', '--dir', '--publish', 'never', ...noDiagnostics]]);
   assert.ok(calls.every(c => c[0] === options.execPath && c[2].shell === false && c[2].cwd === options.root));
   let count = 0;
   assert.equal(run({ ...options, spawn: () => { count++; return { status: 7 }; } }), 7);
@@ -99,4 +100,18 @@ test('installed builder API and exported FileMatcher retain packaging contracts'
   const stats = { isDirectory: () => false, isFile: () => true, isSymbolicLink: () => false };
   assert.equal(accepts(path.join(root, 'src/main.js'), stats), true);
   assert.equal(accepts(path.join(root, 'src/excluded/fixture.js'), stats), false);
+});
+
+test('normal/test/normal build metadata is explicit and does not mutate package source', async () => {
+  const fs = require('node:fs');
+  const before = fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8');
+  const { configureBuildCommand, createYargs, normalizeOptions } = await import('../node_modules/electron-builder/dist/builder.js');
+  for (const expected of [false, true, false]) {
+    const plan = buildPlan({ platform: 'linux', arch: 'x64', argv: expected ? ['--test-diagnostics'] : [] });
+    const argv = configureBuildCommand(createYargs()).parse(plan.builderArgs);
+    const metadata = normalizeOptions(argv).config.extraMetadata;
+    assert.deepEqual(metadata.bubuCapabilities, { schemaVersion: 1, aiDiagnostics: expected });
+  }
+  assert.equal(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8'), before);
+  assert.throws(() => buildPlan({ platform: 'linux', arch: 'x64', argv: ['--test-diagnostics', '--test-diagnostics'] }));
 });

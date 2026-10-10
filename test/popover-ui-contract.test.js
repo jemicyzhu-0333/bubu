@@ -207,10 +207,10 @@ test('the energy curve has a switch that turns it off and a way to discard what 
   // second one commits, and folding the group away forgets the first press.
   assert.match(js, /if \(!pendingCalibrationReset\) \{[\s\S]*?button\.textContent = t\('真的重置'\)/);
   assert.match(js, /await surfaceClient\.resetEnergyCalibration\(\)/);
-  assert.match(js, /if \(group && group\.open === false\) clearPendingCalibrationReset\(\)/);
-  // changed=false is a distinct answer, not a silent success: "本来就没学过" and
-  // "丢掉了" are different things to have just done.
-  assert.match(js, /result\.changed[\s\S]*?'已丢掉学到的参数[\s\S]*?'本来就没学过什么/);
+  assert.match(js, /if \(group && group\.open === false\) \{ clearPendingCalibrationReset\(\)/);
+  // changed=false is a distinct answer, not a silent success: "暂无校准数据" and
+  // "校准已重置" are different things to have just done.
+  assert.match(js, /result\.changed[\s\S]*?'校准已重置[\s\S]*?'暂无校准数据/);
 });
 
 test('the AI section exposes one master switch plus the two parameters a request needs', () => {
@@ -225,7 +225,7 @@ test('the AI section exposes one master switch plus the two parameters a request
   // 长期记忆拥有类别、范围与隐私三个选择器；它们都不是Provider连接类型。
   assert.deepEqual(
     [...group.matchAll(/<select[^>]*\bid="([^"]*)"/g)].map(match => match[1]),
-    ['memoryDraftKind', 'memoryDraftScope', 'memoryDraftPrivacy']
+    ['aiDiagnosticsRuns', 'memoryDraftKind', 'memoryDraftScope', 'memoryDraftPrivacy']
   );
   assert.doesNotMatch(html, /id="aiProviderSelect"/);
   assert.doesNotMatch(js, /aiProvider/);
@@ -234,7 +234,10 @@ test('the AI section exposes one master switch plus the two parameters a request
   assert.match(group, /data-toggle="aiClarifyEnabled"/);
   assert.match(group, /id="aiSaveConfig"/);
   assert.match(group, /id="aiConfigStatus"[^>]*role="status"/);
-  assert.match(group, /<summary[^>]*>数据与隐私<\/summary>/);
+  const privacy = group.match(/<details class="ai-advanced disclosure"><summary>(.*?)<\/summary><p class="capability-note" id="aiPrivacyStatus"><\/p><\/details>/s);
+  assert.ok(privacy, 'privacy remains a native, labeled disclosure containing its status');
+  assert.match(privacy[1], /<svg class="disclosure-icon"[^>]*aria-hidden="true"/);
+  assert.match(privacy[1], /<span data-i18n="数据与隐私">数据与隐私<\/span>/);
   assert.match(group, /id="aiPrivacyStatus"/);
   assert.doesNotMatch(js, /describeAiFields|field-disclosure-required/);
   assert.ok(!preload.includes('ai:describe-fields'));
@@ -316,7 +319,7 @@ test('the renderer reads one duration range instead of declaring its own', () =>
 
   assert.match(js, /const fullFocusMinutes = sessionDuration\.normalizeFocusMinutes\([\s\S]*?surfaceClient\.startPomodoro\(task \? task\.id : null, fullFocusMinutes\)/);
   assert.match(js, /function focusRange\(\)[\s\S]*?state && state\.focusMinutes/);
-  assert.match(js, /patch\.pomodoroMinutes = sessionDuration\.clampFocusMinutes\(s\.pomodoroMinutes \+ delta\)/,
+  assert.match(js, /pomodoroMinutes: sessionDuration\.clampFocusMinutes\(settings\.pomodoroMinutes \+ delta\)/,
     'the settings stepper must use the shared 5–120 minute contract');
   assert.doesNotMatch(js, /Math\.min\(90, s\.pomodoroMinutes/);
 });
@@ -495,9 +498,9 @@ test('a completion suggestion lands in the draft, never in the store, and never 
   assert.doesNotMatch(apply, /#taskInput/);
   assert.doesNotMatch(apply, /suggestion\.title/);
   // 没用到模型就不替这件事想：一个字段都不填，只说清楚并把光标放到“加一步”；用到模型才填并说出口。
-  assert.match(apply, /const usedModel = suggestion\.provider === 'api' && !suggestion\.fallback;\s+if \(!usedModel\) \{[\s\S]*?没有用 AI，所以没替你拆[\s\S]*?return;\s+\}/);
+  assert.match(apply, /const usedModel = suggestion\.provider === 'api' && !suggestion\.fallback;\s+if \(!usedModel\) \{[\s\S]*?AI 拆解暂不可用[\s\S]*?return;\s+\}/);
   assert.doesNotMatch(apply, /通用模板/);
-  assert.match(apply, /showStatus\(\(\) => filled\.length[\s\S]*?已按 AI 建议填好/);
+  assert.match(apply, /showStatus\(\(\) => filled\.length[\s\S]*?已填入草稿/);
   assert.match(js, /title="\$\{t\(task\.energyAuto \? '按标题自动推断' : '手动设定'\)\}"/);
   // 失败关闭：报错不能把已填的内容抓走。
   assert.match(taskDraftJs, /function runEnrich\(\)[\s\S]*?catch \(_\) \{[\s\S]*?已填的内容都还在/);
@@ -778,7 +781,7 @@ test('a landing decision never stacks with or loses focus to an editor modal', (
   assert.match(js, /function restoreModalFocus\(trigger\)[\s\S]*?requestAnimationFrame\(\(\) => \{[\s\S]*?if \(landing\.activePrompt\(\)\) \{[\s\S]*?landing\.render\(\);[\s\S]*?return;/);
   assert.match(taskEditorJs, /function close\(\)[\s\S]*?restoreModalFocus\(closing\)/);
   assert.match(completeConfirmJs, /function close\(\)[\s\S]*?restoreModalFocus\(closing\)/);
-  assert.match(functionSource('close', reviewJs),
+  assert.match(functionSource('hide', reviewJs),
     /if \(activeLandingPrompt\(\)\) \{[\s\S]*?renderLanding\(\)/);
   // Tab 与 Escape 都只有一个入口,落点决策在两条顺序里都排在设置抽屉之后。
   assert.match(js, /if \(event\.key === 'Tab'\) handleTab\(event\);\s*else if \(event\.key === 'Escape'\) handleEscape\(event\)/);

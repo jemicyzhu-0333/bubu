@@ -1,8 +1,10 @@
 import { t, getLocale } from '../../shared/interface/i18n.mjs';
 import { createInterfaceSettings } from './interface-settings.mjs';
+import { settingsStepperPatch } from './settings-stepper.mjs';
 'use strict';
 import { createDesktopUpdateFeature } from './desktop-updates.mjs';
 import { createAiConfiguration, formatAuthorizationWarning } from './ai-configuration.mjs';
+import { createAiDiagnostics } from './ai-diagnostics.mjs';
 
 // 设置抽屉这一层:开合与背景失活、各分组里的每一个步进与开关、AI 那一组的模型、
 // 地址与密钥，以及把当前设置画回抽屉的那一次渲染。
@@ -16,7 +18,7 @@ import { createAiConfiguration, formatAuthorizationWarning } from './ai-configur
 function createPopoverSettingsDrawer({
   document, $, $$, getState, surfaceClient, sessionDuration, syncPressedButtons,
   fallbackReasonText, motionReduced, clearDecorativeMotion, renderExpiryPreview,
-  activeLandingPrompt, rememberLandingReturnFocus, renderLanding
+  activeLandingPrompt, rememberLandingReturnFocus, renderLanding, onOpen = () => {}
 } = {}) {
   if (!document || typeof $ !== 'function' || typeof $$ !== 'function') {
     throw new TypeError('popover settings drawer requires document, $ and $$');
@@ -33,12 +35,14 @@ function createPopoverSettingsDrawer({
 
   const interfaceSettings = createInterfaceSettings({ document, getState, surfaceClient });
   const aiConfiguration = createAiConfiguration({ document, $, getState, surfaceClient });
+  const aiDiagnostics = createAiDiagnostics({ document, $, surfaceClient, isVisible: isSettingsOpen });
   const desktopUpdates = createDesktopUpdateFeature({ $, getState, surfaceClient, isVisible: isSettingsOpen });
   let lastSettingsKey = '';
-  let pendingCalibrationReset = false;
+  let pendingCalibrationReset = false, calibrationBusy = false, calibrationVisit = 0;
   let mounted = false;
   let saveRequest = 0, lifetime = 0;
   let saveStatusCopy = () => '';
+  const settingSaves = new Map();
   let calibrationFeedbackSource = '';
   const teardown = [];
 
@@ -58,11 +62,14 @@ function createPopoverSettingsDrawer({
     $('#appShell').inert = true;
     mask.classList.remove('hidden');
     void desktopUpdates.refresh();
+    void aiDiagnostics.refresh();
     mask.setAttribute('aria-hidden', 'false');
+    onOpen();
     $('#btnSettings').setAttribute('aria-expanded', 'true');
     // 焦点进抽屉：优先给“动效”那一组的控件，但它默认在折叠的分区里——对折叠内容调用 focus() 会静默失败，
     // 焦点就留在页面背后。所以只有它当下真的看得见才用，否则退到关闭按钮。
     requestAnimationFrame(() => {
+      if (!mounted || !isSettingsOpen()) return;
       const preferred = $('#settingsDrawer .motion-mode');
       const usable = preferred && preferred.offsetParent !== null && !preferred.closest('details:not([open])');
       (usable ? preferred : $('#btnSettingsClose')).focus();
@@ -73,6 +80,9 @@ function createPopoverSettingsDrawer({
     if (!isSettingsOpen()) return;
     interfaceSettings.clearFeedback();
     clearPendingCalibrationReset();
+    calibrationVisit++;
+    desktopUpdates.dismiss();
+    aiDiagnostics.dismiss();
     aiConfiguration.cancelTest?.();
     const mask = $('#settingsMask');
     mask.classList.add('hidden');
@@ -84,7 +94,7 @@ function createPopoverSettingsDrawer({
       renderLanding();
       return;
     }
-    requestAnimationFrame(() => $('#btnSettings').focus());
+    requestAnimationFrame(() => { if (mounted && !isSettingsOpen()) $('#btnSettings').focus(); });
   }
 
   function renderSettings() {
@@ -100,10 +110,11 @@ function createPopoverSettingsDrawer({
     const saveLine = $('#settingsSaveStatus');
     if (saveLine) saveLine.textContent = saveStatusCopy();
     const feedbackLine = $('#energyCalibrationFeedback');
-    if (feedbackLine && calibrationFeedbackSource) feedbackLine.textContent = t(calibrationFeedbackSource);
+    if (feedbackLine) feedbackLine.textContent = t(calibrationFeedbackSource);
     const resetButton = $('#btnResetEnergyCalibration');
     if (resetButton) resetButton.textContent = pendingCalibrationReset ? t('真的重置') : t('重置校准');
     const s = state.settings;
+    $('#aiPrivacyStatus').textContent = describeAiDisclosure(state.ai);
     const key = `${getLocale()}|${s.pomodoroMinutes}|${s.breakMinutes}|${s.softReminderEvery}|${s.hydrationEvery}`
       + `|${s.workStartHour}|${s.workEndHour}|${s.workEndReminder}|${s.adhocTtlMode}|${s.adhocTtlHours}`
       + `|${s.motionMode}|${s.stimulationMode}|${s.petActivityMode}|${s.soundEnabled}`
@@ -124,6 +135,10 @@ function createPopoverSettingsDrawer({
     $('#setBreak').textContent = s.breakMinutes;
     $('#setSoft').textContent = s.softReminderEvery;
     $('#setHydration').textContent = s.hydrationEvery;
+    $$('[data-setting]').forEach(button => {
+      const patch = settingsStepperPatch(button.dataset.setting, Number(button.dataset.delta), s, sessionDuration);
+      button.disabled = Object.entries(patch).every(([name, value]) => s[name] === value);
+    });
 
     // 工作时间
     const ws = $('#setWorkStart'), we = $('#setWorkEnd');
@@ -179,7 +194,6 @@ function createPopoverSettingsDrawer({
     }
     aiConfiguration.render();
     renderCalibrationStatus(state);
-    $('#aiPrivacyStatus').textContent = describeAiDisclosure(state.ai);
     renderExpiryPreview();
   }
 
@@ -191,7 +205,7 @@ function createPopoverSettingsDrawer({
     if (!line) return;
     const curve = state.energyCurve;
     if (!curve) {
-      line.textContent = t('曲线关着：今天页和时间线都不画它，也不再学你的作息。');
+      line.textContent = t('曲线已关闭，作息校准已暂停。');
       return;
     }
     const seen = Number.isFinite(curve.observations) ? curve.observations : 0;
@@ -204,7 +218,7 @@ function createPopoverSettingsDrawer({
   // 旗标要清掉,否则下次展开时一按就生效。
   async function pressResetCalibration() {
     const button = $('#btnResetEnergyCalibration');
-    if (!button) return;
+    if (!button || calibrationBusy || !mounted) return;
     if (!pendingCalibrationReset) {
       pendingCalibrationReset = true;
       button.textContent = t('真的重置');
@@ -212,15 +226,32 @@ function createPopoverSettingsDrawer({
       return;
     }
     clearPendingCalibrationReset();
-    const result = await surfaceClient.resetEnergyCalibration();
+    calibrationBusy = true;
+    button.disabled = true;
+    const ticket = { lifetime, visit: calibrationVisit };
+    const owns = () => mounted && ticket.lifetime === lifetime;
+    calibrationFeedbackSource = '正在保存…';
     const feedback = $('#energyCalibrationFeedback');
-    if (!feedback) return;
-    calibrationFeedbackSource = !result || !result.ok
-      ? '没能重置，稍后再试。'
-      : result.changed
-        ? '已丢掉学到的参数，曲线回到未校准的样子。'
-        : '本来就没学过什么，没有可丢的。';
-    feedback.textContent = t(calibrationFeedbackSource);
+    if (feedback) feedback.textContent = t(calibrationFeedbackSource);
+    try {
+      const result = await surfaceClient.resetEnergyCalibration();
+      if (!owns() || ticket.visit !== calibrationVisit) return;
+      calibrationFeedbackSource = !result?.ok
+        ? '没能重置，稍后再试。'
+        : result.changed
+          ? '校准已重置。'
+          : '暂无校准数据。';
+    } catch (_) {
+      if (!owns() || ticket.visit !== calibrationVisit) return;
+      calibrationFeedbackSource = '没能重置，稍后再试。';
+    } finally {
+      if (owns()) {
+        calibrationBusy = false;
+        button.disabled = false;
+        if (ticket.visit !== calibrationVisit) calibrationFeedbackSource = '';
+        if (feedback) feedback.textContent = t(calibrationFeedbackSource);
+      }
+    }
   }
 
   function clearPendingCalibrationReset() {
@@ -242,30 +273,42 @@ function createPopoverSettingsDrawer({
     return t('{outbound} · 密钥只存系统安全存储', { outbound });
   }
 
-  async function saveSettings(patch) {
-    const ticket = { request: ++saveRequest, lifetime };
-    const owns = () => mounted && ticket.request === saveRequest && ticket.lifetime === lifetime;
+  function renderSaveStatus() {
+    const operations = [...new Set(settingSaves.values())];
+    const failed = operations.some(operation => operation.state === 'error');
+    const pending = operations.some(operation => operation.state === 'saving');
+    const warnings = operations.map(operation => operation.warning);
+    const warning = formatAuthorizationWarning(...warnings);
+    saveStatusCopy = () => {
+      const currentWarning = formatAuthorizationWarning(...warnings);
+      if (failed) return [t('未保存，请重试'), currentWarning].filter(Boolean).join(' · ');
+      if (currentWarning) return t('设置已保存；{warning}', { warning: currentWarning });
+      return pending ? t('正在保存…') : '';
+    };
     const line = $('#settingsSaveStatus');
-    saveStatusCopy = () => t('正在保存…');
-    if (line) { line.textContent = saveStatusCopy(); line.dataset.state = 'saving'; }
+    if (line) {
+      line.textContent = saveStatusCopy();
+      line.dataset.state = failed ? 'error' : warning ? 'warning' : pending ? 'saving' : 'saved';
+    }
+  }
+
+  async function saveSettings(patch) {
+    const ticket = { request: ++saveRequest, lifetime, state: 'saving', warning: null };
+    const keys = Object.keys(patch);
+    for (const key of keys) settingSaves.set(key, ticket);
+    const owns = () => mounted && ticket.lifetime === lifetime && keys.some(key => settingSaves.get(key) === ticket);
+    renderSaveStatus();
     try {
       const result = await surfaceClient.updateSettings(patch);
-      if (result?.ok === false) throw new Error('rejected');
-      if (line && owns()) {
-        const warning = formatAuthorizationWarning(result?.authorizationWarning);
-        saveStatusCopy = () => {
-          const currentWarning = formatAuthorizationWarning(result?.authorizationWarning);
-          return currentWarning ? t('设置已保存；{warning}', { warning: currentWarning }) : '';
-        };
-        line.textContent = saveStatusCopy();
-        line.dataset.state = warning ? 'warning' : 'saved';
+      if (result?.ok !== true) throw new Error('rejected');
+      if (owns()) {
+        ticket.state = 'saved';
+        ticket.warning = result?.authorizationWarning;
+        renderSaveStatus();
       }
       return result;
     } catch (_) {
-      if (line && owns()) {
-        saveStatusCopy = () => t('未保存，请重试');
-        line.textContent = saveStatusCopy(); line.dataset.state = 'error';
-      }
+      if (owns()) { ticket.state = 'error'; renderSaveStatus(); }
       return { ok: false };
     }
   }
@@ -282,22 +325,10 @@ function createPopoverSettingsDrawer({
 
     // Settings steppers
     $$('[data-setting]').forEach(btn => listen(btn, 'click', async () => {
-      const key = btn.dataset.setting;
-      const delta = parseInt(btn.dataset.delta, 10);
-      const patch = {};
+      if (btn.disabled) return;
       const s = getState().settings;
-      const curStart = s.workStartHour !== undefined ? s.workStartHour : 10;
-      const curEnd = s.workEndHour !== undefined ? s.workEndHour : 21;
-      if (key === 'pomodoro') {
-        patch.pomodoroMinutes = sessionDuration.clampFocusMinutes(s.pomodoroMinutes + delta);
-      }
-      if (key === 'break') patch.breakMinutes = Math.max(1, Math.min(30, s.breakMinutes + delta));
-      if (key === 'softReminder') patch.softReminderEvery = Math.max(5, Math.min(60, s.softReminderEvery + delta));
-      if (key === 'hydration') patch.hydrationEvery = Math.max(15, Math.min(180, s.hydrationEvery + delta));
-      if (key === 'focusMaxLevel') patch.focusMaxLevel = Math.max(1, Math.min(4, (s.focusMaxLevel || 2) + delta));
-      if (key === 'restMaxLevel') patch.restMaxLevel = Math.max(1, Math.min(4, (s.restMaxLevel || 4) + delta));
-      if (key === 'workStart') patch.workStartHour = Math.max(0, Math.min(curEnd - 1, curStart + delta));
-      if (key === 'workEnd') patch.workEndHour = Math.max(curStart + 1, Math.min(24, curEnd + delta));
+      const patch = settingsStepperPatch(btn.dataset.setting, Number(btn.dataset.delta), s, sessionDuration);
+      if (Object.entries(patch).every(([name, value]) => s[name] === value)) return;
       await saveSettings(patch);
     }));
 
@@ -318,7 +349,7 @@ function createPopoverSettingsDrawer({
     // 那颗写着「真的重置」的按钮下次展开时会一按就生效，这不是用户按下去的东西。
     listen($('#settingGroupPlanning'), 'toggle', event => {
       const group = event && event.currentTarget;
-      if (group && group.open === false) clearPendingCalibrationReset();
+      if (group && group.open === false) { clearPendingCalibrationReset(); calibrationVisit++; }
     });
 
     $$('.motion-mode, .stimulation-mode, .pet-activity-mode').forEach(button => listen(button, 'click', async () => {
@@ -360,6 +391,7 @@ function createPopoverSettingsDrawer({
     interfaceSettings.mount();
     aiConfiguration.mount();
     desktopUpdates.mount();
+    aiDiagnostics.mount();
   }
 
   function dispose() {
@@ -369,9 +401,15 @@ function createPopoverSettingsDrawer({
     interfaceSettings.dispose();
     aiConfiguration.dispose();
     desktopUpdates.dispose();
+    aiDiagnostics.dispose();
     while (teardown.length) teardown.pop()();
     lastSettingsKey = '';
+    settingSaves.clear(); saveStatusCopy = () => '';
     pendingCalibrationReset = false;
+    calibrationBusy = false;
+    calibrationFeedbackSource = '';
+    const resetButton = $('#btnResetEnergyCalibration');
+    if (resetButton) resetButton.disabled = false;
   }
 
   return Object.freeze({

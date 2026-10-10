@@ -79,7 +79,8 @@ test('proposal state and pending sync stay visible while record identifiers use 
   assert.equal(state, '任务与日常 · 已提交 · 时间线待同步');
   const disclosure = h.log().match(/<details\b([^>]*)>(.*?)<\/details>/s);
   assert.ok(disclosure); assert.doesNotMatch(disclosure[1], /\bopen\b|\bhidden\b|tabindex="-1"/);
-  assert.match(disclosure[2], /^<summary>记录详情<\/summary>/);
+  assert.match(disclosure[1], /class="chat-proposal-note disclosure"/);
+  assert.match(disclosure[2], /^<summary><svg class="disclosure-icon"[^>]*stroke-width="1\.5"[^>]*><path[^>]*\/><\/svg><span data-chat-copy="\d+">记录详情<\/span><\/summary>/);
   for (const detail of ['receipt-p1', '当前版本 2', 'target-p1']) assert.ok(disclosure[2].includes(detail), detail);
 });
 
@@ -109,4 +110,25 @@ test('real draft feature re-queries canonical statuses after close/resume and pa
   feature.close(); receipt = true; await feature.resume('c1'); await tick(); assert.match(dom.$('#draftChatLog').innerHTML, /receipt-p200/);
   dom.fire('#btnDraftChatEarlier', 'click'); await tick(); assert.match(dom.$('#draftChatLog').innerHTML, /receipt-p0/);
   assert.ok(calls.every(call => call.proposalIds.length <= 50 && call.conversationId === 'c1')); feature.dispose();
+});
+
+// A narrow DOM double verifies the production locale repaint boundary; browser input/layout is separate.
+test('record-details locale repaint updates the label without replacing the native summary subtree', async () => {
+  const { setLocale, t } = require('../src/surfaces/shared/interface/i18n.mjs');
+  setLocale('zh-CN');
+  try {
+    const h = harness(); await h.controller.refresh();
+    const spans = [...h.log().matchAll(/<span data-chat-copy="(\d+)">(.*?)<\/span>/gs)]
+      .map(([, id, textContent]) => ({ dataset: { chatCopy: id }, textContent }));
+    const label = spans.find(node => node.textContent === '记录详情');
+    assert.ok(label);
+    const summary = { set textContent(_) { assert.fail('locale repaint must not replace summary children'); } };
+    h.dom.$('#draftChatLog').querySelectorAll = selector => selector === '[data-chat-copy]' ? spans
+      : selector === '[data-chat-copy-aria]' ? [] : [summary];
+    setLocale('en'); h.view.repaintCopy();
+    assert.equal(label.textContent, t('记录详情'));
+    assert.notEqual(label.textContent, '记录详情');
+    setLocale('zh-CN'); h.view.repaintCopy();
+    assert.equal(label.textContent, '记录详情');
+  } finally { setLocale('zh-CN'); }
 });

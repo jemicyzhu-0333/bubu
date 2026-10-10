@@ -2,7 +2,7 @@ import { onLocaleChanged, t } from '../../shared/interface/i18n.mjs';
 
 // One top-layer tooltip for static and projection-rendered help, without moving form layout.
 function createHelpTooltips(document) {
-  let popup, owner, previousDescription, previousExpanded, timer;
+  let popup, owner, previousDescription, previousExpanded, timer, sourceObserver;
   const cleanup = [];
   const view = document.defaultView;
   const listen = (node, type, fn, options) => {
@@ -11,6 +11,7 @@ function createHelpTooltips(document) {
   };
   function hide() {
     clearTimeout(timer);
+    sourceObserver?.disconnect();
     if (!owner) return;
     if (previousDescription) owner.setAttribute('aria-describedby', previousDescription);
     else owner.removeAttribute('aria-describedby');
@@ -45,6 +46,7 @@ function createHelpTooltips(document) {
     summary.setAttribute('aria-expanded', 'true');
     (summary.closest('dialog') || document.body).appendChild(popup);
     paint(); popup.showPopover(); paint();
+    sourceObserver?.observe(source, { childList: true, characterData: true, subtree: true });
   }
   function summaryFor(target) {
     return target?.closest?.('.inline-help')?.querySelector('summary')
@@ -52,6 +54,7 @@ function createHelpTooltips(document) {
   }
   function mount() {
     if (!document.createElement || !document.body?.appendChild || !view) return;
+    if (view.MutationObserver) sourceObserver = new view.MutationObserver(paint);
     popup = document.createElement('div');
     popup.id = 'panelHelpTooltip'; popup.className = 'help-tooltip'; popup.popover = 'manual';
     popup.setAttribute('role','tooltip'); document.body.appendChild(popup);

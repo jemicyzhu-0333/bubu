@@ -301,3 +301,33 @@ test('owner-only invalidation inside the charge clock blocks POST after accounti
   assert.equal(attemptClocks, 2); assert.equal(posts, 0); assert.equal(fallbacks, 0);
   checkCleanup(result.cleanup);
 });
+
+test('optional failure observation distinguishes deadline from cancellation without changing the result union', async () => {
+  for (const cancel of [false, true]) {
+    const h = harness(), controller = new AbortController(), observed = [];
+    const noFallback = { id: 'none', run: async () => { throw Error('no-local-fallback'); } };
+    const pending = h.run(remote((_task, _input, options) => {
+      options.beforeRequest(); return new Promise(() => {});
+    }), noFallback, 'capture-triage', {}, { signal: controller.signal, assertCurrent: owner,
+      onFailure: value => observed.push(value) });
+    await flush(); if (cancel) controller.abort(); else h.advance(100);
+    const result = await pending;
+    checkFailure(result, cancel ? 'provider-request-aborted' : 'no-local-fallback');
+    assert.deepEqual(observed, [{ reason: cancel ? 'provider-request-aborted' : 'provider-timeout' }]);
+    assert.ok(Object.isFrozen(observed[0]));
+  }
+});
+
+test('failure observations never include private remote diagnostics and observer faults do not retry', async () => {
+  for (const failObserver of [false, true]) {
+    const h = harness(), observed = []; let calls = 0;
+    const error = new Error('Synthetic private provider response https://private.invalid');
+    const result = await h.run(remote((_task, _input, options) => {
+      calls++; options.beforeRequest(); throw error;
+    }), local, 'capture-triage', {}, { assertCurrent: owner, onFailure(value) {
+      observed.push(value); if (failObserver) throw Error('Synthetic observer fault');
+    } });
+    assert.equal(calls, 1); assert.equal(result.ok, true); assert.equal(result.fallback, true);
+    assert.deepEqual(observed, [{ reason: 'provider-failed' }]);
+  }
+});

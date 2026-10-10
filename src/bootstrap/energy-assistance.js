@@ -1,6 +1,6 @@
 'use strict';
 
-const { guidance, preferences } = require('../capabilities');
+const { guidance, preferences, work } = require('../capabilities');
 const {
   createAnalyzeImpulseEnergyWorkflow,
   createInboxTimelineEffects,
@@ -21,7 +21,7 @@ function createEnergyAssistance({
   readSnapshot,
   clock,
   getSettings,
-  requestScope,
+  requestScope, diagnostics,
   credentialStore,
   timeoutMs,
   trace,
@@ -77,7 +77,7 @@ function createEnergyAssistance({
     trace
   });
   const impulseWorkflow = createAnalyzeImpulseEnergyWorkflow({
-    requestScope,
+    requestScope, diagnostics,
     unitOfWork,
     readSnapshot,
     clock,
@@ -87,11 +87,12 @@ function createEnergyAssistance({
   });
 
   const triageWorkflow = createTriageCaptureWorkflow({
-    requestScope,
+    requestScope, diagnostics,
     unitOfWork,
     readSnapshot,
     clock,
     triage: classifier.triage,
+    publishStatus: () => publishChange({ impulses: true }),
     publish: () => publishChange({ impulses: true }),
     reportEffectError: error => reportEffectError(error, 'capture-triage')
   });
@@ -119,7 +120,17 @@ function createEnergyAssistance({
     reportEffectError: error => reportEffectError(error, 'wellbeing')
   });
 
-  function register(registerIpc) {
+  function createCaptureCommand({ idFactory, feedback = () => {} }) {
+    return work.captureImpulse.createCaptureImpulseCommand({
+      unitOfWork, clock, idFactory,
+      publish: fact => { publishCapturedImpulse(fact); feedback(); },
+      reportEffectError: error => reportEffectError(error, 'impulses:add')
+    });
+  }
+
+  function register(registerIpc, lifecycle) {
+    lifecycle?.register('ai:capture-triage-status', triageWorkflow.dispose);
+    diagnostics?.register(registerIpc, lifecycle);
     if (typeof registerIpc !== 'function') throw new TypeError('energy assistance requires an IPC registrar');
     registerIpc('energy:set-wake', (_event, payload) => {
       const result = setWakeTime.execute(payload);
@@ -132,7 +143,8 @@ function createEnergyAssistance({
     });
   }
 
-  return Object.freeze({ publishCapturedImpulse, register });
+  return Object.freeze({ publishCapturedImpulse, register, createCaptureCommand, readCaptureTriageStatus: triageWorkflow.readStatus,
+    dispose: triageWorkflow.dispose });
 }
 
 module.exports = { createEnergyAssistance };

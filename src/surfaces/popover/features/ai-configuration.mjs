@@ -92,6 +92,10 @@ function createAiConfiguration({ $, document, getState, surfaceClient }) {
       status.textContent = feedbackCopy();
       status.dataset.state = feedbackState;
     }
+    for (const id of ['aiImportCredential', 'aiClearCredential']) {
+      const action = $(`#${id}`);
+      if (action) action.disabled = saving;
+    }
     const button = $('#aiSaveConfig');
     if (button) {
       button.disabled = saving;
@@ -168,6 +172,7 @@ function createAiConfiguration({ $, document, getState, surfaceClient }) {
   function finish(ticket) {
     if (!owns(ticket)) return;
     saving = false;
+    repaintFeedback();
     const button = $('#aiSaveConfig');
     if (button) {
       button.disabled = false;
@@ -203,7 +208,7 @@ function createAiConfiguration({ $, document, getState, surfaceClient }) {
       const result = await surfaceClient.updateSettings({ aiModel: model, aiBaseUrl: baseUrl || null });
       // A remount cannot revive this continuation or submit its captured secret.
       if (!owns(ticket)) return;
-      if (result?.ok === false) throw new Error('settings-rejected');
+      if (result?.ok !== true) throw new Error('settings-rejected');
       settingsSaved = true;
       warnings.push(result?.authorizationWarning);
       acknowledged = {
@@ -261,7 +266,7 @@ function createAiConfiguration({ $, document, getState, surfaceClient }) {
       committed = result?.ok === true;
       const projectionUnavailable = !acknowledgeCredential(result);
       if (!owns(ticket)) return;
-      const failed = result?.ok === false;
+      const failed = result?.ok !== true;
       const text = failed
         ? kind === 'import' ? '未导入 · 环境变量或安全存储不可用' : '未清除 · 系统安全存储不可用'
         : dirty ? kind === 'import' ? '密钥已导入 · 其他修改待保存' : '密钥已清除 · 其他修改待保存'
@@ -285,7 +290,7 @@ function createAiConfiguration({ $, document, getState, surfaceClient }) {
     teardown.push(onLocaleChanged(() => { repaintFeedback(); repaintRouting(); }));
     lifetime++;
     saving = false;
-    feedback(dirty ? '修改待保存' : '已保存', dirty ? 'dirty' : 'saved');
+    feedback(dirty ? '修改待保存' : '', dirty ? 'dirty' : 'saved');
     for (const id of fieldIds) {
       listen(id, 'input', () => {
         connectionTest.cancel({ clear: true });
@@ -295,7 +300,7 @@ function createAiConfiguration({ $, document, getState, surfaceClient }) {
         feedback('修改待保存', 'dirty');
       });
       listen(id, 'keydown', event => {
-        if (event.key === 'Enter') {
+        if (event.key === 'Enter' && !event.isComposing && event.keyCode !== 229) {
           event.preventDefault();
           void save();
         }

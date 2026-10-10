@@ -282,3 +282,52 @@ test('locale repaint preserves inbox history row, armed source deletion and focu
   assert.match(article.innerHTML, /Synthetic private source/);
   setLocale('zh-CN'); assert.match(button.textContent, /确认删除这条情绪/);
 });
+
+
+test('failed overflow action returns focus to its visible summary, not a hidden button', async () => {
+  const h = fixture();
+  h.state.impulses = [{ id: 'pending', text: 'Synthetic pending note', createdAt: 1000 }];
+  h.feature.renderList();
+  const article = h.$('#impulseList').children[0];
+  const remove = article.querySelector('[data-inbox-action="delete"]');
+  const options = { open: true }, summary = { focused: 0, focus() { this.focused++; h.document.activeElement = this; } };
+  const query = article.querySelector.bind(article), closest = remove.closest.bind(remove);
+  article.querySelector = selector => selector === '.inbox-options' ? options
+    : selector === '.inbox-options > summary' ? summary : query(selector);
+  remove.closest = selector => selector === '.inbox-options' ? options : closest(selector);
+  remove.focus = () => { if (options.open) h.document.activeElement = remove; };
+  h.document.activeElement = remove;
+  h.clickAction('pending', 'delete');
+  assert.equal(options.open, false);
+  h.deletes[0].resolve({ ok: false }); await tick();
+  assert.equal(summary.focused, 1, 'a closed disclosure cannot focus its hidden action');
+});
+
+test('triage status refresh preserves a manual title draft, input focus and selection without a command', t => {
+  const dom = domFixture(); let commands = 0;
+  const state = { impulses: [{ id: 'synthetic-status', text: 'Synthetic capture', createdAt: 1000,
+    triageStatus: { state: 'running', reason: 'running' } }], routines: { items: [] }, moodNotes: [],
+    inboxHistoryTotal: 0, inboxHistoryCountVersion: 1 };
+  const feature = createPopoverInboxFeature({ ...dom, getState: () => state, escapeHTML: String,
+    openBreakdown() {}, surfaceClient: { organizeImpulse() { commands++; } } });
+  feature.mount(); feature.renderList(); t.after(() => feature.dispose());
+  const article = dom.$('#impulseList').children[0];
+  const control = selector => ({ closest: () => article, matches: candidate => candidate === selector });
+  dom.fire('impulseList', 'change', { target: { ...control('.inbox-category'), value: 'routine' } });
+  dom.fire('impulseList', 'change', { target: { ...control('.inbox-kind'), value: 'custom' } });
+  const old = { ...control('.inbox-title'), value: 'Synthetic edited activity', selectionStart: 2, selectionEnd: 9,
+    selectionDirection: 'backward', contains: target => target === old, querySelectorAll: () => [], dataset: {} };
+  article.children.push(old); dom.document.activeElement = old;
+  dom.fire('impulseList', 'input', { target: old });
+  const replacement = { focus() { dom.document.activeElement = replacement; },
+    setSelectionRange(...selection) { this.selection = selection; } };
+  const originalQuery = article.querySelector.bind(article);
+  article.querySelector = selector => selector === '.inbox-title' ? replacement : originalQuery(selector);
+  state.impulses[0] = { ...state.impulses[0], triageStatus: { state: 'failed', reason: 'provider-timeout' } };
+  feature.renderList();
+  assert.equal(dom.document.activeElement, replacement);
+  assert.deepEqual(replacement.selection, [2, 9, 'backward']);
+  assert.match(article.innerHTML, /Synthetic edited activity/);
+  assert.match(article.innerHTML, /未保存/); assert.doesNotMatch(article.innerHTML, /inbox-triage-help/);
+  assert.equal(commands, 0);
+});

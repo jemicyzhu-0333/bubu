@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('node:fs');
+const { createAiDiagnosticsRuntime } = require('./ai-diagnostics');
 const { beginPreferencesUpgrade } = require('./preferences-upgrade');
 const path = require('node:path');
 const { isDevProfile, profileUserDataPath } = require('../core/runtime-profile');
@@ -107,10 +108,12 @@ function createApplication({
     const memoryAuthority = openMemoryAuthority({ factStore, storage: collaborationStorage, userDataPath,
       now: () => Date.now(), idFactory: kind => `${kind}-${randomUUID()}` });
     resources.push(memoryAuthority);
-    const requestScope = createProviderRequestScope();
+    const diagnostics = createAiDiagnosticsRuntime({ readSnapshot: () => stateRepository.snapshot() });
+    resources.push(diagnostics);
+    const requestScope = createProviderRequestScope({ onInvalidate: diagnostics.stop });
     resources.push(requestScope);
     return Object.freeze({ status: 'primary-instance', profile, userDataPath, appHost,
-      stateRepository, credentialStore, collaborationStorage, factStore, closeStorage, memoryAuthority, requestScope });
+      stateRepository, credentialStore, collaborationStorage, factStore, closeStorage, memoryAuthority, requestScope, diagnostics });
   } catch (error) {
     closeStorage();
     if (resources.length === 0 && error?.message === 'config-payload-current-schema-required') {

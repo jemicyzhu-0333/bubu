@@ -371,7 +371,8 @@ test('the reminder surfaces receive real actions and live sensory updates', () =
   const corner = read('src/renderer/nudge-corner.html');
   const preload = read('src/preload-nudge.js');
   assert.match(corner, /Array\.isArray\(data\.actions\)/);
-  assert.match(corner, /dismissNudge\(action\.id \|\| 'dismiss'\)/);
+  assert.match(corner, /reminderActions\.run\(action\.id \|\| 'dismiss'\)/);
+  assert.match(corner, /dismiss: action => window\.bubu\.dismissNudge\(action\)/);
   assert.match(preload, /ipcRenderer\.on\('nudge:focus-controls'/);
   assert.match(preload, /ipcRenderer\.on\('nudge:sensory-profile'/);
   assert.match(corner, /window\.bubu\.onNudgeFocus/);

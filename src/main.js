@@ -7,7 +7,7 @@ const { adaptLegacyPetContent } = require('./core/content-pack');
 const {
   createApplication, createAiCollaboration, createDomainId, createPlanningPreferences,
   createBootstrapRuntime, createProposalAssistance, registerNudgeActions,
-  createCompanionMeals, createRendererIpcRegistrar, createCompanionFoodShop, createCompanionFeeding, createGrowthPublisher, createPreferencesPublisher,
+  createCompanionMeals, createCompanionWardrobe, createRendererIpcRegistrar, createCompanionFoodShop, createCompanionFeeding, createGrowthPublisher, createPreferencesPublisher,
   createEnergyAssistance, createInboxOrganization, createActivityMirror, createPrivateTaskNotifications, energyCurveLevelNow, registerAiCancellation, createTaskUndo,
   createSittingReminderTimer, createCurrentEnergyReader,
   createWorkBoundaryReminder,
@@ -241,7 +241,7 @@ const selectSkinCommand = companionCapability.selectSkin.createSelectSkinCommand
 });
 // 佩戴与换皮肤走同一条通报路径,因为它们改变的是同一件事:宠物现在长什么样。
 // 差别只在托盘图标——图标画的是心情与皮肤,不含配饰,所以这里不重画托盘。
-const equipAppearanceCommand = companionCapability.equipAppearance.createEquipAppearanceCommand({
+const companionWardrobe = createCompanionWardrobe({
   unitOfWork: stateUnitOfWork,
   clock: { now: () => Date.now() },
   items: petContent.PET_APPEARANCE_ITEMS,
@@ -368,7 +368,7 @@ const aiTimeoutMs = Number(process.env.BUBU_AI_TIMEOUT_MS) || undefined;
 // 重启后重新协商，以适应端点网关的变化。
 const llmProtocolMemory = new Map();
 const energyAssistance = createEnergyAssistance({
-  requestScope: application.requestScope,
+  requestScope: application.requestScope, diagnostics: application.diagnostics,
   unitOfWork: stateUnitOfWork,
   capturePlanningEstimate: (snapshot, at) => planningPreferences.captureEstimate(snapshot, at),
   readSnapshot: () => store.snapshot(),
@@ -383,13 +383,7 @@ const energyAssistance = createEnergyAssistance({
   notify: payload => showNotification({ ...payload, delivery: 'companion' }),
   reportEffectError: (error, channel) => reportWindowDeliveryError(error, { channel })
 });
-const captureImpulseCommand = work.captureImpulse.createCaptureImpulseCommand({
-  unitOfWork: stateUnitOfWork,
-  clock: { now: () => Date.now() },
-  idFactory: createDomainId,
-  publish: fact => { energyAssistance.publishCapturedImpulse(fact); quickPanelHost.feedback('saved'); },
-  reportEffectError: error => reportWindowDeliveryError(error, { channel: 'impulses:add' })
-});
+const captureImpulseCommand = energyAssistance.createCaptureCommand({ idFactory: createDomainId, feedback: () => quickPanelHost.feedback('saved') });
 // 请求策略的只有两个按钮，所以这里只留 selectStrategy 在“用户明确要”这一形状下真正会读
 // 的那一份——最近出现过哪几条。每日额度与冷却阶梯是给主动推送的调用方准备的，那种调用方
 // 目前不存在（主动出现的演出走 surprise-director），而由点击去写它们的账本会反过来压住将
@@ -1286,7 +1280,7 @@ const startHydrationTimer = createSittingReminderTimer({
 
 // ============ BREAKDOWN ============
 const proposalPreview = createProposalAssistance({
-  requestScope: application.requestScope,
+  requestScope: application.requestScope, diagnostics: application.diagnostics,
   getSettings, readTasks: () => store.snapshot().tasks, credentialStore, proposalStore,
   presentExpression: petTellExpression, cancelExpression: petCancelExpression,
   scheduleWaiting: (id, callback, delay) => lifecycle.timeout(
@@ -1343,12 +1337,13 @@ const popoverStateQuery = createPopoverStateQuery({
   clock: { now: () => Date.now(), dayKey: timestamp => localDayKey(timestamp) }, skins: SKINS, foods: FOODS, credentialStore,
   appearanceItems: petContent.PET_APPEARANCE_ITEMS,
   aiDisclosure, schemaVersion: PERSISTED_SCHEMA_VERSION, countInboxHistory: impulses => inboxOrganization.historyTotal(impulses),
-  readActivityMirror: () => activityMirror.projection(), readStorageStatus: () => store.authoritativeWrites.status()
+  readActivityMirror: () => activityMirror.projection(), readStorageStatus: () => store.authoritativeWrites.status(),
+  readCaptureTriageStatus: energyAssistance.readCaptureTriageStatus
 });
 const surfacePublisher = createSurfacePublisher({
   readSample: surfaceReads.sample, projectPopover: popoverStateQuery.project,
   projectPet: (sample, revision) => projectPetContext(sample, petProjectionOptions(revision)),
-  reconcileReminders: () => nudge.reconcileRoutineReminders(),
+  reconcileReminders: () => nudge.reconcileRoutineReminders(), reconcileDiagnostics: application.diagnostics.reconcile,
   sendPopover: payload => safeWindowSend(popover, 'state:diff', payload),
   sizeQuick: view => { if (impulseWindow?.isVisible()) impulseWindow.setMode(view); },
   sendQuick: payload => safeWindowSend(impulseWindow, 'state:diff', payload),
@@ -1587,7 +1582,7 @@ registerIpc('ai:suggest-unstick', async (_, payload) => {
 // Shared collaboration owns profile-scoped sessions and compatibility routes.
 aiCollaboration.register(registerIpc, { updatePreferencesCommand });
 const applyGuidanceProposal = createApplyGuidanceProposalWorkflow({
-  proposalStore, updateWorkItemWorkflow, createWorkItemCommand, consumeBreakdownProposal,
+  proposalStore, updateWorkItemWorkflow, createWorkItemCommand, consumeBreakdownProposal, diagnostics: application.diagnostics,
   reportEffectError: error => reportWindowDeliveryError(error, { channel: 'proposal:applied' })
 });
 registerIpc('tasks:apply-proposal', (_, payload) => applyGuidanceProposal.execute(payload));
@@ -1694,7 +1689,7 @@ registerIpc('energy:check-in', (_, checkIn) => {
   if (!result.ok) return result;
   return { ok: true, estimate: buildRecommendations(2).energy };
 });
-energyAssistance.register(registerIpc);
+energyAssistance.register(registerIpc, lifecycle);
 planningPreferences.register(registerIpc);
 // 丢掉学到的参数,曲线回到未校准的样子。changed=false 是"本来就没学过",
 // 面板要能把这两种结果说成不同的话。
@@ -1706,8 +1701,7 @@ registerIpc('skin:switch', (_, skinId) => {
 });
 // 这两条把 reason 原样交回面板,和 skin:switch 只回 boolean 不同:换皮肤在面板上只有
 // 已解锁的皮肤可点,失败只能是并发;佩戴则可能撞上等级回退或目录变动,面板得说清是哪一种。
-registerIpc('appearance:equip', (_, payload) => equipAppearanceCommand.equip(payload));
-registerIpc('appearance:reset', () => equipAppearanceCommand.reset());
+companionWardrobe.register(registerIpc);
 companionFoodShop.register(registerIpc);
 // 日常的五条。前三条改清单,后两条记一次「做了/跳过」以及撤回。打卡这条的白名单里
 // 还有两个 nudge surface —— 提醒卡上的「已完成」必须能直接落账,否则用户点了卡片、

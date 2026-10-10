@@ -52,7 +52,7 @@ function createDom() {
   const nodes = {};
   for (const selector of ['#routinesStrip', '#routinesCount', '#routinesTileSub', '#btnManageRoutines', '#routineRows',
     '#routineQuick', '#routineQuickChips', '#routinesStatus', '#routinesManage', '#routineTitle',
-    '#routineKind', '#routineFrequency', '#routineWeekdayRow', '#routineTimeRow', '#routineTimes',
+    '#routineKind', '#routineCustomLabel', '#routineCustomLabelText', '#routineFrequency', '#routineWeekdayRow', '#routineTimeRow', '#routineTimes',
     '#routineFormStatus', '#btnAddRoutine', '#routineManageList']) {
     nodes[selector] = element(selector);
   }
@@ -95,7 +95,7 @@ function button({ id = '', act = '', routine = '', occurrence = '', weekday = ''
   return node;
 }
 
-function createHarness({ items = [], occurrences = [], counts = null, remindersEnabled = true } = {}) {
+function createHarness({ items = [], occurrences = [], counts = null, remindersEnabled = true, client = {} } = {}) {
   const dom = createDom();
   const calls = [];
   const state = {
@@ -130,7 +130,8 @@ function createHarness({ items = [], occurrences = [], counts = null, remindersE
       updateRoutine: record('updateRoutine'),
       removeRoutine: record('removeRoutine'),
       logRoutine: record('logRoutine'),
-      undoRoutineLog: record('undoRoutineLog')
+      undoRoutineLog: record('undoRoutineLog'),
+      ...client
     }
   });
   feature.mount({ subscribe: () => () => undefined });
@@ -369,4 +370,70 @@ test('the feature refuses to be built without its scoped dependencies', () => {
     document: dom.document, $: dom.$, getState: () => ({}), escapeHTML, surfaceClient: {}
   });
   assert.throws(() => feature.mount({}), /projection store/);
+});
+
+
+test('manual-only routines expose reminder setup without claiming an active reminder', () => {
+  const harness = createHarness({ items: [{ id: 'manual', title: '填报', kind: 'custom', active: true, schedule: null }] });
+  assert.match(harness.manage(), /仅手动记录/);
+  assert.match(harness.manage(), />设置提醒<\/button>/);
+  assert.doesNotMatch(harness.manage(), />提醒中<\/button>/);
+});
+
+
+test('an inbox-created custom routine can add a reminder without inventing a type label', async () => {
+  const h = createHarness({ items: [{ id: 'custom', title: '填报', kind: 'custom', schedule: null, active: true }] });
+  await h.click(button({ act: 'edit', routine: 'custom' }));
+  assert.equal(h.dom.nodes['#routineCustomLabelText'].textContent, '类型名称（可选）');
+  h.dom.nodes['#routineFrequency'].value = 'daily';
+  h.dom.nodes['#routineTimes'].value = '08:00';
+  await h.click(button({ id: 'btnAddRoutine' }));
+  assert.deepEqual(h.calls, [['updateRoutine', 'custom', {
+    title: '填报', schedule: { frequency: 'daily', timesOfDay: ['08:00'] }
+  }]]);
+});
+
+test('new custom kinds and clearing an existing type label still require the label', async () => {
+  for (const item of [null, { id: 'meal', title: '午餐', kind: 'meal' }, { id: 'named', title: '浇花', kind: 'custom', customLabel: '园艺' }]) {
+    const h = createHarness({ items: item ? [item] : [] });
+    if (item) await h.click(button({ act: 'edit', routine: item.id }));
+    h.dom.nodes['#routineTitle'].value = '名称';
+    h.dom.nodes['#routineKind'].value = 'custom';
+    h.dom.nodes['#routineCustomLabel'].value = '';
+    h.dom.nodes['#routineFrequency'].value = '';
+    await h.click(button({ id: 'btnAddRoutine' }));
+    assert.deepEqual(h.calls, []);
+    assert.match(h.status(), /给这个类型起个名字/);
+  }
+});
+
+
+test('quick routine logs deduplicate across controls while pending and retry failures', async () => {
+  let resolve, calls = 0;
+  const pending = new Promise(done => { resolve = done; });
+  const h = createHarness({ items: [{ id: 'water', title: 'Water', kind: 'water', active: true }],
+    client: { logRoutine: () => { calls++; return calls === 1 ? pending : Promise.resolve({ ok: true }); } } });
+  const first = h.click(button({ act: 'quick', routine: 'water' }));
+  await h.click(button({ act: 'quick', routine: 'water' })); assert.equal(calls, 1);
+  resolve({ ok: false }); await first;
+  assert.match(h.dom.$('#routinesStatus').textContent, /没记上/);
+  await h.click(button({ act: 'quick', routine: 'water' })); assert.equal(calls, 2); h.feature.dispose();
+});
+test('routine transport rejection is visible and disposed receipts are ignored', async () => {
+  let reject;
+  const pending = new Promise((_, no) => { reject = no; });
+  const h = createHarness({ client: { logRoutine: () => pending } });
+  const first = h.click(button({ act: 'quick', routine: 'water' }));
+  reject(new Error('offline')); await first; assert.match(h.dom.$('#routinesStatus').textContent, /暂未确认/);
+  h.feature.dispose();
+});
+
+test('routine form freezes editable fields while saving and restores them after refusal', async () => {
+  let finish; const pending = new Promise(resolve => { finish = resolve; });
+  const h = createHarness({ client: { addRoutine: () => pending } });
+  h.dom.$('#routineTitle').value = 'Water'; h.dom.$('#routineKind').value = 'water';
+  const saving = h.click(button({ id: 'btnAddRoutine' }));
+  assert.equal(h.dom.$('#routineTitle').disabled, true); assert.equal(h.dom.$('#btnAddRoutine').disabled, true);
+  finish({ ok: false }); await saving;
+  assert.equal(Boolean(h.dom.$('#routineTitle').disabled), false); assert.equal(h.dom.$('#routineTitle').value, 'Water'); h.feature.dispose();
 });

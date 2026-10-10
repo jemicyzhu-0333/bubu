@@ -343,3 +343,38 @@ test('incomplete native date input cannot clear a saved date or submit unrelated
   h.$('#editDeadline').validity = { badInput: false }; await h.save();
   assert.equal(h.calls[0][2].deadline, null);
 });
+
+test('missing edit and series receipts cannot report a successful save', async t => {
+  const h = harness(t, { updateTask: async () => null, updateSeries: async () => null });
+  h.open(task('A', { seriesId: 'series-A' })); h.scope(); h.change(); await h.save();
+  assert.equal(h.feature.isOpen(), true); assert.match(h.status(), /没有保存成功/);
+  await h.state('#editSeriesPause'); assert.equal(h.status(), 'Rejected: task-update-rejected');
+});
+
+test('disclosure summaries follow unsaved fields across input, change, locale and reopen without writes', context => {
+  const { setLocale, t } = require('../src/surfaces/shared/interface/i18n.mjs');
+  setLocale('zh-CN'); context.after(() => setLocale('zh-CN'));
+  const h = harness(context), original = task('A', { plannedFor: null, estimateMinutes: null, tags: [] });
+  h.open(original);
+  assert.equal(h.$('#editDatesSummary').textContent, t('未设置'));
+  h.$('#editDates').open = true; h.$('#editAttributes').open = true;
+  for (const [selector, value, event] of [['#editPlannedFor', '2026-10-20', 'input'], ['#editEstimate', '45', 'input'], ['#editTags', 'work, draft', 'change']]) {
+    h.$(selector).value = value; h.fire(selector, event);
+  }
+  assert.equal(h.$('#editDatesSummary').textContent, t('已安排'));
+  assert.equal(h.$('#editAttributesSummary').textContent, `${t('{minutes} 分钟', { minutes: 45 })} · ${t('{count} 个标签', { count: 2 })}`);
+  h.$('#editPlannedFor').focus(); const focus = h.document.activeElement;
+  setLocale('en');
+  assert.equal(h.$('#editDatesSummary').textContent, t('已安排'));
+  assert.equal(h.$('#editAttributesSummary').textContent, `${t('{minutes} 分钟', { minutes: 45 })} · ${t('{count} 个标签', { count: 2 })}`);
+  assert.equal(h.$('#editPlannedFor').value, '2026-10-20'); assert.equal(h.$('#editEstimate').value, '45');
+  assert.equal(h.$('#editDates').open, true); assert.equal(h.$('#editAttributes').open, true);
+  assert.equal(h.document.activeElement, focus); assert.equal(h.calls.length, 0);
+  assert.equal(original.plannedFor, null); assert.equal(original.estimateMinutes, null); assert.deepEqual(original.tags, []);
+  for (const selector of ['#editPlannedFor', '#editEstimate', '#editTags']) { h.$(selector).value = ''; h.fire(selector, 'input'); }
+  assert.equal(h.$('#editDatesSummary').textContent, t('未设置'));
+  assert.equal(h.$('#editAttributesSummary').textContent, t('能量、估时、标签'));
+  h.feature.close(); h.open(task('B', { deadline: '2026-10-21T23:59:59.999Z', estimateMinutes: 20, tags: ['saved'] }));
+  assert.equal(h.$('#editDatesSummary').textContent, t('有截止日期'));
+  assert.equal(h.$('#editAttributesSummary').textContent, `${t('{minutes} 分钟', { minutes: 20 })} · ${t('{count} 个标签', { count: 1 })}`);
+});

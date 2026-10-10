@@ -161,12 +161,14 @@
   body[data-stimulation="high"] .bubble { box-shadow: 3px 3px 0 rgba(0,0,0,0.5), 0 0 18px rgba(125,207,255,0.45); }
 </style>
 <link rel="stylesheet" href="../surfaces/shared/interface/chrome.css">
+<link rel="stylesheet" href="../surfaces/reminders/chrome.css">
 </head>
 <body data-surface="nudge-corner" data-motion="reduced" data-stimulation="low">
   <div class="container br" id="container" role="status" aria-live="polite">
     <div class="bubble" id="bubble">
       <div class="bubble-copy" id="bubbleCopy">...</div>
       <div class="nudge-actions" id="nudgeActions" aria-label="提醒操作"></div>
+    <p class="nudge-status" id="nudgeStatus" role="status" aria-live="polite" hidden></p>
     </div>
     <div class="char-wrap">
       <canvas id="charCanvas" width="80" height="80" aria-hidden="true"></canvas>
@@ -178,6 +180,8 @@
 <script type="module" nonce="bubu-corner">
 import "../surfaces/shared/interface/entry.mjs";
 import { t, onLocaleChanged } from "../surfaces/shared/interface/i18n.mjs";
+import { createReminderActions } from "../surfaces/reminders/actions.mjs";
+const reminderActions = createReminderActions({ document, dismiss: action => window.bubu.dismissNudge(action) });
 let actionCopies = [], latestData = null;
 function repaintNudgeCopy() {
   for (const [node, source] of actionCopies) node.textContent = t(source);
@@ -186,7 +190,7 @@ function repaintNudgeCopy() {
     ? t('{shortcut} 操作', { shortcut: latestData.keyboardShortcut }) : '';
 }
 const stopLocaleCopy = onLocaleChanged(repaintNudgeCopy);
-window.addEventListener('pagehide', () => { stopLocaleCopy(); actionCopies = []; latestData = null; }, { once: true });
+window.addEventListener('pagehide', () => { stopLocaleCopy(); reminderActions.dispose(); actionCopies = []; latestData = null; }, { once: true });
   const canvas = document.getElementById('charCanvas');
   const ctx = canvas.getContext('2d');
   ctx.imageSmoothingEnabled = false;
@@ -301,6 +305,7 @@ window.addEventListener('pagehide', () => { stopLocaleCopy(); actionCopies = [];
   window.bubu.onNudgeSensoryProfile(applyNudgeSensoryProfile);
 
   window.bubu.onNudgeInit((data) => {
+    reminderActions.reset();
     latestData = data; actionCopies = [];
     applyNudgeSensoryProfile(data);
     const container = document.getElementById('container');
@@ -321,20 +326,20 @@ window.addEventListener('pagehide', () => { stopLocaleCopy(); actionCopies = [];
       button.textContent = t(action.label || '我知道了'); actionCopies.push([button, action.label || '我知道了']);
       button.addEventListener('click', event => {
         event.stopPropagation();
-        window.bubu.dismissNudge(action.id || 'dismiss');
+        void reminderActions.run(action.id || 'dismiss');
       });
       actions.appendChild(button);
     }
   });
 
   document.getElementById('closeBtn').addEventListener('click', () => {
-    window.bubu.dismissNudge('dismiss');
+    void reminderActions.run('dismiss');
   });
 
   document.body.addEventListener('click', (e) => {
     if (e.target.id !== 'closeBtn') {
       // Click character or bubble → dismiss too
-      window.bubu.dismissNudge('dismiss');
+      void reminderActions.run('dismiss');
     }
   });
 
@@ -361,7 +366,7 @@ window.addEventListener('pagehide', () => { stopLocaleCopy(); actionCopies = [];
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       e.preventDefault();
-      window.bubu.dismissNudge('dismiss');
+      void reminderActions.run('dismiss');
       return;
     }
     if (e.key !== 'Tab') return;

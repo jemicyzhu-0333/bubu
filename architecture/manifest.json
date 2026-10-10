@@ -425,6 +425,7 @@
     ]
   },
   "capabilityWrites": {
+    "guidance/ai-diagnostics": [],
     "guidance/adjust-energy": [
       "energyCheckIn",
       "energySelfReports"
@@ -485,6 +486,9 @@
     "attention/record-work-end-reminder": [
       "lastWorkEndNotifyDate"
     ],
+    "companion/apply-outfit": [
+      "companion"
+    ],
     "companion/equip-appearance": [
       "companion"
     ],
@@ -511,9 +515,9 @@
   },
   "legacyRatchet": {
     "src/main.js": {
-      "lines": 2156,
+      "lines": 2150,
       "requires": 19,
-      "ipcRegistrations": 68
+      "ipcRegistrations": 66
     }
   },
   "sizeReview": {

@@ -1,5 +1,20 @@
 // App-authored task workflow copy. Interpolated user/provider data stays verbatim.
 export const TASK_EN = Object.freeze({
+  "AI 暂不可用，使用本地建议（{reason}）。": "AI is unavailable. Using local suggestions ({reason}).",
+  "来自 AI 的建议": "Suggestions from AI",
+  "来自本地规则": "From local rules",
+
+  "选择要记录的日常": "Choose a routine to log to",
+  "AI 建议的名称": "Name suggested by AI",
+  "类型名称（可选）": "Type name (optional)",
+  "仅手动记录": "Manual logging only",
+  "提醒需另行设置": "Reminders can be set separately",
+  "设置提醒": "Set reminder",
+  "编辑提醒": "Edit reminder",
+  "请选择记录到哪一条日常，或新建日常。": "Choose a routine to log to, or create a new one.",
+  "新建「{title}」并记录一次；仅手动记录": "Create “{title}” and log once; manual logging only",
+  "记录到「{title}」": "Log to “{title}”",
+  "新建「{title}」；提醒需另行设置": "Create “{title}”; reminders can be set separately",
   "日期或时间无效，当前输入不会保存。": "Invalid date or time. Your input has not been saved.",
   "小步 - 提醒": "bubu - Reminder",
   "小步 - 强提醒": "bubu - Strong reminder",

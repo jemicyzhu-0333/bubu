@@ -337,7 +337,10 @@ test('all diff, rationale, source and context text is escaped rather than execut
   const change = preview(); change.rationale = '<script>run()</script>'; change.warnings = ['<img onerror="run()">'];
   change.diff[0].fields[0].after = '<svg onload="run()">';
   h.client.previewConversationChanges = async () => ({ ok: true, changeSet: change }); await h.feature.changes.preview('p1');
-  assert.doesNotMatch(h.cards(), /<script>|<img|<svg/); assert.match(h.cards(), /&lt;script&gt;/);
+  const decorativeIcon = '<svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg>';
+  assert.equal(h.cards().split(decorativeIcon).length - 1, 1);
+  assert.doesNotMatch(h.cards().replace(decorativeIcon, ''), /<script>|<img|<svg/);
+  for (const escaped of ['&lt;script&gt;', '&lt;img onerror=&quot;run()&quot;&gt;', '&lt;svg onload=&quot;run()&quot;&gt;']) assert.ok(h.cards().includes(escaped));
 });
 
 test('routine changes separately disclose actual timezone, scheduling scope and no occurrence changes', async () => {

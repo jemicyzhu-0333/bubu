@@ -1,5 +1,6 @@
 'use strict';
 
+import { createAppearanceCommand } from './appearance-command.mjs';
 import { t, getLocale } from '../../shared/interface/i18n.mjs';
 
 // Translate only the built-in unlock descriptions; supplied content remains raw.
@@ -51,7 +52,14 @@ function createPopoverSkinPicker({
   let repaintSpecies = () => {}, repaintStrip = () => {}, repaintFocus = () => {};
   let trigger = null;
   let unsubscribe = null;
+  let store = null;
   let bound = false;
+  let visit = 0;
+  let renderedState = null;
+  const command = createAppearanceCommand({ $, reconcile, changed() {}, statusSelector: '#skinStatus',
+    controls: () => [$('#skinFocus')?.querySelector('#btnSkinApply')].filter(Boolean),
+    blocked: button => { const skin = findSkin(renderedState, button.dataset.skin); return !skin || !skin.unlocked || skin.current; },
+    copy: ['正在切换形态…', '形态未能切换，请稍后重试。', '形态结果暂未确认，重新打开后可核对。'] });
 
   function skinList(state) {
     return state && Array.isArray(state.skins) ? state.skins : [];
@@ -156,6 +164,7 @@ function createPopoverSkinPicker({
   }
 
   function renderFocus(state) {
+    renderedState = state;
     const focus = $('#skinFocus');
     if (!focus) return;
     const skin = findSkin(state, previewedSkinId);
@@ -227,6 +236,7 @@ function createPopoverSkinPicker({
     renderSpecies(state);
     renderStrip(state);
     renderFocus(state);
+    command.paint();
   }
 
   function focusSkin(state, skinId, { moveFocus = false } = {}) {
@@ -234,6 +244,7 @@ function createPopoverSkinPicker({
     previewedSkinId = skinId;
     syncStripSelection();
     renderFocus(state);
+    command.paint();
     if (!moveFocus) return;
     const strip = $('#skinStrip');
     const thumb = strip ? strip.querySelector(`.skin-thumb[data-skin="${skinId}"]`) : null;
@@ -277,8 +288,9 @@ function createPopoverSkinPicker({
       ? event.target.closest('#btnSkinApply')
       : null;
     if (!button || button.disabled) return;
+    if (command.busy()) return;
     const skinId = button.dataset ? button.dataset.skin : '';
-    if (skinId) surfaceClient.switchSkin(skinId);
+    if (skinId) void command.run(() => surfaceClient.switchSkin(skinId));
   }
 
   function isOpen() {
@@ -289,6 +301,9 @@ function createPopoverSkinPicker({
   function open() {
     const mask = $('#skinMask');
     if (!mask) return;
+    if (isOpen()) return;
+    const owner = ++visit;
+    command.nextVisit();
     trigger = document.activeElement;
     // 每次打开都从当前形态起步:上一次试穿到一半就关掉的那只不该留在这里。
     previewedSkinId = null;
@@ -297,6 +312,7 @@ function createPopoverSkinPicker({
     mask.classList.remove('hidden');
     mask.setAttribute('aria-hidden', 'false');
     requestAnimationFrame(() => {
+      if (owner !== visit || !isOpen()) return;
       const first = mask.querySelector('#btnSkinApply:not([disabled])')
         || mask.querySelector('.skin-thumb[aria-selected="true"]')
         || $('#btnSkinClose');
@@ -307,6 +323,8 @@ function createPopoverSkinPicker({
   function close() {
     const mask = $('#skinMask');
     if (!mask) return;
+    visit++;
+    command.nextVisit();
     mask.classList.add('hidden');
     mask.setAttribute('aria-hidden', 'true');
     const closing = trigger;
@@ -314,11 +332,23 @@ function createPopoverSkinPicker({
     restoreModalFocus(closing || $('#btnOpenSkins'));
   }
 
+  async function reconcile() {
+    const owner = visit;
+    if (!store?.refresh) return false;
+    const snapshot = await store.refresh();
+    if (owner !== visit || !store || !snapshot || !Number.isSafeInteger(snapshot.revision)
+        || !snapshot.appearance || !Array.isArray(snapshot.appearance.wornIds)) return false;
+    render(snapshot);
+    return true;
+  }
+
   function mount(projectionStore) {
     if (!projectionStore || typeof projectionStore.subscribe !== 'function') {
       throw new TypeError('skin picker requires a projection store');
     }
     if (unsubscribe) return;
+    store = projectionStore;
+    command.mount();
     if (!bound) {
       bound = true;
       const entry = $('#btnOpenSkins');
@@ -339,7 +369,7 @@ function createPopoverSkinPicker({
     // 关着的时候不画:抽屉里那 11 张画布的栅格化没有理由跟着每次升级跑一遍。
     // 换皮肤改 current、升级与连续天数改解锁进度,换装改大图上戴着什么。
     unsubscribe = projectionStore.subscribe(change => {
-      if (change.localeOnly) { repaintSpecies(); repaintStrip(); repaintFocus(); return; }
+      if (change.localeOnly) { repaintSpecies(); repaintStrip(); repaintFocus(); command.paint(); return; }
       if (!isOpen()) return;
       const dirty = change.dirty || {};
       if (dirty.all || dirty.skin || dirty.stats || dirty.tasks || dirty.appearance) {
@@ -354,6 +384,9 @@ function createPopoverSkinPicker({
   }
 
   function dispose() {
+    visit++;
+    command.dispose();
+    store = null;
     if (typeof unsubscribe === 'function') unsubscribe();
     unsubscribe = null;
     repaintSpecies = repaintStrip = repaintFocus = () => {};

@@ -22,14 +22,42 @@ function effectiveClassification(impulse, draft = {}) {
   return { category: draft.category, routineKind: draft.routineKind ?? null, level: draft.level ?? null };
 }
 
-function describeTriage(impulse, state, draft) {
+// Existing AI suggestions are reused; no provider call or language-specific text rewriting.
+// An empty edited title is intentional and must not be replaced during a redraw.
+function routineTitleSource(impulse, draft = {}) {
+  if (typeof draft.title === 'string') return 'edited';
+  const c = effectiveClassification(impulse, draft), triage = impulse.triage;
+  if (['routine', 'log'].includes(triage?.category) && triage.routineKind === c.routineKind
+      && typeof triage.title === 'string' && triage.title.trim()) return 'ai';
+  return typeof impulse.text === 'string' && impulse.text.trim() ? 'capture' : 'empty';
+}
+
+function routineTitleOf(impulse, draft = {}) {
+  const source = routineTitleSource(impulse, draft);
+  if (source === 'edited') return draft.title;
+  const value = source === 'ai' ? impulse.triage.title : source === 'capture' ? impulse.text : '';
+  // The existing routine contract is 40 UTF-16 units. Never split a surrogate pair.
+  let title = '';
+  for (const character of value.trim()) {
+    if (title.length + character.length > 40) break;
+    title += character;
+  }
+  return title;
+}
+
+function describeTriage(impulse, state, draft = {}) {
   const classification = effectiveClassification(impulse, draft);
   const matching = (state?.routines?.items || []).filter(item => item.active !== false && item.kind === classification.routineKind);
-  const kind = ROUTINE_KINDS[classification.routineKind] || t('日常');
+  const destination = draft.routineId ?? (classification.routineKind !== 'custom' && matching.length === 1 ? matching[0].id : '');
+  const selected = matching.find(item => item.id === destination);
+  const creating = !matching.length || destination === 'new';
+  const title = routineTitleOf(impulse, draft).trim();
   switch (classification.category) {
     case 'task': return { text: t('一件准备去做的事'), action: { kind: 'next-step', label: t('转为任务') } };
-    case 'routine': return { text: t('需要重复做的日常，创建后可以设置提醒'), action: { kind: 'routine', label: t('建成日常') } };
-    case 'log': return { text: matching.length ? t('确认刚做过的事情，记录到所选日常') : t('创建「{kind}」并记录一次，不设置提醒', { kind: t(kind) }), action: { kind: 'log', label: matching.length ? t('记录一次') : t('创建并记一次') } };
+    case 'routine': return { text: t('新建「{title}」；提醒需另行设置', { title }), hint: t('提醒需另行设置'), action: { kind: 'routine', label: t('建成日常') } };
+    case 'log': return { text: creating ? t('新建「{title}」并记录一次；仅手动记录', { title })
+      : selected ? t('记录到「{title}」', { title: selected.title }) : t('选择要记录的日常'),
+      hint: creating ? t('仅手动记录') : '', action: { kind: 'log', label: t(creating ? '创建并记一次' : '记录一次') } };
     case 'state': return { text: t('确认后记录当时的能量状态'), action: { kind: 'state', label: t('确认状态') } };
     case 'feeling': return { text: t('留一条情绪记录，不自动改变能量'), action: { kind: 'feeling', label: t('保存情绪') } };
     case 'note': return { text: t('保留想法，不创建待办'), action: { kind: 'keep', label: t('保存想法') } };
@@ -37,4 +65,4 @@ function describeTriage(impulse, state, draft) {
   }
 }
 
-export { CATEGORIES, QUICK_PICKS, ROUTINE_KINDS, LEVEL_LABELS, OUTCOMES, classificationOf, effectiveClassification, describeTriage };
+export { CATEGORIES, QUICK_PICKS, ROUTINE_KINDS, LEVEL_LABELS, OUTCOMES, classificationOf, effectiveClassification, routineTitleOf, routineTitleSource, describeTriage };

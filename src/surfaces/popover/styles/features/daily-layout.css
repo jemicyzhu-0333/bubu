@@ -53,9 +53,9 @@
   .bond-milestone::before { display: none; }
   .bond-milestone > span:last-child { color: var(--fg-2); font-size: 12px; }
   .bond-milestone.is-earned { color: var(--primary-ink); }
-  .tl-spark svg { height: 96px; overflow: visible; }
+  .tl-spark svg { height: 64px; overflow: visible; }
   .tl-spark-caption { font-size: 11px; color: var(--fg-2); }
-  .tl-spark-plot { position: relative; height: 96px; }
+  .tl-spark-plot { position: relative; height: 64px; margin-top: 18px; }
   .tl-extreme-dot { fill: var(--cyan-ink); }
   .tl-extreme { position: absolute; transform: translate(-50%,-50%); font-size: 11px; color: var(--cyan-ink); white-space: nowrap; }
   @media (max-width: 420px) { .food-shop-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } .mini-timer { font-size: 11px; min-width: 0; } }

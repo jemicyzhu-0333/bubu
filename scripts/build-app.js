@@ -10,6 +10,7 @@ function buildPlan({ platform, arch, argv = [] }) {
   let target = PLATFORMS[platform];
   let targetArch = arch;
   let directory = false;
+  let testDiagnostics = false;
   let selectedPlatform = false;
   let selectedArch = false;
   for (const arg of argv) {
@@ -20,6 +21,7 @@ function buildPlan({ platform, arch, argv = [] }) {
       targetArch = arg.slice(2);
       selectedArch = true;
     } else if (arg === '--dir' && !directory) directory = true;
+    else if (arg === '--test-diagnostics' && !testDiagnostics) testDiagnostics = true;
     else throw new Error(`Unsupported or repeated build option: ${arg}`);
   }
   if (!PLATFORMS[platform]) throw new Error(`Unsupported build host: ${platform}`);
@@ -29,12 +31,13 @@ function buildPlan({ platform, arch, argv = [] }) {
   }
   return {
     target,
+    testDiagnostics,
     arch: targetArch,
     prepare: [
       ['scripts/make-icon.js'],
       ...(target === 'mac' ? [['scripts/build-activity-probe.js', `--arch=${targetArch}`]] : [])
     ],
-    builderArgs: [`--${target}`, `--${targetArch}`, ...(directory ? ['--dir'] : []), '--publish', 'never']
+    builderArgs: [`--${target}`, `--${targetArch}`, ...(directory ? ['--dir'] : []), '--publish', 'never', `--config.extraMetadata.bubuCapabilities.schemaVersion=1`, `--config.extraMetadata.bubuCapabilities.aiDiagnostics=${testDiagnostics}`]
   };
 }
 

@@ -97,7 +97,7 @@ test('settings is a modal drawer with inert background, focus trap, Escape, and 
   assert.match(js, /settings: \{ isOpen: settingsDrawer\.isOpen, close: settingsDrawer\.close \}/);
   assert.match(modalLayerJs, /close: \(handle\) => \(event\) => \{[\s\S]*?event\.preventDefault\(\);[\s\S]*?handle\.close\(\)/);
   assert.match(modalRegistryJs, /if \(top\) modalPrimitive\.trapFocusWithin\(event, \$\(top\.trap\)\)/);
-  assert.match(settingsDrawerJs, /requestAnimationFrame\(\(\) => \$\('#btnSettings'\)\.focus\(\)\)/);
+  assert.match(settingsDrawerJs, /requestAnimationFrame\(\(\) => \{ if \(mounted && !isSettingsOpen\(\)\) \$\('#btnSettings'\)\.focus\(\); \}\)/);
 });
 
 test('settings are folded by functional module so the drawer opens as a short menu', () => {
@@ -196,8 +196,8 @@ test('every place that names the quick-capture chord is written from the effecti
   assert.match(shortcutJs, /usedFallback[\s\S]*?配置没被改掉/);
 
   // 每次改动之后重新问一遍主进程：新组合可能同样抢不到，甚至回滚到上一个。
-  assert.match(shortcutJs, /await surfaceClient\.updateSettings\(\{ quickPanelShortcut: accelerator \}\)[\s\S]*?await refresh\(\)/);
-  assert.match(shortcutJs, /describe = await surfaceClient\.describeQuickPanelShortcut\(\)/);
+  assert.match(shortcutJs, /async function save\(patch\)[\s\S]*?await surfaceClient\.updateSettings\(patch\)[\s\S]*?await refresh\(\)/);
+  assert.match(shortcutJs, /const next = await surfaceClient\.describeQuickPanelShortcut\(\);[\s\S]*?owner !== lifetime \|\| ticket !== sequence\) return;[\s\S]*?describe = next;/);
   // 标点不在 SHORTCUT_KEY_PATTERN 里，当场拒绝而不是发一个注定被打回的值。
   assert.match(shortcutJs, /if \(!key\) \{[\s\S]*?这个键不能用于全局快捷键/);
   assert.match(shortcutJs, /if \(!modifiers\.length\) \{[\s\S]*?至少要带一个修饰键/);

@@ -26,6 +26,7 @@
 <link rel="stylesheet" href="../surfaces/popover/styles/features/progress.css">
 <link rel="stylesheet" href="../surfaces/popover/styles/features/timeline.css">
 <link rel="stylesheet" href="../surfaces/popover/styles/features/settings.css">
+<link rel="stylesheet" href="../surfaces/popover/styles/features/ai-diagnostics.css">
 <link rel="stylesheet" href="../surfaces/popover/styles/features/memory-management.css">
 <link rel="stylesheet" href="../surfaces/popover/styles/features/planning-preferences.css">
 <link rel="stylesheet" href="../surfaces/popover/styles/features/stuck.css">
@@ -60,7 +61,7 @@
     <button type="button" id="tabProgress" data-feedback="review" class="tab-btn" data-nav="main" data-tab="progress" role="tab" aria-selected="false" aria-controls="panelProgress" tabindex="-1" data-i18n-text="回顾"><span class="tab-glyph" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M2 2.5h4a3 3 0 0 1 2 1 3 3 0 0 1 2-1h4v10h-4a3 3 0 0 0-2 1 3 3 0 0 0-2-1H2ZM8 3.5v10"/></svg></span>回顾</button>
   </nav>
   <nav id="arrangeNavigation" class="arrange-navigation" role="tablist" aria-label="安排" hidden data-i18n-aria-label="安排">
-    <button type="button" id="tabTasks" data-feedback="tasks" class="tab-btn" data-nav="arrange" data-tab="tasks" role="tab" aria-selected="false" aria-controls="panelTasks" tabindex="-1" data-i18n-text="任务"><span class="tab-glyph" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><path d="m2 4 1 1 2-2m-3 5 1 1 2-2m-3 5 1 1 2-2M7 4h7M7 8h7M7 12h7"/></svg></span>任务 <span class="tab-count" id="tabTaskCount">0</span></button>
+    <button type="button" id="tabTasks" data-feedback="tasks" class="tab-btn" data-nav="arrange" data-tab="tasks" role="tab" aria-selected="false" aria-controls="panelTasks" tabindex="-1"><span class="tab-glyph" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><path d="m2 4 1 1 2-2m-3 5 1 1 2-2m-3 5 1 1 2-2M7 4h7M7 8h7M7 12h7"/></svg></span><span data-i18n="任务">任务</span><span class="tab-count" id="tabTaskCount">0</span></button>
     <button type="button" id="tabRoutines" data-feedback="routines" class="tab-btn" data-nav="arrange" data-tab="routines" role="tab" aria-selected="false" aria-controls="panelRoutines" tabindex="-1" data-i18n-text="日常"><span class="tab-glyph" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M13.5 2.5c-7-1-12 3-10 7.5 2 4.5 10 2 10-7.5ZM3 14l7-7"/></svg></span>日常 <span class="tab-count" id="routinesManageCount">0</span></button>
     <button type="button" id="tabInbox" class="tab-btn" data-feedback="inbox" data-nav="arrange" data-tab="inbox" role="tab" aria-selected="false" aria-controls="panelInbox" tabindex="-1" data-i18n-text="收件箱"><span class="tab-glyph" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M2 9l2-6h8l2 6v4H2ZM2 9h4l1 2h2l1-2h4"/></svg></span>收件箱 <span class="tab-count" id="tabImpCount">0</span></button>
     <button type="button" id="tabArchive" class="tab-btn" data-feedback="archive" data-nav="arrange" data-tab="archive" role="tab" aria-selected="false" aria-controls="panelArchive" tabindex="-1" data-i18n-text="已归档"><span class="tab-glyph" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M2 2h12v3H2ZM3 5v9h10V5M6 8h4"/></svg></span>已归档 <span class="tab-count" id="cntArchived">0</span></button>
@@ -306,7 +307,7 @@
         <input type="text" id="routineTitle" class="pixel-input" maxlength="40" autocomplete="off" placeholder="想记住哪件小事？" aria-label="日常名称" aria-describedby="routineFormStatus" data-i18n-aria-label="日常名称" data-i18n-placeholder="想记住哪件小事？">
         <div class="deadline-row">
           <label class="chip-label" for="routineKind" data-i18n="类型：">类型：</label>
-          <select id="routineKind" class="hidden" aria-hidden="true" tabindex="-1"></select><div id="routineKindChoices" class="routine-kind-choices" role="group" aria-label="日常类型" data-i18n-aria-label="日常类型"></div><label id="routineCustomRow" class="hidden" data-i18n-text="类型名称">类型名称<input id="routineCustomLabel" class="pixel-input" maxlength="40" list="routineCustomLabels" placeholder="例如：家务、宠物照料" data-i18n-placeholder="例如：家务、宠物照料"><datalist id="routineCustomLabels"></datalist></label>
+          <select id="routineKind" class="hidden" aria-hidden="true" tabindex="-1"></select><div id="routineKindChoices" class="routine-kind-choices" role="group" aria-label="日常类型" data-i18n-aria-label="日常类型"></div><label id="routineCustomRow" class="hidden"><span id="routineCustomLabelText" data-i18n="类型名称">类型名称</span><input id="routineCustomLabel" class="pixel-input" maxlength="40" list="routineCustomLabels" placeholder="例如：家务、宠物照料" data-i18n-placeholder="例如：家务、宠物照料"><datalist id="routineCustomLabels"></datalist></label>
         </div>
         <div class="deadline-row">
           <label class="chip-label" for="routineFrequency" data-i18n="重复：">重复：</label>
@@ -334,7 +335,7 @@
         <div class="routine-form-actions"><button type="button" class="pixel-btn" id="btnCancelRoutine" data-i18n="取消">取消</button><button type="button" class="pixel-btn btn-focus" id="btnAddRoutine" data-icon="check">添加日常</button></div>
       </div>
       </details>
-      <details class="routine-config"><summary data-icon="bell" data-i18n="提醒设置">提醒设置</summary><div class="routine-reminder-switch"><span data-i18n="日常提醒">日常提醒</span><button type="button" class="chip" id="btnRoutineReminders" aria-pressed="true">已开启</button></div><div class="routine-manage-list" id="routineManageList"></div></details>
+      <details class="routine-config disclosure disclosure-section" open><summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span data-i18n="提醒设置">提醒设置</span></summary><div class="routine-reminder-switch"><span data-i18n="日常提醒">日常提醒</span><button type="button" class="chip" id="btnRoutineReminders" aria-pressed="true">已开启</button></div><div class="routine-manage-list" id="routineManageList"></div></details>
     </div>
     </section>
 
@@ -363,7 +364,7 @@
     </div>
     <div class="heatmap-tip sr-only" id="heatmapTip" aria-live="off"></div>
     <div class="heatmap-detail hidden" id="heatmapDetail" role="status" aria-live="polite"></div>
-    <div class="progress-section"><h2 class="progress-section-title" data-i18n="这一天">这一天</h2><div class="progress-section-body">
+    <div class="review-day-records">
     <!-- 时间线与统计详情独立：统计投影会重写详情，不能让时间线成为它的子节点。 -->
     <div class="timeline-day hidden" id="timelineDay">
       <div class="tl-head">
@@ -382,7 +383,7 @@
       <button type="button" id="timelineDeleteRetry" class="hidden">重试删除</button>
       <button type="button" id="timelineDeleteDismiss" class="hidden" data-i18n="关闭">关闭</button>
     </div>
-    </div></div>
+    </div>
   </section>
 
   <section id="panelCompanion" class="tab-content companion-page" data-tab="companion" role="region" aria-labelledby="companionName" aria-hidden="true" hidden>
@@ -399,19 +400,15 @@
         <span class="lv-badge" id="lvBadge">LV.1</span>
         <div class="status-pill" id="statusPill" role="status" aria-live="polite" aria-atomic="true">待机</div>
       </div>
-      <div class="xp-bar-outer" id="xpProgress" role="progressbar" aria-label="当前等级经验值" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0 / 100 XP" data-i18n-aria-label="当前等级经验值"><div class="xp-bar-inner" id="xpBar"></div></div>
-      <span class="xp-text" id="xpText">0 / 100 XP</span>
-      <p id="companionSummaryText">饱食 60 · 今天也在这里</p>
-    </div>
-
-    <div class="companion-section companion-bond">
-      <div class="section-head">
-        <span class="section-title" data-icon="heart" data-i18n="默契">默契</span>
-        <span class="bond-stage" id="bondStage">刚认识</span>
+      <details class="inline-help companion-growth">
+        <summary aria-label="当前等级经验值" data-i18n-aria-label="当前等级经验值"><span class="xp-bar-outer" id="xpProgress" role="progressbar" aria-label="当前等级经验值" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0 / 100 XP" data-i18n-aria-label="当前等级经验值"><span class="xp-bar-inner" id="xpBar"></span></span></summary>
+        <p class="xp-text" id="xpText">0 / 100 XP</p>
+      </details>
+      <div class="companion-stats" id="companionSummaryText">
+        <details class="inline-help companion-stat"><summary id="companionDaysStat" aria-label="今天刚认识"><span data-icon="calendar" data-icon-only aria-hidden="true"></span><span id="companionDaysValue" aria-hidden="true">0</span></summary><p id="companionDaysDetail">今天刚认识</p></details>
+        <details class="inline-help companion-stat"><summary id="companionSatiationStat" aria-label="饱食 65/100"><span data-icon="apple" data-icon-only aria-hidden="true"></span><span id="companionSatiationValue" aria-hidden="true">65</span></summary><p id="companionSatiationDetail">饱食 65/100</p></details>
+        <details class="inline-help companion-stat"><summary id="companionMealsStat" aria-label="一起吃过 0 次"><span data-icon="cup" data-icon-only aria-hidden="true"></span><span id="companionMealsValue" aria-hidden="true">0</span></summary><p id="companionMealsDetail">一起吃过 0 次</p></details>
       </div>
-      <div class="bond-bar-outer" id="bondProgress" role="progressbar" aria-label="伙伴默契进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="刚认识" data-i18n-aria-label="伙伴默契进度"><div class="bond-bar-inner" id="bondBar"></div></div>
-      <p class="bond-meta" id="bondMeta">默契 0 点</p>
-      <p class="bond-note" data-i18n="进度一直保留，按自己的节奏来。">进度一直保留，按自己的节奏来。</p>
     </div>
 
     <div class="companion-entries">
@@ -436,15 +433,29 @@
   <dialog class="panel-dialog" id="reviewInbox" aria-labelledby="reviewInboxTitle"><div class="modal-header"><h2 class="modal-title" id="reviewInboxTitle" data-i18n="待回顾">待回顾</h2><button type="button" class="modal-close" data-dialog-close aria-label="关闭待回顾" data-i18n-aria-label="关闭待回顾">✕</button></div><div class="modal-body"><section class="review-strip hidden" id="reviewStrip" aria-labelledby="reviewStripTitle">
     <div class="block-head"><span class="block-title" id="reviewStripTitle" data-icon="clipboard" data-i18n="待回顾">待回顾</span></div>
     <div id="reviewCards"></div>
-  </section><p id="reviewEmpty" data-i18n="没有待回顾内容">没有待回顾内容</p></div></dialog>
+  </section><p id="reviewEmpty" data-i18n="没有待回顾内容">没有待回顾内容</p><p class="capability-note hidden" id="reviewInboxError" role="alert"></p></div></dialog>
 
   <dialog class="panel-dialog" id="foodShopPanel" aria-labelledby="foodShopPanelTitle"><div class="modal-header"><h2 class="modal-title" id="foodShopPanelTitle" data-i18n="食物图鉴">食物图鉴</h2><button type="button" class="modal-close" data-dialog-close aria-label="关闭食物图鉴" data-i18n-aria-label="关闭食物图鉴">✕</button></div><div class="modal-body"><div class="food-shop-body disclosure-body">
-        <p class="bond-note" data-i18n="升级解锁新口味。兑换后，在桌宠旁喂食。">升级解锁新口味。兑换后，在桌宠旁喂食。</p><details class="inline-help"><summary aria-label="食物如何获得" data-i18n-aria-label="食物如何获得">?</summary><p data-i18n="兑换消耗 XP，不会降级。每天完成第一件任务赠送一颗浆果。已有库存一直保留。">兑换消耗 XP，不会降级。每天完成第一件任务赠送一颗浆果。已有库存一直保留。</p></details>
+        <p class="bond-note" data-i18n="升级解锁新口味。兑换后，在桌宠旁喂食。">升级解锁新口味。兑换后，在桌宠旁喂食。</p><details class="inline-help"><summary aria-label="食物如何获得" data-i18n-aria-label="食物如何获得">?</summary><p data-i18n="兑换消耗食物券。每日首次推进获得 3 张；已有库存保留。">兑换消耗食物券。每日首次推进获得 3 张；已有库存保留。</p></details>
         <p class="capability-note" id="foodShopStatus" role="status" aria-live="polite"></p>
         <div class="food-shop-grid" id="foodShopList"></div>
       </div></div></dialog>
 
-  <dialog class="panel-dialog" id="journeyPanel" aria-labelledby="journeyPanelTitle"><div class="modal-header"><h2 class="modal-title" id="journeyPanelTitle" data-i18n="一起走过">一起走过</h2><button type="button" class="modal-close" data-dialog-close aria-label="关闭一起走过" data-i18n-aria-label="关闭一起走过">✕</button></div><div class="modal-body"><div id="journeyAlbum" class="journey-album"></div><details class="companion-section collection-disclosure" id="bondMilestones"><summary class="food-shop-summary" data-icon="heart"><span class="entry-title" data-i18n="默契里程碑">默契里程碑</span><svg class="ui-icon food-shop-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 4l4 4-4 4"/></svg></summary><div class="disclosure-body"><ul class="milestone-list" id="milestoneList"></ul></div></details></div></dialog>
+  <dialog class="panel-dialog" id="journeyPanel" aria-labelledby="journeyPanelTitle">
+    <div class="modal-header"><h2 class="modal-title" id="journeyPanelTitle" data-i18n="一起走过">一起走过</h2><button type="button" class="modal-close" data-dialog-close aria-label="关闭一起走过" data-i18n-aria-label="关闭一起走过">✕</button></div>
+    <div class="modal-body journey-body">
+      <section class="journey-section" aria-labelledby="journeyKeepsakesTitle"><h3 id="journeyKeepsakesTitle" data-i18n="纪念">纪念</h3><div id="journeyAlbum" class="journey-album"></div></section>
+      <section class="journey-section companion-bond" aria-labelledby="journeyBondTitle">
+      <div class="section-head">
+        <h3 class="section-title" id="journeyBondTitle" data-i18n="默契">默契</h3>
+        <span class="bond-stage" id="bondStage">刚认识</span>
+      </div>
+      <div class="bond-bar-outer" id="bondProgress" role="progressbar" aria-label="伙伴默契进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="刚认识" data-i18n-aria-label="伙伴默契进度"><div class="bond-bar-inner" id="bondBar"></div></div>
+      <p class="bond-meta" id="bondMeta">默契 0 点</p>
+    <ul class="milestone-list" id="milestoneList"></ul>
+    </section>
+    </div>
+  </dialog>
   <!-- 随手记：所有页签共用的最后一行。想到什么先收下，分拣留给收件箱。 -->
   <form class="capture-bar" id="captureBar" autocomplete="off">
     <label class="capture-label" for="captureInput" data-i18n="随手记">随手记</label>
@@ -463,6 +474,7 @@
     <div class="settings-drawer-head"><h2 id="skinDrawerTitle" data-i18n="换形态">换形态</h2><button type="button" class="modal-close" id="btnSkinClose" aria-label="关闭换形态" data-i18n-aria-label="关闭换形态">✕</button></div>
     <div class="skin-species" id="skinSpecies" role="group" aria-label="桌宠种类" data-i18n-aria-label="桌宠种类"></div>
     <div class="skin-focus" id="skinFocus"></div>
+    <p class="wardrobe-summary hidden" id="skinStatus" role="status" aria-live="polite"></p>
     <div class="skin-strip" id="skinStrip" role="listbox" aria-label="该桌宠的解锁形象" data-i18n-aria-label="该桌宠的解锁形象"></div>
   </section>
   </div>
@@ -478,10 +490,31 @@
         <button type="button" class="modal-close" id="btnWardrobeClose" aria-label="关闭换装" data-i18n-aria-label="关闭换装">✕</button>
       </div>
     </div>
-    <div class="wardrobe-stage">
-      <canvas id="wardrobePreview" width="135" height="135" aria-hidden="true"></canvas>
-      <p class="wardrobe-summary" id="wardrobeSummary" role="status" aria-live="polite">现在什么都没戴</p>
-      <div class="wardrobe-looks" id="wardrobeLooks"></div>
+    <div class="wardrobe-stage" id="wardrobeStage" role="region" tabindex="0" aria-roledescription="carousel">
+      <div class="wardrobe-stage-heading">
+        <span id="wardrobeStagePosition" class="wardrobe-stage-position"></span>
+      </div>
+      <div class="wardrobe-runway">
+        <canvas id="wardrobePreviewPrevious" class="wardrobe-model wardrobe-model-previous" width="135" height="135" aria-hidden="true"></canvas>
+        <div class="wardrobe-spotlight"><canvas id="wardrobePreview" class="wardrobe-model" width="135" height="135" aria-hidden="true"></canvas></div>
+        <canvas id="wardrobePreviewNext" class="wardrobe-model wardrobe-model-next" width="135" height="135" aria-hidden="true"></canvas>
+        <button type="button" id="wardrobeStagePrevious" class="wardrobe-stage-arrow wardrobe-stage-arrow-previous" aria-label="上一套穿搭"><span data-icon="arrow-right" data-icon-only aria-hidden="true"></span></button>
+        <button type="button" id="wardrobeStageNext" class="wardrobe-stage-arrow wardrobe-stage-arrow-next" aria-label="下一套穿搭"><span data-icon="arrow-right" data-icon-only aria-hidden="true"></span></button>
+      </div>
+      <div class="wardrobe-stage-caption">
+        <details class="inline-help wardrobe-stage-name" id="wardrobeStageNameHelp">
+          <summary id="wardrobeStageTitle" aria-live="polite" aria-atomic="true">混搭</summary>
+          <p id="wardrobeStageFullName"></p>
+        </details>
+        <div class="wardrobe-stage-state">
+        <p id="wardrobeStageEquipped" class="wardrobe-stage-equipped" role="status" aria-live="polite">已搭配</p>
+        <button type="button" id="wardrobeApplyOutfit" class="wardrobe-apply" hidden>一键换装</button>
+        <div id="wardrobeStageLocked" class="wardrobe-stage-locked" hidden><span id="wardrobeStageLockedLabel">待解锁</span><details class="inline-help"><summary id="wardrobeStageRequirementHelp" aria-label="穿搭解锁条件">?</summary><p id="wardrobeStageRequirement"></p></details></div>
+        </div>
+        <p class="wardrobe-summary" id="wardrobeSummary" role="status" aria-live="polite">现在什么都没戴</p>
+        <p class="wardrobe-worn-pieces" id="wardrobeWornPieces"></p>
+        <p class="wardrobe-summary hidden" id="wardrobeStatus" role="status" aria-live="polite"></p>
+      </div>
     </div>
     <div class="wardrobe-master">
       <div class="wardrobe-slots" id="wardrobeSlots" role="tablist" aria-label="配饰槽位" aria-orientation="vertical" data-i18n-aria-label="配饰槽位"></div>
@@ -499,11 +532,11 @@
          就展开那一组。之前六个分组平铺在同一根滚动条上，找一个开关要先滚过
          十几行不相关的参数。 -->
     <p id="configStorageStatus" class="setting-help hidden" role="status"></p>
-    <details class="setting-group" id="settingGroupGeneral">
-      <summary><span class="setting-group-title" data-icon="window" data-i18n="通用">通用</span></summary>
+    <details class="setting-group disclosure disclosure-section" id="settingGroupGeneral">
+      <summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span class="setting-group-title" data-icon="window" data-i18n="通用">通用</span></summary>
 <div class="setting-row col">
         <label for="setLanguage" data-i18n="语言">语言</label>
-        <select id="setLanguage" class="interface-language">
+        <select id="setLanguage" class="interface-language compact-select">
           <option value="system" data-i18n="跟随系统">跟随系统</option>
           <option value="zh-CN" lang="zh-CN">简体中文</option>
           <option value="en" lang="en">English (preview)</option>
@@ -537,8 +570,8 @@
     </section>
     </details>
 
-    <details class="setting-group" id="settingGroupSensory">
-      <summary><span class="setting-group-title" data-icon="paw" data-i18n="伙伴与动效">伙伴与动效</span></summary>
+    <details class="setting-group disclosure disclosure-section" id="settingGroupSensory">
+      <summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span class="setting-group-title" data-icon="paw" data-i18n="伙伴与动效">伙伴与动效</span></summary>
 <div class="setting-row col">
       <label data-i18n="动效强度">动效强度</label>
       <div class="segmented segmented-control" role="group" aria-label="动效强度" data-i18n-aria-label="动效强度">
@@ -570,17 +603,29 @@
       <div class="setting-label-with-help"><label id="activityMirrorLabel" data-i18n="跟着当前活动">跟着当前活动</label><details class="inline-help"><summary aria-label="了解跟着当前活动" data-i18n-aria-label="了解跟着当前活动">?</summary><p data-i18n="根据前台应用、播放器音频输出和已接入 AI 工具的事件切换陪伴状态。不读取窗口标题、歌名或对话内容，不保存，也不发送。">根据前台应用、播放器音频输出和已接入 AI 工具的事件切换陪伴状态。不读取窗口标题、歌名或对话内容，不保存，也不发送。</p></details></div>
       <div class="toggle-group" role="group" aria-labelledby="activityMirrorLabel"><button type="button" class="toggle-btn" id="activityMirrorToggle" aria-label="跟着当前活动" aria-pressed="false" data-i18n-aria-label="跟着当前活动">关</button></div>
     </div>
-    <p class="capability-note" id="activityMirrorStatus" role="status" aria-live="polite"></p>
+    <p class="capability-note" id="activityMirrorStatus" hidden role="status" aria-live="polite"></p>
     <div class="activity-hooks" id="activityHooks" hidden>
       <h3 class="settings-subtitle" data-i18n="接入 AI 工具">接入 AI 工具</h3>
-      <p class="setting-note" data-i18n="在你用的 AI 工具里装上随附的 bubu-companion 插件，提问和回答时伙伴会立刻切到“和 AI 对话”。插件只通知“提问了 / 回答完了”，不带提问、回答或文件内容；收到过信号的工具会在这里显示。">在你用的 AI 工具里装上随附的 bubu-companion 插件，提问和回答时伙伴会立刻切到“和 AI 对话”。插件只通知“提问了 / 回答完了”，不带提问、回答或文件内容；收到过信号的工具会在这里显示。</p>
-      <div class="activity-hook-list" id="activityHookList"></div>
+      <div class="activity-hook-list" id="activityHookList">
+        <div class="activity-hook-head">
+          <span class="activity-hook-signal" id="activityHookSignal" role="img"></span>
+          <select class="activity-hook-select compact-select" id="activityHookTool" aria-label="AI 工具类型" data-i18n-aria-label="AI 工具类型" aria-describedby="activityHookState"></select>
+          <button type="button" class="chip activity-hook-copy" id="activityHookCopy" aria-label="复制接入命令" title="复制接入命令"></button>
+        </div>
+        <p class="activity-hook-state sr-only" id="activityHookState" role="status" aria-live="polite"></p>
+        <details class="activity-hook-help disclosure" id="activityHookHelp"><summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span data-i18n="接入说明">接入说明</span></summary>
+          <p class="activity-hook-step" id="activityHookSignalDetail"></p>
+          <div id="activityHookSteps"></div>
+          <code class="activity-hook-command" id="activityHookCommand"></code>
+          <p class="activity-hook-step" data-i18n="插件只通知“提问了 / 回答完了”，不带提问、回答或文件内容。">插件只通知“提问了 / 回答完了”，不带提问、回答或文件内容。</p>
+        </details>
+      </div>
     </div>
 </section>
     </details>
 
-    <details class="setting-group" id="settingGroupWorkHours">
-      <summary><span class="setting-group-title" data-icon="clock" data-i18n="专注与节奏">专注与节奏</span></summary>
+    <details class="setting-group disclosure disclosure-section" id="settingGroupWorkHours">
+      <summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span class="setting-group-title" data-icon="clock" data-i18n="专注与节奏">专注与节奏</span></summary>
 <div class="settings-subheading"><h3 class="settings-subtitle" data-i18n="一天的作息">一天的作息</h3><details class="inline-help"><summary aria-label="工作时间用在哪" data-i18n-aria-label="工作时间用在哪">?</summary><p data-i18n="能量曲线、宠物台词、喝水/站立提醒都按这个区间走；">能量曲线、宠物台词、喝水/站立提醒都按这个区间走；</p><p data-i18n="非工作时间不会唠叨，下班点会提醒收工。">非工作时间不会唠叨，下班点会提醒收工。</p></details></div>
     <div class="setting-row">
       <label id="workStartLabel" data-i18n="上班时间">上班时间</label>
@@ -672,8 +717,8 @@
 </section>
     </details>
 
-    <details class="setting-group" id="settingGroupNudges">
-      <summary><span class="setting-group-title" data-icon="bell" data-i18n="提醒与免打扰">提醒与免打扰</span></summary>
+    <details class="setting-group disclosure disclosure-section" id="settingGroupNudges">
+      <summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span class="setting-group-title" data-icon="bell" data-i18n="提醒与免打扰">提醒与免打扰</span></summary>
 <div class="setting-row">
       <label id="dndLabel" data-i18n="免打扰模式">免打扰模式</label>
       <div class="toggle-group" role="group" aria-labelledby="dndLabel">
@@ -688,7 +733,7 @@
     </div>
     <div class="setting-row">
       <label data-i18n="提醒角色">提醒角色</label>
-      <div class="chip-row" style="gap:4px;" role="group" aria-label="提醒角色" data-i18n-aria-label="提醒角色">
+      <div class="chip-row segmented-control" role="group" aria-label="提醒角色" data-i18n-aria-label="提醒角色">
         <button type="button" class="chip char-chip" data-char="spider" aria-pressed="true">Peter</button>
         <button type="button" class="chip char-chip" data-char="cat" aria-pressed="false">Mochi</button>
         <button type="button" class="chip char-chip" data-char="robot" aria-pressed="false">BEEP</button>
@@ -735,8 +780,8 @@
     
     </details>
 
-    <details class="setting-group planning-controls" id="settingGroupPlanning">
-      <summary><span class="setting-group-title" data-icon="calendar" data-i18n="安排与能量">安排与能量</span></summary>
+    <details class="setting-group planning-controls disclosure disclosure-section" id="settingGroupPlanning">
+      <summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span class="setting-group-title" data-icon="calendar" data-i18n="安排与能量">安排与能量</span></summary>
 <section class="settings-subsection" id="settingGroupEnergy"><h3 class="settings-subtitle" data-i18n="能量曲线">能量曲线</h3>
 <div class="setting-row">
       <label id="energyCurveLabel" data-i18n="显示能量曲线">显示能量曲线</label>
@@ -760,8 +805,8 @@
         <form id="planningPreferenceForm" class="planning-form" autocomplete="off">
           <div class="setting-row"><label for="planningPreferenceTarget" data-i18n="偏好">偏好</label><select id="planningPreferenceTarget"><option value="" data-i18n="新增偏好">新增偏好</option></select></div>
           <div class="planning-time-band"><label for="planningStart" data-i18n-text="开始时间">开始时间<input type="time" id="planningStart" value="13:00" required></label><label for="planningEnd" data-i18n-text="结束时间">结束时间<input type="text" inputmode="numeric" pattern="(?:[01][0-9]|2[0-3]):[0-5][0-9]|24:00" maxlength="5" placeholder="HH:MM" id="planningEnd" value="17:00" required></label></div>
-          <div class="setting-row"><label for="planningDemand" data-i18n="这个时段更想安排">这个时段更想安排</label><select id="planningDemand"><option value="low" data-i18n="轻一些的事">轻一些的事</option><option value="medium" data-i18n="一般难度的事">一般难度的事</option><option value="high" data-i18n="需要更多投入的事">需要更多投入的事</option></select></div>
-          <div class="setting-row"><label for="planningScope" data-i18n="有效期">有效期</label><select id="planningScope"><option value="today" data-i18n="今天">今天</option><option value="7days" data-i18n="七天">七天</option><option value="saved" data-i18n="保存为偏好">保存为偏好</option></select></div>
+          <div class="setting-row"><label for="planningDemand" data-i18n="这个时段更想安排">这个时段更想安排</label><select id="planningDemand" class="compact-select"><option value="low" data-i18n="轻一些的事">轻一些的事</option><option value="medium" data-i18n="一般难度的事">一般难度的事</option><option value="high" data-i18n="需要更多投入的事">需要更多投入的事</option></select></div>
+          <div class="setting-row"><label for="planningScope" data-i18n="有效期">有效期</label><select id="planningScope" class="compact-select"><option value="today" data-i18n="今天">今天</option><option value="7days" data-i18n="七天">七天</option><option value="saved" data-i18n="保存为偏好">保存为偏好</option></select></div>
           <button type="submit" class="chip chip-action" id="planningPreferencePreview" data-i18n="查看变更">查看变更</button>
         </form>
         <p class="capability-note" id="planningPreferenceSummary"></p>
@@ -783,10 +828,10 @@
         
         <p class="capability-note" id="planningTrialStatus"></p>
         <form id="planningTrialForm" class="planning-form">
-          <div class="setting-row"><label for="planningTrialParameter" data-i18n="参数">参数</label><select id="planningTrialParameter"><option value="chronotypeShift" data-i18n="曲线时段偏移">曲线时段偏移</option><option value="morningRampMinutes" data-i18n="上午上升时长">上午上升时长</option></select></div>
+          <div class="setting-row"><label for="planningTrialParameter" data-i18n="参数">参数</label><select id="planningTrialParameter" class="compact-select"><option value="chronotypeShift" data-i18n="曲线时段偏移">曲线时段偏移</option><option value="morningRampMinutes" data-i18n="上午上升时长">上午上升时长</option></select></div>
           <div class="setting-row"><label for="planningTrialValue" data-i18n="试用值（分钟）">试用值（分钟）</label><input type="number" id="planningTrialValue" step="1" inputmode="numeric"></div>
           <p class="capability-note" id="planningTrialBounds"></p>
-          <div class="setting-row"><label for="planningTrialScope" data-i18n="试用期限">试用期限</label><select id="planningTrialScope"><option value="today" data-i18n="今天">今天</option><option value="7days" data-i18n="七天">七天</option></select></div>
+          <div class="setting-row"><label for="planningTrialScope" data-i18n="试用期限">试用期限</label><select id="planningTrialScope" class="compact-select"><option value="today" data-i18n="今天">今天</option><option value="7days" data-i18n="七天">七天</option></select></div>
           <button type="submit" class="chip chip-action" id="planningTrialPreview" disabled data-i18n="比较当前与建议曲线">比较当前与建议曲线</button>
         </form>
         <button type="button" class="chip chip-action" id="planningTrialUndo" disabled data-i18n="结束试用并恢复">结束试用并恢复</button>
@@ -799,8 +844,8 @@
       </section>
     </details>
 
-    <details class="setting-group" id="settingGroupAi">
-      <summary><span class="setting-group-title" data-icon="sparkle" data-i18n="AI 助手">AI 助手</span></summary>
+    <details class="setting-group disclosure disclosure-section" id="settingGroupAi">
+      <summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span class="setting-group-title" data-icon="sparkle" data-i18n="AI 助手">AI 助手</span></summary>
     <p class="ai-mode-badge" id="aiActiveMode" role="status" aria-live="polite"></p>
     <div class="setting-row">
       <label id="aiBreakdownLabel" data-i18n="启用 AI">启用 AI</label>
@@ -817,14 +862,43 @@
       <p id="aiConfigStatus" role="status" aria-live="polite"></p>
       <p id="aiConnectionTestStatus" role="status" aria-live="polite"></p>
       <p class="capability-note" id="aiKeyFeedback" role="status" aria-live="polite"></p>
-      <details class="ai-advanced"><summary data-i18n="密钥管理">密钥管理</summary><div class="chip-row"><button type="button" class="chip" id="aiImportCredential" data-i18n="从环境变量导入">从环境变量导入</button><button type="button" class="chip" id="aiClearCredential" data-i18n="清除密钥">清除密钥</button></div></details>
+      <details class="ai-advanced disclosure"><summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span data-i18n="密钥管理">密钥管理</span></summary><div class="chip-row"><button type="button" class="chip" id="aiImportCredential" data-i18n="从环境变量导入">从环境变量导入</button><button type="button" class="chip" id="aiClearCredential" data-i18n="清除密钥">清除密钥</button></div></details>
     </div>
     <div class="ai-section-label" data-i18n="使用范围">使用范围</div>
     <div class="setting-row"><div class="setting-label-with-help"><label id="aiClarifyLabel" data-i18n="聊两句">聊两句</label><details class="inline-help"><summary aria-label="了解聊两句" data-i18n-aria-label="了解聊两句">?</summary><p data-i18n="新建任务时，通过问答理清下一步；只发送你在对话里输入的内容。">新建任务时，通过问答理清下一步；只发送你在对话里输入的内容。</p></details></div><div class="toggle-group" role="group" aria-labelledby="aiClarifyLabel"><button type="button" class="toggle-btn" data-toggle="aiClarifyEnabled" aria-label="聊两句" aria-pressed="false" data-i18n-aria-label="聊两句">关</button></div></div>
     <div class="setting-row"><div class="setting-label-with-help"><label id="aiImpulseEnergyLabel" data-i18n="闪念校准能量">闪念校准能量</label><details class="inline-help"><summary aria-label="了解闪念校准能量" data-i18n-aria-label="了解闪念校准能量">?</summary><p data-i18n="发送刚保存的闪念，仅明确的当前状态用于短期校准。">发送刚保存的闪念，仅明确的当前状态用于短期校准。</p></details></div><div class="toggle-group" role="group" aria-labelledby="aiImpulseEnergyLabel"><button type="button" class="toggle-btn" data-toggle="aiImpulseEnergyEnabled" aria-label="闪念校准能量" aria-pressed="false" data-i18n-aria-label="闪念校准能量">关</button></div></div>
     <div class="setting-row"><div class="setting-label-with-help"><label id="aiCaptureTriageLabel" data-i18n="整理随手记">整理随手记</label><details class="inline-help"><summary aria-label="了解整理随手记" data-i18n-aria-label="了解整理随手记">?</summary><p data-i18n="发送刚保存的一句，建议转任务、日常或状态，确认后才应用。">发送刚保存的一句，建议转任务、日常或状态，确认后才应用。</p></details></div><div class="toggle-group" role="group" aria-labelledby="aiCaptureTriageLabel"><button type="button" class="toggle-btn" data-toggle="aiCaptureTriageEnabled" aria-label="整理随手记" aria-pressed="false" data-i18n-aria-label="整理随手记">关</button></div></div>
     <div class="setting-row"><div class="setting-label-with-help"><label id="aiPetMealsLabel" data-i18n="伙伴 AI 用餐建议">伙伴 AI 用餐建议</label><details class="inline-help"><summary aria-label="了解伙伴 AI 用餐建议" data-i18n-aria-label="了解伙伴 AI 用餐建议">?</summary><p data-i18n="默认关闭。伙伴会按本地规则自动用餐；开启本项和 AI 总开关并配置模型、密钥后，可将角色、饱食、餐次、可用食物和喜好发送给所选 Provider。每天最多 3 次，每次最多等待 5 秒；失败按本地规则用餐。不发送任务、情绪、用药、随手记、桌面或聊天内容。">默认关闭。伙伴会按本地规则自动用餐；开启本项和 AI 总开关并配置模型、密钥后，可将角色、饱食、餐次、可用食物和喜好发送给所选 Provider。每天最多 3 次，每次最多等待 5 秒；失败按本地规则用餐。不发送任务、情绪、用药、随手记、桌面或聊天内容。</p></details></div><div class="toggle-group" role="group" aria-labelledby="aiPetMealsLabel"><button type="button" class="toggle-btn" data-toggle="aiPetMealsEnabled" aria-label="伙伴 AI 用餐建议" aria-pressed="false" data-i18n-aria-label="伙伴 AI 用餐建议">关</button></div></div>
-    <details class="ai-advanced"><summary data-i18n="数据与隐私">数据与隐私</summary><p class="capability-note" id="aiPrivacyStatus"></p></details>
+    <details class="ai-advanced disclosure"><summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span data-i18n="数据与隐私">数据与隐私</span></summary><p class="capability-note" id="aiPrivacyStatus"></p></details>
+    <details class="ai-advanced disclosure ai-diagnostics" id="aiDiagnosticsGroup" hidden>
+      <summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span data-i18n="AI 诊断（测试版）">AI 诊断（测试版）</span><span id="aiDiagnosticsIndicator" class="ai-diagnostics-indicator"></span></summary>
+      <div class="ai-diagnostics-intro">
+        <p class="ai-diagnostics-note"><span data-i18n="原文仅暂存本机，30 分钟后清除。">原文仅暂存本机，30 分钟后清除。</span><span id="aiDiagnosticsRisk" data-i18n="可能含个人内容。">可能含个人内容。</span></p>
+        <details class="inline-help"><summary aria-label="AI 诊断说明" data-i18n-aria-label="AI 诊断说明">?</summary>
+          <p data-i18n="记录范围：随手记分拣、能量判断、任务拆解/补全和卡点建议。聊天与协作暂不在记录范围。">记录范围：随手记分拣、能量判断、任务拆解/补全和卡点建议。聊天与协作暂不在记录范围。</p>
+          <p data-i18n="每次最多 30 分钟。停止、到期或退出会清除记录；关闭面板不停止记录。不会额外调用模型，也不会自动保存或上传。">每次最多 30 分钟。停止、到期或退出会清除记录；关闭面板不停止记录。不会额外调用模型，也不会自动保存或上传。</p>
+          <p data-i18n="原文为服务商可见回复，不代表内部推理。缺少记录的阶段不代表成功。">原文为服务商可见回复，不代表内部推理。缺少记录的阶段不代表成功。</p>
+          <p data-i18n="导出仅含操作、计数、耗时和结果类别，不含原文、候选内容、密钥或地址。">导出仅含操作、计数、耗时和结果类别，不含原文、候选内容、密钥或地址。</p>
+        </details>
+      </div>
+      <p id="aiDiagnosticsStatus" class="ai-diagnostics-meta" role="status" aria-live="polite"></p>
+      <div class="ai-diagnostics-actions">
+        <button type="button" class="pixel-btn btn-focus" id="aiDiagnosticsStart" aria-label="开始记录" data-i18n-aria-label="开始记录" data-i18n="开始">开始</button>
+        <button type="button" class="pixel-btn" id="aiDiagnosticsStop" hidden aria-label="停止并清除" title="停止并清除" data-i18n-aria-label="停止并清除" data-i18n-title="停止并清除" data-i18n="停止">停止</button>
+        <button type="button" class="icon-btn" id="aiDiagnosticsClear" aria-label="清空诊断记录" title="清空诊断记录" data-i18n-aria-label="清空诊断记录" data-i18n-title="清空诊断记录"><span data-icon="trash" data-icon-only aria-hidden="true"></span></button>
+        <button type="button" class="icon-btn" id="aiDiagnosticsRefresh" aria-label="刷新诊断记录" title="刷新诊断记录" data-i18n-aria-label="刷新诊断记录" data-i18n-title="刷新诊断记录"><span data-icon="sync" data-icon-only aria-hidden="true"></span></button>
+        <button type="button" class="chip chip-action" id="aiDiagnosticsExport" aria-label="导出诊断摘要" title="导出诊断摘要" data-i18n-aria-label="导出诊断摘要" data-i18n-title="导出诊断摘要" data-i18n="摘要">摘要</button>
+      </div>
+      <p id="aiDiagnosticsFeedback" class="ai-diagnostics-note" role="status" aria-live="polite"></p>
+      <p id="aiDiagnosticsEmpty" class="ai-diagnostics-note"></p>
+      <label for="aiDiagnosticsRuns" class="sr-only" data-i18n="本次 AI 请求">本次 AI 请求</label>
+      <select id="aiDiagnosticsRuns" class="pixel-input compact-select" aria-controls="aiDiagnosticsDetail"></select>
+      <div id="aiDiagnosticsDetail" aria-label="AI 诊断详情" data-i18n-aria-label="AI 诊断详情"></div>
+      <div id="aiDiagnosticsExportPanel" hidden>
+        <label for="aiDiagnosticsExportText" data-i18n="可复制的诊断摘要">可复制的诊断摘要</label>
+        <textarea id="aiDiagnosticsExportText" rows="8" readonly spellcheck="false"></textarea>
+      </div>
+    </details>
     <!-- 长期记忆：这一段是「模型知道我什么」的唯一出口。开关默认关着，列表通常是
          空的 —— 但空不等于不画这一段：只在有数据时才出现的管理入口，等于让用户
          在被记住东西之前无法确认这件事的存在（ARCHITECTURE「事实流与长期记忆」 末条、ARCHITECTURE「日常与能量」 的披露义务）。 -->
@@ -849,12 +923,12 @@
       <button type="button" class="chip chip-action" id="btnNewMemory" data-i18n="记一件事">记一件事</button>
       <form class="memory-draft memory-versioned-draft hidden" id="memoryDraft" autocomplete="off" aria-labelledby="memoryDraftTitle">
         <h4 id="memoryDraftTitle">记一件事</h4><p id="memoryDraftTarget" class="memory-meta"></p>
-        <label for="memoryDraftKind" data-i18n="类别">类别</label><select id="memoryDraftKind"><option value="preference" data-i18n="偏好">偏好</option><option value="rhythm" data-i18n="节律">节律</option><option value="context" data-i18n="背景">背景</option><option value="friction" data-i18n="卡点">卡点</option><option value="pattern" data-i18n="完成模式">完成模式</option></select>
+        <label for="memoryDraftKind" data-i18n="类别">类别</label><select id="memoryDraftKind" class="compact-select"><option value="preference" data-i18n="偏好">偏好</option><option value="rhythm" data-i18n="节律">节律</option><option value="context" data-i18n="背景">背景</option><option value="friction" data-i18n="卡点">卡点</option><option value="pattern" data-i18n="完成模式">完成模式</option></select>
         <label for="memoryDraftSubject" data-i18n="关于什么">关于什么</label><input id="memoryDraftSubject" type="text" maxlength="200">
         <label for="memoryDraftBody" data-i18n="内容">内容</label><textarea id="memoryDraftBody" rows="3" maxlength="500"></textarea>
-        <label for="memoryDraftScope" data-i18n="适用范围">适用范围</label><select id="memoryDraftScope"><option value="global" data-i18n="通用">通用</option><option value="work" data-i18n="工作">工作</option><option value="personal" data-i18n="个人">个人</option></select>
+        <label for="memoryDraftScope" data-i18n="适用范围">适用范围</label><select id="memoryDraftScope" class="compact-select"><option value="global" data-i18n="通用">通用</option><option value="work" data-i18n="工作">工作</option><option value="personal" data-i18n="个人">个人</option></select>
         <label for="memoryDraftExpiry" data-i18n="有效至（留空表示不设到期）">有效至（留空表示不设到期）</label><input id="memoryDraftExpiry" type="datetime-local">
-        <label for="memoryDraftPrivacy" data-i18n="隐私范围">隐私范围</label><select id="memoryDraftPrivacy"><option value="standard" data-i18n="普通，可在授权后参考">普通，可在授权后参考</option><option value="sensitive" data-i18n="敏感，仅在本机保留">敏感，仅在本机保留</option></select>
+        <label for="memoryDraftPrivacy" data-i18n="隐私范围">隐私范围</label><select id="memoryDraftPrivacy" class="compact-select"><option value="standard" data-i18n="普通，可在授权后参考">普通，可在授权后参考</option><option value="sensitive" data-i18n="敏感，仅在本机保留">敏感，仅在本机保留</option></select>
         <div class="memory-actions"><button type="submit" class="chip chip-action" id="btnRememberMemory" data-i18n="查看保存差异">查看保存差异</button><button type="button" class="chip chip-action" id="btnCancelMemoryDraft" data-i18n="取消编辑">取消编辑</button></div>
       </form>
       <div id="memoryDuplicates" class="memory-note hidden" aria-label="已有记忆替换选择" data-i18n-aria-label="已有记忆替换选择"></div>
@@ -876,8 +950,8 @@
     </section>
     </details>
 
-    <details class="setting-group" id="appUpdateGroup">
-      <summary><span class="setting-group-title" data-icon="sync" data-i18n="应用更新">应用更新</span></summary>
+    <details class="setting-group disclosure disclosure-section" id="appUpdateGroup">
+      <summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span class="setting-group-title" data-icon="sync" data-i18n="应用更新">应用更新</span></summary>
       <p id="appUpdateVersion" class="capability-note"></p>
       <p id="appUpdateStatus" role="status" class="capability-note"></p>
       <div class="setting-row"><label for="appUpdateAuto" data-i18n="自动检查更新">自动检查更新</label><input type="checkbox" id="appUpdateAuto" style="accent-color:var(--primary);width:16px;height:16px"></div>
@@ -986,8 +1060,8 @@
           <div class="unstick-block hidden" id="unstickBlock" role="status"></div>
           <article class="strategy-card" id="strategyCard">
             <div class="strategy-copy" id="strategyText"></div>
-            <details class="strategy-why" id="strategyWhy">
-              <summary data-i18n="为什么">为什么</summary>
+            <details class="strategy-why disclosure" id="strategyWhy">
+              <summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span data-i18n="为什么">为什么</span></summary>
               <p class="capability-note" id="strategyDetail"></p>
             </details>
           </article>
@@ -1041,8 +1115,8 @@
           <p class="task-assist-progress hidden" id="taskAssistProgress" role="status" aria-live="polite"></p>
           <p class="capability-note hidden" id="taskFormStatus" role="status" aria-live="polite"></p>
         </section>
-        <details class="task-advanced" id="taskAdvanced">
-          <summary data-i18n-text="更多选项"><svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="3" cy="8" r=".7"/><circle cx="8" cy="8" r=".7"/><circle cx="13" cy="8" r=".7"/></svg>更多选项</summary>
+        <details class="task-advanced disclosure" id="taskAdvanced">
+          <summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span data-i18n="更多选项">更多选项</span></summary>
         <!-- 重复、计划日、预约、截止、自动失效彼此独立：选一个不会默认帮你定下其他字段。 -->
         <fieldset class="task-option-group"><legend data-i18n="备注">备注</legend>
         <div class="deadline-row task-description-row">
@@ -1136,8 +1210,8 @@
         <button type="button" class="chat-nav-button hidden" id="btnDraftChatBack" aria-label="返回当前对话" data-i18n-aria-label="返回当前对话"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
         <div class="chat-heading"><h2 class="modal-title" id="draftChatTitle">小步协作</h2><p id="draftChatSessionTitle" class="chat-session-title">新对话</p><p id="draftChatTaskContext" class="hidden"></p></div>
         <div class="chat-header-actions" id="draftChatPageActions">
-          <button type="button" class="chat-nav-button" id="btnDraftChatList" aria-label="查看对话列表" title="对话列表" data-i18n-title="对话列表" data-i18n-aria-label="查看对话列表"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 6h14M5 12h14M5 18h10"/></svg></button>
-          <button type="button" class="chat-nav-button" id="btnDraftChatSettings" aria-label="对话设置" title="对话设置" data-i18n-title="对话设置" data-i18n-aria-label="对话设置"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 7h16M4 17h16M9 4v6M15 14v6"/></svg></button>
+          <button type="button" class="chat-nav-button" id="btnDraftChatList" aria-label="查看对话列表" title="对话列表" data-i18n-title="对话列表" data-i18n-aria-label="查看对话列表"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 6h14M5 12h14M5 18h10"/></svg></button>
+          <button type="button" class="chat-nav-button" id="btnDraftChatSettings" aria-label="对话设置" title="对话设置" data-i18n-title="对话设置" data-i18n-aria-label="对话设置"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 7h16M4 17h16M9 4v6M15 14v6"/></svg></button>
         </div>
         <button type="button" class="modal-close" id="draftChatClose" aria-label="暂停对话并返回草稿" data-i18n-aria-label="暂停对话并返回草稿"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
       </div>
@@ -1150,7 +1224,6 @@
           <div class="chat-list-actions"><button type="button" class="pixel-btn btn-mini" id="btnDraftChatRefresh" data-i18n="刷新列表">刷新列表</button><button type="button" class="pixel-btn btn-mini hidden" id="btnDraftChatMore" data-i18n="更多对话">更多对话</button></div>
         </section>
         <section id="draftChatSettings" class="chat-page hidden" aria-label="对话设置" data-i18n-aria-label="对话设置">
-          <p class="chat-settings-intro" data-i18n="建议经你确认后生效。">建议经你确认后生效。</p>
         <div class="chat-options">
           <label for="draftChatMode" data-i18n="帮助方式">帮助方式</label>
           <select id="draftChatMode" class="pixel-input"><option value="talk" data-i18n="先聊聊">先聊聊</option><option value="small-step" data-i18n="找一个小动作">找一个小动作</option><option value="plan" data-i18n="一起安排">一起安排</option></select>
@@ -1163,13 +1236,13 @@
           <button type="button" class="pixel-btn btn-mini" id="btnDraftChatRetentionConfirm" data-i18n="移除副本，改为仅本次">移除副本，改为仅本次</button>
           <button type="button" class="pixel-btn btn-mini" id="btnDraftChatRetentionKeep" data-i18n="继续保留">继续保留</button>
         </div>
-        <details id="draftChatRetentionOptions" class="chat-disclosure hidden">
-          <summary data-i18n="保留期限">保留期限</summary>
+        <details id="draftChatRetentionOptions" class="chat-disclosure hidden disclosure">
+          <summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span data-i18n="保留期限">保留期限</span></summary>
           <label for="draftChatRetentionDays" data-i18n="保留天数">保留天数</label><select id="draftChatRetentionDays" class="pixel-input"><option value="7" data-i18n="7 天">7 天</option><option value="30" selected data-i18n="30 天">30 天</option><option value="90" data-i18n="90 天">90 天</option></select>
           <label class="chat-check" data-i18n-text="固定这段对话，不自动到期"><input type="checkbox" id="draftChatPinned">固定这段对话，不自动到期</label>
         </details>
-        <details class="chat-disclosure" id="draftChatDisclosure">
-          <summary data-i18n="本轮会参考什么">本轮会参考什么</summary>
+        <details class="chat-disclosure disclosure" id="draftChatDisclosure">
+          <summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span data-i18n="本轮会参考什么">本轮会参考什么</span></summary>
           <p data-i18n="以下是本机预览，发送后才交给已配置的模型。">以下是本机预览，发送后才交给已配置的模型。</p>
           <p id="draftChatDisclosureText">仅参考你在这段对话中提供的内容</p>
           <p id="draftChatProvider"></p>
@@ -1189,8 +1262,8 @@
           </div>
           <pre id="draftChatContextPreview">没有附加上下文</pre>
         </details>
-              <details class="chat-disclosure chat-manage" id="draftChatManage">
-                <summary data-i18n="管理这段对话">管理这段对话</summary>
+              <details class="chat-disclosure chat-manage disclosure" id="draftChatManage">
+                <summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span data-i18n="管理这段对话">管理这段对话</span></summary>
                 <button type="button" class="pixel-btn btn-mini" id="btnDraftChatDelete" data-i18n="删除这段对话">删除这段对话</button>
         <div id="draftChatDeleteConfirm" class="chat-disclosure hidden" role="group" aria-label="删除对话确认" data-i18n-aria-label="删除对话确认">
           <p data-i18n="删除这段对话、未发送输入和本机保存副本，无法从应用中撤销。已建立的任务与已独立确认的记忆会保留；记忆可在设置中另行管理。">删除这段对话、未发送输入和本机保存副本，无法从应用中撤销。已建立的任务与已独立确认的记忆会保留；记忆可在设置中另行管理。</p>
@@ -1211,7 +1284,7 @@
         </div>
         <div class="chat-log" id="draftChatLog" role="log" aria-live="polite" aria-label="对话与草稿版本，可分段查看完整历史" tabindex="0" data-i18n-aria-label="对话与草稿版本，可分段查看完整历史"></div>
         </div>
-        <details class="chat-disclosure hidden" id="draftChatReceiptHistory"><summary data-i18n="已确认的修改与撤销">已确认的修改与撤销</summary>
+        <details class="chat-disclosure hidden disclosure" id="draftChatReceiptHistory"><summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span data-i18n="已确认的修改与撤销">已确认的修改与撤销</span></summary>
           <p id="draftChatReceiptsStatus" role="status"></p><div id="draftChatReceipts"></div><button type="button" class="pixel-btn btn-mini hidden" id="btnDraftChatReceiptsMore" data-i18n="更多提交记录">更多提交记录</button>
         </details>
         <section class="chat-changes hidden" id="draftChatChanges" aria-labelledby="draftChatChangeTitle">
@@ -1292,7 +1365,7 @@
           <div class="bd-steps" id="editSteps" role="group" aria-labelledby="editStepsLabel"></div>
           <button type="button" class="pixel-btn btn-mini bd-add" id="editAddStep" data-i18n="+ 加一步">+ 加一步</button>
         </div>
-<details class="edit-options" id="editDates"><summary data-i18n-text="安排日期">安排日期 <span id="editDatesSummary"></span></summary>        <div class="edit-field">
+<details class="edit-options disclosure" id="editDates"><summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span data-i18n="安排日期">安排日期</span><span id="editDatesSummary"></span></summary>        <div class="edit-field">
           <label class="chip-label" for="editPlannedFor" data-i18n="放在哪天">放在哪天</label>
           <div class="task-date-control"><input type="date" id="editPlannedFor" class="pixel-date"><button type="button" class="task-date-picker" id="editPlannedForPicker" aria-label="选择日期" data-i18n-aria-label="选择日期" data-icon="calendar"></button></div>
         </div>
@@ -1309,7 +1382,7 @@
           <div class="task-date-control"><input type="date" id="editExpiresAt" class="pixel-date"><button type="button" class="task-date-picker" id="editExpiresAtPicker" aria-label="选择日期" data-i18n-aria-label="选择日期" data-icon="calendar"></button></div>
         </div>
 </details>
-<details class="edit-options" id="editAttributes"><summary data-i18n-text="其他属性">其他属性 <span id="editAttributesSummary"></span></summary>        <div class="chip-row" role="group" aria-label="编辑能量" data-i18n-aria-label="编辑能量">
+<details class="edit-options disclosure" id="editAttributes"><summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span data-i18n="其他属性">其他属性</span><span id="editAttributesSummary"></span></summary>        <div class="chip-row" role="group" aria-label="编辑能量" data-i18n-aria-label="编辑能量">
           <span class="chip-label" data-i18n="能量：">能量：</span>
           <div class="segmented-control"><button type="button" class="chip edit-energy-chip" data-edit-energy="auto" aria-pressed="false" data-i18n="自动">自动</button>
           <button type="button" class="chip edit-energy-chip" data-edit-energy="low" aria-pressed="false" data-i18n="低">低</button>
@@ -1382,7 +1455,7 @@
         <button type="button" class="modal-close" id="completeConfirmClose" aria-label="取消完成任务" data-i18n-aria-label="取消完成任务">✕</button>
       </div>
       <div class="modal-body">
-        <p class="bd-hint" id="completeConfirmDescription">完成之后不能重新打开。确认现在就结束它吗？</p>
+        <p class="bd-hint" id="completeConfirmDescription" data-i18n="剩余步骤会一起标记完成。">剩余步骤会一起标记完成。</p>
         <p class="bd-original" id="completeConfirmTask"></p>
         <p class="capability-note hidden" id="completeConfirmError" role="alert"></p>
       </div>

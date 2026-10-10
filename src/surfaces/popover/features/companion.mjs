@@ -1,6 +1,6 @@
 import { t, getLocale } from '../../shared/interface/i18n.mjs';
 'use strict';
-import { displaySatiation } from '../../companion/satiation-display.mjs';
+import { renderCompanionOverview } from './companion-overview.mjs';
 import { createSurfaceMotion } from '../../shared/motion.mjs';
 import { createPopoverFoodShop } from './food-shop.mjs';
 import { renderFoodCollection } from './food-collection.mjs';
@@ -54,12 +54,7 @@ function createPopoverCompanionFeature({ getState, $, escapeHTML, skinAccent, su
 
     const bondLabel = label => ['刚认识', '慢慢熟了', '熟悉了', '很信任', '和它慢慢熟了', '成了熟悉的伙伴', '它很信任你了'].includes(label) ? t(label) : label;
     const paintFacts = () => {
-      const summary = $('#companionSummaryText');
-      if (summary) {
-        const days = projection.daysTogether || 0;
-        const met = days > 0 ? t('相识 {days} 天', { days }) : t('今天刚认识');
-        summary.textContent = t('{met} · 饱食 {satiation} · 一起吃过 {feeds} 次', { met, satiation: displaySatiation(projection.satiation ?? 65), feeds: projection.totalFeeds || 0 });
-      }
+      renderCompanionOverview($, projection);
 
       const stagePill = $('#bondStage');
       if (stagePill) stagePill.textContent = bondLabel(bond.label);
@@ -163,7 +158,7 @@ function createPopoverCompanionFeature({ getState, $, escapeHTML, skinAccent, su
     const document = shopList?.ownerDocument;
     if (document) {
       disclosureMotion = createSurfaceMotion(document);
-      for (const id of ['#foodShopPanel', '#journeyPanel', '#bondMilestones']) {
+      for (const id of ['#foodShopPanel', '#journeyPanel']) {
         const panel = $(id);
         if (!panel) continue;
         const handler = () => { if (panel.open) void disclosureMotion.enter(panel.querySelector('.disclosure-body')); };

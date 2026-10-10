@@ -76,7 +76,7 @@ function createPlanningPreferencesFeature({ document, client, $ = selector => do
   async function invalidate(message = '') {
     const abandoned = pending, token = ++epoch; pending = null; busy = false;
     view.hide('planningReview', true); view.hide('planningCurveComparison', true);
-    if (recovery) showRecovery(); else if (message) say(message);
+    if (recovery) showRecovery(); else say(message);
     sync();
     const result = await releaseTicket(abandoned);
     if (token === epoch && visible() && abandoned && !result?.ok && !recovery) say('预览已隐藏，但取消结果尚未确认。重新读取后可以核对。');
@@ -99,7 +99,7 @@ function createPlanningPreferencesFeature({ document, client, $ = selector => do
       data = clone(result.view); view.data(data, now()); view.parameter(data);
       if (recoveredFromView()) { recovery = null; say('已核对上次确认的本机变更。'); }
       else if (recovery) showRecovery();
-      else if (!quiet) say('已读取本机设置。变更会先显示预览。');
+      else if (!quiet) say('');
     } catch (_) { if (token === epoch && visible()) { data = null; say(recovery ? '保存结果仍待核对，确认请求的标识已保留。' : '暂时无法读取本机设置，已有内容未改变。'); } }
     finally { if (token === epoch) { busy = false; sync(); } }
   }
@@ -177,7 +177,15 @@ function createPlanningPreferencesFeature({ document, client, $ = selector => do
       if (!matches(result, kind, input) || proposal && !proposalMatches(result, proposal)) { await releaseTicket(returned); if (token === epoch && visible()) say('返回的预览与当前选择不一致，请重新读取。'); return; }
       pending = { kind, input: clone(input), value: clone(result) }; view.review(result, kind); say('预览已准备好，尚未保存。');
     } catch (_) { if (token === epoch && visible()) say('预览未成功，已有内容未改变。'); }
-    finally { if (token === epoch) { busy = false; sync(); } }
+    finally { if (token === epoch) {
+      busy = false; sync();
+      if (pending && visible()) {
+        const heading = node('planningReviewTitle');
+        heading?.setAttribute('tabindex', '-1');
+        heading?.focus({ preventScroll: true });
+        node('planningReview')?.scrollIntoView?.({ block: 'start', behavior: 'auto' });
+      }
+    } }
   }
   async function confirm() {
     if (busy || confirming || !(recovery || pending) || !visible()) return;
@@ -194,7 +202,7 @@ function createPlanningPreferencesFeature({ document, client, $ = selector => do
         if (selected.kind === 'preference') proposalContext = null;
         if (visible()) {
           view.hide('planningReview', true);
-          say(selected.kind === 'trial' ? '曲线试用已开始，到期后恢复原参数。' : selected.kind === 'history' ? '本机自评记录范围已更新。' : '安排偏好已保存，自评保持原样。');
+          say(selected.kind === 'trial' ? '曲线试用已开始，到期后恢复原参数。' : selected.kind === 'history' ? '本机自评记录范围已更新。' : '');
           await reload({ quiet: true });
         }
       } else if (retry && result?.committed !== false || result?.ok !== false || result.uncertain === true
@@ -244,7 +252,11 @@ function createPlanningPreferencesFeature({ document, client, $ = selector => do
     on('planningPreferenceTarget', 'change', selectPreference);
     on('planningTrialParameter', 'change', () => { invalidate(); view.parameter(data); });
     on('planningConfirm', 'click', () => { void confirm(); });
-    on('planningCancel', 'click', () => invalidate('预览已关闭。'));
+    on('planningCancel', 'click', () => {
+      const kind = pending?.kind;
+      void invalidate();
+      if (kind) node(kind === 'history' ? 'planningHistoryPreview' : kind === 'trial' ? 'planningTrialPreview' : 'planningPreferencePreview')?.focus();
+    });
     on('planningRefresh', 'click', () => { void reload(); });
     on('planningPreferenceUndo', 'click', () => { void undo('preference'); });
     on('planningTrialUndo', 'click', () => { void undo('trial'); });

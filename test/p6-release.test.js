@@ -12,7 +12,9 @@ const {
   RESTRICTED_MARKERS,
   detectMachArchitectures,
   validateBuildConfig,
-  verifyAsar
+  verifyAsar,
+  verifyDiagnosticsCapability,
+  verificationArguments
 } = require('../scripts/verify-macos-app');
 
 const ROOT = path.resolve(__dirname, '..');
@@ -28,6 +30,7 @@ function walk(relative) {
 test('测试构建配置为 0.0.2-dev.3，本机入口通过显式 arm64 路径验证 macOS', () => {
   const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
   assert.doesNotThrow(() => validateBuildConfig(pkg));
+  assert.doesNotThrow(() => validateBuildConfig(pkg, { testDiagnostics: true }));
   assert.deepEqual(pkg.build.files.filter(pattern => !pattern.startsWith('!')), ['src/**/*', 'assets/**/*', 'package.json']);
   assert.equal(pkg.scripts['validate:p6:sandbox'], 'npm run validate:mac');
   assert.doesNotThrow(() => validateBuildConfig({ ...pkg, build: { ...pkg.build, mac: {
@@ -95,6 +98,13 @@ test('the actual ASAR audit rejects restricted markers in migrated ES modules', 
     fs.writeFileSync(path.join(source, 'src/surface.mjs'), 'export const value = 1;');
     await asar.createPackage(source, archive);
     assert.equal(verifyAsar(archive, pkg).ownedTextEntries, 2);
+    fs.writeFileSync(path.join(source, 'package.json'), JSON.stringify({ ...pkg,
+      bubuCapabilities: { schemaVersion: 1, aiDiagnostics: true } }));
+    await asar.createPackage(source, archive);
+    asar.uncache(archive);
+    assert.throws(() => verifyAsar(archive, pkg), /explicitly selected build mode/);
+    assert.equal(verifyAsar(archive, pkg, { testDiagnostics: true }).ownedTextEntries, 2);
+    fs.writeFileSync(path.join(source, 'package.json'), JSON.stringify(pkg));
     fs.writeFileSync(path.join(source, 'src/surface.mjs'), `export const value = ${JSON.stringify(RESTRICTED_MARKERS[0])};`);
     await asar.createPackage(source, archive);
     asar.uncache(archive);
@@ -102,4 +112,21 @@ test('the actual ASAR audit rejects restricted markers in migrated ES modules', 
   } finally {
     fs.rmSync(directory, { recursive: true, force: true });
   }
+});
+
+
+test('macOS diagnostics verifier matches explicit ordinary/test build mode and rejects ambient or malformed gates', () => {
+  for (const enabled of [false, true]) {
+    const pkg = { bubuCapabilities: { schemaVersion: 1, aiDiagnostics: enabled } };
+    assert.doesNotThrow(() => verifyDiagnosticsCapability(pkg, enabled));
+    assert.throws(() => verifyDiagnosticsCapability(pkg, !enabled), /explicitly selected build mode/);
+  }
+  assert.doesNotThrow(() => verifyDiagnosticsCapability({}, false));
+  assert.throws(() => verifyDiagnosticsCapability({}, true), /explicitly selected build mode/);
+  assert.throws(() => verifyDiagnosticsCapability({ bubuCapabilities: { schemaVersion: 1, aiDiagnostics: 'true' } }, true));
+  assert.throws(() => verifyDiagnosticsCapability({ bubuCapabilities: { schemaVersion: 2, aiDiagnostics: true } }, true));
+  assert.deepEqual(verificationArguments(['test.app', '--test-diagnostics']), { explicitPath: 'test.app', testDiagnostics: true });
+  assert.deepEqual(verificationArguments([]), { explicitPath: undefined, testDiagnostics: false });
+  assert.throws(() => verificationArguments(['--test-diagnostics', '--test-diagnostics']));
+  assert.throws(() => verificationArguments(['--publish', 'always']));
 });

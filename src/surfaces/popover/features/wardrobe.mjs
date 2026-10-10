@@ -1,19 +1,11 @@
 'use strict';
 
-// 配饰橱窗抽屉。分组、可选项、锁与锁的理由全部由 companion 能力算好后放进
-// state.appearance,这一层只做两件事:把它翻译成中文文案,以及把点击翻译成
-// 一次 equip 请求。
-//
-// 这里刻意不保留“本地选中态”:点一下之后界面等主进程把新的 wornIds 送回来再
-// 重画。乐观更新会带来一个真实的坏情况——互斥组换件时,旧件已经从界面上消失、
-// 新件却因为校验失败没戴上,于是屏幕上是空的而桌宠身上还戴着旧的。
-//
-// 排布是主从两列:左边七个槽位(各自写着现在戴着什么),右边只画聚焦槽位的选项。
-// 之前七组标签平铺着换二十四个按钮,其中四组只有一件——「光环 ［不戴］［小光环］」
-// 为一件东西花掉一整行。左列现在还顺便是一张「整套搭配」清单,一眼读完。
+// Wardrobe presentation and commands. The projection owns equipped items and
+// unlocks; stage navigation only previews immutable recipes. No optimistic wear.
 import { t, getLocale } from '../../shared/interface/i18n.mjs';
 import { forms } from '../../../capabilities/companion/index.mjs';
-import { renderWardrobeOutfitPreviews } from './wardrobe-outfit-preview.mjs';
+import { createAppearanceCommand } from './appearance-command.mjs';
+import { createWardrobeStage } from './wardrobe-stage.mjs';
 
 // 能力按组名的字母序返回,那会把「鞋子」排到「光环」前面。展示顺序按从头到脚
 // 排,由当前形态的槽位声明给出，而不是在 surface 重写一份角色清单。
@@ -21,6 +13,13 @@ function formFor(state) { return forms.resolvePetForm(state?.currentSkin); }
 
 function groupLabel(form, group) {
   return t(form.slotLabels[group] || group);
+}
+
+function slotDisplayLabel(form, group) {
+  if (form.id !== 'usagi') return groupLabel(form, group);
+  const labels = { 'usagi.headwear': '头饰', 'usagi.earwear': '耳饰', 'usagi.aura': '光环',
+    'usagi.neckwear': '颈饰', 'usagi.backwear': '背饰', 'usagi.sidebag': '随身', 'usagi.footwear': '鞋子' };
+  return t(labels[group] || form.slotLabels[group] || group);
 }
 
 function orderChoices(choices, form) {
@@ -56,7 +55,18 @@ function createPopoverWardrobeFeature({
   let pendingFocusItem = null; // 刚点过的那颗选项:重绘后焦点要还给它
   let trigger = null;
   let unsubscribe = null;
+  let store = null;
   let bound = false;
+  let visit = 0;
+  const command = createAppearanceCommand({ $, reconcile, changed: () => { pendingFocusItem = null; },
+    controls: () => [...($('#wardrobeOptions')?.querySelectorAll?.('.wardrobe-option') || []),
+      $('#wardrobeReset'), $('#wardrobeApplyOutfit')].filter(Boolean) });
+  const stage = createWardrobeStage({ $, getState, formFor, drawPetPreview, busy: command.busy, lockText,
+    onApply: (lookId, expectedSkin) => { void command.run(async () => {
+      const result = await surfaceClient.applyOutfit(lookId, expectedSkin);
+      if (result?.ok === false) stage.cancelApplyFocus();
+      return result;
+    }); } });
 
   // 皮肤专属件要说清是哪套皮肤解锁的。名字只有投影里有,组里没有,所以在这里查表。
   function skinName(state, skinId) {
@@ -72,8 +82,7 @@ function createPopoverWardrobeFeature({
     return t('未解锁');
   }
 
-  // 左列每个槽位都写着现在戴着什么,于是它同时是一张「整套搭配」清单。名字只有
-  // 选项里有,choice.selected 只是个 id。
+  // Selected labels come from the same canonical choices as the option grid.
   function wornLabel(choice) {
     if (!choice.selected) return '—';
     const found = choice.options.find(option => option.id === choice.selected);
@@ -83,8 +92,8 @@ function createPopoverWardrobeFeature({
   function slotMarkup(form, choice, selected) {
     return '<button type="button" class="wardrobe-slot" role="tab"'
       + ` data-group="${escapeHTML(choice.group)}" aria-selected="${selected ? 'true' : 'false'}"`
-      + ` aria-controls="wardrobeOptions" tabindex="${selected ? '0' : '-1'}">`
-      + `<span class="slot-name">${escapeHTML(groupLabel(form, choice.group))}</span>`
+      + ` aria-label="${escapeHTML(groupLabel(form, choice.group))}" aria-controls="wardrobeOptions" tabindex="${selected ? '0' : '-1'}">`
+      + `<span class="slot-name">${escapeHTML(slotDisplayLabel(form, choice.group))}</span>`
       + `<span class="slot-worn">${escapeHTML(wornLabel(choice))}</span>`
       + '</button>';
   }
@@ -104,7 +113,8 @@ function createPopoverWardrobeFeature({
       + ` data-group="${escapeHTML(group)}" data-item="${escapeHTML(option.id)}"`
       + ` aria-pressed="${isSelected ? 'true' : 'false'}"`
       + ` aria-label="${escapeHTML(aria)}"${option.available ? '' : ' disabled'}>`
-      + `${label}${hint}</button>`;
+      + `<canvas class="wardrobe-item-preview" data-item-preview="${escapeHTML(option.id)}" width="135" height="135" aria-hidden="true"></canvas>`
+      + `<span class="wardrobe-item-name">${label}</span>${hint}</button>`;
   }
 
   function optionsMarkup(state, form, choice) {
@@ -113,9 +123,9 @@ function createPopoverWardrobeFeature({
     const empty = `<button type="button" class="wardrobe-option${choice.selected ? '' : ' selected'}"`
       + ` data-group="${escapeHTML(choice.group)}" data-item=""`
       + ` aria-pressed="${choice.selected ? 'false' : 'true'}"`
-      + ` aria-label="${escapeHTML(t('不戴{slot}', { slot: groupLabel(form, choice.group) }))}">${escapeHTML(t('不戴'))}</button>`;
+      + ` aria-label="${escapeHTML(t('不戴{slot}', { slot: groupLabel(form, choice.group) }))}"><span class="wardrobe-empty-art" aria-hidden="true">—</span><span class="wardrobe-item-name">${escapeHTML(t('不戴'))}</span></button>`;
     const options = choice.options.map(option => optionMarkup(state, choice.group, option, choice.selected));
-    return empty + options.join('');
+    return `<p class="wardrobe-options-label">${escapeHTML(t('我的穿搭配饰'))}</p>` + empty + options.join('');
   }
 
   function render(state = getState()) {
@@ -130,7 +140,7 @@ function createPopoverWardrobeFeature({
     }
     const dataKey = JSON.stringify([state.currentSkin, wornIds, choices, focusedSlot]);
     const key = `${getLocale()}|${dataKey}`;
-    if (key === lastKey) return;
+    if (key === lastKey) { stage.render(state, form.id); command.paint(); return; }
     lastKey = key;
 
     const slots = $('#wardrobeSlots');
@@ -146,11 +156,33 @@ function createPopoverWardrobeFeature({
         : `<p class="wardrobe-empty">${escapeHTML(t('还没有可搭配的配饰。升级和解锁皮肤都会往这里添件。'))}</p>`;
     }
 
+    // Thumbnails are passive single-piece previews from the production painter.
+    // Locked pieces may be previewed, but only the projection authorizes equipping.
+    let thumbnailFailed = false;
+    const focusedChoice = choices.find(choice => choice.group === focusedSlot);
+    for (const item of focusedChoice?.options || []) {
+      const target = options?.querySelector(`[data-item-preview="${item.id}"]`);
+      if (target) {
+        try { drawPetPreview(target, { skinId: state.currentSkin || 'pink', itemIds: [item.id], size: 'preview' }); }
+        catch (_) {
+          // An optional thumbnail must never interrupt canonical controls/status.
+          target.hidden = true;
+          thumbnailFailed = true;
+          lastKey = ''; // Retry failed artwork on the next normal projection.
+        }
+      }
+    }
+    const wornPieces = $('#wardrobeWornPieces');
+    if (wornPieces) {
+      wornPieces.textContent = choices.flatMap(choice => choice.options)
+        .filter(item => wornIds.includes(item.id)).map(item => item.label).join(' · ');
+      wornPieces.title = wornPieces.textContent;
+    }
+
     const canvas = $('#wardrobePreview');
-    if (canvas) {
+    if (!stage.render(state, form.id) && canvas) {
       drawPetPreview(canvas, { skinId: state.currentSkin || 'pink', itemIds: wornIds, size: 'preview' });
     }
-    const repaintOutfits = renderWardrobeOutfitPreviews({ container: $('#wardrobeLooks'), state, formId: form.id, escapeHTML, drawPetPreview });
 
     const summary = $('#wardrobeSummary');
     if (summary) {
@@ -168,16 +200,18 @@ function createPopoverWardrobeFeature({
 
     // Language changes only repaint copy on the existing controls and canvases.
     repaintCopy = () => {
-      lastKey = `${getLocale()}|${dataKey}`;
+      lastKey = thumbnailFailed ? '' : `${getLocale()}|${dataKey}`;
       for (const slot of slots?.querySelectorAll('.wardrobe-slot') || []) {
         const label = slot.querySelector('.slot-name');
-        if (label) label.textContent = groupLabel(form, slot.dataset.group);
+        if (label) label.textContent = slotDisplayLabel(form, slot.dataset.group);
+        slot.setAttribute('aria-label', groupLabel(form, slot.dataset.group));
       }
       const focused = choices.find(choice => choice.group === focusedSlot);
       for (const button of options?.querySelectorAll('.wardrobe-option') || []) {
         const option = focused?.options.find(item => item.id === button.dataset.item);
         if (!option) {
-          button.textContent = t('不戴');
+          const name = button.querySelector('.wardrobe-item-name');
+          if (name) name.textContent = t('不戴');
           button.setAttribute('aria-label', t('不戴{slot}', { slot: groupLabel(form, button.dataset.group) }));
           continue;
         }
@@ -188,16 +222,20 @@ function createPopoverWardrobeFeature({
         const hint = button.querySelector('.wardrobe-lock');
         if (hint) hint.textContent = lock;
       }
+      const optionsLabel = options?.querySelector('.wardrobe-options-label');
+      if (optionsLabel) optionsLabel.textContent = t('我的穿搭配饰');
       const empty = options?.querySelector('.wardrobe-empty');
       if (empty) empty.textContent = t('还没有可搭配的配饰。升级和解锁皮肤都会往这里添件。');
       if (summary) summary.textContent = wornIds.length ? t('正戴着 {count} 件', { count: wornIds.length }) : t('现在什么都没戴');
       if (entryMeta) entryMeta.textContent = wornIds.length ? t('戴着 {count} 件', { count: wornIds.length }) : t('什么都没戴');
-      repaintOutfits();
+      stage.repaintCopy();
+      command.paint();
     };
 
     // 投影回流会把整块选项重画掉,键盘用户的焦点会掉到 body 上。把它还给刚点过
     // 的那颗按钮 —— 连着换两件是常见动作,每次都要重新 Tab 进来是不能接受的。
-    if (pendingFocusItem !== null && options) {
+    command.paint();
+    if (pendingFocusItem !== null && options && isOpen()) {
       const back = options.querySelector(`.wardrobe-option[data-item="${pendingFocusItem}"]`);
       pendingFocusItem = null;
       if (back) back.focus();
@@ -209,13 +247,18 @@ function createPopoverWardrobeFeature({
     const button = event.target && typeof event.target.closest === 'function'
       ? event.target.closest('.wardrobe-option')
       : null;
-    if (!button || button.disabled) return;
+    if (!button || button.disabled || command.busy()) return;
     const group = button.dataset ? button.dataset.group : '';
     if (!group) return;
     const itemId = button.dataset.item || null;
     if (button.getAttribute('aria-pressed') === 'true') return;
     pendingFocusItem = button.dataset.item;
-    surfaceClient.equipAppearance(group, itemId);
+    const owner = visit;
+    void command.run(async () => {
+      const result = await surfaceClient.equipAppearance(group, itemId);
+      if (result?.ok === true && owner === visit && isOpen()) stage.showCurrent();
+      return result;
+    });
   }
 
   function onSlotsClick(event) {
@@ -244,6 +287,7 @@ function createPopoverWardrobeFeature({
 
   function focusSlot(group, { moveFocus = false } = {}) {
     if (!group || group === focusedSlot) return;
+    pendingFocusItem = null;
     focusedSlot = group;
     render(getState());
     if (!moveFocus) return;
@@ -253,7 +297,7 @@ function createPopoverWardrobeFeature({
   }
 
   function onReset() {
-    surfaceClient.resetAppearance();
+    void command.run(() => surfaceClient.resetAppearance());
   }
 
   function isOpen() {
@@ -264,12 +308,16 @@ function createPopoverWardrobeFeature({
   function open() {
     const mask = $('#wardrobeMask');
     if (!mask) return;
+    if (isOpen()) return;
+    const owner = ++visit;
+    command.nextVisit();
     trigger = document.activeElement;
     lastKey = '';
     render(getState());
     mask.classList.remove('hidden');
     mask.setAttribute('aria-hidden', 'false');
     requestAnimationFrame(() => {
+      if (owner !== visit || !isOpen()) return;
       const first = mask.querySelector('.wardrobe-slot[aria-selected="true"]') || $('#btnWardrobeClose');
       if (first) first.focus();
     });
@@ -278,6 +326,9 @@ function createPopoverWardrobeFeature({
   function close() {
     const mask = $('#wardrobeMask');
     if (!mask) return;
+    visit++;
+    stage.cancelGesture();
+    command.nextVisit();
     mask.classList.add('hidden');
     mask.setAttribute('aria-hidden', 'true');
     pendingFocusItem = null;
@@ -291,11 +342,24 @@ function createPopoverWardrobeFeature({
     if (event.target === $('#wardrobeMask')) close();
   }
 
+  async function reconcile() {
+    const owner = visit;
+    if (!store?.refresh) return false;
+    const snapshot = await store.refresh();
+    if (owner !== visit || !store || !snapshot || !Number.isSafeInteger(snapshot.revision)
+        || !snapshot.appearance || !Array.isArray(snapshot.appearance.wornIds)) return false;
+    render(snapshot);
+    return true;
+  }
+
   function mount(projectionStore) {
     if (!projectionStore || typeof projectionStore.subscribe !== 'function') {
       throw new TypeError('wardrobe feature requires a projection store');
     }
     if (unsubscribe) return;
+    store = projectionStore;
+    command.mount();
+    stage.mount();
     if (!bound) {
       bound = true;
       const entry = $('#btnOpenWardrobe');
@@ -324,6 +388,10 @@ function createPopoverWardrobeFeature({
   }
 
   function dispose() {
+    visit++;
+    command.dispose();
+    store = null;
+    stage.dispose();
     if (typeof unsubscribe === 'function') unsubscribe();
     unsubscribe = null;
     repaintCopy = () => {};

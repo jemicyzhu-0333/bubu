@@ -164,7 +164,8 @@ test('Windows packaging contains the separate one-shot helper without enabling a
   const plan = buildPlan({ platform: 'win32', arch: 'x64',
     argv: pkg.scripts['build:win'].split(' ').slice(2) });
   assert.equal(plan.target, 'win');
-  assert.deepEqual(plan.builderArgs, ['--win', '--x64', '--publish', 'never']);
+  assert.deepEqual(plan.builderArgs, ['--win', '--x64', '--publish', 'never',
+    '--config.extraMetadata.bubuCapabilities.schemaVersion=1', '--config.extraMetadata.bubuCapabilities.aiDiagnostics=false']);
   assert.deepEqual(plan.prepare, [['scripts/make-icon.js']], 'Windows must not compile the macOS helper');
   const helper = fs.readFileSync(path.join(root, 'native/windows/nudge-foreground.ps1'), 'utf8');
   assert.match(helper, /GetForegroundWindow/); assert.match(helper, /GetWindowThreadProcessId/); assert.match(helper, /process\.ProcessName/);

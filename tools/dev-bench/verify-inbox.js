@@ -43,20 +43,20 @@ async function run() {
   await js(`document.querySelector(${JSON.stringify(row('task'))}).scrollIntoView({block:'center'})`); await shot('07-card-actions');
   await js(`(()=>{const e=document.querySelector(${JSON.stringify(row('task') + ' [data-inbox-action=schedule]')});e.focus();e.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}))})()`);
   assert.equal(await js(`document.querySelector(${JSON.stringify(row('task') + ' .inbox-options')}).open`), false);
-  // Missing routine metadata reveals the editor, and classification rerenders preserve draft/focus.
+  // Inline routine inputs remain visible, and classification rerenders preserve draft/focus.
   // Browsing labels is a local draft: nothing is written until the primary action.
   await choose(row('routine') + ' .inbox-category', 'note');
   assert.equal(await js(`(async()=>(await window.bubu.getState()).impulses.find(i=>i.id===${JSON.stringify(ids.routine)}).classification.category)()`), 'routine');
   assert.equal(await js(`document.querySelector(${JSON.stringify(row('routine') + ' .inbox-source')}).textContent`), '未保存');
   await choose(row('routine') + ' .inbox-category', 'routine');
-  assert.equal(await js(`document.querySelector(${JSON.stringify(row('routine') + ' .inbox-details')}).open`), false, 'complete details stay folded');
+  assert.equal(await js(`document.querySelector(${JSON.stringify(row('routine') + ' .inbox-details')}).tagName`), 'DIV', 'fields stay inline without a redundant disclosure');
   await choose(row('routine') + ' .inbox-kind', '');
   await click(row('routine') + ' [data-inbox-action=routine]');
-  assert.equal(await js(`document.querySelector(${JSON.stringify(row('routine') + ' .inbox-details')}).open`), true);
+  assert.equal(await js(`document.querySelector(${JSON.stringify(row('routine') + ' .inbox-details')}).checkVisibility()`), true);
   assert.equal(await js("document.activeElement.className"), 'inbox-kind');
   await js(`(()=>{const e=document.querySelector(${JSON.stringify(row('routine') + ' .inbox-title')});e.value='晚饭后散步十分钟';e.dispatchEvent(new Event('input',{bubbles:true}))})()`);
   await choose(row('routine') + ' .inbox-kind', 'movement');
-  assert.equal(await js(`document.querySelector(${JSON.stringify(row('routine') + ' .inbox-details')}).open`), true);
+  assert.equal(await js(`document.querySelector(${JSON.stringify(row('routine') + ' .inbox-details')}).checkVisibility()`), true);
   assert.equal(await js(`document.querySelector(${JSON.stringify(row('routine') + ' .inbox-title')}).value`), '晚饭后散步十分钟');
   await shot('08-card-settings');
   assert.equal(await js(`document.querySelector(${JSON.stringify(row('unclassified') + ' [data-inbox-action=keep]')}).textContent`), '先留存');
@@ -111,6 +111,6 @@ async function run() {
   await js("document.querySelector('#tabInbox').dispatchEvent(new Event('pointerenter'))"); await pause(60);
   assert.equal(await js("getComputedStyle(document.querySelector('#tabInbox .tab-glyph')).transform"), 'none');
   assert.deepEqual(errors, []);
-  console.log(JSON.stringify({ output: out, errors, verified: ['compact task toolbar', 'daily count in tab', 'label before large stats', 'one primary action per card', 'progressive fields and draft persistence', 'Escape disclosures', 'manual category', 'atomic routine/log/mood/state/task', 'history categories', 'keyboard', '480x620 light/dark', 'GSAP hover-focus-click continuity and cleanup/reduced'] }));
+  console.log(JSON.stringify({ output: out, errors, verified: ['compact task toolbar', 'daily count in tab', 'label before large stats', 'one primary action per card', 'inline fields and draft persistence', 'Escape disclosures', 'manual category', 'atomic routine/log/mood/state/task', 'history categories', 'keyboard', '480x620 light/dark', 'GSAP hover-focus-click continuity and cleanup/reduced'] }));
 }
 app.whenReady().then(() => pause(1500)).then(run).then(() => app.exit(0)).catch(error => { console.error(error.stack); app.exit(1); }).finally(() => clearTimeout(deadline));

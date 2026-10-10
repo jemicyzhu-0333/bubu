@@ -12,10 +12,13 @@ const { MAX_KEEP_ALL } = work.inboxRecords;
 function routineTarget(state, { action, kind, routineId, createNew, title, profiles, idFactory, at }) {
   const matching = state.routines.filter(item => item.kind === kind && item.active);
   if (action === 'log' && !createNew) {
-    const routine = routineId ? matching.find(item => item.id === routineId) : matching.length === 1 ? matching[0] : null;
+    // A shared custom kind says nothing about whether two activities are the same.
+    // Require the person's explicit target rather than associating unrelated records.
+    const routine = routineId ? matching.find(item => item.id === routineId)
+      : kind !== 'custom' && matching.length === 1 ? matching[0] : null;
     if (routineId && !routine) return { ok: false, reason: 'routine-not-found' };
     if (routine) return { ok: true, routine };
-    if (matching.length > 1) return { ok: false, reason: 'routine-choice-required' };
+    if (matching.length > 1 || (kind === 'custom' && matching.length)) return { ok: false, reason: 'routine-choice-required' };
   }
   return routines.routineEditing.addRoutine(state, { title, kind, schedule: null, profiles, idFactory, now: at });
 }

@@ -24,6 +24,7 @@ function createBootstrapRuntime({ surpriseDirector: surpriseOptions, onLifecycle
 }
 
 module.exports = {
+  ...require('./companion-wardrobe'),
   createApplication,
   ...require('./app-maintenance'),
   ...require('./domain-id'),

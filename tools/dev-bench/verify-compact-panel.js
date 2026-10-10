@@ -72,16 +72,17 @@ async function run() {
   assert.equal(saved.plannedFor,'2026-10-02'); assert.equal(saved.estimateMinutes,180);
   assert.deepEqual(saved.tags,['本周']); assert.equal(saved.description,'只做一个可验证的小修改');
   await click('tabCompanion'); await shot('07-companion');
-  const companion = await js("(()=>{const food=document.getElementById('foodShopPanel').getBoundingClientRect(),journey=document.getElementById('journeyPanel').getBoundingClientRect();return{bondAbove:document.getElementById('bondProgress').getBoundingClientRect().top<food.top,sameRow:Math.abs(food.top-journey.top)<2,journeyRight:journey.left>food.left,nested:document.getElementById('journeyPanel').contains(document.getElementById('bondMilestones'))}})()");
-  assert.deepEqual(companion,{bondAbove:true,sameRow:true,journeyRight:true,nested:true});
-  await js("document.getElementById('foodShopPanel').scrollIntoView({block:'end'})");
+  const companion = await js("(()=>{const food=document.getElementById('btnOpenFood').getBoundingClientRect(),journey=document.getElementById('btnOpenJourney').getBoundingClientRect();return{oneGrowthBar:document.querySelectorAll('#panelCompanion [role=progressbar]').length===1,sameRow:Math.abs(food.top-journey.top)<2,journeyRight:journey.left>food.left,nested:document.getElementById('journeyPanel').contains(document.getElementById('bondProgress'))}})()");
+  assert.deepEqual(companion,{oneGrowthBar:true,sameRow:true,journeyRight:true,nested:true});
+  await js("document.getElementById('btnOpenFood').scrollIntoView({block:'end'})");
   await shot('07b-companion-entries');
-  for (const selector of ['#btnOpenSkins','#btnOpenWardrobe','#foodShopPanel>summary','#journeyPanel>summary']) {
+  for (const selector of ['#btnOpenSkins','#btnOpenWardrobe','#btnOpenFood','#btnOpenJourney']) {
     await js(`document.querySelector('${selector}').dispatchEvent(new Event('pointerenter'))`); await pause(60);
     assert.equal(await js(`getComputedStyle(document.querySelector('${selector} .entry-glyph')).transform!=='none'`),true,selector+' motion');
   }
-  await js("document.getElementById('journeyPanel').open=true;document.getElementById('bondMilestones').open=true;document.getElementById('bondMilestones').scrollIntoView({block:'center'})");
+  await js("document.getElementById('btnOpenJourney').click();document.getElementById('journeyBondTitle').scrollIntoView({block:'center'})");
   await shot('08-journey');
+  await js("document.getElementById('journeyPanel').close()");
   await click('btnSettings');
   await js("document.getElementById('settingGroupAi').open=true;document.getElementById('settingGroupAi').scrollIntoView({block:'start'})");
   await shot('09-ai-settings'); await noOverflow('.settings-drawer-scroll');

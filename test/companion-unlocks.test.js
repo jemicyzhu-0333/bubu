@@ -40,7 +40,7 @@ test('the bundled long-eared form has no unlock progress and survives a canonica
   assert.equal(form.unlocked, true);
   assert.equal(form.progress, null);
   assert.equal(form.formId, 'usagi');
-  assert.equal(form.formName, '乌沙奇 2.0');
+  assert.equal(form.formName, '小奇');
   assert.equal(form.unlockLevel, 1);
   const pink = skinProjection.projectSkins(state, SKINS).find(skin => skin.id === 'pink');
   assert.equal(pink.formId, 'dango');

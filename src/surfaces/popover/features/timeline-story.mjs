@@ -189,13 +189,22 @@ function energySpark(curve, day, state, escapeHTML) {
   };
   const path = points.map((point, index) =>
     `${index ? 'L' : 'M'}${x(point.minute).toFixed(1)},${y(point.level).toFixed(1)}`).join(' ');
-  const nowMinute = today === day.dayKey && Number.isFinite(curve.nowMinute) ? curve.nowMinute : null;
+  const nowMinute = today === day.dayKey && Number.isFinite(curve.nowMinute)
+    && curve.nowMinute >= 0 && curve.nowMinute <= 1440 ? curve.nowMinute : null;
   const now = nowMinute === null ? ''
     : `<line class="tl-spark-now" x1="${x(nowMinute).toFixed(1)}" x2="${x(nowMinute).toFixed(1)}" y1="2" y2="${H - 2}"></line>`;
+  // Clip identical paths at the actual current minute: no sample is changed or
+  // moved to a neighbouring sample boundary to distinguish the forecast.
+  const pastPercent = nowMinute === null ? 100 : nowMinute / 1440 * 100;
+  const curvePaths = nowMinute === null ? `<path class="tl-spark-line" d="${path}"></path>`
+    : `<path class="tl-spark-line" d="${path}" style="clip-path:inset(0 ${100 - pastPercent}% 0 0) view-box"></path>`
+      + `<path class="tl-spark-forecast" d="${path}" style="clip-path:inset(0 0 0 ${pastPercent}%) view-box"></path>`;
+  const nowLabel = nowMinute === null ? '' : `<span class="tl-spark-now-label" style="left:${Math.max(5, Math.min(95, pastPercent))}%">${t('现在')}</span>`;
   const valid = points.map(point => point.level);
   const low = Math.round(Math.min(...valid));
   const high = Math.round(Math.max(...valid));
-  const label = t('估计能量 {low}–{high}（10–90，仅为估计）', { low, high });
+  const label = t('估计能量 {low}–{high}（10–90，仅为估计）', { low, high })
+    + (nowMinute === null ? '' : ` · ${t('实线为当前时间之前的估计，虚线为之后的估计')}`);
   const extremes = points.length ? [points.reduce((a,b) => a.level <= b.level ? a : b), points.reduce((a,b) => a.level >= b.level ? a : b)] : [];
   const dots = extremes.map(point => `<circle class="tl-extreme-dot" cx="${x(point.minute)}" cy="${y(point.level)}" r="2"/>`).join('');
   // HTML labels keep their font proportions when the SVG stretches across the panel.
@@ -208,7 +217,7 @@ function energySpark(curve, day, state, escapeHTML) {
     + `<span class="tl-spark-caption">${t('能量估计')}</span>`
     + `<div class="tl-spark-plot"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">`
     + `<path class="tl-spark-fill" d="${path} L${W},${H} L0,${H} Z"></path>`
-    + `<path class="tl-spark-line" d="${path}"></path>${now}${dots}</svg>${annotations}</div>`
+    + `${curvePaths}${now}${dots}</svg>${annotations}${nowLabel}</div>`
     + '<figcaption><span>0</span><span>6</span><span>12</span><span>18</span><span>24</span></figcaption>'
     + '</figure>';
   return { label, markup, levelAt };

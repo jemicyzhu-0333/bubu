@@ -39,6 +39,7 @@ function createPopoverFocusTimer({
   let renderedHeld = false;
   let actionGeneration = 0;
   let pendingAction = null;
+  let launching = false;
   let visible = true;
   let visibilityGeneration = 0;
   const teardown = [];
@@ -141,6 +142,10 @@ function createPopoverFocusTimer({
   }
 
   async function runFocusAction(kind, task, minutes) {
+    if (!mounted || !visible || launching) return { ok: false, reason: 'launch-pending' };
+    launching = true; renderPomoStructure();
+    const generation = visibilityGeneration;
+    const current = () => mounted && visible && generation === visibilityGeneration;
     try {
       const blockReason = taskLaunchBlockReason(task);
       if (['task-expired', 'task-completed', 'occurrence-skipped'].includes(blockReason)) {
@@ -149,6 +154,7 @@ function createPopoverFocusTimer({
       }
       if (blockReason === 'task-scheduled') {
         const selected = await surfaceClient.setNowTask(task.id);
+        if (!current()) return { ok: false, reason: 'launch-cancelled' };
         if (!selected || selected.ok === false) {
           const reason = selected && selected.reason || blockReason;
           showFocusActionStatus(() => focusActionMessage(reason));
@@ -166,6 +172,7 @@ function createPopoverFocusTimer({
       const result = kind === 'quick-start'
         ? await surfaceClient.kickstart(task ? task.id : null)
         : await surfaceClient.startPomodoro(task ? task.id : null, fullFocusMinutes);
+      if (!current()) return result;
       if (!result || result.ok === false) {
         showFocusActionStatus(() => focusActionMessage(result && result.reason));
         return result || { ok: false, reason: 'unknown' };
@@ -173,9 +180,9 @@ function createPopoverFocusTimer({
       showFocusActionStatus('');
       return result;
     } catch (_) {
-      showFocusActionStatus(() => focusActionMessage());
+      if (current()) showFocusActionStatus(() => focusActionMessage());
       return { ok: false, reason: 'ipc-failed' };
-    }
+    } finally { launching = false; if (mounted && visible) renderPomoStructure(); }
   }
 
   // -- Pomodoro time & label (called from local ticker, cheap, only touches numeric text)
@@ -209,7 +216,7 @@ function createPopoverFocusTimer({
       return;
     }
     const actionKey = [p.sessionId, action?.intent, action?.enabled, action?.reason].join('|');
-    const key = `${actionKey}|${p.status}|${p.mode}|${p.taskId}|${p.paused ? p.remainingMs : ''}|${p.awaitingOfflineConfirmation ? 1 : 0}|${state.settings.pomodoroMinutes}|${launch.taskId || ''}|${launch.minutes}|${launch.task ? launch.task.title : ''}|${launchBlockReason || ''}`;
+    const key = `${actionKey}|${p.status}|${p.mode}|${p.taskId}|${p.paused ? p.remainingMs : ''}|${p.awaitingOfflineConfirmation ? 1 : 0}|${state.settings.pomodoroMinutes}|${launch.taskId || ''}|${launch.minutes}|${launch.task ? launch.task.title : ''}|${launchBlockReason || ''}|${launching}`;
     if (key === lastPomoStructureKey) return;
     lastPomoStructureKey = key;
     actionGeneration++;
@@ -269,7 +276,7 @@ function createPopoverFocusTimer({
         ? t('开始专注')
         : t('开始自由专注');
       const hardBlocked = ['task-completed', 'task-expired', 'occurrence-skipped'].includes(launchBlockReason);
-      btnStart.disabled = hardBlocked;
+      btnStart.disabled = hardBlocked || launching;
       btnStart.setAttribute('aria-label', launch.task ? t('为当前任务“{title}”专注 {minutes} 分钟', { title: launch.task.title, minutes: launch.minutes }) : t('开始不关联任务的 {minutes} 分钟自由专注', { minutes: launch.minutes }));
       $('#pomoProgressFill').style.width = '0%';
       $('#pomoProgress').setAttribute('aria-valuenow', '0');
@@ -489,9 +496,7 @@ function createPopoverFocusTimer({
       await applyChosenMinutes(sessionDuration.stepFocusMinutes(current, Number(button.dataset.durationStep)));
     }));
     listen($('#btnStopFocus'), 'click', () => runSessionAction('stop'));
-    listen($('#btnPauseFocus'), 'click', () => {
-      if (typeof surfaceClient.pausePomodoro === 'function') surfaceClient.pausePomodoro();
-    });
+    listen($('#btnPauseFocus'), 'click', () => runSessionAction('pause'));
     listen($('#btnResumeFocus'), 'click', () => runSessionAction('resume'));
     // 只有倒数在本地走秒:它只改文字和宽度，从不重建列表。这颗心跳跟着这一层的
     // 挂载周期,所以卸载之后不会有一个计时器留在后台空转。
@@ -503,7 +508,7 @@ function createPopoverFocusTimer({
 
   function dispose() {
     if (!mounted) return;
-    mounted = false;
+    mounted = false; visibilityGeneration++;
     actionGeneration++;
     while (teardown.length) teardown.pop()();
     if (ticker) clearInterval(ticker);
@@ -516,13 +521,14 @@ function createPopoverFocusTimer({
   async function runSessionAction(kind) {
     if (!mounted || !visible || pendingAction) return;
     const action = renderedAction;
+    if (kind === 'pause' && (!getSession().running || typeof surfaceClient.pausePomodoro !== 'function')) return;
     if (kind === 'resume' && (!action?.enabled || !['resume', 'confirm-completion'].includes(action.intent))) return;
     if (kind === 'stop' && renderedHeld && !action) return;
     const generation = actionGeneration;
     const token = {};
     pendingAction = token;
     try {
-      const result = kind === 'resume'
+      const result = kind === 'pause' ? await surfaceClient.pausePomodoro() : kind === 'resume'
         ? await surfaceClient.resumePomodoro({ sessionId: action.sessionId, intent: action.intent })
         : await surfaceClient.stopPomodoro(action?.intent === 'confirm-completion' ? { sessionId: action.sessionId } : undefined);
       if (mounted && generation === actionGeneration) {

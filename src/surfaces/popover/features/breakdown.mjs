@@ -74,7 +74,7 @@ function createPopoverBreakdownFeature({
     $('#bdOriginal').textContent = task.title;
     const providerNote = $('#breakdownProvider');
     setProviderCopy(aiEnabled ? 'AI 正在拆这件事…' : '正在按通用模板拆…');
-    providerNote.classList.remove('hidden');
+    providerNote.classList.add('hidden');
     const question = $('#breakdownQuestion');
     questionCopy = () => ''; question.textContent = '';
     question.classList.add('hidden');
@@ -84,7 +84,7 @@ function createPopoverBreakdownFeature({
     $('#bdSteps').innerHTML = `
     <div class="bd-loading" role="status" aria-live="polite">
       <span class="bd-loading-pixels" aria-hidden="true"><i></i><i></i><i></i></span>
-      <span class="bd-loading-copy">${t('正在把任务整理成可以直接开始的小步骤')}</span>
+      <span class="bd-loading-copy">${t(aiEnabled ? 'AI 正在拆这件事…' : '正在按通用模板拆…')}</span>
     </div>`;
     $('#bdAddStep').disabled = true;
     $('#bdConfirm').disabled = true;
@@ -94,7 +94,8 @@ function createPopoverBreakdownFeature({
     mask.setAttribute('aria-busy', 'true');
     mask.classList.remove('hidden');
     mask.setAttribute('aria-hidden', 'false');
-    requestAnimationFrame(() => $('#bdClose').focus());
+    const display = breakdownContext;
+    requestAnimationFrame(() => { if (breakdownContext === display && isOpen()) $('#bdClose').focus(); });
   }
 
   function finishLoading() {
@@ -121,7 +122,10 @@ function createPopoverBreakdownFeature({
   function renderSteps() {
     const wrap = $('#bdSteps');
     wrap.innerHTML = '';
-    breakdownContext.steps.forEach((s, i) => {
+    const display = breakdownContext;
+    const steps = display.steps;
+    const ownsRow = () => breakdownContext === display && display.steps === steps && isOpen() && !display.saving;
+    steps.forEach((s, i) => {
       const row = document.createElement('div');
       row.className = 'bd-step';
       row.innerHTML = `
@@ -130,10 +134,11 @@ function createPopoverBreakdownFeature({
       <button type="button" class="bd-step-del" aria-label="${escapeHTML(t('删除第 {number} 步', { number: i + 1 }))}">✕</button>
     `;
       bindStepTitleField(row.querySelector('.bd-step-input'), value => {
-        breakdownContext.steps[i].title = value;
+        if (ownsRow() && steps[i] === s) s.title = value;
       });
       row.querySelector('.bd-step-del').addEventListener('click', () => {
-        breakdownContext.steps.splice(i, 1);
+        if (!ownsRow() || steps[i] !== s) return;
+        breakdownContext.steps = steps.filter(step => step !== s);
         renderSteps();
       });
       wrap.appendChild(row);
@@ -226,8 +231,8 @@ function createPopoverBreakdownFeature({
     finishLoading();
     const providerNote = $('#breakdownProvider');
     setProviderCopy(() => preview.fallback
-      ? t('Provider 不可用，已安全回退到本地确定性模板（{reason}）。', { reason: fallbackReasonText(preview.reason) || t('未提供原因') })
-      : t(preview.provider === 'api' ? '这份只读建议来自已启用的 API。' : '这份建议来自本地确定性模板。'));
+      ? t('AI 暂不可用，使用本地建议（{reason}）。', { reason: fallbackReasonText(preview.reason) || t('未提供原因') })
+      : t(preview.provider === 'api' ? '来自 AI 的建议' : '来自本地规则'));
     providerNote.classList.remove('hidden');
     const question = $('#breakdownQuestion');
     questionCopy = () => preview.clarifyingQuestion ? t('可选澄清：{question}', { question: preview.clarifyingQuestion }) : '';
@@ -238,6 +243,7 @@ function createPopoverBreakdownFeature({
     showError('');
     renderSteps();
     requestAnimationFrame(() => {
+      if (generation !== requestGeneration || !isOpen()) return;
       const firstInput = $('#bdSteps .bd-step-input');
       (firstInput || $('#bdClose')).focus();
     });
@@ -351,7 +357,7 @@ function createPopoverBreakdownFeature({
     $('#breakdownQuestion').textContent = questionCopy();
     $('#bdConfirm').textContent = t(breakdownContext.saving ? '正在保存…' : '加到步骤里');
     const loading = $('#bdSteps').querySelector('.bd-loading-copy');
-    if (loading) loading.textContent = t('正在把任务整理成可以直接开始的小步骤');
+    if (loading) loading.textContent = t(breakdownContext.provider === 'api' ? 'AI 正在拆这件事…' : '正在按通用模板拆…');
     $('#bdSteps').querySelectorAll('.bd-step').forEach((row, index) => {
       const input = row.querySelector('.bd-step-input');
       input?.setAttribute('placeholder', t('这一步做什么...'));

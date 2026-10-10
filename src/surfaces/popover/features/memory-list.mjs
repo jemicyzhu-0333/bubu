@@ -40,7 +40,7 @@ function createPopoverMemoryList({ $, escapeHTML, surfaceClient, now = () => Dat
   const known = id => records.get(id);
   function render() {
     view.list({ items, status, loaded, unavailable, nextCursor, busy, blocked: blocked() });
-    view.review(privacyMasked ? null : preview, { busy, blocked: blocked(), acknowledge: Boolean(node('memoryPermanentAcknowledge')?.checked) });
+    view.review(privacyMasked ? null : preview, { busy, confirmationPending: busy && Boolean(binding), blocked: blocked(), acknowledge: Boolean(node('memoryPermanentAcknowledge')?.checked) });
     view.receipt(receipt, { historyStatus, undoAvailable, blocked: blocked() });
     view.hide('btnRetryMemoryChange', !blocked());
     view.text('btnRetryMemoryChange', cleanupPending ? '核对遗忘清理结果' : '核对这次确认的结果');
@@ -59,7 +59,13 @@ function createPopoverMemoryList({ $, escapeHTML, surfaceClient, now = () => Dat
     ++epoch; void release(); preview = null; binding = null;
     if (candidateContext && !preserveCandidate) { candidateContext = null; view.hide('memoryDraft', true); }
     if (node('memoryPermanentAcknowledge')) node('memoryPermanentAcknowledge').checked = false;
-    render(); if (restoreFocus) trigger?.focus?.();
+    render();
+    if (restoreFocus) {
+      // List rendering replaces action nodes; return to the current counterpart.
+      const current = trigger?.dataset?.memoryId && [...(node('memoryList')?.querySelectorAll?.('[data-memory-action]') || [])]
+        .find(button => button.dataset.memoryId === trigger.dataset.memoryId && button.dataset.memoryAction === trigger.dataset.memoryAction);
+      (current || (trigger?.isConnected === false ? node(TABS[status]) : trigger) || node('btnNewMemory'))?.focus?.();
+    }
   }
   async function load({ more = false, quiet = false } = {}) {
     if (node('settingGroupAi')?.open !== false && !node('settingsMask')?.classList.contains('hidden')) active = true;
@@ -274,6 +280,7 @@ function createPopoverMemoryList({ $, escapeHTML, surfaceClient, now = () => Dat
       ...(preview.permanent ? { permanentAcknowledged: true } : {}) };
     if (!binding) return;
     const expected = clone(binding), token = ++epoch; setBusy(true);
+    say('确认请求正在处理，结果尚未核对。');
     let applied = false;
     try {
       const result = await surfaceClient.confirmMemoryChange(expected);

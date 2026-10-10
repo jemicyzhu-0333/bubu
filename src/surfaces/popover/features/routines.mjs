@@ -60,6 +60,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
   let manageOpen = true;
   let editingId = null;
   let saving = false;
+  let editControls = null;
   let editGeneration = 0;
   // 删除要按两次:第一次把按钮变成「真的删」,第二次才发命令。删一条日常会连带删掉
   // 它当天的记录(ARCHITECTURE「日常与能量」),这个代价值一次确认,但不值一个弹层。
@@ -68,6 +69,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
   let lastDataKey = '';
   let lastStatus = { source: '', parameters: {} };
   let unsubscribe = null;
+  const mutations = new Map();
   const teardown = [];
 
   function listen(target, type, handler) {
@@ -110,6 +112,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
       say('');
       return true;
     }
+    if (result?.ok !== false) { say('结果暂未确认，请先核对日常记录。'); return false; }
     const reason = result && result.reason;
     say(REFUSALS[reason] || '没记上，再试一次。');
     return false;
@@ -120,7 +123,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
   }
 
   function scheduleText(schedule) {
-    if (!schedule || typeof schedule !== 'object') return t('不提醒');
+    if (!schedule || typeof schedule !== 'object') return t('仅手动记录');
     const times = Array.isArray(schedule.timesOfDay) ? schedule.timesOfDay.join(' / ') : '';
     const frequency = FREQUENCY_LABELS[schedule.frequency] ? t(FREQUENCY_LABELS[schedule.frequency]) : schedule.frequency || '';
     if (schedule.frequency === 'weekly') {
@@ -224,7 +227,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
         + `<span class="routine-kind" aria-hidden="true">${kind.icon}</span>`
         + `<span class="routine-title">${title}</span>`
         + `<span class="routine-schedule">${escapeHTML(item.customLabel || t(kind.label))} · ${escapeHTML(scheduleText(item.schedule))}</span>`
-        + `<button type="button" class="chip chip-action" data-act="edit" aria-label="${escapeHTML(t('编辑 {title} 提醒', { title: item.title || '' }))}">${t('编辑')}</button>`
+        + `<button type="button" class="chip chip-action" data-act="edit" aria-label="${escapeHTML(t('编辑 {title} 提醒', { title: item.title || '' }))}">${t(item.schedule ? '编辑提醒' : '设置提醒')}</button>`
         + `<button type="button" class="chip routine-act" data-act="active" aria-pressed="${reminding}" `
         + `aria-label="${escapeHTML(t('{title} 提醒', { title: item.title || '' }))}">${activityLabel}</button>`
         + `<button type="button" class="chip chip-action" data-act="remove" `
@@ -314,7 +317,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
       const active = item.active !== false, removing = pendingRemoveId === item.id;
       row.querySelectorAll('[data-act]').forEach(button => {
         const act = button.dataset.act;
-        const source = act === 'edit' ? '编辑' : act === 'remove' ? removing ? '真的删' : '删除'
+        const source = act === 'edit' ? item.schedule ? '编辑提醒' : '设置提醒' : act === 'remove' ? removing ? '真的删' : '删除'
           : item.schedule ? active ? '提醒中' : '已静音' : active ? '已启用' : '已停用';
         button.textContent = t(source);
         button.setAttribute('aria-label', t(act === 'edit' ? '编辑 {title} 提醒' : act === 'remove'
@@ -347,11 +350,26 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
     restoreFocus(mark);
   }
 
+  async function mutate(key, send) {
+    if (mutations.has(key)) return;
+    const owner = {};
+    mutations.set(key, owner);
+    say('正在保存…');
+    try {
+      const result = await send();
+      if (mutations.get(key) === owner) reportRefusal(result);
+    } catch (_) {
+      if (mutations.get(key) === owner) say('结果暂未确认，请先核对日常记录。');
+    } finally {
+      if (mutations.get(key) === owner) mutations.delete(key);
+    }
+  }
+
   async function answer(routineId, occurrenceId, status) {
     if (!routineId) return;
     // 排程行与随手记行都带着自己的 occurrenceId,所以一律带上:同一条再答一次是
     // 覆盖,不会多出第二行记录。
-    reportRefusal(await surfaceClient.logRoutine({ routineId, occurrenceId, status }));
+    await mutate(routineId, () => surfaceClient.logRoutine({ routineId, occurrenceId, status }));
   }
 
   // 点 chip 时如果正好有一条"现在该做"的排程行还没回答,就算在那条上 —— 用户点
@@ -395,6 +413,21 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
     return { ok: true, schedule };
   }
 
+  function restoreEditControls() {
+    if (!editControls) return;
+    for (const [control, disabled] of editControls) control.disabled = disabled;
+    editControls = null;
+  }
+
+  function freezeEditControls() {
+    const fields = [...($('#routineAddDetails')?.querySelectorAll?.('input, select, button') || [])];
+    for (const selector of ['#routineTitle', '#routineKind', '#routineCustomLabel', '#routineFrequency', '#routineTimes', '#routineMaxLevel', '#btnAddRoutine']) {
+      if ($(selector)) fields.push($(selector));
+    }
+    editControls = [...new Set(fields)].filter(control => control.id !== 'btnCancelRoutine').map(control => [control, control.disabled]);
+    for (const [control] of editControls) control.disabled = true;
+  }
+
   async function addRoutine() {
     if (saving) return;
     const titleInput = $('#routineTitle');
@@ -409,21 +442,27 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
       say(schedule.message, schedule.parameters);
       return;
     }
+    const previous = band()?.items.find(item => item.id === editingId);
     const draft = { title, kind };
     if (kind === 'custom') {
-      draft.customLabel = ($('#routineCustomLabel')?.value || '').trim();
-      if (!draft.customLabel) { say('给这个类型起个名字。'); return; }
+      const customLabel = ($('#routineCustomLabel')?.value || '').trim();
+      if (customLabel) draft.customLabel = customLabel;
+      else if (previous?.kind !== 'custom' || previous.customLabel) {
+        say('给这个类型起个名字。'); return;
+      }
+      // Inbox-created custom routines legitimately have no type label. Scheduling
+      // that same routine must not require inventing one or changing its kind.
     }
     if ($('#routineMaxLevel')) draft.maxLevel = Number($('#routineMaxLevel').value);
     if (schedule.schedule) draft.schedule = schedule.schedule;
-    const previous = band()?.items.find(item => item.id === editingId);
     if (previous?.kind === kind) delete draft.kind;
-    saving = true;
+    saving = true; freezeEditControls();
+    say('正在保存…');
     const generation = editGeneration;
     let result;
     try { result = editingId ? await surfaceClient.updateRoutine(editingId, { ...draft, schedule: schedule.schedule }) : await surfaceClient.addRoutine(draft); }
-    catch (_) { if (generation === editGeneration) say('保存失败，请重试。'); return; }
-    finally { saving = false; }
+    catch (_) { if (generation === editGeneration) say('结果暂未确认，请先核对日常记录。'); return; }
+    finally { saving = false; restoreEditControls(); }
     if (generation !== editGeneration || !reportRefusal(result)) return;
     // 只清名字:接着加第二条的人通常还在加同一类东西。
     if (titleInput) titleInput.value = '';
@@ -471,9 +510,9 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
       return;
     }
     if (target.id === 'btnNewRoutine') { openEditor(); return; }
-    if (target.id === 'btnCancelRoutine') { editGeneration++; $('#routineAddDetails').open = false; $('#routineAddDetails').classList.add('hidden'); editingId = null; say(''); return; }
+    if (target.id === 'btnCancelRoutine') { restoreEditControls(); editGeneration++; $('#routineAddDetails').open = false; $('#routineAddDetails').classList.add('hidden'); editingId = null; say(''); return; }
     if (target.id === 'btnRoutineReminders') {
-      try { await surfaceClient.updateSettings({ routineRemindersEnabled: !band().remindersEnabled }); } catch (_) { say('提醒设置未保存，请重试。'); }
+      await mutate('reminders', () => surfaceClient.updateSettings({ routineRemindersEnabled: !band().remindersEnabled }));
       return;
     }
     if (target.id === 'btnAddRoutine') {
@@ -503,14 +542,14 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
       return;
     }
     if (act === 'undo') {
-      reportRefusal(await surfaceClient.undoRoutineLog(occurrenceId));
+      await mutate(routineId, () => surfaceClient.undoRoutineLog(occurrenceId));
       return;
     }
     if (act === 'edit') { openEditor(band().items.find(item => item.id === routineId)); return; }
     if (act === 'active') {
       const item = band().items.find(entry => entry && entry.id === routineId);
       if (!item) return;
-      reportRefusal(await surfaceClient.updateRoutine(routineId, { active: item.active === false }));
+      await mutate(routineId, () => surfaceClient.updateRoutine(routineId, { active: item.active === false }));
       return;
     }
     if (act === 'remove') {
@@ -523,11 +562,12 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
       }
       pendingRemoveId = null;
       lastKey = '';
-      reportRefusal(await surfaceClient.removeRoutine(routineId));
+      await mutate(routineId, () => surfaceClient.removeRoutine(routineId));
     }
   }
 
   function openEditor(item = null) {
+    restoreEditControls();
     editGeneration++;
     editingId = item?.id || null;
     controls.fill(item);
@@ -563,7 +603,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
   }
 
   function dispose() {
-    editGeneration++;
+    editGeneration++; mutations.clear(); restoreEditControls();
     if (unsubscribe) unsubscribe();
     unsubscribe = null;
     while (teardown.length) teardown.pop()();

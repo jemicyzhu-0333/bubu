@@ -150,3 +150,84 @@ test('icon recipes have distinct semantic motion and all return to baseline', ()
   recipes.forEach(recipe => assert.deepEqual([recipe.keyframes.at(-1).x, recipe.keyframes.at(-1).y, recipe.keyframes.at(-1).rotation], [0,0,0]));
   assert.ok(!('y' in iconMotion('bell').keyframes[0]));
 });
+
+
+test('custom capture creates a manual-only routine exactly once without inferred reminders or energy effects', () => {
+  const h = harness({ impulses: [{ id: 'i1', text: '我刚刚完成了兵力填报', createdAt: NOW - 1000 }] });
+  const request = { id: 'i1', action: 'log', category: 'log', routineKind: 'custom', title: '兵力填报' };
+  assert.equal(h.workflow.execute(request).ok, true);
+  const state = h.repository.snapshot(), revision = h.repository.revision();
+  assert.equal(state.routines.length, 1);
+  assert.equal(state.routines[0].title, '兵力填报');
+  assert.equal(state.routines[0].schedule, null);
+  assert.equal(state.routines[0].effect, null);
+  assert.equal(state.routineLog.days[0].entries.length, 1);
+  assert.equal(state.impulses[0].resolution.targetId, state.routines[0].id);
+  const { dayPlan } = require('../src/capabilities/routines');
+  const { localDayKey } = require('../src/core/calendar');
+  for (const now of [NOW, NOW + 86400000]) {
+    assert.deepEqual(dayPlan.dueOccurrences({ routines: state.routines, routineLog: state.routineLog, dayKey: localDayKey(now), now }), []);
+  }
+  assert.equal(h.workflow.execute(request).reason, 'impulse-not-found');
+  assert.deepEqual(h.repository.snapshot(), state);
+  assert.equal(h.repository.revision(), revision);
+});
+
+test('a sole custom routine never implicitly claims unrelated captures in any language', () => {
+  for (const text of ['兵力填报已完成', 'I finished the report', '報告書を提出した', 'أكملت التقرير']) {
+    const h = harness();
+    assert.equal(h.workflow.execute({ id: 'i1', action: 'routine', category: 'routine', routineKind: 'custom', title: '洗衣服' }).ok, true);
+    const state = h.repository.snapshot();
+    impulseInbox.captureImpulse(state, { text, createdAt: NOW }, { createId: () => 'i2' });
+    h.repository.commit(state);
+    const before = h.repository.snapshot(), revision = h.repository.revision();
+    const request = { id: 'i2', action: 'log', category: 'log', routineKind: 'custom', title: text };
+    assert.equal(h.workflow.execute(request).reason, 'routine-choice-required');
+    assert.deepEqual(h.repository.snapshot(), before, 'failure must not even save a draft classification');
+    assert.equal(h.repository.revision(), revision);
+    assert.equal(h.workflow.execute({ ...request, createNew: true }).ok, true);
+    assert.equal(h.repository.snapshot().routines.length, 2);
+    assert.notEqual(h.repository.snapshot().routineLog.days[0].entries[0].routineId, state.routines[0].id);
+  }
+});
+
+test('explicit selection reuses a custom routine without renaming, rescheduling or duplicating it', () => {
+  const h = harness();
+  h.workflow.execute({ id: 'i1', action: 'routine', category: 'routine', routineKind: 'custom', title: '报告' });
+  const state = h.repository.snapshot(), routine = structuredClone(state.routines[0]);
+  impulseInbox.captureImpulse(state, { text: '报告完成', createdAt: NOW }, { createId: () => 'i2' });
+  h.repository.commit(state);
+  assert.equal(h.workflow.execute({ id: 'i2', action: 'log', category: 'log', routineKind: 'custom', routineId: routine.id, title: '不应覆盖' }).ok, true);
+  assert.deepEqual(h.repository.snapshot().routines, [routine]);
+  assert.equal(h.repository.snapshot().routineLog.days[0].entries[0].routineId, routine.id);
+});
+
+test('a stale explicitly selected routine fails closed instead of creating a replacement', () => {
+  const h = harness();
+  const before = h.repository.snapshot(), revision = h.repository.revision();
+  assert.equal(h.workflow.execute({ id: 'i1', action: 'log', category: 'log', routineKind: 'custom', routineId: 'removed', title: 'Replacement' }).reason, 'routine-not-found');
+  assert.deepEqual(h.repository.snapshot(), before);
+  assert.equal(h.repository.revision(), revision);
+});
+
+test('an inbox-created custom record becomes a reminder on the same routine without extra logs', () => {
+  const h = harness();
+  assert.equal(h.workflow.execute({ id: 'i1', action: 'log', category: 'log', routineKind: 'custom', title: '填报' }).ok, true);
+  const before = h.repository.snapshot(), item = before.routines[0];
+  assert.equal(item.schedule, null);
+  assert.equal(item.customLabel, undefined);
+  const { manageRoutine } = require('../src/capabilities/routines');
+  const command = manageRoutine.createManageRoutineCommand({ unitOfWork: h.unitOfWork, clock: { now: () => NOW + 1 },
+    idFactory: () => { throw new Error('editing a reminder must not create an entity'); } });
+  assert.equal(command.update({ routineId: item.id, patch: { title: item.title,
+    schedule: { frequency: 'daily', timesOfDay: ['08:00'] } } }).ok, true);
+  const after = h.repository.snapshot();
+  assert.equal(after.routines.length, 1);
+  assert.equal(after.routines[0].id, item.id);
+  assert.equal(after.routines[0].customLabel, undefined);
+  assert.deepEqual(after.routines[0].schedule.timesOfDay, ['08:00']);
+  assert.equal(after.routines[0].schedule.frequency, 'daily');
+  assert.deepEqual(after.routineLog, before.routineLog);
+  assert.deepEqual(after.impulses, before.impulses);
+  assert.equal(after.xp, before.xp);
+});

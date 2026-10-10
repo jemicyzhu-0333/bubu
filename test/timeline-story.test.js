@@ -199,7 +199,7 @@ test('the energy line is a compact full-day reference with a now mark on today o
   const today = story({ energyCurve, state: { serverNow: at(10) } });
   assert.match(today.markup, /class="tl-spark-line"/);
   assert.match(today.markup, /tl-spark-now/);
-  assert.equal(today.energyLabel, '估计能量 35–60（10–90，仅为估计）');
+  assert.equal(today.energyLabel, '估计能量 35–60（10–90，仅为估计） · 实线为当前时间之前的估计，虚线为之后的估计');
   assert.match(details(today.markup)[1], /当时估计能量约 35/);
   const yesterday = story({ energyCurve, state: { serverNow: new Date(2026, 8, 25, 10).getTime() } });
   assert.doesNotMatch(yesterday.markup, /tl-spark-now/);
@@ -222,4 +222,35 @@ test('a day with no rows says the list is empty instead of drawing an empty axis
   assert.match(markup, /暂无活动记录/);
   assert.match(markup, /没有逐条记录，不代表没有行动/);
   assert.doesNotMatch(markup, /tl-list/);
+});
+
+
+test('forecast clips the unchanged sampled path at the exact current minute', () => {
+  const levels = [25, 65, 45, 35];
+  const energyCurve = { dayKey: DAY_KEY, sampleMinutes: 360, levels, nowMinute: 450 };
+  const result = story({ energyCurve });
+  const paths = [...result.markup.matchAll(/class="tl-spark-(?:line|forecast)" d="([^"]+)"/g)].map(match => match[1]);
+  assert.equal(paths.length, 2);
+  assert.equal(paths[0], paths[1], 'the forecast uses identical sample geometry');
+  assert.equal(paths[0], 'M0.0,52.0 L72.0,26.4 L144.0,39.2 L216.0,45.6');
+  assert.match(result.markup, /clip-path:inset\(0 68.75% 0 0\) view-box/);
+  assert.match(result.markup, /clip-path:inset\(0 0 0 31.25%\) view-box/);
+  assert.match(result.markup, /tl-spark-now-label[^>]*>现在</);
+  assert.deepEqual(levels, [25, 65, 45, 35]);
+});
+
+test('past days and unavailable current minutes never pretend to have a future boundary', () => {
+  for (const nowMinute of [null, undefined, -1, 1441, NaN]) {
+    const result = story({ energyCurve: { dayKey: DAY_KEY, levels: [35, 60], nowMinute } });
+    assert.doesNotMatch(result.markup, /tl-spark-forecast|tl-spark-now/);
+    assert.match(result.markup, /tl-spark-line/);
+  }
+  const yesterday = story({ energyCurve: { dayKey: DAY_KEY, levels: [35, 60], nowMinute: 600 },
+    state: { serverNow: new Date(2026, 8, 25, 10).getTime() } });
+  assert.doesNotMatch(yesterday.markup, /tl-spark-forecast|tl-spark-now/);
+  for (const nowMinute of [0, 1440]) {
+    const result = story({ energyCurve: { dayKey: DAY_KEY, levels: [35, 60], nowMinute } });
+    assert.match(result.markup, /tl-spark-forecast/);
+    assert.match(result.markup, /tl-spark-now-label/);
+  }
 });

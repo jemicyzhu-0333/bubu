@@ -36,11 +36,13 @@ function createPopoverNowCard({
   let cache = [];          // 上一次拿回来的候选:投影里还没有推荐时的回退
   let returnFocus = null;  // 打开候选面板之前焦点在哪
   let mounted = false;
+  let lifetime = 0;
   let picking = false;
   let choosing = false;
   let requestVersion = 0;
   const motion = createSurfaceMotion(document);
   const teardown = [];
+  const pendingSteps = new Set();
 
   function listen(target, type, handler) {
     if (!target) return;
@@ -216,12 +218,21 @@ function createPopoverNowCard({
         const step = steps.find(item => item.id === stepId);
         if (isReadOnly || !step || step.done) return;
         if (sessionOrLaunchTask()?.id !== task.id) return;
-        const result = await surfaceClient.completeStep(task.id, stepId);
-        if (result && result.ok === false) {
-          showFocusStatus(() => taskActionMessage(result.reason));
-          return;
+        const version = lifetime;
+        const key = `${task.id}:${stepId}`;
+        if (pendingSteps.has(key)) return;
+        pendingSteps.add(key); button.disabled = true;
+        try {
+          const result = await surfaceClient.completeStep(task.id, stepId);
+          if (!mounted || version !== lifetime) return;
+          if (!result?.ok) { showFocusStatus(() => taskActionMessage(result?.reason || 'task-complete-rejected')); return; }
+          celebrate();
+        } catch (_) {
+          if (mounted && version === lifetime) showFocusStatus(() => t('操作失败，请重试'));
+        } finally {
+          pendingSteps.delete(key);
+          if (mounted && version === lifetime) button.disabled = Boolean(step.done);
         }
-        celebrate();
       });
     });
   }
@@ -271,13 +282,15 @@ function createPopoverNowCard({
       card.addEventListener('click', async () => {
         if (choosing) return;
         choosing = true;
+        const version = requestVersion;
         card.disabled = true;
         try {
           const result = await surfaceClient.setNowTask(task.id);
-          if (result?.ok === false) { showFocusStatus(() => taskActionMessage(result.reason)); return; }
+          if (!mounted || version !== requestVersion) return;
+          if (!result?.ok) { showFocusStatus(() => taskActionMessage(result?.reason || 'task-update-rejected')); return; }
           closePanel({ focusNow: true });
           render();
-        } catch { showFocusStatus(() => t('切换未完成，请再试一次。')); }
+        } catch { if (mounted && version === requestVersion) showFocusStatus(() => t('切换未完成，请再试一次。')); }
         finally { choosing = false; card.disabled = false; }
       });
       grid.appendChild(card);
@@ -334,7 +347,7 @@ function createPopoverNowCard({
 
   function dispose() {
     if (!mounted) return;
-    mounted = false;
+    mounted = false; lifetime++;
     requestVersion++;
     motion.dispose();
     sessionStep.dispose();

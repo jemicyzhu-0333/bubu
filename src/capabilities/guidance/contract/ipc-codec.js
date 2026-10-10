@@ -246,4 +246,4 @@ const ipcRoutes = describeRoutes('guidance', codec, surfaces, [
   'ai:preview-breakdown', 'ai:preview-enrich'
 ]);
 
-module.exports = { ipcRoutes: Object.freeze([...ipcRoutes, ...require('./connection-test-codec').ipcRoutes, ...require('./collaboration-codec').ipcRoutes, ...require('./change-codec').ipcRoutes, ...require('./planning-codec').ipcRoutes, ...require('./memory-management-codec').ipcRoutes]) };
+module.exports = { ipcRoutes: Object.freeze([...ipcRoutes, ...require('./diagnostics-codec').ipcRoutes, ...require('./connection-test-codec').ipcRoutes, ...require('./collaboration-codec').ipcRoutes, ...require('./change-codec').ipcRoutes, ...require('./planning-codec').ipcRoutes, ...require('./memory-management-codec').ipcRoutes]) };

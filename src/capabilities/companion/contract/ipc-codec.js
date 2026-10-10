@@ -120,6 +120,13 @@ const codec = createCapabilityCodec({
     const itemId = object.itemId === null ? null : validation.validateId(object.itemId, 'itemId');
     return { group, itemId };
   },
+  'appearance:apply-outfit': validation => {
+    const object = validation.requireObject();
+    if (!object) return undefined;
+    validation.rejectUnknown(object, ['lookId', 'expectedSkin']);
+    return { lookId: validation.validateId(object.lookId, 'lookId'),
+      expectedSkin: validation.validateId(object.expectedSkin, 'expectedSkin') };
+  },
   'appearance:reset': emptyPayload,
   // Only a tool id crosses: the main process builds the install text it puts on the clipboard.
   'activity:copy-plugin-command': validation => {
@@ -134,6 +141,7 @@ const codec = createCapabilityCodec({
 const surfaces = Object.fromEntries(codec.channels.map(channel => [channel, ['pet']]));
 surfaces['skin:switch'] = ['popover'];
 surfaces['appearance:equip'] = ['popover'];
+surfaces['appearance:apply-outfit'] = ['popover'];
 surfaces['appearance:reset'] = ['popover'];
 surfaces['pet:buy-food'] = ['popover'];
 surfaces['activity:copy-plugin-command'] = ['popover'];

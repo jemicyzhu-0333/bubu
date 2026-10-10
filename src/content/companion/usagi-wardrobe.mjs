@@ -2,7 +2,7 @@
 
 // Styling recipes, not unlock bundles or a second equipment state. Each look
 // names compatible existing choices; no recipe is ever applied automatically.
-const outfit = (id, label, itemIds) => Object.freeze({ id, label, itemIds: Object.freeze(itemIds) });
+const outfit = (id, label, itemIds) => Object.freeze({ id, label, formId: 'usagi', itemIds: Object.freeze(itemIds) });
 
 const USAGI_OUTFIT_SETS = Object.freeze([
   outfit('sun-garden', '晴日园丁', [

@@ -133,7 +133,7 @@ function createPopoverQuickStartLanding({
         ? '收工前，给下次留个入口'
         : '给下一次留个入口');
     $('#landingDescription').textContent = t(isQuickStart
-      ? '不用证明什么。选择此刻最适合你的落点：'
+      ? '接下来可以停下，或继续专注。'
       : isHealthyShutdown
         ? '这不是一次完成结算。留一句下次能直接动手的提示，或安心跳过。'
         : prompt.breakState === 'running'

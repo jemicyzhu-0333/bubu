@@ -81,7 +81,7 @@ test('a pending line shows while the request is out, then the advice replaces it
   const { advice, node, calls } = createHarness(() => new Promise(done => { resolve = done; }));
   const pending = advice.request({ taskId: 'task-1', note: '卡在：太大了' });
   assert.deepEqual(calls, [{ taskId: 'task-1', note: '卡在：太大了' }]);
-  assert.match(node.innerHTML, /正在想/, 'the wait is visible in this block only');
+  assert.match(node.innerHTML, /正在准备下一步/, 'the wait is visible in this block only');
   assert.equal(node.hidden, false);
   resolve(ADVICE);
   await pending;
@@ -90,7 +90,7 @@ test('a pending line shows while the request is out, then the advice replaces it
   assert.match(node.innerHTML, /打开文档就算完成/);
   assert.match(node.innerHTML, /写一句话摘要/);
   assert.match(node.innerHTML, /AI 建议/);
-  assert.doesNotMatch(node.innerHTML, /正在想/);
+  assert.doesNotMatch(node.innerHTML, /正在准备下一步/);
 });
 
 test('a fallback says which source answered and why, instead of passing a template off as the model', async () => {
@@ -123,7 +123,7 @@ test('每一种「目标不在了」都有一句人话，别的原因落到同�
     ['task-completed', /已经完成了/],
     ['occurrence-skipped', /已经跳过了/],
     ['proposal-target-changed', /刚被改过/],
-    ['no-credential', /这次没想出来/]
+    ['no-credential', /下一步建议暂不可用/]
   ];
   for (const [reason, expected] of cases) {
     const { advice, node } = createHarness(() => Promise.resolve({ ok: false, reason }));
@@ -135,7 +135,7 @@ test('每一种「目标不在了」都有一句人话，别的原因落到同�
 test('a thrown request reads as a miss, not as a blank block', async () => {
   const { advice, node } = createHarness(() => Promise.reject(new Error('bridge gone')));
   await advice.request({ taskId: 'task-1' });
-  assert.match(node.innerHTML, /这次没想出来/);
+  assert.match(node.innerHTML, /下一步建议暂不可用/);
   assert.equal(node.hidden, false);
 });
 

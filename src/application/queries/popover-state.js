@@ -7,7 +7,7 @@ const { createSurfaceReadComposition } = require('./surface-read-composition');
 const { levelCost } = require('../../content/growth-policy.mjs');
 const { DIRTY_FIELDS } = require('../../core/state-channel.mjs');
 const { relationshipFor } = require('../../core/companion-state');
-function createPopoverStateQuery({ readSample, readSnapshot, readRevision, clock, skins, foods, appearanceItems, credentialStore, aiDisclosure, pomodoroView, schemaVersion: PERSISTED_SCHEMA_VERSION, countInboxHistory = null, readActivityMirror = () => null, readStorageStatus = () => null }) {
+function createPopoverStateQuery({ readSample, readSnapshot, readRevision, clock, skins, foods, appearanceItems, credentialStore, aiDisclosure, pomodoroView, schemaVersion: PERSISTED_SCHEMA_VERSION, countInboxHistory = null, readActivityMirror = () => null, readStorageStatus = () => null, readCaptureTriageStatus = () => null }) {
   const taskStartBlockReason = work.availability.taskStartBlockReason;
   const sample = readSample || createSurfaceReadComposition({ readSnapshot, clock,
     projectSession: (session, now) => pomodoroView
@@ -68,7 +68,10 @@ function createPopoverStateQuery({ readSample, readSnapshot, readRevision, clock
       revision: readRevision(),
       schemaVersion: PERSISTED_SCHEMA_VERSION,
       tasks: snapshot.tasks, archivedTasks: historyPage?.items,
-      impulses: snapshot.impulses.filter(item => !item.resolution),
+      impulses: snapshot.impulses.filter(item => !item.resolution).map(item => {
+        const triageStatus = readCaptureTriageStatus(item);
+        return triageStatus ? { ...item, triageStatus } : item;
+      }),
       // Resolved captures move to the fact-store archive; the count spans both places.
       activityMirror: readActivityMirror(),
       inboxHistoryTotal: readInboxHistoryTotal(snapshot.impulses),

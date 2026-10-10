@@ -37,9 +37,13 @@ test('task and step checkboxes provide at least a 28px hit area', () => {
   assert.match(theme, /\.step-check::before \{ content: ""; position: absolute; inset: -6px;/);
 });
 
-test('a locked wardrobe option stays readable: it is marked by a dashed border, not by fading its name', () => {
+test('visual wardrobe cards retain readable locks and explicit selection', () => {
   const theme = fs.readFileSync(path.join(STYLES, 'theme.css'), 'utf8');
-  assert.match(theme, /\.wardrobe-option\.locked \{ opacity: 1; color: var\(--fg-1\); background: transparent; border-style: dashed; \}/);
+  assert.match(theme, /\.wardrobe-option\.locked \{ opacity: 1; color: var\(--fg-1\); background: var\(--bg-1\); border-color: var\(--line\); \}/);
+  assert.match(theme, /\.wardrobe-option \{[^}]*border: 1px solid var\(--line\); border-radius: 12px/);
+  assert.match(theme, /\.wardrobe-option\.selected \{[^}]*background: var\(--accent-soft\); border-color: var\(--primary-ink\)/);
+  assert.match(theme, /\.wardrobe-option \.wardrobe-lock \{[^}]*font-size: 11px; line-height: 1\.4; font-weight: 400;/);
+  assert.match(theme, /\.wardrobe-reset \{[^}]*min-height: 32px;[^}]*border-radius: var\(--radius\)/);
 });
 
 test('the focus-state card is one continuous surface with labelled actions and no repeated title', () => {
@@ -64,4 +68,23 @@ test('an unbroken run of characters wraps instead of running out of its card', (
   assert.match(theme, /body\.pixel-body \{[^}]*overflow-wrap: anywhere;/);
   // 输入框、计时数字这类不该被打断的除外
   assert.match(theme, /input, textarea, select, kbd, \.pomo-time, \.mini-timer, time \{ overflow-wrap: normal; \}/);
+});
+
+
+test('sister appearance controls use shared rounded controls while lock labels stay readable', () => {
+  const theme = fs.readFileSync(path.join(STYLES, 'theme.css'), 'utf8');
+  assert.match(theme, /\.skin-apply \{[^}]*border: 1px solid transparent; border-radius: var\(--radius\)/);
+  assert.match(theme, /\.skin-focus-name \{ font-size: 15px; font-weight: 600;/);
+  assert.match(theme, /\.skin-thumb\.locked \{ opacity: 1; \}/);
+  assert.match(theme, /\.skin-thumb\[aria-selected="true"\] \{[^}]*background: var\(--accent-soft\); box-shadow: none;/);
+  assert.match(theme, /\.skin-strip \{ border-top: 1px solid var\(--line\); \}/);
+  // Shared normalization deliberately does not override collectible-stamp illustration borders.
+  assert.doesNotMatch(theme, /\.journey-stamp[^{}]*\{[^}]*border:/);
+});
+
+
+test('compact wardrobe separates lock conditions instead of crushing item names', () => {
+  const theme = fs.readFileSync(path.join(STYLES, 'theme.css'), 'utf8');
+  assert.match(theme, /@media \(max-width:420px\) \{\s*\.wardrobe-master \{ grid-template-columns: 76px minmax\(0,1fr\); \}/);
+  assert.match(theme, /\.wardrobe-option \.wardrobe-lock \{ flex-basis: auto; margin-left: 0; \}/);
 });

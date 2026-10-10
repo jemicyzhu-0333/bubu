@@ -304,7 +304,7 @@ function createPopoverTaskDraft({
     // 所以这里一个字段都不填，只说清楚为什么，并把光标放到“加一步”上，让人自己写下第一个看得见的动作。
     const usedModel = suggestion.provider === 'api' && !suggestion.fallback;
     if (!usedModel) {
-      showStatus(() => t('没有用 AI，所以没替你拆。先写下第一个看得见的动作，比如“打开……”。{detail}', { detail: fallbackReasonSuffix(suggestion) }));
+      showStatus(() => t('AI 拆解暂不可用。{detail}', { detail: fallbackReasonSuffix(suggestion) }));
       const addStep = $('#createAddStep');
       if (addStep && typeof addStep.focus === 'function') addStep.focus();
       return;
@@ -343,7 +343,7 @@ function createPopoverTaskDraft({
     if (advanced && filled.length) advanced.open = true;
     // 能量与估时来自模型的推断就要说出口：用户在按保存之前就知道哪几项不是自己填的。
     showStatus(() => filled.length
-      ? t('已按 AI 建议填好：{fields}。每一项都能改或清空，标题没有动。', { fields: filled.map(copy => copy()).join(getLocale() === 'en' ? ', ' : '、') })
+      ? t('已填入草稿：{fields}。保存后生效。', { fields: filled.map(copy => copy()).join(getLocale() === 'en' ? ', ' : '、') })
       : t('这次没有可补的字段，已填内容保持原样。'));
   }
 

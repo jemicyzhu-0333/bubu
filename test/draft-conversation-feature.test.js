@@ -648,3 +648,81 @@ test('closing a pending load retains its captured draft even when the load later
     assert.equal(h.calls.filter(([name]) => name === 'turn').length, 0);
   }
 });
+
+test('opening and setting changes cannot be canceled as if they were model generation', async () => {
+  const pending = deferred(); const h = harness({ start: () => pending.promise });
+  const opening = h.feature.open(); await Promise.resolve();
+  assert.equal(h.dom.$('#btnDraftChatCancel').classList.contains('hidden'), true);
+  assert.equal(h.dom.$('#btnDraftChatSend').textContent, '处理中…');
+  await h.feature.cancel();
+  pending.resolve(h.response(session('opening'))); await opening;
+  assert.equal(h.calls.some(([name]) => name === 'cancel'), false);
+  const mode = deferred(); h.client.setConversationMode = () => mode.promise;
+  h.dom.$('#draftChatMode').focus();
+  const changing = h.feature.change('mode');
+  assert.equal(h.dom.$('#draftChatPlanningPreferences').disabled, true);
+  await h.feature.cancel();
+  assert.equal(h.calls.some(([name]) => name === 'cancel'), false);
+  mode.resolve(h.response(session('opening', { mode: 'plan' }))); await changing;
+  h.feature.dispose();
+});
+
+test('cancellation is single-flight and cannot be invoked twice while awaiting its receipt', async () => {
+  const turn = deferred(), cancellation = deferred(); const h = harness({ turn: () => turn.promise });
+  await h.feature.open(); h.client.cancelConversation = args => { h.calls.push(['cancel', args]); return cancellation.promise; };
+  h.dom.$('#draftChatInput').value = 'Message'; const sending = h.feature.send();
+  assert.equal(h.dom.$('#btnDraftChatCancel').classList.contains('hidden'), false);
+  const canceling = h.feature.cancel(); await h.feature.cancel();
+  assert.equal(h.calls.filter(([name]) => name === 'cancel').length, 1);
+  assert.equal(h.dom.$('#btnDraftChatCancel').classList.contains('hidden'), true);
+  cancellation.resolve({ ok: true }); await canceling;
+  turn.resolve({ ok: true }); await sending; h.feature.dispose();
+});
+
+test('settings save and confirmation dismissal return focus to visible settings controls', async () => {
+  const h = harness({ initial: session('saved', { retention: { mode: 'saved' }, saveState: 'saved' }) });
+  await h.feature.open(); h.dom.fire('#btnDraftChatSettings', 'click');
+  h.dom.$('#draftChatMode').focus(); await h.feature.change('mode');
+  assert.equal(h.dom.document.activeElement, h.dom.$('#draftChatMode'));
+  await h.feature.requestDelete(); h.dom.fire('#btnDraftChatDeleteKeep', 'click');
+  assert.equal(h.dom.document.activeElement, h.dom.$('#btnDraftChatDelete'));
+  h.dom.$('#draftChatRetention').value = 'ephemeral'; await h.feature.change('retention');
+  h.dom.fire('#btnDraftChatRetentionKeep', 'click');
+  assert.equal(h.dom.document.activeElement, h.dom.$('#draftChatRetention'));
+  h.feature.dispose();
+});
+
+test('local fallback details remain on the reply without a duplicate completion banner', async () => {
+  const h = harness({ turn: async (args, record) => {
+    record.messages.push({ id: args.messageId, role: 'user', content: args.message }, proposal(1, 'local'));
+    return { ok: true, conversation: structuredClone(record), source: 'local', providerReason: 'provider-timeout' };
+  } });
+  await h.feature.open(); await h.say('A request');
+  assert.match(h.log(), /data-chat-source="local">本地模板/);
+  assert.equal(h.status(), ''); h.feature.dispose();
+});
+
+test('missing cancellation receipts never claim success and preserve the newer composer input', async () => {
+  for (const receipt of [undefined, null, {}]) {
+    const turn = deferred(); const h = harness({ turn: () => turn.promise }); await h.feature.open();
+    h.client.cancelConversation = async () => receipt;
+    h.dom.$('#draftChatInput').value = 'Submitted'; const sending = h.feature.send();
+    h.dom.$('#draftChatInput').value = 'Still drafting'; await h.feature.cancel();
+    assert.match(h.status(), /取消请求未确认/);
+    assert.doesNotMatch(h.log(), /回复已取消/);
+    assert.equal(h.dom.$('#draftChatInput').value, 'Still drafting');
+    turn.resolve({ ok: true }); await sending;
+    assert.match(h.status(), /取消请求未确认/); h.feature.dispose();
+  }
+});
+
+test('confirmed retention changes return focus to the select rather than the hidden confirmation', async () => {
+  const h = harness({ initial: session('saved', { retention: { mode: 'saved' }, saveState: 'saved' }) });
+  await h.feature.open(); h.dom.fire('#btnDraftChatSettings', 'click');
+  h.dom.$('#draftChatRetention').value = 'ephemeral'; await h.feature.change('retention');
+  assert.equal(h.dom.document.activeElement, h.dom.$('#btnDraftChatRetentionConfirm'));
+  await h.feature.change('retention', { confirmed: true });
+  assert.equal(h.dom.$('#draftChatRetentionConfirm').classList.contains('hidden'), true);
+  assert.equal(h.dom.document.activeElement, h.dom.$('#draftChatRetention'));
+  h.feature.dispose();
+});

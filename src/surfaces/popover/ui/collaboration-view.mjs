@@ -6,7 +6,7 @@ const MODE_LABELS = Object.freeze({ talk: '先聊聊', 'small-step': '找一个�
 // Reuse 小步’s canonical front portrait. Text labels identify roles; avatars are decorative.
 const CHAT_AVATARS = Object.freeze({
   assistant: '<img src="../../assets/companion/dango/raster/views/front/neutral.png" width="28" height="28" alt="" aria-hidden="true">',
-  user: '<svg viewBox="0 0 32 32" width="28" height="28" fill="none" aria-hidden="true" focusable="false"><rect x="3" y="3" width="26" height="26" rx="9" fill="currentColor" fill-opacity=".08" stroke="currentColor" stroke-width="1.5"/><circle cx="16" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M9 25v-2a7 7 0 0 1 14 0v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'
+  user: '<svg viewBox="0 0 32 32" width="28" height="28" fill="none" aria-hidden="true" focusable="false"><rect x="3" y="3" width="26" height="26" rx="9" fill="currentColor" fill-opacity=".08" stroke="currentColor" stroke-width="1.5"/><circle cx="16" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M9 25v-2a7 7 0 0 1 14 0v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>'
 });
 
 function taskDraftFromMessage(message) {
@@ -86,7 +86,6 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
   };
   function repaintCopy() {
     textCopies.forEach(paint => paint());
-    $('#draftChatLog')?.querySelectorAll?.('details.chat-proposal-note > summary').forEach(node => { node.textContent = t('记录详情'); });
     markupCopies.forEach((copies, selector) => {
       $(selector)?.querySelectorAll?.('[data-chat-copy]').forEach(node => {
         const paint = copies[Number(node.dataset.chatCopy)]; if (paint) node.textContent = paint();
@@ -117,16 +116,16 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
     const shown = text('#draftChatStatus', message);
     hidden('#draftChatStatus', !shown);
   }
-  function busy(on, { editable = false } = {}) {
+  function busy(on, { editable = false, generating = false } = {}) {
     for (const selector of ['#btnDraftChatSend', '#draftChatRetention',
-      '#draftChatRetentionDays', '#draftChatPinned', '#draftChatFocusSummary', '#btnDraftChatNew',
+      '#draftChatRetentionDays', '#draftChatPinned', '#draftChatFocusSummary', '#draftChatPlanningPreferences', '#btnDraftChatNew',
       '#btnDraftChatList', '#btnDraftChatSettings', '#btnDraftChatRefresh', '#btnDraftChatMore', '#btnDraftChatAdopt', '#draftChatMode']) {
       const node = $(selector);
       if (node) node.disabled = on;
     }
     if ($('#draftChatInput')) $('#draftChatInput').disabled = on && !editable;
-    text('#btnDraftChatSend', on ? '正在生成…' : '发送');
-    hidden('#btnDraftChatCancel', !on);
+    text('#btnDraftChatSend', on ? generating ? '正在生成…' : '处理中…' : '发送');
+    hidden('#btnDraftChatCancel', !on || !generating);
     $('#draftChatLog')?.setAttribute('aria-busy', String(on));
   }
   function draft(input, selected) {
@@ -204,7 +203,7 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
     return leaf('p', `class="chat-proposal-note" data-proposal-status="${escapeHTML(id)}"`, () =>
       (item ? `${t(store[item.store])} · ${t(label[item.status])}` : t('提交状态待核对'))
       + (item?.historyStatus ? ` · ${t(item.historyStatus === 'pending' ? '时间线待同步' : '时间线已同步')}` : ''))
-      + (details ? `<details class="chat-proposal-note"><summary>${t('记录详情')}</summary><p>${details}</p></details>` : '');
+      + (details ? `<details class="chat-proposal-note disclosure"><summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg>${copy('记录详情')}</summary><p>${details}</p></details>` : '');
   }
   function conversation(record, selected, { scrollTop, toBottom = false, forceBottom = false, page = false, projectionOnly = false } = {}) {
     const log = $('#draftChatLog');
@@ -309,7 +308,7 @@ function createCollaborationView({ $, escapeHTML, fallbackReasonText = () => '' 
       const saved = item.saveState === 'unsaved' ? '尚未保存' : item.retention?.mode === 'saved' ? '保留在本机' : '仅本次';
       const date = () => item.updatedAt ? new Date(item.updatedAt).toLocaleString(getLocale()) : '';
       return `<button type="button" class="chat-session" data-chat-resume="${escapeHTML(item.id)}" aria-current="${item.id === latestRecord?.id}">`
-        + `<span class="chat-session-title-row"><span>${title ? escapeHTML(title) : copy('一段对话')}</span><span class="chat-session-arrow" aria-hidden="true">›</span></span><small>${item.id === latestRecord?.id ? copy('当前对话 · ') : ''}${copy(MODE_LABELS[item.mode] || '先聊聊')} · ${copy(saved)}</small>${item.updatedAt ? `<small class="chat-session-date">${copyValue(date)}</small>` : ''}</button>`;
+        + `<span class="chat-session-title-row"><span>${title ? escapeHTML(title) : copy('一段对话')}</span><svg class="chat-session-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><small>${item.id === latestRecord?.id ? copy('当前对话 · ') : ''}${copy(MODE_LABELS[item.mode] || '先聊聊')} · ${copy(saved)}</small>${item.updatedAt ? `<small class="chat-session-date">${copyValue(date)}</small>` : ''}</button>`;
     }).join('') : `<p class="chat-empty">${copy('还没有可继续的对话')}</p>`;
     hidden('#btnDraftChatMore', !nextCursor);
   }

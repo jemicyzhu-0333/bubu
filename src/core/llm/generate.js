@@ -14,6 +14,7 @@ const {
 const { NO_LLM_TRACE } = require('./trace');
 const { responseUsage } = require('./usage');
 const { rememberProposalValidationDetail } = require('./proposal-validation-detail');
+const { createDiagnosticObservation, diagnosticRejection, diagnosticTransport } = require('./diagnostic-observation');
 
 // L3b：一次结构化生成的编排。这一层决定“失败之后做什么”，而这正是旧实现里
 // 完全缺失的一格：一次校验不过就整份回退本地模板，一个整数的起点约定因此拥有
@@ -113,6 +114,9 @@ async function generateStructured(options = {}) {
   let protocol = PROTOCOLS.includes(remembered) ? remembered : PROTOCOLS[0];
   let mode = rememberedMode(negotiation, baseUrl, protocol);
   let repairAttempts = 0;
+  let attempt = 0;
+  const observation = createDiagnosticObservation(options, signal);
+  const observe = (phase, data = {}) => observation(phase, { protocol, mode, attempt, repairAttempts, ...data });
   const span = trace.begin({ kind: task.name, provider: providerId, protocol, model, mode });
 
   try {
@@ -124,14 +128,20 @@ async function generateStructured(options = {}) {
         if (signal && signal.aborted) throw new Error('provider-request-aborted');
         if (typeof options.beforeRequest === 'function') options.beforeRequest();
         if (signal && signal.aborted) throw new Error('provider-request-aborted');
+        const endpoint = protocolEndpoint(baseUrl, protocol);
+        const request = buildRequest({ protocol, model, messages, schema, schemaName: task.schemaName, mode });
+        attempt += 1;
+        observe('attempt');
+        if (signal && signal.aborted) throw new Error('provider-request-aborted');
         const response = await post(
-          protocolEndpoint(baseUrl, protocol),
-          buildRequest({ protocol, model, messages, schema, schemaName: task.schemaName, mode }),
+          endpoint,
+          request,
           { apiKey, signal, timeoutMs, lookup, span }
         );
         if (signal && signal.aborted) throw new Error('provider-request-aborted');
         if (typeof options.onUsage === 'function') options.onUsage(responseUsage(protocol, response));
         text = extractText(protocol, response);
+        observe('output', { text });
         if (Number.isSafeInteger(options.maxOutputChars) && [...text].length > options.maxOutputChars) {
           throw new RangeError('provider-output-budget');
         }
@@ -139,6 +149,7 @@ async function generateStructured(options = {}) {
       } catch (error) {
         // 换协议与降档都必须让位于取消：截止线到点时对面回什么都不该让我们再发一次。
         if (abortReason(signal)) throw new Error('provider-request-aborted');
+        observe('transport', diagnosticTransport(error));
         if (!abortReason(signal)) {
           // 先判“点名了参数”，再判“路由缺失”：前者更具体，而一个 404 既可能是
           // 路由不存在，也可能是网关拿 404 报“不支持 response_format”。
@@ -167,7 +178,11 @@ async function generateStructured(options = {}) {
 
       try {
         if (abortReason(signal)) throw new Error('provider-request-aborted');
-        const validated = task.validate(task.repair(text, payload), payload);
+        const repaired = task.repair(text, payload);
+        observe('repaired', { value: repaired });
+        const validated = task.validate(repaired, payload);
+        if (abortReason(signal)) throw new Error('provider-request-aborted');
+        observe('validated', { value: validated });
         if (abortReason(signal)) throw new Error('provider-request-aborted');
         // 只在真的拿到一份能用的答案后才记住协议。一个 200 就记下来也行，但
         // 那样一个只会回空壳的路由也会被当成“谈成了”。
@@ -181,6 +196,7 @@ async function generateStructured(options = {}) {
         if (abortReason(signal)) throw new Error('provider-request-aborted');
         const failure = markValidationFailure(error, text);
         rememberProposalValidationDetail(failure, task.name);
+        observe('rejected', diagnosticRejection(task.name, error));
         if (repairAttempts >= maxRepairAttempts || abortReason(signal)) throw failure;
         repairAttempts += 1;
         span.note(`validation failed (${failure.message}); feeding it back, attempt ${repairAttempts}/${maxRepairAttempts}`);

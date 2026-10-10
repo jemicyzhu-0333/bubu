@@ -16,6 +16,7 @@ const petCatalog = require('./pet-catalog');
 const formRegistry = require('./form-registry.mjs');
 
 module.exports = Object.freeze({
+  applyOutfit: Object.freeze({ ...require('./application/apply-outfit') }),
   invalidateMealCare: Object.freeze({ ...require('./application/invalidate-meal-care') }),
   foodCommand: Object.freeze({ ...require('./domain/food-command') }),
   mealRhythm: Object.freeze({ ...require('./domain/meal-rhythm') }),

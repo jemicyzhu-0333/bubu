@@ -9,6 +9,7 @@ const { resolveTimeout, DEFAULT_TIMEOUT_MS, MAX_TIMEOUT_MS } = require('./transp
 const { createLlmTrace, NO_LLM_TRACE } = require('./trace');
 const { probeConnection, connectionFailure } = require('./connection-probe');
 const { proposalValidationDetail } = require('./proposal-validation-detail');
+const { diagnosticOption } = require('./diagnostic-observation');
 
 // LLM Provider 运行时的公开出口；纯静态契约另由 contracts.js 提供。
 // 四层内部结构仍不向调用方开放。
@@ -50,7 +51,8 @@ function createApiClient(options = {}) {
       : PROTOCOLS[0]),
     timeoutMs,
     describeFields,
-    async run(name, payload, { signal, beforeRequest, maxOutputChars, maxRepairAttempts, onUsage } = {}) {
+    async run(name, payload, runOptions = {}) {
+      const { signal, beforeRequest, maxOutputChars, maxRepairAttempts, onUsage } = runOptions;
       const task = taskByName(name);
       // 没有凭据就不出网。等对面回 401 也能知道，但那要先烧掉一次往返和用户
       // 的一段等待，而“还没保存 API 密钥”这件事在本机就是已知的。
@@ -71,6 +73,7 @@ function createApiClient(options = {}) {
         providerId: 'api',
         beforeRequest,
         onUsage,
+        diagnostics: diagnosticOption(runOptions),
         maxOutputChars,
         maxRepairAttempts: maxRepairAttempts === undefined ? options.maxRepairAttempts : maxRepairAttempts
       });

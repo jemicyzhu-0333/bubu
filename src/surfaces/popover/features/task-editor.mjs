@@ -65,7 +65,10 @@ function createPopoverTaskEditor({
   // 三类保存共用提示区，单轮只承接一个命令。busy 和回执都属于本次 display。
   function beginOperation() {
     if (!isCurrent(draft) || operation) return null;
-    const owner = { display: draft, controls: operationControls.map(selector => [$(selector), $(selector)?.disabled]) };
+    const fields = [...($('#taskEditMask').querySelectorAll?.('input, textarea, select, button') || [])]
+      .filter(control => !['taskEditClose', 'taskEditCancel'].includes(control.id));
+    const controls = new Set([...operationControls.map(selector => $(selector)), ...fields]);
+    const owner = { display: draft, controls: [...controls].map(control => [control, control?.disabled]) };
     operation = owner;
     for (const [control] of owner.controls) if (control) control.disabled = true;
     showError('');
@@ -96,6 +99,7 @@ function createPopoverTaskEditor({
   function close() {
     const mask = $('#taskEditMask');
     const closing = trigger;
+    if (operation) for (const [control, disabled] of operation.controls) if (control) control.disabled = disabled;
     if (mask) {
       mask.classList.add('hidden');
       mask.setAttribute('aria-hidden', 'true');
@@ -206,14 +210,14 @@ function createPopoverTaskEditor({
     summaryCopy = () => {
       $('#taskEditTitle').textContent = t('编辑任务');
       const dateSummary = $('#editDatesSummary');
-      if (dateSummary) dateSummary.textContent = [task.plannedFor && t('已安排'), task.scheduledFor && t('有开始时间'),
-        task.deadline && t('有截止日期'), task.expiresAt && t('有有效期限')].filter(Boolean).join(' · ') || t('未设置');
+      if (dateSummary) dateSummary.textContent = [$('#editPlannedFor').value && t('已安排'), $('#editScheduledFor').value && t('有开始时间'),
+        $('#editDeadline').value && t('有截止日期'), $('#editExpiresAt').value && t('有有效期限')].filter(Boolean).join(' · ') || t('未设置');
       const attributeSummary = $('#editAttributesSummary');
-      if (attributeSummary) attributeSummary.textContent = [task.estimateMinutes && t('{minutes} 分钟', { minutes: task.estimateMinutes }),
-        task.tags?.length && t('{count} 个标签', { count: task.tags.length })].filter(Boolean).join(' · ') || t('能量、估时、标签');
+      const estimate = readNumberInput('#editEstimate'), tags = parseTagList($('#editTags').value);
+      if (attributeSummary) attributeSummary.textContent = [Number.isFinite(estimate) && estimate > 0 && t('{minutes} 分钟', { minutes: estimate }),
+        tags.length && t('{count} 个标签', { count: tags.length })].filter(Boolean).join(' · ') || t('能量、估时、标签');
       if (series) $('#editSeriesSummary').textContent = t('重复：{rule}', { rule: describeSeriesRule(series) });
     };
-    summaryCopy();
     $('#editTitle').value = task.title || '';
     $('#editDescription').value = task.description || '';
     $('#editPlannedFor').value = task.plannedFor || '';
@@ -227,6 +231,7 @@ function createPopoverTaskEditor({
       ? ''
       : String(task.estimateMinutes);
     $('#editTags').value = (task.tags || []).join(', ');
+    summaryCopy();
     syncPressedButtons('.edit-energy-chip', button => button.dataset.editEnergy === (task.energyAuto ? 'auto' : task.energy));
     $('#editScopeRow').classList.toggle('hidden', !task.seriesId);
     syncPressedButtons('.edit-scope-chip', () => false);
@@ -370,7 +375,7 @@ function createPopoverTaskEditor({
     try {
       const result = await surfaceClient.updateTask(task.id, patch, owner.display.scope || undefined);
       if (!ownsOperation(owner)) return;
-      if (result && result.ok === false) throw new Error(result.reason || 'task-update-rejected');
+      if (!result?.ok) throw new Error(result?.reason || 'task-update-rejected');
       close();
     } catch (_) {
       if (ownsOperation(owner)) showError('这次没有保存成功。修改仍在输入框里，请检查后重试。');
@@ -433,7 +438,8 @@ function createPopoverTaskEditor({
     try {
       const result = await surfaceClient.updateSeries(owner.display.seriesId, patch);
       if (!ownsOperation(owner)) return;
-      showError(() => result && result.ok === false ? taskActionMessage(result.reason) : t(note));
+      if (!result?.ok) { showError(() => taskActionMessage(result?.reason || 'task-update-rejected')); return; }
+      showError(() => t(note));
     } catch (_) {
       if (ownsOperation(owner)) showError('这次没有保存成功。修改仍在输入框里，请检查后重试。');
     } finally {
@@ -460,6 +466,9 @@ function createPopoverTaskEditor({
     if (mounted) return;
     mounted = true;
     teardown.push(onLocaleChanged(repaintCopy));
+    for (const id of ['editPlannedFor', 'editScheduledFor', 'editDeadline', 'editExpiresAt', 'editEstimate', 'editTags']) {
+      for (const event of ['input', 'change']) listen($('#' + id), event, () => { if (draft) summaryCopy?.(); });
+    }
     for (const id of ['editPlannedFor', 'editScheduledFor', 'editDeadline', 'editExpiresAt']) {
       teardown.push(bindTaskDatePicker($('#' + id), $('#' + id + 'Picker')));
     }

@@ -1,7 +1,7 @@
 'use strict';
 
 // Runtime request identity only; it neither grants data access nor owns state.
-function createProviderRequestScope() {
+function createProviderRequestScope({ onInvalidate = () => {} } = {}) {
   let epoch = Symbol('provider-requests'), closed = false;
   const active = new Set();
   function begin({ checkCurrent = () => true } = {}) {
@@ -24,6 +24,7 @@ function createProviderRequestScope() {
   }
   function invalidate() {
     epoch = Symbol('provider-requests');
+    try { onInvalidate(); } catch (_) { /* Observation cannot prevent revocation. */ }
     const previous = [...active];
     active.clear();
     for (const controller of previous) controller.abort();

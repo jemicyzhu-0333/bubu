@@ -36,8 +36,7 @@ The main panel has **Now / Plan / Review** sections (现在 / 安排 / 回顾). 
 - **Project website:** visit the [project page](https://jemicyzhu-0333.github.io/bubu/) for an overview and current download notices.
 - **Current testing preview: [`v0.0.2-dev.3`](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.3).** App/package version: `0.0.2-dev.3`. It clears finished AI-tool activity promptly, improves the task calendar, removes the unused inbox quick-start area, and lets quick capture grow with your text. Mac development startup also prepares its native music-detection helper; real NetEase playback detection remains unverified.
 - **Verified downloads:** [Windows x64 · unsigned](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.3/bubu-0.0.2-dev.3-win-x64.exe) · [macOS Apple Silicon · ad-hoc restricted test](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.3/bubu-0.0.2-dev.3-mac-arm64-adhoc-test.dmg) · [SHA256SUMS.txt](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.3/SHA256SUMS.txt). Public downloads were checked against the original installer sizes and SHA-256 hashes; see the release notes for exact filenames and hashes.
-- **Previous preview:** [v0.0.2-dev.2](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.2) and its [validation evidence](docs/VALIDATION.md#002-dev2-已发布测试包的证据边界) remain available for history.
-- **Earlier preview:** [v0.0.2-dev.1](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.1) and its [validation evidence](docs/VALIDATION.md#002-dev1-已发布测试包的证据边界) remain available for history.
+- **Earlier previews:** [v0.0.2-dev.2](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.2) ([evidence](docs/VALIDATION.md#002-dev2-已发布测试包的证据边界)) and [v0.0.2-dev.1](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.1) ([evidence](docs/VALIDATION.md#002-dev1-已发布测试包的证据边界)) remain available for history.
 - **Previous test packages:** [v0.0.1-dev-r4](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r4) came from commit `df3242a`, with app version `0.0.1-dev`. The Windows r4 installer has a confirmed first-launch profile-admission failure; use it only as a historical diagnostic baseline. Its names and historical validation evidence remain unchanged.
 - **Earlier releases:** [r3](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r3), [r2](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r2) and [v0.0.1-dev](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev) are retained for history. Do not install the initial v0.0.1-dev Mac package, which was reported as damaged.
 - **New test builds:** the manual [Build Windows and macOS (test) workflow](https://github.com/jemicyzhu-0333/bubu/actions/workflows/build-desktop.yml) targets **Windows x64** and **macOS ARM64**. Download a successful run's artifacts while retained; GitHub may require sign-in. Check the run's branch and commit. The workflow does not create a Release.
@@ -61,7 +60,7 @@ npm ci
 npm run dev
 ```
 
-`npm run dev` uses the isolated `bubu-dev` development profile. `npm start` uses the `bubu` everyday profile. Their data, credentials, and Chromium storage are separate. The earlier brand rename has no old-name compatibility aliases. Pre-bubu directories and credentials remain untouched. An explicit `--user-data-dir` remains respected; only a separately confirmed, fully validated bubu18 upgrade may change its payload version.
+`npm run dev` uses the isolated `bubu-dev` development profile. `npm start` uses the `bubu` everyday profile. Their data, credentials, and Chromium storage are separate. An explicit `--user-data-dir` remains respected; only a separately confirmed, fully validated bubu18 upgrade may change its payload version.
 
 `0.0.2-dev.3` uses canonical **schema 19** with a **bubu-branded configuration identity**. An existing, fully valid bubu schema18 profile has one explicit upgrade path: the startup dialog asks before making a complete private backup and adding the two preferences. Cancel quits without upgrading. Old-brand, unmarked, damaged, orphaned and unsupported profiles are still refused; they are never imported, reset or replaced.
 
@@ -118,10 +117,10 @@ If a shortcut is taken, the app tries another combination. Settings shows the ac
 
 ## Documentation
 
-The detailed product and engineering documents are currently in Chinese.
+The detailed product and engineering documents are currently in Chinese. Each document owns one set of rules; the README covers features and setup.
 
-- [Product principles](docs/PRODUCT.md): feature semantics and interaction boundaries
-- [Architecture](docs/ARCHITECTURE.md): layers, state ownership, IPC, SQLite, and AI safety
+- [Product principles](docs/PRODUCT.md): feature semantics and the shared [UI/UX rules](docs/PRODUCT.md#界面语言)
+- [Architecture](docs/ARCHITECTURE.md): the [project structure and ownership map](docs/ARCHITECTURE.md#分层与能力), IPC, SQLite, and AI safety
 - [Validation](docs/VALIDATION.md): automated checks, native acceptance, and known limitations
 - [Pet visuals](docs/PET_VISUAL.md) and [layered rig](docs/PET_RIG.md): production geometry, layers, and asset construction
 - [AGENTS.md](AGENTS.md): repository rules for coding agents

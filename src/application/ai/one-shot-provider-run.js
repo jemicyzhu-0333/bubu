@@ -65,11 +65,13 @@ function createOneShotProviderRun({ now, schedule, cancelSchedule } = {}) {
     let assertCurrent;
     let trace;
     let onUsage;
+    let onFailure;
+    let diagnostics;
     let maxRepairAttempts;
     let maxOutputChars;
     let deadlineMs;
     try {
-      ({ signal, assertCurrent, trace, onUsage, maxRepairAttempts = 1, maxOutputChars } = options);
+      ({ signal, assertCurrent, trace, onUsage, onFailure, diagnostics, maxRepairAttempts = 1, maxOutputChars } = options);
       if (!TASKS.has(name) || !client || typeof client.run !== 'function'
           || !fallbackClient || typeof fallbackClient.run !== 'function'
           || (maxRepairAttempts !== 0 && maxRepairAttempts !== 1)
@@ -132,6 +134,7 @@ function createOneShotProviderRun({ now, schedule, cancelSchedule } = {}) {
               assertOwner();
               controls.assertOpen();
             }, maxRepairAttempts };
+          if (diagnostics) nativeOptions.diagnostics = diagnostics;
           if (maxOutputChars !== undefined) nativeOptions.maxOutputChars = maxOutputChars;
           if (typeof onUsage === 'function') nativeOptions.onUsage = usage => {
             if (controls.isOpen()) observe(() => onUsage(usage));
@@ -150,6 +153,11 @@ function createOneShotProviderRun({ now, schedule, cancelSchedule } = {}) {
         observe(() => trace?.fallback({ task: name, from: client.id, to: fallbackClient.id,
           reason: ownerRefused ? 'provider-request-aborted' : reason, deadlineMs,
           abortedBy: ownerRefused ? 'caller' : deadline ? 'deadline' : undefined }));
+        // Optional metadata-only observation; preserve the existing result union and fallback.
+        if (typeof onFailure === 'function') observe(() => onFailure(Object.freeze({
+          reason: ownerRefused ? 'provider-request-aborted' : deadline ? 'provider-timeout'
+            : reason.startsWith('proposal-rejected|') ? 'proposal-rejected' : reason
+        })));
         if (ownerRefused) outcome = { ok: false, reason: 'provider-request-aborted' };
         else {
           try {

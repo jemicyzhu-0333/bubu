@@ -195,6 +195,7 @@
   }
 </style>
 <link rel="stylesheet" href="../surfaces/shared/interface/chrome.css">
+<link rel="stylesheet" href="../surfaces/reminders/chrome.css">
 </head>
 <body data-surface="nudge-fullscreen" data-motion="reduced" data-stimulation="low">
   <div class="scanlines" aria-hidden="true"></div>
@@ -209,11 +210,14 @@
     <div class="message" id="message" aria-live="assertive" aria-atomic="true">...</div>
     <div class="sub" data-i18n="小步 强提醒 · Level 4">小步 强提醒 · Level 4</div>
     <div class="actions" id="actions" aria-label="提醒操作" data-i18n-aria-label="提醒操作"></div>
+    <p class="nudge-status" id="nudgeStatus" role="status" aria-live="polite" hidden></p>
     <div class="escape-hint"><span data-i18n="按">按</span> <kbd>Esc</kbd> <span data-i18n="或点击背景关闭">或点击背景关闭</span></div>
   </div>
 <script type="module" nonce="bubu-fullscreen">
 import "../surfaces/shared/interface/entry.mjs";
 import { t, onLocaleChanged } from "../surfaces/shared/interface/i18n.mjs";
+import { createReminderActions } from "../surfaces/reminders/actions.mjs";
+const reminderActions = createReminderActions({ document, dismiss: action => window.bubu.dismissNudge(action) });
 let actionCopies = [], latestData = null;
 function repaintNudgeCopy() {
   for (const [node, source] of actionCopies) node.textContent = t(source);
@@ -222,7 +226,7 @@ function repaintNudgeCopy() {
     ? t('{shortcut} 操作', { shortcut: latestData.keyboardShortcut }) : '';
 }
 const stopLocaleCopy = onLocaleChanged(repaintNudgeCopy);
-window.addEventListener('pagehide', () => { stopLocaleCopy(); actionCopies = []; latestData = null; }, { once: true });
+window.addEventListener('pagehide', () => { stopLocaleCopy(); reminderActions.dispose(); actionCopies = []; latestData = null; }, { once: true });
   const canvas = document.getElementById('charCanvas');
   const ctx = canvas.getContext('2d');
   ctx.imageSmoothingEnabled = false;
@@ -350,6 +354,7 @@ window.addEventListener('pagehide', () => { stopLocaleCopy(); actionCopies = [];
   window.bubu.onNudgeSensoryProfile(applyNudgeSensoryProfile);
 
   window.bubu.onNudgeInit((data) => {
+    reminderActions.reset();
     latestData = data; actionCopies = [];
     applyNudgeSensoryProfile(data);
     const name = drawCharacter(data.character || 'spider');
@@ -364,7 +369,7 @@ window.addEventListener('pagehide', () => { stopLocaleCopy(); actionCopies = [];
       btn.dataset.actionId = action.id;
       btn.textContent = t(action.label); actionCopies.push([btn, action.label]);
       btn.addEventListener('click', () => {
-        window.bubu.dismissNudge(action.id);
+        void reminderActions.run(action.id);
       });
       actions.appendChild(btn);
     });
@@ -374,7 +379,7 @@ window.addEventListener('pagehide', () => { stopLocaleCopy(); actionCopies = [];
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       e.preventDefault();
-      window.bubu.dismissNudge('dismiss');
+      void reminderActions.run('dismiss');
       return;
     }
     if (e.key === 'Tab') {
@@ -397,7 +402,7 @@ window.addEventListener('pagehide', () => { stopLocaleCopy(); actionCopies = [];
   });
 
   document.body.addEventListener('click', (e) => {
-    if (!e.target.closest('#nudgeDialog')) window.bubu.dismissNudge('dismiss');
+    if (!e.target.closest('#nudgeDialog')) void reminderActions.run('dismiss');
   });
 </script>
 </body>

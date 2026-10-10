@@ -99,3 +99,18 @@ test('external conversationId entry restores canonical draft directly to detail 
   assert.equal(h.calls.filter(item=>item==='turn').length,0);
   h.feature.dispose();
 });
+
+test('abandoned list failure cannot replace conversation status or block a fresh list request', async () => {
+  const h = harness(); await h.feature.open(); const pending = [];
+  h.client.listConversations = () => new Promise(resolve => pending.push(resolve));
+  const old = h.feature.list(); h.fire('#btnDraftChatBack', 'click');
+  const fresh = h.feature.list();
+  assert.equal(pending.length, 2);
+  pending[0]({ ok: false, reason: 'storage-unavailable' }); await old;
+  assert.equal(h.$('#draftChatStatus').textContent, '正在读取对话列表…');
+  pending[1]({ ok: true, items: [...h.records.values()], nextCursor: null }); await fresh;
+  assert.equal(h.$('#draftChatStatus').textContent, '');
+  const late = h.feature.list(); h.fire('#btnDraftChatBack', 'click');
+  pending[2]({ ok: false, reason: 'storage-unavailable' }); await late;
+  assert.equal(h.$('#draftChatStatus').textContent, ''); h.feature.dispose();
+});

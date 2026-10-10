@@ -46,6 +46,11 @@ function createRoutineControls({ $, escapeHTML: esc, getState, listen, syncSched
     $('#routineTitle').value = item?.title || '';
     $('#routineKind').value = item?.kind || 'medication';
     if ($('#routineCustomLabel')) $('#routineCustomLabel').value = item?.customLabel || '';
+    const label = $('#routineCustomLabelText');
+    if (label) {
+      const source = item?.kind === 'custom' && !item.customLabel ? '类型名称（可选）' : '类型名称';
+      label.setAttribute('data-i18n', source); label.textContent = t(source);
+    }
     $('#routineFrequency').value = item?.schedule?.frequency || '';
     if ($('#routineMaxLevel')) $('#routineMaxLevel').value = String(item?.maxLevel || 2);
     $('#routineWeekdayRow')?.querySelectorAll('[data-weekday]').forEach(button => button.setAttribute('aria-pressed', String((item?.schedule?.weekdays || []).includes(Number(button.dataset.weekday)))));

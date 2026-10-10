@@ -121,3 +121,54 @@ test('capture teardown prevents a late commit receipt from changing old controls
   assert.match(source, /const captureBar = createPopoverCaptureBar\(/);
   assert.match(source, /const features = \[[^\]]*\bcaptureBar\b/);
 });
+
+test('capture receipts preserve a newer draft and only explicit resubmission sends it', async context => {
+  const pending = [], sent = [];
+  const h = await captureBar({ addImpulse: text => {
+    sent.push(text); return new Promise(resolve => pending.push(resolve));
+  } });
+  context.after(() => h.bar.dispose());
+  h.input.value = 'first capture'; const first = h.bar.submit();
+  h.input.value = 'new unsent draft'; h.input.listeners.input[0]();
+  await h.bar.submit(); assert.deepEqual(sent, ['first capture'], 'repeated submit while busy sends nothing');
+  pending.shift()({ ok: true }); await first;
+  assert.equal(h.input.value, 'new unsent draft');
+  const retry = h.bar.submit();
+  pending.shift()({ ok: false }); await retry;
+  assert.equal(h.input.value, 'new unsent draft');
+  const final = h.bar.submit(); pending.shift()({ ok: true }); await final;
+  assert.equal(h.input.value, '');
+  assert.deepEqual(sent, ['first capture', 'new unsent draft', 'new unsent draft']);
+});
+
+test('capture receipt does not clear an edited-back draft or text typed after Escape', async context => {
+  for (const cancel of [false, true]) {
+    let finish;
+    const h = await captureBar({ addImpulse: () => new Promise(resolve => { finish = resolve; }) });
+    context.after(() => h.bar.dispose());
+    h.input.value = 'same words'; const saving = h.bar.submit();
+    if (cancel) h.input.listeners.keydown[0]({ key: 'Escape', preventDefault() {}, stopPropagation() {} });
+    else { h.input.value = 'different words'; h.input.listeners.input[0](); }
+    h.input.value = 'same words'; h.input.listeners.input[0]();
+    finish({ ok: true }); await saving;
+    assert.equal(h.input.value, 'same words');
+  }
+});
+
+test('session-step success retains a newer draft and cannot close a reopened form', async context => {
+  const { createSessionStep } = await load('src/surfaces/popover/features/session-step.mjs');
+  const document = fakeDocument(), $ = selector => document.querySelector(selector);
+  let finish, calls = 0;
+  const feature = createSessionStep({ $, getSession: () => ({ mode: 'focus', taskId: 'task', running: true }),
+    surfaceClient: { updateTask: () => { calls++; return new Promise(resolve => { finish = resolve; }); } }, showStatus() {} });
+  feature.mount(); context.after(() => feature.dispose()); feature.render({ id: 'task' });
+  const click = id => $(id).listeners.click[0]();
+  const submit = () => $('#sessionStepForm').listeners.submit[0]({ preventDefault() {} });
+  click('#btnAddSessionStep'); $('#sessionStepInput').value = 'first'; const first = submit();
+  $('#sessionStepInput').value = 'second'; finish({ ok: true }); await first;
+  assert.equal($('#sessionStepInput').value, 'second'); assert.equal($('#sessionStepForm').classList.contains('hidden'), false);
+  const second = submit(); click('#cancelSessionStep'); click('#btnAddSessionStep');
+  $('#sessionStepInput').value = 'third'; finish({ ok: true }); await second;
+  assert.equal($('#sessionStepInput').value, 'third'); assert.equal($('#sessionStepForm').classList.contains('hidden'), false);
+  assert.equal(calls, 2);
+});

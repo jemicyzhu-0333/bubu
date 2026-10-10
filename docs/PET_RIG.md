@@ -1,5 +1,7 @@
 # 分层骨骼 Rig
 
+本文只定义 Rig 的构建、骨骼与图层协议。舞台尺寸、穿戴和美术边界以 [PET_VISUAL](PET_VISUAL.md) 为准；工具 UI/UX 以 [PRODUCT「界面语言」](PRODUCT.md#界面语言) 为准；验收证据归 [VALIDATION](VALIDATION.md)。
+
 ## 并发配件的姿势隔离
 
 乌萨奇 `combinationAccessories` 只挂在已求解的artwork上，耳机/机器人画笔读取它；不改 `pose.sample`、world、props或face。

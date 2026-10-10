@@ -271,17 +271,17 @@ localized('activity locale repaint preserves tool identities, authored setup tex
   const feature = createActivityMirrorSettings({ $: h.$, getState: () => { reads++; return state; }, escapeHTML: value => value,
     surfaceClient: { copyAgentPluginCommand: async () => { copies++; return { ok: true }; } } });
   feature.mount({ subscribe: () => { subscriptions++; return () => { subscriptions--; }; } }); context.after(() => feature.dispose());
-  // The hook wrapper's children are assigned by this flat synthetic parser.
-  const list = h.$('#activityHookList'), hook = list.querySelector('.activity-hook');
-  hook.querySelector = selector => list.querySelector(selector);
-  const copy = list.querySelector('[data-copy-hook]'), baseline = reads, markup = list.innerHTML;
-  copy.focus(); setLocale('en');
-  assert.equal(h.$('#activityMirrorStatus').textContent, 'Keeping you company while you chat with AI');
-  assert.equal(copy.textContent, 'Copy'); assert.equal(list.innerHTML, markup);
+  const copy = h.$('#activityHookCopy'), baseline = reads;
+  const selector = h.$('#activityHookTool'), help = h.$('#activityHookHelp');
+  help.open = true; copy.focus(); setLocale('en');
+  assert.equal(h.$('#activityMirrorStatus').textContent, ''); assert.equal(h.$('#activityMirrorStatus').hidden, true);
+  assert.equal(copy.getAttribute('aria-label'), 'Copy setup command');
   assert.equal(h.document.activeElement, copy); assert.equal(reads, baseline); assert.equal(copies, 0);
-  assert.equal(list.querySelector('.activity-hook-name').textContent, '设置');
-  assert.equal(list.querySelector('.activity-hook-step').textContent, '原始说明 {title}');
-  feature.dispose(); assert.equal(subscriptions, 0); setLocale('zh-CN'); assert.equal(copy.textContent, 'Copy');
+  assert.equal(selector.value, 'tool'); assert.equal(help.open, true);
+  assert.match(selector.innerHTML, /设置/);
+  assert.match(h.$('#activityHookSteps').innerHTML, /原始说明 \{title\}/);
+  assert.equal(h.$('#activityHookCommand').textContent, 'command 原文');
+  feature.dispose(); assert.equal(subscriptions, 0); setLocale('zh-CN'); assert.equal(copy.getAttribute('aria-label'), 'Copy setup command');
 });
 localized('task locale repaint preserves open overflow, focused action, row identity and user title/steps', context => {
   const h = controlDom(); let reads = 0, commands = 0;
@@ -340,12 +340,12 @@ localized('review locale repaint retains unchecked task inputs and does not reop
       resolveReview: () => { resolves++; } }, activeLandingPrompt: () => null, isLandingModalOpen: () => false,
     renderLanding() {}, rememberLandingReturnFocus() {} });
   feature.mount(); context.after(() => feature.dispose()); feature.renderCards(); await feature.open('review');
-  const body = h.$('#reviewBody'), section = body.children[1], row = section.children[1], input = row.children[0];
+  const body = h.$('#reviewBody'), section = body.children[1], row = section.children[2], input = row.children[0];
   input.checked = false; h.document.activeElement = input;
   const button = h.$('#reviewCards').children[0]?.children[1];
   setLocale('en');
   assert.equal(h.$('#reviewDone').textContent, 'Start with these');
-  assert.equal(section.children[1].children[0], input); assert.equal(input.checked, false);
+  assert.equal(section.children[2].children[0], input); assert.equal(input.checked, false);
   assert.equal(row.children[1].textContent, '设置'); assert.equal(h.document.activeElement, input);
   assert.equal(opens, 1); assert.equal(resolves, 0);
   if (button) assert.equal(h.$('#reviewCards').children[0].children[1], button);
@@ -606,7 +606,7 @@ localized('conversation copy repaint preserves raw transcript, titles, model nam
   assert.equal(h.$('#draftChatSessions').children[0], session); assert.equal(h.$('#draftChatSessionTitle').textContent, '设置');
   assert.equal(h.$('#draftChatProvider').textContent, 'Receiving model: 设置 {model} · provider 原文');
   assert.equal(h.$('#draftChatInput').value, '原始草稿'); assert.equal(h.document.activeElement, h.$('#draftChatInput'));
-  assert.equal(h.$('#btnDraftChatSend').textContent, 'Generating…'); assert.equal(h.$('#btnDraftChatSend').disabled, true);
+  assert.equal(h.$('#btnDraftChatSend').textContent, 'Processing…'); assert.equal(h.$('#btnDraftChatSend').disabled, true);
   assert.ok(log.querySelectorAll('[data-chat-copy]').some(node => node.textContent.includes('原始诊断 {reason}')));
   assert.ok(log.querySelectorAll('.chat-turn-content').some(node => node.textContent === '设置 {title}'));
 });
@@ -777,7 +777,7 @@ localized('skin-aware pet hit label localizes in place with no layout reads and 
   context.after(() => layout.dispose()); layout.update('usagi');
   const baseline = geometryReads, geometry = { ...hit.style };
   setLocale('en');
-  assert.match(hit.attributes['aria-label'], /bubu 乌沙奇 2.0: click or hold/);
+  assert.match(hit.attributes['aria-label'], /bubu 小奇: click or hold/);
   assert.equal(geometryReads, baseline); assert.deepEqual(hit.style, geometry);
   const html = require('node:fs').readFileSync(`${ROOT}/src/renderer/pet.html`, 'utf8');
   const tag = html.match(/<[^>]*\bid="petHit"[^>]*>/)[0];
@@ -797,12 +797,16 @@ localized('wardrobe locale update retains focused selected options and does not 
   const slots = h.$('#wardrobeSlots'), options = h.$('#wardrobeOptions');
   const slot = slots.querySelector('.wardrobe-slot'), slotLabel = slots.querySelector('.slot-name'); slot.querySelector = () => slotLabel;
   const buttons = options.querySelectorAll('.wardrobe-option'), hint = options.querySelector('.wardrobe-lock');
+  const emptyName = options.querySelector('.wardrobe-item-name');
+  const preview = options.querySelector('.wardrobe-item-preview');
+  buttons[0].querySelector = selector => selector === '.wardrobe-item-name' ? emptyName : null;
   buttons[2].querySelector = () => hint; buttons[2].disabled = true; buttons[1].focus();
   const baseline = [reads, draws, commands], markup = options.innerHTML, selected = buttons[1].getAttribute('aria-pressed');
   setLocale('en'); listener({ localeOnly: true, state, dirty: { all: true } });
   assert.deepEqual([reads, draws, commands], baseline); assert.equal(h.document.activeElement, buttons[1]);
   assert.equal(options.querySelectorAll('.wardrobe-option')[1], buttons[1]); assert.equal(options.innerHTML, markup);
-  assert.equal(buttons[0].textContent, 'None'); assert.equal(slotLabel.textContent, 'Headwear');
+  assert.equal(emptyName.textContent, 'None'); assert.equal(options.querySelector('.wardrobe-item-name'), emptyName);
+  assert.equal(options.querySelector('.wardrobe-item-preview'), preview); assert.equal(slotLabel.textContent, 'Headwear');
   assert.equal(buttons[1].getAttribute('aria-pressed'), selected); assert.equal(buttons[1].getAttribute('aria-label'), '设置, equipped');
   assert.equal(buttons[2].getAttribute('aria-label'), '开始专注, locked: Exclusive to 设置'); assert.equal(buttons[2].disabled, true);
   assert.equal(h.$('#wardrobeSummary').textContent, 'Accessories worn: 1');
@@ -915,4 +919,16 @@ localized('floating satiation label repaints through the real controller without
   assert.ok(hide); hide[1].fn(); assert.equal(bar.classList.contains('show'), false);
   setLocale('zh-CN'); assert.equal(label.textContent, '饱食 43'); assert.equal(bar.classList.contains('show'), false);
   h.runtime.stop(); setLocale('en'); assert.equal(label.textContent, '饱食 43');
+});
+
+localized('memory source disclosure locale repaint preserves shared SVG, open state and focused summary', context => {
+  const { createMemoryManagementView } = require('../src/surfaces/popover/ui/memory-management-view.mjs');
+  const h = controlDom(), view = createMemoryManagementView({ $: h.$, escapeHTML: String });
+  view.list({ items: [{ id: 'm', version: 1, kind: 'preference', status: 'active', subject: 'Original subject', body: 'Original body', sourceType: 'user-statement', scope: 'work', privacyLevel: 'standard', expiresAt: null, lastUsedAt: null }], status: 'active', loaded: true });
+  const list = h.$('#memoryList'), details = list.querySelector('.disclosure'), summary = list.querySelector('summary');
+  const icon = list.querySelector('.disclosure-icon'), label = list.querySelectorAll('[data-memory-copy]').find(node => node.textContent === '来源与使用记录');
+  assert.ok(details); assert.ok(icon); assert.ok(label); details.open = true; summary.focus();
+  setLocale('en'); view.repaintCopy();
+  assert.equal(label.textContent, 'Sources and usage'); assert.equal(list.querySelector('.disclosure-icon'), icon);
+  assert.equal(details.open, true); assert.equal(h.document.activeElement, summary);
 });

@@ -52,6 +52,7 @@ module.exports = Object.freeze({
   memoryAggregation: Object.freeze({ ...require('./domain/memory-aggregation') }),
   memoryConfirmation: Object.freeze({ ...require('./domain/memory-confirmation') }),
   proposalPreview: Object.freeze({ ...require('./application/proposal-preview') }),
+  aiDiagnostics: Object.freeze({ ...require('./application/ai-diagnostics') }),
   ipcRoutes,
   energyCheckIn: Object.freeze({ ...energyCheckIn }),
   energyCalibration: Object.freeze({ ...energyCalibration }),

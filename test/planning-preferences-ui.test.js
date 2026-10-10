@@ -350,3 +350,29 @@ test('an expired failed write unlocks only after the unchanged canonical slice i
     f.feature.dispose();
   }
 });
+
+test('ordinary reads and preference saves avoid persistent success banners; cancel returns to its visible action', async () => {
+  const f = fixture(); await f.feature.reload();
+  assert.equal(f.dom.$('#planningStatus').textContent, '');
+  await f.feature.preview('preference');
+  f.dom.$('#planningCancel').focus(); f.dom.fire('#planningCancel', 'click');
+  assert.equal(f.dom.$('#planningReview').classList.contains('hidden'), true);
+  assert.equal(f.dom.document.activeElement, f.dom.$('#planningPreferencePreview'));
+  assert.equal(f.dom.$('#planningStatus').textContent, '');
+  await tick(); await f.feature.preview('preference'); await f.feature.confirm();
+  assert.equal(f.snapshot().planningPreferences.items.length, 1);
+  assert.equal(f.dom.$('#planningStatus').textContent, ''); f.feature.dispose();
+});
+
+test('a prepared preview moves focus and scroll to its heading without focusing confirmation or altering the form', async () => {
+  const f = fixture(); await f.feature.reload();
+  f.dom.$('#planningStart').value = '14:30';
+  f.dom.$('#planningPreferencePreview').focus();
+  const scrolls = []; f.dom.$('#planningReview').scrollIntoView = options => scrolls.push(options);
+  await f.feature.preview('preference');
+  assert.equal(f.dom.document.activeElement, f.dom.$('#planningReviewTitle'));
+  assert.equal(f.dom.$('#planningReviewTitle').attributes.tabindex, '-1');
+  assert.deepEqual(scrolls, [{ block: 'start', behavior: 'auto' }]);
+  assert.equal(f.dom.$('#planningStart').value, '14:30');
+  assert.equal(f.commits(), 0); f.feature.dispose();
+});

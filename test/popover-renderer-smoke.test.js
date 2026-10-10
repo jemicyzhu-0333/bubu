@@ -525,7 +525,7 @@ test('without a model the completion button fills nothing and says why', async (
   await new Promise(resolve => setImmediate(resolve));
   assert.equal(document.getElementById('createSteps').querySelectorAll('.bd-step-input').length, 0, 'no generic steps in the draft');
   assert.equal(document.getElementById('estimateInput').value || '', '');
-  assert.match(document.getElementById('taskFormStatus').textContent, /没有用 AI，所以没替你拆.*第一个看得见的动作/);
+  assert.match(document.getElementById('taskFormStatus').textContent, /AI 拆解暂不可用/);
   document.getElementById('taskCreateConfirm').dispatch('click');
   for (let tick = 0; tick < 5; tick += 1) await new Promise(resolve => setImmediate(resolve));
   const saved = calls.find(entry => entry.method === 'addTask' || entry.method === 'addWithBreakdown');

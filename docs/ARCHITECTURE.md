@@ -157,8 +157,10 @@ renderer的inbox-history模块只保留当前分类的查询缓存，分类、�
 部分或未知结果按原ID重试，不能另起一份竞争操作。两处恢复栏在卡片/时间线重绘区域之外，只有当前可见面板公告。
 重启不会保存renderer操作槽或自动续删；保留来源只是重新授权清理的入口，不是持久操作回执、失败证据或新状态权威。
 
-`organize-inbox` 工作流声明 `impulses / routines / routineLog / energyCheckIn / energySignals`，经三个能力的公开 facade 处理分类、创建日常、记录发生与状态校准，再同一次提交封存原文。动作可以携带本人选择的分类（category / routineKind / level），分类与动作在同一次提交里生效，动作失败则分类也不落盘；渲染层改分类只是本地草稿，不再一改就写。log 在同类唯一时复用，多个时必须选择；缺少日常可以原子创建且不虚构提醒。超过日常日志两日窗口的收件拒绝补录，允许只留存；旧状态不能覆盖更新自评。日常时间轴通过已有 routine timeline effect 在提交后记录。`keepAll` 在一次提交里把最多 100 条待整理条目按当前标签留存。`resolve-impulse` 的任务创建和 `wellbeing` 的情绪保存同样封存原文，重复消费拒绝。情绪删除在canonical事务内移除尚未归档来源与关联回执详情；归档源由独立事实库删除。配置了归档仓时，必须先成功查询来源ID，失败不开始canonical删除。
+`organize-inbox` 工作流声明 `impulses / routines / routineLog / energyCheckIn / energySignals`，经三个能力的公开 facade 处理分类、创建日常、记录发生与状态校准，再同一次提交封存原文。动作可以携带本人选择的分类（category / routineKind / level），分类与动作在同一次提交里生效，动作失败则分类也不落盘；渲染层改分类只是本地草稿，不再一改就写。log 对内置类型在同类唯一时复用，多个时必须选择；custom 类型只要已有同类条目就必须由本人明确选择目标或新建，UI 未选目标时禁用提交，主进程同样拒绝隐式关联。缺少日常可以原子创建，schedule 固定为 null，不虚构提醒；同一次提交记录发生并封存原文，重复消费拒绝，不能创建第二条或重复记账。超过日常日志两日窗口的收件拒绝补录，允许只留存；旧状态不能覆盖更新自评。日常时间轴通过已有 routine timeline effect 在提交后记录。`keepAll` 在一次提交里把最多 100 条待整理条目按当前标签留存。`resolve-impulse` 的任务创建和 `wellbeing` 的情绪保存同样封存原文，重复消费拒绝。情绪删除在canonical事务内移除尚未归档来源与关联回执详情；归档源由独立事实库删除。配置了归档仓时，必须先成功查询来源ID，失败不开始canonical删除。
 不能把available=false当作没有来源；canonical删除后归档清理失败返回partial，按原目标ID重试剩余来源，不声称两库原子删除。
+
+收件 AI 分拣的既有 title 字段也接受 log 的活动名称，保持旧响应 null 有效，不新增 schema 字段或二次模型调用。仅在建议的日常类型仍匹配时用于新建名称；否则以原始捕捉文本作为可编辑默认值，按现有 40 UTF-16 单元标题边界截取且不切开代理对，不按语言关键词删除句子片段。显式草稿名称（包括空字符串）始终优先；原文回退与 AI 名称来源分开呈现。已保存的收件和日常名称不追溯重写。
 
 任务的 promote／next-step／schedule／someday 与情绪保存，在各自现有业务 UoW 内先规范化最终分类，再创建目标、封存来源并撤回该条 AI 信号；renderer 不先单独提交分类。私有 `classify-inbox-draft` 仅调用 work／guidance 公开 facade，不提交或发布，调用者声明完整写集；`resolve-impulse` 写集补入 `energySignals`，情绪保存写集不变。目标拒绝、策略抛错、校验／CAS／持久化失败都不保留草稿分类或信号撤回，显式重试才重新执行。原 capture.createdAt 与 mood.at 保留捕捉时间，任务 createdAt 与 resolution.at 共用一次命令时钟。归档确认后的第二笔 impulses-only 释放仍属提交后行为，日常事实保留原业务 revision。
 
@@ -365,8 +367,17 @@ UI用candidate/active/paused/removed区分建议与已确认内容，subject≤2
 时丢弃未知组、错组 itemId 和已删除的引用（外观是装饰，陈旧引用不该阻止启动）。可选性在 domain 判定：等级
 配饰看 `level >= minLevel`，皮肤配饰看 `unlockedSkins` 是否拥有而不是是否正在穿；未解锁返回 `item-locked`。
 `selectAppearance` 是可选性与渲染的唯一实现，同时产出 `worn`、橱窗 `choices` 与合并 `bleed`；穷举测试保证
-任意合法组合四边并集 ≤40 美术像素。橱窗数据走 `pet:getContent` 的既有投影；`appearance:equip` /
-`appearance:reset` 两条命令，写集只有 `companion`。
+任意合法组合四边并集 ≤40 美术像素。橱窗数据走 `pet:getContent` 的既有投影；`appearance:equip`、
+`appearance:reset` 与 `appearance:apply-outfit` 的写集只有 `companion`。
+
+**套装与预览。** 套装是内容目录里独立、不可变的配饰配方，不是另一份持久化装备状态。轮播首项「我的穿搭」
+只取 canonical `appearance.wornIds`，其余项只画固定配方；浏览、切换预览与解锁提示不写状态。单件搭配只修改
+我的穿搭，不改配方。套装命令仅允许 popover 发送闭合 `{lookId, expectedSkin}`；主进程使用启动时捕获的可信
+目录，事务内重核当前皮肤与形态、每件解锁条件和槽位唯一性，全部通过后一次写入当前形态的所有槽位，未列入
+配方的槽位置为 `null`，其他形态槽位保持原样。拒绝不产生部分装备；重复应用相同装备不提交、不发布。
+成功提交后才发布，effect 失败不改成可重试失败；传输或持久化结果不明不能显示成确定失败或自动重试。
+结果未确认时锁住后续外观写入，仅在重新读取 canonical 状态并刷新显示后解锁；读取失败或关闭重开不清除未知状态。
+没有新增 schema、持久化套装 ID 或第二个外观所有者。
 
 **伙伴形态。** companion 的只读 form registry 为每种形态给出 descriptor：renderer 类型、`bodySize`、
 四视图 face/anatomy rig、配饰锚点与槽位、`artBounds` / `hitbox` / `bleed`、气泡布局、动作映射与回退。
@@ -418,8 +429,8 @@ hero、缩略图与换装预览订阅素材完成事件，在 cold → ready 后
 这不是任意角色零代码插件：新身体要登记 descriptor、专属 painter、skin/appearance 内容和两个 surface 的测试，
 远程内容不得携带 painter 代码。Usagi 素材不由项目 PolyForm 许可重新授权；其 USAGE 与根目录 LICENSE-SCOPE 保留第三方权利限制，不据此确认权利人许可。
 
-面板共同视觉变量和组件状态只由 `styles/theme.css` 的 theme 层定义；旧 refined/workspace/daily-companion 三份叠加主题已经移除。表单、日常、图鉴的结构归 features 层，样式层序保持不变。
-`ui/panel-navigation.mjs` 拥有主导航、安排子导航、局部键盘漫游和返回位置；不写入持久化状态。`state/action-presentation.mjs` 从只读执行投影生成当前动作、状态标签，不结算会话。`features/inbox-preview.mjs` 只保留当前预览 ID，内容仍存在时不因新消息替换，不创建定时器。
+工具界面的文案与交互判据只在 PRODUCT「界面语言」维护。主面板共同视觉变量和组件状态由 `src/surfaces/popover/styles/theme.css` 的 theme 层定义，共享语言与外观由 `src/surfaces/shared/interface/` 提供；表单、日常、图鉴结构归各 features 层。层序为 `tokens → base → components → features → theme → utilities`；不得重新引入并行主题。
+`ui/panel-navigation.mjs` 拥有主导航、安排子导航、局部键盘漫游和返回位置；不写入持久化状态。`state/action-presentation.mjs` 从只读执行投影生成当前动作、状态标签，不结算会话。收件箱预览入口已移除；捕捉由 `features/capture-bar.mjs` 负责，整理与历史由 `features/inbox.mjs` 及其卡片、历史模块负责。
 `ui/energy-path.mjs` 将只读采样值转换为保形三次曲线路径，控制点不超过相邻采样范围；`energy-strip` 负责窗口对齐、已观测区域裁剪、未来虚线和事件标记，不修改能量估算。任务编辑的折叠日期与属性复用既有输入、差量 patch 和重复任务作用域，不新增状态契约。
 `ui/surface-motion.mjs` 延迟加载生产依赖 GSAP 3.14.2，负责弹层与消息切换的 transform/opacity 入场；每个调用方拥有独立生命周期，以 matchMedia/context revert 清理，响应系统减少动效和产品低刺激设置。动画不阻塞表单提交，不需要 CDN。
 收件箱在「安排 › 收件箱」管理，现在页「今天」一栏提供数量与捷径，底部输入负责捕捉。`features/today-overview.mjs` 只拥有「今天」三块（能量、日常、收件箱）的展开状态与收件箱捷径：同一时间只展开一块，有到时间的日常时默认展开日常，能量从不自行展开，本人选择后不再被投影覆盖；读数各归 energy-strip 与 routines。收件卡片的分类、日常类型、能量档位和目标日常都是本地草稿，主操作时随命令一起提交。`ai-configuration.mjs` 保存本地草稿与回执；模型/地址一次写入既有 settings 命令，密钥单独进入既有安全存储，任何部分失败都如实提示。
@@ -573,6 +584,7 @@ invalidate先快照旧集合再取消，避免abort回调重入误取消新代�
 `impulses`；它只是建议，不改文字、不移动闪念。任务仍经 `impulses:review`，情绪经 `impulses:keep-mood`，日常和状态改由
 `impulses:organize` 原子完成目标与原文历史，见「收件分类与原文历史」。不再使用 renderer 先建目标再删原文的两个独立请求。
 模型不可用时没有本地猜测，闪念显示未分类，仍可人工选择；动作词本身不证明是任务或已完成日常。
+分拣执行状态由application的有界进程内表拥有，仅保存来源指纹、运行身份与闭合状态码；未处理条目的popover投影可附带`triageStatus`，不写canonical、历史或schema。开始与结束沿既有impulses发布，人工分类、去向与迟到来源/运行失配不能被覆盖；重启或淘汰后只表示结果未知，不推断未执行或失败。错误帮助仅使用本地白名单文案，取消与超时分开；不新增重试、补跑或模型调用。
 
 卡住请求中的 `taskEnergyDemand` 只表示任务需要的投入，不表示当前自评或估计；未提供的当前状态不可从任务需求或情绪推断。
 
@@ -679,6 +691,16 @@ dispose最终保存后重新计算清理状态，并固定最后结果，重复�
 任务标题、消息、收件、记忆、请求/响应正文、模型名、端点、原始异常和堆栈都不能进入日志。
 HTTP外层响应先区分固定contentKind枚举（json/html/event-stream/text/other/unknown）；HTML、意外SSE、空体及非法JSON分别映射封闭错误码，不能把响应正文或任意Content-Type写入诊断，也不因外层非JSON盲目重试。UTF-8 BOM只作编码兼容，不是修补模型输出。已有非2xx状态的协议协商仍保留原边界。每条本地回退消息保留source与安全reason，重新打开对话仍可识别来源。
 源码运行可默认显示这些安全记录，打包后默认关闭；`BUBU_LLM_LOG=1` 也不能开启内容日志。
+
+**测试版会话诊断。** 与上述日志严格分开：仅打包时显式 `--test-diagnostics` 写入
+`bubuCapabilities: {schemaVersion:1, aiDiagnostics:true}` 的构建具备查看器；普通构建显式false，版本号、环境变量和renderer参数都不能开启。
+`guidance/ai-diagnostics` 独占内存，不写任何canonical路径或文件。默认关闭，本人开启后只记录新的一次性拆解、补全、卡点、分拣和能量运行，30分钟到期/停止/退出/授权撤回清空。
+最多50次运行、每次64KiB、总计1MiB，单块16KiB和最多50事件；截断与可识别凭据遮罩明确标记。原文仍可能含私人信息，不能保证任意秘密都能自动识别；不声称逐字原文完全脱敏。
+HTTP原包、headers、配置、凭据、任意异常与堆栈不进查看器，原trace日志白名单不变。观察端口只接API采用的可见输出、同次repair/validate结果及封闭原因，不展示隐藏推理，不重复解析或追加请求。
+popover-only闭合`ai:diagnostics-*`查询不经过普通state广播；来源变化时清除关联内容并提升epoch，迟到回调不能复活正文。任务完整fingerprint、补全的existingTags以及捕捉原文身份覆盖实际canonical来源，fingerprint不跨IPC。
+分拣建议/能量信号记录以实际transaction.committed为证，提交未知不标未提交；proposal旧命令未提供committed证据时只标命令完成，changed保持null。
+能量仅展示真实已提交delta，未采样的实际贡献明确null，不把建议幅度当成当前曲线影响。历史记录不声称信号至今有效。
+仅本人点击导出时生成无正文元数据文本；不自动上传、不创建文件日志。clear、关闭与过期的renderer请求按epoch/访问代次失效，关闭抽屉清本地缓存并停止刷新，已明确开启的主进程记录仍限于原30分钟。
 
 提示词里的使用者描述（`START_FRICTION_CONTEXT`，只写行为：难启动、常被打断；不写、不问、不推断任何诊断）与“按真实场景拆”（`SCENARIO_CONTEXT`）是产品约束的复述，模型读不到
 PRODUCT.md，所以约束必须在请求里再说一遍并由测试钉住。

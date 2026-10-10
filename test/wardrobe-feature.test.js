@@ -81,17 +81,19 @@ function createHarness({ level = 20, unlockedSkins = ['pink'], currentSkin = 'pi
     $: dom.$,
     escapeHTML,
     surfaceClient: {
-      equipAppearance: (group, itemId) => equips.push([group, itemId]),
-      resetAppearance: () => equips.push(['reset', null])
+      equipAppearance: (group, itemId) => { equips.push([group, itemId]); return { ok: true }; },
+      resetAppearance: () => { equips.push(['reset', null]); return { ok: true }; }
     },
     drawPetPreview: (canvas, options) => previews.push(options),
     restoreModalFocus: target => restored.push(target)
   });
-  const store = { subscribe: () => () => undefined };
+  let subscriber;
+  const store = { subscribe: callback => { subscriber = callback; return () => undefined; } };
   feature.mount(store);
   feature.render();
   return {
     dom, feature, state, equips, previews, restored, selection,
+    publish: change => subscriber(change),
     slots: () => dom.nodes['#wardrobeSlots'].innerHTML,
     options: () => dom.nodes['#wardrobeOptions'].innerHTML,
     focusSlot: group => dom.fire('#wardrobeSlots', 'click', {
@@ -150,8 +152,8 @@ test('another pet uses its own ordered, named slots without leaking the original
   assert.deepEqual([...slots.matchAll(/data-group="([^"]+)"/g)].map(match => match[1]),
     ['usagi.headwear', 'usagi.earwear', 'usagi.aura', 'usagi.neckwear',
       'usagi.backwear', 'usagi.sidebag', 'usagi.footwear']);
-  assert.match(slots, /<span class="slot-name">长耳装饰<\/span>/);
-  assert.match(slots, /<span class="slot-name">长耳披风<\/span>/);
+  assert.match(slots, /<span class="slot-name">耳饰<\/span>/);
+  assert.match(slots, /<span class="slot-name">背饰<\/span>/);
   assert.doesNotMatch(slots, /data-group="(?:headwear|sidebag|footwear)"/);
   harness.focusSlot('usagi.backwear');
   assert.match(harness.options(), /不戴长耳披风/);
@@ -204,10 +206,10 @@ test('the worn count on the default view is written here, so the two places cann
 test('locked options say why they are locked and cannot be clicked', () => {
   const harness = createHarness({ level: 1, unlockedSkins: ['pink'] });
   // A level lock quotes the level; a skin lock names the skin the item belongs to.
-  assert.match(harness.options(), /小芽<span class="wardrobe-lock" data-icon="lock">Lv\.3<\/span>/);
+  assert.match(harness.options(), /小芽<\/span><span class="wardrobe-lock" data-icon="lock">Lv\.3<\/span>/);
   assert.match(harness.options(), /data-item="milestone.sprout"[^>]*disabled/);
   harness.focusSlot('head-accent');
-  assert.match(harness.options(), /森林叶片<span class="wardrobe-lock" data-icon="lock">森林专属<\/span>/);
+  assert.match(harness.options(), /森林叶片<\/span><span class="wardrobe-lock" data-icon="lock">森林专属<\/span>/);
 
   const button = {
     disabled: true,
@@ -219,7 +221,7 @@ test('locked options say why they are locked and cannot be clicked', () => {
   assert.deepEqual(harness.equips, []);
 });
 
-test('picking an unlocked item asks the main process to equip it and re-picking it asks nothing', () => {
+test('picking an unlocked item asks the main process to equip it and re-picking it asks nothing', async () => {
   const harness = createHarness({ level: 20 });
   const worn = harness.state.appearance.wornIds;
   assert.ok(worn.includes('milestone.sunhat'), 'level 20 should already wear the hat by default');
@@ -230,8 +232,10 @@ test('picking an unlocked item asks the main process to equip it and re-picking 
     harness.dom.fire('#wardrobeOptions', 'click', { target: button });
   };
   press('headwear', 'milestone.sprout', false);
+  await new Promise(resolve => setImmediate(resolve));
   // 不戴 is a normal option, so taking something off travels the same path as swapping.
   press('headwear', '', false);
+  await new Promise(resolve => setImmediate(resolve));
   press('headwear', 'milestone.sunhat', true);
   assert.deepEqual(harness.equips, [['headwear', 'milestone.sprout'], ['headwear', null]]);
 
@@ -304,4 +308,131 @@ test('the ids the wardrobe reaches for exist in the popover markup', () => {
   for (const id of ids) {
     assert.match(html, new RegExp(`id="${id}"`), `#${id} must exist in popover.html`);
   }
+});
+
+test('closing the wardrobe before its opening frame never focuses hidden controls', () => {
+  const previous = globalThis.requestAnimationFrame;
+  const frames = [];
+  globalThis.requestAnimationFrame = callback => { frames.push(callback); return frames.length; };
+  try {
+    const h = createHarness();
+    h.feature.open(); h.feature.close();
+    const before = h.dom.nodes['#btnWardrobeClose'].focused;
+    frames.forEach(callback => callback());
+    assert.equal(h.dom.nodes['#btnWardrobeClose'].focused, before);
+    h.feature.dispose();
+  } finally { globalThis.requestAnimationFrame = previous; }
+});
+
+
+test('focused accessories have passive single-piece previews and unchanged renders are cached', () => {
+  const harness = createHarness({ level: 1 });
+  const targets = new Map();
+  harness.dom.nodes['#wardrobeOptions'].querySelector = selector => {
+    const id = selector.match(/data-item-preview="([^"]+)"/)?.[1];
+    if (!id) return null;
+    if (!targets.has(id)) targets.set(id, {});
+    return targets.get(id);
+  };
+  harness.focusSlot('neckwear');
+  const focused = harness.state.appearance.choices.find(choice => choice.group === 'neckwear');
+  assert.deepEqual([...targets.keys()], focused.options.map(item => item.id));
+  for (const option of focused.options) {
+    assert.ok(harness.previews.some(preview => preview.itemIds.length === 1 && preview.itemIds[0] === option.id));
+  }
+  const count = harness.previews.length;
+  harness.feature.render();
+  assert.equal(harness.previews.length, count, 'unchanged state must not repaint canvases');
+  assert.deepEqual(harness.equips, [], 'previews never equip even locked items');
+  assert.match(harness.options(), /class="wardrobe-item-name"/);
+});
+
+
+test('a failed optional thumbnail cannot suppress canonical controls and is retried', () => {
+  const dom = createDom();
+  const selection = companion.appearanceSelection.selectAppearance({ items: PET_APPEARANCE_ITEMS,
+    level: 1, unlockedSkins: ['pink'], currentSkin: 'pink', equipped: {} });
+  const state = { currentSkin: 'pink', appearance: { choices: selection.choices, wornIds: [] } };
+  let attempts = 0, listener;
+  dom.nodes['#wardrobeSlots'].querySelectorAll = () => [];
+  dom.nodes['#wardrobeOptions'].querySelectorAll = () => [];
+  const target = {};
+  dom.nodes['#wardrobeOptions'].querySelector = selector => selector.includes('data-item-preview') ? target : null;
+  const feature = createPopoverWardrobeFeature({ document: dom.document, $: dom.$, getState: () => state,
+    escapeHTML, surfaceClient: { equipAppearance() {}, resetAppearance() {} }, restoreModalFocus() {},
+    drawPetPreview: canvas => { if (canvas === target && ++attempts === 1) throw new Error('paint failed'); } });
+  feature.mount({ subscribe: callback => { listener = callback; return () => {}; } });
+  assert.doesNotThrow(() => feature.render());
+  assert.equal(dom.nodes['#wardrobeSummary'].textContent, '现在什么都没戴');
+  assert.match(dom.nodes['#wardrobeOptions'].innerHTML, /aria-pressed="true"/);
+  const before = attempts;
+  listener({ localeOnly: true, state, dirty: { all: true } });
+  feature.render();
+  assert.ok(attempts > before, 'same projection retries failed optional art');
+  feature.dispose();
+});
+
+
+test('uncertain wardrobe writes stay locked until a fresh canonical projection is rendered', async () => {
+  const dom = createDom();
+  let state = { revision: 1, currentSkin: 'pink', appearance: { choices: [], wornIds: [] } };
+  let reads = 0, writes = 0, resolveRead;
+  const previews = [];
+  const feature = createPopoverWardrobeFeature({ document: dom.document, $: dom.$, getState: () => state,
+    escapeHTML, restoreModalFocus() {}, drawPetPreview: (canvas, options) => previews.push(options),
+    surfaceClient: { equipAppearance() {}, resetAppearance() { writes++; throw new Error('lost receipt'); } } });
+  feature.mount({ subscribe: () => () => {}, refresh: async () => {
+    reads++; state = await new Promise(resolve => { resolveRead = resolve; }); return state;
+  } });
+  feature.open(); dom.fire('#wardrobeReset', 'click');
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(reads, 1); assert.equal(dom.nodes['#wardrobeReset'].disabled, true);
+  dom.fire('#wardrobeReset', 'click'); assert.equal(writes, 1, 'uncertainty never retries a write');
+  resolveRead({ revision: 2, currentSkin: 'pink', appearance: { choices: [], wornIds: ['canonical'] } });
+  await new Promise(resolve => setImmediate(resolve));
+  assert.deepEqual(previews.at(-1).itemIds, ['canonical']);
+  assert.equal(dom.nodes['#wardrobeReset'].disabled, false);
+  feature.dispose();
+});
+
+test('late canonical refresh cannot repaint a disposed wardrobe visit', async () => {
+  const dom = createDom();
+  const state = { revision: 1, currentSkin: 'pink', appearance: { choices: [], wornIds: [] } };
+  let resolveRead;
+  const previews = [];
+  const feature = createPopoverWardrobeFeature({ document: dom.document, $: dom.$, getState: () => state,
+    escapeHTML, restoreModalFocus() {}, drawPetPreview: (canvas, options) => previews.push(options),
+    surfaceClient: { equipAppearance() {}, resetAppearance() { throw new Error('lost receipt'); } } });
+  feature.mount({ subscribe: () => () => {}, refresh: () => new Promise(resolve => { resolveRead = resolve; }) });
+  feature.open(); dom.fire('#wardrobeReset', 'click'); await new Promise(resolve => setImmediate(resolve));
+  feature.dispose(); const count = previews.length;
+  resolveRead({ revision: 2, currentSkin: 'usagi', appearance: { choices: [], wornIds: ['late'] } });
+  await new Promise(resolve => setImmediate(resolve)); assert.equal(previews.length, count);
+});
+
+
+test('confirmed outfit projection synchronizes every custom slot, selected card, and main model', () => {
+  const { USAGI_OUTFIT_SETS } = require('../src/content/companion/usagi-wardrobe.mjs');
+  const harness = createHarness({ currentSkin: 'usagi', level: 25 });
+  const look = USAGI_OUTFIT_SETS[0];
+  const before = harness.slots();
+  const equipped = Object.fromEntries(harness.state.appearance.choices.map(choice => [choice.group, null]));
+  for (const choice of harness.state.appearance.choices) {
+    const item = choice.options.find(option => look.itemIds.includes(option.id));
+    if (item) equipped[choice.group] = item.id;
+  }
+  const projection = companion.appearanceSelection.selectAppearance({ items: PET_APPEARANCE_ITEMS,
+    level: 25, unlockedSkins: ['pink'], currentSkin: 'usagi', equipped });
+  assert.equal(harness.slots(), before, 'preparing a preview never changes custom controls');
+  harness.state.appearance = { choices: projection.choices, wornIds: projection.worn.map(item => item.id) };
+  harness.publish({ state: harness.state, dirty: { appearance: true } });
+  for (const choice of projection.choices) {
+    harness.focusSlot(choice.group);
+    const expectedId = equipped[choice.group] || '';
+    assert.match(harness.options(), new RegExp(`data-item="${expectedId.replace(/\./g, '\\.')}"[^>]*aria-pressed="true"`));
+    const name = choice.options.find(item => item.id === expectedId)?.label || '—';
+    assert.ok(harness.slots().includes(`<span class="slot-worn">${name}</span>`));
+  }
+  assert.deepEqual([...harness.previews.at(-1).itemIds].sort(), [...look.itemIds].sort());
+  assert.deepEqual(harness.equips, [], 'projection subscription never chains single-piece writes');
 });

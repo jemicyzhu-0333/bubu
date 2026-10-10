@@ -238,7 +238,7 @@ function createPopoverSurface({ document, window }) {
     }
   });
   const timelineFeature = createPopoverTimelineFeature({
-    document, $, surfaceClient, getState: () => state, escapeHTML, formatMs, moodDeletion,
+    document, $, surfaceClient, getState: () => state, escapeHTML, formatMs, moodDeletion, headerMode: 'embedded',
     onContinueConversation: ({ receiptId, conversationId }) => receiptId ? draftConversation.openReceipt({ receiptId }) : draftConversation.resume(conversationId)
   });
   const progressFeature = createPopoverProgressFeature({
@@ -556,7 +556,7 @@ function createPopoverSurface({ document, window }) {
     renderExpiryPreview: taskWhenFields.renderExpiryPreview,
     activeLandingPrompt: landing.activePrompt,
     rememberLandingReturnFocus: landing.rememberReturnFocus,
-    renderLanding: landing.render
+    renderLanding: landing.render, onOpen: activityMirrorSettings.onSettingsOpen
   });
   settingsDrawer.mount();
 

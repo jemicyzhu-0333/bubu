@@ -8,6 +8,13 @@ const { setLocale } = require('../src/surfaces/shared/interface/i18n.mjs');
 
 function fixture() {
   const events = new Map(), windowEvents = new Map();
+  let observer;
+  class MutationObserver {
+    constructor(callback) { this.callback = callback; observer = this; }
+    observe(target, options) { this.target = target; this.options = options; }
+    disconnect() { this.target = null; }
+    notify() { if (this.target) this.callback([]); }
+  }
   const attrs = new Map([['aria-describedby', 'existing-help'], ['aria-expanded', 'false']]);
   const paragraphs = [{ dataset: { i18n: '工作时间用在哪' }, textContent: '工作时间用在哪' },
     { textContent: 'user text <script> 设置', childNodes: [] }];
@@ -24,11 +31,11 @@ function fixture() {
   const body = { appendChild: node => { node.parent = body; } };
   const document = { body, activeElement: null, createElement: () => popup,
     addEventListener: (name, fn) => events.set(name, fn), removeEventListener: name => events.delete(name),
-    defaultView: { innerWidth: 560, innerHeight: 680,
+    defaultView: { innerWidth: 560, innerHeight: 680, MutationObserver,
       addEventListener: (name, fn) => windowEvents.set(name, fn), removeEventListener: name => windowEvents.delete(name) } };
   const feature = createHelpTooltips(document); feature.mount();
   const fire = (name, extra = {}) => { const event = { target: summary, preventDefault() { this.prevented = true; }, stopImmediatePropagation() { this.stopped = true; }, ...extra }; events.get(name)?.(event); return event; };
-  return { document, popup, summary, attrs, feature, fire, events, windowEvents };
+  return { document, popup, summary, attrs, feature, fire, events, windowEvents, paragraphs, source, observer };
 }
 
 test('compact help opens by keyboard and keeps focus while Escape dismisses only the tooltip', () => {
@@ -69,4 +76,22 @@ test('help glyph is visually compact but keeps a 24px target and accessible labe
   const html = fs.readFileSync(path.join(root, 'src/renderer/popover.html'), 'utf8');
   for (const match of html.matchAll(/<details class="inline-help[^\"]*"><summary([^>]*)>/g)) assert.match(match[1], /aria-label="[^"]+"/);
   assert.doesNotMatch(html, /class="setting-tip/);
+});
+
+
+test('open projection help refreshes numbers in place and disconnects when dismissed', () => {
+  const h = fixture();
+  h.paragraphs.splice(0, h.paragraphs.length, { textContent: '20 / 30 XP', childNodes: [] });
+  h.document.activeElement = h.summary; h.fire('focusin');
+  assert.equal(h.popup.textContent, '20 / 30 XP');
+  assert.equal(h.observer.target, h.source);
+  assert.deepEqual(h.observer.options, { childList: true, characterData: true, subtree: true });
+  h.paragraphs[0].textContent = '25 / 30 XP'; h.observer.notify();
+  assert.equal(h.popup.textContent, '25 / 30 XP');
+  assert.equal(h.popup.visible, true); assert.equal(h.document.activeElement, h.summary);
+  h.fire('keydown', { key: 'Escape' }); assert.equal(h.observer.target, null);
+  h.paragraphs[0].textContent = '30 / 30 XP'; h.observer.notify();
+  assert.equal(h.popup.visible, false); assert.equal(h.popup.textContent, '25 / 30 XP');
+  h.fire('click'); assert.equal(h.popup.textContent, '30 / 30 XP');
+  h.feature.dispose(); assert.equal(h.observer.target, null);
 });

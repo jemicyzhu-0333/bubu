@@ -39,7 +39,7 @@ function editorMarkup(operation, escapeHTML, copy = (source, params = {}) => esc
     markup += input('weekdays', '星期（1–7，逗号分隔；仅所选星期时使用）', op.schedule.weekdays.join(', '));
     markup += input('windowMinutes', '提醒时间窗口（分钟）', op.schedule.windowMinutes, 'number');
   }
-  return markup ? `<details class="chat-change-editor"><summary>${copy('编辑这项建议')}</summary>${markup}<p>${copy('编辑后需要重新查看差异，旧确认失效。')}</p></details>` : '';
+  return markup ? `<details class="chat-change-editor disclosure"><summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg>${copy('编辑这项建议')}</summary>${markup}<p>${copy('编辑后需要重新查看差异，旧确认失效。')}</p></details>` : '';
 }
 function editOperation(operation, field, value) {
   const op = editableOperation(operation);

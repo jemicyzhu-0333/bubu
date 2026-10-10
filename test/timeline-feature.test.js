@@ -100,7 +100,7 @@ const DAY = Object.freeze({
 function createHarness({
   day = DAY, tasks = [{ id: 't1', title: '写周报' }], clientWidth = 0, energyCurve = null,
   routines = [{ id: 'med', title: '吃药' }, { id: 'tea', title: '喝茶' }], serverNow = at(12),
-  moodDeletion = null, moodNotes = [], deleteMoodNote = () => Promise.resolve({ ok: true, changed: true, localDeleted: true })
+  headerMode = 'standalone', moodDeletion = null, moodNotes = [], deleteMoodNote = () => Promise.resolve({ ok: true, changed: true, localDeleted: true })
 } = {}) {
   const dom = createDom();
   dom.nodes['#timelineViewport'].clientWidth = clientWidth;
@@ -114,7 +114,7 @@ function createHarness({
   const feature = createPopoverTimelineFeature({
     document: dom.document,
     $: dom.$,
-    moodDeletion,
+    moodDeletion, headerMode,
     getState: () => ({ tasks, archivedTasks: [], routines: { items: routines }, serverNow, moodNotes }),
     escapeHTML,
     formatMs: value => `${Math.round(value / 60000)}分`,
@@ -518,4 +518,59 @@ test('native hide and same-tab focus restore status without a visibility change'
   h.dom.fire('#window', 'focus', {});
   assert.equal(attributes['aria-live'], 'polite');
   h.feature.dispose(); assert.equal(h.dom.listeners.size, 0);
+});
+
+
+test('embedded review keeps only activity count while standalone retains truthful day context', async () => {
+  const embedded = createHarness({ headerMode: 'embedded' });
+  await embedded.feature.showDay(DAY_KEY);
+  assert.equal(embedded.node('#timelineTitle').hidden, true);
+  assert.equal(embedded.node('#timelineTotals').textContent, '4 条活动');
+  assert.match(embedded.node('#timelineTrack').innerHTML, /tl-filters segmented-control/);
+  assert.equal((embedded.node('#timelineTrack').innerHTML.match(/aria-pressed="true"/g) || []).length, 1);
+  const standalone = createHarness();
+  await standalone.feature.showDay(DAY_KEY);
+  assert.equal(standalone.node('#timelineTitle').hidden, false);
+  assert.equal(standalone.node('#timelineTitle').textContent, DAY_KEY);
+  assert.equal(standalone.node('#timelineTotals').textContent, '4 条活动 · 专注 26分');
+});
+
+test('exclusive filters support arrow navigation and restore the chosen button focus', async () => {
+  const harness = createHarness({ headerMode: 'embedded' });
+  await harness.feature.showDay(DAY_KEY);
+  let focused = null, prevented = false;
+  harness.node('#timelineTrack').querySelector = selector => ({ focus() { focused = selector; } });
+  const filter = { getAttribute: () => 'all' };
+  harness.dom.fire('#timelineViewport', 'keydown', { key: 'ArrowRight', preventDefault() { prevented = true; },
+    target: { closest: selector => selector === '[data-tl-filter]' ? filter : null } });
+  assert.equal(prevented, true);
+  assert.equal(focused, '[data-tl-filter="focus"]');
+  assert.equal(harness.node('#timelineTotals').textContent, '2 条活动');
+  assert.match(harness.node('#timelineTrack').innerHTML, /data-tl-filter="focus" aria-pressed="true"/);
+  assert.equal((harness.node('#timelineTrack').innerHTML.match(/aria-pressed="true"/g) || []).length, 1);
+});
+
+test('embedded close still invalidates a pending read and does not resurrect day details', async () => {
+  const harness = createHarness({ headerMode: 'embedded' });
+  const pending = harness.defer();
+  const read = harness.feature.showDay(DAY_KEY);
+  await harness.feature.showDay(null);
+  pending[0].resolve(DAY);
+  await read;
+  assert.equal(harness.node('#timelineDay').classList.contains('hidden'), true);
+  assert.equal(harness.node('#timelineTrack').innerHTML, '');
+});
+
+test('embedded activity count and forecast explanation have English product copy', async () => {
+  const { setLocale } = require('../src/surfaces/shared/interface/i18n.mjs');
+  setLocale('en');
+  try {
+    const harness = createHarness({ headerMode: 'embedded',
+      energyCurve: { dayKey: DAY_KEY, levels: [30, 60, 40], sampleMinutes: 480, nowMinute: 600 } });
+    await harness.feature.showDay(DAY_KEY);
+    assert.equal(harness.node('#timelineTotals').textContent, '4 activities');
+    assert.match(harness.node('#timelineTrack').innerHTML, /Solid: estimates before now\. Dashed: estimates after now\./);
+    assert.match(harness.node('#timelineTrack').innerHTML, /tl-spark-now-label[^>]*>Now</);
+    assert.equal(harness.node('#timelineTitle').hidden, true);
+  } finally { setLocale('zh-CN'); }
 });

@@ -89,7 +89,7 @@ function createPopoverUnstickAdvice({ $, escapeHTML, surfaceClient } = {}) {
       return;
     }
     const seq = (requestSeq += 1);
-    note('正在想一个针对这件事的下一步……下面那条办法可以先看。');
+    note('正在准备下一步…');
     let result = null;
     try {
       result = await surfaceClient.suggestUnstick({ taskId, note: reason || null });
@@ -98,7 +98,7 @@ function createPopoverUnstickAdvice({ $, escapeHTML, surfaceClient } = {}) {
     }
     if (seq !== requestSeq) return;
     if (!result || result.ok === false) {
-      note(REFUSALS[result && result.reason] || '这次没想出来,先按下面那条办法试试。');
+      note(REFUSALS[result && result.reason] || '下一步建议暂不可用。');
       return;
     }
     renderAdvice(result);

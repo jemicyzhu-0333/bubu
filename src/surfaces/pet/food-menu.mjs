@@ -146,7 +146,12 @@ function createPetFoodMenu({ document, client, content, setOpen, available, befo
         (panel.querySelector('.food-item:not(:disabled)') || document.getElementById('foodClose')).focus();
       });
     } catch (_) {
-      if (owner === generation) { opened = false; setOpen(false); changed(); }
+      if (!disposed && owner === generation) {
+        opened = false; opening = false; setOpen(false);
+        clearFocus(); clearButtons(); hide(); changed();
+        try { await expand(); } catch (_) { /* keep the failed menu hidden */ }
+        if (!disposed && owner === generation) options?.say?.(t('食物暂不可用，请稍后再试。'));
+      }
     } finally { if (owner === generation) opening = false; }
   }
   async function close() {

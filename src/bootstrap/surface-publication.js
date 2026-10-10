@@ -22,10 +22,11 @@ function petContextChanged(dirty) {
 // business work or prevent another surface's independent delivery attempt.
 function createSurfacePublisher({ readSample, projectPopover, projectPet,
   sendPopover, sendQuick, sizeQuick, sendPet, reconcileReminders = () => {},
-  afterPet = () => {}, reportEffectError = () => {} }) {
+  afterPet = () => {}, reconcileDiagnostics = () => {}, reportEffectError = () => {} }) {
   let revision = 0;
   const attempt = (channel, effect) => runPostCommitEffect(effect, { channel }, reportEffectError);
   function publish(dirty = {}) {
+    attempt('ai-diagnostics-privacy', reconcileDiagnostics);
     const flags = expandSurfaceDependencies(dirty);
     const currentRevision = ++revision;
     if (flags.all || flags.routines || flags.settings) {

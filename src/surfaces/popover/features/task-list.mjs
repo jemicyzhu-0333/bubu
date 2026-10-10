@@ -38,8 +38,12 @@ function createPopoverTaskList({
   let archiveCopies = [];
   let openOverflowMenu = null;
   let historyLoading = false;
+  let historyGeneration = 0;
   let mounted = false;
+  let lifetime = 0;
   const teardown = [];
+  const pendingSteps = new Set();
+  const pendingActions = new Set();
 
   function listen(target, type, handler, options) {
     if (!target) return;
@@ -369,12 +373,21 @@ function createPopoverTaskList({
         const stepId = s.dataset.stepId;
         const step = task.steps.find(item => item.id === stepId);
         if (isReadOnly || !step || step.done) return;
-        const result = await surfaceClient.completeStep(task.id, stepId);
-        if (result && result.ok === false) {
-          showPanelStatus(() => taskActionMessage(result.reason));
-          return;
+        const version = lifetime;
+        const key = `${task.id}:${stepId}`;
+        if (pendingSteps.has(key)) return;
+        pendingSteps.add(key); s.disabled = true;
+        try {
+          const result = await surfaceClient.completeStep(task.id, stepId);
+          if (!mounted || version !== lifetime) return;
+          if (!result?.ok) { showPanelStatus(() => taskActionMessage(result?.reason || 'task-complete-rejected')); return; }
+          celebrate();
+        } catch (_) {
+          if (mounted && version === lifetime) showPanelStatus(() => t('操作失败，请重试'));
+        } finally {
+          pendingSteps.delete(key);
+          if (mounted && version === lifetime) s.disabled = Boolean(step.done);
         }
-        celebrate();
       });
     });
   }
@@ -440,15 +453,22 @@ function createPopoverTaskList({
         return;
       }
     }
-    const state = getState();
-    const result = action === 'delete' ? await surfaceClient.deleteTask(task.id)
-      // 续期是唯一能清除 expired 标记的路径，并且在同一笔事务里给出新的失效时间。
-      : action === 'renew' ? await surfaceClient.renewTask(task.id, state && state.autoExpiryPreview)
-        : action === 'skip' ? await surfaceClient.skipOccurrence(task.id)
-          : action === 'duplicate' ? await surfaceClient.duplicateTask(task.id)
-            : null;
-    if (result && result.ok === false) showPanelStatus(() => taskActionMessage(result.reason));
-    else showPanelStatus('');
+    if (pendingActions.has(task.id)) return;
+    pendingActions.add(task.id);
+    const version = lifetime;
+    try {
+      const state = getState();
+      const result = action === 'delete' ? await surfaceClient.deleteTask(task.id)
+        : action === 'renew' ? await surfaceClient.renewTask(task.id, state && state.autoExpiryPreview)
+          : action === 'skip' ? await surfaceClient.skipOccurrence(task.id)
+            : action === 'duplicate' ? await surfaceClient.duplicateTask(task.id)
+              : action === 'restore' ? await surfaceClient.restoreTask(task.id) : null;
+      if (!mounted || version !== lifetime) return;
+      if (!result?.ok) showPanelStatus(() => taskActionMessage(result?.reason || 'task-update-rejected'));
+      else showPanelStatus('');
+    } catch (_) {
+      if (mounted && version === lifetime) showPanelStatus(() => t('操作失败，请重试'));
+    } finally { pendingActions.delete(task.id); }
   }
 
   function repaintArchiveCopy() {
@@ -498,7 +518,7 @@ function createPopoverTaskList({
         restore.textContent = `↩ ${t('恢复')}`;
         restore.setAttribute('aria-label', t('恢复任务：{title}', { title: task.title }));
       });
-      row.querySelector('button').addEventListener('click', () => surfaceClient.restoreTask(task.id));
+      row.querySelector('button').addEventListener('click', () => runOverflowAction('restore', task, row.querySelector('button')));
       list.appendChild(row);
     }
   }
@@ -508,15 +528,22 @@ function createPopoverTaskList({
   async function loadMoreHistory() {
     const state = getState();
     if (!state || !state.history || !state.history.nextCursor || historyLoading) return;
+    const version = lifetime, request = ++historyGeneration;
     historyLoading = true;
     renderArchive();
     try {
       const page = await surfaceClient.listHistory({ cursor: state.history.nextCursor, limit: 30 });
-      if (!mounted || !page || page.ok === false) return;
+      if (!mounted || version !== lifetime || request !== historyGeneration) return;
+      if (!page || page.ok === false) { showPanelStatus(() => t('操作失败，请重试')); return; }
       mergeHistoryPage(page);
+      showPanelStatus('');
+    } catch (_) {
+      if (mounted && version === lifetime) showPanelStatus(() => t('操作失败，请重试'));
     } finally {
-      historyLoading = false;
-      if (mounted) renderArchive();
+      if (request === historyGeneration) {
+        historyLoading = false;
+        if (mounted && version === lifetime) renderArchive();
+      }
     }
   }
 
@@ -550,13 +577,13 @@ function createPopoverTaskList({
 
   function dispose() {
     if (!mounted) return;
-    mounted = false;
+    mounted = false; lifetime++;
     while (teardown.length) teardown.pop()();
     closeOverflowMenu();
     renderedRows = new Map();
     rowCopies.clear();
     archiveCopies = [];
-    historyLoading = false;
+    historyLoading = false; historyGeneration++;
     for (const selector of ['#taskList', '#archiveList', '#tagFilters']) {
       const host = $(selector);
       if (!host) continue;

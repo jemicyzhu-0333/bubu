@@ -8,6 +8,7 @@ import { createSurfaceMotion } from '../shared/motion.mjs';
 const PANEL_MODES = Object.freeze(['active', 'idle', 'fallback']);
 
 const REASON_TEXT = Object.freeze({
+  'command-result-unconfirmed': '操作结果暂未确认，请到主面板核对。',
   'task-not-found': '这件任务已经不在当前清单里。',
   'task-completed': '这件任务已经完成。',
   'task-scheduled': '预约时间还没到，暂时不能继续计时。',
@@ -64,6 +65,8 @@ function createQuickPanelFeature({ window, document, client } = {}) {
   let revisionFloor = -1;
   let appliedRevision = -1;
   let appendDraftVersion = 0;
+  let captureDraftVersion = 0;
+  let captureAttempt = null;
   const pendingReads = new Map();
   let pendingFocus = null;
   let statusCopy = () => '', statusTone = '';
@@ -321,7 +324,8 @@ function createQuickPanelFeature({ window, document, client } = {}) {
     setBusy(true);
     setStatus('');
     try {
-      const result = await operation();
+      const receipt = await operation();
+      const result = typeof receipt?.ok === 'boolean' ? receipt : { ok: false, reason: 'command-result-unconfirmed' };
       if (!current()) return null;
       if (result && result.ok === false) {
         setStatus(() => commandMessage(result), 'error');
@@ -329,10 +333,10 @@ function createQuickPanelFeature({ window, document, client } = {}) {
       }
       if (refreshAfter) await refresh();
       if (visit !== visitGeneration || closing || pendingCommand !== token || !owns()) return null;
-      return result || { ok: true };
+      return result;
     } catch (_) {
       if (!current()) return null;
-      setStatus(() => t('这次没有完成，请再试一次。'), 'error');
+      setStatus(() => commandMessage({ reason: 'command-result-unconfirmed' }), 'quiet');
       return null;
     } finally {
       if (pendingCommand === token) { pendingCommand = null; setBusy(false); }
@@ -386,26 +390,60 @@ function createQuickPanelFeature({ window, document, client } = {}) {
   }
 
   async function submitImpulse() {
-    if (closing) return;
+    if (closing || busy) return;
     const visit = visitGeneration;
     const input = $('#impInput');
-    const value = input.value.trim();
+    const draft = input.value;
+    const draftVersion = captureDraftVersion;
+    const value = draft.trim();
     if (!value) return;
+    if (captureAttempt?.draft === draft && captureAttempt.version === draftVersion && captureAttempt.status !== 'failed') {
+      if (captureAttempt.status === 'saved') { input.value = ''; setStatus(() => t('记好了')); }
+      else setStatus(() => captureAttempt.status === 'pending' ? t('正在保存…')
+        : commandMessage({ reason: 'command-result-unconfirmed' }), 'quiet');
+      return;
+    }
+    const attempt = { draft, version: draftVersion, status: 'pending' };
+    captureAttempt = attempt;
     resetCompletionConfirmation();
     // Capture owns its receipt for this visit; an unrelated session refresh
     // must not hide a successful save or invite a duplicate submission.
-    const result = await runCommand(() => client.addImpulse(value), { refreshAfter: false, bindView: false });
+    const result = await runCommand(async () => {
+      try {
+        const receipt = await client.addImpulse(value);
+        attempt.status = receipt?.ok === true ? 'saved' : receipt?.ok === false ? 'failed' : 'unconfirmed';
+        return receipt;
+      } catch (error) { attempt.status = 'unconfirmed'; throw error; }
+    }, { refreshAfter: false, bindView: false });
     if (result && result.ok !== false) {
       if (visit !== visitGeneration) return;
+      if (draftVersion !== captureDraftVersion || input.value !== draft) {
+        setStatus(() => t('记好了，新的输入仍保留。'));
+        return;
+      }
       closing = true;
       input.value = '';
       document.body.dataset.receipt = 'saved';
       setStatus(() => t('记好了'));
       await new Promise(resolve => window.setTimeout(resolve, 600));
       if (visit !== visitGeneration) return;
-      await client.hideImpulse();
-      closing = false;
-      delete document.body.dataset.receipt;
+      if (captureDraftVersion !== draftVersion || input.value) {
+        closing = false;
+        delete document.body.dataset.receipt;
+        setStatus(() => t('记好了，新的输入仍保留。'));
+        return;
+      }
+      try {
+        const hidden = await client.hideImpulse();
+        if (hidden?.ok === false) throw new Error('window-hide-failed');
+      } catch (_) {
+        if (visit === visitGeneration) setStatus(() => t('记好了，窗口未能关闭。'), 'quiet');
+      } finally {
+        if (visit === visitGeneration) {
+          closing = false;
+          delete document.body.dataset.receipt;
+        }
+      }
     }
   }
 
@@ -467,6 +505,7 @@ function createQuickPanelFeature({ window, document, client } = {}) {
       event.preventDefault();
       void submitImpulse();
     });
+    listen($('#impInput'), 'input', () => { captureDraftVersion++; });
     listen($('#stepInput'), 'input', () => { appendDraftVersion++; });
     listen($('#appendStepForm'), 'submit', event => {
       event.preventDefault();

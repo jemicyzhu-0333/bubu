@@ -11,7 +11,8 @@
   #memorySection .memory-row-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 5px; }
   #memorySection .memory-subject, #memorySection .memory-body { font-size: 12px; overflow-wrap: anywhere; white-space: pre-wrap; }
   #memorySection .memory-versioned-draft { display: grid; grid-template-columns: minmax(0, 1fr); gap: 5px; border: 1px solid var(--bg-3); padding: 10px; border-radius: 8px; }
-  #memorySection .memory-versioned-draft :is(input, select, textarea) { width: 100%; min-width: 0; padding: 6px; border: 1px solid var(--bg-3); border-radius: 4px; color: var(--fg-0); background: var(--bg-1); font: inherit; }
+  #memorySection .memory-versioned-draft :is(input, select, textarea) { padding: 6px; border: 1px solid var(--bg-3); border-radius: 4px; color: var(--fg-0); background: var(--bg-1); font: inherit; }
+  #memorySection .memory-versioned-draft :is(input, select, textarea):not(.compact-select) { width: 100%; min-width: 0; }
   #memorySection .memory-review, #memorySection .memory-receipt { margin: 10px 0; padding: 10px; border: 1px solid var(--bg-3); border-radius: 8px; }
   #memorySection .memory-diff { margin: 7px 0; }
   #memorySection .memory-diff > div { border-top: 1px solid var(--bg-3); padding: 6px 0; }

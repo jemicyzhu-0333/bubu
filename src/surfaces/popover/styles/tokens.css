@@ -4,6 +4,14 @@
 
 @layer tokens {
   :root {
+    /* PRODUCT「界面语言」: compact controls and disclosure hierarchy. */
+    --control-select-compact: 160px;
+    --control-select-min: 128px;
+    --control-select-max: 220px;
+    --control-target-min: 24px;
+    --disclosure-size: 10px;
+    --disclosure-size-section: 12px;
+
     /* Base semantic constants — remain fixed across all skins */
     --green: #9ece6a;
     --green-dark: #528b41;

@@ -21,6 +21,7 @@ function createPopoverCaptureBar({ document, $, surfaceClient } = {}) {
   let statusSource = '';
   let stopLocale = null;
   let mounted = false, visit = 0;
+  let inputRevision = 0;
 
   function listen(target, type, handler) {
     if (!target || typeof target.addEventListener !== 'function') return;
@@ -48,10 +49,12 @@ function createPopoverCaptureBar({ document, $, surfaceClient } = {}) {
     if (event && typeof event.preventDefault === 'function') event.preventDefault();
     const input = $('#captureInput');
     if (!mounted || !input || busy) return;
-    const text = String(input.value || '').trim();
+    const submittedValue = String(input.value || '');
+    const text = submittedValue.trim();
     if (!text) return;
     busy = true;
     const generation = visit;
+    const submittedRevision = inputRevision;
     try {
       const result = await surfaceClient.addImpulse(text);
       if (!mounted || generation !== visit) return;
@@ -59,7 +62,8 @@ function createPopoverCaptureBar({ document, $, surfaceClient } = {}) {
         setStatus('没存上，文字还在，稍后再试一次', 'error');
         return;
       }
-      input.value = '';
+      // A receipt belongs to the submitted text, never to a newer unsent draft.
+      if (inputRevision === submittedRevision && input.value === submittedValue) input.value = '';
       setStatus('收下了，在收件箱里等你处理', 'ok');
     } catch {
       if (!mounted || generation !== visit) return;
@@ -88,6 +92,7 @@ function createPopoverCaptureBar({ document, $, surfaceClient } = {}) {
     stopLocale = onLocaleChanged(repaintCopy);
     repaintCopy();
     listen(form, 'submit', submit);
+    listen(input, 'input', () => { inputRevision++; });
     listen(input, 'focus', () => {
       const session = document.body && document.body.dataset ? document.body.dataset.session : '';
       input.placeholder = placeholderFor(session);
@@ -96,6 +101,7 @@ function createPopoverCaptureBar({ document, $, surfaceClient } = {}) {
       if (event.key === 'Escape' && input.value) {
         event.preventDefault();
         event.stopPropagation();
+        inputRevision++;
         input.value = '';
         input.blur();
       }

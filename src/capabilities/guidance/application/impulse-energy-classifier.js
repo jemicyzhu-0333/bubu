@@ -29,7 +29,7 @@ function createImpulseEnergyClassifier({
     id: 'none',
     run: async () => { throw new Error('no-local-fallback'); }
   });
-  async function classify(name, feature, resultKey, impulseText) {
+  async function classify(name, feature, resultKey, impulseText, onFailure, diagnostics) {
     const settings = getSettings();
     if (settings.aiBreakdownEnabled !== true || settings[feature] !== true) {
       return { ok: false, reason: `${name}-disabled` };
@@ -51,7 +51,8 @@ function createImpulseEnergyClassifier({
       const client = createApiClient({ baseUrl: settings.aiBaseUrl || defaultBaseUrl,
         model: settings.aiModel, timeoutMs, negotiation, getCredential: () => credentialStore.get() });
       assertCurrent();
-      const options = { trace, signal: lease?.signal, assertCurrent };
+      const options = { trace, signal: lease?.signal, assertCurrent,
+        ...(typeof onFailure === 'function' ? { onFailure } : {}), ...(diagnostics ? { diagnostics } : {}) };
       const payload = { impulseText };
       const generated = await runWithFallback(client, NO_FALLBACK, name, payload, options);
       if (generated.ok === false) return generated;
@@ -65,11 +66,11 @@ function createImpulseEnergyClassifier({
       return { ok: false, reason: failureReason(error) };
     } finally { lease?.release(); }
   }
-  function analyze({ impulseText } = {}) {
-    return classify('impulse-energy', 'aiImpulseEnergyEnabled', 'classification', impulseText);
+  function analyze({ impulseText } = {}, { diagnostics } = {}) {
+    return classify('impulse-energy', 'aiImpulseEnergyEnabled', 'classification', impulseText, undefined, diagnostics);
   }
-  function triage({ impulseText } = {}) {
-    return classify('capture-triage', 'aiCaptureTriageEnabled', 'triage', impulseText);
+  function triage({ impulseText } = {}, { onFailure, diagnostics } = {}) {
+    return classify('capture-triage', 'aiCaptureTriageEnabled', 'triage', impulseText, onFailure, diagnostics);
   }
 
   return Object.freeze({ analyze, triage });

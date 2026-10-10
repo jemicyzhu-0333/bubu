@@ -34,8 +34,7 @@
 - [项目网站](https://jemicyzhu-0333.github.io/bubu/)提供功能介绍与当前下载提示。
 - **当前测试版：[`v0.0.2-dev.3`](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.3)。** 应用/包版本为 `0.0.2-dev.3`，及时清除已结束的 AI 工具协作状态，改进任务日历，移除收件箱多余的快速开始区域，并让随手记输入框随内容增长。Mac 开发启动也会准备原生音乐检测组件；真实网易云播放检测仍未完成验证。
 - **已核验下载**：[Windows x64 · 未签名](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.3/bubu-0.0.2-dev.3-win-x64.exe) · [macOS Apple Silicon · ad-hoc 受限测试](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.3/bubu-0.0.2-dev.3-mac-arm64-adhoc-test.dmg) · [SHA256SUMS.txt](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.3/SHA256SUMS.txt)。公开下载的字节数与 SHA-256 已和原安装包核对；完整文件名与哈希见发布说明。
-- **上一预览版**：[v0.0.2-dev.2](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.2) 及其[验证记录](docs/VALIDATION.md#002-dev2-已发布测试包的证据边界) 保留作历史证据。
-- **更早预览版**：[v0.0.2-dev.1](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.1) 及其[验证记录](docs/VALIDATION.md#002-dev1-已发布测试包的证据边界) 保留作历史证据。
+- **更早预览版**：[v0.0.2-dev.2](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.2)（[验证记录](docs/VALIDATION.md#002-dev2-已发布测试包的证据边界)）与 [v0.0.2-dev.1](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.1)（[验证记录](docs/VALIDATION.md#002-dev1-已发布测试包的证据边界)）保留作历史证据。
 - **上一测试包**：[v0.0.1-dev-r4](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r4) 来自提交 `df3242a`，内部版本为 `0.0.1-dev`。Windows r4 已确认存在首次启动档案准入错误，仅保留作历史诊断基线；原文件名与历史验证记录不改写。
 - **历史版本**：[r3](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r3)、[r2](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r2) 与 [v0.0.1-dev](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev) 保留作历史记录；请勿安装初版 v0.0.1-dev 中已报告“已损坏”的旧 Mac 包。
 - 新测试包来自手动 [Build Windows and macOS (test)](https://github.com/jemicyzhu-0333/bubu/actions/workflows/build-desktop.yml) 工作流，面向 **Windows x64** 和 **macOS ARM64**。成功运行后可在保留期内下载 artifact，GitHub 可能要求登录；请核对运行的分支与提交。工作流不会创建 Release。
@@ -115,8 +114,10 @@ npm run build:linux
 
 ## 文档与素材开发
 
-- [产品原则](docs/PRODUCT.md)：功能语义与交互边界
-- [工程架构](docs/ARCHITECTURE.md)：分层、状态所有权、IPC、SQLite 与 AI 安全
+README 只介绍功能与使用入口；下面各文档分别维护自己的规则，避免多处定义。
+
+- [产品原则](docs/PRODUCT.md)：功能语义与统一 [UI/UX 规范](docs/PRODUCT.md#界面语言)
+- [工程架构](docs/ARCHITECTURE.md)：[项目结构与能力归属](docs/ARCHITECTURE.md#分层与能力)、IPC、SQLite 与 AI 安全
 - [验证说明](docs/VALIDATION.md)：开发检查、原生验收与已知限制
 - [桌宠视觉](docs/PET_VISUAL.md) / [分层 Rig](docs/PET_RIG.md)：生产坐标、图层与素材构建
 - [AGENTS.md](AGENTS.md)：代码代理的工作约束

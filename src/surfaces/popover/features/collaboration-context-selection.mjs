@@ -25,17 +25,20 @@ function createCollaborationContextSelection({ $, escapeHTML, surfaceClient, get
   }
   function render() {
     const target = node('draftChatContextChoices');
+    target?.setAttribute('aria-busy', String(loading));
     if (target) target.innerHTML = items.length ? items.map(item => {
       const unavailable = item.availability === 'unavailable' || item.selectable === false
         || kind === 'routine' && ['medication', 'stimulant', 'custom'].includes(item.kind);
       const selected = selection[FIELD[kind]].includes(item.id);
       return `<label class="chat-context-choice"><input type="checkbox" data-context-id="${escapeHTML(item.id)}"`
-        + `${selected ? ' checked' : ''}${unavailable || isBusy() ? ' disabled' : ''}>`
+        + `${selected ? ' checked' : ''}${unavailable || isBusy() || loading ? ' disabled' : ''}>`
         + `<span>${escapeHTML(item.title || item.text || item.subject || item.name || item.id)}`
         + `${item.textTruncated ? `<small data-context-copy="原文仅显示前 500 字；发送范围见本轮预览">${t('原文仅显示前 500 字；发送范围见本轮预览')}</small>` : ''}`
         + `${unavailable ? `<small data-context-copy="不在可选范围内">${t('不在可选范围内')}</small>` : ''}</span></label>`;
-    }).join('') : `<p class="chat-empty" data-context-copy="暂无可选内容，可搜索或更换类别。">${t('暂无可选内容，可搜索或更换类别。')}</p>`;
+    }).join('') : loading ? `<p class="chat-empty" data-context-copy="正在读取本机内容…">${t('正在读取本机内容…')}</p>`
+      : `<p class="chat-empty" data-context-copy="暂无可选内容，可搜索或更换类别。">${t('暂无可选内容，可搜索或更换类别。')}</p>`;
     node('btnDraftChatContextMore')?.classList.toggle('hidden', !nextCursor);
+    if (node('btnDraftChatContextMore')) node('btnDraftChatContextMore').disabled = loading || isBusy();
     summary();
   }
   function reset(record, actualSelection) {
@@ -49,7 +52,7 @@ function createCollaborationContextSelection({ $, escapeHTML, surfaceClient, get
   }
   async function load({ more = false } = {}) {
     const record = getConversation();
-    if (!supported || !record || isBusy() || loading || !isOpen()) return;
+    if (!supported || !record || isBusy() || more && loading || !isOpen()) return;
     const query = node('draftChatContextSearch')?.value?.trim() || '';
     if (Array.from(query).length > 200) { status('本机搜索最多 200 字；输入仍在。'); return; }
     const chosen = node('draftChatContextKind')?.value || 'task';
@@ -57,6 +60,7 @@ function createCollaborationContextSelection({ $, escapeHTML, surfaceClient, get
     const token = ++epoch; loading = true;
     if (!more || chosen !== kind) { items = []; nextCursor = null; }
     kind = chosen;
+    render();
     try {
       const result = await surfaceClient.getConversationContextChoices({ conversationId: record.id, kind,
         ...(query ? { query } : {}), ...(more && nextCursor ? { cursor: nextCursor } : {}) });
@@ -69,10 +73,10 @@ function createCollaborationContextSelection({ $, escapeHTML, surfaceClient, get
       nextCursor = result.nextCursor || null; render();
       status('');
     } catch (_) { if (token === epoch && isOpen()) status('本机内容读取未完成，可以重试。'); }
-    finally { if (token === epoch) loading = false; }
+    finally { if (token === epoch) { loading = false; render(); } }
   }
   function toggle(id, checked) {
-    if (isBusy() || !supported) return false;
+    if (isBusy() || loading || !supported) { render(); return false; }
     const item = items.find(value => value.id === id);
     if (!item || item.selectable === false || item.availability === 'unavailable'
       || kind === 'routine' && ['medication', 'stimulant', 'custom'].includes(item.kind)) return false;

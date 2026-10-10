@@ -7,7 +7,7 @@ import { createTimelineMoodDeletion } from './timeline-mood-deletion.mjs';
 
 
 function createPopoverTimelineFeature({
-  document, $, surfaceClient, getState, escapeHTML, formatMs, onContinueConversation, moodDeletion: sharedMoodDeletion = null
+  document, $, surfaceClient, getState, escapeHTML, formatMs, onContinueConversation, moodDeletion: sharedMoodDeletion = null, headerMode = 'standalone'
 } = {}) {
   if (!document || typeof $ !== 'function' || !surfaceClient || typeof getState !== 'function'
       || typeof escapeHTML !== 'function' || typeof formatMs !== 'function') {
@@ -149,7 +149,7 @@ function createPopoverTimelineFeature({
     root.classList.remove('hidden');
     root.classList.add('is-empty');
     const title = $('#timelineTitle');
-    if (title) title.textContent = dayKey;
+    if (title) { title.textContent = dayKey; title.hidden = headerMode === 'embedded'; }
     const totals = $('#timelineTotals');
     if (totals) totals.textContent = '';
     const guide = $('#timelineGuide');
@@ -171,10 +171,15 @@ function createPopoverTimelineFeature({
     detailVersion += 1;
   }
 
+  function totalsCopy(story, day) {
+    if (headerMode === 'embedded') return t('{count} 条活动', { count: story.entryCount });
+    return story.entryCount ? t('{count} 条活动 · 专注 {time}', { count: story.entryCount, time: formatMs(day.totals?.focusMs || 0) }) : '';
+  }
+
   function filterMarkup() {
-    return `<div class="tl-filters" role="group" aria-label="${t('活动类型')}">`
+    return `<div class="tl-filters segmented-control" role="group" aria-label="${t('活动类型')}">`
       + [['all', t('全部')], ['focus', t('专注')], ['task', t('任务')], ['inbox', t('收件')], ['routine', t('日常')], ['ai', t('AI 变更')]]
-        .map(([id, label]) => `<button type="button" data-tl-filter="${id}" aria-pressed="${id === selectedFilter}">${label}</button>`).join('') + '</div>';
+        .map(([id, label]) => `<button type="button" class="chip" data-tl-filter="${id}" aria-pressed="${id === selectedFilter}">${label}</button>`).join('') + '</div>';
   }
   function rows() { return Array.from($('#timelineTrack')?.querySelectorAll?.('.tl-event') || []); }
   function scrollPositions() {
@@ -204,14 +209,14 @@ function createPopoverTimelineFeature({
     root.classList.remove('is-empty');
 
     const title = $('#timelineTitle');
-    if (title) title.textContent = day.dayKey;
+    if (title) { title.textContent = day.dayKey; title.hidden = headerMode === 'embedded'; }
     const totalsNode = $('#timelineTotals');
 
     const state = getState() || {}, masked = maskedMoodId();
     const story = buildTimelineStory({ day, energyCurve, state: masked
       ? { ...state, moodNotes: (state.moodNotes || []).filter(note => note.id !== masked) } : state,
     escapeHTML, formatMs, filter: selectedFilter });
-    if (totalsNode) totalsNode.textContent = story.entryCount ? t('{count} 条活动 · 专注 {time}', { count: story.entryCount, time: formatMs(day.totals?.focusMs || 0) }) : '';
+    if (totalsNode) totalsNode.textContent = totalsCopy(story, day);
     const guide = $('#timelineGuide');
     if (guide) guide.textContent = `${energyCurve ? '' : story.energyLabel + ' · '}${t('记录覆盖仅代表已保存的活动')}`;
 
@@ -242,7 +247,7 @@ function createPopoverTimelineFeature({
       ? { ...state, moodNotes: (state.moodNotes || []).filter(note => note.id !== masked) } : state,
       escapeHTML, formatMs, filter: selectedFilter });
     const totals = $('#timelineTotals'), guide = $('#timelineGuide'), track = $('#timelineTrack');
-    if (totals) totals.textContent = story.entryCount ? t('{count} 条活动 · 专注 {time}', { count: story.entryCount, time: formatMs(loadedDay.totals?.focusMs || 0) }) : '';
+    if (totals) totals.textContent = totalsCopy(story, loadedDay);
     if (guide) guide.textContent = `${loadedCurve ? '' : story.energyLabel + ' · '}${t('记录覆盖仅代表已保存的活动')}`;
     if (!track || typeof document.createElement !== 'function') return;
     const fresh = document.createElement('div');
@@ -252,7 +257,7 @@ function createPopoverTimelineFeature({
       const source = freshRows.get(row.getAttribute('data-row-id'));
       if (source) row.setAttribute('data-detail', source.getAttribute('data-detail'));
     }
-    for (const selector of ['.tl-verb', '.tl-label', '.tl-part', '.tl-gap', '.tl-none', '.tl-spark-caption', '.tl-extreme']) {
+    for (const selector of ['.tl-verb', '.tl-label', '.tl-part', '.tl-gap', '.tl-none', '.tl-spark-caption', '.tl-extreme', '.tl-spark-now-label']) {
       const sources = [...fresh.querySelectorAll(selector)];
       track.querySelectorAll(selector).forEach((node, index) => { if (sources[index]) node.innerHTML = sources[index].innerHTML; });
     }
@@ -346,6 +351,7 @@ function createPopoverTimelineFeature({
       if (['all', 'focus', 'task', 'inbox', 'routine', 'ai'].includes(filterId) && loadedDay) {
         selectedFilter = filterId;
         renderDay(loadedDay, loadedCurve, { preserveScroll: true });
+        $('#timelineTrack')?.querySelector?.(`[data-tl-filter="${filterId}"]`)?.focus?.({ preventScroll: true });
         return;
       }
       // 情绪记录的删除：第一下变成“确定删除？”，第二下才删。是本人留的，也只有本人能删。
@@ -368,6 +374,18 @@ function createPopoverTimelineFeature({
     });
     listen($('#timelineViewport'), 'keydown', event => {
       if (event.key === 'Escape') { resetMoodDeleteArming(); event.preventDefault?.(); hideDetail({ restoreFocus: true }); return; }
+      const filter = event.target?.closest?.('[data-tl-filter]');
+      if (filter && ['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key) && loadedDay) {
+        const filters = ['all', 'focus', 'task', 'inbox', 'routine', 'ai'];
+        const index = filters.indexOf(filter.getAttribute('data-tl-filter'));
+        const next = event.key === 'Home' ? 0 : event.key === 'End' ? filters.length - 1
+          : (index + (event.key === 'ArrowRight' ? 1 : -1) + filters.length) % filters.length;
+        event.preventDefault?.();
+        selectedFilter = filters[next];
+        renderDay(loadedDay, loadedCurve, { preserveScroll: true });
+        $('#timelineTrack')?.querySelector?.(`[data-tl-filter="${selectedFilter}"]`)?.focus?.({ preventScroll: true });
+        return;
+      }
       const item = event.target?.closest?.('.tl-event');
       if (!item) return;
       if (event.key === 'Enter' || event.key === ' ') {

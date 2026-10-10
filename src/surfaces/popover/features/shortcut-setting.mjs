@@ -11,8 +11,8 @@ import { t } from '../../shared/interface/i18n.mjs';
 // 到它的地方去。少一处没写的表现不是报错,是那一处继续说谎。
 //
 // 配置值绝不被生效值覆盖(ARCHITECTURE「快捷行动面板」):退级只是此刻的让步,占用的程序关掉以后,
-// 用户本来想要的组合应当自己回来。所以录制键上画的是 configuredLabel,下面那行才
-// 说现在生效的是哪一个 —— 两者不一致时把原因也说出来,而不是悄悄把配置改掉。
+// 用户本来想要的组合应当自己回来。录制键显示 configuredLabel；只有实际组合不同、
+// 未就绪或操作中时才显示状态，正常匹配不重复同一组合，也不悄悄改写配置。
 //
 // 这一层拥有的全部状态:上一次查回来的那份描述、录制键是否正在等待按键。
 function createPopoverShortcutSetting({ document, $, getState, surfaceClient } = {}) {
@@ -57,7 +57,8 @@ function createPopoverShortcutSetting({ document, $, getState, surfaceClient } =
 
   let describe = null;
   let recording = false;
-  let mounted = false;
+  let mounted = false, saving = false, lifetime = 0, sequence = 0;
+  let feedbackSource = '';
   const teardown = [];
 
   function listen(target, type, handler) {
@@ -88,6 +89,7 @@ function createPopoverShortcutSetting({ document, $, getState, surfaceClient } =
       return t('现在生效：{shortcut} · 你设的 {configured} 被别的程序占着,先用这个', { shortcut: describe.label, configured: describe.configuredLabel })
         + t('（配置没被改掉,那个程序关掉后会自己回来）');
     }
+    if (describe.label === describe.configuredLabel) return '';
     return t('现在生效：{shortcut}', { shortcut: describe.label });
   }
 
@@ -98,6 +100,7 @@ function createPopoverShortcutSetting({ document, $, getState, surfaceClient } =
     toggle.textContent = on ? t('开') : t('关');
     toggle.classList.toggle('on', on);
     toggle.setAttribute('aria-pressed', String(on));
+    toggle.disabled = saving;
   }
 
   // 除了设置抽屉,凡是把组合写给用户看的地方都在这里一次写完。关掉或没抢到时
@@ -127,24 +130,30 @@ function createPopoverShortcutSetting({ document, $, getState, surfaceClient } =
           || (state && state.settings && state.settings.quickPanelShortcut) || '';
         recorder.textContent = configured || t('未设置');
       }
+      recorder.disabled = saving;
       recorder.classList.toggle('recording', recording);
       recorder.setAttribute('aria-pressed', String(recording));
     }
     const note = $('#quickPanelEffective');
-    if (note) note.textContent = recording ? t('Esc 取消 · 至少要带一个修饰键（⌘ ⌃ ⌥ ⇧）') : effectiveNote();
+    if (note) note.textContent = feedbackSource ? t(feedbackSource) : recording ? t('Esc 取消 · 至少要带一个修饰键（⌘ ⌃ ⌥ ⇧）') : effectiveNote();
     paintMentions();
   }
 
   // 每次改动之后都重新问一遍主进程,因为改配置的结果不一定是「按你说的办」:
   // 新组合抢不到时会退级,甚至回滚到上一个能用的组合。界面只该复述结果。
   async function refresh() {
+    const ticket = ++sequence, owner = lifetime;
     try {
-      describe = await surfaceClient.describeQuickPanelShortcut();
+      const next = await surfaceClient.describeQuickPanelShortcut();
+      if (!mounted || owner !== lifetime || ticket !== sequence) return;
+      describe = next;
+      if (feedbackSource === '状态暂不可确认') feedbackSource = '';
     } catch (_) {
+      if (!mounted || owner !== lifetime || ticket !== sequence) return;
       describe = null;
+      if (!feedbackSource) feedbackSource = '状态暂不可确认';
     }
-    if (!mounted) return;
-    render();
+    if (mounted && owner === lifetime && ticket === sequence) render();
   }
 
   function stopRecording() {
@@ -153,22 +162,31 @@ function createPopoverShortcutSetting({ document, $, getState, surfaceClient } =
     render();
   }
 
-  async function commit(accelerator) {
+  async function save(patch) {
+    if (!mounted || saving) return;
+    const owner = lifetime;
     recording = false;
-    const note = $('#quickPanelEffective');
-    if (note) note.textContent = t('正在绑定 {shortcut}…', { shortcut: accelerator });
+    saving = true;
+    feedbackSource = '正在保存…';
+    render();
     try {
-      await surfaceClient.updateSettings({ quickPanelShortcut: accelerator });
+      const result = await surfaceClient.updateSettings(patch);
+      if (!mounted || owner !== lifetime) return;
+      if (result?.ok !== true) throw new Error('not-saved');
+      feedbackSource = '';
     } catch (_) {
-      // 校验被打回时不改任何东西,refresh 会把界面画回真实状态。
+      if (!mounted || owner !== lifetime) return;
+      feedbackSource = '未保存，请重试';
+    } finally {
+      if (mounted && owner === lifetime) { saving = false; await refresh(); }
     }
-    await refresh();
   }
 
   function onRecorderKeydown(event) {
-    if (!recording) return;
+    if (!recording || event.isComposing || event.keyCode === 229) return;
     if (event.key === 'Escape') {
       event.preventDefault();
+      event.stopPropagation();
       stopRecording();
       return;
     }
@@ -189,27 +207,31 @@ function createPopoverShortcutSetting({ document, $, getState, surfaceClient } =
       if (note) note.textContent = t('至少要带一个修饰键（⌘ ⌃ ⌥ ⇧）· Esc 取消');
       return;
     }
-    void commit([...modifiers, key].join('+'));
+    void save({ quickPanelShortcut: [...modifiers, key].join('+') });
   }
 
   function mount() {
     if (mounted) return;
     mounted = true;
+    lifetime++;
 
     listen($('#quickPanelRecorder'), 'click', () => {
+      if (saving) return;
+      feedbackSource = '';
       recording = !recording;
       render();
     });
     listen($('#quickPanelRecorder'), 'keydown', onRecorderKeydown);
+    listen($('#settingGroupGeneral'), 'toggle', event => {
+      if (event.currentTarget?.open) void refresh();
+      else stopRecording();
+    });
     // 焦点离开就退出录制:一个停在「按下想用的组合…」上、其实已经不收键的按钮,
     // 比没有录制态更让人困惑。
     listen($('#quickPanelRecorder'), 'blur', stopRecording);
 
-    listen(document.querySelector('[data-toggle="quickPanelEnabled"]'), 'click', async () => {
-      const state = getState();
-      const next = !(state && state.settings && state.settings.quickPanelEnabled);
-      await surfaceClient.updateSettings({ quickPanelEnabled: next });
-      await refresh();
+    listen(document.querySelector('[data-toggle="quickPanelEnabled"]'), 'click', () => {
+      void save({ quickPanelEnabled: !enabledNow() });
     });
 
     void refresh();
@@ -218,6 +240,7 @@ function createPopoverShortcutSetting({ document, $, getState, surfaceClient } =
   function dispose() {
     if (!mounted) return;
     mounted = false;
+    lifetime++; sequence++; saving = false; feedbackSource = '';
     while (teardown.length) teardown.pop()();
     describe = null;
     recording = false;

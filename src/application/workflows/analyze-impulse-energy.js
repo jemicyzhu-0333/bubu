@@ -1,6 +1,7 @@
 'use strict';
 
 const work = require('../../capabilities/work');
+const { beginDiagnostic, observeDiagnostic, finishDiagnostic } = require('../ai/diagnostic-observation');
 const guidance = require('../../capabilities/guidance');
 const preferences = require('../../capabilities/preferences');
 const { runPostCommitEffect } = require('../../shared/post-commit-effects');
@@ -38,7 +39,7 @@ function createAnalyzeImpulseEnergyWorkflow({
   readSnapshot,
   clock,
   classify,
-  requestScope,
+  requestScope, diagnostics,
   publish = () => {},
   reportEffectError = () => {}
 } = {}) {
@@ -52,7 +53,7 @@ function createAnalyzeImpulseEnergyWorkflow({
     throw new TypeError('analyze-impulse-energy workflow effects must be functions');
   }
 
-  async function performCaptured(fact, assertCurrent) {
+  async function performCaptured(fact, assertCurrent, diagnostic) {
     const before = readSnapshot();
     if (!enabled(before)) return { ok: true, changed: false, reason: 'impulse-energy-disabled' };
     if (!fact || fact.type !== 'impulse-captured' || typeof fact.impulseId !== 'string') {
@@ -65,7 +66,7 @@ function createAnalyzeImpulseEnergyWorkflow({
 
     let analyzed;
     try {
-      analyzed = await classify({ impulseText: expectedText });
+      analyzed = await classify({ impulseText: expectedText }, diagnostic ? { diagnostics: diagnostic } : {});
     } catch (error) {
       reportEffectError(error);
       return { ok: true, changed: false, reason: 'provider-failed' };
@@ -74,6 +75,8 @@ function createAnalyzeImpulseEnergyWorkflow({
       return { ok: true, changed: false, reason: analyzed && analyzed.reason || 'provider-failed' };
     }
     const classification = eligibleClassification(analyzed.classification);
+    observeDiagnostic(diagnostic, 'gate', { confidence: analyzed.classification?.confidence ?? null,
+      minimum: MIN_IMPULSE_ENERGY_CONFIDENCE, accepted: Boolean(classification), code: 'explicit-energy-signal' });
     if (!classification) return { ok: true, changed: false, reason: 'no-explicit-energy-signal' };
 
     const analyzedAt = clock.now();
@@ -109,16 +112,25 @@ function createAnalyzeImpulseEnergyWorkflow({
   }
 
   async function handleCaptured(fact) {
-    let lease;
+    let lease, result;
+    const diagnostic = beginDiagnostic(diagnostics, 'impulse-energy', fact);
     try {
       lease = requestScope?.begin();
-      return await performCaptured(fact, () => lease?.assertCurrent());
+      result = await performCaptured(fact, () => lease?.assertCurrent(), diagnostic);
+      return result;
     } catch (error) {
       if (error.message === 'provider-request-aborted') {
-        return { ok: true, changed: false, reason: 'provider-request-aborted' };
+        result = { ok: true, changed: false, reason: 'provider-request-aborted' };
+        return result;
       }
       throw error;
-    } finally { lease?.release(); }
+    } finally {
+      lease?.release();
+      if (result?.changed) observeDiagnostic(diagnostic, 'energy', {
+        recordedDelta: result.signal?.delta ?? null, effectiveContribution: null, sampledAt: null, code: 'contribution-not-recorded'
+      });
+      finishDiagnostic(diagnostic, result, 'energy-signal-recorded');
+    }
   }
 
   return Object.freeze({ handleCaptured });

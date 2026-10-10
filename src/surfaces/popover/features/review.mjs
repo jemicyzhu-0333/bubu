@@ -39,6 +39,7 @@ function createPopoverReviewFeature({
 
   let active = null;   // 此刻打开的是哪一张回顾卡
   let mounted = false;
+  let generation = 0, opening = null, operation = null, errorSource = '';
   const teardown = [];
   let cardCopies = [], factCopies = [];
   let lastCardData = '', lastCardKey = '';
@@ -47,6 +48,7 @@ function createPopoverReviewFeature({
     factCopies.push(paint); paint();
   }
   function repaintActive() {
+    if (errorSource) showError(errorSource);
     if (!active) return;
     $('#reviewTitle').textContent = reviewTitle(active.card, getState()?.serverNow || Date.now());
     const done = $('#reviewDone');
@@ -70,6 +72,12 @@ function createPopoverReviewFeature({
     const heading = document.createElement('h3');
     factCopy(heading, title);
     section.appendChild(heading);
+    if (options.description) {
+      const description = document.createElement('p');
+      description.className = 'capability-note';
+      factCopy(description, options.description);
+      section.appendChild(description);
+    }
     if (!items || !items.length) {
       const empty = document.createElement('p');
       empty.className = 'capability-note';
@@ -101,7 +109,7 @@ function createPopoverReviewFeature({
     const pending = state.reviews && Array.isArray(state.reviews.pending)
       ? state.reviews.pending.filter(item => item.status === 'pending')
       : [];
-    const dataKey = JSON.stringify([pending, state.serverNow]);
+    const dataKey = JSON.stringify([pending, new Date(state.serverNow || Date.now()).toDateString()]);
     const key = `${getLocale()}|${dataKey}`;
     if (key === lastCardKey) return;
     lastCardKey = key;
@@ -132,9 +140,32 @@ function createPopoverReviewFeature({
     }
   }
 
+  function showError(source = '', selector = '#reviewError') {
+    if (selector === '#reviewError') errorSource = source;
+    const node = $(selector);
+    if (!node) return;
+    node.textContent = t(source);
+    node.classList.toggle('hidden', !source);
+  }
+
+  function setBusy(busy) {
+    for (const selector of ['#reviewDone', '#reviewDismiss']) $(selector).disabled = busy;
+  }
+
   async function open(id) {
-    const result = await surfaceClient.openReview(id);
-    if (!result || result.ok === false) return;
+    if (!mounted) return;
+    const version = ++generation;
+    opening = version;
+    showError('', '#reviewInboxError');
+    let result;
+    try { result = await surfaceClient.openReview(id); }
+    catch (_) { result = null; }
+    if (!mounted || version !== generation) return;
+    opening = null;
+    if (!result || result.ok === false || !result.card || !result.facts) {
+      showError('操作失败，请重试', isOpen() ? '#reviewError' : '#reviewInboxError');
+      return;
+    }
     // 打开这一屏要占住 aria-modal 层。这期间如果有一个待表态的落点,就把这一层
     // 让给它:回顾随时可以再点开,那一问只在此刻有意义。
     if (activeLandingPrompt() || isLandingModalOpen()) {
@@ -143,7 +174,7 @@ function createPopoverReviewFeature({
     }
     const inbox = $('#reviewInbox');
     if (inbox?.close) inbox.close();
-    active = result; factCopies = [];
+    active = result; operation = null; setBusy(false); factCopies = [];
     const state = getState();
     $('#reviewTitle').textContent = reviewTitle(result.card, (state && state.serverNow) || Date.now());
     const done = $('#reviewDone');
@@ -155,31 +186,28 @@ function createPopoverReviewFeature({
     if (facts.kind === 'closeout') {
       body.append(
         factGroup('真实完成', facts.completed),
-        factGroup('专注片段', [{ copySource: '{minutes} 分钟（来自本地会话事实）', parameters: { minutes: Math.round(facts.focusMs / 60000) } }]),
+        factGroup('专注片段', [{ copySource: '{minutes} 分钟', parameters: { minutes: Math.round(facts.focusMs / 60000) } }]),
         factGroup('留下的落点', facts.landings),
         factGroup('仍在收件箱', facts.impulses)
       );
     } else {
       body.append(
         factGroup('昨日延续', facts.carryovers),
-        factGroup('今天先做这几件（勾掉不想做的；第一件会设为“现在”）', facts.picks || facts.deadlineCandidates, { selectable: true, checked: true }),
+        factGroup('今天先做', facts.picks || facts.deadlineCandidates, { selectable: true, checked: true, description: '第一件选中的任务会设为“现在”。' }),
         factGroup('今天新增', facts.newlyAdded),
         factGroup('带自动失效', facts.expiring)
       );
     }
-    $('#reviewError').classList.add('hidden');
+    showError('');
     $('#reviewMask').classList.remove('hidden');
     $('#reviewMask').setAttribute('aria-hidden', 'false');
-    requestAnimationFrame(() => $('#reviewClose').focus());
+    requestAnimationFrame(() => { if (mounted && version === generation && active === result) $('#reviewClose').focus(); });
   }
 
-  async function close({ saveProgress = true } = {}) {
-    if (saveProgress && active) {
-      await surfaceClient.resolveReview(active.card.id, 'progress', {
-        progress: Math.max(1, active.card.progress || 50)
-      });
-    }
-    active = null; factCopies = [];
+  function hide() {
+    generation++;
+    active = null; operation = null; factCopies = []; errorSource = '';
+    setBusy(false);
     $('#reviewMask').classList.add('hidden');
     $('#reviewMask').setAttribute('aria-hidden', 'true');
     $('#btnReviewInbox')?.focus();
@@ -189,6 +217,32 @@ function createPopoverReviewFeature({
     }
   }
 
+  async function resolve(action, payload = {}) {
+    if (!mounted || !active || operation) return;
+    const owner = active, version = generation;
+    operation = owner; setBusy(true); showError('');
+    try {
+      const result = await surfaceClient.resolveReview(owner.card.id, action, payload);
+      if (!mounted || version !== generation || active !== owner || operation !== owner) return;
+      if (!result?.ok) { showError('保存失败，请重试。'); return; }
+      hide();
+    } catch (_) {
+      if (mounted && version === generation && active === owner && operation === owner) showError('保存失败，请重试。');
+    } finally {
+      if (operation === owner) { operation = null; setBusy(false); }
+    }
+  }
+
+  async function close({ saveProgress = true } = {}) {
+    // Closing never lets an old open/resolve receipt take over a newer display.
+    generation++;
+    if (saveProgress && active && !operation) {
+      await resolve('progress', { progress: Math.max(1, active.card.progress || 50) });
+      return;
+    }
+    hide();
+  }
+
   function mount() {
     if (mounted) return;
     mounted = true;
@@ -196,25 +250,20 @@ function createPopoverReviewFeature({
       // Repaint only authored copy, retaining checked tasks and pending receipt owners.
       renderCards(); repaintActive();
     }));
+    listen($('#reviewInbox'), 'close', () => { if (opening !== null) { generation++; opening = null; } });
     listen($('#reviewClose'), 'click', () => { void close(); });
-    listen($('#reviewDismiss'), 'click', async () => {
-      if (!active) return;
-      await surfaceClient.resolveReview(active.card.id, 'dismissed');
-      await close({ saveProgress: false });
-    });
-    listen($('#reviewDone'), 'click', async () => {
-      if (!active) return;
+    listen($('#reviewDismiss'), 'click', () => resolve('dismissed'));
+    listen($('#reviewDone'), 'click', () => {
       const confirmedTaskIds = [...$$('#reviewBody [data-review-task-id]:checked')]
         .map(input => input.dataset.reviewTaskId)
         .slice(0, 3);
-      await surfaceClient.resolveReview(active.card.id, 'done', { confirmedTaskIds });
-      await close({ saveProgress: false });
+      return resolve('done', { confirmedTaskIds });
     });
   }
 
   function dispose() {
     if (!mounted) return;
-    mounted = false;
+    mounted = false; generation++; operation = null;
     while (teardown.length) teardown.pop()();
     active = null; cardCopies = []; factCopies = []; lastCardData = ''; lastCardKey = '';
   }

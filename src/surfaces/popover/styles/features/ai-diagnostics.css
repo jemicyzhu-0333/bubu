@@ -1,0 +1,25 @@
+@layer features {
+  #aiDiagnosticsGroup[hidden], #aiDiagnosticsGroup [hidden] { display: none !important; }
+  .ai-diagnostics { min-width: 0; }
+  .ai-diagnostics-indicator:not(:empty)::before { content: ""; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: currentColor; margin-right: 5px; vertical-align: middle; }
+  .ai-diagnostics-indicator { color: var(--primary-ink); font-size: 11px; margin-left: auto; }
+  .ai-diagnostics-intro { display: flex; align-items: baseline; gap: 4px; }
+  .ai-diagnostics-note { font-size: 12px; line-height: 1.5; color: var(--fg-2); margin: 4px 0; }
+  .ai-diagnostics-note:empty, .ai-diagnostics-meta:empty { display: none; }
+  .ai-diagnostics-actions > .pixel-btn { flex: 0 0 auto; }
+  #aiDiagnosticsExport { margin-left: auto; }
+  .ai-diagnostics-actions { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+  .ai-diagnostics label { display: block; margin: 8px 0 4px; color: var(--fg-1); }
+  #aiDiagnosticsRuns { display: block; width: var(--control-select-compact); max-width: min(100%, var(--control-select-max)); min-width: min(var(--control-select-min), 100%); margin-bottom: 12px; }
+  .ai-diagnostics h4 { font: 600 12px/1.5 var(--font-ui); margin: 10px 0 4px; color: var(--fg-1); }
+  .ai-diagnostics-meta { font-size: 11px; color: var(--fg-2); overflow-wrap: anywhere; margin: 2px 0; }
+  .ai-diagnostics-data, #aiDiagnosticsExportText {
+    box-sizing: border-box; width: 100%; min-width: 0; max-height: 220px;
+    overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word;
+    font: 12px/1.6 var(--font-ui); font-variant-numeric: tabular-nums;
+    color: var(--fg-1); background: var(--bg-2); border: 1px solid var(--bg-3);
+    border-radius: 6px; padding: 8px; margin: 4px 0 10px;
+  }
+  #aiDiagnosticsExportText { resize: vertical; min-height: 120px; }
+  .ai-diagnostics-event + .ai-diagnostics-event { border-top: 1px solid var(--bg-3); padding-top: 2px; }
+}

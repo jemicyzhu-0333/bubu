@@ -92,7 +92,7 @@ test('opening loads records with essential scope visible and trace details avail
   for (const text of ['本人陈述', '工作', '不设到期', '尚无使用记录', 'source-message', '版本 3']) assert.ok(h.list().includes(text), text);
   const details = h.list().match(/<details[^>]*>[\s\S]*?<\/details>/)[0];
   assert.doesNotMatch(details, /<details[^>]* open/);
-  assert.match(details, /<summary>来源与使用记录<\/summary>/);
+  assert.match(details, /<details class="memory-meta disclosure"><summary><svg class="disclosure-icon"[^>]*aria-hidden="true"[^>]*stroke-width="1\.5"[\s\S]*?<span data-memory-copy="\d+">来源与使用记录<\/span><\/summary>/);
   for (const text of ['source-message', '版本 3', '尚无使用记录']) assert.ok(details.includes(text));
   const primary = h.list().replace(details, '');
   for (const text of ['工作安排', '下午先做简单的事', '本人陈述', '工作', '修改']) assert.ok(primary.includes(text));
@@ -365,4 +365,35 @@ test('uncertain permanent removal hides cached body without claiming deletion an
   await h.feature.confirm({ retry: true }); await settle();
   assert.deepEqual(confirmations[1], confirmations[0]); assert.equal(confirmations[1].permanentAcknowledged, true);
   assert.equal(h.rows().length, 0);
+});
+
+test('cancel returns focus to the replacement list action instead of its detached pre-render node', async () => {
+  const h = harness(); await h.feature.load();
+  const stale = { dataset: { memoryAction: 'pause', memoryId: 'm1', memoryVersion: '3' }, isConnected: false,
+    focus() { throw new Error('detached action must not receive focus'); } };
+  let focused = 0;
+  const current = { dataset: { memoryAction: 'pause', memoryId: 'm1' }, focus() { focused++; } };
+  h.dom.$('#memoryList').querySelectorAll = () => [current];
+  h.dom.fire('memoryList', 'click', { target: { closest: () => stale } });
+  await new Promise(resolve => setImmediate(resolve));
+  h.feature.cancelReview();
+  assert.equal(focused, 1);
+  h.feature.dispose();
+});
+
+test('confirming and unknown memory commits never retain the not-submitted review notice', async () => {
+  const h = harness(); await h.feature.load(); await h.feature.requestAction('pause', 'm1', 3);
+  assert.match(h.review(), /尚未提交/);
+  const result = pending(); h.client.confirmMemoryChange = () => result.promise;
+  const confirmation = h.feature.confirm();
+  assert.doesNotMatch(h.review(), /尚未提交/);
+  assert.match(h.status(), /确认请求正在处理/);
+  assert.match(h.review(), /暂停使用/);
+  result.resolve({ ok: false, reason: 'memory-commit-outcome-unknown', outcome: 'unknown' }); await confirmation;
+  assert.doesNotMatch(h.review(), /尚未提交/);
+  assert.match(h.status(), /尚未确认/);
+  assert.match(h.review(), /暂停使用/);
+  assert.equal(h.dom.$('#btnConfirmMemoryChange').disabled, true);
+  assert.equal(h.dom.$('#btnCancelMemoryChange').disabled, true);
+  h.feature.dispose();
 });

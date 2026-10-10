@@ -43,7 +43,9 @@ test('companion summary rounds only satiation and preserves the projected value'
   const feature = createPopoverCompanionFeature({ getState: () => state, $, escapeHTML: String,
     skinAccent: () => ({}), surfaceClient: { buyFood() {} } });
   feature.renderCompanion();
-  assert.match($('#companionSummaryText').textContent, /饱食 46 · 一起吃过 3 次/);
+  assert.equal($('#companionSatiationValue').textContent, '46');
+  assert.equal($('#companionSatiationStat').attributes['aria-label'], '饱食 46/100');
+  assert.equal($('#companionMealsValue').textContent, '3');
   assert.equal(state.companionProjection.satiation, 45.5);
   assert.equal(state.companionProjection.bond.points, 2.5);
 });

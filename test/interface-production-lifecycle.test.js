@@ -82,3 +82,22 @@ test('production locale subscription order preserves timer anchors, task control
 
  work.dispose();feature.dispose();store.dispose();globalThis.performance=old;
 });
+
+test('task step and overflow actions deduplicate and show rejected or missing receipts', async context => {
+ const h=controlDom(); let finish, calls=0, celebrations=0, status='';
+ const task={id:'one',title:'Task',createdAt:1,energy:'medium',steps:[{id:'s',title:'Step',done:false}]};
+ const state={tasks:[task],archivedTasks:[],history:{total:1,nextCursor:'more'}};
+ const request=()=>{calls++;return new Promise(resolve=>{finish=resolve;});};
+ const feature=createPopoverTaskList({...h,getState:()=>state,getSession:()=>({}),escapeHTML:String,formatMs:()=>'',localDateInputValue:()=> '2026-10-10',syncPressedButtons(){},taskDates:{},describeSeriesRule:()=>'',taskActionMessage:r=>r,formatExpiry:()=>'',surfaceClient:{completeStep:request,duplicateTask:request,restoreTask:request,listHistory:async()=>{throw Error('offline');}},taskLaunchBlockReason:()=>null,seriesForTask:()=>null,completeTask(){},openTaskEditor(){},openBreakdown(){},startFocus(){},celebrate(){celebrations++;},showPanelStatus:copy=>{status=typeof copy==='function'?copy():copy;},mergeHistoryPage(){}});
+ feature.mount(); feature.renderList(); context.after(()=>feature.dispose());
+ const row=h.$('#taskList').children[0],step=row.querySelector('.step-item');
+ const first=step.emit('click'); await step.emit('click'); assert.equal(calls,1); finish(null); await first;
+ assert.equal(celebrations,0); assert.equal(status,'task-complete-rejected'); assert.equal(step.disabled,false);
+ const retry=step.emit('click'); finish({ok:true}); await retry; assert.equal(celebrations,1);
+ await h.$('#historyLoadMore').emit('click'); assert.ok(status); assert.equal(h.$('#historyLoadMore').disabled,false);
+ state.archivedTasks=[task]; feature.renderArchive(); const restore=h.$('#archiveList').children[0].querySelector('button');
+ const baseline=calls, restoring=restore.emit('click'); await restore.emit('click'); assert.equal(calls,baseline+1);
+ finish({ok:false,reason:'restore-refused'}); await restoring; assert.equal(status,'restore-refused');
+ const old=step.emit('click'); feature.dispose(); feature.mount(); feature.renderList();
+ finish({ok:true}); await old; assert.equal(celebrations,1,'old lifetime cannot celebrate in a remounted list');
+});

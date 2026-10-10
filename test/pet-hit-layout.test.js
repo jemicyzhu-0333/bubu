@@ -31,6 +31,6 @@ test('desktop hit rectangle follows the current form and updates on live skin ch
   stage = resolvePetStage({ devicePixelRatio: 3 });
   layout.update('usagi');
   assert.equal(hit.style.height, `${formHitRect(resolvePetForm('usagi'), stage).height}px`);
-  assert.match(hit.attributes['aria-label'], /乌沙奇 2.0/);
+  assert.match(hit.attributes['aria-label'], /小奇/);
   assert.throws(() => createPetHitLayout({ getStage: () => stage }), /hit/);
 });
