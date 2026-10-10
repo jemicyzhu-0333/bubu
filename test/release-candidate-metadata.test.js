@@ -16,10 +16,10 @@ const filenames = {
 const urlFor = name => `${releaseRoot}/download/${releaseTag}/${filenames[name]}`;
 const attribute = (tag, name) => tag.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1];
 
-test('0.0.2-dev.2 published package identities, locks and versioned artifact names agree', () => {
+test('0.0.2-dev.3 candidate package identities, locks and versioned artifact names agree', () => {
   const app = json('package.json'), lock = json('package-lock.json');
   const site = json('website/package.json'), siteLock = json('website/package-lock.json');
-  assert.equal(app.version, '0.0.2-dev.2');
+  assert.equal(app.version, '0.0.2-dev.3');
   for (const version of [lock.version, lock.packages[''].version]) assert.equal(version, app.version);
   // Public metadata advances only after both original release assets are verified.
   for (const version of [site.version, siteLock.version, siteLock.packages[''].version]) assert.equal(version, releaseTag.slice(1));
