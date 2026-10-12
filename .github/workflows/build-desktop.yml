@@ -72,11 +72,14 @@ jobs:
         env:
           DANGO_CANVAS_PACKAGE: ${{ github.workspace }}/node_modules/@napi-rs/canvas
           USAGI_CANVAS_PACKAGE: ${{ github.workspace }}/node_modules/@napi-rs/canvas
-        shell: bash
+        # pwsh, not bash: Git Bash upper-cases Windows variable names
+        # (SYSTEMROOT), which the native ACL probe tests rightly reject.
+        shell: pwsh
         run: |
-          set -euo pipefail
           node -e "require(process.env.DANGO_CANVAS_PACKAGE).createCanvas(1,1)"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           npm run check
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Check integration contracts
         run: npm run test:integration
       - name: Verify installed packaging dependencies, configuration and command selection
