@@ -40,7 +40,10 @@ const petRendererSource = fs.readdirSync(PET_SURFACE_DIR).filter(file => file.en
 // 台词的质量门槛，不是数量门槛。以前这里要求总数 >= 2000、每个池 >= 100 条，结果是靠“开头 × 主句 × 结尾”
 // 三段相乘凑数，实际听到的九成以上都是两个分句的散文。现在的规矩是：每一句都是手写的短话。
 const REGULAR_POOL_GROUPS = ['time', 'state', 'energy', 'work', 'peek'];
-const PICTOGRAPH = /\p{Extended_Pictographic}/u;
+// Emoji = characters rendered as colour pictographs: default emoji presentation,
+// or any pictograph forced to emoji style with VS16. Text-style symbols such as
+// ♪ ♫ (Extended_Pictographic but Emoji=No) are typography, not emoji.
+const PICTOGRAPH = /\p{Emoji_Presentation}|\p{Extended_Pictographic}\uFE0F/u;
 
 function regularPools() {
   const pools = [];
