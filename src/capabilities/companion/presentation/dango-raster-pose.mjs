@@ -1,5 +1,6 @@
 'use strict';
 
+import { attachDangoLimbs } from './dango-limbs.mjs';
 import { paperReturnFace } from './paper-return-story.mjs';
 import { motionCaps } from './motion-core/action-capabilities.mjs';
 import { refinePaperReturn, refineHandoffCup } from './dango-paper-return.mjs';
@@ -117,6 +118,9 @@ function sampleRasterPose(data, { view = 'front', motion = 'idle', action = null
     hand.points = [root, elbow, palm];
     hand.attachedArm = true;
   }
+  // Unified limb chain (socket -> IK -> wrist) for every contact hand; frames
+  // come from limbs.json when present, otherwise legacy sprites keep drawing.
+  attachDangoLimbs(contact, data.anchors, { view });
   const sample = sampleMotion(motion, { view, calmVisual: frozen, progress: motion === 'idle' ? idleProgress(elapsedMs) : p, prop: action?.prop });
   if (lookback && contact) for (const detail of contact.details) if (detail.type === 'look-back') {
     detail.amount = lookback.cue; detail.at = [-1, 8];
