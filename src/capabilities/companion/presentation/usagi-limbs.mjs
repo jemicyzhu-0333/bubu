@@ -14,7 +14,7 @@ import { applyPoint } from './rig/pose.mjs';
 import { solveTwoBone, controlThrough, quadPoint, limbSilhouette, createLimbFilter,
   resolveLimbIntent, insidePolygon, flattenPath } from './motion-core/limbs.mjs';
 import { motionCapsById } from './motion-core/action-capabilities.mjs';
-import { USAGI_LIMB_RIG, USAGI_LIMB_INTENTS } from '../../../content/companion/usagi-limbs.mjs';
+import { USAGI_LIMB_RIG, USAGI_LIMB_INTENTS, USAGI_LEG_RIG } from '../../../content/companion/usagi-limbs.mjs';
 
 const filters = createLimbFilter({ speed: USAGI_LIMB_RIG.elbowSpeed });
 
@@ -290,6 +290,69 @@ function paintLimbsUnderCloth(ctx, { artwork }) {
   return painted;
 }
 
+// ---- legs (2-point IK: hip socket -> foot target) --------------------------
+// Feet are the IK targets: the authored pose decides where each sole lands.
+// The leg is re-aimed about its foot so its top stays on the hip socket; its
+// width is unchanged, only its length follows the hip-foot distance.
+const mul = (a, b) => [a[0] * b[0] + a[2] * b[1], a[1] * b[0] + a[3] * b[1], a[0] * b[2] + a[2] * b[3], a[1] * b[2] + a[3] * b[3],
+  a[0] * b[4] + a[2] * b[5] + a[4], a[1] * b[4] + a[3] * b[5] + a[5]];
+// Tucked = the leg top sits at/above its hip in body space and inside the body.
+function legTucked(world, data, hip, top) {
+  const local = invert(world.root), t = applyPoint(local, ...top), h = applyPoint(local, ...hip);
+  return t[1] <= h[1] + 1e-3 && insidePolygon(bodyPolygon(data) || [], t);
+}
+const legOutline = new WeakMap();
+function legPoints(data, side) {
+  let byData = legOutline.get(data); if (!byData) { byData = {}; legOutline.set(data, byData); }
+  if (!(side in byData)) {
+    const part = data.parts.find(p => p.bone === `leg_${side}`);
+    byData[side] = (part?.shapes || []).flatMap(sh => sh.d ? flattenPath(sh.d) : []);
+  }
+  return byData[side];
+}
+function legCorrection(world, data, side) {
+  const bone = data.bones?.[`leg_${side}`], M = world[`leg_${side}`], P = world[bone?.parent];
+  if (!bone || !M || !P) return null;
+  const [px, py] = bone.pivot;
+  const hip = applyPoint(P, px, py), top = applyPoint(M, px, py);
+  if (Math.hypot(hip[0] - top[0], hip[1] - top[1]) < 1e-3) return null; // already attached
+  // A tucked leg (top above the hip, inside the body) is already joined and
+  // hidden behind the body: keep the authored pixels. Only an extended leg
+  // (top pulled below the hip socket) would open a gap, so only it is solved.
+  if (legTucked(world, data, hip, top)) return null;
+  // Floor line: the posed leg's lowest outline point (outer stroke edge) in
+  // world space. A world-horizontal shear + vertical scale about that line
+  // keeps every floor pixel and moves the leg top onto the hip socket.
+  const pts = legPoints(data, side); if (!pts.length) return null;
+  const sy = Math.hypot(M[2], M[3]) || 1;
+  const y0 = Math.max(...pts.map(p => applyPoint(M, ...p)[1])) + USAGI_LIMB_RIG.outline / 2 * sy;
+  const h = y0 - top[1]; if (h <= 1e-3) return null;
+  const [lo, hi] = USAGI_LEG_RIG.stretch, k = Math.min(hi, Math.max(lo, (y0 - hip[1]) / h));
+  const sh = (hip[0] - top[0]) / -h;
+  // x' = x + sh*(y - y0), y' = y0 + k*(y - y0)
+  const W = [1, 0, sh, k, -sh * y0, y0 - k * y0];
+  return mul(W, M);
+}
+function solveUsagiLegs(world, { data } = {}) {
+  let out = null;
+  for (const side of ['l', 'r']) {
+    const m = legCorrection(world, data, side);
+    if (m) { out ||= {}; out[`leg_${side}`] = m; }
+  }
+  return out;
+}
+function traceUsagiLegs(artwork, data) {
+  const world = { ...artwork.pose.world, ...(artwork.pose.partWorld || {}) };
+  return ['l', 'r'].map(side => {
+    const bone = data.bones[`leg_${side}`]; if (!bone || !world[`leg_${side}`]) return null;
+    const [px, py] = bone.pivot;
+    const hip = applyPoint(world[bone.parent], px, py), top = applyPoint(world[`leg_${side}`], px, py);
+    const tucked = legTucked(world, data, hip, top);
+    return { side, hip, top, tucked,
+      foot: applyPoint(world[`leg_${side}`], px, py + USAGI_LEG_RIG.footDrop) };
+  }).filter(Boolean);
+}
+
 // ---- trace (detectors) -----------------------------------------------------
 function traceOne(artwork, data, side, intent) {
   const wrist = wristOf(artwork, data, side);
@@ -310,5 +373,5 @@ function traceUsagiLimb(artwork, data, side) {
   return { ...now, mode: k < 1 ? 'fade' : now.mode, len: +(before.len * (1 - k) + now.len * k).toFixed(3) };
 }
 
-export { clipOutsideBody, bodyPolygon as bodyContour, USAGI_LIMB_RIG, limbState, sockets, intentFor, limbGeometry, limbLayer, paintLimb, paintLimbsBefore, paintLimbPart,
+export { solveUsagiLegs, traceUsagiLegs, clipOutsideBody, bodyPolygon as bodyContour, USAGI_LIMB_RIG, limbState, sockets, intentFor, limbGeometry, limbLayer, paintLimb, paintLimbsBefore, paintLimbPart,
   paintLimbsUnderCloth, traceUsagiLimb, bodyPolygon, behindBody, filters as usagiLimbFilters };

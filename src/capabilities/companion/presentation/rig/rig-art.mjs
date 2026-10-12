@@ -117,9 +117,13 @@ function createRigArtist({ fallback, paths = createPathCache(), partLayer = part
       ? transitionFor(channel).step({ key: `${sample.key}|${resolved.view}|${calmVisual ? 'calm' : 'live'}`, bones: target, now: elapsedMs, immediate: calmVisual })
       : target;
     const world = computeBoneWorld(resolved.data.bones, bones);
+    // Form IK pass: per-part matrices for drawn parts only (e.g. usagi legs:
+    // hip socket -> foot target). Bone matrices, and so anchored accessories
+    // such as boots, are unchanged.
+    const partWorld = fallback.solvePartWorld?.(world, { data: resolved.data, view: resolved.view, sample }) || null;
     return Object.freeze({
       kind: 'rig', rig, key: rigCacheKey(rig), view, drawnView: resolved.view,
-      face, pose: Object.freeze({ sample, world }),
+      face, pose: Object.freeze({ sample, world, ...(partWorld ? { partWorld: Object.freeze(partWorld) } : {}) }),
       clock: Object.freeze({ channel, elapsedMs })
     });
   }
@@ -135,7 +139,7 @@ function createRigArtist({ fallback, paths = createPathCache(), partLayer = part
       // A form may replace one authored part with an integrated contact silhouette.
       // Every ordinary part and foreign rig retains the same painter and matrices.
       const custom = world && fallback.paintPart?.(ctx, { part, data, layer, world, artwork });
-      painted += custom ? 1 : paintShapes(ctx, part.shapes, paths, palette, world ? world[part.bone] : null);
+      painted += custom ? 1 : paintShapes(ctx, part.shapes, paths, palette, world ? artwork?.pose?.partWorld?.[part.bone] || world[part.bone] : null);
     }
     return painted;
   }

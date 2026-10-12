@@ -73,3 +73,23 @@ test('every action and session limb trace is free of painter pops, unexplained s
   assert.ok(Object.keys(report.targets).length >= 200);
   assert.deepEqual(report.failures, []);
 });
+
+test('usagi legs: feet are IK targets; an extended leg is re-joined to its hip without moving the floor line', async () => {
+  const { default: rig } = await import('../assets/companion/usagi/rig/usagi.rig.mjs');
+  const { computeBoneWorld, applyPoint } = await import('../src/capabilities/companion/presentation/rig/pose.mjs');
+  const { solveUsagiLegs, traceUsagiLegs } = await import('../src/capabilities/companion/presentation/usagi-limbs.mjs');
+  const data = rig.views.front;
+  const rest = computeBoneWorld(data.bones, {});
+  assert.equal(solveUsagiLegs(rest, { data }), null, 'rest legs need no correction');
+  const tucked = computeBoneWorld(data.bones, { leg_l: { y: -3 } });
+  assert.equal(solveUsagiLegs(tucked, { data }), null, 'a tucked leg keeps its authored pixels');
+  const world = computeBoneWorld(data.bones, { leg_l: { y: 2.5, x: 1 } });
+  const part = solveUsagiLegs(world, { data });
+  assert.ok(part?.leg_l && !part.leg_r);
+  const [lg] = traceUsagiLegs({ pose: { world, partWorld: part } }, data);
+  assert.ok(Math.hypot(lg.hip[0] - lg.top[0], lg.hip[1] - lg.top[1]) < 1e-6, 'leg top on the hip socket');
+  // Floor line: the lowest outline point is unchanged.
+  const pts = [[17, 64], [21, 67], [25, 62], [19, 67.2], [23, 66.8]];
+  const low = m => Math.max(...pts.map(p => applyPoint(m, ...p)[1]));
+  assert.ok(Math.abs(low(part.leg_l) - low(world.leg_l)) < .25);
+});

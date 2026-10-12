@@ -78,4 +78,15 @@ const USAGI_LIMB_INTENTS = freeze([
   { intent: { kind: 'support', bend: 'support' } }
 ]);
 
-export { USAGI_LIMB_RIG, USAGI_LIMB_INTENTS };
+// Legs: hip sockets on the body silhouette (root space) and the authored foot
+// sole point below each leg pivot. The leg IK keeps the foot exactly where the
+// pose puts it (floor contact unchanged) and re-aims/stretches the leg so its
+// top always stays at the hip socket. stretch bounds the axial scale.
+const USAGI_LEG_RIG = Object.freeze({
+  // Pivot -> outer edge of the sole stroke (sole 8.45 + half outline): the
+  // fixed point of the leg stretch, so the floor line never moves.
+  footDrop: 9.2,
+  stretch: Object.freeze([.55, 1.45])
+});
+
+export { USAGI_LEG_RIG, USAGI_LIMB_RIG, USAGI_LIMB_INTENTS };

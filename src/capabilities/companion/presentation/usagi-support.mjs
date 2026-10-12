@@ -5,7 +5,7 @@ import { expressionAccent, statusEffect } from './usagi-accents.mjs';
 import { motionOffset, applyMotionTransform } from './usagi-body-motion.mjs';
 import { prepareUsagiSample, usagiPropMatrix, paintUsagiProp } from './usagi-contact.mjs';
 import { usagiPartLayer } from './usagi-garment-depth.mjs';
-import { paintLimbsBefore, paintLimbPart } from './usagi-limbs.mjs';
+import { paintLimbsBefore, paintLimbPart, solveUsagiLegs } from './usagi-limbs.mjs';
 import { prepareUsagiEventSample } from './usagi-event-actions.mjs';
 import { paintUsagiEventProp } from './usagi-event-equipment.mjs';
 
@@ -18,7 +18,7 @@ function connectors(ctx, { layer, data, artwork }) {
 }
 
 const support = Object.freeze({
-  appearance, connectors,
+  appearance, connectors, solvePartWorld: solveUsagiLegs,
   paintPart: paintLimbPart,
   prepareSample: (sample, options) => prepareUsagiEventSample(sample, options) || prepareUsagiSample(sample, options),
   propMatrix: usagiPropMatrix,

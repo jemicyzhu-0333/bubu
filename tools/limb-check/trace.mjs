@@ -10,7 +10,7 @@
 // Pure geometry: no canvas required, deterministic, runs in CI.
 import path from 'node:path'; import { pathToFileURL, fileURLToPath } from 'node:url';
 
-export const LIMB_THRESHOLDS = Object.freeze({ popLen: 1.5, maxStretch: .6, maxJump: 6, fps: 30 });
+export const LIMB_THRESHOLDS = Object.freeze({ popLen: 1.5, maxStretch: .6, maxJump: 6, fps: 30, legSep: .05 });
 
 export async function traceLimbs(root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'), { ids = null, views = null, thresholds = LIMB_THRESHOLDS } = {}) {
   const imp = p => import(pathToFileURL(path.join(root, p)).href);
@@ -40,6 +40,12 @@ export async function traceLimbs(root = path.resolve(path.dirname(fileURLToPath(
         if (!action) continue;
         const a = artist.resolve(rig, { action, view, motion: action.motion, progress, elapsedMs: t, channel });
         frames.push({ t, l: limbs.traceUsagiLimb(a, data, 'l'), r: limbs.traceUsagiLimb(a, data, 'r') });
+        // Legs: the drawn leg top must sit on its hip socket (feet are IK targets).
+        if (limbs.traceUsagiLegs) for (const leg of limbs.traceUsagiLegs(a, data)) {
+          // Attached: on the hip socket, or tucked up inside the body (hidden).
+          const sep = leg.tucked ? 0 : Math.hypot(leg.hip[0] - leg.top[0], leg.hip[1] - leg.top[1]);
+          if (sep > (thresholds.legSep ?? .05)) { report.failures.push(`${kind}:${id}/${view}/leg_${leg.side}@${t | 0}ms detached from hip ${sep.toFixed(2)}`); break; }
+        }
       }
       const s = { pops: 0, maxRate: -Infinity, maxLen: 0, maxJump: 0, kinds: new Set() };
       for (let i = 0; i < frames.length; i++) for (const side of ['l', 'r']) {
