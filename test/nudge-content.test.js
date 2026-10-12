@@ -312,7 +312,7 @@ test('routine reminder policy is frozen, bounded and fail-soft', () => {
   assert.deepEqual(routine.actions.map(action => action.label), [
     '已完成',
     '稍后（+15 分钟）',
-    '今天跳过'
+    '跳过本次'
   ]);
   assert.equal(routine.actions[1].deferMinutes, 15);
   assert.equal(nudgePolicy.normalizeReminderRequest({ type: 'routine', maxLevel: 0 }).maxLevel, 1);
@@ -379,7 +379,8 @@ test('the reminder surfaces receive real actions and live sensory updates', () =
   assert.match(corner, /window\.bubu\.onNudgeSensoryProfile\(applyNudgeSensoryProfile\)/);
   assert.match(read('src/renderer/nudge-fullscreen.html'), /window\.bubu\.onNudgeSensoryProfile\(applyNudgeSensoryProfile\)/);
   assert.match(read('src/main.js'), /updateSensory: settings => nudge\.updateSensoryProfile\(settings\)/);
-  assert.match(corner, /if \(e\.key !== 'Tab'\) return/);
+  assert.match(corner, /bindCornerControls\(\{ document, run: action => reminderActions\.run\(action\)/);
+  assert.match(read('src/surfaces/reminders/corner-controls.mjs'), /if \(event\.key !== 'Tab'\) return/);
 });
 
 test('work-end reminders are raised at the protected priority', () => {

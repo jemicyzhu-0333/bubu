@@ -1,5 +1,11 @@
 // App-authored interface copy only. User content and provider output are never catalog keys.
 export const EN = Object.freeze({
+  "过程记录": "Process records",
+  "{count} 条过程记录": "{count} process records",
+  "当天记录较多，仅显示前 {count} 条记录；过程可能不完整。": "This day has many records. Showing the first {count}; some process details may be missing.",
+  "已预约": "Scheduled",
+  "已留作以后": "Saved for later",
+  "已记日常": "Routine logged",
   "原文仅暂存本机，30 分钟后清除。": "Original text stays on this device and clears after 30 minutes.",
   "可能含个人内容。": "May contain personal content.",
   "AI 诊断说明": "About AI diagnostics",
@@ -1928,7 +1934,13 @@ export const EN = Object.freeze({
   "重试这条消息": "Retry this message",
   "有消息待确认，尚未确认保存": "Messages pending confirmation · Saving unconfirmed",
   "已有对话草稿，补充要求仍保留在任务编辑页。": "Your existing conversation draft was kept. Additional instructions are still in the task editor.",
-  "对话未打开，新输入仍暂存；重新打开后可继续。": "The conversation could not be opened. Your new draft is retained for the next attempt."
+  "对话未打开，新输入仍暂存；重新打开后可继续。": "The conversation could not be opened. Your new draft is retained for the next attempt.",
+  "补充下一步（可选）": "Add a next step (optional)",
+  "适合现在开始的推荐": "Suggested tasks to start now",
+  "查看任务列表": "Browse tasks",
+  "暂无可立即开始的任务。": "No tasks are available to start right now.",
+  "暂无可立即开始的任务；其他任务可在“安排”中查看。": "No tasks are available to start right now. Browse other tasks in Plan.",
+  "推荐开始": "Suggested starts"
 
 });
 

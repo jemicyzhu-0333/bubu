@@ -223,7 +223,7 @@ function createQuickPanelFeature({ window, document, client } = {}) {
     if (!candidates.length) {
       const empty = document.createElement('p');
       empty.className = 'quick-empty';
-      empty.textContent = t('先留下一句话。');
+      empty.textContent = t('暂无可立即开始的任务；其他任务可在“安排”中查看。');
       list.appendChild(empty);
       return;
     }
@@ -497,7 +497,7 @@ function createQuickPanelFeature({ window, document, client } = {}) {
           if (copy && candidate) copy.textContent = candidateMeta(candidate);
         });
         const empty = $('#quickCandidates')?.querySelector('.quick-empty');
-        if (empty) empty.textContent = t('先留下一句话。');
+        if (empty) empty.textContent = t('暂无可立即开始的任务；其他任务可在“安排”中查看。');
       }
     }));
     quickStartEditor.mount();

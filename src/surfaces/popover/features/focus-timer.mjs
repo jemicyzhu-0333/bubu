@@ -136,7 +136,29 @@ function createPopoverFocusTimer({
   }
 
   let actionStatusCopy = () => '';
+  let feedbackContext = null;
+  let feedbackGeneration = 0;
+  // Feedback belongs to the rendered execution identity, never the next task or
+  // session. Keep an idle launch failure until that context changes or retry succeeds.
+  function currentFeedbackContext(selectedTaskId = currentTask()?.id || null) {
+    const session = getSession();
+    const phase = session.running ? 'running' : session.paused ? 'paused' : 'idle';
+    const action = session.paused ? session.resumeAction : null;
+    return JSON.stringify([phase, session.sessionId || null, session.taskId || null,
+      session.kind || session.mode || null, session.awaitingOfflineConfirmation === true,
+      phase === 'idle' ? selectedTaskId : null,
+      action?.sessionId || null, action?.intent || null, action?.enabled, action?.reason || null]);
+  }
+  function syncFeedbackContext() {
+    const context = currentFeedbackContext();
+    if (context === feedbackContext) return;
+    feedbackContext = context;
+    feedbackGeneration++;
+    showFocusActionStatus('');
+  }
   function showFocusActionStatus(message = '') {
+    const context = currentFeedbackContext();
+    if (feedbackContext !== context) { feedbackContext = context; feedbackGeneration++; }
     actionStatusCopy = typeof message === 'function' ? message : () => t(message);
     setStatusLine('#focusActionStatus', actionStatusCopy());
   }
@@ -145,7 +167,22 @@ function createPopoverFocusTimer({
     if (!mounted || !visible || launching) return { ok: false, reason: 'launch-pending' };
     launching = true; renderPomoStructure();
     const generation = visibilityGeneration;
-    const current = () => mounted && visible && generation === visibilityGeneration;
+    let feedbackVersion = feedbackGeneration;
+    let context = currentFeedbackContext();
+    let expectedSelectionContext = null;
+    const current = () => {
+      if (!mounted || !visible || generation !== visibilityGeneration) return false;
+      syncFeedbackContext();
+      const observed = currentFeedbackContext();
+      if (feedbackVersion === feedbackGeneration && context === observed) return true;
+      // setNowTask may publish before or after its receipt. Accept only that one
+      // expected idle selection, never another task/session or an intervening switch.
+      if (expectedSelectionContext === observed && feedbackGeneration === feedbackVersion + 1) {
+        context = observed; feedbackVersion = feedbackGeneration; expectedSelectionContext = null;
+        return true;
+      }
+      return false;
+    };
     try {
       const blockReason = taskLaunchBlockReason(task);
       if (['task-expired', 'task-completed', 'occurrence-skipped'].includes(blockReason)) {
@@ -153,7 +190,11 @@ function createPopoverFocusTimer({
         return { ok: false, reason: blockReason };
       }
       if (blockReason === 'task-scheduled') {
+        const beforeSelection = getSession();
+        const selectedContext = !beforeSelection.running && !beforeSelection.paused
+          ? currentFeedbackContext(task.id) : null;
         const selected = await surfaceClient.setNowTask(task.id);
+        if (selected?.ok === true) expectedSelectionContext = selectedContext;
         if (!current()) return { ok: false, reason: 'launch-cancelled' };
         if (!selected || selected.ok === false) {
           const reason = selected && selected.reason || blockReason;
@@ -189,6 +230,7 @@ function createPopoverFocusTimer({
   function renderPomoStructure({ copyOnly = false } = {}) {
     const state = getState();
     if (!state) return;
+    syncFeedbackContext();
     const p = getSession();
     const launch = focusLaunchContext();
     const launchBlockReason = taskLaunchBlockReason(launch.task);

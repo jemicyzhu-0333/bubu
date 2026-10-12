@@ -14,6 +14,7 @@ import { t } from '../../shared/interface/i18n.mjs';
 // - 长时间没有记录时写一行“x 小时没有记录”，只陈述，不评价——空白不等于没做。
 import { routineSymbol } from './routine-symbols.mjs';
 import { timelineCategory, timelineIcon, storedClock, changeDescription, changeDetail } from './timeline-change-row.mjs';
+import { groupTimelineExperiences, previousRecordedEnd } from './timeline-experience.mjs';
 
 const HOUR_MS = 60 * 60 * 1000;
 const MINUTE_MS = 60 * 1000;
@@ -70,7 +71,11 @@ function describeMarker(marker, state) {
   if (marker.redactionState === 'redacted') return { icon: '', label: t('内容已移除'), verb: t('记录'), category: 'muted' };
   if (marker.visibility === 'private') return { icon: '', label: t('私密记录'), verb: t('记录'), category: 'muted' };
   if (marker.kind === 'inbox.captured') return { icon: '', label: t('1 条便签'), verb: t('收下'), category: 'muted' };
-  if (marker.kind === 'inbox.resolved') return { icon: '', label: t('1 条收件'), verb: t('已处理'), category: 'muted' };
+  if (marker.kind === 'inbox.resolved') {
+    const outcomes = { promote: t('已转任务'), 'next-step': t('已转任务'), schedule: t('已预约'),
+      someday: t('已留作以后'), routine: t('已建日常'), log: t('已记日常'), state: t('已记状态'), keep: t('已留存') };
+    return { icon: '', label: t('1 条收件'), verb: outcomes[marker.resolutionAction] || t('已处理'), category: 'muted' };
+  }
   if (marker.kind === 'task.changed') return { icon: '', label: t('任务'), verb: t('已修改'), category: 'muted' };
   if (marker.kind === 'routine.schedule.changed') return { icon: '', label: t('日常计划'), verb: t('已修改'), category: 'routine' };
   if (marker.kind.startsWith('routine.')) {
@@ -228,6 +233,19 @@ function durationWidth(durationMs) {
   return Math.max(6, Math.round(Math.min(1, durationMs / LONG_FOCUS_MS) * 100));
 }
 
+function processDetail(entry) {
+  if (!entry.experienceMembers) return '';
+  const lines = entry.experienceMembers.map(member => {
+    const time = storedClock(member.at, member.marker?.utcOffsetMinutes) || hhmm(member.at);
+    return member.type === 'mood' ? `${time} · ${t('心情')}` : `${time} · ${member.verb} · ${member.label}`;
+  });
+  return `\n${t('过程记录')}\n${lines.join('\n')}`;
+}
+
+function processBadge(entry, escapeHTML) {
+  return entry.experienceMembers ? `<span class="tl-process-count">${escapeHTML(t('{count} 条过程记录', { count: entry.experienceMembers.length }))}</span>` : '';
+}
+
 function entryMarkup(entry, formatMs, escapeHTML, levelAt) {
   const attrs = `data-row-id="${escapeHTML(entry.rowId)}" aria-expanded="false" aria-controls="timelineDetail"`;
   const clock = storedClock(entry.at, entry.marker?.utcOffsetMinutes) || hhmm(entry.at);
@@ -235,10 +253,10 @@ function entryMarkup(entry, formatMs, escapeHTML, levelAt) {
   const level = levelAt(entry.at);
   const energyNote = Number.isFinite(level) ? t(' · 当时估计能量约 {level}', { level: Math.round(level) }) : '';
   if (entry.type === 'mood') {
-    const detail = t('{time} · 你留下的情绪记录 · {text}', { time: hhmm(entry.at), text: entry.text });
+    const detail = t('{time} · 你留下的情绪记录 · {text}', { time: hhmm(entry.at), text: entry.text }) + processDetail(entry);
     return `<li class="tl-row tl-row-mood"><button type="button" class="tl-event" ${attrs} data-detail="${escapeHTML(detail)}">`
       + `<time>${clock}</time><i class="tl-dot" aria-hidden="true">${typeIcon}</i>`
-      + `<span class="tl-text"><span class="tl-verb">${t('心情')}</span><span class="tl-label">${escapeHTML(entry.text)}</span></span>`
+      + `<span class="tl-text"><span class="tl-verb">${t('心情')}</span><span class="tl-label">${escapeHTML(entry.text)}</span>${processBadge(entry, escapeHTML)}</span>`
       + '</button>'
       + `<button type="button" class="tl-del" data-mood-id="${escapeHTML(entry.id)}" aria-label="${t('删除这条情绪记录')}">${t('删除')}</button></li>`;
   }
@@ -254,7 +272,7 @@ function entryMarkup(entry, formatMs, escapeHTML, levelAt) {
       + '</button></li>';
   }
   const detail = entry.marker?.change ? `${clock} · ${entry.verb} · ${entry.label}\n${changeDetail(entry.marker)}`
-    : `${clock} · ${entry.verb} · ${entry.label}${energyNote}`;
+    : `${clock} · ${entry.verb} · ${entry.label}${energyNote}${processDetail(entry)}`;
   const receiptAttr = entry.marker?.change && entry.marker.visibility !== 'private' && entry.marker.redactionState !== 'redacted'
     ? ` data-receipt-id="${escapeHTML(entry.marker.change.receiptId)}"` : '';
   const icon = entry.icon ? `<span class="tl-icon" aria-hidden="true">${entry.icon}</span>` : '';
@@ -262,7 +280,7 @@ function entryMarkup(entry, formatMs, escapeHTML, levelAt) {
   return `<li class="tl-row tl-row-${entry.category}"><button type="button" class="tl-event${doneClass}" ${attrs}${receiptAttr} data-detail="${escapeHTML(detail)}">`
     + `<time>${clock}</time><i class="tl-dot" aria-hidden="true">${typeIcon}</i>`
     + `<span class="tl-text"><span class="tl-verb">${escapeHTML(entry.verb)}</span>`
-    + `<span class="tl-label">${icon}${escapeHTML(entry.label)}</span></span>`
+    + `<span class="tl-label">${icon}${escapeHTML(entry.label)}</span>${processBadge(entry, escapeHTML)}</span>`
     + '</button></li>';
 }
 
@@ -276,8 +294,8 @@ function gapMarkup(ms) {
 function buildTimelineStory({ day, energyCurve, state = {}, formatMs, escapeHTML, filter = 'all' }) {
   const markers = Array.isArray(day.markers) ? day.markers : [];
   const focus = focusEntries(day, state);
-  let entries = [...focus, ...markerEntries(markers, focus, state), ...moodEntries(day, state)]
-    .sort((left, right) => {
+  const records = [...focus, ...markerEntries(markers, focus, state), ...moodEntries(day, state)];
+  let entries = groupTimelineExperiences(records, day).sort((left, right) => {
       const timeOrder = left.at - right.at;
       if (timeOrder) return timeOrder;
       if (left.type === 'focus' && right.type !== 'focus') return -1;
@@ -286,9 +304,11 @@ function buildTimelineStory({ day, energyCurve, state = {}, formatMs, escapeHTML
       const rightId = typeof right.eventId === 'string' ? right.eventId : (right.id || '');
       return leftId < rightId ? -1 : (leftId > rightId ? 1 : 0);
     });
-  entries = entries.map((entry, index) => ({ ...entry, rowId: entry.eventId || entry.id || `legacy-${index}-${entry.at}` }));
+  entries = entries.map((entry, index) => ({ ...entry, rowId: entry.type === 'mood' ? entry.id
+    : entry.experienceId || entry.eventId || entry.id || `legacy-${index}-${entry.at}` }));
   const allEntryCount = entries.length;
   if (filter !== 'all') entries = entries.filter(entry => timelineCategory(entry) === filter
+    || entry.experienceMembers?.some(member => timelineCategory(member) === filter)
     || (entry.marker?.changes || []).some(change => change.kind.startsWith(`${filter}.`)));
   const energy = energySpark(energyCurve, day, state, escapeHTML);
   const rows = [];
@@ -299,12 +319,15 @@ function buildTimelineStory({ day, energyCurve, state = {}, formatMs, escapeHTML
     if (entryPart !== part) {
       rows.push(`<li class="tl-part">${entryPart}</li>`);
       part = entryPart;
-    } else if (lastEnd !== null && entry.at - lastEnd >= GAP_NOTE_MS) {
-      rows.push(gapMarkup(entry.at - lastEnd));
+    } else if (lastEnd !== null) {
+      const previous = previousRecordedEnd(records, entry.at, lastEnd);
+      if (entry.at - previous >= GAP_NOTE_MS) rows.push(gapMarkup(entry.at - previous));
     }
     rows.push(entryMarkup(entry, formatMs, escapeHTML, energy.levelAt));
     lastEnd = Math.max(lastEnd ?? 0, entry.end ?? entry.at);
   }
+  const limit = day.markersTruncated
+    ? `<p class="tl-limit" role="status">${escapeHTML(t('当天记录较多，仅显示前 {count} 条记录；过程可能不完整。', { count: markers.length }))}</p>` : '';
   const list = rows.length
     ? `<ol class="tl-list">${rows.join('')}</ol>`
     : `<p class="tl-none">${t('暂无活动记录。没有逐条记录，不代表没有行动。')}</p>`;
@@ -314,8 +337,9 @@ function buildTimelineStory({ day, energyCurve, state = {}, formatMs, escapeHTML
     firstEvent: entries.length ? entries[0].at : undefined,
     entryCount: entries.length,
     allEntryCount,
+    processRecordCount: records.length,
     energyLabel: energy.label,
-    markup: energy.markup + list
+    markup: energy.markup + limit + list
   };
 }
 

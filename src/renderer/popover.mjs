@@ -431,7 +431,8 @@ function createPopoverSurface({ document, window }) {
     completeTask: completeConfirm.completeTask,
     openTaskEditor: task => taskEditor.open(task),
     runQuickStart: task => focusTimer.runFocusAction('quick-start', task, sessionDuration.QUICK_START_MINUTES),
-    showFocusStatus: focusTimer.showFocusActionStatus
+    showFocusStatus: focusTimer.showFocusActionStatus,
+    openTaskList: () => { $('#tabTasks').click(); $('#tabTasks').focus(); }
   });
   nowCard.mount();
 

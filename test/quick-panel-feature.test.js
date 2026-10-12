@@ -130,3 +130,18 @@ test('title-only candidate action uses the complete canonical task instead of it
   assert.deepEqual(view.candidates[0].quickStartAction, { taskId: 't', intent: 'clarify-and-start', enabled: true,
     reason: null, taskVersion: entityFingerprint(canonical) });
 });
+
+
+
+test('a title-only daily occurrence remains a clarifiable quick candidate under its occurrence id', () => {
+  const occurrence = task('daily-occurrence', 'Daily review', [], {
+    seriesId: 'daily-series', occurrenceDate: '2026-10-12', nextAction: null
+  });
+  const view = buildQuickPanelView({ tasks: [occurrence], now: 1000, startState: {}, pomodoro: {},
+    recommendations: { candidates: [{ task: occurrence }] } });
+  assert.equal(view.candidates.length, 1);
+  assert.equal(view.candidates[0].id, occurrence.id);
+  assert.equal(view.candidates[0].quickStartAction.taskId, occurrence.id);
+  assert.equal(view.candidates[0].quickStartAction.enabled, true);
+  assert.equal(view.candidates[0].quickStartAction.intent, 'clarify-and-start');
+});

@@ -1,6 +1,7 @@
 'use strict';
 import { FACE_LAYOUTS, EYE_SHAPES, MOUTH_SHAPES } from '../../../content/companion/dango-vector.mjs';
 import { sampleFaceChoreography } from './face-choreography.mjs';
+import { sampleDangoQuietFace } from './dango-quiet-face.mjs';
 import { paintVectorShapes, mixVectorColor } from '../../../core/pet-vector-paint.mjs';
 import { sampleRunningPose } from '../../../core/pet-running-pose.mjs';
 const clamp = (value, min, max) => Math.max(min, Math.min(max, Number(value) || 0));
@@ -57,6 +58,7 @@ function sampleDangoFace(expression, options = {}) {
   if (!calmVisual && expressionId === 'life.idle' && sampled?.eyes === 'curious') {
     sampled = Object.freeze({ ...sampled, eyes: 'neutral' });
   }
+  sampled = sampleDangoQuietFace(sampled, options);
   if (action?.motion === 'dash') {
     const p = calmVisual ? .5 : clamp(options.progress, 0, 1);
     const { stride } = sampleRunningPose(p, { calmVisual });

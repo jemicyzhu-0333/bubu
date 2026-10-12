@@ -1026,7 +1026,7 @@ test('a paused session tells the truth when its task is already complete', () =>
   assert.match(js, /p\.resumeAction/);
   assert.match(js, /action\?\.intent, action\?\.enabled, action\?\.reason/);
   assert.doesNotMatch(js, /重新打开任务后才能继续计时/);
-  assert.match(js, /next\.textContent = activeTask\.done \|\| !writtenAction \? t\(presentation\.action\) : presentation\.action/); // Completed-task behavior is exercised in action-workspace.test.js.
+  assert.match(js, /next\.textContent = presentation\.usesTaskTitle \|\| writtenAction && !activeTask\.done\s*\? presentation\.action : t\(presentation\.action\)/); // Completed-task behavior is exercised in action-workspace.test.js.
 });
 
 test('the task list re-renders when the session starts or pauses so its badge stays current', () => {

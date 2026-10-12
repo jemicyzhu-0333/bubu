@@ -5,7 +5,7 @@ const TERMINAL = new Set(['completed', 'cancelled', 'rejected']);
 const MAX_RECENT_TERMINAL_DECISIONS = 64;
 const CANCELLATION_REASONS = new Set([
   'not-visible', 'menu-open', 'dragging', 'dnd', 'sensitive-foreground',
-  'activity-off', 'quiet-mode', 'focus', 'low-stimulation',
+  'activity-off', 'quiet-mode', 'focus', 'session', 'low-stimulation',
   'reduce-motion', 'missing-content', 'interaction', 'presentation-priority'
 ]);
 

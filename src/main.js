@@ -1388,7 +1388,7 @@ function currentSurpriseContext() {
     sensitiveForeground,
     lowStimulation: sensory.lowStimulation,
     reduceMotion: sensory.reduceMotion,
-    focused: isActiveFocusSession(canonicalFocusSession()),
+    sessionActive: isTimingSession(canonicalFocusSession()),
     activityMode: settings.petActivityMode
   };
 }

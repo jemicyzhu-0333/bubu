@@ -41,6 +41,19 @@ jobs:
         run: npm audit --audit-level=low
       - name: Check native admission permissions and builder schema early
         run: node --test test/config-admission-permissions.test.js test/build-schema.test.js
+      - name: Verify synthetic reminder layout in native Electron
+        timeout-minutes: 5
+        run: npx --no-install electron scripts/verify-reminder-layout.cjs dist/reminder-layout
+      - name: Store synthetic reminder layout evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reminder-layout-${{ matrix.platform }}-${{ github.sha }}
+          path: |
+            dist/reminder-layout/*.json
+            dist/reminder-layout/*.png
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Verify native macOS pet viewport without resizing
         timeout-minutes: 2
         if: matrix.platform == 'mac'

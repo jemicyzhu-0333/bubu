@@ -88,13 +88,16 @@
     <p class="now-meta hidden" id="nowMeta" role="status"></p>
     <div class="now-card-foot">
       <span class="blocker-badge hidden" id="nowBlockerBadge"></span>
+      <button type="button" class="chip chip-action hidden" id="btnAddNowStep" data-icon="plus" aria-haspopup="dialog" aria-controls="taskEditMask" data-i18n="补充下一步（可选）">补充下一步（可选）</button>
       <button type="button" class="chip chip-action chip-stuck" id="btnStuck" data-icon="life-buoy" aria-haspopup="dialog" aria-controls="stuckMask" data-i18n="有点卡">有点卡</button>
     </div>
   </section>
 
   <section class="candidate-panel hidden" id="candidatePanel" aria-live="polite" aria-hidden="true">
     <div class="candidate-heading" data-i18n-text="换一件">换一件 <button type="button" class="modal-close" id="closeCandidates" aria-label="关闭候选" data-i18n-aria-label="关闭候选">✕</button></div>
+    <p class="now-meta" data-i18n="适合现在开始的推荐">适合现在开始的推荐</p>
     <div class="candidate-grid" id="candidateGrid"></div>
+    <button type="button" class="chip chip-action" id="btnBrowseTasks" data-i18n="查看任务列表">查看任务列表</button>
   </section>
 
   <section class="pomo-panel">
@@ -1492,4 +1495,3 @@
   <script type="module" src="../surfaces/popover/entry.mjs"></script>
 </body>
 </html>
-

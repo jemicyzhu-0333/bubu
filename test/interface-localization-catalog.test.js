@@ -87,13 +87,13 @@ localeTest('Now translates generated prompts but preserves user actions even whe
     getState: () => state, getSession: () => ({ running: false, paused: false }), escapeHTML: value => value,
     surfaceClient: {}, taskLaunchBlockReason: () => null, focusActionMessage: () => '', taskActionMessage: () => '',
     scoreSummary: () => '', syncBlocker: () => '', canReceiveFocus: () => true, celebrate() {},
-    completeTask() {}, openTaskEditor() {}, runQuickStart() {}, showFocusStatus() {} });
+    completeTask() {}, openTaskEditor() {}, openTaskList() {}, runQuickStart() {}, showFocusStatus() {} });
   setLocale('en'); feature.render();
   assert.equal(h.$('#nowStateLabel').textContent, 'The next small step');
   assert.equal(h.$('#nowCardTitle').textContent, '设置');
   assert.equal(h.$('#nowNextAction').textContent, '开始专注');
   task.nextAction = ''; feature.render();
-  assert.equal(h.$('#nowNextAction').textContent, 'Open what you need and take one small step');
+  assert.equal(h.$('#nowNextAction').textContent, '设置', 'title-only user content is never translated or replaced');
   task.steps = [{ title: '打开材料，只做第一小步', done: false }]; feature.render();
   assert.equal(h.$('#nowNextAction').textContent, '打开材料，只做第一小步');
   task.done = true; feature.render();

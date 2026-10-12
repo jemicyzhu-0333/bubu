@@ -5,6 +5,7 @@ const { createDangoRasterArtist } = require('../src/capabilities/companion/prese
 const { createSleepTransition } = require('../src/surfaces/pet/sleep-transition.mjs');
 const { DANGO_RASTER } = require('../assets/companion/dango/raster/dango.raster.mjs');
 const { EXPRESSIONS } = require('../src/content/expressions.mjs');
+const { isOpenEye, eyeInkRect } = require('../src/capabilities/companion/presentation/dango-eye-projection.mjs');
 const { PALETTES } = require('../src/core/pet-art.mjs');
 const { recordingContext } = require('../test-support/dango-raster-fixture.mjs');
 const loadImage = async src => ({ src, width: 8, height: 8 });
@@ -28,7 +29,7 @@ function sampleInput(now, sleeping, extras = {}) {
     ...extras };
 }
 
-test('focus and wake preserve glyphs, widths, pivots and near-eye scale while fixing only far-eye height', async () => {
+test('focus and wake preserve source glyphs with canonical open pupils and legacy partial-lid proportions', async () => {
   const artist = createDangoRasterArtist({ manifest: DANGO_RASTER, loadImage });
   await artist.ready({ all: true });
   try {
@@ -46,7 +47,8 @@ test('focus and wake preserve glyphs, widths, pivots and near-eye scale while fi
           assert.deepEqual(after[far].rect, before[far].rect, 'authored width and rect retained');
           for (const channel of [0, 1, 2, 4]) close(after[far].matrix[channel], before[far].matrix[channel], 'horizontal channels');
           const heights = after.slice(0, 2).map(call => call.rect[3] * call.matrix[3]);
-          close(heights[0] / heights[1], neutral[0].rect[3] / neutral[1].rect[3], 'canonical height ratio');
+          const expected = isOpenEye(artwork.face.eyes) ? neutral.map(eyeInkRect) : neutral.map(s => s.rect);
+          close(heights[0] / heights[1], expected[0][3] / expected[1][3], 'canonical visible-pupil or partial-lid ratio');
           const pivot = artwork.data.face.eyes[artwork.face.eyes][far].pivot;
           close(after[far].matrix[3] * pivot[1] + after[far].matrix[5],
             before[far].matrix[3] * pivot[1] + before[far].matrix[5], 'vertical pivot');

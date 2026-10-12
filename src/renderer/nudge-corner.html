@@ -63,7 +63,7 @@
     animation: bubbleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
     letter-spacing: 0.5px;
     overflow-wrap: break-word;
-    white-space: pre-wrap;
+    white-space: normal;
     z-index: 2;
   }
   .bubble-copy { white-space: pre-wrap; }
@@ -175,13 +175,19 @@
       <div class="name-tag" id="nameTag">·</div>
     </div>
   </div>
-  <span class="keyboard-hint" id="keyboardHint" hidden></span>
-  <button type="button" class="close-hint" id="closeBtn" aria-label="关闭提醒" data-i18n-aria-label="关闭提醒" data-i18n="✕ 我知道了">✕ 我知道了</button>
+  <div class="nudge-footer">
+    <span class="keyboard-hint" id="keyboardHint" hidden></span>
+    <button type="button" class="close-hint" id="closeBtn" aria-label="关闭提醒" data-i18n-aria-label="关闭提醒" data-i18n="关闭提醒">关闭提醒</button>
+  </div>
 <script type="module" nonce="bubu-corner">
 import "../surfaces/shared/interface/entry.mjs";
 import { t, onLocaleChanged } from "../surfaces/shared/interface/i18n.mjs";
 import { createReminderActions } from "../surfaces/reminders/actions.mjs";
+import { bindCornerControls } from "../surfaces/reminders/corner-controls.mjs";
 const reminderActions = createReminderActions({ document, dismiss: action => window.bubu.dismissNudge(action) });
+const stopControls = bindCornerControls({ document, run: action => reminderActions.run(action),
+  onFocus: callback => window.bubu.onNudgeFocus(callback),
+  setPointerInteractive: interactive => window.bubu.setNudgePointerInteractive(interactive) });
 let actionCopies = [], latestData = null;
 function repaintNudgeCopy() {
   for (const [node, source] of actionCopies) node.textContent = t(source);
@@ -190,7 +196,7 @@ function repaintNudgeCopy() {
     ? t('{shortcut} 操作', { shortcut: latestData.keyboardShortcut }) : '';
 }
 const stopLocaleCopy = onLocaleChanged(repaintNudgeCopy);
-window.addEventListener('pagehide', () => { stopLocaleCopy(); reminderActions.dispose(); actionCopies = []; latestData = null; }, { once: true });
+window.addEventListener('pagehide', () => { stopControls(); stopLocaleCopy(); reminderActions.dispose(); actionCopies = []; latestData = null; }, { once: true });
   const canvas = document.getElementById('charCanvas');
   const ctx = canvas.getContext('2d');
   ctx.imageSmoothingEnabled = false;
@@ -332,56 +338,6 @@ window.addEventListener('pagehide', () => { stopLocaleCopy(); reminderActions.di
     }
   });
 
-  document.getElementById('closeBtn').addEventListener('click', () => {
-    void reminderActions.run('dismiss');
-  });
-
-  document.body.addEventListener('click', (e) => {
-    if (e.target.id !== 'closeBtn') {
-      // Click character or bubble → dismiss too
-      void reminderActions.run('dismiss');
-    }
-  });
-
-  const interactiveNodes = [document.getElementById('bubble'), document.querySelector('.char-wrap'), document.getElementById('closeBtn')];
-  interactiveNodes.forEach(node => {
-    node.addEventListener('mouseenter', () => window.bubu.setNudgePointerInteractive(true));
-    node.addEventListener('mouseleave', (event) => {
-      if (!interactiveNodes.some(candidate => candidate.contains(event.relatedTarget))) {
-        window.bubu.setNudgePointerInteractive(false);
-      }
-    });
-  });
-
-  function focusableControls() {
-    return Array.from(document.querySelectorAll('.nudge-action:not(:disabled), #closeBtn:not(:disabled)'));
-  }
-
-  window.bubu.onNudgeFocus(() => {
-    const controls = focusableControls();
-    const primary = controls.find(control => control.classList.contains('primary')) || controls[0];
-    if (primary) primary.focus({ preventScroll: true });
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      e.preventDefault();
-      void reminderActions.run('dismiss');
-      return;
-    }
-    if (e.key !== 'Tab') return;
-    const controls = focusableControls();
-    if (controls.length === 0) return;
-    const first = controls[0];
-    const last = controls[controls.length - 1];
-    if (e.shiftKey && (document.activeElement === first || !controls.includes(document.activeElement))) {
-      e.preventDefault();
-      last.focus();
-    } else if (!e.shiftKey && document.activeElement === last) {
-      e.preventDefault();
-      first.focus();
-    }
-  });
 </script>
 </body>
 </html>

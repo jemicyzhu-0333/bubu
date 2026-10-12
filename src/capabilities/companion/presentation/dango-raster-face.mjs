@@ -3,6 +3,7 @@
 import { EYE_FALLBACKS, MOUTH_FALLBACKS, requestedEyes } from './rig/face.mjs';
 import { localMatrix, multiply } from './rig/pose.mjs';
 import { pivotFor } from './dango-raster-pose.mjs';
+import { projectOpenEye, apertureFor } from './dango-eye-projection.mjs';
 const clamp = (n, low, high) => Math.max(low, Math.min(high, Number(n) || 0));
 
 // Every authored open-eye glyph keeps the canonical pair’s vertical proportion. Width
@@ -44,6 +45,24 @@ function drawRasterFace(context, artwork, expression, blinking, palette, { paint
   const inset = clamp(face.eyeInsetX, -1, 1.5);
   const heights = eyeHeightScales(artwork, eyes);
   for (const [i, sprite] of (eyes?.sprites || []).entries()) {
+    const projection = projectOpenEye(artwork.data, eyes.key, sprite, i);
+    if (projection) {
+      // Occlude a fixed pupil with an upper lid instead of scaling the pupil
+      // and its highlight. A single sprite avoids cross-fade double pupils.
+      const aperture = artwork.eyeAperture ?? apertureFor(face);
+      const [left, top, width, height] = projection.rect;
+      context.save();
+      if (artwork.lookback) context.transform(...artwork.lookback.matrices[i]);
+      context.translate(x + inset * (i ? -1 : 1), y);
+      if (aperture < 1) {
+        context.beginPath();
+        context.rect(left, top + height * (1 - aperture), width, height * aperture);
+        context.clip();
+      }
+      painter.paint(context, sprite, palette, projection.matrix);
+      context.restore();
+      continue;
+    }
     const openness = closed ? 1 : Math.max(.25, Math.min(1.15, face.openness ?? 1));
     let matrix = localMatrix(pivotFor(sprite), {
       x: x + inset * (i ? -1 : 1), y, sy: openness

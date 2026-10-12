@@ -1,8 +1,6 @@
 // Read-only presentation of the execution projection; never settles a session.
-// The headline is always one physical action: a written next action, the next open
-// step, or — when neither exists — the universal first step instead of repeating the
-// task title (PRODUCT「不可破坏的原则」: 行动小于规划).
-const FIRST_STEP = '打开材料，只做第一小步';
+// The headline uses a written next action or the next open
+// step. Without a written action, show the real task title, never an invented step.
 
 function actionPresentation(state, session, task, candidate, { hasOpenTasks = false } = {}) {
   const landing = state.quickStartResolutionPending === true
@@ -15,9 +13,10 @@ function actionPresentation(state, session, task, candidate, { hasOpenTasks = fa
   const step = candidate?.nextStep || task?.steps?.find(item => !item.done);
   const idle = session.running || session.paused ? '这一段，留给手边的事'
     : hasOpenTasks ? '从任务里换一件来做' : '把脑中的一件事放下来';
+  const usesTaskTitle = Boolean(task && !task.done && !task.nextAction && !step?.title);
   const action = task?.done ? '这件事已经做完了'
-    : task ? task.nextAction || step?.title || FIRST_STEP
+    : task ? task.nextAction || step?.title || task.title
       : idle;
-  return { phase, label: labels[phase], action };
+  return { phase, label: labels[phase], action, usesTaskTitle };
 }
-export { actionPresentation, FIRST_STEP };
+export { actionPresentation };
