@@ -1,6 +1,9 @@
 'use strict';
 
+import { hermite } from './motion-core/easing.mjs';
 import { samplePaperReturn } from './paper-return-story.mjs';
+import { accentSpec, accentSignal } from './motion-core/accents.mjs';
+import { springFollow } from './motion-core/secondary.mjs';
 import { motionCaps, motionCapsById } from './motion-core/action-capabilities.mjs';
 import { sampleHatStar } from './hat-star-path.mjs';
 import { sampleGroundedMoonwalk } from './grounded-moonwalk.mjs';
@@ -9,7 +12,7 @@ import { applyPoint } from './rig/pose.mjs';
 import { gestureShoulder } from './usagi-gesture-limbs.mjs';
 
 const TAU = Math.PI * 2;
-const ease = t => t * t * (3 - 2 * t);
+const ease = hermite;
 const mix = (a, b, t) => a.map((value, i) => value + (b[i] - value) * t);
 const rotate = (point, angle) => [point[0] * Math.cos(angle) - point[1] * Math.sin(angle),
   point[0] * Math.sin(angle) + point[1] * Math.cos(angle)];
@@ -50,9 +53,20 @@ function prepareUsagiSample(sample, { data, view, progress = 0, calmVisual = fal
   const t = calmVisual ? MOTIONS[sample.motion].hold : ((Number(progress) || 0) % 1 + 1) % 1;
   const bones = { ...sample.bones }, propPoses = { ...sample.propPoses };
   const layout = VIEWS[view] || VIEWS.front, hold = contactWeight(t), wave = Math.sin(TAU * t);
+  // Secondary follow-through: ears trail the shared body accent on a spring.
+  const accent = calmVisual || !action ? null : accentSpec(action.id);
+  if (accent && accent.ears) {
+    const durationMs = action.duration || action.durationMs || 8000;
+    const lag = springFollow(accentSignal(action, durationMs), t * durationMs, { stiffness: 140, damping: 9, windowMs: 500 });
+    const r = Math.max(-.16, Math.min(.16, lag * accent.ears * 3));
+    if (r) {
+      bones.ear_l = { ...(bones.ear_l || {}), r: (bones.ear_l?.r || 0) - r };
+      bones.ear_r = { ...(bones.ear_r || {}), r: (bones.ear_r?.r || 0) + r };
+    }
+  }
   // Keep the story's original lavender pillow through preparation, sleep
   // and waking. Its final stretch explicitly releases the prop.
-  const napping = action?.id === 'rest-nap';
+  const napping = Boolean(motionCaps(action).napPillow);
   const props = sample.props;
   const has = id => props.includes(id);
   const near = data.bones.hand_r.pivot;
@@ -180,10 +194,10 @@ function prepareUsagiSample(sample, { data, view, progress = 0, calmVisual = fal
     bones.hand_l = { r: 0 };
     bones.hand_r = { r: 0 };
   }
-  const freeWave = sample.motion === 'wave' && ['wave', 'rest-window', 'rest-plant'].includes(action?.id);
-  const freeStretch = sample.motion === 'stretch'
-    && ['stretch', 'rest-stretch', 'rest-daydream'].includes(action?.id) && props.length === 0;
-  const gesture = ['yawn', 'high-five'].includes(action?.id) ? action.id
+  const declared = motionCaps(action).gesture;
+  const freeWave = sample.motion === 'wave' && declared === 'wave';
+  const freeStretch = sample.motion === 'stretch' && declared === 'stretch' && props.length === 0;
+  const gesture = declared === 'yawn' || declared === 'high-five' ? declared
     : freeWave ? 'wave' : freeStretch ? 'stretch' : null;
   if (gesture === 'yawn' || gesture === 'high-five') {
     const lift = gesture === 'yawn' ? Math.sin(Math.PI * t) ** 2 : contactWeight(t, .04, .32, .6, .96);
