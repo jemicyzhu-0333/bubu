@@ -1,5 +1,8 @@
 'use strict';
 
+import { sampleAccent } from './motion-core/accents.mjs';
+import { motionCaps } from './motion-core/action-capabilities.mjs';
+import { bodyFloor } from './motion-core/form-anchors.mjs';
 import petArt from '../../../core/pet-art.mjs';
 import petActionArt from '../../../core/pet-action-art.mjs';
 import { drawActionParticle } from '../../../core/pet-action-particles.mjs';
@@ -259,7 +262,23 @@ function motionOffset(form, action, motion, progress, options) {
 
 function applyMotionTransform(context, form, action, motion, progress, options) {
   if (form.renderer === 'pixel') petActionArt.applyBodyTransform(context, action, progress, options);
-  else artistFor(form).applyMotionTransform(context, motion, progress, { ...options, action });
+  else {
+    artistFor(form).applyMotionTransform(context, motion, progress, { ...options, action });
+    applyAccent(context, form, action, progress, options);
+  }
+}
+
+// Shared accent layer (motion-core/accents.mjs): squash/stretch about the
+// form's floor line, so soles stay planted. Story-owned body poses
+// (capability `body`) already carry their own accents.
+function applyAccent(context, form, action, progress, options) {
+  if (options.calmVisual || options.reducedMotion || options.state === 'dragged' || motionCaps(action).body) return;
+  const accent = sampleAccent(action, progress);
+  if (accent.s === 0) return;
+  const size = Number(options.size) || 0, floor = bodyFloor(form.id, size);
+  context.translate(size / 2, floor);
+  context.scale(accent.sx, accent.sy);
+  context.translate(-size / 2, -floor);
 }
 
 function drawBackDetails(context, form, palette, options) {

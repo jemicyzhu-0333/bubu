@@ -42,6 +42,9 @@ test('R1 catalogue world, grips and prop tracks preserve the authenticated basel
       delete current.world.leg_l; delete current.world.leg_r;
       delete original.world.leg_l; delete original.world.leg_r;
     }
+    // Ears are leaf bones driven additionally by the motion-core secondary
+    // spring (test/motion-core.test.js covers it). Every other bone stays golden.
+    for (const ear of ['ear_l', 'ear_r']) { delete current.world[ear]; delete original.world[ear]; }
     if (identity.id === 'magic-trick') { delete current.propPoses.star; delete original.propPoses.star; }
     comparePoseValues(current, original, `${i}/${identity.id}/${identity.view}/${identity.progress}`, report);
   }

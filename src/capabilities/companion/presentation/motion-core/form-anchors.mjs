@@ -29,3 +29,8 @@ function storyAnchors(story, formId = 'usagi') {
 const toSpace = (anchors, [u, v]) => [u * anchors.space[0], v * anchors.space[1]];
 const toNormalized = (anchors, [x, y]) => [x / anchors.space[0], y / anchors.space[1]];
 export { STORY_ANCHORS, storyAnchors, toSpace, toNormalized };
+// Floor line of each form's composed body, as a fraction of the square body
+// canvas (measured from the idle raster's lowest opaque row). Accents pivot here.
+const BODY_FLOOR = Object.freeze({ usagi: 323 / 438, dango: 311 / 438 });
+const bodyFloor = (formId, size) => (BODY_FLOOR[formId] ?? BODY_FLOOR.usagi) * size;
+export { BODY_FLOOR, bodyFloor };

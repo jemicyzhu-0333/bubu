@@ -46,7 +46,7 @@ test('memoFrame: one computation per distinct frame key, identical object on hit
 });
 test('capability hooks replace action-id checks; content overrides merge', () => {
   assert.ok(core.motionCaps({ id: 'paper-return' }).interruptExit); assert.equal(core.motionCaps({ id: 'paper-return' }).interruptExit.durationMs, 420);
-  assert.ok(core.motionCaps({ id: 'sip-tea' }).handoffRecovery); assert.deepEqual(core.motionCaps({ id: 'wave' }), {});
+  assert.ok(core.motionCaps({ id: 'sip-tea' }).handoffRecovery); assert.deepEqual(core.motionCaps({ id: 'unknown-action' }), {}); assert.equal(core.motionCaps({ id: 'wave' }).gesture, 'wave');
   assert.deepEqual(core.motionCaps(null), {});
   const custom = { id: 'custom', motionCaps: { ownsGround: true, interruptExit: { durationMs: 300, completeAt: .9 } } };
   assert.equal(core.motionCaps(custom), core.motionCaps(custom), 'merge cached per action object');
@@ -97,4 +97,18 @@ test('migrated stories keep invariants and add polish', () => {
   near(core.actionBodyPose({ id: 'paper-return' }, .1).x, 0);
   // Hat star twinkles only while hovering at the reveal.
   assert.equal(sampleHatStar(.3).spin, 0); assert.ok(sampleHatStar(.63).spin > 0);
+});
+test('accent layer: every catalogue action except story-owned bodies has one; bounded, identity at ends, calm off', () => {
+  const { PET_ACTIONS } = require('../src/content/behaviors.mjs');
+  for (const action of Object.values(PET_ACTIONS)) {
+    if (core.motionCaps(action).body) { assert.equal(core.accentSpec(action.id), null, action.id); continue; }
+    assert.ok(core.accentSpec(action.id), `${action.id} declares an accent`);
+    assert.deepEqual(core.sampleAccent(action, 0), { sx: 1, sy: 1, s: 0 });
+    assert.deepEqual(core.sampleAccent(action, 1), { sx: 1, sy: 1, s: 0 });
+    assert.equal(core.sampleAccent(action, .5, true).s, 0);
+    let peak = 0; for (let i = 0; i <= 400; i++) peak = Math.max(peak, Math.abs(core.sampleAccent(action, i / 400).s));
+    assert.ok(peak > .005 && peak < .08, `${action.id}: visible but bounded squash (${peak})`);
+  }
+  assert.deepEqual(core.sampleAccent({ id: 'unknown' }, .5), { sx: 1, sy: 1, s: 0 });
+  assert.ok(core.bodyFloor('usagi', 100) > 70 && core.bodyFloor('dango', 100) < core.bodyFloor('usagi', 100));
 });

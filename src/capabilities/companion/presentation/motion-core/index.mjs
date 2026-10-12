@@ -7,3 +7,4 @@ export * from './action-capabilities.mjs';
 export * from './form-anchors.mjs';
 export * from './accessory-stack.mjs';
 export * from './body-poses.mjs';
+export * from './accents.mjs';
