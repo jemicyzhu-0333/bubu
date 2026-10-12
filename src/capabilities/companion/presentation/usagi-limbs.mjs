@@ -90,7 +90,9 @@ function limbGeometry(artwork, data, side, intent = intentFor(artwork, side, dat
   const inward = [centre[0] - socket[0], centre[1] - socket[1]], il = Math.hypot(...inward) || 1;
   const from = [socket[0] + inward[0] / il * USAGI_LIMB_RIG.bury, socket[1] + inward[1] / il * USAGI_LIMB_RIG.bury];
   const control = controlThrough(from, elbow, to);
-  return { from, to, control, elbow, socket, chain, intent,
+  // `from` is the socket (visible limb start); `root` is the buried paint root.
+  const root = from;
+  return { from: socket, root, to, control, elbow, socket, chain, intent,
     radius: USAGI_LIMB_RIG.wristRadius, rootRadius: USAGI_LIMB_RIG.rootRadius,
     // Contact family keeps an open shoulder: no stroke closes the root.
     openRoot: true, inside: socket };
@@ -134,7 +136,7 @@ function paintLimb(ctx, artwork, data, side, { mergeSocket = true, alpha = 1 } =
   }
   if (!geometry.intent) return false;
   const startT = 0;
-  const { outer, inner, angle } = limbSilhouette(geometry.from, geometry.control, geometry.to,
+  const { outer, inner, angle } = limbSilhouette(geometry.root, geometry.control, geometry.to,
     { rootRadius: geometry.rootRadius, wristRadius: geometry.radius, startT });
   const shape = data.parts.find(part => part.bone === `hand_${side}`)?.shapes.find(v => v.fill && v.fill !== 'none');
   const outline = () => {
@@ -153,10 +155,12 @@ function paintLimb(ctx, artwork, data, side, { mergeSocket = true, alpha = 1 } =
   if (mergeSocket && !behindBody(artwork.drawnView, side)) {
     // Socket mask: inside the body near the socket the limb outline is erased,
     // so the root merges into the body silhouette (no cap, no double line).
-    ctx.beginPath(); ctx.rect(-200, -200, 500, 500);
     const s = geometry.socket, r = USAGI_LIMB_RIG.socketRadius;
-    ctx.moveTo(s[0] + r, s[1]); ctx.arc(s[0], s[1], r, 0, Math.PI * 2);
-    ctx.clip('evenodd');
+    if (typeof ctx.clip === 'function') {
+      ctx.beginPath(); ctx.moveTo(-200, -200); ctx.lineTo(300, -200); ctx.lineTo(300, 300); ctx.lineTo(-200, 300);
+      for (let i = 0; i <= 24; i++) { const a = -i / 24 * Math.PI * 2; (i ? ctx.lineTo : ctx.moveTo).call(ctx, s[0] + Math.cos(a) * r, s[1] + Math.sin(a) * r); }
+      ctx.clip('evenodd');
+    }
   }
   ctx.beginPath(); outline();
   ctx.strokeStyle = shape?.stroke || '#351710'; ctx.lineWidth = USAGI_LIMB_RIG.outline;

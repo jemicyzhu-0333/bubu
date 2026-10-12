@@ -33,15 +33,15 @@ function contactWeight(t, start = .08, ready = .32, release = .68, end = .94) {
 
 // Solve the wrist after orienting the tool. Hand and equipment then share the
 // same complete bone matrix, including the artist's action transition blend.
-function placePaw(bones, data, side, target, armAngle, toolAngle = 0, maxReach = USAGI_LIMB_RIG.arm.upper + USAGI_LIMB_RIG.arm.lower) {
+function placePaw(bones, data, side, target, armAngle, toolAngle = 0, maxReach = USAGI_LIMB_RIG.arm.upper + USAGI_LIMB_RIG.arm.lower, reachFrom = null) {
   const arm = `arm_${side}`, hand = `hand_${side}`;
   const shoulder = data.bones[arm].pivot, wrist = data.bones[hand].pivot;
   // Reach clamp (fixed bone lengths): a target beyond the arm's reach from the
   // shoulder moves the paw onto the reach circle instead of stretching the arm.
   // Props bound to this hand bone follow, so the grip is never lost.
-  const reach = Math.hypot(target[0] - shoulder[0], target[1] - shoulder[1]);
-  if (reach > maxReach) target = [shoulder[0] + (target[0] - shoulder[0]) * maxReach / reach,
-    shoulder[1] + (target[1] - shoulder[1]) * maxReach / reach];
+  const origin = reachFrom || shoulder, reach = Math.hypot(target[0] - origin[0], target[1] - origin[1]);
+  if (reach > maxReach) target = [origin[0] + (target[0] - origin[0]) * maxReach / reach,
+    origin[1] + (target[1] - origin[1]) * maxReach / reach];
   const offset = rotate([wrist[0] - shoulder[0], wrist[1] - shoulder[1]], armAngle);
   bones[arm] = { r: armAngle, x: target[0] - shoulder[0] - offset[0], y: target[1] - shoulder[1] - offset[1] };
   bones[hand] = { r: toolAngle - armAngle };
@@ -159,7 +159,7 @@ function prepareUsagiSample(sample, { data, view, progress = 0, calmVisual = fal
     // independent forehead bob never reached the hand at any phase.
     const catchWeight = contactWeight(t, .08, .4, .64, .94);
     const caught = view === 'front' || view === 'back' ? [64, 53] : [60, 54];
-    placePaw(bones, data, 'r', mix(near, caught, catchWeight), -.35 * catchWeight, 0, USAGI_LIMB_RIG.supportReach);
+    placePaw(bones, data, 'r', mix(near, caught, catchWeight), -.35 * catchWeight, 0, USAGI_LIMB_RIG.supportReach, gestureShoulder(view, 'r'));
     propPoses.star = { catchWeight };
   }
   if (sample.motion === 'juggle' && has('balls-l')) {

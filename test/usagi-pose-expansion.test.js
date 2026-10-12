@@ -46,6 +46,9 @@ test('R1 catalogue world, grips and prop tracks preserve the authenticated basel
     // spring (test/motion-core.test.js covers it). Every other bone stays golden.
     for (const ear of ['ear_l', 'ear_r']) { delete current.world[ear]; delete original.world[ear]; }
     if (identity.id === 'magic-trick') { delete current.propPoses.star; delete original.propPoses.star; }
+    // Fixed-length arms: the catch reach is clamped to the limb rig's support
+    // reach (test/limb-system.test.mjs covers it). Other bones stay golden.
+    if (identity.id === 'catch-star') for (const bone of ['arm_r', 'hand_r']) { delete current.world[bone]; delete original.world[bone]; }
     comparePoseValues(current, original, `${i}/${identity.id}/${identity.view}/${identity.progress}`, report);
   }
   t.diagnostic(`Pose baseline numeric drift: ${JSON.stringify(report)}`);
