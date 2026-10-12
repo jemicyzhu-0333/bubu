@@ -79,7 +79,16 @@ function drawRasterFace(context, artwork, expression, blinking, palette, { paint
     if (artwork.lookback) matrix = multiply(artwork.lookback.matrices[i], matrix);
     painter.paint(context, sprite, palette, matrix);
   }
-  if (mouth) painter.paint(context, mouth.sprites[0], palette, artwork.lookback?.matrices[2]);
+  if (mouth) {
+    const sprite = mouth.sprites[0], sy = artwork.calmVisual ? 1 : clamp(face.mouthScaleY ?? 1, .3, 1);
+    let matrix = artwork.lookback?.matrices[2];
+    if (sy !== 1) {
+      // Flatten about the mouth centre while a quiet phrase swaps mouth glyphs.
+      const cy = sprite.rect[1] + sprite.rect[3] / 2, squash = [1, 0, 0, sy, 0, cy * (1 - sy)];
+      matrix = matrix ? multiply(matrix, squash) : squash;
+    }
+    painter.paint(context, sprite, palette, matrix);
+  }
   return wanted;
 }
 

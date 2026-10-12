@@ -67,3 +67,24 @@ test('live sync DND reaches the actual renderer face sampler and suppresses only
   assert.equal(harness.runtime.sample().expressionId,'life.idle');
  }finally{harness.runtime.stop();delete globalThis.Image;delete globalThis.Path2D;}
 });
+
+test('quiet mouth swaps flatten and reopen smoothly instead of hard cutting',()=>{
+ let checked=0;
+ for(const id of ['life.idle','work.focus','work.rest']){
+  const exp=EXPRESSIONS.find(x=>x.id===id),period=EXPRESSION_PHRASES[id][0];
+  for(let cycle=0;cycle<3;cycle++){
+   let prev=null;
+   for(let t=cycle*period;t<(cycle+1)*period;t+=4){
+    const opts={expressionId:id,motion:'idle',expressionElapsedMs:t};
+    const face=sampleDangoFace(exp.face,opts),base=sampleFaceChoreography(exp.face,opts).mouth;
+    const sy=face.mouthScaleY??1;
+    if(prev){
+     assert.ok(Math.abs(sy-prev.sy)<=.1,`${id} mouth scale step ${prev.sy}->${sy} at ${t}`);
+     if(face.mouth!==prev.mouth&&base===prev.base){checked++;assert.ok(Math.max(sy,prev.sy)<=.56,`${id} swap at ${t} not flattened (${sy})`);}
+    }
+    prev={sy,mouth:face.mouth,base};
+   }
+  }
+ }
+ assert.ok(checked>0);
+});

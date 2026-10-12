@@ -24,7 +24,7 @@ function drawDangoFace(context, palette, face = {}, blinking = false, view = 'fr
     context.restore();
   }
   const mouth = MOUTH_SHAPES[face.mouth] ? face.mouth : 'neutral';
-  context.save(); context.translate(layout.mouth.x, layout.mouth.y); context.scale(layout.mouth.scaleX, 1);
+  context.save(); context.translate(layout.mouth.x, layout.mouth.y); context.scale(layout.mouth.scaleX, Math.max(.3, Math.min(1, Number(face.mouthScaleY) || 1)));
   paintVectorShapes(context, MOUTH_SHAPES[mouth], palette); context.restore();
   if (['smile', 'open', 'chew', 'grin'].includes(mouth) || ['shy', 'content'].includes(eyes)) {
     context.save(); context.globalAlpha *= .24;
