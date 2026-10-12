@@ -31,6 +31,9 @@ body[data-surface="nudge-corner"] .bubble {
   font-size: 13px; font-weight: 400; letter-spacing: normal;
   border-width: 1px; border-radius: 12px; box-shadow: 0 4px 14px #0002;
 }
+/* The external decorative tail would create horizontal overflow inside this
+   scrollable card. Keep the card border as its silhouette at every corner. */
+body[data-surface="nudge-corner"] .bubble::after { display: none; }
 body[data-surface="nudge-corner"] .bubble :is(.bubble-copy, .nudge-action, .nudge-status) {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
   image-rendering: auto;

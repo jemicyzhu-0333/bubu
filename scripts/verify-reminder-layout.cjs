@@ -50,6 +50,11 @@ function measure() {
     return { x: r.x, y: r.y, width: r.width, height: r.height, right: r.right, bottom: r.bottom };
   };
   const controls = [...document.querySelectorAll('.nudge-action, #closeBtn')];
+  const elementInfo = element => element ? {
+    tag: element.tagName, id: element.id, role: element.getAttribute('role'), tabIndex: element.tabIndex,
+    rect: rect(element), scrollTop: element.scrollTop, scrollHeight: element.scrollHeight,
+    clientHeight: element.clientHeight, scrollWidth: element.scrollWidth, clientWidth: element.clientWidth,
+  } : null;
   function visible(element) {
     const r = element.getBoundingClientRect(), tolerance = 1;
     if (!(r.width > 0 && r.height > 0) || r.left < -tolerance || r.top < -tolerance
@@ -77,6 +82,8 @@ function measure() {
     footer: rect(document.querySelector('.nudge-footer')), language: document.documentElement.lang,
     status: document.getElementById('nudgeStatus').textContent,
     active: controls.indexOf(document.activeElement),
+    activeElement: elementInfo(document.activeElement), documentHasFocus: document.hasFocus(),
+    scrollRegions: ['bubble', 'bubbleCopy', 'nudgeStatus'].map(id => elementInfo(document.getElementById(id))),
     controls: controls.map(element => ({ text: element.textContent, rect: rect(element), visible: visible(element), disabled: element.disabled })) };
 }
 async function read() { return current.webContents.executeJavaScript(`(${measure.toString()})()`); }
@@ -129,7 +136,7 @@ async function verifyCase(fixture, index) {
     await wait(40); await painted();
   }
   const initial = await read();
-  const item = { fixture, layout: { width: layout.width, height: layout.height }, initial, focused: [], keyboard: [] };
+  const item = { fixture, layout: { width: layout.width, height: layout.height }, initial, focused: [], keyboard: [], keyboardElements: [] };
   report.cases.push(item);
   assert.equal(initial.language, fixture.locale);
   assert.equal(initial.controls.length, 4);
@@ -147,6 +154,8 @@ async function verifyCase(fixture, index) {
   current.webContents.send('nudge:focus-controls'); await painted();
   for (let press = 0; press < 5; press++) {
     const view = await read(); item.keyboard.push(view.active);
+    item.keyboardElements.push({ activeElement: view.activeElement, documentHasFocus: view.documentHasFocus,
+      scrollRegions: view.scrollRegions });
     assert.equal(view.active, press % 4, 'keyboard order and wrap');
     current.webContents.sendInputEvent({ type: 'keyDown', keyCode: 'Tab' });
     current.webContents.sendInputEvent({ type: 'keyUp', keyCode: 'Tab' });
