@@ -1,6 +1,7 @@
 'use strict';
 
 import { paperReturnFace } from './paper-return-story.mjs';
+import { motionCaps } from './motion-core/action-capabilities.mjs';
 import { refinePaperReturn, refineHandoffCup } from './dango-paper-return.mjs';
 import { bodyOffset } from '../../../core/pet-action-art.mjs';
 import { sampleVectorAction } from '../../../core/pet-action-vector.mjs';
@@ -121,7 +122,7 @@ function sampleRasterPose(data, { view = 'front', motion = 'idle', action = null
     detail.amount = lookback.cue; detail.at = [-1, 8];
   }
   const feet = mirrorFeet(data.anchors, mirror) || (motion === 'dash' ? sampleRasterRunningFeet(data, p, frozen, runFootTiming)
-    : sampleFeet(walking || action?.id === 'carry-energy' ? 'walk' : action?.id === 'paper-return' ? 'idle' : motion,
+    : sampleFeet(walking || action?.id === 'carry-energy' ? 'walk' : motionCaps(action).story === 'paper-return' ? 'idle' : motion,
       walking ? elapsedMs % 760 / 760 : p, view, frozen || Boolean(lookback), data.anchors));
   const matrices = {};
   for (const [side, bone] of [['left', 'ear_l'], ['right', 'ear_r']]) {

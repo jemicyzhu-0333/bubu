@@ -1,6 +1,7 @@
 'use strict';
 
 import { samplePaperReturn } from './paper-return-story.mjs';
+import { motionCaps, motionCapsById } from './motion-core/action-capabilities.mjs';
 import { sampleHatStar } from './hat-star-path.mjs';
 import { sampleGroundedMoonwalk } from './grounded-moonwalk.mjs';
 import { MOTIONS } from './rig/motions.mjs';
@@ -55,7 +56,7 @@ function prepareUsagiSample(sample, { data, view, progress = 0, calmVisual = fal
   const props = sample.props;
   const has = id => props.includes(id);
   const near = data.bones.hand_r.pivot;
-  if (action?.id === 'magic-trick' && has('hat')) {
+  if (motionCaps(action).story === 'hat-star' && has('hat')) {
     propPoses.star = { opacity: sampleHatStar(t).opacity };
   }
   if (sample.motion === 'moonwalk') {
@@ -123,10 +124,10 @@ function prepareUsagiSample(sample, { data, view, progress = 0, calmVisual = fal
     placePaw(bones, data, 'r', mix([50, 48], [54, 43], windup), .35 - windup * 1.1, 0);
     propPoses.plane = { opacity: t < .86 ? 1 : 1 - ease(Math.min(1, (t - .86) / .1)) };
   }
-  if (action?.id === 'paper-return' && has('plane')) {
-    const story = samplePaperReturn(progress, calmVisual, action.paperReturnExit);
-    const engaged = action.paperReturnExit ? contactWeight(action.paperReturnExit.progress, 0, .14, .9, 1)
-      * (1 - ease(Math.max(0, (action.paperReturnExit.t - .55) / .45)))
+  if (motionCaps(action).story === 'paper-return' && has('plane')) {
+    const story = samplePaperReturn(progress, calmVisual, action.interruptExit);
+    const engaged = action.interruptExit ? contactWeight(action.interruptExit.progress, 0, .14, .9, 1)
+      * (1 - ease(Math.max(0, (action.interruptExit.t - .55) / .45)))
       : calmVisual ? 1 : contactWeight(progress, 0, .14, .9, 1);
     placePaw(bones, data, 'r', mix(near, story.hand, engaged), .2 * engaged, 0);
     bones.arm_l = { r: 0 }; bones.hand_l = { r: 0 };
@@ -216,18 +217,22 @@ function prepareUsagiSample(sample, { data, view, progress = 0, calmVisual = fal
     }
   }
   return Object.freeze({ ...sample, props, bones: Object.freeze(bones), propPoses: Object.freeze(propPoses), gesture,
-    contactPhase: t, contactHold: hold, calmVisual, contactView: view, contactNear: near, contactAction: action?.id, contactExit: action?.paperReturnExit });
+    contactPhase: t, contactHold: hold, calmVisual, contactView: view, contactNear: near, contactAction: action?.id, contactExit: action?.interruptExit });
 }
 
 function usagiPropMatrix(matrix, { id, artwork, data }) {
   if (!data?.anchors?.['usagi.umbrella-grip']) return matrix;
   if (id === 'star' && artwork.pose.sample.motion === 'magic'
-    && artwork.pose.sample.contactAction === 'magic-trick' && artwork.pose.sample.props.includes('hat')) {
-    const center = sampleHatStar(artwork.pose.sample.contactPhase).center;
+    && motionCapsById(artwork.pose.sample.contactAction).story === 'hat-star' && artwork.pose.sample.props.includes('hat')) {
+    const star = sampleHatStar(artwork.pose.sample.contactPhase), center = star.center;
     const target = applyPoint(artwork.pose.world.root, ...center);
     const previous = applyPoint(matrix, 62, 8);
-    return [matrix[0], matrix[1], matrix[2], matrix[3],
-      matrix[4] + target[0] - previous[0], matrix[5] + target[1] - previous[1]];
+    // Twinkle (spin + pulse) about the visible star center (62,8).
+    const c = Math.cos(star.spin) * star.scale, s = Math.sin(star.spin) * star.scale;
+    const m = [matrix[0], matrix[1], matrix[2], matrix[3], matrix[4] + target[0] - previous[0], matrix[5] + target[1] - previous[1]];
+    if (!star.spin && star.scale === 1) return m;
+    const local = [c, s, -s, c, 62 - c * 62 + s * 8, 8 - s * 62 - c * 8];
+    return multiplyMatrix(m, local);
   }
   if (id === 'star' && artwork.pose.sample.motion === 'reach') {
     const wrist = applyPoint(artwork.pose.world.hand_r, ...data.bones.hand_r.pivot);
@@ -243,7 +248,7 @@ function usagiPropMatrix(matrix, { id, artwork, data }) {
     const pose = artwork.pose.sample.propPoses[id];
     return [1, 0, 0, 1, pose.x, pose.y];
   }
-  if (id === 'plane' && artwork.pose.sample.contactAction === 'paper-return') {
+  if (id === 'plane' && motionCapsById(artwork.pose.sample.contactAction).story === 'paper-return') {
     const story = samplePaperReturn(artwork.pose.sample.contactPhase, artwork.pose.sample.calmVisual, artwork.pose.sample.contactExit);
     const origin = data.bones.hand_r.pivot;
     const held = !['flight', 'receive'].includes(story.phase);
@@ -290,3 +295,8 @@ function posedPropPoint(artwork, id, relative) {
 }
 
 export { contactWeight, placePaw, prepareUsagiSample, posedPropPoint, usagiPropMatrix, paintUsagiProp };
+
+function multiplyMatrix(a, b) {
+  return [a[0] * b[0] + a[2] * b[1], a[1] * b[0] + a[3] * b[1], a[0] * b[2] + a[2] * b[3], a[1] * b[2] + a[3] * b[3],
+    a[0] * b[4] + a[2] * b[5] + a[4], a[1] * b[4] + a[3] * b[5] + a[5]];
+}

@@ -1,9 +1,9 @@
 'use strict';
 import { resolveMirrorBodyPose } from './mirror-playback.mjs';
+import { motionCaps } from '../../capabilities/companion/presentation/motion-core/action-capabilities.mjs';
 
-const GROUNDED = new Set(['moonwalk', 'paper-return']);
 function ownsGround(action, expressionId, source = 'base') {
-  return GROUNDED.has(action?.id) && source === 'base'
+  return Boolean(motionCaps(action).ownsGround) && source === 'base'
     && expressionId === (action.baseExpression || action.expression);
 }
 

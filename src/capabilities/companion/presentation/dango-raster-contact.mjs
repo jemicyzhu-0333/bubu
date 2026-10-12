@@ -1,17 +1,19 @@
 'use strict';
 
 import { sampleHatStar } from './hat-star-path.mjs';
+import { motionCaps } from './motion-core/action-capabilities.mjs';
+import { clamp01, smooth } from './motion-core/easing.mjs';
 import { COMPANION_ACTIVITY_STORIES } from '../../../content/companion/activity-stories.mjs';
 
-const clamp = value => Math.max(0, Math.min(1, value));
-const ease = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
+const clamp = clamp01;
+const ease = smooth;
 
 // Dango-only placement of the saved raster anatomy. The shared contact
 // sampler and the other form's story/rig poses remain unchanged.
 function refineRasterContact(contact, action, progress, view, toolSprites = {}) {
   if (!contact) return contact;
-  if (action.id === 'magic-trick' && action.prop === 'hat') {
-    const pose = sampleHatStar(progress);
+  if (motionCaps(action).story === 'hat-star' && action.prop === 'hat') {
+    const pose = sampleHatStar(progress, 'dango');
     contact.tools = contact.tools.filter(tool => tool.key !== 'star');
     if (pose.opacity > 0) contact.tools.push({ key: 'star',
       x: pose.center[0] - 8.5, y: pose.center[1] - 8.5, opacity: pose.opacity });

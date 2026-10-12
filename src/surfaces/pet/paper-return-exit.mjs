@@ -1,5 +1,7 @@
 'use strict';
-// One presentation-only exit, never a queued business action. New expressions
+import { motionCaps } from '../../capabilities/companion/presentation/motion-core/action-capabilities.mjs';
+// Generic interrupt-exit bridge driven by action capabilities
+// (motion-core/action-capabilities.mjs). One presentation-only exit, never a queued business action. New expressions
 // remain owned by the director while this short tool/hand recovery finishes.
 function createPaperReturnExit() {
   let previous = null, exit = null, resume = null, formId = null, lastTime = null, idleView = null;
@@ -20,25 +22,27 @@ function createPaperReturnExit() {
     if (!options.egg?.manual) {
       const calmIdle = !options.egg && !result.actionConfig && state.state === 'idle'
         && (!options.combinationContext?.source || options.combinationContext.source === 'base');
-      if (calmIdle && resume && previous?.actionConfig?.id === 'sip-tea' && options.now >= previous.deadline) idleView = resume.view;
+      if (calmIdle && resume && motionCaps(previous?.actionConfig).resumeIdleView && options.now >= previous.deadline) idleView = resume.view;
       else if (!calmIdle) idleView = null;
       previous = null; exit = null; resume = null;
       return idleView ? Object.freeze({ ...result, viewHint: idleView }) : result;
     }
     idleView = null;
     const now = options.now, key = keyFor(options);
-    if (!exit && previous?.actionConfig?.id === 'paper-return'
-      && (result.actionConfig?.id !== 'paper-return' || previous.key !== key) && previous.actionT < .96) {
-      exit = { action: previous.actionConfig, progress: previous.actionT, start: now, view: options.viewFor?.(previous.actionConfig) };
+    const exitCap = motionCaps(previous?.actionConfig).interruptExit;
+    if (!exit && exitCap
+      && (result.actionConfig?.id !== previous.actionConfig.id || previous.key !== key) && previous.actionT < exitCap.completeAt) {
+      exit = { action: previous.actionConfig, progress: previous.actionT, start: now, durationMs: exitCap.durationMs,
+        view: options.viewFor?.(previous.actionConfig) };
       resume = null;
     }
     if (exit) {
-      const t = Math.max(0, (now - exit.start) / 420);
+      const t = Math.max(0, (now - exit.start) / exit.durationMs);
       if (t < 1) {
         // Requests can replace each other, but cannot restart or stack exits.
         previous = null;
         return Object.freeze({ ...result, actionConfig: Object.freeze({ ...exit.action,
-          paperReturnExit: Object.freeze({ progress: exit.progress, t }) }),
+          interruptExit: Object.freeze({ progress: exit.progress, t }) }),
         actionT: exit.progress, phase: 'interrupted-recovery' });
       }
       const view = exit.view;
@@ -49,10 +53,11 @@ function createPaperReturnExit() {
     if (resume && result.actionConfig) {
       // Preserve the incoming take-up pose, then reach its original deadline.
       const progress = Math.max(0, Math.min(1, (result.actionT - resume.start) / Math.max(.001, 1 - resume.start)));
-      const recovery = result.actionConfig.id === 'sip-tea' ? Math.max(0, Math.min(1, (progress - .86) / .14)) : 0;
+      const handoff = motionCaps(result.actionConfig).handoffRecovery;
+      const recovery = handoff ? Math.max(0, Math.min(1, (progress - (1 - handoff.window)) / handoff.window)) : 0;
       const fade = Math.max(0, Math.min(1, (recovery - .15) / .55));
       result = Object.freeze({ ...result, actionConfig: Object.freeze({ ...result.actionConfig,
-        exitTransitionView: resume.view, ...(result.actionConfig.id === 'sip-tea' ? {
+        exitTransitionView: resume.view, ...(handoff ? {
           handoffRecovery: recovery, propOpacity: (result.actionConfig.propOpacity ?? 1) * (1 - fade * fade * (3 - 2 * fade)) } : {}) }), actionT: progress });
     }
     previous = { ...result, key, deadline: (options.actionStartedAt || 0) + (options.egg?.duration ?? Infinity) };

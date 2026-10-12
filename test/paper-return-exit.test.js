@@ -22,9 +22,9 @@ test('one bounded paper exit preserves initial pose, closes its prop and hands w
 test('A to B to C keeps one exit; incoming take-up starts at zero and finishes on its deadline', () => {
   const bridge = createPaperReturnExit(); bridge.step(result('paper-return', .5), options(0));
   const first = bridge.step(result('sip-tea', 0), options(30,'sip-tea'));
-  assert.equal(first.actionConfig.id,'paper-return'); assert.equal(first.actionConfig.paperReturnExit.t,0);
+  assert.equal(first.actionConfig.id,'paper-return'); assert.equal(first.actionConfig.interruptExit.t,0);
   const replaced = bridge.step(result('wave',.01),options(230,'wave'));
-  assert.equal(replaced.actionConfig.paperReturnExit.t,200/420);
+  assert.equal(replaced.actionConfig.interruptExit.t,200/420);
   const resumed = bridge.step(result('wave',.06),options(450,'wave'));
   assert.equal(resumed.actionConfig.id,'wave'); assert.equal(resumed.actionT,0);
   assert.equal(bridge.step(result('wave',1),options(4000,'wave')).actionT,1);
@@ -41,7 +41,7 @@ test('calm, drag, sleep, walking, celebration, form switch and reset immediately
 });
 test('same story restarts close once; rollback and actual priority sources discard the snapshot', () => {
   const bridge=createPaperReturnExit();bridge.step(result('paper-return',.6),options(100));
-  assert.equal(bridge.step(result('paper-return',0),options(130,'paper-return',{actionStartedAt:130})).actionConfig.paperReturnExit.t,0);
+  assert.equal(bridge.step(result('paper-return',0),options(130,'paper-return',{actionStartedAt:130})).actionConfig.interruptExit.t,0);
   assert.equal(bridge.step(result('sip-tea',0),options(90,'sip-tea')).actionConfig.id,'sip-tea');
   for(const source of ['input-safe','essential','session']) {
     const b=createPaperReturnExit();b.step(result('paper-return',.5),options(0));

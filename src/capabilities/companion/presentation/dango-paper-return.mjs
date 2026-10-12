@@ -1,9 +1,11 @@
 'use strict';
 import { samplePaperReturn } from './paper-return-story.mjs';
+import { motionCaps } from './motion-core/action-capabilities.mjs';
+import { smooth } from './motion-core/easing.mjs';
 import { anchoredPawMatrix } from './dango-raster-paws.mjs';
 function refinePaperReturn(contact, action, progress, toolSprites) {
-  if (action?.id !== 'paper-return' || !contact) return contact;
-  const story = samplePaperReturn(progress, false, action.paperReturnExit);
+  if (motionCaps(action).story !== 'paper-return' || !contact) return contact;
+  const story = samplePaperReturn(progress, false, action.interruptExit, 'dango');
   const plane = toolSprites['paper-plane'], fin = toolSprites['small-fin'];
   const anchor = plane?.anchors?.right || [6.625, 9.25];
   const hand = contact.hands.find(value => value.side === 'right');
@@ -26,9 +28,9 @@ export { refinePaperReturn };
 
 // Only the tea instance reached through this story's handoff owns this recovery.
 function refineHandoffCup(contact, action, data) {
-  const t = action?.id === 'sip-tea' ? action.handoffRecovery || 0 : 0;
+  const t = motionCaps(action).handoffRecovery ? action.handoffRecovery || 0 : 0;
   if (!contact || !t) return contact;
-  const ease = t => { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); };
+  const ease = smooth;
   const drop = 5 * ease(t / .6), release = ease((t - .7) / .3);
   for (const tool of contact.tools) if (tool.key === 'cup') tool.y += drop;
   for (const detail of contact.details) if (detail.type === 'steam') {
