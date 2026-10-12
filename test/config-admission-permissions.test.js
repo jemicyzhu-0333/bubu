@@ -186,6 +186,12 @@ test('fixed ACL script uses pipe-local UTF-8 and direct JSON-array assignment on
   assert.match(ACL_PROGRAM, /\$paths = ConvertFrom-Json -InputObject/);
   assert.doesNotMatch(ACL_PROGRAM, /\$paths = @\(/);
   assert.match(ACL_PROGRAM, /\$ProgressPreference = 'SilentlyContinue'/);
+  // In-box modules load by exact $PSHOME path before any cmdlet runs, so a cold
+  // runner never pays full command discovery inside the admission budget.
+  const firstImport = ACL_PROGRAM.indexOf('Import-Module -Name ([System.IO.Path]::Combine($PSHOME');
+  assert.ok(firstImport > 0);
+  for (const cmdlet of ['ConvertFrom-Json', 'Get-Item ', 'Get-Acl', 'ConvertTo-Json']) assert.ok(ACL_PROGRAM.indexOf(cmdlet) > firstImport, cmdlet);
+  for (const module of ['Utility', 'Management', 'Security']) assert.match(ACL_PROGRAM, new RegExp(`Microsoft\\.PowerShell\\.${module}`));
 });
 test('native Windows PowerShell 5.1 protocol rejects empty/nested input and preserves one/multiple literal paths', { skip: process.platform !== 'win32' }, t => {
   const { spawnSync } = require('node:child_process');
