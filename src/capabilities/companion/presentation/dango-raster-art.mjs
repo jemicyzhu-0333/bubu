@@ -2,6 +2,7 @@
 
 import { sampleGroundedMoonwalk } from './grounded-moonwalk.mjs';
 import { actionBodyPose } from './motion-core/body-poses.mjs';
+import { bodyFloor } from './motion-core/form-anchors.mjs';
 import { motionCaps } from './motion-core/action-capabilities.mjs';
 
 import { createDangoRunSample } from './clips/dango-run-sample.mjs';
@@ -220,7 +221,19 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
   function applyMotionTransform(context, motion, progress, options = {}) {
     const mirror = options.artwork?.mirror || sampleRasterMirror(options.action, progress, options.calmVisual || options.reducedMotion || options.state === 'dragged');
     if (mirror) { context.rotate(mirror.tilt); return; }
-    if (motionCaps(options.action).body === 'paper-return') return;
+    // Story-owned grounded bodies (moonwalk lean/sink, paper catch squash)
+    // pivot on dango's own floor line so the soles never move.
+    if (motionCaps(options.action).body) {
+      const pose = actionBodyPose(options.action, progress, options.calmVisual || options.reducedMotion);
+      const size = Number(options.size) || 0, floor = bodyFloor('dango', size);
+      if (pose && (pose.shear || pose.sx !== 1 || pose.sy !== 1)) {
+        context.translate(size / 2, floor);
+        if (pose.shear) context.transform(1, 0, pose.shear, 1, 0, 0);
+        context.scale(pose.sx, pose.sy);
+        context.translate(-size / 2, -floor);
+      }
+      return;
+    }
     if (options.artwork?.clip || hasRasterLookback(options.action) || ['pushup', 'moonwalk'].includes(motion)) return;
     if (motion === 'dash') return applyRunningTransform(context, progress,
       { ...options, calmVisual: options.calmVisual || options.state === 'dragged' });

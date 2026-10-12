@@ -2,8 +2,7 @@
 import { sampleGroundedMoonwalk } from './grounded-moonwalk.mjs';
 import { actionBodyPose } from './motion-core/body-poses.mjs';
 import { clamp01, smooth } from './motion-core/easing.mjs';
-// Art-space floor line (see usagi-ground.mjs FLOOR).
-const FLOOR = 67;
+import { bodyFloor } from './motion-core/form-anchors.mjs';
 import { sampleUsagiFall } from './usagi-ground.mjs';
 import { sampleUsagiEventBody } from './usagi-event-actions.mjs';
 const TAU = Math.PI * 2;
@@ -58,7 +57,7 @@ function applyMotionTransform(ctx, motion, progress, { calmVisual, size, transla
   const pose = resolvePose(action, motion, progress, calmVisual);
   const move = translate || ((x, y) => ctx.translate(x, y));
   // Story-owned grounded poses pivot on the floor so scale/shear never lift soles.
-  const pivotY = pose.ground ? FLOOR : size / 2;
+  const pivotY = pose.ground ? bodyFloor('usagi', size) : size / 2;
   move(size / 2, pivotY);
   if (pose.r) ctx.rotate(pose.r);
   if (pose.shear) ctx.transform(1, 0, pose.shear, 1, 0, 0);
