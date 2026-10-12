@@ -1,13 +1,14 @@
 'use strict';
 
+import { clamp01, smooth } from './motion-core/easing.mjs';
 import { combinationAccessory } from './combination-accessories.mjs';
 import { applyPoint, IDENTITY } from './rig/pose.mjs';
 import { footMatrix } from './dango-performance.mjs';
 import { anchoredPawMatrix } from './dango-raster-paws.mjs';
 
 const TAU = Math.PI * 2;
-const clamp = value => Math.max(0, Math.min(1, Number(value) || 0));
-const ease = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
+const clamp = clamp01;
+const ease = smooth;
 const windowPulse = (phase, start, end, edge) => ease((phase - start) / edge) * ease((end - phase) / edge);
 const isRasterMirror = action => ['mirror-music', 'mirror-ai'].includes(action?.id);
 

@@ -1,8 +1,9 @@
 'use strict';
+import { clamp01, lerp, smooth } from './motion-core/easing.mjs';
 
-const clamp = value => Math.max(0, Math.min(1, value));
-const ease = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
-const mix = (a, b, t) => a + (b - a) * t;
+const clamp = clamp01;
+const ease = smooth;
+const mix = lerp;
 const eligible = action => ['tail-wiggle', 'rest-window'].includes(action?.id);
 
 // A round character turns through its facial perspective: the far eye grows

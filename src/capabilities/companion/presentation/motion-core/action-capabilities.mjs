@@ -13,12 +13,47 @@
 //                    last `window` of progress { window }.
 //   resumeIdleView – after it finishes on that handoff, idle keeps the exit view.
 const NONE = Object.freeze({});
+//   overlayForms   – forms that paint this action as a full overlay layer.
+//   particles      – named renderer particle emitter ('sing-notes').
+//   attachedBubbles– bubbles emit from a prop origin: 'wand' | 'origin'.
+//   gentleEffect   – sparse, upward-floating effect emission.
+//   cancelOn       – presentation event that cancels the running action.
+//   yieldPropToHeadwear – prop hidden when a headwear item owns the head.
+//   carryWalk      – carries a prop while walking (feet use the walk cycle).
+//   groundShiftScale – dango vertical body offset scale for grounded actions.
+//   effectTool     – dango tool whose anchor is the effect origin.
+//   runFootTiming  – dango run-clip foot timing for this chase.
+//   restFeetWhenUnready – dango keeps feet at rest while art is loading.
+//   gesture        – usagi free-arm gesture ('yawn'|'high-five'|'wave'|'stretch').
+//   dangoContact   – dango contact refinement ('dig-shift'|'laser-dot'|'single-paw'|'nap-stretch'|'tail-wag').
+//   dangoFace      – dango face override ('steady'|'carry'|'corner-nap').
+//   dangoArms      – dango arm shaping { tuck, palm }.
+const C = value => Object.freeze(value);
 const REGISTRY = Object.freeze({
-  'paper-return': Object.freeze({ ownsGround: true, body: 'paper-return', story: 'paper-return',
-    interruptExit: Object.freeze({ durationMs: 420, completeAt: .96 }) }),
-  moonwalk: Object.freeze({ ownsGround: true, body: 'grounded-moonwalk' }),
-  'magic-trick': Object.freeze({ story: 'hat-star' }),
-  'sip-tea': Object.freeze({ handoffRecovery: Object.freeze({ window: .14 }), resumeIdleView: true })
+  'paper-return': C({ ownsGround: true, body: 'paper-return', story: 'paper-return',
+    interruptExit: C({ durationMs: 420, completeAt: .96 }) }),
+  moonwalk: C({ ownsGround: true, body: 'grounded-moonwalk' }),
+  'magic-trick': C({ story: 'hat-star' }),
+  'sip-tea': C({ handoffRecovery: C({ window: .14 }), resumeIdleView: true }),
+  'mirror-meet': C({ overlayForms: C(['dango', 'dango-raster', 'usagi']) }),
+  hiccup: C({ overlayForms: C(['dango-raster']), attachedBubbles: 'origin', gentleEffect: true, groundShiftScale: .35,
+    effectTool: 'cup', dangoFace: 'steady', dangoArms: C({ tuck: true, palm: true }) }),
+  sing: C({ particles: 'sing-notes' }),
+  'bubble-blow': C({ attachedBubbles: 'wand', effectTool: 'bubble-wand' }),
+  'take-note': C({ cancelOn: 'notebook-closed' }),
+  yawn: C({ yieldPropToHeadwear: 'sleep-cap', gesture: 'yawn' }),
+  'high-five': C({ gesture: 'high-five' }),
+  wave: C({ gesture: 'wave' }), 'rest-window': C({ gesture: 'wave' }), 'rest-plant': C({ gesture: 'wave' }),
+  stretch: C({ gesture: 'stretch' }), 'rest-stretch': C({ gesture: 'stretch' }), 'rest-daydream': C({ gesture: 'stretch' }),
+  'carry-energy': C({ carryWalk: true, dangoFace: 'carry', dangoArms: C({ tuck: true, palm: true }) }),
+  workout: C({ groundShiftScale: .45, restFeetWhenUnready: true, dangoArms: C({ tuck: true, palm: false }) }),
+  'chase-laser': C({ runFootTiming: true, dangoContact: 'laser-dot' }),
+  'dig-treasure': C({ dangoContact: 'dig-shift', dangoArms: C({ tuck: true, palm: true }) }),
+  sneeze: C({ dangoArms: C({ tuck: true, palm: true }) }),
+  sweep: C({ dangoContact: 'single-paw' }),
+  'rest-nap': C({ dangoContact: 'nap-stretch', napPillow: true }),
+  'tail-wiggle': C({ dangoContact: 'tail-wag' }),
+  'stuck-corner': C({ dangoFace: 'corner-nap' })
 });
 const merged = new WeakMap();
 function motionCaps(action) {

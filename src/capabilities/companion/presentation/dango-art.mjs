@@ -1,4 +1,5 @@
 'use strict';
+import { motionCaps } from './motion-core/action-capabilities.mjs';
 import { BODY_VIEWS, BODY_ANCHORS, FACE_LAYOUTS, MATERIALS, VECTOR_VERSION } from '../../../content/companion/dango-vector.mjs';
 import { PALETTES } from '../../../core/pet-art.mjs';
 import { paintVectorShapes } from '../../../core/pet-vector-paint.mjs';
@@ -18,7 +19,7 @@ function resolveArtwork({ view = 'front', motion = 'idle', face, action, progres
   calmVisual = false, state, expressionId, expressionElapsedMs } = {}) {
   const resolvedView = resolveView(view, { action, state });
   const anchors = BODY_ANCHORS[resolvedView], walking = !action && state === 'walking';
-  const carrying = action?.id === 'carry-energy';
+  const carrying = Boolean(motionCaps(action).carryWalk);
   const runningFrozen = motion === 'dash' && state === 'dragged';
   const running = motion === 'dash' && !calmVisual && !runningFrozen;
   return Object.freeze({ kind: 'dango-vector', key: running ? `${key}|running` : key, view: resolvedView, anchors, running,
@@ -87,7 +88,7 @@ function expressionAccent(context, accent, { elapsedMs = 0, calmVisual = false }
   context.restore(); return 1;
 }
 function statusEffect() { return false; }
-function actionOverlay(_context, action) { return action?.id === 'mirror-meet'; }
+function actionOverlay(_context, action) { return Boolean(motionCaps(action).overlayForms?.includes('dango')); }
 function subscribeArtwork() { return () => {}; }
 export default Object.freeze({ resolveArtwork, resolveView, faceForView, subscribeArtwork, palette, body, face,
   action, actionOverlay, appearance, portraitBounds, motionOffset, applyMotionTransform, expressionAccent, statusEffect });

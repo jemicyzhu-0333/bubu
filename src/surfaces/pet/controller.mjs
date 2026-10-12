@@ -1,3 +1,4 @@
+import { motionCaps } from '../../capabilities/companion/presentation/motion-core/action-capabilities.mjs';
 import { createSatiationLabel, receivedFoodMessage } from './feeding-copy.mjs';
 import { displaySatiation } from '../companion/satiation-display.mjs';
 import petMotion from '../../core/pet-motion.mjs';
@@ -1560,7 +1561,7 @@ function presentCue(envelope) {
 
 const notebookVisit = createNotebookVisit({ document, startAction: startManualAction, calm: calmMotionRequested,
   setInterval, clearInterval, setTimeout, clearTimeout,
-  stopAction: () => { if (currentEgg?.id === 'take-note') cancelCurrentAction('notebook-closed'); } });
+  stopAction: () => { if (motionCaps(currentEgg).cancelOn === 'notebook-closed') cancelCurrentAction('notebook-closed'); } });
 const petSync = createPetSync({
   client: clients,
   onSync: handlePetSync,

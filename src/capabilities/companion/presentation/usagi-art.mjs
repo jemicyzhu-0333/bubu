@@ -1,5 +1,6 @@
 'use strict';
 
+import { motionCaps } from './motion-core/action-capabilities.mjs';
 import { paperReturnFace } from './paper-return-story.mjs';
 import { secondarySwing } from './motion-core/secondary.mjs';
 import { motionOffset as bodyOffset } from './usagi-body-motion.mjs';
@@ -43,7 +44,7 @@ function resolveArtwork({ view, motion, face, calmVisual, progress, elapsedMs, c
   if (rig) {
     // The selected headwear owns the head. This gate does not depend on image
     // readiness and does not alter the equipped outfit or the action object.
-    const prop = action?.id === 'yawn' && action.prop === 'sleep-cap'
+    const prop = motionCaps(action).yieldPropToHeadwear && action.prop === motionCaps(action).yieldPropToHeadwear
       && outfit?.items?.some(item => item.exclusiveGroup === 'usagi.headwear') ? 'none' : undefined;
     const artwork = rigArtist.resolve(usagiProfileFaceRig(rig, action, view), { view, motion, face: animatedFace, calmVisual, progress, elapsedMs, channel, action, prop });
     // The hole remains at the floor while all character layers sink together.
@@ -116,7 +117,7 @@ function action(context, options) {
 
 // Usagi's native held mirror contains the reflection. Reusing the default
 // full-body twin would layer a second oversized rabbit over the real one.
-function actionOverlay(_context, action) { return action?.id === 'mirror-meet'; }
+function actionOverlay(_context, action) { return Boolean(motionCaps(action).overlayForms?.includes('usagi')); }
 
 function appearance(context, options) {
   const artwork = options.artwork?.kind === 'rig' ? options.artwork

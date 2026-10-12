@@ -1,5 +1,6 @@
-import { bodyStateOffset, resolveActionBodyPose } from './body-presentation.mjs';
 'use strict';
+import { motionCaps } from '../../capabilities/companion/presentation/motion-core/action-capabilities.mjs';
+import { bodyStateOffset, resolveActionBodyPose } from './body-presentation.mjs';
 
 import petExpression from '../../core/pet-expression.mjs';
 import petStage from '../../core/pet-stage.mjs';
@@ -684,7 +685,7 @@ function spawnSceneParticles(period, scene) {
   }
 
   // Sing egg: music notes
-  if (runtimeState.currentEgg && runtimeState.currentEgg.id === 'sing') {
+  if (runtimeState.currentEgg && motionCaps(runtimeState.currentEgg).particles === 'sing-notes') {
     runtimeState.sceneSpawnedTotal += emitPetRate(petActionEmitters.sing, () => {
       runtimeState.sceneParticles.push({ type: 'note', x: 90 + rand(-10, 30), y: 90 + rand(-5, 5), vx: rand(-0.4, 0.4), vy: rand(-1, -0.5), life: 60, color: pick(['#f7768e', '#e0af68', '#bb9af7']) });
     });
@@ -1038,10 +1039,11 @@ function emitActionEffect(action, progress) {
   if (!visual) return;
   // 安静类特效（打坐光环、困倦 zzz、热气）走稀疏发射器并向上轻飘，
   // 不与庆祝类同频，避免安静动作也像放烟花。
-  const attachedBubble = (action.id === 'bubble-blow' && hasAttachedEffectOrigins)
-    || (action.id === 'hiccup' && Boolean(actionEffectOrigins.bubbles));
+  const bubbles = motionCaps(action).attachedBubbles;
+  const attachedBubble = (bubbles === 'wand' && hasAttachedEffectOrigins)
+    || (bubbles === 'origin' && Boolean(actionEffectOrigins.bubbles));
   const origin = attachedBubble ? actionEffectOrigins.bubbles : null;
-  const gentleHiccup = action.id === 'hiccup' && Boolean(origin);
+  const gentleHiccup = Boolean(motionCaps(action).gentleEffect) && Boolean(origin);
   if (attachedBubble && !origin) return;
   const emitter = attachedBubble ? petActionEmitters.bubble : visual.calm ? petActionEmitters.calm : petActionEmitters.generic;
   emitPetRate(emitter, () => {

@@ -73,7 +73,7 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
     const reviewedRunOutfit = !outfitItems.length || outfitItems.length === 1
       && outfitItems[0].id === 'milestone.scarf' && outfitItems[0].renderKey === 'scarf'
       && (outfitItems[0].formId || 'dango') === 'dango' || isScarfHeadwearCombination(outfitItems);
-    const footTiming = runFootTiming && !runClip && options.action?.id === 'chase-laser'
+    const footTiming = runFootTiming && !runClip && motionCaps(options.action).runFootTiming
       && options.motion === 'dash' && !options.calmVisual && !options.reducedMotion && options.state !== 'dragged'
       && view === 'three-quarter' && [undefined, 'three-quarter', 'profile'].includes(options.view)
       && reviewedRunOutfit ? runFootTiming : null;
@@ -123,7 +123,7 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
     const missingDetails = pose.contact?.details.filter(detail => !manifest.effects?.[detail.type]).map(detail => detail.type) || [];
     const actionReady = !missingTools.length && !missingConnectors.length && !missingPaws.length
       && [...toolStates, ...connectorStates, ...pawStates].every(state => state === 'ready');
-    if (!actionReady && options.action?.id === 'workout') {
+    if (!actionReady && motionCaps(options.action).restFeetWhenUnready) {
       const matrices = { ...pose.matrices };
       for (const foot of ['foot-left', 'foot-right']) {
         matrices[foot] = Object.freeze([1, 0, 0, 1, 0, 0]); attachmentMatrices[foot] = matrices[foot];
@@ -142,9 +142,9 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
       && !missingExtras.length && extraStates.every(state => state === 'ready') && accessoriesReady;
     // The inspected 13x26 wand has its ring centre at (6.5, 6), independent
     // of its lower grip anchor. The renderer projects this through the body.
-    const wand = options.action?.id === 'bubble-blow' && actionReady
+    const wand = motionCaps(options.action).effectTool === 'bubble-wand' && actionReady
       ? pose.contact?.tools.find(item => item.key === 'bubble-wand') : null;
-    const hiccupCup = options.action?.id === 'hiccup' && actionReady
+    const hiccupCup = motionCaps(options.action).effectTool === 'cup' && actionReady
       ? pose.contact?.tools.find(item => item.key === 'cup') : null;
     const effectOrigins = Object.freeze(wand ? { bubbles: Object.freeze(applyPoint(
       toolMatrix(wand, manifest.tools['bubble-wand']), 6.5, 6)) } : hiccupCup ? { bubbles: Object.freeze(applyPoint(
@@ -214,7 +214,7 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
     if (mirror) return Object.freeze({ x: 0, y: mirror.nod });
     if (motion === 'dash' && options.state === 'dragged') return Object.freeze({ x: 0, y: 0 });
     const offset = petActionArt.bodyOffset(options.action, progress, { ...options, calmVisual, bodySize: 66 });
-    const amount = options.action?.id === 'workout' ? .45 : options.action?.id === 'hiccup' ? .35 : 1;
+    const amount = motionCaps(options.action).groundShiftScale ?? 1;
     return Object.freeze({ ...offset, y: offset.y * amount });
   }
   function applyMotionTransform(context, motion, progress, options = {}) {
@@ -251,7 +251,7 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
     appearanceLayers: wardrobe.appearanceLayers, portraitBounds: wardrobe.portraitBounds, motionOffset, applyMotionTransform,
     particle: createRasterParticlePainter({ manifest, painter }),
     ...createRasterScenePainter({ manifest, painter }),
-    expressionAccent, statusEffect, actionOverlay: (_context, action) => ['mirror-meet', 'hiccup'].includes(action?.id),
+    expressionAccent, statusEffect, actionOverlay: (_context, action) => Boolean(motionCaps(action).overlayForms?.includes('dango-raster')),
     ready({ all = false } = {}) { return Promise.all([source.ready(all ? collectRasterSprites(manifest) : defaultSprites), runSample?.ready()]); },
     cacheStats() { return Object.freeze({ source: source.stats(), palette: painter.stats(), roots: roots.stats(), tailRoot: tailRoot.stats(), runSample: runSample?.stats() || null }); },
     dispose() { source.dispose(); painter.dispose(); roots.dispose(); tailRoot.dispose(); runSample?.dispose(); }
