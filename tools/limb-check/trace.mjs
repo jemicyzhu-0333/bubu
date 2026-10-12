@@ -65,7 +65,7 @@ export async function traceLimbs(root = path.resolve(path.dirname(fileURLToPath(
   return report;
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const ids = process.argv.find(a => a.startsWith('--ids='))?.slice(6).split(',') || null;
   const r = await traceLimbs(undefined, { ids });
   const n = Object.keys(r.targets).length;
