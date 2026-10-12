@@ -187,25 +187,25 @@ function paintLimb(ctx, artwork, data, side, { mergeSocket = true, alpha = 1, in
   // Socket union: the limb outline is drawn only outside the body contour,
   // so it meets the body line exactly; the fill above already covers the
   // part of the body line that lies under the limb. One stroke, no cream patch.
-  const stroke = () => {
-    ctx.beginPath(); outline();
+  const stroke = (o = outer, i = inner) => {
+    ctx.beginPath(); ctx.moveTo(...o[0]);
+    for (const p of o.slice(1)) ctx.lineTo(...p);
+    ctx.arc(...geometry.to, geometry.radius, angle, angle - Math.PI, true);
+    for (const p of i.slice().reverse().slice(1)) ctx.lineTo(...p);
     ctx.strokeStyle = shape?.stroke || '#351710'; ctx.lineWidth = USAGI_LIMB_RIG.outline;
     ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.stroke();
   };
-  if (mergeSocket && !support && !behindBody(artwork.drawnView, side) && typeof ctx.clip === 'function') {
-    // Socket union: the limb outline is erased only where it would double the
-    // body line, i.e. inside the body AND near the socket. Outside the body it
-    // is always drawn, so its lower edge meets the body line with no gap.
-    ctx.save(); if (clipOutsideBody(ctx, artwork, data)) stroke(); ctx.restore();
-    const s = geometry.socket, r = USAGI_LIMB_RIG.socketRadius;
-    ctx.save(); ctx.beginPath();
-    if (traceBodyContour(ctx, artwork, data)) {
-      ctx.clip('nonzero');
-      const R = 40; ctx.beginPath(); ctx.moveTo(s[0] - R, s[1] - R); ctx.lineTo(s[0] + R, s[1] - R); ctx.lineTo(s[0] + R, s[1] + R); ctx.lineTo(s[0] - R, s[1] + R);
-      for (let i = 0; i <= 24; i++) { const a = -i / 24 * Math.PI * 2; (i ? ctx.lineTo : ctx.moveTo).call(ctx, s[0] + Math.cos(a) * r, s[1] + Math.sin(a) * r); }
-      ctx.clip('evenodd');
-    }
-    stroke(); ctx.restore();
+  const poly = mergeSocket && !support && !behindBody(artwork.drawnView, side) ? bodyPolygon(data) : null;
+  const m = artwork.pose?.world?.root;
+  if (poly && m) {
+    // Socket union, done geometrically: each edge's outline starts where it
+    // leaves (inside body ∩ socket disc). Inside that region it would double
+    // the body line; outside the body it always meets the body line. The cut
+    // is a clean round line end, never a clipped sliver.
+    const local = invert(m), s = geometry.socket, r = USAGI_LIMB_RIG.socketRadius;
+    const erased = p => Math.hypot(p[0] - s[0], p[1] - s[1]) < r && insidePolygon(poly, applyPoint(local, ...p));
+    const trim = edge => { let k = 0; for (let n = 0; n < edge.length - 2; n++) if (erased(edge[n])) k = n + 1; return edge.slice(k); };
+    stroke(trim(outer), trim(inner));
   } else stroke();
   ctx.restore();
   return true;
