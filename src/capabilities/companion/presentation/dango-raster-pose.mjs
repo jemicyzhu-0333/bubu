@@ -120,7 +120,8 @@ function sampleRasterPose(data, { view = 'front', motion = 'idle', action = null
   }
   // Unified limb chain (socket -> IK -> wrist) for every contact hand; frames
   // come from limbs.json when present, otherwise legacy sprites keep drawing.
-  attachDangoLimbs(contact, data.anchors, { view });
+  // Zero cost until a limbs.json manifest is loaded (or a detector asks).
+  if (data.limbs || globalThis.__petLimbTrace) attachDangoLimbs(contact, data.anchors, { view, limbs: data.limbs || null });
   const sample = sampleMotion(motion, { view, calmVisual: frozen, progress: motion === 'idle' ? idleProgress(elapsedMs) : p, prop: action?.prop });
   if (lookback && contact) for (const detail of contact.details) if (detail.type === 'look-back') {
     detail.amount = lookback.cue; detail.at = [-1, 8];
