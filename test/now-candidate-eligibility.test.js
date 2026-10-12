@@ -2,6 +2,9 @@ const test=require('node:test'); const assert=require('node:assert/strict');
 const {projectRecommendations}=require('../src/capabilities/guidance/domain/recommendations');
 const {taskStartBlockReason}=require('../src/capabilities/work/domain/task-availability');
 const now=Date.parse('2026-10-12T12:00:00Z');
+// ARCHITECTURE「planning」: plannedFor only selects a day view; scheduledFor alone
+// controls when a task becomes executable. A series holds one open occurrence, so a
+// next occurrence planned for tomorrow may intentionally be started early today.
 for(const extra of [{},{seriesId:'daily-series',occurrenceDate:'2026-10-12'},{seriesId:'daily-series',plannedFor:'2026-10-13',occurrenceDate:'2026-10-13'}]) {
 test('title-only candidate remains eligible '+JSON.stringify(extra),()=>{
  const task={id:'occurrence-unique',title:'Only title',done:false,steps:[],nextAction:null,createdAt:now,...extra};

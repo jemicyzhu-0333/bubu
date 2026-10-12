@@ -371,3 +371,33 @@ for (const order of ['projection-first', 'receipt-first', 'session-preempted']) 
     }
   });
 }
+
+// Correlation-token ownership: a request may observe its own selection any
+// number of times (projection, refresh, receipt) without losing its feedback.
+test('own scheduled selection published repeatedly keeps the request and its failure notice', async t => {
+  const original = { id: 'old', title: 'Old' };
+  const target = { id: 'future', title: 'Future', scheduledFor: new Date(Date.now() + 600000).toISOString() };
+  let selected = original, h;
+  h = harness({
+    setNowTask: async () => { selected = target; for (let i = 0; i < 3; i++) h.feature.renderPomoStructure(); return { ok: true }; },
+    startPomodoro: async (...args) => { h.calls.push(args); h.feature.renderPomoStructure(); return { ok: false, reason: 'storage-failed' }; }
+  }, { currentTask: () => selected, focusActionMessage: reason => reason || 'failed' });
+  t.after(() => h.feature.dispose());
+  const result = await h.feature.runFocusAction('focus', target, 25);
+  assert.deepEqual(h.calls, [[target.id, 25]]);
+  assert.equal(result.reason, 'storage-failed');
+  assert.equal(h.$('#focusActionStatus').textContent, 'storage-failed');
+});
+
+test('a finished request cannot be revived: later owner change clears its notice', async t => {
+  let task = { id: 'a', title: 'A' };
+  const h = harness({ startPomodoro: async () => ({ ok: false, reason: 'storage-failed' }) },
+    { currentTask: () => task, focusActionMessage: reason => reason || 'failed' });
+  t.after(() => h.feature.dispose());
+  await h.feature.runFocusAction('focus', task, 25);
+  assert.equal(h.$('#focusActionStatus').textContent, 'storage-failed');
+  task = { id: 'b', title: 'B' }; h.feature.renderPomoStructure();
+  assert.equal(h.$('#focusActionStatus').textContent, '');
+  task = { id: 'a', title: 'A' }; h.feature.renderPomoStructure();
+  assert.equal(h.$('#focusActionStatus').textContent, '');
+});
