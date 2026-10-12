@@ -147,12 +147,20 @@ function paintLimb(ctx, artwork, data, side, { mergeSocket = true, alpha = 1, in
   };
   ctx.save();
   if (alpha !== 1) ctx.globalAlpha *= alpha;
+  // Support limbs grow out of the body edge: paint only outside the body
+  // contour so the body line stays continuous while the limb retracts.
+  const support = geometry.intent.kind === 'support';
+  if (support && typeof ctx.clip === 'function') {
+    const s = geometry.socket, R = 40; ctx.beginPath();
+    ctx.moveTo(s[0] - R, s[1] - R); ctx.lineTo(s[0] + R, s[1] - R); ctx.lineTo(s[0] + R, s[1] + R); ctx.lineTo(s[0] - R, s[1] + R); ctx.closePath();
+    if (traceBodyContour(ctx, artwork, data)) ctx.clip('evenodd');
+  }
   ctx.beginPath(); outline(); ctx.closePath();
   ctx.fillStyle = shape?.fill || '#fff5de'; ctx.fill();
   // Socket union: the limb outline is drawn only outside the body contour,
   // so it meets the body line exactly; the fill above already covers the
   // part of the body line that lies under the limb. One stroke, no cream patch.
-  if (mergeSocket && !behindBody(artwork.drawnView, side)) {
+  if (mergeSocket && !support && !behindBody(artwork.drawnView, side)) {
     // Socket mask: inside the body near the socket the limb outline is erased,
     // so the root merges into the body silhouette (no cap, no double line).
     const s = geometry.socket, r = USAGI_LIMB_RIG.socketRadius;
