@@ -25,6 +25,8 @@ const USAGI_LIMB_RIG = freeze({
   supportReach: 11,
   // Max elbow travel in art units per ms when a pose or intent changes.
   elbowSpeed: .045,
+  // Cross-fade when a limb intent changes (story beat, release, gesture end).
+  intentFadeMs: 200,
   bends: {
     out: { out: 1, down: .3, maxBend: .12 },
     fold: { out: .3, down: 1, maxBend: .16 },

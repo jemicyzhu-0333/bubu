@@ -17,6 +17,8 @@ const source = await loadSource(pathToFileURL(root).href);
 const { PET_ACTIONS } = await import(pathToFileURL(path.join(root, 'src/content/behaviors.mjs')));
 const { SESSION_ACTIVITIES } = await import(pathToFileURL(path.join(root, 'src/content/session-activities.mjs')));
 const { PET_APPEARANCE_ITEMS } = await import(pathToFileURL(path.join(root, 'src/content/appearance.mjs')));
+let motionCaps = () => ({});
+try { ({ motionCaps } = await import(pathToFileURL(path.join(root, 'src/capabilities/companion/presentation/motion-core/action-capabilities.mjs')))); } catch {}
 const itemIds = arg('item', '').split(',').filter(Boolean);
 const items = itemIds.map(id => PET_APPEARANCE_ITEMS.find(i => i.id === id) || (() => { throw Error('unknown item ' + id); })());
 const formId = items[0].formId || 'dango', skin = arg('skin', formId === 'usagi' ? 'usagi' : 'pink');
@@ -41,6 +43,20 @@ for (const view of views) {
       const imgs = { bareNoFront: shot(base, at, 'front'), wornNoFront: shot(worn, at, 'front'),
         bareBlink: shot(blinker, at), bare: shot(base, at), worn: shot(worn, at) };
       const m = analyseFit(imgs, { floats });
+      // Declared, intentional hides are not fit failures:
+      //  - an action prop that yields to worn headwear (yawn sleep-cap);
+      //  - the far paw tucked under cloth in turned views (hidden pixels on the far half).
+      if (m.flags.includes('covers-prop')) {
+        const action = kind === 'action' ? PET_ACTIONS[id] : null;
+        const headwear = items.some(i => /headwear/.test(i.exclusiveGroup || ''));
+        let reason = null;
+        if (headwear && action && motionCaps(action).yieldPropToHeadwear) reason = 'yields-prop-to-headwear';
+        else if (m.flagPixels.length && view !== 'back' && view !== 'front') {
+          const w = imgs.bare.width, far = m.flagPixels.filter(([px]) => px < w * .42).length;
+          if (far / m.flagPixels.length > .9 && (rows.length || true)) reason = 'tucks-far-paw';
+        }
+        if (reason) { m.flags = m.flags.filter(f => f !== 'covers-prop'); m.metrics.order = null; m.metrics.declared = reason; if (!m.flags.length) m.flagPixels = []; }
+      }
       rows.push({ f, ...m.metrics });
       if (m.flags.length) {
         const name = `${label}__${kind}-${id}__${view}__${f}.png`.replace(/[^\w.+-]/g, '_');

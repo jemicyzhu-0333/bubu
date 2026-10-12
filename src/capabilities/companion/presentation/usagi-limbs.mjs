@@ -127,8 +127,8 @@ function supportAmount(geometry) {
   const t = Math.max(0, Math.min(1, (reach - USAGI_LIMB_RIG.restReach) / 4));
   return t * t * (3 - 2 * t);
 }
-function paintLimb(ctx, artwork, data, side, { mergeSocket = true, alpha = 1 } = {}) {
-  const geometry = limbGeometry(artwork, data, side);
+function paintLimb(ctx, artwork, data, side, { mergeSocket = true, alpha = 1, intent } = {}) {
+  const geometry = intent === undefined ? limbGeometry(artwork, data, side) : limbGeometry(artwork, data, side, intent);
   if (geometry.intent?.kind === 'support') {
     const k = supportAmount(geometry);
     if (k <= 0) return false;
@@ -180,33 +180,60 @@ function limbLayer(artwork, side, intent, part) {
   return 'part';
 }
 
-// Hook: before parts on each action layer (replaces the connector pass).
+// ---- intent continuity ------------------------------------------------------
+// An intent switch (story beat, release, gesture end) never pops: the leaving
+// limb fades out over the new state and an arriving limb fades in, on the
+// channel clock. Stateless callers (no elapsedMs) see the plain intent.
+const memory = new Map();
+const signature = intent => intent ? `${intent.kind}:${intent.bend}` : 'rest';
+function limbState(artwork, side, data) {
+  const intent = intentFor(artwork, side, data), clock = artwork?.clock, now = clock?.elapsedMs;
+  if (!Number.isFinite(now)) return { intent, leaving: null, arriving: 1 };
+  const key = `${clock.channel ?? 'pet'}:${side}`, sig = signature(intent), FADE = USAGI_LIMB_RIG.intentFadeMs;
+  let m = memory.get(key);
+  if (!m || now < m.t || now - m.t > 500) m = { sig, intent, t: now, since: -Infinity, from: null };
+  else if (m.sig !== sig) m = { sig, intent, t: now, since: now, from: m.intent };
+  else m.t = now;
+  memory.set(key, m); if (memory.size > 256) memory.delete(memory.keys().next().value);
+  const k = Math.min(1, (now - m.since) / FADE);
+  return { intent, leaving: k < 1 && m.from ? { intent: m.from, alpha: 1 - k } : null, arriving: k };
+}
+
+// Hook: before parts on each action layer (behind-body limbs, support limbs,
+// and the fade-in of an arriving grip under the still-visible authored paw).
 function paintLimbsBefore(ctx, { artwork, data, layer }) {
   let painted = false;
-  for (const side of ['l', 'r']) {
-    const intent = intentFor(artwork, side, data); if (!intent) continue;
+  const partLayerOf = side => data.parts.find(p => p.bone === `hand_${side}`)?.layer;
+  const wantedFor = (side, intent) => {
     const where = limbLayer(artwork, side, intent);
-    const partLayer = data.parts.find(p => p.bone === `hand_${side}`)?.layer;
-    const wanted = where === 'back' ? 'back' : where === 'pre-part' ? partLayer : null;
-    if (wanted !== layer) continue;
-    if (intent.kind === 'support') {
-      // Support tubes sit under the authored paw and grow continuously from the socket.
-      painted = paintSupport(ctx, artwork, data, side) || painted;
-    } else painted = paintLimb(ctx, artwork, data, side) || painted;
+    return where === 'back' ? 'back' : where === 'pre-part' ? partLayerOf(side) : null;
+  };
+  for (const side of ['l', 'r']) {
+    const { intent, leaving, arriving } = limbState(artwork, side, data);
+    if (intent && wantedFor(side, intent) === layer) painted = paintLimb(ctx, artwork, data, side, { intent, alpha: intent.kind === 'support' ? 1 : arriving }) || painted;
+    else if (intent && arriving < 1 && limbLayer(artwork, side, intent) === 'part' && partLayerOf(side) === layer)
+      painted = paintLimb(ctx, artwork, data, side, { intent, alpha: arriving }) || painted;
+    if (leaving && wantedFor(side, leaving.intent) === layer) painted = paintLimb(ctx, artwork, data, side, { intent: leaving.intent, alpha: leaving.alpha }) || painted;
   }
   return painted;
 }
-function paintSupport(ctx, artwork, data, side) { return paintLimb(ctx, artwork, data, side); }
 
 // Hook: in place of an authored hand part. true = handled (painted or deliberately skipped).
 function paintLimbPart(ctx, { part, data, artwork }) {
   const side = part?.bone === 'hand_l' ? 'l' : part?.bone === 'hand_r' ? 'r' : null;
   if (!side) return false;
-  const intent = intentFor(artwork, side, data);
-  if (!intent || intent.kind === 'support') return false;
+  const { intent, leaving, arriving } = limbState(artwork, side, data);
+  // A leaving in-place limb fades out on top of the authored paw / new state.
+  const fadeOut = () => leaving && limbLayer(artwork, side, leaving.intent) === 'part'
+    && paintLimb(ctx, artwork, data, side, { intent: leaving.intent, alpha: leaving.alpha });
+  if (!intent || intent.kind === 'support') { fadeOut(); return false; }
   const where = limbLayer(artwork, side, intent, part);
-  if (where !== 'part') return true; // painted on 'back' or 'under-cloth' already
-  return paintLimb(ctx, artwork, data, side);
+  if (where !== 'part') { fadeOut(); return true; }
+  // Arriving grip: painted under the authored paw by the before-hook until it is complete.
+  if (arriving < 1) { return false; }
+  const painted = paintLimb(ctx, artwork, data, side, { intent });
+  fadeOut();
+  return painted;
 }
 
 function paintLimbsUnderCloth(ctx, { artwork }) {
@@ -214,21 +241,31 @@ function paintLimbsUnderCloth(ctx, { artwork }) {
   if (!data) return false;
   let painted = false;
   for (const side of ['l', 'r']) {
-    const intent = intentFor(artwork, side, data);
-    if (limbLayer(artwork, side, intent) === 'under-cloth') painted = paintLimb(ctx, artwork, data, side) || painted;
+    const { intent, arriving } = limbState(artwork, side, data);
+    if (limbLayer(artwork, side, intent) === 'under-cloth') painted = paintLimb(ctx, artwork, data, side, { intent, alpha: arriving }) || painted;
   }
   return painted;
 }
 
 // ---- trace (detectors) -----------------------------------------------------
-function traceUsagiLimb(artwork, data, side) {
-  const intent = intentFor(artwork, side, data), wrist = wristOf(artwork, data, side);
+function traceOne(artwork, data, side, intent) {
+  const wrist = wristOf(artwork, data, side);
   if (!intent) return { mode: 'rest', len: 0, wrist };
   const g = limbGeometry(artwork, data, side, intent);
   if (intent.kind === 'support' && supportAmount(g) <= 0) return { mode: 'rest', len: 0, wrist };
   const visible = Math.hypot(g.to[0] - g.socket[0], g.to[1] - g.socket[1]);
-  return { mode: 'limb', kind: intent.kind, len: +(visible * (intent.kind === 'support' ? supportAmount(g) : 1)).toFixed(3), wrist, elbow: g.elbow, retract: g.chain.retract, reached: g.chain.reached };
+  return { mode: 'limb', kind: intent.kind, len: +(visible * (intent.kind === 'support' ? supportAmount(g) : 1)).toFixed(3), wrist, socket: g.socket, elbow: g.elbow, retract: g.chain.retract, reached: g.chain.reached };
 }
 
-export { USAGI_LIMB_RIG, sockets, intentFor, limbGeometry, limbLayer, paintLimb, paintLimbsBefore, paintLimbPart,
+// Visible-length trace including intent cross-fades (what the detectors see).
+function traceUsagiLimb(artwork, data, side) {
+  const { intent, leaving, arriving } = limbState(artwork, side, data);
+  const now = traceOne(artwork, data, side, intent);
+  if (!leaving && arriving >= 1) return now;
+  const before = leaving ? traceOne(artwork, data, side, leaving.intent) : { len: 0 };
+  const k = arriving;
+  return { ...now, mode: k < 1 ? 'fade' : now.mode, len: +(before.len * (1 - k) + now.len * k).toFixed(3) };
+}
+
+export { USAGI_LIMB_RIG, limbState, sockets, intentFor, limbGeometry, limbLayer, paintLimb, paintLimbsBefore, paintLimbPart,
   paintLimbsUnderCloth, traceUsagiLimb, bodyPolygon, behindBody, filters as usagiLimbFilters };

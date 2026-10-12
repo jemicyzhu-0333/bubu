@@ -138,18 +138,21 @@ function holdsFrontProp(data, artwork, side) {
 const PAW = Object.freeze({ rx: 6.2, ry: 5.2 });
 function usagiPaws(artwork) {
   const data = artwork?.rig?.views?.[artwork.drawnView], world = artwork?.pose?.world;
-  if (!data || !world || artwork.drawnView === 'back') return [];
+  if (!data || !world) return [];
+  const back = artwork.drawnView === 'back';
   const paws = [];
   for (const side of ['l', 'r']) {
     const bone = data.bones[`hand_${side}`];
     if (!bone || !world[`hand_${side}`]) continue;
     // Tucked (far) paws stay under the cloth; only front paws are uncovered.
-    if (usagiPartLayer({ bone: `hand_${side}`, layer: 'front' }, artwork) !== 'front') continue;
+    if (!back && usagiPartLayer({ bone: `hand_${side}`, layer: 'front' }, artwork) !== 'front') continue;
     // Only a paw that actually carries a front prop is uncovered; erasing
     // cloth over an empty paw position would just punch a hole in it.
-    if (!holdsFrontProp(data, artwork, side)) continue;
+    // Back view: both shoulder paws are front-pass parts; the resolver asks for
+    // the cut only for neckwear that crosses them.
+    if (!back && !holdsFrontProp(data, artwork, side)) continue;
     const [x, y] = applyPoint(world[`hand_${side}`], ...bone.pivot);
-    if (x > 8 && x < 58 && y > 30 && y < 66) paws.push({ x, y, ...PAW });
+    if (back ? x > -12 && x < 78 && y > 6 && y < 70 : x > 8 && x < 58 && y > 30 && y < 66) paws.push({ x, y, ...PAW });
   }
   return paws;
 }

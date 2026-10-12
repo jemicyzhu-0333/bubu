@@ -53,7 +53,11 @@ const ACCESSORY_MANIFEST = freeze({
 // Per-form layering facts the resolver must respect. Dango paws are painted in
 // the action front pass (verified on carry-energy/hiccup/sweep), i.e. already
 // above every garment, so a hand cut-out would only fade cloth around them.
-const FORM_TRAITS = freeze({ dango: freeze({ pawsAboveCloth: true }), usagi: freeze({ pawsAboveCloth: false }) });
+// usagi.backPawCut: in the back view the paws are front-pass parts at the
+// shoulders; neckwear crossing them must open around the paws every frame
+// (otherwise the order flips with the arm swing).
+const FORM_TRAITS = freeze({ dango: freeze({ pawsAboveCloth: true }),
+  usagi: freeze({ pawsAboveCloth: false, backPawCut: freeze(['usagi.neckwear']) }) });
 
 const slotOf = item => item?.exclusiveGroup || item?.slot || null;
 const manifestFor = (item, manifest = ACCESSORY_MANIFEST) => manifest[slotOf(item)] || null;
@@ -128,6 +132,7 @@ function computePlan({ manifest = ACCESSORY_MANIFEST, items = [], formId, view =
       if (slots.includes(slot) && inWindow(rule.window, p)) { visible = false; reason = rule.why || 'stow'; }
     }
     if (visible && spec?.torso && !FORM_TRAITS[formId]?.pawsAboveCloth && holdsProp(action, caps)) cut = 'hands';
+    if (visible && view === 'back' && FORM_TRAITS[formId]?.backPawCut?.includes(slot)) cut = 'hands';
     const offsetY = visible && spec?.follow ? headFollowOffset(action, p, spec.follow, reduced) : 0;
     plan.push(freeze({ id: item.id, slot, visible, layer: passLayer, offsetY, cut, reason,
       headroom: spec?.headroom || null, stackedUnder: (spec?.stacksUnder || []).filter(s => worn.has(s)) }));
