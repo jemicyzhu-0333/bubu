@@ -14,15 +14,19 @@ body[data-surface="nudge-corner"] .nudge-actions { flex-wrap: wrap; }
 body[data-surface="nudge-corner"] .nudge-action { max-width: 100%; overflow-wrap: anywhere; }
 body[data-surface="nudge-corner"] #bubbleCopy { overflow-wrap: anywhere; }
 body[data-surface="nudge-corner"] {
+  height: 100dvh; min-height: 0;
   display: flex; flex-direction: column; overflow-x: hidden; overflow-y: auto;
 }
 body[data-surface="nudge-corner"] .container {
-  flex: 1 0 174px; height: auto; min-height: min-content;
+  /* A finite height chain prevents long copy from sizing the entire window.
+     Below the readable minimum, body scrolling keeps the footer reachable. */
+  flex: 1 1 auto; height: calc(100dvh - 34px); min-height: 174px;
   align-items: stretch; padding: 8px;
 }
 body[data-surface="nudge-corner"] .char-wrap { align-self: center; }
 body[data-surface="nudge-corner"] .bubble {
   display: grid; grid-template-rows: minmax(24px, 1fr) auto auto;
+  height: 100%; min-height: 0; overflow-y: auto;
   flex: 1 1 0; min-width: 0; max-width: none; white-space: normal;
   font-size: 13px; font-weight: 400; letter-spacing: normal;
   border-width: 1px; border-radius: 12px; box-shadow: 0 4px 14px #0002;
@@ -44,7 +48,7 @@ body[data-surface="nudge-corner"] .nudge-footer {
   gap: 8px; min-height: 34px; padding: 0 8px 6px;
 }
 body[data-surface="nudge-corner"] .close-hint {
-  position: static; flex: 0 0 auto;
+  position: static; flex: 0 1 auto; min-width: 0; max-width: 100%; white-space: normal;
   min-height: 26px; padding: 4px 8px; border-radius: 7px;
   font: 500 12px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--ui-fg); background: var(--ui-bg); border-color: var(--ui-line);

@@ -69,6 +69,10 @@ function measure() {
   }
   return { viewport: { width: innerWidth, height: innerHeight, dpr: devicePixelRatio },
     horizontalOverflow: Math.max(document.documentElement.scrollWidth, document.body.scrollWidth) - innerWidth,
+    bodyScrollHeight: document.body.scrollHeight,
+    container: rect(document.getElementById('container')), bubble: rect(document.getElementById('bubble')),
+    copyScrollHeight: document.getElementById('bubbleCopy').scrollHeight,
+    copyClientHeight: document.getElementById('bubbleCopy').clientHeight,
     copy: rect(document.getElementById('bubbleCopy')), actions: rect(document.getElementById('nudgeActions')),
     footer: rect(document.querySelector('.nudge-footer')), language: document.documentElement.lang,
     status: document.getElementById('nudgeStatus').textContent,
@@ -131,6 +135,7 @@ async function verifyCase(fixture, index) {
   assert.equal(initial.controls.length, 4);
   assert.ok(initial.horizontalOverflow <= 1, 'no horizontal clipping');
   assert.ok(initial.copy.height >= 20, 'at least one line of reminder copy stays readable');
+  if (fixture.long) assert.ok(initial.copyScrollHeight > initial.copyClientHeight, 'long copy has its own scroll range');
   if (!fixture.small && fixture.zoom === 1) assert.ok(initial.controls.every(control => control.visible), 'ordinary-size actions fit without scrolling');
   if (fixture.error) assert.ok(initial.status, 'failure feedback remains available');
   for (let control = 0; control < 4; control++) {
@@ -156,9 +161,26 @@ async function verifyCase(fixture, index) {
 }
 
 app.whenReady().then(async () => {
-  for (const [index, fixture] of scenarios().entries()) await verifyCase(fixture, index);
-  report.passed = true;
-  finish(0);
+  for (const [index, fixture] of scenarios().entries()) {
+    const before = report.cases.length;
+    try { await verifyCase(fixture, index); }
+    catch (error) {
+      const item = report.cases[before] || { fixture };
+      if (report.cases.length === before) report.cases.push(item);
+      item.passed = false; item.error = error.stack || String(error);
+      if (current && !current.isDestroyed()) {
+        try {
+          item.errorScreenshot = `failure-${String(index).padStart(2, '0')}.png`;
+          fs.writeFileSync(path.join(output, item.errorScreenshot), (await current.webContents.capturePage()).toPNG());
+        } catch (_) { delete item.errorScreenshot; }
+        current.destroy(); current = null;
+      }
+    }
+  }
+  report.failedCount = report.cases.filter(item => !item.passed).length;
+  report.passed = report.failedCount === 0;
+  if (!report.passed) report.error = `${report.failedCount} of ${report.cases.length} layout scenarios failed`;
+  finish(report.passed ? 0 : 1);
 }).catch(async error => {
   report.passed = false; report.error = error.stack || String(error);
   if (current && !current.isDestroyed()) {
