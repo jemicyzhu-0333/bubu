@@ -25,7 +25,7 @@ import { withUsagiEffectOrigins } from './usagi-effect-origins.mjs';
 import { usagiProfileFaceRig } from './usagi-face-projection.mjs';
 import { applyPoint } from './rig/pose.mjs';
 import { paintWithPawCutout } from './accessory-cutout.mjs';
-import { paintUsagiGestureUnderCloth } from './usagi-gesture-limbs.mjs';
+import { paintLimbsUnderCloth } from './usagi-limbs.mjs';
 import { sampleUsagiEventFace, paintUsagiEventHeadphones } from './usagi-event-actions.mjs';
 import { paintUsagiEventLaptopBase } from './usagi-event-equipment.mjs';
 import { paintUsagiEventRobot } from './usagi-event-robot.mjs';
@@ -170,7 +170,7 @@ function appearance(context, options) {
     // item. Actual cloth then covers its root; no cream correction covers cloth.
     if (opensFront) {
       rigArtist.layerParts(context, options.palette, artwork.drawnView, artwork, 'under-cloth');
-      paintUsagiGestureUnderCloth(context, resolved);
+      paintLimbsUnderCloth(context, resolved);
     }
     // Held-prop fallback: torso cloth is cut around the paws instead of
     // swallowing them (and the prop they hold).

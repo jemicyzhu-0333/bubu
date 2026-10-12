@@ -9,3 +9,4 @@ export * from './accessory-stack.mjs';
 export * from './body-poses.mjs';
 export * from './accents.mjs';
 export * from './accessory-resolver.mjs';
+export * from './limbs.mjs';

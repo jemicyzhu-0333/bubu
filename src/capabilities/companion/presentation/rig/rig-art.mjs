@@ -119,7 +119,8 @@ function createRigArtist({ fallback, paths = createPathCache(), partLayer = part
     const world = computeBoneWorld(resolved.data.bones, bones);
     return Object.freeze({
       kind: 'rig', rig, key: rigCacheKey(rig), view, drawnView: resolved.view,
-      face, pose: Object.freeze({ sample, world })
+      face, pose: Object.freeze({ sample, world }),
+      clock: Object.freeze({ channel, elapsedMs })
     });
   }
 
