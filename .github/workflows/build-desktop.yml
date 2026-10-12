@@ -67,7 +67,16 @@ jobs:
         if: matrix.platform == 'mac'
         run: npm run verify:pet-viewport
       - name: Check tests, architecture and generated resources
-        run: npm run check
+        # Real Skia pixel tests (eye continuity, face/tool clearance, wardrobe)
+        # skip silently without these; the locked @napi-rs/canvas is installed.
+        env:
+          DANGO_CANVAS_PACKAGE: ${{ github.workspace }}/node_modules/@napi-rs/canvas
+          USAGI_CANVAS_PACKAGE: ${{ github.workspace }}/node_modules/@napi-rs/canvas
+        shell: bash
+        run: |
+          set -euo pipefail
+          node -e "require(process.env.DANGO_CANVAS_PACKAGE).createCanvas(1,1)"
+          npm run check
       - name: Check integration contracts
         run: npm run test:integration
       - name: Verify installed packaging dependencies, configuration and command selection
