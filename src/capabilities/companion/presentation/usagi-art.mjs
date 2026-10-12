@@ -26,7 +26,7 @@ import { usagiProfileFaceRig } from './usagi-face-projection.mjs';
 import { applyPoint } from './rig/pose.mjs';
 import { paintWithPawCutout } from './accessory-cutout.mjs';
 import { pawPass } from './motion-core/accessory-resolver.mjs';
-import { paintLimbsUnderCloth } from './usagi-limbs.mjs';
+import { paintLimbsUnderCloth, clipOutsideBody } from './usagi-limbs.mjs';
 import { sampleUsagiEventFace, paintUsagiEventHeadphones } from './usagi-event-actions.mjs';
 import { paintUsagiEventLaptopBase } from './usagi-event-equipment.mjs';
 import { paintUsagiEventRobot } from './usagi-event-robot.mjs';
@@ -203,8 +203,21 @@ function layerDecomposition({ layer, artwork }) {
   return { paint: (context, palette) => {
     // These paws are action front-pass parts; the matrix audit omits that pass.
     if (globalThis.__petAuditOmitActionLayer === 'front') return false;
-    return withUsagiGroundClip(context, artwork,
-      () => rigArtist.layerParts(context, palette, artwork.drawnView, artwork, rule.pass) > 0);
+    // Visible paw = the palm (over the cloth) plus whatever lies outside the
+    // body contour; the paw's root strip inside the body stays under the
+    // cloth, as it stays under the body line without an outfit.
+    const data = artwork.rig?.views?.[artwork.drawnView], world = artwork.pose?.world;
+    context.save();
+    const islands = [];
+    for (const side of ['l', 'r']) {
+      const bone = data?.bones[`hand_${side}`]; if (!bone || !world?.[`hand_${side}`]) continue;
+      const [x, y] = applyPoint(world[`hand_${side}`], ...bone.pivot); islands.push({ x, y, ...PAW });
+    }
+    if (data) clipOutsideBody(context, artwork, data, islands);
+    try {
+      return withUsagiGroundClip(context, artwork,
+        () => rigArtist.layerParts(context, palette, artwork.drawnView, artwork, rule.pass) > 0);
+    } finally { context.restore(); }
   } };
 }
 

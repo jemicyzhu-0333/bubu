@@ -120,6 +120,29 @@ function traceBodyContour(ctx, artwork, data) {
   return true;
 }
 
+
+// Clip to the outside of the posed body contour, plus keep-out islands
+// (palms) that stay visible over it. Nonzero winding: outer box +1, body -1,
+// islands +1, so an island inside the body is still painted.
+function clipOutsideBody(ctx, artwork, data, islands = []) {
+  const poly = bodyPolygon(data), m = artwork?.pose?.world?.root;
+  if (!poly || !m || typeof ctx.clip !== 'function') return false;
+  const pts = poly.map(p => applyPoint(m, ...p));
+  let area = 0; for (let i = 0; i < pts.length; i++) { const a = pts[i], b = pts[(i + 1) % pts.length]; area += a[0] * b[1] - b[0] * a[1]; }
+  const body = area > 0 ? pts.slice().reverse() : pts;
+  const c = pts.reduce((acc, p) => [acc[0] + p[0] / pts.length, acc[1] + p[1] / pts.length], [0, 0]), R = 45;
+  ctx.beginPath();
+  ctx.moveTo(c[0] - R, c[1] - R); ctx.lineTo(c[0] + R, c[1] - R); ctx.lineTo(c[0] + R, c[1] + R); ctx.lineTo(c[0] - R, c[1] + R); ctx.closePath();
+  ctx.moveTo(...body[0]); for (const p of body.slice(1)) ctx.lineTo(...p); ctx.closePath();
+  for (const { x, y, rx, ry = rx } of islands) {
+    ctx.moveTo(x + rx, y);
+    for (let i = 1; i <= 24; i++) { const a = i / 24 * Math.PI * 2; ctx.lineTo(x + Math.cos(a) * rx, y + Math.sin(a) * ry); }
+    ctx.closePath();
+  }
+  ctx.clip('nonzero');
+  return true;
+}
+
 // ---- painter ---------------------------------------------------------------
 function supportAmount(geometry) {
   const reach = Math.hypot(geometry.to[0] - geometry.socket[0], geometry.to[1] - geometry.socket[1]);
@@ -150,7 +173,11 @@ function paintLimb(ctx, artwork, data, side, { mergeSocket = true, alpha = 1, in
   // Support limbs grow out of the body edge: paint only outside the body
   // contour so the body line stays continuous while the limb retracts.
   const support = geometry.intent.kind === 'support';
-  if (support && typeof ctx.clip === 'function') {
+  // Back view: the arm is on the far side of the body; only the palm shows
+  // over the back (as the authored paw does), the rest only beside the body.
+  if (artwork.drawnView === 'back') clipOutsideBody(ctx, artwork, data,
+    support ? [] : [{ x: geometry.to[0], y: geometry.to[1], rx: geometry.radius + 1.2 }]);
+  else if (support && typeof ctx.clip === 'function') {
     const s = geometry.socket, R = 40; ctx.beginPath();
     ctx.moveTo(s[0] - R, s[1] - R); ctx.lineTo(s[0] + R, s[1] - R); ctx.lineTo(s[0] + R, s[1] + R); ctx.lineTo(s[0] - R, s[1] + R); ctx.closePath();
     if (traceBodyContour(ctx, artwork, data)) ctx.clip('evenodd');
@@ -275,5 +302,5 @@ function traceUsagiLimb(artwork, data, side) {
   return { ...now, mode: k < 1 ? 'fade' : now.mode, len: +(before.len * (1 - k) + now.len * k).toFixed(3) };
 }
 
-export { USAGI_LIMB_RIG, limbState, sockets, intentFor, limbGeometry, limbLayer, paintLimb, paintLimbsBefore, paintLimbPart,
+export { clipOutsideBody, bodyPolygon as bodyContour, USAGI_LIMB_RIG, limbState, sockets, intentFor, limbGeometry, limbLayer, paintLimb, paintLimbsBefore, paintLimbPart,
   paintLimbsUnderCloth, traceUsagiLimb, bodyPolygon, behindBody, filters as usagiLimbFilters };
