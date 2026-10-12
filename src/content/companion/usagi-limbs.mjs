@@ -19,7 +19,7 @@ const USAGI_LIMB_RIG = freeze({
   },
   arm: { upper: 16, lower: 16 },
   hip: { front: { l: [21, 59], r: [45, 59] } },
-  rootRadius: 2.7, wristRadius: 3.6, outline: 1.5, bury: 2.5, socketRadius: 3.2, bodyCentre: [33, 40],
+  rootRadius: 2.7, wristRadius: 3.6, outline: 1.5, bury: 2.5, socketRadius: 4.6, bodyCentre: [33, 40],
   restReach: 7, releaseReach: 8,
   // Free (support) reaches such as catching: paw stops on this circle around the shoulder pivot.
   supportReach: 11,
