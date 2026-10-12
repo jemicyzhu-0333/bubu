@@ -290,12 +290,15 @@ Usagi 的打哈欠与击掌使用短而厚的开口根轮廓，远手在身体�
 
 所有 Usagi 手臂只由一个模块产生：`presentation/usagi-limbs.mjs`。原来的三套画法（`usagi-support` 的连接管 + 奶油色覆盖线、`usagi-contact-limbs` 按 motion 分支的贝塞尔接触手、`usagi-gesture-limbs` 的私有肩点）已删除，同名导出仅作为兼容视图保留。
 
-- **插槽**：`content/companion/usagi-limbs.mjs` 的 `USAGI_LIMB_RIG.sockets[view][side]`（根骨空间）。肢体根部埋入身体 `bury` 单位；描边在插槽圆 `socketRadius` 内的部分被插槽遮罩擦除，因此手臂轮廓与身体轮廓合成一条线，不画肩部封口、不画奶油色补丁。
+- **插槽**：`content/companion/usagi-limbs.mjs` 的 `USAGI_LIMB_RIG.sockets[view][side]`（根骨空间）。肢体根部埋入身体 `bury` 单位；两条边的描边按几何裁掉落在「身体内 ∩ 插槽圆 `socketRadius`」里的那一段（干净圆头，不做裁剪遮罩，不留细楔），身体外的描边始终画出，与身体线接上。手臂轮廓与身体轮廓合成一条线，不画肩部封口、不画奶油色补丁。支撑臂只画在身体轮廓外；背面视角的手臂只在身体外可见，加掌心一圈。
+- **腿**：脚是 IK 目标（姿势决定落点），髋插槽是腿骨枢轴在根骨下的位置（`USAGI_LEG_RIG`）。收腿（腿顶在髋上方且在身体内）被身体挡住，保持原像素；腿顶被拉到髋下方时，`solveUsagiLegs` 以腿最低点的世界水平线为不动线做剪切 + 纵向缩放，让腿顶回到髋插槽，地面像素不变。结果写在 `artwork.pose.partWorld`，只影响腿部件；靴子等挂件仍用骨矩阵。
 - **骨长**：`arm.upper/lower` 固定（各 16）。motion-core `solveTwoBone` 求肘：肘偏移受意图预设 `maxBend` 限制、朝外（或按侧）弯；目标比允许的弯曲更近时，链根沿插槽轴缩回（连续，无阈值）。自由伸手声明 `supportReach`，超出时 `placePaw` 把爪子落在可达圆上，绑在手骨上的道具随之移动；握持道具的目标保持原值（腕部永远等于手骨枢轴）。
 - **意图**：`USAGI_LIMB_INTENTS` 是只按 pose motion、道具、侧、contactAction、gesture 匹配的数据表（不按动作 id）；动作可在 capabilities 中以 `limbs: { l, r }` 覆盖。种类：`grip`（替换原短掌）、`gesture`（自由手，远侧画在身体后）、`support`（保留原短掌，肢体从其肩枢轴下方按伸展量连续长出，替代旧 8px 阈值）。
 - **连续性**：肘点每通道限速 `elbowSpeed`（单位/ms），无时钟（测试、离线）时为确定性纯函数。
 - **Dango**：`presentation/dango-limbs.mjs` 为每只接触手附加同一条插槽→IK→腕部链；存在 `assets/companion/dango/raster/limbs/limbs.json`（`dango-limbs/1`）时按 IK 角度选帧，否则沿用现有爪子贴图。
-- **检测**：`npm run limbs:check`（含在 `npm run check`）：全部动作与会话 × 四视图的几何追踪（画法跳变、无法由腕部运动解释的长度变化、超出骨长），以及在 Canvas 环境下的轮廓断口扫描。
+- **检测**：`npm run limbs:check`（含在 `npm run check`）：全部动作与会话 × 四视图的几何追踪（画法跳变、无法由腕部运动解释的长度变化、超出骨长、腿离开髋插槽），以及在 Canvas 环境下的轮廓断口扫描（只计毛色边缘；伞杆、击掌光芒、激光点这类无描边道具/特效不算）。
+- **背面配饰层序**（`accessory-resolver` 的 `FORM_TRAITS.usagi.backPaws` / `pawPass`）：背面视角穿包身服装时，双爪有自己的 pass `between-cloth`，在服装 front pass 里画：在领饰、围巾、围裙（`frontHung`）之后，在披风（`coveredBy: usagi.backwear`，计划项 `coversPaws`）之前。只裁到身体外 + 掌心。不挖空，也不逐帧翻转层序。
+- **区域避让**（`regionClearance`）：动作细节锚在某个已佩戴槽位占用的区域时（团子回头标记 vs 头顶月牙），按视角让到该配饰旁边。
 
 AI协作确认修改与分层时间线不修改伙伴像素、素材、rig动作、坐标、碰撞或输入命中规则；相关UI由popover功能模块承担。伙伴v1美术冻结继续有效。
 

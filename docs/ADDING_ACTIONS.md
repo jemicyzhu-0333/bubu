@@ -21,13 +21,16 @@
   - 可选 `whileExtended`：只在腕部仍伸出时保持。
 - 腕部目标用 `usagi-contact.mjs` 的 `placePaw(bones, data, side, target, armAngle, toolAngle, maxReach?, reachFrom?)` 写进手骨。自由伸手请传 `USAGI_LIMB_RIG.supportReach`，避免手臂被拉长；握道具的目标保持原值。
 - 新视角或新形态：在 `USAGI_LIMB_RIG.sockets` 增加插槽坐标（根骨空间），骨长保持不变。
+- **腿**：动作只摆脚（腿骨），不用管髋。腿顶被拉到髋下方时，`solveUsagiLegs` 会自动接回，地面线不变；`limbs:check` 会检查腿是否离开髋。
 - **Dango**：在 `assets/companion/dango/raster/limbs/limbs.json`（`dango-limbs/1`，规格见出图说明）加帧：`segments`、`paws.<pose>.views.<view>[]`（每帧写 `angle`、`root`、`grip`）。代码会按 IK 解出的角度选最近一帧，不旋转。新姿势只需加一个 `paws` key，代码不用改。
 
 ## 3. 配饰
 
 - 新槽位：在 `motion-core/accessory-resolver.mjs` 的 `ACCESSORY_MANIFEST` 写清楚挂点、区域、各视角层级（或 `hide`）、面积预算、跟随参数和 `stacksUnder`。
 - 动作只声明 `wear`。解析器按 换层（tuck）→ 挖空（cut）→ 收起（stow）的顺序处理，不允许穿模。
-- 背面视角的领饰会自动绕开双爪挖空（`FORM_TRAITS.usagi.backPawCut`）。
+- 背面视角：双爪在服装 front pass 内有自己的层（`FORM_TRAITS.usagi.backPaws`）：盖在领饰、围巾、前挂式（`frontHung`）围裙上面，压在披风（`coveredBy`）下面。新的背面服装如果真的会盖住手臂，就加进 `coveredBy` 槽位；前挂式的加进 `frontHung`。
+- 动作细节（标记、光点）锚在头顶等区域时，如果和某个配饰重叠，在 `REGION_CLEARANCE` 里写偏移和视角，不要隐藏配饰。
+- 矩阵检测器：半透明道具按相对对比度判断；面向观众的动作按实际绘制的视角判断；≤8px 的下摆接触不算遮挡。
 
 ## 4. 检查
 
