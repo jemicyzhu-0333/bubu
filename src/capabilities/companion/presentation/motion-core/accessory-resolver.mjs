@@ -53,11 +53,28 @@ const ACCESSORY_MANIFEST = freeze({
 // Per-form layering facts the resolver must respect. Dango paws are painted in
 // the action front pass (verified on carry-energy/hiccup/sweep), i.e. already
 // above every garment, so a hand cut-out would only fade cloth around them.
-// usagi.backPawCut: in the back view the paws are front-pass parts at the
-// shoulders; neckwear crossing them must open around the paws every frame
-// (otherwise the order flips with the arm swing).
+// usagi.backPaws: per-view layer decomposition for the back view. Seen from
+// behind, the authored paws sit over the back silhouette (front pass). A
+// wrapping garment used to push them behind the body, so a collar, scarf or
+// apron then painted over the visible paw tips. Instead the paws get their
+// own pass inside the garment front pass: after neckwear/sidebag (the paws
+// are nearer than that cloth) and before the slots listed in coveredBy (a
+// cape or backpack really covers the arms). One order per view, no cut-out,
+// no per-frame flip.
 const FORM_TRAITS = freeze({ dango: freeze({ pawsAboveCloth: true }),
-  usagi: freeze({ pawsAboveCloth: false, backPawCut: freeze(['usagi.neckwear']) }) });
+  usagi: freeze({ pawsAboveCloth: false,
+    backPaws: freeze({ view: 'back', pass: 'between-cloth', within: 'front', when: 'wrapsBody',
+      // A cape covers the arms from behind; a front-hung apron only shows its
+      // ties at the back, so the paws stay over it.
+      coveredBy: freeze(['usagi.backwear']), frontHung: freeze(['usagi.garden-apron']) }) }) });
+
+// Pass for the posed paws of a form in a view: null = authored pass.
+function pawPass({ formId, view, wrapsBody = false } = {}) {
+  const rule = FORM_TRAITS[formId]?.backPaws;
+  if (!rule || view !== rule.view) return null;
+  if (rule.when === 'wrapsBody' && !wrapsBody) return null;
+  return freeze({ pass: rule.pass, within: rule.within });
+}
 
 const slotOf = item => item?.exclusiveGroup || item?.slot || null;
 const manifestFor = (item, manifest = ACCESSORY_MANIFEST) => manifest[slotOf(item)] || null;
@@ -132,9 +149,10 @@ function computePlan({ manifest = ACCESSORY_MANIFEST, items = [], formId, view =
       if (slots.includes(slot) && inWindow(rule.window, p)) { visible = false; reason = rule.why || 'stow'; }
     }
     if (visible && spec?.torso && !FORM_TRAITS[formId]?.pawsAboveCloth && holdsProp(action, caps)) cut = 'hands';
-    if (visible && view === 'back' && FORM_TRAITS[formId]?.backPawCut?.includes(slot)) cut = 'hands';
+    const paws = FORM_TRAITS[formId]?.backPaws;
+    const coversPaws = Boolean(paws && view === paws.view && paws.coveredBy.includes(slot) && !paws.frontHung.includes(item.id));
     const offsetY = visible && spec?.follow ? headFollowOffset(action, p, spec.follow, reduced) : 0;
-    plan.push(freeze({ id: item.id, slot, visible, layer: passLayer, offsetY, cut, reason,
+    plan.push(freeze({ id: item.id, slot, visible, layer: passLayer, offsetY, cut, reason, coversPaws,
       headroom: spec?.headroom || null, stackedUnder: (spec?.stacksUnder || []).filter(s => worn.has(s)) }));
   }
   const byId = new Map(plan.map(entry => [entry.id, entry]));
@@ -152,4 +170,4 @@ function computePlan({ manifest = ACCESSORY_MANIFEST, items = [], formId, view =
   return result;
 }
 
-export { FORM_TRAITS, ACCESSORY_MANIFEST, manifestFor, resolveAccessories, slotOf };
+export { pawPass, FORM_TRAITS, ACCESSORY_MANIFEST, manifestFor, resolveAccessories, slotOf };

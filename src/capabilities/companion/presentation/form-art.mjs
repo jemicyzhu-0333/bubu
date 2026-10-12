@@ -211,13 +211,25 @@ function drawAppearanceLayer(context, appearance, palette, { form, layer, offX, 
   const plan = resolveAccessories({ items: appearance?.items || [], formId: form.id, view: drawnView,
     action: fit ? null : options.action, phase: options.progress, reduced: Boolean(options.calmVisual) });
   const items = plan.itemsFor(layer, authored);
-  if (!items.length) return false;
+  // Per-view layer decomposition: posed parts the resolver slots into this
+  // garment pass (usagi back-view paws: over neckwear, under a cape).
+  const deco = !fit ? artist.layerDecomposition?.({ layer, artwork: options.artwork }) : null;
+  let decoDone = !deco;
+  const runDeco = (inSpace = false) => {
+    if (decoDone) return; decoDone = true;
+    if (inSpace) { deco.paint(context, palette); return; }
+    context.save(); context.translate(offX, offY);
+    try { withFormSpace(context, form, stage, false, () => deco.paint(context, palette)); } finally { context.restore(); }
+  };
+  const after = runDeco;
+  if (!items.length) { after(); return false; }
   context.save();
   context.translate(offX, offY);
   const painted = withFormSpace(context, form, stage, fit, () => {
     let didPaint = false;
     for (const item of items) {
       const fitPlan = plan.get(item.id);
+      if (!decoDone && fitPlan?.coversPaws) runDeco(true);
       let nudge = fitPlan?.offsetY || 0;
       // Canvas headroom budget: a floating item whose authored top would leave
       // the surface is lowered just enough to stay inside (never clipped).
@@ -238,6 +250,7 @@ function drawAppearanceLayer(context, appearance, palette, { form, layer, offX, 
     return didPaint;
   }, fitBounds);
   context.restore();
+  runDeco();
   return painted;
 }
 

@@ -25,6 +25,7 @@ import { withUsagiEffectOrigins } from './usagi-effect-origins.mjs';
 import { usagiProfileFaceRig } from './usagi-face-projection.mjs';
 import { applyPoint } from './rig/pose.mjs';
 import { paintWithPawCutout } from './accessory-cutout.mjs';
+import { pawPass } from './motion-core/accessory-resolver.mjs';
 import { paintLimbsUnderCloth } from './usagi-limbs.mjs';
 import { sampleUsagiEventFace, paintUsagiEventHeadphones } from './usagi-event-actions.mjs';
 import { paintUsagiEventLaptopBase } from './usagi-event-equipment.mjs';
@@ -194,10 +195,23 @@ function appearanceForeground(context, options) {
     () => rigArtist.portraitForeground(context, options.palette, options.view, artwork));
 }
 
+// Resolver layer decomposition: the posed paws' own pass inside a garment pass.
+function layerDecomposition({ layer, artwork }) {
+  if (artwork?.kind !== 'rig') return null;
+  const rule = pawPass({ formId: 'usagi', view: artwork.drawnView, wrapsBody: Boolean(artwork.wardrobe?.wrapsBody) });
+  if (!rule || rule.within !== layer) return null;
+  return { paint: (context, palette) => {
+    // These paws are action front-pass parts; the matrix audit omits that pass.
+    if (globalThis.__petAuditOmitActionLayer === 'front') return false;
+    return withUsagiGroundClip(context, artwork,
+      () => rigArtist.layerParts(context, palette, artwork.drawnView, artwork, rule.pass) > 0);
+  } };
+}
+
 function describeRig() { return rigSource.describe(); }
 
 export default Object.freeze({
-  resolveArtwork, subscribeArtwork, palette, resolveView, faceForView, body, face, action, actionOverlay, appearance,
+  layerDecomposition, resolveArtwork, subscribeArtwork, palette, resolveView, faceForView, body, face, action, actionOverlay, appearance,
   appearanceForeground,
   clipBody: withUsagiGroundClip,
   particle: drawUsagiParticle,
