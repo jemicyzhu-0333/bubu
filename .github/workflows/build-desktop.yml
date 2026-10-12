@@ -36,12 +36,20 @@ jobs:
         with:
           node-version: '22'
       - name: Install locked dependencies
+        id: dependencies
         run: npm ci
       - name: Audit the locked dependency tree
         run: npm audit --audit-level=low
       - name: Check native admission permissions and builder schema early
+        id: admission
         run: node --test test/config-admission-permissions.test.js test/build-schema.test.js
+      - name: Diagnose bounded Windows process startup after admission failure
+        if: failure() && matrix.platform == 'win' && steps.admission.outcome == 'failure'
+        timeout-minutes: 3
+        run: node scripts/diagnose-windows-acl-startup.cjs
       - name: Verify synthetic reminder layout in native Electron
+        # Independent synthetic evidence never clears an earlier admission failure.
+        if: ${{ !cancelled() && steps.dependencies.outcome == 'success' }}
         timeout-minutes: 5
         run: npx --no-install electron scripts/verify-reminder-layout.cjs dist/reminder-layout
       - name: Store synthetic reminder layout evidence
