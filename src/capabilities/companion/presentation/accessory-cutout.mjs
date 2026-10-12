@@ -30,7 +30,10 @@ function tileFor(t, { x, y, rx }) {
 function paintWithPawCutout(context, paws, paint) {
   if (!paws?.length || typeof context.getTransform !== 'function') return paint(context);
   const t = context.getTransform();
+  // Recording/mock contexts may not expose a real matrix; paint plainly then.
+  if (!t || !['a', 'b', 'c', 'd', 'e', 'f'].every(k => Number.isFinite(t[k]))) return paint(context);
   const tiles = paws.map(paw => ({ paw, ...tileFor(t, paw) }));
+  if (!tiles.every(tile => [tile.left, tile.top, tile.width].every(Number.isFinite))) return paint(context);
   // 1. Everything outside the tiles, painted directly.
   context.save();
   context.setTransform(1, 0, 0, 1, 0, 0);
@@ -38,7 +41,7 @@ function paintWithPawCutout(context, paws, paint) {
   context.rect(-1e5, -1e5, 2e5, 2e5);
   for (const tile of tiles) context.rect(tile.left, tile.top + tile.height, tile.width, -tile.height);
   context.clip('evenodd');
-  context.setTransform(t);
+  context.setTransform(t.a, t.b, t.c, t.d, t.e, t.f);
   const painted = paint(context);
   context.restore();
   if (!painted) return painted;
