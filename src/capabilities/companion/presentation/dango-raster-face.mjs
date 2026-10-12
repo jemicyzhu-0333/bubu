@@ -45,7 +45,10 @@ function drawRasterFace(context, artwork, expression, blinking, palette, { paint
   const inset = clamp(face.eyeInsetX, -1, 1.5);
   const heights = eyeHeightScales(artwork, eyes);
   for (const [i, sprite] of (eyes?.sprites || []).entries()) {
-    const projection = projectOpenEye(artwork.data, eyes.key, sprite, i);
+    // The eased size belongs to the sampled glyph; a not-yet-loaded fallback
+    // (e.g. neutral while focused PNGs load) keeps its own generated size.
+    const eased = eyes.key === face.eyes ? artwork.eyeScale?.[i] : undefined;
+    const projection = projectOpenEye(artwork.data, eyes.key, sprite, i, eased);
     if (projection) {
       // Occlude a fixed pupil with an upper lid instead of scaling the pupil
       // and its highlight. A single sprite avoids cross-fade double pupils.

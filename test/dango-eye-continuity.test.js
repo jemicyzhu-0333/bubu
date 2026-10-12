@@ -1,7 +1,13 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { OPEN_EYE_GLYPHS, eyeInkRect, projectOpenEye, createEyeApertureSampler } = require('../src/capabilities/companion/presentation/dango-eye-projection.mjs');
+const { OPEN_EYE_GLYPHS, eyeInkRect, projectOpenEye, createEyeApertureSampler, relativeScale } = require('../src/capabilities/companion/presentation/dango-eye-projection.mjs');
+// Expected pupil rect: the view's neutral pupil, resized by the glyph's generated
+// relative size and kept on the neutral centre.
+function expectedRect(neutral, eyes, i, scale = relativeScale(eyes, i)) {
+  const [x, y, w, h] = eyeInkRect(neutral), [rw, rh] = scale;
+  return [x + (w - w * rw) / 2, y + (h - h * rh) / 2, w * rw, h * rh];
+}
 const { createDangoRasterArtist } = require('../src/capabilities/companion/presentation/dango-raster-art.mjs');
 const { DANGO_RASTER } = require('../assets/companion/dango/raster/dango.raster.mjs');
 const { EXPRESSIONS } = require('../src/content/expressions.mjs');
@@ -34,7 +40,7 @@ test('every full open glyph uses canonical eye footprint and authored perspectiv
         const {calls}=draw(artist,artwork), neutral=artwork.data.face.eyes.neutral;
         assert.equal(calls.length,3);
         for(const i of [0,1]) {
-          const [w,h]=dimensions(calls[i]);const target=eyeInkRect(neutral[i]);close(w,target[2]);close(h,target[3]);
+          const [w,h]=dimensions(calls[i]);const target=expectedRect(neutral[i],eyes,i);close(w,target[2]);close(h,target[3]);
           const c=calls[i],s=artwork.data.face.eyes[eyes][i];
           assert.ok(c.image.src.includes(s.src), `retains ${eyes} identity`);
           const r=eyeInkRect(s);
@@ -46,7 +52,7 @@ test('every full open glyph uses canonical eye footprint and authored perspectiv
   } finally { artist.dispose(); }
 });
 
-test('wide/curious phrase edges no longer resize pupils; opacity is never cross-faded', async()=>{
+test('wide/curious phrase edges ease pupil size within the frame clock; opacity is never cross-faded', async()=>{
   const artist=await make(), expression=EXPRESSIONS.find(x=>x.id==='life.attentive');
   try {for(const view of ['front','three-quarter']) {
     const frames=[1007,1009,2447,2449].map(t=>{
@@ -54,7 +60,10 @@ test('wide/curious phrase edges no longer resize pupils; opacity is never cross-
       return draw(artist,a);
     });
     for(const frame of frames) {assert.equal(frame.calls.length,3);assert.equal(frame.clips.length,0);}
-    for(const i of [0,1])for(const f of frames){const d=dimensions(f.calls[i]), base=dimensions(frames[0].calls[i]);close(d[0],base[0]);close(d[1],base[1]);assert.equal(f.calls[i].alpha,1);}
+    // 2ms apart across the glyph swap: size may move at most 2ms * .002 of the neutral pupil.
+    for(const i of [0,1])for(const [a,b] of [[0,1],[2,3]]){const da=dimensions(frames[a].calls[i]),db=dimensions(frames[b].calls[i]);
+      for(const k of [0,1])assert.ok(Math.abs(da[k]-db[k])<=da[k]*.005,`${view} eye ${i} jumped ${da[k]}->${db[k]}`);}
+    for(const f of frames)for(const i of [0,1])assert.equal(f.calls[i].alpha,1);
     assert.ok(frames[0].calls[0].image.src.includes('wide'));
     assert.ok(frames[1].calls[0].image.src.includes('curious'));
   }} finally{artist.dispose();}
@@ -66,7 +75,7 @@ test('openness clips a fixed pupil and highlight; blink and authored eyelids rem
       const a=artist.resolveArtwork({view,face:{eyes,mouth:'neutral',openness:.7},calmVisual:true});
       const {calls,clips}=draw(artist,a), neutral=a.data.face.eyes.neutral;
       assert.equal(clips.length,2);
-      for(const i of [0,1]){close(dimensions(calls[i])[1],eyeInkRect(neutral[i])[3]);close(clips[i][3],eyeInkRect(neutral[i])[3]*.7);}
+      for(const i of [0,1]){const r=expectedRect(neutral[i],eyes,i);close(dimensions(calls[i])[1],r[3]);close(clips[i][3],r[3]*.7);}
       const blink=draw(artist,{...a,calmVisual:false},true);assert.equal(blink.clips.length,0);assert.ok(blink.calls.slice(0,2).every(c=>c.image.src.includes('closed')));
     }
     for(const eyes of ['half','droopy','shy','waiting','closed','sleepy','smile','content']) {
@@ -119,7 +128,8 @@ test('all expression/action inputs remain finite; winners and static states reta
 test('real PNG pixels verify the neutral ink metadata and normalized visible pupil bounds',async()=>{
   const fs=require('node:fs');
   const {createCanvas,loadImage}=require('@napi-rs/canvas');
-  const {DANGO_EYE_INK_BOUNDS}=require('../src/content/companion/dango-eye-footprints.mjs');
+  const {DANGO_EYE_INK_BOUNDS,DANGO_EYE_RELATIVE_SCALE}=require('../src/content/companion/dango-eye-footprints.mjs');
+  assert.ok(DANGO_EYE_RELATIVE_SCALE.wide.every(([w,h])=>w>1.05&&h>1.05),'wide eyes stay larger than neutral');
   const {drawRasterFace}=require('../src/capabilities/companion/presentation/dango-raster-face.mjs');
   const {createRasterPainter}=require('../src/capabilities/companion/presentation/raster/paint.mjs');
   const images=new Map();
@@ -145,8 +155,10 @@ test('real PNG pixels verify the neutral ink metadata and normalized visible pup
     const data=DANGO_RASTER.views[view],face={eyes,mouth:'neutral',openness:1};
     const c=createCanvas(480,480),ctx=c.getContext('2d');ctx.scale(6,6);
     drawRasterFace(ctx,{view,data,face,layeredReady:true},face,false,PALETTES.pink,{source,painter});
-    for(const reference of data.face.eyes.neutral){
-      const [x,y,w,h]=eyeInkRect(reference),left=Math.floor(x*6)-2,top=Math.floor(y*6)-2;
+    for(const [index,reference] of data.face.eyes.neutral.entries()){
+      // Generated relative size keeps expression differences on the neutral pupil centre.
+      const [nx,ny,nw,nh]=eyeInkRect(reference),[rw,rh]=DANGO_EYE_RELATIVE_SCALE[eyes][index];
+      const w=nw*rw,h=nh*rh,x=nx+(nw-w)/2,y=ny+(nh-h)/2,left=Math.floor(x*6)-2,top=Math.floor(y*6)-2;
       const crop=createCanvas(Math.ceil(w*6)+5,Math.ceil(h*6)+5);crop.getContext('2d').drawImage(c,-left,-top);
       const actual=darkBounds(crop);
       assert.ok(Math.abs(actual[2]-w*6)<=1.5,`${view}/${eyes} visible width ${actual[2]} vs ${w*6}`);
@@ -167,4 +179,19 @@ test('lookback transforms carry the pupil and lid together without leaking into 
    for(let j=0;j<6;j++)close(turned.calls[i].matrix[j],expected[j]);
   }
  }finally{artist.dispose();}
+});
+
+test('generated relative sizes keep wide eyes larger than neutral and settle smoothly', () => {
+  const sampler=createEyeApertureSampler(), face={eyes:'focused',mouth:'neutral',openness:1};
+  let last=sampler.sampleEyes(face,{elapsedMs:0,expressionId:'x'});
+  assert.deepEqual(last.scale,[relativeScale('focused',0),relativeScale('focused',1)]);
+  for(let t=16;t<=800;t+=16){
+    const next=sampler.sampleEyes({...face,eyes:'wide'},{elapsedMs:t,expressionId:'x'});
+    for(const i of [0,1])for(const k of [0,1])assert.ok(Math.abs(next.scale[i][k]-last.scale[i][k])<=16*.002+1e-12);
+    last=next;
+  }
+  for(const i of [0,1])for(const k of [0,1])assert.ok(Math.abs(last.scale[i][k]-relativeScale('wide',i)[k])<1e-4);
+  assert.ok(relativeScale('wide',0)[1]>1.05);
+  const fresh=sampler.sampleEyes({...face,eyes:'focused'},{elapsedMs:900,expressionId:'other'});
+  assert.deepEqual(fresh.scale,[relativeScale('focused',0),relativeScale('focused',1)],'new semantic id is immediate');
 });

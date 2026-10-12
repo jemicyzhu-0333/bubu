@@ -48,7 +48,8 @@ test('focus and wake preserve source glyphs with canonical open pupils and legac
           for (const channel of [0, 1, 2, 4]) close(after[far].matrix[channel], before[far].matrix[channel], 'horizontal channels');
           const heights = after.slice(0, 2).map(call => call.rect[3] * call.matrix[3]);
           const expected = isOpenEye(artwork.face.eyes) ? neutral.map(eyeInkRect) : neutral.map(s => s.rect);
-          close(heights[0] / heights[1], expected[0][3] / expected[1][3], 'canonical visible-pupil or partial-lid ratio');
+          const rel = isOpenEye(artwork.face.eyes) ? (artwork.eyeScale || [[1, 1], [1, 1]]).map(pair => pair[1]) : [1, 1];
+          close(heights[0] / heights[1], expected[0][3] * rel[0] / (expected[1][3] * rel[1]), 'canonical visible-pupil or partial-lid ratio');
           const pivot = artwork.data.face.eyes[artwork.face.eyes][far].pivot;
           close(after[far].matrix[3] * pivot[1] + after[far].matrix[5],
             before[far].matrix[3] * pivot[1] + before[far].matrix[5], 'vertical pivot');

@@ -505,7 +505,7 @@ Dango 跑步保留原 Rig 的双脚前后运动、身体呼吸伸缩及最小足
 
 ### 团子开眼连续性与基础短句
 
-完整开眼（neutral、curious、focused、wide、sparkle、surprised、determined、pleading）以当前视角 canonical neutral 的实际黑色瞳体为尺寸与左右透视基准，不能用带粉色身体边的 PNG rect 当瞳孔。`dango-eye-footprints.mjs` 固定源图的可见黑瞳边界，运行时不按当前皮肤阈值猜测；原 PNG、身体与 neutral 视觉位置保留。半闭、困倦、羞怯、等待和笑眼保留各自原图及既有远眼投影，不强制成为完整开眼。
+完整开眼（neutral、curious、focused、wide、sparkle、surprised、determined、pleading）以当前视角 canonical neutral 的实际黑色瞳体为位置、中心与左右透视基准，不能用带粉色身体边的 PNG rect 当瞳孔；各开眼保留素材自身相对 front neutral 的大小差异（如 wide 更大），同一表达内换眼形时该大小随帧时钟平滑过渡。`dango-eye-footprints.mjs` 由 `tools/dango-eye-continuity/footprints.mjs` 从源 PNG 生成（`raster:build` 生成、`raster:check` 校验），记录可见黑瞳边界与相对大小，运行时不按当前皮肤阈值猜测；原 PNG、身体与 neutral 视觉位置保留。半闭、困倦、羞怯、等待和笑眼保留各自原图及既有远眼投影，不强制成为完整开眼。
 
 完整开眼的 openness 由上眼睑裁切表现，不缩放整颗黑瞳和高光；每眼只画一张素材，不用双瞳交叉淡化。眼睑短过渡只用现有帧时钟与独立 render channel，新的胜出语义、视角、静态策略、倒退或失效时钟立即对齐；不新增定时器或持久化字段。眨眼和背面不画脸规则不变。
 

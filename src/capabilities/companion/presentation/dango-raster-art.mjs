@@ -12,6 +12,7 @@ import { sampleRasterPose } from './dango-raster-pose.mjs';
 import { paintRasterPaws } from './dango-raster-paws.mjs';
 import { drawRasterFace } from './dango-raster-face.mjs';
 import { createEyeApertureSampler } from './dango-eye-projection.mjs';
+const eyeState = ({ aperture, scale }) => ({ eyeAperture: aperture, eyeScale: scale });
 import { drawRasterActions, toolMatrix } from './dango-raster-actions.mjs';
 import { createRasterWardrobe, isScarfHeadwearCombination } from './dango-raster-appearance.mjs';
 import { createRasterParticlePainter } from './dango-raster-particles.mjs';
@@ -155,7 +156,7 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
     const bodyReadiness = [...coreStates, source.state(original.neutral)].map(state => state[0]).join('');
     return Object.freeze({ kind: 'dango-raster', key: `${key}|${clip ? `clip:${clip.clipId}@${clip.contentVersion}:${clip.poseId}` : variant ? 'running' : 'rest'}|load:${bodyReadiness}|hide:${[...hiddenParts].join(',')}`,
       clip, clipStatus: clipSelection?.status || 'disabled', runFootTiming: footTiming, view, drawnView: resolved.key,
-      eyeAperture: eyeAperture.sample(pose.face, { ...options, view, calmVisual: pose.calmVisual }),
+      ...eyeState(eyeAperture.sampleEyes(pose.face, { ...options, view, calmVisual: pose.calmVisual })),
       expressionId: options.expressionId, data, neutral: original.neutral, ...pose, lookback, footwearTransforms, attachmentMatrices: Object.freeze(attachmentMatrices),
       hiddenParts, ready, layeredReady, wardrobe: wardrobeState, effectOrigins,
       pawRootsCovered: outfitItems.some(item => ['scarf', 'cape', 'satchel'].includes(item.renderKey)),
