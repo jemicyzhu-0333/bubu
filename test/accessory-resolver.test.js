@@ -68,7 +68,7 @@ test('every equipped slot in the catalog has a manifest entry', async () => {
   for (const item of PET_APPEARANCE_ITEMS) assert.ok(ACCESSORY_MANIFEST[item.exclusiveGroup], item.id);
 });
 
-test('matrix analyser flags face cover, floating gaps and canvas exits', async () => {
+test('legacy matrix analyser flags face cover, floating gaps and canvas exits', async () => {
   const { analyseMask } = await import('../tools/accessory-matrix/analyse.mjs');
   const w = 438, h = 438, n = w * h;
   const blank = () => ({ width: w, height: h, data: new Uint8ClampedArray(n * 4) });
@@ -89,4 +89,52 @@ test('matrix analyser flags face cover, floating gaps and canvas exits', async (
   for (let y = 0; y < 30; y++) for (let x = 200; x < 230; x++) put(edge, x, y, [120, 60, 200]);
   for (let y = 30; y < 100; y++) for (let x = 210; x < 220; x++) put(edge, x, y, [120, 60, 200]);
   assert.ok(analyseMask(bare, edge).flags.includes('out-of-canvas'));
+});
+
+test('dango raster hats bob in whole art pixels only, and dango paws are never cut', async () => {
+  const { resolveAccessories, FORM_TRAITS } = await load();
+  const dango = [{ id: 'hat', exclusiveGroup: 'headwear' }, { id: 'scarf', exclusiveGroup: 'neckwear' }];
+  let bobbed = 0;
+  for (let p = 0; p <= 1; p += .005) {
+    const plan = resolveAccessories({ items: dango, formId: 'dango', action: { id: 'happy-hop', duration: 6000, prop: 'x' }, phase: p });
+    const y = plan.get('hat').offsetY;
+    assert.ok(Number.isInteger(y) && Math.abs(y) <= 1, `p=${p} y=${y}`);
+    if (y) bobbed++;
+    assert.equal(plan.get('scarf').cut, null);
+  }
+  assert.ok(bobbed > 0);
+  assert.equal(FORM_TRAITS.dango.pawsAboveCloth, true);
+});
+
+test('floating auras carry a canvas headroom budget', async () => {
+  const { resolveAccessories } = await load();
+  const plan = resolveAccessories({ items: [{ id: 'halo', formId: 'usagi', exclusiveGroup: 'usagi.aura' }], formId: 'usagi' });
+  assert.ok(plan.get('halo').headroom.px >= 2, 'stays clear of the 2px canvas edge band');
+  assert.ok(plan.get('halo').headroom.top < 0);
+});
+
+test('fit analyser v2: real eye mask, hidden front-pass ink and z-order flips', async () => {
+  const { analyseFit, zOrderFlips } = await import('../tools/accessory-matrix/analyse.mjs');
+  const w = 120, h = 120;
+  const img = () => ({ width: w, height: h, data: new Uint8ClampedArray(w * h * 4) });
+  const put = (im, x0, y0, x1, y1, rgb) => { for (let y = y0; y < y1; y++) for (let x = x0; x < x1; x++) im.data.set([...rgb, 255], (y * w + x) * 4); };
+  const scene = ({ eyes = true, paw = true, cloth = false, clothOverPaw = false }) => {
+    const im = img(); put(im, 20, 20, 100, 100, [250, 240, 220]);
+    if (eyes) put(im, 40, 40, 46, 46, [20, 20, 20]);
+    if (paw && !clothOverPaw) { if (cloth) put(im, 30, 70, 90, 90, [200, 120, 90]); put(im, 50, 72, 62, 84, [240, 150, 170]); }
+    else { if (paw) put(im, 50, 72, 62, 84, [240, 150, 170]); if (cloth) put(im, 30, 70, 90, 90, [200, 120, 90]); }
+    return im;
+  };
+  const frame = opts => ({ bare: scene({ ...opts, cloth: false }), worn: scene({ ...opts, cloth: true }),
+    bareNoFront: scene({ ...opts, cloth: false, paw: false }), wornNoFront: scene({ ...opts, cloth: true, paw: false }),
+    bareBlink: scene({ ...opts, eyes: false, cloth: false }) });
+  const ok = analyseFit(frame({}));
+  assert.deepEqual(ok.flags, []); assert.equal(ok.metrics.order, 'prop');
+  const bad = analyseFit(frame({ clothOverPaw: true }));
+  assert.ok(bad.flags.includes('covers-prop')); assert.equal(bad.metrics.order, 'item');
+  // Eye cover: cloth drawn over the eye block.
+  const f = frame({}); put(f.worn, 38, 38, 48, 48, [200, 120, 90]);
+  assert.ok(analyseFit(f).flags.includes('covers-eyes'));
+  assert.deepEqual(zOrderFlips(['prop', null, 'item', 'item', 'prop']), [[0, 2], [3, 4]]);
+  assert.deepEqual(zOrderFlips(['prop', 'prop', null]), []);
 });

@@ -218,7 +218,15 @@ function drawAppearanceLayer(context, appearance, palette, { form, layer, offX, 
     let didPaint = false;
     for (const item of items) {
       const fitPlan = plan.get(item.id);
-      const nudge = fitPlan?.offsetY || 0;
+      let nudge = fitPlan?.offsetY || 0;
+      // Canvas headroom budget: a floating item whose authored top would leave
+      // the surface is lowered just enough to stay inside (never clipped).
+      const room = fitPlan?.headroom;
+      if (room && !fit) {
+        const t = context.getTransform?.();
+        const top = t ? t.f + t.d * (room.top + nudge) : Infinity;
+        if (t?.d > 0 && top < room.px) nudge += (room.px - top) / t.d;
+      }
       if (nudge) { context.save(); context.translate(0, nudge); }
       didPaint = artistFor(form).appearance(context, { item, layer, palette, form, appearance, fit,
         view, fitPlan, paintedItems: items, ...options }) || didPaint;
@@ -235,6 +243,9 @@ function drawAppearanceLayer(context, appearance, palette, { form, layer, offX, 
 
 function drawActionLayer(context, { form, action, motion, progress, palette, layer, offX, offY, view,
   stage, theme, calmVisual, backSurface, frontSurface, artwork = null, sprites = null }) {
+  // Offline audit hook (tools/accessory-matrix): omit one action pass to
+  // isolate held props and near paws. Never set by the app.
+  if (globalThis.__petAuditOmitActionLayer === layer) return false;
   // A rig's limbs, ears and tail live in this layer even at rest, so it is
   // painted with or without a playing action.
   if (!action && !['rig', 'pixel-performance', 'dango-vector', 'dango-raster'].includes(artwork?.kind)) return false;

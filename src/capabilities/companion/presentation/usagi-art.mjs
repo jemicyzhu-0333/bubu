@@ -24,6 +24,7 @@ import { usagiPartLayer } from './usagi-garment-depth.mjs';
 import { withUsagiEffectOrigins } from './usagi-effect-origins.mjs';
 import { usagiProfileFaceRig } from './usagi-face-projection.mjs';
 import { applyPoint } from './rig/pose.mjs';
+import { paintWithPawCutout } from './accessory-cutout.mjs';
 import { paintUsagiGestureUnderCloth } from './usagi-gesture-limbs.mjs';
 import { sampleUsagiEventFace, paintUsagiEventHeadphones } from './usagi-event-actions.mjs';
 import { paintUsagiEventLaptopBase } from './usagi-event-equipment.mjs';
@@ -126,29 +127,31 @@ function paintItem(context, resolved, options, artwork) {
   return rasterReady ? wardrobe.appearance(context, resolved) : rigArtist.appearance(context, resolved);
 }
 
-// Clip out a paw-sized disc around each wrist whose hand sits in front of
-// the torso (evenodd: everything except the discs stays paintable).
-const HAND_CUT_RADIUS = 6.5;
-function withHandCutout(context, artwork, paint) {
+function holdsFrontProp(data, artwork, side) {
+  return (artwork.pose?.sample?.props || []).some(id => {
+    const prop = data.props?.[id];
+    return prop && prop.layer !== 'back' && (prop.bone === `hand_${side}` || prop.bone === `arm_${side}`);
+  });
+}
+
+// Paw regions in front of the torso, for the resolver's hand cut-out.
+const PAW = Object.freeze({ rx: 6.2, ry: 5.2 });
+function usagiPaws(artwork) {
   const data = artwork?.rig?.views?.[artwork.drawnView], world = artwork?.pose?.world;
-  if (!data || !world || artwork.drawnView === 'back') return paint();
-  const discs = [];
+  if (!data || !world || artwork.drawnView === 'back') return [];
+  const paws = [];
   for (const side of ['l', 'r']) {
     const bone = data.bones[`hand_${side}`];
     if (!bone || !world[`hand_${side}`]) continue;
+    // Tucked (far) paws stay under the cloth; only front paws are uncovered.
+    if (usagiPartLayer({ bone: `hand_${side}`, layer: 'front' }, artwork) !== 'front') continue;
+    // Only a paw that actually carries a front prop is uncovered; erasing
+    // cloth over an empty paw position would just punch a hole in it.
+    if (!holdsFrontProp(data, artwork, side)) continue;
     const [x, y] = applyPoint(world[`hand_${side}`], ...bone.pivot);
-    // Only paws inside the torso box can be swallowed by cloth.
-    if (x > 8 && x < 58 && y > 30 && y < 66) discs.push([x, y]);
+    if (x > 8 && x < 58 && y > 30 && y < 66) paws.push({ x, y, ...PAW });
   }
-  if (!discs.length) return paint();
-  context.save();
-  context.beginPath();
-  context.rect(-200, -200, 466, 466);
-  for (const [x, y] of discs) { context.moveTo(x + HAND_CUT_RADIUS, y); context.arc(x, y, HAND_CUT_RADIUS, 0, Math.PI * 2); }
-  context.clip('evenodd');
-  const painted = paint();
-  context.restore();
-  return painted;
+  return paws;
 }
 
 function appearance(context, options) {
@@ -165,11 +168,14 @@ function appearance(context, options) {
     if (opensFront && artwork.headphoneFrontItemId) paintUsagiEventHeadphones(context, artwork, 'front');
     // Paint the complete near limb after body/face and before the first front
     // item. Actual cloth then covers its root; no cream correction covers cloth.
-    if (opensFront) paintUsagiGestureUnderCloth(context, resolved);
+    if (opensFront) {
+      rigArtist.layerParts(context, options.palette, artwork.drawnView, artwork, 'under-cloth');
+      paintUsagiGestureUnderCloth(context, resolved);
+    }
     // Held-prop fallback: torso cloth is cut around the paws instead of
     // swallowing them (and the prop they hold).
     if (options.fitPlan?.cut === 'hands' && options.layer === 'front') {
-      return withHandCutout(context, artwork, () => paintItem(context, resolved, options, artwork));
+      return paintWithPawCutout(context, usagiPaws(artwork), target => paintItem(target, resolved, options, artwork));
     }
     return paintItem(context, resolved, options, artwork);
   }) : false;

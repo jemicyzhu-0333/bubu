@@ -34,10 +34,14 @@ const ACCESSORY_MANIFEST = freeze({
   'usagi.backwear': SLOT({ anchor: 'root', region: 'torso', torso: true, budget: .6 }),
   'usagi.sidebag': SLOT({ anchor: 'root', region: 'hip', torso: true, budget: .2 }),
   'usagi.footwear': SLOT({ anchor: 'leg', region: 'feet', budget: .2 }),
-  'usagi.aura': SLOT({ anchor: 'root', region: 'halo', budget: .25, floats: true }),
-  // Dango raster hats are pinned to authored per-pose anchors (wardrobe
-  // combination tests require an exact root match), so no follow spring.
-  headwear: SLOT({ anchor: 'crown', region: 'crown', budget: .4 }),
+  // Floating auras sit at the top of the canvas. headroom.top is the
+  // authored top in form units; px is the minimum device-pixel margin.
+  'usagi.aura': SLOT({ anchor: 'root', region: 'halo', budget: .25, floats: true,
+    headroom: freeze({ top: -31.5, px: 3 }) }),
+  // Dango raster hats are pixel art: the follow is quantized to whole art
+  // pixels (sub-pixel offsets would shimmer), giving a sprite-style 1px bob.
+  headwear: SLOT({ anchor: 'crown', region: 'crown', budget: .4,
+    follow: freeze({ stiffness: 170, damping: 15, gain: 2.4, max: 1, quantize: 1 }) }),
   'head-accent': SLOT({ anchor: 'crown', region: 'crown', budget: .12, floats: true }),
   'head-aura': SLOT({ anchor: 'crown', region: 'halo', budget: .25, floats: true }),
   neckwear: SLOT({ anchor: 'body', region: 'torso', torso: true, budget: .3 }),
@@ -45,6 +49,11 @@ const ACCESSORY_MANIFEST = freeze({
   backwear: SLOT({ anchor: 'body', region: 'torso', budget: .6 }),
   footwear: SLOT({ anchor: 'feet', region: 'feet', budget: .2 })
 });
+
+// Per-form layering facts the resolver must respect. Dango paws are painted in
+// the action front pass (verified on carry-energy/hiccup/sweep), i.e. already
+// above every garment, so a hand cut-out would only fade cloth around them.
+const FORM_TRAITS = freeze({ dango: freeze({ pawsAboveCloth: true }), usagi: freeze({ pawsAboveCloth: false }) });
 
 const slotOf = item => item?.exclusiveGroup || item?.slot || null;
 const manifestFor = (item, manifest = ACCESSORY_MANIFEST) => manifest[slotOf(item)] || null;
@@ -73,7 +82,9 @@ function headFollowOffset(action, phase, spec, reduced) {
   // above the floor pivot, so a stretch lag of s moves it by s·that distance.
   const lag = springFollow(signal, clamp01(phase) * duration, spec);
   const offset = -lag * spec.gain * 20;
-  return Math.abs(offset) < .05 ? 0 : Math.max(-spec.max, Math.min(spec.max, offset));
+  const bounded = Math.max(-spec.max, Math.min(spec.max, offset));
+  if (spec.quantize) return Math.round(bounded / spec.quantize) * spec.quantize || 0;
+  return Math.abs(bounded) < .05 ? 0 : bounded;
 }
 
 /**
@@ -92,15 +103,18 @@ function resolveAccessories({ manifest = ACCESSORY_MANIFEST, items = [], formId,
     const viewRule = spec?.layers?.[view];
     if (viewRule === 'hide') { visible = false; reason = `view:${view}`; }
     else if (viewRule) passLayer = viewRule;
+    // Action re-layer (tuck): e.g. a cape drops behind the body so a ground
+    // prop in front stays readable.
+    if (wear.layers?.[slot]) passLayer = wear.layers[slot];
     // Action stows a slot (e.g. a worn prop owns the head) for its window.
     for (const rule of wear.stow || []) {
       const slots = rule.region ? regionSlots(rule.region, manifest) : [rule.slot];
       if (slots.includes(slot) && inWindow(rule.window, p)) { visible = false; reason = rule.why || 'stow'; }
     }
-    if (visible && spec?.torso && holdsProp(action, caps)) cut = 'hands';
+    if (visible && spec?.torso && !FORM_TRAITS[formId]?.pawsAboveCloth && holdsProp(action, caps)) cut = 'hands';
     const offsetY = visible && spec?.follow ? headFollowOffset(action, p, spec.follow, reduced) : 0;
     plan.push(freeze({ id: item.id, slot, visible, layer: passLayer, offsetY, cut, reason,
-      stackedUnder: (spec?.stacksUnder || []).filter(s => worn.has(s)) }));
+      headroom: spec?.headroom || null, stackedUnder: (spec?.stacksUnder || []).filter(s => worn.has(s)) }));
   }
   const byId = new Map(plan.map(entry => [entry.id, entry]));
   const result = freeze({ list: freeze(plan), get: id => byId.get(id) || null,
@@ -117,4 +131,4 @@ function resolveAccessories({ manifest = ACCESSORY_MANIFEST, items = [], formId,
   return result;
 }
 
-export { ACCESSORY_MANIFEST, manifestFor, resolveAccessories, slotOf };
+export { FORM_TRAITS, ACCESSORY_MANIFEST, manifestFor, resolveAccessories, slotOf };

@@ -28,7 +28,7 @@ const NONE = Object.freeze({});
 //   dangoContact   – dango contact refinement ('dig-shift'|'laser-dot'|'single-paw'|'nap-stretch'|'tail-wag').
 //   dangoFace      – dango face override ('steady'|'carry'|'corner-nap').
 //   wear           – accessory declarations for the fit resolver:
-//                    { stow: [{slot|region, window?, why}], holds?: bool, follow?: false }.
+//                    { stow: [{slot|region, window?, why}], layers?: {slot: pass}, holds?: bool, follow?: false }.
 //   viewLock       – { allow, fallback }: views the action may be drawn in.
 //   mirrorEvent    – 'music'|'ai' quiet mirror presentation.
 //   screenBrowse   – props that use the reverse-view laptop lid contact.

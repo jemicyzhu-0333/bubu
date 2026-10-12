@@ -144,6 +144,8 @@ function createRigArtist({ fallback, paths = createPathCache(), partLayer = part
     if (!data) return fallback.body(ctx, palette, view);
     const hiddenBones = artwork.hiddenRigBones || [];
     if (fit) paintParts(ctx, data, 'back', null, palette, hiddenBones, artwork);
+    // Portraits keep the authored occlusion: tucked parts sit behind the torso.
+    if (fit) paintParts(ctx, data, 'under-cloth', null, palette, hiddenBones, artwork);
     paintParts(ctx, data, 'body', null, palette, hiddenBones, artwork);
     if (fit && !artwork.deferPortraitForeground) paintParts(ctx, data, 'front', null, palette, hiddenBones, artwork);
     return true;
@@ -215,8 +217,14 @@ function createRigArtist({ fallback, paths = createPathCache(), partLayer = part
     return data ? paintParts(ctx, data, 'front', null, palette, artwork.hiddenRigBones, artwork) : 0;
   }
 
+  // Posed parts of one custom layer (e.g. 'under-cloth' tucks), no props.
+  function layerParts(ctx, palette, view, artwork, layer) {
+    const data = viewData(artwork, view);
+    return data ? paintParts(ctx, data, layer, artwork.pose.world, palette, artwork.hiddenRigBones || [], artwork) : 0;
+  }
+
   return Object.freeze({
-    resolve, body, face, action, appearance, portraitForeground,
+    resolve, body, face, action, appearance, portraitForeground, layerParts,
     motionOffset: fallback.motionOffset,
     applyMotionTransform: fallback.applyMotionTransform,
     expressionAccent: fallback.expressionAccent,
