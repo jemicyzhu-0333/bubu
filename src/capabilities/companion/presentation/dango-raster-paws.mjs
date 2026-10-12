@@ -1,5 +1,7 @@
 'use strict';
 
+import { motionCaps } from './motion-core/action-capabilities.mjs';
+
 // Reconstructed from the recorded final repair after the executor reset.
 // Artwork PNGs are byte-exact; this module requires fresh validation.
 import { applyPoint, localMatrix, multiply } from './rig/pose.mjs';
@@ -23,11 +25,12 @@ function anchoredPawMatrix(anchor, target, { scale = 1, rotation = 0, flip = fal
 }
 
 function refineSmallPawContact(contact, action, view, toolSprites, groundShift = 0) {
-  if (action?.id === 'focus-browse' || action?.id === 'mirror-ai') {
+  const caps = motionCaps(action);
+  if (caps.screenBrowse) {
     return refineBrowseContact(contact, action, view, toolSprites, anchoredPawMatrix);
   }
-  if (!contact || !['hiccup', 'carry-energy', 'workout'].includes(action?.id)) return contact;
-  if (action.id === 'workout') {
+  if (!contact || !caps.dangoPawTool) return contact;
+  if (caps.dangoPawTool === 'support') {
     const source = toolSprites?.['support-paw'], sole = source?.anchors?.sole || [6, 10.415094339622641];
     for (const hand of contact.hands) {
       const right = hand.side === 'right', angled = view !== 'front';
@@ -39,7 +42,7 @@ function refineSmallPawContact(contact, action, view, toolSprites, groundShift =
     }
     return contact;
   }
-  const key = action.id === 'hiccup' ? 'cup' : 'energy';
+  const key = caps.dangoPawTool;
   const item = contact.tools.find(tool => tool.key === key), sprite = toolSprites?.[key];
   if (!item || !sprite) return contact;
   if (key === 'cup') { item.x -= 1; item.y -= 5; contact.details = contact.details.filter(detail => detail.type !== 'steam'); }

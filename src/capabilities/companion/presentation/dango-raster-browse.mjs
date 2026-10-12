@@ -1,13 +1,13 @@
 'use strict';
 
+import { motionCaps } from './motion-core/action-capabilities.mjs';
+
 import { applyPoint } from './rig/pose.mjs';
 
 // The generated reverse-view prop is an actual exterior lid, not a mirrored
 // screen. The browse story and AI mirror reuse it; semantic prop/input IDs stay intact.
 function refineBrowseContact(contact, action, view, toolSprites, anchoredPawMatrix) {
-  const story = action?.id === 'focus-browse' && ['laptop', 'notes'].includes(action.prop);
-  const mirror = action?.id === 'mirror-ai' && action.prop === 'ai-chat';
-  if (!contact || (!story && !mirror)) return contact;
+  if (!contact || !motionCaps(action).screenBrowse?.includes(action.prop)) return contact;
   const fin = toolSprites?.['small-fin'];
   if (!fin) return contact;
   const laptop = contact.tools.find(tool => tool.key === 'laptop');

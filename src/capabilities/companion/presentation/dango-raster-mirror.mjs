@@ -1,5 +1,7 @@
 'use strict';
 
+import { motionCaps } from './motion-core/action-capabilities.mjs';
+
 import { clamp01, smooth } from './motion-core/easing.mjs';
 import { combinationAccessory } from './combination-accessories.mjs';
 import { applyPoint, IDENTITY } from './rig/pose.mjs';
@@ -19,7 +21,7 @@ function sampleRasterMirror(action, progress = 0, frozen = false) {
   const still = frozen || action.mirrorPresentation?.static === true;
   const p = still ? .5 : clamp(action.mirrorPresentation?.loopProgress ?? progress);
   const gain = still ? 0 : clamp(action.propOpacity ?? 1);
-  const music = action.id === 'mirror-music';
+  const music = motionCaps(action).mirrorEvent === 'music';
   const phase = (p * (music ? 6 : 5)) % 1;
   const pulse = Math.sin(p * TAU * (music ? 6 : 5));
   const typing = music ? 0 : windowPulse(phase, .02, .5, .09);
