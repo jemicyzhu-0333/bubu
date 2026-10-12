@@ -161,7 +161,7 @@ test('free-hand paint clears actual canonical open-mouth and eye pixels through 
       let faceInk = 0, limbInk = 0, overlap = 0;
       for (let i = 3; i < f.length; i += 4) { faceInk += f[i] > 0; limbInk += l[i] > 0; overlap += f[i] > 0 && l[i] > 0; }
       assert.ok(faceInk && limbInk);
-      assert.equal(overlap, 0, `${id}/${view}/${n / 80}: limb touches face ink`);
+      assert.equal(overlap, 0, `${id}/${view}/${n / 80}: limb touches face ink (${overlap})`);
     }
   }
 });

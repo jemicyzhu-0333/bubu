@@ -33,12 +33,13 @@ function contactWeight(t, start = .08, ready = .32, release = .68, end = .94) {
 
 // Solve the wrist after orienting the tool. Hand and equipment then share the
 // same complete bone matrix, including the artist's action transition blend.
-function placePaw(bones, data, side, target, armAngle, toolAngle = 0, maxReach = USAGI_LIMB_RIG.arm.upper + USAGI_LIMB_RIG.arm.lower, reachFrom = null) {
+function placePaw(bones, data, side, target, armAngle, toolAngle = 0, maxReach = Infinity, reachFrom = null) {
   const arm = `arm_${side}`, hand = `hand_${side}`;
   const shoulder = data.bones[arm].pivot, wrist = data.bones[hand].pivot;
-  // Reach clamp (fixed bone lengths): a target beyond the arm's reach from the
-  // shoulder moves the paw onto the reach circle instead of stretching the arm.
-  // Props bound to this hand bone follow, so the grip is never lost.
+  // Reach clamp (fixed bone lengths): a free reach declares its maximum; a
+  // target beyond it moves the paw onto the reach circle instead of stretching
+  // the arm. Props bound to this hand bone follow, so the grip is never lost.
+  // Prop contacts (default) keep their authored target.
   const origin = reachFrom || shoulder, reach = Math.hypot(target[0] - origin[0], target[1] - origin[1]);
   if (reach > maxReach) target = [origin[0] + (target[0] - origin[0]) * maxReach / reach,
     origin[1] + (target[1] - origin[1]) * maxReach / reach];

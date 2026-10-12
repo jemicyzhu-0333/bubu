@@ -17,7 +17,7 @@ const USAGI_LIMB_RIG = freeze({
     profile: { l: [18, 44], r: [55, 43] },
     back: { l: [12, 44], r: [54, 44] }
   },
-  arm: { upper: 14.5, lower: 14.5 },
+  arm: { upper: 16, lower: 16 },
   hip: { front: { l: [21, 59], r: [45, 59] } },
   rootRadius: 2.7, wristRadius: 3.6, outline: 1.5, bury: 2.5, socketRadius: 3.2, bodyCentre: [33, 40],
   restReach: 7, releaseReach: 8,
@@ -31,7 +31,7 @@ const USAGI_LIMB_RIG = freeze({
     lateral: { out: 1, down: .4, maxBend: .07 },
     table: { out: .4, down: 1, maxBend: .14 },
     compact: { out: 0, down: 1, maxBend: .03 },
-    gesture: { out: 1, down: 0, maxBend: .05 },
+    gesture: { out: 1, down: 0, side: true, maxBend: .044, wristRadius: 3.4, rootRadius: 2.9 },
     support: { out: 1, down: 1, maxBend: .1 }
   }
 });

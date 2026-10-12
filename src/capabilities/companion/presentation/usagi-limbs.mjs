@@ -76,7 +76,7 @@ function limbGeometry(artwork, data, side, intent = intentFor(artwork, side, dat
   // Outward/downward elbow preference -> bend sign for the chord normal.
   const d = [to[0] - socket[0], to[1] - socket[1]], l = Math.hypot(...d) || 1, n = [-d[1] / l, d[0] / l];
   const prefer = [direction * bendSpec.out, bendSpec.down];
-  const bend = n[0] * prefer[0] + n[1] * prefer[1] >= 0 ? 1 : -1;
+  const bend = bendSpec.side ? direction : n[0] * prefer[0] + n[1] * prefer[1] >= 0 ? 1 : -1;
   const chain = solveTwoBone(socket, to, { upper: spec.upper, lower: spec.lower, bend, maxBend: bendSpec.maxBend });
   // Visible limb = socket -> wrist. The IK chain fixes the elbow: its offset
   // from the chord is the bounded bend height (elbow range), on the outward side.
@@ -93,7 +93,7 @@ function limbGeometry(artwork, data, side, intent = intentFor(artwork, side, dat
   // `from` is the socket (visible limb start); `root` is the buried paint root.
   const root = from;
   return { from: socket, root, to, control, elbow, socket, chain, intent,
-    radius: USAGI_LIMB_RIG.wristRadius, rootRadius: USAGI_LIMB_RIG.rootRadius,
+    radius: bendSpec.wristRadius ?? USAGI_LIMB_RIG.wristRadius, rootRadius: bendSpec.rootRadius ?? USAGI_LIMB_RIG.rootRadius,
     // Contact family keeps an open shoulder: no stroke closes the root.
     openRoot: true, inside: socket };
 }
@@ -157,7 +157,7 @@ function paintLimb(ctx, artwork, data, side, { mergeSocket = true, alpha = 1 } =
     // so the root merges into the body silhouette (no cap, no double line).
     const s = geometry.socket, r = USAGI_LIMB_RIG.socketRadius;
     if (typeof ctx.clip === 'function') {
-      ctx.beginPath(); ctx.moveTo(-200, -200); ctx.lineTo(300, -200); ctx.lineTo(300, 300); ctx.lineTo(-200, 300);
+      const R = 40; ctx.beginPath(); ctx.moveTo(s[0] - R, s[1] - R); ctx.lineTo(s[0] + R, s[1] - R); ctx.lineTo(s[0] + R, s[1] + R); ctx.lineTo(s[0] - R, s[1] + R);
       for (let i = 0; i <= 24; i++) { const a = -i / 24 * Math.PI * 2; (i ? ctx.lineTo : ctx.moveTo).call(ctx, s[0] + Math.cos(a) * r, s[1] + Math.sin(a) * r); }
       ctx.clip('evenodd');
     }
