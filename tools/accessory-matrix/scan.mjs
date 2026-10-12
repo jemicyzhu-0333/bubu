@@ -5,7 +5,7 @@
 // node tools/accessory-matrix/scan.mjs --item=usagi.sunhat --out=dir [--app-root=.] [--frames=...] [--views=auto]
 import fs from 'node:fs'; import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url'; import { createRequire } from 'node:module';
-import { analyseMask, silhouette, dilate, erode } from './analyse.mjs';
+import { analyseFit, zOrderFlips } from './analyse.mjs';
 const arg = (n, f) => process.argv.find(v => v.startsWith(`--${n}=`))?.slice(n.length + 3) || f;
 const root = path.resolve(arg('app-root', path.join(path.dirname(fileURLToPath(import.meta.url)), '../..')));
 const out = path.resolve(arg('out', path.join(root, 'dist/accessory-matrix'))); fs.mkdirSync(out, { recursive: true });
@@ -28,22 +28,25 @@ const targets = [...Object.keys(PET_ACTIONS).map(id => ['action', id]), ...Objec
 const read = canvas => canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height);
 const records = [];
 for (const view of views) {
-  const base = createRenderHarness(source, { skin, view, dpr: 2, blink: false, outfit: false });
-  const worn = createRenderHarness(source, { skin, view, dpr: 2, blink: false, outfit: itemIds });
+  const make = (outfit, blink = false) => createRenderHarness(source, { skin, view, dpr: 2, blink, outfit });
+  const base = make(false), worn = make(itemIds), blinker = make(false, 'always');
+  const shot = (h, at, omit = null) => { globalThis.__petAuditOmitActionLayer = omit; h.draw(at); globalThis.__petAuditOmitActionLayer = null; return read(h.body); };
   for (const [kind, id] of targets) {
-    let d0, d1; try { d0 = base.select(kind, id).duration; d1 = worn.select(kind, id).duration; } catch (e) { records.push({ kind, id, view, error: String(e.message) }); continue; }
+    let d0; try { d0 = base.select(kind, id).duration; worn.select(kind, id); blinker.select(kind, id); } catch (e) { records.push({ kind, id, view, error: String(e.message) }); continue; }
     const rows = [];
     for (const f of (kind === 'expression' ? [.5] : frames)) {
-      const at = f * d0; base.draw(at); worn.draw(at);
-      const a = read(base.body), b = read(worn.body);
-      const m = analyseMask(a, b, { floats });
+      const at = f * d0;
+      // Each harness is deterministic per time, so re-drawing the same frame
+      // with one pass omitted yields an exact layer decomposition.
+      const imgs = { bareNoFront: shot(base, at, 'front'), wornNoFront: shot(worn, at, 'front'),
+        bareBlink: shot(blinker, at), bare: shot(base, at), worn: shot(worn, at) };
+      const m = analyseFit(imgs, { floats });
       rows.push({ f, ...m.metrics });
       if (m.flags.length) {
-        // Save a crop pair for review.
         const name = `${label}__${kind}-${id}__${view}__${f}.png`.replace(/[^\w.+-]/g, '_');
-        const c = backend.createCanvas(a.width * 2, a.height), x = c.getContext('2d');
-        x.fillStyle = '#f1f3ee'; x.fillRect(0, 0, c.width, c.height); x.drawImage(base.body, 0, 0); x.drawImage(worn.body, a.width, 0);
-        x.fillStyle = 'rgba(255,0,80,.55)'; for (const [px, py] of m.flagPixels) x.fillRect(a.width + px, py, 1, 1);
+        const c = backend.createCanvas(imgs.bare.width * 2, imgs.bare.height), x = c.getContext('2d');
+        x.fillStyle = '#f1f3ee'; x.fillRect(0, 0, c.width, c.height); x.drawImage(base.body, 0, 0); x.drawImage(worn.body, imgs.bare.width, 0);
+        x.fillStyle = 'rgba(255,0,80,.55)'; for (const [px, py] of m.flagPixels) x.fillRect(imgs.bare.width + px, py, 2, 2);
         x.fillStyle = '#b00020'; x.font = '13px sans-serif'; x.fillText(`${kind}:${id} ${view} p=${f} ${m.flags.join(',')}`, 6, 14);
         fs.mkdirSync(path.join(out, 'flags'), { recursive: true }); fs.writeFileSync(path.join(out, 'flags', name), c.toBuffer('image/png'));
         rows.at(-1).png = 'flags/' + name; rows.at(-1).flags = m.flags;
@@ -51,8 +54,11 @@ for (const view of views) {
     }
     const areas = rows.map(r => r.area).filter(v => v >= 0).sort((p, q) => p - q), median = areas[Math.floor(areas.length / 2)] || 0;
     const popping = median > 40 && rows.some(r => r.area < median * .3);
-    records.push({ kind, id, view, median, popping, rows });
+    const flips = zOrderFlips(rows.map(r => r.order)).map(([i, j]) => [rows[i].f, rows[j].f]);
+    records.push({ kind, id, view, median, popping, flips, rows });
+    globalThis.gc?.(); // ImageData/native buffers pile up between targets otherwise
   }
+  blinker.dispose();
   base.dispose(); worn.dispose();
 }
 fs.writeFileSync(path.join(out, `${label}.json`), JSON.stringify({ items: itemIds, formId, skin, floats, frames, records }));

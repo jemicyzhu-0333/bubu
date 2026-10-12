@@ -81,6 +81,7 @@ export function createRenderHarness(source, options = {}) {
     gazeSpringX: motion.createSpring(), gazeSpringY: motion.createSpring(),
     squashSpring: motion.createSpring(), tiltSpring: motion.createSpring(),
     blinkScheduler: options.blink === false ? { update: () => ({ blinking: false }), retune() {} }
+      : options.blink === 'always' ? { update: () => ({ blinking: true }), retune() {} }
       : motion.createBlinkScheduler({ random: blinkRandom, minMs: 667, maxMs: 2333, blinkMs: 100 }),
     petalEmitter, sakuraRainEmitter, petFallbackSceneEmitters, petSkinSceneEmitters, petActionEmitters,
     celebrateStarColors: ['#e0af68', '#f7768e', '#bb9af7'], motionRandom: random,
@@ -118,12 +119,14 @@ export function createRenderHarness(source, options = {}) {
     const plan = action ? source.interactionPlayback?.createManualActionPlayback(content, action.id,
       { interactionId: id, formId: form.id }) || { id: action.id, duration: action.duration, manual: true,
         expression: id === 'longPress' && options.interactionHeld !== false ? 'react.petted' : action.expression } : null;
-    const item = plan ? { ...action, expression: id === 'longPress' && options.interactionHeld !== false ? 'react.petted' : plan.expression, duration: plan.duration } : kind === 'action' ? content.PET_ACTIONS[id] : kind === 'session' ? content.SESSION_ACTIVITIES[id]
+    let item = plan ? { ...action, expression: id === 'longPress' && options.interactionHeld !== false ? 'react.petted' : plan.expression, duration: plan.duration } : kind === 'action' ? content.PET_ACTIONS[id] : kind === 'session' ? content.SESSION_ACTIVITIES[id]
       : kind === 'scene' ? content.SCENES[id]
       : kind === 'appearance' ? content.PET_APPEARANCE_ITEMS.find(value => value.id === id)
       : kind === 'status' ? { id, expression: id === 'hungry' ? 'react.hungry' : 'life.idle', label: id }
       : content.EXPRESSIONS.find(value => value.id === id);
     if (!item) throw new Error(`Unknown ${kind}:${id}`);
+    // Audit tools may swap the played item (e.g. strip its prop) without touching content.
+    if (options.itemOverride) item = options.itemOverride(kind, item) || item;
     current = { kind, item, duration: item.duration || item.durationMs || 6400,
       ...(interaction ? { interactionId: id, interactionHeld: id === 'longPress' && options.interactionHeld !== false, viewPolicy: 'production-input-auto', interactionAdapter: source.interactionPlayback ? 'production-helper' : 'historical-controller-compatibility' } : {}) };
     elapsed = -1; dt = 0;
