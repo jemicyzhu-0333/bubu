@@ -1,6 +1,7 @@
 'use strict';
 import { FACE_LAYOUTS, EYE_SHAPES, MOUTH_SHAPES } from '../../../content/companion/dango-vector.mjs';
 import { sampleFaceChoreography } from './face-choreography.mjs';
+import { sampleDangoQuietFace } from './dango-quiet-face.mjs';
 import { paintVectorShapes, mixVectorColor } from '../../../core/pet-vector-paint.mjs';
 import { sampleRunningPose } from '../../../core/pet-running-pose.mjs';
 const clamp = (value, min, max) => Math.max(min, Math.min(max, Number(value) || 0));
@@ -23,7 +24,7 @@ function drawDangoFace(context, palette, face = {}, blinking = false, view = 'fr
     context.restore();
   }
   const mouth = MOUTH_SHAPES[face.mouth] ? face.mouth : 'neutral';
-  context.save(); context.translate(layout.mouth.x, layout.mouth.y); context.scale(layout.mouth.scaleX, 1);
+  context.save(); context.translate(layout.mouth.x, layout.mouth.y); context.scale(layout.mouth.scaleX, Math.max(.3, Math.min(1, Number(face.mouthScaleY) || 1)));
   paintVectorShapes(context, MOUTH_SHAPES[mouth], palette); context.restore();
   if (['smile', 'open', 'chew', 'grin'].includes(mouth) || ['shy', 'content'].includes(eyes)) {
     context.save(); context.globalAlpha *= .24;
@@ -57,6 +58,7 @@ function sampleDangoFace(expression, options = {}) {
   if (!calmVisual && expressionId === 'life.idle' && sampled?.eyes === 'curious') {
     sampled = Object.freeze({ ...sampled, eyes: 'neutral' });
   }
+  sampled = sampleDangoQuietFace(sampled, options);
   if (action?.motion === 'dash') {
     const p = calmVisual ? .5 : clamp(options.progress, 0, 1);
     const { stride } = sampleRunningPose(p, { calmVisual });

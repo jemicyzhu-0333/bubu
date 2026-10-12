@@ -186,24 +186,40 @@ test('fixed ACL script uses pipe-local UTF-8 and direct JSON-array assignment on
   assert.match(ACL_PROGRAM, /\$paths = ConvertFrom-Json -InputObject/);
   assert.doesNotMatch(ACL_PROGRAM, /\$paths = @\(/);
   assert.match(ACL_PROGRAM, /\$ProgressPreference = 'SilentlyContinue'/);
+  // In-box modules load by exact $PSHOME path before any cmdlet runs, so a cold
+  // runner never pays full command discovery inside the admission budget.
+  const firstImport = ACL_PROGRAM.indexOf('Import-Module -Name ([System.IO.Path]::Combine($PSHOME');
+  assert.ok(firstImport > 0);
+  for (const cmdlet of ['ConvertFrom-Json', 'Get-Item ', 'Get-Acl', 'ConvertTo-Json']) assert.ok(ACL_PROGRAM.indexOf(cmdlet) > firstImport, cmdlet);
+  for (const module of ['Utility', 'Management', 'Security']) assert.match(ACL_PROGRAM, new RegExp(`Microsoft\\.PowerShell\\.${module}`));
 });
 test('native Windows PowerShell 5.1 protocol rejects empty/nested input and preserves one/multiple literal paths', { skip: process.platform !== 'win32' }, t => {
   const { spawnSync } = require('node:child_process');
+  const { performance } = require('node:perf_hooks');
   const f = fixture(t), executable = path.win32.join(process.env.SystemRoot, 'System32', 'WindowsPowerShell', 'v1.0', 'powershell.exe');
-  function run(paths) {
-    return spawnSync(executable, ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command', ACL_PROGRAM], {
+  function run(label, paths) {
+    const started = performance.now();
+    const result = spawnSync(executable, ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command', ACL_PROGRAM], {
       input: JSON.stringify(paths), encoding: 'utf8', shell: false, windowsHide: true, timeout: PROBE_WAIT_BUDGET_MS, maxBuffer: 65536,
       env: Object.fromEntries(Object.entries(process.env).filter(([key]) => key.toUpperCase() !== 'PSMODULEPATH'))
     });
+    const stage = /^config-admission-acl:(streams|input|identity|item|acl(?:-access-denied|-module-load|-command-not-found|-path-not-found|-parameter|-other)?|descriptor|aces|serialize)$/.exec(result.stderr || '')?.[1] || null;
+    // Fixed labels and bounded process metadata only; never log paths or native output.
+    t.diagnostic(JSON.stringify({ label, elapsedMs: Math.round(performance.now() - started), timeoutMs: PROBE_WAIT_BUDGET_MS,
+      status: Number.isInteger(result.status) ? result.status : null,
+      signal: ['SIGTERM', 'SIGKILL', 'SIGINT', 'SIGABRT'].includes(result.signal) ? result.signal : result.signal ? 'other' : null,
+      errorCode: ['ETIMEDOUT', 'ENOENT', 'EACCES', 'EPERM', 'ENOBUFS', 'EINVAL'].includes(result.error?.code)
+        ? result.error.code : result.error ? 'other' : null, stage }));
+    return result;
   }
-  for (const invalid of [[], [[f.directory]], f.directory]) {
-    const result = run(invalid);
+  for (const [label, invalid] of [['empty-array', []], ['nested-array', [[f.directory]]], ['scalar-path', f.directory]]) {
+    const result = run(label, invalid);
     assert.equal(result.status, 1, 'native protocol must reject invalid input');
     assert.ok(result.stderr === 'config-admission-acl:input', 'native protocol must reject at the input stage');
     assert.ok(result.stdout === '', 'invalid native input must not emit a report');
   }
-  for (const paths of [[f.directory], [f.directory, f.file]]) {
-    const result = run(paths);
+  for (const [label, paths] of [['directory-only', [f.directory]], ['directory-and-file', [f.directory, f.file]]]) {
+    const result = run(label, paths);
     const stage = /^config-admission-acl:(streams|input|identity|item|acl(?:-access-denied|-module-load|-command-not-found|-path-not-found|-parameter|-other)?|descriptor|aces|serialize)$/.exec(result.stderr || '')?.[1];
     assert.equal(result.status, 0, `native ACL process failed: ${stage || (result.error?.code === 'ETIMEDOUT' ? 'timeout' : 'process-exit')}`);
     assert.equal(result.stderr.length, 0, 'native ACL process emitted stderr');

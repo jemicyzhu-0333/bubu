@@ -114,7 +114,7 @@ function defaultActions(type) {
     return [
       { id: 'complete-routine', label: '已完成', primary: true },
       { id: 'defer-15', label: '稍后（+15 分钟）', deferMinutes: 15 },
-      { id: 'skip-routine-today', label: '今天跳过' }
+      { id: 'skip-routine-today', label: '跳过本次' }
     ];
   }
   if (type === 'focus') {

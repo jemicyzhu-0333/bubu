@@ -392,7 +392,7 @@ test('every control the today page owns is reachable and carries a click handler
     'btnStuck', 'stuckClose', 'btnRouteShrink', 'btnRouteTip',
     'btnShrinkAnother', 'shrinkCancel', 'shrinkConfirm',
     'btnStrategyRequest', 'btnNowKickstart', 'btnEditNowTask', 'btnCompleteNowTask',
-    'btnChooseCandidates', 'btnStartFocus', 'closeCandidates'
+    'btnChooseCandidates', 'btnStartFocus', 'closeCandidates', 'btnAddNowStep', 'btnBrowseTasks'
   ]) {
     const node = document.getElementById(id);
     assert.ok(node, `#${id} 不在 popover.html 里，接线会打空`);
@@ -614,5 +614,43 @@ test('paused task adds exactly one step, blocks duplicate submissions and preser
   assert.equal(input.value, '核对新增的附件');
   assert.equal(h.document.getElementById('saveSessionStep').disabled, false);
   assertBooted(h.bootErrors);
+  h.sandbox.surface.popoverSurface.dispose();
+});
+
+
+
+test('title-only Now shows the real title and an optional editor without blocking focus', async () => {
+  const state = createStateStub();
+  state.tasks = [{ id: 'title-only', title: 'CR agent技术方案完善', done: false, steps: [], nextAction: null }];
+  state.nowTaskId = 'title-only';
+  const h = await loadPopoverRenderer({ responses: { getState: () => state } });
+  assertBooted(h.bootErrors);
+  assert.equal(h.document.getElementById('nowNextAction').textContent, state.tasks[0].title);
+  assert.equal(h.document.getElementById('btnStartFocus').disabled, false);
+  await h.document.getElementById('btnAddNowStep').dispatch('click');
+  assert.equal(h.document.getElementById('editTitle').value, state.tasks[0].title);
+  h.sandbox.surface.popoverSurface.dispose();
+});
+
+test('empty recommendations keep a task-list escape route and do not steal its focus', async () => {
+  const state = createStateStub();
+  state.tasks = [{ id: 'waiting', title: 'Scheduled work', done: false, steps: [], scheduledFor: '2099-01-01T10:00:00Z' }];
+  const h = await loadPopoverRenderer({ responses: { getState: () => state, pickOneTask: () => ({ candidates: [] }) } });
+  assertBooted(h.bootErrors);
+  const attributes = {};
+  h.document.getElementById('candidatePanel').setAttribute = (key, value) => { attributes[key] = value; };
+  h.document.getElementById('candidatePanel').classList.contains = name => name === 'hidden' && attributes['aria-hidden'] !== 'false';
+  const tab = h.document.getElementById('tabTasks'); let navigations = 0;
+  h.sandbox.requestAnimationFrame = callback => { queueMicrotask(callback); return 0; };
+  tab.click = () => { navigations++; };
+  tab.focus = () => { h.document.activeElement = tab; };
+  await h.document.getElementById('btnChooseCandidates').dispatch('click');
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(attributes['aria-hidden'], 'false');
+  await h.document.getElementById('btnBrowseTasks').dispatch('click');
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(navigations, 1);
+  assert.equal(attributes['aria-hidden'], 'true');
+  assert.equal(h.document.activeElement, h.document.getElementById('tabTasks'));
   h.sandbox.surface.popoverSurface.dispose();
 });

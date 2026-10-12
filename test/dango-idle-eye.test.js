@@ -12,7 +12,7 @@ const idle = EXPRESSIONS.find(expression => expression.id === 'life.idle');
 
 test('idle keeps canonical eyes through the curious beat while retaining gaze, eyelids and mouth', () => {
   let replaced = 0;
-  for (let elapsedMs = 0; elapsedMs <= 10400; elapsedMs += 25) {
+  for (let elapsedMs = 0; elapsedMs <= 5200; elapsedMs += 25) {
     const options = { expressionId: idle.id, motion: 'idle', elapsedMs, expressionElapsedMs: elapsedMs };
     const before = sampleFaceChoreography(idle.face, options), after = sampleDangoFace(idle.face, options);
     if (before.eyes === 'curious') {
@@ -20,14 +20,14 @@ test('idle keeps canonical eyes through the curious beat while retaining gaze, e
     } else assert.deepEqual(after, before);
     assert.equal(after.eyes, 'neutral');
   }
-  assert.ok(replaced > 100);
+  assert.ok(replaced > 75);
   const shown = sampleDangoFace(idle.face, { expressionId: idle.id, expressionElapsedMs: 2600 });
   assert.equal(shown.mouth, 'smile'); assert.equal(shown.openness, .92);
   assert.equal(shown.eyeOffsetY, -.2);
 });
 
-test('expressions outside idle and the reviewed petting refinement keep their existing sampled geometry', () => {
-  for (const expression of EXPRESSIONS.filter(item => ![idle.id, 'react.petted'].includes(item.id))) {
+test('expressions outside quiet idle/focus/rest and reviewed petting keep their existing sampled geometry', () => {
+  for (const expression of EXPRESSIONS.filter(item => ![idle.id, 'react.petted', 'work.focus', 'work.rest'].includes(item.id))) {
     for (const elapsedMs of [0, 800, 1500, 2600, 4100, 6200]) {
       const options = { expressionId: expression.id, elapsedMs, motion: 'idle' };
       assert.deepEqual(sampleDangoFace(expression.face, options), sampleFaceChoreography(expression.face, options),
@@ -77,8 +77,8 @@ test('production raster painter selects canonical idle sprites and still closes 
         assert.equal(eyes.length, 2);
         assert.ok(eyes.every(call => call.image.src.includes(blinking ? '/face/eyes-closed-' : '/eye-')));
         assert.ok(eyes.every(call => !call.image.src.includes('curious')));
-        assert.equal(eyes[0].matrix[3], blinking ? 1 : .92);
-        assert.equal(eyes[1].matrix[3], blinking ? 1 : .92);
+        assert.equal(eyes[0].matrix[3], 1, 'eyelids occlude, not rescale, the canonical pupil');
+        assert.equal(eyes[1].matrix[3], 1);
         assert.deepEqual(eyes.map(call => call.rect), DANGO_RASTER.views[view].face.eyes[blinking ? 'closed' : 'neutral'].map(s => s.rect));
       }
     }

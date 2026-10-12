@@ -239,8 +239,11 @@ test('every profile rollback hat/clasp pair preserves the complete opaque near-e
       let opaque = 0;
       for (let i = 0; i < alone.length; i += 4) if (alone[i + 3] === 255) {
         opaque += 1;
-        assert.deepEqual([...combined.subarray(i, i + 4)], [...alone.subarray(i, i + 4)],
-          `${hat.id}/${clip.id}: near-ear knot, lobes and outline remain visible`);
+        // Skia builds differ by one rounding step per channel across hosts; an
+        // occluded near-ear pixel would differ by far more than that.
+        const got = [...combined.subarray(i, i + 4)], want = [...alone.subarray(i, i + 4)];
+        assert.ok(got.every((v, c) => Math.abs(v - want[c]) <= 2),
+          `${hat.id}/${clip.id}: near-ear knot, lobes and outline remain visible (${got} vs ${want})`);
         if (reversed[i] !== alone[i] || reversed[i + 1] !== alone[i + 1] || reversed[i + 2] !== alone[i + 2]) reversedOrderLoss += 1;
       }
       assert.ok(opaque > 20, `${clip.id}: nonempty authored glyph`);

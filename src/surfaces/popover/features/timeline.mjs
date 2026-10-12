@@ -257,7 +257,7 @@ function createPopoverTimelineFeature({
       const source = freshRows.get(row.getAttribute('data-row-id'));
       if (source) row.setAttribute('data-detail', source.getAttribute('data-detail'));
     }
-    for (const selector of ['.tl-verb', '.tl-label', '.tl-part', '.tl-gap', '.tl-none', '.tl-spark-caption', '.tl-extreme', '.tl-spark-now-label']) {
+    for (const selector of ['.tl-verb', '.tl-label', '.tl-process-count', '.tl-limit', '.tl-part', '.tl-gap', '.tl-none', '.tl-spark-caption', '.tl-extreme', '.tl-spark-now-label']) {
       const sources = [...fresh.querySelectorAll(selector)];
       track.querySelectorAll(selector).forEach((node, index) => { if (sources[index]) node.innerHTML = sources[index].innerHTML; });
     }

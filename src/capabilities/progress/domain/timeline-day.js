@@ -13,6 +13,11 @@ const { intervalMood } = require('./interval-mood');
 const HOUR_MS = 60 * 60 * 1000;
 const LANE_CAP = 6;      // ARCHITECTURE「事实流与长期记忆」: at most 6 task lanes; the rest fold into "other".
 const MARKER_CAP = 500;  // A day of point events is bounded; guard against a runaway payload.
+const RESOLUTION_ACTIONS = Object.freeze(['promote', 'next-step', 'schedule', 'someday', 'routine', 'log', 'state', 'feeling', 'keep']);
+
+function boundedIdentity(value) {
+  return typeof value === 'string' && value.trim() && value.length <= 512 ? value : null;
+}
 
 function eventPayload(event) {
   if (event.payload && typeof event.payload === 'object' && !Array.isArray(event.payload)) return event.payload;
@@ -42,6 +47,7 @@ function eventIdentity(event) {
 function projectMarker(event) {
   const payload = eventPayload(event);
   const isRoutine = event.kind.startsWith('routine.');
+  const isInbox = event.kind === 'inbox.captured' || event.kind === 'inbox.resolved';
   return Object.freeze({
     ...eventIdentity(event),
     ...projectProvenance(event, payload),
@@ -52,6 +58,15 @@ function projectMarker(event) {
     routineId: isRoutine && typeof payload.routineId === 'string' ? payload.routineId
       : isRoutine && Array.isArray(payload.entityRefs) ? payload.entityRefs.find(ref => ref.kind === 'routine')?.id || null : null,
     routineKind: isRoutine && typeof payload.kind === 'string' ? payload.kind : null,
+    // Closed metadata only: process grouping never receives captured text or
+    // infers an occurrence by parsing event IDs or matching nearby timestamps.
+    occurrenceId: isRoutine ? boundedIdentity(payload.occurrenceId) : null,
+    // Local organize writes payload.inboxId; AI collaboration receipts carry the
+    // same closed identity only as an entity reference (ai-change-events.js).
+    inboxId: isInbox ? boundedIdentity(payload.inboxId)
+      || (Array.isArray(payload.entityRefs) ? boundedIdentity(payload.entityRefs.find(ref => ref?.kind === 'inbox')?.id) : null) : null,
+    resolutionAction: event.kind === 'inbox.resolved' && RESOLUTION_ACTIONS.includes(payload.action) ? payload.action : null,
+    targetId: event.kind === 'inbox.resolved' ? boundedIdentity(payload.targetId) : null,
     status: event.kind === 'routine.logged' && ['done', 'skipped'].includes(payload.status)
       ? payload.status : null
   });
@@ -117,9 +132,10 @@ function buildTimelineDay(events, { dayKey, bucketMs = DEFAULT_BUCKET_MS } = {})
   });
 
   const segments = list.filter(event => event.kind === 'session.segment' && Number.isFinite(event.occurredAt));
-  const markers = groupChangeMarkers(list
+  const projectedMarkers = groupChangeMarkers(list
     .filter(event => event.kind !== 'session.segment' && Number.isFinite(event.occurredAt))
-    .map(projectMarker)).slice(0, MARKER_CAP);
+    .map(projectMarker));
+  const markers = projectedMarkers.slice(0, MARKER_CAP);
 
   // Default the visible window to the data envelope ±1 hour, clamped to the day
   // (ARCHITECTURE「事实流与长期记忆」): painting a full 24h squashes a couple of focus hours into a sliver.
@@ -147,6 +163,7 @@ function buildTimelineDay(events, { dayKey, bucketMs = DEFAULT_BUCKET_MS } = {})
     rangeEnd,
     lanes: Object.freeze(buildLanes(segments)),
     markers: Object.freeze(markers),
+    markersTruncated: projectedMarkers.length > MARKER_CAP,
     intervals: Object.freeze(intervals),
     totals: Object.freeze({
       focusMs,

@@ -320,3 +320,16 @@ test('invalid paired clarification never writes and full step capacity cannot ha
   assert.equal(result.reason, 'step-limit-reached'); assert.equal(repository.inspect().commits, 0);
   assert.deepEqual(repository.inspect().state, initial);
 });
+
+
+
+test('ordinary focus accepts a title-only task without persisting a fabricated step', () => {
+  const initial = sourceState({ task: { nextAction: null, steps: [] } });
+  const repository = createRepository(initial);
+  const result = createWorkflow(repository).execute({ taskId: 'task-1', minutes: 90 });
+  assert.equal(result.ok, true);
+  assert.equal(result.session.taskId, 'task-1');
+  assert.equal(result.session.plannedDurationMs, 90 * 60_000);
+  assert.deepEqual(repository.snapshot().tasks[0].steps, []);
+  assert.equal(repository.snapshot().tasks[0].nextAction, null);
+});

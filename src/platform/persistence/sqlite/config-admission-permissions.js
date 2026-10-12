@@ -14,6 +14,15 @@ try {
   $utf8 = [System.Text.UTF8Encoding]::new($false, $true)
   $reader = [System.IO.StreamReader]::new([Console]::OpenStandardInput(), $utf8, $false)
   $writer = [System.IO.StreamWriter]::new([Console]::OpenStandardOutput(), $utf8)
+  # Root cause of cold-runner timeouts: with PSModulePath removed, the first
+  # JSON/item/ACL cmdlet call triggers command discovery across
+  # every module (no analysis cache on a fresh profile), which alone can exceed
+  # the shared 15s admission budget. Load the three in-box modules by exact
+  # $PSHOME manifest path so no discovery or PSModulePath lookup happens.
+  $stage = 'modules'
+  foreach ($m in @('Microsoft.PowerShell.Utility', 'Microsoft.PowerShell.Management', 'Microsoft.PowerShell.Security')) {
+    Import-Module -Name ([System.IO.Path]::Combine($PSHOME, 'Modules', $m, ($m + '.psd1'))) -ErrorAction Stop
+  }
   $stage = 'input'
   # Windows PowerShell 5.1 emits the JSON array as one pipeline object.
   # Direct assignment preserves that array; @(... pipeline ...) nests it.
@@ -58,7 +67,7 @@ try {
   $writer.Flush()
 } catch { [Console]::Error.Write('config-admission-acl:' + $stage); exit 1 }
 `;
-const DIAGNOSTICS = new Set(['paths', 'system-root', 'spawn', 'timeout', 'process-exit', 'stderr', 'stdout', 'json', 'acl-access-denied', 'acl-module-load', 'acl-command-not-found', 'acl-path-not-found', 'acl-parameter', 'acl-other', 'acl-shape', 'acl-count', 'acl-owner', 'acl-dacl', 'acl-reparse', 'acl-type', 'acl-ace', 'acl-grant',
+const DIAGNOSTICS = new Set(['modules', 'paths', 'system-root', 'spawn', 'timeout', 'process-exit', 'stderr', 'stdout', 'json', 'acl-access-denied', 'acl-module-load', 'acl-command-not-found', 'acl-path-not-found', 'acl-parameter', 'acl-other', 'acl-shape', 'acl-count', 'acl-owner', 'acl-dacl', 'acl-reparse', 'acl-type', 'acl-ace', 'acl-grant',
   'streams', 'input', 'identity', 'item', 'acl', 'descriptor', 'aces', 'serialize', 'membership', 'file-type', 'mode', 'file-drift', 'filesystem']);
 const unavailable = diagnostic => Object.assign(new Error('config-admission-permissions-unavailable'), {
   code: 'config-admission-permissions-unavailable', diagnostic: DIAGNOSTICS.has(diagnostic) ? diagnostic : 'filesystem'
@@ -134,7 +143,7 @@ function verifyWindowsProbePermissions(directory, files = [], { run = spawnSync,
     }));
     if (result.error) throw unavailable(result.error.code === 'ETIMEDOUT' ? 'timeout' : 'spawn');
     if (result.status !== 0 || result.signal) {
-      const stage = /^config-admission-acl:(streams|input|identity|item|acl(?:-access-denied|-module-load|-command-not-found|-path-not-found|-parameter|-other)?|descriptor|aces|serialize)$/.exec(result.stderr || '')?.[1];
+      const stage = /^config-admission-acl:(streams|modules|input|identity|item|acl(?:-access-denied|-module-load|-command-not-found|-path-not-found|-parameter|-other)?|descriptor|aces|serialize)$/.exec(result.stderr || '')?.[1];
       throw unavailable(stage || 'process-exit');
     }
     if (result.stderr !== '') throw unavailable('stderr');

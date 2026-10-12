@@ -21,12 +21,14 @@ const CONVERGENCE_OFFSETS = Object.freeze([
  * because it carries the longer lines.
  */
 function cornerLayout({ workArea, level, lowStimulation = false }) {
-  const width = level === 3 ? 380 : 340;
-  const height = level === 3 ? 200 : 170;
-  const right = workArea.x + workArea.width - width - CORNER_MARGIN;
-  const left = workArea.x + CORNER_MARGIN;
-  const bottom = workArea.y + workArea.height - height - CORNER_MARGIN;
-  const top = workArea.y + CORNER_MARGIN;
+  const marginX = Math.min(CORNER_MARGIN, Math.floor(workArea.width / 20));
+  const marginY = Math.min(CORNER_MARGIN, Math.floor(workArea.height / 20));
+  const width = Math.max(1, Math.min(level === 3 ? 420 : 380, workArea.width - marginX * 2));
+  const height = Math.max(1, Math.min(level === 3 ? 260 : 240, workArea.height - marginY * 2));
+  const right = workArea.x + workArea.width - width - marginX;
+  const left = workArea.x + marginX;
+  const bottom = workArea.y + workArea.height - height - marginY;
+  const top = workArea.y + marginY;
   const positions = [
     { corner: 'br', x: right, y: bottom },
     { corner: 'bl', x: left, y: bottom },
@@ -43,8 +45,8 @@ function convergencePositions({ workArea, width, height, count }) {
   const centerX = workArea.x + workArea.width / 2 - width / 2;
   const centerY = workArea.y + workArea.height / 2 - height / 2;
   return CONVERGENCE_OFFSETS.slice(0, Math.max(0, Number(count) || 0)).map(offset => ({
-    x: Math.round(centerX + offset.x),
-    y: Math.round(centerY + offset.y)
+    x: Math.max(workArea.x, Math.min(workArea.x + workArea.width - width, Math.round(centerX + offset.x))),
+    y: Math.max(workArea.y, Math.min(workArea.y + workArea.height - height, Math.round(centerY + offset.y)))
   }));
 }
 

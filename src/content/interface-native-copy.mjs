@@ -29,6 +29,7 @@ export const NATIVE_EN = Object.freeze({
   "已完成": "Completed",
   "稍后（+15 分钟）": "Later (+15 min)",
   "今天跳过": "Skip today",
+  "跳过本次": "Skip this time",
   "开始一小步": "Start one small step",
   "5 分钟后再提醒": "Remind me in 5 min",
   "休息一下": "Take a break",

@@ -387,7 +387,7 @@ test('popover linked break exposes no session task completion, step append or ed
     taskLaunchBlockReason: () => null, focusActionMessage: String, taskActionMessage: String,
     scoreSummary: () => '', syncBlocker: noop, canReceiveFocus: () => false, celebrate: noop,
     completeTask: async task => sent.push(['complete', task]), openTaskEditor: task => sent.push(['edit', task]),
-    runQuickStart: noop, showFocusStatus: noop });
+    runQuickStart: noop, showFocusStatus: noop, openTaskList: noop });
   feature.mount(); t.after(() => feature.dispose()); feature.renderDetail();
   session.kind = 'break'; session.mode = 'break';
   feature.renderDetail();

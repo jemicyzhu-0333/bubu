@@ -36,17 +36,50 @@ jobs:
         with:
           node-version: '22'
       - name: Install locked dependencies
+        id: dependencies
         run: npm ci
       - name: Audit the locked dependency tree
         run: npm audit --audit-level=low
       - name: Check native admission permissions and builder schema early
+        id: admission
         run: node --test test/config-admission-permissions.test.js test/build-schema.test.js
+      - name: Diagnose bounded Windows process startup after admission failure
+        if: failure() && matrix.platform == 'win' && steps.admission.outcome == 'failure'
+        timeout-minutes: 3
+        run: node scripts/diagnose-windows-acl-startup.cjs
+      - name: Verify synthetic reminder layout in native Electron
+        # Independent synthetic evidence never clears an earlier admission failure.
+        if: ${{ !cancelled() && steps.dependencies.outcome == 'success' }}
+        timeout-minutes: 5
+        run: npx --no-install electron scripts/verify-reminder-layout.cjs dist/reminder-layout
+      - name: Store synthetic reminder layout evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reminder-layout-${{ matrix.platform }}-${{ github.sha }}
+          path: |
+            dist/reminder-layout/*.json
+            dist/reminder-layout/*.png
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Verify native macOS pet viewport without resizing
         timeout-minutes: 2
         if: matrix.platform == 'mac'
         run: npm run verify:pet-viewport
       - name: Check tests, architecture and generated resources
-        run: npm run check
+        # Real Skia pixel tests (eye continuity, face/tool clearance, wardrobe)
+        # skip silently without these; the locked @napi-rs/canvas is installed.
+        env:
+          DANGO_CANVAS_PACKAGE: ${{ github.workspace }}/node_modules/@napi-rs/canvas
+          USAGI_CANVAS_PACKAGE: ${{ github.workspace }}/node_modules/@napi-rs/canvas
+        # pwsh, not bash: Git Bash upper-cases Windows variable names
+        # (SYSTEMROOT), which the native ACL probe tests rightly reject.
+        shell: pwsh
+        run: |
+          node -e "require(process.env.DANGO_CANVAS_PACKAGE).createCanvas(1,1)"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npm run check
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Check integration contracts
         run: npm run test:integration
       - name: Verify installed packaging dependencies, configuration and command selection

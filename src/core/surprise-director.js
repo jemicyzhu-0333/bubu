@@ -7,6 +7,7 @@ const {
 } = require('./companion-state');
 const { hardGateReason, selectSurprise, recordIssued } = require('./surprise-rules');
 const { indexContentManifest } = require('./content-pack');
+const { localDayKey } = require('./calendar');
 
 const ACK_STATUS = Object.freeze({ received: 1, started: 2, completed: 3, cancelled: 3, rejected: 3 });
 
@@ -33,6 +34,8 @@ class SurpriseDirector {
     this.content = indexContentManifest(this.manifest);
     this.timer = null;
     this.timerGeneration = 0;
+    this.pendingRetryAttempt = 0;
+    this.settlementIntent = null;
     this.context = {};
     this.envelopes = new Map();
     this.deliveryDeadlines = new Map();
@@ -79,24 +82,56 @@ class SurpriseDirector {
     this.timerGeneration += 1;
   }
 
-  recoverAfterRestart() {
+  retryPendingOperation(decisionId, operation) {
+    if (this.disposed) return;
     this.clearTimer();
-    this.envelopes.clear();
-    this.deliveryDeadlines.clear();
+    const delay = Math.min(30_000, 1_000 * 2 ** Math.min(this.pendingRetryAttempt++, 5));
+    const generation = this.timerGeneration;
+    this.timer = this.schedule(() => {
+      if (generation !== this.timerGeneration || this.disposed) return;
+      this.timer = null;
+      try {
+        const pending = this.state().surprise.pending;
+        if (!pending || pending.decisionId !== decisionId) {
+          this.envelopes.delete(decisionId);
+          this.deliveryDeadlines.delete(decisionId);
+          this.pendingRetryAttempt = 0;
+          if (this.settlementIntent?.decisionId === decisionId) this.settlementIntent = null;
+          return;
+        }
+        operation();
+      } catch (_) {
+        if (this.timer === null) this.retryPendingOperation(decisionId, operation);
+      }
+    }, delay);
+  }
+
+  releaseUnstartedReservation(state, pending) {
+    if (pending.status === 'started') return;
+    const cue = this.content.get(pending.cueId);
+    const dayKey = timestamp => typeof this.clock.dayKey === 'function'
+      ? this.clock.dayKey(timestamp) : localDayKey(timestamp);
+    // A rollover may already have cleared yesterday's reservation. Never debit
+    // today's ledger for an earlier day, or refund a presentation that started.
+    if (!cue || state.surprise.budgetDay !== dayKey(pending.issuedAt)) return;
+    const field = cue.kind === 'attention' ? 'attentionSpent' : 'ambientSpent';
+    state.surprise[field] = Math.max(0, state.surprise[field] - cue.cost);
+    // Retain attempt cooldowns: a rejecting/unavailable renderer must not spin.
+  }
+
+  recoverAfterRestart() {
     const state = this.state();
     const pending = state.surprise.pending;
-    if (!pending) return { cleaned: false, state };
-    const now = Math.max(this.wallNow(), pending.issuedAt);
-    state.surprise.pending = null;
-    const cleaned = appendRecent(state, {
-      decisionId: pending.decisionId,
-      cueId: pending.cueId,
-      familyId: pending.familyId,
-      finishedAt: now,
-      outcome: 'cancelled'
-    });
-    this.persist(cleaned);
-    return { cleaned: true, state: cleaned };
+    if (!pending) {
+      this.clearTimer();
+      this.envelopes.clear();
+      this.deliveryDeadlines.clear();
+      this.settlementIntent = null;
+      this.pendingRetryAttempt = 0;
+      return { cleaned: false, state };
+    }
+    this.finish('cancelled', Math.max(this.wallNow(), pending.issuedAt));
+    return { cleaned: true, state: this.state() };
   }
 
   tick(context = this.context) {
@@ -107,8 +142,19 @@ class SurpriseDirector {
     if (typeof this.clock.dayKey === 'function') {
       selectionClock.dayKey = timestamp => this.clock.dayKey(timestamp);
     }
+    const currentState = this.state();
+    const settling = this.settlementIntent;
+    if (settling && currentState.surprise.pending?.decisionId !== settling.decisionId) {
+      // A save may have committed before reporting failure. Reconcile that
+      // identity before a newer decision can replace its recovery timer.
+      this.clearTimer();
+      this.envelopes.delete(settling.decisionId);
+      this.deliveryDeadlines.delete(settling.decisionId);
+      this.settlementIntent = null;
+      this.pendingRetryAttempt = 0;
+    }
     const selection = selectSurprise({
-      companion: this.state(), manifest: this.manifest,
+      companion: currentState, manifest: this.manifest,
       context: this.context, clock: selectionClock, rng: this.rng
     });
     if (!selection.cue) {
@@ -143,6 +189,7 @@ class SurpriseDirector {
   }
 
   armDeliveryTimer(decisionId) {
+    if (this.settlementIntent?.decisionId === decisionId) return;
     this.clearTimer();
     const pending = this.state().surprise.pending;
     if (!pending || pending.decisionId !== decisionId) return;
@@ -163,26 +210,32 @@ class SurpriseDirector {
     this.timer = this.schedule(() => {
       if (generation !== this.timerGeneration || this.disposed) return;
       this.timer = null;
-      const state = this.state();
-      const current = state.surprise.pending;
-      if (!current || current.decisionId !== decisionId) return;
-      const tickNow = this.wallNow();
-      const tickMonotonicNow = this.monotonicNow();
-      if (tickNow >= current.expiresAt || tickMonotonicNow >= monotonicDeadline) {
-        this.finish('cancelled', Math.max(tickNow, current.issuedAt));
-        return;
-      }
-      if (current.status === 'issued' && current.attempts < 3) {
-        current.attempts += 1;
-        this.persist(state);
-        const envelope = this.envelopes.get(decisionId);
-        if (envelope) {
-          try { this.deliver({ ...envelope }); }
-          finally { this.armDeliveryTimer(decisionId); }
+      try {
+        const state = this.state();
+        const current = state.surprise.pending;
+        if (!current || current.decisionId !== decisionId) return;
+        const tickNow = this.wallNow();
+        const tickMonotonicNow = this.monotonicNow();
+        if (tickNow >= current.expiresAt || tickMonotonicNow >= monotonicDeadline) {
+          this.finish('cancelled', Math.max(tickNow, current.issuedAt));
           return;
         }
+        if (current.status === 'issued' && current.attempts < 3) {
+          current.attempts += 1;
+          this.persist(state);
+          const envelope = this.envelopes.get(decisionId);
+          if (envelope) {
+            try { this.deliver({ ...envelope }); }
+            finally { this.armDeliveryTimer(decisionId); }
+            return;
+          }
+        }
+        this.armDeliveryTimer(decisionId);
+      } catch (_) {
+        if (this.timer === null) {
+          this.retryPendingOperation(decisionId, () => this.armDeliveryTimer(decisionId));
+        }
       }
-      this.armDeliveryTimer(decisionId);
     }, Math.max(1, wait));
   }
 
@@ -194,6 +247,7 @@ class SurpriseDirector {
       return terminal ? { ok: true, duplicate: true, status: terminal.outcome } : { ok: false, reason: 'unknown-decision' };
     }
     if (!Object.prototype.hasOwnProperty.call(ACK_STATUS, status)) return { ok: false, reason: 'invalid-status' };
+    if (this.settlementIntent?.decisionId === decisionId) return { ok: false, reason: 'settlement-pending' };
     const currentRank = pending.status === 'issued' ? 0 : pending.status === 'received' ? 1 : 2;
     const nextRank = ACK_STATUS[status];
     if (nextRank < currentRank || (nextRank === currentRank && status === pending.status)) {
@@ -214,12 +268,13 @@ class SurpriseDirector {
   }
 
   finish(outcome, finishedAt) {
-    this.clearTimer();
     const state = this.state();
     const pending = state.surprise.pending;
     if (!pending) return { ok: true, duplicate: true, status: outcome };
-    this.envelopes.delete(pending.decisionId);
-    this.deliveryDeadlines.delete(pending.decisionId);
+    const intent = this.settlementIntent?.decisionId === pending.decisionId
+      ? this.settlementIntent : { decisionId: pending.decisionId, outcome, finishedAt };
+    ({ outcome, finishedAt } = intent);
+    this.releaseUnstartedReservation(state, pending);
     state.surprise.pending = null;
     let next = state;
     let terminalOutcome = outcome;
@@ -235,7 +290,20 @@ class SurpriseDirector {
       finishedAt,
       outcome: terminalOutcome
     });
-    this.persist(next);
+    try {
+      this.persist(next);
+    } catch (error) {
+      // The canonical pending identity still owns this settlement. Retry only
+      // its terminal commit, never its presentation or reward-producing work.
+      this.settlementIntent = intent;
+      this.retryPendingOperation(pending.decisionId, () => this.finish(outcome, finishedAt));
+      throw error;
+    }
+    this.clearTimer();
+    this.envelopes.delete(pending.decisionId);
+    this.deliveryDeadlines.delete(pending.decisionId);
+    this.pendingRetryAttempt = 0;
+    this.settlementIntent = null;
     return { ok: true, status: terminalOutcome };
   }
 
@@ -244,6 +312,9 @@ class SurpriseDirector {
     const state = this.state();
     const pending = state.surprise.pending;
     if (!pending) return { cancelled: false };
+    if (this.settlementIntent?.decisionId === pending.decisionId) {
+      return { cancelled: false, reason: 'settlement-pending' };
+    }
     const cue = this.content.get(pending.cueId);
     const reason = cue ? hardGateReason(cue, this.context) : 'missing-content';
     if (!reason) return { cancelled: false };
@@ -254,6 +325,7 @@ class SurpriseDirector {
 
   dispose() {
     this.disposed = true;
+    this.settlementIntent = null;
     this.clearTimer();
     this.envelopes.clear();
     this.deliveryDeadlines.clear();

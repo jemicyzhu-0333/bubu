@@ -18,7 +18,7 @@ import { actionPresentation } from '../state/action-presentation.mjs';
 function createPopoverNowCard({
   document, $, getState, getSession, escapeHTML, surfaceClient,
   taskLaunchBlockReason, focusActionMessage, taskActionMessage, scoreSummary,
-  syncBlocker, canReceiveFocus, celebrate, completeTask, openTaskEditor, runQuickStart, showFocusStatus
+  syncBlocker, canReceiveFocus, celebrate, completeTask, openTaskEditor, runQuickStart, showFocusStatus, openTaskList
 } = {}) {
   if (!document || typeof $ !== 'function') {
     throw new TypeError('popover now card requires document and $');
@@ -26,7 +26,7 @@ function createPopoverNowCard({
   for (const [name, fn] of Object.entries({
     getState, getSession, escapeHTML, taskLaunchBlockReason, focusActionMessage,
     taskActionMessage, scoreSummary, syncBlocker, canReceiveFocus, celebrate,
-    openTaskEditor, completeTask, runQuickStart, showFocusStatus
+    openTaskEditor, completeTask, runQuickStart, showFocusStatus, openTaskList
   })) {
     if (typeof fn !== 'function') throw new TypeError(`popover now card requires ${name}`);
   }
@@ -108,13 +108,15 @@ function createPopoverNowCard({
     const rescueNote = $('#rescueNote');
     const session = getSession();
     const freeSession = !activeTask && (session.running || session.paused);
-    const hasOpenTasks = (getState().tasks || []).some(task => !task.done);
+    const hasOpenTasks = (getState().tasks || []).some(task => !task.done && !task.skippedAt);
     const ownCandidate = recommendationForTask(activeTask);
     const presentation = actionPresentation(getState(), session, activeTask, ownCandidate, { hasOpenTasks });
     // 没有可换的就不显示“换一件”；没有选定任务时“有点卡”没有对象。
     $('#btnChooseCandidates')?.classList.toggle('hidden', !hasOpenTasks);
     $('#btnStuck')?.classList.toggle('hidden', !activeTask);
     document.body.dataset.actionState = presentation.phase;
+    title.classList.toggle('sr-only', presentation.usesTaskTitle);
+    $('#btnAddNowStep')?.classList.toggle('hidden', !presentation.usesTaskTitle || presentation.phase !== 'ready' || Boolean(activeTask?.skippedAt));
     const stateLabel = $('#nowStateLabel');
     if (stateLabel) stateLabel.textContent = t(presentation.label);
     $('#nowCard').dataset.freeSession = freeSession ? 'true' : 'false';
@@ -145,7 +147,8 @@ function createPopoverNowCard({
     // 否则会和下面那句“这件任务已经完成”相互矛盾。
     const writtenAction = activeTask.nextAction || ownCandidate?.nextStep?.title
       || activeTask.steps?.find(step => !step.done)?.title;
-    next.textContent = activeTask.done || !writtenAction ? t(presentation.action) : presentation.action;
+    next.textContent = presentation.usesTaskTitle || writtenAction && !activeTask.done
+      ? presentation.action : t(presentation.action);
     badge.textContent = blockerLabel ? t('卡在：{blocker}', { blocker: blockerLabel }) : '';
     badge.classList.toggle('hidden', !blockerLabel);
     showMeta(launchBlockReason ? focusActionMessage(launchBlockReason) : '');
@@ -247,11 +250,11 @@ function createPopoverNowCard({
     if (trigger) trigger.setAttribute('aria-expanded', String(open));
   }
 
-  function closePanel({ focusNow = false } = {}) {
+  function closePanel({ focusNow = false, restoreFocus = true } = {}) {
     requestVersion++;
     motion.stop();
     setPanelOpen(false);
-    const returnTarget = focusNow && !$('#btnNowKickstart').disabled
+    const returnTarget = !restoreFocus ? null : focusNow && !$('#btnNowKickstart').disabled
       ? $('#btnNowKickstart')
       : returnFocus;
     returnFocus = null;
@@ -295,7 +298,13 @@ function createPopoverNowCard({
       });
       grid.appendChild(card);
     });
-    setPanelOpen(cache.length > 0);
+    if (!cache.length) {
+      const empty = document.createElement('p');
+      empty.className = 'now-meta';
+      empty.textContent = t('暂无可立即开始的任务。');
+      grid.appendChild(empty);
+    }
+    setPanelOpen(true);
     void motion.enter(grid);
     render();
   }
@@ -312,8 +321,7 @@ function createPopoverNowCard({
       const result = await surfaceClient.pickOneTask({ limit: 2, explain: true });
       if (version !== requestVersion) return;
       const candidates = result && Array.isArray(result.candidates) ? result.candidates : (result ? [result] : []);
-      if (candidates.length) renderCandidates(candidates);
-      else showFocusStatus(() => t('暂无可切换的任务。'));
+      renderCandidates(candidates);
     } catch { showFocusStatus(() => t('暂时无法读取任务，请再试一次。')); }
     finally { picking = false; }
   }
@@ -324,6 +332,15 @@ function createPopoverNowCard({
     sessionStep.mount();
     listen($('#btnChooseCandidates'), 'click', () => { void pickCandidates(); });
     listen($('#closeCandidates'), 'click', () => closePanel());
+    listen($('#btnBrowseTasks'), 'click', () => {
+      closePanel({ restoreFocus: false });
+      openTaskList();
+    });
+    listen($('#btnAddNowStep'), 'click', () => {
+      const task = currentTask();
+      const session = getSession();
+      if (task && !task.done && !task.skippedAt && !session.running && !session.paused) openTaskEditor(task);
+    });
     // 两分钟救援必须绑一个可观察的下一动作：没有落点的两分钟结束后依旧不知道
     // 停在哪里，那只是把启动困难推到两分钟之后。怎么起是计时器的事,这里只回答
     // 「起的是哪一件」。
