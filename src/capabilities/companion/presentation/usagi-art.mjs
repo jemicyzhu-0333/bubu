@@ -1,6 +1,8 @@
 'use strict';
 
 import { paperReturnFace } from './paper-return-story.mjs';
+import { secondarySwing } from './motion-core/secondary.mjs';
+import { motionOffset as bodyOffset } from './usagi-body-motion.mjs';
 import { combinationAccessory, quietAccessorySample } from './combination-accessories.mjs';
 import support from './usagi-support.mjs';
 import { SKINS } from '../../../skins.mjs';
@@ -50,7 +52,13 @@ function resolveArtwork({ view, motion, face, calmVisual, progress, elapsedMs, c
       robot: combinationAccessory(action, 'robot'),
       sample: quietAccessorySample(action)
     });
-    const dressed = Object.freeze({ ...dressedBase, combinationAccessories: accessories });
+    // Secondary layer: ear accessories trail the body's lateral motion on a
+    // spring (deterministic re-integration; off under calm/reduced motion).
+    const durationMs = action?.duration || action?.durationMs || 8000;
+    const signal = ms => bodyOffset(motion, ms / durationMs, false, { action }).x;
+    const secondary = Object.freeze({ earwear: secondarySwing(signal, (Number(progress) || 0) * durationMs,
+      { reducedMotion: calmVisual || !motion || motion === 'idle' }) });
+    const dressed = Object.freeze({ ...dressedBase, combinationAccessories: accessories, secondary });
     if (artwork.pose.sample.event?.category !== 'music' && !accessories.headphones) return dressed;
     const firstFront = outfit?.items?.find(item => (item.formId || 'dango') === 'usagi'
       && (wardrobe.appearanceLayers(item, artwork.drawnView) || item.parts || []).includes('front'));

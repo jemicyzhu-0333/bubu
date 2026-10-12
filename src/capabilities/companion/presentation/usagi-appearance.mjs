@@ -1,6 +1,7 @@
 'use strict';
 
 import { paperPlaneClip, compassClip } from './usagi-messenger-clips.mjs';
+import { occupantsFor, resolveAccessoryStack } from './motion-core/accessory-stack.mjs';
 import { IDENTITY, multiply } from './rig/pose.mjs';
 
 // Native vector wardrobe, in the same cream-bunny scale and cocoa ink as the
@@ -208,7 +209,15 @@ function appearance(ctx, options) {
       // Profile headwear seats on the canonical skull span. Other views keep
       // the existing separation from the near ear clasp and its moving bone.
       if (item.exclusiveGroup === 'usagi.headwear') ctx.translate(view === 'profile' ? (26 + 44) / 2 - anchor.x : -8, 0);
-      if (item.exclusiveGroup === 'usagi.earwear') ctx.translate(view === 'three-quarter' ? 5 : 4, 0);
+      if (item.exclusiveGroup === 'usagi.earwear') {
+        ctx.translate(view === 'three-quarter' ? 5 : 4, 0);
+        // Slot stacking (headphones/hat) + secondary spring swing at the clasp.
+        const stack = resolveAccessoryStack(item.exclusiveGroup, occupantsFor(options));
+        const swing = options.artwork?.secondary?.earwear || 0;
+        if (stack.x || stack.y) ctx.translate(stack.x, stack.y);
+        if (stack.rotate || swing) ctx.rotate(stack.rotate + swing);
+        if (stack.scale !== 1) ctx.scale(stack.scale, stack.scale);
+      }
       painter(ctx, { back: view === 'back', side: view === 'profile', turned: view === 'three-quarter' });
     }
   } finally { ctx.restore(); }
