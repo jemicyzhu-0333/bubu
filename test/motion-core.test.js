@@ -80,7 +80,7 @@ test('accessory stacking: rules compose per occupant and leave unrelated slots a
   const phones = core.resolveAccessoryStack('usagi.earwear', core.occupantsFor({ artwork: { combinationAccessories: { headphones: { opacity: 1 } } } }));
   assert.ok(phones.y < 0 && phones.scale < 1);
   const both = core.resolveAccessoryStack('usagi.earwear', new Set(['headphones', 'usagi.headwear']));
-  assert.ok(both.x > phones.x && both.rotate > phones.rotate);
+  assert.ok(both.y < phones.y && both.rotate > phones.rotate);
   assert.deepEqual(core.resolveAccessoryStack('usagi.headwear', new Set(['headphones'])), none);
   assert.ok(core.occupantsFor({ appearance: { items: [{ exclusiveGroup: 'usagi.headwear' }] } }).has('usagi.headwear'));
 });

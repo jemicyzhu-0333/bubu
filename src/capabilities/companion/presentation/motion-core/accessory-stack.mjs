@@ -5,9 +5,9 @@
 const RULES = Object.freeze([
   // Headphone band crosses the ear root: ride the clip further up the ear,
   // slightly smaller, tipped outward so it reads past the band.
-  Object.freeze({ slot: 'usagi.earwear', when: 'headphones', x: 1.5, y: -5, rotate: .22, scale: .86 }),
+  Object.freeze({ slot: 'usagi.earwear', when: 'headphones', x: -1, y: -5, rotate: .16, scale: .86 }),
   // A brimmed hat crowds the clasp: nudge outward.
-  Object.freeze({ slot: 'usagi.earwear', when: 'usagi.headwear', x: 1.5, y: -1.5, rotate: .08, scale: 1 })
+  Object.freeze({ slot: 'usagi.earwear', when: 'usagi.headwear', x: .5, y: -1.5, rotate: .08, scale: 1 })
 ]);
 const IDENTITY = Object.freeze({ x: 0, y: 0, rotate: 0, scale: 1 });
 function occupantsFor({ appearance, artwork } = {}) {
