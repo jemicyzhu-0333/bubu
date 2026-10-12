@@ -68,6 +68,23 @@ const FORM_TRAITS = freeze({ dango: freeze({ pawsAboveCloth: true }),
       // ties at the back, so the paws stay over it.
       coveredBy: freeze(['usagi.backwear']), frontHung: freeze(['usagi.garden-apron']) }) }) });
 
+// Region clearance: an action detail anchored in a region a worn slot owns
+// (e.g. dango look-back glance marks at the crown, where a head accent such as
+// the moon crescent floats) is displaced just past that item, never painted
+// over or under it. Offsets are in the form's art units.
+// views: where the item actually sits on that side of the crown (the back
+// view mirrors it to the far side, clear of the marks).
+const REGION_CLEARANCE = freeze({ dango: freeze({ 'head-accent': freeze({ region: 'crown', dx: 8, dy: 5,
+  views: freeze(['front', 'three-quarter', 'profile']) }) }) });
+function regionClearance({ formId, items = [], view = 'front' } = {}) {
+  const rules = REGION_CLEARANCE[formId]; if (!rules) return null;
+  for (const item of items) {
+    const rule = rules[slotOf(item)];
+    if (rule && (item.formId || 'dango') === formId && rule.views.includes(view)) return rule;
+  }
+  return null;
+}
+
 // Pass for the posed paws of a form in a view: null = authored pass.
 function pawPass({ formId, view, wrapsBody = false } = {}) {
   const rule = FORM_TRAITS[formId]?.backPaws;
@@ -170,4 +187,4 @@ function computePlan({ manifest = ACCESSORY_MANIFEST, items = [], formId, view =
   return result;
 }
 
-export { pawPass, FORM_TRAITS, ACCESSORY_MANIFEST, manifestFor, resolveAccessories, slotOf };
+export { regionClearance, pawPass, FORM_TRAITS, ACCESSORY_MANIFEST, manifestFor, resolveAccessories, slotOf };

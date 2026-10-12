@@ -85,9 +85,16 @@ function analyseFit({ bare, worn, bareNoFront, wornNoFront, bareBlink }, { float
   const overlap = and(footprint, front), overlapArea = count(overlap);
   // A front-pass pixel is hidden when the final frame equals the frame
   // rendered without that pass (the garment, not the paw/prop, is visible).
-  const frontVisible = diffMask(worn, wornNoFront);
+  // Relative to the pass's own contrast in the bare frame, so a translucent
+  // prop (a treasure fading in) that shows as faintly over cloth as over fur
+  // is not counted as covered.
+  const dist = (a, b, i) => Math.abs(a.data[i] - b.data[i]) + Math.abs(a.data[i + 1] - b.data[i + 1]) + Math.abs(a.data[i + 2] - b.data[i + 2]) + Math.abs(a.data[i + 3] - b.data[i + 3]);
   let onTop = 0; const hidden = new Uint8Array(n);
-  for (let j = 0; j < n; j++) if (overlap[j] && item[j] && !frontVisible[j]) { hidden[j] = 1; onTop++; }
+  for (let j = 0; j < n; j++) {
+    if (!overlap[j] || !item[j]) continue;
+    const i = j * 4, shown = dist(worn, wornNoFront, i);
+    if (shown <= 60 && shown < dist(bare, bareNoFront, i) * .5) { hidden[j] = 1; onTop++; }
+  }
   const order = overlapArea >= propMin ? (onTop / overlapArea > .5 ? 'item' : 'prop') : null;
   const near = dilate(sa, w, h, detachRadius); let far = 0;
   for (let j = 0; j < n; j++) if (item[j] && !near[j]) far++;

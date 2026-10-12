@@ -19,6 +19,8 @@ const { SESSION_ACTIVITIES } = await import(pathToFileURL(path.join(root, 'src/c
 const { PET_APPEARANCE_ITEMS } = await import(pathToFileURL(path.join(root, 'src/content/appearance.mjs')));
 let motionCaps = () => ({});
 try { ({ motionCaps } = await import(pathToFileURL(path.join(root, 'src/capabilities/companion/presentation/motion-core/action-capabilities.mjs')))); } catch {}
+let regionClearance = () => null;
+try { ({ regionClearance = () => null } = await import(pathToFileURL(path.join(root, 'src/capabilities/companion/presentation/motion-core/accessory-resolver.mjs')))); } catch {}
 const itemIds = arg('item', '').split(',').filter(Boolean);
 const items = itemIds.map(id => PET_APPEARANCE_ITEMS.find(i => i.id === id) || (() => { throw Error('unknown item ' + id); })());
 const formId = items[0].formId || 'dango', skin = arg('skin', formId === 'usagi' ? 'usagi' : 'pink');
@@ -51,9 +53,23 @@ for (const view of views) {
         const headwear = items.some(i => /headwear/.test(i.exclusiveGroup || ''));
         let reason = null;
         if (headwear && action && motionCaps(action).yieldPropToHeadwear) reason = 'yields-prop-to-headwear';
-        else if (m.flagPixels.length && view !== 'back' && view !== 'front') {
+        // A detail the resolver displaced past a worn item (region clearance)
+        // is missing from its bare position by design; only the crown band counts.
+        else if (regionClearance({ formId, items, view: 'front' }) && m.flagPixels.every(([, py]) => py < imgs.bare.height * .4)) reason = 'clears-region';
+        // Some actions face the audience whatever the requested view (sing):
+        // a 'back' request then draws the turned view. Judge the drawn view.
+        let drawnTurned = view !== 'back' && view !== 'front';
+        if (!drawnTurned && view === 'back') {
+          const auto = createRenderHarness(source, { skin, view: 'auto', dpr: 2, blink: false, outfit: false }); auto.select(kind, id); auto.draw(at);
+          const b = imgs.bare.data, c = read(auto.body).data; drawnTurned = c.length === b.length;
+          for (let i = 0; drawnTurned && i < c.length; i += 4) if (Math.abs(c[i] - b[i]) > 8) drawnTurned = false;
+          auto.dispose?.();
+        }
+        if (!reason && m.flagPixels.length && drawnTurned) {
           const w = imgs.bare.width, far = m.flagPixels.filter(([px]) => px < w * .42).length;
-          if (far / m.flagPixels.length > .9 && (rows.length || true)) reason = 'tucks-far-paw';
+          // A few near-side pixels are hem contact (the garment's dark line
+          // meeting a paw/prop edge), not a visible cover.
+          if ((far / m.flagPixels.length > .9 || m.flagPixels.length - far <= 8) && (rows.length || true)) reason = 'tucks-far-paw';
         }
         if (reason) { m.flags = m.flags.filter(f => f !== 'covers-prop'); m.metrics.order = null; m.metrics.declared = reason; if (!m.flags.length) m.flagPixels = []; }
       }

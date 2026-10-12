@@ -14,6 +14,7 @@ import { validateRasterManifest, collectRasterSprites, rasterView, PART_NAMES } 
 import { createRasterSource } from './raster/source.mjs';
 import { createRasterPainter } from './raster/paint.mjs';
 import { sampleRasterPose } from './dango-raster-pose.mjs';
+import { regionClearance } from './motion-core/accessory-resolver.mjs';
 import { paintRasterPaws } from './dango-raster-paws.mjs';
 import { drawRasterFace } from './dango-raster-face.mjs';
 import { createEyeApertureSampler } from './dango-eye-projection.mjs';
@@ -82,6 +83,10 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
       && view === 'three-quarter' && [undefined, 'three-quarter', 'profile'].includes(options.view)
       && reviewedRunOutfit ? runFootTiming : null;
     let pose = sampleRasterPose(data, { ...options, view, toolSprites, lookback, runFootTiming: footTiming });
+    // Crown clearance (resolver): glance marks step past a worn head accent.
+    const clear = !lookback && pose.contact?.details?.some(d => d.type === 'look-back') ? regionClearance({ formId: 'dango', items: outfitItems, view }) : null;
+    if (clear) pose = { ...pose, contact: { ...pose.contact, details: pose.contact.details.map(d => d.type === 'look-back'
+      ? { ...d, at: [d.at[0] + clear.dx, d.at[1] + clear.dy] } : d) } };
     // Optional concurrent layers must not take the selected focus tool or hands
     // away while loading/failing. Only the small accessory group waits together.
     const accessoryTools = pose.contact?.tools.filter(item => item.contextAccessory) || [];
