@@ -23,6 +23,7 @@ import { USAGI_WARDROBE } from '../../../../assets/companion/usagi/wardrobe/usag
 import { usagiPartLayer } from './usagi-garment-depth.mjs';
 import { withUsagiEffectOrigins } from './usagi-effect-origins.mjs';
 import { usagiProfileFaceRig } from './usagi-face-projection.mjs';
+import { applyPoint } from './rig/pose.mjs';
 import { paintUsagiGestureUnderCloth } from './usagi-gesture-limbs.mjs';
 import { sampleUsagiEventFace, paintUsagiEventHeadphones } from './usagi-event-actions.mjs';
 import { paintUsagiEventLaptopBase } from './usagi-event-equipment.mjs';
@@ -119,24 +120,58 @@ function action(context, options) {
 // full-body twin would layer a second oversized rabbit over the real one.
 function actionOverlay(_context, action) { return Boolean(motionCaps(action).overlayForms?.includes('usagi')); }
 
+function paintItem(context, resolved, options, artwork) {
+  const rasterReady = wardrobe.owns(options.item) && artwork.wardrobe?.ready
+    && artwork.wardrobe.rasterKeys.includes(options.item.renderKey);
+  return rasterReady ? wardrobe.appearance(context, resolved) : rigArtist.appearance(context, resolved);
+}
+
+// Clip out a paw-sized disc around each wrist whose hand sits in front of
+// the torso (evenodd: everything except the discs stays paintable).
+const HAND_CUT_RADIUS = 6.5;
+function withHandCutout(context, artwork, paint) {
+  const data = artwork?.rig?.views?.[artwork.drawnView], world = artwork?.pose?.world;
+  if (!data || !world || artwork.drawnView === 'back') return paint();
+  const discs = [];
+  for (const side of ['l', 'r']) {
+    const bone = data.bones[`hand_${side}`];
+    if (!bone || !world[`hand_${side}`]) continue;
+    const [x, y] = applyPoint(world[`hand_${side}`], ...bone.pivot);
+    // Only paws inside the torso box can be swallowed by cloth.
+    if (x > 8 && x < 58 && y > 30 && y < 66) discs.push([x, y]);
+  }
+  if (!discs.length) return paint();
+  context.save();
+  context.beginPath();
+  context.rect(-200, -200, 466, 466);
+  for (const [x, y] of discs) { context.moveTo(x + HAND_CUT_RADIUS, y); context.arc(x, y, HAND_CUT_RADIUS, 0, Math.PI * 2); }
+  context.clip('evenodd');
+  const painted = paint();
+  context.restore();
+  return painted;
+}
+
 function appearance(context, options) {
   const artwork = options.artwork?.kind === 'rig' ? options.artwork
     : resolveArtwork({ view: options.view, appearance: options.appearance });
   return artwork ? withUsagiGroundClip(context, artwork, () => {
     const resolved = { ...options, artwork };
-    if (!options.fit && options.layer === 'front' && options.item.id === artwork.headphoneFrontItemId) {
-      paintUsagiEventHeadphones(context, artwork, 'front');
-    }
+    // The resolver's painted list (stowed/hidden items removed) decides which
+    // front item opens the cloth pass; the raw outfit is the portrait fallback.
+    const firstFront = options.paintedItems ? options.paintedItems[0]
+      : options.appearance?.items?.find(item => (item.formId || 'dango') === 'usagi'
+        && (wardrobe.appearanceLayers(item, artwork.drawnView) || item.parts || []).includes('front'));
+    const opensFront = !options.fit && options.layer === 'front' && options.item === firstFront;
+    if (opensFront && artwork.headphoneFrontItemId) paintUsagiEventHeadphones(context, artwork, 'front');
     // Paint the complete near limb after body/face and before the first front
     // item. Actual cloth then covers its root; no cream correction covers cloth.
-    const firstFront = options.appearance?.items?.find(item => (item.formId || 'dango') === 'usagi'
-      && (wardrobe.appearanceLayers(item, artwork.drawnView) || item.parts || []).includes('front'));
-    if (!options.fit && options.layer === 'front' && options.item === firstFront) {
-      paintUsagiGestureUnderCloth(context, resolved);
+    if (opensFront) paintUsagiGestureUnderCloth(context, resolved);
+    // Held-prop fallback: torso cloth is cut around the paws instead of
+    // swallowing them (and the prop they hold).
+    if (options.fitPlan?.cut === 'hands' && options.layer === 'front') {
+      return withHandCutout(context, artwork, () => paintItem(context, resolved, options, artwork));
     }
-    const rasterReady = wardrobe.owns(options.item) && artwork.wardrobe?.ready
-      && artwork.wardrobe.rasterKeys.includes(options.item.renderKey);
-    return rasterReady ? wardrobe.appearance(context, resolved) : rigArtist.appearance(context, resolved);
+    return paintItem(context, resolved, options, artwork);
   }) : false;
 }
 

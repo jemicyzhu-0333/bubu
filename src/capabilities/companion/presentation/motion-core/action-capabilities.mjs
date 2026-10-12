@@ -27,16 +27,27 @@ const NONE = Object.freeze({});
 //   gesture        – usagi free-arm gesture ('yawn'|'high-five'|'wave'|'stretch').
 //   dangoContact   – dango contact refinement ('dig-shift'|'laser-dot'|'single-paw'|'nap-stretch'|'tail-wag').
 //   dangoFace      – dango face override ('steady'|'carry'|'corner-nap').
+//   wear           – accessory declarations for the fit resolver:
+//                    { stow: [{slot|region, window?, why}], holds?: bool, follow?: false }.
+//   viewLock       – { allow, fallback }: views the action may be drawn in.
+//   mirrorEvent    – 'music'|'ai' quiet mirror presentation.
+//   screenBrowse   – props that use the reverse-view laptop lid contact.
+//   faceBeats      – usagi face per motion beat ('wake'|'content').
+//   dangoPawTool   – dango small-paw refinement ('cup'|'energy'|'support').
 //   dangoArms      – dango arm shaping { tuck, palm }.
 const C = value => Object.freeze(value);
 const REGISTRY = Object.freeze({
-  'paper-return': C({ ownsGround: true, body: 'paper-return', story: 'paper-return',
+  'paper-return': C({ viewLock: C({ allow: C(['front', 'three-quarter']), fallback: 'three-quarter' }), ownsGround: true, body: 'paper-return', story: 'paper-return',
     interruptExit: C({ durationMs: 420, completeAt: .96 }) }),
   moonwalk: C({ ownsGround: true, body: 'grounded-moonwalk' }),
   'magic-trick': C({ story: 'hat-star' }),
   'sip-tea': C({ handoffRecovery: C({ window: .14 }), resumeIdleView: true }),
   'mirror-meet': C({ overlayForms: C(['dango', 'dango-raster', 'usagi']) }),
-  hiccup: C({ overlayForms: C(['dango-raster']), attachedBubbles: 'origin', gentleEffect: true, groundShiftScale: .35,
+  'mirror-music': C({ mirrorEvent: 'music', viewLock: C({ allow: C(['front', 'three-quarter']), fallback: 'front' }) }),
+  'mirror-ai': C({ mirrorEvent: 'ai', viewLock: C({ allow: C(['front', 'three-quarter']), fallback: 'front' }), screenBrowse: C(['ai-chat']) }),
+  'focus-browse': C({ screenBrowse: C(['laptop', 'notes']) }),
+  'rest-tea': C({ faceBeats: C({ carry: 'content', organize: 'content', breathe: 'content' }) }),
+  hiccup: C({ dangoPawTool: 'cup',  overlayForms: C(['dango-raster']), attachedBubbles: 'origin', gentleEffect: true, groundShiftScale: .35,
     effectTool: 'cup', dangoFace: 'steady', dangoArms: C({ tuck: true, palm: true }) }),
   sing: C({ particles: 'sing-notes' }),
   'bubble-blow': C({ attachedBubbles: 'wand', effectTool: 'bubble-wand' }),
@@ -45,13 +56,13 @@ const REGISTRY = Object.freeze({
   'high-five': C({ gesture: 'high-five' }),
   wave: C({ gesture: 'wave' }), 'rest-window': C({ gesture: 'wave' }), 'rest-plant': C({ gesture: 'wave' }),
   stretch: C({ gesture: 'stretch' }), 'rest-stretch': C({ gesture: 'stretch' }), 'rest-daydream': C({ gesture: 'stretch' }),
-  'carry-energy': C({ carryWalk: true, dangoFace: 'carry', dangoArms: C({ tuck: true, palm: true }) }),
-  workout: C({ groundShiftScale: .45, restFeetWhenUnready: true, dangoArms: C({ tuck: true, palm: false }) }),
+  'carry-energy': C({ dangoPawTool: 'energy',  carryWalk: true, dangoFace: 'carry', dangoArms: C({ tuck: true, palm: true }) }),
+  workout: C({ dangoPawTool: 'support',  wear: C({ stow: C([C({ region: 'crown', why: 'prop-headband' })]), holds: false }), groundShiftScale: .45, restFeetWhenUnready: true, dangoArms: C({ tuck: true, palm: false }) }),
   'chase-laser': C({ runFootTiming: true, dangoContact: 'laser-dot' }),
   'dig-treasure': C({ dangoContact: 'dig-shift', dangoArms: C({ tuck: true, palm: true }) }),
   sneeze: C({ dangoArms: C({ tuck: true, palm: true }) }),
   sweep: C({ dangoContact: 'single-paw' }),
-  'rest-nap': C({ dangoContact: 'nap-stretch', napPillow: true }),
+  'rest-nap': C({ faceBeats: C({ daydream: 'wake', organize: 'content' }),  dangoContact: 'nap-stretch', napPillow: true }),
   'tail-wiggle': C({ dangoContact: 'tail-wag' }),
   'stuck-corner': C({ dangoFace: 'corner-nap' })
 });

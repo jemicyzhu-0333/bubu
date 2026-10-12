@@ -383,7 +383,7 @@ function drawPet() {
     backSurface: petActionBackSurface, frontSurface: petActionFrontSurface, artwork, sprites: petSprites
   });
   formArt.drawAppearanceLayer(pctx, appearance, palette, {
-    form, stage: geo, layer: 'back', offX, offY, view, artwork,
+    form, stage: geo, layer: 'back', offX, offY, view, artwork, action: actionConfig, progress: actionT,
     theme: runtimeState.currentTheme, elapsedMs: runtimeState.animNow, calmVisual
   });
   drawPetBody(form, skinId, palette, bodyPose ? bodyPose.tone : 'normal', offX, offY, view, artwork);
@@ -395,7 +395,7 @@ function drawPet() {
       offX, offY, view, artwork);
   }
   formArt.drawAppearanceLayer(pctx, appearance, palette, {
-    form, stage: geo, layer: 'front', offX, offY, view, artwork,
+    form, stage: geo, layer: 'front', offX, offY, view, artwork, action: actionConfig, progress: actionT,
     theme: runtimeState.currentTheme, elapsedMs: runtimeState.animNow, calmVisual
   });
   formArt.drawActionLayer(pctx, {

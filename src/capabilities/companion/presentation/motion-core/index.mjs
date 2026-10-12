@@ -8,3 +8,4 @@ export * from './form-anchors.mjs';
 export * from './accessory-stack.mjs';
 export * from './body-poses.mjs';
 export * from './accents.mjs';
+export * from './accessory-resolver.mjs';

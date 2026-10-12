@@ -3,6 +3,7 @@
 import { sampleAccent } from './motion-core/accents.mjs';
 import { motionCaps } from './motion-core/action-capabilities.mjs';
 import { bodyFloor } from './motion-core/form-anchors.mjs';
+import { resolveAccessories } from './motion-core/accessory-resolver.mjs';
 import petArt from '../../../core/pet-art.mjs';
 import petActionArt from '../../../core/pet-action-art.mjs';
 import { drawActionParticle } from '../../../core/pet-action-particles.mjs';
@@ -202,16 +203,26 @@ function drawAppearanceLayer(context, appearance, palette, { form, layer, offX, 
     layer, offX, offY, ...options, footwearTransforms: options.artwork?.footwearTransforms
   });
   const artist = artistFor(form);
-  const items = appearance?.items?.filter(item => (item.formId || 'dango') === form.id
-    && (artist.appearanceLayers?.(item, options.artwork?.view || options.view || appearance.view) || item.parts).includes(layer)) || [];
+  const view = options.view || appearance?.view;
+  const drawnView = options.artwork?.drawnView || options.artwork?.view || view;
+  const authored = item => artist.appearanceLayers?.(item, drawnView) || item.parts || [];
+  // Fit resolver (motion-core/accessory-resolver): per-frame visibility, pass
+  // and offset. Portrait fits show the outfit as authored, with no action.
+  const plan = resolveAccessories({ items: appearance?.items || [], formId: form.id, view: drawnView,
+    action: fit ? null : options.action, phase: options.progress, reduced: Boolean(options.calmVisual) });
+  const items = plan.itemsFor(layer, authored);
   if (!items.length) return false;
   context.save();
   context.translate(offX, offY);
   const painted = withFormSpace(context, form, stage, fit, () => {
     let didPaint = false;
     for (const item of items) {
+      const fitPlan = plan.get(item.id);
+      const nudge = fitPlan?.offsetY || 0;
+      if (nudge) { context.save(); context.translate(0, nudge); }
       didPaint = artistFor(form).appearance(context, { item, layer, palette, form, appearance, fit,
-        view: options.view || appearance.view, ...options }) || didPaint;
+        view, fitPlan, paintedItems: items, ...options }) || didPaint;
+      if (nudge) context.restore();
     }
     if (didPaint && fit && layer === 'front') artist.appearanceForeground?.(context, {
       palette, form, appearance, fit, view: options.view || appearance.view, ...options
