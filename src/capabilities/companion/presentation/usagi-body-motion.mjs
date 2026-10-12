@@ -1,10 +1,14 @@
 'use strict';
 import { sampleGroundedMoonwalk } from './grounded-moonwalk.mjs';
+import { actionBodyPose } from './motion-core/body-poses.mjs';
+import { clamp01, smooth } from './motion-core/easing.mjs';
+// Art-space floor line (see usagi-ground.mjs FLOOR).
+const FLOOR = 67;
 import { sampleUsagiFall } from './usagi-ground.mjs';
 import { sampleUsagiEventBody } from './usagi-event-actions.mjs';
 const TAU = Math.PI * 2;
-const clamp = value => Math.max(0, Math.min(1, Number(value) || 0));
-const ease = t => t * t * (3 - 2 * t);
+const clamp = clamp01;
+const ease = smooth;
 
 // Art-space transforms move the entire cached torso, face and live rig
 // together. Bone-only root rotation would pull the limbs off a static body.
@@ -41,18 +45,24 @@ function sampleBodyMotion(motion, progress) {
   }
   return Object.freeze({ x, y, r, sx, sy });
 }
+function resolvePose(action, motion, progress, calmVisual) {
+  return actionBodyPose(action, progress, calmVisual) || sampleUsagiEventBody(action, progress, calmVisual) || sampleBodyMotion(motion, progress);
+}
 function motionOffset(motion, progress, calmVisual, { action } = {}) {
-  if (calmVisual || action?.id === 'paper-return') return { x: 0, y: 0 };
-  const { x, y } = sampleUsagiEventBody(action, progress, calmVisual) || sampleBodyMotion(motion, progress);
+  if (calmVisual) return { x: 0, y: 0 };
+  const { x, y } = resolvePose(action, motion, progress, calmVisual);
   return { x, y };
 }
 function applyMotionTransform(ctx, motion, progress, { calmVisual, size, translate, action }) {
-  if (calmVisual || action?.id === 'paper-return') return;
-  const pose = sampleUsagiEventBody(action, progress, calmVisual) || sampleBodyMotion(motion, progress);
+  if (calmVisual) return;
+  const pose = resolvePose(action, motion, progress, calmVisual);
   const move = translate || ((x, y) => ctx.translate(x, y));
-  move(size / 2, size / 2);
-  ctx.rotate(pose.r);
+  // Story-owned grounded poses pivot on the floor so scale/shear never lift soles.
+  const pivotY = pose.ground ? FLOOR : size / 2;
+  move(size / 2, pivotY);
+  if (pose.r) ctx.rotate(pose.r);
+  if (pose.shear) ctx.transform(1, 0, pose.shear, 1, 0, 0);
   if (pose.sx !== 1 || pose.sy !== 1) ctx.scale(pose.sx, pose.sy);
-  move(-size / 2, -size / 2);
+  move(-size / 2, -pivotY);
 }
 export { sampleBodyMotion, motionOffset, applyMotionTransform };
