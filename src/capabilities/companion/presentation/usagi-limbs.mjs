@@ -204,7 +204,10 @@ function paintLimb(ctx, artwork, data, side, { mergeSocket = true, alpha = 1, in
     // is a clean round line end, never a clipped sliver.
     const local = invert(m), s = geometry.socket, r = USAGI_LIMB_RIG.socketRadius;
     const erased = p => Math.hypot(p[0] - s[0], p[1] - s[1]) < r && insidePolygon(poly, applyPoint(local, ...p));
-    const trim = edge => { let k = 0; for (let n = 0; n < edge.length - 2; n++) if (erased(edge[n])) k = n + 1; return edge.slice(k); };
+    // Edges run root -> wrist; stop once the edge has left the socket disc.
+    const trim = edge => { let k = 0; for (let n = 0; n < edge.length - 2; n++) {
+      const p = edge[n]; if (Math.hypot(p[0] - s[0], p[1] - s[1]) >= r * 1.5) break; if (erased(p)) k = n + 1; }
+      return edge.slice(k); };
     stroke(trim(outer), trim(inner));
   } else stroke();
   ctx.restore();
