@@ -33,6 +33,7 @@ const rigArtist = createRigArtist({ fallback: support, partLayer: usagiPartLayer
 const wardrobe = createUsagiRasterWardrobe({ manifest: USAGI_WARDROBE });
 const ambient = createUsagiAmbientArt();
 
+const NO_SECONDARY = Object.freeze({ earwear: 0 });
 function resolveArtwork({ view, motion, face, calmVisual, progress, elapsedMs, channel, action,
   expressionId, expressionElapsedMs, appearance: outfit } = {}) {
   const rig = rigSource.get();
@@ -56,8 +57,10 @@ function resolveArtwork({ view, motion, face, calmVisual, progress, elapsedMs, c
     // spring (deterministic re-integration; off under calm/reduced motion).
     const durationMs = action?.duration || action?.durationMs || 8000;
     const signal = ms => bodyOffset(motion, ms / durationMs, false, { action }).x;
-    const secondary = Object.freeze({ earwear: secondarySwing(signal, (Number(progress) || 0) * durationMs,
-      { reducedMotion: calmVisual || !motion || motion === 'idle' }) });
+    // Only paid for when an ear accessory is actually worn.
+    const wearsEar = outfit?.items?.some(item => item.exclusiveGroup === 'usagi.earwear');
+    const secondary = wearsEar ? Object.freeze({ earwear: secondarySwing(signal, (Number(progress) || 0) * durationMs,
+      { reducedMotion: calmVisual || !motion || motion === 'idle' }) }) : NO_SECONDARY;
     const dressed = Object.freeze({ ...dressedBase, combinationAccessories: accessories, secondary });
     if (artwork.pose.sample.event?.category !== 'music' && !accessories.headphones) return dressed;
     const firstFront = outfit?.items?.find(item => (item.formId || 'dango') === 'usagi'
