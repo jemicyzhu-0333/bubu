@@ -1,9 +1,10 @@
 'use strict';
 
+import { clamp01 } from './motion-core/easing.mjs';
 import { placePaw } from './usagi-contact.mjs';
 
 const TAU = Math.PI * 2;
-const clamp = value => Math.max(0, Math.min(1, Number(value) || 0));
+const clamp = clamp01;
 const mix = (a, b, amount) => a.map((value, i) => value + (b[i] - value) * amount);
 
 // Only these existing category actions own the new quiet presentation. The

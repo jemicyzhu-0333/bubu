@@ -1,8 +1,9 @@
 'use strict';
+import { clamp01, hermite } from './motion-core/easing.mjs';
 import { COMPANION_ACTIVITY_STORIES } from '../../../content/companion/activity-stories.mjs';
 
-const clamp = value => Math.max(0, Math.min(1, Number(value) || 0));
-const smooth = value => value * value * (3 - 2 * value);
+const clamp = clamp01;
+const smooth = hermite;
 
 // Pure sampling, independent of frame rate. It never selects a new activity,
 // owns no wall clock, and cannot change the Presentation Director's priority.

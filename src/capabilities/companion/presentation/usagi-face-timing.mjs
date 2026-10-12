@@ -1,9 +1,10 @@
 'use strict';
 
+import { hermite } from './motion-core/easing.mjs';
 import { EXPRESSION_PHRASES } from './expression-phrases.mjs';
 
 const KEEP_EYES = new Set(['react.surprised', 'react.celebrate', 'system.restricted']);
-const ease = t => t * t * (3 - 2 * t);
+const ease = hermite;
 
 // Reuse the accepted drawings. Close the lids briefly while a standalone
 // phrase changes eye type, and settle the mouth before reopening. Blending

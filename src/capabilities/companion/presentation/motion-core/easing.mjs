@@ -44,3 +44,7 @@ function quadPoint(a, c, b, t, out = [0, 0]) {
   const u = 1 - t; for (let i = 0; i < 2; i++) out[i] = u * u * a[i] + 2 * u * t * c[i] + t * t * b[i]; return out;
 }
 export { clamp01, linear, smooth, inOutCubic, outCubic, outBack, spring, cubicBezier, EASINGS, easing, envelope, mix, cubicPoint, cubicTangent, quadPoint };
+// Raw cubic Hermite (no clamping): for callers that clamp or extrapolate themselves.
+const hermite = t => t * t * (3 - 2 * t);
+const lerp = (a, b, t) => a + (b - a) * t;
+export { hermite, lerp };

@@ -1,5 +1,6 @@
 'use strict';
 
+import { hermite } from '../motion-core/easing.mjs';
 import { resolveRigView, rigCacheKey } from './schema.mjs';
 import { computeBoneWorld, IDENTITY, multiply, localMatrix } from './pose.mjs';
 import { sampleMotion, idleProgress } from './motions.mjs';
@@ -21,7 +22,7 @@ const TRANSITION_MS_PER_ART_UNIT = 9;
 const STALE_GAP_MS = 500;                       // 帧停了这么久（窗口隐藏、节流）就直接对齐，不去混合过时的姿势
 const REST = Object.freeze({ r: 0, x: 0, y: 0, sx: 1, sy: 1 });
 const CHANNELS = Object.freeze(['r', 'x', 'y', 'sx', 'sy']);
-const smoothstep = t => t * t * (3 - 2 * t);
+const smoothstep = hermite;
 
 function blendBones(from, to, weight) {
   const out = {};
