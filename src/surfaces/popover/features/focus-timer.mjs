@@ -136,7 +136,37 @@ function createPopoverFocusTimer({
   }
 
   let actionStatusCopy = () => '';
+  // Feedback ownership. A notice belongs to one owner: the selected idle task,
+  // or one running/paused session (with its current resume action). A launch
+  // request carries a token and the owners it may legitimately produce; any
+  // other owner observed while it is pending invalidates that request, so a
+  // late receipt can never paint over a newer task, session or switch.
+  let feedbackOwner = null;
+  let requestSeq = 0;
+  let pendingRequest = null;
+  function ownerKey(selectedTaskId = currentTask()?.id || null) {
+    const session = getSession();
+    if (session.running) return `running:${session.sessionId || ''}:${session.kind || session.mode || ''}`;
+    if (session.paused) {
+      const action = session.resumeAction;
+      return `paused:${session.sessionId || ''}:${session.awaitingOfflineConfirmation === true}:${action?.sessionId || ''}:${action?.intent || ''}:${action?.enabled}:${action?.reason || ''}`;
+    }
+    return `idle:${selectedTaskId || ''}`;
+  }
+  function observeOwner() {
+    const owner = ownerKey();
+    if (pendingRequest && !pendingRequest.allowed.has(owner)) pendingRequest.invalidated = true;
+    return owner;
+  }
+  function syncFeedbackContext() {
+    const owner = observeOwner();
+    if (owner === feedbackOwner) return;
+    feedbackOwner = owner;
+    actionStatusCopy = () => '';
+    setStatusLine('#focusActionStatus', '');
+  }
   function showFocusActionStatus(message = '') {
+    feedbackOwner = observeOwner();
     actionStatusCopy = typeof message === 'function' ? message : () => t(message);
     setStatusLine('#focusActionStatus', actionStatusCopy());
   }
@@ -145,7 +175,19 @@ function createPopoverFocusTimer({
     if (!mounted || !visible || launching) return { ok: false, reason: 'launch-pending' };
     launching = true; renderPomoStructure();
     const generation = visibilityGeneration;
-    const current = () => mounted && visible && generation === visibilityGeneration;
+    const before = getSession();
+    const allowed = new Set([ownerKey()]);
+    // Selecting a scheduled task is this request's own effect, whichever order
+    // its publish and receipt arrive in.
+    if (task && !before.running && !before.paused) allowed.add(ownerKey(task.id));
+    const request = { token: ++requestSeq, allowed, invalidated: false };
+    pendingRequest = request;
+    const current = () => {
+      if (!mounted || !visible || generation !== visibilityGeneration) return false;
+      if (pendingRequest?.token !== request.token) return false;
+      syncFeedbackContext();
+      return !request.invalidated;
+    };
     try {
       const blockReason = taskLaunchBlockReason(task);
       if (['task-expired', 'task-completed', 'occurrence-skipped'].includes(blockReason)) {
@@ -182,13 +224,17 @@ function createPopoverFocusTimer({
     } catch (_) {
       if (current()) showFocusActionStatus(() => focusActionMessage());
       return { ok: false, reason: 'ipc-failed' };
-    } finally { launching = false; if (mounted && visible) renderPomoStructure(); }
+    } finally {
+      if (pendingRequest?.token === request.token) pendingRequest = null;
+      launching = false; if (mounted && visible) renderPomoStructure();
+    }
   }
 
   // -- Pomodoro time & label (called from local ticker, cheap, only touches numeric text)
   function renderPomoStructure({ copyOnly = false } = {}) {
     const state = getState();
     if (!state) return;
+    syncFeedbackContext();
     const p = getSession();
     const launch = focusLaunchContext();
     const launchBlockReason = taskLaunchBlockReason(launch.task);

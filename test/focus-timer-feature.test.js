@@ -30,7 +30,7 @@ function harness(overrides = {}, options = {}) {
   const feature = createPopoverFocusTimer({
     document, $, $$: () => [], refreshProjection: options.refreshProjection,
     getState: () => state, getSession: () => session, pad2: n => String(n).padStart(2, '0'),
-    setStatusLine(selector, text) { $(selector).textContent = text; }, sessionDuration, currentTask: () => null, focusActionMessage: () => 'failed',
+    setStatusLine(selector, text) { $(selector).textContent = text; }, sessionDuration, currentTask: options.currentTask || (() => null), focusActionMessage: options.focusActionMessage || (() => 'failed'),
     surfaceClient: {
       updateSettings: async patch => { calls.push(patch); return { ok: true }; },
       startPomodoro: async (taskId, minutes) => { calls.push({ taskId, minutes }); return { ok: true }; },
@@ -239,4 +239,165 @@ test('pause shares action deduplication and reports transport failure', async t 
   t.after(() => h.feature.dispose()); h.session.running = true; h.feature.renderPomoStructure();
   const first = h.$('#btnPauseFocus').fire('click'); await h.$('#btnPauseFocus').fire('click'); assert.equal(calls, 1);
   reject(new Error('offline')); await first; assert.equal(h.$('#focusActionStatus').textContent, 'failed');
+});
+
+
+
+test('paused recovery feedback clears when idle offers the next title-only task', t => {
+  const task = { id: 'title-only', title: 'Review proposal', steps: [], nextAction: null };
+  const h = harness({}, { currentTask: () => task, focusActionMessage: reason => reason || 'failed' });
+  t.after(() => h.feature.dispose());
+  h.state.focusMinutes.chosen = 90;
+  Object.assign(h.session, { paused: true, sessionId: 'old', remainingMs: 60000, resumeAction: null });
+  h.feature.renderPomoStructure();
+  assert.equal(h.$('#focusActionStatus').textContent, 'resume-action-unavailable');
+  Object.assign(h.session, { paused: false, sessionId: null });
+  h.feature.renderPomoStructure();
+  assert.equal(h.$('#focusActionStatus').textContent, '');
+  assert.equal(h.$('#btnStartFocus').disabled, false);
+  assert.equal(h.$('#pomoTime').textContent, '90:00');
+});
+
+test('title-only normal focus launches and its real failure survives idle repaint until retry', async t => {
+  const task = { id: 'title-only', title: 'Review proposal', steps: [], nextAction: null };
+  const calls = []; let succeed = false;
+  const h = harness({ startPomodoro: async (...args) => { calls.push(args); return { ok: succeed, reason: 'storage-failed' }; } },
+    { currentTask: () => task, focusActionMessage: reason => reason || 'failed' });
+  t.after(() => h.feature.dispose());
+  await h.feature.runFocusAction('focus', task, 90);
+  assert.deepEqual(calls, [[task.id, 90]]);
+  assert.equal(h.$('#focusActionStatus').textContent, 'storage-failed');
+  h.state.settings.pomodoroMinutes = 30; h.feature.renderPomoStructure();
+  h.feature.renderPomoStructure({ copyOnly: true });
+  assert.equal(h.$('#focusActionStatus').textContent, 'storage-failed');
+  succeed = true; await h.feature.runFocusAction('focus', task, 90);
+  assert.equal(h.$('#focusActionStatus').textContent, '');
+});
+
+for (const replacement of ['session', 'task']) test(`late launch failure cannot overwrite a new ${replacement} context`, async t => {
+  let task = { id: 'original', title: 'Original' }; let finish;
+  const h = harness({ startPomodoro: () => new Promise(resolve => { finish = resolve; }) }, { currentTask: () => task, focusActionMessage: reason => reason || 'failed' });
+  t.after(() => h.feature.dispose());
+  const pending = h.feature.runFocusAction('focus', task, 25);
+  if (replacement === 'session') Object.assign(h.session, { paused: true, sessionId: 'replacement', taskId: 'other', resumeAction: null });
+  else task = { id: 'replacement', title: 'Replacement' };
+  h.feature.renderPomoStructure();
+  if (replacement === 'task') h.feature.showFocusActionStatus('New context feedback');
+  finish({ ok: false, reason: 'old-failure' }); await pending;
+  assert.equal(h.$('#focusActionStatus').textContent, replacement === 'task' ? 'New context feedback' : 'resume-action-unavailable');
+});
+
+for (const order of ['projection-first', 'receipt-first']) test(`scheduled selection owns its ${order} publication and still starts`, async t => {
+  const original = { id: 'old', title: 'Old' };
+  const target = { id: 'future', title: 'Future', scheduledFor: new Date(Date.now() + 600000).toISOString() };
+  let selected = original, h;
+  const publish = () => { selected = target; h.feature.renderPomoStructure(); };
+  h = harness({
+    setNowTask: async () => { if (order === 'projection-first') publish(); return { ok: true }; },
+    startPomodoro: async (...args) => { h.calls.push(args); if (order === 'receipt-first') publish(); return { ok: false, reason: 'storage-failed' }; }
+  }, { currentTask: () => selected, focusActionMessage: reason => reason || 'failed' });
+  t.after(() => h.feature.dispose());
+  const result = await h.feature.runFocusAction('focus', target, 25);
+  assert.deepEqual(h.calls, [[target.id, 25]]);
+  assert.equal(result.reason, 'storage-failed');
+  assert.equal(h.$('#focusActionStatus').textContent, 'storage-failed');
+});
+
+for (const replacement of ['other-task', 'other-session', 'switched-away-and-back', 'hidden']) {
+  test(`scheduled selection cannot start after ${replacement}`, async t => {
+    const original = { id: 'old', title: 'Old' };
+    const target = { id: 'future', title: 'Future', scheduledFor: new Date(Date.now() + 600000).toISOString() };
+    let selected = original, finish;
+    const h = harness({ setNowTask: () => new Promise(resolve => { finish = resolve; }) }, { currentTask: () => selected });
+    t.after(() => h.feature.dispose());
+    const pending = h.feature.runFocusAction('focus', target, 25);
+    if (replacement === 'hidden') { h.document.hidden = true; h.document.fire('visibilitychange'); }
+    else {
+      selected = replacement === 'other-session' ? target : { id: 'other', title: 'Other' };
+      if (replacement === 'other-session') Object.assign(h.session, { running: true, sessionId: 'new-session', taskId: 'other' });
+      h.feature.renderPomoStructure();
+      if (replacement === 'switched-away-and-back') { selected = target; h.feature.renderPomoStructure(); }
+    }
+    finish({ ok: true });
+    assert.equal((await pending).reason, 'launch-cancelled');
+    assert.deepEqual(h.calls, []);
+  });
+}
+
+for (const order of ['projection-first', 'receipt-first', 'session-preempted']) {
+  test(`scheduled focus uses real selection and start transactions (${order})`, async t => {
+    const { createUnitOfWork, createSelectNowWorkflow, createStartFocusSessionWorkflow } = require('../src/application');
+    const { normalizePersistedState } = require('../src/platform/persistence/persisted-schema');
+    const now = Date.now();
+    const original = { id: 'old', title: 'Old', steps: [] };
+    const target = { id: 'future', title: 'Future', steps: [], scheduledFor: new Date(now + 600000).toISOString() };
+    let canonical = normalizePersistedState({ ...normalizePersistedState({}, { now }), tasks: [original, target], nowTaskId: original.id }, { now });
+    let revision = 0;
+    const repository = { snapshot: () => structuredClone(canonical), revision: () => revision,
+      commit: (candidate, context) => { canonical = normalizePersistedState(candidate, context); revision++; return structuredClone(canonical); } };
+    const unitOfWork = createUnitOfWork({ repository });
+    let selected = canonical.tasks[0], h, starts = 0;
+    const publishSelection = () => { selected = canonical.tasks.find(task => task.id === canonical.nowTaskId); h.feature.renderPomoStructure(); };
+    const select = createSelectNowWorkflow({ unitOfWork, clock: { now: () => now },
+      publish: () => { if (order !== 'receipt-first') publishSelection(); } });
+    const start = createStartFocusSessionWorkflow({ unitOfWork, clock: { now: () => now }, sessionClock: { now: () => now },
+      idFactory: () => `session-${revision}` });
+    h = harness({
+      setNowTask: async taskId => {
+        const receipt = select.execute({ taskId });
+        if (order === 'session-preempted') {
+          const other = start.execute({ taskId: original.id, minutes: 15 });
+          assert.equal(other.ok, true);
+          Object.assign(h.session, other.session); h.feature.renderPomoStructure();
+        }
+        return receipt;
+      },
+      startPomodoro: async (taskId, minutes) => {
+        starts++;
+        if (order === 'receipt-first') publishSelection();
+        return start.execute({ taskId, minutes });
+      }
+    }, { currentTask: () => selected });
+    t.after(() => h.feature.dispose());
+    const result = await h.feature.runFocusAction('focus', target, 90);
+    if (order === 'session-preempted') {
+      assert.equal(result.reason, 'launch-cancelled'); assert.equal(starts, 0);
+      assert.equal(canonical.focusSession.taskId, original.id);
+    } else {
+      assert.equal(result.ok, true); assert.equal(starts, 1);
+      assert.equal(canonical.focusSession.taskId, target.id);
+      assert.equal(canonical.focusSession.plannedDurationMs, 90 * 60000);
+      assert.equal(canonical.tasks.find(task => task.id === target.id).scheduledFor, null);
+    }
+  });
+}
+
+// Correlation-token ownership: a request may observe its own selection any
+// number of times (projection, refresh, receipt) without losing its feedback.
+test('own scheduled selection published repeatedly keeps the request and its failure notice', async t => {
+  const original = { id: 'old', title: 'Old' };
+  const target = { id: 'future', title: 'Future', scheduledFor: new Date(Date.now() + 600000).toISOString() };
+  let selected = original, h;
+  h = harness({
+    setNowTask: async () => { selected = target; for (let i = 0; i < 3; i++) h.feature.renderPomoStructure(); return { ok: true }; },
+    startPomodoro: async (...args) => { h.calls.push(args); h.feature.renderPomoStructure(); return { ok: false, reason: 'storage-failed' }; }
+  }, { currentTask: () => selected, focusActionMessage: reason => reason || 'failed' });
+  t.after(() => h.feature.dispose());
+  const result = await h.feature.runFocusAction('focus', target, 25);
+  assert.deepEqual(h.calls, [[target.id, 25]]);
+  assert.equal(result.reason, 'storage-failed');
+  assert.equal(h.$('#focusActionStatus').textContent, 'storage-failed');
+});
+
+test('a finished request cannot be revived: later owner change clears its notice', async t => {
+  let task = { id: 'a', title: 'A' };
+  const h = harness({ startPomodoro: async () => ({ ok: false, reason: 'storage-failed' }) },
+    { currentTask: () => task, focusActionMessage: reason => reason || 'failed' });
+  t.after(() => h.feature.dispose());
+  await h.feature.runFocusAction('focus', task, 25);
+  assert.equal(h.$('#focusActionStatus').textContent, 'storage-failed');
+  task = { id: 'b', title: 'B' }; h.feature.renderPomoStructure();
+  assert.equal(h.$('#focusActionStatus').textContent, '');
+  task = { id: 'a', title: 'A' }; h.feature.renderPomoStructure();
+  assert.equal(h.$('#focusActionStatus').textContent, '');
 });

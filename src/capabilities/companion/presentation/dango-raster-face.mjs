@@ -3,6 +3,7 @@
 import { EYE_FALLBACKS, MOUTH_FALLBACKS, requestedEyes } from './rig/face.mjs';
 import { localMatrix, multiply } from './rig/pose.mjs';
 import { pivotFor } from './dango-raster-pose.mjs';
+import { projectOpenEye, apertureFor } from './dango-eye-projection.mjs';
 const clamp = (n, low, high) => Math.max(low, Math.min(high, Number(n) || 0));
 
 // Every authored open-eye glyph keeps the canonical pair’s vertical proportion. Width
@@ -44,6 +45,27 @@ function drawRasterFace(context, artwork, expression, blinking, palette, { paint
   const inset = clamp(face.eyeInsetX, -1, 1.5);
   const heights = eyeHeightScales(artwork, eyes);
   for (const [i, sprite] of (eyes?.sprites || []).entries()) {
+    // The eased size belongs to the sampled glyph; a not-yet-loaded fallback
+    // (e.g. neutral while focused PNGs load) keeps its own generated size.
+    const eased = eyes.key === face.eyes ? artwork.eyeScale?.[i] : undefined;
+    const projection = projectOpenEye(artwork.data, eyes.key, sprite, i, eased);
+    if (projection) {
+      // Occlude a fixed pupil with an upper lid instead of scaling the pupil
+      // and its highlight. A single sprite avoids cross-fade double pupils.
+      const aperture = artwork.eyeAperture ?? apertureFor(face);
+      const [left, top, width, height] = projection.rect;
+      context.save();
+      if (artwork.lookback) context.transform(...artwork.lookback.matrices[i]);
+      context.translate(x + inset * (i ? -1 : 1), y);
+      if (aperture < 1) {
+        context.beginPath();
+        context.rect(left, top + height * (1 - aperture), width, height * aperture);
+        context.clip();
+      }
+      painter.paint(context, sprite, palette, projection.matrix);
+      context.restore();
+      continue;
+    }
     const openness = closed ? 1 : Math.max(.25, Math.min(1.15, face.openness ?? 1));
     let matrix = localMatrix(pivotFor(sprite), {
       x: x + inset * (i ? -1 : 1), y, sy: openness
@@ -57,7 +79,16 @@ function drawRasterFace(context, artwork, expression, blinking, palette, { paint
     if (artwork.lookback) matrix = multiply(artwork.lookback.matrices[i], matrix);
     painter.paint(context, sprite, palette, matrix);
   }
-  if (mouth) painter.paint(context, mouth.sprites[0], palette, artwork.lookback?.matrices[2]);
+  if (mouth) {
+    const sprite = mouth.sprites[0], sy = artwork.calmVisual ? 1 : clamp(face.mouthScaleY ?? 1, .3, 1);
+    let matrix = artwork.lookback?.matrices[2];
+    if (sy !== 1) {
+      // Flatten about the mouth centre while a quiet phrase swaps mouth glyphs.
+      const cy = sprite.rect[1] + sprite.rect[3] / 2, squash = [1, 0, 0, sy, 0, cy * (1 - sy)];
+      matrix = matrix ? multiply(matrix, squash) : squash;
+    }
+    painter.paint(context, sprite, palette, matrix);
+  }
   return wanted;
 }
 

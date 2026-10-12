@@ -11,6 +11,7 @@ const MODE_BUDGETS = Object.freeze({
   chaos: { attention: 36, ambient: 96 }
 });
 const RECENT_WINDOW = 5;
+const RECENT_REPEAT_MAX_AGE_MS = 60 * 60_000;
 
 function normalizeContext(context = {}) {
   return {
@@ -22,6 +23,7 @@ function normalizeContext(context = {}) {
     lowStimulation: context.lowStimulation === true,
     reduceMotion: context.reduceMotion === true,
     focused: context.focused === true,
+    sessionActive: context.sessionActive === true,
     activityMode: Object.prototype.hasOwnProperty.call(MODE_BUDGETS, context.activityMode)
       ? context.activityMode
       : 'balanced'
@@ -37,6 +39,9 @@ function hardGateReason(cue, rawContext) {
   if (context.sensitiveForeground) return 'sensitive-foreground';
   if (context.activityMode === 'off') return 'activity-off';
   if (context.lowStimulation) return 'low-stimulation';
+  // A session owns the renderer's base at priority 70; autonomous cues are 60.
+  // Do not reserve a cue that the presentation boundary must reject.
+  if (context.sessionActive) return 'session';
   if (cue.kind === 'attention' && context.activityMode === 'quiet') return 'quiet-mode';
   if (cue.kind === 'attention' && context.focused) return 'focus';
   if (cue.kind === 'attention' && context.reduceMotion) return 'reduce-motion';
@@ -80,7 +85,8 @@ function cueEligibility(cue, companion, rawContext, now) {
   if (cueLast !== null && now - cueLast < cue.cooldownMs) return 'cue-cooldown';
   if (cue.kind === 'ambient' && companion.surprise.nextAmbientAt !== null
       && now < companion.surprise.nextAmbientAt) return 'ambient-schedule';
-  const recentIds = companion.surprise.recent.slice(-RECENT_WINDOW).map(item => item.cueId);
+  const recentIds = companion.surprise.recent.slice(-RECENT_WINDOW)
+    .filter(item => now - item.finishedAt < RECENT_REPEAT_MAX_AGE_MS).map(item => item.cueId);
   if (recentIds.includes(cue.id)) return 'recent-repeat';
   return null;
 }
@@ -106,6 +112,9 @@ function selectSurprise({ companion, manifest, context = {}, clock, rng }) {
   const dayKey = typeof clock.dayKey === 'function' ? clock.dayKey(now) : localDayKey(now);
   const state = rollBudgetForward(companion, dayKey);
   if (state.surprise.pending) return { state, cue: null, variant: null, reason: 'pending' };
+  if (compareDayKeys(dayKey, state.surprise.budgetDay) < 0) {
+    return { state, cue: null, variant: null, reason: 'budget-clock-rollback' };
+  }
   const eligible = manifest.cues.filter(cue => cueEligibility(cue, state, context, now) === null);
   if (!eligible.length) return { state, cue: null, variant: null, reason: 'no-eligible-cue' };
   const cue = weightedChoice(eligible, rng);
@@ -147,6 +156,7 @@ function recordIssued(companion, cue, now, decisionId, ttlMs = 15_000) {
 module.exports = {
   MODE_BUDGETS,
   RECENT_WINDOW,
+  RECENT_REPEAT_MAX_AGE_MS,
   normalizeContext,
   hardGateReason,
   rollBudgetForward,

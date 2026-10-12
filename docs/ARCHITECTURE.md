@@ -304,6 +304,8 @@ idle 窗口仅为可澄清候选增加表单空间，仍受 work area 限制并�
 
 ## 事实流与长期记忆
 
+当日展示的经历聚合是只读投影：`timeline-day` 仅额外输出已有事实里的闭合 `occurrenceId / inboxId / resolutionAction / targetId`，不输出收件原文，不写新schema字段。500个marker上限前检查实际数量，截断显式输出 `markersTruncated`；截断日不推断完整流程。`timeline-experience` 只按精确routine与occurrence、inbox身份关联；情绪只接受唯一的精确目标且保留原发生时间和删除ID。私密/红删、身份冲突、缺关系和跨日不猜配，不解析事件ID或按标题/时间邻近归并。分组成员随每次投影重建，撤销或情绪删除不保留过期正文；显示空档须核对已折叠成员，不能把被折叠的记录说成没有发生。普通事实写入、日常CAS更正和显式删除语义保持原owner。
+
 ### 有界记忆检索
 
 `createMemoryContextReader`、`memory-service.contextReader` 和 core 的既有资格谓词提供非修复式读取基础。已打开的权威只向reader提供冻结且保留receiver的 `all/get`、非修复式ledger状态及pending判断；不调用原gate、list、prune、receipt、写入或durability proof，也不打开新权威。管理、启动、恢复与原mutation路径保持原owner。
@@ -725,7 +727,7 @@ occurrence id 确定性构造（`<routineId>:<dayKey>:<HH:mm>`，随手记为 `�
 悄悄视为未记上，不再提醒、不显示逾期、不进任何欠债列表。`routine.missed` 只记 App 亲眼看到过期的槽，
 App 关着的那几天不补写“漏了”。提醒采样挂在既有 30 秒 `lifecycle.interval` 的 sampler 列表上，同步异常、异步拒绝及错误回报失败分别隔离，不新起周期。日常采样共用一个 in-flight Promise，每轮最多投递一项并轮转候选；日桶满60条且没有该occurrence时不呈现，后续采样按当前容量恢复。送达后重新读取开关、排程、记录和时钟，仍due且未回答才通过原writer记录实际level和时点，并消费真实提交结果；等待中回答或容量变化不能伪造notified或成功计数。
 
-提醒走 attention 的 `type: 'routine'`：三个动作（已完成 / 稍后15分钟 / 今天跳过）。原生L1只提供完成与延后，角落卡可提供第三动作；“今天跳过”只跳当前occurrence。`bootstrap/nudge-actions`接现有命令，执行前按精确routineId/occurrenceId重新解析当前资格，缺ID或失效拒绝，不能落入自由记录或同日更正。资格检查和回答共用一次捕获的时点；成功提交才收起，拒绝/抛错保留重试。时间线仍由原postcommit effect先记账再发布，既有业务revision语义不变，写集仅routineLog。
+提醒走 attention 的 `type: 'routine'`：三个动作（已完成 / 稍后15分钟 / 跳过本次）。原生L1只提供完成与延后，角落卡可提供第三动作；“跳过本次”只跳当前occurrence，保留既有 `skip-routine-today` 命令ID以兼容当前提醒。`bootstrap/nudge-actions`接现有命令，执行前按精确routineId/occurrenceId重新解析当前资格，缺ID或失效拒绝，不能落入自由记录或同日更正。资格检查和回答共用一次捕获的时点；成功提交才收起，拒绝/抛错保留重试。时间线仍由原postcommit effect先记账再发布，既有业务revision语义不变，写集仅routineLog。
 
 `resolveRequest`从当前day-plan解析scheduled/due/unanswered槽；已notified未回答仍能显式延后。routine延后只保存内存身份、type/priority和owner，重放重建标题和设置；发布routines/settings后reconcile，并在前台等待后、接受送达、窗口ready、升级及动作前重验。被protected提醒阻挡的显式延后仅原owner每30秒重查，取消或替换后的旧await不能复活；不跨重启保存scheduler。
 
@@ -830,6 +832,9 @@ sessionDisplay的旧调用者使用它；canonical包括null一旦到达便隐�
 与时长；选择顺序“硬门禁 → 每日预算 → 全局/家族/单 cue 冷却 → 近期防重复 → 权重”；`petActivityMode` 只改
 预算。cue 信封 `issued → received → started → completed | cancelled | rejected`，ACK 单调幂等，首次 ACK 前最多
 重试两次，重启时取消未完成 cue 不重播。
+
+专注、两分钟、休息及暂停会话持有基础呈现时，不发行自主 cue。发行先预留预算；未开始的拒绝、取消、过期及重启清理只释放同一预算日的对应预留，已开始的播放仍计费，所有尝试冷却保留。近期五条防重复限制只覆盖一小时内的记录；墙钟倒退到预算日之前时暂停新发行，不回退账本或误退新日预算。
+终态先经原 canonical 提交成功再清运行态；保存失败保留同一 decisionId 的终态意图，以一个 1–30 秒退避计时器重试提交，不重播动作。迟到 ACK 或上下文变化不能覆盖该终态；未知提交结果先对照 canonical 身份，防止重复退款或遗留失效运行态。
 
 **发现事实（REV-PET-001）。** Director 只在实际 `completed` 时加入 discovery；`cancelled`、`rejected` 和重启清理不获得发现。
 `companion/application/persist-surprise-state` 沿用唯一 UoW，写集严格为 `['companion']`：以当前 canonical companion

@@ -36,14 +36,14 @@ test('Now candidate failure retains source semantics through its actual focus st
   context.after(() => timer.dispose());
   let reads = 0;
   const now = createPopoverNowCard({ document: h.document, $: h.$, getState: () => state,
-    getSession: () => session, escapeHTML: String, surfaceClient: { pickOneTask: async () => { reads++; return { candidates: [] }; } },
+    getSession: () => session, escapeHTML: String, surfaceClient: { pickOneTask: async () => { reads++; throw new Error('unavailable'); } },
     taskLaunchBlockReason: () => null, focusActionMessage: () => '', taskActionMessage: () => '', scoreSummary: () => '',
     syncBlocker: () => '', canReceiveFocus: () => true, celebrate() {}, completeTask() {}, openTaskEditor() {},
-    runQuickStart() {}, showFocusStatus: timer.showFocusActionStatus });
+    runQuickStart() {}, openTaskList() {}, showFocusStatus: timer.showFocusActionStatus });
   now.mount(); context.after(() => now.dispose()); h.$('#candidatePanel').classList.add('hidden');
   await h.$('#btnChooseCandidates').emit('click'); await Promise.resolve();
-  assert.equal(h.$('#focusActionStatus').textContent, 'No other tasks available.');
+  assert.equal(h.$('#focusActionStatus').textContent, 'Tasks could not be loaded. Try again.');
   setLocale('zh-CN'); timer.renderPomoStructure({ copyOnly: true });
-  assert.equal(h.$('#focusActionStatus').textContent, '暂无可切换的任务。');
+  assert.equal(h.$('#focusActionStatus').textContent, '暂时无法读取任务，请再试一次。');
   assert.equal(reads, 1);
 });

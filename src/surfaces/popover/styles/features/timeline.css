@@ -335,6 +335,8 @@
   .tl-row-routine .tl-dot { background: var(--cyan-ink); }
   .tl-row-muted .tl-dot { background: color-mix(in srgb, var(--fg-2) 55%, transparent); width: 7px; height: 7px; margin-top: 6px; }
   .tl-text { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; min-width: 0; }
+  .tl-process-count { font-size: 11px; color: var(--fg-2); white-space: nowrap; }
+  .tl-limit { margin: 6px 0; font-size: 12px; line-height: 1.5; color: var(--fg-2); }
   .tl-verb { font-size: 12px; font-weight: 600; color: var(--fg-1); white-space: nowrap; }
   .tl-row-focus .tl-verb { color: var(--primary-ink); }
   .tl-row-done .tl-verb { color: var(--green-ink); }

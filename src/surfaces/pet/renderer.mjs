@@ -351,7 +351,7 @@ function drawPet() {
   const expressionAccent = resolvePlaybackAccent(runtimeState.expressionRegistry, exprId, actionConfig);
   const artwork = formArt.resolveArtwork(form, {
     channel: runtimeState.renderChannel || 'pet', state: runtimeState.state,
-    view, motion: actionConfig ? motion : 'idle', face: facePose, calmVisual, appearance,
+    view, motion: actionConfig ? motion : 'idle', face: facePose, calmVisual, dnd: runtimeState.dnd, appearance,
     progress: actionT, elapsedMs: runtimeState.animNow, action: actionConfig, expressionId: exprId,
     expressionElapsedMs: runtimeState.animNow - runtimeState.exprStartAnimNow, accent: expressionAccent
   });

@@ -16,6 +16,8 @@ import { createRasterPainter } from './raster/paint.mjs';
 import { sampleRasterPose } from './dango-raster-pose.mjs';
 import { paintRasterPaws } from './dango-raster-paws.mjs';
 import { drawRasterFace } from './dango-raster-face.mjs';
+import { createEyeApertureSampler } from './dango-eye-projection.mjs';
+const eyeState = ({ aperture, scale }) => ({ eyeAperture: aperture, eyeScale: scale });
 import { drawRasterActions, toolMatrix } from './dango-raster-actions.mjs';
 import { createRasterWardrobe, isScarfHeadwearCombination } from './dango-raster-appearance.mjs';
 import { createRasterParticlePainter } from './dango-raster-particles.mjs';
@@ -47,6 +49,7 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
   const source = createRasterSource({ ...sourceOptions, baseUrl: manifest.baseUrl, versionKey: `${manifest.id}@${manifest.version}`, loadImage });
   const painter = createRasterPainter({ ...painterOptions, source, createSurface });
   const roots = createRasterRootPainter({ painter });
+  const eyeAperture = createEyeApertureSampler();
   const tailRoot = createRasterTailRootPainter({ manifest, painter });
   const runSample = runClip ? createDangoRunSample({ bundle: runClip, source, createSurface }) : null;
   const wardrobe = createRasterWardrobe({ manifest, painter, source });
@@ -158,6 +161,7 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
     const bodyReadiness = [...coreStates, source.state(original.neutral)].map(state => state[0]).join('');
     return Object.freeze({ kind: 'dango-raster', key: `${key}|${clip ? `clip:${clip.clipId}@${clip.contentVersion}:${clip.poseId}` : variant ? 'running' : 'rest'}|load:${bodyReadiness}|hide:${[...hiddenParts].join(',')}`,
       clip, clipStatus: clipSelection?.status || 'disabled', runFootTiming: footTiming, view, drawnView: resolved.key,
+      ...eyeState(eyeAperture.sampleEyes(pose.face, { ...options, view, calmVisual: pose.calmVisual })),
       expressionId: options.expressionId, data, neutral: original.neutral, ...pose, lookback, footwearTransforms, attachmentMatrices: Object.freeze(attachmentMatrices),
       hiddenParts, ready, layeredReady, wardrobe: wardrobeState, effectOrigins,
       pawRootsCovered: outfitItems.some(item => ['scarf', 'cape', 'satchel'].includes(item.renderKey)),
@@ -267,7 +271,7 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
     expressionAccent, statusEffect, actionOverlay: (_context, action) => Boolean(motionCaps(action).overlayForms?.includes('dango-raster')),
     ready({ all = false } = {}) { return Promise.all([source.ready(all ? collectRasterSprites(manifest) : defaultSprites), runSample?.ready()]); },
     cacheStats() { return Object.freeze({ source: source.stats(), palette: painter.stats(), roots: roots.stats(), tailRoot: tailRoot.stats(), runSample: runSample?.stats() || null }); },
-    dispose() { source.dispose(); painter.dispose(); roots.dispose(); tailRoot.dispose(); runSample?.dispose(); }
+    dispose() { eyeAperture.dispose(); source.dispose(); painter.dispose(); roots.dispose(); tailRoot.dispose(); runSample?.dispose(); }
   });
 }
 

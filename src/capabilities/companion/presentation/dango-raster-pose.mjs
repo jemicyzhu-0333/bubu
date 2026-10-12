@@ -36,14 +36,14 @@ function sampleRasterRunningFeet(data, progress, calmVisual, footTiming = null) 
 }
 
 function sampleRasterPose(data, { view = 'front', motion = 'idle', action = null, progress = 0,
-  elapsedMs = 0, calmVisual = false, reducedMotion = false, state, face, expressionId, expressionElapsedMs, toolSprites, lookback = null, runFootTiming = null } = {}) {
+  elapsedMs = 0, calmVisual = false, reducedMotion = false, dnd = false, state, face, expressionId, expressionElapsedMs, toolSprites, lookback = null, runFootTiming = null } = {}) {
   const frozen = calmVisual || reducedMotion || state === 'dragged' || action?.mirrorPresentation?.static === true;
   const p = frozen ? action?.staticProgress ?? .5 : clamp(Number(progress) || 0, 0, 1);
   const mirror = sampleRasterMirror(action, p, frozen);
   const walking = !action && state === 'walking';
   const faceOptions = { motion, action: action || (motion === 'dash' ? { motion: 'dash' } : null),
     progress: p, elapsedMs: frozen ? 0 : elapsedMs,
-    calmVisual: frozen, expressionId, expressionElapsedMs: frozen ? 0 : expressionElapsedMs };
+    calmVisual: frozen, reducedMotion, dnd, expressionId, expressionElapsedMs: frozen ? 0 : expressionElapsedMs };
   let sampledFace = sampleDangoFace(face || { eyes: 'neutral', mouth: 'neutral' }, faceOptions);
   sampledFace = paperReturnFace(sampledFace, faceOptions) || sampledFace;
   const expected = action?.baseExpression || action?.expression;

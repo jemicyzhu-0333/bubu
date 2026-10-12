@@ -1095,7 +1095,10 @@ test('按压进行中切到静态，压缩形变立即归零（不残留）', as
   harness.petContext._reset();
   harness.frameBy(step, 10);
 
-  const blits = harness.petContext._calls.filter(c => c.source === 'drawImage');
+  // Open-eye sprites have their own fixed ink calibration; test the outer
+  // body/part transform here, not the source PNG's internal aspect correction.
+  const blits = harness.petContext._calls.filter(c => c.source === 'drawImage'
+    && !/\/(?:face\/eyes-|views\/[^/]+\/eye-)/.test(c.imageSrc || ''));
   assert.ok(blits.length > 0, '静态下仍应有身体贴图');
   for (const blit of blits) {
     assert.ok(Math.abs(blit.matrix.a - blit.matrix.d) < 1e-3,

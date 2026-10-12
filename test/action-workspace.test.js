@@ -9,11 +9,11 @@ const { nextRovingIndex } = require('../src/core/keyboard-navigation.mjs');
 
 test('action presentation respects completed work, paused execution and unresolved landing', () => {
   const task = { title: '分享', steps: [{ title: '已做', done: true }, { title: '打开文档' }] };
-  assert.deepEqual(actionPresentation({}, {}, null), { phase: 'empty', label: '从一件小事开始', action: '把脑中的一件事放下来' });
+  assert.deepEqual(actionPresentation({}, {}, null), { phase: 'empty', label: '从一件小事开始', action: '把脑中的一件事放下来', usesTaskTitle: false });
   assert.equal(actionPresentation({}, {}, null, null, { hasOpenTasks: true }).action, '从任务里换一件来做');
   assert.equal(actionPresentation({}, {}, task).action, '打开文档');
-  // Without a written step the headline is still one physical action, never the title again.
-  assert.equal(actionPresentation({}, {}, { title: '写周报', steps: [] }).action, '打开材料，只做第一小步');
+  // Without a written step, keep the real task title rather than inventing an action.
+  assert.equal(actionPresentation({}, {}, { title: '写周报', steps: [] }).action, '写周报');
   assert.equal(actionPresentation({}, {}, { ...task, nextAction: '只写标题' }).action, '只写标题');
   const completed = actionPresentation({}, { paused: true }, { ...task, done: true });
   assert.equal(completed.phase, 'paused');

@@ -5,7 +5,9 @@ const { createDangoRasterArtist } = require('../src/capabilities/companion/prese
 const { DANGO_RASTER } = require('../assets/companion/dango/raster/dango.raster.mjs');
 const { PALETTES } = require('../src/core/pet-art.mjs');
 const { recordingContext } = require('../test-support/dango-raster-fixture.mjs');
-const open = ['curious', 'focused', 'half', 'wide', 'droopy', 'sparkle', 'surprised', 'determined', 'pleading', 'shy', 'waiting'];
+// Full pupils are covered by dango-eye-continuity; authored partial lids retain
+// the earlier far-eye correction without full-pupil normalization.
+const open = ['half', 'droopy', 'shy', 'waiting'];
 const preserved = ['neutral', 'closed', 'sleepy', 'smile', 'content'];
 const near = (a,b) => assert.ok(Math.abs(a-b)<1e-8, `${a} != ${b}`);
 function draw(artist, artwork, blink = false) {
@@ -13,7 +15,7 @@ function draw(artist, artwork, blink = false) {
   artist.face(context, PALETTES.pink, artwork.face, blink, artwork.view, null, artwork);
   return context.calls;
 }
-test('all eleven open glyphs retain source identity, near eye and pivots while correcting far-eye height in all3q views', async () => {
+test('authored partial lids retain source identity, near eye and pivots while correcting far-eye height in all3q views', async () => {
   const artist = createDangoRasterArtist({ manifest: DANGO_RASTER, loadImage: async src => ({ src, width: 8, height: 8 }) });
   await artist.ready({ all: true });
   try {
