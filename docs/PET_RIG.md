@@ -284,7 +284,18 @@ Usagi 的打哈欠与击掌使用短而厚的开口根轮廓，远手在身体�
 普通 magic-trick 的星星从帽沿下方移到脸外再升起，保留旋转、透明度与时序；click-30 的
 情境召星不进入这一分支。photo-pose 仍为对着场景相机摆姿势，不新增握相机动作。
 
-手部轮廓在故事阶段切换后继续跟随实际混合腕位；仅在仍超出旧连接臂阈值时保留，缩回后恢复原短掌。
+手部轮廓在故事阶段切换后继续跟随实际混合腕位；意图切换（故事段落、放手、手势结束）以 `intentFadeMs` 在通道时钟上淡入淡出，不再硬切。
+
+### 统一肢体系统（limbs v2）
+
+所有 Usagi 手臂只由一个模块产生：`presentation/usagi-limbs.mjs`。原来的三套画法（`usagi-support` 的连接管 + 奶油色覆盖线、`usagi-contact-limbs` 按 motion 分支的贝塞尔接触手、`usagi-gesture-limbs` 的私有肩点）已删除，同名导出仅作为兼容视图保留。
+
+- **插槽**：`content/companion/usagi-limbs.mjs` 的 `USAGI_LIMB_RIG.sockets[view][side]`（根骨空间）。肢体根部埋入身体 `bury` 单位；描边在插槽圆 `socketRadius` 内的部分被插槽遮罩擦除，因此手臂轮廓与身体轮廓合成一条线，不画肩部封口、不画奶油色补丁。
+- **骨长**：`arm.upper/lower` 固定（各 16）。motion-core `solveTwoBone` 求肘：肘偏移受意图预设 `maxBend` 限制、朝外（或按侧）弯；目标比允许的弯曲更近时，链根沿插槽轴缩回（连续，无阈值）。自由伸手声明 `supportReach`，超出时 `placePaw` 把爪子落在可达圆上，绑在手骨上的道具随之移动；握持道具的目标保持原值（腕部永远等于手骨枢轴）。
+- **意图**：`USAGI_LIMB_INTENTS` 是只按 pose motion、道具、侧、contactAction、gesture 匹配的数据表（不按动作 id）；动作可在 capabilities 中以 `limbs: { l, r }` 覆盖。种类：`grip`（替换原短掌）、`gesture`（自由手，远侧画在身体后）、`support`（保留原短掌，肢体从其肩枢轴下方按伸展量连续长出，替代旧 8px 阈值）。
+- **连续性**：肘点每通道限速 `elbowSpeed`（单位/ms），无时钟（测试、离线）时为确定性纯函数。
+- **Dango**：`presentation/dango-limbs.mjs` 为每只接触手附加同一条插槽→IK→腕部链；存在 `assets/companion/dango/raster/limbs/limbs.json`（`dango-limbs/1`）时按 IK 角度选帧，否则沿用现有爪子贴图。
+- **检测**：`npm run limbs:check`（含在 `npm run check`）：全部动作与会话 × 四视图的几何追踪（画法跳变、无法由腕部运动解释的长度变化、超出骨长），以及在 Canvas 环境下的轮廓断口扫描。
 
 AI协作确认修改与分层时间线不修改伙伴像素、素材、rig动作、坐标、碰撞或输入命中规则；相关UI由popover功能模块承担。伙伴v1美术冻结继续有效。
 
