@@ -90,7 +90,23 @@ function headFollowOffset(action, phase, spec, reduced) {
 /**
  * @returns {Map<itemId, {visible, layer, offsetY, cut, reason}>} plus .list
  */
-function resolveAccessories({ manifest = ACCESSORY_MANIFEST, items = [], formId, view = 'front', layer, action = null, phase = 0, reduced = false } = {}) {
+// Two passes per frame ask for the same plan; a tiny keyed cache serves the
+// second (and repeated identical frames) without re-integrating springs.
+const planCache = new Map();
+function resolveAccessories(options = {}) {
+  const { manifest = ACCESSORY_MANIFEST, items = [], formId, view = 'front', action = null, phase = 0, reduced = false } = options;
+  if (manifest !== ACCESSORY_MANIFEST || !items.length) return computePlan(options);
+  const key = `${formId}|${view}|${action?.id || ''}|${action?.prop || ''}|${action?.duration || action?.durationMs || ''}|${Number(phase) || 0}|${reduced ? 1 : 0}|${items.map(i => i.id).join(',')}`;
+  let plan = planCache.get(key);
+  if (!plan || plan.items !== items) {
+    plan = { items, value: computePlan(options) };
+    if (planCache.size > 16) planCache.delete(planCache.keys().next().value);
+    planCache.set(key, plan);
+  }
+  return plan.value;
+}
+
+function computePlan({ manifest = ACCESSORY_MANIFEST, items = [], formId, view = 'front', layer, action = null, phase = 0, reduced = false } = {}) {
   const caps = motionCaps(action);
   const wear = caps.wear || {};
   const p = clamp01(Number(phase) || 0);
