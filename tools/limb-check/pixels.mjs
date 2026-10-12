@@ -9,7 +9,7 @@
 import fs from 'node:fs'; import path from 'node:path'; import { createRequire } from 'node:module';
 import { pathToFileURL, fileURLToPath } from 'node:url';
 
-export const PIXEL_THRESHOLDS = Object.freeze({ maxGap: 18, spikeRatio: 3, spikeMin: 260, fps: 30, band: [.36, .78] });
+export const PIXEL_THRESHOLDS = Object.freeze({ maxGap: 18, spikeRatio: 3, spikeMin: 260, fps: 30, band: [.36, .78], fill: [255, 245, 222], fillTolerance: 48 });
 
 export async function scanLimbPixels(root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'), { ids = null, skins = ['usagi'], thresholds = PIXEL_THRESHOLDS, canvasPackage = process.env.USAGI_CANVAS_PACKAGE || '@napi-rs/canvas' } = {}) {
   const backend = createRequire(root + '/')(canvasPackage);
@@ -38,6 +38,10 @@ export async function scanLimbPixels(root = path.resolve(path.dirname(fileURLToP
         const gap = new Uint8Array(W * rows);
         for (let y = 3; y < rows - 3; y++) for (let x = 3; x < W - 3; x++) {
           if (A(x, y) < 160) continue;
+          // Only fur-coloured edges are limb/body outline; props (umbrella shaft),
+          // effects (high-five rays) and the laser dot are drawn without ink.
+          { const i = (y * W + x) * 4, f = thresholds.fill || PIXEL_THRESHOLDS.fill;
+            if (Math.abs(px[i] - f[0]) + Math.abs(px[i + 1] - f[1]) + Math.abs(px[i + 2] - f[2]) > (thresholds.fillTolerance ?? 48)) continue; }
           if (!(A(x - 1, y) < 16 || A(x + 1, y) < 16 || A(x, y - 1) < 16 || A(x, y + 1) < 16)) continue;
           let found = false;
           for (let dy = -2; dy <= 2 && !found; dy++) for (let dx = -2; dx <= 2 && !found; dx++) found = ink(x + dx, y + dy);
