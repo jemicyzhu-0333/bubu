@@ -19,7 +19,15 @@ function groupTimelineExperiences(entries, day) {
     if (!Number.isFinite(entry.at) || entry.at < day.dayStart || entry.at >= day.dayEnd) continue;
     if (entry.type === 'mood' && identity(entry.id)) { add(moods, entry.id, entry); continue; }
     const marker = entry.marker;
-    if (!marker || marker.change || (marker.localDayKey && marker.localDayKey !== day.dayKey)) continue;
+    if (!marker || (marker.localDayKey && marker.localDayKey !== day.dayKey)) continue;
+    if (marker.change) {
+      // An AI receipt row keeps its own identity and revert control; it may be
+      // the exact resolution of the inbox items it lists by closed reference.
+      for (const change of marker.changes || []) {
+        if (change.kind === 'inbox.resolved' && identity(change.inboxId)) add(inbox, change.inboxId, entry);
+      }
+      continue;
+    }
     if (['routine.reminded', 'routine.logged', 'routine.missed'].includes(marker.kind)
         && identity(marker.routineId) && identity(marker.occurrenceId)) {
       add(routines, JSON.stringify([marker.routineId, marker.occurrenceId]), entry);
@@ -31,7 +39,7 @@ function groupTimelineExperiences(entries, day) {
     }
   }
 
-  const replacements = new Map(), consumed = new Set();
+  const replacements = new Map(), consumed = new Set(), aiMembers = new Map();
   function combine(key, members, primary) {
     if (members.length < 2) return;
     const sorted = Object.freeze([...members].sort(compare));
@@ -50,9 +58,16 @@ function groupTimelineExperiences(entries, day) {
   for (const [key, members] of inbox) {
     if (members.some(entry => entry.marker.visibility === 'private' || entry.marker.redactionState === 'redacted')) continue;
     const captures = members.filter(entry => entry.marker.kind === 'inbox.captured');
-    const resolutions = members.filter(entry => entry.marker.kind === 'inbox.resolved');
+    const resolutions = members.filter(entry => entry.marker.kind === 'inbox.resolved' || entry.marker.change);
     if (captures.length > 1 || resolutions.length !== 1) continue;
     const resolved = resolutions[0];
+    if (resolved.marker.change) {
+      if (resolved.marker.redactionState === 'redacted' || resolved.marker.visibility === 'private' || !captures.length) continue;
+      // One receipt may organize several captures: accumulate them on its row.
+      const prior = aiMembers.get(resolved) || [resolved];
+      aiMembers.set(resolved, [...prior, ...captures]);
+      continue;
+    }
     let primary = resolved, related = members;
     if (resolved.marker.resolutionAction === 'feeling' && identity(resolved.marker.targetId)) {
       const notes = moods.get(resolved.marker.targetId) || [];
@@ -64,6 +79,7 @@ function groupTimelineExperiences(entries, day) {
     }
     combine(`inbox:${key}`, related, primary);
   }
+  for (const [primary, members] of aiMembers) combine(`ai-inbox:${primary.marker.change.receiptId}`, members, primary);
   return entries.flatMap(entry => replacements.has(entry) ? [replacements.get(entry)] : consumed.has(entry) ? [] : [entry]);
 }
 

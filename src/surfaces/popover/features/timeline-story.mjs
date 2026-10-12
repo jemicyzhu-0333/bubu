@@ -271,7 +271,7 @@ function entryMarkup(entry, formatMs, escapeHTML, levelAt) {
       + `<span class="tl-bar" style="--w:${durationWidth(entry.durationMs)}%" aria-hidden="true"></span></span>`
       + '</button></li>';
   }
-  const detail = entry.marker?.change ? `${clock} · ${entry.verb} · ${entry.label}\n${changeDetail(entry.marker)}`
+  const detail = entry.marker?.change ? `${clock} · ${entry.verb} · ${entry.label}\n${changeDetail(entry.marker)}${processDetail(entry)}`
     : `${clock} · ${entry.verb} · ${entry.label}${energyNote}${processDetail(entry)}`;
   const receiptAttr = entry.marker?.change && entry.marker.visibility !== 'private' && entry.marker.redactionState !== 'redacted'
     ? ` data-receipt-id="${escapeHTML(entry.marker.change.receiptId)}"` : '';

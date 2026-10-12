@@ -61,7 +61,10 @@ function projectMarker(event) {
     // Closed metadata only: process grouping never receives captured text or
     // infers an occurrence by parsing event IDs or matching nearby timestamps.
     occurrenceId: isRoutine ? boundedIdentity(payload.occurrenceId) : null,
-    inboxId: isInbox ? boundedIdentity(payload.inboxId) : null,
+    // Local organize writes payload.inboxId; AI collaboration receipts carry the
+    // same closed identity only as an entity reference (ai-change-events.js).
+    inboxId: isInbox ? boundedIdentity(payload.inboxId)
+      || (Array.isArray(payload.entityRefs) ? boundedIdentity(payload.entityRefs.find(ref => ref?.kind === 'inbox')?.id) : null) : null,
     resolutionAction: event.kind === 'inbox.resolved' && RESOLUTION_ACTIONS.includes(payload.action) ? payload.action : null,
     targetId: event.kind === 'inbox.resolved' ? boundedIdentity(payload.targetId) : null,
     status: event.kind === 'routine.logged' && ['done', 'skipped'].includes(payload.status)

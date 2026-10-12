@@ -86,3 +86,35 @@ test('English process labels preserve user titles and the original facts', conte
   assert.equal(t('跳过本次'), 'Skip this time');
   for (const source of ['已转任务', '已预约', '已留作以后', '已建日常', '已记日常', '已记状态', '已留存']) assert.notEqual(t(source), source);
 });
+
+function aiReceiptEvents(inboxIds, { committedAt = at(11), redacted = false } = {}) {
+  const { buildEvents } = require('../src/capabilities/progress/domain/ai-change-events');
+  const { receiptFixture } = require('../test-support/ai-change-ledger-fixture');
+  const base = receiptFixture(1, { committedAt, detailsRedacted: redacted });
+  const fingerprint = base.results[0].afterVersions[0].fingerprint;
+  const receipt = { ...base, results: inboxIds.map((id, index) => ({ opId: `op-${index}`, type: 'inbox.keep', changed: true,
+    entityRefs: [{ kind: 'inbox', id }], beforeVersions: [{ kind: 'inbox', id, fingerprint }],
+    afterVersions: [{ kind: 'inbox', id, fingerprint }] })) };
+  return buildEvents({ receipt, occurredAt: committedAt, timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    utcOffsetMinutes: -new Date(committedAt).getTimezoneOffset(), localDayKey: dayKey });
+}
+
+test('AI-organized inbox items read their identity from entity refs and merge into the receipt row', () => {
+  const events = [...facts.inboxCapturedFacts({ inboxId: 'i1', capturedAt: at(8) }),
+    ...facts.inboxCapturedFacts({ inboxId: 'i2', capturedAt: at(9) }), ...aiReceiptEvents(['i1', 'i2'])];
+  const { day, story } = render(events);
+  const receipt = day.markers.find(marker => marker.change);
+  assert.deepEqual(receipt.changes.map(change => change.inboxId), ['i1', 'i2']);
+  assert.equal(story.entryCount, 1);
+  assert.match(story.markup, /data-receipt-id="receipt-1"/);
+  assert.match(story.markup, /3 条过程记录/);
+  assert.match(story.markup, /过程记录\n08:00 · [^\n]+\n09:00 · [^\n]+\n11:00 · /);
+});
+
+test('redacted AI receipts and doubly resolved inbox items are never merged', () => {
+  const redacted = render([...facts.inboxCapturedFacts({ inboxId: 'i1', capturedAt: at(8) }), ...aiReceiptEvents(['i1'], { redacted: true })]);
+  assert.equal(redacted.story.entryCount, 2);
+  const twice = render([...facts.inboxCapturedFacts({ inboxId: 'i1', capturedAt: at(8) }),
+    ...facts.inboxResolvedFacts({ inboxId: 'i1', action: 'keep', resolvedAt: at(10) }), ...aiReceiptEvents(['i1'])]);
+  assert.equal(twice.story.entryCount, 3);
+});
