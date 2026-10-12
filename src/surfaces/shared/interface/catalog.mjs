@@ -138,6 +138,8 @@ export const EN = Object.freeze({
 
   "插件只通知“提问了 / 回答完了”，不带提问、回答或文件内容。": "The plugin reports only when a question starts or a reply finishes, without question, answer, or file contents.",
   "今天先做": "Start today",
+  "提醒正文": "Reminder text",
+  "操作反馈": "Action feedback",
   "提醒操作未完成，可稍后重试。": "The reminder action did not complete. Try again later.",
   "提醒操作结果暂未确认。": "The reminder action result is unconfirmed.",
   "第一件选中的任务会设为“现在”。": "The first selected task becomes Now.",

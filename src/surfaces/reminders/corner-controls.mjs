@@ -19,6 +19,13 @@ function bindCornerControls({ document, run, onFocus, setPointerInteractive }) {
   function controls() {
     return [...document.querySelectorAll('.nudge-action:not(:disabled), #closeBtn:not(:disabled)')];
   }
+  function readingOrder() {
+    const copy = document.getElementById('bubbleCopy');
+    const status = document.getElementById('nudgeStatus');
+    const actions = controls().filter(control => control !== close);
+    return [copy, ...actions, status && !status.hidden ? status : null,
+      close && !close.disabled ? close : null].filter(Boolean);
+  }
   const stopFocus = onFocus(() => {
     const available = controls();
     const primary = available.find(control => control.classList.contains('primary')) || available[0];
@@ -29,13 +36,15 @@ function bindCornerControls({ document, run, onFocus, setPointerInteractive }) {
   listen(document, 'keydown', event => {
     if (event.key === 'Escape') { event.preventDefault(); void run('dismiss'); return; }
     if (event.key !== 'Tab') return;
-    const available = controls();
+    const available = readingOrder();
     if (!available.length) return;
-    const first = available[0], last = available.at(-1), active = document.activeElement;
-    if (!available.includes(active) || (event.shiftKey ? active === first : active === last)) {
-      event.preventDefault();
-      (event.shiftKey ? last : first).focus();
-    }
+    // Include readable scroll regions explicitly instead of depending on a
+    // Chromium version's implicit focusable-scroll-container behavior.
+    const index = available.indexOf(document.activeElement);
+    const next = index < 0 ? (event.shiftKey ? available.length - 1 : 0)
+      : (index + (event.shiftKey ? -1 : 1) + available.length) % available.length;
+    event.preventDefault();
+    available[next].focus();
   });
   return () => {
     for (const stop of listeners) stop();

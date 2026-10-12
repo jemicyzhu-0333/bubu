@@ -45,7 +45,10 @@ body[data-surface="nudge-corner"] .bubble-copy {
 body[data-surface="nudge-corner"] .nudge-action {
   min-height: 28px; font-size: 12px; font-weight: 500; border-radius: 7px; white-space: normal;
 }
-body[data-surface="nudge-corner"] .nudge-status { max-height: 3.6em; overflow-y: auto; }
+body[data-surface="nudge-corner"] .nudge-status { min-height: 18px; max-height: 3.6em; overflow-y: auto; overflow-x: hidden; }
+body[data-surface="nudge-corner"] :is(.bubble-copy, .nudge-status):focus-visible {
+  outline: 2px solid var(--ui-primary); outline-offset: -2px;
+}
 body[data-surface="nudge-corner"] .nudge-footer {
   flex: 0 0 auto; display: flex; align-items: center; justify-content: flex-end;
   gap: 8px; min-height: 34px; padding: 0 8px 6px;

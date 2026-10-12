@@ -52,7 +52,7 @@ function measure() {
   const controls = [...document.querySelectorAll('.nudge-action, #closeBtn')];
   const elementInfo = element => element ? {
     tag: element.tagName, id: element.id, role: element.getAttribute('role'), tabIndex: element.tabIndex,
-    rect: rect(element), scrollTop: element.scrollTop, scrollHeight: element.scrollHeight,
+    rect: rect(element), visible: visible(element), scrollTop: element.scrollTop, scrollHeight: element.scrollHeight,
     clientHeight: element.clientHeight, scrollWidth: element.scrollWidth, clientWidth: element.clientWidth,
   } : null;
   function visible(element) {
@@ -151,16 +151,51 @@ async function verifyCase(fixture, index) {
     const view = await read(); item.focused.push(view);
     assert.ok(view.controls[control].visible, `control ${control} is reachable at this size and zoom`);
   }
-  current.webContents.send('nudge:focus-controls'); await painted();
-  for (let press = 0; press < 5; press++) {
-    const view = await read(); item.keyboard.push(view.active);
-    item.keyboardElements.push({ activeElement: view.activeElement, documentHasFocus: view.documentHasFocus,
-      scrollRegions: view.scrollRegions });
-    assert.equal(view.active, press % 4, 'keyboard order and wrap');
-    current.webContents.sendInputEvent({ type: 'keyDown', keyCode: 'Tab' });
-    current.webContents.sendInputEvent({ type: 'keyUp', keyCode: 'Tab' });
-    await wait(20);
+  const beforeKeyboard = dismissals;
+  const sequence = [0, 1, 2, ...(fixture.error ? ['nudgeStatus'] : []), 3, 'bubbleCopy'];
+  for (const reverse of [false, true]) {
+    current.webContents.send('nudge:focus-controls'); await painted();
+    for (let press = 0; press <= sequence.length; press++) {
+      const view = await read();
+      const actual = view.active >= 0 ? view.active : view.activeElement?.id;
+      item.keyboard.push(actual);
+      item.keyboardElements.push({ reverse, activeElement: view.activeElement, documentHasFocus: view.documentHasFocus,
+        scrollRegions: view.scrollRegions });
+      const expected = sequence[(reverse ? sequence.length - press % sequence.length : press) % sequence.length];
+      assert.equal(actual, expected, 'keyboard reading/action order and wrap');
+      assert.ok(view.activeElement.visible, 'every keyboard destination is fully visible');
+      current.webContents.sendInputEvent({ type: 'keyDown', keyCode: 'Tab', modifiers: reverse ? ['shift'] : [] });
+      current.webContents.sendInputEvent({ type: 'keyUp', keyCode: 'Tab', modifiers: reverse ? ['shift'] : [] });
+      await wait(30); await painted();
+    }
   }
+  item.reading = [];
+  for (const id of ['bubbleCopy', ...(fixture.error ? ['nudgeStatus'] : [])]) {
+    await current.webContents.executeJavaScript(`{ const region = document.getElementById('${id}'); region.focus(); region.scrollTop = 0; }`);
+    await painted();
+    const before = (await read()).activeElement;
+    assert.equal(before.id, id);
+    assert.ok(before.visible && before.clientHeight >= 18, 'reading region has a visible line');
+    if (before.scrollHeight > before.clientHeight) {
+      for (const keyCode of ['PageDown', 'PageUp']) {
+        current.webContents.sendInputEvent({ type: 'keyDown', keyCode });
+        current.webContents.sendInputEvent({ type: 'keyUp', keyCode });
+        await wait(250); await painted();
+        const after = (await read()).activeElement;
+        item.reading.push({ id, keyCode, before, after });
+        assert.equal(after.id, id, 'reading retains focus');
+        if (keyCode === 'PageDown') {
+          assert.ok(after.scrollTop > before.scrollTop, 'PageDown reveals hidden reading content');
+          item.reading.at(-1).downScrollTop = after.scrollTop;
+        } else {
+          assert.ok(after.scrollTop < item.reading.at(-2).after.scrollTop, 'PageUp returns toward reading start');
+        }
+      }
+    } else item.reading.push({ id, before, fitsWithoutScroll: true });
+  }
+  assert.equal(dismissals, beforeKeyboard, 'keyboard reading and navigation never dismiss');
+  const horizontal = (await read()).scrollRegions;
+  assert.ok(horizontal.every(region => region.scrollWidth <= region.clientWidth + 1), 'no inner horizontal scrolling');
   await current.webContents.executeJavaScript('document.scrollingElement.scrollTop = 0; document.body.scrollTop = 0');
   await painted();
   const screenshot = `${String(index).padStart(2, '0')}-L${fixture.level}-${fixture.locale}-${fixture.zoom}-${fixture.small ? 'small' : 'regular'}-${fixture.corner}.png`;

@@ -22,18 +22,19 @@ function harness() {
     };
   }
   const primary = node(true), defer = node(), skip = node(), close = node(), bubble = node(), character = node(), copy = node();
+  const status = node(); status.hidden = true;
   const buttons = [primary, defer, skip, close];
   bubble.children = [copy, primary, defer, skip];
   document = Object.assign(node(), {
     body: node(), activeElement: null,
-    getElementById: id => ({ closeBtn: close, bubble })[id],
+    getElementById: id => ({ closeBtn: close, bubble, bubbleCopy: copy, nudgeStatus: status })[id],
     querySelector: () => character,
     querySelectorAll: () => buttons.filter(button => !button.disabled)
   });
   const dispose = bindCornerControls({ document, run: action => calls.push(action),
     onFocus: callback => { nativeFocus = callback; return () => { nativeFocus = null; }; },
     setPointerInteractive: value => pointer.push(value) });
-  return { document, primary, defer, skip, close, bubble, character, copy, buttons, calls, pointer, dispose,
+  return { document, primary, defer, skip, close, bubble, character, copy, status, buttons, calls, pointer, dispose,
     focus: () => nativeFocus?.() };
 }
 
@@ -58,27 +59,31 @@ test('native shortcut focuses the primary action and permits scrolling it into v
   assert.equal(h.document.activeElement, h.defer);
 });
 
-test('Tab and Shift-Tab keep reachable controls in the card in both languages', () => {
+test('explicit reading and action loop includes visible feedback in both directions', () => {
   const h = harness();
-  for (const labels of [['已完成', '稍后15分钟', '跳过本次', '关闭提醒'], ['Done', 'In 15 minutes', 'Skip this time', 'Close reminder']]) {
-    h.buttons.forEach((button, index) => { button.textContent = labels[index]; });
-    h.document.activeElement = h.close;
-    assert.equal(h.document.fire('keydown', { key: 'Tab' }).prevented, true);
-    assert.equal(h.document.activeElement, h.primary);
-    assert.equal(h.document.fire('keydown', { key: 'Tab', shiftKey: true }).prevented, true);
-    assert.equal(h.document.activeElement, h.close);
-    h.document.activeElement = h.document.body;
-    h.document.fire('keydown', { key: 'Tab' });
-    assert.equal(h.document.activeElement, h.primary);
+  for (const hidden of [true, false]) {
+    h.status.hidden = hidden;
+    const order = [h.copy, ...h.buttons.slice(0, 3), ...(hidden ? [] : [h.status]), h.close];
+    for (const shiftKey of [false, true]) {
+      order.forEach((active, index) => {
+        h.document.activeElement = active;
+        assert.equal(h.document.fire('keydown', { key: 'Tab', shiftKey }).prevented, true);
+        assert.equal(h.document.activeElement, order[(index + (shiftKey ? -1 : 1) + order.length) % order.length]);
+      });
+    }
   }
   assert.deepEqual(h.calls, []);
 });
 
-test('pending actions with no enabled controls do not focus or send extra commands', () => {
+test('pending actions remain readable while disabled controls are skipped', () => {
   const h = harness(); h.buttons.forEach(button => { button.disabled = true; });
   h.document.activeElement = null; h.focus();
   assert.equal(h.document.activeElement, null);
-  assert.equal(h.document.fire('keydown', { key: 'Tab' }).prevented, false);
+  h.document.fire('keydown', { key: 'Tab' });
+  assert.equal(h.document.activeElement, h.copy);
+  for (const key of ['PageDown', 'PageUp', 'ArrowDown', 'ArrowUp']) {
+    assert.equal(h.document.fire('keydown', { key }).prevented, false);
+  }
   assert.deepEqual(h.calls, []);
 });
 
