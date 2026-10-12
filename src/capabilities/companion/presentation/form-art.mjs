@@ -274,7 +274,8 @@ function applyMotionTransform(context, form, action, motion, progress, options) 
 function applyAccent(context, form, action, progress, options) {
   if (options.calmVisual || options.reducedMotion || options.state === 'dragged' || motionCaps(action).body) return;
   const accent = sampleAccent(action, progress);
-  if (accent.s === 0) return;
+  // Below ~0.1 px at body size the scale is invisible; skip the resample.
+  if (Math.abs(accent.s) < .0015) return;
   const size = Number(options.size) || 0, floor = bodyFloor(form.id, size);
   context.translate(size / 2, floor);
   context.scale(accent.sx, accent.sy);
