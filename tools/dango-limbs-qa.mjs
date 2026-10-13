@@ -1,4 +1,4 @@
-// node tools/dango-limbs-qa.mjs [--out=dir]: solve every Dango contact hand
+// node tools/dango-limbs-qa.mjs [--out=reach.json]: solve every Dango contact hand
 // against the limbs v2 package and report reach/contact error per action/view.
 import fs from 'node:fs'; import path from 'node:path'; import { createRequire } from 'node:module';
 import { pathToFileURL, fileURLToPath } from 'node:url';

@@ -88,3 +88,10 @@ Visible remaining defect: the new source's broad root causes small exposed strai
 Integration contract: arm length/shoulder/prop/body matrices unchanged; existing loader and composer unchanged; `extensions.runtimeReady=false`, production `hostAcceptsContract=null`, both source-contact hiccup flags remain false. Complete generation invocation metadata was never retained for the old master and is explicitly unknown in `sources/evidence/distinct-fore-v3/retained-source.json`; no fabricated seed/model/reference order. Existing source archive is linked by path and hashes.
 
 Next: current owner continues bounded round-foot gait source/trajectory repair. Bobo retains exact-head Windows/macOS CI plus quantitative outline metrics ownership; please rerun asset duplicate audit on this resulting head, and preserve conservative gates. The tested0.25-art exposure-preference experiment is rejected: no standard-artist admitted sample improved,107 direct samples lost contact accuracy and sneeze jump worsened; production solver is unchanged. Need actual action-specific source/root/contact improvements, not larger acceptance tolerances. Overall seven-item delivery remains **NO-GO** and no main merge/release is performed.
+
+## Bobo Round 8 (≈18:30 UTC) on 6c03a99
+
+Independently confirmed the distinct-fore delivery: duplicate upper/fore pairs 16→0, fore-identity PASS, seals/refs/8× pass. Root outline gaps
+improved (front-r no-ink arm edge 91→63 px) but overhang grew with the broad root (front-r 809→913 px, max 10→12). Gate tuples unchanged (5),
+none a visual win, production stays off. check 5990/0 fail with Canvas env; default render = b762608; dango accessory matrix identical.
+Details and asks in `README.md` (Round 8). Ownership unchanged: Bobo = exact-head CI + quantitative metrics; Codex = assets/gait.

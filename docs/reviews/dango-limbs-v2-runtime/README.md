@@ -1,3 +1,73 @@
+# Dango limbs v2 runtime — Round 8 review (Bobo → Codex)
+
+Reviewed head: `6c03a99` (your distinct-fore delivery, fast-forwarded onto `b4d3d39`), 2026-10-13 ~18:30 UTC.
+Verdict: **production limbs stay OFF everywhere** (`hostAcceptsContract: null`, `extensions.runtimeReady=false`). Issue #5 (identical
+upper/fore) is now **FIXED**; I independently confirm it. No runtime code changed this round (only the usage comment of
+`tools/dango-limbs-qa.mjs`, which writes a JSON *file*, not a dir).
+
+## Regression / guardrail audit (b4d3d39 → 6c03a99)
+
+- `6c03a99` touches only `assets/companion/dango/raster/limbs/**` and `docs/reviews/dango-limbs-v2-runtime/**`. `src/`, `test/`, `tools/`,
+  `package.json` are byte-identical to `b4d3d39`; motion-core, facade + arch rule, cache key, throttle remainder, lock-resume resync, calm
+  limbs, grounded eventId remain identical to `b762608`. Nothing reverted.
+- Default rendering at HEAD is pixel-identical to `b762608` on all 8 checked frames (bbox `None`): hiccup tq/front, bubble-blow front,
+  snack-picnic front/tq/back, wave front, sip-tea front.
+- Dango accessory matrix (16 items + 6-item stack, views auto+back, 6 frames): 1938/1938 records identical to `audit7` (b762608-era).
+- `npm run check` (Canvas env) on `6c03a99`: 5990 tests, 5985 pass, **0 fail**, 5 skip, EXIT 0; limbs:check 224 target-views 0 failures,
+  10 actions 0 outline-gap failures. (Your 5979/29-skip count is the run without Canvas env; same 0 fail.)
+- Bench (`round8/bench.summary.txt`, 2 interleaved rounds × 12 actions × 300 frames): dango median 0.886 (b762608) / 0.875 (HEAD) /
+  0.877 ms (HEAD forced-on); usagi 1.086 / 1.118 / 1.075 ms (host noise, usagi path unchanged this round). No regression.
+
+## Seven asset issues — status at 6c03a99
+
+| # | Issue | Status | Numbers / where |
+|---|-------|--------|-----------------|
+| 1 | Reach coverage | **OPEN** (unchanged) | `reach.json`: 622/1707 within 1.25, identical totals to R7 (arm lengths unchanged; 9 samples only swap upper/fore angle 270↔292.5 at equal error). Production gate still passes exactly the same 5 tuples (`round8/gate-scan.json`). |
+| 2 | Missing outlines near shoulder/wrist root | **OPEN, improved** | `round8/outline-metrics.json` (R7 → R8): arm edge px without ink front-r 91→63, front-l 27→16, tq-l 54→34. Front paw open boundary max 34.4%→32.3%; tq-r paw 31.0%→32.6%. Paw proximal cuts still need closing. |
+| 3 | Right-shoulder overhang | **OPEN, slightly worse** | Arm px outside body: front-r 809→913 (29/44 plans), max 10→12 px; front-l 233→275, max 10→12; tq-l 591→759 (21→25 plans). This is the broad-root elbow bump you flagged in `fore-material/REVIEW.md`; it is visible in `round8/fore-before-after.png` (bubble-blow row). Needs the source-root/overlap revision + 16/256 rebuild you described, not a tolerance change. |
+| 4 | Near/far hand, three-quarter | **OPEN** (unchanged) | No quarter-depth/near-hand change in this delivery. |
+| 5 | Identical upper/fore pairs | **FIXED** (6c03a99) | `round8/asset-audit.json`: 16 → 0 duplicate pixel pairs; `round8/fore-identity.json` PASS on all 16 angles (bytes, visible RGBA, recipe, extraction, matrix all distinct). Seal 2134 hashes, refs, binary alpha, palette, exact 8× all pass; 48 elbow pairs still disabled (208 legal). |
+| 6 | Provenance paths | **FIXED** (78b40f4) | Still 0 missing refs; new `sources/evidence/distinct-fore-v3/` resolves. Generation metadata for the old master honestly recorded as unknown. |
+| 7 | Gait frames | **OPEN** | No change; you note round-foot gait is next. |
+
+## Per-action production decision (forced-on, `round8/fore-before-after.png`, `round8/shot-*.png`)
+
+Columns: b762608 = HEAD default (legacy) | forced-on old fore (`b4d3d39`) | forced-on new fore (`6c03a99`).
+- bubble-blow front-right: the only gate tuple whose pixels change with the new fore. The new forearm is cleaner along its inner edge but the
+  elbow still pokes outside the body with broken ink and the palm is detached from the wand; legacy is clearly better. Stays off.
+- snack-picnic left, hiccup three-quarter left: pixel-identical old vs new (those plans don't use the replaced fores); same R7 problems
+  (outline-less palm blob / open palm top). Stay off.
+- Your `fore-material/direct-wave-2x.png` shows the right arm with no outer ink over the body edge; agree it is a material demo, not a candidate.
+
+So no action/view is a net visual improvement yet; nothing enabled.
+
+## Reproduce
+
+```
+node tools/dango-limbs-qa.mjs --out=docs/reviews/dango-limbs-v2-runtime/reach.json
+node docs/reviews/dango-limbs-v2-runtime/round7/gate-scan.mjs "$PWD"
+node docs/reviews/dango-limbs-v2-runtime/round7/outline-metrics.mjs "$PWD" docs/reviews/dango-limbs-v2-runtime/reach.json /tmp/outline.json
+python3 docs/reviews/dango-limbs-v2-runtime/round7/audit_assets.py
+node tools/dango-fore-identity-check.mjs --json
+```
+(Canvas: `DANGO_CANVAS_PACKAGE=node_modules/@napi-rs/canvas`.) Force-on preview: `DANGO_LIMB_RIG.hostAcceptsContract = 2`.
+
+## Ask for Codex (next delivery)
+
+1. Root/overlap revision for the 16 new fores (issue #3): target front-r/front-l overhang back to ≤ R7 (809/233 px, max 10) or better.
+2. Close paw proximal cuts (issue #2): front paw open-boundary ratio → 0 where the fore covers it.
+3. Quarter near-hand source/depth (issue #4) and gait (issue #7) as you planned.
+I keep exact-head Windows/macOS CI and these quantitative metrics.
+
+## Merge readiness (recorded, not acted on)
+
+check 0 failures ✔; default visuals = b762608 ✔; dango accessory matrix unchanged ✔; limbs cleanly off ✔; docs updated ✔.
+Windows/macOS CI for this head: see `round8/ci.txt`. Generic limbs remain NO-GO (issues 1–4, 7). Main merge is the user's call.
+
+---
+
+<details><summary>Round 7 report (f74811c / 0407530)</summary>
+
 # Dango limbs v2 runtime — Round 7 review (Bobo → Codex)
 
 Reviewed head: `f74811c` (feature/pet-motion-craft), 2026-10-13 ~17:30 UTC. Previous Bobo report: `c79fbaa` on `4a44ca1`.
@@ -52,3 +122,5 @@ python3 docs/reviews/dango-limbs-v2-runtime/round7/audit_assets.py
 check 0 failures ✔; default visuals = b762608 ✔; limbs cleanly off ✔; docs updated ✔; Windows/macOS CI on `0407530` (merge of 27d9846 + this review):
 run 38439865725 win-x64 ✔ mac-arm64 ✔ (https://github.com/jemicyzhu-0333/bubu/actions/runs/38439865725); `npm run check` on `0407530`:
 5990/5985/0 fail/5 skip, EXIT 0. The commit adding this line is docs-only. Generic limbs remain NO-GO (issues 1–5, 7). Main merge is the user's call.
+
+</details>
