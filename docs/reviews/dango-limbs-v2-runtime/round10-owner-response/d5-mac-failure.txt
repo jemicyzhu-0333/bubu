@@ -1,0 +1,9 @@
+Run 38469455948, job 115544425067, exact head d5f260c5dc00abe63567d58f29dff55c9a3cb951.
+Dispatched by source repair owner through existing authenticated cloud GitHub Actions UI at 2026-10-13T21:17:22Z after two exact-head dedup reads returned zero runs.
+Mac failed at 21:19:19Z in Verify native macOS pet viewport without resizing:
+AssertionError [ERR_ASSERTION]: native-bounds-changed
+actual {height:360,width:520,x:504,y:348}; expected y:345.
+verifyRounds scripts/verify-pet-viewport.cjs:28:14, main:102:20.
+Process exit code 1. Did not reach subsequent complete tests/build.
+Failure exactly matches Bobo's separately recorded 1ca0e82 viewport failure; Bobo has since published probe-only 8a411eb and dispatched run38469867841.
+No current source artwork/runtime change is indicated by this failure.
