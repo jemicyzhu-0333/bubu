@@ -28,11 +28,15 @@ function attachDangoLimbs(contact, anchors, { view = 'front', limbs = null, pose
       bend: hand.side === 'left' ? -1 : 1, maxBend: DANGO_LIMB_RIG.arm.maxBend });
     let frames = null;
     if (manifest) {
-      const s = hand.side === 'left' ? 'l' : 'r';
+      // Right side: its own frames when delivered, else the left frames
+      // mirrored horizontally (angle a -> 180 - a; the painter flips).
+      const own = hand.side === 'left' || manifest.segments['arm-upper-r'];
+      const s = hand.side === 'left' || !own ? 'l' : 'r', ang = a => (own ? a : 180 - a);
       frames = {
-        upper: nearestFrame(manifest.segments[`arm-upper-${s}`]?.frames, segmentAngle(chain.root, chain.elbow)),
-        fore: nearestFrame(manifest.segments[`arm-fore-${s}`]?.frames, segmentAngle(chain.elbow, chain.wrist)),
-        paw: nearestFrame(manifest.paws[pose]?.views?.[view], segmentAngle(chain.elbow, chain.wrist))
+        upper: nearestFrame(manifest.segments[`arm-upper-${s}`]?.frames, ang(segmentAngle(chain.root, chain.elbow))),
+        fore: nearestFrame(manifest.segments[`arm-fore-${s}`]?.frames, ang(segmentAngle(chain.elbow, chain.wrist))),
+        paw: nearestFrame(manifest.paws[pose]?.views?.[view], ang(segmentAngle(chain.elbow, chain.wrist))),
+        mirror: !own
       };
     }
     hand.limb = Object.freeze({ socket, chain, frames, source: manifest ? 'limbs.json' : 'legacy-sprite' });

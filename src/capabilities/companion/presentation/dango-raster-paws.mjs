@@ -1,4 +1,5 @@
 'use strict';
+import { paintDangoLimb } from './dango-limb-assets.mjs';
 
 import { motionCaps } from './motion-core/action-capabilities.mjs';
 
@@ -67,6 +68,9 @@ function paintRasterPaws(context, artwork, palette, { manifest, painter }, layer
     if (layer !== 'underlay' && (hand.pawOcclusion === 'behind-tool' ? layer !== 'before-tools' : layer !== 'front')) continue;
     const wrapped = hand.pawSprite === 'small-fin' && artwork.pawRootsCovered;
     if (layer === 'underlay' && !wrapped) continue;
+    // limbs v2: the whole chain (socket, upper, fore, paw) from limbs.json;
+    // any missing frame/image falls back to the legacy sprite for this hand.
+    if (artwork.limbSource && layer === 'front' && paintDangoLimb(context, hand, artwork.limbSource, { view: artwork.view })) { painted = true; continue; }
     const sprite = manifest.tools?.[hand.pawSprite];
     if (!sprite) continue;
     context.save(); context.transform(...hand.pawMatrix);

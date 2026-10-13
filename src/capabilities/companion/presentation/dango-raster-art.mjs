@@ -16,6 +16,7 @@ import { createRasterPainter } from './raster/paint.mjs';
 import { sampleRasterPose } from './dango-raster-pose.mjs';
 import { regionClearance } from './motion-core/accessory-resolver.mjs';
 import { paintRasterPaws } from './dango-raster-paws.mjs';
+import { attachDangoLimbs } from './dango-limbs.mjs';
 import { drawRasterFace } from './dango-raster-face.mjs';
 import { createEyeApertureSampler } from './dango-eye-projection.mjs';
 const eyeState = ({ aperture, scale }) => ({ eyeAperture: aperture, eyeScale: scale });
@@ -44,7 +45,7 @@ function essentials(data) {
     ...(data.face?.eyes?.neutral || []), ...(data.face?.eyes?.closed || []), data.face?.mouth?.neutral].filter(Boolean);
 }
 
-function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOptions = {}, painterOptions = {}, runClip = null, runFootTiming = null } = {}) {
+function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOptions = {}, painterOptions = {}, runClip = null, runFootTiming = null, limbs = null } = {}) {
   validateRasterManifest(manifest);
   if (![null, 'forward-recovery'].includes(runFootTiming)) throw new TypeError('unknown run foot timing');
   const source = createRasterSource({ ...sourceOptions, baseUrl: manifest.baseUrl, versionKey: `${manifest.id}@${manifest.version}`, loadImage });
@@ -54,6 +55,9 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
   const tailRoot = createRasterTailRootPainter({ manifest, painter });
   const runSample = runClip ? createDangoRunSample({ bundle: runClip, source, createSurface }) : null;
   const wardrobe = createRasterWardrobe({ manifest, painter, source });
+  // limbs v2: a limb source (createDangoLimbSource) or null. Until it is
+  // `ready`, the legacy paw sprites draw unchanged.
+  const limbSource = limbs || null;
   const palette = skinId => PALETTES[skinId] || PALETTES.pink;
   const key = `dango-raster:${manifest.id}@${manifest.version}`;
   const toolSprites = Object.fromEntries(Object.entries(manifest.tools || {}).map(([id, sprite]) =>
@@ -83,6 +87,8 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
       && view === 'three-quarter' && [undefined, 'three-quarter', 'profile'].includes(options.view)
       && reviewedRunOutfit ? runFootTiming : null;
     let pose = sampleRasterPose(data, { ...options, view, toolSprites, lookback, runFootTiming: footTiming });
+    const limbManifest = limbSource?.manifest() || null;
+    if (limbManifest && pose.contact?.hands?.length) attachDangoLimbs(pose.contact, data.anchors, { view, limbs: limbManifest });
     // Crown clearance (resolver): glance marks step past a worn head accent.
     const clear = !lookback && pose.contact?.details?.some(d => d.type === 'look-back') ? regionClearance({ formId: 'dango', items: outfitItems, view }) : null;
     if (clear) pose = { ...pose, contact: { ...pose.contact, details: pose.contact.details.map(d => d.type === 'look-back'
@@ -168,7 +174,7 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
       clip, clipStatus: clipSelection?.status || 'disabled', runFootTiming: footTiming, view, drawnView: resolved.key,
       ...eyeState(eyeAperture.sampleEyes(pose.face, { ...options, view, calmVisual: pose.calmVisual })),
       expressionId: options.expressionId, data, neutral: original.neutral, ...pose, lookback, footwearTransforms, attachmentMatrices: Object.freeze(attachmentMatrices),
-      hiddenParts, ready, layeredReady, wardrobe: wardrobeState, effectOrigins,
+      hiddenParts, ready, layeredReady, wardrobe: wardrobeState, effectOrigins, limbSource: limbManifest ? limbSource : null,
       pawRootsCovered: outfitItems.some(item => ['scarf', 'cape', 'satchel'].includes(item.renderKey)),
       suppressedAppearanceSlots,
       pending: [...coreStates, ...states, ...toolStates, ...connectorStates, ...pawStates, ...detailStates, ...outfitStates, ...extraStates, ...accessoryStates].includes('loading'), running,
@@ -274,7 +280,8 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
     particle: createRasterParticlePainter({ manifest, painter }),
     ...createRasterScenePainter({ manifest, painter }),
     expressionAccent, statusEffect, actionOverlay: (_context, action) => Boolean(motionCaps(action).overlayForms?.includes('dango-raster')),
-    ready({ all = false } = {}) { return Promise.all([source.ready(all ? collectRasterSprites(manifest) : defaultSprites), runSample?.ready()]); },
+    ready({ all = false } = {}) { return Promise.all([source.ready(all ? collectRasterSprites(manifest) : defaultSprites), runSample?.ready(), limbSource?.start()]); },
+    limbStatus() { return limbSource ? { state: limbSource.state(), errors: limbSource.errors() } : { state: 'disabled', errors: [] }; },
     cacheStats() { return Object.freeze({ source: source.stats(), palette: painter.stats(), roots: roots.stats(), tailRoot: tailRoot.stats(), runSample: runSample?.stats() || null }); },
     dispose() { eyeAperture.dispose(); source.dispose(); painter.dispose(); roots.dispose(); tailRoot.dispose(); runSample?.dispose(); }
   });
