@@ -1,0 +1,192 @@
+{
+  "status": "WIRING PASS ONLY; quarter natural contact still NO-GO",
+  "backend": "Actual standard artist using offscreen Skia; no browser/native evidence",
+  "comparisons": [
+    {
+      "id": "sip-tea",
+      "facing": 1,
+      "differentBytes": 0
+    },
+    {
+      "id": "sip-tea",
+      "facing": -1,
+      "differentBytes": 0
+    },
+    {
+      "id": "carry-energy",
+      "facing": 1,
+      "differentBytes": 0
+    },
+    {
+      "id": "carry-energy",
+      "facing": -1,
+      "differentBytes": 0
+    },
+    {
+      "id": "read-book",
+      "facing": 1,
+      "differentBytes": 0
+    },
+    {
+      "id": "read-book",
+      "facing": -1,
+      "differentBytes": 0
+    }
+  ],
+  "records": [
+    {
+      "action": "sip-tea",
+      "view": "three-quarter",
+      "tools": [
+        {
+          "key": "cup",
+          "x": 43.867949,
+          "y": 36.685256
+        }
+      ],
+      "hands": [
+        {
+          "side": "right",
+          "limb": false,
+          "target": [
+            64.36794900000001,
+            47.060256
+          ],
+          "assetSide": "l",
+          "source": "sources/crops/quarter-hold-far-source-candidates/quarter-hold-fixed-far-left-source-isolated.png",
+          "paw": "paw/paw-hold-l-three-quarter-left-a135.png",
+          "pawMirror": false,
+          "wholePoseReflection": 66,
+          "layer": "back",
+          "error": 0.45914295392284427,
+          "fixedShoulder": [
+            2.5,
+            36.5
+          ]
+        },
+        {
+          "side": "left",
+          "limb": false,
+          "target": [
+            44.742949,
+            47.060256
+          ],
+          "assetSide": "r",
+          "source": "sources/crops/quarter-hold-fixed-source-candidates/quarter-hold-fixed-right-source-isolated.png",
+          "paw": "paw/paw-hold-r-three-quarter-left-a180.png",
+          "pawMirror": false,
+          "wholePoseReflection": 66,
+          "layer": "front",
+          "error": 7.186781964282558,
+          "fixedShoulder": [
+            52.5,
+            43.5
+          ]
+        }
+      ]
+    },
+    {
+      "action": "carry-energy",
+      "view": "three-quarter",
+      "tools": [
+        {
+          "key": "energy",
+          "x": 40,
+          "y": 30.5,
+          "scale": 0.84
+        }
+      ],
+      "hands": [
+        {
+          "side": "left",
+          "limb": false,
+          "target": [
+            44.935,
+            46.879999999999995
+          ],
+          "assetSide": "r",
+          "source": "sources/crops/quarter-hold-fixed-source-candidates/quarter-hold-fixed-right-source-isolated.png",
+          "paw": "paw/paw-hold-r-three-quarter-left-a180.png",
+          "pawMirror": false,
+          "wholePoseReflection": 66,
+          "layer": "front",
+          "error": 7.268674225744334,
+          "fixedShoulder": [
+            52.5,
+            43.5
+          ]
+        },
+        {
+          "side": "right",
+          "limb": false,
+          "target": [
+            55.855,
+            46.879999999999995
+          ],
+          "assetSide": "l",
+          "source": "sources/crops/quarter-hold-far-source-candidates/quarter-hold-fixed-far-left-source-isolated.png",
+          "paw": "paw/paw-hold-l-three-quarter-left-a090.png",
+          "pawMirror": false,
+          "wholePoseReflection": 66,
+          "layer": "back",
+          "error": 0.7144403404063935,
+          "fixedShoulder": [
+            2.5,
+            36.5
+          ]
+        }
+      ]
+    },
+    {
+      "action": "read-book",
+      "view": "three-quarter",
+      "tools": [
+        {
+          "key": "book-three-quarter",
+          "x": 16,
+          "y": 46
+        }
+      ],
+      "hands": [
+        {
+          "side": "left",
+          "limb": false,
+          "target": [
+            22.75,
+            58.125
+          ],
+          "assetSide": "r",
+          "source": "sources/crops/quarter-hold-fixed-source-candidates/quarter-hold-fixed-right-source-isolated.png",
+          "paw": "paw/paw-hold-r-three-quarter-left-a090.png",
+          "pawMirror": false,
+          "wholePoseReflection": 66,
+          "layer": "front",
+          "error": 1.3050383136138188,
+          "fixedShoulder": [
+            52.5,
+            43.5
+          ]
+        },
+        {
+          "side": "right",
+          "limb": false,
+          "target": [
+            34.875,
+            53
+          ],
+          "assetSide": "l",
+          "source": "sources/crops/quarter-hold-far-source-candidates/quarter-hold-fixed-far-left-source-isolated.png",
+          "paw": "paw/paw-hold-l-three-quarter-left-a045.png",
+          "pawMirror": false,
+          "wholePoseReflection": 66,
+          "layer": "back",
+          "error": 15.013015186830394,
+          "fixedShoulder": [
+            2.5,
+            36.5
+          ]
+        }
+      ]
+    }
+  ]
+}

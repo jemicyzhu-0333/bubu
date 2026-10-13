@@ -1,6 +1,6 @@
 # Dango limbs v2: branch handoff
 
-Updated 2026-10-13 16:52 UTC. Shared branch: `feature/pet-motion-craft`. This handoff accompanies the front-sip v2b source-integrity repair, based on `daeace937dc4c8c0b6a8782e84f4dc88acaef3cd`.
+Updated 2026-10-13 17:06 UTC. Shared branch: `feature/pet-motion-craft`. The front-sip source repair is committed as `d0e0827600c18b5cff7a723ab3525a12227dffc5`. This update adds quarter wiring evidence and regression coverage on that base.
 
 ## Status
 
@@ -34,6 +34,16 @@ Cloud interactive browser verification is blocked by an explicit URL security-po
 - `npm run check`:5960 tests,5931 pass,29 optional skips; syntax, boundaries, architecture and asset checks pass. The optional Canvas outline-gap scan is skipped and is not claimed passed.
 - `npm run test:integration`:71 pass.
 - No activation, main merge or release performed. These local checks precede the source-only commit; recheck CI against the actual resulting branch head before a merge-ready judgment.
+
+## Latest completed slice: quarter wiring (17:06 UTC)
+
+Completed: four behavior regressions verify independent near/far source identity, target/normal reflection, source-pixel placement, exactly one Skia pose reflection including outer facing, and the deliberate far-depth fallback. All99 standard-artist samples preserve canonical body pixels, props, anchors and matrices. Six actual rendered midpoint comparisons (sip/carry/read, both facings) are byte-identical default versus opt-in because unsupported limbs fall back. No production wiring defect was demonstrated, so no speculative code or source change was made.
+
+Evidence: `quarter-wiring/README.md`, `quarter-wiring/results.json`, two small PNG comparisons, and `test/dango-quarter-limb-contract.test.mjs`. Reproduce with `node tools/dango-contact-review/render-quarter.mjs --out /tmp/dango-quarter-review`. Source/depth defaults remain unchanged. Final focused suite16/16; full `npm run check`5964 tests,5935 pass,29 optional skips; integration71/71. The relocated review output is byte-identical.
+
+Still blocked: midpoint quarter sip near-hand marker error7.1868 art units; carry near7.2687; read near1.3051 (>1.25 limit), far15.0131. Sip/carry far markers are geometrically near their targets but back-depth composition is unreviewed and intentionally rejected. These marker numbers do not certify physical grip or root contours. Do not move the prop/shoulder, swap true near/far sources, or remove the depth guard to manufacture a pass.
+
+Next owner: independent-fore identity/material work can proceed separately; quarter needs a source-supported action/depth slice at the unchanged actual targets, not a mirror patch. Overall requested feature remains NO-GO. Coordinate ownership via commits and this handoff.
 
 ## Next agent task
 
