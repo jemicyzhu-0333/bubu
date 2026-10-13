@@ -6,7 +6,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const backend = createRequire(root + '/')(process.env.DANGO_CANVAS_PACKAGE || '@napi-rs/canvas');
 const imp = p => import(pathToFileURL(path.join(root, p)).href);
 const { createDangoLimbSource } = await imp('src/capabilities/companion/presentation/dango-limb-assets.mjs');
-const { solveLimb, poseFor } = await imp('src/capabilities/companion/presentation/dango-limb-compose.mjs');
+const { solveLimb, poseFor, contactContract } = await imp('src/capabilities/companion/presentation/dango-limb-compose.mjs');
 const { DANGO_LIMB_RIG } = await imp('src/content/companion/dango-limbs.mjs');
 export async function loadLimbSource() {
   const base = pathToFileURL(path.join(root, 'assets/companion/dango/raster/')).href;
@@ -28,9 +28,19 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   for (const [id, a] of Object.entries(PET_ACTIONS)) for (const view of ['front', 'three-quarter', 'back']) for (let p = .05; p < 1; p += .1) {
     const art = artist.resolveArtwork({ action: a, motion: a.motion, progress: p, view, elapsedMs: p * 4000 });
     for (const h of art.contact?.hands || []) {
-      const t = h.points?.at(-1) || h.gripPoint; if (!t) continue;
-      const plan = solveLimb(src, { view: art.drawnView || view, side: h.side, target: t, pose: poseFor(a) });
-      rows.push({ id, view: art.drawnView || view, side: h.side, p: +p.toFixed(2), pose: poseFor(a), err: plan ? +plan.error.toFixed(2) : null, kind: h.pawSprite || h.style || (h.attachedArm ? 'arm' : '?') });
+      const contract = contactContract(h, a);
+      const t = contract?.target || h.gripPoint || h.points?.at(-1); if (!t) continue;
+      const actualView = art.drawnView || art.view || view, pose = contract?.pose || poseFor(a);
+      const plan = contract && solveLimb(src, { view: actualView, side: h.side, target: t, pose, contract });
+      rows.push({ id, requestedView: view, view: actualView, side: h.side, p: +p.toFixed(2), pose,
+        target: t, targetSource: h.gripPoint ? 'gripPoint' : 'legacy-endpoint', legacyEndpoint: h.points?.at(-1) || null,
+        role: contract?.role || 'unsupported-integrated', normal: contract?.normal || null,
+        fixedShoulder: plan?.S || null, wrist: plan?.W || null, renderedContact: plan?.contactWorld || null,
+        assetView: plan?.view || null, assetSide: plan?.side || null,
+        selectedPaw: plan?.paw.src || null, upperAngle: plan?.joint.upperAngle ?? null, foreAngle: plan?.joint.foreAngle ?? null,
+        err: plan ? +plan.error.toFixed(4) : null, kind: h.pawSprite || h.style || (h.attachedArm ? 'arm' : '?'),
+        status: !contract ? 'unsupported-contract' : !plan ? 'no-compatible-frame' : plan.error <= DANGO_LIMB_RIG.maxContactError ? 'marker-within-tolerance' : 'marker-out-of-range',
+        evidence: 'Discrete marker diagnostic only; not source-approved surface contact or production activation' });
     }
   }
   const ok = rows.filter(r => r.err != null && r.err <= DANGO_LIMB_RIG.maxContactError);

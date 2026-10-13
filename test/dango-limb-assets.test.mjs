@@ -64,7 +64,7 @@ test('painter gate: unreachable contacts and quarter far palms stay legacy', asy
   assert.equal(painter.plan('three-quarter', { side: 'right', points: [[0, 0], far.contactWorld] }, { prop: 'broom' }), null);
 });
 
-test('coverage: proximal upper-arm pixels survive only inside the body stencil', async () => {
+test('coverage: proximal upper-arm pixels use valid stencil and canonical body beyond it', async () => {
   const sock = M.sockets.find(x => x.view === 'front' && x.side === 'l');
   const stencilOn = new Set();
   const s = createDangoLimbSource({ baseUrl: base, loadJson, loadImage: async src => ({ src, width: 25, height: 25 }), acceptContract: 2,
@@ -81,6 +81,8 @@ test('coverage: proximal upper-arm pixels survive only inside the body stencil',
     const wx = x + B.x, wy = y + B.y;
     if ((wx + .5 - p.S[0]) * dir[0] + (wy + .5 - p.S[1]) * dir[1] > 0) continue;
     const sx = wx - off[0], sy = wy - off[1];
-    assert.ok(sx >= 12 && sx < 25 && sy >= 0 && sy < 25, `proximal pixel ${wx},${wy} outside stencil`);
+    const [x0,y0,x1,y1] = sock.usefulLocalRect;
+    if (sx >= x0 && sx < x1 && sy >= y0 && sy < y1) assert.ok(sx >= 12, `proximal pixel ${wx},${wy} outside valid stencil coverage`);
+    else assert.equal(s.bodyAlpha(p.view, wx + .5, wy + .5), true, `proximal pixel ${wx},${wy} outside canonical body`);
   }
 });

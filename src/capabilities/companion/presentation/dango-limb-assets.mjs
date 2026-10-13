@@ -56,6 +56,12 @@ function validateDangoLimbManifest(json, { joints = null, interfaces = null } = 
       sprite(`sockets.shoulder.${view}.${side}`, s);
       if (s.maskRole !== 'attachment-coverage') err(`sockets.shoulder.${view}.${side}.maskRole`, 'attachment-coverage expected');
       if (typeof s.coverageStencil !== 'string') err(`sockets.shoulder.${view}.${side}.coverageStencil`, 'required'); else add(s.coverageStencil);
+      if (s.sourceBody) {
+        const body = s.sourceBody;
+        if (typeof body.src !== 'string' || !body.src.endsWith('.png') || body.src.includes('..')) err(`sockets.shoulder.${view}.${side}.sourceBody`, 'safe relative .png required');
+        else if (!Array.isArray(body.rect) || body.rect.length !== 4 || !body.rect.every(isNum) || body.rect[2] <= 0 || body.rect[3] <= 0) err(`sockets.shoulder.${view}.${side}.sourceBody`, 'valid art rectangle required');
+        else add(body.src);
+      }
     }
   }
   for (const k of ['arm-upper-l', 'arm-fore-l']) frames(`segments.${k}.frames`, json.segments?.[k]?.frames, ['tip']);
@@ -115,8 +121,20 @@ function createDangoLimbSource({ baseUrl, loadJson = defaultLoadJson, loadImage,
     });
     return pending;
   }
+  // Full canonical alpha resolves the stencil's deliberately unknown margins.
+  // Inputs are asset-view art-space pixel centers, never runtime-reflected twice.
+  function bodyAlpha(view, wx, wy) {
+    if (state !== 'ready' || !isNum(wx) || !isNum(wy)) return null;
+    const body = manifest.sockets.find(s => s.kind === 'shoulder' && s.view === view)?.sourceBody;
+    const image = body && pixels.get(body.src);
+    if (!image?.data || !isNum(image.width) || !isNum(image.height)) return null;
+    const [x, y, w, h] = body.rect;
+    const px = Math.floor((wx - x) * image.width / w), py = Math.floor((wy - y) * image.height / h);
+    if (px < 0 || py < 0 || px >= image.width || py >= image.height) return false;
+    return image.data[(py * image.width + px) * 4 + 3] > 0;
+  }
   return Object.freeze({
-    start, ready: start,
+    start, ready: start, bodyAlpha,
     state: () => state, errors: () => errors,
     manifest: () => (state === 'ready' ? manifest : null),
     joints: () => (state === 'ready' ? joints : null),

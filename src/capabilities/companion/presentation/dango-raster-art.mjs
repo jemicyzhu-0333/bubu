@@ -71,16 +71,25 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
   const limbGates = new Map();
   function limbGate(data, view, side, options) {
     const id = options.action?.id || options.motion; if (!id) return false;
-    const key = `${id}|${view}|${side}`;
+    const key = JSON.stringify([limbSource.manifest()?.version, id, view, side, options.action,
+      options.motion, Boolean(options.calmVisual), Boolean(options.reducedMotion)]);
     if (!limbGates.has(key)) {
       let ok = true;
-      for (let i = 0; ok && i < 16; i++) {
-        const p = (i + .5) / 16;
+      // Include endpoints and dense deterministic phase boundaries. A sparse
+      // midpoint-only probe missed whole intervals of unreachable cup contact.
+      for (let i = 0; ok && i <= 256; i++) {
+        const p = i / 256;
         const sample = sampleRasterPose(data, { ...options, view, toolSprites, lookback: null, progress: p, elapsedMs: p * (options.action?.duration || 4000) });
         const hand = sample.contact?.hands?.find(h => h.side === side);
-        if (hand && !limbPainter.plan(view, hand, options.action)) ok = false;
+        if (hand) {
+          const plan = limbPainter.plan(view, hand, options.action);
+          // Conservative headroom between probes; this is a preview guard,
+          // not continuous interval certification or production acceptance.
+          if (!plan || plan.error > .75) ok = false;
+        }
       }
       limbGates.set(key, ok);
+      if (limbGates.size > 256) limbGates.delete(limbGates.keys().next().value);
     }
     return limbGates.get(key);
   }
@@ -306,8 +315,8 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
     expressionAccent, statusEffect, actionOverlay: (_context, action) => Boolean(motionCaps(action).overlayForms?.includes('dango-raster')),
     ready({ all = false } = {}) { return Promise.all([source.ready(all ? collectRasterSprites(manifest) : defaultSprites), runSample?.ready(), limbSource?.start()]); },
     limbStatus() { return limbSource ? { state: limbSource.state(), errors: limbSource.errors() } : { state: 'disabled', errors: [] }; },
-    cacheStats() { return Object.freeze({ source: source.stats(), palette: painter.stats(), roots: roots.stats(), tailRoot: tailRoot.stats(), runSample: runSample?.stats() || null }); },
-    dispose() { eyeAperture.dispose(); source.dispose(); painter.dispose(); roots.dispose(); tailRoot.dispose(); runSample?.dispose(); }
+    cacheStats() { return Object.freeze({ source: source.stats(), palette: painter.stats(), roots: roots.stats(), tailRoot: tailRoot.stats(), runSample: runSample?.stats() || null, limbs: limbPainter?.stats() || null }); },
+    dispose() { limbGates.clear(); limbPainter?.dispose(); eyeAperture.dispose(); source.dispose(); painter.dispose(); roots.dispose(); tailRoot.dispose(); runSample?.dispose(); }
   });
 }
 
