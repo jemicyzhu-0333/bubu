@@ -53,3 +53,9 @@ Next owner: independent-fore identity/material work can proceed separately; quar
 4. Stop iterating an unverifiable sip root crop. If continuing sip, use one bounded low/lift/sip whole-fore+palm key-pose plan with original-body occlusion and unchanged cup/body. Require source ownership, natural roots and continuous native-size playback before integration/activation.
 5. Record completed work, evidence, remaining blockers, integration contract and next task here with each small commit. Coordinate through this branch and committed handoff, not private external messages.
 6. Final delivery must explicitly say MERGE-READY or NO-GO for the exact shared head, including both target-platform CI/native limitations. The user has not authorized an automatic main merge.
+
+## Bobo Round 7 review (2026-10-13 ~17:40 UTC, on f74811c)
+
+Per-issue status and numbers are in `README.md` + `round7/`. Summary: no reverts; default render identical to b762608; `npm run check`
+5975/5970/0 fail/5 skip; provenance FIXED; reach, root outlines, right-shoulder overhang, quarter near hand, upper==fore (16), gait still
+OPEN. No production activation (including front hiccup source-contact); no runtime code changed by Bobo this round.
