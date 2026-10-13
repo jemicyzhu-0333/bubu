@@ -1,5 +1,7 @@
 'use strict';
 
+const { DANGO_WALK_WORKBENCH } = require('../../content/companion/gait/dango-walk.mjs');
+
 const CATALOG_VIEWS = Object.freeze(['front', 'three-quarter', 'profile', 'back']);
 
 function freeze(value) {
@@ -76,6 +78,8 @@ function createPetCatalog({ content, skins = {}, views = CATALOG_VIEWS } = {}) {
   const actions = content.PET_ACTIONS && typeof content.PET_ACTIONS === 'object'
     ? uniqueById(Object.values(content.PET_ACTIONS).map(action => mapAction(action)))
     : [];
+  if (DANGO_WALK_WORKBENCH.enabled) actions.push({ ...mapAction(DANGO_WALK_WORKBENCH.action),
+    previewDefaults: { ...DANGO_WALK_WORKBENCH.action.previewDefaults } });
   const sessions = content.SESSION_ACTIVITIES && typeof content.SESSION_ACTIVITIES === 'object'
     ? uniqueById(Object.values(content.SESSION_ACTIVITIES)
       .map(activity => mapAction({ ...activity, name: activity.label }, 'session')))

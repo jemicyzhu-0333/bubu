@@ -1,0 +1,111 @@
+{
+  "status": "Portable smoke reproduction: 3 selected phases, not a full 257-phase recheck",
+  "runtimeReady": false,
+  "hostAcceptance": null,
+  "backend": "Actual requested repository production selector and standard raster artist; only four source gates enabled in an in-memory test clone; offscreen Skia, not browser/native host",
+  "sourceProjection": "Only frozen 66x72 / exact8x source PNGs consumed, never raw re-quantization by phase or DPR",
+  "assetHashes": {
+    "sip-front-v2-left-root-back": "7fefa65a5e54b005aebb35e44d38fbf6d3c457dcb648061881d2f55448b2470d",
+    "sip-front-v2-left-fore-palm-front": "43a1ca6b128aff8bce8f95e6462510bdbdada4feb6847c84a29b78a2387e3167",
+    "sip-front-v2-right-root-back": "1f6da45733acbb3eadb27095b2f4b33a966e84bfad427042c8b5d3e5a46c82cb",
+    "sip-front-v2-right-fore-palm-front": "05a90d52d33c7e810d888db930e2f39f45675925a688c5168a32b356a8d17047"
+  },
+  "summary": {
+    "rasterSamples": 15,
+    "sourceInactive": 0,
+    "bodyOrCupChanges": 0,
+    "sourceMatrixFailures": 0,
+    "faceOverlapPixels": 0,
+    "rootExposedPixels": 0,
+    "rootBelow240Pixels": 0,
+    "maxRootResidualAlpha": 0,
+    "maxContactPixelGap": 0,
+    "maxCupTranslationStepArt": 0,
+    "nonFinitePixels": 0,
+    "phases": 3,
+    "dprs": [
+      1,
+      1.25,
+      1.5,
+      2,
+      4
+    ]
+  },
+  "entryExit": [
+    {
+      "label": "idle-before",
+      "sourceContactPose": null,
+      "rootCount": 0,
+      "sourceFrontCount": 0
+    },
+    {
+      "label": "sip-enter",
+      "sourceContactPose": "sip-front-v2",
+      "rootCount": 2,
+      "sourceFrontCount": 2
+    },
+    {
+      "label": "sip-mid",
+      "sourceContactPose": "sip-front-v2",
+      "rootCount": 2,
+      "sourceFrontCount": 2
+    },
+    {
+      "label": "sip-end",
+      "sourceContactPose": "sip-front-v2",
+      "rootCount": 2,
+      "sourceFrontCount": 2
+    },
+    {
+      "label": "idle-after",
+      "sourceContactPose": null,
+      "rootCount": 0,
+      "sourceFrontCount": 0
+    },
+    {
+      "label": "sip-new",
+      "sourceContactPose": "sip-front-v2",
+      "rootCount": 2,
+      "sourceFrontCount": 2
+    },
+    {
+      "label": "wave-cancel",
+      "sourceContactPose": null,
+      "rootCount": 0,
+      "sourceFrontCount": 0
+    },
+    {
+      "label": "sip-reenter",
+      "sourceContactPose": "sip-front-v2",
+      "rootCount": 2,
+      "sourceFrontCount": 2
+    },
+    {
+      "label": "wrong-view",
+      "sourceContactPose": null,
+      "rootCount": 0,
+      "sourceFrontCount": 0
+    },
+    {
+      "label": "front-after-ineligible",
+      "sourceContactPose": null,
+      "rootCount": 0,
+      "sourceFrontCount": 0
+    },
+    {
+      "label": "front-new-instance",
+      "sourceContactPose": "sip-front-v2",
+      "rootCount": 2,
+      "sourceFrontCount": 2
+    }
+  ],
+  "rawSourceException": "Initial p0 left had 6/14259 original opaque root samples outside body before fixed projection. Preserved source; not erased or promoted to full raw coverage.",
+  "phaseRows": 3,
+  "rows": 15,
+  "batchExecution": {
+    "mode": "Three serial single-phase smoke samples",
+    "continuousInstance": "A separate single-artist run renders all257 phases through one action instance.",
+    "exactDprScale": "Canvas allocation ceil(146*1.5*dpr); drawing scale exactly1.5*dpr.",
+    "resourceCaveat": "The historical monolithic multi-surface audit exited137. This bounded harness does not certify native-host process or GPU memory."
+  }
+}

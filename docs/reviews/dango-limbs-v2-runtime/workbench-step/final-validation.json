@@ -1,0 +1,70 @@
+{
+  "baseHead": "1ca0e82389e2e3e145b396d3c52125dd313d674d",
+  "dateUtc": "2026-10-13T20:27:00Z",
+  "check": {
+    "command": "taskset -c 0,1,2 env PET_MOTION_CANVAS_PACKAGE=$PWD/node_modules/@napi-rs/canvas USAGI_CANVAS_PACKAGE=$PWD/node_modules/@napi-rs/canvas npm run check",
+    "exitCode": 0,
+    "tests": 6024,
+    "pass": 6015,
+    "skip": 9,
+    "fail": 0,
+    "allFollowingAggregateStepsPassed": true
+  },
+  "integration": {
+    "exitCode": 0,
+    "tests": 71,
+    "pass": 71
+  },
+  "focusedFacingReview": {
+    "tests": 93,
+    "pass": 93,
+    "independentRegressions": 3
+  },
+  "earlierFailures": {
+    "bodyOffsetScanner": "Repaired endpoint after unchanged motionOffset evaluation moved behind resolved appearance; all range assertions retained. Isolated8/8 pass.",
+    "usagiWholeTestProcess": "Two default-parallelism runs failed without an individual assertion. Isolated19/19 and final bounded aggregate pass. Cause not established; no Usagi production/test modifications."
+  },
+  "productionFileSha256": {
+    "package.json": "b04fe89870aecec8d4088f7f46b5ac7e79942978c7dbd7a10e7d7cb57a6e6e33",
+    "src/capabilities/companion/pet-catalog.js": "50fe20bcec69ac2c75fb44a70e9d8919014def9f0829060496e254035976540e",
+    "src/capabilities/companion/presentation/dango-limb-compose.mjs": "5947b0d6a80d65800a12a2c5c8e678ebe5b91fe28d4db95fd97a5648c65aa946",
+    "src/capabilities/companion/presentation/dango-raster-production.mjs": "a0ce0bb67eab66e4a0b3ca6d48d059b0b13d8ca30f26f19be0c6b4c4b17cdd75",
+    "src/capabilities/companion/presentation/dango-sip-contact-pose.mjs": "27b00b076bbe4ea9235552c2ed3ca4d6537ea581d22776eccab1759b069c4847",
+    "src/capabilities/companion/presentation/dango-source-contact-pose.mjs": "5b851e89e1e53d8a9819053e8b5a26bb5b93611acc0f20b16b17249f4c8d3dfa",
+    "src/capabilities/companion/presentation/form-art.mjs": "73dfacc173af211dc0f3797c10192f1bdcbc6531b536a480e1e2f3660afd448e",
+    "src/capabilities/companion/presentation/gait/dango-walk-artist.mjs": "8a2292035c1623d19435c53bcf86044b8d085d6e05c217be899355b37a064aba",
+    "src/capabilities/companion/presentation/gait/dango-walk.mjs": "444b0d2d55b4869aea330dded7389905d90add7168183a1134a3f841be604ad1",
+    "src/content/companion/gait/dango-walk.mjs": "9b60ee0589e558a58577fb2f1df832cc0464bf4257123150284cadfbd5aaa3e1",
+    "src/surfaces/pet/action-playback.mjs": "3bef6325555033bd4df0e4f4ec3ba211d1e22a20ffdf525c1099ef511d1fb8c2",
+    "src/surfaces/pet/body-presentation.mjs": "0505aad631f42a57f5c1378fde84348f6d715a236959ed30a01b08f7cc6956c5",
+    "src/surfaces/pet/bounded-gait-playback.mjs": "e1637c11949ec727f1e8a8a9870a127470c1ef3eec6035c08d99843eb14a77fb",
+    "src/surfaces/pet/devtools.mjs": "9a7c9edeade66bfa05078f6829abc3db00738a0f46021082afbe766b22748ae7",
+    "src/surfaces/pet/renderer.mjs": "5a0e0193bfff657eb27c455f61f296b1d1d4dda95a88d89eaee3a6c95e97710d",
+    "test/dango-sip-source-contact.test.mjs": "a2b97a23dba2598e59a236f5235c2c5151ce977f0d97ec9bcca76e6361b43c6d",
+    "test/dango-sip-source-runtime.test.mjs": "6195f235f951f8a03bc42ed920abbbe8031e55ee7cad825426ab0c436e1f2dee",
+    "test/dango-step-in-place.test.mjs": "064a418e7740afed20006d246beb31514160702450133798d666f8adbc73d5d0",
+    "test/pet-raster-package.test.js": "a82269adc6648ebfc114fd6cbb8d76d1116404f0ebd478d1214b9e6c7bbe4e12",
+    "test/pet-renderer-smoke.test.js": "c7ec2991ab4f0b1d4bdbc2a1d03479c980bcbb62e544a17ed3a45cc8411ae811",
+    "test/pet-stage.test.js": "20ff17ddfecdd7b0305978dc268e2e2e1301c4f4c798601efdfa4ffed9edbe45",
+    "test/pet-workbench.test.js": "18664cf4a297eafc71ba5949abacc2173ab69a771720d5c969d19562e8514a68",
+    "tools/dango-walk-review/capture-workbench.cjs": "efdf5960671c104e109b00ee77ea9436dabb061cc4917187068acbd79da64ed0",
+    "tools/dango-walk-review/verify-workbench.cjs": "362f10eca1cc8552cf848b729942fde3bff1733d23872e2dc551fad66da608c5"
+  },
+  "retainedLogSha256": {
+    "sip-walk-final-check.log": "fcc920b5fc1fe00d5558939a110e58137b8be7bddc0e8544c4747dd743c7c283",
+    "sip-walk-final-check-rerun.log": "b82de97281b0433ec4a1076738c2c3cb6eeaba7358a14389f3f9131c4894c840",
+    "sip-walk-final-check-bounded.log": "c5db803e5a1f28050fe70c2387e7974c5fcdb12d669be7fecf29fd585d8fbe15",
+    "sip-walk-final-integration.log": "4a990f7f86e710effb25489c1b2234bf244f4244ff54a3f11233a0f1414c1e02",
+    "sip-walk-final-usagi-isolated.log": "4545f24e8b9d702a8cc0eb5de32dbed5ceb6e3f8dd651c7fcea2ca801c61e88b",
+    "sip-walk-stage-isolated.log": "a62bc050a866d8ddcabcc1bacb4085703dd12c8743590d4681ca2c10402b1068"
+  },
+  "excludedReproducibleOutputs": [
+    "complete aggregate logs",
+    "all per-phase PNGs",
+    "full per-phase artist/runtime traces",
+    "temporary runtime source copies"
+  ],
+  "nativeAccepted": false,
+  "browserAccepted": false,
+  "completeSevenIssueMergeReady": false
+}

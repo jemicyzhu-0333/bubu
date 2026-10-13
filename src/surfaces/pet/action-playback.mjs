@@ -1,4 +1,5 @@
 'use strict';
+import { createBoundedGaitPlayback } from './bounded-gait-playback.mjs';
 import { formArt } from '../../capabilities/companion/index.mjs';
 import { createMirrorPlayback, resolveMirrorBodyPose } from './mirror-playback.mjs';
 import { createPaperReturnExit } from './paper-return-exit.mjs';
@@ -8,9 +9,9 @@ import { attachActivityCombination } from './activity-combination.mjs';
 // beats. Selection remains independent of drawing and adds no mutable state.
 function resolveActionPlayback({ content, preview, egg, sessionSnapshot, now,
   previewStartedAt = 0, actionStartedAt = 0, calmVisual = false, form,
-  mirrorPlayback = null, visualBridge = null, mirrorBlocked = false, combinationContext = null } = {}) {
+  mirrorPlayback = null, visualBridge = null, gaitPlayback = null, mirrorBlocked = false, combinationContext = null } = {}) {
   let previewConfig = null;
-  if (preview?.category === 'action') previewConfig = content?.PET_ACTIONS?.[preview.id] || null;
+  if (preview?.category === 'action') previewConfig = content?.PET_ACTIONS?.[preview.id] || formArt.previewAction(form, preview.id);
   else if (preview?.category === 'session') previewConfig = content?.SESSION_ACTIVITIES?.[preview.id] || null;
   else if (preview?.category === 'prop') {
     previewConfig = [...Object.values(content?.PET_ACTIONS || {}), ...Object.values(content?.SESSION_ACTIVITIES || {})]
@@ -29,10 +30,13 @@ function resolveActionPlayback({ content, preview, egg, sessionSnapshot, now,
     progress = egg.static || calmVisual ? (source?.staticProgress ?? .5)
       : Math.max(0, Math.min(1, (now - actionStartedAt) / Math.max(1, egg.duration)));
   } else if (sessionSnapshot) progress = calmVisual ? .5 : sessionSnapshot.progress;
+  const gait = gaitPlayback?.sample({ action: source, preview, previewStartedAt, now, calmVisual,
+    paused: combinationContext?.state?.sessionPaused, form, state: combinationContext?.state, source: combinationContext?.source });
+  if (gait) { source = gait.action; progress = gait.progress; }
   const mirrored = mirrorPlayback?.sample({ action: sessionSnapshot?.activity || null,
     progress: calmVisual ? .5 : sessionSnapshot?.progress || 0, now, formId: form?.id,
     blocked: Boolean(preview || egg || mirrorBlocked), calmVisual });
-  if (mirrored && !preview && !egg) { source = mirrored.action; progress = mirrored.progress; }
+  if (mirrored && !preview && !egg && !gait) { source = mirrored.action; progress = mirrored.progress; }
   if (combinationContext && !preview && !egg) {
     source = attachActivityCombination(source, { ...combinationContext, calmVisual, blocked: mirrorBlocked });
   }
@@ -42,18 +46,19 @@ function resolveActionPlayback({ content, preview, egg, sessionSnapshot, now,
       viewFor: action => formArt.resolveView(form, 'auto', { action, state: combinationContext?.state?.state }) });
   const sampled = formArt.sampleAction(form, visual ? visual.actionConfig : source || null,
     visual ? visual.actionT : progress, { calmVisual });
-  return Object.freeze({ previewConfig, actionConfig: sampled.action, actionT: sampled.progress, phase: sampled.phase, viewHint: visual?.viewHint });
+  return Object.freeze({ previewConfig, actionConfig: sampled.action, actionT: sampled.progress, phase: sampled.phase, viewHint: gait?.viewHint || visual?.viewHint, facingHint: gait?.facingHint });
 }
 function createActionPlayback() {
   const mirrorPlayback = createMirrorPlayback();
+  const gaitPlayback = createBoundedGaitPlayback();
   const paperExit = createPaperReturnExit();
   let combination = null;
   function resolve(options) {
-    const result = resolveActionPlayback({ ...options, mirrorPlayback, visualBridge: paperExit });
+    const result = resolveActionPlayback({ ...options, mirrorPlayback, visualBridge: paperExit, gaitPlayback });
     combination = result.actionConfig?.activityCombination || null;
     return result;
   }
-  function reset() { mirrorPlayback.reset(); paperExit.reset(); combination = null; }
+  function reset(context) { mirrorPlayback.reset(); paperExit.reset(); gaitPlayback.reset(context); combination = null; }
   return Object.freeze({ resolve, reset, snapshot: mirrorPlayback.snapshot,
     combinationSnapshot: () => combination });
 }

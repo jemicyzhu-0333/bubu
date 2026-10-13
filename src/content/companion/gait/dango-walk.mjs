@@ -10,3 +10,17 @@ export const DANGO_SOURCE_WALK = Object.freeze({
   reflectX:true,sourcePose:'approved same-view standing round-arc foot'
  })
 });
+
+// Manual workbench-only slice. This does not enter PET_ACTIONS or autonomous
+// cue manifests, and never changes the native window or persisted position.
+const DANGO_WALK_WORKBENCH = Object.freeze({
+ enabled: true,
+ action: Object.freeze({
+  id: 'ordinary-walk-in-place', name: '原地踏步（团子裸身三分之四）',
+  motion: 'idle', prop: 'none', effect: 'none', expression: 'life.idle',
+  duration: 7200, staticProgress: 0,
+  motionCaps: Object.freeze({ ownsGround: true, stepInPlace: true }),
+  previewDefaults: Object.freeze({ skin: 'pink', view: 'three-quarter', level: 1 })
+ })
+});
+export { DANGO_WALK_WORKBENCH };

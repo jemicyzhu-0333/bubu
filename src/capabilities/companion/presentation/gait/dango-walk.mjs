@@ -44,4 +44,26 @@ function sampleDangoWalkEpisode(progress,{groundY=C.groundY,reducedMotion=false}
  return {...sample,episodeProgress:p,episodeComplete:p===1};
 }
 
-export { sampleDangoSourceWalk, sampleDangoWalkEpisode };
+// Step-in-place has its own world contacts. It is not forward travel with the
+// body offset subtracted: both stance feet remain at their original ground
+// points, and the airborne foot makes a closed out-and-back recovery.
+function sampleDangoStepInPlaceEpisode(progress, { reducedMotion = false, settle = 0 } = {}) {
+ assertFinite(progress, 'progress');
+ assertFinite(settle, 'settle');
+ const strength = 1 - smooth(Math.max(0, Math.min(1, settle)));
+ const p = Math.max(0, Math.min(1, progress)), q = p * 4.6;
+ const envelope = q <= .5 || q >= 4 ? 0 : q < 1.5 ? smooth(q - .5) : q <= 3 ? 1 : 1 - smooth(q - 3);
+ const sample = sampleDangoSourceWalk(q, { travelAt: () => 0, bobScale: envelope, reducedMotion });
+ const feet = sample.feet.map(foot => {
+  if (foot.support) return foot;
+  const local = q - (foot.side === 'far' ? .5 : 0), u = (mod(local) - C.duty) / (1 - C.duty);
+  const sweep = C.stride * 16 * u * u * (1 - u) * (1 - u) * (2 * u - 1);
+  const x = C.hips[foot.side] + sweep * strength;
+  const y = C.groundY - foot.clearance * strength;
+  return { ...foot, support: strength === 0, phase: strength === 0 ? 'support' : foot.phase, clearance: foot.clearance * strength,
+   rootWorld: [x, y - 7], soleWorld: [x, y] };
+ });
+ return { ...sample, bodyWorld: [0, sample.bodyWorld[1] * strength], feet, supportCount: feet.filter(foot => foot.support).length, episodeProgress: p, episodeComplete: p === 1, mode: 'step-in-place' };
+}
+
+export { sampleDangoSourceWalk, sampleDangoWalkEpisode, sampleDangoStepInPlaceEpisode };

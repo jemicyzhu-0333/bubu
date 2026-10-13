@@ -175,7 +175,9 @@ test('四肢与道具的全部绘制都落在安全区内，不会被画布边�
 
 test('每帧的身体位移不会把身体本体推出画布', () => {
   const stage = resolvePetStage({ devicePixelRatio: 2 });
-  const drawPet = sourceBetween(petSource, 'function drawPet(', 'pctx.clearRect(0, 0, size, size)');
+  // Action offsets now use the resolved view/outfit facing, after canvas clear.
+  // Keep scanning the same body/action offset stage, before expression sampling.
+  const drawPet = sourceBetween(petSource, 'function drawPet(', 'const exprId = runtimeState.devPreview');
 
   const offsets = [...drawPet.matchAll(/off([XY])\s*([+-])=\s*([^;]+);/g)];
   assert.ok(offsets.length >= 3, `只解析到 ${offsets.length} 处 renderer 身体位移，扫描器与源码已经脱节`);

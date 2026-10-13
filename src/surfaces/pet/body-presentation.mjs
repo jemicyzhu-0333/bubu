@@ -10,6 +10,10 @@ import { motionCaps } from '../../capabilities/companion/index.mjs';
 // its higher-priority body offset.
 function ownsGround(action, expressionId, source = 'base', eventId = null, actionEventId = null) {
   if (!action || !motionCaps(action).ownsGround) return false;
+  // An explicitly selected workbench gait retains its floor while the session
+  // pause source changes. Higher-priority input/essential feedback still wins.
+  if (motionCaps(action).stepInPlace && action.previewPlayback && source === 'session'
+    && expressionId === action.expression) return true;
   if (source === 'base') return expressionId === (action.baseExpression || action.expression);
   return typeof eventId === 'string' && eventId.length > 0 && eventId === actionEventId;
 }
@@ -31,4 +35,14 @@ function resolveActionBodyPose(body, options = {}) {
 // body are already coordinated, so its base happy beat must not lift the floor.
   return Object.freeze({ tone: body?.tone || 'normal', x: 0, y: 0, scaleX: 1, scaleY: 1, rotateDeg: 0 });
 }
-export { ownsGround, bodyStateOffset, resolveActionBodyPose };
+
+// An admitted preview may request native-facing art, but restored outfits/views
+// can still reject that art at close. Resolve against this frame's projection.
+function resolveGaitFacing({ facing, facingHint, formId, state, view, appearance }) {
+  const native = facingHint === 1 && formId === 'dango'
+    && [undefined, 'idle', 'walking'].includes(state)
+    && ['three-quarter', 'three-quarter-right'].includes(view)
+    && Array.isArray(appearance?.items) && appearance.items.length === 0;
+  return native ? 1 : facing;
+}
+export { ownsGround, bodyStateOffset, resolveActionBodyPose, resolveGaitFacing };

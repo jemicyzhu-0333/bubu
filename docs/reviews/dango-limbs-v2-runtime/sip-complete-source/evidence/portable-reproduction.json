@@ -1,0 +1,119 @@
+{
+  "ok": true,
+  "sampleMode": "Three selected phase indices0/128/256 at allfiveDPR, plus full single-instance257phase lifecycle check. Not a second full1285-sample audit.",
+  "outputPathContainsSpaces": true,
+  "repositoryContainsActualProductionSelector": true,
+  "onlyTestCloneGatesEnabled": true,
+  "frames": [
+    {
+      "phaseIndex": 0,
+      "phase": 0.0,
+      "pngBytesEqual": true,
+      "rgbaPixelsEqual": true,
+      "sha256": "514ca6439a685e25bc4ea4abf520613b0103a61c293086ba6f1c18d093c830d4",
+      "rgbaSha256": "b4ceb357e26689286c14be26e7f3cff6da9a3ad425cd6647a1ed8e400782f03e"
+    },
+    {
+      "phaseIndex": 128,
+      "phase": 0.5,
+      "pngBytesEqual": true,
+      "rgbaPixelsEqual": true,
+      "sha256": "0a30a0c7cb3018519b5500fbff21459ef7a5968f6271b0788c57ddd7ab8441a9",
+      "rgbaSha256": "e9eb8cecb5ecdac162058e4560cfc3740b0898d53540497829bcd36f35b9cfb5"
+    },
+    {
+      "phaseIndex": 256,
+      "phase": 1.0,
+      "pngBytesEqual": true,
+      "rgbaPixelsEqual": true,
+      "sha256": "93bd42ab25d28e1d7fef424b43fbb0e9e55452d3bdbfe6c79717b4a3bf558a7a",
+      "rgbaSha256": "a76be77f6fcdab65620f2f9f429124a1b00fc65cc87f6579aed20f797841150e"
+    }
+  ],
+  "continuousLifecycleHashMatches": [
+    {
+      "name": "idle",
+      "sameCandidateHash": true,
+      "sameLegacyHash": true,
+      "fallbackPixelsMatchLegacy": true
+    },
+    {
+      "name": "enter",
+      "sameCandidateHash": true,
+      "sameLegacyHash": true,
+      "fallbackPixelsMatchLegacy": null
+    },
+    {
+      "name": "active",
+      "sameCandidateHash": true,
+      "sameLegacyHash": true,
+      "fallbackPixelsMatchLegacy": null
+    },
+    {
+      "name": "cancel-wave",
+      "sameCandidateHash": true,
+      "sameLegacyHash": true,
+      "fallbackPixelsMatchLegacy": true
+    },
+    {
+      "name": "reenter",
+      "sameCandidateHash": true,
+      "sameLegacyHash": true,
+      "fallbackPixelsMatchLegacy": null
+    },
+    {
+      "name": "ineligible-view",
+      "sameCandidateHash": true,
+      "sameLegacyHash": true,
+      "fallbackPixelsMatchLegacy": true
+    },
+    {
+      "name": "same-instance-stays-legacy",
+      "sameCandidateHash": true,
+      "sameLegacyHash": true,
+      "fallbackPixelsMatchLegacy": true
+    },
+    {
+      "name": "new-instance",
+      "sameCandidateHash": true,
+      "sameLegacyHash": true,
+      "fallbackPixelsMatchLegacy": null
+    },
+    {
+      "name": "end",
+      "sameCandidateHash": true,
+      "sameLegacyHash": true,
+      "fallbackPixelsMatchLegacy": null
+    },
+    {
+      "name": "idle-after",
+      "sameCandidateHash": true,
+      "sameLegacyHash": true,
+      "fallbackPixelsMatchLegacy": true
+    }
+  ],
+  "originalFullResult": "evidence/summary.json",
+  "smokeSummary": "evidence/portable-smoke-summary.json",
+  "reproducedScriptHashes": [
+    {
+      "path": "scripts/candidate-fixture.mjs",
+      "sha256": "90588cce450785eb8c984773da519d813701a7e6edada3a8545001c2b7838a4a"
+    },
+    {
+      "path": "scripts/continuous-instance.mjs",
+      "sha256": "2af5f5e072583d9aeee59c042dd17af6d55129aeccdbd27bfa5d2f0c9a2f6f46"
+    },
+    {
+      "path": "scripts/renderer-oracle.mjs",
+      "sha256": "dac9958ab94065859486157f8614019192a4771122980795bf810329ff888d09"
+    },
+    {
+      "path": "scripts/run-review.mjs",
+      "sha256": "073805fa132216d29774821402680f293c96b66326894aae2bf36ed27ffa6d58"
+    },
+    {
+      "path": "scripts/verify-reproduction.mjs",
+      "sha256": "c0fcb544aa23bba4e89f8bf9b90d2648daff21a65a0350d9540bdfc1f2c67d42"
+    }
+  ]
+}

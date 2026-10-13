@@ -1,6 +1,6 @@
 'use strict';
 import { motionCaps } from '../../capabilities/companion/index.mjs';
-import { bodyStateOffset, resolveActionBodyPose } from './body-presentation.mjs';
+import { bodyStateOffset, resolveActionBodyPose, resolveGaitFacing } from './body-presentation.mjs';
 
 import petExpression from '../../core/pet-expression.mjs';
 import petStage from '../../core/pet-stage.mjs';
@@ -180,7 +180,7 @@ function drawPet() {
   const presentationEventId = presentationNow?.eventId ?? null;
   const actionEventId = runtimeState.currentEgg?.presentationEventId ?? null;
   const contextInput = { state: runtimeState, activity: sessionAction, source: presentationSource, expressionId: selectedExpression };
-  const { previewConfig, actionConfig, actionT, viewHint } = actionPlayback.resolve({
+  const { previewConfig, actionConfig, actionT, viewHint, facingHint } = actionPlayback.resolve({
     content: runtimeState.petContent, preview: runtimeState.devPreview,
     egg: runtimeState.currentEgg, sessionSnapshot, now: runtimeState.animNow,
     previewStartedAt: runtimeState.devPreviewStartedAt,
@@ -195,18 +195,6 @@ function drawPet() {
   offY += bodyStateOffset({ state: runtimeState.state, formId: form.id, action: actionConfig,
     calmVisual, legacyFrames, bob, expressionId: selectedExpression ?? previewConfig?.expression, source: presentationSource,
     eventId: presentationEventId, actionEventId });
-
-  // Every behavior owns a body motion; overlays are supporting details rather
-  // than the whole animation, so the companion itself stays expressive.
-  const motion = forms.resolveFormMotion(form, actionConfig);
-  const actionOffset = formArt.motionOffset(form, actionConfig, motion, actionT, {
-    calmVisual,
-    bodySize: geo.bodySize,
-    facing: runtimeState.facing,
-    state: runtimeState.state
-  });
-  offX += actionOffset.x;
-  offY += actionOffset.y;
 
   pctx.clearRect(0, 0, size, size);
   // 眨眼由绝对时间调度器推进：下次眨眼 = 当前 + [667, 2333)ms，
@@ -247,6 +235,20 @@ function drawPet() {
     // 当前皮肤筛一遍,等于让渲染层否决上游的决定——自由混搭的配饰会被皮肤筛掉。
     includeLocked: devAppearanceId !== null || wardrobeIds !== null
   });
+
+  const displayFacing = resolveGaitFacing({ facing: runtimeState.facing, facingHint,
+    formId: form.id, state: runtimeState.state, view, appearance });
+  // Every behavior owns a body motion; overlays are supporting details rather
+  // than the whole animation, so the companion itself stays expressive.
+  const motion = forms.resolveFormMotion(form, actionConfig);
+  const actionOffset = formArt.motionOffset(form, actionConfig, motion, actionT, {
+    calmVisual,
+    bodySize: geo.bodySize,
+    facing: displayFacing,
+    state: runtimeState.state
+  });
+  offX += actionOffset.x;
+  offY += actionOffset.y;
 
   // 由导演选出当前表情并采样位姿（脸 + 身体）。表情切换时重置起始时间，
   // 驱动进入序列；常驻循环按绝对 elapsed 周期推进。
@@ -335,7 +337,7 @@ function drawPet() {
         openness: facePose.openness,
         eyeInsetX: facePose.eyeInsetX,
         eyeOffsetX: Math.max(-3, Math.min(3, facePose.eyeOffsetX
-          + gazeSpringX.value * (gaze.maxX || 0) * runtimeState.facing)),
+          + gazeSpringX.value * (gaze.maxX || 0) * displayFacing)),
         eyeOffsetY: Math.max(-3, Math.min(3, facePose.eyeOffsetY + gazeSpringY.value * (gaze.maxY || 0)))
       };
     }
@@ -355,7 +357,7 @@ function drawPet() {
   offY = snap(offY);
   const expressionAccent = resolvePlaybackAccent(runtimeState.expressionRegistry, exprId, actionConfig);
   const artwork = formArt.resolveArtwork(form, {
-    channel: runtimeState.renderChannel || 'pet', state: runtimeState.state,
+    channel: runtimeState.renderChannel || 'pet', state: runtimeState.state, facing: displayFacing,
     view, motion: actionConfig ? motion : 'idle', face: facePose, calmVisual, dnd: runtimeState.dnd, appearance,
     progress: actionT, elapsedMs: runtimeState.animNow, action: actionConfig, expressionId: exprId,
     // Fixed calm phases still need a fresh all-or-none asset readiness window.
@@ -370,7 +372,7 @@ function drawPet() {
   pctx.save();
   formArt.applyMotionTransform(pctx, form, actionConfig, motion, actionT, {
     artwork, calmVisual,
-    facing: runtimeState.facing,
+    facing: displayFacing,
     state: runtimeState.state,
     size,
     bodySize: geo.bodySize,
@@ -378,7 +380,7 @@ function drawPet() {
   });
   applyExpressionBodyTransform(bodyPose, size);
   applyInteractionTransform(size);
-  if (runtimeState.facing === -1) { pctx.translate(size, 0); pctx.scale(-1, 1); }
+  if (displayFacing === -1) { pctx.translate(size, 0); pctx.scale(-1, 1); }
   applyPetViewTransform(view, size);
   hasAttachedEffectOrigins = Boolean(artwork && Object.hasOwn(artwork, 'effectOrigins'));
   actionEffectOrigins = projectEffectOrigins(artwork?.effectOrigins, pctx.getTransform?.(), {
@@ -588,7 +590,7 @@ function resetSceneParticles() {
 }
 function clearDecorativeParticles() {
   sleepTransition.reset();
-  actionPlayback.reset();
+  actionPlayback.reset({ state: currentFrame.state, policy: currentFrame.policy, hidden: document.hidden });
   resetSceneParticles();
   runtimeState.overlayParticles = [];
   runtimeState.petals = [];

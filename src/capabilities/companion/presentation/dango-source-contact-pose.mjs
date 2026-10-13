@@ -1,5 +1,7 @@
 'use strict';
 
+import { sipContactSpriteKeys, sipSourceContactPoseEligible, applySipSourceContactPose } from './dango-sip-contact-pose.mjs';
+
 // PET_RIG「并发配件的姿势隔离」: this authored contact layer owns only
 // the two hands of one reviewed action. It never changes generic limb readiness.
 const KEYS = Object.freeze({ left: 'hiccup-front-contact-left', right: 'hiccup-front-contact-right' });
@@ -50,10 +52,13 @@ function createSourceContactPoseSelector({ manifest, source }) {
       const explicitInstance = options.actionInstanceKey != null;
       const key = explicitInstance ? JSON.stringify([options.action?.id, options.actionInstanceKey])
         : JSON.stringify([options.action, options.motion]);
-      const eligible = sourceContactPoseEligible(manifest, pose, view, options);
+      const sip = options.action?.id === 'sip-tea';
+      const keys = sip ? sipContactSpriteKeys() : Object.values(KEYS);
+      const eligible = sip ? sipSourceContactPoseEligible(manifest, pose, view, options)
+        : sourceContactPoseEligible(manifest, pose, view, options);
       if (!current || current.key !== key || !explicitInstance && (p < current.progress
         || elapsed !== null && current.elapsed !== null && elapsed < current.elapsed)) {
-        const sprites = Object.values(KEYS).map(k => manifest.tools?.[k]);
+        const sprites = keys.map(k => manifest.tools?.[k]);
         const states = eligible ? sprites.map(s => source.state(s)) : [];
         current = { key, progress: p, elapsed, enabled: eligible && states.every(s => s === 'ready') };
         windows.set(channel, current);
@@ -63,7 +68,8 @@ function createSourceContactPoseSelector({ manifest, source }) {
       if (!current.enabled) return pose;
       // If a bounded raster cache lost either image, fallback both together and
       // keep the window disabled. Never draw half of the source-contact pose.
-      if (!Object.values(KEYS).every(k => source.state(manifest.tools[k]) === 'ready')) { current.enabled = false; return pose; }
+      if (!keys.every(k => source.state(manifest.tools[k]) === 'ready')) { current.enabled = false; return pose; }
+      if (sip) return applySipSourceContactPose(manifest, pose);
       return { ...pose, sourceContactPose: 'hiccup-front-v1', contact: { ...pose.contact,
         hands: pose.contact.hands.map(h => {
           const c = manifest.tools[KEYS[h.side]].sourceContactPose;

@@ -75,7 +75,8 @@ function createPetDevtools({ document, panel, list, viewSelect, skinSelect, leve
       category,
       id: item.id,
       ...selectedOptions(),
-      skin: category === 'skin' ? item.id : selectedOptions().skin
+      skin: category === 'skin' ? item.id : selectedOptions().skin,
+      ...item.previewDefaults
     }), buttonListeners);
     return button;
   }
@@ -151,11 +152,11 @@ function createPetDevtools({ document, panel, list, viewSelect, skinSelect, leve
       const items = category === 'views'
         ? (catalog.views || []).map(id => ({ id }))
         : Array.isArray(catalog[category]) ? catalog[category] : [];
-      return items.map(item => ({ category: category === 'views' ? 'view' : category.slice(0, -1), id: item.id }));
+      return items.map(item => ({ category: category === 'views' ? 'view' : category.slice(0, -1), id: item.id, previewDefaults: item.previewDefaults }));
     });
     for (const item of queue) {
       if (disposed) return;
-      callbacks.preview({ ...item, ...options, skin: item.category === 'skin' ? item.id : options.skin });
+      callbacks.preview({ ...item, ...options, skin: item.category === 'skin' ? item.id : options.skin, ...item.previewDefaults });
       if (disposed) return;
       await pause();
     }

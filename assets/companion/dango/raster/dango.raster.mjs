@@ -2,7 +2,7 @@
 const freeze = value => { if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); } return value; };
 const data = {
   "id": "dango-raster",
-  "version": 514619786,
+  "version": 2162013996,
   "views": {
     "front": {
       "neutral": {
@@ -9685,6 +9685,182 @@ const data = {
         ],
         "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9"
       }
+    },
+    "sip-front-v2-left-root-back": {
+      "src": "action-contact/sip-front-v2/sip-front-v2-left-root-back-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "sip-front-v2",
+        "contractVersion": 1,
+        "runtimeReady": false,
+        "action": "sip-tea",
+        "view": "front",
+        "side": "left",
+        "layer": "back",
+        "cup": {
+          "x": 23,
+          "y": 43,
+          "width": 22,
+          "height": 19
+        },
+        "boundary": [
+          24.25,
+          53.375
+        ],
+        "normal": [
+          1,
+          0
+        ],
+        "bodyRegistration": {
+          "fixedShoulder": [
+            4.5,
+            45.5
+          ],
+          "meaning": "Canonical body socket reference only; this continuous source pose has no independently inferred hidden elbow/wrist."
+        },
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "depthSourceY": 260
+      }
+    },
+    "sip-front-v2-left-fore-palm-front": {
+      "src": "action-contact/sip-front-v2/sip-front-v2-left-fore-palm-front-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "sip-front-v2",
+        "contractVersion": 1,
+        "runtimeReady": false,
+        "action": "sip-tea",
+        "view": "front",
+        "side": "left",
+        "layer": "front",
+        "cup": {
+          "x": 23,
+          "y": 43,
+          "width": 22,
+          "height": 19
+        },
+        "boundary": [
+          24.25,
+          53.375
+        ],
+        "normal": [
+          1,
+          0
+        ],
+        "bodyRegistration": {
+          "fixedShoulder": [
+            4.5,
+            45.5
+          ],
+          "meaning": "Canonical body socket reference only; this continuous source pose has no independently inferred hidden elbow/wrist."
+        },
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "depthSourceY": 260
+      }
+    },
+    "sip-front-v2-right-root-back": {
+      "src": "action-contact/sip-front-v2/sip-front-v2-right-root-back-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "sip-front-v2",
+        "contractVersion": 1,
+        "runtimeReady": false,
+        "action": "sip-tea",
+        "view": "front",
+        "side": "right",
+        "layer": "back",
+        "cup": {
+          "x": 23,
+          "y": 43,
+          "width": 22,
+          "height": 19
+        },
+        "boundary": [
+          40.25,
+          53.375
+        ],
+        "normal": [
+          -1,
+          0
+        ],
+        "bodyRegistration": {
+          "fixedShoulder": [
+            58.5,
+            45.5
+          ],
+          "meaning": "Canonical body socket reference only; this continuous source pose has no independently inferred hidden elbow/wrist."
+        },
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "depthSourceY": 260
+      }
+    },
+    "sip-front-v2-right-fore-palm-front": {
+      "src": "action-contact/sip-front-v2/sip-front-v2-right-fore-palm-front-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "sip-front-v2",
+        "contractVersion": 1,
+        "runtimeReady": false,
+        "action": "sip-tea",
+        "view": "front",
+        "side": "right",
+        "layer": "front",
+        "cup": {
+          "x": 23,
+          "y": 43,
+          "width": 22,
+          "height": 19
+        },
+        "boundary": [
+          40.25,
+          53.375
+        ],
+        "normal": [
+          -1,
+          0
+        ],
+        "bodyRegistration": {
+          "fixedShoulder": [
+            58.5,
+            45.5
+          ],
+          "meaning": "Canonical body socket reference only; this continuous source pose has no independently inferred hidden elbow/wrist."
+        },
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "depthSourceY": 260
+      }
     }
   },
   "effects": {
@@ -12968,10 +13144,14 @@ const data = {
       "wardrobe": 1,
       "scenes": 1
     },
-    "assetDigest": "1eac798a6d164ac0682b312e1ebaff12861877590e8f2f3849cd90cbf2afe876",
+    "assetDigest": "80ddb72cb116be929f73d2380119b938b6051847b4d38fe24fa23b525f16e2b1",
     "assetHashes": {
       "action-contact/hiccup-front-v1/hiccup-front-left-continuous-8x.png": "f02d8d5c23d96c93e7743422700db8e647ae04373fb095f5809a3093118fa488",
       "action-contact/hiccup-front-v1/hiccup-front-right-continuous-8x.png": "edfb542822a7e9499df5d43d9c50b2155c496b62b51bf92369d6bda255fe7f8c",
+      "action-contact/sip-front-v2/sip-front-v2-left-fore-palm-front-8x.png": "c14ba0c59fbfc6a344dba841b006be369b00b5039944debaf4e70bffc9d6a616",
+      "action-contact/sip-front-v2/sip-front-v2-left-root-back-8x.png": "3e6817951627988cf774875fc8a36b3c145f2acb16c4230dddd92bcdc0fc98b0",
+      "action-contact/sip-front-v2/sip-front-v2-right-fore-palm-front-8x.png": "c7a00171396aece0d43fb16c12f52a92030bf07d3602cb81d576dccac764fa6a",
+      "action-contact/sip-front-v2/sip-front-v2-right-root-back-8x.png": "83851ef811003354bf607d451a92abb5b8d5ab2b97c899464313138bf4a05fb2",
       "effects/bat.png": "325fafc82f8e65c0809aba6a658a6a7fe85bf37fb7d245b20c18c15df657f0f2",
       "effects/bird.png": "4fa9bdd7e5bc74cdc3157cbfbef7a7bec970ee4d24dd19d33b8ea37fc8c3c0c3",
       "effects/bubble.png": "e0d37278dae0c88b88ea8d8bd4f586f0d51612d01c7df3902ef7a142eec57ebf",

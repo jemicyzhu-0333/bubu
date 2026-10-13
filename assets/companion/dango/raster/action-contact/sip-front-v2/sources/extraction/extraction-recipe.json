@@ -1,0 +1,101 @@
+{
+  "schema": "complete-sip-forepalm-extraction/1",
+  "status": "Bounded source candidate; final approved-scale probe awaits visual decision",
+  "runtimeReady": false,
+  "hostAcceptance": null,
+  "source": "../masters/complete-sip-forepalm-v1.png",
+  "sourceSha256": "7d055bc38c331f3fc243c9c4e6b66adfb9d13f219bdd67d20677b1a99fb4ac61",
+  "sourceDimensions": [
+    1774,
+    887
+  ],
+  "bodyWidthArt": 69.415385,
+  "bodyWidthSource": 703,
+  "bodyScale": 0.06493506493506493,
+  "bodyMeasurement": {
+    "rows": [
+      450,
+      470,
+      500
+    ],
+    "firstX": 224,
+    "lastXInclusive": 926,
+    "alphaThreshold": 240
+  },
+  "extractionPolicy": "Faithful rectangle crops only; all RGBA original; no new ink, smoothing, recolor, mirror, rotate or independent resize.",
+  "quantizationPolicy": "Display probe only: threshold alpha>=240, nearest four-color palette, one global body-relative nearest-neighbor projection at p0; translate the same pixels by original cup delta.",
+  "frames": [
+    {
+      "id": "upper-arm",
+      "requestedSide": "left",
+      "observedDirection": "root-left-up to palm-right-down",
+      "cropBox": [
+        1128,
+        140,
+        1505,
+        465
+      ],
+      "observedContactBoundary": [
+        1489,
+        375.5
+      ],
+      "contactNormal": [
+        1,
+        0
+      ],
+      "targetAtLowCup": [
+        24.25,
+        53.375
+      ],
+      "rootCenterSource": [
+        1210,
+        205
+      ],
+      "palmCenterSource": [
+        1417,
+        374
+      ],
+      "manualPalmLobeBoundingBox": [
+        1335,
+        294,
+        1489,
+        453
+      ],
+      "sourceRgba": "upper-arm-source-rgba.png",
+      "geometricMask": "upper-arm-geometric-mask.png",
+      "sourceRgbaSha256": "4f36554aecebbd4dd4b65cd3c8b76acb6f825912a49d3d6c2480a36ed5405363",
+      "maskSha256": "a97878e4f24943e5f00546aeca0169c2046bfbe7b5aba29891f3cf634c9d2532",
+      "sourceOpaqueBoundingBox": [
+        1141,
+        152,
+        1489,
+        453
+      ],
+      "initialSheetScaleSizeArt": [
+        34.36209669985775,
+        29.72123881223329
+      ],
+      "initialSheetScalePalmSizeArt": [
+        15.206215206258891,
+        15.699923492176389
+      ],
+      "finalWholeSizeArt": [
+        22.5974025974026,
+        19.545454545454547
+      ],
+      "approximateFinalPalmLobeSizeArt": [
+        10,
+        10.324675324675324
+      ]
+    }
+  ],
+  "scalePolicy": "Approved prototype palm alpha width10art / observed independent source palm width154px, applied uniformly to complete arm. This supersedes generated-sheet body-relative scale for final sampling.",
+  "runtimeDepth": {
+    "sourceYBoundary": 260,
+    "backMask": "upper-arm-root-back-depth-mask.png",
+    "frontMask": "upper-arm-fore-palm-front-depth-mask.png",
+    "policy": "Exact complementary partition of complete source; root behind body, remaining fore+palm front; no source erasure.",
+    "backMaskSha256": "02065af6a6a51a8795c141382322c6693343cf2734606ffb2f50266669a4b682",
+    "frontMaskSha256": "29f31c6439fcc16b6e90c8f86f44dcc975695d91157e6d04ada8f80501d29e81"
+  }
+}

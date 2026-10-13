@@ -1,5 +1,6 @@
 'use strict';
 
+import { DANGO_WALK_WORKBENCH } from '../../../content/companion/gait/dango-walk.mjs';
 import { sampleAccent } from './motion-core/accents.mjs';
 import { motionCaps } from './motion-core/action-capabilities.mjs';
 import { bodyFloor } from './motion-core/form-anchors.mjs';
@@ -67,6 +68,11 @@ function faceForView(form, face, view) {
 function resolveView(form, requested, options = {}) {
   if (form.id === 'usagi' && isFacingInteraction(options.action)) return 'front';
   return artistFor(form).resolveView(requested, options);
+}
+
+function previewAction(form, id) {
+  return DANGO_WALK_WORKBENCH.enabled && form?.id === 'dango'
+    && id === DANGO_WALK_WORKBENCH.action.id ? DANGO_WALK_WORKBENCH.action : null;
 }
 
 function sampleAction(form, action, progress, options = {}) {
@@ -355,14 +361,14 @@ function drawStatusEffect(context, form, status, offX, offY, stage, options = {}
 }
 
 export {
-  paletteForSkin, skinEffectForSkin, resolveView, faceForView, sampleAction, resolveArtwork, subscribeArtwork, prepareArtwork,
+  paletteForSkin, skinEffectForSkin, resolveView, faceForView, previewAction, sampleAction, resolveArtwork, subscribeArtwork, prepareArtwork,
   spriteBounds, resolvePortraitBounds, bodySpriteKey, paintBodySprite, drawBodySprite, drawFace,
   paintFaceSprite,
   drawAppearanceLayer, drawActionLayer, drawActionOverlay, motionOffset, applyMotionTransform,
   drawBackDetails, drawExpressionAccent, drawStatusEffect, drawParticle, drawSceneBackdrop, drawSceneParticle, validatePetFormArtists
 };
 export default Object.freeze({
-  paletteForSkin, skinEffectForSkin, resolveView, faceForView, sampleAction, resolveArtwork, subscribeArtwork, prepareArtwork,
+  paletteForSkin, skinEffectForSkin, resolveView, faceForView, previewAction, sampleAction, resolveArtwork, subscribeArtwork, prepareArtwork,
   spriteBounds, resolvePortraitBounds, bodySpriteKey, paintBodySprite, drawBodySprite, drawFace,
   paintFaceSprite,
   drawAppearanceLayer, drawActionLayer, drawActionOverlay, motionOffset, applyMotionTransform,

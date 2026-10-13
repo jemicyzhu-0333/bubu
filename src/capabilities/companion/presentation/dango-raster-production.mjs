@@ -1,5 +1,6 @@
 'use strict';
 
+import { DANGO_WALK_WORKBENCH } from '../../../content/companion/gait/dango-walk.mjs';
 import { DANGO_RASTER } from '../../../../assets/companion/dango/raster/dango.raster.mjs';
 import { createDangoRasterArtist } from './dango-raster-art.mjs';
 import { createDangoLimbSource } from './dango-limb-assets.mjs';
@@ -15,4 +16,5 @@ import { DANGO_LIMB_RIG } from '../../../content/companion/dango-limbs.mjs';
 // the contract only via DANGO_LIMB_RIG.hostAcceptsContract (null today: the
 // package says runtimeReady=false and round-6 QA shows reach/occlusion regressions).
 const limbs = createDangoLimbSource({ baseUrl: DANGO_RASTER.baseUrl, loadImage: browserImageLoader, acceptContract: DANGO_LIMB_RIG.hostAcceptsContract });
-export default createDangoRasterArtist({ manifest: DANGO_RASTER, runFootTiming: 'forward-recovery', limbs });
+export default createDangoRasterArtist({ manifest: DANGO_RASTER, runFootTiming: 'forward-recovery', limbs,
+  walkPreview: { enabled: DANGO_WALK_WORKBENCH.enabled, workbench: true } });

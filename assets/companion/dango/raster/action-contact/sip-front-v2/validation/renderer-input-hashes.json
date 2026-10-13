@@ -1,0 +1,35 @@
+{
+  "scope": "Isolated staging modules used for test injection; production gates remain false.",
+  "files": [
+    {
+      "path": "candidate-fixture.mjs",
+      "sha256": "95f10188c6cfdc0e95c645afbdcd2c443163e6eac09c4cab092f131948cc84ed"
+    },
+    {
+      "path": "work/src/capabilities/companion/presentation/dango-sip-contact-pose.mjs",
+      "sha256": "27b00b076bbe4ea9235552c2ed3ca4d6537ea581d22776eccab1759b069c4847"
+    },
+    {
+      "path": "work/src/capabilities/companion/presentation/dango-source-contact-pose.mjs",
+      "sha256": "5b851e89e1e53d8a9819053e8b5a26bb5b93611acc0f20b16b17249f4c8d3dfa"
+    },
+    {
+      "path": "work/src/capabilities/companion/presentation/dango-raster-art.mjs",
+      "sha256": "467ccb72b31ae2dd0c8b8c1b53e005baa8c205de3f205af64ebc26aa64af41ef"
+    },
+    {
+      "path": "work/assets/companion/dango/raster/dango.raster.mjs",
+      "sha256": "1ce038c384bde56d47fdae20ea1453c788bcc04e29df43164a5a65e4f8e9c269"
+    }
+  ],
+  "video": {
+    "artifact": "sip-front-v2-three-column-9s.mp4",
+    "sha256": "78be0e4ef405bbe5170627c4c5976ee85be5aa13f074274f69482f7beba1a5ed",
+    "duration": 9,
+    "width": 1320,
+    "height": 790,
+    "frames": 270,
+    "codec": "h264",
+    "location": "Generated review deliverable, deliberately omitted from minimal source package."
+  }
+}

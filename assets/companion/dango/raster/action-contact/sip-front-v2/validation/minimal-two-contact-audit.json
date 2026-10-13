@@ -1,0 +1,145 @@
+{
+  "status": "BOUNDED CANDIDATE, VISUAL DECISION PENDING",
+  "runtimeReady": false,
+  "hostAcceptance": null,
+  "generationCount": 1,
+  "contactPhaseCount": 2,
+  "phases": [
+    0,
+    0.5
+  ],
+  "sourceIntegrity": [
+    {
+      "id": "upper-arm",
+      "rgbaPreservedExactly": true,
+      "maskPolicy": "one declared rectangle, all 255; source alpha unchanged; no color keying",
+      "opaqueThreshold": 240,
+      "opaqueComponents4": [
+        54833
+      ],
+      "originalSourceInkPixels": 15281,
+      "retainedOriginalSourceInkPixels": 15281,
+      "originalOpaqueInkExcludedInCropHalo": 0,
+      "opaqueBoundaryPixels": 1202,
+      "boundaryDarkInkPixels": 1202,
+      "boundaryDarkInkRatio": 1.0,
+      "edgeAuditLimitation": "Extraction omission and boundary-color tests cannot certify anatomy, side identity, scale or natural body occlusion."
+    },
+    {
+      "id": "lower-arm",
+      "rgbaPreservedExactly": true,
+      "maskPolicy": "one declared rectangle, all 255; source alpha unchanged; no color keying",
+      "opaqueThreshold": 240,
+      "opaqueComponents4": [
+        54160,
+        1
+      ],
+      "originalSourceInkPixels": 15479,
+      "retainedOriginalSourceInkPixels": 15479,
+      "originalOpaqueInkExcludedInCropHalo": 0,
+      "opaqueBoundaryPixels": 1200,
+      "boundaryDarkInkPixels": 1200,
+      "boundaryDarkInkRatio": 1.0,
+      "edgeAuditLimitation": "Extraction omission and boundary-color tests cannot certify anatomy, side identity, scale or natural body occlusion."
+    }
+  ],
+  "projectionAndDepth": {
+    "rawDepthMaskExactPartition": true,
+    "rawSourcePixelsDeletedByDepth": 0,
+    "depthOverlap": 0,
+    "projectionRows": [
+      {
+        "side": "left",
+        "alphaUnionConnected4": [
+          229
+        ],
+        "behindFrontOverlap": 0,
+        "fullUnionBoundaryPixels": 59,
+        "fullUnionBoundaryDarkPixels": 59,
+        "exposedFillBoundaryPixels": 0,
+        "inkComponents8": [
+          66
+        ],
+        "nonInkBoundaryLocalXY": [],
+        "warning": "Color connectivity establishes faithful contour retention, not natural anatomy or artistic acceptance."
+      },
+      {
+        "side": "right",
+        "alphaUnionConnected4": [
+          230
+        ],
+        "behindFrontOverlap": 0,
+        "fullUnionBoundaryPixels": 57,
+        "fullUnionBoundaryDarkPixels": 57,
+        "exposedFillBoundaryPixels": 0,
+        "inkComponents8": [
+          65
+        ],
+        "nonInkBoundaryLocalXY": [],
+        "warning": "Color connectivity establishes faithful contour retention, not natural anatomy or artistic acceptance."
+      }
+    ]
+  },
+  "contacts": [
+    {
+      "p": 0,
+      "bodyAndCupUnchanged": true,
+      "sides": {
+        "left": {
+          "horizontalContactError": 0.25,
+          "rootCoveredPixelCount": 59,
+          "rawRootCovered": 14253,
+          "rawRootExposedCount": 6,
+          "rawRootExposedBounds": [
+            1.6850649350649363,
+            44.99837662337662,
+            1.9448051948051983,
+            45.063311688311686
+          ],
+          "fullRootAndCutCovered": false
+        },
+        "right": {
+          "horizontalContactError": 0.25,
+          "rootCoveredPixelCount": 60,
+          "rawRootCovered": 14259,
+          "rawRootExposedCount": 0,
+          "rawRootExposedBounds": null,
+          "fullRootAndCutCovered": true
+        }
+      }
+    },
+    {
+      "p": 0.5,
+      "bodyAndCupUnchanged": true,
+      "sides": {
+        "left": {
+          "horizontalContactError": 0.25,
+          "rootCoveredPixelCount": 59,
+          "rawRootCovered": 14259,
+          "rawRootExposedCount": 0,
+          "rawRootExposedBounds": null,
+          "fullRootAndCutCovered": true
+        },
+        "right": {
+          "horizontalContactError": 0.25,
+          "rootCoveredPixelCount": 60,
+          "rawRootCovered": 14259,
+          "rawRootExposedCount": 0,
+          "rawRootExposedBounds": null,
+          "fullRootAndCutCovered": true
+        }
+      }
+    }
+  ],
+  "acceptance": {
+    "logicalRootAndCutCoverage": true,
+    "completeRawRootCoverage": false,
+    "rawCoverageException": "Six source opaque pixels at low left root fall just outside canonical body; final fixed logical sample has no exposed root pixels. No source pixels were removed to hide this.",
+    "originalContourRetention": true,
+    "normalAndBoundaryRegistration": true,
+    "independentContactOcclusionReview": null,
+    "visualNetWin": null,
+    "broaderPhaseWardrobeDprTests": null,
+    "browserNativeHost": null
+  }
+}
