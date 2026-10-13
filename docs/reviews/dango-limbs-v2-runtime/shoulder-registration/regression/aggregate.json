@@ -1,0 +1,1720 @@
+{
+  "oneCandidate": {
+    "assetView": "front",
+    "assetSide": "r",
+    "from": [
+      61.5,
+      45.5
+    ],
+    "to": [
+      58.5,
+      45.5
+    ],
+    "basis": "Source body-anchor x58.6 quantized to nearest half-pixel; y remains45.5; no candidate search."
+  },
+  "sparse": {
+    "actions": 44,
+    "allowedViewCombinations": 83,
+    "phases": [
+      0,
+      0.125,
+      0.5,
+      0.875,
+      1
+    ],
+    "pairedArtworks": 415,
+    "handsPerVariant": 520,
+    "transitions": {
+      "admissionLost": 15,
+      "admissionGained": 30,
+      "standardLost": 0,
+      "standardGained": 5,
+      "errorIncreased": 34,
+      "errorDecreased": 107,
+      "exposureIncreased": 21,
+      "exposureDecreased": 100
+    }
+  },
+  "dense": {
+    "frontActionCombinations": 43,
+    "phaseCount": 1025,
+    "pairedArtworks": 44075,
+    "handsPerVariant": 57304,
+    "affectedRightHandsPerVariant": 34501,
+    "transitions": {
+      "admissionLost": 4765,
+      "admissionGained": 5217,
+      "standardLost": 0,
+      "standardGained": 1025,
+      "errorIncreased": 9162,
+      "errorDecreased": 20921,
+      "exposureIncreased": 3893,
+      "exposureDecreased": 20659
+    },
+    "affectedRightClasses": {
+      "continuous-grip": {
+        "before": {
+          "samples": 19127,
+          "visibleSamples": 19004,
+          "plans": 19127,
+          "direct": 9270,
+          "standard": 1025,
+          "branchChanges": 145,
+          "largeElbowJumps": 56,
+          "largeWristJumps": 83,
+          "exposedTotal": 311453,
+          "upperExposedTotal": 146338,
+          "maxError": 16.500473,
+          "maxExposed": 70,
+          "maxUpperExposed": 35,
+          "maxElbowStep": 12.649111,
+          "maxWristStep": 6.324555
+        },
+        "after": {
+          "samples": 19127,
+          "visibleSamples": 19004,
+          "plans": 19127,
+          "direct": 8157,
+          "standard": 2050,
+          "branchChanges": 131,
+          "largeElbowJumps": 60,
+          "largeWristJumps": 72,
+          "exposedTotal": 169567,
+          "upperExposedTotal": 34596,
+          "maxError": 13.500579,
+          "maxExposed": 40,
+          "maxUpperExposed": 10,
+          "maxElbowStep": 12.649111,
+          "maxWristStep": 8.944272
+        }
+      },
+      "free-aux": {
+        "before": {
+          "samples": 8712,
+          "visibleSamples": 8650,
+          "plans": 8712,
+          "direct": 2464,
+          "standard": 0,
+          "branchChanges": 92,
+          "largeElbowJumps": 27,
+          "largeWristJumps": 55,
+          "exposedTotal": 71670,
+          "upperExposedTotal": 44609,
+          "maxError": 8.746428,
+          "maxExposed": 79,
+          "maxUpperExposed": 34,
+          "maxElbowStep": 12.649111,
+          "maxWristStep": 8.246211
+        },
+        "after": {
+          "samples": 8712,
+          "visibleSamples": 8650,
+          "plans": 8712,
+          "direct": 3202,
+          "standard": 0,
+          "branchChanges": 103,
+          "largeElbowJumps": 41,
+          "largeWristJumps": 75,
+          "exposedTotal": 48576,
+          "upperExposedTotal": 10941,
+          "maxError": 7.735969,
+          "maxExposed": 55,
+          "maxUpperExposed": 10,
+          "maxElbowStep": 12.649111,
+          "maxWristStep": 8
+        }
+      },
+      "free-aux/integrated": {
+        "before": {
+          "samples": 2050,
+          "visibleSamples": 2050,
+          "plans": 0,
+          "direct": 0,
+          "standard": 0,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "exposedTotal": 0,
+          "upperExposedTotal": 0,
+          "maxError": null,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        },
+        "after": {
+          "samples": 2050,
+          "visibleSamples": 2050,
+          "plans": 0,
+          "direct": 0,
+          "standard": 0,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "exposedTotal": 0,
+          "upperExposedTotal": 0,
+          "maxError": null,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        }
+      },
+      "planted-support": {
+        "before": {
+          "samples": 1025,
+          "visibleSamples": 1025,
+          "plans": 1025,
+          "direct": 0,
+          "standard": 0,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "exposedTotal": 1025,
+          "upperExposedTotal": 1025,
+          "maxError": 7.382412,
+          "maxExposed": 1,
+          "maxUpperExposed": 1,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        },
+        "after": {
+          "samples": 1025,
+          "visibleSamples": 1025,
+          "plans": 1025,
+          "direct": 0,
+          "standard": 0,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "exposedTotal": 0,
+          "upperExposedTotal": 0,
+          "maxError": 4.949747,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        }
+      },
+      "point-touch": {
+        "before": {
+          "samples": 3587,
+          "visibleSamples": 3587,
+          "plans": 3587,
+          "direct": 1001,
+          "standard": 0,
+          "branchChanges": 44,
+          "largeElbowJumps": 8,
+          "largeWristJumps": 26,
+          "exposedTotal": 12420,
+          "upperExposedTotal": 9179,
+          "maxError": 16.455432,
+          "maxExposed": 39,
+          "maxUpperExposed": 28,
+          "maxElbowStep": 11.661904,
+          "maxWristStep": 7.211103
+        },
+        "after": {
+          "samples": 3587,
+          "visibleSamples": 3587,
+          "plans": 3587,
+          "direct": 1828,
+          "standard": 0,
+          "branchChanges": 53,
+          "largeElbowJumps": 6,
+          "largeWristJumps": 37,
+          "exposedTotal": 5315,
+          "upperExposedTotal": 792,
+          "maxError": 14.59559,
+          "maxExposed": 40,
+          "maxUpperExposed": 10,
+          "maxElbowStep": 11.313708,
+          "maxWristStep": 8.485281
+        }
+      }
+    },
+    "affectedRightRows": [
+      {
+        "id": "workout",
+        "kind": "planted-support",
+        "admissionLost": 0,
+        "admissionGained": 0,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 7.382412,
+          "maxExposed": 1,
+          "maxUpperExposed": 1,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 4.949747,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        }
+      },
+      {
+        "id": "chase-butterfly",
+        "kind": "free-aux/integrated",
+        "admissionLost": 0,
+        "admissionGained": 0,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 0,
+          "standard": 0,
+          "maxError": null,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 0,
+          "standard": 0,
+          "maxError": null,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        }
+      },
+      {
+        "id": "hiccup",
+        "kind": "continuous-grip",
+        "admissionLost": 1025,
+        "admissionGained": 0,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 1025,
+          "standard": 0,
+          "maxError": 1.125,
+          "maxExposed": 26,
+          "maxUpperExposed": 14,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 1.505199,
+          "maxExposed": 11,
+          "maxUpperExposed": 3,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        }
+      },
+      {
+        "id": "juggle",
+        "kind": "free-aux",
+        "admissionLost": 0,
+        "admissionGained": 245,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 4.949747,
+          "maxExposed": 1,
+          "maxUpperExposed": 1,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 245,
+          "standard": 0,
+          "maxError": 3.535534,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        }
+      },
+      {
+        "id": "carry-energy",
+        "kind": "continuous-grip",
+        "admissionLost": 1025,
+        "admissionGained": 0,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 1025,
+          "standard": 0,
+          "maxError": 1.059515,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 4,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 2
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 1.891673,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        }
+      },
+      {
+        "id": "mirror-meet",
+        "kind": "continuous-grip",
+        "admissionLost": 0,
+        "admissionGained": 0,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 2.157835,
+          "maxExposed": 1,
+          "maxUpperExposed": 1,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 1.976424,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        }
+      },
+      {
+        "id": "sing",
+        "kind": "continuous-grip",
+        "admissionLost": 0,
+        "admissionGained": 383,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 5.505698,
+          "maxExposed": 1,
+          "maxUpperExposed": 1,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 383,
+          "standard": 0,
+          "maxError": 3.097335,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 2,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 2,
+          "maxElbowStep": 2.828427,
+          "maxWristStep": 2.828427
+        }
+      },
+      {
+        "id": "chase-laser",
+        "kind": "free-aux/integrated",
+        "admissionLost": 0,
+        "admissionGained": 0,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 0,
+          "standard": 0,
+          "maxError": null,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 0,
+          "standard": 0,
+          "maxError": null,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        }
+      },
+      {
+        "id": "dig-treasure",
+        "kind": "continuous-grip",
+        "admissionLost": 150,
+        "admissionGained": 223,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 676,
+          "direct": 385,
+          "standard": 0,
+          "maxError": 1.706842,
+          "maxExposed": 45,
+          "maxUpperExposed": 14,
+          "branchChanges": 18,
+          "largeElbowJumps": 13,
+          "largeWristJumps": 13,
+          "maxElbowStep": 12.649111,
+          "maxWristStep": 6.324555
+        },
+        "after": {
+          "samples": 676,
+          "direct": 458,
+          "standard": 0,
+          "maxError": 1.879162,
+          "maxExposed": 17,
+          "maxUpperExposed": 1,
+          "branchChanges": 9,
+          "largeElbowJumps": 4,
+          "largeWristJumps": 4,
+          "maxElbowStep": 12.649111,
+          "maxWristStep": 6.324555
+        }
+      },
+      {
+        "id": "yawn",
+        "kind": "free-aux",
+        "admissionLost": 51,
+        "admissionGained": 61,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 153,
+          "standard": 0,
+          "maxError": 4.527693,
+          "maxExposed": 36,
+          "maxUpperExposed": 22,
+          "branchChanges": 10,
+          "largeElbowJumps": 4,
+          "largeWristJumps": 6,
+          "maxElbowStep": 10.77033,
+          "maxWristStep": 6.324555
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 163,
+          "standard": 0,
+          "maxError": 4.527693,
+          "maxExposed": 33,
+          "maxUpperExposed": 7,
+          "branchChanges": 14,
+          "largeElbowJumps": 8,
+          "largeWristJumps": 12,
+          "maxElbowStep": 12.165525,
+          "maxWristStep": 7.211103
+        }
+      },
+      {
+        "id": "sneeze",
+        "kind": "continuous-grip",
+        "admissionLost": 107,
+        "admissionGained": 456,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 268,
+          "standard": 0,
+          "maxError": 6.013038,
+          "maxExposed": 65,
+          "maxUpperExposed": 35,
+          "branchChanges": 26,
+          "largeElbowJumps": 10,
+          "largeWristJumps": 16,
+          "maxElbowStep": 12,
+          "maxWristStep": 6.324555
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 617,
+          "standard": 0,
+          "maxError": 3.072035,
+          "maxExposed": 40,
+          "maxUpperExposed": 10,
+          "branchChanges": 26,
+          "largeElbowJumps": 14,
+          "largeWristJumps": 20,
+          "maxElbowStep": 12,
+          "maxWristStep": 6.324555
+        }
+      },
+      {
+        "id": "bubble-blow",
+        "kind": "continuous-grip",
+        "admissionLost": 0,
+        "admissionGained": 0,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 1025,
+          "standard": 1025,
+          "maxError": 0.568026,
+          "maxExposed": 67,
+          "maxUpperExposed": 28,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 1025,
+          "standard": 1025,
+          "maxError": 0.478606,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        }
+      },
+      {
+        "id": "wave",
+        "kind": "free-aux",
+        "admissionLost": 0,
+        "admissionGained": 638,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 375,
+          "standard": 0,
+          "maxError": 2.915476,
+          "maxExposed": 21,
+          "maxUpperExposed": 17,
+          "branchChanges": 10,
+          "largeElbowJumps": 2,
+          "largeWristJumps": 8,
+          "maxElbowStep": 10.198039,
+          "maxWristStep": 6.324555
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 1013,
+          "standard": 0,
+          "maxError": 1.430031,
+          "maxExposed": 9,
+          "maxUpperExposed": 5,
+          "branchChanges": 9,
+          "largeElbowJumps": 2,
+          "largeWristJumps": 3,
+          "maxElbowStep": 10.198039,
+          "maxWristStep": 6.324555
+        }
+      },
+      {
+        "id": "stretch",
+        "kind": "free-aux",
+        "admissionLost": 51,
+        "admissionGained": 61,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 153,
+          "standard": 0,
+          "maxError": 4.527693,
+          "maxExposed": 36,
+          "maxUpperExposed": 22,
+          "branchChanges": 10,
+          "largeElbowJumps": 4,
+          "largeWristJumps": 6,
+          "maxElbowStep": 10.77033,
+          "maxWristStep": 6.324555
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 163,
+          "standard": 0,
+          "maxError": 4.527693,
+          "maxExposed": 33,
+          "maxUpperExposed": 7,
+          "branchChanges": 14,
+          "largeElbowJumps": 8,
+          "largeWristJumps": 12,
+          "maxElbowStep": 12.165525,
+          "maxWristStep": 7.211103
+        }
+      },
+      {
+        "id": "high-five",
+        "kind": "point-touch",
+        "admissionLost": 90,
+        "admissionGained": 0,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 944,
+          "standard": 0,
+          "maxError": 2.335193,
+          "maxExposed": 37,
+          "maxUpperExposed": 28,
+          "branchChanges": 8,
+          "largeElbowJumps": 6,
+          "largeWristJumps": 6,
+          "maxElbowStep": 11.661904,
+          "maxWristStep": 7.211103
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 854,
+          "standard": 0,
+          "maxError": 4.021991,
+          "maxExposed": 16,
+          "maxUpperExposed": 5,
+          "branchChanges": 6,
+          "largeElbowJumps": 2,
+          "largeWristJumps": 2,
+          "maxElbowStep": 10,
+          "maxWristStep": 6.324555
+        }
+      },
+      {
+        "id": "dance",
+        "kind": "free-aux",
+        "admissionLost": 362,
+        "admissionGained": 298,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 593,
+          "standard": 0,
+          "maxError": 2.63244,
+          "maxExposed": 41,
+          "maxUpperExposed": 22,
+          "branchChanges": 26,
+          "largeElbowJumps": 4,
+          "largeWristJumps": 14,
+          "maxElbowStep": 8,
+          "maxWristStep": 4
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 529,
+          "standard": 0,
+          "maxError": 1.581139,
+          "maxExposed": 40,
+          "maxUpperExposed": 10,
+          "branchChanges": 32,
+          "largeElbowJumps": 14,
+          "largeWristJumps": 32,
+          "maxElbowStep": 11.661904,
+          "maxWristStep": 7.211103
+        }
+      },
+      {
+        "id": "look-around",
+        "kind": "continuous-grip",
+        "admissionLost": 13,
+        "admissionGained": 90,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 327,
+          "standard": 0,
+          "maxError": 4.725265,
+          "maxExposed": 39,
+          "maxUpperExposed": 14,
+          "branchChanges": 28,
+          "largeElbowJumps": 18,
+          "largeWristJumps": 28,
+          "maxElbowStep": 8.944272,
+          "maxWristStep": 4.472136
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 404,
+          "standard": 0,
+          "maxError": 2.971216,
+          "maxExposed": 22,
+          "maxUpperExposed": 3,
+          "branchChanges": 24,
+          "largeElbowJumps": 10,
+          "largeWristJumps": 14,
+          "maxElbowStep": 12,
+          "maxWristStep": 4.472136
+        }
+      },
+      {
+        "id": "read-book",
+        "kind": "continuous-grip",
+        "admissionLost": 0,
+        "admissionGained": 0,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 513,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 3.905125,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        },
+        "after": {
+          "samples": 513,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 2.692582,
+          "maxExposed": 35,
+          "maxUpperExposed": 7,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        }
+      },
+      {
+        "id": "read-book",
+        "kind": "point-touch",
+        "admissionLost": 45,
+        "admissionGained": 31,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 512,
+          "direct": 57,
+          "standard": 0,
+          "maxError": 7.158911,
+          "maxExposed": 39,
+          "maxUpperExposed": 14,
+          "branchChanges": 12,
+          "largeElbowJumps": 2,
+          "largeWristJumps": 8,
+          "maxElbowStep": 8.944272,
+          "maxWristStep": 6.324555
+        },
+        "after": {
+          "samples": 512,
+          "direct": 43,
+          "standard": 0,
+          "maxError": 4.609772,
+          "maxExposed": 40,
+          "maxUpperExposed": 10,
+          "branchChanges": 14,
+          "largeElbowJumps": 4,
+          "largeWristJumps": 14,
+          "maxElbowStep": 11.313708,
+          "maxWristStep": 8.485281
+        }
+      },
+      {
+        "id": "take-note",
+        "kind": "continuous-grip",
+        "admissionLost": 0,
+        "admissionGained": 0,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 16.500473,
+          "maxExposed": 1,
+          "maxUpperExposed": 1,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 13.500579,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        }
+      },
+      {
+        "id": "type-keyboard",
+        "kind": "point-touch",
+        "admissionLost": 0,
+        "admissionGained": 931,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 3.702997,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 12,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 2,
+          "maxWristStep": 2
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 931,
+          "standard": 0,
+          "maxError": 1.502103,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 19,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 7,
+          "maxElbowStep": 2.828427,
+          "maxWristStep": 2.828427
+        }
+      },
+      {
+        "id": "sip-tea",
+        "kind": "continuous-grip",
+        "admissionLost": 24,
+        "admissionGained": 8,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 510,
+          "standard": 0,
+          "maxError": 3.124753,
+          "maxExposed": 54,
+          "maxUpperExposed": 18,
+          "branchChanges": 6,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 2,
+          "maxWristStep": 2
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 494,
+          "standard": 0,
+          "maxError": 3.149681,
+          "maxExposed": 38,
+          "maxUpperExposed": 10,
+          "branchChanges": 8,
+          "largeElbowJumps": 4,
+          "largeWristJumps": 4,
+          "maxElbowStep": 12.649111,
+          "maxWristStep": 8.246211
+        }
+      },
+      {
+        "id": "paper-plane",
+        "kind": "continuous-grip",
+        "admissionLost": 0,
+        "admissionGained": 0,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 287,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 3.752083,
+          "maxExposed": 19,
+          "maxUpperExposed": 14,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        },
+        "after": {
+          "samples": 287,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 3.946913,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        }
+      },
+      {
+        "id": "paper-plane",
+        "kind": "free-aux",
+        "admissionLost": 0,
+        "admissionGained": 48,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 738,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 3.711995,
+          "maxExposed": 19,
+          "maxUpperExposed": 14,
+          "branchChanges": 1,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 1,
+          "maxElbowStep": 5.656854,
+          "maxWristStep": 4
+        },
+        "after": {
+          "samples": 738,
+          "direct": 48,
+          "standard": 0,
+          "maxError": 3.855473,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        }
+      },
+      {
+        "id": "paper-return",
+        "kind": "continuous-grip",
+        "admissionLost": 113,
+        "admissionGained": 99,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 595,
+          "direct": 191,
+          "standard": 0,
+          "maxError": 4.116443,
+          "maxExposed": 60,
+          "maxUpperExposed": 31,
+          "branchChanges": 10,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 6,
+          "maxElbowStep": 5.656854,
+          "maxWristStep": 4
+        },
+        "after": {
+          "samples": 595,
+          "direct": 177,
+          "standard": 0,
+          "maxError": 3.156024,
+          "maxExposed": 32,
+          "maxUpperExposed": 4,
+          "branchChanges": 7,
+          "largeElbowJumps": 3,
+          "largeWristJumps": 5,
+          "maxElbowStep": 12.165525,
+          "maxWristStep": 6.324555
+        }
+      },
+      {
+        "id": "paper-return",
+        "kind": "free-aux",
+        "admissionLost": 29,
+        "admissionGained": 92,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 430,
+          "direct": 86,
+          "standard": 0,
+          "maxError": 3.43928,
+          "maxExposed": 23,
+          "maxUpperExposed": 11,
+          "branchChanges": 6,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 4,
+          "maxElbowStep": 5.656854,
+          "maxWristStep": 4
+        },
+        "after": {
+          "samples": 430,
+          "direct": 149,
+          "standard": 0,
+          "maxError": 1.581139,
+          "maxExposed": 32,
+          "maxUpperExposed": 4,
+          "branchChanges": 8,
+          "largeElbowJumps": 2,
+          "largeWristJumps": 2,
+          "maxElbowStep": 12,
+          "maxWristStep": 6.324555
+        }
+      },
+      {
+        "id": "sweep",
+        "kind": "continuous-grip",
+        "admissionLost": 229,
+        "admissionGained": 328,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 229,
+          "standard": 0,
+          "maxError": 2.458965,
+          "maxExposed": 19,
+          "maxUpperExposed": 14,
+          "branchChanges": 10,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 4,
+          "maxElbowStep": 5.656854,
+          "maxWristStep": 4
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 328,
+          "standard": 0,
+          "maxError": 2.462043,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 8,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 2,
+          "maxWristStep": 2
+        }
+      },
+      {
+        "id": "plant-water",
+        "kind": "continuous-grip",
+        "admissionLost": 547,
+        "admissionGained": 54,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 952,
+          "standard": 0,
+          "maxError": 1.626445,
+          "maxExposed": 66,
+          "maxUpperExposed": 32,
+          "branchChanges": 4,
+          "largeElbowJumps": 4,
+          "largeWristJumps": 4,
+          "maxElbowStep": 11.661904,
+          "maxWristStep": 6.324555
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 459,
+          "standard": 0,
+          "maxError": 2.760611,
+          "maxExposed": 40,
+          "maxUpperExposed": 9,
+          "branchChanges": 4,
+          "largeElbowJumps": 2,
+          "largeWristJumps": 2,
+          "maxElbowStep": 12,
+          "maxWristStep": 4
+        }
+      },
+      {
+        "id": "knit-scarf",
+        "kind": "continuous-grip",
+        "admissionLost": 0,
+        "admissionGained": 0,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 13.80953,
+          "maxExposed": 1,
+          "maxUpperExposed": 1,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 10.860623,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        }
+      },
+      {
+        "id": "drum-solo",
+        "kind": "point-touch",
+        "admissionLost": 0,
+        "admissionGained": 0,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 16.455432,
+          "maxExposed": 2,
+          "maxUpperExposed": 2,
+          "branchChanges": 12,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 12,
+          "maxElbowStep": 2.828427,
+          "maxWristStep": 2.828427
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 14.59559,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 14,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 14,
+          "maxElbowStep": 2.828427,
+          "maxWristStep": 2.828427
+        }
+      },
+      {
+        "id": "build-blocks",
+        "kind": "continuous-grip",
+        "admissionLost": 46,
+        "admissionGained": 145,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 656,
+          "direct": 187,
+          "standard": 0,
+          "maxError": 3.522251,
+          "maxExposed": 26,
+          "maxUpperExposed": 22,
+          "branchChanges": 7,
+          "largeElbowJumps": 3,
+          "largeWristJumps": 4,
+          "maxElbowStep": 11.661904,
+          "maxWristStep": 4.472136
+        },
+        "after": {
+          "samples": 656,
+          "direct": 286,
+          "standard": 0,
+          "maxError": 4.729897,
+          "maxExposed": 3,
+          "maxUpperExposed": 1,
+          "branchChanges": 7,
+          "largeElbowJumps": 1,
+          "largeWristJumps": 1,
+          "maxElbowStep": 8.944272,
+          "maxWristStep": 5.656854
+        }
+      },
+      {
+        "id": "build-blocks",
+        "kind": "free-aux",
+        "admissionLost": 143,
+        "admissionGained": 0,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 369,
+          "direct": 143,
+          "standard": 0,
+          "maxError": 3.186831,
+          "maxExposed": 19,
+          "maxUpperExposed": 14,
+          "branchChanges": 1,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 2.828427,
+          "maxWristStep": 2
+        },
+        "after": {
+          "samples": 369,
+          "direct": 0,
+          "standard": 0,
+          "maxError": 4.626654,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 1,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 2,
+          "maxWristStep": 2
+        }
+      },
+      {
+        "id": "catch-star",
+        "kind": "free-aux",
+        "admissionLost": 486,
+        "admissionGained": 5,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 497,
+          "standard": 0,
+          "maxError": 8.746428,
+          "maxExposed": 71,
+          "maxUpperExposed": 34,
+          "branchChanges": 12,
+          "largeElbowJumps": 7,
+          "largeWristJumps": 10,
+          "maxElbowStep": 12.649111,
+          "maxWristStep": 8.246211
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 16,
+          "standard": 0,
+          "maxError": 7.735969,
+          "maxExposed": 40,
+          "maxUpperExposed": 9,
+          "branchChanges": 13,
+          "largeElbowJumps": 1,
+          "largeWristJumps": 8,
+          "maxElbowStep": 11.313708,
+          "maxWristStep": 8
+        }
+      },
+      {
+        "id": "umbrella-dance",
+        "kind": "continuous-grip",
+        "admissionLost": 0,
+        "admissionGained": 0,
+        "standardLost": 0,
+        "standardGained": 1025,
+        "before": {
+          "samples": 1025,
+          "direct": 1025,
+          "standard": 0,
+          "maxError": 0.976281,
+          "maxExposed": 0,
+          "maxUpperExposed": 0,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 1025,
+          "standard": 1025,
+          "maxError": 0.673146,
+          "maxExposed": 36,
+          "maxUpperExposed": 7,
+          "branchChanges": 0,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 0,
+          "maxWristStep": 0
+        }
+      },
+      {
+        "id": "snack-picnic",
+        "kind": "continuous-grip",
+        "admissionLost": 71,
+        "admissionGained": 0,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 531,
+          "standard": 0,
+          "maxError": 2.853178,
+          "maxExposed": 70,
+          "maxUpperExposed": 28,
+          "branchChanges": 18,
+          "largeElbowJumps": 4,
+          "largeWristJumps": 6,
+          "maxElbowStep": 11.661904,
+          "maxWristStep": 6.324555
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 460,
+          "standard": 0,
+          "maxError": 3.717403,
+          "maxExposed": 39,
+          "maxUpperExposed": 10,
+          "branchChanges": 18,
+          "largeElbowJumps": 10,
+          "largeWristJumps": 12,
+          "maxElbowStep": 12.649111,
+          "maxWristStep": 8.944272
+        }
+      },
+      {
+        "id": "shadow-box",
+        "kind": "free-aux",
+        "admissionLost": 149,
+        "admissionGained": 561,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 464,
+          "standard": 0,
+          "maxError": 1.581139,
+          "maxExposed": 79,
+          "maxUpperExposed": 33,
+          "branchChanges": 16,
+          "largeElbowJumps": 6,
+          "largeWristJumps": 6,
+          "maxElbowStep": 12.649111,
+          "maxWristStep": 6.324555
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 876,
+          "standard": 0,
+          "maxError": 2.54951,
+          "maxExposed": 55,
+          "maxUpperExposed": 9,
+          "branchChanges": 12,
+          "largeElbowJumps": 6,
+          "largeWristJumps": 6,
+          "maxElbowStep": 12.649111,
+          "maxWristStep": 6.324555
+        }
+      },
+      {
+        "id": "tiny-chef",
+        "kind": "continuous-grip",
+        "admissionLost": 0,
+        "admissionGained": 0,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 1025,
+          "standard": 0,
+          "maxError": 1.068,
+          "maxExposed": 52,
+          "maxUpperExposed": 18,
+          "branchChanges": 6,
+          "largeElbowJumps": 4,
+          "largeWristJumps": 2,
+          "maxElbowStep": 10.77033,
+          "maxWristStep": 4
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 1025,
+          "standard": 0,
+          "maxError": 1.177549,
+          "maxExposed": 39,
+          "maxUpperExposed": 10,
+          "branchChanges": 6,
+          "largeElbowJumps": 4,
+          "largeWristJumps": 4,
+          "maxElbowStep": 11.661904,
+          "maxWristStep": 4.472136
+        }
+      },
+      {
+        "id": "photo-pose",
+        "kind": "continuous-grip",
+        "admissionLost": 9,
+        "admissionGained": 460,
+        "standardLost": 0,
+        "standardGained": 0,
+        "before": {
+          "samples": 1025,
+          "direct": 565,
+          "standard": 0,
+          "maxError": 2.855915,
+          "maxExposed": 9,
+          "maxUpperExposed": 4,
+          "branchChanges": 8,
+          "largeElbowJumps": 0,
+          "largeWristJumps": 0,
+          "maxElbowStep": 4.472136,
+          "maxWristStep": 2
+        },
+        "after": {
+          "samples": 1025,
+          "direct": 1016,
+          "standard": 0,
+          "maxError": 1.327537,
+          "maxExposed": 11,
+          "maxUpperExposed": 1,
+          "branchChanges": 12,
+          "largeElbowJumps": 8,
+          "largeWristJumps": 4,
+          "maxElbowStep": 10.198039,
+          "maxWristStep": 4
+        }
+      }
+    ]
+  },
+  "importantLimits": [
+    "Counts are sampled hands, not successful action counts.",
+    "All-action standard means actual artist with an explicitly accepted v2 source; production runtimeReady=false and hostAcceptsContract=null.",
+    "Hiccup sourceContactPose remains disabled and null. Old and new standard artists both use legacy fallback.",
+    "Point-touch is not continuous grip. Integrated and free-aux hands are reported separately.",
+    "All diagnostic branch counts include unreachable plans; none are visual pass claims.",
+    "Only newly whole-action standard-admitted side is umbrella-dance/front/right; parent reviewed five-phase1x/2x comparison and found no new obvious contour issue. This is limited evidence, not all-action naturalness approval."
+  ],
+  "sourceEvidence": {
+    "runtimeReady": false,
+    "hostAcceptsContract": null,
+    "baselineSocket": {
+      "kind": "shoulder",
+      "view": "front",
+      "side": "r",
+      "src": "socket/socket-shoulder-r-front.png",
+      "productionSrc": "socket/socket-shoulder-r-front@8x.png",
+      "pivot": "socket/socket-shoulder-r-front.pivot.png",
+      "coverageStencil": "socket/socket-shoulder-r-front-coverage.png",
+      "coverageProduction": "socket/socket-shoulder-r-front-coverage@8x.png",
+      "maskRole": "attachment-coverage",
+      "size": [
+        25,
+        25
+      ],
+      "root": [
+        12.5,
+        12.5
+      ],
+      "worldRoot": [
+        61.5,
+        45.5
+      ],
+      "bodyAnchor": "shoulder-right",
+      "mirror": false,
+      "sourceBody": {
+        "src": "sources/canonical/views/front/body.png",
+        "rect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "tint": "body",
+        "sha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9"
+      },
+      "noOp": true,
+      "noOpReason": "The approved assembly keeps the unchanged canonical body in front of the embedded root; no extra painted patch or body-outline erase is needed.",
+      "consumerRequired": "Coverage retains only upper-arm proximal half-space projection<=0 within body alpha. Do not erase or repaint the body. Hip stencil is reserved registration evidence; current stand uses body occlusion without clipping the foot.",
+      "coverageMeaning": "White means actual canonical body alpha is nonzero at this integer placement. Transparent margins are outside the declared 21x21 useful stencil domain, not evidence that body is absent there.",
+      "usefulLocalRect": [
+        2,
+        2,
+        23,
+        23
+      ],
+      "bodyAlphaSha256": "dc3b5f254caff469d42def9f29655a3ce0e78622d2a7f1e4456b0972d41391d5",
+      "semantic": {
+        "kind": "socket-patch",
+        "view": "front",
+        "side": "r",
+        "attachment": "shoulder"
+      },
+      "sha256": "0af480e068aa21df46cca73a8df84f42887cb77946c5cd87e7c24c7dd6b7bfbe",
+      "sourceBodyAnchor": [
+        58.6,
+        39.712821
+      ],
+      "anchorOffset": [
+        2.8999999999999986,
+        5.787179000000002
+      ],
+      "offsetRole": "Fixed view/side registration offset, never adjusted per action."
+    },
+    "candidateSocket": {
+      "kind": "shoulder",
+      "view": "front",
+      "side": "r",
+      "src": "socket/socket-shoulder-r-front.png",
+      "productionSrc": "socket/socket-shoulder-r-front@8x.png",
+      "pivot": "socket/socket-shoulder-r-front.pivot.png",
+      "coverageStencil": "socket/socket-shoulder-r-front-coverage.png",
+      "coverageProduction": "socket/socket-shoulder-r-front-coverage@8x.png",
+      "maskRole": "attachment-coverage",
+      "size": [
+        25,
+        25
+      ],
+      "root": [
+        12.5,
+        12.5
+      ],
+      "worldRoot": [
+        58.5,
+        45.5
+      ],
+      "bodyAnchor": "shoulder-right",
+      "mirror": false,
+      "sourceBody": {
+        "src": "sources/canonical/views/front/body.png",
+        "rect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "tint": "body",
+        "sha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9"
+      },
+      "noOp": true,
+      "noOpReason": "The approved assembly keeps the unchanged canonical body in front of the embedded root; no extra painted patch or body-outline erase is needed.",
+      "consumerRequired": "Coverage retains only upper-arm proximal half-space projection<=0 within body alpha. Do not erase or repaint the body. Hip stencil is reserved registration evidence; current stand uses body occlusion without clipping the foot.",
+      "coverageMeaning": "White means actual canonical body alpha is nonzero at this integer placement. Transparent margins are outside the declared 21x21 useful stencil domain, not evidence that body is absent there.",
+      "usefulLocalRect": [
+        2,
+        2,
+        23,
+        23
+      ],
+      "bodyAlphaSha256": "dc3b5f254caff469d42def9f29655a3ce0e78622d2a7f1e4456b0972d41391d5",
+      "semantic": {
+        "kind": "socket-patch",
+        "view": "front",
+        "side": "r",
+        "attachment": "shoulder"
+      },
+      "sha256": "0af480e068aa21df46cca73a8df84f42887cb77946c5cd87e7c24c7dd6b7bfbe",
+      "sourceBodyAnchor": [
+        58.6,
+        39.712821
+      ],
+      "anchorOffset": [
+        -0.10000000000000142,
+        5.787179000000002
+      ],
+      "offsetRole": "Fixed view/side registration offset, never adjusted per action."
+    },
+    "coverageRebuiltFromCanonicalAlpha": true,
+    "sourceManifestUnmutated": true,
+    "invariants": {
+      "sampledArtwork": 44490,
+      "validRenderedMarkers": 107368
+    },
+    "hashes": {
+      "src/capabilities/companion/presentation/dango-limb-compose.mjs": "4cae93287c713a05d5f61e5e254ed857e80f0c46332b04260681cc9c448c4e61",
+      "src/capabilities/companion/presentation/dango-limb-assets.mjs": "c98c13406c9ee9af08e54b27210b84363742a633ca541a2378c800b0036932ef",
+      "src/capabilities/companion/presentation/dango-raster-art.mjs": "467ccb72b31ae2dd0c8b8c1b53e005baa8c205de3f205af64ebc26aa64af41ef",
+      "assets/companion/dango/raster/limbs/limbs.json": "2897b2e4e4a5efdeeae6c11ff1d83f4760294ce93f0538479dac140a081a565e",
+      "src/content/companion/dango-limbs.mjs": "bd1092708eccab963b772a70c509dc82321d4bbb9dabbef7c59b75183a0cedc0",
+      "assets/companion/dango/raster/dango.raster.mjs": "33db2405e6e7ced23939d431c01a28f0a72f5d4ab9e57ea203ee4ab3fe27500e"
+    },
+    "limits": [
+      "Actual source loader and production artist, diagnostic explicit acceptContract only.",
+      "Marker-distance, range and discrete branch evidence do not establish physical surface grip or visual approval.",
+      "Arm exposure excludes canonical body and front palm; props/garments can occlude additional pixels.",
+      "Dense sampling is deterministic observation, not continuous interval certification.",
+      "A branch jump means E step >6 or W step >2 while target step <0.5, reported separately."
+    ]
+  },
+  "portableVerification": {
+    "inputCurrentRoot": [
+      61.5,
+      45.5
+    ],
+    "inputStagedRoot": [
+      58.5,
+      45.5
+    ],
+    "comparisonRoots": [
+      [
+        61.5,
+        45.5
+      ],
+      [
+        58.5,
+        45.5
+      ]
+    ],
+    "coverageBytesEqualFromEitherInput": true,
+    "pairedPlanComparisons": 32,
+    "unchangedCurrentSource": true,
+    "unchangedStagedSource": true
+  },
+  "limitedUmbrellaReview": {
+    "reviewer": "parent",
+    "scope": "Five phases, actual generic artist, body-local 1x/2x comparison; no new obvious contour issue; not all-action naturalness approval",
+    "totalArmExposedPixels": 36,
+    "upperExposedPixels": 7
+  }
+}

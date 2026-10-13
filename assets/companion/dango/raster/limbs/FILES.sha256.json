@@ -14,13 +14,13 @@
     },
     {
       "path": "COMPOSITION.md",
-      "bytes": 9006,
-      "sha256": "8c2c524f87a8dc0d75003ace920888df1e7909d67ce72a2ef7cfa29526741aa9"
+      "bytes": 10500,
+      "sha256": "14f4bda8d2d799543210069b721c7bd4b43abb6d02e4f20b94ccb841ec6fb939"
     },
     {
       "path": "README.md",
-      "bytes": 3823,
-      "sha256": "464de4c818184c5191616648a5f9e1cb39d427b95348936c94c4c6cc455c676a"
+      "bytes": 4672,
+      "sha256": "b781ab6ccf93bfbbd6507a55300068dfccda471443e47db4db2b36d81d6f18f3"
     },
     {
       "path": "arm/arm-fore-l-a000.pivot.png",
@@ -7484,8 +7484,8 @@
     },
     {
       "path": "limbs.json",
-      "bytes": 770409,
-      "sha256": "2897b2e4e4a5efdeeae6c11ff1d83f4760294ce93f0538479dac140a081a565e"
+      "bytes": 770741,
+      "sha256": "742a79b9eb82013ca3cb0b700a3b7cc5ab2116b5e7a13c582a74747647447bfe"
     },
     {
       "path": "paw/paw-fist-l-front-a000.pivot.png",
@@ -9774,8 +9774,13 @@
     },
     {
       "path": "scripts/check.py",
-      "bytes": 4534,
-      "sha256": "bd75f3e07e64ecbd810521d3859ce88eb2849b4dbb9675c77bd8477e048b4b35"
+      "bytes": 4734,
+      "sha256": "943570f1f4222319a61e044d50ea4b50900ab391776af2af5b5a9c1b43737a8d"
+    },
+    {
+      "path": "scripts/check_registration.py",
+      "bytes": 8295,
+      "sha256": "c9b969aec949f8834f1868a24fd00d3cf3b5a5491b122ab4e7a750fad0d1a5e9"
     },
     {
       "path": "scripts/rebuild.py",
@@ -9789,13 +9794,28 @@
     },
     {
       "path": "scripts/render_previews.py",
-      "bytes": 8277,
-      "sha256": "0e836209da6369174486d2b3f8962ca23c4bf374ebd53ce7bf2ec721558aa312"
+      "bytes": 8433,
+      "sha256": "73399cab3f8fd604d643288e172dc695964c0578b9e111633e6ddcde935503c8"
     },
     {
       "path": "scripts/requirements.txt",
       "bytes": 15,
       "sha256": "41b54a6fb2918667ca47a61d73b522629d84490f3d78f0f20b21135faba10d35"
+    },
+    {
+      "path": "scripts/solve_registered_shoulders.py",
+      "bytes": 5927,
+      "sha256": "345a204f32bb361ff6bd97f2d9f613a267d2b05d343d4377d0e37091d45c69fb"
+    },
+    {
+      "path": "scripts/test_registration.py",
+      "bytes": 4953,
+      "sha256": "fa6bf379a620ed647f57c009009838fda7b307a0ae847d93d116802975964210"
+    },
+    {
+      "path": "socket/front-right-registration.json",
+      "bytes": 28079,
+      "sha256": "0d8de0b3d718e4689dc00471db1c30c5cab6556b5f362c4adb16efce46cf674b"
     },
     {
       "path": "socket/socket-hip-l-back-coverage.png",
@@ -10049,13 +10069,13 @@
     },
     {
       "path": "socket/socket-shoulder-r-front-coverage.png",
-      "bytes": 146,
-      "sha256": "870b80576023cecd7f3d491679cc6cede38d20df81af1dd7899dd2609e24cd27"
+      "bytes": 144,
+      "sha256": "9cfc110b0162c094a37fde2e5fb1f314aabc386d7ab9fc8fae3c52a56cd1b2b9"
     },
     {
       "path": "socket/socket-shoulder-r-front-coverage@8x.png",
-      "bytes": 592,
-      "sha256": "4cb4586f17fc209ceeff666938d69f278eb04151e046617ee475493f49279c43"
+      "bytes": 594,
+      "sha256": "71955599cf5a05426072793426740e6088fe94fb693684c5b0b33f1444dd5f47"
     },
     {
       "path": "socket/socket-shoulder-r-front.pivot.png",
@@ -10099,8 +10119,8 @@
     },
     {
       "path": "socket/sockets.json",
-      "bytes": 27804,
-      "sha256": "3fd8b55a231b0f51823a0a0ad82608ea61c14362dff299905cd40bc886299a01"
+      "bytes": 28063,
+      "sha256": "f583a5efadfe38c706505356291f65222e8e4ba74460256b3fbd680f2647a1fd"
     },
     {
       "path": "sources/canonical/render-reference.json",
@@ -10403,6 +10423,111 @@
       "sha256": "954e18c14ba60b4a43971842f434fae587e32af999e55b0694688f4d3174a948"
     },
     {
+      "path": "sources/evidence/shoulder-registration-v1/previous-fixed-shoulder-targets.json",
+      "bytes": 45139,
+      "sha256": "50f3ae18bd5e97ada173b76c8f12ba42756600a1bb72f958e7b9a977347689ae"
+    },
+    {
+      "path": "sources/evidence/shoulder-registration-v1/previous-visual/actual-five-preview.png",
+      "bytes": 39108,
+      "sha256": "1f39ff264c9de787b79192bd36e00d170975b5661130fac7fcbed7f1112f5ee7"
+    },
+    {
+      "path": "sources/evidence/shoulder-registration-v1/previous-visual/holding-cup-2x.png",
+      "bytes": 8572,
+      "sha256": "da9b0604086bc9e04306bbe278078761e2cda138a8368a31c5d8e473567b62b5"
+    },
+    {
+      "path": "sources/evidence/shoulder-registration-v1/previous-visual/holding-cup-6x-inspection.png",
+      "bytes": 12042,
+      "sha256": "84c031a56be2709c0e43845932cd0995886d986c2ed7e45008666ab9a96aa291"
+    },
+    {
+      "path": "sources/evidence/shoulder-registration-v1/previous-visual/holding-cup-native.png",
+      "bytes": 6374,
+      "sha256": "d52b5190c6485becf1a1540cb8037afc787a855eb92fb246619800a6a19452e3"
+    },
+    {
+      "path": "sources/evidence/shoulder-registration-v1/previous-visual/joints-contact-sheet.png",
+      "bytes": 91246,
+      "sha256": "8caf77187165be263801238e9d668917c785f293d07d15b2fdc9b977d753f954"
+    },
+    {
+      "path": "sources/evidence/shoulder-registration-v1/previous-visual/joints-with-paws.png",
+      "bytes": 25661,
+      "sha256": "ced5cc27946d54613dbf0e63be4e7b5ce6388ac54f591cabdc1b82e9192f21a5"
+    },
+    {
+      "path": "sources/evidence/shoulder-registration-v1/previous-visual/lifting-2x.png",
+      "bytes": 8216,
+      "sha256": "87e894e8bac9f8b9f6ccf43b94455102bfef7d69aef0ea09d73ea50c8d496cc3"
+    },
+    {
+      "path": "sources/evidence/shoulder-registration-v1/previous-visual/lifting-6x-inspection.png",
+      "bytes": 11704,
+      "sha256": "31483b7d6b4d4768a82b4fd8675559d2b6c308e33e1fffbafcba0b5bce905a08"
+    },
+    {
+      "path": "sources/evidence/shoulder-registration-v1/previous-visual/lifting-native.png",
+      "bytes": 6174,
+      "sha256": "3deb9f55b51372052c1a66388ca5d078e1661e013774b6f340ff1ac479f4e6b5"
+    },
+    {
+      "path": "sources/evidence/shoulder-registration-v1/previous-visual/registration.json",
+      "bytes": 17513,
+      "sha256": "e34078718b6ed6df5c903f8423e791081609b5142f8afd6b81c901bee133452b"
+    },
+    {
+      "path": "sources/evidence/shoulder-registration-v1/previous-visual/rig-solutions.json",
+      "bytes": 33842,
+      "sha256": "785bcb073cf816a2aaa78ca21ff3f2f3c2d574eef3404b2a5b4a9315a517267a"
+    },
+    {
+      "path": "sources/evidence/shoulder-registration-v1/previous-visual/standing-2x.png",
+      "bytes": 8107,
+      "sha256": "b024d417b5d5196d4c103a7939a1370a2632075907453037dd7e6589b955aead"
+    },
+    {
+      "path": "sources/evidence/shoulder-registration-v1/previous-visual/standing-6x-inspection.png",
+      "bytes": 11640,
+      "sha256": "3fe7a32e1362858584533306221516bccec310034dad4a9dd6b8a2aa275af813"
+    },
+    {
+      "path": "sources/evidence/shoulder-registration-v1/previous-visual/standing-native.png",
+      "bytes": 6081,
+      "sha256": "f9949c032f1828f57ae634c4a58b889c881b56093c420ed6899b16ccb0ba8a59"
+    },
+    {
+      "path": "sources/evidence/shoulder-registration-v1/previous-visual/stepping-2x.png",
+      "bytes": 8223,
+      "sha256": "0af0a0c5b62f09724006a3a6b6a66696d3631b5d9a83e6be7d20c3221095a842"
+    },
+    {
+      "path": "sources/evidence/shoulder-registration-v1/previous-visual/stepping-6x-inspection.png",
+      "bytes": 11702,
+      "sha256": "4c3ae24c73c5de341466c8cfd8149be1e4751a2c9de6f706c9c13c46bc9b1d53"
+    },
+    {
+      "path": "sources/evidence/shoulder-registration-v1/previous-visual/stepping-native.png",
+      "bytes": 6166,
+      "sha256": "94a69d2d64b51e88b8864f43c39f0af9d862996ceb98efbce1f96f32e9148088"
+    },
+    {
+      "path": "sources/evidence/shoulder-registration-v1/previous-visual/waving-2x.png",
+      "bytes": 8111,
+      "sha256": "4845d761f72b425a3038381619dcc673dfbf3057af9713b72a5543aadcf204b0"
+    },
+    {
+      "path": "sources/evidence/shoulder-registration-v1/previous-visual/waving-6x-inspection.png",
+      "bytes": 11677,
+      "sha256": "17fd49efea484e450626ceb53b1bb6135c93ae6738c4582ef5955d0b5551104f"
+    },
+    {
+      "path": "sources/evidence/shoulder-registration-v1/previous-visual/waving-native.png",
+      "bytes": 6109,
+      "sha256": "6586850ba201c8e749699048b52429b92381cd1b363651b8f93d5031ca50154f"
+    },
+    {
       "path": "sources/evidence/source-contour-five-repairs/back-wave/repair-recipe.json",
       "bytes": 3518,
       "sha256": "756eb0136b10b088ad35b40dae79457966927c7dc52b843a1c95e80bf00d429a"
@@ -10554,43 +10679,43 @@
     },
     {
       "path": "sources/rebuild-recipe.json",
-      "bytes": 657703,
-      "sha256": "1d4fdb701ddf538b53f868fa3d13db528c0070d6e38e52928698e3e69904b547"
+      "bytes": 658129,
+      "sha256": "d618add581d76e8b6d41dd13f9e6a925998d2ba0624b6845ca420e9b726992c1"
     },
     {
       "path": "validation/QA.md",
-      "bytes": 3578,
-      "sha256": "20314a88f362152d30a1e30bfa0ab6e81bf44d44b39135e58a7f62dcdebacc43"
+      "bytes": 5322,
+      "sha256": "caa83125c6a3339570b38b89bd52f29587b86a6ffdccd30a6e6490b8e60f527f"
     },
     {
       "path": "validation/check-results.json",
-      "bytes": 246,
-      "sha256": "6b74b38a26115f44c7507ffa90bdc998e4527f557d71020e3391bc85175a0175"
+      "bytes": 1819,
+      "sha256": "ad5742e39661b4033deafe9afbd9f3af4e4b0ee232934f818792e26efad4fd02"
     },
     {
       "path": "validation/fixed-shoulder-targets.json",
-      "bytes": 45139,
-      "sha256": "50f3ae18bd5e97ada173b76c8f12ba42756600a1bb72f958e7b9a977347689ae"
+      "bytes": 45239,
+      "sha256": "a1c052f86778d2454a047ddcf5f38b1c9b00c7937fe627f3eff78036201c6634"
     },
     {
       "path": "validation/visual/actual-five-preview.png",
-      "bytes": 39108,
-      "sha256": "1f39ff264c9de787b79192bd36e00d170975b5661130fac7fcbed7f1112f5ee7"
+      "bytes": 38987,
+      "sha256": "94e061d42bdb95a6fa1e11ea2048f512bf9aa0f809542fd72903b964f6cdc882"
     },
     {
       "path": "validation/visual/holding-cup-2x.png",
-      "bytes": 8572,
-      "sha256": "da9b0604086bc9e04306bbe278078761e2cda138a8368a31c5d8e473567b62b5"
+      "bytes": 8554,
+      "sha256": "3aa25b73376258c1cab291413fa9d4e02208834d345c73e0a3c41264769e600d"
     },
     {
       "path": "validation/visual/holding-cup-6x-inspection.png",
-      "bytes": 12042,
-      "sha256": "84c031a56be2709c0e43845932cd0995886d986c2ed7e45008666ab9a96aa291"
+      "bytes": 12023,
+      "sha256": "26236eec836f89e287c7143a2978136f4d14d1b97fbd169d2b5d243f076ccc53"
     },
     {
       "path": "validation/visual/holding-cup-native.png",
-      "bytes": 6374,
-      "sha256": "d52b5190c6485becf1a1540cb8037afc787a855eb92fb246619800a6a19452e3"
+      "bytes": 6359,
+      "sha256": "449a2dab37ce42ea3aedf7245ddb379fe42cbc09361254cb979d9780dbd2d569"
     },
     {
       "path": "validation/visual/joints-contact-sheet.png",
@@ -10619,28 +10744,28 @@
     },
     {
       "path": "validation/visual/registration.json",
-      "bytes": 17513,
-      "sha256": "e34078718b6ed6df5c903f8423e791081609b5142f8afd6b81c901bee133452b"
+      "bytes": 18155,
+      "sha256": "583edbfc4767a03a8dc4ae78450f8b1db2ab2bbd5c9e7248bef88206c63f698b"
     },
     {
       "path": "validation/visual/rig-solutions.json",
-      "bytes": 33842,
-      "sha256": "785bcb073cf816a2aaa78ca21ff3f2f3c2d574eef3404b2a5b4a9315a517267a"
+      "bytes": 33942,
+      "sha256": "5b118062e63f858920317b7f53b9683f741b41e3961299289fbd31868300ed86"
     },
     {
       "path": "validation/visual/standing-2x.png",
-      "bytes": 8107,
-      "sha256": "b024d417b5d5196d4c103a7939a1370a2632075907453037dd7e6589b955aead"
+      "bytes": 8123,
+      "sha256": "84f1f91931bbe4fa919e24eb4d5a62a0e199d527a42fd88cc1eb7746c6294902"
     },
     {
       "path": "validation/visual/standing-6x-inspection.png",
-      "bytes": 11640,
-      "sha256": "3fe7a32e1362858584533306221516bccec310034dad4a9dd6b8a2aa275af813"
+      "bytes": 11635,
+      "sha256": "932f97e3cdb5f1b404befaf40219e24708a75bfbde24770f267020a5fda5ae29"
     },
     {
       "path": "validation/visual/standing-native.png",
-      "bytes": 6081,
-      "sha256": "f9949c032f1828f57ae634c4a58b889c881b56093c420ed6899b16ccb0ba8a59"
+      "bytes": 6082,
+      "sha256": "0e468d30507db570f41811668493cb4348817c492f8ab772e5f335f9833d14e2"
     },
     {
       "path": "validation/visual/stepping-2x.png",
@@ -10659,18 +10784,18 @@
     },
     {
       "path": "validation/visual/waving-2x.png",
-      "bytes": 8111,
-      "sha256": "4845d761f72b425a3038381619dcc673dfbf3057af9713b72a5543aadcf204b0"
+      "bytes": 8125,
+      "sha256": "dbe9dc2561280b4d84835300d90f4635c1106d5031c80a95cea0cf9e1500c633"
     },
     {
       "path": "validation/visual/waving-6x-inspection.png",
-      "bytes": 11677,
-      "sha256": "17fd49efea484e450626ceb53b1bb6135c93ae6738c4582ef5955d0b5551104f"
+      "bytes": 11700,
+      "sha256": "e9a05f5dd7ee560ec5fdb90c326697d31da9906876e6ca13e99a9c1b5e3a9b07"
     },
     {
       "path": "validation/visual/waving-native.png",
-      "bytes": 6109,
-      "sha256": "6586850ba201c8e749699048b52429b92381cd1b363651b8f93d5031ca50154f"
+      "bytes": 6123,
+      "sha256": "8ee3a162de83e2f4e639ae305626806a004c5823e7cda555ab28031de4f45187"
     }
   ]
 }

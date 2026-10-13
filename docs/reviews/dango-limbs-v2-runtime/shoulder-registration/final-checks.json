@@ -1,0 +1,31 @@
+{
+  "command": "DANGO_CANVAS_PACKAGE=@napi-rs/canvas USAGI_CANVAS_PACKAGE=@napi-rs/canvas npm run check",
+  "exitCode": 0,
+  "tests": 6000,
+  "pass": 5990,
+  "fail": 0,
+  "optionalSkipped": 10,
+  "integration": {
+    "tests": 71,
+    "pass": 71,
+    "fail": 0
+  },
+  "sourceRegistrationTests": 9,
+  "stencilPixelsChecked": 7500,
+  "unchangedGoalTargets": 40,
+  "recomputedRightFrontGoals": 10,
+  "protectedPngsByteIdentical": 2058,
+  "runtimeOutputsReproducedByteExact": 6,
+  "limbTrace": {
+    "targetViews": 224,
+    "failures": 0
+  },
+  "limbPixels": {
+    "actions": 10,
+    "outlineGapFailures": 0
+  },
+  "runtimeReady": false,
+  "hostAcceptsContract": null,
+  "nativePlatformCI": "pending exact resulting head",
+  "fullSevenItemMergeReadiness": "NO-GO"
+}

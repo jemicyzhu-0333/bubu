@@ -21774,7 +21774,7 @@
         12.5
       ],
       "worldRoot": [
-        61.5,
+        58.5,
         45.5
       ],
       "bodyAnchor": "shoulder-right",
@@ -21813,10 +21813,12 @@
         39.712821
       ],
       "anchorOffset": [
-        2.8999999999999986,
-        5.787179000000002
+        -0.1,
+        5.787179
       ],
-      "offsetRole": "Fixed view/side registration offset, never adjusted per action."
+      "offsetRole": "Uniform fixed front/right registration for every action. Canonical X quantized to nearest half-pixel center; prior registered Y retained. No angle-dependent or per-frame root changes.",
+      "registrationContract": "socket/front-right-registration.json",
+      "coverageSha256": "9cfc110b0162c094a37fde2e5fb1f314aabc386d7ab9fc8fae3c52a56cd1b2b9"
     },
     {
       "kind": "hip",
@@ -22467,6 +22469,7 @@
         "swapScreenSides": true,
         "registration": "Reflect complete body-local placement using the host view transform; reflect pixel anchors by width-x. Do not reflect only the isolated sprite while leaving its world attachment unchanged."
       }
-    }
+    },
+    "fixedShoulderRegistration": "socket/front-right-registration.json"
   }
 }

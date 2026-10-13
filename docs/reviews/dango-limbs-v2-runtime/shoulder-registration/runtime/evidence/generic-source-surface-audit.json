@@ -1,0 +1,57 @@
+{
+  "status": "passed-generic-standard-source-and-surface-audit",
+  "plan": {
+    "S": [
+      58.5,
+      45.5
+    ],
+    "E": [
+      52.5,
+      43.5
+    ],
+    "W": [
+      54.5,
+      49.5
+    ],
+    "target": [
+      54.046795,
+      53.653846
+    ],
+    "contact": [
+      54.5,
+      53.5
+    ],
+    "error": 0.47860564532921857,
+    "angles": [
+      337.5,
+      112.5
+    ],
+    "paw": "paw/paw-grip-l-front-a090.png"
+  },
+  "sourceFiles": {
+    "arm/arm-upper-l-a337.png": "222eb354c98734179c5361f6d2e51e7f471ae6b48433bfabc2922b630c2aa96d",
+    "sources/crops/arm-strip-source-candidates/arm-zero-source-isolated.png": "35c9f2029055a7c40b93ee9b618c5edfc985d9f9ce5132c486060d2f5b123e87",
+    "sources/evidence/arm-strip-source-candidates/arm-strip-source-recipe.json": "0838f556fda931c0570ae2898d88670f15fec16710ed238290a2035a941d635c",
+    "arm/arm-fore-l-a112.png": "d9557711b8a0fae720b185a0a7349ba51c8d39cc48ae6565de09fed5e2fc0a21",
+    "sources/crops/distinct-fore-v3/fore-source-rgba.png": "fa20d6e5e90a3afdaabffd47c1bfd9516007e76f34cba9faa963b91dcf31bfea",
+    "sources/evidence/distinct-fore-v3/source-recipe.json": "c519f86548a571ec9f6a47cf19379ab956b4d840e3cc58d174adc705fb4ad0b7",
+    "paw/paw-grip-l-front-a090.png": "0eaa7d7664c497082fefdc1cd26971d2a0dc92e031e721be84173ed89acf26c7",
+    "sources/crops/stable-contact-source-candidates/front-grip-stable-left-source-isolated.png": "6da273a0653facb13751ac2c69a5a1aa24ae601c3d03e5c997124a4a5e6685be",
+    "sources/evidence/stable-contact-source-candidates/source-mask-recipe.json": "bd15a74bff5bb97ce550af49dc8ab2859c35c8197cafe6885d10ce5ae6ba90a8",
+    "sources/canonical/views/front/body.png": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9"
+  },
+  "sourceFramesUnmodified": true,
+  "originalSourceHashesVerified": true,
+  "jointAlphaUnionUnchanged": true,
+  "exposedArmAtLogicalPixelCenters": 0,
+  "surface4dpr": {
+    "exposedArmDevicePixels": 0,
+    "pawArmOverlapDevicePixels": 1224,
+    "pawBodyOverlapDevicePixels": 3703,
+    "pawToolOverlapDevicePixels": 1947,
+    "pawToolOverlapWithin2ArtTarget": 576
+  },
+  "scope": "Actual canonical body, actual original palm alpha and actual prop alpha measured separately. Positive overlap and source provenance supplement marker error; video/native-size visual review is still required. Global shoulder registration alone, no new source projection or action-specific pose.",
+  "runtimeReady": false,
+  "host": null
+}

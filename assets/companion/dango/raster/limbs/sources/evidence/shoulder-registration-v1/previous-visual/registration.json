@@ -1,0 +1,697 @@
+[
+  {
+    "case": "standing",
+    "view": "front",
+    "rig": [
+      {
+        "pose": "rest",
+        "view": "front",
+        "side": "left",
+        "fixedShoulder": [
+          4.5,
+          45.5
+        ],
+        "requestedWrist": [
+          3.5,
+          40.5
+        ],
+        "actualWrist": [
+          2.5,
+          39.5
+        ],
+        "wristErrorVector": [
+          -1.0,
+          -1.0
+        ],
+        "wristErrorMagnitude": 1.4142135623730951,
+        "upperAngle": 315.0,
+        "foreAngle": 202.5,
+        "elbow": [
+          8.5,
+          41.5
+        ],
+        "bend": 112.5,
+        "centerlineSamplesWithinBody": 18,
+        "exposedSegmentPixelsBeforeSocketClipping": 0,
+        "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+      },
+      {
+        "pose": "rest",
+        "view": "front",
+        "side": "right",
+        "fixedShoulder": [
+          61.5,
+          45.5
+        ],
+        "requestedWrist": [
+          62.5,
+          40.5
+        ],
+        "actualWrist": [
+          61.5,
+          41.5
+        ],
+        "wristErrorVector": [
+          -1.0,
+          1.0
+        ],
+        "wristErrorMagnitude": 1.4142135623730951,
+        "upperAngle": 202.5,
+        "foreAngle": 337.5,
+        "elbow": [
+          55.5,
+          43.5
+        ],
+        "bend": 135.0,
+        "centerlineSamplesWithinBody": 18,
+        "exposedSegmentPixelsBeforeSocketClipping": 0,
+        "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+      }
+    ],
+    "socketClipping": {
+      "rule": "Only upper open proximal half-space projection <= 0 is hidden where the actual canonical body alpha is zero. Positive-axis arm tissue, forearm and paw are unchanged.",
+      "edits": []
+    },
+    "hands": [
+      {
+        "root": [
+          13.5,
+          7.5
+        ],
+        "world": [
+          2.5,
+          39.5
+        ],
+        "side": "left",
+        "frame": "paw/paw-rest-l-front-a180.png",
+        "gripWorld": [
+          -2.5,
+          41.5
+        ]
+      },
+      {
+        "root": [
+          3.5,
+          7.5
+        ],
+        "world": [
+          61.5,
+          41.5
+        ],
+        "side": "right",
+        "frame": "paw/paw-rest-l-front-a180.png",
+        "gripWorld": [
+          66.5,
+          43.5
+        ]
+      }
+    ],
+    "cup": null,
+    "status": "Actual 6+6 source-arm composition with reviewed pair repair and explicit shoulder coverage. Static pose preview; not animation acceptance."
+  },
+  {
+    "case": "holding-cup",
+    "view": "front",
+    "rig": [
+      {
+        "pose": "hold-canonical-cup",
+        "view": "front",
+        "side": "left",
+        "fixedShoulder": [
+          4.5,
+          45.5
+        ],
+        "requestedWrist": [
+          12.5,
+          49.5
+        ],
+        "actualWrist": [
+          12.5,
+          49.5
+        ],
+        "wristErrorVector": [
+          0.0,
+          0.0
+        ],
+        "wristErrorMagnitude": 0.0,
+        "upperAngle": 337.5,
+        "foreAngle": 67.5,
+        "elbow": [
+          10.5,
+          43.5
+        ],
+        "bend": 90.0,
+        "centerlineSamplesWithinBody": 18,
+        "exposedSegmentPixelsBeforeSocketClipping": 0,
+        "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+      },
+      {
+        "pose": "hold-canonical-cup",
+        "view": "front",
+        "side": "right",
+        "fixedShoulder": [
+          61.5,
+          45.5
+        ],
+        "requestedWrist": [
+          53.5,
+          49.5
+        ],
+        "actualWrist": [
+          53.5,
+          49.5
+        ],
+        "wristErrorVector": [
+          0.0,
+          0.0
+        ],
+        "wristErrorMagnitude": 0.0,
+        "upperAngle": 202.5,
+        "foreAngle": 112.5,
+        "elbow": [
+          55.5,
+          43.5
+        ],
+        "bend": 90.0,
+        "centerlineSamplesWithinBody": 18,
+        "exposedSegmentPixelsBeforeSocketClipping": 0,
+        "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+      }
+    ],
+    "socketClipping": {
+      "rule": "Only upper open proximal half-space projection <= 0 is hidden where the actual canonical body alpha is zero. Positive-axis arm tissue, forearm and paw are unchanged.",
+      "edits": []
+    },
+    "hands": [
+      {
+        "root": [
+          5.5,
+          10.5
+        ],
+        "world": [
+          12.5,
+          49.5
+        ],
+        "side": "left",
+        "frame": "paw/paw-hold-l-front-a000.png",
+        "gripWorld": [
+          23.5,
+          49.5
+        ]
+      },
+      {
+        "root": [
+          15.5,
+          10.5
+        ],
+        "world": [
+          53.5,
+          49.5
+        ],
+        "side": "right",
+        "frame": "paw/paw-hold-l-front-a000.png",
+        "gripWorld": [
+          42.5,
+          49.5
+        ]
+      }
+    ],
+    "cup": {
+      "size": [
+        22,
+        19
+      ],
+      "origin": [
+        22,
+        39
+      ],
+      "sourceAnchors": [
+        [
+          0.875,
+          10.375
+        ],
+        [
+          20.5,
+          10.375
+        ]
+      ],
+      "previewPixelContacts": [
+        [
+          1.5,
+          10.5
+        ],
+        [
+          20.5,
+          10.5
+        ]
+      ],
+      "anchorQuantizationNote": "Left surface marker snaps0.625art inX and0.125inY; right0inX/.125inY. Both preview paw grip pixels coincide with these actual opaque cup pixels."
+    },
+    "status": "Actual 6+6 source-arm composition with reviewed pair repair and explicit shoulder coverage. Static pose preview; not animation acceptance."
+  },
+  {
+    "case": "waving",
+    "view": "front",
+    "rig": [
+      {
+        "pose": "wave",
+        "view": "front",
+        "side": "left",
+        "fixedShoulder": [
+          4.5,
+          45.5
+        ],
+        "requestedWrist": [
+          0.19807510786753824,
+          35.5253025808438
+        ],
+        "actualWrist": [
+          0.5,
+          35.5
+        ],
+        "wristErrorVector": [
+          0.30192489213246176,
+          -0.02530258084379966
+        ],
+        "wristErrorMagnitude": 0.3029832686577853,
+        "upperAngle": 270.0,
+        "foreAngle": 225.0,
+        "elbow": [
+          4.5,
+          39.5
+        ],
+        "bend": 45.0,
+        "centerlineSamplesWithinBody": 18,
+        "exposedSegmentPixelsBeforeSocketClipping": 8,
+        "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+      },
+      {
+        "pose": "rest",
+        "view": "front",
+        "side": "right",
+        "fixedShoulder": [
+          61.5,
+          45.5
+        ],
+        "requestedWrist": [
+          62.5,
+          40.5
+        ],
+        "actualWrist": [
+          61.5,
+          41.5
+        ],
+        "wristErrorVector": [
+          -1.0,
+          1.0
+        ],
+        "wristErrorMagnitude": 1.4142135623730951,
+        "upperAngle": 202.5,
+        "foreAngle": 337.5,
+        "elbow": [
+          55.5,
+          43.5
+        ],
+        "bend": 135.0,
+        "centerlineSamplesWithinBody": 18,
+        "exposedSegmentPixelsBeforeSocketClipping": 0,
+        "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+      }
+    ],
+    "socketClipping": {
+      "rule": "Only upper open proximal half-space projection <= 0 is hidden where the actual canonical body alpha is zero. Positive-axis arm tissue, forearm and paw are unchanged.",
+      "edits": [
+        {
+          "side": "left",
+          "segment": "upper",
+          "local": [
+            4,
+            10
+          ],
+          "canvas": [
+            16,
+            55
+          ],
+          "axialProjection": 7.347880794884119e-16,
+          "before": [
+            248,
+            104,
+            120,
+            255
+          ]
+        },
+        {
+          "side": "left",
+          "segment": "upper",
+          "local": [
+            5,
+            10
+          ],
+          "canvas": [
+            17,
+            55
+          ],
+          "axialProjection": 5.51091059616309e-16,
+          "before": [
+            248,
+            104,
+            120,
+            255
+          ]
+        },
+        {
+          "side": "left",
+          "segment": "upper",
+          "local": [
+            4,
+            11
+          ],
+          "canvas": [
+            16,
+            56
+          ],
+          "axialProjection": -0.9999999999999992,
+          "before": [
+            248,
+            104,
+            120,
+            255
+          ]
+        },
+        {
+          "side": "left",
+          "segment": "upper",
+          "local": [
+            5,
+            11
+          ],
+          "canvas": [
+            17,
+            56
+          ],
+          "axialProjection": -0.9999999999999994,
+          "before": [
+            248,
+            104,
+            120,
+            255
+          ]
+        },
+        {
+          "side": "left",
+          "segment": "upper",
+          "local": [
+            4,
+            12
+          ],
+          "canvas": [
+            16,
+            57
+          ],
+          "axialProjection": -1.9999999999999993,
+          "before": [
+            248,
+            128,
+            128,
+            255
+          ]
+        },
+        {
+          "side": "left",
+          "segment": "upper",
+          "local": [
+            5,
+            12
+          ],
+          "canvas": [
+            17,
+            57
+          ],
+          "axialProjection": -1.9999999999999996,
+          "before": [
+            248,
+            128,
+            128,
+            255
+          ]
+        }
+      ]
+    },
+    "hands": [
+      {
+        "root": [
+          17.5,
+          16.5
+        ],
+        "world": [
+          0.5,
+          35.5
+        ],
+        "side": "left",
+        "frame": "paw/paw-wave-l-front-a225.png",
+        "gripWorld": [
+          -5.5,
+          29.5
+        ]
+      },
+      {
+        "root": [
+          3.5,
+          7.5
+        ],
+        "world": [
+          61.5,
+          41.5
+        ],
+        "side": "right",
+        "frame": "paw/paw-rest-l-front-a180.png",
+        "gripWorld": [
+          66.5,
+          43.5
+        ]
+      }
+    ],
+    "cup": null,
+    "status": "Actual 6+6 source-arm composition with reviewed pair repair and explicit shoulder coverage. Static pose preview; not animation acceptance."
+  },
+  {
+    "case": "stepping",
+    "view": "three-quarter-left",
+    "rig": [
+      {
+        "pose": "rest",
+        "view": "three-quarter-left",
+        "side": "left",
+        "fixedShoulder": [
+          2.5,
+          36.5
+        ],
+        "requestedWrist": [
+          3.5,
+          40.5
+        ],
+        "actualWrist": [
+          4.5,
+          40.5
+        ],
+        "wristErrorVector": [
+          1.0,
+          0.0
+        ],
+        "wristErrorMagnitude": 1.0,
+        "upperAngle": 0.0,
+        "foreAngle": 135.0,
+        "elbow": [
+          8.5,
+          36.5
+        ],
+        "bend": 135.0,
+        "centerlineSamplesWithinBody": 18,
+        "exposedSegmentPixelsBeforeSocketClipping": 0,
+        "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+      },
+      {
+        "pose": "rest",
+        "view": "three-quarter-left",
+        "side": "right",
+        "fixedShoulder": [
+          52.5,
+          43.5
+        ],
+        "requestedWrist": [
+          62.5,
+          40.5
+        ],
+        "actualWrist": [
+          62.5,
+          39.5
+        ],
+        "wristErrorVector": [
+          0.0,
+          -1.0
+        ],
+        "wristErrorMagnitude": 1.0,
+        "upperAngle": 0.0,
+        "foreAngle": 315.0,
+        "elbow": [
+          58.5,
+          43.5
+        ],
+        "bend": 45.0,
+        "centerlineSamplesWithinBody": 18,
+        "exposedSegmentPixelsBeforeSocketClipping": 0,
+        "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+      }
+    ],
+    "socketClipping": {
+      "rule": "Only upper open proximal half-space projection <= 0 is hidden where the actual canonical body alpha is zero. Positive-axis arm tissue, forearm and paw are unchanged.",
+      "edits": []
+    },
+    "hands": [
+      {
+        "root": [
+          14.5,
+          7.5
+        ],
+        "world": [
+          4.5,
+          40.5
+        ],
+        "side": "left",
+        "frame": "paw/paw-rest-l-three-quarter-left-a180.png",
+        "gripWorld": [
+          -1.5,
+          42.5
+        ]
+      },
+      {
+        "root": [
+          4.5,
+          7.5
+        ],
+        "world": [
+          62.5,
+          39.5
+        ],
+        "side": "right",
+        "frame": "paw/paw-rest-l-three-quarter-left-a180.png",
+        "gripWorld": [
+          68.5,
+          41.5
+        ]
+      }
+    ],
+    "cup": null,
+    "status": "Actual 6+6 source-arm composition with reviewed pair repair and explicit shoulder coverage. Static pose preview; not animation acceptance."
+  },
+  {
+    "case": "lifting",
+    "view": "three-quarter-left",
+    "rig": [
+      {
+        "pose": "rest",
+        "view": "three-quarter-left",
+        "side": "left",
+        "fixedShoulder": [
+          2.5,
+          36.5
+        ],
+        "requestedWrist": [
+          3.5,
+          40.5
+        ],
+        "actualWrist": [
+          4.5,
+          40.5
+        ],
+        "wristErrorVector": [
+          1.0,
+          0.0
+        ],
+        "wristErrorMagnitude": 1.0,
+        "upperAngle": 0.0,
+        "foreAngle": 135.0,
+        "elbow": [
+          8.5,
+          36.5
+        ],
+        "bend": 135.0,
+        "centerlineSamplesWithinBody": 18,
+        "exposedSegmentPixelsBeforeSocketClipping": 0,
+        "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+      },
+      {
+        "pose": "rest",
+        "view": "three-quarter-left",
+        "side": "right",
+        "fixedShoulder": [
+          52.5,
+          43.5
+        ],
+        "requestedWrist": [
+          62.5,
+          40.5
+        ],
+        "actualWrist": [
+          62.5,
+          39.5
+        ],
+        "wristErrorVector": [
+          0.0,
+          -1.0
+        ],
+        "wristErrorMagnitude": 1.0,
+        "upperAngle": 0.0,
+        "foreAngle": 315.0,
+        "elbow": [
+          58.5,
+          43.5
+        ],
+        "bend": 45.0,
+        "centerlineSamplesWithinBody": 18,
+        "exposedSegmentPixelsBeforeSocketClipping": 0,
+        "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+      }
+    ],
+    "socketClipping": {
+      "rule": "Only upper open proximal half-space projection <= 0 is hidden where the actual canonical body alpha is zero. Positive-axis arm tissue, forearm and paw are unchanged.",
+      "edits": []
+    },
+    "hands": [
+      {
+        "root": [
+          14.5,
+          7.5
+        ],
+        "world": [
+          4.5,
+          40.5
+        ],
+        "side": "left",
+        "frame": "paw/paw-rest-l-three-quarter-left-a180.png",
+        "gripWorld": [
+          -1.5,
+          42.5
+        ]
+      },
+      {
+        "root": [
+          4.5,
+          7.5
+        ],
+        "world": [
+          62.5,
+          39.5
+        ],
+        "side": "right",
+        "frame": "paw/paw-rest-l-three-quarter-left-a180.png",
+        "gripWorld": [
+          68.5,
+          41.5
+        ]
+      }
+    ],
+    "cup": null,
+    "status": "Actual 6+6 source-arm composition with reviewed pair repair and explicit shoulder coverage. Static pose preview; not animation acceptance."
+  }
+]

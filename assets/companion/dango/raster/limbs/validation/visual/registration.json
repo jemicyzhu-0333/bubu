@@ -40,7 +40,7 @@
         "view": "front",
         "side": "right",
         "fixedShoulder": [
-          61.5,
+          58.5,
           45.5
         ],
         "requestedWrist": [
@@ -48,21 +48,21 @@
           40.5
         ],
         "actualWrist": [
-          61.5,
-          41.5
+          62.5,
+          39.5
         ],
         "wristErrorVector": [
-          -1.0,
-          1.0
+          0.0,
+          -1.0
         ],
-        "wristErrorMagnitude": 1.4142135623730951,
-        "upperAngle": 202.5,
-        "foreAngle": 337.5,
+        "wristErrorMagnitude": 1.0,
+        "upperAngle": 247.5,
+        "foreAngle": 0.0,
         "elbow": [
-          55.5,
-          43.5
+          56.5,
+          39.5
         ],
-        "bend": 135.0,
+        "bend": 112.5,
         "centerlineSamplesWithinBody": 18,
         "exposedSegmentPixelsBeforeSocketClipping": 0,
         "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
@@ -74,6 +74,7 @@
     },
     "hands": [
       {
+        "interface": null,
         "root": [
           13.5,
           7.5
@@ -90,24 +91,25 @@
         ]
       },
       {
+        "interface": null,
         "root": [
           3.5,
           7.5
         ],
         "world": [
-          61.5,
-          41.5
+          62.5,
+          39.5
         ],
         "side": "right",
         "frame": "paw/paw-rest-l-front-a180.png",
         "gripWorld": [
-          66.5,
-          43.5
+          67.5,
+          41.5
         ]
       }
     ],
     "cup": null,
-    "status": "Actual 6+6 source-arm composition with reviewed pair repair and explicit shoulder coverage. Static pose preview; not animation acceptance."
+    "status": "Current rebuilt 6+6 composition with fixed shoulder registration and source-derived pair repair. Prior static images remain historical evidence. Static preview, not action/contact/native acceptance."
   },
   {
     "case": "holding-cup",
@@ -150,7 +152,7 @@
         "view": "front",
         "side": "right",
         "fixedShoulder": [
-          61.5,
+          58.5,
           45.5
         ],
         "requestedWrist": [
@@ -158,21 +160,21 @@
           49.5
         ],
         "actualWrist": [
-          53.5,
+          52.5,
           49.5
         ],
         "wristErrorVector": [
-          0.0,
+          -1.0,
           0.0
         ],
-        "wristErrorMagnitude": 0.0,
+        "wristErrorMagnitude": 1.0,
         "upperAngle": 202.5,
-        "foreAngle": 112.5,
+        "foreAngle": 90.0,
         "elbow": [
-          55.5,
+          52.5,
           43.5
         ],
-        "bend": 90.0,
+        "bend": 112.5,
         "centerlineSamplesWithinBody": 18,
         "exposedSegmentPixelsBeforeSocketClipping": 0,
         "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
@@ -184,6 +186,7 @@
     },
     "hands": [
       {
+        "interface": null,
         "root": [
           5.5,
           10.5
@@ -200,18 +203,19 @@
         ]
       },
       {
+        "interface": null,
         "root": [
           15.5,
           10.5
         ],
         "world": [
-          53.5,
+          52.5,
           49.5
         ],
         "side": "right",
         "frame": "paw/paw-hold-l-front-a000.png",
         "gripWorld": [
-          42.5,
+          41.5,
           49.5
         ]
       }
@@ -245,9 +249,9 @@
           10.5
         ]
       ],
-      "anchorQuantizationNote": "Left surface marker snaps0.625art inX and0.125inY; right0inX/.125inY. Both preview paw grip pixels coincide with these actual opaque cup pixels."
+      "anchorQuantizationNote": "Cup and original targets are unchanged. Left wrist error is zero; right wrist/contact marker is one art unit left of its original target after the uniform shoulder revision. This static example does not pass exact bilateral contact."
     },
-    "status": "Actual 6+6 source-arm composition with reviewed pair repair and explicit shoulder coverage. Static pose preview; not animation acceptance."
+    "status": "Current rebuilt 6+6 composition with fixed shoulder registration and source-derived pair repair. Prior static images remain historical evidence. Static preview, not action/contact/native acceptance."
   },
   {
     "case": "waving",
@@ -290,7 +294,7 @@
         "view": "front",
         "side": "right",
         "fixedShoulder": [
-          61.5,
+          58.5,
           45.5
         ],
         "requestedWrist": [
@@ -298,21 +302,21 @@
           40.5
         ],
         "actualWrist": [
-          61.5,
-          41.5
+          62.5,
+          39.5
         ],
         "wristErrorVector": [
-          -1.0,
-          1.0
+          0.0,
+          -1.0
         ],
-        "wristErrorMagnitude": 1.4142135623730951,
-        "upperAngle": 202.5,
-        "foreAngle": 337.5,
+        "wristErrorMagnitude": 1.0,
+        "upperAngle": 247.5,
+        "foreAngle": 0.0,
         "elbow": [
-          55.5,
-          43.5
+          56.5,
+          39.5
         ],
-        "bend": 135.0,
+        "bend": 112.5,
         "centerlineSamplesWithinBody": 18,
         "exposedSegmentPixelsBeforeSocketClipping": 0,
         "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
@@ -439,6 +443,7 @@
     },
     "hands": [
       {
+        "interface": "front-left-wave-225",
         "root": [
           17.5,
           16.5
@@ -455,24 +460,25 @@
         ]
       },
       {
+        "interface": null,
         "root": [
           3.5,
           7.5
         ],
         "world": [
-          61.5,
-          41.5
+          62.5,
+          39.5
         ],
         "side": "right",
         "frame": "paw/paw-rest-l-front-a180.png",
         "gripWorld": [
-          66.5,
-          43.5
+          67.5,
+          41.5
         ]
       }
     ],
     "cup": null,
-    "status": "Actual 6+6 source-arm composition with reviewed pair repair and explicit shoulder coverage. Static pose preview; not animation acceptance."
+    "status": "Current rebuilt 6+6 composition with fixed shoulder registration and source-derived pair repair. Prior static images remain historical evidence. Static preview, not action/contact/native acceptance."
   },
   {
     "case": "stepping",
@@ -549,6 +555,7 @@
     },
     "hands": [
       {
+        "interface": null,
         "root": [
           14.5,
           7.5
@@ -565,6 +572,7 @@
         ]
       },
       {
+        "interface": null,
         "root": [
           4.5,
           7.5
@@ -582,7 +590,7 @@
       }
     ],
     "cup": null,
-    "status": "Actual 6+6 source-arm composition with reviewed pair repair and explicit shoulder coverage. Static pose preview; not animation acceptance."
+    "status": "Current rebuilt 6+6 composition with fixed shoulder registration and source-derived pair repair. Prior static images remain historical evidence. Static preview, not action/contact/native acceptance."
   },
   {
     "case": "lifting",
@@ -659,6 +667,7 @@
     },
     "hands": [
       {
+        "interface": null,
         "root": [
           14.5,
           7.5
@@ -675,6 +684,7 @@
         ]
       },
       {
+        "interface": null,
         "root": [
           4.5,
           7.5
@@ -692,6 +702,6 @@
       }
     ],
     "cup": null,
-    "status": "Actual 6+6 source-arm composition with reviewed pair repair and explicit shoulder coverage. Static pose preview; not animation acceptance."
+    "status": "Current rebuilt 6+6 composition with fixed shoulder registration and source-derived pair repair. Prior static images remain historical evidence. Static preview, not action/contact/native acceptance."
   }
 ]

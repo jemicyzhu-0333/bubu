@@ -4,7 +4,7 @@ from PIL import Image,ImageDraw
 import json,math,runpy,contextlib,io
 ROOT=Path(__file__).resolve().parents[1]
 import argparse,hashlib
-parser=argparse.ArgumentParser(description="Render five static reviewed poses from delivered layers and fixed rig registrations.")
+parser=argparse.ArgumentParser(description="Render five current static poses from delivered layers and fixed rig registrations.")
 parser.add_argument('--output',type=Path,required=True);parser.add_argument('--verify',action='store_true');args=parser.parse_args()
 P=A=J=I=ROOT;O=args.output.resolve();O.mkdir(parents=True,exist_ok=True)
 C=(108,86);OR=(16,10)
@@ -79,11 +79,11 @@ for ci,(name,view,activeFoot)in enumerate(cases):
   place(canvas,h['im'],h['root'],h['world'])
  if activeFoot:
   pose='step-keypose'if activeFoot=='step'else'lift';f=next(x for x in paws if x['semantic']['kind']=='foot'and x['semantic']['pose']==pose and x['semantic']['view']=='three-quarter-left');im=Image.open(ROOT/f['src']);world=[20.5,52.5]if activeFoot=='step'else[18.5,51.5];place(canvas,im,f['root'],world)
- canvas.save(O/f'{name}-native.png');canvas.resize((C[0]*2,C[1]*2),Image.Resampling.NEAREST).save(O/f'{name}-2x.png');canvas.resize((C[0]*6,C[1]*6),Image.Resampling.NEAREST).save(O/f'{name}-6x-inspection.png');x=ci*340;sheet.paste(canvas,(x+8,28),canvas);big=canvas.resize((C[0]*2,C[1]*2),Image.Resampling.NEAREST);sheet.paste(big,(x+8,140),big);d.text((x+8,6),name+' | native +2x',fill='#1a1b26');records.append({'case':name,'view':view,'rig':sols,'socketClipping':{'rule':'Only upper open proximal half-space projection <= 0 is hidden where the actual canonical body alpha is zero. Positive-axis arm tissue, forearm and paw are unchanged.','edits':socketEdits},'hands':[{k:v for k,v in h.items()if k!='im'}for h in hands],'cup':{'size':[22,19],'origin':[22,39],'sourceAnchors':[[.875,10.375],[20.5,10.375]],'previewPixelContacts':[[1.5,10.5],[20.5,10.5]],'anchorQuantizationNote':'Left surface marker snaps0.625art inX and0.125inY; right0inX/.125inY. Both preview paw grip pixels coincide with these actual opaque cup pixels.'}if name=='holding-cup'else None,'status':'Actual 6+6 source-arm composition with reviewed pair repair and explicit shoulder coverage. Static pose preview; not animation acceptance.'})
+ canvas.save(O/f'{name}-native.png');canvas.resize((C[0]*2,C[1]*2),Image.Resampling.NEAREST).save(O/f'{name}-2x.png');canvas.resize((C[0]*6,C[1]*6),Image.Resampling.NEAREST).save(O/f'{name}-6x-inspection.png');x=ci*340;sheet.paste(canvas,(x+8,28),canvas);big=canvas.resize((C[0]*2,C[1]*2),Image.Resampling.NEAREST);sheet.paste(big,(x+8,140),big);d.text((x+8,6),name+' | native +2x',fill='#1a1b26');records.append({'case':name,'view':view,'rig':sols,'socketClipping':{'rule':'Only upper open proximal half-space projection <= 0 is hidden where the actual canonical body alpha is zero. Positive-axis arm tissue, forearm and paw are unchanged.','edits':socketEdits},'hands':[{k:v for k,v in h.items()if k!='im'}for h in hands],'cup':{'size':[22,19],'origin':[22,39],'sourceAnchors':[[.875,10.375],[20.5,10.375]],'previewPixelContacts':[[1.5,10.5],[20.5,10.5]],'anchorQuantizationNote':'Cup and original targets are unchanged. Left wrist error is zero; right wrist/contact marker is one art unit left of its original target after the uniform shoulder revision. This static example does not pass exact bilateral contact.'}if name=='holding-cup'else None,'status':'Current rebuilt 6+6 composition with fixed shoulder registration and source-derived pair repair. Prior static images remain historical evidence. Static preview, not action/contact/native acceptance.'})
 sheet.save(O/'actual-five-preview.png');(O/'registration.json').write_text(json.dumps(records,indent=2)+'\n');print(O)
 
 if args.verify:
  for name,_,_ in cases:
   for suffix in ['native','2x']:
    fn=f'{name}-{suffix}.png';assert Image.open(O/fn).tobytes()==Image.open(ROOT/'validation/visual'/fn).tobytes(),fn
- print(json.dumps({'staticPoses':len(cases),'pixelIdenticalToReviewedImages':True,'runtimeTested':False}))
+ print(json.dumps({'staticPoses':len(cases),'pixelIdenticalToCurrentRegisteredImages':True,'runtimeTested':False}))

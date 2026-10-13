@@ -1,7 +1,47 @@
 {
   "baseFrames": 240,
-  "candidatePngFilesCompared": 2015,
-  "manifestFileReferencesChecked": 1096,
+  "jointPairs": 256,
+  "legalJointPairs": 208,
+  "poseInterfaces": 3,
+  "shoulderRegistration": {
+    "root": [
+      58.5,
+      45.5
+    ],
+    "sourceAlphaCoveragePixelsChecked": 7500,
+    "stencils": 12,
+    "originalWorldSpaceGoalsPreserved": 40,
+    "frontRightGoalsRecomputed": 10,
+    "previewRigGoalCount": 33,
+    "maxWristTargetError": 1.5004957410556747,
+    "canonicalCupWristErrors": {
+      "left": 0,
+      "right": 1
+    },
+    "negativeAndSourceRegressionTests": 9
+  },
+  "checks": {
+    "scripts/check.py": "passed",
+    "scripts/test_registration.py": "9 passed",
+    "scripts/solve_registered_shoulders.py --verify": "passed; original targets preserved",
+    "scripts/rebuild.py --verify": "passed; 240 base frames, 256 joint pairs, 3 interfaces",
+    "scripts/render_previews.py --verify": "passed; five current native and 2x image pairs are pixel-identical to the current registered package"
+  },
+  "staticEvidence": {
+    "current": "validation/visual/",
+    "historical": "sources/evidence/shoulder-registration-v1/previous-visual/",
+    "historicalRebuildBeforeRevision": "Failed waving-native.png against current delivered layers before this repair. Historical review is not promoted to current approval.",
+    "visualInspection": "Three affected front static before/after compositions inspected; right cup target has 1-unit error and is not accepted as exact contact."
+  },
+  "previousPackageEvidence": {
+    "baseFrames": 240,
+    "candidatePngFilesCompared": 2015,
+    "manifestFileReferencesChecked": 1096,
+    "errors": [],
+    "rebuildAndFivePoseVerification": "Independent execution passed; all output pixels match package and reviewed static images."
+  },
   "errors": [],
-  "rebuildAndFivePoseVerification": "Independent execution passed; all output pixels match package and reviewed static images."
+  "runtimeReady": false,
+  "hostAcceptsContract": null,
+  "nativeRuntimeTested": false
 }

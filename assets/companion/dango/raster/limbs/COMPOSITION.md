@@ -19,11 +19,11 @@ The pack contains 240 base layers, 256 paired elbow repairs and three pose-speci
 
 ## Fixed shoulders and target solving
 
-Use the fixed view/side shoulder roots recorded in `validation/fixed-shoulder-targets.json`. Do not move the shoulder independently to make each pose pass. The report separates observed source wrists, mirrored counterparts, source-grounded rest positions and canonical-prop targets.
+Use the fixed view/side shoulder roots recorded in `validation/fixed-shoulder-targets.json`. Front/right is uniformly registered at **[58.5, 45.5]** for all actions, replacing [61.5, 45.5]. `socket/front-right-registration.json` binds the unchanged canonical body hash and source anchor [58.6, 39.712821]: X is quantized to the nearest existing half-pixel center and the previous registered Y is retained. This is a registration revision, not a restoration of the complete canonical anchor. All other shoulders and hips are unchanged. Do not move the shoulder independently by action, angle or frame to make a pose pass. The report separates observed source wrists, mirrored counterparts, source-grounded rest positions and canonical-prop targets.
 
 Choose legal segment pairs, minimize wrist error, then prefer body-covered branches to retain the approved short visible arm. A universal outward-bend rule does not reproduce these reference poses.
 
-The maximum measured wrist-target error in the 40 registered goals is 1.662799 art units, in `mirrored-front-support`. This is a discrete IK positioning error, not an error in the surface-contact marker. Fixed floors and tabletops must not be moved to hide it. Such poses still require action-level contact solving. The demonstrated 22 × 19 canonical cup has separately solved bilateral targets with zero wrist-lattice error.
+The maximum current wrist-target error across the 40 original goals is **1.500496 art units**, in front/left `front-support`. Only the ten front/right solutions were recomputed; their requested world-space wrists remain exactly unchanged. This is a discrete IK positioning error, not an error in the surface-contact marker. Fixed floors, tabletops and props must not be moved to hide it. The 22 × 19 canonical cup remains fixed: left wrist error is zero, right wrist/contact error is **1 art unit**. The rebuilt static cup example therefore does not establish exact bilateral contact.
 
 ## Paws and props
 
@@ -88,6 +88,10 @@ The eight foot directions are a contour-orientation library produced from one hi
 
 ## Verified scope
 
-Independent checks cover source SHA and inverse sampling, declared pixel edits, 240 base layers, 256 paired repairs, three conditional interfaces, exact 8× images, pivots, 56 contact-surface anchors, 456 nearest/tie wrist combinations, fixed shoulders across 40 goals, and the actual static examples. Standing, cup holding, stepping and lifting preserve the approved proportions; waving includes the subsequently reviewed source-contour restoration. Source-mask checks cover the six restored outlines.
+The source-contour package originally recorded source SHA, inverse sampling, declared edits, 240 base layers, 256 paired repairs, three interfaces, 56 contact markers and 456 nearest/tie wrist combinations. Those historical scope claims are not a new all-action approval. Current registration checks independently sample all 25 × 25 pixels of every stencil, including the transparent padding around the useful 21 × 21 domain, and verify exact 8× exports, metadata agreement, fixed roots and original targets. Nine regressions reject stale coverage, misplaced roots, altered body identity, padding or scale errors and moved targets.
+
+Current static previews are rebuilt from the delivered layers and revised registration. Original target reports and prior static images remain unchanged under `sources/evidence/shoulder-registration-v1/`; the prior waving snapshot already differed from the current layer rebuild before this registration repair. A successful preview rebuild proves reproducibility, not renewed visual or contact acceptance.
+
+The separate hiccup source-contact package retains its original [61.5, 45.5] registration and disabled runtime flags. It is historical, inactive and unregistered for the new generic shoulder; do not relabel its baked source pose as verified at [58.5, 45.5]. Generic `runtimeReady` remains false and host acceptance remains null.
 
 This does not establish every body intersection for every action, a full walking cycle, all outfit combinations, application loading, or runtime interaction. The existing adapter must explicitly implement the manifest extensions, separate wrist/contact semantics, side selection, attachment coverage and paired repair before these assets are enabled.

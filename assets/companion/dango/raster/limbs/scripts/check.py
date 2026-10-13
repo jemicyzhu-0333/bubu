@@ -3,6 +3,7 @@
 from pathlib import Path
 from PIL import Image
 import argparse,hashlib,json,math
+from check_registration import validate as validate_registration
 ROOT=Path(__file__).resolve().parents[1]
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def read(p):return json.loads(p.read_text())
@@ -18,6 +19,7 @@ def check_reviewed_references(value):
 
 def main():
  check_reviewed_references(read(ROOT/'limbs.json'));check_reviewed_references(read(ROOT/'sources/rebuild-recipe.json'))
+ registration=validate_registration(ROOT)
  recipe=read(ROOT/'sources/rebuild-recipe.json');palette={tuple(c)for c in recipe['palette']};frames=recipe['frames'];assert len(frames)==240;seen=set();cache={}
  for f in frames:
   assert f['src']not in seen;seen.add(f['src']);im=Image.open(ROOT/f['src']).convert('RGBA');assert list(im.size)==f['size'];assert sha(ROOT/f['src'])==f['sha256'];pixels=list(im.get_flattened_data() if hasattr(im,'get_flattened_data') else im.getdata());assert {p[3]for p in pixels}<={0,255};visible={p[:3]for p in pixels if p[3]};kind=f['semantic']['kind'];assert visible<=({(255,255,255)}if kind=='socket-coverage'else palette)
@@ -51,6 +53,6 @@ def main():
     expected.putpixel(tuple(edit['xy']),(255,255,255,255)if role=='mask'else tuple(edit['after']))
    assert expected.tobytes()==Image.open(ROOT/f[role]).tobytes()
    assert expected.resize((expected.width*8,expected.height*8),Image.Resampling.NEAREST).tobytes()==Image.open(ROOT/f[role+'Production']).tobytes()
- result={'baseFrames':240,'jointPairs':256,'legalJointPairs':208,'assetChecks':'passed','runtimeTested':False,'limitations':['Fixed-surface support retains up to 1.662799 art-unit discrete wrist-target error.','Direction layers are not a walking cycle.','Application adapters and action-specific occlusion need integration.']};print(json.dumps(result,indent=2))
+ result={'baseFrames':240,'jointPairs':256,'legalJointPairs':208,'assetChecks':'passed','shoulderRegistration':registration,'runtimeTested':False,'limitations':['Fixed-surface support retains up to 1.500496 art-unit discrete wrist-target error; the unchanged right canonical cup goal has 1-unit error.','Direction layers are not a walking cycle.','Application adapters and action-specific occlusion need integration.']};print(json.dumps(result,indent=2))
 if __name__=='__main__':
  argparse.ArgumentParser(description=__doc__).parse_args();main()
