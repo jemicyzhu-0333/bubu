@@ -62,3 +62,40 @@ test('moving to a smaller work area adjusts once; menu toggles remain size-stabl
   assert.deepEqual(h.native.getBounds(), before);
   assert.equal(h.calls.filter(c => c[0] === 'resize').length, 1);
 });
+
+// macOS lock -> unlock: the OS may reset the native pass-through flag and
+// emit 'hide' without a matching 'show'. The cached value must not keep the
+// window ignoring clicks forever.
+function lockHarness() {
+  const h = harness(); let visible = true; const extra = [];
+  h.native.isVisible = () => visible;
+  h.native.setAlwaysOnTop = (...a) => extra.push(['top', ...a]);
+  h.native.setVisibleOnAllWorkspaces = (...a) => extra.push(['spaces', ...a]);
+  return { ...h, extra, setVisible: v => { visible = v; } };
+}
+test('lock -> unlock: resync re-asserts pass-through even when the cache already matches', () => {
+  const h = lockHarness(); h.cursor({ x: 1610, y: 810 });
+  assert.deepEqual(h.calls.at(-1), ['ignore', false]);
+  const n = h.calls.filter(c => c[0] === 'ignore').length;
+  h.cursor({ x: 1611, y: 811 });                     // cache matches: no native call
+  assert.equal(h.calls.filter(c => c[0] === 'ignore').length, n);
+  h.viewport.resync('unlock-screen');                 // OS may have flipped it natively
+  assert.deepEqual(h.calls.at(-1), ['ignore', false]);
+  assert.ok(h.extra.some(c => c[0] === 'top' && c[1] === true && c[2] === 'floating'));
+  assert.ok(h.extra.some(c => c[0] === 'spaces'));
+  assert.ok(h.calls.some(c => c[0] === 'send' && c[1] === 'pet:viewport'));
+});
+test('lock emits hide without show: unlock resync restarts hit-test polling', () => {
+  const h = lockHarness(); h.cursor({ x: 5, y: 5 });
+  h.native.emit('hide'); assert.equal(h.cleared(), 1);
+  h.viewport.resync('unlock-screen');
+  h.cursor({ x: 1610, y: 810 });                      // polling alive again
+  assert.deepEqual(h.calls.at(-1), ['ignore', false]);
+});
+test('resync while hidden does not start polling; display change re-lays out onto the new work area', () => {
+  const h = lockHarness(); h.native.emit('hide'); h.setVisible(false);
+  const ticksBefore = h.cleared(); h.viewport.resync('resume'); assert.equal(h.cleared(), ticksBefore);
+  h.setVisible(true); h.viewport.setPosition(2250, 40);
+  h.viewport.resync('display-change');
+  assert.equal(h.native.getBounds().width, 400);
+});

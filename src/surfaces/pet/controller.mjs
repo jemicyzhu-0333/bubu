@@ -1245,6 +1245,9 @@ function setScreenLocked(locked) {
   animDt = 0;
   if (screenLocked) suspendRenderer('screen-locked');
   else {
+    // Unlock: no press/drag/capture may survive the lock (the OS swallowed
+    // the matching pointerup). The frame throttle re-anchors in loop().
+    petPointer.cancel('screen-unlocked');
     prevSessionState = sessionState;
     prevSessionPaused = sessionPaused;
   }

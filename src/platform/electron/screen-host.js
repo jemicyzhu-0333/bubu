@@ -56,7 +56,17 @@ function createScreenHost({ screen, loadScreen = () => require('electron').scree
   return Object.freeze({
     primaryDisplay: () => snapshotDisplay(nativeScreen().getPrimaryDisplay()),
     nearestDisplay: point => snapshotDisplay(nativeScreen().getDisplayNearestPoint(copyPoint(point))),
-    cursorPoint: () => copyPoint(nativeScreen().getCursorScreenPoint(), 'cursor point')
+    cursorPoint: () => copyPoint(nativeScreen().getCursorScreenPoint(), 'cursor point'),
+    // Display add/remove/metrics changes (resolution, arrangement, wake from
+    // sleep with a different topology). Returns a disposer.
+    subscribeDisplayChanges(listener) {
+      const native = nativeScreen();
+      if (typeof listener !== 'function' || typeof native.on !== 'function') return () => {};
+      const events = ['display-added', 'display-removed', 'display-metrics-changed'];
+      const handler = () => listener();
+      for (const e of events) native.on(e, handler);
+      return () => { for (const e of events) (native.off || native.removeListener)?.call(native, e, handler); };
+    }
   });
 }
 

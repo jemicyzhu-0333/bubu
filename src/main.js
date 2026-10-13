@@ -2054,8 +2054,8 @@ const processLifecycle = registerProcessLifecycle({
   powerHost,
   isSessionRunning: () => isActiveSession(canonicalFocusSession()),
   pauseActiveSessionForInterruption,
-  setScreenLocked: setPetScreenLocked,
-  activatePrimaryWindow,
+  setScreenLocked: setPetScreenLocked, activatePrimaryWindow, screenHost,
+  resumePetSurface: r => { if (petWindow?.isAlive()) { petDragSession.end(); petIsDragging = false; petWindow.resync?.(r); safeWindowSend(petWindow, 'pet:sync', { screenLocked: petScreenLocked }); } },
   resumeAfterInterruption: () => {
     // Treat an unexpectedly still-active persisted session exactly like
     // process-start recovery: wall time may establish that it is due, but it

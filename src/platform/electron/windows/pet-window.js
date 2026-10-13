@@ -53,6 +53,7 @@ function createPetWindowHost({
     setPosition: viewport ? viewport.setPosition : host.setPosition,
     setBounds: viewport ? viewport.setBounds : host.setBounds,
     setMenuOpen: viewport ? viewport.setMenuOpen : null,
+    resync: viewport ? viewport.resync : () => false,
     showInactive: host.showInactive,
     ensureFocusable: host.ensureFocusable,
     close: host.close,
