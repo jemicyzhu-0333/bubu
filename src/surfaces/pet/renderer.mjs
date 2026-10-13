@@ -175,7 +175,10 @@ function drawPet() {
   const skinId = previewSkin || runtimeState.currentSkin;
   const form = forms.resolvePetForm(skinId);
   const selectedExpression = runtimeState.devPreview ? null : updatePresentation();
-  const presentationSource = runtimeState.presentationDirector?.current(runtimeState.animNow)?.source;
+  const presentationNow = runtimeState.presentationDirector?.current(runtimeState.animNow);
+  const presentationSource = presentationNow?.source;
+  const presentationEventId = presentationNow?.eventId ?? null;
+  const actionEventId = runtimeState.currentEgg?.presentationEventId ?? null;
   const contextInput = { state: runtimeState, activity: sessionAction, source: presentationSource, expressionId: selectedExpression };
   const { previewConfig, actionConfig, actionT, viewHint } = actionPlayback.resolve({
     content: runtimeState.petContent, preview: runtimeState.devPreview,
@@ -190,7 +193,8 @@ function drawPet() {
   runtimeState.currentRenderedAction = actionConfig;
 
   offY += bodyStateOffset({ state: runtimeState.state, formId: form.id, action: actionConfig,
-    calmVisual, legacyFrames, bob, expressionId: selectedExpression ?? previewConfig?.expression, source: presentationSource });
+    calmVisual, legacyFrames, bob, expressionId: selectedExpression ?? previewConfig?.expression, source: presentationSource,
+    eventId: presentationEventId, actionEventId });
 
   // Every behavior owns a body motion; overlays are supporting details rather
   // than the whole animation, so the companion itself stays expressive.
@@ -286,7 +290,8 @@ function drawPet() {
     facePose = { eyes: 'neutral', mouth: 'neutral', eyeOffsetX: 0, eyeOffsetY: 0, eyeInsetX: 0, openness: 1 };
     bodyPose = null;
   }
-  bodyPose = resolveActionBodyPose(bodyPose, { action: actionConfig, expressionId: exprId, source: presentationSource });
+  bodyPose = resolveActionBodyPose(bodyPose, { action: actionConfig, expressionId: exprId, source: presentationSource,
+    eventId: presentationEventId, actionEventId });
   facePose = formArt.faceForView(form, facePose, view);
 
   // 注视与交互反馈：用真实步长推进弹簧，再作用到脸/身体。

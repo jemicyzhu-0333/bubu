@@ -2,24 +2,31 @@
 import { resolveMirrorBodyPose } from './mirror-playback.mjs';
 import { motionCaps } from '../../capabilities/companion/presentation/motion-core/action-capabilities.mjs';
 
-function ownsGround(action, expressionId, source = 'base') {
-  return Boolean(motionCaps(action).ownsGround) && source === 'base'
-    && expressionId === (action.baseExpression || action.expression);
+// An authored grounded action owns the floor only while the presentation that
+// won this frame is that action's own: the base presentation playing the
+// action's expression (preview/base), or the transient event the action
+// started (cue/interaction egg) -- matched by eventId, never by source alone.
+// Any other winning event (essential, input-safe, another interaction) keeps
+// its higher-priority body offset.
+function ownsGround(action, expressionId, source = 'base', eventId = null, actionEventId = null) {
+  if (!action || !motionCaps(action).ownsGround) return false;
+  if (source === 'base') return expressionId === (action.baseExpression || action.expression);
+  return typeof eventId === 'string' && eventId.length > 0 && eventId === actionEventId;
 }
 
 // The same state offsets as the previous renderer branch. Only an authored
 // grounded action replaces the unrelated idle bob; explicit states win first.
-function bodyStateOffset({ state, formId, action, calmVisual, legacyFrames, bob, expressionId, source }) {
+function bodyStateOffset({ state, formId, action, calmVisual, legacyFrames, bob, expressionId, source, eventId, actionEventId }) {
   if (state === 'sleeping') return 4;
   if (state === 'resting') return 6;
   if (state === 'celebrating' && !calmVisual) return -Math.abs(Math.sin(legacyFrames * .4)) * 8;
   if (state === 'walking' && !calmVisual) return Math.abs(Math.sin(legacyFrames * .3)) * 2;
   if (state === 'dragged' || (formId === 'dango' && action?.motion === 'pushup')) return 0;
-  return ownsGround(action, expressionId, source) ? 0 : bob;
+  return ownsGround(action, expressionId, source, eventId, actionEventId) ? 0 : bob;
 }
 
 function resolveActionBodyPose(body, options = {}) {
-  if (!ownsGround(options.action, options.expressionId, options.source)) return resolveMirrorBodyPose(body, options);
+  if (!ownsGround(options.action, options.expressionId, options.source, options.eventId, options.actionEventId)) return resolveMirrorBodyPose(body, options);
   // Preserve the winning expression and its tone/face. The action's feet and
 // body are already coordinated, so its base happy beat must not lift the floor.
   return Object.freeze({ tone: body?.tone || 'normal', x: 0, y: 0, scaleX: 1, scaleY: 1, rotateDeg: 0 });
