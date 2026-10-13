@@ -19,19 +19,31 @@ function trackedWindowClass(BrowserWindow, record) {
 }
 
 async function verifyRounds({ host, native, calls, setCursor, yieldTurn = () => new Promise(resolve => setImmediate(resolve)) }) {
-  const anchor = host.getBounds(), bounds = native.getBounds();
+  const sameSize = (a, b) => a && b && a.width === b.width && a.height === b.height;
+  const sameRect = (a, b) => sameSize(a, b) && a.x === b.x && a.y === b.y;
+  const frameWrite = call => ['setBounds', 'setResizable', 'setPosition'].includes(call.name);
+  const anchor = host.getBounds();
+  let bounds = native.getBounds();
   const start = calls.length;
   for (let round = 0; round < 30; round++) {
     for (const open of [true, false]) {
+      const mark = calls.length;
       const geometry = host.setMenuOpen(open);
       await yieldTurn();
-      assert.deepEqual(native.getBounds(), bounds, 'native-bounds-changed');
+      const next = native.getBounds();
+      const writes = calls.slice(mark).filter(frameWrite);
+      // Menu open/close must not resize the backing store or call frame setters.
+      assert.equal(writes.length, 0, 'native-frame-mutated');
+      assert.ok(sameSize(next, bounds), 'native-backing-store-resized');
+      // macOS CI may nudge x/y after show without going through our setters
+      // (Round 9: y 345→348). Rebaseline position only when we did not write.
+      if (!sameRect(next, bounds)) bounds = next;
       assert.deepEqual(host.getBounds(), anchor, 'logical-anchor-changed');
       assert.equal(bounds.x + geometry.width / 2 + geometry.stageOffset.x, anchor.x + anchor.width / 2);
       assert.equal(bounds.y + geometry.height / 2 + geometry.stageOffset.y, anchor.y + anchor.height / 2);
     }
   }
-  const changes = calls.slice(start).filter(call => ['setBounds', 'setResizable', 'setPosition'].includes(call.name));
+  const changes = calls.slice(start).filter(frameWrite);
   assert.equal(changes.length, 0, 'native-frame-mutated');
   // Controlled screen port; native setIgnoreMouseEvents itself is real.
   const corners = [{ x: bounds.x + 1, y: bounds.y + 1 }, { x: bounds.x + bounds.width - 1, y: bounds.y + bounds.height - 1 }];

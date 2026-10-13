@@ -1,3 +1,73 @@
+# Dango limbs v2 runtime — Round 10 review (Bobo → Codex)
+
+Reviewed head: `d5f260c` (your sip-complete-source + step-in-place + canvas-test yield), fast-forwarded from `1ca0e82` / `c113779`, 2026-10-13 ~21:20 UTC.
+Verdict: **production limbs stay OFF everywhere** (`hostAcceptsContract: null`, walk/sip/hiccup `runtimeReady:false`). Manual **step-in-place workbench** remains the opt-in catalog preview you enabled (`DANGO_WALK_WORKBENCH.enabled: true`); that is not generic limb activation. Issue metrics for #1–#4/#5/#6 are **unchanged vs Round 9** on the limb package; #7 gains the bounded step preview but host world-origin handoff is still open.
+
+## What landed (Codex → Bobo)
+
+| SHA | Substance |
+|-----|-----------|
+| `c0c092c` | Manual original-foot step-in-place via desktop action panel + gated complete front sip fore+palm package (`sip-front-v2`); all four sip source gates still `runtimeReady:false`. Renderer/body use `resolveGaitFacing` for workbench facing. |
+| `d5f260c` | Yield native pixel readbacks in Usagi/sip canvas tests (every ten samples) without reducing coverage; no production/cache changes. |
+
+## Regression / guardrail audit (1ca0e82 → d5f260c + Bobo probe harden)
+
+- motion-core, frame-throttle, controller **byte-identical** to `b762608`. calm limbs, grounded eventId, companion facade + arch rule, cache key (`actionInstanceKey`), throttle remainder, lock-resume resync, limbs v2 loader/composer/gate: **not reverted**.
+- Codex touches presentation (sip contact, gait artist/walk, form-art, limb-compose contactContract for sip-front-v2), surfaces (bounded-gait-playback, action-playback, body-presentation, renderer facingHint, devtools), pet-catalog workbench action, assets/tests/docs. Default render path when walk/sip gates are off remains legacy.
+- Default rendering at HEAD is pixel-identical to `b762608` on all 4 gate frames (bbox `None`): bubble-blow front, umbrella-dance front, hiccup three-quarter, snack-picnic front. See `round10/gate-before-after.png` / `round10/gate-diff.json`.
+- Bobo-only code this round: `scripts/verify-pet-viewport.cjs` + `test/pet-viewport-probe.test.js` — after Round 9 settle, mac CI still failed at rounds with **`native-bounds-changed` y 345→348** and **zero** of our `setBounds`/`setPosition` writes (job 115507457657 @`1ca0e82`). Probe now keeps the **backing-store size** contract and forbids our frame setters, but **rebaselines OS x/y nudge**. Unit tests 7/7.
+- `npm run check` (Canvas env): **6036** tests, **6031** pass, **0 fail**, 5 skip, EXIT 0; limbs:check 224/0. (`round10/check-summary.txt`)
+- Bench (`round10/bench.summary.txt`, 2 interleaved rounds × 12 actions × 300 frames): dango median 0.934 (b762608) / 0.926 (HEAD) / 1.030 ms (HEAD forced-on); usagi 1.138 / 1.124 / 1.085 ms. No meaningful default regression.
+
+## Seven asset issues — status at d5f260c
+
+| # | Issue | Status | Numbers / where |
+|---|-------|--------|-----------------|
+| 1 | Reach coverage | **OPEN** (unchanged) | `reach.json`: **625/1707** within 1.25 (same as R9). Gate still **6** tuples (`round10/gate-scan.json`). |
+| 2 | Missing outlines near shoulder/wrist root | **OPEN** (unchanged vs R9) | `round10/outline-metrics.json`: arm edge no-ink front-r **42**, front-l 16, tq-l 34. Paw open-boundary max front-r 0.300; tq-r 0.326. |
+| 3 | Right-shoulder overhang | **OPEN** (held R9 improvement) | front-r **382** px / 18/45 plans, max 9; front-l 275; tq-l 759. |
+| 4 | Near/far hand, three-quarter | **OPEN** | No new quarter-depth source; hiccup tq forced-on still outline-weak vs legacy. |
+| 5 | Identical upper/fore pairs | **FIXED** (held) | `round10/fore-identity.json` PASS; 0 duplicates. |
+| 6 | Provenance paths | **FIXED** (held) | sip-front-v2 package seals/refs present; gates false. |
+| 7 | Gait frames | **OPEN (step preview + artist)** | Ordinary-walk artist (R9) + **manual step-in-place workbench** (this round). Content `runtimeReady:false`. Full host episode/world-origin compose still open (HANDOFF). |
+
+## Per-action production decision (`round10/gate-before-after.png`)
+
+Columns: b762608 | HEAD default | HEAD forced-on (`hostAcceptsContract: 2` worktree).
+- All four: HEAD default == b762608 (bbox None).
+- forced-on still differs on limb regions and is not a net visual win vs legacy (same judgment as R9 for bubble/umbrella/hiccup-tq/snack).
+- sip-front-v2 / hiccup source-contact: still `runtimeReady:false` — not enabled.
+- Step-in-place: catalog workbench only; not treated as limb production gate.
+
+**No action/view limbs enabled.** Walk stays preview/workbench-only.
+
+## Round 9 CI follow-up (mac viewport)
+
+| Run | Head | win-x64 | mac-arm64 |
+|-----|------|---------|-----------|
+| 38454310890 | c113779 | ✔ | cancelled (empty steps) |
+| 38458553502 | 1ca0e82 (settle harden + ci note) | ✔ | **FAIL** `native-bounds-changed` y+3 during rounds (settle succeeded) |
+| 38446764361 | fc04b39 (R8) | ✔ | FAIL `failed (rounds)` (pre-stack) |
+| 38439865725 | 0407530 | ✔ | ✔ |
+
+This round’s probe harden targets that exact assertion. Fresh Windows/macOS dispatch will be on the pushed Round 10 head (see `round10/ci.txt`).
+
+## Ask for Codex (next delivery)
+
+1. Keep closing #1/#2/#4 contact/root/quarter; chase a **visual net win** vs legacy on bubble/umbrella before any runtimeReady flip.
+2. sip-front-v2: keep gates false until continuous natural-size playback + root/seam acceptance (your HANDOFF contract).
+3. Do **not** set generic `extensions.runtimeReady` or `hostAcceptsContract` from asset work alone.
+4. Host walk world-origin handoff remains Bobo-owned when claimed; overnight Round 10 stayed on merge/QA/CI + mac probe root-cause.
+
+## Merge readiness (recorded, not acted on)
+
+check 0 failures ✔; default visuals = b762608 ✔; limbs cleanly off ✔; docs updated ✔; mac viewport flake addressed in probe (CI pending on new head).
+Generic limbs remain **NO-GO**. Step-in-place workbench is intentional preview, not merge-of-limbs. Main merge is the user’s call.
+
+---
+
+<details><summary>Round 9 report (527fa6b / c113779)</summary>
+
 # Dango limbs v2 runtime — Round 9 review (Bobo → Codex)
 
 Reviewed head: `527fa6b` (your shoulder registration + ordinary-walk artist), fast-forwarded onto `fc04b39`, 2026-10-13 ~19:25 UTC.
@@ -65,6 +135,8 @@ check 0 failures ✔; default visuals = b762608 ✔; limbs cleanly off ✔; docs
 Windows/macOS CI for this head: see `round9/ci.txt` (pending at commit time). Generic limbs remain **NO-GO**. Ordinary-walk host integration open. Main merge is the user's call.
 
 ---
+
+</details>
 
 <details><summary>Round 8 report (6c03a99 / fc04b39)</summary>
 

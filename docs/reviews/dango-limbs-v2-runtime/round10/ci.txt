@@ -1,0 +1,8 @@
+CI for Round 10 (probe OS-nudge harden + review docs) — to be filled after workflow_dispatch.
+
+Prior Round 9 heads:
+- 38454310890 @c113779: win-x64 success; mac-arm64 cancelled (empty steps). Overall failure.
+- 38458553502 @1ca0e82: win-x64 success; mac-arm64 FAIL at verify:pet-viewport —
+  AssertionError native-bounds-changed (y 345→348) during rounds; settle stage had passed.
+  Stack: verifyRounds line 28. No setBounds/setPosition in our call log → OS nudge.
+- Round 10 probe change: keep backing-store size + forbid our frame writes; rebaseline OS x/y.
