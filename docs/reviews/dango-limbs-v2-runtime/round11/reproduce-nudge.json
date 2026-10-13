@@ -1,0 +1,162 @@
+{
+  "scope": "Synthetic ports with production createPetViewport and the supplied probe; not native macOS or rendered-pixel evidence.",
+  "runtime": {
+    "node": "v22.23.3",
+    "platform": "linux"
+  },
+  "probeSourceSha256": "ff3ece6a0c02bb227d58fdbbf258e942f4712684d8f8a5a62cb6a5e06340eeda",
+  "reproducedReviewedObservations": false,
+  "results": [
+    {
+      "name": "unchanged control",
+      "when": "never",
+      "dy": 0,
+      "status": "PASS",
+      "anchorContained": true,
+      "anchor": {
+        "x": 1600,
+        "y": 800,
+        "width": 220,
+        "height": 220
+      },
+      "nativeBounds": {
+        "x": 1400,
+        "y": 720,
+        "width": 520,
+        "height": 360
+      },
+      "result": {
+        "rounds": 30,
+        "nativeGeometryWrites": 0,
+        "logicalAnchorStable": true,
+        "logicalAnchorContained": true,
+        "geometryFreshAtCapture": true,
+        "freshSamples": 60,
+        "invalidatedSamples": 0,
+        "osNudges": [],
+        "maxOsDisplacement": {
+          "x": 0,
+          "y": 0
+        },
+        "nativeIgnoreMouseEventsContract": true
+      },
+      "error": null,
+      "matchesReviewedObservation": true
+    },
+    {
+      "name": "small nudge before geometry",
+      "when": "before-geometry",
+      "dy": 3,
+      "status": "PASS",
+      "anchorContained": true,
+      "anchor": {
+        "x": 1600,
+        "y": 800,
+        "width": 220,
+        "height": 220
+      },
+      "nativeBounds": {
+        "x": 1400,
+        "y": 723,
+        "width": 520,
+        "height": 360
+      },
+      "result": {
+        "rounds": 30,
+        "nativeGeometryWrites": 0,
+        "logicalAnchorStable": true,
+        "logicalAnchorContained": true,
+        "geometryFreshAtCapture": true,
+        "freshSamples": 60,
+        "invalidatedSamples": 0,
+        "osNudges": [
+          {
+            "round": 0,
+            "open": true,
+            "phase": "capture",
+            "dx": 0,
+            "dy": 3
+          }
+        ],
+        "maxOsDisplacement": {
+          "x": 0,
+          "y": 3
+        },
+        "nativeIgnoreMouseEventsContract": true
+      },
+      "error": null,
+      "matchesReviewedObservation": true
+    },
+    {
+      "name": "small nudge during yield",
+      "when": "during-yield",
+      "dy": 3,
+      "status": "PASS",
+      "anchorContained": true,
+      "anchor": {
+        "x": 1600,
+        "y": 800,
+        "width": 220,
+        "height": 220
+      },
+      "nativeBounds": {
+        "x": 1400,
+        "y": 723,
+        "width": 520,
+        "height": 360
+      },
+      "result": {
+        "rounds": 30,
+        "nativeGeometryWrites": 0,
+        "logicalAnchorStable": true,
+        "logicalAnchorContained": true,
+        "geometryFreshAtCapture": true,
+        "freshSamples": 59,
+        "invalidatedSamples": 1,
+        "osNudges": [
+          {
+            "round": 0,
+            "open": true,
+            "phase": "yield",
+            "dx": 0,
+            "dy": 3
+          }
+        ],
+        "maxOsDisplacement": {
+          "x": 0,
+          "y": 3
+        },
+        "nativeIgnoreMouseEventsContract": true
+      },
+      "error": null,
+      "matchesReviewedObservation": false
+    },
+    {
+      "name": "large nudge before geometry",
+      "when": "before-geometry",
+      "dy": 4000,
+      "status": "FAIL",
+      "anchorContained": false,
+      "anchor": {
+        "x": 1600,
+        "y": 800,
+        "width": 220,
+        "height": 220
+      },
+      "nativeBounds": {
+        "x": 1400,
+        "y": 4720,
+        "width": 520,
+        "height": 360
+      },
+      "result": null,
+      "error": {
+        "name": "AssertionError",
+        "message": "logical-anchor-outside-native-window",
+        "actual": false,
+        "expected": true
+      },
+      "matchesReviewedObservation": false
+    }
+  ]
+}

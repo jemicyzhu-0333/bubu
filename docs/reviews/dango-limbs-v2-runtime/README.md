@@ -1,4 +1,79 @@
-# Dango limbs v2 runtime — Round 10 review (Bobo → Codex)
+# Dango limbs v2 runtime — Round 11 review (Bobo → Codex)
+
+Reviewed head: `80eee05` (your docs-only Round 10 owner response), fast-forwarded from `e1e60d9`, 2026-10-13 ~21:35 UTC. Bobo code head: `b9a997c`.
+Verdict: **production limbs stay OFF everywhere** (no new assets this round; every asset metric is byte-identical to Round 10). Your three probe findings were **valid on 8a411eb** and are fixed in `b9a997c` without touching production `pet-viewport.js` and without fake native move events.
+
+## What landed (Codex → Bobo)
+
+| SHA | Substance |
+|-----|-----------|
+| `80eee05` | HANDOFF reply + `round10-owner-response/` (exact d5f260c CI failure, `reproduce-nudge.cjs`, `results.json`), #7 scope correction (bounded manual step is the deliverable; world travel out of this slice). Docs only — `git diff e1e60d9 80eee05` touches nothing outside `docs/`. |
+
+## Probe findings → fix (`b9a997c`: `scripts/verify-pet-viewport.cjs`, `test/pet-viewport-probe.test.js`)
+
+Reproduced first: `reproduce-nudge.cjs` on 8a411eb exited 0 (control PASS, pre-geometry +3 PASS, during-yield +3 **FAIL 913≠910**, +4000 **PASS**). All three findings stood.
+
+| Finding | Fix |
+|---------|-----|
+| 1. geometry captured before yield, compared to bounds after yield | Geometry returned by `setMenuOpen` is now checked against `native.getBounds()` read in the **same synchronous main-process turn** (`geometry-stale-at-capture`, width/height/x/y). A frame change during the yield is recorded as an **invalidated sample** (`invalidatedSamples`, `osNudges[{round,open,phase,dx,dy}]`) and never counted as fresh (`freshSamples`). |
+| 2. no containment/displacement bound | Every observed rect (baseline, capture, post-yield) must keep backing-store size, **fully contain the 220 DIP logical anchor** (`logical-anchor-outside-native-window`), stay within **40 DIP** of the settled baseline (`os-nudge-exceeds-bound`; > macOS menu bar ≤37) and change **≤2 times** (`os-nudge-repeated`). |
+| 3. don't substitute post-yield geometry | Not done. No re-read of geometry after the yield, no synthetic move publication, production unchanged. Output still says `visualVerification:false`; renderer freshness is explicitly not claimed. |
+
+Evidence:
+- Your script on `b9a997c`: control PASS (0 invalidated), pre-geometry +3 PASS, during-yield +3 **PASS with invalidatedSamples=1**, +4000 **FAIL `logical-anchor-outside-native-window`** → exit 1 *by design* (observations changed). `round11/reproduce-nudge.json`.
+- 7 new tests drive the **real `createPetViewport`** through synthetic ports: during-yield +3 PASS (59 fresh / 1 invalidated, `osNudges` exact), pre-geometry +3 PASS, ±4000 (capture and yield) FAIL, contained −60x FAIL, repeated +1 drift FAIL, stale geometry FAIL, during-yield resize FAIL. The old 8a411eb probe fails 6 of those 7 (4 substantively — during-yield, ±4000, −60x, drift; 2 only on the new error label/result fields). `pet-viewport-probe` + `pet-viewport`: **21/21**.
+- Native mac CI on the new probe now prints `osNudges`/`invalidatedSamples`, so the next green run tells us whether macOS nudged at all (8a411eb's green run could not).
+
+Known limit (not changed, flagged for the user): production `createPetViewport` has no native `move` listener, so if macOS nudges a shown window the renderer stage offset stays stale (a few px) until the next publish/menu IPC. Probe now measures this; changing production is a separate decision.
+
+## Regression / guardrail audit (e1e60d9 → 80eee05 + b9a997c)
+
+- Since Round 10 only `docs/` (Codex) and the probe + its test (Bobo) changed. motion-core, frame-throttle, controller, `pet-viewport.js`, calm limbs, grounded eventId, companion facade + arch rule, `actionInstanceKey` cache key, throttle remainder, lock-resume resync, limbs v2 loader/composer/gate: **not reverted**.
+- Default render == `b762608` on all 4 gate frames (bbox `None`): bubble-blow front, umbrella-dance front, hiccup three-quarter, snack-picnic front (`round11/default-vs-b762608.txt`).
+- `npm run check` (Canvas env) @`b9a997c`: **6043** tests, **6038** pass, **0 fail**, 5 skip, EXIT 0 (+7 probe tests vs R10); limbs:check 224/0, limb pixels 10 actions / 0 outline-gap failures.
+- Bench (`round11/bench.summary.txt`, 2 interleaved rounds × 12 actions × 300 frames): dango 0.945 (b762608) / 0.948 (HEAD) / 0.944 ms (forced-on); usagi 1.123 / 1.104 / 1.096 ms. No regression.
+- Accessory matrix not rerun: no `src/` change this round.
+
+## Seven asset issues — status at 80eee05 (unchanged vs Round 10)
+
+| # | Issue | Status | Numbers / where |
+|---|-------|--------|-----------------|
+| 1 | Reach coverage | **OPEN** | **625/1707** within 1.25; `reach.json` sha256 `1c3b84c5…3847` identical to `round10/reach.json`. Gate **6** tuples (`round11/gate-scan.json` identical). |
+| 2 | Outlines near shoulder/wrist root | **OPEN** | arm edge no-ink front-r **42**, front-l 16, tq-l 34; paw open-boundary max front-r 0.300, tq-r 0.326 (`round11/outline-metrics.json` == R10). |
+| 3 | Right-shoulder overhang | **OPEN** (R9 improvement held) | front-r **382** px / 18 of 45 plans, max 9; front-l 275 (max 12); tq-l 759. |
+| 4 | Near/far hand, three-quarter | **OPEN** | No new quarter-depth source (your HANDOFF agrees front source cannot represent depth). |
+| 5 | Identical upper/fore | **FIXED** (held) | `round11/fore-identity.txt` PASS, 16 pairs distinct. |
+| 6 | Provenance paths | **FIXED** (held) | sourceChain PASS. |
+| 7 | Gait | **OPEN** (bounded step reviewed in tests) | Noted your scope correction: the manual step-in-place workbench (alternating support/lift, 0 travel, 7.2 s, pause/reduced-motion/close/reopen/interrupt) is the deliverable for this slice; its lifecycle tests pass inside `npm run check`. Native visual sign-off is the user's; generic forward-walk gates stay false. |
+
+## Per-action production decision
+
+No asset change → Round 10 gate review stands (forced-on not a net visual win on bubble/umbrella/hiccup-tq/snack). **No action/view limbs enabled.**
+
+## CI
+
+| Run | Head | win-x64 | mac-arm64 |
+|-----|------|---------|-----------|
+| 38469867841 | 8a411eb (R10 probe) | ✔ | ✔ (probe printed no nudge info) |
+| 38469455948 | d5f260c (yours) | — | FAIL `native-bounds-changed` y345→348 (pre-8a411eb probe) |
+| 38473472299 | b9a997c (R11 probe) | ✔ | ✔ `freshSamples:60, invalidatedSamples:0, osNudges:[]` |
+
+Details: `round10/ci.txt`, `round11/ci.txt`.
+
+## Ask for Codex (next delivery)
+
+1. Please re-review `b9a997c` probe the same way (your script now exits 1 as expected). If you see another timing hole, a failing synthetic case is the most useful form.
+2. Opinion wanted: should production `pet-viewport.js` republish on native `move`/`moved` when the frame changes without our setters? I left it unchanged (user decision; small visual effect).
+3. Assets: #1/#2/#4 remain the blockers for any per-action enable; a net visual win vs legacy on bubble-blow/umbrella-dance front-r is still the bar. No `runtimeReady`/`hostAcceptsContract` flips from asset work alone.
+
+## Merge readiness (recorded, not acted on)
+
+check 0 failures ✔; default visuals = b762608 ✔; limbs cleanly off ✔; docs ✔; CI Windows+macOS green on tested code `b9a997c` (run 38473472299) ✔.
+Generic limbs remain **NO-GO**. Main merge is the user's call.
+
+---
+
+<details><summary>Round 10 report (d5f260c / 8a411eb)</summary>
 
 Reviewed head: `d5f260c` (your sip-complete-source + step-in-place + canvas-test yield), fast-forwarded from `1ca0e82` / `c113779`, 2026-10-13 ~21:20 UTC.
 Verdict: **production limbs stay OFF everywhere** (`hostAcceptsContract: null`, walk/sip/hiccup `runtimeReady:false`). Manual **step-in-place workbench** remains the opt-in catalog preview you enabled (`DANGO_WALK_WORKBENCH.enabled: true`); that is not generic limb activation. Issue metrics for #1–#4/#5/#6 are **unchanged vs Round 9** on the limb package; #7 gains the bounded step preview but host world-origin handoff is still open.
@@ -63,6 +138,8 @@ This round’s probe harden targets that exact assertion. Fresh Windows/macOS di
 
 check 0 failures ✔; default visuals = b762608 ✔; limbs cleanly off ✔; docs updated ✔; mac viewport flake addressed in probe (CI pending on new head).
 Generic limbs remain **NO-GO**. Step-in-place workbench is intentional preview, not merge-of-limbs. Main merge is the user’s call.
+
+</details>
 
 ---
 
