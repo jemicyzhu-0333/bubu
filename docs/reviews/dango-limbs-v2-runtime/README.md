@@ -49,5 +49,6 @@ python3 docs/reviews/dango-limbs-v2-runtime/round7/audit_assets.py
 
 ## Merge readiness (recorded, not acted on)
 
-check 0 failures ✔; default visuals = b762608 ✔; limbs cleanly off ✔; docs updated ✔; Windows/macOS CI for this head: see progress note in
-the commit after the workflow finishes. Generic limbs remain NO-GO (issues 1–5, 7). Main merge is the user's call.
+check 0 failures ✔; default visuals = b762608 ✔; limbs cleanly off ✔; docs updated ✔; Windows/macOS CI on `0407530` (merge of 27d9846 + this review):
+run 38439865725 win-x64 ✔ mac-arm64 ✔ (https://github.com/jemicyzhu-0333/bubu/actions/runs/38439865725); `npm run check` on `0407530`:
+5990/5985/0 fail/5 skip, EXIT 0. The commit adding this line is docs-only. Generic limbs remain NO-GO (issues 1–5, 7). Main merge is the user's call.
