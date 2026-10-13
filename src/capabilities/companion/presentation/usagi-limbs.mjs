@@ -84,7 +84,7 @@ function limbGeometry(artwork, data, side, intent = intentFor(artwork, side, dat
   const rawElbow = [socket[0] + d[0] / l * along + n[0] * bend * chain.bendHeight,
     socket[1] + d[1] / l * along + n[1] * bend * chain.bendHeight];
   const clock = artwork.clock;
-  const elbow = filters.filter(`${clock?.channel ?? 'pet'}:${side}`, rawElbow, clock?.elapsedMs);
+  const elbow = clock?.calm ? rawElbow : filters.filter(`${clock?.channel ?? 'pet'}:${side}`, rawElbow, clock?.elapsedMs);
   // Bury the root under the body line, towards the body centre (socket axis).
   const centre = applyPoint(world.root, ...USAGI_LIMB_RIG.bodyCentre);
   const inward = [centre[0] - socket[0], centre[1] - socket[1]], il = Math.hypot(...inward) || 1;
@@ -235,7 +235,10 @@ const signature = intent => intent ? `${intent.kind}:${intent.bend}` : 'rest';
 function limbState(artwork, side, data) {
   const intent = intentFor(artwork, side, data), clock = artwork?.clock, now = clock?.elapsedMs;
   if (!Number.isFinite(now)) return { intent, leaving: null, arriving: 1 };
-  const key = `${clock.channel ?? 'pet'}:${side}`, sig = signature(intent), FADE = USAGI_LIMB_RIG.intentFadeMs;
+  const key = `${clock.channel ?? 'pet'}:${side}`;
+  // Calm / reduced motion: the static pose, immediately; clear channel state.
+  if (clock.calm) { memory.delete(key); filters.drop(key); return { intent, leaving: null, arriving: 1 }; }
+  const sig = signature(intent), FADE = USAGI_LIMB_RIG.intentFadeMs;
   let m = memory.get(key);
   if (!m || now < m.t || now - m.t > 500) m = { sig, intent, t: now, since: -Infinity, from: null };
   else if (m.sig !== sig) m = { sig, intent, t: now, since: now, from: m.intent };

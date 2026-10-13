@@ -93,7 +93,9 @@ function createLimbFilter({ speed = .045, resetMs = 250 } = {}) {
     if (state.size > 256) state.delete(state.keys().next().value);
     return out;
   }
-  return Object.freeze({ filter, clear: () => state.clear(), get size() { return state.size; } });
+  // Calm / reduced motion: no smoothing state may survive; drop the channel.
+  const drop = prefix => { for (const k of [...state.keys()]) if (k.startsWith(prefix)) state.delete(k); };
+  return Object.freeze({ filter, drop, clear: () => state.clear(), get size() { return state.size; } });
 }
 
 // Intent resolution: rules are data. Each rule:

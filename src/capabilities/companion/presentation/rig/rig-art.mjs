@@ -124,7 +124,7 @@ function createRigArtist({ fallback, paths = createPathCache(), partLayer = part
     return Object.freeze({
       kind: 'rig', rig, key: rigCacheKey(rig), view, drawnView: resolved.view,
       face, pose: Object.freeze({ sample, world, ...(partWorld ? { partWorld: Object.freeze(partWorld) } : {}) }),
-      clock: Object.freeze({ channel, elapsedMs })
+      clock: Object.freeze({ channel, elapsedMs, calm: !!calmVisual })
     });
   }
 
