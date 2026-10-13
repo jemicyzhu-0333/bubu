@@ -1,0 +1,86 @@
+{
+  "schema": "disabled-hold-source-study/1",
+  "productionReady": false,
+  "masters": [
+    {
+      "master": "masters/hold-contact-root-v3.png",
+      "sha256": "6342f817f8198cb5827d56cf23c327547e221df5f5e758e8c25dfd11d6bb2586",
+      "size": [
+        1536,
+        1024
+      ],
+      "prompt": "masters/hold-contact-root-v3.prompt.txt",
+      "promptSha256": "9417c0f5f050283b8f6cd67def152cb7ce77721f19a4e16c95565b06fb1146a0",
+      "tool": "official image_gen.imagegen",
+      "modelVersion": null,
+      "seed": null,
+      "status": "rejected as complete contact source: proximal root still ambiguous",
+      "referenceAttachmentRecord": "Not retained in this saved record; do not infer from prompt."
+    },
+    {
+      "master": "masters/hold-contact-root-v4-closed-rejected.png",
+      "sha256": "20b89b81c0b2493ffd01a256eab904b324e360e64cb84a16825f18eb3f5c740f",
+      "size": [
+        1536,
+        1024
+      ],
+      "prompt": "masters/hold-contact-root-v4-closed-rejected.prompt.txt",
+      "promptSha256": "1933606c214b469cf28521dcabf966b8a4f5d8979a12f56507c4970d0b15ee51",
+      "tool": "official image_gen.imagegen",
+      "modelVersion": null,
+      "seed": null,
+      "status": "rejected: closed wrist rings create belly stickers",
+      "referenceAttachmentRecord": "Not retained in this saved record; do not infer from prompt."
+    },
+    {
+      "master": "masters/hold-continuous-arms-v5.png",
+      "sha256": "0ddaa21af5032a8797cf4909e3995bb3c7990872bb38b134323305631e5c3dd0",
+      "size": [
+        1774,
+        887
+      ],
+      "prompt": "masters/hold-continuous-arms-v5.prompt.txt",
+      "promptSha256": "d7f1be3793ec979eaf71ca80994479231600052b0a9aebc776e4ab9d663d72f3",
+      "tool": "official image_gen.imagegen",
+      "modelVersion": null,
+      "seed": null,
+      "status": "continuous wrist anatomy only; wrong handleless cup",
+      "referenceAttachmentRecord": "Not retained in this saved record; do not infer from prompt.",
+      "referencesInAttachmentOrder": [
+        {
+          "path": "canonical-package/sources/masters/full-character-v2.png",
+          "sha256": "9e77a9c2a455c3a7c9cc145bb8b0f458ede80bd367e4eb89539c6abddc8b6fdd"
+        }
+      ]
+    },
+    {
+      "master": "masters/hold-handle-continuous-v6.png",
+      "sha256": "cfcb991f89a0948667949b9004301534daeb120bff0d994a9aef2d455c3bdf3a",
+      "size": [
+        2172,
+        724
+      ],
+      "prompt": "masters/hold-handle-continuous-v6.prompt.txt",
+      "promptSha256": "2e3de8cf26504d5fc82a76f9ed03444fc9cf5b040336db2c6adce789b267bb27",
+      "tool": "official image_gen.imagegen",
+      "modelVersion": null,
+      "seed": null,
+      "status": "local palm/wrist extraction candidate only; original cup dimensions and fixed-shoulder registration not met",
+      "referenceAttachmentRecord": "Not retained in this saved record; do not infer from prompt.",
+      "referencesInAttachmentOrder": [
+        {
+          "path": "canonical-package/sources/masters/full-character-v2.png",
+          "sha256": "9e77a9c2a455c3a7c9cc145bb8b0f458ede80bd367e4eb89539c6abddc8b6fdd"
+        },
+        {
+          "path": "canonical-package/sources/canonical/tools/cup.png",
+          "sha256": "88b04c72d826148bd55924e52b0467351ca62a3e04a0b8b2bb83b030e8aeba2f"
+        },
+        {
+          "path": "masters/hold-continuous-arms-v5.png",
+          "sha256": "0ddaa21af5032a8797cf4909e3995bb3c7990872bb38b134323305631e5c3dd0"
+        }
+      ]
+    }
+  ]
+}
