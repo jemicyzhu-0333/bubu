@@ -1,6 +1,6 @@
 # 新增动作 / 姿势的标准流程
 
-目标：新增动作、姿势或配饰时，只改数据与素材，按同一套插槽接口接入，并由检测器自动兜底。下面每一步都有对应的文件和命令。
+目标：新增动作、姿势或配饰时，尽量只改数据与素材，按同一套插槽接口接入，再由检测器做部分兜底。检测器覆盖范围有限：`limbs:check` 的像素扫描只查 10 个最常出问题的动作（`--all` 才查全部）；配饰矩阵每个动作只抽 6 个帧位；原生窗口、GPU 合成和高刷新率显示器上的表现，不在自动检查范围内。下面每一步都有对应的文件和命令。
 
 ## 1. 声明动作（content）
 
@@ -21,8 +21,9 @@
   - 可选 `whileExtended`：只在腕部仍伸出时保持。
 - 腕部目标用 `usagi-contact.mjs` 的 `placePaw(bones, data, side, target, armAngle, toolAngle, maxReach?, reachFrom?)` 写进手骨。自由伸手请传 `USAGI_LIMB_RIG.supportReach`，避免手臂被拉长；握道具的目标保持原值。
 - 新视角或新形态：在 `USAGI_LIMB_RIG.sockets` 增加插槽坐标（根骨空间），骨长保持不变。
-- **腿**：动作只摆脚（腿骨），不用管髋。腿顶被拉到髋下方时，`solveUsagiLegs` 会自动接回，地面线不变；`limbs:check` 会检查腿是否离开髋。
-- **Dango**：在 `assets/companion/dango/raster/limbs/limbs.json`（`dango-limbs/1`，规格见出图说明）加帧：`segments`、`paws.<pose>.views.<view>[]`（每帧写 `angle`、`root`、`grip`）。代码会按 IK 解出的角度选最近一帧，不旋转。新姿势只需加一个 `paws` key，代码不用改。
+- **腿**（仅 usagi）：动作只摆脚（腿骨），不用管髋。腿顶被拉到髋下方时，`solveUsagiLegs` 会自动接回，地面线不变；`limbs:check` 会检查腿是否离开髋。注意：现有 44 个动作的腿都处于收起状态，这层 IK 目前没有在任何动作里触发过。
+- **减弱动效**（`calmVisual`）：肢体直接使用静态姿势，不做意图淡入淡出，也不做肘部速度滤波。
+- **Dango**（limbs v2，接线完成、**素材尚未交付**）：清单放在 `assets/companion/dango/raster/limbs/limbs.json`（`dango-limbs/1`，规格见出图说明），由 `dango-limb-assets.mjs` 加载并完整校验。只有状态为 `ready` 时（清单有效、所有图片加载成功）才按 IK 角度选最近一帧、按整像素位置绘制插槽、上臂、前臂和爪子；其余状态（`absent`、`invalid`、`failed`）一律退回旧的爪子贴图。当前范围：只覆盖带 `pawSprite` 的接触手，只画 front 层；右侧在没有 `-r` 帧时镜像左侧帧；腿和脚还没有接入。新增爪子姿势需要在 `paws` 下加 key，**并且**要让动作或接触数据选中这个 pose（目前固定为 `grip`），这一步还需要改代码。
 
 ## 3. 配饰
 
