@@ -54,7 +54,17 @@ export async function traceLimbs(root = path.resolve(path.dirname(fileURLToPath(
         const dl = Math.abs(c.len - p.len);
         // Intent cross-fades are opacity ramps on the channel clock (not geometry):
         // they are checked for duration, not length rate.
-        if (c.mode === 'fade' || p.mode === 'fade') { s.fades = (s.fades || 0) + 1; continue; }
+        if (c.mode === 'fade' || p.mode === 'fade') {
+          s.fades = (s.fades || 0) + 1;
+          // The fade window itself is asserted: it must close within the
+          // declared intent fade (+ one sampling step), never linger.
+          const run = (s.fadeRun ||= {}); if (c.mode === 'fade' && p.mode !== 'fade') run[side] = frames[i].t;
+          if (c.mode !== 'fade' && Number.isFinite(run[side])) {
+            const dur = frames[i].t - run[side]; s.maxFade = Math.max(s.maxFade || 0, dur); run[side] = NaN;
+            if (dur > limbs.USAGI_LIMB_RIG.intentFadeMs + 1000 / thresholds.fps + 1e-6) report.failures.push(`${kind}:${id}/${view}/${side}@${frames[i].t | 0}ms intent fade lasted ${dur | 0}ms`);
+          }
+          continue;
+        }
         const j = Math.hypot(c.wrist[0] - p.wrist[0], c.wrist[1] - p.wrist[1]); s.maxJump = Math.max(s.maxJump, j);
         const ds = c.socket && p.socket ? Math.hypot(c.socket[0] - p.socket[0], c.socket[1] - p.socket[1]) : 0;
         // A support limb scales its width/length with reach (continuous); allow its ramp slope.
@@ -65,7 +75,7 @@ export async function traceLimbs(root = path.resolve(path.dirname(fileURLToPath(
       if (s.maxRate > thresholds.maxStretch) report.failures.push(`${kind}:${id}/${view} unexplained limb stretch ${s.maxRate.toFixed(2)}/frame`);
       if (s.maxLen > reach + 1e-6) report.failures.push(`${kind}:${id}/${view} visible limb ${s.maxLen.toFixed(2)} > reach ${reach}`);
       if (s.maxJump > thresholds.maxJump) (report.warnings ||= []).push(`${kind}:${id}/${view} wrist jump ${s.maxJump.toFixed(2)}/frame`);
-      report.targets[`${kind}:${id}/${view}`] = { ...s, kinds: [...s.kinds].join(','), maxRate: +s.maxRate.toFixed(3), maxLen: +s.maxLen.toFixed(3), maxJump: +s.maxJump.toFixed(3) };
+      delete s.fadeRun; report.targets[`${kind}:${id}/${view}`] = { ...s, kinds: [...s.kinds].join(','), maxRate: +s.maxRate.toFixed(3), maxLen: +s.maxLen.toFixed(3), maxJump: +s.maxJump.toFixed(3) };
     }
   }
   return report;

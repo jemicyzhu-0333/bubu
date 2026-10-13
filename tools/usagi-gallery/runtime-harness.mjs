@@ -71,8 +71,12 @@ export function createRenderHarness(source, options = {}) {
   const sessionController = options.sessionActivityController || { current: () => current?.kind === 'session' ? current.item : null,
     snapshot: () => current?.kind === 'session' ? { activity: current.item, startedAt: epoch,
       progress: Math.max(0, elapsed) / current.duration } : null };
+  // options.director: 'real' plays actions through a real PresentationDirector
+  // as production eggs do (cue/interaction transient with its own eventId);
+  // default null keeps the historical preview path and its baselines.
+  let director = null, eggSerial = 0;
   const painter = source.renderer.createPetRenderer({
-    readEngines: () => ({ expressionRegistry: registry, presentationDirector: null, sessionActivityController: sessionController }),
+    readEngines: () => ({ expressionRegistry: registry, presentationDirector: director, sessionActivityController: sessionController }),
     window, document, pctx, sctx, octx, petCanvas: body, petFaceSurface: faceSurface,
     petActionBackSurface: backSurface, petActionFrontSurface: frontSurface, petSprites: sprites, petCompositor: compositor,
     petSceneLayer: source.scene.createPetScene({ context: sctx, art: source.sceneArt,
@@ -87,7 +91,7 @@ export function createRenderHarness(source, options = {}) {
     celebrateStarColors: ['#e0af68', '#f7768e', '#bb9af7'], motionRandom: random,
     pick: items => items[Math.floor(random() * items.length)], rand: (a, b) => a + random() * (b - a),
     getTimePeriod: () => 'afternoon', reducedMotion: () => Boolean(options.calm),
-    updatePresentation: () => options.expressionFor?.(state) || current?.item.expression || current?.item.id || 'life.idle',
+    updatePresentation: () => options.expressionFor?.(state) || director?.current(state.animNow)?.expressionId || current?.item.expression || current?.item.id || 'life.idle',
     updateSessionActivityUi() {}, activityUi: options.activityUi || null, resetPetRateEmitters: reset,
     emitPetRate: (emitter, callback) => { const n = emitter.update(dt); for (let i = 0; i < n; i++) callback(); return n; },
     resetPetActionEmitters: () => reset(petActionEmitters),
@@ -153,6 +157,16 @@ export function createRenderHarness(source, options = {}) {
       commandMenuOpen: false, foodMenuOpen: false, devtoolsOpen: false, dragging: false, dragVx: 0, dragVy: 0,
       animNow: epoch, animDt: 0
     };
+    if (options.director && kind === 'action') {
+      const { createPresentationDirector } = options.director.module;
+      director = createPresentationDirector({ clock: { now: () => state.animNow } });
+      director.setBase({ expressionId: 'life.idle', source: 'base', issuedAt: epoch });
+      const eventId = `harness-egg.${++eggSerial}`;
+      state.devPreview = null;
+      state.currentEgg = { ...state.currentEgg, expression: item.expression, presentationEventId: eventId, manual: options.director.source === 'interaction' };
+      director.presentTransient({ eventId, expressionId: item.expression || 'life.idle', source: options.director.source || 'cue', issuedAt: epoch, ttlMs: current.duration + 1000 });
+      if (options.director.interrupt) director.presentTransient({ eventId: 'harness-essential', expressionId: 'life.idle', source: 'essential', issuedAt: epoch, ttlMs: current.duration + 1000 });
+    }
     if (interaction) state.overlayParticles.push(...(source.interactionPlayback
       ? source.interactionPlayback.createInteractionParticles(interaction.effect, { calmVisual: Boolean(options.calm), random, formId: form.id })
       : legacyInteractionParticles(interaction.effect)));
