@@ -15,15 +15,16 @@ for (const hz of [60, 90, 120, 144]) for (const fps of [6, 30, 60]) {
     assert.ok(Math.abs(run(hz, fps, { jitter: 1.5 }) - want) <= .5, 'jitter');
   });
 }
+test('first frame keeps the old start: nothing before one interval', () => { const t = createFrameThrottle(); assert.equal(t.shouldDraw(0, 30), false); assert.equal(t.shouldDraw(34, 30), true); });
 test('144 Hz at 60 fps is not 48 fps (pre-existing bug)', () => assert.ok(run(144, 60) > 59));
 test('re-anchors after a pause: no catch-up burst', () => {
-  const t = createFrameThrottle(); t.shouldDraw(0, 30);
+  const t = createFrameThrottle(); t.shouldDraw(40, 30);
   t.reanchor();
   assert.equal(t.shouldDraw(10000, 30), true);
   assert.equal(t.shouldDraw(10000 + 1000 / 60, 30), false);
 });
 test('stall re-anchors instead of drawing every vsync to catch up', () => {
-  const t = createFrameThrottle(); t.shouldDraw(0, 30);
+  const t = createFrameThrottle(); t.shouldDraw(40, 30);
   assert.equal(t.shouldDraw(500, 30), true);
   assert.equal(t.shouldDraw(500 + 1000 / 144, 30), false);
 });
