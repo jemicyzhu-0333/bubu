@@ -1,0 +1,169 @@
+{
+  "schema": "dango-prototype-mask/1",
+  "source": "sources/masters/quarter-paw-poses-v2.png",
+  "sourceSha256": "4be119389cbbb474899cb40353313181f5860f407e1403419fe940a605d46747",
+  "alphaMethod": "explicit hand-traced geometry, exact source RGB",
+  "frames": [
+    {
+      "name": "quarter-grip-left",
+      "view": "three-quarter-left",
+      "side": "image-left authored contact paw",
+      "crop": [
+        199,
+        250,
+        78,
+        88
+      ],
+      "root": [
+        260,
+        292
+      ],
+      "grip": [
+        237,
+        291
+      ],
+      "wristAxisDegrees": 180,
+      "polygon": [
+        [
+          219,
+          257
+        ],
+        [
+          250,
+          257
+        ],
+        [
+          257,
+          261
+        ],
+        [
+          260,
+          268
+        ],
+        [
+          264,
+          272
+        ],
+        [
+          265,
+          279
+        ],
+        [
+          269,
+          284
+        ],
+        [
+          269,
+          302
+        ],
+        [
+          267,
+          309
+        ],
+        [
+          264,
+          315
+        ],
+        [
+          263,
+          321
+        ],
+        [
+          254,
+          324
+        ],
+        [
+          244,
+          325
+        ],
+        [
+          235,
+          327
+        ],
+        [
+          224,
+          327
+        ],
+        [
+          222,
+          325
+        ],
+        [
+          214,
+          323
+        ],
+        [
+          211,
+          319
+        ],
+        [
+          210,
+          312
+        ],
+        [
+          205,
+          309
+        ],
+        [
+          204,
+          280
+        ],
+        [
+          209,
+          277
+        ],
+        [
+          210,
+          270
+        ],
+        [
+          218,
+          267
+        ],
+        [
+          218,
+          262
+        ]
+      ],
+      "registration": {
+        "prop": "broom shaft",
+        "visibleFrontOnly": true,
+        "passageCenter": [
+          238,
+          291
+        ],
+        "passageAxis": [
+          0,
+          1
+        ],
+        "passageEntry": [
+          236,
+          257
+        ],
+        "passageExit": [
+          239,
+          328
+        ],
+        "alphaHole": false,
+        "rootStatus": "visible front has closed ink contour; semantic root is pink interior, hidden rear connection is not invented",
+        "composition": "shaft behind front layer; canonical wrist opening separately authored/reviewed"
+      },
+      "bodyScaleAudit": {
+        "sourceBodyWidth": 390,
+        "canonicalBodyWidth": 73.025641,
+        "artPxPerSourcePx": 0.187245,
+        "method": "estimated +/-5 source px; shaft occludes left torso edge",
+        "independentMeasurement": true,
+        "isotropicOnly": true
+      },
+      "sourceCropFile": "sources/crops/quarter-paw-source-candidates/quarter-grip-left-source-isolated.png",
+      "originalMaskFileIdentifier": "quarter-grip-left-source-mask.png",
+      "axisRole": "source anatomical wrist toward palm, not invented bone marker",
+      "root_crop": [
+        61,
+        42
+      ]
+    }
+  ],
+  "pathsRelativeTo": "Asset package root; identifier-only fields are historical labels."
+}

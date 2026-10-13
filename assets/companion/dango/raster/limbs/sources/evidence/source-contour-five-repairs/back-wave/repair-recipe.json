@@ -1,0 +1,179 @@
+{
+  "schema": "dango-prototype-mask/1",
+  "source": "sources/masters/missing-four-poses-v2.png",
+  "sourceSha256": "08212dadb5ad3c16106062a50010d48e9df53d361bb58abbd185c115ac6a74f9",
+  "alphaMethod": "explicit manually inspected source-coordinate polygon; exact original RGB; no generated contour",
+  "frames": [
+    {
+      "name": "back-wave-left",
+      "view": "back",
+      "side": "image-left authored raised paw",
+      "crop": [
+        832,
+        682,
+        111,
+        123
+      ],
+      "root": [
+        929,
+        766
+      ],
+      "grip": [
+        879,
+        729
+      ],
+      "wristAxisDegrees": 216,
+      "polygon": [
+        [
+          865,
+          690
+        ],
+        [
+          891,
+          690
+        ],
+        [
+          892,
+          695
+        ],
+        [
+          901,
+          700
+        ],
+        [
+          909,
+          706
+        ],
+        [
+          915,
+          714
+        ],
+        [
+          920,
+          726
+        ],
+        [
+          925,
+          741
+        ],
+        [
+          935,
+          755
+        ],
+        [
+          939,
+          777
+        ],
+        [
+          934,
+          794
+        ],
+        [
+          919,
+          800
+        ],
+        [
+          897,
+          798
+        ],
+        [
+          895,
+          787
+        ],
+        [
+          881,
+          787
+        ],
+        [
+          880,
+          781
+        ],
+        [
+          880,
+          779
+        ],
+        [
+          876,
+          779
+        ],
+        [
+          865,
+          777
+        ],
+        [
+          865,
+          769
+        ],
+        [
+          856,
+          768
+        ],
+        [
+          855,
+          759
+        ],
+        [
+          847,
+          758
+        ],
+        [
+          847,
+          748
+        ],
+        [
+          840,
+          746
+        ],
+        [
+          840,
+          742
+        ],
+        [
+          840,
+          717
+        ],
+        [
+          845,
+          712
+        ],
+        [
+          850,
+          705
+        ],
+        [
+          857,
+          700
+        ],
+        [
+          862,
+          697
+        ]
+      ],
+      "registration": {
+        "rootStatus": "open pink short-arm source root retained, true back-view source; no front-view mirrored substitution"
+      },
+      "bodyScaleAudit": {
+        "sourceBodyWidth": 417,
+        "canonicalBodyWidth": 72.533333,
+        "artPxPerSourcePx": 0.17394084652278177,
+        "method": "clean y680 x894..1310, raised hand excluded; selected417 with +/-5 source px uncertainty",
+        "independentMeasurement": true,
+        "isotropicOnly": true
+      },
+      "sourceCropFile": "sources/crops/source-contour-five-repairs/front-reach/after-source-isolated.png",
+      "originalMaskFileIdentifier": "after-source-mask.png",
+      "axisRole": "source anatomical wrist toward palm, not invented bone marker",
+      "root_crop": [
+        97,
+        84
+      ],
+      "repairStatus": "source-visible ink restoration candidate only; actual-body root/tail overlap must be reviewed before widening angles",
+      "rootUnchanged": true,
+      "scaleUnchanged": true
+    }
+  ],
+  "sourceRecipeBefore": "missing-paw-source-candidates/source-mask-recipe.json",
+  "sourceRecipeBeforeSha256": "005b777f5e794c1c3ff96b4d62690ecc99e18d3cc78e7903b1700e6d9be6ac4c",
+  "noFormalPackageWrites": true,
+  "pathsRelativeTo": "Asset package root; identifier-only fields are historical labels."
+}

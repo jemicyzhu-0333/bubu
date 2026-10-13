@@ -1,0 +1,76 @@
+{
+  "source": "sources/masters/contact-actions-v2.png",
+  "sourceSha256": "4ece9917bad5c0848bcb6ebc6cc023e0a6a89d067d93b0e257772dfd9133284b",
+  "frames": [
+    {
+      "name": "front-hold-left",
+      "view": "front",
+      "crop": [
+        816,
+        456,
+        934,
+        569
+      ],
+      "root": [
+        835,
+        510
+      ],
+      "grip": [
+        919,
+        511
+      ],
+      "wristAxisDegrees": 0.0,
+      "sourceCropFile": "sources/crops/contact-source-candidates/hold-cup-left-source-rgba.png",
+      "bodyScaleAudit": {
+        "sourceBodyWidth": 537,
+        "canonicalBodyWidth": 69.415385
+      },
+      "registration": {
+        "prop": "mug",
+        "contact_point": [
+          922,
+          512
+        ],
+        "visible_front_only": true,
+        "back_half": "mug-occluded surface not inferred",
+        "compositing": "mug sits beyond right contact boundary; no mug pixels included"
+      }
+    },
+    {
+      "name": "quarter-press-right",
+      "view": "three-quarter-left",
+      "crop": [
+        1583,
+        461,
+        1706,
+        554
+      ],
+      "root": [
+        1685,
+        489
+      ],
+      "grip": [
+        1641,
+        541
+      ],
+      "wristAxisDegrees": 130.25318526312574,
+      "sourceCropFile": "sources/crops/contact-source-candidates/press-keyboard-near-source-rgba.png",
+      "bodyScaleAudit": {
+        "sourceBodyWidth": 554,
+        "canonicalBodyWidth": 73.025641
+      },
+      "registration": {
+        "prop": "keyboard",
+        "contact_point": [
+          1641,
+          546
+        ],
+        "contact_plane_y": 549,
+        "visible_front_only": true,
+        "excluded": "far keyboard hand root occluded; keycaps and keyboard chassis excluded",
+        "compositing": "paw bottom meets key plane; keyboard stays separate"
+      }
+    }
+  ],
+  "pathsRelativeTo": "Asset package root; identifier-only fields are historical labels."
+}

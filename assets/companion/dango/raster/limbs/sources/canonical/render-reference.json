@@ -1,0 +1,334 @@
+{
+  "views": {
+    "front": {
+      "body": {
+        "src": "sources/canonical/views/front/body.png",
+        "rect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "tint": "body",
+        "sha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9"
+      },
+      "anchors": {
+        "ear-left": {
+          "x": 17.465678,
+          "y": 10.174359
+        },
+        "ear-right": {
+          "x": 48.337878,
+          "y": 10.174359
+        },
+        "foot-left": {
+          "x": 19.281609,
+          "y": 56.123077
+        },
+        "foot-right": {
+          "x": 46.10582,
+          "y": 56.123077
+        },
+        "shoulder-left": {
+          "x": 7.4,
+          "y": 39.712821
+        },
+        "shoulder-right": {
+          "x": 58.6,
+          "y": 39.712821
+        }
+      },
+      "parts": {
+        "ear-left": {
+          "src": "sources/canonical/views/front/ear-left.png",
+          "rect": [
+            4.117949,
+            0,
+            28.882051,
+            14.276923
+          ],
+          "tint": "body",
+          "pivot": [
+            17.465678,
+            10.174359
+          ],
+          "sha256": "3a7fa5e243afaca65e8e67814b54ab01abfad0ae781314034dfc0c51d6381afe"
+        },
+        "ear-right": {
+          "src": "sources/canonical/views/front/ear-right.png",
+          "rect": [
+            33,
+            0,
+            28.717949,
+            14.276923
+          ],
+          "tint": "body",
+          "pivot": [
+            48.337878,
+            10.174359
+          ],
+          "sha256": "0de07697c7451078216eb3e96ee5dbeb091cf5e6eb5590a9cac87e945a8961a7"
+        }
+      },
+      "face": {
+        "eyes": {
+          "neutral": [
+            {
+              "src": "sources/canonical/views/front/eye-left-neutral.png",
+              "rect": [
+                13.307692,
+                21.661538,
+                11.158974,
+                12.471795
+              ],
+              "tint": "eye",
+              "pivot": [
+                18.887179,
+                27.897436
+              ],
+              "sha256": "a74748730325f80bed0e6e010f12c4e98908f0e267b24a3405ed517293b0bb4f"
+            },
+            {
+              "src": "sources/canonical/views/front/eye-right-neutral.png",
+              "rect": [
+                41.041026,
+                21.661538,
+                10.994872,
+                12.471795
+              ],
+              "tint": "eye",
+              "pivot": [
+                46.538462,
+                27.897436
+              ],
+              "sha256": "b04d97d6715e5ebfe66ebf14412deeb156a85164839bf021f16f373ce062b0c8"
+            }
+          ]
+        },
+        "mouth": {
+          "neutral": {
+            "src": "sources/canonical/views/front/mouth-neutral.png",
+            "rect": [
+              29.717949,
+              36.430769,
+              5.907692,
+              3.446154
+            ],
+            "tint": "body",
+            "pivot": [
+              32.671795,
+              38.153846
+            ],
+            "sha256": "41cc72b364dbccef6c32dcfa06712495144a2b21296b0e4d12fe38a30cbe0e62"
+          }
+        }
+      }
+    },
+    "three-quarter-left": {
+      "body": {
+        "src": "sources/canonical/views/three-quarter-left/body.png",
+        "rect": [
+          -3.430769,
+          8.533333,
+          73.025641,
+          49.066667
+        ],
+        "tint": "body",
+        "sha256": "ca30ce808882ed118ccc100372cc54bf4153481c368166613f6b8af14c70d826"
+      },
+      "anchors": {
+        "ear-left": {
+          "x": 17.773665,
+          "y": 10.174359
+        },
+        "ear-right": {
+          "x": 45.015088,
+          "y": 10.174359
+        },
+        "foot-left": {
+          "x": 18.198991,
+          "y": 56.123077
+        },
+        "foot-right": {
+          "x": 44.821253,
+          "y": 56.123077
+        },
+        "shoulder-left": {
+          "x": 7.4,
+          "y": 39.712821
+        },
+        "shoulder-right": {
+          "x": 58.6,
+          "y": 39.712821
+        }
+      },
+      "parts": {
+        "ear-left": {
+          "src": "sources/canonical/views/three-quarter-left/ear-left.png",
+          "rect": [
+            4.610256,
+            0.164103,
+            28.389744,
+            14.112821
+          ],
+          "tint": "body",
+          "pivot": [
+            17.773665,
+            10.174359
+          ],
+          "sha256": "9d16c3a20a79dff65a271c2dcc56bba0dc30544beade44bb033d887e3df40c62"
+        },
+        "ear-right": {
+          "src": "sources/canonical/views/three-quarter-left/ear-right.png",
+          "rect": [
+            33,
+            0,
+            28.553846,
+            14.276923
+          ],
+          "tint": "body",
+          "pivot": [
+            45.015088,
+            10.174359
+          ],
+          "sha256": "a59855f94a8b227bdc16f0322b195de96b2cae19168733cf3b3f010a0c61301d"
+        }
+      },
+      "face": {
+        "eyes": {
+          "neutral": [
+            {
+              "src": "sources/canonical/views/three-quarter-left/eye-left-neutral.png",
+              "rect": [
+                3.297436,
+                21.497436,
+                8.533333,
+                12.964103
+              ],
+              "tint": "eye",
+              "pivot": [
+                7.564103,
+                27.979487
+              ],
+              "sha256": "3ab0e85b128ab47ef7db642120e007ced8965298904e88aa40baba3bc9ecaf75"
+            },
+            {
+              "src": "sources/canonical/views/three-quarter-left/eye-right-neutral.png",
+              "rect": [
+                23.810256,
+                21.989744,
+                11.815385,
+                13.292308
+              ],
+              "tint": "eye",
+              "pivot": [
+                29.717949,
+                28.635897
+              ],
+              "sha256": "6eec932e632f49f824560091e55a49b653cea624f7f2216b7e95d4f52399a008"
+            }
+          ]
+        },
+        "mouth": {
+          "neutral": {
+            "src": "sources/canonical/views/three-quarter-left/mouth-neutral.png",
+            "rect": [
+              13.307692,
+              36.266667,
+              5.907692,
+              3.610256
+            ],
+            "tint": "body",
+            "pivot": [
+              16.261538,
+              38.071795
+            ],
+            "sha256": "0c0fda2b976ea12bf3df59af19140051ac5ad740ce58bb867b5924b1c1fca7a3"
+          }
+        }
+      }
+    },
+    "back": {
+      "body": {
+        "src": "sources/canonical/views/back/body.png",
+        "rect": [
+          -3.266667,
+          8.533333,
+          72.533333,
+          49.066667
+        ],
+        "tint": "body",
+        "sha256": "aca663e31d41e7ca38a12073d9a570575b2fd55f7866078049146d140152e261"
+      },
+      "anchors": {
+        "ear-left": {
+          "x": 17.43589,
+          "y": 10.174359
+        },
+        "ear-right": {
+          "x": 48.554394,
+          "y": 10.174359
+        },
+        "foot-left": {
+          "x": 18.786783,
+          "y": 56.123077
+        },
+        "foot-right": {
+          "x": 47.713478,
+          "y": 56.123077
+        },
+        "shoulder-left": {
+          "x": 7.4,
+          "y": 39.712821
+        },
+        "shoulder-right": {
+          "x": 58.6,
+          "y": 39.712821
+        }
+      },
+      "parts": {
+        "ear-left": {
+          "src": "sources/canonical/views/back/ear-left.png",
+          "rect": [
+            4.117949,
+            0,
+            28.882051,
+            14.276923
+          ],
+          "tint": "body",
+          "pivot": [
+            17.43589,
+            10.174359
+          ],
+          "sha256": "12b35cddb0083afa671c40233a95f230580250d18baf064900ca5bdad739d439"
+        },
+        "ear-right": {
+          "src": "sources/canonical/views/back/ear-right.png",
+          "rect": [
+            33,
+            0,
+            29.210256,
+            14.276923
+          ],
+          "tint": "body",
+          "pivot": [
+            48.554394,
+            10.174359
+          ],
+          "sha256": "a959c57053fdb2628f4c584994e4b8dd9706c0fbaf88d1ead584bb220ae7837d"
+        }
+      },
+      "face": {}
+    }
+  },
+  "cup": {
+    "src": "sources/canonical/tools/cup.png",
+    "rect": [
+      22,
+      39,
+      22,
+      19
+    ],
+    "sha256": "88b04c72d826148bd55924e52b0467351ca62a3e04a0b8b2bb83b030e8aeba2f"
+  }
+}

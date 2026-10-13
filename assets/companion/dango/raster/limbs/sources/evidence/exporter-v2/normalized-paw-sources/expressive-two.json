@@ -1,0 +1,168 @@
+{
+  "schema": "dango-prototype-mask/1",
+  "source": "sources/masters/expressive-actions-v2.png",
+  "sourceSha256": "2891fefe2b73f81c1f8437d7b16fff45e122e0f48e4806353fe006ff98c97808",
+  "alphaMethod": "explicit hand-traced geometry, exact source RGB",
+  "frames": [
+    {
+      "name": "front-fist-right",
+      "view": "front",
+      "crop": [
+        474,
+        741,
+        88,
+        86
+      ],
+      "root": [
+        547,
+        784
+      ],
+      "grip": [
+        508,
+        784
+      ],
+      "wristAxisDegrees": 180,
+      "polygon": [
+        [
+          496,
+          745
+        ],
+        [
+          522,
+          745
+        ],
+        [
+          522,
+          750
+        ],
+        [
+          528,
+          752
+        ],
+        [
+          532,
+          756
+        ],
+        [
+          534,
+          762
+        ],
+        [
+          536,
+          765
+        ],
+        [
+          538,
+          765
+        ],
+        [
+          547,
+          774
+        ],
+        [
+          560,
+          778
+        ],
+        [
+          560,
+          808
+        ],
+        [
+          552,
+          814
+        ],
+        [
+          544,
+          818
+        ],
+        [
+          522,
+          818
+        ],
+        [
+          519,
+          816
+        ],
+        [
+          515,
+          814
+        ],
+        [
+          513,
+          811
+        ],
+        [
+          497,
+          810
+        ],
+        [
+          496,
+          804
+        ],
+        [
+          490,
+          802
+        ],
+        [
+          487,
+          799
+        ],
+        [
+          485,
+          795
+        ],
+        [
+          483,
+          790
+        ],
+        [
+          479,
+          789
+        ],
+        [
+          477,
+          786
+        ],
+        [
+          477,
+          766
+        ],
+        [
+          480,
+          763
+        ],
+        [
+          483,
+          762
+        ],
+        [
+          484,
+          757
+        ],
+        [
+          487,
+          754
+        ],
+        [
+          493,
+          753
+        ],
+        [
+          496,
+          750
+        ]
+      ],
+      "sourceCropFile": "sources/crops/expressive-source-candidates/fist-source-isolated.png",
+      "originalMaskFileIdentifier": "fist-source-mask.png",
+      "axisRole": "Artist registered proximal wrist into visible palm; not a bone marker generated in source",
+      "status": "explicit-source edge-refined candidate; root retained in opaque pink; final canonical join requires parent review",
+      "wristRootRole": "original author root and axis unchanged; open short-arm pink retained for overlap",
+      "refinement": "geometric alpha reduction only, exact source RGB",
+      "bodyScaleAudit": {
+        "sourceBodyWidth": 413,
+        "canonicalBodyWidth": 69.415385
+      }
+    }
+  ],
+  "pathsRelativeTo": "Asset package root; identifier-only fields are historical labels."
+}

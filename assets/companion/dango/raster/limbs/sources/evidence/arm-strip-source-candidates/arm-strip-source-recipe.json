@@ -1,0 +1,121 @@
+{
+  "schema": "dango-source-arm-strip/1",
+  "source": "sources/masters/arm-directions-v2.png",
+  "sourceSha256": "60099f2389e4d17da2b0ab34d7dcbade35b0bea478e7cd6f930ab1d1337610c6",
+  "sourcePanel": "upper-left, authored 0-degree rightward arm",
+  "sourceSize": [
+    1536,
+    1024
+  ],
+  "crop": [
+    591,
+    271,
+    651,
+    340
+  ],
+  "cropConvention": "exclusive right/bottom",
+  "polygon": [
+    [
+      596,
+      276
+    ],
+    [
+      642,
+      276
+    ],
+    [
+      642,
+      277
+    ],
+    [
+      646,
+      280
+    ],
+    [
+      646,
+      334
+    ],
+    [
+      607,
+      334
+    ],
+    [
+      596,
+      334
+    ]
+  ],
+  "sourceCropFile": "sources/crops/arm-strip-source-candidates/arm-zero-source-isolated.png",
+  "originalMaskFileIdentifier": "arm-zero-source-mask.png",
+  "rootSourceCenter": [
+    608.5,
+    305.5
+  ],
+  "tipMeasuredSourceCenter": [
+    644.5,
+    305.5
+  ],
+  "tipControlSourceCenter": [
+    644.4574466092783,
+    305.5
+  ],
+  "rootCropCenter": [
+    17.5,
+    34.5
+  ],
+  "tipControlCropCenter": [
+    53.45744660927835,
+    34.5
+  ],
+  "wristAxisDegrees": 0,
+  "boneControlLengthArt": 6,
+  "sourceMeasuredLengthPx": 36,
+  "sourceMeasuredLengthArt": 6.007100625,
+  "controlLengthDifferenceArt": 0.0071006249999996385,
+  "controlPolicy": "Use the subpixel point within the same distal source pixel to obtain exact 6-art control length. Source pixels, scale and geometry are not stretched. Root/tip export may snap on the target grid under the final author contract.",
+  "bodyScaleAudit": {
+    "sourceBodyWidthPx": 416,
+    "uncertaintySourcePx": 1,
+    "canonicalFrontBodyWidthArt": 69.415385,
+    "artPxPerSourcePx": 0.16686390625,
+    "evidence": "Independent auditor: y230/245 x212..626 width415; y260 about416; choose416 +/-1."
+  },
+  "crossSections": [
+    {
+      "x": 630,
+      "visibleTop": 276,
+      "visibleBottom": 334,
+      "sourceThicknessPx": 59,
+      "artThickness": 9.84497046875
+    },
+    {
+      "x": 635,
+      "visibleTop": 276,
+      "visibleBottom": 334,
+      "sourceThicknessPx": 59,
+      "artThickness": 9.84497046875
+    },
+    {
+      "x": 640,
+      "visibleTop": 276,
+      "visibleBottom": 334,
+      "sourceThicknessPx": 59,
+      "artThickness": 9.84497046875
+    }
+  ],
+  "proximalCut": {
+    "x": 596,
+    "role": "explicit straight geometric opening inside genuine source body-pink overlap",
+    "toRootSourcePx": 12.5,
+    "toRootArt": 2.085798828125,
+    "outerInkPolicy": "No new ink inserted where source body-pink has no outer arm outline. Must be hidden inside the body/parent joint."
+  },
+  "distalCut": {
+    "lastRetainedX": 646,
+    "role": "explicit straight geometric end before palm expansion at aboutx648; source column646 retained to support independently sampled diagonal tip; no round palm terminal retained or cap synthesized",
+    "afterTipArt": 0.4242603906249971
+  },
+  "segmentReuse": "Upper/lower 6-art segments may reuse this same genuine source strip. Joint overlap and visible length are controlled by body occlusion and 6+6 IK, not stretching or procedural caps.",
+  "limitation": "Only the exposed two-ink-edge straight run x626..643 is shorter than6art. Meeting6 requires the explicitly retained real proximal/body-overlap portion, never an invented extension.",
+  "status": "source geometry and measurements only; final pair outline, occlusion and target 16-angle reprojection require separate review",
+  "pathsRelativeTo": "Asset package root; identifier-only fields are historical labels."
+}

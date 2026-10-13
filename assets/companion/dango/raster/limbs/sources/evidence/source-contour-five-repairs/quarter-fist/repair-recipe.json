@@ -1,0 +1,179 @@
+{
+  "schema": "dango-prototype-mask/1",
+  "source": "sources/masters/quarter-paw-poses-v2.png",
+  "sourceSha256": "4be119389cbbb474899cb40353313181f5860f407e1403419fe940a605d46747",
+  "alphaMethod": "explicit manually inspected source-coordinate polygon; exact original RGB; no generated contour",
+  "frames": [
+    {
+      "name": "quarter-fist-right",
+      "view": "three-quarter-left",
+      "side": "image-right authored fist",
+      "crop": [
+        1053,
+        749,
+        115,
+        112
+      ],
+      "root": [
+        1150,
+        812
+      ],
+      "grip": [
+        1105,
+        803
+      ],
+      "wristAxisDegrees": 191,
+      "polygon": [
+        [
+          1088,
+          760
+        ],
+        [
+          1111,
+          760
+        ],
+        [
+          1113,
+          764
+        ],
+        [
+          1123,
+          767
+        ],
+        [
+          1128,
+          772
+        ],
+        [
+          1135,
+          777
+        ],
+        [
+          1138,
+          785
+        ],
+        [
+          1145,
+          791
+        ],
+        [
+          1157,
+          797
+        ],
+        [
+          1164,
+          809
+        ],
+        [
+          1162,
+          827
+        ],
+        [
+          1154,
+          837
+        ],
+        [
+          1139,
+          846
+        ],
+        [
+          1122,
+          851
+        ],
+        [
+          1120,
+          854
+        ],
+        [
+          1104,
+          854
+        ],
+        [
+          1101,
+          851
+        ],
+        [
+          1089,
+          847
+        ],
+        [
+          1081,
+          841
+        ],
+        [
+          1076,
+          837
+        ],
+        [
+          1070,
+          833
+        ],
+        [
+          1068,
+          828
+        ],
+        [
+          1067,
+          822
+        ],
+        [
+          1060,
+          818
+        ],
+        [
+          1059,
+          814
+        ],
+        [
+          1059,
+          795
+        ],
+        [
+          1060,
+          790
+        ],
+        [
+          1065,
+          785
+        ],
+        [
+          1068,
+          777
+        ],
+        [
+          1075,
+          772
+        ],
+        [
+          1083,
+          768
+        ]
+      ],
+      "registration": {
+        "rootStatus": "open pink short-arm root on right; C-shaped fold retained as internal source ink, not a closed root seam"
+      },
+      "bodyScaleAudit": {
+        "sourceBodyWidth": 392,
+        "canonicalBodyWidth": 73.025641,
+        "artPxPerSourcePx": 0.18629,
+        "method": "measured y710/725, body x896..1287",
+        "independentMeasurement": true,
+        "isotropicOnly": true
+      },
+      "sourceCropFile": "sources/crops/source-contour-five-repairs/front-reach/after-source-isolated.png",
+      "originalMaskFileIdentifier": "after-source-mask.png",
+      "axisRole": "source anatomical wrist toward palm, not invented bone marker",
+      "root_crop": [
+        97,
+        63
+      ],
+      "repairStatus": "source-visible ink restoration candidate only; actual-body root/tail overlap must be reviewed before widening angles",
+      "rootUnchanged": true,
+      "scaleUnchanged": true
+    }
+  ],
+  "sourceRecipeBefore": "quarter-paw-source-candidates/source-mask-recipe.json",
+  "sourceRecipeBeforeSha256": "2df577c1baa0972b73fa047a668066e92877806766f97eaf76b770f4fc9e6527",
+  "noFormalPackageWrites": true,
+  "pathsRelativeTo": "Asset package root; identifier-only fields are historical labels."
+}

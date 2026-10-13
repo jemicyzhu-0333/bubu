@@ -1,0 +1,174 @@
+{
+  "schema": "dango-prototype-mask/1",
+  "source": "sources/masters/quarter-hold-fixed-shoulders-v1.png",
+  "sourceSha256": "89a87e1c54701b3b586595bb7b68591e94cdbc38b79d153014ee89d9beee8201",
+  "alphaMethod": "explicit hand-traced geometry, exact source RGB",
+  "frames": [
+    {
+      "name": "quarter-hold-fixed-far-left",
+      "view": "three-quarter-left",
+      "side": "image-left authored far cup-holding paw",
+      "mirrorSourceX": false,
+      "crop": [
+        356,
+        533,
+        103,
+        138
+      ],
+      "root": [
+        427,
+        561
+      ],
+      "grip": [
+        447,
+        605
+      ],
+      "palmCenterLandmark": [
+        412,
+        607
+      ],
+      "wristAxisDegrees": 108.06047193619918,
+      "polygon": [
+        [
+          407,
+          542
+        ],
+        [
+          425,
+          541
+        ],
+        [
+          440,
+          547
+        ],
+        [
+          447,
+          560
+        ],
+        [
+          447,
+          570
+        ],
+        [
+          444,
+          576
+        ],
+        [
+          450,
+          587
+        ],
+        [
+          450,
+          635
+        ],
+        [
+          445,
+          641
+        ],
+        [
+          442,
+          651
+        ],
+        [
+          438,
+          664
+        ],
+        [
+          400,
+          664
+        ],
+        [
+          399,
+          657
+        ],
+        [
+          388,
+          656
+        ],
+        [
+          387,
+          650
+        ],
+        [
+          375,
+          647
+        ],
+        [
+          375,
+          634
+        ],
+        [
+          365,
+          633
+        ],
+        [
+          364,
+          630
+        ],
+        [
+          364,
+          577
+        ],
+        [
+          369,
+          572
+        ],
+        [
+          377,
+          570
+        ],
+        [
+          380,
+          553
+        ],
+        [
+          389,
+          548
+        ],
+        [
+          398,
+          544
+        ]
+      ],
+      "registration": {
+        "prop": "cup",
+        "contactPoint": [
+          447,
+          605
+        ],
+        "contactNormal": [
+          1,
+          0
+        ],
+        "rootBasis": "actual upper pink wrist from source body into narrow downward far paw, independently inspected",
+        "rootStatus": "open upper pink root; source cup occludes right edge and hidden portion remains absent",
+        "wristAxisBasis": "root427,561 toward actual narrow palm center412,607 (downward and slightly left), not mirrored near-paw world direction",
+        "occlusion": "only visibly retained far paw; no inference of cup-hidden right/rear surface",
+        "usage": "supplemental authored far side for genuine two-handed hold; mirrorSourceX must remain false",
+        "sourceBodyMeasurement": "same mother as near paw: clean rows420/450/470 x435..1123, width689"
+      },
+      "bodyScaleAudit": {
+        "sourceBodyWidth": 689,
+        "canonicalBodyWidth": 73.025641,
+        "artPxPerSourcePx": 0.10598786792452829,
+        "method": "same fixed-shoulder mother clean torso width689; do not mirror near palm",
+        "independentMeasurement": true,
+        "isotropicOnly": true
+      },
+      "sourceCropFile": "sources/crops/quarter-hold-far-source-candidates/quarter-hold-fixed-far-left-source-isolated.png",
+      "originalMaskFileIdentifier": "quarter-hold-fixed-far-left-source-mask.png",
+      "axisRole": "source anatomical wrist toward palm, not invented bone marker",
+      "root_crop": [
+        71,
+        28
+      ],
+      "exportSide": "l",
+      "mirror": false,
+      "contactNormal": [
+        1,
+        0
+      ]
+    }
+  ],
+  "pathsRelativeTo": "Asset package root; identifier-only fields are historical labels."
+}

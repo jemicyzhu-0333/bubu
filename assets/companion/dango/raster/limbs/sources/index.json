@@ -1,0 +1,167 @@
+{
+  "schema": "dango-limb-source-index/1",
+  "sources": [
+    {
+      "file": "full-character-v2.png",
+      "sha256": "9e77a9c2a455c3a7c9cc145bb8b0f458ede80bd367e4eb89539c6abddc8b6fdd",
+      "roles": [
+        "approved identity",
+        "three-view rest hands",
+        "three-view standing feet",
+        "quarter step and lift"
+      ],
+      "limits": [],
+      "generation": "built-in imagegen; source generation is nondeterministic; no invented seed or model version",
+      "prompt": {
+        "file": "full-character-v2-prompt.txt",
+        "sha256": "7bd3601a6d83d13a9b0a5906c01454e8c1efabb95d9198337f46ce97fc36cce0"
+      },
+      "lineage": {
+        "file": "full-character-generation-lineage.json",
+        "sha256": "47d3168d803649a3554f166c12d2d87dd1845e1e59e0f279aa03359b14b326c0"
+      }
+    },
+    {
+      "file": "contact-actions-v2.png",
+      "sha256": "4ece9917bad5c0848bcb6ebc6cc023e0a6a89d067d93b0e257772dfd9133284b",
+      "roles": [
+        "front hold",
+        "quarter press"
+      ],
+      "limits": [
+        "old front grip is superseded"
+      ],
+      "generation": "built-in imagegen; source generation is nondeterministic; no invented seed or model version",
+      "prompt": {
+        "file": "contact-actions-v2-prompt.txt",
+        "sha256": "178a4e250f13bd487134955b348072bb61320d6f1113d17cae486a03ab1261db"
+      }
+    },
+    {
+      "file": "expressive-actions-v2.png",
+      "sha256": "2891fefe2b73f81c1f8437d7b16fff45e122e0f48e4806353fe006ff98c97808",
+      "roles": [
+        "front wave",
+        "front fist"
+      ],
+      "limits": [
+        "old quarter reach and support are superseded"
+      ],
+      "generation": "built-in imagegen; source generation is nondeterministic; no invented seed or model version",
+      "prompt": {
+        "file": "expressive-actions-v2-prompt.txt",
+        "sha256": "70a2b4e2537686de7d1b3e636420cbbc405599f215f9350f0dc5d31d45e7514b"
+      }
+    },
+    {
+      "file": "expressive-actions-v3.png",
+      "sha256": "7a98ee212cdced257f7328363fe2c0c528d1113362e23d3988f081f1ee0c74b4",
+      "roles": [
+        "front reach"
+      ],
+      "limits": [
+        "other panels not newly adopted"
+      ],
+      "generation": "built-in imagegen; source generation is nondeterministic; no invented seed or model version",
+      "prompt": {
+        "file": "expressive-actions-v3-prompt.txt",
+        "sha256": "bde1fdbd970ca8026353ab3f7e7fb992cf2b133ef34eb4e6386c853f2129aaa2"
+      }
+    },
+    {
+      "file": "foot-actions-v1.png",
+      "sha256": "6c8338d2fce66e31962133b5ab90520e8b0699ad376bffe8e42de2f7177f5d83",
+      "roles": [
+        "front/back step and lift"
+      ],
+      "limits": [],
+      "generation": "built-in imagegen; source generation is nondeterministic; no invented seed or model version",
+      "prompt": {
+        "file": "foot-actions-v1-prompt.txt",
+        "sha256": "f27f2b182f7634ba74eb3b22fed8601712845abcf43d4d9365745e7720ccdd12"
+      }
+    },
+    {
+      "file": "quarter-paw-poses-v2.png",
+      "sha256": "4be119389cbbb474899cb40353313181f5860f407e1403419fe940a605d46747",
+      "roles": [
+        "quarter grip",
+        "quarter wave",
+        "quarter fist"
+      ],
+      "limits": [
+        "quarter hold superseded: wrist originated too far inside abdomen"
+      ],
+      "generation": "built-in imagegen; source generation is nondeterministic; no invented seed or model version",
+      "prompt": {
+        "file": "quarter-paw-poses-v2-prompt.txt",
+        "sha256": "4411bb786798850555b77c2ba989b978cb771c87205761ccd19b16e0b5893bb1"
+      }
+    },
+    {
+      "file": "missing-four-poses-v2.png",
+      "sha256": "08212dadb5ad3c16106062a50010d48e9df53d361bb58abbd185c115ac6a74f9",
+      "roles": [
+        "front press",
+        "front support",
+        "quarter reach",
+        "back wave"
+      ],
+      "limits": [],
+      "generation": "built-in imagegen; source generation is nondeterministic; no invented seed or model version",
+      "prompt": {
+        "file": "missing-four-poses-v2-prompt.txt",
+        "sha256": "3cc9e40409833faca7f3d955c022a8f050361d9b76fd53d9bf3644d320081d86"
+      }
+    },
+    {
+      "file": "contact-stable-body-v1.png",
+      "sha256": "ae4abc1ffae68a15b5afcec933daed4ccad5f8e55c6185ad6aa7e03770d07f9e",
+      "roles": [
+        "front grip",
+        "quarter light support"
+      ],
+      "limits": [
+        "support does not prove push-up deformation"
+      ],
+      "generation": "built-in imagegen; source generation is nondeterministic; no invented seed or model version",
+      "prompt": {
+        "file": "contact-stable-body-v1-prompt.txt",
+        "sha256": "612a60bae9a7017445919b50eac09d9a5c6325c7b395eb3e76277d3b44f2475c"
+      }
+    },
+    {
+      "file": "quarter-hold-fixed-shoulders-v1.png",
+      "sha256": "89a87e1c54701b3b586595bb7b68591e94cdbc38b79d153014ee89d9beee8201",
+      "roles": [
+        "quarter hold"
+      ],
+      "limits": [
+        "Independent near/far hands; see validation scope for fixed-shoulder IK and contact limitations"
+      ],
+      "generation": "built-in imagegen; source generation is nondeterministic; no invented seed or model version",
+      "prompt": {
+        "file": "quarter-hold-fixed-shoulders-v1-prompt.txt",
+        "sha256": "770a11855d5b2f659d3f2f039fa096fc7d64559c2b0461e41e7be639cf96260d"
+      }
+    },
+    {
+      "file": "arm-directions-v2.png",
+      "sha256": "60099f2389e4d17da2b0ab34d7dcbade35b0bea478e7cd6f930ab1d1337610c6",
+      "roles": [
+        "short soft segment source"
+      ],
+      "limits": [
+        "6+6 bone lengths approved; see validation scope for composed joints and runtime limitations"
+      ],
+      "generation": "built-in imagegen; source generation is nondeterministic; no invented seed or model version",
+      "prompt": {
+        "file": "arm-directions-v2-prompt.txt",
+        "sha256": "2f5fd29219e5d4e9baacc03a1313d10253b3663f2d5f87bda8b098f2c832f480"
+      }
+    }
+  ],
+  "status": "Source identities and deterministic extraction are documented; see validation scope for static composition, remaining integration and motion limits.",
+  "pathConvention": "Master and prompt names are relative to the packaged source directory.",
+  "baseDirectory": "sources/masters"
+}
