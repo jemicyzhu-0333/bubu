@@ -28,7 +28,7 @@ git diff --check
 
 | 改动 | 至少追加的检查 |
 | --- | --- |
-| 持久化 | current-only schema19 准入、拒绝前零写入/零 proof、DB/身份/WAL/SHM 原字节、未知提交核对、损坏/未来版本、重开与故障注入。另获授权的库迁移须核验逐字节备份和二次启动固定点 |
+| 持久化 | current-only schema20 准入、拒绝前零写入/零 proof、DB/身份/WAL/SHM 原字节、未知提交核对、损坏/未来版本、重开与故障注入。另获授权的库迁移须核验逐字节备份和二次启动固定点 |
 | IPC / preload | sender、闭合 payload、非法输入、surface allowlist 与最小 preload |
 | workflow / 状态投影 | 单次提交、写集、回执/幂等、effect 失败隔离、publication revision 与断档恢复 |
 | 遗留入口 | `architecture/manifest.json` 棘轮同步收紧，不新增职责 |
@@ -53,7 +53,7 @@ git diff --check
 
 ## 隔离运行
 
-仅用工具创建的可删除 schema19 或完整品牌schema18 SQL 合成档案，不拿真实用户档案或旧资料试开、迁移、修复或重置。历史 generic adapter 测试不授权当前生产读取旧档。
+仅用工具创建的可删除 schema20 或完整品牌schema18/19 SQL 合成档案，不拿真实用户档案或旧资料试开、迁移、修复或重置。历史 generic adapter 测试不授权当前生产读取旧档。
 
 ```bash
 npm run dev:bench -- --scenario=level-up
@@ -241,3 +241,11 @@ macOS 构建门禁必须对产出 app 和 DMG 复制出的 app 分别执行 `cod
 相关 Dango、face-choreography与pet-renderer-smoke共242项：232通过、0失败、10个既有可选环境门禁项跳过。新增11项行为／真实像素／基础短句测试全部通过，覆盖眨眼与半闭形态、lookback矩阵、胜出语义立即打断、独立channel、静态及失效时钟、三种基础短句与真实renderer接收DND同步后的关闭链路。语法、boundary、architecture通过；最终整仓集成检查另由对应构建结果记录。
 
 这些是实际生产画笔的离屏证据，未证明用户Windows/macOS原生窗口、透明合成或GPU验收通过；既有PET12原生门禁不因此关闭。基础短句图固定采用修正后的同一眼睛几何，不能把新增嘴形／目光变化当成几何修复效果。
+
+### 日常发生时间与 schema20 门禁
+
+- 保持原 owner 桶与 occurrence ID；19→20 的完整候选除 schemaVersion 外须与源值相等。原合法120条数据不可截断；容量已满时拒绝新增或跨实际日迁入，不删除其他记录。
+- 覆盖今天与昨天双向更正、跨三天 owner 桶保留、实际发生日期清理、提醒原时段关联、稳定排序、重复确认、撤回、并发旧版本拒绝、事务未知核对。日期按本地日历计算，追加时区切换及 DST 正反跳检查。
+- 两条升级路径分别核验完整备份、拒绝前原字节、源漂移、取消、损坏/未来版本、未知 COMMIT、恢复到新目录和二次启动固定点；18→19 的历史目标不能被 current-only20 自动接纳。
+- 真实云浏览器的合成配置验证与 Node/SQLite 测试分别记证据。收件建议 UI 的合成响应不代表真实 Provider；现有原生 Windows/macOS schema19 发布记录不能证明这次 schema20 的原生升级、真人确认框或重启验收。
+- 已保存记录仅支持用户改时间；模型只处理当前随手记文本的明确时间建议，不扩大既有日常历史披露。

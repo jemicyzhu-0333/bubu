@@ -331,3 +331,52 @@ test('triage status refresh preserves a manual title draft, input focus and sele
   assert.match(article.innerHTML, /未保存/); assert.doesNotMatch(article.innerHTML, /inbox-triage-help/);
   assert.equal(commands, 0);
 });
+
+test('manual event time including an empty draft survives a late model proposal and does not submit on input', t => {
+  const dom = domFixture(); let commands = 0;
+  const at = new Date(2026, 9, 13, 19, 54).getTime();
+  const state = { impulses: [{ id: 'synthetic-time', text: '晚上6点做了1小时健身', createdAt: at,
+    classification: { category: 'log', routineKind: 'movement', level: null } }],
+    routines: { items: [] }, moodNotes: [], inboxHistoryTotal: 0, inboxHistoryCountVersion: 1 };
+  const feature = createPopoverInboxFeature({ ...dom, getState: () => state, escapeHTML: String,
+    openBreakdown() {}, surfaceClient: { organizeImpulse() { commands++; } } });
+  feature.mount(); feature.renderList(); t.after(() => feature.dispose());
+  const article = dom.$('#impulseList').children[0];
+  for (const value of ['2026-10-13T17:30', '']) {
+    const input = { closest: () => article, matches: selector => selector === '.inbox-event-time', value };
+    dom.fire('impulseList', 'input', { target: input });
+    state.impulses[0] = { ...state.impulses[0], triageStatus: { state: 'suggested', occurredAt: at - 3600000 - value.length } };
+    feature.renderList();
+    assert.match(article.innerHTML, new RegExp(`class="inbox-event-time pixel-input"[^>]*value="${value}"`));
+    assert.match(article.innerHTML, /未保存/);
+  }
+  assert.equal(commands, 0);
+});
+
+test('event-time confirmation sends one reviewed timestamp and a failed save retains the edited value', async t => {
+  const dom = domFixture(), calls = [];
+  const at = new Date(2026, 9, 13, 19, 54).getTime();
+  const state = { impulses: [{ id: 'synthetic-confirm-time', text: 'Synthetic completed workout', createdAt: at,
+    classification: { category: 'log', routineKind: 'movement', level: null } }],
+    routines: { items: [] }, moodNotes: [], inboxHistoryTotal: 0, inboxHistoryCountVersion: 1 };
+  let resolve;
+  const feature = createPopoverInboxFeature({ ...dom, getState: () => state, escapeHTML: String,
+    openBreakdown() {}, surfaceClient: { organizeImpulse(payload) {
+      calls.push(payload); return new Promise(done => { resolve = done; });
+    } } });
+  feature.mount(); feature.renderList(); t.after(() => feature.dispose());
+  const article = dom.$('#impulseList').children[0], original = article.querySelector.bind(article);
+  const input = { value: '2026-10-13T18:00', closest: () => article, matches: selector => selector === '.inbox-event-time' };
+  article.querySelector = selector => selector === '.inbox-event-time' ? input
+    : selector === '.inbox-title' ? { value: 'Synthetic workout' } : original(selector);
+  dom.fire('impulseList', 'input', { target: input });
+  const button = article.querySelector('[data-inbox-action="log"]');
+  const click = () => dom.fire('impulseList', 'click', { target: button });
+  click(); click(); assert.equal(calls.length, 1);
+  assert.equal(calls[0].occurredAt, new Date(2026, 9, 13, 18).getTime());
+  assert.equal(state.impulses[0].createdAt, at);
+  resolve({ ok: false, reason: 'day-full' }); await tick();
+  assert.equal(input.value, '2026-10-13T18:00'); assert.match(dom.$('#inboxStatus').textContent, /已满/);
+  click(); assert.equal(calls.length, 2); assert.deepEqual(calls[1], calls[0]);
+  resolve({ ok: true }); await tick();
+});

@@ -35,6 +35,7 @@ const CAPTURE_TRIAGE_INSTRUCTION = [
   'title: for task, a short action title in the note\'s own language, at most 80 characters. For routine and log, a concise name of the activity itself, at most 40 characters, keeping its specific subject and the person\'s language; omit first-person completion framing without inventing a future action, repetition or reminder. Example: “我刚刚完成了兵力填报” is log/custom with title “兵力填报”. Do not use a generic kind label such as “其他日常” in place of the actual activity. For other categories, null.',
   'routineKind: for routine and log only, the closest kind (medication, stimulant for caffeine and similar, meal, snack, movement, rest, meeting, custom); otherwise null.',
   'level: for state only, the closest of 20 (very low), 35 (low), 50 (okay), 65 (good), 80 (very good); otherwise null.',
+  'eventTime: only for log with an explicit, unambiguous clock time in the note, an object {dayOffset: -1 for yesterday or 0 for the capture day, time: HH:mm, evidence: the exact short time phrase from the note}. Otherwise null. Never use a duration (such as one hour) as a clock time, never infer a time from a meal or activity, and do not invent AM/PM for an ambiguous time. For an interval use its explicitly stated start. Example: 晚上6点做了1小时健身 => {dayOffset:0,time:"18:00",evidence:"晚上6点"}. Relative expressions such as 刚刚 and dates other than today/yesterday must return null.',
   'confidence is 0 to 100 and measures only how clearly the note supports the category. The reason is a short generic explanation that never quotes private details.',
   FIELD_SEMANTICS_NOTE
 ].join('\n');
@@ -42,13 +43,17 @@ const CAPTURE_TRIAGE_INSTRUCTION = [
 const CAPTURE_TRIAGE_JSON_SCHEMA = Object.freeze({
   type: 'object',
   additionalProperties: false,
-  required: ['category', 'confidence', 'title', 'routineKind', 'level', 'reason'],
+  required: ['category', 'confidence', 'title', 'routineKind', 'level', 'reason', 'eventTime'],
   properties: {
     category: { type: 'string', enum: [...CAPTURE_TRIAGE_CATEGORIES] },
     confidence: { type: 'integer', minimum: 0, maximum: 100 },
     title: { anyOf: [{ type: 'null' }, { type: 'string', minLength: 1, maxLength: MAX_CAPTURE_TRIAGE_TITLE }] },
     routineKind: { anyOf: [{ type: 'null' }, { type: 'string', enum: [...CAPTURE_TRIAGE_ROUTINE_KINDS] }] },
     level: { anyOf: [{ type: 'null' }, { type: 'integer', enum: [...CAPTURE_TRIAGE_LEVELS] }] },
+    eventTime: { anyOf: [{ type: 'null' }, { type: 'object', additionalProperties: false, required: ['dayOffset', 'time', 'evidence'], properties: {
+      dayOffset: { type: 'integer', enum: [-1, 0] }, time: { type: 'string', pattern: '^([01][0-9]|2[0-3]):[0-5][0-9]$' },
+      evidence: { type: 'string', minLength: 1, maxLength: 80 }
+    } }] },
     reason: { type: 'string', minLength: 1, maxLength: MAX_CAPTURE_TRIAGE_REASON }
   }
 });
@@ -56,7 +61,7 @@ const CAPTURE_TRIAGE_JSON_SCHEMA = Object.freeze({
 function validateCaptureTriageResult(raw) {
   const result = parseRawProposal(raw);
   if (!isPlainObject(result)) throw new TypeError('capture triage result must be an object');
-  exactKeys(result, ['category', 'confidence', 'title', 'routineKind', 'level', 'reason'], 'capture triage result');
+  exactKeys(result, ['category', 'confidence', 'title', 'routineKind', 'level', 'reason', ...(Object.hasOwn(result, 'eventTime') ? ['eventTime'] : [])], 'capture triage result');
   if (!CAPTURE_TRIAGE_CATEGORIES.includes(result.category)) throw new TypeError('capture triage category is invalid');
   if (!Number.isInteger(result.confidence) || result.confidence < 0 || result.confidence > 100) {
     throw new RangeError('capture triage confidence is invalid');
@@ -77,6 +82,17 @@ function validateCaptureTriageResult(raw) {
   }
   const reason = typeof result.reason === 'string' ? result.reason.trim() : '';
   if (!reason || reason.length > MAX_CAPTURE_TRIAGE_REASON) throw new TypeError('capture triage reason is invalid');
+  let eventTime = null;
+  if (result.category === 'log' && result.eventTime != null) {
+    const value = result.eventTime;
+    if (!isPlainObject(value)) throw new TypeError('capture triage eventTime is invalid');
+    exactKeys(value, ['dayOffset', 'time', 'evidence'], 'capture triage eventTime');
+    if (![-1, 0].includes(value.dayOffset) || !/^([01][0-9]|2[0-3]):[0-5][0-9]$/.test(value.time)
+        || typeof value.evidence !== 'string' || !value.evidence.trim() || value.evidence.length > 80) {
+      throw new TypeError('capture triage eventTime is invalid');
+    }
+    eventTime = Object.freeze({ ...value, evidence: value.evidence.trim() });
+  }
   // 不属于这一类的字段一律归零，而不是报错：模型多填了不该填的，按类别裁掉就是。
   return Object.freeze({
     category: result.category,
@@ -84,7 +100,8 @@ function validateCaptureTriageResult(raw) {
     title: acceptsTitle ? title || null : null,
     routineKind: wantsKind ? result.routineKind : null,
     level: result.category === 'state' ? result.level : null,
-    reason
+    reason,
+    ...(eventTime ? { eventTime } : {})
   });
 }
 
@@ -99,7 +116,7 @@ const CAPTURE_TRIAGE_TASK = Object.freeze({
   }),
   repair(raw) {
     const result = dropUnknownKeys(parseJsonObject(raw, MAX_SERIALIZED_BYTES), [
-      'category', 'confidence', 'title', 'routineKind', 'level', 'reason'
+      'category', 'confidence', 'title', 'routineKind', 'level', 'reason', 'eventTime'
     ]);
     if (!isPlainObject(result)) return result;
     const level = coerceInteger(result.level);

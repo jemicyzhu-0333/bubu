@@ -1,3 +1,4 @@
+import { parseEventTime, eventTimeAt } from './inbox-event-time.mjs';
 import { t, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 import { CATEGORIES, classificationOf, effectiveClassification } from './inbox-triage.mjs';
 import { inboxCard, repaintInboxCard } from './inbox-card.mjs';
@@ -12,12 +13,14 @@ const ERRORS = {
   'title-required': '请为这件日常填写名称。',
   'routine-limit': '日常数量已满，可以先移除不再需要的日常。',
   'day-full': '这一天的记录已满，原文仍留在收件箱。',
+  'log-full': '可编辑记录已满，原文仍留在收件箱。',
   'capture-too-old-for-log': '这条记录已超过日常打卡的时间范围，可以选择“只留存”。',
+  'record-time-invalid': '发生时间无效，请重新选择。',
   'energy-level-required': '先选择当时的能量状态。',
   'newer-check-in-exists': '已有更新的状态记录；这条内容可以选择“只留存”。'
 };
 const MISSING_FIELDS = Object.freeze({ kind: '.inbox-kind', routine: '.inbox-routine', title: '.inbox-title', level: '.inbox-level' });
-const EDITORS = Object.freeze(['.inbox-category', '.inbox-kind', '.inbox-level', '.inbox-routine', '.inbox-title']);
+const EDITORS = Object.freeze(['.inbox-category', '.inbox-kind', '.inbox-level', '.inbox-routine', '.inbox-title', '.inbox-event-time']);
 const KEEP_ALL_LIMIT = 100;
 const KEEP_ALL_CONFIRM_MS = 5000;
 
@@ -58,7 +61,7 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
   function drawCard(item, state, entry) {
     const draft = draftOf(item.id);
     // Typing a name already shows in the DOM; it never forces a redraw.
-    const { title: _title, ...shape } = draft;
+    const { title: _title, eventTime: _eventTime, ...shape } = draft;
     const key = JSON.stringify([item, state.routines?.items, state.moodNotes?.map(note => note.id), shape]);
     if (key === entry.key) return;
     const optionsOpen = entry.row.querySelector('.inbox-options')?.open;
@@ -178,7 +181,7 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
     const payload = { id: item.id, action, ...(labelled ? { category: c.category, routineKind: c.routineKind, level: c.level } : {}) };
     if (!['routine', 'log'].includes(action)) return payload;
     const destination = row.querySelector('.inbox-routine')?.value || '';
-    return { ...payload, title: row.querySelector('.inbox-title')?.value.trim() || '',
+    return { ...payload, ...(action === 'log' ? { occurredAt: eventTimeAt(item, draft, row.querySelector('.inbox-event-time')?.value) } : {}), title: row.querySelector('.inbox-title')?.value.trim() || '',
       routineId: destination && destination !== 'new' ? destination : null, createNew: destination === 'new' };
   }
   async function send(item, action, row) {
@@ -195,6 +198,9 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
     const item = [...(getState()?.impulses || []), ...history.view().items].find(candidate => candidate.id === id);
     if (!item) return;
     if (['routine', 'log', 'state'].includes(action) && revealMissing(row)) return;
+    if (action === 'log' && parseEventTime(row.querySelector('.inbox-event-time')?.value) === null) {
+      status('发生时间无效，请重新选择。'); row.querySelector('.inbox-event-time')?.focus(); return;
+    }
     busy = true; status(); draw();
     try {
       const result = await send(item, action, row);
@@ -230,7 +236,7 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
     const value = event.target.value;
     if (event.target.matches('.inbox-category')) {
       const stored = classificationOf((getState()?.impulses || []).find(item => item.id === id) || {});
-      if (value === stored.category) drafts.set(id, { title: draftOf(id).title });
+      if (value === stored.category) drafts.set(id, { title: draftOf(id).title, eventTime: draftOf(id).eventTime });
       else patchDraft(id, { category: value, routineKind: null, level: null, routineId: undefined });
     } else if (event.target.matches('.inbox-kind')) patchDraft(id, { routineKind: value || null, routineId: undefined });
     else if (event.target.matches('.inbox-level')) patchDraft(id, { level: value ? Number(value) : null });
@@ -329,9 +335,9 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
       if (!event.target.closest?.('.inbox-options')) closeOptions();
     });
     listen($('#impulseList'), 'input', event => {
-      if (!event.target.matches('.inbox-title')) return;
+      if (!event.target.matches('.inbox-title') && !event.target.matches('.inbox-event-time')) return;
       const row = event.target.closest('[data-impulse-id]'), id = row.dataset.impulseId;
-      patchDraft(id, { title: event.target.value });
+      patchDraft(id, event.target.matches('.inbox-event-time') ? { eventTime: event.target.value } : { title: event.target.value });
       const entry = rows.get(id);
       if (entry?.copy) {
         entry.copy.draft = draftOf(id);

@@ -80,3 +80,20 @@
 }
 
 /* 时间线上的情绪记录：只有自己看得到，颜色淡一点，删除按钮悬停或聚焦才出现。 */
+
+@layer features {
+  .routine-time-editor {
+    margin: 8px 0; padding: 12px; border: 1px solid var(--line);
+    border-radius: 8px; background: var(--bg-1); color: var(--fg-1);
+    font-size: 13px;
+  }
+  .routine-time-title { margin: 0 0 8px; overflow-wrap: anywhere; }
+  .routine-time-field { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .routine-time-field .pixel-input { flex: 1 1 190px; min-width: 0; max-width: 100%; font-variant-numeric: tabular-nums; }
+  .routine-time-actions { display: flex; gap: 8px; margin-top: 10px; }
+  .routine-time-editor .capability-note { margin: 8px 0 0; }
+  .routine-yesterday { margin-top: 12px; }
+  .routine-yesterday h3 { margin: 0 0 6px; font-size: 12px; font-weight: 500; color: var(--fg-2); }
+  #dailyRoutineRows .routine-row, #yesterdayRoutineRows .routine-row { flex-wrap: wrap; }
+  #dailyRoutineRows .routine-title, #yesterdayRoutineRows .routine-title { min-width: 70px; }
+}

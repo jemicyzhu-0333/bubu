@@ -1,3 +1,4 @@
+import { eventTimeField, repaintEventTime } from './inbox-event-time.mjs';
 import { triageFeedback } from './inbox-triage-feedback.mjs';
 import { t, getLocale } from '../../shared/interface/i18n.mjs';
 import { CATEGORIES, QUICK_PICKS, ROUTINE_KINDS, LEVEL_LABELS, OUTCOMES, classificationOf, effectiveClassification, describeTriage, routineTitleOf, routineTitleSource } from './inbox-triage.mjs';
@@ -16,6 +17,7 @@ function sourceLabel(impulse, draft) {
   if ((draft?.category && draft.category !== stored.category)
       || (draft?.routineKind !== undefined && draft.routineKind !== stored.routineKind)
       || (draft?.level !== undefined && draft.level !== stored.level)
+      || draft?.eventTime !== undefined
       || draft?.routineId !== undefined
       || (draft?.title !== undefined && draft.title !== routineTitleOf(impulse))) return '未保存';
   if (impulse.classification) return '已确认';
@@ -51,7 +53,7 @@ function routineFields(classification, state, draft, impulse, escapeHTML) {
     ? `<label>${copy('记录到')}<select class="inbox-routine">${options({ '': '选择日常', ...Object.fromEntries(matching.map(item => [item.id, item.title])), new: '新建日常' }, destination, escapeHTML, key => key === '' || key === 'new')}</select></label>` : '';
   const naming = !matching.length || destination === 'new';
   const html = `<div class="inbox-fields"><label>${copy('日常类型')}<select class="inbox-kind">${options({ '': '选择类型', ...ROUTINE_KINDS }, classification.routineKind || '', escapeHTML)}</select></label>${choice}`
-    + `<label class="inbox-new-title${naming ? '' : ' hidden'}"><span class="inbox-title-label"><span class="inbox-title-text" data-i18n="日常名称">${t('日常名称')}</span><span class="inbox-ai-tag" role="img" aria-label="${t('AI 建议的名称')}" data-i18n-aria-label="AI 建议的名称" title="${t('AI 建议的名称')}" data-i18n-title="AI 建议的名称"${routineTitleSource(impulse, draft) === 'ai' ? '' : ' hidden'}>AI</span></span><input class="inbox-title" maxlength="40" value="${escapeHTML(title.slice(0, 40))}" placeholder="${t('给这件日常起个名字')}" data-i18n-placeholder="给这件日常起个名字"></label></div>`;
+    + `<label class="inbox-new-title${naming ? '' : ' hidden'}"><span class="inbox-title-label"><span class="inbox-title-text" data-i18n="日常名称">${t('日常名称')}</span><span class="inbox-ai-tag" role="img" aria-label="${t('AI 建议的名称')}" data-i18n-aria-label="AI 建议的名称" title="${t('AI 建议的名称')}" data-i18n-title="AI 建议的名称"${routineTitleSource(impulse, draft) === 'ai' ? '' : ' hidden'}>AI</span></span><input class="inbox-title" maxlength="40" value="${escapeHTML(title.slice(0, 40))}" placeholder="${t('给这件日常起个名字')}" data-i18n-placeholder="给这件日常起个名字"></label>${classification.category === 'log' ? eventTimeField(impulse, draft, escapeHTML) : ''}</div>`;
   return { html, missing: missingField(classification, { matching, destination, title }) };
 }
 
@@ -118,6 +120,7 @@ function repaintInboxCard(row, impulse, state, draft) {
   const badge = row.querySelector('.inbox-label'); if (badge) badge.textContent = t(CATEGORIES[history?.category || c.category]);
   const time = row.querySelector('time'); if (time) time.textContent = new Date(impulse.createdAt).toLocaleString(getLocale(), { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
   if (history) return;
+  repaintEventTime(row, impulse, draft);
   const titleLabel = row.querySelector('.inbox-title-text');
   if (titleLabel) titleLabel.textContent = t('日常名称');
   const titleTag = row.querySelector('.inbox-ai-tag');

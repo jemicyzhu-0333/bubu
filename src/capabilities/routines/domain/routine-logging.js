@@ -30,11 +30,11 @@ const {
   isOccurrenceIdFor,
   occurrenceIdPrefix
 } = require('../../../core/routine-model');
-const { addDaysToKey } = require('../../../core/calendar');
 const { findScheduledOccurrence } = require('./day-plan');
+const { orderRoutineLog } = require('./log-order');
 
 const MAX_ROUTINE_NOTE = 200;
-const MAX_ROUTINE_ENTRIES_PER_DAY = 60;
+const { MAX_ROUTINE_ENTRIES_PER_DAY, allEntries, occurrenceCapacity, hasOccurrenceCapacity, rollLogForward } = require('./log-retention');
 
 function assertDraft(state) {
   if (!state || typeof state !== 'object' || Array.isArray(state)) {
@@ -146,7 +146,7 @@ function logOccurrence(state, { routineId, occurrenceId, status, note, magnitude
   dayKey = owningDay(routine, occurrenceId, dayKey, at);
   if (dayKey === null) return { ok: false, reason: 'occurrence-mismatch' };
   const existingEntries = entriesOf(state, dayKey);
-  const resolved = resolveOccurrenceId(existingEntries, routineId, dayKey, occurrenceId);
+  const resolved = resolveOccurrenceId(allEntries(state), routineId, dayKey, occurrenceId);
   if (!resolved.ok) return { ok: false, reason: resolved.reason };
   const entry = {
     occurrenceId: resolved.occurrenceId,
@@ -169,16 +169,17 @@ function logOccurrence(state, { routineId, occurrenceId, status, note, magnitude
   if (index >= 0 && JSON.stringify(existingEntries[index]) === JSON.stringify(entry)) {
     return { ok: true, changed: false, occurrenceId: entry.occurrenceId, status, kind, scheduled, dayKey };
   }
-  if (index < 0 && existingEntries.length >= MAX_ROUTINE_ENTRIES_PER_DAY) {
-    return { ok: false, reason: 'day-full' };
-  }
+  const capacity = occurrenceCapacity(state, { occurrenceId: resolved.occurrenceId, dayKey, at });
+  if (!capacity.ok) return capacity;
   // Past every refusal, so the bucket is created only for a write that happens.
   const day = dayOf(state, dayKey);
   if (index >= 0) {
     day.entries[index] = entry;
+    orderRoutineLog(state.routineLog);
     return { ok: true, changed: true, occurrenceId: entry.occurrenceId, status, kind, scheduled, dayKey, replaced: true };
   }
   day.entries.push(entry);
+  orderRoutineLog(state.routineLog);
   return { ok: true, changed: true, occurrenceId: entry.occurrenceId, status, kind, scheduled, dayKey, replaced: false };
 }
 
@@ -204,7 +205,7 @@ function noteReminded(state, { routineId, occurrenceId, dayKey, at } = {}) {
   dayKey = owningDay(routine, occurrenceId, dayKey, at);
   if (dayKey === null) return { ok: false, reason: 'occurrence-mismatch' };
   const existingEntries = entriesOf(state, dayKey);
-  const resolved = resolveOccurrenceId(existingEntries, routineId, dayKey, occurrenceId);
+  const resolved = resolveOccurrenceId(allEntries(state), routineId, dayKey, occurrenceId);
   if (!resolved.ok) return { ok: false, reason: resolved.reason };
   const kind = routine.kind || null;
   const { scheduled } = resolved;
@@ -214,9 +215,8 @@ function noteReminded(state, { routineId, occurrenceId, dayKey, at } = {}) {
     // mutation, so the unit of work sees no changed path and does not commit.
     return { ok: true, changed: false, occurrenceId: resolved.occurrenceId, status: existing.status, kind, scheduled, dayKey };
   }
-  if (existingEntries.length >= MAX_ROUTINE_ENTRIES_PER_DAY) {
-    return { ok: false, reason: 'day-full' };
-  }
+  const capacity = occurrenceCapacity(state, { occurrenceId: resolved.occurrenceId, dayKey, at });
+  if (!capacity.ok) return capacity;
   // Past every refusal, so the bucket is created only for a write that happens.
   dayOf(state, dayKey).entries.push({
     occurrenceId: resolved.occurrenceId,
@@ -226,6 +226,7 @@ function noteReminded(state, { routineId, occurrenceId, dayKey, at } = {}) {
     note: null,
     magnitude: null
   });
+  orderRoutineLog(state.routineLog);
   return { ok: true, changed: true, occurrenceId: resolved.occurrenceId, status: 'notified', kind, scheduled, dayKey };
 }
 
@@ -248,37 +249,11 @@ function undoOccurrence(state, { occurrenceId } = {}) {
   return { ok: false, reason: 'occurrence-not-found' };
 }
 
-// The store caps the log at two days when it writes, but nothing ever drops a day
-// that merely stopped being relevant: a Friday log is still the newest thing in
-// there on Monday, and the curve would keep hanging Friday's late coffee off
-// "yesterday". So the daily pass rolls the log forward and keeps exactly the two
-// days the curve can use — today, and yesterday for the tails that cross midnight
-// (`collectEffects` asks for that pair and no more).
-//
-// Reports `changed: false` when there is nothing to drop. The daily pass commits
-// on the strength of these flags, and a log that is already correct must not bump
-// a revision and republish a projection.
-function rollLogForward(state, { today } = {}) {
-  assertDraft(state);
-  assertDayKey(today);
-  const log = state.routineLog;
-  const days = log && typeof log === 'object' && !Array.isArray(log) && Array.isArray(log.days)
-    ? log.days
-    : null;
-  if (!days) return { ok: true, changed: false, droppedDayKeys: [] };
-  const keep = new Set([addDaysToKey(today, -1), today]);
-  // Days in the future are kept too: a clock that went backwards is not a reason
-  // to delete something the user reported. They fall out on their own once the
-  // calendar catches up.
-  const dropped = days.filter(day => day && !keep.has(day.dayKey) && day.dayKey < today);
-  if (!dropped.length) return { ok: true, changed: false, droppedDayKeys: [] };
-  state.routineLog = { ...log, days: days.filter(day => !dropped.includes(day)) };
-  return { ok: true, changed: true, droppedDayKeys: dropped.map(day => day.dayKey) };
-}
-
 module.exports = {
+  ...require('./occurrence-time'),
   MAX_ROUTINE_NOTE,
   MAX_ROUTINE_ENTRIES_PER_DAY,
+  hasOccurrenceCapacity,
   MAX_ROUTINE_TIMES_OF_DAY,
   logOccurrence,
   noteReminded,

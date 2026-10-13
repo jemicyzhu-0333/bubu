@@ -15,7 +15,8 @@ const {
   normalizeRoutines,
   normalizeRoutineLog,
   normalizeEnergyProfile,
-  normalizePersistedState
+  normalizePersistedState,
+  assertCanonicalPersistedState
 } = require('../src/platform/persistence/persisted-schema');
 const {
   MAX_ROUTINE_TIMES_OF_DAY,
@@ -276,24 +277,44 @@ test('reporting the same occurrence twice does not append a second row', () => {
   assert.equal(days[0].entries[0].status, 'done');
 });
 
-test('the log keeps two days and the newest entries within them', () => {
+test('schema20 preserves old owner buckets independently of the actual dates', () => {
   const dayFor = dayKey => ({ dayKey, entries: [logEntry({ occurrenceId: buildOccurrenceId('routine-medication', dayKey, '08:30') })] });
   const { days } = normalizeRoutineLog({
     days: [dayFor('2026-09-15'), dayFor('2026-09-17'), dayFor('2026-09-16'), dayFor('2026-09-16'), { dayKey: 'yesterday', entries: [] }]
   });
-  assert.equal(days.length, MAX_ROUTINE_LOG_DAYS);
-  assert.deepEqual(days.map(day => day.dayKey), ['2026-09-16', '2026-09-17']);
-
-  const crowded = Array.from({ length: MAX_ROUTINE_ENTRIES_PER_DAY + 5 }, (_unused, index) => logEntry({
-    occurrenceId: buildFreeOccurrenceId('routine-medication', '2026-09-17', index),
-    at: 1_000 + index
-  }));
-  const sliced = normalizeRoutineLog({ days: [{ dayKey: '2026-09-17', entries: crowded }] });
-  assert.equal(sliced.days[0].entries.length, MAX_ROUTINE_ENTRIES_PER_DAY);
-  assert.equal(sliced.days[0].entries.at(-1).at, 1_000 + crowded.length - 1);
-
+  assert.equal(days.length, 3);
+  assert.deepEqual(days.map(day => day.dayKey), ['2026-09-15', '2026-09-16', '2026-09-17']);
+  // Every entry deliberately has the same actual timestamp: owner dates are
+  // durable identities, not a second set of timestamps for retention to trust.
+  assert.deepEqual(days.map(day => day.entries[0].at), [NOW - 7_200_000, NOW - 7_200_000, NOW - 7_200_000]);
+  const canonical = normalizePersistedState({ routineLog: { days } }, { now: NOW });
+  assertCanonicalPersistedState(canonical);
+  assert.deepEqual(normalizePersistedState(canonical, { now: NOW + 86400000 }), canonical);
   assert.deepEqual(normalizeRoutineLog(null), { days: [] });
   assert.deepEqual(normalizeRoutineLog({ days: 'nope' }), { days: [] });
+});
+
+test('schema20 preserves 120 entries across owners, rejects total overflow and keeps strict owner limits', () => {
+  const owner = (dayKey, size) => ({ dayKey, entries: Array.from({ length: size }, (_, index) => logEntry({
+    occurrenceId: buildFreeOccurrenceId('routine-medication', dayKey, index), at: NOW + index, note: null, magnitude: null
+  })) });
+  const log = { days: [owner('2026-09-15', 40), owner('2026-09-16', 40), owner('2026-09-17', 40)] };
+  assert.deepEqual(normalizeRoutineLog(log), log);
+  const canonical = normalizePersistedState({ routineLog: log }, { now: NOW });
+  assertCanonicalPersistedState(canonical);
+  const overflow = structuredClone(log);
+  overflow.days[2] = owner('2026-09-17', 41);
+  assert.throws(() => normalizeRoutineLog(overflow), /routine-log-capacity/);
+  assert.throws(() => assertCanonicalPersistedState({ ...canonical, routineLog: overflow }), /routine-log-capacity/);
+  // Low-level normalization retains its old bounded repair behavior, but strict
+  // current-schema admission must reject rather than save the truncated result.
+  const crowded = { days: [owner('2026-09-17', MAX_ROUTINE_ENTRIES_PER_DAY + 5)] };
+  assert.equal(normalizeRoutineLog(crowded).days[0].entries.length, MAX_ROUTINE_ENTRIES_PER_DAY);
+  assert.throws(() => assertCanonicalPersistedState({ ...canonical, routineLog: crowded }), /not-canonical/);
+  const emptyOwners = { days: Array.from({ length: MAX_ROUTINE_LOG_DAYS + 1 }, (_, index) => ({
+    dayKey: new Date(Date.UTC(2026, 0, 1 + index)).toISOString().slice(0, 10), entries: []
+  })) };
+  assert.throws(() => assertCanonicalPersistedState({ ...canonical, routineLog: emptyOwners }), /not-canonical/);
 });
 
 // -- energyProfile ----------------------------------------------------------

@@ -135,7 +135,7 @@ async function verifyInstalledUpgrade(executable, { createFixture = createUpgrad
     const upgraded = await run(executable, approve, true);
     const reopened = await reopen(executable, { fixture: approve, fresh: false, readProfile: () => verifyReopened(approve) });
     return { result: 'passed', declined, upgraded, reopened,
-      acceptance: 'actual installed native runtime, SQLite, filesystem and permission checks with synthetic BUBU18 WAL/SHM fixtures; exact consent/report ports automated; production relaunch request recorded and suppressed; separate installed-executable persistence reopen',
+      acceptance: 'actual installed native runtime, SQLite, filesystem and permission checks with synthetic BUBU19 WAL/SHM fixtures; exact consent/report ports automated; production relaunch request recorded and suppressed; separate installed-executable persistence reopen',
       notAsserted: ['manual consent dialog input', 'native automatic relaunch', 'accessibility', 'real credentials', 'OS trust warnings'] };
   } finally {
     for (const fixture of fixtures) if (fixture.childClosed) fs.rmSync(fixture.root, { recursive: true, force: true });

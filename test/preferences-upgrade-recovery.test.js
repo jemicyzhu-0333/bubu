@@ -5,7 +5,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const { DatabaseSync } = require('node:sqlite');
-const { fixture, ports, NOW, tree } = require('../test-support/preferences-upgrade-fixture');
+const { fixture, ports, NOW, tree, openHistorical19 } = require('../test-support/preferences-upgrade-fixture');
 const { createSqliteStateAdapter } = require('../src/platform/persistence/sqlite-state-adapter');
 const { extractProfileUpgradeBackup } = require('../src/platform/persistence/sqlite/profile-upgrade-backup-extraction');
 const { inspectProfileUpgradeBackup, validRelative } = require('../src/platform/persistence/sqlite/profile-upgrade-backup-container');
@@ -30,9 +30,9 @@ for (const stage of ['backup-copied', 'backup-verified', 'evidence-written', 'pa
     const current = snapshot(path.join(copied, 'config.sqlite'));
     if (stage === 'after-commit') {
       assert.equal(current.payload_version, 19); assert.equal(current.revision, f.original.revision + 1);
-      const r = createSqliteStateAdapter({ userDataPath: f.directory, now: () => NOW });
+      const r = openHistorical19(f.directory);
       assert.equal(r.snapshot().schemaVersion, 19); r.close();
-      assert.throws(() => f.prepare(), /source-invalid/);
+      assert.equal(f.prepare().sourceVersion, 19);
     } else {
       assert.equal(current.payload_version, 18); assert.equal(current.payload_json, f.original.payload_json);
       assert.throws(() => createSqliteStateAdapter({ userDataPath: f.directory }), /current-schema-required/);
@@ -48,7 +48,7 @@ test('uncertain COMMIT plus failed durability proof blocks acknowledgment; later
   });
   assert.throws(() => u.execute(u.confirmation), /config-commit-outcome-unknown/);
   const current = snapshot(f.database); assert.equal(current.payload_version, 19); assert.equal(current.revision, f.original.revision + 1);
-  const reopened = createSqliteStateAdapter({ userDataPath: f.directory, now: () => NOW });
+  const reopened = openHistorical19(f.directory);
   assert.equal(reopened.snapshot().schemaVersion, 19); reopened.close();
 });
 test('tampered backup after validation refuses before writer', t => {

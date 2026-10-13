@@ -231,3 +231,37 @@ test('an inbox-created custom record becomes a reminder on the same routine with
   assert.deepEqual(after.impulses, before.impulses);
   assert.equal(after.xp, before.xp);
 });
+
+test('explicit occurrence time commits with the source outcome, while absence retains the capture instant', () => {
+  for (const occurredAt of [undefined, new Date(2026, 9, 1, 18).getTime(), new Date(2026, 8, 30, 18).getTime()]) {
+    const h = harness();
+    const captureAt = h.repository.snapshot().impulses[0].createdAt;
+    const request = { id: 'i1', action: 'log', category: 'log', routineKind: 'movement', title: '健身',
+      ...(occurredAt === undefined ? {} : { occurredAt }) };
+    assert.equal(h.workflow.execute(request).ok, true);
+    const state = h.repository.snapshot(), entries = state.routineLog.days.flatMap(day => day.entries);
+    assert.equal(entries.length, 1); assert.equal(entries[0].at, occurredAt ?? captureAt);
+    assert.equal(state.impulses[0].createdAt, captureAt);
+    assert.equal(h.repository.revision(), 1);
+    assert.equal(h.facts[0].fact.at, occurredAt ?? captureAt);
+    assert.equal(h.workflow.execute(request).ok, false);
+    assert.equal(h.repository.revision(), 1);
+  }
+});
+
+test('future, expired and malformed event times fail closed before creating a routine or resolving the source', () => {
+  for (const occurredAt of [NOW + 1, new Date(2026, 8, 29, 18).getTime(), null, '18:00', NaN, Infinity, -1]) {
+    const h = harness(), before = h.repository.snapshot();
+    assert.equal(h.workflow.execute({ id: 'i1', action: 'log', category: 'log', routineKind: 'movement', title: '健身', occurredAt }).ok, false);
+    assert.deepEqual(h.repository.snapshot(), before); assert.equal(h.repository.revision(), 0);
+  }
+});
+
+test('inbox event-time IPC accepts only explicit numeric log timestamps', () => {
+  const request = { id: 'i1', action: 'log', occurredAt: NOW };
+  assert.equal(validateIpcPayload('impulses:organize', request).ok, true);
+  for (const patch of [{ occurredAt: null }, { occurredAt: '18:00' }, { occurredAt: Infinity },
+    { occurredAt: -1 }, { occurredAt: NOW + 0.5 }, { action: 'keep' }]) {
+    assert.equal(validateIpcPayload('impulses:organize', { ...request, ...patch }).ok, false);
+  }
+});

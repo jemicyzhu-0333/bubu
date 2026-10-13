@@ -5,4 +5,9 @@
   .inbox-recovery .chip { white-space: normal; }
   .impulse-text { overflow-wrap: anywhere; white-space: pre-wrap; }
   .inbox-card button,.inbox-card select { cursor: pointer; }
+  .inbox-event-time-label { grid-column: 1 / -1; min-width: 0; }
+  .inbox-event-time-heading { display: flex; align-items: center; gap: 6px; min-width: 0; }
+  .inbox-event-time-heading .inbox-ai-tag { flex: 0 0 auto; }
+  .inbox-event-time { box-sizing: border-box; width: 100%; min-width: 0; max-width: 100%; font-variant-numeric: tabular-nums; }
+  .inbox-event-time:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 }

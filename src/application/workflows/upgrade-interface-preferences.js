@@ -1,7 +1,7 @@
 'use strict';
 const { preferences, 'app-maintenance': maintenance } = require('../../capabilities');
 const UPGRADE_INTERFACE_PREFERENCES_WRITES = Object.freeze(['schemaVersion', 'settings']);
-// ARCHITECTURE「合入前的18→19升级门禁」: an explicit offline workflow. The
+// ARCHITECTURE「显式18→19及19→20升级门禁」: an explicit offline workflow. The
 // persistence port validates the exact additive candidate and commits it once;
 // it never gives a general normalizer permission to repair old user data.
 function prepareInterfacePreferencesUpgrade(source, assertCanonical) {

@@ -102,8 +102,8 @@ preload：前者不加主进程拒收，后者不加 renderer 调不到。`npm r
 ## 持久化与迁移
 
 业务状态的唯一权威为 `config.sqlite` 的完整JSON快照行（SQL user_version=1），包括业务数据、AI回执和outbox。
-生产组合根使用 `sqlite-state-adapter`，复用现有CAS与持久性证明实现并强制关闭JSON镜像。0.0.2-dev.1当前payload `PERSISTED_SCHEMA_VERSION` 为 19。
-配置身份库 `config.sqlite.identity.sqlite` 的 `PRAGMA application_id` 必须为 `0x42554255`（ASCII `BUBU`）。它不同于配置库 `config.sqlite` 与 `config_identity` 行之间绑定的随机每档application_id；身份schema1与品牌身份schema不变；0.0.2-dev.1使用业务payload19。品牌标记是准入边界，不提供旧品牌兼容或迁移。完整有效的 BUBU18 仅有另述的显式偏好升级入口。
+生产组合根使用 `sqlite-state-adapter`，复用现有CAS与持久性证明实现并强制关闭JSON镜像。当前payload `PERSISTED_SCHEMA_VERSION` 为 20。
+配置身份库 `config.sqlite.identity.sqlite` 的 `PRAGMA application_id` 必须为 `0x42554255`（ASCII `BUBU`）。它不同于配置库 `config.sqlite` 与 `config_identity` 行之间绑定的随机每档application_id；身份schema1与品牌身份schema不变；当前源码使用业务payload20。品牌标记是准入边界，不提供旧品牌兼容或迁移。完整有效的 BUBU18/19 仅有另述的显式单步升级入口。
 已有 `config.json` 保留原字节但不读取作权威、不重写；只有JSON而没有初始化SQL身份的profile拒绝启动，等待显式导入。
 启动顺序：
 
@@ -111,7 +111,7 @@ preload：前者不加主进程拒收，后者不加 renderer 调不到。`npm r
 2. 全新profile建立带BUBU标记的独立INITIALIZING身份。没有配置DB/身份DB及其WAL/SHM任一成员时，目录须不存在、为空或仅含精确的Electron单实例锁成员 `SingletonLock`、`SingletonCookie`、`SingletonSocket`；Windows另接受本进程取得单实例锁时Chromium创建的精确名`lockfile`，仅限lstat确认的零字节普通文件，不跟随符号链接、不读取或删除该锁。非Windows、非空或非普通类型的同名成员仍拒绝；其他任何成员（含孤立数据库、journal或凭据符号链接）均拒绝，不能新建替代事实库或凭据。仅JSON的旧profile仍以需显式导入的错误失败关闭，生产不提供自动导入入口。
 3. 配置SQLite完整快照、revision/hash CAS与业务receipt/outbox同一WAL/FULL事务提交，再核验绑定application_id并标记READY。
 4. READY后只读SQL权威；丢失、替换、截断、未知schema或损坏保留DB/WAL/SHM并失败关闭，不能重新导入可能过时的JSON。
-5. 生产同时要求BUBU配置身份与规范完整的payload19；身份未标记／其他品牌、旧版／未来版／损坏19在调用配置normalizer、迁移证据写入和启动proof前拒绝。拒绝保留SQL、身份、revision/hash、证据、proof计数和WAL/SHM。历史generic adapter兼容测试不构成生产导入／迁移入口。
+5. 生产同时要求BUBU配置身份与规范完整的payload20；身份未标记／其他品牌、旧版／未来版／损坏20在调用配置normalizer、迁移证据写入和启动proof前拒绝。拒绝保留SQL、身份、revision/hash、证据、proof计数和WAL/SHM。历史generic adapter兼容测试不构成生产导入／迁移入口。
 6. 生产不构造JSON镜像writer；已有JSON文件不影响SQL成功，也不会触发镜像同步。凭据、资源、缓存和诊断文件不属于业务快照，不能宣称所有文件都在SQLite。
 7. COMMIT异常后先按精确revision/hash核对，再执行不改变业务revision、payload或回执的verification_count FULL事务并重新读回；每次启动也先只读核验payload再做同类证明。证明失败保持unknown并阻止新写入，只重试原身份核对。应用退出先完成会话保存，再关闭所有仓库。
 
@@ -123,11 +123,11 @@ SQLite WAL/FULL是这里的跨平台普通事务合同，不以POSIX目录同步
 完整备份建议关闭应用后保留整个profile；至少包含配置SQLite及绑定身份、协作库、事实/记忆库、遗忘账本和任何仍存在的WAL/SHM。
 旧JSON导入备份与SQL内迁移证据仍可能包含旧内容；应用删除不是备份范围的安全擦除。
 
-生产 `sqlite-state-adapter` 在options之后强制current-only、版本19及严格raw validator；调用方不能改回兼容模式。
-`assertCanonicalPersistedState`使用固定时点的纯canonical派生核对完整键和值，不调用注入的normalizer；非法19不能靠同版本legacy detector修补。
-首次空档生成完整19；`autoCheckUpdates:false`重开不变，缺该键或`aiPetMealsEnabled`的19拒绝。提交候选也需严格canonical。
-配置SQL user_version仍为1、奖励账本内部仍为3；协作SQL独立升级为4，见「可恢复会话存储」。这不放开配置payload19的current-only限制。
-历史兼容测试不授权生产迁移旧品牌资料；没有自动转换、删除、重置或替代档案入口。下面的18→19路径是经本人确认的单次同品牌升级，不放宽普通adapter。
+生产 `sqlite-state-adapter` 在options之后强制current-only、版本20及严格raw validator；调用方不能改回兼容模式。
+`assertCanonicalPersistedState`使用固定时点的纯canonical派生核对完整键和值，不调用注入的normalizer；非法20不能靠同版本legacy detector修补。
+首次空档生成完整20；`autoCheckUpdates:false`重开不变，缺该键或`aiPetMealsEnabled`的20拒绝。提交候选也需严格canonical。
+配置SQL user_version仍为1、奖励账本内部仍为3；协作SQL独立升级为4，见「可恢复会话存储」。这不放开配置payload20的current-only限制。
+历史兼容测试不授权生产迁移旧品牌资料；没有自动转换、删除、重置或替代档案入口。下面的18→19及19→20路径分别是经本人确认的单次同品牌升级，不放宽普通adapter。
 
 历史与记忆不在这份文件里，见「事实流与长期记忆」。
 
@@ -709,13 +709,16 @@ PRODUCT.md，所以约束必须在请求里再说一遍并由测试钉住。
 
 ## 日常与能量
 
-Schema 13 为 custom 日常增加可选 `customLabel`（1–40 字）；仍由 routines 写入，其他种类不保留此字段。既有 schema 12 数据原样保留，仅升级版本；持久层在打开前逐字节备份，当前版本损坏拒绝覆盖，回退须使用升级前备份。新档食物库存仅浆果2颗；schema19普通准入拒绝旧档；完整BUBU18仅按显式偏好升级合同转换。`routine-controls.mjs` 只拥有选择器草稿，提醒时间仍经关闭式 IPC 与领域验证；编辑排程保留已有窗口长度和未改动的能量效应。
+Schema 13 为 custom 日常增加可选 `customLabel`（1–40 字）；仍由 routines 写入，其他种类不保留此字段。既有 schema 12 数据原样保留，仅升级版本；持久层在打开前逐字节备份，当前版本损坏拒绝覆盖，回退须使用升级前备份。新档食物库存仅浆果2颗；schema20普通准入拒绝旧档；完整BUBU18/19仅按显式单步升级合同转换。`routine-controls.mjs` 只拥有选择器草稿，提醒时间仍经关闭式 IPC 与领域验证；编辑排程保留已有窗口长度和未改动的能量效应。
 
 **一个实体，一份记录。** “我 9:00 吃了药”既是提醒的完成，又是能量曲线的输入，所以只有 `routines`
-（定义，≤40 条）与 `routineLog`（今天与昨天两天，每天 ≤60 条）两个顶层键，归 `routines` 能力。
+（定义，≤40 条）与 `routineLog`（实际发生时间保留今天与昨天，总计 ≤120 条，新写入每实际日 ≤60 条）两个顶层键，归 `routines` 能力。
 `kind` 冻结为 medication、stimulant、meal、snack、movement、rest、meeting、custom，各自对应
 `content/energy-effects.mjs` 里的默认效应（custom 无效应，纯提醒）。`schedule: null` 合法：只记录不提醒。
 occurrence id 确定性构造（`<routineId>:<dayKey>:<HH:mm>`，随手记为 `…:free:<序号>`），同 id 即更新。
+Schema20保持owner日期桶及其ID前缀为稳定身份，最多120个桶、每桶最多60条、全局最多120条且ID唯一。桶不再代表发生日期；清理由每条at的本地日期决定，未来或未知at不被静默丢弃。19→20不截断原合法数据，原有某实际日超过60条仍保留，只阻止增量迁入。写入和时间更正后按at、ID稳定排序；运行时清理空桶，满额拒绝而非挤出其他记录。
+已完成/跳过记录的at是实际发生时间，可在今天/昨天之间双向编辑；命令时钟与用户at分开，expectedAt/expectedStatus重核目标新鲜度，原ID、提醒时段、note及magnitude不变。同一确认重试不新增事务，撤回和时间线修订沿用同一身份；能量及日统计按at分组。随手记的createdAt仍是捕捉时间，resolution.at仍是处理时间，只有occurredAt进入发生记录。
+
 跨午夜仍在有效窗口内的前一日排程保留原occurrence身份，并由原日期桶记录提醒／回答；实际回答时间决定时间线日期。
 前一日本已过期、未来、其他日常或非排程自由记录不能借此补入。星期规则按排程原日计算，日历加减不使用固定24小时。
 仅已提醒且未回答、随后过窗的排程可形成missed见证；终态历史记录不重新当成未回答。此处不扩大保留历史的可更正范围。
@@ -980,15 +983,15 @@ Electron adapter 设置进程级 `nativeTheme.themeSource`，同步原生控件�
 
 `surfaces/shared/interface` 拥有本地文案目录与显式标记渲染。目录以受代码控制的中文源文案为稳定键，不做全 DOM 文本匹配；改变源文案必须同步目录及占位符测试。t(source, parameters) 只翻译产品字面量，插值不递归翻译；HTML 仍由原调用方转义。data-i18n 仅标记静态叶文本；data-i18n-text 仅替换指定控件唯一直接文本节点，保留 SVG 和计数。禁止遍历替换未标记 DOM 或用户内容。语言通知使用独立 localeOnly 展示事件或 owner 的 copy-only 回调重绘文案，不走数据变更订阅；新 DOM 在各自作者处显式调用 t。不能重新提交命令、刷新草稿、重置计时锚点、重建有焦点的动作节点、清除确认态或延长回执计时。原生托盘与提示使用同一已确认 resolvedLocale 的临时文案适配器，不形成第二持久化设置源。共享入口同步安装订阅后异步读取呈现，不以 top-level await 阻塞提醒/domain init。界面用系统字体并允许英文控件换行。
 
-**合入前的18→19升级门禁。** 普通 `sqlite-state-adapter` 仍为 current-only19，原有拒绝前DB/identity/WAL/SHM字节保留合同不变。独立 `config-preferences-upgrade` 只在副本中核验完整 canonical18、READY BUBU标记、随机绑定、snapshot/evidence后产生 `verified-upgrade-required`。18必须同时缺少locale和theme；任何已有键、未知/损坏字段、其他版本、旧im-adhder身份均拒绝，不能通过normalizer修补。纯workflow只通过preferences与app-maintenance公开边界构造settings新增默认system及schemaVersion19，整份candidate再严格核验。
+**显式18→19及19→20升级门禁。** 普通 `sqlite-state-adapter` 为 current-only20，原有拒绝前DB/identity/WAL/SHM字节保留合同不变。独立 `config-preferences-upgrade` 只在副本中核验完整 canonical18、READY BUBU标记、随机绑定、snapshot/evidence后产生 `verified-upgrade-required`。18必须同时缺少locale和theme；任何已有键、未知/损坏字段、其他版本、旧im-adhder身份均拒绝，不能通过normalizer修补。纯workflow只通过preferences与app-maintenance公开边界构造settings新增默认system及schemaVersion19，整份candidate再严格核验。19→20另以严格历史19 validator核验源，仅改变schemaVersion，保持其余完整值与记录身份；仅白名单这两步，不接受任意旧版。18完成第一步并重启后，再经第二次确认升级20。
 
-启动仍先取得原profile单实例锁；配置仓拒绝后、凭据/事实/协作仓打开前，bootstrap才尝试上述只读识别。识别成功后把Electron userData/sessionData临时隔离到新建的dialog-only目录，再等待ready显示双语确认框；原选定profile路径与锁保持不变。默认/取消均退出，必须同时勾选并选择备份升级。授权闭包绑定具体profile、authority/application identity、revision/hash、目标hash及唯一备份身份；执行前再次核验，不接收renderer广泛数据或命令。成功后明确告知备份位置并relaunch，下一启动仍重新通过普通19准入。原生锁保持、取消前零源写入与relaunch参数回到原档必须在各目标平台验收，不能由端口测试替代。
+启动仍先取得原profile单实例锁；配置仓拒绝后、凭据/事实/协作仓打开前，bootstrap才尝试上述只读识别。识别成功后把Electron userData/sessionData临时隔离到新建的dialog-only目录，再等待ready显示双语确认框；原选定profile路径与锁保持不变。默认/取消均退出，必须同时勾选并选择备份升级。授权闭包绑定具体profile、authority/application identity、revision/hash、目标hash及唯一备份身份；执行前再次核验，不接收renderer广泛数据或命令。成功后明确告知备份位置并relaunch，下一启动重新核验；中间19仅进入第二步显式升级，20才通过普通准入。原生锁保持、取消前零源写入与relaunch参数回到原档必须在各目标平台验收，不能由端口测试替代。
 
 升级先在原profile的独占私有同级目录建立 `profile-backup.sqlite`（BUBK、独立backup schema1），通过同一个SQLite driver完成WAL/FULL提交、只读重开逐文件hash核验、第二次FULL verification事务及读回。它只是不可变备份证据，不是第二份运行权威。记录安全相对路径、空目录、原mode/mtime元数据、各文件字节、manifest/hash及源绑定；仅排除顶层精确的SingletonLock/SingletonCookie/SingletonSocket，不按嵌套basename排除，不解密凭据。拒绝符号链接/非普通文件、路径逃逸、深度超过32、单文件超过64MiB、合计512MiB或10,000成员。源目录拓扑/stat/hash在备份后、原writer打开前再次核验；完整旧配置和已提交live WAL均在备份中。新备份目录及实际SQLite DB/WAL/SHM权限在任何私有数据写入前核验，Windows复用现有只读DACL证据，不修改ACL、安全策略或使用POSIX目录fsync当作Windows开关。失败/不完整备份保留且不自动复用；备份成功前不接触原SQLite连接。
 
-失败合同分两个明确阶段：原writer打开前，拒绝、取消、备份/隔离candidate验证失败保持源文件字节和mtime；不承诺atime。进入原SQLite写入阶段后，SQLite可能维护SHM/checkpoint；回滚保证原逻辑payload、revision和authority不变，并保留此前已核验的完整字节备份，不承诺所有侧车字节不变。配置payload与旧payload迁移证据在同一WAL/FULL事务中CAS提交，只推进一次revision，保留identity、mirror lineage与其他业务数据。COMMIT异常按精确revision/hash和证据核对，再复用verification_count FULL证明；已落盘迁移不重放、不当成普通可重试失败，无法核验则阻止业务启动。进程中断重开只能见完整18或完整19；18须再次本人确认，19通过普通启动证明，不自动降级、恢复或覆盖侧车。此合同是普通过程崩溃和SQLite FULL保证，不是物理断电认证。
+失败合同分两个明确阶段：原writer打开前，拒绝、取消、备份/隔离candidate验证失败保持源文件字节和mtime；不承诺atime。进入原SQLite写入阶段后，SQLite可能维护SHM/checkpoint；回滚保证原逻辑payload、revision和authority不变，并保留此前已核验的完整字节备份，不承诺所有侧车字节不变。配置payload与旧payload迁移证据在同一WAL/FULL事务中CAS提交，只推进一次revision，保留identity、mirror lineage与其他业务数据。COMMIT异常按精确revision/hash和证据核对，再复用verification_count FULL证明；已落盘迁移不重放、不当成普通可重试失败，无法核验则阻止业务启动。进程中断重开只能见该步完整源版本或完整目标版本；源版本须再次本人确认，目标20通过普通启动证明，中间19进入下一步确认，不自动降级、恢复或覆盖侧车。此合同是普通过程崩溃和SQLite FULL保证，不是物理断电认证。
 
-备份恢复只可离线显式执行 `scripts/extract-profile-upgrade-backup.js --backup <绝对备份路径> --new-directory <尚不存在的新目录>`。验证完整schema/manifest/绑定/每文件hash及成功proof后，拒绝绝对路径成员、..、反斜线/驱动器、符号链接祖先和已有目的地，再以私有权限逐项解出；不覆盖原profile、不选择运行profile、不修改OS凭据身份。原mode/mtime作为证据保留，解出使用新私有权限。失败留下隔离的新目录供核查，不删除原件。此工具本身不建立旧版兼容；解出的18只能交给对应旧版或重新明确升级。0.0.2-dev.1合入前须完成损坏/权限/容量/漂移/提交未知/进程中断检查，以及同源码Windows/macOS安装版首次启动与显式升级的原生运行门禁。带精确对话框端口注入的CI只证明原生文件系统/DACL/SQLite与持久化重开，真人确认框输入、辅助技术和自动原生relaunch须另记证据，不能虚报。自动更新feature保持独立；正式自动分发仍须它自己的同源码签名包跨版本验收，本版本不启用该通道。
+备份恢复只可离线显式执行 `scripts/extract-profile-upgrade-backup.js --backup <绝对备份路径> --new-directory <尚不存在的新目录>`。验证完整schema/manifest/绑定/每文件hash及成功proof后，拒绝绝对路径成员、..、反斜线/驱动器、符号链接祖先和已有目的地，再以私有权限逐项解出；不覆盖原profile、不选择运行profile、不修改OS凭据身份。原mode/mtime作为证据保留，解出使用新私有权限。失败留下隔离的新目录供核查，不删除原件。此工具本身不建立旧版兼容；解出的18/19只能交给对应旧版或重新明确升级。0.0.2-dev.1合入前须完成损坏/权限/容量/漂移/提交未知/进程中断检查，以及同源码Windows/macOS安装版首次启动与显式升级的原生运行门禁。带精确对话框端口注入的CI只证明原生文件系统/DACL/SQLite与持久化重开，真人确认框输入、辅助技术和自动原生relaunch须另记证据，不能虚报。自动更新feature保持独立；正式自动分发仍须它自己的同源码签名包跨版本验收，本版本不启用该通道。
 
 popover 的页面职责固定：**现在 = 执行面**（选一件、开始、计时、落点），**任务 = 仓库面**（捕捉、澄清、组织、
 找回），日常保持独立的生活记录与提醒能力（不参与任务奖励），伙伴与回顾消费各自投影。一个控件的 `aria-controls` 目标必须和它在同一个面内或是弹层，否则切页后它
@@ -1067,7 +1070,7 @@ Control-click 走去重的 `contextmenu` 命令入口；双击不绑定命令。
 ## 扩展规则
 
 1. 先写出归属能力与它写的状态路径；在对应注册表加唯一 ID 与完整元数据。
-2. 新持久化字段必须提升 schema，并带逐字节备份、幂等、损坏拒绝测试；当前 schema 19 禁止通过同版本修补绕过准入；历史兼容测试不授权生产迁移。
+2. 新持久化字段必须提升 schema，并带逐字节备份、幂等、损坏拒绝测试；当前 schema 20 禁止通过同版本修补绕过准入；历史兼容测试不授权生产迁移。
 3. 新 IPC 放进所属能力的 codec 与最小 preload，同时加 sender、payload、非法输入与安全回归测试。
 4. 新的可视运动覆盖 DND、低刺激、Reduce Motion、专注、吸附与运行中切换策略，并落在舞台安全区内。
 5. 测试放在最低有效层；源码字符串断言只用于“禁止某 API/路径”这类架构检查。
@@ -1115,7 +1118,7 @@ UI 保留无正文操作槽，换日期或隐藏不丢在途对象；dispose 禁
 
 ## 当前测试版名称与档案身份
 
-小步 / bubu 同时统一对外品牌与内部命名：日常档案 `bubu`、开发档案 `bubu-dev`、应用标识 `com.bubu.app`、Electron 应用及系统凭据身份 `bubu`。新默认档案为空，不自动导入、迁移或删除旧测试目录和旧凭据；显式 `--user-data-dir` 路径保持原样。四个 preload 与 renderer 使用一致的 `bubu` 窄桥，环境入口统一为 `BUBU_*`，事实库名为 `bubu.sqlite`，hook 标头为 `X-Bubu-Agent`，rig 格式标识为 `bubu-rig`。集成插件 ID 为 `bubu-companion`，目录为 `integrations/plugins/bubu-companion/`，marketplace ID 为 `bubu`。不提供旧名兼容别名；完整规范 schema 19、BUBU配置身份双重准入，以及配置权威、显式目录身份核验与失败关闭合同必须同时满足。
+小步 / bubu 同时统一对外品牌与内部命名：日常档案 `bubu`、开发档案 `bubu-dev`、应用标识 `com.bubu.app`、Electron 应用及系统凭据身份 `bubu`。新默认档案为空，不自动导入、迁移或删除旧测试目录和旧凭据；显式 `--user-data-dir` 路径保持原样。四个 preload 与 renderer 使用一致的 `bubu` 窄桥，环境入口统一为 `BUBU_*`，事实库名为 `bubu.sqlite`，hook 标头为 `X-Bubu-Agent`，rig 格式标识为 `bubu-rig`。集成插件 ID 为 `bubu-companion`，目录为 `integrations/plugins/bubu-companion/`，marketplace ID 为 `bubu`。不提供旧名兼容别名；完整规范 schema 20、BUBU配置身份双重准入，以及配置权威、显式目录身份核验与失败关闭合同必须同时满足。
 
 
 饱食度的实时文字、进度宽度与可访问数值共用纯展示函数：有限数值先限制0–100再四舍五入，异常非有限输入显示0；缺省伙伴摘要仍使用原65默认值。业务快照、衰减计算、喂食与成长保留原小数精度，不把显示舍入写回资料。

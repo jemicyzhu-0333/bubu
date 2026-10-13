@@ -33,7 +33,7 @@ function captureFiles(directory) {
   walk(); return result;
 }
 function createUpgradeFixture() {
-  assert.equal(PERSISTED_SCHEMA_VERSION, 19, 'this explicit upgrade fixture is only for reviewed 18 to 19');
+  assert.equal(PERSISTED_SCHEMA_VERSION, 20, 'this explicit upgrade fixture is only for reviewed 19 to 20');
   const fixture = createEmptyProfile(), now = Date.now();
   const repo = createSqliteStateAdapter({ userDataPath: fixture.userDataPath, now: () => now });
   try {
@@ -51,7 +51,7 @@ function createUpgradeFixture() {
     const db = new DatabaseSync(process.argv[2]), identity = new DatabaseSync(process.argv[2] + '.identity.sqlite');
     db.exec('PRAGMA journal_mode=WAL'); identity.exec('PRAGMA journal_mode=WAL');
     const state = JSON.parse(db.prepare('SELECT payload_json FROM config_snapshot').get().payload_json);
-    state.schemaVersion = 18; delete state.settings.locale; delete state.settings.theme;
+    state.schemaVersion = 19;
     const encoded = encodePayload(state);
     db.prepare('UPDATE config_snapshot SET payload_version=?,payload_hash=?,payload_json=?,mirror_target_hash=?')
       .run(encoded.version, encoded.hash, encoded.json, encoded.mirrorHash);
@@ -116,7 +116,7 @@ function preservationEvidence(fixture) {
   if (originalFilesUnchanged) {
     const snapshot = copySnapshot(fixture.userDataPath);
     schemaVersion = snapshot.state.schemaVersion;
-    authorityUnchanged = schemaVersion === 18 && isDeepStrictEqual({ ...snapshot.row }, fixture.original)
+    authorityUnchanged = schemaVersion === 19 && isDeepStrictEqual({ ...snapshot.row }, fixture.original)
       && isDeepStrictEqual(snapshot.identity, fixture.identity) && snapshot.evidence.length === 0;
   }
   return { originals, originalFilesUnchanged, additions, authorityUnchanged, schemaVersion,
@@ -127,7 +127,7 @@ function verifyUnchanged(fixture) {
   try {
     assert.equal(proof.originalFilesUnchanged, true, 'consent/cancel must preserve source bytes and mtimes');
     assert.equal(proof.additions.every(item => item.kind === 'electron-runtime'), true, 'unexpected file added before consent/cancel');
-    assert.equal(proof.authorityUnchanged, true, 'consent/cancel must preserve exact BUBU18 authority without migration evidence');
+    assert.equal(proof.authorityUnchanged, true, 'consent/cancel must preserve exact BUBU19 authority without migration evidence');
     assert.equal(proof.noBackupBeforeConsent, true, 'consent/cancel must not create a backup');
   } catch (error) { error.preservationDiagnostic = proof; throw error; }
   return proof;
@@ -135,7 +135,7 @@ function verifyUnchanged(fixture) {
 function verifyApproved(fixture) {
   const snapshot = copySnapshot(fixture.userDataPath);
   const expected = JSON.parse(fixture.original.payload_json);
-  expected.schemaVersion = 19; expected.settings.locale = 'system'; expected.settings.theme = 'system';
+  expected.schemaVersion = 20;
   assert.deepEqual(snapshot.state, expected, 'upgrade must be exactly additive before ordinary startup');
   assertCanonicalPersistedState(snapshot.state);
   assert.deepEqual(snapshot.identity, fixture.identity);
@@ -174,7 +174,7 @@ function verifyApproved(fixture) {
       const restoredSnapshot = copySnapshot(restored);
       assert.deepEqual({ ...restoredSnapshot.row }, fixture.original);
       assert.deepEqual(restoredSnapshot.identity, fixture.identity);
-      assert.equal(restoredSnapshot.state.schemaVersion, 18);
+      assert.equal(restoredSnapshot.state.schemaVersion, 19);
     } finally { fs.rmSync(restored, { recursive: true, force: true }); }
     return { exactAdditiveBeforeRestart: true, identityPreserved: true, oneMigrationReceipt: true, backupReopenedFromCopy: true,
       completePrivateBackup: true, originalBytesAndMtimesPreservedInBackup: true,
@@ -184,14 +184,14 @@ function verifyApproved(fixture) {
 }
 function verifyReopened(fixture) {
   const result = copySnapshot(fixture.userDataPath), original = JSON.parse(fixture.original.payload_json);
-  assertCanonicalPersistedState(result.state); assert.equal(result.state.schemaVersion, 19);
+  assertCanonicalPersistedState(result.state); assert.equal(result.state.schemaVersion, 20);
   assert.deepEqual(result.identity, fixture.identity); assert.equal(result.row.authority_id, fixture.original.authority_id);
   assert.deepEqual(result.state.tasks.map(task => [task.id, task.title, task.description, task.steps.map(step => [step.id, step.title])]),
     original.tasks.map(task => [task.id, task.title, task.description, task.steps.map(step => [step.id, step.title])]));
   assert.deepEqual(result.state.impulses, original.impulses);
   assert.equal(result.state.settings.locale, 'system'); assert.equal(result.state.settings.theme, 'system');
   assert.equal(result.evidence.length, 1);
-  return { authorityId: result.row.authority_id, revision: result.row.revision, schemaVersion: 19,
+  return { authorityId: result.row.authority_id, revision: result.row.revision, schemaVersion: 20,
     taskStepInboxPreserved: true, systemDefaultsPreserved: true, oneMigrationReceipt: true };
 }
 module.exports = { createUpgradeFixture, captureFiles, copySnapshot, isRuntimeAddition, preservationEvidence, verifyUnchanged, verifyApproved, verifyReopened };

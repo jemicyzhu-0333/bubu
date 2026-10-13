@@ -221,7 +221,7 @@
          不是一张内置词表 —— logOccurrence 会拒绝 routine-not-found,点一下凭空造出
          一条日常就等于替用户记了他没说过的事。 -->
     <div class="routine-quick hidden" id="routineQuick" role="group" aria-labelledby="routineQuickLabel">
-      <span class="chip-label" id="routineQuickLabel" data-i18n="刚做了">刚做了</span>
+      <span class="chip-label" id="routineQuickLabel" data-i18n="记录一次">记录一次</span>
       <div class="routine-quick-chips" id="routineQuickChips"></div>
     </div>
     <p class="capability-note hidden" id="routinesStatus" role="status" aria-live="polite"></p>
@@ -305,7 +305,7 @@
       <div class="routine-page-heading"><h2 class="routine-page-title" data-i18n="今天的记录">今天的记录</h2><button type="button" class="pixel-btn btn-focus" id="btnNewRoutine" data-icon="plus" data-i18n="新建日常">新建日常</button></div>
     <p id="routineManageStatus" class="capability-note hidden" role="status" aria-live="polite"></p>
     <div class="routines-manage" id="routinesManage">
-      <div class="daily-records"><div class="routine-rows" id="dailyRoutineRows"></div><div class="routine-quick hidden" id="dailyRoutineQuick"><span class="chip-label" data-i18n="刚做了">刚做了</span><div class="routine-quick-chips" id="dailyRoutineQuickChips"></div></div></div>
+      <div class="daily-records"><div class="routine-rows" id="dailyRoutineRows"></div><section id="yesterdayRoutineRecords" class="routine-yesterday hidden"><h3 data-i18n="昨天的记录">昨天的记录</h3><div class="routine-rows" id="yesterdayRoutineRows"></div></section><section id="routineTimeEditor" class="routine-time-editor hidden" aria-live="polite"></section><div class="routine-quick hidden" id="dailyRoutineQuick"><span class="chip-label" data-i18n="记录一次">记录一次</span><div class="routine-quick-chips" id="dailyRoutineQuickChips"></div></div></div>
       <details class="routine-add hidden" id="routineAddDetails"><summary data-icon="plus" data-i18n="日常详情">日常详情</summary><div class="routine-editor">
         <input type="text" id="routineTitle" class="pixel-input" maxlength="40" autocomplete="off" placeholder="想记住哪件小事？" aria-label="日常名称" aria-describedby="routineFormStatus" data-i18n-aria-label="日常名称" data-i18n-placeholder="想记住哪件小事？">
         <div class="deadline-row">
