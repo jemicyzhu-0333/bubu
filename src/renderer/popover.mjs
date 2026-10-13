@@ -135,9 +135,9 @@ function createPopoverSurface({ document, window }) {
   // 一个弹层关闭后的焦点归属规则对所有弹层一致：优先回到打开它的控件，但如果
   // 期间一段计时已经到点，就直接交给落点卡，不在中间瞬时聚焦背后的内容。落点提示
   // 那一层在它下面才构造出来，这条规则只在弹层关闭的那一刻才跑，读到的一定是它。
-  function restoreModalFocus(trigger) {
+  function restoreModalFocus(trigger, isCurrent = () => true) {
     requestAnimationFrame(() => {
-      if (disposed) return;
+      if (disposed || !isCurrent()) return;
       if (landing.activePrompt()) {
         landing.rememberReturnFocus(trigger);
         landing.render();
@@ -248,7 +248,7 @@ function createPopoverSurface({ document, window }) {
   // 今天页最下面那一节。它只认 routines 与 settings 两个脏位,和计时、任务、成就
   // 三条线都不相干 —— ARCHITECTURE「日常与能量」 要求完成一条日常不进游戏化层,所以这里也不往那边接线。
   const routinesFeature = createPopoverRoutinesFeature({
-    document, $, getState: () => state, escapeHTML, surfaceClient
+    document, $, getState: () => state, escapeHTML, surfaceClient, restoreModalFocus, trapFocusWithin: modalPrimitive.trapFocusWithin
   });
   const completionFeedback = createPopoverCompletionFeedback({ document, $, celebrate: companionArt.celebrate, surfaceClient });
   companionArt.mount();
@@ -438,7 +438,7 @@ function createPopoverSurface({ document, window }) {
 
   // 收件箱持有分类卡片和分页历史；转任务后交给拆解弹层。
   const inbox = createPopoverInboxFeature({
-    document, $, getState: () => state, escapeHTML, surfaceClient, moodDeletion,
+    document, $, getState: () => state, escapeHTML, surfaceClient, moodDeletion, timeDialog: routinesFeature.timeDialog,
     openBreakdown: task => breakdownFeature.open(task)
   });
   inbox.mount();
@@ -598,6 +598,7 @@ function createPopoverSurface({ document, window }) {
       // 落点提示没有 close:Escape 只把焦点挪到出口,详见顺序表。
       quickStart: { isOpen: landing.isOpen },
       taskEdit: { isOpen: taskEditor.isOpen, close: taskEditor.close },
+      eventTime: routinesFeature.timeDialog,
       completeConfirm: { isOpen: completeConfirm.isOpen, close: completeConfirm.close },
       review: { isOpen: review.isOpen, close: () => void review.close() },
       breakdown: { isOpen: breakdownFeature.isOpen, close: breakdownFeature.close },

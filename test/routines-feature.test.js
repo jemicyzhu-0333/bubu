@@ -53,9 +53,23 @@ function createDom() {
   for (const selector of ['#routinesStrip', '#routinesCount', '#routinesTileSub', '#btnManageRoutines', '#routineRows',
     '#routineQuick', '#routineQuickChips', '#routinesStatus', '#routinesManage', '#routineTitle',
     '#routineKind', '#routineCustomLabel', '#routineCustomLabelText', '#routineFrequency', '#routineWeekdayRow', '#routineTimeRow', '#routineTimes',
-    '#routineFormStatus', '#btnAddRoutine', '#routineManageList']) {
+    '#routineFormStatus', '#btnAddRoutine', '#routineManageList', '#dailyRoutineRows', '#yesterdayRoutineRecords', '#yesterdayRoutineRows', '#routineTimeEditor']) {
     nodes[selector] = element(selector);
   }
+  const editorFields = new Map();
+  nodes['#routineTimeEditor'].querySelector = selector => {
+    if (!editorFields.has(selector)) editorFields.set(selector, element(selector));
+    return editorFields.get(selector);
+  };
+  let editorHTML = '';
+  Object.defineProperty(nodes['#routineTimeEditor'], 'innerHTML', {
+    get: () => editorHTML,
+    set(value) {
+      editorHTML = value; editorFields.clear();
+      const match = value.match(/value="([^"]*)"/);
+      if (match) nodes['#routineTimeEditor'].querySelector('[data-time-input]').value = match[1];
+    }
+  });
   // The weekday chips are real markup in popover.html, so the stub has to answer
   // the one query the feature makes against that row.
   const weekdayChips = [1, 2, 3, 4, 5, 6, 7].map(weekday => ({
@@ -95,7 +109,7 @@ function button({ id = '', act = '', routine = '', occurrence = '', weekday = ''
   return node;
 }
 
-function createHarness({ items = [], occurrences = [], counts = null, remindersEnabled = true, client = {} } = {}) {
+function createHarness({ items = [], occurrences = [], counts = null, remindersEnabled = true, client = {}, now = () => new Date(2026, 8, 20, 9, 5).getTime() } = {}) {
   const dom = createDom();
   const calls = [];
   const state = {
@@ -122,6 +136,7 @@ function createHarness({ items = [], occurrences = [], counts = null, remindersE
   };
   const feature = createPopoverRoutinesFeature({
     document: dom.document,
+    now,
     $: dom.$,
     getState: () => state,
     escapeHTML,
@@ -174,7 +189,7 @@ test('a refused write says what happened instead of failing silently', async () 
   harness.answer.ok = false;
   harness.answer.reason = 'day-full';
   await harness.click(button({ act: 'done', routine: 'pill', occurrence: PILL.occurrenceId }));
-  assert.match(harness.status(), /上限/);
+  assert.match(harness.status(), /已满，已有记录保持不变/);
   assert.equal(harness.dom.nodes['#routinesStatus'].classList.contains('hidden'), false);
 });
 
@@ -210,7 +225,7 @@ test('an answered occurrence offers exactly one way back out', async () => {
 test('quick chips come from the user own list and claim only a due occurrence', async () => {
   // 内置一张 ☕😴🍫 词表会让一次点击凭空造出一条日常 —— logOccurrence 会以
   // routine-not-found 拒绝它，而那正是 ARCHITECTURE「日常与能量」 禁止的「替用户记他没说过的事」。
-  const coffee = { id: 'coffee', title: '咖啡', kind: 'stimulant' };
+  const coffee = { id: 'coffee', title: '咖啡', kind: 'stimulant', createdAt: new Date(2026, 8, 20, 8).getTime() };
   const empty = createHarness({ items: [] });
   assert.equal(empty.dom.nodes['#routineQuick'].classList.contains('hidden'), true);
   assert.equal(empty.chips(), '');
@@ -320,14 +335,14 @@ test('muting a routine is an update, not a delete', async () => {
   assert.deepEqual(harness.calls, [['updateRoutine', 'pill', { active: false }]]);
 });
 
-test('the daily page exposes management without introducing another modal layer', () => {
+test('routine management stays inline while time editing delegates to its shared modal', () => {
   const harness = createHarness({ items: [] });
   assert.equal(harness.feature.isManageOpen(), true);
   assert.equal(harness.dom.nodes['#routinesManage'].classList.contains('hidden'), false);
   assert.equal(harness.dom.nodes['#btnManageRoutines'].getAttribute('aria-expanded'), 'true');
-  // 它不进 POPOVER_MODAL_LAYER，所以也不许自己做困焦或抢 Escape ——
-  // 两套关闭机制并存时 Escape 会关错层，而那是静默的。
-  assert.doesNotMatch(featureCode, /aria-modal|inert|trapFocus|'Escape'/);
+  assert.equal(harness.feature.timeDialog.isOpen(), false);
+  // Management itself has no second Escape or focus trap implementation.
+  assert.doesNotMatch(featureCode, /aria-modal|inert|'Escape'/);
 });
 
 test('finishing a routine never touches the gamification layer', () => {
@@ -436,4 +451,210 @@ test('routine form freezes editable fields while saving and restores them after 
   assert.equal(h.dom.$('#routineTitle').disabled, true); assert.equal(h.dom.$('#btnAddRoutine').disabled, true);
   finish({ ok: false }); await saving;
   assert.equal(Boolean(h.dom.$('#routineTitle').disabled), false); assert.equal(h.dom.$('#routineTitle').value, 'Water'); h.feature.dispose();
+});
+
+
+test('old manual routines remain recordable in management without appearing as recent shortcuts', async () => {
+  const h = createHarness({ items: [{ id: 'old', title: '旧活动', kind: 'custom', active: true,
+    createdAt: new Date(2026, 8, 19, 23, 59).getTime(), schedule: null }] });
+  assert.equal(h.chips(), '');
+  assert.match(h.manage(), /data-act="quick"/);
+  assert.match(h.manage(), /记录一次/);
+  await h.click(button({ act: 'quick', routine: 'old' }));
+  assert.deepEqual(h.calls, [['logRoutine', { routineId: 'old', occurrenceId: undefined, status: 'done' }]]);
+});
+
+test('skipping an earlier notified occurrence survives canonical SQLite ordering and permits undo', async t => {
+  const { createRoutineReplayFixture } = require('../test-support/routine-replay-fixture');
+  const { dayPlan } = require('../src/capabilities/routines');
+  const { localDayKey } = require('../src/core/calendar');
+  const f = createRoutineReplayFixture(t);
+  f.command.recordNotified({ ...f.identity, at: f.now() });
+  f.setNow(f.now() + 1000);
+  f.command.log({ routineId: 'routine', status: 'done' });
+  f.setNow(f.now() + 1000);
+  const projected = () => dayPlan.buildDayPlan({ ...f.repository.snapshot(), now: f.now(), dayKey: localDayKey(f.now()) });
+  const h = createHarness({ items: f.repository.get('routines'), occurrences: projected().occurrences,
+    now: f.now, client: { logRoutine: input => f.command.log(input), undoRoutineLog: occurrenceId => f.command.undo({ occurrenceId }) } });
+  const before = h.rows();
+  await h.click(button({ act: 'skipped', routine: 'routine', occurrence: f.identity.occurrenceId }));
+  assert.equal(h.status(), '');
+  assert.equal(h.rows(), before, 'the commit receipt does not optimistically rewrite the projection');
+  assert.equal(f.entries().find(entry => entry.occurrenceId === f.identity.occurrenceId).status, 'skipped');
+  h.state.routines.today = projected(); h.feature.render();
+  assert.match(h.rows(), /跳过了/);
+  await h.click(button({ act: 'undo', routine: 'routine', occurrence: f.identity.occurrenceId }));
+  assert.equal(h.status(), '');
+  assert.equal(f.entries().some(entry => entry.occurrenceId === f.identity.occurrenceId), false);
+  h.feature.dispose();
+});
+
+test('manual shortcuts expire at local midnight even when the routine projection is unchanged', () => {
+  let at = new Date(2026, 8, 20, 23, 59).getTime();
+  const h = createHarness({ now: () => at, items: [{ id: 'manual', title: '今天的活动', kind: 'custom', createdAt: at }] });
+  assert.match(h.chips(), /今天的活动/);
+  at = new Date(2026, 8, 21, 0, 0).getTime();
+  h.feature.render();
+  assert.equal(h.chips(), '');
+  assert.match(h.manage(), /今天的活动/);
+  h.feature.dispose();
+});
+
+test('a committed skip keeps its truthful receipt when post-commit publication fails', async t => {
+  const { createRoutineReplayFixture } = require('../test-support/routine-replay-fixture');
+  const f = createRoutineReplayFixture(t);
+  f.command.recordNotified({ ...f.identity, at: f.now() });
+  f.setNow(f.now() + 1000);
+  f.command.log({ routineId: 'routine', status: 'done' });
+  f.setNow(f.now() + 1000);
+  f.failPublish();
+  const h = createHarness({ client: { logRoutine: input => f.command.log(input) } });
+  const revision = f.repository.revision();
+  await h.click(button({ act: 'skipped', routine: 'routine', occurrence: f.identity.occurrenceId }));
+  assert.equal(h.status(), '');
+  assert.equal(f.repository.revision(), revision + 1);
+  assert.equal(f.entries().find(entry => entry.occurrenceId === f.identity.occurrenceId).status, 'skipped');
+  assert.equal(f.errors.length, 1);
+  h.feature.dispose();
+});
+
+for (const ownerOffset of [0, -2]) test(`moving a record with owner offset ${ownerOffset} retains management edit and undo through the real projection`, async () => {
+  const { harness: stateHarness, sourceState, NOW, localDayKey, routines } = require('../test-support/surface-sync-fixture');
+  const { addDaysToKey } = require('../src/core/calendar');
+  const today = localDayKey(NOW), yesterday = addDaysToKey(today, -1);
+  const at = NOW - 60_000;
+  const previous = new Date(`${yesterday}T19:00:00`).getTime();
+  const ownerDay = addDaysToKey(today, ownerOffset);
+  const retainedId = `tea:${ownerDay}:free:0`;
+  const createdAt = ownerOffset ? new Date(`${ownerDay}T08:00:00`).getTime() : previous;
+  const initial = sourceState({ routines: [{ id: 'tea', title: 'Tea', kind: 'stimulant',
+    active: true, schedule: null, createdAt, updatedAt: createdAt }],
+    ...(ownerOffset ? { routineLog: { days: [{ dayKey: ownerDay, entries: [{ occurrenceId: retainedId,
+      routineId: 'tea', status: 'done', at, level: null, note: 'preserved', magnitude: 35 }] }] } } : {}) });
+  const { assertCanonicalPersistedState } = require('../src/platform/persistence/persisted-schema');
+  assertCanonicalPersistedState(initial);
+  const state = stateHarness({ initial });
+  const command = routines.logRoutineOccurrence.createLogRoutineOccurrenceCommand(state.ports);
+  const result = ownerOffset ? { occurrenceId: retainedId }
+    : command.log({ routineId: 'tea', status: 'done', at, note: 'preserved', magnitude: 35 });
+  let h;
+  const sync = () => { h.state.routines = state.sample().routines; h.feature.render(); };
+  h = createHarness({ now: () => NOW, client: {
+    logRoutine(payload) { const result = command.log(payload); sync(); return result; },
+    undoRoutineLog(occurrenceId) { const result = command.undo({ occurrenceId }); sync(); return result; }
+  } });
+  sync();
+  const editorRoot = h.dom.nodes['#routineTimeEditor'];
+  const save = async value => {
+    editorRoot.querySelector('[data-time-input]').value = value;
+    h.dom.listeners.get('#routineTimeEditor:click')({ target: { closest: selector => selector === '[data-time-save]' ? {} : null } });
+    await new Promise(resolve => setImmediate(resolve));
+  };
+  await h.click(button({ act: 'edit-time', routine: 'tea', occurrence: result.occurrenceId }));
+  await save(`${yesterday}T19:00`);
+  assert.equal(h.state.routines.today.counts.done, 0);
+  assert.doesNotMatch(h.rows(), /Tea/);
+  assert.match(h.dom.nodes['#yesterdayRoutineRows'].innerHTML, /Tea/);
+  assert.match(h.dom.nodes['#yesterdayRoutineRows'].innerHTML, /data-act="edit-time"/);
+  assert.match(h.dom.nodes['#yesterdayRoutineRows'].innerHTML, /data-act="undo"/);
+  assert.equal(h.dom.nodes['#yesterdayRoutineRecords'].classList.contains('hidden'), false);
+  await h.click(button({ act: 'edit-time', routine: 'tea', occurrence: result.occurrenceId }));
+  assert.equal(editorRoot.querySelector('[data-time-input]').value, `${yesterday}T19:00`);
+  await save(`${today}T08:00`);
+  assert.equal(h.state.routines.today.counts.done, 1);
+  assert.equal(h.state.routines.yesterday.occurrences.length, 0);
+  assert.equal(state.state().routineLog.days[0].dayKey, ownerDay);
+  assertCanonicalPersistedState(state.state());
+  assert.equal(state.state().routineLog.days[0].entries[0].note, 'preserved');
+  assert.equal(state.state().routineLog.days[0].entries[0].magnitude, 35);
+  await h.click(button({ act: 'edit-time', routine: 'tea', occurrence: result.occurrenceId }));
+  await save(`${yesterday}T20:00`);
+  await h.click(button({ act: 'undo', routine: 'tea', occurrence: result.occurrenceId }));
+  assert.equal(h.state.routines.yesterday.occurrences.length, 0);
+  assert.equal(h.dom.nodes['#yesterdayRoutineRecords'].classList.contains('hidden'), true);
+  assert.equal(state.state().routineLog.days.flatMap(day => day.entries).length, 0);
+});
+
+test('yesterday management projection excludes missed and unrecorded reminder debt', () => {
+  const { harness: stateHarness, sourceState, NOW, localDayKey } = require('../test-support/surface-sync-fixture');
+  const { addDaysToKey } = require('../src/core/calendar');
+  const previous = new Date(`${addDaysToKey(localDayKey(NOW), -1)}T08:00:00`).getTime();
+  const state = stateHarness({ initial: sourceState({ routines: [{ id: 'water', title: 'Water', kind: 'custom',
+    active: true, schedule: { frequency: 'daily', timesOfDay: ['09:00'], windowMinutes: 60 }, createdAt: previous, updatedAt: previous }] }) });
+  assert.equal(state.sample().routines.yesterday.occurrences.length, 0);
+  assert.equal(state.sample().routines.today.occurrences.length, 1);
+});
+
+test('renderer keeps an older owner identity editable and undoable after actual-day movement', async () => {
+  const today = '2026-10-13', yesterday = '2026-10-12';
+  const now = new Date(`${today}T20:00:00`).getTime();
+  const occurrenceId = 'retained:2026-10-10:free:0';
+  const record = { occurrenceId, routineId: 'retained', title: 'Retained reading record', kind: 'rest',
+    status: 'skipped', answered: true, due: false, scheduled: false,
+    loggedAt: new Date(`${yesterday}T18:00:00`).getTime(), note: 'kept locally', magnitude: 20 };
+  let stored = record, h;
+  const writes = [], undos = [];
+  const sync = () => {
+    const actualDay = stored ? new Date(stored.loggedAt).getDate() : null;
+    h.state.routines.today.occurrences = actualDay === 13 ? [{ ...stored }] : [];
+    h.state.routines.today.counts = { total: actualDay === 13 ? 1 : 0, done: 0, open: 0, due: 0 };
+    h.state.routines.yesterday = { dayKey: yesterday, occurrences: actualDay === 12 ? [{ ...stored }] : [] };
+    h.feature.render();
+  };
+  h = createHarness({ now: () => now, items: [{ id: 'retained', title: record.title, kind: 'rest',
+    active: true, schedule: null, createdAt: new Date('2026-10-10T08:00:00').getTime() }], client: {
+    logRoutine(payload) {
+      writes.push(payload);
+      assert.equal(payload.occurrenceId, occurrenceId);
+      assert.equal(payload.expectedAt, stored.loggedAt);
+      assert.equal(payload.expectedStatus, 'skipped');
+      assert.equal(payload.status, 'skipped');
+      assert.equal(Object.hasOwn(payload, 'note'), false);
+      assert.equal(Object.hasOwn(payload, 'magnitude'), false);
+      stored = { ...stored, loggedAt: payload.at }; sync(); return { ok: true };
+    },
+    undoRoutineLog(id) { undos.push(id); stored = null; sync(); return { ok: true }; }
+  } });
+  sync();
+  assert.doesNotMatch(h.rows(), /Retained reading record/);
+  assert.match(h.dom.nodes['#yesterdayRoutineRows'].innerHTML, /data-act="edit-time"/);
+  const editorRoot = h.dom.nodes['#routineTimeEditor'];
+  const save = async value => {
+    editorRoot.querySelector('[data-time-input]').value = value;
+    h.dom.listeners.get('#routineTimeEditor:click')({ target: { closest: selector => selector === '[data-time-save]' ? {} : null } });
+    await new Promise(resolve => setImmediate(resolve));
+  };
+  await h.click(button({ act: 'edit-time', routine: 'retained', occurrence: occurrenceId }));
+  assert.equal(editorRoot.querySelector('[data-time-input]').value, `${yesterday}T18:00`);
+  await save(`${today}T08:00`);
+  assert.equal(writes.length, 1);
+  assert.match(h.rows(), /Retained reading record/);
+  assert.equal(h.state.routines.yesterday.occurrences.length, 0);
+  await h.click(button({ act: 'edit-time', routine: 'retained', occurrence: occurrenceId }));
+  assert.equal(editorRoot.querySelector('[data-time-input]').value, `${today}T08:00`);
+  await save(`${yesterday}T19:00`);
+  assert.equal(writes.length, 2);
+  assert.equal(stored.occurrenceId, occurrenceId);
+  assert.equal(stored.note, 'kept locally'); assert.equal(stored.magnitude, 20);
+  assert.doesNotMatch(h.rows(), /Retained reading record/);
+  await h.click(button({ act: 'undo', routine: 'retained', occurrence: occurrenceId }));
+  assert.deepEqual(undos, [occurrenceId]);
+  assert.equal(h.dom.nodes['#yesterdayRoutineRecords'].classList.contains('hidden'), true);
+});
+
+test('routine completion uses accessible check icons for both action and recorded state', () => {
+  const { setLocale } = require('../src/surfaces/shared/interface/i18n.mjs');
+  try {
+    for (const [locale, completed, action] of [['zh-CN', '已完成', '标记完成 吃药'], ['en', 'Completed', 'Mark 吃药 complete']]) {
+      setLocale(locale);
+      const open = createHarness({ occurrences: [PILL] });
+      assert.match(open.rows(), /data-act="done"[^>]*><svg class="routine-check-icon"/);
+      assert.ok(open.rows().includes(`aria-label="${action}"`));
+      const answered = createHarness({ occurrences: [{ ...PILL, status: 'done', answered: true, due: false, loggedAt: 1 }] });
+      assert.match(answered.rows(), /routine-complete-mark[^>]*role="img"/);
+      assert.ok(answered.rows().includes(`aria-label="${completed}"`));
+      assert.match(answered.rows(), /stroke-width="1.5"/);
+      assert.doesNotMatch(answered.rows(), />做了</);
+    }
+  } finally { setLocale('zh-CN'); }
 });

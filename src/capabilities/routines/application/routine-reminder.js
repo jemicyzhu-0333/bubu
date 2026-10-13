@@ -4,7 +4,7 @@
 // at a time. Only an actual delivery followed by the canonical notified commit
 // counts as a reminder. No work-session gate, persistent queue, or second writer.
 const { buildDayPlan, dueOccurrences, witnessedMissedOccurrences } = require('../domain/day-plan');
-const { MAX_ROUTINE_ENTRIES_PER_DAY } = require('../domain/routine-logging');
+const { hasOccurrenceCapacity } = require('../domain/routine-logging');
 const { MAX_ROUTINE_LEVEL, DEFAULT_ROUTINE_LEVEL } = require('../../../core/routine-model');
 
 function createRoutineReminder({
@@ -73,10 +73,8 @@ function createRoutineReminder({
   }
 
   function hasCapacity(occurrence, current) {
-    const day = current.routineLog.days?.find(item => item && item.dayKey === occurrence.dayKey);
-    const entries = Array.isArray(day?.entries) ? day.entries : [];
-    return entries.some(entry => entry && entry.occurrenceId === occurrence.occurrenceId)
-      || entries.length < MAX_ROUTINE_ENTRIES_PER_DAY;
+    return hasOccurrenceCapacity(current, { occurrenceId: occurrence.occurrenceId,
+      dayKey: occurrence.dayKey, at: current.now });
   }
 
   function followsLast(occurrence) {

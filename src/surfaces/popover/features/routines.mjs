@@ -25,8 +25,10 @@ import { t, getLocale } from '../../shared/interface/i18n.mjs';
 // 种类表在 content 里,界面只补一层中文名和字形。surfaces 允许向内引 content
 // (companion-art.mjs 已有先例),所以这里不会出现第二份种类清单。
 import { ROUTINE_KINDS } from '../../../content/energy-effects.mjs';
+import { createRoutineOccurrenceTimeEditor, recorded } from './routine-occurrence-time-editor.mjs';
 import { createRoutineControls } from './routine-controls.mjs';
-import { KIND_LABELS, routineSymbol } from './routine-symbols.mjs';
+import { quickRecordItems, quickRecordTarget } from './routine-quick-record.mjs';
+import { KIND_LABELS, routineSymbol, ROUTINE_CHECK_ICON } from './routine-symbols.mjs';
 
 const WEEKDAY_LABELS = Object.freeze({ 1: '一', 2: '二', 3: '三', 4: '四', 5: '五', 6: '六', 7: '日' });
 const FREQUENCY_LABELS = Object.freeze({ daily: '每天', weekdays: '工作日', weekly: '每周' });
@@ -42,7 +44,8 @@ const REFUSALS = Object.freeze({
   'occurrence-mismatch': '这一条对不上，重开一次面板再试。',
   'occurrence-not-found': '这条已经没有记录可以撤回了。',
   'occurrence-required': '这条没有可撤回的记录。',
-  'day-full': '今天记的条数到上限了，先撤回几条。',
+  'day-full': '这一天的记录已满，已有记录保持不变。',
+  'log-full': '可编辑记录已满，已有记录保持不变。',
   'status-unknown': '这个状态不认识，什么都没记。',
   'title-required': '先给它起个名字。',
   'kind-unknown': '这个种类不认识。',
@@ -50,7 +53,7 @@ const REFUSALS = Object.freeze({
   'nothing-to-update': '没有要改的东西。'
 });
 
-function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfaceClient } = {}) {
+function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfaceClient, now = () => Date.now(), restoreModalFocus, trapFocusWithin } = {}) {
   if (!document || typeof $ !== 'function' || typeof getState !== 'function'
       || typeof escapeHTML !== 'function') {
     throw new TypeError('routines feature requires document, $, getState and escapeHTML');
@@ -80,6 +83,13 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
 
   const controls = createRoutineControls({ $, escapeHTML, getState, listen, syncScheduleFields });
 
+  const timeEditor = createRoutineOccurrenceTimeEditor({ $, escapeHTML, surfaceClient, listen, restoreModalFocus, trapFocusWithin, onSaved: say,
+    getOccurrences: () => recordOccurrences(band()) });
+
+  function recordOccurrences(view) {
+    return [...(view?.occurrences || []), ...(view?.yesterday || [])];
+  }
+
   function kindOf(kind) {
     return routineSymbol(kind);
   }
@@ -91,6 +101,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
     return {
       items: Array.isArray(routines.items) ? routines.items : [],
       occurrences: today && Array.isArray(today.occurrences) ? today.occurrences : [],
+      yesterday: Array.isArray(routines.yesterday?.occurrences) ? routines.yesterday.occurrences.filter(recorded) : [],
       counts: today && today.counts ? today.counts : { total: 0, done: 0, open: 0, due: 0 },
       remindersEnabled: routines.remindersEnabled !== false
     };
@@ -136,7 +147,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
 
   // 只画钟点,不画日期:这一节永远只说今天。
   function whenText(occurrence) {
-    if (occurrence.timeOfDay) return occurrence.timeOfDay;
+    if (!recorded(occurrence) && occurrence.timeOfDay) return occurrence.timeOfDay;
     if (!occurrence.loggedAt) return t('随手');
     const at = new Date(occurrence.loggedAt);
     const pad = value => String(value).padStart(2, '0');
@@ -144,7 +155,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
   }
 
   function answerText(occurrence) {
-    if (occurrence.status === 'done') return t('做了');
+    if (occurrence.status === 'done') return t('已完成');
     if (occurrence.status === 'skipped') return t('跳过了');
     // `missed` 只是"没记上"。这里刻意不写"逾期""欠"这类词,也不提"现在补上"——
     // 那就成了建议(ARCHITECTURE「日常与能量」 禁止的那一类)。
@@ -174,26 +185,28 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
       const answered = occurrence.answered;
       const buttons = answered
         ? `<button type="button" class="chip chip-action" data-act="undo" aria-label="${escapeHTML(t('撤回 {title}', { title: occurrence.title || '' }))}">${t('撤回')}</button>`
-        : `<button type="button" class="chip routine-act" data-act="done" aria-label="${escapeHTML(t('{title} 做了', { title: occurrence.title || '' }))}">${t('做了')}</button>`
+        : `<button type="button" class="chip routine-act routine-complete-action" data-act="done" title="${escapeHTML(t('标记完成 {title}', { title: occurrence.title || '' }))}" aria-label="${escapeHTML(t('标记完成 {title}', { title: occurrence.title || '' }))}">${ROUTINE_CHECK_ICON}</button>`
           + `<button type="button" class="chip routine-act" data-act="skipped" aria-label="${escapeHTML(t('{title} 跳过', { title: occurrence.title || '' }))}">${t('跳过')}</button>`;
       return `<div class="routine-row" data-state="${rowState(occurrence)}" `
         + `data-occurrence="${escapeHTML(occurrence.occurrenceId)}" data-routine="${escapeHTML(occurrence.routineId)}">`
         + `<span class="routine-when">${escapeHTML(whenText(occurrence))}</span>`
         + `<span class="routine-kind" aria-hidden="true">${kind.icon}</span>`
         + `<span class="routine-title">${title}</span>`
-        + `<span class="routine-answer">${escapeHTML(answerText(occurrence))}</span>`
+        + (occurrence.status === 'done' ? `<span class="routine-answer routine-complete-mark" role="img" title="${t('已完成')}" aria-label="${t('已完成')}">${ROUTINE_CHECK_ICON}</span>`
+          : `<span class="routine-answer">${escapeHTML(answerText(occurrence))}</span>`)
+        + (selector !== '#routineRows' && recorded(occurrence)
+          ? `<button type="button" class="chip chip-action" data-act="edit-time" aria-label="${escapeHTML(t('修改 {title} 的记录时间', { title: occurrence.title || '' }))}">${t('修改时间')}</button>` : '')
         + buttons
         + '</div>';
     }).join('');
   }
 
-  // 一个 chip 对应用户自己的一条日常。不截断:上限 40 条是他自己排的,少画一个
-  // 就意味着那条没有排程的日常在界面上无处可记。
+  // 快捷区只推荐常设排程和今天的手动活动；完整列表仍可逐条记录。
   function renderQuick(view, selector = '#routineQuick') {
     const host = $(selector);
     const chips = $(selector + 'Chips');
     if (!host || !chips) return;
-    const active = view.items.filter(item => item && item.active !== false);
+    const active = quickRecordItems(view, now());
     host.classList.toggle('hidden', active.length === 0);
     chips.innerHTML = active.map(item => {
       const kind = kindOf(item.kind);
@@ -227,12 +240,14 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
         + `<span class="routine-kind" aria-hidden="true">${kind.icon}</span>`
         + `<span class="routine-title">${title}</span>`
         + `<span class="routine-schedule">${escapeHTML(item.customLabel || t(kind.label))} · ${escapeHTML(scheduleText(item.schedule))}</span>`
+        + '<div class="routine-manage-actions">'
+        + `<button type="button" class="chip chip-action" data-act="quick" aria-label="${escapeHTML(t('记一笔 {title}', { title: item.title || '' }))}">${t('记录一次')}</button>`
         + `<button type="button" class="chip chip-action" data-act="edit" aria-label="${escapeHTML(t('编辑 {title} 提醒', { title: item.title || '' }))}">${t(item.schedule ? '编辑提醒' : '设置提醒')}</button>`
         + `<button type="button" class="chip routine-act" data-act="active" aria-pressed="${reminding}" `
         + `aria-label="${escapeHTML(t('{title} 提醒', { title: item.title || '' }))}">${activityLabel}</button>`
         + `<button type="button" class="chip chip-action" data-act="remove" `
         + `aria-label="${escapeHTML(t(removing ? '确认删除 {title}' : '删除 {title}', { title: item.title || '' }))}">${t(removing ? '真的删' : '删除')}</button>`
-        + '</div>';
+        + '</div></div>';
     }).join('') : `<p class="routine-empty">${t('添加日常后，在这里修改时间和提醒方式。')}</p>`;
   }
 
@@ -277,26 +292,30 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
   }
 
   function repaintCopy(view) {
+    timeEditor.refresh();
     renderCount(view); controls.repaintCopy();
     say(lastStatus.source, lastStatus.parameters);
     const submit = $('#btnAddRoutine');
     if (submit) submit.textContent = t(editingId ? '保存日常' : '添加日常');
     const toggle = $('#btnRoutineReminders');
     if (toggle) toggle.textContent = t(view.remindersEnabled ? '已开启' : '已关闭');
-    for (const selector of ['#routineRows', '#dailyRoutineRows']) {
+    for (const selector of ['#routineRows', '#dailyRoutineRows', '#yesterdayRoutineRows']) {
       const host = $(selector);
       const empty = host?.querySelector?.('.routine-empty');
       if (empty) empty.textContent = t(view.items.length ? '今天没有提醒' : '还没有日常');
       host?.querySelectorAll?.('.routine-row').forEach(row => {
-        const occurrence = view.occurrences.find(item => item.occurrenceId === row.dataset.occurrence);
+        const occurrence = recordOccurrences(view).find(item => item.occurrenceId === row.dataset.occurrence);
         if (!occurrence) return;
         const when = row.querySelector('.routine-when'), answer = row.querySelector('.routine-answer');
         if (when) when.textContent = whenText(occurrence);
-        if (answer) answer.textContent = answerText(occurrence);
+        if (answer && occurrence.status === 'done') {
+          answer.setAttribute('title', t('已完成')); answer.setAttribute('aria-label', t('已完成'));
+        } else if (answer) answer.textContent = answerText(occurrence);
         row.querySelectorAll('[data-act]').forEach(button => {
           const act = button.dataset.act;
-          button.textContent = t({ undo: '撤回', done: '做了', skipped: '跳过' }[act]);
-          button.setAttribute('aria-label', t({ undo: '撤回 {title}', done: '{title} 做了', skipped: '{title} 跳过' }[act], { title: occurrence.title || '' }));
+          if (act === 'done') button.setAttribute('title', t('标记完成 {title}', { title: occurrence.title || '' }));
+          else button.textContent = t({ undo: '撤回', skipped: '跳过', 'edit-time': '修改时间' }[act]);
+          button.setAttribute('aria-label', t({ undo: '撤回 {title}', done: '标记完成 {title}', skipped: '{title} 跳过', 'edit-time': '修改 {title} 的记录时间' }[act], { title: occurrence.title || '' }));
         });
       });
     }
@@ -317,16 +336,17 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
       const active = item.active !== false, removing = pendingRemoveId === item.id;
       row.querySelectorAll('[data-act]').forEach(button => {
         const act = button.dataset.act;
-        const source = act === 'edit' ? item.schedule ? '编辑提醒' : '设置提醒' : act === 'remove' ? removing ? '真的删' : '删除'
+        const source = act === 'quick' ? '记录一次' : act === 'edit' ? item.schedule ? '编辑提醒' : '设置提醒' : act === 'remove' ? removing ? '真的删' : '删除'
           : item.schedule ? active ? '提醒中' : '已静音' : active ? '已启用' : '已停用';
         button.textContent = t(source);
-        button.setAttribute('aria-label', t(act === 'edit' ? '编辑 {title} 提醒' : act === 'remove'
+        button.setAttribute('aria-label', t(act === 'quick' ? '记一笔 {title}' : act === 'edit' ? '编辑 {title} 提醒' : act === 'remove'
           ? removing ? '确认删除 {title}' : '删除 {title}' : '{title} 提醒', { title: item.title || '' }));
       });
     });
   }
 
   function render(state = getState()) {
+    timeEditor.refresh();
     const view = band(state);
     const strip = $('#routinesStrip');
     if (!view) {
@@ -334,7 +354,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
       return;
     }
     if (strip) strip.classList.remove('hidden');
-    const dataKey = JSON.stringify([view, manageOpen, pendingRemoveId]);
+    const dataKey = JSON.stringify([view, manageOpen, pendingRemoveId, quickRecordItems(view, now()).map(item => item.id)]);
     const key = `${getLocale()}|${dataKey}`;
     if (key === lastKey) return;
     lastKey = key;
@@ -344,6 +364,8 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
     renderCount(view);
     renderRows(view);
     renderRows(view, '#dailyRoutineRows');
+    $('#yesterdayRoutineRecords')?.classList.toggle('hidden', !view.yesterday.length);
+    renderRows({ ...view, occurrences: view.yesterday }, '#yesterdayRoutineRows');
     renderQuick(view);
     renderQuick(view, '#dailyRoutineQuick');
     renderManage(view);
@@ -370,15 +392,6 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
     // 排程行与随手记行都带着自己的 occurrenceId,所以一律带上:同一条再答一次是
     // 覆盖,不会多出第二行记录。
     await mutate(routineId, () => surfaceClient.logRoutine({ routineId, occurrenceId, status }));
-  }
-
-  // 点 chip 时如果正好有一条"现在该做"的排程行还没回答,就算在那条上 —— 用户点
-  // ☕ 的意思几乎总是"就是刚才那杯"。只认 due,不认已经过窗的:18 点点一下不该被
-  // 记成 9 点那次(那是替他编造)。
-  function quickTarget(view, routineId) {
-    const due = view.occurrences.filter(item =>
-      item.routineId === routineId && item.due && !item.answered);
-    return due.length === 1 ? due[0].occurrenceId : undefined;
   }
 
   function readWeekdays() {
@@ -533,12 +546,13 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
       pendingRemoveId = null;
       lastKey = '';
     }
+    if (act === 'edit-time') { timeEditor.open(occurrenceId); return; }
     if (act === 'done' || act === 'skipped') {
       await answer(routineId, occurrenceId, act);
       return;
     }
     if (act === 'quick') {
-      await answer(routineId, quickTarget(band(), routineId), 'done');
+      await answer(routineId, quickRecordTarget(band(), routineId, now()), 'done');
       return;
     }
     if (act === 'undo') {
@@ -585,6 +599,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
     fillKinds();
     syncScheduleFields();
     controls.mount();
+    timeEditor.mount();
     listen($('#routinesStrip'), 'click', onClick);
     listen($('#routinesManageCard'), 'click', onClick);
 
@@ -603,6 +618,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
   }
 
   function dispose() {
+    timeEditor.dispose();
     editGeneration++; mutations.clear(); restoreEditControls();
     if (unsubscribe) unsubscribe();
     unsubscribe = null;
@@ -612,7 +628,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
     lastKey = ''; lastDataKey = ''; lastStatus = { source: '', parameters: {} };
   }
 
-  return Object.freeze({ mount, dispose, render, isManageOpen: () => manageOpen });
+  return Object.freeze({ mount, dispose, render, timeDialog: timeEditor.timeDialog, isManageOpen: () => manageOpen });
 }
 
 export { createPopoverRoutinesFeature, KIND_LABELS };

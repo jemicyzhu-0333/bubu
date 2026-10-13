@@ -26,20 +26,23 @@ function routineTarget(state, { action, kind, routineId, createNew, title, profi
 function organizeRoutine(state, impulse, classification, request, ports) {
   const kind = classification.routineKind;
   if (!kind) return { ok: false, reason: 'routine-kind-required' };
-  const dayKey = localDayKey(impulse.createdAt);
-  if (request.action === 'log' && (dayKey < addDaysToKey(localDayKey(ports.at), -1) || impulse.createdAt > ports.at)) {
+  const occurredAt = request.occurredAt === undefined ? impulse.createdAt : request.occurredAt;
+  if (!Number.isSafeInteger(occurredAt) || occurredAt < 0 || occurredAt > 8.64e15) return { ok: false, reason: 'record-time-invalid' };
+  const dayKey = localDayKey(occurredAt);
+  if (request.action === 'log' && occurredAt > ports.at) return { ok: false, reason: 'record-time-invalid' };
+  if (request.action === 'log' && dayKey < addDaysToKey(localDayKey(ports.at), -1)) {
     return { ok: false, reason: 'capture-too-old-for-log' };
   }
   const target = routineTarget(state, { ...request, kind, ...ports });
   if (!target.ok) return target;
   if (request.action !== 'log') return { ok: true, targetId: target.routine.id, fact: null };
   const logged = routines.routineLogging.logOccurrence(state, {
-    routineId: target.routine.id, status: 'done', dayKey, at: impulse.createdAt
+    routineId: target.routine.id, status: 'done', dayKey, at: occurredAt
   });
   if (!logged.ok) return logged;
   return { ok: true, targetId: target.routine.id, fact: { type: 'routine-logged', routineId: target.routine.id,
     occurrenceId: logged.occurrenceId, status: logged.status, kind: logged.kind, scheduled: logged.scheduled,
-    at: impulse.createdAt, dayKey } };
+    at: occurredAt, dayKey } };
 }
 
 function organizeState(state, impulse, classification) {
@@ -60,6 +63,7 @@ function createOrganizeInboxWorkflow({ unitOfWork, clock, idFactory, profiles, p
   function transitionFor(request, at) {
     return state => {
       if (!ORGANIZE_ACTIONS.includes(request.action)) return { ok: false, reason: 'impulse-action-invalid' };
+      if (request.occurredAt !== undefined && request.action !== 'log') return { ok: false, reason: 'record-time-invalid' };
       if (request.action === 'classify' || request.category !== undefined) {
         const classified = classifyInboxDraft(state, request);
         if (!classified.ok || request.action === 'classify') return classified;
@@ -95,8 +99,8 @@ function createOrganizeInboxWorkflow({ unitOfWork, clock, idFactory, profiles, p
     return { ok: true, ...(transaction.kept ? { kept: transaction.kept.length } : {}) };
   }
 
-  function execute({ id, action, category, routineKind = null, level = null, title, routineId, createNew = false } = {}) {
-    return commit(at => transitionFor({ id, action, category, routineKind, level, title, routineId, createNew }, at));
+  function execute({ id, action, category, routineKind = null, level = null, title, routineId, createNew = false, occurredAt } = {}) {
+    return commit(at => transitionFor({ id, action, category, routineKind, level, title, routineId, createNew, occurredAt }, at));
   }
 
   // "Keep everything as it is" is the low-effort exit from a long inbox: one commit,

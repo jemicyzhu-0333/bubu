@@ -281,11 +281,13 @@ test('an unroutable report is still counted but moves nothing', () => {
 });
 
 test('the routine log keeps only the two days the curve can use', () => {
+  const day = dayKey => ({ dayKey, entries: [{ routineId: 'r', occurrenceId: `r:${dayKey}:free:0`,
+    status: 'done', at: localDayStart(dayKey), note: null, magnitude: null }] });
   const stale = {
     days: [
-      { dayKey: addDaysToKey(DAY, -4), entries: [] },
-      { dayKey: addDaysToKey(DAY, -1), entries: [] },
-      { dayKey: DAY, entries: [] }
+      day(addDaysToKey(DAY, -4)),
+      day(addDaysToKey(DAY, -1)),
+      day(DAY)
     ]
   };
   const state = draft({ routineLog: structuredClone(stale) });
@@ -307,7 +309,7 @@ test('the routine log keeps only the two days the curve can use', () => {
 
   // A clock that went backwards is not a reason to delete something the user
   // reported; those days fall out on their own once the calendar catches up.
-  const ahead = draft({ routineLog: { days: [{ dayKey: addDaysToKey(DAY, 2), entries: [] }] } });
+  const ahead = draft({ routineLog: { days: [day(addDaysToKey(DAY, 2))] } });
   assert.equal(routines.routineLogging.rollLogForward(ahead, { today: DAY }).changed, false);
 
   const empty = draft();

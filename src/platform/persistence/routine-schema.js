@@ -59,11 +59,11 @@ const {
 } = require('../../core/routine-model');
 
 const MAX_ROUTINES = 40;
-// Two days, not one: a 23:30 nap or a 22:00 coffee has an effect tail that
-// crosses midnight, and keeping only today would put a step change at 00:00 in a
-// curve that is meant to be continuous. Two is the smallest window that keeps it
-// continuous while staying bounded.
-const MAX_ROUTINE_LOG_DAYS = 2;
+// Schema20 retains up to 120 stable owner buckets under a global 120-entry
+// bound. The two actual local days (including overnight effect tails) are a
+// runtime retention rule, never a timezone-dependent persistence validator.
+const MAX_ROUTINE_LOG_DAYS = 120;
+const MAX_ROUTINE_LOG_ENTRIES = 120;
 const MAX_ROUTINE_ENTRIES_PER_DAY = 60;
 const MAX_ROUTINE_NOTE = 200;
 // A calibrated scale may at most halve or 1.5× a default effect. Wider bounds
@@ -231,8 +231,9 @@ function normalizeRoutineLogEntry(raw, dayKey) {
   };
 }
 
-// Two days, and the older one is dropped by keeping the two latest day keys.
-function normalizeRoutineLog(raw) {
+// Owner dates are stable identities, not the actual retention window. Schema20
+// bounds all entries independently of local timezone; runtime maintenance expires them.
+function normalizeRoutineLog(raw, { legacy = false } = {}) {
   const source = isPlainObject(raw) ? raw : {};
   const seenDays = new Set();
   const days = (Array.isArray(source.days) ? source.days : [])
@@ -256,7 +257,10 @@ function normalizeRoutineLog(raw) {
     })
     .filter(Boolean)
     .sort((left, right) => left.dayKey.localeCompare(right.dayKey))
-    .slice(-MAX_ROUTINE_LOG_DAYS);
+    .slice(legacy ? -2 : -MAX_ROUTINE_LOG_DAYS);
+  if (!legacy && days.reduce((count, day) => count + day.entries.length, 0) > MAX_ROUTINE_LOG_ENTRIES) {
+    throw new TypeError('routine-log-capacity');
+  }
   return { days };
 }
 
@@ -304,6 +308,7 @@ function normalizeEnergyProfile(raw) {
 module.exports = {
   MAX_ROUTINES,
   MAX_ROUTINE_LOG_DAYS,
+  MAX_ROUTINE_LOG_ENTRIES,
   MAX_ROUTINE_ENTRIES_PER_DAY,
   MAX_ROUTINE_NOTE,
   MIN_EFFECT_SCALE,

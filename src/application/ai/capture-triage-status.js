@@ -46,9 +46,18 @@ function createCaptureTriageStatus({ readSnapshot, publish = () => {} }) {
     const impulse = sources().find(item => item.id === token.id);
     return eligible(impulse) && identity(impulse) === token.source;
   }
+  function suggestionCurrent(impulse, record) {
+    return record?.suggestion && impulse && !impulse.resolution && !impulse.classification
+      && identity(impulse) === record.token.source && impulse.triage?.category === 'log'
+      && impulse.triage.at === record.suggestion.triageAt
+      && impulse.triage.routineKind === record.suggestion.routineKind;
+  }
   function prune(impulses) {
-    const sources = new Map(impulses.filter(eligible).map(item => [item.id, identity(item)]));
-    for (const [id, record] of records) if (sources.get(id) !== record.token.source) records.delete(id);
+    const items = new Map(impulses.map(item => [item.id, item]));
+    for (const [id, record] of records) {
+      const item = items.get(id);
+      if (!suggestionCurrent(item, record) && (!eligible(item) || identity(item) !== record.token.source)) records.delete(id);
+    }
   }
   function begin(fact) {
     if (closed) return null;
@@ -69,15 +78,25 @@ function createCaptureTriageStatus({ readSnapshot, publish = () => {} }) {
   }
   function finish(token, result) {
     if (closed || !token || records.get(token.id)?.token !== token) return;
-    if (!current(token) || result?.changed || result?.reason === 'impulse-stale') {
+    const record = records.get(token.id);
+    const impulse = sources().find(item => item.id === token.id);
+    if (result?.changed && Number.isSafeInteger(result.occurredAt) && result.occurredAt >= 0
+        && impulse && identity(impulse) === token.source && !impulse.classification && !impulse.resolution
+        && impulse.triage?.category === 'log' && impulse.triage.at === result.triageAt
+        && impulse.triage.routineKind === result.routineKind) {
+      record.suggestion = { triageAt: result.triageAt, routineKind: result.routineKind };
+      record.status = Object.freeze({ state: 'suggested', reason: 'explicit-time', occurredAt: result.occurredAt });
+    } else if (!current(token) || result?.changed || result?.reason === 'impulse-stale') {
       records.delete(token.id);
     } else records.get(token.id).status = Object.freeze(outcomeStatus(result, records.get(token.id).status));
     prune(sources());
     notify();
   }
   function read(impulse) {
-    if (closed || !eligible(impulse)) return null;
+    if (closed || !impulse) return null;
     const record = records.get(impulse.id);
+    if (suggestionCurrent(impulse, record)) return record.status;
+    if (!eligible(impulse)) return null;
     return record?.token.source === identity(impulse) ? record.status : UNKNOWN;
   }
   return Object.freeze({ begin, running, finish, read,

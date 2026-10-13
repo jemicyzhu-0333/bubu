@@ -116,6 +116,9 @@ function buildDayPlan({ routines, routineLog, dayKey, now, includeCarryover = tr
       const occurrenceId = buildOccurrenceId(routine.id, dayKey, timeOfDay);
       const entry = byOccurrence.get(occurrenceId) || null;
       if (entry) claimed.add(occurrenceId);
+      // The answer still closes its original slot, but belongs visually to the
+      // actual local day. It must not appear as another completion on this day.
+      if (answered(entry) && Number.isSafeInteger(entry.at) && localDayKey(entry.at) !== dayKey) continue;
       const scheduledAt = instantAt(dayKey, timeOfDay);
       const phase = phaseOf(scheduledAt, windowMs, now);
       occurrences.push({
@@ -145,7 +148,10 @@ function buildDayPlan({ routines, routineLog, dayKey, now, includeCarryover = tr
   // log: a stored answer the panel does not draw is the same failure as a tap
   // that stored nothing, seen from the other side.
   const titles = new Map(list.map(routine => [routine.id, routine]));
-  for (const entry of entries) {
+  const actualEntries = (routineLog?.days || []).flatMap(day => day.entries || [])
+    .filter(entry => entry && Number.isSafeInteger(entry.at) && localDayKey(entry.at) === dayKey
+      && (answered(entry) || entry.occurrenceId.startsWith(occurrenceIdPrefix(entry.routineId, dayKey))));
+  for (const entry of actualEntries) {
     if (!entry || !entry.occurrenceId || claimed.has(entry.occurrenceId)) continue;
     if (occurrences.some(item => item.occurrenceId === entry.occurrenceId)) continue;
     const routine = titles.get(entry.routineId) || null;
@@ -173,7 +179,9 @@ function buildDayPlan({ routines, routineLog, dayKey, now, includeCarryover = tr
 
   if (includeCarryover) {
     const previous = buildDayPlan({ routines, routineLog, dayKey: addDaysToKey(dayKey, -1), now, includeCarryover: false });
-    occurrences.push(...previous.occurrences.filter(item => item.scheduled && item.scheduledAt <= now && now <= item.windowEndsAt));
+    occurrences.push(...previous.occurrences.filter(item => item.scheduled && !item.answered
+      && item.scheduledAt <= now && now <= item.windowEndsAt
+      && !occurrences.some(existing => existing.occurrenceId === item.occurrenceId)));
   }
 
   occurrences.sort((left, right) => left.scheduledAt - right.scheduledAt

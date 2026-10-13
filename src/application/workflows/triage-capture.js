@@ -3,6 +3,7 @@
 // 随手记分拣（ARCHITECTURE「AI 与 LLM」）：闪念保存之后，在后台问一次模型“这是什么、该去哪儿”，
 // 把答案作为建议挂回这条闪念。建议本身不改任何别的数据——转任务、记日常、记状态都要本人
 // 在收件箱里点一下。置信度不够就不挂，界面上它就是一条普通闪念。
+const { captureEventTime } = require('../../core/capture-event-time');
 const work = require('../../capabilities/work');
 const { beginDiagnostic, observeDiagnostic, finishDiagnostic } = require('../ai/diagnostic-observation');
 const preferences = require('../../capabilities/preferences');
@@ -75,7 +76,9 @@ function createTriageCaptureWorkflow({
     if (transaction.committed) {
       runPostCommitEffect(publish, Object.freeze({ type: 'impulse-triaged', impulseId: fact.impulseId }), reportEffectError);
     }
-    return { ok: true, changed: Boolean(transaction.committed) };
+    const occurredAt = answered.triage.category === 'log' ? captureEventTime(impulse, answered.triage.eventTime, at) : null;
+    return { ok: true, changed: Boolean(transaction.committed),
+      ...(occurredAt !== null ? { occurredAt, triageAt: at, routineKind: answered.triage.routineKind } : {}) };
   }
 
   async function handleCaptured(fact) {

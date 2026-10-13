@@ -706,3 +706,10 @@
   body:is([data-motion="reduced"],[data-stimulation="low"]) *,body:is([data-motion="reduced"],[data-stimulation="low"]) *::before,body:is([data-motion="reduced"],[data-stimulation="low"]) *::after { animation: none !important; transition: none !important; }
 }
 
+
+@layer theme {
+  .event-time-mask { padding: 16px; }
+  .event-time-mask > .event-time-dialog { width: min(360px,100%); }
+  .event-time-dialog .modal-title { letter-spacing: 0; margin: 0; }
+  .event-time-dialog .modal-actions { gap: 8px; }
+}

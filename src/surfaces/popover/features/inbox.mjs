@@ -1,3 +1,4 @@
+import { parseEventTime, eventTimeAt, eventTimeValue } from './inbox-event-time.mjs';
 import { t, onLocaleChanged } from '../../shared/interface/i18n.mjs';
 import { CATEGORIES, classificationOf, effectiveClassification } from './inbox-triage.mjs';
 import { inboxCard, repaintInboxCard } from './inbox-card.mjs';
@@ -12,7 +13,9 @@ const ERRORS = {
   'title-required': '请为这件日常填写名称。',
   'routine-limit': '日常数量已满，可以先移除不再需要的日常。',
   'day-full': '这一天的记录已满，原文仍留在收件箱。',
+  'log-full': '可编辑记录已满，原文仍留在收件箱。',
   'capture-too-old-for-log': '这条记录已超过日常打卡的时间范围，可以选择“只留存”。',
+  'record-time-invalid': '发生时间无效，请重新选择。',
   'energy-level-required': '先选择当时的能量状态。',
   'newer-check-in-exists': '已有更新的状态记录；这条内容可以选择“只留存”。'
 };
@@ -21,7 +24,7 @@ const EDITORS = Object.freeze(['.inbox-category', '.inbox-kind', '.inbox-level',
 const KEEP_ALL_LIMIT = 100;
 const KEEP_ALL_CONFIRM_MS = 5000;
 
-function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceClient, openBreakdown, moodDeletion }) {
+function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceClient, openBreakdown, moodDeletion, timeDialog, now = () => Date.now() }) {
   // Drafts hold what a person picked on a card but has not committed: choosing a label
   // never writes by itself, so browsing a select with the arrow keys is harmless.
   const rows = new Map(), drafts = new Map(), cleanup = [];
@@ -88,6 +91,7 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
   function draw() {
     const state = getState();
     if (!state || disposed) return;
+    timeDialog?.refresh();
     $('#inboxStatus').setAttribute('aria-live', visible() ? 'polite' : 'off');
     $('#tabImpCount').textContent = (state.impulses || []).length;
     history.acceptCount(state.inboxHistoryTotal, state.inboxHistoryCountVersion);
@@ -156,7 +160,7 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
   }
   function loadHistory(append = false) { moodDeletion?.resetArming(); return history.load(append); }
   function renderList() { draw(); if (scope === 'history' && visible()) void loadHistory(); }
-  function hide() { closeOptions(); hidden = true; moodDeletion?.resetArming(); history.suspend(); draw(); }
+  function hide() { timeDialog?.close({ restore: false }); closeOptions(); hidden = true; moodDeletion?.resetArming(); history.suspend(); draw(); }
   function visibilityChanged() {
     hidden = Boolean(document.hidden);
     if (hidden) hide(); else renderList();
@@ -178,7 +182,7 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
     const payload = { id: item.id, action, ...(labelled ? { category: c.category, routineKind: c.routineKind, level: c.level } : {}) };
     if (!['routine', 'log'].includes(action)) return payload;
     const destination = row.querySelector('.inbox-routine')?.value || '';
-    return { ...payload, title: row.querySelector('.inbox-title')?.value.trim() || '',
+    return { ...payload, ...(action === 'log' ? { occurredAt: eventTimeAt(item, draft, eventTimeValue(item, draft)) } : {}), title: row.querySelector('.inbox-title')?.value.trim() || '',
       routineId: destination && destination !== 'new' ? destination : null, createNew: destination === 'new' };
   }
   async function send(item, action, row) {
@@ -195,6 +199,9 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
     const item = [...(getState()?.impulses || []), ...history.view().items].find(candidate => candidate.id === id);
     if (!item) return;
     if (['routine', 'log', 'state'].includes(action) && revealMissing(row)) return;
+    if (action === 'log' && parseEventTime(eventTimeValue(item, draftOf(id))) === null) {
+      editTime(item, row); return;
+    }
     busy = true; status(); draw();
     try {
       const result = await send(item, action, row);
@@ -230,7 +237,7 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
     const value = event.target.value;
     if (event.target.matches('.inbox-category')) {
       const stored = classificationOf((getState()?.impulses || []).find(item => item.id === id) || {});
-      if (value === stored.category) drafts.set(id, { title: draftOf(id).title });
+      if (value === stored.category) drafts.set(id, { title: draftOf(id).title, eventTime: draftOf(id).eventTime, eventTimeInstant: draftOf(id).eventTimeInstant });
       else patchDraft(id, { category: value, routineKind: null, level: null, routineId: undefined });
     } else if (event.target.matches('.inbox-kind')) patchDraft(id, { routineKind: value || null, routineId: undefined });
     else if (event.target.matches('.inbox-level')) patchDraft(id, { level: value ? Number(value) : null });
@@ -243,6 +250,32 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
       const options = row.querySelector('.inbox-options');
       if (options && options !== except) options.open = false;
     }
+  }
+  function editTime(item, row) {
+    if (busy || !timeDialog || effectiveClassification(item, draftOf(item.id)).category !== 'log') return;
+    const classification = effectiveClassification(item, draftOf(item.id));
+    const source = { createdAt: item.createdAt, text: item.text };
+    const isCurrent = () => {
+      const current = (getState()?.impulses || []).find(candidate => candidate.id === item.id);
+      return Boolean(!disposed && current && !current.resolution && current.createdAt === source.createdAt
+        && current.text === source.text && effectiveClassification(current, draftOf(item.id)).category === 'log'
+        && effectiveClassification(current, draftOf(item.id)).routineKind === classification.routineKind);
+    };
+    const draft = draftOf(item.id), value = eventTimeValue(item, draft);
+    timeDialog.open({ key: `inbox:${item.id}`, title: row.querySelector('.inbox-title')?.value || item.triage?.title || item.text,
+      value, precision: 'minute', originalAt: eventTimeAt(item, draft, value), isCurrent,
+      submit: async ({ at, value: chosen }) => {
+        if (!isCurrent()) return { ok: false, message: '这条记录已变化，关闭后重新编辑。', stale: true };
+        const currentAt = now(), earliest = new Date(currentAt);
+        earliest.setDate(earliest.getDate() - 1); earliest.setHours(0, 0, 0, 0);
+        if (at > currentAt) return { ok: false, message: '记录时间不能晚于现在。' };
+        if (at < earliest.getTime()) return { ok: false, message: '只能修改今天或昨天的记录时间。' };
+        patchDraft(item.id, { eventTime: chosen, eventTimeInstant: at }); status(); draw();
+        return { ok: true };
+      },
+      resolveReturnFocus: () => rows.get(item.id)?.row.querySelector('[data-inbox-action="edit-time"]')
+        || $('#inboxCategoryFilter')
+    });
   }
   function onClick(event) {
     const row = event.target.closest('[data-impulse-id]');
@@ -258,6 +291,11 @@ function createPopoverInboxFeature({ document, $, getState, escapeHTML, surfaceC
     }
     const action = event.target.closest('[data-inbox-action]')?.dataset.inboxAction;
     if (action) closeOptions();
+    if (action === 'edit-time') {
+      const item = (getState()?.impulses || []).find(candidate => candidate.id === row.dataset.impulseId);
+      if (item) editTime(item, row);
+      return;
+    }
     if (action === 'delete-mood-source') {
       if (busy || !moodDeletion) return;
       const item = findHistorySource(row.dataset.impulseId);

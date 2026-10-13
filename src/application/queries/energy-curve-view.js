@@ -12,7 +12,7 @@
 const { buildEnergyCurve, resolveBaselineParams } = require('../../core/energy-curve');
 const { energyCurveTrials } = require('../../capabilities/guidance');
 const { normalizeWakeTimes } = require('../../core/wellbeing');
-const { addDaysToKey, localDayStart } = require('../../core/calendar');
+const { addDaysToKey, localDayStart, localDayKey } = require('../../core/calendar');
 const { effectProfileForKind, defaultEnergyBaseline } = require('../../content/energy-effects.mjs');
 
 const MS_PER_MINUTE = 60 * 1000;
@@ -35,9 +35,10 @@ function collectEffects({ routines, routineLog, dayKey }) {
   const wanted = new Set([addDaysToKey(dayKey, -1), dayKey]);
   const effects = [];
   for (const day of (isPlainObject(routineLog) && Array.isArray(routineLog.days) ? routineLog.days : [])) {
-    if (!isPlainObject(day) || !wanted.has(day.dayKey)) continue;
+    if (!isPlainObject(day)) continue;
     for (const entry of (Array.isArray(day.entries) ? day.entries : [])) {
-      if (!isPlainObject(entry) || entry.status !== 'done' || !Number.isFinite(entry.at)) continue;
+      if (!isPlainObject(entry) || entry.status !== 'done' || !Number.isFinite(entry.at)
+          || !wanted.has(localDayKey(entry.at))) continue;
       const routine = definitions.get(entry.routineId);
       if (!routine) continue;
       // `custom` 的 effect 是 null(content 里就是 null):用户说了「这件事我要记录」,

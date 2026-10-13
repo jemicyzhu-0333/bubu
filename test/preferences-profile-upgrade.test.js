@@ -4,7 +4,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { DatabaseSync } = require('node:sqlite');
-const { fixture, ports, NOW } = require('../test-support/preferences-upgrade-fixture');
+const { fixture, ports, NOW, openHistorical19 } = require('../test-support/preferences-upgrade-fixture');
 const { encodePayload } = require('../src/platform/persistence/sqlite/config-authority-schema');
 const { createSqliteStateAdapter } = require('../src/platform/persistence/sqlite-state-adapter');
 const { inspectProfileUpgradeBackup } = require('../src/platform/persistence/sqlite/profile-upgrade-backup-container');
@@ -44,8 +44,9 @@ for (const live of [false, true]) test(`explicit branded18 upgrade preserves all
   if (live) assert.ok(files.some(row => row.relative_path === 'config.sqlite-wal'));
   assert.equal(fs.readFileSync(path.join(f.directory, 'credentials.enc')).toString(), 'SYNTHETIC-OPAQUE-ENCRYPTED-BYTES');
   assert.throws(() => upgrade.execute(upgrade.confirmation), /confirmation-required/);
-  assert.throws(() => f.prepare(), /source-invalid/);
-  const reopened = createSqliteStateAdapter({ userDataPath: f.directory, now: () => NOW });
+  assert.equal(f.prepare().sourceVersion, 19);
+  assert.throws(() => createSqliteStateAdapter({ userDataPath: f.directory }), /current-schema-required/);
+  const reopened = openHistorical19(f.directory);
   assert.deepEqual(reopened.snapshot(), expected); reopened.close();
   assert.equal(read(f.database, "SELECT * FROM config_evidence WHERE kind='payload-migration'").length, 1);
 });
@@ -148,7 +149,7 @@ test('backup limits reject oversized files, total bytes and excessive depth befo
     assert.equal(fs.existsSync(u.backupPath), false);
   }
 });
-test('ordinary fresh19 path remains current-only and a schema18 runtime rejects upgraded19', t => {
+test('ordinary fresh20 path remains current-only and a schema18 runtime rejects upgraded19', t => {
   const f = fixture(t), u = f.prepare(); u.execute(u.confirmation);
   const { createElectronStoreAdapter } = require('../src/platform/persistence/electron-store-adapter');
   const before = f.capture(); let normalizations = 0;
@@ -157,7 +158,7 @@ test('ordinary fresh19 path remains current-only and a schema18 runtime rejects 
   assert.equal(normalizations, 0); assert.deepEqual(f.capture(), before);
   const fresh = path.join(f.root, 'fresh');
   const r = createSqliteStateAdapter({ userDataPath: fresh, now: () => NOW });
-  assert.equal(r.snapshot().schemaVersion, 19); assert.equal(r.snapshot().settings.locale, 'system'); r.close();
+  assert.equal(r.snapshot().schemaVersion, 20); assert.equal(r.snapshot().settings.locale, 'system'); r.close();
 });
 test('missing tuple members and symlink profiles cannot receive an upgrade session', t => {
   for (const member of ['config.sqlite', 'config.sqlite.identity.sqlite']) {

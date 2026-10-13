@@ -1,5 +1,7 @@
 'use strict';
 
+const ROUTINE_CHECK_ICON = '<svg class="routine-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.6l4.4 4.4L19 7.4"/></svg>';
+
 const KIND_LABELS = Object.freeze({
   medication: { icon: '<span data-icon="capsule" data-icon-only aria-hidden="true"></span>', label: '吃药' },
   stimulant: { icon: '<span data-icon="cup" data-icon-only aria-hidden="true"></span>', label: '咖啡因' },
@@ -15,4 +17,4 @@ function routineSymbol(kind) {
   return KIND_LABELS[kind] || { icon: '<span data-icon="flag" data-icon-only aria-hidden="true"></span>', label: '日常' };
 }
 
-export { KIND_LABELS, routineSymbol };
+export { KIND_LABELS, routineSymbol, ROUTINE_CHECK_ICON };

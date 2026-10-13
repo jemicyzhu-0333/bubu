@@ -64,7 +64,7 @@ function extractProfileUpgradeBackup({ backupFile, destination, io = fs, platfor
       }
       checkOwned();
     }
-    return Object.freeze({ status: 'extracted', destination: target, sourceVersion: 18,
+    return Object.freeze({ status: 'extracted', destination: target, sourceVersion: checked.manifest.binding.sourceVersion,
       requiresOfflineReview: true, omittedRuntimeLocks: [...checked.manifest.omittedRuntimeLocks] });
   } finally { reader.close(); }
 }

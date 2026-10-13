@@ -89,7 +89,8 @@ const {
 // Schema 15 adds settings.activityMirrorEnabled (default false).
 // Schema 16 adds the guidance-owned atomic AI receipt and durable outbox ledger.
 // Schema18 is a fresh-profile foundation, never an implicit pre18 migration.
-const PERSISTED_SCHEMA_VERSION = 19;
+// Schema20 retains stable owner buckets under a global 120-entry bound.
+const PERSISTED_SCHEMA_VERSION = 20;
 // The schema at which tasks became orthogonal (tags / description / estimate
 // instead of one mutually exclusive `category`). The task-model migration is
 // keyed on *this* number rather than on "is not the current version": from
@@ -540,9 +541,21 @@ function assertCanonicalPersistedState(raw) {
   return raw;
 }
 
+// The sole intermediate historical target remains strictly schema19. Validate
+// its exact two-owner-bucket contract before checking all unchanged current fields.
+function assertCanonicalSchema19(raw) {
+  if (!isPlainObject(raw) || raw.schemaVersion !== 19) throw new TypeError('config-payload-schema19-required');
+  if (!isDeepStrictEqual(raw.routineLog, normalizeRoutineLog(raw.routineLog, { legacy: true }))) {
+    throw new TypeError('config-payload-not-canonical');
+  }
+  assertCanonicalPersistedState({ ...structuredClone(raw), schemaVersion: 20 });
+  return raw;
+}
+
 module.exports = {
   PERSISTED_SCHEMA_VERSION,
   assertCanonicalPersistedState,
+  assertCanonicalSchema19,
   ORTHOGONAL_TASK_MODEL_SCHEMA,
   ENERGY_LEVELS,
   ESTIMATE_SOURCES,

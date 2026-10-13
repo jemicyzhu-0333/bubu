@@ -11,7 +11,7 @@ const { prepareConfigPreferencesUpgrade } = require('../src/platform/persistence
 const { openSession, dialogStubExpression, responseExpression, interceptInstalledEntry, CONFIRM, REPORT } = require('../scripts/installed-upgrade-inspector');
 const { classifyStartupFailure } = require('../scripts/diagnose-windows-first-launch');
 function fixture(t) { const f = createUpgradeFixture(); t.after(() => fs.rmSync(f.root, { recursive: true, force: true })); return f; }
-test('retained-WAL BUBU18 fixture stays unchanged before consent and has a complete private verified backup', t => {
+test('retained-WAL BUBU19 fixture stays unchanged before consent and has a complete private verified backup', t => {
   const f = fixture(t); verifyUnchanged(f);
   const upgrade = prepareConfigPreferencesUpgrade({ userDataPath: f.userDataPath });
   verifyUnchanged(f);
@@ -35,7 +35,7 @@ function stubContext() {
   vm.runInContext(dialogStubExpression('/owned/profile'), context);
   return { e, context, run: expression => vm.runInContext(expression, context) };
 }
-const confirmation = { type: 'question', title: '小步 · bubu', message: CONFIRM, detail: '18 → 19 /owned/profile',
+const confirmation = { type: 'question', title: '小步 · bubu', message: CONFIRM, detail: '19 → 20 /owned/profile',
   buttons: ['退出 / Quit', '备份并升级 / Back up and upgrade'], defaultId: 0, cancelId: 0, noLink: true,
   checkboxLabel: '已了解需保留备份 / I understand the backup must be kept', checkboxChecked: false };
 const report = { type: 'info', title: '小步 · bubu', message: REPORT, buttons: ['确定 / OK'], defaultId: 0, cancelId: 0, noLink: true };

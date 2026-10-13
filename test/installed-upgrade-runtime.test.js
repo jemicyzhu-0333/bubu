@@ -20,7 +20,7 @@ test('known Electron additions preserve exact original seven files and remain in
   for (const name of names) write(f, name);
   const proof = verifyUnchanged(f);
   assert.equal(proof.originals.length, 7); assert.equal(proof.originalFilesUnchanged, true);
-  assert.equal(proof.authorityUnchanged, true); assert.equal(proof.schemaVersion, 18); assert.equal(proof.noBackupBeforeConsent, true);
+  assert.equal(proof.authorityUnchanged, true); assert.equal(proof.schemaVersion, 19); assert.equal(proof.noBackupBeforeConsent, true);
   assert.deepEqual(proof.additions.map(item => item.path).sort(), names.sort());
   assert.equal(JSON.stringify(proof).includes('synthetic runtime'), false);
   const upgrade = prepareConfigPreferencesUpgrade({ userDataPath: f.userDataPath }); upgrade.execute(upgrade.confirmation);
