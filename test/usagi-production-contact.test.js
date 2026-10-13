@@ -110,7 +110,7 @@ test('held-star geometry includes its authored points, stroke and miter joins', 
 });
 
 for (const id of ['catch-star', 'juggle']) {
-  test(`${id} clears resolved eye and mouth ink throughout its production flight`, t => {
+  test(`${id} clears resolved eye and mouth ink throughout its production flight`, async t => {
     const packagePath = process.env.USAGI_CANVAS_PACKAGE;
     if (!packagePath) return t.skip('Set USAGI_CANVAS_PACKAGE for real Canvas contact clearance');
     const { createCanvas, Path2D } = require(packagePath);
@@ -147,7 +147,9 @@ for (const id of ['catch-star', 'juggle']) {
         },
         set(context, key, value) { context[key] = value; return true; }
       });
-      for (const { progress, calmVisual } of samples) {
+      for (const [index, { progress, calmVisual }] of samples.entries()) {
+        // Native Canvas pixel buffers need event-loop turns to finish releasing.
+        if (index % 10 === 0) await new Promise(resolve => setImmediate(resolve));
         const face = actionFace(id, progress, view, calmVisual);
         const artwork = painter.resolve(rig, { action, motion: action.motion, view, progress, calmVisual, face });
         reset(faceContext); reset(propContext); drawn.clear();

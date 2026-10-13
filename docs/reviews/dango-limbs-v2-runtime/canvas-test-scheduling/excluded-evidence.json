@@ -1,0 +1,265 @@
+{
+  "reason": "Compact publication omits verbose logs, samples, temporary copies and working reports; scripts and selected compact metrics are included.",
+  "files": [
+    {
+      "path": "canvas-only-baseline-monitor.log",
+      "bytes": 1398,
+      "sha256": "3ba2afd295db1fdca8129387020be32d702055b3cdd350b4917c30d66e3f04bb"
+    },
+    {
+      "path": "default-full-rerun-monitor.log",
+      "bytes": 17087,
+      "sha256": "763d86f0836c171c0d7e0f565d283e127040987b113d62abb8e156f02601d493"
+    },
+    {
+      "path": "canvas-only-yield-monitor.log",
+      "bytes": 1393,
+      "sha256": "013a2b797a6c7d37b3569aa7b29cc5888c74aee160ee30614a4088975cfe3bb7"
+    },
+    {
+      "path": "monitor.py",
+      "bytes": 3035,
+      "sha256": "2516c2b04806175879870b446d1ebbbdcec2eb186da6567efb8c9f7f49124931"
+    },
+    {
+      "path": "canvas-only.cjs",
+      "bytes": 1459,
+      "sha256": "cbe255206294ddc74d3d4addcfabb40a04b536e31ed38d24c52c1f7100af6920"
+    },
+    {
+      "path": "instrument-tests.cjs",
+      "bytes": 2569,
+      "sha256": "f785fcd2e0307d3dc1e788ad49c6b69df43c4225977e56fa8de19a7a839cf5b7"
+    },
+    {
+      "path": "sip-isolated-yield/summary.json",
+      "bytes": 3246,
+      "sha256": "c3dcaa78246e4f4548645a266e8a0c358fef81538bcb0115aecc847f6dfd0939"
+    },
+    {
+      "path": "sip-isolated-yield/initial.json",
+      "bytes": 810,
+      "sha256": "60c240bc3f2067b9b63f9fa1b324566da5495ed1656aa61fb76b893739e29725"
+    },
+    {
+      "path": "sip-isolated-yield/native-98.jsonl",
+      "bytes": 5415,
+      "sha256": "5175b5572ebb53014a97bd39472e7691c9bcc3637245ee3f91d72e4dd382a87c"
+    },
+    {
+      "path": "sip-isolated-yield/samples.json",
+      "bytes": 7366,
+      "sha256": "040001a6f005140ba2bbcf271e1cd83c6c65175390fb17279476272e70400518"
+    },
+    {
+      "path": "sip-isolated-yield/monitor.log",
+      "bytes": 3216,
+      "sha256": "dbc06035a5f53a797b1fac337849101758d788e96406c0aab1390a884c96fe6e"
+    },
+    {
+      "path": "sip-isolated-yield/tap.log",
+      "bytes": 1180,
+      "sha256": "4bed692f259414c9f0ece0a9cfbf256651f46468c386d2931882e2d739573038"
+    },
+    {
+      "path": "usagi-isolated-baseline/summary.json",
+      "bytes": 3233,
+      "sha256": "7aae88f6c41083e522e08b1a0834812f1e61ca06b7111715061be8d520595013"
+    },
+    {
+      "path": "usagi-isolated-baseline/native-16.jsonl",
+      "bytes": 8582,
+      "sha256": "055b88e5e36746f1531eb2da924c580ab590c07dc2737f2b94d7461bd57e1aeb"
+    },
+    {
+      "path": "usagi-isolated-baseline/initial.json",
+      "bytes": 809,
+      "sha256": "48039ab572654c3b559d434a7fe460c927e1eed8ccdbe3226df09053f281d76a"
+    },
+    {
+      "path": "usagi-isolated-baseline/samples.json",
+      "bytes": 11977,
+      "sha256": "8a1c7e194d0aecdbfc693d08a34ee662d65b71f02b0367286380d7d351069ce0"
+    },
+    {
+      "path": "usagi-isolated-baseline/monitor.log",
+      "bytes": 3203,
+      "sha256": "80e447836e498a2be7f3260a242d620cd4483d49318007899a553d4f90eec687"
+    },
+    {
+      "path": "usagi-isolated-baseline/tap.log",
+      "bytes": 4459,
+      "sha256": "61179a36770cba79483ea815dff6be6d65e314aebb8599019396ff9927e391a8"
+    },
+    {
+      "path": "default-full/summary.json",
+      "bytes": 840851,
+      "sha256": "03466f1eade7fab4eb0397d02c35fd10408fd75ed0517cb44a7bd7c6490e4c27"
+    },
+    {
+      "path": "default-full/initial.json",
+      "bytes": 650,
+      "sha256": "e1a4018368b181b82e048be36a40c09c524d6576e6ccbdc26f5c7f9beec8ca5a"
+    },
+    {
+      "path": "default-full/samples.json",
+      "bytes": 234918,
+      "sha256": "773369d75b3d7c45dba4f69f6ab53a3c7209b3bfd25dab83df100d979a763ff1"
+    },
+    {
+      "path": "default-full/tap.log",
+      "bytes": 1384326,
+      "sha256": "8bb1a3515bc5dd2c1b533d980e8171e129413b91f6fb1f0c9eba9587939a75e5"
+    },
+    {
+      "path": "canvas-only-yield/summary.json",
+      "bytes": 1409,
+      "sha256": "de12067bac9189ede62fe5d39f41abaeb67430bb475419e74d35b0eab02a7913"
+    },
+    {
+      "path": "canvas-only-yield/initial.json",
+      "bytes": 701,
+      "sha256": "1e259411e64129dc061a8dbc536f07e2c37a0faac3f0609f4aaa23216075d7e3"
+    },
+    {
+      "path": "canvas-only-yield/samples.json",
+      "bytes": 3098,
+      "sha256": "46f7caefb9d6b5965f0983ed7f94e2ee55118870c8fb8dd8a7985bee26b9e72a"
+    },
+    {
+      "path": "canvas-only-yield/tap.log",
+      "bytes": 1235,
+      "sha256": "7b64a4addf1657ef84c0f0a3dbf3938f8c4a539e74bdb5de9a170def4ecd378a"
+    },
+    {
+      "path": "sip-isolated-baseline/native-68.jsonl",
+      "bytes": 5417,
+      "sha256": "f6df5760cc4342ebfa2744a96e8f34abf755b12c3962beca0268296ae55db5c8"
+    },
+    {
+      "path": "sip-isolated-baseline/summary.json",
+      "bytes": 3249,
+      "sha256": "7c568a7a10d3ff626b0debad1058c320a58f104721d5303526ffca7cc3a8ea02"
+    },
+    {
+      "path": "sip-isolated-baseline/initial.json",
+      "bytes": 810,
+      "sha256": "786de080517396447c808f5f5e6e95c07c9d81e3be7da608eddeacb04ecf8f29"
+    },
+    {
+      "path": "sip-isolated-baseline/samples.json",
+      "bytes": 9237,
+      "sha256": "381019d25a99f9860087a09c17621097a09bb520fb2523bf595a7eccbb072ad0"
+    },
+    {
+      "path": "sip-isolated-baseline/monitor.log",
+      "bytes": 3219,
+      "sha256": "71f5a8da4be0840bea6749c202141162e115ddb80aef6a5bd2a9ddcb5f35c714"
+    },
+    {
+      "path": "sip-isolated-baseline/tap.log",
+      "bytes": 1179,
+      "sha256": "b7f76c4091cc0bd62a542061535676de1b7f56c8db04bb1e7b2bacda2478da4c"
+    },
+    {
+      "path": "usagi-isolated-yield/summary.json",
+      "bytes": 3243,
+      "sha256": "aee837dd54afebc48c65db26fb150800135f1a1ebbeef951af83ce4b4b2ab543"
+    },
+    {
+      "path": "usagi-isolated-yield/native-42.jsonl",
+      "bytes": 8555,
+      "sha256": "212589e9dea69cd236c91f8ce0a84da167d3ff8b0f2229abafa24e7db2621110"
+    },
+    {
+      "path": "usagi-isolated-yield/initial.json",
+      "bytes": 809,
+      "sha256": "caed458cbe9f11aee910dc8252e50ba05019ec4e38ed88dc216241cbea920d0b"
+    },
+    {
+      "path": "usagi-isolated-yield/samples.json",
+      "bytes": 14522,
+      "sha256": "f7273b921a0f972a9e6798833816d85a8a8ac34b2378c5ef9290262714145360"
+    },
+    {
+      "path": "usagi-isolated-yield/monitor.log",
+      "bytes": 3213,
+      "sha256": "f062547a46a189a6c52071bf82e24d0349bfaa150e01b3b0b194251ba7d34515"
+    },
+    {
+      "path": "usagi-isolated-yield/tap.log",
+      "bytes": 4462,
+      "sha256": "31b7b74e68bc9664922c33198cc5561f0080159c3b611e265c8dc2a085a8be19"
+    },
+    {
+      "path": "delivery/manifest.json",
+      "bytes": 592,
+      "sha256": "dcbbf197688dee9000c094a9123640424b87bf7cb4b2e433b3448b36b247ce6b"
+    },
+    {
+      "path": "delivery/REPORT.md",
+      "bytes": 5668,
+      "sha256": "5239a803680ce6f4b8ed5b8aeeea25d409fb4b1c34a26cb4a22b77f6843c46ce"
+    },
+    {
+      "path": "delivery/native-buffer-yields.patch",
+      "bytes": 1924,
+      "sha256": "12fadcf86a5d28c7e8c0cceca31244725fb1c299092428e5030047f1a2b3f4ec"
+    },
+    {
+      "path": "delivery/measurements.json",
+      "bytes": 1847,
+      "sha256": "128dcb5ed5bf24cda7151466edbaaa75ef2b7e5899a2a12bede615dad311283e"
+    },
+    {
+      "path": "canvas-only-baseline/summary.json",
+      "bytes": 1414,
+      "sha256": "c02dd22ba1ec426f1608520c4395dee00b975ff35de41ae157bdf3f3abe4b2d0"
+    },
+    {
+      "path": "canvas-only-baseline/initial.json",
+      "bytes": 701,
+      "sha256": "2a0eb67ae7c9235f50a8a323d96f6f37716c962493b9b8a96a974c6b617fbf29"
+    },
+    {
+      "path": "canvas-only-baseline/samples.json",
+      "bytes": 3808,
+      "sha256": "0a9763ef8142d3e6ed258cd871ed25b763c95ecccb0e269f1fd0545c149b5ad1"
+    },
+    {
+      "path": "canvas-only-baseline/tap.log",
+      "bytes": 1242,
+      "sha256": "581133727ad34f95e35d67fa31f57ca42603a5c0d0c08c4400c465de9ec2250e"
+    },
+    {
+      "path": "default-full-rerun/summary.json",
+      "bytes": 840509,
+      "sha256": "f1d0af0dcda616216fcac315b556feee88befc4b84fe60e2ea60136fbd4bcdaf"
+    },
+    {
+      "path": "default-full-rerun/initial.json",
+      "bytes": 650,
+      "sha256": "6eef7d76eb8d6e7af107a966d97c6a50baea9a68d9c4bfe374a3bcf19c687db0"
+    },
+    {
+      "path": "default-full-rerun/samples.json",
+      "bytes": 239940,
+      "sha256": "e696a0b449d95c9b659083159bed06b15adc0a94ca6b1461cf8e219e8995e284"
+    },
+    {
+      "path": "default-full-rerun/tap.log",
+      "bytes": 1384413,
+      "sha256": "e8ccb917b682250ba3ad46cd2ff8a07d40ca89ea611292d66c1cc14f3d0f703c"
+    },
+    {
+      "path": "delivery/test/usagi-production-contact.test.js",
+      "bytes": 19950,
+      "sha256": "a186f55955dc7b3f2ef55fd89b67b0db762afa0bd432ed31d8d9b21cb77066dc"
+    },
+    {
+      "path": "delivery/test/dango-sip-source-runtime.test.mjs",
+      "bytes": 7242,
+      "sha256": "6cfb989287e332cc1ba1d5de9708596c290139b405d7eb1dd1397d0b2b8dece3"
+    }
+  ]
+}

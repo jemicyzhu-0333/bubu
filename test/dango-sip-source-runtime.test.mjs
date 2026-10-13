@@ -30,6 +30,8 @@ test('actual sip selector and standard painter equal independent four-layer sour
   try {
     let bodyKey = null;
     for (let i = 0; i <= 256; i++) {
+      // Release native comparison surfaces and pixel buffers between sample batches.
+      if (i % 10 === 0) await new Promise(resolve => setImmediate(resolve));
       const o = { action, motion: 'sip', view: 'front', progress: i / 256, elapsedMs: i / 256 * 9000, actionInstanceKey: 'all-phases' };
       const actual = a.resolveArtwork(o), original = b.resolveArtwork(o), cup = original.contact.tools[0];
       assert.equal(actual.sourceContactPose, 'sip-front-v2'); assert.equal(actual.limbPainter, null);

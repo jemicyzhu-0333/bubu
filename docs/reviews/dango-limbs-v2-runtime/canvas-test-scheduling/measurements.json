@@ -1,0 +1,66 @@
+[
+  {
+    "run": "default-full",
+    "exit": 0,
+    "seconds": 50.547,
+    "descendant_peak_mib": 6454.83,
+    "largest_process_peak_mib": 5828.36,
+    "largest_process": "test/usagi-production-contact.test.js"
+  },
+  {
+    "run": "default-full-rerun",
+    "exit": 0,
+    "seconds": 52.36,
+    "descendant_peak_mib": 6511.16,
+    "largest_process_peak_mib": 5815.82,
+    "largest_process": "test/usagi-production-contact.test.js"
+  },
+  {
+    "run": "usagi-isolated-baseline",
+    "exit": 0,
+    "seconds": 3.93,
+    "descendant_peak_mib": 5866.71,
+    "largest_process_peak_mib": 5827.84,
+    "largest_process": "test/usagi-production-contact.test.js"
+  },
+  {
+    "run": "usagi-isolated-yield",
+    "exit": 0,
+    "seconds": 4.747,
+    "descendant_peak_mib": 287.48,
+    "largest_process_peak_mib": 247.48,
+    "largest_process": "test/usagi-production-contact.test.js"
+  },
+  {
+    "run": "sip-isolated-baseline",
+    "exit": 0,
+    "seconds": 3.024,
+    "descendant_peak_mib": 963.56,
+    "largest_process_peak_mib": 924.06,
+    "largest_process": "test/dango-sip-source-runtime.test.mjs"
+  },
+  {
+    "run": "sip-isolated-yield",
+    "exit": 0,
+    "seconds": 2.425,
+    "descendant_peak_mib": 455.05,
+    "largest_process_peak_mib": 415.55,
+    "largest_process": "test/dango-sip-source-runtime.test.mjs"
+  },
+  {
+    "run": "canvas-only-baseline",
+    "exit": 0,
+    "seconds": 1.614,
+    "descendant_peak_mib": 5769.38,
+    "largest_process_peak_mib": 5769.38,
+    "largest_process": "/workspace/shared/bubu-limbs-runtime-v2-meta/parallel-test-diagnosis/canvas-only.cjs"
+  },
+  {
+    "run": "canvas-only-yield",
+    "exit": 0,
+    "seconds": 1.312,
+    "descendant_peak_mib": 225.66,
+    "largest_process_peak_mib": 225.66,
+    "largest_process": "/workspace/shared/bubu-limbs-runtime-v2-meta/parallel-test-diagnosis/canvas-only.cjs"
+  }
+]
