@@ -6,7 +6,18 @@ import argparse,hashlib,json,math
 ROOT=Path(__file__).resolve().parents[1]
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def read(p):return json.loads(p.read_text())
+def check_reviewed_references(value):
+ if isinstance(value,dict):
+  for key,item in value.items():
+   if key in ('derivedFromReviewedFrame','reviewedBaseFrame'):
+    assert isinstance(item,str) and '/' in item,('reviewed frame needs full package-relative path',item)
+    target=(ROOT/item).resolve();assert target.is_relative_to(ROOT.resolve()) and target.is_file(),('missing reviewed frame',item)
+   check_reviewed_references(item)
+ elif isinstance(value,list):
+  for item in value:check_reviewed_references(item)
+
 def main():
+ check_reviewed_references(read(ROOT/'limbs.json'));check_reviewed_references(read(ROOT/'sources/rebuild-recipe.json'))
  recipe=read(ROOT/'sources/rebuild-recipe.json');palette={tuple(c)for c in recipe['palette']};frames=recipe['frames'];assert len(frames)==240;seen=set();cache={}
  for f in frames:
   assert f['src']not in seen;seen.add(f['src']);im=Image.open(ROOT/f['src']).convert('RGBA');assert list(im.size)==f['size'];assert sha(ROOT/f['src'])==f['sha256'];pixels=list(im.get_flattened_data() if hasattr(im,'get_flattened_data') else im.getdata());assert {p[3]for p in pixels}<={0,255};visible={p[:3]for p in pixels if p[3]};kind=f['semantic']['kind'];assert visible<=({(255,255,255)}if kind=='socket-coverage'else palette)
