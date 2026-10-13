@@ -135,9 +135,13 @@ function resolveAccessories(options = {}) {
   const { manifest = ACCESSORY_MANIFEST, items = [], formId, view = 'front', action = null, phase = 0, reduced = false } = options;
   if (manifest !== ACCESSORY_MANIFEST || !items.length) return computePlan(options);
   const key = `${formId}|${view}|${action?.id || ''}|${action?.prop || ''}|${action?.duration || action?.durationMs || ''}|${Number(phase) || 0}|${reduced ? 1 : 0}|${items.map(i => i.id).join(',')}`;
+  // Two actions may share id/prop/duration yet declare different caps (an
+  // action object carrying its own motionCaps): the caps identity is part of
+  // the plan's identity.
+  const caps = motionCaps(action);
   let plan = planCache.get(key);
-  if (!plan || plan.items !== items) {
-    plan = { items, value: computePlan(options) };
+  if (!plan || plan.items !== items || plan.caps !== caps) {
+    plan = { items, caps, value: computePlan(options) };
     if (planCache.size > 16) planCache.delete(planCache.keys().next().value);
     planCache.set(key, plan);
   }
