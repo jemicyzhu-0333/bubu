@@ -16,7 +16,8 @@ import { createRasterPainter } from './raster/paint.mjs';
 import { sampleRasterPose } from './dango-raster-pose.mjs';
 import { regionClearance } from './motion-core/accessory-resolver.mjs';
 import { paintRasterPaws } from './dango-raster-paws.mjs';
-import { attachDangoLimbs } from './dango-limbs.mjs';
+import { createDangoLimbPainter } from './dango-limb-compose.mjs';
+import { browserSurface } from './raster/paint.mjs';
 import { drawRasterFace } from './dango-raster-face.mjs';
 import { createEyeApertureSampler } from './dango-eye-projection.mjs';
 const eyeState = ({ aperture, scale }) => ({ eyeAperture: aperture, eyeScale: scale });
@@ -58,12 +59,31 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
   // limbs v2: a limb source (createDangoLimbSource) or null. Until it is
   // `ready`, the legacy paw sprites draw unchanged.
   const limbSource = limbs || null;
+  const limbPainter = limbSource ? createDangoLimbPainter({ source: limbSource, createSurface: createSurface || browserSurface }) : null;
   const palette = skinId => PALETTES[skinId] || PALETTES.pink;
   const key = `dango-raster:${manifest.id}@${manifest.version}`;
   const toolSprites = Object.fromEntries(Object.entries(manifest.tools || {}).map(([id, sprite]) =>
     [id, { width: sprite.rect[2], height: sprite.rect[3], anchors: sprite.anchors }]));
   const defaultSprites = Object.values(manifest.views).flatMap(data => [data.neutral, ...essentials(data)]);
 
+  // A side switches to composed limbs for a whole action/view only when every
+  // sampled contact of that side is reachable: no legacy/composed flicker.
+  const limbGates = new Map();
+  function limbGate(data, view, side, options) {
+    const id = options.action?.id || options.motion; if (!id) return false;
+    const key = `${id}|${view}|${side}`;
+    if (!limbGates.has(key)) {
+      let ok = true;
+      for (let i = 0; ok && i < 16; i++) {
+        const p = (i + .5) / 16;
+        const sample = sampleRasterPose(data, { ...options, view, toolSprites, lookback: null, progress: p, elapsedMs: p * (options.action?.duration || 4000) });
+        const hand = sample.contact?.hands?.find(h => h.side === side);
+        if (hand && !limbPainter.plan(view, hand, options.action)) ok = false;
+      }
+      limbGates.set(key, ok);
+    }
+    return limbGates.get(key);
+  }
   function resolveView(requested, options = {}) {
     // Explicit approved left/right views are useful for static previews.
     // Runtime actions keep the semantic canonical view and renderer facing.
@@ -87,8 +107,12 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
       && view === 'three-quarter' && [undefined, 'three-quarter', 'profile'].includes(options.view)
       && reviewedRunOutfit ? runFootTiming : null;
     let pose = sampleRasterPose(data, { ...options, view, toolSprites, lookback, runFootTiming: footTiming });
-    const limbManifest = limbSource?.manifest() || null;
-    if (limbManifest && pose.contact?.hands?.length) attachDangoLimbs(pose.contact, data.anchors, { view, limbs: limbManifest });
+    // limbs v2 (per hand): a contract-composed arm+paw only when the fixed
+    // shoulder chain reaches the authored contact within maxContactError;
+    // every other hand keeps the legacy drawing. Props never move.
+    const limbsOn = limbSource?.state() === 'ready' && pose.contact?.hands?.length;
+    if (limbsOn) pose = { ...pose, contact: { ...pose.contact, hands: pose.contact.hands.map(hand =>
+      limbGate(data, view, hand.side, options) && limbPainter.plan(view, hand, options.action) ? { ...hand, limb: true } : hand) } };
     // Crown clearance (resolver): glance marks step past a worn head accent.
     const clear = !lookback && pose.contact?.details?.some(d => d.type === 'look-back') ? regionClearance({ formId: 'dango', items: outfitItems, view }) : null;
     if (clear) pose = { ...pose, contact: { ...pose.contact, details: pose.contact.details.map(d => d.type === 'look-back'
@@ -174,7 +198,7 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
       clip, clipStatus: clipSelection?.status || 'disabled', runFootTiming: footTiming, view, drawnView: resolved.key,
       ...eyeState(eyeAperture.sampleEyes(pose.face, { ...options, view, calmVisual: pose.calmVisual })),
       expressionId: options.expressionId, data, neutral: original.neutral, ...pose, lookback, footwearTransforms, attachmentMatrices: Object.freeze(attachmentMatrices),
-      hiddenParts, ready, layeredReady, wardrobe: wardrobeState, effectOrigins, limbSource: limbManifest ? limbSource : null,
+      hiddenParts, ready, layeredReady, wardrobe: wardrobeState, effectOrigins, limbPainter: limbsOn ? limbPainter : null,
       pawRootsCovered: outfitItems.some(item => ['scarf', 'cape', 'satchel'].includes(item.renderKey)),
       suppressedAppearanceSlots,
       pending: [...coreStates, ...states, ...toolStates, ...connectorStates, ...pawStates, ...detailStates, ...outfitStates, ...extraStates, ...accessoryStates].includes('loading'), running,

@@ -1,78 +1,86 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { validateDangoLimbManifest, createDangoLimbSource, paintDangoLimb } from '../src/capabilities/companion/presentation/dango-limb-assets.mjs';
-import { attachDangoLimbs } from '../src/capabilities/companion/presentation/dango-limbs.mjs';
-import { paintRasterPaws } from '../src/capabilities/companion/presentation/dango-raster-paws.mjs';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { validateDangoLimbManifest, createDangoLimbSource } from '../src/capabilities/companion/presentation/dango-limb-assets.mjs';
+import { solveLimb, composeLimb, createDangoLimbPainter, DANGO_LIMB_BOX as B } from '../src/capabilities/companion/presentation/dango-limb-compose.mjs';
+import { DANGO_LIMB_RIG } from '../src/content/companion/dango-limbs.mjs';
 
-const fr = (angle, src, extra = {}) => ({ angle, src, size: [12, 12], root: [2.5, 6.5], ...extra });
-const arm = s => Array.from({ length: 16 }, (_, i) => fr(i * 22.5, `arm/arm-${s}-l-a${String(i * 225 / 10).padStart(3, '0')}.png`, { tip: [6.5, 6.5] }));
-const VALID = {
-  schema: 'dango-limbs/1', version: 1, grid: { unitPx: 1, productionScale: 8, outline: 2 },
-  bones: { arm: { upper: 4, fore: 4 } },
-  sockets: { 'shoulder-l': { front: { src: 'socket/s.png', mask: 'socket/s-mask.png', size: [8, 8], root: [4.5, 4.5], bodyAnchor: 'shoulder-left' } } },
-  segments: { 'arm-upper-l': { frames: arm('upper') }, 'arm-fore-l': { frames: arm('fore') } },
-  paws: { grip: { views: { front: Array.from({ length: 8 }, (_, i) => fr(i * 45, `paw/g-${i}.png`, { size: [10, 10], grip: [6.5, 6.5] })) } } }
-};
-const img = src => ({ src, width: 12, height: 12 });
+const dir = new URL('../assets/companion/dango/raster/limbs/', import.meta.url);
+const read = rel => JSON.parse(fs.readFileSync(new URL(rel, dir)));
+const M = read('limbs.json'), J = read('joints/elbow.json'), I = read('interfaces/interfaces.json');
+const base = new URL('../assets/companion/dango/raster/', import.meta.url).href;
+const loadJson = async u => JSON.parse(fs.readFileSync(fileURLToPath(u)));
+// Pixel-free fake: every image is a 1x1 opaque dot (enough for lifecycle/solver).
+const loadImage = async src => ({ src, width: 1, height: 1 });
+const readPixels = () => ({ width: 1, height: 1, data: new Uint8ClampedArray([255, 0, 0, 255]) });
 
-test('validator accepts the brief schema and reports every concrete error', () => {
-  assert.deepEqual(validateDangoLimbManifest(VALID).errors, []);
-  const bad = structuredClone(VALID); bad.schema = 'x'; bad.segments['arm-upper-l'].frames[0].root = [99, 0];
-  bad.segments['arm-fore-l'].frames[1].angle = 0; delete bad.sockets['shoulder-l'].front.mask; bad.paws.grip.views.front[0].src = '../x.png';
-  const e = validateDangoLimbManifest(bad).errors.join('\n');
-  for (const m of [/schema/, /outside the sprite/, /duplicate angle/, /mask required/, /relative \.png/]) assert.match(e, m);
+test('the shipped v2 package validates with no errors', () => {
+  const v = validateDangoLimbManifest(M, { joints: J, interfaces: I });
+  assert.deepEqual(v.errors, []); assert.equal(v.runtimeReady, false);
 });
 
-const base = 'file:///x/raster/';
-test('lifecycle: absent -> legacy', async () => {
-  const s = createDangoLimbSource({ baseUrl: base, loadJson: async () => null, loadImage: img });
-  assert.equal(await s.start(), 'absent'); assert.equal(s.manifest(), null);
-});
-test('lifecycle: loader throws -> absent', async () => {
-  const s = createDangoLimbSource({ baseUrl: base, loadJson: async () => { throw Error('404'); }, loadImage: img });
-  assert.equal(await s.start(), 'absent');
-});
-test('lifecycle: invalid -> no manifest, errors exposed', async () => {
-  const s = createDangoLimbSource({ baseUrl: base, loadJson: async () => ({ schema: 'nope' }), loadImage: img });
-  assert.equal(await s.start(), 'invalid'); assert.ok(s.errors().length > 3);
-});
-test('lifecycle: one image fails -> failed, nothing half-ready', async () => {
-  const s = createDangoLimbSource({ baseUrl: base, loadJson: async () => VALID, loadImage: async u => { if (u.endsWith('g-3.png')) throw Error('decode'); return img(u); } });
-  assert.equal(await s.start(), 'failed'); assert.equal(s.manifest(), null); assert.equal(s.image('socket/s.png'), null);
-});
-test('lifecycle: ready resolves urls relative to limbs.json and is idempotent', async () => {
-  const seen = []; const s = createDangoLimbSource({ baseUrl: base, loadJson: async u => (seen.push(u), VALID), loadImage: async u => (seen.push(u), img(u)) });
-  assert.equal(await s.start(), 'ready'); await s.start();
-  assert.equal(seen[0], 'file:///x/raster/limbs/limbs.json'); assert.ok(seen.includes('file:///x/raster/limbs/socket/s.png'));
-  assert.equal(seen.filter(u => u.endsWith('limbs.json')).length, 1);
+test('validator reports concrete contract errors', () => {
+  const bad = structuredClone(M); bad.schema = 'x'; bad.sockets = bad.sockets.filter(s => !(s.view === 'front' && s.side === 'l'));
+  const e = validateDangoLimbManifest(bad, { joints: J, interfaces: I }).errors.join('\n');
+  assert.match(e, /schema/); assert.match(e, /front/);
 });
 
-function recorder() { const calls = []; return { calls, save() {}, restore() {}, translate() {}, scale() {}, transform() {}, set globalCompositeOperation(v) { calls.push(['op', v]); },
-  drawImage(i, x, y, w, h) { calls.push(['draw', i.src, x, y, w, h]); } }; }
-async function readyHand(side = 'left') {
-  const s = createDangoLimbSource({ baseUrl: base, loadJson: async () => VALID, loadImage: img }); await s.start();
-  const contact = { hands: [{ side, gripPoint: [30.3, 44.7], pawSprite: 'small-fin', pawMatrix: [1, 0, 0, 1, 0, 0] }] };
-  attachDangoLimbs(contact, { 'shoulder-left': { x: 7.4, y: 39.7 }, 'shoulder-right': { x: 62, y: 39.7 } }, { view: 'front', limbs: s.manifest() });
-  return { s, hand: contact.hands[0], contact };
-}
-test('painter: frames chosen by IK angle, integer pixels, socket mask erases first', async () => {
-  const { s, hand } = await readyHand(); const ctx = recorder();
-  assert.equal(paintDangoLimb(ctx, hand, s, { view: 'front' }), true);
-  assert.deepEqual(ctx.calls[0], ['op', 'destination-out']);
-  for (const c of ctx.calls.filter(c => c[0] === 'draw')) assert.ok(Number.isInteger(c[2]) && Number.isInteger(c[3]), c.join());
-  assert.equal(ctx.calls.filter(c => c[0] === 'draw').length, 5);
+test('lifecycle: absent / not-ready (runtimeReady=false) / ready only when the host accepts v2', async () => {
+  assert.equal(await createDangoLimbSource({ baseUrl: base, loadJson: async () => null, loadImage }).start(), 'absent');
+  const off = createDangoLimbSource({ baseUrl: base, loadJson, loadImage, readPixels });
+  assert.equal(await off.start(), 'not-ready'); assert.equal(off.manifest(), null);
+  const on = createDangoLimbSource({ baseUrl: base, loadJson, loadImage, readPixels, acceptContract: 2 });
+  assert.equal(await on.start(), 'ready'); assert.equal(on.manifest().version, 2);
 });
-test('painter: missing view or image -> false (legacy sprite draws)', async () => {
-  const { s, hand } = await readyHand();
-  assert.equal(paintDangoLimb(recorder(), hand, s, { view: 'back' }), false);
-  assert.equal(paintDangoLimb(recorder(), { ...hand, limb: null }, s), false);
+
+test('production host keeps the contract inactive until explicitly accepted', () => {
+  assert.equal(DANGO_LIMB_RIG.hostAcceptsContract, null);
 });
-test('paintRasterPaws: ready limbs replace the paw sprite; not ready keeps legacy', async () => {
-  const { s, contact } = await readyHand('right');
-  const painter = { paint: () => (legacy++, true) }; let legacy = 0;
-  const art = { layeredReady: true, actionReady: true, contact, view: 'front' };
-  paintRasterPaws(recorder(), { ...art, limbSource: s }, {}, { manifest: { tools: { 'small-fin': {} } }, painter });
-  assert.equal(legacy, 0);
-  paintRasterPaws(recorder(), { ...art, limbSource: null }, {}, { manifest: { tools: { 'small-fin': {} } }, painter });
-  assert.equal(legacy, 1);
+
+const ready = (async () => { const s = createDangoLimbSource({ baseUrl: base, loadJson, loadImage, readPixels, acceptContract: 2 }); await s.start(); return s; })();
+
+test('solver: fixed shoulder, allowed elbow pair, wrist = contact - (grip - root)', async () => {
+  const s = await ready, p = solveLimb(s, { view: 'front', side: 'left', target: [20, 52], pose: 'hold' });
+  assert.deepEqual(p.S, [4.5, 45.5]); assert.ok(p.joint.allowedByBendLimit);
+  assert.ok(p.error <= DANGO_LIMB_RIG.maxContactError);
+  const g = [p.paw.grip[0] - p.paw.root[0], p.paw.grip[1] - p.paw.root[1]];
+  assert.deepEqual(p.contact, [p.W[0] + g[0], p.W[1] + g[1]]);
+});
+
+test('runtime three-quarter reflects the three-quarter-left package about x=66', async () => {
+  const s = await ready, p = solveLimb(s, { view: 'three-quarter', side: 'left', target: [50, 50], pose: 'grip' });
+  assert.equal(p.view, 'three-quarter-left'); assert.equal(p.side, 'r'); assert.equal(p.reflectAxis, 66);
+  assert.equal(p.contactWorld[0], 66 - p.contact[0]);
+});
+
+test('painter gate: unreachable contacts and quarter far palms stay legacy', async () => {
+  const s = await ready, painter = createDangoLimbPainter({ source: s, createSurface: () => null });
+  assert.equal(painter.plan('front', { side: 'left', points: [[0, 0], [90, 90]] }, { prop: 'cup' }), null);
+  assert.ok(painter.plan('front', { side: 'left', points: [[0, 0], [20, 52]] }, { prop: 'cup' }));
+  // runtime right hand in three-quarter -> asset far (l) side -> behind body -> legacy.
+  const far = solveLimb(s, { view: 'three-quarter', side: 'right', target: [66 - 2.5, 40], pose: 'grip' });
+  assert.equal(far.side, 'l');
+  assert.equal(painter.plan('three-quarter', { side: 'right', points: [[0, 0], far.contactWorld] }, { prop: 'broom' }), null);
+});
+
+test('coverage: proximal upper-arm pixels survive only inside the body stencil', async () => {
+  const sock = M.sockets.find(x => x.view === 'front' && x.side === 'l');
+  const stencilOn = new Set();
+  const s = createDangoLimbSource({ baseUrl: base, loadJson, loadImage: async src => ({ src, width: 25, height: 25 }), acceptContract: 2,
+    readPixels: img => { const d = new Uint8ClampedArray(img.width * img.height * 4);
+      const stencil = img.src.endsWith(sock.coverageStencil);
+      for (let i = 0; i < img.width * img.height; i++) if (!stencil || (i % 25) >= 12) { d[i * 4 + 3] = 255; if (stencil) stencilOn.add(i); }
+      return { width: img.width, height: img.height, data: d }; } });
+  await s.start();
+  const p = solveLimb(s, { view: 'front', side: 'left', target: [20, 52], pose: 'hold' });
+  const c = composeLimb(s, { ...p, F: { ...p.F, src: '__none__' }, joint: { ...p.joint, mask: null } });
+  const dir = [p.E[0] - p.S[0], p.E[1] - p.S[1]], off = [Math.round(p.S[0] - sock.root[0]), Math.round(p.S[1] - sock.root[1])];
+  for (let y = 0; y < B.h; y++) for (let x = 0; x < B.w; x++) {
+    if (!c.arm.data[(y * B.w + x) * 4 + 3]) continue;
+    const wx = x + B.x, wy = y + B.y;
+    if ((wx + .5 - p.S[0]) * dir[0] + (wy + .5 - p.S[1]) * dir[1] > 0) continue;
+    const sx = wx - off[0], sy = wy - off[1];
+    assert.ok(sx >= 12 && sx < 25 && sy >= 0 && sy < 25, `proximal pixel ${wx},${wy} outside stencil`);
+  }
 });

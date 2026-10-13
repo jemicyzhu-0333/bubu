@@ -129,8 +129,13 @@ function drawRasterActions(context, options, { manifest, painter }) {
     if (!artwork.hiddenParts?.includes(key)) painted = withRasterGroundClip(context, artwork,
       () => painter.paint(context, data.parts[key], palette, matrices[key])) || painted;
   }
+  // limbs v2: arms (and quarter far palms) behind the body, palms in front.
+  if (artwork.limbPainter && (layer === 'back' || layer === 'front')) for (const hand of contact?.hands || []) {
+    if (hand.limb) painted = withRasterGroundClip(context, artwork, () => artwork.limbPainter.paint(context,
+      { view: artwork.view, hand, action, palette, layer })) || painted;
+  }
   if (layer === 'back') for (const hand of contact?.hands || []) {
-    if (!hand.integrated && hand.connector !== false && hand.attachedArm) {
+    if (!hand.limb && !hand.integrated && hand.connector !== false && hand.attachedArm) {
       painted = withRasterGroundClip(context, artwork, () =>
         paintConnector(context, data.parts.arm, [hand.points[0], hand.points[1]], palette, painter, true)) || painted;
     }
@@ -153,7 +158,7 @@ function drawRasterActions(context, options, { manifest, painter }) {
     const pose = contact?.hands.find(hand => hand.side === side);
     // The approved standing silhouette has no side paws. Only an authored
     // contact/gesture reveals them; idle and neutral portraits stay exact.
-    if (!pose || pose.pawSprite) continue;
+    if (!pose || pose.pawSprite || pose.limb) continue;
     const integrated = pose.integrated && Boolean(data.rootJoins);
     const targetLayer = integrated ? 'back' : pose?.layer || (artwork.view === 'back' ? 'back' : 'front');
     if (targetLayer !== layer || covered.has(side)) continue;

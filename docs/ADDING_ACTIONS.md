@@ -23,7 +23,7 @@
 - 新视角或新形态：在 `USAGI_LIMB_RIG.sockets` 增加插槽坐标（根骨空间），骨长保持不变。
 - **腿**（仅 usagi）：动作只摆脚（腿骨），不用管髋。腿顶被拉到髋下方时，`solveUsagiLegs` 会自动接回，地面线不变；`limbs:check` 会检查腿是否离开髋。注意：现有 44 个动作的腿都处于收起状态，这层 IK 目前没有在任何动作里触发过。
 - **减弱动效**（`calmVisual`）：肢体直接使用静态姿势，不做意图淡入淡出，也不做肘部速度滤波。
-- **Dango**（limbs v2，接线完成、**素材尚未交付**）：清单放在 `assets/companion/dango/raster/limbs/limbs.json`（`dango-limbs/1`，规格见出图说明），由 `dango-limb-assets.mjs` 加载并完整校验。只有状态为 `ready` 时（清单有效、所有图片加载成功）才按 IK 角度选最近一帧、按整像素位置绘制插槽、上臂、前臂和爪子；其余状态（`absent`、`invalid`、`failed`）一律退回旧的爪子贴图。当前范围：只覆盖带 `pawSprite` 的接触手，只画 front 层；右侧在没有 `-r` 帧时镜像左侧帧；腿和脚还没有接入。新增爪子姿势需要在 `paws` 下加 key，**并且**要让动作或接触数据选中这个 pose（目前固定为 `grip`），这一步还需要改代码。
+- **Dango**（limbs v2，素材已交付、**生产默认关闭**）：清单 `assets/companion/dango/raster/limbs/limbs.json`（`dango-limbs/1` v2，契约见同目录 `COMPOSITION.md`），由 `dango-limb-assets.mjs` 校验加载（含 `joints/elbow.json`、`interfaces/interfaces.json`），`dango-limb-compose.mjs` 按契约合成：固定肩点、6+6 骨长、只用 bend≤150° 的肘对、腕 = 接触点 −(grip−root)、肩部覆盖模板、肘部 mask/patch 修补、225 挥手接口；运行时 three-quarter 由 three-quarter-left 关于 x=66 镜像。逐动作/视角/侧做门控：该侧全部采样接触点误差 ≤ `maxContactError`（1.25）才启用，否则整段保持旧画法，不移动道具；四分之三视角的远侧手（在身后）一律保持旧画法。素材标注 `runtimeReady=false`，因此生产只在 `DANGO_LIMB_RIG.hostAcceptsContract` 设为 2 时启用（当前为 null）。爪子姿势由 `poseByProp`/`poseByMotion` 选择。腿和脚尚未接入（素材无步态数据）。可用 `node tools/dango-limbs-qa.mjs` 查看各动作可达率。
 
 ## 3. 配饰
 
