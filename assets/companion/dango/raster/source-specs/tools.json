@@ -2562,6 +2562,80 @@
         18,
         18.786632390745503
       ]
+    },
+    "hiccup-front-contact-left": {
+      "src": "action-contact/hiccup-front-v1/hiccup-front-left-continuous-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "hiccup-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": false,
+        "action": "hiccup",
+        "view": "front",
+        "side": "left",
+        "cup": {
+          "x": 22,
+          "y": 38,
+          "width": 22,
+          "height": 19
+        },
+        "boundary": [
+          23.25,
+          48.375
+        ],
+        "normal": [
+          1,
+          0
+        ],
+        "fixedShoulder": [
+          4.5,
+          45.5
+        ],
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9"
+      }
+    },
+    "hiccup-front-contact-right": {
+      "src": "action-contact/hiccup-front-v1/hiccup-front-right-continuous-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "hiccup-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": false,
+        "action": "hiccup",
+        "view": "front",
+        "side": "right",
+        "cup": {
+          "x": 22,
+          "y": 38,
+          "width": 22,
+          "height": 19
+        },
+        "boundary": [
+          44,
+          48.375
+        ],
+        "normal": [
+          -1,
+          0
+        ],
+        "fixedShoulder": [
+          61.5,
+          45.5
+        ],
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9"
+      }
     }
   },
   "version": 3

@@ -2,7 +2,7 @@
 const freeze = value => { if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); } return value; };
 const data = {
   "id": "dango-raster",
-  "version": 625691433,
+  "version": 514619786,
   "views": {
     "front": {
       "neutral": {
@@ -9611,6 +9611,80 @@ const data = {
         18,
         18.786632390745503
       ]
+    },
+    "hiccup-front-contact-left": {
+      "src": "action-contact/hiccup-front-v1/hiccup-front-left-continuous-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "hiccup-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": false,
+        "action": "hiccup",
+        "view": "front",
+        "side": "left",
+        "cup": {
+          "x": 22,
+          "y": 38,
+          "width": 22,
+          "height": 19
+        },
+        "boundary": [
+          23.25,
+          48.375
+        ],
+        "normal": [
+          1,
+          0
+        ],
+        "fixedShoulder": [
+          4.5,
+          45.5
+        ],
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9"
+      }
+    },
+    "hiccup-front-contact-right": {
+      "src": "action-contact/hiccup-front-v1/hiccup-front-right-continuous-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "hiccup-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": false,
+        "action": "hiccup",
+        "view": "front",
+        "side": "right",
+        "cup": {
+          "x": 22,
+          "y": 38,
+          "width": 22,
+          "height": 19
+        },
+        "boundary": [
+          44,
+          48.375
+        ],
+        "normal": [
+          -1,
+          0
+        ],
+        "fixedShoulder": [
+          61.5,
+          45.5
+        ],
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9"
+      }
     }
   },
   "effects": {
@@ -12894,8 +12968,10 @@ const data = {
       "wardrobe": 1,
       "scenes": 1
     },
-    "assetDigest": "254b4b293c210e09aba488622ee92440c9bc9944bbb9d9e6e216949fbb2202e5",
+    "assetDigest": "1eac798a6d164ac0682b312e1ebaff12861877590e8f2f3849cd90cbf2afe876",
     "assetHashes": {
+      "action-contact/hiccup-front-v1/hiccup-front-left-continuous-8x.png": "f02d8d5c23d96c93e7743422700db8e647ae04373fb095f5809a3093118fa488",
+      "action-contact/hiccup-front-v1/hiccup-front-right-continuous-8x.png": "edfb542822a7e9499df5d43d9c50b2155c496b62b51bf92369d6bda255fe7f8c",
       "effects/bat.png": "325fafc82f8e65c0809aba6a658a6a7fe85bf37fb7d245b20c18c15df657f0f2",
       "effects/bird.png": "4fa9bdd7e5bc74cdc3157cbfbef7a7bec970ee4d24dd19d33b8ea37fc8c3c0c3",
       "effects/bubble.png": "e0d37278dae0c88b88ea8d8bd4f586f0d51612d01c7df3902ef7a142eec57ebf",

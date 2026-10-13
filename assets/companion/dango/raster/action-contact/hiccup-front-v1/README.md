@@ -6,9 +6,9 @@ An action-specific source-pose package for integration verification. `frames.jso
 
 Two independent left/right layers, each logical66×72 at origin(0,0), plus exact nearest-neighbor8×528×576 exports and diagnostic pivots. Draw the preprojected pose once without another translation, scale, rotation or generic connector arm. Actual action opacity/occlusion and whole-character motion remain the host's responsibility.
 
-Cup registration is fixed at(22,38), rect(0,0,22,19). Source contact uses the real vessel boundary:
+Cup registration is fixed at(22,38), rect(0,0,22,19). Source contact records the actual shared-ink surface and outer-handle boundaries separately:
 
-- Left: boundary(23.25,48.375), normal(+1,0).
+- Left: shared ink-to-fill boundary(23.25,48.375), normal(+1,0). The actual cup alpha silhouette starts at x22.5 on this row; retained shared edge ink belongs to the palm, so these are not the same boundary.
 - Right: boundary(44,48.375), normal(−1,0).
 
 These are continuous boundary coordinates, not wrist roots or opaque pixel centers. At contact row48 the exported raster edge is left23 (gap0.25) and right44 (gap0). The right contact is the outer edge, not the old handle-axis grip42.5. No cup relocation/resize or silent axis conversion is permitted by this package.

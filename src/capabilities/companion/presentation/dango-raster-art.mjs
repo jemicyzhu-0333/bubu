@@ -16,6 +16,7 @@ import { createRasterPainter } from './raster/paint.mjs';
 import { sampleRasterPose } from './dango-raster-pose.mjs';
 import { regionClearance } from './motion-core/accessory-resolver.mjs';
 import { paintRasterPaws } from './dango-raster-paws.mjs';
+import { createSourceContactPoseSelector } from './dango-source-contact-pose.mjs';
 import { createDangoLimbPainter } from './dango-limb-compose.mjs';
 import { browserSurface } from './raster/paint.mjs';
 import { drawRasterFace } from './dango-raster-face.mjs';
@@ -51,6 +52,7 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
   if (![null, 'forward-recovery'].includes(runFootTiming)) throw new TypeError('unknown run foot timing');
   const source = createRasterSource({ ...sourceOptions, baseUrl: manifest.baseUrl, versionKey: `${manifest.id}@${manifest.version}`, loadImage });
   const painter = createRasterPainter({ ...painterOptions, source, createSurface });
+  const sourceContactPose = createSourceContactPoseSelector({ manifest, source });
   const roots = createRasterRootPainter({ painter });
   const eyeAperture = createEyeApertureSampler();
   const tailRoot = createRasterTailRootPainter({ manifest, painter });
@@ -122,6 +124,7 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
     const limbsOn = limbSource?.state() === 'ready' && pose.contact?.hands?.length;
     if (limbsOn) pose = { ...pose, contact: { ...pose.contact, hands: pose.contact.hands.map(hand =>
       limbGate(data, view, hand.side, options) && limbPainter.plan(view, hand, options.action) ? { ...hand, limb: true } : hand) } };
+    pose = sourceContactPose.apply(pose, view, options);
     // Crown clearance (resolver): glance marks step past a worn head accent.
     const clear = !lookback && pose.contact?.details?.some(d => d.type === 'look-back') ? regionClearance({ formId: 'dango', items: outfitItems, view }) : null;
     if (clear) pose = { ...pose, contact: { ...pose.contact, details: pose.contact.details.map(d => d.type === 'look-back'
@@ -316,7 +319,7 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
     ready({ all = false } = {}) { return Promise.all([source.ready(all ? collectRasterSprites(manifest) : defaultSprites), runSample?.ready(), limbSource?.start()]); },
     limbStatus() { return limbSource ? { state: limbSource.state(), errors: limbSource.errors() } : { state: 'disabled', errors: [] }; },
     cacheStats() { return Object.freeze({ source: source.stats(), palette: painter.stats(), roots: roots.stats(), tailRoot: tailRoot.stats(), runSample: runSample?.stats() || null, limbs: limbPainter?.stats() || null }); },
-    dispose() { limbGates.clear(); limbPainter?.dispose(); eyeAperture.dispose(); source.dispose(); painter.dispose(); roots.dispose(); tailRoot.dispose(); runSample?.dispose(); }
+    dispose() { sourceContactPose.dispose(); limbGates.clear(); limbPainter?.dispose(); eyeAperture.dispose(); source.dispose(); painter.dispose(); roots.dispose(); tailRoot.dispose(); runSample?.dispose(); }
   });
 }
 

@@ -28,6 +28,15 @@ function poseFor(action) {
 // Only observed surface roles receive a normal. Free gestures retain authored axes.
 function contactContract(hand, action) {
   if (hand.integrated) return null;
+  const authored = hand.sourceContact;
+  if (authored?.kind === 'continuous-hold' && authored.sourcePoseId === 'hiccup-front-v1'
+    && action?.id === 'hiccup' && [authored.target, authored.boundaryNormal].every(p =>
+      Array.isArray(p) && p.length === 2 && p.every(Number.isFinite))) {
+    return { target: authored.target, pose: 'hold', role: 'continuous-hold', normal: authored.boundaryNormal,
+      normalTolerance: 0, pass: 'front', sourcePoseId: authored.sourcePoseId,
+      legacyHandleAxisSatisfied: authored.legacyHandleAxisSatisfied,
+      opacity: Math.max(0, Math.min(1, hand.opacity ?? 1)) };
+  }
   const target = hand.gripPoint || hand.points?.at(-1); if (!target) return null;
   let pose = poseFor(action), role = 'free', normal = null;
   if (action?.prop === 'document') {

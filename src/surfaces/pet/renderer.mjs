@@ -358,6 +358,9 @@ function drawPet() {
     channel: runtimeState.renderChannel || 'pet', state: runtimeState.state,
     view, motion: actionConfig ? motion : 'idle', face: facePose, calmVisual, dnd: runtimeState.dnd, appearance,
     progress: actionT, elapsedMs: runtimeState.animNow, action: actionConfig, expressionId: exprId,
+    // Fixed calm phases still need a fresh all-or-none asset readiness window.
+    actionInstanceKey: runtimeState.devPreview ? `preview:${runtimeState.devPreviewStartedAt}`
+      : runtimeState.currentEgg ? `action:${runtimeState.actionStartedAt}` : null,
     expressionElapsedMs: runtimeState.animNow - runtimeState.exprStartAnimNow, accent: expressionAccent
   });
 
