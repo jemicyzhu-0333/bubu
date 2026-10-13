@@ -78,3 +78,70 @@ for (const fail of [false, true]) test(`dynamic import of the actual Electron en
   assert.match(result.stdout, /CONTROL_MAIN_INVOKED/);
   assert.equal(result.stdout.includes('CONTROL_FAILURE_HANDLED'), fail);
 });
+
+// Real production createPetViewport behind synthetic native/screen ports (no
+// Electron, no fake move events): `nudge(phase, n, bounds)` may shift the native
+// frame the way macOS does, without going through our setters.
+function productionFixture(nudge = () => {}) {
+  const { EventEmitter } = require('node:events');
+  const { createPetViewport } = require('../src/platform/electron/windows/pet-viewport');
+  const anchor = { x: 1600, y: 800, width: 220, height: 220 };
+  const calls = [];
+  let cursor = { x: 1610, y: 810 }, reads = 0, yields = 0;
+  const host = createPetViewport({ bounds: anchor, interval: () => 1, cancelInterval: () => {}, screen: {
+    getDisplayNearestPoint: () => ({ workArea: { x: 0, y: 0, width: 1920, height: 1080 } }), getCursorScreenPoint: () => cursor } });
+  let bounds = { ...host.initialBounds };
+  const native = new EventEmitter();
+  native.webContents = new EventEmitter(); native.webContents.send = () => {}; native.isDestroyed = () => false;
+  native.getBounds = () => { nudge('read', ++reads, bounds); return { ...bounds }; };
+  for (const name of ['setIgnoreMouseEvents', 'setBounds', 'setPosition']) native[name] = (...args) => calls.push({ name, args });
+  host.attach(native);
+  return { host, native, calls, setCursor: next => { cursor = next; }, yieldTurn: async () => { nudge('yield', ++yields, bounds); } };
+}
+
+test('probe accepts one small OS nudge during the yield and reports the sample as invalidated', async () => {
+  const result = await verifyRounds(productionFixture((phase, n, b) => { if (phase === 'yield' && n === 1) b.y += 3; }));
+  assert.equal(result.nativeGeometryWrites, 0); assert.equal(result.geometryFreshAtCapture, true);
+  assert.equal(result.invalidatedSamples, 1); assert.equal(result.freshSamples, 59);
+  assert.deepEqual(result.osNudges, [{ round: 0, open: true, phase: 'yield', dx: 0, dy: 3 }]);
+  assert.deepEqual(result.maxOsDisplacement, { x: 0, y: 3 });
+});
+
+test('probe accepts a small OS nudge before geometry capture as a fresh sample', async () => {
+  const result = await verifyRounds(productionFixture((phase, n, b) => { if (phase === 'read' && n === 2) b.y += 3; }));
+  assert.equal(result.invalidatedSamples, 0); assert.equal(result.osNudges.length, 1);
+});
+
+test('probe rejects a nudge that moves the logical anchor outside the native window', async () => {
+  await assert.rejects(verifyRounds(productionFixture((phase, n, b) => { if (phase === 'read' && n === 2) b.y += 4000; })),
+    /logical-anchor-outside-native-window/);
+  await assert.rejects(verifyRounds(productionFixture((phase, n, b) => { if (phase === 'yield' && n === 3) b.y += 4000; })),
+    /logical-anchor-outside-native-window/);
+});
+
+test('probe rejects a contained OS displacement beyond the bounded nudge limit', async () => {
+  await assert.rejects(verifyRounds(productionFixture((phase, n, b) => { if (phase === 'yield' && n === 1) b.x -= 60; })),
+    /os-nudge-exceeds-bound/);
+});
+
+test('probe rejects repeated OS drift even when each step is small', async () => {
+  await assert.rejects(verifyRounds(productionFixture((phase, n, b) => { if (phase === 'yield') b.y += 1; })),
+    /os-nudge-repeated/);
+});
+
+test('probe rejects geometry that is stale relative to the same-turn native frame', async () => {
+  const ports = fixture();
+  const real = ports.host.setMenuOpen;
+  let first = true;
+  ports.host.setMenuOpen = open => {
+    const geometry = real(open);
+    if (first) { first = false; const b = ports.native.getBounds(); ports.native._setBounds({ ...b, y: b.y + 3 }); }
+    return geometry;
+  };
+  await assert.rejects(verifyRounds(ports), /geometry-stale-at-capture/);
+});
+
+test('probe still rejects backing-store resize during the yield', async () => {
+  await assert.rejects(verifyRounds(productionFixture((phase, n, b) => { if (phase === 'yield' && n === 2) b.height += 1; })),
+    /native-backing-store-resized/);
+});
