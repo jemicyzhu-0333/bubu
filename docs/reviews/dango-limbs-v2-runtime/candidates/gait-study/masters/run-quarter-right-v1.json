@@ -1,0 +1,32 @@
+{
+  "tool": "official image_gen.imagegen",
+  "master": "masters/run-quarter-right-v1.png",
+  "sha256": "d5d36e9127ca58e38844dd682171ed9742c005f97860a18781b6396f0ff9d983",
+  "dimensions": [
+    1774,
+    887
+  ],
+  "mode": "RGBA",
+  "prompt": "masters/run-quarter-right-v1-prompt.txt",
+  "promptSha256": "8455974c1cf02d82e8ec1d5434e310389d45912d36010200546c823a33586fb0",
+  "referencesInAttachmentOrder": [
+    {
+      "order": 1,
+      "path": "canonical-package/sources/masters/full-character-v2.png",
+      "sha256": "9e77a9c2a455c3a7c9cc145bb8b0f458ede80bd367e4eb89539c6abddc8b6fdd"
+    },
+    {
+      "order": 2,
+      "path": "gait-production/references/canonical-quarter-right-step.png",
+      "sha256": "792557d2358bd48cd514481c1a644eedbe41d063fe261ed9c61d5dbccfddedd4"
+    },
+    {
+      "order": 3,
+      "path": "canonical-package/sources/masters/foot-actions-v1.png",
+      "sha256": "6c8338d2fce66e31962133b5ab90520e8b0699ad376bffe8e42de2f7177f5d83"
+    }
+  ],
+  "seed": null,
+  "modelVersion": null,
+  "status": "rejected as complete gait"
+}
