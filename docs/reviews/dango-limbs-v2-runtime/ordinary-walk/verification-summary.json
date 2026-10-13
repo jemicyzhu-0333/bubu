@@ -1,0 +1,185 @@
+{
+  "scope": "opt-in ordinary right-view naked walking; production disabled",
+  "runtimeReady": false,
+  "host": null,
+  "tests": {
+    "source": 8,
+    "artist": 10,
+    "passed": 18,
+    "failed": 0,
+    "skipped": 0,
+    "aggregate": {
+      "command": "DANGO_CANVAS_PACKAGE=@napi-rs/canvas USAGI_CANVAS_PACKAGE=@napi-rs/canvas npm run check",
+      "exitCode": 0,
+      "tests": 5997,
+      "pass": 5987,
+      "fail": 0,
+      "skipped": 10,
+      "integration": {
+        "tests": 71,
+        "pass": 71,
+        "fail": 0,
+        "skipped": 0
+      },
+      "limbTrace": {
+        "targetViews": 224,
+        "failures": 0
+      },
+      "limbPixels": {
+        "actions": 10,
+        "outlineGapFailures": 0
+      },
+      "otherGates": "syntax, boundaries, architecture, icons, raster, wardrobe, app-icons passed",
+      "nativeCI": "Not established for resulting commit; Bobo exact-head run requested"
+    }
+  },
+  "actualRenderer": "production form-art cached pipeline with test-only dependency injection; offscreen Skia",
+  "video": {
+    "frames": 288,
+    "fps": 40,
+    "durationSeconds": 7.2,
+    "bytes": 488540
+  },
+  "contact": {
+    "renderer": "same standard artist.action back pass, per-foot isolated actual native raster pixels",
+    "groundArt": 64,
+    "rows": [
+      {
+        "dpr": 1,
+        "plantedAdjacentFramesChecked": 192,
+        "plantedPixelsExact": true,
+        "minSupportBottomDeviceY": 155,
+        "maxSupportBottomDeviceY": 155,
+        "bottomDriftDevicePixels": 0,
+        "bodyCacheKeys": 1
+      },
+      {
+        "dpr": 1.25,
+        "plantedAdjacentFramesChecked": 192,
+        "plantedPixelsExact": true,
+        "minSupportBottomDeviceY": 195,
+        "maxSupportBottomDeviceY": 195,
+        "bottomDriftDevicePixels": 0,
+        "bodyCacheKeys": 1
+      },
+      {
+        "dpr": 1.5,
+        "plantedAdjacentFramesChecked": 192,
+        "plantedPixelsExact": true,
+        "minSupportBottomDeviceY": 234,
+        "maxSupportBottomDeviceY": 234,
+        "bottomDriftDevicePixels": 0,
+        "bodyCacheKeys": 1
+      },
+      {
+        "dpr": 2,
+        "plantedAdjacentFramesChecked": 192,
+        "plantedPixelsExact": true,
+        "minSupportBottomDeviceY": 311,
+        "maxSupportBottomDeviceY": 311,
+        "bottomDriftDevicePixels": 0,
+        "bodyCacheKeys": 1
+      }
+    ]
+  },
+  "endpoint": {
+    "dpr": 2,
+    "progress": 1,
+    "changedAlphaChannels": 4,
+    "changedRgbChannels": 6,
+    "maxAlphaDifference": 7,
+    "maxRgbDifference": 2,
+    "nonzeroAlphaMaskChangedPixels": 0,
+    "halfAlphaMaskChangedPixels": 0,
+    "silhouetteBinaryTopologyUnchanged": true,
+    "bounds": [
+      [
+        185,
+        120,
+        397,
+        311
+      ],
+      [
+        185,
+        120,
+        397,
+        311
+      ]
+    ],
+    "changed": [
+      {
+        "x": 214,
+        "y": 155,
+        "channel": 2,
+        "walk": 34,
+        "idle": 32
+      },
+      {
+        "x": 214,
+        "y": 155,
+        "channel": 3,
+        "walk": 209,
+        "idle": 205
+      },
+      {
+        "x": 214,
+        "y": 156,
+        "channel": 0,
+        "walk": 7,
+        "idle": 8
+      },
+      {
+        "x": 214,
+        "y": 156,
+        "channel": 1,
+        "walk": 2,
+        "idle": 3
+      },
+      {
+        "x": 214,
+        "y": 156,
+        "channel": 3,
+        "walk": 205,
+        "idle": 200
+      },
+      {
+        "x": 214,
+        "y": 161,
+        "channel": 0,
+        "walk": 6,
+        "idle": 7
+      },
+      {
+        "x": 214,
+        "y": 161,
+        "channel": 3,
+        "walk": 200,
+        "idle": 195
+      },
+      {
+        "x": 214,
+        "y": 162,
+        "channel": 0,
+        "walk": 8,
+        "idle": 7
+      },
+      {
+        "x": 214,
+        "y": 162,
+        "channel": 2,
+        "walk": 22,
+        "idle": 23
+      },
+      {
+        "x": 214,
+        "y": 162,
+        "channel": 3,
+        "walk": 198,
+        "idle": 191
+      }
+    ],
+    "interpretation": "Four antialiased boundary pixels have slightly different alpha coverage; alpha is NOT byte-exact. Entire nonzero and half-alpha masks are identical, so binary contours, components, holes and occupied bounds are unchanged. Native float32 final origin differs 1 ULP. This is separate from the missing real host world trajectory/handoff."
+  },
+  "nativeAcceptance": false,
+  "mainOpenIntegration": "The real host does not yet supply world trajectory, episode, origin or final world handoff. Its independent walking bob and interruption policy require scoped host integration."
+}

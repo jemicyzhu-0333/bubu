@@ -1,0 +1,113 @@
+{
+  "schema": "dango-original-foot-walk-sources/1",
+  "runtimeReady": false,
+  "host": null,
+  "view": "three-quarter-right",
+  "worldReflectionAxis": 66,
+  "sourceRole": "Standalone painter provenance only: reflected left-view study. The standard artist adapter reuses the native right-view manifest sources listed separately; it does not use this standalone foot or mirror the body.",
+  "sources": [
+    {
+      "path": "assets/companion/dango/raster/limbs/paw/paw-rest-l-three-quarter-left-a180.png",
+      "sha256": "9a1fc1f28fc9a05500e7a9d4204984a5ab11b149142940d5d158b5a491672f7e",
+      "role": "unchanged rest hands"
+    },
+    {
+      "path": "assets/companion/dango/raster/views/three-quarter-left/body.png",
+      "sha256": "ca30ce808882ed118ccc100372cc54bf4153481c368166613f6b8af14c70d826",
+      "role": "body"
+    },
+    {
+      "path": "assets/companion/dango/raster/views/three-quarter-left/ear-left.png",
+      "sha256": "9d16c3a20a79dff65a271c2dcc56bba0dc30544beade44bb033d887e3df40c62",
+      "role": "body"
+    },
+    {
+      "path": "assets/companion/dango/raster/views/three-quarter-left/ear-right.png",
+      "sha256": "a59855f94a8b227bdc16f0322b195de96b2cae19168733cf3b3f010a0c61301d",
+      "role": "body"
+    },
+    {
+      "path": "assets/companion/dango/raster/views/three-quarter-left/eye-left-neutral.png",
+      "sha256": "3ab0e85b128ab47ef7db642120e007ced8965298904e88aa40baba3bc9ecaf75",
+      "role": "eye"
+    },
+    {
+      "path": "assets/companion/dango/raster/views/three-quarter-left/eye-right-neutral.png",
+      "sha256": "6eec932e632f49f824560091e55a49b653cea624f7f2216b7e95d4f52399a008",
+      "role": "eye"
+    },
+    {
+      "path": "assets/companion/dango/raster/views/three-quarter-left/mouth-neutral.png",
+      "sha256": "0c0fda2b976ea12bf3df59af19140051ac5ad740ce58bb867b5924b1c1fca7a3",
+      "role": "body"
+    },
+    {
+      "path": "assets/companion/dango/raster/limbs/foot/foot-stand-l-three-quarter-left.png",
+      "sha256": "ed1dc92bdeb868389b60ca996a48a4cc35cde141b7fc7858eac8e3525d09a73f",
+      "role": "standalone painter foot only; not the standard artist adapter foot"
+    }
+  ],
+  "bodyRect": [
+    -3.430769,
+    8.533333,
+    73.025641,
+    49.066667
+  ],
+  "bodySourceReferenceOnly": false,
+  "packagingNote": "Existing packaged raster/views/three-quarter-left body, ears, eyes and mouth are exact-hash matches to the canonical reference. Reuse them without duplicating body assets. render-reference.json is audit-only coordinate provenance; the host uses its public DANGO_RASTER rect/anchors.",
+  "auditReference": [
+    {
+      "path": "assets/companion/dango/raster/limbs/sources/canonical/render-reference.json",
+      "sha256": "4e2d1bdb8822d939475668fae783c29d57c7a5111c2460dac96b3af86fb06fbb",
+      "role": "canonical layer coordinates and identities"
+    }
+  ],
+  "packagedBodyHashVerified": true,
+  "standardArtistSources": {
+    "view": "three-quarter-right",
+    "reflected": false,
+    "sourcePixelsChanged": false,
+    "assets": [
+      {
+        "path": "assets/companion/dango/raster/views/three-quarter-right/body.png",
+        "sha256": "8d76b379f2d0e2816e19dc2ef9b5efdfe8d64567a4c866e84471cf8fbe44f450",
+        "bytes": 96449
+      },
+      {
+        "path": "assets/companion/dango/raster/views/three-quarter-right/ear-left.png",
+        "sha256": "9de18c9fc96a658a8fd05177d4a5ebd152ab4207aa16540907a9d95fe49b10a1",
+        "bytes": 11392
+      },
+      {
+        "path": "assets/companion/dango/raster/views/three-quarter-right/ear-right.png",
+        "sha256": "129782a98aa3d17301e8fda0071003b19367e57fdcd8c8207bb86688a6b668d1",
+        "bytes": 11390
+      },
+      {
+        "path": "assets/companion/dango/raster/views/three-quarter-right/foot-left.png",
+        "sha256": "c2f0a5d625c995170609698357e782f82a8ed96f51f84a72d867e2bb2fa9d45c",
+        "bytes": 10432
+      },
+      {
+        "path": "assets/companion/dango/raster/views/three-quarter-right/foot-right.png",
+        "sha256": "c3563a4940b3ec9d7975c3aae1bcc26e95849e3dfd6503b9fbbf395a2d1278d9",
+        "bytes": 9507
+      },
+      {
+        "path": "assets/companion/dango/raster/views/three-quarter-right/eye-left-neutral.png",
+        "sha256": "c0dfd8be3914da37dbb52d6d45c72dff06d56622304ca6afc97c54294502b926",
+        "bytes": 6456
+      },
+      {
+        "path": "assets/companion/dango/raster/views/three-quarter-right/eye-right-neutral.png",
+        "sha256": "e78c47fff990b713908c30cff333d5fdfb5a865c60aca3776700ed718497ab00",
+        "bytes": 5363
+      },
+      {
+        "path": "assets/companion/dango/raster/views/three-quarter-right/mouth-neutral.png",
+        "sha256": "2ba3165d3ae96796f94d79a5e426d711548852f09d3b576b3f8750352a261acc",
+        "bytes": 1024
+      }
+    ]
+  }
+}

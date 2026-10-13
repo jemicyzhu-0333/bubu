@@ -1,0 +1,146 @@
+{
+  "renderer": "actual form-art.mjs with only test-time artist-import dependency injection; @napi-rs/canvas",
+  "formArtSha256": "e813583406df9214e7f645062ebfa0f0005948028bed67730075458590196cfe",
+  "runtimeReady": false,
+  "host": null,
+  "nativeAccepted": false,
+  "browserAccepted": false,
+  "frames": 288,
+  "fps": 40,
+  "seconds": 7.2,
+  "bodyDesignCssWidth": 99,
+  "stageCssWidth": 219,
+  "footGroundArt": 64,
+  "endpointAudit": [
+    {
+      "dpr": 1,
+      "p": 0,
+      "idlePixelExact": true,
+      "changedChannels": 0,
+      "maxChannelDifference": 0
+    },
+    {
+      "dpr": 1,
+      "p": 1,
+      "idlePixelExact": true,
+      "changedChannels": 0,
+      "maxChannelDifference": 0
+    },
+    {
+      "dpr": 1.25,
+      "p": 0,
+      "idlePixelExact": true,
+      "changedChannels": 0,
+      "maxChannelDifference": 0
+    },
+    {
+      "dpr": 1.25,
+      "p": 1,
+      "idlePixelExact": true,
+      "changedChannels": 0,
+      "maxChannelDifference": 0
+    },
+    {
+      "dpr": 1.5,
+      "p": 0,
+      "idlePixelExact": true,
+      "changedChannels": 0,
+      "maxChannelDifference": 0
+    },
+    {
+      "dpr": 1.5,
+      "p": 1,
+      "idlePixelExact": true,
+      "changedChannels": 0,
+      "maxChannelDifference": 0
+    },
+    {
+      "dpr": 2,
+      "p": 0,
+      "idlePixelExact": true,
+      "changedChannels": 0,
+      "maxChannelDifference": 0
+    },
+    {
+      "dpr": 2,
+      "p": 1,
+      "idlePixelExact": false,
+      "changedChannels": 10,
+      "maxChannelDifference": 7
+    }
+  ],
+  "bodyCacheEntries": 4,
+  "beforeStats": {
+    "source": {
+      "entries": 73,
+      "bytes": 7922076,
+      "revision": 73,
+      "disposed": false,
+      "loading": 0,
+      "failed": 0
+    },
+    "palette": {
+      "entries": 0,
+      "bytes": 0
+    },
+    "roots": {
+      "contours": 0,
+      "surfaces": 0,
+      "bytes": 0
+    },
+    "tailRoot": {
+      "contours": 0,
+      "surfaces": 0,
+      "bytes": 0
+    },
+    "runSample": null,
+    "limbs": null,
+    "walk": {
+      "channels": 1,
+      "maxChannels": 16,
+      "runtimeReady": false,
+      "host": null,
+      "disposed": false
+    }
+  },
+  "afterStats": {
+    "source": {
+      "entries": 0,
+      "bytes": 0,
+      "revision": 73,
+      "disposed": true,
+      "loading": 0,
+      "failed": 0
+    },
+    "palette": {
+      "entries": 0,
+      "bytes": 0
+    },
+    "roots": {
+      "contours": 0,
+      "surfaces": 0,
+      "bytes": 0
+    },
+    "tailRoot": {
+      "contours": 0,
+      "surfaces": 0,
+      "bytes": 0
+    },
+    "runSample": null,
+    "limbs": null,
+    "walk": {
+      "channels": 0,
+      "maxChannels": 16,
+      "runtimeReady": false,
+      "host": null,
+      "disposed": true
+    }
+  },
+  "limitations": [
+    "DPR2 endpoint p1 differs by one float32 device-transform ULP when idle offX+world is collapsed into one translate: 10 RGBA channels, max7/255; no rounding or threshold relaxation applied",
+    "Native walking does not supply world trajectory, episode or final world handoff",
+    "Removing preview at p=1 without a matching host origin resets to original host world position",
+    "Unsupported views, outfits, actions and unavailable resources keep complete legacy path",
+    "Cached and direct pixel resampling can differ; their actual body/foot transforms are tested separately"
+  ]
+}

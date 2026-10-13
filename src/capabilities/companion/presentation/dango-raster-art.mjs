@@ -5,6 +5,7 @@ import { actionBodyPose } from './motion-core/body-poses.mjs';
 import { bodyFloor } from './motion-core/form-anchors.mjs';
 import { motionCaps } from './motion-core/action-capabilities.mjs';
 
+import { createDangoWalkArtistAdapter } from './gait/dango-walk-artist.mjs';
 import { createDangoRunSample } from './clips/dango-run-sample.mjs';
 import { PALETTES } from '../../../core/pet-art.mjs';
 import petActionArt from '../../../core/pet-action-art.mjs';
@@ -47,7 +48,7 @@ function essentials(data) {
     ...(data.face?.eyes?.neutral || []), ...(data.face?.eyes?.closed || []), data.face?.mouth?.neutral].filter(Boolean);
 }
 
-function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOptions = {}, painterOptions = {}, runClip = null, runFootTiming = null, limbs = null } = {}) {
+function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOptions = {}, painterOptions = {}, runClip = null, runFootTiming = null, limbs = null, walkPreview = null } = {}) {
   validateRasterManifest(manifest);
   if (![null, 'forward-recovery'].includes(runFootTiming)) throw new TypeError('unknown run foot timing');
   const source = createRasterSource({ ...sourceOptions, baseUrl: manifest.baseUrl, versionKey: `${manifest.id}@${manifest.version}`, loadImage });
@@ -302,7 +303,7 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
       [1, 0, 0, 1, 0, calmVisual ? 0 : Math.sin(elapsedMs / 2200 * Math.PI * 2) * .8]);
     return true;
   }
-  return Object.freeze({ resolveArtwork, resolveView, palette, body, face, action, clipBody: withRasterGroundClip,
+  const artist = Object.freeze({ resolveArtwork, resolveView, palette, body, face, action, clipBody: withRasterGroundClip,
     bodyForeground: (context, colors, artwork) => {
       if (artwork?.clip) return false;
       const tail = tailRoot.paint(context, artwork, colors);
@@ -321,6 +322,7 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
     cacheStats() { return Object.freeze({ source: source.stats(), palette: painter.stats(), roots: roots.stats(), tailRoot: tailRoot.stats(), runSample: runSample?.stats() || null, limbs: limbPainter?.stats() || null }); },
     dispose() { sourceContactPose.dispose(); limbGates.clear(); limbPainter?.dispose(); eyeAperture.dispose(); source.dispose(); painter.dispose(); roots.dispose(); tailRoot.dispose(); runSample?.dispose(); }
   });
+  return walkPreview ? createDangoWalkArtistAdapter({ ...walkPreview, manifest, source }).wrap(artist) : artist;
 }
 
 export { createDangoRasterArtist };

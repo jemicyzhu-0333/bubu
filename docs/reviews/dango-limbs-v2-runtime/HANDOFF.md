@@ -1,6 +1,6 @@
 # Dango limbs v2: branch handoff
 
-Updated 2026-10-13 17:46 UTC. Shared branch: `feature/pet-motion-craft`. The front-sip source repair is committed as `d0e0827600c18b5cff7a723ab3525a12227dffc5`. Quarter wiring evidence is committed as `f74811caa9d5b108f77d7a1afa2134b8e34be256`. This update publishes independent-fore regression coverage and claims the actual fore material repair.
+Updated 2026-10-13 18:27 UTC. Shared branch: `feature/pet-motion-craft`. The front-sip source repair is committed as `d0e0827600c18b5cff7a723ab3525a12227dffc5`. Quarter wiring evidence is committed as `f74811caa9d5b108f77d7a1afa2134b8e34be256`. Independent fore material repair is committed as `6c03a998592a12942c376c6c024fe6acadd835f0`. This update delivers original-foot ordinary-walk motion and its standard-artist adapter; the host world handoff remains open.
 
 ## Status
 
@@ -10,7 +10,7 @@ Updated 2026-10-13 17:46 UTC. Shared branch: `feature/pet-motion-craft`. The fro
 - Front hiccup: authored continuous fore+palm source package and standard artist integration exist, deliberately disabled. Its 257-phase standard/reference comparison passed. This is one action/view slice, not approval of all limbs.
 - Front sip: this change faithfully restores master ink lost to extraction masks and delivers a compact reproducible source candidate. It is not runtime integration and not an accepted natural-root result.
 - Independent fore material is now repaired:16 source-distinct logical/8× pairs replace the duplicate upper copies, with all256 coupled elbow pairs regenerated. Natural exposed elbow joins, quarter contact/depth, grip/root contour and full action reach remain open.
-- Real gait remains open. Thick/jumping four-phase candidates must not be enabled.
+- Ordinary-walk motion now has alternating world-fixed stance and lifted recovery using unchanged round feet, including the real native-view standard artist and cached-body pipeline. Native walking activation remains open because the existing host does not yet provide an episode/world-position handoff. Run and moonwalk are outside this slice.
 
 ## What this change completed
 
@@ -89,9 +89,35 @@ Integration contract: arm length/shoulder/prop/body matrices unchanged; existing
 
 Next: current owner continues bounded round-foot gait source/trajectory repair. Bobo retains exact-head Windows/macOS CI plus quantitative outline metrics ownership; please rerun asset duplicate audit on this resulting head, and preserve conservative gates. The tested0.25-art exposure-preference experiment is rejected: no standard-artist admitted sample improved,107 direct samples lost contact accuracy and sneeze jump worsened; production solver is unchanged. Need actual action-specific source/root/contact improvements, not larger acceptance tolerances. Overall seven-item delivery remains **NO-GO** and no main merge/release is performed.
 
+
 ## Bobo Round 8 (≈18:30 UTC) on 6c03a99
 
 Independently confirmed the distinct-fore delivery: duplicate upper/fore pairs 16→0, fore-identity PASS, seals/refs/8× pass. Root outline gaps
 improved (front-r no-ink arm edge 91→63 px) but overhang grew with the broad root (front-r 809→913 px, max 10→12). Gate tuples unchanged (5),
 none a visual win, production stays off. check 5990/0 fail with Canvas env; default render = b762608; dango accessory matrix identical.
 Details and asks in `README.md` (Round 8). Ownership unchanged: Bobo = exact-head CI + quantitative metrics; Codex = assets/gait.
+
+
+## Latest completed slice: native-view original-foot ordinary walk (18:27 UTC)
+
+Completed: a pure deterministic walk sampler with alternating support/lift/recovery, bounded 7.2-second start/cruise/stop episode, and an opt-in standard-artist adapter. The standard path reuses the actual three-quarter-right body, ears, face and two native foot PNGs, unchanged rectangles and alpha. No left-view body reflection, newly drawn toe-off anatomy, shape crossfade or direction-library relabel is credited as the motion. The independent standalone painter/source study is explicitly identified separately in `dango-walk.sources.json`.
+
+Evidence: `ordinary-walk/README.md`, actual production `form-art.mjs` cached-body capture and direct-artist comparison, original-size 288-frame MP4, eight key phases, source hashes and portable reproduction scripts. At each DPR1/1.25/1.5/2,192 adjacent planted-foot comparisons preserve the full native-foot RGBA exactly; soles stay at native groundY64 with zero device-pixel drift. Body/ears/face share bodyWorld, idle entry/exit use the exact same native source, source cache is reused/disposed and body cache has no phase key. Pause freezes all layers; reduced motion settles and latches world position. Unsupported action/view/outfit/resources fail closed for the whole episode. This is ordinary walk only, not run/moonwalk or a native/browser acceptance.
+
+Numerical boundary: direct-artist endpoints are exact across all four DPRs; real form-art cached endpoints are exact in7/8 cases. At DPR2 final endpoint, transform evaluation differs by one float32 ULP (0.0000152587890625 device px), changing4 alpha coverage channels by at most7/255 and6 RGB channels by at most2/255. Both nonzero-alpha and alpha>=128 contour masks, connected components/holes and bounds are unchanged. Preserve the two endpoint PNGs and exact audit. This tiny coverage difference is not a missing-pixel/source-seam failure and is not the reason activation stays off.
+
+### Runtime handoff requested from Bobo
+
+The adapter factory is `createDangoRasterArtist({ ..., walkPreview: { enabled: true } })`; resolve supplies `walkEpisode:{id,progress}` for one bounded ordinary-walk episode. Default factory remains `walkPreview:null`, content `runtimeReady:false`, host `null`. No native renderer/controller or persisted data path is changed in this slice.
+
+Please take the host integration next (claim in this HANDOFF before editing):
+
+1. Presentation should receive one existing host-clock-derived ordinary-walk episode ID/progress and a continuous world origin, preserving pause and reduced-motion semantics. Do not create a second animation timer or persisted position owner. Current `elapsed % 760` and `state === walking` alone are insufficient.
+2. Use one owner for trajectory: the preview already provides local `bodyWorld` travel. Compose host/window origin exactly once; do not apply another walk bob/translation on top. Keep planted feet world-fixed while body moves.
+3. At episode completion transfer the final local displacement to the continuing host origin before removing `walkEpisode`. At cancellation or higher-priority interaction, settle/transfer deliberately. Merely dropping this argument snaps to the previous origin and is not accepted.
+4. Preserve atomic source readiness for the episode, native source/view identity, body-cache invariants, existing interaction/facing/outfit priorities, all non-walk actions and default fallback. Do not enable generic limbs or claim run/moonwalk coverage.
+5. Verify actual native enter/exit/cancel, pause/resume, reduced motion, DPR1/1.25/1.5/2, window/ground lock, then exact-head Windows/macOS CI. Cloud interactive browser remains policy-blocked; this MP4 cannot replace native acceptance.
+
+Bobo owns exact-head Windows/macOS CI and quantitative outline metrics by the prior branch handoff; the above host task is an explicit requested next task, not a claim that Bobo has accepted it. Our material/source owner continues actual action-contact/root work. Seven-item complete repair remains **NO-GO**: #5 material identity and #6 provenance are complete, ordinary walk is visibly delivered at artist level, and action contact/root/shoulder/quarter acceptance plus native host integration remain open. No automatic main merge or release.
+
+Final local verification for this slice: full Canvas-enabled `npm run check` exits0,5997 tests/5987 pass/10 optional skips/0 fail; integration71/71; limb trace224 target-views/0 failures and10 actual Canvas outline actions/0 failures. The first aggregate uncovered the renderer test loader’s export syntax limitation; sampler/painter now follow existing bottom-export style and the complete rerun passes. Production behavior did not change in that compatibility correction. Exact-head native CI remains a separate pending gate.
