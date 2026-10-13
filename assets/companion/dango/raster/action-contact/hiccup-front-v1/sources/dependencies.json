@@ -1,0 +1,32 @@
+{
+  "rasterRootDefault": "Two parent directories above this package; override --raster-root when moved",
+  "body": {
+    "src": "limbs/sources/canonical/views/front/body.png",
+    "rect": [
+      -1.789744,
+      8.533333,
+      69.415385,
+      49.066667
+    ],
+    "tint": "body",
+    "sha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9"
+  },
+  "approvedIdentity": {
+    "src": "limbs/sources/masters/full-character-v2.png",
+    "sha256": "9e77a9c2a455c3a7c9cc145bb8b0f458ede80bd367e4eb89539c6abddc8b6fdd"
+  },
+  "generationReferences": [
+    {
+      "order": 1,
+      "originalPath": "review-references/asymmetric-hiccup-actual-body-8x.png",
+      "packagePath": "sources/references/asymmetric-hiccup-actual-body-8x.png",
+      "sha256": "30fefd64eb549b04367200f8fafe9ee622f57552ab5b113e3850f8848ad27792"
+    },
+    {
+      "order": 2,
+      "originalPath": "canonical-package/sources/masters/full-character-v2.png",
+      "rasterRootPath": "limbs/sources/masters/full-character-v2.png",
+      "sha256": "9e77a9c2a455c3a7c9cc145bb8b0f458ede80bd367e4eb89539c6abddc8b6fdd"
+    }
+  ]
+}

@@ -1,0 +1,237 @@
+{
+  "action": "hiccup",
+  "frames": [
+    {
+      "anatomicalShoulder": [
+        4.5,
+        45.5
+      ],
+      "bounds": [
+        12,
+        43,
+        23,
+        53
+      ],
+      "candidateOnly": true,
+      "hiddenContinuation": {
+        "coverageStatus": "requires actual canonical positive-width body coverage; no internal pixels synthesized",
+        "from": [
+          4.5,
+          45.5
+        ],
+        "length": 7.86703378072804,
+        "measuredFullWidth": 7.593585117022279,
+        "to": [
+          12.346255896017698,
+          46.07139209070797
+        ]
+      },
+      "inverseSamplingMatrix": [
+        [
+          9.767287179924162,
+          0,
+          -118.08942693323678
+        ],
+        [
+          0,
+          9.767287179924162,
+          -412.99251732883135
+        ]
+      ],
+      "normal": [
+        1,
+        0
+      ],
+      "observedContactBoundary": [
+        23.25,
+        48.375
+      ],
+      "oldHandleAxisSatisfied": null,
+      "origin": [
+        0,
+        0
+      ],
+      "ownership": "Left palm owns shared vessel-edge ink through x547 at row800.",
+      "pivot": "hiccup-front-left-continuous.pivot.png",
+      "productionSrc": "hiccup-front-left-continuous-8x.png",
+      "scaleArtPerSourcePixel": 0.10238257374631268,
+      "sha256": "c797d13912a7b7eb32dbe8b422382095b75858baf7d14acf4e858a53f84f9561",
+      "side": "left",
+      "size": [
+        66,
+        72
+      ],
+      "source": "sources/extraction/left-source-rgba.png",
+      "sourceBodyWidth": 678,
+      "sourceContactBoundary": [
+        548.0,
+        800.5
+      ],
+      "sourceMasterSha256": "c9eeb81908d4f1350053f67e90dd7477898b8b72958b832ca8928353cf29ff94",
+      "sourceObservedForeContour": true,
+      "sourceOpenCut": [
+        [
+          444,
+          741
+        ],
+        [
+          439,
+          815
+        ]
+      ],
+      "sourceSha256": "0a03ad3524ac818de03a5ba1384ea9202c3a2eebaf2ae0e4dd4697edd22580cc",
+      "sourceToWorldMatrix": [
+        [
+          0.10238257374631268,
+          0,
+          -32.85565041297935
+        ],
+        [
+          0,
+          0.10238257374631268,
+          -33.5822502839233
+        ]
+      ],
+      "src": "hiccup-front-left-continuous.png",
+      "visibleProximalCutCenter": [
+        12.346255896017698,
+        46.07139209070797
+      ],
+      "worldOpenCut": [
+        [
+          12.60221233038348,
+          42.2832368620944
+        ],
+        [
+          12.090299461651918,
+          49.859547319321535
+        ]
+      ]
+    },
+    {
+      "anatomicalShoulder": [
+        61.5,
+        45.5
+      ],
+      "bounds": [
+        44,
+        43,
+        55,
+        54
+      ],
+      "candidateOnly": true,
+      "hiddenContinuation": {
+        "coverageStatus": "requires actual canonical positive-width body coverage; no internal pixels synthesized",
+        "from": [
+          61.5,
+          45.5
+        ],
+        "length": 7.233155571837507,
+        "measuredFullWidth": 7.58253386850013,
+        "to": [
+          54.28944866150442,
+          46.07139209070797
+        ]
+      },
+      "inverseSamplingMatrix": [
+        [
+          9.767287179924162,
+          0,
+          -429.76063591666315
+        ],
+        [
+          0,
+          9.767287179924162,
+          -412.99251732883135
+        ]
+      ],
+      "normal": [
+        -1,
+        0
+      ],
+      "observedContactBoundary": [
+        44.0,
+        48.375
+      ],
+      "oldHandleAxisSatisfied": false,
+      "origin": [
+        0,
+        0
+      ],
+      "ownership": "Right cup owns shaft ink x706..713; palm begins x714. Axis reference709.5 is not palm contact.",
+      "pivot": "hiccup-front-right-continuous.pivot.png",
+      "productionSrc": "hiccup-front-right-continuous-8x.png",
+      "scaleArtPerSourcePixel": 0.10238257374631268,
+      "sha256": "92ae23614a06341ab80d2ea281cf2f909f725e932781f77e358a9438ba442a68",
+      "side": "right",
+      "size": [
+        66,
+        72
+      ],
+      "source": "sources/extraction/right-source-rgba.png",
+      "sourceBodyWidth": 678,
+      "sourceContactBoundary": [
+        714.0,
+        800.5
+      ],
+      "sourceMasterSha256": "c9eeb81908d4f1350053f67e90dd7477898b8b72958b832ca8928353cf29ff94",
+      "sourceObservedForeContour": true,
+      "sourceOpenCut": [
+        [
+          813,
+          741
+        ],
+        [
+          816,
+          815
+        ]
+      ],
+      "sourceSha256": "1b90f92ddd74062102ff06b7fc02cf5f6bcedd40207edb86afc9fd6237fee5b9",
+      "sourceToWorldMatrix": [
+        [
+          0.10238257374631268,
+          0,
+          -29.10115765486725
+        ],
+        [
+          0,
+          0.10238257374631268,
+          -33.5822502839233
+        ]
+      ],
+      "src": "hiccup-front-right-continuous.png",
+      "visibleProximalCutCenter": [
+        54.28944866150442,
+        46.07139209070797
+      ],
+      "worldOpenCut": [
+        [
+          54.135874800884956,
+          42.2832368620944
+        ],
+        [
+          54.4430225221239,
+          49.859547319321535
+        ]
+      ]
+    }
+  ],
+  "packageId": "hiccup-front-v1",
+  "pixelPolicy": "Original geometric source crop, source-alpha>=240, nearest existing four-color palette, one isotropic body scale, offline inverse sample; no runtime rotation/stretch, no contour edits.",
+  "runtimeReady": false,
+  "schema": "dango-source-contact-pose-candidate/1",
+  "sourceExtractionStatus": "reviewed-source-extraction-only; canonical composition and fixed shoulder acceptance outstanding",
+  "sourceKind": "continuous observed forearm+palm action-specific source-pose",
+  "toolRegistration": {
+    "key": "cup",
+    "rect": [
+      0,
+      0,
+      22,
+      19
+    ],
+    "x": 22,
+    "y": 38
+  },
+  "view": "front"
+}

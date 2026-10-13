@@ -1,0 +1,6278 @@
+{
+  "status": "candidate-visual-review-required",
+  "productionReady": false,
+  "sourceConfig": {
+    "schema": "dango-source-contact-pose-candidate/1",
+    "runtimeReady": false,
+    "action": "hiccup",
+    "view": "front",
+    "toolRegistration": {
+      "key": "cup",
+      "x": 22,
+      "y": 38,
+      "rect": [
+        0,
+        0,
+        22,
+        19
+      ]
+    },
+    "sourceExtractionStatus": "reviewed-source-extraction-only; canonical composition and fixed shoulder acceptance outstanding",
+    "pixelPolicy": "Original geometric source crop, source-alpha>=240, nearest existing four-color palette, one isotropic body scale, offline inverse sample; no runtime rotation/stretch, no contour edits.",
+    "frames": [
+      {
+        "side": "left",
+        "src": "hiccup-front-left-continuous.png",
+        "productionSrc": "hiccup-front-left-continuous@8x.png",
+        "sha256": "c797d13912a7b7eb32dbe8b422382095b75858baf7d14acf4e858a53f84f9561",
+        "size": [
+          66,
+          72
+        ],
+        "origin": [
+          0,
+          0
+        ],
+        "bounds": [
+          12,
+          43,
+          23,
+          53
+        ],
+        "source": "../v7-continuous-extraction/left-source-rgba.png",
+        "sourceSha256": "0a03ad3524ac818de03a5ba1384ea9202c3a2eebaf2ae0e4dd4697edd22580cc",
+        "sourceMasterSha256": "c9eeb81908d4f1350053f67e90dd7477898b8b72958b832ca8928353cf29ff94",
+        "sourceBodyWidth": 678,
+        "scaleArtPerSourcePixel": 0.10238257374631268,
+        "sourceContactBoundary": [
+          548,
+          800.5
+        ],
+        "observedContactBoundary": [
+          23.25,
+          48.375
+        ],
+        "normal": [
+          1,
+          0
+        ],
+        "sourceOpenCut": [
+          [
+            444,
+            741
+          ],
+          [
+            439,
+            815
+          ]
+        ],
+        "worldOpenCut": [
+          [
+            12.60221233038348,
+            42.2832368620944
+          ],
+          [
+            12.090299461651918,
+            49.859547319321535
+          ]
+        ],
+        "visibleProximalCutCenter": [
+          12.346255896017698,
+          46.07139209070797
+        ],
+        "anatomicalShoulder": [
+          4.5,
+          45.5
+        ],
+        "hiddenContinuation": {
+          "from": [
+            4.5,
+            45.5
+          ],
+          "to": [
+            12.346255896017698,
+            46.07139209070797
+          ],
+          "length": 7.86703378072804,
+          "measuredFullWidth": 7.593585117022279,
+          "coverageStatus": "requires actual canonical positive-width body coverage; no internal pixels synthesized"
+        },
+        "sourceToWorldMatrix": [
+          [
+            0.10238257374631268,
+            0,
+            -32.85565041297935
+          ],
+          [
+            0,
+            0.10238257374631268,
+            -33.5822502839233
+          ]
+        ],
+        "inverseSamplingMatrix": [
+          [
+            9.767287179924162,
+            0,
+            -118.08942693323678
+          ],
+          [
+            0,
+            9.767287179924162,
+            -412.99251732883135
+          ]
+        ],
+        "ownership": "Left palm owns shared vessel-edge ink through x547 at row800.",
+        "sourceObservedForeContour": true,
+        "oldHandleAxisSatisfied": null,
+        "candidateOnly": true
+      },
+      {
+        "side": "right",
+        "src": "hiccup-front-right-continuous.png",
+        "productionSrc": "hiccup-front-right-continuous@8x.png",
+        "sha256": "92ae23614a06341ab80d2ea281cf2f909f725e932781f77e358a9438ba442a68",
+        "size": [
+          66,
+          72
+        ],
+        "origin": [
+          0,
+          0
+        ],
+        "bounds": [
+          44,
+          43,
+          55,
+          54
+        ],
+        "source": "../v7-continuous-extraction/right-source-rgba.png",
+        "sourceSha256": "1b90f92ddd74062102ff06b7fc02cf5f6bcedd40207edb86afc9fd6237fee5b9",
+        "sourceMasterSha256": "c9eeb81908d4f1350053f67e90dd7477898b8b72958b832ca8928353cf29ff94",
+        "sourceBodyWidth": 678,
+        "scaleArtPerSourcePixel": 0.10238257374631268,
+        "sourceContactBoundary": [
+          714,
+          800.5
+        ],
+        "observedContactBoundary": [
+          44,
+          48.375
+        ],
+        "normal": [
+          -1,
+          0
+        ],
+        "sourceOpenCut": [
+          [
+            813,
+            741
+          ],
+          [
+            816,
+            815
+          ]
+        ],
+        "worldOpenCut": [
+          [
+            54.135874800884956,
+            42.2832368620944
+          ],
+          [
+            54.4430225221239,
+            49.859547319321535
+          ]
+        ],
+        "visibleProximalCutCenter": [
+          54.28944866150442,
+          46.07139209070797
+        ],
+        "anatomicalShoulder": [
+          61.5,
+          45.5
+        ],
+        "hiddenContinuation": {
+          "from": [
+            61.5,
+            45.5
+          ],
+          "to": [
+            54.28944866150442,
+            46.07139209070797
+          ],
+          "length": 7.233155571837507,
+          "measuredFullWidth": 7.58253386850013,
+          "coverageStatus": "requires actual canonical positive-width body coverage; no internal pixels synthesized"
+        },
+        "sourceToWorldMatrix": [
+          [
+            0.10238257374631268,
+            0,
+            -29.10115765486725
+          ],
+          [
+            0,
+            0.10238257374631268,
+            -33.5822502839233
+          ]
+        ],
+        "inverseSamplingMatrix": [
+          [
+            9.767287179924162,
+            0,
+            -429.76063591666315
+          ],
+          [
+            0,
+            9.767287179924162,
+            -412.99251732883135
+          ]
+        ],
+        "ownership": "Right cup owns shaft ink x706..713; palm begins x714. Axis reference709.5 is not palm contact.",
+        "sourceObservedForeContour": true,
+        "oldHandleAxisSatisfied": false,
+        "candidateOnly": true
+      }
+    ]
+  },
+  "plans": {
+    "left": {
+      "side": "left",
+      "S": [
+        4.5,
+        45.5
+      ],
+      "P": [
+        12.346255896017698,
+        46.07139209070797
+      ],
+      "cut": [
+        [
+          12.60221233038348,
+          42.2832368620944
+        ],
+        [
+          12.090299461651918,
+          49.859547319321535
+        ]
+      ],
+      "width": 7.593585117022278,
+      "scale": 1,
+      "translation": [
+        0,
+        0
+      ],
+      "target": [
+        23.25,
+        48.375
+      ],
+      "observedWorld": [
+        23.25,
+        48.375
+      ],
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 66,
+        "h": 72
+      },
+      "accepted": false,
+      "coverage": {
+        "valid": true,
+        "length": 7.86703378072804,
+        "width": 7.593585117022278,
+        "radius": 3.796792558511139,
+        "covered": [
+          [
+            5,
+            41
+          ],
+          [
+            6,
+            41
+          ],
+          [
+            7,
+            41
+          ],
+          [
+            8,
+            41
+          ],
+          [
+            9,
+            41
+          ],
+          [
+            10,
+            41
+          ],
+          [
+            11,
+            41
+          ],
+          [
+            5,
+            42
+          ],
+          [
+            6,
+            42
+          ],
+          [
+            7,
+            42
+          ],
+          [
+            8,
+            42
+          ],
+          [
+            9,
+            42
+          ],
+          [
+            10,
+            42
+          ],
+          [
+            11,
+            42
+          ],
+          [
+            12,
+            42
+          ],
+          [
+            13,
+            42
+          ],
+          [
+            14,
+            42
+          ],
+          [
+            5,
+            43
+          ],
+          [
+            6,
+            43
+          ],
+          [
+            7,
+            43
+          ],
+          [
+            8,
+            43
+          ],
+          [
+            9,
+            43
+          ],
+          [
+            10,
+            43
+          ],
+          [
+            11,
+            43
+          ],
+          [
+            12,
+            43
+          ],
+          [
+            13,
+            43
+          ],
+          [
+            14,
+            43
+          ],
+          [
+            15,
+            43
+          ],
+          [
+            5,
+            44
+          ],
+          [
+            6,
+            44
+          ],
+          [
+            7,
+            44
+          ],
+          [
+            8,
+            44
+          ],
+          [
+            9,
+            44
+          ],
+          [
+            10,
+            44
+          ],
+          [
+            11,
+            44
+          ],
+          [
+            12,
+            44
+          ],
+          [
+            13,
+            44
+          ],
+          [
+            14,
+            44
+          ],
+          [
+            15,
+            44
+          ],
+          [
+            16,
+            44
+          ],
+          [
+            5,
+            45
+          ],
+          [
+            6,
+            45
+          ],
+          [
+            7,
+            45
+          ],
+          [
+            8,
+            45
+          ],
+          [
+            9,
+            45
+          ],
+          [
+            10,
+            45
+          ],
+          [
+            11,
+            45
+          ],
+          [
+            12,
+            45
+          ],
+          [
+            13,
+            45
+          ],
+          [
+            14,
+            45
+          ],
+          [
+            15,
+            45
+          ],
+          [
+            16,
+            45
+          ],
+          [
+            4,
+            46
+          ],
+          [
+            5,
+            46
+          ],
+          [
+            6,
+            46
+          ],
+          [
+            7,
+            46
+          ],
+          [
+            8,
+            46
+          ],
+          [
+            9,
+            46
+          ],
+          [
+            10,
+            46
+          ],
+          [
+            11,
+            46
+          ],
+          [
+            12,
+            46
+          ],
+          [
+            13,
+            46
+          ],
+          [
+            14,
+            46
+          ],
+          [
+            15,
+            46
+          ],
+          [
+            16,
+            46
+          ],
+          [
+            4,
+            47
+          ],
+          [
+            5,
+            47
+          ],
+          [
+            6,
+            47
+          ],
+          [
+            7,
+            47
+          ],
+          [
+            8,
+            47
+          ],
+          [
+            9,
+            47
+          ],
+          [
+            10,
+            47
+          ],
+          [
+            11,
+            47
+          ],
+          [
+            12,
+            47
+          ],
+          [
+            13,
+            47
+          ],
+          [
+            14,
+            47
+          ],
+          [
+            15,
+            47
+          ],
+          [
+            16,
+            47
+          ],
+          [
+            4,
+            48
+          ],
+          [
+            5,
+            48
+          ],
+          [
+            6,
+            48
+          ],
+          [
+            7,
+            48
+          ],
+          [
+            8,
+            48
+          ],
+          [
+            9,
+            48
+          ],
+          [
+            10,
+            48
+          ],
+          [
+            11,
+            48
+          ],
+          [
+            12,
+            48
+          ],
+          [
+            13,
+            48
+          ],
+          [
+            14,
+            48
+          ],
+          [
+            15,
+            48
+          ],
+          [
+            4,
+            49
+          ],
+          [
+            5,
+            49
+          ],
+          [
+            6,
+            49
+          ],
+          [
+            7,
+            49
+          ],
+          [
+            8,
+            49
+          ],
+          [
+            9,
+            49
+          ],
+          [
+            10,
+            49
+          ],
+          [
+            11,
+            49
+          ],
+          [
+            12,
+            49
+          ],
+          [
+            13,
+            49
+          ],
+          [
+            14,
+            49
+          ],
+          [
+            11,
+            50
+          ],
+          [
+            12,
+            50
+          ]
+        ],
+        "exposed": [],
+        "unknown": [],
+        "cutOutside": [],
+        "policy": "conservative positive-axis raster envelope; cut sampled at <=.125 art unit; source visual review still required"
+      },
+      "source": {
+        "side": "left",
+        "src": "hiccup-front-left-continuous.png",
+        "productionSrc": "hiccup-front-left-continuous@8x.png",
+        "sha256": "c797d13912a7b7eb32dbe8b422382095b75858baf7d14acf4e858a53f84f9561",
+        "size": [
+          66,
+          72
+        ],
+        "origin": [
+          0,
+          0
+        ],
+        "bounds": [
+          12,
+          43,
+          23,
+          53
+        ],
+        "source": "../v7-continuous-extraction/left-source-rgba.png",
+        "sourceSha256": "0a03ad3524ac818de03a5ba1384ea9202c3a2eebaf2ae0e4dd4697edd22580cc",
+        "sourceMasterSha256": "c9eeb81908d4f1350053f67e90dd7477898b8b72958b832ca8928353cf29ff94",
+        "sourceBodyWidth": 678,
+        "scaleArtPerSourcePixel": 0.10238257374631268,
+        "sourceContactBoundary": [
+          548,
+          800.5
+        ],
+        "observedContactBoundary": [
+          23.25,
+          48.375
+        ],
+        "normal": [
+          1,
+          0
+        ],
+        "sourceOpenCut": [
+          [
+            444,
+            741
+          ],
+          [
+            439,
+            815
+          ]
+        ],
+        "worldOpenCut": [
+          [
+            12.60221233038348,
+            42.2832368620944
+          ],
+          [
+            12.090299461651918,
+            49.859547319321535
+          ]
+        ],
+        "visibleProximalCutCenter": [
+          12.346255896017698,
+          46.07139209070797
+        ],
+        "anatomicalShoulder": [
+          4.5,
+          45.5
+        ],
+        "hiddenContinuation": {
+          "from": [
+            4.5,
+            45.5
+          ],
+          "to": [
+            12.346255896017698,
+            46.07139209070797
+          ],
+          "length": 7.86703378072804,
+          "measuredFullWidth": 7.593585117022279,
+          "coverageStatus": "requires actual canonical positive-width body coverage; no internal pixels synthesized"
+        },
+        "sourceToWorldMatrix": [
+          [
+            0.10238257374631268,
+            0,
+            -32.85565041297935
+          ],
+          [
+            0,
+            0.10238257374631268,
+            -33.5822502839233
+          ]
+        ],
+        "inverseSamplingMatrix": [
+          [
+            9.767287179924162,
+            0,
+            -118.08942693323678
+          ],
+          [
+            0,
+            9.767287179924162,
+            -412.99251732883135
+          ]
+        ],
+        "ownership": "Left palm owns shared vessel-edge ink through x547 at row800.",
+        "sourceObservedForeContour": true,
+        "oldHandleAxisSatisfied": null,
+        "candidateOnly": true
+      },
+      "sourcePixels": {
+        "opaque": 89,
+        "colors": [
+          "240,80,104",
+          "26,27,38",
+          "248,128,128",
+          "248,104,120"
+        ],
+        "nonBinary": [],
+        "valid": true
+      },
+      "projectedPixels": {
+        "opaque": 89,
+        "colors": [
+          "240,80,104",
+          "26,27,38",
+          "248,128,128",
+          "248,104,120"
+        ],
+        "nonBinary": [],
+        "valid": true
+      }
+    },
+    "right": {
+      "side": "right",
+      "S": [
+        61.5,
+        45.5
+      ],
+      "P": [
+        54.28944866150442,
+        46.07139209070797
+      ],
+      "cut": [
+        [
+          54.135874800884956,
+          42.2832368620944
+        ],
+        [
+          54.4430225221239,
+          49.859547319321535
+        ]
+      ],
+      "width": 7.582533868500129,
+      "scale": 1,
+      "translation": [
+        0,
+        0
+      ],
+      "target": [
+        44,
+        48.375
+      ],
+      "observedWorld": [
+        44,
+        48.375
+      ],
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 66,
+        "h": 72
+      },
+      "accepted": false,
+      "coverage": {
+        "valid": true,
+        "length": 7.233155571837507,
+        "width": 7.582533868500129,
+        "radius": 3.7912669342500647,
+        "covered": [
+          [
+            55,
+            41
+          ],
+          [
+            56,
+            41
+          ],
+          [
+            57,
+            41
+          ],
+          [
+            58,
+            41
+          ],
+          [
+            59,
+            41
+          ],
+          [
+            60,
+            41
+          ],
+          [
+            52,
+            42
+          ],
+          [
+            53,
+            42
+          ],
+          [
+            54,
+            42
+          ],
+          [
+            55,
+            42
+          ],
+          [
+            56,
+            42
+          ],
+          [
+            57,
+            42
+          ],
+          [
+            58,
+            42
+          ],
+          [
+            59,
+            42
+          ],
+          [
+            60,
+            42
+          ],
+          [
+            51,
+            43
+          ],
+          [
+            52,
+            43
+          ],
+          [
+            53,
+            43
+          ],
+          [
+            54,
+            43
+          ],
+          [
+            55,
+            43
+          ],
+          [
+            56,
+            43
+          ],
+          [
+            57,
+            43
+          ],
+          [
+            58,
+            43
+          ],
+          [
+            59,
+            43
+          ],
+          [
+            60,
+            43
+          ],
+          [
+            50,
+            44
+          ],
+          [
+            51,
+            44
+          ],
+          [
+            52,
+            44
+          ],
+          [
+            53,
+            44
+          ],
+          [
+            54,
+            44
+          ],
+          [
+            55,
+            44
+          ],
+          [
+            56,
+            44
+          ],
+          [
+            57,
+            44
+          ],
+          [
+            58,
+            44
+          ],
+          [
+            59,
+            44
+          ],
+          [
+            60,
+            44
+          ],
+          [
+            50,
+            45
+          ],
+          [
+            51,
+            45
+          ],
+          [
+            52,
+            45
+          ],
+          [
+            53,
+            45
+          ],
+          [
+            54,
+            45
+          ],
+          [
+            55,
+            45
+          ],
+          [
+            56,
+            45
+          ],
+          [
+            57,
+            45
+          ],
+          [
+            58,
+            45
+          ],
+          [
+            59,
+            45
+          ],
+          [
+            60,
+            45
+          ],
+          [
+            50,
+            46
+          ],
+          [
+            51,
+            46
+          ],
+          [
+            52,
+            46
+          ],
+          [
+            53,
+            46
+          ],
+          [
+            54,
+            46
+          ],
+          [
+            55,
+            46
+          ],
+          [
+            56,
+            46
+          ],
+          [
+            57,
+            46
+          ],
+          [
+            58,
+            46
+          ],
+          [
+            59,
+            46
+          ],
+          [
+            60,
+            46
+          ],
+          [
+            61,
+            46
+          ],
+          [
+            50,
+            47
+          ],
+          [
+            51,
+            47
+          ],
+          [
+            52,
+            47
+          ],
+          [
+            53,
+            47
+          ],
+          [
+            54,
+            47
+          ],
+          [
+            55,
+            47
+          ],
+          [
+            56,
+            47
+          ],
+          [
+            57,
+            47
+          ],
+          [
+            58,
+            47
+          ],
+          [
+            59,
+            47
+          ],
+          [
+            60,
+            47
+          ],
+          [
+            61,
+            47
+          ],
+          [
+            51,
+            48
+          ],
+          [
+            52,
+            48
+          ],
+          [
+            53,
+            48
+          ],
+          [
+            54,
+            48
+          ],
+          [
+            55,
+            48
+          ],
+          [
+            56,
+            48
+          ],
+          [
+            57,
+            48
+          ],
+          [
+            58,
+            48
+          ],
+          [
+            59,
+            48
+          ],
+          [
+            60,
+            48
+          ],
+          [
+            61,
+            48
+          ],
+          [
+            51,
+            49
+          ],
+          [
+            52,
+            49
+          ],
+          [
+            53,
+            49
+          ],
+          [
+            54,
+            49
+          ],
+          [
+            55,
+            49
+          ],
+          [
+            56,
+            49
+          ],
+          [
+            57,
+            49
+          ],
+          [
+            58,
+            49
+          ],
+          [
+            59,
+            49
+          ],
+          [
+            60,
+            49
+          ],
+          [
+            61,
+            49
+          ],
+          [
+            54,
+            50
+          ]
+        ],
+        "exposed": [],
+        "unknown": [],
+        "cutOutside": [],
+        "policy": "conservative positive-axis raster envelope; cut sampled at <=.125 art unit; source visual review still required"
+      },
+      "source": {
+        "side": "right",
+        "src": "hiccup-front-right-continuous.png",
+        "productionSrc": "hiccup-front-right-continuous@8x.png",
+        "sha256": "92ae23614a06341ab80d2ea281cf2f909f725e932781f77e358a9438ba442a68",
+        "size": [
+          66,
+          72
+        ],
+        "origin": [
+          0,
+          0
+        ],
+        "bounds": [
+          44,
+          43,
+          55,
+          54
+        ],
+        "source": "../v7-continuous-extraction/right-source-rgba.png",
+        "sourceSha256": "1b90f92ddd74062102ff06b7fc02cf5f6bcedd40207edb86afc9fd6237fee5b9",
+        "sourceMasterSha256": "c9eeb81908d4f1350053f67e90dd7477898b8b72958b832ca8928353cf29ff94",
+        "sourceBodyWidth": 678,
+        "scaleArtPerSourcePixel": 0.10238257374631268,
+        "sourceContactBoundary": [
+          714,
+          800.5
+        ],
+        "observedContactBoundary": [
+          44,
+          48.375
+        ],
+        "normal": [
+          -1,
+          0
+        ],
+        "sourceOpenCut": [
+          [
+            813,
+            741
+          ],
+          [
+            816,
+            815
+          ]
+        ],
+        "worldOpenCut": [
+          [
+            54.135874800884956,
+            42.2832368620944
+          ],
+          [
+            54.4430225221239,
+            49.859547319321535
+          ]
+        ],
+        "visibleProximalCutCenter": [
+          54.28944866150442,
+          46.07139209070797
+        ],
+        "anatomicalShoulder": [
+          61.5,
+          45.5
+        ],
+        "hiddenContinuation": {
+          "from": [
+            61.5,
+            45.5
+          ],
+          "to": [
+            54.28944866150442,
+            46.07139209070797
+          ],
+          "length": 7.233155571837507,
+          "measuredFullWidth": 7.58253386850013,
+          "coverageStatus": "requires actual canonical positive-width body coverage; no internal pixels synthesized"
+        },
+        "sourceToWorldMatrix": [
+          [
+            0.10238257374631268,
+            0,
+            -29.10115765486725
+          ],
+          [
+            0,
+            0.10238257374631268,
+            -33.5822502839233
+          ]
+        ],
+        "inverseSamplingMatrix": [
+          [
+            9.767287179924162,
+            0,
+            -429.76063591666315
+          ],
+          [
+            0,
+            9.767287179924162,
+            -412.99251732883135
+          ]
+        ],
+        "ownership": "Right cup owns shaft ink x706..713; palm begins x714. Axis reference709.5 is not palm contact.",
+        "sourceObservedForeContour": true,
+        "oldHandleAxisSatisfied": false,
+        "candidateOnly": true
+      },
+      "sourcePixels": {
+        "opaque": 84,
+        "colors": [
+          "26,27,38",
+          "240,80,104",
+          "248,104,120",
+          "248,128,128"
+        ],
+        "nonBinary": [],
+        "valid": true
+      },
+      "projectedPixels": {
+        "opaque": 84,
+        "colors": [
+          "26,27,38",
+          "240,80,104",
+          "248,104,120",
+          "248,128,128"
+        ],
+        "nonBinary": [],
+        "valid": true
+      }
+    }
+  },
+  "records": [
+    {
+      "p": 0,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.00390625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.0078125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.01171875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.015625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.01953125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.0234375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.02734375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.03125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.03515625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.0390625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.04296875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.046875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.05078125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.0546875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.05859375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.0625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.06640625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.0703125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.07421875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.078125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.08203125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.0859375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.08984375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.09375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.09765625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.1015625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.10546875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.109375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.11328125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.1171875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.12109375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.12890625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.1328125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.13671875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.140625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.14453125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.1484375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.15234375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.15625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.16015625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.1640625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.16796875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.171875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.17578125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.1796875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.18359375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.1875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.19140625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.1953125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.19921875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.203125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.20703125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.2109375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.21484375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.21875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.22265625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.2265625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.23046875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.234375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.23828125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.2421875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.24609375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.25,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.25390625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.2578125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.26171875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.265625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.26953125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.2734375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.27734375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.28125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.28515625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.2890625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.29296875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.296875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.30078125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.3046875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.30859375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.3125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.31640625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.3203125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.32421875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.328125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.33203125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.3359375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.33984375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.34375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.34765625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.3515625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.35546875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.359375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.36328125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.3671875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.37109375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.37890625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.3828125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.38671875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.390625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.39453125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.3984375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.40234375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.40625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.41015625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.4140625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.41796875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.421875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.42578125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.4296875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.43359375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.4375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.44140625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.4453125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.44921875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.453125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.45703125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.4609375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.46484375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.46875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.47265625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.4765625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.48046875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.484375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.48828125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.4921875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.49609375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.5,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.50390625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.5078125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.51171875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.515625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.51953125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.5234375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.52734375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.53125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.53515625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.5390625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.54296875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.546875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.55078125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.5546875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.55859375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.5625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.56640625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.5703125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.57421875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.578125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.58203125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.5859375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.58984375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.59375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.59765625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.6015625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.60546875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.609375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.61328125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.6171875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.62109375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.62890625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.6328125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.63671875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.640625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.64453125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.6484375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.65234375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.65625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.66015625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.6640625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.66796875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.671875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.67578125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.6796875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.68359375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.6875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.69140625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.6953125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.69921875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.703125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.70703125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.7109375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.71484375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.71875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.72265625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.7265625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.73046875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.734375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.73828125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.7421875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.74609375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.75,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.75390625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.7578125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.76171875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.765625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.76953125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.7734375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.77734375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.78125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.78515625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.7890625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.79296875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.796875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.80078125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.8046875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.80859375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.8125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.81640625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.8203125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.82421875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.828125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.83203125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.8359375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.83984375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.84375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.84765625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.8515625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.85546875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.859375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.86328125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.8671875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.87109375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.87890625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.8828125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.88671875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.890625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.89453125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.8984375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.90234375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.90625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.91015625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.9140625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.91796875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.921875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.92578125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.9296875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.93359375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.9375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.94140625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.9453125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.94921875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.953125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.95703125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.9609375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.96484375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.96875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.97265625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.9765625,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.98046875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.984375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.98828125,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.9921875,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 0.99609375,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "p": 1,
+      "tool": {
+        "key": "cup",
+        "x": 22,
+        "y": 38
+      },
+      "hands": [
+        {
+          "side": "right",
+          "opacity": 1
+        },
+        {
+          "side": "left",
+          "opacity": 1
+        }
+      ],
+      "accepted": false
+    }
+  ],
+  "backend": "Skia actual artist, no native-host approval",
+  "replacesOldGenericArm": true
+}
