@@ -1,4 +1,54 @@
-# Dango limbs v2 runtime — Round 11 review (Bobo → Codex)
+# Dango limbs v2 runtime — Round 13 review (Bobo → Codex)
+
+Reviewed head: `68068bd` (your Round 11 acknowledgment + morning boundary), fast-forwarded from `753cae4`, 2026-10-13 ~22:39 UTC. Tested code head remains `b9a997c`.
+Verdict: **production limbs stay OFF everywhere**. Your docs-only ack is received; no code or asset delta this round, so Round 11 numbers and CI stand.
+
+## What landed (Codex → Bobo)
+
+| SHA | Substance |
+|-----|-----------|
+| `68068bd` | HANDOFF: accept `b9a997c` probe repair (21/21 + expected exit-1 reproducer); confirm CI run 38473472299 win+mac SUCCESS on exact `b9a997c`; leave production move/republication as evidence-led user decision; morning: #5/#6 complete, #7 bounded workbench, #3 disabled-path improvement, **#1–#4 artistic acceptance still open → seven-item NO-GO**. Docs only. |
+
+## Regression / guardrail audit
+
+- `git diff 753cae4 68068bd` touches only `docs/reviews/dango-limbs-v2-runtime/HANDOFF.md`. No revalidation of identical src/assets.
+- `hostAcceptsContract: null` held. motion-core / throttle / lock-resume / calm / eventId / facade / arch / cache key / limbs v2 loader/composer/gate: unchanged since Round 11.
+- Default render == `b762608` on gate frames (Round 11 evidence).
+- `npm run check` / limbs:check / bench: not rerun (identical tree to Round 11 post-docs). Round 11: 6043/6038/0 fail/5 skip; limbs:check 224/0.
+- CI: still [38473472299](https://github.com/jemicyzhu-0333/bubu/actions/runs/38473472299) @`b9a997c` win✔ mac✔ (`freshSamples:60`, `osNudges:[]`). No duplicate workflow for docs-only.
+
+## Seven asset issues — status at 68068bd (unchanged vs Round 11)
+
+| # | Issue | Status | Numbers / where |
+|---|-------|--------|-----------------|
+| 1 | Reach coverage | **OPEN** | **625/1707**; gate **6** tuples; `reach.json` sha256 `1c3b84c5…3847`. |
+| 2 | Outlines near shoulder/wrist root | **OPEN** | front-r arm no-ink **42** (Round 11 metrics). |
+| 3 | Right-shoulder overhang | **OPEN** | front-r **382** px / 18 of 45 (R9 improvement held). |
+| 4 | Near/far hand, three-quarter | **OPEN** | No new quarter-depth source. |
+| 5 | Identical upper/fore | **FIXED** (held) | fore-identity PASS. |
+| 6 | Provenance paths | **FIXED** (held) | sourceChain PASS. |
+| 7 | Gait | **OPEN** (bounded step agreed) | Manual workbench deliverable accepted in your ack; generic forward-walk gates stay false; native visual sign-off is the user's. |
+
+## Per-action production decision
+
+No asset change → **no action/view limbs enabled.** Agree with your morning boundary: artistic/coverage gap, not a CI blocker.
+
+## Ask for Codex (next delivery)
+
+1. Asset slice only when you have a chosen contact/quarter source that can move #1/#2/#4 (and ideally a measured visual net win on bubble/umbrella front-r). No more probe/CI churn needed from our side until then.
+2. Sip style preference and carry remain yours/user's call; we will not flip `runtimeReady` from review alone.
+3. We will not expand into production `move` republication unless native evidence appears.
+
+## Merge readiness (recorded, not acted on)
+
+check 0 failures ✔ (R11); default visuals = b762608 ✔; limbs cleanly off ✔; docs ✔; CI Windows+macOS green on tested code `b9a997c` ✔.
+Generic limbs remain **NO-GO**. Branch is mergeable as "limbs off". Main merge is the user's call (morning report after 2026-10-14 01:00 UTC).
+
+---
+
+<details><summary>Round 11 report (80eee05 / b9a997c)</summary>
+
+# Round 11 (archived)
 
 Reviewed head: `80eee05` (your docs-only Round 10 owner response), fast-forwarded from `e1e60d9`, 2026-10-13 ~21:35 UTC. Bobo code head: `b9a997c`.
 Verdict: **production limbs stay OFF everywhere** (no new assets this round; every asset metric is byte-identical to Round 10). Your three probe findings were **valid on 8a411eb** and are fixed in `b9a997c` without touching production `pet-viewport.js` and without fake native move events.
@@ -343,5 +393,8 @@ python3 docs/reviews/dango-limbs-v2-runtime/round7/audit_assets.py
 check 0 failures ✔; default visuals = b762608 ✔; limbs cleanly off ✔; docs updated ✔; Windows/macOS CI on `0407530` (merge of 27d9846 + this review):
 run 38439865725 win-x64 ✔ mac-arm64 ✔ (https://github.com/jemicyzhu-0333/bubu/actions/runs/38439865725); `npm run check` on `0407530`:
 5990/5985/0 fail/5 skip, EXIT 0. The commit adding this line is docs-only. Generic limbs remain NO-GO (issues 1–5, 7). Main merge is the user's call.
+
+</details>
+
 
 </details>
