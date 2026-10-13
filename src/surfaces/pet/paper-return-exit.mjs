@@ -1,5 +1,5 @@
 'use strict';
-import { motionCaps } from '../../capabilities/companion/presentation/motion-core/action-capabilities.mjs';
+import { motionCaps } from '../../capabilities/companion/index.mjs';
 // Generic interrupt-exit bridge driven by action capabilities
 // (motion-core/action-capabilities.mjs). One presentation-only exit, never a queued business action. New expressions
 // remain owned by the director while this short tool/hand recovery finishes.

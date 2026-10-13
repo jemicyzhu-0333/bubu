@@ -1,6 +1,6 @@
 'use strict';
 import { resolveMirrorBodyPose } from './mirror-playback.mjs';
-import { motionCaps } from '../../capabilities/companion/presentation/motion-core/action-capabilities.mjs';
+import { motionCaps } from '../../capabilities/companion/index.mjs';
 
 // An authored grounded action owns the floor only while the presentation that
 // won this frame is that action's own: the base presentation playing the

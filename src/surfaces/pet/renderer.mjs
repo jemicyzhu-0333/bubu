@@ -1,5 +1,5 @@
 'use strict';
-import { motionCaps } from '../../capabilities/companion/presentation/motion-core/action-capabilities.mjs';
+import { motionCaps } from '../../capabilities/companion/index.mjs';
 import { bodyStateOffset, resolveActionBodyPose } from './body-presentation.mjs';
 
 import petExpression from '../../core/pet-expression.mjs';

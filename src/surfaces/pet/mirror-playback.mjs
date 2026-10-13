@@ -1,5 +1,5 @@
 'use strict';
-import { clamp01, hermite } from '../../capabilities/companion/presentation/motion-core/easing.mjs';
+import { clamp01, hermite } from '../../capabilities/companion/index.mjs';
 
 const ENTER_MS = 800;
 const EXIT_MS = 600;

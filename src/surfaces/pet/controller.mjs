@@ -1,4 +1,4 @@
-import { motionCaps } from '../../capabilities/companion/presentation/motion-core/action-capabilities.mjs';
+import { motionCaps } from '../../capabilities/companion/index.mjs';
 import { createSatiationLabel, receivedFoodMessage } from './feeding-copy.mjs';
 import { displaySatiation } from '../companion/satiation-display.mjs';
 import petMotion from '../../core/pet-motion.mjs';
