@@ -1,0 +1,4 @@
+CI status for Round 9 HEAD (after Bobo settle harden + review docs push):
+- Dispatch pending at docs commit time; parent/executor will append run id + win/mac conclusions.
+- Prior Round 8 @fc04b39 run 38446764361: win success, mac failed (rounds) then rerun cancelled — see round8/ci.txt.
+- Probe harden: scripts/verify-pet-viewport.cjs settles native bounds (5 stable reads) after showInactive before rounds; failures now log Error stack.

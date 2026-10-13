@@ -1,3 +1,73 @@
+# Dango limbs v2 runtime — Round 9 review (Bobo → Codex)
+
+Reviewed head: `527fa6b` (your shoulder registration + ordinary-walk artist), fast-forwarded onto `fc04b39`, 2026-10-13 ~19:25 UTC.
+Verdict: **production limbs stay OFF everywhere** (`hostAcceptsContract: null`, walk `runtimeReady:false`, source-contact candidates remain disabled). Issue #3 front-right overhang is **materially improved** by the 58.5/45.5 registration; still not a net visual win vs legacy on gate tuples. Ordinary walk is delivered at **artist/preview** level only — host world-origin integration is **not claimed** this round (see HANDOFF).
+
+## What landed (Codex → Bobo)
+
+| SHA | Substance |
+|-----|-----------|
+| `c89ba6f` | Source-preserving ordinary walk + verified artist preview (`presentation/gait/*`, `content/gait/*`, `ordinary-walk/` evidence). Default gates preserved; host episode/world-origin handoff requested in HANDOFF. |
+| `527fa6b` | Front/right shoulder `worldRoot` 61.5→**58.5**/45.5 for every front/right action; canonical-alpha coverage resampled; socket + static targets synchronized. Bubble exterior arm fragments claimed 0 under occlusion; direct-contact regressions documented; runtime defaults still off. |
+
+## Regression / guardrail audit (fc04b39 → 527fa6b + Bobo probe harden)
+
+- Codex commits touch dango limb assets/scripts/socket, review docs, gait modules, `dango-raster-art.mjs` walkPreview hook, and new tests. motion-core tree, frame-throttle, pet-viewport.js, controller, calm/lock-resume/throttle/architecture-facade tests remain **byte-identical** to `b762608`. `renderer.mjs` still only has the prior `actionInstanceKey` 3-line addition.
+- Default rendering at HEAD is pixel-identical to `b762608` on all 4 gate frames checked (bbox `None`): bubble-blow front, umbrella-dance front, hiccup three-quarter, snack-picnic front. See `round9/gate-before-after.png`.
+- Bobo-only code change this round: `scripts/verify-pet-viewport.cjs` — after `showInactive`, wait for 5 consecutive stable native bounds (`stage=settle`) before rounds; `reportFailure` now prints the Error stack. Unit tests `test/pet-viewport-probe.test.js` 6/6 pass. Addresses Round 8 mac flake (`failed (rounds)` on otherwise green tree).
+- `npm run check` (Canvas env) on HEAD+probe: **6011** tests, **6006** pass, **0 fail**, 5 skip, EXIT 0; limbs:check 224 target-views 0 failures, 10 actions 0 outline-gap. (`round9/check.log`)
+- Bench (`round9/bench.summary.txt`, 2 interleaved rounds × 12 actions × 300 frames): dango median 0.961 (b762608) / 0.955 (HEAD) / 0.954 ms (HEAD forced-on); usagi 1.158 / 1.184 / 1.128 ms. No regression.
+
+## Seven asset issues — status at 527fa6b
+
+| # | Issue | Status | Numbers / where |
+|---|-------|--------|-----------------|
+| 1 | Reach coverage | **OPEN** (slight +) | `reach.json`: **625/1707** within 1.25 (R8 622). Front 361/1069, tq 264/638. Full tuples 20/106. Gate now **6** tuples (`round9/gate-scan.json`): prior 5 + **umbrella-dance front right**. planted-support 0/60, unsupported-integrated 0/120 unchanged. |
+| 2 | Missing outlines near shoulder/wrist root | **OPEN, improved on front-r** | `round9/outline-metrics.json` (R8→R9): arm edge no-ink front-r **63→42**, front-l 16→16, tq-l 34→34. Paw open-boundary max front-r 0.323→0.300; tq-r 0.326. Proximal cuts still open. |
+| 3 | Right-shoulder overhang | **OPEN, much improved front-r** | Arm px outside body: front-r **913→382** (29/44→**18/45** plans), max **12→9**; front-l 275 unchanged; tq-l 759 unchanged. Matches your 58.5 registration intent for front/right. Bubble forced-on no longer the elbow-out of R8, but grip/outline still lose to legacy (see shots). |
+| 4 | Near/far hand, three-quarter | **OPEN** | No quarter-depth source delivery this round; hiccup tq forced-on still shows outline-less far limb blob vs legacy nubs. |
+| 5 | Identical upper/fore pairs | **FIXED** (held) | 0 duplicate upper==fore byte pairs; `round9/fore-identity.json` PASS. |
+| 6 | Provenance paths | **FIXED** (held) | Seal/refs intact; new shoulder-registration evidence paths resolve. |
+| 7 | Gait frames | **OPEN (artist delivered)** | `ordinary-walk/` + `dango-walk-artist` verified preview with native feet / world-fixed support. Content `runtimeReady:false`. **Host episode ID/progress + world-origin compose not integrated** (HANDOFF items 1–5 unanswered this round — overnight scope stayed on merge/QA/CI). |
+
+## Per-action production decision (`round9/gate-before-after.png`)
+
+Columns: b762608 | HEAD default | HEAD forced-on (`hostAcceptsContract: 2` worktree).
+- All four: HEAD default == b762608 (bbox None).
+- bubble-blow front-right: forced-on grip is a soft pink disc without legacy ink; wand depth worse. **Off.**
+- umbrella-dance front-right (new gate admit): forced-on limb is a larger bloated circle vs legacy tight oval. **Off** (your note: grip readable, not action-naturalness cert).
+- hiccup three-quarter left: forced-on far limb lacks body ink/outline. **Off.**
+- snack-picnic front left: forced-on paw larger/textured with shoulder smudge. **Off.**
+
+No action/view is a net visual improvement; nothing enabled. Walk stays preview-only.
+
+## Reproduce
+
+```
+node tools/dango-limbs-qa.mjs --out=docs/reviews/dango-limbs-v2-runtime/reach.json
+node docs/reviews/dango-limbs-v2-runtime/round7/gate-scan.mjs "$PWD"
+node docs/reviews/dango-limbs-v2-runtime/round7/outline-metrics.mjs "$PWD" docs/reviews/dango-limbs-v2-runtime/reach.json docs/reviews/dango-limbs-v2-runtime/round9/outline-metrics.json
+node tools/dango-fore-identity-check.mjs --json
+```
+(Canvas: `source /workspace/bubu-review/env.sh`.) Force-on preview: patch `DANGO_LIMB_RIG.hostAcceptsContract = 2` in a worktree.
+
+## Ask for Codex (next delivery)
+
+1. Keep closing #1/#2/#4 contact/root/quarter; re-measure front-r overhang after further root work (target ≤ R7 809 was already beaten — chase visual net win vs legacy on bubble/umbrella).
+2. Do **not** enable runtimeReady until Bobo (or you with claimed HANDOFF) lands host walk episode + measured gate wins.
+3. Direct-contact regressions you listed (hiccup/carry/plant-water dense samples) stay honest in docs.
+
+Bobo owns exact-head Windows/macOS CI on this head (settle harden + fresh dispatch) and these metrics.
+
+## Merge readiness (recorded, not acted on)
+
+check 0 failures ✔; default visuals = b762608 ✔; limbs cleanly off ✔; docs updated ✔.
+Windows/macOS CI for this head: see `round9/ci.txt` (pending at commit time). Generic limbs remain **NO-GO**. Ordinary-walk host integration open. Main merge is the user's call.
+
+---
+
+<details><summary>Round 8 report (6c03a99 / fc04b39)</summary>
+
 # Dango limbs v2 runtime — Round 8 review (Bobo → Codex)
 
 Reviewed head: `6c03a99` (your distinct-fore delivery, fast-forwarded onto `b4d3d39`), 2026-10-13 ~18:30 UTC.
@@ -65,6 +135,8 @@ check 0 failures ✔; default visuals = b762608 ✔; dango accessory matrix unch
 Windows/macOS CI for this head: see `round8/ci.txt`. Generic limbs remain NO-GO (issues 1–4, 7). Main merge is the user's call.
 
 ---
+
+</details>
 
 <details><summary>Round 7 report (f74811c / 0407530)</summary>
 
