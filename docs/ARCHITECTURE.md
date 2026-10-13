@@ -997,6 +997,7 @@ popover 的页面职责固定：**现在 = 执行面**（选一件、开始、�
 找回），日常保持独立的生活记录与提醒能力（不参与任务奖励），伙伴与回顾消费各自投影。一个控件的 `aria-controls` 目标必须和它在同一个面内或是弹层，否则切页后它
 就在 hidden 祖先里渲染。弹层共用 `.modal-mask` + `trapFocusWithin` + `restoreModalFocus`；焦点环包含
 `select` 与 `textarea`，排除收起的 `<details>` 内部控件。
+日常已存记录与收件日常草稿复用 `ui/event-time-dialog.mjs` 的单一顶层时间弹窗；调用方持有 freshness 与提交边界，前者提交 CAS 命令，后者仅更新本地草稿。分钟精度显示不改变未编辑的原秒/毫秒；关闭重开与迟到回执按 source key 和弹窗生命周期隔离，延迟归焦不能抢走新弹窗焦点。
 
 样式在 `src/surfaces/popover/styles/`，层序 `@layer tokens, base, components, features, theme, utilities`。
 `theme.css` 是统一视觉规则的唯一覆盖层（角色由专属原生画笔绘制，工具使用系统界面）。`body[data-session]`（idle / focus / paused / break）由计时模块写入，样式层据此在专注时收起能量、回顾、

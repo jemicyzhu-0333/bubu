@@ -1,5 +1,8 @@
 // App-authored interface copy only. User content and provider output are never catalog keys.
 export const EN = Object.freeze({
+  "确认": "Confirm",
+  "标记完成 {title}": "Mark {title} complete",
+  "选择时间": "Choose time",
   "这一天的记录已满，已有记录保持不变。": "That day's records are full. Existing records are unchanged.",
   "可编辑记录已满，已有记录保持不变。": "Editable records are full. Existing records are unchanged.",
   "可编辑记录已满，原文仍留在收件箱。": "Editable records are full. The original text remains in your inbox.",

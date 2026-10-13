@@ -41,16 +41,20 @@ test('only actual terminal records have an editor; local formatter preserves sec
 
 test('save sends original identity and CAS without overwriting note or magnitude', async () => {
   const h = harness(); h.open();
-  h.input().value = '2026-10-12T19:22:11';
+  h.input().value = '2026-10-12T19:22';
   await h.editor.save();
   assert.deepEqual(h.calls, [{ routineId: 'r', occurrenceId: h.records[0].occurrenceId, status: 'done',
-    at: new Date(2026, 9, 12, 19, 22, 11).getTime(), expectedAt: h.originalAt, expectedStatus: 'done' }]);
-  assert.match(h.root.textContent, /已保存/);
+    at: new Date(2026, 9, 12, 19, 22, 0).getTime(), expectedAt: h.originalAt, expectedStatus: 'done' }]);
+  assert.equal(h.classes.has('hidden'), true);
+  assert.equal(h.editor.isOpen(), false);
   assert.equal(h.focusCount(), 1);
 });
 
-test('unchanged input preserves original milliseconds', async () => {
-  const h = harness(); h.open(); await h.editor.save();
+test('minute display preserves original seconds and milliseconds when unchanged', async () => {
+  const h = harness(); h.open();
+  assert.equal(h.input().value, localDateTime(h.originalAt).slice(0, 16));
+  assert.match(h.root.innerHTML, /step="60"/);
+  await h.editor.save();
   assert.equal(h.calls[0].at, h.originalAt);
 });
 
@@ -68,9 +72,9 @@ test('duplicate clicks and reopening pending same record cannot submit twice', a
 
 test('cancel discards draft and an old success cannot close a new draft or return focus', async () => {
   const operation = deferred(); const h = harness(() => operation.promise);
-  h.open(); h.input().value = '2026-10-12T10:00:00'; const first = h.editor.save();
+  h.open(); h.input().value = '2026-10-12T10:00'; const first = h.editor.save();
   h.editor.close(); h.open();
-  assert.equal(h.input().value, localDateTime(h.originalAt));
+  assert.equal(h.input().value, localDateTime(h.originalAt).slice(0, 16));
   operation.resolve({ ok: true }); await first;
   assert.equal(h.focusCount(), 1);
   assert.equal(h.status(), '');
@@ -80,8 +84,8 @@ test('cancel discards draft and an old success cannot close a new draft or retur
 test('rejected save retains input and supports an explicit retry', async () => {
   let attempts = 0;
   const h = harness(async () => ++attempts === 1 ? { ok: false, reason: 'occurrence-in-future' } : { ok: true });
-  h.open(); h.input().value = '2026-10-13T10:00:00'; await h.editor.save();
-  assert.equal(h.input().value, '2026-10-13T10:00:00');
+  h.open(); h.input().value = '2026-10-13T10:00'; await h.editor.save();
+  assert.equal(h.input().value, '2026-10-13T10:00');
   assert.match(h.status(), /不能晚于现在/);
   assert.equal(h.field('[data-time-save]').disabled, false);
   await h.editor.save(); assert.equal(h.calls.length, 2);
@@ -89,18 +93,18 @@ test('rejected save retains input and supports an explicit retry', async () => {
 
 test('transport uncertainty is visible and retains the draft', async () => {
   const h = harness(async () => { throw new Error('private transport detail'); });
-  h.open(); h.input().value = '2026-10-13T08:00:00'; await h.editor.save();
+  h.open(); h.input().value = '2026-10-13T08:00'; await h.editor.save();
   assert.match(h.status(), /暂未确认/);
-  assert.equal(h.input().value, '2026-10-13T08:00:00');
+  assert.equal(h.input().value, '2026-10-13T08:00');
   assert.doesNotMatch(h.status(), /private/);
 });
 
 test('external edits, deletion and undo freeze a stale draft without losing input', async () => {
   for (const change of [h => h.records[0].loggedAt++, h => h.records.splice(0), h => { h.records[0].answered = false; }]) {
-    const h = harness(); h.open(); h.input().value = '2026-10-13T08:00:00';
+    const h = harness(); h.open(); h.input().value = '2026-10-13T08:00';
     change(h); h.editor.refresh(); await h.editor.save();
     assert.match(h.status(), /已变化/);
-    assert.equal(h.input().value, '2026-10-13T08:00:00');
+    assert.equal(h.input().value, '2026-10-13T08:00');
     assert.equal(h.field('[data-time-save]').disabled, true);
     assert.equal(h.calls.length, 0);
   }
@@ -154,19 +158,19 @@ test('old completion cannot release another record save or replace its message',
 test('locale changes repaint labels and failure receipts without replacing typed dates', async () => {
   const { setLocale } = require('../src/surfaces/shared/interface/i18n.mjs');
   const h = harness(async () => ({ ok: false, reason: 'occurrence-in-future' }));
-  h.open(); h.input().value = '2026-10-13T08:00:00'; await h.editor.save();
+  h.open(); h.input().value = '2026-10-13T08:00'; await h.editor.save();
   try {
     setLocale('en'); h.editor.refresh();
-    assert.equal(h.input().value, '2026-10-13T08:00:00');
-    assert.equal(h.field('[data-time-save]').textContent, 'Save time');
+    assert.equal(h.input().value, '2026-10-13T08:00');
+    assert.equal(h.field('[data-time-save]').textContent, 'Confirm');
     assert.equal(h.status(), 'The recorded time cannot be in the future.');
   } finally { setLocale('zh-CN'); }
 });
 
 for (const reason of ['day-full', 'log-full']) test(`capacity refusal ${reason} keeps the draft and states no time was changed`, async () => {
   const h = harness(async () => ({ ok: false, reason }));
-  h.open(); h.input().value = '2026-10-13T08:00:00'; await h.editor.save();
-  assert.equal(h.input().value, '2026-10-13T08:00:00');
+  h.open(); h.input().value = '2026-10-13T08:00'; await h.editor.save();
+  assert.equal(h.input().value, '2026-10-13T08:00');
   assert.match(h.status(), /已满，原时间保持不变/);
   assert.equal(h.field('[data-time-save]').disabled, false);
 });

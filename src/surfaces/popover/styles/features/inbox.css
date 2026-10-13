@@ -5,9 +5,10 @@
   .inbox-recovery .chip { white-space: normal; }
   .impulse-text { overflow-wrap: anywhere; white-space: pre-wrap; }
   .inbox-card button,.inbox-card select { cursor: pointer; }
-  .inbox-event-time-label { grid-column: 1 / -1; min-width: 0; }
-  .inbox-event-time-heading { display: flex; align-items: center; gap: 6px; min-width: 0; }
-  .inbox-event-time-heading .inbox-ai-tag { flex: 0 0 auto; }
-  .inbox-event-time { box-sizing: border-box; width: 100%; min-width: 0; max-width: 100%; font-variant-numeric: tabular-nums; }
-  .inbox-event-time:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+  .inbox-event-time-row { grid-column: 1 / -1; display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; min-width: 0; padding-top: 2px; }
+  .inbox-event-time-heading { color: var(--fg-2); font-size: 11px; }
+  .inbox-event-time-edit { display: inline-flex; align-items: center; gap: 6px; min-height: 30px; border: 0; border-radius: 7px; padding: 3px 7px; background: transparent; color: var(--fg-0); font: inherit; font-size: 12px; font-variant-numeric: tabular-nums; }
+  .inbox-event-time-edit:hover { background: var(--bg-2); }
+  .inbox-event-time-edit .ui-icon { width: 13px; height: 13px; color: var(--fg-2); }
+  .inbox-event-time-edit:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 }

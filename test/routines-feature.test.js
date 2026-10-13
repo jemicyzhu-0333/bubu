@@ -335,14 +335,14 @@ test('muting a routine is an update, not a delete', async () => {
   assert.deepEqual(harness.calls, [['updateRoutine', 'pill', { active: false }]]);
 });
 
-test('the daily page exposes management without introducing another modal layer', () => {
+test('routine management stays inline while time editing delegates to its shared modal', () => {
   const harness = createHarness({ items: [] });
   assert.equal(harness.feature.isManageOpen(), true);
   assert.equal(harness.dom.nodes['#routinesManage'].classList.contains('hidden'), false);
   assert.equal(harness.dom.nodes['#btnManageRoutines'].getAttribute('aria-expanded'), 'true');
-  // 它不进 POPOVER_MODAL_LAYER，所以也不许自己做困焦或抢 Escape ——
-  // 两套关闭机制并存时 Escape 会关错层，而那是静默的。
-  assert.doesNotMatch(featureCode, /aria-modal|inert|trapFocus|'Escape'/);
+  assert.equal(harness.feature.timeDialog.isOpen(), false);
+  // Management itself has no second Escape or focus trap implementation.
+  assert.doesNotMatch(featureCode, /aria-modal|inert|'Escape'/);
 });
 
 test('finishing a routine never touches the gamification layer', () => {
@@ -551,7 +551,7 @@ for (const ownerOffset of [0, -2]) test(`moving a record with owner offset ${own
     await new Promise(resolve => setImmediate(resolve));
   };
   await h.click(button({ act: 'edit-time', routine: 'tea', occurrence: result.occurrenceId }));
-  await save(`${yesterday}T19:00:00`);
+  await save(`${yesterday}T19:00`);
   assert.equal(h.state.routines.today.counts.done, 0);
   assert.doesNotMatch(h.rows(), /Tea/);
   assert.match(h.dom.nodes['#yesterdayRoutineRows'].innerHTML, /Tea/);
@@ -559,8 +559,8 @@ for (const ownerOffset of [0, -2]) test(`moving a record with owner offset ${own
   assert.match(h.dom.nodes['#yesterdayRoutineRows'].innerHTML, /data-act="undo"/);
   assert.equal(h.dom.nodes['#yesterdayRoutineRecords'].classList.contains('hidden'), false);
   await h.click(button({ act: 'edit-time', routine: 'tea', occurrence: result.occurrenceId }));
-  assert.equal(editorRoot.querySelector('[data-time-input]').value, `${yesterday}T19:00:00`);
-  await save(`${today}T08:00:00`);
+  assert.equal(editorRoot.querySelector('[data-time-input]').value, `${yesterday}T19:00`);
+  await save(`${today}T08:00`);
   assert.equal(h.state.routines.today.counts.done, 1);
   assert.equal(h.state.routines.yesterday.occurrences.length, 0);
   assert.equal(state.state().routineLog.days[0].dayKey, ownerDay);
@@ -568,7 +568,7 @@ for (const ownerOffset of [0, -2]) test(`moving a record with owner offset ${own
   assert.equal(state.state().routineLog.days[0].entries[0].note, 'preserved');
   assert.equal(state.state().routineLog.days[0].entries[0].magnitude, 35);
   await h.click(button({ act: 'edit-time', routine: 'tea', occurrence: result.occurrenceId }));
-  await save(`${yesterday}T20:00:00`);
+  await save(`${yesterday}T20:00`);
   await h.click(button({ act: 'undo', routine: 'tea', occurrence: result.occurrenceId }));
   assert.equal(h.state.routines.yesterday.occurrences.length, 0);
   assert.equal(h.dom.nodes['#yesterdayRoutineRecords'].classList.contains('hidden'), true);
@@ -625,14 +625,14 @@ test('renderer keeps an older owner identity editable and undoable after actual-
     await new Promise(resolve => setImmediate(resolve));
   };
   await h.click(button({ act: 'edit-time', routine: 'retained', occurrence: occurrenceId }));
-  assert.equal(editorRoot.querySelector('[data-time-input]').value, `${yesterday}T18:00:00`);
-  await save(`${today}T08:00:00`);
+  assert.equal(editorRoot.querySelector('[data-time-input]').value, `${yesterday}T18:00`);
+  await save(`${today}T08:00`);
   assert.equal(writes.length, 1);
   assert.match(h.rows(), /Retained reading record/);
   assert.equal(h.state.routines.yesterday.occurrences.length, 0);
   await h.click(button({ act: 'edit-time', routine: 'retained', occurrence: occurrenceId }));
-  assert.equal(editorRoot.querySelector('[data-time-input]').value, `${today}T08:00:00`);
-  await save(`${yesterday}T19:00:00`);
+  assert.equal(editorRoot.querySelector('[data-time-input]').value, `${today}T08:00`);
+  await save(`${yesterday}T19:00`);
   assert.equal(writes.length, 2);
   assert.equal(stored.occurrenceId, occurrenceId);
   assert.equal(stored.note, 'kept locally'); assert.equal(stored.magnitude, 20);
@@ -640,4 +640,21 @@ test('renderer keeps an older owner identity editable and undoable after actual-
   await h.click(button({ act: 'undo', routine: 'retained', occurrence: occurrenceId }));
   assert.deepEqual(undos, [occurrenceId]);
   assert.equal(h.dom.nodes['#yesterdayRoutineRecords'].classList.contains('hidden'), true);
+});
+
+test('routine completion uses accessible check icons for both action and recorded state', () => {
+  const { setLocale } = require('../src/surfaces/shared/interface/i18n.mjs');
+  try {
+    for (const [locale, completed, action] of [['zh-CN', '已完成', '标记完成 吃药'], ['en', 'Completed', 'Mark 吃药 complete']]) {
+      setLocale(locale);
+      const open = createHarness({ occurrences: [PILL] });
+      assert.match(open.rows(), /data-act="done"[^>]*><svg class="routine-check-icon"/);
+      assert.ok(open.rows().includes(`aria-label="${action}"`));
+      const answered = createHarness({ occurrences: [{ ...PILL, status: 'done', answered: true, due: false, loggedAt: 1 }] });
+      assert.match(answered.rows(), /routine-complete-mark[^>]*role="img"/);
+      assert.ok(answered.rows().includes(`aria-label="${completed}"`));
+      assert.match(answered.rows(), /stroke-width="1.5"/);
+      assert.doesNotMatch(answered.rows(), />做了</);
+    }
+  } finally { setLocale('zh-CN'); }
 });

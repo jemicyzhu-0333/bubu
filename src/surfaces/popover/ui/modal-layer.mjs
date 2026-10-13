@@ -16,6 +16,7 @@ const POPOVER_MODAL_LAYER = Object.freeze([
   // 落点提示不能被 Escape 关掉——它要的就是一次表态。Escape 只把焦点送到那个
   // “可以什么都不选”的动作上,让人有出口而不是被困住。
   { name: 'quickStart', trap: '#quickStartMask', focusRank: 2, dismissRank: 2, escape: 'focusEscapeHatch' },
+  { name: 'eventTime', trap: '#routineTimeEditor', focusRank: 2.5, dismissRank: 2.5, escape: 'close' },
   { name: 'taskEdit', trap: '#taskEditMask', focusRank: 3, dismissRank: 3, escape: 'close' },
   { name: 'completeConfirm', trap: '#completeConfirmMask', focusRank: 4, dismissRank: 4, escape: 'close' },
   // review 与 breakdown 在两条顺序里的先后并不一致,这是从旧的 if-else 链继承
@@ -37,7 +38,7 @@ const POPOVER_MODAL_LAYER = Object.freeze([
 // 这份清单不等于“有弹层开着”——➕ 与收集箱不在其中,落点提示会直接叠在它们
 // 上面。这是旧行为,原样保留;写成有名字的清单之后,它至少是一个能被讨论的决定。
 const POPOVER_LANDING_BLOCKING_MODALS = Object.freeze([
-  'taskEdit', 'completeConfirm', 'breakdown', 'settings', 'review', 'stuck', 'draftChat'
+  'eventTime', 'taskEdit', 'completeConfirm', 'breakdown', 'settings', 'review', 'stuck', 'draftChat'
 ]);
 
 function registerPopoverModals({ registry, $, modals } = {}) {

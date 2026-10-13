@@ -332,51 +332,84 @@ test('triage status refresh preserves a manual title draft, input focus and sele
   assert.equal(commands, 0);
 });
 
-test('manual event time including an empty draft survives a late model proposal and does not submit on input', t => {
-  const dom = domFixture(); let commands = 0;
-  const at = new Date(2026, 9, 13, 19, 54).getTime();
+function timeDialogHarness(t) {
+  const dom = domFixture(), calls = [], openings = [];
+  const at = new Date(2026, 9, 13, 19, 54, 32, 125).getTime();
   const state = { impulses: [{ id: 'synthetic-time', text: '晚上6点做了1小时健身', createdAt: at,
     classification: { category: 'log', routineKind: 'movement', level: null } }],
     routines: { items: [] }, moodNotes: [], inboxHistoryTotal: 0, inboxHistoryCountVersion: 1 };
-  const feature = createPopoverInboxFeature({ ...dom, getState: () => state, escapeHTML: String,
-    openBreakdown() {}, surfaceClient: { organizeImpulse() { commands++; } } });
-  feature.mount(); feature.renderList(); t.after(() => feature.dispose());
-  const article = dom.$('#impulseList').children[0];
-  for (const value of ['2026-10-13T17:30', '']) {
-    const input = { closest: () => article, matches: selector => selector === '.inbox-event-time', value };
-    dom.fire('impulseList', 'input', { target: input });
-    state.impulses[0] = { ...state.impulses[0], triageStatus: { state: 'suggested', occurredAt: at - 3600000 - value.length } };
-    feature.renderList();
-    assert.match(article.innerHTML, new RegExp(`class="inbox-event-time pixel-input"[^>]*value="${value}"`));
-    assert.match(article.innerHTML, /未保存/);
-  }
-  assert.equal(commands, 0);
-});
-
-test('event-time confirmation sends one reviewed timestamp and a failed save retains the edited value', async t => {
-  const dom = domFixture(), calls = [];
-  const at = new Date(2026, 9, 13, 19, 54).getTime();
-  const state = { impulses: [{ id: 'synthetic-confirm-time', text: 'Synthetic completed workout', createdAt: at,
-    classification: { category: 'log', routineKind: 'movement', level: null } }],
-    routines: { items: [] }, moodNotes: [], inboxHistoryTotal: 0, inboxHistoryCountVersion: 1 };
   let resolve;
-  const feature = createPopoverInboxFeature({ ...dom, getState: () => state, escapeHTML: String,
+  const timeDialog = { refresh() {}, close() {}, open(options) { openings.push(options); return true; } };
+  const feature = createPopoverInboxFeature({ ...dom, getState: () => state, escapeHTML: String, timeDialog, now: () => at,
     openBreakdown() {}, surfaceClient: { organizeImpulse(payload) {
       calls.push(payload); return new Promise(done => { resolve = done; });
     } } });
   feature.mount(); feature.renderList(); t.after(() => feature.dispose());
   const article = dom.$('#impulseList').children[0], original = article.querySelector.bind(article);
-  const input = { value: '2026-10-13T18:00', closest: () => article, matches: selector => selector === '.inbox-event-time' };
-  article.querySelector = selector => selector === '.inbox-event-time' ? input
+  const editButton = { dataset: { inboxAction: 'edit-time' }, closest(selector) {
+    return selector === '[data-impulse-id]' ? article : selector === '[data-inbox-action]' ? this : null;
+  } };
+  article.querySelector = selector => selector === '[data-inbox-action="edit-time"]' ? editButton
     : selector === '.inbox-title' ? { value: 'Synthetic workout' } : original(selector);
-  dom.fire('impulseList', 'input', { target: input });
-  const button = article.querySelector('[data-inbox-action="log"]');
-  const click = () => dom.fire('impulseList', 'click', { target: button });
-  click(); click(); assert.equal(calls.length, 1);
-  assert.equal(calls[0].occurredAt, new Date(2026, 9, 13, 18).getTime());
-  assert.equal(state.impulses[0].createdAt, at);
-  resolve({ ok: false, reason: 'day-full' }); await tick();
-  assert.equal(input.value, '2026-10-13T18:00'); assert.match(dom.$('#inboxStatus').textContent, /已满/);
-  click(); assert.equal(calls.length, 2); assert.deepEqual(calls[1], calls[0]);
-  resolve({ ok: true }); await tick();
+  const edit = () => { dom.fire('impulseList', 'click', { target: editButton }); return openings.at(-1); };
+  const log = () => dom.fire('impulseList', 'click', { target: article.querySelector('[data-inbox-action="log"]') });
+  return { dom, calls, openings, state, feature, article, edit, log, at, resolve: result => resolve(result), editButton };
+}
+
+test('shared time dialog updates only the capture draft; cancelling and late AI never replace an edited time', async t => {
+  const h = timeDialogHarness(t), first = h.edit();
+  assert.equal(first.value, '2026-10-13T19:54'); assert.equal(first.originalAt, h.at);
+  assert.equal(first.precision, 'minute'); assert.equal(first.key, 'inbox:synthetic-time');
+  assert.equal(first.resolveReturnFocus(), h.editButton);
+  assert.doesNotMatch(h.article.innerHTML, /type="datetime-local"/);
+  assert.match(h.article.innerHTML, /inbox-event-time-value/);
+  assert.equal(h.calls.length, 0);
+  // Closing a modal never calls submit, so opening again sees the same draft.
+  assert.equal(h.edit().value, first.value);
+  const chosen = '2026-10-13T17:30';
+  assert.deepEqual(await first.submit({ value: chosen, at: new Date(2026, 9, 13, 17, 30).getTime() }), { ok: true });
+  assert.equal(h.calls.length, 0); assert.match(h.article.innerHTML, /17:30/); assert.match(h.article.innerHTML, /未保存/);
+  h.state.impulses[0] = { ...h.state.impulses[0], triageStatus: { state: 'suggested', occurredAt: h.at - 3600000 } };
+  h.feature.renderList(); assert.equal(h.edit().value, chosen);
+  assert.equal(h.edit().value, chosen, 'repeated cancellation never overwrites the confirmed draft');
+});
+
+test('time dialog range and source errors stay in the dialog without draft or business writes', async t => {
+  const h = timeDialogHarness(t), opening = h.edit();
+  const future = await opening.submit({ value: '2026-10-13T23:00', at: h.at + 3600000 });
+  assert.equal(future.ok, false); assert.match(future.message, /不能晚于现在/);
+  const old = await opening.submit({ value: '2026-10-10T12:00', at: new Date(2026, 9, 10, 12).getTime() });
+  assert.equal(old.ok, false); assert.match(old.message, /今天或昨天/);
+  assert.equal(h.edit().value, opening.value); assert.equal(h.dom.$('#inboxStatus').textContent, '');
+  h.state.impulses[0].classification.routineKind = 'rest';
+  assert.equal(Boolean(opening.isCurrent()), false);
+  assert.equal((await opening.submit({ value: opening.value, at: h.at })).stale, true);
+  assert.equal(h.calls.length, 0);
+});
+
+test('time confirmation preserves exact unchanged instant and final save owns retries and failure feedback', async t => {
+  const h = timeDialogHarness(t), opening = h.edit();
+  assert.deepEqual(await opening.submit({ value: opening.value, at: opening.originalAt }), { ok: true });
+  h.log(); h.log(); assert.equal(h.calls.length, 1); assert.equal(h.calls[0].occurredAt, h.at);
+  h.resolve({ ok: false, reason: 'day-full' }); await tick();
+  assert.equal(h.edit().originalAt, h.at); assert.match(h.dom.$('#inboxStatus').textContent, /已满/);
+  h.log(); assert.equal(h.calls.length, 2); assert.deepEqual(h.calls[1], h.calls[0]);
+  h.resolve({ ok: true }); await tick();
+});
+
+
+test('an open inbox time dialog cannot apply to a removed, resolved or replaced source', async t => {
+  for (const mutate of [
+    state => { state.impulses = []; },
+    state => { state.impulses[0].resolution = { action: 'log' }; },
+    state => { state.impulses[0].createdAt++; },
+    state => { state.impulses[0].text = 'replacement'; },
+    state => { state.impulses[0].classification.category = 'note'; }
+  ]) {
+    const h = timeDialogHarness(t), opening = h.edit(); mutate(h.state);
+    assert.equal(opening.isCurrent(), false);
+    assert.deepEqual(await opening.submit({ value: opening.value, at: opening.originalAt }),
+      { ok: false, message: '这条记录已变化，关闭后重新编辑。', stale: true });
+    assert.equal(h.calls.length, 0);
+  }
 });
