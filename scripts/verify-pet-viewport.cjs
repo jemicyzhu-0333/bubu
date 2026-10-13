@@ -83,6 +83,21 @@ async function main() {
     assert.equal(host.isVisible(), true, 'native-window-not-visible');
     const security = record.window.webContents.getLastWebPreferences();
     assert.equal(security.sandbox, true); assert.equal(security.contextIsolation, true); assert.equal(security.nodeIntegration, false);
+    // macOS may retarget the frame after showInactive; wait for a stable native
+    // rectangle before the no-mutation rounds contract (CI flake at 'rounds').
+    stage = 'settle';
+    {
+      const yieldTurn = () => new Promise(resolve => setImmediate(resolve));
+      const same = (a, b) => a && b && a.x === b.x && a.y === b.y && a.width === b.width && a.height === b.height;
+      let stable = 0, last = record.window.getBounds();
+      for (let i = 0; i < 60 && stable < 5; i++) {
+        await yieldTurn();
+        const next = record.window.getBounds();
+        stable = same(last, next) ? stable + 1 : 0;
+        last = next;
+      }
+      assert.equal(stable, 5, 'native-bounds-did-not-settle');
+    }
     stage = 'rounds';
     const result = await verifyRounds({ host, native: record.window, calls: record.calls, setCursor: next => { cursor = next; } });
     console.log(JSON.stringify({ probe: 'pet-viewport', platform: 'darwin', ...result, visualVerification: false }));
@@ -99,7 +114,8 @@ async function main() {
   app.exit(0);
 }
 
-function reportFailure() {
+function reportFailure(error) {
+  if (error) console.error(error && error.stack ? error.stack : error);
   console.error(`pet-viewport-probe: failed (${stage})`);
   require('electron').app.exit(1);
 }
