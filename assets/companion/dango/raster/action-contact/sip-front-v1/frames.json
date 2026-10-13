@@ -1,0 +1,171 @@
+{
+  "schema": "dango-source-contact-pose-candidate/1",
+  "packageId": "sip-front-v1",
+  "runtimeReady": false,
+  "status": "candidate; independent validation pending",
+  "action": "sip-tea",
+  "view": "front",
+  "baseCup": [
+    23,
+    43
+  ],
+  "cupRect": [
+    0,
+    0,
+    22,
+    19
+  ],
+  "fixedSourcePolicy": "Quantize and project once at p0. Every phase draws identical logical pixels at originalCup(p)-[23,43]. No source switch, rotation, resampling or per-phase quantization.",
+  "palette": [
+    [
+      248,
+      104,
+      120
+    ],
+    [
+      248,
+      128,
+      128
+    ],
+    [
+      240,
+      80,
+      104
+    ],
+    [
+      26,
+      27,
+      38
+    ]
+  ],
+  "sourceAlphaThreshold": 240,
+  "sourcePixelDecode": "@napi-rs/canvas decode/readback, matching original audit; source RGB is preserved separately in extraction PNGs.",
+  "frames": [
+    {
+      "side": "left",
+      "src": "left-logical.png",
+      "exact8x": "left-8x.png",
+      "size": [
+        66,
+        72
+      ],
+      "origin": [
+        0,
+        0
+      ],
+      "sourceRgba": "sources/extraction/left-source-rgba.png",
+      "scaleArtPerSourcePixel": 0.07163610423116615,
+      "observedContactBoundary": [
+        24.25,
+        53.375
+      ],
+      "normal": [
+        1,
+        0
+      ],
+      "anatomicalShoulder": [
+        4.5,
+        45.5
+      ],
+      "sourceContactBoundary": [
+        538,
+        835.5
+      ],
+      "sourceOpenCut": [
+        [
+          390,
+          708
+        ],
+        [
+          348,
+          753
+        ]
+      ],
+      "worldOpenCut": [
+        [
+          13.64785657378741,
+          44.24139671052632
+        ],
+        [
+          10.639140196078431,
+          47.46502140092879
+        ]
+      ],
+      "visibleProximalCutCenter": [
+        12.14349838493292,
+        45.853209055727554
+      ],
+      "fullWidth": 4.409549907424417,
+      "bounds": {
+        "x": 9,
+        "y": 44,
+        "w": 16,
+        "h": 14
+      },
+      "ownership": "Cup owns wall to right; last source palm/shared ink through x537 retained."
+    },
+    {
+      "side": "right",
+      "src": "right-logical.png",
+      "exact8x": "right-8x.png",
+      "size": [
+        66,
+        72
+      ],
+      "origin": [
+        0,
+        0
+      ],
+      "sourceRgba": "sources/extraction/right-source-rgba.png",
+      "scaleArtPerSourcePixel": 0.07163610423116615,
+      "observedContactBoundary": [
+        40.25,
+        53.375
+      ],
+      "normal": [
+        -1,
+        0
+      ],
+      "anatomicalShoulder": [
+        61.5,
+        45.5
+      ],
+      "sourceContactBoundary": [
+        751,
+        835.5
+      ],
+      "sourceOpenCut": [
+        [
+          902,
+          708
+        ],
+        [
+          945,
+          753
+        ]
+      ],
+      "worldOpenCut": [
+        [
+          51.06705173890609,
+          44.24139671052632
+        ],
+        [
+          54.147404220846234,
+          47.46502140092879
+        ]
+      ],
+      "visibleProximalCutCenter": [
+        52.60722797987616,
+        45.853209055727554
+      ],
+      "fullWidth": 4.458736094182663,
+      "bounds": {
+        "x": 40,
+        "y": 44,
+        "w": 15,
+        "h": 14
+      },
+      "ownership": "Inner-handle foreground palm. At row835 main vessel cream<=739, shared ink741..762, pink>=763; cup owns741..750 and palm owns751..762 by explicit convention. Registration x+17.25 remains occlusion hypothesis, not outer x+22."
+    }
+  ]
+}
