@@ -1,6 +1,6 @@
 # Dango limbs v2: branch handoff
 
-Updated 2026-10-13 17:22 UTC. Shared branch: `feature/pet-motion-craft`. The front-sip source repair is committed as `d0e0827600c18b5cff7a723ab3525a12227dffc5`. Quarter wiring evidence is committed as `f74811caa9d5b108f77d7a1afa2134b8e34be256`. This update publishes independent-fore regression coverage and claims the actual fore material repair.
+Updated 2026-10-13 17:46 UTC. Shared branch: `feature/pet-motion-craft`. The front-sip source repair is committed as `d0e0827600c18b5cff7a723ab3525a12227dffc5`. Quarter wiring evidence is committed as `f74811caa9d5b108f77d7a1afa2134b8e34be256`. This update publishes independent-fore regression coverage and claims the actual fore material repair.
 
 ## Status
 
@@ -9,7 +9,7 @@ Updated 2026-10-13 17:22 UTC. Shared branch: `feature/pet-motion-craft`. The fro
 - Complete provenance paths: repaired in the earlier branch work.
 - Front hiccup: authored continuous fore+palm source package and standard artist integration exist, deliberately disabled. Its 257-phase standard/reference comparison passed. This is one action/view slice, not approval of all limbs.
 - Front sip: this change faithfully restores master ink lost to extraction masks and delivers a compact reproducible source candidate. It is not runtime integration and not an accepted natural-root result.
-- Generic independent fore, quarter near/far composition, grip/root contour and full action reach remain open. The current generic fore and upper share16 corresponding source/pixel frames; naming them differently does not make an independent fore.
+- Independent fore material is now repaired:16 source-distinct logical/8× pairs replace the duplicate upper copies, with all256 coupled elbow pairs regenerated. Natural exposed elbow joins, quarter contact/depth, grip/root contour and full action reach remain open.
 - Real gait remains open. Thick/jumping four-phase candidates must not be enabled.
 
 ## What this change completed
@@ -73,3 +73,18 @@ changed by Bobo.
 
 Ownership claim (Bobo): Windows/macOS CI coverage for each pushed head and the quantitative overhang/root-outline metrics
 (`round7/outline-metrics.mjs`). Not claiming fore material, quarter depth, sip root or gait.
+
+
+## Current owner delivery: independent fore material (17:46 UTC)
+
+Based on shared head `b4d3d394d86b9637fe5deb06b5f199031a3ff655`, preserving all Bobo Round7 reports and ownership. Bobo reports Windows/macOS CI green for earlier head0407530; that is not CI acceptance of this new material commit. The earlier duplicate-fore status above and in Round7 is historical baseline evidence; it is superseded for material identity by this repair.
+
+Completed: exact retained source master/prompt plus honest missing-generation-metadata record;16 original-source fore projections (logical/8×/pivot), all256 coupled elbow pair repairs and synchronized manifest/rebuild/file hashes. There are1086 changed/new package paths, including48 fore and1026 joint outputs/records. No level-support candidate, canonical body, palm, feet or upper was copied from the old study.1049 unrelated package files remain byte-identical (upper48, palms456, feet93, canonical references17). No source pixels were drawn or reshaped.
+
+Evidence: `fore-material/REVIEW.md` and its portable verify/reproduce tools, aggregate hashes and two small images; `fore-material-checks.json`. Independently replayed16 inverse-projections and256 actual PNG mask+patch pairs match exactly. Package checker240 base/256 pairs/208 legal; relocated full rebuild240 frames/256 pairs/3 interfaces; final2134 file hashes pass. Actual current-package identity changes FAIL→PASS. Full `npm run check`5979 tests/5950 pass/29 optional skips; integration71/71; Canvas limb check224 target-views/10 outline actions, zero failures. These checks do not certify natural action quality.
+
+Visible remaining defect: the new source's broad root causes small exposed straight-elbow convex corners. Five bounded source-root registrations were actually sampled before keeping634.5; closer roots retain bumps and farther roots enter the palm neck or lose tip alpha. No speculative root cut or additional16/256 variant was promoted. Six standard-artist actions ×97 phases stay on legacy fallback. Direct accepted-plan wave is a fixed quantization plateau; high-five retains8 branch switches and7.211-art maximum wrist jump. Thus only independent-material identity and reproducibility close, not generic arm naturalness.
+
+Integration contract: arm length/shoulder/prop/body matrices unchanged; existing loader and composer unchanged; `extensions.runtimeReady=false`, production `hostAcceptsContract=null`, both source-contact hiccup flags remain false. Complete generation invocation metadata was never retained for the old master and is explicitly unknown in `sources/evidence/distinct-fore-v3/retained-source.json`; no fabricated seed/model/reference order. Existing source archive is linked by path and hashes.
+
+Next: current owner continues bounded round-foot gait source/trajectory repair. Bobo retains exact-head Windows/macOS CI plus quantitative outline metrics ownership; please rerun asset duplicate audit on this resulting head, and preserve conservative gates. The tested0.25-art exposure-preference experiment is rejected: no standard-artist admitted sample improved,107 direct samples lost contact accuracy and sneeze jump worsened; production solver is unchanged. Need actual action-specific source/root/contact improvements, not larger acceptance tolerances. Overall seven-item delivery remains **NO-GO** and no main merge/release is performed.

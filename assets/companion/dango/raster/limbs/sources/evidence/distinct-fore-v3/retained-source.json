@@ -1,0 +1,55 @@
+{
+  "schema": "dango-fore-retained-source/1",
+  "status": "retained-originals-with-generation-metadata-gap",
+  "master": {
+    "path": "sources/masters/short-arm-study-v2.png",
+    "sha256": "572bce27158c6d00f5198a653294d5f2efe82fc74f7808bb5cd6b2f4adf25a5c"
+  },
+  "originalPrompt": {
+    "path": "sources/masters/short-arm-study-v2.prompt.txt",
+    "sha256": "f0a036f5b47fe03c4e305f3f8f6a32f3dbb8a8034900c5aaaedbb8aeee63ec72"
+  },
+  "upstreamExtraction": {
+    "path": "sources/evidence/distinct-fore-v3/build_forearm.upstream.py",
+    "sha256": "76190111f71b2c8d94abaf4cebbd9d0f0960744f2eb661eb52233090b63fe45b",
+    "note": "Unmodified archived upstream script; its absolute historical paths are not the portable rebuild entry."
+  },
+  "archiveLocator": {
+    "collection": "arm-production/masters",
+    "masterFilename": "short-arm-study-v2.png",
+    "promptFilename": "short-arm-study-v2.prompt.txt",
+    "lookupKey": "572bce27158c6d00f5198a653294d5f2efe82fc74f7808bb5cd6b2f4adf25a5c",
+    "repositoryPath": "docs/reviews/dango-limbs-v2-runtime/candidates/arm-archive/arm-study.tar.gz",
+    "archiveSha256": "0a0d4f6c56c6e47d85cef03075be63d27afb8ae6f2a308b24025cf64610ef3d4",
+    "masterMember": "arm-study/masters/short-arm-study-v2.png",
+    "promptMember": "arm-study/masters/short-arm-study-v2.prompt.txt",
+    "portableOriginalExtractorMember": "arm-study/build_forearm.py",
+    "originalExtractorMember": "arm-study/original-scripts/build_forearm.py",
+    "gitBlob": "1fbcc4e7184a83975e13918f01af31cbecda38e9",
+    "verifiedPresentAtCommit": "27d9846"
+  },
+  "generationMetadata": {
+    "status": "missing",
+    "model": null,
+    "generationId": null,
+    "generationTimestamp": null,
+    "referenceAttachmentIdentifiers": null,
+    "note": "No short-arm-study-v2.provenance.json was present with the retained source. The original prompt mentions two attachments; attachment identity and generation settings are not established. Do not substitute v1 metadata.",
+    "seed": null,
+    "referenceAttachmentOrder": null
+  },
+  "acceptance": {
+    "runtimeReady": false,
+    "hostAcceptsContract": null,
+    "sourceExtractionReproducible": true,
+    "fullGenerationProvenanceComplete": false,
+    "legalRightsCertified": false,
+    "remaining": [
+      "Generation invocation metadata and reference attachment identities",
+      "Action-specific root and hold joins",
+      "Contact trajectories",
+      "Continuous action/outfit/transition/native acceptance"
+    ]
+  },
+  "note": "Narrow repair reuses the already retained distinct-fore candidate. No new generation or drawing occurred. The existing archive also holds level-support work, which is excluded from this repair."
+}

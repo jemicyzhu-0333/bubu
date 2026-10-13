@@ -1,0 +1,35 @@
+{
+  "schema": "dango-source-distinct-fore/1",
+  "master": "sources/masters/short-arm-study-v2.png",
+  "masterSha256": "572bce27158c6d00f5198a653294d5f2efe82fc74f7808bb5cd6b2f4adf25a5c",
+  "crop": [
+    620,
+    248,
+    686,
+    356
+  ],
+  "alphaPolicy": "Geometric rectangular root/distal cuts; original RGB retained at source alpha >=240. Low-alpha generated background halo is excluded; no RGB color key.",
+  "bodyScaleAudit": {
+    "sourceBodyWidthPx": 458,
+    "sampleRows": [
+      230,
+      240,
+      250
+    ],
+    "leftInclusive": 150,
+    "rightInclusive": 607,
+    "canonicalBodyWidthArt": 69.415385,
+    "artPxPerSourcePx": 0.15156197598253277
+  },
+  "rootSourceCenter": [
+    634.5,
+    305.5
+  ],
+  "tipSourceCenter": [
+    674.0877657380997,
+    305.5
+  ],
+  "boneControlLengthArt": 6,
+  "sourceRole": "New source-observed tapered distal forearm; upper remains distinct previously reviewed original source",
+  "candidateStatus": "Requires canonical assembly and joint review"
+}

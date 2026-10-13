@@ -1,0 +1,198 @@
+{
+  "baselineCommit": "27d9846",
+  "scope": "Offscreen Skia only; explicit preview opt-in; standard artist fallback and direct accepted-plan demonstration are separate",
+  "runtimeReady": false,
+  "hostAcceptsContract": null,
+  "source": {
+    "upperBytesIdentical": true,
+    "foreDifferentFromBaseline": 16,
+    "foreDifferentFromUpper": 16,
+    "sourceBodyFilesIdentical": true,
+    "inverseSampleExact": 16
+  },
+  "joints": {
+    "old": {
+      "actualMaskPatchEqualsDeclaredEdits": 256,
+      "actualAlphaPreserved": 256,
+      "legalPairs": 208
+    },
+    "candidate": {
+      "actualMaskPatchEqualsDeclaredEdits": 256,
+      "actualAlphaPreserved": 256,
+      "legalPairs": 208
+    }
+  },
+  "identity": {
+    "old": {
+      "limbs.json": "5f00712e4934c004c2bd113c96835d7f079d549c88ff712b514de1477d0236d2",
+      "joints/elbow.json": "6ed3258090f6b4af0223ab8fbf61b9a09bf79506f055346fda9c66de3baa2080",
+      "arm/arm-fore-l-a000.png": "6f68b30421578098079c0d87e7d9e51149abe969ed884f5ab72bf7f06fa63a17",
+      "arm/arm-fore-l-a022.png": "d16cccd41f34ec2b2e234350843b880a5ce9d336149641d2ea3e9640b9187f5a",
+      "arm/arm-fore-l-a045.png": "5e47e25fd978167f0e4af1181d8937b85220c79dee7d4a81f5428d802843c2e1",
+      "arm/arm-fore-l-a067.png": "bc1823bab00ce700a4af542bf9d912e69a75503e766d4095b7c25e12dba3420c",
+      "arm/arm-fore-l-a090.png": "2c524e68aef9ca44672837672d8815a0a0937398abb6c009be1d3b503ab745cb",
+      "arm/arm-fore-l-a112.png": "333e22894bb1bc74708e0c39251044e90862aa26f59a99547f3b1314ed3b387b",
+      "arm/arm-fore-l-a135.png": "c80a91fcc33c3138353310fe39824955e04c0ed1d1f3e8a11976b94d30eba22e",
+      "arm/arm-fore-l-a157.png": "523611a0cb5d10a79586b14407a791fdc9ed89c3becc6f70696d64def379e869",
+      "arm/arm-fore-l-a180.png": "9c6bcc69569cbea4d35d32c09dbd9c6db7251b3914d9f318536372d5e9828ba1",
+      "arm/arm-fore-l-a202.png": "4b0fe015b3736de52f7e25a69b9ece4a7b11aa69218a148dfc2d9e7e4f6ea29b",
+      "arm/arm-fore-l-a225.png": "f5ef82785f4475a6010aaa4609906dfce51e321e4944db28fb9721913fb4d398",
+      "arm/arm-fore-l-a247.png": "8800ea26fe67d1d175eeb6a79d5dee207cf89ad067d5f4d8626aee1f6dbb5966",
+      "arm/arm-fore-l-a270.png": "042a0c17093d69e3a968e74da62619d2fd8d5f926a4b69e698d3dc6ad326b673",
+      "arm/arm-fore-l-a292.png": "249d2f99c276e721a3093c9c4d9491cab207ba49d8628224fe47f0cb20b5e19d",
+      "arm/arm-fore-l-a315.png": "aaac37f1af4ff2e8a207cfc4d191a68f645f1d214ed682b8ebe39763afdea9eb",
+      "arm/arm-fore-l-a337.png": "222eb354c98734179c5361f6d2e51e7f471ae6b48433bfabc2922b630c2aa96d"
+    },
+    "candidate": {
+      "limbs.json": "2897b2e4e4a5efdeeae6c11ff1d83f4760294ce93f0538479dac140a081a565e",
+      "joints/elbow.json": "550e02e2d4e83fc7673cafc61bd1da0caceb72d1811b0b19173dbab93130773f",
+      "arm/arm-fore-l-a000.png": "40b6a0fb14f96a381b7da93dd333cdc2aa5cff401571d8805a9a1fbcc55077aa",
+      "arm/arm-fore-l-a022.png": "cde182782c8b4b138ce0fe9854f5f2e3e77b700c6a8a26ecac9f00f391ef358a",
+      "arm/arm-fore-l-a045.png": "9c56b2c916a68a249b5625cc6389ea20032fe1e79173542aa6a2b2f2a0f01f8c",
+      "arm/arm-fore-l-a067.png": "c02043367a41c191c2686e33103d9d58bad46b58013289571af1552c0e906c85",
+      "arm/arm-fore-l-a090.png": "107b2438899c25173565456d344febc5e7cabf831e74de77eafd33969db54c5f",
+      "arm/arm-fore-l-a112.png": "d9557711b8a0fae720b185a0a7349ba51c8d39cc48ae6565de09fed5e2fc0a21",
+      "arm/arm-fore-l-a135.png": "c4af5e722f0b06e730879c6d79229595c158ad14831d33e8cf006ec0b9a34155",
+      "arm/arm-fore-l-a157.png": "576d364cb691582d4c4c3aae2b6e6ae0fcbbd35e84b7754bd266478f13a53980",
+      "arm/arm-fore-l-a180.png": "9d4e6051673d5b01eb8afee6301d012e5bde8e735bc796905d8a41895717d64f",
+      "arm/arm-fore-l-a202.png": "ee75bb5a87c0e4b7192ffb5069c84135827b2d2dfe356ee5606ac010faa284bb",
+      "arm/arm-fore-l-a225.png": "44e9de457a21ec599d398a179ee67c6c9d560d5b8bca629b62368411dd139d88",
+      "arm/arm-fore-l-a247.png": "a7c686e041b19fd8586ced2fece3fc1dae3ddf7514a2c0cc032658a32ec388cf",
+      "arm/arm-fore-l-a270.png": "112e63b33fa22255b567ed2fb039045d350fbbf042483f45affd656f8c656710",
+      "arm/arm-fore-l-a292.png": "51275e99b358c3f565620f8680dc2269463fed2fe9b27545037f487ace4bb22f",
+      "arm/arm-fore-l-a315.png": "f33552d6ffedd5daac6225fb91d9cf3fce8d62e95392e1831f6d6728729ec0a6",
+      "arm/arm-fore-l-a337.png": "9967adaca2a9e3a755008be8d21292a020c62607a8c2f75859c923352e0228b7"
+    }
+  },
+  "standardArtist": {
+    "wave": {
+      "left": {
+        "actualLimbFrames": 0,
+        "samples": 97
+      },
+      "right": {
+        "actualLimbFrames": 0,
+        "samples": 97
+      }
+    },
+    "photo-pose": {
+      "left": {
+        "actualLimbFrames": 0,
+        "samples": 97
+      },
+      "right": {
+        "actualLimbFrames": 0,
+        "samples": 97
+      }
+    },
+    "high-five": {
+      "left": {
+        "actualLimbFrames": 0,
+        "samples": 97
+      },
+      "right": {
+        "actualLimbFrames": 0,
+        "samples": 97
+      }
+    },
+    "sip-tea": {
+      "left": {
+        "actualLimbFrames": 0,
+        "samples": 97
+      },
+      "right": {
+        "actualLimbFrames": 0,
+        "samples": 97
+      }
+    },
+    "hiccup": {
+      "left": {
+        "actualLimbFrames": 0,
+        "samples": 97
+      },
+      "right": {
+        "actualLimbFrames": 0,
+        "samples": 97
+      }
+    },
+    "type-keyboard": {
+      "left": {
+        "actualLimbFrames": 0,
+        "samples": 97
+      },
+      "right": {
+        "actualLimbFrames": 0,
+        "samples": 97
+      }
+    }
+  },
+  "directMaterialOnly": {
+    "wave-old": {
+      "sampledFrames": 25,
+      "phaseRange": [
+        0.355,
+        0.475
+      ],
+      "angleChanges": 0,
+      "maxWristJumpArt": 0.0,
+      "maxContactJumpArt": 0.0,
+      "maxContactErrorArt": 1.0333048911012257
+    },
+    "high-five-old": {
+      "sampledFrames": 49,
+      "phaseRange": [
+        0.05,
+        0.95
+      ],
+      "angleChanges": 8,
+      "maxWristJumpArt": 7.211102550927978,
+      "maxContactJumpArt": 2.0,
+      "maxContactErrorArt": 1.1046450426099048
+    },
+    "wave-candidate": {
+      "sampledFrames": 25,
+      "phaseRange": [
+        0.355,
+        0.475
+      ],
+      "angleChanges": 0,
+      "maxWristJumpArt": 0.0,
+      "maxContactJumpArt": 0.0,
+      "maxContactErrorArt": 1.0333048911012257
+    },
+    "high-five-candidate": {
+      "sampledFrames": 49,
+      "phaseRange": [
+        0.05,
+        0.95
+      ],
+      "angleChanges": 8,
+      "maxWristJumpArt": 7.211102550927978,
+      "maxContactJumpArt": 2.0,
+      "maxContactErrorArt": 1.1046450426099048
+    }
+  },
+  "excludedReproducibleOutputs": [
+    "standard-artist-comparison.png",
+    "sample-records.json",
+    "direct-records.json",
+    "Full 256-joint contact sheets and GIFs from the original local review are not included."
+  ],
+  "boundedSourceRepair": {
+    "status": "No passing replacement; retain original registration",
+    "source": "assets/companion/dango/raster/limbs/sources/masters/short-arm-study-v2.png",
+    "retainedGlobalRoot": [
+      634.5,
+      305.5
+    ],
+    "testedRootX": [
+      634.5,
+      637.5,
+      640.5,
+      643.5,
+      646.5
+    ],
+    "finding": "First three retain bumps; 643.5 reaches palm neck and retains lower bump; 646.5 tip transparent. No alternative production set promoted.",
+    "evidenceScope": "Separately reviewed bounded source experiment; not rerun by these two publication scripts"
+  }
+}
