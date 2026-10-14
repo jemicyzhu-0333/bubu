@@ -1743,7 +1743,7 @@ registerNudgeActions({
   nudge, resolveRoutineRequest: routineReminder.resolveRequest, logRoutineOccurrenceCommand,
   recordTaskAvoidance: input => recordTaskAvoidanceWorkflow.execute(input),
   readFocusSession: canonicalFocusSession, readNowTaskId: () => store.get('nowTaskId'),
-  getSettings, acceptHealthyShutdown, stopFocusSession, startRestSession, startFocusSession
+  getSettings, acceptHealthyShutdown, stopFocusSession, startRestSession, startFocusSession, resumeFocusSession
 });
 
 // ---- Pet IPC ----
