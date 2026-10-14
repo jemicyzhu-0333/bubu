@@ -97,10 +97,14 @@ test('finite recovery keeps the same source through lowering and zero visibility
 test('unreviewed action, view, outfit, transform, cup geometry and malformed recovery fail closed', () => {
   for (const change of [o => o.action.id = 'hiccup', o => o.action.motion = 'idle', o => o.action.prop = 'book',
     o => o.action.propOpacity = .9, o => o.action.handoffRecovery = true,
-    o => o.appearance = { items: [{ id: 'hat' }] }, o => o.transform = [1, 0, 0, 1, 0, 0],
+    o => o.transform = [1, 0, 0, 1, 0, 0],
     o => o.matrix = [1, 0, 0, 1, 0, 0], o => o.state = 'dragged']) {
     const o = structuredClone(opts); change(o); assert.equal(sipShortSourceContactPoseEligible(enabled(), pose(), 'front', o), false);
   }
+  // Worn accessories keep the short-arm pair (same paw pass as legacy paws).
+  assert.equal(sipShortSourceContactPoseEligible(enabled(), pose(), 'front', { ...opts, appearance: { items: [{ id: 'hat' }] } }), true);
+  const withAccessory = pose(); withAccessory.contact.tools.push({ key: 'scarf-tail', contextAccessory: true });
+  assert.equal(sipShortSourceContactPoseEligible(enabled(), withAccessory, 'front', opts), true);
   for (const view of ['back', 'three-quarter', 'three-quarter-left', 'three-quarter-right', 'profile']) {
     assert.equal(sipShortSourceContactPoseEligible(enabled(), pose(), view, opts), false);
   }
@@ -160,8 +164,8 @@ test('one-image failure or later cache loss disables both hands until a new expl
   }
 });
 
-test('wrong view or outfit locks the bounded channel episode and switching source registrations cannot unlock it', () => {
-  for (const extra of [{ view: 'back' }, { appearance: { items: [{ id: 'hat' }] } }]) {
+test('wrong view locks the bounded channel episode and switching source registrations cannot unlock it', () => {
+  for (const extra of [{ view: 'back' }]) {
     const s = selector(), p = pose(), o = { ...opts, channel: 'pet', actionInstanceKey: 'first' };
     assert.equal(s.apply(p, extra.view || 'front', { ...o, ...extra }), p);
     for (let i = 0; i < 100; i++) s.apply(p, 'front', { ...o, channel: `gallery:${i}` });

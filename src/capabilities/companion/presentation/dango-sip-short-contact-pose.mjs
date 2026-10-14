@@ -21,7 +21,7 @@ const sipShortContactSpriteKeys = () => Object.values(SIP_SHORT_CONTACT_KEYS);
 function sipShortSourceContactPoseEligible(manifest, pose, view, options = {}) {
   const action = options.action, recovery = action?.handoffRecovery;
   if (action?.id !== 'sip-tea' || action.motion !== 'sip' || action.prop !== 'cup'
-    || view !== 'front' || (options.appearance?.items || []).length || options.state === 'dragged'
+    || view !== 'front' || options.state === 'dragged'
     || options.transform || options.matrix) return false;
   // Explicit numeric recovery owns its original cup and hand fades. Ordinary
   // sip cannot opt into unrelated partial prop visibility or a wider cup range.
@@ -29,7 +29,11 @@ function sipShortSourceContactPoseEligible(manifest, pose, view, options = {}) {
     : (action.propOpacity ?? 1) !== 1) return false;
   const body = manifest.views?.front?.body;
   if (body?.src !== 'views/front/body.png' || !same(body.rect, BODY_RECT)) return false;
-  const tools = pose.contact?.tools || [], cup = tools.find(t => t.key === 'cup');
+  // Worn accessories do not change the hands: the source pair is a posed paw
+  // pair (pawSprite) and so takes the same garment paw pass as legacy paws
+  // (accessory-resolver pawPass / pawsAboveCloth). Context accessories ride
+  // along as extra tools; only the cup is the sip contact.
+  const tools = (pose.contact?.tools || []).filter(t => !t.contextAccessory), cup = tools.find(t => t.key === 'cup');
   const ordinaryY = cup?.y - (recovery === undefined ? 0 : 5 * smooth(recovery / .6));
   if (tools.length !== 1 || !cup || ![cup.x, cup.y].every(Number.isFinite)
     || cup.x < 23 - 1e-8 || cup.x > 24.421795 + 1e-8

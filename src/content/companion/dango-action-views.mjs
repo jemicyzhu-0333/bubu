@@ -30,7 +30,9 @@ const DANGO_ACTION_VIEWS = Object.freeze({
   'read-book': facing(),
   'take-note': facing(),
   'type-keyboard': facing(),
-  'sip-tea': facing(),
+  // Front only: the reviewed short-arm hands exist for front; a single view
+  // keeps one hand style for the whole action (no mid-action switch).
+  'sip-tea': facing('front', ['front']),
   'paper-plane': facing('three-quarter'),
   'paper-return': facing('three-quarter', ['front', 'three-quarter']),
   sweep: facing('three-quarter'),

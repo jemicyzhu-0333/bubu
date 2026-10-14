@@ -193,7 +193,7 @@ test('CLI exit code fails duplicates and passes distinct evidence in a relocated
 
 test('shipped material remains inactive; any duplicates are reported, never accepted', async () => {
   const report = await auditForeIdentity();
-  assert.equal(report.runtimeReady, false); assert.equal(DANGO_LIMB_RIG.hostAcceptsContract, null);
+  assert.equal(report.runtimeReady, false); assert.equal(DANGO_LIMB_RIG.hostAcceptsContract, 2);
   assert.equal(report.sourceChainStatus, 'PASS', report.failures.join('\n'));
   assert.ok(report.pairs.length > 0);
   // Do not freeze the old duplicate artwork forever: a future complete distinct

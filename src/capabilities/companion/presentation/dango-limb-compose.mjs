@@ -148,7 +148,7 @@ function repair(buf, mask, patch, at, root, mirror) {
     if (patch.data[i + 3]) buf.data.set(patch.data.subarray(i, i + 3), o);
   }
 }
-function composeLimb(source, plan) {
+function composeLimb(source, plan, { outline = true } = {}) {
   const m = source.manifest(), P = id => source.pixels(id);
   const sock = m.sockets.find(s => s.kind === 'shoulder' && s.view === plan.view && s.side === plan.side);
   const stencil = P(sock.coverageStencil), sRoot = sock.root, S = plan.S, dirU = sub(plan.E, S);
@@ -170,7 +170,28 @@ function composeLimb(source, plan) {
   blit(paw, P(plan.paw.src), plan.W, plan.paw.root, plan.pawMirror);
   for (const f of source.interfaces()?.frames || []) if (interfaceApplies(f, plan))
     repair(paw, P(f.mask), P(f.patch), plan.W, f.root, false);
+  if (outline) closePawOutline(paw, arm, (x, y) => source.bodyAlpha?.(plan.view, x + .5, y + .5) ?? false);
   return { arm, paw, box: BOX, reflectAxis: plan.reflectAxis };
+}
+// Arm pixels hidden behind the body do not count as a visible join.
+// Palms are authored with an open edge where they met the old body contact.
+// Composed over the body that edge reads as a ghost blob, so every palm pixel
+// bordering empty space (neither palm nor arm) takes the palm's own darkest
+// (outline) colour. One pixel, inside the silhouette: no growth, no new hue.
+function closePawOutline(paw, arm, underBody) {
+  const d = paw.data, a = arm.data, W = BOX.w, H = BOX.h;
+  let dark = null, lum = Infinity;
+  for (let i = 0; i < d.length; i += 4) if (d[i + 3]) {
+    const l = d[i] * .3 + d[i + 1] * .59 + d[i + 2] * .11; if (l < lum) { lum = l; dark = [d[i], d[i + 1], d[i + 2]]; }
+  }
+  if (!dark || lum > 80) return;
+  const empty = (x, y) => x < 0 || y < 0 || x >= W || y >= H || (!d[(y * W + x) * 4 + 3] && (!a[(y * W + x) * 4 + 3] || underBody(x + BOX.x, y + BOX.y)));
+  const edge = [];
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    const i = (y * W + x) * 4; if (!d[i + 3]) continue;
+    if (empty(x - 1, y) || empty(x + 1, y) || empty(x, y - 1) || empty(x, y + 1)) edge.push(i);
+  }
+  for (const i of edge) { d[i] = dark[0]; d[i + 1] = dark[1]; d[i + 2] = dark[2]; d[i + 3] = 255; }
 }
 
 // Quarter view: asset 'l' is the far side (behind body), 'r' near (front).

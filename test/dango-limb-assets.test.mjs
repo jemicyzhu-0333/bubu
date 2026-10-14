@@ -34,8 +34,8 @@ test('lifecycle: absent / not-ready (runtimeReady=false) / ready only when the h
   assert.equal(await on.start(), 'ready'); assert.equal(on.manifest().version, 2);
 });
 
-test('production host keeps the contract inactive until explicitly accepted', () => {
-  assert.equal(DANGO_LIMB_RIG.hostAcceptsContract, null);
+test('production host accepts contract v2 (per-action defect gate decides)', () => {
+  assert.equal(DANGO_LIMB_RIG.hostAcceptsContract, 2);
 });
 
 const ready = (async () => { const s = createDangoLimbSource({ baseUrl: base, loadJson, loadImage, readPixels, acceptContract: 2 }); await s.start(); return s; })();
@@ -86,3 +86,4 @@ test('coverage: proximal upper-arm pixels use valid stencil and canonical body b
     else assert.equal(s.bodyAlpha(p.view, wx + .5, wy + .5), true, `proximal pixel ${wx},${wy} outside canonical body`);
   }
 });
+

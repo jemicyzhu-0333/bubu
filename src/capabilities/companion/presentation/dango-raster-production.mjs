@@ -13,8 +13,8 @@ import { DANGO_LIMB_RIG } from '../../../content/companion/dango-limbs.mjs';
 // Scope is enforced by the artist; the rejected authored run clip stays absent.
 // limbs v2 (assets/companion/dango/raster/limbs/limbs.json): loaded lazily on
 // ready(); absent/invalid/failed keeps the legacy paw sprites. The host accepts
-// the contract only via DANGO_LIMB_RIG.hostAcceptsContract (null today: the
-// package says runtimeReady=false and round-6 QA shows reach/occlusion regressions).
+// the contract via DANGO_LIMB_RIG.hostAcceptsContract (2: enabled; per-action
+// reach gate plus DANGO_LIMB_RIG.visibleDefects keep defective pairs legacy).
 const limbs = createDangoLimbSource({ baseUrl: DANGO_RASTER.baseUrl, loadImage: browserImageLoader, acceptContract: DANGO_LIMB_RIG.hostAcceptsContract });
 export default createDangoRasterArtist({ manifest: DANGO_RASTER, runFootTiming: 'forward-recovery', limbs,
   walkPreview: { enabled: DANGO_WALK_WORKBENCH.enabled, workbench: true } });

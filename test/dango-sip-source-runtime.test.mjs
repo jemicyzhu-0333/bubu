@@ -60,11 +60,13 @@ test('other actions, unavailable quarter view and outfits preserve legacy contac
       const x = a.resolveArtwork(o), y = b.resolveArtwork(o);
       assert.equal(x.sourceContactPose, undefined); assert.deepEqual(x.contact, y.contact);
     }
-    for (const extra of [{ view: 'three-quarter' }, { appearance: { items: [{ id: 'test.hat', renderKey: 'hat', formId: 'dango' }] } }]) {
+    // sip-tea now resolves every requested view to front (one hand style).
+    for (const extra of [{ appearance: { items: [{ id: 'test.hat', renderKey: 'hat', formId: 'dango' }] } }]) {
       const o = { action, motion: 'sip', view: 'front', progress: .5, elapsedMs: 4500, ...extra };
       const x = a.resolveArtwork(o), y = b.resolveArtwork(o);
       assert.equal(x.sourceContactPose, undefined); assert.deepEqual(render(a, o, x), render(b, o, y));
     }
+    assert.equal(a.resolveArtwork({ action, motion: 'sip', view: 'three-quarter', progress: .5, elapsedMs: 4500 }).view, 'front');
   } finally { a.dispose(); b.dispose(); }
 });
 test('one failed actual image falls back both roots/hands and reduced motion keeps the cup/source static', async () => {

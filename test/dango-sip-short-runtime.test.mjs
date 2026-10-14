@@ -98,7 +98,7 @@ test('actual front recovery retains source through cup lowering, canonical hand 
   } finally { a.dispose(); b.dispose(); }
 });
 
-test('other actions, quarter view, outfits and single-source failure preserve legacy contacts and pixels', async () => {
+test('other actions keep legacy; quarter requests resolve to the front short pair; outfits keep it; single-source failure is legacy', async () => {
   const a = await make(enabled()), b = await make(legacy()), failed = await make(enabled(), 'right');
   try {
     for (const act of Object.values(PET_ACTIONS)) if (act.id !== 'sip-tea') for (const progress of [0, .5, 1]) {
@@ -106,10 +106,15 @@ test('other actions, quarter view, outfits and single-source failure preserve le
       const x = a.resolveArtwork(o), y = b.resolveArtwork(o);
       assert.equal(x.sourceContactPose, undefined); assert.deepEqual(x.contact, y.contact);
     }
-    for (const extra of [{ view: 'three-quarter' }, { appearance: { items: [{ id: 'test.hat', renderKey: 'hat', formId: 'dango' }] } }]) {
-      const o = { action, motion: 'sip', view: 'front', progress: .5, elapsedMs: 4500, ...extra };
-      const x = a.resolveArtwork(o), y = b.resolveArtwork(o);
-      assert.equal(x.sourceContactPose, undefined); assert.deepEqual(render(a, o, x), render(b, o, y));
+    for (const view of ['three-quarter', 'three-quarter-left', 'three-quarter-right', 'back', 'profile']) {
+      const o = { action, motion: 'sip', view, progress: .5, elapsedMs: 4500, actionInstanceKey: `v-${view}` };
+      const x = a.resolveArtwork(o);
+      assert.equal(x.view, 'front'); assert.equal(x.sourceContactPose, 'sip-front-short-v1');
+    }
+    {
+      const o = { action, motion: 'sip', view: 'front', progress: .5, elapsedMs: 4500, actionInstanceKey: 'hat',
+        appearance: { items: [{ id: 'test.hat', renderKey: 'hat', formId: 'dango' }] } };
+      assert.equal(a.resolveArtwork(o).sourceContactPose, 'sip-front-short-v1');
     }
     for (const progress of [0, .5, 1]) {
       const o = { action, motion: 'sip', view: 'front', progress, elapsedMs: progress * 9000 };

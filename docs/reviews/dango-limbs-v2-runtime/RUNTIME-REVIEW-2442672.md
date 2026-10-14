@@ -38,3 +38,16 @@ contacts within 1.25 units (`node tools/dango-limbs-qa.mjs`).
    Needs action-level contact re-authoring or different bone lengths.
 5. If generic limbs are ever enabled, the forced run shows them altering the sip-short right paw region; the
    source-contact pose must keep precedence (code side, to be guarded when enabling).
+
+## Update (round 20, Bobo's agent)
+
+Policy changed at the user's request: composed limbs are enabled (`hostAcceptsContract: 2`) unless visual QA finds a
+visible defect (`DANGO_LIMB_RIG.visibleDefects`). Code fixes: palm outline closed on every edge not joined to a
+visible arm (fixes the ghost palms); sip short pair now kept with accessories (same paw pass as legacy paws);
+sip-tea is front-only (no mid-action hand-style switch). Remaining art items for Codex:
+
+1. Reach: most prop contacts are beyond 6+6 (wave, workout, catch-star, sweep, read-book, knit-scarf, …) so those stay legacy.
+2. umbrella-dance front: palm floats above the handle, forearm fragment beside it.
+3. snack-picnic three-quarter: forearm fragments below the palm at the body edge.
+4. Quarter far palm is behind the body; quarter actions mix one composed and one legacy hand (e.g. hiccup).
+5. Optional: a three-quarter short-arm sip pair would let sip-tea turn again.

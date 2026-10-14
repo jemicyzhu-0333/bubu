@@ -30,7 +30,7 @@ test('front right shoulder remains canonical-x half-grid registered and disabled
  assert.deepEqual(socket.worldRoot,[Math.round(socket.sourceBodyAnchor[0]-.5)+.5,45.5]);
  assert.deepEqual(socket.worldRoot,[58.5,45.5]);
  assert.equal(source.manifest().extensions.runtimeReady,false);
- assert.equal(DANGO_LIMB_RIG.hostAcceptsContract,null);
+ assert.equal(DANGO_LIMB_RIG.hostAcceptsContract,2);
 });
 
 test('composer ignores animated legacy shoulder endpoints and translates the whole limb exactly once',()=>{
