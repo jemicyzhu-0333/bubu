@@ -235,6 +235,7 @@
   .activity-hook-help summary { width: fit-content; }
   .activity-hook-help[open] { display: grid; gap: 8px; }
   .activity-hook-step { margin: 0 0 6px; color: var(--fg-1); font-size: 12px; line-height: 1.55; overflow-wrap: anywhere; }
+  .app-update-command { margin-top: 4px; }
   .activity-hook-command { display: block; margin-bottom: 8px; padding: 6px 8px; border-radius: var(--radius-sm); background: var(--bg-0); color: var(--fg-1); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11px; line-height: 1.5; overflow-wrap: anywhere; user-select: text; }
   .overview-panel-foot { display: flex; justify-content: flex-end; margin-top: 8px; }
   .energy-body { display: flex; flex-direction: column; gap: 14px; padding: 12px 0 0; }

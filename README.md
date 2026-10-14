@@ -52,12 +52,12 @@ This is a development test version, not a stable release. **In-app updates are n
 ### macOS: install from Terminal
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/jemicyzhu-0333/bubu/main/scripts/install-mac.sh | bash
-# uninstall (keeps your data):
-curl -fsSL https://raw.githubusercontent.com/jemicyzhu-0333/bubu/main/scripts/install-mac.sh | bash -s -- --uninstall
+curl -fsSL https://raw.githubusercontent.com/jemicyzhu-0333/bubu/main/scripts/install-mac.sh | bash                    # install
+curl -fsSL https://raw.githubusercontent.com/jemicyzhu-0333/bubu/main/scripts/install-mac.sh | bash -s -- --update     # update
+curl -fsSL https://raw.githubusercontent.com/jemicyzhu-0333/bubu/main/scripts/install-mac.sh | bash -s -- --uninstall  # uninstall (keeps data)
 ```
 
-The script picks the newest GitHub release that has a DMG for your Mac (`arm64`, or `x64` when published), verifies it against the release's `SHA256SUMS.txt` and `codesign --verify --deep --strict`, quits a running copy, installs to `/Applications` (or `~/Applications` without admin rights) and opens it. Files fetched by `curl` carry no quarantine flag, so no security setting is changed. Builds are ad-hoc signed (no Developer ID / notarization) until Developer ID secrets are added to CI; see `.github/workflows/build-desktop.yml`.
+Auto-update coming later.
 
 ## Run from source
 

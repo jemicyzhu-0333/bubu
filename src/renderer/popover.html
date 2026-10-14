@@ -957,6 +957,13 @@
       <summary><svg class="disclosure-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 4 4 4-4 4" vector-effect="non-scaling-stroke"/></svg><span class="setting-group-title" data-icon="sync" data-i18n="应用更新">应用更新</span></summary>
       <p id="appUpdateVersion" class="capability-note"></p>
       <p id="appUpdateStatus" role="status" class="capability-note"></p>
+      <div id="appUpdateManual" hidden>
+        <p class="capability-note" data-i18n="自动更新后续推出">自动更新后续推出</p>
+        <div id="appUpdateMacCommand" hidden>
+          <code class="activity-hook-command app-update-command" id="appUpdateCommand">curl -fsSL https://raw.githubusercontent.com/jemicyzhu-0333/bubu/main/scripts/install-mac.sh | bash -s -- --update</code>
+          <div class="ai-save-row"><button type="button" class="pixel-btn" id="appUpdateCopy" data-i18n="复制更新命令">复制更新命令</button></div>
+        </div>
+      </div>
       <div class="setting-row"><label for="appUpdateAuto" data-i18n="自动检查更新">自动检查更新</label><input type="checkbox" id="appUpdateAuto" style="accent-color:var(--primary);width:16px;height:16px"></div>
       <div class="ai-save-row">
         <button type="button" class="pixel-btn" id="appUpdateCheck" data-i18n="检查更新">检查更新</button>
