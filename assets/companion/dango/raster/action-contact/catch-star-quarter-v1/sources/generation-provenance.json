@@ -1,0 +1,79 @@
+{
+  "schema": "catch-star-generation-provenance/1",
+  "sourceRole": "Official imagegen local edit for this module. Resulting extracted representative poses were manually reviewed; no claim the user separately approved the raw master.",
+  "generator": "official image_gen.imagegen",
+  "generationOrdinal": 1,
+  "transparentBackground": true,
+  "rawStoredFullPath": "/workspace/shared/bubu-limbs-runtime-v2-meta/catch-star-source-v1/sources/catch-quarter-v1.png",
+  "rawSha256": "6849d250973c487264a5913cafcfc4dab0f25115084500758f755d4f1d1edf21",
+  "prompt": {
+    "path": "sources/catch-quarter-v1.prompt.txt",
+    "originalFullPath": "/workspace/shared/bubu-limbs-runtime-v2-meta/catch-star-source-v1/sources/catch-quarter-v1.prompt.txt",
+    "sha256": "8e2c4a3b145effdef4990f3faf9572523a79419d4dd5ce2265b2836b0457235a",
+    "repositoryPath": "assets/companion/dango/raster/action-contact/catch-star-quarter-v1/sources/catch-quarter-v1.prompt.txt"
+  },
+  "orderedReferences": [
+    {
+      "index": 0,
+      "originalFullPath": "/workspace/shared/bubu-limbs-runtime-v2-meta/catch-star-source-v1/evidence/baseline-0.5.png",
+      "sha256": "dbbc9dbf7274e69152940c234b74287eee458605f5266ee4bac54ef3949c01ab",
+      "role": "Only v1 input; actual existing renderer three-quarter frame, not a front anatomy source",
+      "excludedFromProduction": true,
+      "rebuildable": true
+    }
+  ],
+  "referenceRebuild": {
+    "repository": "jemicyzhu-0333/bubu",
+    "taskBasePublishedCommit": "c4c3f45bad6ac1766f8dd09440eb85356750e9d7",
+    "commitEvidence": "Recorded parent task base; workspace snapshot has no .git directory, not an independently re-read local HEAD",
+    "fixture": "docs/reviews/dango-limbs-v2-runtime/umbrella-front-source/scripts/fixture.mjs",
+    "harness": "tools/usagi-gallery/runtime-harness.mjs",
+    "renderer": "actual createPetRenderer using legacy artist, offscreen Skia @napi-rs/canvas",
+    "scriptOriginalFullPath": "/workspace/shared/bubu-limbs-runtime-v2-meta/catch-star-source-v1/scripts/probe.mjs",
+    "scriptSha256": "808c93ed7b771e7251fa46825c6405457e084074e820416f3437333f99ec865a",
+    "action": "catch-star",
+    "form": "dango",
+    "manual": true,
+    "view": "three-quarter (actual default resolved view; no view override)",
+    "phase": 0.5,
+    "drawTimeMs": 4750,
+    "durationMs": 9500,
+    "actionStartedAt": 0,
+    "skin": "pink",
+    "outfit": false,
+    "dpr": 2,
+    "blink": false,
+    "initialSelection": {
+      "kind": "expression",
+      "id": "life.idle"
+    },
+    "stateUpdates": {
+      "devPreview": null,
+      "presentationEventId": "catchprobe",
+      "actionStartedAt": 0
+    },
+    "procedure": [
+      "Load fixture(repoRoot, temporaryOutput) with no candidate override.",
+      "Create harness from fixture.sources.legacy with skin pink, outfit false, dpr 2, blink false.",
+      "Select expression life.idle.",
+      "Set devPreview null and currentEgg to createManualActionPlayback(behaviors, catch-star, {formId:dango}) plus presentationEventId catchprobe; set actionStartedAt 0.",
+      "Draw once at 4750ms and encode harness.body PNG. Do not pre-draw other phases into this harness."
+    ],
+    "hashExpectation": "Reference hash is exact original input. Re-render comparison needs original recorded base plus matching canvas encoder/runtime; do not silently relabel a changed re-render as the original reference.",
+    "canonicalBody": {
+      "repositoryPath": "assets/companion/dango/raster/views/three-quarter-right/body.png",
+      "sha256": "8d76b379f2d0e2816e19dc2ef9b5efdfe8d64567a4c866e84471cf8fbe44f450"
+    },
+    "canonicalStar": {
+      "repositoryPath": "assets/companion/dango/raster/tools/star.png",
+      "sha256": "f560bb049265b6f9ada05cbc28aa11c6f4a466c5b9d2eace866342df23fc5844"
+    }
+  },
+  "discardedGeneration": {
+    "ordinal": 2,
+    "raw": "catch-quarter-v2.png",
+    "purpose": "One wrist-seam-removal correction. Not used by current extraction/runtime."
+  },
+  "extractionScope": "Only manually owned fore/palm pixels retained. Generated body, face, feet and star discarded. Original v1 curved dark wrist line retained.",
+  "rawRepositoryPath": "assets/companion/dango/raster/action-contact/catch-star-quarter-v1/sources/catch-quarter-v1.png"
+}

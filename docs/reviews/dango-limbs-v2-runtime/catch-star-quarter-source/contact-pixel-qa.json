@@ -1,0 +1,1326 @@
+{
+  "status": "passed",
+  "scope": "Actual production selector/artist. Baseline disables only catch source readiness, preserving original contact and star. Capture wraps drawImage without modifying selected artwork or actual draw calls.",
+  "frames": 1032,
+  "rootCells": [
+    [
+      61,
+      33
+    ],
+    [
+      62,
+      34
+    ],
+    [
+      63,
+      34
+    ],
+    [
+      64,
+      34
+    ],
+    [
+      65,
+      35
+    ],
+    [
+      66,
+      35
+    ]
+  ],
+  "helperCells": [
+    [
+      16,
+      45
+    ],
+    [
+      17,
+      45
+    ],
+    [
+      15,
+      46
+    ],
+    [
+      16,
+      46
+    ],
+    [
+      17,
+      46
+    ],
+    [
+      18,
+      46
+    ],
+    [
+      14,
+      47
+    ],
+    [
+      15,
+      47
+    ],
+    [
+      16,
+      47
+    ],
+    [
+      17,
+      47
+    ],
+    [
+      18,
+      47
+    ],
+    [
+      19,
+      47
+    ]
+  ],
+  "rootSamples": 30792,
+  "helperSamples": 15288,
+  "rootDefinition": "Six full emitted cells with original samples within1.5 raw px of open source cut [850,615] -> [914,642], fixed scale .1 registration source[944,569] to logical[70,29]. Helper is all source-positive logical cells in upper fore rows y<48, exactly12. Diagnostic masks are never production sprites.",
+  "eyeClassification": "Original eye draw opaque alpha>=250 and RGB still identical in same-phase baseline are tested against actual front source alpha and actual final stage change. Pink requires R>=200,G50..180,B70..200,R>G+50,B>G. All nonpink changes fail, including black/highlight and unknown; pre-existing star occlusion excluded. Exact RGBA retained per change.",
+  "records": [
+    {
+      "dpr": 1,
+      "facing": 1,
+      "maxRootUncovered": 0,
+      "maxHelperUncovered": 0,
+      "minHeldPalmStarAlphaOverlap": 60,
+      "pinkMarginChanges": 0,
+      "eyeCoreChanges": 0,
+      "unknownChanges": 0
+    },
+    {
+      "dpr": 1,
+      "facing": -1,
+      "maxRootUncovered": 0,
+      "maxHelperUncovered": 0,
+      "minHeldPalmStarAlphaOverlap": 60,
+      "pinkMarginChanges": 0,
+      "eyeCoreChanges": 0,
+      "unknownChanges": 0
+    },
+    {
+      "dpr": 1.25,
+      "facing": 1,
+      "maxRootUncovered": 0,
+      "maxHelperUncovered": 0,
+      "minHeldPalmStarAlphaOverlap": 94,
+      "pinkMarginChanges": 3,
+      "eyeCoreChanges": 0,
+      "unknownChanges": 0
+    },
+    {
+      "dpr": 1.25,
+      "facing": -1,
+      "maxRootUncovered": 0,
+      "maxHelperUncovered": 0,
+      "minHeldPalmStarAlphaOverlap": 94,
+      "pinkMarginChanges": 3,
+      "eyeCoreChanges": 0,
+      "unknownChanges": 0
+    },
+    {
+      "dpr": 1.5,
+      "facing": 1,
+      "maxRootUncovered": 0,
+      "maxHelperUncovered": 0,
+      "minHeldPalmStarAlphaOverlap": 137,
+      "pinkMarginChanges": 3,
+      "eyeCoreChanges": 0,
+      "unknownChanges": 0
+    },
+    {
+      "dpr": 1.5,
+      "facing": -1,
+      "maxRootUncovered": 0,
+      "maxHelperUncovered": 0,
+      "minHeldPalmStarAlphaOverlap": 137,
+      "pinkMarginChanges": 3,
+      "eyeCoreChanges": 0,
+      "unknownChanges": 0
+    },
+    {
+      "dpr": 2,
+      "facing": 1,
+      "maxRootUncovered": 0,
+      "maxHelperUncovered": 0,
+      "minHeldPalmStarAlphaOverlap": 238,
+      "pinkMarginChanges": 11,
+      "eyeCoreChanges": 0,
+      "unknownChanges": 0
+    },
+    {
+      "dpr": 2,
+      "facing": -1,
+      "maxRootUncovered": 0,
+      "maxHelperUncovered": 0,
+      "minHeldPalmStarAlphaOverlap": 238,
+      "pinkMarginChanges": 11,
+      "eyeCoreChanges": 0,
+      "unknownChanges": 0
+    }
+  ],
+  "deltas": [
+    {
+      "dpr": 1.25,
+      "facing": 1,
+      "p": 0.71875,
+      "pixel": [
+        191,
+        127
+      ],
+      "originalRGBA": [
+        247,
+        106,
+        130,
+        255
+      ],
+      "eyeSourceRGBA": [
+        247,
+        106,
+        130,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 1.25,
+      "facing": 1,
+      "p": 0.7265625,
+      "pixel": [
+        190,
+        131
+      ],
+      "originalRGBA": [
+        250,
+        98,
+        122,
+        255
+      ],
+      "eyeSourceRGBA": [
+        250,
+        98,
+        122,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 1.25,
+      "facing": 1,
+      "p": 0.734375,
+      "pixel": [
+        189,
+        135
+      ],
+      "originalRGBA": [
+        255,
+        118,
+        139,
+        255
+      ],
+      "eyeSourceRGBA": [
+        255,
+        118,
+        139,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 1.25,
+      "facing": -1,
+      "p": 0.71875,
+      "pixel": [
+        82,
+        127
+      ],
+      "originalRGBA": [
+        247,
+        106,
+        130,
+        255
+      ],
+      "eyeSourceRGBA": [
+        247,
+        106,
+        130,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 1.25,
+      "facing": -1,
+      "p": 0.7265625,
+      "pixel": [
+        83,
+        131
+      ],
+      "originalRGBA": [
+        250,
+        98,
+        122,
+        255
+      ],
+      "eyeSourceRGBA": [
+        250,
+        98,
+        122,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 1.25,
+      "facing": -1,
+      "p": 0.734375,
+      "pixel": [
+        84,
+        135
+      ],
+      "originalRGBA": [
+        255,
+        118,
+        139,
+        255
+      ],
+      "eyeSourceRGBA": [
+        255,
+        118,
+        139,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 1.5,
+      "facing": 1,
+      "p": 0.7265625,
+      "pixel": [
+        230,
+        159
+      ],
+      "originalRGBA": [
+        252,
+        98,
+        124,
+        255
+      ],
+      "eyeSourceRGBA": [
+        252,
+        98,
+        124,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 1.5,
+      "facing": 1,
+      "p": 0.7265625,
+      "pixel": [
+        230,
+        160
+      ],
+      "originalRGBA": [
+        249,
+        95,
+        120,
+        255
+      ],
+      "eyeSourceRGBA": [
+        249,
+        95,
+        120,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 1.5,
+      "facing": 1,
+      "p": 0.734375,
+      "pixel": [
+        229,
+        165
+      ],
+      "originalRGBA": [
+        255,
+        118,
+        139,
+        255
+      ],
+      "eyeSourceRGBA": [
+        255,
+        118,
+        139,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 1.5,
+      "facing": -1,
+      "p": 0.7265625,
+      "pixel": [
+        102,
+        159
+      ],
+      "originalRGBA": [
+        252,
+        98,
+        124,
+        255
+      ],
+      "eyeSourceRGBA": [
+        252,
+        98,
+        124,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 1.5,
+      "facing": -1,
+      "p": 0.7265625,
+      "pixel": [
+        102,
+        160
+      ],
+      "originalRGBA": [
+        249,
+        95,
+        120,
+        255
+      ],
+      "eyeSourceRGBA": [
+        249,
+        95,
+        120,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 1.5,
+      "facing": -1,
+      "p": 0.734375,
+      "pixel": [
+        103,
+        165
+      ],
+      "originalRGBA": [
+        255,
+        118,
+        139,
+        255
+      ],
+      "eyeSourceRGBA": [
+        255,
+        118,
+        139,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": 1,
+      "p": 0.2890625,
+      "pixel": [
+        308,
+        199
+      ],
+      "originalRGBA": [
+        251,
+        108,
+        130,
+        255
+      ],
+      "eyeSourceRGBA": [
+        251,
+        108,
+        130,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": 1,
+      "p": 0.703125,
+      "pixel": [
+        309,
+        198
+      ],
+      "originalRGBA": [
+        252,
+        105,
+        126,
+        255
+      ],
+      "eyeSourceRGBA": [
+        252,
+        105,
+        126,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": 1,
+      "p": 0.71875,
+      "pixel": [
+        306,
+        202
+      ],
+      "originalRGBA": [
+        251,
+        106,
+        126,
+        255
+      ],
+      "eyeSourceRGBA": [
+        251,
+        106,
+        126,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": 1,
+      "p": 0.7265625,
+      "pixel": [
+        304,
+        209
+      ],
+      "originalRGBA": [
+        252,
+        98,
+        124,
+        255
+      ],
+      "eyeSourceRGBA": [
+        252,
+        98,
+        124,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": 1,
+      "p": 0.7265625,
+      "pixel": [
+        305,
+        209
+      ],
+      "originalRGBA": [
+        250,
+        97,
+        118,
+        255
+      ],
+      "eyeSourceRGBA": [
+        250,
+        97,
+        118,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": 1,
+      "p": 0.7265625,
+      "pixel": [
+        304,
+        210
+      ],
+      "originalRGBA": [
+        251,
+        98,
+        121,
+        255
+      ],
+      "eyeSourceRGBA": [
+        251,
+        98,
+        121,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": 1,
+      "p": 0.7265625,
+      "pixel": [
+        305,
+        210
+      ],
+      "originalRGBA": [
+        251,
+        99,
+        122,
+        255
+      ],
+      "eyeSourceRGBA": [
+        251,
+        99,
+        122,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": 1,
+      "p": 0.734375,
+      "pixel": [
+        302,
+        216
+      ],
+      "originalRGBA": [
+        255,
+        123,
+        144,
+        255
+      ],
+      "eyeSourceRGBA": [
+        255,
+        123,
+        144,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": 1,
+      "p": 0.734375,
+      "pixel": [
+        303,
+        216
+      ],
+      "originalRGBA": [
+        255,
+        107,
+        131,
+        255
+      ],
+      "eyeSourceRGBA": [
+        255,
+        107,
+        131,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": 1,
+      "p": 0.734375,
+      "pixel": [
+        302,
+        217
+      ],
+      "originalRGBA": [
+        249,
+        108,
+        135,
+        255
+      ],
+      "eyeSourceRGBA": [
+        249,
+        108,
+        135,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": 1,
+      "p": 0.734375,
+      "pixel": [
+        303,
+        217
+      ],
+      "originalRGBA": [
+        252,
+        106,
+        129,
+        255
+      ],
+      "eyeSourceRGBA": [
+        252,
+        106,
+        129,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": -1,
+      "p": 0.2890625,
+      "pixel": [
+        129,
+        199
+      ],
+      "originalRGBA": [
+        251,
+        108,
+        130,
+        255
+      ],
+      "eyeSourceRGBA": [
+        251,
+        108,
+        130,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": -1,
+      "p": 0.703125,
+      "pixel": [
+        128,
+        198
+      ],
+      "originalRGBA": [
+        252,
+        105,
+        126,
+        255
+      ],
+      "eyeSourceRGBA": [
+        252,
+        105,
+        126,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": -1,
+      "p": 0.71875,
+      "pixel": [
+        131,
+        202
+      ],
+      "originalRGBA": [
+        251,
+        106,
+        126,
+        255
+      ],
+      "eyeSourceRGBA": [
+        251,
+        106,
+        126,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": -1,
+      "p": 0.7265625,
+      "pixel": [
+        132,
+        209
+      ],
+      "originalRGBA": [
+        250,
+        97,
+        118,
+        255
+      ],
+      "eyeSourceRGBA": [
+        250,
+        97,
+        118,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": -1,
+      "p": 0.7265625,
+      "pixel": [
+        133,
+        209
+      ],
+      "originalRGBA": [
+        252,
+        98,
+        124,
+        255
+      ],
+      "eyeSourceRGBA": [
+        252,
+        98,
+        124,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": -1,
+      "p": 0.7265625,
+      "pixel": [
+        132,
+        210
+      ],
+      "originalRGBA": [
+        251,
+        99,
+        122,
+        255
+      ],
+      "eyeSourceRGBA": [
+        251,
+        99,
+        122,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": -1,
+      "p": 0.7265625,
+      "pixel": [
+        133,
+        210
+      ],
+      "originalRGBA": [
+        251,
+        98,
+        121,
+        255
+      ],
+      "eyeSourceRGBA": [
+        251,
+        98,
+        121,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": -1,
+      "p": 0.734375,
+      "pixel": [
+        134,
+        216
+      ],
+      "originalRGBA": [
+        255,
+        107,
+        131,
+        255
+      ],
+      "eyeSourceRGBA": [
+        255,
+        107,
+        131,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": -1,
+      "p": 0.734375,
+      "pixel": [
+        135,
+        216
+      ],
+      "originalRGBA": [
+        255,
+        123,
+        144,
+        255
+      ],
+      "eyeSourceRGBA": [
+        255,
+        123,
+        144,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": -1,
+      "p": 0.734375,
+      "pixel": [
+        134,
+        217
+      ],
+      "originalRGBA": [
+        252,
+        106,
+        129,
+        255
+      ],
+      "eyeSourceRGBA": [
+        252,
+        106,
+        129,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    },
+    {
+      "dpr": 2,
+      "facing": -1,
+      "p": 0.734375,
+      "pixel": [
+        135,
+        217
+      ],
+      "originalRGBA": [
+        249,
+        108,
+        135,
+        255
+      ],
+      "eyeSourceRGBA": [
+        249,
+        108,
+        135,
+        255
+      ],
+      "newRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "handRGBA": [
+        26,
+        27,
+        38,
+        255
+      ],
+      "category": "pink-margin"
+    }
+  ],
+  "failures": []
+}

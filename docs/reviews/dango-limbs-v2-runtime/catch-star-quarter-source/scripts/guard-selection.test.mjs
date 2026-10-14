@@ -1,0 +1,4 @@
+import assert from'node:assert/strict';import{createSourceDrawGuard}from'./source-draw-guard.mjs';
+const make=kind=>createSourceDrawGuard({targets:[{id:'one',spriteKey:'same',selectionKind:kind,request:'/tmp/guard-source.png',filePath:'/tmp/guard-source.png'}],loadImage:async()=>({width:1,height:1}),createSurface:()=>({getContext:()=>({clearRect(){}})})});
+const art=(hands,tools)=>({layeredReady:true,actionReady:true,contact:{hands,tools}}),hand=art([{pawSprite:'same'}],[]),tool=art([],[{key:'same'}]);
+make(undefined).assertSelected(hand);assert.throws(()=>make(undefined).assertSelected(tool));make('tool').assertSelected(tool);assert.throws(()=>make('tool').assertSelected(hand));assert.throws(()=>make('unknown'));console.log('Explicit tool selection and strict default paw selection: 5 checks passed');
