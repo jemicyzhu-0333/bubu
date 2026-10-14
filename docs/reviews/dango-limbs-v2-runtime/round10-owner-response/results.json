@@ -1,0 +1,119 @@
+{
+  "scope": "Synthetic ports with production createPetViewport and the supplied probe; not native macOS or rendered-pixel evidence.",
+  "runtime": {
+    "node": "v24.19.0",
+    "platform": "linux"
+  },
+  "probeSourceSha256": "070c618a19718537722df2e0958372ef2336e0d13221d552cd1b6b4d9913a6a1",
+  "reproducedReviewedObservations": true,
+  "results": [
+    {
+      "name": "unchanged control",
+      "when": "never",
+      "dy": 0,
+      "status": "PASS",
+      "anchorContained": true,
+      "anchor": {
+        "x": 1600,
+        "y": 800,
+        "width": 220,
+        "height": 220
+      },
+      "nativeBounds": {
+        "x": 1400,
+        "y": 720,
+        "width": 520,
+        "height": 360
+      },
+      "result": {
+        "rounds": 30,
+        "nativeGeometryWrites": 0,
+        "logicalAnchorStable": true,
+        "nativeIgnoreMouseEventsContract": true
+      },
+      "error": null,
+      "matchesReviewedObservation": true
+    },
+    {
+      "name": "small nudge before geometry",
+      "when": "before-geometry",
+      "dy": 3,
+      "status": "PASS",
+      "anchorContained": true,
+      "anchor": {
+        "x": 1600,
+        "y": 800,
+        "width": 220,
+        "height": 220
+      },
+      "nativeBounds": {
+        "x": 1400,
+        "y": 723,
+        "width": 520,
+        "height": 360
+      },
+      "result": {
+        "rounds": 30,
+        "nativeGeometryWrites": 0,
+        "logicalAnchorStable": true,
+        "nativeIgnoreMouseEventsContract": true
+      },
+      "error": null,
+      "matchesReviewedObservation": true
+    },
+    {
+      "name": "small nudge during yield",
+      "when": "during-yield",
+      "dy": 3,
+      "status": "FAIL",
+      "anchorContained": true,
+      "anchor": {
+        "x": 1600,
+        "y": 800,
+        "width": 220,
+        "height": 220
+      },
+      "nativeBounds": {
+        "x": 1400,
+        "y": 723,
+        "width": 520,
+        "height": 360
+      },
+      "result": null,
+      "error": {
+        "name": "AssertionError",
+        "message": "Expected values to be strictly equal:\n\n913 !== 910\n",
+        "actual": 913,
+        "expected": 910
+      },
+      "matchesReviewedObservation": true
+    },
+    {
+      "name": "large nudge before geometry",
+      "when": "before-geometry",
+      "dy": 4000,
+      "status": "PASS",
+      "anchorContained": false,
+      "anchor": {
+        "x": 1600,
+        "y": 800,
+        "width": 220,
+        "height": 220
+      },
+      "nativeBounds": {
+        "x": 1400,
+        "y": 4720,
+        "width": 520,
+        "height": 360
+      },
+      "result": {
+        "rounds": 30,
+        "nativeGeometryWrites": 0,
+        "logicalAnchorStable": true,
+        "nativeIgnoreMouseEventsContract": true
+      },
+      "error": null,
+      "matchesReviewedObservation": true
+    }
+  ]
+}

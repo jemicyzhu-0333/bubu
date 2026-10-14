@@ -1,0 +1,124 @@
+{
+  "schema": "dango-sip-low-source-request/1",
+  "status": "proposal-pending-official-generation",
+  "runtimeReady": false,
+  "scope": "front sip-tea one continuous fore+palm source pair; generated body is reference only, never replacement",
+  "referenceOrder": [
+    {
+      "path": "/workspace/shared/bubu-limbs-runtime-v2-meta/sip-production/reference-low-body-cup-8x.png",
+      "sha256": "120efc284f965a3c7ef68c4dc1ef9e33923ada3fa009eb10f7fda6caf5f2e2f0"
+    },
+    {
+      "path": "/workspace/shared/bubu-limbs-runtime-v2-20261013/assets/companion/dango/raster/limbs/sources/masters/full-character-v2.png",
+      "sha256": "9e77a9c2a455c3a7c9cc145bb8b0f458ede80bd367e4eb89539c6abddc8b6fdd"
+    },
+    {
+      "path": "/workspace/shared/bubu-limbs-runtime-v2-20261013/assets/companion/dango/raster/action-contact/hiccup-front-v1/sources/masters/hold-visible-fore-v7.png",
+      "sha256": "c9eeb81908d4f1350053f67e90dd7477898b8b72958b832ca8928353cf29ff94"
+    }
+  ],
+  "layoutReferenceMethod": "Actual standard artist separately draws body, face, cup; existing limbPainter port suppresses BOTH old arm passes. No image editing, erasing, repainting or modification of body pixels. Exact canonical source is untouched.",
+  "artToReference": {
+    "scale": 8,
+    "origin": [
+      120,
+      80
+    ],
+    "size": [
+      768,
+      720
+    ]
+  },
+  "fixedCup": {
+    "origin": [
+      23,
+      43
+    ],
+    "rect": [
+      0,
+      0,
+      22,
+      19
+    ],
+    "rotation": 0
+  },
+  "bodyScalePolicy": "Measure actual generated source body width; use one isotropic body-relative scale. V7 is reference only: art width69.415385 / source width678.",
+  "arms": [
+    {
+      "side": "left",
+      "S": [
+        4.5,
+        45.5
+      ],
+      "contact": [
+        24.25,
+        53.375
+      ],
+      "normal": [
+        1,
+        0
+      ],
+      "contactMeaning": "shared ink-to-fill at cup x+1.25; actual outer alpha x+.5",
+      "desiredP": [
+        13.3462558960177,
+        46.07139209070797
+      ],
+      "desiredCut": [
+        [
+          13.602212330383482,
+          42.2832368620944
+        ],
+        [
+          13.090299461651918,
+          49.859547319321535
+        ]
+      ],
+      "desiredWidth": 7.593585117022278,
+      "desiredContour": "real inward/downward bending short forearm continuously entering round palm; no borrowed foot/belly tissue; no painted seam cap",
+      "status": "Coordinates are source-generation objectives, never substitute for measurement of actual generated pixels"
+    },
+    {
+      "side": "right",
+      "S": [
+        61.5,
+        45.5
+      ],
+      "contact": [
+        45,
+        53.375
+      ],
+      "normal": [
+        -1,
+        0
+      ],
+      "contactMeaning": "outer alpha boundary x+22; not handle anchor x+20.5",
+      "desiredP": [
+        55.28944866150442,
+        46.07139209070797
+      ],
+      "desiredCut": [
+        [
+          55.135874800884956,
+          42.2832368620944
+        ],
+        [
+          55.4430225221239,
+          49.859547319321535
+        ]
+      ],
+      "desiredWidth": 7.582533868500129,
+      "desiredContour": "real inward/downward bending short forearm continuously entering round palm; no borrowed foot/belly tissue; no painted seam cap",
+      "status": "Coordinates are source-generation objectives, never substitute for measurement of actual generated pixels"
+    }
+  ],
+  "acceptance": {
+    "samples": 257,
+    "fixedShoulderBodyTool": true,
+    "fullWidthCovered": true,
+    "actualSourceCutOpaqueAndContinuous": true,
+    "maxContactGapArt": 0.5,
+    "sourcePixelMasks": "explicit geometry preserves original RGB and alpha; record threshold and nearest fourcolor mapping separately",
+    "generatedBodyReplacement": false,
+    "runtimeReady": false
+  }
+}

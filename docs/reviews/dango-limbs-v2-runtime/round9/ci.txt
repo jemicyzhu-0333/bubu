@@ -1,0 +1,5 @@
+CI for Round 9 @c113779 (527fa6b + viewport settle harden + review docs):
+- workflow_dispatch run 38454310890 attempt 1 (19:22–19:38Z): win-x64 success; mac-arm64 cancelled (~15m, no step outcomes logged). Overall failure.
+- attempt 2 re-queued 19:38Z: mac-arm64 queued (win already green on attempt 1).
+- Prior Round 8 @fc04b39 run 38446764361: win-x64 success; mac-arm64 failed (pet-viewport-probe: failed (rounds)); rerun cancelled. See round8/ci.txt.
+- Probe harden on this head: settle 5 stable native bounds after showInactive before rounds; Error stack logged on failure.

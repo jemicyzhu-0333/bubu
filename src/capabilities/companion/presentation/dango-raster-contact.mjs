@@ -1,30 +1,39 @@
 'use strict';
 
+import { sampleHatStar } from './hat-star-path.mjs';
+import { motionCaps } from './motion-core/action-capabilities.mjs';
+import { clamp01, smooth } from './motion-core/easing.mjs';
 import { COMPANION_ACTIVITY_STORIES } from '../../../content/companion/activity-stories.mjs';
 
-const clamp = value => Math.max(0, Math.min(1, value));
-const ease = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
+const clamp = clamp01;
+const ease = smooth;
 
 // Dango-only placement of the saved raster anatomy. The shared contact
 // sampler and the other form's story/rig poses remain unchanged.
 function refineRasterContact(contact, action, progress, view, toolSprites = {}) {
   if (!contact) return contact;
-  if (action.id === 'dig-treasure') {
+  if (motionCaps(action).story === 'hat-star' && action.prop === 'hat') {
+    const pose = sampleHatStar(progress, 'dango');
+    contact.tools = contact.tools.filter(tool => tool.key !== 'star');
+    if (pose.opacity > 0) contact.tools.push({ key: 'star',
+      x: pose.center[0] - 8.5, y: pose.center[1] - 8.5, opacity: pose.opacity });
+  }
+  if (motionCaps(action).dangoContact === 'dig-shift') {
     const shift = view === 'front' ? 28 : 18;
     for (const tool of contact.tools) tool.x += shift;
     for (const detail of contact.details) detail.at[0] += shift;
     contact.hands = contact.hands.filter(hand => hand.side === 'right');
     for (const hand of contact.hands) hand.points = hand.points.map((point, i) => i ? [point[0] + shift, point[1]] : point);
   }
-  if (action.id === 'chase-laser') for (const detail of contact.details) {
+  if (motionCaps(action).dangoContact === 'laser-dot') for (const detail of contact.details) {
     if (detail.type === 'laser') detail.at = [72 + Math.sin(progress * Math.PI * 6) * 3, 60 + Math.cos(progress * Math.PI * 4) * 1.5];
   }
-  if (action.id === 'sweep' && action.prop === 'broom') {
+  if (motionCaps(action).dangoContact === 'single-paw' && action.prop === 'broom') {
     // One near paw wraps the inspected handle anchor. The old second paw
     // sat on the bristles and implied an arm across the entire torso.
     contact.hands = contact.hands.filter(hand => hand.side === 'right');
   }
-  if (action.id === 'rest-nap' && action.motion === 'stretch') {
+  if (motionCaps(action).dangoContact === 'nap-stretch' && action.motion === 'stretch') {
     const stretch = ease(progress / .14) * ease((1 - progress) / .16);
     const phase = action.sequencePhase, stages = COMPANION_ACTIVITY_STORIES['rest-nap'].stages;
     const span = phase ? stages[phase.index].until - (stages[phase.index - 1]?.until || 0) : 1;
@@ -40,7 +49,7 @@ function refineRasterContact(contact, action, progress, view, toolSprites = {}) 
       hand.connector = false;
     }
   }
-  if (action.id === 'tail-wiggle' && action.prop === 'tail') {
+  if (motionCaps(action).dangoContact === 'tail-wag' && action.prop === 'tail') {
     const tail = contact.tools.find(item => item.key === 'tail');
     if (tail) {
       const back = view === 'back', front = view === 'front';

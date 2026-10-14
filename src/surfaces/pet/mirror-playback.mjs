@@ -1,10 +1,11 @@
 'use strict';
+import { clamp01, hermite } from '../../capabilities/companion/index.mjs';
 
 const ENTER_MS = 800;
 const EXIT_MS = 600;
 const MIRROR_IDS = new Set(['mirror-music', 'mirror-ai']);
-const clamp = value => Math.max(0, Math.min(1, Number(value) || 0));
-const smooth = value => value * value * (3 - 2 * value);
+const clamp = clamp01;
+const smooth = hermite;
 
 function isContextMirror(action) {
   return MIRROR_IDS.has(action?.id) && action.state === action.id;

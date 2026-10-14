@@ -129,8 +129,21 @@ function drawRasterActions(context, options, { manifest, painter }) {
     if (!artwork.hiddenParts?.includes(key)) painted = withRasterGroundClip(context, artwork,
       () => painter.paint(context, data.parts[key], palette, matrices[key])) || painted;
   }
+  // Respect each final hand's tool-occlusion pass. Shaft grips cover the tool;
+  // laptop-specific lid compositing below still owns its original cover pass.
+  const coveredPaws = new Set((contact?.tools || []).filter(item => (item.opacity ?? 1) > 0)
+    .map(item => item.coversPaw).filter(Boolean));
+  const paintLimbs = pass => {
+    if (!artwork.limbPainter) return;
+    for (const hand of contact?.hands || []) if (hand.limb) {
+      painted = withRasterGroundClip(context, artwork, () => artwork.limbPainter.paint(context,
+        { view: artwork.view, hand, action, palette, layer: pass, covered: coveredPaws.has(hand.side) })) || painted;
+    }
+  };
+  if (layer === 'back') paintLimbs('back');
+  if (layer === 'front') paintLimbs('before-tools');
   if (layer === 'back') for (const hand of contact?.hands || []) {
-    if (!hand.integrated && hand.connector !== false && hand.attachedArm) {
+    if (!hand.limb && !hand.integrated && hand.connector !== false && hand.attachedArm) {
       painted = withRasterGroundClip(context, artwork, () =>
         paintConnector(context, data.parts.arm, [hand.points[0], hand.points[1]], palette, painter, true)) || painted;
     }
@@ -144,14 +157,17 @@ function drawRasterActions(context, options, { manifest, painter }) {
       palette, toolMatrix(item, sprite), opacity) || painted;
   }
   if (contact) for (const detail of contact.details) if (detail.type !== 'hole' && (detail.layer || 'front') === layer) {
+    context.save(); context.globalAlpha *= detail.opacity ?? 1;
     painted = paintDetail(context, detail, contact, manifest, palette, painter, artwork.calmVisual) || painted;
+    context.restore();
   }
+  if (layer === 'front') paintLimbs('front');
   const covered = new Set(tools.map(item => item.coversPaw).filter(Boolean));
   for (const side of ['left', 'right']) {
     const pose = contact?.hands.find(hand => hand.side === side);
     // The approved standing silhouette has no side paws. Only an authored
     // contact/gesture reveals them; idle and neutral portraits stay exact.
-    if (!pose || pose.pawSprite) continue;
+    if (!pose || pose.pawSprite || pose.limb) continue;
     const integrated = pose.integrated && Boolean(data.rootJoins);
     const targetLayer = integrated ? 'back' : pose?.layer || (artwork.view === 'back' ? 'back' : 'front');
     if (targetLayer !== layer || covered.has(side)) continue;

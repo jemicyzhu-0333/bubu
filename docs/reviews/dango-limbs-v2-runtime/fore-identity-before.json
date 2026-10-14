@@ -1,0 +1,27 @@
+{
+  "status": "FAIL",
+  "materialStatus": "FAIL",
+  "sourceChainStatus": "PASS",
+  "scope": "Distinct material and declared extraction-chain evidence only; not complete author provenance, anatomy, rebuild fidelity, runtime readiness or native acceptance.",
+  "pairs": 16,
+  "correspondingMatches": {
+    "samePngBytes": 16,
+    "sameVisibleRgba": 16,
+    "sameProductionVisibleRgba": 16,
+    "sameSourceVisibleRgba": 16,
+    "sameRecipeBytes": 16,
+    "sameExtraction": 16,
+    "sameMatrix": 16
+  },
+  "crossAngleCollisions": {
+    "logical": 16,
+    "production": 16,
+    "source": 256,
+    "extraction": 256
+  },
+  "runtimeReady": false,
+  "failures": [
+    "256 fore/upper evidence collisions"
+  ],
+  "command": "node tools/dango-fore-identity-check.mjs --json"
+}

@@ -1,4 +1,6 @@
 'use strict';
+import { motionCaps } from '../../capabilities/companion/index.mjs';
+import { bodyStateOffset, resolveActionBodyPose, resolveGaitFacing } from './body-presentation.mjs';
 
 import petExpression from '../../core/pet-expression.mjs';
 import petStage from '../../core/pet-stage.mjs';
@@ -9,7 +11,7 @@ import petMotion from '../../core/pet-motion.mjs';
 import { resolveActionEffectVisual } from '../../core/pet-effect-visuals.mjs';
 import { forms, formArt } from '../../capabilities/companion/index.mjs';
 import { copyFrameData, freezeFrameData } from './frame-context.mjs';
-import { createActionPlayback, resolvePlaybackAccent, resolveMirrorBodyPose } from './action-playback.mjs';
+import { createActionPlayback, resolvePlaybackAccent } from './action-playback.mjs';
 import { createSleepTransition } from './sleep-transition.mjs';
 import { contextMirrorBlocked } from './context-emphasis.mjs';
 import { projectEffectOrigins } from './effect-origin.mjs';
@@ -173,9 +175,12 @@ function drawPet() {
   const skinId = previewSkin || runtimeState.currentSkin;
   const form = forms.resolvePetForm(skinId);
   const selectedExpression = runtimeState.devPreview ? null : updatePresentation();
-  const presentationSource = runtimeState.presentationDirector?.current(runtimeState.animNow)?.source;
+  const presentationNow = runtimeState.presentationDirector?.current(runtimeState.animNow);
+  const presentationSource = presentationNow?.source;
+  const presentationEventId = presentationNow?.eventId ?? null;
+  const actionEventId = runtimeState.currentEgg?.presentationEventId ?? null;
   const contextInput = { state: runtimeState, activity: sessionAction, source: presentationSource, expressionId: selectedExpression };
-  const { previewConfig, actionConfig, actionT } = actionPlayback.resolve({
+  const { previewConfig, actionConfig, actionT, viewHint, facingHint } = actionPlayback.resolve({
     content: runtimeState.petContent, preview: runtimeState.devPreview,
     egg: runtimeState.currentEgg, sessionSnapshot, now: runtimeState.animNow,
     previewStartedAt: runtimeState.devPreviewStartedAt,
@@ -187,24 +192,9 @@ function drawPet() {
   runtimeState.currentActionProgress = actionT;
   runtimeState.currentRenderedAction = actionConfig;
 
-  if (runtimeState.state === 'sleeping') offY += 4;
-  else if (runtimeState.state === 'resting') offY += 6;
-  else if (runtimeState.state === 'celebrating' && !calmVisual) offY -= Math.abs(Math.sin(legacyFrames * 0.4)) * 8;
-  else if (runtimeState.state === 'walking' && !calmVisual) offY += Math.abs(Math.sin(legacyFrames * 0.3)) * 2;
-  else if (runtimeState.state === 'dragged') { /* 拖动中不加任何抖动：跟手比好看重要 */ }
-  else if (!(form.id === 'dango' && actionConfig?.motion === 'pushup')) offY += bob;
-
-  // Every behavior owns a body motion; overlays are supporting details rather
-  // than the whole animation, so the companion itself stays expressive.
-  const motion = forms.resolveFormMotion(form, actionConfig);
-  const actionOffset = formArt.motionOffset(form, actionConfig, motion, actionT, {
-    calmVisual,
-    bodySize: geo.bodySize,
-    facing: runtimeState.facing,
-    state: runtimeState.state
-  });
-  offX += actionOffset.x;
-  offY += actionOffset.y;
+  offY += bodyStateOffset({ state: runtimeState.state, formId: form.id, action: actionConfig,
+    calmVisual, legacyFrames, bob, expressionId: selectedExpression ?? previewConfig?.expression, source: presentationSource,
+    eventId: presentationEventId, actionEventId });
 
   pctx.clearRect(0, 0, size, size);
   // 眨眼由绝对时间调度器推进：下次眨眼 = 当前 + [667, 2333)ms，
@@ -219,7 +209,7 @@ function drawPet() {
     : formArt.paletteForSkin(skinId, form);
   const requestedView = runtimeState.devPreview && (runtimeState.devPreview.category === 'view'
     ? runtimeState.devPreview.id : runtimeState.devPreview.view)
-    || 'auto';
+    || actionConfig?.exitTransitionView || viewHint || 'auto';
   const view = formArt.resolveView(form, requestedView, { action: actionConfig, state: runtimeState.state });
   // 三种口径,优先级从高到低:
   //   devtools 单件预览 —— 只画那一件,这是它存在的意义;
@@ -245,6 +235,20 @@ function drawPet() {
     // 当前皮肤筛一遍,等于让渲染层否决上游的决定——自由混搭的配饰会被皮肤筛掉。
     includeLocked: devAppearanceId !== null || wardrobeIds !== null
   });
+
+  const displayFacing = resolveGaitFacing({ facing: runtimeState.facing, facingHint,
+    formId: form.id, state: runtimeState.state, view, appearance });
+  // Every behavior owns a body motion; overlays are supporting details rather
+  // than the whole animation, so the companion itself stays expressive.
+  const motion = forms.resolveFormMotion(form, actionConfig);
+  const actionOffset = formArt.motionOffset(form, actionConfig, motion, actionT, {
+    calmVisual,
+    bodySize: geo.bodySize,
+    facing: displayFacing,
+    state: runtimeState.state
+  });
+  offX += actionOffset.x;
+  offY += actionOffset.y;
 
   // 由导演选出当前表情并采样位姿（脸 + 身体）。表情切换时重置起始时间，
   // 驱动进入序列；常驻循环按绝对 elapsed 周期推进。
@@ -288,7 +292,8 @@ function drawPet() {
     facePose = { eyes: 'neutral', mouth: 'neutral', eyeOffsetX: 0, eyeOffsetY: 0, eyeInsetX: 0, openness: 1 };
     bodyPose = null;
   }
-  bodyPose = resolveMirrorBodyPose(bodyPose, { action: actionConfig, expressionId: exprId, source: presentationSource });
+  bodyPose = resolveActionBodyPose(bodyPose, { action: actionConfig, expressionId: exprId, source: presentationSource,
+    eventId: presentationEventId, actionEventId });
   facePose = formArt.faceForView(form, facePose, view);
 
   // 注视与交互反馈：用真实步长推进弹簧，再作用到脸/身体。
@@ -332,7 +337,7 @@ function drawPet() {
         openness: facePose.openness,
         eyeInsetX: facePose.eyeInsetX,
         eyeOffsetX: Math.max(-3, Math.min(3, facePose.eyeOffsetX
-          + gazeSpringX.value * (gaze.maxX || 0) * runtimeState.facing)),
+          + gazeSpringX.value * (gaze.maxX || 0) * displayFacing)),
         eyeOffsetY: Math.max(-3, Math.min(3, facePose.eyeOffsetY + gazeSpringY.value * (gaze.maxY || 0)))
       };
     }
@@ -352,9 +357,12 @@ function drawPet() {
   offY = snap(offY);
   const expressionAccent = resolvePlaybackAccent(runtimeState.expressionRegistry, exprId, actionConfig);
   const artwork = formArt.resolveArtwork(form, {
-    channel: runtimeState.renderChannel || 'pet', state: runtimeState.state,
+    channel: runtimeState.renderChannel || 'pet', state: runtimeState.state, facing: displayFacing,
     view, motion: actionConfig ? motion : 'idle', face: facePose, calmVisual, dnd: runtimeState.dnd, appearance,
     progress: actionT, elapsedMs: runtimeState.animNow, action: actionConfig, expressionId: exprId,
+    // Fixed calm phases still need a fresh all-or-none asset readiness window.
+    actionInstanceKey: runtimeState.devPreview ? `preview:${runtimeState.devPreviewStartedAt}`
+      : runtimeState.currentEgg ? `action:${runtimeState.actionStartedAt}` : null,
     expressionElapsedMs: runtimeState.animNow - runtimeState.exprStartAnimNow, accent: expressionAccent
   });
 
@@ -364,7 +372,7 @@ function drawPet() {
   pctx.save();
   formArt.applyMotionTransform(pctx, form, actionConfig, motion, actionT, {
     artwork, calmVisual,
-    facing: runtimeState.facing,
+    facing: displayFacing,
     state: runtimeState.state,
     size,
     bodySize: geo.bodySize,
@@ -372,7 +380,7 @@ function drawPet() {
   });
   applyExpressionBodyTransform(bodyPose, size);
   applyInteractionTransform(size);
-  if (runtimeState.facing === -1) { pctx.translate(size, 0); pctx.scale(-1, 1); }
+  if (displayFacing === -1) { pctx.translate(size, 0); pctx.scale(-1, 1); }
   applyPetViewTransform(view, size);
   hasAttachedEffectOrigins = Boolean(artwork && Object.hasOwn(artwork, 'effectOrigins'));
   actionEffectOrigins = projectEffectOrigins(artwork?.effectOrigins, pctx.getTransform?.(), {
@@ -385,7 +393,7 @@ function drawPet() {
     backSurface: petActionBackSurface, frontSurface: petActionFrontSurface, artwork, sprites: petSprites
   });
   formArt.drawAppearanceLayer(pctx, appearance, palette, {
-    form, stage: geo, layer: 'back', offX, offY, view, artwork,
+    form, stage: geo, layer: 'back', offX, offY, view, artwork, action: actionConfig, progress: actionT,
     theme: runtimeState.currentTheme, elapsedMs: runtimeState.animNow, calmVisual
   });
   drawPetBody(form, skinId, palette, bodyPose ? bodyPose.tone : 'normal', offX, offY, view, artwork);
@@ -397,7 +405,7 @@ function drawPet() {
       offX, offY, view, artwork);
   }
   formArt.drawAppearanceLayer(pctx, appearance, palette, {
-    form, stage: geo, layer: 'front', offX, offY, view, artwork,
+    form, stage: geo, layer: 'front', offX, offY, view, artwork, action: actionConfig, progress: actionT,
     theme: runtimeState.currentTheme, elapsedMs: runtimeState.animNow, calmVisual
   });
   formArt.drawActionLayer(pctx, {
@@ -582,7 +590,7 @@ function resetSceneParticles() {
 }
 function clearDecorativeParticles() {
   sleepTransition.reset();
-  actionPlayback.reset();
+  actionPlayback.reset({ state: currentFrame.state, policy: currentFrame.policy, hidden: document.hidden });
   resetSceneParticles();
   runtimeState.overlayParticles = [];
   runtimeState.petals = [];
@@ -687,7 +695,7 @@ function spawnSceneParticles(period, scene) {
   }
 
   // Sing egg: music notes
-  if (runtimeState.currentEgg && runtimeState.currentEgg.id === 'sing') {
+  if (runtimeState.currentEgg && motionCaps(runtimeState.currentEgg).particles === 'sing-notes') {
     runtimeState.sceneSpawnedTotal += emitPetRate(petActionEmitters.sing, () => {
       runtimeState.sceneParticles.push({ type: 'note', x: 90 + rand(-10, 30), y: 90 + rand(-5, 5), vx: rand(-0.4, 0.4), vy: rand(-1, -0.5), life: 60, color: pick(['#f7768e', '#e0af68', '#bb9af7']) });
     });
@@ -1041,10 +1049,11 @@ function emitActionEffect(action, progress) {
   if (!visual) return;
   // 安静类特效（打坐光环、困倦 zzz、热气）走稀疏发射器并向上轻飘，
   // 不与庆祝类同频，避免安静动作也像放烟花。
-  const attachedBubble = (action.id === 'bubble-blow' && hasAttachedEffectOrigins)
-    || (action.id === 'hiccup' && Boolean(actionEffectOrigins.bubbles));
+  const bubbles = motionCaps(action).attachedBubbles;
+  const attachedBubble = (bubbles === 'wand' && hasAttachedEffectOrigins)
+    || (bubbles === 'origin' && Boolean(actionEffectOrigins.bubbles));
   const origin = attachedBubble ? actionEffectOrigins.bubbles : null;
-  const gentleHiccup = action.id === 'hiccup' && Boolean(origin);
+  const gentleHiccup = Boolean(motionCaps(action).gentleEffect) && Boolean(origin);
   if (attachedBubble && !origin) return;
   const emitter = attachedBubble ? petActionEmitters.bubble : visual.calm ? petActionEmitters.calm : petActionEmitters.generic;
   emitPetRate(emitter, () => {

@@ -1,0 +1,217 @@
+{
+  "schema": "dango-pose-root-interfaces/1",
+  "frames": [
+    {
+      "id": "front-left-wave-225",
+      "sourcePaw": "paw/paw-wave-l-front-a225.png",
+      "sourcePawSha256": "84e8a2291108b8751369b766aaf69451ee8f704e936d67c43bc297a048aaab42",
+      "size": [
+        24,
+        28
+      ],
+      "root": [
+        17.5,
+        16.5
+      ],
+      "mask": "interfaces/wave-front-225-root-mask.png",
+      "maskProduction": "interfaces/wave-front-225-root-mask@8x.png",
+      "patch": "interfaces/wave-front-225-root-patch.png",
+      "patchProduction": "interfaces/wave-front-225-root-patch@8x.png",
+      "pivot": "interfaces/wave-front-225-root.pivot.png",
+      "mirror": false,
+      "maskRole": "pose-root-interface-color-replacement",
+      "changedPixels": [
+        {
+          "xy": [
+            14,
+            24
+          ],
+          "before": [
+            240,
+            80,
+            104,
+            255
+          ],
+          "after": [
+            26,
+            27,
+            38,
+            255
+          ],
+          "reason": "Explicit visible proximal interface adaptation for the registered pose; not source ink and not a generic closed wrist cap."
+        },
+        {
+          "xy": [
+            15,
+            24
+          ],
+          "before": [
+            248,
+            104,
+            120,
+            255
+          ],
+          "after": [
+            26,
+            27,
+            38,
+            255
+          ],
+          "reason": "Explicit visible proximal interface adaptation for the registered pose; not source ink and not a generic closed wrist cap."
+        },
+        {
+          "xy": [
+            16,
+            24
+          ],
+          "before": [
+            248,
+            104,
+            120,
+            255
+          ],
+          "after": [
+            26,
+            27,
+            38,
+            255
+          ],
+          "reason": "Explicit visible proximal interface adaptation for the registered pose; not source ink and not a generic closed wrist cap."
+        }
+      ],
+      "verifiedPose": {
+        "view": "front",
+        "side": "l",
+        "pawAngle": 225,
+        "upperAngle": 270.0,
+        "foreAngle": 225.0,
+        "fixedShoulder": [
+          4.5,
+          45.5
+        ],
+        "wristWorld": [
+          0.5,
+          35.5
+        ],
+        "handLayer": "foreground"
+      },
+      "condition": "Apply only to this verified pose/layer combination and exposed proximal interface. Do not automatically reuse in other angles or occluded roots."
+    },
+    {
+      "id": "three-quarter-left-left-wave-225",
+      "sourcePaw": "paw/paw-wave-l-three-quarter-left-a225.png",
+      "sourcePawSha256": "bc308b9c64bc35e612fa09a69e9243bfff1c8587229c8a1885d325bebb3f987b",
+      "size": [
+        26,
+        32
+      ],
+      "root": [
+        19.5,
+        22.5
+      ],
+      "mask": "interfaces/wave-three-quarter-left-225-root-mask.png",
+      "maskProduction": "interfaces/wave-three-quarter-left-225-root-mask@8x.png",
+      "patch": "interfaces/wave-three-quarter-left-225-root-patch.png",
+      "patchProduction": "interfaces/wave-three-quarter-left-225-root-patch@8x.png",
+      "pivot": "interfaces/wave-three-quarter-left-225-root.pivot.png",
+      "mirror": false,
+      "maskRole": "pose-root-interface-color-replacement",
+      "changedPixels": [
+        {
+          "xy": [
+            15,
+            26
+          ],
+          "before": [
+            248,
+            104,
+            120,
+            255
+          ],
+          "after": [
+            26,
+            27,
+            38,
+            255
+          ],
+          "reason": "Explicit visible proximal interface adaptation for the registered pose; not source ink and not a generic closed wrist cap."
+        }
+      ],
+      "verifiedPose": {
+        "view": "three-quarter-left",
+        "side": "l",
+        "pawAngle": 225,
+        "upperAngle": 22.5,
+        "foreAngle": 157.5,
+        "fixedShoulder": [
+          2.5,
+          36.5
+        ],
+        "wristWorld": [
+          2.5,
+          40.5
+        ],
+        "handLayer": "behind body"
+      },
+      "condition": "Apply only to this verified pose/layer combination and exposed proximal interface. Do not automatically reuse in other angles or occluded roots."
+    },
+    {
+      "id": "back-left-wave-225",
+      "sourcePaw": "paw/paw-wave-l-back-a225.png",
+      "sourcePawSha256": "ab50276bc7b1842f55fe4d4f9d6ce855b879bebb04b2d84b5cb72947ef1f8e1c",
+      "size": [
+        28,
+        30
+      ],
+      "root": [
+        20.5,
+        20.5
+      ],
+      "mask": "interfaces/wave-back-225-root-mask.png",
+      "maskProduction": "interfaces/wave-back-225-root-mask@8x.png",
+      "patch": "interfaces/wave-back-225-root-patch.png",
+      "patchProduction": "interfaces/wave-back-225-root-patch@8x.png",
+      "pivot": "interfaces/wave-back-225-root.pivot.png",
+      "mirror": false,
+      "maskRole": "pose-root-interface-color-replacement",
+      "changedPixels": [
+        {
+          "xy": [
+            16,
+            25
+          ],
+          "before": [
+            248,
+            104,
+            120,
+            255
+          ],
+          "after": [
+            26,
+            27,
+            38,
+            255
+          ],
+          "reason": "Explicit visible proximal interface adaptation for the registered pose; not source ink and not a generic closed wrist cap."
+        }
+      ],
+      "verifiedPose": {
+        "view": "back",
+        "side": "l",
+        "pawAngle": 225,
+        "upperAngle": 112.5,
+        "foreAngle": 247.5,
+        "fixedShoulder": [
+          6.5,
+          37.5
+        ],
+        "wristWorld": [
+          2.5,
+          37.5
+        ],
+        "handLayer": "foreground"
+      },
+      "condition": "Apply only to this verified pose/layer combination and exposed proximal interface. Do not automatically reuse in other angles or occluded roots."
+    }
+  ]
+}

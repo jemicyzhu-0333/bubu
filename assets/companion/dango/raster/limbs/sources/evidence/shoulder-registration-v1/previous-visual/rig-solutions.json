@@ -1,0 +1,1226 @@
+{
+  "boneLength": 6,
+  "lengthTolerance": 0.5,
+  "angleToleranceDegrees": 5,
+  "segmentFrames": [
+    {
+      "angle": 0.0,
+      "fileAngle": "000",
+      "delta": [
+        6,
+        0
+      ],
+      "length": 6.0,
+      "angleError": 0.0
+    },
+    {
+      "angle": 22.5,
+      "fileAngle": "022",
+      "delta": [
+        6,
+        2
+      ],
+      "length": 6.324555320336759,
+      "angleError": 4.065051177077976
+    },
+    {
+      "angle": 45.0,
+      "fileAngle": "045",
+      "delta": [
+        4,
+        4
+      ],
+      "length": 5.656854249492381,
+      "angleError": 0.0
+    },
+    {
+      "angle": 67.5,
+      "fileAngle": "067",
+      "delta": [
+        2,
+        6
+      ],
+      "length": 6.324555320336759,
+      "angleError": 4.065051177077976
+    },
+    {
+      "angle": 90.0,
+      "fileAngle": "090",
+      "delta": [
+        0,
+        6
+      ],
+      "length": 6.0,
+      "angleError": 0.0
+    },
+    {
+      "angle": 112.5,
+      "fileAngle": "112",
+      "delta": [
+        -2,
+        6
+      ],
+      "length": 6.324555320336759,
+      "angleError": 4.065051177077976
+    },
+    {
+      "angle": 135.0,
+      "fileAngle": "135",
+      "delta": [
+        -4,
+        4
+      ],
+      "length": 5.656854249492381,
+      "angleError": 0.0
+    },
+    {
+      "angle": 157.5,
+      "fileAngle": "157",
+      "delta": [
+        -6,
+        2
+      ],
+      "length": 6.324555320336759,
+      "angleError": 4.065051177078004
+    },
+    {
+      "angle": 180.0,
+      "fileAngle": "180",
+      "delta": [
+        -6,
+        0
+      ],
+      "length": 6.0,
+      "angleError": 0.0
+    },
+    {
+      "angle": 202.5,
+      "fileAngle": "202",
+      "delta": [
+        -6,
+        -2
+      ],
+      "length": 6.324555320336759,
+      "angleError": 4.065051177077976
+    },
+    {
+      "angle": 225.0,
+      "fileAngle": "225",
+      "delta": [
+        -4,
+        -4
+      ],
+      "length": 5.656854249492381,
+      "angleError": 0.0
+    },
+    {
+      "angle": 247.5,
+      "fileAngle": "247",
+      "delta": [
+        -2,
+        -6
+      ],
+      "length": 6.324555320336759,
+      "angleError": 4.065051177077976
+    },
+    {
+      "angle": 270.0,
+      "fileAngle": "270",
+      "delta": [
+        0,
+        -6
+      ],
+      "length": 6.0,
+      "angleError": 0.0
+    },
+    {
+      "angle": 292.5,
+      "fileAngle": "292",
+      "delta": [
+        2,
+        -6
+      ],
+      "length": 6.324555320336759,
+      "angleError": 4.065051177077976
+    },
+    {
+      "angle": 315.0,
+      "fileAngle": "315",
+      "delta": [
+        4,
+        -4
+      ],
+      "length": 5.656854249492381,
+      "angleError": 0.0
+    },
+    {
+      "angle": 337.5,
+      "fileAngle": "337",
+      "delta": [
+        6,
+        -2
+      ],
+      "length": 6.324555320336759,
+      "angleError": 4.065051177077976
+    }
+  ],
+  "poses": [
+    {
+      "pose": "hold",
+      "view": "front",
+      "side": "left",
+      "fixedShoulder": [
+        4.5,
+        45.5
+      ],
+      "requestedWrist": [
+        13.722874400373982,
+        49.64540271667289
+      ],
+      "actualWrist": [
+        14.5,
+        49.5
+      ],
+      "wristErrorVector": [
+        0.777125599626018,
+        -0.14540271667289062
+      ],
+      "wristErrorMagnitude": 0.7906112493570749,
+      "upperAngle": 0.0,
+      "foreAngle": 45.0,
+      "elbow": [
+        10.5,
+        45.5
+      ],
+      "bend": 45.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 2,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "press",
+      "view": "three-quarter-left",
+      "side": "right",
+      "fixedShoulder": [
+        52.5,
+        43.5
+      ],
+      "requestedWrist": [
+        44.347572780483176,
+        46.267617428531956
+      ],
+      "actualWrist": [
+        44.5,
+        47.5
+      ],
+      "wristErrorVector": [
+        0.1524272195168237,
+        1.2323825714680439
+      ],
+      "wristErrorMagnitude": 1.2417732722634267,
+      "upperAngle": 112.5,
+      "foreAngle": 202.5,
+      "elbow": [
+        50.5,
+        49.5
+      ],
+      "bend": 90.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 0,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "wave",
+      "view": "front",
+      "side": "left",
+      "fixedShoulder": [
+        4.5,
+        45.5
+      ],
+      "requestedWrist": [
+        0.19807510786753824,
+        35.5253025808438
+      ],
+      "actualWrist": [
+        0.5,
+        35.5
+      ],
+      "wristErrorVector": [
+        0.30192489213246176,
+        -0.02530258084379966
+      ],
+      "wristErrorMagnitude": 0.3029832686577853,
+      "upperAngle": 270.0,
+      "foreAngle": 225.0,
+      "elbow": [
+        4.5,
+        39.5
+      ],
+      "bend": 45.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 8,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "fist",
+      "view": "front",
+      "side": "right",
+      "fixedShoulder": [
+        61.5,
+        45.5
+      ],
+      "requestedWrist": [
+        59.28438395609742,
+        41.5926994852928
+      ],
+      "actualWrist": [
+        59.5,
+        41.5
+      ],
+      "wristErrorVector": [
+        0.21561604390257827,
+        -0.09269948529279759
+      ],
+      "wristErrorMagnitude": 0.23469868547085676,
+      "upperAngle": 180.0,
+      "foreAngle": 315.0,
+      "elbow": [
+        55.5,
+        45.5
+      ],
+      "bend": 135.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 2,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "stable-grip",
+      "view": "front",
+      "side": "left",
+      "fixedShoulder": [
+        4.5,
+        45.5
+      ],
+      "requestedWrist": [
+        0.2002272197014534,
+        37.478620420593174
+      ],
+      "actualWrist": [
+        0.5,
+        37.5
+      ],
+      "wristErrorVector": [
+        0.2997727802985466,
+        0.02137957940682611
+      ],
+      "wristErrorMagnitude": 0.3005342014206261,
+      "upperAngle": 292.5,
+      "foreAngle": 202.5,
+      "elbow": [
+        6.5,
+        39.5
+      ],
+      "bend": 90.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 5,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "stable-support",
+      "view": "three-quarter-left",
+      "side": "left",
+      "fixedShoulder": [
+        2.5,
+        36.5
+      ],
+      "requestedWrist": [
+        2.1099429109873853,
+        41.04194955783255
+      ],
+      "actualWrist": [
+        2.5,
+        40.5
+      ],
+      "wristErrorVector": [
+        0.3900570890126147,
+        -0.5419495578325524
+      ],
+      "wristErrorMagnitude": 0.6677228885727177,
+      "upperAngle": 22.5,
+      "foreAngle": 157.5,
+      "elbow": [
+        8.5,
+        38.5
+      ],
+      "bend": 135.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 0,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "front-press-left",
+      "view": "front",
+      "side": "left",
+      "fixedShoulder": [
+        4.5,
+        45.5
+      ],
+      "requestedWrist": [
+        9.034057246687595,
+        41.9263464835945
+      ],
+      "actualWrist": [
+        8.5,
+        41.5
+      ],
+      "wristErrorVector": [
+        -0.5340572466875955,
+        -0.4263464835945001
+      ],
+      "wristErrorMagnitude": 0.6833655440633004,
+      "upperAngle": 22.5,
+      "foreAngle": 247.5,
+      "elbow": [
+        10.5,
+        47.5
+      ],
+      "bend": 135.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 5,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "front-press-right",
+      "view": "front",
+      "side": "right",
+      "fixedShoulder": [
+        61.5,
+        45.5
+      ],
+      "requestedWrist": [
+        58.09365548521674,
+        41.676068416289766
+      ],
+      "actualWrist": [
+        57.5,
+        41.5
+      ],
+      "wristErrorVector": [
+        -0.5936554852167433,
+        -0.1760684162897661
+      ],
+      "wristErrorMagnitude": 0.6192147626976551,
+      "upperAngle": 157.5,
+      "foreAngle": 292.5,
+      "elbow": [
+        55.5,
+        47.5
+      ],
+      "bend": 135.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 5,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "front-support",
+      "view": "front",
+      "side": "left",
+      "fixedShoulder": [
+        4.5,
+        45.5
+      ],
+      "requestedWrist": [
+        -4.017747287284209,
+        43.26673113243963
+      ],
+      "actualWrist": [
+        -5.5,
+        43.5
+      ],
+      "wristErrorVector": [
+        -1.4822527127157912,
+        0.23326886756036913
+      ],
+      "wristErrorMagnitude": 1.5004957410556747,
+      "upperAngle": 225.0,
+      "foreAngle": 157.5,
+      "elbow": [
+        0.5,
+        41.5
+      ],
+      "bend": 67.5,
+      "centerlineSamplesWithinBody": 10,
+      "exposedSegmentPixelsBeforeSocketClipping": 57,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "front-reach",
+      "view": "front",
+      "side": "left",
+      "fixedShoulder": [
+        4.5,
+        45.5
+      ],
+      "requestedWrist": [
+        3.9583029121565687,
+        42.392771337103426
+      ],
+      "actualWrist": [
+        4.5,
+        41.5
+      ],
+      "wristErrorVector": [
+        0.5416970878434313,
+        -0.8927713371034258
+      ],
+      "wristErrorMagnitude": 1.0442587779528085,
+      "upperAngle": 337.5,
+      "foreAngle": 202.5,
+      "elbow": [
+        10.5,
+        43.5
+      ],
+      "bend": 135.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 0,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "quarter-grip",
+      "view": "three-quarter-left",
+      "side": "left",
+      "fixedShoulder": [
+        2.5,
+        36.5
+      ],
+      "requestedWrist": [
+        0.0887251370339115,
+        40.011926523423
+      ],
+      "actualWrist": [
+        0.5,
+        40.5
+      ],
+      "wristErrorVector": [
+        0.4112748629660885,
+        0.48807347657700006
+      ],
+      "wristErrorMagnitude": 0.638249740654655,
+      "upperAngle": 45.0,
+      "foreAngle": 180.0,
+      "elbow": [
+        6.5,
+        40.5
+      ],
+      "bend": 135.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 0,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "quarter-hold",
+      "view": "three-quarter-left",
+      "side": "right",
+      "fixedShoulder": [
+        52.5,
+        43.5
+      ],
+      "requestedWrist": [
+        47.60686623281268,
+        44.93941673986916
+      ],
+      "actualWrist": [
+        48.5,
+        45.5
+      ],
+      "wristErrorVector": [
+        0.8931337671873223,
+        0.5605832601308407
+      ],
+      "wristErrorMagnitude": 1.054486376217891,
+      "upperAngle": 90.0,
+      "foreAngle": 225.0,
+      "elbow": [
+        52.5,
+        49.5
+      ],
+      "bend": 135.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 0,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "quarter-wave",
+      "view": "three-quarter-left",
+      "side": "left",
+      "fixedShoulder": [
+        2.5,
+        36.5
+      ],
+      "requestedWrist": [
+        1.8790329282772191,
+        40.49667608049336
+      ],
+      "actualWrist": [
+        2.5,
+        40.5
+      ],
+      "wristErrorVector": [
+        0.6209670717227809,
+        0.0033239195066414595
+      ],
+      "wristErrorMagnitude": 0.6209759678158664,
+      "upperAngle": 22.5,
+      "foreAngle": 157.5,
+      "elbow": [
+        8.5,
+        38.5
+      ],
+      "bend": 135.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 0,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "quarter-fist",
+      "view": "three-quarter-left",
+      "side": "right",
+      "fixedShoulder": [
+        52.5,
+        43.5
+      ],
+      "requestedWrist": [
+        42.80356651857559,
+        46.37074770717352
+      ],
+      "actualWrist": [
+        42.5,
+        45.5
+      ],
+      "wristErrorVector": [
+        -0.30356651857559314,
+        -0.8707477071735212
+      ],
+      "wristErrorMagnitude": 0.9221465180479999,
+      "upperAngle": 135.0,
+      "foreAngle": 202.5,
+      "elbow": [
+        48.5,
+        47.5
+      ],
+      "bend": 67.5,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 0,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "quarter-reach",
+      "view": "three-quarter-left",
+      "side": "left",
+      "fixedShoulder": [
+        2.5,
+        36.5
+      ],
+      "requestedWrist": [
+        2.4415508831315336,
+        41.45798234503047
+      ],
+      "actualWrist": [
+        2.5,
+        40.5
+      ],
+      "wristErrorVector": [
+        0.05844911686846643,
+        -0.957982345030473
+      ],
+      "wristErrorMagnitude": 0.9597637587723282,
+      "upperAngle": 22.5,
+      "foreAngle": 157.5,
+      "elbow": [
+        8.5,
+        38.5
+      ],
+      "bend": 135.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 0,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "back-wave",
+      "view": "back",
+      "side": "left",
+      "fixedShoulder": [
+        6.5,
+        37.5
+      ],
+      "requestedWrist": [
+        3.0306222261575044,
+        37.10867949656446
+      ],
+      "actualWrist": [
+        2.5,
+        37.5
+      ],
+      "wristErrorVector": [
+        -0.5306222261575044,
+        0.39132050343553715
+      ],
+      "wristErrorMagnitude": 0.6593115221967443,
+      "upperAngle": 112.5,
+      "foreAngle": 247.5,
+      "elbow": [
+        4.5,
+        43.5
+      ],
+      "bend": 135.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 0,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "rest",
+      "view": "front",
+      "side": "left",
+      "fixedShoulder": [
+        4.5,
+        45.5
+      ],
+      "requestedWrist": [
+        3.5,
+        40.5
+      ],
+      "actualWrist": [
+        2.5,
+        39.5
+      ],
+      "wristErrorVector": [
+        -1.0,
+        -1.0
+      ],
+      "wristErrorMagnitude": 1.4142135623730951,
+      "upperAngle": 315.0,
+      "foreAngle": 202.5,
+      "elbow": [
+        8.5,
+        41.5
+      ],
+      "bend": 112.5,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 0,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "rest",
+      "view": "front",
+      "side": "right",
+      "fixedShoulder": [
+        61.5,
+        45.5
+      ],
+      "requestedWrist": [
+        62.5,
+        40.5
+      ],
+      "actualWrist": [
+        61.5,
+        41.5
+      ],
+      "wristErrorVector": [
+        -1.0,
+        1.0
+      ],
+      "wristErrorMagnitude": 1.4142135623730951,
+      "upperAngle": 202.5,
+      "foreAngle": 337.5,
+      "elbow": [
+        55.5,
+        43.5
+      ],
+      "bend": 135.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 0,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "rest",
+      "view": "three-quarter-left",
+      "side": "left",
+      "fixedShoulder": [
+        2.5,
+        36.5
+      ],
+      "requestedWrist": [
+        3.5,
+        40.5
+      ],
+      "actualWrist": [
+        4.5,
+        40.5
+      ],
+      "wristErrorVector": [
+        1.0,
+        0.0
+      ],
+      "wristErrorMagnitude": 1.0,
+      "upperAngle": 0.0,
+      "foreAngle": 135.0,
+      "elbow": [
+        8.5,
+        36.5
+      ],
+      "bend": 135.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 0,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "rest",
+      "view": "three-quarter-left",
+      "side": "right",
+      "fixedShoulder": [
+        52.5,
+        43.5
+      ],
+      "requestedWrist": [
+        62.5,
+        40.5
+      ],
+      "actualWrist": [
+        62.5,
+        39.5
+      ],
+      "wristErrorVector": [
+        0.0,
+        -1.0
+      ],
+      "wristErrorMagnitude": 1.0,
+      "upperAngle": 0.0,
+      "foreAngle": 315.0,
+      "elbow": [
+        58.5,
+        43.5
+      ],
+      "bend": 45.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 0,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "rest",
+      "view": "back",
+      "side": "left",
+      "fixedShoulder": [
+        6.5,
+        37.5
+      ],
+      "requestedWrist": [
+        4.5,
+        40.5
+      ],
+      "actualWrist": [
+        4.5,
+        41.5
+      ],
+      "wristErrorVector": [
+        0.0,
+        1.0
+      ],
+      "wristErrorMagnitude": 1.0,
+      "upperAngle": 45.0,
+      "foreAngle": 180.0,
+      "elbow": [
+        10.5,
+        41.5
+      ],
+      "bend": 135.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 0,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "rest",
+      "view": "back",
+      "side": "right",
+      "fixedShoulder": [
+        59.5,
+        37.5
+      ],
+      "requestedWrist": [
+        61.5,
+        40.5
+      ],
+      "actualWrist": [
+        61.5,
+        41.5
+      ],
+      "wristErrorVector": [
+        0.0,
+        1.0
+      ],
+      "wristErrorMagnitude": 1.0,
+      "upperAngle": 135.0,
+      "foreAngle": 0.0,
+      "elbow": [
+        55.5,
+        41.5
+      ],
+      "bend": 135.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 0,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "mirrored-hold",
+      "view": "front",
+      "side": "right",
+      "fixedShoulder": [
+        61.5,
+        45.5
+      ],
+      "requestedWrist": [
+        52.11302259962602,
+        49.64540271667289
+      ],
+      "actualWrist": [
+        51.5,
+        49.5
+      ],
+      "wristErrorVector": [
+        -0.6130225996260208,
+        -0.14540271667289062
+      ],
+      "wristErrorMagnitude": 0.6300306799419386,
+      "upperAngle": 180.0,
+      "foreAngle": 135.0,
+      "elbow": [
+        55.5,
+        45.5
+      ],
+      "bend": 45.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 2,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "mirrored-wave",
+      "view": "front",
+      "side": "right",
+      "fixedShoulder": [
+        61.5,
+        45.5
+      ],
+      "requestedWrist": [
+        65.63782189213246,
+        35.5253025808438
+      ],
+      "actualWrist": [
+        65.5,
+        35.5
+      ],
+      "wristErrorVector": [
+        -0.13782189213246454,
+        -0.02530258084379966
+      ],
+      "wristErrorMagnitude": 0.14012528161730742,
+      "upperAngle": 270.0,
+      "foreAngle": 315.0,
+      "elbow": [
+        61.5,
+        39.5
+      ],
+      "bend": 45.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 12,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "mirrored-fist",
+      "view": "front",
+      "side": "left",
+      "fixedShoulder": [
+        4.5,
+        45.5
+      ],
+      "requestedWrist": [
+        6.551513043902581,
+        41.5926994852928
+      ],
+      "actualWrist": [
+        6.5,
+        41.5
+      ],
+      "wristErrorVector": [
+        -0.051513043902581046,
+        -0.09269948529279759
+      ],
+      "wristErrorMagnitude": 0.10605087583635903,
+      "upperAngle": 0.0,
+      "foreAngle": 225.0,
+      "elbow": [
+        10.5,
+        45.5
+      ],
+      "bend": 135.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 2,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "mirrored-stable-grip",
+      "view": "front",
+      "side": "right",
+      "fixedShoulder": [
+        61.5,
+        45.5
+      ],
+      "requestedWrist": [
+        65.63566978029854,
+        37.478620420593174
+      ],
+      "actualWrist": [
+        65.5,
+        37.5
+      ],
+      "wristErrorVector": [
+        -0.13566978029854226,
+        0.02137957940682611
+      ],
+      "wristErrorMagnitude": 0.1373440049724323,
+      "upperAngle": 247.5,
+      "foreAngle": 337.5,
+      "elbow": [
+        59.5,
+        39.5
+      ],
+      "bend": 90.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 9,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "mirrored-front-press-left",
+      "view": "front",
+      "side": "right",
+      "fixedShoulder": [
+        61.5,
+        45.5
+      ],
+      "requestedWrist": [
+        56.80183975331241,
+        41.9263464835945
+      ],
+      "actualWrist": [
+        57.5,
+        41.5
+      ],
+      "wristErrorVector": [
+        0.6981602466875927,
+        -0.4263464835945001
+      ],
+      "wristErrorMagnitude": 0.8180458753201287,
+      "upperAngle": 157.5,
+      "foreAngle": 292.5,
+      "elbow": [
+        55.5,
+        47.5
+      ],
+      "bend": 135.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 5,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "mirrored-front-press-right",
+      "view": "front",
+      "side": "left",
+      "fixedShoulder": [
+        4.5,
+        45.5
+      ],
+      "requestedWrist": [
+        7.7422415147832595,
+        41.676068416289766
+      ],
+      "actualWrist": [
+        8.5,
+        41.5
+      ],
+      "wristErrorVector": [
+        0.7577584852167405,
+        -0.1760684162897661
+      ],
+      "wristErrorMagnitude": 0.7779447339835623,
+      "upperAngle": 22.5,
+      "foreAngle": 247.5,
+      "elbow": [
+        10.5,
+        47.5
+      ],
+      "bend": 135.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 5,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "mirrored-front-support",
+      "view": "front",
+      "side": "right",
+      "fixedShoulder": [
+        61.5,
+        45.5
+      ],
+      "requestedWrist": [
+        69.85364428728421,
+        43.26673113243963
+      ],
+      "actualWrist": [
+        71.5,
+        43.5
+      ],
+      "wristErrorVector": [
+        1.6463557127157884,
+        0.23326886756036913
+      ],
+      "wristErrorMagnitude": 1.6627992955750277,
+      "upperAngle": 315.0,
+      "foreAngle": 22.5,
+      "elbow": [
+        65.5,
+        41.5
+      ],
+      "bend": 67.5,
+      "centerlineSamplesWithinBody": 7,
+      "exposedSegmentPixelsBeforeSocketClipping": 61,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "mirrored-front-reach",
+      "view": "front",
+      "side": "right",
+      "fixedShoulder": [
+        61.5,
+        45.5
+      ],
+      "requestedWrist": [
+        61.877594087843434,
+        42.392771337103426
+      ],
+      "actualWrist": [
+        61.5,
+        41.5
+      ],
+      "wristErrorVector": [
+        -0.37759408784343407,
+        -0.8927713371034258
+      ],
+      "wristErrorMagnitude": 0.969338927067181,
+      "upperAngle": 202.5,
+      "foreAngle": 337.5,
+      "elbow": [
+        55.5,
+        43.5
+      ],
+      "bend": 135.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 0,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "mirrored-back-wave",
+      "view": "back",
+      "side": "right",
+      "fixedShoulder": [
+        59.5,
+        37.5
+      ],
+      "requestedWrist": [
+        62.969377773842496,
+        37.10867949656446
+      ],
+      "actualWrist": [
+        63.5,
+        37.5
+      ],
+      "wristErrorVector": [
+        0.5306222261575044,
+        0.39132050343553715
+      ],
+      "wristErrorMagnitude": 0.6593115221967443,
+      "upperAngle": 292.5,
+      "foreAngle": 67.5,
+      "elbow": [
+        61.5,
+        31.5
+      ],
+      "bend": 135.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 0,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "hold-canonical-cup",
+      "view": "front",
+      "side": "left",
+      "fixedShoulder": [
+        4.5,
+        45.5
+      ],
+      "requestedWrist": [
+        12.5,
+        49.5
+      ],
+      "actualWrist": [
+        12.5,
+        49.5
+      ],
+      "wristErrorVector": [
+        0.0,
+        0.0
+      ],
+      "wristErrorMagnitude": 0.0,
+      "upperAngle": 337.5,
+      "foreAngle": 67.5,
+      "elbow": [
+        10.5,
+        43.5
+      ],
+      "bend": 90.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 0,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    },
+    {
+      "pose": "hold-canonical-cup",
+      "view": "front",
+      "side": "right",
+      "fixedShoulder": [
+        61.5,
+        45.5
+      ],
+      "requestedWrist": [
+        53.5,
+        49.5
+      ],
+      "actualWrist": [
+        53.5,
+        49.5
+      ],
+      "wristErrorVector": [
+        0.0,
+        0.0
+      ],
+      "wristErrorMagnitude": 0.0,
+      "upperAngle": 202.5,
+      "foreAngle": 112.5,
+      "elbow": [
+        55.5,
+        43.5
+      ],
+      "bend": 90.0,
+      "centerlineSamplesWithinBody": 18,
+      "exposedSegmentPixelsBeforeSocketClipping": 0,
+      "elbowBranchPolicy": "Minimize wrist error, then minimize actual rendered segment alpha outside body, then prefer internal body-covered centerline to preserve approved short visible arms. This is an explicit per-action preview rule, not a universal outward-elbow runtime policy."
+    }
+  ],
+  "limitations": "Legal angle vectors have even integer components. Wrist positions are nearest reachable lattice points; move the prop with the resulting wrist+contact when permitted, otherwise report failed ground contact. Shoulder does not move."
+}

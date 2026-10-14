@@ -1,0 +1,276 @@
+{
+  "schema": "dango-prototype-mask/1",
+  "source": "sources/masters/full-character-v2.png",
+  "sourceSha256": "9e77a9c2a455c3a7c9cc145bb8b0f458ede80bd367e4eb89539c6abddc8b6fdd",
+  "alphaMethod": "explicit geometric polygon only",
+  "frames": [
+    {
+      "name": "quarter-stand",
+      "view": "three-quarter-left",
+      "crop": [
+        632,
+        402,
+        109,
+        58
+      ],
+      "root": [
+        683,
+        409
+      ],
+      "sole": [
+        683,
+        454
+      ],
+      "polygon": [
+        [
+          647,
+          402
+        ],
+        [
+          730,
+          402
+        ],
+        [
+          730,
+          419
+        ],
+        [
+          738,
+          419
+        ],
+        [
+          738,
+          435
+        ],
+        [
+          729,
+          438
+        ],
+        [
+          723,
+          438
+        ],
+        [
+          723,
+          446
+        ],
+        [
+          713,
+          451
+        ],
+        [
+          713,
+          456
+        ],
+        [
+          655,
+          456
+        ],
+        [
+          648,
+          451
+        ],
+        [
+          643,
+          446
+        ],
+        [
+          637,
+          442
+        ],
+        [
+          634,
+          435
+        ],
+        [
+          634,
+          417
+        ],
+        [
+          647,
+          417
+        ]
+      ],
+      "maskExclusionsCropLocal": [
+        [
+          5,
+          40
+        ],
+        [
+          6,
+          40
+        ],
+        [
+          7,
+          41
+        ],
+        [
+          16,
+          49
+        ],
+        [
+          17,
+          49
+        ],
+        [
+          18,
+          50
+        ],
+        [
+          17,
+          50
+        ]
+      ],
+      "exclusionReason": "Individually reviewed exterior pale corner/background coordinates; no chroma-key rule.",
+      "sourceCropFile": "sources/crops/full-character-prototypes/approved-extraction-samples/quarter-stand-source-isolated.png",
+      "originalMaskFileIdentifier": "quarter-stand-source-mask.png",
+      "status": "candidate geometry pending boundary review"
+    },
+    {
+      "name": "back-stand",
+      "view": "back",
+      "crop": [
+        1118,
+        402,
+        112,
+        58
+      ],
+      "root": [
+        1170,
+        409
+      ],
+      "sole": [
+        1170,
+        454
+      ],
+      "polygon": [
+        [
+          1134,
+          402
+        ],
+        [
+          1219,
+          402
+        ],
+        [
+          1219,
+          418
+        ],
+        [
+          1227,
+          418
+        ],
+        [
+          1227,
+          435
+        ],
+        [
+          1218,
+          438
+        ],
+        [
+          1215,
+          438
+        ],
+        [
+          1215,
+          446
+        ],
+        [
+          1202,
+          450
+        ],
+        [
+          1202,
+          456
+        ],
+        [
+          1142,
+          456
+        ],
+        [
+          1142,
+          450
+        ],
+        [
+          1131,
+          446
+        ],
+        [
+          1127,
+          441
+        ],
+        [
+          1121,
+          435
+        ],
+        [
+          1121,
+          417
+        ],
+        [
+          1134,
+          417
+        ]
+      ],
+      "maskExclusionsCropLocal": [
+        [
+          109,
+          27
+        ],
+        [
+          108,
+          28
+        ],
+        [
+          108,
+          29
+        ],
+        [
+          108,
+          30
+        ],
+        [
+          108,
+          31
+        ],
+        [
+          108,
+          32
+        ],
+        [
+          108,
+          33
+        ],
+        [
+          109,
+          32
+        ],
+        [
+          109,
+          28
+        ],
+        [
+          109,
+          29
+        ],
+        [
+          109,
+          30
+        ],
+        [
+          109,
+          31
+        ],
+        [
+          109,
+          33
+        ]
+      ],
+      "exclusionReason": "Individually reviewed exterior pale corner/background coordinates; no chroma-key rule.",
+      "sourceCropFile": "sources/crops/full-character-prototypes/approved-extraction-samples/back-stand-source-isolated.png",
+      "originalMaskFileIdentifier": "back-stand-source-mask.png",
+      "status": "candidate geometry pending boundary review"
+    }
+  ]
+}

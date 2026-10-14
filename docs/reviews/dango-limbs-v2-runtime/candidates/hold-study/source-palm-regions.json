@@ -1,0 +1,211 @@
+{
+  "schema": "proposed-source-palm-regions/1",
+  "source": "masters/hold-handle-continuous-v6.png",
+  "sourceSha256": "cfcb991f89a0948667949b9004301534daeb120bff0d994a9aef2d455c3bdf3a",
+  "sourceSize": [
+    2172,
+    724
+  ],
+  "status": "review proposal only; no pixels extracted or approved",
+  "bodyWidthsByPanel": [
+    651,
+    659,
+    652
+  ],
+  "uniformScalePerPanel": [
+    0.10662885560675883,
+    0.10533442336874052,
+    0.10646531441717791
+  ],
+  "coordinateConvention": "original source pixels, points continuous; polygons are approximate seeds not accepted masks",
+  "regions": [
+    {
+      "id": "low-left-vessel-palm",
+      "panel": 1,
+      "status": "proposed-mask-seed-needs-pixel-review",
+      "polygon": [
+        [
+          225,
+          495
+        ],
+        [
+          235,
+          482
+        ],
+        [
+          250,
+          474
+        ],
+        [
+          280,
+          475
+        ],
+        [
+          296,
+          495
+        ],
+        [
+          305,
+          507
+        ],
+        [
+          305,
+          535
+        ],
+        [
+          296,
+          552
+        ],
+        [
+          279,
+          566
+        ],
+        [
+          260,
+          573
+        ],
+        [
+          234,
+          573
+        ],
+        [
+          226,
+          562
+        ]
+      ],
+      "wristCutCorridor": {
+        "upperEndpointApprox": [
+          225,
+          495
+        ],
+        "lowerEndpointApprox": [
+          234,
+          573
+        ],
+        "rootCenterApprox": [
+          229.5,
+          534
+        ],
+        "openCut": true,
+        "addInk": false
+      },
+      "observedContact": {
+        "point": [
+          305.5,
+          520.5
+        ],
+        "normal": [
+          1,
+          0
+        ],
+        "role": "vessel-edge",
+        "convention": "continuous boundary after source ink at x305; exact ownership unresolved"
+      },
+      "preserve": "Observed original upper/distal/lower outer ink; shared cup boundary must be assigned once against real cup. No new cap."
+    },
+    {
+      "id": "low-right-handle-outer-palm",
+      "panel": 1,
+      "status": "proposed-mask-seed-needs-pixel-review",
+      "polygon": [
+        [
+          570,
+          497
+        ],
+        [
+          560,
+          488
+        ],
+        [
+          545,
+          478
+        ],
+        [
+          518,
+          477
+        ],
+        [
+          509,
+          491
+        ],
+        [
+          499,
+          501
+        ],
+        [
+          499,
+          539
+        ],
+        [
+          507,
+          553
+        ],
+        [
+          521,
+          565
+        ],
+        [
+          540,
+          573
+        ],
+        [
+          566,
+          573
+        ],
+        [
+          576,
+          560
+        ]
+      ],
+      "wristCutCorridor": {
+        "upperEndpointApprox": [
+          570,
+          497
+        ],
+        "lowerEndpointApprox": [
+          566,
+          573
+        ],
+        "rootCenterApprox": [
+          568,
+          535
+        ],
+        "openCut": true,
+        "addInk": false
+      },
+      "observedContact": {
+        "point": [
+          498.5,
+          520.5
+        ],
+        "normal": [
+          -1,
+          0
+        ],
+        "role": "handle-outer-edge",
+        "convention": "continuous boundary between outer shaft ink x498 and visible pink palm x499"
+      },
+      "handleAxisReference": {
+        "point": [
+          493.5,
+          520.5
+        ],
+        "role": "handle-shaft-axis-only-not-observed-palm-contact",
+        "shaftInkRangeAtRow520": [
+          489,
+          498
+        ]
+      },
+      "hiddenBackPalm": "not observed; do not invent",
+      "preserve": "Observed palm outer contour; do not copy full handle shaft ink into palm or close wrist."
+    }
+  ],
+  "restrictions": [
+    "No source edits or new contour pixels",
+    "No fixed shoulder move or arm stretch",
+    "No hidden back palm synthesis",
+    "No automatic mirrored or translated mid/high masks",
+    "Keep source RGB; no color-key mask",
+    "Review source ink thickness before final extraction"
+  ]
+}

@@ -1,5 +1,6 @@
 'use strict';
 
+import { hermite } from '../motion-core/easing.mjs';
 import { resolveRigView, rigCacheKey } from './schema.mjs';
 import { computeBoneWorld, IDENTITY, multiply, localMatrix } from './pose.mjs';
 import { sampleMotion, idleProgress } from './motions.mjs';
@@ -21,7 +22,7 @@ const TRANSITION_MS_PER_ART_UNIT = 9;
 const STALE_GAP_MS = 500;                       // 帧停了这么久（窗口隐藏、节流）就直接对齐，不去混合过时的姿势
 const REST = Object.freeze({ r: 0, x: 0, y: 0, sx: 1, sy: 1 });
 const CHANNELS = Object.freeze(['r', 'x', 'y', 'sx', 'sy']);
-const smoothstep = t => t * t * (3 - 2 * t);
+const smoothstep = hermite;
 
 function blendBones(from, to, weight) {
   const out = {};
@@ -116,9 +117,14 @@ function createRigArtist({ fallback, paths = createPathCache(), partLayer = part
       ? transitionFor(channel).step({ key: `${sample.key}|${resolved.view}|${calmVisual ? 'calm' : 'live'}`, bones: target, now: elapsedMs, immediate: calmVisual })
       : target;
     const world = computeBoneWorld(resolved.data.bones, bones);
+    // Form IK pass: per-part matrices for drawn parts only (e.g. usagi legs:
+    // hip socket -> foot target). Bone matrices, and so anchored accessories
+    // such as boots, are unchanged.
+    const partWorld = fallback.solvePartWorld?.(world, { data: resolved.data, view: resolved.view, sample }) || null;
     return Object.freeze({
       kind: 'rig', rig, key: rigCacheKey(rig), view, drawnView: resolved.view,
-      face, pose: Object.freeze({ sample, world })
+      face, pose: Object.freeze({ sample, world, ...(partWorld ? { partWorld: Object.freeze(partWorld) } : {}) }),
+      clock: Object.freeze({ channel, elapsedMs, calm: !!calmVisual })
     });
   }
 
@@ -133,7 +139,7 @@ function createRigArtist({ fallback, paths = createPathCache(), partLayer = part
       // A form may replace one authored part with an integrated contact silhouette.
       // Every ordinary part and foreign rig retains the same painter and matrices.
       const custom = world && fallback.paintPart?.(ctx, { part, data, layer, world, artwork });
-      painted += custom ? 1 : paintShapes(ctx, part.shapes, paths, palette, world ? world[part.bone] : null);
+      painted += custom ? 1 : paintShapes(ctx, part.shapes, paths, palette, world ? artwork?.pose?.partWorld?.[part.bone] || world[part.bone] : null);
     }
     return painted;
   }
@@ -143,6 +149,8 @@ function createRigArtist({ fallback, paths = createPathCache(), partLayer = part
     if (!data) return fallback.body(ctx, palette, view);
     const hiddenBones = artwork.hiddenRigBones || [];
     if (fit) paintParts(ctx, data, 'back', null, palette, hiddenBones, artwork);
+    // Portraits keep the authored occlusion: tucked parts sit behind the torso.
+    if (fit) paintParts(ctx, data, 'under-cloth', null, palette, hiddenBones, artwork);
     paintParts(ctx, data, 'body', null, palette, hiddenBones, artwork);
     if (fit && !artwork.deferPortraitForeground) paintParts(ctx, data, 'front', null, palette, hiddenBones, artwork);
     return true;
@@ -214,8 +222,14 @@ function createRigArtist({ fallback, paths = createPathCache(), partLayer = part
     return data ? paintParts(ctx, data, 'front', null, palette, artwork.hiddenRigBones, artwork) : 0;
   }
 
+  // Posed parts of one custom layer (e.g. 'under-cloth' tucks), no props.
+  function layerParts(ctx, palette, view, artwork, layer) {
+    const data = viewData(artwork, view);
+    return data ? paintParts(ctx, data, layer, artwork.pose.world, palette, artwork.hiddenRigBones || [], artwork) : 0;
+  }
+
   return Object.freeze({
-    resolve, body, face, action, appearance, portraitForeground,
+    resolve, body, face, action, appearance, portraitForeground, layerParts,
     motionOffset: fallback.motionOffset,
     applyMotionTransform: fallback.applyMotionTransform,
     expressionAccent: fallback.expressionAccent,

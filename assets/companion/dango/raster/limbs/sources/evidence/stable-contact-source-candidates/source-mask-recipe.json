@@ -1,0 +1,341 @@
+{
+  "schema": "dango-prototype-mask/1",
+  "source": "sources/masters/contact-stable-body-v1.png",
+  "sourceSha256": "ae4abc1ffae68a15b5afcec933daed4ccad5f8e55c6185ad6aa7e03770d07f9e",
+  "alphaMethod": "explicit hand-traced geometry, exact source RGB",
+  "frames": [
+    {
+      "name": "front-grip-stable-left",
+      "view": "front",
+      "side": "image-left authored grip paw",
+      "crop": [
+        98,
+        473,
+        114,
+        108
+      ],
+      "root": [
+        187,
+        526
+      ],
+      "grip": [
+        155,
+        526
+      ],
+      "wristAxisDegrees": 180,
+      "polygon": [
+        [
+          130,
+          480
+        ],
+        [
+          178,
+          480
+        ],
+        [
+          184,
+          485
+        ],
+        [
+          192,
+          488
+        ],
+        [
+          193,
+          496
+        ],
+        [
+          197,
+          500
+        ],
+        [
+          197,
+          504
+        ],
+        [
+          198,
+          505
+        ],
+        [
+          202,
+          506
+        ],
+        [
+          202,
+          508
+        ],
+        [
+          206,
+          540
+        ],
+        [
+          201,
+          548
+        ],
+        [
+          194,
+          552
+        ],
+        [
+          193,
+          559
+        ],
+        [
+          188,
+          564
+        ],
+        [
+          178,
+          566
+        ],
+        [
+          176,
+          573
+        ],
+        [
+          137,
+          574
+        ],
+        [
+          128,
+          571
+        ],
+        [
+          127,
+          565
+        ],
+        [
+          115,
+          561
+        ],
+        [
+          114,
+          555
+        ],
+        [
+          114,
+          550
+        ],
+        [
+          105,
+          548
+        ],
+        [
+          104,
+          513
+        ],
+        [
+          108,
+          508
+        ],
+        [
+          114,
+          506
+        ],
+        [
+          115,
+          497
+        ],
+        [
+          121,
+          492
+        ],
+        [
+          127,
+          489
+        ]
+      ],
+      "registration": {
+        "prop": "broom shaft",
+        "passageCenter": [
+          157,
+          526
+        ],
+        "passageAxis": [
+          0,
+          1
+        ],
+        "passageEntry": [
+          158,
+          480
+        ],
+        "passageExit": [
+          158,
+          574
+        ],
+        "visibleFrontOnly": true,
+        "alphaHole": false,
+        "rootStatus": "true closed source front, semantic pink interior root only; hidden back connection not invented",
+        "supersedes": "old slender-body front grip from contact-actions-v2.png"
+      },
+      "bodyScaleAudit": {
+        "sourceBodyWidth": 527,
+        "canonicalBodyWidth": 69.415385,
+        "artPxPerSourcePx": 0.1317179981024668,
+        "method": "estimated +/-6 source px: shaft obscures left edge; left pink x183..184, right pink686, outer ink697..698; infer left outer ink172 from11px outline, not pole x137",
+        "independentMeasurement": true,
+        "isotropicOnly": true
+      },
+      "sourceCropFile": "sources/crops/stable-contact-source-candidates/front-grip-stable-left-source-isolated.png",
+      "originalMaskFileIdentifier": "front-grip-stable-left-source-mask.png",
+      "axisRole": "source anatomical wrist toward palm, not invented bone marker",
+      "root_crop": [
+        89,
+        53
+      ]
+    },
+    {
+      "name": "quarter-light-support-left",
+      "view": "three-quarter-left",
+      "side": "image-left far authored light-support paw",
+      "crop": [
+        813,
+        521,
+        112,
+        113
+      ],
+      "root": [
+        894,
+        548
+      ],
+      "grip": [
+        874,
+        595
+      ],
+      "wristAxisDegrees": 113,
+      "contactNormal": [
+        0,
+        1
+      ],
+      "polygon": [
+        [
+          880,
+          525
+        ],
+        [
+          892,
+          526
+        ],
+        [
+          903,
+          535
+        ],
+        [
+          909,
+          552
+        ],
+        [
+          913,
+          574
+        ],
+        [
+          915,
+          590
+        ],
+        [
+          913,
+          605
+        ],
+        [
+          907,
+          615
+        ],
+        [
+          900,
+          621
+        ],
+        [
+          893,
+          625
+        ],
+        [
+          856,
+          625
+        ],
+        [
+          848,
+          621
+        ],
+        [
+          842,
+          616
+        ],
+        [
+          839,
+          611
+        ],
+        [
+          832,
+          607
+        ],
+        [
+          827,
+          601
+        ],
+        [
+          824,
+          596
+        ],
+        [
+          824,
+          583
+        ],
+        [
+          831,
+          577
+        ],
+        [
+          834,
+          560
+        ],
+        [
+          838,
+          552
+        ],
+        [
+          843,
+          545
+        ],
+        [
+          850,
+          540
+        ],
+        [
+          856,
+          534
+        ],
+        [
+          868,
+          531
+        ]
+      ],
+      "registration": {
+        "prop": "wood block",
+        "contactPoint": [
+          875,
+          625
+        ],
+        "rootStatus": "open pink body-side root; no hidden wrist reconstruction",
+        "poseMeaning": "light support with naturally teardrop paw, not a push-up or loaded flattened-palm deformation",
+        "blockExclusion": "polygon follows paw bottom above block-top horizontal line; block excluded",
+        "supersedes": "old leaning-body quarter support registration"
+      },
+      "bodyScaleAudit": {
+        "sourceBodyWidth": 522,
+        "canonicalBodyWidth": 73.025641,
+        "artPxPerSourcePx": 0.13989586398467432,
+        "method": "clean torso y430/450 x882..1399 width518; y470/490 widths523/522; selected522 +/-5 source px",
+        "independentMeasurement": true,
+        "isotropicOnly": true
+      },
+      "sourceCropFile": "sources/crops/stable-contact-source-candidates/quarter-light-support-left-source-isolated.png",
+      "originalMaskFileIdentifier": "quarter-light-support-left-source-mask.png",
+      "axisRole": "source anatomical wrist toward palm, not invented bone marker",
+      "root_crop": [
+        81,
+        27
+      ]
+    }
+  ],
+  "pathsRelativeTo": "Asset package root; identifier-only fields are historical labels."
+}

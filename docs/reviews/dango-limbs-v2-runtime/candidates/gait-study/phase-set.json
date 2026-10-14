@@ -1,0 +1,185 @@
+{
+  "status": "static source-foot/canonical-body assembly, not runtime or complete gait",
+  "phases": [
+    {
+      "name": "near-support-far-swing",
+      "bodyTranslationY": 0,
+      "groundY": 64.5,
+      "feet": [
+        {
+          "role": "near",
+          "frame": "near-support",
+          "rootWorld": [
+            21.5,
+            56.5
+          ],
+          "rootDeltaFromHip": [
+            0.3212529999999987,
+            0.3769229999999979
+          ],
+          "soleWorld": [
+            26.5,
+            64.5
+          ],
+          "support": true,
+          "clearance": 0,
+          "layer": "back"
+        },
+        {
+          "role": "far",
+          "frame": "far-reach",
+          "rootWorld": [
+            47.5,
+            50.5
+          ],
+          "rootDeltaFromHip": [
+            -0.3010090000000005,
+            -5.623077000000002
+          ],
+          "soleWorld": [
+            47.5,
+            60.5
+          ],
+          "support": false,
+          "clearance": 4,
+          "layer": "front"
+        }
+      ]
+    },
+    {
+      "name": "far-support-near-swing",
+      "bodyTranslationY": 0,
+      "groundY": 64.5,
+      "feet": [
+        {
+          "role": "near",
+          "frame": "near-reach",
+          "rootWorld": [
+            21.5,
+            50.5
+          ],
+          "rootDeltaFromHip": [
+            0.3212529999999987,
+            -5.623077000000002
+          ],
+          "soleWorld": [
+            21.5,
+            60.5
+          ],
+          "support": false,
+          "clearance": 4,
+          "layer": "front"
+        },
+        {
+          "role": "far",
+          "frame": "far-support",
+          "rootWorld": [
+            47.5,
+            56.5
+          ],
+          "rootDeltaFromHip": [
+            -0.3010090000000005,
+            0.3769229999999979
+          ],
+          "soleWorld": [
+            42.5,
+            64.5
+          ],
+          "support": true,
+          "clearance": 0,
+          "layer": "back"
+        }
+      ]
+    },
+    {
+      "name": "flight-near-forward",
+      "bodyTranslationY": -2,
+      "groundY": 64.5,
+      "feet": [
+        {
+          "role": "near",
+          "frame": "near-recovery",
+          "rootWorld": [
+            21.5,
+            50.5
+          ],
+          "rootDeltaFromHip": [
+            0.3212529999999987,
+            -3.623077000000002
+          ],
+          "soleWorld": [
+            21.5,
+            61.5
+          ],
+          "support": false,
+          "clearance": 3,
+          "layer": "front"
+        },
+        {
+          "role": "far",
+          "frame": "far-recovery",
+          "rootWorld": [
+            47.5,
+            51.5
+          ],
+          "rootDeltaFromHip": [
+            -0.3010090000000005,
+            -2.623077000000002
+          ],
+          "soleWorld": [
+            47.5,
+            60.5
+          ],
+          "support": false,
+          "clearance": 4,
+          "layer": "front"
+        }
+      ]
+    },
+    {
+      "name": "flight-far-forward",
+      "bodyTranslationY": -2,
+      "groundY": 64.5,
+      "feet": [
+        {
+          "role": "near",
+          "frame": "near-trailing",
+          "rootWorld": [
+            21.5,
+            49.5
+          ],
+          "rootDeltaFromHip": [
+            0.3212529999999987,
+            -4.623077000000002
+          ],
+          "soleWorld": [
+            21.5,
+            60.5
+          ],
+          "support": false,
+          "clearance": 4,
+          "layer": "front"
+        },
+        {
+          "role": "far",
+          "frame": "far-forward",
+          "rootWorld": [
+            47.5,
+            50.5
+          ],
+          "rootDeltaFromHip": [
+            -0.3010090000000005,
+            -3.623077000000002
+          ],
+          "soleWorld": [
+            47.5,
+            61.5
+          ],
+          "support": false,
+          "clearance": 3,
+          "layer": "front"
+        }
+      ]
+    }
+  ]
+}

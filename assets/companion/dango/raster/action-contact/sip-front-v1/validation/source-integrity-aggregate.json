@@ -1,0 +1,62 @@
+{
+  "allTestsPass": true,
+  "scope": "Source integrity only, not runtime/naturalness acceptance",
+  "cases": [
+    {
+      "version": "v2",
+      "mutation": null,
+      "pass": false,
+      "errors": [
+        "left: fixed boundary mismatch: 716",
+        "left: mustKeep missing: 4",
+        "left: source connectivity [6203, 44] != [6962]",
+        "right: fixed boundary mismatch: 216",
+        "right: mustKeep missing: 5",
+        "right: source connectivity [5553, 1291, 19, 6, 1] != [5553, 1507, 19, 6, 1]"
+      ]
+    },
+    {
+      "version": "v2b",
+      "mutation": null,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "version": "v2b",
+      "mutation": "missing_anchor",
+      "pass": false,
+      "errors": [
+        "left: fixed boundary mismatch: 1",
+        "left: mustKeep missing: 1",
+        "left: source connectivity [6961] != [6962]"
+      ]
+    },
+    {
+      "version": "v2b",
+      "mutation": "recolored",
+      "pass": false,
+      "errors": [
+        "left: RGB changed: 1",
+        "left: mustKeep missing: 1"
+      ]
+    },
+    {
+      "version": "v2b",
+      "mutation": "alpha_damage",
+      "pass": false,
+      "errors": [
+        "left: alpha not source-times-mask: 1",
+        "left: mustKeep missing: 1"
+      ]
+    },
+    {
+      "version": "v2b",
+      "mutation": "extra_body",
+      "pass": false,
+      "errors": [
+        "left: fixed boundary mismatch: 1",
+        "left: unreviewed non-ink additions: 1"
+      ]
+    }
+  ]
+}

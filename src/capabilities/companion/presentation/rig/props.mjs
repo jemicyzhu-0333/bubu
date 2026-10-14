@@ -1,4 +1,5 @@
 'use strict';
+import { hermite } from '../motion-core/easing.mjs';
 
 // Semantic action props stay intact across form adaptation. Composite tools
 // expand here; an explicit "none" never borrows a motion's default equipment.
@@ -46,7 +47,7 @@ const PROP_PIVOTS = Object.freeze({
   notes: [33, 56], mirror: [53, 43], camera: [33, 49], hat: [33, 58],
   umbrella: [69, 47]
 });
-const smooth = t => t * t * (3 - 2 * t);
+const smooth = hermite;
 function windowWeight(t, start, rise, fall, end) {
   if (t <= start || t >= end) return 0;
   if (t < rise) return smooth((t - start) / (rise - start));

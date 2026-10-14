@@ -1,0 +1,764 @@
+{
+  "schema": "dango-attachment-sockets/2",
+  "frames": [
+    {
+      "kind": "shoulder",
+      "view": "front",
+      "side": "l",
+      "src": "socket/socket-shoulder-l-front.png",
+      "productionSrc": "socket/socket-shoulder-l-front@8x.png",
+      "pivot": "socket/socket-shoulder-l-front.pivot.png",
+      "coverageStencil": "socket/socket-shoulder-l-front-coverage.png",
+      "coverageProduction": "socket/socket-shoulder-l-front-coverage@8x.png",
+      "maskRole": "attachment-coverage",
+      "size": [
+        25,
+        25
+      ],
+      "root": [
+        12.5,
+        12.5
+      ],
+      "worldRoot": [
+        4.5,
+        45.5
+      ],
+      "bodyAnchor": "shoulder-left",
+      "mirror": false,
+      "sourceBody": {
+        "src": "sources/canonical/views/front/body.png",
+        "rect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "tint": "body",
+        "sha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9"
+      },
+      "noOp": true,
+      "noOpReason": "The approved assembly keeps the unchanged canonical body in front of the embedded root; no extra painted patch or body-outline erase is needed.",
+      "consumerRequired": "Coverage retains only upper-arm proximal half-space projection<=0 within body alpha. Do not erase or repaint the body. Hip stencil is reserved registration evidence; current stand uses body occlusion without clipping the foot.",
+      "coverageMeaning": "White means actual canonical body alpha is nonzero at this integer placement. Transparent margins are outside the declared 21x21 useful stencil domain, not evidence that body is absent there.",
+      "usefulLocalRect": [
+        2,
+        2,
+        23,
+        23
+      ],
+      "bodyAlphaSha256": "dc3b5f254caff469d42def9f29655a3ce0e78622d2a7f1e4456b0972d41391d5",
+      "semantic": {
+        "kind": "socket-patch",
+        "view": "front",
+        "side": "l",
+        "attachment": "shoulder"
+      },
+      "sha256": "0af480e068aa21df46cca73a8df84f42887cb77946c5cd87e7c24c7dd6b7bfbe",
+      "sourceBodyAnchor": [
+        7.4,
+        39.712821
+      ],
+      "anchorOffset": [
+        -2.9000000000000004,
+        5.787179000000002
+      ],
+      "offsetRole": "Fixed view/side registration offset, never adjusted per action."
+    },
+    {
+      "kind": "shoulder",
+      "view": "front",
+      "side": "r",
+      "src": "socket/socket-shoulder-r-front.png",
+      "productionSrc": "socket/socket-shoulder-r-front@8x.png",
+      "pivot": "socket/socket-shoulder-r-front.pivot.png",
+      "coverageStencil": "socket/socket-shoulder-r-front-coverage.png",
+      "coverageProduction": "socket/socket-shoulder-r-front-coverage@8x.png",
+      "maskRole": "attachment-coverage",
+      "size": [
+        25,
+        25
+      ],
+      "root": [
+        12.5,
+        12.5
+      ],
+      "worldRoot": [
+        58.5,
+        45.5
+      ],
+      "bodyAnchor": "shoulder-right",
+      "mirror": false,
+      "sourceBody": {
+        "src": "sources/canonical/views/front/body.png",
+        "rect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "tint": "body",
+        "sha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9"
+      },
+      "noOp": true,
+      "noOpReason": "The approved assembly keeps the unchanged canonical body in front of the embedded root; no extra painted patch or body-outline erase is needed.",
+      "consumerRequired": "Coverage retains only upper-arm proximal half-space projection<=0 within body alpha. Do not erase or repaint the body. Hip stencil is reserved registration evidence; current stand uses body occlusion without clipping the foot.",
+      "coverageMeaning": "White means actual canonical body alpha is nonzero at this integer placement. Transparent margins are outside the declared 21x21 useful stencil domain, not evidence that body is absent there.",
+      "usefulLocalRect": [
+        2,
+        2,
+        23,
+        23
+      ],
+      "bodyAlphaSha256": "dc3b5f254caff469d42def9f29655a3ce0e78622d2a7f1e4456b0972d41391d5",
+      "semantic": {
+        "kind": "socket-patch",
+        "view": "front",
+        "side": "r",
+        "attachment": "shoulder"
+      },
+      "sha256": "0af480e068aa21df46cca73a8df84f42887cb77946c5cd87e7c24c7dd6b7bfbe",
+      "sourceBodyAnchor": [
+        58.6,
+        39.712821
+      ],
+      "anchorOffset": [
+        -0.1,
+        5.787179
+      ],
+      "offsetRole": "Uniform fixed front/right registration for every action. Canonical X quantized to nearest half-pixel center; prior registered Y retained. No angle-dependent or per-frame root changes.",
+      "registrationContract": "socket/front-right-registration.json",
+      "coverageSha256": "9cfc110b0162c094a37fde2e5fb1f314aabc386d7ab9fc8fae3c52a56cd1b2b9"
+    },
+    {
+      "kind": "hip",
+      "view": "front",
+      "side": "l",
+      "src": "socket/socket-hip-l-front.png",
+      "productionSrc": "socket/socket-hip-l-front@8x.png",
+      "pivot": "socket/socket-hip-l-front.pivot.png",
+      "coverageStencil": "socket/socket-hip-l-front-coverage.png",
+      "coverageProduction": "socket/socket-hip-l-front-coverage@8x.png",
+      "maskRole": "attachment-coverage",
+      "size": [
+        25,
+        25
+      ],
+      "root": [
+        12.5,
+        12.5
+      ],
+      "worldRoot": [
+        19.5,
+        56.5
+      ],
+      "bodyAnchor": "foot-left",
+      "mirror": false,
+      "sourceBody": {
+        "src": "sources/canonical/views/front/body.png",
+        "rect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "tint": "body",
+        "sha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9"
+      },
+      "noOp": true,
+      "noOpReason": "The approved assembly keeps the unchanged canonical body in front of the embedded root; no extra painted patch or body-outline erase is needed.",
+      "consumerRequired": "Coverage retains only upper-arm proximal half-space projection<=0 within body alpha. Do not erase or repaint the body. Hip stencil is reserved registration evidence; current stand uses body occlusion without clipping the foot.",
+      "coverageMeaning": "White means actual canonical body alpha is nonzero at this integer placement. Transparent margins are outside the declared 21x21 useful stencil domain, not evidence that body is absent there.",
+      "usefulLocalRect": [
+        2,
+        2,
+        23,
+        23
+      ],
+      "bodyAlphaSha256": "dc3b5f254caff469d42def9f29655a3ce0e78622d2a7f1e4456b0972d41391d5",
+      "semantic": {
+        "kind": "socket-patch",
+        "view": "front",
+        "side": "l",
+        "attachment": "hip"
+      },
+      "sha256": "0af480e068aa21df46cca73a8df84f42887cb77946c5cd87e7c24c7dd6b7bfbe",
+      "sourceBodyAnchor": [
+        19.281609,
+        56.123077
+      ],
+      "anchorOffset": [
+        0.21839100000000045,
+        0.3769229999999979
+      ],
+      "offsetRole": "Fixed view/side registration offset, never adjusted per action."
+    },
+    {
+      "kind": "hip",
+      "view": "front",
+      "side": "r",
+      "src": "socket/socket-hip-r-front.png",
+      "productionSrc": "socket/socket-hip-r-front@8x.png",
+      "pivot": "socket/socket-hip-r-front.pivot.png",
+      "coverageStencil": "socket/socket-hip-r-front-coverage.png",
+      "coverageProduction": "socket/socket-hip-r-front-coverage@8x.png",
+      "maskRole": "attachment-coverage",
+      "size": [
+        25,
+        25
+      ],
+      "root": [
+        12.5,
+        12.5
+      ],
+      "worldRoot": [
+        46.5,
+        56.5
+      ],
+      "bodyAnchor": "foot-right",
+      "mirror": false,
+      "sourceBody": {
+        "src": "sources/canonical/views/front/body.png",
+        "rect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "tint": "body",
+        "sha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9"
+      },
+      "noOp": true,
+      "noOpReason": "The approved assembly keeps the unchanged canonical body in front of the embedded root; no extra painted patch or body-outline erase is needed.",
+      "consumerRequired": "Coverage retains only upper-arm proximal half-space projection<=0 within body alpha. Do not erase or repaint the body. Hip stencil is reserved registration evidence; current stand uses body occlusion without clipping the foot.",
+      "coverageMeaning": "White means actual canonical body alpha is nonzero at this integer placement. Transparent margins are outside the declared 21x21 useful stencil domain, not evidence that body is absent there.",
+      "usefulLocalRect": [
+        2,
+        2,
+        23,
+        23
+      ],
+      "bodyAlphaSha256": "dc3b5f254caff469d42def9f29655a3ce0e78622d2a7f1e4456b0972d41391d5",
+      "semantic": {
+        "kind": "socket-patch",
+        "view": "front",
+        "side": "r",
+        "attachment": "hip"
+      },
+      "sha256": "0af480e068aa21df46cca73a8df84f42887cb77946c5cd87e7c24c7dd6b7bfbe",
+      "sourceBodyAnchor": [
+        46.10582,
+        56.123077
+      ],
+      "anchorOffset": [
+        0.39417999999999864,
+        0.3769229999999979
+      ],
+      "offsetRole": "Fixed view/side registration offset, never adjusted per action."
+    },
+    {
+      "kind": "shoulder",
+      "view": "three-quarter-left",
+      "side": "l",
+      "src": "socket/socket-shoulder-l-three-quarter-left.png",
+      "productionSrc": "socket/socket-shoulder-l-three-quarter-left@8x.png",
+      "pivot": "socket/socket-shoulder-l-three-quarter-left.pivot.png",
+      "coverageStencil": "socket/socket-shoulder-l-three-quarter-left-coverage.png",
+      "coverageProduction": "socket/socket-shoulder-l-three-quarter-left-coverage@8x.png",
+      "maskRole": "attachment-coverage",
+      "size": [
+        25,
+        25
+      ],
+      "root": [
+        12.5,
+        12.5
+      ],
+      "worldRoot": [
+        2.5,
+        36.5
+      ],
+      "bodyAnchor": "shoulder-left",
+      "mirror": false,
+      "sourceBody": {
+        "src": "sources/canonical/views/three-quarter-left/body.png",
+        "rect": [
+          -3.430769,
+          8.533333,
+          73.025641,
+          49.066667
+        ],
+        "tint": "body",
+        "sha256": "ca30ce808882ed118ccc100372cc54bf4153481c368166613f6b8af14c70d826"
+      },
+      "noOp": true,
+      "noOpReason": "The approved assembly keeps the unchanged canonical body in front of the embedded root; no extra painted patch or body-outline erase is needed.",
+      "consumerRequired": "Coverage retains only upper-arm proximal half-space projection<=0 within body alpha. Do not erase or repaint the body. Hip stencil is reserved registration evidence; current stand uses body occlusion without clipping the foot.",
+      "coverageMeaning": "White means actual canonical body alpha is nonzero at this integer placement. Transparent margins are outside the declared 21x21 useful stencil domain, not evidence that body is absent there.",
+      "usefulLocalRect": [
+        2,
+        2,
+        23,
+        23
+      ],
+      "bodyAlphaSha256": "73cdfe93a5a52ec208d399a259498a2a4ce02aa0820a406617e47d91cea2e005",
+      "semantic": {
+        "kind": "socket-patch",
+        "view": "three-quarter-left",
+        "side": "l",
+        "attachment": "shoulder"
+      },
+      "sha256": "0af480e068aa21df46cca73a8df84f42887cb77946c5cd87e7c24c7dd6b7bfbe",
+      "sourceBodyAnchor": [
+        7.4,
+        39.712821
+      ],
+      "anchorOffset": [
+        -4.9,
+        -3.212820999999998
+      ],
+      "offsetRole": "Fixed view/side registration offset, never adjusted per action."
+    },
+    {
+      "kind": "shoulder",
+      "view": "three-quarter-left",
+      "side": "r",
+      "src": "socket/socket-shoulder-r-three-quarter-left.png",
+      "productionSrc": "socket/socket-shoulder-r-three-quarter-left@8x.png",
+      "pivot": "socket/socket-shoulder-r-three-quarter-left.pivot.png",
+      "coverageStencil": "socket/socket-shoulder-r-three-quarter-left-coverage.png",
+      "coverageProduction": "socket/socket-shoulder-r-three-quarter-left-coverage@8x.png",
+      "maskRole": "attachment-coverage",
+      "size": [
+        25,
+        25
+      ],
+      "root": [
+        12.5,
+        12.5
+      ],
+      "worldRoot": [
+        52.5,
+        43.5
+      ],
+      "bodyAnchor": "shoulder-right",
+      "mirror": false,
+      "sourceBody": {
+        "src": "sources/canonical/views/three-quarter-left/body.png",
+        "rect": [
+          -3.430769,
+          8.533333,
+          73.025641,
+          49.066667
+        ],
+        "tint": "body",
+        "sha256": "ca30ce808882ed118ccc100372cc54bf4153481c368166613f6b8af14c70d826"
+      },
+      "noOp": true,
+      "noOpReason": "The approved assembly keeps the unchanged canonical body in front of the embedded root; no extra painted patch or body-outline erase is needed.",
+      "consumerRequired": "Coverage retains only upper-arm proximal half-space projection<=0 within body alpha. Do not erase or repaint the body. Hip stencil is reserved registration evidence; current stand uses body occlusion without clipping the foot.",
+      "coverageMeaning": "White means actual canonical body alpha is nonzero at this integer placement. Transparent margins are outside the declared 21x21 useful stencil domain, not evidence that body is absent there.",
+      "usefulLocalRect": [
+        2,
+        2,
+        23,
+        23
+      ],
+      "bodyAlphaSha256": "73cdfe93a5a52ec208d399a259498a2a4ce02aa0820a406617e47d91cea2e005",
+      "semantic": {
+        "kind": "socket-patch",
+        "view": "three-quarter-left",
+        "side": "r",
+        "attachment": "shoulder"
+      },
+      "sha256": "0af480e068aa21df46cca73a8df84f42887cb77946c5cd87e7c24c7dd6b7bfbe",
+      "sourceBodyAnchor": [
+        58.6,
+        39.712821
+      ],
+      "anchorOffset": [
+        -6.100000000000001,
+        3.787179000000002
+      ],
+      "offsetRole": "Fixed view/side registration offset, never adjusted per action."
+    },
+    {
+      "kind": "hip",
+      "view": "three-quarter-left",
+      "side": "l",
+      "src": "socket/socket-hip-l-three-quarter-left.png",
+      "productionSrc": "socket/socket-hip-l-three-quarter-left@8x.png",
+      "pivot": "socket/socket-hip-l-three-quarter-left.pivot.png",
+      "coverageStencil": "socket/socket-hip-l-three-quarter-left-coverage.png",
+      "coverageProduction": "socket/socket-hip-l-three-quarter-left-coverage@8x.png",
+      "maskRole": "attachment-coverage",
+      "size": [
+        25,
+        25
+      ],
+      "root": [
+        12.5,
+        12.5
+      ],
+      "worldRoot": [
+        18.5,
+        56.5
+      ],
+      "bodyAnchor": "foot-left",
+      "mirror": false,
+      "sourceBody": {
+        "src": "sources/canonical/views/three-quarter-left/body.png",
+        "rect": [
+          -3.430769,
+          8.533333,
+          73.025641,
+          49.066667
+        ],
+        "tint": "body",
+        "sha256": "ca30ce808882ed118ccc100372cc54bf4153481c368166613f6b8af14c70d826"
+      },
+      "noOp": true,
+      "noOpReason": "The approved assembly keeps the unchanged canonical body in front of the embedded root; no extra painted patch or body-outline erase is needed.",
+      "consumerRequired": "Coverage retains only upper-arm proximal half-space projection<=0 within body alpha. Do not erase or repaint the body. Hip stencil is reserved registration evidence; current stand uses body occlusion without clipping the foot.",
+      "coverageMeaning": "White means actual canonical body alpha is nonzero at this integer placement. Transparent margins are outside the declared 21x21 useful stencil domain, not evidence that body is absent there.",
+      "usefulLocalRect": [
+        2,
+        2,
+        23,
+        23
+      ],
+      "bodyAlphaSha256": "73cdfe93a5a52ec208d399a259498a2a4ce02aa0820a406617e47d91cea2e005",
+      "semantic": {
+        "kind": "socket-patch",
+        "view": "three-quarter-left",
+        "side": "l",
+        "attachment": "hip"
+      },
+      "sha256": "0af480e068aa21df46cca73a8df84f42887cb77946c5cd87e7c24c7dd6b7bfbe",
+      "sourceBodyAnchor": [
+        18.198991,
+        56.123077
+      ],
+      "anchorOffset": [
+        0.3010090000000005,
+        0.3769229999999979
+      ],
+      "offsetRole": "Fixed view/side registration offset, never adjusted per action."
+    },
+    {
+      "kind": "hip",
+      "view": "three-quarter-left",
+      "side": "r",
+      "src": "socket/socket-hip-r-three-quarter-left.png",
+      "productionSrc": "socket/socket-hip-r-three-quarter-left@8x.png",
+      "pivot": "socket/socket-hip-r-three-quarter-left.pivot.png",
+      "coverageStencil": "socket/socket-hip-r-three-quarter-left-coverage.png",
+      "coverageProduction": "socket/socket-hip-r-three-quarter-left-coverage@8x.png",
+      "maskRole": "attachment-coverage",
+      "size": [
+        25,
+        25
+      ],
+      "root": [
+        12.5,
+        12.5
+      ],
+      "worldRoot": [
+        44.5,
+        56.5
+      ],
+      "bodyAnchor": "foot-right",
+      "mirror": false,
+      "sourceBody": {
+        "src": "sources/canonical/views/three-quarter-left/body.png",
+        "rect": [
+          -3.430769,
+          8.533333,
+          73.025641,
+          49.066667
+        ],
+        "tint": "body",
+        "sha256": "ca30ce808882ed118ccc100372cc54bf4153481c368166613f6b8af14c70d826"
+      },
+      "noOp": true,
+      "noOpReason": "The approved assembly keeps the unchanged canonical body in front of the embedded root; no extra painted patch or body-outline erase is needed.",
+      "consumerRequired": "Coverage retains only upper-arm proximal half-space projection<=0 within body alpha. Do not erase or repaint the body. Hip stencil is reserved registration evidence; current stand uses body occlusion without clipping the foot.",
+      "coverageMeaning": "White means actual canonical body alpha is nonzero at this integer placement. Transparent margins are outside the declared 21x21 useful stencil domain, not evidence that body is absent there.",
+      "usefulLocalRect": [
+        2,
+        2,
+        23,
+        23
+      ],
+      "bodyAlphaSha256": "73cdfe93a5a52ec208d399a259498a2a4ce02aa0820a406617e47d91cea2e005",
+      "semantic": {
+        "kind": "socket-patch",
+        "view": "three-quarter-left",
+        "side": "r",
+        "attachment": "hip"
+      },
+      "sha256": "0af480e068aa21df46cca73a8df84f42887cb77946c5cd87e7c24c7dd6b7bfbe",
+      "sourceBodyAnchor": [
+        44.821253,
+        56.123077
+      ],
+      "anchorOffset": [
+        -0.3212529999999987,
+        0.3769229999999979
+      ],
+      "offsetRole": "Fixed view/side registration offset, never adjusted per action."
+    },
+    {
+      "kind": "shoulder",
+      "view": "back",
+      "side": "l",
+      "src": "socket/socket-shoulder-l-back.png",
+      "productionSrc": "socket/socket-shoulder-l-back@8x.png",
+      "pivot": "socket/socket-shoulder-l-back.pivot.png",
+      "coverageStencil": "socket/socket-shoulder-l-back-coverage.png",
+      "coverageProduction": "socket/socket-shoulder-l-back-coverage@8x.png",
+      "maskRole": "attachment-coverage",
+      "size": [
+        25,
+        25
+      ],
+      "root": [
+        12.5,
+        12.5
+      ],
+      "worldRoot": [
+        6.5,
+        37.5
+      ],
+      "bodyAnchor": "shoulder-left",
+      "mirror": false,
+      "sourceBody": {
+        "src": "sources/canonical/views/back/body.png",
+        "rect": [
+          -3.266667,
+          8.533333,
+          72.533333,
+          49.066667
+        ],
+        "tint": "body",
+        "sha256": "aca663e31d41e7ca38a12073d9a570575b2fd55f7866078049146d140152e261"
+      },
+      "noOp": true,
+      "noOpReason": "The approved assembly keeps the unchanged canonical body in front of the embedded root; no extra painted patch or body-outline erase is needed.",
+      "consumerRequired": "Coverage retains only upper-arm proximal half-space projection<=0 within body alpha. Do not erase or repaint the body. Hip stencil is reserved registration evidence; current stand uses body occlusion without clipping the foot.",
+      "coverageMeaning": "White means actual canonical body alpha is nonzero at this integer placement. Transparent margins are outside the declared 21x21 useful stencil domain, not evidence that body is absent there.",
+      "usefulLocalRect": [
+        2,
+        2,
+        23,
+        23
+      ],
+      "bodyAlphaSha256": "b7ed5331ee6ddf8d5ccb18a07c0e1a39d3d0e8c6126bbd205f4fcb3c1b1d5ff4",
+      "semantic": {
+        "kind": "socket-patch",
+        "view": "back",
+        "side": "l",
+        "attachment": "shoulder"
+      },
+      "sha256": "0af480e068aa21df46cca73a8df84f42887cb77946c5cd87e7c24c7dd6b7bfbe",
+      "sourceBodyAnchor": [
+        7.4,
+        39.712821
+      ],
+      "anchorOffset": [
+        -0.9000000000000004,
+        -2.212820999999998
+      ],
+      "offsetRole": "Fixed view/side registration offset, never adjusted per action."
+    },
+    {
+      "kind": "shoulder",
+      "view": "back",
+      "side": "r",
+      "src": "socket/socket-shoulder-r-back.png",
+      "productionSrc": "socket/socket-shoulder-r-back@8x.png",
+      "pivot": "socket/socket-shoulder-r-back.pivot.png",
+      "coverageStencil": "socket/socket-shoulder-r-back-coverage.png",
+      "coverageProduction": "socket/socket-shoulder-r-back-coverage@8x.png",
+      "maskRole": "attachment-coverage",
+      "size": [
+        25,
+        25
+      ],
+      "root": [
+        12.5,
+        12.5
+      ],
+      "worldRoot": [
+        59.5,
+        37.5
+      ],
+      "bodyAnchor": "shoulder-right",
+      "mirror": false,
+      "sourceBody": {
+        "src": "sources/canonical/views/back/body.png",
+        "rect": [
+          -3.266667,
+          8.533333,
+          72.533333,
+          49.066667
+        ],
+        "tint": "body",
+        "sha256": "aca663e31d41e7ca38a12073d9a570575b2fd55f7866078049146d140152e261"
+      },
+      "noOp": true,
+      "noOpReason": "The approved assembly keeps the unchanged canonical body in front of the embedded root; no extra painted patch or body-outline erase is needed.",
+      "consumerRequired": "Coverage retains only upper-arm proximal half-space projection<=0 within body alpha. Do not erase or repaint the body. Hip stencil is reserved registration evidence; current stand uses body occlusion without clipping the foot.",
+      "coverageMeaning": "White means actual canonical body alpha is nonzero at this integer placement. Transparent margins are outside the declared 21x21 useful stencil domain, not evidence that body is absent there.",
+      "usefulLocalRect": [
+        2,
+        2,
+        23,
+        23
+      ],
+      "bodyAlphaSha256": "b7ed5331ee6ddf8d5ccb18a07c0e1a39d3d0e8c6126bbd205f4fcb3c1b1d5ff4",
+      "semantic": {
+        "kind": "socket-patch",
+        "view": "back",
+        "side": "r",
+        "attachment": "shoulder"
+      },
+      "sha256": "0af480e068aa21df46cca73a8df84f42887cb77946c5cd87e7c24c7dd6b7bfbe",
+      "sourceBodyAnchor": [
+        58.6,
+        39.712821
+      ],
+      "anchorOffset": [
+        0.8999999999999986,
+        -2.212820999999998
+      ],
+      "offsetRole": "Fixed view/side registration offset, never adjusted per action."
+    },
+    {
+      "kind": "hip",
+      "view": "back",
+      "side": "l",
+      "src": "socket/socket-hip-l-back.png",
+      "productionSrc": "socket/socket-hip-l-back@8x.png",
+      "pivot": "socket/socket-hip-l-back.pivot.png",
+      "coverageStencil": "socket/socket-hip-l-back-coverage.png",
+      "coverageProduction": "socket/socket-hip-l-back-coverage@8x.png",
+      "maskRole": "attachment-coverage",
+      "size": [
+        25,
+        25
+      ],
+      "root": [
+        12.5,
+        12.5
+      ],
+      "worldRoot": [
+        18.5,
+        56.5
+      ],
+      "bodyAnchor": "foot-left",
+      "mirror": false,
+      "sourceBody": {
+        "src": "sources/canonical/views/back/body.png",
+        "rect": [
+          -3.266667,
+          8.533333,
+          72.533333,
+          49.066667
+        ],
+        "tint": "body",
+        "sha256": "aca663e31d41e7ca38a12073d9a570575b2fd55f7866078049146d140152e261"
+      },
+      "noOp": true,
+      "noOpReason": "The approved assembly keeps the unchanged canonical body in front of the embedded root; no extra painted patch or body-outline erase is needed.",
+      "consumerRequired": "Coverage retains only upper-arm proximal half-space projection<=0 within body alpha. Do not erase or repaint the body. Hip stencil is reserved registration evidence; current stand uses body occlusion without clipping the foot.",
+      "coverageMeaning": "White means actual canonical body alpha is nonzero at this integer placement. Transparent margins are outside the declared 21x21 useful stencil domain, not evidence that body is absent there.",
+      "usefulLocalRect": [
+        2,
+        2,
+        23,
+        23
+      ],
+      "bodyAlphaSha256": "b7ed5331ee6ddf8d5ccb18a07c0e1a39d3d0e8c6126bbd205f4fcb3c1b1d5ff4",
+      "semantic": {
+        "kind": "socket-patch",
+        "view": "back",
+        "side": "l",
+        "attachment": "hip"
+      },
+      "sha256": "0af480e068aa21df46cca73a8df84f42887cb77946c5cd87e7c24c7dd6b7bfbe",
+      "sourceBodyAnchor": [
+        18.786783,
+        56.123077
+      ],
+      "anchorOffset": [
+        -0.2867829999999998,
+        0.3769229999999979
+      ],
+      "offsetRole": "Fixed view/side registration offset, never adjusted per action."
+    },
+    {
+      "kind": "hip",
+      "view": "back",
+      "side": "r",
+      "src": "socket/socket-hip-r-back.png",
+      "productionSrc": "socket/socket-hip-r-back@8x.png",
+      "pivot": "socket/socket-hip-r-back.pivot.png",
+      "coverageStencil": "socket/socket-hip-r-back-coverage.png",
+      "coverageProduction": "socket/socket-hip-r-back-coverage@8x.png",
+      "maskRole": "attachment-coverage",
+      "size": [
+        25,
+        25
+      ],
+      "root": [
+        12.5,
+        12.5
+      ],
+      "worldRoot": [
+        47.5,
+        56.5
+      ],
+      "bodyAnchor": "foot-right",
+      "mirror": false,
+      "sourceBody": {
+        "src": "sources/canonical/views/back/body.png",
+        "rect": [
+          -3.266667,
+          8.533333,
+          72.533333,
+          49.066667
+        ],
+        "tint": "body",
+        "sha256": "aca663e31d41e7ca38a12073d9a570575b2fd55f7866078049146d140152e261"
+      },
+      "noOp": true,
+      "noOpReason": "The approved assembly keeps the unchanged canonical body in front of the embedded root; no extra painted patch or body-outline erase is needed.",
+      "consumerRequired": "Coverage retains only upper-arm proximal half-space projection<=0 within body alpha. Do not erase or repaint the body. Hip stencil is reserved registration evidence; current stand uses body occlusion without clipping the foot.",
+      "coverageMeaning": "White means actual canonical body alpha is nonzero at this integer placement. Transparent margins are outside the declared 21x21 useful stencil domain, not evidence that body is absent there.",
+      "usefulLocalRect": [
+        2,
+        2,
+        23,
+        23
+      ],
+      "bodyAlphaSha256": "b7ed5331ee6ddf8d5ccb18a07c0e1a39d3d0e8c6126bbd205f4fcb3c1b1d5ff4",
+      "semantic": {
+        "kind": "socket-patch",
+        "view": "back",
+        "side": "r",
+        "attachment": "hip"
+      },
+      "sha256": "0af480e068aa21df46cca73a8df84f42887cb77946c5cd87e7c24c7dd6b7bfbe",
+      "sourceBodyAnchor": [
+        47.713478,
+        56.123077
+      ],
+      "anchorOffset": [
+        -0.21347800000000206,
+        0.3769229999999979
+      ],
+      "offsetRole": "Fixed view/side registration offset, never adjusted per action."
+    }
+  ],
+  "deviationFromOriginal": "Original sockets erased body ink at an exit. Actual approved reference composition instead uses unchanged-body occlusion and proximal attachment coverage. These stencils are not body-erasure masks; current runtime needs explicit adaptation."
+}

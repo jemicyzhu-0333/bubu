@@ -1,5 +1,11 @@
 'use strict';
 
+import { sampleGroundedMoonwalk } from './grounded-moonwalk.mjs';
+import { actionBodyPose } from './motion-core/body-poses.mjs';
+import { bodyFloor } from './motion-core/form-anchors.mjs';
+import { motionCaps } from './motion-core/action-capabilities.mjs';
+
+import { createDangoWalkArtistAdapter } from './gait/dango-walk-artist.mjs';
 import { createDangoRunSample } from './clips/dango-run-sample.mjs';
 import { PALETTES } from '../../../core/pet-art.mjs';
 import petActionArt from '../../../core/pet-action-art.mjs';
@@ -9,7 +15,11 @@ import { validateRasterManifest, collectRasterSprites, rasterView, PART_NAMES } 
 import { createRasterSource } from './raster/source.mjs';
 import { createRasterPainter } from './raster/paint.mjs';
 import { sampleRasterPose } from './dango-raster-pose.mjs';
+import { regionClearance } from './motion-core/accessory-resolver.mjs';
 import { paintRasterPaws } from './dango-raster-paws.mjs';
+import { createSourceContactPoseSelector } from './dango-source-contact-pose.mjs';
+import { createDangoLimbPainter } from './dango-limb-compose.mjs';
+import { browserSurface } from './raster/paint.mjs';
 import { drawRasterFace } from './dango-raster-face.mjs';
 import { createEyeApertureSampler } from './dango-eye-projection.mjs';
 const eyeState = ({ aperture, scale }) => ({ eyeAperture: aperture, eyeScale: scale });
@@ -38,22 +48,54 @@ function essentials(data) {
     ...(data.face?.eyes?.neutral || []), ...(data.face?.eyes?.closed || []), data.face?.mouth?.neutral].filter(Boolean);
 }
 
-function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOptions = {}, painterOptions = {}, runClip = null, runFootTiming = null } = {}) {
+function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOptions = {}, painterOptions = {}, runClip = null, runFootTiming = null, limbs = null, walkPreview = null } = {}) {
   validateRasterManifest(manifest);
   if (![null, 'forward-recovery'].includes(runFootTiming)) throw new TypeError('unknown run foot timing');
   const source = createRasterSource({ ...sourceOptions, baseUrl: manifest.baseUrl, versionKey: `${manifest.id}@${manifest.version}`, loadImage });
   const painter = createRasterPainter({ ...painterOptions, source, createSurface });
+  const sourceContactPose = createSourceContactPoseSelector({ manifest, source });
   const roots = createRasterRootPainter({ painter });
   const eyeAperture = createEyeApertureSampler();
   const tailRoot = createRasterTailRootPainter({ manifest, painter });
   const runSample = runClip ? createDangoRunSample({ bundle: runClip, source, createSurface }) : null;
   const wardrobe = createRasterWardrobe({ manifest, painter, source });
+  // limbs v2: a limb source (createDangoLimbSource) or null. Until it is
+  // `ready`, the legacy paw sprites draw unchanged.
+  const limbSource = limbs || null;
+  const limbPainter = limbSource ? createDangoLimbPainter({ source: limbSource, createSurface: createSurface || browserSurface }) : null;
   const palette = skinId => PALETTES[skinId] || PALETTES.pink;
   const key = `dango-raster:${manifest.id}@${manifest.version}`;
   const toolSprites = Object.fromEntries(Object.entries(manifest.tools || {}).map(([id, sprite]) =>
     [id, { width: sprite.rect[2], height: sprite.rect[3], anchors: sprite.anchors }]));
   const defaultSprites = Object.values(manifest.views).flatMap(data => [data.neutral, ...essentials(data)]);
 
+  // A side switches to composed limbs for a whole action/view only when every
+  // sampled contact of that side is reachable: no legacy/composed flicker.
+  const limbGates = new Map();
+  function limbGate(data, view, side, options) {
+    const id = options.action?.id || options.motion; if (!id) return false;
+    const key = JSON.stringify([limbSource.manifest()?.version, id, view, side, options.action,
+      options.motion, Boolean(options.calmVisual), Boolean(options.reducedMotion)]);
+    if (!limbGates.has(key)) {
+      let ok = true;
+      // Include endpoints and dense deterministic phase boundaries. A sparse
+      // midpoint-only probe missed whole intervals of unreachable cup contact.
+      for (let i = 0; ok && i <= 256; i++) {
+        const p = i / 256;
+        const sample = sampleRasterPose(data, { ...options, view, toolSprites, lookback: null, progress: p, elapsedMs: p * (options.action?.duration || 4000) });
+        const hand = sample.contact?.hands?.find(h => h.side === side);
+        if (hand) {
+          const plan = limbPainter.plan(view, hand, options.action);
+          // Conservative headroom between probes; this is a preview guard,
+          // not continuous interval certification or production acceptance.
+          if (!plan || plan.error > .75) ok = false;
+        }
+      }
+      limbGates.set(key, ok);
+      if (limbGates.size > 256) limbGates.delete(limbGates.keys().next().value);
+    }
+    return limbGates.get(key);
+  }
   function resolveView(requested, options = {}) {
     // Explicit approved left/right views are useful for static previews.
     // Runtime actions keep the semantic canonical view and renderer facing.
@@ -72,11 +114,22 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
     const reviewedRunOutfit = !outfitItems.length || outfitItems.length === 1
       && outfitItems[0].id === 'milestone.scarf' && outfitItems[0].renderKey === 'scarf'
       && (outfitItems[0].formId || 'dango') === 'dango' || isScarfHeadwearCombination(outfitItems);
-    const footTiming = runFootTiming && !runClip && options.action?.id === 'chase-laser'
+    const footTiming = runFootTiming && !runClip && motionCaps(options.action).runFootTiming
       && options.motion === 'dash' && !options.calmVisual && !options.reducedMotion && options.state !== 'dragged'
       && view === 'three-quarter' && [undefined, 'three-quarter', 'profile'].includes(options.view)
       && reviewedRunOutfit ? runFootTiming : null;
     let pose = sampleRasterPose(data, { ...options, view, toolSprites, lookback, runFootTiming: footTiming });
+    // limbs v2 (per hand): a contract-composed arm+paw only when the fixed
+    // shoulder chain reaches the authored contact within maxContactError;
+    // every other hand keeps the legacy drawing. Props never move.
+    const limbsOn = limbSource?.state() === 'ready' && pose.contact?.hands?.length;
+    if (limbsOn) pose = { ...pose, contact: { ...pose.contact, hands: pose.contact.hands.map(hand =>
+      limbGate(data, view, hand.side, options) && limbPainter.plan(view, hand, options.action) ? { ...hand, limb: true } : hand) } };
+    pose = sourceContactPose.apply(pose, view, options);
+    // Crown clearance (resolver): glance marks step past a worn head accent.
+    const clear = !lookback && pose.contact?.details?.some(d => d.type === 'look-back') ? regionClearance({ formId: 'dango', items: outfitItems, view }) : null;
+    if (clear) pose = { ...pose, contact: { ...pose.contact, details: pose.contact.details.map(d => d.type === 'look-back'
+      ? { ...d, at: [d.at[0] + clear.dx, d.at[1] + clear.dy] } : d) } };
     // Optional concurrent layers must not take the selected focus tool or hands
     // away while loading/failing. Only the small accessory group waits together.
     const accessoryTools = pose.contact?.tools.filter(item => item.contextAccessory) || [];
@@ -122,7 +175,7 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
     const missingDetails = pose.contact?.details.filter(detail => !manifest.effects?.[detail.type]).map(detail => detail.type) || [];
     const actionReady = !missingTools.length && !missingConnectors.length && !missingPaws.length
       && [...toolStates, ...connectorStates, ...pawStates].every(state => state === 'ready');
-    if (!actionReady && options.action?.id === 'workout') {
+    if (!actionReady && motionCaps(options.action).restFeetWhenUnready) {
       const matrices = { ...pose.matrices };
       for (const foot of ['foot-left', 'foot-right']) {
         matrices[foot] = Object.freeze([1, 0, 0, 1, 0, 0]); attachmentMatrices[foot] = matrices[foot];
@@ -141,9 +194,9 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
       && !missingExtras.length && extraStates.every(state => state === 'ready') && accessoriesReady;
     // The inspected 13x26 wand has its ring centre at (6.5, 6), independent
     // of its lower grip anchor. The renderer projects this through the body.
-    const wand = options.action?.id === 'bubble-blow' && actionReady
+    const wand = motionCaps(options.action).effectTool === 'bubble-wand' && actionReady
       ? pose.contact?.tools.find(item => item.key === 'bubble-wand') : null;
-    const hiccupCup = options.action?.id === 'hiccup' && actionReady
+    const hiccupCup = motionCaps(options.action).effectTool === 'cup' && actionReady
       ? pose.contact?.tools.find(item => item.key === 'cup') : null;
     const effectOrigins = Object.freeze(wand ? { bubbles: Object.freeze(applyPoint(
       toolMatrix(wand, manifest.tools['bubble-wand']), 6.5, 6)) } : hiccupCup ? { bubbles: Object.freeze(applyPoint(
@@ -158,7 +211,7 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
       clip, clipStatus: clipSelection?.status || 'disabled', runFootTiming: footTiming, view, drawnView: resolved.key,
       ...eyeState(eyeAperture.sampleEyes(pose.face, { ...options, view, calmVisual: pose.calmVisual })),
       expressionId: options.expressionId, data, neutral: original.neutral, ...pose, lookback, footwearTransforms, attachmentMatrices: Object.freeze(attachmentMatrices),
-      hiddenParts, ready, layeredReady, wardrobe: wardrobeState, effectOrigins,
+      hiddenParts, ready, layeredReady, wardrobe: wardrobeState, effectOrigins, limbPainter: limbsOn ? limbPainter : null,
       pawRootsCovered: outfitItems.some(item => ['scarf', 'cape', 'satchel'].includes(item.renderKey)),
       suppressedAppearanceSlots,
       pending: [...coreStates, ...states, ...toolStates, ...connectorStates, ...pawStates, ...detailStates, ...outfitStates, ...extraStates, ...accessoryStates].includes('loading'), running,
@@ -207,17 +260,33 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
     return true;
   }
   function motionOffset(motion, progress, calmVisual, options = {}) {
+    const storyBody = motionCaps(options.action).body === 'paper-return' ? actionBodyPose(options.action, progress, calmVisual) : null;
+    if (storyBody) return { x: storyBody.x, y: 0 };
+    if (motion === 'moonwalk') return { x: sampleGroundedMoonwalk(progress, calmVisual).x, y: 0 };
     const mirror = sampleRasterMirror(options.action, progress, calmVisual || options.reducedMotion || options.state === 'dragged');
     if (mirror) return Object.freeze({ x: 0, y: mirror.nod });
     if (motion === 'dash' && options.state === 'dragged') return Object.freeze({ x: 0, y: 0 });
     const offset = petActionArt.bodyOffset(options.action, progress, { ...options, calmVisual, bodySize: 66 });
-    const amount = options.action?.id === 'workout' ? .45 : options.action?.id === 'hiccup' ? .35 : 1;
+    const amount = motionCaps(options.action).groundShiftScale ?? 1;
     return Object.freeze({ ...offset, y: offset.y * amount });
   }
   function applyMotionTransform(context, motion, progress, options = {}) {
     const mirror = options.artwork?.mirror || sampleRasterMirror(options.action, progress, options.calmVisual || options.reducedMotion || options.state === 'dragged');
     if (mirror) { context.rotate(mirror.tilt); return; }
-    if (options.artwork?.clip || hasRasterLookback(options.action) || motion === 'pushup') return;
+    // Story-owned grounded bodies (moonwalk lean/sink, paper catch squash)
+    // pivot on dango's own floor line so the soles never move.
+    if (motionCaps(options.action).body) {
+      const pose = actionBodyPose(options.action, progress, options.calmVisual || options.reducedMotion);
+      const size = Number(options.size) || 0, floor = bodyFloor('dango', size);
+      if (pose && (pose.shear || pose.sx !== 1 || pose.sy !== 1)) {
+        context.translate(size / 2, floor);
+        if (pose.shear) context.transform(1, 0, pose.shear, 1, 0, 0);
+        context.scale(pose.sx, pose.sy);
+        context.translate(-size / 2, -floor);
+      }
+      return;
+    }
+    if (options.artwork?.clip || hasRasterLookback(options.action) || ['pushup', 'moonwalk'].includes(motion)) return;
     if (motion === 'dash') return applyRunningTransform(context, progress,
       { ...options, calmVisual: options.calmVisual || options.state === 'dragged' });
     return petActionArt.applyBodyTransform(context, options.action, progress, options);
@@ -234,7 +303,7 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
       [1, 0, 0, 1, 0, calmVisual ? 0 : Math.sin(elapsedMs / 2200 * Math.PI * 2) * .8]);
     return true;
   }
-  return Object.freeze({ resolveArtwork, resolveView, palette, body, face, action, clipBody: withRasterGroundClip,
+  const artist = Object.freeze({ resolveArtwork, resolveView, palette, body, face, action, clipBody: withRasterGroundClip,
     bodyForeground: (context, colors, artwork) => {
       if (artwork?.clip) return false;
       const tail = tailRoot.paint(context, artwork, colors);
@@ -247,11 +316,13 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
     appearanceLayers: wardrobe.appearanceLayers, portraitBounds: wardrobe.portraitBounds, motionOffset, applyMotionTransform,
     particle: createRasterParticlePainter({ manifest, painter }),
     ...createRasterScenePainter({ manifest, painter }),
-    expressionAccent, statusEffect, actionOverlay: (_context, action) => ['mirror-meet', 'hiccup'].includes(action?.id),
-    ready({ all = false } = {}) { return Promise.all([source.ready(all ? collectRasterSprites(manifest) : defaultSprites), runSample?.ready()]); },
-    cacheStats() { return Object.freeze({ source: source.stats(), palette: painter.stats(), roots: roots.stats(), tailRoot: tailRoot.stats(), runSample: runSample?.stats() || null }); },
-    dispose() { eyeAperture.dispose(); source.dispose(); painter.dispose(); roots.dispose(); tailRoot.dispose(); runSample?.dispose(); }
+    expressionAccent, statusEffect, actionOverlay: (_context, action) => Boolean(motionCaps(action).overlayForms?.includes('dango-raster')),
+    ready({ all = false } = {}) { return Promise.all([source.ready(all ? collectRasterSprites(manifest) : defaultSprites), runSample?.ready(), limbSource?.start()]); },
+    limbStatus() { return limbSource ? { state: limbSource.state(), errors: limbSource.errors() } : { state: 'disabled', errors: [] }; },
+    cacheStats() { return Object.freeze({ source: source.stats(), palette: painter.stats(), roots: roots.stats(), tailRoot: tailRoot.stats(), runSample: runSample?.stats() || null, limbs: limbPainter?.stats() || null }); },
+    dispose() { sourceContactPose.dispose(); limbGates.clear(); limbPainter?.dispose(); eyeAperture.dispose(); source.dispose(); painter.dispose(); roots.dispose(); tailRoot.dispose(); runSample?.dispose(); }
   });
+  return walkPreview ? createDangoWalkArtistAdapter({ ...walkPreview, manifest, source }).wrap(artist) : artist;
 }
 
 export { createDangoRasterArtist };

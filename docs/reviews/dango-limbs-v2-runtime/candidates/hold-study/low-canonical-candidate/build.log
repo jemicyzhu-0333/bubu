@@ -1,0 +1,120 @@
+[
+  {
+    "rootOpaque": true,
+    "src": "cup-low-left.png",
+    "productionSrc": "cup-low-left@8x.png",
+    "root": [
+      15.5,
+      15.5
+    ],
+    "grip": [
+      23.5,
+      14.5
+    ],
+    "idealObservedBoundary": [
+      23.550478598310292,
+      14.007196021505376
+    ],
+    "gripRole": "nearest opaque display marker to observed boundary; NOT shaft-axis grip",
+    "normal": [
+      1,
+      0
+    ],
+    "angle": 0,
+    "side": "left",
+    "size": [
+      31,
+      31
+    ],
+    "bounds": [
+      15,
+      9,
+      24,
+      20
+    ],
+    "source": "../low-palm-extraction/left-source-rgba.png",
+    "sourceSha256": "3f6adf7c258a8c0593f321a757cb281923fd190c0cba974e81ec03bc565c7f0c",
+    "sourceRootCenter": [
+      230.5,
+      534.5
+    ],
+    "sourceContactBoundary": [
+      306.0,
+      520.5
+    ],
+    "scaleArtPerSourcePixel": 0.10662885560675883,
+    "inverseSamplingMatrix": [
+      [
+        9.378324416121872,
+        0,
+        -137.86402844988902
+      ],
+      [
+        0,
+        9.378324416121872,
+        -81.86402844988902
+      ]
+    ],
+    "ownership": "Palm owns the observed shared vertical cup-side black contour; canonical cup must not paint a second front line.",
+    "candidateOnly": true
+  },
+  {
+    "rootOpaque": true,
+    "src": "cup-low-right.png",
+    "productionSrc": "cup-low-right@8x.png",
+    "root": [
+      15.5,
+      15.5
+    ],
+    "grip": [
+      9.5,
+      13.5
+    ],
+    "idealObservedBoundary": [
+      9.15558309139785,
+      13.900567165898618
+    ],
+    "gripRole": "nearest opaque display marker to observed boundary; NOT shaft-axis grip",
+    "normal": [
+      -1,
+      0
+    ],
+    "angle": 180,
+    "side": "right",
+    "size": [
+      31,
+      31
+    ],
+    "bounds": [
+      9,
+      9,
+      16,
+      20
+    ],
+    "source": "../low-palm-extraction/right-source-rgba.png",
+    "sourceSha256": "cc1fe47f91da41e1aee8561531c7feb96f7973dd080eca005d40996d4db53803",
+    "sourceRootCenter": [
+      558.5,
+      535.5
+    ],
+    "sourceContactBoundary": [
+      499.0,
+      520.5
+    ],
+    "scaleArtPerSourcePixel": 0.10662885560675883,
+    "inverseSamplingMatrix": [
+      [
+        9.378324416121872,
+        0,
+        -82.86402844988902
+      ],
+      [
+        0,
+        9.378324416121872,
+        -86.86402844988902
+      ]
+    ],
+    "ownership": "Cup owns shaft ink x489..498 at contact row. Palm has observed source pink from x499; no fabricated behind palm.",
+    "candidateOnly": true
+  }
+]

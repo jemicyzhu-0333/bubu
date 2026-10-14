@@ -1,0 +1,21 @@
+CI for Round 10 @8a411eb (probe OS-nudge harden + review docs on d5f260c tree):
+- workflow_dispatch run 38469867841 queued/started at push time (~21:25Z).
+  URL: https://github.com/jemicyzhu-0333/bubu/actions/runs/38469867841
+  headSha: 8a411eb2b642f4dd5c4f9f8d57c8b68114db023e
+
+Prior Round 9 heads:
+- 38454310890 @c113779: win-x64 success; mac-arm64 cancelled (empty steps). Overall failure.
+- 38458553502 @1ca0e82: win-x64 success; mac-arm64 FAIL at verify:pet-viewport —
+  AssertionError native-bounds-changed (y 345→348) during rounds; settle stage had passed.
+  Stack: verifyRounds line 28. No setBounds/setPosition from our call log → OS nudge.
+- Round 10 probe change: keep backing-store size + forbid our frame writes; rebaseline OS x/y.
+
+Result (recorded Round 11, 2026-10-13 ~21:40Z):
+- 38469867841 @8a411eb: win-x64 SUCCESS (job 115545872126, 21:20:41–21:37:23Z);
+  mac-arm64 SUCCESS (job 115545872558, 21:20:43–21:25:45Z). Overall success.
+  mac verify:pet-viewport printed {"rounds":30,"nativeGeometryWrites":0,"logicalAnchorStable":true,
+  "nativeIgnoreMouseEventsContract":true,"visualVerification":false}. The 8a411eb probe did not
+  report whether an OS nudge occurred, so this green run is not evidence either way about nudges.
+- Codex-dispatched 38469455948 @d5f260c (pre-probe-fix): mac FAIL native-bounds-changed y345→348
+  (job 115544425067), i.e. the same Round 9 assertion; superseded by 8a411eb.
+- Round 11 hardens the probe further after Codex's deterministic counterexamples (see round11/).

@@ -71,8 +71,12 @@ export function createRenderHarness(source, options = {}) {
   const sessionController = options.sessionActivityController || { current: () => current?.kind === 'session' ? current.item : null,
     snapshot: () => current?.kind === 'session' ? { activity: current.item, startedAt: epoch,
       progress: Math.max(0, elapsed) / current.duration } : null };
+  // options.director: 'real' plays actions through a real PresentationDirector
+  // as production eggs do (cue/interaction transient with its own eventId);
+  // default null keeps the historical preview path and its baselines.
+  let director = null, eggSerial = 0;
   const painter = source.renderer.createPetRenderer({
-    readEngines: () => ({ expressionRegistry: registry, presentationDirector: null, sessionActivityController: sessionController }),
+    readEngines: () => ({ expressionRegistry: registry, presentationDirector: director, sessionActivityController: sessionController }),
     window, document, pctx, sctx, octx, petCanvas: body, petFaceSurface: faceSurface,
     petActionBackSurface: backSurface, petActionFrontSurface: frontSurface, petSprites: sprites, petCompositor: compositor,
     petSceneLayer: source.scene.createPetScene({ context: sctx, art: source.sceneArt,
@@ -81,12 +85,13 @@ export function createRenderHarness(source, options = {}) {
     gazeSpringX: motion.createSpring(), gazeSpringY: motion.createSpring(),
     squashSpring: motion.createSpring(), tiltSpring: motion.createSpring(),
     blinkScheduler: options.blink === false ? { update: () => ({ blinking: false }), retune() {} }
+      : options.blink === 'always' ? { update: () => ({ blinking: true }), retune() {} }
       : motion.createBlinkScheduler({ random: blinkRandom, minMs: 667, maxMs: 2333, blinkMs: 100 }),
     petalEmitter, sakuraRainEmitter, petFallbackSceneEmitters, petSkinSceneEmitters, petActionEmitters,
     celebrateStarColors: ['#e0af68', '#f7768e', '#bb9af7'], motionRandom: random,
     pick: items => items[Math.floor(random() * items.length)], rand: (a, b) => a + random() * (b - a),
     getTimePeriod: () => 'afternoon', reducedMotion: () => Boolean(options.calm),
-    updatePresentation: () => options.expressionFor?.(state) || current?.item.expression || current?.item.id || 'life.idle',
+    updatePresentation: () => options.expressionFor?.(state) || director?.current(state.animNow)?.expressionId || current?.item.expression || current?.item.id || 'life.idle',
     updateSessionActivityUi() {}, activityUi: options.activityUi || null, resetPetRateEmitters: reset,
     emitPetRate: (emitter, callback) => { const n = emitter.update(dt); for (let i = 0; i < n; i++) callback(); return n; },
     resetPetActionEmitters: () => reset(petActionEmitters),
@@ -118,12 +123,14 @@ export function createRenderHarness(source, options = {}) {
     const plan = action ? source.interactionPlayback?.createManualActionPlayback(content, action.id,
       { interactionId: id, formId: form.id }) || { id: action.id, duration: action.duration, manual: true,
         expression: id === 'longPress' && options.interactionHeld !== false ? 'react.petted' : action.expression } : null;
-    const item = plan ? { ...action, expression: id === 'longPress' && options.interactionHeld !== false ? 'react.petted' : plan.expression, duration: plan.duration } : kind === 'action' ? content.PET_ACTIONS[id] : kind === 'session' ? content.SESSION_ACTIVITIES[id]
+    let item = plan ? { ...action, expression: id === 'longPress' && options.interactionHeld !== false ? 'react.petted' : plan.expression, duration: plan.duration } : kind === 'action' ? content.PET_ACTIONS[id] : kind === 'session' ? content.SESSION_ACTIVITIES[id]
       : kind === 'scene' ? content.SCENES[id]
       : kind === 'appearance' ? content.PET_APPEARANCE_ITEMS.find(value => value.id === id)
       : kind === 'status' ? { id, expression: id === 'hungry' ? 'react.hungry' : 'life.idle', label: id }
       : content.EXPRESSIONS.find(value => value.id === id);
     if (!item) throw new Error(`Unknown ${kind}:${id}`);
+    // Audit tools may swap the played item (e.g. strip its prop) without touching content.
+    if (options.itemOverride) item = options.itemOverride(kind, item) || item;
     current = { kind, item, duration: item.duration || item.durationMs || 6400,
       ...(interaction ? { interactionId: id, interactionHeld: id === 'longPress' && options.interactionHeld !== false, viewPolicy: 'production-input-auto', interactionAdapter: source.interactionPlayback ? 'production-helper' : 'historical-controller-compatibility' } : {}) };
     elapsed = -1; dt = 0;
@@ -150,6 +157,16 @@ export function createRenderHarness(source, options = {}) {
       commandMenuOpen: false, foodMenuOpen: false, devtoolsOpen: false, dragging: false, dragVx: 0, dragVy: 0,
       animNow: epoch, animDt: 0
     };
+    if (options.director && kind === 'action') {
+      const { createPresentationDirector } = options.director.module;
+      director = createPresentationDirector({ clock: { now: () => state.animNow } });
+      director.setBase({ expressionId: 'life.idle', source: 'base', issuedAt: epoch });
+      const eventId = `harness-egg.${++eggSerial}`;
+      state.devPreview = null;
+      state.currentEgg = { ...state.currentEgg, expression: item.expression, presentationEventId: eventId, manual: options.director.source === 'interaction' };
+      director.presentTransient({ eventId, expressionId: item.expression || 'life.idle', source: options.director.source || 'cue', issuedAt: epoch, ttlMs: current.duration + 1000 });
+      if (options.director.interrupt) director.presentTransient({ eventId: 'harness-essential', expressionId: 'life.idle', source: 'essential', issuedAt: epoch, ttlMs: current.duration + 1000 });
+    }
     if (interaction) state.overlayParticles.push(...(source.interactionPlayback
       ? source.interactionPlayback.createInteractionParticles(interaction.effect, { calmVisual: Boolean(options.calm), random, formId: form.id })
       : legacyInteractionParticles(interaction.effect)));

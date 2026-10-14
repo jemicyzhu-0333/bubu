@@ -1,5 +1,9 @@
 'use strict';
 
+import { attachDangoLimbs } from './dango-limbs.mjs';
+import { paperReturnFace } from './paper-return-story.mjs';
+import { motionCaps } from './motion-core/action-capabilities.mjs';
+import { refinePaperReturn, refineHandoffCup } from './dango-paper-return.mjs';
 import { bodyOffset } from '../../../core/pet-action-art.mjs';
 import { sampleVectorAction } from '../../../core/pet-action-vector.mjs';
 import { sampleFeet, footMatrix } from './dango-performance.mjs';
@@ -42,6 +46,7 @@ function sampleRasterPose(data, { view = 'front', motion = 'idle', action = null
     progress: p, elapsedMs: frozen ? 0 : elapsedMs,
     calmVisual: frozen, reducedMotion, dnd, expressionId, expressionElapsedMs: frozen ? 0 : expressionElapsedMs };
   let sampledFace = sampleDangoFace(face || { eyes: 'neutral', mouth: 'neutral' }, faceOptions);
+  sampledFace = paperReturnFace(sampledFace, faceOptions) || sampledFace;
   const expected = action?.baseExpression || action?.expression;
   const activityWins = !expressionId || !expected || expressionId === expected;
   if (activityWins && mirror) sampledFace = Object.freeze({ ...sampledFace, eyes: 'neutral', mouth: 'neutral',
@@ -50,9 +55,9 @@ function sampleRasterPose(data, { view = 'front', motion = 'idle', action = null
     eyes: lookback.blink > .75 ? 'closed' : 'neutral', mouth: 'neutral',
     openness: 1 - lookback.blink * .65, eyeOffsetX: -lookback.turn * .7,
     eyeOffsetY: 0, eyeInsetX: 0 });
-  if (activityWins && action?.id === 'hiccup') sampledFace = Object.freeze({ ...sampledFace,
+  if (activityWins && motionCaps(action).dangoFace === 'steady') sampledFace = Object.freeze({ ...sampledFace,
     eyes: 'neutral', mouth: 'neutral', openness: 1, eyeOffsetX: 0, eyeOffsetY: 0, eyeInsetX: 0 });
-  if (activityWins && (action?.id === 'carry-energy' || action?.prop === 'umbrella')) {
+  if (activityWins && (motionCaps(action).dangoFace === 'carry' || action?.prop === 'umbrella')) {
     sampledFace = Object.freeze({ ...sampledFace, eyes: p > .88 ? 'content' : 'neutral',
       openness: p > .88 ? 1 : Math.max(.94, sampledFace.openness ?? 1) });
   }
@@ -63,7 +68,7 @@ function sampleRasterPose(data, { view = 'front', motion = 'idle', action = null
       mouth: contact ? 'closed' : 'neutral', openness: contact ? 0 : approaching ? .65 : 1,
       eyeOffsetX: 0, eyeOffsetY: approaching ? .3 : 0, eyeInsetX: 0 });
   }
-  if (activityWins && action?.id === 'stuck-corner') {
+  if (activityWins && motionCaps(action).dangoFace === 'corner-nap') {
     const asleep = frozen || p >= .22 && p <= .78;
     sampledFace = Object.freeze({ ...sampledFace, eyes: asleep ? 'closed' : 'neutral',
       mouth: 'closed', openness: asleep ? 0 : 1, eyeOffsetX: 0, eyeOffsetY: 0, eyeInsetX: 0 });
@@ -79,7 +84,9 @@ function sampleRasterPose(data, { view = 'front', motion = 'idle', action = null
       hand.points = hand.points.map((point, i) => i ? [point[0] + grip[0] - old[0], point[1] + grip[1] - old[1]] : point);
     }
   }
-  const groundShift = motion === 'pushup' && action ? bodyOffset(action, p, { calmVisual: frozen }).y * (action.id === 'workout' ? .45 : 1) : 0;
+  const groundShift = motion === 'pushup' && action ? bodyOffset(action, p, { calmVisual: frozen }).y * (motionCaps(action).groundShiftScale ?? 1) : 0;
+  refinePaperReturn(contact, action, p, toolSprites);
+  refineHandoffCup(contact, action, data);
   refineSmallPawContact(contact, action, view, toolSprites, groundShift);
   refineMirrorContact(contact, action, view, toolSprites, mirror);
   contact = appendCombinationAccessories(contact, action, view, toolSprites);
@@ -94,7 +101,7 @@ function sampleRasterPose(data, { view = 'front', motion = 'idle', action = null
     const reach = Math.min(6, distance) / distance;
     hand.points = [root, [target[0] + (root[0] - target[0]) * reach, target[1] + (root[1] - target[1]) * reach], target];
   }
-  if (contact && ['workout', 'hiccup', 'carry-energy', 'dig-treasure', 'sneeze'].includes(action?.id)) for (const hand of contact.hands) {
+  if (contact && motionCaps(action).dangoArms?.tuck) for (const hand of contact.hands) {
     if (hand.pawSprite || hand.integrated || hand.connector === false) continue;
     const root = hand.points[0], target = hand.points.at(-1);
     if (target[1] < 38) continue;
@@ -103,7 +110,7 @@ function sampleRasterPose(data, { view = 'front', motion = 'idle', action = null
     const elbow = inward ? [root[0] + (left ? 4 : -4), Math.min(54, Math.max(root[1] + 8, target[1] + 4))]
       : [(root[0] + target[0]) / 2, Math.max(root[1] + 3, target[1] - 6)];
     let palm = target;
-    if (['carry-energy', 'dig-treasure', 'sneeze', 'hiccup'].includes(action?.id)) {
+    if (motionCaps(action).dangoArms?.palm) {
       const dx = target[0] - elbow[0], dy = target[1] - elbow[1], length = Math.hypot(dx, dy) || 1;
       hand.gripPoint = [...target];
       palm = [target[0] - dx / length * 3, target[1] - dy / length * 3];
@@ -111,12 +118,16 @@ function sampleRasterPose(data, { view = 'front', motion = 'idle', action = null
     hand.points = [root, elbow, palm];
     hand.attachedArm = true;
   }
+  // Unified limb chain (socket -> IK -> wrist) for every contact hand; frames
+  // come from limbs.json when present, otherwise legacy sprites keep drawing.
+  // Zero cost until a limbs.json manifest is loaded (or a detector asks).
+  if (data.limbs || globalThis.__petLimbTrace) attachDangoLimbs(contact, data.anchors, { view, limbs: data.limbs || null });
   const sample = sampleMotion(motion, { view, calmVisual: frozen, progress: motion === 'idle' ? idleProgress(elapsedMs) : p, prop: action?.prop });
   if (lookback && contact) for (const detail of contact.details) if (detail.type === 'look-back') {
     detail.amount = lookback.cue; detail.at = [-1, 8];
   }
   const feet = mirrorFeet(data.anchors, mirror) || (motion === 'dash' ? sampleRasterRunningFeet(data, p, frozen, runFootTiming)
-    : sampleFeet(walking || action?.id === 'carry-energy' ? 'walk' : motion,
+    : sampleFeet(walking || motionCaps(action).carryWalk ? 'walk' : motionCaps(action).story === 'paper-return' ? 'idle' : motion,
       walking ? elapsedMs % 760 / 760 : p, view, frozen || Boolean(lookback), data.anchors));
   const matrices = {};
   for (const [side, bone] of [['left', 'ear_l'], ['right', 'ear_r']]) {
@@ -147,7 +158,7 @@ function sampleRasterPose(data, { view = 'front', motion = 'idle', action = null
   }
   matrices['foot-left'] = groundShift ? Object.freeze([1, 0, 0, 1, 0, -groundShift]) : feet['foot-left'];
   matrices['foot-right'] = groundShift ? Object.freeze([1, 0, 0, 1, 0, -groundShift]) : feet['foot-right'];
-  if (action?.id === 'workout') {
+  if (motionCaps(action).restFeetWhenUnready) {
     matrices['foot-left'] = Object.freeze([1, 0, 0, 1, view === 'front' ? 0 : -6, -groundShift]);
     matrices['foot-right'] = Object.freeze([1, 0, 0, 1, view === 'front' ? 0 : -6, -groundShift]);
   }

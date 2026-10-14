@@ -3,11 +3,18 @@
 // PET_RIG「渲染顺序」: a near paw can overlap cloth; a far paw does not
 // become a foreground sticker merely because it belongs to a moving bone.
 // Only garments with an authored wrap contract opt into this projection.
+import { pawPass } from './motion-core/accessory-resolver.mjs';
+
 function usagiPartLayer(part, artwork) {
   if (!artwork?.wardrobe?.wrapsBody || !part?.bone?.startsWith('hand_')) return part?.layer;
   const view = artwork.drawnView || artwork.view;
-  if (view === 'back') return 'back';
-  if (view === 'three-quarter' && part.bone === 'hand_l') return 'back';
+  // Back view: resolver decomposition (paws after the garment's far strip).
+  const rule = pawPass({ formId: 'usagi', view, wrapsBody: true });
+  if (rule) return rule.pass;
+  // The far paw is tucked: painted after the body but before any garment, so
+  // cloth covers it where they overlap and it stays visible elsewhere
+  // (previously it went behind the body and vanished whenever cloth was worn).
+  if (view === 'three-quarter' && part.bone === 'hand_l') return 'under-cloth';
   return part.layer;
 }
 

@@ -1,15 +1,18 @@
 'use strict';
 
+import { motionCaps } from './motion-core/action-capabilities.mjs';
+
+import { clamp01 } from './motion-core/easing.mjs';
 import { placePaw } from './usagi-contact.mjs';
 
 const TAU = Math.PI * 2;
-const clamp = value => Math.max(0, Math.min(1, Number(value) || 0));
+const clamp = clamp01;
 const mix = (a, b, amount) => a.map((value, i) => value + (b[i] - value) * amount);
 
 // Only these existing category actions own the new quiet presentation. The
 // lifecycle is supplied by playback; no app phase, text, BPM or timer is read.
 function eventSample(action, progress = 0, calmVisual = false) {
-  const category = action?.id === 'mirror-music' ? 'music' : action?.id === 'mirror-ai' ? 'ai' : null;
+  const category = motionCaps(action).mirrorEvent || null;
   if (!category) return null;
   const presentation = action.mirrorPresentation;
   const calm = calmVisual || presentation?.static === true;

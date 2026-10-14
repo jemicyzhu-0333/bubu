@@ -1,0 +1,1510 @@
+{
+  "schema": "dango-contact-contract-candidate/1",
+  "version": 1,
+  "status": "audit-only",
+  "productionReady": false,
+  "scope": {
+    "stateWrites": [],
+    "productionEdits": false,
+    "allowsPropMovement": false,
+    "allowsBodyRedraw": false,
+    "allowsRuntimeBitmapStretchOrRotation": false,
+    "allowsGlobalClosedPalmRoot": false
+  },
+  "coordinates": {
+    "space": "body-art",
+    "unit": "art-unit",
+    "worldTransform": "apply-existing-root-transform-once",
+    "sideLabels": "runtime-screen-left-right",
+    "targetPrecedence": [
+      "explicitPhysicalContact",
+      "gripPoint",
+      "declaredLegacyEndpointRole"
+    ],
+    "opaquePixelCenterToBoundary": {
+      "downward": [
+        0,
+        0.5
+      ]
+    },
+    "viewPolicy": "resolve-current-runtime-view-before-contract; never equate requested-view-count with unique poses"
+  },
+  "roles": {
+    "continuous_grip": {
+      "acceptance": "continuous-held-contact",
+      "requiresPhysicalContact": true
+    },
+    "point_touch": {
+      "acceptance": "phase-gated-touch",
+      "requiresPhysicalContact": true
+    },
+    "free_gesture": {
+      "acceptance": "free-gesture-silhouette",
+      "requiresPhysicalContact": false
+    },
+    "planted_support": {
+      "acceptance": "fixed-support-surface",
+      "requiresPhysicalContact": true
+    }
+  },
+  "evidence": {
+    "runtimeContact": {
+      "kind": "repository-source",
+      "path": "src/core/pet-action-contact.mjs"
+    },
+    "rasterPaws": {
+      "kind": "repository-source",
+      "path": "src/capabilities/companion/presentation/dango-raster-paws.mjs"
+    },
+    "rasterPose": {
+      "kind": "repository-source",
+      "path": "src/capabilities/companion/presentation/dango-raster-pose.mjs"
+    },
+    "rasterManifest": {
+      "kind": "repository-source",
+      "path": "assets/companion/dango/raster/dango.raster.mjs"
+    },
+    "handoffCup": {
+      "kind": "repository-source",
+      "path": "src/capabilities/companion/presentation/dango-paper-return.mjs"
+    },
+    "sampledFamilies": {
+      "kind": "audit-artifact",
+      "name": "initial-contact-family-samples.json",
+      "sha256": "1167aedcca662618465cc2e25788c324c1d8e3c6e06a2cead84bcb90796096ab"
+    },
+    "approvedIdentity": {
+      "kind": "approved-source",
+      "name": "full-character-v2.png",
+      "sha256": "9e77a9c2a455c3a7c9cc145bb8b0f458ede80bd367e4eb89539c6abddc8b6fdd"
+    },
+    "levelSupportFront": {
+      "kind": "candidate-source-frame",
+      "name": "paw/paw-support-l-front-level.png",
+      "sha256": "0dfb6344c92e13f3d0c2eaf79855f299b3e182f6b4966bb8f90cb2cef2acb199",
+      "projectedNormal": [
+        0,
+        1
+      ],
+      "sourceSha256": "14561bac937a6aea8c7045b718cc7d962f424eae68544b9135114ab76fcf08a1"
+    },
+    "levelSupportQuarter": {
+      "kind": "candidate-source-frame",
+      "name": "paw/paw-support-l-three-quarter-left-level.png",
+      "sha256": "c23118cf1318bf0186c6ef6c11814b05d24f94310979d22c3249e4289be0b339",
+      "projectedNormal": [
+        0,
+        1
+      ],
+      "sourceSha256": "3e9ff57cd82ae538733887b7873a3c64ab524672b8e1e5286a5da4f343ed61f2"
+    }
+  },
+  "acceptanceProfiles": {
+    "continuous-held-contact": {
+      "evaluate": [
+        "per-hand physical anchor residual over whole held interval",
+        "source normal or shaft alignment",
+        "prop-facing boundary and occlusion",
+        "natural source-backed wrist continuity",
+        "phase continuity and common opacity"
+      ],
+      "markerToleranceArt": null,
+      "thresholdStatus": "blocked-until-source-contact-registered",
+      "staticAndDynamicSeparate": true,
+      "neverAcceptBy": [
+        "single-midpoint reach",
+        "generic IK error threshold",
+        "source palm center coincidence"
+      ]
+    },
+    "phase-gated-touch": {
+      "evaluate": [
+        "key surface gap/penetration during contact phase only",
+        "lift separation and recovery timing",
+        "alternating left/right phase",
+        "source-defined underside normal",
+        "no body/prop shift"
+      ],
+      "contactPhaseStatus": "blocked-until-palm-center-to-surface conversion verified",
+      "neverAcceptBy": [
+        "requiring lifted hand on surface",
+        "generic tool-anchor error for entire action"
+      ]
+    },
+    "free-gesture-silhouette": {
+      "evaluate": [
+        "approved silhouette scale",
+        "face clearance",
+        "source wrist orientation",
+        "natural root join",
+        "temporal continuity"
+      ],
+      "requiresPropAnchor": false,
+      "requiresSurfaceNormal": false,
+      "neverAcceptBy": [
+        "forcing auxiliary hand to prop",
+        "choosing orientation solely by nearest IK"
+      ]
+    },
+    "fixed-support-surface": {
+      "evaluate": [
+        "actual opaque boundary versus immutable floor",
+        "zero penetration",
+        "normal alignment",
+        "planted drift during loaded interval",
+        "load/recovery phase",
+        "continuous source wrist connection"
+      ],
+      "maxPenetrationArt": 0,
+      "diagnosticMaxGapArt": 0.25,
+      "diagnosticNormalToleranceDeg": 1,
+      "thresholdStatus": "diagnostic-only-not-production-acceptance",
+      "neverAcceptBy": [
+        "marker at floor instead of boundary",
+        "1.25-unit general contact tolerance",
+        "moving floor or clipping positive limb tissue"
+      ]
+    }
+  },
+  "realizationAlternatives": {
+    "source-contact-frames": {
+      "allowedAsCandidate": true,
+      "genericIKRequired": false,
+      "mustDeclare": [
+        "original high-resolution source and hash",
+        "body-scale normalization",
+        "per-view and per-hand identity",
+        "phase-local wrist and physical contact anchors",
+        "contact boundary/normal or shaft axis source",
+        "body and prop layer order",
+        "open-root natural join",
+        "unchanged external prop transform",
+        "coverage of transition frames",
+        "maximum native contact and surface errors"
+      ],
+      "mayReplace": "generic IK for the bounded registered action/hand/phase only",
+      "forbidden": [
+        "baked body replacement",
+        "global root ring",
+        "source-hidden component invented as observed",
+        "moving props to match hand art",
+        "claiming static keys prove whole animation"
+      ]
+    },
+    "generic-IK": {
+      "allowedAsCandidate": true,
+      "mustMeetSameContactContract": true,
+      "notRequired": true
+    }
+  },
+  "actions": {
+    "hiccup": {
+      "samplingEvidence": [
+        "runtimeContact",
+        "rasterPaws",
+        "sampledFamilies"
+      ],
+      "requestedInitialView": "front",
+      "otherViews": "blocked-pending-independent-registration",
+      "observations": {
+        "front": {
+          "resolvedView": "front",
+          "restToolOrigin": [
+            22,
+            38
+          ],
+          "liftedToolOrigin": [
+            22,
+            38
+          ],
+          "status": "measured-runtime",
+          "source": "sampledFamilies"
+        },
+        "three-quarter": {
+          "resolvedView": "three-quarter",
+          "restToolOrigin": [
+            34,
+            38
+          ],
+          "liftedToolOrigin": [
+            34,
+            38
+          ],
+          "status": "measured-runtime",
+          "source": "sampledFamilies"
+        }
+      },
+      "tool": {
+        "key": "cup",
+        "size": [
+          22,
+          19
+        ],
+        "localAnchors": {
+          "left": [
+            0.875,
+            10.375
+          ],
+          "right": [
+            20.5,
+            10.375
+          ],
+          "rim": [
+            8.25,
+            2.125
+          ]
+        },
+        "transformOwner": "existing runtime sampler"
+      },
+      "hands": {
+        "left": {
+          "roleIntent": "continuous_grip",
+          "status": {
+            "status": "blocked",
+            "reasons": [
+              "source-backed natural wrist join unverified",
+              "prop-side normal or handle-axis registration incomplete"
+            ]
+          },
+          "oldPointRole": {
+            "gripPoint": "final-transformed-cup-anchor",
+            "pointsEnd": "final-transformed-cup-anchor",
+            "source": "rasterPaws"
+          },
+          "propAnchor": {
+            "toolKey": "cup",
+            "name": "left",
+            "local": [
+              0.875,
+              10.375
+            ],
+            "source": "rasterManifest"
+          },
+          "surface": {
+            "kind": "vessel-contact-edge",
+            "normal": {
+              "value": null,
+              "space": "body-art",
+              "status": "blocked",
+              "source": null,
+              "reason": "actual action/source contact orientation not registered; do not mirror or invent a normal"
+            },
+            "source": "rasterManifest"
+          },
+          "phases": [
+            {
+              "id": "held",
+              "when": {
+                "op": "range",
+                "variable": "progress",
+                "min": 0,
+                "max": 1,
+                "includeMax": true
+              },
+              "role": "continuous_grip",
+              "target": {
+                "kind": "tool_anchor",
+                "toolKey": "cup",
+                "anchor": "left",
+                "transform": "final-sampled-tool-matrix"
+              },
+              "contactExpected": true
+            }
+          ],
+          "sourceFrameRequest": {
+            "identitySource": "approvedIdentity",
+            "referenceFamily": "hold",
+            "referenceNativeEnvelope": [
+              13,
+              13
+            ],
+            "allowedRealizations": [
+              "source-contact-frames",
+              "generic-IK"
+            ],
+            "join": "source-observed open wrist continuing into short distinct forearm; no full root ring"
+          },
+          "occlusion": {
+            "front": {
+              "status": "blocked",
+              "reason": "left vessel/right handle source-specific layering required"
+            },
+            "three-quarter": {
+              "status": "blocked",
+              "reason": "near/far action registration is not certified by mirrored source alone"
+            }
+          }
+        },
+        "right": {
+          "roleIntent": "continuous_grip",
+          "status": {
+            "status": "blocked",
+            "reasons": [
+              "source-backed natural wrist join unverified",
+              "prop-side normal or handle-axis registration incomplete"
+            ]
+          },
+          "oldPointRole": {
+            "gripPoint": "final-transformed-cup-anchor",
+            "pointsEnd": "final-transformed-cup-anchor",
+            "source": "rasterPaws"
+          },
+          "propAnchor": {
+            "toolKey": "cup",
+            "name": "right",
+            "local": [
+              20.5,
+              10.375
+            ],
+            "source": "rasterManifest"
+          },
+          "surface": {
+            "kind": "handle-side-grasp",
+            "normal": {
+              "value": null,
+              "space": "body-art",
+              "status": "blocked",
+              "source": null,
+              "reason": "actual action/source contact orientation not registered; do not mirror or invent a normal"
+            },
+            "source": "rasterManifest"
+          },
+          "phases": [
+            {
+              "id": "held",
+              "when": {
+                "op": "range",
+                "variable": "progress",
+                "min": 0,
+                "max": 1,
+                "includeMax": true
+              },
+              "role": "continuous_grip",
+              "target": {
+                "kind": "tool_anchor",
+                "toolKey": "cup",
+                "anchor": "right",
+                "transform": "final-sampled-tool-matrix"
+              },
+              "contactExpected": true
+            }
+          ],
+          "sourceFrameRequest": {
+            "identitySource": "approvedIdentity",
+            "referenceFamily": "hold",
+            "referenceNativeEnvelope": [
+              13,
+              13
+            ],
+            "allowedRealizations": [
+              "source-contact-frames",
+              "generic-IK"
+            ],
+            "join": "source-observed open wrist continuing into short distinct forearm; no full root ring"
+          },
+          "occlusion": {
+            "front": {
+              "status": "blocked",
+              "reason": "left vessel/right handle source-specific layering required"
+            },
+            "three-quarter": {
+              "status": "blocked",
+              "reason": "near/far action registration is not certified by mirrored source alone"
+            }
+          }
+        }
+      }
+    },
+    "sip-tea": {
+      "samplingEvidence": [
+        "runtimeContact",
+        "rasterPaws",
+        "sampledFamilies"
+      ],
+      "requestedInitialView": "front",
+      "otherViews": "blocked-pending-independent-registration",
+      "observations": {
+        "front": {
+          "resolvedView": "front",
+          "restToolOrigin": [
+            23,
+            43
+          ],
+          "liftedToolOrigin": [
+            24.421795000000003,
+            36.028846
+          ],
+          "status": "measured-runtime",
+          "source": "sampledFamilies"
+        },
+        "three-quarter": {
+          "resolvedView": "three-quarter",
+          "restToolOrigin": [
+            35,
+            43
+          ],
+          "liftedToolOrigin": [
+            43.867949,
+            36.685256
+          ],
+          "status": "measured-runtime",
+          "source": "sampledFamilies"
+        }
+      },
+      "tool": {
+        "key": "cup",
+        "size": [
+          22,
+          19
+        ],
+        "localAnchors": {
+          "left": [
+            0.875,
+            10.375
+          ],
+          "right": [
+            20.5,
+            10.375
+          ],
+          "rim": [
+            8.25,
+            2.125
+          ]
+        },
+        "transformOwner": "existing runtime sampler"
+      },
+      "hands": {
+        "left": {
+          "roleIntent": "continuous_grip",
+          "status": {
+            "status": "blocked",
+            "reasons": [
+              "source-backed natural wrist join unverified",
+              "prop-side normal or handle-axis registration incomplete"
+            ]
+          },
+          "oldPointRole": {
+            "gripPoint": "absent-in-ordinary-sip",
+            "pointsEnd": "final-transformed-cup-anchor",
+            "source": "runtimeContact"
+          },
+          "propAnchor": {
+            "toolKey": "cup",
+            "name": "left",
+            "local": [
+              0.875,
+              10.375
+            ],
+            "source": "rasterManifest"
+          },
+          "surface": {
+            "kind": "vessel-contact-edge",
+            "normal": {
+              "value": null,
+              "space": "body-art",
+              "status": "blocked",
+              "source": null,
+              "reason": "actual action/source contact orientation not registered; do not mirror or invent a normal"
+            },
+            "source": "rasterManifest"
+          },
+          "phases": [
+            {
+              "id": "held-rest",
+              "when": {
+                "op": "range",
+                "variable": "progress",
+                "min": 0,
+                "max": 0.08,
+                "includeMax": false
+              },
+              "role": "continuous_grip",
+              "target": {
+                "kind": "tool_anchor",
+                "toolKey": "cup",
+                "anchor": "left",
+                "transform": "final-sampled-tool-matrix"
+              },
+              "contactExpected": true
+            },
+            {
+              "id": "lift-held",
+              "when": {
+                "op": "range",
+                "variable": "progress",
+                "min": 0.08,
+                "max": 0.34,
+                "includeMax": false
+              },
+              "role": "continuous_grip",
+              "target": {
+                "kind": "tool_anchor",
+                "toolKey": "cup",
+                "anchor": "left",
+                "transform": "final-sampled-tool-matrix"
+              },
+              "contactExpected": true
+            },
+            {
+              "id": "sip-held",
+              "when": {
+                "op": "range",
+                "variable": "progress",
+                "min": 0.34,
+                "max": 0.66,
+                "includeMax": false
+              },
+              "role": "continuous_grip",
+              "target": {
+                "kind": "tool_anchor",
+                "toolKey": "cup",
+                "anchor": "left",
+                "transform": "final-sampled-tool-matrix"
+              },
+              "contactExpected": true
+            },
+            {
+              "id": "lower-held",
+              "when": {
+                "op": "range",
+                "variable": "progress",
+                "min": 0.66,
+                "max": 0.92,
+                "includeMax": false
+              },
+              "role": "continuous_grip",
+              "target": {
+                "kind": "tool_anchor",
+                "toolKey": "cup",
+                "anchor": "left",
+                "transform": "final-sampled-tool-matrix"
+              },
+              "contactExpected": true
+            },
+            {
+              "id": "held-rest-return",
+              "when": {
+                "op": "range",
+                "variable": "progress",
+                "min": 0.92,
+                "max": 1,
+                "includeMax": true
+              },
+              "role": "continuous_grip",
+              "target": {
+                "kind": "tool_anchor",
+                "toolKey": "cup",
+                "anchor": "left",
+                "transform": "final-sampled-tool-matrix"
+              },
+              "contactExpected": true
+            }
+          ],
+          "sourceFrameRequest": {
+            "identitySource": "approvedIdentity",
+            "referenceFamily": "hold",
+            "referenceNativeEnvelope": [
+              13,
+              13
+            ],
+            "allowedRealizations": [
+              "source-contact-frames",
+              "generic-IK"
+            ],
+            "join": "source-observed open wrist continuing into short distinct forearm; no full root ring"
+          },
+          "occlusion": {
+            "front": {
+              "status": "blocked",
+              "reason": "left vessel/right handle source-specific layering required"
+            },
+            "three-quarter": {
+              "status": "blocked",
+              "reason": "near/far action registration is not certified by mirrored source alone"
+            }
+          }
+        },
+        "right": {
+          "roleIntent": "continuous_grip",
+          "status": {
+            "status": "blocked",
+            "reasons": [
+              "source-backed natural wrist join unverified",
+              "prop-side normal or handle-axis registration incomplete"
+            ]
+          },
+          "oldPointRole": {
+            "gripPoint": "absent-in-ordinary-sip",
+            "pointsEnd": "final-transformed-cup-anchor",
+            "source": "runtimeContact"
+          },
+          "propAnchor": {
+            "toolKey": "cup",
+            "name": "right",
+            "local": [
+              20.5,
+              10.375
+            ],
+            "source": "rasterManifest"
+          },
+          "surface": {
+            "kind": "handle-side-grasp",
+            "normal": {
+              "value": null,
+              "space": "body-art",
+              "status": "blocked",
+              "source": null,
+              "reason": "actual action/source contact orientation not registered; do not mirror or invent a normal"
+            },
+            "source": "rasterManifest"
+          },
+          "phases": [
+            {
+              "id": "held-rest",
+              "when": {
+                "op": "range",
+                "variable": "progress",
+                "min": 0,
+                "max": 0.08,
+                "includeMax": false
+              },
+              "role": "continuous_grip",
+              "target": {
+                "kind": "tool_anchor",
+                "toolKey": "cup",
+                "anchor": "right",
+                "transform": "final-sampled-tool-matrix"
+              },
+              "contactExpected": true
+            },
+            {
+              "id": "lift-held",
+              "when": {
+                "op": "range",
+                "variable": "progress",
+                "min": 0.08,
+                "max": 0.34,
+                "includeMax": false
+              },
+              "role": "continuous_grip",
+              "target": {
+                "kind": "tool_anchor",
+                "toolKey": "cup",
+                "anchor": "right",
+                "transform": "final-sampled-tool-matrix"
+              },
+              "contactExpected": true
+            },
+            {
+              "id": "sip-held",
+              "when": {
+                "op": "range",
+                "variable": "progress",
+                "min": 0.34,
+                "max": 0.66,
+                "includeMax": false
+              },
+              "role": "continuous_grip",
+              "target": {
+                "kind": "tool_anchor",
+                "toolKey": "cup",
+                "anchor": "right",
+                "transform": "final-sampled-tool-matrix"
+              },
+              "contactExpected": true
+            },
+            {
+              "id": "lower-held",
+              "when": {
+                "op": "range",
+                "variable": "progress",
+                "min": 0.66,
+                "max": 0.92,
+                "includeMax": false
+              },
+              "role": "continuous_grip",
+              "target": {
+                "kind": "tool_anchor",
+                "toolKey": "cup",
+                "anchor": "right",
+                "transform": "final-sampled-tool-matrix"
+              },
+              "contactExpected": true
+            },
+            {
+              "id": "held-rest-return",
+              "when": {
+                "op": "range",
+                "variable": "progress",
+                "min": 0.92,
+                "max": 1,
+                "includeMax": true
+              },
+              "role": "continuous_grip",
+              "target": {
+                "kind": "tool_anchor",
+                "toolKey": "cup",
+                "anchor": "right",
+                "transform": "final-sampled-tool-matrix"
+              },
+              "contactExpected": true
+            }
+          ],
+          "sourceFrameRequest": {
+            "identitySource": "approvedIdentity",
+            "referenceFamily": "hold",
+            "referenceNativeEnvelope": [
+              13,
+              13
+            ],
+            "allowedRealizations": [
+              "source-contact-frames",
+              "generic-IK"
+            ],
+            "join": "source-observed open wrist continuing into short distinct forearm; no full root ring"
+          },
+          "occlusion": {
+            "front": {
+              "status": "blocked",
+              "reason": "left vessel/right handle source-specific layering required"
+            },
+            "three-quarter": {
+              "status": "blocked",
+              "reason": "near/far action registration is not certified by mirrored source alone"
+            }
+          }
+        }
+      },
+      "instanceOverrides": [
+        {
+          "id": "paper-return-handoff-recovery",
+          "when": {
+            "all": [
+              {
+                "flag": "action-capability.handoffRecovery",
+                "equals": true
+              },
+              {
+                "variable": "handoffRecovery",
+                "gt": 0
+              }
+            ]
+          },
+          "source": "handoffCup",
+          "scope": "only-this-handoff-instance",
+          "phaseVariable": "handoffRecovery",
+          "phases": [
+            {
+              "id": "drop-held",
+              "range": [
+                0,
+                0.7
+              ],
+              "role": "continuous_grip",
+              "target": "shift existing cup and hands together by existing drop function"
+            },
+            {
+              "id": "release-and-home",
+              "range": [
+                0.7,
+                1
+              ],
+              "role": "free_gesture",
+              "target": "existing hand-to-home blend",
+              "opacity": "existing 1-release fade"
+            }
+          ],
+          "dropFunction": {
+            "op": "multiply",
+            "args": [
+              5,
+              {
+                "op": "smoothstep",
+                "input": {
+                  "op": "divide",
+                  "args": [
+                    {
+                      "variable": "handoffRecovery"
+                    },
+                    0.6
+                  ]
+                }
+              }
+            ]
+          },
+          "status": "blocked-source-transition-unverified"
+        }
+      ]
+    },
+    "type-keyboard": {
+      "samplingEvidence": [
+        "runtimeContact",
+        "rasterManifest",
+        "sampledFamilies"
+      ],
+      "requestedInitialView": "front",
+      "otherViews": "blocked-independent-key-plane-and-near-far-registration",
+      "tool": {
+        "key": "keyboard-front",
+        "size": [
+          50,
+          16
+        ],
+        "origin": [
+          9,
+          53
+        ],
+        "transformOwner": "existing runtime sampler",
+        "localAnchors": {
+          "left": [
+            14,
+            6.125
+          ],
+          "right": [
+            35.875,
+            6.125
+          ]
+        }
+      },
+      "timing": {
+        "work": {
+          "op": "pulse",
+          "input": "progress",
+          "edges": [
+            0.02,
+            0.17,
+            0.82,
+            0.98
+          ]
+        },
+        "tap": {
+          "op": "multiply",
+          "args": [
+            {
+              "op": "sin",
+              "radians": {
+                "op": "multiply",
+                "args": [
+                  14,
+                  "pi",
+                  "progress"
+                ]
+              }
+            },
+            "work"
+          ]
+        },
+        "horizontalSway": {
+          "op": "multiply",
+          "args": [
+            {
+              "op": "sin",
+              "radians": {
+                "op": "multiply",
+                "args": [
+                  4,
+                  "pi",
+                  "progress"
+                ]
+              }
+            },
+            "work"
+          ]
+        }
+      },
+      "hands": {
+        "left": {
+          "status": {
+            "status": "blocked",
+            "reasons": [
+              "legacy palm-center endpoint is not underside-contact point",
+              "key-plane normal and exact touch timing require source evidence"
+            ]
+          },
+          "oldPointRole": {
+            "pointsEnd": "legacy-palm-center-guide",
+            "verticalOffsetFromToolAnchor": -2,
+            "source": "runtimeContact"
+          },
+          "propAnchor": {
+            "toolKey": "keyboard-front",
+            "name": "left",
+            "local": [
+              14,
+              6.125
+            ],
+            "source": "rasterManifest"
+          },
+          "surface": {
+            "kind": "key-top-candidate",
+            "pointSource": "transformed named tool anchor; surface boundary registration pending",
+            "normal": {
+              "value": null,
+              "space": "body-art",
+              "status": "blocked",
+              "source": null,
+              "reason": "no source-certified key-plane contact normal yet"
+            },
+            "source": "rasterManifest"
+          },
+          "guideTrajectory": {
+            "targetY": "tool-anchor-y - 2 - lift",
+            "lift": {
+              "op": "multiply",
+              "args": [
+                4,
+                {
+                  "op": "max",
+                  "args": [
+                    0,
+                    {
+                      "op": "multiply",
+                      "args": [
+                        1,
+                        "tap"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "targetX": {
+              "op": "add",
+              "args": [
+                "tool-anchor-x",
+                {
+                  "op": "multiply",
+                  "args": [
+                    1,
+                    "horizontalSway"
+                  ]
+                }
+              ]
+            },
+            "pointToContactConversion": {
+              "status": "blocked",
+              "value": null,
+              "reason": "verify legacy center-to-new underside relation in source; never silently add2 to all hands"
+            }
+          },
+          "phases": [
+            {
+              "id": "lift-or-recover",
+              "when": {
+                "op": "gt",
+                "left": {
+                  "op": "multiply",
+                  "args": [
+                    1,
+                    "tap"
+                  ]
+                },
+                "right": 0
+              },
+              "role": "free_gesture",
+              "contactExpected": false,
+              "target": {
+                "kind": "legacy-guide",
+                "description": "existing lifted palm-center trajectory"
+              },
+              "normalRequired": false
+            },
+            {
+              "id": "lower-touch-candidate",
+              "when": {
+                "op": "lte",
+                "left": {
+                  "op": "multiply",
+                  "args": [
+                    1,
+                    "tap"
+                  ]
+                },
+                "right": 0
+              },
+              "role": "point_touch",
+              "contactExpected": true,
+              "target": {
+                "kind": "tool_anchor",
+                "toolKey": "keyboard-front",
+                "anchor": "left",
+                "transform": "final-sampled-tool-matrix"
+              },
+              "physicalContactStatus": "blocked-until-source-underside-registration",
+              "note": "timing candidate only; do not claim whole low half-cycle is verified physical keypress"
+            }
+          ],
+          "sourceFrameRequest": {
+            "identitySource": "approvedIdentity",
+            "referenceFamily": "press",
+            "referenceNativeEnvelope": [
+              14,
+              12
+            ],
+            "keyPoses": [
+              "actual underside contacting immutable key surface",
+              "slightly lifted recovery with same open wrist join"
+            ],
+            "allowedRealizations": [
+              "source-contact-frames",
+              "generic-IK"
+            ],
+            "join": "source-observed forearm-palm continuity; no sticker circle or blanket foreground forearm"
+          }
+        },
+        "right": {
+          "status": {
+            "status": "blocked",
+            "reasons": [
+              "legacy palm-center endpoint is not underside-contact point",
+              "key-plane normal and exact touch timing require source evidence"
+            ]
+          },
+          "oldPointRole": {
+            "pointsEnd": "legacy-palm-center-guide",
+            "verticalOffsetFromToolAnchor": -2,
+            "source": "runtimeContact"
+          },
+          "propAnchor": {
+            "toolKey": "keyboard-front",
+            "name": "right",
+            "local": [
+              35.875,
+              6.125
+            ],
+            "source": "rasterManifest"
+          },
+          "surface": {
+            "kind": "key-top-candidate",
+            "pointSource": "transformed named tool anchor; surface boundary registration pending",
+            "normal": {
+              "value": null,
+              "space": "body-art",
+              "status": "blocked",
+              "source": null,
+              "reason": "no source-certified key-plane contact normal yet"
+            },
+            "source": "rasterManifest"
+          },
+          "guideTrajectory": {
+            "targetY": "tool-anchor-y - 2 - lift",
+            "lift": {
+              "op": "multiply",
+              "args": [
+                4,
+                {
+                  "op": "max",
+                  "args": [
+                    0,
+                    {
+                      "op": "multiply",
+                      "args": [
+                        -1,
+                        "tap"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "targetX": {
+              "op": "add",
+              "args": [
+                "tool-anchor-x",
+                {
+                  "op": "multiply",
+                  "args": [
+                    -1,
+                    "horizontalSway"
+                  ]
+                }
+              ]
+            },
+            "pointToContactConversion": {
+              "status": "blocked",
+              "value": null,
+              "reason": "verify legacy center-to-new underside relation in source; never silently add2 to all hands"
+            }
+          },
+          "phases": [
+            {
+              "id": "lift-or-recover",
+              "when": {
+                "op": "gt",
+                "left": {
+                  "op": "multiply",
+                  "args": [
+                    -1,
+                    "tap"
+                  ]
+                },
+                "right": 0
+              },
+              "role": "free_gesture",
+              "contactExpected": false,
+              "target": {
+                "kind": "legacy-guide",
+                "description": "existing lifted palm-center trajectory"
+              },
+              "normalRequired": false
+            },
+            {
+              "id": "lower-touch-candidate",
+              "when": {
+                "op": "lte",
+                "left": {
+                  "op": "multiply",
+                  "args": [
+                    -1,
+                    "tap"
+                  ]
+                },
+                "right": 0
+              },
+              "role": "point_touch",
+              "contactExpected": true,
+              "target": {
+                "kind": "tool_anchor",
+                "toolKey": "keyboard-front",
+                "anchor": "right",
+                "transform": "final-sampled-tool-matrix"
+              },
+              "physicalContactStatus": "blocked-until-source-underside-registration",
+              "note": "timing candidate only; do not claim whole low half-cycle is verified physical keypress"
+            }
+          ],
+          "sourceFrameRequest": {
+            "identitySource": "approvedIdentity",
+            "referenceFamily": "press",
+            "referenceNativeEnvelope": [
+              14,
+              12
+            ],
+            "keyPoses": [
+              "actual underside contacting immutable key surface",
+              "slightly lifted recovery with same open wrist join"
+            ],
+            "allowedRealizations": [
+              "source-contact-frames",
+              "generic-IK"
+            ],
+            "join": "source-observed forearm-palm continuity; no sticker circle or blanket foreground forearm"
+          }
+        }
+      }
+    },
+    "catch-star": {
+      "samplingEvidence": [
+        "runtimeContact",
+        "rasterManifest"
+      ],
+      "status": "audit-role-correction-only",
+      "tool": {
+        "key": "star",
+        "size": [
+          17,
+          17
+        ],
+        "localAnchors": {
+          "right": [
+            8.375,
+            14
+          ]
+        }
+      },
+      "timing": {
+        "lower": {
+          "op": "smoothstep",
+          "input": {
+            "op": "divide",
+            "args": [
+              {
+                "op": "subtract",
+                "args": [
+                  "progress",
+                  0.67
+                ]
+              },
+              0.23
+            ]
+          }
+        }
+      },
+      "hands": {
+        "right": {
+          "oldPointRole": {
+            "pointsEnd": "free reach target then approximate star right anchor",
+            "source": "runtimeContact"
+          },
+          "status": {
+            "status": "blocked",
+            "reasons": [
+              "compact source receiving/grasp pose and normal missing"
+            ]
+          },
+          "phases": [
+            {
+              "id": "approach",
+              "when": {
+                "op": "range",
+                "variable": "progress",
+                "min": 0,
+                "max": 0.42,
+                "includeMax": false
+              },
+              "role": "free_gesture",
+              "target": {
+                "kind": "authored-free-trajectory",
+                "source": "runtimeContact"
+              },
+              "contactExpected": false
+            },
+            {
+              "id": "captured",
+              "when": {
+                "op": "range",
+                "variable": "progress",
+                "min": 0.42,
+                "max": 0.67,
+                "includeMax": false
+              },
+              "role": "continuous_grip",
+              "target": {
+                "kind": "tool_anchor",
+                "toolKey": "star",
+                "anchor": "right",
+                "transform": "final-sampled-tool-matrix"
+              },
+              "contactExpected": true
+            },
+            {
+              "id": "lower-held",
+              "when": {
+                "op": "range",
+                "variable": "progress",
+                "min": 0.67,
+                "max": 1,
+                "includeMax": true
+              },
+              "role": "continuous_grip",
+              "target": {
+                "kind": "tool_anchor",
+                "toolKey": "star",
+                "anchor": "right",
+                "transform": "final-sampled-tool-matrix"
+              },
+              "contactExpected": true
+            }
+          ],
+          "surface": {
+            "kind": "star-right-contact-unverified",
+            "normal": {
+              "value": null,
+              "space": "body-art",
+              "status": "blocked",
+              "source": null,
+              "reason": "actual star/palm contact normal not registered"
+            }
+          },
+          "anchorMismatch": {
+            "sampledTargetMinusActualAnchor": [
+              0.125,
+              0
+            ],
+            "status": "measured-not-corrected"
+          },
+          "sourceFrameRequest": {
+            "referenceIdentity": "approvedIdentity",
+            "notAuthorizedSubstitute": "cup hold does not establish star grip"
+          }
+        },
+        "left": {
+          "roleIntent": "free_gesture",
+          "presence": {
+            "op": "gt",
+            "left": "lower",
+            "right": 0.3
+          },
+          "oldPointRole": {
+            "pointsEnd": "auxiliary free gesture outside star bounds",
+            "source": "runtimeContact"
+          },
+          "propAnchor": null,
+          "surface": null,
+          "normal": {
+            "value": null,
+            "status": "not-applicable",
+            "source": null
+          },
+          "relativeTargetToStarOrigin": [
+            -1.5,
+            17
+          ],
+          "phases": [
+            {
+              "id": "auxiliary-lowering-gesture",
+              "when": {
+                "op": "gt",
+                "left": "lower",
+                "right": 0.3
+              },
+              "role": "free_gesture",
+              "contactExpected": false,
+              "target": {
+                "kind": "authored-free-trajectory",
+                "source": "runtimeContact"
+              },
+              "normalRequired": false
+            }
+          ],
+          "status": {
+            "status": "blocked",
+            "reasons": [
+              "source gesture shape/orientation still needed; no grasp inferred"
+            ]
+          }
+        }
+      }
+    },
+    "workout": {
+      "status": "support-surface-candidate-only",
+      "samplingEvidence": [
+        "rasterPose",
+        "rasterPaws"
+      ],
+      "surface": {
+        "kind": "fixed-floor",
+        "worldY": 64,
+        "localY": "64-groundShift",
+        "transformOwner": "existing runtime root transform",
+        "maxPenetration": 0
+      },
+      "hands": {
+        "left": {
+          "status": {
+            "status": "blocked",
+            "reasons": [
+              "loaded/recovery contact windows not source-certified",
+              "integer lattice cannot maintain floor boundary across full motion"
+            ]
+          },
+          "oldPointRole": {
+            "pointsEnd": "floor-boundary-target",
+            "source": "rasterPaws"
+          },
+          "propAnchor": null,
+          "surface": {
+            "kind": "fixed-floor",
+            "normal": {
+              "value": [
+                0,
+                1
+              ],
+              "space": "body-art",
+              "status": "source-registered-candidate",
+              "sourceByView": {
+                "front": "levelSupportFront",
+                "three-quarter": "levelSupportQuarter"
+              }
+            },
+            "contactPointRole": "opaque-pixel-center",
+            "desiredCenterY": "local-floor-y - 0.5"
+          },
+          "phases": [
+            {
+              "id": "candidate-support",
+              "when": {
+                "op": "range",
+                "variable": "progress",
+                "min": 0,
+                "max": 1,
+                "includeMax": true
+              },
+              "role": "planted_support",
+              "contactExpected": true,
+              "physicalContactStatus": "blocked-loaded-interval-unverified",
+              "target": {
+                "kind": "surface-boundary-derived-center",
+                "surface": "fixed-floor"
+              },
+              "note": "not a claim that whole action is loaded support"
+            }
+          ],
+          "allowedRealizations": [
+            "source-contact-frames",
+            "generic-IK"
+          ]
+        },
+        "right": {
+          "status": {
+            "status": "blocked",
+            "reasons": [
+              "loaded/recovery contact windows not source-certified",
+              "integer lattice cannot maintain floor boundary across full motion"
+            ]
+          },
+          "oldPointRole": {
+            "pointsEnd": "floor-boundary-target",
+            "source": "rasterPaws"
+          },
+          "propAnchor": null,
+          "surface": {
+            "kind": "fixed-floor",
+            "normal": {
+              "value": [
+                0,
+                1
+              ],
+              "space": "body-art",
+              "status": "source-registered-candidate",
+              "sourceByView": {
+                "front": "levelSupportFront",
+                "three-quarter": "levelSupportQuarter"
+              }
+            },
+            "contactPointRole": "opaque-pixel-center",
+            "desiredCenterY": "local-floor-y - 0.5"
+          },
+          "phases": [
+            {
+              "id": "candidate-support",
+              "when": {
+                "op": "range",
+                "variable": "progress",
+                "min": 0,
+                "max": 1,
+                "includeMax": true
+              },
+              "role": "planted_support",
+              "contactExpected": true,
+              "physicalContactStatus": "blocked-loaded-interval-unverified",
+              "target": {
+                "kind": "surface-boundary-derived-center",
+                "surface": "fixed-floor"
+              },
+              "note": "not a claim that whole action is loaded support"
+            }
+          ],
+          "allowedRealizations": [
+            "source-contact-frames",
+            "generic-IK"
+          ]
+        }
+      }
+    }
+  },
+  "censusPolicy": {
+    "legacySampleCount": 1707,
+    "meaning": "requested-view midpoint hand records, not1707 uniform physical contacts or unique poses",
+    "mustPartitionBy": [
+      "resolved action instance",
+      "actual view",
+      "side",
+      "role",
+      "phase",
+      "normal/source readiness",
+      "realization"
+    ],
+    "prohibitedMetric": "single error-threshold pass count presented as action acceptance"
+  }
+}

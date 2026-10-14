@@ -1,0 +1,284 @@
+{
+  "schema": "dango-prototype-mask/1",
+  "source": "sources/masters/missing-four-poses-v2.png",
+  "sourceSha256": "08212dadb5ad3c16106062a50010d48e9df53d361bb58abbd185c115ac6a74f9",
+  "alphaMethod": "explicit hand-traced geometry, exact source RGB",
+  "frames": [
+    {
+      "name": "front-press-left",
+      "view": "front",
+      "side": "image-left authored press paw",
+      "crop": [
+        268,
+        288,
+        101,
+        88
+      ],
+      "root": [
+        290,
+        313
+      ],
+      "grip": [
+        321,
+        337
+      ],
+      "wristAxisDegrees": 38,
+      "contactNormal": [
+        0,
+        1
+      ],
+      "polygon": [
+        [
+          290,
+          298
+        ],
+        [
+          305,
+          295
+        ],
+        [
+          328,
+          296
+        ],
+        [
+          342,
+          301
+        ],
+        [
+          346,
+          307
+        ],
+        [
+          354,
+          314
+        ],
+        [
+          358,
+          322
+        ],
+        [
+          361,
+          331
+        ],
+        [
+          361,
+          345
+        ],
+        [
+          356,
+          352
+        ],
+        [
+          351,
+          357
+        ],
+        [
+          347,
+          361
+        ],
+        [
+          335,
+          365
+        ],
+        [
+          306,
+          366
+        ],
+        [
+          301,
+          363
+        ],
+        [
+          294,
+          361
+        ],
+        [
+          290,
+          356
+        ],
+        [
+          284,
+          350
+        ],
+        [
+          279,
+          345
+        ],
+        [
+          276,
+          337
+        ],
+        [
+          277,
+          326
+        ],
+        [
+          282,
+          314
+        ],
+        [
+          285,
+          304
+        ]
+      ],
+      "registration": {
+        "prop": "keyboard",
+        "contactPoint": [
+          322,
+          366
+        ],
+        "rootStatus": "open pink proximal top-left shoulder-to-palm transition; no keyboard keys included"
+      },
+      "bodyScaleAudit": {
+        "sourceBodyWidth": 417,
+        "canonicalBodyWidth": 69.415385,
+        "artPxPerSourcePx": 0.1664637529976019,
+        "method": "clean y230/250/270, x223..639 inclusive outer ink",
+        "independentMeasurement": true,
+        "isotropicOnly": true
+      },
+      "sourceCropFile": "sources/crops/missing-paw-source-candidates/front-press-left-source-isolated.png",
+      "originalMaskFileIdentifier": "front-press-left-source-mask.png",
+      "axisRole": "source anatomical wrist toward palm, not invented bone marker",
+      "root_crop": [
+        22,
+        25
+      ]
+    },
+    {
+      "name": "front-support-left",
+      "view": "front",
+      "side": "image-left authored flat supporting paw",
+      "crop": [
+        824,
+        311,
+        103,
+        68
+      ],
+      "root": [
+        885,
+        326
+      ],
+      "grip": [
+        876,
+        352
+      ],
+      "wristAxisDegrees": 109,
+      "contactNormal": [
+        0,
+        1
+      ],
+      "polygon": [
+        [
+          875,
+          318
+        ],
+        [
+          887,
+          318
+        ],
+        [
+          899,
+          326
+        ],
+        [
+          909,
+          334
+        ],
+        [
+          918,
+          344
+        ],
+        [
+          920,
+          354
+        ],
+        [
+          916,
+          362
+        ],
+        [
+          908,
+          367
+        ],
+        [
+          899,
+          372
+        ],
+        [
+          853,
+          372
+        ],
+        [
+          849,
+          368
+        ],
+        [
+          843,
+          365
+        ],
+        [
+          839,
+          361
+        ],
+        [
+          835,
+          356
+        ],
+        [
+          833,
+          349
+        ],
+        [
+          834,
+          342
+        ],
+        [
+          839,
+          337
+        ],
+        [
+          843,
+          331
+        ],
+        [
+          851,
+          327
+        ],
+        [
+          860,
+          325
+        ],
+        [
+          869,
+          323
+        ]
+      ],
+      "registration": {
+        "prop": "wood block",
+        "contactPoint": [
+          876,
+          372
+        ],
+        "rootStatus": "short pink wrist cap retained at y318; shoulder-side round upper arm excluded",
+        "surface": "flat palm underside, no block included"
+      },
+      "bodyScaleAudit": {
+        "sourceBodyWidth": 420,
+        "canonicalBodyWidth": 69.415385,
+        "artPxPerSourcePx": 0.1652747261904762,
+        "method": "clean y230/250/270, x893..1312 inclusive outer ink",
+        "independentMeasurement": true,
+        "isotropicOnly": true
+      },
+      "sourceCropFile": "sources/crops/missing-paw-source-candidates/front-support-left-source-isolated.png",
+      "originalMaskFileIdentifier": "front-support-left-source-mask.png",
+      "axisRole": "source anatomical wrist toward palm, not invented bone marker",
+      "root_crop": [
+        61,
+        15
+      ]
+    }
+  ],
+  "pathsRelativeTo": "Asset package root; identifier-only fields are historical labels."
+}

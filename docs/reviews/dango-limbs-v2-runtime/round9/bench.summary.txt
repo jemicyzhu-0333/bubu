@@ -1,0 +1,53 @@
+{
+  "dango_b762608_ms": 0.96075,
+  "dango_HEAD_ms": 0.9550000000000001,
+  "dango_forced_ms": 0.954,
+  "usagi_b762608_ms": 1.1580000000000001,
+  "usagi_HEAD_ms": 1.1837499999999999,
+  "usagi_forced_ms": 1.1275,
+  "detail": {
+    "bubu/pink": {
+      "rounds": [
+        0.975,
+        0.935
+      ],
+      "median": 0.9550000000000001
+    },
+    "bubu/usagi": {
+      "rounds": [
+        1.158,
+        1.2095
+      ],
+      "median": 1.1837499999999999
+    },
+    "bubu-b7/pink": {
+      "rounds": [
+        0.971,
+        0.9504999999999999
+      ],
+      "median": 0.96075
+    },
+    "bubu-b7/usagi": {
+      "rounds": [
+        1.229,
+        1.0870000000000002
+      ],
+      "median": 1.1580000000000001
+    },
+    "bubu-r9forced/pink": {
+      "rounds": [
+        0.971,
+        0.937
+      ],
+      "median": 0.954
+    },
+    "bubu-r9forced/usagi": {
+      "rounds": [
+        1.153,
+        1.1019999999999999
+      ],
+      "median": 1.1275
+    }
+  },
+  "note": "2 interleaved rounds x 12 actions x 300 frames; median of per-action means then median across rounds"
+}

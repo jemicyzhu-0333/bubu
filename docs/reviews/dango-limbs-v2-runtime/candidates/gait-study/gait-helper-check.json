@@ -1,0 +1,46 @@
+{
+  "run": {
+    "samples": 10001,
+    "supportCounts": [
+      1,
+      0
+    ],
+    "flightSamples": 2112,
+    "maxSupportContactError": 0,
+    "maxAnkleJumpAtDiscreteFrameSwitch": 1,
+    "framesUsed": [
+      "near-support",
+      "far-recovery",
+      "far-forward",
+      "far-reach",
+      "far-support",
+      "near-trailing",
+      "near-recovery",
+      "near-reach"
+    ],
+    "minimumQuantizedClearance": 0,
+    "status": "geometry proposal only; frame-switch jumps reported, not accepted"
+  },
+  "walk": {
+    "samples": 10001,
+    "supportCounts": [
+      2,
+      1
+    ],
+    "flightSamples": 0,
+    "maxSupportContactError": 0,
+    "maxAnkleJumpAtDiscreteFrameSwitch": 1,
+    "framesUsed": [
+      "near-support",
+      "far-support",
+      "far-recovery",
+      "far-forward",
+      "far-reach",
+      "near-trailing",
+      "near-recovery",
+      "near-reach"
+    ],
+    "minimumQuantizedClearance": 0,
+    "status": "geometry proposal only; frame-switch jumps reported, not accepted"
+  }
+}

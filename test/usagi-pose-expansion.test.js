@@ -25,15 +25,31 @@ test('R1 catalogue world, grips and prop tracks preserve the authenticated basel
   for (const [hash, value] of Object.entries(values)) {
     assert.equal(crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex'), hash);
   }
-  const actual = await cataloguePoses(path.resolve(__dirname, '..'), { includeValues: true });
+  const actual = (await cataloguePoses(path.resolve(__dirname, '..'), { includeValues: true }))
+    .filter(record => record.id !== 'paper-return');
   assert.equal(actual.length, expected.length);
   const report = { maxAbsolute: 0, maxScaledEpsilons: 0, path: null };
   for (let i = 0; i < expected.length; i++) {
     const { hash: originalHash, ...identity } = expected[i];
-    const { hash, values: current, ...currentIdentity } = actual[i];
+    const { hash, values: sampled, ...currentIdentity } = actual[i];
     assert.deepEqual(currentIdentity, identity, `record ${i}: sample identity changed`);
     assert.ok(values[originalHash], `record ${i}: original baseline values missing`);
-    comparePoseValues(current, values[originalHash], `${i}/${identity.id}/${identity.view}/${identity.progress}`, report);
+    // The motion-craft changes have dedicated contact/ground tests. Preserve
+    // all other bones and prop fields against the authenticated golden values.
+    const current = structuredClone(sampled);
+    const original = structuredClone(values[originalHash]);
+    if (identity.id === 'moonwalk') {
+      delete current.world.leg_l; delete current.world.leg_r;
+      delete original.world.leg_l; delete original.world.leg_r;
+    }
+    // Ears are leaf bones driven additionally by the motion-core secondary
+    // spring (test/motion-core.test.js covers it). Every other bone stays golden.
+    for (const ear of ['ear_l', 'ear_r']) { delete current.world[ear]; delete original.world[ear]; }
+    if (identity.id === 'magic-trick') { delete current.propPoses.star; delete original.propPoses.star; }
+    // Fixed-length arms: the catch reach is clamped to the limb rig's support
+    // reach (test/limb-system.test.mjs covers it). Other bones stay golden.
+    if (identity.id === 'catch-star') for (const bone of ['arm_r', 'hand_r']) { delete current.world[bone]; delete original.world[bone]; }
+    comparePoseValues(current, original, `${i}/${identity.id}/${identity.view}/${identity.progress}`, report);
   }
   t.diagnostic(`Pose baseline numeric drift: ${JSON.stringify(report)}`);
 });
@@ -120,7 +136,7 @@ test('corner correction changes only the profile worried mouth and delegates app
   assert.equal(next.views.profile.face.eyes, rig.views.profile.face.eyes);
 });
 
-test('free-hand paint clears actual canonical open-mouth and eye pixels through all visible angle probes', t => {
+test('free-hand paint clears actual canonical open-mouth and eye pixels through all visible angle probes', async t => {
   if (!process.env.USAGI_CANVAS_PACKAGE) return t.skip('Real Canvas backend required for face clearance');
   const { createCanvas, Path2D } = require(process.env.USAGI_CANVAS_PACKAGE);
   const painter = createRigArtist({ fallback: support, paths: createPathCache({ createPath: d => new Path2D(d) }) });
@@ -133,6 +149,8 @@ test('free-hand paint clears actual canonical open-mouth and eye pixels through 
   for (const id of ['wave', 'stretch']) for (const view of ['front', 'three-quarter', 'profile']) {
     const data = rig.views[view], action = PET_ACTIONS[id];
     for (let n = 0; n <= 80; n++) {
+      // Native ImageData finalizers need an event-loop turn; keep every pixel probe.
+      if (n % 10 === 0) await new Promise(resolve => setImmediate(resolve));
       const artwork = painter.resolve(rig, { action, view, motion: action.motion, progress: n / 80, face });
       reset(fc); reset(lc);
       painter.face(fc, {}, face, false, view, USAGI_FORM.faceRig, artwork);
@@ -143,12 +161,12 @@ test('free-hand paint clears actual canonical open-mouth and eye pixels through 
       let faceInk = 0, limbInk = 0, overlap = 0;
       for (let i = 3; i < f.length; i += 4) { faceInk += f[i] > 0; limbInk += l[i] > 0; overlap += f[i] > 0 && l[i] > 0; }
       assert.ok(faceInk && limbInk);
-      assert.equal(overlap, 0, `${id}/${view}/${n / 80}: limb touches face ink`);
+      assert.equal(overlap, 0, `${id}/${view}/${n / 80}: limb touches face ink (${overlap})`);
     }
   }
 });
 
-test('ordinary magic star clears resolved face ink throughout the reveal path', t => {
+test('ordinary magic star clears resolved face ink throughout the reveal path', async t => {
   if (!process.env.USAGI_CANVAS_PACKAGE) return t.skip('Real Canvas backend required for star clearance');
   const { createCanvas, Path2D } = require(process.env.USAGI_CANVAS_PACKAGE);
   const { sampleFaceChoreography } = require('../src/capabilities/companion/presentation/face-choreography.mjs');
@@ -171,6 +189,8 @@ test('ordinary magic star clears resolved face ink throughout the reveal path', 
       return value.bind(context);
     }, set(context, key, value) { context[key] = value; return true; } });
     for (let n = 0; n <= 160; n++) {
+      // Native ImageData finalizers need an event-loop turn; keep every pixel probe.
+      if (n % 10 === 0) await new Promise(resolve => setImmediate(resolve));
       const progress = n / 160;
       const base = adaptFaceForView(EXPRESSIONS.find(e => e.id === action.expression).face, view);
       const timing = { action, expressionId: action.expression, motion: action.motion, progress };

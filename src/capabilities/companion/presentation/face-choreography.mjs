@@ -1,11 +1,12 @@
 'use strict';
+import { clamp01, hermite } from './motion-core/easing.mjs';
 import { EXPRESSIONS } from '../../../content/expressions.mjs';
 import { sampleExpressionFace } from './expression-phrases.mjs';
 import { sampleInteractionFace } from './interaction-presentation.mjs';
 const FACES = Object.freeze(Object.fromEntries(EXPRESSIONS.map(expression => [expression.id, expression.face])));
 const TAU = Math.PI * 2;
-const clamp = value => Math.max(0, Math.min(1, Number(value) || 0));
-const smooth = t => t * t * (3 - 2 * t);
+const clamp = clamp01;
+const smooth = hermite;
 // Each recipe describes attention, effort/contact, and recovery. Geometry is
 // still supplied by the independent SVG eye/mouth layers, never a baked frame.
 const RECIPES = Object.freeze({

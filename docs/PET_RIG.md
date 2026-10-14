@@ -284,6 +284,30 @@ Usagi 的打哈欠与击掌使用短而厚的开口根轮廓，远手在身体�
 普通 magic-trick 的星星从帽沿下方移到脸外再升起，保留旋转、透明度与时序；click-30 的
 情境召星不进入这一分支。photo-pose 仍为对着场景相机摆姿势，不新增握相机动作。
 
-手部轮廓在故事阶段切换后继续跟随实际混合腕位；仅在仍超出旧连接臂阈值时保留，缩回后恢复原短掌。
+手部轮廓在故事阶段切换后继续跟随实际混合腕位；意图切换（故事段落、放手、手势结束）以 `intentFadeMs` 在通道时钟上淡入淡出，不再硬切。
+
+### 统一肢体系统（limbs v2）
+
+所有 Usagi 手臂只由一个模块产生：`presentation/usagi-limbs.mjs`。原来的三套画法（`usagi-support` 的连接管 + 奶油色覆盖线、`usagi-contact-limbs` 按 motion 分支的贝塞尔接触手、`usagi-gesture-limbs` 的私有肩点）已删除，同名导出仅作为兼容视图保留。
+
+- **插槽**：`content/companion/usagi-limbs.mjs` 的 `USAGI_LIMB_RIG.sockets[view][side]`（根骨空间）。肢体根部埋入身体 `bury` 单位；两条边的描边按几何裁掉落在「身体内 ∩ 插槽圆 `socketRadius`」里的那一段（干净圆头，不做裁剪遮罩，不留细楔），身体外的描边始终画出，与身体线接上。手臂轮廓与身体轮廓合成一条线，不画肩部封口、不画奶油色补丁。支撑臂只画在身体轮廓外；背面视角的手臂只在身体外可见，加掌心一圈。
+- **腿**：脚是 IK 目标（姿势决定落点），髋插槽是腿骨枢轴在根骨下的位置（`USAGI_LEG_RIG`）。收腿（腿顶在髋上方且在身体内）被身体挡住，保持原像素；腿顶被拉到髋下方时，`solveUsagiLegs` 以腿最低点的世界水平线为不动线做剪切 + 纵向缩放，让腿顶回到髋插槽，地面像素不变。结果写在 `artwork.pose.partWorld`，只影响腿部件；靴子等挂件仍用骨矩阵。
+- **骨长**：`arm.upper/lower` 固定（各 16）。motion-core `solveTwoBone` 求肘：肘偏移受意图预设 `maxBend` 限制、朝外（或按侧）弯；目标比允许的弯曲更近时，链根沿插槽轴缩回（连续，无阈值）。自由伸手声明 `supportReach`，超出时 `placePaw` 把爪子落在可达圆上，绑在手骨上的道具随之移动；握持道具的目标保持原值（腕部永远等于手骨枢轴）。
+- **意图**：`USAGI_LIMB_INTENTS` 是只按 pose motion、道具、侧、contactAction、gesture 匹配的数据表（不按动作 id）；动作可在 capabilities 中以 `limbs: { l, r }` 覆盖。种类：`grip`（替换原短掌）、`gesture`（自由手，远侧画在身体后）、`support`（保留原短掌，肢体从其肩枢轴下方按伸展量连续长出，替代旧 8px 阈值）。
+- **连续性**：肘点每通道限速 `elbowSpeed`（单位/ms），无时钟（测试、离线）时为确定性纯函数。
+- **Dango**：`presentation/dango-limbs.mjs` 为每只接触手附加同一条插槽→IK→腕部链；存在 `assets/companion/dango/raster/limbs/limbs.json`（`dango-limbs/1`）时按 IK 角度选帧，否则沿用现有爪子贴图。
+- **检测**：`npm run limbs:check`（含在 `npm run check`）：全部动作与会话 × 四视图的几何追踪（画法跳变、无法由腕部运动解释的长度变化、超出骨长、腿离开髋插槽），以及在 Canvas 环境下的轮廓断口扫描（只计毛色边缘；伞杆、击掌光芒、激光点这类无描边道具/特效不算）。
+- **背面配饰层序**（`accessory-resolver` 的 `FORM_TRAITS.usagi.backPaws` / `pawPass`）：背面视角穿包身服装时，双爪有自己的 pass `between-cloth`，在服装 front pass 里画：在领饰、围巾、围裙（`frontHung`）之后，在披风（`coveredBy: usagi.backwear`，计划项 `coversPaws`）之前。只裁到身体外 + 掌心。不挖空，也不逐帧翻转层序。
+- **区域避让**（`regionClearance`）：动作细节锚在某个已佩戴槽位占用的区域时（团子回头标记 vs 头顶月牙），按视角让到该配饰旁边。
 
 AI协作确认修改与分层时间线不修改伙伴像素、素材、rig动作、坐标、碰撞或输入命中规则；相关UI由popover功能模块承担。伙伴v1美术冻结继续有效。
+
+### 共同地面与回返道具
+
+`grounded-moonwalk.mjs` 是纯脚步采样器，驱动两形态的身体横移和两个独立脚矩阵。它不控制原生窗口、不写状态、不新增时钟；实际衣柜继续使用同一脚/踝世界矩阵。`paper-return-story.mjs` 只定义回信纸飞机的有限轨迹、接触段与优先级受控表情；Usagi 的原生 propMatrix 与 Dango 的 toolMatrix 各自应用原道具握点，既有普通纸飞机动作不进入此覆盖。
+
+新耳夹仍由现有 `rigArtist.appearance` 施加 `ear_r` 世界矩阵，原生矢量画笔在挂点局部绘制。没有新骨骼、新渲染runtime、缓存层或持久shape；衣柜现有25件加两件耳夹，共27件。
+
+`paper-return` 被另一个手动动作替换时，呈现层可保留最多一个 420 ms 的收机快照：先回手、收臂、藏机，再从新动作拿取起点衔接到其原截止时间。进度重映射发生在分镜采样之前；请求身份使用既有 presentationEventId。新表达仍即时响应；减少动效、暂停/锁屏、菜单、拖拽、睡眠、切形态、input-safe / essential / session、取消及销毁立即清理。新动作若允许旧视角，只在该视觉实例沿用共同合法视角；不扩大全局动作视图，也不全身交叉淡化。
+
+这次纸机交接产生的 `sip-tea` 视觉实例还拥有末段收杯：杯下放并隐藏后双手回归该视图待机点，原动作到期时间不变。仅真实到期进入 base idle 时可继续保留共同合法视角字符串，action 仍为 null，不保留旧杯、手或动作快照；提前取消、新请求、非 base 表达或强约束立即交回原策略。直接启动的既有喝茶不受此限定修补影响。

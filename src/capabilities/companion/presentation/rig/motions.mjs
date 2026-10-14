@@ -1,5 +1,6 @@
 'use strict';
 
+import { hermite } from '../motion-core/easing.mjs';
 import { resolveMotionProps, samplePropPoses, PROP_NAMES } from './props.mjs';
 
 // Bone motions for a layered rig, keyed by the form's motion vocabulary
@@ -520,7 +521,7 @@ const TURNED_GRIPS = Object.freeze({
   telescope: [6, -3, 5, -9], umbrella: [0, 0, 17, 0]
 });
 
-const smooth = t => t * t * (3 - 2 * t);
+const smooth = hermite;
 
 function sampleTrack(keys, t) {
   if (!Array.isArray(keys) || !keys.length) return undefined;

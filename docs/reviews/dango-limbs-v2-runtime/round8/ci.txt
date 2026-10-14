@@ -1,0 +1,8 @@
+Round 8 CI @fc04b39 run 38446764361 (workflow_dispatch):
+- win-x64: success
+- mac-arm64 attempt1: FAIL at "Verify native macOS pet viewport without resizing"
+  message: pet-viewport-probe: failed (rounds)
+  (scripts/verify-pet-viewport.cjs stage=rounds; no assertion text logged by reportFailure)
+- mac-arm64 rerun: CANCELLED (conclusion cancelled at 18:58Z)
+Overall: failure. Code at fc04b39 was docs/assets/comment-only vs green 0407530 → suspected native-window flake after showInactive.
+Round 9 follows up with settle-before-rounds harden + fresh dispatch on new HEAD.

@@ -1,5 +1,9 @@
 'use strict';
 
+import { motionCaps } from './motion-core/action-capabilities.mjs';
+import { paperReturnFace } from './paper-return-story.mjs';
+import { secondarySwing } from './motion-core/secondary.mjs';
+import { motionOffset as bodyOffset } from './usagi-body-motion.mjs';
 import { combinationAccessory, quietAccessorySample } from './combination-accessories.mjs';
 import support from './usagi-support.mjs';
 import { SKINS } from '../../../skins.mjs';
@@ -19,7 +23,10 @@ import { USAGI_WARDROBE } from '../../../../assets/companion/usagi/wardrobe/usag
 import { usagiPartLayer } from './usagi-garment-depth.mjs';
 import { withUsagiEffectOrigins } from './usagi-effect-origins.mjs';
 import { usagiProfileFaceRig } from './usagi-face-projection.mjs';
-import { paintUsagiGestureUnderCloth } from './usagi-gesture-limbs.mjs';
+import { applyPoint } from './rig/pose.mjs';
+import { paintWithPawCutout } from './accessory-cutout.mjs';
+import { pawPass } from './motion-core/accessory-resolver.mjs';
+import { paintLimbsUnderCloth, clipOutsideBody } from './usagi-limbs.mjs';
 import { sampleUsagiEventFace, paintUsagiEventHeadphones } from './usagi-event-actions.mjs';
 import { paintUsagiEventLaptopBase } from './usagi-event-equipment.mjs';
 import { paintUsagiEventRobot } from './usagi-event-robot.mjs';
@@ -30,16 +37,17 @@ const rigArtist = createRigArtist({ fallback: support, partLayer: usagiPartLayer
 const wardrobe = createUsagiRasterWardrobe({ manifest: USAGI_WARDROBE });
 const ambient = createUsagiAmbientArt();
 
+const NO_SECONDARY = Object.freeze({ earwear: 0 });
 function resolveArtwork({ view, motion, face, calmVisual, progress, elapsedMs, channel, action,
   expressionId, expressionElapsedMs, appearance: outfit } = {}) {
   const rig = rigSource.get();
   const timing = { action, motion, progress, elapsedMs, calmVisual, expressionId, expressionElapsedMs };
-  const animatedFace = sampleUsagiEventFace(face, timing)
+  const animatedFace = paperReturnFace(face, timing) || sampleUsagiEventFace(face, timing)
     || sampleUsagiFaceTiming(sampleFaceChoreography(face, timing), face, timing);
   if (rig) {
     // The selected headwear owns the head. This gate does not depend on image
     // readiness and does not alter the equipped outfit or the action object.
-    const prop = action?.id === 'yawn' && action.prop === 'sleep-cap'
+    const prop = motionCaps(action).yieldPropToHeadwear && action.prop === motionCaps(action).yieldPropToHeadwear
       && outfit?.items?.some(item => item.exclusiveGroup === 'usagi.headwear') ? 'none' : undefined;
     const artwork = rigArtist.resolve(usagiProfileFaceRig(rig, action, view), { view, motion, face: animatedFace, calmVisual, progress, elapsedMs, channel, action, prop });
     // The hole remains at the floor while all character layers sink together.
@@ -49,7 +57,15 @@ function resolveArtwork({ view, motion, face, calmVisual, progress, elapsedMs, c
       robot: combinationAccessory(action, 'robot'),
       sample: quietAccessorySample(action)
     });
-    const dressed = Object.freeze({ ...dressedBase, combinationAccessories: accessories });
+    // Secondary layer: ear accessories trail the body's lateral motion on a
+    // spring (deterministic re-integration; off under calm/reduced motion).
+    const durationMs = action?.duration || action?.durationMs || 8000;
+    const signal = ms => bodyOffset(motion, ms / durationMs, false, { action }).x;
+    // Only paid for when an ear accessory is actually worn.
+    const wearsEar = outfit?.items?.some(item => item.exclusiveGroup === 'usagi.earwear');
+    const secondary = wearsEar ? Object.freeze({ earwear: secondarySwing(signal, (Number(progress) || 0) * durationMs,
+      { reducedMotion: calmVisual || !motion || motion === 'idle' }) }) : NO_SECONDARY;
+    const dressed = Object.freeze({ ...dressedBase, combinationAccessories: accessories, secondary });
     if (artwork.pose.sample.event?.category !== 'music' && !accessories.headphones) return dressed;
     const firstFront = outfit?.items?.find(item => (item.formId || 'dango') === 'usagi'
       && (wardrobe.appearanceLayers(item, artwork.drawnView) || item.parts || []).includes('front'));
@@ -104,26 +120,68 @@ function action(context, options) {
 
 // Usagi's native held mirror contains the reflection. Reusing the default
 // full-body twin would layer a second oversized rabbit over the real one.
-function actionOverlay(_context, action) { return action?.id === 'mirror-meet'; }
+function actionOverlay(_context, action) { return Boolean(motionCaps(action).overlayForms?.includes('usagi')); }
+
+function paintItem(context, resolved, options, artwork) {
+  const rasterReady = wardrobe.owns(options.item) && artwork.wardrobe?.ready
+    && artwork.wardrobe.rasterKeys.includes(options.item.renderKey);
+  return rasterReady ? wardrobe.appearance(context, resolved) : rigArtist.appearance(context, resolved);
+}
+
+function holdsFrontProp(data, artwork, side) {
+  return (artwork.pose?.sample?.props || []).some(id => {
+    const prop = data.props?.[id];
+    return prop && prop.layer !== 'back' && (prop.bone === `hand_${side}` || prop.bone === `arm_${side}`);
+  });
+}
+
+// Paw regions in front of the torso, for the resolver's hand cut-out.
+const PAW = Object.freeze({ rx: 6.2, ry: 5.2 });
+function usagiPaws(artwork) {
+  const data = artwork?.rig?.views?.[artwork.drawnView], world = artwork?.pose?.world;
+  if (!data || !world) return [];
+  const back = artwork.drawnView === 'back';
+  const paws = [];
+  for (const side of ['l', 'r']) {
+    const bone = data.bones[`hand_${side}`];
+    if (!bone || !world[`hand_${side}`]) continue;
+    // Tucked (far) paws stay under the cloth; only front paws are uncovered.
+    if (!back && usagiPartLayer({ bone: `hand_${side}`, layer: 'front' }, artwork) !== 'front') continue;
+    // Only a paw that actually carries a front prop is uncovered; erasing
+    // cloth over an empty paw position would just punch a hole in it.
+    // Back view: both shoulder paws are front-pass parts; the resolver asks for
+    // the cut only for neckwear that crosses them.
+    if (!back && !holdsFrontProp(data, artwork, side)) continue;
+    const [x, y] = applyPoint(world[`hand_${side}`], ...bone.pivot);
+    if (back ? x > -12 && x < 78 && y > 6 && y < 70 : x > 8 && x < 58 && y > 30 && y < 66) paws.push({ x, y, ...PAW });
+  }
+  return paws;
+}
 
 function appearance(context, options) {
   const artwork = options.artwork?.kind === 'rig' ? options.artwork
     : resolveArtwork({ view: options.view, appearance: options.appearance });
   return artwork ? withUsagiGroundClip(context, artwork, () => {
     const resolved = { ...options, artwork };
-    if (!options.fit && options.layer === 'front' && options.item.id === artwork.headphoneFrontItemId) {
-      paintUsagiEventHeadphones(context, artwork, 'front');
-    }
+    // The resolver's painted list (stowed/hidden items removed) decides which
+    // front item opens the cloth pass; the raw outfit is the portrait fallback.
+    const firstFront = options.paintedItems ? options.paintedItems[0]
+      : options.appearance?.items?.find(item => (item.formId || 'dango') === 'usagi'
+        && (wardrobe.appearanceLayers(item, artwork.drawnView) || item.parts || []).includes('front'));
+    const opensFront = !options.fit && options.layer === 'front' && options.item === firstFront;
+    if (opensFront && artwork.headphoneFrontItemId) paintUsagiEventHeadphones(context, artwork, 'front');
     // Paint the complete near limb after body/face and before the first front
     // item. Actual cloth then covers its root; no cream correction covers cloth.
-    const firstFront = options.appearance?.items?.find(item => (item.formId || 'dango') === 'usagi'
-      && (wardrobe.appearanceLayers(item, artwork.drawnView) || item.parts || []).includes('front'));
-    if (!options.fit && options.layer === 'front' && options.item === firstFront) {
-      paintUsagiGestureUnderCloth(context, resolved);
+    if (opensFront) {
+      rigArtist.layerParts(context, options.palette, artwork.drawnView, artwork, 'under-cloth');
+      paintLimbsUnderCloth(context, resolved);
     }
-    const rasterReady = wardrobe.owns(options.item) && artwork.wardrobe?.ready
-      && artwork.wardrobe.rasterKeys.includes(options.item.renderKey);
-    return rasterReady ? wardrobe.appearance(context, resolved) : rigArtist.appearance(context, resolved);
+    // Held-prop fallback: torso cloth is cut around the paws instead of
+    // swallowing them (and the prop they hold).
+    if (options.fitPlan?.cut === 'hands' && options.layer === 'front') {
+      return paintWithPawCutout(context, usagiPaws(artwork), target => paintItem(target, resolved, options, artwork));
+    }
+    return paintItem(context, resolved, options, artwork);
   }) : false;
 }
 
@@ -137,10 +195,36 @@ function appearanceForeground(context, options) {
     () => rigArtist.portraitForeground(context, options.palette, options.view, artwork));
 }
 
+// Resolver layer decomposition: the posed paws' own pass inside a garment pass.
+function layerDecomposition({ layer, artwork }) {
+  if (artwork?.kind !== 'rig') return null;
+  const rule = pawPass({ formId: 'usagi', view: artwork.drawnView, wrapsBody: Boolean(artwork.wardrobe?.wrapsBody) });
+  if (!rule || rule.within !== layer) return null;
+  return { paint: (context, palette) => {
+    // These paws are action front-pass parts; the matrix audit omits that pass.
+    if (globalThis.__petAuditOmitActionLayer === 'front') return false;
+    // Visible paw = the palm (over the cloth) plus whatever lies outside the
+    // body contour; the paw's root strip inside the body stays under the
+    // cloth, as it stays under the body line without an outfit.
+    const data = artwork.rig?.views?.[artwork.drawnView], world = artwork.pose?.world;
+    context.save();
+    const islands = [];
+    for (const side of ['l', 'r']) {
+      const bone = data?.bones[`hand_${side}`]; if (!bone || !world?.[`hand_${side}`]) continue;
+      const [x, y] = applyPoint(world[`hand_${side}`], ...bone.pivot); islands.push({ x, y, ...PAW });
+    }
+    if (data) clipOutsideBody(context, artwork, data, islands);
+    try {
+      return withUsagiGroundClip(context, artwork,
+        () => rigArtist.layerParts(context, palette, artwork.drawnView, artwork, rule.pass) > 0);
+    } finally { context.restore(); }
+  } };
+}
+
 function describeRig() { return rigSource.describe(); }
 
 export default Object.freeze({
-  resolveArtwork, subscribeArtwork, palette, resolveView, faceForView, body, face, action, actionOverlay, appearance,
+  layerDecomposition, resolveArtwork, subscribeArtwork, palette, resolveView, faceForView, body, face, action, actionOverlay, appearance,
   appearanceForeground,
   clipBody: withUsagiGroundClip,
   particle: drawUsagiParticle,

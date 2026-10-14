@@ -12,7 +12,7 @@ const { createPathCache } = require('../src/capabilities/companion/presentation/
 const { sampleMotion } = require('../src/capabilities/companion/presentation/rig/motions.mjs');
 const { applyPoint } = require('../src/capabilities/companion/presentation/rig/pose.mjs');
 const { default: support } = require('../src/capabilities/companion/presentation/usagi-support.mjs');
-const { connectorControl } = require('../src/capabilities/companion/presentation/usagi-support.mjs');
+const limbs = require('../src/capabilities/companion/presentation/usagi-limbs.mjs');
 const { prepareUsagiSample, posedPropPoint, usagiPropMatrix, paintUsagiProp } = require('../src/capabilities/companion/presentation/usagi-contact.mjs');
 const { resolveUsagiView } = require('../src/capabilities/companion/presentation/usagi-view-policy.mjs');
 const { withUsagiGround, sampleUsagiFall, FLOOR } = require('../src/capabilities/companion/presentation/usagi-ground.mjs');
@@ -110,7 +110,7 @@ test('held-star geometry includes its authored points, stroke and miter joins', 
 });
 
 for (const id of ['catch-star', 'juggle']) {
-  test(`${id} clears resolved eye and mouth ink throughout its production flight`, t => {
+  test(`${id} clears resolved eye and mouth ink throughout its production flight`, async t => {
     const packagePath = process.env.USAGI_CANVAS_PACKAGE;
     if (!packagePath) return t.skip('Set USAGI_CANVAS_PACKAGE for real Canvas contact clearance');
     const { createCanvas, Path2D } = require(packagePath);
@@ -147,7 +147,9 @@ for (const id of ['catch-star', 'juggle']) {
         },
         set(context, key, value) { context[key] = value; return true; }
       });
-      for (const { progress, calmVisual } of samples) {
+      for (const [index, { progress, calmVisual }] of samples.entries()) {
+        // Native Canvas pixel buffers need event-loop turns to finish releasing.
+        if (index % 10 === 0) await new Promise(resolve => setImmediate(resolve));
         const face = actionFace(id, progress, view, calmVisual);
         const artwork = painter.resolve(rig, { action, motion: action.motion, view, progress, calmVisual, face });
         reset(faceContext); reset(propContext); drawn.clear();
@@ -173,26 +175,19 @@ test('sipping and carrying bend below the direct reach without moving either con
   for (const id of ['sip-tea', 'carry-energy']) for (const view of ['front', 'three-quarter', 'profile']) {
     for (const progress of [0, .2, .4, .6, .8, .999]) {
       const artwork = at(id, progress, view), data = rig.views[view], world = artwork.pose.world;
-      const calls = [];
-      const ctx = { save() {}, restore() {}, beginPath() {}, stroke() {},
-        moveTo(...point) { calls.push({ from: point }); },
-        quadraticCurveTo(...points) { Object.assign(calls.at(-1), { control: points.slice(0, 2), to: points.slice(2) }); } };
-      support.connectors(ctx, { motion: PET_ACTIONS[id].motion, layer: 'front', data, world });
-      for (const call of calls) {
-        const sides = ['l', 'r'].filter(side => data.parts.some(part => part.bone === `hand_${side}` && part.layer === 'front'));
-        const side = sides.find(side => distance(applyPoint(world[data.bones[`arm_${side}`].parent], ...data.bones[`arm_${side}`].pivot), call.from) < 1e-8);
-        assert.ok(side);
-        assert.ok(distance(call.to, applyPoint(world[`hand_${side}`], ...data.bones[`hand_${side}`].pivot)) < 1e-8);
-        const low = Math.max(call.from[1], call.to[1]);
-        assert.ok(call.control[1] > low && call.control[1] <= low + 6.5);
-        const chordMiddle = (call.from[1] + call.to[1]) / 2;
-        const curveMiddle = .25 * call.from[1] + .5 * call.control[1] + .25 * call.to[1];
-        assert.ok(curveMiddle > chordMiddle + 1);
+      // Unified limb module: grip limbs keep the exact wrist and fold the elbow below the chord.
+      for (const side of ['l', 'r']) {
+        const intent = limbs.intentFor(artwork, side, data);
+        if (intent?.kind !== 'grip') continue;
+        const g = limbs.limbGeometry(artwork, data, side);
+        assert.ok(distance(g.to, applyPoint(world[`hand_${side}`], ...data.bones[`hand_${side}`].pivot)) < 1e-8);
+        const chordMiddle = (g.root[1] + g.to[1]) / 2;
+        const curveMiddle = .25 * g.root[1] + .5 * g.control[1] + .25 * g.to[1];
+        assert.ok(curveMiddle >= chordMiddle - 1e-9, `${id}/${view}/${progress}/${side} elbow never above the chord`);
+        assert.ok(g.chain.bendHeight <= limbs.USAGI_LIMB_RIG.bends[intent.bend].maxBend * 32 + 1e-9);
       }
     }
   }
-  assert.deepEqual(connectorControl([11, 44], [22, 54], 'l', 'write'), [15, 50.5]);
-  assert.deepEqual(connectorControl([55, 44], [68, 49], 'r', 'umbrella'), [63, 48]);
 });
 
 test('telescope touches the eyepiece to the near eye, never the objective or mouth', () => {

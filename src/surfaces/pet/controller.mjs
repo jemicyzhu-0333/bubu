@@ -1,3 +1,5 @@
+import { createFrameThrottle } from './frame-throttle.mjs';
+import { motionCaps } from '../../capabilities/companion/index.mjs';
 import { createSatiationLabel, receivedFoodMessage } from './feeding-copy.mjs';
 import { displaySatiation } from '../companion/satiation-display.mjs';
 import petMotion from '../../core/pet-motion.mjs';
@@ -1243,6 +1245,9 @@ function setScreenLocked(locked) {
   animDt = 0;
   if (screenLocked) suspendRenderer('screen-locked');
   else {
+    // Unlock: no press/drag/capture may survive the lock (the OS swallowed
+    // the matching pointerup). The frame throttle re-anchors in loop().
+    petPointer.cancel('screen-unlocked');
     prevSessionState = sessionState;
     prevSessionPaused = sessionPaused;
   }
@@ -1419,12 +1424,12 @@ const stateMaintenanceTimer = setInterval(() => {
 // fps 只是节流上限（真实帧率由显示器决定）。动画推进统一走运动时钟：
 // 每个实际绘制的帧累加一次带上限的 dt；页面隐藏不出帧则时间不走，
 // 后台恢复的大间隔被截断，不会一步把动画打飞或补播。
-let lastDrawAt = 0;
+const frameThrottle = createFrameThrottle();
 function loop(timestamp = 0) {
   if (stopped) return;
   const fps = reducedMotion() || stimulationMode === 'low' ? 6 : (stimulationMode === 'high' ? 60 : 30);
-  if (!document.hidden && !screenLocked && timestamp - lastDrawAt >= 1000 / fps) {
-    lastDrawAt = timestamp;
+  if (document.hidden || screenLocked) frameThrottle.reanchor();
+  else if (frameThrottle.shouldDraw(timestamp, fps)) {
     const stepped = motionClock.step(timestamp);
     animDt = stepped.dtMs;
     animNow = stepped.nowMs;
@@ -1560,7 +1565,7 @@ function presentCue(envelope) {
 
 const notebookVisit = createNotebookVisit({ document, startAction: startManualAction, calm: calmMotionRequested,
   setInterval, clearInterval, setTimeout, clearTimeout,
-  stopAction: () => { if (currentEgg?.id === 'take-note') cancelCurrentAction('notebook-closed'); } });
+  stopAction: () => { if (motionCaps(currentEgg).cancelOn === 'notebook-closed') cancelCurrentAction('notebook-closed'); } });
 const petSync = createPetSync({
   client: clients,
   onSync: handlePetSync,

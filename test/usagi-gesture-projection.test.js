@@ -98,10 +98,16 @@ test('open-root outline does not close or stroke a shoulder cap', async () => {
   const { context, calls } = trace(), data = m.rig.views.front;
   const part = data.parts.find(p => p.bone === 'hand_r');
   assert.equal(m.limbs.paintUsagiGesturePart(context, { part, data, artwork: a }), true);
-  const fillAt = calls.findIndex(c => c[0] === 'fill'), strokeAt = calls.findIndex(c => c[0] === 'stroke');
-  assert.ok(fillAt > 0 && strokeAt > fillAt);
-  assert.equal(calls.slice(fillAt + 1, strokeAt).some(c => c[0] === 'closePath'), false);
-  assert.equal(calls.filter(c => c[0] === 'arc').length, 2); // once per fill/outline path, one geometric palm
+  const fillAt = calls.findIndex(c => c[0] === 'fill');
+  const strokes = calls.map((c, i) => c[0] === 'stroke' ? i : -1).filter(i => i > fillAt);
+  assert.ok(fillAt > 0 && strokes.length >= 1);
+  // Each outline path (socket union may stroke it in two clip regions) stays open.
+  for (const at of strokes) {
+    const begin = calls.slice(0, at).map(c => c[0]).lastIndexOf('beginPath');
+    assert.equal(calls.slice(begin + 1, at).some(c => c[0] === 'closePath'), false);
+  }
+  // One geometric palm per fill/outline path.
+  assert.equal(calls.filter(c => c[0] === 'arc').length, 1 + strokes.length);
 });
 
 test('turned far paws paint behind body and wrapped near paws paint only below cloth', async () => {

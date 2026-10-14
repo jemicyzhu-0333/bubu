@@ -2263,3 +2263,45 @@ for (const skin of ['pink', 'usagi']) test(`canonical star orbit preserves 12 na
     assert.equal(seen.size, 12);
   } finally { harness.runtime.stop(); }
 });
+
+
+test('left drag then manual stepping displays native feet and restores original facing after bridge interruption', async () => {
+  const harness=createHarness({deterministicRandom:true});await settleInit();
+  harness.bridge.handlers.sync({devMode:true,stimulationMode:'high',motionMode:'full',skin:'pink',appearanceItemIds:[]});
+  const hit=harness.document.getElementById('petHit'), dbg=()=>harness.runtime.sample();
+  hit.dispatch('pointerdown',{isPrimary:true,button:0,ctrlKey:false,pointerId:1,screenX:100,screenY:100});
+  await settleInit();harness.clockState.now+=100;
+  hit.dispatch('pointermove',{pointerId:1,screenX:60,screenY:100});
+  hit.dispatch('pointercancel',{pointerId:1});assert.equal(dbg().facing,-1);
+  harness.bridge.handlers.devtools({open:true});devButton(harness,'action','ordinary-walk-in-place').dispatch('click');
+  const ctx=harness.petContext, draw=ctx.drawImage.bind(ctx);let feet=[],bodyMatrix=null;
+  ctx.drawImage=(image,...args)=>{draw(image,...args);if(!image.src)bodyMatrix=ctx._calls.at(-1).matrix;if(/views\/three-quarter-right\/foot-(left|right)\.png/.test(image.src||''))feet.push(ctx._calls.at(-1).matrix);};
+  const frame=()=>{feet=[];bodyMatrix=null;harness.frameBy(25);assert.equal(dbg().facing,-1);return feet;};
+  let lifted=0;
+  for(let i=0;i<300;i++)for(const matrix of frame()){
+    assert.ok(matrix.a>0,'the native source must not be reflected');
+    if(matrix.f<120-.01)lifted++;
+  }
+  assert.ok(lifted>50,'left-facing runtime must actually lift native feet');
+  const before=feet;
+  harness.document.getElementById('devTools').querySelector('[data-dev-action="close"]').dispatch('click');
+  assert.deepEqual(frame(),before,'normal close retains the first frame and native facing');
+  for(let i=0;i<10;i++)frame();
+  assert.equal(feet.length,2);assert.ok(feet.every(m=>m.a>0&&Math.abs(m.f-120)<1e-6));
+  harness.bridge.handlers.devtools({open:true});devButton(harness,'view','three-quarter').dispatch('click');
+  frame();assert.ok(bodyMatrix?.a<0,'unrelated selection restores the original left-facing projection');
+  devButton(harness,'action','ordinary-walk-in-place').dispatch('click');frame();
+  for(let i=0;i<80;i++)frame();
+  hit.dispatch('pointerdown',{isPrimary:true,button:0,ctrlKey:false,pointerId:2,screenX:100,screenY:100});
+  await settleInit();harness.clockState.now+=100;
+  hit.dispatch('pointermove',{pointerId:2,screenX:60,screenY:100});
+  const interrupted=frame();assert.equal(interrupted.length,2);assert.ok(interrupted.every(m=>m.a<0));
+  hit.dispatch('pointercancel',{pointerId:2});frame();assert.equal(dbg().facing,-1);
+  harness.bridge.handlers.sync({level:99,appearanceItemIds:['milestone.scarf']});
+  harness.bridge.handlers.devtools({open:true});devButton(harness,'action','ordinary-walk-in-place').dispatch('click');
+  for(let i=0;i<80;i++)frame();assert.ok(bodyMatrix?.a>0,'manual naked preview uses its native source');
+  harness.document.getElementById('devTools').querySelector('[data-dev-action="close"]').dispatch('click');
+  frame();assert.ok(bodyMatrix?.a<0,'restored real wardrobe cancels native-facing on the first close frame');
+  for(let i=0;i<20;i++)frame();assert.ok(bodyMatrix?.a<0);assert.equal(dbg().facing,-1);
+  harness.runtime.stop();
+});

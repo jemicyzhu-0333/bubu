@@ -1,0 +1,26 @@
+✔ world-fixed stance, continuous roots, opaque two-foot motion, single/double support (22.111964ms)
+✔ cycle repeats relative to one exact world stride (0.235135ms)
+✔ entry and exit are stationary full planted poses with continuous approach (11.018761ms)
+✔ reduced motion is stable; unsupported scope fails closed (0.511541ms)
+✔ actual canvas inherits parent alpha .4 and restores transform/smoothing without state leakage (5.945208ms)
+✔ actual canvas fail-closed paths draw nothing and preserve all parent state (4.532116ms)
+✔ all full repository asset-reference paths match their recorded SHA-256 (2.462825ms)
+✔ host ground translates body and both feet together in walk, episode endpoints and reduced motion (1.274833ms)
+✔ mapper keeps native sources, exact native ground64 and stationary endpoint geometry (1.463388ms)
+✔ standard artist endpoints are pixel-exact native idle at the same world position, four DPRs (59.32067ms)
+✔ default factory and unsupported action, outfit, view, clip or invalid input retain complete legacy (36.558506ms)
+✔ ordinary cycle uses exactly the two native feet, with planted world transforms constant (89.615468ms)
+✔ one supplied progress freezes all layers; reduced motion settles and retains the latched world position (9.386989ms)
+✔ parent alpha is inherited; body, ears, face share one body translation and source coordinates (4.987883ms)
+✔ unready episode remains complete legacy until a new id; ready and disposal reuse original lifecycle (14.788016ms)
+✔ missing native foot is all-or-none fallback without any alternative source (3.842396ms)
+✔ cached body pixels and key remain phase-independent; cached path applies world translation once (12.500667ms)
+✔ only strict enabled=true admits preview; disposal never restarts source loading (17.553288ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 659.923283

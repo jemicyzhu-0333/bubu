@@ -3,7 +3,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { importedSpecifiers } = require('./module-imports');
-const { layersOf, outwardEdge, isExempt } = require('./manifest-rules');
+const { layersOf, outwardEdge, isExempt, capabilityFacadeViolation } = require('./manifest-rules');
 
 const ROOT = path.resolve(__dirname, '..');
 const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'architecture/manifest.json'), 'utf8'));
@@ -205,6 +205,8 @@ function assertDependencyDirection(files, graph) {
   for (const [file, dependencies] of graph) {
     const owner = capabilityOf(file);
     for (const dependency of dependencies) {
+      const facade = capabilityFacadeViolation(file, dependency);
+      if (facade) failures.push(facade);
       const targetOwner = capabilityOf(dependency);
       if (owner && targetOwner && owner !== targetOwner && dependency !== `src/capabilities/${targetOwner}/index.js`) {
         failures.push(`${file} deep-imports capability ${targetOwner} through ${dependency}`);

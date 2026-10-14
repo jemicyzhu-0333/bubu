@@ -1,0 +1,12 @@
+CI for Round 11 @b9a997c (probe: same-turn geometry check + bounded OS nudge; tested code SHA):
+- workflow_dispatch "Build Windows and macOS (test)" run 38473472299 (created 2026-10-13T21:49:41Z)
+  URL: https://github.com/jemicyzhu-0333/bubu/actions/runs/38473472299
+  headSha: b9a997cb0b89cd8cb373153be29685b1a734e3e3
+- win-x64: SUCCESS
+- mac-arm64: SUCCESS (job 115558211573). verify:pet-viewport printed:
+  {"probe":"pet-viewport","platform":"darwin","rounds":30,"nativeGeometryWrites":0,"logicalAnchorStable":true,
+   "logicalAnchorContained":true,"geometryFreshAtCapture":true,"freshSamples":60,"invalidatedSamples":0,
+   "osNudges":[],"maxOsDisplacement":{"x":0,"y":0},"nativeIgnoreMouseEventsContract":true,"visualVerification":false}
+  i.e. on this runner macOS did not move the window after the settle stage; all 60 samples fresh.
+  Native geometry/API evidence only; not a screenshot or renderer-freshness proof.
+- Later commits on top of b9a997c are docs-only (Round 11 review); CI is tied to b9a997c.

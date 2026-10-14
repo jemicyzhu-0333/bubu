@@ -1,0 +1,1796 @@
+{
+ "aggregate": {
+  "front|r": {
+   "plans": 44,
+   "overhangPlans": 29,
+   "maxOutPx": 12,
+   "armEdgeNoInk": 63,
+   "pawEdgeNoInkRatioMax": 0.323,
+   "overhangPxTotal": 913
+  },
+  "three-quarter-left|l": {
+   "plans": 41,
+   "overhangPlans": 25,
+   "maxOutPx": 8,
+   "armEdgeNoInk": 34,
+   "pawEdgeNoInkRatioMax": 0,
+   "overhangPxTotal": 759
+  },
+  "three-quarter-left|r": {
+   "plans": 12,
+   "overhangPlans": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInk": 0,
+   "pawEdgeNoInkRatioMax": 0.326,
+   "overhangPxTotal": 0
+  },
+  "front|l": {
+   "plans": 20,
+   "overhangPlans": 13,
+   "maxOutPx": 12,
+   "armEdgeNoInk": 16,
+   "pawEdgeNoInkRatioMax": 0.323,
+   "overhangPxTotal": 275
+  }
+ },
+ "plans": [
+  {
+   "key": "front|r|elbow-u067-f337|paw/paw-hold-l-front-a000.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u067-f337",
+   "paw": "paw/paw-hold-l-front-a000.png",
+   "uses": [
+    "hiccup"
+   ],
+   "overhangPx": 26,
+   "maxOutPx": 4,
+   "armEdgeNoInkPx": 4,
+   "pawEdgePx": 31,
+   "pawEdgeNoInkPx": 10
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u112-f045|paw/paw-hold-l-three-quarter-left-a045.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u112-f045",
+   "paw": "paw/paw-hold-l-three-quarter-left-a045.png",
+   "uses": [
+    "hiccup"
+   ],
+   "overhangPx": 28,
+   "maxOutPx": 5,
+   "armEdgeNoInkPx": 1,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|r|elbow-u315-f022|paw/paw-hold-r-three-quarter-left-a135.png|false",
+   "view": "three-quarter-left",
+   "side": "r",
+   "joint": "elbow-u315-f022",
+   "paw": "paw/paw-hold-r-three-quarter-left-a135.png",
+   "uses": [
+    "hiccup"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 30,
+   "pawEdgeNoInkPx": 6
+  },
+  {
+   "key": "front|l|elbow-u000-f022|paw/paw-hold-l-front-a000.png|false",
+   "view": "front",
+   "side": "l",
+   "joint": "elbow-u000-f022",
+   "paw": "paw/paw-hold-l-front-a000.png",
+   "uses": [
+    "carry-energy"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 30,
+   "pawEdgeNoInkPx": 9
+  },
+  {
+   "key": "front|r|elbow-u000-f022|paw/paw-hold-l-front-a000.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u000-f022",
+   "paw": "paw/paw-hold-l-front-a000.png",
+   "uses": [
+    "carry-energy"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 30,
+   "pawEdgeNoInkPx": 9
+  },
+  {
+   "key": "front|l|elbow-u000-f000|paw/paw-hold-l-front-a000.png|false",
+   "view": "front",
+   "side": "l",
+   "joint": "elbow-u000-f000",
+   "paw": "paw/paw-hold-l-front-a000.png",
+   "uses": [
+    "carry-energy"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 29,
+   "pawEdgeNoInkPx": 8
+  },
+  {
+   "key": "front|r|elbow-u000-f000|paw/paw-hold-l-front-a000.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u000-f000",
+   "paw": "paw/paw-hold-l-front-a000.png",
+   "uses": [
+    "carry-energy"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 29,
+   "pawEdgeNoInkPx": 8
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u000-f112|paw/paw-hold-l-three-quarter-left-a090.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u000-f112",
+   "paw": "paw/paw-hold-l-three-quarter-left-a090.png",
+   "uses": [
+    "carry-energy"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u337-f112|paw/paw-hold-l-three-quarter-left-a090.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u337-f112",
+   "paw": "paw/paw-hold-l-three-quarter-left-a090.png",
+   "uses": [
+    "carry-energy"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|l|elbow-u270-f247|paw/paw-grip-l-front-a225.png|false",
+   "view": "front",
+   "side": "l",
+   "joint": "elbow-u270-f247",
+   "paw": "paw/paw-grip-l-front-a225.png",
+   "uses": [
+    "sing"
+   ],
+   "overhangPx": 3,
+   "maxOutPx": 1,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 26,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u067-f112|paw/paw-grip-l-three-quarter-left-a090.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u067-f112",
+   "paw": "paw/paw-grip-l-three-quarter-left-a090.png",
+   "uses": [
+    "sing"
+   ],
+   "overhangPx": 10,
+   "maxOutPx": 3,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u067-f090|paw/paw-grip-l-three-quarter-left-a090.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u067-f090",
+   "paw": "paw/paw-grip-l-three-quarter-left-a090.png",
+   "uses": [
+    "sing"
+   ],
+   "overhangPx": 7,
+   "maxOutPx": 2,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u112-f067|paw/paw-grip-l-three-quarter-left-a045.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u112-f067",
+   "paw": "paw/paw-grip-l-three-quarter-left-a045.png",
+   "uses": [
+    "sing"
+   ],
+   "overhangPx": 40,
+   "maxOutPx": 5,
+   "armEdgeNoInkPx": 2,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u112-f247|paw/paw-grip-l-front-a225.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u112-f247",
+   "paw": "paw/paw-grip-l-front-a225.png",
+   "uses": [
+    "dig-treasure"
+   ],
+   "overhangPx": 45,
+   "maxOutPx": 12,
+   "armEdgeNoInkPx": 5,
+   "pawEdgePx": 24,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u045-f180|paw/paw-grip-l-front-a180.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u045-f180",
+   "paw": "paw/paw-grip-l-front-a180.png",
+   "uses": [
+    "dig-treasure"
+   ],
+   "overhangPx": 10,
+   "maxOutPx": 5,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 28,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u045-f157|paw/paw-grip-l-three-quarter-left-a135.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u045-f157",
+   "paw": "paw/paw-grip-l-three-quarter-left-a135.png",
+   "uses": [
+    "dig-treasure"
+   ],
+   "overhangPx": 3,
+   "maxOutPx": 1,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u022-f157|paw/paw-grip-l-three-quarter-left-a135.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u022-f157",
+   "paw": "paw/paw-grip-l-three-quarter-left-a135.png",
+   "uses": [
+    "dig-treasure"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u045-f135|paw/paw-grip-l-three-quarter-left-a135.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u045-f135",
+   "paw": "paw/paw-grip-l-three-quarter-left-a135.png",
+   "uses": [
+    "dig-treasure"
+   ],
+   "overhangPx": 2,
+   "maxOutPx": 1,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u225-f090|paw/paw-grip-l-three-quarter-left-a090.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u225-f090",
+   "paw": "paw/paw-grip-l-three-quarter-left-a090.png",
+   "uses": [
+    "dig-treasure"
+   ],
+   "overhangPx": 37,
+   "maxOutPx": 5,
+   "armEdgeNoInkPx": 3,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|r|elbow-u135-f270|paw/paw-rest-l-three-quarter-left-a270.png|true",
+   "view": "three-quarter-left",
+   "side": "r",
+   "joint": "elbow-u135-f270",
+   "paw": "paw/paw-rest-l-three-quarter-left-a270.png",
+   "uses": [
+    "yawn",
+    "stretch"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 29,
+   "pawEdgeNoInkPx": 8
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u000-f270|paw/paw-rest-l-three-quarter-left-a270.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u000-f270",
+   "paw": "paw/paw-rest-l-three-quarter-left-a270.png",
+   "uses": [
+    "yawn",
+    "stretch"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u022-f135|paw/paw-grip-l-front-a135.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u022-f135",
+   "paw": "paw/paw-grip-l-front-a135.png",
+   "uses": [
+    "sneeze"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 23,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u315-f045|paw/paw-grip-l-front-a045.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u315-f045",
+   "paw": "paw/paw-grip-l-front-a045.png",
+   "uses": [
+    "sneeze"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 25,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u045-f337|paw/paw-grip-l-front-a000.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u045-f337",
+   "paw": "paw/paw-grip-l-front-a000.png",
+   "uses": [
+    "sneeze",
+    "photo-pose"
+   ],
+   "overhangPx": 4,
+   "maxOutPx": 2,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 28,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u000-f135|paw/paw-grip-l-front-a135.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u000-f135",
+   "paw": "paw/paw-grip-l-front-a135.png",
+   "uses": [
+    "sneeze"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 23,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u112-f112|paw/paw-grip-l-three-quarter-left-a090.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u112-f112",
+   "paw": "paw/paw-grip-l-three-quarter-left-a090.png",
+   "uses": [
+    "sneeze"
+   ],
+   "overhangPx": 57,
+   "maxOutPx": 7,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u337-f112|paw/paw-grip-l-three-quarter-left-a090.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u337-f112",
+   "paw": "paw/paw-grip-l-three-quarter-left-a090.png",
+   "uses": [
+    "sneeze"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u315-f090|paw/paw-grip-l-three-quarter-left-a090.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u315-f090",
+   "paw": "paw/paw-grip-l-three-quarter-left-a090.png",
+   "uses": [
+    "sneeze"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u112-f022|paw/paw-grip-l-front-a000.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u112-f022",
+   "paw": "paw/paw-grip-l-front-a000.png",
+   "uses": [
+    "bubble-blow"
+   ],
+   "overhangPx": 67,
+   "maxOutPx": 11,
+   "armEdgeNoInkPx": 4,
+   "pawEdgePx": 27,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u157-f090|paw/paw-grip-l-three-quarter-left-a090.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u157-f090",
+   "paw": "paw/paw-grip-l-three-quarter-left-a090.png",
+   "uses": [
+    "bubble-blow"
+   ],
+   "overhangPx": 75,
+   "maxOutPx": 8,
+   "armEdgeNoInkPx": 3,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u225-f292|paw/paw-wave-l-front-a270.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u225-f292",
+   "paw": "paw/paw-wave-l-front-a270.png",
+   "uses": [
+    "wave"
+   ],
+   "overhangPx": 21,
+   "maxOutPx": 6,
+   "armEdgeNoInkPx": 3,
+   "pawEdgePx": 43,
+   "pawEdgeNoInkPx": 3
+  },
+  {
+   "key": "front|r|elbow-u157-f270|paw/paw-wave-l-front-a270.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u157-f270",
+   "paw": "paw/paw-wave-l-front-a270.png",
+   "uses": [
+    "high-five"
+   ],
+   "overhangPx": 36,
+   "maxOutPx": 12,
+   "armEdgeNoInkPx": 5,
+   "pawEdgePx": 43,
+   "pawEdgeNoInkPx": 2
+  },
+  {
+   "key": "front|r|elbow-u292-f247|paw/paw-wave-l-front-a225.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u292-f247",
+   "paw": "paw/paw-wave-l-front-a225.png",
+   "uses": [
+    "high-five"
+   ],
+   "overhangPx": 2,
+   "maxOutPx": 1,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 44,
+   "pawEdgeNoInkPx": 4
+  },
+  {
+   "key": "front|r|elbow-u337-f247|paw/paw-rest-l-front-a225.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u337-f247",
+   "paw": "paw/paw-rest-l-front-a225.png",
+   "uses": [
+    "dance"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 20,
+   "pawEdgeNoInkPx": 5
+  },
+  {
+   "key": "front|r|elbow-u000-f247|paw/paw-rest-l-front-a225.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u000-f247",
+   "paw": "paw/paw-rest-l-front-a225.png",
+   "uses": [
+    "dance"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 20,
+   "pawEdgeNoInkPx": 5
+  },
+  {
+   "key": "front|l|elbow-u022-f247|paw/paw-rest-l-front-a225.png|false",
+   "view": "front",
+   "side": "l",
+   "joint": "elbow-u022-f247",
+   "paw": "paw/paw-rest-l-front-a225.png",
+   "uses": [
+    "dance"
+   ],
+   "overhangPx": 1,
+   "maxOutPx": 1,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 20,
+   "pawEdgeNoInkPx": 5
+  },
+  {
+   "key": "front|r|elbow-u022-f247|paw/paw-rest-l-front-a225.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u022-f247",
+   "paw": "paw/paw-rest-l-front-a225.png",
+   "uses": [
+    "dance"
+   ],
+   "overhangPx": 1,
+   "maxOutPx": 1,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 20,
+   "pawEdgeNoInkPx": 5
+  },
+  {
+   "key": "front|l|elbow-u000-f247|paw/paw-rest-l-front-a225.png|false",
+   "view": "front",
+   "side": "l",
+   "joint": "elbow-u000-f247",
+   "paw": "paw/paw-rest-l-front-a225.png",
+   "uses": [
+    "dance"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 20,
+   "pawEdgeNoInkPx": 5
+  },
+  {
+   "key": "front|l|elbow-u337-f247|paw/paw-rest-l-front-a225.png|false",
+   "view": "front",
+   "side": "l",
+   "joint": "elbow-u337-f247",
+   "paw": "paw/paw-rest-l-front-a225.png",
+   "uses": [
+    "dance"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 20,
+   "pawEdgeNoInkPx": 5
+  },
+  {
+   "key": "three-quarter-left|r|elbow-u292-f180|paw/paw-rest-l-three-quarter-left-a180.png|true",
+   "view": "three-quarter-left",
+   "side": "r",
+   "joint": "elbow-u292-f180",
+   "paw": "paw/paw-rest-l-three-quarter-left-a180.png",
+   "uses": [
+    "dance"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 27,
+   "pawEdgeNoInkPx": 7
+  },
+  {
+   "key": "three-quarter-left|r|elbow-u270-f225|paw/paw-rest-l-three-quarter-left-a225.png|true",
+   "view": "three-quarter-left",
+   "side": "r",
+   "joint": "elbow-u270-f225",
+   "paw": "paw/paw-rest-l-three-quarter-left-a225.png",
+   "uses": [
+    "dance"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 25,
+   "pawEdgeNoInkPx": 6
+  },
+  {
+   "key": "three-quarter-left|r|elbow-u292-f202|paw/paw-rest-l-three-quarter-left-a180.png|true",
+   "view": "three-quarter-left",
+   "side": "r",
+   "joint": "elbow-u292-f202",
+   "paw": "paw/paw-rest-l-three-quarter-left-a180.png",
+   "uses": [
+    "dance"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 27,
+   "pawEdgeNoInkPx": 7
+  },
+  {
+   "key": "front|l|elbow-u067-f022|paw/paw-grip-l-front-a000.png|false",
+   "view": "front",
+   "side": "l",
+   "joint": "elbow-u067-f022",
+   "paw": "paw/paw-grip-l-front-a000.png",
+   "uses": [
+    "look-around"
+   ],
+   "overhangPx": 35,
+   "maxOutPx": 7,
+   "armEdgeNoInkPx": 2,
+   "pawEdgePx": 28,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u067-f022|paw/paw-grip-l-front-a000.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u067-f022",
+   "paw": "paw/paw-grip-l-front-a000.png",
+   "uses": [
+    "look-around"
+   ],
+   "overhangPx": 39,
+   "maxOutPx": 7,
+   "armEdgeNoInkPx": 2,
+   "pawEdgePx": 28,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|l|elbow-u292-f022|paw/paw-grip-l-front-a000.png|false",
+   "view": "front",
+   "side": "l",
+   "joint": "elbow-u292-f022",
+   "paw": "paw/paw-grip-l-front-a000.png",
+   "uses": [
+    "look-around"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 28,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u022-f315|paw/paw-grip-l-front-a315.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u022-f315",
+   "paw": "paw/paw-grip-l-front-a315.png",
+   "uses": [
+    "look-around"
+   ],
+   "overhangPx": 1,
+   "maxOutPx": 1,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 26,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u337-f045|paw/paw-hold-l-front-a045.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u337-f045",
+   "paw": "paw/paw-hold-l-front-a045.png",
+   "uses": [
+    "read-book"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 27,
+   "pawEdgeNoInkPx": 8
+  },
+  {
+   "key": "front|l|elbow-u022-f045|paw/paw-press-l-front-a045.png|false",
+   "view": "front",
+   "side": "l",
+   "joint": "elbow-u022-f045",
+   "paw": "paw/paw-press-l-front-a045.png",
+   "uses": [
+    "take-note"
+   ],
+   "overhangPx": 1,
+   "maxOutPx": 1,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 27,
+   "pawEdgeNoInkPx": 3
+  },
+  {
+   "key": "three-quarter-left|r|elbow-u112-f022|paw/paw-press-l-three-quarter-left-a045.png|true",
+   "view": "three-quarter-left",
+   "side": "r",
+   "joint": "elbow-u112-f022",
+   "paw": "paw/paw-press-l-three-quarter-left-a045.png",
+   "uses": [
+    "take-note"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 26,
+   "pawEdgeNoInkPx": 3
+  },
+  {
+   "key": "three-quarter-left|r|elbow-u315-f067|paw/paw-press-l-three-quarter-left-a045.png|true",
+   "view": "three-quarter-left",
+   "side": "r",
+   "joint": "elbow-u315-f067",
+   "paw": "paw/paw-press-l-three-quarter-left-a045.png",
+   "uses": [
+    "type-keyboard"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 27,
+   "pawEdgeNoInkPx": 5
+  },
+  {
+   "key": "three-quarter-left|r|elbow-u292-f067|paw/paw-press-l-three-quarter-left-a045.png|true",
+   "view": "three-quarter-left",
+   "side": "r",
+   "joint": "elbow-u292-f067",
+   "paw": "paw/paw-press-l-three-quarter-left-a045.png",
+   "uses": [
+    "type-keyboard"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 27,
+   "pawEdgeNoInkPx": 5
+  },
+  {
+   "key": "three-quarter-left|r|elbow-u270-f045|paw/paw-press-l-three-quarter-left-a045.png|true",
+   "view": "three-quarter-left",
+   "side": "r",
+   "joint": "elbow-u270-f045",
+   "paw": "paw/paw-press-l-three-quarter-left-a045.png",
+   "uses": [
+    "type-keyboard"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 26,
+   "pawEdgeNoInkPx": 3
+  },
+  {
+   "key": "front|r|elbow-u067-f022|paw/paw-hold-l-front-a000.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u067-f022",
+   "paw": "paw/paw-hold-l-front-a000.png",
+   "uses": [
+    "sip-tea"
+   ],
+   "overhangPx": 39,
+   "maxOutPx": 7,
+   "armEdgeNoInkPx": 2,
+   "pawEdgePx": 30,
+   "pawEdgeNoInkPx": 9
+  },
+  {
+   "key": "front|l|elbow-u067-f022|paw/paw-hold-l-front-a000.png|false",
+   "view": "front",
+   "side": "l",
+   "joint": "elbow-u067-f022",
+   "paw": "paw/paw-hold-l-front-a000.png",
+   "uses": [
+    "sip-tea"
+   ],
+   "overhangPx": 35,
+   "maxOutPx": 7,
+   "armEdgeNoInkPx": 2,
+   "pawEdgePx": 30,
+   "pawEdgeNoInkPx": 9
+  },
+  {
+   "key": "front|r|elbow-u090-f000|paw/paw-hold-l-front-a000.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u090-f000",
+   "paw": "paw/paw-hold-l-front-a000.png",
+   "uses": [
+    "sip-tea"
+   ],
+   "overhangPx": 46,
+   "maxOutPx": 9,
+   "armEdgeNoInkPx": 3,
+   "pawEdgePx": 29,
+   "pawEdgeNoInkPx": 8
+  },
+  {
+   "key": "front|l|elbow-u067-f000|paw/paw-hold-l-front-a000.png|false",
+   "view": "front",
+   "side": "l",
+   "joint": "elbow-u067-f000",
+   "paw": "paw/paw-hold-l-front-a000.png",
+   "uses": [
+    "sip-tea"
+   ],
+   "overhangPx": 31,
+   "maxOutPx": 7,
+   "armEdgeNoInkPx": 3,
+   "pawEdgePx": 29,
+   "pawEdgeNoInkPx": 8
+  },
+  {
+   "key": "front|r|elbow-u090-f337|paw/paw-hold-l-front-a000.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u090-f337",
+   "paw": "paw/paw-hold-l-front-a000.png",
+   "uses": [
+    "sip-tea"
+   ],
+   "overhangPx": 38,
+   "maxOutPx": 6,
+   "armEdgeNoInkPx": 4,
+   "pawEdgePx": 31,
+   "pawEdgeNoInkPx": 10
+  },
+  {
+   "key": "front|l|elbow-u045-f337|paw/paw-hold-l-front-a000.png|false",
+   "view": "front",
+   "side": "l",
+   "joint": "elbow-u045-f337",
+   "paw": "paw/paw-hold-l-front-a000.png",
+   "uses": [
+    "sip-tea"
+   ],
+   "overhangPx": 3,
+   "maxOutPx": 2,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 31,
+   "pawEdgeNoInkPx": 10
+  },
+  {
+   "key": "three-quarter-left|r|elbow-u000-f022|paw/paw-hold-r-three-quarter-left-a135.png|false",
+   "view": "three-quarter-left",
+   "side": "r",
+   "joint": "elbow-u000-f022",
+   "paw": "paw/paw-hold-r-three-quarter-left-a135.png",
+   "uses": [
+    "sip-tea"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 30,
+   "pawEdgeNoInkPx": 6
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u045-f112|paw/paw-hold-l-three-quarter-left-a090.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u045-f112",
+   "paw": "paw/paw-hold-l-three-quarter-left-a090.png",
+   "uses": [
+    "sip-tea"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u022-f135|paw/paw-hold-l-three-quarter-left-a135.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u022-f135",
+   "paw": "paw/paw-hold-l-three-quarter-left-a135.png",
+   "uses": [
+    "sip-tea"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u022-f157|paw/paw-hold-l-three-quarter-left-a135.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u022-f157",
+   "paw": "paw/paw-hold-l-three-quarter-left-a135.png",
+   "uses": [
+    "sip-tea"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u180-f045|paw/paw-rest-l-three-quarter-left-a045.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u180-f045",
+   "paw": "paw/paw-rest-l-three-quarter-left-a045.png",
+   "uses": [
+    "paper-plane"
+   ],
+   "overhangPx": 44,
+   "maxOutPx": 7,
+   "armEdgeNoInkPx": 3,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u202-f067|paw/paw-rest-l-three-quarter-left-a045.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u202-f067",
+   "paw": "paw/paw-rest-l-three-quarter-left-a045.png",
+   "uses": [
+    "paper-plane"
+   ],
+   "overhangPx": 48,
+   "maxOutPx": 7,
+   "armEdgeNoInkPx": 4,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u315-f180|paw/paw-rest-l-front-a180.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u315-f180",
+   "paw": "paw/paw-rest-l-front-a180.png",
+   "uses": [
+    "paper-return"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 26,
+   "pawEdgeNoInkPx": 7
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u135-f067|paw/paw-rest-l-three-quarter-left-a045.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u135-f067",
+   "paw": "paw/paw-rest-l-three-quarter-left-a045.png",
+   "uses": [
+    "paper-return"
+   ],
+   "overhangPx": 50,
+   "maxOutPx": 7,
+   "armEdgeNoInkPx": 2,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u225-f090|paw/paw-rest-l-three-quarter-left-a090.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u225-f090",
+   "paw": "paw/paw-rest-l-three-quarter-left-a090.png",
+   "uses": [
+    "paper-return"
+   ],
+   "overhangPx": 37,
+   "maxOutPx": 5,
+   "armEdgeNoInkPx": 3,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u000-f135|paw/paw-rest-l-three-quarter-left-a135.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u000-f135",
+   "paw": "paw/paw-rest-l-three-quarter-left-a135.png",
+   "uses": [
+    "paper-return"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u225-f112|paw/paw-rest-l-three-quarter-left-a090.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u225-f112",
+   "paw": "paw/paw-rest-l-three-quarter-left-a090.png",
+   "uses": [
+    "paper-return"
+   ],
+   "overhangPx": 47,
+   "maxOutPx": 5,
+   "armEdgeNoInkPx": 2,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u067-f292|paw/paw-grip-l-front-a270.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u067-f292",
+   "paw": "paw/paw-grip-l-front-a270.png",
+   "uses": [
+    "sweep"
+   ],
+   "overhangPx": 19,
+   "maxOutPx": 5,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 26,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u045-f180|paw/paw-grip-l-three-quarter-left-a180.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u045-f180",
+   "paw": "paw/paw-grip-l-three-quarter-left-a180.png",
+   "uses": [
+    "sweep"
+   ],
+   "overhangPx": 2,
+   "maxOutPx": 1,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u067-f202|paw/paw-grip-l-three-quarter-left-a180.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u067-f202",
+   "paw": "paw/paw-grip-l-three-quarter-left-a180.png",
+   "uses": [
+    "sweep"
+   ],
+   "overhangPx": 18,
+   "maxOutPx": 5,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u247-f112|paw/paw-grip-l-three-quarter-left-a090.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u247-f112",
+   "paw": "paw/paw-grip-l-three-quarter-left-a090.png",
+   "uses": [
+    "sweep"
+   ],
+   "overhangPx": 23,
+   "maxOutPx": 3,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u292-f202|paw/paw-grip-l-three-quarter-left-a180.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u292-f202",
+   "paw": "paw/paw-grip-l-three-quarter-left-a180.png",
+   "uses": [
+    "telescope"
+   ],
+   "overhangPx": 6,
+   "maxOutPx": 2,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u180-f045|paw/paw-grip-l-front-a045.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u180-f045",
+   "paw": "paw/paw-grip-l-front-a045.png",
+   "uses": [
+    "plant-water"
+   ],
+   "overhangPx": 54,
+   "maxOutPx": 10,
+   "armEdgeNoInkPx": 3,
+   "pawEdgePx": 25,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u315-f090|paw/paw-grip-l-front-a090.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u315-f090",
+   "paw": "paw/paw-grip-l-front-a090.png",
+   "uses": [
+    "plant-water"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 28,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u157-f022|paw/paw-grip-l-front-a000.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u157-f022",
+   "paw": "paw/paw-grip-l-front-a000.png",
+   "uses": [
+    "plant-water"
+   ],
+   "overhangPx": 66,
+   "maxOutPx": 11,
+   "armEdgeNoInkPx": 4,
+   "pawEdgePx": 26,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u315-f045|paw/paw-press-l-three-quarter-left-a045.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u315-f045",
+   "paw": "paw/paw-press-l-three-quarter-left-a045.png",
+   "uses": [
+    "drum-solo"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u292-f022|paw/paw-press-l-three-quarter-left-a045.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u292-f022",
+   "paw": "paw/paw-press-l-three-quarter-left-a045.png",
+   "uses": [
+    "drum-solo"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u247-f000|paw/paw-grip-l-front-a000.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u247-f000",
+   "paw": "paw/paw-grip-l-front-a000.png",
+   "uses": [
+    "build-blocks"
+   ],
+   "overhangPx": 15,
+   "maxOutPx": 3,
+   "armEdgeNoInkPx": 1,
+   "pawEdgePx": 26,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u045-f270|paw/paw-grip-l-front-a270.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u045-f270",
+   "paw": "paw/paw-grip-l-front-a270.png",
+   "uses": [
+    "build-blocks"
+   ],
+   "overhangPx": 7,
+   "maxOutPx": 2,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 28,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u045-f315|paw/paw-grip-l-three-quarter-left-a315.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u045-f315",
+   "paw": "paw/paw-grip-l-three-quarter-left-a315.png",
+   "uses": [
+    "build-blocks"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u270-f045|paw/paw-grip-l-three-quarter-left-a045.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u270-f045",
+   "paw": "paw/paw-grip-l-three-quarter-left-a045.png",
+   "uses": [
+    "build-blocks"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u157-f022|paw/paw-grip-l-three-quarter-left-a000.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u157-f022",
+   "paw": "paw/paw-grip-l-three-quarter-left-a000.png",
+   "uses": [
+    "build-blocks"
+   ],
+   "overhangPx": 40,
+   "maxOutPx": 7,
+   "armEdgeNoInkPx": 4,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u180-f045|paw/paw-grip-l-three-quarter-left-a045.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u180-f045",
+   "paw": "paw/paw-grip-l-three-quarter-left-a045.png",
+   "uses": [
+    "build-blocks"
+   ],
+   "overhangPx": 44,
+   "maxOutPx": 7,
+   "armEdgeNoInkPx": 3,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u000-f135|paw/paw-grip-l-three-quarter-left-a135.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u000-f135",
+   "paw": "paw/paw-grip-l-three-quarter-left-a135.png",
+   "uses": [
+    "build-blocks"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u315-f225|paw/paw-reach-l-front-a225.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u315-f225",
+   "paw": "paw/paw-reach-l-front-a225.png",
+   "uses": [
+    "catch-star"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 42,
+   "pawEdgeNoInkPx": 7
+  },
+  {
+   "key": "front|r|elbow-u022-f247|paw/paw-reach-l-front-a225.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u022-f247",
+   "paw": "paw/paw-reach-l-front-a225.png",
+   "uses": [
+    "catch-star"
+   ],
+   "overhangPx": 1,
+   "maxOutPx": 1,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 41,
+   "pawEdgeNoInkPx": 8
+  },
+  {
+   "key": "front|r|elbow-u337-f225|paw/paw-grip-l-front-a225.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u337-f225",
+   "paw": "paw/paw-grip-l-front-a225.png",
+   "uses": [
+    "umbrella-dance"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 25,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|l|elbow-u292-f067|paw/paw-hold-l-front-a045.png|false",
+   "view": "front",
+   "side": "l",
+   "joint": "elbow-u292-f067",
+   "paw": "paw/paw-hold-l-front-a045.png",
+   "uses": [
+    "snack-picnic"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 24,
+   "pawEdgeNoInkPx": 5
+  },
+  {
+   "key": "front|r|elbow-u337-f337|paw/paw-hold-l-front-a000.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u337-f337",
+   "paw": "paw/paw-hold-l-front-a000.png",
+   "uses": [
+    "snack-picnic"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 31,
+   "pawEdgeNoInkPx": 10
+  },
+  {
+   "key": "front|r|elbow-u112-f022|paw/paw-hold-l-front-a000.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u112-f022",
+   "paw": "paw/paw-hold-l-front-a000.png",
+   "uses": [
+    "snack-picnic"
+   ],
+   "overhangPx": 70,
+   "maxOutPx": 11,
+   "armEdgeNoInkPx": 4,
+   "pawEdgePx": 30,
+   "pawEdgeNoInkPx": 9
+  },
+  {
+   "key": "three-quarter-left|r|elbow-u180-f045|paw/paw-hold-r-three-quarter-left-a135.png|false",
+   "view": "three-quarter-left",
+   "side": "r",
+   "joint": "elbow-u180-f045",
+   "paw": "paw/paw-hold-r-three-quarter-left-a135.png",
+   "uses": [
+    "snack-picnic"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 29,
+   "pawEdgeNoInkPx": 4
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u135-f067|paw/paw-hold-l-three-quarter-left-a045.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u135-f067",
+   "paw": "paw/paw-hold-l-three-quarter-left-a045.png",
+   "uses": [
+    "snack-picnic"
+   ],
+   "overhangPx": 50,
+   "maxOutPx": 7,
+   "armEdgeNoInkPx": 2,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u135-f045|paw/paw-hold-l-three-quarter-left-a045.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u135-f045",
+   "paw": "paw/paw-hold-l-three-quarter-left-a045.png",
+   "uses": [
+    "snack-picnic"
+   ],
+   "overhangPx": 39,
+   "maxOutPx": 6,
+   "armEdgeNoInkPx": 1,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u067-f090|paw/paw-hold-l-three-quarter-left-a090.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u067-f090",
+   "paw": "paw/paw-hold-l-three-quarter-left-a090.png",
+   "uses": [
+    "snack-picnic"
+   ],
+   "overhangPx": 7,
+   "maxOutPx": 2,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|l|elbow-u000-f247|paw/paw-fist-l-front-a225.png|false",
+   "view": "front",
+   "side": "l",
+   "joint": "elbow-u000-f247",
+   "paw": "paw/paw-fist-l-front-a225.png",
+   "uses": [
+    "shadow-box"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 27,
+   "pawEdgeNoInkPx": 4
+  },
+  {
+   "key": "front|r|elbow-u157-f270|paw/paw-fist-l-front-a270.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u157-f270",
+   "paw": "paw/paw-fist-l-front-a270.png",
+   "uses": [
+    "shadow-box"
+   ],
+   "overhangPx": 79,
+   "maxOutPx": 12,
+   "armEdgeNoInkPx": 5,
+   "pawEdgePx": 25,
+   "pawEdgeNoInkPx": 3
+  },
+  {
+   "key": "front|l|elbow-u157-f292|paw/paw-fist-l-front-a270.png|false",
+   "view": "front",
+   "side": "l",
+   "joint": "elbow-u157-f292",
+   "paw": "paw/paw-fist-l-front-a270.png",
+   "uses": [
+    "shadow-box"
+   ],
+   "overhangPx": 72,
+   "maxOutPx": 11,
+   "armEdgeNoInkPx": 4,
+   "pawEdgePx": 25,
+   "pawEdgeNoInkPx": 2
+  },
+  {
+   "key": "front|r|elbow-u157-f292|paw/paw-fist-l-front-a270.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u157-f292",
+   "paw": "paw/paw-fist-l-front-a270.png",
+   "uses": [
+    "shadow-box"
+   ],
+   "overhangPx": 73,
+   "maxOutPx": 11,
+   "armEdgeNoInkPx": 4,
+   "pawEdgePx": 25,
+   "pawEdgeNoInkPx": 2
+  },
+  {
+   "key": "front|r|elbow-u000-f247|paw/paw-fist-l-front-a225.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u000-f247",
+   "paw": "paw/paw-fist-l-front-a225.png",
+   "uses": [
+    "shadow-box"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 27,
+   "pawEdgeNoInkPx": 4
+  },
+  {
+   "key": "front|l|elbow-u157-f270|paw/paw-fist-l-front-a270.png|false",
+   "view": "front",
+   "side": "l",
+   "joint": "elbow-u157-f270",
+   "paw": "paw/paw-fist-l-front-a270.png",
+   "uses": [
+    "shadow-box"
+   ],
+   "overhangPx": 78,
+   "maxOutPx": 12,
+   "armEdgeNoInkPx": 5,
+   "pawEdgePx": 25,
+   "pawEdgeNoInkPx": 3
+  },
+  {
+   "key": "three-quarter-left|r|elbow-u157-f247|paw/paw-fist-l-three-quarter-left-a225.png|true",
+   "view": "three-quarter-left",
+   "side": "r",
+   "joint": "elbow-u157-f247",
+   "paw": "paw/paw-fist-l-three-quarter-left-a225.png",
+   "uses": [
+    "shadow-box"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 43,
+   "pawEdgeNoInkPx": 14
+  },
+  {
+   "key": "front|r|elbow-u090-f022|paw/paw-grip-l-front-a000.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u090-f022",
+   "paw": "paw/paw-grip-l-front-a000.png",
+   "uses": [
+    "tiny-chef"
+   ],
+   "overhangPx": 52,
+   "maxOutPx": 9,
+   "armEdgeNoInkPx": 3,
+   "pawEdgePx": 28,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u090-f000|paw/paw-grip-l-front-a000.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u090-f000",
+   "paw": "paw/paw-grip-l-front-a000.png",
+   "uses": [
+    "tiny-chef"
+   ],
+   "overhangPx": 46,
+   "maxOutPx": 9,
+   "armEdgeNoInkPx": 3,
+   "pawEdgePx": 28,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u090-f337|paw/paw-grip-l-front-a000.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u090-f337",
+   "paw": "paw/paw-grip-l-front-a000.png",
+   "uses": [
+    "tiny-chef"
+   ],
+   "overhangPx": 38,
+   "maxOutPx": 6,
+   "armEdgeNoInkPx": 4,
+   "pawEdgePx": 28,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u315-f067|paw/paw-grip-l-front-a045.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u315-f067",
+   "paw": "paw/paw-grip-l-front-a045.png",
+   "uses": [
+    "tiny-chef"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 24,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u090-f067|paw/paw-grip-l-three-quarter-left-a045.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u090-f067",
+   "paw": "paw/paw-grip-l-three-quarter-left-a045.png",
+   "uses": [
+    "tiny-chef"
+   ],
+   "overhangPx": 17,
+   "maxOutPx": 3,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u022-f090|paw/paw-grip-l-three-quarter-left-a090.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u022-f090",
+   "paw": "paw/paw-grip-l-three-quarter-left-a090.png",
+   "uses": [
+    "tiny-chef"
+   ],
+   "overhangPx": 0,
+   "maxOutPx": 0,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "three-quarter-left|l|elbow-u112-f045|paw/paw-grip-l-three-quarter-left-a045.png|false",
+   "view": "three-quarter-left",
+   "side": "l",
+   "joint": "elbow-u112-f045",
+   "paw": "paw/paw-grip-l-three-quarter-left-a045.png",
+   "uses": [
+    "tiny-chef"
+   ],
+   "overhangPx": 28,
+   "maxOutPx": 5,
+   "armEdgeNoInkPx": 1,
+   "pawEdgePx": 0,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|l|elbow-u045-f022|paw/paw-grip-l-front-a000.png|false",
+   "view": "front",
+   "side": "l",
+   "joint": "elbow-u045-f022",
+   "paw": "paw/paw-grip-l-front-a000.png",
+   "uses": [
+    "photo-pose"
+   ],
+   "overhangPx": 6,
+   "maxOutPx": 2,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 28,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u045-f022|paw/paw-grip-l-front-a000.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u045-f022",
+   "paw": "paw/paw-grip-l-front-a000.png",
+   "uses": [
+    "photo-pose"
+   ],
+   "overhangPx": 9,
+   "maxOutPx": 3,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 28,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|l|elbow-u045-f337|paw/paw-grip-l-front-a000.png|false",
+   "view": "front",
+   "side": "l",
+   "joint": "elbow-u045-f337",
+   "paw": "paw/paw-grip-l-front-a000.png",
+   "uses": [
+    "photo-pose"
+   ],
+   "overhangPx": 3,
+   "maxOutPx": 2,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 28,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|l|elbow-u045-f000|paw/paw-grip-l-front-a000.png|false",
+   "view": "front",
+   "side": "l",
+   "joint": "elbow-u045-f000",
+   "paw": "paw/paw-grip-l-front-a000.png",
+   "uses": [
+    "photo-pose"
+   ],
+   "overhangPx": 6,
+   "maxOutPx": 3,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 28,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u045-f000|paw/paw-grip-l-front-a000.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u045-f000",
+   "paw": "paw/paw-grip-l-front-a000.png",
+   "uses": [
+    "photo-pose"
+   ],
+   "overhangPx": 8,
+   "maxOutPx": 3,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 28,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|l|elbow-u022-f045|paw/paw-grip-l-front-a045.png|false",
+   "view": "front",
+   "side": "l",
+   "joint": "elbow-u022-f045",
+   "paw": "paw/paw-grip-l-front-a045.png",
+   "uses": [
+    "photo-pose"
+   ],
+   "overhangPx": 1,
+   "maxOutPx": 1,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 26,
+   "pawEdgeNoInkPx": 0
+  },
+  {
+   "key": "front|r|elbow-u022-f045|paw/paw-grip-l-front-a045.png|true",
+   "view": "front",
+   "side": "r",
+   "joint": "elbow-u022-f045",
+   "paw": "paw/paw-grip-l-front-a045.png",
+   "uses": [
+    "photo-pose"
+   ],
+   "overhangPx": 1,
+   "maxOutPx": 1,
+   "armEdgeNoInkPx": 0,
+   "pawEdgePx": 26,
+   "pawEdgeNoInkPx": 0
+  }
+ ]
+}

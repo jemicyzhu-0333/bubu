@@ -1,0 +1,153 @@
+{
+  "schema": "dango-front-right-shoulder-registration-evidence/1",
+  "sourceBody": {
+    "src": "sources/canonical/views/front/body.png",
+    "rect": [
+      -1.789744,
+      8.533333,
+      69.415385,
+      49.066667
+    ],
+    "tint": "body",
+    "sha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9"
+  },
+  "canonicalSourceBodyAnchor": [
+    58.6,
+    39.712821
+  ],
+  "before": {
+    "worldRoot": [
+      61.5,
+      45.5
+    ],
+    "anchorOffset": [
+      2.9,
+      5.787179
+    ]
+  },
+  "after": {
+    "worldRoot": [
+      58.5,
+      45.5
+    ],
+    "anchorOffset": [
+      -0.1,
+      5.787179
+    ]
+  },
+  "criterion": "Restore authored canonical source x58.6 to existing half-pixel anchor lattice: round(58.6-0.5)+0.5=58.5. Keep existing y45.5 registration. No parameter search, action-specific or phase-specific root.",
+  "scope": "All front/right generic limbs share this one socket. Other sides and views unchanged. Global regressions are separate.",
+  "crossSections": [
+    {
+      "y": 39.712821,
+      "sourceRow": 190,
+      "opaqueRightExclusiveArt": 67.625641,
+      "pinkRightExclusiveArt": 64.17948713475177,
+      "alphaAtSocketX": 255
+    },
+    {
+      "y": 40.5,
+      "sourceRow": 194,
+      "opaqueRightExclusiveArt": 67.625641,
+      "pinkRightExclusiveArt": 63.68717943971632,
+      "alphaAtSocketX": 255
+    },
+    {
+      "y": 41.5,
+      "sourceRow": 200,
+      "opaqueRightExclusiveArt": 65.49230765484634,
+      "pinkRightExclusiveArt": 63.68717943971632,
+      "alphaAtSocketX": 255
+    },
+    {
+      "y": 42.5,
+      "sourceRow": 206,
+      "opaqueRightExclusiveArt": 65.49230765484634,
+      "pinkRightExclusiveArt": 63.68717943971632,
+      "alphaAtSocketX": 255
+    },
+    {
+      "y": 43.5,
+      "sourceRow": 213,
+      "opaqueRightExclusiveArt": 65.49230765484634,
+      "pinkRightExclusiveArt": 62.70256404964539,
+      "alphaAtSocketX": 255
+    },
+    {
+      "y": 44.5,
+      "sourceRow": 219,
+      "opaqueRightExclusiveArt": 65.49230765484634,
+      "pinkRightExclusiveArt": 61.88205122458629,
+      "alphaAtSocketX": 255
+    },
+    {
+      "y": 45.5,
+      "sourceRow": 225,
+      "opaqueRightExclusiveArt": 63.5230768747045,
+      "pinkRightExclusiveArt": 61.88205122458629,
+      "alphaAtSocketX": 255
+    },
+    {
+      "y": 46.5,
+      "sourceRow": 231,
+      "opaqueRightExclusiveArt": 63.5230768747045,
+      "pinkRightExclusiveArt": 61.88205122458629,
+      "alphaAtSocketX": 255
+    },
+    {
+      "y": 47.5,
+      "sourceRow": 237,
+      "opaqueRightExclusiveArt": 63.5230768747045,
+      "pinkRightExclusiveArt": 61.061538399527194,
+      "alphaAtSocketX": 255
+    },
+    {
+      "y": 48.5,
+      "sourceRow": 243,
+      "opaqueRightExclusiveArt": 63.5230768747045,
+      "pinkRightExclusiveArt": 60.076923009456266,
+      "alphaAtSocketX": 255
+    },
+    {
+      "y": 49.5,
+      "sourceRow": 249,
+      "opaqueRightExclusiveArt": 61.71794865957447,
+      "pinkRightExclusiveArt": 60.076923009456266,
+      "alphaAtSocketX": 255
+    },
+    {
+      "y": 50.5,
+      "sourceRow": 255,
+      "opaqueRightExclusiveArt": 61.71794865957447,
+      "pinkRightExclusiveArt": 60.076923009456266,
+      "alphaAtSocketX": 255
+    },
+    {
+      "y": 51.5,
+      "sourceRow": 261,
+      "opaqueRightExclusiveArt": 61.71794865957447,
+      "pinkRightExclusiveArt": 58.435897359338064,
+      "alphaAtSocketX": 255
+    },
+    {
+      "y": 52.5,
+      "sourceRow": 267,
+      "opaqueRightExclusiveArt": 60.076923009456266,
+      "pinkRightExclusiveArt": 56.794871709219855,
+      "alphaAtSocketX": 0
+    },
+    {
+      "y": 53.5,
+      "sourceRow": 274,
+      "opaqueRightExclusiveArt": 59.91282044444445,
+      "pinkRightExclusiveArt": 56.63076914420804,
+      "alphaAtSocketX": 0
+    }
+  ],
+  "originalFullCanonicalAnchorToExistingGripW": 13.951996768299873,
+  "fullCanonicalYRestorationReachable": false,
+  "notes": [
+    "Body/props/original source alpha unchanged. Coverage resampled from actual canonical source alpha at each explicit before/after socket.",
+    "Body alpha establishes inadequate room for outward registration but does not by itself determine a new anatomical shoulder. The selected x comes from the existing sourceBodyAnchor."
+  ]
+}

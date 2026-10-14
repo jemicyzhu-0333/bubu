@@ -1,9 +1,12 @@
 'use strict';
 
+import { motionCaps } from './motion-core/action-capabilities.mjs';
+
+import { hermite } from './motion-core/easing.mjs';
 import { EXPRESSION_PHRASES } from './expression-phrases.mjs';
 
 const KEEP_EYES = new Set(['react.surprised', 'react.celebrate', 'system.restricted']);
-const ease = t => t * t * (3 - 2 * t);
+const ease = hermite;
 
 // Reuse the accepted drawings. Close the lids briefly while a standalone
 // phrase changes eye type, and settle the mouth before reopening. Blending
@@ -13,14 +16,14 @@ function sampleUsagiFaceTiming(face, base, { action, motion, expressionId, expre
   if (!face || calmVisual) return face;
   const expected = action?.baseExpression || action?.expression;
   if (expressionId && expected && expressionId !== expected) return face;
-  if (action?.id === 'rest-nap' && motion === 'daydream') {
+  const beat = motionCaps(action).faceBeats?.[motion];
+  if (beat === 'wake') {
     // Wake gently with the existing balanced eyes. The curious glyph's
     // unequal pupils and brows made this quiet beat look strained.
     const waking = ease(Math.min(1, Math.max(0, progress) / .7));
     return Object.freeze({ ...face, eyes: 'waiting', openness: .4 + .6 * waking });
   }
-  if ((action?.id === 'rest-tea' && ['carry', 'organize', 'breathe'].includes(motion))
-    || (action?.id === 'rest-nap' && motion === 'organize')) {
+  if (beat === 'content') {
     return Object.freeze({ ...face, eyes: 'content', mouth: 'smile' });
   }
   if (action || (motion && motion !== 'idle')) return face;

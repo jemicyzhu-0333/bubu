@@ -1,5 +1,10 @@
 'use strict';
 
+import { DANGO_WALK_WORKBENCH } from '../../../content/companion/gait/dango-walk.mjs';
+import { sampleAccent } from './motion-core/accents.mjs';
+import { motionCaps } from './motion-core/action-capabilities.mjs';
+import { bodyFloor } from './motion-core/form-anchors.mjs';
+import { resolveAccessories } from './motion-core/accessory-resolver.mjs';
 import petArt from '../../../core/pet-art.mjs';
 import petActionArt from '../../../core/pet-action-art.mjs';
 import { drawActionParticle } from '../../../core/pet-action-particles.mjs';
@@ -63,6 +68,11 @@ function faceForView(form, face, view) {
 function resolveView(form, requested, options = {}) {
   if (form.id === 'usagi' && isFacingInteraction(options.action)) return 'front';
   return artistFor(form).resolveView(requested, options);
+}
+
+function previewAction(form, id) {
+  return DANGO_WALK_WORKBENCH.enabled && form?.id === 'dango'
+    && id === DANGO_WALK_WORKBENCH.action.id ? DANGO_WALK_WORKBENCH.action : null;
 }
 
 function sampleAction(form, action, progress, options = {}) {
@@ -199,16 +209,46 @@ function drawAppearanceLayer(context, appearance, palette, { form, layer, offX, 
     layer, offX, offY, ...options, footwearTransforms: options.artwork?.footwearTransforms
   });
   const artist = artistFor(form);
-  const items = appearance?.items?.filter(item => (item.formId || 'dango') === form.id
-    && (artist.appearanceLayers?.(item, options.artwork?.view || options.view || appearance.view) || item.parts).includes(layer)) || [];
-  if (!items.length) return false;
+  const view = options.view || appearance?.view;
+  const drawnView = options.artwork?.drawnView || options.artwork?.view || view;
+  const authored = item => artist.appearanceLayers?.(item, drawnView) || item.parts || [];
+  // Fit resolver (motion-core/accessory-resolver): per-frame visibility, pass
+  // and offset. Portrait fits show the outfit as authored, with no action.
+  const plan = resolveAccessories({ items: appearance?.items || [], formId: form.id, view: drawnView,
+    action: fit ? null : options.action, phase: options.progress, reduced: Boolean(options.calmVisual) });
+  const items = plan.itemsFor(layer, authored);
+  // Per-view layer decomposition: posed parts the resolver slots into this
+  // garment pass (usagi back-view paws: over neckwear, under a cape).
+  const deco = !fit ? artist.layerDecomposition?.({ layer, artwork: options.artwork }) : null;
+  let decoDone = !deco;
+  const runDeco = (inSpace = false) => {
+    if (decoDone) return; decoDone = true;
+    if (inSpace) { deco.paint(context, palette); return; }
+    context.save(); context.translate(offX, offY);
+    try { withFormSpace(context, form, stage, false, () => deco.paint(context, palette)); } finally { context.restore(); }
+  };
+  const after = runDeco;
+  if (!items.length) { after(); return false; }
   context.save();
   context.translate(offX, offY);
   const painted = withFormSpace(context, form, stage, fit, () => {
     let didPaint = false;
     for (const item of items) {
+      const fitPlan = plan.get(item.id);
+      if (!decoDone && fitPlan?.coversPaws) runDeco(true);
+      let nudge = fitPlan?.offsetY || 0;
+      // Canvas headroom budget: a floating item whose authored top would leave
+      // the surface is lowered just enough to stay inside (never clipped).
+      const room = fitPlan?.headroom;
+      if (room && !fit) {
+        const t = context.getTransform?.();
+        const top = t ? t.f + t.d * (room.top + nudge) : Infinity;
+        if (t?.d > 0 && top < room.px) nudge += (room.px - top) / t.d;
+      }
+      if (nudge) { context.save(); context.translate(0, nudge); }
       didPaint = artistFor(form).appearance(context, { item, layer, palette, form, appearance, fit,
-        view: options.view || appearance.view, ...options }) || didPaint;
+        view, fitPlan, paintedItems: items, ...options }) || didPaint;
+      if (nudge) context.restore();
     }
     if (didPaint && fit && layer === 'front') artist.appearanceForeground?.(context, {
       palette, form, appearance, fit, view: options.view || appearance.view, ...options
@@ -216,11 +256,15 @@ function drawAppearanceLayer(context, appearance, palette, { form, layer, offX, 
     return didPaint;
   }, fitBounds);
   context.restore();
+  runDeco();
   return painted;
 }
 
 function drawActionLayer(context, { form, action, motion, progress, palette, layer, offX, offY, view,
   stage, theme, calmVisual, backSurface, frontSurface, artwork = null, sprites = null }) {
+  // Offline audit hook (tools/accessory-matrix): omit one action pass to
+  // isolate held props and near paws. Never set by the app.
+  if (globalThis.__petAuditOmitActionLayer === layer) return false;
   // A rig's limbs, ears and tail live in this layer even at rest, so it is
   // painted with or without a playing action.
   if (!action && !['rig', 'pixel-performance', 'dango-vector', 'dango-raster'].includes(artwork?.kind)) return false;
@@ -259,7 +303,24 @@ function motionOffset(form, action, motion, progress, options) {
 
 function applyMotionTransform(context, form, action, motion, progress, options) {
   if (form.renderer === 'pixel') petActionArt.applyBodyTransform(context, action, progress, options);
-  else artistFor(form).applyMotionTransform(context, motion, progress, { ...options, action });
+  else {
+    artistFor(form).applyMotionTransform(context, motion, progress, { ...options, action });
+    applyAccent(context, form, action, progress, options);
+  }
+}
+
+// Shared accent layer (motion-core/accents.mjs): squash/stretch about the
+// form's floor line, so soles stay planted. Story-owned body poses
+// (capability `body`) already carry their own accents.
+function applyAccent(context, form, action, progress, options) {
+  if (options.calmVisual || options.reducedMotion || options.state === 'dragged' || motionCaps(action).body) return;
+  const accent = sampleAccent(action, progress);
+  // Below ~0.1 px at body size the scale is invisible; skip the resample.
+  if (Math.abs(accent.s) < .0015) return;
+  const size = Number(options.size) || 0, floor = bodyFloor(form.id, size);
+  context.translate(size / 2, floor);
+  context.scale(accent.sx, accent.sy);
+  context.translate(-size / 2, -floor);
 }
 
 function drawBackDetails(context, form, palette, options) {
@@ -300,14 +361,14 @@ function drawStatusEffect(context, form, status, offX, offY, stage, options = {}
 }
 
 export {
-  paletteForSkin, skinEffectForSkin, resolveView, faceForView, sampleAction, resolveArtwork, subscribeArtwork, prepareArtwork,
+  paletteForSkin, skinEffectForSkin, resolveView, faceForView, previewAction, sampleAction, resolveArtwork, subscribeArtwork, prepareArtwork,
   spriteBounds, resolvePortraitBounds, bodySpriteKey, paintBodySprite, drawBodySprite, drawFace,
   paintFaceSprite,
   drawAppearanceLayer, drawActionLayer, drawActionOverlay, motionOffset, applyMotionTransform,
   drawBackDetails, drawExpressionAccent, drawStatusEffect, drawParticle, drawSceneBackdrop, drawSceneParticle, validatePetFormArtists
 };
 export default Object.freeze({
-  paletteForSkin, skinEffectForSkin, resolveView, faceForView, sampleAction, resolveArtwork, subscribeArtwork, prepareArtwork,
+  paletteForSkin, skinEffectForSkin, resolveView, faceForView, previewAction, sampleAction, resolveArtwork, subscribeArtwork, prepareArtwork,
   spriteBounds, resolvePortraitBounds, bodySpriteKey, paintBodySprite, drawBodySprite, drawFace,
   paintFaceSprite,
   drawAppearanceLayer, drawActionLayer, drawActionOverlay, motionOffset, applyMotionTransform,

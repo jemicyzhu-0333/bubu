@@ -1,11 +1,19 @@
 'use strict';
 
+import { hermite } from './motion-core/easing.mjs';
+import { samplePaperReturn } from './paper-return-story.mjs';
+import { accentSpec, accentSignal } from './motion-core/accents.mjs';
+import { springFollow } from './motion-core/secondary.mjs';
+import { motionCaps, motionCapsById } from './motion-core/action-capabilities.mjs';
+import { sampleHatStar } from './hat-star-path.mjs';
+import { sampleGroundedMoonwalk } from './grounded-moonwalk.mjs';
 import { MOTIONS } from './rig/motions.mjs';
 import { applyPoint } from './rig/pose.mjs';
-import { gestureShoulder } from './usagi-gesture-limbs.mjs';
+import { USAGI_LIMB_RIG } from '../../../content/companion/usagi-limbs.mjs';
+const gestureShoulder = (view, side) => (USAGI_LIMB_RIG.sockets[view] || USAGI_LIMB_RIG.sockets.front)[side].slice();
 
 const TAU = Math.PI * 2;
-const ease = t => t * t * (3 - 2 * t);
+const ease = hermite;
 const mix = (a, b, t) => a.map((value, i) => value + (b[i] - value) * t);
 const rotate = (point, angle) => [point[0] * Math.cos(angle) - point[1] * Math.sin(angle),
   point[0] * Math.sin(angle) + point[1] * Math.cos(angle)];
@@ -25,9 +33,16 @@ function contactWeight(t, start = .08, ready = .32, release = .68, end = .94) {
 
 // Solve the wrist after orienting the tool. Hand and equipment then share the
 // same complete bone matrix, including the artist's action transition blend.
-function placePaw(bones, data, side, target, armAngle, toolAngle = 0) {
+function placePaw(bones, data, side, target, armAngle, toolAngle = 0, maxReach = Infinity, reachFrom = null) {
   const arm = `arm_${side}`, hand = `hand_${side}`;
   const shoulder = data.bones[arm].pivot, wrist = data.bones[hand].pivot;
+  // Reach clamp (fixed bone lengths): a free reach declares its maximum; a
+  // target beyond it moves the paw onto the reach circle instead of stretching
+  // the arm. Props bound to this hand bone follow, so the grip is never lost.
+  // Prop contacts (default) keep their authored target.
+  const origin = reachFrom || shoulder, reach = Math.hypot(target[0] - origin[0], target[1] - origin[1]);
+  if (reach > maxReach) target = [origin[0] + (target[0] - origin[0]) * maxReach / reach,
+    origin[1] + (target[1] - origin[1]) * maxReach / reach];
   const offset = rotate([wrist[0] - shoulder[0], wrist[1] - shoulder[1]], armAngle);
   bones[arm] = { r: armAngle, x: target[0] - shoulder[0] - offset[0], y: target[1] - shoulder[1] - offset[1] };
   bones[hand] = { r: toolAngle - armAngle };
@@ -46,12 +61,30 @@ function prepareUsagiSample(sample, { data, view, progress = 0, calmVisual = fal
   const t = calmVisual ? MOTIONS[sample.motion].hold : ((Number(progress) || 0) % 1 + 1) % 1;
   const bones = { ...sample.bones }, propPoses = { ...sample.propPoses };
   const layout = VIEWS[view] || VIEWS.front, hold = contactWeight(t), wave = Math.sin(TAU * t);
+  // Secondary follow-through: ears trail the shared body accent on a spring.
+  const accent = calmVisual || !action ? null : accentSpec(action.id);
+  if (accent && accent.ears) {
+    const durationMs = action.duration || action.durationMs || 8000;
+    const lag = springFollow(accentSignal(action, durationMs), t * durationMs, { stiffness: 140, damping: 9, windowMs: 500 });
+    const r = Math.max(-.16, Math.min(.16, lag * accent.ears * 3));
+    if (r) {
+      bones.ear_l = { ...(bones.ear_l || {}), r: (bones.ear_l?.r || 0) - r };
+      bones.ear_r = { ...(bones.ear_r || {}), r: (bones.ear_r?.r || 0) + r };
+    }
+  }
   // Keep the story's original lavender pillow through preparation, sleep
   // and waking. Its final stretch explicitly releases the prop.
-  const napping = action?.id === 'rest-nap';
+  const napping = Boolean(motionCaps(action).napPillow);
   const props = sample.props;
   const has = id => props.includes(id);
   const near = data.bones.hand_r.pivot;
+  if (motionCaps(action).story === 'hat-star' && has('hat')) {
+    propPoses.star = { opacity: sampleHatStar(t).opacity };
+  }
+  if (sample.motion === 'moonwalk') {
+    const step = sampleGroundedMoonwalk(progress, calmVisual);
+    bones.leg_l = step.feet[0]; bones.leg_r = step.feet[1];
+  }
   if (has('cup')) {
     // Shift the cup so the paw sits on the handle, not through its bowl.
     propPoses.cup = { x: -5 };
@@ -59,7 +92,11 @@ function prepareUsagiSample(sample, { data, view, progress = 0, calmVisual = fal
     const tilt = sipping ? hold * .14 : 0;
     const rest = [view === 'profile' ? 59 : view === 'three-quarter' ? 49 : sample.motion === 'carry' ? 33 : 43, 47];
     const rim = mix(rest, layout.mouth, sipping ? hold : 0);
-    placePaw(bones, data, 'r', pawForAnchor(rim, [-5, -3], tilt), .55 + hold * .75, tilt);
+    const recovery = action?.handoffRecovery || 0;
+    rim[1] += 5 * ease(Math.min(1, recovery / .6));
+    const release = ease(Math.max(0, (recovery - .7) / .3));
+    placePaw(bones, data, 'r', mix(pawForAnchor(rim, [-5, -3], tilt), near, release),
+      (.55 + hold * .75) * (1 - release), tilt * (1 - release));
     if (action?.prop === 'cup' && sample.motion === 'carry') {
       const support = [rim[0] - 3, rim[1] + 7];
       placePaw(bones, data, 'l', support, -.8);
@@ -109,12 +146,21 @@ function prepareUsagiSample(sample, { data, view, progress = 0, calmVisual = fal
     placePaw(bones, data, 'r', mix([50, 48], [54, 43], windup), .35 - windup * 1.1, 0);
     propPoses.plane = { opacity: t < .86 ? 1 : 1 - ease(Math.min(1, (t - .86) / .1)) };
   }
+  if (motionCaps(action).story === 'paper-return' && has('plane')) {
+    const story = samplePaperReturn(progress, calmVisual, action.interruptExit);
+    const engaged = action.interruptExit ? contactWeight(action.interruptExit.progress, 0, .14, .9, 1)
+      * (1 - ease(Math.max(0, (action.interruptExit.t - .55) / .45)))
+      : calmVisual ? 1 : contactWeight(progress, 0, .14, .9, 1);
+    placePaw(bones, data, 'r', mix(near, story.hand, engaged), .2 * engaged, 0);
+    bones.arm_l = { r: 0 }; bones.hand_l = { r: 0 };
+    propPoses.plane = { opacity: story.opacity };
+  }
   if (sample.motion === 'reach' && has('star')) {
     // Let the falling star meet a short, open paw outside the cheek. The old
     // independent forehead bob never reached the hand at any phase.
     const catchWeight = contactWeight(t, .08, .4, .64, .94);
     const caught = view === 'front' || view === 'back' ? [64, 53] : [60, 54];
-    placePaw(bones, data, 'r', mix(near, caught, catchWeight), -.35 * catchWeight);
+    placePaw(bones, data, 'r', mix(near, caught, catchWeight), -.35 * catchWeight, 0, USAGI_LIMB_RIG.supportReach, gestureShoulder(view, 'r'));
     propPoses.star = { catchWeight };
   }
   if (sample.motion === 'juggle' && has('balls-l')) {
@@ -156,10 +202,10 @@ function prepareUsagiSample(sample, { data, view, progress = 0, calmVisual = fal
     bones.hand_l = { r: 0 };
     bones.hand_r = { r: 0 };
   }
-  const freeWave = sample.motion === 'wave' && ['wave', 'rest-window', 'rest-plant'].includes(action?.id);
-  const freeStretch = sample.motion === 'stretch'
-    && ['stretch', 'rest-stretch', 'rest-daydream'].includes(action?.id) && props.length === 0;
-  const gesture = ['yawn', 'high-five'].includes(action?.id) ? action.id
+  const declared = motionCaps(action).gesture;
+  const freeWave = sample.motion === 'wave' && declared === 'wave';
+  const freeStretch = sample.motion === 'stretch' && declared === 'stretch' && props.length === 0;
+  const gesture = declared === 'yawn' || declared === 'high-five' ? declared
     : freeWave ? 'wave' : freeStretch ? 'stretch' : null;
   if (gesture === 'yawn' || gesture === 'high-five') {
     const lift = gesture === 'yawn' ? Math.sin(Math.PI * t) ** 2 : contactWeight(t, .04, .32, .6, .96);
@@ -193,23 +239,22 @@ function prepareUsagiSample(sample, { data, view, progress = 0, calmVisual = fal
     }
   }
   return Object.freeze({ ...sample, props, bones: Object.freeze(bones), propPoses: Object.freeze(propPoses), gesture,
-    contactPhase: t, contactHold: hold, calmVisual, contactView: view, contactNear: near, contactAction: action?.id });
+    contactPhase: t, contactHold: hold, calmVisual, contactView: view, contactNear: near, contactAction: action?.id, contactExit: action?.interruptExit });
 }
 
 function usagiPropMatrix(matrix, { id, artwork, data }) {
   if (!data?.anchors?.['usagi.umbrella-grip']) return matrix;
   if (id === 'star' && artwork.pose.sample.motion === 'magic'
-    && artwork.pose.sample.contactAction === 'magic-trick' && artwork.pose.sample.props.includes('hat')) {
-    // The ordinary hat trick rises from the actual brim, clears the lower
-    // face laterally, then lifts outside the cheek. Keep its original rotation
-    // and reveal/fade; contextual click-30 uses a different presentation.
-    const reveal = artwork.pose.sample.propPoses.star.opacity || 0;
-    const center = reveal < .5 ? mix([33, 52], [74, 51], ease(reveal * 2))
-      : mix([74, 51], [74, 24], ease((reveal - .5) * 2));
+    && motionCapsById(artwork.pose.sample.contactAction).story === 'hat-star' && artwork.pose.sample.props.includes('hat')) {
+    const star = sampleHatStar(artwork.pose.sample.contactPhase), center = star.center;
     const target = applyPoint(artwork.pose.world.root, ...center);
     const previous = applyPoint(matrix, 62, 8);
-    return [matrix[0], matrix[1], matrix[2], matrix[3],
-      matrix[4] + target[0] - previous[0], matrix[5] + target[1] - previous[1]];
+    // Twinkle (spin + pulse) about the visible star center (62,8).
+    const c = Math.cos(star.spin) * star.scale, s = Math.sin(star.spin) * star.scale;
+    const m = [matrix[0], matrix[1], matrix[2], matrix[3], matrix[4] + target[0] - previous[0], matrix[5] + target[1] - previous[1]];
+    if (!star.spin && star.scale === 1) return m;
+    const local = [c, s, -s, c, 62 - c * 62 + s * 8, 8 - s * 62 - c * 8];
+    return multiplyMatrix(m, local);
   }
   if (id === 'star' && artwork.pose.sample.motion === 'reach') {
     const wrist = applyPoint(artwork.pose.world.hand_r, ...data.bones.hand_r.pivot);
@@ -224,6 +269,15 @@ function usagiPropMatrix(matrix, { id, artwork, data }) {
   if (['balls-l', 'balls-r', 'balls-top'].includes(id) && artwork.pose.sample.motion === 'juggle') {
     const pose = artwork.pose.sample.propPoses[id];
     return [1, 0, 0, 1, pose.x, pose.y];
+  }
+  if (id === 'plane' && motionCapsById(artwork.pose.sample.contactAction).story === 'paper-return') {
+    const story = samplePaperReturn(artwork.pose.sample.contactPhase, artwork.pose.sample.calmVisual, artwork.pose.sample.contactExit);
+    const origin = data.bones.hand_r.pivot;
+    const held = !['flight', 'receive'].includes(story.phase);
+    const grip = held ? applyPoint(artwork.pose.world.hand_r, ...origin) : story.grip;
+    const c = Math.cos(story.angle), s = Math.sin(story.angle);
+    return [c, s, -s, c, grip[0] - c * origin[0] + s * origin[1],
+      grip[1] - s * origin[0] - c * origin[1]];
   }
   if (id !== 'plane' || artwork.pose.sample.contactPhase <= .3) return matrix;
   const t = artwork.pose.sample.contactPhase, flight = Math.min(1, (t - .3) / .56);
@@ -263,3 +317,8 @@ function posedPropPoint(artwork, id, relative) {
 }
 
 export { contactWeight, placePaw, prepareUsagiSample, posedPropPoint, usagiPropMatrix, paintUsagiProp };
+
+function multiplyMatrix(a, b) {
+  return [a[0] * b[0] + a[2] * b[1], a[1] * b[0] + a[3] * b[1], a[0] * b[2] + a[2] * b[3], a[1] * b[2] + a[3] * b[3],
+    a[0] * b[4] + a[2] * b[5] + a[4], a[1] * b[4] + a[3] * b[5] + a[5]];
+}

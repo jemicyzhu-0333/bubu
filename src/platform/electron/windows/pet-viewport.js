@@ -42,20 +42,39 @@ function createPetViewport({ bounds, screen, size = { w: 520, h: 360 }, interval
     else native.setPosition(plan.bounds.x, plan.bounds.y, false);
     publish(); hitTest();
   }
+  // Unified resume path (unlock-screen, resume, display change, show): the
+  // native pass-through state is not trusted after the OS took the screen.
+  // Forget the cached value and re-assert it, restart polling if it was
+  // stopped by a 'hide' that had no matching 'show', re-apply the floating
+  // level, and re-layout/publish for a possibly changed display.
+  function resync(reason = 'resync') {
+    if (!native || native.isDestroyed()) return false;
+    const visible = typeof native.isVisible === 'function' ? native.isVisible() : true;
+    if (visible && timer === null) timer = interval(hitTest, 24);
+    native.setAlwaysOnTop?.(true, 'floating');
+    native.setVisibleOnAllWorkspaces?.(true, { visibleOnFullScreen: false });
+    const plan = layout(), current = native.getBounds();
+    if (current.width !== plan.bounds.width || current.height !== plan.bounds.height
+      || current.x !== plan.bounds.x || current.y !== plan.bounds.y) native.setBounds(plan.bounds, false);
+    ignored = null;
+    publish(); hitTest();
+    return true;
+  }
   return {
     initialBounds: layout().bounds,
     attach(window) {
       native = window;
       native.webContents.on('did-finish-load', publish);
       native.webContents.on('input-event', hitTest);
-      native.on('show', () => { if (timer === null) timer = interval(hitTest, 24); hitTest(); });
+      native.on('show', () => resync('show'));
       native.on('hide', () => { if (timer !== null) cancelInterval(timer); timer = null; });
       native.on('closed', () => { if (timer !== null) cancelInterval(timer); timer = null; native = null; });
     },
     getBounds: () => ({ ...anchor }),
     setPosition: move,
     setBounds: next => move(next.x ?? anchor.x, next.y ?? anchor.y),
-    setMenuOpen(open) { expanded = Boolean(open); hitTest(); return geometry(); }
+    setMenuOpen(open) { expanded = Boolean(open); hitTest(); return geometry(); },
+    resync
   };
 }
 module.exports = { createPetViewport };

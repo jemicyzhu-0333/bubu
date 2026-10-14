@@ -1,0 +1,201 @@
+{
+  "schema": "dango-source-contact-pose-candidate/2",
+  "packageId": "sip-front-v2",
+  "runtimeReady": false,
+  "hostAcceptance": null,
+  "status": "Approved for bounded front-sip validation; user artistic acceptance pending",
+  "action": "sip-tea",
+  "view": "front",
+  "baseCup": [
+    23,
+    43
+  ],
+  "cupRect": [
+    0,
+    0,
+    22,
+    19
+  ],
+  "cupDeltaPolicy": "Draw identical fixed sprites at cup(p)-[23,43]; no per-phase source projection, rotation or scale.",
+  "sourcePalette": [
+    [
+      248,
+      104,
+      120
+    ],
+    [
+      248,
+      128,
+      128
+    ],
+    [
+      240,
+      80,
+      104
+    ],
+    [
+      26,
+      27,
+      38
+    ]
+  ],
+  "sourceAlphaThreshold": 240,
+  "scaleArtPerSourcePixel": 0.06493506493506493,
+  "sourceContact": [
+    1489,
+    375.5
+  ],
+  "sourceDepthY": 260,
+  "sharedSource": "Upper isolated source; right mirrors all pixels, contact anchor and normal.",
+  "contacts": {
+    "left": {
+      "targetLocal": [
+        1.25,
+        10.375
+      ],
+      "normal": [
+        1,
+        0
+      ],
+      "anatomicalShoulder": [
+        4.5,
+        45.5
+      ]
+    },
+    "right": {
+      "targetLocal": [
+        17.25,
+        10.375
+      ],
+      "normal": [
+        -1,
+        0
+      ],
+      "anatomicalShoulder": [
+        58.5,
+        45.5
+      ]
+    }
+  },
+  "frames": [
+    {
+      "id": "sip-front-v2-left-root-back",
+      "side": "left",
+      "layer": "back",
+      "src": "sip-front-v2-left-root-back.png",
+      "sha256": "7fefa65a5e54b005aebb35e44d38fbf6d3c457dcb648061881d2f55448b2470d",
+      "exact8x": "sip-front-v2-left-root-back-8x.png",
+      "exact8xSha256": "3e6817951627988cf774875fc8a36b3c145f2acb16c4230dddd92bcdc0fc98b0",
+      "size": [
+        66,
+        72
+      ],
+      "origin": [
+        0,
+        0
+      ],
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "sourceLogicalRect": [
+        0,
+        38,
+        26,
+        22
+      ]
+    },
+    {
+      "id": "sip-front-v2-left-fore-palm-front",
+      "side": "left",
+      "layer": "front",
+      "src": "sip-front-v2-left-fore-palm-front.png",
+      "sha256": "43a1ca6b128aff8bce8f95e6462510bdbdada4feb6847c84a29b78a2387e3167",
+      "exact8x": "sip-front-v2-left-fore-palm-front-8x.png",
+      "exact8xSha256": "c14ba0c59fbfc6a344dba841b006be369b00b5039944debaf4e70bffc9d6a616",
+      "size": [
+        66,
+        72
+      ],
+      "origin": [
+        0,
+        0
+      ],
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "sourceLogicalRect": [
+        0,
+        38,
+        26,
+        22
+      ]
+    },
+    {
+      "id": "sip-front-v2-right-root-back",
+      "side": "right",
+      "layer": "back",
+      "src": "sip-front-v2-right-root-back.png",
+      "sha256": "1f6da45733acbb3eadb27095b2f4b33a966e84bfad427042c8b5d3e5a46c82cb",
+      "exact8x": "sip-front-v2-right-root-back-8x.png",
+      "exact8xSha256": "83851ef811003354bf607d451a92abb5b8d5ab2b97c899464313138bf4a05fb2",
+      "size": [
+        66,
+        72
+      ],
+      "origin": [
+        0,
+        0
+      ],
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "sourceLogicalRect": [
+        39,
+        38,
+        25,
+        22
+      ]
+    },
+    {
+      "id": "sip-front-v2-right-fore-palm-front",
+      "side": "right",
+      "layer": "front",
+      "src": "sip-front-v2-right-fore-palm-front.png",
+      "sha256": "05a90d52d33c7e810d888db930e2f39f45675925a688c5168a32b356a8d17047",
+      "exact8x": "sip-front-v2-right-fore-palm-front-8x.png",
+      "exact8xSha256": "c7a00171396aece0d43fb16c12f52a92030bf07d3602cb81d576dccac764fa6a",
+      "size": [
+        66,
+        72
+      ],
+      "origin": [
+        0,
+        0
+      ],
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "sourceLogicalRect": [
+        39,
+        38,
+        25,
+        22
+      ]
+    }
+  ],
+  "rawSourceCoverageException": "p0 left: six original opaque root samples outside body. Fixed projected actual source root has zero outside pixels. Raw source unchanged.",
+  "generatedBodyOrCupUsed": false,
+  "depthOwnership": "Declared fixed research layer split; complete root-back and fore-palm-front masks form exact union; no source removal or patch paint."
+}

@@ -278,11 +278,11 @@ test('循环原语白名单齐全且有界', () => {
   }
 });
 
-test('P5：43 个行为与 12 个会话动作直接使用已注册 expression ID', () => {
+test('P5：44 个行为与 12 个会话动作直接使用已注册 expression ID', () => {
   const registry = createExpressionRegistry(expressions.EXPRESSIONS);
   const behaviors = require('../src/content/behaviors.mjs');
   const sessions = require('../src/content/session-activities.mjs');
-  assert.equal(Object.keys(behaviors.PET_ACTIONS).length, 43);
+  assert.equal(Object.keys(behaviors.PET_ACTIONS).length, 44);
   assert.equal(Object.keys(sessions.SESSION_ACTIVITIES).length, 12);
   for (const action of Object.values(behaviors.PET_ACTIONS)) {
     assert.ok(registry.has(action.expression),

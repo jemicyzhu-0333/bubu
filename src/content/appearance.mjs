@@ -277,6 +277,16 @@ const PET_APPEARANCE_ITEMS = Object.freeze([
     exclusiveGroup: 'usagi.earwear', exclusivePriority: 10,
     renderKey: 'usagi-sakura-clip', bleed: { top: 16 }
   }),
+  appearanceItem('usagi.paper-plane-clip', '纸飞机信使夹', 'head', 'front', 44, {
+    formId: 'usagi', minLevel: 6, views: ALL_VIEWS,
+    exclusiveGroup: 'usagi.earwear', exclusivePriority: 10,
+    renderKey: 'usagi-paper-plane-clip', bleed: { top: 16, right: 4 }
+  }),
+  appearanceItem('usagi.compass-clip', '小指南针耳夹', 'head', 'front', 44, {
+    formId: 'usagi', minLevel: 8, views: ALL_VIEWS,
+    exclusiveGroup: 'usagi.earwear', exclusivePriority: 10,
+    renderKey: 'usagi-compass-clip', bleed: { top: 16, right: 4 }
+  }),
   appearanceItem('usagi.tiny-crown', '奶油小王冠', 'head', 'front', 42, {
     formId: 'usagi', minLevel: 18, views: ALL_VIEWS,
     exclusiveGroup: 'usagi.headwear', exclusivePriority: 10,

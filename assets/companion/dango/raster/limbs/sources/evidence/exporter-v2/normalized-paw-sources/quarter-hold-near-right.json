@@ -1,0 +1,190 @@
+{
+  "schema": "dango-prototype-mask/1",
+  "source": "sources/masters/quarter-hold-fixed-shoulders-v1.png",
+  "sourceSha256": "89a87e1c54701b3b586595bb7b68591e94cdbc38b79d153014ee89d9beee8201",
+  "alphaMethod": "explicit hand-traced geometry, exact source RGB",
+  "frames": [
+    {
+      "name": "quarter-hold-fixed-right",
+      "view": "three-quarter-left",
+      "side": "image-right authored near cup-holding paw",
+      "crop": [
+        789,
+        596,
+        153,
+        130
+      ],
+      "root": [
+        916,
+        632
+      ],
+      "grip": [
+        796,
+        654
+      ],
+      "wristAxisDegrees": 156.425,
+      "palmCenterLandmark": [
+        861,
+        656
+      ],
+      "polygon": [
+        [
+          835,
+          604
+        ],
+        [
+          857,
+          604
+        ],
+        [
+          879,
+          605
+        ],
+        [
+          895,
+          610
+        ],
+        [
+          907,
+          620
+        ],
+        [
+          920,
+          633
+        ],
+        [
+          932,
+          650
+        ],
+        [
+          935,
+          667
+        ],
+        [
+          935,
+          678
+        ],
+        [
+          925,
+          682
+        ],
+        [
+          921,
+          693
+        ],
+        [
+          910,
+          698
+        ],
+        [
+          903,
+          706
+        ],
+        [
+          891,
+          711
+        ],
+        [
+          877,
+          718
+        ],
+        [
+          839,
+          718
+        ],
+        [
+          838,
+          712
+        ],
+        [
+          830,
+          709
+        ],
+        [
+          817,
+          707
+        ],
+        [
+          816,
+          699
+        ],
+        [
+          806,
+          694
+        ],
+        [
+          805,
+          684
+        ],
+        [
+          795,
+          680
+        ],
+        [
+          795,
+          636
+        ],
+        [
+          796,
+          630
+        ],
+        [
+          804,
+          629
+        ],
+        [
+          804,
+          620
+        ],
+        [
+          816,
+          617
+        ],
+        [
+          818,
+          613
+        ],
+        [
+          824,
+          607
+        ]
+      ],
+      "registration": {
+        "prop": "cup",
+        "contactPoint": [
+          796,
+          654
+        ],
+        "rootBasis": "visually observed pink wrist bridge between palm and body, near shaded upper-right anatomical transition; selected independently of reachability solver",
+        "rootStatus": "open pink body-facing root, no hidden hand surface invented",
+        "wristAxisBasis": "body-side root (916,632) toward visible palm-center landmark (861,656), distinct from cup contact vector",
+        "excluded": "cup rim, cup interior, cup body; far-left hand is not reconstructed behind cup",
+        "supersedes": "old quarter-hold-right source with abdomen-central registration; reject those eight old frames for fixed-shoulder use",
+        "sourceBodyMeasurement": "clean source rows420/450/470, x435..1123 inclusive width689"
+      },
+      "bodyScaleAudit": {
+        "sourceBodyWidth": 689,
+        "canonicalBodyWidth": 73.025641,
+        "artPxPerSourcePx": 0.10598786792452829,
+        "method": "clean torso y420/450/470 x435..1123 width689; independent measurement; do not size from cup",
+        "independentMeasurement": true,
+        "isotropicOnly": true
+      },
+      "sourceCropFile": "sources/crops/quarter-hold-fixed-source-candidates/quarter-hold-fixed-right-source-isolated.png",
+      "originalMaskFileIdentifier": "quarter-hold-fixed-right-source-mask.png",
+      "axisRole": "source anatomical wrist toward palm, not invented bone marker",
+      "root_crop": [
+        127,
+        36
+      ],
+      "exportSide": "r",
+      "mirrorSourceX": false,
+      "mirror": false,
+      "contactNormal": [
+        -1,
+        0
+      ]
+    }
+  ],
+  "pathsRelativeTo": "Asset package root; identifier-only fields are historical labels."
+}

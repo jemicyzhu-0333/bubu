@@ -1,0 +1,143 @@
+Dango limbs v2 — generation prompt archive
+
+Scope: reusable limb assets only. Approved whole-character identity is full-character-v2.png. Canonical body, face and ears remain unchanged.
+Production revisions: 6+6 arm bones; source-derived rounded palms and feet; view-specific near/far hands and body coverage. Offline high-resolution inverse projection produces fixed direction PNGs. Runtime must not rotate or stretch pixel layers.
+All source image generation used the built-in image generator. No deterministic generation seed or model version is claimed. Deterministic extraction and corrections are recorded separately in limbs/sources/rebuild-recipe.json.
+Paths below are relative to assets/companion/dango/raster/. Source roles, hashes and limits are in limbs/sources/index.json.
+
+========================================================================
+full-character-v2.png
+Master: limbs/sources/masters/full-character-v2.png
+SHA-256: 9e77a9c2a455c3a7c9cc145bb8b0f458ede80bd367e4eb89539c6abddc8b6fdd
+Used for: approved identity, three-view rest hands, three-view standing feet, quarter step and lift
+Prompt: limbs/sources/masters/full-character-v2-prompt.txt
+Prompt SHA-256: 7bd3601a6d83d13a9b0a5906c01454e8c1efabb95d9198337f46ce97fc36cce0
+
+Use case: identity-preserving precise character concept refinement.
+Edit the supplied six-panel Dango/Bubu pixel-art prototype sheet. Preserve the layout, pale background, body widths, body heights, ears, eyes, tiny mouths, pink color scheme, all three views and six poses. Preserve the complete character identity.
+Make ONLY these anatomy refinements:
+1. Shorten the hanging arm/paw silhouettes by about one third, especially the fingers-like hanging ends. Hands are small ROUND mitts naturally at the sides of the body, matching roughly 11% of body width. No long oval hands, no fingers, no skinny arms.
+2. Feet in the top row should be soft short organic nubs with broadly rounded U-shaped bottom arcs. Keep them about 19% of body width, but remove any straight shoe-sole feeling or separate oval toe highlight. A continuous soft pink foot grows out of the body, no ankle band.
+3. Bottom-row walking and lifting feet MUST be the SAME anatomical short foot as the standing top-row feet, articulated from the root. They should read as a short slightly flattened soft lobe with a wide attachment and rounded curved underside, NOT a detached round ball, pink coin facing camera, or circular pad. Walking side/three-quarter view shows the foot's side contour, not a circular sole stamp. Use tiny gentle step amplitude to preserve relaxed adorable posture and original body silhouette.
+These are concept prototypes for user shape approval, not production atlas frames. Keep restrained reference-like chunky pixel art, consistent black outline. No text, no arrows, no accessories, no new character features.
+
+========================================================================
+contact-actions-v2.png
+Master: limbs/sources/masters/contact-actions-v2.png
+SHA-256: 4ece9917bad5c0848bcb6ebc6cc023e0a6a89d067d93b0e257772dfd9133284b
+Used for: front hold, quarter press
+Limits: old front grip is superseded
+Prompt: limbs/sources/masters/contact-actions-v2-prompt.txt
+Prompt SHA-256: 178a4e250f13bd487134955b348072bb61320d6f1113d17cae486a03ab1261db
+
+Use case: precise-object-edit.
+Refine the provided Dango/Bubu three-pose contact prototype sheet. Leave the LEFT broom pose and MIDDLE mug pose exactly unchanged.
+Change ONLY the RIGHT keyboard pose:
+- It currently accidentally has a THIRD small hand on the character's far left body edge, just above/behind the keyboard. Remove that extra hand completely and restore the smooth pink body contour there.
+- The character must have EXACTLY TWO hands, the two paws resting on the keyboard.
+- Both keyboard paws must be simple continuous round soft mitts with slightly flattened contact undersides. REMOVE all finger lines, finger separations, claws, split fingertips and extra digits. This character has no fingers.
+- Maintain natural short-arm attachment from body to each paw, avoid a detached black-outlined glove pasted on the torso.
+Keep its body, face, ears, feet, scale, pose, keyboard, color scheme, pixel art style and the pale background unchanged. No other alterations. No text or labels.
+
+========================================================================
+expressive-actions-v2.png
+Master: limbs/sources/masters/expressive-actions-v2.png
+SHA-256: 2891fefe2b73f81c1f8437d7b16fff45e122e0f48e4806353fe006ff98c97808
+Used for: front wave, front fist
+Limits: old quarter reach and support are superseded
+Prompt: limbs/sources/masters/expressive-actions-v2-prompt.txt
+Prompt SHA-256: 70a2b4e2537686de7d1b3e636420cbbc405599f215f9350f0dc5d31d45e7514b
+
+Precise edit to the supplied 2x2 Dango action prototype sheet. Preserve every other panel (support upper-left, wave upper-right, reach lower-right) unchanged, and preserve the lower-left character's body, face, ears, feet, stance, colors and scale.
+Change ONLY the TWO curled fist paws on the LOWER LEFT character: they are oversized. Reduce each fist's visible bulk by approximately 30% while keeping each attached by the same short soft arm. They should be compact round mitts, roughly the volume of the resting paw in the other panels, not inflated boxing gloves. Preserve the curled-fist gesture with at most ONE small inward pink/ink fold line, not a thick black ring around the entire wrist. No fingers, knuckles, claws, or new hands. Keep both attachment positions at chest height and natural pink continuity into the body. No change to any other shape or background, no text.
+
+========================================================================
+expressive-actions-v3.png
+Master: limbs/sources/masters/expressive-actions-v3.png
+SHA-256: 7a98ee212cdced257f7328363fe2c0c528d1113362e23d3988f081f1ee0c74b4
+Used for: front reach
+Limits: other panels not newly adopted
+Prompt: limbs/sources/masters/expressive-actions-v3-prompt.txt
+Prompt SHA-256: bde1fdbd970ca8026353ab3f7e7fb992cf2b133ef34eb4e6386c853f2129aaa2
+
+Precise anatomical edit: change ONLY the LOWER RIGHT reaching character in this 2x2 sheet. Leave support, wave and fist panels unchanged.
+The lower-right reach has an incorrect shoulder: its arm comes out near the face. Correct it using the SAME low side-shoulder attachment level as the resting hand on its opposite side.
+Make the body upright (same size/identity as other panels), ears level, tiny mouth horizontal. Its left-side shoulder is on the LOWER SIDE of the body, approximately level with the resting opposite wrist, not the cheek or face. From that fixed low side shoulder, a SHORT soft forearm reaches diagonally upward-left to a small rounded fingerless paw. Shoulder-to-wrist reach is only around 12% of body width. The raised paw should end beside the lower cheek, well BELOW eye level, not above the head. Move the tiny star to just above/outside this low-reaching paw so it is still a clear reach gesture. Do not lengthen the arm or move its root upward to reach the old star.
+Preserve approved round soft paw volume, broad round-bottom short feet, pink body, black oval eyes, ear bumps, pixel style. Exactly TWO hands and TWO feet. No detached palm, fingers, black shoulder ring or extra arm. This is a small cute reaching gesture, not a dramatic upward stretch. Body/face proportions stay consistent. Background/layout unchanged, no text.
+
+========================================================================
+foot-actions-v1.png
+Master: limbs/sources/masters/foot-actions-v1.png
+SHA-256: 6c8338d2fce66e31962133b5ab90520e8b0699ad376bffe8e42de2f7177f5d83
+Used for: front/back step and lift
+Prompt: limbs/sources/masters/foot-actions-v1-prompt.txt
+Prompt SHA-256: f27f2b182f7634ba74eb3b22fed8601712845abcf43d4d9365745e7720ccdd12
+
+Use case: identity-preserving pixel-art foot action reference.
+Using the attached approved Dango/Bubu complete-character sheet as exact identity guide, draw a 2x2 full-character action sheet. Pale warm-gray background #f1f3ee. Preserve the same wide pink mochi body, two small ears, tiny straight mouth and black oval eyes when visible, same body scale across all four panels. Keep the approved short round hands and shallow round-arc-bottom feet.
+We need missing FRONT and BACK examples of the SAME foot anatomy in a gentle small step and lift:
+Top-left: FRONT view making a small step, its left foot brought a little forward and sideways with an oblique rounded side contour. The other foot supports on the ground. Do not tilt the whole body to imply the step.
+Top-right: FRONT view gently lifting its left foot a little higher, short broad root naturally joined to lower body, rounded soft foot underside visible from a slight side angle. No circular sole stamp, no toes, no black ankle ring.
+Bottom-left: BACK view making the corresponding small step; both ear bumps visible, no eyes or face on its back. One rounded short foot steps diagonally outward, other supports. Same body width and foot size as front.
+Bottom-right: BACK view gently lifting the same foot. Preserve broad attachment and rounded blunt underside.
+Exactly TWO feet and TWO small resting hands per character. Hands stay naturally at sides; do not make the body grow a third foot. Maintain the rounded shallow U-shaped standing-foot anatomy from reference even when lifted, never tapered pointed triangles, detached balls, boots or widened shoe soles. Steps are modest and cute, not running or kicking. Foot volume consistent in all four. Use clear gentle overlap between the frontmost lifted foot and body, connected at a broad soft root.
+Crisp chunky pixel art with reference-like consistent dark outline and restrained pink shading, no glow, blur or decorative scenery. All full bodies and limbs visible within generous panel margins. No text, panel borders, arrows, labels, logos or props. This is a full-character prototype for later source-guided foot extraction, not an exact technical atlas.
+
+========================================================================
+quarter-paw-poses-v2.png
+Master: limbs/sources/masters/quarter-paw-poses-v2.png
+SHA-256: 4be119389cbbb474899cb40353313181f5860f407e1403419fe940a605d46747
+Used for: quarter grip, quarter wave, quarter fist
+Limits: quarter hold superseded: wrist originated too far inside abdomen
+Prompt: limbs/sources/masters/quarter-paw-poses-v2-prompt.txt
+Prompt SHA-256: 4411bb786798850555b77c2ba989b978cb771c87205761ccd19b16e0b5893bb1
+
+Precise anatomical correction of the supplied 2x2 character pose sheet. Keep the top-left broom pose and bottom-left wave pose unchanged.
+TOP RIGHT mug pose currently has FOUR hands: two cradle the mug, plus two unwanted resting hands at the far left and far right edges of the body. REMOVE BOTH unwanted resting hands on the body edges completely, restore smooth pink body contours there, and preserve ONLY the TWO hands actually holding the mug. Keep mug, arms, body, face, feet, colors and pose unchanged.
+BOTTOM RIGHT fist pose: REMOVE the tiny extra resting-hand bump on the far right edge of the body. Keep ONLY the two visible curled fists in front of the chest. No added hands, no fingers. Preserve the rest.
+Every character must have exactly TWO hands and TWO feet. Do not change facial features, body shape, scale, background or style. No text or labels.
+
+========================================================================
+missing-four-poses-v2.png
+Master: limbs/sources/masters/missing-four-poses-v2.png
+SHA-256: 08212dadb5ad3c16106062a50010d48e9df53d361bb58abbd185c115ac6a74f9
+Used for: front press, front support, quarter reach, back wave
+Prompt: limbs/sources/masters/missing-four-poses-v2-prompt.txt
+Prompt SHA-256: 3cc9e40409833faca7f3d955c022a8f050361d9b76fd53d9bf3644d320081d86
+
+Edit ONLY the TOP LEFT panel of this four-panel character sheet. Remove the two extra small resting paws at the far left and far right body sides. This front keyboard-playing character must have EXACTLY TWO hands total: the two round mittens pressing the keyboard, each connected by a short soft pink forearm that naturally grows from its low body side. No separate hanging idle paws remain. Keep the keyboard and two pressing mittens, body proportions, eyes, ears, feet, colors and pixel art exactly. Keep ALL OTHER THREE PANELS completely unchanged. No new limbs, no extra props, no text.
+
+========================================================================
+contact-stable-body-v1.png
+Master: limbs/sources/masters/contact-stable-body-v1.png
+SHA-256: ae4abc1ffae68a15b5afcec933daed4ccad5f8e55c6185ad6aa7e03770d07f9e
+Used for: front grip, quarter light support
+Limits: support does not prove push-up deformation
+Prompt: limbs/sources/masters/contact-stable-body-v1-prompt.txt
+Prompt SHA-256: 612a60bae9a7017445919b50eac09d9a5c6325c7b395eb3e76277d3b44f2475c
+
+Use case: identity-preserve. Generate TWO full-character production pose references side by side, based exactly on the attached approved Dango character. Preserve the broad squat torso (not taller or narrower), tiny pointed ears, exact simple face and round short feet, pink colors and chunky pixel edges. Same scale in both panels, light sage plain background. LEFT: exact FRONT view as the reference upper left, holding a slender broom handle immediately alongside the body's left edge with its short left mitten; a single plump mitten wraps in front of the handle, wrist emerges naturally from the low body side at mouth/belly height. Other hand rests at low right body side. RIGHT: exact THREE QUARTER LEFT view as reference upper middle, body fully upright with both eyes, short near arm from low right body side gently pressing on a small separate block beside it. Near palm is visibly squashed flat underneath with rounded top, its full contact outline visible above block, far hand rests at body left. Do not tilt or bend the torso, do not grow a human arm or attach arms at eyes. EXACTLY TWO HANDS AND TWO FEET per character, no duplicate resting hand behind the acting hand. No words, no glow, no action marks, no accessories except named broom and support block. The full body silhouette must retain reference height-to-width ratio so limbs can be registered to a fixed body rig.
+
+========================================================================
+quarter-hold-fixed-shoulders-v1.png
+Master: limbs/sources/masters/quarter-hold-fixed-shoulders-v1.png
+SHA-256: 89a87e1c54701b3b586595bb7b68591e94cdbc38b79d153014ee89d9beee8201
+Used for: quarter hold
+Limits: Independent near/far hands; see validation scope for fixed-shoulder IK and contact limitations
+Prompt: limbs/sources/masters/quarter-hold-fixed-shoulders-v1-prompt.txt
+Prompt SHA-256: 770a11855d5b2f659d3f2f039fa096fc7d64559c2b0461e41e7be639cf96260d
+
+Use case: identity-preserve. Single whole-character anatomical pose study of the EXACT attached pink Dango, in the upper-middle reference's three-quarter-left view with both eyes visible. Keep the approved broad squat round torso, ear points, small face, short round feet, overall scale and pixel style. It gently holds a large wide shallow warm cream tea mug/bowl against the LOWER BELLY, below the face. Crucial anatomy: two VERY SHORT SOFT ARMS emerge from the SAME low OUTER BODY SIDES as the reference resting paws. Both visible WRISTS stay close to their respective outer side contours, NOT in the center of the abdomen. The vessel is wide enough, roughly half to three-fifths the torso width, so the hands only travel a short inward distance to cradle its left and right sides. The near right wrist must remain at the lower RIGHT OUTER SIDE, and its rounded mitten cups the vessel's right side; far left hand lightly supports the vessel's left side near the LEFT BODY EDGE. Keep the vessel near lower belly center, never make a thin human arm crossing the torso. Exactly two hands and two feet, no leftover resting paws. All body visible except the natural low-front vessel overlap. No fingers. No abdominal-origin hands, no closed circular hand stickers, no long arms, no tilted or reshaped torso. Plain light sage background, no captions. This source will be registered to fixed shoulder joints, so anatomically coherent short arm roots are essential.
+
+========================================================================
+arm-directions-v2.png
+Master: limbs/sources/masters/arm-directions-v2.png
+SHA-256: 60099f2389e4d17da2b0ab34d7dcbade35b0bea478e7cd6f930ab1d1337610c6
+Used for: short soft segment source
+Limits: 6+6 bone lengths approved; see validation scope for composed joints and runtime limitations
+Prompt: limbs/sources/masters/arm-directions-v2-prompt.txt
+Prompt SHA-256: 2f5fd29219e5d4e9baacc03a1313d10253b3663f2d5f87bda8b098f2c832f480
+
+Precise anatomical correction to the FOUR right arms in image 1, using image 2 as the approved hand/body proportion reference. Keep image 1 four bodies, faces, feet, scale, arm directions and wrist positions unchanged. Reduce only the THICKNESS of the short arm STEM between body and mitten by approximately 25 percent, so it is visibly a little narrower than the rounded mitten at its end. Keep the arm short and soft, no elbow corners, no thin human arm. Maintain chunky dark pixel outline and pink fill. The mitten should match image 2 natural resting hand volume, not grow larger. Every arm still joins smoothly into its body; outer contours are continuous, no closed black ring at root. Four directions remain rightward, down-right shallow, down-right45, down-rightsteep. No new hands, no changes to torso/face/ears, no text.
+
+The original whole-character generation/refinement lineage is retained in limbs/sources/masters/full-character-generation-lineage.json. Unselected panels in otherwise used masters are context, not additional accepted production poses.

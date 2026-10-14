@@ -1,0 +1,357 @@
+{
+  "source": "sources/masters/foot-actions-v1.png",
+  "source_sha256": "6c8338d2fce66e31962133b5ab90520e8b0699ad376bffe8e42de2f7177f5d83",
+  "source_size": [
+    1536,
+    1024
+  ],
+  "coordinate_system": "source pixels, top-left origin; crop right/bottom exclusive",
+  "extraction": "Explicit manually traced polygons only; original source RGB untouched, binary alpha. No color-key deletion or generated foot shapes.",
+  "root_policy": "Root caps extend into visible pink body interior to provide source-authored overlap; source geometry is not deformed to match a legacy hip. Semantic leg entry axes point from body root into the foot and do not define final bone tips.",
+  "identity_policy": "Anatomical foot action source only; canonical master body/face remain unchanged.",
+  "frames": [
+    {
+      "id": "front-lift",
+      "crop": [
+        930,
+        362,
+        1062,
+        464
+      ],
+      "polygon": [
+        [
+          982,
+          370
+        ],
+        [
+          1005,
+          372
+        ],
+        [
+          1021,
+          378
+        ],
+        [
+          1034,
+          391
+        ],
+        [
+          1041,
+          402
+        ],
+        [
+          1046,
+          415
+        ],
+        [
+          1046,
+          430
+        ],
+        [
+          1041,
+          437
+        ],
+        [
+          1038,
+          443
+        ],
+        [
+          1027,
+          447
+        ],
+        [
+          1026,
+          454
+        ],
+        [
+          1018,
+          455
+        ],
+        [
+          980,
+          455
+        ],
+        [
+          978,
+          448
+        ],
+        [
+          968,
+          446
+        ],
+        [
+          961,
+          442
+        ],
+        [
+          960,
+          438
+        ],
+        [
+          948,
+          435
+        ],
+        [
+          946,
+          429
+        ],
+        [
+          940,
+          426
+        ],
+        [
+          938,
+          419
+        ],
+        [
+          938,
+          402
+        ],
+        [
+          942,
+          396
+        ],
+        [
+          948,
+          393
+        ],
+        [
+          950,
+          384
+        ],
+        [
+          958,
+          379
+        ],
+        [
+          970,
+          378
+        ]
+      ],
+      "root": [
+        1007,
+        384
+      ],
+      "sole": [
+        1000,
+        449
+      ],
+      "root_cap": [
+        [
+          982,
+          370
+        ],
+        [
+          1005,
+          372
+        ],
+        [
+          1021,
+          378
+        ]
+      ],
+      "leg_into_foot_direction": [
+        -0.107,
+        0.994
+      ],
+      "body_scale_audit": {
+        "body_width_source_px": 428,
+        "canonical_body_width_art_px": 69.415385,
+        "art_px_per_source_px": 0.162186,
+        "source_px_per_art_px": 6.165760299902581,
+        "method": "clean torso scanline width, excludes hands; isotropic scaling only",
+        "measured_by": "independent pixel-contract auditor"
+      },
+      "files": {
+        "rgba": "sources/crops/foot-action-source-candidates/front-lift-source-rgba.png",
+        "originalAlphaIdentifier": "front-lift-alpha.png",
+        "originalSourceCropIdentifier": "front-lift-source-crop.png"
+      },
+      "root_crop": [
+        77,
+        22
+      ],
+      "sole_crop": [
+        70,
+        87
+      ],
+      "contact_normal": [
+        0,
+        1
+      ],
+      "sole_definition": "anatomical bottom of foreground foot; lift frame does not imply floor contact"
+    },
+    {
+      "id": "back-lift",
+      "crop": [
+        929,
+        816,
+        1064,
+        916
+      ],
+      "polygon": [
+        [
+          982,
+          823
+        ],
+        [
+          1006,
+          825
+        ],
+        [
+          1022,
+          832
+        ],
+        [
+          1036,
+          846
+        ],
+        [
+          1044,
+          859
+        ],
+        [
+          1047,
+          870
+        ],
+        [
+          1046,
+          883
+        ],
+        [
+          1041,
+          888
+        ],
+        [
+          1040,
+          896
+        ],
+        [
+          1028,
+          899
+        ],
+        [
+          1028,
+          904
+        ],
+        [
+          986,
+          905
+        ],
+        [
+          980,
+          902
+        ],
+        [
+          979,
+          898
+        ],
+        [
+          970,
+          897
+        ],
+        [
+          962,
+          894
+        ],
+        [
+          961,
+          889
+        ],
+        [
+          950,
+          885
+        ],
+        [
+          947,
+          878
+        ],
+        [
+          941,
+          875
+        ],
+        [
+          938,
+          868
+        ],
+        [
+          937,
+          851
+        ],
+        [
+          942,
+          845
+        ],
+        [
+          949,
+          841
+        ],
+        [
+          951,
+          834
+        ],
+        [
+          961,
+          830
+        ],
+        [
+          972,
+          830
+        ]
+      ],
+      "root": [
+        1008,
+        837
+      ],
+      "sole": [
+        1004,
+        900
+      ],
+      "root_cap": [
+        [
+          982,
+          823
+        ],
+        [
+          1006,
+          825
+        ],
+        [
+          1022,
+          832
+        ]
+      ],
+      "leg_into_foot_direction": [
+        -0.063,
+        0.998
+      ],
+      "body_scale_audit": {
+        "body_width_source_px": 432,
+        "canonical_body_width_art_px": 72.533333,
+        "art_px_per_source_px": 0.167901,
+        "source_px_per_art_px": 5.955890673670794,
+        "method": "clean torso scanline width, excludes hands; isotropic scaling only",
+        "measured_by": "independent pixel-contract auditor"
+      },
+      "files": {
+        "rgba": "sources/crops/foot-action-source-candidates/back-lift-source-rgba.png",
+        "originalAlphaIdentifier": "back-lift-alpha.png",
+        "originalSourceCropIdentifier": "back-lift-source-crop.png"
+      },
+      "root_crop": [
+        79,
+        21
+      ],
+      "sole_crop": [
+        75,
+        84
+      ],
+      "contact_normal": [
+        0,
+        1
+      ],
+      "sole_definition": "anatomical bottom of foreground foot; lift frame does not imply floor contact"
+    }
+  ],
+  "pathsRelativeTo": "Asset package root; original identifiers refer to intermediate inspection images, not delivered files."
+}

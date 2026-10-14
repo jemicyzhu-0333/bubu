@@ -1,0 +1,27 @@
+{
+  "tool": "official image_gen.imagegen",
+  "master": "masters/run-contact-study-v3.png",
+  "sha256": "45f638d95aab1059971f602c417f9899c968134159ef5919b4220a284393859d",
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "mode": "RGBA",
+  "prompt": "masters/run-contact-study-v3-prompt.txt",
+  "promptSha256": "fa8ae335d63cfabe7a1c9c48ebce551fb4e98fd328316eba639cac8e53882515",
+  "referencesInAttachmentOrder": [
+    {
+      "order": 1,
+      "path": "canonical-package/sources/masters/full-character-v2.png",
+      "sha256": "9e77a9c2a455c3a7c9cc145bb8b0f458ede80bd367e4eb89539c6abddc8b6fdd"
+    },
+    {
+      "order": 2,
+      "path": "gait-production/references/canonical-quarter-right-step.png",
+      "sha256": "792557d2358bd48cd514481c1a644eedbe41d063fe261ed9c61d5dbccfddedd4"
+    }
+  ],
+  "seed": null,
+  "modelVersion": null,
+  "status": "accepted source anatomy candidate; not standalone complete gait"
+}

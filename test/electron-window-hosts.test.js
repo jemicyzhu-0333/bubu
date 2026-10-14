@@ -253,7 +253,7 @@ test('pet host keeps the passive companion focusable without stealing focus', ()
   host.ensureFocusable({ focus: true });
   assert.ok(instance.calls.some(call => call[0] === 'focus'));
   assert.deepEqual(Object.keys(host).sort(), [
-    'close', 'ensureFocusable', 'getBounds', 'isAlive', 'isVisible', 'send', 'setBounds', 'setMenuOpen', 'setPosition', 'showInactive'
+    'close', 'ensureFocusable', 'getBounds', 'isAlive', 'isVisible', 'resync', 'send', 'setBounds', 'setMenuOpen', 'setPosition', 'showInactive'
   ]);
 });
 

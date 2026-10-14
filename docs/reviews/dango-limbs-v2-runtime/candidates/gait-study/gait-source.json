@@ -1,0 +1,835 @@
+{
+  "diagnosticPivots": {
+    "root": "#00ff00",
+    "sole": "#0080ff",
+    "role": "diagnostic only, not production palette"
+  },
+  "sourceMasksNote": "Two far proximal upper boundaries exclude original torso contour; no per-pixel silhouette replacement.",
+  "software": {
+    "pythonPillow": "12.3.0"
+  },
+  "schema": "dango-gait-source/1",
+  "status": "candidate extracted anatomy; runtime grounding separately authored",
+  "palette": [
+    [
+      248,
+      104,
+      120
+    ],
+    [
+      248,
+      128,
+      128
+    ],
+    [
+      240,
+      80,
+      104
+    ],
+    [
+      26,
+      27,
+      38
+    ]
+  ],
+  "alphaPolicy": "explicit anatomical polygon intersected with source alpha >=200; faint glow/antialias excluded by alpha, never RGB color key",
+  "productionScale": 8,
+  "view": "three-quarter-right",
+  "bodyScaleAudit": {
+    "canonicalBodyWidthArt": 73.025641,
+    "sourceTorsoWidthPixels": 465,
+    "scale": 0.15704438924731182,
+    "method": "shared nominal torso width from actual four panels near maximum torso extent, excluding hands; same scale for all eight feet",
+    "uncertaintySourcePixels": 8
+  },
+  "frames": [
+    {
+      "pivot": "feet/near-support.pivot.png",
+      "id": "near-support",
+      "sideRole": "near",
+      "observedPose": "loaded sole, top-left",
+      "src": "feet/near-support.png",
+      "productionSrc": "feet/near-support@8x.png",
+      "sha256": "ae52097a2bd2c97e8b7b8302fb0563e3e0cde341a17f6d70a227e1fab69b63f0",
+      "source": "masters/run-contact-study-v3.png",
+      "sourceSha256": "45f638d95aab1059971f602c417f9899c968134159ef5919b4220a284393859d",
+      "polygon": [
+        [
+          327,
+          417
+        ],
+        [
+          430,
+          417
+        ],
+        [
+          448,
+          436
+        ],
+        [
+          448,
+          466
+        ],
+        [
+          437,
+          482
+        ],
+        [
+          425,
+          494
+        ],
+        [
+          333,
+          494
+        ],
+        [
+          314,
+          478
+        ],
+        [
+          312,
+          439
+        ]
+      ],
+      "crop": [
+        312,
+        417,
+        449,
+        495
+      ],
+      "sourceRootCenter": [
+        385.5,
+        439.5
+      ],
+      "root": [
+        15.5,
+        7.5
+      ],
+      "sole": [
+        20.5,
+        15.5
+      ],
+      "soleRole": "lowest observed opaque pixel center, not proof of support in original panel",
+      "bounds": [
+        4,
+        4,
+        25,
+        16
+      ],
+      "size": [
+        29,
+        20
+      ],
+      "scaleArtPerSourcePixel": 0.15704438924731182,
+      "inverseSamplingMatrix": [
+        [
+          6.367626406730206,
+          0,
+          286.8017906956818
+        ],
+        [
+          0,
+          6.367626406730206,
+          391.7428019495235
+        ]
+      ],
+      "pixelEdits": []
+    },
+    {
+      "pivot": "feet/far-reach.pivot.png",
+      "id": "far-reach",
+      "sideRole": "far",
+      "observedPose": "forward lifted, top-left",
+      "src": "feet/far-reach.png",
+      "productionSrc": "feet/far-reach@8x.png",
+      "sha256": "e1ba5833f2984cb8326df677c8e4680cf776776afbca958901d68afa6d1e1542",
+      "source": "masters/run-contact-study-v3.png",
+      "sourceSha256": "45f638d95aab1059971f602c417f9899c968134159ef5919b4220a284393859d",
+      "polygon": [
+        [
+          547,
+          396
+        ],
+        [
+          615,
+          396
+        ],
+        [
+          633,
+          396
+        ],
+        [
+          657,
+          395
+        ],
+        [
+          669,
+          418
+        ],
+        [
+          654,
+          443
+        ],
+        [
+          630,
+          459
+        ],
+        [
+          590,
+          477
+        ],
+        [
+          550,
+          477
+        ],
+        [
+          531,
+          464
+        ],
+        [
+          518,
+          437
+        ],
+        [
+          518,
+          410
+        ]
+      ],
+      "crop": [
+        518,
+        395,
+        670,
+        478
+      ],
+      "sourceRootCenter": [
+        562.5,
+        405.5
+      ],
+      "root": [
+        10.5,
+        5.5
+      ],
+      "sole": [
+        10.5,
+        15.5
+      ],
+      "soleRole": "lowest observed opaque pixel center, not proof of support in original panel",
+      "bounds": [
+        4,
+        4,
+        26,
+        16
+      ],
+      "size": [
+        31,
+        20
+      ],
+      "scaleArtPerSourcePixel": 0.15704438924731182,
+      "inverseSamplingMatrix": [
+        [
+          6.367626406730206,
+          0,
+          495.63992272933285
+        ],
+        [
+          0,
+          6.367626406730206,
+          370.47805476298385
+        ]
+      ],
+      "pixelEdits": []
+    },
+    {
+      "pivot": "feet/near-reach.pivot.png",
+      "id": "near-reach",
+      "sideRole": "near",
+      "observedPose": "forward lifted, top-right",
+      "src": "feet/near-reach.png",
+      "productionSrc": "feet/near-reach@8x.png",
+      "sha256": "d482f057e4c6960c8a57912340f9d95bf8a55d4737368d78e648ec389677ed32",
+      "source": "masters/run-contact-study-v3.png",
+      "sourceSha256": "45f638d95aab1059971f602c417f9899c968134159ef5919b4220a284393859d",
+      "polygon": [
+        [
+          971,
+          390
+        ],
+        [
+          1002,
+          387
+        ],
+        [
+          1041,
+          403
+        ],
+        [
+          1056,
+          423
+        ],
+        [
+          1056,
+          450
+        ],
+        [
+          1041,
+          479
+        ],
+        [
+          981,
+          482
+        ],
+        [
+          945,
+          461
+        ],
+        [
+          925,
+          442
+        ],
+        [
+          925,
+          414
+        ]
+      ],
+      "crop": [
+        925,
+        387,
+        1057,
+        483
+      ],
+      "sourceRootCenter": [
+        1019.5,
+        414.5
+      ],
+      "root": [
+        18.5,
+        8.5
+      ],
+      "sole": [
+        18.5,
+        18.5
+      ],
+      "soleRole": "lowest observed opaque pixel center, not proof of support in original panel",
+      "bounds": [
+        4,
+        4,
+        24,
+        19
+      ],
+      "size": [
+        28,
+        23
+      ],
+      "scaleArtPerSourcePixel": 0.15704438924731182,
+      "inverseSamplingMatrix": [
+        [
+          6.367626406730206,
+          0,
+          901.6989114754912
+        ],
+        [
+          0,
+          6.367626406730206,
+          360.3751755427933
+        ]
+      ],
+      "pixelEdits": []
+    },
+    {
+      "pivot": "feet/far-support.pivot.png",
+      "id": "far-support",
+      "sideRole": "far",
+      "observedPose": "loaded sole, top-right",
+      "src": "feet/far-support.png",
+      "productionSrc": "feet/far-support@8x.png",
+      "sha256": "d08c579e88023ecfd3edb72b19a23cd68f081a9526ed41f01139380fa28984dc",
+      "source": "masters/run-contact-study-v3.png",
+      "sourceSha256": "45f638d95aab1059971f602c417f9899c968134159ef5919b4220a284393859d",
+      "polygon": [
+        [
+          1138,
+          419
+        ],
+        [
+          1233,
+          419
+        ],
+        [
+          1255,
+          439
+        ],
+        [
+          1255,
+          469
+        ],
+        [
+          1240,
+          484
+        ],
+        [
+          1229,
+          494
+        ],
+        [
+          1141,
+          494
+        ],
+        [
+          1127,
+          480
+        ],
+        [
+          1126,
+          442
+        ]
+      ],
+      "crop": [
+        1126,
+        419,
+        1256,
+        495
+      ],
+      "sourceRootCenter": [
+        1191.5,
+        439.5
+      ],
+      "root": [
+        14.5,
+        7.5
+      ],
+      "sole": [
+        9.5,
+        15.5
+      ],
+      "soleRole": "lowest observed opaque pixel center, not proof of support in original panel",
+      "bounds": [
+        4,
+        4,
+        24,
+        16
+      ],
+      "size": [
+        28,
+        20
+      ],
+      "scaleArtPerSourcePixel": 0.15704438924731182,
+      "inverseSamplingMatrix": [
+        [
+          6.367626406730206,
+          0,
+          1099.169417102412
+        ],
+        [
+          0,
+          6.367626406730206,
+          391.7428019495235
+        ]
+      ],
+      "pixelEdits": []
+    },
+    {
+      "pivot": "feet/near-recovery.pivot.png",
+      "id": "near-recovery",
+      "sideRole": "near",
+      "observedPose": "raised oblique, bottom-left",
+      "src": "feet/near-recovery.png",
+      "productionSrc": "feet/near-recovery@8x.png",
+      "sha256": "65937773f97e43ffee36dcede97c218181f184b33aca1899f2b29629b98e81d6",
+      "source": "masters/run-contact-study-v3.png",
+      "sourceSha256": "45f638d95aab1059971f602c417f9899c968134159ef5919b4220a284393859d",
+      "polygon": [
+        [
+          335,
+          831
+        ],
+        [
+          389,
+          831
+        ],
+        [
+          421,
+          851
+        ],
+        [
+          432,
+          873
+        ],
+        [
+          432,
+          898
+        ],
+        [
+          414,
+          922
+        ],
+        [
+          368,
+          925
+        ],
+        [
+          334,
+          905
+        ],
+        [
+          310,
+          897
+        ],
+        [
+          298,
+          877
+        ],
+        [
+          298,
+          852
+        ]
+      ],
+      "crop": [
+        298,
+        831,
+        433,
+        926
+      ],
+      "sourceRootCenter": [
+        394.5,
+        850.5
+      ],
+      "root": [
+        19.5,
+        7.5
+      ],
+      "sole": [
+        19.5,
+        18.5
+      ],
+      "soleRole": "lowest observed opaque pixel center, not proof of support in original panel",
+      "bounds": [
+        4,
+        4,
+        26,
+        19
+      ],
+      "size": [
+        29,
+        23
+      ],
+      "scaleArtPerSourcePixel": 0.15704438924731182,
+      "inverseSamplingMatrix": [
+        [
+          6.367626406730206,
+          0,
+          270.33128506876096
+        ],
+        [
+          0,
+          6.367626406730206,
+          802.7428019495235
+        ]
+      ],
+      "pixelEdits": []
+    },
+    {
+      "pivot": "feet/far-recovery.pivot.png",
+      "id": "far-recovery",
+      "sideRole": "far",
+      "observedPose": "raised shallow oblique, bottom-left",
+      "src": "feet/far-recovery.png",
+      "productionSrc": "feet/far-recovery@8x.png",
+      "sha256": "2e97697ff84d5969ad9867d88c2934a2bfc4af5bce999112fc79154f9564c7a1",
+      "source": "masters/run-contact-study-v3.png",
+      "sourceSha256": "45f638d95aab1059971f602c417f9899c968134159ef5919b4220a284393859d",
+      "polygon": [
+        [
+          556,
+          843
+        ],
+        [
+          611,
+          837
+        ],
+        [
+          636,
+          853
+        ],
+        [
+          652,
+          865
+        ],
+        [
+          651,
+          892
+        ],
+        [
+          627,
+          906
+        ],
+        [
+          600,
+          918
+        ],
+        [
+          562,
+          923
+        ],
+        [
+          543,
+          911
+        ],
+        [
+          532,
+          892
+        ],
+        [
+          532,
+          872
+        ]
+      ],
+      "crop": [
+        532,
+        837,
+        653,
+        924
+      ],
+      "sourceRootCenter": [
+        568.5,
+        860.5
+      ],
+      "root": [
+        9.5,
+        7.5
+      ],
+      "sole": [
+        9.5,
+        16.5
+      ],
+      "soleRole": "lowest observed opaque pixel center, not proof of support in original panel",
+      "bounds": [
+        4,
+        4,
+        23,
+        17
+      ],
+      "size": [
+        26,
+        21
+      ],
+      "scaleArtPerSourcePixel": 0.15704438924731182,
+      "inverseSamplingMatrix": [
+        [
+          6.367626406730206,
+          0,
+          508.00754913606306
+        ],
+        [
+          0,
+          6.367626406730206,
+          812.7428019495235
+        ]
+      ],
+      "pixelEdits": []
+    },
+    {
+      "pivot": "feet/near-trailing.pivot.png",
+      "id": "near-trailing",
+      "sideRole": "near",
+      "observedPose": "raised rearward rounded, bottom-right",
+      "src": "feet/near-trailing.png",
+      "productionSrc": "feet/near-trailing@8x.png",
+      "sha256": "e594729209326bd698f5390c6bb93bca9fa657942ca6c508c991fed05636a34b",
+      "source": "masters/run-contact-study-v3.png",
+      "sourceSha256": "45f638d95aab1059971f602c417f9899c968134159ef5919b4220a284393859d",
+      "polygon": [
+        [
+          956,
+          841
+        ],
+        [
+          1028,
+          841
+        ],
+        [
+          1058,
+          861
+        ],
+        [
+          1067,
+          885
+        ],
+        [
+          1054,
+          915
+        ],
+        [
+          1029,
+          934
+        ],
+        [
+          989,
+          933
+        ],
+        [
+          968,
+          913
+        ],
+        [
+          945,
+          901
+        ],
+        [
+          940,
+          875
+        ]
+      ],
+      "crop": [
+        940,
+        841,
+        1068,
+        935
+      ],
+      "sourceRootCenter": [
+        1015.5,
+        859.5
+      ],
+      "root": [
+        15.5,
+        6.5
+      ],
+      "sole": [
+        15.5,
+        17.5
+      ],
+      "soleRole": "lowest observed opaque pixel center, not proof of support in original panel",
+      "bounds": [
+        4,
+        4,
+        24,
+        18
+      ],
+      "size": [
+        27,
+        22
+      ],
+      "scaleArtPerSourcePixel": 0.15704438924731182,
+      "inverseSamplingMatrix": [
+        [
+          6.367626406730206,
+          0,
+          916.8017906956818
+        ],
+        [
+          0,
+          6.367626406730206,
+          818.1104283562537
+        ]
+      ],
+      "pixelEdits": []
+    },
+    {
+      "pivot": "feet/far-forward.pivot.png",
+      "id": "far-forward",
+      "sideRole": "far",
+      "observedPose": "raised forward oblique, bottom-right",
+      "src": "feet/far-forward.png",
+      "productionSrc": "feet/far-forward@8x.png",
+      "sha256": "08ad5f66b00c2c4022cd494b5fb47ea7a6949f1dd5e13d27fbf37712ded8c8bf",
+      "source": "masters/run-contact-study-v3.png",
+      "sourceSha256": "45f638d95aab1059971f602c417f9899c968134159ef5919b4220a284393859d",
+      "polygon": [
+        [
+          1210,
+          825
+        ],
+        [
+          1263,
+          825
+        ],
+        [
+          1289,
+          825
+        ],
+        [
+          1318,
+          825
+        ],
+        [
+          1330,
+          851
+        ],
+        [
+          1325,
+          874
+        ],
+        [
+          1301,
+          891
+        ],
+        [
+          1276,
+          905
+        ],
+        [
+          1233,
+          918
+        ],
+        [
+          1208,
+          910
+        ],
+        [
+          1194,
+          891
+        ],
+        [
+          1190,
+          865
+        ],
+        [
+          1192,
+          840
+        ]
+      ],
+      "crop": [
+        1190,
+        825,
+        1331,
+        919
+      ],
+      "sourceRootCenter": [
+        1224.5,
+        841.5
+      ],
+      "root": [
+        9.5,
+        6.5
+      ],
+      "sole": [
+        9.5,
+        17.5
+      ],
+      "soleRole": "lowest observed opaque pixel center, not proof of support in original panel",
+      "bounds": [
+        4,
+        4,
+        25,
+        18
+      ],
+      "size": [
+        30,
+        22
+      ],
+      "scaleArtPerSourcePixel": 0.15704438924731182,
+      "inverseSamplingMatrix": [
+        [
+          6.367626406730206,
+          0,
+          1164.007549136063
+        ],
+        [
+          0,
+          6.367626406730206,
+          800.1104283562537
+        ]
+      ],
+      "pixelEdits": []
+    }
+  ]
+}

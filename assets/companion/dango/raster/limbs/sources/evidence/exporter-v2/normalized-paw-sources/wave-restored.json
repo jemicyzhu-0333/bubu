@@ -1,0 +1,321 @@
+{
+  "schema": "dango-prototype-mask/1",
+  "source": "sources/masters/expressive-actions-v2.png",
+  "sourceSha256": "2891fefe2b73f81c1f8437d7b16fff45e122e0f48e4806353fe006ff98c97808",
+  "alphaMethod": "explicit hand-traced geometry, exact source RGB",
+  "frames": [
+    {
+      "name": "front-wave-left-restored",
+      "view": "front",
+      "crop": [
+        846,
+        199,
+        104,
+        125
+      ],
+      "root": [
+        927,
+        273
+      ],
+      "grip": [
+        891,
+        237
+      ],
+      "wristAxisDegrees": 225,
+      "polygon": [
+        [
+          876,
+          201
+        ],
+        [
+          914,
+          201
+        ],
+        [
+          914,
+          209
+        ],
+        [
+          927,
+          211
+        ],
+        [
+          934,
+          220
+        ],
+        [
+          939,
+          233
+        ],
+        [
+          942,
+          247
+        ],
+        [
+          944,
+          269
+        ],
+        [
+          948,
+          288
+        ],
+        [
+          948,
+          311
+        ],
+        [
+          938,
+          320
+        ],
+        [
+          923,
+          323
+        ],
+        [
+          906,
+          323
+        ],
+        [
+          906,
+          320
+        ],
+        [
+          896,
+          318
+        ],
+        [
+          896,
+          310
+        ],
+        [
+          896,
+          308
+        ],
+        [
+          887,
+          308
+        ],
+        [
+          886,
+          305
+        ],
+        [
+          886,
+          299
+        ],
+        [
+          876,
+          298
+        ],
+        [
+          875,
+          296
+        ],
+        [
+          875,
+          290
+        ],
+        [
+          865,
+          287
+        ],
+        [
+          864,
+          285
+        ],
+        [
+          864,
+          281
+        ],
+        [
+          858,
+          280
+        ],
+        [
+          857,
+          277
+        ],
+        [
+          857,
+          269
+        ],
+        [
+          850,
+          267
+        ],
+        [
+          849,
+          264
+        ],
+        [
+          849,
+          249
+        ],
+        [
+          849,
+          230
+        ],
+        [
+          856,
+          228
+        ],
+        [
+          856,
+          218
+        ],
+        [
+          861,
+          212
+        ],
+        [
+          874,
+          210
+        ],
+        [
+          874,
+          205
+        ]
+      ],
+      "sourceCropFile": "sources/crops/wave-contour-source-repair/wave-after-source-isolated.png",
+      "originalMaskFileIdentifier": "wave-after-source-mask.png",
+      "axisRole": "Artist registered proximal wrist into visible palm; not a bone marker generated in source",
+      "status": "narrow source-contour restoration candidate; no production output changed",
+      "wristRootRole": "original author root and axis unchanged; open short-arm pink retained for overlap",
+      "refinement": "geometric alpha reduction only, exact source RGB",
+      "rootSourceCenter": [
+        927.5,
+        273.5
+      ],
+      "rootCropCenter": [
+        81.5,
+        74.5
+      ],
+      "gripCropCenter": [
+        45.5,
+        38.5
+      ],
+      "bodyScaleAudit": {
+        "sourceBodyWidth": 390,
+        "canonicalBodyWidth": 69.415385
+      },
+      "repairPurpose": "restore actual visible lower-left source ink arc through the arm/body transition, with body-facing root left open in source pink; no generic outline"
+    }
+  ],
+  "oldCrop": [
+    846,
+    199,
+    101,
+    90
+  ],
+  "oldPolygon": [
+    [
+      876,
+      201
+    ],
+    [
+      914,
+      201
+    ],
+    [
+      914,
+      209
+    ],
+    [
+      927,
+      211
+    ],
+    [
+      934,
+      220
+    ],
+    [
+      939,
+      233
+    ],
+    [
+      942,
+      247
+    ],
+    [
+      944,
+      269
+    ],
+    [
+      940,
+      284
+    ],
+    [
+      917,
+      288
+    ],
+    [
+      903,
+      282
+    ],
+    [
+      891,
+      276
+    ],
+    [
+      879,
+      271
+    ],
+    [
+      868,
+      265
+    ],
+    [
+      855,
+      258
+    ],
+    [
+      849,
+      249
+    ],
+    [
+      849,
+      230
+    ],
+    [
+      856,
+      228
+    ],
+    [
+      856,
+      218
+    ],
+    [
+      861,
+      212
+    ],
+    [
+      874,
+      210
+    ],
+    [
+      874,
+      205
+    ]
+  ],
+  "sourceCoordinatesUnchanged": [
+    "root",
+    "grip",
+    "wristAxisDegrees"
+  ],
+  "cropChange": "same top-left846,199; width101->104; height90->125 for inspection; mask preserves the true complete lower source contour through y319 and ends near y323 for actual-body overlap review; world root and crop-local root unchanged",
+  "sourcePixelChanges": false,
+  "productionPixelsChanged": false,
+  "bodyEntryCutCandidate": {
+    "sourceContourEndpoint": [
+      906,
+      323
+    ],
+    "pinkRootSideEndpoint": [
+      938,
+      320
+    ],
+    "meaning": "extended source-contour candidate requested after actual-body comparison; full y300..319 original ink retained, final tail judged by natural body occlusion",
+    "excludedBodySideContinuation": "source continuation belowy323 intentionally excluded pending body overlap test"
+  },
+  "pathsRelativeTo": "Asset package root; identifier-only fields are historical labels."
+}

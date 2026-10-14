@@ -44,3 +44,15 @@ function isExempt(exceptions, rule, file, dependency) {
 }
 
 module.exports = { layersOf, outwardEdge, isExempt };
+
+// Code outside src/capabilities (surfaces, renderer, application, bootstrap,
+// platform) may reach a capability only through its public facade
+// (index.js / index.mjs) or its published contract/ modules.
+function capabilityFacadeViolation(file, dependency) {
+  if (/^src\/capabilities\//.test(file)) return null;
+  const m = dependency.match(/^src\/capabilities\/([^/]+)\/(.+)$/);
+  if (!m) return null;
+  if (/^index\.m?js$/.test(m[2]) || /^contract\//.test(m[2])) return null;
+  return `${file} deep-imports capability ${m[1]} through ${dependency}; use src/capabilities/${m[1]}/index.mjs (or index.js / contract/)`;
+}
+module.exports.capabilityFacadeViolation = capabilityFacadeViolation;

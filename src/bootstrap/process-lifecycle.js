@@ -9,6 +9,8 @@ function registerProcessLifecycle({
   pauseActiveSessionForInterruption,
   setScreenLocked,
   resumeAfterInterruption,
+  resumePetSurface = () => {},
+  screenHost = null,
   activatePrimaryWindow,
   closeStorage = () => {}
 }) {
@@ -28,9 +30,12 @@ function registerProcessLifecycle({
         if (isSessionRunning()) pauseActiveSessionForInterruption();
       },
       onLock: () => { mealRuntime?.interrupt(); setScreenLocked(true); },
-      onUnlock: () => { mealRuntime?.interrupt(); setScreenLocked(false); },
-      onResume: () => { mealRuntime?.resume(); resumeAfterInterruption(); }
+      onUnlock: () => { mealRuntime?.interrupt(); setScreenLocked(false); resumePetSurface('unlock-screen'); },
+      onResume: () => { mealRuntime?.resume(); resumeAfterInterruption(); resumePetSurface('resume'); }
     }));
+    // Unified pet surface resume path also covers display topology changes.
+    if (screenHost?.subscribeDisplayChanges) lifecycle.register('electron:display-changes',
+      screenHost.subscribeDisplayChanges(() => resumePetSurface('display-change')));
   }
 
   return Object.freeze({ startPowerMonitoring });

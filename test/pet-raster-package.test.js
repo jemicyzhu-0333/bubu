@@ -46,3 +46,24 @@ test('the opt-in run sample ships its whole body/mask group with verified conten
   assert.equal(accepts(path.join(root, 'assets/companion/dango/clips/run/dango-run.mjs'),
     fs.statSync(path.join(root, 'assets/companion/dango/clips/run/dango-run.mjs'))), true);
 });
+
+
+test('complete sip source authoring files stay out of the application while every runtime layer ships', () => {
+  const { build } = require('../package.json');
+  const accepts = new FileMatcher(root, '/unused-destination', value => value, build.files).createFilter();
+  const sourceRoot = path.join(root, 'assets/companion/dango/raster/action-contact/sip-front-v2/sources');
+  const pending = [sourceRoot]; let excluded = 0;
+  while (pending.length) for (const entry of fs.readdirSync(pending.pop(), { withFileTypes: true })) {
+    const file = path.join(entry.parentPath, entry.name);
+    if (entry.isDirectory()) pending.push(file);
+    else { assert.equal(accepts(file, fs.statSync(file)), false, `sip authoring asset shipped: ${file}`); excluded++; }
+  }
+  assert.ok(excluded > 0);
+  const layers = Object.values(DANGO_RASTER.tools).filter(value => value.sourceContactPose?.id === 'sip-front-v2');
+  assert.equal(layers.length, 4);
+  for (const layer of layers) {
+    assert.equal(layer.sourceContactPose.runtimeReady, false);
+    const file = fileURLToPath(new URL(layer.src, DANGO_RASTER.baseUrl));
+    assert.equal(accepts(file, fs.statSync(file)), true, `sip runtime layer excluded: ${file}`);
+  }
+});

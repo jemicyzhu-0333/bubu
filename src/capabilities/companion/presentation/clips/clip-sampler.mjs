@@ -1,10 +1,11 @@
 'use strict';
 
+import { clamp01 } from '../motion-core/easing.mjs';
 import { isValidatedClipManifest } from './clip-manifest.mjs';
 
 const finite = value => typeof value === 'number' && Number.isFinite(value);
 const fail = reason => Object.freeze({ ok: false, reason, sample: null });
-const clamp = value => Math.max(0, Math.min(1, value));
+const clamp = clamp01;
 const outfitKey = ids => JSON.stringify([...ids].sort());
 
 function wrap(value) {

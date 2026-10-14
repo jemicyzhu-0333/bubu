@@ -1,0 +1,115 @@
+{
+  "status": "passed-actual-production-renderer-source-injection",
+  "runtimeReady": false,
+  "hostAcceptance": null,
+  "method": "Unmodified production renderer/form-art with normalized absolute imports and one injected standard Dango artist. Only the four sip source flags are true in the test manifest. Offscreen Skia, no browser or native OS acceptance.",
+  "phaseInterpretation": "257 timestamps from0..9000ms; existing preview loops the9000ms endpoint tophase0. Separate257 exact phase tests includephase1.",
+  "dprs": [
+    {
+      "dpr": 1,
+      "frames": 257,
+      "allSourceSelected": true,
+      "roots": 2,
+      "front": 2,
+      "uniqueBodyFrames": 257,
+      "bodyCacheKeyCount": 1,
+      "lastActionProgress": 0
+    },
+    {
+      "dpr": 1.25,
+      "frames": 257,
+      "allSourceSelected": true,
+      "roots": 2,
+      "front": 2,
+      "uniqueBodyFrames": 257,
+      "bodyCacheKeyCount": 1,
+      "lastActionProgress": 0
+    },
+    {
+      "dpr": 1.5,
+      "frames": 257,
+      "allSourceSelected": true,
+      "roots": 2,
+      "front": 2,
+      "uniqueBodyFrames": 257,
+      "bodyCacheKeyCount": 1,
+      "lastActionProgress": 0
+    },
+    {
+      "dpr": 2,
+      "frames": 257,
+      "allSourceSelected": true,
+      "roots": 2,
+      "front": 2,
+      "uniqueBodyFrames": 257,
+      "bodyCacheKeyCount": 1,
+      "lastActionProgress": 0
+    },
+    {
+      "dpr": 4,
+      "frames": 257,
+      "allSourceSelected": true,
+      "roots": 2,
+      "front": 2,
+      "uniqueBodyFrames": 257,
+      "bodyCacheKeyCount": 1,
+      "lastActionProgress": 0
+    }
+  ],
+  "cacheBeforeDispose": {
+    "source": {
+      "entries": 318,
+      "bytes": 53968060,
+      "revision": 318,
+      "disposed": false,
+      "loading": 0,
+      "failed": 0
+    },
+    "palette": {
+      "entries": 0,
+      "bytes": 0
+    },
+    "roots": {
+      "contours": 0,
+      "surfaces": 0,
+      "bytes": 0
+    },
+    "tailRoot": {
+      "contours": 0,
+      "surfaces": 0,
+      "bytes": 0
+    },
+    "runSample": null,
+    "limbs": null
+  },
+  "cacheAfterDispose": {
+    "source": {
+      "entries": 0,
+      "bytes": 0,
+      "revision": 318,
+      "disposed": true,
+      "loading": 0,
+      "failed": 0
+    },
+    "palette": {
+      "entries": 0,
+      "bytes": 0
+    },
+    "roots": {
+      "contours": 0,
+      "surfaces": 0,
+      "bytes": 0
+    },
+    "tailRoot": {
+      "contours": 0,
+      "surfaces": 0,
+      "bytes": 0
+    },
+    "runSample": null,
+    "limbs": null
+  },
+  "productionSources": {
+    "src/capabilities/companion/presentation/form-art.mjs": "73dfacc173af211dc0f3797c10192f1bdcbc6531b536a480e1e2f3660afd448e",
+    "src/surfaces/pet/renderer.mjs": "5a0e0193bfff657eb27c455f61f296b1d1d4dda95a88d89eaee3a6c95e97710d"
+  }
+}

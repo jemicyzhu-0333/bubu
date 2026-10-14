@@ -1,7 +1,8 @@
 'use strict';
+import { clamp01, smooth } from './motion-core/easing.mjs';
 
-const clamp = value => Math.max(0, Math.min(1, Number(value) || 0));
-const smooth = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
+const clamp = clamp01;
+
 const isPurr = action => action?.interactionId === 'longPress' && action.id === 'tail-wiggle';
 const isSummon = action => action?.interactionId === 'click-30' && action.id === 'magic-trick';
 const isFireworks = action => action?.interactionId === 'click-20' && action.id === 'spin';

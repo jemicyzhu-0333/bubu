@@ -1,0 +1,186 @@
+{
+  "schema": "dango-prototype-mask/1",
+  "source": "sources/masters/expressive-actions-v3.png",
+  "sourceSha256": "7a98ee212cdced257f7328363fe2c0c528d1113362e23d3988f081f1ee0c74b4",
+  "alphaMethod": "explicit manually inspected source-coordinate polygon; exact original RGB; no generated contour",
+  "frames": [
+    {
+      "name": "front-reach-left",
+      "view": "front",
+      "side": "image-left authored reaching paw",
+      "crop": [
+        846,
+        699,
+        117,
+        125
+      ],
+      "root": [
+        946,
+        788
+      ],
+      "grip": [
+        895,
+        749
+      ],
+      "wristAxisDegrees": 217,
+      "polygon": [
+        [
+          878,
+          705
+        ],
+        [
+          908,
+          705
+        ],
+        [
+          909,
+          711
+        ],
+        [
+          918,
+          716
+        ],
+        [
+          924,
+          722
+        ],
+        [
+          931,
+          729
+        ],
+        [
+          938,
+          742
+        ],
+        [
+          945,
+          752
+        ],
+        [
+          953,
+          765
+        ],
+        [
+          958,
+          791
+        ],
+        [
+          954,
+          805
+        ],
+        [
+          940,
+          814
+        ],
+        [
+          914,
+          814
+        ],
+        [
+          913,
+          807
+        ],
+        [
+          903,
+          806
+        ],
+        [
+          902,
+          797
+        ],
+        [
+          893,
+          797
+        ],
+        [
+          893,
+          794
+        ],
+        [
+          884,
+          794
+        ],
+        [
+          883,
+          784
+        ],
+        [
+          873,
+          783
+        ],
+        [
+          872,
+          775
+        ],
+        [
+          862,
+          773
+        ],
+        [
+          861,
+          763
+        ],
+        [
+          855,
+          762
+        ],
+        [
+          853,
+          757
+        ],
+        [
+          854,
+          733
+        ],
+        [
+          858,
+          728
+        ],
+        [
+          863,
+          724
+        ],
+        [
+          864,
+          718
+        ],
+        [
+          870,
+          714
+        ],
+        [
+          876,
+          712
+        ]
+      ],
+      "registration": {
+        "sourcePanel": "lower-right only",
+        "replaces": "old high-shoulder quarter reach; no reuse of that source",
+        "rootStatus": "open pink short-arm source root; original front body remains canonical",
+        "contactTarget": "star is excluded; visible reach pose only"
+      },
+      "bodyScaleAudit": {
+        "sourceBodyWidth": 395,
+        "canonicalBodyWidth": 69.415385,
+        "artPxPerSourcePx": 0.175735,
+        "method": "measured y690/700/710, body x922..1316",
+        "independentMeasurement": true,
+        "isotropicOnly": true
+      },
+      "sourceCropFile": "sources/crops/source-contour-five-repairs/front-reach/after-source-isolated.png",
+      "originalMaskFileIdentifier": "after-source-mask.png",
+      "axisRole": "source anatomical wrist toward palm, not invented bone marker",
+      "root_crop": [
+        100,
+        89
+      ],
+      "repairStatus": "source-visible ink restoration candidate only; actual-body root/tail overlap must be reviewed before widening angles",
+      "rootUnchanged": true,
+      "scaleUnchanged": true
+    }
+  ],
+  "sourceRecipeBefore": "front-reach-source-candidates/source-mask-recipe.json",
+  "sourceRecipeBeforeSha256": "abbf2ddf6319be50ac048ad0a5d1388a998879d2fb1471fb83b313999d2a4bbd",
+  "noFormalPackageWrites": true,
+  "pathsRelativeTo": "Asset package root; identifier-only fields are historical labels."
+}
