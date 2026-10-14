@@ -2,7 +2,7 @@
 const freeze = value => { if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); } return value; };
 const data = {
   "id": "dango-raster",
-  "version": 2162013996,
+  "version": 275547972,
   "views": {
     "front": {
       "neutral": {
@@ -9861,6 +9861,679 @@ const data = {
         "quantizedOnce": true,
         "depthSourceY": 260
       }
+    },
+    "sip-front-short-v1-left": {
+      "src": "action-contact/sip-front-v1/left-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "sip-front-short-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "sip-tea",
+        "view": "front",
+        "side": "left",
+        "layer": "front",
+        "cup": {
+          "x": 23,
+          "y": 43,
+          "width": 22,
+          "height": 19
+        },
+        "boundary": [
+          24.25,
+          53.375
+        ],
+        "normal": [
+          1,
+          0
+        ],
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "sourceSha256": "9e66aeb66814f3e6384217ddce99a445dfd4b1edbebeb1bf8b76847bee390fcd",
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "registrationMeaning": "Exact reviewed foreground source pixels follow cup translation; no hidden shoulder, elbow, wrist or back layer is inferred."
+      }
+    },
+    "sip-front-short-v1-right": {
+      "src": "action-contact/sip-front-v1/right-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "sip-front-short-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "sip-tea",
+        "view": "front",
+        "side": "right",
+        "layer": "front",
+        "cup": {
+          "x": 23,
+          "y": 43,
+          "width": 22,
+          "height": 19
+        },
+        "boundary": [
+          40.25,
+          53.375
+        ],
+        "normal": [
+          -1,
+          0
+        ],
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "sourceSha256": "017c8747173f71ef4c9b3ec8b79b8c0b397733fdb68cc4d4eca37ef662f32515",
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "registrationMeaning": "Exact reviewed foreground source pixels follow cup translation; no hidden shoulder, elbow, wrist or back layer is inferred."
+      }
+    },
+    "umbrella-front-v1-back": {
+      "src": "action-contact/umbrella-front-v1/umbrella-back.png",
+      "rect": [
+        0,
+        0,
+        50,
+        66
+      ],
+      "sourceContactPose": {
+        "id": "umbrella-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "umbrella-dance",
+        "view": "front",
+        "part": "back",
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "propSha256": "7f9d08df9039c22e676259682855e8635639a8192af3e917847bf60aa32b350a",
+        "contact": [
+          61.875,
+          35.75
+        ],
+        "shaftAxis": [
+          0,
+          1
+        ],
+        "sourceSha256": "b34bcd4b3e3425e5bfc971cdef78f62d43aedafdcd3de218298b511b5b75175c",
+        "translationOnly": true,
+        "quantizedOnce": true
+      }
+    },
+    "umbrella-front-v1-front": {
+      "src": "action-contact/umbrella-front-v1/umbrella-front.png",
+      "rect": [
+        0,
+        0,
+        50,
+        66
+      ],
+      "sourceContactPose": {
+        "id": "umbrella-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "umbrella-dance",
+        "view": "front",
+        "part": "front",
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "propSha256": "7f9d08df9039c22e676259682855e8635639a8192af3e917847bf60aa32b350a",
+        "contact": [
+          61.875,
+          35.75
+        ],
+        "shaftAxis": [
+          0,
+          1
+        ],
+        "sourceSha256": "b1cd9b03b483c01694ae4508ef05893132aac789bb12c4b69fd1800ebf0a9eb2",
+        "translationOnly": true,
+        "quantizedOnce": true
+      }
+    },
+    "umbrella-front-v1-right": {
+      "src": "action-contact/umbrella-front-v1/right-8x.png",
+      "rect": [
+        0,
+        0,
+        72,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "umbrella-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "umbrella-dance",
+        "view": "front",
+        "part": "right",
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "propSha256": "7f9d08df9039c22e676259682855e8635639a8192af3e917847bf60aa32b350a",
+        "contact": [
+          61.875,
+          35.75
+        ],
+        "shaftAxis": [
+          0,
+          1
+        ],
+        "sourceSha256": "0d5edeac3eb9c6013792288e38325e0d88a68fb66679511b147ae668520906e9",
+        "translationOnly": true,
+        "quantizedOnce": true
+      }
+    },
+    "snack-quarter-near-v1-left": {
+      "src": "action-contact/snack-quarter-near-v1/near-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "snack-quarter-near-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "snack-picnic",
+        "view": "three-quarter",
+        "side": "left",
+        "layer": "front",
+        "bodySha256": "8d76b379f2d0e2816e19dc2ef9b5efdfe8d64567a4c866e84471cf8fbe44f450",
+        "bodyRect": [
+          -2.117949,
+          8.533333,
+          70.4,
+          49.066667
+        ],
+        "sourceSha256": "24aa77f75bb2c9d1e615dc971c96094cef4e958d0df8df5bdc8becbd878e683f",
+        "palmCenter": [
+          23,
+          54
+        ],
+        "role": "free-rest",
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "samplesPerArtUnit": 1,
+        "sourceLandmarkProjected": [
+          23,
+          54.5
+        ],
+        "quantizationRegistration": [
+          0,
+          0.5
+        ]
+      }
+    },
+    "hiccup-quarter-near-v1": {
+      "src": "action-contact/hiccup-quarter-pair-v1/near-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "hiccup-quarter-pair-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "hiccup",
+        "view": "three-quarter",
+        "side": "left",
+        "layer": "front",
+        "bodySha256": "8d76b379f2d0e2816e19dc2ef9b5efdfe8d64567a4c866e84471cf8fbe44f450",
+        "bodyRect": [
+          -2.117949,
+          8.533333,
+          70.4,
+          49.066667
+        ],
+        "sourceSha256": "0461dcbfafcc6e865e8934c41165b9c0d8650213cd50df468d0303915f390e33",
+        "contact": [
+          34.875,
+          48.375
+        ],
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "samplesPerArtUnit": 1,
+        "farSourcePolicy": null
+      }
+    },
+    "hiccup-quarter-far-v1": {
+      "src": "action-contact/hiccup-quarter-pair-v1/far-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "hiccup-quarter-pair-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "hiccup",
+        "view": "three-quarter",
+        "side": "right",
+        "layer": "before-tools",
+        "bodySha256": "8d76b379f2d0e2816e19dc2ef9b5efdfe8d64567a4c866e84471cf8fbe44f450",
+        "bodyRect": [
+          -2.117949,
+          8.533333,
+          70.4,
+          49.066667
+        ],
+        "sourceSha256": "9ff52618fb087e3c00825e4238da2560eee323dfbe5235a5e4079f05b4e29444",
+        "contact": [
+          54.5,
+          48.375
+        ],
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "samplesPerArtUnit": 1,
+        "farSourcePolicy": "Only the authored visible lower palm; hidden upper/back surfaces not reconstructed; cup and handle occlude in the original tool pass."
+      }
+    },
+    "wave-front-v1-00": {
+      "src": "action-contact/wave-front-v1/wave-00-8x.png",
+      "rect": [
+        55,
+        30,
+        20,
+        22
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "wave-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "wave",
+        "view": "front",
+        "side": "right",
+        "kind": "free-gesture",
+        "frame": 0,
+        "angleDegrees": -20,
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "sourceSha256": "fe851159ebdfdd19d3828499822199be9040d8a027e7f4295d57388982d4ac0d",
+        "fixedShoulder": [
+          58.5,
+          45.5
+        ],
+        "target": [
+          64.5615377822816,
+          36.36598337455134
+        ],
+        "quantizedOnce": true,
+        "translationOnly": true
+      }
+    },
+    "wave-front-v1-01": {
+      "src": "action-contact/wave-front-v1/wave-01-8x.png",
+      "rect": [
+        55,
+        30,
+        20,
+        22
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "wave-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "wave",
+        "view": "front",
+        "side": "right",
+        "kind": "free-gesture",
+        "frame": 1,
+        "angleDegrees": -15,
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "sourceSha256": "f40850c3f436cfc9b710c9191dcf30ea7a69b402e2a948ff45fa375a9adbc04b",
+        "fixedShoulder": [
+          58.5,
+          45.5
+        ],
+        "target": [
+          65.33455380425217,
+          36.929038893053935
+        ],
+        "quantizedOnce": true,
+        "translationOnly": true
+      }
+    },
+    "wave-front-v1-02": {
+      "src": "action-contact/wave-front-v1/wave-02-8x.png",
+      "rect": [
+        55,
+        30,
+        20,
+        22
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "wave-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "wave",
+        "view": "front",
+        "side": "right",
+        "kind": "free-gesture",
+        "frame": 2,
+        "angleDegrees": -10,
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "sourceSha256": "1ef803998fa4159e14afb83aee68be77f4aa6d6749bd275f4730b391f6b3e96a",
+        "fixedShoulder": [
+          58.5,
+          45.5
+        ],
+        "target": [
+          66.05555474495596,
+          37.5573246008682
+        ],
+        "quantizedOnce": true,
+        "translationOnly": true
+      }
+    },
+    "wave-front-v1-03": {
+      "src": "action-contact/wave-front-v1/wave-03-8x.png",
+      "rect": [
+        55,
+        30,
+        20,
+        22
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "wave-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "wave",
+        "view": "front",
+        "side": "right",
+        "kind": "free-gesture",
+        "frame": 3,
+        "angleDegrees": -5,
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "sourceSha256": "8e28d72f28bd1596bdc41b9683ce41942aa8bb4f9554a5a539c532cfe7cb0db3",
+        "fixedShoulder": [
+          58.5,
+          45.5
+        ],
+        "target": [
+          66.71905335188194,
+          38.24605886438839
+        ],
+        "quantizedOnce": true,
+        "translationOnly": true
+      }
+    },
+    "wave-front-v1-04": {
+      "src": "action-contact/wave-front-v1/wave-04-8x.png",
+      "rect": [
+        55,
+        30,
+        20,
+        22
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "wave-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "wave",
+        "view": "front",
+        "side": "right",
+        "kind": "free-gesture",
+        "frame": 4,
+        "angleDegrees": 0,
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "sourceSha256": "c5bfb5149042d065d3f921a7a0723d63b31def7027f5cb4884966a4beb519bc4",
+        "fixedShoulder": [
+          58.5,
+          45.5
+        ],
+        "target": [
+          67.32,
+          38.99
+        ],
+        "quantizedOnce": true,
+        "translationOnly": true
+      }
+    },
+    "wave-front-v1-05": {
+      "src": "action-contact/wave-front-v1/wave-05-8x.png",
+      "rect": [
+        55,
+        30,
+        20,
+        22
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "wave-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "wave",
+        "view": "front",
+        "side": "right",
+        "kind": "free-gesture",
+        "frame": 5,
+        "angleDegrees": 5,
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "sourceSha256": "75287904cac7d2d702f92cfd294976beb108ba84eb080d4ba323e80d1fe13f08",
+        "fixedShoulder": [
+          58.5,
+          45.5
+        ],
+        "target": [
+          67.85382112245645,
+          39.78348616645708
+        ],
+        "quantizedOnce": true,
+        "translationOnly": true
+      }
+    },
+    "wave-front-v1-06": {
+      "src": "action-contact/wave-front-v1/wave-06-8x.png",
+      "rect": [
+        55,
+        30,
+        20,
+        22
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "wave-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "wave",
+        "view": "front",
+        "side": "right",
+        "kind": "free-gesture",
+        "frame": 6,
+        "angleDegrees": 10,
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "sourceSha256": "7f09c098e4d145cf7d42261bce51aa0a469d21ea5f8b715f00bbcfc9fff85b30",
+        "fixedShoulder": [
+          58.5,
+          45.5
+        ],
+        "target": [
+          68.31645401817939,
+          40.62047845491285
+        ],
+        "quantizedOnce": true,
+        "translationOnly": true
+      }
+    },
+    "wave-front-v1-07": {
+      "src": "action-contact/wave-front-v1/wave-07-8x.png",
+      "rect": [
+        55,
+        30,
+        20,
+        22
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "wave-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "wave",
+        "view": "front",
+        "side": "right",
+        "kind": "free-gesture",
+        "frame": 7,
+        "angleDegrees": 15,
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "sourceSha256": "45414c510b5d7ab37adc0c3ddbf3ae1057586d1f178a74a5e3de5c954e62ad37",
+        "fixedShoulder": [
+          58.5,
+          45.5
+        ],
+        "target": [
+          68.70437777148699,
+          41.4946068486624
+        ],
+        "quantizedOnce": true,
+        "translationOnly": true
+      }
+    },
+    "wave-front-v1-08": {
+      "src": "action-contact/wave-front-v1/wave-08-8x.png",
+      "rect": [
+        55,
+        30,
+        20,
+        22
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "wave-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "wave",
+        "view": "front",
+        "side": "right",
+        "kind": "free-gesture",
+        "frame": 8,
+        "angleDegrees": 20,
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "sourceSha256": "9afb39cbeb860073616c0ca3bf242744db3d36fed0f221535ebf5ab49ad7467b",
+        "fixedShoulder": [
+          58.5,
+          45.5
+        ],
+        "target": [
+          69.0146400483818,
+          42.399218702816135
+        ],
+        "quantizedOnce": true,
+        "translationOnly": true
+      }
+    },
+    "wave-front-v1-09": {
+      "src": "action-contact/wave-front-v1/wave-09-8x.png",
+      "rect": [
+        55,
+        30,
+        20,
+        22
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "wave-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "wave",
+        "view": "front",
+        "side": "right",
+        "kind": "free-gesture",
+        "frame": 9,
+        "angleDegrees": 25,
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "sourceSha256": "2801ca7f8dd47480d38881f39079d11cbab79e830d486ee918b966051c2f9097",
+        "fixedShoulder": [
+          58.5,
+          45.5
+        ],
+        "target": [
+          69.2448795655952,
+          43.32742937494438
+        ],
+        "quantizedOnce": true,
+        "translationOnly": true
+      }
+    },
+    "wave-front-v1-10": {
+      "src": "action-contact/wave-front-v1/wave-10-8x.png",
+      "rect": [
+        55,
+        30,
+        20,
+        22
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "wave-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "wave",
+        "view": "front",
+        "side": "right",
+        "kind": "free-gesture",
+        "frame": 10,
+        "angleDegrees": 30,
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "sourceSha256": "5cf7d0c3ebefd808980248b538153f30557e20bd38d0e046543be7e07e785c2d",
+        "fixedShoulder": [
+          58.5,
+          45.5
+        ],
+        "target": [
+          69.39334406137874,
+          44.272174621363305
+        ],
+        "quantizedOnce": true,
+        "translationOnly": true
+      }
     }
   },
   "effects": {
@@ -13139,19 +13812,38 @@ const data = {
   "provenance": {
     "sourceVersions": {
       "body": 5,
-      "tools": 3,
+      "tools": 4,
       "effects": 1,
       "wardrobe": 1,
       "scenes": 1
     },
-    "assetDigest": "80ddb72cb116be929f73d2380119b938b6051847b4d38fe24fa23b525f16e2b1",
+    "assetDigest": "106c8744ed8a62c1e3ff8ef32dbd5487d5d8ed3f453f00fb5fb90e8200d77dbe",
     "assetHashes": {
       "action-contact/hiccup-front-v1/hiccup-front-left-continuous-8x.png": "f02d8d5c23d96c93e7743422700db8e647ae04373fb095f5809a3093118fa488",
       "action-contact/hiccup-front-v1/hiccup-front-right-continuous-8x.png": "edfb542822a7e9499df5d43d9c50b2155c496b62b51bf92369d6bda255fe7f8c",
+      "action-contact/hiccup-quarter-pair-v1/far-8x.png": "9ff52618fb087e3c00825e4238da2560eee323dfbe5235a5e4079f05b4e29444",
+      "action-contact/hiccup-quarter-pair-v1/near-8x.png": "0461dcbfafcc6e865e8934c41165b9c0d8650213cd50df468d0303915f390e33",
+      "action-contact/sip-front-v1/left-8x.png": "9e66aeb66814f3e6384217ddce99a445dfd4b1edbebeb1bf8b76847bee390fcd",
+      "action-contact/sip-front-v1/right-8x.png": "017c8747173f71ef4c9b3ec8b79b8c0b397733fdb68cc4d4eca37ef662f32515",
       "action-contact/sip-front-v2/sip-front-v2-left-fore-palm-front-8x.png": "c14ba0c59fbfc6a344dba841b006be369b00b5039944debaf4e70bffc9d6a616",
       "action-contact/sip-front-v2/sip-front-v2-left-root-back-8x.png": "3e6817951627988cf774875fc8a36b3c145f2acb16c4230dddd92bcdc0fc98b0",
       "action-contact/sip-front-v2/sip-front-v2-right-fore-palm-front-8x.png": "c7a00171396aece0d43fb16c12f52a92030bf07d3602cb81d576dccac764fa6a",
       "action-contact/sip-front-v2/sip-front-v2-right-root-back-8x.png": "83851ef811003354bf607d451a92abb5b8d5ab2b97c899464313138bf4a05fb2",
+      "action-contact/snack-quarter-near-v1/near-8x.png": "24aa77f75bb2c9d1e615dc971c96094cef4e958d0df8df5bdc8becbd878e683f",
+      "action-contact/umbrella-front-v1/right-8x.png": "0d5edeac3eb9c6013792288e38325e0d88a68fb66679511b147ae668520906e9",
+      "action-contact/umbrella-front-v1/umbrella-back.png": "b34bcd4b3e3425e5bfc971cdef78f62d43aedafdcd3de218298b511b5b75175c",
+      "action-contact/umbrella-front-v1/umbrella-front.png": "b1cd9b03b483c01694ae4508ef05893132aac789bb12c4b69fd1800ebf0a9eb2",
+      "action-contact/wave-front-v1/wave-00-8x.png": "fe851159ebdfdd19d3828499822199be9040d8a027e7f4295d57388982d4ac0d",
+      "action-contact/wave-front-v1/wave-01-8x.png": "f40850c3f436cfc9b710c9191dcf30ea7a69b402e2a948ff45fa375a9adbc04b",
+      "action-contact/wave-front-v1/wave-02-8x.png": "1ef803998fa4159e14afb83aee68be77f4aa6d6749bd275f4730b391f6b3e96a",
+      "action-contact/wave-front-v1/wave-03-8x.png": "8e28d72f28bd1596bdc41b9683ce41942aa8bb4f9554a5a539c532cfe7cb0db3",
+      "action-contact/wave-front-v1/wave-04-8x.png": "c5bfb5149042d065d3f921a7a0723d63b31def7027f5cb4884966a4beb519bc4",
+      "action-contact/wave-front-v1/wave-05-8x.png": "75287904cac7d2d702f92cfd294976beb108ba84eb080d4ba323e80d1fe13f08",
+      "action-contact/wave-front-v1/wave-06-8x.png": "7f09c098e4d145cf7d42261bce51aa0a469d21ea5f8b715f00bbcfc9fff85b30",
+      "action-contact/wave-front-v1/wave-07-8x.png": "45414c510b5d7ab37adc0c3ddbf3ae1057586d1f178a74a5e3de5c954e62ad37",
+      "action-contact/wave-front-v1/wave-08-8x.png": "9afb39cbeb860073616c0ca3bf242744db3d36fed0f221535ebf5ab49ad7467b",
+      "action-contact/wave-front-v1/wave-09-8x.png": "2801ca7f8dd47480d38881f39079d11cbab79e830d486ee918b966051c2f9097",
+      "action-contact/wave-front-v1/wave-10-8x.png": "5cf7d0c3ebefd808980248b538153f30557e20bd38d0e046543be7e07e785c2d",
       "effects/bat.png": "325fafc82f8e65c0809aba6a658a6a7fe85bf37fb7d245b20c18c15df657f0f2",
       "effects/bird.png": "4fa9bdd7e5bc74cdc3157cbfbef7a7bec970ee4d24dd19d33b8ea37fc8c3c0c3",
       "effects/bubble.png": "e0d37278dae0c88b88ea8d8bd4f586f0d51612d01c7df3902ef7a142eec57ebf",

@@ -28,7 +28,14 @@ const DANGO_LIMB_RIG = Object.freeze({
   maxContactError: 1.25,
   // Contract version the production host opts into (null: inactive, since the
   // package declares runtimeReady=false). Previews/tests pass acceptContract.
-  hostAcceptsContract: null,
+  hostAcceptsContract: 2,
+  // Production rule: composed limbs are used unless a visible defect was found
+  // in visual QA (paw floating off the prop, fragments/overhang, missing
+  // outline, not holding the prop). Listed action/view pairs stay legacy.
+  visibleDefects: Object.freeze({
+    'umbrella-dance': Object.freeze({ front: 'paw floats above the handle; forearm fragment beside it' }),
+    'snack-picnic': Object.freeze({ 'three-quarter': 'forearm fragments below the paw at the body edge' })
+  }),
   // Paw pose per action prop / motion (data; never per action id).
   poseByProp: Object.freeze({
     cup: 'hold', 'teacup': 'hold', picnic: 'hold', pan: 'grip', broom: 'grip', umbrella: 'grip', microphone: 'grip',

@@ -5,10 +5,12 @@ import { createCanvas, loadImage } from '@napi-rs/canvas';
 import { DANGO_RASTER } from '../assets/companion/dango/raster/dango.raster.mjs';
 import { createDangoRasterArtist } from '../src/capabilities/companion/presentation/dango-raster-art.mjs';
 import { SIP_CONTACT_KEYS, sipContactSpriteKeys } from '../src/capabilities/companion/presentation/dango-sip-contact-pose.mjs';
+import { sipShortContactSpriteKeys } from '../src/capabilities/companion/presentation/dango-sip-short-contact-pose.mjs';
 import { PET_ACTIONS } from '../src/content/behaviors.mjs';
 import { PALETTES } from '../src/core/pet-art.mjs';
 const keys = sipContactSpriteKeys(), action = PET_ACTIONS['sip-tea'];
-function enabled() { const m = structuredClone(DANGO_RASTER); for (const k of keys) m.tools[k].sourceContactPose.runtimeReady = true; return m; }
+function legacy() { const m = structuredClone(DANGO_RASTER); for (const sprite of Object.values(m.tools)) if (sprite.sourceContactPose) sprite.sourceContactPose.runtimeReady = false; return m; }
+function enabled() { const m = legacy(); for (const k of keys) m.tools[k].sourceContactPose.runtimeReady = true; return m; }
 async function make(manifest, fail = false) {
   const artist = createDangoRasterArtist({ manifest, createSurface: createCanvas, loadImage: u => {
     if (fail && u.includes('sip-front-v2-right-root-back')) throw Error('injected one-layer failure');
@@ -25,7 +27,7 @@ function render(artist, options, artwork = artist.resolveArtwork(options), dpr =
   artist.action(x, { ...o, layer: 'front' }); return Buffer.from(x.getImageData(0, 0, c.width, c.height).data);
 }
 test('actual sip selector and standard painter equal independent four-layer source composition for257 phases', async () => {
-  const m = enabled(), a = await make(m), b = await make(DANGO_RASTER), images = {};
+  const m = enabled(), a = await make(m), b = await make(legacy()), images = {};
   for (const k of keys) images[k] = await loadImage(fileURLToPath(new URL(m.tools[k].src, m.baseUrl)));
   try {
     let bodyKey = null;
@@ -51,22 +53,24 @@ test('actual sip selector and standard painter equal independent four-layer sour
   } finally { a.dispose(); b.dispose(); }
 });
 test('other actions, unavailable quarter view and outfits preserve legacy contacts and pixels', async () => {
-  const a = await make(enabled()), b = await make(DANGO_RASTER);
+  const a = await make(enabled()), b = await make(legacy());
   try {
     for (const act of Object.values(PET_ACTIONS)) if (act.id !== 'sip-tea') for (const progress of [0, .5, 1]) {
       const o = { action: act, motion: act.motion, view: 'front', progress, elapsedMs: progress * act.duration };
       const x = a.resolveArtwork(o), y = b.resolveArtwork(o);
       assert.equal(x.sourceContactPose, undefined); assert.deepEqual(x.contact, y.contact);
     }
-    for (const extra of [{ view: 'three-quarter' }, { appearance: { items: [{ id: 'test.hat', renderKey: 'hat', formId: 'dango' }] } }]) {
+    // sip-tea now resolves every requested view to front (one hand style).
+    for (const extra of [{ appearance: { items: [{ id: 'test.hat', renderKey: 'hat', formId: 'dango' }] } }]) {
       const o = { action, motion: 'sip', view: 'front', progress: .5, elapsedMs: 4500, ...extra };
       const x = a.resolveArtwork(o), y = b.resolveArtwork(o);
       assert.equal(x.sourceContactPose, undefined); assert.deepEqual(render(a, o, x), render(b, o, y));
     }
+    assert.equal(a.resolveArtwork({ action, motion: 'sip', view: 'three-quarter', progress: .5, elapsedMs: 4500 }).view, 'front');
   } finally { a.dispose(); b.dispose(); }
 });
 test('one failed actual image falls back both roots/hands and reduced motion keeps the cup/source static', async () => {
-  const a = await make(enabled()), b = await make(DANGO_RASTER), failed = await make(enabled(), true);
+  const a = await make(enabled()), b = await make(legacy()), failed = await make(enabled(), true);
   try {
     for (const progress of [0, .5, 1]) {
       const o = { action, motion: 'sip', view: 'front', progress, elapsedMs: progress * 9000 };

@@ -1,0 +1,36 @@
+{
+  "method": "One built-in official imagegen local edit; no seed/model version claimed",
+  "master": "master.png",
+  "masterSha256": "a32980534cb0e02b0b031c003d12204b6daa2922228c5c29f4f62e69fbb8600b",
+  "prompt": "prompt.txt",
+  "promptSha256": "d1aad1fa7001584d506e99d1cb04210a2c3e733b3ae7fad9ef3c06daa90929a4",
+  "referencesInOrder": [
+    {
+      "originalPath": "meta/quarter-far-hiccup-v1/evidence/hiccup-quarter-reference.png",
+      "sha256": "5fc5a5f5ab9c49f73920b19a688e9e571cfe25ff40ca644d00b7251cebae2908",
+      "role": "Actual production painter three-quarter hiccup edit target with exact original cup",
+      "size": [
+        1056,
+        1056
+      ]
+    },
+    {
+      "originalPath": "assets/companion/dango/raster/limbs/sources/masters/quarter-hold-fixed-shoulders-v1.png",
+      "sha256": "89a87e1c54701b3b586595bb7b68591e94cdbc38b79d153014ee89d9beee8201",
+      "role": "Independent true quarter hand-contour reference only",
+      "size": [
+        1536,
+        1024
+      ]
+    }
+  ],
+  "referenceAvailability": "Generation inputs retained locally and identified here; not required to reproduce source extraction.",
+  "scope": "Only independently observed near complete fore/palm and far visible lower-palm contours are extracted. Generated body, face, cup, feet and hidden anatomy are never adopted.",
+  "tool": "image_gen.imagegen",
+  "originalToolOutputPath": "/workspace/scratch/10657b778e8b/generated_images/exec-a1231e2d-291e-4b26-b827-676d80c983e1.png",
+  "masterSize": [
+    1254,
+    1254
+  ],
+  "transparentBackground": false
+}

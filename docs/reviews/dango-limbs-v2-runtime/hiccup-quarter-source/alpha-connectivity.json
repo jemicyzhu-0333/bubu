@@ -1,0 +1,111 @@
+{
+  "scale": 8,
+  "farSource": {
+    "components4": [
+      {
+        "pixels": 3456,
+        "bboxArt": [
+          54,
+          43,
+          61,
+          52
+        ],
+        "cupTouchPixels": 712,
+        "bodyOverlapPixels": 3456
+      }
+    ],
+    "components8": [
+      {
+        "pixels": 3456,
+        "bboxArt": [
+          54,
+          43,
+          61,
+          52
+        ],
+        "cupTouchPixels": 712,
+        "bodyOverlapPixels": 3456
+      }
+    ]
+  },
+  "afterUnchangedCup": {
+    "components4": [
+      {
+        "pixels": 2812,
+        "bboxArt": [
+          54,
+          43,
+          61,
+          52
+        ],
+        "cupTouchPixels": 68,
+        "bodyOverlapPixels": 2812
+      }
+    ],
+    "components8": [
+      {
+        "pixels": 2812,
+        "bboxArt": [
+          54,
+          43,
+          61,
+          52
+        ],
+        "cupTouchPixels": 68,
+        "bodyOverlapPixels": 2812
+      }
+    ]
+  },
+  "darkContourOnly": {
+    "components4": [
+      {
+        "pixels": 922,
+        "bboxArt": [
+          54,
+          45,
+          61,
+          52
+        ],
+        "cupTouchPixels": 11,
+        "bodyOverlapPixels": 922
+      },
+      {
+        "pixels": 109,
+        "bboxArt": [
+          55,
+          44,
+          57,
+          45
+        ],
+        "cupTouchPixels": 9,
+        "bodyOverlapPixels": 109
+      }
+    ],
+    "components8": [
+      {
+        "pixels": 922,
+        "bboxArt": [
+          54,
+          45,
+          61,
+          52
+        ],
+        "cupTouchPixels": 11,
+        "bodyOverlapPixels": 922
+      },
+      {
+        "pixels": 109,
+        "bboxArt": [
+          55,
+          44,
+          57,
+          45
+        ],
+        "cupTouchPixels": 9,
+        "bodyOverlapPixels": 109
+      }
+    ]
+  },
+  "scope": "Production far source alpha projected at exact 8px/art and original cup alpha applied as occluder. Body overlap is measured against the unchanged real quarter body. Color-difference component counts in the full renderer are a separate metric; same-color pixels can divide them without dividing source alpha.",
+  "status": "passed"
+}

@@ -1,0 +1,55 @@
+{
+  "baseCommit": "b1e88bafbe17ac7d4dddbe166356f84a55c4188f",
+  "status": "passed-local-integration",
+  "capability": "companion presentation",
+  "persistedPaths": [],
+  "contract": "hiccup / cup / three-quarter only; both sources qualify and load atomically; old host fallback preserved",
+  "rasterAssetDigest": "9c0e93ae2e132e93fc54cabc0d1f400a01e3d53255699d894694d96cdd784d0b",
+  "fullCheck": {
+    "command": "USAGI_CANVAS_PACKAGE=@napi-rs/canvas DANGO_CANVAS_PACKAGE=@napi-rs/canvas PET_MOTION_CANVAS_PACKAGE=@napi-rs/canvas npm run check",
+    "exitCode": 0,
+    "tests": 6152,
+    "passed": 6147,
+    "skipped": 5,
+    "failed": 0,
+    "parallelism": "ordinary default"
+  },
+  "integration": {
+    "command": "npm run test:integration",
+    "exitCode": 0,
+    "passed": 71,
+    "failed": 0
+  },
+  "renderer": {
+    "report": "verified-report.json",
+    "samplesPerStream": 3072,
+    "scenarios": 12,
+    "sourceActiveSamples": 2220,
+    "maxChangedAlphaPixelsVersusFarOmitted": 0,
+    "maxIntroducedAlphaPixelsVersusFarOmitted": 0,
+    "failures": 0,
+    "nativeVisualAcceptance": false
+  },
+  "source": {
+    "rebuildPassed": true,
+    "nearOpaqueLogicalPixels": 149,
+    "farOpaqueLogicalPixels": 54,
+    "fixedFourColorPalette": true,
+    "transparentRGBZero": true,
+    "binaryAlpha": true,
+    "exactNearest8x": true
+  },
+  "fallback": "A failed source group returns the unchanged host baseline, including generic/legacy mixing when generic assets are loaded; neither new member remains enabled alone.",
+  "excludedReproducibleOutputs": [
+    "videos",
+    "diagnostic comparison PNGs",
+    "per-frame JSON",
+    "temporary module adapters",
+    "earlier duplicate candidate report"
+  ],
+  "remaining": [
+    "Bobo exact-head native review",
+    "other actions far hand or reach materials",
+    "whole repair acceptance"
+  ]
+}

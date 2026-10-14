@@ -67,3 +67,22 @@ test('complete sip source authoring files stay out of the application while ever
     assert.equal(accepts(file, fs.statSync(file)), true, `sip runtime layer excluded: ${file}`);
   }
 });
+
+test('preferred short sip masters stay excluded while both unchanged runtime sprites ship', () => {
+  const { build } = require('../package.json');
+  const accepts = new FileMatcher(root, '/unused-destination', value => value, build.files).createFilter();
+  const sourceRoot = path.join(root, 'assets/companion/dango/raster/action-contact/sip-front-v1/sources');
+  const pending = [sourceRoot]; let excluded = 0;
+  while (pending.length) for (const entry of fs.readdirSync(pending.pop(), { withFileTypes: true })) {
+    const file = path.join(entry.parentPath, entry.name);
+    if (entry.isDirectory()) pending.push(file);
+    else { assert.equal(accepts(file, fs.statSync(file)), false, `short sip source shipped: ${file}`); excluded++; }
+  }
+  assert.ok(excluded > 0);
+  const layers = Object.values(DANGO_RASTER.tools).filter(value => value.sourceContactPose?.id === 'sip-front-short-v1');
+  assert.equal(layers.length, 2);
+  for (const layer of layers) {
+    const file = fileURLToPath(new URL(layer.src, DANGO_RASTER.baseUrl));
+    assert.equal(accepts(file, fs.statSync(file)), true, `short sip runtime excluded: ${file}`);
+  }
+});

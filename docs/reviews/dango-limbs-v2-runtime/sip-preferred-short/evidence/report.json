@@ -1,0 +1,325 @@
+{
+  "status": "passed",
+  "backend": "Actual createPetRenderer with two injected standard artists; offscreen Skia only, not native desktop/GPU/browser acceptance",
+  "fixture": "Manual playback records from production createManualActionPlayback; one renderer and continuous clock per scenario. Host fixture clears eggs at their deadline or explicit cancellation. No devPreview action loop.",
+  "comparison": "Left: original preferred sip-front-v1 pixels through a forced diagnostic limbPainter with original timing. Right: closed sip-front-short-v1 selector with two in-memory enabled flags and shared 4% entry/exit opacity envelope.",
+  "visibilityScope": "hide-reset-resume calls actual renderer clearDecorativeParticles then repeats the paused animation clock. It is a host-command replay, not a real OS visibility event.",
+  "unsupportedScope": "View changes are represented by the actual inherited three-quarter paper-return handoff. No artificial manual front-to-quarter transform was added.",
+  "productionGateState": [
+    {
+      "key": "sip-front-short-v1-left",
+      "runtimeReady": true
+    },
+    {
+      "key": "sip-front-short-v1-right",
+      "runtimeReady": true
+    }
+  ],
+  "keys": [
+    "sip-front-short-v1-left",
+    "sip-front-short-v1-right"
+  ],
+  "fps": 30,
+  "videoSize": [
+    1000,
+    810
+  ],
+  "dpr": 2,
+  "records": [
+    {
+      "id": "full-manual-front",
+      "frames": 307,
+      "sourceFrames": 270,
+      "middleCompared": 249,
+      "middleExact": 249,
+      "maxCupCoordinateDelta": 0,
+      "video": "full-manual-front.mp4",
+      "fullManual": true,
+      "preview": false,
+      "finalObserved": {
+        "actionId": null,
+        "progress": 0,
+        "elapsedMs": 10200,
+        "instance": null,
+        "view": "front",
+        "channel": "gallery:2",
+        "calm": false,
+        "phase": null,
+        "propOpacity": 1,
+        "recovery": null,
+        "source": null,
+        "ready": true,
+        "bodyKey": "dango-raster:dango-raster@3588076369|rest|load:rrrrrrrrrrrrr|hide:",
+        "cup": null,
+        "body": {
+          "src": "views/front/body.png",
+          "rect": [
+            -1.789744,
+            8.533333,
+            69.415385,
+            49.066667
+          ],
+          "tint": "body"
+        },
+        "hands": [],
+        "details": [],
+        "sourceHands": 0
+      },
+      "elapsedMs": 10200
+    },
+    {
+      "id": "interrupt-reopen-full",
+      "frames": 517,
+      "sourceFrames": 423,
+      "middleCompared": 380,
+      "middleExact": 380,
+      "maxCupCoordinateDelta": 0,
+      "video": "interrupt-reopen-full.mp4",
+      "fullManual": true,
+      "preview": false,
+      "finalObserved": {
+        "actionId": null,
+        "progress": 0,
+        "elapsedMs": 17200,
+        "instance": null,
+        "view": "front",
+        "channel": "gallery:4",
+        "calm": false,
+        "phase": null,
+        "propOpacity": 1,
+        "recovery": null,
+        "source": null,
+        "ready": true,
+        "bodyKey": "dango-raster:dango-raster@3588076369|rest|load:rrrrrrrrrrrrr|hide:",
+        "cup": null,
+        "body": {
+          "src": "views/front/body.png",
+          "rect": [
+            -1.789744,
+            8.533333,
+            69.415385,
+            49.066667
+          ],
+          "tint": "body"
+        },
+        "hands": [],
+        "details": [],
+        "sourceHands": 0
+      },
+      "elapsedMs": 17200
+    },
+    {
+      "id": "pause-resume",
+      "frames": 331,
+      "sourceFrames": 297,
+      "middleCompared": 276,
+      "middleExact": 276,
+      "maxCupCoordinateDelta": 0,
+      "video": null,
+      "fullManual": true,
+      "preview": false,
+      "finalObserved": {
+        "actionId": null,
+        "progress": 0,
+        "elapsedMs": 10100,
+        "instance": null,
+        "view": "front",
+        "channel": "gallery:6",
+        "calm": false,
+        "phase": null,
+        "propOpacity": 1,
+        "recovery": null,
+        "source": null,
+        "ready": true,
+        "bodyKey": "dango-raster:dango-raster@3588076369|rest|load:rrrrrrrrrrrrr|hide:",
+        "cup": null,
+        "body": {
+          "src": "views/front/body.png",
+          "rect": [
+            -1.789744,
+            8.533333,
+            69.415385,
+            49.066667
+          ],
+          "tint": "body"
+        },
+        "hands": [],
+        "details": [],
+        "sourceHands": 0
+      },
+      "elapsedMs": 11000
+    },
+    {
+      "id": "reduced-resume",
+      "frames": 301,
+      "sourceFrames": 270,
+      "middleCompared": 249,
+      "middleExact": 249,
+      "maxCupCoordinateDelta": 0,
+      "video": null,
+      "fullManual": true,
+      "preview": false,
+      "finalObserved": {
+        "actionId": null,
+        "progress": 0,
+        "elapsedMs": 10000,
+        "instance": null,
+        "view": "front",
+        "channel": "gallery:8",
+        "calm": false,
+        "phase": null,
+        "propOpacity": 1,
+        "recovery": null,
+        "source": null,
+        "ready": true,
+        "bodyKey": "dango-raster:dango-raster@3588076369|rest|load:rrrrrrrrrrrrr|hide:",
+        "cup": null,
+        "body": {
+          "src": "views/front/body.png",
+          "rect": [
+            -1.789744,
+            8.533333,
+            69.415385,
+            49.066667
+          ],
+          "tint": "body"
+        },
+        "hands": [],
+        "details": [],
+        "sourceHands": 0
+      },
+      "elapsedMs": 10000
+    },
+    {
+      "id": "outfit-fallback-reopen",
+      "frames": 169,
+      "sourceFrames": 87,
+      "middleCompared": 65,
+      "middleExact": 65,
+      "maxCupCoordinateDelta": 0,
+      "video": null,
+      "fullManual": true,
+      "preview": false,
+      "finalObserved": {
+        "actionId": null,
+        "progress": 0,
+        "elapsedMs": 5600,
+        "instance": null,
+        "view": "front",
+        "channel": "gallery:10",
+        "calm": false,
+        "phase": null,
+        "propOpacity": 1,
+        "recovery": null,
+        "source": null,
+        "ready": true,
+        "bodyKey": "dango-raster:dango-raster@3588076369|rest|load:rrrrrrrrrrrrr|hide:",
+        "cup": null,
+        "body": {
+          "src": "views/front/body.png",
+          "rect": [
+            -1.789744,
+            8.533333,
+            69.415385,
+            49.066667
+          ],
+          "tint": "body"
+        },
+        "hands": [],
+        "details": [],
+        "sourceHands": 0
+      },
+      "elapsedMs": 5600
+    },
+    {
+      "id": "hide-reset-resume",
+      "frames": 331,
+      "sourceFrames": 300,
+      "middleCompared": 279,
+      "middleExact": 279,
+      "maxCupCoordinateDelta": 0,
+      "video": null,
+      "fullManual": true,
+      "preview": false,
+      "finalObserved": {
+        "actionId": null,
+        "progress": 0,
+        "elapsedMs": 10000,
+        "instance": null,
+        "view": "front",
+        "channel": "gallery:12",
+        "calm": false,
+        "phase": null,
+        "propOpacity": 1,
+        "recovery": null,
+        "source": null,
+        "ready": true,
+        "bodyKey": "dango-raster:dango-raster@3588076369|rest|load:rrrrrrrrrrrrr|hide:",
+        "cup": null,
+        "body": {
+          "src": "views/front/body.png",
+          "rect": [
+            -1.789744,
+            8.533333,
+            69.415385,
+            49.066667
+          ],
+          "tint": "body"
+        },
+        "hands": [],
+        "details": [],
+        "sourceHands": 0
+      },
+      "elapsedMs": 11000
+    },
+    {
+      "id": "actual-quarter-handoff",
+      "frames": 361,
+      "sourceFrames": 0,
+      "middleCompared": 0,
+      "middleExact": 0,
+      "maxCupCoordinateDelta": 0,
+      "video": null,
+      "fullManual": true,
+      "preview": false,
+      "finalObserved": {
+        "actionId": null,
+        "progress": 0,
+        "elapsedMs": 12000,
+        "instance": null,
+        "view": "three-quarter",
+        "channel": "gallery:14",
+        "calm": false,
+        "phase": null,
+        "propOpacity": 1,
+        "recovery": null,
+        "source": null,
+        "ready": true,
+        "bodyKey": "dango-raster:dango-raster@3588076369|rest|load:rrrrrrrrrrrrr|hide:",
+        "cup": null,
+        "body": {
+          "src": "views/three-quarter-right/body.png",
+          "rect": [
+            -2.117949,
+            8.533333,
+            70.4,
+            49.066667
+          ],
+          "tint": "body"
+        },
+        "hands": [],
+        "details": [],
+        "sourceHands": 0
+      },
+      "elapsedMs": 12000
+    }
+  ],
+  "failures": [],
+  "sourceHashes": {
+    "src/surfaces/pet/renderer.mjs": "5a0e0193bfff657eb27c455f61f296b1d1d4dda95a88d89eaee3a6c95e97710d",
+    "src/surfaces/pet/action-playback.mjs": "3bef6325555033bd4df0e4f4ec3ba211d1e22a20ffdf525c1099ef511d1fb8c2",
+    "src/capabilities/companion/presentation/form-art.mjs": "73dfacc173af211dc0f3797c10192f1bdcbc6531b536a480e1e2f3660afd448e",
+    "src/capabilities/companion/presentation/dango-sip-short-contact-pose.mjs": "41445c4fc9f9de57cb1c9f72e707012ebe20afabb755bcd54c572fe0231935dc",
+    "src/capabilities/companion/presentation/dango-source-contact-pose.mjs": "b8d026e5d587615ec805c257204669ab309cd8a46c39248651006e762d8eb808"
+  }
+}

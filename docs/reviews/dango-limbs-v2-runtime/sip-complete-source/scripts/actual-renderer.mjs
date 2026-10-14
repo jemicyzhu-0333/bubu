@@ -26,7 +26,7 @@ import{DANGO_RASTER}from'${toURL(R + 'assets/companion/dango/raster/dango.raster
 import{sipContactSpriteKeys}from'${toURL(R + 'src/capabilities/companion/presentation/dango-sip-contact-pose.mjs')}';
 import{createRequire}from'node:module';import{fileURLToPath}from'node:url';
 const{createCanvas,loadImage}=createRequire(${JSON.stringify(R + 'package.json')})('@napi-rs/canvas');
-const manifest=structuredClone(DANGO_RASTER);for(const k of sipContactSpriteKeys())manifest.tools[k].sourceContactPose.runtimeReady=true;
+const manifest=structuredClone(DANGO_RASTER);for(const sprite of Object.values(manifest.tools))if(sprite.sourceContactPose?.id==='sip-front-short-v1')sprite.sourceContactPose.runtimeReady=false;for(const k of sipContactSpriteKeys())manifest.tools[k].sourceContactPose.runtimeReady=true;
 const original=createDangoRasterArtist({manifest,createSurface:createCanvas,loadImage:u=>loadImage(fileURLToPath(u))});
 await original.ready({all:true});export const traces=[];
 export default{...original,resolveArtwork(options){const a=original.resolveArtwork(options);if(options.action?.id==='sip-tea')traces.push({progress:options.progress,source:a.sourceContactPose,ready:a.ready,bodyKey:a.key,cup:a.contact.tools.find(t=>t.key==='cup'),roots:a.contact.tools.filter(t=>t.sourceContactLayer==='sip-front-v2').length,front:a.contact.hands.filter(h=>h.sourceContact?.sourcePoseId==='sip-front-v2').length});return a;}};

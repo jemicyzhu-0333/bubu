@@ -18,6 +18,7 @@ import { sampleRasterPose } from './dango-raster-pose.mjs';
 import { regionClearance } from './motion-core/accessory-resolver.mjs';
 import { paintRasterPaws } from './dango-raster-paws.mjs';
 import { createSourceContactPoseSelector } from './dango-source-contact-pose.mjs';
+import { DANGO_LIMB_RIG } from '../../../content/companion/dango-limbs.mjs';
 import { createDangoLimbPainter } from './dango-limb-compose.mjs';
 import { browserSurface } from './raster/paint.mjs';
 import { drawRasterFace } from './dango-raster-face.mjs';
@@ -74,6 +75,7 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
   const limbGates = new Map();
   function limbGate(data, view, side, options) {
     const id = options.action?.id || options.motion; if (!id) return false;
+    if (DANGO_LIMB_RIG.visibleDefects[id]?.[view]) return false;
     const key = JSON.stringify([limbSource.manifest()?.version, id, view, side, options.action,
       options.motion, Boolean(options.calmVisual), Boolean(options.reducedMotion)]);
     if (!limbGates.has(key)) {

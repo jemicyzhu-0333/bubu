@@ -52,7 +52,7 @@ test('quarter paw composition equals source pixels at the authored wrist, withou
   const B = DANGO_LIMB_BOX;
   for (const item of cases) {
     const p = solveLimb(source, { view: 'three-quarter-left', side: item.side, target: item.target, pose: 'hold' });
-    const actual = composeLimb(source, p).paw.data, expected = new Uint8ClampedArray(actual.length);
+    const actual = composeLimb(source, p, { outline: false }).paw.data, expected = new Uint8ClampedArray(actual.length);
     const raw = source.pixels(p.paw.src), dx = p.W[0] - p.paw.root[0] - B.x, dy = p.W[1] - p.paw.root[1] - B.y;
     assert.ok(Number.isInteger(dx) && Number.isInteger(dy));
     for (let y = 0; y < raw.height; y++) for (let x = 0; x < raw.width; x++) {
@@ -60,6 +60,19 @@ test('quarter paw composition equals source pixels at the authored wrist, withou
       if (raw.data[from + 3]) expected.set(raw.data.subarray(from, from + 4), ((y + dy) * B.w + x + dx) * 4);
     }
     assert.deepEqual(actual, expected);
+  }
+});
+
+test('outline pass only recolours palm boundary pixels to the palm ink; silhouette unchanged', () => {
+  for (const item of cases) {
+    const p = solveLimb(source, { view: 'three-quarter-left', side: item.side, target: item.target, pose: 'hold' });
+    const raw = composeLimb(source, p, { outline: false }).paw.data, out = composeLimb(source, p).paw.data;
+    let changed = 0;
+    for (let i = 0; i < raw.length; i += 4) {
+      assert.equal(Boolean(raw[i + 3]), Boolean(out[i + 3]));
+      if (raw[i] !== out[i] || raw[i + 1] !== out[i + 1] || raw[i + 2] !== out[i + 2]) { changed++; assert.ok(out[i] * .3 + out[i + 1] * .59 + out[i + 2] * .11 < 80); }
+    }
+    assert.ok(changed < 40);
   }
 });
 
@@ -95,9 +108,9 @@ test('standard quarter artist preserves canonical body, props, shoulders and ina
   const body = (artist, a) => { const c = createCanvas(114, 96), ctx = c.getContext('2d'); ctx.translate(24, 8);
     artist.body(ctx, PALETTES.pink, a.view, a); return pixels(c); };
   try {
-    assert.equal(DANGO_LIMB_RIG.hostAcceptsContract, null);
+    assert.equal(DANGO_LIMB_RIG.hostAcceptsContract, 2);
     assert.equal(source.manifest().extensions.runtimeReady, false);
-    for (const id of ['sip-tea', 'carry-energy', 'read-book']) for (let i = 0; i <= 32; i++) {
+    for (const id of ['carry-energy', 'read-book']) for (let i = 0; i <= 32; i++) { // sip-tea is front-only now
       const action = PET_ACTIONS[id], options = { action, motion: action.motion, view: 'three-quarter', progress: i / 32, elapsedMs: i * 125 };
       const a = base.resolveArtwork(options), b = preview.resolveArtwork(options);
       assert.equal(a.view, 'three-quarter'); assert.equal(b.view, a.view);

@@ -1,12 +1,36 @@
 'use strict';
 
 import { sipContactSpriteKeys, sipSourceContactPoseEligible, applySipSourceContactPose } from './dango-sip-contact-pose.mjs';
+import { SIP_SHORT_CONTACT_ID, sipShortContactSpriteKeys, sipShortSourceContactPoseEligible,
+  applySipShortSourceContactPose } from './dango-sip-short-contact-pose.mjs';
+
+import { UMBRELLA_CONTACT_ID, umbrellaContactSpriteKeys, umbrellaSourceContactPoseEligible,
+  applyUmbrellaSourceContactPose } from './dango-umbrella-contact-pose.mjs';
+
+import { QUARTER_SNACK_CONTACT_ID, quarterSnackContactSpriteKeys, quarterSnackSourceContactPoseEligible,
+  applyQuarterSnackSourceContactPose } from './dango-quarter-snack-contact-pose.mjs';
+
+import { QUARTER_HICCUP_CONTACT_ID, quarterHiccupContactSpriteKeys, quarterHiccupSourceContactPoseEligible,
+  applyQuarterHiccupSourceContactPose } from './dango-quarter-hiccup-contact-pose.mjs';
+
+import { WAVE_CONTACT_ID, waveContactSpriteKeys, waveSourceContactPoseEligible,
+  applyWaveSourceContactPose } from './dango-wave-contact-pose.mjs';
 
 // PET_RIG「并发配件的姿势隔离」: this authored contact layer owns only
 // the two hands of one reviewed action. It never changes generic limb readiness.
 const KEYS = Object.freeze({ left: 'hiccup-front-contact-left', right: 'hiccup-front-contact-right' });
 const BODY_HASH = '9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9';
 const same = (a, b) => Array.isArray(a) && a.length === b.length && a.every((n, i) => n === b[i]);
+function sipSelection(manifest) {
+  const short = sipShortContactSpriteKeys(), long = sipContactSpriteKeys();
+  const enabled = keys => keys.some(k => manifest.tools?.[k]?.sourceContactPose?.runtimeReady === true);
+  // Ambiguous or partially competing registrations must never silently choose
+  // a different source. Each reviewed source still requires its complete set.
+  if (enabled(short) && enabled(long)) return null;
+  return enabled(short) ? { id: SIP_SHORT_CONTACT_ID, keys: short,
+    eligible: sipShortSourceContactPoseEligible, apply: applySipShortSourceContactPose }
+    : { id: 'sip-front-v2', keys: long, eligible: sipSourceContactPoseEligible, apply: applySipSourceContactPose };
+}
 function sourceContactPoseEligible(manifest, pose, view, options = {}) {
   const action = options.action;
   if (action?.id !== 'hiccup' || action.motion !== 'hiccup' || action.prop !== 'cup'
@@ -50,26 +74,40 @@ function createSourceContactPoseSelector({ manifest, source }) {
       const p = Number.isFinite(options.progress) ? options.progress : 0;
       const elapsed = Number.isFinite(options.elapsedMs) ? options.elapsedMs : null;
       const explicitInstance = options.actionInstanceKey != null;
-      const key = explicitInstance ? JSON.stringify([options.action?.id, options.actionInstanceKey])
-        : JSON.stringify([options.action, options.motion]);
       const sip = options.action?.id === 'sip-tea';
-      const keys = sip ? sipContactSpriteKeys() : Object.values(KEYS);
-      const eligible = sip ? sipSourceContactPoseEligible(manifest, pose, view, options)
+      const umbrella = options.action?.id === 'umbrella-dance';
+      const snack = options.action?.id === 'snack-picnic';
+      const quarterHiccup = options.action?.id === 'hiccup' && view === 'three-quarter';
+      const wave = options.action?.id === 'wave';
+      const dedicated = sip || umbrella || snack || quarterHiccup || wave;
+      // Recovery and prop opacity are sampled fields of the same action episode.
+      // They cannot create a fresh readiness window on every recovery frame.
+      const identityAction = dedicated ? { ...options.action, handoffRecovery: undefined, propOpacity: undefined } : options.action;
+      const key = explicitInstance ? JSON.stringify([options.action?.id, options.actionInstanceKey])
+        : JSON.stringify([identityAction, options.motion]);
+      const selection = sip ? sipSelection(manifest) : umbrella ? { id: UMBRELLA_CONTACT_ID,
+        keys: umbrellaContactSpriteKeys(), eligible: umbrellaSourceContactPoseEligible, apply: applyUmbrellaSourceContactPose } : snack ? { id: QUARTER_SNACK_CONTACT_ID,
+        keys: quarterSnackContactSpriteKeys(), eligible: quarterSnackSourceContactPoseEligible, apply: applyQuarterSnackSourceContactPose } : quarterHiccup ? { id: QUARTER_HICCUP_CONTACT_ID,
+        keys: quarterHiccupContactSpriteKeys(), eligible: quarterHiccupSourceContactPoseEligible, apply: applyQuarterHiccupSourceContactPose } : wave ? { id: WAVE_CONTACT_ID,
+        keys: waveContactSpriteKeys(), eligible: waveSourceContactPoseEligible, apply: applyWaveSourceContactPose } : null;
+      const selectionId = dedicated ? selection?.id : 'hiccup-front-v1';
+      const keys = dedicated ? selection?.keys || [] : Object.values(KEYS);
+      const eligible = dedicated ? Boolean(selection?.eligible(manifest, pose, view, options))
         : sourceContactPoseEligible(manifest, pose, view, options);
       if (!current || current.key !== key || !explicitInstance && (p < current.progress
         || elapsed !== null && current.elapsed !== null && elapsed < current.elapsed)) {
         const sprites = keys.map(k => manifest.tools?.[k]);
         const states = eligible ? sprites.map(s => source.state(s)) : [];
-        current = { key, progress: p, elapsed, enabled: eligible && states.every(s => s === 'ready') };
+        current = { key, selectionId, progress: p, elapsed, enabled: eligible && states.every(s => s === 'ready') };
         windows.set(channel, current);
       }
       current.progress = p; current.elapsed = elapsed;
-      if (!eligible) current.enabled = false;
+      if (!eligible || current.selectionId !== selectionId) current.enabled = false;
       if (!current.enabled) return pose;
       // If a bounded raster cache lost either image, fallback both together and
       // keep the window disabled. Never draw half of the source-contact pose.
       if (!keys.every(k => source.state(manifest.tools[k]) === 'ready')) { current.enabled = false; return pose; }
-      if (sip) return applySipSourceContactPose(manifest, pose);
+      if (dedicated) return selection.apply(manifest, pose, options);
       return { ...pose, sourceContactPose: 'hiccup-front-v1', contact: { ...pose.contact,
         hands: pose.contact.hands.map(h => {
           const c = manifest.tools[KEYS[h.side]].sourceContactPose;

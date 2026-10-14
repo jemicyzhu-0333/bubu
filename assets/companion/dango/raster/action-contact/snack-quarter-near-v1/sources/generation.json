@@ -1,0 +1,30 @@
+{
+  "method": "Built-in official image_gen.imagegen local edit; generation nondeterministic; no seed or model version claimed",
+  "prompt": "prompt.txt",
+  "referencesInOrder": [
+    {
+      "sha256": "cce8ba3098ddc1420ca870336163abf310ac2ff5ffe97764521f028d38e4e952",
+      "role": "Actual production painter snack-quarter pose edit target, identity and prop geometry reference",
+      "path": "meta/quarter-repair-v3/evidence/snack-quarter-reference.png",
+      "size": [
+        1056,
+        1056
+      ],
+      "referenceAvailability": "Original source path and SHA retained; generation reference is not required for deterministic extraction."
+    },
+    {
+      "sha256": "89a87e1c54701b3b586595bb7b68591e94cdbc38b79d153014ee89d9beee8201",
+      "role": "Independent three-quarter near-hand contour reference only; not a front source",
+      "path": "assets/companion/dango/raster/limbs/sources/masters/quarter-hold-fixed-shoulders-v1.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "referenceAvailability": "Original source path and SHA retained; generation reference is not required for deterministic extraction."
+    }
+  ],
+  "master": "master.png",
+  "masterSha256": "a44a5f56dd2e418e55f1e12b351dfcee23568202c0cf56928fd03564600fd337",
+  "deliveredPixelPath": "../near-8x.png",
+  "scope": "One lower screen-left near resting hand only. Generated body/face/eating hand/mat are never integrated."
+}

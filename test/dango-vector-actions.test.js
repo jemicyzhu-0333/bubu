@@ -57,7 +57,9 @@ test('plane is held before release and flies independently while the paw recover
 });
 
 test('native tea uses its true mouth anchor and visible steam; tiny tail and ground dust stay bounded', () => {
-  for(const view of ['front','three-quarter']){
+  // sip-tea is front-only (one hand style); a quarter request resolves to front.
+  assert.equal(resolveDangoView('three-quarter',{action:PET_ACTIONS['sip-tea']}),'front');
+  for(const view of ['front']){
     const pose=sample('sip-tea',.5,view),cup=pose.tools[0],mouth=FACE_LAYOUTS[view].mouth;
     assert.deepEqual(grip(cup,'rim'),[mouth.x,mouth.y]);
     assert.ok(pose.details.some(d=>d.type==='steam'));

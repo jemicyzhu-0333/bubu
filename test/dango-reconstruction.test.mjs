@@ -21,8 +21,13 @@ test('recovered deterministic pawn PNGs match independently retained final hashe
  }
 });
 
-test('actual fin grip matrices meet transformed cup/crystal grips with uniform scale',async()=>{
- const artist=make();await artist.ready({all:true});
+test('legacy fin fallback grip matrices meet transformed cup/crystal grips with uniform scale',async()=>{
+ const fallback = structuredClone(manifest);
+ for (const sprite of Object.values(fallback.tools)) {
+  if (sprite.sourceContactPose?.id === 'hiccup-quarter-pair-v1') sprite.sourceContactPose.runtimeReady = false;
+ }
+ const artist=createDangoRasterArtist({manifest:fallback,loadImage:async src=>({src,width:8,height:8})});
+ await artist.ready({all:true});
  for(const id of ['hiccup','carry-energy']) for(const view of ['front','three-quarter']) for(let i=0;i<=30;i++){
   const artwork=artist.resolveArtwork(options(id,view,i/30));assert.equal(artwork.actionReady,true);
   const item=artwork.contact.tools.find(x=>x.key===(id==='hiccup'?'cup':'energy'));

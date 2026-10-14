@@ -1,0 +1,92 @@
+{
+  "baseCommit": "c4c3f45bad6ac1766f8dd09440eb85356750e9d7",
+  "status": "passed-local-integration",
+  "capability": "companion presentation",
+  "persistedPaths": [],
+  "contract": "front wave right free-gesture only; fixed source attachment; all11 resources atomic; no physical grip claim",
+  "assetDigest": "106c8744ed8a62c1e3ff8ef32dbd5487d5d8ed3f453f00fb5fb90e8200d77dbe",
+  "rasterVersion": 275547972,
+  "fullCheck": {
+    "command": "USAGI_CANVAS_PACKAGE=@napi-rs/canvas DANGO_CANVAS_PACKAGE=@napi-rs/canvas PET_MOTION_CANVAS_PACKAGE=@napi-rs/canvas npm run check",
+    "exitCode": 0,
+    "tests": 6160,
+    "passed": 6155,
+    "skipped": 5,
+    "failed": 0,
+    "parallelism": "ordinary default"
+  },
+  "integration": {
+    "command": "npm run test:integration",
+    "passed": 71,
+    "failed": 0,
+    "exitCode": 0
+  },
+  "focused": {
+    "tests": 33,
+    "passed": 33,
+    "failed": 0,
+    "includes": "8 new wave tests plus sip/umbrella/snack/hiccup regression"
+  },
+  "runtime": {
+    "report": "runtime-report.json",
+    "samples": 5640,
+    "cases": 40,
+    "failures": 0
+  },
+  "lifecycle": {
+    "report": "lifecycle-report.json",
+    "samples": 1944,
+    "scenarios": 4,
+    "failures": 0
+  },
+  "contour": {
+    "report": "contour-report.json",
+    "cases": 110,
+    "failures": 0
+  },
+  "source": {
+    "report": "source-audit.json",
+    "rebuildByteExact": true,
+    "outputFiles": 22,
+    "fixedFourColorPalette": true,
+    "transparentRGBZero": true,
+    "binaryAlpha": true,
+    "exactNearest8x": true,
+    "proximalCutSamplesPerPose": 86,
+    "uncovered": 0,
+    "decodedBytes": 1239040
+  },
+  "stepLimit": {
+    "degrees": 5,
+    "maxPalmStepArt": 0.9563395250325215,
+    "maxAdjacentAlphaHausdorffArt": 1.4142135623730951
+  },
+  "codeSha256": {
+    "assets/companion/dango/raster/dango.raster.mjs": "0e8366ebce85b0522d0b41d88333bcd22b2d77a73606875c35a8272e5652e134",
+    "assets/companion/dango/raster/source-specs/tools.json": "956afa8d32658df8d5f5a1b0795387e2da2cd3ca1269e1288a83c97dd0f305c9",
+    "src/capabilities/companion/presentation/dango-source-contact-pose.mjs": "9676ca353a89803fd596e22187d79228ee8a70951079991da72c562b085f2643",
+    "src/capabilities/companion/presentation/dango-wave-contact-pose.mjs": "30d2bc3e852a1253775ce94ffefc406a143d5e2b8d41ff3d775ab188e3e2a870",
+    "src/capabilities/companion/presentation/dango-raster-art.mjs": "f1271c40bc0114720be5d7a2cd8737010dca932ac61a2e0811d32b2aa79f097f",
+    "src/surfaces/pet/renderer.mjs": "5a0e0193bfff657eb27c455f61f296b1d1d4dda95a88d89eaee3a6c95e97710d"
+  },
+  "reportsSha256": {
+    "runtime-report.json": "5f1fa20b8d74478b12ed755261a3bb2c97a1e1e1e1138d681e61821cf3213705",
+    "lifecycle-report.json": "53e88dbae7d289864a6d90ca735c733dde422dd3eb7815091d75ebece95ee471",
+    "contour-report.json": "52b544ca31af21bbeeecf901750fe40e9855c52530103056d2bc20cb0590dc94",
+    "source-audit.json": "d2ff848c41cd9854257c10665130691b4a0de36d7dc872306f53226bb7a78e3c"
+  },
+  "nativeAcceptance": false,
+  "phaseBoundary": "Workbench preview wraps at its duration; exactprogress1 tested by pureartist test, completion separately covered by real lifecycle. No emitted handoffRecovery in lifecycle; opacity0 separately tested.",
+  "excludedReproducibleOutputs": [
+    "videos",
+    "diagnostic PNG comparisons",
+    "per-frame JSON",
+    "temporary module adapters",
+    "duplicate existing source master/prompt"
+  ],
+  "remaining": [
+    "Bobo exact-head native review",
+    "workout/catch-star/sweep/read-book/knit material reach",
+    "whole repair acceptance"
+  ]
+}
