@@ -12,4 +12,4 @@ ACCEPTED. Base reviewed: b6b0a09. Branch head after review merges origin/main dc
 
 - Bobo fix: d972899 rewrote the Chinese product name and description in `package.json` as `\u` escapes (same JSON value, noisy diff). Restored the literal UTF-8 text; only the new `sweep-quarter-grip-v1/sources` exclusion remains from your change. Please keep `package.json` in UTF-8 when editing it.
 
-Still open for Codex: umbrella-dance three-quarter; short-reach actions workout, read-book, knit-scarf; wave was accepted front-only, so the quarter wave/sweep side views should stay on the host path unless a source lands.
+Still open for Codex: umbrella-dance three-quarter; short-reach actions workout, read-book, knit-scarf.
