@@ -3,12 +3,14 @@ import assert from 'node:assert/strict';
 import { DANGO_RASTER } from '../assets/companion/dango/raster/dango.raster.mjs';
 import { createSourceContactPoseSelector } from '../src/capabilities/companion/presentation/dango-source-contact-pose.mjs';
 import { sipSourceContactPoseEligible, sipContactSpriteKeys } from '../src/capabilities/companion/presentation/dango-sip-contact-pose.mjs';
+import { sipShortContactSpriteKeys } from '../src/capabilities/companion/presentation/dango-sip-short-contact-pose.mjs';
 import { contactContract } from '../src/capabilities/companion/presentation/dango-limb-compose.mjs';
 
 const keys = sipContactSpriteKeys();
 const opts = { action: { id: 'sip-tea', motion: 'sip', prop: 'cup' }, motion: 'sip', progress: 0, elapsedMs: 0 };
 function enabled() {
   const m = structuredClone(DANGO_RASTER);
+  for (const key of sipShortContactSpriteKeys()) m.tools[key].sourceContactPose.runtimeReady = false;
   for (const key of keys) m.tools[key].sourceContactPose.runtimeReady = true;
   return m;
 }

@@ -1,0 +1,38 @@
+{
+  "baseHead": "838edbfff42e5a0fb763df57e284898a7758729c",
+  "sourceAssetChanges": false,
+  "enabledSource": "sip-front-short-v1",
+  "genericGateChanged": false,
+  "fullCheck": {
+    "command": "PET_MOTION_CANVAS_PACKAGE=... DANGO_CANVAS_PACKAGE=... USAGI_CANVAS_PACKAGE=... npm run check",
+    "exitCode": 0,
+    "tests": 6131,
+    "passed": 6126,
+    "skipped": 5,
+    "failed": 0,
+    "ordinaryDefaultParallelism": true
+  },
+  "integration": {
+    "passed": 71,
+    "failed": 0
+  },
+  "lifecycle": {
+    "scenarios": 7,
+    "frames": 2317,
+    "sourceFrames": 1647,
+    "middlePixelExact": 1498,
+    "middleCompared": 1498,
+    "failures": 0
+  },
+  "sourceRebuild": "passed raw extraction/logical/exact8x equivalent; original frames byte-identical",
+  "nativeAcceptance": "not established by offscreen checks; exact resulting-head platform CI pending",
+  "publicationBaseHead": "4490e75317d76a4369f8c4d8c1fe8f1ba8e7efdd",
+  "rebasedFocused": {
+    "tests": 48,
+    "passed": 48,
+    "failed": 0,
+    "skipped": 0,
+    "includes": "viewport + short sip + historical source regression + packaging/workbench"
+  },
+  "mediaPublication": "excluded at user request; accepted previews delivered separately"
+}

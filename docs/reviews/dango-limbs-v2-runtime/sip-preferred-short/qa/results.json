@@ -1,0 +1,274 @@
+{
+  "status": "Previously completed original-source geometric audit; compact publication only. This does not claim final integrated selector or native-host validation.",
+  "ordinary": {
+    "phaseCount": 257,
+    "dprs": [
+      1,
+      1.25,
+      1.5,
+      2
+    ],
+    "samples": 1028,
+    "sideSamples": 2056,
+    "maxHandCupBoxGapDevicePx": 0,
+    "maxHandCupCenterDistanceDevicePx": 0,
+    "rootOutsideBodyPixels": 0,
+    "rootBodyAlphaBelow240Pixels": 0,
+    "minRootBodyAlpha": 255,
+    "faceOverlapPixels": 0,
+    "maxAlphaComponents4": 1,
+    "maxInkComponents4": 6,
+    "rootForegroundInternalSeamPresent": true
+  },
+  "recovery": {
+    "recoverySamples": 257,
+    "rasterSamples": 1028,
+    "maxUnfadedContactGap": 0,
+    "rootOutsideBodyPixels": 0,
+    "rootBelow240Pixels": 0,
+    "faceOverlapPixels": 0,
+    "failingRootSamples": []
+  },
+  "outline": {
+    "samples": 2056,
+    "maxInkComponents8": 2,
+    "maxHandCupAlphaComponents4": 1,
+    "inkComponentCounts": [
+      2
+    ]
+  },
+  "sourceDiagnostics": {
+    "left": {
+      "sha256": "8d992901f43bc62089e36b5464d916a3dfd84c170e6356121f4e29dd27654fdc",
+      "components4": [
+        133
+      ],
+      "inkComponents4": [
+        19,
+        13,
+        1,
+        1
+      ],
+      "rootBoundaryCells": [
+        [
+          13,
+          44
+        ],
+        [
+          14,
+          44
+        ],
+        [
+          13,
+          45
+        ],
+        [
+          12,
+          46
+        ],
+        [
+          11,
+          47
+        ],
+        [
+          10,
+          48
+        ]
+      ],
+      "splitRearCells": [
+        [
+          13,
+          44
+        ],
+        [
+          14,
+          44
+        ],
+        [
+          13,
+          45
+        ],
+        [
+          14,
+          45
+        ],
+        [
+          12,
+          46
+        ],
+        [
+          13,
+          46
+        ],
+        [
+          11,
+          47
+        ],
+        [
+          12,
+          47
+        ],
+        [
+          10,
+          48
+        ],
+        [
+          11,
+          48
+        ],
+        [
+          12,
+          48
+        ],
+        [
+          10,
+          49
+        ],
+        [
+          11,
+          49
+        ],
+        [
+          11,
+          50
+        ]
+      ],
+      "splitUnionByteIdentical": true,
+      "inkComponents8": [
+        21,
+        13
+      ]
+    },
+    "right": {
+      "sha256": "31ccdba5d85a53525f65bb033bcf39a368ae63381279a2ec6afec00b6515856d",
+      "components4": [
+        132
+      ],
+      "inkComponents4": [
+        19,
+        8,
+        3,
+        1,
+        1,
+        1
+      ],
+      "rootBoundaryCells": [
+        [
+          50,
+          44
+        ],
+        [
+          51,
+          45
+        ],
+        [
+          52,
+          46
+        ],
+        [
+          53,
+          47
+        ]
+      ],
+      "splitRearCells": [
+        [
+          50,
+          44
+        ],
+        [
+          50,
+          45
+        ],
+        [
+          51,
+          45
+        ],
+        [
+          51,
+          46
+        ],
+        [
+          52,
+          46
+        ],
+        [
+          51,
+          47
+        ],
+        [
+          52,
+          47
+        ],
+        [
+          53,
+          47
+        ],
+        [
+          52,
+          48
+        ],
+        [
+          53,
+          48
+        ],
+        [
+          52,
+          49
+        ],
+        [
+          53,
+          49
+        ],
+        [
+          54,
+          49
+        ],
+        [
+          53,
+          50
+        ],
+        [
+          54,
+          50
+        ],
+        [
+          54,
+          51
+        ]
+      ],
+      "splitUnionByteIdentical": true,
+      "inkComponents8": [
+        25,
+        8
+      ]
+    }
+  },
+  "definitions": {
+    "backend": "@napi-rs/canvas offscreen actual repository artist, including stage transform; not native host",
+    "rootDefinition": "Original source-alpha boundary cells whose centers are within 1.1 art units of authored worldOpenCut segment. Original outer contour elsewhere is not a root. Exposed means actual body alpha is zero; below-240 is separately reported. Foreground roots remain visible over body, so geometric containment is not visual burial.",
+    "contactDefinition": "Minimum distance between closed device-pixel squares in a 4-art-unit radius about registered target, alpha>127. Zero means touching or overlapping, reported alongside overlap and center distance.",
+    "splitDiagnostic": "Original fixed 66x72 RGBA partition only: cell center axial distance <=2 art units from authored cut center goes behind body; complement stays foreground. No deleted/source-painted/rescaled cells. This is one unapproved static depth experiment, not a recommended solution."
+  },
+  "depthCandidate": {
+    "status": "One diagnostic only; not promoted",
+    "phases": [
+      0,
+      0.5
+    ],
+    "dprs": [
+      1,
+      1.25,
+      1.5,
+      2
+    ],
+    "changedCompositePixelsRange": [
+      69,
+      270
+    ],
+    "coloredFrontierCellsPerHand": 6,
+    "maxColoredRgbDistanceRange": [
+      21.610182784974306,
+      25.41653005427767
+    ]
+  }
+}

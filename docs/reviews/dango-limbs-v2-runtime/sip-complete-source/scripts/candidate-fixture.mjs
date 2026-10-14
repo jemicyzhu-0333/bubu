@@ -17,11 +17,14 @@ export async function loadFixture(repo) {
   const {sipContactSpriteKeys}=await load('src/capabilities/companion/presentation/dango-sip-contact-pose.mjs');
   const keys=sipContactSpriteKeys();
   if(keys.length!==4||keys.some(key=>DANGO_RASTER.tools[key]?.sourceContactPose?.runtimeReady!==false))throw Error('Expected exactly four existing sip-front-v2 production gates, all false. No repository state is modified.');
-  const candidateManifest=structuredClone(DANGO_RASTER);
+  const legacyManifest=structuredClone(DANGO_RASTER);
+  // Freeze this historical comparison's legacy baseline after short-source activation.
+  for(const sprite of Object.values(legacyManifest.tools))if(sprite.sourceContactPose?.id==='sip-front-short-v1')sprite.sourceContactPose.runtimeReady=false;
+  const candidateManifest=structuredClone(legacyManifest);
   for(const key of keys)candidateManifest.tools[key].sourceContactPose.runtimeReady=true;
   return{
-    candidateManifest,legacyManifest:DANGO_RASTER,
+    candidateManifest,legacyManifest,
     createCandidateArtist:options=>createDangoRasterArtist({...options,manifest:candidateManifest}),
-    createLegacyArtist:options=>createDangoRasterArtist({...options,manifest:DANGO_RASTER})
+    createLegacyArtist:options=>createDangoRasterArtist({...options,manifest:legacyManifest})
   };
 }

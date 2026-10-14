@@ -1,0 +1,60 @@
+{
+  "policy": "Full per-frame rows and repeated/bulk images are deliberately excluded from version control. Commands require absolute --repo and --out outside the repository; quote paths containing spaces.",
+  "included": [
+    "audit.mjs",
+    "run-recovery.py",
+    "results.json",
+    "input-hashes.json",
+    "portable-smoke.json",
+    "REPRODUCE.md",
+    "excluded-reproducible.json",
+    "two-phase-comparison-final.png"
+  ],
+  "excludedReproducible": [
+    {
+      "outputs": [
+        "full-report.json"
+      ],
+      "command": "node --expose-gc audit.mjs --repo=\"/absolute/repository\" --out=\"/new/ordinary audit\" --full"
+    },
+    {
+      "outputs": [
+        "recovery-full-report.json",
+        "recovery-batch-{start}-{end}.json"
+      ],
+      "command": "python run-recovery.py --repo=\"/absolute/repository\" --out=\"/new/recovery audit\"",
+      "workers": "17 serial batches: sixteen batches of 16 phases, final phase256"
+    },
+    {
+      "outputs": [
+        "outline-report.json"
+      ],
+      "command": "node --expose-gc audit.mjs --repo=\"/absolute/repository\" --out=\"/new/outline audit\" --outline"
+    },
+    {
+      "outputs": [
+        "split-static-report.json"
+      ],
+      "command": "node --expose-gc audit.mjs --repo=\"/absolute/repository\" --out=\"/new/split audit\" --split-check",
+      "status": "diagnostic only; not a promoted source"
+    },
+    {
+      "outputs": [
+        "handoff-extremes-comparison.png"
+      ],
+      "command": "node --expose-gc audit.mjs --repo=\"/absolute/repository\" --out=\"/new/handoff comparison\" --handoff-sheet"
+    },
+    {
+      "outputs": [
+        "two-phase-report.json"
+      ],
+      "command": "node --expose-gc audit.mjs --repo=\"/absolute/repository\" --out=\"/new/smoke audit\" --smoke"
+    }
+  ],
+  "notIncludedOrClaimed": [
+    "Native-host execution",
+    "Final integrated selector lifecycle verification",
+    "Production acceptance of diagnostic depth split",
+    "New images or source geometry"
+  ]
+}

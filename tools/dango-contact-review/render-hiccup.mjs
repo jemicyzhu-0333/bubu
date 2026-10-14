@@ -18,7 +18,11 @@ const out = path.resolve(args[1]);
 const packageUrl = new URL('../../assets/companion/dango/raster/action-contact/hiccup-front-v1/', import.meta.url);
 const frames = JSON.parse(fs.readFileSync(new URL('frames.json', packageUrl))).frames;
 const keys = ['hiccup-front-contact-left', 'hiccup-front-contact-right'];
-const enabled = structuredClone(DANGO_RASTER);
+const legacyManifest = structuredClone(DANGO_RASTER);
+for (const sprite of Object.values(legacyManifest.tools)) {
+  if (sprite.sourceContactPose?.id === 'sip-front-short-v1') sprite.sourceContactPose.runtimeReady = false;
+}
+const enabled = structuredClone(legacyManifest);
 for (const key of keys) {
   assert.equal(DANGO_RASTER.tools[key].sourceContactPose.runtimeReady, false, 'Review must not activate the checked-in contract');
   enabled.tools[key].sourceContactPose.runtimeReady = true;
@@ -28,7 +32,7 @@ const make = async manifest => {
   await artist.ready({ all: true });
   return artist;
 };
-const baseline = await make(DANGO_RASTER), standard = await make(enabled);
+const baseline = await make(legacyManifest), standard = await make(enabled);
 const referenceImages = {}, fingerprints = {};
 for (const frame of frames) {
   const bytes = fs.readFileSync(new URL(frame.src, packageUrl));

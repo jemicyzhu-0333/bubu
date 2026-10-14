@@ -44,7 +44,7 @@ test('single HTML build closes module and artwork graph without forbidden refere
     assert.equal(result.status, 0, result.stderr);
     const html = fs.readFileSync(out, 'utf8');
     const manifest = JSON.parse(fs.readFileSync(out + '.manifest.json', 'utf8'));
-    assert.equal(manifest.embeddedAssets, 423); // Four complete sip source layers, including both behind-body roots.
+    assert.equal(manifest.embeddedAssets, 425); // Four complete-source layers plus the two preferred short sip sprites.
     assert.ok(manifest.modules >= 130);
     assert.equal(Object.keys(manifest.sourceHashes).some(name => name.includes('reference/') || name.includes('usagi-turnaround')), false);
     assert.equal(html.includes('/* WORKBENCH_BOOT */'), false);

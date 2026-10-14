@@ -2,7 +2,7 @@
 const freeze = value => { if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); } return value; };
 const data = {
   "id": "dango-raster",
-  "version": 2162013996,
+  "version": 3588076369,
   "views": {
     "front": {
       "neutral": {
@@ -9861,6 +9861,94 @@ const data = {
         "quantizedOnce": true,
         "depthSourceY": 260
       }
+    },
+    "sip-front-short-v1-left": {
+      "src": "action-contact/sip-front-v1/left-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "sip-front-short-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "sip-tea",
+        "view": "front",
+        "side": "left",
+        "layer": "front",
+        "cup": {
+          "x": 23,
+          "y": 43,
+          "width": 22,
+          "height": 19
+        },
+        "boundary": [
+          24.25,
+          53.375
+        ],
+        "normal": [
+          1,
+          0
+        ],
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "sourceSha256": "9e66aeb66814f3e6384217ddce99a445dfd4b1edbebeb1bf8b76847bee390fcd",
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "registrationMeaning": "Exact reviewed foreground source pixels follow cup translation; no hidden shoulder, elbow, wrist or back layer is inferred."
+      }
+    },
+    "sip-front-short-v1-right": {
+      "src": "action-contact/sip-front-v1/right-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "sip-front-short-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "sip-tea",
+        "view": "front",
+        "side": "right",
+        "layer": "front",
+        "cup": {
+          "x": 23,
+          "y": 43,
+          "width": 22,
+          "height": 19
+        },
+        "boundary": [
+          40.25,
+          53.375
+        ],
+        "normal": [
+          -1,
+          0
+        ],
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "sourceSha256": "017c8747173f71ef4c9b3ec8b79b8c0b397733fdb68cc4d4eca37ef662f32515",
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "registrationMeaning": "Exact reviewed foreground source pixels follow cup translation; no hidden shoulder, elbow, wrist or back layer is inferred."
+      }
     }
   },
   "effects": {
@@ -13139,15 +13227,17 @@ const data = {
   "provenance": {
     "sourceVersions": {
       "body": 5,
-      "tools": 3,
+      "tools": 4,
       "effects": 1,
       "wardrobe": 1,
       "scenes": 1
     },
-    "assetDigest": "80ddb72cb116be929f73d2380119b938b6051847b4d38fe24fa23b525f16e2b1",
+    "assetDigest": "d5ddb35124a65611bbac38d7f1b9c673c473c52c731af68b7cafaade8f8c61d4",
     "assetHashes": {
       "action-contact/hiccup-front-v1/hiccup-front-left-continuous-8x.png": "f02d8d5c23d96c93e7743422700db8e647ae04373fb095f5809a3093118fa488",
       "action-contact/hiccup-front-v1/hiccup-front-right-continuous-8x.png": "edfb542822a7e9499df5d43d9c50b2155c496b62b51bf92369d6bda255fe7f8c",
+      "action-contact/sip-front-v1/left-8x.png": "9e66aeb66814f3e6384217ddce99a445dfd4b1edbebeb1bf8b76847bee390fcd",
+      "action-contact/sip-front-v1/right-8x.png": "017c8747173f71ef4c9b3ec8b79b8c0b397733fdb68cc4d4eca37ef662f32515",
       "action-contact/sip-front-v2/sip-front-v2-left-fore-palm-front-8x.png": "c14ba0c59fbfc6a344dba841b006be369b00b5039944debaf4e70bffc9d6a616",
       "action-contact/sip-front-v2/sip-front-v2-left-root-back-8x.png": "3e6817951627988cf774875fc8a36b3c145f2acb16c4230dddd92bcdc0fc98b0",
       "action-contact/sip-front-v2/sip-front-v2-right-fore-palm-front-8x.png": "c7a00171396aece0d43fb16c12f52a92030bf07d3602cb81d576dccac764fa6a",

@@ -2812,7 +2812,95 @@
         "quantizedOnce": true,
         "depthSourceY": 260
       }
+    },
+    "sip-front-short-v1-left": {
+      "src": "action-contact/sip-front-v1/left-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "sip-front-short-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "sip-tea",
+        "view": "front",
+        "side": "left",
+        "layer": "front",
+        "cup": {
+          "x": 23,
+          "y": 43,
+          "width": 22,
+          "height": 19
+        },
+        "boundary": [
+          24.25,
+          53.375
+        ],
+        "normal": [
+          1,
+          0
+        ],
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "sourceSha256": "9e66aeb66814f3e6384217ddce99a445dfd4b1edbebeb1bf8b76847bee390fcd",
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "registrationMeaning": "Exact reviewed foreground source pixels follow cup translation; no hidden shoulder, elbow, wrist or back layer is inferred."
+      }
+    },
+    "sip-front-short-v1-right": {
+      "src": "action-contact/sip-front-v1/right-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "sip-front-short-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "sip-tea",
+        "view": "front",
+        "side": "right",
+        "layer": "front",
+        "cup": {
+          "x": 23,
+          "y": 43,
+          "width": 22,
+          "height": 19
+        },
+        "boundary": [
+          40.25,
+          53.375
+        ],
+        "normal": [
+          -1,
+          0
+        ],
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "sourceSha256": "017c8747173f71ef4c9b3ec8b79b8c0b397733fdb68cc4d4eca37ef662f32515",
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "registrationMeaning": "Exact reviewed foreground source pixels follow cup translation; no hidden shoulder, elbow, wrist or back layer is inferred."
+      }
     }
   },
-  "version": 3
+  "version": 4
 }

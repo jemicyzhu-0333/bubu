@@ -1,0 +1,78 @@
+{
+  "status": "passed",
+  "scope": "Portable original-source two-phase smoke, not a new full audit",
+  "repositoryArgumentContainsSpaces": true,
+  "outputArgumentContainsSpaces": true,
+  "usesPathToFileURL": true,
+  "baseline": {
+    "baselineGates": [
+      {
+        "key": "sip-front-v2-left-root-back",
+        "id": "sip-front-v2",
+        "importedRuntimeReady": false,
+        "baselineRuntimeReady": false
+      },
+      {
+        "key": "sip-front-v2-left-fore-palm-front",
+        "id": "sip-front-v2",
+        "importedRuntimeReady": false,
+        "baselineRuntimeReady": false
+      },
+      {
+        "key": "sip-front-v2-right-root-back",
+        "id": "sip-front-v2",
+        "importedRuntimeReady": false,
+        "baselineRuntimeReady": false
+      },
+      {
+        "key": "sip-front-v2-right-fore-palm-front",
+        "id": "sip-front-v2",
+        "importedRuntimeReady": false,
+        "baselineRuntimeReady": false
+      },
+      {
+        "key": "sip-front-short-v1-left",
+        "id": "sip-front-short-v1",
+        "importedRuntimeReady": true,
+        "baselineRuntimeReady": false
+      },
+      {
+        "key": "sip-front-short-v1-right",
+        "id": "sip-front-short-v1",
+        "importedRuntimeReady": true,
+        "baselineRuntimeReady": false
+      }
+    ],
+    "originalManifestUnmodified": true
+  },
+  "summary": {
+    "phaseCount": 2,
+    "dprs": [
+      1,
+      1.25,
+      1.5,
+      2
+    ],
+    "samples": 8,
+    "sideSamples": 16,
+    "maxHandCupBoxGapDevicePx": 0,
+    "maxHandCupCenterDistanceDevicePx": 0,
+    "rootOutsideBodyPixels": 0,
+    "rootBodyAlphaBelow240Pixels": 0,
+    "minRootBodyAlpha": 255,
+    "faceOverlapPixels": 0,
+    "maxAlphaComponents4": 1,
+    "maxInkComponents4": 6,
+    "rootForegroundInternalSeamPresent": true
+  },
+  "inputHashesMatchCommittedFile": true,
+  "outputsWereExternalJsonOnly": [
+    "baseline-manifest.json",
+    "input-hashes.json",
+    "two-phase-report.json"
+  ],
+  "syntaxChecks": {
+    "nodeCheck": "passed",
+    "pythonAstParse": "passed"
+  }
+}

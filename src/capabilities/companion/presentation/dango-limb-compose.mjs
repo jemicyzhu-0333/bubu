@@ -31,7 +31,7 @@ function contactContract(hand, action) {
   const authored = hand.sourceContact;
   if (authored?.kind === 'continuous-hold'
     && (authored.sourcePoseId === 'hiccup-front-v1' && action?.id === 'hiccup'
-      || authored.sourcePoseId === 'sip-front-v2' && action?.id === 'sip-tea') && [authored.target, authored.boundaryNormal].every(p =>
+      || ['sip-front-v2', 'sip-front-short-v1'].includes(authored.sourcePoseId) && action?.id === 'sip-tea') && [authored.target, authored.boundaryNormal].every(p =>
       Array.isArray(p) && p.length === 2 && p.every(Number.isFinite))) {
     return { target: authored.target, pose: 'hold', role: 'continuous-hold', normal: authored.boundaryNormal,
       normalTolerance: 0, pass: 'front', sourcePoseId: authored.sourcePoseId,
