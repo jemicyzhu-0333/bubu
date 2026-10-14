@@ -2,7 +2,7 @@
 const freeze = value => { if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); } return value; };
 const data = {
   "id": "dango-raster",
-  "version": 274213146,
+  "version": 2369755191,
   "views": {
     "front": {
       "neutral": {
@@ -10756,6 +10756,224 @@ const data = {
           0
         ]
       }
+    },
+    "umbrella-quarter-handle-v1-right-back": {
+      "src": "action-contact/umbrella-quarter-handle-v1/right-back-8x.png",
+      "rect": [
+        0,
+        0,
+        80,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "umbrella-quarter-handle-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "umbrella-dance",
+        "view": "three-quarter",
+        "bodySha256": "8d76b379f2d0e2816e19dc2ef9b5efdfe8d64567a4c866e84471cf8fbe44f450",
+        "bodyRect": [
+          -2.117949,
+          8.533333,
+          70.4,
+          49.066667
+        ],
+        "propSha256": "7f9d08df9039c22e676259682855e8635639a8192af3e917847bf60aa32b350a",
+        "fullPalmLogicalSha256": "6f99e1ff4421787a06cbd324b1a28297b1ec814ec720363239c472257aa1b4cd",
+        "sourceMasterSha256": "4be119389cbbb474899cb40353313181f5860f407e1403419fe940a605d46747",
+        "sourceMaskSha256": "3b8c2d760e39a1bc8e8684555aceb42be13739a00d1fa8af6097a66c8b20e6d7",
+        "contact": [
+          68.375,
+          43.75
+        ],
+        "legacyContact": [
+          61.875,
+          35.75
+        ],
+        "fixedPalmTranslation": [
+          -4,
+          3
+        ],
+        "shaftAxis": [
+          0,
+          1
+        ],
+        "palmPartitionX": 68,
+        "propPartitionPixelY": 392,
+        "samplesPerArtUnit": 1,
+        "alphaCoverageThreshold": 0.35,
+        "inkCoverageThreshold": 0.2,
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "sourceWristObserved": false,
+        "gripRegion": "original-green-j-right-upright",
+        "part": "right-back",
+        "sourceSha256": "1c4d279cc2151e0dbd10cb493dd649644b52d8fbce86c9f3eaab57ade371a8aa"
+      }
+    },
+    "umbrella-quarter-handle-v1-right-front": {
+      "src": "action-contact/umbrella-quarter-handle-v1/right-front-8x.png",
+      "rect": [
+        0,
+        0,
+        80,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "umbrella-quarter-handle-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "umbrella-dance",
+        "view": "three-quarter",
+        "bodySha256": "8d76b379f2d0e2816e19dc2ef9b5efdfe8d64567a4c866e84471cf8fbe44f450",
+        "bodyRect": [
+          -2.117949,
+          8.533333,
+          70.4,
+          49.066667
+        ],
+        "propSha256": "7f9d08df9039c22e676259682855e8635639a8192af3e917847bf60aa32b350a",
+        "fullPalmLogicalSha256": "6f99e1ff4421787a06cbd324b1a28297b1ec814ec720363239c472257aa1b4cd",
+        "sourceMasterSha256": "4be119389cbbb474899cb40353313181f5860f407e1403419fe940a605d46747",
+        "sourceMaskSha256": "3b8c2d760e39a1bc8e8684555aceb42be13739a00d1fa8af6097a66c8b20e6d7",
+        "contact": [
+          68.375,
+          43.75
+        ],
+        "legacyContact": [
+          61.875,
+          35.75
+        ],
+        "fixedPalmTranslation": [
+          -4,
+          3
+        ],
+        "shaftAxis": [
+          0,
+          1
+        ],
+        "palmPartitionX": 68,
+        "propPartitionPixelY": 392,
+        "samplesPerArtUnit": 1,
+        "alphaCoverageThreshold": 0.35,
+        "inkCoverageThreshold": 0.2,
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "sourceWristObserved": false,
+        "gripRegion": "original-green-j-right-upright",
+        "part": "right-front",
+        "sourceSha256": "05a06626ff3447a03b42826c78d1108026aa96cab16a59ada0c19998bc542093"
+      }
+    },
+    "umbrella-quarter-handle-v1-umbrella-back": {
+      "src": "action-contact/umbrella-quarter-handle-v1/umbrella-back.png",
+      "rect": [
+        0,
+        0,
+        50,
+        66
+      ],
+      "sourceContactPose": {
+        "id": "umbrella-quarter-handle-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "umbrella-dance",
+        "view": "three-quarter",
+        "bodySha256": "8d76b379f2d0e2816e19dc2ef9b5efdfe8d64567a4c866e84471cf8fbe44f450",
+        "bodyRect": [
+          -2.117949,
+          8.533333,
+          70.4,
+          49.066667
+        ],
+        "propSha256": "7f9d08df9039c22e676259682855e8635639a8192af3e917847bf60aa32b350a",
+        "fullPalmLogicalSha256": "6f99e1ff4421787a06cbd324b1a28297b1ec814ec720363239c472257aa1b4cd",
+        "sourceMasterSha256": "4be119389cbbb474899cb40353313181f5860f407e1403419fe940a605d46747",
+        "sourceMaskSha256": "3b8c2d760e39a1bc8e8684555aceb42be13739a00d1fa8af6097a66c8b20e6d7",
+        "contact": [
+          68.375,
+          43.75
+        ],
+        "legacyContact": [
+          61.875,
+          35.75
+        ],
+        "fixedPalmTranslation": [
+          -4,
+          3
+        ],
+        "shaftAxis": [
+          0,
+          1
+        ],
+        "palmPartitionX": 68,
+        "propPartitionPixelY": 392,
+        "samplesPerArtUnit": 1,
+        "alphaCoverageThreshold": 0.35,
+        "inkCoverageThreshold": 0.2,
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "sourceWristObserved": false,
+        "gripRegion": "original-green-j-right-upright",
+        "part": "umbrella-back",
+        "sourceSha256": "f46df007e4f6dfe1d85448b30685277f886360d19873c778659f2cb3c5ee43b1"
+      }
+    },
+    "umbrella-quarter-handle-v1-umbrella-front": {
+      "src": "action-contact/umbrella-quarter-handle-v1/umbrella-front.png",
+      "rect": [
+        0,
+        0,
+        50,
+        66
+      ],
+      "sourceContactPose": {
+        "id": "umbrella-quarter-handle-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "umbrella-dance",
+        "view": "three-quarter",
+        "bodySha256": "8d76b379f2d0e2816e19dc2ef9b5efdfe8d64567a4c866e84471cf8fbe44f450",
+        "bodyRect": [
+          -2.117949,
+          8.533333,
+          70.4,
+          49.066667
+        ],
+        "propSha256": "7f9d08df9039c22e676259682855e8635639a8192af3e917847bf60aa32b350a",
+        "fullPalmLogicalSha256": "6f99e1ff4421787a06cbd324b1a28297b1ec814ec720363239c472257aa1b4cd",
+        "sourceMasterSha256": "4be119389cbbb474899cb40353313181f5860f407e1403419fe940a605d46747",
+        "sourceMaskSha256": "3b8c2d760e39a1bc8e8684555aceb42be13739a00d1fa8af6097a66c8b20e6d7",
+        "contact": [
+          68.375,
+          43.75
+        ],
+        "legacyContact": [
+          61.875,
+          35.75
+        ],
+        "fixedPalmTranslation": [
+          -4,
+          3
+        ],
+        "shaftAxis": [
+          0,
+          1
+        ],
+        "palmPartitionX": 68,
+        "propPartitionPixelY": 392,
+        "samplesPerArtUnit": 1,
+        "alphaCoverageThreshold": 0.35,
+        "inkCoverageThreshold": 0.2,
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "sourceWristObserved": false,
+        "gripRegion": "original-green-j-right-upright",
+        "part": "umbrella-front",
+        "sourceSha256": "f31f8b4d4d83038314602ddc25cc7c5deb7b92f5b32018fd20b64e40dff0501e"
+      }
     }
   },
   "effects": {
@@ -14039,7 +14257,7 @@ const data = {
       "wardrobe": 1,
       "scenes": 1
     },
-    "assetDigest": "1058291ac3796f90adef13ba05aae1df5b1320f8b114af9b4d3bde6bf78e47f5",
+    "assetDigest": "8d3f9837d27b917b99e4927533b37acaece77d241e2c4cda85a5243e8ea13ea4",
     "assetHashes": {
       "action-contact/catch-star-quarter-v1/right-back-8x.png": "7d3180a8d964f243305e144cc176c6bb9df717017381b817c46d8248a0c54c20",
       "action-contact/catch-star-quarter-v1/right-front-8x.png": "77acf54475664a747636e1fd7f5dda7b108df41e274f41e5696cd5dda864df3d",
@@ -14058,6 +14276,10 @@ const data = {
       "action-contact/umbrella-front-v1/right-8x.png": "0d5edeac3eb9c6013792288e38325e0d88a68fb66679511b147ae668520906e9",
       "action-contact/umbrella-front-v1/umbrella-back.png": "b34bcd4b3e3425e5bfc971cdef78f62d43aedafdcd3de218298b511b5b75175c",
       "action-contact/umbrella-front-v1/umbrella-front.png": "b1cd9b03b483c01694ae4508ef05893132aac789bb12c4b69fd1800ebf0a9eb2",
+      "action-contact/umbrella-quarter-handle-v1/right-back-8x.png": "1c4d279cc2151e0dbd10cb493dd649644b52d8fbce86c9f3eaab57ade371a8aa",
+      "action-contact/umbrella-quarter-handle-v1/right-front-8x.png": "05a06626ff3447a03b42826c78d1108026aa96cab16a59ada0c19998bc542093",
+      "action-contact/umbrella-quarter-handle-v1/umbrella-back.png": "f46df007e4f6dfe1d85448b30685277f886360d19873c778659f2cb3c5ee43b1",
+      "action-contact/umbrella-quarter-handle-v1/umbrella-front.png": "f31f8b4d4d83038314602ddc25cc7c5deb7b92f5b32018fd20b64e40dff0501e",
       "action-contact/wave-front-v1/wave-00-8x.png": "fe851159ebdfdd19d3828499822199be9040d8a027e7f4295d57388982d4ac0d",
       "action-contact/wave-front-v1/wave-01-8x.png": "f40850c3f436cfc9b710c9191dcf30ea7a69b402e2a948ff45fa375a9adbc04b",
       "action-contact/wave-front-v1/wave-02-8x.png": "1ef803998fa4159e14afb83aee68be77f4aa6d6749bd275f4730b391f6b3e96a",

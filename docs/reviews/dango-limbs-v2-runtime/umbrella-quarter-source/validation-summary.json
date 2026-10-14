@@ -1,0 +1,411 @@
+{
+  "status": "passed offscreen production renderer gates; native desktop remains unclaimed",
+  "id": "umbrella-quarter-handle-v1",
+  "defaultView": "three-quarter",
+  "grip": {
+    "original": [
+      61.875,
+      35.75
+    ],
+    "current": [
+      68.375,
+      43.75
+    ],
+    "region": "original green J handle right upright",
+    "palmTranslation": [
+      -4,
+      3
+    ],
+    "dynamicRetargeting": false,
+    "visibleSourceWrist": false
+  },
+  "fullCycle": {
+    "frames": 3020,
+    "durationMs": 10000,
+    "nominalFps": 30,
+    "extraExactTimesMs": [
+      1250,
+      3750
+    ],
+    "dpr": [
+      1,
+      1.25,
+      1.5,
+      2,
+      3
+    ],
+    "facing": [
+      1,
+      -1
+    ],
+    "skin": "pink",
+    "failures": [],
+    "byVariant": [
+      {
+        "id": "dpr1-facing1",
+        "frames": 302,
+        "minFilledBodyPalmOverlap": 5,
+        "minFilledOverlapRows": 5,
+        "maxRearRootExposed": 0,
+        "minSourceContribution": 112,
+        "minPalmRodOverlap": 126,
+        "minPinkBoundaryBodyAlpha": 255,
+        "maxPalmFaceOverlap": 0
+      },
+      {
+        "id": "dpr1-facing-1",
+        "frames": 302,
+        "minFilledBodyPalmOverlap": 5,
+        "minFilledOverlapRows": 5,
+        "maxRearRootExposed": 0,
+        "minSourceContribution": 113,
+        "minPalmRodOverlap": 126,
+        "minPinkBoundaryBodyAlpha": 255,
+        "maxPalmFaceOverlap": 0
+      },
+      {
+        "id": "dpr1.25-facing1",
+        "frames": 302,
+        "minFilledBodyPalmOverlap": 6,
+        "minFilledOverlapRows": 6,
+        "maxRearRootExposed": 0,
+        "minSourceContribution": 172,
+        "minPalmRodOverlap": 206,
+        "minPinkBoundaryBodyAlpha": 255,
+        "maxPalmFaceOverlap": 0
+      },
+      {
+        "id": "dpr1.25-facing-1",
+        "frames": 302,
+        "minFilledBodyPalmOverlap": 5,
+        "minFilledOverlapRows": 5,
+        "maxRearRootExposed": 0,
+        "minSourceContribution": 175,
+        "minPalmRodOverlap": 206,
+        "minPinkBoundaryBodyAlpha": 255,
+        "maxPalmFaceOverlap": 0
+      },
+      {
+        "id": "dpr1.5-facing1",
+        "frames": 302,
+        "minFilledBodyPalmOverlap": 1,
+        "minFilledOverlapRows": 1,
+        "maxRearRootExposed": 0,
+        "minSourceContribution": 252,
+        "minPalmRodOverlap": 296,
+        "minPinkBoundaryBodyAlpha": 255,
+        "maxPalmFaceOverlap": 0
+      },
+      {
+        "id": "dpr1.5-facing-1",
+        "frames": 302,
+        "minFilledBodyPalmOverlap": 1,
+        "minFilledOverlapRows": 1,
+        "maxRearRootExposed": 0,
+        "minSourceContribution": 252,
+        "minPalmRodOverlap": 293,
+        "minPinkBoundaryBodyAlpha": 255,
+        "maxPalmFaceOverlap": 0
+      },
+      {
+        "id": "dpr2-facing1",
+        "frames": 302,
+        "minFilledBodyPalmOverlap": 12,
+        "minFilledOverlapRows": 11,
+        "maxRearRootExposed": 0,
+        "minSourceContribution": 462,
+        "minPalmRodOverlap": 520,
+        "minPinkBoundaryBodyAlpha": 255,
+        "maxPalmFaceOverlap": 0
+      },
+      {
+        "id": "dpr2-facing-1",
+        "frames": 302,
+        "minFilledBodyPalmOverlap": 12,
+        "minFilledOverlapRows": 11,
+        "maxRearRootExposed": 0,
+        "minSourceContribution": 466,
+        "minPalmRodOverlap": 526,
+        "minPinkBoundaryBodyAlpha": 255,
+        "maxPalmFaceOverlap": 0
+      },
+      {
+        "id": "dpr3-facing1",
+        "frames": 302,
+        "minFilledBodyPalmOverlap": 36,
+        "minFilledOverlapRows": 17,
+        "maxRearRootExposed": 0,
+        "minSourceContribution": 1030,
+        "minPalmRodOverlap": 1196,
+        "minPinkBoundaryBodyAlpha": 255,
+        "maxPalmFaceOverlap": 0
+      },
+      {
+        "id": "dpr3-facing-1",
+        "frames": 302,
+        "minFilledBodyPalmOverlap": 36,
+        "minFilledOverlapRows": 17,
+        "maxRearRootExposed": 0,
+        "minSourceContribution": 1042,
+        "minPalmRodOverlap": 1190,
+        "minPinkBoundaryBodyAlpha": 255,
+        "maxPalmFaceOverlap": 0
+      }
+    ]
+  },
+  "headwear": {
+    "status": "passed",
+    "cases": 240,
+    "expectedCases": 240,
+    "headCatalog": [
+      {
+        "id": "milestone.sprout",
+        "label": "\u5c0f\u82bd",
+        "skin": null,
+        "renderKey": "sprout"
+      },
+      {
+        "id": "milestone.sunhat",
+        "label": "\u5c0f\u8349\u5e3d",
+        "skin": null,
+        "renderKey": "sunhat"
+      },
+      {
+        "id": "milestone.halo",
+        "label": "\u5c0f\u5149\u73af",
+        "skin": null,
+        "renderKey": "halo"
+      },
+      {
+        "id": "skin.forest-leaf",
+        "label": "\u68ee\u6797\u53f6\u7247",
+        "skin": "forest",
+        "renderKey": "forest-leaf"
+      },
+      {
+        "id": "skin.sakura-flower",
+        "label": "\u6a31\u82b1\u53d1\u9970",
+        "skin": "sakura",
+        "renderKey": "sakura-flower"
+      },
+      {
+        "id": "skin.moon-crescent",
+        "label": "\u6708\u7259",
+        "skin": "moon",
+        "renderKey": "moon-crescent"
+      },
+      {
+        "id": "skin.flame-tip",
+        "label": "\u706b\u7130\u5c16\u5c16",
+        "skin": "flame",
+        "renderKey": "flame-tip"
+      },
+      {
+        "id": "skin.crown",
+        "label": "\u738b\u51a0",
+        "skin": "crown",
+        "renderKey": "crown"
+      },
+      {
+        "id": "skin.robot-antenna",
+        "label": "\u4fe1\u53f7\u5929\u7ebf",
+        "skin": "robot",
+        "renderKey": "robot-antenna"
+      },
+      {
+        "id": "skin.woodsman-cap",
+        "label": "\u6a35\u592b\u5e3d",
+        "skin": "woodsman",
+        "renderKey": "woodsman-cap"
+      }
+    ],
+    "coverage": {
+      "headSlots": 200,
+      "sevenItemHeavyOutfit": 20,
+      "sevenItemHeavyCalm": 20,
+      "dpr": [
+        1,
+        2
+      ],
+      "facing": [
+        1,
+        -1
+      ],
+      "timestampsMs": [
+        1250,
+        2500,
+        3750,
+        6250,
+        8750
+      ],
+      "actualDefaultView": "three-quarter",
+      "previewForced": false
+    },
+    "results": {
+      "sourceSelected": true,
+      "frontPalmSourceGuardFinalStageChangedPixels": [
+        114,
+        487
+      ],
+      "headwearFinalStageChangedPixels": [
+        0,
+        0
+      ],
+      "headwearFaceOverlap": [
+        0,
+        0
+      ],
+      "frontWardrobeFaceOverlap": [
+        0,
+        0
+      ],
+      "newFrontActionFaceOverlap": [
+        0,
+        0
+      ],
+      "oldFrontActionFaceOverlap": [
+        1,
+        15
+      ],
+      "faceChangesOutsideOldFrontAction": [
+        0,
+        0
+      ],
+      "propReconstructionChangedPixels": [
+        0,
+        0
+      ],
+      "exactHeadSourceDrawsPreserved": true,
+      "fourSourceDepthOrder": "propBack < palmBack < body < propFront < palmFront",
+      "propLayersIdenticalActualMatrices": true,
+      "palmLayersIdenticalActualMatrices": true,
+      "calmFinalStageStableAcrossFiveTimestamps": true
+    },
+    "notes": [
+      "The original fallback front action overlapped 1\u201315 actual face-mask pixels. All current-versus-production face changes are confined to those old front-action pixels; the production front-action mask has zero face overlap. This is removal of old occlusion, not a changed face painter.",
+      "Independent full-stage reconstruction from actual prop drawImage calls is byte-identical between the split production umbrella and the original unsplit prop in all 240 cases.",
+      "Headwear and face masks invoke the unchanged artist using the same Artwork and outer actual stage transform. No body-cache pixels are compared with stage coordinates."
+    ],
+    "sourceSeal": {
+      "src/content/appearance.mjs": "a69a1e72b5af36d56aad206d108ed635eb683ee075b8378978a6ad4325867ec6",
+      "src/surfaces/pet/renderer.mjs": "5a0e0193bfff657eb27c455f61f296b1d1d4dda95a88d89eaee3a6c95e97710d",
+      "src/capabilities/companion/presentation/dango-umbrella-quarter-contact-pose.mjs": "4997c7a45b954fe40652d29bf4d872b4e0f269eb4e4653ad7cb15472a430e5c1",
+      "src/capabilities/companion/presentation/dango-source-contact-pose.mjs": "ac7abede354b8ec97fec7589110e6bd6fe697b2189765006ad96b08faacf7486",
+      "src/capabilities/companion/presentation/dango-raster-art.mjs": "f1271c40bc0114720be5d7a2cd8737010dca932ac61a2e0811d32b2aa79f097f",
+      "src/capabilities/companion/presentation/dango-raster-appearance.mjs": "918d30a1d846ae02d5e0d47f3d8c4d81381e7af9d233bef1013153b538302a5a",
+      "assets/companion/dango/raster/dango.raster.mjs": "a79a93eb733dde40b1ac75fb3a699ec707fdfd6f0ccb9b2d260a8e3170e9c6fa"
+    },
+    "errors": [],
+    "scope": "Offscreen Skia actual production renderer and default manual helper; not native Windows/macOS, GPU, all wardrobe combinations, or full lifecycle acceptance."
+  },
+  "lifecycle": {
+    "totalFrames": 1617,
+    "sourceFrames": 1319,
+    "scenarios": [
+      {
+        "id": "manual-expiry",
+        "frames": 301,
+        "umbrellaFrames": 250,
+        "sourceFrames": 250,
+        "proofs": 250,
+        "recoveryFrames": 0,
+        "wholeFallbackFrames": 0
+      },
+      {
+        "id": "interrupt-reopen",
+        "frames": 463,
+        "umbrellaFrames": 372,
+        "sourceFrames": 372,
+        "proofs": 372,
+        "recoveryFrames": 0,
+        "wholeFallbackFrames": 0
+      },
+      {
+        "id": "reduced-resume",
+        "frames": 301,
+        "umbrellaFrames": 250,
+        "sourceFrames": 250,
+        "proofs": 250,
+        "recoveryFrames": 0,
+        "wholeFallbackFrames": 0
+      },
+      {
+        "id": "hide-cancel-reopen",
+        "frames": 251,
+        "umbrellaFrames": 197,
+        "sourceFrames": 197,
+        "proofs": 197,
+        "recoveryFrames": 0,
+        "wholeFallbackFrames": 0
+      },
+      {
+        "id": "pause-resume",
+        "frames": 301,
+        "umbrellaFrames": 250,
+        "sourceFrames": 250,
+        "proofs": 250,
+        "recoveryFrames": 0,
+        "wholeFallbackFrames": 0
+      }
+    ],
+    "failures": [],
+    "scope": "Unmodified production artist/selector and real manual playback/renderer. Explicit currentEgg events model controller expiry/interruption/cancellation; frozen animation clock models pause. Not native visibility/OS scheduler acceptance. All channels actual auto quarter, no force-front injection."
+  },
+  "actualLateLoader": {
+    "pendingWholeFallback": true,
+    "afterLateDecodeSameEpisodeWholeFallback": true,
+    "nextEpisodeSourceContributionPixels": 480,
+    "originalFallbackFinalStageByteIdentical": true
+  },
+  "formalTests": {
+    "file": "test/dango-umbrella-quarter-contact.test.mjs",
+    "passed": 374,
+    "failed": 0,
+    "pythonRequired": false
+  },
+  "depth": {
+    "drawOrder": [
+      "original-umbrella-back",
+      "source-palm-back",
+      "cached-canonical-body",
+      "original-umbrella-front",
+      "source-palm-front"
+    ],
+    "actualDrawImageOrderCheckedEachSourceFrame": true,
+    "propFragmentActualMatricesIdentical": true,
+    "palmFragmentActualMatricesIdentical": true,
+    "unchangedOriginalPropStageReplayCases": 240,
+    "unchangedOriginalPropStageReplayMaxChangedPixels": 0,
+    "partitionAudit": {
+      "palm": {
+        "unionExactlyEqualsOriginal": true,
+        "overlap": 0,
+        "originalOpaque": 75,
+        "backOpaque": 23,
+        "frontOpaque": 52,
+        "lostSourcePixels": 0,
+        "originalSha256": "6f99e1ff4421787a06cbd324b1a28297b1ec814ec720363239c472257aa1b4cd",
+        "frontInk": 17,
+        "backInk": 11,
+        "frontPink": 35,
+        "backPink": 12
+      },
+      "umbrella": {
+        "unionExactlyEqualsOriginal": true,
+        "overlap": 0,
+        "originalOpaque": 63150,
+        "backOpaque": 58068,
+        "frontOpaque": 5082,
+        "lostSourcePixels": 0,
+        "originalSha256": "7f9d08df9039c22e676259682855e8635639a8192af3e917847bf60aa32b350a"
+      }
+    }
+  },
+  "scopeLimits": [
+    "Offscreen Skia production renderer evidence, not Windows/macOS native or GPU acceptance.",
+    "Bare full-cycle skin is pink; head catalog uses its applicable skins and representative forest heavy outfit.",
+    "Not every possible wardrobe combination, skin/action combination or subframe alignment is certified.",
+    "Controller expiry/interruption is represented explicitly; native OS visibility/scheduling is not tested.",
+    "No new visible wrist was generated; the original closed palm heel remains body-occluded."
+  ]
+}

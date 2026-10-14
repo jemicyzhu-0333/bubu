@@ -1,0 +1,95 @@
+{
+  "master": "assets/companion/dango/raster/limbs/sources/masters/quarter-paw-poses-v2.png",
+  "masterSha256": "4be119389cbbb474899cb40353313181f5860f407e1403419fe940a605d46747",
+  "sourceCrop": [
+    199,
+    250,
+    78,
+    88
+  ],
+  "mask": {
+    "opaqueSourcePixels": 3957,
+    "nearestInk": 1075,
+    "connectedPalmPink": 2882,
+    "connectedPalmPinkRetained": 2882,
+    "connectedPalmPinkLost": 0,
+    "boundaryPixels": 217,
+    "nonInkBoundaryPixels": 0,
+    "originalRgbEdits": 0,
+    "originalStrokeScope": "Approved inner ink band retained; complete original outer stroke thickness is not preserved. Mixed outer body/rod ring cannot be counted wholly as palm ink loss."
+  },
+  "quantization": {
+    "scale": 0.13636363636363635,
+    "gridSamplesPerArtUnit": 1,
+    "coverageSubsamplesPerAxis": 32,
+    "alphaThreshold": 0.35,
+    "inkThreshold": 0.2,
+    "opaqueCells": 75,
+    "inkCells": 28,
+    "pinkCells": 47,
+    "alphaDiscardedInkArtArea": 2.5,
+    "alphaDiscardedPinkArtArea": 0.005859375,
+    "retainedInkCoverageRepresentedByPinkArtArea": 0.3935546875,
+    "pinkCoverageRepresentedByInkArtArea": 6.9013671875,
+    "onePinkBoundaryCell": [
+      67,
+      44
+    ],
+    "pinkBoundaryFinalRootDepth": "rear; actual body alpha255 at its projected center in every 3020 full-cycle source frame",
+    "palette": [
+      [
+        26,
+        27,
+        38
+      ],
+      [
+        240,
+        80,
+        104
+      ],
+      [
+        248,
+        104,
+        120
+      ],
+      [
+        248,
+        128,
+        128
+      ]
+    ],
+    "binaryAlpha": true,
+    "exactNearest8x": true
+  },
+  "partition": {
+    "palm": {
+      "unionExactlyEqualsOriginal": true,
+      "overlap": 0,
+      "originalOpaque": 75,
+      "backOpaque": 23,
+      "frontOpaque": 52,
+      "lostSourcePixels": 0,
+      "originalSha256": "6f99e1ff4421787a06cbd324b1a28297b1ec814ec720363239c472257aa1b4cd",
+      "frontInk": 17,
+      "backInk": 11,
+      "frontPink": 35,
+      "backPink": 12
+    },
+    "umbrella": {
+      "unionExactlyEqualsOriginal": true,
+      "overlap": 0,
+      "originalOpaque": 63150,
+      "backOpaque": 58068,
+      "frontOpaque": 5082,
+      "lostSourcePixels": 0,
+      "originalSha256": "7f9d08df9039c22e676259682855e8635639a8192af3e917847bf60aa32b350a"
+    }
+  },
+  "untouched": [
+    "canonical body PNG",
+    "original umbrella full RGBA",
+    "ears/feet/face source pixels and matrices",
+    "accepted front-only umbrella source"
+  ],
+  "rebuild": "assets/companion/dango/raster/action-contact/umbrella-quarter-handle-v1/sources/rebuild.py --check (manual optional source check; not a test dependency)"
+}

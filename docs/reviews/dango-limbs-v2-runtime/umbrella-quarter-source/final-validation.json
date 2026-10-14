@@ -1,0 +1,57 @@
+{
+  "status": "passed-local-production-offscreen",
+  "base": "abe59010540922db5880d930d9ca9ec8f62d9a31",
+  "check": {
+    "command": "USAGI_CANVAS_PACKAGE=@napi-rs/canvas DANGO_CANVAS_PACKAGE=@napi-rs/canvas PET_MOTION_CANVAS_PACKAGE=@napi-rs/canvas npm run check",
+    "exit": 0,
+    "total": 6573,
+    "pass": 6568,
+    "skip": 5,
+    "fail": 0
+  },
+  "integration": {
+    "exit": 0,
+    "pass": 71
+  },
+  "finalFocused": {
+    "command": "node --test test/dango-umbrella-quarter-contact.test.mjs",
+    "pass": 374,
+    "exit": 0
+  },
+  "scope": "quarter umbrella only; no unpublished workout or knitting dependency",
+  "hashes": {
+    "assets/companion/dango/raster/action-contact/umbrella-quarter-handle-v1/right-back-8x.png": "1c4d279cc2151e0dbd10cb493dd649644b52d8fbce86c9f3eaab57ade371a8aa",
+    "assets/companion/dango/raster/action-contact/umbrella-quarter-handle-v1/right-back-logical.png": "48eb3b041cd0ac7e8204cf00526afbba5afa31d609a8db6edef252567abeafe4",
+    "assets/companion/dango/raster/action-contact/umbrella-quarter-handle-v1/right-front-8x.png": "05a06626ff3447a03b42826c78d1108026aa96cab16a59ada0c19998bc542093",
+    "assets/companion/dango/raster/action-contact/umbrella-quarter-handle-v1/right-front-logical.png": "c392c6bb0ca14a5d2588c0edea62e06543a983d85c20296658679a645f8d969a",
+    "assets/companion/dango/raster/action-contact/umbrella-quarter-handle-v1/sources/approved-coverage-recipe.json": "36888c03073b034e7039c575c6ff6098632caf27b770795a751359e6ada78fb4",
+    "assets/companion/dango/raster/action-contact/umbrella-quarter-handle-v1/sources/approved-isolated.png": "86a5f6328e1902596ec3afb477673d1269dac1d478cae923ab347d14b6979321",
+    "assets/companion/dango/raster/action-contact/umbrella-quarter-handle-v1/sources/approved-mask-recipe.json": "3b8c2d760e39a1bc8e8684555aceb42be13739a00d1fa8af6097a66c8b20e6d7",
+    "assets/companion/dango/raster/action-contact/umbrella-quarter-handle-v1/sources/master-palm-context.png": "5f1c096a00e1907d7d457bc0c14eebedd8be254a15a0060d86b329a877380b3b",
+    "assets/companion/dango/raster/action-contact/umbrella-quarter-handle-v1/sources/provenance.json": "4c8624ced4bd590c5e6d1f86fdbba7bbed1ee2561095c102cbb82c3a869758cd",
+    "assets/companion/dango/raster/action-contact/umbrella-quarter-handle-v1/sources/rebuild.py": "f838957b598e198d59449a62855241da4b2b06be273100c923940424f5e9f656",
+    "assets/companion/dango/raster/action-contact/umbrella-quarter-handle-v1/umbrella-back.png": "f46df007e4f6dfe1d85448b30685277f886360d19873c778659f2cb3c5ee43b1",
+    "assets/companion/dango/raster/action-contact/umbrella-quarter-handle-v1/umbrella-front.png": "f31f8b4d4d83038314602ddc25cc7c5deb7b92f5b32018fd20b64e40dff0501e",
+    "assets/companion/dango/raster/action-contact/umbrella-quarter-handle-v1/whole-logical.png": "6f99e1ff4421787a06cbd324b1a28297b1ec814ec720363239c472257aa1b4cd",
+    "assets/companion/dango/raster/dango.raster.mjs": "a79a93eb733dde40b1ac75fb3a699ec707fdfd6f0ccb9b2d260a8e3170e9c6fa",
+    "assets/companion/dango/raster/source-specs/tools.json": "1aa15d41cf8fa936ca7d89427ac3fa1b7a682ffb103119a65f31f833d4f22db2",
+    "docs/reviews/dango-limbs-v2-runtime/HANDOFF.md": "9b08b186136a6915007822b3c947d6dc1937b751031d92b70617049a5c2fce95",
+    "docs/reviews/dango-limbs-v2-runtime/umbrella-quarter-source/README.md": "aa48d4ab2975b6f67d078dac6c4bf01291914791c258022b88c3f726b860ddc9",
+    "docs/reviews/dango-limbs-v2-runtime/umbrella-quarter-source/cli.mjs": "c2774083818433c1ca3b390ff0bf95101e503123d0d60be0f10f5323e4a5fdf6",
+    "docs/reviews/dango-limbs-v2-runtime/umbrella-quarter-source/fixture.mjs": "9e22a67908d1d3a752b7fa46d8e5237eae0e60094f7dbc36ff2a09b3f2a71cd4",
+    "docs/reviews/dango-limbs-v2-runtime/umbrella-quarter-source/full-cycle.mjs": "f57e0ae23539405c8f206f254327b3a2aa296895f2876622c6c5a23ba9120b31",
+    "docs/reviews/dango-limbs-v2-runtime/umbrella-quarter-source/headwear.mjs": "8a6a063263b7c107a9ca34c112ee2339da66f8b04f2f56425e81e7b952d03ce1",
+    "docs/reviews/dango-limbs-v2-runtime/umbrella-quarter-source/late-loader.mjs": "bd2d959b2c15625ff8b57d927142c0b37df31e8369c99fcb944e1376f9a57227",
+    "docs/reviews/dango-limbs-v2-runtime/umbrella-quarter-source/lifecycle.mjs": "47125b624d2ed464bfb53619f478382bd67543756900f3eda21f1c11835a670d",
+    "docs/reviews/dango-limbs-v2-runtime/umbrella-quarter-source/source-audit.json": "94c59fd97344b72cbfa27ae21740d2c94de57ad55a0c825d4ca5e408fc8b5663",
+    "docs/reviews/dango-limbs-v2-runtime/umbrella-quarter-source/source-draw-guard.mjs": "8be58582d6216a1cc2d01127be2e7c5eec0667fa86ef9e783fbe4a39eabcbde1",
+    "docs/reviews/dango-limbs-v2-runtime/umbrella-quarter-source/trace-canvas.mjs": "b4d00b82cf96275dae3d957c5e70a22f3d3a1ae84c6e21785606ff4d5b29c89c",
+    "docs/reviews/dango-limbs-v2-runtime/umbrella-quarter-source/two-phase.mjs": "4e24af17a047d90047157da2937323c12d21b7725e9d0d3fb52d3b58f6ad3167",
+    "docs/reviews/dango-limbs-v2-runtime/umbrella-quarter-source/validation-summary.json": "e79a57adfe2caf82ad0667093b65e37b39bdd8210919c32a99acc909ec8a96b7",
+    "package.json": "438addd35b3b239a2a3aaedb1c821b2c9a2fe29ae678fbed676e13f7519c30ea",
+    "src/capabilities/companion/presentation/dango-source-contact-pose.mjs": "ac7abede354b8ec97fec7589110e6bd6fe697b2189765006ad96b08faacf7486",
+    "src/capabilities/companion/presentation/dango-umbrella-quarter-contact-pose.mjs": "4997c7a45b954fe40652d29bf4d872b4e0f269eb4e4653ad7cb15472a430e5c1",
+    "test/dango-umbrella-quarter-contact.test.mjs": "2244fa2a87db42deddc0f58f2f8d8760912d7a5993bb35cb298576c33464051c",
+    "test/pet-workbench.test.js": "c340e4e945cd3372cacd72b612b59a0a6c4ef813d1ea4891e8ecc34c7f7e71ed"
+  }
+}

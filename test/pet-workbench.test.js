@@ -44,7 +44,7 @@ test('single HTML build closes module and artwork graph without forbidden refere
     assert.equal(result.status, 0, result.stderr);
     const html = fs.readFileSync(out, 'utf8');
     const manifest = JSON.parse(fs.readFileSync(out + '.manifest.json', 'utf8'));
-    assert.equal(manifest.embeddedAssets, 445); // One quarter sweep palm joins published contacts; catch helper reuses snack.
+    assert.equal(manifest.embeddedAssets, 449); // Four quarter umbrella depth layers join the published contact sources.
     assert.ok(manifest.modules >= 130);
     assert.equal(Object.keys(manifest.sourceHashes).some(name => name.includes('reference/') || name.includes('usagi-turnaround')), false);
     assert.equal(html.includes('/* WORKBENCH_BOOT */'), false);

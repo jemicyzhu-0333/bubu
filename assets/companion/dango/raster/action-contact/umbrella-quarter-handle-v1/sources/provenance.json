@@ -1,0 +1,89 @@
+{
+  "schema": "dango-umbrella-quarter-handle-source/1",
+  "status": "Production artist/selector integrated; offscreen actual-renderer full-cycle, reflections, five DPRs, headwear and lifecycle checks passed; native desktop acceptance not claimed",
+  "masterOriginal": "assets/companion/dango/raster/limbs/sources/masters/quarter-paw-poses-v2.png",
+  "masterSha256": "4be119389cbbb474899cb40353313181f5860f407e1403419fe940a605d46747",
+  "masterSize": [
+    1536,
+    1024
+  ],
+  "sourceContextCrop": [
+    199,
+    250,
+    78,
+    88
+  ],
+  "sourceContextSha256": "5f1c096a00e1907d7d457bc0c14eebedd8be254a15a0060d86b329a877380b3b",
+  "maskRecipeSha256": "3b8c2d760e39a1bc8e8684555aceb42be13739a00d1fa8af6097a66c8b20e6d7",
+  "isolatedSha256": "86a5f6328e1902596ec3afb477673d1269dac1d478cae923ab347d14b6979321",
+  "coverageRecipeSha256": "36888c03073b034e7039c575c6ff6098632caf27b770795a751359e6ada78fb4",
+  "wholeLogicalSha256": "6f99e1ff4421787a06cbd324b1a28297b1ec814ec720363239c472257aa1b4cd",
+  "sourceScale": 0.13636363636363635,
+  "sourceReflection": "genuine left-facing quarter far palm reflected once to canonical right-facing quarter",
+  "sourceWristObserved": false,
+  "sourceStrokeScope": "approved inner ink band; not full original outer stroke thickness",
+  "quantization": "uniform 32x32 subcell coverage; alpha>=.35, ink>=.2; nearest source palette; binary output alpha; exact NN8x",
+  "palmDepthSplit": {
+    "x": 68,
+    "back": "x<68",
+    "front": "x>=68",
+    "sourceUnionExact": true,
+    "sourceOverlap": 0
+  },
+  "fixedPalmTranslation": [
+    -4,
+    3
+  ],
+  "grip": [
+    68.375,
+    43.75
+  ],
+  "gripRegion": "original green J handle right upright",
+  "propSource": "assets/companion/dango/raster/tools/umbrella.png",
+  "propSha256": "7f9d08df9039c22e676259682855e8635639a8192af3e917847bf60aa32b350a",
+  "propDepthSplitPixelY": 392,
+  "propWorldPlacement": [
+    37,
+    -11
+  ],
+  "edits": [],
+  "originalBodyUnchanged": true,
+  "originalPropPixelsUnchanged": true,
+  "originalFeetUnchanged": true,
+  "promptOriginal": "assets/companion/dango/raster/limbs/sources/masters/quarter-paw-poses-v2-prompt.txt",
+  "promptSha256": "4411bb786798850555b77c2ba989b978cb771c87205761ccd19b16e0b5893bb1",
+  "sourceContextFile": "assets/companion/dango/raster/action-contact/umbrella-quarter-handle-v1/sources/master-palm-context.png",
+  "validation": {
+    "productionFullCycleSourceFrames": 3020,
+    "dpr": [
+      1,
+      1.25,
+      1.5,
+      2,
+      3
+    ],
+    "facing": [
+      1,
+      -1
+    ],
+    "headwearHeavyCalmFrames": 240,
+    "lifecycleFrames": 1617,
+    "lifecycleSourceFrames": 1319,
+    "formalNodeTestsPassed": 374,
+    "faceOverlapMax": 0,
+    "rearPalmExposedMaxAlpha128": 0,
+    "sourceDrawAndExactMatrixChecks": true,
+    "nativeDesktopAcceptance": false,
+    "fullCycleSkin": "pink",
+    "headwearSkins": [
+      "pink",
+      "forest",
+      "sakura",
+      "moon",
+      "flame",
+      "crown",
+      "robot",
+      "woodsman"
+    ]
+  }
+}
