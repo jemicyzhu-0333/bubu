@@ -2,7 +2,7 @@
 const freeze = value => { if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); } return value; };
 const data = {
   "id": "dango-raster",
-  "version": 3588076369,
+  "version": 169364866,
   "views": {
     "front": {
       "neutral": {
@@ -9949,6 +9949,115 @@ const data = {
         "quantizedOnce": true,
         "registrationMeaning": "Exact reviewed foreground source pixels follow cup translation; no hidden shoulder, elbow, wrist or back layer is inferred."
       }
+    },
+    "umbrella-front-v1-back": {
+      "src": "action-contact/umbrella-front-v1/umbrella-back.png",
+      "rect": [
+        0,
+        0,
+        50,
+        66
+      ],
+      "sourceContactPose": {
+        "id": "umbrella-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "umbrella-dance",
+        "view": "front",
+        "part": "back",
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "propSha256": "7f9d08df9039c22e676259682855e8635639a8192af3e917847bf60aa32b350a",
+        "contact": [
+          61.875,
+          35.75
+        ],
+        "shaftAxis": [
+          0,
+          1
+        ],
+        "sourceSha256": "b34bcd4b3e3425e5bfc971cdef78f62d43aedafdcd3de218298b511b5b75175c",
+        "translationOnly": true,
+        "quantizedOnce": true
+      }
+    },
+    "umbrella-front-v1-front": {
+      "src": "action-contact/umbrella-front-v1/umbrella-front.png",
+      "rect": [
+        0,
+        0,
+        50,
+        66
+      ],
+      "sourceContactPose": {
+        "id": "umbrella-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "umbrella-dance",
+        "view": "front",
+        "part": "front",
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "propSha256": "7f9d08df9039c22e676259682855e8635639a8192af3e917847bf60aa32b350a",
+        "contact": [
+          61.875,
+          35.75
+        ],
+        "shaftAxis": [
+          0,
+          1
+        ],
+        "sourceSha256": "b1cd9b03b483c01694ae4508ef05893132aac789bb12c4b69fd1800ebf0a9eb2",
+        "translationOnly": true,
+        "quantizedOnce": true
+      }
+    },
+    "umbrella-front-v1-right": {
+      "src": "action-contact/umbrella-front-v1/right-8x.png",
+      "rect": [
+        0,
+        0,
+        72,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "umbrella-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "umbrella-dance",
+        "view": "front",
+        "part": "right",
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "propSha256": "7f9d08df9039c22e676259682855e8635639a8192af3e917847bf60aa32b350a",
+        "contact": [
+          61.875,
+          35.75
+        ],
+        "shaftAxis": [
+          0,
+          1
+        ],
+        "sourceSha256": "0d5edeac3eb9c6013792288e38325e0d88a68fb66679511b147ae668520906e9",
+        "translationOnly": true,
+        "quantizedOnce": true
+      }
     }
   },
   "effects": {
@@ -13232,7 +13341,7 @@ const data = {
       "wardrobe": 1,
       "scenes": 1
     },
-    "assetDigest": "d5ddb35124a65611bbac38d7f1b9c673c473c52c731af68b7cafaade8f8c61d4",
+    "assetDigest": "0a184d82c8e4fd376d3716b1ced23f021225c01a0462ebacd18f29ccd54896e9",
     "assetHashes": {
       "action-contact/hiccup-front-v1/hiccup-front-left-continuous-8x.png": "f02d8d5c23d96c93e7743422700db8e647ae04373fb095f5809a3093118fa488",
       "action-contact/hiccup-front-v1/hiccup-front-right-continuous-8x.png": "edfb542822a7e9499df5d43d9c50b2155c496b62b51bf92369d6bda255fe7f8c",
@@ -13242,6 +13351,9 @@ const data = {
       "action-contact/sip-front-v2/sip-front-v2-left-root-back-8x.png": "3e6817951627988cf774875fc8a36b3c145f2acb16c4230dddd92bcdc0fc98b0",
       "action-contact/sip-front-v2/sip-front-v2-right-fore-palm-front-8x.png": "c7a00171396aece0d43fb16c12f52a92030bf07d3602cb81d576dccac764fa6a",
       "action-contact/sip-front-v2/sip-front-v2-right-root-back-8x.png": "83851ef811003354bf607d451a92abb5b8d5ab2b97c899464313138bf4a05fb2",
+      "action-contact/umbrella-front-v1/right-8x.png": "0d5edeac3eb9c6013792288e38325e0d88a68fb66679511b147ae668520906e9",
+      "action-contact/umbrella-front-v1/umbrella-back.png": "b34bcd4b3e3425e5bfc971cdef78f62d43aedafdcd3de218298b511b5b75175c",
+      "action-contact/umbrella-front-v1/umbrella-front.png": "b1cd9b03b483c01694ae4508ef05893132aac789bb12c4b69fd1800ebf0a9eb2",
       "effects/bat.png": "325fafc82f8e65c0809aba6a658a6a7fe85bf37fb7d245b20c18c15df657f0f2",
       "effects/bird.png": "4fa9bdd7e5bc74cdc3157cbfbef7a7bec970ee4d24dd19d33b8ea37fc8c3c0c3",
       "effects/bubble.png": "e0d37278dae0c88b88ea8d8bd4f586f0d51612d01c7df3902ef7a142eec57ebf",

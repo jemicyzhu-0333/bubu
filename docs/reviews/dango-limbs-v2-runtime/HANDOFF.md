@@ -1,5 +1,7 @@
 # Dango limbs v2: branch handoff
 
+Current update 2026-10-14 06:20 UTC: front umbrella source repair, inherited round20 host policy preserved. See the final dated section; historical entries below are not current gate declarations. Other remaining repair categories are still open.
+
 Updated 2026-10-14 01:30 UTC. Latest delivery enables the user-selected short front/bare sip with full lifecycle coverage; see the final dated section. The wider complete-source alternative remains disabled; the dated sections below retain historical evidence. Shared branch: `feature/pet-motion-craft`. The front-sip source repair is committed as `d0e0827600c18b5cff7a723ab3525a12227dffc5`. Quarter wiring evidence is committed as `f74811caa9d5b108f77d7a1afa2134b8e34be256`. Independent fore material repair is committed as `6c03a998592a12942c376c6c024fe6acadd835f0`. Ordinary-walk artist delivery is committed as `c89ba6f928140076072049285487a9788e0f09a4`; its host world handoff remains open. This update corrects the fixed front/right shoulder registration and closes the reproduced bubble shoulder-fragment scene through the unchanged generic composer.
 
 ## Status
@@ -219,3 +221,18 @@ Final default-parallelism npm run check exits0:6131 tests/6126 pass/5 optional s
 Next Bobo task: reproduce and independently review the native sip lifecycle/fallback and establish Windows/macOS CI on this resulting exact code head. Run38494619583 targets earlier main1afd0a, not this delivery. Record review/CI through this branch. Do not enable generic or wider source as a side effect. Issues1–4 remain unaccepted as a whole; #5/#6 and bounded manual step retain earlier status. Full seven-item completion remains NO-GO; this selected sip module is a narrower usable improvement.
 
 Rebase check before publication: compared full tree metadata at838edbf and4490e75; only pet-viewport.js and its test differ. Both local files now match4490e75 blobs exactly and are not part of this sip patch. Targeted viewport/sip/historical-source/packaging/workbench regression passes48/48,0 skips. User accepted the new sip appearance and explicitly requested this submission without videos.
+
+
+## Front umbrella source repair (2026-10-14 06:20 UTC)
+
+Base31bfc60a7c18770c017e32b9515631190fe9c788. First narrow material module for the user's four remaining repair categories. Preserve accepted short sip, round20 host policy and main996a4d3; no merge, installer or release here.
+
+Front umbrella now uses an independently authored continuous short wrist/palm at unchanged grip[61.875,35.75]. The old generic13x13 palm/fore chain is not reused or stretched. New hand:72x72 logical, binary alpha/four-color palette, exact nearest8x. Original source/mask/prompt/reference hashes and byte-exact portable rebuild retained. Mask correction restores120 real source ink pixels without painting ink. Eleven proximal root samples stay inside canonical body.
+
+Original umbrella is partitioned into nonoverlapping back canopy and foreground shaft/ring/J-handle pixels, with byte-exact union and unchanged coordinates[37,-11]/rect50x66. This repairs the hidden shaft/disconnected handle relation without moving the prop. Hand+shaft+J alpha is one4-connected component. Foreground shaft/hand overlap is0 against101 actual face samples and10 headwear items at5 phases each.
+
+Three resources share the bounded instance selector: ready together or legacy together, including individual failure/delayed load. The defective generic umbrella pair stays blocked as fallback; source takes precedence without globally relaxing its gate. Hand and both prop layers share existing action opacity. Automatic umbrella view remains three-quarter; this repairs the specifically requested front presentation through the existing front workbench path, not quarter umbrella.
+
+Evidence: umbrella-front-source/ and assets/companion/dango/raster/action-contact/umbrella-front-v1/. Final real-renderer matrix:2020 frames/5DPR/both facings/normal+reduced. Front lifecycle:2128 frames, completion/interruption/reopen/reduced recovery, no stale hand or partial prop. This action did not naturally emit handoffRecovery; propOpacity through0 is separately contract-tested. Offscreen production renderer, not native GPU acceptance. No new demonstration PNGs/videos committed; only production/source assets and compact reproducible evidence.
+
+Final frozen-source npm run check exit0:6143 tests/6138 pass/5 optional skips/0 failures; integration71/71. Four production PNGs rebuild byte-exact. Next Bobo: pull resulting head, review front wrist root/shaft/J/headwear/load/exit and establish exact-head platform CI. Accepted sip stays unchanged. Snack quarter, quarter far-hand/hiccup and six-action reach remain separate; four-category completion remains NO-GO until those modules and shared review pass.

@@ -2900,6 +2900,115 @@
         "quantizedOnce": true,
         "registrationMeaning": "Exact reviewed foreground source pixels follow cup translation; no hidden shoulder, elbow, wrist or back layer is inferred."
       }
+    },
+    "umbrella-front-v1-back": {
+      "src": "action-contact/umbrella-front-v1/umbrella-back.png",
+      "rect": [
+        0,
+        0,
+        50,
+        66
+      ],
+      "sourceContactPose": {
+        "id": "umbrella-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "umbrella-dance",
+        "view": "front",
+        "part": "back",
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "propSha256": "7f9d08df9039c22e676259682855e8635639a8192af3e917847bf60aa32b350a",
+        "contact": [
+          61.875,
+          35.75
+        ],
+        "shaftAxis": [
+          0,
+          1
+        ],
+        "sourceSha256": "b34bcd4b3e3425e5bfc971cdef78f62d43aedafdcd3de218298b511b5b75175c",
+        "translationOnly": true,
+        "quantizedOnce": true
+      }
+    },
+    "umbrella-front-v1-front": {
+      "src": "action-contact/umbrella-front-v1/umbrella-front.png",
+      "rect": [
+        0,
+        0,
+        50,
+        66
+      ],
+      "sourceContactPose": {
+        "id": "umbrella-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "umbrella-dance",
+        "view": "front",
+        "part": "front",
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "propSha256": "7f9d08df9039c22e676259682855e8635639a8192af3e917847bf60aa32b350a",
+        "contact": [
+          61.875,
+          35.75
+        ],
+        "shaftAxis": [
+          0,
+          1
+        ],
+        "sourceSha256": "b1cd9b03b483c01694ae4508ef05893132aac789bb12c4b69fd1800ebf0a9eb2",
+        "translationOnly": true,
+        "quantizedOnce": true
+      }
+    },
+    "umbrella-front-v1-right": {
+      "src": "action-contact/umbrella-front-v1/right-8x.png",
+      "rect": [
+        0,
+        0,
+        72,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "umbrella-front-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "umbrella-dance",
+        "view": "front",
+        "part": "right",
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "propSha256": "7f9d08df9039c22e676259682855e8635639a8192af3e917847bf60aa32b350a",
+        "contact": [
+          61.875,
+          35.75
+        ],
+        "shaftAxis": [
+          0,
+          1
+        ],
+        "sourceSha256": "0d5edeac3eb9c6013792288e38325e0d88a68fb66679511b147ae668520906e9",
+        "translationOnly": true,
+        "quantizedOnce": true
+      }
     }
   },
   "version": 4

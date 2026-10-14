@@ -1,0 +1,289 @@
+{
+  "schema": "dango-umbrella-source-rebuild/1",
+  "master": "sources/umbrella-front-generated-master.png",
+  "masterSha256": "f483e75f8b1ca5045b5ba9393ccf33a17260216a4df8aef566282adbd9f1f9a3",
+  "sourceCrop": "sources/short-grip-source.png",
+  "sourceCropSha256": "54c33c0f1657af5aba56b29110364a3d28d1f44e39a666efeccee0bd63f2a10a",
+  "crop": [
+    804,
+    650,
+    924,
+    742
+  ],
+  "polygon": [
+    [
+      808,
+      684
+    ],
+    [
+      827,
+      684
+    ],
+    [
+      827,
+      675
+    ],
+    [
+      838,
+      675
+    ],
+    [
+      838,
+      665
+    ],
+    [
+      850,
+      665
+    ],
+    [
+      850,
+      654
+    ],
+    [
+      923,
+      654
+    ],
+    [
+      923,
+      737
+    ],
+    [
+      854,
+      737
+    ],
+    [
+      854,
+      733
+    ],
+    [
+      842,
+      733
+    ],
+    [
+      842,
+      723
+    ],
+    [
+      831,
+      723
+    ],
+    [
+      831,
+      715
+    ],
+    [
+      808,
+      715
+    ]
+  ],
+  "maskRole": "source anatomical decomposition, not runtime body or forearm concealment",
+  "sourceGrip": [
+    875.5,
+    699.5
+  ],
+  "sourceRoot": [
+    816.5,
+    699.5
+  ],
+  "sourceRootIsSkeleton": false,
+  "scaleArtPerSourcePixel": 0.105,
+  "scaleReason": "Uniform source-to-art registration keeps the distal hand small (8x9 art pixels) and its observed open proximal wrist intact. Canonical body, face and umbrella are not taken from the generated image.",
+  "logicalSize": [
+    72,
+    72
+  ],
+  "unitPx": 8,
+  "contactWorld": [
+    61.875,
+    35.75
+  ],
+  "sourceCropGrip": [
+    71.5,
+    49.5
+  ],
+  "palette": [
+    [
+      248,
+      104,
+      120
+    ],
+    [
+      248,
+      128,
+      128
+    ],
+    [
+      240,
+      80,
+      104
+    ],
+    [
+      26,
+      27,
+      38
+    ]
+  ],
+  "alphaPolicy": "Keep source pixels inside declared polygon; alpha>=128 produces opaque logical samples; all other pixels are zero RGBA. One inverse nearest-center sample; no pixel edits.",
+  "propSource": "../../tools/umbrella.png",
+  "propSha256": "7f9d08df9039c22e676259682855e8635639a8192af3e917847bf60aa32b350a",
+  "frontRectsSourcePixels": [
+    [
+      187,
+      248,
+      213,
+      389
+    ],
+    [
+      177,
+      389,
+      221,
+      410
+    ],
+    [
+      177,
+      410,
+      272,
+      477
+    ]
+  ],
+  "toolRect": [
+    0,
+    0,
+    50,
+    66
+  ],
+  "toolWorld": [
+    37,
+    -11
+  ],
+  "outputs": [
+    "right-logical.png",
+    "right-8x.png",
+    "umbrella-back.png",
+    "umbrella-front.png"
+  ],
+  "rejectedMaskCorrection": {
+    "reason": "Initial traced upper/right boundary clipped genuine generated outer ink; corrected mask extends over actual source alpha. No ink was added or painted.",
+    "initialPolygon": [
+      [
+        808,
+        684
+      ],
+      [
+        827,
+        684
+      ],
+      [
+        827,
+        675
+      ],
+      [
+        838,
+        675
+      ],
+      [
+        838,
+        665
+      ],
+      [
+        850,
+        665
+      ],
+      [
+        850,
+        654
+      ],
+      [
+        884,
+        654
+      ],
+      [
+        884,
+        659
+      ],
+      [
+        899,
+        659
+      ],
+      [
+        899,
+        670
+      ],
+      [
+        909,
+        670
+      ],
+      [
+        909,
+        681
+      ],
+      [
+        917,
+        681
+      ],
+      [
+        917,
+        716
+      ],
+      [
+        909,
+        716
+      ],
+      [
+        909,
+        727
+      ],
+      [
+        899,
+        727
+      ],
+      [
+        899,
+        737
+      ],
+      [
+        854,
+        737
+      ],
+      [
+        854,
+        733
+      ],
+      [
+        842,
+        733
+      ],
+      [
+        842,
+        723
+      ],
+      [
+        831,
+        723
+      ],
+      [
+        831,
+        715
+      ],
+      [
+        808,
+        715
+      ]
+    ],
+    "restoredSourceAlphaPixels": 120,
+    "restoredSourceInkPixels": 120,
+    "newPaintedPixels": 0,
+    "restorationMethod": "Expand the source anatomical polygon only across the real upper/right outer contour; original master RGB/alpha retained. Final logical and 8x exports have no hand-painted patch or erosion."
+  },
+  "generation": {
+    "tool": "official image_gen.imagegen",
+    "seed": null,
+    "modelVersion": null,
+    "sourceGeneration": "nondeterministic; output master retained byte-for-byte",
+    "prompt": "sources/prompt.txt",
+    "references": "sources/references.json"
+  },
+  "status": "source-derived, runtime-integrated, offscreen visually and technically checked; no native window acceptance claim",
+  "sourceMask": "sources/source-mask.png",
+  "sourceMaskSha256": "74084423a56721a4df5be3e6d952503bc8b7facc5a3e31fddf1be6d6883b63a6"
+}

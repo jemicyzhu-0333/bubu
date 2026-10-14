@@ -9,8 +9,8 @@ import { PET_ACTIONS } from '../src/content/behaviors.mjs';
 import { PALETTES } from '../src/core/pet-art.mjs';
 
 const keys = sipShortContactSpriteKeys(), action = PET_ACTIONS['sip-tea'];
-function enabled() { const m = structuredClone(DANGO_RASTER); for (const k of keys) m.tools[k].sourceContactPose.runtimeReady = true; return m; }
-function legacy() { const m = structuredClone(DANGO_RASTER); for (const k of keys) m.tools[k].sourceContactPose.runtimeReady = false; return m; }
+function enabled() { const m = legacy(); for (const k of keys) m.tools[k].sourceContactPose.runtimeReady = true; return m; }
+function legacy() { const m = structuredClone(DANGO_RASTER); for (const sprite of Object.values(m.tools)) if (sprite.sourceContactPose) sprite.sourceContactPose.runtimeReady = false; return m; }
 async function make(manifest, failSide = null) {
   const artist = createDangoRasterArtist({ manifest, createSurface: createCanvas, loadImage: u => {
     if (failSide && u.includes(`sip-front-v1/${failSide}-8x.png`)) throw Error('injected preferred source failure');

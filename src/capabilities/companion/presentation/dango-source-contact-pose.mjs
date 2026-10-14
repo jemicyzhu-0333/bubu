@@ -4,6 +4,9 @@ import { sipContactSpriteKeys, sipSourceContactPoseEligible, applySipSourceConta
 import { SIP_SHORT_CONTACT_ID, sipShortContactSpriteKeys, sipShortSourceContactPoseEligible,
   applySipShortSourceContactPose } from './dango-sip-short-contact-pose.mjs';
 
+import { UMBRELLA_CONTACT_ID, umbrellaContactSpriteKeys, umbrellaSourceContactPoseEligible,
+  applyUmbrellaSourceContactPose } from './dango-umbrella-contact-pose.mjs';
+
 // PET_RIG「并发配件的姿势隔离」: this authored contact layer owns only
 // the two hands of one reviewed action. It never changes generic limb readiness.
 const KEYS = Object.freeze({ left: 'hiccup-front-contact-left', right: 'hiccup-front-contact-right' });
@@ -63,15 +66,17 @@ function createSourceContactPoseSelector({ manifest, source }) {
       const elapsed = Number.isFinite(options.elapsedMs) ? options.elapsedMs : null;
       const explicitInstance = options.actionInstanceKey != null;
       const sip = options.action?.id === 'sip-tea';
+      const umbrella = options.action?.id === 'umbrella-dance';
       // Recovery and prop opacity are sampled fields of the same sip episode.
       // They cannot create a fresh readiness window on every recovery frame.
-      const identityAction = sip ? { ...options.action, handoffRecovery: undefined, propOpacity: undefined } : options.action;
+      const identityAction = sip || umbrella ? { ...options.action, handoffRecovery: undefined, propOpacity: undefined } : options.action;
       const key = explicitInstance ? JSON.stringify([options.action?.id, options.actionInstanceKey])
         : JSON.stringify([identityAction, options.motion]);
-      const selection = sip ? sipSelection(manifest) : null;
-      const selectionId = sip ? selection?.id : 'hiccup-front-v1';
-      const keys = sip ? selection?.keys || [] : Object.values(KEYS);
-      const eligible = sip ? Boolean(selection?.eligible(manifest, pose, view, options))
+      const selection = sip ? sipSelection(manifest) : umbrella ? { id: UMBRELLA_CONTACT_ID,
+        keys: umbrellaContactSpriteKeys(), eligible: umbrellaSourceContactPoseEligible, apply: applyUmbrellaSourceContactPose } : null;
+      const selectionId = sip || umbrella ? selection?.id : 'hiccup-front-v1';
+      const keys = sip || umbrella ? selection?.keys || [] : Object.values(KEYS);
+      const eligible = sip || umbrella ? Boolean(selection?.eligible(manifest, pose, view, options))
         : sourceContactPoseEligible(manifest, pose, view, options);
       if (!current || current.key !== key || !explicitInstance && (p < current.progress
         || elapsed !== null && current.elapsed !== null && elapsed < current.elapsed)) {
@@ -86,7 +91,7 @@ function createSourceContactPoseSelector({ manifest, source }) {
       // If a bounded raster cache lost either image, fallback both together and
       // keep the window disabled. Never draw half of the source-contact pose.
       if (!keys.every(k => source.state(manifest.tools[k]) === 'ready')) { current.enabled = false; return pose; }
-      if (sip) return selection.apply(manifest, pose, options);
+      if (sip || umbrella) return selection.apply(manifest, pose, options);
       return { ...pose, sourceContactPose: 'hiccup-front-v1', contact: { ...pose.contact,
         hands: pose.contact.hands.map(h => {
           const c = manifest.tools[KEYS[h.side]].sourceContactPose;

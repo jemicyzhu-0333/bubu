@@ -9,7 +9,7 @@ import { sipShortContactSpriteKeys } from '../src/capabilities/companion/present
 import { PET_ACTIONS } from '../src/content/behaviors.mjs';
 import { PALETTES } from '../src/core/pet-art.mjs';
 const keys = sipContactSpriteKeys(), action = PET_ACTIONS['sip-tea'];
-function legacy() { const m = structuredClone(DANGO_RASTER); for (const k of sipShortContactSpriteKeys()) m.tools[k].sourceContactPose.runtimeReady = false; return m; }
+function legacy() { const m = structuredClone(DANGO_RASTER); for (const sprite of Object.values(m.tools)) if (sprite.sourceContactPose) sprite.sourceContactPose.runtimeReady = false; return m; }
 function enabled() { const m = legacy(); for (const k of keys) m.tools[k].sourceContactPose.runtimeReady = true; return m; }
 async function make(manifest, fail = false) {
   const artist = createDangoRasterArtist({ manifest, createSurface: createCanvas, loadImage: u => {

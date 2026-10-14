@@ -1,0 +1,25 @@
+{
+  "schema": "dango-umbrella-references/1",
+  "references": [
+    {
+      "order": 1,
+      "id": "reference-1",
+      "path": "meta/umbrella-repair-v3/evidence/legacy-frame-p05.png",
+      "sha256": "6de08bfac9008e1ffcec87fc9da7d2776f6b89c2f6e5ad634cc6e949c6fce1e3",
+      "role": "Actual production renderer baseline, pink, front umbrella-dance p=.5, DPR2, 438x438; image retained only in local QA output."
+    },
+    {
+      "order": 2,
+      "id": "reference-2",
+      "path": "assets/companion/dango/raster/limbs/sources/masters/contact-stable-body-v1.png",
+      "sha256": "ae4abc1ffae68a15b5afcec933daed4ccad5f8e55c6185ad6aa7e03770d07f9e",
+      "role": "Grip anatomy only; not adopted for palm size/body/face/prop."
+    },
+    {
+      "id": "canonical-body",
+      "path": "assets/companion/dango/raster/views/front/body.png",
+      "sha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+      "role": "Unchanged runtime body; not copied from generated master."
+    }
+  ]
+}
