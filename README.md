@@ -49,15 +49,22 @@ The Mac app remains `小步.app`. The earlier rename introduced the bubu applica
 
 This is a development test version, not a stable release. **In-app updates are not currently available**; the separate testing-updates feature is not included, and no in-app update channel is published. Install and update published test builds manually. Use disposable profiles for validation; an existing valid bubu18 profile is never silently reset. Linux has limited native testing and known rendering issues; see [validation and limitations](docs/VALIDATION.md).
 
-### macOS: install from Terminal
+### macOS: install, update and uninstall from Terminal
 
 ```bash
+# install
 curl -fsSL https://raw.githubusercontent.com/jemicyzhu-0333/bubu/main/scripts/install-mac.sh | bash
-# uninstall (keeps your data):
+# update an installed copy in place (exit 0 when already up to date)
+curl -fsSL https://raw.githubusercontent.com/jemicyzhu-0333/bubu/main/scripts/install-mac.sh | bash -s -- --update
+# only check: exit 0 = up to date, 10 = update available
+curl -fsSL https://raw.githubusercontent.com/jemicyzhu-0333/bubu/main/scripts/install-mac.sh | bash -s -- --check
+# uninstall (keeps your data)
 curl -fsSL https://raw.githubusercontent.com/jemicyzhu-0333/bubu/main/scripts/install-mac.sh | bash -s -- --uninstall
 ```
 
-The script picks the newest GitHub release that has a DMG for your Mac (`arm64`, or `x64` when published), verifies it against the release's `SHA256SUMS.txt` and `codesign --verify --deep --strict`, quits a running copy, installs to `/Applications` (or `~/Applications` without admin rights) and opens it. Files fetched by `curl` carry no quarantine flag, so no security setting is changed. Builds are ad-hoc signed (no Developer ID / notarization) until Developer ID secrets are added to CI; see `.github/workflows/build-desktop.yml`.
+The script picks the newest GitHub release that has a DMG for your Mac (`arm64`, or `x64` when published), verifies it against the release's `SHA256SUMS.txt` and `codesign --verify --deep --strict`, quits a running copy, installs to `/Applications` (or `~/Applications` without admin rights) and opens it. `--update` compares the installed `CFBundleShortVersionString` with the latest release tag; for a newer release it stages and verifies the new app, quits the running app gracefully, keeps a backup, swaps it in with a rename, re-verifies and relaunches, and restores the backup if any step fails. User data in `~/Library/Application Support` is never touched. Files fetched by `curl` carry no quarantine flag, so no security setting is changed. Builds are ad-hoc signed (no Developer ID / notarization) until Developer ID secrets are added to CI; see `.github/workflows/build-desktop.yml`.
+
+**Automatic in-app updates are coming later.** Until then, macOS users update with the command above (also shown under Settings → App updates); Windows users install the new release manually.
 
 ## Run from source
 

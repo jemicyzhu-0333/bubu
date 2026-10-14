@@ -47,6 +47,23 @@ Mac 应用仍为 `小步.app`。此前更名建立的 bubu 应用、档案与凭
 
 这是开发测试版，不是稳定版。**当前没有可用的应用内更新**；独立的 testing-updates 功能未包含在本版，也未发布应用内更新通道，请手动安装与更新测试包。验收仅使用可删除档案；既有完整 bubu18 不会被静默重置。
 
+### macOS：终端安装、更新与卸载
+
+```bash
+# 安装
+curl -fsSL https://raw.githubusercontent.com/jemicyzhu-0333/bubu/main/scripts/install-mac.sh | bash
+# 原地更新已安装的版本（已是最新则直接退出）
+curl -fsSL https://raw.githubusercontent.com/jemicyzhu-0333/bubu/main/scripts/install-mac.sh | bash -s -- --update
+# 仅检查：退出码 0 = 已是最新，10 = 有更新
+curl -fsSL https://raw.githubusercontent.com/jemicyzhu-0333/bubu/main/scripts/install-mac.sh | bash -s -- --check
+# 卸载（保留数据）
+curl -fsSL https://raw.githubusercontent.com/jemicyzhu-0333/bubu/main/scripts/install-mac.sh | bash -s -- --uninstall
+```
+
+脚本会取最新的、带本机架构 DMG 的 GitHub Release，用 `SHA256SUMS.txt` 和 `codesign --verify --deep --strict` 校验。`--update` 先比较已安装版本（`CFBundleShortVersionString`）和最新发布版本；有新版本时先暂存并校验新应用，再正常退出正在运行的应用，备份旧版本，用重命名原子替换，然后重新校验并启动；任一步失败都会恢复旧版本。`~/Library/Application Support` 里的数据不动。curl 下载不带隔离标记，脚本不会移除隔离标记或修改安全设置。
+
+**应用内自动更新后续推出。** 在此之前，Mac 用户使用上面的更新命令（应用内“设置 → 应用更新”里也能复制）；Windows 用户手动安装新版本。
+
 ## 进入开发环境
 
 需要 Node.js **22.12.0+**、npm 和可运行 Electron 的桌面环境。Windows/macOS 是主要桌面目标；Linux 已有有限原生验证，仍有已知呈现问题，详见 [验证说明](docs/VALIDATION.md)。

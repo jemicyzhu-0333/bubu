@@ -12,7 +12,13 @@ const REASONS = Object.freeze({
   'install-failed': '暂时未能启动安装，请重试',
   'cancelled': '下载已取消'
 });
-function createDesktopUpdateFeature({ $, getState, surfaceClient, isVisible = () => true, setTimer = setTimeout, clearTimer = clearTimeout }) {
+// Until the in-app updater has a signed feed, macOS users update with the
+// installer script; the command is fixed app copy, never derived from state.
+const MAC_UPDATE_COMMAND = 'curl -fsSL https://raw.githubusercontent.com/jemicyzhu-0333/bubu/main/scripts/install-mac.sh | bash -s -- --update';
+function createDesktopUpdateFeature({ $, getState, surfaceClient, isVisible = () => true, setTimer = setTimeout, clearTimer = clearTimeout,
+  platform = globalThis.navigator?.platform || '', writeClipboard = text => globalThis.navigator.clipboard.writeText(text) }) {
+  const isMac = /^Mac/.test(platform);
+  let copyTimer = null, copyState = null;
   let mounted = false, timer = null, sequence = 0, current = null, lifetime = 0;
   let actionSequence = 0, autoPending = null, autoAcknowledged = null, settingError = false;
   const commands = new Set();
@@ -25,6 +31,7 @@ function createDesktopUpdateFeature({ $, getState, surfaceClient, isVisible = ()
   function repaintCopy() {
     if (current) $('#appUpdateVersion').textContent = t('当前版本 {version}', { version: current.currentVersion });
     $('#appUpdateStatus').textContent = t(statusCopy.source, statusCopy.parameters);
+    renderManual();
   }
   const listen = (node, event, fn) => { if (node) { node.addEventListener(event, fn); releases.push(() => node.removeEventListener(event, fn)); } };
   function render(state) {
@@ -40,7 +47,29 @@ function createDesktopUpdateFeature({ $, getState, surfaceClient, isVisible = ()
     $('#appUpdateCancel').hidden = phase !== 'downloading';
     $('#appUpdateInstall').hidden = phase !== 'downloaded';
     if (phase !== 'downloaded') $('#appUpdateConfirm').hidden = true;
+    renderManual();
     renderAuto();
+  }
+  function renderManual() {
+    const manual = $('#appUpdateManual');
+    if (!manual) return;
+    manual.hidden = !(isMac || current?.phase === 'unavailable');
+    $('#appUpdateMacCommand').hidden = !isMac;
+    $('#appUpdateCommand').textContent = MAC_UPDATE_COMMAND;
+    $('#appUpdateCopy').textContent = t(copyState === 'copied' ? '已复制' : copyState === 'failed' ? '复制失败，请手动选择命令' : '复制更新命令');
+  }
+  async function copyCommand() {
+    const ticket = lifetime;
+    clearTimer(copyTimer);
+    try { await writeClipboard(MAC_UPDATE_COMMAND); copyState = 'copied'; }
+    catch (_) {
+      copyState = 'failed';
+      const selection = globalThis.getSelection?.();
+      if (selection) { selection.selectAllChildren($('#appUpdateCommand')); }
+    }
+    if (!mounted || ticket !== lifetime) return;
+    renderManual();
+    copyTimer = setTimer(() => { copyState = null; if (mounted) renderManual(); }, 2000);
   }
   function renderControls() {
     const phase = current?.phase;
@@ -141,13 +170,15 @@ function createDesktopUpdateFeature({ $, getState, surfaceClient, isVisible = ()
       $('#appUpdateConfirm').hidden = true; void command('installUpdate');
     });
     listen($('#appUpdateAuto'), 'change', () => { void saveAuto(); });
+    listen($('#appUpdateCopy'), 'click', () => { void copyCommand(); });
+    renderManual();
     void refresh();
   }
   function dispose() {
-    mounted = false; lifetime++; sequence++;
+    mounted = false; lifetime++; sequence++; clearTimer(copyTimer); copyState = null;
     commands.clear(); autoPending = null; autoAcknowledged = null; settingError = false; current = null;
     dismiss(); while (releases.length) releases.pop()();
   }
   return Object.freeze({ mount, dispose, refresh, dismiss });
 }
-export { createDesktopUpdateFeature };
+export { createDesktopUpdateFeature, MAC_UPDATE_COMMAND };
