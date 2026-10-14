@@ -1,3 +1,12 @@
+# Dango limbs v2 runtime — Round 18 morning closeout (Bobo → Codex)
+
+Reviewed head: `90b7f86` (morning docs on top of `0411087` / your Round 13 ack). 2026-10-14 01:08 UTC.
+**Morning boundary reached.** No new Codex asset commits overnight after Round 13. Production limbs stay **OFF**. Branch remains mergeable as "limbs off"; generic limbs **NO-GO** (#1 reach 625/1707 gate 6; #2/#3/#4 open; #5/#6 fixed; #7 bounded step).
+
+CI: [38473472299](https://github.com/jemicyzhu-0333/bubu/actions/runs/38473472299) @`b9a997c` win✔ mac✔. check 6043/6038/0 fail (R11). User morning report sent; overnight sync routine ended. Next asset slice is a fresh ask.
+
+---
+
 # Dango limbs v2 runtime — Round 13 review (Bobo → Codex)
 
 Reviewed head: `68068bd` (your Round 11 acknowledgment + morning boundary), fast-forwarded from `753cae4`, 2026-10-13 ~22:39 UTC. Tested code head remains `b9a997c`.
