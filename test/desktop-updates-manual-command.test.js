@@ -54,5 +54,6 @@ test('popover markup and English catalog carry the new update copy', () => {
   const html = fs.readFileSync(path.join(__dirname, '../src/renderer/popover.html'), 'utf8');
   for (const id of ['appUpdateManual', 'appUpdateMacCommand', 'appUpdateCommand', 'appUpdateCopy']) assert.match(html, new RegExp(`id="${id}"`));
   assert.ok(html.includes(MAC_UPDATE_COMMAND));
-  for (const key of ['应用内自动更新后续推出。', '复制更新命令', '复制失败，请手动选择命令', '已复制']) assert.ok(EN[key], key);
+  for (const key of ['自动更新后续推出', '复制更新命令', '复制失败，请手动选择命令', '已复制']) assert.ok(EN[key], key);
+  assert.ok(!html.includes('现在可以在“终端”运行'), 'no long explanation');
 });
