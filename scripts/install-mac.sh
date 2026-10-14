@@ -11,6 +11,7 @@
 # curl downloads carry no quarantine attribute, so nothing is removed and
 # system security settings are not changed.
 set -euo pipefail
+SYS_APPS="${BUBU_SYSTEM_APPS_DIR:-/Applications}"  # override only for tests
 
 APP_NAME="小步.app"
 BUNDLE_ID="com.bubu.app"
@@ -31,7 +32,7 @@ esac
 
 apps_dir() {
   if [ -n "${BUBU_APPS_DIR:-}" ]; then printf '%s\n' "$BUBU_APPS_DIR"; return; fi
-  if [ -w /Applications ]; then printf '/Applications\n'; else printf '%s/Applications\n' "$HOME"; fi
+  if [ -w "$SYS_APPS" ]; then printf '%s\n' "$SYS_APPS"; else printf '%s/Applications\n' "$HOME"; fi
 }
 
 quit_running() {
@@ -49,7 +50,7 @@ quit_running() {
 uninstall() {
   quit_running
   local removed=0 dir
-  for dir in /Applications "$HOME/Applications" ${BUBU_APPS_DIR:+"$BUBU_APPS_DIR"}; do
+  for dir in "$SYS_APPS" "$HOME/Applications" ${BUBU_APPS_DIR:+"$BUBU_APPS_DIR"}; do
     if [ -d "$dir/$APP_NAME" ]; then
       rm -rf "${dir:?}/$APP_NAME" && say "removed $dir/$APP_NAME" && removed=1
     fi

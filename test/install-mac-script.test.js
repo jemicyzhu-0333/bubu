@@ -42,7 +42,7 @@ if [ -n "$out" ]; then cp "${serve}/$f" "$out"; else cat "${serve}/$f"; fi`);
   tool('pgrep', 'exit 1'); tool('pkill', 'exit 0'); tool('osascript', 'exit 0'); tool('open', 'exit 0');
   return { root, bin, home, log, run(args = [], env = {}) {
     const r = spawnSync('bash', [SCRIPT, ...args], { encoding: 'utf8',
-      env: { PATH: `${bin}:${process.env.PATH}`, HOME: home, ...env } });
+      env: { PATH: `${bin}:${process.env.PATH}`, HOME: home, BUBU_SYSTEM_APPS_DIR: path.join(root, 'no-system-apps'), ...env } });
     return { ...r, calls: fs.existsSync(log) ? fs.readFileSync(log, 'utf8') : '' };
   } };
 }
