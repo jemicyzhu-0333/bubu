@@ -3644,6 +3644,69 @@
           54
         ]
       }
+    },
+    "sweep-quarter-grip-v1-right": {
+      "src": "action-contact/sweep-quarter-grip-v1/right-8x.png",
+      "rect": [
+        0,
+        0,
+        80,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "sweep-quarter-grip-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "sweep",
+        "view": "three-quarter",
+        "side": "right",
+        "sourceSha256": "bfcdb099f62522e8384937b6b61fef1f99b1cdc9a2c5adb96fe1ce3ec1ba7435",
+        "bodySha256": "8d76b379f2d0e2816e19dc2ef9b5efdfe8d64567a4c866e84471cf8fbe44f450",
+        "bodyRect": [
+          -2.117949,
+          8.533333,
+          70.4,
+          49.066667
+        ],
+        "contact": [
+          69.375,
+          40.75
+        ],
+        "toolBase": [
+          58,
+          20
+        ],
+        "toolXRange": [
+          55,
+          61
+        ],
+        "toolRect": [
+          0,
+          0,
+          23,
+          48
+        ],
+        "translationOnly": true,
+        "uniformSourceProjection": true,
+        "samplesPerArtUnit": 1,
+        "alphaCoverageThreshold": 0.35,
+        "inkCoverageThreshold": 0.2,
+        "scope": "Observed quarter closed palm; fixed inward rod-local grip; hidden wrist unobserved.",
+        "layer": "front",
+        "shaftAxis": [
+          0,
+          1
+        ],
+        "rodLocalGrip": [
+          9.375,
+          20.75
+        ],
+        "fixedSourceOffset": [
+          -2,
+          0
+        ]
+      }
     }
   },
   "version": 4
