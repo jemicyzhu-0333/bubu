@@ -49,6 +49,16 @@ The Mac app remains `小步.app`. The earlier rename introduced the bubu applica
 
 This is a development test version, not a stable release. **In-app updates are not currently available**; the separate testing-updates feature is not included, and no in-app update channel is published. Install and update published test builds manually. Use disposable profiles for validation; an existing valid bubu18 profile is never silently reset. Linux has limited native testing and known rendering issues; see [validation and limitations](docs/VALIDATION.md).
 
+### macOS: install from Terminal
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/jemicyzhu-0333/bubu/main/scripts/install-mac.sh | bash
+# uninstall (keeps your data):
+curl -fsSL https://raw.githubusercontent.com/jemicyzhu-0333/bubu/main/scripts/install-mac.sh | bash -s -- --uninstall
+```
+
+The script picks the newest GitHub release that has a DMG for your Mac (`arm64`, or `x64` when published), verifies it against the release's `SHA256SUMS.txt` and `codesign --verify --deep --strict`, quits a running copy, installs to `/Applications` (or `~/Applications` without admin rights) and opens it. Files fetched by `curl` carry no quarantine flag, so no security setting is changed. Builds are ad-hoc signed (no Developer ID / notarization) until Developer ID secrets are added to CI; see `.github/workflows/build-desktop.yml`.
+
 ## Run from source
 
 Requirements: **Node.js 22.12.0+**, npm, and a desktop environment capable of running Electron. Install the full dependencies, including devDependencies.
