@@ -1,0 +1,62 @@
+{
+  "status": "passed-local-independent-sweep",
+  "publishedAncestor": "b6b0a0910b0e2a95562e1c29b0ba5b92b41ee5b1",
+  "check": {
+    "command": "USAGI_CANVAS_PACKAGE=@napi-rs/canvas DANGO_CANVAS_PACKAGE=@napi-rs/canvas PET_MOTION_CANVAS_PACKAGE=@napi-rs/canvas npm run check",
+    "exit": 0,
+    "total": 6195,
+    "pass": 6190,
+    "skip": 5,
+    "fail": 0
+  },
+  "integration": {
+    "command": "npm run test:integration",
+    "exit": 0,
+    "pass": 71,
+    "fail": 0
+  },
+  "runtime": {
+    "frames": 2184,
+    "lifeFrames": 1561,
+    "lifeSourceContributions": 1383,
+    "originalShaftAxisMinimumAlpha": 255,
+    "actualProduction": true,
+    "poseInjection": false,
+    "DPR": [
+      1,
+      1.25,
+      1.5,
+      2
+    ]
+  },
+  "offscreenOnly": true,
+  "hashes": {
+    "src/capabilities/companion/presentation/dango-sweep-quarter-contact-pose.mjs": "3ba1fa34bc33f0eab00ad02179fa0e6b3f82e793cc3a61af0f4b651e125b43fb",
+    "src/capabilities/companion/presentation/dango-source-contact-pose.mjs": "d185199c10751145152f18d6aceb00508131b5cc9cb96c2bff5c20caa27ac9ec",
+    "assets/companion/dango/raster/source-specs/tools.json": "2113d62b16a00a42c599a4ec6ba34dc25a991ebc6fe24163171c4df8312de6b4",
+    "assets/companion/dango/raster/dango.raster.mjs": "e3f6de9da7c9ca128221facf783a4b67339c461fb538e8c5059b895e1fcd6962",
+    "package.json": "6ad436f7dd5680d37230fd169a786cd1df36b99ef4f944307b8fc162928a91f4",
+    "test/dango-sweep-contact.test.mjs": "1d6f1b00e1f8b67ae174be9ab4f653b5f6537e2fd8ef0802d2abb380f217ad8b",
+    "assets/companion/dango/raster/action-contact/sweep-quarter-grip-v1/right-8x.png": "bfcdb099f62522e8384937b6b61fef1f99b1cdc9a2c5adb96fe1ce3ec1ba7435",
+    "assets/companion/dango/raster/action-contact/sweep-quarter-grip-v1/right-logical.png": "6f99e1ff4421787a06cbd324b1a28297b1ec814ec720363239c472257aa1b4cd",
+    "assets/companion/dango/raster/action-contact/sweep-quarter-grip-v1/sources/README.md": "0026c2e253c8ea7bc1c81280702e11e8d3a56fa88ef2ed9fd15aa0344fdaeb35",
+    "assets/companion/dango/raster/action-contact/sweep-quarter-grip-v1/sources/approved-isolated.png": "86a5f6328e1902596ec3afb477673d1269dac1d478cae923ab347d14b6979321",
+    "assets/companion/dango/raster/action-contact/sweep-quarter-grip-v1/sources/approved-mask-recipe.json": "fbe009b046f681116fdfaa401f37b5645d73fcd7ce5b7bb9c69225f12924ed2a",
+    "assets/companion/dango/raster/action-contact/sweep-quarter-grip-v1/sources/approved-mask.png": "8d43d56877f3a6005407d69e28ffad9cad50d44d9d2dae9b382a737c8bb5cf3e",
+    "assets/companion/dango/raster/action-contact/sweep-quarter-grip-v1/sources/coverage-recipe.json": "e23d5b910259f9193b6a7a893bd83a493dc6d1018ac6a30ddc7364721cc189c7",
+    "assets/companion/dango/raster/action-contact/sweep-quarter-grip-v1/sources/rebuild.py": "8507c45cc49291a062f0eca7f38d48702010d397f0790a602a5fa05bccaae999",
+    "docs/reviews/dango-limbs-v2-runtime/sweep-quarter-source/REPORT.md": "c04fe9f1f79a65e99fe438cd09a64427b8c3735ed1a5027b3e82bb60c5c5a336",
+    "docs/reviews/dango-limbs-v2-runtime/sweep-quarter-source/aggregate.json": "8ea474d12d174be090c06f4962ac3350696e8be332e6e0c2e3c4981e4f6792b3",
+    "docs/reviews/dango-limbs-v2-runtime/sweep-quarter-source/contracts.mjs": "3d4436bcb096cbdf64b741ea50c7b1d2335c7fa9a84e92f6acc070327a3b1ef9",
+    "docs/reviews/dango-limbs-v2-runtime/sweep-quarter-source/fixture.mjs": "646e940972412f16382224d0a9982b0d598faddc8cadc29c13dbadc7b2dffd14",
+    "docs/reviews/dango-limbs-v2-runtime/sweep-quarter-source/full-cycle.mjs": "0d38662dc4649317d27e70519b4245bc1226d0514b97aff7eccc9e18e7a6cbc1",
+    "docs/reviews/dango-limbs-v2-runtime/sweep-quarter-source/lifecycle.mjs": "c5f88935ddfcb680ade387aa4165d83047218c437efe93705c84d576ea470ba4",
+    "docs/reviews/dango-limbs-v2-runtime/sweep-quarter-source/loader-fallback.mjs": "8c3e75dc5d451972722beea562d80a4e2e222906e53ea5b82c8352b8da56ba18",
+    "docs/reviews/dango-limbs-v2-runtime/sweep-quarter-source/run.mjs": "46efa56f34c8108cd36e55d5daaac4207153ed7e935096c007f46823901678e7",
+    "docs/reviews/dango-limbs-v2-runtime/sweep-quarter-source/runtime-config.mjs": "8b11c783a96a0ddc81f1ef6bc4e8199bc60e8500985c13917863a5118e30891b",
+    "docs/reviews/dango-limbs-v2-runtime/sweep-quarter-source/source-draw-guard.mjs": "8be58582d6216a1cc2d01127be2e7c5eec0667fa86ef9e783fbe4a39eabcbde1",
+    "test/pet-workbench.test.js": "0b15aac0b2627282f9cb4fc9ebf749926ebab68b3f741fb40f571b7119e6e858",
+    "docs/reviews/dango-limbs-v2-runtime/HANDOFF.md": "fc33f50c6afe4d4231c69d65ea501dde69e38bfebb6bd6aac8ab27141f0348d7"
+  },
+  "unpublishedKnitDependency": false
+}

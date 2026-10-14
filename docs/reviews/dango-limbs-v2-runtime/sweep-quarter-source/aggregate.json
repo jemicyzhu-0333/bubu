@@ -1,0 +1,415 @@
+{
+  "status": "passed",
+  "backend": "Skia offscreen, not native",
+  "productionArtist": "src/capabilities/companion/presentation/dango-raster-art.mjs",
+  "artistSha256": "f1271c40bc0114720be5d7a2cd8737010dca932ac61a2e0811d32b2aa79f097f",
+  "selectorSha256": "d185199c10751145152f18d6aceb00508131b5cc9cb96c2bff5c20caa27ac9ec",
+  "helperSha256": "3ba1fa34bc33f0eab00ad02179fa0e6b3f82e793cc3a61af0f4b651e125b43fb",
+  "sourceSha256": "bfcdb099f62522e8384937b6b61fef1f99b1cdc9a2c5adb96fe1ce3ec1ba7435",
+  "guardSha256": "8be58582d6216a1cc2d01127be2e7c5eec0667fa86ef9e783fbe4a39eabcbde1",
+  "fullCycle": {
+    "frames": 2184,
+    "sourceFrames": 2184,
+    "failures": [],
+    "records": [
+      {
+        "id": "dpr1-facing1",
+        "sourceFrames": 273,
+        "totalFrames": 273,
+        "minTouch": 30,
+        "minConsecutiveInterfaceRows": 11,
+        "minOverlap": 16,
+        "minRodOverlap": 110,
+        "minSourceDifference": 163,
+        "maxOriginalBroomDelta": 3,
+        "firstMissing": null
+      },
+      {
+        "id": "dpr1-facing-1",
+        "sourceFrames": 273,
+        "totalFrames": 273,
+        "minTouch": 30,
+        "minConsecutiveInterfaceRows": 11,
+        "minOverlap": 17,
+        "minRodOverlap": 111,
+        "minSourceDifference": 163,
+        "maxOriginalBroomDelta": 3,
+        "firstMissing": null
+      },
+      {
+        "id": "dpr1.25-facing1",
+        "sourceFrames": 273,
+        "totalFrames": 273,
+        "minTouch": 44,
+        "minConsecutiveInterfaceRows": 14,
+        "minOverlap": 27,
+        "minRodOverlap": 171,
+        "minSourceDifference": 255,
+        "maxOriginalBroomDelta": 3,
+        "firstMissing": null
+      },
+      {
+        "id": "dpr1.25-facing-1",
+        "sourceFrames": 273,
+        "totalFrames": 273,
+        "minTouch": 44,
+        "minConsecutiveInterfaceRows": 14,
+        "minOverlap": 27,
+        "minRodOverlap": 171,
+        "minSourceDifference": 254,
+        "maxOriginalBroomDelta": 3,
+        "firstMissing": null
+      },
+      {
+        "id": "dpr1.5-facing1",
+        "sourceFrames": 273,
+        "totalFrames": 273,
+        "minTouch": 53,
+        "minConsecutiveInterfaceRows": 17,
+        "minOverlap": 33,
+        "minRodOverlap": 254,
+        "minSourceDifference": 370,
+        "maxOriginalBroomDelta": 3,
+        "firstMissing": null
+      },
+      {
+        "id": "dpr1.5-facing-1",
+        "sourceFrames": 273,
+        "totalFrames": 273,
+        "minTouch": 54,
+        "minConsecutiveInterfaceRows": 17,
+        "minOverlap": 34,
+        "minRodOverlap": 252,
+        "minSourceDifference": 369,
+        "maxOriginalBroomDelta": 3,
+        "firstMissing": null
+      },
+      {
+        "id": "dpr2-facing1",
+        "sourceFrames": 273,
+        "totalFrames": 273,
+        "minTouch": 105,
+        "minConsecutiveInterfaceRows": 23,
+        "minOverlap": 78,
+        "minRodOverlap": 442,
+        "minSourceDifference": 648,
+        "maxOriginalBroomDelta": 3,
+        "firstMissing": null
+      },
+      {
+        "id": "dpr2-facing-1",
+        "sourceFrames": 273,
+        "totalFrames": 273,
+        "minTouch": 108,
+        "minConsecutiveInterfaceRows": 23,
+        "minOverlap": 81,
+        "minRodOverlap": 442,
+        "minSourceDifference": 648,
+        "maxOriginalBroomDelta": 3,
+        "firstMissing": null
+      }
+    ],
+    "minOriginalAxisAlpha": 255
+  },
+  "lifecycle": {
+    "scope": "Real manual renderer, production selector/artist with only isolated source registration. Explicit currentEgg clear/replacement represents controller boundary; document.hidden and clearDecorativeParticles are harness ports, not native OS hide/controller scheduling certification.",
+    "records": [
+      {
+        "id": "expiry",
+        "frames": 193,
+        "sourceFrames": 180,
+        "minSourceDifference": 666,
+        "actions": [
+          "sweep",
+          null
+        ],
+        "views": [
+          "three-quarter",
+          "front"
+        ],
+        "propOpacities": [
+          1
+        ],
+        "handoffRecoveries": [
+          null
+        ],
+        "sourceCleared": true
+      },
+      {
+        "id": "interrupt-reopen",
+        "frames": 277,
+        "sourceFrames": 234,
+        "minSourceDifference": 667,
+        "actions": [
+          "sweep",
+          "wave",
+          null
+        ],
+        "views": [
+          "three-quarter",
+          "front"
+        ],
+        "propOpacities": [
+          1
+        ],
+        "handoffRecoveries": [
+          null
+        ],
+        "sourceCleared": true
+      },
+      {
+        "id": "paper-handoff",
+        "frames": 243,
+        "sourceFrames": 171,
+        "minSourceDifference": 654,
+        "actions": [
+          "paper-return",
+          "sweep",
+          null
+        ],
+        "views": [
+          "three-quarter",
+          "front"
+        ],
+        "propOpacities": [
+          1
+        ],
+        "handoffRecoveries": [
+          null
+        ],
+        "sourceCleared": true
+      },
+      {
+        "id": "calm",
+        "frames": 193,
+        "sourceFrames": 180,
+        "minSourceDifference": 675,
+        "actions": [
+          "sweep",
+          null
+        ],
+        "views": [
+          "three-quarter",
+          "front"
+        ],
+        "propOpacities": [
+          1
+        ],
+        "handoffRecoveries": [
+          null
+        ],
+        "sourceCleared": true
+      },
+      {
+        "id": "heavy-reflected",
+        "frames": 193,
+        "sourceFrames": 180,
+        "minSourceDifference": 369,
+        "actions": [
+          "sweep",
+          null
+        ],
+        "views": [
+          "three-quarter",
+          "front"
+        ],
+        "propOpacities": [
+          1
+        ],
+        "handoffRecoveries": [
+          null
+        ],
+        "sourceCleared": true
+      },
+      {
+        "id": "pause-resume",
+        "frames": 217,
+        "sourceFrames": 204,
+        "minSourceDifference": 666,
+        "actions": [
+          "sweep",
+          null
+        ],
+        "views": [
+          "three-quarter",
+          "front"
+        ],
+        "propOpacities": [
+          1
+        ],
+        "handoffRecoveries": [
+          null
+        ],
+        "sourceCleared": true
+      },
+      {
+        "id": "hide-cancel-reopen",
+        "frames": 245,
+        "sourceFrames": 234,
+        "minSourceDifference": 666,
+        "actions": [
+          "sweep",
+          null
+        ],
+        "views": [
+          "three-quarter",
+          "front"
+        ],
+        "propOpacities": [
+          1
+        ],
+        "handoffRecoveries": [
+          null
+        ],
+        "sourceCleared": true
+      }
+    ],
+    "failures": []
+  },
+  "contracts": {
+    "status": "passed",
+    "atomicCases": [
+      {
+        "state": "loading",
+        "initialFallback": true,
+        "lateReadyLatch": true,
+        "newEpisodeRecovery": true
+      },
+      {
+        "state": "failed",
+        "initialFallback": true,
+        "lateReadyLatch": true,
+        "newEpisodeRecovery": true
+      },
+      {
+        "state": "missing",
+        "initialFallback": true,
+        "lateReadyLatch": true,
+        "newEpisodeRecovery": true
+      },
+      {
+        "midEpisodeLoss": true,
+        "stickyFallback": true,
+        "newEpisodeRecovery": true
+      }
+    ],
+    "contractMutationCases": 22,
+    "invalidGeometryCases": 8,
+    "unsupportedViews": 3,
+    "optionFailures": 7,
+    "noMutation": true,
+    "opacityEnvelopeOnce": true,
+    "actualDecodeFailureRetainsReadyLegacy": true,
+    "scope": "Actual production helper and registered shared selector; resource-state doubles isolate cold/late/drop faults, actual renderer source-presence/lifecycle checked separately."
+  },
+  "loader": {
+    "status": "passed",
+    "scope": "Actual raster loader/artist/shared selector and final renderer stage, no source-state mock. Source decode reject, pending Promise resolved late, and missing descriptor. Same-frame legacy fallback byte equivalence; late source cannot pop into current episode and contributes visibly in a new one.",
+    "records": [
+      {
+        "fault": "fail",
+        "checks": [
+          {
+            "now": 0,
+            "label": "cold",
+            "readyLegacy": true,
+            "byteIdenticalFinalStage": true
+          },
+          {
+            "now": 1000,
+            "label": "same-episode",
+            "readyLegacy": true,
+            "byteIdenticalFinalStage": true
+          },
+          {
+            "now": 3000,
+            "label": "persistent-fallback",
+            "readyLegacy": true,
+            "byteIdenticalFinalStage": true
+          }
+        ],
+        "newEpisodeRecovery": null,
+        "sourceCache": {
+          "entries": 340,
+          "bytes": 67255484,
+          "revision": 340,
+          "disposed": false,
+          "loading": 0,
+          "failed": 1
+        }
+      },
+      {
+        "fault": "late",
+        "checks": [
+          {
+            "now": 0,
+            "label": "cold",
+            "readyLegacy": true,
+            "byteIdenticalFinalStage": true
+          },
+          {
+            "now": 1000,
+            "label": "same-episode",
+            "readyLegacy": true,
+            "byteIdenticalFinalStage": true
+          },
+          {
+            "now": 2000,
+            "label": "loaded-late-stays-legacy",
+            "readyLegacy": true,
+            "byteIdenticalFinalStage": true
+          }
+        ],
+        "newEpisodeRecovery": {
+          "targetId": "grip",
+          "label": "late source new episode",
+          "changedPixels": 675,
+          "changedAlphaPixels": 0,
+          "width": 438,
+          "height": 438,
+          "proof": "same-pose single-source-omitted final-stage pixel difference"
+        },
+        "sourceCache": {
+          "entries": 340,
+          "bytes": 68730044,
+          "revision": 340,
+          "disposed": false,
+          "loading": 0,
+          "failed": 0
+        }
+      },
+      {
+        "fault": "missing",
+        "checks": [
+          {
+            "now": 0,
+            "label": "cold",
+            "readyLegacy": true,
+            "byteIdenticalFinalStage": true
+          },
+          {
+            "now": 1000,
+            "label": "same-episode",
+            "readyLegacy": true,
+            "byteIdenticalFinalStage": true
+          },
+          {
+            "now": 3000,
+            "label": "persistent-fallback",
+            "readyLegacy": true,
+            "byteIdenticalFinalStage": true
+          }
+        ],
+        "newEpisodeRecovery": null,
+        "sourceCache": {
+          "entries": 340,
+          "bytes": 68730044,
+          "revision": 340,
+          "disposed": false,
+          "loading": 0,
+          "failed": 0
+        }
+      }
+    ]
+  }
+}

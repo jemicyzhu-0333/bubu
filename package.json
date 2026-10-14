@@ -1,7 +1,7 @@
 {
   "name": "bubu",
   "version": "0.0.2-dev.4",
-  "description": "小步 (bubu) — Local-first ADHD productivity, desktop pet, focus timer and task breakdown",
+  "description": "\u5c0f\u6b65 (bubu) \u2014 Local-first ADHD productivity, desktop pet, focus timer and task breakdown",
   "main": "src/main.js",
   "author": "bubu",
   "license": "PolyForm-Noncommercial-1.0.0",
@@ -78,7 +78,7 @@
   },
   "build": {
     "appId": "com.bubu.app",
-    "productName": "小步",
+    "productName": "\u5c0f\u6b65",
     "asar": true,
     "mac": {
       "extendInfo": {
@@ -102,7 +102,7 @@
       }
     },
     "dmg": {
-      "title": "小步 ${version}",
+      "title": "\u5c0f\u6b65 ${version}",
       "backgroundColor": "#1a1b26",
       "window": {
         "width": 540,
@@ -163,7 +163,8 @@
       "!assets/companion/dango/raster/action-contact/wave-front-v1/sources/**/*",
       "!assets/companion/dango/raster/action-contact/catch-star-quarter-v1/sources/**/*",
       "!assets/companion/dango/raster/action-contact/catch-star-quarter-v1/rebuild.py",
-      "!assets/companion/dango/raster/action-contact/catch-star-quarter-v1/compact-recipe.json"
+      "!assets/companion/dango/raster/action-contact/catch-star-quarter-v1/compact-recipe.json",
+      "!assets/companion/dango/raster/action-contact/sweep-quarter-grip-v1/sources/**/*"
     ],
     "directories": {
       "output": "dist"
@@ -177,7 +178,7 @@
       "deleteAppDataOnUninstall": false
     }
   },
-  "productName": "小步",
+  "productName": "\u5c0f\u6b65",
   "homepage": "https://jemicyzhu-0333.github.io/bubu/",
   "repository": {
     "type": "git",

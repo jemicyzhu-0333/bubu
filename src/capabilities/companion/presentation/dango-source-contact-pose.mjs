@@ -1,5 +1,7 @@
 'use strict';
 
+import { SWEEP_QUARTER_CONTACT_ID, sweepQuarterContactSpriteKeys, sweepQuarterSourceContactPoseEligible, applySweepQuarterSourceContactPose } from './dango-sweep-quarter-contact-pose.mjs';
+
 import { sipContactSpriteKeys, sipSourceContactPoseEligible, applySipSourceContactPose } from './dango-sip-contact-pose.mjs';
 import { SIP_SHORT_CONTACT_ID, sipShortContactSpriteKeys, sipShortSourceContactPoseEligible,
   applySipShortSourceContactPose } from './dango-sip-short-contact-pose.mjs';
@@ -83,7 +85,8 @@ function createSourceContactPoseSelector({ manifest, source }) {
       const quarterHiccup = options.action?.id === 'hiccup' && view === 'three-quarter';
       const wave = options.action?.id === 'wave';
       const catchStar = options.action?.id === 'catch-star';
-      const dedicated = sip || umbrella || snack || quarterHiccup || wave || catchStar;
+      const sweep = options.action?.id === 'sweep';
+      const dedicated = sip || umbrella || snack || quarterHiccup || wave || catchStar || sweep;
       // Recovery and prop opacity are sampled fields of the same action episode.
       // They cannot create a fresh readiness window on every recovery frame.
       const identityAction = dedicated ? { ...options.action, handoffRecovery: undefined, propOpacity: undefined } : options.action;
@@ -94,7 +97,7 @@ function createSourceContactPoseSelector({ manifest, source }) {
         keys: quarterSnackContactSpriteKeys(), eligible: quarterSnackSourceContactPoseEligible, apply: applyQuarterSnackSourceContactPose } : quarterHiccup ? { id: QUARTER_HICCUP_CONTACT_ID,
         keys: quarterHiccupContactSpriteKeys(), eligible: quarterHiccupSourceContactPoseEligible, apply: applyQuarterHiccupSourceContactPose } : wave ? { id: WAVE_CONTACT_ID,
         keys: waveContactSpriteKeys(), eligible: waveSourceContactPoseEligible, apply: applyWaveSourceContactPose } : catchStar ? { id: CATCH_STAR_CONTACT_ID,
-        keys: catchStarContactSpriteKeys(), eligible: catchStarSourceContactPoseEligible, apply: applyCatchStarSourceContactPose } : null;
+        keys: catchStarContactSpriteKeys(), eligible: catchStarSourceContactPoseEligible, apply: applyCatchStarSourceContactPose } : sweep ? { id: SWEEP_QUARTER_CONTACT_ID, keys: sweepQuarterContactSpriteKeys(), eligible: sweepQuarterSourceContactPoseEligible, apply: applySweepQuarterSourceContactPose } : null;
       const selectionId = dedicated ? selection?.id : 'hiccup-front-v1';
       const keys = dedicated ? selection?.keys || [] : Object.values(KEYS);
       const eligible = dedicated ? Boolean(selection?.eligible(manifest, pose, view, options))

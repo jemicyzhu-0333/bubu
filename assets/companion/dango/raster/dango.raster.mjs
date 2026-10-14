@@ -2,7 +2,7 @@
 const freeze = value => { if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); } return value; };
 const data = {
   "id": "dango-raster",
-  "version": 3270113664,
+  "version": 274213146,
   "views": {
     "front": {
       "neutral": {
@@ -10693,6 +10693,69 @@ const data = {
           54
         ]
       }
+    },
+    "sweep-quarter-grip-v1-right": {
+      "src": "action-contact/sweep-quarter-grip-v1/right-8x.png",
+      "rect": [
+        0,
+        0,
+        80,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "sweep-quarter-grip-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "sweep",
+        "view": "three-quarter",
+        "side": "right",
+        "sourceSha256": "bfcdb099f62522e8384937b6b61fef1f99b1cdc9a2c5adb96fe1ce3ec1ba7435",
+        "bodySha256": "8d76b379f2d0e2816e19dc2ef9b5efdfe8d64567a4c866e84471cf8fbe44f450",
+        "bodyRect": [
+          -2.117949,
+          8.533333,
+          70.4,
+          49.066667
+        ],
+        "contact": [
+          69.375,
+          40.75
+        ],
+        "toolBase": [
+          58,
+          20
+        ],
+        "toolXRange": [
+          55,
+          61
+        ],
+        "toolRect": [
+          0,
+          0,
+          23,
+          48
+        ],
+        "translationOnly": true,
+        "uniformSourceProjection": true,
+        "samplesPerArtUnit": 1,
+        "alphaCoverageThreshold": 0.35,
+        "inkCoverageThreshold": 0.2,
+        "scope": "Observed quarter closed palm; fixed inward rod-local grip; hidden wrist unobserved.",
+        "layer": "front",
+        "shaftAxis": [
+          0,
+          1
+        ],
+        "rodLocalGrip": [
+          9.375,
+          20.75
+        ],
+        "fixedSourceOffset": [
+          -2,
+          0
+        ]
+      }
     }
   },
   "effects": {
@@ -13976,7 +14039,7 @@ const data = {
       "wardrobe": 1,
       "scenes": 1
     },
-    "assetDigest": "c2e9f9808651e1e303e45daaa01b89b9c04a7754d315052faa0680934cdb90b9",
+    "assetDigest": "1058291ac3796f90adef13ba05aae1df5b1320f8b114af9b4d3bde6bf78e47f5",
     "assetHashes": {
       "action-contact/catch-star-quarter-v1/right-back-8x.png": "7d3180a8d964f243305e144cc176c6bb9df717017381b817c46d8248a0c54c20",
       "action-contact/catch-star-quarter-v1/right-front-8x.png": "77acf54475664a747636e1fd7f5dda7b108df41e274f41e5696cd5dda864df3d",
@@ -13991,6 +14054,7 @@ const data = {
       "action-contact/sip-front-v2/sip-front-v2-right-fore-palm-front-8x.png": "c7a00171396aece0d43fb16c12f52a92030bf07d3602cb81d576dccac764fa6a",
       "action-contact/sip-front-v2/sip-front-v2-right-root-back-8x.png": "83851ef811003354bf607d451a92abb5b8d5ab2b97c899464313138bf4a05fb2",
       "action-contact/snack-quarter-near-v1/near-8x.png": "24aa77f75bb2c9d1e615dc971c96094cef4e958d0df8df5bdc8becbd878e683f",
+      "action-contact/sweep-quarter-grip-v1/right-8x.png": "bfcdb099f62522e8384937b6b61fef1f99b1cdc9a2c5adb96fe1ce3ec1ba7435",
       "action-contact/umbrella-front-v1/right-8x.png": "0d5edeac3eb9c6013792288e38325e0d88a68fb66679511b147ae668520906e9",
       "action-contact/umbrella-front-v1/umbrella-back.png": "b34bcd4b3e3425e5bfc971cdef78f62d43aedafdcd3de218298b511b5b75175c",
       "action-contact/umbrella-front-v1/umbrella-front.png": "b1cd9b03b483c01694ae4508ef05893132aac789bb12c4b69fd1800ebf0a9eb2",
