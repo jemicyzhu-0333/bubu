@@ -3052,6 +3052,76 @@
           0.5
         ]
       }
+    },
+    "hiccup-quarter-near-v1": {
+      "src": "action-contact/hiccup-quarter-pair-v1/near-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "hiccup-quarter-pair-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "hiccup",
+        "view": "three-quarter",
+        "side": "left",
+        "layer": "front",
+        "bodySha256": "8d76b379f2d0e2816e19dc2ef9b5efdfe8d64567a4c866e84471cf8fbe44f450",
+        "bodyRect": [
+          -2.117949,
+          8.533333,
+          70.4,
+          49.066667
+        ],
+        "sourceSha256": "0461dcbfafcc6e865e8934c41165b9c0d8650213cd50df468d0303915f390e33",
+        "contact": [
+          34.875,
+          48.375
+        ],
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "samplesPerArtUnit": 1,
+        "farSourcePolicy": null
+      }
+    },
+    "hiccup-quarter-far-v1": {
+      "src": "action-contact/hiccup-quarter-pair-v1/far-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "hiccup-quarter-pair-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "hiccup",
+        "view": "three-quarter",
+        "side": "right",
+        "layer": "before-tools",
+        "bodySha256": "8d76b379f2d0e2816e19dc2ef9b5efdfe8d64567a4c866e84471cf8fbe44f450",
+        "bodyRect": [
+          -2.117949,
+          8.533333,
+          70.4,
+          49.066667
+        ],
+        "sourceSha256": "9ff52618fb087e3c00825e4238da2560eee323dfbe5235a5e4079f05b4e29444",
+        "contact": [
+          54.5,
+          48.375
+        ],
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "samplesPerArtUnit": 1,
+        "farSourcePolicy": "Only the authored visible lower palm; hidden upper/back surfaces not reconstructed; cup and handle occlude in the original tool pass."
+      }
     }
   },
   "version": 4

@@ -1,0 +1,189 @@
+{
+  "schema": "quarter-hiccup-visible-pair/1",
+  "masterSha256": "a32980534cb0e02b0b031c003d12204b6daa2922228c5c29f4f62e69fbb8600b",
+  "scale": 0.09764216366158114,
+  "palette": [
+    [
+      248,
+      104,
+      120
+    ],
+    [
+      248,
+      128,
+      128
+    ],
+    [
+      240,
+      80,
+      104
+    ],
+    [
+      26,
+      27,
+      38
+    ]
+  ],
+  "palettePolicy": "nearest Euclidean RGB to fixed source four colors; alpha unchanged; transparent RGBA zero",
+  "parts": {
+    "near": {
+      "polygon": [
+        [
+          404,
+          695
+        ],
+        [
+          425,
+          702
+        ],
+        [
+          447,
+          703
+        ],
+        [
+          470,
+          677
+        ],
+        [
+          488,
+          680
+        ],
+        [
+          514,
+          688
+        ],
+        [
+          514,
+          700
+        ],
+        [
+          534,
+          701
+        ],
+        [
+          545,
+          712
+        ],
+        [
+          557,
+          725
+        ],
+        [
+          557,
+          773
+        ],
+        [
+          547,
+          791
+        ],
+        [
+          528,
+          809
+        ],
+        [
+          460,
+          809
+        ],
+        [
+          439,
+          798
+        ],
+        [
+          419,
+          783
+        ],
+        [
+          404,
+          752
+        ]
+      ],
+      "contactSource": [
+        550,
+        759
+      ],
+      "contactTarget": [
+        34.875,
+        48.375
+      ],
+      "translation": [
+        -18.82819001386963,
+        -25.735402219140084
+      ],
+      "occlusion": "foreground continuous near fore+palm"
+    },
+    "far": {
+      "polygon": [
+        [
+          777,
+          710
+        ],
+        [
+          793,
+          702
+        ],
+        [
+          811,
+          710
+        ],
+        [
+          822,
+          728
+        ],
+        [
+          824,
+          778
+        ],
+        [
+          813,
+          791
+        ],
+        [
+          770,
+          791
+        ],
+        [
+          752,
+          779
+        ],
+        [
+          753,
+          736
+        ],
+        [
+          765,
+          720
+        ]
+      ],
+      "contactSource": [
+        761,
+        758
+      ],
+      "contactTarget": [
+        54.5,
+        48.375
+      ],
+      "translation": [
+        -19.80568654646325,
+        -25.63776005547851
+      ],
+      "occlusion": "only source-visible far lower palm; before cup/handle, upper unseen anatomy omitted"
+    }
+  },
+  "source": "master.png",
+  "outputs": {
+    "far-8x.png": "9ff52618fb087e3c00825e4238da2560eee323dfbe5235a5e4079f05b4e29444",
+    "far-logical.png": "c4572c758fc76cdbb595970d47e5bb029b8ce2488578698e0c4825f9e5e02c4a",
+    "near-8x.png": "0461dcbfafcc6e865e8934c41165b9c0d8650213cd50df468d0303915f390e33",
+    "near-logical.png": "7aad55335cd7f1fd86cd9b6e3d3b98a89788813ec8fb8e5228c2d30cdc803c0e"
+  },
+  "alphaPolicy": "original alpha intersected with explicit per-hand polygons, binarized at128; no white/color keying",
+  "sourceBodyWidth": 721,
+  "canonicalBodyWidth": 70.4,
+  "sourceImageSize": [
+    1254,
+    1254
+  ],
+  "samplesPerArtUnit": 1,
+  "productionScale": 8,
+  "manualRGBEdits": []
+}

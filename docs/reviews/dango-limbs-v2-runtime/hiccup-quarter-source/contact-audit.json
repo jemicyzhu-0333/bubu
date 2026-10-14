@@ -1,0 +1,51 @@
+{
+  "resolution": 8,
+  "cup": {
+    "src": "tools/cup.png",
+    "rect": [
+      0,
+      0,
+      22,
+      19
+    ],
+    "anchors": {
+      "right": [
+        20.5,
+        10.375
+      ],
+      "left": [
+        0.875,
+        10.375
+      ],
+      "rim": [
+        8.25,
+        2.125
+      ]
+    },
+    "x": 34,
+    "y": 38
+  },
+  "rows": {
+    "near": {
+      "opaqueDevicePixels": 9536,
+      "opaqueArtArea": 149,
+      "cupOccludedDevicePixels": 0,
+      "cupOverlapDevicePixels": 568,
+      "visibleAfterCupOcclusion": 9536,
+      "bodyOverlapDevicePixels": 9536,
+      "touchingCupBoundaryPixels": 64,
+      "role": "Authored near fore/palm is in front of original cup edge"
+    },
+    "far": {
+      "opaqueDevicePixels": 3456,
+      "opaqueArtArea": 54,
+      "cupOccludedDevicePixels": 644,
+      "cupOverlapDevicePixels": 644,
+      "visibleAfterCupOcclusion": 2812,
+      "bodyOverlapDevicePixels": 3456,
+      "touchingCupBoundaryPixels": 68,
+      "role": "Authored observed far contour precedes original cup/handle; hidden surfaces omitted"
+    }
+  },
+  "note": "Pure fixed-art-space alpha audit, separate from actual renderer per-frame far-contribution control. No body or prop coordinates changed; overlapping source roots are not new skeletal sockets."
+}

@@ -2,7 +2,7 @@
 const freeze = value => { if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); } return value; };
 const data = {
   "id": "dango-raster",
-  "version": 3328649298,
+  "version": 2618201006,
   "views": {
     "front": {
       "neutral": {
@@ -10101,6 +10101,76 @@ const data = {
           0.5
         ]
       }
+    },
+    "hiccup-quarter-near-v1": {
+      "src": "action-contact/hiccup-quarter-pair-v1/near-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "hiccup-quarter-pair-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "hiccup",
+        "view": "three-quarter",
+        "side": "left",
+        "layer": "front",
+        "bodySha256": "8d76b379f2d0e2816e19dc2ef9b5efdfe8d64567a4c866e84471cf8fbe44f450",
+        "bodyRect": [
+          -2.117949,
+          8.533333,
+          70.4,
+          49.066667
+        ],
+        "sourceSha256": "0461dcbfafcc6e865e8934c41165b9c0d8650213cd50df468d0303915f390e33",
+        "contact": [
+          34.875,
+          48.375
+        ],
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "samplesPerArtUnit": 1,
+        "farSourcePolicy": null
+      }
+    },
+    "hiccup-quarter-far-v1": {
+      "src": "action-contact/hiccup-quarter-pair-v1/far-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "hiccup-quarter-pair-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "hiccup",
+        "view": "three-quarter",
+        "side": "right",
+        "layer": "before-tools",
+        "bodySha256": "8d76b379f2d0e2816e19dc2ef9b5efdfe8d64567a4c866e84471cf8fbe44f450",
+        "bodyRect": [
+          -2.117949,
+          8.533333,
+          70.4,
+          49.066667
+        ],
+        "sourceSha256": "9ff52618fb087e3c00825e4238da2560eee323dfbe5235a5e4079f05b4e29444",
+        "contact": [
+          54.5,
+          48.375
+        ],
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "samplesPerArtUnit": 1,
+        "farSourcePolicy": "Only the authored visible lower palm; hidden upper/back surfaces not reconstructed; cup and handle occlude in the original tool pass."
+      }
     }
   },
   "effects": {
@@ -13384,10 +13454,12 @@ const data = {
       "wardrobe": 1,
       "scenes": 1
     },
-    "assetDigest": "c6672852ae9b0be248f6b6cb266150ea46ef9be5bff2eb189ee0995a3aadda83",
+    "assetDigest": "9c0e93ae2e132e93fc54cabc0d1f400a01e3d53255699d894694d96cdd784d0b",
     "assetHashes": {
       "action-contact/hiccup-front-v1/hiccup-front-left-continuous-8x.png": "f02d8d5c23d96c93e7743422700db8e647ae04373fb095f5809a3093118fa488",
       "action-contact/hiccup-front-v1/hiccup-front-right-continuous-8x.png": "edfb542822a7e9499df5d43d9c50b2155c496b62b51bf92369d6bda255fe7f8c",
+      "action-contact/hiccup-quarter-pair-v1/far-8x.png": "9ff52618fb087e3c00825e4238da2560eee323dfbe5235a5e4079f05b4e29444",
+      "action-contact/hiccup-quarter-pair-v1/near-8x.png": "0461dcbfafcc6e865e8934c41165b9c0d8650213cd50df468d0303915f390e33",
       "action-contact/sip-front-v1/left-8x.png": "9e66aeb66814f3e6384217ddce99a445dfd4b1edbebeb1bf8b76847bee390fcd",
       "action-contact/sip-front-v1/right-8x.png": "017c8747173f71ef4c9b3ec8b79b8c0b397733fdb68cc4d4eca37ef662f32515",
       "action-contact/sip-front-v2/sip-front-v2-left-fore-palm-front-8x.png": "c14ba0c59fbfc6a344dba841b006be369b00b5039944debaf4e70bffc9d6a616",
