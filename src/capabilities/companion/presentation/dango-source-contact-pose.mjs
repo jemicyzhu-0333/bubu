@@ -13,6 +13,9 @@ import { QUARTER_SNACK_CONTACT_ID, quarterSnackContactSpriteKeys, quarterSnackSo
 import { QUARTER_HICCUP_CONTACT_ID, quarterHiccupContactSpriteKeys, quarterHiccupSourceContactPoseEligible,
   applyQuarterHiccupSourceContactPose } from './dango-quarter-hiccup-contact-pose.mjs';
 
+import { WAVE_CONTACT_ID, waveContactSpriteKeys, waveSourceContactPoseEligible,
+  applyWaveSourceContactPose } from './dango-wave-contact-pose.mjs';
+
 // PET_RIG「并发配件的姿势隔离」: this authored contact layer owns only
 // the two hands of one reviewed action. It never changes generic limb readiness.
 const KEYS = Object.freeze({ left: 'hiccup-front-contact-left', right: 'hiccup-front-contact-right' });
@@ -75,7 +78,8 @@ function createSourceContactPoseSelector({ manifest, source }) {
       const umbrella = options.action?.id === 'umbrella-dance';
       const snack = options.action?.id === 'snack-picnic';
       const quarterHiccup = options.action?.id === 'hiccup' && view === 'three-quarter';
-      const dedicated = sip || umbrella || snack || quarterHiccup;
+      const wave = options.action?.id === 'wave';
+      const dedicated = sip || umbrella || snack || quarterHiccup || wave;
       // Recovery and prop opacity are sampled fields of the same action episode.
       // They cannot create a fresh readiness window on every recovery frame.
       const identityAction = dedicated ? { ...options.action, handoffRecovery: undefined, propOpacity: undefined } : options.action;
@@ -84,7 +88,8 @@ function createSourceContactPoseSelector({ manifest, source }) {
       const selection = sip ? sipSelection(manifest) : umbrella ? { id: UMBRELLA_CONTACT_ID,
         keys: umbrellaContactSpriteKeys(), eligible: umbrellaSourceContactPoseEligible, apply: applyUmbrellaSourceContactPose } : snack ? { id: QUARTER_SNACK_CONTACT_ID,
         keys: quarterSnackContactSpriteKeys(), eligible: quarterSnackSourceContactPoseEligible, apply: applyQuarterSnackSourceContactPose } : quarterHiccup ? { id: QUARTER_HICCUP_CONTACT_ID,
-        keys: quarterHiccupContactSpriteKeys(), eligible: quarterHiccupSourceContactPoseEligible, apply: applyQuarterHiccupSourceContactPose } : null;
+        keys: quarterHiccupContactSpriteKeys(), eligible: quarterHiccupSourceContactPoseEligible, apply: applyQuarterHiccupSourceContactPose } : wave ? { id: WAVE_CONTACT_ID,
+        keys: waveContactSpriteKeys(), eligible: waveSourceContactPoseEligible, apply: applyWaveSourceContactPose } : null;
       const selectionId = dedicated ? selection?.id : 'hiccup-front-v1';
       const keys = dedicated ? selection?.keys || [] : Object.values(KEYS);
       const eligible = dedicated ? Boolean(selection?.eligible(manifest, pose, view, options))

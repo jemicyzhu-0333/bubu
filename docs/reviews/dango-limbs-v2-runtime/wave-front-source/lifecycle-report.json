@@ -1,0 +1,30 @@
+{
+  "evidence": "Actual production action playback plus createPetRenderer; wave default front, no view adapter. Candidate uses the integrated manifest and unchanged production source selector. Offscreen Skia, no native OS claim.",
+  "reports": [
+    {
+      "id": "complete",
+      "frames": 411,
+      "sourceFrames": 350,
+      "recoveryFrames": 0
+    },
+    {
+      "id": "interrupt-stop-reopen",
+      "frames": 711,
+      "sourceFrames": 540,
+      "recoveryFrames": 0
+    },
+    {
+      "id": "reduced-resume",
+      "frames": 411,
+      "sourceFrames": 350,
+      "recoveryFrames": 0
+    },
+    {
+      "id": "heavy-mirrored",
+      "frames": 411,
+      "sourceFrames": 350,
+      "recoveryFrames": 0
+    }
+  ],
+  "failures": []
+}

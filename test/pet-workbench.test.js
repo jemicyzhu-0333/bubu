@@ -44,7 +44,7 @@ test('single HTML build closes module and artwork graph without forbidden refere
     assert.equal(result.status, 0, result.stderr);
     const html = fs.readFileSync(out, 'utf8');
     const manifest = JSON.parse(fs.readFileSync(out + '.manifest.json', 'utf8'));
-    assert.equal(manifest.embeddedAssets, 431); // Authored contact sources include sip, umbrella, quarter snack and quarter hiccup.
+    assert.equal(manifest.embeddedAssets, 442); // Authored contact sources include sip, umbrella, quarter snack/hiccup and eleven front wave poses.
     assert.ok(manifest.modules >= 130);
     assert.equal(Object.keys(manifest.sourceHashes).some(name => name.includes('reference/') || name.includes('usagi-turnaround')), false);
     assert.equal(html.includes('/* WORKBENCH_BOOT */'), false);

@@ -1,0 +1,109 @@
+{
+  "schema": "dango-wave-source/1",
+  "master": "assets/companion/dango/raster/limbs/sources/masters/short-arm-study-v2.png",
+  "masterSha256": "572bce27158c6d00f5198a653294d5f2efe82fc74f7808bb5cd6b2f4adf25a5c",
+  "sourcePrompt": "assets/companion/dango/raster/limbs/sources/masters/short-arm-study-v2.prompt.txt",
+  "sourcePromptSha256": "f0a036f5b47fe03c4e305f3f8f6a32f3dbb8a8034900c5aaaedbb8aeee63ec72",
+  "generation": "Existing official imagegen source reused; no new call or synthetic source painting",
+  "mask": "source-mask.png",
+  "maskSha256": "dd5bbe769446ca69ba3cac45c17de6fa28b9ea2f79ab49e3e1224bf155ede312",
+  "crop": [
+    610,
+    620,
+    748,
+    788
+  ],
+  "root": [
+    610.5,
+    738.5
+  ],
+  "palm": [
+    694.5,
+    676.5
+  ],
+  "fixedShoulder": [
+    58.5,
+    45.5
+  ],
+  "scaleArtPerSourcePixel": 0.105,
+  "logicalSize": [
+    80,
+    72
+  ],
+  "outputRect": [
+    55,
+    30,
+    20,
+    22
+  ],
+  "outputLogicalSize": [
+    20,
+    22
+  ],
+  "angles": [
+    -20,
+    -15,
+    -10,
+    -5,
+    0,
+    5,
+    10,
+    15,
+    20,
+    25,
+    30
+  ],
+  "palette": [
+    [
+      26,
+      27,
+      38
+    ],
+    [
+      240,
+      80,
+      104
+    ],
+    [
+      248,
+      104,
+      120
+    ],
+    [
+      248,
+      128,
+      128
+    ]
+  ],
+  "alphaPolicy": "Preserved source alpha inside anatomical rectangle; >=128 at a single inverse nearest sample; outside zero RGBA. All outer source ink retained; proximal source cut is open and must be body-covered.",
+  "transform": "Uniform .105 scale and rigid per-pose rotation about fixed root; no stretching, body shifts, inferred shape painting, independent palm relocation or geometry patches.",
+  "status": "Source-derived module accepted for parent integration review after representative visual review and offscreen runtime, all-phase, source-edge and lifecycle checks; not production enabled or native OS accepted.",
+  "maskRole": "Rectangular anatomical decomposition of the complete existing up-raised forearm plus palm. Three outer crop edges lie entirely in source transparency; only the source proximal cut crosses alpha, and every cut sample is covered by the canonical body at all eleven poses.",
+  "volumeBasis": {
+    "canonicalBodyArtWidth": 69.415385,
+    "approvedFrontRestPalmArtWidth": 10,
+    "approvedPalmBodyWidthRatio": 0.1440602828897369,
+    "estimatedDistalPalmSourceWidth": [
+      86,
+      89
+    ],
+    "resultingPalmArtWidth": [
+      9.03,
+      9.345
+    ],
+    "resultingPalmBodyWidthRatio": [
+      0.1300864354494324,
+      0.13462433436045915
+    ],
+    "note": "Distal palm excludes the contiguous forearm. This is an observed volume comparison, not a claim that the original prompt produced an exact 11% palm."
+  },
+  "legacyInputShoulder": [
+    58.6,
+    39.712821
+  ],
+  "fixedShoulderRole": "Existing generic right socket [58.5,45.5]; no global rig or body geometry is edited. Distinct from legacy contact sampler points[0].",
+  "transitionPolicy": "Eleven rigid 5-degree source poses span -20..30 degrees about the fixed socket, three gentle sweeps in the existing seven-second action, 8% shared entry/exit fade; static keypose 3 for low/reduced motion.",
+  "decodedRuntimeBytes": 1239040,
+  "sourcePathBase": "repository-root",
+  "sourceReuse": "Existing hash-bound canonical repository master and prompt are reused, not copied into this action package. Local handoff archival copies are not production dependencies."
+}
