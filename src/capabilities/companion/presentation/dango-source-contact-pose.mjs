@@ -1,5 +1,8 @@
 'use strict';
 
+import { UMBRELLA_QUARTER_CONTACT_ID, umbrellaQuarterContactSpriteKeys, umbrellaQuarterSourceContactPoseEligible,
+  applyUmbrellaQuarterSourceContactPose } from './dango-umbrella-quarter-contact-pose.mjs';
+
 import { SWEEP_QUARTER_CONTACT_ID, sweepQuarterContactSpriteKeys, sweepQuarterSourceContactPoseEligible, applySweepQuarterSourceContactPose } from './dango-sweep-quarter-contact-pose.mjs';
 
 import { sipContactSpriteKeys, sipSourceContactPoseEligible, applySipSourceContactPose } from './dango-sip-contact-pose.mjs';
@@ -92,7 +95,8 @@ function createSourceContactPoseSelector({ manifest, source }) {
       const identityAction = dedicated ? { ...options.action, handoffRecovery: undefined, propOpacity: undefined } : options.action;
       const key = explicitInstance ? JSON.stringify([options.action?.id, options.actionInstanceKey])
         : JSON.stringify([identityAction, options.motion]);
-      const selection = sip ? sipSelection(manifest) : umbrella ? { id: UMBRELLA_CONTACT_ID,
+      const selection = sip ? sipSelection(manifest) : umbrella && view === 'three-quarter' ? { id: UMBRELLA_QUARTER_CONTACT_ID,
+        keys: umbrellaQuarterContactSpriteKeys(), eligible: umbrellaQuarterSourceContactPoseEligible, apply: applyUmbrellaQuarterSourceContactPose } : umbrella ? { id: UMBRELLA_CONTACT_ID,
         keys: umbrellaContactSpriteKeys(), eligible: umbrellaSourceContactPoseEligible, apply: applyUmbrellaSourceContactPose } : snack ? { id: QUARTER_SNACK_CONTACT_ID,
         keys: quarterSnackContactSpriteKeys(), eligible: quarterSnackSourceContactPoseEligible, apply: applyQuarterSnackSourceContactPose } : quarterHiccup ? { id: QUARTER_HICCUP_CONTACT_ID,
         keys: quarterHiccupContactSpriteKeys(), eligible: quarterHiccupSourceContactPoseEligible, apply: applyQuarterHiccupSourceContactPose } : wave ? { id: WAVE_CONTACT_ID,

@@ -1,0 +1,14 @@
+Round 30 CI — accept fd3dba3 (quarter umbrella handle grip)
+
+Run:     38578908583
+URL:     https://github.com/jemicyzhu-0333/bubu/actions/runs/38578908583
+Head:    99e431a366ae7d74c45a968a84e556163fb98cfe (docs: accept fd3dba3; round30 evidence)
+Result:  success
+  win-x64    success
+  mac-arm64  success
+
+Notes:
+- Local `npm run check` green; `npm run limbs:check` green; matrix vs round25 clean.
+- origin/main (5d2c12f, PR #11 merge) is tree-identical to abe5901, already an ancestor of
+  this branch, so no main->craft merge was needed for this round.
+- This ci.txt commit is docs-only.
