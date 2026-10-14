@@ -28,6 +28,10 @@ jobs:
             file: dist/*.dmg
     env:
       CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      # Optional Developer ID upgrade: adding the repository secrets CSC_LINK,
+      # CSC_KEY_PASSWORD, CSC_NAME, APPLE_API_KEY (base64 .p8), APPLE_API_KEY_ID and
+      # APPLE_API_ISSUER switches the mac job to a signed + notarized build.
+      MAC_DEVELOPER_ID: ${{ secrets.CSC_LINK != '' && secrets.APPLE_API_KEY != '' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -85,7 +89,24 @@ jobs:
       - name: Verify installed packaging dependencies, configuration and command selection
         run: node --test test/build-app.test.js test/build-dependency-security.test.js test/build-schema.test.js
       - name: Build test installer without publishing
+        if: ${{ !(matrix.platform == 'mac' && env.MAC_DEVELOPER_ID == 'true') }}
         run: npm run build:${{ matrix.platform }} -- --${{ matrix.arch }} --test-diagnostics
+      - name: Build Developer ID signed and notarized macOS installer (only when secrets exist)
+        if: ${{ matrix.platform == 'mac' && env.MAC_DEVELOPER_ID == 'true' }}
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'true'
+          CSC_LINK: ${{ secrets.CSC_LINK }}
+          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+          CSC_NAME: ${{ secrets.CSC_NAME }}
+          APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+          APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
+          APPLE_API_KEY_B64: ${{ secrets.APPLE_API_KEY }}
+        run: |
+          key="$RUNNER_TEMP/AuthKey.p8"; printf '%s' "$APPLE_API_KEY_B64" | base64 --decode > "$key"
+          export APPLE_API_KEY="$key"
+          node scripts/make-icon.js
+          node scripts/build-activity-probe.js --arch=${{ matrix.arch }}
+          node scripts/release-macos.js --build
       - name: Verify NSIS first launch, reopen and explicit profile upgrade
         if: matrix.platform == 'win'
         timeout-minutes: 12
@@ -101,11 +122,9 @@ jobs:
       - name: Verify macOS bundle architecture and package identity
         if: matrix.platform == 'mac'
         run: npm run verify:mac-app -- --test-diagnostics
-      - name: Report macOS bundle signing identity and actual entitlements
+      - name: Signature gate (deep strict, nested consistency, zip and quarantine round trip)
         if: matrix.platform == 'mac'
-        run: |
-          /usr/bin/codesign --display --verbose=4 "dist/mac-arm64/小步.app"
-          /usr/bin/codesign --display --entitlements :- "dist/mac-arm64/小步.app"
+        run: bash scripts/verify-macos-signature.sh "dist/mac-arm64/小步.app" "$(ls dist/*.dmg | head -1)"
       - name: Verify macOS DMG first launch, preservation and explicit profile upgrade
         timeout-minutes: 12
         if: matrix.platform == 'mac'
