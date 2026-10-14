@@ -99,3 +99,11 @@ test('resync while hidden does not start polling; display change re-lays out ont
   h.viewport.resync('display-change');
   assert.equal(h.native.getBounds().width, 400);
 });
+test('late native show after an OS position nudge writes no frame; explicit resume re-positions', () => {
+  const h = harness(), b = h.native.getBounds();
+  h.native.getBounds = () => ({ ...b, x: b.x + 1, y: b.y - 1 });   // macOS nudge after showInactive
+  const before = h.calls.length; h.native.emit('show');
+  assert.equal(h.calls.slice(before).some(c => c[0] === 'resize' || c[0] === 'move'), false);
+  h.viewport.resync('unlock-screen');
+  assert.ok(h.calls.slice(before).some(c => c[0] === 'resize'));
+});

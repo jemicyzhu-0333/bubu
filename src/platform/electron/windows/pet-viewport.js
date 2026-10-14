@@ -53,9 +53,13 @@ function createPetViewport({ bounds, screen, size = { w: 520, h: 360 }, interval
     if (visible && timer === null) timer = interval(hitTest, 24);
     native.setAlwaysOnTop?.(true, 'floating');
     native.setVisibleOnAllWorkspaces?.(true, { visibleOnFullScreen: false });
+    // A late native 'show' must not fight the small OS position nudge macOS
+    // applies after showInactive (no frame writes while visible); only a size
+    // mismatch is corrected there. Explicit resumes also re-position.
     const plan = layout(), current = native.getBounds();
-    if (current.width !== plan.bounds.width || current.height !== plan.bounds.height
-      || current.x !== plan.bounds.x || current.y !== plan.bounds.y) native.setBounds(plan.bounds, false);
+    const sized = current.width !== plan.bounds.width || current.height !== plan.bounds.height;
+    const moved = current.x !== plan.bounds.x || current.y !== plan.bounds.y;
+    if (sized || (moved && reason !== 'show')) native.setBounds(plan.bounds, false);
     ignored = null;
     publish(); hitTest();
     return true;
