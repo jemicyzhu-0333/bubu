@@ -1,0 +1,42 @@
+{
+  "tool": "image_gen.imagegen built-in",
+  "calls": 1,
+  "mode": "transparent referenced generation",
+  "references": [
+    {
+      "path": "assets/companion/dango/raster/sources/action-contact/workout-front-support-v4/canonical-reference.png",
+      "role": "canonical front body/feet, scale and style only",
+      "originalLocalPath": "/workspace/shared/bubu-limbs-runtime-v2-meta/workout-support-bent-v4/sources/canonical-reference.png",
+      "sha256": "b2e6be3bb5260e789fcfbae2dc6cff18625b10dc06bca7132c5702db005ab7f9"
+    }
+  ],
+  "generationOutputHint": "/workspace/scratch/10657b778e8b/generated_images/exec-38bce04b-7b3d-49c8-ac5a-3b4280055356.png",
+  "actualDimensions": [
+    1254,
+    1254
+  ],
+  "seed": null,
+  "modelVersion": null,
+  "files": {
+    "assets/companion/dango/raster/sources/action-contact/workout-front-support-v4/canonical-reference.png": "b2e6be3bb5260e789fcfbae2dc6cff18625b10dc06bca7132c5702db005ab7f9",
+    "assets/companion/dango/raster/sources/action-contact/workout-front-support-v4/prompt.txt": "fab7b80ff140c6c66973a87a9e8c2da55f75aeddf55ac416c712785ff4e83782",
+    "assets/companion/dango/raster/sources/action-contact/workout-front-support-v4/generated-v1.png": "d53f342877cc1a14ed04cb90c769d51074eaa7a22fb2c71029daa2f211cf8061"
+  },
+  "scope": "Front workout source integrated locally; representative offscreen visual review passed; final production phase/lifecycle/outfit and exact-head CI acceptance recorded separately.",
+  "deterministicSourceSplit": {
+    "leftCrop": [
+      0,
+      0,
+      627,
+      1254
+    ],
+    "rightCrop": [
+      627,
+      0,
+      1254,
+      1254
+    ],
+    "mode": "complete RGBA crop, no mask or alpha pre-gate",
+    "duplicateRawHalves": "excluded from this commit; reconstructed from hash-verified original by rebuild.py"
+  }
+}

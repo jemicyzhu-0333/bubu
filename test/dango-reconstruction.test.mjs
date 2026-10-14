@@ -12,7 +12,12 @@ import { recordingContext } from '../test-support/dango-reconstruction-fixture.m
 const wait = () => new Promise(resolve => setImmediate(resolve));
 const near = (a,b) => assert.ok(Math.abs(a-b)<1e-9,`${a} != ${b}`);
 const options = (id, view='front', progress=.4) => ({action:PET_ACTIONS[id],motion:PET_ACTIONS[id].motion,view,progress,elapsedMs:progress*9000});
-const make = (loadImage=async src=>({src,width:8,height:8}))=>createDangoRasterArtist({manifest,loadImage});
+const make = (loadImage=async src=>({src,width:8,height:8}), sourceManifest=manifest)=>createDangoRasterArtist({manifest:sourceManifest,loadImage});
+const supportFallback = () => {
+ const fallback=structuredClone(manifest);
+ for(const sprite of Object.values(fallback.tools)) if(sprite.sourceContactPose?.id==='workout-front-support-v4') sprite.sourceContactPose.runtimeReady=false;
+ return fallback;
+};
 
 test('recovered deterministic pawn PNGs match independently retained final hashes',()=>{
  for(const [key,expected] of Object.entries({'small-fin':'93a4101e19ee9d99eee8a71de3e33497e9e205e905199c3e7eb9499f41ebcb1f','support-paw':'e0ae1f268ae5acde1979f2dc46665e6d20da74f18ff629af6e551e03603f848d'})){
@@ -41,8 +46,8 @@ test('legacy fin fallback grip matrices meet transformed cup/crystal grips with 
  artist.dispose();
 });
 
-test('actual support source soles stay on ground64 across complete phase range',async()=>{
- const artist=make();await artist.ready({all:true});
+test('legacy support fallback soles stay on ground64 across complete phase range',async()=>{
+ const artist=make(undefined,supportFallback());await artist.ready({all:true});
  for(const view of ['front','three-quarter']) for(let i=0;i<=80;i++){
   const opts=options('workout',view,i/80),artwork=artist.resolveArtwork(opts),offset=artist.motionOffset('pushup',i/80,false,opts);
   assert.equal(artwork.actionReady,true);
@@ -53,9 +58,9 @@ test('actual support source soles stay on ground64 across complete phase range',
  artist.dispose();
 });
 
-test('each pending or failed new pawn atomically hides hands and held tools',async()=>{
+test('each pending or failed legacy pawn atomically hides hands and held tools',async()=>{
  for(const [id,paw,prop] of [['hiccup','small-fin','cup'],['carry-energy','small-fin','energy'],['workout','support-paw',null]]) for(const failure of [false,true]){
-  let settle;const artist=make(src=>src.includes('/'+paw+'.png')?new Promise((resolve,reject)=>{settle=()=>failure?reject(Error('fixture failure')):resolve({src,width:8,height:8});}):Promise.resolve({src,width:8,height:8}));
+  let settle;const artist=make(src=>src.includes('/'+paw+'.png')?new Promise((resolve,reject)=>{settle=()=>failure?reject(Error('fixture failure')):resolve({src,width:8,height:8});}):Promise.resolve({src,width:8,height:8}),id==='workout'?supportFallback():manifest);
   const ready=artist.ready({all:true});await wait();
   const check=()=>{const artwork=artist.resolveArtwork(options(id));assert.equal(artwork.actionReady,false);const ctx=recordingContext();
    artist.action(ctx,{artwork,action:PET_ACTIONS[id],palette:PALETTES.pink,layer:'back'});artist.body(ctx,PALETTES.pink,'front',artwork);artist.action(ctx,{artwork,action:PET_ACTIONS[id],palette:PALETTES.pink,layer:'front'});
