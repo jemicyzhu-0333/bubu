@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {createRequire} from 'node:module';
@@ -237,14 +238,14 @@ test('each real source PNG failure retains complete generic-host fallback, never
 // Observe actual drawImage calls, never substitute a selector-derived painter.
 test('production renderer composites right back, canonical body, star and right front in that order',async()=>{
   const {fixture}=await imp('docs/reviews/dango-limbs-v2-runtime/catch-star-quarter-source/scripts/renderer-fixture.mjs');
-  const dir=fs.mkdtempSync('/tmp/catch-layer-test-');
+  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'catch-layer-test-'));
   let order=[],bodySurface,canonicalBodySeen=false;
   const decoded=new Map(),targets={body:DANGO_RASTER.views[VIEW].body.src,back:DANGO_RASTER.tools[`${ID}-back`].src,
     front:DANGO_RASTER.tools[`${ID}-front`].src,star:DANGO_RASTER.tools.star.src};
   const f=await fixture(root,dir,{candidate:async({manifest,limbs,createArtist,trace})=>{
     const a=createArtist({manifest,limbs,createSurface:b.createCanvas,loadImage:async u=>{
       const im=await image(u);for(const [name,src] of Object.entries(targets))
-        if(fileURLToPath(u).endsWith('/'+src))decoded.set(name,im);return im;
+        if(new URL(String(u)).pathname.endsWith('/'+src))decoded.set(name,im);return im;
     }});
     return {...a,resolveArtwork(o){const art=a.resolveArtwork(o);trace(o,art);return art;},
       body(ctx,...args){bodySurface=ctx.canvas;const draw=ctx.drawImage;ctx.drawImage=function(im,...da){
@@ -276,7 +277,7 @@ test('real tool and paw painters apply the prop envelope once, including zero an
     front:DANGO_RASTER.tools[`${ID}-front`].src,star:DANGO_RASTER.tools.star.src};
   const a=createDangoRasterArtist({manifest:DANGO_RASTER,createSurface:b.createCanvas,loadImage:async u=>{
     const im=await image(u);for(const [name,src] of Object.entries(targets))
-      if(fileURLToPath(u).endsWith('/'+src))decoded.set(name,im);return im;
+      if(new URL(String(u)).pathname.endsWith('/'+src))decoded.set(name,im);return im;
   }});
   try{await a.ready({all:true});
     for(const propOpacity of [0,.1,.5,1])for(const handOpacity of [.4,1]){

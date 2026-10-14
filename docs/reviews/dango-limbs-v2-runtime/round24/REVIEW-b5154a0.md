@@ -10,4 +10,6 @@ ACCEPTED. Base reviewed: 6c443bd. Branch head after review merges origin/main cd
 - npm run check on merged head: 6201 tests, 6196 pass, 5 skip, 0 fail; limbs:check 224 target-views 0 failures, 10 actions 0 outline gaps. (One earlier run under heavy parallel load hit the known-timing-sensitive preferences-profile-upgrade test; 5 isolated reruns and the full rerun pass. Not touched by this commit.)
 - Regression: src change limited to the selector branch in dango-source-contact-pose.mjs plus the new catch-star pose module; earlier fixes (calm limbs, grounded eventId, facade arch rule, accessory cache key, throttle remainder, lock-resume/late-show, mac probe, limbs gate + visibleDefects fallback, sip accessory consistency, paw outline, snack/umbrella/hiccup/wave sources) untouched and their tests pass.
 
+- Bobo fix: first Windows CI run failed 2 of the new catch-star tests because they used a hard-coded `/tmp` and matched decoded image paths with `/` (Windows paths use `\`). Switched to `os.tmpdir()` and URL-pathname matching (same pattern as dango-raster-runtime.test). Please use portable temp dirs and URL paths in future tests.
+
 Still open for Codex: umbrella-dance three-quarter; short-reach actions workout, sweep (incl. three-quarter), read-book, knit-scarf.
