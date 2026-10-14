@@ -1,0 +1,1418 @@
+{
+  "status": "passed",
+  "scope": "Actual createPetRenderer manual catch-star; unmodified production selector and artist; trace wrapper only; offscreen Skia only",
+  "frames": 2064,
+  "records": [
+    {
+      "scenario": "dpr1-face1-bare",
+      "frames": 129,
+      "sourceFrames": 129,
+      "helperFrames": 32,
+      "fullyBodyOccludedForeFrames": 79,
+      "maxHeldStarTargetError": 0
+    },
+    {
+      "scenario": "dpr1-face1-heavy",
+      "frames": 129,
+      "sourceFrames": 129,
+      "helperFrames": 32,
+      "fullyBodyOccludedForeFrames": 129,
+      "maxHeldStarTargetError": 0
+    },
+    {
+      "scenario": "dpr1-face-1-bare",
+      "frames": 129,
+      "sourceFrames": 129,
+      "helperFrames": 32,
+      "fullyBodyOccludedForeFrames": 79,
+      "maxHeldStarTargetError": 0
+    },
+    {
+      "scenario": "dpr1-face-1-heavy",
+      "frames": 129,
+      "sourceFrames": 129,
+      "helperFrames": 32,
+      "fullyBodyOccludedForeFrames": 129,
+      "maxHeldStarTargetError": 0
+    },
+    {
+      "scenario": "dpr1.25-face1-bare",
+      "frames": 129,
+      "sourceFrames": 129,
+      "helperFrames": 32,
+      "fullyBodyOccludedForeFrames": 80,
+      "maxHeldStarTargetError": 0
+    },
+    {
+      "scenario": "dpr1.25-face1-heavy",
+      "frames": 129,
+      "sourceFrames": 129,
+      "helperFrames": 32,
+      "fullyBodyOccludedForeFrames": 129,
+      "maxHeldStarTargetError": 0
+    },
+    {
+      "scenario": "dpr1.25-face-1-bare",
+      "frames": 129,
+      "sourceFrames": 129,
+      "helperFrames": 32,
+      "fullyBodyOccludedForeFrames": 80,
+      "maxHeldStarTargetError": 0
+    },
+    {
+      "scenario": "dpr1.25-face-1-heavy",
+      "frames": 129,
+      "sourceFrames": 129,
+      "helperFrames": 32,
+      "fullyBodyOccludedForeFrames": 129,
+      "maxHeldStarTargetError": 0
+    },
+    {
+      "scenario": "dpr1.5-face1-bare",
+      "frames": 129,
+      "sourceFrames": 129,
+      "helperFrames": 32,
+      "fullyBodyOccludedForeFrames": 78,
+      "maxHeldStarTargetError": 0
+    },
+    {
+      "scenario": "dpr1.5-face1-heavy",
+      "frames": 129,
+      "sourceFrames": 129,
+      "helperFrames": 32,
+      "fullyBodyOccludedForeFrames": 129,
+      "maxHeldStarTargetError": 0
+    },
+    {
+      "scenario": "dpr1.5-face-1-bare",
+      "frames": 129,
+      "sourceFrames": 129,
+      "helperFrames": 32,
+      "fullyBodyOccludedForeFrames": 78,
+      "maxHeldStarTargetError": 0
+    },
+    {
+      "scenario": "dpr1.5-face-1-heavy",
+      "frames": 129,
+      "sourceFrames": 129,
+      "helperFrames": 32,
+      "fullyBodyOccludedForeFrames": 129,
+      "maxHeldStarTargetError": 0
+    },
+    {
+      "scenario": "dpr2-face1-bare",
+      "frames": 129,
+      "sourceFrames": 129,
+      "helperFrames": 32,
+      "fullyBodyOccludedForeFrames": 80,
+      "maxHeldStarTargetError": 0
+    },
+    {
+      "scenario": "dpr2-face1-heavy",
+      "frames": 129,
+      "sourceFrames": 129,
+      "helperFrames": 32,
+      "fullyBodyOccludedForeFrames": 129,
+      "maxHeldStarTargetError": 0
+    },
+    {
+      "scenario": "dpr2-face-1-bare",
+      "frames": 129,
+      "sourceFrames": 129,
+      "helperFrames": 32,
+      "fullyBodyOccludedForeFrames": 80,
+      "maxHeldStarTargetError": 0
+    },
+    {
+      "scenario": "dpr2-face-1-heavy",
+      "frames": 129,
+      "sourceFrames": 129,
+      "helperFrames": 32,
+      "fullyBodyOccludedForeFrames": 129,
+      "maxHeldStarTargetError": 0
+    }
+  ],
+  "selectedAndFinalStageProofs": [
+    {
+      "targetId": "front",
+      "label": "dpr1-face1-bare:0",
+      "changedPixels": 100,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face1-bare:0.25",
+      "changedPixels": 98,
+      "changedAlphaPixels": 12,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face1-bare:0.5",
+      "changedPixels": 100,
+      "changedAlphaPixels": 27,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "back",
+      "label": "dpr1-face1-bare:0.5",
+      "changedPixels": 2,
+      "changedAlphaPixels": 2,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face1-bare:0.75",
+      "changedPixels": 94,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face1-bare:0.7578125",
+      "changedPixels": 100,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1-face1-bare:0.7578125",
+      "changedPixels": 278,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face1-bare:1",
+      "changedPixels": 95,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1-face1-bare:1",
+      "changedPixels": 282,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face1-heavy:0",
+      "changedPixels": 100,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face1-heavy:0.25",
+      "changedPixels": 98,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face1-heavy:0.5",
+      "changedPixels": 100,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face1-heavy:0.75",
+      "changedPixels": 94,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face1-heavy:0.7578125",
+      "changedPixels": 100,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1-face1-heavy:0.7578125",
+      "changedPixels": 278,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face1-heavy:1",
+      "changedPixels": 95,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1-face1-heavy:1",
+      "changedPixels": 282,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face-1-bare:0",
+      "changedPixels": 100,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face-1-bare:0.25",
+      "changedPixels": 98,
+      "changedAlphaPixels": 12,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face-1-bare:0.5",
+      "changedPixels": 100,
+      "changedAlphaPixels": 27,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "back",
+      "label": "dpr1-face-1-bare:0.5",
+      "changedPixels": 2,
+      "changedAlphaPixels": 2,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face-1-bare:0.75",
+      "changedPixels": 94,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face-1-bare:0.7578125",
+      "changedPixels": 100,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1-face-1-bare:0.7578125",
+      "changedPixels": 278,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face-1-bare:1",
+      "changedPixels": 95,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1-face-1-bare:1",
+      "changedPixels": 282,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face-1-heavy:0",
+      "changedPixels": 100,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face-1-heavy:0.25",
+      "changedPixels": 98,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face-1-heavy:0.5",
+      "changedPixels": 100,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face-1-heavy:0.75",
+      "changedPixels": 94,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face-1-heavy:0.7578125",
+      "changedPixels": 100,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1-face-1-heavy:0.7578125",
+      "changedPixels": 278,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1-face-1-heavy:1",
+      "changedPixels": 95,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1-face-1-heavy:1",
+      "changedPixels": 282,
+      "changedAlphaPixels": 0,
+      "width": 219,
+      "height": 219,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face1-bare:0",
+      "changedPixels": 145,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face1-bare:0.25",
+      "changedPixels": 158,
+      "changedAlphaPixels": 12,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face1-bare:0.5",
+      "changedPixels": 143,
+      "changedAlphaPixels": 37,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "back",
+      "label": "dpr1.25-face1-bare:0.5",
+      "changedPixels": 4,
+      "changedAlphaPixels": 4,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face1-bare:0.75",
+      "changedPixels": 154,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face1-bare:0.7578125",
+      "changedPixels": 141,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1.25-face1-bare:0.7578125",
+      "changedPixels": 439,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face1-bare:1",
+      "changedPixels": 147,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1.25-face1-bare:1",
+      "changedPixels": 449,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face1-heavy:0",
+      "changedPixels": 145,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face1-heavy:0.25",
+      "changedPixels": 158,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face1-heavy:0.5",
+      "changedPixels": 143,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face1-heavy:0.75",
+      "changedPixels": 154,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face1-heavy:0.7578125",
+      "changedPixels": 141,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1.25-face1-heavy:0.7578125",
+      "changedPixels": 439,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face1-heavy:1",
+      "changedPixels": 147,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1.25-face1-heavy:1",
+      "changedPixels": 449,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face-1-bare:0",
+      "changedPixels": 145,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face-1-bare:0.25",
+      "changedPixels": 158,
+      "changedAlphaPixels": 12,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face-1-bare:0.5",
+      "changedPixels": 143,
+      "changedAlphaPixels": 37,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "back",
+      "label": "dpr1.25-face-1-bare:0.5",
+      "changedPixels": 4,
+      "changedAlphaPixels": 4,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face-1-bare:0.75",
+      "changedPixels": 154,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face-1-bare:0.7578125",
+      "changedPixels": 141,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1.25-face-1-bare:0.7578125",
+      "changedPixels": 439,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face-1-bare:1",
+      "changedPixels": 147,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1.25-face-1-bare:1",
+      "changedPixels": 449,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face-1-heavy:0",
+      "changedPixels": 145,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face-1-heavy:0.25",
+      "changedPixels": 158,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face-1-heavy:0.5",
+      "changedPixels": 143,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face-1-heavy:0.75",
+      "changedPixels": 154,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face-1-heavy:0.7578125",
+      "changedPixels": 141,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1.25-face-1-heavy:0.7578125",
+      "changedPixels": 439,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.25-face-1-heavy:1",
+      "changedPixels": 147,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1.25-face-1-heavy:1",
+      "changedPixels": 449,
+      "changedAlphaPixels": 0,
+      "width": 274,
+      "height": 274,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face1-bare:0",
+      "changedPixels": 217,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face1-bare:0.25",
+      "changedPixels": 221,
+      "changedAlphaPixels": 25,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face1-bare:0.5",
+      "changedPixels": 217,
+      "changedAlphaPixels": 57,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "back",
+      "label": "dpr1.5-face1-bare:0.5",
+      "changedPixels": 6,
+      "changedAlphaPixels": 6,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face1-bare:0.75",
+      "changedPixels": 216,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face1-bare:0.7578125",
+      "changedPixels": 212,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1.5-face1-bare:0.7578125",
+      "changedPixels": 639,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face1-bare:1",
+      "changedPixels": 221,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1.5-face1-bare:1",
+      "changedPixels": 631,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face1-heavy:0",
+      "changedPixels": 217,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face1-heavy:0.25",
+      "changedPixels": 221,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face1-heavy:0.5",
+      "changedPixels": 217,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face1-heavy:0.75",
+      "changedPixels": 216,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face1-heavy:0.7578125",
+      "changedPixels": 212,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1.5-face1-heavy:0.7578125",
+      "changedPixels": 639,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face1-heavy:1",
+      "changedPixels": 221,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1.5-face1-heavy:1",
+      "changedPixels": 631,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face-1-bare:0",
+      "changedPixels": 217,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face-1-bare:0.25",
+      "changedPixels": 221,
+      "changedAlphaPixels": 25,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face-1-bare:0.5",
+      "changedPixels": 217,
+      "changedAlphaPixels": 57,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "back",
+      "label": "dpr1.5-face-1-bare:0.5",
+      "changedPixels": 6,
+      "changedAlphaPixels": 6,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face-1-bare:0.75",
+      "changedPixels": 216,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face-1-bare:0.7578125",
+      "changedPixels": 212,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1.5-face-1-bare:0.7578125",
+      "changedPixels": 639,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face-1-bare:1",
+      "changedPixels": 221,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1.5-face-1-bare:1",
+      "changedPixels": 631,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face-1-heavy:0",
+      "changedPixels": 217,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face-1-heavy:0.25",
+      "changedPixels": 221,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face-1-heavy:0.5",
+      "changedPixels": 217,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face-1-heavy:0.75",
+      "changedPixels": 216,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face-1-heavy:0.7578125",
+      "changedPixels": 212,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1.5-face-1-heavy:0.7578125",
+      "changedPixels": 639,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr1.5-face-1-heavy:1",
+      "changedPixels": 221,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr1.5-face-1-heavy:1",
+      "changedPixels": 631,
+      "changedAlphaPixels": 0,
+      "width": 329,
+      "height": 329,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face1-bare:0",
+      "changedPixels": 387,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face1-bare:0.25",
+      "changedPixels": 395,
+      "changedAlphaPixels": 46,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face1-bare:0.5",
+      "changedPixels": 387,
+      "changedAlphaPixels": 96,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "back",
+      "label": "dpr2-face1-bare:0.5",
+      "changedPixels": 9,
+      "changedAlphaPixels": 9,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face1-bare:0.75",
+      "changedPixels": 387,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face1-bare:0.7578125",
+      "changedPixels": 383,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr2-face1-bare:0.7578125",
+      "changedPixels": 1164,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face1-bare:1",
+      "changedPixels": 387,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr2-face1-bare:1",
+      "changedPixels": 1134,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face1-heavy:0",
+      "changedPixels": 387,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face1-heavy:0.25",
+      "changedPixels": 395,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face1-heavy:0.5",
+      "changedPixels": 387,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face1-heavy:0.75",
+      "changedPixels": 387,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face1-heavy:0.7578125",
+      "changedPixels": 383,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr2-face1-heavy:0.7578125",
+      "changedPixels": 1170,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face1-heavy:1",
+      "changedPixels": 387,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr2-face1-heavy:1",
+      "changedPixels": 1134,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face-1-bare:0",
+      "changedPixels": 387,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face-1-bare:0.25",
+      "changedPixels": 395,
+      "changedAlphaPixels": 46,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face-1-bare:0.5",
+      "changedPixels": 387,
+      "changedAlphaPixels": 96,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "back",
+      "label": "dpr2-face-1-bare:0.5",
+      "changedPixels": 9,
+      "changedAlphaPixels": 9,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face-1-bare:0.75",
+      "changedPixels": 387,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face-1-bare:0.7578125",
+      "changedPixels": 383,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr2-face-1-bare:0.7578125",
+      "changedPixels": 1164,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face-1-bare:1",
+      "changedPixels": 387,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr2-face-1-bare:1",
+      "changedPixels": 1134,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face-1-heavy:0",
+      "changedPixels": 387,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face-1-heavy:0.25",
+      "changedPixels": 395,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face-1-heavy:0.5",
+      "changedPixels": 387,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face-1-heavy:0.75",
+      "changedPixels": 387,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face-1-heavy:0.7578125",
+      "changedPixels": 383,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr2-face-1-heavy:0.7578125",
+      "changedPixels": 1170,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "front",
+      "label": "dpr2-face-1-heavy:1",
+      "changedPixels": 387,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    },
+    {
+      "targetId": "helper",
+      "label": "dpr2-face-1-heavy:1",
+      "changedPixels": 1134,
+      "changedAlphaPixels": 0,
+      "width": 438,
+      "height": 438,
+      "proof": "same-pose single-source-omitted final-stage pixel difference"
+    }
+  ],
+  "sourceGuard": [
+    {
+      "id": "front",
+      "spriteKey": "catch-star-quarter-v1-front",
+      "request": "/workspace/shared/bubu-limbs-runtime-v2-20261013/assets/companion/dango/raster/action-contact/catch-star-quarter-v1/right-front-8x.png",
+      "filePath": "/workspace/shared/bubu-limbs-runtime-v2-20261013/assets/companion/dango/raster/action-contact/catch-star-quarter-v1/right-front-8x.png",
+      "normal": {
+        "requested": 1,
+        "loaded": 1,
+        "pending": 0,
+        "failures": []
+      },
+      "omitted": {
+        "requested": 1,
+        "loaded": 1,
+        "pending": 0,
+        "failures": []
+      }
+    },
+    {
+      "id": "back",
+      "spriteKey": "catch-star-quarter-v1-back",
+      "request": "/workspace/shared/bubu-limbs-runtime-v2-20261013/assets/companion/dango/raster/action-contact/catch-star-quarter-v1/right-back-8x.png",
+      "filePath": "/workspace/shared/bubu-limbs-runtime-v2-20261013/assets/companion/dango/raster/action-contact/catch-star-quarter-v1/right-back-8x.png",
+      "normal": {
+        "requested": 1,
+        "loaded": 1,
+        "pending": 0,
+        "failures": []
+      },
+      "omitted": {
+        "requested": 1,
+        "loaded": 1,
+        "pending": 0,
+        "failures": []
+      }
+    },
+    {
+      "id": "helper",
+      "spriteKey": "catch-star-quarter-v1-helper",
+      "request": "/workspace/shared/bubu-limbs-runtime-v2-20261013/assets/companion/dango/raster/action-contact/snack-quarter-near-v1/near-8x.png",
+      "filePath": "/workspace/shared/bubu-limbs-runtime-v2-20261013/assets/companion/dango/raster/action-contact/snack-quarter-near-v1/near-8x.png",
+      "normal": {
+        "requested": 1,
+        "loaded": 1,
+        "pending": 0,
+        "failures": []
+      },
+      "omitted": {
+        "requested": 1,
+        "loaded": 1,
+        "pending": 0,
+        "failures": []
+      }
+    }
+  ],
+  "failures": []
+}

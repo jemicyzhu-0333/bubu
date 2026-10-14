@@ -2,7 +2,7 @@
 const freeze = value => { if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); } return value; };
 const data = {
   "id": "dango-raster",
-  "version": 275547972,
+  "version": 3270113664,
   "views": {
     "front": {
       "neutral": {
@@ -10534,6 +10534,165 @@ const data = {
         "quantizedOnce": true,
         "translationOnly": true
       }
+    },
+    "catch-star-quarter-v1-back": {
+      "src": "action-contact/catch-star-quarter-v1/right-back-8x.png",
+      "rect": [
+        0,
+        0,
+        80,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "catch-star-quarter-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "catch-star",
+        "view": "three-quarter",
+        "part": "back",
+        "side": "right",
+        "bodySha256": "8d76b379f2d0e2816e19dc2ef9b5efdfe8d64567a4c866e84471cf8fbe44f450",
+        "bodyRect": [
+          -2.117949,
+          8.533333,
+          70.4,
+          49.066667
+        ],
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "samplesPerArtUnit": 1,
+        "sourceSha256": "7d3180a8d964f243305e144cc176c6bb9df717017381b817c46d8248a0c54c20",
+        "rawSourceSha256": "6849d250973c487264a5913cafcfc4dab0f25115084500758f755d4f1d1edf21",
+        "maskSha256": "42e929c299ed5311cc57487250f448c9ee94ccc09f97dc7cf2dfa8abb8e9b797",
+        "anatomicalArmId": "right",
+        "materialPartOf": "single-right-arm",
+        "depth": "behind-body",
+        "sourceOrigin": [
+          944,
+          569
+        ],
+        "logicalOrigin": [
+          70,
+          29
+        ],
+        "uniformScale": 0.1,
+        "minimumAlphaCoverage": 0.35,
+        "minimumInkCoverage": 0.2,
+        "opaqueCells": 26,
+        "binaryAlpha": true,
+        "exactNearest8x": true,
+        "disjointPartition": true,
+        "unionByteExact": true,
+        "openRootCut": [
+          [
+            850,
+            615
+          ],
+          [
+            914,
+            642
+          ]
+        ]
+      }
+    },
+    "catch-star-quarter-v1-front": {
+      "src": "action-contact/catch-star-quarter-v1/right-front-8x.png",
+      "rect": [
+        0,
+        0,
+        80,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "catch-star-quarter-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "catch-star",
+        "view": "three-quarter",
+        "part": "front",
+        "side": "right",
+        "bodySha256": "8d76b379f2d0e2816e19dc2ef9b5efdfe8d64567a4c866e84471cf8fbe44f450",
+        "bodyRect": [
+          -2.117949,
+          8.533333,
+          70.4,
+          49.066667
+        ],
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "samplesPerArtUnit": 1,
+        "sourceSha256": "77acf54475664a747636e1fd7f5dda7b108df41e274f41e5696cd5dda864df3d",
+        "rawSourceSha256": "6849d250973c487264a5913cafcfc4dab0f25115084500758f755d4f1d1edf21",
+        "maskSha256": "42e929c299ed5311cc57487250f448c9ee94ccc09f97dc7cf2dfa8abb8e9b797",
+        "anatomicalArmId": "right",
+        "materialPartOf": "single-right-arm",
+        "depth": "foreground",
+        "sourceOrigin": [
+          944,
+          569
+        ],
+        "logicalOrigin": [
+          70,
+          29
+        ],
+        "uniformScale": 0.1,
+        "minimumAlphaCoverage": 0.35,
+        "minimumInkCoverage": 0.2,
+        "opaqueCells": 43,
+        "binaryAlpha": true,
+        "exactNearest8x": true,
+        "disjointPartition": true,
+        "unionByteExact": true,
+        "openRootCut": [
+          [
+            850,
+            615
+          ],
+          [
+            914,
+            642
+          ]
+        ]
+      }
+    },
+    "catch-star-quarter-v1-helper": {
+      "src": "action-contact/snack-quarter-near-v1/near-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "catch-star-quarter-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "catch-star",
+        "view": "three-quarter",
+        "part": "helper",
+        "side": "left",
+        "bodySha256": "8d76b379f2d0e2816e19dc2ef9b5efdfe8d64567a4c866e84471cf8fbe44f450",
+        "bodyRect": [
+          -2.117949,
+          8.533333,
+          70.4,
+          49.066667
+        ],
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "samplesPerArtUnit": 1,
+        "sourceSha256": "24aa77f75bb2c9d1e615dc971c96094cef4e958d0df8df5bdc8becbd878e683f",
+        "sourceAlias": "snack-quarter-near-v1-left",
+        "role": "free-preparatory-helper",
+        "touchesStar": false,
+        "palmCenter": [
+          23,
+          54
+        ]
+      }
     }
   },
   "effects": {
@@ -13817,8 +13976,10 @@ const data = {
       "wardrobe": 1,
       "scenes": 1
     },
-    "assetDigest": "106c8744ed8a62c1e3ff8ef32dbd5487d5d8ed3f453f00fb5fb90e8200d77dbe",
+    "assetDigest": "c2e9f9808651e1e303e45daaa01b89b9c04a7754d315052faa0680934cdb90b9",
     "assetHashes": {
+      "action-contact/catch-star-quarter-v1/right-back-8x.png": "7d3180a8d964f243305e144cc176c6bb9df717017381b817c46d8248a0c54c20",
+      "action-contact/catch-star-quarter-v1/right-front-8x.png": "77acf54475664a747636e1fd7f5dda7b108df41e274f41e5696cd5dda864df3d",
       "action-contact/hiccup-front-v1/hiccup-front-left-continuous-8x.png": "f02d8d5c23d96c93e7743422700db8e647ae04373fb095f5809a3093118fa488",
       "action-contact/hiccup-front-v1/hiccup-front-right-continuous-8x.png": "edfb542822a7e9499df5d43d9c50b2155c496b62b51bf92369d6bda255fe7f8c",
       "action-contact/hiccup-quarter-pair-v1/far-8x.png": "9ff52618fb087e3c00825e4238da2560eee323dfbe5235a5e4079f05b4e29444",
