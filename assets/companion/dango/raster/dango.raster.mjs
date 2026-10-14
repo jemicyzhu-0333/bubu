@@ -2,7 +2,7 @@
 const freeze = value => { if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); } return value; };
 const data = {
   "id": "dango-raster",
-  "version": 169364866,
+  "version": 3328649298,
   "views": {
     "front": {
       "neutral": {
@@ -10058,6 +10058,49 @@ const data = {
         "translationOnly": true,
         "quantizedOnce": true
       }
+    },
+    "snack-quarter-near-v1-left": {
+      "src": "action-contact/snack-quarter-near-v1/near-8x.png",
+      "rect": [
+        0,
+        0,
+        66,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "snack-quarter-near-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "snack-picnic",
+        "view": "three-quarter",
+        "side": "left",
+        "layer": "front",
+        "bodySha256": "8d76b379f2d0e2816e19dc2ef9b5efdfe8d64567a4c866e84471cf8fbe44f450",
+        "bodyRect": [
+          -2.117949,
+          8.533333,
+          70.4,
+          49.066667
+        ],
+        "sourceSha256": "24aa77f75bb2c9d1e615dc971c96094cef4e958d0df8df5bdc8becbd878e683f",
+        "palmCenter": [
+          23,
+          54
+        ],
+        "role": "free-rest",
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "samplesPerArtUnit": 1,
+        "sourceLandmarkProjected": [
+          23,
+          54.5
+        ],
+        "quantizationRegistration": [
+          0,
+          0.5
+        ]
+      }
     }
   },
   "effects": {
@@ -13341,7 +13384,7 @@ const data = {
       "wardrobe": 1,
       "scenes": 1
     },
-    "assetDigest": "0a184d82c8e4fd376d3716b1ced23f021225c01a0462ebacd18f29ccd54896e9",
+    "assetDigest": "c6672852ae9b0be248f6b6cb266150ea46ef9be5bff2eb189ee0995a3aadda83",
     "assetHashes": {
       "action-contact/hiccup-front-v1/hiccup-front-left-continuous-8x.png": "f02d8d5c23d96c93e7743422700db8e647ae04373fb095f5809a3093118fa488",
       "action-contact/hiccup-front-v1/hiccup-front-right-continuous-8x.png": "edfb542822a7e9499df5d43d9c50b2155c496b62b51bf92369d6bda255fe7f8c",
@@ -13351,6 +13394,7 @@ const data = {
       "action-contact/sip-front-v2/sip-front-v2-left-root-back-8x.png": "3e6817951627988cf774875fc8a36b3c145f2acb16c4230dddd92bcdc0fc98b0",
       "action-contact/sip-front-v2/sip-front-v2-right-fore-palm-front-8x.png": "c7a00171396aece0d43fb16c12f52a92030bf07d3602cb81d576dccac764fa6a",
       "action-contact/sip-front-v2/sip-front-v2-right-root-back-8x.png": "83851ef811003354bf607d451a92abb5b8d5ab2b97c899464313138bf4a05fb2",
+      "action-contact/snack-quarter-near-v1/near-8x.png": "24aa77f75bb2c9d1e615dc971c96094cef4e958d0df8df5bdc8becbd878e683f",
       "action-contact/umbrella-front-v1/right-8x.png": "0d5edeac3eb9c6013792288e38325e0d88a68fb66679511b147ae668520906e9",
       "action-contact/umbrella-front-v1/umbrella-back.png": "b34bcd4b3e3425e5bfc971cdef78f62d43aedafdcd3de218298b511b5b75175c",
       "action-contact/umbrella-front-v1/umbrella-front.png": "b1cd9b03b483c01694ae4508ef05893132aac789bb12c4b69fd1800ebf0a9eb2",

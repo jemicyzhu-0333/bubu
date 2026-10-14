@@ -1,0 +1,61 @@
+{
+  "baseCommit": "eaac13cb4ddb40cd58f424747e732d0271c26db1",
+  "status": "passed-local-integration",
+  "capability": "companion presentation",
+  "persistedPaths": [],
+  "contract": "snack-picnic three-quarter near free-rest source only; existing readiness window; original right hand/tools unchanged",
+  "rasterAssetDigest": "c6672852ae9b0be248f6b6cb266150ea46ef9be5bff2eb189ee0995a3aadda83",
+  "fullCheck": {
+    "command": "USAGI_CANVAS_PACKAGE=@napi-rs/canvas npm run check",
+    "exitCode": 0,
+    "tests": 6144,
+    "passed": 6130,
+    "skipped": 14,
+    "failed": 0,
+    "note": "Default parallelism. Repo-external candidate tests are not included."
+  },
+  "additionalCanvas": {
+    "command": "USAGI_CANVAS_PACKAGE=@napi-rs/canvas DANGO_CANVAS_PACKAGE=@napi-rs/canvas PET_MOTION_CANVAS_PACKAGE=@napi-rs/canvas node --test test/dango-bubble-origin.test.js test/dango-complete-materials.test.js test/dango-idle-eye.test.js test/dango-retired-garment-layers.test.js test/dango-state-cycle.test.js test/pet-motion-craft.test.js",
+    "exitCode": 0,
+    "tests": 28,
+    "passed": 27,
+    "skipped": 1,
+    "failed": 0,
+    "note": "Enables nine optional Canvas cases skipped in fullCheck; the remaining eye-before/after case needs a separate historical baseline."
+  },
+  "integration": {
+    "command": "npm run test:integration",
+    "passed": 71,
+    "failed": 0,
+    "exitCode": 0
+  },
+  "renderer": {
+    "report": "verified-report.json",
+    "samplesPerStream": 4677,
+    "scenarios": 12,
+    "failures": 0,
+    "nativeVisualAcceptance": false
+  },
+  "source": {
+    "portableRebuild": "assets/companion/dango/raster/action-contact/snack-quarter-near-v1/sources/rebuild.py --check",
+    "passed": true,
+    "alphaPixels": 126,
+    "colors": 4,
+    "transparentRGBZero": true,
+    "exactNearest8x": true
+  },
+  "excludedReproducibleOutputs": [
+    "videos",
+    "diagnostic PNG comparisons",
+    "per-frame JSON traces",
+    "temporary module adapters"
+  ],
+  "remaining": [
+    "Bobo historical fragment reproduction and native review",
+    "quarter hiccup pair integration",
+    "six action reach/gesture materials",
+    "whole repair acceptance"
+  ],
+  "testedCodeBase": "77bb40c3ec56f4ec3a05a6d208274c7698d0b860",
+  "baseRelation": "eaac13c adds only round21 review text/PNG to77bb40c; no production or test difference"
+}

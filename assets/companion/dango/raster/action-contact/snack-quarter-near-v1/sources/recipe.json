@@ -1,0 +1,165 @@
+{
+  "schema": "dango-quarter-snack-source/1",
+  "source": "master.png",
+  "sourceSha256": "a44a5f56dd2e418e55f1e12b351dfcee23568202c0cf56928fd03564600fd337",
+  "sourceSize": [
+    1254,
+    1254
+  ],
+  "polygon": [
+    [
+      360,
+      749
+    ],
+    [
+      377,
+      752
+    ],
+    [
+      386,
+      768
+    ],
+    [
+      403,
+      772
+    ],
+    [
+      403,
+      779
+    ],
+    [
+      436,
+      790
+    ],
+    [
+      460,
+      795
+    ],
+    [
+      469,
+      809
+    ],
+    [
+      479,
+      818
+    ],
+    [
+      489,
+      829
+    ],
+    [
+      489,
+      865
+    ],
+    [
+      478,
+      866
+    ],
+    [
+      478,
+      877
+    ],
+    [
+      467,
+      878
+    ],
+    [
+      467,
+      888
+    ],
+    [
+      454,
+      889
+    ],
+    [
+      454,
+      896
+    ],
+    [
+      394,
+      896
+    ],
+    [
+      384,
+      886
+    ],
+    [
+      367,
+      857
+    ],
+    [
+      350,
+      828
+    ],
+    [
+      340,
+      803
+    ],
+    [
+      340,
+      777
+    ]
+  ],
+  "alphaPolicy": "binary alpha at 128 after intersection of original alpha and explicit anatomical isolation polygon; no color-key removal",
+  "sourceBodyWidth": 752,
+  "canonicalBodyWidth": 70.4,
+  "scale": 0.09361702127659575,
+  "palmCenterSource": [
+    432,
+    850
+  ],
+  "palmCenterTarget": [
+    23,
+    54
+  ],
+  "translation": [
+    -17.442553191489367,
+    -25.07446808510639
+  ],
+  "quantizationRegistration": [
+    0,
+    0.5
+  ],
+  "samplesPerArtUnit": 1,
+  "sampling": "nearest once at 1 sample per art unit; exact nearest 8x production export",
+  "palette": [
+    [
+      248,
+      104,
+      120
+    ],
+    [
+      248,
+      128,
+      128
+    ],
+    [
+      240,
+      80,
+      104
+    ],
+    [
+      26,
+      27,
+      38
+    ]
+  ],
+  "palettePolicy": "nearest Euclidean RGB to fixed four source colors; alpha unchanged; transparent RGBA zero",
+  "edits": [],
+  "sourceShoulderCutNotSkeletonSocket": true,
+  "scope": "snack-picnic three-quarter near left free resting fore+palm only",
+  "unchanged": [
+    "body",
+    "face",
+    "eating hand",
+    "sandwich",
+    "picnic mat",
+    "generic limb manifest",
+    "sip"
+  ],
+  "outputs": {
+    "near-logical.png": "75b0386a4c6a2ed4f8cd55311dba4a0bd21472b942ddebe48883791bf64bb06b",
+    "near-8x.png": "24aa77f75bb2c9d1e615dc971c96094cef4e958d0df8df5bdc8becbd878e683f"
+  },
+  "pathConvention": "Source paths relative to sources directory; output paths relative to package root."
+}
