@@ -8,8 +8,17 @@ const { focusSession } = require('../capabilities/execution');
 function registerNudgeActions({
   nudge, resolveRoutineRequest, logRoutineOccurrenceCommand, recordTaskAvoidance,
   readFocusSession, readNowTaskId, getSettings, acceptHealthyShutdown,
-  stopFocusSession, startRestSession, startFocusSession
+  stopFocusSession, startRestSession, startFocusSession, resumeFocusSession
 }) {
+  const { STATUS } = focusSession;
+  // A paused round is still on the clock (isTimingSession) but is neither running
+  // focus nor running break. Accepting a reminder must therefore treat it by its
+  // underlying kind, otherwise the accept is a silent no-op while paused.
+  const pausedKind = session => focusSession.isPausedSession(session) ? focusSession.sessionKind(session) : null;
+  const isFocusKind = kind => kind === STATUS.FOCUS || kind === STATUS.QUICK_START;
+  const resume = session => (typeof resumeFocusSession === 'function'
+    ? resumeFocusSession({ sessionId: session.sessionId })
+    : { ok: false, reason: 'resume-unavailable' });
   nudge.setActionHandler(({ actionId, type, context, deferMinutes }) => {
     if (actionId === 'complete-routine' || actionId === 'skip-routine-today') {
       const { routineId, occurrenceId } = context || {};
@@ -36,7 +45,10 @@ function registerNudgeActions({
       }
       const started = readFocusSession();
       const taskId = started.taskId || (context && context.taskId) || null;
-      if (focusSession.isActiveFocusSession(started)) {
+      const paused = pausedKind(started);
+      // Paused break: the rest the user accepts is the one already on the clock.
+      if (paused === STATUS.BREAK) return resume(started);
+      if (focusSession.isActiveFocusSession(started) || isFocusKind(paused)) {
         const stopped = stopFocusSession('accepted-rest');
         if (!stopped.ok) return stopped;
       }
@@ -45,6 +57,13 @@ function registerNudgeActions({
       return { ok: true };
     }
     if (actionId === 'accept-focus') {
+      const current = readFocusSession();
+      const paused = pausedKind(current);
+      if (isFocusKind(paused)) return resume(current);
+      if (paused === STATUS.BREAK) {
+        const stopped = stopFocusSession('accepted-focus');
+        if (!stopped.ok) return stopped;
+      }
       if (focusSession.isTimingSession(readFocusSession())) return { ok: true };
       const taskId = (context && context.taskId) || readNowTaskId() || null;
       return startFocusSession(taskId, getSettings().pomodoroMinutes);
