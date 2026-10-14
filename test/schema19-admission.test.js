@@ -12,7 +12,7 @@ const { normalizePersistedState, assertCanonicalPersistedState, PERSISTED_SCHEMA
 const NOW = Date.parse('2026-10-07T09:00:00Z');
 const canonical = () => normalizePersistedState({}, { now: NOW });
 function fixture(t) {
-  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'canonical19-only-')), handles = [];
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'canonical20-only-')), handles = [];
   t.after(() => { handles.forEach(handle => handle.close()); fs.rmSync(directory, { recursive: true, force: true }); });
   const open = options => { const repo = createSqliteStateAdapter({ userDataPath: directory, now: () => NOW, ...options }); handles.push(repo); return repo; };
   // Historical adapter is intentionally used only to manufacture synthetic,
@@ -26,7 +26,7 @@ function fixture(t) {
   function sqlFacts(captured = files()) {
     // Diagnostic SQL also creates/changes WAL/SHM. Inspect an exact tuple copy,
     // never warm the original before or after its byte-preservation assertion.
-    const probe = fs.mkdtempSync(path.join(os.tmpdir(), 'canonical19-facts-'));
+    const probe = fs.mkdtempSync(path.join(os.tmpdir(), 'canonical20-facts-'));
     for (const [name, bytes] of Object.entries(captured)) fs.writeFileSync(path.join(probe, name), bytes);
     const db = new DatabaseSync(path.join(probe, 'config.sqlite'), { readOnly: true });
     try { return { snapshot: { ...db.prepare('SELECT * FROM config_snapshot').get() },
@@ -77,8 +77,8 @@ function assertRefusedUntouched(f, options = {}) {
   assert.deepEqual(f.sqlFacts(after), beforeFacts, 'revision, identity binding, hash, evidence and proof counter unchanged');
 }
 
-test('production SQL admits fresh canonical19 only and preserves fractional/economic/role fields across reopen', t => {
-  assert.equal(PERSISTED_SCHEMA_VERSION, 19);
+test('production SQL admits fresh canonical20 only and preserves fractional/economic/role fields across reopen', t => {
+  assert.equal(PERSISTED_SCHEMA_VERSION, 20);
   const f = fixture(t), repo = f.open();
   const fresh = repo.snapshot();
   assert.equal(fresh.pet.satiation, 65); assert.equal(fresh.pet.foodTickets, 6); assert.equal(fresh.pet.foodInventory.berry, 2);
@@ -102,7 +102,7 @@ test('production SQL admits fresh canonical19 only and preserves fractional/econ
   assert.deepEqual(next.evidence, facts.evidence);
 });
 
-for (const version of [8, 16, 17, 18, 20]) test(`established payload${version} rejects before normalization, backup and proof`, t => {
+for (const version of [8, 16, 17, 18, 19, 21]) test(`established payload${version} rejects before normalization, backup and proof`, t => {
   const f = fixture(t), state = historical17(); state.schemaVersion = version; f.seed(state); assertRefusedUntouched(f);
 });
 
@@ -138,7 +138,7 @@ const malformed = {
   'unknown receipt result': state => { state.pet.foodCommands = [{ commandId: `${NOW}-x`, issuedAt: NOW,
     kind: 'buy', foodId: 'berry', result: { ok: true, foodId: 'berry', price: 1, foodTickets: 5, inventory: 3, extra: true } }]; }
 };
-for (const [label, mutate] of Object.entries(malformed)) test(`malformed19 ${label} remains untouched`, t => {
+for (const [label, mutate] of Object.entries(malformed)) test(`malformed20 ${label} remains untouched`, t => {
   const f = fixture(t), state = canonical(); mutate(state); f.seed(state); assertRefusedUntouched(f);
 });
 
@@ -147,7 +147,7 @@ test('caller options cannot turn production into historical/mirror admission', t
   assertRefusedUntouched(f, { schemaVersion: 17, jsonMirror: true, currentOnly: false, assertCanonical() {} });
 });
 
-test('canonical raw validator and failed production writes never sanitize malformed19', t => {
+test('canonical raw validator and failed production writes never sanitize malformed20', t => {
   const f = fixture(t), repo = f.open(), before = repo.snapshot(), revision = repo.revision();
   for (const mutate of Object.values(malformed)) {
     const value = structuredClone(before); mutate(value); const unchanged = structuredClone(value);
@@ -172,7 +172,7 @@ test('closed food receipts, fractional satiety and valid pending/free landing id
 });
 
 
-for (const malformedCurrent of [false, true]) test(`refusal retains live WAL and SHM for ${malformedCurrent ? 'malformed19' : 'legacy17'}`, t => {
+for (const malformedCurrent of [false, true]) test(`refusal retains live WAL and SHM for ${malformedCurrent ? 'malformed20' : 'legacy17'}`, t => {
   const f = fixture(t), state = malformedCurrent ? canonical() : historical17();
   if (malformedCurrent) delete state.settings.aiPetMealsEnabled;
   f.seed(state, { holdOpen: true });

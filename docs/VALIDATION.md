@@ -28,7 +28,7 @@ git diff --check
 
 | 改动 | 至少追加的检查 |
 | --- | --- |
-| 持久化 | current-only schema19 准入、拒绝前零写入/零 proof、DB/身份/WAL/SHM 原字节、未知提交核对、损坏/未来版本、重开与故障注入。另获授权的库迁移须核验逐字节备份和二次启动固定点 |
+| 持久化 | current-only schema20 准入、拒绝前零写入/零 proof、DB/身份/WAL/SHM 原字节、未知提交核对、损坏/未来版本、重开与故障注入。另获授权的库迁移须核验逐字节备份和二次启动固定点 |
 | IPC / preload | sender、闭合 payload、非法输入、surface allowlist 与最小 preload |
 | workflow / 状态投影 | 单次提交、写集、回执/幂等、effect 失败隔离、publication revision 与断档恢复 |
 | 遗留入口 | `architecture/manifest.json` 棘轮同步收紧，不新增职责 |
@@ -53,7 +53,7 @@ git diff --check
 
 ## 隔离运行
 
-仅用工具创建的可删除 schema19 或完整品牌schema18 SQL 合成档案，不拿真实用户档案或旧资料试开、迁移、修复或重置。历史 generic adapter 测试不授权当前生产读取旧档。
+仅用工具创建的可删除 schema20 或完整品牌schema18/19 SQL 合成档案，不拿真实用户档案或旧资料试开、迁移、修复或重置。历史 generic adapter 测试不授权当前生产读取旧档。
 
 ```bash
 npm run dev:bench -- --scenario=level-up
@@ -263,3 +263,11 @@ macOS 构建门禁必须对产出 app 和 DMG 复制出的 app 分别执行 `cod
 新证据重新采集两形态共 24 场景、7272 帧，另有较长新动作保持的真实同宿主交接；旧错误标注与硬切样例单独保留为回归反例。正常速度独立浏览器播放、用户最终审阅及原生 Windows/macOS / GPU / 长运行门禁仍未完成。
 
 最终关键案例的捕获已保存在仓库工具中：`capture-lifecycle.mjs --suite=full-tea` 重放两形态重装完整喝茶，`--suite=tea-boundaries` 重放末段取消与新请求；省略 `--seal` 时明确仅为未封存本地预览，不依赖临时脚本即可恢复验证流程。
+
+### 日常发生时间与 schema20 门禁
+
+- 保持原 owner 桶与 occurrence ID；19→20 的完整候选除 schemaVersion 外须与源值相等。原合法120条数据不可截断；容量已满时拒绝新增或跨实际日迁入，不删除其他记录。
+- 覆盖今天与昨天双向更正、跨三天 owner 桶保留、实际发生日期清理、提醒原时段关联、稳定排序、重复确认、撤回、并发旧版本拒绝、事务未知核对。日期按本地日历计算，追加时区切换及 DST 正反跳检查。
+- 两条升级路径分别核验完整备份、拒绝前原字节、源漂移、取消、损坏/未来版本、未知 COMMIT、恢复到新目录和二次启动固定点；18→19 的历史目标不能被 current-only20 自动接纳。
+- 真实云浏览器的合成配置验证与 Node/SQLite 测试分别记证据。收件建议 UI 的合成响应不代表真实 Provider；现有原生 Windows/macOS schema19 发布记录不能证明这次 schema20 的原生升级、真人确认框或重启验收。
+- 已保存记录仅支持用户改时间；模型只处理当前随手记文本的明确时间建议，不扩大既有日常历史披露。

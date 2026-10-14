@@ -778,7 +778,7 @@ test('a landing decision never stacks with or loses focus to an editor modal', (
   assert.match(js, /renderLanding: landing\.render/);
   assert.match(js, /isLandingModalOpen: landing\.isOpen/);
   // 所有弹层共用一份焦点归属规则，不再每个弹层各写一套。
-  assert.match(js, /function restoreModalFocus\(trigger\)[\s\S]*?requestAnimationFrame\(\(\) => \{[\s\S]*?if \(landing\.activePrompt\(\)\) \{[\s\S]*?landing\.render\(\);[\s\S]*?return;/);
+  assert.match(js, /function restoreModalFocus\(trigger, isCurrent = \(\) => true\)[\s\S]*?requestAnimationFrame\(\(\) => \{[\s\S]*?if \(landing\.activePrompt\(\)\) \{[\s\S]*?landing\.render\(\);[\s\S]*?return;/);
   assert.match(taskEditorJs, /function close\(\)[\s\S]*?restoreModalFocus\(closing\)/);
   assert.match(completeConfirmJs, /function close\(\)[\s\S]*?restoreModalFocus\(closing\)/);
   assert.match(functionSource('hide', reviewJs),
@@ -811,7 +811,7 @@ test('closing a landing decision restores focus to a still-valid control', () =>
   assert.match(landingJs, /if \(visible && !wasVisible\) rememberReturnFocus\(\)/);
   assert.match(functionSource('close', breakdownFeatureJs),
     /rememberLandingReturnFocus\(trigger\)[\s\S]*?renderLanding\(\)/);
-  assert.match(js, /function restoreModalFocus\(trigger\)[\s\S]*?if \(landing\.activePrompt\(\)\) \{[\s\S]*?landing\.rememberReturnFocus\(trigger\)[\s\S]*?landing\.render\(\)/);
+  assert.match(js, /function restoreModalFocus\(trigger, isCurrent = \(\) => true\)[\s\S]*?if \(landing\.activePrompt\(\)\) \{[\s\S]*?landing\.rememberReturnFocus\(trigger\)[\s\S]*?landing\.render\(\)/);
 });
 
 test('settings diffs immediately refresh timer structure and the Now recommendation', () => {
@@ -834,7 +834,7 @@ test('the task edit panel restores its opener without focusing a hidden control'
   // 打开时焦点会还给上一件任务的按钮。
   assert.match(taskEditorJs, /let trigger = null/);
   assert.match(taskEditorJs, /trigger = document\.activeElement/);
-  assert.match(js, /function restoreModalFocus\(trigger\)[\s\S]*?modalPrimitive\.canReceiveFocus\(trigger\)[\s\S]*?if \(target\) target\.focus\(\)/);
+  assert.match(js, /function restoreModalFocus\(trigger, isCurrent = \(\) => true\)[\s\S]*?modalPrimitive\.canReceiveFocus\(trigger\)[\s\S]*?if \(target\) target\.focus\(\)/);
   assert.match(taskEditorJs,
     /function close\(\)[\s\S]*?const closing = trigger;[\s\S]*?trigger = null;[\s\S]*?restoreModalFocus\(closing\)/);
 });

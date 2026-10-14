@@ -6,7 +6,18 @@ const { buildEnergyCurveView } = require('./energy-curve-view');
 const { createSurfaceReadComposition } = require('./surface-read-composition');
 const { levelCost } = require('../../content/growth-policy.mjs');
 const { DIRTY_FIELDS } = require('../../core/state-channel.mjs');
+const { addDaysToKey } = require('../../core/calendar');
 const { relationshipFor } = require('../../core/companion-state');
+// Management retains an editable/undoable view of the two-day record window.
+// Yesterday never contributes missed reminders or counts to the Now surface.
+function projectYesterdayRecords(snapshot, now, todayKey) {
+  const dayKey = addDaysToKey(todayKey, -1);
+  const plan = routines.dayPlan.buildDayPlan({ routines: snapshot.routines,
+    routineLog: snapshot.routineLog, dayKey, now, includeCarryover: false });
+  return { dayKey, occurrences: plan.occurrences.filter(item => item.answered
+    && ['done', 'skipped'].includes(item.status) && Number.isSafeInteger(item.loggedAt)) };
+}
+
 function createPopoverStateQuery({ readSample, readSnapshot, readRevision, clock, skins, foods, appearanceItems, credentialStore, aiDisclosure, pomodoroView, schemaVersion: PERSISTED_SCHEMA_VERSION, countInboxHistory = null, readActivityMirror = () => null, readStorageStatus = () => null, readCaptureTriageStatus = () => null }) {
   const taskStartBlockReason = work.availability.taskStartBlockReason;
   const sample = readSample || createSurfaceReadComposition({ readSnapshot, clock,
@@ -149,6 +160,7 @@ function createPopoverStateQuery({ readSample, readSnapshot, readRevision, clock
           dayKey: clock.dayKey(now),
           now
         }),
+        yesterday: projectYesterdayRecords(snapshot, now, clock.dayKey(now)),
         remindersEnabled: settings.routineRemindersEnabled,
         curveEnabled: settings.energyCurveEnabled
       },

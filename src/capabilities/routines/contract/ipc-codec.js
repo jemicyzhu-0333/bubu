@@ -182,7 +182,7 @@ const codec = createCapabilityCodec({
   'routines:log': validation => {
     const object = validation.requireObject();
     if (!object) return undefined;
-    validation.rejectUnknown(object, ['routineId', 'occurrenceId', 'status', 'at', 'note', 'magnitude']);
+    validation.rejectUnknown(object, ['routineId', 'occurrenceId', 'status', 'at', 'note', 'magnitude', 'expectedAt', 'expectedStatus']);
     const routineId = validation.validateId(object.routineId, 'routineId');
     // Only what a person can tap. `notified` is the sampler's in-process mark and
     // `missed` is derived and never stored — accepting either here would let a
@@ -197,6 +197,12 @@ const codec = createCapabilityCodec({
     if (object.at !== undefined && (!Number.isSafeInteger(object.at) || object.at < 0)) {
       validation.fail('at must be a non-negative safe integer');
     }
+    const correcting = object.expectedAt !== undefined || object.expectedStatus !== undefined;
+    if (correcting && (!Number.isSafeInteger(object.expectedAt) || object.expectedAt < 0
+        || !ROUTINE_LOGGABLE_STATUSES.includes(object.expectedStatus) || object.status !== object.expectedStatus
+        || !occurrenceId || object.at === undefined || object.note !== undefined || object.magnitude !== undefined)) {
+      validation.fail('time correction requires occurrenceId, at, expectedAt and matching expectedStatus only');
+    }
     if (object.note !== undefined && object.note !== null) {
       validation.validateBoundedString(object.note, 'note', MAX_ROUTINE_NOTE);
     }
@@ -210,6 +216,7 @@ const codec = createCapabilityCodec({
       status: object.status,
       ...(occurrenceId === undefined ? {} : { occurrenceId }),
       ...(object.at === undefined ? {} : { at: object.at }),
+      ...(correcting ? { expectedAt: object.expectedAt, expectedStatus: object.expectedStatus } : {}),
       ...(object.note === undefined || object.note === null ? {} : { note: object.note }),
       ...(object.magnitude === undefined || object.magnitude === null ? {} : { magnitude: object.magnitude })
     };

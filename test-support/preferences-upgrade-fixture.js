@@ -6,7 +6,7 @@ const { DatabaseSync } = require('node:sqlite');
 const { createSqliteStateAdapter } = require('../src/platform/persistence/sqlite-state-adapter');
 const { encodePayload } = require('../src/platform/persistence/sqlite/config-authority-schema');
 const { prepareConfigPreferencesUpgrade } = require('../src/platform/persistence/sqlite/config-preferences-upgrade');
-const { normalizePersistedState } = require('../src/platform/persistence/persisted-schema');
+const { normalizePersistedState, assertCanonicalSchema19 } = require('../src/platform/persistence/persisted-schema');
 const { focusSession } = require('../src/capabilities/execution');
 const { appendFixture } = require('./ai-change-ledger-fixture');
 const NOW = Date.parse('2026-10-09T09:00:00Z');
@@ -36,7 +36,7 @@ function tree(root) {
   }
   walk(''); return result;
 }
-function fixture(t, { live = false } = {}) {
+function fixture(t, { live = false, sourceVersion = 18, routineLog } = {}) {
   // macOS may expose its temporary directory through /var -> /private/var.
   // Synthetic extraction destinations must use the actual directory, while the
   // production extraction path continues to reject every symlink ancestor.
@@ -54,7 +54,9 @@ function fixture(t, { live = false } = {}) {
   const database = path.join(directory, 'config.sqlite'), identity = `${database}.identity.sqlite`;
   const db = new DatabaseSync(database), id = new DatabaseSync(identity);
   const state = JSON.parse(db.prepare('SELECT payload_json FROM config_snapshot').get().payload_json);
-  state.schemaVersion = 18; delete state.settings.locale; delete state.settings.theme;
+  state.schemaVersion = sourceVersion;
+  if (sourceVersion === 18) { delete state.settings.locale; delete state.settings.theme; }
+  if (routineLog) state.routineLog = structuredClone(routineLog);
   const encoded = encodePayload(state);
   db.prepare('UPDATE config_snapshot SET payload_version=?,payload_hash=?,payload_json=?,mirror_target_hash=?').run(encoded.version, encoded.hash, encoded.json, encoded.mirrorHash);
   id.prepare('UPDATE config_identity SET source_length=source_length').run();
@@ -68,4 +70,9 @@ function fixture(t, { live = false } = {}) {
   return { root, directory, database, identity, state, original, originalIdentity, prepare,
     capture: () => tree(directory), liveDb: live ? db : null };
 }
-module.exports = { fixture, ports, NOW, tree };
+function openHistorical19(userDataPath) {
+  const { createElectronStoreAdapter } = require('../src/platform/persistence/electron-store-adapter');
+  return createElectronStoreAdapter({ userDataPath, schemaVersion: 19, currentOnly: true, jsonMirror: false,
+    normalize: value => value, assertCanonical: assertCanonicalSchema19, now: () => NOW });
+}
+module.exports = { fixture, ports, NOW, tree, openHistorical19 };

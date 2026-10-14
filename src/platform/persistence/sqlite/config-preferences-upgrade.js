@@ -8,7 +8,8 @@ const { readIdentity, setDurability } = require('./config-authority-identity');
 const { encodePayload, readAuthoritySnapshot, verifyEvidence } = require('./config-authority-schema');
 const { proveConfigSnapshotDurable } = require('./config-authority-proof');
 const { createProfileUpgradeBackup } = require('./profile-upgrade-backup-container');
-const { assertCanonicalPersistedState } = require('../persisted-schema');
+const { assertCanonicalPersistedState, assertCanonicalSchema19 } = require('../persisted-schema');
+const { prepareRoutineRetentionUpgrade } = require('../../../application/workflows/upgrade-routine-retention');
 const { prepareInterfacePreferencesUpgrade } = require('../../../application/workflows/upgrade-interface-preferences');
 const fail = reason => Object.assign(new Error(reason), { code: reason });
 function prepareConfigPreferencesUpgrade({ userDataPath, io = fs, now = () => Date.now(), checkpoint = () => {},
@@ -20,20 +21,24 @@ function prepareConfigPreferencesUpgrade({ userDataPath, io = fs, now = () => Da
     admitConfigCopy({ filePath, identityPath, io,
       prepareInitial() { throw fail('config-preferences-upgrade-source-invalid'); },
       validateCurrent(snapshot, identity) {
-        if (!identity || identity.phase !== 'READY' || snapshot.payloadVersion !== 18) throw fail('config-preferences-upgrade-source-invalid');
-        const candidate = prepareInterfacePreferencesUpgrade(snapshot.state, assertCanonicalPersistedState);
-        inspected = { snapshot, identity, candidate };
+        if (!identity || identity.phase !== 'READY' || ![18, 19].includes(snapshot.payloadVersion)) throw fail('config-preferences-upgrade-source-invalid');
+        const assertTarget = snapshot.payloadVersion === 18 ? assertCanonicalSchema19 : assertCanonicalPersistedState;
+        const candidate = snapshot.payloadVersion === 18
+          ? prepareInterfacePreferencesUpgrade(snapshot.state, assertTarget)
+          : prepareRoutineRetentionUpgrade(snapshot.state, { assertSource: assertCanonicalSchema19, assertTarget });
+        inspected = { snapshot, identity, candidate, assertTarget };
       } }, { ...ports, verifyPermissions });
     if (!inspected) throw fail('config-preferences-upgrade-source-invalid');
     return inspected;
   }
   const inspected = inspect(), encoded = encodePayload(inspected.candidate);
-  assertCanonicalPersistedState(JSON.parse(encoded.json));
+  inspected.assertTarget(JSON.parse(encoded.json));
+  const sourceVersion = inspected.snapshot.payloadVersion, targetVersion = encoded.version;
   const token = randomUUID();
-  const backupPath = path.join(path.dirname(sourcePath), `${path.basename(sourcePath)}.schema18-to19-${token}.backup`);
+  const backupPath = path.join(path.dirname(sourcePath), `${path.basename(sourcePath)}.schema${sourceVersion}-to${targetVersion}-${token}.backup`);
   const binding = Object.freeze({ sourcePath, authorityId: inspected.identity.authorityId,
     applicationId: inspected.identity.applicationId, sourceRevision: inspected.snapshot.revision,
-    sourceHash: inspected.snapshot.hash, sourceVersion: 18, targetVersion: 19, targetHash: encoded.hash, token });
+    sourceHash: inspected.snapshot.hash, sourceVersion, targetVersion, targetHash: encoded.hash, token });
   let used = false;
   function compare(current) {
     if (!isDeepStrictEqual(current.identity, inspected.identity) || current.snapshot.revision !== binding.sourceRevision
@@ -51,17 +56,18 @@ function prepareConfigPreferencesUpgrade({ userDataPath, io = fs, now = () => Da
     compare(inspect()); backup.verifyBackup(); backup.verifySource();
     const result = commitUpgrade({ filePath, identityPath, inspected, encoded, backup, now, io, checkpoint }, ports);
     return Object.freeze({ status: 'upgraded', backupPath, backupFile: backup.filePath,
-      sourceVersion: 18, targetVersion: 19, revision: result.revision, reconciled: result.reconciled });
+      sourceVersion, targetVersion, revision: result.revision, reconciled: result.reconciled });
   }
   return Object.freeze({ status: 'verified-upgrade-required', confirmation: token,
-    sourceVersion: 18, targetVersion: 19, sourcePath, backupPath, binding, execute });
+    sourceVersion, targetVersion, sourcePath, backupPath, binding, execute });
 }
 function commitUpgrade({ filePath, identityPath, inspected, encoded, backup, now, io, checkpoint }, ports) {
-  const { driver, makeHandle } = ports, { identity, snapshot: before } = inspected;
+  const { driver, makeHandle } = ports, { identity, snapshot: before, assertTarget } = inspected;
+  const sourceVersion = before.payloadVersion, targetVersion = encoded.version;
   const desiredRevision = before.revision + 1;
   if (!Number.isSafeInteger(desiredRevision)) throw fail('config-revision-invalid');
-  const evidenceId = `preferences-18-19-${before.hash}`;
-  const matchesEvidence = row => row && row.kind === 'payload-migration' && row.source_version === 18 && row.target_version === 19
+  const evidenceId = `preferences-${sourceVersion}-${targetVersion}-${before.hash}`;
+  const matchesEvidence = row => row && row.kind === 'payload-migration' && row.source_version === sourceVersion && row.target_version === targetVersion
     && row.source_revision === before.revision && row.source_hash === before.hash && Buffer.from(row.source_bytes).equals(Buffer.from(before.json));
   const verifyReceipt = handle => {
     verifyEvidence(handle, identity);
@@ -93,14 +99,14 @@ function commitUpgrade({ filePath, identityPath, inspected, encoded, backup, now
       if (writer.get('SELECT * FROM config_evidence WHERE backup_id=?', [evidenceId])) throw fail('config-migration-backup-conflict');
       const createdAt = now();
       if (!Number.isSafeInteger(createdAt) || createdAt < 0) throw fail('config-upgrade-clock-invalid');
-      writer.run('INSERT INTO config_evidence VALUES(?,?,?,?,?,?,?,?)', [evidenceId, 'payload-migration', 18, 19,
+      writer.run('INSERT INTO config_evidence VALUES(?,?,?,?,?,?,?,?)', [evidenceId, 'payload-migration', sourceVersion, targetVersion,
         before.revision, before.hash, Buffer.from(before.json), createdAt]);
       checkpoint('evidence-written');
       const changed = writer.run('UPDATE config_snapshot SET revision=?,payload_version=?,payload_hash=?,payload_json=?,mirror_target_hash=? WHERE singleton=1 AND revision=? AND payload_hash=?',
-        [desiredRevision, 19, encoded.hash, encoded.json, encoded.mirrorHash, before.revision, before.hash]);
+        [desiredRevision, targetVersion, encoded.hash, encoded.json, encoded.mirrorHash, before.revision, before.hash]);
       if (Number(changed.changes) !== 1) throw fail('config-revision-conflict');
       checkpoint('payload-written');
-      assertCanonicalPersistedState(readAuthoritySnapshot(writer, identity).state); verifyReceipt(writer);
+      assertTarget(readAuthoritySnapshot(writer, identity).state); verifyReceipt(writer);
       checkpoint('before-commit'); writer.exec('COMMIT'); checkpoint('after-commit');
     } catch (caught) { try { writer.exec('ROLLBACK'); } catch (_) {} throw caught; }
   } catch (caught) { error = caught; }
@@ -118,7 +124,7 @@ function commitUpgrade({ filePath, identityPath, inspected, encoded, backup, now
     throw Object.assign(fail('config-commit-outcome-unknown'), { backupPath: backup.backupPath });
   }
   try {
-    assertCanonicalPersistedState(current.state); currentIdentity();
+    assertTarget(current.state); currentIdentity();
     // Includes the exact migration receipt; the business transition is never
     // replayed to reconcile COMMIT uncertainty.
     proveConfigSnapshotDurable({ filePath, identity, expected: current, verifyExtra: verifyReceipt }, ports);

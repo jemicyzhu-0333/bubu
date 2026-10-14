@@ -42,7 +42,8 @@ function inspect(handle) {
     || !/^[a-zA-Z0-9_-]{16,128}$/.test(binding.authorityId) || !Number.isInteger(binding.applicationId)
     || binding.applicationId < 1 || binding.applicationId >= 2147483647 || !Number.isSafeInteger(binding.sourceRevision)
     || binding.sourceRevision < 0 || !hashValid(binding.sourceHash) || !hashValid(binding.targetHash)
-    || binding.sourceVersion !== 18 || binding.targetVersion !== 19 || !/^[a-f0-9-]{36}$/.test(binding.token)) throw fail('binding-invalid');
+    || !((binding.sourceVersion === 18 && binding.targetVersion === 19)
+      || (binding.sourceVersion === 19 && binding.targetVersion === 20)) || !/^[a-f0-9-]{36}$/.test(binding.token)) throw fail('binding-invalid');
   const entries = handle.all('SELECT relative_path,kind,byte_length,mode,mtime_ns,sha256,length(bytes) AS actual_length FROM upgrade_files ORDER BY relative_path');
   if (entries.length < 1 || entries.length > LIMIT_MEMBERS || entries.length !== manifest.entries.length
     || entries[0].relative_path !== '' || entries[0].kind !== 'directory') throw fail('members-invalid');

@@ -6,7 +6,7 @@ const { TRIAGE_LEVELS, TRIAGE_ROUTINE_KINDS } = require('../domain/impulse-inbox
 function decodeOrganize(validation) {
   const object = validation.requireObject();
   if (!object) return undefined;
-  validation.rejectUnknown(object, ['id', 'action', 'category', 'routineKind', 'level', 'title', 'routineId', 'createNew']);
+  validation.rejectUnknown(object, ['id', 'action', 'category', 'routineKind', 'level', 'title', 'routineId', 'createNew', 'occurredAt']);
   const id = validation.validateId(object.id);
   if (!['classify', 'keep', 'routine', 'log', 'state'].includes(object.action)) validation.fail('invalid inbox action');
   if (object.action === 'classify' && !CATEGORIES.includes(object.category)) validation.fail('invalid inbox category');
@@ -16,7 +16,9 @@ function decodeOrganize(validation) {
   const title = object.title === undefined ? undefined : validation.validateBoundedString(object.title, 'title', 40);
   const routineId = object.routineId == null ? null : validation.validateId(object.routineId, 'routineId');
   if (object.createNew !== undefined && typeof object.createNew !== 'boolean') validation.fail('createNew must be boolean');
-  return { id, action: object.action, category: object.category, routineKind: object.routineKind, level: object.level, title, routineId, createNew: object.createNew === true };
+  if (object.occurredAt !== undefined && (object.action !== 'log' || !Number.isSafeInteger(object.occurredAt)
+      || object.occurredAt < 0 || object.occurredAt > 8.64e15)) validation.fail('invalid occurredAt');
+  return { id, ...(object.occurredAt !== undefined ? { occurredAt: object.occurredAt } : {}), action: object.action, category: object.category, routineKind: object.routineKind, level: object.level, title, routineId, createNew: object.createNew === true };
 }
 
 function decodeInboxHistory(validation) {

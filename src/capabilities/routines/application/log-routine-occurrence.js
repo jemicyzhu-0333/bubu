@@ -13,6 +13,7 @@
 // midnight-crossing tap in one day's entries with the previous day's timestamp.
 
 const routineLogging = require('../domain/routine-logging');
+const { ROUTINE_LOGGABLE_STATUSES } = require('../../../core/routine-model');
 const { runPostCommitEffect } = require('../../../shared/post-commit-effects');
 
 const LOG_ROUTINE_OCCURRENCE_WRITES = Object.freeze(['routineLog']);
@@ -38,16 +39,39 @@ function createLogRoutineOccurrenceCommand({
     runPostCommitEffect(publish, Object.freeze({ ...fact, revision: transaction.revision }), reportEffectError);
   }
 
-  function log({ routineId, occurrenceId, status, note, magnitude, at, expectedRevision } = {}) {
-    const loggedAt = at === undefined ? clock.now() : at;
-    const dayKey = clock.dayKey(loggedAt);
+  function log({ routineId, occurrenceId, status, note, magnitude, at, expectedAt, expectedStatus, expectedRevision } = {}) {
+    const now = clock.now();
+    const loggedAt = at === undefined ? now : at;
+    if (!Number.isSafeInteger(loggedAt) || loggedAt < 0 || !Number.isFinite(new Date(loggedAt).getTime())) {
+      return { ok: false, reason: 'invalid-occurrence-time' };
+    }
+    const today = clock.dayKey(now);
+    const dayKey = loggedAt === now ? today : clock.dayKey(loggedAt);
+    const validity = routineLogging.validateOccurrenceTime({ at: loggedAt, now, dayKey, today });
+    if (!validity.ok) return validity;
+    const correcting = expectedAt !== undefined || expectedStatus !== undefined;
+    if (correcting && (at === undefined || note !== undefined || magnitude !== undefined)) {
+      return { ok: false, reason: 'invalid-occurrence-correction' };
+    }
     const transaction = unitOfWork.run({
       writes: LOG_ROUTINE_OCCURRENCE_WRITES,
       expectedRevision,
-      context: { now: loggedAt },
-      transition: state => routineLogging.logOccurrence(state, {
-        routineId, occurrenceId, status, note, magnitude, dayKey, at: loggedAt
-      })
+      context: { now },
+      transition: state => {
+        if (correcting) return routineLogging.correctOccurrenceTime(state, {
+          routineId, occurrenceId, status, at: loggedAt, expectedAt, expectedStatus, now, dayKey, today
+        });
+        // An explicit time editing a terminal answer must use the same CAS as
+        // the editor. New records and a notified slot's first answer still work.
+        const existing = at === undefined ? null : state.routineLog.days
+          .flatMap(day => day.entries).find(entry => entry.occurrenceId === occurrenceId);
+        if (existing && ROUTINE_LOGGABLE_STATUSES.includes(existing.status) && existing.at !== loggedAt) {
+          return { ok: false, reason: 'invalid-occurrence-correction' };
+        }
+        return routineLogging.logOccurrence(state, {
+          routineId, occurrenceId, status, note, magnitude, dayKey, at: loggedAt
+        });
+      }
     });
     if (!transaction.ok) return { ok: false, reason: transaction.reason };
     commit({

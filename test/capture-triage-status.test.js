@@ -137,3 +137,22 @@ test('observability faults and missing sources cannot produce new requests or re
   h.status.running(token); h.status.finish(token, { reason: 'capture-triage-disabled' });
   assert.deepEqual(h.status.read(note()), { state: 'interrupted', reason: 'cancelled' }, 'opt-out after starting is not labeled never enabled');
 });
+
+test('an explicit clock proposal survives only in the bound runtime projection, without new sent fields or canonical shape', async () => {
+  const now = new Date(2026, 9, 13, 19, 54).getTime();
+  let state = { settings: { aiBreakdownEnabled: true, aiCaptureTriageEnabled: true },
+    impulses: [{ id: 'synthetic-clock', text: '晚上6点做了1小时健身', createdAt: now, classification: null, resolution: null }] };
+  const calls = [], writes = [];
+  const runner = createTriageCaptureWorkflow({ readSnapshot: () => state, clock: { now: () => now },
+    triage: async input => { calls.push(input); return { ok: true, triage: { category: 'log', title: '健身', confidence: 90,
+      routineKind: 'movement', level: null, reason: '已完成的活动', eventTime: { dayOffset: 0, time: '18:00', evidence: '晚上6点' } } }; },
+    unitOfWork: { run({ transition }) { const next = structuredClone(state), result = transition(next);
+      if (result.ok) { state = next; writes.push(next); } return { ...result, committed: result.ok }; } }
+  });
+  await runner.handleCaptured({ type: 'impulse-captured', impulseId: 'synthetic-clock', capturedAt: now });
+  assert.deepEqual(calls, [{ impulseText: '晚上6点做了1小时健身' }]); assert.equal(writes.length, 1);
+  assert.equal(runner.readStatus(state.impulses[0]).occurredAt, new Date(2026, 9, 13, 18).getTime());
+  assert.equal(Object.hasOwn(state.impulses[0].triage, 'eventTime'), false);
+  assert.equal(Object.hasOwn(state.impulses[0], 'triageStatus'), false);
+  assert.equal(state.impulses[0].createdAt, now);
+});

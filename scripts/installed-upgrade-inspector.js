@@ -5,7 +5,7 @@ const path = require('node:path');
 const { createHash } = require('node:crypto');
 const ELECTRON = "process.getBuiltinModule('module').createRequire(process.resourcesPath + '/app.asar/package.json')('electron')";
 const STATE = '__bubuInstalledUpgradeTest';
-const CONFIRM = '为语言与外观设置升级数据 / Upgrade data for language and appearance';
+const CONFIRM = '为日常记录升级数据 / Upgrade data for routine records';
 const REPORT = '升级已完成 / Upgrade complete';
 
 async function openSession(url) {
@@ -71,7 +71,7 @@ function dialogStubExpression(userDataPath) {
       const confirm = options.type === 'question' && options.message === ${JSON.stringify(CONFIRM)}
         && JSON.stringify(options.buttons) === JSON.stringify(['退出 / Quit', '备份并升级 / Back up and upgrade'])
         && options.checkboxLabel === '已了解需保留备份 / I understand the backup must be kept' && options.checkboxChecked === false
-        && typeof options.detail === 'string' && options.detail.includes('18 → 19') && options.detail.includes(source);
+        && typeof options.detail === 'string' && options.detail.includes('19 → 20') && options.detail.includes(source);
       const report = options.type === 'info' && options.message === ${JSON.stringify(REPORT)}
         && JSON.stringify(options.buttons) === JSON.stringify(['确定 / OK']);
       if (confirm && state.phase === 'installed') state.phase = 'confirm';

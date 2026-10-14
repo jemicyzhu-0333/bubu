@@ -23,9 +23,14 @@ function createPreferencesUpgradeHost({ appHost, sourcePath, argv = process.argv
   const { app, dialog } = electron;
   async function confirm(upgrade) {
     await appHost.whenReady();
+    const routineUpgrade = upgrade.sourceVersion === 19 && upgrade.targetVersion === 20;
+    const versions = routineUpgrade ? '19 → 20' : '18 → 19';
+    const purpose = routineUpgrade ? '保留跨日更正的日常记录' : '添加语言与主题设置';
+    const purposeEnglish = routineUpgrade ? 'retaining corrected routine records across days' : 'adding language and theme preferences';
     const result = await dialog.showMessageBox({ type: 'question', title: '小步 · bubu',
-      message: '为语言与外观设置升级数据 / Upgrade data for language and appearance',
-      detail: `已核验此 bubu 档案（18 → 19）。升级前会建立完整私有备份，只添加语言与主题设置。旧版不能直接打开升级后的数据。\n\nVerified bubu profile (18 → 19). A complete private backup is required before adding language and theme preferences. Earlier versions cannot open the upgraded profile.\n\n档案 / Profile: ${upgrade.sourcePath}\n备份 / Backup: ${upgrade.backupPath}\n\n备份可能含私密内容，请妥善保存。 / The backup may contain private information. Keep it private.`,
+      message: routineUpgrade ? '为日常记录升级数据 / Upgrade data for routine records'
+        : '为语言与外观设置升级数据 / Upgrade data for language and appearance',
+      detail: `已核验此 bubu 档案（${versions}）。升级前会建立完整私有备份，${purpose}。旧版不能直接打开升级后的数据。\n\nVerified bubu profile (${versions}). A complete private backup is required before ${purposeEnglish}. Earlier versions cannot open the upgraded profile.\n\n档案 / Profile: ${upgrade.sourcePath}\n备份 / Backup: ${upgrade.backupPath}\n\n备份可能含私密内容，请妥善保存。 / The backup may contain private information. Keep it private.`,
       buttons: ['退出 / Quit', '备份并升级 / Back up and upgrade'], defaultId: 0, cancelId: 0,
       noLink: true, checkboxLabel: '已了解需保留备份 / I understand the backup must be kept', checkboxChecked: false });
     return result.response === 1 && result.checkboxChecked === true;
