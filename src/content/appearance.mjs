@@ -358,7 +358,13 @@ const PET_APPEARANCE_ITEMS = Object.freeze([
     formId: 'usagi', minLevel: 15, views: ALL_VIEWS,
     exclusiveGroup: 'usagi.footwear', exclusivePriority: 5,
     renderKey: 'usagi-moon-boots', bleed: { bottom: 5 }
-  })
+  }) ,
+  Object.freeze({ ...appearanceItem('seasonal.pumpkin-beret', '南瓜贝雷帽', 'head', 'front', 47, {
+    minLevel: 1, views: ['front'], exclusiveGroup: 'headwear', exclusivePriority: 50,
+    renderKey: 'pumpkin-beret', bleed: { top: 10 } }), optInOnly: true }),
+  Object.freeze({ ...appearanceItem('seasonal.plum-cape', '梅紫小披风', 'back', 'back', 14, {
+    minLevel: 1, views: ['front'], parts: ['back', 'front'], exclusiveGroup: 'backwear', exclusivePriority: 80,
+    renderKey: 'plum-cape', bleed: { left: 5, right: 5 } }), optInOnly: true }),
 ]);
 
 export default Object.freeze({ PET_APPEARANCE_ITEMS, PET_APPEARANCE_VIEWS, PET_APPEARANCE_LAYERS });

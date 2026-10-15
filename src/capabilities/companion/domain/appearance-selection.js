@@ -79,7 +79,7 @@ function lockReasonFor(item, level, ownedSkins) {
 // asserts the results match item for item across every skin and level, so this
 // copy cannot quietly drift from the original.
 function autoEligible(item, level, currentSkin) {
-  return item.minLevel <= level && (!item.skin || item.skin === currentSkin);
+  return !item.optInOnly && item.minLevel <= level && (!item.skin || item.skin === currentSkin);
 }
 
 // `resolveExclusiveItems` in `core/pet-appearance.mjs` expresses this preference

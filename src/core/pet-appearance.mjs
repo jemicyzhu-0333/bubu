@@ -101,7 +101,7 @@ function projectAppearance({
   const requested = Array.isArray(itemIds) ? new Set(itemIds) : null;
   const activeItems = resolveExclusiveItems(items
     .filter(item => (item.formId || 'dango') === formId)
-    .filter(item => requested ? requested.has(item.id) : (includeLocked || item.minLevel <= safeLevel))
+    .filter(item => requested ? requested.has(item.id) : !item.optInOnly && (includeLocked || item.minLevel <= safeLevel))
     .filter(item => includeLocked || !item.skin || item.skin === safeSkin)
     .filter(item => item.views.includes(safeView))
     .sort((left, right) => left.z - right.z || left.id.localeCompare(right.id)))

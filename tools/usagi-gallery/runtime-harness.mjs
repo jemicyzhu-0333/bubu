@@ -123,7 +123,7 @@ export function createRenderHarness(source, options = {}) {
     const plan = action ? source.interactionPlayback?.createManualActionPlayback(content, action.id,
       { interactionId: id, formId: form.id }) || { id: action.id, duration: action.duration, manual: true,
         expression: id === 'longPress' && options.interactionHeld !== false ? 'react.petted' : action.expression } : null;
-    let item = plan ? { ...action, expression: id === 'longPress' && options.interactionHeld !== false ? 'react.petted' : plan.expression, duration: plan.duration } : kind === 'action' ? content.PET_ACTIONS[id] : kind === 'session' ? content.SESSION_ACTIVITIES[id]
+    let item = plan ? { ...action, expression: id === 'longPress' && options.interactionHeld !== false ? 'react.petted' : plan.expression, duration: plan.duration } : kind === 'action' ? content.PET_ACTIONS[id] || source.formArt.previewAction(form, id) : kind === 'session' ? content.SESSION_ACTIVITIES[id]
       : kind === 'scene' ? content.SCENES[id]
       : kind === 'appearance' ? content.PET_APPEARANCE_ITEMS.find(value => value.id === id)
       : kind === 'status' ? { id, expression: id === 'hungry' ? 'react.hungry' : 'life.idle', label: id }

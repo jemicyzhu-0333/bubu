@@ -2,6 +2,7 @@
 
 import { DANGO_WALK_WORKBENCH } from '../../../content/companion/gait/dango-walk.mjs';
 import { DANGO_RASTER } from '../../../../assets/companion/dango/raster/dango.raster.mjs';
+import { createFrontStoryArtist } from './front-story-artist.mjs';
 import { createDangoRasterArtist } from './dango-raster-art.mjs';
 import { createDangoLimbSource } from './dango-limb-assets.mjs';
 import { browserImageLoader } from './raster/source.mjs';
@@ -16,5 +17,5 @@ import { DANGO_LIMB_RIG } from '../../../content/companion/dango-limbs.mjs';
 // the contract via DANGO_LIMB_RIG.hostAcceptsContract (2: enabled; per-action
 // reach gate plus DANGO_LIMB_RIG.visibleDefects keep defective pairs legacy).
 const limbs = createDangoLimbSource({ baseUrl: DANGO_RASTER.baseUrl, loadImage: browserImageLoader, acceptContract: DANGO_LIMB_RIG.hostAcceptsContract });
-export default createDangoRasterArtist({ manifest: DANGO_RASTER, runFootTiming: 'forward-recovery', limbs,
-  walkPreview: { enabled: DANGO_WALK_WORKBENCH.enabled, workbench: true } });
+export default createFrontStoryArtist(createDangoRasterArtist({ manifest: DANGO_RASTER, runFootTiming: 'forward-recovery', limbs,
+  walkPreview: { enabled: DANGO_WALK_WORKBENCH.enabled, workbench: true } }));

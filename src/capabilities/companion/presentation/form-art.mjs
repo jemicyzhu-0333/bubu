@@ -1,5 +1,6 @@
 'use strict';
 
+import { FRONT_STORY_PREVIEWS } from '../../../content/companion/front-stories.mjs';
 import { DANGO_WALK_WORKBENCH } from '../../../content/companion/gait/dango-walk.mjs';
 import { sampleAccent } from './motion-core/accents.mjs';
 import { motionCaps } from './motion-core/action-capabilities.mjs';
@@ -71,6 +72,7 @@ function resolveView(form, requested, options = {}) {
 }
 
 function previewAction(form, id) {
+  if (form?.id === 'dango' && Object.hasOwn(FRONT_STORY_PREVIEWS, id)) return FRONT_STORY_PREVIEWS[id];
   return DANGO_WALK_WORKBENCH.enabled && form?.id === 'dango'
     && id === DANGO_WALK_WORKBENCH.action.id ? DANGO_WALK_WORKBENCH.action : null;
 }
