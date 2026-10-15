@@ -2,7 +2,7 @@
 const freeze = value => { if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); } return value; };
 const data = {
   "id": "dango-raster",
-  "version": 2369755191,
+  "version": 1978659193,
   "views": {
     "front": {
       "neutral": {
@@ -10974,6 +10974,110 @@ const data = {
         "part": "umbrella-front",
         "sourceSha256": "f31f8b4d4d83038314602ddc25cc7c5deb7b92f5b32018fd20b64e40dff0501e"
       }
+    },
+    "workout-front-support-v4-left": {
+      "src": "action-contact/workout-front-support-v4/left-8x.png",
+      "rect": [
+        -12,
+        -1,
+        90,
+        81
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "workout-front-support-v4",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "workout",
+        "view": "front",
+        "side": "left",
+        "kind": "planted-support",
+        "depth": "behind-body",
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "sourceSha256": "5f7045b75998b125a6f733bce339812e7e4fce8d031fa59b7c9a486c3886bdf5",
+        "rawSourceSha256": "d53f342877cc1a14ed04cb90c769d51074eaa7a22fb2c71029daa2f211cf8061",
+        "logicalSha256": "d37f552f4b706f47d1012726b87ad588b831e599235ff3cc1169d8d33a31b725",
+        "contact": [
+          6.5,
+          64
+        ],
+        "normal": [
+          0,
+          1
+        ],
+        "soleXInterval": [
+          2,
+          11
+        ],
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "samplesPerArtUnit": 1,
+        "uniformSourceScale": 0.06379585326953748,
+        "alphaCoverageThreshold": 0.25,
+        "paletteSelection": "maximum-alpha-weighted-area",
+        "opaqueCells": 274,
+        "binaryAlpha": true,
+        "exactNearest8x": true,
+        "rootOcclusion": "unchanged-canonical-body"
+      }
+    },
+    "workout-front-support-v4-right": {
+      "src": "action-contact/workout-front-support-v4/right-8x.png",
+      "rect": [
+        -12,
+        -1,
+        90,
+        81
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "workout-front-support-v4",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "workout",
+        "view": "front",
+        "side": "right",
+        "kind": "planted-support",
+        "depth": "behind-body",
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "sourceSha256": "6f9c7d7ff926591759517f7b45938224e463df67928b4c391a0c896f97d0e7cc",
+        "rawSourceSha256": "d53f342877cc1a14ed04cb90c769d51074eaa7a22fb2c71029daa2f211cf8061",
+        "logicalSha256": "7e36c35aaa10120fb8ab995c63d9701e9c56d8f284f6c92370213fe76a9e76d4",
+        "contact": [
+          59.5,
+          64
+        ],
+        "normal": [
+          0,
+          1
+        ],
+        "soleXInterval": [
+          55,
+          64
+        ],
+        "translationOnly": true,
+        "quantizedOnce": true,
+        "samplesPerArtUnit": 1,
+        "uniformSourceScale": 0.06379585326953748,
+        "alphaCoverageThreshold": 0.25,
+        "paletteSelection": "maximum-alpha-weighted-area",
+        "opaqueCells": 264,
+        "binaryAlpha": true,
+        "exactNearest8x": true,
+        "rootOcclusion": "unchanged-canonical-body"
+      }
     }
   },
   "effects": {
@@ -14257,7 +14361,7 @@ const data = {
       "wardrobe": 1,
       "scenes": 1
     },
-    "assetDigest": "8d3f9837d27b917b99e4927533b37acaece77d241e2c4cda85a5243e8ea13ea4",
+    "assetDigest": "75eff179969abed169823f8b341c35c804284fddebe33be63cfe5d4928e65991",
     "assetHashes": {
       "action-contact/catch-star-quarter-v1/right-back-8x.png": "7d3180a8d964f243305e144cc176c6bb9df717017381b817c46d8248a0c54c20",
       "action-contact/catch-star-quarter-v1/right-front-8x.png": "77acf54475664a747636e1fd7f5dda7b108df41e274f41e5696cd5dda864df3d",
@@ -14291,6 +14395,8 @@ const data = {
       "action-contact/wave-front-v1/wave-08-8x.png": "9afb39cbeb860073616c0ca3bf242744db3d36fed0f221535ebf5ab49ad7467b",
       "action-contact/wave-front-v1/wave-09-8x.png": "2801ca7f8dd47480d38881f39079d11cbab79e830d486ee918b966051c2f9097",
       "action-contact/wave-front-v1/wave-10-8x.png": "5cf7d0c3ebefd808980248b538153f30557e20bd38d0e046543be7e07e785c2d",
+      "action-contact/workout-front-support-v4/left-8x.png": "5f7045b75998b125a6f733bce339812e7e4fce8d031fa59b7c9a486c3886bdf5",
+      "action-contact/workout-front-support-v4/right-8x.png": "6f9c7d7ff926591759517f7b45938224e463df67928b4c391a0c896f97d0e7cc",
       "effects/bat.png": "325fafc82f8e65c0809aba6a658a6a7fe85bf37fb7d245b20c18c15df657f0f2",
       "effects/bird.png": "4fa9bdd7e5bc74cdc3157cbfbef7a7bec970ee4d24dd19d33b8ea37fc8c3c0c3",
       "effects/bubble.png": "e0d37278dae0c88b88ea8d8bd4f586f0d51612d01c7df3902ef7a142eec57ebf",

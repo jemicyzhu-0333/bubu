@@ -1,0 +1,147 @@
+{
+  "method": "Single exact area-overlap projection of original raw halves onto global 1-art cells; alpha-weighted coverage >=0.25; palette class with greatest alpha-weighted source area, no ink preference. No per-cell painting, dilation, erasure or shape mask.",
+  "scale": 0.06379585326953748,
+  "rect": [
+    -12,
+    -1,
+    90,
+    81
+  ],
+  "coverageThreshold": 0.25,
+  "sources": {
+    "left": {
+      "sourcePositiveAlphaPixels": 67656,
+      "sourceAlphaWeightedInkAreaArt": 82.47438213041778,
+      "sourceAlphaWeightedFillAreaArt": 175.48453461292127,
+      "outputOpaqueCells": 274,
+      "outputInkCells": 102,
+      "outputFillCells": 172,
+      "opaqueBBoxArt": [
+        -6,
+        38,
+        13,
+        64
+      ],
+      "sourceInkAreaDroppedByCoverageArt": 2.509281556485573,
+      "sourceInkAreaClassifiedAsFillArt": 6.9201857555213415,
+      "sourceFillAreaClassifiedAsInkArt": 11.74838590875151,
+      "sourceFillAreaDroppedByCoverageArt": 0.18008078872876138,
+      "inkAreaRatioOutputToSource": 1.236747670794382,
+      "inkAreaIncreaseArt": 19.52561786958222,
+      "retainedSourceAreaTotalArt": 257.95891674333905,
+      "inputSourceAreaTotalArt": 257.95891674333905,
+      "allAlphaPreservedBeforeCoverageProjection": true,
+      "exactNN8x": true,
+      "binaryAlpha": [
+        0,
+        255
+      ],
+      "transparentRGBZero": true,
+      "palette": [
+        [
+          26,
+          27,
+          38
+        ],
+        [
+          240,
+          80,
+          104
+        ],
+        [
+          248,
+          104,
+          120
+        ],
+        [
+          248,
+          128,
+          128
+        ]
+      ],
+      "exposedInkAudit": [
+        {
+          "phase": "0.25",
+          "definition": "Raw source pixel centers projected to final-stage mapped canonical body; exposed if body alpha<128. Audit only; source never masked.",
+          "exposedSourceInkAreaArt": 63.65675807955867,
+          "exposedSourceInkDroppedByCoverageArt": 1.8604121313469975,
+          "exposedSourceInkMappedToFillArt": 4.83787913950712
+        },
+        {
+          "phase": "0.3125",
+          "definition": "Raw source pixel centers projected to final-stage mapped canonical body; exposed if body alpha<128. Audit only; source never masked.",
+          "exposedSourceInkAreaArt": 48.00787088846104,
+          "exposedSourceInkDroppedByCoverageArt": 1.3007594822813984,
+          "exposedSourceInkMappedToFillArt": 4.304832535386402
+        }
+      ]
+    },
+    "right": {
+      "sourcePositiveAlphaPixels": 64513,
+      "sourceAlphaWeightedInkAreaArt": 81.53330700859104,
+      "sourceAlphaWeightedFillAreaArt": 162.4996834098112,
+      "outputOpaqueCells": 264,
+      "outputInkCells": 101,
+      "outputFillCells": 163,
+      "opaqueBBoxArt": [
+        53,
+        38,
+        72,
+        64
+      ],
+      "sourceInkAreaDroppedByCoverageArt": 1.956344534715694,
+      "sourceInkAreaClassifiedAsFillArt": 7.899600011551377,
+      "sourceFillAreaClassifiedAsInkArt": 10.440044072745875,
+      "sourceFillAreaDroppedByCoverageArt": 0.1310108307012193,
+      "inkAreaRatioOutputToSource": 1.238757554496812,
+      "inkAreaIncreaseArt": 19.466692991408962,
+      "retainedSourceAreaTotalArt": 244.03299041840228,
+      "inputSourceAreaTotalArt": 244.0329904184023,
+      "allAlphaPreservedBeforeCoverageProjection": true,
+      "exactNN8x": true,
+      "binaryAlpha": [
+        0,
+        255
+      ],
+      "transparentRGBZero": true,
+      "palette": [
+        [
+          26,
+          27,
+          38
+        ],
+        [
+          240,
+          80,
+          104
+        ],
+        [
+          248,
+          104,
+          120
+        ],
+        [
+          248,
+          128,
+          128
+        ]
+      ],
+      "exposedInkAudit": [
+        {
+          "phase": "0.25",
+          "definition": "Raw source pixel centers projected to final-stage mapped canonical body; exposed if body alpha<128. Audit only; source never masked.",
+          "exposedSourceInkAreaArt": 67.58088636175353,
+          "exposedSourceInkDroppedByCoverageArt": 1.6264321560068664,
+          "exposedSourceInkMappedToFillArt": 5.692672150372832
+        },
+        {
+          "phase": "0.3125",
+          "definition": "Raw source pixel centers projected to final-stage mapped canonical body; exposed if body alpha<128. Audit only; source never masked.",
+          "exposedSourceInkAreaArt": 52.74558233866157,
+          "exposedSourceInkDroppedByCoverageArt": 1.1066965545760337,
+          "exposedSourceInkMappedToFillArt": 5.200165050847202
+        }
+      ]
+    }
+  }
+}

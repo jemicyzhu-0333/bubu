@@ -51,7 +51,9 @@ function createRasterWardrobe({ manifest, painter, source }) {
     let painted = false;
     // The same attached boot is gradually tucked behind the torso as the
     // foot sinks below the shared floor; cuffs cannot float above the rim.
-    const support = artwork?.actionReady && artwork?.contact?.hands.some(hand => hand.pawSprite === 'support-paw')
+    const support = artwork?.actionReady && artwork?.contact?.hands.some(hand => hand.pawSprite === 'support-paw'
+      || hand.sourceContact?.sourcePoseId === 'workout-front-support-v4'
+        && hand.sourceContact.kind === 'planted-support' && hand.sourceContact.depth === 'behind-body')
       && item.exclusiveGroup === 'footwear';
     if (item.renderKey === 'sunhat' && layer === 'back' && artwork?.layeredReady !== false) {
       for (const key of ['ear-left', 'ear-right']) {
