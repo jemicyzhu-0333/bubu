@@ -1,0 +1,164 @@
+{
+  "status": "passed-current-local-integration-publication-and-review-pending",
+  "validatedLocalComposition": "99e431a-based branch materialization plus frozen workout module and additive knitting rebase; sourceHashes identify the exact tested local code.",
+  "publicationParentHead": "e974ab494fa586134147b60a2cde350d513a0243",
+  "publicationParentStatus": "Verified remote workout commit; Bobo round30 CI documentation preserved.",
+  "check": {
+    "command": "USAGI_CANVAS_PACKAGE=@napi-rs/canvas DANGO_CANVAS_PACKAGE=@napi-rs/canvas PET_MOTION_CANVAS_PACKAGE=@napi-rs/canvas npm run check",
+    "exit": 0,
+    "tests": 6715,
+    "pass": 6710,
+    "skip": 5,
+    "fail": 0,
+    "logSha256": "12ffafdcfe1112cbc9563f2ec61b46f06b9b642a28890fa9ea9890c12d521236"
+  },
+  "integration": {
+    "command": "npm run test:integration",
+    "exit": 0,
+    "tests": 71,
+    "pass": 71,
+    "fail": 0,
+    "skip": 0,
+    "logSha256": "decd2b5b14a5094ba5f8147620b316ae57c5db3ec71a1efce1bd3ea63618d135"
+  },
+  "environment": {
+    "node": "v24.19.0",
+    "platform": "Linux x86_64",
+    "canvas": "@napi-rs/canvas 1.0.10",
+    "nativeCertification": false
+  },
+  "actualProductionRenderer": {
+    "allSixScriptExits": 0,
+    "geometryFrames": 1032,
+    "singleHandContributions": 3168,
+    "minimumChangedFinalPixels": 132,
+    "lifecycleObservations": 32,
+    "appearanceGroups": 32,
+    "appearanceFrames": 192,
+    "appearanceSingleHandContributions": 384,
+    "appearanceMinimumChangedFinalPixels": 558,
+    "rootExposure": 0,
+    "fullyOccludedAppearanceCases": 0,
+    "reservedPetChannelAsserted": true,
+    "exactlyOnePalmDrawAsserted": "selected geometry and lifecycle observations",
+    "genericLimbScope": "Current unchanged integrated production artist/selector/renderer, real generic limb material loaded through fixture.mjs.",
+    "omissionScope": "Current unchanged integrated production artist/selector/renderer with single decoded source omitted per control, no generic limb material injected. This does not claim real-limbs fallback equivalence.",
+    "copiedSelector": false,
+    "poseInjection": false,
+    "petChannelAssertions": 1052,
+    "singleHandExactDrawAssertions": 2104
+  },
+  "qaExecutions": [
+    {
+      "script": "matrix",
+      "label": "matrix-attempt2",
+      "exit": 0,
+      "elapsedSeconds": 7.254662318999181,
+      "maxRssKiB": 932588,
+      "userSeconds": 11.393907,
+      "systemSeconds": 1.013478
+    },
+    {
+      "script": "strict-draw-qa",
+      "label": "strict-draw-qa",
+      "exit": 0,
+      "elapsedSeconds": 20.422787432995392,
+      "maxRssKiB": 729792,
+      "userSeconds": 23.278267,
+      "systemSeconds": 0.686032
+    },
+    {
+      "script": "aggregate",
+      "label": "aggregate",
+      "exit": 0,
+      "elapsedSeconds": 0.07527498199488036,
+      "maxRssKiB": 44764,
+      "userSeconds": 0.06543299999999999,
+      "systemSeconds": 0.017277
+    },
+    {
+      "script": "appearance-geometry",
+      "label": "appearance-geometry",
+      "exit": 0,
+      "elapsedSeconds": 2.9905603360093664,
+      "maxRssKiB": 1899072,
+      "userSeconds": 4.542078,
+      "systemSeconds": 0.813136
+    },
+    {
+      "script": "appearance-draw-qa",
+      "label": "appearance-draw-qa",
+      "exit": 0,
+      "elapsedSeconds": 7.627585303998785,
+      "maxRssKiB": 824172,
+      "userSeconds": 9.133689,
+      "systemSeconds": 0.57633
+    },
+    {
+      "script": "aggregate-appearance",
+      "label": "aggregate-appearance",
+      "exit": 0,
+      "elapsedSeconds": 0.07732818799559027,
+      "maxRssKiB": 40892,
+      "userSeconds": 0.058119,
+      "systemSeconds": 0.027101999999999998
+    }
+  ],
+  "raster": {
+    "runtimeSourcePaths": 348,
+    "workbenchEmbeddedAssets": 453,
+    "version": 473328272,
+    "assetDigest": "1c366a90a27d494fe1645a7c5b6d876fc722eec16825ddeea522440b49e5e987"
+  },
+  "sourceRebuild": {
+    "outputsByteExact": 4,
+    "normalNodeTestsDoNotRequirePython": true
+  },
+  "rawSourceUpload": {
+    "approved": true,
+    "gitBlobSha": "efa957561d8111aedf99a643723593b0c98650e0",
+    "masterSha256": "d2ed1da73fe39b3654b8adb812717ce47c5f9c5ae41cf385d1bf448e3af3496b",
+    "modulePublicationEstablished": false
+  },
+  "offscreenOnly": true,
+  "sourceHashes": {
+    "assets/companion/dango/raster/action-contact/knit-front-round-v2/left-8x.png": "0f517601189a89f42e51f127a53c24202a3e22f02ba0091e0020828e1bde4924",
+    "assets/companion/dango/raster/action-contact/knit-front-round-v2/right-8x.png": "3ad50e8ceae2b854b95bfd774931605027209440ff8874997bd209626fb09d0a",
+    "assets/companion/dango/raster/dango.raster.mjs": "0ddaff76f4bec1b6a50cc7936e542086560914f334b92dedfc125018e056a143",
+    "assets/companion/dango/raster/source-specs/tools.json": "2aee4d1ced634dc79ac442f912d5a4545a09897ed0be503b6d3291ddba4d345b",
+    "docs/reviews/dango-limbs-v2-runtime/HANDOFF.md": "73799f2600c7767462651a93de6ef1c9e3771628fa95a49f2ac0cdfa367d8332",
+    "docs/reviews/dango-limbs-v2-runtime/knit-front-source/QA-SUMMARY.json": "8cf6b6e81cf236aa054184a696460f21a944bd37a9d2e449a4ac226377fc6382",
+    "docs/reviews/dango-limbs-v2-runtime/knit-front-source/README.md": "3870768136572cc2f027286e951d6877ada07e5b8b80f50331e875b013ce11e1",
+    "docs/reviews/dango-limbs-v2-runtime/knit-front-source/appearance-summary.json": "063054d189141bd54855db6aecbcbcfbaf1603f6ad1d27997ccc4029c54f4f52",
+    "docs/reviews/dango-limbs-v2-runtime/knit-front-source/scripts/aggregate-appearance.mjs": "01bd0492662732bca6e7c453f56331467fd8692fc820ae431f73a1a1b8b460b7",
+    "docs/reviews/dango-limbs-v2-runtime/knit-front-source/scripts/aggregate.mjs": "193c96ad1d401720c67d982556acf7269d6f9e4828b1d58bc335a1835e62026e",
+    "docs/reviews/dango-limbs-v2-runtime/knit-front-source/scripts/appearance-draw-qa.mjs": "a1faf523ae12b0e252f5fe77fc42d7875b6377029475f2b4ec58b79376828d43",
+    "docs/reviews/dango-limbs-v2-runtime/knit-front-source/scripts/appearance-geometry.mjs": "d974eeccdf348320bdc017642541cebc3197a6dc15aca77dc62137e24ebf8be8",
+    "docs/reviews/dango-limbs-v2-runtime/knit-front-source/scripts/fixture.mjs": "c71f463b012404e6a1c926bb8ba42452d8f52ea254e58bddf0e55983710725ce",
+    "docs/reviews/dango-limbs-v2-runtime/knit-front-source/scripts/matrix.mjs": "1e166f8c2f36c93e5d77bb8899e18f2be6278856f8194814edf8a39c0de9ff72",
+    "docs/reviews/dango-limbs-v2-runtime/knit-front-source/scripts/qa-paths.mjs": "a6fc85f8ccc873a30331fdef826ef798bd82c9db91c9befde8571a56d917ecf3",
+    "docs/reviews/dango-limbs-v2-runtime/knit-front-source/scripts/source-draw-guard.mjs": "32ccf85857ec775b270a9215f18c14220ba044f845400e87f0d555326536cede",
+    "docs/reviews/dango-limbs-v2-runtime/knit-front-source/scripts/strict-draw-qa.mjs": "dc9990188dd76b4049b332bac0dc2640fdd2b70123c2953ed80afee0d13428de",
+    "package.json": "88e4c6f737319e683276bd315cff618f874c175624aa7f7430668427d4b23ac4",
+    "src/capabilities/companion/presentation/dango-knit-contact-pose.mjs": "275d2ce38bf6b7656839d23b0e58d67b5085ae45517b1dc1bf588340f411b915",
+    "src/capabilities/companion/presentation/dango-raster-actions.mjs": "6b215584cc83868ed62fec1f18864f4e9d812a5da68457141c387303a2e489b8",
+    "src/capabilities/companion/presentation/dango-raster-art.mjs": "f1271c40bc0114720be5d7a2cd8737010dca932ac61a2e0811d32b2aa79f097f",
+    "src/capabilities/companion/presentation/dango-raster-paws.mjs": "dcfceec97e8ae7b37d5c3d556e324d9f19eadaeb4c979a4d2dae0e13a85c7bb1",
+    "src/capabilities/companion/presentation/dango-raster-pose.mjs": "237c5a711d0e4f6ef6f6f28ab2ae5b303e92bff9b01fbcfcb274ed40173bd283",
+    "src/capabilities/companion/presentation/dango-source-contact-pose.mjs": "d8ee8d690c607acc274dee8d45a29e2b1630dd6077cdb6cccb1114c4b279b0a3",
+    "src/capabilities/companion/presentation/form-art.mjs": "73dfacc173af211dc0f3797c10192f1bdcbc6531b536a480e1e2f3660afd448e",
+    "src/content/appearance.mjs": "a69a1e72b5af36d56aad206d108ed635eb683ee075b8378978a6ad4325867ec6",
+    "src/surfaces/pet/renderer.mjs": "5a0e0193bfff657eb27c455f61f296b1d1d4dda95a88d89eaee3a6c95e97710d",
+    "test/dango-knit-contact.test.mjs": "a6706e80cf33ab7c95d005ffa1110bc569abc6e8d2356dcdafd716955b3b0107",
+    "test/pet-workbench.test.js": "0f219ea16e6c540672b22fcb488075912ae0d76585ce747ebe9ce2992dd4d463",
+    "tools/dango-limbs-qa.mjs": "3412737bab5b472105eb9db9bd18fc9214ace1f83317f8268769bcfd91a95deb",
+    "tools/usagi-gallery/runtime-harness.mjs": "8c82ace5230ef68f111119b56738b1fa5e103aae64d8a36c50b867b46a140b4a"
+  },
+  "remaining": [
+    "Verified workout publication parent and bounded knitting branch publication.",
+    "Bobo exact-head and native Windows/macOS/GPU review.",
+    "Separate approved read-book half-grid prototype validation.",
+    "Complete requested repair is not ready for main merge, new package or release."
+  ],
+  "qaExecutionNote": "An initial resource-wrapper attempt exited 127 because /usr/bin/time was absent, before Node QA started. Python resource recording replaced only that wrapper; all six actual Node scripts subsequently exited 0 without changing production code or the QA sample coverage."
+}

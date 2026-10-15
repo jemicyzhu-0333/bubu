@@ -27,6 +27,9 @@ import { WAVE_CONTACT_ID, waveContactSpriteKeys, waveSourceContactPoseEligible,
 import { CATCH_STAR_CONTACT_ID, catchStarContactSpriteKeys, catchStarSourceContactPoseEligible,
   applyCatchStarSourceContactPose } from './dango-catch-star-contact-pose.mjs';
 
+import { KNIT_CONTACT_ID, knitContactSpriteKeys, knitSourceContactPoseEligible,
+  applyKnitSourceContactPose } from './dango-knit-contact-pose.mjs';
+
 // PET_RIG「并发配件的姿势隔离」: this authored contact layer owns only
 // the two hands of one reviewed action. It never changes generic limb readiness.
 const KEYS = Object.freeze({ left: 'hiccup-front-contact-left', right: 'hiccup-front-contact-right' });
@@ -93,13 +96,15 @@ function createSourceContactPoseSelector({ manifest, source }) {
       const catchStar = options.action?.id === 'catch-star';
       const sweep = options.action?.id === 'sweep';
       const workout = options.action?.id === 'workout';
-      const dedicated = sip || umbrella || snack || quarterHiccup || wave || catchStar || sweep || workout;
+      const knit = options.action?.id === 'knit-scarf';
+      const dedicated = sip || umbrella || snack || quarterHiccup || wave || catchStar || sweep || workout || knit;
       // Recovery and prop opacity are sampled fields of the same action episode.
       // They cannot create a fresh readiness window on every recovery frame.
       const identityAction = dedicated ? { ...options.action, handoffRecovery: undefined, propOpacity: undefined } : options.action;
       const key = explicitInstance ? JSON.stringify([options.action?.id, options.actionInstanceKey])
         : JSON.stringify([identityAction, options.motion]);
-      const selection = sip ? sipSelection(manifest) : umbrella && view === 'three-quarter' ? { id: UMBRELLA_QUARTER_CONTACT_ID,
+      const selection = knit ? { id: KNIT_CONTACT_ID, keys: knitContactSpriteKeys(),
+        eligible: knitSourceContactPoseEligible, apply: applyKnitSourceContactPose } : sip ? sipSelection(manifest) : umbrella && view === 'three-quarter' ? { id: UMBRELLA_QUARTER_CONTACT_ID,
         keys: umbrellaQuarterContactSpriteKeys(), eligible: umbrellaQuarterSourceContactPoseEligible, apply: applyUmbrellaQuarterSourceContactPose } : umbrella ? { id: UMBRELLA_CONTACT_ID,
         keys: umbrellaContactSpriteKeys(), eligible: umbrellaSourceContactPoseEligible, apply: applyUmbrellaSourceContactPose } : snack ? { id: QUARTER_SNACK_CONTACT_ID,
         keys: quarterSnackContactSpriteKeys(), eligible: quarterSnackSourceContactPoseEligible, apply: applyQuarterSnackSourceContactPose } : quarterHiccup ? { id: QUARTER_HICCUP_CONTACT_ID,

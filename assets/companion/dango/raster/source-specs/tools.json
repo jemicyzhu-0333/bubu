@@ -4029,6 +4029,96 @@
         "exactNearest8x": true,
         "rootOcclusion": "unchanged-canonical-body"
       }
+    },
+    "knit-front-round-v2-left": {
+      "src": "action-contact/knit-front-round-v2/left-8x.png",
+      "rect": [
+        0,
+        0,
+        72,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "knit-front-round-v2",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "knit-scarf",
+        "view": "front",
+        "side": "left",
+        "sourceSha256": "0f517601189a89f42e51f127a53c24202a3e22f02ba0091e0020828e1bde4924",
+        "rawSourceSha256": "d2ed1da73fe39b3654b8adb812717ce47c5f9c5ae41cf385d1bf448e3af3496b",
+        "translationOnly": true,
+        "samplesPerArtUnit": 1,
+        "binaryAlpha": true,
+        "exactNearest8x": true,
+        "logicalGrip": [
+          26.75,
+          45.125
+        ],
+        "needleLocalGrip": [
+          4.75,
+          4.125
+        ],
+        "minimumInkCoverage": 0.2,
+        "minimumFillCoverage": 0.5,
+        "strokePriority": true,
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "maskSha256": "879dbf7035bc40a880460725f82ad6a5d72f305f6c9b0b3a460fa9bca2600759",
+        "uniformSourceScale": 0.05555555555555555,
+        "quantizedOnce": true
+      }
+    },
+    "knit-front-round-v2-right": {
+      "src": "action-contact/knit-front-round-v2/right-8x.png",
+      "rect": [
+        0,
+        0,
+        72,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "knit-front-round-v2",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "knit-scarf",
+        "view": "front",
+        "side": "right",
+        "sourceSha256": "3ad50e8ceae2b854b95bfd774931605027209440ff8874997bd209626fb09d0a",
+        "rawSourceSha256": "d2ed1da73fe39b3654b8adb812717ce47c5f9c5ae41cf385d1bf448e3af3496b",
+        "translationOnly": true,
+        "samplesPerArtUnit": 1,
+        "binaryAlpha": true,
+        "exactNearest8x": true,
+        "logicalGrip": [
+          42.25,
+          45.125
+        ],
+        "needleLocalGrip": [
+          4.75,
+          4.125
+        ],
+        "minimumInkCoverage": 0.2,
+        "minimumFillCoverage": 0.5,
+        "strokePriority": true,
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "maskSha256": "aa51cbde34bd6dc8b8984c62b8915ee3381024ee98db9c5754828b095dcc94ea",
+        "uniformSourceScale": 0.05555555555555555,
+        "quantizedOnce": true
+      }
     }
   },
   "version": 4

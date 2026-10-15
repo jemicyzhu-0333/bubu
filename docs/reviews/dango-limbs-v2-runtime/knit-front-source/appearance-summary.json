@@ -1,0 +1,79 @@
+{
+  "status": "pass",
+  "actualProduction": true,
+  "scope": "Unchanged production artist/selector/renderer; all 16 Dango appearance items individually, 15 item-plus-scarf pairs and no-outfit baseline. Skin-specific accessories use their actual skin. DPR 2, phases .15/.5/.85, facing +/-1. Not a Cartesian product of every accessory slot.",
+  "groups": 32,
+  "frames": 192,
+  "descriptorsPinned": [
+    "data.body",
+    "data.parts",
+    "data.face",
+    "data.anchors",
+    "contact.tools",
+    "contact.details"
+  ],
+  "actualAppearanceSelectionMatchesRequest": true,
+  "sourceSelectedBothHands": true,
+  "allMasksActualStageDimensions": true,
+  "stageDimensions": [
+    {
+      "cached": [
+        225,
+        198
+      ],
+      "stage": [
+        438,
+        438
+      ]
+    }
+  ],
+  "drawOrder": [
+    [
+      "body",
+      "final-body",
+      "needle0",
+      "needle1",
+      "left",
+      "right"
+    ],
+    [
+      "final-body",
+      "needle0",
+      "needle1",
+      "left",
+      "right"
+    ]
+  ],
+  "rootPixelsOutsideBody": 0,
+  "singleHandFinalContributionChecks": 384,
+  "minimumChangedFinalPixels": 558,
+  "fullyOccludedCases": [],
+  "allChecksAccounted": true,
+  "backend": "Skia actual createPetRenderer, not native browser",
+  "sourceHashes": {
+    "src/capabilities/companion/presentation/dango-knit-contact-pose.mjs": "275d2ce38bf6b7656839d23b0e58d67b5085ae45517b1dc1bf588340f411b915",
+    "src/capabilities/companion/presentation/dango-source-contact-pose.mjs": "d8ee8d690c607acc274dee8d45a29e2b1630dd6077cdb6cccb1114c4b279b0a3",
+    "src/capabilities/companion/presentation/dango-raster-art.mjs": "f1271c40bc0114720be5d7a2cd8737010dca932ac61a2e0811d32b2aa79f097f",
+    "assets/companion/dango/raster/dango.raster.mjs": "0ddaff76f4bec1b6a50cc7936e542086560914f334b92dedfc125018e056a143",
+    "src/content/appearance.mjs": "a69a1e72b5af36d56aad206d108ed635eb683ee075b8378978a6ad4325867ec6",
+    "assets/companion/dango/raster/action-contact/knit-front-round-v2/left-8x.png": "0f517601189a89f42e51f127a53c24202a3e22f02ba0091e0020828e1bde4924",
+    "assets/companion/dango/raster/action-contact/knit-front-round-v2/right-8x.png": "3ad50e8ceae2b854b95bfd774931605027209440ff8874997bd209626fb09d0a"
+  },
+  "scriptHashes": {
+    "appearance-geometry.mjs": "d974eeccdf348320bdc017642541cebc3197a6dc15aca77dc62137e24ebf8be8",
+    "appearance-draw-qa.mjs": "a1faf523ae12b0e252f5fe77fc42d7875b6377029475f2b4ec58b79376828d43",
+    "aggregate-appearance.mjs": "01bd0492662732bca6e7c453f56331467fd8692fc820ae431f73a1a1b8b460b7",
+    "fixture.mjs": "c71f463b012404e6a1c926bb8ba42452d8f52ea254e58bddf0e55983710725ce",
+    "qa-paths.mjs": "a6fc85f8ccc873a30331fdef826ef798bd82c9db91c9befde8571a56d917ecf3",
+    "source-draw-guard.mjs": "32ccf85857ec775b270a9215f18c14220ba044f845400e87f0d555326536cede"
+  },
+  "reproduction": {
+    "workingDirectory": "/tmp",
+    "commands": [
+      "node \"$REPO/docs/reviews/dango-limbs-v2-runtime/knit-front-source/scripts/appearance-geometry.mjs\" --repo \"$REPO\" --out \"$OUT\"",
+      "node \"$REPO/docs/reviews/dango-limbs-v2-runtime/knit-front-source/scripts/appearance-draw-qa.mjs\" --repo \"$REPO\" --out \"$OUT\"",
+      "node \"$REPO/docs/reviews/dango-limbs-v2-runtime/knit-front-source/scripts/aggregate-appearance.mjs\" --repo \"$REPO\" --out \"$OUT\""
+    ],
+    "outputRule": "OUT must be outside REPO; no frames or generated fixtures are written into the repository."
+  }
+}
