@@ -4029,6 +4029,292 @@
         "exactNearest8x": true,
         "rootOcclusion": "unchanged-canonical-body"
       }
+    },
+    "knit-front-round-v2-left": {
+      "src": "action-contact/knit-front-round-v2/left-8x.png",
+      "rect": [
+        0,
+        0,
+        72,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "knit-front-round-v2",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "knit-scarf",
+        "view": "front",
+        "side": "left",
+        "sourceSha256": "0f517601189a89f42e51f127a53c24202a3e22f02ba0091e0020828e1bde4924",
+        "rawSourceSha256": "d2ed1da73fe39b3654b8adb812717ce47c5f9c5ae41cf385d1bf448e3af3496b",
+        "translationOnly": true,
+        "samplesPerArtUnit": 1,
+        "binaryAlpha": true,
+        "exactNearest8x": true,
+        "logicalGrip": [
+          26.75,
+          45.125
+        ],
+        "needleLocalGrip": [
+          4.75,
+          4.125
+        ],
+        "minimumInkCoverage": 0.2,
+        "minimumFillCoverage": 0.5,
+        "strokePriority": true,
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "maskSha256": "879dbf7035bc40a880460725f82ad6a5d72f305f6c9b0b3a460fa9bca2600759",
+        "uniformSourceScale": 0.05555555555555555,
+        "quantizedOnce": true
+      }
+    },
+    "knit-front-round-v2-right": {
+      "src": "action-contact/knit-front-round-v2/right-8x.png",
+      "rect": [
+        0,
+        0,
+        72,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "knit-front-round-v2",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "knit-scarf",
+        "view": "front",
+        "side": "right",
+        "sourceSha256": "3ad50e8ceae2b854b95bfd774931605027209440ff8874997bd209626fb09d0a",
+        "rawSourceSha256": "d2ed1da73fe39b3654b8adb812717ce47c5f9c5ae41cf385d1bf448e3af3496b",
+        "translationOnly": true,
+        "samplesPerArtUnit": 1,
+        "binaryAlpha": true,
+        "exactNearest8x": true,
+        "logicalGrip": [
+          42.25,
+          45.125
+        ],
+        "needleLocalGrip": [
+          4.75,
+          4.125
+        ],
+        "minimumInkCoverage": 0.2,
+        "minimumFillCoverage": 0.5,
+        "strokePriority": true,
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "maskSha256": "aa51cbde34bd6dc8b8984c62b8915ee3381024ee98db9c5754828b095dcc94ea",
+        "uniformSourceScale": 0.05555555555555555,
+        "quantizedOnce": true
+      }
+    },
+    "read-book-front-halfgrid-v1-left-front": {
+      "src": "action-contact/read-book-front-halfgrid-v1/left-front-8x.png",
+      "rect": [
+        9,
+        46.5,
+        7.5,
+        7
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "read-book-front-halfgrid-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "read-book",
+        "view": "front",
+        "side": "left",
+        "part": "front",
+        "rawSourceSha256": "a1bb17ccbe5909bb5f00c2d36fd4bf63ebd1e1977ef0579fc67650efa36b51c0",
+        "sourceSha256": "73709d94a1708c9a875e427fcda5a732fec74f9fb3d53fe802dfbd30c1449aec",
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "gridArt": 0.5,
+        "samplesPerArtUnit": 2,
+        "uniformSourceScale": 0.02598870056497175,
+        "wholeSourceArtSize": [
+          9.2,
+          6.705084745762711
+        ],
+        "binaryAlpha": true,
+        "exactNearest8x": true,
+        "translationOnly": true,
+        "minimumInkCoverage": 0.2,
+        "minimumFillCoverage": 0.5,
+        "sourceGrip": [
+          329.5,
+          205.5
+        ],
+        "worldGrip": [
+          15.625,
+          52
+        ],
+        "depthPartition": "front-any-palm-root-only-proximal",
+        "sourceGridBounds": [
+          18,
+          93,
+          33,
+          107
+        ]
+      }
+    },
+    "read-book-front-halfgrid-v1-left-root": {
+      "src": "action-contact/read-book-front-halfgrid-v1/left-root-8x.png",
+      "rect": [
+        7,
+        48.5,
+        2,
+        3.5
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "read-book-front-halfgrid-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "read-book",
+        "view": "front",
+        "side": "left",
+        "part": "root",
+        "rawSourceSha256": "a1bb17ccbe5909bb5f00c2d36fd4bf63ebd1e1977ef0579fc67650efa36b51c0",
+        "sourceSha256": "e62f2b536e6c30274cfbbe2328a687748ba2f898f59b6d66cadc4beb19d39e78",
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "gridArt": 0.5,
+        "samplesPerArtUnit": 2,
+        "uniformSourceScale": 0.02598870056497175,
+        "wholeSourceArtSize": [
+          9.2,
+          6.705084745762711
+        ],
+        "binaryAlpha": true,
+        "exactNearest8x": true,
+        "translationOnly": true,
+        "minimumInkCoverage": 0.2,
+        "minimumFillCoverage": 0.5,
+        "sourceGrip": [
+          329.5,
+          205.5
+        ],
+        "worldGrip": [
+          15.625,
+          52
+        ],
+        "depthPartition": "front-any-palm-root-only-proximal",
+        "sourceGridBounds": [
+          14,
+          97,
+          18,
+          104
+        ]
+      }
+    },
+    "read-book-front-halfgrid-v1-right-front": {
+      "src": "action-contact/read-book-front-halfgrid-v1/right-front-8x.png",
+      "rect": [
+        49.5,
+        46.5,
+        7.5,
+        7
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "read-book-front-halfgrid-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "read-book",
+        "view": "front",
+        "side": "right",
+        "part": "front",
+        "rawSourceSha256": "7157f4f41b8f0487fe0e21a64671f0b3ae8bd811a2c15b941c89fad8ae2c2d61",
+        "sourceSha256": "8d4875a9117fa919e0223d4f3079d9e4aa643e37570ba861f2f75f4ac76bf656",
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "gridArt": 0.5,
+        "samplesPerArtUnit": 2,
+        "uniformSourceScale": 0.02598870056497175,
+        "wholeSourceArtSize": [
+          9.2,
+          6.705084745762711
+        ],
+        "binaryAlpha": true,
+        "exactNearest8x": true,
+        "translationOnly": true,
+        "minimumInkCoverage": 0.2,
+        "minimumFillCoverage": 0.5,
+        "sourceGrip": [
+          24.5,
+          205.5
+        ],
+        "worldGrip": [
+          50.25,
+          52
+        ],
+        "depthPartition": "front-any-palm-root-only-proximal",
+        "sourceGridBounds": [
+          99,
+          93,
+          114,
+          107
+        ]
+      }
+    },
+    "read-book-front-halfgrid-v1-right-root": {
+      "src": "action-contact/read-book-front-halfgrid-v1/right-root-8x.png",
+      "rect": [
+        57,
+        48.5,
+        2,
+        3.5
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "read-book-front-halfgrid-v1",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "read-book",
+        "view": "front",
+        "side": "right",
+        "part": "root",
+        "rawSourceSha256": "7157f4f41b8f0487fe0e21a64671f0b3ae8bd811a2c15b941c89fad8ae2c2d61",
+        "sourceSha256": "4c0deb6476fd64c1e3ee2d1376cd2c85135f194d0a5b774053348e2d09489a1e",
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "gridArt": 0.5,
+        "samplesPerArtUnit": 2,
+        "uniformSourceScale": 0.02598870056497175,
+        "wholeSourceArtSize": [
+          9.2,
+          6.705084745762711
+        ],
+        "binaryAlpha": true,
+        "exactNearest8x": true,
+        "translationOnly": true,
+        "minimumInkCoverage": 0.2,
+        "minimumFillCoverage": 0.5,
+        "sourceGrip": [
+          24.5,
+          205.5
+        ],
+        "worldGrip": [
+          50.25,
+          52
+        ],
+        "depthPartition": "front-any-palm-root-only-proximal",
+        "sourceGridBounds": [
+          114,
+          97,
+          118,
+          104
+        ]
+      }
     }
   },
   "version": 4

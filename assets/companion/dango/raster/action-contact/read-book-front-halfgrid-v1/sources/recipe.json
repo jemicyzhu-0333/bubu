@@ -1,0 +1,180 @@
+{
+  "id": "read-book-front-halfgrid-v1",
+  "version": 1,
+  "sourceScale": 0.02598870056497175,
+  "wholeSourceArtSize": [
+    9.2,
+    6.705084745762711
+  ],
+  "gridArt": 0.5,
+  "logicalCanvasSize": [
+    144,
+    144
+  ],
+  "runtimeExportScale": 8,
+  "palette": [
+    [
+      26,
+      27,
+      38
+    ],
+    [
+      240,
+      80,
+      104
+    ],
+    [
+      248,
+      104,
+      120
+    ],
+    [
+      248,
+      128,
+      128
+    ]
+  ],
+  "inkCoverageThreshold": 0.2,
+  "fillCoverageThreshold": 0.5,
+  "sourceAlphaThreshold": 128,
+  "sourceAlphaValues": [
+    0,
+    255
+  ],
+  "sourcePolicy": "Existing repository original palm parts, unchanged uniform size. Exact footprint coverage; no dilation, per-cell paint or new outline. Source palette mapped once.",
+  "depthPolicy": "Every retained cell with any palm source area is front. Only root-only cells back. Original closed wrist caps preserved; disjoint complete RGBA union.",
+  "parts": {
+    "left": {
+      "sourceSha256": "a1bb17ccbe5909bb5f00c2d36fd4bf63ebd1e1977ef0579fc67650efa36b51c0",
+      "sourceSide": "right",
+      "sourceSize": [
+        354,
+        258
+      ],
+      "sourceGrip": [
+        329.5,
+        205.5
+      ],
+      "worldGrip": [
+        15.625,
+        52
+      ],
+      "palmSourceROI": [
+        82,
+        0,
+        354,
+        258
+      ],
+      "sourcePath": "parts/hand-right.png",
+      "outputs": {
+        "front": {
+          "filename": "left-front-8x.png",
+          "sha256": "73709d94a1708c9a875e427fcda5a732fec74f9fb3d53fe802dfbd30c1449aec",
+          "logicalBounds": [
+            18,
+            93,
+            33,
+            107
+          ],
+          "rectArt": [
+            9.0,
+            46.5,
+            7.5,
+            7.0
+          ],
+          "logicalFilename": "left-front-logical.png",
+          "logicalSha256": "348c6c917dccf7e6b1b73ee605fff5174a1a85d441f27946559fea9e4ac04457"
+        },
+        "root": {
+          "filename": "left-root-8x.png",
+          "sha256": "e62f2b536e6c30274cfbbe2328a687748ba2f898f59b6d66cadc4beb19d39e78",
+          "logicalBounds": [
+            14,
+            97,
+            18,
+            104
+          ],
+          "rectArt": [
+            7.0,
+            48.5,
+            2.0,
+            3.5
+          ],
+          "logicalFilename": "left-root-logical.png",
+          "logicalSha256": "b513dcc4002f8e3eb2e335afff9e7d8ffd58a475bae0c58c6f27a58c40b6b367"
+        }
+      },
+      "repositorySourcePath": "assets/companion/dango/raster/parts/hand-right.png",
+      "completeLogical": {
+        "filename": "sources/left-complete-logical.png",
+        "sha256": "eb1dee3b4c38d464c99728fa1e6791ec4e6a2086ec71eb32626f1a9930d20652"
+      }
+    },
+    "right": {
+      "sourceSha256": "7157f4f41b8f0487fe0e21a64671f0b3ae8bd811a2c15b941c89fad8ae2c2d61",
+      "sourceSide": "left",
+      "sourceSize": [
+        354,
+        258
+      ],
+      "sourceGrip": [
+        24.5,
+        205.5
+      ],
+      "worldGrip": [
+        50.25,
+        52
+      ],
+      "palmSourceROI": [
+        0,
+        0,
+        272,
+        258
+      ],
+      "sourcePath": "parts/hand-left.png",
+      "outputs": {
+        "front": {
+          "filename": "right-front-8x.png",
+          "sha256": "8d4875a9117fa919e0223d4f3079d9e4aa643e37570ba861f2f75f4ac76bf656",
+          "logicalBounds": [
+            99,
+            93,
+            114,
+            107
+          ],
+          "rectArt": [
+            49.5,
+            46.5,
+            7.5,
+            7.0
+          ],
+          "logicalFilename": "right-front-logical.png",
+          "logicalSha256": "137b59f4bb7d5b138869803f54db2ac164fcc71d802434008a33d87314dbfa74"
+        },
+        "root": {
+          "filename": "right-root-8x.png",
+          "sha256": "4c0deb6476fd64c1e3ee2d1376cd2c85135f194d0a5b774053348e2d09489a1e",
+          "logicalBounds": [
+            114,
+            97,
+            118,
+            104
+          ],
+          "rectArt": [
+            57.0,
+            48.5,
+            2.0,
+            3.5
+          ],
+          "logicalFilename": "right-root-logical.png",
+          "logicalSha256": "e756bc5e73dae3ed8edb20e81b4e85326ddb2428538092235d765490eec523de"
+        }
+      },
+      "repositorySourcePath": "assets/companion/dango/raster/parts/hand-left.png",
+      "completeLogical": {
+        "filename": "sources/right-complete-logical.png",
+        "sha256": "2e74945a799776c138fc082ceecb30550fd028087238666d131fe00039ee73f1"
+      }
+    }
+  }
+}

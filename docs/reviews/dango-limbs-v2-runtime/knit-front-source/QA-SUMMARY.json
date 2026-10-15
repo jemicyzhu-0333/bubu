@@ -1,0 +1,206 @@
+{
+  "status": "pass",
+  "actualProduction": true,
+  "productionIntegration": true,
+  "selectionRoute": "unchanged integrated production artist, selector and manifest; no pose injection or copied selector",
+  "backend": "production createPetRenderer, offscreen Skia, not native browser",
+  "geometryFrames": 1032,
+  "actualRendererLifecycleCases": 32,
+  "singleHandContributionChecks": 3168,
+  "minimumChangedFinalPixels": 132,
+  "stageDimensions": [
+    {
+      "cached": [
+        113,
+        100
+      ],
+      "stage": [
+        219,
+        219
+      ]
+    },
+    {
+      "cached": [
+        142,
+        124
+      ],
+      "stage": [
+        274,
+        274
+      ]
+    },
+    {
+      "cached": [
+        170,
+        150
+      ],
+      "stage": [
+        329,
+        329
+      ]
+    },
+    {
+      "cached": [
+        225,
+        198
+      ],
+      "stage": [
+        438,
+        438
+      ]
+    }
+  ],
+  "drawOrder": [
+    [
+      "body",
+      "final-body",
+      "needle0",
+      "needle1",
+      "left",
+      "right"
+    ],
+    [
+      "final-body",
+      "needle0",
+      "needle1",
+      "left",
+      "right"
+    ]
+  ],
+  "geometry": [
+    {
+      "dpr": 1,
+      "facing": 1,
+      "samples": 129,
+      "minShaftOverlap": [
+        17,
+        17
+      ],
+      "maxUncoveredRoot": [
+        0,
+        0
+      ]
+    },
+    {
+      "dpr": 1,
+      "facing": -1,
+      "samples": 129,
+      "minShaftOverlap": [
+        17,
+        17
+      ],
+      "maxUncoveredRoot": [
+        0,
+        0
+      ]
+    },
+    {
+      "dpr": 1.25,
+      "facing": 1,
+      "samples": 129,
+      "minShaftOverlap": [
+        27,
+        27
+      ],
+      "maxUncoveredRoot": [
+        0,
+        0
+      ]
+    },
+    {
+      "dpr": 1.25,
+      "facing": -1,
+      "samples": 129,
+      "minShaftOverlap": [
+        27,
+        27
+      ],
+      "maxUncoveredRoot": [
+        0,
+        0
+      ]
+    },
+    {
+      "dpr": 1.5,
+      "facing": 1,
+      "samples": 129,
+      "minShaftOverlap": [
+        41,
+        41
+      ],
+      "maxUncoveredRoot": [
+        0,
+        0
+      ]
+    },
+    {
+      "dpr": 1.5,
+      "facing": -1,
+      "samples": 129,
+      "minShaftOverlap": [
+        40,
+        41
+      ],
+      "maxUncoveredRoot": [
+        0,
+        0
+      ]
+    },
+    {
+      "dpr": 2,
+      "facing": 1,
+      "samples": 129,
+      "minShaftOverlap": [
+        73,
+        73
+      ],
+      "maxUncoveredRoot": [
+        0,
+        0
+      ]
+    },
+    {
+      "dpr": 2,
+      "facing": -1,
+      "samples": 129,
+      "minShaftOverlap": [
+        73,
+        73
+      ],
+      "maxUncoveredRoot": [
+        0,
+        0
+      ]
+    }
+  ],
+  "geometryFailures": [],
+  "sourceHashes": {
+    "src/capabilities/companion/presentation/dango-knit-contact-pose.mjs": "275d2ce38bf6b7656839d23b0e58d67b5085ae45517b1dc1bf588340f411b915",
+    "src/capabilities/companion/presentation/dango-source-contact-pose.mjs": "d8ee8d690c607acc274dee8d45a29e2b1630dd6077cdb6cccb1114c4b279b0a3",
+    "src/capabilities/companion/presentation/dango-raster-art.mjs": "f1271c40bc0114720be5d7a2cd8737010dca932ac61a2e0811d32b2aa79f097f",
+    "assets/companion/dango/raster/dango.raster.mjs": "0ddaff76f4bec1b6a50cc7936e542086560914f334b92dedfc125018e056a143",
+    "assets/companion/dango/raster/action-contact/knit-front-round-v2/left-8x.png": "0f517601189a89f42e51f127a53c24202a3e22f02ba0091e0020828e1bde4924",
+    "assets/companion/dango/raster/action-contact/knit-front-round-v2/right-8x.png": "3ad50e8ceae2b854b95bfd774931605027209440ff8874997bd209626fb09d0a"
+  },
+  "scriptHashes": {
+    "aggregate-appearance.mjs": "01bd0492662732bca6e7c453f56331467fd8692fc820ae431f73a1a1b8b460b7",
+    "aggregate.mjs": "193c96ad1d401720c67d982556acf7269d6f9e4828b1d58bc335a1835e62026e",
+    "appearance-draw-qa.mjs": "a1faf523ae12b0e252f5fe77fc42d7875b6377029475f2b4ec58b79376828d43",
+    "appearance-geometry.mjs": "d974eeccdf348320bdc017642541cebc3197a6dc15aca77dc62137e24ebf8be8",
+    "fixture.mjs": "c71f463b012404e6a1c926bb8ba42452d8f52ea254e58bddf0e55983710725ce",
+    "matrix.mjs": "1e166f8c2f36c93e5d77bb8899e18f2be6278856f8194814edf8a39c0de9ff72",
+    "qa-paths.mjs": "a6fc85f8ccc873a30331fdef826ef798bd82c9db91c9befde8571a56d917ecf3",
+    "source-draw-guard.mjs": "32ccf85857ec775b270a9215f18c14220ba044f845400e87f0d555326536cede",
+    "strict-draw-qa.mjs": "dc9990188dd76b4049b332bac0dc2640fdd2b70123c2953ed80afee0d13428de"
+  },
+  "reproduction": {
+    "workingDirectory": "/tmp",
+    "commands": [
+      "node \"$REPO/docs/reviews/dango-limbs-v2-runtime/knit-front-source/scripts/matrix.mjs\" --repo \"$REPO\" --out \"$OUT\"",
+      "node \"$REPO/docs/reviews/dango-limbs-v2-runtime/knit-front-source/scripts/strict-draw-qa.mjs\" --repo \"$REPO\" --out \"$OUT\"",
+      "node \"$REPO/docs/reviews/dango-limbs-v2-runtime/knit-front-source/scripts/aggregate.mjs\" --repo \"$REPO\" --out \"$OUT\""
+    ],
+    "outputRule": "OUT must be outside REPO. Generated adapters, renderer fixtures and reports are written only beneath OUT.",
+    "observation": "Only module routing and the final cached-body draw observer are adapted in temporary fixtures. The production selector, helper, renderer draw calls and PNG registration remain unchanged."
+  }
+}

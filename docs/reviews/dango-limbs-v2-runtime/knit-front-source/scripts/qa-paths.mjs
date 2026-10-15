@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
+import {fileURLToPath, pathToFileURL} from 'node:url';
+const arg=name=>{const exact=process.argv.indexOf(name);return exact<0?process.argv.find(a=>a.startsWith(name+'='))?.slice(name.length+1):process.argv[exact+1];};
+export const root=path.resolve(arg('--repo')||fileURLToPath(new URL('../../../../../',import.meta.url)));
+export const out=path.resolve(arg('--out')||fs.mkdtempSync(path.join(os.tmpdir(),'knit-production-qa-')));
+if(out===root||out.startsWith(root+path.sep))throw Error('--out must be outside the repository');
+fs.mkdirSync(path.join(out,'evidence'),{recursive:true});
+export const imp=p=>import(pathToFileURL(path.join(root,p)).href);

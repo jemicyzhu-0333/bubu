@@ -62,7 +62,7 @@ function createRasterSource({ baseUrl, loadImage = browserImageLoader, maxEntrie
       return image;
     });
     entry.promise = Promise.race([loading, cancelled]).then(image => {
-      if (disposed || entries.get(key) !== entry) return null;
+      if (disposed || entries.get(key) !== entry) { release(image); return null; }
       const width = image.naturalWidth || image.width, height = image.naturalHeight || image.height;
       const cost = width * height * 4;
       if (!(width > 0 && height > 0) || !Number.isFinite(cost) || cost > maxBytes) {

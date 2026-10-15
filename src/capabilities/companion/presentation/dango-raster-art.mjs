@@ -322,7 +322,7 @@ function createDangoRasterArtist({ manifest, loadImage, createSurface, sourceOpt
     ready({ all = false } = {}) { return Promise.all([source.ready(all ? collectRasterSprites(manifest) : defaultSprites), runSample?.ready(), limbSource?.start()]); },
     limbStatus() { return limbSource ? { state: limbSource.state(), errors: limbSource.errors() } : { state: 'disabled', errors: [] }; },
     cacheStats() { return Object.freeze({ source: source.stats(), palette: painter.stats(), roots: roots.stats(), tailRoot: tailRoot.stats(), runSample: runSample?.stats() || null, limbs: limbPainter?.stats() || null }); },
-    dispose() { sourceContactPose.dispose(); limbGates.clear(); limbPainter?.dispose(); eyeAperture.dispose(); source.dispose(); painter.dispose(); roots.dispose(); tailRoot.dispose(); runSample?.dispose(); }
+    dispose() { sourceContactPose.dispose(); limbGates.clear(); limbPainter?.dispose(); limbSource?.dispose?.(); eyeAperture.dispose(); source.dispose(); painter.dispose(); roots.dispose(); tailRoot.dispose(); runSample?.dispose(); }
   });
   return walkPreview ? createDangoWalkArtistAdapter({ ...walkPreview, manifest, source }).wrap(artist) : artist;
 }
