@@ -335,6 +335,13 @@ Next Bobo task: review default wave entry, three sweeps, exit/interruption, mirr
 - Workout front is closed. Remaining Codex items: read-book, knit-scarf, workout three-quarter (legacy support paws), plus earlier short-reach and three-quarter far-hand notes.
 
 
+## Bobo Round 32: front knit + front read accepted (2026-10-15)
+
+- Bobo accepted 53e18f4 (knit front round palms) and 05d7fc7 (read-book front half-grid round palms); see `round32/REVIEW-knit-read.md`. Also includes lifecycle 61a477e. Front knit/read palms grip needles/book; three-quarter both actions pixel-identical to pre-source (legacy). Matrix vs round31: see round32 notes after scan.
+- Knit front + read front closed. Remaining: workout tq, short-reach tq variants, tip Halloween wardrobe (`36092d1`) not in this accept.
+- Excluded tip commits 0f17b11 / 36092d1 from accept/round32-knit-read pending Codex finish.
+
+
 ## Front reading: original round palms at the approved half-grid (2026-10-14)
 
 - **Completed locally:** original round palm pixels are uniformly projected at the explicitly approved 0.5art grid, at unchanged whole-hand size9.2×6.705art. Body, book, page, feet and other assets retain their existing grids and transforms. Source-owned front/root partitions are disjoint and reconstruct each entire quantized source RGBA exactly; four runtime resources become ready atomically through the existing episode selector. Existing source images are referenced by full repository paths and hashes, without duplicated generation or invented contour.
