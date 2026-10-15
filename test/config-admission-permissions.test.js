@@ -85,8 +85,19 @@ test('descriptor identity change during Windows ACL observation is refused', t =
 });
 test('host private temporary directory and created file satisfy native permissions', t => {
   const f = fixture(t);
-  try { verifyProbePermissions(f.directory, [f.file]); }
-  catch (error) { t.diagnostic(`native permission stage: ${error.diagnostic}`); throw error; }
+  const { observeNativePermission } = require('./helpers/native-permission-observation.cjs');
+  const observation = observeNativePermission(run => verifyProbePermissions(f.directory, [f.file], {
+    verifyWindows(directory, files, controls) {
+      return verifyWindowsProbePermissions(directory, files, { ...controls, run });
+    }
+  }));
+  // Emit only fixed, sanitized fields after the original gate settles. The raw
+  // spawn result is observed before its budget can reject an otherwise late success.
+  t.diagnostic(JSON.stringify(observation.report));
+  if (observation.failed) {
+    t.diagnostic(`native permission stage: ${observation.error.diagnostic}`);
+    throw observation.error;
+  }
 });
 
 test('unexpected probe members are rejected before and after the ACL observation', t => {
@@ -203,7 +214,7 @@ test('native Windows PowerShell 5.1 protocol rejects empty/nested input and pres
       input: JSON.stringify(paths), encoding: 'utf8', shell: false, windowsHide: true, timeout: PROBE_WAIT_BUDGET_MS, maxBuffer: 65536,
       env: Object.fromEntries(Object.entries(process.env).filter(([key]) => key.toUpperCase() !== 'PSMODULEPATH'))
     });
-    const stage = /^config-admission-acl:(streams|input|identity|item|acl(?:-access-denied|-module-load|-command-not-found|-path-not-found|-parameter|-other)?|descriptor|aces|serialize)$/.exec(result.stderr || '')?.[1] || null;
+    const stage = /^config-admission-acl:(streams|modules|input|identity|item|acl(?:-access-denied|-module-load|-command-not-found|-path-not-found|-parameter|-other)?|descriptor|aces|serialize)$/.exec(result.stderr || '')?.[1] || null;
     // Fixed labels and bounded process metadata only; never log paths or native output.
     t.diagnostic(JSON.stringify({ label, elapsedMs: Math.round(performance.now() - started), timeoutMs: PROBE_WAIT_BUDGET_MS,
       status: Number.isInteger(result.status) ? result.status : null,
@@ -220,7 +231,7 @@ test('native Windows PowerShell 5.1 protocol rejects empty/nested input and pres
   }
   for (const [label, paths] of [['directory-only', [f.directory]], ['directory-and-file', [f.directory, f.file]]]) {
     const result = run(label, paths);
-    const stage = /^config-admission-acl:(streams|input|identity|item|acl(?:-access-denied|-module-load|-command-not-found|-path-not-found|-parameter|-other)?|descriptor|aces|serialize)$/.exec(result.stderr || '')?.[1];
+    const stage = /^config-admission-acl:(streams|modules|input|identity|item|acl(?:-access-denied|-module-load|-command-not-found|-path-not-found|-parameter|-other)?|descriptor|aces|serialize)$/.exec(result.stderr || '')?.[1];
     assert.equal(result.status, 0, `native ACL process failed: ${stage || (result.error?.code === 'ETIMEDOUT' ? 'timeout' : 'process-exit')}`);
     assert.equal(result.stderr.length, 0, 'native ACL process emitted stderr');
     let parsed;

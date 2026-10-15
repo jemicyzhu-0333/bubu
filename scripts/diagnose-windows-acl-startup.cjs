@@ -9,7 +9,7 @@ const CHILD_MS = 15000, TOTAL_MS = 150000;
 const PS_FLAGS = ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command'];
 const INPUT_PROGRAM = `$ErrorActionPreference='Stop'; $r=[IO.StreamReader]::new([Console]::OpenStandardInput(),[Text.UTF8Encoding]::new($false,$true),$false); [void](ConvertFrom-Json -InputObject ($r.ReadToEnd())); [Console]::Out.Write('ready')`;
 const ACL_PROGRAM = `const fs=require('node:fs');const {verifyWindowsProbePermissions}=require('./src/platform/persistence/sqlite/config-admission-permissions');try{verifyWindowsProbePermissions(JSON.parse(fs.readFileSync(0,'utf8')),[]);process.stdout.write('ready')}catch(e){process.stdout.write('stage:'+e.diagnostic);process.exitCode=1}`;
-const STAGES = new Set(['paths', 'system-root', 'spawn', 'timeout', 'process-exit', 'stderr', 'stdout', 'json', 'streams', 'input', 'identity', 'item', 'acl', 'descriptor', 'aces', 'serialize', 'acl-access-denied', 'acl-module-load', 'acl-command-not-found', 'acl-path-not-found', 'acl-parameter', 'acl-other', 'acl-shape', 'acl-count', 'acl-owner', 'acl-dacl', 'acl-reparse', 'acl-type', 'acl-ace', 'acl-grant']);
+const STAGES = new Set(['modules', 'paths', 'system-root', 'spawn', 'timeout', 'process-exit', 'stderr', 'stdout', 'json', 'streams', 'input', 'identity', 'item', 'acl', 'descriptor', 'aces', 'serialize', 'acl-access-denied', 'acl-module-load', 'acl-command-not-found', 'acl-path-not-found', 'acl-parameter', 'acl-other', 'acl-shape', 'acl-count', 'acl-owner', 'acl-dacl', 'acl-reparse', 'acl-type', 'acl-ace', 'acl-grant']);
 function summarize(result) {
   const stage = result.stdout?.startsWith('stage:') ? result.stdout.slice(6) : null;
   const version = /^version:(\d{1,3}\.\d{1,3}\.\d{1,6}(?:\.\d{1,6})?)$/.exec(result.stdout || '')?.[1] || null;
