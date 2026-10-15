@@ -3,12 +3,21 @@ name: Diagnose released Windows first launch
 # Manual only. Uses public release bytes, no secrets or publishing permissions.
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: Diagnostic to run (cold trace does not run production acceptance)
+        type: choice
+        default: released-first-launch
+        options:
+          - released-first-launch
+          - cold-stage-trace
 
 permissions:
   contents: read
 
 jobs:
   diagnose:
+    if: ${{ inputs.mode != 'cold-stage-trace' }}
     runs-on: windows-latest
     timeout-minutes: 25
     env:
@@ -42,3 +51,20 @@ jobs:
           path: dist/windows-first-launch-diagnosis.json
           if-no-files-found: error
           retention-days: 7
+
+  cold-stage-trace:
+    if: ${{ inputs.mode == 'cold-stage-trace' }}
+    runs-on: windows-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      # No npm, build, test, PS shell or warm-up before this single targeted
+      # Windows PowerShell process. The hosted image itself is not OS-cold proof.
+      - name: Trace first targeted Windows PowerShell ACL process
+        shell: cmd
+        run: node scripts/diagnose-windows-acl-startup.cjs --cold-stage-trace
