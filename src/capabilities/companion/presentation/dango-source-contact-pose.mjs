@@ -1,5 +1,8 @@
 'use strict';
 
+import { READ_BOOK_CONTACT_ID, readBookContactSpriteKeys, readBookSourceContactPoseEligible,
+  applyReadBookSourceContactPose } from './dango-read-book-contact-pose.mjs';
+
 import { WORKOUT_CONTACT_ID, workoutContactSpriteKeys, workoutSourceContactPoseEligible,
   applyWorkoutSourceContactPose } from './dango-workout-contact-pose.mjs';
 
@@ -97,13 +100,15 @@ function createSourceContactPoseSelector({ manifest, source }) {
       const sweep = options.action?.id === 'sweep';
       const workout = options.action?.id === 'workout';
       const knit = options.action?.id === 'knit-scarf';
-      const dedicated = sip || umbrella || snack || quarterHiccup || wave || catchStar || sweep || workout || knit;
+      const readBook = options.action?.id === 'read-book';
+      const dedicated = sip || umbrella || snack || quarterHiccup || wave || catchStar || sweep || workout || knit || readBook;
       // Recovery and prop opacity are sampled fields of the same action episode.
       // They cannot create a fresh readiness window on every recovery frame.
       const identityAction = dedicated ? { ...options.action, handoffRecovery: undefined, propOpacity: undefined } : options.action;
       const key = explicitInstance ? JSON.stringify([options.action?.id, options.actionInstanceKey])
         : JSON.stringify([identityAction, options.motion]);
-      const selection = knit ? { id: KNIT_CONTACT_ID, keys: knitContactSpriteKeys(),
+      const selection = readBook ? { id: READ_BOOK_CONTACT_ID, keys: readBookContactSpriteKeys(),
+        eligible: readBookSourceContactPoseEligible, apply: applyReadBookSourceContactPose } : knit ? { id: KNIT_CONTACT_ID, keys: knitContactSpriteKeys(),
         eligible: knitSourceContactPoseEligible, apply: applyKnitSourceContactPose } : sip ? sipSelection(manifest) : umbrella && view === 'three-quarter' ? { id: UMBRELLA_QUARTER_CONTACT_ID,
         keys: umbrellaQuarterContactSpriteKeys(), eligible: umbrellaQuarterSourceContactPoseEligible, apply: applyUmbrellaQuarterSourceContactPose } : umbrella ? { id: UMBRELLA_CONTACT_ID,
         keys: umbrellaContactSpriteKeys(), eligible: umbrellaSourceContactPoseEligible, apply: applyUmbrellaSourceContactPose } : snack ? { id: QUARTER_SNACK_CONTACT_ID,
