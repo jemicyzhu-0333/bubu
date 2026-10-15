@@ -1,5 +1,6 @@
 'use strict';
 
+const { FRONT_STORY_PREVIEWS } = require('../../content/companion/front-stories.mjs');
 const { DANGO_WALK_WORKBENCH } = require('../../content/companion/gait/dango-walk.mjs');
 
 const CATALOG_VIEWS = Object.freeze(['front', 'three-quarter', 'profile', 'back']);
@@ -51,6 +52,7 @@ function mapAppearance(item) {
     id: item.id,
     label: item.label,
     category: 'appearance',
+    optInOnly: item.optInOnly === true,
     slot: item.slot,
     layer: item.layer,
     minLevel: item.minLevel,
@@ -80,6 +82,7 @@ function createPetCatalog({ content, skins = {}, views = CATALOG_VIEWS } = {}) {
     : [];
   if (DANGO_WALK_WORKBENCH.enabled) actions.push({ ...mapAction(DANGO_WALK_WORKBENCH.action),
     previewDefaults: { ...DANGO_WALK_WORKBENCH.action.previewDefaults } });
+  for (const action of Object.values(FRONT_STORY_PREVIEWS)) actions.push({ ...mapAction(action), previewDefaults: { ...action.previewDefaults } });
   const sessions = content.SESSION_ACTIVITIES && typeof content.SESSION_ACTIVITIES === 'object'
     ? uniqueById(Object.values(content.SESSION_ACTIVITIES)
       .map(activity => mapAction({ ...activity, name: activity.label }, 'session')))

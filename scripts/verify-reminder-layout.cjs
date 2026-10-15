@@ -10,6 +10,7 @@ const path = require('node:path');
 const os = require('node:os');
 const { execFileSync } = require('node:child_process');
 const { cornerLayout } = require('../src/platform/electron/windows/nudge-window');
+const { observeReadingKey } = require('./reminder-reading-probe.cjs');
 
 const root = path.resolve(__dirname, '..');
 const output = path.resolve(process.argv[2] || path.join(root, 'dist/reminder-layout'));
@@ -178,11 +179,13 @@ async function verifyCase(fixture, index) {
     assert.ok(before.visible && before.clientHeight >= 18, 'reading region has a visible line');
     if (before.scrollHeight > before.clientHeight) {
       for (const keyCode of ['PageDown', 'PageUp']) {
-        current.webContents.sendInputEvent({ type: 'keyDown', keyCode });
-        current.webContents.sendInputEvent({ type: 'keyUp', keyCode });
-        await wait(250); await painted();
+        const observation = await observeReadingKey({ nativeWindow: current, id, keyCode });
+        const reading = { id, keyCode, before, observation };
+        item.reading.push(reading);
+        assert.ok(observation.passed, observation.error || observation.cleanupError);
+        await painted();
         const after = (await read()).activeElement;
-        item.reading.push({ id, keyCode, before, after });
+        reading.after = after;
         assert.equal(after.id, id, 'reading retains focus');
         if (keyCode === 'PageDown') {
           assert.ok(after.scrollTop > before.scrollTop, 'PageDown reveals hidden reading content');

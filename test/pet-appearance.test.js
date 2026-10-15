@@ -15,7 +15,8 @@ const {
 const { drawAppearanceLayer, HEAD_LIFT } = require('../src/core/pet-appearance-art.mjs');
 const { drawActionDetails } = require('../src/core/pet-action-art.mjs');
 const { PET_ACTIONS } = require('../src/content/behaviors.mjs');
-const PIXEL_ITEMS = PET_APPEARANCE_ITEMS.filter(item => item.formId === 'dango');
+const { FRONT_STORY_GARMENTS } = require('../src/content/companion/front-stories.mjs');
+const PIXEL_ITEMS = PET_APPEARANCE_ITEMS.filter(item => item.formId === 'dango' && !Object.hasOwn(FRONT_STORY_GARMENTS, item.id));
 
 // 假 context 必须真的累加 translate：配饰的最终落点由“视角位移 + 锚点 + 让位抬高”
 // 共同决定；只记未变换的 fillRect 会让位置类断言变成空抖。
@@ -45,7 +46,7 @@ test('appearance content is a closed layered slot registry', () => {
   const result = validateAppearanceItems(PET_APPEARANCE_ITEMS);
   assert.equal(result.total, PET_APPEARANCE_ITEMS.length);
   assert.equal(PIXEL_ITEMS.length, 16);
-  assert.equal(result.total, 43);
+  assert.equal(result.total, 45);
   assert.ok(PET_APPEARANCE_ITEMS.every(item => item.views.includes('front')));
   assert.ok(PET_APPEARANCE_ITEMS.every(item => item.anchor && item.anchor.profile));
   assert.ok(PET_APPEARANCE_ITEMS.every(item => item.bleed && item.bleed.top >= 0));

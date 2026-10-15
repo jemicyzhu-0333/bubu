@@ -13,7 +13,8 @@ const { PALETTES } = require('../src/core/pet-art.mjs');
 const { projectAppearance } = require('../src/core/pet-appearance.mjs');
 const { drawAppearanceLayer, HEAD_LIFT } = require('../src/core/pet-appearance-art.mjs');
 const VIEWS = ['front', 'three-quarter', 'profile', 'back'];
-const ITEMS = PET_APPEARANCE_ITEMS.filter(item => item.formId === 'dango');
+const { FRONT_STORY_GARMENTS } = require('../src/content/companion/front-stories.mjs');
+const ITEMS = PET_APPEARANCE_ITEMS.filter(item => item.formId === 'dango' && !Object.hasOwn(FRONT_STORY_GARMENTS, item.id));
 const ROOT = path.join(__dirname, '..');
 const source = fs.readFileSync(path.join(ROOT, 'assets/companion/dango/dango.appearance.svg'), 'utf8');
 

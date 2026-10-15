@@ -14,7 +14,9 @@ const { drawDangoAppearance, resolveDangoPortraitBounds, HEAD_LIFT } = require('
 const { exactVectorPathBounds, exactVectorShapeBounds } = require('../tools/dango-build/vector-path-bounds.mjs');
 const root = path.join(__dirname, '..');
 const source = fs.readFileSync(path.join(root, 'assets/companion/dango/dango.appearance.vector.svg'), 'utf8');
-const items = PET_APPEARANCE_ITEMS.filter(item => item.formId === 'dango');
+// These fixtures audit the unchanged original raster/vector wardrobe owner.
+const { FRONT_STORY_GARMENTS } = require('../src/content/companion/front-stories.mjs');
+const items = PET_APPEARANCE_ITEMS.filter(item => item.formId === 'dango' && !Object.hasOwn(FRONT_STORY_GARMENTS, item.id));
 const views = ['front', 'three-quarter', 'profile', 'back'];
 
 function context() {

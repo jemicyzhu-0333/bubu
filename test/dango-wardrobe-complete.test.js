@@ -7,7 +7,9 @@ const { PET_APPEARANCE_ITEMS } = require('../src/content/appearance.mjs');
 const { PALETTES } = require('../src/core/pet-art.mjs');
 const { recordingContext } = require('../test-support/dango-raster-fixture.mjs');
 const { classifiedWardrobeCalls, expectedHiddenParts, assertSamePhysicalCache } = require('../test-support/dango-wardrobe-draw-assertions.mjs');
-const items = PET_APPEARANCE_ITEMS.filter(item => item.formId === 'dango');
+// These fixtures audit the unchanged original raster/vector wardrobe owner.
+const { FRONT_STORY_GARMENTS } = require('../src/content/companion/front-stories.mjs');
+const items = PET_APPEARANCE_ITEMS.filter(item => item.formId === 'dango' && !Object.hasOwn(FRONT_STORY_GARMENTS, item.id));
 const views = ['front', 'three-quarter', 'back'];
 const image = async src => ({ src, width: 8, height: 8 });
 const tick = () => new Promise(resolve => setImmediate(resolve));

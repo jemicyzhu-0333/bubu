@@ -11,7 +11,7 @@ test('workbench catalog and legal wardrobe selection use production identities',
   const { selectGarment } = await import('../tools/pet-workbench/model.mjs');
   const catalog = source.wardrobe.PET_APPEARANCE_ITEMS;
   assert.equal(Object.keys(source.behaviors.PET_ACTIONS).length, 44);
-  assert.equal(catalog.length, 43);
+  assert.equal(catalog.length, 45);
   const { previewSource } = await import('../tools/pet-workbench/source.mjs');
   assert.equal(Object.keys(source.sessions.SESSION_ACTIVITIES).length, 12);
   assert.equal(Object.keys(previewSource.sessions.SESSION_ACTIVITIES).length, 15);
@@ -44,7 +44,7 @@ test('single HTML build closes module and artwork graph without forbidden refere
     assert.equal(result.status, 0, result.stderr);
     const html = fs.readFileSync(out, 'utf8');
     const manifest = JSON.parse(fs.readFileSync(out + '.manifest.json', 'utf8'));
-    assert.equal(manifest.embeddedAssets, 457); // Four reading palm/root partitions join the existing knitting and other contact sources.
+    assert.equal(manifest.embeddedAssets, 466); // Nine reviewed front-story PNGs join the unchanged original artwork graph.
     assert.ok(manifest.modules >= 130);
     assert.equal(Object.keys(manifest.sourceHashes).some(name => name.includes('reference/') || name.includes('usagi-turnaround')), false);
     assert.equal(html.includes('/* WORKBENCH_BOOT */'), false);

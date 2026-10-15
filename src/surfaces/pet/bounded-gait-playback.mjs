@@ -14,7 +14,7 @@ function createBoundedGaitPlayback() {
     exit = null;
   }
   function sample({ action, preview, previewStartedAt, now, calmVisual, paused, form, state, source }) {
-    const admitted = action && action === formArt.previewAction(form, preview?.id)
+    const admitted = action?.motionCaps?.stepInPlace === true && action === formArt.previewAction(form, preview?.id)
       && !state?.dragging && [undefined, 'idle', 'walking'].includes(state?.state)
       && !state?.dockedEdge && !state?.screenLocked
       && (!source || source === 'base' || source === 'session');

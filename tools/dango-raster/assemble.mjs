@@ -4,6 +4,8 @@ import crypto from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { collectRasterSprites, validateRasterManifest } from '../../src/capabilities/companion/presentation/raster/schema.mjs';
 import { TOOL_SPRITES } from '../../src/content/companion/dango-tools.mjs';
+import { FRONT_STORY_GARMENTS } from '../../src/content/companion/front-stories.mjs';
+import { FRONT_STORY_ASSETS } from '../../assets/companion/dango/front-stories/assets.mjs';
 import { PET_APPEARANCE_ITEMS } from '../../src/content/appearance.mjs';
 import { EYE_FALLBACKS, MOUTH_FALLBACKS } from '../../src/capabilities/companion/presentation/rig/face.mjs';
 import { PET_ACTIONS } from '../../src/content/behaviors.mjs';
@@ -34,6 +36,10 @@ validateRasterManifest(manifest);
 const missing = [];
 for (const key of Object.keys(TOOL_SPRITES)) if (!manifest.tools?.[key]) missing.push(`tools/${key}`);
 for (const item of PET_APPEARANCE_ITEMS.filter(item => (item.formId || 'dango') === 'dango')) {
+  if (Object.hasOwn(FRONT_STORY_GARMENTS, item.id)) {
+    if (!item.optInOnly || item.views.join(',') !== 'front') missing.push(`front-stories/${item.id}/scope`);
+    continue;
+  }
   for (const view of ['front', 'three-quarter', 'back']) if (!manifest.appearance?.[item.renderKey]?.views?.[view]) missing.push(`appearance/${item.renderKey}/${view}`);
 }
 for (const [view, data] of Object.entries(manifest.views)) {
@@ -52,6 +58,10 @@ const scene = sceneCoverage(manifest);
 missing.push(...scene.missingScenes.map(key => `scenes/${key}`), ...scene.missingRooms.map(key => `sessionScenes/${key}`),
   ...scene.missingParticles.map(key => `sceneParticles/${key}`));
 if (missing.length) throw new Error(`incomplete production art: ${missing.join(', ')}`);
+for (const sprite of Object.values(FRONT_STORY_ASSETS.sprites)) {
+  const file = fileURLToPath(new URL(sprite.src, FRONT_STORY_ASSETS.baseUrl));
+  if (!fs.existsSync(file)) throw Error(`missing front story source: ${file}`);
+}
 const sources = [...new Set(collectRasterSprites(manifest).map(sprite => sprite.src))].sort();
 const assetHashes = Object.fromEntries(sources.map(src => [src,
   crypto.createHash('sha256').update(fs.readFileSync(path.join(assetRoot, src))).digest('hex')]));

@@ -88,9 +88,9 @@ test('the default ignores what the user owns, so unlocking a skin changes nothin
 
   // Owning the skins does change what may be picked, which is the whole feature.
   assert.equal(optionsFor(select({ unlockedSkins: ['pink'] }), 'headwear')
-    .options.filter(option => option.available).length, 2);
+    .options.filter(option => option.available).length, 3);
   assert.equal(optionsFor(select({ unlockedSkins: EVERY_SKIN }), 'headwear')
-    .options.filter(option => option.available).length, 6);
+    .options.filter(option => option.available).length, 7);
 });
 
 test('a choice overrides the automatic pick', () => {
@@ -305,7 +305,7 @@ test('every legal combination of accessories fits inside the stage safe area', (
   walk(0, []);
 
   assert.equal(combinations, byGroup.reduce((total, options) => total * options.length, 1));
-  assert.equal(combinations, 1792);
+  assert.equal(combinations, 2560);
   // Recorded rather than merely bounded: the headroom is the useful number when
   // judging whether a new accessory has room, and it is per side.
   assert.deepEqual(worst, { left: 18, top: 32, right: 22, bottom: 0 });
