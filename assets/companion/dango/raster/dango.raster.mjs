@@ -2,7 +2,7 @@
 const freeze = value => { if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); } return value; };
 const data = {
   "id": "dango-raster",
-  "version": 1978659193,
+  "version": 473328272,
   "views": {
     "front": {
       "neutral": {
@@ -11078,6 +11078,96 @@ const data = {
         "exactNearest8x": true,
         "rootOcclusion": "unchanged-canonical-body"
       }
+    },
+    "knit-front-round-v2-left": {
+      "src": "action-contact/knit-front-round-v2/left-8x.png",
+      "rect": [
+        0,
+        0,
+        72,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "knit-front-round-v2",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "knit-scarf",
+        "view": "front",
+        "side": "left",
+        "sourceSha256": "0f517601189a89f42e51f127a53c24202a3e22f02ba0091e0020828e1bde4924",
+        "rawSourceSha256": "d2ed1da73fe39b3654b8adb812717ce47c5f9c5ae41cf385d1bf448e3af3496b",
+        "translationOnly": true,
+        "samplesPerArtUnit": 1,
+        "binaryAlpha": true,
+        "exactNearest8x": true,
+        "logicalGrip": [
+          26.75,
+          45.125
+        ],
+        "needleLocalGrip": [
+          4.75,
+          4.125
+        ],
+        "minimumInkCoverage": 0.2,
+        "minimumFillCoverage": 0.5,
+        "strokePriority": true,
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "maskSha256": "879dbf7035bc40a880460725f82ad6a5d72f305f6c9b0b3a460fa9bca2600759",
+        "uniformSourceScale": 0.05555555555555555,
+        "quantizedOnce": true
+      }
+    },
+    "knit-front-round-v2-right": {
+      "src": "action-contact/knit-front-round-v2/right-8x.png",
+      "rect": [
+        0,
+        0,
+        72,
+        72
+      ],
+      "tint": "body",
+      "sourceContactPose": {
+        "id": "knit-front-round-v2",
+        "contractVersion": 1,
+        "runtimeReady": true,
+        "action": "knit-scarf",
+        "view": "front",
+        "side": "right",
+        "sourceSha256": "3ad50e8ceae2b854b95bfd774931605027209440ff8874997bd209626fb09d0a",
+        "rawSourceSha256": "d2ed1da73fe39b3654b8adb812717ce47c5f9c5ae41cf385d1bf448e3af3496b",
+        "translationOnly": true,
+        "samplesPerArtUnit": 1,
+        "binaryAlpha": true,
+        "exactNearest8x": true,
+        "logicalGrip": [
+          42.25,
+          45.125
+        ],
+        "needleLocalGrip": [
+          4.75,
+          4.125
+        ],
+        "minimumInkCoverage": 0.2,
+        "minimumFillCoverage": 0.5,
+        "strokePriority": true,
+        "bodySha256": "9063d11e0f2d79aa0c67ffb11ee8c4ba8c427d55f21436f7e5021c34084400a9",
+        "bodyRect": [
+          -1.789744,
+          8.533333,
+          69.415385,
+          49.066667
+        ],
+        "maskSha256": "aa51cbde34bd6dc8b8984c62b8915ee3381024ee98db9c5754828b095dcc94ea",
+        "uniformSourceScale": 0.05555555555555555,
+        "quantizedOnce": true
+      }
     }
   },
   "effects": {
@@ -14361,7 +14451,7 @@ const data = {
       "wardrobe": 1,
       "scenes": 1
     },
-    "assetDigest": "75eff179969abed169823f8b341c35c804284fddebe33be63cfe5d4928e65991",
+    "assetDigest": "1c366a90a27d494fe1645a7c5b6d876fc722eec16825ddeea522440b49e5e987",
     "assetHashes": {
       "action-contact/catch-star-quarter-v1/right-back-8x.png": "7d3180a8d964f243305e144cc176c6bb9df717017381b817c46d8248a0c54c20",
       "action-contact/catch-star-quarter-v1/right-front-8x.png": "77acf54475664a747636e1fd7f5dda7b108df41e274f41e5696cd5dda864df3d",
@@ -14369,6 +14459,8 @@ const data = {
       "action-contact/hiccup-front-v1/hiccup-front-right-continuous-8x.png": "edfb542822a7e9499df5d43d9c50b2155c496b62b51bf92369d6bda255fe7f8c",
       "action-contact/hiccup-quarter-pair-v1/far-8x.png": "9ff52618fb087e3c00825e4238da2560eee323dfbe5235a5e4079f05b4e29444",
       "action-contact/hiccup-quarter-pair-v1/near-8x.png": "0461dcbfafcc6e865e8934c41165b9c0d8650213cd50df468d0303915f390e33",
+      "action-contact/knit-front-round-v2/left-8x.png": "0f517601189a89f42e51f127a53c24202a3e22f02ba0091e0020828e1bde4924",
+      "action-contact/knit-front-round-v2/right-8x.png": "3ad50e8ceae2b854b95bfd774931605027209440ff8874997bd209626fb09d0a",
       "action-contact/sip-front-v1/left-8x.png": "9e66aeb66814f3e6384217ddce99a445dfd4b1edbebeb1bf8b76847bee390fcd",
       "action-contact/sip-front-v1/right-8x.png": "017c8747173f71ef4c9b3ec8b79b8c0b397733fdb68cc4d4eca37ef662f32515",
       "action-contact/sip-front-v2/sip-front-v2-left-fore-palm-front-8x.png": "c14ba0c59fbfc6a344dba841b006be369b00b5039944debaf4e70bffc9d6a616",
