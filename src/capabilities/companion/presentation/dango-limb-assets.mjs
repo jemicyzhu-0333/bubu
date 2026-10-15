@@ -5,6 +5,7 @@ import { browserSurface } from './raster/paint.mjs';
 // contract COMPOSITION.md). Lifecycle:
 //   idle -> loading -> ready | absent | invalid | not-ready (runtimeReady=false
 //   and the host does not implement this contract version) | failed (image)
+//   dispose is terminal: cancel pending reads and release the pixel group.
 // Anything but `ready` keeps the legacy hands (fallback).
 import { DANGO_LIMB_RIG } from '../../../content/companion/dango-limbs.mjs';
 
@@ -82,9 +83,9 @@ function validateDangoLimbManifest(json, { joints = null, interfaces = null } = 
   return { ok: !errors.length, errors, sources: [...srcs], runtimeReady: ready };
 }
 
-async function defaultLoadJson(url) {
+async function defaultLoadJson(url, { signal } = {}) {
   if (typeof fetch !== 'function') return null;
-  const res = await fetch(url); if (!res.ok) return null; return res.json();
+  const res = await fetch(url, { signal }); if (!res.ok) return null; return res.json();
 }
 
 // acceptContract: the host declares it implements COMPOSITION.md for this
@@ -99,26 +100,46 @@ function defaultReadPixels(image) {
 function createDangoLimbSource({ baseUrl, loadJson = defaultLoadJson, loadImage, readPixels = defaultReadPixels,
   manifestPath = DANGO_LIMB_RIG.manifestPath, acceptContract = null } = {}) {
   let state = 'idle', manifest = null, joints = null, interfaces = null, errors = [], pixels = new Map(), pending = null;
+  const controller = new AbortController();
+  const release = value => value?.close?.();
+  const clear = () => { for (const value of pixels.values()) release(value); pixels.clear(); manifest = joints = interfaces = null; };
   const root = new URL(manifestPath, baseUrl).href, dir = new URL('./', root).href;
-  const json = rel => Promise.resolve().then(() => loadJson(new URL(rel, dir).href)).catch(() => null);
+  const json = rel => Promise.resolve().then(() => controller.signal.aborted ? null
+    : loadJson(new URL(rel, dir).href, { signal: controller.signal })).catch(() => null);
   function start() {
+    if (state === 'disposed') return Promise.resolve(state);
     if (pending) return pending;
     state = 'loading';
-    pending = json(root.slice(dir.length)).then(async m => {
+    const cancelled = new Promise(resolve => controller.signal.addEventListener('abort', () => resolve(state), { once: true }));
+    const loading = json(root.slice(dir.length)).then(async m => {
+      if (controller.signal.aborted) return state;
       if (!m) { state = 'absent'; return state; }
       const [j, i] = await Promise.all([json(m.extensions?.jointPairs || 'joints/elbow.json'), json(m.extensions?.poseRootInterfaces || 'interfaces/interfaces.json')]);
+      if (controller.signal.aborted) return state;
       const v = validateDangoLimbManifest(m, { joints: j, interfaces: i });
       if (!v.ok) { state = 'invalid'; errors = v.errors; return state; }
       if (!v.runtimeReady && acceptContract !== m.version) { state = 'not-ready'; errors = ['extensions.runtimeReady=false and host has not accepted this contract version']; return state; }
       try {
-        const loaded = await Promise.all(v.sources.map(async src => {
-          const image = await loadImage(new URL(src, dir).href); if (!image) throw Error(`empty ${src}`);
-          return [src, readPixels ? readPixels(image) : image];
+        await Promise.all(v.sources.map(async src => {
+          const image = await loadImage(new URL(src, dir).href, { signal: controller.signal });
+          if (controller.signal.aborted) { release(image); return; }
+          if (!image) throw Error(`empty ${src}`);
+          let value;
+          try {
+            value = readPixels ? readPixels(image) : image;
+            if (!value || readPixels && (!isSize([value.width, value.height])
+              || !(value.data instanceof Uint8ClampedArray || value.data instanceof Uint8Array)
+              || value.data.length !== value.width * value.height * 4)) throw Error(`invalid pixels ${src}`);
+          } finally { if (readPixels) release(image); }
+          pixels.set(src, value);
         }));
-        pixels = new Map(loaded); manifest = m; joints = j; interfaces = i; state = 'ready';
-      } catch (e) { state = 'failed'; errors = [`image: ${e?.message || e}`]; pixels = new Map(); }
+        if (!controller.signal.aborted) { manifest = m; joints = j; interfaces = i; state = 'ready'; }
+      } catch (e) {
+        if (state !== 'disposed') { state = 'failed'; errors = [`image: ${e?.message || e}`]; controller.abort(); clear(); }
+      }
       return state;
     });
+    pending = Promise.race([loading, cancelled]);
     return pending;
   }
   // Full canonical alpha resolves the stencil's deliberately unknown margins.
@@ -139,8 +160,9 @@ function createDangoLimbSource({ baseUrl, loadJson = defaultLoadJson, loadImage,
     manifest: () => (state === 'ready' ? manifest : null),
     joints: () => (state === 'ready' ? joints : null),
     interfaces: () => (state === 'ready' ? interfaces : null),
-    pixels: src => pixels.get(src) || null,
-    image: src => pixels.get(src) || null
+    pixels: src => state === 'ready' ? pixels.get(src) || null : null,
+    image: src => state === 'ready' ? pixels.get(src) || null : null,
+    dispose() { if (state === 'disposed') return; state = 'disposed'; controller.abort(); clear(); }
   });
 }
 
