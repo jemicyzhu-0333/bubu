@@ -319,3 +319,8 @@ Next Bobo task: review default wave entry, three sweeps, exit/interruption, mirr
 
 - Bobo accepted fd3dba3 (see `round30/REVIEW-fd3dba3.md`). The three-quarter umbrella palm now visibly grips the green J upright, the middle shaft stays behind the body, and the cheek palm is gone. Front umbrella is pixel-identical to abe5901. The matrix shows only umbrella changes. Full check passes with 0 failures.
 - Umbrella-dance three-quarter is closed. Remaining Codex items: workout, read-book, knit-scarf.
+
+## Bobo Round 31: front workout support arms accepted (2026-10-15)
+
+- Bobo accepted e974ab4 (see `round31/REVIEW-e974ab4.md`). Front workout now shows two bent support arms with planted palms outside the original feet. The old center support paws are gone, and the feet and boots are visible. Workout three-quarter is pixel-identical to the previous head (legacy paws). The matrix shows only workout changes. Full check passes with 0 failures. The Codex QA reruns (4080-frame matrix, 8 lifecycle scenarios, parity) pass with 0 failures.
+- Workout front is closed. Remaining Codex items: read-book, knit-scarf, workout three-quarter (legacy support paws), plus earlier short-reach and three-quarter far-hand notes.
