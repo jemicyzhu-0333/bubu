@@ -1,6 +1,6 @@
 # Dango limbs v2: branch handoff
 
-Current update 2026-10-15 01:49 UTC: workout e974ab4 accepted in Bobo round31; knitting53e18f4 and reading05d7fc7 published. This commit fixes companion raster resource lifecycle; exact-head native/CI review remains pending.
+Current update 2026-10-15 01:50 UTC: knitting53e18f4, reading05d7fc7 and lifecycle61a477e published; Bobo round31 workout acceptance preserved. This commit adds bounded reminder scroll diagnostics. Mac PageDown root cause remains unproven; final exact-head CI is pending.
 
 Updated 2026-10-14 01:30 UTC. Latest delivery enables the user-selected short front/bare sip with full lifecycle coverage; see the final dated section. The wider complete-source alternative remains disabled; the dated sections below retain historical evidence. Shared branch: `feature/pet-motion-craft`. The front-sip source repair is committed as `d0e0827600c18b5cff7a723ab3525a12227dffc5`. Quarter wiring evidence is committed as `f74811caa9d5b108f77d7a1afa2134b8e34be256`. Independent fore material repair is committed as `6c03a998592a12942c376c6c024fe6acadd835f0`. Ordinary-walk artist delivery is committed as `c89ba6f928140076072049285487a9788e0f09a4`; its host world handoff remains open. This update corrects the fixed front/right shoulder registration and closes the reproduced bubble shoulder-fragment scene through the unchanged generic composer.
 
@@ -349,3 +349,9 @@ Next Bobo task: review default wave entry, three sweeps, exit/interruption, mirr
 - Validate exact RGBA buffers before limb group readiness; malformed or failed siblings keep atomic fallback. Terminal disposal aborts pending JSON/images, releases late decoded resources and clears retained pixels. Artist owns its limb source; shared independently disposable ownership is unsupported. General raster pre-commit stale-result branch now closes the decoded image.
 - Six behavior negatives fail before and pass after; combined all-Canvas local check6734pass/5skip, integration71, and workout/knit/read actual production regression passed. No action geometry, source artwork, IPC or persisted data changed. Close() applies where supplied; browser memory reclamation/native long-running RSS is not certified.
 - Next reviewer: check cold failure, artist disposal during both JSON/image loading, and exact-head native CI. Reminder PageDown remains an independent unresolved native diagnostic.
+
+## Native reminder scroll probe observation (2026-10-15)
+
+- e974ab4 CI38613102459: Windows succeeded; Mac failed at the existing nudgeStatus PageDown scroll assertion. Reminder production source is unchanged from the earlier passing baseline. Native focus/event/default prevention at failure was not recorded, so no timing-flake or art-regression root cause is asserted.
+- Each PageDown/PageUp is sent exactly once. The probe records native and DOM event delivery, focus, final defaultPrevented and scroll history; waits up to1500ms for a real directional region scroll to settle100ms; errors remain explicit for missing/prevented/wrong-target/zero-scroll/unsettled events. Original scroll assertions remain. There is no refocus, key retry or forced scroll. Histories and setup/sample/cleanup waits are bounded.
+- 17 new fake-port tests plus7 existing keyboard tests passed; combined check6734pass/5skip and integration71. This instrumented probe has not yet run on native Mac/Windows. Next owner: inspect exact-head native logs/artifacts; do not call this a proven PageDown fix until real evidence supports it.
