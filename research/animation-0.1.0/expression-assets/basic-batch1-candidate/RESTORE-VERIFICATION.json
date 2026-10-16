@@ -1,0 +1,13 @@
+{
+  "restore": "complete source and full look gzip restored byte-for-byte against RESTORE-HASHES.json",
+  "rebuild": "Blender4.3.2 rebuilt the entire candidate from retained source after removing only new Basic targets and brows",
+  "originalGLBSHA256": "af227127a5271e35b8ccb3904f67d8c47eaae18b3a0a6aabe318e4081c7f7135",
+  "rebuiltGLBSHA256": "af227127a5271e35b8ccb3904f67d8c47eaae18b3a0a6aabe318e4081c7f7135",
+  "byteExactGLB": true,
+  "requiresExternalSourceFiles": false,
+  "software": [
+    "Blender4.3.2",
+    "Python3 with numpy/Pillow for audit/boards"
+  ],
+  "user3DApproval": false
+}

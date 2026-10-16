@@ -1,0 +1,62 @@
+{
+  "assetSHA256": "af227127a5271e35b8ccb3904f67d8c47eaae18b3a0a6aabe318e4081c7f7135",
+  "status": "single-face static visual/attachment gate passed; frozen candidate awaiting user3D approval",
+  "sourceReferenceDirectionsAccepted": true,
+  "user3DApproved": false,
+  "runtimeEnabled": false,
+  "newFaces": [
+    "D1",
+    "N2",
+    "P2"
+  ],
+  "restOriginalR6ImageDifference": {
+    "front": {
+      "sourceSize": [
+        342,
+        414,
+        4
+      ],
+      "newSize": [
+        342,
+        414,
+        4
+      ],
+      "sameImage": true,
+      "maxPixelDifference": 0
+    },
+    "quarter": {
+      "sourceSize": [
+        342,
+        414,
+        4
+      ],
+      "newSize": [
+        342,
+        414,
+        4
+      ],
+      "sameImage": true,
+      "maxPixelDifference": 0
+    }
+  },
+  "oldBodyAndTargetsExact": true,
+  "attachmentSamples": 147,
+  "attachmentPassed": true,
+  "minimumBodyClearance": 0.001452326774597168,
+  "orientationSamples": 195,
+  "noNondegenerateProjectionReversal": true,
+  "mouthInnerCollapseMaxFloat32Spread": 1.3328735858254892e-07,
+  "mouthInnerCollapseTolerance": 2e-07,
+  "expectedDegeneracy": "hidden brows; disappearing highlights; coalesced inner mouth boundary, with raw numerical roundoff retained in audit",
+  "visualCells": 60,
+  "uniqueStateAngleFrames": 52,
+  "directCrossFaceBlendAllowed": false,
+  "gazeImplemented": false,
+  "checks": {
+    "export-identity-audit.json": "0d4f7e3d66796a9f79d5f75daa8c778ea997078cd001ba7fe3d46c2f04feac95",
+    "face-attachment-audit.json": "036722de1b57160d76fb56d5cebc89ee6849b93c25fdb72b4c3c91bbab734760",
+    "projected-orientation-audit.json": "4ca30300c46950bb984c0af2123a0b1b9ad94eb7ab2294693a5b6d5017b255d3",
+    "brow-layer-audit.json": "d80d1135bdb35e40493e816fafbfc322c6cd87377691bf7dab0fed2c3db7af11",
+    "mouth-collapse-audit.json": "2643469caf5435b863da011c56ae90f90edadabc179d802ab9dd94f0f7d8dbb5"
+  }
+}
