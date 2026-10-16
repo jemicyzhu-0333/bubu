@@ -1,0 +1,8 @@
+import fs from 'node:fs/promises';import vm from 'node:vm';
+const src=await fs.readFile(new URL('../../src/demo.mjs',import.meta.url),'utf8');let resolvePack,adds=0,disposed=0;const elements=new Map();const element=id=>{if(!elements.has(id))elements.set(id,{clientWidth:100,clientHeight:100,append(){},textContent:''});return elements.get(id)};
+class Scene{add(o){if(o?.actor)adds++}}class Renderer{setPixelRatio(){}setClearColor(){}setSize(){}render(){}dispose(){}}
+class Camera{constructor(){this.position={set(){}}}lookAt(){}updateProjectionMatrix(){}}class Light{constructor(){this.position={set(){}}}}
+const suite={root:{actor:true},dispose(){disposed++},budget:{},timeline:{time:0},face:{path:null,value:0}};
+const context={T:{Scene,WebGLRenderer:Renderer,OrthographicCamera:Camera,HemisphereLight:Light,DirectionalLight:Light},document:{querySelector:element,hidden:false,addEventListener(){},removeEventListener(){}},window:{addEventListener(){}},ResourceCache:class{},DemandLoop:class{invalidate(){}dispose(){}pause(){}},ResizeObserver:class{observe(){}disconnect(){}},devicePixelRatio:1,performance:{now:()=>0},URL,requestAnimationFrame(){},cancelAnimationFrame(){},setTimeout,clearTimeout,AbortController,preparePack:()=>new Promise(r=>resolvePack=r),browserPackReader:()=>{},createSuite:async()=>suite};
+vm.runInNewContext(src.replace(/^import[\s\S]*?;\s*/gm,'').replaceAll('import.meta.url',JSON.stringify('https://example.test/src/demo.mjs')),context);
+element('#dispose').onclick();resolvePack({});for(let i=0;i<10;i++)await Promise.resolve();console.log(JSON.stringify({scope:'Mocked browser lifecycle only, not WebGL',actorAddedAfterPendingCreateWasDisposed:adds,disposeCalls:disposed},null,2));

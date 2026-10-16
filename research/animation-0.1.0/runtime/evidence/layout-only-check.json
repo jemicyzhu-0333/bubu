@@ -1,0 +1,20 @@
+{
+  "scope": "Non-whitespace/non-comment token equality against clean-install snapshot",
+  "files": {
+    "src/suite.mjs": true,
+    "src/contracts.mjs": true,
+    "src/resource-cache.mjs": true,
+    "src/timeline.mjs": true,
+    "src/glb-preflight.mjs": true,
+    "src/pack-loader.mjs": true,
+    "src/demo.mjs": true,
+    "src/demand-loop.mjs": true,
+    "tests/contracts.test.mjs": true,
+    "tests/lifecycle.test.mjs": true,
+    "tests/smoke.test.mjs": true,
+    "tests/timeline.test.mjs": true,
+    "tests/helpers.mjs": true,
+    "tools/read-local-pack.mjs": true,
+    "tools/bench.mjs": true
+  }
+}

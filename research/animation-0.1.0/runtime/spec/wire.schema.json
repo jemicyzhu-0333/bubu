@@ -1,0 +1,244 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "bubu runtime 0.1.0 strict wire shapes",
+  "description": "IDE/document validation. Runtime also checks byte/complexity budgets, integrity, references, normalized quaternion/caps, complete face roster, unique nodes, GLB content and instance budgets. No extensions or compatibility aliases.",
+  "oneOf": [{"$ref": "#/$defs/manifest"}, {"$ref": "#/$defs/profile"}, {"$ref": "#/$defs/motion"}],
+  "$defs": {
+    "manifest": {
+      "type": "object",
+      "properties": {
+        "format": {"const": "bubu-suite"},
+        "version": {"const": "0.1.0"},
+        "id": {"type": "string", "minLength": 1, "maxLength": 160},
+        "assets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {"type": "string", "minLength": 1, "maxLength": 160},
+              "path": {"type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*(/[A-Za-z0-9][A-Za-z0-9_.-]*)*$"},
+              "kind": {"enum": ["glb", "profile", "motion"]},
+              "bytes": {"type": "integer", "minimum": 1, "maximum": 8388608},
+              "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+            },
+            "required": ["id", "path", "kind", "bytes", "sha256"],
+            "additionalProperties": false
+          },
+          "maxItems": 16
+        },
+        "character": {
+          "type": "object",
+          "properties": {"asset": {"type": "string", "minLength": 1, "maxLength": 160}, "profile": {"type": "string", "minLength": 1, "maxLength": 160}},
+          "required": ["asset", "profile"],
+          "additionalProperties": false
+        },
+        "equipment": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {"type": "string", "minLength": 1, "maxLength": 160},
+              "asset": {"type": "string", "minLength": 1, "maxLength": 160},
+              "slot": {"type": "string", "minLength": 1, "maxLength": 160},
+              "fit": {
+                "type": "object",
+                "properties": {
+                  "position": {"type": "array", "items": {"type": "number", "minimum": -1000000.0, "maximum": 1000000.0}, "minItems": 3, "maxItems": 3},
+                  "rotation": {"type": "array", "items": {"type": "number", "minimum": -1, "maximum": 1}, "minItems": 4, "maxItems": 4},
+                  "scale": {"type": "number", "minimum": 0.01, "maximum": 10}
+                },
+                "required": ["position", "rotation", "scale"],
+                "additionalProperties": false
+              },
+              "attachment": {"enum": ["rigid-socket"]},
+              "collision": {"enum": ["unverified-no-solver"]},
+              "support": {"enum": ["none"]}
+            },
+            "required": ["id", "asset", "slot", "fit", "attachment", "collision", "support"],
+            "additionalProperties": false
+          },
+          "maxItems": 8
+        },
+        "motion": {"type": "string", "minLength": 1, "maxLength": 160},
+        "requiredCapabilities": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "skeletal-delta",
+              "expression-single-path",
+              "rigid-socket",
+              "accessory-local-rotation",
+              "canonical-events",
+              "interrupt-c0",
+              "demand-render"
+            ]
+          },
+          "maxItems": 7,
+          "uniqueItems": true
+        },
+        "budgets": {
+          "type": "object",
+          "properties": {
+            "totalBytes": {"type": "number", "minimum": 1, "maximum": 33554432},
+            "vertices": {"type": "number", "minimum": 1, "maximum": 100000},
+            "nodes": {"type": "number", "minimum": 1, "maximum": 128}
+          },
+          "required": ["totalBytes", "vertices", "nodes"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["format", "version", "id", "assets", "character", "equipment", "motion", "requiredCapabilities", "budgets"],
+      "additionalProperties": false
+    },
+    "profile": {
+      "type": "object",
+      "properties": {
+        "format": {"const": "bubu-character-profile"},
+        "version": {"const": "0.1.0"},
+        "id": {"type": "string", "minLength": 1, "maxLength": 160},
+        "purpose": {"enum": ["mechanics-fixture"]},
+        "coordinates": {
+          "type": "object",
+          "properties": {"up": {"enum": ["+Y"]}, "front": {"enum": ["+Z"]}, "unitScale": {"const": 1}},
+          "required": ["up", "front", "unitScale"],
+          "additionalProperties": false
+        },
+        "joints": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {"type": "string", "minLength": 1, "maxLength": 160},
+              "node": {"type": "string", "minLength": 1, "maxLength": 160},
+              "capRadians": {"type": "number", "minimum": 0, "maximum": 0.5}
+            },
+            "required": ["id", "node", "capRadians"],
+            "additionalProperties": false
+          },
+          "maxItems": 64
+        },
+        "sockets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {"id": {"type": "string", "minLength": 1, "maxLength": 160}, "node": {"type": "string", "minLength": 1, "maxLength": 160}},
+            "required": ["id", "node"],
+            "additionalProperties": false
+          },
+          "maxItems": 16
+        },
+        "expressions": {
+          "type": "object",
+          "properties": {
+            "policy": {"enum": ["single-path-via-neutral"]},
+            "meshes": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 160}, "maxItems": 16, "uniqueItems": true},
+            "paths": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {"type": "string", "minLength": 1, "maxLength": 160},
+                  "knots": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "at": {"type": "number", "minimum": 0, "maximum": 1},
+                        "targets": {
+                          "type": "object",
+                          "additionalProperties": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0, "maximum": 1}, "maxProperties": 16},
+                          "maxProperties": 16
+                        }
+                      },
+                      "required": ["at", "targets"],
+                      "additionalProperties": false
+                    },
+                    "maxItems": 17
+                  }
+                },
+                "required": ["id", "knots"],
+                "additionalProperties": false
+              },
+              "maxItems": 8
+            }
+          },
+          "required": ["policy", "meshes", "paths"],
+          "additionalProperties": false
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "skeletal-delta",
+              "expression-single-path",
+              "rigid-socket",
+              "accessory-local-rotation",
+              "canonical-events",
+              "interrupt-c0",
+              "demand-render"
+            ]
+          },
+          "maxItems": 7,
+          "uniqueItems": true
+        },
+        "verification": {
+          "type": "object",
+          "properties": {
+            "numeric": {"enum": ["fixture-tests-pending", "fixture-tests-passed"]},
+            "visual": {"enum": ["not-art-asset"]},
+            "userApproval": {"enum": ["not-art-asset"]}
+          },
+          "required": ["numeric", "visual", "userApproval"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["format", "version", "id", "purpose", "coordinates", "joints", "sockets", "expressions", "capabilities", "verification"],
+      "additionalProperties": false
+    },
+    "motion": {
+      "type": "object",
+      "properties": {
+        "format": {"const": "bubu-motion"},
+        "version": {"const": "0.1.0"},
+        "id": {"type": "string", "minLength": 1, "maxLength": 160},
+        "segments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {"type": "string", "minLength": 1, "maxLength": 160},
+              "durationSec": {"type": "number", "minimum": 0.02, "maximum": 10},
+              "curve": {"enum": ["smoothstep"]},
+              "joints": {
+                "type": "object",
+                "additionalProperties": {"type": "array", "items": {"type": "number", "minimum": -1, "maximum": 1}, "minItems": 4, "maxItems": 4},
+                "maxProperties": 64
+              },
+              "accessories": {
+                "type": "object",
+                "additionalProperties": {"type": "array", "items": {"type": "number", "minimum": -1, "maximum": 1}, "minItems": 4, "maxItems": 4},
+                "maxProperties": 8
+              },
+              "expression": {
+                "type": "object",
+                "properties": {
+                  "path": {"type": "string", "minLength": 1, "maxLength": 160},
+                  "intensity": {"type": "number", "minimum": 0, "maximum": 1},
+                  "fadeOutSec": {"type": "number", "minimum": 0.02, "maximum": 1},
+                  "fadeInSec": {"type": "number", "minimum": 0.02, "maximum": 1}
+                },
+                "required": ["path", "intensity", "fadeOutSec", "fadeInSec"],
+                "additionalProperties": false
+              }
+            },
+            "required": ["id", "durationSec", "curve", "joints", "accessories"],
+            "additionalProperties": false
+          },
+          "maxItems": 64
+        }
+      },
+      "required": ["format", "version", "id", "segments"],
+      "additionalProperties": false
+    }
+  }
+}

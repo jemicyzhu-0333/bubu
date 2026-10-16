@@ -1,0 +1,12 @@
+{
+  "cleanTemporaryDirectory": true,
+  "install": "npm ci --ignore-scripts",
+  "registry": "https://registry.npmjs.org/",
+  "dependency": "three@0.186.1",
+  "installPassed": true,
+  "packagesAdded": 1,
+  "testsPassed": 34,
+  "testsFailed": 0,
+  "postLayoutRefreshTestsPassed": 34,
+  "note": "Cold offline install first failed because the tarball cache was empty; standard official-registry install succeeded. No existing node_modules copied."
+}

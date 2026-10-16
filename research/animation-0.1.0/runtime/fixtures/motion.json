@@ -1,0 +1,142 @@
+{
+  "format": "bubu-motion",
+  "version": "0.1.0",
+  "id": "mechanical.segments",
+  "segments": [
+    {
+      "id": "raise",
+      "durationSec": 0.4,
+      "curve": "smoothstep",
+      "joints": {
+        "arm.left": [
+          0,
+          0,
+          0.0799146939691727,
+          0.9968017063026194
+        ],
+        "arm.right": [
+          0,
+          0,
+          -0.0799146939691727,
+          0.9968017063026194
+        ],
+        "foot.left": [
+          0,
+          0,
+          0.0799146939691727,
+          0.9968017063026194
+        ],
+        "foot.right": [
+          0,
+          0,
+          -0.0799146939691727,
+          0.9968017063026194
+        ]
+      },
+      "accessories": {
+        "testCap": [
+          0,
+          0,
+          0.0799146939691727,
+          0.9968017063026194
+        ]
+      },
+      "expression": {
+        "path": "fixture.A",
+        "intensity": 1,
+        "fadeOutSec": 0.08,
+        "fadeInSec": 0.12
+      }
+    },
+    {
+      "id": "turn",
+      "durationSec": 0.4,
+      "curve": "smoothstep",
+      "joints": {
+        "arm.left": [
+          0,
+          0,
+          -0.0649542388347826,
+          0.9978882436713011
+        ],
+        "arm.right": [
+          0,
+          0,
+          0.0649542388347826,
+          0.9978882436713011
+        ],
+        "foot.left": [
+          0,
+          0,
+          -0.0649542388347826,
+          0.9978882436713011
+        ],
+        "foot.right": [
+          0,
+          0,
+          0.0649542388347826,
+          0.9978882436713011
+        ]
+      },
+      "accessories": {
+        "testCap": [
+          0,
+          0,
+          -0.0649542388347826,
+          0.9978882436713011
+        ]
+      },
+      "expression": {
+        "path": "fixture.B",
+        "intensity": 1,
+        "fadeOutSec": 0.08,
+        "fadeInSec": 0.12
+      }
+    },
+    {
+      "id": "rest",
+      "durationSec": 0.4,
+      "curve": "smoothstep",
+      "joints": {
+        "arm.left": [
+          0,
+          0,
+          0.0,
+          1.0
+        ],
+        "arm.right": [
+          0,
+          0,
+          0.0,
+          1.0
+        ],
+        "foot.left": [
+          0,
+          0,
+          0.0,
+          1.0
+        ],
+        "foot.right": [
+          0,
+          0,
+          0.0,
+          1.0
+        ]
+      },
+      "accessories": {
+        "testCap": [
+          0,
+          0,
+          0.0,
+          1.0
+        ]
+      },
+      "expression": {
+        "path": "fixture.A",
+        "intensity": 0,
+        "fadeOutSec": 0.08,
+        "fadeInSec": 0.12
+      }
+    }
+  ]
+}

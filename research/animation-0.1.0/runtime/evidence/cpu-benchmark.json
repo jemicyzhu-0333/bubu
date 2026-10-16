@@ -1,0 +1,29 @@
+{
+  "scope": "CPU mechanical fixture only; includes canonical sampling, quaternion writes, face mapping and matrix updates; no WebGL draw or browser input",
+  "node": "v24.19.0",
+  "fixture": {
+    "vertices": 148,
+    "nodes": 16,
+    "deformedVertices": 164,
+    "textureBytes": 0,
+    "definitions": {
+      "vertices": 148,
+      "nodes": 11,
+      "deformedVertices": 164
+    }
+  },
+  "measuredTicks": 40000,
+  "millisecondsPerTickBatchMean": {
+    "median": 0.0033693724999999974,
+    "p95": 0.004093334499999998,
+    "max": 0.005392471999999998
+  },
+  "normalTickSkinnedVertexReads": 0,
+  "allocationClaim": "No full vertex scans; channel arrays/maps/quaternion scratch preallocated. JS heap/GC allocations not proven zero.",
+  "cacheAfterDispose": {
+    "loads": 2,
+    "hits": 0,
+    "disposals": 2,
+    "live": 0
+  }
+}

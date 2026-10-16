@@ -1,0 +1,31 @@
+{
+  "checks": [
+    "Bitwise equality at t=0.51 for 24/30/60/120/144 Hz and one large gap, including face interruption/cancel",
+    "Shared immutable assets retain independent pose/morph state; disposing sibling leaves actor usable",
+    "Same-time cancel wins; enqueue in past rejected"
+  ],
+  "cpu": {
+    "scope": "Node CPU-only actual mechanical GLB; advance plus matrix updates. No GPU/render/browser performance claim.",
+    "samples": 50000,
+    "medianBatchPerTickMs": 0.0026911800000000313,
+    "p95BatchPerTickMs": 0.004493098000000032,
+    "normalTickVertexReads": 0,
+    "profile": {
+      "vertices": 148,
+      "nodes": 16,
+      "deformedVertices": 164,
+      "textureBytes": 0,
+      "definitions": {
+        "vertices": 148,
+        "nodes": 11,
+        "deformedVertices": 164
+      }
+    }
+  },
+  "cache": {
+    "loads": 18,
+    "hits": 2,
+    "disposals": 18,
+    "live": 0
+  }
+}
