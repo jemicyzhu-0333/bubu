@@ -14,8 +14,9 @@ import petArt from '../../core/pet-art.mjs';
 import petSceneArt from '../../core/pet-scene-art.mjs';
 import petFace from '../../core/pet-face.mjs';
 import sensoryPolicy from '../../core/sensory-policy.mjs';
+import { outfitWearAction } from '../../content/companion/outfit-sets.mjs';
 import { classifyWorkPeriod } from '../../content/work-period.mjs';
-import { forms } from '../../capabilities/companion/index.mjs';
+import { forms, formArt } from '../../capabilities/companion/index.mjs';
 import { createPetLifecycle } from './lifecycle.mjs';
 import { createPetCompositor } from './compositor.mjs';
 import { createPetScene } from './scene.mjs';
@@ -1122,6 +1123,17 @@ const petCommands = createPetCommands({
   setState: patch => { if (patch.sessionState) setSessionState(patch.sessionState); }
 });
 
+// Outfit wear performance (e.g. 南瓜之夜 → halloween-lantern): once per wear,
+// never during sessions/DND/low stimulation; reduced motion freezes it (calm path).
+function startOutfitAction(actionId) {
+  const action = formArt.previewAction(forms.resolvePetForm(currentSkin), actionId);
+  if (!action || dnd || stimulationMode === 'low' || sessionState !== 'idle' || sessionPaused || dragging) return false;
+  cancelCurrentAction('interaction');
+  resetPetActionEmitters();
+  beginActionPlayback({ id: actionId, duration: action.duration, manual: true });
+  return true;
+}
+
 function startManualAction(actionId, text, { speak = true, interactionId } = {}) {
   const playback = createManualActionPlayback(petContent, actionId, { interactionId, formId: forms.resolvePetForm(currentSkin).id });
   if (!playback) return false;
@@ -1373,7 +1385,11 @@ function handlePetSync(data = {}) {
   if (data.work) { workStart = data.work.start; workEnd = data.work.end; }
   if (data.energyLevel !== undefined) energyLevel = data.energyLevel;
   if (data.level !== undefined) level = data.level;
-  if (Array.isArray(data.appearanceItemIds)) appearanceItemIds = data.appearanceItemIds;
+  if (Array.isArray(data.appearanceItemIds)) {
+    const wearAction = outfitWearAction(forms.resolvePetForm(data.skin || currentSkin).id, appearanceItemIds, data.appearanceItemIds);
+    appearanceItemIds = data.appearanceItemIds;
+    if (wearAction) startOutfitAction(wearAction);
+  }
   if (data.stimulationMode) stimulationMode = data.stimulationMode;
   if (data.motionMode) motionMode = data.motionMode;
   if (data.petActivityMode) petActivityMode = data.petActivityMode;

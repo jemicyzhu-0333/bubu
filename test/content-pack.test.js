@@ -8,7 +8,7 @@ const { adaptLegacyPetContent, validateContentManifest, lintContentManifest } = 
 test('the built-in adapter produces one validated declarative cue per paired easter egg', () => {
   const manifest = adaptLegacyPetContent(petContent);
   assert.equal(manifest.packId, 'builtin-core');
-  assert.equal(manifest.cues.length, petContent.EASTER_EGGS.length);
+  assert.equal(manifest.cues.filter(cue => cue.id.startsWith('egg.')).length, petContent.EASTER_EGGS.length);
   assert.equal(validateContentManifest(manifest).ok, true);
   assert.ok(manifest.cues.every(cue => cue.variants.some(variant => variant.static)));
   assert.ok(manifest.cues.every(cue => cue.variants.every(variant => variant.durationMs >= 6_000)));

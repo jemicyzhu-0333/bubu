@@ -7,7 +7,7 @@ const { adaptLegacyPetContent } = require('./core/content-pack');
 const {
   createApplication, createAiCollaboration, createDomainId, createPlanningPreferences,
   createBootstrapRuntime, createProposalAssistance, registerNudgeActions,
-  createCompanionMeals, createCompanionWardrobe, createRendererIpcRegistrar, createCompanionFoodShop, createCompanionFeeding, createGrowthPublisher, createPreferencesPublisher,
+  createCompanionMeals, createCompanionWardrobe, outfitSurpriseContext, createRendererIpcRegistrar, createCompanionFoodShop, createCompanionFeeding, createGrowthPublisher, createPreferencesPublisher,
   createEnergyAssistance, createInboxOrganization, createActivityMirror, createPrivateTaskNotifications, energyCurveLevelNow, registerAiCancellation, createTaskUndo,
   createSittingReminderTimer, createCurrentEnergyReader,
   createWorkBoundaryReminder,
@@ -1390,7 +1390,7 @@ function currentSurpriseContext() {
     lowStimulation: sensory.lowStimulation,
     reduceMotion: sensory.reduceMotion,
     sessionActive: isTimingSession(canonicalFocusSession()),
-    activityMode: settings.petActivityMode
+    activityMode: settings.petActivityMode, ...outfitSurpriseContext(store.snapshot(), petContent.PET_APPEARANCE_ITEMS)
   };
 }
 

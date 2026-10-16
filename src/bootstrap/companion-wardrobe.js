@@ -1,6 +1,6 @@
 'use strict';
 const { equipAppearance, applyOutfit } = require('../capabilities/companion');
-const { PET_OUTFIT_SETS } = require('../content/companion/outfit-sets.mjs');
+const { PET_OUTFIT_SETS, wornOutfitSetIds } = require('../content/companion/outfit-sets.mjs');
 
 function createCompanionWardrobe(ports) {
   const appearance = equipAppearance.createEquipAppearanceCommand(ports);
@@ -12,4 +12,15 @@ function createCompanionWardrobe(ports) {
   }
   return Object.freeze({ register });
 }
-module.exports = { createCompanionWardrobe };
+// Surprise-context facts for seasonal/outfit cues: current month and fully worn sets.
+function outfitSurpriseContext(snapshot, items, now = new Date()) {
+  let worn = [];
+  try {
+    const { appearanceSelection, formRegistry: forms } = require('../capabilities/companion');
+    const selection = appearanceSelection.selectAppearance({ items, level: snapshot.level, unlockedSkins: snapshot.unlockedSkins,
+      currentSkin: snapshot.currentSkin, equipped: snapshot.companion?.appearance?.equipped });
+    worn = wornOutfitSetIds(forms.resolvePetForm(snapshot.currentSkin).id, selection.worn.map(item => item.id));
+  } catch (_) { worn = []; }
+  return { month: now.getMonth() + 1, wornOutfitSetIds: worn };
+}
+module.exports = { createCompanionWardrobe, outfitSurpriseContext };

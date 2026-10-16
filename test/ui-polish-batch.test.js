@@ -63,3 +63,19 @@ test('routine history labels relative days and reads older days read-only from t
   assert.match(nodes['#routineHistoryList'].innerHTML, /散步/);
   assert.doesNotMatch(nodes['#routineHistoryList'].innerHTML, /data-act=/);
 });
+
+test('halloween triggers: wear action fires once on full set; seasonal cue gated by month + outfit', async () => {
+  const { outfitWearAction } = await import('../src/content/companion/outfit-sets.mjs');
+  const set = ['seasonal.pumpkin-beret', 'seasonal.plum-cape'];
+  assert.equal(outfitWearAction('dango', [], set), 'halloween-lantern');
+  assert.equal(outfitWearAction('dango', set, set), null);
+  assert.equal(outfitWearAction('dango', null, set), null);
+  const { adaptLegacyPetContent } = require('../src/core/content-pack');
+  const { requirementReason } = require('../src/core/surprise-rules');
+  const cue = adaptLegacyPetContent(require('../src/pet-content')).cues.find(item => item.id === 'outfit.halloween-night');
+  assert.ok(cue); assert.equal(cue.focusAllowed, false); assert.equal(cue.variants[0].animationId, 'halloween-lantern');
+  const ctx = (month, worn) => ({ month, wornOutfitSetIds: worn });
+  assert.equal(requirementReason(cue, ctx(10, ['halloween-night'])), null);
+  assert.equal(requirementReason(cue, ctx(11, ['halloween-night'])), 'out-of-season');
+  assert.equal(requirementReason(cue, ctx(10, [])), 'outfit-not-worn');
+});
