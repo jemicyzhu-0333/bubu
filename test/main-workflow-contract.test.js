@@ -1497,7 +1497,7 @@ test('session completion sends presentation only while shared publication owns c
     petTellState: () => events.push(['base'])
   }).handleCompletedSession;
   quick({ kind: 'quick-start', sessionId: 'quick-1', taskId: 'task-1', endedAt: 100, elapsedMs: 120000 });
-  assert.deepEqual(events, [['temporary', 'celebrating', 2500]]);
+  assert.deepEqual(events, [['temporary', 'celebrating', 2500, 'session.complete']]);
 
   events.length = 0;
   const full = loadFunctions(source, ['handleCompletedSession'], {
@@ -1512,7 +1512,7 @@ test('session completion sends presentation only while shared publication owns c
   full({ kind: 'focus', sessionId: 'focus-1', taskId: 'task-1', endedAt: 100, elapsedMs: 1500000 });
   assert.equal(events[0][0], 'start-rest');
   assert.equal(events[0][1].syncPet, false);
-  assert.deepEqual(events[1], ['temporary', 'celebrating', 5000]);
+  assert.deepEqual(events[1], ['temporary', 'celebrating', 5000, 'session.complete']);
   assert.equal(events.some(([type]) => type === 'base'), false, 'no intermediate resting frame cancels celebration');
 });
 
@@ -1671,12 +1671,14 @@ function loadBondModule(overrides = {}) {
   const source = sourceBetween(mainSource, 'function announceBondStage(', '\n\nfunction hasPendingQuickStartDecision(');
   const sent = [];
   const pushed = [];
+  const expressions = [];
   const sandbox = {
     relationshipProjection,
     completionBenefits,
     petContent: require('../src/pet-content'),
     petWindow: {},
     safeWindowSend: (_window, channel, payload) => sent.push({ channel, payload }),
+    petTellExpression: (expressionId, options) => expressions.push({ expressionId, scenario: options.scenario }),
     pushStateChange: dirty => pushed.push(dirty),
     getPetData: () => ({ satiation: 60, totalFeeds: 4 }),
     store: { get: key => ({ companion: normalizeCompanionState() })[key] },
@@ -1690,7 +1692,7 @@ function loadBondModule(overrides = {}) {
     sandbox
   );
   return {
-    ...loaded, sent, pushed, constants: loaded.context.__bond,
+    ...loaded, sent, pushed, expressions, constants: loaded.context.__bond,
     buildCompanionProjection: () => relationshipProjection.buildRelationshipProjection({
       pet: sandbox.getPetData(), companion: sandbox.store.get('companion'), foods: sandbox.petContent.FOODS, now: Date.now()
     })
@@ -1717,7 +1719,7 @@ test('bond claims mutate the caller snapshot once per day and preserve role coun
 });
 
 test('only a genuine stage change announces itself, and it never sends a punishing message', () => {
-  const { announceBondStage, sent, pushed, constants } = loadBondModule();
+  const { announceBondStage, sent, pushed, expressions, constants } = loadBondModule();
   announceBondStage({ stage: 'warming', stageChanged: false, bondPoints: 30 });
   assert.deepEqual(sent, []);
   assert.deepEqual(pushed, []);
@@ -1726,6 +1728,8 @@ test('only a genuine stage change announces itself, and it never sends a punishi
   assert.equal(sent.length, 1);
   assert.equal(sent[0].channel, 'pet:sync');
   assert.equal(sent[0].payload.message, '我们现在是「熟悉了」了');
+  assert.deepEqual(expressions, [{ expressionId: 'react.petted', scenario: 'achievement.bond-stage' }],
+    'a bond stage change is an achievement scenario for the pet face');
   assert.deepEqual(pushed, [], 'the committing workflow publishes the projection once after all writes');
 
   announceBondStage(null);

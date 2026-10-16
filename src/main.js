@@ -850,6 +850,7 @@ function announceSkinUnlocks(skinIds) {
     const skin = SKINS[id];
     if (skin) showNotification({ delivery: 'companion', title: `解锁新皮肤：${skin.name}`, body: `${skin.unlockDesc}。从页眉进入伙伴页即可换上。` });
   }
+  if (skinIds.some(id => SKINS[id])) petTellExpression('react.surprised', { source: 'essential', ttlMs: 2500, minHoldMs: 700, scenario: 'achievement.skin-unlock' });
 }
 function trayIconAppearance(frame, mood) {
   const skin = SKINS[store.get('currentSkin')] || SKINS.pink;
@@ -956,6 +957,7 @@ function pomodoroView(now = sessionTransitionNow()) {
 function announceBondStage(bondResult) {
   if (!bondResult || !bondResult.stageChanged) return;
   const label = relationshipProjection.bondStageLabel(bondResult.stage);
+  petTellExpression('react.petted', { source: 'essential', ttlMs: 2500, minHoldMs: 700, scenario: 'achievement.bond-stage' });
   safeWindowSend(petWindow, 'pet:sync', { message: `我们现在是「${label}」了` });
 }
 
@@ -1159,8 +1161,7 @@ function presentStoppedSession(fact) {
     handleCompletedSession(fact.completion);
     return;
   }
-  // Only a user-requested stop carries the stopped expression. Internal
-  // interruption reasons must remain neutral even though they share cleanup.
+  // Only a user-requested stop carries the stopped expression; internal interruption reasons stay neutral.
   if (fact.requestedReason === 'stopped') {
     petTellExpression('system.stopped', { source: 'essential', ttlMs: 1800, minHoldMs: 600 });
   }
@@ -1192,14 +1193,14 @@ function handleCompletedSession(completion) {
   const settings = getSettings();
   if (completion.kind === STATUS.QUICK_START) {
     celebrationUntil = Date.now() + 2500;
-    petTellTemporaryState('celebrating', 2500);
+    petTellTemporaryState('celebrating', 2500, 'session.complete');
     showNotification({ title: '✨ 两分钟到了', body: '已经跨过启动门槛。现在停下也算完成一次启动。' });
     return;
   }
   if (completion.kind === STATUS.FOCUS) {
     celebrationUntil = Date.now() + 5000;
     startRestSession(completion.taskId, { syncPet: false, userInitiated: false });
-    petTellTemporaryState('celebrating', 5000);
+    petTellTemporaryState('celebrating', 5000, 'session.complete');
     void startNudgeBestEffort({
       type: 'rest',
       message: `完整一轮完成。休息 ${settings.breakMinutes} 分钟，让大脑完成整合。`,
@@ -1361,8 +1362,8 @@ const growthPublisher = createGrowthPublisher({
   announceSkins: announceSkinUnlocks, recordTaskCompletion: fact => timelineRecorder.recordTaskCompleted(fact),
   celebrateTask: fact => {
     celebrationUntil = fact.completedAt + 3000;
-    petTellExpression('react.celebrate', { source: 'essential', ttlMs: 3000, minHoldMs: 900 });
-    petTellTemporaryState('celebrating', 3000);
+    petTellExpression('react.celebrate', { source: 'essential', ttlMs: 3000, minHoldMs: 900, scenario: 'task.complete' });
+    petTellTemporaryState('celebrating', 3000, 'task.complete');
     safeWindowSend(petWindow, 'pet:sync', { taskDone: true });
   },
   notifyRecurrence: () => showPrivateTaskNotification('recurrence-ready'), clearNudge: () => nudge.clearNudge(),
@@ -1416,9 +1417,8 @@ async function runSurpriseDirector() {
 }
 
 // ============ PET HELPERS ============
-// 主进程只把已发生的业务事实翻译成结构化 presentation；renderer 仍由同一个
-// Director 负责优先级、幂等、TTL 与回到最新 base。沿用 pet:sync，不新增
-// preload 能力或可由 renderer 任意发送的通道。
+// 主进程只把业务事实翻译成结构化 presentation（可带 scenario，由 renderer 从 content/expression-scenarios.mjs 抽表情）；
+// renderer 的 Director 负责优先级、幂等、TTL 与回到最新 base。沿用 pet:sync，不新增 preload 能力或通道。
 function petTellExpression(expressionId, options = {}) {
   if (!petContent.EXPECTED_EXPRESSION_IDS.includes(expressionId)) return null;
   const source = PRESENTATION_TRANSIENT_SOURCES.includes(options.source) ? options.source : 'essential';
@@ -1432,7 +1432,7 @@ function petTellExpression(expressionId, options = {}) {
     ? options.eventId
     : `main.${expressionId}.${petPresentationSequence}`;
   safeWindowSend(petWindow, 'pet:sync', {
-    presentation: { eventId, expressionId, source, ttlMs, minHoldMs }
+    presentation: { eventId, expressionId, source, ttlMs, minHoldMs, ...(typeof options.scenario === 'string' ? { scenario: options.scenario } : {}) }
   });
   return eventId;
 }
@@ -1455,9 +1455,9 @@ function setPetScreenLocked(locked) {
   safeWindowSend(petWindow, 'pet:sync', { screenLocked: petScreenLocked });
   refreshSurprisePolicy();
 }
-function petTellTemporaryState(transientState, transientDurationMs) {
+function petTellTemporaryState(transientState, transientDurationMs, transientScenario) {
   safeWindowSend(petWindow, 'pet:sync', {
-    transientState,
+    transientState, ...(typeof transientScenario === 'string' ? { transientScenario } : {}),
     transientDurationMs: Math.max(0, Math.round(Number(transientDurationMs) || 0))
   });
 }
