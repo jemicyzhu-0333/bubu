@@ -1,10 +1,10 @@
 'use strict';
 const { equipAppearance, applyOutfit } = require('../capabilities/companion');
-const { USAGI_OUTFIT_SETS } = require('../content/companion/usagi-wardrobe.mjs');
+const { PET_OUTFIT_SETS } = require('../content/companion/outfit-sets.mjs');
 
 function createCompanionWardrobe(ports) {
   const appearance = equipAppearance.createEquipAppearanceCommand(ports);
-  const outfit = applyOutfit.createApplyOutfitCommand({ ...ports, looks: USAGI_OUTFIT_SETS });
+  const outfit = applyOutfit.createApplyOutfitCommand({ ...ports, looks: PET_OUTFIT_SETS });
   function register(registerIpc) {
     registerIpc('appearance:equip', (_event, payload) => appearance.equip(payload));
     registerIpc('appearance:reset', () => appearance.reset());
