@@ -40,7 +40,7 @@ Root placement belongs to external constraints. A mechanical fixture may be posi
 
 ## Lifecycle and performance claims
 
-Mutable channel arrays, node maps, quaternion scratch values and morph paths are preallocated; no traversal/vertex scan in the normal animation tick. Loading, validation and event enqueue may allocate. Rendering is requested on dirty state or active motion, and a future event schedules a timer instead of continuous idle RAF. Input/explicit invalidation wakes immediately. Hidden-state behavior and large gaps are deterministic; no catch-up physics is implied.
+Mutable channel arrays, node maps, quaternion scratch values and morph paths are preallocated. Normal animation ticks do no binding-discovery traversal or full skinned-vertex scan. When state changes, `updateMatrixWorld(true)` still propagates matrices through the scene hierarchy in O(nodes) work; this bounded hierarchy work remains part of the CPU cost. Loading, validation and event enqueue may allocate. Rendering is requested on dirty state or active motion, and a future event schedules a timer instead of continuous idle RAF. Input/explicit invalidation wakes immediately. Hidden-state behavior and large gaps are deterministic; no catch-up physics is implied.
 
 Visual LOD, stable interaction-surface remapping and browser GPU timings are not yet supported/verified. First slice measures CPU-only sampling, allocation proxies and cache lifecycle, and labels results accurately. Geometry/material/skeleton ownership remains explicit on disposal.
 

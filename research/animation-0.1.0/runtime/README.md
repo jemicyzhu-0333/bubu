@@ -29,7 +29,7 @@ The entire running fixture pack is described by `fixtures/manifest.json`; geomet
 
 See `evidence/tests.tap`, `evidence/schema-validation.json` and `evidence/cpu-benchmark.json`. Tests cover actual GLB loading, strict negative inputs, same-time event order, 30/60/120 Hz equivalence, interruption world-transform continuity, repeated face transitions, equipment composition, shared/failed/aborted cache loads, disposal and idle scheduling. Independent review also checked 24/144 Hz and a large time jump.
 
-The CPU benchmark uses 148 mechanical vertices / 16 resolved nodes, with zero skinned-vertex reads during normal ticks. Batch mean costs are recorded, not a GPU frame budget or a comparison against the old 45k-vertex model. Zero JS allocation/GC is not claimed.
+The CPU benchmark uses 148 mechanical vertices / 16 resolved nodes, with zero skinned-vertex reads during normal ticks. Sampling avoids binding-discovery traversal and full vertex scans, but changed-state ticks still propagate hierarchy matrices via `updateMatrixWorld(true)` in O(nodes) work; this is included in the measured CPU cost. Batch mean costs are recorded, not a GPU frame budget or a comparison against the old 45k-vertex model. Zero JS allocation/GC is not claimed.
 
 A local browser demo is supplied, but this environment did not run it in WebGL. The previous cloud Chromium sandbox blocker was not bypassed; the currently exposed CUA route targets the user's computer and was not used. Browser mouse latency, GPU rendering, native/Electron and power savings remain unverified.
 
