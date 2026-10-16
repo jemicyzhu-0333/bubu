@@ -713,4 +713,88 @@
   .event-time-mask > .event-time-dialog { width: min(360px,100%); }
   .event-time-dialog .modal-title { letter-spacing: 0; margin: 0; }
   .event-time-dialog .modal-actions { gap: 8px; }
+
+  /* ---- UI polish batch (fix/ui-polish-batch) ---- */
+  /* 5. 任务筛选：一行分段控件，放不下时横向滑动，不换行，也不挤“新建”。 */
+  .task-toolbar { align-items: center; gap: 8px; }
+  .task-toolbar .task-filters { flex-wrap: nowrap; gap: 2px; padding: 3px; min-height: 0; border-radius: 10px; background: var(--bg-0);
+    overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 14px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 14px), transparent); }
+  .task-toolbar .task-filters::-webkit-scrollbar { display: none; }
+  .task-toolbar .filter-chip { flex: 0 0 auto; min-height: 30px; padding: 4px 9px; gap: 4px; border-radius: 7px; font-size: 13px; white-space: nowrap; color: var(--fg-2); }
+  .task-toolbar .filter-chip[data-icon]::before { display: none; }
+  .task-toolbar .filter-chip.active { background: var(--bg-2); color: var(--fg-0); box-shadow: 0 1px 3px #00000014; }
+  .task-toolbar .filter-chip .group-count { padding: 0; background: transparent; font-size: 11px; color: var(--fg-2); }
+  .task-toolbar .filter-chip.active .group-count { color: var(--primary-ink); }
+  /* 6. 新建按钮：默认是浅色描边的次级按钮，悬停才着色（以前默认着色、悬停变成实心红）。 */
+  .tasks-page .btn-create-task, .routine-page-heading .btn-focus, .routine-page-heading .pixel-btn.btn-focus {
+    min-height: 36px; padding: 6px 12px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-2); color: var(--fg-1); font-size: 13px; font-weight: 500; box-shadow: none; }
+  :is(.tasks-page .btn-create-task, .routine-page-heading .btn-focus):hover { background: var(--accent-soft); border-color: color-mix(in srgb, var(--primary) 30%, var(--line)); color: var(--primary-ink); }
+  .tasks-page .btn-create-task .ui-icon { color: var(--primary-ink); }
+  /* 6. 进行中：安静的浅色提示，不再整块红。 */
+  .action-state { color: var(--fg-2); display: inline-flex; align-items: center; gap: 6px; }
+  body:not([data-session="idle"]) .action-state::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--primary); opacity: .7; }
+  #btnPauseFocus { background: var(--bg-2); color: var(--fg-0); border: 1px solid var(--line); }
+  #btnPauseFocus:hover { background: var(--accent-soft); color: var(--primary-ink); }
+  .task-item.current-focus { box-shadow: inset 2px 0 0 color-mix(in srgb, var(--primary) 55%, transparent); padding-left: 10px; }
+  .focus-badge { margin-left: 6px; padding: 1px 6px; border-radius: 5px; background: var(--bg-0); color: var(--fg-2); font-size: 11px; font-weight: 400; vertical-align: 2px; }
+  /* 7. 倒计时：粗一点的柔和轨道、圆头进度弧，数字更轻更大，状态成一枚小标签。 */
+  .pomo-display { width: 196px; height: 196px; }
+  .focus-orbit circle { stroke-width: 7; }
+  .focus-orbit .orbit-track { stroke: var(--bg-0); }
+  .focus-orbit .orbit-progress { stroke: color-mix(in srgb, var(--primary) 75%, var(--bg-2)); }
+  .pomo-time,.pomo-time.focus,.pomo-time.break { font-size: 46px; font-weight: 300; letter-spacing: -1px; line-height: 1.1; }
+  .pomo-label { margin-top: 6px; padding: 2px 10px; border-radius: 999px; background: var(--bg-0); color: var(--fg-2); font-size: 12px; }
+  /* 11. 逾期：左侧一道暖色细线 + 截止文字转暖色，不晃动、不整行染红。 */
+  .task-item.overdue { animation: none; box-shadow: inset 2px 0 0 color-mix(in srgb, var(--warn-tone) 70%, transparent); padding-left: 10px; }
+  .task-item.overdue .meta-item.late { color: var(--warn-tone); font-weight: 500; }
+  .task-item.overdue .meta-item.late[data-icon]::before { color: var(--warn-tone); }
+  :root { --warn-tone: #b7791f; }
+  :root[data-appearance="dark"] { --warn-tone: #e0af68; }
+  /* 4. 日常历史：默认一行，展开后按天翻页。 */
+  .routine-history { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 4px; }
+  .routine-history-bar { display: flex; align-items: center; gap: 4px; min-height: 40px; }
+  .routine-history-toggle { display: flex; flex: 1; min-width: 0; align-items: center; gap: 8px; padding: 8px 4px; border: 0; background: transparent; color: var(--fg-1); font: inherit; font-size: 13px; text-align: left; cursor: pointer; border-radius: 8px; }
+  .routine-history-toggle:hover { background: var(--bg-0); }
+  .routine-history-label { font-weight: 500; color: var(--fg-1); }
+  .routine-history-summary { flex: 1; min-width: 0; color: var(--fg-2); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .routine-history-caret { width: 14px; height: 14px; color: var(--fg-2); transition: transform var(--duration-fast); }
+  .routine-history[data-expanded="true"] .routine-history-caret { transform: rotate(180deg); }
+  .routine-history-pager { display: flex; gap: 2px; }
+  .routine-history-pager .icon-btn { width: 30px; min-height: 30px; padding: 0; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 8px; background: var(--bg-2); color: var(--fg-1); }
+  .routine-history-pager .icon-btn:disabled { opacity: .35; }
+  .routine-history-pager .ui-icon { width: 14px; height: 14px; }
+  .routine-history-body { max-height: 240px; overflow-y: auto; scrollbar-width: thin; }
+  .routine-history-body .routine-row { padding: 8px 0; }
+  .routine-history-note { margin: 6px 0 0; color: var(--fg-2); font-size: 11px; }
+  .routine-history .routine-empty { margin: 8px 0; color: var(--fg-2); font-size: 12px; }
+  /* 8. 换形态：已解锁=深色粗体+勾；未解锁=灰色细体+锁，预览图去色。 */
+  #skinStrip .skin-thumb .skin-thumb-name { color: var(--fg-0); font-weight: 600; }
+  #skinStrip .skin-thumb small { display: inline-flex; align-items: center; gap: 3px; color: var(--primary-ink); font-weight: 500; }
+  #skinStrip .skin-thumb small[data-icon]::before { width: 11px; height: 11px; margin-right: 0; }
+  #skinStrip .skin-thumb.locked { background: var(--bg-1); border-style: dashed; }
+  #skinStrip .skin-thumb.locked canvas { filter: grayscale(1); opacity: .4; }
+  #skinStrip .skin-thumb.locked .skin-thumb-name { color: var(--fg-2); font-weight: 400; }
+  #skinStrip .skin-thumb.locked small { color: var(--fg-2); font-weight: 400; }
+  /* 9. 食物图鉴：每张卡最多一行说明，空行不占位。 */
+  .food-collection-card { gap: 4px; padding: 12px 8px; }
+  .food-collection-card .food-preference { min-height: 16px; color: var(--fg-2); font-size: 11px; }
+  .food-collection-card .food-preference:empty { visibility: hidden; }
+  .food-collection-card .food-preference.is-favorite { color: var(--primary-ink); }
+  .food-collection-card .food-exchange { margin-top: 2px; padding: 5px 10px; min-height: 28px; font-size: 12px; white-space: nowrap; }
+  .food-collection-card.is-locked .food-exchange { border: 0; background: transparent; color: var(--fg-2); }
+  .food-collection-card.is-locked > strong { color: var(--fg-2); font-weight: 400; }
+  /* 10. 一起走过：去掉统计行；卡片更紧凑，标题单行，未解锁用细进度条代替文字。 */
+  .journey-grid { gap: 8px; }
+  .journey-card { padding: 10px 6px 12px; border-radius: 12px; min-width: 0; }
+  .journey-card .journey-stamp { width: 44px; height: 52px; margin: 0 0 8px; border-radius: 18px 18px 4px 4px; font-size: 18px; }
+  .journey-card .journey-stamp::after { bottom: 8px; width: 14px; }
+  .journey-card strong { display: block; max-width: 100%; font-size: 12px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .journey-card > summary > span, .journey-card > span:not(.journey-stamp):not(.journey-card-progress) { margin-top: 2px; font-size: 11px; color: var(--fg-2); }
+  .journey-card-progress { display: block; width: 60%; height: 3px; margin-top: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+  .journey-card-progress > i { display: block; height: 100%; background: var(--stamp-color); }
+  .journey-card.is-locked strong { color: var(--fg-2); font-weight: 400; }
+  .journey-card .journey-stamp [data-icon]::before { width: 18px; height: 18px; }
+  .journey-card .journey-stamp small { display: none; }
 }
+

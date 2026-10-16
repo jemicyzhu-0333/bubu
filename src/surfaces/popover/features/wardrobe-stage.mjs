@@ -1,5 +1,5 @@
 import { t } from '../../shared/interface/i18n.mjs';
-import { USAGI_OUTFIT_SETS } from '../../../content/companion/usagi-wardrobe.mjs';
+import { outfitSetsFor } from '../../../content/companion/outfit-sets.mjs';
 
 // The stage owns browsing only. Its recipes never become editable equipment.
 function matchesOutfit(wornIds, itemIds) {
@@ -11,8 +11,8 @@ function matchesOutfit(wornIds, itemIds) {
 function wardrobeStageLooks(state, formId) {
   const options = new Map((state?.appearance?.choices || []).flatMap(choice => choice.options || []).map(item => [item.id, item]));
   const wornIds = state?.appearance?.wornIds || [];
-  const recipes = formId === 'usagi' ? USAGI_OUTFIT_SETS.filter(look =>
-    look.formId === formId && look.itemIds.every(id => options.has(id))) : [];
+  const recipes = outfitSetsFor(formId).filter(look =>
+    look.itemIds.every(id => options.has(id)));
   const matched = recipes.find(look => matchesOutfit(wornIds, look.itemIds));
   return [{ id: 'current', label: matched ? matched.label : t('混搭'), named: Boolean(matched), itemIds: [...wornIds] },
     ...recipes.map(look => ({ ...look, named: true, pieces: look.itemIds.map(id => options.get(id)),

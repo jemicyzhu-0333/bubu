@@ -29,6 +29,7 @@ import { createRoutineOccurrenceTimeEditor, recorded } from './routine-occurrenc
 import { createRoutineControls } from './routine-controls.mjs';
 import { quickRecordItems, quickRecordTarget } from './routine-quick-record.mjs';
 import { KIND_LABELS, routineSymbol, ROUTINE_CHECK_ICON } from './routine-symbols.mjs';
+import { createRoutineHistory } from './routine-history.mjs';
 
 const WEEKDAY_LABELS = Object.freeze({ 1: '一', 2: '二', 3: '三', 4: '四', 5: '五', 6: '六', 7: '日' });
 const FREQUENCY_LABELS = Object.freeze({ daily: '每天', weekdays: '工作日', weekly: '每周' });
@@ -83,6 +84,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
 
   const controls = createRoutineControls({ $, escapeHTML, getState, listen, syncScheduleFields });
 
+  const history = createRoutineHistory({ $, escapeHTML, surfaceClient, now, getState });
   const timeEditor = createRoutineOccurrenceTimeEditor({ $, escapeHTML, surfaceClient, listen, restoreModalFocus, trapFocusWithin, onSaved: say,
     getOccurrences: () => recordOccurrences(band()) });
 
@@ -299,6 +301,7 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
     if (submit) submit.textContent = t(editingId ? '保存日常' : '添加日常');
     const toggle = $('#btnRoutineReminders');
     if (toggle) toggle.textContent = t(view.remindersEnabled ? '已开启' : '已关闭');
+    history.repaint();
     for (const selector of ['#routineRows', '#dailyRoutineRows', '#yesterdayRoutineRows']) {
       const host = $(selector);
       const empty = host?.querySelector?.('.routine-empty');
@@ -364,8 +367,8 @@ function createPopoverRoutinesFeature({ document, $, getState, escapeHTML, surfa
     renderCount(view);
     renderRows(view);
     renderRows(view, '#dailyRoutineRows');
-    $('#yesterdayRoutineRecords')?.classList.toggle('hidden', !view.yesterday.length);
     renderRows({ ...view, occurrences: view.yesterday }, '#yesterdayRoutineRows');
+    history.render(view);
     renderQuick(view);
     renderQuick(view, '#dailyRoutineQuick');
     renderManage(view);
