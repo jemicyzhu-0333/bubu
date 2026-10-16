@@ -1,0 +1,39 @@
+{
+  "assetSHA256": "b7c74bf8425353d1a359f3711eb11f5cd435cd87d05349aa688798d8b44c2fee",
+  "staticGate": "independent actual large + native99 visual review passed; awaiting user3D confirmation",
+  "runtimeEnabled": false,
+  "sourceReferenceApproved": true,
+  "neutralFourViewsPixelExact": true,
+  "historicalR6BaseAndTargetsExact": true,
+  "historicalComparisonItems": 483,
+  "sharedBrowBasisWithBatch1Exact": true,
+  "bodyHasNoMorph": true,
+  "singleFaceAttachmentSamples": 147,
+  "orientationSamples": 195,
+  "mouthCollapseSamples": 107,
+  "browEyeGapSamples": 129,
+  "minimumVisibleBrowEyeGap": 0.03474891185760498,
+  "standardVisualCells": 60,
+  "extraBrowThresholdCells": 8,
+  "uniqueRenderedFrames": 60,
+  "viewYawDegrees": [
+    0,
+    -52,
+    52,
+    -85
+  ],
+  "expectedDegeneracy": [
+    "zero-area new brow Basis/non-A4",
+    "closed mouth inner boundaries",
+    "strictly coincident zero-area hidden brow centre may relocate through body before appearing; raw penetration retained"
+  ],
+  "singleFaceOnly": true,
+  "gazeImplemented": false,
+  "notes": [
+    "A4/A8 midpoint double bulge came from passing normal-sweep pill points to a radial-boundary helper. Added analytic same-ray pill boundary and 1024-ray regression. Final endpoints/D4 all attributes remain exact.",
+    "Hidden brow exception applies only when every point is exactly coincident and total surface area exactly zero. It does not allow visible penetration.",
+    "A4 brow emerges only after lowered upper lid; first nonzero sample .5078125 and minimum visible brow/eye gap .03475.",
+    "D4 is a yawn transition, not certified indefinite idle. Mouth uses original black material instead of generated reddish cavity depth.",
+    "No direct cross-face blending or runtime approval."
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "assetSHA256": "b7c74bf8425353d1a359f3711eb11f5cd435cd87d05349aa688798d8b44c2fee",
+  "status": "static3D candidate; reference directions accepted; actual3D user review pending",
+  "sourceR6": "fba41db41ecb0e0a959cd6923f55d5edbfaebf4558d79e1e9832b2a806cc5830",
+  "bodyChanges": false,
+  "chartType": "fixed orthographic U=X,V=Z with real body depth ray projection toward +Y",
+  "eyeNeutralAnchors": {
+    "L": [
+      -0.387,
+      1.021
+    ],
+    "R": [
+      0.387,
+      1.021
+    ]
+  },
+  "mouthNeutralAnchor": [
+    0,
+    0.695
+  ],
+  "newMeshes": [
+    "A_brow_L",
+    "A_brow_R"
+  ],
+  "roster": [
+    "A_eye_L",
+    "A_eye_R",
+    "A_eye_highlight_L",
+    "A_eye_highlight_R",
+    "A_mouth_ring",
+    "A_brow_L",
+    "A_brow_R"
+  ],
+  "states": {
+    "A4": {
+      "meaning": "serious focus",
+      "eyes": "lowered near-horizontal upper lid, round lower contour",
+      "mouth": "short horizontal rounded stroke",
+      "brows": "short horizontal rounded bars, appear only after .5 to retain a visible skin gap",
+      "source": "references/A4.png",
+      "sourceSHA256": "5745b3d90117cc9fe01b9ecb7a2c9acbd862d0b678dcb5f4001278e9bf05a73a"
+    },
+    "A8": {
+      "meaning": "impatient",
+      "eyes": "upper edge dips at each eye centre, no mirrored08 outward-drooping slope",
+      "mouth": "single gentle S wave with constant normal stroke width and round caps",
+      "brows": "hidden",
+      "source": "references/A8.png",
+      "sourceSHA256": "776e4b4e355c05da26d5077227a4d4b4bc9917f4f51c4244c231c756650bd221"
+    },
+    "D4": {
+      "meaning": "yawn transition pose",
+      "eyes": "shallow closed soft narrow eyes with rounded ends; no deep sleep U",
+      "mouth": "narrow vertical dark opening",
+      "brows": "hidden",
+      "highlightsZeroByIntensity": 0.625,
+      "notAnIndefiniteIdleState": true,
+      "source": "references/D4.png",
+      "sourceSHA256": "07ef191411d2a6c9d1036cc11b2fde73d18f13b31d665a994113d8e9259070fa"
+    }
+  },
+  "mapping": {
+    "implementation": "basic_face_utils.basic_weights / apply_basic",
+    "authoredKnots": [
+      0.0,
+      0.125,
+      0.25,
+      0.375,
+      0.5,
+      0.625,
+      0.75,
+      0.875,
+      1.0
+    ],
+    "targetNames": "Basic{ID}_{01..08}",
+    "activeLimit": "one semantic face, at most two adjacent authored knots, remainder Basis",
+    "clearAllOtherMorphs": true,
+    "crossFaceMixing": false,
+    "mouthPrimitive": "closed_mouth_transition.close_then_shape for A4/A8; D4 expands a regular oval while closing inner boundary by .375",
+    "mouthHoleClosedAtIntensity": {
+      "A4": 0.5,
+      "A8": 0.5,
+      "D4": 0.375
+    },
+    "newMorphNormals": "preserve exported NORMAL deltas, no unvalidated runtime recomputation",
+    "boundaryHelper": "closed_mouth_boundary.rounded_pill_boundary: boundary must lie on the original angular ray; tangent-normal sweep is not a valid replacement"
+  },
+  "gazeImplemented": false,
+  "highlightSemantics": "surface-attached light reflections, not eye-white or pupil",
+  "libraryMerge": "Unique BasicA4/A8/D4 targets, common r6 face Basis and batch1 brow Basis. Independent review package; does not replace prior face banks.",
+  "additionalLayers": {
+    "brows": {
+      "sharedBasis": "exact batch1 exported attributes and indices",
+      "visibility": "A4 only after .5; first hidden knot relocates zero-area point; reset all targets for every other face",
+      "weights": "Body 1.0",
+      "strictHiddenPointException": "During hidden relocation, all evaluated vertices must exactly coincide and area must be exactly0; raw skin-intersection counts remain visible in audit. No exception for nonzero-area geometry."
+    }
+  }
+}
