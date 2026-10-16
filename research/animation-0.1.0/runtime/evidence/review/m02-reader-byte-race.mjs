@@ -1,0 +1,3 @@
+import {preparePack,sha256} from '../../src/pack-loader.mjs';import {localPackReader} from '../../tools/read-local-pack.mjs';
+const read=localPackReader(new URL('../../fixtures/',import.meta.url).pathname);let retained;
+try{const p=await preparePack(async(name,...args)=>{if(name==='mechanical-accessory.glb'&&retained)retained[retained.length-1]^=1;const b=await read(name,...args);if(name==='mechanical-character.glb')retained=b;return b});const asset=p.manifest.assets.find(x=>x.id==='body'),actual=await sha256(p.data.get('body'));console.log(JSON.stringify({accepted:true,manifestHash:asset.sha256,preparedBytesHash:actual,hashMatches:actual===asset.sha256},null,2))}catch(e){console.log(JSON.stringify({accepted:false,code:e.code,message:e.message},null,2))}

@@ -72,7 +72,7 @@ test('missing morph target and joint/socket alias reject atomically without leak
   for(const mutate of [p=>p.expressions.paths[0].knots[1].targets.FacePanel= {
     Missing:1
   }, p=>p.sockets[0].node='ArmL']) {
-    const p=await pack();
+    const prepared=await pack(),p={...prepared,profile:structuredClone(prepared.profile)};
     mutate(p.profile);
     const cache=new ResourceCache();
     await assert.rejects(createSuite(p, cache));
@@ -89,7 +89,7 @@ test('joint cap and channel reference reject before runtime', async()=> {
   }
 });
 test('unbound morph mesh and skinned rigid equipment reject', async()=> {
-  const p=await pack(), cache=new ResourceCache();
+  const prepared=await pack(),p={...prepared,profile:structuredClone(prepared.profile)},cache=new ResourceCache();
   p.profile.expressions.meshes=[];
   p.profile.expressions.paths=[];
   await assert.rejects(createSuite(p, cache), e=>e.code==='UNBOUND_MORPH_MESH');
@@ -128,7 +128,7 @@ test('mesh reused by many nodes counts render vertices, not definition count', a
   }), e=>e.code==='LIMIT');
 });
 test('prototype property cannot masquerade as a morph target', async()=> {
-  const p=await pack(), c=new ResourceCache();
+  const prepared=await pack(),p={...prepared,profile:structuredClone(prepared.profile)},c=new ResourceCache();
   p.profile.expressions.paths[0].knots[1].targets.FacePanel= {
     toString:1
   };

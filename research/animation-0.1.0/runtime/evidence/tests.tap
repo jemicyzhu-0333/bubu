@@ -1,214 +1,65 @@
-TAP version 13
-# Subtest: unsafe path rejected ../x
-ok 1 - unsafe path rejected ../x
-  ---
-  duration_ms: 1.572744
-  type: 'test'
-  ...
-# Subtest: unsafe path rejected a/../x
-ok 2 - unsafe path rejected a/../x
-  ---
-  duration_ms: 0.308335
-  type: 'test'
-  ...
-# Subtest: unsafe path rejected /x
-ok 3 - unsafe path rejected /x
-  ---
-  duration_ms: 1.652404
-  type: 'test'
-  ...
-# Subtest: unsafe path rejected https://x
-ok 4 - unsafe path rejected https://x
-  ---
-  duration_ms: 0.159421
-  type: 'test'
-  ...
-# Subtest: unsafe path rejected a%2fb
-ok 5 - unsafe path rejected a%2fb
-  ---
-  duration_ms: 0.17885
-  type: 'test'
-  ...
-# Subtest: unsafe path rejected a\\b
-ok 6 - unsafe path rejected a\\b
-  ---
-  duration_ms: 0.169466
-  type: 'test'
-  ...
-# Subtest: unsafe path rejected a//b
-ok 7 - unsafe path rejected a//b
-  ---
-  duration_ms: 0.179922
-  type: 'test'
-  ...
-# Subtest: unsafe path rejected ./a
-ok 8 - unsafe path rejected ./a
-  ---
-  duration_ms: 0.169005
-  type: 'test'
-  ...
-# Subtest: unsafe path rejected a?x
-ok 9 - unsafe path rejected a?x
-  ---
-  duration_ms: 0.253813
-  type: 'test'
-  ...
-# Subtest: unsafe path rejected a\#x
-ok 10 - unsafe path rejected a\#x
-  ---
-  duration_ms: 0.272952
-  type: 'test'
-  ...
-# Subtest: strict version/capabilities/fields/budgets and hashes
-ok 11 - strict version/capabilities/fields/budgets and hashes
-  ---
-  duration_ms: 17.30603
-  type: 'test'
-  ...
-# Subtest: GLB preflight rejects external resources/extensions/default morphs/bad ranges
-ok 12 - GLB preflight rejects external resources/extensions/default morphs/bad ranges
-  ---
-  duration_ms: 10.241157
-  type: 'test'
-  ...
-# Subtest: accessor aliases are cost bounded before float scan
-ok 13 - accessor aliases are cost bounded before float scan
-  ---
-  duration_ms: 6.169431
-  type: 'test'
-  ...
-# Subtest: profile cannot activate art/gaze/overlap or omit affected face mesh
-ok 14 - profile cannot activate art/gaze/overlap or omit affected face mesh
-  ---
-  duration_ms: 9.497194
-  type: 'test'
-  ...
-# Subtest: missing morph target and joint/socket alias reject atomically without leaked leases
-ok 15 - missing morph target and joint/socket alias reject atomically without leaked leases
-  ---
-  duration_ms: 23.072293
-  type: 'test'
-  ...
-# Subtest: joint cap and channel reference reject before runtime
-ok 16 - joint cap and channel reference reject before runtime
-  ---
-  duration_ms: 11.984308
-  type: 'test'
-  ...
-# Subtest: unbound morph mesh and skinned rigid equipment reject
-ok 17 - unbound morph mesh and skinned rigid equipment reject
-  ---
-  duration_ms: 10.648863
-  type: 'test'
-  ...
-# Subtest: resolved repeated equipment counts against instance budget
-ok 18 - resolved repeated equipment counts against instance budget
-  ---
-  duration_ms: 4.554644
-  type: 'test'
-  ...
-# Subtest: mesh reused by many nodes counts render vertices, not definition count
-ok 19 - mesh reused by many nodes counts render vertices, not definition count
-  ---
-  duration_ms: 7.63346
-  type: 'test'
-  ...
-# Subtest: prototype property cannot masquerade as a morph target
-ok 20 - prototype property cannot masquerade as a morph target
-  ---
-  duration_ms: 7.651238
-  type: 'test'
-  ...
-# Subtest: pending load dedup, cancel one waiter, late final release exactly once
-ok 21 - pending load dedup, cancel one waiter, late final release exactly once
-  ---
-  duration_ms: 2.065858
-  type: 'test'
-  ...
-# Subtest: all waiters cancelled before late completion dispose once
-ok 22 - all waiters cancelled before late completion dispose once
-  ---
-  duration_ms: 6.066046
-  type: 'test'
-  ...
-# Subtest: failed load evicts and can retry without leaked ownership
-ok 23 - failed load evicts and can retry without leaked ownership
-  ---
-  duration_ms: 0.561548
-  type: 'test'
-  ...
-# Subtest: two actors share assets but not skeleton/morph state
-ok 24 - two actors share assets but not skeleton/morph state
-  ---
-  duration_ms: 31.248153
-  type: 'test'
-  ...
-# Subtest: demand loop sleeps with zero RAF and wakes for canonical future event
-ok 25 - demand loop sleeps with zero RAF and wakes for canonical future event
-  ---
-  duration_ms: 14.777614
-  type: 'test'
-  ...
-# Subtest: draw callback disposal schedules no trailing RAF or timer
-ok 26 - draw callback disposal schedules no trailing RAF or timer
-  ---
-  duration_ms: 0.382086
-  type: 'test'
-  ...
-# Subtest: paused scheduler preserves queued events and resumes at current canonical time
-ok 27 - paused scheduler preserves queued events and resumes at current canonical time
-  ---
-  duration_ms: 7.989719
-  type: 'test'
-  ...
-# Subtest: invalid resource result rejects and evicts its cache entry
-ok 28 - invalid resource result rejects and evicts its cache entry
-  ---
-  duration_ms: 0.489849
-  type: 'test'
-  ...
-# Subtest: actual GLB -> profile -> timeline -> face -> accessory -> release lifecycle
-ok 29 - actual GLB -> profile -> timeline -> face -> accessory -> release lifecycle
-  ---
-  duration_ms: 30.122043
-  type: 'test'
-  ...
-# Subtest: 30/60/120 Hz produce equal event-time state and exact canonical neutral bridges
-ok 30 - 30/60/120 Hz produce equal event-time state and exact canonical neutral bridges
-  ---
-  duration_ms: 50.023546
-  type: 'test'
-  ...
-# Subtest: interrupt starts at actual current quaternion, facial state and full world matrix
-ok 31 - interrupt starts at actual current quaternion, facial state and full world matrix
-  ---
-  duration_ms: 9.063419
-  type: 'test'
-  ...
-# Subtest: many face interrupts never overlap semantic paths or exceed morph simplex
-ok 32 - many face interrupts never overlap semantic paths or exceed morph simplex
-  ---
-  duration_ms: 13.287214
-  type: 'test'
-  ...
-# Subtest: cancel wins same timestamp and invalidates previously queued future plays
-ok 33 - cancel wins same timestamp and invalidates previously queued future plays
-  ---
-  duration_ms: 16.425872
-  type: 'test'
-  ...
-# Subtest: rigid accessory inherits slot world transform once, with independent local rotation
-ok 34 - rigid accessory inherits slot world transform once, with independent local rotation
-  ---
-  duration_ms: 11.739474
-  type: 'test'
-  ...
-1..34
-# tests 34
-# suites 0
-# pass 34
-# fail 0
-# cancelled 0
-# skipped 0
-# todo 0
-# duration_ms 251.282845
+
+> bubu-runtime-foundation@0.1.0 test
+> node --test tests/*.test.mjs
+
+✔ global actor budget reserves before asynchronous creation and release is idempotent (72.966464ms)
+✔ shared sources count once while render work counts for every actor (30.986892ms)
+✔ every aggregate complexity limit rejects before acquiring a source (10.353289ms)
+✔ prepared accounting and assembly metadata cannot mutate after validation (14.534322ms)
+✔ binding failure rolls back actor and source reservations (12.5713ms)
+✔ abort keeps late parse source bytes charged until completion disposes them (6.793839ms)
+✔ pool disposal cancels pending instances and active actors without resurrection (29.018197ms)
+✔ global limits are strict and cannot exceed hard ceilings (0.568347ms)
+✔ reader-owned Buffer mutation after hash cannot change the prepared snapshot (7.783934ms)
+✔ simulated idle context restoration explicitly redraws once without restarting clock (1.845514ms)
+✔ hidden and lost states compose; restoration while hidden does not resume (0.451271ms)
+✔ loss before actor load binds paused; disposed lifecycle ignores late restore (0.509238ms)
+✔ simulated restoration samples canonical events at current time rather than replaying animation start (63.235658ms)
+✔ loss during draw does not schedule a trailing animation RAF (0.300693ms)
+✔ unsafe path rejected ../x (1.634616ms)
+✔ unsafe path rejected a/../x (0.233082ms)
+✔ unsafe path rejected /x (2.250595ms)
+✔ unsafe path rejected https://x (0.137237ms)
+✔ unsafe path rejected a%2fb (0.148864ms)
+✔ unsafe path rejected a\b (0.164728ms)
+✔ unsafe path rejected a//b (0.150006ms)
+✔ unsafe path rejected ./a (0.103606ms)
+✔ unsafe path rejected a?x (0.174213ms)
+✔ unsafe path rejected a#x (0.200312ms)
+✔ strict version/capabilities/fields/budgets and hashes (18.730517ms)
+✔ GLB preflight rejects external resources/extensions/default morphs/bad ranges (12.51492ms)
+✔ accessor aliases are cost bounded before float scan (19.231923ms)
+✔ profile cannot activate art/gaze/overlap or omit affected face mesh (21.912953ms)
+✔ missing morph target and joint/socket alias reject atomically without leaked leases (30.329466ms)
+✔ joint cap and channel reference reject before runtime (7.999037ms)
+✔ unbound morph mesh and skinned rigid equipment reject (27.960627ms)
+✔ resolved repeated equipment counts against instance budget (26.568902ms)
+✔ mesh reused by many nodes counts render vertices, not definition count (1.675458ms)
+✔ prototype property cannot masquerade as a morph target (7.995051ms)
+✔ pending load dedup, cancel one waiter, late final release exactly once (1.616519ms)
+✔ all waiters cancelled before late completion dispose once (4.916447ms)
+✔ failed load evicts and can retry without leaked ownership (0.402217ms)
+✔ two actors share assets but not skeleton/morph state (46.862192ms)
+✔ demand loop sleeps with zero RAF and wakes for canonical future event (67.114255ms)
+✔ draw callback disposal schedules no trailing RAF or timer (0.432993ms)
+✔ paused scheduler preserves queued events and resumes at current canonical time (9.760645ms)
+✔ invalid resource result rejects and evicts its cache entry (0.432472ms)
+✔ workload axes isolate vertices, joints, nodes and morph targets (4.384003ms)
+✔ mechanical GLB generator is byte deterministic and rejects unsupported shapes (21.823213ms)
+✔ all generated workloads pass actual preparation and runtime binding within hard limits (560.631507ms)
+✔ timing summaries use nearest-rank quantiles without changing raw observations (1.664872ms)
+✔ CPU matrix records separate throughput/latency samples, actual events, release and pool evidence (60.500502ms)
+✔ actual GLB -> profile -> timeline -> face -> accessory -> release lifecycle (43.991822ms)
+✔ 30/60/120 Hz produce equal event-time state and exact canonical neutral bridges (54.989338ms)
+✔ interrupt starts at actual current quaternion, facial state and full world matrix (47.819316ms)
+✔ many face interrupts never overlap semantic paths or exceed morph simplex (21.797554ms)
+✔ cancel wins same timestamp and invalidates previously queued future plays (10.991532ms)
+✔ rigid accessory inherits slot world transform once, with independent local rotation (10.903629ms)
+ℹ tests 53
+ℹ suites 0
+ℹ pass 53
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 811.067508

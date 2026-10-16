@@ -1,17 +1,18 @@
 {
   "version": "0.1.0",
-  "milestone": "foundation-vertical-slice",
+  "milestone": "foundation-measurement02",
   "status": "reviewed-checkpoint-not-product-release",
-  "frozenUTC": "2026-10-16T18:51:23.456381+00:00",
+  "frozenUTC": "2026-10-16T19:11:51.497530+00:00",
   "tests": {
-    "localPassed": 34,
-    "freshInstallPassed": 34,
+    "localPassed": 53,
+    "freshInstallPassed": 53,
     "failed": 0
   },
   "reviews": {
     "architecturePerformanceRounds": 3,
     "assetContractBlockingFindings": "closed within mechanical fixture scope",
-    "demoAsyncLifecycle": "VM-tested; cancelled pending create adds zero actors"
+    "demoAsyncLifecycle": "VM-tested; cancelled pending create adds zero actors",
+    "measurement02": "Independent 53 tests, 256 simulated lifecycle permutations, five-workload matrix and admission/reader-mutation regression passed"
   },
   "supported": [
     "strict hash-locked self-contained GLB pack",
@@ -23,7 +24,11 @@
     "rigid fixture accessory plus local motion",
     "shared source cache and private actor state",
     "abort-safe disposal",
-    "demand scheduler"
+    "demand scheduler",
+    "aggregate application actor/source admission",
+    "immutable owned-byte prepared packs",
+    "simulated context/visibility restoration wake policy",
+    "deterministic CPU workload matrix"
   ],
   "notVerifiedOrImplemented": [
     "browser WebGL/GPU/native/Electron",
@@ -38,5 +43,18 @@
   "artAssetsIncluded": false,
   "mechanicalFixturesIncluded": true,
   "legacyRuntimeImported": false,
-  "publication": "No push performed from this workspace; parent-controlled checkpoint publication only"
+  "publication": "No push performed from this workspace; parent-controlled checkpoint publication only",
+  "baseRuntimeDocumentationCommit": "69dc28a",
+  "performanceEvidence": {
+    "workloads": 10,
+    "actors": [
+      1,
+      4
+    ],
+    "runsPerGroup": 10,
+    "sourceUnchanged": true,
+    "WebGL": false,
+    "GPU": false,
+    "frameRateClaim": false
+  }
 }

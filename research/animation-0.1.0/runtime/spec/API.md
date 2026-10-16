@@ -4,8 +4,8 @@ Version: 0.1.0. `spec/wire.schema.json` describes the three wire documents; `src
 
 ## Public entry flow
 
-1. `preparePack(read, {signal})` reads `manifest.json`, verifies each declared file's exact byte count and SHA256, preflights all self-contained GLBs, validates profile/motion references and resolved instance budgets. It does not create a renderer or expose a partial actor. `read(path, maxBytes, signal)` must bound bytes before allocation; browser and local examples are included.
-2. `createSuite(preparedPack, resourceCache, {signal})` acquires shared parsed sources and creates private skeleton/pose/morph state. It binds all declared channels and fitted rigid equipment before returning. Any failed binding releases acquired leases.
+1. `preparePack(read, {signal})` validates the complete pack. Each reader Uint8Array/Buffer is copied before the hash await or the next read. Returned ordinary metadata is deeply frozen; audits have a read-only view; data views return byte copies. Editing an assembly/profile requires new files/hashes and preparation. Readers must bound allocation before returning bytes.
+2. Use one `new ActorPool({limits})` for the application's admission/ownership domain. `await pool.create(preparedPack, {signal})` reserves aggregate costs before parsing/cloning, uses its private shared cache, and rolls back failures/aborts. Its suite owns private skeleton/morph state and fitted rigid equipment. `pool.dispose()` cancels pending creates and disposes active actors; `pool.stats` is a snapshot. Lower-level `createSuite` remains an internal primitive for binding tests and isolated benchmarks; direct calls do not provide application admission. This is an application API contract, not a security boundary against arbitrary same-origin JavaScript constructing independent pools.
 3. `suite.enqueue({time, type:'play', segment})` or `suite.enqueue({time,type:'cancel'})` schedules a validated canonical event. Time is monotonic seconds from the instance's clock origin. Past events and queue overflow are errors.
 4. `suite.advance(time)` samples event boundaries and current state. It returns whether pose/face changed; `suite.isAnimating(time)` and `suite.nextDeadline()` drive demand rendering. It does not raycast, scan the skin, integrate physics, read pointer input, or render.
 5. `suite.dispose()` is idempotent, removes the actor, disposes each instance skeleton once and releases shared leases. The last lease disposes shared source geometry/materials. Calls to `enqueue/advance` after disposal fail.
@@ -33,3 +33,9 @@ A future approved fallback must be a named, versioned, validated binding with re
 ## Deliberate limits
 
 Only a mechanical fixture can currently activate. No art-target adapter, GLB animation playback adapter, skinned clothing, textures, physical collision, ground support, surface grab, drag/pet controller, gaze, brows, IK or visual LOD is implemented. Their old experimental evidence is not an implementation of these capabilities in this engine. The demo is a local browser shell; Node CPU tests are not browser/GPU measurements.
+
+## Context and admission services
+
+`ContextLifecycle({canvas,visibilityTarget})` is the sole visibility/context pause owner for its bound scheduler. `bind(loop)` pauses the previous scheduler and applies current gate state. Context loss uses standard preventDefault and pauses; restoration resumes only if visible, with explicit invalidation even from idle. Canonical wall time is not reset: the next frame samples queued events through now. `dispose()` removes listeners and disposes its bound loop; a late restoration cannot revive it. EventTarget/VM evidence verifies policy only, not GL resource restoration.
+
+See MEASUREMENT02.md for aggregate limits. Source bytes count unique encoded GLBs, including unfinished parses after cancellation; they are not decoded heap/VRAM. Caller-retained prepared packs remain caller-owned memory.

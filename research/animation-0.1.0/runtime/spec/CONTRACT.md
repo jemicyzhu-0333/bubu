@@ -1,6 +1,6 @@
 # Runtime 0.1.0 — first implementation contract
 
-Status: foundation implementation in progress. All art integration and drag/pet product behavior remain gated. No V1 runtime imports, aliases, compatibility branches, or silent fallback. Existing 05/r4/r6 are read-only evidence.
+Status: second foundation checkpoint adds CPU measurement, aggregate actor admission and simulated context-lifecycle policy. All art integration and drag/pet product behavior remain gated. No V1 runtime imports, aliases, compatibility branches, or silent fallback. Existing 05/r4/r6 are read-only evidence.
 
 ## First vertical slice
 
@@ -53,3 +53,11 @@ Visual LOD, stable interaction-surface remapping and browser GPU timings are not
 - Aborted cache acquisition releases only that waiter's lease. A shared pending load can still complete for another waiter. If all waiters cancel, late completion disposes once. Failed loads are evicted. All cloned skeletons use one instance-wide disposal set; shared source geometry/materials survive until the final lease release.
 - Local file loading resolves symlinks and enforces the resolved package root. Browser loading rejects redirects and bounds streamed bytes; package URIs cannot name another origin or filesystem parent.
 - Pausing demand scheduling cancels RAF/timer handles without changing suite state. Resume evaluates canonical queued events at the new time and displays their final current state. Disposal inside draw must not schedule a trailing frame.
+
+## Measurement checkpoint 02 additions
+
+The application uses one ActorPool. It reserves active plus pending actor/vertex/node/morph-expanded costs before asynchronous creation; unique encoded GLB source bytes count once across shared actors. Uncancellable late parses keep their source reservations after actor cancellation until disposal/eviction. See MEASUREMENT02.md for limits and exclusions.
+
+Prepared metadata/assembly is immutable, asset bytes are owned before the hash await, and public byte reads are copies. Admission and instantiation therefore use the same accepted geometry and assembly. Actor disposal rolls back its reservation idempotently.
+
+ContextLifecycle combines hidden/lost/disposed state and explicitly invalidates restoration. Canonical time continues while paused. Actual browser shader re-upload, context restoration and transparent output remain unverified; only EventTarget and VM policy tests ran.

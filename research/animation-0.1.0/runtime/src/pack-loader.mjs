@@ -10,6 +10,25 @@ import {
   preflightGLB
 }
 from './glb-preflight.mjs';
+// Immutable admission accounting is captured before exposing the prepared pack.
+const admissionRecords=new WeakMap();
+function deepFreeze(value) {
+  if(value&&typeof value==='object'&&!Object.isFrozen(value)) {
+    for(const child of Object.values(value))deepFreeze(child);
+    Object.freeze(value);
+  }
+  return value;
+}
+function readonlyMap(map,copyBytes=false) {
+  const read=value=>copyBytes&&value!==undefined?value.slice():value;
+  const entries=function*(){for(const [key,value] of map)yield [key,read(value)];};
+  return Object.freeze({size:map.size,get:key=>read(map.get(key)),has:key=>map.has(key),keys:()=>map.keys(),values:function*(){for(const value of map.values())yield read(value);},entries,[Symbol.iterator]:entries});
+}
+export function preparedAdmission(pack) {
+  const record=admissionRecords.get(pack);
+  if(!record)fail('BINDING', 'ActorPool requires a prepared pack');
+  return record;
+}
 export async function sha256(bytes) {
   const h=new Uint8Array(await crypto.subtle.digest('SHA-256', bytes));
   return Array.from(h, b=>b.toString(16).padStart(2, '0')).join('');
@@ -28,9 +47,13 @@ export async function preparePack(read, {
   let vertices=0, nodes=0, deformedVertices=0;
   for(const a of m.assets) {
     check();
-    const b=await read(a.path, a.bytes, signal);
+    const incoming=await read(a.path, a.bytes, signal);
     check();
-    if(!(b instanceof Uint8Array)||b.byteLength!==a.bytes||await sha256(b)!==a.sha256)fail('INTEGRITY', a.id);
+    if(!(incoming instanceof Uint8Array)||incoming.byteLength!==a.bytes)fail('INTEGRITY', a.id);
+    // Own bytes before the hash await or any subsequent reader invocation.
+    // Buffer.slice aliases memory, so use a real Uint8Array copy explicitly.
+    const b=Uint8Array.from(incoming);
+    if(await sha256(b)!==a.sha256)fail('INTEGRITY', a.id);
     if(a.kind==='glb') {
       const v=preflightGLB(b, m.budgets);
       vertices+=v.vertices;
@@ -60,11 +83,22 @@ export async function preparePack(read, {
   nodes+=2*m.equipment.length;
   if(vertices>m.budgets.vertices||nodes>m.budgets.nodes||deformedVertices>LIMITS.deformedVertices)fail('LIMIT', 'Resolved instance budget');
   check();
-  return {
-    manifest:m, profile, motion, data, audits, budget: {
+  // Public metadata cannot diverge from the reserved instance cost. Byte views
+  // are copy-on-read; Object.freeze(Map/TypedArray) alone would not protect them.
+  const privateBytes=data;
+  for(const audit of audits.values())deepFreeze(audit);
+  const result=Object.freeze({
+    manifest:deepFreeze(m), profile:deepFreeze(profile), motion:deepFreeze(motion), data:readonlyMap(privateBytes,true), audits:readonlyMap(audits), budget:deepFreeze({
       vertices, nodes, deformedVertices, textureBytes:0, definitions
-    }
-  };
+    })
+  });
+  const sources=new Map();
+  for(const id of [m.character.asset, ...m.equipment.map(x=>x.asset)]) {
+    const a=m.assets.find(x=>x.id===id);
+    sources.set('gltf-0.1.0:'+a.sha256, Object.freeze({key:'gltf-0.1.0:'+a.sha256, bytes:a.bytes}));
+  }
+  admissionRecords.set(result, Object.freeze({vertices,nodes,deformedVertices,sources:Object.freeze([...sources.values()])}));
+  return result;
 }
 function disposeSource(scene) {
   const gs=new Set(), ms=new Set(), ss=new Set();

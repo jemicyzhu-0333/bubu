@@ -3,19 +3,13 @@ import {
   preparePack, browserPackReader
 }
 from './pack-loader.mjs';
-import {
-  createSuite
-}
-from './suite.mjs';
-import {
-  ResourceCache
-}
-from './resource-cache.mjs';
+import {ActorPool} from './actor-pool.mjs';
+import {ContextLifecycle} from './context-lifecycle.mjs';
 import {
   DemandLoop
 }
 from './demand-loop.mjs';
-const viewport=document.querySelector('#viewport'), status=document.querySelector('#status'), cache=new ResourceCache(), scene=new T.Scene();
+const viewport=document.querySelector('#viewport'), status=document.querySelector('#status'), pool=new ActorPool(), scene=new T.Scene();
 let renderer, suite, loop, pack, start, loading=false, closed=false, generation=0, loadAbort=null;
 try {
   renderer=new T.WebGLRenderer({
@@ -30,6 +24,7 @@ catch(error) {
   throw error;
 }
 const camera=new T.OrthographicCamera(-1.4, 1.4, 1.4, -1.4, .01, 20);
+const lifecycle=new ContextLifecycle({canvas:renderer.domElement,visibilityTarget:document});
 camera.position.set(2, 1.3, 4);
 camera.lookAt(0, .6, 0);
 scene.add(new T.HemisphereLight(0xffffff, 0x647283, 2));
@@ -38,11 +33,12 @@ key.position.set(2, 4, 3);
 scene.add(key);
 const now=()=>Math.max(0, (performance.now()-start)/1000);
 function draw() {
+  if(closed||lifecycle.lost||lifecycle.hidden)return;
   renderer.render(scene, camera);
   status.textContent=suite?JSON.stringify({
     fixtureOnly:true, time:Number(suite.timeline.time.toFixed(3)), face: {
       path:suite.face.path, amount:Number(suite.face.value.toFixed(3))
-    }, cpuBudget:suite.budget, cache:cache.stats, scheduler:loop?.stats, webglDrawCalls:renderer.info.render.calls
+    }, cpuBudget:suite.budget, admission:pool.stats, scheduler:loop?.stats, webglDrawCalls:renderer.info.render.calls
   }, null, 2):'Actor disposed. Shared resource leases released.';
 }
 function resize() {
@@ -61,6 +57,7 @@ function stopCurrent() {
   loadAbort?.abort();
   loadAbort=null;
   loading=false;
+  lifecycle.bind(null);
   loop?.dispose();
   loop=null;
   suite?.dispose();
@@ -71,6 +68,7 @@ async function create() {
   const mine=++generation, abort=new AbortController();
   loadAbort=abort;
   loading=true;
+  lifecycle.bind(null);
   loop?.dispose();
   loop=null;
   suite?.dispose();
@@ -81,7 +79,7 @@ async function create() {
     });
     if(closed||generation!==mine||abort.signal.aborted)return;
     pack=prepared;
-    const candidate=await createSuite(pack, cache, {
+    const candidate=await pool.create(pack, {
       signal:abort.signal
     });
     if(closed||generation!==mine||abort.signal.aborted) {
@@ -94,11 +92,12 @@ async function create() {
     loop=new DemandLoop({
       runtime:suite, draw, now, requestFrame:requestAnimationFrame, cancelFrame:cancelAnimationFrame, setTimer:setTimeout, clearTimer:clearTimeout
     });
+    lifecycle.bind(loop);
     resize();
-    if(document.hidden)loop.pause();
   }
   catch(error) {
     if(generation===mine&&!closed) {
+      lifecycle.bind(null);
       loop?.dispose();
       loop=null;
       suite?.dispose();
@@ -145,16 +144,13 @@ document.querySelector('#dispose').onclick=()=> {
   draw();
 };
 document.querySelector('#recreate').onclick=create;
-function visibility() {
-  if(document.hidden)loop?.pause();
-  else loop?.resume();
-}
-document.addEventListener('visibilitychange', visibility);
 window.addEventListener('pagehide', ()=> {
   closed=true;
   stopCurrent();
   observer.disconnect();
-  document.removeEventListener('visibilitychange', visibility);
+  lifecycle.dispose();
+  pool.dispose();
+  pack=null;
   renderer.dispose();
 }, {
   once:true
