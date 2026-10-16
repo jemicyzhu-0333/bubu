@@ -1,484 +1,132 @@
-TAP version 13
-# Subtest: global actor budget reserves before asynchronous creation and release is idempotent
-ok 1 - global actor budget reserves before asynchronous creation and release is idempotent
-  ---
-  duration_ms: 53.000944
-  type: 'test'
-  ...
-# Subtest: shared sources count once while render work counts for every actor
-ok 2 - shared sources count once while render work counts for every actor
-  ---
-  duration_ms: 17.582458
-  type: 'test'
-  ...
-# Subtest: every aggregate complexity limit rejects before acquiring a source
-ok 3 - every aggregate complexity limit rejects before acquiring a source
-  ---
-  duration_ms: 7.876874
-  type: 'test'
-  ...
-# Subtest: prepared accounting and assembly metadata cannot mutate after validation
-ok 4 - prepared accounting and assembly metadata cannot mutate after validation
-  ---
-  duration_ms: 3.61178
-  type: 'test'
-  ...
-# Subtest: binding failure rolls back actor and source reservations
-ok 5 - binding failure rolls back actor and source reservations
-  ---
-  duration_ms: 15.218871
-  type: 'test'
-  ...
-# Subtest: abort keeps late parse source bytes charged until completion disposes them
-ok 6 - abort keeps late parse source bytes charged until completion disposes them
-  ---
-  duration_ms: 7.170729
-  type: 'test'
-  ...
-# Subtest: pool disposal cancels pending instances and active actors without resurrection
-ok 7 - pool disposal cancels pending instances and active actors without resurrection
-  ---
-  duration_ms: 15.73498
-  type: 'test'
-  ...
-# Subtest: global limits are strict and cannot exceed hard ceilings
-ok 8 - global limits are strict and cannot exceed hard ceilings
-  ---
-  duration_ms: 0.692534
-  type: 'test'
-  ...
-# Subtest: reader-owned Buffer mutation after hash cannot change the prepared snapshot
-ok 9 - reader-owned Buffer mutation after hash cannot change the prepared snapshot
-  ---
-  duration_ms: 17.993278
-  type: 'test'
-  ...
-# Subtest: authored fixture is readable independent key data with unequal holds and unchanged mechanical sources
-ok 10 - authored fixture is readable independent key data with unequal holds and unchanged mechanical sources
-  ---
-  duration_ms: 29.324243
-  type: 'test'
-  ...
-# Subtest: entry bridge is linear slerp, delays authored phase, and does not animate unowned lanes
-ok 11 - entry bridge is linear slerp, delays authored phase, and does not animate unowned lanes
-  ---
-  duration_ms: 43.604368
-  type: 'test'
-  ...
-# Subtest: independent tracks match hand-calculated linear and unequal-hold samples
-ok 12 - independent tracks match hand-calculated linear and unequal-hold samples
-  ---
-  duration_ms: 14.046352
-  type: 'test'
-  ...
-# Subtest: STEP keys are right-continuous at exact authored boundaries including final key
-ok 13 - STEP keys are right-continuous at exact authored boundaries including final key
-  ---
-  duration_ms: 14.686728
-  type: 'test'
-  ...
-# Subtest: shortest-arc LINEAR slerp admits sign-equivalent keys without a long rotation or sign flip
-ok 14 - shortest-arc LINEAR slerp admits sign-equivalent keys without a long rotation or sign flip
-  ---
-  duration_ms: 16.408537
-  type: 'test'
-  ...
-# Subtest: non-collinear LINEAR rotation uses quaternion slerp rather than component or Euler interpolation
-ok 15 - non-collinear LINEAR rotation uses quaternion slerp rather than component or Euler interpolation
-  ---
-  duration_ms: 11.586691
-  type: 'test'
-  ...
-# Subtest: small-angle LINEAR keys still use phase-linear angular motion and normalize admitted near-unit values
-ok 16 - small-angle LINEAR keys still use phase-linear angular motion and normalize admitted near-unit values
-  ---
-  duration_ms: 11.348062
-  type: 'test'
-  ...
-# Subtest: clip entry interrupts target motion at its actual event-time pose and leaves unowned lanes running
-ok 17 - clip entry interrupts target motion at its actual event-time pose and leaves unowned lanes running
-  ---
-  duration_ms: 28.142724
-  type: 'test'
-  ...
-# Subtest: clip-to-clip interruptions are C0 during entry, on a STEP key, and late in authored motion
-ok 18 - clip-to-clip interruptions are C0 during entry, on a STEP key, and late in authored motion
-  ---
-  duration_ms: 24.830859
-  type: 'test'
-  ...
-# Subtest: existing target-segment primitive can interrupt authored motion without resetting the pose
-ok 19 - existing target-segment primitive can interrupt authored motion without resetting the pose
-  ---
-  duration_ms: 7.363329
-  type: 'test'
-  ...
-# Subtest: same-time plays retain insertion order, and cancel invalidates clips at and after its timestamp
-ok 20 - same-time plays retain insertion order, and cancel invalidates clips at and after its timestamp
-  ---
-  duration_ms: 24.550264
-  type: 'test'
-  ...
-# Subtest: 24/30/60/120/144 Hz and direct large jumps give the same canonical clip and interruption samples
-ok 21 - 24/30/60/120/144 Hz and direct large jumps give the same canonical clip and interruption samples
-  ---
-  duration_ms: 65.034519
-  type: 'test'
-  ...
-# Subtest: minimum .02 sec clip and .02 sec bridge keep exact boundaries even when the display skips the entire clip
-ok 22 - minimum .02 sec clip and .02 sec bridge keep exact boundaries even when the display skips the entire clip
-  ---
-  duration_ms: 7.36332
-  type: 'test'
-  ...
-# Subtest: final keys hold indefinitely without demand animation or retained active clip references
-ok 23 - final keys hold indefinitely without demand animation or retained active clip references
-  ---
-  duration_ms: 5.539227
-  type: 'test'
-  ...
-# Subtest: clip key workload is charged per actor, encoded library shared once, and disposal releases both
-ok 24 - clip key workload is charged per actor, encoded library shared once, and disposal releases both
-  ---
-  duration_ms: 8.834129
-  type: 'test'
-  ...
-# Subtest: clip workload rejection and actor binding failure roll back before retaining shared sources
-ok 25 - clip workload rejection and actor binding failure roll back before retaining shared sources
-  ---
-  duration_ms: 11.397626
-  type: 'test'
-  ...
-# Subtest: clip contract rejects unknown fields, unsupported versions/channels/curves and ownership ambiguity
-ok 26 - clip contract rejects unknown fields, unsupported versions/channels/curves and ownership ambiguity
-  ---
-  duration_ms: 4.104744
-  type: 'test'
-  ...
-# Subtest: clip contract rejects empty, unordered, duplicate, missing endpoints and invalid duration keys
-ok 27 - clip contract rejects empty, unordered, duplicate, missing endpoints and invalid duration keys
-  ---
-  duration_ms: 1.471971
-  type: 'test'
-  ...
-# Subtest: minimum key gap tolerates only arithmetic roundoff at its mathematical threshold
-ok 28 - minimum key gap tolerates only arithmetic roundoff at its mathematical threshold
-  ---
-  duration_ms: 4.970599
-  type: 'test'
-  ...
-# Subtest: quaternion validity and caps are checked after normalization with sign-equivalent endpoints
-ok 29 - quaternion validity and caps are checked after normalization with sign-equivalent endpoints
-  ---
-  duration_ms: 0.912337
-  type: 'test'
-  ...
-# Subtest: per-library, per-track and aggregate key budgets reject before runtime activation
-ok 30 - per-library, per-track and aggregate key budgets reject before runtime activation
-  ---
-  duration_ms: 9.134516
-  type: 'test'
-  ...
-# Subtest: manifest requires referenced and declared authored capability, bounds bytes and rejects extra library
-ok 31 - manifest requires referenced and declared authored capability, bounds bytes and rejects extra library
-  ---
-  duration_ms: 39.383494
-  type: 'test'
-  ...
-# Subtest: playClip rejects missing entry, unknown clip, past time, clock overflow, unknown fields and queue overflow
-ok 32 - playClip rejects missing entry, unknown clip, past time, clock overflow, unknown fields and queue overflow
-  ---
-  duration_ms: 4.157423
-  type: 'test'
-  ...
-# Subtest: absolute STEP boundaries remain right-continuous at nonbinary phases and large canonical times
-ok 33 - absolute STEP boundaries remain right-continuous at nonbinary phases and large canonical times
-  ---
-  duration_ms: 1.94854
-  type: 'test'
-  ...
-# Subtest: admitted near-unit target primitive is normalized before a subsequent infinitesimal clip entry
-ok 34 - admitted near-unit target primitive is normalized before a subsequent infinitesimal clip entry
-  ---
-  duration_ms: 2.163394
-  type: 'test'
-  ...
-# Subtest: target play and playClip have equal priority with the last enqueue owning common channels
-ok 35 - target play and playClip have equal priority with the last enqueue owning common channels
-  ---
-  duration_ms: 0.584983
-  type: 'test'
-  ...
-# Subtest: simulated idle context restoration explicitly redraws once without restarting clock
-ok 36 - simulated idle context restoration explicitly redraws once without restarting clock
-  ---
-  duration_ms: 1.521565
-  type: 'test'
-  ...
-# Subtest: hidden and lost states compose; restoration while hidden does not resume
-ok 37 - hidden and lost states compose; restoration while hidden does not resume
-  ---
-  duration_ms: 0.40414
-  type: 'test'
-  ...
-# Subtest: loss before actor load binds paused; disposed lifecycle ignores late restore
-ok 38 - loss before actor load binds paused; disposed lifecycle ignores late restore
-  ---
-  duration_ms: 0.450359
-  type: 'test'
-  ...
-# Subtest: simulated restoration samples canonical events at current time rather than replaying animation start
-ok 39 - simulated restoration samples canonical events at current time rather than replaying animation start
-  ---
-  duration_ms: 52.378565
-  type: 'test'
-  ...
-# Subtest: loss during draw does not schedule a trailing animation RAF
-ok 40 - loss during draw does not schedule a trailing animation RAF
-  ---
-  duration_ms: 0.471331
-  type: 'test'
-  ...
-# Subtest: unsafe path rejected ../x
-ok 41 - unsafe path rejected ../x
-  ---
-  duration_ms: 3.778491
-  type: 'test'
-  ...
-# Subtest: unsafe path rejected a/../x
-ok 42 - unsafe path rejected a/../x
-  ---
-  duration_ms: 0.28465
-  type: 'test'
-  ...
-# Subtest: unsafe path rejected /x
-ok 43 - unsafe path rejected /x
-  ---
-  duration_ms: 0.190157
-  type: 'test'
-  ...
-# Subtest: unsafe path rejected https://x
-ok 44 - unsafe path rejected https://x
-  ---
-  duration_ms: 0.12558
-  type: 'test'
-  ...
-# Subtest: unsafe path rejected a%2fb
-ok 45 - unsafe path rejected a%2fb
-  ---
-  duration_ms: 1.729719
-  type: 'test'
-  ...
-# Subtest: unsafe path rejected a\\b
-ok 46 - unsafe path rejected a\\b
-  ---
-  duration_ms: 0.211229
-  type: 'test'
-  ...
-# Subtest: unsafe path rejected a//b
-ok 47 - unsafe path rejected a//b
-  ---
-  duration_ms: 0.173612
-  type: 'test'
-  ...
-# Subtest: unsafe path rejected ./a
-ok 48 - unsafe path rejected ./a
-  ---
-  duration_ms: 4.162901
-  type: 'test'
-  ...
-# Subtest: unsafe path rejected a?x
-ok 49 - unsafe path rejected a?x
-  ---
-  duration_ms: 0.222786
-  type: 'test'
-  ...
-# Subtest: unsafe path rejected a\#x
-ok 50 - unsafe path rejected a\#x
-  ---
-  duration_ms: 0.241354
-  type: 'test'
-  ...
-# Subtest: strict version/capabilities/fields/budgets and hashes
-ok 51 - strict version/capabilities/fields/budgets and hashes
-  ---
-  duration_ms: 24.927369
-  type: 'test'
-  ...
-# Subtest: GLB preflight rejects external resources/extensions/default morphs/bad ranges
-ok 52 - GLB preflight rejects external resources/extensions/default morphs/bad ranges
-  ---
-  duration_ms: 13.863867
-  type: 'test'
-  ...
-# Subtest: accessor aliases are cost bounded before float scan
-ok 53 - accessor aliases are cost bounded before float scan
-  ---
-  duration_ms: 6.125892
-  type: 'test'
-  ...
-# Subtest: profile cannot activate art/gaze/overlap or omit affected face mesh
-ok 54 - profile cannot activate art/gaze/overlap or omit affected face mesh
-  ---
-  duration_ms: 8.707312
-  type: 'test'
-  ...
-# Subtest: missing morph target and joint/socket alias reject atomically without leaked leases
-ok 55 - missing morph target and joint/socket alias reject atomically without leaked leases
-  ---
-  duration_ms: 35.60977
-  type: 'test'
-  ...
-# Subtest: joint cap and channel reference reject before runtime
-ok 56 - joint cap and channel reference reject before runtime
-  ---
-  duration_ms: 10.496356
-  type: 'test'
-  ...
-# Subtest: unbound morph mesh and skinned rigid equipment reject
-ok 57 - unbound morph mesh and skinned rigid equipment reject
-  ---
-  duration_ms: 28.161157
-  type: 'test'
-  ...
-# Subtest: resolved repeated equipment counts against instance budget
-ok 58 - resolved repeated equipment counts against instance budget
-  ---
-  duration_ms: 4.079736
-  type: 'test'
-  ...
-# Subtest: mesh reused by many nodes counts render vertices, not definition count
-ok 59 - mesh reused by many nodes counts render vertices, not definition count
-  ---
-  duration_ms: 1.282105
-  type: 'test'
-  ...
-# Subtest: prototype property cannot masquerade as a morph target
-ok 60 - prototype property cannot masquerade as a morph target
-  ---
-  duration_ms: 9.174842
-  type: 'test'
-  ...
-# Subtest: pending load dedup, cancel one waiter, late final release exactly once
-ok 61 - pending load dedup, cancel one waiter, late final release exactly once
-  ---
-  duration_ms: 1.382265
-  type: 'test'
-  ...
-# Subtest: all waiters cancelled before late completion dispose once
-ok 62 - all waiters cancelled before late completion dispose once
-  ---
-  duration_ms: 4.479739
-  type: 'test'
-  ...
-# Subtest: failed load evicts and can retry without leaked ownership
-ok 63 - failed load evicts and can retry without leaked ownership
-  ---
-  duration_ms: 3.884951
-  type: 'test'
-  ...
-# Subtest: two actors share assets but not skeleton/morph state
-ok 64 - two actors share assets but not skeleton/morph state
-  ---
-  duration_ms: 41.10102
-  type: 'test'
-  ...
-# Subtest: demand loop sleeps with zero RAF and wakes for canonical future event
-ok 65 - demand loop sleeps with zero RAF and wakes for canonical future event
-  ---
-  duration_ms: 19.586211
-  type: 'test'
-  ...
-# Subtest: draw callback disposal schedules no trailing RAF or timer
-ok 66 - draw callback disposal schedules no trailing RAF or timer
-  ---
-  duration_ms: 0.727287
-  type: 'test'
-  ...
-# Subtest: paused scheduler preserves queued events and resumes at current canonical time
-ok 67 - paused scheduler preserves queued events and resumes at current canonical time
-  ---
-  duration_ms: 15.595089
-  type: 'test'
-  ...
-# Subtest: invalid resource result rejects and evicts its cache entry
-ok 68 - invalid resource result rejects and evicts its cache entry
-  ---
-  duration_ms: 0.35154
-  type: 'test'
-  ...
-# Subtest: workload axes isolate vertices, joints, nodes and morph targets
-ok 69 - workload axes isolate vertices, joints, nodes and morph targets
-  ---
-  duration_ms: 2.701005
-  type: 'test'
-  ...
-# Subtest: mechanical GLB generator is byte deterministic and rejects unsupported shapes
-ok 70 - mechanical GLB generator is byte deterministic and rejects unsupported shapes
-  ---
-  duration_ms: 23.56296
-  type: 'test'
-  ...
-# Subtest: all generated workloads pass actual preparation and runtime binding within hard limits
-ok 71 - all generated workloads pass actual preparation and runtime binding within hard limits
-  ---
-  duration_ms: 615.410593
-  type: 'test'
-  ...
-# Subtest: timing summaries use nearest-rank quantiles without changing raw observations
-ok 72 - timing summaries use nearest-rank quantiles without changing raw observations
-  ---
-  duration_ms: 0.417029
-  type: 'test'
-  ...
-# Subtest: CPU matrix records separate throughput/latency samples, actual events, release and pool evidence
-ok 73 - CPU matrix records separate throughput/latency samples, actual events, release and pool evidence
-  ---
-  duration_ms: 60.115698
-  type: 'test'
-  ...
-# Subtest: actual GLB -> profile -> timeline -> face -> accessory -> release lifecycle
-ok 74 - actual GLB -> profile -> timeline -> face -> accessory -> release lifecycle
-  ---
-  duration_ms: 48.588287
-  type: 'test'
-  ...
-# Subtest: 30/60/120 Hz produce equal event-time state and exact canonical neutral bridges
-ok 75 - 30/60/120 Hz produce equal event-time state and exact canonical neutral bridges
-  ---
-  duration_ms: 33.884413
-  type: 'test'
-  ...
-# Subtest: interrupt starts at actual current quaternion, facial state and full world matrix
-ok 76 - interrupt starts at actual current quaternion, facial state and full world matrix
-  ---
-  duration_ms: 8.162274
-  type: 'test'
-  ...
-# Subtest: many face interrupts never overlap semantic paths or exceed morph simplex
-ok 77 - many face interrupts never overlap semantic paths or exceed morph simplex
-  ---
-  duration_ms: 9.916522
-  type: 'test'
-  ...
-# Subtest: cancel wins same timestamp and invalidates previously queued future plays
-ok 78 - cancel wins same timestamp and invalidates previously queued future plays
-  ---
-  duration_ms: 14.62849
-  type: 'test'
-  ...
-# Subtest: rigid accessory inherits slot world transform once, with independent local rotation
-ok 79 - rigid accessory inherits slot world transform once, with independent local rotation
-  ---
-  duration_ms: 5.30224
-  type: 'test'
-  ...
-1..79
-# tests 79
-# suites 0
-# pass 79
-# fail 0
-# cancelled 0
-# skipped 0
-# todo 0
-# duration_ms 903.029371
+
+> bubu-runtime-foundation@0.1.0 test
+> node --test tests/*.test.mjs
+
+✔ global actor budget reserves before asynchronous creation and release is idempotent (68.789038ms)
+✔ shared sources count once while render work counts for every actor (21.812211ms)
+✔ every aggregate complexity limit rejects before acquiring a source (6.883546ms)
+✔ prepared accounting and assembly metadata cannot mutate after validation (9.384439ms)
+✔ binding failure rolls back actor and source reservations (21.779491ms)
+✔ abort keeps late parse source bytes charged until completion disposes them (11.504459ms)
+✔ pool disposal cancels pending instances and active actors without resurrection (10.290306ms)
+✔ global limits are strict and cannot exceed hard ceilings (0.686736ms)
+✔ reader-owned Buffer mutation after hash cannot change the prepared snapshot (12.067046ms)
+✔ art ceilings are frozen and independent from mechanics limits (1.740065ms)
+✔ self-contained untextured colored triangle reports exact decode costs (4.676576ms)
+✔ sparse 5121 zero base decodes correctly (1.375215ms)
+✔ sparse 5121 overlay decodes correctly (3.540912ms)
+✔ sparse 5123 zero base decodes correctly (0.531822ms)
+✔ sparse 5123 overlay decodes correctly (0.460615ms)
+✔ sparse 5125 zero base decodes correctly (0.454767ms)
+✔ sparse 5125 overlay decodes correctly (0.557401ms)
+✔ dense strided accessor preserves float32 source values and does not read padding (0.712395ms)
+✔ an accessor without a buffer view or sparse values has a zero base (0.66319ms)
+✔ invalid sparse ordering/range 0,0 (0.781689ms)
+✔ invalid sparse ordering/range 2,1 (0.369268ms)
+✔ invalid sparse ordering/range 0,3 (0.409538ms)
+✔ sparse indices and values require safe counts/ranges/alignment, unsigned types and no strides (5.498617ms)
+✔ zero-base sparse byteOffset must be exactly zero (1.228884ms)
+✔ nonfinite base values reject even when overlaid; nonfinite sparse values reject (1.856341ms)
+✔ global dense scalar and byte budgets are checked before any source reads (0.970134ms)
+✔ accessor and view counts plus all caller-lowered budgets are enforced (6.173385ms)
+✔ COLOR_0 is actual float VEC3/4 data bounded to 0..1 (2.276806ms)
+✔ only numeric untextured specular and ior extension fields pass with consistent declarations (4.737508ms)
+✔ unknown fields, external resources, animations, scripts and arbitrary extras reject (4.026946ms)
+✔ only named HeadTouch near-unit source normal metadata is allowed and stays unmodified (2.039928ms)
+✔ POSITION and NORMAL morphs are typed and default node/mesh weights are all zero (4.825361ms)
+✔ topology, scene hierarchy, unique names and instantiated geometry budgets remain strict (3.944782ms)
+✔ skin joint identity, index ranges, float weights and rest bind shape checks remain strict (5.130782ms)
+✔ malformed buffers, chunks and metadata fail with controlled contract errors (2.48546ms)
+✔ known-role source provenance is inert, bounded and field-specific (5.870427ms)
+✔ hash-locked original static05 passes without source changes (90.239743ms)
+✔ hash-locked original r6 passes without source changes (153.560256ms)
+✔ authored fixture is readable independent key data with unequal holds and unchanged mechanical sources (21.414495ms)
+✔ entry bridge is linear slerp, delays authored phase, and does not animate unowned lanes (32.610052ms)
+✔ independent tracks match hand-calculated linear and unequal-hold samples (15.652647ms)
+✔ STEP keys are right-continuous at exact authored boundaries including final key (21.539579ms)
+✔ shortest-arc LINEAR slerp admits sign-equivalent keys without a long rotation or sign flip (19.161325ms)
+✔ non-collinear LINEAR rotation uses quaternion slerp rather than component or Euler interpolation (16.753938ms)
+✔ small-angle LINEAR keys still use phase-linear angular motion and normalize admitted near-unit values (27.969791ms)
+✔ clip entry interrupts target motion at its actual event-time pose and leaves unowned lanes running (11.419224ms)
+✔ clip-to-clip interruptions are C0 during entry, on a STEP key, and late in authored motion (26.435751ms)
+✔ existing target-segment primitive can interrupt authored motion without resetting the pose (7.530162ms)
+✔ same-time plays retain insertion order, and cancel invalidates clips at and after its timestamp (20.555945ms)
+✔ 24/30/60/120/144 Hz and direct large jumps give the same canonical clip and interruption samples (74.494441ms)
+✔ minimum .02 sec clip and .02 sec bridge keep exact boundaries even when the display skips the entire clip (8.207428ms)
+✔ final keys hold indefinitely without demand animation or retained active clip references (8.234504ms)
+✔ clip key workload is charged per actor, encoded library shared once, and disposal releases both (7.202477ms)
+✔ clip workload rejection and actor binding failure roll back before retaining shared sources (11.637588ms)
+✔ clip contract rejects unknown fields, unsupported versions/channels/curves and ownership ambiguity (3.093417ms)
+✔ clip contract rejects empty, unordered, duplicate, missing endpoints and invalid duration keys (2.479261ms)
+✔ minimum key gap tolerates only arithmetic roundoff at its mathematical threshold (0.534587ms)
+✔ quaternion validity and caps are checked after normalization with sign-equivalent endpoints (0.853758ms)
+✔ per-library, per-track and aggregate key budgets reject before runtime activation (6.216815ms)
+✔ manifest requires referenced and declared authored capability, bounds bytes and rejects extra library (27.59819ms)
+✔ playClip rejects missing entry, unknown clip, past time, clock overflow, unknown fields and queue overflow (2.658401ms)
+✔ absolute STEP boundaries remain right-continuous at nonbinary phases and large canonical times (0.884996ms)
+✔ admitted near-unit target primitive is normalized before a subsequent infinitesimal clip entry (1.725193ms)
+✔ target play and playClip have equal priority with the last enqueue owning common channels (0.76218ms)
+✔ simulated idle context restoration explicitly redraws once without restarting clock (1.713185ms)
+✔ hidden and lost states compose; restoration while hidden does not resume (0.465352ms)
+✔ loss before actor load binds paused; disposed lifecycle ignores late restore (0.486043ms)
+✔ simulated restoration samples canonical events at current time rather than replaying animation start (48.501569ms)
+✔ loss during draw does not schedule a trailing animation RAF (0.617822ms)
+✔ unsafe path rejected ../x (3.739592ms)
+✔ unsafe path rejected a/../x (0.263878ms)
+✔ unsafe path rejected /x (0.142896ms)
+✔ unsafe path rejected https://x (0.137948ms)
+✔ unsafe path rejected a%2fb (0.180513ms)
+✔ unsafe path rejected a\b (0.303488ms)
+✔ unsafe path rejected a//b (0.16545ms)
+✔ unsafe path rejected ./a (0.175014ms)
+✔ unsafe path rejected a?x (0.199391ms)
+✔ unsafe path rejected a#x (0.248415ms)
+✔ strict version/capabilities/fields/budgets and hashes (14.67396ms)
+✔ GLB preflight rejects external resources/extensions/default morphs/bad ranges (12.565489ms)
+✔ accessor aliases are cost bounded before float scan (8.478012ms)
+✔ profile cannot activate art/gaze/overlap or omit affected face mesh (8.48998ms)
+✔ missing morph target and joint/socket alias reject atomically without leaked leases (37.112636ms)
+✔ joint cap and channel reference reject before runtime (17.19869ms)
+✔ unbound morph mesh and skinned rigid equipment reject (28.515555ms)
+✔ resolved repeated equipment counts against instance budget (11.088842ms)
+✔ mesh reused by many nodes counts render vertices, not definition count (1.887854ms)
+✔ prototype property cannot masquerade as a morph target (20.653632ms)
+✔ pending load dedup, cancel one waiter, late final release exactly once (3.310154ms)
+✔ all waiters cancelled before late completion dispose once (10.002542ms)
+✔ failed load evicts and can retry without leaked ownership (0.707257ms)
+✔ two actors share assets but not skeleton/morph state (61.212963ms)
+✔ demand loop sleeps with zero RAF and wakes for canonical future event (19.643924ms)
+✔ draw callback disposal schedules no trailing RAF or timer (0.375947ms)
+✔ paused scheduler preserves queued events and resumes at current canonical time (16.179682ms)
+✔ invalid resource result rejects and evicts its cache entry (0.460865ms)
+✔ workload axes isolate vertices, joints, nodes and morph targets (2.25398ms)
+✔ mechanical GLB generator is byte deterministic and rejects unsupported shapes (23.930561ms)
+✔ all generated workloads pass actual preparation and runtime binding within hard limits (700.086433ms)
+✔ timing summaries use nearest-rank quantiles without changing raw observations (0.54371ms)
+✔ CPU matrix records separate throughput/latency samples, actual events, release and pool evidence (75.950634ms)
+✔ real hash-locked static05 loads exact rest, geometry and materials without motion API (125.219891ms)
+✔ real hash-locked r6 loads exact rest, geometry and materials without motion API (210.595266ms)
+✔ neutral source geometry is shared, actor skeletons and morph arrays are isolated (227.537287ms)
+✔ one application budget includes pending/active mechanical and neutral actors (171.81216ms)
+✔ decoded reservation is enforced before async parse and shared by source identity (138.253606ms)
+✔ neutral cancellation/late parse keeps reservation until cleanup (141.35181ms)
+✔ prepared neutral metadata and copy-on-read source cannot mutate admission (149.396652ms)
+✔ approved hash cannot be replaced by arbitrary assets or self-approved profile (52.316855ms)
+✔ neutral profile rejects omitted face, synthetic knee and wrong static/skin role (145.481851ms)
+✔ neutral manifest rejects motion, equipment and budget escalation (39.115621ms)
+✔ real static actor demand scheduler draws on explicit wake and stays idle (60.864081ms)
+✔ source checker requires material vertex colors, not merely a COLOR_0 array (47.845725ms)
+✔ actual GLB -> profile -> timeline -> face -> accessory -> release lifecycle (45.925973ms)
+✔ 30/60/120 Hz produce equal event-time state and exact canonical neutral bridges (42.98099ms)
+✔ interrupt starts at actual current quaternion, facial state and full world matrix (8.749671ms)
+✔ many face interrupts never overlap semantic paths or exceed morph simplex (15.427607ms)
+✔ cancel wins same timestamp and invalidates previously queued future plays (10.793075ms)
+✔ rigid accessory inherits slot world transform once, with independent local rotation (7.297876ms)
+ℹ tests 120
+ℹ suites 0
+ℹ pass 120
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1917.956473

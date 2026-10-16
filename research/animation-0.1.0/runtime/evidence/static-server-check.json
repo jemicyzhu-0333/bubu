@@ -1,29 +1,41 @@
 {
-  "scope": "Own-cloud loopback HTTP resource delivery only; no browser/WebGL execution",
+  "scope": "Own-cloud loopback HTTP delivery only; no browser/WebGL execution",
   "resources": [
     {
-      "path": "index.html",
+      "path": "neutral.html",
       "status": 200,
-      "bytes": 1571,
-      "sha256": "7924e010984d40e2fc3211173bc48c484121eac7118d1fdd7754aab96fc943fa"
+      "bytes": 1159,
+      "sha256": "8df8f6819ec5bf5d6bce2e81c7683d02dbaa72c606f5e36dc716568b175d823a"
     },
     {
-      "path": "src/demo.mjs",
+      "path": "src/neutral-demo.mjs",
       "status": 200,
-      "bytes": 4786,
-      "sha256": "3d8d03b61b06b71a98242233917336597f0b80fbd914f89694bb25f3ed900a41"
+      "bytes": 3451,
+      "sha256": "eb14b6e187c469acfd1caed1d03ff642f835f8f54a55f5f3a483700d6c14f201"
     },
     {
-      "path": "fixtures/authored/manifest.json",
+      "path": "fixtures/neutral-static05/manifest.json",
       "status": 200,
-      "bytes": 1941,
-      "sha256": "202a6338a50a11e959967c242702aa01f388658a60e6abccec01e265da5289cf"
+      "bytes": 655,
+      "sha256": "3582403ac0f4b2a2a7dce6cc3feb6db015b04629e95f724a4c7e3c9dd8772152"
     },
     {
-      "path": "fixtures/authored/authored-clips.json",
+      "path": "fixtures/neutral-static05/asset.glb",
       "status": 200,
-      "bytes": 3532,
-      "sha256": "04844e621c1fcc28b1e2de22847fbcf85c0cea1d498558a28d112350fd310c36"
+      "bytes": 2342580,
+      "sha256": "3b7adcb303c8bd3c0dfb8976f9eb8fc0e6cefb897a7c16e99acc827385591722"
+    },
+    {
+      "path": "fixtures/neutral-r6/manifest.json",
+      "status": 200,
+      "bytes": 649,
+      "sha256": "479ebb0aedfdd670887c14100796349b8942e49507b4e2162a547701ca74e663"
+    },
+    {
+      "path": "fixtures/neutral-r6/asset.glb",
+      "status": 200,
+      "bytes": 8155940,
+      "sha256": "fba41db41ecb0e0a959cd6923f55d5edbfaebf4558d79e1e9832b2a806cc5830"
     },
     {
       "path": "node_modules/three/build/three.module.js",

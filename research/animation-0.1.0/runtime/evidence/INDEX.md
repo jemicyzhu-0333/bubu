@@ -1,22 +1,19 @@
 # Evidence provenance
 
-Current authoredclip03 evidence:
+Current neutral04 evidence:
 
-- tests.tap: complete current Node test suite.
-- fresh-install.json and fresh-tests.tap: clean npm ci restoration with pinned lock, no copied node_modules.
-- authored-clip-cpu.json and authored-clip-cpu-summary.md: actual prepared small/near-limit clip packs, pooled actors, raw repetitions and source fingerprints. CPU-only measurements, explicitly separated by metric unit.
-- schema-validation.json: all four wire-shape fixtures; runtime semantic checks are in Node tests.
-- static-server-check.json: own-cloud HTTP delivery of the demo, clip data and local dependency. This is not browser rendering.
-- review/clip03-independent.mjs and its rerun JSON: independent decimal/large-origin STEP/LINEAR oracle and invalid inputs.
-- review/clip03-entry-normalization.mjs and rerun JSON: accepted near-unit target source to clip entry limit continuity.
-- review/AUTHOREDCLIP03-REVIEW.md: independent current closure scope and findings.
-- review/demo-race-rerun.json: current demo VM pending-create cancellation; no WebGL.
-- browser-status.json: actual browser/GPU limits, unchanged.
+- tests.tap: complete120-test suite, no skipped required art tests.
+- fresh-install.json/fresh-tests.tap: clean standard npm ci, exact pinned lock,120 tests and portable independent parser/lifecycle/demo reproducers.
+- neutral-cpu.json/neutral-cpu-summary.md: real static05/r6 ×1/4actors, one warmup and five measured runs; preparation, parse+parity+clone, warm clones and disposal separated. Source fingerprints are current. Static advance is a no-op, not render performance.
+- neutral-schema-validation.json: structural shape validation of four bundled manifest/profile documents. Runtime enforces actual hashes/binding/admission.
+- static-server-check.json: own-cloud loopback HTTP delivery of neutral.html, source packs and local Three module. This is not browser rendering.
+- review/NEUTRAL04-REVIEW.md and neutral04-* files: independent parser/admission/lifecycle/VM/CPU closure, portable path-adjusted reproducers and their rerun outputs. Original reviewed source fingerprint retained.
+- browser-status.json: verified scope limitation. No real WebGL/GPU/native run.
 
-Historical evidence retained with its original source fingerprints:
+Historical evidence retains its original source fingerprints:
 
-- cpu-matrix.json / cpu-matrix-summary.json / cpu-matrix-summary.md and review/MEASUREMENT02-REVIEW.md: previous measurement02 source, not the current clip sampler.
-- cpu-benchmark.json, layout-only-check.json, review/REVIEW.md and older runtime/cache/scheduler reports: initial mechanics checkpoint.
-- Measurement02 scripts remain portable for relevant regressions. Its 256 simulated lifecycle permutations do not become a current GPU restoration test.
+- authored-clip-cpu.json/summary and AUTHOREDCLIP03-REVIEW.md: previous authoredclip03 pipeline. Its tests remain in the current regression suite; its old timing is not a current neutral or GPU measure.
+- cpu-matrix.json and MEASUREMENT02 review: previous mechanical CPU matrix/context simulation.
+- initial cpu-benchmark/layout/runtime/cache/scheduler artifacts: first mechanical checkpoint.
 
-No CPU result, mocked context event, static HTTP check or file hash proves actual WebGL/GPU performance or bubu artistic acceptance. Archived simulation data remains labelled by its measured source revision.
+No CPU timing, ownership counter, mocked browser/context, HTTP response or SHA proves rendered bubu appearance, a full memory-leak guarantee, GPU performance or full-library interaction approval.

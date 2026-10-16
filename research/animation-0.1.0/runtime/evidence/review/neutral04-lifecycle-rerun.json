@@ -1,0 +1,57 @@
+{
+  "scenarios": 8,
+  "results": [
+    {
+      "name": "two shared 0",
+      "result": "passed",
+      "verification": {
+        "comparedArrays": 19,
+        "comparedScalars": 739275,
+        "normalizedSkinScalars": 0,
+        "maxWeightDelta": 0,
+        "decodedArrayBytes": 2337048,
+        "morphExpandedVertices": 50265,
+        "sourceByteLength": 2342580,
+        "webglVerified": false
+      }
+    },
+    {
+      "name": "two shared 1",
+      "result": "passed",
+      "verification": {
+        "comparedArrays": 483,
+        "comparedScalars": 2316819,
+        "normalizedSkinScalars": 25,
+        "maxWeightDelta": 5.960464477539063e-8,
+        "decodedArrayBytes": 8044044,
+        "morphExpandedVertices": 246169,
+        "sourceByteLength": 8155940,
+        "webglVerified": false
+      }
+    },
+    {
+      "name": "abort-immediate",
+      "result": "passed"
+    },
+    {
+      "name": "dispose-immediate",
+      "result": "passed"
+    },
+    {
+      "name": "abort-one-shared",
+      "result": "passed"
+    },
+    {
+      "name": "pending cross-purpose admission",
+      "result": "passed"
+    },
+    {
+      "name": "decoded reservation before parse",
+      "result": "passed"
+    },
+    {
+      "name": "mechanical and neutral share admission and cleanup",
+      "result": "passed"
+    }
+  ]
+}

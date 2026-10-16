@@ -1,6 +1,6 @@
 # Remaining foundation capabilities
 
-This checkpoint closes only bounded, mechanical authored quaternion playback. It does not remove the following requirements from the 0.1.0 plan. Each needs its own small contract, implementation, tests and review; order can change with user priorities.
+This checkpoint adds historical static05/r6 neutral-only loading to bounded mechanical authored quaternion playback. Expression activation and product interaction remain gated. It does not remove the following requirements from the 0.1.0 plan. Each needs its own small contract, implementation, tests and review; order can change with user priorities.
 
 ## Can use mechanical fixtures before art approval
 
@@ -13,9 +13,11 @@ This checkpoint closes only bounded, mechanical authored quaternion playback. It
 
 ## Require reviewed art/profile or user gates
 
-- An explicit adapter for the approved body and complete expression library. Include all eye/highlight/mouth/brow meshes and neutral semantics, each single-face intensity path, unsupported cross-face blends and updated semantic labels.
+- Extend the neutral-only diagnostic into an explicit, newly reviewed expression/motion adapter for the complete approved library. Include all eye/highlight/mouth/brow meshes and neutral semantics, each single-face intensity path, unsupported cross-face blends and updated semantic labels.
 - Gaze and brow channels: actual bounded geometry and attachment contracts. Historical highlights do not constitute implemented pupil/gaze motion.
 - Character-specific retarget fits, footwear/support, clothing/held-prop contact and visual motion read tests at the approved fixed display scale.
 - Final two-step long-press/drag behavior, expressive response, graceful release and interruptions. Complete basic expressions must be approved and archived first.
 
 Historical art approval does not imply current library completion or runtime activation. Expression05 revision and new reference/model candidates remain subject to their own review. The 0.1.0 package version is a development checkpoint, not a complete product release.
+
+Current sequencing: pause new runtime features after neutral04. Prepare the contract and actual own-cloud GPU test prerequisites in ART-TRANSITION-NEXT-GATE.md; wait for the complete library before implementing its activation.

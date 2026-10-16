@@ -1,68 +1,58 @@
 {
   "version": "0.1.0",
-  "milestone": "foundation-authoredclip03",
-  "status": "reviewed-checkpoint-not-product-release",
-  "frozenUTC": "2026-10-16T19:34:11.174157+00:00",
-  "baseRuntimeCommit": "b2c367eac91e3d91c22878449a0fc6bb71e58e57",
+  "milestone": "foundation-neutral04",
+  "status": "reviewed-neutral-checkpoint-not-product-release",
+  "frozenUTC": "2026-10-16T20:06:50.907854+00:00",
+  "baseRuntimeCommit": "9a545445bfaac1e3eab2323b551ddf09023c8253",
   "tests": {
-    "localPassed": 79,
-    "freshInstallPassed": 79,
-    "parentIndependentPassed": 79,
-    "reviewerIndependentPassed": 79,
-    "failed": 0
+    "localPassed": 120,
+    "freshInstallPassed": 120,
+    "reviewerIndependentPassed": 120,
+    "failed": 0,
+    "skipped": 0
   },
   "reviews": {
-    "clipScope": "closed: independent 104 axis-angle samples, 10 invalid classes, minimum key boundary and limiting C0 repairs verified",
-    "cpu": "nine actual prepared-pipeline cases; producer three runs and reviewer two runs; no remaining scoped blocker",
-    "demoAsyncLifecycle": "current VM cancellation rerun: zero late actors"
+    "parserAndLifecycle": "closed in fixed neutral-only scope",
+    "artAssetContract": "closed: complete roster, material vertex colors and all-zero rest",
+    "demo": "four VM cancellation windows only; no WebGL"
   },
-  "supported": [
-    "strict hash-locked self-contained GLB pack",
-    "semantic joint/socket and complete mechanical morph roster",
-    "canonical event clock and generation cancellation",
-    "bounded independent authored joint/accessory STEP and LINEAR quaternion tracks",
-    "unequal authored holds and explicit spherical entry bridges",
-    "C0 at event interruptions; intentional STEP jumps",
-    "masked target quaternion segments",
-    "single semantic face path through neutral",
-    "fitted rigid fixture accessory and local motion",
-    "shared source cache and private actor state",
-    "abort-safe disposal and immutable prepared bytes",
-    "aggregate application actor/source/key admission",
-    "demand scheduling and simulated context restoration wake"
+  "neutralSources": {
+    "static05": "3b7adcb303c8bd3c0dfb8976f9eb8fc0e6cefb897a7c16e99acc827385591722",
+    "historicalR6": "fba41db41ecb0e0a959cd6923f55d5edbfaebf4558d79e1e9832b2a806cc5830"
+  },
+  "capabilitiesAdded": [
+    "hash-locked neutral-only source adapter",
+    "bounded material/COLOR/NORMAL/sparse art preflight",
+    "numeric geometry/material/rest comparison with explicit Three weight normalization",
+    "same application active/pending admission with shared decoded backing reservation",
+    "static demand-render handle with no motion/face API"
   ],
   "notVerifiedOrImplemented": [
-    "real browser WebGL/GPU/native/Electron",
-    "maximum72-active-track worst-case performance",
-    "art profile and full approved basic expression library",
-    "expression-key clips / glTF animation adapter / general retargeting",
-    "C1 angular velocity and contact physics",
-    "surface grab / original-ground landing / final long-press drag",
-    "gaze/brows / IK / live equipment transactions / skinned cloth or collision / visual LOD"
+    "actual WebGL/GPU/native/Electron",
+    "full expression library activation and transition mapping",
+    "gaze/new brows/tongue adapter",
+    "retarget/contact/equipment transactions/visual LOD",
+    "final long-press drag/pet",
+    "maximum72-track worst-case performance"
   ],
   "dependency": "three@0.186.1",
-  "artAssetsIncluded": false,
-  "mechanicalFixturesIncluded": true,
+  "artAssetsIncluded": true,
+  "artExpressionsActivated": false,
   "V1RuntimeImported": false,
-  "publication": "Parent-controlled checkpoint; no push from this workspace",
+  "publication": "Parent-controlled; no push from this workspace",
   "performanceEvidence": {
-    "workloads": 9,
-    "actors": [
+    "realAssets": 2,
+    "actorCounts": [
       1,
       4
     ],
-    "runsPerGroup": 3,
-    "measuredLifecycles": 54,
-    "warmupLifecycles": 18,
-    "maxTestedClipKeys": 2048,
-    "maxTestedActiveTracks": 16,
-    "legal72ActiveTrackMaximumMeasured": false,
-    "sourceFingerprint": "6949cec44dac2c33f6f392a3206a5055ecfa78fd4aa57bc013f137060368b9fa",
+    "warmupPerCase": 1,
+    "measuredRunsPerCase": 5,
     "sourceUnchanged": true,
-    "ownedResourcesReturnedToZero": true,
-    "CPUFullSkinnedVertexReads": 0,
+    "ownershipCountersReturnedToZero": true,
+    "CPUFullSkinVertexReads": 0,
     "WebGL": false,
-    "GPU": false,
-    "frameRateClaim": false
+    "frameRateClaim": false,
+    "decodedBytesAreNotTotalHeapOrVRAM": true
   }
 }

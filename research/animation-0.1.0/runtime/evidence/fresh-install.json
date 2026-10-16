@@ -1,5 +1,5 @@
 {
-  "checkpoint": "authoredclip03",
+  "checkpoint": "neutral04",
   "cleanTemporaryDirectory": true,
   "completeSourceCopy": true,
   "npmCiFromLock": true,
@@ -7,13 +7,15 @@
   "registry": "https://registry.npmjs.org/",
   "dependency": "three@0.186.1",
   "installPassed": true,
-  "packagesAdded": 1,
+  "installScriptsIgnored": false,
   "copiedNodeModules": false,
-  "testsPassed": 79,
+  "testsPassed": 120,
   "testsFailed": 0,
-  "restoredSourceFilesChecked": 53,
+  "testsSkipped": 0,
+  "restoredSourceFilesChecked": 70,
   "sourceTestsToolsFixturesSpecsByteIdentical": true,
-  "portableIndependentOraclePassed": true,
-  "portableDemoCancellationVMPassed": true,
-  "WebGL": false
+  "portableIndependentParserLifecycleDemoVMPassed": true,
+  "WebGL": false,
+  "standardNpmCi": true,
+  "documentationFinalizedAfterTest": true
 }

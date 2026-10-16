@@ -1,0 +1,29 @@
+{
+  "scope": "VM lifecycle with deferred preparation/creation; no browser/WebGL",
+  "results": [
+    {
+      "phase": "prepare",
+      "action": "dispose",
+      "lateActorAdded": 0,
+      "discardedActorDisposed": 0
+    },
+    {
+      "phase": "prepare",
+      "action": "pagehide",
+      "lateActorAdded": 0,
+      "discardedActorDisposed": 0
+    },
+    {
+      "phase": "create",
+      "action": "dispose",
+      "lateActorAdded": 0,
+      "discardedActorDisposed": 1
+    },
+    {
+      "phase": "create",
+      "action": "pagehide",
+      "lateActorAdded": 0,
+      "discardedActorDisposed": 1
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Runtime 0.1.0 — first implementation contract
 
-Status: third foundation checkpoint adds bounded authored joint/accessory quaternion clips to CPU measurement, aggregate actor admission and simulated context-lifecycle policy. All art integration and drag/pet product behavior remain gated. No V1 runtime imports, aliases, compatibility branches, or silent fallback. Existing 05/r4/r6 are read-only evidence.
+Status: fourth foundation checkpoint adds fixed-hash static05/r6 neutral-only art loading to the mechanical clip/measurement/admission foundation. Art expression/motion activation and drag/pet product behavior remain gated. No V1 runtime imports, aliases, compatibility branches, or silent fallback. The original archives stay unchanged; only bundled static05/r6 neutral sources are loaded by the distinct adapter.
 
 ## First vertical slice
 
@@ -56,7 +56,7 @@ Visual LOD, stable interaction-surface remapping and browser GPU timings are not
 
 ## Measurement checkpoint 02 additions
 
-The application uses one ActorPool. It reserves active plus pending actor/vertex/node/morph-expanded costs before asynchronous creation; unique encoded GLB source bytes count once across shared actors. Uncancellable late parses keep their source reservations after actor cancellation until disposal/eviction. See MEASUREMENT02.md for limits and exclusions.
+The application uses one ActorPool. It reserves active plus pending actor/vertex/node/morph-expanded costs before asynchronous creation; unique encoded GLB source bytes and a separate conservative decoded geometry backing reservation count once across shared actors. Uncancellable late parses keep their source reservations after actor cancellation until disposal/eviction. See MEASUREMENT02.md for limits and exclusions.
 
 Prepared metadata/assembly is immutable, asset bytes are owned before the hash await, and public byte reads are copies. Admission and instantiation therefore use the same accepted geometry and assembly. Actor disposal rolls back its reservation idempotently.
 

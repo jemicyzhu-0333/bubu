@@ -38,10 +38,16 @@ A future approved fallback must be a named, versioned, validated binding with re
 
 ## Deliberate limits
 
-Only a mechanical fixture can currently activate. No art-target adapter, GLB animation playback adapter, skinned clothing, textures, physical collision, ground support, surface grab, drag/pet controller, gaze, brows, IK or visual LOD is implemented. Their old experimental evidence is not an implementation of these capabilities in this engine. The demo is a local browser shell; Node CPU tests are not browser/GPU measurements.
+Only the mechanical fixture can play motion/expressions. The distinct historical static05/r6 adapter loads neutral rest only. No art expression/motion adapter, GLB animation playback adapter, skinned clothing, textures, physical collision, ground support, surface grab, drag/pet controller, gaze, brows, IK or visual LOD is implemented. Their old experimental evidence is not an implementation of these capabilities in this engine. The demo is a local browser shell; Node CPU tests are not browser/GPU measurements.
 
 ## Context and admission services
 
 `ContextLifecycle({canvas,visibilityTarget})` is the sole visibility/context pause owner for its bound scheduler. `bind(loop)` pauses the previous scheduler and applies current gate state. Context loss uses standard preventDefault and pauses; restoration resumes only if visible, with explicit invalidation even from idle. Canonical wall time is not reset: the next frame samples queued events through now. `dispose()` removes listeners and disposes its bound loop; a late restoration cannot revive it. EventTarget/VM evidence verifies policy only, not GL resource restoration.
 
 See MEASUREMENT02.md for aggregate limits. Source bytes count unique encoded GLBs and clip libraries, including unfinished parses after cancellation; they are not decoded heap/VRAM. Caller-retained prepared packs remain caller-owned memory.
+
+## Checkpoint04 neutral adapter
+
+`prepareNeutralPack(read, {signal})` accepts only the two fixed historical approved neutral hashes and the separate strict `bubu-neutral-suite` / `bubu-neutral-profile` contract. `ActorPool.create` remains the single application admission API; it returns a neutral actor with `root`, `budget`, `verification`, `readiness`, `assertNeutral`, `advance`, `isAnimating`, `nextDeadline`, `dispose`. There is no motion or expression event API. See NEUTRAL04.md for trusted-host scene mutation boundaries, exact resource accounting and portable fixtures.
+
+`ActorPool.limits.decodedArrayBytes` defaults to64MiB (hard256MiB), deduplicated per versioned GLB cache identity. `stats.decodedArrayBytes` is a reserved allowance, not the measured backing size or total process/GPU memory. Neutral `verification.decodedArrayBytes` reports actual unique geometry buffers. All GLB modes now reserve encoded asset size plus fully dense accessor byte counts for this field and check parsed geometry backing before admission completes; clip JSON contributes0 geometry bytes.

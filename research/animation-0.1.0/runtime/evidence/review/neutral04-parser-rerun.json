@@ -1,0 +1,97 @@
+{
+  "cases": 16,
+  "results": [
+    {
+      "name": "exact real r6",
+      "result": "accepted as expected"
+    },
+    {
+      "name": "r6 extra unreferenced bytes",
+      "result": "accepted as expected"
+    },
+    {
+      "name": "unknown extension",
+      "result": "rejected",
+      "code": "LIMIT",
+      "message": "extensionsUsed"
+    },
+    {
+      "name": "unknown specular field",
+      "result": "rejected",
+      "code": "UNKNOWN_FIELD",
+      "message": "object.unknown"
+    },
+    {
+      "name": "active mesh weights",
+      "result": "rejected",
+      "code": "GLB",
+      "message": "Default morph weights must be zero"
+    },
+    {
+      "name": "duplicate scene roots",
+      "result": "rejected",
+      "code": "GLB",
+      "message": "Duplicate scene roots"
+    },
+    {
+      "name": "small scalar budget",
+      "result": "rejected",
+      "code": "LIMIT",
+      "message": "Accessor dense allocation budget"
+    },
+    {
+      "name": "small decoded budget",
+      "result": "rejected",
+      "code": "LIMIT",
+      "message": "Accessor dense allocation budget"
+    },
+    {
+      "name": "sparse duplicate",
+      "result": "rejected",
+      "code": "GLB",
+      "message": "Sparse indices must be sorted, unique and in range"
+    },
+    {
+      "name": "sparse descending",
+      "result": "rejected",
+      "code": "GLB",
+      "message": "Sparse indices must be sorted, unique and in range"
+    },
+    {
+      "name": "sparse outside",
+      "result": "rejected",
+      "code": "GLB",
+      "message": "Sparse indices must be sorted, unique and in range"
+    },
+    {
+      "name": "sparse signed index",
+      "result": "rejected",
+      "code": "GLB",
+      "message": "Sparse unsigned index type"
+    },
+    {
+      "name": "sparse base offset",
+      "result": "rejected",
+      "code": "GLB",
+      "message": "Zero-base accessor byteOffset must be zero"
+    },
+    {
+      "name": "sparse too many",
+      "result": "rejected",
+      "code": "GLB",
+      "message": "Sparse count"
+    },
+    {
+      "name": "sparse nonfinite",
+      "result": "rejected",
+      "code": "GLB",
+      "message": "Nonfinite sparse buffer value"
+    },
+    {
+      "name": "sparse unaligned",
+      "result": "rejected",
+      "code": "GLB",
+      "message": "Accessor alignment"
+    }
+  ]
+}

@@ -1,0 +1,1036 @@
+{
+  "scope": "Node CPU real neutral assets; no renderer, GPU, FPS, animation, expression sampling or visual approval",
+  "environment": {
+    "node": "v24.19.0",
+    "three": "186",
+    "platform": "linux",
+    "arch": "x64",
+    "cpu": "AMD EPYC 9V74 80-Core Processor"
+  },
+  "method": {
+    "warmupPerCase": 1,
+    "measuredRuns": 5,
+    "units": "milliseconds per named operation/group; idleAdvanceBatch is 10000 calls per actor, a static no-op not rendered ticks",
+    "gc": "No forced GC; shared cloud noise applies",
+    "prepare": "disk read, own snapshot, hash, art preflight, profile binding",
+    "coldCreate": "GLTFLoader parse plus all-array/material/rest parity and clone",
+    "cachedClone": "remaining actors only; empty group for count=1",
+    "decodedAccounting": "reserved geometry backing allowance separate from measured array buffers; excludes runtime JS, per-actor skin matrices, morph texture staging/GPU"
+  },
+  "sourceBefore": {
+    "src/actor-pool.mjs": "1239944ea3e6adfae52b43bffe7c49be6c9ca5573da13d66a5a390502ee3cb23",
+    "src/art-glb-preflight.mjs": "0abd8fb6d7c4faa2a72bd971c182f8f6e96cebbbda9d7876ca381cd784a2562c",
+    "src/clip-contract.mjs": "9d70065213451637b23a503f7aa05c00defae95f1e6bf36b7d7d2388c96f386b",
+    "src/context-lifecycle.mjs": "44b5c9c394cb2de4801c90bc101008e5ae33d5b541b258e2d0cf699925e89dfa",
+    "src/contracts.mjs": "4d40cf069403eb72f1efbc1ccde5c6260bae4d8110e955c5f292199f01f8f9db",
+    "src/demand-loop.mjs": "02f8603f39c19b8aa7c0c864799ab378fca8b46695c4f00015007e75c6873b84",
+    "src/demo.mjs": "3d8d03b61b06b71a98242233917336597f0b80fbd914f89694bb25f3ed900a41",
+    "src/geometry-accounting.mjs": "de9e57e68011a77475d329d72317622c0057b6673c088e3d81db154fac3a2318",
+    "src/glb-preflight.mjs": "d142e9ea219c63f308e0d8b467cbf547c47587bdb3034e6965c9b46a478f3568",
+    "src/neutral-contract.mjs": "ca8f9b432c1210a8d3fb2a2817b01cb9d1a71e32b99535db4f6b6637287383d8",
+    "src/neutral-demo.mjs": "eb14b6e187c469acfd1caed1d03ff642f835f8f54a55f5f3a483700d6c14f201",
+    "src/neutral-source-check.mjs": "98f3f9b34112278bd4406f13b5a274bdb65ebd3c7843860dfdd3ec5b4d3caafc",
+    "src/neutral-suite.mjs": "27243fb0d2dcc33c0946b429eae0a6ade30e2b9f1c7977324089987330705187",
+    "src/pack-loader.mjs": "d1e03363c73f186bc02a5ec58f73c6d737b0be60c2d28725d9273ee247cf9fc3",
+    "src/resource-cache.mjs": "c701603ff5c7f8fe73dbc3088d42e556007c7f6476b29b4fa273fb92a581b706",
+    "src/suite.mjs": "14ce4d22f5883caac20a5e86d7f4a2e210e5626403be7d5109cbff1145a64973",
+    "src/timeline.mjs": "bbfa3c73c79a2c1393e42e1689565af04a79f31a12c84560e557af674156de49",
+    "fixtures/neutral-static05/manifest.json": "3582403ac0f4b2a2a7dce6cc3feb6db015b04629e95f724a4c7e3c9dd8772152",
+    "fixtures/neutral-static05/profile.json": "9cfd76ef61e9cd73dbf1063b406b2333c5bfe84de327643869f6716d7f39b42f",
+    "fixtures/neutral-static05/asset.glb": "3b7adcb303c8bd3c0dfb8976f9eb8fc0e6cefb897a7c16e99acc827385591722",
+    "fixtures/neutral-r6/manifest.json": "479ebb0aedfdd670887c14100796349b8942e49507b4e2162a547701ca74e663",
+    "fixtures/neutral-r6/profile.json": "bca2144b68732a95f3ee2fc5e3763ea41ee27be65935d773375937dbd1390c34",
+    "fixtures/neutral-r6/asset.glb": "fba41db41ecb0e0a959cd6923f55d5edbfaebf4558d79e1e9832b2a806cc5830",
+    "tools/benchmark-neutral.mjs": "35659493d5c9dfc1ba01b57a7b590c3e8ec3fc0b1a002ac48abbab27549ad195"
+  },
+  "sourceAfter": {
+    "src/actor-pool.mjs": "1239944ea3e6adfae52b43bffe7c49be6c9ca5573da13d66a5a390502ee3cb23",
+    "src/art-glb-preflight.mjs": "0abd8fb6d7c4faa2a72bd971c182f8f6e96cebbbda9d7876ca381cd784a2562c",
+    "src/clip-contract.mjs": "9d70065213451637b23a503f7aa05c00defae95f1e6bf36b7d7d2388c96f386b",
+    "src/context-lifecycle.mjs": "44b5c9c394cb2de4801c90bc101008e5ae33d5b541b258e2d0cf699925e89dfa",
+    "src/contracts.mjs": "4d40cf069403eb72f1efbc1ccde5c6260bae4d8110e955c5f292199f01f8f9db",
+    "src/demand-loop.mjs": "02f8603f39c19b8aa7c0c864799ab378fca8b46695c4f00015007e75c6873b84",
+    "src/demo.mjs": "3d8d03b61b06b71a98242233917336597f0b80fbd914f89694bb25f3ed900a41",
+    "src/geometry-accounting.mjs": "de9e57e68011a77475d329d72317622c0057b6673c088e3d81db154fac3a2318",
+    "src/glb-preflight.mjs": "d142e9ea219c63f308e0d8b467cbf547c47587bdb3034e6965c9b46a478f3568",
+    "src/neutral-contract.mjs": "ca8f9b432c1210a8d3fb2a2817b01cb9d1a71e32b99535db4f6b6637287383d8",
+    "src/neutral-demo.mjs": "eb14b6e187c469acfd1caed1d03ff642f835f8f54a55f5f3a483700d6c14f201",
+    "src/neutral-source-check.mjs": "98f3f9b34112278bd4406f13b5a274bdb65ebd3c7843860dfdd3ec5b4d3caafc",
+    "src/neutral-suite.mjs": "27243fb0d2dcc33c0946b429eae0a6ade30e2b9f1c7977324089987330705187",
+    "src/pack-loader.mjs": "d1e03363c73f186bc02a5ec58f73c6d737b0be60c2d28725d9273ee247cf9fc3",
+    "src/resource-cache.mjs": "c701603ff5c7f8fe73dbc3088d42e556007c7f6476b29b4fa273fb92a581b706",
+    "src/suite.mjs": "14ce4d22f5883caac20a5e86d7f4a2e210e5626403be7d5109cbff1145a64973",
+    "src/timeline.mjs": "bbfa3c73c79a2c1393e42e1689565af04a79f31a12c84560e557af674156de49",
+    "fixtures/neutral-static05/manifest.json": "3582403ac0f4b2a2a7dce6cc3feb6db015b04629e95f724a4c7e3c9dd8772152",
+    "fixtures/neutral-static05/profile.json": "9cfd76ef61e9cd73dbf1063b406b2333c5bfe84de327643869f6716d7f39b42f",
+    "fixtures/neutral-static05/asset.glb": "3b7adcb303c8bd3c0dfb8976f9eb8fc0e6cefb897a7c16e99acc827385591722",
+    "fixtures/neutral-r6/manifest.json": "479ebb0aedfdd670887c14100796349b8942e49507b4e2162a547701ca74e663",
+    "fixtures/neutral-r6/profile.json": "bca2144b68732a95f3ee2fc5e3763ea41ee27be65935d773375937dbd1390c34",
+    "fixtures/neutral-r6/asset.glb": "fba41db41ecb0e0a959cd6923f55d5edbfaebf4558d79e1e9832b2a806cc5830",
+    "tools/benchmark-neutral.mjs": "35659493d5c9dfc1ba01b57a7b590c3e8ec3fc0b1a002ac48abbab27549ad195"
+  },
+  "sourceUnchanged": true,
+  "skinVertexCalls": 0,
+  "cases": [
+    {
+      "asset": "static05",
+      "actors": 1,
+      "iterations": [
+        {
+          "warmup": true,
+          "preflightMs": 37.824374000000006,
+          "prepareMs": 46.974778999999984,
+          "coldCreateMs": 38.06642899999997,
+          "cachedCloneGroupMs": 0.0007009999999922911,
+          "idleAdvanceBatchMs": 1.535156000000029,
+          "idleAdvanceCalls": 10000,
+          "disposeGroupMs": 0.3493970000000104,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 19,
+            "comparedScalars": 739275,
+            "normalizedSkinScalars": 0,
+            "maxWeightDelta": 0,
+            "decodedArrayBytes": 2337048,
+            "morphExpandedVertices": 50265,
+            "sourceByteLength": 2342580,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 1,
+            "vertices": 50265,
+            "nodes": 9,
+            "deformedVertices": 50265,
+            "sourceBytes": 2342580,
+            "decodedArrayBytes": 4679628,
+            "clipKeyScalars": 0,
+            "active": 1,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 0,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 1
+            }
+          }
+        },
+        {
+          "warmup": false,
+          "preflightMs": 25.246438000000012,
+          "prepareMs": 32.357222000000036,
+          "coldCreateMs": 30.274122999999975,
+          "cachedCloneGroupMs": 0.0005409999999983484,
+          "idleAdvanceBatchMs": 2.0709850000000074,
+          "idleAdvanceCalls": 10000,
+          "disposeGroupMs": 0.0926300000000424,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 19,
+            "comparedScalars": 739275,
+            "normalizedSkinScalars": 0,
+            "maxWeightDelta": 0,
+            "decodedArrayBytes": 2337048,
+            "morphExpandedVertices": 50265,
+            "sourceByteLength": 2342580,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 1,
+            "vertices": 50265,
+            "nodes": 9,
+            "deformedVertices": 50265,
+            "sourceBytes": 2342580,
+            "decodedArrayBytes": 4679628,
+            "clipKeyScalars": 0,
+            "active": 1,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 0,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 1
+            }
+          }
+        },
+        {
+          "warmup": false,
+          "preflightMs": 10.091655000000003,
+          "prepareMs": 22.68834899999996,
+          "coldCreateMs": 34.16796800000003,
+          "cachedCloneGroupMs": 0.0005110000000172477,
+          "idleAdvanceBatchMs": 1.4847499999999627,
+          "idleAdvanceCalls": 10000,
+          "disposeGroupMs": 0.06170400000002019,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 19,
+            "comparedScalars": 739275,
+            "normalizedSkinScalars": 0,
+            "maxWeightDelta": 0,
+            "decodedArrayBytes": 2337048,
+            "morphExpandedVertices": 50265,
+            "sourceByteLength": 2342580,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 1,
+            "vertices": 50265,
+            "nodes": 9,
+            "deformedVertices": 50265,
+            "sourceBytes": 2342580,
+            "decodedArrayBytes": 4679628,
+            "clipKeyScalars": 0,
+            "active": 1,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 0,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 1
+            }
+          }
+        },
+        {
+          "warmup": false,
+          "preflightMs": 13.45439799999997,
+          "prepareMs": 18.806002000000035,
+          "coldCreateMs": 31.08491700000002,
+          "cachedCloneGroupMs": 0.0008819999999900574,
+          "idleAdvanceBatchMs": 1.996170999999947,
+          "idleAdvanceCalls": 10000,
+          "disposeGroupMs": 0.07926999999995132,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 19,
+            "comparedScalars": 739275,
+            "normalizedSkinScalars": 0,
+            "maxWeightDelta": 0,
+            "decodedArrayBytes": 2337048,
+            "morphExpandedVertices": 50265,
+            "sourceByteLength": 2342580,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 1,
+            "vertices": 50265,
+            "nodes": 9,
+            "deformedVertices": 50265,
+            "sourceBytes": 2342580,
+            "decodedArrayBytes": 4679628,
+            "clipKeyScalars": 0,
+            "active": 1,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 0,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 1
+            }
+          }
+        },
+        {
+          "warmup": false,
+          "preflightMs": 12.922385000000077,
+          "prepareMs": 23.501364999999964,
+          "coldCreateMs": 31.06633899999997,
+          "cachedCloneGroupMs": 0.0003699999999753345,
+          "idleAdvanceBatchMs": 0.4124219999999923,
+          "idleAdvanceCalls": 10000,
+          "disposeGroupMs": 0.11016600000004928,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 19,
+            "comparedScalars": 739275,
+            "normalizedSkinScalars": 0,
+            "maxWeightDelta": 0,
+            "decodedArrayBytes": 2337048,
+            "morphExpandedVertices": 50265,
+            "sourceByteLength": 2342580,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 1,
+            "vertices": 50265,
+            "nodes": 9,
+            "deformedVertices": 50265,
+            "sourceBytes": 2342580,
+            "decodedArrayBytes": 4679628,
+            "clipKeyScalars": 0,
+            "active": 1,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 0,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 1
+            }
+          }
+        },
+        {
+          "warmup": false,
+          "preflightMs": 13.74356499999999,
+          "prepareMs": 29.882262000000082,
+          "coldCreateMs": 31.10641899999996,
+          "cachedCloneGroupMs": 0.0003699999999753345,
+          "idleAdvanceBatchMs": 0.42059500000004846,
+          "idleAdvanceCalls": 10000,
+          "disposeGroupMs": 0.13187900000002628,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 19,
+            "comparedScalars": 739275,
+            "normalizedSkinScalars": 0,
+            "maxWeightDelta": 0,
+            "decodedArrayBytes": 2337048,
+            "morphExpandedVertices": 50265,
+            "sourceByteLength": 2342580,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 1,
+            "vertices": 50265,
+            "nodes": 9,
+            "deformedVertices": 50265,
+            "sourceBytes": 2342580,
+            "decodedArrayBytes": 4679628,
+            "clipKeyScalars": 0,
+            "active": 1,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 0,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "asset": "static05",
+      "actors": 4,
+      "iterations": [
+        {
+          "warmup": true,
+          "preflightMs": 13.181797000000074,
+          "prepareMs": 27.80321600000002,
+          "coldCreateMs": 22.69767300000001,
+          "cachedCloneGroupMs": 0.9316460000000006,
+          "idleAdvanceBatchMs": 2.3189889999999878,
+          "idleAdvanceCalls": 40000,
+          "disposeGroupMs": 0.08877399999994395,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 19,
+            "comparedScalars": 739275,
+            "normalizedSkinScalars": 0,
+            "maxWeightDelta": 0,
+            "decodedArrayBytes": 2337048,
+            "morphExpandedVertices": 50265,
+            "sourceByteLength": 2342580,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 4,
+            "vertices": 201060,
+            "nodes": 36,
+            "deformedVertices": 201060,
+            "sourceBytes": 2342580,
+            "decodedArrayBytes": 4679628,
+            "clipKeyScalars": 0,
+            "active": 4,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 3,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 4
+            }
+          }
+        },
+        {
+          "warmup": false,
+          "preflightMs": 6.039672999999993,
+          "prepareMs": 17.255090999999993,
+          "coldCreateMs": 31.329685999999924,
+          "cachedCloneGroupMs": 0.7693500000000313,
+          "idleAdvanceBatchMs": 1.3624459999999772,
+          "idleAdvanceCalls": 40000,
+          "disposeGroupMs": 0.08128300000009858,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 19,
+            "comparedScalars": 739275,
+            "normalizedSkinScalars": 0,
+            "maxWeightDelta": 0,
+            "decodedArrayBytes": 2337048,
+            "morphExpandedVertices": 50265,
+            "sourceByteLength": 2342580,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 4,
+            "vertices": 201060,
+            "nodes": 36,
+            "deformedVertices": 201060,
+            "sourceBytes": 2342580,
+            "decodedArrayBytes": 4679628,
+            "clipKeyScalars": 0,
+            "active": 4,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 3,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 4
+            }
+          }
+        },
+        {
+          "warmup": false,
+          "preflightMs": 9.228852999999958,
+          "prepareMs": 14.707904999999982,
+          "coldCreateMs": 22.001622999999995,
+          "cachedCloneGroupMs": 0.7947589999999991,
+          "idleAdvanceBatchMs": 0.7713139999999612,
+          "idleAdvanceCalls": 40000,
+          "disposeGroupMs": 0.05260899999996127,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 19,
+            "comparedScalars": 739275,
+            "normalizedSkinScalars": 0,
+            "maxWeightDelta": 0,
+            "decodedArrayBytes": 2337048,
+            "morphExpandedVertices": 50265,
+            "sourceByteLength": 2342580,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 4,
+            "vertices": 201060,
+            "nodes": 36,
+            "deformedVertices": 201060,
+            "sourceBytes": 2342580,
+            "decodedArrayBytes": 4679628,
+            "clipKeyScalars": 0,
+            "active": 4,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 3,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 4
+            }
+          }
+        },
+        {
+          "warmup": false,
+          "preflightMs": 8.67960400000004,
+          "prepareMs": 19.756535999999983,
+          "coldCreateMs": 30.831975000000057,
+          "cachedCloneGroupMs": 0.6334160000000111,
+          "idleAdvanceBatchMs": 1.3639179999998987,
+          "idleAdvanceCalls": 40000,
+          "disposeGroupMs": 0.06495799999993324,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 19,
+            "comparedScalars": 739275,
+            "normalizedSkinScalars": 0,
+            "maxWeightDelta": 0,
+            "decodedArrayBytes": 2337048,
+            "morphExpandedVertices": 50265,
+            "sourceByteLength": 2342580,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 4,
+            "vertices": 201060,
+            "nodes": 36,
+            "deformedVertices": 201060,
+            "sourceBytes": 2342580,
+            "decodedArrayBytes": 4679628,
+            "clipKeyScalars": 0,
+            "active": 4,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 3,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 4
+            }
+          }
+        },
+        {
+          "warmup": false,
+          "preflightMs": 9.12671899999998,
+          "prepareMs": 18.643597,
+          "coldCreateMs": 30.341174000000024,
+          "cachedCloneGroupMs": 0.7894109999999728,
+          "idleAdvanceBatchMs": 1.3772679999999582,
+          "idleAdvanceCalls": 40000,
+          "disposeGroupMs": 0.07309000000009291,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 19,
+            "comparedScalars": 739275,
+            "normalizedSkinScalars": 0,
+            "maxWeightDelta": 0,
+            "decodedArrayBytes": 2337048,
+            "morphExpandedVertices": 50265,
+            "sourceByteLength": 2342580,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 4,
+            "vertices": 201060,
+            "nodes": 36,
+            "deformedVertices": 201060,
+            "sourceBytes": 2342580,
+            "decodedArrayBytes": 4679628,
+            "clipKeyScalars": 0,
+            "active": 4,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 3,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 4
+            }
+          }
+        },
+        {
+          "warmup": false,
+          "preflightMs": 9.10911299999998,
+          "prepareMs": 19.181457999999907,
+          "coldCreateMs": 30.972297000000026,
+          "cachedCloneGroupMs": 0.6340559999998732,
+          "idleAdvanceBatchMs": 1.4267720000000281,
+          "idleAdvanceCalls": 40000,
+          "disposeGroupMs": 0.06423700000004828,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 19,
+            "comparedScalars": 739275,
+            "normalizedSkinScalars": 0,
+            "maxWeightDelta": 0,
+            "decodedArrayBytes": 2337048,
+            "morphExpandedVertices": 50265,
+            "sourceByteLength": 2342580,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 4,
+            "vertices": 201060,
+            "nodes": 36,
+            "deformedVertices": 201060,
+            "sourceBytes": 2342580,
+            "decodedArrayBytes": 4679628,
+            "clipKeyScalars": 0,
+            "active": 4,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 3,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "asset": "r6",
+      "actors": 1,
+      "iterations": [
+        {
+          "warmup": true,
+          "preflightMs": 107.76361399999996,
+          "prepareMs": 58.35206399999993,
+          "coldCreateMs": 104.18330300000002,
+          "cachedCloneGroupMs": 0.00028000000020256266,
+          "idleAdvanceBatchMs": 0.6978919999999107,
+          "idleAdvanceCalls": 10000,
+          "disposeGroupMs": 0.07402099999990241,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 483,
+            "comparedScalars": 2316819,
+            "normalizedSkinScalars": 25,
+            "maxWeightDelta": 5.960464477539063e-8,
+            "decodedArrayBytes": 8044044,
+            "morphExpandedVertices": 246169,
+            "sourceByteLength": 8155940,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 1,
+            "vertices": 50265,
+            "nodes": 17,
+            "deformedVertices": 246169,
+            "sourceBytes": 8155940,
+            "decodedArrayBytes": 16200432,
+            "clipKeyScalars": 0,
+            "active": 1,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 0,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 1
+            }
+          }
+        },
+        {
+          "warmup": false,
+          "preflightMs": 43.765907999999854,
+          "prepareMs": 88.26432099999988,
+          "coldCreateMs": 145.11660299999994,
+          "cachedCloneGroupMs": 0.0005109999999604042,
+          "idleAdvanceBatchMs": 1.3171270000000277,
+          "idleAdvanceCalls": 10000,
+          "disposeGroupMs": 0.08627000000001317,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 483,
+            "comparedScalars": 2316819,
+            "normalizedSkinScalars": 25,
+            "maxWeightDelta": 5.960464477539063e-8,
+            "decodedArrayBytes": 8044044,
+            "morphExpandedVertices": 246169,
+            "sourceByteLength": 8155940,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 1,
+            "vertices": 50265,
+            "nodes": 17,
+            "deformedVertices": 246169,
+            "sourceBytes": 8155940,
+            "decodedArrayBytes": 16200432,
+            "clipKeyScalars": 0,
+            "active": 1,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 0,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 1
+            }
+          }
+        },
+        {
+          "warmup": false,
+          "preflightMs": 49.73006600000008,
+          "prepareMs": 49.812824999999975,
+          "coldCreateMs": 90.50668500000006,
+          "cachedCloneGroupMs": 0.0005810000000110449,
+          "idleAdvanceBatchMs": 0.38822499999992033,
+          "idleAdvanceCalls": 10000,
+          "disposeGroupMs": 0.04323500000009517,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 483,
+            "comparedScalars": 2316819,
+            "normalizedSkinScalars": 25,
+            "maxWeightDelta": 5.960464477539063e-8,
+            "decodedArrayBytes": 8044044,
+            "morphExpandedVertices": 246169,
+            "sourceByteLength": 8155940,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 1,
+            "vertices": 50265,
+            "nodes": 17,
+            "deformedVertices": 246169,
+            "sourceBytes": 8155940,
+            "decodedArrayBytes": 16200432,
+            "clipKeyScalars": 0,
+            "active": 1,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 0,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 1
+            }
+          }
+        },
+        {
+          "warmup": false,
+          "preflightMs": 32.25158699999997,
+          "prepareMs": 56.00231899999994,
+          "coldCreateMs": 144.63511600000015,
+          "cachedCloneGroupMs": 0.0005409999998846615,
+          "idleAdvanceBatchMs": 0.8097120000002178,
+          "idleAdvanceCalls": 10000,
+          "disposeGroupMs": 0.060300999999981286,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 483,
+            "comparedScalars": 2316819,
+            "normalizedSkinScalars": 25,
+            "maxWeightDelta": 5.960464477539063e-8,
+            "decodedArrayBytes": 8044044,
+            "morphExpandedVertices": 246169,
+            "sourceByteLength": 8155940,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 1,
+            "vertices": 50265,
+            "nodes": 17,
+            "deformedVertices": 246169,
+            "sourceBytes": 8155940,
+            "decodedArrayBytes": 16200432,
+            "clipKeyScalars": 0,
+            "active": 1,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 0,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 1
+            }
+          }
+        },
+        {
+          "warmup": false,
+          "preflightMs": 53.12874300000021,
+          "prepareMs": 62.02469399999973,
+          "coldCreateMs": 146.26335100000006,
+          "cachedCloneGroupMs": 0.000691000000188069,
+          "idleAdvanceBatchMs": 0.8671589999999014,
+          "idleAdvanceCalls": 10000,
+          "disposeGroupMs": 0.06316500000002634,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 483,
+            "comparedScalars": 2316819,
+            "normalizedSkinScalars": 25,
+            "maxWeightDelta": 5.960464477539063e-8,
+            "decodedArrayBytes": 8044044,
+            "morphExpandedVertices": 246169,
+            "sourceByteLength": 8155940,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 1,
+            "vertices": 50265,
+            "nodes": 17,
+            "deformedVertices": 246169,
+            "sourceBytes": 8155940,
+            "decodedArrayBytes": 16200432,
+            "clipKeyScalars": 0,
+            "active": 1,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 0,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 1
+            }
+          }
+        },
+        {
+          "warmup": false,
+          "preflightMs": 36.404901999999765,
+          "prepareMs": 65.0457620000002,
+          "coldCreateMs": 140.10192499999994,
+          "cachedCloneGroupMs": 0.000661000000036438,
+          "idleAdvanceBatchMs": 0.8433720000002722,
+          "idleAdvanceCalls": 10000,
+          "disposeGroupMs": 0.06186299999990297,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 483,
+            "comparedScalars": 2316819,
+            "normalizedSkinScalars": 25,
+            "maxWeightDelta": 5.960464477539063e-8,
+            "decodedArrayBytes": 8044044,
+            "morphExpandedVertices": 246169,
+            "sourceByteLength": 8155940,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 1,
+            "vertices": 50265,
+            "nodes": 17,
+            "deformedVertices": 246169,
+            "sourceBytes": 8155940,
+            "decodedArrayBytes": 16200432,
+            "clipKeyScalars": 0,
+            "active": 1,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 0,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "asset": "r6",
+      "actors": 4,
+      "iterations": [
+        {
+          "warmup": true,
+          "preflightMs": 40.18478499999992,
+          "prepareMs": 50.165261999999984,
+          "coldCreateMs": 145.39728399999967,
+          "cachedCloneGroupMs": 1.5247600000002421,
+          "idleAdvanceBatchMs": 1.9933970000001864,
+          "idleAdvanceCalls": 40000,
+          "disposeGroupMs": 0.09240899999986141,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 483,
+            "comparedScalars": 2316819,
+            "normalizedSkinScalars": 25,
+            "maxWeightDelta": 5.960464477539063e-8,
+            "decodedArrayBytes": 8044044,
+            "morphExpandedVertices": 246169,
+            "sourceByteLength": 8155940,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 4,
+            "vertices": 201060,
+            "nodes": 68,
+            "deformedVertices": 984676,
+            "sourceBytes": 8155940,
+            "decodedArrayBytes": 16200432,
+            "clipKeyScalars": 0,
+            "active": 4,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 3,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 4
+            }
+          }
+        },
+        {
+          "warmup": false,
+          "preflightMs": 32.53067800000008,
+          "prepareMs": 67.07100700000001,
+          "coldCreateMs": 93.66158300000006,
+          "cachedCloneGroupMs": 1.938133999999991,
+          "idleAdvanceBatchMs": 2.5940840000002936,
+          "idleAdvanceCalls": 40000,
+          "disposeGroupMs": 0.07209899999998015,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 483,
+            "comparedScalars": 2316819,
+            "normalizedSkinScalars": 25,
+            "maxWeightDelta": 5.960464477539063e-8,
+            "decodedArrayBytes": 8044044,
+            "morphExpandedVertices": 246169,
+            "sourceByteLength": 8155940,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 4,
+            "vertices": 201060,
+            "nodes": 68,
+            "deformedVertices": 984676,
+            "sourceBytes": 8155940,
+            "decodedArrayBytes": 16200432,
+            "clipKeyScalars": 0,
+            "active": 4,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 3,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 4
+            }
+          }
+        },
+        {
+          "warmup": false,
+          "preflightMs": 21.18493499999977,
+          "prepareMs": 53.2425589999998,
+          "coldCreateMs": 91.71684499999992,
+          "cachedCloneGroupMs": 0.960559000000103,
+          "idleAdvanceBatchMs": 1.3283440000000155,
+          "idleAdvanceCalls": 40000,
+          "disposeGroupMs": 0.058308000000124593,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 483,
+            "comparedScalars": 2316819,
+            "normalizedSkinScalars": 25,
+            "maxWeightDelta": 5.960464477539063e-8,
+            "decodedArrayBytes": 8044044,
+            "morphExpandedVertices": 246169,
+            "sourceByteLength": 8155940,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 4,
+            "vertices": 201060,
+            "nodes": 68,
+            "deformedVertices": 984676,
+            "sourceBytes": 8155940,
+            "decodedArrayBytes": 16200432,
+            "clipKeyScalars": 0,
+            "active": 4,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 3,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 4
+            }
+          }
+        },
+        {
+          "warmup": false,
+          "preflightMs": 22.07219000000032,
+          "prepareMs": 42.94702700000016,
+          "coldCreateMs": 78.43936799999983,
+          "cachedCloneGroupMs": 1.3678530000001956,
+          "idleAdvanceBatchMs": 1.4213740000000143,
+          "idleAdvanceCalls": 40000,
+          "disposeGroupMs": 0.06972500000028958,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 483,
+            "comparedScalars": 2316819,
+            "normalizedSkinScalars": 25,
+            "maxWeightDelta": 5.960464477539063e-8,
+            "decodedArrayBytes": 8044044,
+            "morphExpandedVertices": 246169,
+            "sourceByteLength": 8155940,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 4,
+            "vertices": 201060,
+            "nodes": 68,
+            "deformedVertices": 984676,
+            "sourceBytes": 8155940,
+            "decodedArrayBytes": 16200432,
+            "clipKeyScalars": 0,
+            "active": 4,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 3,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 4
+            }
+          }
+        },
+        {
+          "warmup": false,
+          "preflightMs": 23.98488499999985,
+          "prepareMs": 42.381263999999646,
+          "coldCreateMs": 93.17821400000003,
+          "cachedCloneGroupMs": 1.0359929999999622,
+          "idleAdvanceBatchMs": 1.469426999999996,
+          "idleAdvanceCalls": 40000,
+          "disposeGroupMs": 0.43130999999993946,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 483,
+            "comparedScalars": 2316819,
+            "normalizedSkinScalars": 25,
+            "maxWeightDelta": 5.960464477539063e-8,
+            "decodedArrayBytes": 8044044,
+            "morphExpandedVertices": 246169,
+            "sourceByteLength": 8155940,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 4,
+            "vertices": 201060,
+            "nodes": 68,
+            "deformedVertices": 984676,
+            "sourceBytes": 8155940,
+            "decodedArrayBytes": 16200432,
+            "clipKeyScalars": 0,
+            "active": 4,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 3,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 4
+            }
+          }
+        },
+        {
+          "warmup": false,
+          "preflightMs": 22.66540500000019,
+          "prepareMs": 39.046788000000106,
+          "coldCreateMs": 96.67464900000004,
+          "cachedCloneGroupMs": 1.3728609999998298,
+          "idleAdvanceBatchMs": 2.0529169999999795,
+          "idleAdvanceCalls": 40000,
+          "disposeGroupMs": 0.07393100000035702,
+          "allOwnedCountersZero": true,
+          "verification": {
+            "comparedArrays": 483,
+            "comparedScalars": 2316819,
+            "normalizedSkinScalars": 25,
+            "maxWeightDelta": 5.960464477539063e-8,
+            "decodedArrayBytes": 8044044,
+            "morphExpandedVertices": 246169,
+            "sourceByteLength": 8155940,
+            "webglVerified": false
+          },
+          "admission": {
+            "actors": 4,
+            "vertices": 201060,
+            "nodes": 68,
+            "deformedVertices": 984676,
+            "sourceBytes": 8155940,
+            "decodedArrayBytes": 16200432,
+            "clipKeyScalars": 0,
+            "active": 4,
+            "pending": 0,
+            "cache": {
+              "loads": 1,
+              "hits": 3,
+              "disposals": 0,
+              "live": 1,
+              "retainedReferences": 4
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

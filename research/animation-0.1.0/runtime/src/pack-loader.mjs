@@ -10,9 +10,14 @@ import {
   preflightGLB
 }
 from './glb-preflight.mjs';
+import {preflightArtGLB} from './art-glb-preflight.mjs';
+import {validateNeutralManifest,validateNeutralProfile} from './neutral-contract.mjs';
+import {verifyNeutralSource} from './neutral-source-check.mjs';
+import {decodedArrayReservation,geometryBackingBytes} from './geometry-accounting.mjs';
 import {validateClipLibrary} from './clip-contract.mjs';
 // Immutable admission accounting is captured before exposing the prepared pack.
 const admissionRecords=new WeakMap();
+const privatePreparedBytes=new WeakMap();
 function deepFreeze(value) {
   if(value&&typeof value==='object'&&!Object.isFrozen(value)) {
     for(const child of Object.values(value))deepFreeze(child);
@@ -97,14 +102,52 @@ export async function preparePack(read, {
   const sources=new Map();
   for(const id of [m.character.asset, ...m.equipment.map(x=>x.asset)]) {
     const a=m.assets.find(x=>x.id===id);
-    sources.set('gltf-0.1.0:'+a.sha256, Object.freeze({key:'gltf-0.1.0:'+a.sha256, bytes:a.bytes}));
+    sources.set('gltf-0.1.0:'+a.sha256, Object.freeze({key:'gltf-0.1.0:'+a.sha256, bytes:a.bytes, decodedBytes:decodedArrayReservation(a.bytes,audits.get(id).document)}));
   }
   if(m.clips!==undefined) {
     const a=m.assets.find(x=>x.id===m.clips),key='clips-0.1.0:'+a.sha256;
-    sources.set(key,Object.freeze({key,bytes:a.bytes}));
+    sources.set(key,Object.freeze({key,bytes:a.bytes,decodedBytes:0}));
   }
   admissionRecords.set(result, Object.freeze({vertices,nodes,deformedVertices,clipKeyScalars:clipResult.clipKeyScalars,sources:Object.freeze([...sources.values()])}));
   return result;
+}
+export async function prepareNeutralPack(read,{signal}={}) {
+  const check=()=>{if(signal?.aborted)throw signal.reason??new Error('Aborted');};
+  check();
+  const manifest=validateNeutralManifest(json(await read('manifest.json',LIMITS.manifestBytes,signal),LIMITS.manifestBytes));
+  const data=new Map(),audits=new Map();
+  for(const asset of manifest.assets) {
+    check();const incoming=await read(asset.path,asset.bytes,signal);check();
+    if(!(incoming instanceof Uint8Array)||incoming.byteLength!==asset.bytes)fail('INTEGRITY',asset.id);
+    const bytes=Uint8Array.from(incoming);
+    if(await sha256(bytes)!==asset.sha256)fail('INTEGRITY',asset.id);
+    data.set(asset.id,bytes);
+    if(asset.kind==='glb')audits.set(asset.id,preflightArtGLB(bytes,manifest.budgets));
+  }
+  const asset=manifest.assets.find(a=>a.id===manifest.character.asset),audit=audits.get(asset.id);
+  const profile=validateNeutralProfile(json(data.get(manifest.character.profile),LIMITS.profileBytes),asset.sha256,audit.document);
+  const vertices=audit.renderVertices,nodes=audit.nodes+2,deformedVertices=audit.renderDeformedVertices;
+  const decodedReservation=decodedArrayReservation(asset.bytes,audit.document);
+  if(decodedReservation>manifest.budgets.decodedArrayBytes)fail('LIMIT','Neutral decoded geometry reservation');
+  if(vertices>manifest.budgets.vertices||nodes>manifest.budgets.nodes||deformedVertices>manifest.budgets.deformedVertices)fail('LIMIT','Neutral instance budget');
+  check();for(const a of audits.values())deepFreeze(a);
+  const pack=Object.freeze({kind:'approved-art-neutral',manifest:deepFreeze(manifest),profile:deepFreeze(profile),data:readonlyMap(data,true),audits:readonlyMap(audits),budget:deepFreeze({vertices,nodes,deformedVertices,clipKeyScalars:0,textureBytes:0,decodedArrayReservation:decodedReservation})});
+  privatePreparedBytes.set(pack,data);
+  const key='neutral-gltf-0.1.0:'+asset.sha256;
+  admissionRecords.set(pack,Object.freeze({vertices,nodes,deformedVertices,clipKeyScalars:0,sources:Object.freeze([Object.freeze({key,bytes:asset.bytes,decodedBytes:decodedReservation})])}));
+  return pack;
+}
+export async function acquireNeutralGLB(pack,cache,options={}) {
+  if(pack.kind!=='approved-art-neutral'||!privatePreparedBytes.has(pack))fail('BINDING','Prepared neutral pack required');
+  const asset=pack.manifest.assets.find(a=>a.id===pack.manifest.character.asset),key='neutral-gltf-0.1.0:'+asset.sha256;
+  return cache.acquire(key,async()=>{
+    const bytes=privatePreparedBytes.get(pack).get(asset.id);
+    const gltf=await new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength),'');
+    try {
+      const verification=verifyNeutralSource(bytes,pack.audits.get(asset.id),gltf,pack.budget.decodedArrayReservation);
+      return {gltf,verification,dispose:()=>disposeSource(gltf.scene)};
+    } catch(error) {disposeSource(gltf.scene);throw error;}
+  },options);
 }
 function disposeSource(scene) {
   const gs=new Set(), ms=new Set(), ss=new Set();
@@ -125,6 +168,8 @@ export async function acquireGLB(pack, id, cache, options= {
   return cache.acquire(key, async()=> {
     const bytes=pack.data.get(id);
     const gltf=await new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset+bytes.byteLength), '');
+    const allowance=decodedArrayReservation(asset.bytes,pack.audits.get(id).document);
+    if(geometryBackingBytes(gltf.scene)>allowance){disposeSource(gltf.scene);fail('LIMIT','Decoded geometry array reservation');}
     return {
       gltf, dispose:()=>disposeSource(gltf.scene)
     };

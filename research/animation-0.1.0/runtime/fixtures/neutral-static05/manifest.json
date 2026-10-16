@@ -1,0 +1,29 @@
+{
+  "format": "bubu-neutral-suite",
+  "version": "0.1.0",
+  "id": "approved-static05-neutral",
+  "purpose": "approved-art-neutral",
+  "assets": [
+    {
+      "id": "body",
+      "path": "asset.glb",
+      "kind": "glb",
+      "bytes": 2342580,
+      "sha256": "3b7adcb303c8bd3c0dfb8976f9eb8fc0e6cefb897a7c16e99acc827385591722"
+    },
+    {
+      "id": "profile",
+      "path": "profile.json",
+      "kind": "profile",
+      "bytes": 542,
+      "sha256": "9cfd76ef61e9cd73dbf1063b406b2333c5bfe84de327643869f6716d7f39b42f"
+    }
+  ],
+  "character": {
+    "asset": "body",
+    "profile": "profile"
+  },
+  "budgets": {
+    "decodedArrayBytes": 16777216
+  }
+}

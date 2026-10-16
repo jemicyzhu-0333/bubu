@@ -1,13 +1,14 @@
 import {ResourceCache} from './resource-cache.mjs';
+import {createNeutralSuite} from './neutral-suite.mjs';
 import {createSuite} from './suite.mjs';
 import {preparedAdmission} from './pack-loader.mjs';
 import {exact, fail} from './contracts.mjs';
 
 export const POOL_HARD_LIMITS=Object.freeze({
-  actors:32, vertices:1000000, nodes:4096, deformedVertices:4000000, sourceBytes:134217728, clipKeyScalars:500000
+  actors:32, vertices:1000000, nodes:4096, deformedVertices:4000000, sourceBytes:134217728, decodedArrayBytes:268435456, clipKeyScalars:500000
 });
 export const POOL_DEFAULT_LIMITS=Object.freeze({
-  actors:8, vertices:200000, nodes:512, deformedVertices:1000000, sourceBytes:33554432, clipKeyScalars:100000
+  actors:8, vertices:200000, nodes:512, deformedVertices:1000000, sourceBytes:33554432, decodedArrayBytes:67108864, clipKeyScalars:100000
 });
 
 /** One application admission/ownership domain. All application actors use this pool.
@@ -19,7 +20,7 @@ export class ActorPool {
   #sources=new Map();
   #actors=new Set();
   #pending=new Set();
-  #used={actors:0,vertices:0,nodes:0,deformedVertices:0,sourceBytes:0,clipKeyScalars:0};
+  #used={actors:0,vertices:0,nodes:0,deformedVertices:0,sourceBytes:0,decodedArrayBytes:0,clipKeyScalars:0};
   #closed=false;
   #limits;
   constructor(options={}) {
@@ -50,20 +51,21 @@ export class ActorPool {
     }
     this.#sources.delete(key);
     this.#used.sourceBytes-=source.bytes;
+    this.#used.decodedArrayBytes-=source.decodedBytes;
   }
   #reserve(pack) {
     const cost=preparedAdmission(pack);
-    const next={actors:this.#used.actors+1,vertices:this.#used.vertices+cost.vertices,nodes:this.#used.nodes+cost.nodes,deformedVertices:this.#used.deformedVertices+cost.deformedVertices,sourceBytes:this.#used.sourceBytes,clipKeyScalars:this.#used.clipKeyScalars+cost.clipKeyScalars};
+    const next={actors:this.#used.actors+1,vertices:this.#used.vertices+cost.vertices,nodes:this.#used.nodes+cost.nodes,deformedVertices:this.#used.deformedVertices+cost.deformedVertices,sourceBytes:this.#used.sourceBytes,decodedArrayBytes:this.#used.decodedArrayBytes,clipKeyScalars:this.#used.clipKeyScalars+cost.clipKeyScalars};
     for(const source of cost.sources) {
       const existing=this.#sources.get(source.key);
-      if(existing&&existing.bytes!==source.bytes)fail('INTEGRITY','Inconsistent shared source size');
-      if(!existing)next.sourceBytes+=source.bytes;
+      if(existing&&(existing.bytes!==source.bytes||existing.decodedBytes!==source.decodedBytes))fail('INTEGRITY','Inconsistent shared source size');
+      if(!existing){next.sourceBytes+=source.bytes;next.decodedArrayBytes+=source.decodedBytes;}
     }
     for(const key of Object.keys(next))if(next[key]>this.#limits[key])fail('GLOBAL_BUDGET','Application '+key+' limit');
     Object.assign(this.#used,next);
     for(const source of cost.sources) {
       let owned=this.#sources.get(source.key);
-      if(!owned)this.#sources.set(source.key,owned={bytes:source.bytes,refs:0,waiting:null});
+      if(!owned)this.#sources.set(source.key,owned={bytes:source.bytes,decodedBytes:source.decodedBytes,refs:0,waiting:null});
       owned.refs++;
     }
     let released=false;
@@ -89,7 +91,7 @@ export class ActorPool {
     signal?.addEventListener('abort',onAbort,{once:true});
     let suite=null;
     try {
-      suite=await createSuite(pack,this.#cache,{signal:abort.signal});
+      suite=await (pack.kind==='approved-art-neutral'?createNeutralSuite:createSuite)(pack,this.#cache,{signal:abort.signal});
       if(this.#closed||abort.signal.aborted)throw abort.signal.reason??new Error('Pool disposed');
       const originalDispose=suite.dispose;
       suite.dispose=()=>{

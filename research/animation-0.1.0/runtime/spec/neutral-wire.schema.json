@@ -1,0 +1,348 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "bubu neutral-only 0.1.0 wire shape",
+  "description": "Structural draft. Runtime additionally enforces exact registered hash, kinds, profile-to-source role, bindings, integrity and aggregate decoded/instance budgets.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/manifest"
+    },
+    {
+      "$ref": "#/$defs/profile"
+    }
+  ],
+  "$defs": {
+    "manifest": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "const": "bubu-neutral-suite"
+        },
+        "version": {
+          "const": "0.1.0"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "purpose": {
+          "const": "approved-art-neutral"
+        },
+        "assets": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "path": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*(/[A-Za-z0-9][A-Za-z0-9_.-]*)*$",
+                "maxLength": 128
+              },
+              "kind": {
+                "enum": [
+                  "glb",
+                  "profile"
+                ]
+              },
+              "bytes": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 12582912
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            },
+            "required": [
+              "id",
+              "path",
+              "kind",
+              "bytes",
+              "sha256"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "character": {
+          "type": "object",
+          "properties": {
+            "asset": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "profile": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            }
+          },
+          "required": [
+            "asset",
+            "profile"
+          ],
+          "additionalProperties": false
+        },
+        "budgets": {
+          "type": "object",
+          "properties": {
+            "assetBytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12582912
+            },
+            "totalBytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16777216
+            },
+            "jsonBytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1048576
+            },
+            "nodes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 32
+            },
+            "meshes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            },
+            "materials": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            },
+            "skins": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            "joints": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 32
+            },
+            "primitives": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            },
+            "vertices": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60000
+            },
+            "indices": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 300000
+            },
+            "morphTargets": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 64
+            },
+            "accessors": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 768
+            },
+            "bufferViews": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 768
+            },
+            "accessorScalars": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4000000
+            },
+            "decodedAccessorBytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16000000
+            },
+            "accessorWorkScalars": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12000000
+            },
+            "deformedVertices": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 400000
+            },
+            "decodedArrayBytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16777216
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "format",
+        "version",
+        "id",
+        "purpose",
+        "assets",
+        "character",
+        "budgets"
+      ],
+      "additionalProperties": false
+    },
+    "profile": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "const": "bubu-neutral-profile"
+        },
+        "version": {
+          "const": "0.1.0"
+        },
+        "purpose": {
+          "const": "approved-art-neutral"
+        },
+        "sourceSha256": {
+          "enum": [
+            "3b7adcb303c8bd3c0dfb8976f9eb8fc0e6cefb897a7c16e99acc827385591722",
+            "fba41db41ecb0e0a959cd6923f55d5edbfaebf4558d79e1e9832b2a806cc5830"
+          ]
+        },
+        "rig": {
+          "enum": [
+            "static",
+            "skinned"
+          ]
+        },
+        "root": {
+          "const": "A_reference_root"
+        },
+        "body": {
+          "const": "A_mochi_skin"
+        },
+        "faces": {
+          "const": [
+            "A_eye_highlight_L",
+            "A_eye_highlight_R",
+            "A_eye_L",
+            "A_eye_R",
+            "A_mouth_ring"
+          ]
+        },
+        "joints": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {},
+              "required": [],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "body": {
+                  "const": "Body"
+                },
+                "shoulderLeft": {
+                  "const": "Shoulder_L"
+                },
+                "shoulderRight": {
+                  "const": "Shoulder_R"
+                },
+                "hipLeft": {
+                  "const": "Hip_L"
+                },
+                "hipRight": {
+                  "const": "Hip_R"
+                }
+              },
+              "required": [
+                "body",
+                "shoulderLeft",
+                "shoulderRight",
+                "hipLeft",
+                "hipRight"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "sockets": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {},
+              "required": [],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "headTouch": {
+                  "const": "HeadTouch"
+                },
+                "accessory": {
+                  "const": "AccessoryAnchor"
+                }
+              },
+              "required": [
+                "headTouch",
+                "accessory"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "readiness": {
+          "type": "object",
+          "properties": {
+            "engine": {
+              "const": "neutral-load-only"
+            },
+            "binding": {
+              "const": "hash-locked-rest"
+            },
+            "verified": {
+              "const": "cpu-source-parity-only"
+            }
+          },
+          "required": [
+            "engine",
+            "binding",
+            "verified"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "format",
+        "version",
+        "purpose",
+        "sourceSha256",
+        "rig",
+        "root",
+        "body",
+        "faces",
+        "joints",
+        "sockets",
+        "readiness"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
