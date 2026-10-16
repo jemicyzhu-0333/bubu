@@ -1,6 +1,6 @@
 # Runtime 0.1.0 — first implementation contract
 
-Status: second foundation checkpoint adds CPU measurement, aggregate actor admission and simulated context-lifecycle policy. All art integration and drag/pet product behavior remain gated. No V1 runtime imports, aliases, compatibility branches, or silent fallback. Existing 05/r4/r6 are read-only evidence.
+Status: third foundation checkpoint adds bounded authored joint/accessory quaternion clips to CPU measurement, aggregate actor admission and simulated context-lifecycle policy. All art integration and drag/pet product behavior remain gated. No V1 runtime imports, aliases, compatibility branches, or silent fallback. Existing 05/r4/r6 are read-only evidence.
 
 ## First vertical slice
 
@@ -12,7 +12,7 @@ An explicitly labeled mechanical fixture is loaded from a hash-locked, self-cont
 2. Character bindings: compatible nodes, rest frames, reviewed limits, expression paths and fit profiles.
 3. Verification records: numerical / visual / browser / user-approval scopes, each separately versioned. Engine support is never artistic approval.
 
-Supported in this first slice: skeletal quaternion-delta segments, one morph path via neutral, rigid sockets, accessory-local rotation, canonical events, C0 interruption, owned-resource lifecycle, demand scheduling.
+Supported in this foundation: authored STEP/LINEAR quaternion clips with per-track key times, skeletal quaternion-delta segments, one morph path via neutral, rigid sockets, accessory-local rotation, canonical events, C0 interruption, owned-resource lifecycle, demand scheduling.
 
 Explicitly unsupported: knee/elbow/wrist/neck synthesis, gaze, dual-foot or two-hand IK, cloth simulation, collision guarantee, general contact/landing solver, arbitrary additive face blend, unrestricted material animation, arbitrary script plugins, production drag/pet input. The new engine must return a typed unsupported error. A future explicitly reviewed fallback is a named, hashed data binding with its own requirements; 0.1.0 never invents one.
 
@@ -46,7 +46,7 @@ Visual LOD, stable interaction-surface remapping and browser GPU timings are not
 
 ## Review round 2: exact boundary decisions
 
-- Same timestamp: cancel before play; equal-type play events use increasing enqueue sequence. Cancel invalidates all events queued in the old generation, including same-time play. A new event enqueued after cancellation belongs to the new generation. Enqueue in the past is rejected, never silently shifted or replayed.
+- Same timestamp: cancel before play/playClip; both playback types share priority and use increasing enqueue sequence. Cancel invalidates all events queued in the old generation, including same-time play. A new event enqueued after cancellation belongs to the new generation. Enqueue in the past is rejected, never silently shifted or replayed.
 - Face bridge timing is separate from skeletal segment duration. A cross-path request retains its current withdrawal when already withdrawing, updates only the destination, then spends the declared `fadeInSec` entering it. `FaceLane.arrival` is the actual target-arrival time. Cancellation withdraws from the evaluated current amount. A face hold is static and permits sleep; pending bridge transitions do not.
 - At most 16 assets, 8 MiB each, 32 MiB total; JSON depth 20/entries 20,000; 128 nodes, 32 meshes, 64 primitives, 100,000 unique or rendered vertices, 300,000 indices, 16 morph targets/primitive, 500,000 morph-expanded vertices, 512 accessors/views and 2,000,000 accessor scalars. Budgets apply to definitions and resolved rendered instances, including repeated equipment, before loader creation. Images/textures, sparse accessors, nonunit node scales and multi-primitive meshes are intentionally unsupported in this first slice.
 - GLB names must be safe unique identifiers. Profile joint and socket bindings cannot alias a node. Every body mesh with morph targets must be included in the expression roster, every knot must cover every roster mesh, every target must exist. One path can interpolate its adjacent knot targets; two semantic paths cannot overlap. Rigid equipment with a skin is rejected before acquisition and again at binding.
@@ -61,3 +61,11 @@ The application uses one ActorPool. It reserves active plus pending actor/vertex
 Prepared metadata/assembly is immutable, asset bytes are owned before the hash await, and public byte reads are copies. Admission and instantiation therefore use the same accepted geometry and assembly. Actor disposal rolls back its reservation idempotently.
 
 ContextLifecycle combines hidden/lost/disposed state and explicitly invalidates restoration. Canonical time continues while paused. Actual browser shader re-upload, context restoration and transparent output remain unverified; only EventTarget and VM policy tests ran.
+
+## Authored clip checkpoint 03 additions
+
+An optional hash-locked clip-library asset describes independent bounded joint/accessory quaternion tracks. At most16 clips,72 tracks each,128 keys per track,2048 keys total. A clip lasts0.02..10sec, has exact phase0/1 endpoints and at least0.0001sec between keys. Unknown properties, interpolation modes, targets, duplicate target owners and invalid normalized rotations reject before activation. See AUTHORED-CLIP03.md and the fourth wire-schema shape.
+
+A playClip event has explicit entrySec, preserving C0 from the actual interrupted pose before the authored clock starts. Internal STEP/LINEAR timing is not replaced by the older target primitive's smoothstep. STEP edges are intentional discontinuities. Final values hold without active-clip references or perpetual demand animation. Existing target quaternions are normalized before planning and cap-checked after normalization to keep the bridge source unit length.
+
+Per actor clipKeyScalars cost is5 per authored key (quaternion plus time), default application budget100000 and hard maximum500000. Unique encoded clip-library bytes join sourceBytes admission. These bounds constrain work, not exact decoded heap or GPU memory. Event entry, active sampling, large jumps and release use the existing single-clock and ownership model.

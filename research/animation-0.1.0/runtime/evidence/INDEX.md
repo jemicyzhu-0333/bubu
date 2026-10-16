@@ -1,7 +1,22 @@
 # Evidence provenance
 
-Current checkpoint: tests.tap (full suite), cpu-matrix.json (10-workload Node CPU report with source hashes/repeat count), fresh-install.json/fresh-tests.tap (sealed current restoration test), browser-status.json (real-browser limitation), review/demo-race-rerun.json (updated demo VM cancellation), review/MEASUREMENT02-REVIEW.md (current independent review).
+Current authoredclip03 evidence:
 
-Historical first-checkpoint records retained: cpu-benchmark.json (148-vertex CPU batches), layout-only-check.json (first checkpoint's whitespace-only check, not this increment), schema-validation.json (unchanged wire-schema fixture), review/REVIEW.md and old runtime/cache/scheduler reports (prior three rounds). Portable scripts remain where applicable; current reruns are labelled separately.
+- tests.tap: complete current Node test suite.
+- fresh-install.json and fresh-tests.tap: clean npm ci restoration with pinned lock, no copied node_modules.
+- authored-clip-cpu.json and authored-clip-cpu-summary.md: actual prepared small/near-limit clip packs, pooled actors, raw repetitions and source fingerprints. CPU-only measurements, explicitly separated by metric unit.
+- schema-validation.json: all four wire-shape fixtures; runtime semantic checks are in Node tests.
+- static-server-check.json: own-cloud HTTP delivery of the demo, clip data and local dependency. This is not browser rendering.
+- review/clip03-independent.mjs and its rerun JSON: independent decimal/large-origin STEP/LINEAR oracle and invalid inputs.
+- review/clip03-entry-normalization.mjs and rerun JSON: accepted near-unit target source to clip entry limit continuity.
+- review/AUTHOREDCLIP03-REVIEW.md: independent current closure scope and findings.
+- review/demo-race-rerun.json: current demo VM pending-create cancellation; no WebGL.
+- browser-status.json: actual browser/GPU limits, unchanged.
 
-No mocked context event or CPU measurement establishes real WebGL/GPU or artistic acceptance.
+Historical evidence retained with its original source fingerprints:
+
+- cpu-matrix.json / cpu-matrix-summary.json / cpu-matrix-summary.md and review/MEASUREMENT02-REVIEW.md: previous measurement02 source, not the current clip sampler.
+- cpu-benchmark.json, layout-only-check.json, review/REVIEW.md and older runtime/cache/scheduler reports: initial mechanics checkpoint.
+- Measurement02 scripts remain portable for relevant regressions. Its 256 simulated lifecycle permutations do not become a current GPU restoration test.
+
+No CPU result, mocked context event, static HTTP check or file hash proves actual WebGL/GPU performance or bubu artistic acceptance. Archived simulation data remains labelled by its measured source revision.

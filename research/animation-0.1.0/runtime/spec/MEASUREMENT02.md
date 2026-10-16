@@ -1,3 +1,7 @@
+# Historical checkpoint 02 policy and measurements
+
+The authoredclip03 extension additionally charges clipKeyScalars and encoded clip-library source bytes; see AUTHORED-CLIP03.md. The matrix archived with this document retains its measurement02 source fingerprint.
+
 # Measurement checkpoint 02
 
 Scope: aggregate admission, reproducible mechanical CPU workloads and simulated context policy. No authored clips/retargeting, art adapters, contact physics or final drag/pet added.

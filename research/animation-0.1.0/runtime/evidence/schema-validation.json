@@ -1,9 +1,11 @@
 {
-  "schemaValid": true,
-  "fixturesValid": [
-    "manifest.json",
-    "character-profile.json",
-    "motion.json"
+  "scope": "Wire-shape validation only; semantic and integrity validation covered by Node tests",
+  "files": [
+    "fixtures/manifest.json",
+    "fixtures/character-profile.json",
+    "fixtures/motion.json",
+    "fixtures/authored/manifest.json",
+    "fixtures/authored/authored-clips.json"
   ],
-  "scope": "Wire shape only; runtime semantic and integrity tests are separate"
+  "passed": 5
 }

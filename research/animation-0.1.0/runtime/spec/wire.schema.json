@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "bubu runtime 0.1.0 strict wire shapes",
   "description": "IDE/document validation. Runtime also checks byte/complexity budgets, integrity, references, normalized quaternion/caps, complete face roster, unique nodes, GLB content and instance budgets. No extensions or compatibility aliases.",
-  "oneOf": [{"$ref": "#/$defs/manifest"}, {"$ref": "#/$defs/profile"}, {"$ref": "#/$defs/motion"}],
+  "oneOf": [{"$ref": "#/$defs/manifest"}, {"$ref": "#/$defs/profile"}, {"$ref": "#/$defs/motion"}, {"$ref": "#/$defs/clips"}],
   "$defs": {
     "manifest": {
       "type": "object",
@@ -17,7 +17,7 @@
             "properties": {
               "id": {"type": "string", "minLength": 1, "maxLength": 160},
               "path": {"type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*(/[A-Za-z0-9][A-Za-z0-9_.-]*)*$"},
-              "kind": {"enum": ["glb", "profile", "motion"]},
+              "kind": {"enum": ["glb", "profile", "motion", "clips"]},
               "bytes": {"type": "integer", "minimum": 1, "maximum": 8388608},
               "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
             },
@@ -60,6 +60,7 @@
           "maxItems": 8
         },
         "motion": {"type": "string", "minLength": 1, "maxLength": 160},
+        "clips": {"type": "string", "minLength": 1, "maxLength": 160},
         "requiredCapabilities": {
           "type": "array",
           "items": {
@@ -70,10 +71,11 @@
               "accessory-local-rotation",
               "canonical-events",
               "interrupt-c0",
-              "demand-render"
+              "demand-render",
+              "authored-quaternion-clips"
             ]
           },
-          "maxItems": 7,
+          "maxItems": 8,
           "uniqueItems": true
         },
         "budgets": {
@@ -175,10 +177,11 @@
               "accessory-local-rotation",
               "canonical-events",
               "interrupt-c0",
-              "demand-render"
+              "demand-render",
+              "authored-quaternion-clips"
             ]
           },
-          "maxItems": 7,
+          "maxItems": 8,
           "uniqueItems": true
         },
         "verification": {
@@ -238,6 +241,59 @@
         }
       },
       "required": ["format", "version", "id", "segments"],
+      "additionalProperties": false
+    },
+    "clips": {
+      "type": "object",
+      "properties": {
+        "format": {"const": "bubu-clips"},
+        "version": {"const": "0.1.0"},
+        "id": {"type": "string", "minLength": 1, "maxLength": 160},
+        "clips": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {"type": "string", "minLength": 1, "maxLength": 160},
+              "durationSec": {"type": "number", "minimum": 0.02, "maximum": 10},
+              "endBehavior": {"enum": ["hold"]},
+              "tracks": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "target": {"type": "string", "minLength": 1, "maxLength": 160},
+                    "interpolation": {"enum": ["STEP", "LINEAR"]},
+                    "keys": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "at": {"type": "number", "minimum": 0, "maximum": 1},
+                          "rotation": {"type": "array", "items": {"type": "number", "minimum": -1.000001, "maximum": 1.000001}, "minItems": 4, "maxItems": 4}
+                        },
+                        "required": ["at", "rotation"],
+                        "additionalProperties": false
+                      },
+                      "maxItems": 128,
+                      "minItems": 2
+                    }
+                  },
+                  "required": ["target", "interpolation", "keys"],
+                  "additionalProperties": false
+                },
+                "maxItems": 72,
+                "minItems": 1
+              }
+            },
+            "required": ["id", "durationSec", "endBehavior", "tracks"],
+            "additionalProperties": false
+          },
+          "maxItems": 16,
+          "minItems": 1
+        }
+      },
+      "required": ["format", "version", "id", "clips"],
       "additionalProperties": false
     }
   }

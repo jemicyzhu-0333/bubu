@@ -10,6 +10,7 @@ import {
   preflightGLB
 }
 from './glb-preflight.mjs';
+import {validateClipLibrary} from './clip-contract.mjs';
 // Immutable admission accounting is captured before exposing the prepared pack.
 const admissionRecords=new WeakMap();
 function deepFreeze(value) {
@@ -66,6 +67,7 @@ export async function preparePack(read, {
   if(vertices>m.budgets.vertices||nodes>m.budgets.nodes||deformedVertices>LIMITS.deformedVertices)fail('LIMIT', 'Aggregate package geometry budget');
   const profile=validateProfile(json(data.get(m.character.profile), LIMITS.profileBytes));
   const motion=validateMotion(json(data.get(m.motion), LIMITS.motionBytes), profile, m.equipment);
+  const clipResult=m.clips===undefined?{library:null,clipKeyScalars:0}:validateClipLibrary(json(data.get(m.clips),LIMITS.clipBytes),profile,m.equipment);
   for(const c of m.requiredCapabilities)if(['skeletal-delta', 'expression-single-path', 'rigid-socket'].includes(c)&&!profile.capabilities.includes(c))fail('UNBOUND_CAPABILITY', c);
   for(const item of m.equipment)if(audits.get(item.asset).document.skins?.length)fail('UNSUPPORTED', 'Skinned equipment adapter missing');
   const definitions= {
@@ -88,8 +90,8 @@ export async function preparePack(read, {
   const privateBytes=data;
   for(const audit of audits.values())deepFreeze(audit);
   const result=Object.freeze({
-    manifest:deepFreeze(m), profile:deepFreeze(profile), motion:deepFreeze(motion), data:readonlyMap(privateBytes,true), audits:readonlyMap(audits), budget:deepFreeze({
-      vertices, nodes, deformedVertices, textureBytes:0, definitions
+    manifest:deepFreeze(m), profile:deepFreeze(profile), motion:deepFreeze(motion), clips:deepFreeze(clipResult.library), data:readonlyMap(privateBytes,true), audits:readonlyMap(audits), budget:deepFreeze({
+      vertices, nodes, deformedVertices, clipKeyScalars:clipResult.clipKeyScalars, textureBytes:0, definitions
     })
   });
   const sources=new Map();
@@ -97,7 +99,11 @@ export async function preparePack(read, {
     const a=m.assets.find(x=>x.id===id);
     sources.set('gltf-0.1.0:'+a.sha256, Object.freeze({key:'gltf-0.1.0:'+a.sha256, bytes:a.bytes}));
   }
-  admissionRecords.set(result, Object.freeze({vertices,nodes,deformedVertices,sources:Object.freeze([...sources.values()])}));
+  if(m.clips!==undefined) {
+    const a=m.assets.find(x=>x.id===m.clips),key='clips-0.1.0:'+a.sha256;
+    sources.set(key,Object.freeze({key,bytes:a.bytes}));
+  }
+  admissionRecords.set(result, Object.freeze({vertices,nodes,deformedVertices,clipKeyScalars:clipResult.clipKeyScalars,sources:Object.freeze([...sources.values()])}));
   return result;
 }
 function disposeSource(scene) {

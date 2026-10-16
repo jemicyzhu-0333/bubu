@@ -8,9 +8,9 @@ export class ContractError extends Error {
 export const fail=(code, message)=> {
   throw new ContractError(code, message);
 };
-export const ENGINE_CAPABILITIES=Object.freeze(['skeletal-delta', 'expression-single-path', 'rigid-socket', 'accessory-local-rotation', 'canonical-events', 'interrupt-c0', 'demand-render']);
+export const ENGINE_CAPABILITIES=Object.freeze(['skeletal-delta', 'expression-single-path', 'rigid-socket', 'accessory-local-rotation', 'canonical-events', 'interrupt-c0', 'demand-render', 'authored-quaternion-clips']);
 export const LIMITS=Object.freeze({
-  manifestBytes:65536, profileBytes:131072, motionBytes:262144, assetBytes:8388608, totalBytes:33554432, assets:16, jsonDepth:20, jsonEntries:20000, nodes:128, meshes:32, primitives:64, vertices:100000, deformedVertices:500000, indices:300000, morphTargets:16, accessors:512, bufferViews:512, accessorScalars:2000000, joints:64, segments:64, queue:128
+  manifestBytes:65536, profileBytes:131072, motionBytes:262144, clipBytes:131072, clips:16, clipTracks:72, keysPerTrack:128, clipKeys:2048, clipKeyScalars:10240, assetBytes:8388608, totalBytes:33554432, assets:16, jsonDepth:20, jsonEntries:20000, nodes:128, meshes:32, primitives:64, vertices:100000, deformedVertices:500000, indices:300000, morphTargets:16, accessors:512, bufferViews:512, accessorScalars:2000000, joints:64, segments:64, queue:128
 });
 export function exact(o, required, optional=[], where='object') {
   if(!o||typeof o!=='object'||Array.isArray(o))fail('TYPE', where+' must be an object');
@@ -77,7 +77,7 @@ function version(o, format) {
   if(o.format!==format||o.version!=='0.1.0')fail('VERSION', 'Only '+format+' 0.1.0 is supported');
 }
 export function validateManifest(m) {
-  exact(m, ['format', 'version', 'id', 'assets', 'character', 'equipment', 'motion', 'requiredCapabilities', 'budgets']);
+  exact(m, ['format', 'version', 'id', 'assets', 'character', 'equipment', 'motion', 'requiredCapabilities', 'budgets'],['clips']);
   version(m, 'bubu-suite');
   str(m.id);
   list(m.assets, LIMITS.assets);
@@ -87,8 +87,9 @@ export function validateManifest(m) {
     exact(a, ['id', 'path', 'kind', 'bytes', 'sha256']);
     str(a.id);
     path(a.path);
-    member(a.kind, ['glb', 'profile', 'motion'], 'asset kind');
+    member(a.kind, ['glb', 'profile', 'motion', 'clips'], 'asset kind');
     num(a.bytes, 1, LIMITS.assetBytes);
+    if(a.kind==='clips')num(a.bytes,1,LIMITS.clipBytes,'Clip library byte budget');
     if(!Number.isInteger(a.bytes)||!/^[0-9a-f]{64}$/.test(a.sha256))fail('INTEGRITY', 'Asset size/hash');
     bytes+=a.bytes;
   }
@@ -102,6 +103,8 @@ export function validateManifest(m) {
   need(m.character.asset, 'glb');
   need(m.character.profile, 'profile');
   need(m.motion, 'motion');
+  if(m.clips!==undefined)need(m.clips,'clips');
+  if(m.assets.some(a=>a.kind==='clips'&&a.id!==m.clips))fail('REFERENCE','Unreferenced clip library');
   list(m.equipment, 8);
   for(const e of m.equipment) {
     exact(e, ['id', 'asset', 'slot', 'fit', 'attachment', 'collision', 'support']);
@@ -120,6 +123,7 @@ export function validateManifest(m) {
   list(m.requiredCapabilities, ENGINE_CAPABILITIES.length);
   unique(m.requiredCapabilities, 'capabilities');
   for(const c of m.requiredCapabilities)member(c, ENGINE_CAPABILITIES, 'engine capability');
+  if(m.clips!==undefined&&!m.requiredCapabilities.includes('authored-quaternion-clips'))fail('UNBOUND_CAPABILITY','authored-quaternion-clips');
   exact(m.budgets, ['totalBytes', 'vertices', 'nodes']);
   num(m.budgets.totalBytes, 1, LIMITS.totalBytes);
   num(m.budgets.vertices, 1, LIMITS.vertices);
@@ -210,12 +214,12 @@ export function validateMotion(m, profile, equipment) {
     for(const[id, q]of Object.entries(s.joints)) {
       if(!joints.has(id))fail('REFERENCE', 'Unknown joint '+id);
       quat(q);
-      if(2*Math.acos(Math.min(1, Math.abs(q[3])))>joints.get(id).capRadians+1e-6)fail('JOINT_LIMIT', id);
+      if(2*Math.acos(Math.min(1, Math.abs(q[3])/Math.hypot(...q)))>joints.get(id).capRadians+1e-6)fail('JOINT_LIMIT', id);
     }
     for(const[id, q]of Object.entries(s.accessories)) {
       if(!items.has(id))fail('REFERENCE', 'Unknown accessory '+id);
       quat(q);
-      if(2*Math.acos(Math.min(1, Math.abs(q[3])))>.5)fail('JOINT_LIMIT', 'Accessory rotation');
+      if(2*Math.acos(Math.min(1, Math.abs(q[3])/Math.hypot(...q)))>.5)fail('JOINT_LIMIT', 'Accessory rotation');
     }
     if(s.expression) {
       exact(s.expression, ['path', 'intensity', 'fadeOutSec', 'fadeInSec']);

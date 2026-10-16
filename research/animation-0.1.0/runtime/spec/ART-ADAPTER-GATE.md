@@ -23,3 +23,5 @@ A future face adapter must preserve the fixed body-local coordinate chart, inclu
 Direct r6 cross-face overlap is forbidden. The fixture's single-path machinery does not certify r6's geometry, represent all 20 candidate expressions, or approve any proposed timing. Single-primitive/POSITION-only morph/target-count restrictions also mean this loader is not presently a drop-in r6 loader. Add an art adapter only after the complete basic expression library is approved and archived, then run new asset-binding, sampled-shape, multiview and event-time checks.
 
 Latest art status: a separate short-horizontal neutral variant and new bounded brow/inner-mouth layers are candidates only. Archived Basis is unchanged. Candidate files do not authorize a new binding; independent gaze remains unimplemented.
+
+New artistic candidates can use sparse morph accessors with no base bufferView. The mechanical loader intentionally rejects them. A future adapter must validate bounded sparse decoding, indices, ranges and decoded work explicitly; raising morph-target counts alone is insufficient. No candidate sparse data is activated in this checkpoint.

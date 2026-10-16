@@ -74,7 +74,7 @@ async function create() {
   suite?.dispose();
   suite=null;
   try {
-    const prepared=pack??await preparePack(browserPackReader(new URL('../fixtures/', import.meta.url)), {
+    const prepared=pack??await preparePack(browserPackReader(new URL('../fixtures/authored/', import.meta.url)), {
       signal:abort.signal
     });
     if(closed||generation!==mine||abort.signal.aborted)return;
@@ -119,6 +119,11 @@ function play(segment) {
   });
   loop.invalidate();
 }
+document.querySelector('#authored').onclick=()=> {
+  if(!suite||suite.disposed)return;
+  suite.enqueue({time:now(),type:'playClip',clip:'asymmetric-holds',entrySec:.125});
+  loop.invalidate();
+};
 document.querySelector('#raise').onclick=()=>play('raise');
 document.querySelector('#turn').onclick=()=>play('turn');
 document.querySelector('#cancel').onclick=()=> {

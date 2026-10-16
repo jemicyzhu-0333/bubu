@@ -1,0 +1,5 @@
+import {QuaternionLane} from '../../src/timeline.mjs';
+import {validateMotion} from '../../src/contracts.mjs';import fs from 'node:fs';
+const base=new URL('../../fixtures/authored/',import.meta.url),profile=JSON.parse(fs.readFileSync(new URL('character-profile.json',base))),m=JSON.parse(fs.readFileSync(new URL('manifest.json',base))),motion=JSON.parse(fs.readFileSync(new URL('motion.json',base)));
+const q=[0,0,Math.sin(.16/2)*1.000005,Math.cos(.16/2)*1.000005];motion.segments[0].joints['arm.left']=q;validateMotion(motion,profile,m.equipment);
+const lane=new QuaternionLane({}, {clone(){return this}});lane.plan(0,q,.4);lane.sample(.4);const before=[...lane.value];lane.planClip(.4,{interpolation:'LINEAR',keys:[{at:0,rotation:[0,0,0,1]},{at:1,rotation:[0,0,0,1]}]},1,.125);lane.sample(.4);const at=[...lane.value];lane.sample(.4+1e-12);const after=[...lane.value];console.log(JSON.stringify({motionAccepted:true,normBefore:Math.hypot(...before),normAt:Math.hypot(...at),normAfterTinyDt:Math.hypot(...after),maxComponentJump:Math.max(...after.map((x,i)=>Math.abs(x-before[i])))},null,2));

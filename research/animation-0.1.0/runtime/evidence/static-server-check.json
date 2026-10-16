@@ -1,0 +1,35 @@
+{
+  "scope": "Own-cloud loopback HTTP resource delivery only; no browser/WebGL execution",
+  "resources": [
+    {
+      "path": "index.html",
+      "status": 200,
+      "bytes": 1571,
+      "sha256": "7924e010984d40e2fc3211173bc48c484121eac7118d1fdd7754aab96fc943fa"
+    },
+    {
+      "path": "src/demo.mjs",
+      "status": 200,
+      "bytes": 4786,
+      "sha256": "3d8d03b61b06b71a98242233917336597f0b80fbd914f89694bb25f3ed900a41"
+    },
+    {
+      "path": "fixtures/authored/manifest.json",
+      "status": 200,
+      "bytes": 1941,
+      "sha256": "202a6338a50a11e959967c242702aa01f388658a60e6abccec01e265da5289cf"
+    },
+    {
+      "path": "fixtures/authored/authored-clips.json",
+      "status": 200,
+      "bytes": 3532,
+      "sha256": "04844e621c1fcc28b1e2de22847fbcf85c0cea1d498558a28d112350fd310c36"
+    },
+    {
+      "path": "node_modules/three/build/three.module.js",
+      "status": 200,
+      "bytes": 662772,
+      "sha256": "9052042d676cb0fdc1ddfefe193053f34b7ac0513a616fdac4535d49987812ea"
+    }
+  ]
+}

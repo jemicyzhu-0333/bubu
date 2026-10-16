@@ -149,7 +149,7 @@ export async function createSuite(pack, cache, {
       lanes.set('accessory:'+item.id, new QuaternionLane(local, new Quaternion()));
     }
     if(signal?.aborted)throw signal.reason??Error('Aborted');
-    const face=new FaceLane(), timeline=new Timeline(lanes, face, pack.motion.segments, applyFace);
+    const face=new FaceLane(), timeline=new Timeline(lanes, face, pack.motion.segments, applyFace,pack.clips?.clips??[]);
     timeline.advance(0);
     root.updateMatrixWorld(true);
     return {

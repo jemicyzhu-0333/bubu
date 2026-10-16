@@ -1,14 +1,19 @@
 {
-  "checkpoint": "measurement02",
+  "checkpoint": "authoredclip03",
   "cleanTemporaryDirectory": true,
-  "archiveEquivalentSourceCopy": true,
-  "install": "npm ci",
+  "completeSourceCopy": true,
+  "npmCiFromLock": true,
   "cache": "fresh writable temporary npm cache",
   "registry": "https://registry.npmjs.org/",
   "dependency": "three@0.186.1",
   "installPassed": true,
   "packagesAdded": 1,
   "copiedNodeModules": false,
-  "testsPassed": 53,
-  "testsFailed": 0
+  "testsPassed": 79,
+  "testsFailed": 0,
+  "restoredSourceFilesChecked": 53,
+  "sourceTestsToolsFixturesSpecsByteIdentical": true,
+  "portableIndependentOraclePassed": true,
+  "portableDemoCancellationVMPassed": true,
+  "WebGL": false
 }

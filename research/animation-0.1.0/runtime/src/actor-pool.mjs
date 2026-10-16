@@ -4,14 +4,14 @@ import {preparedAdmission} from './pack-loader.mjs';
 import {exact, fail} from './contracts.mjs';
 
 export const POOL_HARD_LIMITS=Object.freeze({
-  actors:32, vertices:1000000, nodes:4096, deformedVertices:4000000, sourceBytes:134217728
+  actors:32, vertices:1000000, nodes:4096, deformedVertices:4000000, sourceBytes:134217728, clipKeyScalars:500000
 });
 export const POOL_DEFAULT_LIMITS=Object.freeze({
-  actors:8, vertices:200000, nodes:512, deformedVertices:1000000, sourceBytes:33554432
+  actors:8, vertices:200000, nodes:512, deformedVertices:1000000, sourceBytes:33554432, clipKeyScalars:100000
 });
 
 /** One application admission/ownership domain. All application actors use this pool.
- * sourceBytes counts unique encoded GLB sources, including pending late parses.
+ * sourceBytes counts unique encoded GLB and clip-library sources, including pending late parses.
  * It is deliberately NOT decoded heap/VRAM or caller-owned prepared-pack memory.
  */
 export class ActorPool {
@@ -19,7 +19,7 @@ export class ActorPool {
   #sources=new Map();
   #actors=new Set();
   #pending=new Set();
-  #used={actors:0,vertices:0,nodes:0,deformedVertices:0,sourceBytes:0};
+  #used={actors:0,vertices:0,nodes:0,deformedVertices:0,sourceBytes:0,clipKeyScalars:0};
   #closed=false;
   #limits;
   constructor(options={}) {
@@ -53,7 +53,7 @@ export class ActorPool {
   }
   #reserve(pack) {
     const cost=preparedAdmission(pack);
-    const next={actors:this.#used.actors+1,vertices:this.#used.vertices+cost.vertices,nodes:this.#used.nodes+cost.nodes,deformedVertices:this.#used.deformedVertices+cost.deformedVertices,sourceBytes:this.#used.sourceBytes};
+    const next={actors:this.#used.actors+1,vertices:this.#used.vertices+cost.vertices,nodes:this.#used.nodes+cost.nodes,deformedVertices:this.#used.deformedVertices+cost.deformedVertices,sourceBytes:this.#used.sourceBytes,clipKeyScalars:this.#used.clipKeyScalars+cost.clipKeyScalars};
     for(const source of cost.sources) {
       const existing=this.#sources.get(source.key);
       if(existing&&existing.bytes!==source.bytes)fail('INTEGRITY','Inconsistent shared source size');
@@ -71,7 +71,7 @@ export class ActorPool {
       if(released)return;
       released=true;
       this.#used.actors--;
-      for(const key of ['vertices','nodes','deformedVertices'])this.#used[key]-=cost[key];
+      for(const key of ['vertices','nodes','deformedVertices','clipKeyScalars'])this.#used[key]-=cost[key];
       for(const source of cost.sources) {
         this.#sources.get(source.key).refs--;
         this.#prune(source.key);
