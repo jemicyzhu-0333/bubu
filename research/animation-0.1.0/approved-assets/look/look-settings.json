@@ -1,0 +1,42 @@
+{
+  "render": {
+    "engine": "CYCLES",
+    "resolution_x": 414,
+    "resolution_y": 342,
+    "resolution_percentage": 100,
+    "film_transparent": true,
+    "pixel_aspect_x": 1.0,
+    "pixel_aspect_y": 1.0
+  },
+  "cycles": {
+    "samples": 128,
+    "seed": 0,
+    "use_denoising": false
+  },
+  "view_settings": {
+    "view_transform": "Standard",
+    "look": "None",
+    "exposure": 0.0,
+    "gamma": 1.0
+  },
+  "display_settings": {
+    "display_device": "sRGB"
+  },
+  "image_settings": {
+    "file_format": "PNG",
+    "color_mode": "RGBA",
+    "color_depth": "8",
+    "compression": 15
+  },
+  "camera": "A comparison camera",
+  "world": "World",
+  "objects": [
+    "A directional broad key",
+    "A weak broad fill",
+    "A broad rear lift",
+    "A lighting floor",
+    "A comparison camera",
+    "A controlled low bounce"
+  ],
+  "color_management_note": "Blender 4.3.2 source scene settings; render script sets its own resolution/samples."
+}

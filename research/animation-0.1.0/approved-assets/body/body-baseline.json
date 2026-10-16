@@ -1,0 +1,221 @@
+{
+  "status": "Approved05 unchanged body archive. No expression or motion acceptance implied.",
+  "approvedSourceSHA256": "3b7adcb303c8bd3c0dfb8976f9eb8fc0e6cefb897a7c16e99acc827385591722",
+  "derivedBodyOnlySHA256": "382be5783059bf440f8c072f22b0ad6ee96d84389fa3887f1a92634b66ed4b5d",
+  "sourceFiles": {
+    "originalGLB": "approved05-original.glb",
+    "originalBlend": "approved05-original.blend",
+    "originalLook": "approved05-original-look.blend"
+  },
+  "sourceRole": "The approved05 geometry is the sole body baseline. Body-only derivative exports the same existing mesh without face objects. No vertex editing/remeshing.",
+  "bodyMesh": "A_mochi_skin",
+  "root": "A_reference_root",
+  "coordinates": {
+    "Blender": "X right / Y back / Z up; front -Y",
+    "glTF": "X right / Y up / Z front",
+    "BlenderToGlTF": "(x,y,z) -> (x,z,-y)",
+    "units": "Design units, no real-world centimetre claim",
+    "groundBlenderZ": 0.006000000052154064,
+    "groundGlTFY": 0.006000000052154064
+  },
+  "bodyBoundsBlender": {
+    "min": [
+      -1.1898716688156128,
+      -0.7849818468093872,
+      0.006000000052154064
+    ],
+    "max": [
+      1.1898715496063232,
+      0.7849969267845154,
+      1.7922903299331665
+    ],
+    "dimensions": [
+      2.379743218421936,
+      1.5699787735939026,
+      1.7862903298810124
+    ]
+  },
+  "mesh": {
+    "vertices": 45945,
+    "polygons": 82523,
+    "triangles": 91886,
+    "closedVolumeUniformDensity": 2.9367143506586393,
+    "volumeCentroidBlender": [
+      2.03504214368877e-06,
+      -0.0006500898161903024,
+      0.8454643487930298
+    ]
+  },
+  "neutralFaceBoundsBlender": {
+    "A_eye_highlight_L": {
+      "min": [
+        -0.4779999852180481,
+        -0.7124636173248291,
+        1.0549999475479126
+      ],
+      "max": [
+        -0.3959999978542328,
+        -0.666297197341919,
+        1.1410000324249268
+      ],
+      "dimensions": [
+        0.08199998736381531,
+        0.046166419982910156,
+        0.08600008487701416
+      ]
+    },
+    "A_eye_highlight_R": {
+      "min": [
+        0.29600000381469727,
+        -0.7373230457305908,
+        1.0549999475479126
+      ],
+      "max": [
+        0.3779999911785126,
+        -0.7034242153167725,
+        1.1410000324249268
+      ],
+      "dimensions": [
+        0.08199998736381531,
+        0.03389883041381836,
+        0.08600008487701416
+      ]
+    },
+    "A_eye_L": {
+      "min": [
+        -0.5509999990463257,
+        -0.7598251104354858,
+        0.8410000205039978
+      ],
+      "max": [
+        -0.22300000488758087,
+        -0.6385682821273804,
+        1.2009999752044678
+      ],
+      "dimensions": [
+        0.3279999941587448,
+        0.12125682830810547,
+        0.35999995470046997
+      ]
+    },
+    "A_eye_R": {
+      "min": [
+        0.22300000488758087,
+        -0.7598265409469604,
+        0.8410000205039978
+      ],
+      "max": [
+        0.5509999990463257,
+        -0.6385427713394165,
+        1.2009999752044678
+      ],
+      "dimensions": [
+        0.3279999941587448,
+        0.12128376960754395,
+        0.35999995470046997
+      ]
+    },
+    "A_mouth_ring": {
+      "min": [
+        -0.04899999871850014,
+        -0.7867307066917419,
+        0.6460000276565552
+      ],
+      "max": [
+        0.04899999871850014,
+        -0.7720672488212585,
+        0.7440000176429749
+      ],
+      "dimensions": [
+        0.09799999743700027,
+        0.014663457870483398,
+        0.09799998998641968
+      ]
+    }
+  },
+  "faceAnchors": {
+    "eyeL": {
+      "surfacePositionBlender": [
+        -0.3869999945163727,
+        -0.7152183055877686,
+        1.0210000276565552
+      ],
+      "surfaceNormalBlender": [
+        -0.2841854691505432,
+        -0.9458766579627991,
+        0.15670351684093475
+      ],
+      "triangleIndex": 42026,
+      "coordinateConvention": "Blender X right, Y back, Z up. Front faces negativeY."
+    },
+    "eyeR": {
+      "surfacePositionBlender": [
+        0.3869999945163727,
+        -0.7152299880981445,
+        1.0210000276565552
+      ],
+      "surfaceNormalBlender": [
+        0.2821304500102997,
+        -0.9461820721626282,
+        0.15856200456619263
+      ],
+      "triangleIndex": 19845,
+      "coordinateConvention": "Blender X right, Y back, Z up. Front faces negativeY."
+    },
+    "mouth": {
+      "surfacePositionBlender": [
+        0.0,
+        -0.777902364730835,
+        0.6949999928474426
+      ],
+      "surfaceNormalBlender": [
+        0.003077490720897913,
+        -0.989247739315033,
+        -0.14621734619140625
+      ],
+      "triangleIndex": 58770,
+      "coordinateConvention": "Blender X right, Y back, Z up. Front faces negativeY."
+    }
+  },
+  "fixedFaceScaffold": {
+    "eyeCentresXZ": [
+      [
+        -0.387,
+        1.021
+      ],
+      [
+        0.387,
+        1.021
+      ]
+    ],
+    "eyeCentreSpacing": 0.774,
+    "neutralEyeHalfWidth": 0.164,
+    "neutralEyeHalfHeight": 0.18,
+    "mouthCentreXZ": [
+      0,
+      0.695
+    ],
+    "eyeToMouthVerticalDistance": 0.326,
+    "allowedFaceEnvelopeXZ": {
+      "eyeL": [
+        -0.61,
+        -0.164,
+        0.79,
+        1.25
+      ],
+      "eyeR": [
+        0.164,
+        0.61,
+        0.79,
+        1.25
+      ],
+      "mouth": [
+        -0.145,
+        0.145,
+        0.53,
+        0.79
+      ]
+    },
+    "faceRegionNote": "Limits describe facial geometry workspace only. They never authorize moving body vertices or neutral anchors. Camera view must not move anchor coordinates."
+  }
+}
