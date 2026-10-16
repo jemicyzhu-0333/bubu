@@ -1,0 +1,36 @@
+{
+  "assetSHA256": "79c28bf025c3dd13f08fea456ebedd8855d73ac1b8744ea3c440f3c1095bd795",
+  "staticGate": "independent actual large + native99 visual review passed; awaiting user3D confirmation",
+  "runtimeEnabled": false,
+  "sourceReferenceApproved": true,
+  "neutralFourViewsPixelExact": true,
+  "historicalR6BaseAndTargetsExact": true,
+  "historicalComparisonItems": 483,
+  "sharedBrowBasisWithBatch1Exact": true,
+  "bodyHasNoMorph": true,
+  "singleFaceAttachmentSamples": 98,
+  "orientationSamples": 130,
+  "tongueMaskSamples": 65,
+  "standardVisualCells": 40,
+  "extraTongueThresholdCells": 8,
+  "uniqueRenderedFrames": 44,
+  "viewYawDegrees": [
+    0,
+    -52,
+    52,
+    -85
+  ],
+  "expectedDegeneracy": [
+    "zero-area new layer Basis/non-N3",
+    "N3 inner mouth boundary collapsed by .375",
+    "tongue zero-area through .5"
+  ],
+  "singleFaceOnly": true,
+  "gazeImplemented": false,
+  "notes": [
+    "T05 is new user-corrected05; historical r6 Face05 remains unchanged but is not current selected visual direction.",
+    "N3 tongue is a bounded inner-mouth colour layer, not a deep oral cavity.",
+    "First mask version allowed grazing pink edge; outermost12% black-mouth depth corrected by at most .004. Final first-hit mask passed; same-view side comparison showed no thick black lip.",
+    "No direct cross-face blending or runtime approval."
+  ]
+}

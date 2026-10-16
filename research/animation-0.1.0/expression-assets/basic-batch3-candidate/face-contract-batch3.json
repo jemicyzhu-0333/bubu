@@ -1,0 +1,104 @@
+{
+  "assetSHA256": "79c28bf025c3dd13f08fea456ebedd8855d73ac1b8744ea3c440f3c1095bd795",
+  "status": "static 3D candidate; reference directions accepted; final 3D user approval pending",
+  "sourceR6": "fba41db41ecb0e0a959cd6923f55d5edbfaebf4558d79e1e9832b2a806cc5830",
+  "bodyChanges": false,
+  "chartType": "fixed orthographic U=X,V=Z with real body depth ray projection toward +Y",
+  "eyeNeutralAnchors": {
+    "L": [
+      -0.387,
+      1.021
+    ],
+    "R": [
+      0.387,
+      1.021
+    ]
+  },
+  "mouthNeutralAnchor": [
+    0,
+    0.695
+  ],
+  "newMeshes": [
+    "A_brow_L",
+    "A_brow_R",
+    "A_tongue"
+  ],
+  "roster": [
+    "A_eye_L",
+    "A_eye_R",
+    "A_eye_highlight_L",
+    "A_eye_highlight_R",
+    "A_mouth_ring",
+    "A_brow_L",
+    "A_brow_R",
+    "A_tongue"
+  ],
+  "states": {
+    "N3": {
+      "meaning": "strong surprise; round eyes, raised small brows, vertical black opening with a small inner tongue colour",
+      "source": "references/N3.png",
+      "sourceVersion": "master02-user-corrected",
+      "eyes": "exact neutral Basis, including highlights",
+      "mouth": "vertical rounded black opening; inner boundary closes symmetrically by .375; no teeth",
+      "brows": "symmetric raised small arcs",
+      "tongue": "bounded warm pink inner colour layer; zero area through .5, then grows smoothly inside black aperture",
+      "tongueZeroThroughIntensity": 0.5,
+      "sourceSHA256": "8c2e3d412a4f1fb24d6cdfb58d22c73166c4fe90b982f746a713fac0170eb537"
+    },
+    "T05": {
+      "meaning": "light unease; revised05",
+      "source": "references/T05.png",
+      "sourceVersion": "master02-user-corrected",
+      "referenceID": "05",
+      "supersedesVisualDirection": "historical r6 Face05 kept byte-identical for traceability",
+      "eyes": "exact neutral Basis, including highlights",
+      "mouth": "horizontal rounded opening with regular inner hole",
+      "brows": "zero-area Basis",
+      "tongue": "zero-area Basis",
+      "sourceSHA256": "ea437ec1edcaaa6c657396ae0408002ddd9f8ec78cfafc1570816897c66e38bf"
+    }
+  },
+  "mapping": {
+    "implementation": "basic_face_utils.basic_weights / apply_basic",
+    "authoredKnots": [
+      0.0,
+      0.125,
+      0.25,
+      0.375,
+      0.5,
+      0.625,
+      0.75,
+      0.875,
+      1.0
+    ],
+    "targetNames": "Basic{ID}_{01..08}",
+    "activeLimit": "one semantic face, at most two adjacent authored knots, remainder Basis",
+    "clearAllOtherMorphs": true,
+    "crossFaceMixing": false,
+    "newMorphNormals": "preserve exported NORMAL deltas, no unvalidated runtime recomputation",
+    "pathDescription": "N3 closes the O inner boundary before exposing the bounded tongue after .5; T05 remains an open rounded capsule. One state only; actual 8-knot geometry is authoritative."
+  },
+  "gazeImplemented": false,
+  "highlightSemantics": "surface-attached light reflections, not eye-white or pupil",
+  "libraryMerge": "Independent source-r6 review package. Five original face meshes share exact source Basis; brow Basis is exact batch1; tongue is an optional shared layer. Merge semantic banks by unique BasicN3/BasicT05 names later. This GLB does not replace other batches.",
+  "additionalLayers": {
+    "sharedBrows": {
+      "names": [
+        "A_brow_L",
+        "A_brow_R"
+      ],
+      "sharedBasis": "exact exported Basis/topology/normals/weights/indices as batch1",
+      "visibility": "N3 only; .125 remains a zero-area relocated point; all legacy states and T05 must reset these layers to Basis",
+      "weights": "Body 1.0"
+    },
+    "tongue": {
+      "name": "A_tongue",
+      "weights": "Body 1.0",
+      "basis": "all 257 vertices at one hidden neutral-mouth point; 448 zero-area triangles are intentional",
+      "visibility": "only N3 after .5; all other faces including old r6 states must explicitly clear all N3 targets",
+      "occlusion": "projected onto evaluated black mouth at each authored knot; full visible vertices and triangle centres checked against body, mouth and tongue first hits at four views",
+      "depth": "black-mouth surface minus .0006 to .0009 along Blender Y; mouth outermost12% has at most .004 additional forward offset at full N3 for grazing occlusion",
+      "limitation": "stylized bounded inner-mouth colour surface; no deep anatomical oral cavity"
+    }
+  }
+}
