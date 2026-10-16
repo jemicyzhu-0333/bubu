@@ -1,0 +1,96 @@
+{
+  "assetSHA256": "f02f3e1e5b06236c973d25773c4b55e2735021045b1d7a7f08bb6bb22825e77c",
+  "status": "static3D candidate; source directions accepted; actual3D user review pending",
+  "sourceR6": "fba41db41ecb0e0a959cd6923f55d5edbfaebf4558d79e1e9832b2a806cc5830",
+  "bodyChanges": false,
+  "chartType": "fixed orthographic U=X,V=Z with real body depth ray projection toward +Y",
+  "eyeNeutralAnchors": {
+    "L": [
+      -0.387,
+      1.021
+    ],
+    "R": [
+      0.387,
+      1.021
+    ]
+  },
+  "mouthNeutralAnchor": [
+    0,
+    0.695
+  ],
+  "newMeshes": [
+    "A_brow_L",
+    "A_brow_R"
+  ],
+  "roster": [
+    "A_eye_L",
+    "A_eye_R",
+    "A_eye_highlight_L",
+    "A_eye_highlight_R",
+    "A_mouth_ring",
+    "A_brow_L",
+    "A_brow_R"
+  ],
+  "states": {
+    "T5": {
+      "meaning": "closed-eye setback/sadness",
+      "source": "references/T5.png",
+      "eyes": "rounded closed U arcs; whole aperture closes before bending",
+      "mouth": "rounded small downturned arch",
+      "highlightsZeroByIntensity": 0.625,
+      "brows": "hidden",
+      "distinctFromStateID": "T05 is the separately corrected mild-unease face, not this closed-eye sadness",
+      "sourceSHA256": "be98b8d2566d81c33ddc133bfa6c86d8cba107f61a7603287824d1646775e14d"
+    },
+    "S3": {
+      "meaning": "worry",
+      "source": "references/S3.png",
+      "eyes": "mostly round open eyes with a very shallow full lower-lid bow",
+      "mouth": "small solid double wave",
+      "brows": "two inward-raised small soft arcs",
+      "sourceSHA256": "08834f3f1220035a8f159fb565c0f3042fb783835525e0d58cfe8e7efa464798"
+    },
+    "S5": {
+      "meaning": "open-eye sadness",
+      "source": "references/S5.png",
+      "eyes": "mirrored inward-high/outward-low upper lids over rounded lower contour",
+      "mouth": "small rounded downturned arch",
+      "brows": "same symmetric worry-brow family as S3",
+      "emotionRelationship": "related open-eye state of the sadness family; not claimed as a wholly separate emotion from T5",
+      "sourceSHA256": "0741a7b656b959344b9cf39aaf339313cab6a4a1e90a1209352f40fd5b6aa077"
+    }
+  },
+  "mapping": {
+    "implementation": "basic_face_utils.basic_weights / apply_basic",
+    "authoredKnots": [
+      0.0,
+      0.125,
+      0.25,
+      0.375,
+      0.5,
+      0.625,
+      0.75,
+      0.875,
+      1.0
+    ],
+    "targetNames": "Basic{ID}_{01..08}",
+    "activeLimit": "one semantic face, at most two adjacent authored knots, remainder Basis",
+    "clearAllOtherMorphs": true,
+    "crossFaceMixing": false,
+    "mouthPrimitive": "closed_mouth_transition.close_then_shape",
+    "mouthHoleClosedAtIntensity": 0.5,
+    "newMorphNormals": "preserve exported NORMAL deltas, no unvalidated runtime recomputation",
+    "boundaryHelper": "closed_mouth_boundary.rounded_pill_boundary returns a capsule boundary on exactly the original angular ray; tangent-normal swept coordinates must not be passed as a radial boundary"
+  },
+  "gazeImplemented": false,
+  "highlightSemantics": "surface-attached light reflections, not eye-white or pupil",
+  "libraryMerge": "Unique BasicT5/S3/S5 targets; T5 is distinct from BasicT05. Common source-r6 five-mesh Basis and exact shared batch1 brow Basis. Independent review package, not the merged runtime library.",
+  "additionalLayers": {
+    "brows": {
+      "sharedBasis": "exact exported batch1 Basis/topology/normals/weights/indices",
+      "visibility": "only S3/S5; .125 remains an invisible relocated point before growth; every other face clears all targets",
+      "weights": "Body 1.0",
+      "strictHiddenState": "All vertices exactly coincident AND surface area exactly0; raw skin-crossing values preserved, no visible triangle exception"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "assetSHA256": "f02f3e1e5b06236c973d25773c4b55e2735021045b1d7a7f08bb6bb22825e77c",
+  "staticGate": "independent actual large + native99 visual review passed; awaiting user3D confirmation",
+  "runtimeEnabled": false,
+  "sourceReferenceApproved": true,
+  "neutralFourViewsPixelExact": true,
+  "historicalR6BaseAndTargetsExact": true,
+  "historicalComparisonItems": 483,
+  "sharedBrowBasisWithBatch1Exact": true,
+  "bodyHasNoMorph": true,
+  "singleFaceAttachmentSamples": 147,
+  "orientationSamples": 195,
+  "mouthCollapseSamples": 99,
+  "browEyeGapSamples": 258,
+  "minimumVisibleBrowEyeGap": 0.040201425552368164,
+  "standardVisualCells": 60,
+  "extraBrowThresholdCells": 16,
+  "uniqueRenderedFrames": 64,
+  "viewYawDegrees": [
+    0,
+    -52,
+    52,
+    -85
+  ],
+  "expectedDegeneracy": [
+    "zero-area new brow Basis/non-S3/S5",
+    "closed mouth inner boundaries"
+  ],
+  "singleFaceOnly": true,
+  "gazeImplemented": false,
+  "notes": [
+    "T5 is closed-eye sadness, distinct ID from revised mild-unease T05. T5/S5 are related states of the same emotion family.",
+    "S3 source lower-eye central contour is slightly more raised than this model; kept as a limited visual difference.",
+    "Radial-pill boundary contract and normal-width rounded endpoints preserve clean open-to-closed mouth paths.",
+    "Current attachment passes without hidden-point penetration exceptions. Raw projected-area numerical signs for collapsed inner edges remain recorded.",
+    "No direct cross-face blending or runtime approval."
+  ]
+}
