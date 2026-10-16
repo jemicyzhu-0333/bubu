@@ -4,7 +4,7 @@
 
 小步（英文名 bubu）是一个本地优先的 ADHD 日常效率与桌面陪伴应用：随手记下想法，把任务拆成下一步，用专注计时器开始，再和桌面伙伴一起回来继续。
 
-当前测试版为 [`0.0.2-dev.4`](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.4)；通用设置提供简体中文/English 预览和跟随系统/浅色/深色主题。这是执行功能辅助工具，不提供 ADHD 诊断、治疗或医疗疗效承诺。
+当前测试版为 [`0.0.2-dev.5`](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.5)；通用设置提供简体中文/English 预览和跟随系统/浅色/深色主题。这是执行功能辅助工具，不提供 ADHD 诊断、治疗或医疗疗效承诺。
 
 ## 真实界面
 
@@ -32,9 +32,9 @@
 ## 下载与开发版本
 
 - [项目网站](https://jemicyzhu-0333.github.io/bubu/)提供功能介绍与当前下载提示。
-- **当前测试版：[`v0.0.2-dev.4`](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.4)。** 应用/包版本为 `0.0.2-dev.4`，简化主面板层级，修复日常、任务与随手记交互；AI 工具使用简洁状态灯，分拣显示运行状态与结果原因。累计进展以三项统计与历程展示。
-- **已核验下载**：[Windows x64 · 未签名](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.4/bubu-0.0.2-dev.4-win-x64.exe) · [macOS Apple Silicon · ad-hoc 受限测试](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.4/bubu-0.0.2-dev.4-mac-arm64-adhoc-test.dmg) · [SHA256SUMS.txt](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.4/SHA256SUMS.txt)。公开下载的字节数与 SHA-256 已和原安装包核对；完整文件名与哈希见发布说明。
-- **更早预览版**：[v0.0.2-dev.3](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.3)（[验证记录](docs/VALIDATION.md#002-dev3-已发布测试包的证据边界)）、[v0.0.2-dev.2](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.2)（[验证记录](docs/VALIDATION.md#002-dev2-已发布测试包的证据边界)）与 [v0.0.2-dev.1](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.1)（[验证记录](docs/VALIDATION.md#002-dev1-已发布测试包的证据边界)）保留作历史证据。
+- **当前测试版：[`v0.0.2-dev.5`](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.5)。** 应用/包版本为 `0.0.2-dev.5`，简化主面板层级，修复日常、任务与随手记交互；AI 工具使用简洁状态灯，分拣显示运行状态与结果原因。累计进展以三项统计与历程展示。
+- **已核验下载**：[Windows x64 · 未签名](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.5/bubu-0.0.2-dev.5-win-x64.exe) · [macOS Apple Silicon · ad-hoc 受限测试](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.5/bubu-0.0.2-dev.5-mac-arm64-adhoc-test.dmg) · [SHA256SUMS.txt](https://github.com/jemicyzhu-0333/bubu/releases/download/v0.0.2-dev.5/SHA256SUMS.txt)。公开下载的字节数与 SHA-256 已和原安装包核对；完整文件名与哈希见发布说明。
+- **更早预览版**：[v0.0.2-dev.4](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.4)、[v0.0.2-dev.3](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.3)（[验证记录](docs/VALIDATION.md#002-dev3-已发布测试包的证据边界)）、[v0.0.2-dev.2](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.2)（[验证记录](docs/VALIDATION.md#002-dev2-已发布测试包的证据边界)）与 [v0.0.2-dev.1](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.2-dev.1)（[验证记录](docs/VALIDATION.md#002-dev1-已发布测试包的证据边界)）保留作历史证据。
 - **上一测试包**：[v0.0.1-dev-r4](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r4) 来自提交 `df3242a`，内部版本为 `0.0.1-dev`。Windows r4 已确认存在首次启动档案准入错误，仅保留作历史诊断基线；原文件名与历史验证记录不改写。
 - **历史版本**：[r3](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r3)、[r2](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev-r2) 与 [v0.0.1-dev](https://github.com/jemicyzhu-0333/bubu/releases/tag/v0.0.1-dev) 保留作历史记录；请勿安装初版 v0.0.1-dev 中已报告“已损坏”的旧 Mac 包。
 - 新测试包来自手动 [Build Windows and macOS (test)](https://github.com/jemicyzhu-0333/bubu/actions/workflows/build-desktop.yml) 工作流，面向 **Windows x64** 和 **macOS ARM64**。成功运行后可在保留期内下载 artifact，GitHub 可能要求登录；请核对运行的分支与提交。工作流不会创建 Release。
