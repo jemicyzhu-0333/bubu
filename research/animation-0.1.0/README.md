@@ -11,4 +11,4 @@ This directory records the new 0.1.0 3D architecture work. Runtime design intent
 - Drag and long-press integration: deferred until the foundation and full expression library pass review.
 - Browser/WebGL/native performance and real mouse interaction are not yet verified. Offline rendering and CPU tests must not be described as native end-to-end validation.
 
-Model/source asset batches will follow this initial checkpoint. This document alone is not a complete asset backup. No demonstration videos or production/main merge are included.
+The approved body and selected r6 expression source/GLB restoration bundles are now backed up under approved-assets/. Run its restore script to verify retained hashes and reproduce editable source/look files. The broader expression library and new runtime remain in progress. No demonstration videos or production/main merge are included.

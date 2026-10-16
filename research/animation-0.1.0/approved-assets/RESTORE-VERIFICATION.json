@@ -1,0 +1,20 @@
+{
+  "bodyRestore": "passed: gold original/look bytes restored, body-only derivatives created in isolated /tmp output",
+  "r6SourceRestore": "gzip restored original source SHA256",
+  "r6FormulaRebuildSHA256": "fba41db41ecb0e0a959cd6923f55d5edbfaebf4558d79e1e9832b2a806cc5830",
+  "r6FormulaRebuildExactGoldenBytes": true,
+  "lookRenderTest": {
+    "initialEnvironmentOnlyAttempt": "failed visual comparison; omitted compositor and duplicate scene light state, rejected",
+    "finalStrategy": "lossless restoration of complete original look scenes",
+    "bodyLookByteExact": true,
+    "r6LookByteExact": true,
+    "bodyLookSHA256": "b33d195594852c97c636b66b05538a6983bdd9d78bb5d8bf25fdbbec2c29568d",
+    "r6LookSHA256": "76a158e9ca6ee693c2fa099a65433514d16cfa96a86a2a3f7e54c0b68b8ac4f9"
+  },
+  "mappingTest": {
+    "cases": 505,
+    "maxError": 0,
+    "multiFaceRejected": true
+  },
+  "notes": "Final restore retains full gold look scene gzip including compositor. Rebuild exactness demonstrated on Blender4.3.2. No environment reconstruction is used."
+}

@@ -1,0 +1,208 @@
+{
+  "version": "face-chart-v2",
+  "bodyBaselineSHA256": "3b7adcb303c8bd3c0dfb8976f9eb8fc0e6cefb897a7c16e99acc827385591722",
+  "fixedFrame": {
+    "BlenderAxes": {
+      "U": [
+        1,
+        0,
+        0
+      ],
+      "V": [
+        0,
+        0,
+        1
+      ],
+      "front": [
+        0,
+        -1,
+        0
+      ]
+    },
+    "glTFAxes": {
+      "U": [
+        1,
+        0,
+        0
+      ],
+      "V": [
+        0,
+        1,
+        0
+      ],
+      "front": [
+        0,
+        0,
+        1
+      ]
+    },
+    "coordinates": "U/V is a fixed orthographic coordinate chart, not the local differential tangent frame. After local contour and gaze offsets, depth is ray-projected onto the actual curved body.",
+    "anchorScope": "L means negative-X eye in front view; R means positive-X eye. No asymmetry copied from source perspective."
+  },
+  "anchors": {
+    "eyeL": {
+      "surfacePositionBlender": [
+        -0.3869999945163727,
+        -0.7152183055877686,
+        1.0210000276565552
+      ],
+      "surfaceNormalBlender": [
+        -0.2841854691505432,
+        -0.9458766579627991,
+        0.15670351684093475
+      ],
+      "triangleIndex": 42026,
+      "coordinateConvention": "Blender X right, Y back, Z up. Front faces negativeY."
+    },
+    "eyeR": {
+      "surfacePositionBlender": [
+        0.3869999945163727,
+        -0.7152299880981445,
+        1.0210000276565552
+      ],
+      "surfaceNormalBlender": [
+        0.2821304500102997,
+        -0.9461820721626282,
+        0.15856200456619263
+      ],
+      "triangleIndex": 19845,
+      "coordinateConvention": "Blender X right, Y back, Z up. Front faces negativeY."
+    },
+    "mouth": {
+      "surfacePositionBlender": [
+        0.0,
+        -0.777902364730835,
+        0.6949999928474426
+      ],
+      "surfaceNormalBlender": [
+        0.003077490720897913,
+        -0.989247739315033,
+        -0.14621734619140625
+      ],
+      "triangleIndex": 58770,
+      "coordinateConvention": "Blender X right, Y back, Z up. Front faces negativeY."
+    }
+  },
+  "scaffold": {
+    "eyeCentresXZ": [
+      [
+        -0.387,
+        1.021
+      ],
+      [
+        0.387,
+        1.021
+      ]
+    ],
+    "eyeCentreSpacing": 0.774,
+    "neutralEyeHalfWidth": 0.164,
+    "neutralEyeHalfHeight": 0.18,
+    "mouthCentreXZ": [
+      0,
+      0.695
+    ],
+    "eyeToMouthVerticalDistance": 0.326,
+    "allowedFaceEnvelopeXZ": {
+      "eyeL": [
+        -0.61,
+        -0.164,
+        0.79,
+        1.25
+      ],
+      "eyeR": [
+        0.164,
+        0.61,
+        0.79,
+        1.25
+      ],
+      "mouth": [
+        -0.145,
+        0.145,
+        0.53,
+        0.88
+      ]
+    },
+    "faceRegionNote": "Limits describe facial geometry workspace only. They never authorize moving body vertices or neutral anchors. Camera view must not move anchor coordinates."
+  },
+  "layers": {
+    "expression": {
+      "input": "expression ID and intensity[0,1]",
+      "controls": "Upper and lower lid contours, rounded stroke centreline/width, mouth exterior/interior profile, optional explicitly approved cheek tint.",
+      "invariants": "Neutral anchors and rest geometry are exact approved05. Each expression may define an explicit bounded contour offset relative to those fixed anchors. No body, foot, ear or camera compensation."
+    },
+    "gaze": {
+      "input": "Reserved gazeDirection, independent from expression intensity",
+      "status": "Currentr4/r5 has no independentgaze channel. Both eye and highlight meshes are fullyBody-weighted and only expression morphs alter them. Whole-eye gaze is a reserved separate channel, not yet implemented or accepted.",
+      "invariant": "Never reinterpret highlight position as pupil aim. Do not move the two eyes to random face positions.",
+      "proposedLocalWholeEyeOffset": {
+        "units": "3D design units in fixed face U/V frame, not copiedV1 pixels",
+        "U": [
+          -0.025,
+          0.025
+        ],
+        "V": [
+          -0.02,
+          0.02
+        ],
+        "native99pxApproximateMaxProjection": [
+          1.4,
+          1.1
+        ],
+        "status": "Proposed sampling envelope only. Not implemented, not validated or enabled.",
+        "application": "Both eye shape and its attached highlight move together on the curved face surface; fixed anchor definitions and mouth remain unchanged. Closed-stroke eyes taper gaze to zero.",
+        "validationBeforeUse": "Sample centre/axis/corner gaze directions with all approved open/half-lid expressions, front/twoquarters/side, same99px scale; check body clearance, eye spacing, visible range and occlusion. Reproject final local coordinates onto actualskin, not flat XY translation."
+      }
+    },
+    "highlight": {
+      "input": "Lighting-relative reflection placement and aperture visibility",
+      "implementation": "Current white spots are stylized reflection caps, not eyeball whites or pupils. They follow eye surface mapping and shrink/collapse with closing aperture.",
+      "invariant": "No surviving white dot on a closed eye. No gaze intent inferred solely from moving this cap."
+    }
+  },
+  "expressionRevisionPlan": {
+    "04": "Increase rounded chevron width/stroke amount and solid wavy mouth toward selected source; existing version is visibly too faint.",
+    "05": "Keep a full round upper eye and locally rounded lower corners/lower half; remove flat-cut reading.",
+    "07": "Thicker rounded smile arches and pocket-shaped open mouth: flat upper opening, rounded sides/bottom, visible even rim.",
+    "08": "Upper lids have inner ends higher than outer ends, a gentle mirrored outward-downward slope; retain round lower volume and U smile."
+  },
+  "stageGate": "Body archive identity first. Selected revised static faces second. Full V1 actually used base-expression inventory in batches after that. Runtime remains paused until user approval.",
+  "localExpressionConstruction": {
+    "04": {
+      "eyeStrokeRadius": 0.036,
+      "mouthStrokeRadius": 0.022,
+      "mouthCoreHalfWidth": 0.091,
+      "mouthWaveHeight": 0.021,
+      "mouthStrokeConstruction": "Uniform-height round-ended solid double arch. No tapered annular strip."
+    },
+    "05": {
+      "lowerLid": "Shallow continuous raised-centre arc, with rounded and slightly fuller inner corner. Upper circle and eye anchor unchanged.",
+      "lowerCorners": "Only the outermost25% of eye half-width smoothly raises the lower edge into the side. Centre shallow arc unchanged; target3\u20135source pixels corner rounding."
+    },
+    "07": {
+      "eyeArchRise": 0.087,
+      "eyeStrokeRadius": 0.042,
+      "mouthChartCentre": [
+        0,
+        0.79
+      ],
+      "mouthNeutralAnchor": [
+        0,
+        0.695
+      ],
+      "mouthLocalOffset": [
+        0,
+        0.095
+      ],
+      "mouthOuterWidth": 0.185,
+      "mouthOuterTop": 0.845,
+      "mouthOuterBottom": 0.71,
+      "reason": "Selected source places pocket mouth closer to closed smile eyes. Preserve neutral anchor, record expression-specific local offset."
+    },
+    "08": {
+      "upperLidAtCentre": 0.095,
+      "upperLidMirroredSlope": 0.025,
+      "direction": "Inner end higher, outer end lower. Lower contour stays round.",
+      "mouth": "Rounded half-ellipse U centreline, rather than a narrow parabolic bend; same small closed smile scale."
+    }
+  }
+}

@@ -6,8 +6,14 @@
     {
       "path": "body/README.md",
       "batch": "body",
-      "bytes": 1078,
-      "sha256": "2fd6d4b773d24a0626ad0b7a64833dba2fdb7514cb9d810e85c9316c956ea46d"
+      "bytes": 1091,
+      "sha256": "d6565dcdea4c87f4e2a29cf39dd9d08dc8fce1ea281bf8ac1b0b2ab29558bf1e"
+    },
+    {
+      "path": "body/approved05-original-look.blend.gz",
+      "batch": "body",
+      "bytes": 2168882,
+      "sha256": "84821d7780b01ce58f0ee2162175ab469f764b5b9800d5fe6dcde680d238bc8c"
     },
     {
       "path": "body/approved05-original.blend",
@@ -58,10 +64,10 @@
       "sha256": "c5ac1cdf77669d045b51be0f85d115940768a89c724a0a6b5a332fe2a13a0247"
     },
     {
-      "path": "body/look-settings.json",
+      "path": "body/render_body_archive.py",
       "batch": "body",
-      "bytes": 945,
-      "sha256": "b4ce04e39447508af251d3edba472335ffe8327359ec331b04faf2a1dfbc97a7"
+      "bytes": 938,
+      "sha256": "ee4419822a4b95d9393864b1672b590f8a781302bfb02d0c934f2e1bb7023f0e"
     },
     {
       "path": "r6/APPROVAL.json",
@@ -72,14 +78,32 @@
     {
       "path": "r6/README.md",
       "batch": "r6",
-      "bytes": 1488,
-      "sha256": "032a738ace3ce37667309fdabfb0535a4457a3e52845d4de1273543a834e9292"
+      "bytes": 1538,
+      "sha256": "95514fcb1802c24a5df9c11904ffa37661d22873a7925af3d40c3004ce4c4ea2"
     },
     {
       "path": "r6/STATIC-QA.json",
       "batch": "r6",
       "bytes": 2246,
       "sha256": "34c86f50fc3837952b32ca922bcd6148a2ba76bb0d923491688be993a243e761"
+    },
+    {
+      "path": "r6/audit_face_orientation.py",
+      "batch": "r6",
+      "bytes": 2185,
+      "sha256": "242921cafbffa0601e348863e4c7a122f034457fd4e9e980492b3294e28cd542"
+    },
+    {
+      "path": "r6/audit_selected_faces.py",
+      "batch": "r6",
+      "bytes": 3330,
+      "sha256": "5266ebdf4c3910d8540ce83d5e1702ff5af079ce7214e575d71b13e4af01451a"
+    },
+    {
+      "path": "r6/bubu-a05-selected-faces-look.blend.gz",
+      "batch": "r6",
+      "bytes": 4160921,
+      "sha256": "2e9fb58ee2f64697596488b91b50443a0af08670eb023b9f281230d695f5717c"
     },
     {
       "path": "r6/bubu-a05-selected-faces.blend.gz",
@@ -130,6 +154,12 @@
       "sha256": "989327425a00b97e77ddd4382d173333c895f940d13bdc9f953a179fcdec0cbd"
     },
     {
+      "path": "r6/mapping-audit.json",
+      "batch": "r6",
+      "bytes": 89,
+      "sha256": "31807cd55cff46d2f59cf14469f593be77b56b44b94ab84fc592cff533681e3b"
+    },
+    {
       "path": "r6/rebuild_selected_faces.py",
       "batch": "r6",
       "bytes": 9064,
@@ -140,6 +170,12 @@
       "batch": "r6",
       "bytes": 1651071,
       "sha256": "6f42bec698df81a01f885243d5271b4030f6bdd15023d32864ce0e1730927769"
+    },
+    {
+      "path": "r6/references/source-imagegen-prompt.txt",
+      "batch": "r6",
+      "bytes": 3932,
+      "sha256": "c375605dcf779f5b73f3324fb04b6185c79a53277a08fd6bf95328256d6b4f68"
     },
     {
       "path": "r6/render_selected_faces.py",
@@ -184,39 +220,56 @@
       "sha256": "203844807e1cefb2ec240b36c84303eeef1fb1a15896c7373f6e8f47af874242"
     },
     {
-      "path": "look/look-environment.blend",
-      "batch": "shared",
-      "bytes": 65454,
-      "sha256": "6c5616b7c76569c0dbf495091a2543d90a7fef2b21f43afa7c117bf0253ea6d5"
+      "path": "r6/test_mapping.mjs",
+      "batch": "r6",
+      "bytes": 717,
+      "sha256": "adef52f7a25ac3059c31fdc64c28fee7a900867816d072c55a374af807c7e95a"
     },
     {
-      "path": "look/look-settings.json",
-      "batch": "shared",
-      "bytes": 945,
-      "sha256": "f0b1bccd13b680c23a5b78b40e4eafebef3f880301291be47c87a82be4f1eba1"
+      "path": "r6/weight-fixtures.json",
+      "batch": "r6",
+      "bytes": 630312,
+      "sha256": "2bf89847264b33f93523f0c4e29b6dbceceb5441c3d50b6a359974b35bcc6b6f"
     },
     {
       "path": "scripts/restore.py",
       "batch": "shared",
-      "bytes": 1603,
-      "sha256": "13c410b5083122c80be80fda259dc762cf4bb55f25766b8b398dad3d97cfe5a8"
+      "bytes": 1641,
+      "sha256": "b50a0586e6c91eb950ebcd638f35cea8cbb58b1a2784c7658853b822c99a484a"
     },
     {
       "path": "scripts/restore_blender.py",
       "batch": "shared",
-      "bytes": 1612,
-      "sha256": "f26a633060eed6dc014cb7bbb48871e41b36d7e97aa5684185cc1799288d3af9"
+      "bytes": 486,
+      "sha256": "b5e8f8fb7ba097e542c424a1748b8526b3827886c353f83b9382008be5ea8d7f"
+    },
+    {
+      "path": "README.md",
+      "batch": "shared",
+      "bytes": 1995,
+      "sha256": "f7667597b6d3bec0f410cc0129a2f3ce34a46ecfcbf7e5d19c360a78adb9f871"
+    },
+    {
+      "path": "RESTORE-VERIFICATION.json",
+      "batch": "shared",
+      "bytes": 1051,
+      "sha256": "6875abc21d942ed4c05cd2a15d5ada5cd5883ea0527ea29bc9f027c2ceb12a4a"
     }
   ],
   "restoredSources": {
-    "r6": {
-      "path": "r6/bubu-a05-selected-faces.blend",
+    "body/approved05-original-look.blend.gz": {
+      "sha256": "b33d195594852c97c636b66b05538a6983bdd9d78bb5d8bf25fdbbec2c29568d"
+    },
+    "r6/bubu-a05-selected-faces-look.blend.gz": {
+      "sha256": "76a158e9ca6ee693c2fa099a65433514d16cfa96a86a2a3f7e54c0b68b8ac4f9"
+    },
+    "r6/bubu-a05-selected-faces.blend.gz": {
       "sha256": "5fbb37f5abb8f06c29355b20bded3780e536f9adfd691ba8a222ac0bee06d3a0"
     }
   },
   "exclusions": [
     "Historical duplicate pass GLBs",
-    "Duplicate look/source blend files reconstructed from retained source plus environment",
+    "Duplicate body-only blend files reconstructed from retained full source",
     "Per-frame renders",
     "Videos",
     "Unapproved new reference groups"

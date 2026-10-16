@@ -1,0 +1,47 @@
+{
+  "assetSHA256": "fba41db41ecb0e0a959cd6923f55d5edbfaebf4558d79e1e9832b2a806cc5830",
+  "createdUTC": "2026-10-16T17:46:07.267910+00:00",
+  "status": "frozen static candidate awaiting user art confirmation",
+  "sourceBodyArchive": "bubu-3d-a-body-baseline-20261016/approved05-body-baseline-v1",
+  "independentStaticVisualReview": {
+    "passed": true,
+    "coverage": "Five selected expressions, four fixed views, intensities 0/.25/.5/.75/1; large and actual 99px. Endpoints also compared with selected source design.",
+    "observed": "No old bitten-disc notch, added middle lobe, surviving closed-eye white dot, or visible face/skin penetration.04 mouth and05 corners preserved;07/08 endpoints locked.",
+    "qualification": "04 half-strength open wavy mouth and07 half-strength narrow arch are transition states, not separately approved base expressions."
+  },
+  "singleStateSampleAudit": {
+    "cases": 245,
+    "passed": true,
+    "samples": "vertices and triangle centroids; no sampled penetration. Not an infinite-resolution proof."
+  },
+  "orientationAudit": {
+    "meshIntensityCases": 2025,
+    "anyOrientationReversal": false,
+    "method": "XY projection sign relative to own neutral front cap; detects fold-over candidates, not a general self-intersection proof. Closed highlights intentionally collapse."
+  },
+  "mapping": {
+    "cases": 505,
+    "maxDifference": 0,
+    "rejectsSimultaneous": true,
+    "passed": true
+  },
+  "renderCoverage": {
+    "uniqueSourceFrames": 84,
+    "reusedByteIdenticalRest01Frames": 16,
+    "sourceFrameSize": [
+      414,
+      342
+    ],
+    "nativeCharacterHeight": 99,
+    "viewDegrees": {
+      "front": 0,
+      "quarter": -52,
+      "opposite": 52,
+      "side": -85
+    }
+  },
+  "forbiddenCombination": "Direct simultaneous selected faces or legacy S/B/C mixing remain disabled. State changes require continuous rest bridge.",
+  "gaze": "Independent whole-eye gaze not implemented, tested, or enabled. White spots are attached highlights.",
+  "dynamicIntegration": "paused; this static gate does not authorize stage activation",
+  "nextGate": "User art confirmation of current selected faces, then reference-led V1 batches and complete base-expression archive before resuming interaction."
+}

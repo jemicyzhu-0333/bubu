@@ -12,13 +12,14 @@ print('Retained artifact hashes verified')
 if args.verify_only:raise SystemExit()
 for kind in (['body','r6'] if args.only=='all' else [args.only]):
  out=args.out.resolve()/kind;out.mkdir(parents=True,exist_ok=True)
- for src in (P/kind).rglob('*'):
-  if not src.is_file():continue
+ for item in m['files']:
+  if item['batch']!=kind:continue
+  src=P/item['path']
   rel=src.relative_to(P/kind);dst=out/rel;dst.parent.mkdir(parents=True,exist_ok=True)
   if src.suffix=='.gz':
    dst=dst.with_suffix('')
    with gzip.open(src,'rb') as i,open(dst,'wb') as o:shutil.copyfileobj(i,o)
-   expected=m['restoredSources'][kind]['sha256'];assert hashlib.sha256(dst.read_bytes()).hexdigest()==expected
+   expected=m['restoredSources'][str(src.relative_to(P))]['sha256'];assert hashlib.sha256(dst.read_bytes()).hexdigest()==expected
   else:shutil.copy2(src,dst)
- subprocess.run([args.blender,'-b','-t','2','--python',str(P/'scripts/restore_blender.py'),'--',str(P),str(args.out.resolve()),kind],check=True)
+ if kind=='body':subprocess.run([args.blender,'-b','-t','2','--python',str(P/'scripts/restore_blender.py'),'--',str(args.out.resolve())],check=True)
 print('Restored to',args.out.resolve())
