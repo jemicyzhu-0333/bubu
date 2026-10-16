@@ -1,0 +1,103 @@
+{
+  "assetSHA256": "92e56c6f534beddd03ffd2fe82287a7b482876363ee5e37d9ffe5021d6a22b20",
+  "status": "single-face static visual/attachment gate passed; frozen candidate awaiting user3D confirmation",
+  "sourceReferenceDirectionsAccepted": true,
+  "user3DApproved": false,
+  "runtimeEnabled": false,
+  "newFaces": [
+    "R0",
+    "A7",
+    "S2"
+  ],
+  "R0ReplacesDefault": false,
+  "restOriginalR6ImageDifference": {
+    "front": {
+      "sourceSize": [
+        342,
+        414,
+        4
+      ],
+      "newSize": [
+        342,
+        414,
+        4
+      ],
+      "sameImage": true,
+      "maxPixelDifference": 0
+    },
+    "quarter": {
+      "sourceSize": [
+        342,
+        414,
+        4
+      ],
+      "newSize": [
+        342,
+        414,
+        4
+      ],
+      "sameImage": true,
+      "maxPixelDifference": 0
+    },
+    "opposite": {
+      "sourceSize": [
+        342,
+        414,
+        4
+      ],
+      "newSize": [
+        342,
+        414,
+        4
+      ],
+      "sameImage": true,
+      "maxPixelDifference": 0
+    },
+    "side": {
+      "sourceSize": [
+        342,
+        414,
+        4
+      ],
+      "newSize": [
+        342,
+        414,
+        4
+      ],
+      "sameImage": true,
+      "maxPixelDifference": 0
+    }
+  },
+  "oldBodyAndTargetsExact": true,
+  "attachmentSamples": 147,
+  "attachmentPassed": true,
+  "minimumBodyClearance": 0.0014200210571289062,
+  "minimumHighlightEyeClearance": 0.0005031228065490723,
+  "orientationSamples": 195,
+  "noNondegenerateProjectionReversal": true,
+  "originalHighlightPoleRawNegativeTriangles": 8,
+  "originalHighlightPoleExceptionRule": {
+    "onlyMeshes": [
+      "A_eye_highlight_L",
+      "A_eye_highlight_R"
+    ],
+    "sourceMinimumEdgeBelow": 1e-06,
+    "currentMinimumEdgeBelow": 1e-06,
+    "absoluteDoubleAreaBelow": 5e-10
+  },
+  "mouthInnerCollapseMaxFloat32Spread": 1.3328735858254892e-07,
+  "mouthInnerCollapseTolerance": 2e-07,
+  "expectedDegeneracy": "A7 disappearing highlights and coalesced mouth inner boundary; inherited sub-microunit highlight pole roundoff is explicitly retained and narrowly classified",
+  "standardVisualCells": 60,
+  "additionalHighlightNeighbourhoodCells": 6,
+  "uniqueRenderedFrames": 58,
+  "directCrossFaceBlendAllowed": false,
+  "gazeImplemented": false,
+  "checks": {
+    "export-identity-audit.json": "677c7e7e63ae1c3c9cb5983198d6a40b7190b8d42837d01f71937730849f5292",
+    "face-attachment-audit.json": "3640aa02a5736c12047d3be98a4c2fce4d80a5e698788efe0b8319ff1bd710d0",
+    "projected-orientation-audit.json": "f6940bdeccefc7568ec7294ed36d970cdd70f7ba35e19c59c25b452dcf55b2c3",
+    "mouth-collapse-audit.json": "398d284ebb153f0988d80b31ab8114131296f603d1d66f72b41f129b6716edad",
+    "highlight-pole-exception.json": "382a9cb93590c9c1ec331a179ab58f58154a97ec1489866aa79996aa98d4667e"
+  }
+}

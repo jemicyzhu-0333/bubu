@@ -1,0 +1,79 @@
+{
+  "assetSHA256": "92e56c6f534beddd03ffd2fe82287a7b482876363ee5e37d9ffe5021d6a22b20",
+  "status": "static 3D candidate; reference directions accepted; final 3D user approval pending",
+  "sourceR6": "fba41db41ecb0e0a959cd6923f55d5edbfaebf4558d79e1e9832b2a806cc5830",
+  "bodyChanges": false,
+  "chartType": "fixed orthographic U=X,V=Z with real body depth ray projection toward +Y",
+  "eyeNeutralAnchors": {
+    "L": [
+      -0.387,
+      1.021
+    ],
+    "R": [
+      0.387,
+      1.021
+    ]
+  },
+  "mouthNeutralAnchor": [
+    0,
+    0.695
+  ],
+  "newMeshes": [],
+  "roster": [
+    "A_eye_L",
+    "A_eye_R",
+    "A_eye_highlight_L",
+    "A_eye_highlight_R",
+    "A_mouth_ring"
+  ],
+  "states": {
+    "R0": {
+      "meaning": "quiet short-neutral variant",
+      "source": "references/R0.png",
+      "eyes": "exact neutral Basis",
+      "mouth": "short horizontal round-capped stroke",
+      "defaultReplacement": false,
+      "sourceSHA256": "098c297cbdaee37661d15fdc8f0132a795b247c3ec9c779a12f4532c35f5b3df"
+    },
+    "A7": {
+      "meaning": "natural sleep",
+      "source": "references/A7.png",
+      "eyes": "simple downward-centred closed U curves, no lash corners",
+      "mouth": "relaxed short horizontal stroke",
+      "highlightsZeroByIntensity": 0.625,
+      "sourceSHA256": "db6136d27a19fb28db9ccb855fa4c47ff0bf74fdb650eb1bb7ace4d21e84138c"
+    },
+    "S2": {
+      "meaning": "awake friendly smile",
+      "source": "references/S2.png",
+      "eyes": "exact neutral Basis",
+      "mouth": "small round-ended U",
+      "expectationGuaranteedByFaceAlone": false,
+      "sourceSHA256": "1a9f0077314f3664afeb134eaf0d30dea78c53afe2392f2fe77ebfe43d00af6f"
+    }
+  },
+  "mapping": {
+    "implementation": "basic_face_utils.basic_weights / apply_basic",
+    "authoredKnots": [
+      0.0,
+      0.125,
+      0.25,
+      0.375,
+      0.5,
+      0.625,
+      0.75,
+      0.875,
+      1.0
+    ],
+    "targetNames": "Basic{ID}_{01..08}",
+    "activeLimit": "one semantic face, at most two adjacent authored knots, remainder Basis",
+    "clearAllOtherMorphs": true,
+    "crossFaceMixing": false,
+    "mouthPrimitive": "closed_mouth_transition.close_then_shape",
+    "mouthHoleClosedAtIntensity": 0.5,
+    "newMorphNormals": "preserve exported NORMAL deltas, no unvalidated runtime recomputation"
+  },
+  "gazeImplemented": false,
+  "highlightSemantics": "surface-attached light reflections, not eye-white or pupil",
+  "libraryMerge": "independent source-r6 package; does not replace first-batch D1/N2/P2. Merge banks against verified shared Basis later."
+}
