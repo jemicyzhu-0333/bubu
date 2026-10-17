@@ -18,6 +18,14 @@ from scipy.sparse.linalg import spsolve
 edges=np.unique(np.sort(np.concatenate([idx[:,[0,1]],idx[:,[1,2]],idx[:,[2,0]]]),axis=1),axis=0)
 adj=[set() for _ in a]
 for i,j in edges:adj[i].add(j);adj[j].add(i)
+
+weights={}
+for tri in idx:
+ for k in range(3):
+  i,j,o=int(tri[k]),int(tri[(k+1)%3]),int(tri[(k+2)%3]);u=a[i]-a[o];v=a[j]-a[o];w=float(u@v)/max(float(np.linalg.norm(np.cross(u,v))),1e-12)
+  key=tuple(sorted((i,j)));weights[key]=weights.get(key,0)+w*.5
+weights={k:max(v,.001) for k,v in weights.items()}
+
 patches=[]
 for side in [1,-1]:
  th=np.arctan2(z/depth,side*x);mask=(side*x>0)&(y>.43)&(y<.94)&(th>-.46)&(th<.38)
@@ -25,9 +33,9 @@ for side in [1,-1]:
  interior=np.setdiff1d(np.flatnonzero(mask),boundary);lookup={j:i for i,j in enumerate(interior)}
  A=lil_matrix((len(interior),len(interior)));rhs=np.zeros((len(interior),2));uv=np.column_stack([th,y])
  for row,i in enumerate(interior):
-  A[row,row]=sum(1/max(np.linalg.norm(a[i]-a[j]),1e-6)**2 for j in adj[i])
+  A[row,row]=sum(weights[tuple(sorted((i,j)))] for j in adj[i])
   for j in adj[i]:
-   w=1/max(np.linalg.norm(a[i]-a[j]),1e-6)**2
+   w=weights[tuple(sorted((i,j)))]
    if j in lookup:A[row,lookup[j]]=-w
    else:rhs[row]+=w*uv[j]
  uv[interior]=spsolve(A.tocsr(),rhs)
@@ -43,20 +51,24 @@ for side in [1,-1]:
  patches.append(dict(side=side,mask=mask,uv=uv,target=target,boundary=boundary.tolist()))
 (P/'patches.json').write_text(json.dumps([dict(side=p['side'],vertices=np.flatnonzero(p['mask']).tolist(),boundary=p['boundary']) for p in patches]))
 def bump(h,phi,center):
- # Compact C1 rounded protrusion: no interpolation hull or multivalued samples.
- u=np.sqrt(((h-.665)/.17)**2+((phi-center)/.195)**2);return .205*np.maximum(0,1-u**4)**2*(u<1)
+ # Spherical cap with a C1 Hermite root fillet. Radius and protrusion close to
+ # canonical short fin; no flat plateau or hard support cutoff.
+ u=np.sqrt(((h-.665)/.13)**2+((phi-center)/.14)**2)
+ core=np.sqrt(np.maximum(0,1-u*u));t=np.clip((u-.8)/.45,0,1)
+ fillet=.6*(t**3-t*t-t+1)
+ return .16*np.where(u<=.8,core,np.where(u<1.25,fillet,0))
 def deform(t):
  if t==0:return a.copy()
  s=smooth(t/.18);travel=smooth((t-.08)/.92);q=a.copy()
  for p in patches:
   side=p['side'];mask=p['mask'];th=np.arctan2(z/depth,side*x);center=-.08+(1.12 if side==1 else 1.22)*travel
   # Original fin patch becomes a regular carrier patch with its own harmonic UV.
-  target=p['target'].copy();phi,h=p['uv'].T;d=bump(h,phi,center);rad=carrier(h);norm=(abs(np.cos(phi))**n+abs(np.sin(phi))**n)**(1/n)
+  target=p['target'].copy();phi,h=p['uv'].T;d=bump(h+.07*travel,phi,center);rad=carrier(h);norm=(abs(np.cos(phi))**n+abs(np.sin(phi))**n)**(1/n)
   target[:,0]+=side*d*np.cos(phi)/norm;target[:,2]+=depth*d*np.sin(phi)/norm
   q[mask]=(1-s)*a[mask]+s*target[mask]
   # Other surface vertices only gain the moving bump. They never acquire the
   # old fin's material vertices or a long-distance tangent translation.
-  other=(side*x>0)&(~mask);d=bump(y,th,center)*s;scale=d/np.maximum(r,1e-9)
+  other=(side*x>0)&(~mask);d=bump(y+.07*travel,th,center)*s;scale=d/np.maximum(r,1e-9)
   q[other,0]+=x[other]*scale[other];q[other,2]+=z[other]*scale[other]
  return q
 frames=[];report=[]
