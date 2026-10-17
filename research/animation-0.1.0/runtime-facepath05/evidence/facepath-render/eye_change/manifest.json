@@ -1,0 +1,4630 @@
+{
+  "format": "bubu-facepath-render",
+  "version": "0.1.0",
+  "name": "eye_change",
+  "scope": "Offline Blender replay of actual runtime-exported morph weights, not WebGL capture; body/rig fixed at source rest.",
+  "replayFile": "/workspace/scratch/10657b778e8b/bubu-runtime-0.1.0-facepath06-20261017/evidence/facepath-replays/eye_change.json",
+  "replaySHA256": "0036af0d44d3d992af839080a7e3adad93027abc691aca0e4100fdbff4948075",
+  "timelineSHA256": "286ded8d6c6992cd0333e1985a0baee0e21dd951dcf3ab91b8bb790cd7641892",
+  "assetSHA256": "a9ae09635658ac15c55cf1571db53e284bd463eaab9a84ff24e7836270a1808e",
+  "lookSHA256": "b85f9873b7829222510ea02a8acdaebcd5d97d67d3f26efb038a65d7d0a9388d",
+  "staticVisualGateSHA256": "37b3b7aacbd77eaff669eefaff899b7110567bfbe637188fe1a5635353f5e195",
+  "settings": {
+    "assetSHA256": "a9ae09635658ac15c55cf1571db53e284bd463eaab9a84ff24e7836270a1808e",
+    "lookSHA256": "b85f9873b7829222510ea02a8acdaebcd5d97d67d3f26efb038a65d7d0a9388d",
+    "engine": "CYCLES",
+    "cyclesSamples": 96,
+    "cyclesSeed": 0,
+    "sourceResolution": [
+      414,
+      342
+    ],
+    "nativeResolution": [
+      141,
+      116
+    ],
+    "orthographicScale": 2.5399999618530273,
+    "cameraRadius": 7,
+    "cameraHeight": 0.95,
+    "cameraTarget": [
+      0,
+      0,
+      0.95
+    ],
+    "viewsDegrees": {
+      "front": 0,
+      "quarter": -52,
+      "opposite": 52,
+      "side": -85
+    },
+    "colorTransform": "Standard",
+    "look": "None",
+    "filmTransparent": true,
+    "fixedBodyRigAndObjectFingerprint": "e5eec7ba4ee42f7648a14a2f18e7c581fa476d7916655ffbf44e0a4c206ddd9a"
+  },
+  "settingsSHA256": "51186e5d9e5bba747d8ab95801e6e9cf20b16a3fc774421c906a72bd7a0e7d0d",
+  "calibration": {
+    "sourceResolution": [
+      414,
+      342
+    ],
+    "sourceBasisAlphaThreshold": 128,
+    "sourceBasisAlphaBounds": [
+      13,
+      34,
+      401,
+      325
+    ],
+    "sourceBasisHeight": 291,
+    "targetBasisHeight": 99,
+    "fixedScale": 0.3402061855670103,
+    "scaledFullFrame": [
+      141,
+      116
+    ],
+    "reference": "bubu-3d-a-face-coordinate-v2-20261016/candidate-a05-selected-faces-r6-review/face-01-0.00-front.png",
+    "referenceSHA256": "17d3251704ffa023156e58e588402515e61d998d71e2859fa11aad8a891a5b3d",
+    "policy": "One uniform full-frame resize, never per-pose crop or fit; all cameras retain source orthographic scale."
+  },
+  "fps": 30,
+  "duration": 3.2,
+  "timelineDuration": 3.2,
+  "mainView": "front",
+  "mainResolution": [
+    414,
+    342
+  ],
+  "mainRasterMode": "downsampled_source",
+  "sourceDiagnosticCount": 14,
+  "diagnosticSelectionPolicy": "Actual event samples, confirmed arrivals, actual Basis boundaries, N3-half crossings, brake endpoints. Event+/-1us near-duplicates and superseded forecast-only times remain in source JSON without redundant multiview images.",
+  "frames": [
+    {
+      "frame": 0,
+      "time": 0,
+      "state": {
+        "time": 0,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": null,
+        "requestedFadeOutSec": 0.1,
+        "requestedFadeInSec": 0.1,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0,
+        "arrivalTime": 0,
+        "actualArrival": 0,
+        "holdSince": 0,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {},
+      "image": {
+        "file": "eye_change/frames/000000.png",
+        "sha256": "9cbf7015976b1075483bb9f9866f689d160066e6c47ff0a641e346cb1bc30b8a",
+        "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "718ea36fe567bcec26488e78382ec1f52989343e2d8eadf7fbad86ab8788367b"
+      }
+    },
+    {
+      "frame": 1,
+      "time": 0.03333333333333333,
+      "state": {
+        "time": 0.03333333333333333,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": null,
+        "requestedFadeOutSec": 0.1,
+        "requestedFadeInSec": 0.1,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0,
+        "arrivalTime": 0,
+        "actualArrival": 0,
+        "holdSince": 0,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {},
+      "image": {
+        "file": "eye_change/frames/000001.png",
+        "sha256": "9cbf7015976b1075483bb9f9866f689d160066e6c47ff0a641e346cb1bc30b8a",
+        "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "718ea36fe567bcec26488e78382ec1f52989343e2d8eadf7fbad86ab8788367b"
+      }
+    },
+    {
+      "frame": 2,
+      "time": 0.06666666666666667,
+      "state": {
+        "time": 0.06666666666666667,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": null,
+        "requestedFadeOutSec": 0.1,
+        "requestedFadeInSec": 0.1,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0,
+        "arrivalTime": 0,
+        "actualArrival": 0,
+        "holdSince": 0,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {},
+      "image": {
+        "file": "eye_change/frames/000002.png",
+        "sha256": "9cbf7015976b1075483bb9f9866f689d160066e6c47ff0a641e346cb1bc30b8a",
+        "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "718ea36fe567bcec26488e78382ec1f52989343e2d8eadf7fbad86ab8788367b"
+      }
+    },
+    {
+      "frame": 3,
+      "time": 0.1,
+      "state": {
+        "time": 0.1,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": null,
+        "requestedFadeOutSec": 0.1,
+        "requestedFadeInSec": 0.1,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0,
+        "arrivalTime": 0,
+        "actualArrival": 0,
+        "holdSince": 0,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {},
+      "image": {
+        "file": "eye_change/frames/000003.png",
+        "sha256": "9cbf7015976b1075483bb9f9866f689d160066e6c47ff0a641e346cb1bc30b8a",
+        "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "718ea36fe567bcec26488e78382ec1f52989343e2d8eadf7fbad86ab8788367b"
+      }
+    },
+    {
+      "frame": 4,
+      "time": 0.13333333333333333,
+      "state": {
+        "time": 0.13333333333333333,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": null,
+        "requestedFadeOutSec": 0.1,
+        "requestedFadeInSec": 0.1,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0,
+        "arrivalTime": 0,
+        "actualArrival": 0,
+        "holdSince": 0,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {},
+      "image": {
+        "file": "eye_change/frames/000004.png",
+        "sha256": "9cbf7015976b1075483bb9f9866f689d160066e6c47ff0a641e346cb1bc30b8a",
+        "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "718ea36fe567bcec26488e78382ec1f52989343e2d8eadf7fbad86ab8788367b"
+      }
+    },
+    {
+      "frame": 5,
+      "time": 0.16666666666666666,
+      "state": {
+        "time": 0.16666666666666666,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": null,
+        "requestedFadeOutSec": 0.1,
+        "requestedFadeInSec": 0.1,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0,
+        "arrivalTime": 0,
+        "actualArrival": 0,
+        "holdSince": 0,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {},
+      "image": {
+        "file": "eye_change/frames/000005.png",
+        "sha256": "9cbf7015976b1075483bb9f9866f689d160066e6c47ff0a641e346cb1bc30b8a",
+        "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "718ea36fe567bcec26488e78382ec1f52989343e2d8eadf7fbad86ab8788367b"
+      }
+    },
+    {
+      "frame": 6,
+      "time": 0.2,
+      "state": {
+        "time": 0.2,
+        "path": "07",
+        "value": 0,
+        "velocity": 0,
+        "phase": "enter",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.62,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {},
+      "image": {
+        "file": "eye_change/frames/000006.png",
+        "sha256": "9cbf7015976b1075483bb9f9866f689d160066e6c47ff0a641e346cb1bc30b8a",
+        "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "718ea36fe567bcec26488e78382ec1f52989343e2d8eadf7fbad86ab8788367b"
+      }
+    },
+    {
+      "frame": 7,
+      "time": 0.23333333333333334,
+      "state": {
+        "time": 0.23333333333333334,
+        "path": "07",
+        "value": 0.017896635432538676,
+        "velocity": 1.0438037648922,
+        "phase": "enter",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.62,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_01": 0.1431730834603094
+      },
+      "image": {
+        "file": "eye_change/frames/000007.png",
+        "sha256": "be7da532569c205a654df02c9fd0860f9352593175ad75df6a603c4a5e5bb858",
+        "weightsSHA256": "c773547f0df7230fe52c8b997de4200bf2ca0e00d46fa96d232107da454deff4",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "62e555902431faa33d363d5640a7d1b56ac599edc7a0053adfe6faf0b51ac063"
+      }
+    },
+    {
+      "frame": 8,
+      "time": 0.26666666666666666,
+      "state": {
+        "time": 0.26666666666666666,
+        "path": "07",
+        "value": 0.06758729358880529,
+        "velocity": 1.907641363423676,
+        "phase": "enter",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.62,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_01": 0.5406983487104423
+      },
+      "image": {
+        "file": "eye_change/frames/000008.png",
+        "sha256": "22a79e0e1c1977108a650ae4e9a84220f8fd61b30d3341c1236fa313951c3e3d",
+        "weightsSHA256": "64a92dc71233ac7d90103f2724eacc92dc1ae9c773650d2c6412db40712ba73b",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "45ecc279883704876d3e9b69765b5f24046f3e25dcd6a94d9c558bc23f923142"
+      }
+    },
+    {
+      "frame": 9,
+      "time": 0.3,
+      "state": {
+        "time": 0.3,
+        "path": "07",
+        "value": 0.14307310225677566,
+        "velocity": 2.591512795594428,
+        "phase": "enter",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.62,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_01": 0.8554151819457947,
+        "Face07_02": 0.1445848180542053
+      },
+      "image": {
+        "file": "eye_change/frames/000009.png",
+        "sha256": "085125e3a719bee16b44fb403a1da5694f84c110084ebcf85ebcfa4ac0a493ee",
+        "weightsSHA256": "36414087862d2e2aa11cb289ba6bea6a82fffe5fbc4450dc5ec2eb0ce8e33428",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "c2f28205ec9a5953d7bab4eb0a85216f8199971764285b4c18bc056202533ff8"
+      }
+    },
+    {
+      "frame": 10,
+      "time": 0.3333333333333333,
+      "state": {
+        "time": 0.3333333333333333,
+        "path": "07",
+        "value": 0.23835518922442572,
+        "velocity": 3.0954180614044553,
+        "phase": "enter",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.62,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_01": 0.09315848620459422,
+        "Face07_02": 0.9068415137954058
+      },
+      "image": {
+        "file": "eye_change/frames/000010.png",
+        "sha256": "8f6bcd159e11d90d85d73bb709558a813a602579c789ff596d57689619bd8653",
+        "weightsSHA256": "a1615f402ed8c888892000ea2c66ee8328a1748a7727594828e040a9dee68d9c",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee1149f96dc1c0c5083aa5e23915ab6aa5f80acfbb6e5a512d174981ae656612"
+      }
+    },
+    {
+      "frame": 11,
+      "time": 0.36666666666666664,
+      "state": {
+        "time": 0.36666666666666664,
+        "path": "07",
+        "value": 0.34743468227973134,
+        "velocity": 3.419357160853759,
+        "phase": "enter",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.62,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_02": 0.22052254176214925,
+        "Face07_03": 0.7794774582378508
+      },
+      "image": {
+        "file": "eye_change/frames/000011.png",
+        "sha256": "b43efc237d1b14240d0edb4088311f497e02a431a5fa9b0bebcba00b489d31db",
+        "weightsSHA256": "70dad689e36fd428e867cc65dc805fd96b604a7bef48ca3ff0a33b8e0a40879e",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "d9e8be8b0d0a04389a77b06adb39b4a026482dcce7ed53e82cae568c6c87e5b3"
+      }
+    },
+    {
+      "frame": 12,
+      "time": 0.4,
+      "state": {
+        "time": 0.4,
+        "path": "07",
+        "value": 0.4643127092106684,
+        "velocity": 3.563330093942339,
+        "phase": "enter",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.62,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_03": 0.28549832631465266,
+        "Face07_04": 0.7145016736853473
+      },
+      "image": {
+        "file": "eye_change/frames/000012.png",
+        "sha256": "555bd1636d61ac32e1b33ad7bfb85930833aa1c34503fa80e312f5a085e1e8d5",
+        "weightsSHA256": "bae7f7a88ac0cbef9cb10dc6499dbeecef89d6975af487769e085e53f6077a88",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "efcabb1de2626b850f6383576af97eb98a4b3c10a9e6b9e4ad9243fe93480c09"
+      }
+    },
+    {
+      "frame": 13,
+      "time": 0.43333333333333335,
+      "state": {
+        "time": 0.43333333333333335,
+        "path": "07",
+        "value": 0.5829903978052127,
+        "velocity": 3.527336860670194,
+        "phase": "enter",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.62,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_04": 0.33607681755829866,
+        "Face07_05": 0.6639231824417013
+      },
+      "image": {
+        "file": "eye_change/frames/000013.png",
+        "sha256": "fa48fe397c34b2261799196cdff24a5080b794d58125d2673ea611fc9f78b4ef",
+        "weightsSHA256": "671f1ac1a0283cee149b27f8ca5a94dea2e578061f3eda6a0f31aa01f5863f8c",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "806f277f8b804c98f0ec09ccd6cb84359adf5d98cafe0f4ec80a8c4be132ebb2"
+      }
+    },
+    {
+      "frame": 14,
+      "time": 0.4666666666666667,
+      "state": {
+        "time": 0.4666666666666667,
+        "path": "07",
+        "value": 0.6974688758513399,
+        "velocity": 3.3113774610373254,
+        "phase": "enter",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.62,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_05": 0.420248993189281,
+        "Face07_06": 0.579751006810719
+      },
+      "image": {
+        "file": "eye_change/frames/000014.png",
+        "sha256": "126aeb14bba9d86d2bb1404cfc2a02b1a35936a2f64226e970e155f1aef98e0c",
+        "weightsSHA256": "68af782b6f70025ce917b8d817668903a41f8e53f4cd9a3175c365f7e60d7419",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "793a17de463490e42315c7384904d352cc0af6873edf263313f5bb8293582e5b"
+      }
+    },
+    {
+      "frame": 15,
+      "time": 0.5,
+      "state": {
+        "time": 0.5,
+        "path": "07",
+        "value": 0.8017492711370262,
+        "velocity": 2.9154518950437316,
+        "phase": "enter",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.62,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_06": 0.5860058309037903,
+        "Face07_07": 0.4139941690962097
+      },
+      "image": {
+        "file": "eye_change/frames/000015.png",
+        "sha256": "e831e2910c03f7ecec42c82d0c2bb5dd1e437716b256e36435799ebc91e061ef",
+        "weightsSHA256": "f9f81a7c8420b648e031a605f58b6414c2f2bd95004181bb0ac1f4b6aaea5256",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "2e71d1ed2df5438366367f27faa8ceb5559f3e870af9592fa3a162a6ae7bd4a2"
+      }
+    },
+    {
+      "frame": 16,
+      "time": 0.5333333333333333,
+      "state": {
+        "time": 0.5333333333333333,
+        "path": "07",
+        "value": 0.8898327114502473,
+        "velocity": 2.339560162689415,
+        "phase": "enter",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.62,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_07": 0.8813383083980213,
+        "Face07_08": 0.1186616916019787
+      },
+      "image": {
+        "file": "eye_change/frames/000016.png",
+        "sha256": "7f22cc21814e6cf8c21518516e5c0711845d1d1cbd5387ca61cb0f4bf4252229",
+        "weightsSHA256": "3e80d415a708080a00b847c83be68e65988c2e3cf0f83b73ffdc04635d1a7e06",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "452e9c71c04f5196b22afc18fb7dd7918f8ec4c059d8635721382edefee1b549"
+      }
+    },
+    {
+      "frame": 17,
+      "time": 0.5666666666666667,
+      "state": {
+        "time": 0.5666666666666667,
+        "path": "07",
+        "value": 0.9557203245789792,
+        "velocity": 1.583702263974373,
+        "phase": "enter",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.62,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_07": 0.3542374033681668,
+        "Face07_08": 0.6457625966318332
+      },
+      "image": {
+        "file": "eye_change/frames/000017.png",
+        "sha256": "3e29be5c38e5adf59686864eef5ad16324c7a31464af3741f9e728f7a349a3b0",
+        "weightsSHA256": "aafd9d7e556c7c515fb43a84c9db4a2b30ebb633ac81151e6ca38fafc08537c4",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "0615b5e5fb8f884df5f3a0e97518efc117d3d6242858028655b37d05323ebf3a"
+      }
+    },
+    {
+      "frame": 18,
+      "time": 0.6,
+      "state": {
+        "time": 0.6,
+        "path": "07",
+        "value": 0.9934132383111974,
+        "velocity": 0.6478781988986076,
+        "phase": "enter",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.62,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_07": 0.05269409351042054,
+        "Face07_08": 0.9473059064895795
+      },
+      "image": {
+        "file": "eye_change/frames/000018.png",
+        "sha256": "9fe8a70710ba8e09f72983bf21c823f69362f746f5c4c646feb1d38d066f85d7",
+        "weightsSHA256": "dd91482b0ff13fb5651d1cd24e6022a972a59a8aa5003463f6e36e3e2fbaa1ba",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "319939d782bf8896006cc0db2fb2ad59db841f75ffb9537485af093534f73509"
+      }
+    },
+    {
+      "frame": 19,
+      "time": 0.6333333333333333,
+      "state": {
+        "time": 0.6333333333333333,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000019.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 20,
+      "time": 0.6666666666666666,
+      "state": {
+        "time": 0.6666666666666666,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000020.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 21,
+      "time": 0.7,
+      "state": {
+        "time": 0.7,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000021.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 22,
+      "time": 0.7333333333333333,
+      "state": {
+        "time": 0.7333333333333333,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000022.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 23,
+      "time": 0.7666666666666667,
+      "state": {
+        "time": 0.7666666666666667,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000023.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 24,
+      "time": 0.8,
+      "state": {
+        "time": 0.8,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000024.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 25,
+      "time": 0.8333333333333334,
+      "state": {
+        "time": 0.8333333333333334,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000025.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 26,
+      "time": 0.8666666666666667,
+      "state": {
+        "time": 0.8666666666666667,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000026.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 27,
+      "time": 0.9,
+      "state": {
+        "time": 0.9,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000027.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 28,
+      "time": 0.9333333333333333,
+      "state": {
+        "time": 0.9333333333333333,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000028.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 29,
+      "time": 0.9666666666666667,
+      "state": {
+        "time": 0.9666666666666667,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000029.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 30,
+      "time": 1,
+      "state": {
+        "time": 1,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000030.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 31,
+      "time": 1.0333333333333334,
+      "state": {
+        "time": 1.0333333333333334,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000031.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 32,
+      "time": 1.0666666666666667,
+      "state": {
+        "time": 1.0666666666666667,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000032.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 33,
+      "time": 1.1,
+      "state": {
+        "time": 1.1,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000033.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 34,
+      "time": 1.1333333333333333,
+      "state": {
+        "time": 1.1333333333333333,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000034.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 35,
+      "time": 1.1666666666666667,
+      "state": {
+        "time": 1.1666666666666667,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000035.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 36,
+      "time": 1.2,
+      "state": {
+        "time": 1.2,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000036.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 37,
+      "time": 1.2333333333333334,
+      "state": {
+        "time": 1.2333333333333334,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000037.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 38,
+      "time": 1.2666666666666666,
+      "state": {
+        "time": 1.2666666666666666,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000038.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 39,
+      "time": 1.3,
+      "state": {
+        "time": 1.3,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000039.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 40,
+      "time": 1.3333333333333333,
+      "state": {
+        "time": 1.3333333333333333,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000040.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 41,
+      "time": 1.3666666666666667,
+      "state": {
+        "time": 1.3666666666666667,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000041.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 42,
+      "time": 1.4,
+      "state": {
+        "time": 1.4,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000042.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 43,
+      "time": 1.4333333333333333,
+      "state": {
+        "time": 1.4333333333333333,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000043.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 44,
+      "time": 1.4666666666666666,
+      "state": {
+        "time": 1.4666666666666666,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000044.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 45,
+      "time": 1.5,
+      "state": {
+        "time": 1.5,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "withdraw",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.78,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000045.png",
+        "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+        "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+      }
+    },
+    {
+      "frame": 46,
+      "time": 1.5333333333333334,
+      "state": {
+        "time": 1.5333333333333334,
+        "path": "07",
+        "value": 0.9608573588165423,
+        "velocity": -2.2473275024295485,
+        "phase": "withdraw",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.78,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_07": 0.31314112946766137,
+        "Face07_08": 0.6868588705323386
+      },
+      "image": {
+        "file": "eye_change/frames/000046.png",
+        "sha256": "f68f627d48174d0b2bb73762617a8b7d5cbc06ab3c38f99020ba115e99751a99",
+        "weightsSHA256": "45be3a31f1f90f9a76cbe88a570cf7284e3606acfdf7cea67d129bcf180c4c2b",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "f3cf0c553b584ed2df2130ed7b9efd1c55fe27fba9f845ec24e79cadf0a84980"
+      }
+    },
+    {
+      "frame": 47,
+      "time": 1.5666666666666667,
+      "state": {
+        "time": 1.5666666666666667,
+        "path": "07",
+        "value": 0.8569268977432244,
+        "velocity": -3.8872691933916417,
+        "phase": "withdraw",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.78,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_06": 0.14458481805420487,
+        "Face07_07": 0.8554151819457951
+      },
+      "image": {
+        "file": "eye_change/frames/000047.png",
+        "sha256": "48bbab047863aa28c1c7a241b19d2c01f5bd2d0685d387f8c51e152f0e893fa6",
+        "weightsSHA256": "8a085c3bab875fd1f75f7707201cda36cb8f2faf77e8dcc16be9db18245987b1",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "2ef6cd27759bac011ed2c5c058a5f5b388bd76c9ed494e9db8dbb09718e49dda"
+      }
+    },
+    {
+      "frame": 48,
+      "time": 1.6,
+      "state": {
+        "time": 1.6,
+        "path": "07",
+        "value": 0.7084548104956264,
+        "velocity": -4.919825072886299,
+        "phase": "withdraw",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.78,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_05": 0.33236151603498865,
+        "Face07_06": 0.6676384839650114
+      },
+      "image": {
+        "file": "eye_change/frames/000048.png",
+        "sha256": "5d65a6b2aaef2c38c213c2e3c2391cba18372769f5793f58171438604d38681b",
+        "weightsSHA256": "f428b8ec37b31a4232f61e85060471797460ebd017c38fbaf3912f288a6a1590",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "8d5b0a6f44654e482e682e78c24b542f5420f33ed1b3effda771ddca4f84a7cb"
+      }
+    },
+    {
+      "frame": 49,
+      "time": 1.6333333333333333,
+      "state": {
+        "time": 1.6333333333333333,
+        "path": "07",
+        "value": 0.5356872907893317,
+        "velocity": -5.3449951409135075,
+        "phase": "withdraw",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.78,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_04": 0.714501673685346,
+        "Face07_05": 0.285498326314654
+      },
+      "image": {
+        "file": "eye_change/frames/000049.png",
+        "sha256": "ea0874639558eb0e472a604725682f829ca009497086102fa10dae30f0c26daf",
+        "weightsSHA256": "f6a65078ea087be4132528054a001a995b5678f7edfa2b267fa953729e92082a",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "172c99be205a328fa2fdf16f061f4a890c0d7a1d1811eeee491c2086261422b9"
+      }
+    },
+    {
+      "frame": 50,
+      "time": 1.6666666666666667,
+      "state": {
+        "time": 1.6666666666666667,
+        "path": "07",
+        "value": 0.3588705323399198,
+        "velocity": -5.162779397473274,
+        "phase": "withdraw",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.78,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_02": 0.12903574128064177,
+        "Face07_03": 0.8709642587193582
+      },
+      "image": {
+        "file": "eye_change/frames/000050.png",
+        "sha256": "022adebb182074873934e573b318bcdc257cfacb4452ec66f4f7198d4ae3c6d2",
+        "weightsSHA256": "1ffae98f2ac3a0c0a528bd5f2181603e95f75e62f722441ba37f7bc317edc4f7",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "6a724a9deb799fe7cd89f96aebce89674377f16c6daa9d5436e1157606d9dc8c"
+      }
+    },
+    {
+      "frame": 51,
+      "time": 1.7,
+      "state": {
+        "time": 1.7,
+        "path": "07",
+        "value": 0.19825072886297399,
+        "velocity": -4.3731778425656,
+        "phase": "withdraw",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.78,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_01": 0.4139941690962081,
+        "Face07_02": 0.5860058309037919
+      },
+      "image": {
+        "file": "eye_change/frames/000051.png",
+        "sha256": "bd8227f1674ddfe97189a0689be9e42b644f63e13c6407890745d55142d9ccff",
+        "weightsSHA256": "af5696ce8ad8e247f6268599a3a73463c9462b66d39ae8c7e6f5214a1394a5d8",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "88dcd475d8e33a5b0d56d9697d31626246b83ce4c04c087434ae7d97c1f1e1ef"
+      }
+    },
+    {
+      "frame": 52,
+      "time": 1.7333333333333334,
+      "state": {
+        "time": 1.7333333333333334,
+        "path": "07",
+        "value": 0.07407407407407395,
+        "velocity": -2.9761904761904736,
+        "phase": "withdraw",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.78,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_01": 0.5925925925925916
+      },
+      "image": {
+        "file": "eye_change/frames/000052.png",
+        "sha256": "d8ae23f82a307b381f3368c42466bed12b81d756fb2958e9d20d8050ad2ecbcf",
+        "weightsSHA256": "604f23d7ade4d05aedd05c7a1e3cc87bdeef4f23777e289927ce891a30363bcb",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "a65e863c77e54cbf4d0c7732110b3539e7c6084d3f97a840a2b0fbaa05f886b6"
+      }
+    },
+    {
+      "frame": 53,
+      "time": 1.7666666666666666,
+      "state": {
+        "time": 1.7666666666666666,
+        "path": "07",
+        "value": 0.006586761688802579,
+        "velocity": -0.9718172983479157,
+        "phase": "withdraw",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.78,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_01": 0.052694093510420634
+      },
+      "image": {
+        "file": "eye_change/frames/000053.png",
+        "sha256": "5593ab3b25603536443e06fc3504d5e91925dff9629ea65d64f08744263cf738",
+        "weightsSHA256": "dbb54040f547ad891229fcde303e1b9d05fd6b14515a0e075f7de39e8d745aa2",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "d9ede26cf641ab8b44bf32bdcbddde92553272c7fd29cfe997a3ff339ba401d0"
+      }
+    },
+    {
+      "frame": 54,
+      "time": 1.8,
+      "state": {
+        "time": 1.8,
+        "path": "S5",
+        "value": 0.0065867616888025116,
+        "velocity": 0.6478781988986072,
+        "phase": "enter",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.2,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_01": 0.05269409351042009
+      },
+      "image": {
+        "file": "eye_change/frames/000054.png",
+        "sha256": "c9caa5198821c0fad177d3a6ef9136dfce7148336f61e9265c1e2296316cd17b",
+        "weightsSHA256": "be5b50d27bb8a223fa1c0c634263e6f198e9629260ba2f606b4d53fcd72b5214",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "c1993b20dc26dd7a5ba23ff4feb21f8f8aa5b23043f145e5683d7ccab6c3c93e"
+      }
+    },
+    {
+      "frame": 55,
+      "time": 1.8333333333333333,
+      "state": {
+        "time": 1.8333333333333333,
+        "path": "S5",
+        "value": 0.04427967542102066,
+        "velocity": 1.5837022639743692,
+        "phase": "enter",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.2,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_01": 0.3542374033681653
+      },
+      "image": {
+        "file": "eye_change/frames/000055.png",
+        "sha256": "70f87a245fe3d0651dbf7f34f8ba6615e70e1a36e5c96975447932e09d18118a",
+        "weightsSHA256": "c914d36bc020175363e6f683b11fc7327694473f52776acf531170d924a97992",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "a82e2c8318125af6cbc4eaa680adda83e7ea9fa32d59dd7f190b355a4ca06d7d"
+      }
+    },
+    {
+      "frame": 56,
+      "time": 1.8666666666666667,
+      "state": {
+        "time": 1.8666666666666667,
+        "path": "S5",
+        "value": 0.11016728854975259,
+        "velocity": 2.339560162689413,
+        "phase": "enter",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.2,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_01": 0.8813383083980207
+      },
+      "image": {
+        "file": "eye_change/frames/000056.png",
+        "sha256": "db571fa188c0b750743c130b1c01b7eae74845e717f84c4b07a326161dddd229",
+        "weightsSHA256": "3611c422778bc62d03275d7eb5cf62334e6a2141038ec8eb22850280cfb4f1bd",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "b5386b4eb0e39b7316b220f16f0a71d73d328fea2037154cf0e311857ea97eab"
+      }
+    },
+    {
+      "frame": 57,
+      "time": 1.9,
+      "state": {
+        "time": 1.9,
+        "path": "S5",
+        "value": 0.19825072886297326,
+        "velocity": 2.9154518950437276,
+        "phase": "enter",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.2,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_01": 0.4139941690962139,
+        "BasicS5_02": 0.5860058309037861
+      },
+      "image": {
+        "file": "eye_change/frames/000057.png",
+        "sha256": "2654dc3644d8b1b03e7e5cfc860cd34d45ddb055296e961068f6844835a49776",
+        "weightsSHA256": "ca5b9f1ca92d56024b39676173ac2ae64dac1f7c400271c29fb6b3c7ee2c9832",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "0d265f552cfe1144758f83c8fa053c215ae031ec8ff2b07187ee284605146721"
+      }
+    },
+    {
+      "frame": 58,
+      "time": 1.9333333333333333,
+      "state": {
+        "time": 1.9333333333333333,
+        "path": "S5",
+        "value": 0.30253112414865974,
+        "velocity": 3.3113774610373232,
+        "phase": "enter",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.2,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_02": 0.5797510068107221,
+        "BasicS5_03": 0.4202489931892779
+      },
+      "image": {
+        "file": "eye_change/frames/000058.png",
+        "sha256": "885ce5f9ea47d8e606fe233442e6671f3365a5d948750eb2d1b9d36ba810c3ce",
+        "weightsSHA256": "05d03fa624bb0677667eee4c71fbe0814af0b8d8372c5b9afdeac6fa4e0af0f7",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "23aa9a01c56b8b371760b03ef198c04ce751528aef510cfa7a1132bf33465fcf"
+      }
+    },
+    {
+      "frame": 59,
+      "time": 1.9666666666666666,
+      "state": {
+        "time": 1.9666666666666666,
+        "path": "S5",
+        "value": 0.41700960219478667,
+        "velocity": 3.527336860670192,
+        "phase": "enter",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.2,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_03": 0.6639231824417067,
+        "BasicS5_04": 0.33607681755829333
+      },
+      "image": {
+        "file": "eye_change/frames/000059.png",
+        "sha256": "59bbc4fedb186d844e6b41f4e347d95c1b2d7cdaa817abb33d8f1ccdec38de13",
+        "weightsSHA256": "3c9e934399630bbf7a56ed31f55e42f0fe44ac861ba0579068fe5aa9569b65f9",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "5bb43e03be4770b2f50d040c5048f0080533f7df8b32f9fce5d6cac0a86972eb"
+      }
+    },
+    {
+      "frame": 60,
+      "time": 2,
+      "state": {
+        "time": 2,
+        "path": "S5",
+        "value": 0.5356872907893311,
+        "velocity": 3.563330093942338,
+        "phase": "enter",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.2,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_04": 0.7145016736853513,
+        "BasicS5_05": 0.28549832631464866
+      },
+      "image": {
+        "file": "eye_change/frames/000060.png",
+        "sha256": "028c973bef7e27e634b9fe39e0a2094e66b147cee6ae7f833b8399aa9b8a861b",
+        "weightsSHA256": "e9065b612874db9441ba3958fb553d2e1aeefa09f5314a5a96859e4607360aaa",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "b9a23c8ac47a98085e4b2228a0dc45eebe86a21ebb14b8807f89da8a2b72b77c"
+      }
+    },
+    {
+      "frame": 61,
+      "time": 2.033333333333333,
+      "state": {
+        "time": 2.033333333333333,
+        "path": "S5",
+        "value": 0.6525653177202677,
+        "velocity": 3.41935716085376,
+        "phase": "enter",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.2,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_05": 0.7794774582378583,
+        "BasicS5_06": 0.2205225417621417
+      },
+      "image": {
+        "file": "eye_change/frames/000061.png",
+        "sha256": "0e4bdbf75f4f23d1dd76992abbff93e4ac02f8c42bbaeee11a7f550a35c8e81a",
+        "weightsSHA256": "90fb1e61a167f0e1c9bb00912b7d31b5861b32d3378a4ae09862851418969ab1",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "79ca966b5c968b187deb609c0fbeab72dd504b9a7ea7b1de32dee159febfa600"
+      }
+    },
+    {
+      "frame": 62,
+      "time": 2.066666666666667,
+      "state": {
+        "time": 2.066666666666667,
+        "path": "S5",
+        "value": 0.7616448107755744,
+        "velocity": 3.0954180614044535,
+        "phase": "enter",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.2,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_06": 0.9068415137954045,
+        "BasicS5_07": 0.09315848620459555
+      },
+      "image": {
+        "file": "eye_change/frames/000062.png",
+        "sha256": "ee7d0f38a741b814394df7df65531f55c0f20699923f8bafe9cf9e2472f61c09",
+        "weightsSHA256": "79b160df40912c90826c5736af51fc1f3785c5d845a2b43d6ebbb45a34de0516",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "e102768c16a054c04c5ae59d2b77ac198bd5f568f3eaee42e7355e4ee5493c4c"
+      }
+    },
+    {
+      "frame": 63,
+      "time": 2.1,
+      "state": {
+        "time": 2.1,
+        "path": "S5",
+        "value": 0.8569268977432241,
+        "velocity": 2.591512795594428,
+        "phase": "enter",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.2,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_06": 0.14458481805420753,
+        "BasicS5_07": 0.8554151819457925
+      },
+      "image": {
+        "file": "eye_change/frames/000063.png",
+        "sha256": "0776da136026a0e49b3db6cbf28053bf4363b201e017a594836c568d9a091082",
+        "weightsSHA256": "6c6bfc3ec024d68e46a46c572196e5b55239ef7ecab712b3a13bc458c25e7b12",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "6c1cfce4aaebb20315324ab6371c9d68de12dd1dce1ee816d695502a38502bd9"
+      }
+    },
+    {
+      "frame": 64,
+      "time": 2.1333333333333333,
+      "state": {
+        "time": 2.1333333333333333,
+        "path": "S5",
+        "value": 0.9324127064111943,
+        "velocity": 1.9076413634236797,
+        "phase": "enter",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.2,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_07": 0.5406983487104453,
+        "BasicS5_08": 0.4593016512895547
+      },
+      "image": {
+        "file": "eye_change/frames/000064.png",
+        "sha256": "f4d712bfcaa28aa595f51e50fe586f15c59a1fae844d1c3b03da515c8ca7e8af",
+        "weightsSHA256": "4d3dad5fef708c585a2e3ee6b2853769c8f5af818be9ac8fbeb5b9a2762b5a32",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "0437c89affb72e7de23c21316d5ac59612f3a283baa252b00541b99de8326191"
+      }
+    },
+    {
+      "frame": 65,
+      "time": 2.1666666666666665,
+      "state": {
+        "time": 2.1666666666666665,
+        "path": "S5",
+        "value": 0.9821033645674611,
+        "velocity": 1.0438037648922085,
+        "phase": "enter",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.2,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_07": 0.14317308346031155,
+        "BasicS5_08": 0.8568269165396885
+      },
+      "image": {
+        "file": "eye_change/frames/000065.png",
+        "sha256": "eb6ae64271facf248122160b6aee51e790e7e49266eb9765421b768339d3606e",
+        "weightsSHA256": "9ac8f8796b950a23f5482ca43ce2aeb6d849d8819f0bf09d5ba87e06d277ad7d",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "449d7cb3c231ea34b14e1bc2149cccd83452ab39144a66583475bbf5db07dcce"
+      }
+    },
+    {
+      "frame": 66,
+      "time": 2.2,
+      "state": {
+        "time": 2.2,
+        "path": "S5",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": 2.2,
+        "holdSince": 2.2,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000066.png",
+        "sha256": "08300260f69864a6394ae3922b152d006d1c154a879e982f00a04b766c39d42b",
+        "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "23464650ebddde5762207d4314d6201a78c5b36315b56adfe2043d033470f209"
+      }
+    },
+    {
+      "frame": 67,
+      "time": 2.2333333333333334,
+      "state": {
+        "time": 2.2333333333333334,
+        "path": "S5",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": 2.2,
+        "holdSince": 2.2,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000067.png",
+        "sha256": "08300260f69864a6394ae3922b152d006d1c154a879e982f00a04b766c39d42b",
+        "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "23464650ebddde5762207d4314d6201a78c5b36315b56adfe2043d033470f209"
+      }
+    },
+    {
+      "frame": 68,
+      "time": 2.2666666666666666,
+      "state": {
+        "time": 2.2666666666666666,
+        "path": "S5",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": 2.2,
+        "holdSince": 2.2,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000068.png",
+        "sha256": "08300260f69864a6394ae3922b152d006d1c154a879e982f00a04b766c39d42b",
+        "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "23464650ebddde5762207d4314d6201a78c5b36315b56adfe2043d033470f209"
+      }
+    },
+    {
+      "frame": 69,
+      "time": 2.3,
+      "state": {
+        "time": 2.3,
+        "path": "S5",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": 2.2,
+        "holdSince": 2.2,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000069.png",
+        "sha256": "08300260f69864a6394ae3922b152d006d1c154a879e982f00a04b766c39d42b",
+        "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "23464650ebddde5762207d4314d6201a78c5b36315b56adfe2043d033470f209"
+      }
+    },
+    {
+      "frame": 70,
+      "time": 2.3333333333333335,
+      "state": {
+        "time": 2.3333333333333335,
+        "path": "S5",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": 2.2,
+        "holdSince": 2.2,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000070.png",
+        "sha256": "08300260f69864a6394ae3922b152d006d1c154a879e982f00a04b766c39d42b",
+        "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "23464650ebddde5762207d4314d6201a78c5b36315b56adfe2043d033470f209"
+      }
+    },
+    {
+      "frame": 71,
+      "time": 2.3666666666666667,
+      "state": {
+        "time": 2.3666666666666667,
+        "path": "S5",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": 2.2,
+        "holdSince": 2.2,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000071.png",
+        "sha256": "08300260f69864a6394ae3922b152d006d1c154a879e982f00a04b766c39d42b",
+        "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "23464650ebddde5762207d4314d6201a78c5b36315b56adfe2043d033470f209"
+      }
+    },
+    {
+      "frame": 72,
+      "time": 2.4,
+      "state": {
+        "time": 2.4,
+        "path": "S5",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": 2.2,
+        "holdSince": 2.2,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000072.png",
+        "sha256": "08300260f69864a6394ae3922b152d006d1c154a879e982f00a04b766c39d42b",
+        "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "23464650ebddde5762207d4314d6201a78c5b36315b56adfe2043d033470f209"
+      }
+    },
+    {
+      "frame": 73,
+      "time": 2.433333333333333,
+      "state": {
+        "time": 2.433333333333333,
+        "path": "S5",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": 2.2,
+        "holdSince": 2.2,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000073.png",
+        "sha256": "08300260f69864a6394ae3922b152d006d1c154a879e982f00a04b766c39d42b",
+        "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "23464650ebddde5762207d4314d6201a78c5b36315b56adfe2043d033470f209"
+      }
+    },
+    {
+      "frame": 74,
+      "time": 2.466666666666667,
+      "state": {
+        "time": 2.466666666666667,
+        "path": "S5",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": 2.2,
+        "holdSince": 2.2,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000074.png",
+        "sha256": "08300260f69864a6394ae3922b152d006d1c154a879e982f00a04b766c39d42b",
+        "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "23464650ebddde5762207d4314d6201a78c5b36315b56adfe2043d033470f209"
+      }
+    },
+    {
+      "frame": 75,
+      "time": 2.5,
+      "state": {
+        "time": 2.5,
+        "path": "S5",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": 2.2,
+        "holdSince": 2.2,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000075.png",
+        "sha256": "08300260f69864a6394ae3922b152d006d1c154a879e982f00a04b766c39d42b",
+        "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "23464650ebddde5762207d4314d6201a78c5b36315b56adfe2043d033470f209"
+      }
+    },
+    {
+      "frame": 76,
+      "time": 2.533333333333333,
+      "state": {
+        "time": 2.533333333333333,
+        "path": "S5",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": 2.2,
+        "holdSince": 2.2,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000076.png",
+        "sha256": "08300260f69864a6394ae3922b152d006d1c154a879e982f00a04b766c39d42b",
+        "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "23464650ebddde5762207d4314d6201a78c5b36315b56adfe2043d033470f209"
+      }
+    },
+    {
+      "frame": 77,
+      "time": 2.566666666666667,
+      "state": {
+        "time": 2.566666666666667,
+        "path": "S5",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": 2.2,
+        "holdSince": 2.2,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000077.png",
+        "sha256": "08300260f69864a6394ae3922b152d006d1c154a879e982f00a04b766c39d42b",
+        "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "23464650ebddde5762207d4314d6201a78c5b36315b56adfe2043d033470f209"
+      }
+    },
+    {
+      "frame": 78,
+      "time": 2.6,
+      "state": {
+        "time": 2.6,
+        "path": "S5",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": 2.2,
+        "holdSince": 2.2,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000078.png",
+        "sha256": "08300260f69864a6394ae3922b152d006d1c154a879e982f00a04b766c39d42b",
+        "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "23464650ebddde5762207d4314d6201a78c5b36315b56adfe2043d033470f209"
+      }
+    },
+    {
+      "frame": 79,
+      "time": 2.6333333333333333,
+      "state": {
+        "time": 2.6333333333333333,
+        "path": "S5",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": 2.2,
+        "holdSince": 2.2,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_08": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000079.png",
+        "sha256": "08300260f69864a6394ae3922b152d006d1c154a879e982f00a04b766c39d42b",
+        "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "23464650ebddde5762207d4314d6201a78c5b36315b56adfe2043d033470f209"
+      }
+    },
+    {
+      "frame": 80,
+      "time": 2.6666666666666665,
+      "state": {
+        "time": 2.6666666666666665,
+        "path": "S5",
+        "value": 0.9910836762688615,
+        "velocity": -1.0493827160493805,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 2.65,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.9499999999999997,
+        "arrivalTime": 2.9499999999999997,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.9499999999999997,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicS5_07": 0.0713305898491079,
+        "BasicS5_08": 0.9286694101508921
+      },
+      "image": {
+        "file": "eye_change/frames/000080.png",
+        "sha256": "5cc49e6515d4060d16bb9ed0f93d7baa1a21f1ad589c22af8dc02a0935c83c2a",
+        "weightsSHA256": "0e294fad27c165feecbc45ac6577ac24054d07beff3be273729e255fb17aacfd",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "b3ec693d100b8b14d21e8a866c23fb2cd04d526da86f0889410f27db65c3b558"
+      }
+    },
+    {
+      "frame": 81,
+      "time": 2.7,
+      "state": {
+        "time": 2.7,
+        "path": "S5",
+        "value": 0.9259259259259252,
+        "velocity": -2.777777777777793,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 2.65,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.9499999999999997,
+        "arrivalTime": 2.9499999999999997,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.9499999999999997,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicS5_07": 0.5925925925925988,
+        "BasicS5_08": 0.4074074074074012
+      },
+      "image": {
+        "file": "eye_change/frames/000081.png",
+        "sha256": "e8ed82d2fec2d8ac896478b7ebdc418aafa97864ab8bf22967a5c4ef976fe88f",
+        "weightsSHA256": "a1f6e8d4d127b9c48b5d04ac31bea62c64dd651b1e517ef42addacbb4ee144a5",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "7191133653f9d7d45795a0fccbcbde6876404b87af68284245f70aa396c6f0b1"
+      }
+    },
+    {
+      "frame": 82,
+      "time": 2.7333333333333334,
+      "state": {
+        "time": 2.7333333333333334,
+        "path": "S5",
+        "value": 0.811385459533607,
+        "velocity": -4.012345679012354,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 2.65,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.9499999999999997,
+        "arrivalTime": 2.9499999999999997,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.9499999999999997,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicS5_06": 0.5089163237311443,
+        "BasicS5_07": 0.49108367626885574
+      },
+      "image": {
+        "file": "eye_change/frames/000082.png",
+        "sha256": "8d60667b838f08240f35806ff107efcb1b273b6887f68d2769cad7cc9c0b6166",
+        "weightsSHA256": "4d2c2ac34b3f6d6fd9ad57cc71a79324faee0bcd0c4440a2190f26d2b3ee25d9",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "3b0bcbd5c46dbe6d331daf162f010d2072fd8c98a0a818ed90b30d331f3177f0"
+      }
+    },
+    {
+      "frame": 83,
+      "time": 2.7666666666666666,
+      "state": {
+        "time": 2.7666666666666666,
+        "path": "S5",
+        "value": 0.6639231824417005,
+        "velocity": -4.753086419753091,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 2.65,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.9499999999999997,
+        "arrivalTime": 2.9499999999999997,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.9499999999999997,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicS5_05": 0.6886145404663964,
+        "BasicS5_06": 0.31138545953360364
+      },
+      "image": {
+        "file": "eye_change/frames/000083.png",
+        "sha256": "6d118fe55139dc32c981e15974fc80faf500516c95366f9956d0aa693e694a46",
+        "weightsSHA256": "6849b79bdbf6f7816ff87e6c52dc28c0c75c22f93f19e447e67bff22031d16b2",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "4594405cda7a645cdf33fd7c2d2f5b32f730a26fd658fa804deb83875f7bf205"
+      }
+    },
+    {
+      "frame": 84,
+      "time": 2.8,
+      "state": {
+        "time": 2.8,
+        "path": "S5",
+        "value": 0.5,
+        "velocity": -5.000000000000003,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 2.65,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.9499999999999997,
+        "arrivalTime": 2.9499999999999997,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.9499999999999997,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicS5_04": 1
+      },
+      "image": {
+        "file": "eye_change/frames/000084.png",
+        "sha256": "4a4d5e74724cf435a9074deaa8e0834911044012f7c93a419e3d0027a9d721f8",
+        "weightsSHA256": "1f4e9b691c8129bb9a0f22f07c3887f8b749325c891e865fd1fb2aedcf68c07e",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "a8b359c13abd8cd74a37f4bd59ac8acf710192402e8eca9a19178a0680fbae11"
+      }
+    },
+    {
+      "frame": 85,
+      "time": 2.8333333333333335,
+      "state": {
+        "time": 2.8333333333333335,
+        "path": "S5",
+        "value": 0.3360768175582974,
+        "velocity": -4.753086419753084,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 2.65,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.9499999999999997,
+        "arrivalTime": 2.9499999999999997,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.9499999999999997,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicS5_02": 0.31138545953362096,
+        "BasicS5_03": 0.688614540466379
+      },
+      "image": {
+        "file": "eye_change/frames/000085.png",
+        "sha256": "4dcd004cd79892c78c280d31edb59137cbb17f5720b46b799fc22d8d80066cc1",
+        "weightsSHA256": "2ed716405a8dd6a95a6c45f1613448ff845f48606d4d42e81b80b93261b8d823",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "8f017ab41a064ee3284ec89df34f6b5428d982b5304d1298d540ac221bf4d7c3"
+      }
+    },
+    {
+      "frame": 86,
+      "time": 2.8666666666666667,
+      "state": {
+        "time": 2.8666666666666667,
+        "path": "S5",
+        "value": 0.18861454046639128,
+        "velocity": -4.01234567901234,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 2.65,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.9499999999999997,
+        "arrivalTime": 2.9499999999999997,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.9499999999999997,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicS5_01": 0.49108367626886973,
+        "BasicS5_02": 0.5089163237311303
+      },
+      "image": {
+        "file": "eye_change/frames/000086.png",
+        "sha256": "cb0af1daa7bd6b8ae8f0e1444df1cc5b5df4869f58688402fb4a3653d69c4426",
+        "weightsSHA256": "4adc175d124332ee04281d461d2f7da42623300dc62ac4db859452996d3c0bdb",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "6218938db297aaf0c2fefc615c0bb2e09ff9dd0fe024940df2ac6466944a4cb5"
+      }
+    },
+    {
+      "frame": 87,
+      "time": 2.9,
+      "state": {
+        "time": 2.9,
+        "path": "S5",
+        "value": 0.07407407407407368,
+        "velocity": -2.777777777777773,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 2.65,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.9499999999999997,
+        "arrivalTime": 2.9499999999999997,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.9499999999999997,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicS5_01": 0.5925925925925895
+      },
+      "image": {
+        "file": "eye_change/frames/000087.png",
+        "sha256": "b4430769643acf0cf50a1878233666a4574aefb422b9812dc430e250b301c1da",
+        "weightsSHA256": "10f2286359e18d184dede0e9e3925a28fcaa25747ea6a4391bbb0c3a3824c63f",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "36421e3b5ccde762de47ee9013c59555e94fea40f002e6f6274e04b228320384"
+      }
+    },
+    {
+      "frame": 88,
+      "time": 2.933333333333333,
+      "state": {
+        "time": 2.933333333333333,
+        "path": "S5",
+        "value": 0.008916323731138483,
+        "velocity": -1.0493827160493798,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 2.65,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.9499999999999997,
+        "arrivalTime": 2.9499999999999997,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.9499999999999997,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicS5_01": 0.07133058984910787
+      },
+      "image": {
+        "file": "eye_change/frames/000088.png",
+        "sha256": "b1cb08d3248a72200b3e6798d33930f446c4cfce9c217216707de7faffb743f3",
+        "weightsSHA256": "c3261c89b59adac4b9c5aac2fa38f553a1d2ba0a96afa9f4b3bc1ceaf4f0a663",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "d5f7ec32ea5978bce130bc6eba1dd615d583b21836ce34be916ce57177ca10d5"
+      }
+    },
+    {
+      "frame": 89,
+      "time": 2.966666666666667,
+      "state": {
+        "time": 2.966666666666667,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 2.65,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.9499999999999997,
+        "arrivalTime": 2.9499999999999997,
+        "actualArrival": 2.9499999999999997,
+        "holdSince": 2.9499999999999997,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {},
+      "image": {
+        "file": "eye_change/frames/000089.png",
+        "sha256": "9cbf7015976b1075483bb9f9866f689d160066e6c47ff0a641e346cb1bc30b8a",
+        "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "718ea36fe567bcec26488e78382ec1f52989343e2d8eadf7fbad86ab8788367b"
+      }
+    },
+    {
+      "frame": 90,
+      "time": 3,
+      "state": {
+        "time": 3,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 2.65,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.9499999999999997,
+        "arrivalTime": 2.9499999999999997,
+        "actualArrival": 2.9499999999999997,
+        "holdSince": 2.9499999999999997,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {},
+      "image": {
+        "file": "eye_change/frames/000090.png",
+        "sha256": "9cbf7015976b1075483bb9f9866f689d160066e6c47ff0a641e346cb1bc30b8a",
+        "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "718ea36fe567bcec26488e78382ec1f52989343e2d8eadf7fbad86ab8788367b"
+      }
+    },
+    {
+      "frame": 91,
+      "time": 3.033333333333333,
+      "state": {
+        "time": 3.033333333333333,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 2.65,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.9499999999999997,
+        "arrivalTime": 2.9499999999999997,
+        "actualArrival": 2.9499999999999997,
+        "holdSince": 2.9499999999999997,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {},
+      "image": {
+        "file": "eye_change/frames/000091.png",
+        "sha256": "9cbf7015976b1075483bb9f9866f689d160066e6c47ff0a641e346cb1bc30b8a",
+        "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "718ea36fe567bcec26488e78382ec1f52989343e2d8eadf7fbad86ab8788367b"
+      }
+    },
+    {
+      "frame": 92,
+      "time": 3.066666666666667,
+      "state": {
+        "time": 3.066666666666667,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 2.65,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.9499999999999997,
+        "arrivalTime": 2.9499999999999997,
+        "actualArrival": 2.9499999999999997,
+        "holdSince": 2.9499999999999997,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {},
+      "image": {
+        "file": "eye_change/frames/000092.png",
+        "sha256": "9cbf7015976b1075483bb9f9866f689d160066e6c47ff0a641e346cb1bc30b8a",
+        "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "718ea36fe567bcec26488e78382ec1f52989343e2d8eadf7fbad86ab8788367b"
+      }
+    },
+    {
+      "frame": 93,
+      "time": 3.1,
+      "state": {
+        "time": 3.1,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 2.65,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.9499999999999997,
+        "arrivalTime": 2.9499999999999997,
+        "actualArrival": 2.9499999999999997,
+        "holdSince": 2.9499999999999997,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {},
+      "image": {
+        "file": "eye_change/frames/000093.png",
+        "sha256": "9cbf7015976b1075483bb9f9866f689d160066e6c47ff0a641e346cb1bc30b8a",
+        "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "718ea36fe567bcec26488e78382ec1f52989343e2d8eadf7fbad86ab8788367b"
+      }
+    },
+    {
+      "frame": 94,
+      "time": 3.1333333333333333,
+      "state": {
+        "time": 3.1333333333333333,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 2.65,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.9499999999999997,
+        "arrivalTime": 2.9499999999999997,
+        "actualArrival": 2.9499999999999997,
+        "holdSince": 2.9499999999999997,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {},
+      "image": {
+        "file": "eye_change/frames/000094.png",
+        "sha256": "9cbf7015976b1075483bb9f9866f689d160066e6c47ff0a641e346cb1bc30b8a",
+        "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "718ea36fe567bcec26488e78382ec1f52989343e2d8eadf7fbad86ab8788367b"
+      }
+    },
+    {
+      "frame": 95,
+      "time": 3.1666666666666665,
+      "state": {
+        "time": 3.1666666666666665,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 2.65,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.9499999999999997,
+        "arrivalTime": 2.9499999999999997,
+        "actualArrival": 2.9499999999999997,
+        "holdSince": 2.9499999999999997,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {},
+      "image": {
+        "file": "eye_change/frames/000095.png",
+        "sha256": "9cbf7015976b1075483bb9f9866f689d160066e6c47ff0a641e346cb1bc30b8a",
+        "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "718ea36fe567bcec26488e78382ec1f52989343e2d8eadf7fbad86ab8788367b"
+      }
+    },
+    {
+      "frame": 96,
+      "time": 3.2,
+      "state": {
+        "time": 3.2,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 2.65,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.9499999999999997,
+        "arrivalTime": 2.9499999999999997,
+        "actualArrival": 2.9499999999999997,
+        "holdSince": 2.9499999999999997,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {},
+      "image": {
+        "file": "eye_change/frames/000096.png",
+        "sha256": "9cbf7015976b1075483bb9f9866f689d160066e6c47ff0a641e346cb1bc30b8a",
+        "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "view": "front",
+        "resolution": [
+          414,
+          342
+        ],
+        "cacheReused": true,
+        "cacheKey": "718ea36fe567bcec26488e78382ec1f52989343e2d8eadf7fbad86ab8788367b"
+      }
+    }
+  ],
+  "diagnostics": [
+    {
+      "frame": null,
+      "time": 0,
+      "state": {
+        "time": 0,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": null,
+        "requestedFadeOutSec": 0.1,
+        "requestedFadeInSec": 0.1,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0,
+        "arrivalTime": 0,
+        "actualArrival": 0,
+        "holdSince": 0,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {},
+      "labels": [
+        "arrivalTime",
+        "neutralAt",
+        "actualArrival"
+      ],
+      "sourceDiagnosticIndex": 0,
+      "images": {
+        "front": {
+          "file": "eye_change/diagnostics/0000-front.png",
+          "sha256": "9cbf7015976b1075483bb9f9866f689d160066e6c47ff0a641e346cb1bc30b8a",
+          "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "view": "front",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "718ea36fe567bcec26488e78382ec1f52989343e2d8eadf7fbad86ab8788367b"
+        },
+        "quarter": {
+          "file": "eye_change/diagnostics/0000-quarter.png",
+          "sha256": "a07a71d0e61e1819c91b3b3e42bc123c7b37a5d28e656b1686b507d65b9a8373",
+          "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "view": "quarter",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "a75b17c2a36ca061539a497cc5156ccae0451d6f83915b5855b71df6ca422b6f"
+        },
+        "opposite": {
+          "file": "eye_change/diagnostics/0000-opposite.png",
+          "sha256": "33f649c4329ebe5f3e7d558c45e50e67bdd6a84ed771a164195cee4811903bad",
+          "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "view": "opposite",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "d5f7960b3700e8cd1443031b2cc45e5cc1bb318e326019f9cf006840e11aba60"
+        },
+        "side": {
+          "file": "eye_change/diagnostics/0000-side.png",
+          "sha256": "6c4d563d28584152f663f2eec09e52b32eb6ae2fff83faa21b6667b1c433a353",
+          "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "view": "side",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "dc71e8d6a1b648fb1246817090f8519b0e9fd0ea2390bb3365de088c50c2cddb"
+        }
+      }
+    },
+    {
+      "frame": null,
+      "time": 0.2,
+      "state": {
+        "time": 0.2,
+        "path": "07",
+        "value": 0,
+        "velocity": 0,
+        "phase": "enter",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.62,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {},
+      "labels": [
+        "event",
+        "neutralAt"
+      ],
+      "sourceDiagnosticIndex": 2,
+      "images": {
+        "front": {
+          "file": "eye_change/diagnostics/0001-front.png",
+          "sha256": "9cbf7015976b1075483bb9f9866f689d160066e6c47ff0a641e346cb1bc30b8a",
+          "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "view": "front",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "718ea36fe567bcec26488e78382ec1f52989343e2d8eadf7fbad86ab8788367b"
+        },
+        "quarter": {
+          "file": "eye_change/diagnostics/0001-quarter.png",
+          "sha256": "a07a71d0e61e1819c91b3b3e42bc123c7b37a5d28e656b1686b507d65b9a8373",
+          "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "view": "quarter",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "a75b17c2a36ca061539a497cc5156ccae0451d6f83915b5855b71df6ca422b6f"
+        },
+        "opposite": {
+          "file": "eye_change/diagnostics/0001-opposite.png",
+          "sha256": "33f649c4329ebe5f3e7d558c45e50e67bdd6a84ed771a164195cee4811903bad",
+          "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "view": "opposite",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "d5f7960b3700e8cd1443031b2cc45e5cc1bb318e326019f9cf006840e11aba60"
+        },
+        "side": {
+          "file": "eye_change/diagnostics/0001-side.png",
+          "sha256": "6c4d563d28584152f663f2eec09e52b32eb6ae2fff83faa21b6667b1c433a353",
+          "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "view": "side",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "dc71e8d6a1b648fb1246817090f8519b0e9fd0ea2390bb3365de088c50c2cddb"
+        }
+      }
+    },
+    {
+      "frame": null,
+      "time": 0.62,
+      "state": {
+        "time": 0.62,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 0.2,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.2,
+        "arrivalTime": 0.62,
+        "actualArrival": 0.62,
+        "holdSince": 0.62,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "labels": [
+        "arrivalTime",
+        "segmentEndsAt",
+        "actualArrival"
+      ],
+      "sourceDiagnosticIndex": 4,
+      "images": {
+        "front": {
+          "file": "eye_change/diagnostics/0002-front.png",
+          "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+          "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+          "view": "front",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+        },
+        "quarter": {
+          "file": "eye_change/diagnostics/0002-quarter.png",
+          "sha256": "8becfe915335c82947a17de1f8f91cd41f37cfd1f153514578e37c5e93556ac4",
+          "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+          "view": "quarter",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "14fde869831892d6c45c075fdfa90e3af1279345ea8c7015b758ff701da69fb3"
+        },
+        "opposite": {
+          "file": "eye_change/diagnostics/0002-opposite.png",
+          "sha256": "8a844ec600571458db8faae9a61fe224f23c7307017f2846261bb28550ab021e",
+          "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+          "view": "opposite",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "a3b052e057cd83979ced4c57560d6aa94a813f4fd2975a01ad9fb62627e8df1c"
+        },
+        "side": {
+          "file": "eye_change/diagnostics/0002-side.png",
+          "sha256": "c3757dc3f452e6f2feedbf5a3044141f7b2a2c9af58f8dd4d9db270a6552e714",
+          "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+          "view": "side",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "e23d80d841a13b54896e69ea3ca5eef2151029722ee6d8cf4bf1730c5855d78b"
+        }
+      }
+    },
+    {
+      "frame": null,
+      "time": 1.5,
+      "state": {
+        "time": 1.5,
+        "path": "07",
+        "value": 1,
+        "velocity": 0,
+        "phase": "withdraw",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.78,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face07_08": 1
+      },
+      "labels": [
+        "event"
+      ],
+      "sourceDiagnosticIndex": 6,
+      "images": {
+        "front": {
+          "file": "eye_change/diagnostics/0003-front.png",
+          "sha256": "a2ad9a257aa895458ad05c9254a62ed760226d6f99fd7cbf78d85fe90988c51c",
+          "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+          "view": "front",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "ee6f035253fc3f2ef9ea4d93aa9f79416a0f26876afb75524dc46a7212c7a279"
+        },
+        "quarter": {
+          "file": "eye_change/diagnostics/0003-quarter.png",
+          "sha256": "8becfe915335c82947a17de1f8f91cd41f37cfd1f153514578e37c5e93556ac4",
+          "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+          "view": "quarter",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "14fde869831892d6c45c075fdfa90e3af1279345ea8c7015b758ff701da69fb3"
+        },
+        "opposite": {
+          "file": "eye_change/diagnostics/0003-opposite.png",
+          "sha256": "8a844ec600571458db8faae9a61fe224f23c7307017f2846261bb28550ab021e",
+          "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+          "view": "opposite",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "a3b052e057cd83979ced4c57560d6aa94a813f4fd2975a01ad9fb62627e8df1c"
+        },
+        "side": {
+          "file": "eye_change/diagnostics/0003-side.png",
+          "sha256": "c3757dc3f452e6f2feedbf5a3044141f7b2a2c9af58f8dd4d9db270a6552e714",
+          "weightsSHA256": "9f79a3d992bb965829639dd80596cb85ec4b8a0b759a125b993bc6f64639d1b8",
+          "view": "side",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "e23d80d841a13b54896e69ea3ca5eef2151029722ee6d8cf4bf1730c5855d78b"
+        }
+      }
+    },
+    {
+      "frame": null,
+      "time": 1.78,
+      "state": {
+        "time": 1.78,
+        "path": "S5",
+        "value": 0,
+        "velocity": 0,
+        "phase": "enter",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.2,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {},
+      "labels": [
+        "neutralAt",
+        "segmentEndsAt"
+      ],
+      "sourceDiagnosticIndex": 8,
+      "images": {
+        "front": {
+          "file": "eye_change/diagnostics/0004-front.png",
+          "sha256": "9cbf7015976b1075483bb9f9866f689d160066e6c47ff0a641e346cb1bc30b8a",
+          "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "view": "front",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "718ea36fe567bcec26488e78382ec1f52989343e2d8eadf7fbad86ab8788367b"
+        },
+        "quarter": {
+          "file": "eye_change/diagnostics/0004-quarter.png",
+          "sha256": "a07a71d0e61e1819c91b3b3e42bc123c7b37a5d28e656b1686b507d65b9a8373",
+          "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "view": "quarter",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "a75b17c2a36ca061539a497cc5156ccae0451d6f83915b5855b71df6ca422b6f"
+        },
+        "opposite": {
+          "file": "eye_change/diagnostics/0004-opposite.png",
+          "sha256": "33f649c4329ebe5f3e7d558c45e50e67bdd6a84ed771a164195cee4811903bad",
+          "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "view": "opposite",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "d5f7960b3700e8cd1443031b2cc45e5cc1bb318e326019f9cf006840e11aba60"
+        },
+        "side": {
+          "file": "eye_change/diagnostics/0004-side.png",
+          "sha256": "6c4d563d28584152f663f2eec09e52b32eb6ae2fff83faa21b6667b1c433a353",
+          "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "view": "side",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "dc71e8d6a1b648fb1246817090f8519b0e9fd0ea2390bb3365de088c50c2cddb"
+        }
+      }
+    },
+    {
+      "frame": null,
+      "time": 2.2,
+      "state": {
+        "time": 2.2,
+        "path": "S5",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "S5",
+        "targetAmount": 1,
+        "requestedAt": 1.5,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.78,
+        "arrivalTime": 2.2,
+        "actualArrival": 2.2,
+        "holdSince": 2.2,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicS5_08": 1
+      },
+      "labels": [
+        "arrivalTime",
+        "segmentEndsAt",
+        "actualArrival"
+      ],
+      "sourceDiagnosticIndex": 9,
+      "images": {
+        "front": {
+          "file": "eye_change/diagnostics/0005-front.png",
+          "sha256": "08300260f69864a6394ae3922b152d006d1c154a879e982f00a04b766c39d42b",
+          "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+          "view": "front",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "23464650ebddde5762207d4314d6201a78c5b36315b56adfe2043d033470f209"
+        },
+        "quarter": {
+          "file": "eye_change/diagnostics/0005-quarter.png",
+          "sha256": "cc7c5514199950edfbd6a9de44b1c46e0cf6af5cc2e14c6b20cac1a66b6e937c",
+          "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+          "view": "quarter",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "f171f6a1f90f33a938177a2e7a3b98040c06d940a4ec534f922688ed4b923f80"
+        },
+        "opposite": {
+          "file": "eye_change/diagnostics/0005-opposite.png",
+          "sha256": "df7da58c1b2050e815f62e7999e064d72222303523f75096aaae5120d8bc0931",
+          "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+          "view": "opposite",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "06b1c96e88b3ca1988db16d35994607123d4eb30bd585e54d8e9cbfab0fa95c8"
+        },
+        "side": {
+          "file": "eye_change/diagnostics/0005-side.png",
+          "sha256": "65678760b740733c0d983005fac1e3fb637aa186b2c41c34399038570a9100b8",
+          "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+          "view": "side",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "3bf1f057fda1430af3ced0a1821f0ce2b6a4757f7fe5a0316c206efa6e704f4d"
+        }
+      }
+    },
+    {
+      "frame": null,
+      "time": 2.65,
+      "state": {
+        "time": 2.65,
+        "path": "S5",
+        "value": 1,
+        "velocity": 0,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 2.65,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.9499999999999997,
+        "arrivalTime": 2.9499999999999997,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.9499999999999997,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicS5_08": 1
+      },
+      "labels": [
+        "event"
+      ],
+      "sourceDiagnosticIndex": 11,
+      "images": {
+        "front": {
+          "file": "eye_change/diagnostics/0006-front.png",
+          "sha256": "08300260f69864a6394ae3922b152d006d1c154a879e982f00a04b766c39d42b",
+          "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+          "view": "front",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "23464650ebddde5762207d4314d6201a78c5b36315b56adfe2043d033470f209"
+        },
+        "quarter": {
+          "file": "eye_change/diagnostics/0006-quarter.png",
+          "sha256": "cc7c5514199950edfbd6a9de44b1c46e0cf6af5cc2e14c6b20cac1a66b6e937c",
+          "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+          "view": "quarter",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "f171f6a1f90f33a938177a2e7a3b98040c06d940a4ec534f922688ed4b923f80"
+        },
+        "opposite": {
+          "file": "eye_change/diagnostics/0006-opposite.png",
+          "sha256": "df7da58c1b2050e815f62e7999e064d72222303523f75096aaae5120d8bc0931",
+          "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+          "view": "opposite",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "06b1c96e88b3ca1988db16d35994607123d4eb30bd585e54d8e9cbfab0fa95c8"
+        },
+        "side": {
+          "file": "eye_change/diagnostics/0006-side.png",
+          "sha256": "65678760b740733c0d983005fac1e3fb637aa186b2c41c34399038570a9100b8",
+          "weightsSHA256": "418de4d531b7f15240ed2a1195008d64703c41a3ee281794a0040a48b1eabff2",
+          "view": "side",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "3bf1f057fda1430af3ced0a1821f0ce2b6a4757f7fe5a0316c206efa6e704f4d"
+        }
+      }
+    },
+    {
+      "frame": null,
+      "time": 2.9499999999999997,
+      "state": {
+        "time": 2.9499999999999997,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 2.65,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.9499999999999997,
+        "arrivalTime": 2.9499999999999997,
+        "actualArrival": 2.9499999999999997,
+        "holdSince": 2.9499999999999997,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {},
+      "labels": [
+        "arrivalTime",
+        "neutralAt",
+        "segmentEndsAt",
+        "actualArrival"
+      ],
+      "sourceDiagnosticIndex": 13,
+      "images": {
+        "front": {
+          "file": "eye_change/diagnostics/0007-front.png",
+          "sha256": "9cbf7015976b1075483bb9f9866f689d160066e6c47ff0a641e346cb1bc30b8a",
+          "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "view": "front",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "718ea36fe567bcec26488e78382ec1f52989343e2d8eadf7fbad86ab8788367b"
+        },
+        "quarter": {
+          "file": "eye_change/diagnostics/0007-quarter.png",
+          "sha256": "a07a71d0e61e1819c91b3b3e42bc123c7b37a5d28e656b1686b507d65b9a8373",
+          "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "view": "quarter",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "a75b17c2a36ca061539a497cc5156ccae0451d6f83915b5855b71df6ca422b6f"
+        },
+        "opposite": {
+          "file": "eye_change/diagnostics/0007-opposite.png",
+          "sha256": "33f649c4329ebe5f3e7d558c45e50e67bdd6a84ed771a164195cee4811903bad",
+          "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "view": "opposite",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "d5f7960b3700e8cd1443031b2cc45e5cc1bb318e326019f9cf006840e11aba60"
+        },
+        "side": {
+          "file": "eye_change/diagnostics/0007-side.png",
+          "sha256": "6c4d563d28584152f663f2eec09e52b32eb6ae2fff83faa21b6667b1c433a353",
+          "weightsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "view": "side",
+          "resolution": [
+            414,
+            342
+          ],
+          "cacheReused": true,
+          "cacheKey": "dc71e8d6a1b648fb1246817090f8519b0e9fd0ea2390bb3365de088c50c2cddb"
+        }
+      }
+    }
+  ],
+  "maxBlenderFloatWeightError": 2.9612455154648387e-08,
+  "fixedBodyRigVerified": true,
+  "renderCountsSoFar": {
+    "rendered": 0,
+    "cacheHits": 326
+  }
+}

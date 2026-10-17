@@ -1,0 +1,100 @@
+{
+  "scope": "Hash/provenance audit, not visual or GPU performance certification",
+  "timelineSHA256": "286ded8d6c6992cd0333e1985a0baee0e21dd951dcf3ab91b8bb790cd7641892",
+  "assetSHA256": "a9ae09635658ac15c55cf1571db53e284bd463eaab9a84ff24e7836270a1808e",
+  "lookSHA256": "b85f9873b7829222510ea02a8acdaebcd5d97d67d3f26efb038a65d7d0a9388d",
+  "scenarios": [
+    {
+      "name": "semantic_chain",
+      "frames": 145,
+      "diagnosticTimes": 13,
+      "viewsPerDiagnostic": 4,
+      "replaySHA256": "7f1e119b3867f0561eec2fc20745402d3e683b3bcb0a453e8bb0fb1768976d26",
+      "renderManifestSHA256": "136820e96eae5ded540e557858bdfa2c99bf157599be4176753f1db1df725092",
+      "movieSHA256": "36f03d6e3aa8d06523914d236a5fd94130c5c0a8893b273f5de6691e5b5a70f7",
+      "fixedBodyRigVerified": true
+    },
+    {
+      "name": "eye_change",
+      "frames": 97,
+      "diagnosticTimes": 8,
+      "viewsPerDiagnostic": 4,
+      "replaySHA256": "0036af0d44d3d992af839080a7e3adad93027abc691aca0e4100fdbff4948075",
+      "renderManifestSHA256": "05625efe6a4321f1990d895256aec879fe45e6f0aca4c827589153a39d956fd3",
+      "movieSHA256": "60055148bfe4f9b55c1323a78a5eed2764482e943ffd4c89412a15ef80866f8f",
+      "fixedBodyRigVerified": true
+    },
+    {
+      "name": "basis_brow_tongue",
+      "frames": 175,
+      "diagnosticTimes": 17,
+      "viewsPerDiagnostic": 4,
+      "replaySHA256": "b3c60fc89ca436e8f70da8d0ea093d3f97e8cb3708ed055601d8ad56a06bf78e",
+      "renderManifestSHA256": "c608a8c1cdf63109425bf6e7cf9aaa59619478021a90a7c271f80898a7972e28",
+      "movieSHA256": "e43cf6cbaab316ed823197b50f3ecbe75e8b0af26d30acf8b057cde5f9f3fafd",
+      "fixedBodyRigVerified": true
+    },
+    {
+      "name": "interruption",
+      "frames": 130,
+      "diagnosticTimes": 27,
+      "viewsPerDiagnostic": 4,
+      "replaySHA256": "ed3d17cdeeb6fc098a7a14b056949b47aa28d2ee9a5867c9a845bbd78a523a78",
+      "renderManifestSHA256": "b25e1d940686724a4764a0f5730fef841f04b9bc4a2320aed6ad35c047aa3af6",
+      "movieSHA256": "ad7c6f36954f220185f7b2e516be50237e31020c5ee6f79764379f2fd83d3cdc",
+      "fixedBodyRigVerified": true
+    },
+    {
+      "name": "return_current",
+      "frames": 76,
+      "diagnosticTimes": 9,
+      "viewsPerDiagnostic": 4,
+      "replaySHA256": "ff82a4df8e092e57edcfe9946fca2ee5a35cfcb50b1b385b9c42c90ca1c7f570",
+      "renderManifestSHA256": "d26cf4516328e978b79eeae4e24fbf1ff3a70dcbfcaac5af7e439d29458f6628",
+      "movieSHA256": "4afd52dd93e549a5ded314a6c15aea6d6cef2c2552a1c33e7b47f4f34c9271b4",
+      "fixedBodyRigVerified": true
+    }
+  ],
+  "totalMovieFrames": 623,
+  "totalDiagnosticTimes": 74,
+  "totalPNGRecords": 919,
+  "basisPixelConsistentByView": {
+    "front": "9cbf7015976b1075483bb9f9866f689d160066e6c47ff0a641e346cb1bc30b8a",
+    "quarter": "a07a71d0e61e1819c91b3b3e42bc123c7b37a5d28e656b1686b507d65b9a8373",
+    "opposite": "33f649c4329ebe5f3e7d558c45e50e67bdd6a84ed771a164195cee4811903bad",
+    "side": "6c4d563d28584152f663f2eec09e52b32eb6ae2fff83faa21b6667b1c433a353"
+  },
+  "maxBlenderFloatWeightError": 2.9750239605164097e-08,
+  "finalCacheValidation": {
+    "rendered": 0,
+    "cacheHits": 919
+  },
+  "combinedMovie": {
+    "file": "facepath05-native99-normal-speed.mp4",
+    "sha256": "e04806a916302397c9d253c5d27fcff11dfe0dad7b8af1d1f6d93b34263d65e6",
+    "frames": 623,
+    "fps": 30,
+    "mediaDuration": 20.766666666666666,
+    "dimensions": [
+      256,
+      160
+    ],
+    "labels": false,
+    "probe": {
+      "width": 256,
+      "height": 160,
+      "r_frame_rate": "30/1",
+      "duration": "20.766667",
+      "nb_frames": "623"
+    },
+    "scenarioOrder": [
+      "semantic_chain",
+      "eye_change",
+      "basis_brow_tongue",
+      "interruption",
+      "return_current"
+    ],
+    "timelineDuration": 20.6,
+    "transitionPolicy": "Direct scenario concatenation, no added frames or retiming."
+  }
+}

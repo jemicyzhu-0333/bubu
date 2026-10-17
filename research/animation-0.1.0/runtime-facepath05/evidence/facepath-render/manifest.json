@@ -1,0 +1,102 @@
+{
+  "format": "bubu-facepath-render-index",
+  "settings": {
+    "assetSHA256": "a9ae09635658ac15c55cf1571db53e284bd463eaab9a84ff24e7836270a1808e",
+    "lookSHA256": "b85f9873b7829222510ea02a8acdaebcd5d97d67d3f26efb038a65d7d0a9388d",
+    "engine": "CYCLES",
+    "cyclesSamples": 96,
+    "cyclesSeed": 0,
+    "sourceResolution": [
+      414,
+      342
+    ],
+    "nativeResolution": [
+      141,
+      116
+    ],
+    "orthographicScale": 2.5399999618530273,
+    "cameraRadius": 7,
+    "cameraHeight": 0.95,
+    "cameraTarget": [
+      0,
+      0,
+      0.95
+    ],
+    "viewsDegrees": {
+      "front": 0,
+      "quarter": -52,
+      "opposite": 52,
+      "side": -85
+    },
+    "colorTransform": "Standard",
+    "look": "None",
+    "filmTransparent": true,
+    "fixedBodyRigAndObjectFingerprint": "e5eec7ba4ee42f7648a14a2f18e7c581fa476d7916655ffbf44e0a4c206ddd9a"
+  },
+  "calibration": {
+    "sourceResolution": [
+      414,
+      342
+    ],
+    "sourceBasisAlphaThreshold": 128,
+    "sourceBasisAlphaBounds": [
+      13,
+      34,
+      401,
+      325
+    ],
+    "sourceBasisHeight": 291,
+    "targetBasisHeight": 99,
+    "fixedScale": 0.3402061855670103,
+    "scaledFullFrame": [
+      141,
+      116
+    ],
+    "reference": "bubu-3d-a-face-coordinate-v2-20261016/candidate-a05-selected-faces-r6-review/face-01-0.00-front.png",
+    "referenceSHA256": "17d3251704ffa023156e58e588402515e61d998d71e2859fa11aad8a891a5b3d",
+    "policy": "One uniform full-frame resize, never per-pose crop or fit; all cameras retain source orthographic scale."
+  },
+  "renders": [
+    {
+      "name": "semantic_chain",
+      "manifest": "semantic_chain/manifest.json",
+      "manifestSHA256": "136820e96eae5ded540e557858bdfa2c99bf157599be4176753f1db1df725092",
+      "frames": 145,
+      "diagnostics": 13
+    },
+    {
+      "name": "eye_change",
+      "manifest": "eye_change/manifest.json",
+      "manifestSHA256": "05625efe6a4321f1990d895256aec879fe45e6f0aca4c827589153a39d956fd3",
+      "frames": 97,
+      "diagnostics": 8
+    },
+    {
+      "name": "basis_brow_tongue",
+      "manifest": "basis_brow_tongue/manifest.json",
+      "manifestSHA256": "c608a8c1cdf63109425bf6e7cf9aaa59619478021a90a7c271f80898a7972e28",
+      "frames": 175,
+      "diagnostics": 17
+    },
+    {
+      "name": "interruption",
+      "manifest": "interruption/manifest.json",
+      "manifestSHA256": "b25e1d940686724a4764a0f5730fef841f04b9bc4a2320aed6ad35c047aa3af6",
+      "frames": 130,
+      "diagnostics": 27
+    },
+    {
+      "name": "return_current",
+      "manifest": "return_current/manifest.json",
+      "manifestSHA256": "d26cf4516328e978b79eeae4e24fbf1ff3a70dcbfcaac5af7e439d29458f6628",
+      "frames": 76,
+      "diagnostics": 9
+    }
+  ],
+  "counts": {
+    "rendered": 0,
+    "cacheHits": 919
+  },
+  "maxBlenderFloatWeightError": 2.9750239605164097e-08,
+  "fixedBodyRigVerified": true
+}

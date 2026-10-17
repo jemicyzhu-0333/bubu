@@ -10,7 +10,7 @@ Checkpoint06 is a technical overlay on commit d3c5c76664d9a664e0cfdf22342476a880
 - Safe return to the still-active face now brakes and reverses on the same path. Cross-face requests still require Basis and never mix semantics.
 - The old tool-capacity interruption is no longer the current blocker: file reads, tests and offline rendering execute successfully in this task.
 - Source-resolution Basis is pixel-exact to the approved reference. Fixed-scale source downsampling resolves the direct-small-render grain discrepancy without changing artwork.
-- The same-scenario before/after offline renders and timestamped contact sheet confirm removal of the extra Basis detour in return_current. A normal-speed movie is generated and timing-verified; real-time playback assessment remains pending. No overall transition visual pass is claimed.
+- All five scenarios now have623 actual30Hz frames and74 four-view diagnostic instants. Full frame-sheet inspection found no additional isolated wrong-face flash or residual brow/tongue. Cross-semantic neutral beats remain visible; real-time playback naturalness and WebGL are not certified. See evidence/FACEPATH06-COMPLETE-REVIEW.md and evidence/facepath-complete-audit.json.
 - Real WebGL/GPU, full18 runtime, drag and long-press remain untested.
 
 See STATUS.json, spec/FACEPATH06.md, evidence/tests-final.log and evidence/review/SAME-FACE-REVERSAL-REVIEW.md. Historical05 evidence is retained with its original source hashes and must not be read as the current test or visual status.

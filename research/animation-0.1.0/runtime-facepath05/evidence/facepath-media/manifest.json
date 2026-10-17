@@ -1,0 +1,491 @@
+{
+  "format": "bubu-facepath-media",
+  "offlineBlenderNotWebGL": true,
+  "backgroundRGB": [
+    239,
+    236,
+    232
+  ],
+  "mainMovieLabels": false,
+  "scalePolicy": "Native141x116 at unchanged orthographic scale, or one uniform414x342-to141x116 resize; modes recorded per scenario. No per-pose fitting or crop.",
+  "results": [
+    {
+      "name": "semantic_chain",
+      "renderManifestSHA256": "136820e96eae5ded540e557858bdfa2c99bf157599be4176753f1db1df725092",
+      "contactSheets": [
+        {
+          "file": "semantic_chain-keyframes-01.png",
+          "sha256": "3f117877d3cab5e279def41c234227988e0f2cd7c1d6ebfaf1536ee712cf2624",
+          "firstDiagnostic": 0,
+          "count": 5,
+          "dimensions": [
+            744,
+            1078
+          ]
+        },
+        {
+          "file": "semantic_chain-keyframes-02.png",
+          "sha256": "38d16ffc954cc18c92faa2902305c5503faf9ddeb8a55c061ec483391d594b38",
+          "firstDiagnostic": 5,
+          "count": 5,
+          "dimensions": [
+            744,
+            1036
+          ]
+        },
+        {
+          "file": "semantic_chain-keyframes-03.png",
+          "sha256": "e6b10fc60fe36d3ee102caef8745b46d50dda1225946ca939564c75ae95d919a",
+          "firstDiagnostic": 10,
+          "count": 3,
+          "dimensions": [
+            744,
+            684
+          ]
+        }
+      ],
+      "calibration": {
+        "sourceResolution": [
+          414,
+          342
+        ],
+        "sourceBasisAlphaThreshold": 128,
+        "sourceBasisAlphaBounds": [
+          13,
+          34,
+          401,
+          325
+        ],
+        "sourceBasisHeight": 291,
+        "targetBasisHeight": 99,
+        "fixedScale": 0.3402061855670103,
+        "scaledFullFrame": [
+          141,
+          116
+        ],
+        "reference": "bubu-3d-a-face-coordinate-v2-20261016/candidate-a05-selected-faces-r6-review/face-01-0.00-front.png",
+        "referenceSHA256": "17d3251704ffa023156e58e588402515e61d998d71e2859fa11aad8a891a5b3d",
+        "policy": "One uniform full-frame resize, never per-pose crop or fit; all cameras retain source orthographic scale."
+      },
+      "offlineBlenderNotWebGL": true,
+      "mainRasterMode": "downsampled_source",
+      "mainResolution": [
+        414,
+        342
+      ],
+      "movie": {
+        "file": "semantic_chain-native99-normal-speed.mp4",
+        "sha256": "36f03d6e3aa8d06523914d236a5fd94130c5c0a8893b273f5de6691e5b5a70f7",
+        "frames": 145,
+        "fps": 30,
+        "mediaDuration": 4.833333333333333,
+        "dimensions": [
+          256,
+          160
+        ],
+        "labels": false,
+        "probe": {
+          "width": 256,
+          "height": 160,
+          "r_frame_rate": "30/1",
+          "duration": "4.833333",
+          "nb_frames": "145"
+        },
+        "timelineDuration": 4.8,
+        "endpointPolicy": "All actual30Hz frames including t=0 and timelineDuration are encoded. Media duration is frameCount/30, one frame longer than the sampled timeline."
+      }
+    },
+    {
+      "name": "eye_change",
+      "renderManifestSHA256": "05625efe6a4321f1990d895256aec879fe45e6f0aca4c827589153a39d956fd3",
+      "contactSheets": [
+        {
+          "file": "eye_change-keyframes-01.png",
+          "sha256": "3bcfdc4e0cf3a7a60a88ea94b9dba2e4d92e192638ea2e1843cd28233b7df37e",
+          "firstDiagnostic": 0,
+          "count": 5,
+          "dimensions": [
+            744,
+            1078
+          ]
+        },
+        {
+          "file": "eye_change-keyframes-02.png",
+          "sha256": "703305d081741cd4b92990b54140f34becff22b342921a7bfc8239a70a9f85c7",
+          "firstDiagnostic": 5,
+          "count": 3,
+          "dimensions": [
+            744,
+            684
+          ]
+        }
+      ],
+      "calibration": {
+        "sourceResolution": [
+          414,
+          342
+        ],
+        "sourceBasisAlphaThreshold": 128,
+        "sourceBasisAlphaBounds": [
+          13,
+          34,
+          401,
+          325
+        ],
+        "sourceBasisHeight": 291,
+        "targetBasisHeight": 99,
+        "fixedScale": 0.3402061855670103,
+        "scaledFullFrame": [
+          141,
+          116
+        ],
+        "reference": "bubu-3d-a-face-coordinate-v2-20261016/candidate-a05-selected-faces-r6-review/face-01-0.00-front.png",
+        "referenceSHA256": "17d3251704ffa023156e58e588402515e61d998d71e2859fa11aad8a891a5b3d",
+        "policy": "One uniform full-frame resize, never per-pose crop or fit; all cameras retain source orthographic scale."
+      },
+      "offlineBlenderNotWebGL": true,
+      "mainRasterMode": "downsampled_source",
+      "mainResolution": [
+        414,
+        342
+      ],
+      "movie": {
+        "file": "eye_change-native99-normal-speed.mp4",
+        "sha256": "60055148bfe4f9b55c1323a78a5eed2764482e943ffd4c89412a15ef80866f8f",
+        "frames": 97,
+        "fps": 30,
+        "mediaDuration": 3.2333333333333334,
+        "dimensions": [
+          256,
+          160
+        ],
+        "labels": false,
+        "probe": {
+          "width": 256,
+          "height": 160,
+          "r_frame_rate": "30/1",
+          "duration": "3.233333",
+          "nb_frames": "97"
+        },
+        "timelineDuration": 3.2,
+        "endpointPolicy": "All actual30Hz frames including t=0 and timelineDuration are encoded. Media duration is frameCount/30, one frame longer than the sampled timeline."
+      }
+    },
+    {
+      "name": "basis_brow_tongue",
+      "renderManifestSHA256": "c608a8c1cdf63109425bf6e7cf9aaa59619478021a90a7c271f80898a7972e28",
+      "contactSheets": [
+        {
+          "file": "basis_brow_tongue-keyframes-01.png",
+          "sha256": "ffb9499c6b22a46eef5d6cfafe0e7447704d5d59efdca0ef9393c2a7e416a136",
+          "firstDiagnostic": 0,
+          "count": 5,
+          "dimensions": [
+            744,
+            1106
+          ]
+        },
+        {
+          "file": "basis_brow_tongue-keyframes-02.png",
+          "sha256": "7524a14070a9f43fb6efb853c7a269269333263dbb236e911122fc84569a5990",
+          "firstDiagnostic": 5,
+          "count": 5,
+          "dimensions": [
+            744,
+            1050
+          ]
+        },
+        {
+          "file": "basis_brow_tongue-keyframes-03.png",
+          "sha256": "17e309adba84475e81b5332935458acb6099061bf5e79c8a2cf337bb7a3a8872",
+          "firstDiagnostic": 10,
+          "count": 5,
+          "dimensions": [
+            744,
+            1064
+          ]
+        },
+        {
+          "file": "basis_brow_tongue-keyframes-04.png",
+          "sha256": "3aa743729856b6d657c1cbc51919f3e929916db03300d53d84a4e1f7969b32a5",
+          "firstDiagnostic": 15,
+          "count": 2,
+          "dimensions": [
+            744,
+            466
+          ]
+        }
+      ],
+      "calibration": {
+        "sourceResolution": [
+          414,
+          342
+        ],
+        "sourceBasisAlphaThreshold": 128,
+        "sourceBasisAlphaBounds": [
+          13,
+          34,
+          401,
+          325
+        ],
+        "sourceBasisHeight": 291,
+        "targetBasisHeight": 99,
+        "fixedScale": 0.3402061855670103,
+        "scaledFullFrame": [
+          141,
+          116
+        ],
+        "reference": "bubu-3d-a-face-coordinate-v2-20261016/candidate-a05-selected-faces-r6-review/face-01-0.00-front.png",
+        "referenceSHA256": "17d3251704ffa023156e58e588402515e61d998d71e2859fa11aad8a891a5b3d",
+        "policy": "One uniform full-frame resize, never per-pose crop or fit; all cameras retain source orthographic scale."
+      },
+      "offlineBlenderNotWebGL": true,
+      "mainRasterMode": "downsampled_source",
+      "mainResolution": [
+        414,
+        342
+      ],
+      "movie": {
+        "file": "basis_brow_tongue-native99-normal-speed.mp4",
+        "sha256": "e43cf6cbaab316ed823197b50f3ecbe75e8b0af26d30acf8b057cde5f9f3fafd",
+        "frames": 175,
+        "fps": 30,
+        "mediaDuration": 5.833333333333333,
+        "dimensions": [
+          256,
+          160
+        ],
+        "labels": false,
+        "probe": {
+          "width": 256,
+          "height": 160,
+          "r_frame_rate": "30/1",
+          "duration": "5.833333",
+          "nb_frames": "175"
+        },
+        "timelineDuration": 5.8,
+        "endpointPolicy": "All actual30Hz frames including t=0 and timelineDuration are encoded. Media duration is frameCount/30, one frame longer than the sampled timeline."
+      }
+    },
+    {
+      "name": "interruption",
+      "renderManifestSHA256": "b25e1d940686724a4764a0f5730fef841f04b9bc4a2320aed6ad35c047aa3af6",
+      "contactSheets": [
+        {
+          "file": "interruption-keyframes-01.png",
+          "sha256": "b98b0c46d6d64a5eb37794724aa21f59983d15c8fb6141e1a0eec76dcb0d9a84",
+          "firstDiagnostic": 0,
+          "count": 5,
+          "dimensions": [
+            744,
+            1050
+          ]
+        },
+        {
+          "file": "interruption-keyframes-02.png",
+          "sha256": "7ccb40eb83e6fcef4fac96af8c555eae2bf64250301f8e52c8dcc21a1821506a",
+          "firstDiagnostic": 5,
+          "count": 5,
+          "dimensions": [
+            744,
+            1064
+          ]
+        },
+        {
+          "file": "interruption-keyframes-03.png",
+          "sha256": "037bb86e42c3181a510f7ab0f3ebe03807553eb7b6be282e97fcd825d2140703",
+          "firstDiagnostic": 10,
+          "count": 5,
+          "dimensions": [
+            744,
+            1022
+          ]
+        },
+        {
+          "file": "interruption-keyframes-04.png",
+          "sha256": "76e01b65e8734f085bea5e4698ad218644ddf087d6e63baff641f07fe9b8b4d8",
+          "firstDiagnostic": 15,
+          "count": 5,
+          "dimensions": [
+            744,
+            1064
+          ]
+        },
+        {
+          "file": "interruption-keyframes-05.png",
+          "sha256": "b226f6d326f4e132e45214f39912f97f8a7f9d5b846f537542a1b87b23cae884",
+          "firstDiagnostic": 20,
+          "count": 5,
+          "dimensions": [
+            744,
+            1050
+          ]
+        },
+        {
+          "file": "interruption-keyframes-06.png",
+          "sha256": "2b8ec2aa50d4b70fee24b0f81023f7d83b7cc2bbb1cbcd6c304708f17f9cb130",
+          "firstDiagnostic": 25,
+          "count": 2,
+          "dimensions": [
+            744,
+            466
+          ]
+        }
+      ],
+      "calibration": {
+        "sourceResolution": [
+          414,
+          342
+        ],
+        "sourceBasisAlphaThreshold": 128,
+        "sourceBasisAlphaBounds": [
+          13,
+          34,
+          401,
+          325
+        ],
+        "sourceBasisHeight": 291,
+        "targetBasisHeight": 99,
+        "fixedScale": 0.3402061855670103,
+        "scaledFullFrame": [
+          141,
+          116
+        ],
+        "reference": "bubu-3d-a-face-coordinate-v2-20261016/candidate-a05-selected-faces-r6-review/face-01-0.00-front.png",
+        "referenceSHA256": "17d3251704ffa023156e58e588402515e61d998d71e2859fa11aad8a891a5b3d",
+        "policy": "One uniform full-frame resize, never per-pose crop or fit; all cameras retain source orthographic scale."
+      },
+      "offlineBlenderNotWebGL": true,
+      "mainRasterMode": "downsampled_source",
+      "mainResolution": [
+        414,
+        342
+      ],
+      "movie": {
+        "file": "interruption-native99-normal-speed.mp4",
+        "sha256": "ad7c6f36954f220185f7b2e516be50237e31020c5ee6f79764379f2fd83d3cdc",
+        "frames": 130,
+        "fps": 30,
+        "mediaDuration": 4.333333333333333,
+        "dimensions": [
+          256,
+          160
+        ],
+        "labels": false,
+        "probe": {
+          "width": 256,
+          "height": 160,
+          "r_frame_rate": "30/1",
+          "duration": "4.333333",
+          "nb_frames": "130"
+        },
+        "timelineDuration": 4.3,
+        "endpointPolicy": "All actual30Hz frames including t=0 and timelineDuration are encoded. Media duration is frameCount/30, one frame longer than the sampled timeline."
+      }
+    },
+    {
+      "name": "return_current",
+      "renderManifestSHA256": "d26cf4516328e978b79eeae4e24fbf1ff3a70dcbfcaac5af7e439d29458f6628",
+      "contactSheets": [
+        {
+          "file": "return_current-keyframes-01.png",
+          "sha256": "9f013ae18a7b5898ad061739b39487c0c31262c175569b9822c7ce0881195e1f",
+          "firstDiagnostic": 0,
+          "count": 5,
+          "dimensions": [
+            744,
+            1064
+          ]
+        },
+        {
+          "file": "return_current-keyframes-02.png",
+          "sha256": "008408d14a154f919a775c802de74e20ca7a63138a79aa8be2fa277e84647f63",
+          "firstDiagnostic": 5,
+          "count": 4,
+          "dimensions": [
+            744,
+            888
+          ]
+        }
+      ],
+      "calibration": {
+        "sourceResolution": [
+          414,
+          342
+        ],
+        "sourceBasisAlphaThreshold": 128,
+        "sourceBasisAlphaBounds": [
+          13,
+          34,
+          401,
+          325
+        ],
+        "sourceBasisHeight": 291,
+        "targetBasisHeight": 99,
+        "fixedScale": 0.3402061855670103,
+        "scaledFullFrame": [
+          141,
+          116
+        ],
+        "reference": "bubu-3d-a-face-coordinate-v2-20261016/candidate-a05-selected-faces-r6-review/face-01-0.00-front.png",
+        "referenceSHA256": "17d3251704ffa023156e58e588402515e61d998d71e2859fa11aad8a891a5b3d",
+        "policy": "One uniform full-frame resize, never per-pose crop or fit; all cameras retain source orthographic scale."
+      },
+      "offlineBlenderNotWebGL": true,
+      "mainRasterMode": "downsampled_source",
+      "mainResolution": [
+        414,
+        342
+      ],
+      "movie": {
+        "file": "return_current-native99-normal-speed.mp4",
+        "sha256": "4afd52dd93e549a5ded314a6c15aea6d6cef2c2552a1c33e7b47f4f34c9271b4",
+        "frames": 76,
+        "fps": 30,
+        "mediaDuration": 2.533333333333333,
+        "dimensions": [
+          256,
+          160
+        ],
+        "labels": false,
+        "probe": {
+          "width": 256,
+          "height": 160,
+          "r_frame_rate": "30/1",
+          "duration": "2.533333",
+          "nb_frames": "76"
+        },
+        "timelineDuration": 2.5,
+        "endpointPolicy": "All actual30Hz frames including t=0 and timelineDuration are encoded. Media duration is frameCount/30, one frame longer than the sampled timeline."
+      }
+    }
+  ],
+  "combinedMovie": {
+    "file": "facepath05-native99-normal-speed.mp4",
+    "sha256": "e04806a916302397c9d253c5d27fcff11dfe0dad7b8af1d1f6d93b34263d65e6",
+    "frames": 623,
+    "fps": 30,
+    "mediaDuration": 20.766666666666666,
+    "dimensions": [
+      256,
+      160
+    ],
+    "labels": false,
+    "probe": {
+      "width": 256,
+      "height": 160,
+      "r_frame_rate": "30/1",
+      "duration": "20.766667",
+      "nb_frames": "623"
+    },
+    "scenarioOrder": [
+      "semantic_chain",
+      "eye_change",
+      "basis_brow_tongue",
+      "interruption",
+      "return_current"
+    ],
+    "timelineDuration": 20.6,
+    "transitionPolicy": "Direct scenario concatenation, no added frames or retiming."
+  }
+}
