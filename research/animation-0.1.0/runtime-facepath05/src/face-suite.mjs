@@ -4,14 +4,14 @@ import {acquireFaceGLB} from './pack-loader.mjs';
 import {assertNeutralRest} from './neutral-source-check.mjs';
 import {bindFacePaths} from './face-binding.mjs';
 import {FaceTimeline} from './face-timeline.mjs';
-import {ExpressionDirector,validatePolicy} from './director.mjs';
+import {ExpressionDirector,validatePackPolicy} from './director.mjs';
 import {fail} from './contracts.mjs';
 
-/** Seven reviewed semantic paths. The rendering handle is trusted host access,
+/** Explicit registered semantic paths (default slice7 or opt-in full18). The rendering handle is trusted host access,
  * not a sandbox: callers must not mutate geometry, materials, morphs or pose. */
 export function createFaceSuite(pack,cache,options={}) { return createFaceActor(pack,cache,options); }
 export function createDirectedFaceSuite(pack,cache,{signal,policy,onRecord,onDispose}={}) {
-  return createFaceActor(pack,cache,{signal,policy:validatePolicy(policy),onRecord,onDispose},true);
+  return createFaceActor(pack,cache,{signal,policy:validatePackPolicy(pack,policy),onRecord,onDispose},true);
 }
 async function createFaceActor(pack,cache,{signal,policy,onRecord,onDispose}={},directed=false) {
   let lease,model,root,document,binding,timeline,rest,disposed=false;

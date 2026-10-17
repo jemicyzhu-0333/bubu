@@ -1,0 +1,292 @@
+{
+  "scope": "CPU only; one warmup + five measured runs in shared cloud process; opt-in 2-actor deformation budget; no renderer, GPU, heap-peak, input-latency, or visual certification",
+  "packedMorphStagingUnpaddedEstimateBytes": 23459328,
+  "profile": "full18-opt-in",
+  "runs": [
+    {
+      "prepareMs": 135.051514,
+      "coldCreateMs": 232.02572899999996,
+      "cloneMs": 0.9500540000000228,
+      "disposeMs": 0.2931829999999991,
+      "tickMicroseconds": {
+        "p50": 12.088000000062493,
+        "p95": 26.48999999996704,
+        "max": 49.865000000067994
+      },
+      "geometryBytes": 20999184,
+      "plan": {
+        "inputBytes": 16867596,
+        "binReservationBytes": 16867596,
+        "viewBytes": 16389416,
+        "denseBytes": 4954392,
+        "loadedAccessors": 2351,
+        "loadedBufferViews": 2109,
+        "decodedBytes": 38211404
+      },
+      "resident": {
+        "actors": 2,
+        "vertices": 102072,
+        "nodes": 40,
+        "deformedVertices": 1568280,
+        "sourceBytes": 16867596,
+        "decodedArrayBytes": 38211404,
+        "clipKeyScalars": 0,
+        "active": 2,
+        "pending": 0,
+        "cache": {
+          "loads": 1,
+          "hits": 1,
+          "disposals": 0,
+          "live": 1,
+          "retainedReferences": 2
+        }
+      },
+      "after": {
+        "actors": 0,
+        "vertices": 0,
+        "nodes": 0,
+        "deformedVertices": 0,
+        "sourceBytes": 0,
+        "decodedArrayBytes": 0,
+        "clipKeyScalars": 0,
+        "active": 0,
+        "pending": 0,
+        "cache": {
+          "loads": 1,
+          "hits": 1,
+          "disposals": 1,
+          "live": 0,
+          "retainedReferences": 0
+        }
+      }
+    },
+    {
+      "prepareMs": 122.79801999999995,
+      "coldCreateMs": 223.01457599999992,
+      "cloneMs": 0.8823609999999462,
+      "disposeMs": 0.1304170000000795,
+      "tickMicroseconds": {
+        "p50": 11.457000000064,
+        "p95": 17.757000000074186,
+        "max": 1827.446000000009
+      },
+      "geometryBytes": 20999184,
+      "plan": {
+        "inputBytes": 16867596,
+        "binReservationBytes": 16867596,
+        "viewBytes": 16389416,
+        "denseBytes": 4954392,
+        "loadedAccessors": 2351,
+        "loadedBufferViews": 2109,
+        "decodedBytes": 38211404
+      },
+      "resident": {
+        "actors": 2,
+        "vertices": 102072,
+        "nodes": 40,
+        "deformedVertices": 1568280,
+        "sourceBytes": 16867596,
+        "decodedArrayBytes": 38211404,
+        "clipKeyScalars": 0,
+        "active": 2,
+        "pending": 0,
+        "cache": {
+          "loads": 1,
+          "hits": 1,
+          "disposals": 0,
+          "live": 1,
+          "retainedReferences": 2
+        }
+      },
+      "after": {
+        "actors": 0,
+        "vertices": 0,
+        "nodes": 0,
+        "deformedVertices": 0,
+        "sourceBytes": 0,
+        "decodedArrayBytes": 0,
+        "clipKeyScalars": 0,
+        "active": 0,
+        "pending": 0,
+        "cache": {
+          "loads": 1,
+          "hits": 1,
+          "disposals": 1,
+          "live": 0,
+          "retainedReferences": 0
+        }
+      }
+    },
+    {
+      "prepareMs": 82.79348299999992,
+      "coldCreateMs": 217.39091700000017,
+      "cloneMs": 1.0793190000001687,
+      "disposeMs": 0.2747949999998127,
+      "tickMicroseconds": {
+        "p50": 11.547000000064145,
+        "p95": 41.45199999993565,
+        "max": 470.0990000001184
+      },
+      "geometryBytes": 20999184,
+      "plan": {
+        "inputBytes": 16867596,
+        "binReservationBytes": 16867596,
+        "viewBytes": 16389416,
+        "denseBytes": 4954392,
+        "loadedAccessors": 2351,
+        "loadedBufferViews": 2109,
+        "decodedBytes": 38211404
+      },
+      "resident": {
+        "actors": 2,
+        "vertices": 102072,
+        "nodes": 40,
+        "deformedVertices": 1568280,
+        "sourceBytes": 16867596,
+        "decodedArrayBytes": 38211404,
+        "clipKeyScalars": 0,
+        "active": 2,
+        "pending": 0,
+        "cache": {
+          "loads": 1,
+          "hits": 1,
+          "disposals": 0,
+          "live": 1,
+          "retainedReferences": 2
+        }
+      },
+      "after": {
+        "actors": 0,
+        "vertices": 0,
+        "nodes": 0,
+        "deformedVertices": 0,
+        "sourceBytes": 0,
+        "decodedArrayBytes": 0,
+        "clipKeyScalars": 0,
+        "active": 0,
+        "pending": 0,
+        "cache": {
+          "loads": 1,
+          "hits": 1,
+          "disposals": 1,
+          "live": 0,
+          "retainedReferences": 0
+        }
+      }
+    },
+    {
+      "prepareMs": 88.1129269999999,
+      "coldCreateMs": 209.0863649999999,
+      "cloneMs": 1.0159229999999297,
+      "disposeMs": 0.10626000000002023,
+      "tickMicroseconds": {
+        "p50": 11.086000000204876,
+        "p95": 17.457000000149492,
+        "max": 256.88800000011724
+      },
+      "geometryBytes": 20999184,
+      "plan": {
+        "inputBytes": 16867596,
+        "binReservationBytes": 16867596,
+        "viewBytes": 16389416,
+        "denseBytes": 4954392,
+        "loadedAccessors": 2351,
+        "loadedBufferViews": 2109,
+        "decodedBytes": 38211404
+      },
+      "resident": {
+        "actors": 2,
+        "vertices": 102072,
+        "nodes": 40,
+        "deformedVertices": 1568280,
+        "sourceBytes": 16867596,
+        "decodedArrayBytes": 38211404,
+        "clipKeyScalars": 0,
+        "active": 2,
+        "pending": 0,
+        "cache": {
+          "loads": 1,
+          "hits": 1,
+          "disposals": 0,
+          "live": 1,
+          "retainedReferences": 2
+        }
+      },
+      "after": {
+        "actors": 0,
+        "vertices": 0,
+        "nodes": 0,
+        "deformedVertices": 0,
+        "sourceBytes": 0,
+        "decodedArrayBytes": 0,
+        "clipKeyScalars": 0,
+        "active": 0,
+        "pending": 0,
+        "cache": {
+          "loads": 1,
+          "hits": 1,
+          "disposals": 1,
+          "live": 0,
+          "retainedReferences": 0
+        }
+      }
+    },
+    {
+      "prepareMs": 81.950691,
+      "coldCreateMs": 202.19696199999998,
+      "cloneMs": 0.8982249999999112,
+      "disposeMs": 0.08543899999995119,
+      "tickMicroseconds": {
+        "p50": 10.896999999658874,
+        "p95": 15.862999999626481,
+        "max": 55.60400000013033
+      },
+      "geometryBytes": 20999184,
+      "plan": {
+        "inputBytes": 16867596,
+        "binReservationBytes": 16867596,
+        "viewBytes": 16389416,
+        "denseBytes": 4954392,
+        "loadedAccessors": 2351,
+        "loadedBufferViews": 2109,
+        "decodedBytes": 38211404
+      },
+      "resident": {
+        "actors": 2,
+        "vertices": 102072,
+        "nodes": 40,
+        "deformedVertices": 1568280,
+        "sourceBytes": 16867596,
+        "decodedArrayBytes": 38211404,
+        "clipKeyScalars": 0,
+        "active": 2,
+        "pending": 0,
+        "cache": {
+          "loads": 1,
+          "hits": 1,
+          "disposals": 0,
+          "live": 1,
+          "retainedReferences": 2
+        }
+      },
+      "after": {
+        "actors": 0,
+        "vertices": 0,
+        "nodes": 0,
+        "deformedVertices": 0,
+        "sourceBytes": 0,
+        "decodedArrayBytes": 0,
+        "clipKeyScalars": 0,
+        "active": 0,
+        "pending": 0,
+        "cache": {
+          "loads": 1,
+          "hits": 1,
+          "disposals": 1,
+          "live": 0,
+          "retainedReferences": 0
+        }
+      }
+    }
+  ]
+}

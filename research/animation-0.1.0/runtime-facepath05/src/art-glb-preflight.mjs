@@ -10,6 +10,7 @@ export const ART_LIMITS=Object.freeze({
 });
 // Separate seven-slot face slice ceilings; neutral ART_LIMITS stay unchanged.
 export const FACE_LIMITS=Object.freeze({...ART_LIMITS,meshes:9,primitives:9,indices:310000,accessors:1024,bufferViews:1200});
+export const FULL_FACE_LIMITS=Object.freeze({...FACE_LIMITS,assetBytes:17*1024*1024,totalBytes:18*1024*1024,morphTargets:144,accessors:2351,bufferViews:2109,accessorScalars:5554957,decodedAccessorBytes:20999632,deformedVertices:784140});
 const sizes={5121:1,5123:2,5125:4,5126:4};
 const counts={SCALAR:1,VEC2:2,VEC3:3,VEC4:4,MAT4:16};
 const types={5121:Uint8Array,5123:Uint16Array,5125:Uint32Array,5126:Float32Array};
@@ -45,6 +46,10 @@ export function preflightFaceGLB(bytes,budget=FACE_LIMITS) {
   try {return checkGLB(bytes,ceilings(budget,FACE_LIMITS),'approved-face-slice');}
   catch(e){if(e instanceof ContractError)throw e;fail('GLB','Malformed approved face GLB');}
 }
+export function preflightFullFaceGLB(bytes,budget=FULL_FACE_LIMITS) {
+  try {return checkGLB(bytes,ceilings(budget,FULL_FACE_LIMITS),'approved-face-full18');}
+  catch(e){if(e instanceof ContractError)throw e;fail('GLB','Malformed full face GLB');}
+}
 function checkGLB(bytes,limit,purpose='neutral') {
   if(!(bytes instanceof Uint8Array)||bytes.byteLength<20||bytes.byteLength>limit.assetBytes)fail('GLB','GLB size/type');
   const v=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);
@@ -55,7 +60,7 @@ function checkGLB(bytes,limit,purpose='neutral') {
     const n=v.getUint32(at,true),type=v.getUint32(at+4,true);
     if(n%4||n>bytes.byteLength-at-8)fail('GLB','Chunk range');
     const chunk=bytes.subarray(at+8,at+8+n);
-    if(type===0x4e4f534a&&at===12&&!doc)doc=json(chunk,limit.jsonBytes);
+    if(type===0x4e4f534a&&at===12&&!doc)doc=json(chunk,limit.jsonBytes,purpose==='approved-face-full18'?{jsonDepth:16,jsonEntries:38601}:undefined);
     else if(type===0x004e4942&&doc&&!bin)bin=chunk;
     else fail('GLB','Unsupported/duplicate chunk');
     at+=8+n;
@@ -67,12 +72,12 @@ function checkGLB(bytes,limit,purpose='neutral') {
     if(value===null)fail('GLB','Null glTF fields are unsupported');
     if(value&&typeof value==='object')for(const child of Object.values(value))structural.push(child);
   }
-  exact(doc,['asset','scene','scenes','nodes','meshes','buffers','bufferViews','accessors'],['skins','materials','extensionsUsed','extensionsRequired',...(purpose==='approved-face-slice'?['extras']:[])]);
+  exact(doc,['asset','scene','scenes','nodes','meshes','buffers','bufferViews','accessors'],['skins','materials','extensionsUsed','extensionsRequired',...(purpose.startsWith('approved-face-')?['extras']:[])]);
   if(own(doc,'extras')) {
     exact(doc.extras,['bubuLibrary','semanticSlotCount','approvalMessageID','historicalTargets','activeSemanticStates']);
     for(const key of ['bubuLibrary','approvalMessageID','historicalTargets'])str(doc.extras[key],key);
-    integer(doc.extras.semanticSlotCount,1,7,'Face slice slot count');
-    list(doc.extras.activeSemanticStates,7,'Face source IDs');
+    integer(doc.extras.semanticSlotCount,1,purpose==='approved-face-full18'?18:7,'Face slice slot count');
+    list(doc.extras.activeSemanticStates,purpose==='approved-face-full18'?18:7,'Face source IDs');
     if(doc.extras.activeSemanticStates.length!==doc.extras.semanticSlotCount||new Set(doc.extras.activeSemanticStates).size!==doc.extras.semanticSlotCount)fail('GLB','Source semantic IDs');
     doc.extras.activeSemanticStates.forEach(id=>str(id));
   }
@@ -386,12 +391,12 @@ function validateNodeExtras(node,purpose) {
     if(Math.abs(Math.hypot(...node.extras.surface_normal_blender)-1)>1e-4)fail('GLB','HeadTouch source normal must be near unit');
     return;
   }
-  if(purpose==='approved-face-slice'&&['A_brow_L','A_brow_R','A_tongue'].includes(node.name))fields=['layer'];
+  if(purpose.startsWith('approved-face-')&&['A_brow_L','A_brow_R','A_tongue'].includes(node.name))fields=['layer'];
   else if(node.name==='A_mochi_skin')fields=['role','touchTarget','rig_model'];
   else if(faceNodes.includes(node.name))fields=['expression_contract','selected_face_contract'];
   else if(node.name==='A_reference_root')fields=['stage','reference_priority','geometry_source','asset_stage','front_axis','ground_y','shape_source_sha256','joint_translation_policy','rig_revision','expression_channels','petting_pose','note','selected_face_reference'];
   else fail('GLB','Node extras are restricted to known source roles');
-  if(purpose==='approved-face-slice'&&node.name==='A_reference_root')fields=[...fields,'new_basic_faces','gaze_status'];
+  if(purpose.startsWith('approved-face-')&&node.name==='A_reference_root')fields=[...fields,'new_basic_faces','gaze_status'];
   exact(node.extras,[],fields);
   // These source notes are inert provenance, never commands, capabilities,
   // runtime bindings or a substitute for the separate hash/profile checks.

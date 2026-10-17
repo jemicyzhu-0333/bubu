@@ -1,4 +1,4 @@
-import {validatePolicy} from './director.mjs';
+import {validatePackPolicy} from './director.mjs';
 import {ResourceCache} from './resource-cache.mjs';
 import {createNeutralSuite} from './neutral-suite.mjs';
 import {createFaceSuite,createDirectedFaceSuite} from './face-suite.mjs';
@@ -86,8 +86,8 @@ export class ActorPool {
   }
   create(pack,options={}) {return this.#create(pack,options);}
   createDirected(pack,policy,{signal,onRecord,onDispose}={}) {
-    if(pack.kind!=='approved-single-face-paths')return Promise.reject(new TypeError('Directed actor requires admitted face pack'));
-    return this.#create(pack,{signal,policy:validatePolicy(policy),onRecord,onDispose},true);
+    if(!['approved-single-face-paths','approved-full-face-paths-opt-in'].includes(pack.kind))return Promise.reject(new TypeError('Directed actor requires admitted face pack'));
+    return this.#create(pack,{signal,policy:validatePackPolicy(pack,policy),onRecord,onDispose},true);
   }
   async #create(pack,{signal,policy,onRecord,onDispose}={},directed=false) {
     if(this.#closed)fail('DISPOSED','ActorPool');
@@ -100,7 +100,7 @@ export class ActorPool {
     signal?.addEventListener('abort',onAbort,{once:true});
     let suite=null;
     try {
-      const factory=directed?createDirectedFaceSuite:pack.kind==='approved-art-neutral'?createNeutralSuite:pack.kind==='approved-single-face-paths'?createFaceSuite:createSuite;
+      const factory=directed?createDirectedFaceSuite:pack.kind==='approved-art-neutral'?createNeutralSuite:['approved-single-face-paths','approved-full-face-paths-opt-in'].includes(pack.kind)?createFaceSuite:createSuite;
       suite=await factory(pack,this.#cache,{signal:abort.signal,policy,onRecord,onDispose});
       if(this.#closed||abort.signal.aborted)throw abort.signal.reason??new Error('Pool disposed');
       const originalDispose=suite.dispose;

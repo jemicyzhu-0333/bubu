@@ -59,3 +59,7 @@ Real browser/GPU rendering, context recovery, first-frame behavior, actual draw
 calls/VRAM/GPU time and input latency require an authorized browser route. No
 socket restriction was bypassed. Full 18-slot art, drag/pet/long-press, bodies,
 clothing, contact physics, random P1 policy and gaze remain outside this patch.
+
+## Explicit full18 candidate
+
+The seven-slot default is unchanged. See [FULL18](spec/FULL18.md) for the separate `prepareFullFacePack` opt-in, exact resource budgets, CPU tests and GPU evidence limits.

@@ -1,0 +1,727 @@
+{
+  "format": "bubu-face-profile",
+  "version": "0.1.0",
+  "purpose": "approved-full-face-paths-opt-in",
+  "sourceSha256": "1100131118479ecb266c029082d311f18e5b2564ad0a1077182ac934e769d677",
+  "root": "A_reference_root",
+  "body": "A_mochi_skin",
+  "faceMeshes": [
+    "A_eye_highlight_L",
+    "A_eye_highlight_R",
+    "A_eye_L",
+    "A_eye_R",
+    "A_mouth_ring",
+    "A_brow_L",
+    "A_brow_R",
+    "A_tongue"
+  ],
+  "joints": {
+    "body": "Body",
+    "shoulderLeft": "Shoulder_L",
+    "shoulderRight": "Shoulder_R",
+    "hipLeft": "Hip_L",
+    "hipRight": "Hip_R"
+  },
+  "sockets": {
+    "headTouch": "HeadTouch",
+    "accessory": "AccessoryAnchor"
+  },
+  "basis": "approved05-original-small-o",
+  "semanticDefault": "R0",
+  "hiddenBasisLayers": [
+    "A_brow_L",
+    "A_brow_R",
+    "A_tongue"
+  ],
+  "paths": [
+    {
+      "id": "R0",
+      "meaning": "quiet short-neutral",
+      "knots": [
+        {
+          "at": 0.125,
+          "target": "BasicR0_01"
+        },
+        {
+          "at": 0.25,
+          "target": "BasicR0_02"
+        },
+        {
+          "at": 0.375,
+          "target": "BasicR0_03"
+        },
+        {
+          "at": 0.5,
+          "target": "BasicR0_04"
+        },
+        {
+          "at": 0.625,
+          "target": "BasicR0_05"
+        },
+        {
+          "at": 0.75,
+          "target": "BasicR0_06"
+        },
+        {
+          "at": 0.875,
+          "target": "BasicR0_07"
+        },
+        {
+          "at": 1.0,
+          "target": "BasicR0_08"
+        }
+      ]
+    },
+    {
+      "id": "D1",
+      "meaning": "tired but awake",
+      "knots": [
+        {
+          "at": 0.125,
+          "target": "BasicD1_01"
+        },
+        {
+          "at": 0.25,
+          "target": "BasicD1_02"
+        },
+        {
+          "at": 0.375,
+          "target": "BasicD1_03"
+        },
+        {
+          "at": 0.5,
+          "target": "BasicD1_04"
+        },
+        {
+          "at": 0.625,
+          "target": "BasicD1_05"
+        },
+        {
+          "at": 0.75,
+          "target": "BasicD1_06"
+        },
+        {
+          "at": 0.875,
+          "target": "BasicD1_07"
+        },
+        {
+          "at": 1.0,
+          "target": "BasicD1_08"
+        }
+      ]
+    },
+    {
+      "id": "A7",
+      "meaning": "natural sleep",
+      "knots": [
+        {
+          "at": 0.125,
+          "target": "BasicA7_01"
+        },
+        {
+          "at": 0.25,
+          "target": "BasicA7_02"
+        },
+        {
+          "at": 0.375,
+          "target": "BasicA7_03"
+        },
+        {
+          "at": 0.5,
+          "target": "BasicA7_04"
+        },
+        {
+          "at": 0.625,
+          "target": "BasicA7_05"
+        },
+        {
+          "at": 0.75,
+          "target": "BasicA7_06"
+        },
+        {
+          "at": 0.875,
+          "target": "BasicA7_07"
+        },
+        {
+          "at": 1.0,
+          "target": "BasicA7_08"
+        }
+      ]
+    },
+    {
+      "id": "D4",
+      "meaning": "yawn transition",
+      "knots": [
+        {
+          "at": 0.125,
+          "target": "BasicD4_01"
+        },
+        {
+          "at": 0.25,
+          "target": "BasicD4_02"
+        },
+        {
+          "at": 0.375,
+          "target": "BasicD4_03"
+        },
+        {
+          "at": 0.5,
+          "target": "BasicD4_04"
+        },
+        {
+          "at": 0.625,
+          "target": "BasicD4_05"
+        },
+        {
+          "at": 0.75,
+          "target": "BasicD4_06"
+        },
+        {
+          "at": 0.875,
+          "target": "BasicD4_07"
+        },
+        {
+          "at": 1.0,
+          "target": "BasicD4_08"
+        }
+      ]
+    },
+    {
+      "id": "01",
+      "meaning": "curious/light startle",
+      "knots": [
+        {
+          "at": 0.125,
+          "target": "Face01_01"
+        },
+        {
+          "at": 0.25,
+          "target": "Face01_02"
+        },
+        {
+          "at": 0.375,
+          "target": "Face01_03"
+        },
+        {
+          "at": 0.5,
+          "target": "Face01_04"
+        },
+        {
+          "at": 0.625,
+          "target": "Face01_05"
+        },
+        {
+          "at": 0.75,
+          "target": "Face01_06"
+        },
+        {
+          "at": 0.875,
+          "target": "Face01_07"
+        },
+        {
+          "at": 1.0,
+          "target": "Face01_08"
+        }
+      ]
+    },
+    {
+      "id": "N2",
+      "meaning": "puzzled",
+      "knots": [
+        {
+          "at": 0.125,
+          "target": "BasicN2_01"
+        },
+        {
+          "at": 0.25,
+          "target": "BasicN2_02"
+        },
+        {
+          "at": 0.375,
+          "target": "BasicN2_03"
+        },
+        {
+          "at": 0.5,
+          "target": "BasicN2_04"
+        },
+        {
+          "at": 0.625,
+          "target": "BasicN2_05"
+        },
+        {
+          "at": 0.75,
+          "target": "BasicN2_06"
+        },
+        {
+          "at": 0.875,
+          "target": "BasicN2_07"
+        },
+        {
+          "at": 1.0,
+          "target": "BasicN2_08"
+        }
+      ]
+    },
+    {
+      "id": "N3",
+      "meaning": "strong surprise with small inner tongue",
+      "knots": [
+        {
+          "at": 0.125,
+          "target": "BasicN3_01"
+        },
+        {
+          "at": 0.25,
+          "target": "BasicN3_02"
+        },
+        {
+          "at": 0.375,
+          "target": "BasicN3_03"
+        },
+        {
+          "at": 0.5,
+          "target": "BasicN3_04"
+        },
+        {
+          "at": 0.625,
+          "target": "BasicN3_05"
+        },
+        {
+          "at": 0.75,
+          "target": "BasicN3_06"
+        },
+        {
+          "at": 0.875,
+          "target": "BasicN3_07"
+        },
+        {
+          "at": 1.0,
+          "target": "BasicN3_08"
+        }
+      ]
+    },
+    {
+      "id": "T05",
+      "meaning": "mild uneasy/braced attention revised",
+      "knots": [
+        {
+          "at": 0.125,
+          "target": "BasicT05_01"
+        },
+        {
+          "at": 0.25,
+          "target": "BasicT05_02"
+        },
+        {
+          "at": 0.375,
+          "target": "BasicT05_03"
+        },
+        {
+          "at": 0.5,
+          "target": "BasicT05_04"
+        },
+        {
+          "at": 0.625,
+          "target": "BasicT05_05"
+        },
+        {
+          "at": 0.75,
+          "target": "BasicT05_06"
+        },
+        {
+          "at": 0.875,
+          "target": "BasicT05_07"
+        },
+        {
+          "at": 1.0,
+          "target": "BasicT05_08"
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "meaning": "open happy smile",
+      "knots": [
+        {
+          "at": 0.125,
+          "target": "Face07_01"
+        },
+        {
+          "at": 0.25,
+          "target": "Face07_02"
+        },
+        {
+          "at": 0.375,
+          "target": "Face07_03"
+        },
+        {
+          "at": 0.5,
+          "target": "Face07_04"
+        },
+        {
+          "at": 0.625,
+          "target": "Face07_05"
+        },
+        {
+          "at": 0.75,
+          "target": "Face07_06"
+        },
+        {
+          "at": 0.875,
+          "target": "Face07_07"
+        },
+        {
+          "at": 1.0,
+          "target": "Face07_08"
+        }
+      ]
+    },
+    {
+      "id": "P2",
+      "meaning": "quiet contentment",
+      "knots": [
+        {
+          "at": 0.125,
+          "target": "BasicP2_01"
+        },
+        {
+          "at": 0.25,
+          "target": "BasicP2_02"
+        },
+        {
+          "at": 0.375,
+          "target": "BasicP2_03"
+        },
+        {
+          "at": 0.5,
+          "target": "BasicP2_04"
+        },
+        {
+          "at": 0.625,
+          "target": "BasicP2_05"
+        },
+        {
+          "at": 0.75,
+          "target": "BasicP2_06"
+        },
+        {
+          "at": 0.875,
+          "target": "BasicP2_07"
+        },
+        {
+          "at": 1.0,
+          "target": "BasicP2_08"
+        }
+      ]
+    },
+    {
+      "id": "08",
+      "meaning": "relaxed half-lid smile",
+      "knots": [
+        {
+          "at": 0.125,
+          "target": "Face08_01"
+        },
+        {
+          "at": 0.25,
+          "target": "Face08_02"
+        },
+        {
+          "at": 0.375,
+          "target": "Face08_03"
+        },
+        {
+          "at": 0.5,
+          "target": "Face08_04"
+        },
+        {
+          "at": 0.625,
+          "target": "Face08_05"
+        },
+        {
+          "at": 0.75,
+          "target": "Face08_06"
+        },
+        {
+          "at": 0.875,
+          "target": "Face08_07"
+        },
+        {
+          "at": 1.0,
+          "target": "Face08_08"
+        }
+      ]
+    },
+    {
+      "id": "A4",
+      "meaning": "serious focus",
+      "knots": [
+        {
+          "at": 0.125,
+          "target": "BasicA4_01"
+        },
+        {
+          "at": 0.25,
+          "target": "BasicA4_02"
+        },
+        {
+          "at": 0.375,
+          "target": "BasicA4_03"
+        },
+        {
+          "at": 0.5,
+          "target": "BasicA4_04"
+        },
+        {
+          "at": 0.625,
+          "target": "BasicA4_05"
+        },
+        {
+          "at": 0.75,
+          "target": "BasicA4_06"
+        },
+        {
+          "at": 0.875,
+          "target": "BasicA4_07"
+        },
+        {
+          "at": 1.0,
+          "target": "BasicA4_08"
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "meaning": "brief effort squeeze",
+      "knots": [
+        {
+          "at": 0.125,
+          "target": "Face04_01"
+        },
+        {
+          "at": 0.25,
+          "target": "Face04_02"
+        },
+        {
+          "at": 0.375,
+          "target": "Face04_03"
+        },
+        {
+          "at": 0.5,
+          "target": "Face04_04"
+        },
+        {
+          "at": 0.625,
+          "target": "Face04_05"
+        },
+        {
+          "at": 0.75,
+          "target": "Face04_06"
+        },
+        {
+          "at": 0.875,
+          "target": "Face04_07"
+        },
+        {
+          "at": 1.0,
+          "target": "Face04_08"
+        }
+      ]
+    },
+    {
+      "id": "A8",
+      "meaning": "impatient",
+      "knots": [
+        {
+          "at": 0.125,
+          "target": "BasicA8_01"
+        },
+        {
+          "at": 0.25,
+          "target": "BasicA8_02"
+        },
+        {
+          "at": 0.375,
+          "target": "BasicA8_03"
+        },
+        {
+          "at": 0.5,
+          "target": "BasicA8_04"
+        },
+        {
+          "at": 0.625,
+          "target": "BasicA8_05"
+        },
+        {
+          "at": 0.75,
+          "target": "BasicA8_06"
+        },
+        {
+          "at": 0.875,
+          "target": "BasicA8_07"
+        },
+        {
+          "at": 1.0,
+          "target": "BasicA8_08"
+        }
+      ]
+    },
+    {
+      "id": "S2",
+      "meaning": "friendly availability",
+      "knots": [
+        {
+          "at": 0.125,
+          "target": "BasicS2_01"
+        },
+        {
+          "at": 0.25,
+          "target": "BasicS2_02"
+        },
+        {
+          "at": 0.375,
+          "target": "BasicS2_03"
+        },
+        {
+          "at": 0.5,
+          "target": "BasicS2_04"
+        },
+        {
+          "at": 0.625,
+          "target": "BasicS2_05"
+        },
+        {
+          "at": 0.75,
+          "target": "BasicS2_06"
+        },
+        {
+          "at": 0.875,
+          "target": "BasicS2_07"
+        },
+        {
+          "at": 1.0,
+          "target": "BasicS2_08"
+        }
+      ]
+    },
+    {
+      "id": "S3",
+      "meaning": "worried",
+      "knots": [
+        {
+          "at": 0.125,
+          "target": "BasicS3_01"
+        },
+        {
+          "at": 0.25,
+          "target": "BasicS3_02"
+        },
+        {
+          "at": 0.375,
+          "target": "BasicS3_03"
+        },
+        {
+          "at": 0.5,
+          "target": "BasicS3_04"
+        },
+        {
+          "at": 0.625,
+          "target": "BasicS3_05"
+        },
+        {
+          "at": 0.75,
+          "target": "BasicS3_06"
+        },
+        {
+          "at": 0.875,
+          "target": "BasicS3_07"
+        },
+        {
+          "at": 1.0,
+          "target": "BasicS3_08"
+        }
+      ]
+    },
+    {
+      "id": "T5",
+      "meaning": "closed-eye setback/sadness",
+      "knots": [
+        {
+          "at": 0.125,
+          "target": "BasicT5_01"
+        },
+        {
+          "at": 0.25,
+          "target": "BasicT5_02"
+        },
+        {
+          "at": 0.375,
+          "target": "BasicT5_03"
+        },
+        {
+          "at": 0.5,
+          "target": "BasicT5_04"
+        },
+        {
+          "at": 0.625,
+          "target": "BasicT5_05"
+        },
+        {
+          "at": 0.75,
+          "target": "BasicT5_06"
+        },
+        {
+          "at": 0.875,
+          "target": "BasicT5_07"
+        },
+        {
+          "at": 1.0,
+          "target": "BasicT5_08"
+        }
+      ]
+    },
+    {
+      "id": "S5",
+      "meaning": "open-eye sadness",
+      "knots": [
+        {
+          "at": 0.125,
+          "target": "BasicS5_01"
+        },
+        {
+          "at": 0.25,
+          "target": "BasicS5_02"
+        },
+        {
+          "at": 0.375,
+          "target": "BasicS5_03"
+        },
+        {
+          "at": 0.5,
+          "target": "BasicS5_04"
+        },
+        {
+          "at": 0.625,
+          "target": "BasicS5_05"
+        },
+        {
+          "at": 0.75,
+          "target": "BasicS5_06"
+        },
+        {
+          "at": 0.875,
+          "target": "BasicS5_07"
+        },
+        {
+          "at": 1.0,
+          "target": "BasicS5_08"
+        }
+      ]
+    }
+  ],
+  "readiness": {
+    "engine": "single-semantic-path",
+    "binding": "fixed-eighteen-slot-opt-in",
+    "verified": "source-parity-and-scalar-clock"
+  }
+}

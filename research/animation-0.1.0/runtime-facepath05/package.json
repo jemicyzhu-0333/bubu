@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "node --test tests/*.test.mjs test/*.test.mjs",
-    "serve": "python3 -m http.server 8040 --bind 127.0.0.1"
+    "serve": "python3 -m http.server 8040 --bind 127.0.0.1",
+    "restore:full18": "python3 tools/materialize-full18.py"
   },
   "dependencies": {
     "three": "0.186.1"

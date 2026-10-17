@@ -53,7 +53,7 @@ export function path(p) {
   if(p.length>128||!p.split('/').every(x=>/^[A-Za-z0-9][A-Za-z0-9_.-]*$/.test(x)&&x!=='.'&&x!=='..'))fail('PATH', 'Unsafe package path');
   return p;
 }
-export function json(bytes, max) {
+export function json(bytes, max, complexity=LIMITS) {
   if(bytes.byteLength>max)fail('LIMIT', 'JSON byte budget');
   let o;
   try {
@@ -68,7 +68,7 @@ export function json(bytes, max) {
   const stack=[[o, 0]];
   while(stack.length) {
     const[v, d]=stack.pop();
-    if(d>LIMITS.jsonDepth||++count>LIMITS.jsonEntries)fail('LIMIT', 'JSON complexity');
+    if(d>complexity.jsonDepth||++count>complexity.jsonEntries)fail('LIMIT', 'JSON complexity');
     if(v&&typeof v==='object')for(const x of Object.values(v))stack.push([x, d+1]);
   }
   return o;

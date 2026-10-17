@@ -1,9 +1,15 @@
+import {APPROVED_FULL_FACE_SOURCE,FULL_FACE_PROFILE_SHA256} from './approved-full-face-source.mjs';
 import {FaceTimeline} from './face-timeline.mjs';
 import {APPROVED_FACE_SOURCE} from './approved-face-source.mjs';
 export const SOURCE_SHA256=APPROVED_FACE_SOURCE.sha256;
 export const PROFILE_SHA256='14b268270370477caac18cdbefa6a95a4a1d078c674527315f67f1b24e045997';
 export const LIMITS=Object.freeze({maxTime:1e8,inputHeadroom:7207,maxCandidates:32,maxBatches:128,maxEvents:32,maxDuration:3600,maxSteps:4096});
-const ids=Object.freeze(Object.keys(APPROVED_FACE_SOURCE.paths));
+function policyIds(p){return p.sourceSha256===APPROVED_FULL_FACE_SOURCE.sha256&&p.profileSha256===FULL_FACE_PROFILE_SHA256?APPROVED_FULL_FACE_SOURCE.slotIds:p.sourceSha256===SOURCE_SHA256&&p.profileSha256===PROFILE_SHA256?Object.keys(APPROVED_FACE_SOURCE.paths):null;}
+export function validatePackPolicy(pack,policy){
+ const p=validatePolicy(policy),m=pack.manifest;
+ if(p.sourceSha256!==pack.profile.sourceSha256||p.profileSha256!==m.assets.find(a=>a.id===m.character.profile)?.sha256)throw new RangeError('policy and admitted pack mismatch');
+ return p;
+}
 const rank=Object.freeze({idle:0,interaction:1});
 function record(x,keys,label){
   if(!x||typeof x!=='object'||![Object.prototype,null].includes(Object.getPrototypeOf(x)))throw new TypeError(label+' must be a plain data record');
@@ -20,8 +26,8 @@ function integer(x,min,max,label){num(x,min,max,label);if(!Number.isInteger(x))t
 function id(x){if(typeof x!=='string'||!/^[A-Za-z0-9_-]{1,64}$/.test(x))throw new TypeError('identifier');return x;}
 export function validatePolicy(p){
   record(p,['format','version','sourceSha256','profileSha256','candidates'],'policy');
-  if(p.format!=='bubu-expression-policy-p0'||p.version!=='0.1.0-p0'||p.sourceSha256!==SOURCE_SHA256||p.profileSha256!==PROFILE_SHA256)throw new RangeError('policy version or approved source/profile mismatch');
-  array(p.candidates,1,LIMITS.maxCandidates,'candidates');const seen=new Set();
+  if(p.format!=='bubu-expression-policy-p0'||p.version!=='0.1.0-p0'||!policyIds(p))throw new RangeError('policy version or approved source/profile mismatch');
+  array(p.candidates,1,LIMITS.maxCandidates,'candidates');const seen=new Set(),ids=policyIds(p);
   const candidates=p.candidates.map(c=>{
     record(c,['key','faceId','amount','enterSec','exitSec','holdSec','gapSec'],'candidate');id(c.key);
     if(seen.has(c.key)||!ids.includes(c.faceId))throw new RangeError('duplicate key or unapproved face');seen.add(c.key);
@@ -39,7 +45,7 @@ export class ExpressionDirector {
   constructor(policy,apply,onRecord=()=>{}){
     this.#policy=validatePolicy(policy);this.#candidates=new Map(this.#policy.candidates.map(c=>[c.key,c]));
     if(typeof apply!=='function'||typeof onRecord!=='function')throw new TypeError('callbacks must be functions');
-    this.#onRecord=onRecord;this.#clock=new FaceTimeline(ids,apply);
+    this.#onRecord=onRecord;this.#clock=new FaceTimeline(policyIds(this.#policy),apply);
   }
   get hasInteraction(){return this.#active?.priority==='interaction'||this.#queue.some(b=>b.events.some(e=>e.type==='request'&&e.priority==='interaction'));}
   get observerStatus(){return Object.freeze({enabled:this.#onRecord!==null,failure:this.#observerFailure});}

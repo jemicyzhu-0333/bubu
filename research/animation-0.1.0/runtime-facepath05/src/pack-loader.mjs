@@ -10,8 +10,8 @@ import {
   preflightGLB
 }
 from './glb-preflight.mjs';
-import {validateFaceManifest,validateFaceProfile} from './face-contract.mjs';
-import {preflightFaceGLB} from './art-glb-preflight.mjs';
+import {validateFaceManifest,validateFaceProfile,FULL_FACE_PURPOSE} from './face-contract.mjs';
+import {preflightFaceGLB,preflightFullFaceGLB} from './art-glb-preflight.mjs';
 import {preflightArtGLB} from './art-glb-preflight.mjs';
 import {validateNeutralManifest,validateNeutralProfile} from './neutral-contract.mjs';
 import {verifyNeutralSource} from './neutral-source-check.mjs';
@@ -152,29 +152,31 @@ export async function acquireNeutralGLB(pack,cache,options={}) {
     } catch(error) {disposeSource(gltf.scene);throw error;}
   },options);
 }
-export async function prepareFacePack(read,{signal}={}) {
+export function prepareFacePack(read,options={}) {return prepareFaceCapability(read,options,'approved-single-face-paths');}
+export function prepareFullFacePack(read,options={}) {return prepareFaceCapability(read,options,FULL_FACE_PURPOSE);}
+async function prepareFaceCapability(read,{signal}={},purpose) {
   const check=()=>{if(signal?.aborted)throw signal.reason??new Error('Aborted');};
-  check();const manifest=validateFaceManifest(json(await read('manifest.json',LIMITS.manifestBytes,signal),LIMITS.manifestBytes));
+  check();const manifest=validateFaceManifest(json(await read('manifest.json',LIMITS.manifestBytes,signal),LIMITS.manifestBytes),purpose);
   const data=new Map(),audits=new Map();
   for(const asset of manifest.assets) {
     check();const incoming=await read(asset.path,asset.bytes,signal);check();
     if(!(incoming instanceof Uint8Array)||incoming.byteLength!==asset.bytes)fail('INTEGRITY',asset.id);
     const bytes=Uint8Array.from(incoming);if(await sha256(bytes)!==asset.sha256)fail('INTEGRITY',asset.id);
-    data.set(asset.id,bytes);if(asset.kind==='glb')audits.set(asset.id,preflightFaceGLB(bytes,manifest.budgets));
+    data.set(asset.id,bytes);if(asset.kind==='glb')audits.set(asset.id,(purpose===FULL_FACE_PURPOSE?preflightFullFaceGLB:preflightFaceGLB)(bytes,manifest.budgets));
   }
   const asset=manifest.assets.find(a=>a.id===manifest.character.asset),audit=audits.get(asset.id);
-  const profile=validateFaceProfile(json(data.get(manifest.character.profile),LIMITS.profileBytes),asset.sha256,audit.document);
+  const profile=validateFaceProfile(json(data.get(manifest.character.profile),LIMITS.profileBytes),asset.sha256,audit.document,purpose);
   const vertices=audit.renderVertices,nodes=audit.nodes+2,deformedVertices=audit.renderDeformedVertices,decodedReservation=decodedArrayReservation(asset.bytes,audit.document);
   if(vertices>manifest.budgets.vertices||nodes>manifest.budgets.nodes||deformedVertices>manifest.budgets.deformedVertices||decodedReservation>manifest.budgets.decodedArrayBytes)fail('LIMIT','Face instance/decoded budget');
   check();for(const a of audits.values())deepFreeze(a);
-  const pack=Object.freeze({kind:'approved-single-face-paths',manifest:deepFreeze(manifest),profile:deepFreeze(profile),data:readonlyMap(data,true),audits:readonlyMap(audits),budget:deepFreeze({vertices,nodes,deformedVertices,clipKeyScalars:0,textureBytes:0,decodedArrayReservation:decodedReservation})});
+  const pack=Object.freeze({kind:purpose,manifest:deepFreeze(manifest),profile:deepFreeze(profile),data:readonlyMap(data,true),audits:readonlyMap(audits),budget:deepFreeze({vertices,nodes,deformedVertices,clipKeyScalars:0,textureBytes:0,decodedArrayReservation:decodedReservation})});
   privatePreparedBytes.set(pack,data);
   const key='face-gltf-0.1.0:'+asset.sha256;
   admissionRecords.set(pack,Object.freeze({vertices,nodes,deformedVertices,clipKeyScalars:0,sources:Object.freeze([Object.freeze({key,bytes:asset.bytes,decodedBytes:decodedReservation})])}));
   return pack;
 }
 export async function acquireFaceGLB(pack,cache,options={}) {
-  if(pack.kind!=='approved-single-face-paths'||!privatePreparedBytes.has(pack))fail('BINDING','Prepared single-face pack required');
+  if(!['approved-single-face-paths',FULL_FACE_PURPOSE].includes(pack.kind)||!privatePreparedBytes.has(pack))fail('BINDING','Prepared single-face pack required');
   const asset=pack.manifest.assets.find(a=>a.id===pack.manifest.character.asset),key='face-gltf-0.1.0:'+asset.sha256;
   return cache.acquire(key,async()=>{
     const bytes=privatePreparedBytes.get(pack).get(asset.id);
