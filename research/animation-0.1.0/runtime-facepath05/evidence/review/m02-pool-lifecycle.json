@@ -1,0 +1,8 @@
+{
+  "checks": [
+    "Concurrent pending actor consumes budget atomically; duplicate release safe",
+    "Immediate abort rolls back all budget/cache counters after late parser completion",
+    "Pool disposal cancels pending load and closes admission",
+    "Shared encoded GLB bytes charged once; instance vertices twice; final release clears bytes"
+  ]
+}

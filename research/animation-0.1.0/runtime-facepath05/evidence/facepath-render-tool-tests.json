@@ -1,0 +1,43 @@
+{
+  "scope": "non-render script tests only",
+  "checks": [
+    {
+      "check": "valid actual-shaped Basis sample accepted",
+      "passed": true
+    },
+    {
+      "check": "unknown target rejected",
+      "passed": true
+    },
+    {
+      "check": "nonzero weights at zero scalar rejected",
+      "passed": true
+    },
+    {
+      "check": "nonfinite time rejected",
+      "passed": true
+    },
+    {
+      "check": "divergent state clock rejected",
+      "passed": true
+    },
+    {
+      "check": "output outside owned workspace rejected",
+      "passed": true
+    },
+    {
+      "check": "single fixed resize and native passthrough dimensions",
+      "passed": true
+    },
+    {
+      "check": "clear all1152keys across8layers, apply actual-style names, reset Basis, preserve body rig",
+      "passed": true,
+      "maxBlenderFloatWeightError": 1.1920928966180355e-08
+    },
+    {
+      "check": "ffmpeg libx264 and ffprobe exact30Hz duration on3plain non-model smoke frames",
+      "passed": true
+    }
+  ],
+  "renderedImages": 0
+}

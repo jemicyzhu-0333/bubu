@@ -1,0 +1,81 @@
+{
+  "format": "bubu-facepath-native-calibration-comparison",
+  "renderManifestSHA256": "87d99d639b603f1a355fdcb413ecbc978a92c299ec02862e6667d852084b323d",
+  "comparison": {
+    "file": "native-vs-source-calibration.png",
+    "sha256": "4be53e62a1b766dc9faae82c49012344031482271856fe5a18bd76ff518535ad"
+  },
+  "samples": [
+    {
+      "name": "Basis",
+      "time": 0,
+      "sourceAlphaBounds128": [
+        13,
+        34,
+        401,
+        325
+      ],
+      "reducedAlphaBounds128": [
+        4,
+        11,
+        137,
+        110
+      ],
+      "nativeAlphaBounds128": [
+        4,
+        11,
+        137,
+        110
+      ],
+      "meanAbsRGBA": [
+        10.068782098312546,
+        6.4139765223771095,
+        6.6208119344583025,
+        0.900953778429934
+      ],
+      "maximumAbsRGBA": [
+        255,
+        255,
+        255,
+        54
+      ],
+      "pixelExact": false
+    },
+    {
+      "name": "N3-half",
+      "time": 1.8900000000000001,
+      "sourceAlphaBounds128": [
+        13,
+        34,
+        401,
+        325
+      ],
+      "reducedAlphaBounds128": [
+        4,
+        11,
+        137,
+        110
+      ],
+      "nativeAlphaBounds128": [
+        4,
+        11,
+        137,
+        110
+      ],
+      "meanAbsRGBA": [
+        10.173697725605283,
+        6.450782587429689,
+        6.6537662020053805,
+        0.900953778429934
+      ],
+      "maximumAbsRGBA": [
+        255,
+        255,
+        255,
+        54
+      ],
+      "pixelExact": false
+    }
+  ],
+  "visualAcceptance": "Not automatically decided; inspect same-sample silhouette and face details before choosing main-resolution."
+}

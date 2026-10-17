@@ -1,0 +1,11 @@
+{
+  "schema": "spec/neutral-wire.schema.json",
+  "fixtures": [
+    "fixtures/neutral-r6/manifest.json",
+    "fixtures/neutral-static05/manifest.json",
+    "fixtures/neutral-r6/profile.json",
+    "fixtures/neutral-static05/profile.json"
+  ],
+  "passed": 4,
+  "scope": "structural schema; runtime owns hash, reference and semantic checks"
+}

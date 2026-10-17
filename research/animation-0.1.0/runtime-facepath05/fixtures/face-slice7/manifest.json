@@ -1,0 +1,29 @@
+{
+  "format": "bubu-face-suite",
+  "version": "0.1.0",
+  "id": "approved-seven-face-paths",
+  "purpose": "approved-single-face-paths",
+  "assets": [
+    {
+      "id": "body",
+      "path": "asset.glb",
+      "kind": "glb",
+      "bytes": 8509100,
+      "sha256": "a9ae09635658ac15c55cf1571db53e284bd463eaab9a84ff24e7836270a1808e"
+    },
+    {
+      "id": "profile",
+      "path": "profile.json",
+      "kind": "profile",
+      "bytes": 5869,
+      "sha256": "14b268270370477caac18cdbefa6a95a4a1d078c674527315f67f1b24e045997"
+    }
+  ],
+  "character": {
+    "asset": "body",
+    "profile": "profile"
+  },
+  "budgets": {
+    "decodedArrayBytes": 20971520
+  }
+}

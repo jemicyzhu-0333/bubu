@@ -1,0 +1,47 @@
+{
+  "scope": "Own-cloud loopback HTTP delivery only; no browser/WebGL execution",
+  "resources": [
+    {
+      "path": "neutral.html",
+      "status": 200,
+      "bytes": 1159,
+      "sha256": "8df8f6819ec5bf5d6bce2e81c7683d02dbaa72c606f5e36dc716568b175d823a"
+    },
+    {
+      "path": "src/neutral-demo.mjs",
+      "status": 200,
+      "bytes": 3451,
+      "sha256": "eb14b6e187c469acfd1caed1d03ff642f835f8f54a55f5f3a483700d6c14f201"
+    },
+    {
+      "path": "fixtures/neutral-static05/manifest.json",
+      "status": 200,
+      "bytes": 655,
+      "sha256": "3582403ac0f4b2a2a7dce6cc3feb6db015b04629e95f724a4c7e3c9dd8772152"
+    },
+    {
+      "path": "fixtures/neutral-static05/asset.glb",
+      "status": 200,
+      "bytes": 2342580,
+      "sha256": "3b7adcb303c8bd3c0dfb8976f9eb8fc0e6cefb897a7c16e99acc827385591722"
+    },
+    {
+      "path": "fixtures/neutral-r6/manifest.json",
+      "status": 200,
+      "bytes": 649,
+      "sha256": "479ebb0aedfdd670887c14100796349b8942e49507b4e2162a547701ca74e663"
+    },
+    {
+      "path": "fixtures/neutral-r6/asset.glb",
+      "status": 200,
+      "bytes": 8155940,
+      "sha256": "fba41db41ecb0e0a959cd6923f55d5edbfaebf4558d79e1e9832b2a806cc5830"
+    },
+    {
+      "path": "node_modules/three/build/three.module.js",
+      "status": 200,
+      "bytes": 662772,
+      "sha256": "9052042d676cb0fdc1ddfefe193053f34b7ac0513a616fdac4535d49987812ea"
+    }
+  ]
+}

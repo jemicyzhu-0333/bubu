@@ -1,0 +1,87 @@
+{
+  "format": "bubu-suite",
+  "version": "0.1.0",
+  "id": "mechanical.foundation-demo",
+  "assets": [
+    {
+      "id": "body",
+      "path": "mechanical-character.glb",
+      "kind": "glb",
+      "bytes": 10196,
+      "sha256": "a0a6d62bd3edf28885ce51ca6d0353ed4ba6220ab99e7a23b3855b63ad04f446"
+    },
+    {
+      "id": "cap",
+      "path": "mechanical-accessory.glb",
+      "kind": "glb",
+      "bytes": 1688,
+      "sha256": "f1961dbfa8838e16b31a9e84a2d43ca2728c6ce66fc15150aaae4941569ac9a7"
+    },
+    {
+      "id": "profile",
+      "path": "character-profile.json",
+      "kind": "profile",
+      "bytes": 2035,
+      "sha256": "a82bae6856c44909b165debe3eaac104423ed4dd7c6cd15abeba1826f109bcee"
+    },
+    {
+      "id": "motion",
+      "path": "motion.json",
+      "kind": "motion",
+      "bytes": 2584,
+      "sha256": "804ddfc359a249ded96ab91c48bb2a769024d121b4d777c1015053f9a584458e"
+    },
+    {
+      "id": "clips",
+      "path": "authored-clips.json",
+      "kind": "clips",
+      "bytes": 3532,
+      "sha256": "04844e621c1fcc28b1e2de22847fbcf85c0cea1d498558a28d112350fd310c36"
+    }
+  ],
+  "character": {
+    "asset": "body",
+    "profile": "profile"
+  },
+  "equipment": [
+    {
+      "id": "testCap",
+      "asset": "cap",
+      "slot": "head.accessory",
+      "fit": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": 1
+      },
+      "attachment": "rigid-socket",
+      "collision": "unverified-no-solver",
+      "support": "none"
+    }
+  ],
+  "motion": "motion",
+  "requiredCapabilities": [
+    "skeletal-delta",
+    "expression-single-path",
+    "rigid-socket",
+    "accessory-local-rotation",
+    "canonical-events",
+    "interrupt-c0",
+    "demand-render",
+    "authored-quaternion-clips"
+  ],
+  "budgets": {
+    "totalBytes": 65536,
+    "vertices": 1000,
+    "nodes": 32
+  },
+  "clips": "clips"
+}

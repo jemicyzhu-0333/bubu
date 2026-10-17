@@ -1,0 +1,32 @@
+{
+  "format": "bubu-neutral-profile",
+  "version": "0.1.0",
+  "purpose": "approved-art-neutral",
+  "sourceSha256": "fba41db41ecb0e0a959cd6923f55d5edbfaebf4558d79e1e9832b2a806cc5830",
+  "rig": "skinned",
+  "root": "A_reference_root",
+  "body": "A_mochi_skin",
+  "faces": [
+    "A_eye_highlight_L",
+    "A_eye_highlight_R",
+    "A_eye_L",
+    "A_eye_R",
+    "A_mouth_ring"
+  ],
+  "joints": {
+    "body": "Body",
+    "shoulderLeft": "Shoulder_L",
+    "shoulderRight": "Shoulder_R",
+    "hipLeft": "Hip_L",
+    "hipRight": "Hip_R"
+  },
+  "sockets": {
+    "headTouch": "HeadTouch",
+    "accessory": "AccessoryAnchor"
+  },
+  "readiness": {
+    "engine": "neutral-load-only",
+    "binding": "hash-locked-rest",
+    "verified": "cpu-source-parity-only"
+  }
+}

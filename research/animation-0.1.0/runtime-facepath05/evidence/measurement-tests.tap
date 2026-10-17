@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: workload axes isolate vertices, joints, nodes and morph targets
+ok 1 - workload axes isolate vertices, joints, nodes and morph targets
+  ---
+  duration_ms: 1.423908
+  type: 'test'
+  ...
+# Subtest: mechanical GLB generator is byte deterministic and rejects unsupported shapes
+ok 2 - mechanical GLB generator is byte deterministic and rejects unsupported shapes
+  ---
+  duration_ms: 15.241695
+  type: 'test'
+  ...
+# Subtest: all generated workloads pass actual preparation and runtime binding within hard limits
+ok 3 - all generated workloads pass actual preparation and runtime binding within hard limits
+  ---
+  duration_ms: 560.219759
+  type: 'test'
+  ...
+# Subtest: timing summaries use nearest-rank quantiles without changing raw observations
+ok 4 - timing summaries use nearest-rank quantiles without changing raw observations
+  ---
+  duration_ms: 1.334783
+  type: 'test'
+  ...
+# Subtest: CPU matrix records separate throughput/latency samples, actual events, release and pool evidence
+ok 5 - CPU matrix records separate throughput/latency samples, actual events, release and pool evidence
+  ---
+  duration_ms: 62.881145
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 774.826472

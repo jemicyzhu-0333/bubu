@@ -1,0 +1,17 @@
+{
+  "scope": "Actual demo source in mocked browser lifecycle; real ContextLifecycle EventTargets; no WebGL/GPU",
+  "cases": [
+    {
+      "action": "dispose",
+      "actorsAddedAfterCancellation": 0,
+      "poolCreateCalls": 0,
+      "disposeCalls": 0
+    },
+    {
+      "action": "pagehide",
+      "actorsAddedAfterCancellation": 0,
+      "poolCreateCalls": 0,
+      "disposeCalls": 0
+    }
+  ]
+}

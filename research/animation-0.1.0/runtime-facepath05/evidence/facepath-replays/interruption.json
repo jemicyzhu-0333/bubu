@@ -1,0 +1,5376 @@
+{
+  "format": "bubu-facepath-replay",
+  "version": "0.1.0",
+  "name": "interruption",
+  "scope": "Actual face-suite scalar state and eight-layer influences; static source skeleton; offline renderer replay, not WebGL capture",
+  "assetSha256": "a9ae09635658ac15c55cf1571db53e284bd463eaab9a84ff24e7836270a1808e",
+  "timelineSha256": "fc673f6268df7457de1952b7f58df56e5fec9e35018b344fffd59a7c44c2dff3",
+  "fps": 30,
+  "duration": 4.3,
+  "faceRoster": [
+    "A_eye_highlight_L",
+    "A_eye_highlight_R",
+    "A_eye_L",
+    "A_eye_R",
+    "A_mouth_ring",
+    "A_brow_L",
+    "A_brow_R",
+    "A_tongue"
+  ],
+  "events": [
+    {
+      "type": "face",
+      "time": 0.1,
+      "id": "04",
+      "amount": 1,
+      "fadeInSec": 0.42,
+      "fadeOutSec": 0.28
+    },
+    {
+      "type": "face",
+      "time": 0.32,
+      "id": "N3",
+      "amount": 1,
+      "fadeInSec": 0.42,
+      "fadeOutSec": 0.28
+    },
+    {
+      "type": "face",
+      "time": 0.42,
+      "id": "04",
+      "amount": 1,
+      "fadeInSec": 0.42,
+      "fadeOutSec": 0.28
+    },
+    {
+      "type": "face",
+      "time": 0.58,
+      "id": "A7",
+      "amount": 1,
+      "fadeInSec": 0.42,
+      "fadeOutSec": 0.28
+    },
+    {
+      "type": "face",
+      "time": 1.35,
+      "id": "07",
+      "amount": 1,
+      "fadeInSec": 0.42,
+      "fadeOutSec": 0.28
+    },
+    {
+      "type": "face",
+      "time": 1.58,
+      "id": "N3",
+      "amount": 1,
+      "fadeInSec": 0.42,
+      "fadeOutSec": 0.28
+    },
+    {
+      "type": "cancel",
+      "time": 1.74,
+      "fadeOutSec": 0.3
+    },
+    {
+      "type": "face",
+      "time": 2.25,
+      "id": "N3",
+      "amount": 1,
+      "fadeInSec": 0.42,
+      "fadeOutSec": 0.28
+    },
+    {
+      "type": "face",
+      "time": 2.49,
+      "id": "N3",
+      "amount": 0.3,
+      "fadeInSec": 0.42,
+      "fadeOutSec": 0.28
+    },
+    {
+      "type": "face",
+      "time": 2.64,
+      "id": "N2",
+      "amount": 1,
+      "fadeInSec": 0.42,
+      "fadeOutSec": 0.28
+    },
+    {
+      "type": "cancel",
+      "time": 3.5,
+      "fadeOutSec": 0.3
+    }
+  ],
+  "frames": [
+    {
+      "frame": 0,
+      "time": 0,
+      "state": {
+        "time": 0,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": null,
+        "requestedFadeOutSec": 0.1,
+        "requestedFadeInSec": 0.1,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0,
+        "arrivalTime": 0,
+        "actualArrival": 0,
+        "holdSince": 0,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {}
+    },
+    {
+      "frame": 1,
+      "time": 0.03333333333333333,
+      "state": {
+        "time": 0.03333333333333333,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": null,
+        "requestedFadeOutSec": 0.1,
+        "requestedFadeInSec": 0.1,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0,
+        "arrivalTime": 0,
+        "actualArrival": 0,
+        "holdSince": 0,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {}
+    },
+    {
+      "frame": 2,
+      "time": 0.06666666666666667,
+      "state": {
+        "time": 0.06666666666666667,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": null,
+        "requestedFadeOutSec": 0.1,
+        "requestedFadeInSec": 0.1,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0,
+        "arrivalTime": 0,
+        "actualArrival": 0,
+        "holdSince": 0,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {}
+    },
+    {
+      "frame": 3,
+      "time": 0.1,
+      "state": {
+        "time": 0.1,
+        "path": "04",
+        "value": 0,
+        "velocity": 0,
+        "phase": "enter",
+        "targetPath": "04",
+        "targetAmount": 1,
+        "requestedAt": 0.1,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.1,
+        "arrivalTime": 0.52,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.52,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {}
+    },
+    {
+      "frame": 4,
+      "time": 0.13333333333333333,
+      "state": {
+        "time": 0.13333333333333333,
+        "path": "04",
+        "value": 0.017896635432538676,
+        "velocity": 1.0438037648921998,
+        "phase": "enter",
+        "targetPath": "04",
+        "targetAmount": 1,
+        "requestedAt": 0.1,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.1,
+        "arrivalTime": 0.52,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.52,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_01": 0.1431730834603094
+      }
+    },
+    {
+      "frame": 5,
+      "time": 0.16666666666666666,
+      "state": {
+        "time": 0.16666666666666666,
+        "path": "04",
+        "value": 0.06758729358880529,
+        "velocity": 1.9076413634236757,
+        "phase": "enter",
+        "targetPath": "04",
+        "targetAmount": 1,
+        "requestedAt": 0.1,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.1,
+        "arrivalTime": 0.52,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.52,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_01": 0.5406983487104423
+      }
+    },
+    {
+      "frame": 6,
+      "time": 0.2,
+      "state": {
+        "time": 0.2,
+        "path": "04",
+        "value": 0.14307310225677572,
+        "velocity": 2.5915127955944275,
+        "phase": "enter",
+        "targetPath": "04",
+        "targetAmount": 1,
+        "requestedAt": 0.1,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.1,
+        "arrivalTime": 0.52,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.52,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_01": 0.8554151819457942,
+        "Face04_02": 0.14458481805420575
+      }
+    },
+    {
+      "frame": 7,
+      "time": 0.23333333333333334,
+      "state": {
+        "time": 0.23333333333333334,
+        "path": "04",
+        "value": 0.23835518922442578,
+        "velocity": 3.0954180614044553,
+        "phase": "enter",
+        "targetPath": "04",
+        "targetAmount": 1,
+        "requestedAt": 0.1,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.1,
+        "arrivalTime": 0.52,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.52,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_01": 0.09315848620459377,
+        "Face04_02": 0.9068415137954062
+      }
+    },
+    {
+      "frame": 8,
+      "time": 0.26666666666666666,
+      "state": {
+        "time": 0.26666666666666666,
+        "path": "04",
+        "value": 0.34743468227973134,
+        "velocity": 3.4193571608537585,
+        "phase": "enter",
+        "targetPath": "04",
+        "targetAmount": 1,
+        "requestedAt": 0.1,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.1,
+        "arrivalTime": 0.52,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.52,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_02": 0.22052254176214925,
+        "Face04_03": 0.7794774582378508
+      }
+    },
+    {
+      "frame": 9,
+      "time": 0.3,
+      "state": {
+        "time": 0.3,
+        "path": "04",
+        "value": 0.4643127092106683,
+        "velocity": 3.563330093942339,
+        "phase": "enter",
+        "targetPath": "04",
+        "targetAmount": 1,
+        "requestedAt": 0.1,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.1,
+        "arrivalTime": 0.52,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.52,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_03": 0.28549832631465355,
+        "Face04_04": 0.7145016736853465
+      }
+    },
+    {
+      "frame": 10,
+      "time": 0.3333333333333333,
+      "state": {
+        "time": 0.3333333333333333,
+        "path": "04",
+        "value": 0.5752798473886908,
+        "velocity": 2.375553395961561,
+        "phase": "brake",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 0.32,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.03999999999999998,
+        "brakeEndsAt": 0.36,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.36,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_04": 0.39776122089047394,
+        "Face04_05": 0.6022387791095261
+      }
+    },
+    {
+      "frame": 11,
+      "time": 0.36666666666666664,
+      "state": {
+        "time": 0.36666666666666664,
+        "path": "04",
+        "value": 0.605938042831621,
+        "velocity": -0.3022972497496994,
+        "phase": "withdraw",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 0.32,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.03999999999999998,
+        "brakeEndsAt": 0.36,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.64,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_04": 0.15249565734703197,
+        "Face04_05": 0.847504342652968
+      }
+    },
+    {
+      "frame": 12,
+      "time": 0.4,
+      "state": {
+        "time": 0.4,
+        "path": "04",
+        "value": 0.5733325400130895,
+        "velocity": -1.5925903889252497,
+        "phase": "withdraw",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 0.32,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.03999999999999998,
+        "brakeEndsAt": 0.36,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.64,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_04": 0.41333967989528375,
+        "Face04_05": 0.5866603201047162
+      }
+    },
+    {
+      "frame": 13,
+      "time": 0.43333333333333335,
+      "state": {
+        "time": 0.43333333333333335,
+        "path": "04",
+        "value": 0.5038615189323997,
+        "velocity": -2.5142283454792125,
+        "phase": "withdraw",
+        "targetPath": "04",
+        "targetAmount": 1,
+        "requestedAt": 0.42,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.64,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_04": 0.9691078485408022,
+        "Face04_05": 0.03089215145919777
+      }
+    },
+    {
+      "frame": 14,
+      "time": 0.4666666666666667,
+      "state": {
+        "time": 0.4666666666666667,
+        "path": "04",
+        "value": 0.40981348567693743,
+        "velocity": -3.0672111194115903,
+        "phase": "withdraw",
+        "targetPath": "04",
+        "targetAmount": 1,
+        "requestedAt": 0.42,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.64,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_03": 0.7214921145845006,
+        "Face04_04": 0.2785078854154994
+      }
+    },
+    {
+      "frame": 15,
+      "time": 0.5,
+      "state": {
+        "time": 0.5,
+        "path": "04",
+        "value": 0.3034769463340891,
+        "velocity": -3.2515387107223828,
+        "phase": "withdraw",
+        "targetPath": "04",
+        "targetAmount": 1,
+        "requestedAt": 0.42,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.64,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_02": 0.5721844293272871,
+        "Face04_03": 0.4278155706727129
+      }
+    },
+    {
+      "frame": 16,
+      "time": 0.5333333333333333,
+      "state": {
+        "time": 0.5333333333333333,
+        "path": "04",
+        "value": 0.19714040699124077,
+        "velocity": -3.0672111194115903,
+        "phase": "withdraw",
+        "targetPath": "04",
+        "targetAmount": 1,
+        "requestedAt": 0.42,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.64,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_01": 0.4228767440700738,
+        "Face04_02": 0.5771232559299262
+      }
+    },
+    {
+      "frame": 17,
+      "time": 0.5666666666666667,
+      "state": {
+        "time": 0.5666666666666667,
+        "path": "04",
+        "value": 0.10309237373577851,
+        "velocity": -2.5142283454792125,
+        "phase": "withdraw",
+        "targetPath": "04",
+        "targetAmount": 1,
+        "requestedAt": 0.42,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.64,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_01": 0.8247389898862281
+      }
+    },
+    {
+      "frame": 18,
+      "time": 0.6,
+      "state": {
+        "time": 0.6,
+        "path": "04",
+        "value": 0.033621352655088664,
+        "velocity": -1.59259038892525,
+        "phase": "withdraw",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.64,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_01": 0.2689708212407093
+      }
+    },
+    {
+      "frame": 19,
+      "time": 0.6333333333333333,
+      "state": {
+        "time": 0.6333333333333333,
+        "path": "04",
+        "value": 0.001015849836557269,
+        "velocity": -0.30229724974970174,
+        "phase": "withdraw",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.64,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_01": 0.008126798692458153
+      }
+    },
+    {
+      "frame": 20,
+      "time": 0.6666666666666666,
+      "state": {
+        "time": 0.6666666666666666,
+        "path": "A7",
+        "value": 0.011581822617347894,
+        "velocity": 0.8494403052226164,
+        "phase": "enter",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.06,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_01": 0.09265458093878315
+      }
+    },
+    {
+      "frame": 21,
+      "time": 0.7,
+      "state": {
+        "time": 0.7,
+        "path": "A7",
+        "value": 0.05539358600583079,
+        "velocity": 1.7492711370262377,
+        "phase": "enter",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.06,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_01": 0.4431486880466463
+      }
+    },
+    {
+      "frame": 22,
+      "time": 0.7333333333333333,
+      "state": {
+        "time": 0.7333333333333333,
+        "path": "A7",
+        "value": 0.12620027434842232,
+        "velocity": 2.469135802469134,
+        "phase": "enter",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.06,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_01": 0.9903978052126214,
+        "BasicA7_02": 0.00960219478737856
+      }
+    },
+    {
+      "frame": 23,
+      "time": 0.7666666666666667,
+      "state": {
+        "time": 0.7666666666666667,
+        "path": "A7",
+        "value": 0.2180030154330986,
+        "velocity": 3.009034301551308,
+        "phase": "enter",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.06,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_01": 0.25597587653521114,
+        "BasicA7_02": 0.7440241234647889
+      }
+    },
+    {
+      "frame": 24,
+      "time": 0.8,
+      "state": {
+        "time": 0.8,
+        "path": "A7",
+        "value": 0.3248029370478351,
+        "velocity": 3.368966634272757,
+        "phase": "enter",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.06,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_02": 0.40157650361731934,
+        "BasicA7_03": 0.5984234963826807
+      }
+    },
+    {
+      "frame": 25,
+      "time": 0.8333333333333334,
+      "state": {
+        "time": 0.8333333333333334,
+        "path": "A7",
+        "value": 0.44060116698060764,
+        "velocity": 3.54893280063348,
+        "phase": "enter",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.06,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_03": 0.4751906641551389,
+        "BasicA7_04": 0.5248093358448611
+      }
+    },
+    {
+      "frame": 26,
+      "time": 0.8666666666666667,
+      "state": {
+        "time": 0.8666666666666667,
+        "path": "A7",
+        "value": 0.5593988330193924,
+        "velocity": 3.5489328006334806,
+        "phase": "enter",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.06,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_04": 0.5248093358448607,
+        "BasicA7_05": 0.47519066415513933
+      }
+    },
+    {
+      "frame": 27,
+      "time": 0.9,
+      "state": {
+        "time": 0.9,
+        "path": "A7",
+        "value": 0.6751970629521649,
+        "velocity": 3.3689666342727564,
+        "phase": "enter",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.06,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_05": 0.5984234963826811,
+        "BasicA7_06": 0.4015765036173189
+      }
+    },
+    {
+      "frame": 28,
+      "time": 0.9333333333333333,
+      "state": {
+        "time": 0.9333333333333333,
+        "path": "A7",
+        "value": 0.7819969845669014,
+        "velocity": 3.0090343015513077,
+        "phase": "enter",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.06,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_06": 0.7440241234647891,
+        "BasicA7_07": 0.2559758765352109
+      }
+    },
+    {
+      "frame": 29,
+      "time": 0.9666666666666667,
+      "state": {
+        "time": 0.9666666666666667,
+        "path": "A7",
+        "value": 0.8737997256515774,
+        "velocity": 2.4691358024691366,
+        "phase": "enter",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.06,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_06": 0.009602194787381002,
+        "BasicA7_07": 0.990397805212619
+      }
+    },
+    {
+      "frame": 30,
+      "time": 1,
+      "state": {
+        "time": 1,
+        "path": "A7",
+        "value": 0.944606413994169,
+        "velocity": 1.7492711370262406,
+        "phase": "enter",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.06,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_07": 0.443148688046648,
+        "BasicA7_08": 0.556851311953352
+      }
+    },
+    {
+      "frame": 31,
+      "time": 1.0333333333333334,
+      "state": {
+        "time": 1.0333333333333334,
+        "path": "A7",
+        "value": 0.9884181773826521,
+        "velocity": 0.8494403052226167,
+        "phase": "enter",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.06,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_07": 0.09265458093878287,
+        "BasicA7_08": 0.9073454190612171
+      }
+    },
+    {
+      "frame": 32,
+      "time": 1.0666666666666667,
+      "state": {
+        "time": 1.0666666666666667,
+        "path": "A7",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": 1.06,
+        "holdSince": 1.06,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_08": 1
+      }
+    },
+    {
+      "frame": 33,
+      "time": 1.1,
+      "state": {
+        "time": 1.1,
+        "path": "A7",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": 1.06,
+        "holdSince": 1.06,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_08": 1
+      }
+    },
+    {
+      "frame": 34,
+      "time": 1.1333333333333333,
+      "state": {
+        "time": 1.1333333333333333,
+        "path": "A7",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": 1.06,
+        "holdSince": 1.06,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_08": 1
+      }
+    },
+    {
+      "frame": 35,
+      "time": 1.1666666666666667,
+      "state": {
+        "time": 1.1666666666666667,
+        "path": "A7",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": 1.06,
+        "holdSince": 1.06,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_08": 1
+      }
+    },
+    {
+      "frame": 36,
+      "time": 1.2,
+      "state": {
+        "time": 1.2,
+        "path": "A7",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": 1.06,
+        "holdSince": 1.06,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_08": 1
+      }
+    },
+    {
+      "frame": 37,
+      "time": 1.2333333333333334,
+      "state": {
+        "time": 1.2333333333333334,
+        "path": "A7",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": 1.06,
+        "holdSince": 1.06,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_08": 1
+      }
+    },
+    {
+      "frame": 38,
+      "time": 1.2666666666666666,
+      "state": {
+        "time": 1.2666666666666666,
+        "path": "A7",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": 1.06,
+        "holdSince": 1.06,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_08": 1
+      }
+    },
+    {
+      "frame": 39,
+      "time": 1.3,
+      "state": {
+        "time": 1.3,
+        "path": "A7",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": 1.06,
+        "holdSince": 1.06,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_08": 1
+      }
+    },
+    {
+      "frame": 40,
+      "time": 1.3333333333333333,
+      "state": {
+        "time": 1.3333333333333333,
+        "path": "A7",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": 1.06,
+        "holdSince": 1.06,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_08": 1
+      }
+    },
+    {
+      "frame": 41,
+      "time": 1.3666666666666667,
+      "state": {
+        "time": 1.3666666666666667,
+        "path": "A7",
+        "value": 0.9897925440017278,
+        "velocity": -1.199586977648198,
+        "phase": "withdraw",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 1.35,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.6300000000000001,
+        "arrivalTime": 2.0500000000000003,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.6300000000000001,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_07": 0.08165964798617775,
+        "BasicA7_08": 0.9183403520138222
+      }
+    },
+    {
+      "frame": 42,
+      "time": 1.4,
+      "state": {
+        "time": 1.4,
+        "path": "A7",
+        "value": 0.9157252186588927,
+        "velocity": -3.1432215743440137,
+        "phase": "withdraw",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 1.35,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.6300000000000001,
+        "arrivalTime": 2.0500000000000003,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.6300000000000001,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_07": 0.6741982507288586,
+        "BasicA7_08": 0.32580174927114136
+      }
+    },
+    {
+      "frame": 43,
+      "time": 1.4333333333333333,
+      "state": {
+        "time": 1.4333333333333333,
+        "path": "A7",
+        "value": 0.786993170283987,
+        "velocity": -4.479470359572398,
+        "phase": "withdraw",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 1.35,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.6300000000000001,
+        "arrivalTime": 2.0500000000000003,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.6300000000000001,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_06": 0.7040546377281043,
+        "BasicA7_07": 0.2959453622718957
+      }
+    },
+    {
+      "frame": 44,
+      "time": 1.4666666666666666,
+      "state": {
+        "time": 1.4666666666666666,
+        "path": "A7",
+        "value": 0.6238425925925937,
+        "velocity": -5.20833333333333,
+        "phase": "withdraw",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 1.35,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.6300000000000001,
+        "arrivalTime": 2.0500000000000003,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.6300000000000001,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_04": 0.00925925925925064,
+        "BasicA7_05": 0.9907407407407494
+      }
+    },
+    {
+      "frame": 45,
+      "time": 1.5,
+      "state": {
+        "time": 1.5,
+        "path": "A7",
+        "value": 0.44651967930029207,
+        "velocity": -5.329810495626822,
+        "phase": "withdraw",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 1.35,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.6300000000000001,
+        "arrivalTime": 2.0500000000000003,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.6300000000000001,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_03": 0.4278425655976634,
+        "BasicA7_04": 0.5721574344023366
+      }
+    },
+    {
+      "frame": 46,
+      "time": 1.5333333333333334,
+      "state": {
+        "time": 1.5333333333333334,
+        "path": "A7",
+        "value": 0.2752706241226649,
+        "velocity": -4.843901846452867,
+        "phase": "withdraw",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 1.35,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.6300000000000001,
+        "arrivalTime": 2.0500000000000003,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.6300000000000001,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_02": 0.7978350070186808,
+        "BasicA7_03": 0.20216499298131918
+      }
+    },
+    {
+      "frame": 47,
+      "time": 1.5666666666666667,
+      "state": {
+        "time": 1.5666666666666667,
+        "path": "A7",
+        "value": 0.13034162077529468,
+        "velocity": -3.750607385811472,
+        "phase": "withdraw",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 1.35,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.6300000000000001,
+        "arrivalTime": 2.0500000000000003,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.6300000000000001,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_01": 0.9572670337976426,
+        "BasicA7_02": 0.04273296620235745
+      }
+    },
+    {
+      "frame": 48,
+      "time": 1.6,
+      "state": {
+        "time": 1.6,
+        "path": "A7",
+        "value": 0.031978862973760964,
+        "velocity": -2.0499271137026245,
+        "phase": "withdraw",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 1.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.6300000000000001,
+        "arrivalTime": 2.0500000000000003,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.6300000000000001,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_01": 0.2558309037900877
+      }
+    },
+    {
+      "frame": 49,
+      "time": 1.6333333333333333,
+      "state": {
+        "time": 1.6333333333333333,
+        "path": "N3",
+        "value": 0.00018796466264340655,
+        "velocity": 0.11247885397544766,
+        "phase": "enter",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 1.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.6300000000000001,
+        "arrivalTime": 2.0500000000000003,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.0500000000000003,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicN3_01": 0.0015037173011472524
+      }
+    },
+    {
+      "frame": 50,
+      "time": 1.6666666666666667,
+      "state": {
+        "time": 1.6666666666666667,
+        "path": "N3",
+        "value": 0.021533951617095922,
+        "velocity": 1.1382860022315786,
+        "phase": "enter",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 1.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.6300000000000001,
+        "arrivalTime": 2.0500000000000003,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.0500000000000003,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicN3_01": 0.17227161293676738
+      }
+    },
+    {
+      "frame": 51,
+      "time": 1.7,
+      "state": {
+        "time": 1.7,
+        "path": "N3",
+        "value": 0.0740740740740737,
+        "velocity": 1.9841269841269793,
+        "phase": "enter",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 1.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.6300000000000001,
+        "arrivalTime": 2.0500000000000003,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.0500000000000003,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicN3_01": 0.5925925925925896
+      }
+    },
+    {
+      "frame": 52,
+      "time": 1.7333333333333334,
+      "state": {
+        "time": 1.7333333333333334,
+        "path": "N3",
+        "value": 0.15180945982155328,
+        "velocity": 2.6500017996616605,
+        "phase": "enter",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 1.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.6300000000000001,
+        "arrivalTime": 2.0500000000000003,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.0500000000000003,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicN3_01": 0.7855243214275738,
+        "BasicN3_02": 0.21447567857242622
+      }
+    },
+    {
+      "frame": 53,
+      "time": 1.7666666666666666,
+      "state": {
+        "time": 1.7666666666666666,
+        "path": "N3",
+        "value": 0.21894683799445647,
+        "velocity": 0.920526940935108,
+        "phase": "brake",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.78,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.24842529604434826,
+        "BasicN3_02": 0.7515747039556517
+      }
+    },
+    {
+      "frame": 54,
+      "time": 1.8,
+      "state": {
+        "time": 1.8,
+        "path": "N3",
+        "value": 0.222215951401136,
+        "velocity": -0.2801041404216002,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.08,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.22227238879091193,
+        "BasicN3_02": 0.7777276112090881
+      }
+    },
+    {
+      "frame": 55,
+      "time": 1.8333333333333333,
+      "state": {
+        "time": 1.8333333333333333,
+        "path": "N3",
+        "value": 0.20627175187361024,
+        "velocity": -0.6580224251174085,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.08,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.34982598501111806,
+        "BasicN3_02": 0.6501740149888819
+      }
+    },
+    {
+      "frame": 56,
+      "time": 1.8666666666666667,
+      "state": {
+        "time": 1.8666666666666667,
+        "path": "N3",
+        "value": 0.17958281680081134,
+        "velocity": -0.9247882731379807,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.08,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.5633374655935093,
+        "BasicN3_02": 0.4366625344064907
+      }
+    },
+    {
+      "frame": 57,
+      "time": 1.9,
+      "state": {
+        "time": 1.9,
+        "path": "N3",
+        "value": 0.14585422740524756,
+        "velocity": -1.0804016844833138,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.08,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.8331661807580195,
+        "BasicN3_02": 0.16683381924198049
+      }
+    },
+    {
+      "frame": 58,
+      "time": 1.9333333333333333,
+      "state": {
+        "time": 1.9333333333333333,
+        "path": "N3",
+        "value": 0.10879106490942643,
+        "velocity": -1.1248626591534094,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.08,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.8703285192754114
+      }
+    },
+    {
+      "frame": 59,
+      "time": 1.9666666666666666,
+      "state": {
+        "time": 1.9666666666666666,
+        "path": "N3",
+        "value": 0.07209841053585628,
+        "velocity": -1.058171197148267,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.08,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.5767872842868502
+      }
+    },
+    {
+      "frame": 60,
+      "time": 2,
+      "state": {
+        "time": 2,
+        "path": "N3",
+        "value": 0.039481345507044616,
+        "velocity": -0.8803272984678858,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.08,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.3158507640563569
+      }
+    },
+    {
+      "frame": 61,
+      "time": 2.033333333333333,
+      "state": {
+        "time": 2.033333333333333,
+        "path": "N3",
+        "value": 0.014644951045499802,
+        "velocity": -0.5913309631122683,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.08,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.11715960836399841
+      }
+    },
+    {
+      "frame": 62,
+      "time": 2.066666666666667,
+      "state": {
+        "time": 2.066666666666667,
+        "path": "N3",
+        "value": 0.001294308373729411,
+        "velocity": -0.1911821910814075,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.08,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.010354466989835288
+      }
+    },
+    {
+      "frame": 63,
+      "time": 2.1,
+      "state": {
+        "time": 2.1,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": 2.08,
+        "holdSince": 2.08,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {}
+    },
+    {
+      "frame": 64,
+      "time": 2.1333333333333333,
+      "state": {
+        "time": 2.1333333333333333,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": 2.08,
+        "holdSince": 2.08,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {}
+    },
+    {
+      "frame": 65,
+      "time": 2.1666666666666665,
+      "state": {
+        "time": 2.1666666666666665,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": 2.08,
+        "holdSince": 2.08,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {}
+    },
+    {
+      "frame": 66,
+      "time": 2.2,
+      "state": {
+        "time": 2.2,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": 2.08,
+        "holdSince": 2.08,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {}
+    },
+    {
+      "frame": 67,
+      "time": 2.2333333333333334,
+      "state": {
+        "time": 2.2333333333333334,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": 2.08,
+        "holdSince": 2.08,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {}
+    },
+    {
+      "frame": 68,
+      "time": 2.2666666666666666,
+      "state": {
+        "time": 2.2666666666666666,
+        "path": "N3",
+        "value": 0.00459913536255181,
+        "velocity": 0.544397653241189,
+        "phase": "enter",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 2.25,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.25,
+        "arrivalTime": 2.67,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.67,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.03679308290041448
+      }
+    },
+    {
+      "frame": 69,
+      "time": 2.3,
+      "state": {
+        "time": 2.3,
+        "path": "N3",
+        "value": 0.03914264118345725,
+        "velocity": 1.4982183349530247,
+        "phase": "enter",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 2.25,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.25,
+        "arrivalTime": 2.67,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.67,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.313141129467658
+      }
+    },
+    {
+      "frame": 70,
+      "time": 2.3333333333333335,
+      "state": {
+        "time": 2.3333333333333335,
+        "path": "N3",
+        "value": 0.10248073362207939,
+        "velocity": 2.2720728503041463,
+        "phase": "enter",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 2.25,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.25,
+        "arrivalTime": 2.67,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.67,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.8198458689766351
+      }
+    },
+    {
+      "frame": 71,
+      "time": 2.3666666666666667,
+      "state": {
+        "time": 2.3666666666666667,
+        "path": "N3",
+        "value": 0.18861454046639245,
+        "velocity": 2.8659611992945337,
+        "phase": "enter",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 2.25,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.25,
+        "arrivalTime": 2.67,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.67,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.4910836762688604,
+        "BasicN3_02": 0.5089163237311396
+      }
+    },
+    {
+      "frame": 72,
+      "time": 2.4,
+      "state": {
+        "time": 2.4,
+        "path": "N3",
+        "value": 0.29154518950437297,
+        "velocity": 3.279883381924198,
+        "phase": "enter",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 2.25,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.25,
+        "arrivalTime": 2.67,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.67,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_02": 0.6676384839650162,
+        "BasicN3_03": 0.33236151603498376
+      }
+    },
+    {
+      "frame": 73,
+      "time": 2.433333333333333,
+      "state": {
+        "time": 2.433333333333333,
+        "path": "N3",
+        "value": 0.40527380852399686,
+        "velocity": 3.5138393981931393,
+        "phase": "enter",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 2.25,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.25,
+        "arrivalTime": 2.67,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.67,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_03": 0.7578095318080251,
+        "BasicN3_04": 0.24219046819197487
+      }
+    },
+    {
+      "frame": 74,
+      "time": 2.466666666666667,
+      "state": {
+        "time": 2.466666666666667,
+        "path": "N3",
+        "value": 0.5238015253132418,
+        "velocity": 3.567829248101357,
+        "phase": "enter",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 2.25,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.25,
+        "arrivalTime": 2.67,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.67,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_04": 0.809587797494066,
+        "BasicN3_05": 0.19041220250593405
+      }
+    },
+    {
+      "frame": 75,
+      "time": 2.5,
+      "state": {
+        "time": 2.5,
+        "path": "N3",
+        "value": 0.6370262390670558,
+        "velocity": 2.6239067055393774,
+        "phase": "brake",
+        "targetPath": "N3",
+        "targetAmount": 0.3,
+        "requestedAt": 2.49,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.5300000000000002,
+        "neutralAt": null,
+        "arrivalTime": 2.95,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.5300000000000002,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_05": 0.9037900874635536,
+        "BasicN3_06": 0.0962099125364464
+      }
+    },
+    {
+      "frame": 76,
+      "time": 2.533333333333333,
+      "state": {
+        "time": 2.533333333333333,
+        "path": "N3",
+        "value": 0.6763140926007378,
+        "velocity": -0.04233533541757839,
+        "phase": "adjust",
+        "targetPath": "N3",
+        "targetAmount": 0.3,
+        "requestedAt": 2.49,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.5300000000000002,
+        "neutralAt": null,
+        "arrivalTime": 2.95,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.95,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_05": 0.5894872591940974,
+        "BasicN3_06": 0.4105127408059026
+      }
+    },
+    {
+      "frame": 77,
+      "time": 2.566666666666667,
+      "state": {
+        "time": 2.566666666666667,
+        "path": "N3",
+        "value": 0.6682797867237121,
+        "velocity": -0.42843359442593965,
+        "phase": "adjust",
+        "targetPath": "N3",
+        "targetAmount": 0.3,
+        "requestedAt": 2.49,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.5300000000000002,
+        "neutralAt": null,
+        "arrivalTime": 2.95,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.95,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_05": 0.6537617062103029,
+        "BasicN3_06": 0.34623829378969706
+      }
+    },
+    {
+      "frame": 78,
+      "time": 2.6,
+      "state": {
+        "time": 2.6,
+        "path": "N3",
+        "value": 0.6485044811575434,
+        "velocity": -0.7467953167661632,
+        "phase": "adjust",
+        "targetPath": "N3",
+        "targetAmount": 0.3,
+        "requestedAt": 2.49,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.5300000000000002,
+        "neutralAt": null,
+        "arrivalTime": 2.95,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.95,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_05": 0.8119641507396524,
+        "BasicN3_06": 0.18803584926034755
+      }
+    },
+    {
+      "frame": 79,
+      "time": 2.6333333333333333,
+      "state": {
+        "time": 2.6333333333333333,
+        "path": "N3",
+        "value": 0.6192460604578361,
+        "velocity": -0.997420502438254,
+        "phase": "adjust",
+        "targetPath": "N3",
+        "targetAmount": 0.3,
+        "requestedAt": 2.49,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.5300000000000002,
+        "neutralAt": null,
+        "arrivalTime": 2.95,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.95,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_04": 0.04603151633731084,
+        "BasicN3_05": 0.9539684836626892
+      }
+    },
+    {
+      "frame": 80,
+      "time": 2.6666666666666665,
+      "state": {
+        "time": 2.6666666666666665,
+        "path": "N3",
+        "value": 0.5939765691396965,
+        "velocity": -0.34647238505750677,
+        "phase": "brake",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.68,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_04": 0.24818744688242766,
+        "BasicN3_05": 0.7518125531175723
+      }
+    },
+    {
+      "frame": 81,
+      "time": 2.7,
+      "state": {
+        "time": 2.7,
+        "path": "N3",
+        "value": 0.5830418734544836,
+        "velocity": -0.8409257790208915,
+        "phase": "withdraw",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.96,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_04": 0.3356650123641316,
+        "BasicN3_05": 0.6643349876358684
+      }
+    },
+    {
+      "frame": 82,
+      "time": 2.7333333333333334,
+      "state": {
+        "time": 2.7333333333333334,
+        "path": "N3",
+        "value": 0.5354453146419053,
+        "velocity": -1.954972751228051,
+        "phase": "withdraw",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.96,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_04": 0.716437482864758,
+        "BasicN3_05": 0.28356251713524205
+      }
+    },
+    {
+      "frame": 83,
+      "time": 2.7666666666666666,
+      "state": {
+        "time": 2.7666666666666666,
+        "path": "N3",
+        "value": 0.45670335660633127,
+        "velocity": -2.709649732400644,
+        "phase": "withdraw",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.96,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_03": 0.34637314714934986,
+        "BasicN3_04": 0.6536268528506501
+      }
+    },
+    {
+      "frame": 84,
+      "time": 2.8,
+      "state": {
+        "time": 2.8,
+        "path": "N3",
+        "value": 0.35879499904891377,
+        "velocity": -3.1049567225386694,
+        "phase": "withdraw",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.96,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_02": 0.12964000760868988,
+        "BasicN3_03": 0.8703599923913101
+      }
+    },
+    {
+      "frame": 85,
+      "time": 2.8333333333333335,
+      "state": {
+        "time": 2.8333333333333335,
+        "path": "N3",
+        "value": 0.25369924167080327,
+        "velocity": -3.140893721642128,
+        "phase": "withdraw",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.96,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_02": 0.9704060666335739,
+        "BasicN3_03": 0.02959393336642613
+      }
+    },
+    {
+      "frame": 86,
+      "time": 2.8666666666666667,
+      "state": {
+        "time": 2.8666666666666667,
+        "path": "N3",
+        "value": 0.15339508417315528,
+        "velocity": -2.817460729711017,
+        "phase": "withdraw",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.96,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.7728393266147577,
+        "BasicN3_02": 0.22716067338524226
+      }
+    },
+    {
+      "frame": 87,
+      "time": 2.9,
+      "state": {
+        "time": 2.9,
+        "path": "N3",
+        "value": 0.06986152625712028,
+        "velocity": -2.1346577467453396,
+        "phase": "withdraw",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.96,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.5588922100569622
+      }
+    },
+    {
+      "frame": 88,
+      "time": 2.933333333333333,
+      "state": {
+        "time": 2.933333333333333,
+        "path": "N3",
+        "value": 0.015077567623850532,
+        "velocity": -1.092484772745095,
+        "phase": "withdraw",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.96,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.12062054099080426
+      }
+    },
+    {
+      "frame": 89,
+      "time": 2.966666666666667,
+      "state": {
+        "time": 2.966666666666667,
+        "path": "N2",
+        "value": 0.0007478594024323774,
+        "velocity": 0.22315804628730312,
+        "phase": "enter",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.38,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN2_01": 0.005982875219459019
+      }
+    },
+    {
+      "frame": 90,
+      "time": 3,
+      "state": {
+        "time": 3,
+        "path": "N2",
+        "value": 0.025483209156678597,
+        "velocity": 1.2309685779073547,
+        "phase": "enter",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.38,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN2_01": 0.20386567325342878
+      }
+    },
+    {
+      "frame": 91,
+      "time": 3.033333333333333,
+      "state": {
+        "time": 3.033333333333333,
+        "path": "N2",
+        "value": 0.0808128071922477,
+        "velocity": 2.058812943166683,
+        "phase": "enter",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.38,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN2_01": 0.6465024575379816
+      }
+    },
+    {
+      "frame": 92,
+      "time": 3.066666666666667,
+      "state": {
+        "time": 3.066666666666667,
+        "path": "N2",
+        "value": 0.1607377812971168,
+        "velocity": 2.706691142065296,
+        "phase": "enter",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.38,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN2_01": 0.7140977496230656,
+        "BasicN2_02": 0.2859022503769344
+      }
+    },
+    {
+      "frame": 93,
+      "time": 3.1,
+      "state": {
+        "time": 3.1,
+        "path": "N2",
+        "value": 0.25925925925925974,
+        "velocity": 3.174603174603177,
+        "phase": "enter",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.38,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN2_02": 0.925925925925922,
+        "BasicN2_03": 0.07407407407407796
+      }
+    },
+    {
+      "frame": 94,
+      "time": 3.1333333333333333,
+      "state": {
+        "time": 3.1333333333333333,
+        "path": "N2",
+        "value": 0.3703783688666532,
+        "velocity": 3.4625490407803343,
+        "phase": "enter",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.38,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN2_02": 0.036973049066774344,
+        "BasicN2_03": 0.9630269509332257
+      }
+    },
+    {
+      "frame": 95,
+      "time": 3.1666666666666665,
+      "state": {
+        "time": 3.1666666666666665,
+        "path": "N2",
+        "value": 0.48809623790727313,
+        "velocity": 3.5705287405967683,
+        "phase": "enter",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.38,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN2_03": 0.09523009674181493,
+        "BasicN2_04": 0.9047699032581851
+      }
+    },
+    {
+      "frame": 96,
+      "time": 3.2,
+      "state": {
+        "time": 3.2,
+        "path": "N2",
+        "value": 0.6064139941690971,
+        "velocity": 3.498542274052477,
+        "phase": "enter",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.38,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN2_04": 0.1486880466472229,
+        "BasicN2_05": 0.8513119533527771
+      }
+    },
+    {
+      "frame": 97,
+      "time": 3.2333333333333334,
+      "state": {
+        "time": 3.2333333333333334,
+        "path": "N2",
+        "value": 0.7193327654400978,
+        "velocity": 3.2465896411474633,
+        "phase": "enter",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.38,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN2_05": 0.24533787647921734,
+        "BasicN2_06": 0.7546621235207827
+      }
+    },
+    {
+      "frame": 98,
+      "time": 3.2666666666666666,
+      "state": {
+        "time": 3.2666666666666666,
+        "path": "N2",
+        "value": 0.8208536795082525,
+        "velocity": 2.814670841881726,
+        "phase": "enter",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.38,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN2_06": 0.43317056393398,
+        "BasicN2_07": 0.56682943606602
+      }
+    },
+    {
+      "frame": 99,
+      "time": 3.3,
+      "state": {
+        "time": 3.3,
+        "path": "N2",
+        "value": 0.9049778641615375,
+        "velocity": 2.202785876255266,
+        "phase": "enter",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.38,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN2_07": 0.7601770867077002,
+        "BasicN2_08": 0.23982291329229977
+      }
+    },
+    {
+      "frame": 100,
+      "time": 3.3333333333333335,
+      "state": {
+        "time": 3.3333333333333335,
+        "path": "N2",
+        "value": 0.9657064471879291,
+        "velocity": 1.410934744268071,
+        "phase": "enter",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.38,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN2_07": 0.2743484224965673,
+        "BasicN2_08": 0.7256515775034327
+      }
+    },
+    {
+      "frame": 101,
+      "time": 3.3666666666666667,
+      "state": {
+        "time": 3.3666666666666667,
+        "path": "N2",
+        "value": 0.9970405563754015,
+        "velocity": 0.4391174459201626,
+        "phase": "enter",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.38,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN2_07": 0.023675548996788365,
+        "BasicN2_08": 0.9763244510032116
+      }
+    },
+    {
+      "frame": 102,
+      "time": 3.4,
+      "state": {
+        "time": 3.4,
+        "path": "N2",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": 3.38,
+        "holdSince": 3.38,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN2_08": 1
+      }
+    },
+    {
+      "frame": 103,
+      "time": 3.433333333333333,
+      "state": {
+        "time": 3.433333333333333,
+        "path": "N2",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": 3.38,
+        "holdSince": 3.38,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN2_08": 1
+      }
+    },
+    {
+      "frame": 104,
+      "time": 3.466666666666667,
+      "state": {
+        "time": 3.466666666666667,
+        "path": "N2",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": 3.38,
+        "holdSince": 3.38,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN2_08": 1
+      }
+    },
+    {
+      "frame": 105,
+      "time": 3.5,
+      "state": {
+        "time": 3.5,
+        "path": "N2",
+        "value": 1,
+        "velocity": 0,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.8,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {
+        "BasicN2_08": 1
+      }
+    },
+    {
+      "frame": 106,
+      "time": 3.533333333333333,
+      "state": {
+        "time": 3.533333333333333,
+        "path": "N2",
+        "value": 0.9657064471879289,
+        "velocity": -1.975308641975305,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.8,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {
+        "BasicN2_07": 0.2743484224965691,
+        "BasicN2_08": 0.7256515775034309
+      }
+    },
+    {
+      "frame": 107,
+      "time": 3.566666666666667,
+      "state": {
+        "time": 3.566666666666667,
+        "path": "N2",
+        "value": 0.8737997256515766,
+        "velocity": -3.4567901234568015,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.8,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {
+        "BasicN2_06": 0.00960219478738722,
+        "BasicN2_07": 0.9903978052126128
+      }
+    },
+    {
+      "frame": 108,
+      "time": 3.6,
+      "state": {
+        "time": 3.6,
+        "path": "N2",
+        "value": 0.74074074074074,
+        "velocity": -4.44444444444445,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.8,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {
+        "BasicN2_05": 0.07407407407407973,
+        "BasicN2_06": 0.9259259259259203
+      }
+    },
+    {
+      "frame": 109,
+      "time": 3.6333333333333333,
+      "state": {
+        "time": 3.6333333333333333,
+        "path": "N2",
+        "value": 0.5829903978052124,
+        "velocity": -4.938271604938274,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.8,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {
+        "BasicN2_04": 0.33607681755830043,
+        "BasicN2_05": 0.6639231824416996
+      }
+    },
+    {
+      "frame": 110,
+      "time": 3.6666666666666665,
+      "state": {
+        "time": 3.6666666666666665,
+        "path": "N2",
+        "value": 0.41700960219478767,
+        "velocity": -4.938271604938275,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.8,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {
+        "BasicN2_03": 0.6639231824416987,
+        "BasicN2_04": 0.3360768175583013
+      }
+    },
+    {
+      "frame": 111,
+      "time": 3.7,
+      "state": {
+        "time": 3.7,
+        "path": "N2",
+        "value": 0.25925925925925797,
+        "velocity": -4.44444444444444,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.8,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {
+        "BasicN2_02": 0.9259259259259363,
+        "BasicN2_03": 0.07407407407406374
+      }
+    },
+    {
+      "frame": 112,
+      "time": 3.7333333333333334,
+      "state": {
+        "time": 3.7333333333333334,
+        "path": "N2",
+        "value": 0.1262002743484218,
+        "velocity": -3.4567901234567846,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.8,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {
+        "BasicN2_01": 0.9903978052126257,
+        "BasicN2_02": 0.00960219478737434
+      }
+    },
+    {
+      "frame": 113,
+      "time": 3.7666666666666666,
+      "state": {
+        "time": 3.7666666666666666,
+        "path": "N2",
+        "value": 0.034293552812071165,
+        "velocity": -1.9753086419753052,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.8,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {
+        "BasicN2_01": 0.2743484224965693
+      }
+    },
+    {
+      "frame": 114,
+      "time": 3.8,
+      "state": {
+        "time": 3.8,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": 3.8,
+        "holdSince": 3.8,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {}
+    },
+    {
+      "frame": 115,
+      "time": 3.8333333333333335,
+      "state": {
+        "time": 3.8333333333333335,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": 3.8,
+        "holdSince": 3.8,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {}
+    },
+    {
+      "frame": 116,
+      "time": 3.8666666666666667,
+      "state": {
+        "time": 3.8666666666666667,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": 3.8,
+        "holdSince": 3.8,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {}
+    },
+    {
+      "frame": 117,
+      "time": 3.9,
+      "state": {
+        "time": 3.9,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": 3.8,
+        "holdSince": 3.8,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {}
+    },
+    {
+      "frame": 118,
+      "time": 3.933333333333333,
+      "state": {
+        "time": 3.933333333333333,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": 3.8,
+        "holdSince": 3.8,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {}
+    },
+    {
+      "frame": 119,
+      "time": 3.966666666666667,
+      "state": {
+        "time": 3.966666666666667,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": 3.8,
+        "holdSince": 3.8,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {}
+    },
+    {
+      "frame": 120,
+      "time": 4,
+      "state": {
+        "time": 4,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": 3.8,
+        "holdSince": 3.8,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {}
+    },
+    {
+      "frame": 121,
+      "time": 4.033333333333333,
+      "state": {
+        "time": 4.033333333333333,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": 3.8,
+        "holdSince": 3.8,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {}
+    },
+    {
+      "frame": 122,
+      "time": 4.066666666666666,
+      "state": {
+        "time": 4.066666666666666,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": 3.8,
+        "holdSince": 3.8,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {}
+    },
+    {
+      "frame": 123,
+      "time": 4.1,
+      "state": {
+        "time": 4.1,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": 3.8,
+        "holdSince": 3.8,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {}
+    },
+    {
+      "frame": 124,
+      "time": 4.133333333333334,
+      "state": {
+        "time": 4.133333333333334,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": 3.8,
+        "holdSince": 3.8,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {}
+    },
+    {
+      "frame": 125,
+      "time": 4.166666666666667,
+      "state": {
+        "time": 4.166666666666667,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": 3.8,
+        "holdSince": 3.8,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {}
+    },
+    {
+      "frame": 126,
+      "time": 4.2,
+      "state": {
+        "time": 4.2,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": 3.8,
+        "holdSince": 3.8,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {}
+    },
+    {
+      "frame": 127,
+      "time": 4.233333333333333,
+      "state": {
+        "time": 4.233333333333333,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": 3.8,
+        "holdSince": 3.8,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {}
+    },
+    {
+      "frame": 128,
+      "time": 4.266666666666667,
+      "state": {
+        "time": 4.266666666666667,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": 3.8,
+        "holdSince": 3.8,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {}
+    },
+    {
+      "frame": 129,
+      "time": 4.3,
+      "state": {
+        "time": 4.3,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": 3.8,
+        "holdSince": 3.8,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {}
+    }
+  ],
+  "diagnostics": [
+    {
+      "frame": null,
+      "time": 0,
+      "state": {
+        "time": 0,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": null,
+        "requestedFadeOutSec": 0.1,
+        "requestedFadeInSec": 0.1,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0,
+        "arrivalTime": 0,
+        "actualArrival": 0,
+        "holdSince": 0,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {},
+      "labels": [
+        "arrivalTime",
+        "neutralAt",
+        "actualArrival"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 0.099999,
+      "state": {
+        "time": 0.099999,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": null,
+        "requestedFadeOutSec": 0.1,
+        "requestedFadeInSec": 0.1,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0,
+        "arrivalTime": 0,
+        "actualArrival": 0,
+        "holdSince": 0,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {},
+      "labels": [
+        "event-"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 0.1,
+      "state": {
+        "time": 0.1,
+        "path": "04",
+        "value": 0,
+        "velocity": 0,
+        "phase": "enter",
+        "targetPath": "04",
+        "targetAmount": 1,
+        "requestedAt": 0.1,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.1,
+        "arrivalTime": 0.52,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.52,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {},
+      "labels": [
+        "event",
+        "neutralAt"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 0.100001,
+      "state": {
+        "time": 0.100001,
+        "path": "04",
+        "value": 1.700677572619749e-11,
+        "velocity": 0.00003401352445743602,
+        "phase": "enter",
+        "targetPath": "04",
+        "targetAmount": 1,
+        "requestedAt": 0.1,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.1,
+        "arrivalTime": 0.52,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.52,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_01": 1.3605420580957992e-10
+      },
+      "labels": [
+        "event+"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 0.31999900000000003,
+      "state": {
+        "time": 0.31999900000000003,
+        "path": "04",
+        "value": 0.535683727458428,
+        "velocity": 3.563331713556851,
+        "phase": "enter",
+        "targetPath": "04",
+        "targetAmount": 1,
+        "requestedAt": 0.1,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.1,
+        "arrivalTime": 0.52,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.52,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_04": 0.7145301803325763,
+        "Face04_05": 0.2854698196674237
+      },
+      "labels": [
+        "event-"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 0.32,
+      "state": {
+        "time": 0.32,
+        "path": "04",
+        "value": 0.5356872907893315,
+        "velocity": 3.563330093942339,
+        "phase": "brake",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 0.32,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.03999999999999998,
+        "brakeEndsAt": 0.36,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.36,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_04": 0.7145016736853478,
+        "Face04_05": 0.2854983263146522
+      },
+      "labels": [
+        "event"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 0.320001,
+      "state": {
+        "time": 0.320001,
+        "path": "04",
+        "value": 0.5356908540748837,
+        "velocity": 3.5632410106899925,
+        "phase": "brake",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 0.32,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.03999999999999998,
+        "brakeEndsAt": 0.36,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.36,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_04": 0.7144731674009304,
+        "Face04_05": 0.28552683259906964
+      },
+      "labels": [
+        "event+"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 0.36,
+      "state": {
+        "time": 0.36,
+        "path": "04",
+        "value": 0.6069538926681782,
+        "velocity": 0,
+        "phase": "withdraw",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 0.32,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.03999999999999998,
+        "brakeEndsAt": 0.36,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.64,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_04": 0.14436885865457416,
+        "Face04_05": 0.8556311413454258
+      },
+      "labels": [
+        "segmentEndsAt",
+        "brakeEndsAt"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 0.419999,
+      "state": {
+        "time": 0.419999,
+        "path": "04",
+        "value": 0.5352895149650552,
+        "velocity": -2.189785241433174,
+        "phase": "withdraw",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 0.32,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.03999999999999998,
+        "brakeEndsAt": 0.36,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.64,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_04": 0.7176838802795587,
+        "Face04_05": 0.28231611972044135
+      },
+      "labels": [
+        "event-"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 0.42,
+      "state": {
+        "time": 0.42,
+        "path": "04",
+        "value": 0.535287325166542,
+        "velocity": -2.1898117847722167,
+        "phase": "withdraw",
+        "targetPath": "04",
+        "targetAmount": 1,
+        "requestedAt": 0.42,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.64,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_04": 0.7177013986676641,
+        "Face04_05": 0.28229860133233586
+      },
+      "labels": [
+        "event"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 0.42000099999999996,
+      "state": {
+        "time": 0.42000099999999996,
+        "path": "04",
+        "value": 0.5352851353414858,
+        "velocity": -2.1898383277794697,
+        "phase": "withdraw",
+        "targetPath": "04",
+        "targetAmount": 1,
+        "requestedAt": 0.42,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.64,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_04": 0.7177189172681135,
+        "Face04_05": 0.28228108273188646
+      },
+      "labels": [
+        "event+"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 0.52,
+      "state": {
+        "time": 0.52,
+        "path": "04",
+        "value": 0.2388885583387873,
+        "velocity": -3.185180777850497,
+        "phase": "withdraw",
+        "targetPath": "04",
+        "targetAmount": 1,
+        "requestedAt": 0.42,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.64,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_01": 0.08889153328970156,
+        "Face04_02": 0.9111084667102984
+      },
+      "labels": [
+        "arrivalTime",
+        "segmentEndsAt"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 0.5799989999999999,
+      "state": {
+        "time": 0.5799989999999999,
+        "path": "04",
+        "value": 0.07166875732669266,
+        "velocity": -2.189838327779473,
+        "phase": "withdraw",
+        "targetPath": "04",
+        "targetAmount": 1,
+        "requestedAt": 0.42,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.64,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_01": 0.5733500586135413
+      },
+      "labels": [
+        "event-"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 0.58,
+      "state": {
+        "time": 0.58,
+        "path": "04",
+        "value": 0.07166656750163627,
+        "velocity": -2.189811784772218,
+        "phase": "withdraw",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.64,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_01": 0.5733325400130902
+      },
+      "labels": [
+        "event"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 0.580001,
+      "state": {
+        "time": 0.580001,
+        "path": "04",
+        "value": 0.07166437770312316,
+        "velocity": -2.1897852414331744,
+        "phase": "withdraw",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 0.64,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "Face04_01": 0.5733150216249853
+      },
+      "labels": [
+        "event+"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 0.64,
+      "state": {
+        "time": 0.64,
+        "path": "A7",
+        "value": 0,
+        "velocity": 0,
+        "phase": "enter",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.06,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {},
+      "labels": [
+        "neutralAt",
+        "segmentEndsAt"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 1.06,
+      "state": {
+        "time": 1.06,
+        "path": "A7",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": 1.06,
+        "holdSince": 1.06,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_08": 1
+      },
+      "labels": [
+        "arrivalTime",
+        "segmentEndsAt",
+        "actualArrival"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 1.3499990000000002,
+      "state": {
+        "time": 1.3499990000000002,
+        "path": "A7",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "A7",
+        "targetAmount": 1,
+        "requestedAt": 0.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 0.64,
+        "arrivalTime": 1.06,
+        "actualArrival": 1.06,
+        "holdSince": 1.06,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_08": 1
+      },
+      "labels": [
+        "event-"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 1.35,
+      "state": {
+        "time": 1.35,
+        "path": "A7",
+        "value": 1,
+        "velocity": 0,
+        "phase": "withdraw",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 1.35,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.6300000000000001,
+        "arrivalTime": 2.0500000000000003,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.6300000000000001,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_08": 1
+      },
+      "labels": [
+        "event"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 1.350001,
+      "state": {
+        "time": 1.350001,
+        "path": "A7",
+        "value": 0.9999999999617348,
+        "velocity": -0.00007653033891498692,
+        "phase": "withdraw",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 1.35,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.6300000000000001,
+        "arrivalTime": 2.0500000000000003,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.6300000000000001,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_07": 3.0612135049068456e-10,
+        "BasicA7_08": 0.9999999996938786
+      },
+      "labels": [
+        "event+"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 1.5799990000000002,
+      "state": {
+        "time": 1.5799990000000002,
+        "path": "A7",
+        "value": 0.08427792458728108,
+        "velocity": -3.143270772321426,
+        "phase": "withdraw",
+        "targetPath": "07",
+        "targetAmount": 1,
+        "requestedAt": 1.35,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.6300000000000001,
+        "arrivalTime": 2.0500000000000003,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.6300000000000001,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_01": 0.6742233966982486
+      },
+      "labels": [
+        "event-"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 1.58,
+      "state": {
+        "time": 1.58,
+        "path": "A7",
+        "value": 0.08427478134110798,
+        "velocity": -3.1432215743440253,
+        "phase": "withdraw",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 1.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.6300000000000001,
+        "arrivalTime": 2.0500000000000003,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.6300000000000001,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_01": 0.6741982507288639
+      },
+      "labels": [
+        "event"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 1.580001,
+      "state": {
+        "time": 1.580001,
+        "path": "A7",
+        "value": 0.08427163814413315,
+        "velocity": -3.143172375819977,
+        "phase": "withdraw",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 1.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.6300000000000001,
+        "arrivalTime": 2.0500000000000003,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.6300000000000001,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicA7_01": 0.6741731051530652
+      },
+      "labels": [
+        "event+"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 1.6300000000000001,
+      "state": {
+        "time": 1.6300000000000001,
+        "path": "N3",
+        "value": 0,
+        "velocity": 0,
+        "phase": "enter",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 1.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.6300000000000001,
+        "arrivalTime": 2.0500000000000003,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.0500000000000003,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {},
+      "labels": [
+        "neutralAt",
+        "segmentEndsAt"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 1.739999,
+      "state": {
+        "time": 1.739999,
+        "path": "N3",
+        "value": 0.16984930623852698,
+        "velocity": 2.7615646257693527,
+        "phase": "enter",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 1.58,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 1.6300000000000001,
+        "arrivalTime": 2.0500000000000003,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.0500000000000003,
+        "queued": 0,
+        "generation": 0
+      },
+      "weights": {
+        "BasicN3_01": 0.6412055500917841,
+        "BasicN3_02": 0.35879444990821585
+      },
+      "labels": [
+        "event-"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 1.74,
+      "state": {
+        "time": 1.74,
+        "path": "N3",
+        "value": 0.16985206781125106,
+        "velocity": 2.761580822805309,
+        "phase": "brake",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.78,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.6411834575099915,
+        "BasicN3_02": 0.3588165424900085
+      },
+      "labels": [
+        "event"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 1.740001,
+      "state": {
+        "time": 1.740001,
+        "path": "N3",
+        "value": 0.16985482935755392,
+        "velocity": 2.7615117832847447,
+        "phase": "brake",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 1.78,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.6411613651395687,
+        "BasicN3_02": 0.3588386348604313
+      },
+      "labels": [
+        "event+"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 1.78,
+      "state": {
+        "time": 1.78,
+        "path": "N3",
+        "value": 0.22508368426735714,
+        "velocity": 0,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.08,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.19933052586114286,
+        "BasicN3_02": 0.8006694741388571
+      },
+      "labels": [
+        "segmentEndsAt",
+        "brakeEndsAt"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 2.0500000000000003,
+      "state": {
+        "time": 2.0500000000000003,
+        "path": "N3",
+        "value": 0.006302343159485918,
+        "velocity": -0.4051506316812403,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.08,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.05041874527588734
+      },
+      "labels": [
+        "arrivalTime",
+        "segmentEndsAt"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 2.08,
+      "state": {
+        "time": 2.08,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": 2.08,
+        "holdSince": 2.08,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {},
+      "labels": [
+        "arrivalTime",
+        "neutralAt",
+        "segmentEndsAt",
+        "actualArrival"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 2.249999,
+      "state": {
+        "time": 2.249999,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 1.74,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 1.78,
+        "neutralAt": 2.08,
+        "arrivalTime": 2.08,
+        "actualArrival": 2.08,
+        "holdSince": 2.08,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {},
+      "labels": [
+        "event-"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 2.25,
+      "state": {
+        "time": 2.25,
+        "path": "N3",
+        "value": 0,
+        "velocity": 0,
+        "phase": "enter",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 2.25,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.25,
+        "arrivalTime": 2.67,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.67,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {},
+      "labels": [
+        "event",
+        "neutralAt"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 2.250001,
+      "state": {
+        "time": 2.250001,
+        "path": "N3",
+        "value": 1.7006775730917828e-11,
+        "velocity": 0.00003401352446215635,
+        "phase": "enter",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 2.25,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.25,
+        "arrivalTime": 2.67,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.67,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 1.3605420584734263e-10
+      },
+      "labels": [
+        "event+"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 2.4599999999999995,
+      "state": {
+        "time": 2.4599999999999995,
+        "path": "N3",
+        "value": 0.49999999999999845,
+        "velocity": 3.5714285714285725,
+        "phase": "enter",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 2.25,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.25,
+        "arrivalTime": 2.67,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.67,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_03": 1.2434497875801753e-14,
+        "BasicN3_04": 0.9999999999999876
+      },
+      "labels": [
+        "N3-half-crossing"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 2.489999,
+      "state": {
+        "time": 2.489999,
+        "path": "N3",
+        "value": 0.606410495624393,
+        "velocity": 3.4985471330579854,
+        "phase": "enter",
+        "targetPath": "N3",
+        "targetAmount": 1,
+        "requestedAt": 2.25,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 2.25,
+        "arrivalTime": 2.67,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.67,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_04": 0.1487160350048562,
+        "BasicN3_05": 0.8512839649951438
+      },
+      "labels": [
+        "event-"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 2.49,
+      "state": {
+        "time": 2.49,
+        "path": "N3",
+        "value": 0.6064139941690971,
+        "velocity": 3.498542274052477,
+        "phase": "brake",
+        "targetPath": "N3",
+        "targetAmount": 0.3,
+        "requestedAt": 2.49,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.5300000000000002,
+        "neutralAt": null,
+        "arrivalTime": 2.95,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.5300000000000002,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_04": 0.1486880466472229,
+        "BasicN3_05": 0.8513119533527771
+      },
+      "labels": [
+        "event"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 2.4900010000000004,
+      "state": {
+        "time": 2.4900010000000004,
+        "path": "N3",
+        "value": 0.60641749266764,
+        "velocity": 3.4984548104956135,
+        "phase": "brake",
+        "targetPath": "N3",
+        "targetAmount": 0.3,
+        "requestedAt": 2.49,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.5300000000000002,
+        "neutralAt": null,
+        "arrivalTime": 2.95,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.5300000000000002,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_04": 0.14866005865888,
+        "BasicN3_05": 0.85133994134112
+      },
+      "labels": [
+        "event+"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 2.5300000000000002,
+      "state": {
+        "time": 2.5300000000000002,
+        "path": "N3",
+        "value": 0.6763848396501467,
+        "velocity": 0,
+        "phase": "adjust",
+        "targetPath": "N3",
+        "targetAmount": 0.3,
+        "requestedAt": 2.49,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.5300000000000002,
+        "neutralAt": null,
+        "arrivalTime": 2.95,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.95,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_05": 0.5889212827988262,
+        "BasicN3_06": 0.41107871720117384
+      },
+      "labels": [
+        "segmentEndsAt",
+        "brakeEndsAt"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 2.639999,
+      "state": {
+        "time": 2.639999,
+        "path": "N3",
+        "value": 0.6124561357568702,
+        "velocity": -1.0394110588537149,
+        "phase": "adjust",
+        "targetPath": "N3",
+        "targetAmount": 0.3,
+        "requestedAt": 2.49,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.5300000000000002,
+        "neutralAt": null,
+        "arrivalTime": 2.95,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.95,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_04": 0.10035091394503848,
+        "BasicN3_05": 0.8996490860549615
+      },
+      "labels": [
+        "event-"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 2.64,
+      "state": {
+        "time": 2.64,
+        "path": "N3",
+        "value": 0.6124550963427631,
+        "velocity": -1.0394171551724973,
+        "phase": "brake",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.68,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_04": 0.10035922925789542,
+        "BasicN3_05": 0.8996407707421046
+      },
+      "labels": [
+        "event"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 2.6400010000000003,
+      "state": {
+        "time": 2.6400010000000003,
+        "path": "N3",
+        "value": 0.6124540569386006,
+        "velocity": -1.0393911697436145,
+        "phase": "brake",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.68,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_04": 0.10036754449119556,
+        "BasicN3_05": 0.8996324555088044
+      },
+      "labels": [
+        "event+"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 2.67,
+      "state": {
+        "time": 2.67,
+        "path": "N3",
+        "value": 0.5929660246832789,
+        "velocity": -0.2598542887931301,
+        "phase": "brake",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.68,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_04": 0.25627180253376913,
+        "BasicN3_05": 0.7437281974662309
+      },
+      "labels": [
+        "arrivalTime",
+        "segmentEndsAt"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 2.68,
+      "state": {
+        "time": 2.68,
+        "path": "N3",
+        "value": 0.5916667532393132,
+        "velocity": 0,
+        "phase": "withdraw",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.96,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_04": 0.26666597408549464,
+        "BasicN3_05": 0.7333340259145054
+      },
+      "labels": [
+        "segmentEndsAt",
+        "brakeEndsAt"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 2.7496708756461445,
+      "state": {
+        "time": 2.7496708756461445,
+        "path": "N3",
+        "value": 0.500000000000001,
+        "velocity": -2.369763495889561,
+        "phase": "withdraw",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.96,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_04": 0.999999999999992,
+        "BasicN3_05": 7.993605777301127e-15
+      },
+      "labels": [
+        "N3-half-crossing"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 2.95,
+      "state": {
+        "time": 2.95,
+        "path": "N3",
+        "value": 0.0022101254448625113,
+        "velocity": -0.43663453910699274,
+        "phase": "withdraw",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 2.96,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN3_01": 0.01768100355890009
+      },
+      "labels": [
+        "arrivalTime",
+        "segmentEndsAt"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 2.96,
+      "state": {
+        "time": 2.96,
+        "path": "N2",
+        "value": 0,
+        "velocity": 0,
+        "phase": "enter",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.38,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {},
+      "labels": [
+        "neutralAt",
+        "segmentEndsAt"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 3.38,
+      "state": {
+        "time": 3.38,
+        "path": "N2",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": 3.38,
+        "holdSince": 3.38,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN2_08": 1
+      },
+      "labels": [
+        "arrivalTime",
+        "segmentEndsAt",
+        "actualArrival"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 3.499999,
+      "state": {
+        "time": 3.499999,
+        "path": "N2",
+        "value": 1,
+        "velocity": 0,
+        "phase": "hold",
+        "targetPath": "N2",
+        "targetAmount": 1,
+        "requestedAt": 2.64,
+        "requestedFadeOutSec": 0.28,
+        "requestedFadeInSec": 0.42,
+        "brakingSec": 0.040000000000000036,
+        "brakeEndsAt": 2.68,
+        "neutralAt": 2.96,
+        "arrivalTime": 3.38,
+        "actualArrival": 3.38,
+        "holdSince": 3.38,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 1
+      },
+      "weights": {
+        "BasicN2_08": 1
+      },
+      "labels": [
+        "event-"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 3.5,
+      "state": {
+        "time": 3.5,
+        "path": "N2",
+        "value": 1,
+        "velocity": 0,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.8,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {
+        "BasicN2_08": 1
+      },
+      "labels": [
+        "event"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 3.500001,
+      "state": {
+        "time": 3.500001,
+        "path": "N2",
+        "value": 0.9999999999666668,
+        "velocity": -0.000066666444453763,
+        "phase": "withdraw",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": null,
+        "holdSince": null,
+        "segmentEndsAt": 3.8,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {
+        "BasicN2_07": 2.666658005523459e-10,
+        "BasicN2_08": 0.9999999997333342
+      },
+      "labels": [
+        "event+"
+      ]
+    },
+    {
+      "frame": null,
+      "time": 3.8,
+      "state": {
+        "time": 3.8,
+        "path": null,
+        "value": 0,
+        "velocity": 0,
+        "phase": "idle",
+        "targetPath": null,
+        "targetAmount": 0,
+        "requestedAt": 3.5,
+        "requestedFadeOutSec": 0.3,
+        "requestedFadeInSec": 0,
+        "brakingSec": 0,
+        "brakeEndsAt": null,
+        "neutralAt": 3.8,
+        "arrivalTime": 3.8,
+        "actualArrival": 3.8,
+        "holdSince": 3.8,
+        "segmentEndsAt": null,
+        "queued": 0,
+        "generation": 2
+      },
+      "weights": {},
+      "labels": [
+        "arrivalTime",
+        "neutralAt",
+        "segmentEndsAt",
+        "actualArrival"
+      ]
+    }
+  ]
+}
