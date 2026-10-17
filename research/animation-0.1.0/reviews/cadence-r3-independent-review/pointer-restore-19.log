@@ -1,0 +1,38 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> test
+> node tools/verify-dependencies.mjs && node --test tests/*.test.mjs
+
+Verified 4 controller/profile dependency hashes
+✔ actual full18 actor one owner; real ray eligibility ignores caller eligible (901.207466ms)
+✔ same-frame down/move/up are grouped once; late sealed move atomic reject (609.562345ms)
+✔ capture drag leaves canvas, follows camera plane, releases to ground (913.51926ms)
+✔ petting sustained phase can hand off to drag without second actor (970.607471ms)
+✔ pointerId, primary and buttons cannot steal pointer (825.067926ms)
+✔ pending leave cancels even captured; missed head contact never qualifies (820.034439ms)
+✔ capture acquisition/release errors have safe cleanup; uncaptured leave cancels (962.353396ms)
+✔ lostcapture, blur, visibility and disposal invalidate captures/listeners/queued input (1239.039405ms)
+✔ CSS rect resize and backbuffer DPR do not mix into NDC or threshold (934.951943ms)
+✔ sealed lost capture invalidates lifecycle at exact timestamp without epsilon (893.273743ms)
+✔ continuous petting requires current surface; camera movement ends contact (771.084457ms)
+✔ same-time final move is applied before release captures landing position (703.802839ms)
+✔ pointerup final finite client position is applied, cancel has no invented point (738.654903ms)
+✔ pending surface loss before qualification never emits release face (530.457978ms)
+✔ two-hour visible long press drains pure-controller boundary outputs (998.814765ms)
+✔ visibility visible cannot resume while window remains blurred (710.208021ms)
+✔ unbounded move rejects atomically; malformed terminal coordinates still release (755.194902ms)
+✔ DOM router uses approved cadence controller and passes configured seconds unchanged (756.736846ms)
+✔ invalid cadence option rejects before pack reads or actor allocation (2.655015ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15185.551167
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

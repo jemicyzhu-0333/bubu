@@ -1,0 +1,27 @@
+✔ cadence is bounded, immutable authored poses and independent protected pickup (4.736094ms)
+✔ brisk actual motion fully suppresses cadence-driven wobble (14.808418ms)
+✔ idle cadence retains exact opposed holds and closes the cycle (0.824684ms)
+✔ cadence does not change explicit release deadline or interruption cleanup (1.851914ms)
+✔ actual full18 slow stable ground and horizontal release (9232.669061ms)
+✔ actual full18 fast stable ground and horizontal release (9367.692206ms)
+✔ actual full18 reverse stable ground and horizontal release (8526.158073ms)
+✔ actual full18 stop stable ground and horizontal release (9148.009508ms)
+✔ actual full18 early stable ground and horizontal release (3606.840955ms)
+✔ actual full18 low stable ground and horizontal release (5388.935967ms)
+✔ actual full18 high stable ground and horizontal release (7635.765417ms)
+✔ actual full18 cancel stable ground and horizontal release (5258.35696ms)
+✔ hidden restores contact and no resurrected drag; dispose closes (653.648905ms)
+✔ controller input validation and bounded long time (0.67633ms)
+✔ same-time move/release sealed once; late input rejected atomically (618.547079ms)
+✔ pre-grab elevated floor captured and foreign hit rejected (688.731508ms)
+✔ same-time release suspend resume does not reseal frozen logical timestamp (710.68337ms)
+✔ falling regrab preserves original ground and settles at newest horizontal release (971.172052ms)
+✔ forged, nonfinite and mismatched hit reject before queue or pose mutation (505.331886ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 62485.641932

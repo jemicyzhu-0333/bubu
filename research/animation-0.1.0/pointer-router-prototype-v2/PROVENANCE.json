@@ -1,0 +1,25 @@
+{
+  "baselineCommit": "5ba731e",
+  "controllerDependency": "drag-cadence-r3",
+  "routerChangeScope": [
+    "controller import",
+    "constructor option pass-through",
+    "pure configuration validation before admission"
+  ],
+  "rateConfig": {
+    "struggleCycleSeconds": 2.4,
+    "allowedRange": [
+      2,
+      2.5
+    ],
+    "otherClocks": "unchanged monotonic seconds"
+  },
+  "artStatus": "R2 opposed-limb direction accepted; new cadence implementation remains reviewable",
+  "sha256": {
+    "../drag-cadence-r3/src/drag-controller.mjs": "10199f00bc83bb7fdc06cbb53460a4cdc15579af19d738b2d3115600443b663c",
+    "../drag-cadence-r3/src/approved-struggle-r2.mjs": "ea8c30385a9a97c19735a8d68cc027eed9ad86a36d8961c47f616175075af838",
+    "../drag-cadence-r3/src/input-intent.mjs": "3edbd987838c5af6fb00cb6c62b3103c05a8d03b839d4ecdbb3a603051344f51",
+    "../drag-body-prototype-v1/replay/body-poses.json": "d26d457eff2145eaf2bb80d27fa9910b738c4e2b2154ec608b1339049f897d1c"
+  },
+  "validationBoundary": "actual full18 CPU/Raycaster with fake EventTarget; no browser/WebGL/OS execution"
+}

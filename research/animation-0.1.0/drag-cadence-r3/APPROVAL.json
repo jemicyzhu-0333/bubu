@@ -1,0 +1,16 @@
+{
+  "status": "direction-user-approved-cadence-prototype",
+  "sourceMessageId": "Sentinel_6cf920e7e66c8191bca295d7068d23d9",
+  "receivedAt": "2026-10-17T10:02:00Z",
+  "userQuote": "先按照这个来吧，整体动作速率控制一下",
+  "approvedDirection": "r2 opposed limb pose direction shown in four-cell1.6s preview",
+  "parameterInterpretation": "2.4s idle cycle is an adjustable prototype choice, not an exact user-specified timing",
+  "fixedIndependentTimes": {
+    "pickupSeconds": 1.075,
+    "inertialSpringAngularFrequency": 12,
+    "inputWindowSeconds": 0.08
+  },
+  "frozenBaselineCommit": "5ba731e31ce4fe21ce837804897d3a93e0a98e59",
+  "historicalCandidateCommit": "51f8112",
+  "geometryRestRigMaterialChanges": false
+}

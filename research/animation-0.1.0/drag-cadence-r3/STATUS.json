@@ -1,0 +1,32 @@
+{
+  "status": "user-approved-direction-cadence-configured-functional-candidate",
+  "artisticScope": "r2 direction approved; exact2.4s preview subject to feedback",
+  "defaults": {
+    "struggleCycleSeconds": 2.4,
+    "pickupSeconds": 1.075,
+    "phaseEntryBlendSeconds": 0.4
+  },
+  "rateIsolation": "No global clock scaling; original real DIP window/spring and host-derived release duration",
+  "restoredTests": {
+    "passed": 19,
+    "total": 19
+  },
+  "priorRealBodyRegressions": {
+    "passed": 20,
+    "total": 20
+  },
+  "preview": {
+    "fps": 30,
+    "frames": 211,
+    "duration": 7.033333,
+    "videoExcludedFromGit": true
+  },
+  "geometryRigRestMaterialChanges": false,
+  "actualFloorMinimum": 0.006000000052152756,
+  "noNonfiniteRoot": true,
+  "limitations": [
+    "CPU/offline proof only",
+    "No native OS/WebGL certification",
+    "Production geometry unchanged"
+  ]
+}

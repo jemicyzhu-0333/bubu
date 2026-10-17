@@ -1,0 +1,176 @@
+{
+  "version": "0.1.0-drag-cadence-r3",
+  "gitDestination": "research/animation-0.1.0/drag-cadence-r3",
+  "status": "user-approved-direction-functional-cadence-revision",
+  "approvedSourceMessage": "Sentinel_6cf920e7e66c8191bca295d7068d23d9",
+  "baselineCommit": "5ba731e31ce4fe21ce837804897d3a93e0a98e59",
+  "historicalR2Candidate": "51f8112",
+  "requiresSibling": "../drag-body-prototype-v1",
+  "defaultIdleCadenceSeconds": 2.4,
+  "rateRangeSeconds": [
+    2,
+    2.5
+  ],
+  "fixedPickupSeconds": 1.075,
+  "globalTimeScale": false,
+  "sourceRigChanges": false,
+  "verification": {
+    "restoredGestureAndCadenceTests": 19,
+    "priorRealBodyRegressions": 20,
+    "independentCadenceTests": 4,
+    "independentOldNewFrameOracle": 180,
+    "pointerV2RestoredTests": 19
+  },
+  "previewExcluded": {
+    "frames": 211,
+    "fps": 30,
+    "durationSeconds": 7.033333
+  },
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 140,
+      "sha256": "2c13fa8c24dac731fca1ea1ed35b2feb4c3d7c9d38daca7460f13d20e9186ada"
+    },
+    {
+      "path": "APPROVAL.json",
+      "bytes": 734,
+      "sha256": "93a3269a99a817c07f482380d7ceea5524c6f1fafe201a3c9ef15fdf4c4ad5b8"
+    },
+    {
+      "path": "DEPENDENCIES.json",
+      "bytes": 488,
+      "sha256": "d71311e9d2e670bc6e6774e47791f51d34c4e6a3d65fc3ff5bc0f007a201b400"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2684,
+      "sha256": "19fee3ec050ca7dabed3fe1ca826f127694a2f4d7d62dcbf8e776b08c82d763a"
+    },
+    {
+      "path": "STATUS.json",
+      "bytes": 883,
+      "sha256": "d924348a02f2dfed2f4a0dd2e437fdbabab30ce5544a026696c7b4bdd08982a2"
+    },
+    {
+      "path": "evidence/independent/cadence-4.log",
+      "bytes": 455,
+      "sha256": "ed1cd5b8ed3fb597e96638b107fd6ab4d798d4d3e703315b0e884a292cc41986"
+    },
+    {
+      "path": "evidence/independent/pointer-restore-19.log",
+      "bytes": 2287,
+      "sha256": "accf71e50334578261a92a928963e12951937c136b6a6cecc8ff41e1c327d6fc"
+    },
+    {
+      "path": "evidence/independent/review.md",
+      "bytes": 1857,
+      "sha256": "8121cc6a4ac30193aac3a9c2a6707e97f34e821e999790f31ef47c215cf160e0"
+    },
+    {
+      "path": "evidence/independent/source-sha256.txt",
+      "bytes": 557,
+      "sha256": "4ce1b6b26b2d06607af6dd31ae684884cd5d66c0daac5c844c20d6d567dc43a4"
+    },
+    {
+      "path": "evidence/inherited20-tests.log",
+      "bytes": 1658,
+      "sha256": "23bd17745ef989cd886f7eb428884d79ec14f82602983503dd7094ffb79b721d"
+    },
+    {
+      "path": "evidence/keyframes.png",
+      "bytes": 117274,
+      "sha256": "0d4d0426afd2c4fa16df81151b45e7eb4ee96fcadc8154974be1ff11d2ca1615"
+    },
+    {
+      "path": "evidence/limb-relative-motion.json",
+      "bytes": 96041,
+      "sha256": "474e7aabcda9f746b37c2c9491759d19d3738416129ff1ad514535c401d41124"
+    },
+    {
+      "path": "evidence/restore-tests.log",
+      "bytes": 1671,
+      "sha256": "9a4d6f04581316b11805c79562c1ff74aeb28cf3d59da94b2197adcd31c1edda"
+    },
+    {
+      "path": "evidence/trajectory.json",
+      "bytes": 593950,
+      "sha256": "02c0e2d8749392f034d75c1a1914680a15733fec7ec256aa23fc73d169009418"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 540,
+      "sha256": "797d6e31a95302211922a9bdcfa608408e00300b0a2a82ac1d7ebfd64183ef69"
+    },
+    {
+      "path": "package.json",
+      "bytes": 258,
+      "sha256": "08ceb2e616f362562b56f8710850582d2916e5b606249cea309c99b07fbd5f8e"
+    },
+    {
+      "path": "render/compose_preview.py",
+      "bytes": 3631,
+      "sha256": "4374479aa6a6c7530471243f5956b249e35ec8bfca4586219484def338c2c4b5"
+    },
+    {
+      "path": "replay/body-poses.json",
+      "bytes": 10031,
+      "sha256": "d26d457eff2145eaf2bb80d27fa9910b738c4e2b2154ec608b1339049f897d1c"
+    },
+    {
+      "path": "replay/generate.mjs",
+      "bytes": 1988,
+      "sha256": "44bff7fdf93a48610fa33461f74a74a28da59f66c396897814745d8906d818a0"
+    },
+    {
+      "path": "replay/scenarios.mjs",
+      "bytes": 640,
+      "sha256": "b20f82b7a9898b9c23ee4d2fffdc3dc32817c99cbbe449691da67f3c883b67f7"
+    },
+    {
+      "path": "src/approved-struggle-r2.mjs",
+      "bytes": 1051,
+      "sha256": "ea8c30385a9a97c19735a8d68cc027eed9ad86a36d8961c47f616175075af838"
+    },
+    {
+      "path": "src/body-adapter.mjs",
+      "bytes": 67,
+      "sha256": "39554f28b5892cdfb6da4d5fce5340c64790ebab606a037f9a01aa42c73a0714"
+    },
+    {
+      "path": "src/drag-controller.mjs",
+      "bytes": 5826,
+      "sha256": "10199f00bc83bb7fdc06cbb53460a4cdc15579af19d738b2d3115600443b663c"
+    },
+    {
+      "path": "src/drag-session.mjs",
+      "bytes": 6096,
+      "sha256": "f9399a7df0190bf4dee715e31835243d022f57bc55249c4f26b6062a715d6185"
+    },
+    {
+      "path": "src/export-scene-frame.mjs",
+      "bytes": 73,
+      "sha256": "c08a8e4b80554eac112828c57bd8cac31d111774c014d4f5470cf631620b7df7"
+    },
+    {
+      "path": "src/fixture-host.mjs",
+      "bytes": 67,
+      "sha256": "e9f9d7d5fcb230301047fe12c9c5819488d060e0e29347cd4ba26259ec15d609"
+    },
+    {
+      "path": "src/input-intent.mjs",
+      "bytes": 2928,
+      "sha256": "3edbd987838c5af6fb00cb6c62b3103c05a8d03b839d4ecdbb3a603051344f51"
+    },
+    {
+      "path": "tests/cadence.test.mjs",
+      "bytes": 1953,
+      "sha256": "eb253f55bad427ec5f3fbccead0db615aa7c4a5c6b8f30c323b656978beee2a1"
+    },
+    {
+      "path": "tests/drag.test.mjs",
+      "bytes": 5488,
+      "sha256": "cd096fe2fc4687450135bd1d23ef9c12beed74b6c11eacee431105b6c7b9df2e"
+    }
+  ]
+}
