@@ -1,0 +1,36 @@
+{
+  "format": "bubu-foundation-source-closure",
+  "version": "0.1.0-p0",
+  "status": "correctness-reviewed-awaiting-broader-review",
+  "entrypoint": "src/director.mjs",
+  "sourceSha256": "e692c55738e8837e12e25734d63ea8e97478d0e04d0423a38609b32a4d62a454",
+  "integrityIndex": "SHA256SUMS",
+  "selfContained": true,
+  "runtimeDependencies": "Node >=22 only; no external npm dependencies",
+  "reproduction": [
+    "npm test",
+    "node evidence/review/independent-p0.mjs",
+    "node tools/benchmark.mjs",
+    "sha256sum -c SHA256SUMS"
+  ],
+  "verification": {
+    "authorTests": 29,
+    "independentAdversarialTests": 20,
+    "thirdPartySchemaCheck": "jsonschema 4.26.0",
+    "unmodifiedVendoredModules": [
+      "face-timeline.mjs",
+      "approved-face-source.mjs",
+      "demand-loop.mjs"
+    ]
+  },
+  "notIncluded": [
+    "GLB/art payload",
+    "ActorPool production wiring",
+    "browser/GPU certification",
+    "P1 randomness",
+    "visibility/reduced-motion host integration",
+    "drag or long-press implementation",
+    "final artistic rhythm"
+  ],
+  "broaderReview": "New independent code/performance/open-source comparison underway; do not advance interaction work until gate is resolved."
+}

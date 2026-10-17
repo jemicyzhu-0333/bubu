@@ -1,0 +1,34 @@
+{
+  "scope": "Independent read-only import probes; illustrative timing values only; no artistic approval or runtime source changes",
+  "passed": 7,
+  "results": [
+    {
+      "name": "separate durations and hold begin at actual arrival",
+      "status": "PASS"
+    },
+    {
+      "name": "hold is indefinite and same destination is idempotent",
+      "status": "PASS"
+    },
+    {
+      "name": "weight and hold fields cannot be smuggled into cue",
+      "status": "PASS"
+    },
+    {
+      "name": "cancel wins same-time replacement and clears future",
+      "status": "PASS"
+    },
+    {
+      "name": "same-face withdrawal reversal does not force Basis",
+      "status": "PASS"
+    },
+    {
+      "name": "render cadence and large time jumps agree at final canonical state",
+      "status": "PASS"
+    },
+    {
+      "name": "timeline nextDeadline only reports queued events",
+      "status": "PASS"
+    }
+  ]
+}

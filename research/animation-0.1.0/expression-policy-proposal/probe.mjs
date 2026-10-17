@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {writeFileSync} from 'node:fs';
+import {FaceTimeline} from '../bubu-runtime-0.1.0-facepath06-20261017/src/face-timeline.mjs';
+const results=[];
+const make=()=>new FaceTimeline(['R0','N3'],()=>{});
+const face=(time,id='R0',amount=1,fadeInSec=.2,fadeOutSec=.3)=>({type:'face',time,id,amount,fadeInSec,fadeOutSec});
+const check=(name,fn)=>{fn();results.push({name,status:'PASS'});};
+check('separate durations and hold begin at actual arrival',()=>{const t=make();t.enqueue(face(0));t.enqueue(face(1,'N3',1,.4,.3));t.advance(1.2);assert.equal(t.actualArrival,null);const arrival=1+.3+.4;assert.equal(t.arrivalTime,arrival);t.advance(arrival);assert.equal(t.actualArrival,arrival);assert.equal(t.holdSince,arrival);assert.equal(t.isAnimating(),false);});
+check('hold is indefinite and same destination is idempotent',()=>{const t=make();t.enqueue(face(0));t.advance(1);t.enqueue(face(1,'R0',1,.5,.5));t.advance(100);assert.equal(t.holdSince,.2);assert.equal(t.value,1);assert.equal(t.nextDeadline(),Infinity);});
+check('weight and hold fields cannot be smuggled into cue',()=>{for(const key of ['selectionWeight','holdSec']){const t=make();assert.throws(()=>t.enqueue({...face(0),[key]:1}),/exactly/);}});
+check('cancel wins same-time replacement and clears future',()=>{const t=make();t.enqueue(face(0));t.enqueue({type:'cancel',time:1,fadeOutSec:.3});t.enqueue(face(1,'N3'));t.enqueue(face(2,'N3'));t.advance(4);assert.equal(t.path,null);assert.equal(t.snapshot().queued,0);});
+check('same-face withdrawal reversal does not force Basis',()=>{const values=[];const t=new FaceTimeline(['R0','N3'],(id,v)=>values.push([id,v]));t.enqueue(face(0));t.enqueue(face(1,'N3',1,.2,.5));t.advance(1.1);const start=values.length;t.enqueue(face(1.1));t.advance(3);assert.equal(t.path,'R0');assert.equal(t.value,1);assert.equal(values.slice(start).some(([id])=>id===null),false);});
+check('render cadence and large time jumps agree at final canonical state',()=>{const run=(step)=>{const t=make();t.enqueue(face(0));t.enqueue(face(.1,'N3',.7,.4,.3));t.enqueue(face(.6,'R0',.8,.3,.4));if(step)for(let i=0;i<2/step;i++)t.advance(i*step);t.advance(2);return t.snapshot();};const baseline=run(0);for(const fps of [30,60,120])assert.deepEqual(run(1/fps),baseline);});
+check('timeline nextDeadline only reports queued events',()=>{const t=make();t.enqueue(face(0));t.advance(0);assert.equal(t.isAnimating(),true);assert.equal(t.arrivalTime,.2);assert.equal(t.nextDeadline(),Infinity);});
+const report={scope:'Independent read-only import probes; illustrative timing values only; no artistic approval or runtime source changes',passed:results.length,results};
+writeFileSync(new URL('./probe-results.json',import.meta.url),JSON.stringify(report,null,2)+'\n');
+console.log(JSON.stringify(report,null,2));

@@ -1,0 +1,87 @@
+{
+  "sourceSha256": "e692c55738e8837e12e25734d63ea8e97478d0e04d0423a38609b32a4d62a454",
+  "passed": 20,
+  "total": 20,
+  "checks": [
+    {
+      "name": "priority exact primitive, no coercion or deferred mutable object",
+      "pass": true
+    },
+    {
+      "name": "old identity release cannot affect newer same-owner request",
+      "pass": true
+    },
+    {
+      "name": "release at arrival prevents superseded hold arrival event",
+      "pass": true
+    },
+    {
+      "name": "restart at arrival then at hold expiry never processes obsolete expiry",
+      "pass": true
+    },
+    {
+      "name": "keep at exact hold expiry does not prolong; new owner does",
+      "pass": true
+    },
+    {
+      "name": "matching release permits lower-priority transfer with one request and no cancel",
+      "pass": true
+    },
+    {
+      "name": "reset clears far-future admission watermark and suppresses batch regardless order",
+      "pass": true
+    },
+    {
+      "name": "restart during inherited cross-face brake waits for actual current arrival",
+      "pass": true
+    },
+    {
+      "name": "same-face return during exit preserves current path without Basis",
+      "pass": true
+    },
+    {
+      "name": "release during gap finishes now, no perpetual deadline; stale later release does nothing",
+      "pass": true
+    },
+    {
+      "name": "budget 1/2/3/64 and 30/60/120Hz preserve all records and final state",
+      "pass": true
+    },
+    {
+      "name": "pending catchup rejects mutation and target regression, retry is lossless",
+      "pass": true
+    },
+    {
+      "name": "sealed and duplicate timestamps reject atomically, reads and invalid input consume nothing",
+      "pass": true
+    },
+    {
+      "name": "event callback mutation rejected without losing canonical record",
+      "pass": true
+    },
+    {
+      "name": "seeded adversarial histories have exact records under tiny budgets and frame sampling",
+      "pass": true
+    },
+    {
+      "name": "reused label cannot let old lifetime release affect new lifecycle",
+      "pass": true
+    },
+    {
+      "name": "global lifetime rejects cross-owner reuse, rollback, unsafe integers and coercion",
+      "pass": true
+    },
+    {
+      "name": "invalid mixed batch does not consume any lifetime serial",
+      "pass": true
+    },
+    {
+      "name": "reset clears future times but never recycles future or losing lifetime",
+      "pass": true
+    },
+    {
+      "name": "lifetime integer ceiling allows last serial and rejects wrap after reset",
+      "pass": true
+    }
+  ]
+}

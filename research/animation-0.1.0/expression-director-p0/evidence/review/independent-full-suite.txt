@@ -1,0 +1,40 @@
+
+> bubu-expression-director-p0@0.1.0-p0 test
+> node --test test/*.test.mjs
+
+✔ policy copies/freezes and rejects unsupported/unsafe fields (2.196414ms)
+✔ arrival hold exit gap and Infinity idle (1.773145ms)
+✔ large jump and per-frame runs record same canonical lifecycle (3.329342ms)
+✔ unrelated and stale owner release cannot clear current owner (0.461146ms)
+✔ same-time old release and new request chooses new request without cancel (0.256447ms)
+✔ release at hold expiry exits once and retains future real events (0.358711ms)
+✔ lower priority request does not take over real interaction (0.260172ms)
+✔ same-time priority and stable order select only one request (0.586415ms)
+✔ global reset wins same-time face and clears future queued batches (0.539464ms)
+✔ same target new token keep preserves logical hold deadline (0.427154ms)
+✔ same target restart uses request time not obsolete actualArrival (0.213052ms)
+✔ different owner same target starts new logical hold (0.233152ms)
+✔ restart during entry waits for real arrival (0.210367ms)
+✔ outgoing candidate owns exit duration (0.370489ms)
+✔ budgeted advance retains target and events without early fast-forward (0.567957ms)
+✔ batch is atomic copied and timestamps are sealed (0.274624ms)
+✔ future batch deadline wakes otherwise idle director (0.160892ms)
+✔ callback reentrancy is rejected (0.228004ms)
+✔ global reset clears submission horizon and allows new later input (0.268224ms)
+✔ input time reserves completion headroom and huge bounded durations finish (0.212741ms)
+✔ malformed arrays and prototype fields are rejected without getters (0.240483ms)
+✔ priority is a primitive enum and never coerces mutable objects (0.137718ms)
+✔ reused label with fresh lifetime ignores old release (1.210385ms)
+✔ lifetime reuse and reversal reject globally across owners (0.267273ms)
+✔ failed batch does not consume lifetime or timestamp (0.169747ms)
+✔ reset never recycles admitted future lifecycle sequence (0.177137ms)
+✔ lifetime safe-integer limits reject wrap and coercion (0.751564ms)
+✔ same batch losing requests also consume lifetime (0.283188ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 147.924609

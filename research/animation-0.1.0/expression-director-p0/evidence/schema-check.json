@@ -1,0 +1,12 @@
+{
+  "validator": "jsonschema",
+  "version": "4.26.0",
+  "schemaSyntax": "PASS",
+  "validMechanicalFixture": "PASS",
+  "invalidFieldsRejected": [
+    "weight",
+    "holdSec",
+    "faceId"
+  ],
+  "scope": "JSON shape only; unique candidate keys and programmatic accessor/coercion/finiteness checks are additionally enforced by runtime validator."
+}
