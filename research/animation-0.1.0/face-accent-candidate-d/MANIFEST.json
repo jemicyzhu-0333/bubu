@@ -1,0 +1,69 @@
+{
+  "status": "pending user visual acceptance",
+  "candidateOnly": true,
+  "productionAssetAndRuntimeUnchanged": true,
+  "sources": [
+    {
+      "repositoryPath": "research/animation-0.1.0/expression-library/approved-v1/shared-library/bubu-expression-library-v1-look.blend.gz",
+      "sha256": "6f2ad01a560198b0297fbc472bbcc0863f1291a2de937d5084e51feecf510dde"
+    },
+    {
+      "repositoryPath": "research/animation-0.1.0/expression-library/approved-v1/shared-library/face_library.py",
+      "sha256": "898363a08b26dabe7abcb19612987c329fc9520f3cba0e1e88cc086891eecbc6"
+    }
+  ],
+  "files": {
+    "README.md": {
+      "bytes": 2922,
+      "sha256": "84ccc8fc9a772f36687619e54b211430692f15a5de4263b6c8d65f899435a461"
+    },
+    "audits/audit-N3.json": {
+      "bytes": 528,
+      "sha256": "b04eddaef092abe04001d56a0f268d1652630976f7dc853f14457dd87826d165"
+    },
+    "audits/audit-P2.json": {
+      "bytes": 466,
+      "sha256": "69f6f1f4c3d527c93611ff23bc2e5ea78db06bcaa9bc3ce306ad81b983f73af9"
+    },
+    "audits/geometry-identity-N3.json": {
+      "bytes": 1956,
+      "sha256": "85941a14ad0336b3c8e6f2482f73a13d8528c74b992cbc69912ef9188bba104c"
+    },
+    "audits/geometry-identity.json": {
+      "bytes": 1956,
+      "sha256": "85941a14ad0336b3c8e6f2482f73a13d8528c74b992cbc69912ef9188bba104c"
+    },
+    "audits/saved-vs-recovered-colors.json": {
+      "bytes": 597,
+      "sha256": "408c85039ab933a44fa1c7eb1baee477ddd40cc5e492ab9a8c5ca0ee48c9eb8c"
+    },
+    "compose_review.py": {
+      "bytes": 1094,
+      "sha256": "83150115ce5a62f2fd1a24fc93dbca259cb338ce0391e580afbb54ca5b5b2ce2"
+    },
+    "rebuild.py": {
+      "bytes": 4375,
+      "sha256": "2885b379a5f6127d7e2f14e1d426470817bd1613699b5fd1c106df471ca5badb"
+    },
+    "review/N3-local-soft-front.png": {
+      "bytes": 201498,
+      "sha256": "6bb15f06056413017619d1978e4a4671f65800cb8204fb9c72e71816e65f5065"
+    },
+    "review/P2-local-soft-front.png": {
+      "bytes": 200380,
+      "sha256": "475e8748e85bcd2b9082311cf17aa796747ae0977cffe001e514b3a8f15f86d8"
+    },
+    "review/P2-local-soft-quarter.png": {
+      "bytes": 191156,
+      "sha256": "46788e17ffc518a29b1b61cdbd0b05347772c793bc5f7ef903ce5296f8904d27"
+    },
+    "review/review-original-vs-candidate-d.png": {
+      "bytes": 555592,
+      "sha256": "8ca795568791fa494511f23b79e810b3465c2a7b987157a7536d41e27d1b3282"
+    },
+    "verify_saved_colors.py": {
+      "bytes": 892,
+      "sha256": "29b946678f1a3509959be3cf1852f27e72491c4db5f1c772081cecb5432563a9"
+    }
+  }
+}
