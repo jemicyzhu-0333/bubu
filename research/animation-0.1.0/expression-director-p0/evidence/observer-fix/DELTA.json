@@ -1,0 +1,56 @@
+{
+  "baseDirectory": "bubu-expression-director-p0-20261017",
+  "newDirectory": "bubu-expression-director-p0-observer01-20261017",
+  "baseFrozenUnchanged": true,
+  "changes": [
+    {
+      "path": "src/director.mjs",
+      "change": "modified",
+      "sha256": "529185114f8e2c26100654a80db33fa14d7c3445a5776eb62b7712aab14546b5",
+      "bytes": 12742
+    },
+    {
+      "path": "test/observer.test.mjs",
+      "change": "added",
+      "sha256": "efd494c56ab2add4629314429ab930880e37c2f7309197b3278d48a3c07b7f51",
+      "bytes": 4287
+    },
+    {
+      "path": "spec/OBSERVER-ISOLATION.md",
+      "change": "added",
+      "sha256": "6d9dfb9cbcd39bf19c24595011166672bb2d7a53429687d0ad69b5099ade3883",
+      "bytes": 2877
+    },
+    {
+      "path": "spec/CONTRACT.md",
+      "change": "modified",
+      "sha256": "38b5fb36b1dc266af6db96eafdb5e2de5c4213daeb445382bdf4f8e52d45a998",
+      "bytes": 8855
+    },
+    {
+      "path": "README.md",
+      "change": "modified",
+      "sha256": "2625fef1656351f046e022ae23931236aa834bd68e04a42669ce09f8e1e57e29",
+      "bytes": 4542
+    },
+    {
+      "path": "REVIEW-HANDOFF.md",
+      "change": "modified",
+      "sha256": "b43103af8112b14b74659ace08fae7395c958e6aec2cd593104ec2439b6feac3",
+      "bytes": 4504
+    },
+    {
+      "path": "CLOSURE.json",
+      "change": "modified",
+      "sha256": "f4196e32614788fbd2fe8b8612474180c4085feff8d26964249686f0d5963f18",
+      "bytes": 1414
+    }
+  ],
+  "sourceDiff": "director.patch",
+  "scope": "diagnostic observer isolation only; no art/runtime06 changes",
+  "independentReview": {
+    "observerFaultChecks": 45,
+    "suiteTests": 43,
+    "report": "INDEPENDENT-RECHECK.md"
+  }
+}

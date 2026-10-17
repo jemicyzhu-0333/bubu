@@ -1,0 +1,239 @@
+✖ observer throw at request cannot stall lifecycle (3.262101ms)
+✖ observer throw at arrival cannot stall lifecycle (0.644542ms)
+✖ observer throw at release cannot stall lifecycle (0.380594ms)
+✖ observer throw at exit-start cannot stall lifecycle (0.341485ms)
+✖ observer throw at gap-start cannot stall lifecycle (1.270957ms)
+✖ observer throw at done cannot stall lifecycle (0.345301ms)
+✖ observer throw at reset cannot stall lifecycle (0.32494ms)
+✖ observer throw under budget1 catchup does not alter canonical writes (0.388617ms)
+✖ uncaught observer reentry disables observation without mutating core (0.708518ms)
+✖ caught observer reentry leaves observer enabled and request watermark intact (0.69601ms)
+✖ observer sees fully committed boundary including done (0.595608ms)
+✖ hostile thrown value is not inspected or retained (0.251209ms)
+✖ native rejected async observer is disabled without unhandled rejection (13.676511ms)
+✖ new requests and resets continue after observer failure (0.266882ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 0
+ℹ fail 14
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 131.863471
+
+✖ failing tests:
+
+test at test/observer.test.mjs:7:91
+✖ observer throw at request cannot stall lifecycle (3.262101ms)
+  Error: observer failure
+      at ExpressionDirector.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:6:195)
+      at #log (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:51:37)
+      at #request (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:82:14)
+      at #batch (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:106:35)
+      at ExpressionDirector.advance (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:137:98)
+      at run (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:6:485)
+      at TestContext.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:7:185)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+
+test at test/observer.test.mjs:7:91
+✖ observer throw at arrival cannot stall lifecycle (0.644542ms)
+  Error: observer failure
+      at ExpressionDirector.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:6:195)
+      at #log (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:51:37)
+      at #boundary (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:119:103)
+      at ExpressionDirector.advance (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:139:54)
+      at run (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:6:485)
+      at TestContext.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:7:185)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+
+test at test/observer.test.mjs:7:91
+✖ observer throw at release cannot stall lifecycle (0.380594ms)
+  Error: observer failure
+      at ExpressionDirector.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:6:195)
+      at #log (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:51:37)
+      at #batch (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:108:30)
+      at ExpressionDirector.advance (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:137:98)
+      at run (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:6:485)
+      at TestContext.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:7:185)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+
+test at test/observer.test.mjs:7:91
+✖ observer throw at exit-start cannot stall lifecycle (0.341485ms)
+  Error: observer failure
+      at ExpressionDirector.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:6:195)
+      at #log (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:51:37)
+      at #exit (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:92:92)
+      at #boundary (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:121:46)
+      at ExpressionDirector.advance (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:139:54)
+      at run (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:6:485)
+      at TestContext.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:7:185)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+
+test at test/observer.test.mjs:7:91
+✖ observer throw at gap-start cannot stall lifecycle (1.270957ms)
+  Error: observer failure
+      at ExpressionDirector.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:6:195)
+      at #log (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:51:37)
+      at #boundary (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:124:112)
+      at ExpressionDirector.advance (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:139:54)
+      at run (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:6:485)
+      at TestContext.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:7:185)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+
+test at test/observer.test.mjs:7:91
+✖ observer throw at done cannot stall lifecycle (0.345301ms)
+  Error: observer failure
+      at ExpressionDirector.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:6:195)
+      at #log (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:51:37)
+      at #finish (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:94:22)
+      at #boundary (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:126:64)
+      at ExpressionDirector.advance (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:139:54)
+      at run (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:6:485)
+      at TestContext.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:7:185)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+
+test at test/observer.test.mjs:7:91
+✖ observer throw at reset cannot stall lifecycle (0.32494ms)
+  Error: observer failure
+      at ExpressionDirector.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:6:195)
+      at #log (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:51:37)
+      at #batch (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:101:55)
+      at ExpressionDirector.advance (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:137:98)
+      at run (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:6:485)
+      at TestContext.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:7:185)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+
+test at test/observer.test.mjs:8:1
+✖ observer throw under budget1 catchup does not alter canonical writes (0.388617ms)
+  Error: observer failure
+      at ExpressionDirector.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:6:195)
+      at #log (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:51:37)
+      at #boundary (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:119:103)
+      at ExpressionDirector.advance (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:139:54)
+      at run (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:6:532)
+      at TestContext.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:8:116)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+
+test at test/observer.test.mjs:9:1
+✖ uncaught observer reentry disables observation without mutating core (0.708518ms)
+  AssertionError [ERR_ASSERTION]: Got unwanted exception.
+  Actual message: "reentrant director mutation"
+      at TestContext.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:9:185)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: Error: reentrant director mutation
+        at #guard (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:50:32)
+        at ExpressionDirector.advance (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:130:16)
+        at ExpressionDirector.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:9:130)
+        at #log (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:51:37)
+        at #request (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:82:14)
+        at #batch (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:106:35)
+        at ExpressionDirector.advance (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:137:98)
+        at file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:9:204
+        at getActual (node:assert:611:5)
+        at strict.doesNotThrow (node:assert:779:32),
+    expected: undefined,
+    operator: 'doesNotThrow',
+    diff: 'simple'
+  }
+
+test at test/observer.test.mjs:10:1
+✖ caught observer reentry leaves observer enabled and request watermark intact (0.69601ms)
+  TypeError: Cannot read properties of undefined (reading 'enabled')
+      at TestContext.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:10:358)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at test/observer.test.mjs:11:1
+✖ observer sees fully committed boundary including done (0.595608ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  Infinity !== 0.25
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:11:318)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Infinity,
+    expected: 0.25,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/observer.test.mjs:12:1
+✖ hostile thrown value is not inspected or retained (0.251209ms)
+  Error: getter
+      at get message (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:12:116)
+      at expectsNoError (node:assert:744:42)
+      at strict.doesNotThrow (node:assert:779:3)
+      at TestContext.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:12:239)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at test/observer.test.mjs:13:1
+✖ native rejected async observer is disabled without unhandled rejection (13.676511ms)
+  Error: async observation unsupported
+      at ExpressionDirector.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:13:167)
+      at #log (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:51:37)
+      at #request (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:82:14)
+      at #batch (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:106:35)
+      at ExpressionDirector.advance (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:137:98)
+      at TestContext.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:13:246)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+
+test at test/observer.test.mjs:14:1
+✖ new requests and resets continue after observer failure (0.266882ms)
+  Error: broken
+      at ExpressionDirector.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:14:142)
+      at #log (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:51:37)
+      at #request (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:82:14)
+      at #batch (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:106:35)
+      at ExpressionDirector.advance (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/src/director.mjs:137:98)
+      at TestContext.<anonymous> (file:///workspace/scratch/10657b778e8b/bubu-expression-director-p0-observer01-20261017/test/observer.test.mjs:14:198)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)

@@ -1,3 +1,13 @@
+# Patch01 review addendum
+
+Current source SHA256: 529185114f8e2c26100654a80db33fa14d7c3445a5776eb62b7712aab14546b5.
+
+New observer isolation behavior: core boundary commits before diagnostic dispatch; first observer throw/unsupported native Promise return disables observer without aborting core advancement. Failure is observable via immutable bounded observerStatus. Critical apply sink is not isolated; host production fault/dispose remains a separate open gate.
+
+43 author tests pass, including14 new observer cases. The historical20 independent P0 tests were rerun by the patch author and pass. Fresh comprehensive reviewer independently passed43/43 plus45 fault-injection/cadence/budget checks, with144 semantic writes per case identical to baseline; see evidence/observer-fix/INDEPENDENT-RECHECK.md. The same no-op-sink microbenchmark has been rerun on patch01 in evidence/benchmark.json; the baseline is retained as evidence/observer-fix/benchmark-baseline.json. These single-host samples do not prove hard realtime bounds or browser/GPU performance.
+
+Historical base handoff below, retained for provenance:
+
 # Fresh-review handoff
 
 Source freeze candidate: src/director.mjs SHA256 `e692c55738e8837e12e25734d63ea8e97478d0e04d0423a38609b32a4d62a454`.

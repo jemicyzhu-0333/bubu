@@ -1,0 +1,56 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> bubu-expression-director-p0@0.1.0-p0 test
+> node --test test/*.test.mjs
+
+✔ policy copies/freezes and rejects unsupported/unsafe fields (5.908674ms)
+✔ arrival hold exit gap and Infinity idle (1.925655ms)
+✔ large jump and per-frame runs record same canonical lifecycle (7.273663ms)
+✔ unrelated and stale owner release cannot clear current owner (0.344209ms)
+✔ same-time old release and new request chooses new request without cancel (0.254574ms)
+✔ release at hold expiry exits once and retains future real events (0.332251ms)
+✔ lower priority request does not take over real interaction (0.280313ms)
+✔ same-time priority and stable order select only one request (0.254664ms)
+✔ global reset wins same-time face and clears future queued batches (17.894895ms)
+✔ same target new token keep preserves logical hold deadline (0.420975ms)
+✔ same target restart uses request time not obsolete actualArrival (0.25896ms)
+✔ different owner same target starts new logical hold (0.225079ms)
+✔ restart during entry waits for real arrival (0.200542ms)
+✔ outgoing candidate owns exit duration (0.18568ms)
+✔ budgeted advance retains target and events without early fast-forward (0.444741ms)
+✔ batch is atomic copied and timestamps are sealed (0.283307ms)
+✔ future batch deadline wakes otherwise idle director (0.158789ms)
+✔ callback reentrancy is rejected (0.228174ms)
+✔ global reset clears submission horizon and allows new later input (0.166611ms)
+✔ input time reserves completion headroom and huge bounded durations finish (1.115182ms)
+✔ malformed arrays and prototype fields are rejected without getters (0.260994ms)
+✔ priority is a primitive enum and never coerces mutable objects (0.131799ms)
+✔ reused label with fresh lifetime ignores old release (0.211569ms)
+✔ lifetime reuse and reversal reject globally across owners (0.458862ms)
+✔ failed batch does not consume lifetime or timestamp (0.16566ms)
+✔ reset never recycles admitted future lifecycle sequence (0.173622ms)
+✔ lifetime safe-integer limits reject wrap and coercion (5.987902ms)
+✔ same batch losing requests also consume lifetime (0.202356ms)
+✔ unchanged DemandLoop sleeps at hold deadline and terminates after gap (1.003193ms)
+✔ observer throw at request cannot stall lifecycle (8.358278ms)
+✔ observer throw at arrival cannot stall lifecycle (0.618683ms)
+✔ observer throw at release cannot stall lifecycle (0.432502ms)
+✔ observer throw at exit-start cannot stall lifecycle (5.059383ms)
+✔ observer throw at gap-start cannot stall lifecycle (0.494716ms)
+✔ observer throw at done cannot stall lifecycle (0.453734ms)
+✔ observer throw at reset cannot stall lifecycle (0.410579ms)
+✔ observer throw under budget1 catchup does not alter canonical writes (0.436789ms)
+✔ uncaught observer reentry disables observation without mutating core (0.616951ms)
+✔ caught observer reentry leaves observer enabled and request watermark intact (4.902265ms)
+✔ observer sees fully committed boundary including done (0.261314ms)
+✔ hostile thrown value is not inspected or retained (0.262536ms)
+✔ native rejected async observer is disabled without unhandled rejection (27.087161ms)
+✔ new requests and resets continue after observer failure (0.365281ms)
+ℹ tests 43
+ℹ suites 0
+ℹ pass 43
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 227.172562

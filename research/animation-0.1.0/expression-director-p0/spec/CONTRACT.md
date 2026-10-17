@@ -1,6 +1,6 @@
 # Expression Director P0 contract
 
-Status: implementation contract, 2026-10-17. This isolated package must not change facepath06, its tests, static art, or rendering jobs. Numeric examples are mechanical test inputs, never product acting defaults.
+Status: implementation contract, 2026-10-17. Observer isolation patch01: spec/OBSERVER-ISOLATION.md supersedes callback-failure behavior; diagnostic observer errors no longer escape into lifecycle processing. This isolated package must not change facepath06, its tests, static art, or rendering jobs. Numeric examples are mechanical test inputs, never product acting defaults.
 
 ## Scope and ownership
 

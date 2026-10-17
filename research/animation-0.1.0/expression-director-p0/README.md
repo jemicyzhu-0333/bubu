@@ -1,6 +1,8 @@
-# bubu expression director: isolated P0
+# bubu expression director: isolated P0, observer isolation 01
 
 An executable fixed-timing foundation, not an approved acting configuration or a renderer integration.
+
+Patch01 isolates diagnostic observer failures. Read spec/OBSERVER-ISOLATION.md; its observer contract supersedes the base P0 observer statements. The original frozen P0 directory is unchanged. Historical evidence/review reports refer to the base revision; patch-specific results are in evidence/observer-fix.
 
 ## Reproduce
 
@@ -24,7 +26,7 @@ All fixture numbers are mechanical testing inputs. There are no product cadence,
 
 ## What is deliberately absent
 
-No random weights, seeds, condition DSL, cooldown/history, automatic looping, time-map, body motion, input/drag/long-press adapter, visibility adapter, reduced-motion integration, ActorPool wiring, browser/GPU validation, or final artistic timing. Lifecycle labels may be reused only with a new globally increasing `lifetime`; the validator enforces this bounded identity protocol, and reset never recycles admitted sequence numbers. The caller's `apply` callback must be connected only to an admitted binding; this scalar harness does not admit a GLB or prove its visual state. Callback functions are trusted, non-throwing and must not reenter mutation. The host must not write the same facial binding independently.
+No random weights, seeds, condition DSL, cooldown/history, automatic looping, time-map, body motion, input/drag/long-press adapter, visibility adapter, reduced-motion integration, ActorPool wiring, browser/GPU validation, or final artistic timing. Lifecycle labels may be reused only with a new globally increasing `lifetime`; the validator enforces this bounded identity protocol, and reset never recycles admitted sequence numbers. The caller's `apply` callback must be connected only to an admitted binding; this scalar harness does not admit a GLB or prove its visual state. The core apply callback remains trusted, non-throwing and non-reentrant. Diagnostic onRecord runs after core boundary commit; its failures are isolated and disable observation, as reported by observerStatus. Observer mutation remains forbidden. The host must not write the same facial binding independently.
 
 ## Design and cost boundaries
 

@@ -1,0 +1,37 @@
+{
+  "node": "v24.19.0",
+  "platform": "linux",
+  "arch": "x64",
+  "cpu": "AMD EPYC 9V74 80-Core Processor",
+  "scope": "Local wall-clock scalar/director microbenchmark; setup excluded; noop apply; no GPU, real binding, rendering, allocations or hard realtime claim. Timer quantization, JIT and GC affect results.",
+  "measurements": [
+    {
+      "name": "one complete lifecycle advance (5 boundaries)",
+      "n": 10000,
+      "p50us": 4.686999999989894,
+      "p95us": 11.637000000007447,
+      "maxUs": 9901.996999999994
+    },
+    {
+      "name": "steady hold sample (no deadlines crossed)",
+      "n": 10000,
+      "p50us": 0.11999999998124622,
+      "p95us": 0.20999999998139174,
+      "maxUs": 29.113999999992757
+    },
+    {
+      "name": "128 queued timestamp batches (full drain)",
+      "n": 1000,
+      "p50us": 279.6020000000681,
+      "p95us": 569.4190000001527,
+      "maxUs": 18250.19999999995
+    },
+    {
+      "name": "128 queued batches budget=1 (one boundary only)",
+      "n": 1000,
+      "p50us": 4.296000000067579,
+      "p95us": 8.533000000170432,
+      "maxUs": 247.11299999989933
+    }
+  ]
+}

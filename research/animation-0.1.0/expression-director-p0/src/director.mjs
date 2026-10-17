@@ -35,12 +35,13 @@ export function validatePolicy(p){
 export class ExpressionDirector {
   #clock;#policy;#candidates;#queue=[];#maxLifetime=0;#time=0;#sealed=-Infinity;#lastSubmitted=-Infinity;
   #active=null;#phase='idle';#deadline=Infinity;#logicalArrival=null;#token=0;
-  #busy=false;#onRecord;#pendingTarget=null;#progress={complete:true,reached:0,target:0,steps:0};
+  #busy=false;#onRecord;#pendingRecords=[];#observerFailure=null;#pendingTarget=null;#progress={complete:true,reached:0,target:0,steps:0};
   constructor(policy,apply,onRecord=()=>{}){
     this.#policy=validatePolicy(policy);this.#candidates=new Map(this.#policy.candidates.map(c=>[c.key,c]));
     if(typeof apply!=='function'||typeof onRecord!=='function')throw new TypeError('callbacks must be functions');
     this.#onRecord=onRecord;this.#clock=new FaceTimeline(ids,apply);
   }
+  get observerStatus(){return Object.freeze({enabled:this.#onRecord!==null,failure:this.#observerFailure});}
   get time(){return this.#time;}
   get policy(){return this.#policy;}
   get maxAdmittedLifetime(){return this.#maxLifetime;}
@@ -48,7 +49,32 @@ export class ExpressionDirector {
   get progress(){return Object.freeze({...this.#progress});}
   get state(){return Object.freeze({time:this.#time,phase:this.#phase,owner:this.#active?.owner??null,requestId:this.#active?.requestId??null,candidate:this.#active?.candidate??null,token:this.#token,logicalArrival:this.#logicalArrival,path:this.#clock.path,amount:this.#clock.value,clockArrival:this.#clock.arrivalTime,clockActualArrival:this.#clock.actualArrival,deadline:this.#deadline,queued:this.#queue.length});}
   #guard(){if(this.#busy)throw new Error('reentrant director mutation');}
-  #log(type,extra={}){this.#onRecord(Object.freeze({type,time:this.#time,token:this.#token,...extra}));}
+  #log(type,extra={}){
+    if(this.#onRecord===null)return;
+    // At most request+arrival+exit or release+exit+gap at one boundary.
+    if(this.#pendingRecords.length>=4)throw new Error('diagnostic boundary capacity invariant');
+    this.#pendingRecords.push(Object.freeze({type,time:this.#time,token:this.#token,...extra}));
+  }
+  #disableObserver(kind,event){
+    this.#observerFailure=Object.freeze({kind,eventType:event.type,time:event.time,token:event.token});
+    this.#onRecord=null;this.#pendingRecords.length=0;
+  }
+  #deliverRecords(){
+    while(this.#pendingRecords.length){
+      const event=this.#pendingRecords.shift();
+      try{
+        const result=this.#onRecord(event);
+        if(result instanceof Promise){
+          // The supported observer is synchronous. Do not leak native async rejection.
+          Promise.prototype.then.call(result,()=>undefined,()=>undefined);
+          this.#disableObserver('async-return',event);
+        }
+      }catch{
+        // Never inspect a thrown value: even .message may be a user-defined getter.
+        this.#disableObserver('throw',event);
+      }
+    }
+  }
   submit(batch){
     this.#guard();if(this.#pendingTarget!==null)throw new Error('finish pending advance before submitting');
     record(batch,['time','events'],'batch');num(batch.time,0,LIMITS.maxTime-LIMITS.inputHeadroom,'time');
@@ -137,6 +163,8 @@ export class ExpressionDirector {
         if(this.#queue[0]?.time===at){const events=this.#queue.shift().events;changed=this.#batch(events)||changed;}
         // New intent wins before old expiry. A zero-distance exit may finish now.
         if(this.#deadline===at)changed=this.#boundary()||changed;
+        // Deliver observations only after all core transitions at this timestamp commit.
+        this.#deliverRecords();
         steps++;
       }
       const complete=this.#next()>target;

@@ -1,9 +1,9 @@
 {
   "format": "bubu-foundation-source-closure",
   "version": "0.1.0-p0",
-  "status": "correctness-reviewed-awaiting-broader-review",
+  "status": "observer-isolation-independently-verified",
   "entrypoint": "src/director.mjs",
-  "sourceSha256": "e692c55738e8837e12e25734d63ea8e97478d0e04d0423a38609b32a4d62a454",
+  "sourceSha256": "529185114f8e2c26100654a80db33fa14d7c3445a5776eb62b7712aab14546b5",
   "integrityIndex": "SHA256SUMS",
   "selfContained": true,
   "runtimeDependencies": "Node >=22 only; no external npm dependencies",
@@ -14,14 +14,13 @@
     "sha256sum -c SHA256SUMS"
   ],
   "verification": {
-    "authorTests": 29,
-    "independentAdversarialTests": 20,
-    "thirdPartySchemaCheck": "jsonschema 4.26.0",
-    "unmodifiedVendoredModules": [
-      "face-timeline.mjs",
-      "approved-face-source.mjs",
-      "demand-loop.mjs"
-    ]
+    "authorTests": 43,
+    "historicalIndependentAdversarialTestsRerunByPatchAuthor": 20,
+    "baselineReports": "evidence/review",
+    "patchEvidence": "evidence/observer-fix",
+    "sourceAndSinkScope": "observer only; apply sink trusted nonthrowing",
+    "independentObserverFaultChecks": 45,
+    "independentlyRerunSuite": 43
   },
   "notIncluded": [
     "GLB/art payload",
@@ -32,5 +31,7 @@
     "drag or long-press implementation",
     "final artistic rhythm"
   ],
-  "broaderReview": "New independent code/performance/open-source comparison underway; do not advance interaction work until gate is resolved."
+  "broaderReview": "New independent code/performance/open-source comparison underway; do not advance interaction work until gate is resolved.",
+  "patch": "observer-isolation-01",
+  "baseSourceSha256": "e692c55738e8837e12e25734d63ea8e97478d0e04d0423a38609b32a4d62a454"
 }
