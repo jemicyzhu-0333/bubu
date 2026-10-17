@@ -1,6 +1,6 @@
 # 02 · milestone.sunhat · 小草帽（露耳小软帽）
 
-The user approved the redesigned miniature ear-exposed concept on 2026-10-17. This actual-model candidate replaces the rejected large head-covering hat. It follows the approved concept, not the old full-head fit. Final actual-model visual acceptance is separate from concept approval.
+The user approved the redesigned miniature ear-exposed concept and subsequently accepted the actual-model appearance on 2026-10-17: “帽子先这样吧” (message Sentinel_fa75b84f3a1c8191b6b46f8b948e94a7, replying to the actual-model sheet Sentinel_02304f269d148191b158a2d8cf4c5b85). This appearance is frozen. It replaces the rejected large head-covering hat. This documentation-only status update changes no model, texture, reference or rendered image.
 
 ## Design and immutable body
 A miniature hollow straw hat rests in the central valley between the original pink ear peaks. Narrow softly waved brim, low rounded crown, modest cocoa ribbon, 5° sideways and 4° fore/aft tilt. Both pink ears remain outside the hat. No body flattening, hidden ear geometry, new head, face or limb edits. All renders import the approved D2 GLB SHA256 84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a.
@@ -35,3 +35,8 @@ Default render body is the same relative D2 fixture. BUBU_RUNTIME_ROOT overrides
 
 ## Limits
 Discrete geometry/vertex tests and bounded poses are not every-pixel or continuous collision proofs. Future poses, face transitions, cameras, simultaneous headwear and production presentation require additional checks. Historical pre-fix-all18-hat-occlusion.json is retained only as rejected-old-design evidence, not as a current result.
+
+## Independent review and acceptance scope
+The independent review covers 2,162 numeric frames and 722 geometry frames of the tested drag/landing, settling-smile and petting sequences. Tested main views had zero additional face/ear-tip obstruction and zero head penetration into hat material; upper-head (9,376 points) and hat (11,445 points) relative rigid-transform residual was below 2e-7. Default repository-relative recovery produced 31 images; embedded PNG decoding, topology/self-intersection, shared-resource lifecycle and an independent rebuild passed. See [independent review](../../accessory-mini-hat-review-v1/REVIEW.md) for the frozen inputs and evidence.
+
+The separate 24-angle static diagnostic retains far-ear tip occlusion at some strict-side/elevated and rear-oblique/lowered cameras; independent classification found no near-ear tip obstruction in those cases. User acceptance freezes the actual appearance shown in the approved sheet. The technical result remains limited to the recorded geometry, cameras and sequences, not every possible pose/camera or production integration.
