@@ -1,0 +1,32 @@
+{
+  "scope": "independent byte-level source comparisons; no renderer/runtime activation",
+  "results": [
+    {
+      "file": "bubu-expression-library-v1.glb",
+      "sha256": "1100131118479ecb266c029082d311f18e5b2564ad0a1077182ac934e769d677",
+      "states": 18,
+      "targetArrayComparisons": 2304,
+      "explicitZeroFillArrays": 480,
+      "sourceBaseComparisons": 231,
+      "sourceBytes": 16867596,
+      "decodedAccessorBytes": 20999632,
+      "morphDecodedBytes": 17594496,
+      "morphPackedBytesNoPadding": 23459328,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "bubu-expression-slice7.glb",
+      "sha256": "a9ae09635658ac15c55cf1571db53e284bd463eaab9a84ff24e7836270a1808e",
+      "states": 7,
+      "targetArrayComparisons": 896,
+      "explicitZeroFillArrays": 224,
+      "sourceBaseComparisons": 231,
+      "sourceBytes": 8509100,
+      "decodedAccessorBytes": 10247440,
+      "morphDecodedBytes": 6842304,
+      "morphPackedBytesNoPadding": 9123072,
+      "sourceUnchanged": true
+    }
+  ],
+  "differences": []
+}

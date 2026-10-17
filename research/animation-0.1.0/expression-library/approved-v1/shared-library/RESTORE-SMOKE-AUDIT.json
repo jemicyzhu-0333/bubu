@@ -1,0 +1,28 @@
+{
+  "sourceDirectory": "/tmp/bubu-library-restore-smoke-_e59f4b3",
+  "command": "python restore_library.py --render-smoke",
+  "onlyLocalClosureInputs": true,
+  "networkOrInstallUsed": false,
+  "blenderVersion": "4.3.2",
+  "rebuildAndLook": [
+    {
+      "file": "bubu-expression-library-v1.glb",
+      "sha256": "1100131118479ecb266c029082d311f18e5b2564ad0a1077182ac934e769d677",
+      "byteExact": true
+    },
+    {
+      "file": "bubu-expression-slice7.glb",
+      "sha256": "a9ae09635658ac15c55cf1571db53e284bd463eaab9a84ff24e7836270a1808e",
+      "byteExact": true
+    },
+    {
+      "file": "bubu-expression-library-v1-look.blend",
+      "sha256": "b85f9873b7829222510ea02a8acdaebcd5d97d67d3f26efb038a65d7d0a9388d",
+      "byteExact": true
+    }
+  ],
+  "render": "Basis-0.00-front.png",
+  "renderPixelExact": true,
+  "maximumPixelChannelDifference": 0,
+  "passed": true
+}

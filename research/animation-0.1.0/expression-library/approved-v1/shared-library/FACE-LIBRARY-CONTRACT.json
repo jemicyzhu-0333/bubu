@@ -1,0 +1,553 @@
+{
+  "schema": "bubu-approved-face-library-1.0.0",
+  "libraryStatus": "current18 static slots accepted; merged source-equivalence and fixed-look visual gate passed; runtime transitions separately gated",
+  "assets": [
+    {
+      "file": "bubu-expression-library-v1.glb",
+      "sha256": "1100131118479ecb266c029082d311f18e5b2564ad0a1077182ac934e769d677",
+      "bytes": 16867596,
+      "meshes": 9,
+      "accessors": 2351,
+      "bufferViews": 2109,
+      "morphTargetsPerFaceMesh": 144,
+      "scalarCount": 5554957,
+      "indicesCount": 303882,
+      "states": [
+        "R0",
+        "D1",
+        "A7",
+        "D4",
+        "01",
+        "N2",
+        "N3",
+        "T05",
+        "07",
+        "P2",
+        "08",
+        "A4",
+        "04",
+        "A8",
+        "S2",
+        "S3",
+        "T5",
+        "S5"
+      ]
+    },
+    {
+      "file": "bubu-expression-slice7.glb",
+      "sha256": "a9ae09635658ac15c55cf1571db53e284bd463eaab9a84ff24e7836270a1808e",
+      "bytes": 8509100,
+      "meshes": 9,
+      "accessors": 943,
+      "bufferViews": 839,
+      "morphTargetsPerFaceMesh": 56,
+      "scalarCount": 2866909,
+      "indicesCount": 303882,
+      "states": [
+        "04",
+        "N3",
+        "A7",
+        "07",
+        "S5",
+        "R0",
+        "N2"
+      ]
+    }
+  ],
+  "body": "A_mochi_skin",
+  "bodyVertexCount": 45945,
+  "bodyHasMorph": false,
+  "faceRoster": [
+    "A_eye_L",
+    "A_eye_R",
+    "A_eye_highlight_L",
+    "A_eye_highlight_R",
+    "A_mouth_ring",
+    "A_brow_L",
+    "A_brow_R",
+    "A_tongue"
+  ],
+  "faceVertexCount": 5091,
+  "sharedBasisAcrossAllStates": true,
+  "stateCount": 18,
+  "states": {
+    "R0": {
+      "stateID": "R0",
+      "referenceID": "R0",
+      "meaning": "quiet short-neutral",
+      "sourceGroup": "batch2",
+      "sourceSHA256": "92e56c6f534beddd03ffd2fe82287a7b482876363ee5e37d9ffe5021d6a22b20",
+      "targetNames": [
+        "BasicR0_01",
+        "BasicR0_02",
+        "BasicR0_03",
+        "BasicR0_04",
+        "BasicR0_05",
+        "BasicR0_06",
+        "BasicR0_07",
+        "BasicR0_08"
+      ],
+      "staticUserApproved": true,
+      "approvalMessageID": "Sentinel_fa6cf24f4da88191b7c704f6355aa0a0"
+    },
+    "D1": {
+      "stateID": "D1",
+      "referenceID": "D1",
+      "meaning": "tired but awake",
+      "sourceGroup": "batch1",
+      "sourceSHA256": "af227127a5271e35b8ccb3904f67d8c47eaae18b3a0a6aabe318e4081c7f7135",
+      "targetNames": [
+        "BasicD1_01",
+        "BasicD1_02",
+        "BasicD1_03",
+        "BasicD1_04",
+        "BasicD1_05",
+        "BasicD1_06",
+        "BasicD1_07",
+        "BasicD1_08"
+      ],
+      "staticUserApproved": true,
+      "approvalMessageID": "Sentinel_fa6cf24f4da88191b7c704f6355aa0a0"
+    },
+    "A7": {
+      "stateID": "A7",
+      "referenceID": "A7",
+      "meaning": "natural sleep",
+      "sourceGroup": "batch2",
+      "sourceSHA256": "92e56c6f534beddd03ffd2fe82287a7b482876363ee5e37d9ffe5021d6a22b20",
+      "targetNames": [
+        "BasicA7_01",
+        "BasicA7_02",
+        "BasicA7_03",
+        "BasicA7_04",
+        "BasicA7_05",
+        "BasicA7_06",
+        "BasicA7_07",
+        "BasicA7_08"
+      ],
+      "staticUserApproved": true,
+      "approvalMessageID": "Sentinel_fa6cf24f4da88191b7c704f6355aa0a0"
+    },
+    "D4": {
+      "stateID": "D4",
+      "referenceID": "D4",
+      "meaning": "yawn transition",
+      "sourceGroup": "batch4",
+      "sourceSHA256": "b7c74bf8425353d1a359f3711eb11f5cd435cd87d05349aa688798d8b44c2fee",
+      "targetNames": [
+        "BasicD4_01",
+        "BasicD4_02",
+        "BasicD4_03",
+        "BasicD4_04",
+        "BasicD4_05",
+        "BasicD4_06",
+        "BasicD4_07",
+        "BasicD4_08"
+      ],
+      "staticUserApproved": true,
+      "approvalMessageID": "Sentinel_fa6cf24f4da88191b7c704f6355aa0a0"
+    },
+    "01": {
+      "stateID": "01",
+      "referenceID": "01",
+      "meaning": "curious/light startle",
+      "sourceGroup": "r6",
+      "sourceSHA256": "fba41db41ecb0e0a959cd6923f55d5edbfaebf4558d79e1e9832b2a806cc5830",
+      "targetNames": [
+        "Face01_01",
+        "Face01_02",
+        "Face01_03",
+        "Face01_04",
+        "Face01_05",
+        "Face01_06",
+        "Face01_07",
+        "Face01_08"
+      ],
+      "staticUserApproved": true,
+      "approvalMessageID": "Sentinel_fa6cf24f4da88191b7c704f6355aa0a0"
+    },
+    "N2": {
+      "stateID": "N2",
+      "referenceID": "N2",
+      "meaning": "puzzled",
+      "sourceGroup": "batch1",
+      "sourceSHA256": "af227127a5271e35b8ccb3904f67d8c47eaae18b3a0a6aabe318e4081c7f7135",
+      "targetNames": [
+        "BasicN2_01",
+        "BasicN2_02",
+        "BasicN2_03",
+        "BasicN2_04",
+        "BasicN2_05",
+        "BasicN2_06",
+        "BasicN2_07",
+        "BasicN2_08"
+      ],
+      "staticUserApproved": true,
+      "approvalMessageID": "Sentinel_fa6cf24f4da88191b7c704f6355aa0a0"
+    },
+    "N3": {
+      "stateID": "N3",
+      "referenceID": "N3",
+      "meaning": "strong surprise with small inner tongue",
+      "sourceGroup": "batch3",
+      "sourceSHA256": "79c28bf025c3dd13f08fea456ebedd8855d73ac1b8744ea3c440f3c1095bd795",
+      "targetNames": [
+        "BasicN3_01",
+        "BasicN3_02",
+        "BasicN3_03",
+        "BasicN3_04",
+        "BasicN3_05",
+        "BasicN3_06",
+        "BasicN3_07",
+        "BasicN3_08"
+      ],
+      "staticUserApproved": true,
+      "approvalMessageID": "Sentinel_fa6cf24f4da88191b7c704f6355aa0a0"
+    },
+    "T05": {
+      "stateID": "T05",
+      "referenceID": "05",
+      "meaning": "mild uneasy/braced attention revised",
+      "sourceGroup": "batch3",
+      "sourceSHA256": "79c28bf025c3dd13f08fea456ebedd8855d73ac1b8744ea3c440f3c1095bd795",
+      "targetNames": [
+        "BasicT05_01",
+        "BasicT05_02",
+        "BasicT05_03",
+        "BasicT05_04",
+        "BasicT05_05",
+        "BasicT05_06",
+        "BasicT05_07",
+        "BasicT05_08"
+      ],
+      "staticUserApproved": true,
+      "approvalMessageID": "Sentinel_fa6cf24f4da88191b7c704f6355aa0a0"
+    },
+    "07": {
+      "stateID": "07",
+      "referenceID": "07",
+      "meaning": "open happy smile",
+      "sourceGroup": "r6",
+      "sourceSHA256": "fba41db41ecb0e0a959cd6923f55d5edbfaebf4558d79e1e9832b2a806cc5830",
+      "targetNames": [
+        "Face07_01",
+        "Face07_02",
+        "Face07_03",
+        "Face07_04",
+        "Face07_05",
+        "Face07_06",
+        "Face07_07",
+        "Face07_08"
+      ],
+      "staticUserApproved": true,
+      "approvalMessageID": "Sentinel_fa6cf24f4da88191b7c704f6355aa0a0"
+    },
+    "P2": {
+      "stateID": "P2",
+      "referenceID": "P2",
+      "meaning": "quiet contentment",
+      "sourceGroup": "batch1",
+      "sourceSHA256": "af227127a5271e35b8ccb3904f67d8c47eaae18b3a0a6aabe318e4081c7f7135",
+      "targetNames": [
+        "BasicP2_01",
+        "BasicP2_02",
+        "BasicP2_03",
+        "BasicP2_04",
+        "BasicP2_05",
+        "BasicP2_06",
+        "BasicP2_07",
+        "BasicP2_08"
+      ],
+      "staticUserApproved": true,
+      "approvalMessageID": "Sentinel_fa6cf24f4da88191b7c704f6355aa0a0"
+    },
+    "08": {
+      "stateID": "08",
+      "referenceID": "08",
+      "meaning": "relaxed half-lid smile",
+      "sourceGroup": "r6",
+      "sourceSHA256": "fba41db41ecb0e0a959cd6923f55d5edbfaebf4558d79e1e9832b2a806cc5830",
+      "targetNames": [
+        "Face08_01",
+        "Face08_02",
+        "Face08_03",
+        "Face08_04",
+        "Face08_05",
+        "Face08_06",
+        "Face08_07",
+        "Face08_08"
+      ],
+      "staticUserApproved": true,
+      "approvalMessageID": "Sentinel_fa6cf24f4da88191b7c704f6355aa0a0"
+    },
+    "A4": {
+      "stateID": "A4",
+      "referenceID": "A4",
+      "meaning": "serious focus",
+      "sourceGroup": "batch4",
+      "sourceSHA256": "b7c74bf8425353d1a359f3711eb11f5cd435cd87d05349aa688798d8b44c2fee",
+      "targetNames": [
+        "BasicA4_01",
+        "BasicA4_02",
+        "BasicA4_03",
+        "BasicA4_04",
+        "BasicA4_05",
+        "BasicA4_06",
+        "BasicA4_07",
+        "BasicA4_08"
+      ],
+      "staticUserApproved": true,
+      "approvalMessageID": "Sentinel_fa6cf24f4da88191b7c704f6355aa0a0"
+    },
+    "04": {
+      "stateID": "04",
+      "referenceID": "04",
+      "meaning": "brief effort squeeze",
+      "sourceGroup": "r6",
+      "sourceSHA256": "fba41db41ecb0e0a959cd6923f55d5edbfaebf4558d79e1e9832b2a806cc5830",
+      "targetNames": [
+        "Face04_01",
+        "Face04_02",
+        "Face04_03",
+        "Face04_04",
+        "Face04_05",
+        "Face04_06",
+        "Face04_07",
+        "Face04_08"
+      ],
+      "staticUserApproved": true,
+      "approvalMessageID": "Sentinel_fa6cf24f4da88191b7c704f6355aa0a0"
+    },
+    "A8": {
+      "stateID": "A8",
+      "referenceID": "A8",
+      "meaning": "impatient",
+      "sourceGroup": "batch4",
+      "sourceSHA256": "b7c74bf8425353d1a359f3711eb11f5cd435cd87d05349aa688798d8b44c2fee",
+      "targetNames": [
+        "BasicA8_01",
+        "BasicA8_02",
+        "BasicA8_03",
+        "BasicA8_04",
+        "BasicA8_05",
+        "BasicA8_06",
+        "BasicA8_07",
+        "BasicA8_08"
+      ],
+      "staticUserApproved": true,
+      "approvalMessageID": "Sentinel_fa6cf24f4da88191b7c704f6355aa0a0"
+    },
+    "S2": {
+      "stateID": "S2",
+      "referenceID": "S2",
+      "meaning": "friendly availability",
+      "sourceGroup": "batch2",
+      "sourceSHA256": "92e56c6f534beddd03ffd2fe82287a7b482876363ee5e37d9ffe5021d6a22b20",
+      "targetNames": [
+        "BasicS2_01",
+        "BasicS2_02",
+        "BasicS2_03",
+        "BasicS2_04",
+        "BasicS2_05",
+        "BasicS2_06",
+        "BasicS2_07",
+        "BasicS2_08"
+      ],
+      "staticUserApproved": true,
+      "approvalMessageID": "Sentinel_fa6cf24f4da88191b7c704f6355aa0a0"
+    },
+    "S3": {
+      "stateID": "S3",
+      "referenceID": "S3",
+      "meaning": "worried",
+      "sourceGroup": "batch5",
+      "sourceSHA256": "f02f3e1e5b06236c973d25773c4b55e2735021045b1d7a7f08bb6bb22825e77c",
+      "targetNames": [
+        "BasicS3_01",
+        "BasicS3_02",
+        "BasicS3_03",
+        "BasicS3_04",
+        "BasicS3_05",
+        "BasicS3_06",
+        "BasicS3_07",
+        "BasicS3_08"
+      ],
+      "staticUserApproved": true,
+      "approvalMessageID": "Sentinel_fa6cf24f4da88191b7c704f6355aa0a0"
+    },
+    "T5": {
+      "stateID": "T5",
+      "referenceID": "T5",
+      "meaning": "closed-eye setback/sadness",
+      "sourceGroup": "batch5",
+      "sourceSHA256": "f02f3e1e5b06236c973d25773c4b55e2735021045b1d7a7f08bb6bb22825e77c",
+      "targetNames": [
+        "BasicT5_01",
+        "BasicT5_02",
+        "BasicT5_03",
+        "BasicT5_04",
+        "BasicT5_05",
+        "BasicT5_06",
+        "BasicT5_07",
+        "BasicT5_08"
+      ],
+      "staticUserApproved": true,
+      "approvalMessageID": "Sentinel_fa6cf24f4da88191b7c704f6355aa0a0"
+    },
+    "S5": {
+      "stateID": "S5",
+      "referenceID": "S5",
+      "meaning": "open-eye sadness",
+      "sourceGroup": "batch5",
+      "sourceSHA256": "f02f3e1e5b06236c973d25773c4b55e2735021045b1d7a7f08bb6bb22825e77c",
+      "targetNames": [
+        "BasicS5_01",
+        "BasicS5_02",
+        "BasicS5_03",
+        "BasicS5_04",
+        "BasicS5_05",
+        "BasicS5_06",
+        "BasicS5_07",
+        "BasicS5_08"
+      ],
+      "staticUserApproved": true,
+      "approvalMessageID": "Sentinel_fa6cf24f4da88191b7c704f6355aa0a0"
+    }
+  },
+  "basis": {
+    "stateID": null,
+    "allMorphWeights": 0,
+    "originalOShapePreserved": true,
+    "R0IsSeparateSemanticVariant": true,
+    "noImplicitDefaultReplacement": true
+  },
+  "current05": "T05; bare05 rejected by mapper, historical Face05 not shipped in current library",
+  "T5": "closed-eye sadness, distinct from T05",
+  "mapping": {
+    "authoritativeImplementation": "face_library.face_weights(state, intensity)",
+    "allTargetsSameOrderOnAllFaceMeshes": true,
+    "knots": [
+      0.0,
+      0.125,
+      0.25,
+      0.375,
+      0.5,
+      0.625,
+      0.75,
+      0.875,
+      1.0
+    ],
+    "nonzeroLimit": 2,
+    "nonzeroMustBeAdjacentKnotsWithinOneState": true,
+    "intensity": "finite numeric0..1, invalid rejects rather than silently clamps",
+    "neutral": "None+0, or any currentstate+0; clear all8 layers",
+    "oldLegacyTargets": "excluded from formal library; source archives remain unchanged",
+    "crossSemantic": "direct additive mixing forbidden; caller must reach complete zero on every face layer before changing semantic ID unless a separately reviewed pairwise path is introduced",
+    "transitionQuality": "A neutral bridge is a geometry safety constraint, not proof of acceptable acting. Original small-O appearance can become a visible flash; actual timings/interruption must be reviewed separately."
+  },
+  "space": {
+    "blender": "X right, Z up, front -Y",
+    "gltf": "X right, Y up, front +Z",
+    "faceChart": "fixed orthographic U=X,V=BlenderZ; actual skin depth by ray projection; not a differential tangent frame",
+    "eyeNeutralAnchors": {
+      "L": [
+        -0.387,
+        1.021
+      ],
+      "R": [
+        0.387,
+        1.021
+      ]
+    },
+    "mouthNeutralAnchor": [
+      0,
+      0.695
+    ],
+    "eyeAllowedU": {
+      "L": [
+        -0.61,
+        -0.164
+      ],
+      "R": [
+        0.164,
+        0.61
+      ]
+    },
+    "eyeAllowedV": [
+      0.79,
+      1.25
+    ],
+    "mouthAllowedU": [
+      -0.145,
+      0.145
+    ],
+    "mouthAllowedV": [
+      0.51,
+      0.88
+    ],
+    "browAllowedAbsU": 0.57,
+    "browAllowedV": [
+      1.13,
+      1.42
+    ]
+  },
+  "layers": {
+    "brows": {
+      "meshes": [
+        "A_brow_L",
+        "A_brow_R"
+      ],
+      "basis": "257 co-located vertices/448 zero-area triangles per layer; Body100%",
+      "activeStates": [
+        "N2",
+        "N3",
+        "A4",
+        "S3",
+        "S5"
+      ],
+      "otherStates": "explicit zero deltas and complete reset; never inherit previous visible brow",
+      "hiddenRelocation": "Only strictly co-located zero-area source-authored layers may relocate before appearing. A4 early hidden centre may be inside skin; visible geometry is never exempt.",
+      "delays": {
+        "N3": 0.125,
+        "A4": 0.5,
+        "S3": 0.125,
+        "S5": 0.125
+      }
+    },
+    "tongue": {
+      "mesh": "A_tongue",
+      "basis": "257 co-located vertices/448 zero-area triangles; Body100%",
+      "activeState": "N3",
+      "zeroAreaThroughIntensity": 0.5,
+      "occlusion": "authored inside black mouth; actual source checks include first-visible vertices and triangle centres; no runtime depth relocation",
+      "mouthOuterRimDepthAdjustment": {
+        "outerRadialFraction": 0.12,
+        "maximumBlenderForwardOffset": 0.004
+      },
+      "otherStates": "explicit zero delta/reset to hidden Basis"
+    },
+    "highlights": {
+      "semantics": "attached light reflections, not eye whites or gaze pupils",
+      "closure": "source-authored shrink/collapse follows each eye path; do not independently move or enable"
+    },
+    "mouth": {
+      "closedPath": "authored O-hole closure before bending to a closed stroke; do not replace knot path by endpoint lerp",
+      "intentionalDegeneracy": "closed inner-ring boundaries and fully hidden layers; no general degenerate-triangle exemption"
+    }
+  },
+  "sourceNumericalExceptions": {
+    "batch2HighlightPoles": "Keep original8 raw micro-negative-area records and narrow source-pole+short-edge+tiny-area classification; merged geometry is bit-identical, no broad new waiver",
+    "signedZero": "Sparse compilation preserves original float32 sign bits, including -0. No canonicalization"
+  },
+  "sourceMissingLayerPolicy": "positive zero POSITION/NORMAL deltas at exactly shared Basis; each fill is enumerated in library-array-spec.json and SOURCE-TO-OUTPUT-AUDIT.json",
+  "normals": "preserve exported authored NORMAL deltas and source material/color; no unvalidated recomputation",
+  "gazeImplemented": false,
+  "runtimeEnabledByThisPackage": false,
+  "unsupported": [
+    "arbitrary semantic simplex mixing",
+    "per-frame brow/tongue independent shape control",
+    "gaze/highlight-as-pupil control",
+    "neck/knee invention",
+    "new drag/petting approval"
+  ]
+}

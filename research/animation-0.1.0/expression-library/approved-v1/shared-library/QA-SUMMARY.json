@@ -1,0 +1,144 @@
+{
+  "status": "formal approved static library; merged artifact source-equivalence and actual fixed-look visual gate passed",
+  "approval": {
+    "messageID": "Sentinel_fa6cf24f4da88191b7c704f6355aa0a0",
+    "timeUTC": "2026-10-17T04:18:00Z",
+    "quote": "通过 可以继续推进",
+    "scope": "eighteen actual3D static slots; previous historical candidate records remain unchanged"
+  },
+  "frozenAtUTC": "2026-10-17T04:41:58.268722+00:00",
+  "assets": [
+    {
+      "file": "bubu-expression-library-v1.glb",
+      "sha256": "1100131118479ecb266c029082d311f18e5b2564ad0a1077182ac934e769d677",
+      "bytes": 16867596,
+      "meshes": 9,
+      "accessors": 2351,
+      "bufferViews": 2109,
+      "morphTargetsPerFaceMesh": 144,
+      "scalarCount": 5554957,
+      "indicesCount": 303882,
+      "states": [
+        "R0",
+        "D1",
+        "A7",
+        "D4",
+        "01",
+        "N2",
+        "N3",
+        "T05",
+        "07",
+        "P2",
+        "08",
+        "A4",
+        "04",
+        "A8",
+        "S2",
+        "S3",
+        "T5",
+        "S5"
+      ]
+    },
+    {
+      "file": "bubu-expression-slice7.glb",
+      "sha256": "a9ae09635658ac15c55cf1571db53e284bd463eaab9a84ff24e7836270a1808e",
+      "bytes": 8509100,
+      "meshes": 9,
+      "accessors": 943,
+      "bufferViews": 839,
+      "morphTargetsPerFaceMesh": 56,
+      "scalarCount": 2866909,
+      "indicesCount": 303882,
+      "states": [
+        "04",
+        "N3",
+        "A7",
+        "07",
+        "S5",
+        "R0",
+        "N2"
+      ]
+    }
+  ],
+  "dataParity": {
+    "goldMorphPositionNormalArraysBitExact": 2304,
+    "sliceMorphPositionNormalArraysBitExact": 896,
+    "independentCrossSourceBaseComparisonsPerAsset": 231,
+    "explicitMissingLayerZeroArraysGold": 480,
+    "explicitMissingLayerZeroArraysSlice": 224,
+    "bodyCopies": 1,
+    "bodyMorphTargets": 0,
+    "allSourceFilesUnchanged": {
+      "r6": {
+        "file": "/workspace/scratch/10657b778e8b/bubu-3d-a-face-coordinate-v2-20261016/candidate-a05-selected-faces-r6-review/bubu-a05-selected-faces.glb",
+        "sha256": "fba41db41ecb0e0a959cd6923f55d5edbfaebf4558d79e1e9832b2a806cc5830",
+        "unchanged": true
+      },
+      "batch1": {
+        "file": "/workspace/scratch/10657b778e8b/bubu-3d-a-basic-face-batch1-20261016/bubu-a05-basic-batch1.glb",
+        "sha256": "af227127a5271e35b8ccb3904f67d8c47eaae18b3a0a6aabe318e4081c7f7135",
+        "unchanged": true
+      },
+      "batch2": {
+        "file": "/workspace/scratch/10657b778e8b/bubu-3d-a-basic-face-batch2-20261016/bubu-a05-basic-batch2.glb",
+        "sha256": "92e56c6f534beddd03ffd2fe82287a7b482876363ee5e37d9ffe5021d6a22b20",
+        "unchanged": true
+      },
+      "batch3": {
+        "file": "/workspace/scratch/10657b778e8b/bubu-3d-a-basic-face-batch3-20261016/bubu-a05-basic-batch3.glb",
+        "sha256": "79c28bf025c3dd13f08fea456ebedd8855d73ac1b8744ea3c440f3c1095bd795",
+        "unchanged": true
+      },
+      "batch4": {
+        "file": "/workspace/scratch/10657b778e8b/bubu-3d-a-basic-face-batch4-20261016/bubu-a05-basic-batch4.glb",
+        "sha256": "b7c74bf8425353d1a359f3711eb11f5cd435cd87d05349aa688798d8b44c2fee",
+        "unchanged": true
+      },
+      "batch5": {
+        "file": "/workspace/scratch/10657b778e8b/bubu-3d-a-basic-face-batch5-20261016/bubu-a05-basic-batch5.glb",
+        "sha256": "f02f3e1e5b06236c973d25773c4b55e2735021045b1d7a7f08bb6bb22825e77c",
+        "unchanged": true
+      }
+    }
+  },
+  "mapping": {
+    "validIntensitySamplesSourceExact": 4626,
+    "rejectedInvalidExamples": 9,
+    "inactiveLayerSamples": 1170,
+    "actualBlenderResetSequence": "N3 full -> each18 state full -> Basis; all8 layers return bit-exact; body unchanged",
+    "singleSemanticOnly": true
+  },
+  "visual": {
+    "actualMergedEndpointFrames": 72,
+    "actualBasisFrames": 4,
+    "actualRepresentativeMidpointFrames": 28,
+    "rgbaExactAgainstApprovedSourceFrames": 104,
+    "views": [
+      "front",
+      "quarter",
+      "opposite",
+      "side"
+    ],
+    "native99AndLargeActuallyReviewed": true,
+    "independentFinalGate": "passed2026-10-17T04:41Z; both actualboards and independentPillow104frame comparison",
+    "renderer": "Blender4.3.2 offscreen with original frozen look; not liveWebGL"
+  },
+  "recovery": {
+    "sourceArraysRebuildBothGLBsByteExact": true,
+    "completeLookGzipRestoresByteExact": true,
+    "restoredNeutralRenderPixelExact": true,
+    "externalLinkedLibrariesOrRequiredFileImages": false
+  },
+  "scopeLimits": [
+    "Only adjacent knots within one selected semantic path may blend; direct dual-semantic addition forbidden",
+    "Original small-O Basis remains distinct from R0 short-line semantic neutral",
+    "04 midpoint source wave-shaped opening and07 midpoint thick smile arc deliberately unchanged; timing must be reviewed in actual transitions",
+    "Basis bridge can flash even when geometric equality holds; runtime transition quality not approved by this package",
+    "7-slot slice supports bounded integration tests; full18gold is not automatically GPU-resident",
+    "Independent gaze is not implemented; white caps remain highlights",
+    "D4 is a yawn passage; T5/S5 share a sadness family; S2 request reading needs context",
+    "Inherited source highlight-pole and fully-collapsed-layer exceptions remain narrowly scoped; raw source evidence is included"
+  ],
+  "dynamicApproval": false,
+  "productionIntegration": false
+}
