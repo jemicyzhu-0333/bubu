@@ -1,0 +1,29 @@
+{
+  "format": "bubu-face-suite",
+  "version": "0.1.0",
+  "id": "approved-full18-d2-opt-in",
+  "purpose": "approved-full-face-d2-opt-in",
+  "assets": [
+    {
+      "id": "body",
+      "path": "asset.glb",
+      "kind": "glb",
+      "bytes": 16867596,
+      "sha256": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a"
+    },
+    {
+      "id": "profile",
+      "path": "profile.json",
+      "kind": "profile",
+      "bytes": 13633,
+      "sha256": "9b282a72282245add92f65d85ffb15e1d67e6a4a4f5706c554cddc23f591ab02"
+    }
+  ],
+  "character": {
+    "asset": "body",
+    "profile": "profile"
+  },
+  "budgets": {
+    "decodedArrayBytes": 40685900
+  }
+}

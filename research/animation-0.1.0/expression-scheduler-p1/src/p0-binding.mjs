@@ -1,8 +1,11 @@
+import {APPROVED_D2_FACE_SOURCE,D2_FACE_PROFILE_SHA256} from '../../runtime-facepath05/src/approved-d2-face-source.mjs';
 import {WeightedScheduler,LIMITS} from './scheduler.mjs';
 import {ExpressionDirector} from '../../runtime-facepath05/src/director.mjs';
 import {APPROVED_FULL_FACE_SOURCE,FULL_FACE_PROFILE_SHA256} from '../../runtime-facepath05/src/approved-full-face-source.mjs';
 export const ADMISSION=Object.freeze({sourceSha256:APPROVED_FULL_FACE_SOURCE.sha256,profileSha256:FULL_FACE_PROFILE_SHA256,faceIds:APPROVED_FULL_FACE_SOURCE.slotIds});
-export function validateBindingInputs(policy,initialFacts){const scheduler=new WeightedScheduler(policy,ADMISSION);if(!scheduler.policy.candidates.length)throw RangeError('binding requires explicit candidates; an empty production policy must remain unbound');return Object.freeze({policy:scheduler.policy,initialFacts:scheduler.validateFacts(initialFacts)});}
+const D2_ADMISSION=Object.freeze({sourceSha256:APPROVED_D2_FACE_SOURCE.sha256,profileSha256:D2_FACE_PROFILE_SHA256,faceIds:APPROVED_D2_FACE_SOURCE.slotIds});
+function admissionFor(policy){const d=Object.getOwnPropertyDescriptors(policy??{});return d.sourceSha256?.value===D2_ADMISSION.sourceSha256&&d.profileSha256?.value===D2_ADMISSION.profileSha256?D2_ADMISSION:ADMISSION;}
+export function validateBindingInputs(policy,initialFacts){const scheduler=new WeightedScheduler(policy,admissionFor(policy));if(!scheduler.policy.candidates.length)throw RangeError('binding requires explicit candidates; an empty production policy must remain unbound');return Object.freeze({policy:scheduler.policy,initialFacts:scheduler.validateFacts(initialFacts)});}
 const IDLE='p1_idle';
 function exact(x,keys){if(!x||Object.getPrototypeOf(x)!==Object.prototype)throw TypeError('plain input');const d=Object.getOwnPropertyDescriptors(x),ks=Reflect.ownKeys(x);if(ks.length!==keys.length||ks.some(k=>!keys.includes(k)||!Object.hasOwn(d[k],'value')||!d[k].enumerable))throw TypeError('exact data fields');}
 function id(x){if(typeof x!=='string'||!/^[A-Za-z0-9_-]{1,64}$/.test(x)||x===IDLE)throw TypeError('identifier');}
@@ -11,7 +14,7 @@ export class P0SchedulerBinding {
  #scheduler;#director;#facts;#queue=[];#time=0;#sealed=-Infinity;#last=-Infinity;#next=0;#release=Infinity;#intent=null;#idleLifetime=null;#interaction=null;#records=[];#pending=null;#progress={complete:true,reached:0,target:0,steps:0};#busy=false;#hostLifetime=0;#gapUntil=0;#apply;#p0Policy;#onRecord;#observerFailure=null;#notifications=[];#disposed=false;
  constructor(policy,initialFacts,apply,onRecord=()=>{}){
   if(typeof apply!=='function'||typeof onRecord!=='function')throw TypeError('callbacks');this.#apply=apply;this.#onRecord=onRecord;
-  this.#scheduler=new WeightedScheduler(policy,ADMISSION);this.#facts=this.#scheduler.validateFacts(initialFacts);
+  this.#scheduler=new WeightedScheduler(policy,admissionFor(policy));this.#facts=this.#scheduler.validateFacts(initialFacts);
   const p=this.#scheduler.policy;if(p.candidates.length===0)throw RangeError('binding requires explicit candidates; an empty production policy must remain unbound');
   this.#p0Policy={format:'bubu-expression-policy-p0',version:'0.1.0-p0',sourceSha256:p.sourceSha256,profileSha256:p.profileSha256,candidates:p.candidates.length?p.candidates.map(c=>({key:c.key,faceId:c.faceId,amount:c.amount,enterSec:c.enterSec,exitSec:c.exitSec,holdSec:3600,gapSec:.001})):[]};this.#director=new ExpressionDirector(this.#p0Policy,apply);
  }

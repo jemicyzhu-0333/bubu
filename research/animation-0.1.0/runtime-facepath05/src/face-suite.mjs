@@ -1,3 +1,5 @@
+import {D2_FACE_PURPOSE} from './approved-d2-face-source.mjs';
+import {bindD2FaceStyle} from './d2-face-style.mjs';
 import {Group} from 'three';
 import {clone} from 'three/addons/utils/SkeletonUtils.js';
 import {acquireFaceGLB} from './pack-loader.mjs';
@@ -20,15 +22,15 @@ export function createWeightedFaceSuite(pack,cache,{signal,policy,initialFacts,o
 }
 async function createFaceActor(pack,cache,{signal,policy,initialFacts,onRecord,onDispose}={},mode='timeline') {
   const directed=mode!=='timeline',weighted=mode==='weighted';
-  let lease,model,root,document,binding,timeline,rest,disposed=false;
+  let lease,model,root,document,binding,style,timeline,rest,disposed=false;
   const live=()=>{if(disposed)fail('DISPOSED','Face actor');};
   const dispose=()=>{
     if(disposed)return;disposed=true;
     let cleanupError;const clean=fn=>{try{fn();}catch(e){cleanupError??=e;}};
-    clean(()=>timeline?.dispose?.());clean(()=>root?.removeFromParent());clean(()=>root?.clear());clean(()=>binding?.dispose());
+    clean(()=>timeline?.dispose?.());clean(()=>root?.removeFromParent());clean(()=>root?.clear());clean(()=>binding?.dispose());clean(()=>style?.dispose());
     const skeletons=new Set();model?.traverse(o=>{if(o.skeleton)skeletons.add(o.skeleton);});
     for(const s of skeletons)clean(()=>s.dispose());clean(()=>lease?.release());
-    lease=null;model=null;if(directed)root=null;document=null;binding=null;timeline=null;rest=null;
+    lease=null;model=null;if(directed)root=null;document=null;binding=null;style=null;timeline=null;rest=null;
     clean(()=>onDispose?.());if(cleanupError)throw cleanupError;
   };
   try {
@@ -40,7 +42,8 @@ async function createFaceActor(pack,cache,{signal,policy,initialFacts,onRecord,o
     // not part of the steady sampling hot path.
     rest=document.nodes.map(n=>({node:nodes.get(n.name),position:n.translation??[0,0,0],quaternion:n.rotation??[0,0,0,1],scale:n.scale??[1,1,1]}));
     binding=bindFacePaths(model,pack.profile);
-    const apply=(id,value)=>{live();return binding.apply(id,value);};
+    if(pack.kind===D2_FACE_PURPOSE)style=bindD2FaceStyle(model);
+    const apply=(id,value)=>{live();const changed=binding.apply(id,value);return (style?.apply(id,value)??false)||changed;};
     const newDriver=()=>weighted?createWeightedDriver(policy,initialFacts,apply,onRecord):directed?new ExpressionDirector(policy,apply,onRecord):new FaceTimeline(pack.profile.paths.map(p=>p.id),apply);
     timeline=newDriver();
     const driverState=()=>weighted?timeline.directorState:timeline.state;
@@ -54,7 +57,7 @@ async function createFaceActor(pack,cache,{signal,policy,initialFacts,onRecord,o
       isAnimating(){live();return timeline.isAnimating();},
       nextDeadline(){live();return timeline.nextDeadline();},
       assertCurrent(){
-        live();const state=directed?driverState():timeline;binding.assertCurrent(state.path,directed?state.amount:state.value);
+        live();const state=directed?driverState():timeline;binding.assertCurrent(state.path,directed?state.amount:state.value);style?.assertCurrent(state.path,directed?state.amount:state.value);
         for(const r of rest)for(const key of ['position','quaternion','scale']) {
           const actual=r.node[key],expected=r[key];
           for(let i=0;i<expected.length;i++) {

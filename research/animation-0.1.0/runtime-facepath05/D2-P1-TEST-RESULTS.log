@@ -1,0 +1,39 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> bubu-expression-scheduler-p1@0.1.0-p1 test
+> node --test test/*.test.mjs
+
+✔ async admission freezes policy and facts without a writer (1.927237ms)
+✔ retire starts new clock at Basis, preserves RNG/history and requires fresh facts (4.044732ms)
+✔ retire rebases active and existing cooldown deadlines, no RNG reset (0.511732ms)
+✔ retire drops queued real interaction but preserves admitted host lifetime watermark (1.430778ms)
+✔ hasInteraction includes explicit facts even without queued requests (0.542128ms)
+✔ observer sees committed state; throw is isolated and remains disabled across retire (0.763181ms)
+✔ observer reentry is rejected without harming the accepted choice (0.505492ms)
+✔ native async observer rejected safely without unhandled rejection (3.946693ms)
+✔ dispose is idempotent and blocks all subsequent use (0.726226ms)
+✔ huge sparse arrays reject before index enumeration; non-enumerable indices reject (0.488808ms)
+✔ strict admission rejects missing, unknown, getters without executing (2.191697ms)
+✔ rejected decision consumes no random or history; fixed duration consumes no stream (1.841999ms)
+✔ same seed independent streams and selectionWeight separate from amount (1.820907ms)
+✔ empty/zero/source filtered sleeps and aliases cannot bypass recent face (0.368386ms)
+✔ cooldown exact boundary and owned/disabled do not draw (0.809731ms)
+✔ real P0 actualArrival hold and true Basis gap, deterministic 30/60/120 Hz and large jumps (17.541458ms)
+✔ same timestamp interaction preempts autonomous decision without RNG consumption (1.062633ms)
+✔ no candidates sleeps without animation (0.554998ms)
+✔ pause invalidates active autonomous intention, resume uses current context (0.956974ms)
+✔ real release resumes autonomous with a request actually accepted by P0 (2.308763ms)
+✔ old release cannot cancel newer interaction reusing labels (1.235384ms)
+✔ scheduler acceptance is nonreentrant and exceptions do not commit RNG (1.025927ms)
+✔ diagnostic state cannot mutate repeat history (1.655438ms)
+✔ input facts do not shorten sampled gap; full hold survives large jump (0.751203ms)
+✔ binding rejects sparse/accessor event arrays before invoking them (0.355366ms)
+✔ non-enumerable config fields reject explicitly rather than disappearing during copy (0.197819ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 134.148505

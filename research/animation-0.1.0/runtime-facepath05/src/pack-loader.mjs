@@ -1,3 +1,5 @@
+import {D2_FACE_PURPOSE,D2_SOURCE_EXTRA_BYTES} from './approved-d2-face-source.mjs';
+import {prepareD2SourceGeometry} from './d2-face-style.mjs';
 import {
   GLTFLoader
 }
@@ -153,6 +155,7 @@ export async function acquireNeutralGLB(pack,cache,options={}) {
   },options);
 }
 export function prepareFacePack(read,options={}) {return prepareFaceCapability(read,options,'approved-single-face-paths');}
+export function prepareD2FacePack(read,options={}) {return prepareFaceCapability(read,options,D2_FACE_PURPOSE);}
 export function prepareFullFacePack(read,options={}) {return prepareFaceCapability(read,options,FULL_FACE_PURPOSE);}
 async function prepareFaceCapability(read,{signal}={},purpose) {
   const check=()=>{if(signal?.aborted)throw signal.reason??new Error('Aborted');};
@@ -162,11 +165,11 @@ async function prepareFaceCapability(read,{signal}={},purpose) {
     check();const incoming=await read(asset.path,asset.bytes,signal);check();
     if(!(incoming instanceof Uint8Array)||incoming.byteLength!==asset.bytes)fail('INTEGRITY',asset.id);
     const bytes=Uint8Array.from(incoming);if(await sha256(bytes)!==asset.sha256)fail('INTEGRITY',asset.id);
-    data.set(asset.id,bytes);if(asset.kind==='glb')audits.set(asset.id,(purpose===FULL_FACE_PURPOSE?preflightFullFaceGLB:preflightFaceGLB)(bytes,manifest.budgets));
+    data.set(asset.id,bytes);if(asset.kind==='glb')audits.set(asset.id,([FULL_FACE_PURPOSE,D2_FACE_PURPOSE].includes(purpose)?preflightFullFaceGLB:preflightFaceGLB)(bytes,manifest.budgets));
   }
   const asset=manifest.assets.find(a=>a.id===manifest.character.asset),audit=audits.get(asset.id);
   const profile=validateFaceProfile(json(data.get(manifest.character.profile),LIMITS.profileBytes),asset.sha256,audit.document,purpose);
-  const vertices=audit.renderVertices,nodes=audit.nodes+2,deformedVertices=audit.renderDeformedVertices,decodedReservation=decodedArrayReservation(asset.bytes,audit.document);
+  const vertices=audit.renderVertices,nodes=audit.nodes+2,deformedVertices=audit.renderDeformedVertices,decodedReservation=decodedArrayReservation(asset.bytes,audit.document)+(purpose===D2_FACE_PURPOSE?D2_SOURCE_EXTRA_BYTES:0);
   if(vertices>manifest.budgets.vertices||nodes>manifest.budgets.nodes||deformedVertices>manifest.budgets.deformedVertices||decodedReservation>manifest.budgets.decodedArrayBytes)fail('LIMIT','Face instance/decoded budget');
   check();for(const a of audits.values())deepFreeze(a);
   const pack=Object.freeze({kind:purpose,manifest:deepFreeze(manifest),profile:deepFreeze(profile),data:readonlyMap(data,true),audits:readonlyMap(audits),budget:deepFreeze({vertices,nodes,deformedVertices,clipKeyScalars:0,textureBytes:0,decodedArrayReservation:decodedReservation})});
@@ -176,14 +179,15 @@ async function prepareFaceCapability(read,{signal}={},purpose) {
   return pack;
 }
 export async function acquireFaceGLB(pack,cache,options={}) {
-  if(!['approved-single-face-paths',FULL_FACE_PURPOSE].includes(pack.kind)||!privatePreparedBytes.has(pack))fail('BINDING','Prepared single-face pack required');
+  if(!['approved-single-face-paths',FULL_FACE_PURPOSE,D2_FACE_PURPOSE].includes(pack.kind)||!privatePreparedBytes.has(pack))fail('BINDING','Prepared single-face pack required');
   const asset=pack.manifest.assets.find(a=>a.id===pack.manifest.character.asset),key='face-gltf-0.1.0:'+asset.sha256;
   return cache.acquire(key,async()=>{
     const bytes=privatePreparedBytes.get(pack).get(asset.id);
     const gltf=await new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength),'');
     try {
       const verification=verifyNeutralSource(bytes,pack.audits.get(asset.id),gltf,pack.budget.decodedArrayReservation);
-      return {gltf,verification,dispose:()=>disposeSource(gltf.scene)};
+      const styleVerification=pack.kind===D2_FACE_PURPOSE?prepareD2SourceGeometry(gltf.scene):null;
+      return {gltf,verification:styleVerification?Object.freeze({...verification,style:styleVerification}):verification,dispose:()=>disposeSource(gltf.scene)};
     }catch(error){disposeSource(gltf.scene);throw error;}
   },options);
 }

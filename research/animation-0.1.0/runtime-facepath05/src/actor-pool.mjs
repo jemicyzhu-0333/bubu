@@ -87,7 +87,7 @@ export class ActorPool {
   }
   create(pack,options={}) {return this.#create(pack,options);}
   createDirected(pack,policy,{signal,onRecord,onDispose}={}) {
-    if(!['approved-single-face-paths','approved-full-face-paths-opt-in'].includes(pack.kind))return Promise.reject(new TypeError('Directed actor requires admitted face pack'));
+    if(!['approved-single-face-paths','approved-full-face-paths-opt-in','approved-full-face-d2-opt-in'].includes(pack.kind))return Promise.reject(new TypeError('Directed actor requires admitted face pack'));
     return this.#create(pack,{signal,policy:validatePackPolicy(pack,policy),onRecord,onDispose},'directed');
   }
   createWeighted(pack,policy,{signal,initialFacts,onRecord,onDispose}={}) {
@@ -105,7 +105,7 @@ export class ActorPool {
     signal?.addEventListener('abort',onAbort,{once:true});
     let suite=null;
     try {
-      const factory=mode==='weighted'?createWeightedFaceSuite:mode==='directed'?createDirectedFaceSuite:pack.kind==='approved-art-neutral'?createNeutralSuite:['approved-single-face-paths','approved-full-face-paths-opt-in'].includes(pack.kind)?createFaceSuite:createSuite;
+      const factory=mode==='weighted'?createWeightedFaceSuite:mode==='directed'?createDirectedFaceSuite:pack.kind==='approved-art-neutral'?createNeutralSuite:['approved-single-face-paths','approved-full-face-paths-opt-in','approved-full-face-d2-opt-in'].includes(pack.kind)?createFaceSuite:createSuite;
       suite=await factory(pack,this.#cache,{signal:abort.signal,policy,initialFacts,onRecord,onDispose});
       if(this.#closed||abort.signal.aborted)throw abort.signal.reason??new Error('Pool disposed');
       const originalDispose=suite.dispose;

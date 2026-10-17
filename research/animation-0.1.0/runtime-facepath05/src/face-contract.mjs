@@ -1,3 +1,4 @@
+import {APPROVED_D2_FACE_SOURCE,D2_FACE_PROFILE_SHA256,D2_FACE_PURPOSE,D2_SOURCE_EXTRA_BYTES} from './approved-d2-face-source.mjs';
 import {APPROVED_FULL_FACE_SOURCE,FULL_FACE_PROFILE_SHA256} from './approved-full-face-source.mjs';
 import {exact,fail,str,path,unique,LIMITS} from './contracts.mjs';
 import {FACE_LIMITS,FULL_FACE_LIMITS} from './art-glb-preflight.mjs';
@@ -12,8 +13,8 @@ const jointMap=Object.freeze({body:'Body',shoulderLeft:'Shoulder_L',shoulderRigh
 const socketMap=Object.freeze({headTouch:'HeadTouch',accessory:'AccessoryAnchor'});
 const same=(actual,expected,label)=>{if(JSON.stringify(actual)!==JSON.stringify(expected))fail('BINDING',label);};
 export function validateFaceManifest(m,purpose='approved-single-face-paths') {
-  if(!['approved-single-face-paths',FULL_FACE_PURPOSE].includes(purpose))fail('VERSION','Unknown face capability');
-  const full=purpose===FULL_FACE_PURPOSE,source=full?APPROVED_FULL_FACE_SOURCE:APPROVED_FACE_SOURCE,limits=full?FULL_FACE_PACK_LIMITS:FACE_PACK_LIMITS;
+  if(!['approved-single-face-paths',FULL_FACE_PURPOSE,D2_FACE_PURPOSE].includes(purpose))fail('VERSION','Unknown face capability');
+  const style=purpose===D2_FACE_PURPOSE,full=style||purpose===FULL_FACE_PURPOSE,source=style?APPROVED_D2_FACE_SOURCE:full?APPROVED_FULL_FACE_SOURCE:APPROVED_FACE_SOURCE,limits=style?{...FULL_FACE_PACK_LIMITS,decodedArrayBytes:FULL_FACE_PACK_LIMITS.decodedArrayBytes+D2_SOURCE_EXTRA_BYTES}:full?FULL_FACE_PACK_LIMITS:FACE_PACK_LIMITS;
   exact(m,['format','version','id','purpose','assets','character','budgets']);
   if(m.format!=='bubu-face-suite'||m.version!=='0.1.0'||m.purpose!==purpose)fail('VERSION','Single-face slice manifest');str(m.id);
   if(!Array.isArray(m.assets)||m.assets.length!==2)fail('REFERENCE','Exactly one fixed GLB and one profile');
@@ -28,14 +29,14 @@ export function validateFaceManifest(m,purpose='approved-single-face-paths') {
   const asset=m.assets.find(a=>a.id===m.character.asset&&a.kind==='glb');
   if(!asset||!m.assets.find(a=>a.id===m.character.profile&&a.kind==='profile'))fail('REFERENCE','Face source/profile');
   if(asset.sha256!==source.sha256)fail('UNAPPROVED_ASSET','Exact registered capability source required');
-  if(full&&m.assets.find(a=>a.id===m.character.profile).sha256!==FULL_FACE_PROFILE_SHA256)fail('UNAPPROVED_ASSET','Exact full18 profile required');
+  if(full&&m.assets.find(a=>a.id===m.character.profile).sha256!==(style?D2_FACE_PROFILE_SHA256:FULL_FACE_PROFILE_SHA256))fail('UNAPPROVED_ASSET','Exact full18 profile required');
   exact(m.budgets,[],Object.keys(limits));m.budgets={...limits,...m.budgets};
   for(const [k,v]of Object.entries(m.budgets))if(!Number.isSafeInteger(v)||v<1||v>limits[k])fail('LIMIT','Face budget '+k);
   if(total>m.budgets.totalBytes||asset.bytes>m.budgets.assetBytes)fail('LIMIT','Face encoded source bytes');return m;
 }
 export function validateFaceProfile(p,hash,doc,purpose='approved-single-face-paths') {
-  if(!['approved-single-face-paths',FULL_FACE_PURPOSE].includes(purpose))fail('VERSION','Unknown face capability');
-  const full=purpose===FULL_FACE_PURPOSE,source=full?APPROVED_FULL_FACE_SOURCE:APPROVED_FACE_SOURCE,slotIds=full?FULL_FACE_SLOT_IDS:FACE_SLOT_IDS;
+  if(!['approved-single-face-paths',FULL_FACE_PURPOSE,D2_FACE_PURPOSE].includes(purpose))fail('VERSION','Unknown face capability');
+  const style=purpose===D2_FACE_PURPOSE,full=style||purpose===FULL_FACE_PURPOSE,source=style?APPROVED_D2_FACE_SOURCE:full?APPROVED_FULL_FACE_SOURCE:APPROVED_FACE_SOURCE,slotIds=full?FULL_FACE_SLOT_IDS:FACE_SLOT_IDS;
   exact(p,['format','version','purpose','sourceSha256','root','body','faceMeshes','joints','sockets','basis','semanticDefault','hiddenBasisLayers','paths','readiness']);
   if(p.format!=='bubu-face-profile'||p.version!=='0.1.0'||p.purpose!==purpose)fail('VERSION','Face profile');
   if(hash!==source.sha256||p.sourceSha256!==hash)fail('UNAPPROVED_ASSET','Face profile source');
@@ -44,7 +45,7 @@ export function validateFaceProfile(p,hash,doc,purpose='approved-single-face-pat
   if(p.basis!=='approved05-original-small-o'||p.semanticDefault!=='R0')fail('BINDING','Basis and R0 are distinct');
   same(p.hiddenBasisLayers,['A_brow_L','A_brow_R','A_tongue'],'Explicit hidden Basis layers');
   exact(p.readiness,['engine','binding','verified']);
-  if(p.readiness.engine!=='single-semantic-path'||p.readiness.binding!==(full?'fixed-eighteen-slot-opt-in':'fixed-seven-slot-slice')||p.readiness.verified!=='source-parity-and-scalar-clock')fail('UNSUPPORTED','Readiness cannot authorize interaction or GPU appearance');
+  if(p.readiness.engine!=='single-semantic-path'||p.readiness.binding!==(style?'fixed-eighteen-slot-d2-opt-in':full?'fixed-eighteen-slot-opt-in':'fixed-seven-slot-slice')||p.readiness.verified!=='source-parity-and-scalar-clock')fail('UNSUPPORTED','Readiness cannot authorize interaction or GPU appearance');
   if(!Array.isArray(p.paths)||p.paths.length!==slotIds.length)fail('BINDING','Complete explicit capability slots required');
   same(p.paths.map(x=>x.id),slotIds,'Slot ordering/version');
   const allTargets=[];

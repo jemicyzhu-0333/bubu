@@ -1,10 +1,11 @@
+import {APPROVED_D2_FACE_SOURCE,D2_FACE_PROFILE_SHA256} from './approved-d2-face-source.mjs';
 import {APPROVED_FULL_FACE_SOURCE,FULL_FACE_PROFILE_SHA256} from './approved-full-face-source.mjs';
 import {FaceTimeline} from './face-timeline.mjs';
 import {APPROVED_FACE_SOURCE} from './approved-face-source.mjs';
 export const SOURCE_SHA256=APPROVED_FACE_SOURCE.sha256;
 export const PROFILE_SHA256='14b268270370477caac18cdbefa6a95a4a1d078c674527315f67f1b24e045997';
 export const LIMITS=Object.freeze({maxTime:1e8,inputHeadroom:7207,maxCandidates:32,maxBatches:128,maxEvents:32,maxDuration:3600,maxSteps:4096});
-function policyIds(p){return p.sourceSha256===APPROVED_FULL_FACE_SOURCE.sha256&&p.profileSha256===FULL_FACE_PROFILE_SHA256?APPROVED_FULL_FACE_SOURCE.slotIds:p.sourceSha256===SOURCE_SHA256&&p.profileSha256===PROFILE_SHA256?Object.keys(APPROVED_FACE_SOURCE.paths):null;}
+function policyIds(p){return p.sourceSha256===APPROVED_D2_FACE_SOURCE.sha256&&p.profileSha256===D2_FACE_PROFILE_SHA256?APPROVED_D2_FACE_SOURCE.slotIds:p.sourceSha256===APPROVED_FULL_FACE_SOURCE.sha256&&p.profileSha256===FULL_FACE_PROFILE_SHA256?APPROVED_FULL_FACE_SOURCE.slotIds:p.sourceSha256===SOURCE_SHA256&&p.profileSha256===PROFILE_SHA256?Object.keys(APPROVED_FACE_SOURCE.paths):null;}
 export function validatePackPolicy(pack,policy){
  const p=validatePolicy(policy),m=pack.manifest;
  if(p.sourceSha256!==pack.profile.sourceSha256||p.profileSha256!==m.assets.find(a=>a.id===m.character.profile)?.sha256)throw new RangeError('policy and admitted pack mismatch');
