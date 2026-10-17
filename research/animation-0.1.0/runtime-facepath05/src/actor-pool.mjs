@@ -1,6 +1,7 @@
+import {validatePolicy} from './director.mjs';
 import {ResourceCache} from './resource-cache.mjs';
 import {createNeutralSuite} from './neutral-suite.mjs';
-import {createFaceSuite} from './face-suite.mjs';
+import {createFaceSuite,createDirectedFaceSuite} from './face-suite.mjs';
 import {createSuite} from './suite.mjs';
 import {preparedAdmission} from './pack-loader.mjs';
 import {exact, fail} from './contracts.mjs';
@@ -83,7 +84,12 @@ export class ActorPool {
       }
     };
   }
-  async create(pack,{signal}={}) {
+  create(pack,options={}) {return this.#create(pack,options);}
+  createDirected(pack,policy,{signal,onRecord,onDispose}={}) {
+    if(pack.kind!=='approved-single-face-paths')return Promise.reject(new TypeError('Directed actor requires admitted face pack'));
+    return this.#create(pack,{signal,policy:validatePolicy(policy),onRecord,onDispose},true);
+  }
+  async #create(pack,{signal,policy,onRecord,onDispose}={},directed=false) {
     if(this.#closed)fail('DISPOSED','ActorPool');
     if(signal?.aborted)throw signal.reason??new Error('Aborted');
     // Atomic reservation precedes any parse/clone promise and cannot be skipped
@@ -94,8 +100,8 @@ export class ActorPool {
     signal?.addEventListener('abort',onAbort,{once:true});
     let suite=null;
     try {
-      const factory=pack.kind==='approved-art-neutral'?createNeutralSuite:pack.kind==='approved-single-face-paths'?createFaceSuite:createSuite;
-      suite=await factory(pack,this.#cache,{signal:abort.signal});
+      const factory=directed?createDirectedFaceSuite:pack.kind==='approved-art-neutral'?createNeutralSuite:pack.kind==='approved-single-face-paths'?createFaceSuite:createSuite;
+      suite=await factory(pack,this.#cache,{signal:abort.signal,policy,onRecord,onDispose});
       if(this.#closed||abort.signal.aborted)throw abort.signal.reason??new Error('Pool disposed');
       const originalDispose=suite.dispose;
       suite.dispose=()=>{
