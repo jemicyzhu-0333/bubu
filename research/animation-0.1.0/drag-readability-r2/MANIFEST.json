@@ -1,0 +1,124 @@
+{
+  "version": "0.1.0-readability-r2-experiment",
+  "status": "pending-artistic-review",
+  "gitDestination": "research/animation-0.1.0/drag-readability-r2",
+  "baselineFunctionalCommit": "4dcf3c793b0c45574a30b1a6d00dbfa11208cd1f",
+  "baselineSibling": "../drag-body-prototype-v1",
+  "appliedToFrozenDrag": false,
+  "changesRigOrRestShape": false,
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 139,
+      "sha256": "921076dee575b49236b998a50d9a5b320dc568db797b225ce4c2a84324735682"
+    },
+    {
+      "path": "PROVENANCE.json",
+      "bytes": 1567,
+      "sha256": "5df2f918c04382787dbe519a0d770dce1aeeb25c9b5fd889539f70708f84544c"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2322,
+      "sha256": "b2135a6e4bd28b41e7ce92d37f3c5cde08e797b6d2b24a7fd8c1811dd4ee06b8"
+    },
+    {
+      "path": "RESTORE.md",
+      "bytes": 1491,
+      "sha256": "aac15f686984bd2fb599456d6fef9e57096a5f2766b9904fe22854a52abf768d"
+    },
+    {
+      "path": "STATUS.json",
+      "bytes": 383,
+      "sha256": "3f2fb0b5decab702a8febc588aeb6ec15b318f85da5c1543e41a087878296edb"
+    },
+    {
+      "path": "definitions/r4-keyposes.json",
+      "bytes": 6230,
+      "sha256": "718045b017d32c21fe779a219bfb5deae8d7666fa30d5f9f80629ec29678d91c"
+    },
+    {
+      "path": "definitions/v1-body-poses.json",
+      "bytes": 10031,
+      "sha256": "d26d457eff2145eaf2bb80d27fa9910b738c4e2b2154ec608b1339049f897d1c"
+    },
+    {
+      "path": "evidence/body-bind-parity.json",
+      "bytes": 1008,
+      "sha256": "fbeda8c2676d7185b17f57d6e4e806e15e588b23ed1968452aeff9d4f3c46e99"
+    },
+    {
+      "path": "evidence/measurements.json",
+      "bytes": 5761,
+      "sha256": "fbdd6a36e07fa5076896544ba87ab7893fbb7e3750136f997873bf1cc3878108"
+    },
+    {
+      "path": "evidence/native99-pose-comparison.png",
+      "bytes": 79755,
+      "sha256": "ee50dd1933d64d0bfa9dc8906a5dbf80cc8b240c83d30b5d85544cfbdf5f64c7"
+    },
+    {
+      "path": "evidence/poses-metadata.json",
+      "bytes": 20052,
+      "sha256": "f0332271191992447136e6f2d41770ee74f6a770796165b694ed2418e1dc091e"
+    },
+    {
+      "path": "evidence/restore-parity.json",
+      "bytes": 287,
+      "sha256": "eb5d30a41eb0716b4ea67b17c458f188aa33ae51060b3815c29d66c219e223eb"
+    },
+    {
+      "path": "evidence/restore.log",
+      "bytes": 18,
+      "sha256": "ecfad837df76f13cf6af26832cbbf78a57d8e6128dc6975da2f2005661c659fb"
+    },
+    {
+      "path": "evidence/short-trajectory.json",
+      "bytes": 152937,
+      "sha256": "ccca1180cab0ead3e9cf0f4483e7df9270db64a9cf86e78fe2119a9945a798ca"
+    },
+    {
+      "path": "evidence/swept-deformation.json",
+      "bytes": 6217,
+      "sha256": "e7b2fcd5f4122b78cf1f69655d9871e0eed6618d9a941ae68a14d59862849a7a"
+    },
+    {
+      "path": "render/compose_short.py",
+      "bytes": 1046,
+      "sha256": "89b88af28ae890cabafc04d07dbe16273ad14ca374e0a129375288837ade5376"
+    },
+    {
+      "path": "src/audit_swept_mesh.py",
+      "bytes": 2571,
+      "sha256": "c18f8894a548dae91160d34c464e9240403a3c1faa050e27b1cfa85af6bdfc48"
+    },
+    {
+      "path": "src/compare-poses.mjs",
+      "bytes": 2189,
+      "sha256": "dabefeff984a1c290bcefd6058741530847def469feb5bcb595ff4e3f94e2053"
+    },
+    {
+      "path": "src/measure.py",
+      "bytes": 4124,
+      "sha256": "69673b32cc83edc88dc1a18c717c454bfed3e11c1c12683a740936a08d2e66ee"
+    },
+    {
+      "path": "src/short-hold-replay.mjs",
+      "bytes": 2355,
+      "sha256": "6d17421deba9ceb445a29488cddae07a974b7b4f78aab84209d89bbc66aef179"
+    }
+  ],
+  "verification": {
+    "restoredExactKeyframes": 12,
+    "candidateFiniteAreaEdgeFrames": 40,
+    "sampledIntersectionScreens": 11,
+    "detectedCrossings": 0
+  },
+  "excludes": [
+    "video",
+    "raw mesh frames",
+    "render batches",
+    "cache",
+    "GLB copies"
+  ]
+}

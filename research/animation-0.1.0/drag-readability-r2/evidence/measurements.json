@@ -1,0 +1,179 @@
+{
+  "pixelScale": "276px fixed canvas / 5 world units; approx99px neutral body width. Measured x/y actual world projection; root fixed and body pivot zero.",
+  "comparisons": [
+    {
+      "yaw": 10,
+      "pairExcursions": {
+        "v1": {
+          "nearHand": {
+            "centroidScreenPxAt276": 1.0272210535390913,
+            "verticalPxAt276": 1.0245814005628877,
+            "tipMaxScreenPxAt276": 2.132861140275394
+          },
+          "farHand": {
+            "centroidScreenPxAt276": 0.8715438376873473,
+            "verticalPxAt276": 0.8682569012623048,
+            "tipMaxScreenPxAt276": 1.8134305975967688
+          },
+          "nearFoot": {
+            "centroidScreenPxAt276": 0.24695369189643457,
+            "verticalPxAt276": 0.24504477775205968,
+            "tipMaxScreenPxAt276": 0.9035102599582775
+          },
+          "farFoot": {
+            "centroidScreenPxAt276": 0.38340092377063384,
+            "verticalPxAt276": 0.03874719521431019,
+            "tipMaxScreenPxAt276": 0.6482573466644374
+          }
+        },
+        "r2": {
+          "nearHand": {
+            "centroidScreenPxAt276": 3.7334198493920767,
+            "verticalPxAt276": 3.730739728383339,
+            "tipMaxScreenPxAt276": 7.725503412631255
+          },
+          "farHand": {
+            "centroidScreenPxAt276": 3.7644214351227645,
+            "verticalPxAt276": 3.7387162995366743,
+            "tipMaxScreenPxAt276": 7.7238990338182445
+          },
+          "nearFoot": {
+            "centroidScreenPxAt276": 1.930598211927871,
+            "verticalPxAt276": 1.9304154132232862,
+            "tipMaxScreenPxAt276": 7.014999765226707
+          },
+          "farFoot": {
+            "centroidScreenPxAt276": 1.853188240473171,
+            "verticalPxAt276": 1.8529969189277948,
+            "tipMaxScreenPxAt276": 7.015422391443141
+          }
+        }
+      },
+      "deformation": [
+        {
+          "case": "v1 low",
+          "minTriangleAreaRatio": 0.9210294122069099,
+          "maxEdgeLengthRatio": 1.0668529683082677,
+          "finite": true
+        },
+        {
+          "case": "v1 high",
+          "minTriangleAreaRatio": 0.9316117568592333,
+          "maxEdgeLengthRatio": 1.1195575425988815,
+          "finite": true
+        },
+        {
+          "case": "r2 rest",
+          "minTriangleAreaRatio": 1.0,
+          "maxEdgeLengthRatio": 1.0,
+          "finite": true
+        },
+        {
+          "case": "r2 pickup",
+          "minTriangleAreaRatio": 0.6926674635633583,
+          "maxEdgeLengthRatio": 1.231577342167534,
+          "finite": true
+        },
+        {
+          "case": "r2 beat A",
+          "minTriangleAreaRatio": 0.6926674635633583,
+          "maxEdgeLengthRatio": 1.3537219128174622,
+          "finite": true
+        },
+        {
+          "case": "r2 beat B",
+          "minTriangleAreaRatio": 0.6960171878447273,
+          "maxEdgeLengthRatio": 1.3732291082780992,
+          "finite": true
+        }
+      ]
+    },
+    {
+      "yaw": 52,
+      "pairExcursions": {
+        "v1": {
+          "nearHand": {
+            "centroidScreenPxAt276": 1.1235802411728635,
+            "verticalPxAt276": 1.0245814005628877,
+            "tipMaxScreenPxAt276": 2.3679923594360943
+          },
+          "farHand": {
+            "centroidScreenPxAt276": 0.9878153485105121,
+            "verticalPxAt276": 0.8682569012623048,
+            "tipMaxScreenPxAt276": 2.0944263074193525
+          },
+          "nearFoot": {
+            "centroidScreenPxAt276": 0.4097528063193467,
+            "verticalPxAt276": 0.24504477775205968,
+            "tipMaxScreenPxAt276": 0.957013895552889
+          },
+          "farFoot": {
+            "centroidScreenPxAt276": 0.15657634607872634,
+            "verticalPxAt276": 0.03874719521431019,
+            "tipMaxScreenPxAt276": 0.4813004850369366
+          }
+        },
+        "r2": {
+          "nearHand": {
+            "centroidScreenPxAt276": 3.926258951361759,
+            "verticalPxAt276": 3.730739728383339,
+            "tipMaxScreenPxAt276": 8.22491808813012
+          },
+          "farHand": {
+            "centroidScreenPxAt276": 3.9965060302455013,
+            "verticalPxAt276": 3.7387162995366743,
+            "tipMaxScreenPxAt276": 8.218886501320423
+          },
+          "nearFoot": {
+            "centroidScreenPxAt276": 3.048880151168022,
+            "verticalPxAt276": 1.9304154132232862,
+            "tipMaxScreenPxAt276": 7.3697255093974166
+          },
+          "farFoot": {
+            "centroidScreenPxAt276": 3.0047767539886396,
+            "verticalPxAt276": 1.8529969189277948,
+            "tipMaxScreenPxAt276": 7.372096181142458
+          }
+        }
+      },
+      "deformation": [
+        {
+          "case": "v1 low",
+          "minTriangleAreaRatio": 0.9210294122069016,
+          "maxEdgeLengthRatio": 1.0668529683082524,
+          "finite": true
+        },
+        {
+          "case": "v1 high",
+          "minTriangleAreaRatio": 0.9316117568592626,
+          "maxEdgeLengthRatio": 1.119557542598884,
+          "finite": true
+        },
+        {
+          "case": "r2 rest",
+          "minTriangleAreaRatio": 1.0,
+          "maxEdgeLengthRatio": 1.0,
+          "finite": true
+        },
+        {
+          "case": "r2 pickup",
+          "minTriangleAreaRatio": 0.6926674635633612,
+          "maxEdgeLengthRatio": 1.2315773421675233,
+          "finite": true
+        },
+        {
+          "case": "r2 beat A",
+          "minTriangleAreaRatio": 0.6926674635633612,
+          "maxEdgeLengthRatio": 1.3537219128174625,
+          "finite": true
+        },
+        {
+          "case": "r2 beat B",
+          "minTriangleAreaRatio": 0.6960171878447263,
+          "maxEdgeLengthRatio": 1.3732291082780972,
+          "finite": true
+        }
+      ]
+    }
+  ]
+}
