@@ -1,0 +1,65 @@
+{
+  "package": "bubu-scene-coordinator-v1",
+  "suggestedPublicationDirectory": "research/animation-0.1.0/scene-coordinator-v1",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 6742,
+      "sha256": "0d3f68a356914b9d51e455cdec0e21d0ecaccab78463b9136ceea9f23202d23f"
+    },
+    {
+      "path": "TEST-RESULTS.txt",
+      "bytes": 2048,
+      "sha256": "b5fafee5f716089e3685c3c95c1b13b3eadbc9a708ba1aca764d578471d70d3c"
+    },
+    {
+      "path": "isolated-results.tap",
+      "bytes": 4415,
+      "sha256": "7cdc16867f185886fbb615fcefe79288278a1856c397986adc67a53721d817c5"
+    },
+    {
+      "path": "package.json",
+      "bytes": 98,
+      "sha256": "20a82e9b1daf5e2a62c1c4bbafae75d04c7125134118dfd5fd84879fb61ddd7c"
+    },
+    {
+      "path": "src/coordinator.mjs",
+      "bytes": 12053,
+      "sha256": "4765f22fe513eecb7d3fa82379505254c4b96321d30ebb02f4bece65db697ad7"
+    },
+    {
+      "path": "test/coordinator.test.mjs",
+      "bytes": 11119,
+      "sha256": "7994288c2a3fddeb0adc500118611a3993c4382f6a413241848e780f9d745187"
+    }
+  ],
+  "deletions": [],
+  "externalRuntimeDependencies": [],
+  "externalTestDependencies": [
+    {
+      "repositoryCommit": "b33be923fa651e30d42ec38557c34640d1a29697",
+      "directory": "research/animation-0.1.0/theme-state-ledger-v2",
+      "files": [
+        {
+          "path": "src/ledger.mjs",
+          "bytes": 15184,
+          "sha256": "87ee2a53b8f11f760f966a1ac72d6d5537f4256d45979e1edf0d247c5fe9e46c"
+        },
+        {
+          "path": "fixtures/fixtures.mjs",
+          "bytes": 1786,
+          "sha256": "c17fb4ca64013daacfadec5339804b6c144a1ada9432123ae289ff308141902e"
+        }
+      ]
+    }
+  ],
+  "nodeBuiltinsOnly": true,
+  "tests": {
+    "localPassed": 19,
+    "isolatedGitLayoutPassed": 19,
+    "isolatedCommand": "node --test --test-reporter=tap",
+    "environmentOverrideRequired": false
+  },
+  "productionAdapterConnected": false,
+  "gpuValidated": false
+}

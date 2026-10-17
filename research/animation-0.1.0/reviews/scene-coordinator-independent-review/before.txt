@@ -1,0 +1,19 @@
+{"coexistence":true,"preemption":true,"disable":true,"batchAtomic":true,"hiddenTTL":true,"staleEndRejected":false,"after":null}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: stale reused session end accepted
+    at file:///workspace/scratch/10657b778e8b/bubu-scene-coordinator-independent-review-20261017/high-risk.mjs:18:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

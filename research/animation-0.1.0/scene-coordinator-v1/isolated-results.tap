@@ -1,0 +1,124 @@
+TAP version 13
+# Subtest: coffee overlay + hunger face + AI action coexist, base is immutable across activity and midnight
+ok 1 - coffee overlay + hunger face + AI action coexist, base is immutable across activity and midnight
+  ---
+  duration_ms: 15.27334
+  type: 'test'
+  ...
+# Subtest: preemption retains facts then recomputes latest facts rather than replaying old owner
+ok 2 - preemption retains facts then recomputes latest facts rather than replaying old owner
+  ---
+  duration_ms: 1.673833
+  type: 'test'
+  ...
+# Subtest: detection off/on clears only matching source and rejects old asynchronous snapshots
+ok 3 - detection off/on clears only matching source and rejects old asynchronous snapshots
+  ---
+  duration_ms: 0.647536
+  type: 'test'
+  ...
+# Subtest: fact TTL expires while no plan is requested, without animation clock
+ok 4 - fact TTL expires while no plan is requested, without animation clock
+  ---
+  duration_ms: 0.447424
+  type: 'test'
+  ...
+# Subtest: unknown mappings and unready capability never activate or replace base
+ok 5 - unknown mappings and unready capability never activate or replace base
+  ---
+  duration_ms: 1.079127
+  type: 'test'
+  ...
+# Subtest: new focus creates new selection; stale end does not clear new session
+ok 6 - new focus creates new selection; stale end does not clear new session
+  ---
+  duration_ms: 0.867619
+  type: 'test'
+  ...
+# Subtest: background selection failure locks blocked snapshot, no fallback or partial selected plan
+ok 7 - background selection failure locks blocked snapshot, no fallback or partial selected plan
+  ---
+  duration_ms: 0.456949
+  type: 'test'
+  ...
+# Subtest: missing, illegal compatible and cyclic policy rejected
+ok 8 - missing, illegal compatible and cyclic policy rejected
+  ---
+  duration_ms: 0.44397
+  type: 'test'
+  ...
+# Subtest: overlay capacity is bounded and explicit capacity order wins unrelated lexical ordering
+ok 9 - overlay capacity is bounded and explicit capacity order wins unrelated lexical ordering
+  ---
+  duration_ms: 0.578783
+  type: 'test'
+  ...
+# Subtest: snapshots atomic, duplicate idempotent, older revisions do not resurrect
+ok 10 - snapshots atomic, duplicate idempotent, older revisions do not resurrect
+  ---
+  duration_ms: 0.633265
+  type: 'test'
+  ...
+# Subtest: same visual plan keeps plan generation but source update invalidates asynchronous bridge token
+ok 11 - same visual plan keeps plan generation but source update invalidates asynchronous bridge token
+  ---
+  duration_ms: 0.369688
+  type: 'test'
+  ...
+# Subtest: ledger adapter preserves independent active sources and exact expiry, excludes revoked sources
+ok 12 - ledger adapter preserves independent active sources and exact expiry, excludes revoked sources
+  ---
+  duration_ms: 0.55045
+  type: 'test'
+  ...
+# Subtest: rejects undeclared body resource, overlay channel mutation and one-shot modes
+ok 13 - rejects undeclared body resource, overlay channel mutation and one-shot modes
+  ---
+  duration_ms: 0.295205
+  type: 'test'
+  ...
+# Subtest: rejects clock rollback, future observation, reused generation and duplicate source batch
+ok 14 - rejects clock rollback, future observation, reused generation and duplicate source batch
+  ---
+  duration_ms: 0.520154
+  type: 'test'
+  ...
+# Subtest: overlay order cannot contradict explicit overlay winner
+ok 15 - overlay order cannot contradict explicit overlay winner
+  ---
+  duration_ms: 0.300653
+  type: 'test'
+  ...
+# Subtest: all-or-none multi-resource admission leaves losing action no hand owner
+ok 16 - all-or-none multi-resource admission leaves losing action no hand owner
+  ---
+  duration_ms: 0.394374
+  type: 'test'
+  ...
+# Subtest: reused session ID cannot be ended by an old token
+ok 17 - reused session ID cannot be ended by an old token
+  ---
+  duration_ms: 0.472653
+  type: 'test'
+  ...
+# Subtest: background callback cannot reenter coordinator and rejected async selector is contained
+ok 18 - background callback cannot reenter coordinator and rejected async selector is contained
+  ---
+  duration_ms: 6.054629
+  type: 'test'
+  ...
+# Subtest: real v2 ledger projection integrates routine/feed union, revoke and exact expiry
+ok 19 - real v2 ledger projection integrates routine/feed union, revoke and exact expiry
+  ---
+  duration_ms: 3.765848
+  type: 'test'
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 115.645228

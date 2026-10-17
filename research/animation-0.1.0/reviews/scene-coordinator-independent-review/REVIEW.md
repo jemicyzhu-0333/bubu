@@ -1,0 +1,13 @@
+# Scene coordinator 小批正确性审查
+
+结论：纯CPU计划层可进入接线，未发现剩余必需阻断；不是visible/真实body或资源执行器验收。
+
+受审src/coordinator.mjs最终SHA256：4765f22fe513eecb7d3fa82379505254c4b96321d30ebb02f4bece65db697ad7。
+
+独立运行npm test为19/19通过，包括实际ledger模块桥接。独立high-risk.mjs核咖啡overlay+饥饿脸+AI body计划并存、pet抢占、source失效后按最新事实恢复、disable旧generation不复活、冲突batch原子拒绝、隐藏跨度TTL到期、重复session旧end保护。probe.mjs另核独立action夹在overlay排序中不扰乱显式容量顺序。
+
+发现并修复一项接线前问题：startFocus允许结束后复用sessionId，而原endFocus只验证字符串，旧回调可以清空新会话。before.txt独立复现。现endFocus(sessionId, selectionToken, now)验证完整身份；after.txt确认旧结束拒绝且新session保留。实现同时增加同步selector/API重入保护和异步selector拒绝处理，回归通过。
+
+当前纯同步模块不拥有异步资产、GPU或lease，因此不存在它内部待处理资源队列；将来bridge必须每次提交结果前用真实当前时间重新plan，并核session selectionToken、planGeneration、validityGeneration，拒旧结果且释放其自身资源。source revision变化可能不改display但仍改validity，不能只看planGeneration。这属于接线约束，不声称实现了执行器。
+
+每producer事实容量已与ledger4096一致。生产检测、真实背景挑选政策、真实body/prop执行和美术就绪不由fixture批准。visible/performing始终false，selected只代表计划选择。未做微性能调优，也未扩大架构审查范围。
