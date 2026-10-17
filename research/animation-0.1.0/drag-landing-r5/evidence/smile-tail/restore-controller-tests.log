@@ -1,0 +1,17 @@
+✔ approved R4 held trajectory remains exactly unchanged (39.027161ms)
+✔ contact starts bounded continuous settle then exact rest (0.728719ms)
+✔ cancel closes without P2 and interrupt permits immediate new pickup (0.633095ms)
+✔ 30/60/120 frame schedules end at exact same pose and deadlines (10.986569ms)
+✔ hidden during settle clears face/body and resumes cleanly (1.779219ms)
+✔ body release/settle/held clocks and poses stay equal to accepted R5 (13.800829ms)
+✔ smile survives body rest but ends at bounded real-time deadline (1.303897ms)
+✔ cancel/hidden/regrab/interrupt never resurrect smile tail (3.332016ms)
+✔ 30/60/120 fps smile deadline and body endpoints match (3.271235ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 199.272987

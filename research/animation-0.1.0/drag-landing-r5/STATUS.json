@@ -1,31 +1,21 @@
 {
   "status": "functional-candidate-visual-preview-sent-awaiting-feedback",
-  "baselineCommit": "03023e9dd356012efcee007965206b9f84790ea0",
-  "controllerSha256": "e402e71b925449585ef808c2161b9dbac3d8dabb82d1c01c01792d4dcf860ffa",
+  "baselineCommit": "1325d43ea4491b734991fa703fdcf209a8813bb5",
+  "controllerSha256": "0413b3b1604b32fa4e969ce29a8ebc1885e36316b8f94e16fea8f60e7a91efb1",
   "pureTests": {
-    "passed": 5,
-    "total": 5
+    "passed": 9,
+    "total": 9
   },
   "hostTests": {
-    "preIdleHiddenFix": {
-      "passed": 58,
-      "total": 58
-    },
-    "independentFinalDelta": {
-      "passed": 5,
-      "total": 5
-    },
-    "independentActualD2FrameRates": [
-      30,
-      60,
-      120
-    ],
-    "idleHiddenFix": "independently passed",
-    "initFailureCleanup": "all resource and listener counters zero"
+    "passed": 62,
+    "total": 62,
+    "independent": "62/62 plus actual D2 at30/60/120; ground/idle ownership/hidden/style/disposal passed"
   },
   "fixedDurations": {
-    "settleSeconds": 0.48,
-    "landingFaceIntentSeconds": 0.22
+    "bodySettleSeconds": 0.48,
+    "faceIntentSinceContactSeconds": 0.9,
+    "faceEnterSeconds": 0.1,
+    "faceExitSeconds": 0.4
   },
   "finalActualFace": {
     "path": "R0",
@@ -33,16 +23,16 @@
     "interactionOwned": false
   },
   "preview": {
-    "durationSeconds": 7.833333,
-    "frames": 235,
+    "durationSeconds": 9.033333,
+    "frames": 271,
     "fps": 30,
     "width": 384,
     "yawDegrees": 10,
     "videoExcludedFromGit": true
   },
-  "visualLimitation": "Existing Basis bridge presents a short O mouth about .3 seconds before R0. Shared with user; no additional artistic adjustment requested.",
+  "visualLimitation": "Existing sole timeline still passes through Basis while P2 softly exits and idle R0 enters.",
   "runtimeChanges": false,
   "restRigGeometryChanges": false,
   "verificationLimit": "CPU plus offline rendering; browser/WebGL/OS unverified",
-  "independentReview": "no remaining functional blockers; artistic review separate"
+  "independentReview": "no remaining functional blockers; artistic feedback separate"
 }

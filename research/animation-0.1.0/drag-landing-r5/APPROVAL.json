@@ -7,5 +7,18 @@
     "settle": 0.48,
     "landingP2Intent": 0.22
   },
-  "note": "Durations and amplitudes are implementation candidates, not exact user numerical instructions."
+  "note": "Durations and amplitudes are implementation candidates, not exact user numerical instructions.",
+  "smileTailRevision": {
+    "baseline": "1325d43ea4491b734991fa703fdcf209a8813bb5",
+    "messageId": "Sentinel_c80e46667d7481918db9340e420a6252",
+    "quote": "可以。收尾笑脸可以持续久一点，再缓慢复原吧。然后长按呢",
+    "scope": "Only extend landing smile and soften exit; petting handled separately.",
+    "prototypeFaceTiming": {
+      "intentSinceContact": 0.9,
+      "enter": 0.1,
+      "fullHoldApproximately": 0.8,
+      "exit": 0.4
+    },
+    "bodySettleUnchanged": 0.48
+  }
 }

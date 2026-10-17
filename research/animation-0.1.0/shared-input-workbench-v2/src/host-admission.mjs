@@ -15,7 +15,7 @@ export async function createAdmittedHost(readPack,{modelVariant='full18'}={}){
  const pack=await (modelVariant==='d2'?prepareD2FacePack:prepareFullFacePack)(readPack),pool=new ActorPool({bodyProfile:BODY_PROFILE_ID});
  const policy={format:'bubu-expression-scheduler',version:'0.1.0-p1',sourceSha256:admission.sourceSha256,profileSha256:admission.profileSha256,rng:{algorithm:'xorshift32-split-v1',seed:42},candidates:FULL_FACE_SLOT_IDS.map(faceId=>({key:faceId,faceId,amount:1,selectionWeight:1,enterSec:.16,exitSec:.20,hold:{kind:'fixed',sec:30},gap:{kind:'fixed',sec:.3},cooldownSec:0,sources:['testfixture']})),contexts:[{key:'none',candidates:[],excludeRecent:0},{key:'rest',candidates:['restR0'],excludeRecent:0}]};
  // Landing-only timing never changes the ordinary petting P2 candidate.
- policy.candidates.push({key:'landingP2',faceId:'P2',amount:1,selectionWeight:1,enterSec:.10,exitSec:.12,hold:{kind:'fixed',sec:30},gap:{kind:'fixed',sec:.001},cooldownSec:0,sources:['testfixture']});
+ policy.candidates.push({key:'landingP2',faceId:'P2',amount:1,selectionWeight:1,enterSec:.10,exitSec:.40,hold:{kind:'fixed',sec:30},gap:{kind:'fixed',sec:.001},cooldownSec:0,sources:['testfixture']});
  policy.candidates.push({key:'restR0',faceId:'R0',amount:1,selectionWeight:1,enterSec:.16,exitSec:.20,hold:{kind:'fixed',sec:30},gap:{kind:'fixed',sec:.001},cooldownSec:0,sources:['testfixture']});
  let owner;try{owner=new WeightedExpressionOwner({pool,pack,policy,initialFacts:facts(false),visibilityPolicy:'freeze'});await owner.ready;return {owner,pool,pack};}catch(error){try{owner?.dispose();}finally{pool.dispose();}throw error;}
 }

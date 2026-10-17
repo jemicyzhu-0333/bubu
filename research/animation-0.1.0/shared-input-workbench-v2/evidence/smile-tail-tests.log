@@ -1,0 +1,81 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> test
+> node tools/verify-dependencies.mjs && node --test tests/*.test.mjs
+
+Verified 15 controller/profile dependency hashes
+✔ same D2 actor: N3 gate + four legal joints coexist, each reset preserves other channel (470.724081ms)
+✔ two D2 actors isolate joint and material writes and retained geometry (794.080542ms)
+✔ body opt-in never weakens face-only rest or non-quaternion/cap checks (922.542546ms)
+✔ explicit shared model admission rejects wrong pack and unknown variant without fallback (2.978112ms)
+✔ same-pool D2 actors share prepared geometry while joints and style remain private (598.638088ms)
+✔ D2 shared: actual full18 actor one owner; real ray eligibility ignores caller eligible (1012.377853ms)
+✔ D2 shared: same-frame down/move/up are grouped once; late sealed move atomic reject (674.068233ms)
+✔ D2 shared: capture drag leaves canvas, follows camera plane, releases to ground (986.957275ms)
+✔ D2 shared: petting sustained phase can hand off to drag without second actor (1003.077456ms)
+✔ D2 shared: pointerId, primary and buttons cannot steal pointer (833.071697ms)
+✔ D2 shared: pending leave cancels even captured; missed head contact never qualifies (930.713862ms)
+✔ D2 shared: capture acquisition/release errors have safe cleanup; uncaptured leave cancels (1076.181781ms)
+✔ D2 shared: lostcapture, blur, visibility and disposal invalidate captures/listeners/queued input (1307.67399ms)
+✔ D2 shared: CSS rect resize and backbuffer DPR do not mix into NDC or threshold (957.293159ms)
+✔ D2 shared: sealed lost capture invalidates lifecycle at exact timestamp without epsilon (904.718282ms)
+✔ D2 shared: continuous petting requires current surface; camera movement ends contact (809.038848ms)
+✔ D2 shared: same-time final move is applied before release captures landing position (719.934763ms)
+✔ D2 shared: pointerup final finite client position is applied, cancel has no invented point (782.903483ms)
+✔ D2 shared: pending surface loss before qualification never emits release face (538.897979ms)
+✔ D2 shared: two-hour visible long press drains pure-controller boundary outputs (1035.58988ms)
+✔ D2 shared: visibility visible cannot resume while window remains blurred (691.974874ms)
+✔ D2 shared: unbounded move rejects atomically; malformed terminal coordinates still release (793.821891ms)
+✔ D2 shared: DOM router uses continuous-flow controller and passes configured seconds unchanged (1041.716754ms)
+✔ D2 shared: invalid cadence option rejects before pack reads or actor allocation (1.740987ms)
+✔ D2 shared: adjustable workbench yaw keeps actual raycast and deformed surface anchor aligned (2251.078455ms)
+✔ D2 shared: bodyOptions cannot change pivot or nonfinite orientation before admission (1.117136ms)
+✔ D2 shared: only validated yaw is forwarded; inherited pivot cannot change actor stage (448.11896ms)
+✔ D2 shared initialization request/listener faults release admitted actor and all registered listeners (1108.065257ms)
+✔ D2 shared cleanup failures still free actor; body invariant fault stops queued RAF and input (1094.061032ms)
+✔ D2 actual pointer pickup drives N3 cavity gate on same live four-joint actor, then clears (1351.0828ms)
+✔ actual full18 actor one owner; real ray eligibility ignores caller eligible (953.931178ms)
+✔ same-frame down/move/up are grouped once; late sealed move atomic reject (621.694172ms)
+✔ capture drag leaves canvas, follows camera plane, releases to ground (1045.835938ms)
+✔ petting sustained phase can hand off to drag without second actor (1036.298908ms)
+✔ pointerId, primary and buttons cannot steal pointer (919.030608ms)
+✔ pending leave cancels even captured; missed head contact never qualifies (875.297646ms)
+✔ capture acquisition/release errors have safe cleanup; uncaptured leave cancels (922.141146ms)
+✔ lostcapture, blur, visibility and disposal invalidate captures/listeners/queued input (1270.138854ms)
+✔ CSS rect resize and backbuffer DPR do not mix into NDC or threshold (970.861625ms)
+✔ sealed lost capture invalidates lifecycle at exact timestamp without epsilon (902.25378ms)
+✔ continuous petting requires current surface; camera movement ends contact (784.466035ms)
+✔ same-time final move is applied before release captures landing position (746.340111ms)
+✔ pointerup final finite client position is applied, cancel has no invented point (735.01096ms)
+✔ pending surface loss before qualification never emits release face (539.490514ms)
+✔ two-hour visible long press drains pure-controller boundary outputs (1097.875269ms)
+✔ visibility visible cannot resume while window remains blurred (752.626901ms)
+✔ unbounded move rejects atomically; malformed terminal coordinates still release (830.014275ms)
+✔ DOM router uses continuous-flow controller and passes configured seconds unchanged (816.175893ms)
+✔ invalid cadence option rejects before pack reads or actor allocation (1.932195ms)
+✔ adjustable workbench yaw keeps actual raycast and deformed surface anchor aligned (1979.949327ms)
+✔ bodyOptions cannot change pivot or nonfinite orientation before admission (1.190386ms)
+✔ only validated yaw is forwarded; inherited pivot cannot change actor stage (400.708433ms)
+✔ full18 and D2 landing stays grounded through short settle and returns normal R0 (3045.550393ms)
+✔ cancel descends and settles without blink; hidden immediately retires tail (1483.929268ms)
+✔ settle regrab interrupts tail, preserves original floor and permits new drag (1549.235512ms)
+✔ settle snapshots agree at 30/60/120 Hz without a second actor clock (9433.49802ms)
+✔ normal R0 uses existing P1 idle and supports owner-level takeover (not scene UI) (1384.072738ms)
+✔ new gesture and hidden clear rest-context facts without reviving landing blink (1846.639785ms)
+✔ hidden from P1 rest idle retires R0 and resume cannot resurrect it (1047.004265ms)
+✔ landing smile tail outlives body settle but relinquishes interaction at bounded deadline (2122.183653ms)
+✔ body-rest smile tail is interrupted by new grab and cannot revive after cancellation (1501.481161ms)
+✔ hidden during body-rest smile tail clears face and bounded deadline permanently (1129.994191ms)
+ℹ tests 62
+ℹ suites 0
+ℹ pass 62
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 42941.107426
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

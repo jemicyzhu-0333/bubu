@@ -1,36 +1,27 @@
 {
-  "version": "0.1.0-drag-landing-r5",
+  "version": "0.1.0-drag-landing-r5-smile-tail",
   "gitDestination": "research/animation-0.1.0/drag-landing-r5",
-  "baseline": "03023e9dd356012efcee007965206b9f84790ea0",
+  "baseline": "1325d43ea4491b734991fa703fdcf209a8813bb5",
   "requiresSibling": "shared-input-workbench-v2",
-  "sourceController": "e402e71b925449585ef808c2161b9dbac3d8dabb82d1c01c01792d4dcf860ffa",
+  "sourceController": "0413b3b1604b32fa4e969ce29a8ebc1885e36316b8f94e16fea8f60e7a91efb1",
   "status": "functional-reviewed; visual-preview-delivered-pending-feedback",
   "preservesAcceptedR4Held": true,
   "runtimeOrRigChanges": false,
   "verification": {
-    "preIdleHiddenFix": {
-      "passed": 58,
-      "total": 58
-    },
-    "independentFinalDelta": {
-      "passed": 5,
-      "total": 5
-    },
-    "independentActualD2FrameRates": [
+    "restoredController": 9,
+    "sharedHost": 62,
+    "independentControllerNew": 4,
+    "independentHost": 62,
+    "actualD2FrameRates": [
       30,
       60,
       120
-    ],
-    "idleHiddenFix": "independently passed",
-    "initFailureCleanup": "all resource and listener counters zero"
+    ]
   },
   "previewExcluded": {
-    "durationSeconds": 7.833333,
-    "frames": 235,
+    "frames": 271,
     "fps": 30,
-    "width": 384,
-    "yawDegrees": 10,
-    "videoExcludedFromGit": true
+    "durationSeconds": 9.033333
   },
   "files": [
     {
@@ -40,8 +31,8 @@
     },
     {
       "path": "APPROVAL.json",
-      "bytes": 545,
-      "sha256": "1da7eb58f9969d928d8bb41705f70b81408dbeabae7848ba23876927be0dc93a"
+      "bytes": 1057,
+      "sha256": "2e17edb916bf927435ae57e787525488ee5b2b13ce260622f0298e999382db90"
     },
     {
       "path": "DEPENDENCIES.json",
@@ -50,13 +41,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 2201,
-      "sha256": "0c1e1d0bd44a511f7f81cc4302c32c08d433b822f49df47f519d4c775b3f428c"
+      "bytes": 2647,
+      "sha256": "f274196f97cc8575fc586e6320208057a0ed2d9d4554ba3be57a37d06eb3e78f"
     },
     {
       "path": "STATUS.json",
-      "bytes": 1383,
-      "sha256": "d81d821a9e8a5fdb1d5cb584ed6b258fb22432efc034ef4849834d7ed3406567"
+      "bytes": 1211,
+      "sha256": "e71a9124e654f9bba97183d99a0da41b8d0f39b505a944e3e448b1af7de23d43"
     },
     {
       "path": "evidence/controller-tests.log",
@@ -119,6 +110,51 @@
       "sha256": "56bf0fdc86b95da2d52c4898d6f90c9e2d562e95a6798835a34056b4e2df9e9d"
     },
     {
+      "path": "evidence/smile-tail/independent/REVIEW.md",
+      "bytes": 1522,
+      "sha256": "55b90c1772691cc57077d7adebb1db64b09fa8c2b5f228bb4476ac69207bf462"
+    },
+    {
+      "path": "evidence/smile-tail/independent/SOURCE-SHA256SUMS",
+      "bytes": 532,
+      "sha256": "cabb307d55666480c8e1845b13eb1a2c7673f9214d5a779c9dae3ec3b48275e1"
+    },
+    {
+      "path": "evidence/smile-tail/independent/actual-tail-probe.log",
+      "bytes": 6100,
+      "sha256": "7004e03058b238c07db84b8203d532c3b0714e1af16ad5ae4c6460ce3468ba4a"
+    },
+    {
+      "path": "evidence/smile-tail/independent/controller-tests.log",
+      "bytes": 429,
+      "sha256": "429b30e316ee725f2d103e6700e0c8d7a9b8ca7189e6d1afa8e5668030f9a920"
+    },
+    {
+      "path": "evidence/smile-tail/independent/host-tests.log",
+      "bytes": 6667,
+      "sha256": "224841daecfbb823c12fa7b6ce2f43e967ee083bc22880044ff10379919da3aa"
+    },
+    {
+      "path": "evidence/smile-tail/independent/runtime-diff.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/smile-tail/keyframes.png",
+      "bytes": 156245,
+      "sha256": "5dbeb559ec330e4231e5be40546c6743e598014871594d78a52055deedeb2f49"
+    },
+    {
+      "path": "evidence/smile-tail/replay-metrics.json",
+      "bytes": 101362,
+      "sha256": "abc3916dba1865f43c6282456de2962e3bc8e3fe540f76f0d531402a3bc3b8ae"
+    },
+    {
+      "path": "evidence/smile-tail/restore-controller-tests.log",
+      "bytes": 815,
+      "sha256": "949acf16d3f0e952346ac6fa17279939afc0e99146dd4674dc59a0666c61d146"
+    },
+    {
       "path": "package-lock.json",
       "bytes": 541,
       "sha256": "4c58a9017656339da499defeba7dfdc97d5992f8aaac6655588955dd2e38f82d"
@@ -131,7 +167,7 @@
     {
       "path": "render/compose_preview.py",
       "bytes": 1207,
-      "sha256": "7c499bd83ef1a83fc8d843bf2967929543a621e2135d860ff2d6fa544841877d"
+      "sha256": "3c697cd7a65be2c99263db55ac3ffc93b362c56ae405b8afbe9437435528bb60"
     },
     {
       "path": "render/render_actual.py",
@@ -141,7 +177,7 @@
     {
       "path": "replay/generate.mjs",
       "bytes": 3267,
-      "sha256": "d772340413e2146adf830a3f594b894f4e308fff9b6131f4c54298a91bfd47a2"
+      "sha256": "2bcd63ffa8f17177c82ea03448c3ff4443e76c7b151c629f0b66c61e46b835a7"
     },
     {
       "path": "src/approved-struggle-r2.mjs",
@@ -150,8 +186,8 @@
     },
     {
       "path": "src/drag-controller.mjs",
-      "bytes": 7698,
-      "sha256": "e402e71b925449585ef808c2161b9dbac3d8dabb82d1c01c01792d4dcf860ffa"
+      "bytes": 7935,
+      "sha256": "0413b3b1604b32fa4e969ce29a8ebc1885e36316b8f94e16fea8f60e7a91efb1"
     },
     {
       "path": "src/export-scene-frame.mjs",
@@ -164,9 +200,24 @@
       "sha256": "3edbd987838c5af6fb00cb6c62b3103c05a8d03b839d4ecdbb3a603051344f51"
     },
     {
+      "path": "tests/fixtures/accepted-r5-controller.mjs",
+      "bytes": 7822,
+      "sha256": "9804957511fb69d706e26d245cf64a97da91779054c9e5655c711ae602be6a20"
+    },
+    {
       "path": "tests/landing.test.mjs",
       "bytes": 2192,
       "sha256": "3613d90c660865e48dd1e4fc819c976d22253a2517e7b25ba122433df1ae2d0f"
+    },
+    {
+      "path": "tests/smile-tail.test.mjs",
+      "bytes": 2144,
+      "sha256": "d974c3f14fb5636e2866176fe2ebc9bfb6aff223df758229d05bc500b421a8b1"
     }
-  ]
+  ],
+  "faceTail": {
+    "intentUntilContactPlusSeconds": 0.9,
+    "exitSeconds": 0.4,
+    "bodySettleSecondsUnchanged": 0.48
+  }
 }

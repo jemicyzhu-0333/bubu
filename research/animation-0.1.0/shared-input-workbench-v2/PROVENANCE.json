@@ -1,13 +1,11 @@
 {
-  "baselineCommit": "03023e9",
+  "baselineCommit": "1325d43",
   "controllerDependency": "drag-landing-r5",
   "supersedes": "shared-input-workbench-v1 / accepted drag-flow-r4; held motion is retained",
   "routerChangeScope": [
-    "release cancellation propagation",
-    "grounded landing settle and interruptible settle regrab",
-    "landingP2 isolated timing and explicit research rest context",
-    "existing P1 idle handoff; no persistent interaction neutral request",
-    "paused owner invalidation clears research P1 rest idle on hidden"
+    "bounded landing smile tail remains interaction-owned after body rest until contact + .9 seconds",
+    "new gesture interrupts tail; hidden and cancellation clear it",
+    "landingP2 exit .40 seconds; ordinary P2 and body timings unchanged"
   ],
   "rateConfig": {
     "struggleCycleSeconds": 0.82,
@@ -40,7 +38,7 @@
     "../runtime-facepath05/src/face-timeline.mjs": "286ded8d6c6992cd0333e1985a0baee0e21dd951dcf3ab91b8bb790cd7641892",
     "../expression-scheduler-p1/src/p0-binding.mjs": "9b41651d8514a912ea56c6db573b6cf98992f6ae849759f1ba5ada15df4ad698",
     "../expression-scheduler-p1/src/scheduler.mjs": "d0dc72af4dd5d6a42caed64efe0c2b17a0c49003c4bccf5f8b983b0f6c4b7df1",
-    "../drag-landing-r5/src/drag-controller.mjs": "e402e71b925449585ef808c2161b9dbac3d8dabb82d1c01c01792d4dcf860ffa",
+    "../drag-landing-r5/src/drag-controller.mjs": "0413b3b1604b32fa4e969ce29a8ebc1885e36316b8f94e16fea8f60e7a91efb1",
     "../drag-landing-r5/src/approved-struggle-r2.mjs": "ea8c30385a9a97c19735a8d68cc027eed9ad86a36d8961c47f616175075af838",
     "../drag-landing-r5/src/input-intent.mjs": "3edbd987838c5af6fb00cb6c62b3103c05a8d03b839d4ecdbb3a603051344f51"
   },
