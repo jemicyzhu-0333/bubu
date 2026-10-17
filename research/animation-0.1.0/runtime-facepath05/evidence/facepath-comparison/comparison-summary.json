@@ -1,0 +1,43 @@
+{
+  "scope": "One return_current scenario, actual controller weights offline-rendered in Blender, not WebGL.",
+  "beforeTimelineSHA256": "fc673f6268df7457de1952b7f58df56e5fec9e35018b344fffd59a7c44c2dff3",
+  "afterTimelineSHA256": "286ded8d6c6992cd0333e1985a0baee0e21dd951dcf3ab91b8bb790cd7641892",
+  "assetSHA256": "a9ae09635658ac15c55cf1571db53e284bd463eaab9a84ff24e7836270a1808e",
+  "assetUnchanged": true,
+  "lookUnchanged": true,
+  "framesEach": [
+    76,
+    76
+  ],
+  "diagnosticsEach": [
+    9,
+    9
+  ],
+  "fixedBodyRigVerified": true,
+  "maxWeightError": [
+    2.9612460039629696e-08,
+    2.832523904316986e-08
+  ],
+  "unchangedPreReturnFrames": true,
+  "finalFrameSame": true,
+  "comparisonMovie": {
+    "file": "return-current-before-after-normal-speed.mp4",
+    "sha256": "efc982a210a7a88f2e528984efb5af4f4f5ead020e97f1990a3b0a22063a4cec",
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 512,
+          "height": 160,
+          "r_frame_rate": "30/1",
+          "duration": "2.533333",
+          "nb_frames": "76"
+        }
+      ]
+    },
+    "encoding": "Unretimed hstack of before/after movies, 05 left and06 right."
+  },
+  "visualReview": "Inspected timestamped contact sheet at fixed99px. 06 removes the visible round-eye/small-O detour in this same-face return; no approved static shape edits. Native-speed movie generated and timing verified, but this review interface did not play video in real time.",
+  "remaining": "Four other scenario movies, normal-speed human playback assessment, real WebGL, full18 runtime, drag and long-press are pending."
+}

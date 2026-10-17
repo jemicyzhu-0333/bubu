@@ -20,4 +20,4 @@ The scalar is C1. Authored piecewise-linear POSITION/NORMAL shape paths guarante
 - Offline render uses approved 414x342 source resolution and one uniform reduction to141x116, yielding a99px Basis height. Direct native rendering is no longer the default because it exaggerates surface grain.
 - Facepath05 Basis source render matches the approved reference image in all RGBA pixels.
 - This is Blender replay of actual controller weights, not browser/WebGL capture. Browser, GPU, all18 slots, drag and long-press remain untested here.
-- Continuous visual comparison is still pending at the time of this initial checkpoint note.
+- The return_current before/after contact sheet shows the unwanted Basis detour removed. Both continuous movies and the side-by-side normal-speed movie are generated and timing-verified; real-time playback assessment and the other four scenarios remain pending. See evidence/facepath-comparison/REVIEW.md.
