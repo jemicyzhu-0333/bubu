@@ -1,0 +1,26 @@
+✔ real complete → correct → later correct → undo → recomplete retains exact generation and never extends old deadline (15.851758ms)
+✔ done edits and duplicate completion never acquire fresh original time (2.180198ms)
+✔ historical backfill, unknown preset, broad kind/title and unready capability never activate (4.087014ms)
+✔ legacy done edit and undo never fabricate completion identity (1.481875ms)
+✔ feed real workflow and command receipt preserve first time on replay and never re-emit (3.108278ms)
+✔ failed feed, failed routine, revision conflict and repository failure emit nothing (1.811682ms)
+✔ routine and feed sharing a theme have independent TTL and exact revoke (4.186524ms)
+✔ done → skipped revokes exact old generation; next done is a fresh generation (2.252968ms)
+✔ receipt identity corruption is rejected and old receipts replay without fabricated fedAt (1.570378ms)
+✔ real SQLite schema20→21 keeps original bytes in verified backup; live WAL=false (120.775354ms)
+✔ real SQLite schema20→21 keeps original bytes in verified backup; live WAL=true (100.351892ms)
+✔ upgrade fault admitted cannot leave mutated business payload (22.017847ms)
+✔ upgrade fault candidate-validated cannot leave mutated business payload (27.287796ms)
+✔ upgrade fault before-writer cannot leave mutated business payload (35.02877ms)
+✔ upgrade fault evidence-written cannot leave mutated business payload (48.747546ms)
+✔ upgrade fault payload-written cannot leave mutated business payload (37.334869ms)
+✔ upgrade fault before-commit cannot leave mutated business payload (36.616775ms)
+✔ pure upgrade is byte-meaning preserving, rejects corruption, and adds no historical eligibility (1.901268ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 619.868647

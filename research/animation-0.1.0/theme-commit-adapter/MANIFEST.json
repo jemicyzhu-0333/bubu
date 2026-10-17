@@ -1,0 +1,182 @@
+{
+  "baseCommit": "1a66a0d3b7a51b19ac843b80f6629d0eb20eeb18",
+  "productionStatus": "candidate patch only; not applied to main or a user profile",
+  "files": [
+    {
+      "path": "src/application/workflows/feed-companion.js",
+      "sha256": "09408fc7cbd405c7f1d130f0da4d6a42d77931cf5054d75a04ee45711c091f65",
+      "bytes": 5201,
+      "baseSha256": "be8b7edd56292e0ddc8ba492b38fb402548294c823ac9a08a7497a96b7db2ffe",
+      "baseGitBlob": "deea8a40f9162249e681c88ce3c7fceb3d498045"
+    },
+    {
+      "path": "src/application/workflows/organize-inbox.js",
+      "sha256": "7660f6d9f697b17d572121d63c406a6ff026fcb726ef1aa75669490a4cf61fd0",
+      "bytes": 7844,
+      "baseSha256": "a26ff1f8e50e0746d71861f047bc9bf7ce3424c68447b8301d5005d7e5eea4d3",
+      "baseGitBlob": "c93f1c488211c63cf8d081defc741009938cea65"
+    },
+    {
+      "path": "src/application/workflows/upgrade-theme-identity.js",
+      "sha256": "87309d52e86a8bc489c4ef3086d3f08093c2d383bb6d6631e096e68629cd49b1",
+      "bytes": 522,
+      "baseSha256": null,
+      "baseGitBlob": null
+    },
+    {
+      "path": "src/bootstrap/companion-feeding.js",
+      "sha256": "7b76d472a5f5155f6d9398f9de5f0da67fb2ceb2d7d881f5ee84c5c7021ece9b",
+      "bytes": 1038,
+      "baseSha256": "b69b8a1a4d67c76bd4cd452c5813949462d316f4b16ba124a99f03d72fb03a45",
+      "baseGitBlob": "3a5e0943157d3a54cf516cbc77b594c982bae78d"
+    },
+    {
+      "path": "src/bootstrap/theme-commit-adapter.js",
+      "sha256": "c59cf15cf5bf90dd20d8187fce06187bbf5aa751a51379c9c44382237dce82e9",
+      "bytes": 3199,
+      "baseSha256": null,
+      "baseGitBlob": null
+    },
+    {
+      "path": "src/bootstrap/theme-state-runtime.js",
+      "sha256": "2704ca5764614a36dd00a98de8a0bf7284783cfbf0aa3c2b1a57c30aeb10b9c9",
+      "bytes": 848,
+      "baseSha256": null,
+      "baseGitBlob": null
+    },
+    {
+      "path": "src/capabilities/companion/domain/food-command.js",
+      "sha256": "5009bb8084d37d2e0f63c60a964c3136d71d673a0f3f006902e8dfc618872b4a",
+      "bytes": 5671,
+      "baseSha256": "6a9f58d18f5ddc6cedd0649125cb4fe07312675345017214ef85552c0c69053f",
+      "baseGitBlob": "d53f91e91ef2338045933593247681128ab19ea6"
+    },
+    {
+      "path": "src/capabilities/companion/domain/theme-ledger.mjs",
+      "sha256": "87ee2a53b8f11f760f966a1ac72d6d5537f4256d45979e1edf0d247c5fe9e46c",
+      "bytes": 15184,
+      "baseSha256": null,
+      "baseGitBlob": null
+    },
+    {
+      "path": "src/capabilities/companion/index.js",
+      "sha256": "521e8fe18c07c9a27938bfa3ea2a9061ced0e9b2c3be2c9f7323ddb698bd8bf9",
+      "bytes": 2442,
+      "baseSha256": "41dda018cf9830653fc9b986b175dcec9adf9a6daac939586cc12f5aeb3d3347",
+      "baseGitBlob": "6da7017ba6986c79056446ef3713adba69bdc6c8"
+    },
+    {
+      "path": "src/capabilities/routines/application/log-routine-occurrence.js",
+      "sha256": "b85a452e5bda26837f11159d50016bc41c54c0039d392ffbe9b338a5f26880c1",
+      "bytes": 8547,
+      "baseSha256": "6b917b9f9c04969d569ec9b3dab985f200ec614b893e8d66563590cd2ff7ea5e",
+      "baseGitBlob": "dc9a6759ea103e678e4017092437417065753bf4"
+    },
+    {
+      "path": "src/capabilities/routines/application/manage-routine.js",
+      "sha256": "17bed08cc95d40eb69422aa829eaea34fcc1f31d5dd945cabd04fb8e66f99620",
+      "bytes": 4869,
+      "baseSha256": "bc833f5ee1c0451323ff0a91d57ddd350bb9e278271dbe2093bb24e174ed2f03",
+      "baseGitBlob": "1d69ab19207c33938e5fd91cae5e2934b5ec627c"
+    },
+    {
+      "path": "src/capabilities/routines/domain/completion-identity.js",
+      "sha256": "4ea3374e6945a5068d3ab3ba43f5d8ffc5e624ead898536547597a1dbe3d01a2",
+      "bytes": 1296,
+      "baseSha256": null,
+      "baseGitBlob": null
+    },
+    {
+      "path": "src/capabilities/routines/domain/completion-receipts.js",
+      "sha256": "f18adfdf8266af39298a182a1608cee2ac7baae61dab9178af5713236c64c9b0",
+      "bytes": 2010,
+      "baseSha256": null,
+      "baseGitBlob": null
+    },
+    {
+      "path": "src/capabilities/routines/domain/occurrence-time.js",
+      "sha256": "b7df85b30a22be9ac877a412af690fff4d4329070ee4e4110d40d72fd2cd15a3",
+      "bytes": 2983,
+      "baseSha256": "9c16c7afb49b6ee4b641749b1e50c3f22c6049c3c228a0a9e19161770f34f992",
+      "baseGitBlob": "6cce40e922b03524ce96b2719145a1416deba35a"
+    },
+    {
+      "path": "src/capabilities/routines/domain/routine-editing.js",
+      "sha256": "c93811848adee1c199794add93380dccf51a38b6ef69c45b5639325535243976",
+      "bytes": 11148,
+      "baseSha256": "4e3f1972bccdb07c3bcc9546bccc76beaa5629a2464f87189caee582f0f47f31",
+      "baseGitBlob": "c1656a8c538482c6758897aac52f76ae5e475eb3"
+    },
+    {
+      "path": "src/capabilities/routines/domain/routine-logging.js",
+      "sha256": "f851d0815185337fd3ec9515bcf09627b411c5bd76a4af424f3fc092b6e5f062",
+      "bytes": 14224,
+      "baseSha256": "1282b6d0e33e311fad24b3acfbaf9bf4521ad829e840b29eabfcd83bf4c4baf4",
+      "baseGitBlob": "58c6d108b559b693d305f7184f93587cc6bbd793"
+    },
+    {
+      "path": "src/capabilities/routines/index.js",
+      "sha256": "b9e4d3ddc2791337a9b26c37b53cb453dfcbdf95507037da97212edeca78458d",
+      "bytes": 1353,
+      "baseSha256": "e8d97edd22598678e6431c9f726ccf7a56865992b81f00f1c86ebc8fc54c429f",
+      "baseGitBlob": "b0f5fa88f4c4eb92254c9dc4fe13031ef82786e7"
+    },
+    {
+      "path": "src/content/theme-source-registry.js",
+      "sha256": "30f5d2a50d3038786042b2d0c81bf730950093077fe8dff0166770e975e16b7c",
+      "bytes": 258,
+      "baseSha256": null,
+      "baseGitBlob": null
+    },
+    {
+      "path": "src/main.js",
+      "sha256": "de7919572ac568b900cfcf7b952c4989ef15d4964416799f17145f23ad220a14",
+      "bytes": 99810,
+      "baseSha256": "3903ece4a86f57b9eb39cc0e445528a5b0584f8f8cc2a6df73ac680089070bf2",
+      "baseGitBlob": "87d5703e3766689443ed2ac8d899d602fa7b4044"
+    },
+    {
+      "path": "src/platform/electron/preferences-upgrade-host.js",
+      "sha256": "c1b8ffc2b3d88c584dfe1cc4c5284096df008dc451e26a1e55c2f83a83d1488c",
+      "bytes": 4295,
+      "baseSha256": "31f4c0a248911588128fc32205e85a0d0ec4d5b37b9308f634b963073c119074",
+      "baseGitBlob": "cf2ad8d755bb2dea57a1f7ab1bc03d25dbe550cf"
+    },
+    {
+      "path": "src/platform/persistence/persisted-schema.js",
+      "sha256": "6f48f3683163644694c330d3aa28d07427bf59ec7334bb65dab059239dc4d05b",
+      "bytes": 27608,
+      "baseSha256": "f6d1f82bbb7e51aff25a23e84a77f267d40c34a18bc4030e9e9a105c910c8edb",
+      "baseGitBlob": "43933c39a2dd60ff2860ce924fed7d651787df07"
+    },
+    {
+      "path": "src/platform/persistence/routine-schema.js",
+      "sha256": "fc63a660f275609d769345bf622d8b7aa1ab1c76d03c711c0f65d6f98b21ffe2",
+      "bytes": 16854,
+      "baseSha256": "542e1c701e3bc4ab6fc1c20c5e7c9d43d94d272cd64ebd14df4e8776d79bde0b",
+      "baseGitBlob": "06312abd2fa3c2a400441bff77e25005671cae11"
+    },
+    {
+      "path": "src/platform/persistence/sqlite/config-preferences-upgrade.js",
+      "sha256": "07ea74192dff2be9443366a78a4b3a6991ca022c850bac074d1dbce0e59e7370",
+      "bytes": 9627,
+      "baseSha256": "1ca7b8fdc295058e3d0d78aa12bb7f82bde0aecf123d840a7e02154a187259e0",
+      "baseGitBlob": "697c8ee1e8b5a82a402d70c8f1437db6feacf55d"
+    },
+    {
+      "path": "src/platform/persistence/sqlite/profile-upgrade-backup-container.js",
+      "sha256": "4713ca24fd252ef859d04579323a1356a3f35aae2c8c8348f4666ccdb7556fb2",
+      "bytes": 9587,
+      "baseSha256": "c8de372b043da76bd5817eee27215348ac0cb7775c4e6335e1a9b831172bd378",
+      "baseGitBlob": "12a6083a8e34e90f47eeb6f4f16b4385ccb55454"
+    }
+  ],
+  "pinnedLedger": {
+    "commit": "b33be923fa651e30d42ec38557c34640d1a29697",
+    "sha256": "87ee2a53b8f11f760f966a1ac72d6d5537f4256d45979e1edf0d247c5fe9e46c"
+  },
+  "pinnedSceneTest": {
+    "commit": "b77d56d337a766a669925549805047dae831ce78",
+    "sha256": "4765f22fe513eecb7d3fa82379505254c4b96321d30ebb02f4bece65db697ad7"
+  }
+}

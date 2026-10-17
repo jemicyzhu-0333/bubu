@@ -1,0 +1,914 @@
+--- a/src/application/workflows/feed-companion.js
++++ b/src/application/workflows/feed-companion.js
+@@ -29,6 +29,7 @@
+   unitOfWork,
+   clock,
+   foods,
++  resolveMappingVersion = () => null,
+   random = () => 0,
+   publish = () => {},
+   reportEffectError = () => {}
+@@ -79,6 +80,7 @@
+         });
+         const result = {
+           ok: true,
++          commandId, issuedAt, fedAt, mappingVersion: resolveMappingVersion('feed', foodId),
+           foodId,
+           bond,
+           gainedXp: 0,
+@@ -98,6 +100,8 @@
+       ok: true,
+       replayed: transaction.replayed === true,
+       rejected: false,
++      commandId, issuedAt, fedAt: transaction.fedAt ?? null,
++      mappingVersion: transaction.mappingVersion ?? null,
+       foodId: transaction.foodId,
+       gainedXp: transaction.gainedXp,
+       xpCapped: false,
+@@ -110,12 +114,16 @@
+     if (transaction.committed) {
+       const fact = Object.freeze({
+         type: 'companion-fed',
++        operation: 'complete', origin: 'live_completion', postCommit: true, replayed: false,
++        commandId: transaction.commandId, issuedAt: transaction.issuedAt,
++        mappingVersion: transaction.mappingVersion,
++        commitEventId: `feed:${transaction.commandId}`, committedAt: transaction.fedAt,
+         foodId: transaction.foodId,
+         bond: transaction.bond,
+         gainedXp: transaction.gainedXp,
+         satiation: transaction.satiation,
+         totalFeeds: transaction.totalFeeds,
+-        fedAt,
++        fedAt: transaction.fedAt,
+         revision: transaction.revision
+       });
+       runPostCommitEffect(publish, fact, reportEffectError);
+--- a/src/application/workflows/organize-inbox.js
++++ b/src/application/workflows/organize-inbox.js
+@@ -1,5 +1,6 @@
+ 'use strict';
+ 
++const { randomUUID } = require('node:crypto');
+ const { work, routines, guidance } = require('../../capabilities');
+ const { localDayKey, addDaysToKey } = require('../../core/calendar');
+ const { runPostCommitEffect } = require('../../shared/post-commit-effects');
+@@ -37,12 +38,14 @@
+   if (!target.ok) return target;
+   if (request.action !== 'log') return { ok: true, targetId: target.routine.id, fact: null };
+   const logged = routines.routineLogging.logOccurrence(state, {
+-    routineId: target.routine.id, status: 'done', dayKey, at: occurredAt
++    routineId: target.routine.id, status: 'done', dayKey, at: occurredAt,
++    completionContext: { generation: randomUUID(), committedAt: ports.at, origin: 'historical_backfill' }
+   });
+   if (!logged.ok) return logged;
+   return { ok: true, targetId: target.routine.id, fact: { type: 'routine-logged', routineId: target.routine.id,
+     occurrenceId: logged.occurrenceId, status: logged.status, kind: logged.kind, scheduled: logged.scheduled,
+-    at: occurredAt, dayKey } };
++    at: occurredAt, dayKey, operation: logged.operation, origin: 'historical_backfill', completion: logged.completion,
++    committedAt: ports.at, postCommit: true, replayed: false } };
+ }
+ 
+ function organizeState(state, impulse, classification) {
+@@ -93,7 +96,7 @@
+     if (transaction.committed) {
+       const resolutions = Object.freeze((transaction.resolutions || []).map(value => Object.freeze({ ...value })));
+       const fact = transaction.fact
+-        ? Object.freeze({ ...transaction.fact, revision: transaction.revision }) : null;
++        ? Object.freeze({ ...transaction.fact, revision: transaction.revision, commitEventId: `inbox:${transaction.revision}:log` }) : null;
+       runPostCommitEffect(publish, Object.freeze({ type: 'inbox-organized', fact, resolutions }), reportEffectError);
+     }
+     return { ok: true, ...(transaction.kept ? { kept: transaction.kept.length } : {}) };
+--- /dev/null
++++ b/src/application/workflows/upgrade-theme-identity.js
+@@ -0,0 +1,12 @@
++'use strict';
++// A version-only upgrade. Existing records get no fabricated completion IDs,
++// timestamps, preset assignments or theme eligibility.
++function prepareThemeIdentityUpgrade(source, { assertSource, assertTarget }) {
++  assertSource(source);
++  if (source.schemaVersion !== 20) throw new TypeError('config-theme-upgrade-source-invalid');
++  const candidate = structuredClone(source);
++  candidate.schemaVersion = 21;
++  assertTarget(candidate);
++  return candidate;
++}
++module.exports = { prepareThemeIdentityUpgrade };
+--- a/src/bootstrap/companion-feeding.js
++++ b/src/bootstrap/companion-feeding.js
+@@ -2,9 +2,10 @@
+ const { createFeedCompanionWorkflow } = require('../application');
+ const { runPostCommitEffect } = require('../shared/post-commit-effects');
+ 
+-function createCompanionFeeding({ announceBond, publishChange, reportEffectError = () => {}, invalidateMealAdvice = () => {}, ...ports }) {
++function createCompanionFeeding({ publishTheme = () => {}, announceBond, publishChange, reportEffectError = () => {}, invalidateMealAdvice = () => {}, ...ports }) {
+   const workflow = createFeedCompanionWorkflow({ ...ports, reportEffectError,
+     publish: fact => {
++      runPostCommitEffect(publishTheme, fact, reportEffectError);
+       runPostCommitEffect(invalidateMealAdvice, fact, reportEffectError);
+       if (fact.bond) runPostCommitEffect(() => announceBond(fact.bond), fact, reportEffectError);
+       // All canonical feed fields use the sampled, versioned shared publisher.
+--- /dev/null
++++ b/src/bootstrap/theme-commit-adapter.js
+@@ -0,0 +1,49 @@
++'use strict';
++// Converts canonical successful facts only. No animation callbacks, title heuristics,
++// business-state writes, or recovery claims. The host owns ledger persistence/cursor.
++function createThemeCommitAdapter({ ledger, namespace, clock, registry, reportError = () => {} }) {
++  if (!ledger || typeof ledger.applyBatch !== 'function' || typeof clock?.now !== 'function'
++      || typeof namespace !== 'string' || !namespace || namespace.length > 128) throw new TypeError('theme-adapter-ports');
++  const mappings = registry?.mappings || [];
++  const find = (kind, id, version) => mappings.find(m => m.sourceKind === kind && m.definitionId === id
++    && (version === undefined || m.mappingVersion === version));
++  function resolveMappingVersion(kind, id) { return find(kind, id)?.mappingVersion || null; }
++  function toEvent(fact, receivedAt) {
++    if (!fact || fact.postCommit !== true || fact.replayed === true || !Number.isSafeInteger(fact.revision)
++        || fact.revision < 1 || typeof fact.commitEventId !== 'string') return null;
++    const routine = fact.type === 'routine-logged' || fact.type === 'routine-log-undone';
++    const feed = fact.type === 'companion-fed';
++    if (!routine && !feed) return null;
++    const c = routine ? fact.completion : { generation:fact.commandId, occurredAt:fact.fedAt,
++      committedAt:fact.fedAt, origin:'live_completion', definitionId:fact.foodId,
++      mappingVersion:fact.mappingVersion, deadlineOccurredAt:fact.fedAt };
++    if (!c || !find(routine ? 'routine' : 'feed', c.definitionId, c.mappingVersion)) return null;
++    const operation = fact.operation;
++    if (!['complete','correct','edit','revoke'].includes(operation)) return null;
++    if (routine && operation !== 'revoke' && fact.status !== 'done') return null;
++    return {schemaVersion:2,namespace,eventId:fact.commitEventId,transactionId:`commit:${fact.revision}`,
++      sourceKind:routine ? 'routine' : 'feed',entityId:routine ? fact.occurrenceId : fact.commandId,
++      completionGeneration:c.generation,revision:fact.revision,operation,
++      completionState:operation === 'revoke' ? 'revoked' : 'completed',origin:fact.origin,
++      postCommit:true,replayed:false,occurredAt:routine ? fact.at : fact.fedAt,
++      committedAt:fact.committedAt,receivedAt,timeDomain:'trusted_utc_ms',
++      original:{occurredAt:c.occurredAt,committedAt:c.committedAt,origin:c.origin,
++        definitionId:c.definitionId,mappingVersion:c.mappingVersion},deadlineOccurredAt:c.deadlineOccurredAt,
++      revokeReason:operation === 'revoke' ? 'routine-completion-retracted' : null};
++  }
++  function publishCommitted(fact) {
++    try {
++      const now = clock.now();
++      const event = toEvent(fact, now);
++      if (!event) return { accepted:false, reason:'not-eligible-commit-fact' };
++      ledger.applyBatch([event], now);
++      return { accepted:true, event };
++    } catch (error) {
++      // Presentation failure never changes the successful business result.
++      try { reportError(error); } catch {}
++      return { accepted:false, reason:'theme-adapter-failed' };
++    }
++  }
++  return Object.freeze({ publishCommitted, resolveMappingVersion, toEvent });
++}
++module.exports = { createThemeCommitAdapter };
+--- /dev/null
++++ b/src/bootstrap/theme-state-runtime.js
+@@ -0,0 +1,12 @@
++'use strict';
++const { themeLedger: { createLedger } } = require('../capabilities/companion');
++const { createThemeCommitAdapter } = require('./theme-commit-adapter');
++const defaultRegistry = require('../content/theme-source-registry');
++function createThemeStateRuntime({ clock, registry = defaultRegistry, namespace = 'bubu:canonical-commits', reportError = () => {} }) {
++  const ledger = createLedger({ schemaVersion:2, namespaces:[namespace], maxRecords:4096,
++    mappings:registry.mappings, capabilities:registry.capabilities });
++  const adapter = createThemeCommitAdapter({ ledger, namespace, clock, registry, reportError });
++  return Object.freeze({ publishCommitted:adapter.publishCommitted,
++    resolveMappingVersion:adapter.resolveMappingVersion, project:() => ledger.project(clock.now()) });
++}
++module.exports = { createThemeStateRuntime };
+--- a/src/capabilities/companion/domain/food-command.js
++++ b/src/capabilities/companion/domain/food-command.js
+@@ -28,7 +28,12 @@
+       && nonnegative(result.foodTickets) && Number.isSafeInteger(result.inventory)
+       && result.inventory >= 1 && result.inventory <= 999;
+   }
+-  return closed(result, ['ok', 'foodId', 'bond', 'gainedXp', 'satiation', 'totalFeeds', 'favorite', 'animation', 'reaction'])
++  const keys = ['ok', 'foodId', 'bond', 'gainedXp', 'satiation', 'totalFeeds', 'favorite', 'animation', 'reaction'];
++  const legacy = closed(result, keys);
++  const current = closed(result, [...keys, 'commandId', 'issuedAt', 'fedAt', 'mappingVersion'])
++    && validIdentity(result.commandId, result.issuedAt) && timestamp(result.fedAt)
++    && (result.mappingVersion === null || (typeof result.mappingVersion === 'string' && result.mappingVersion.length > 0 && result.mappingVersion.length <= 128));
++  return (legacy || current)
+     && (foodId === 'basic' ? result.bond === null : validBond(result.bond))
+     && result.gainedXp === 0 && Number.isFinite(result.satiation) && result.satiation >= 0 && result.satiation <= 100
+     && (foodId !== 'basic' || result.satiation <= 55) && nonnegative(result.totalFeeds)
+@@ -46,6 +51,8 @@
+       || !validResult(row.result, row.kind, row.foodId) || JSON.stringify(row.result).length > 2048) {
+       throw new TypeError('invalid-food-receipt');
+     }
++    if (row.kind === 'feed' && Object.hasOwn(row.result, 'commandId')
++      && (row.result.commandId !== row.commandId || row.result.issuedAt !== row.issuedAt)) throw new TypeError('food-receipt-identity-mismatch');
+     ids.add(row.commandId);
+   }
+   return structuredClone(raw);
+--- /dev/null
++++ b/src/capabilities/companion/domain/theme-ledger.mjs
+@@ -0,0 +1,223 @@
++/** Pure theme eligibility ledger. No renderer/business mutation dependencies. */
++import { types } from 'node:util';
++export class ContractError extends Error {
++  constructor(code, detail = '') { super(`${code}${detail ? `: ${detail}` : ''}`); this.name = 'ContractError'; this.code = code; }
++}
++const fail = (code, detail) => { throw new ContractError(code, detail); };
++const need = (ok, code, detail) => { if (!ok) fail(code, detail); };
++export const LIMITS = Object.freeze({maxRecords:4096,maxNamespaces:32,maxMappings:256,maxCapabilities:256,maxRequiredCapabilities:64,maxIdChars:128,maxDataNodes:1000000});
++const MAX_STRING = LIMITS.maxIdChars;
++
++// Inspect descriptors before reading. No user getters, coercion, toJSON or iterators run.
++function data(value, depth = 0, budget = { n: 0 }) {
++  need(++budget.n <= 1000000 && depth <= 24, 'DATA_LIMIT');
++  if (value === null || typeof value === 'boolean') return value;
++  if (typeof value === 'string') { need(value.length <= 65536, 'STRING_LIMIT'); return value; }
++  if (typeof value === 'number') { need(Number.isSafeInteger(value), 'INTEGER_REQUIRED'); return value; }
++  need(typeof value === 'object', 'PLAIN_DATA_REQUIRED');
++  need(!types.isProxy(value), 'PROXY_REJECTED');
++  const array = Array.isArray(value);
++  need(Object.getPrototypeOf(value) === (array ? Array.prototype : Object.prototype), 'PLAIN_DATA_REQUIRED');
++  const keys = Reflect.ownKeys(value);
++  const out = array ? [] : {};
++  if (array) need(value.length <= 200000, 'ARRAY_LIMIT');
++  for (const key of keys) {
++    need(typeof key === 'string', 'SYMBOL_KEY');
++    const d = Object.getOwnPropertyDescriptor(value, key);
++    need(d && Object.hasOwn(d, 'value'), 'ACCESSOR_REJECTED');
++    if (array && key === 'length') continue;
++    need(d.enumerable, 'NONENUMERABLE_KEY');
++    if (array) need(/^(0|[1-9][0-9]*)$/.test(key) && Number(key) < value.length, 'ARRAY_EXTRA_KEY');
++    else need(key !== '__proto__' && key !== 'constructor' && key !== 'prototype', 'UNSAFE_KEY');
++    Object.defineProperty(out, key, {value: data(d.value, depth + 1, budget), enumerable:true, configurable:true, writable:true});
++  }
++  if (array) need(keys.length === value.length + 1, 'ARRAY_HOLE');
++  return out;
++}
++function shape(o, required, optional = []) {
++  need(o !== null && typeof o === 'object' && !Array.isArray(o), 'OBJECT_REQUIRED');
++  for (const k of required) need(Object.hasOwn(o, k), 'MISSING_FIELD', k);
++  const allowed = new Set([...required, ...optional]);
++  for (const k of Object.keys(o)) need(allowed.has(k), 'UNKNOWN_FIELD', k);
++}
++const id = x => need(typeof x === 'string' && x.trim().length > 0 && x.length <= MAX_STRING, 'ID_REQUIRED');
++const uint = x => need(Number.isSafeInteger(x) && x >= 0, 'UNSIGNED_INTEGER_REQUIRED');
++const positive = x => { uint(x); need(x > 0, 'POSITIVE_INTEGER_REQUIRED'); };
++const oneOf = (x, values) => need(values.includes(x), 'ENUM_INVALID', String(x));
++const bool = x => need(typeof x === 'boolean', 'BOOLEAN_REQUIRED');
++const list = (a, limit) => need(Array.isArray(a) && a.length <= limit, 'LIST_INVALID');
++const key = parts => JSON.stringify(parts);
++const compare = (a,b) => a < b ? -1 : a > b ? 1 : 0;
++const copy = x => JSON.parse(JSON.stringify(x));
++function canonical(x) {
++  if (x === null || typeof x !== 'object') return JSON.stringify(x);
++  if (Array.isArray(x)) return `[${x.map(canonical).join(',')}]`;
++  return `{${Object.keys(x).sort().map(k => `${JSON.stringify(k)}:${canonical(x[k])}`).join(',')}}`;
++}
++const kinds = ['routine', 'feed'];
++const origins = ['live_completion', 'historical_backfill', 'history_edit', 'recovery_sync'];
++const mappingKey = m => key([m.sourceKind, m.definitionId, m.mappingVersion]);
++const identity = e => key([e.namespace, e.sourceKind, e.entityId, e.completionGeneration]);
++const safeForgetAfter = e => e.original.occurredAt + (e.sourceKind === 'routine' ? 900000 : 30000);
++const semantic = e => { const { eventId, receivedAt, ...rest } = e; return canonical(rest); };
++function configInput(raw) {
++  const c = data(raw);
++  shape(c, ['schemaVersion', 'namespaces', 'maxRecords', 'mappings', 'capabilities']);
++  need(c.schemaVersion === 2, 'SCHEMA_VERSION');
++  list(c.namespaces, LIMITS.maxNamespaces); need(c.namespaces.length > 0, 'NAMESPACE_REQUIRED');
++  c.namespaces.forEach(id); need(new Set(c.namespaces).size === c.namespaces.length, 'DUPLICATE_NAMESPACE');
++  positive(c.maxRecords); need(c.maxRecords <= LIMITS.maxRecords, 'CAPACITY_LIMIT');
++  list(c.capabilities, LIMITS.maxCapabilities); list(c.mappings, LIMITS.maxMappings);
++  const caps = new Map();
++  for (const a of c.capabilities) {
++    shape(a, ['id', 'approved', 'runtimeReady', 'channel']); id(a.id); bool(a.approved); bool(a.runtimeReady);
++    oneOf(a.channel, ['environment.overlay', 'body.action', 'face.semantic', 'prop']);
++    need(!caps.has(a.id), 'DUPLICATE_CAPABILITY'); caps.set(a.id, a);
++  }
++  const maps = new Map();
++  for (const m of c.mappings) {
++    shape(m, ['sourceKind', 'definitionId', 'mappingVersion', 'themeId', 'recipeVersion', 'approved', 'presentationMode', 'overlayPolicyId', 'actionPolicyId', 'requiredCapabilities', 'assetPolicyDigest'], ['durationSec']);
++    oneOf(m.sourceKind, kinds); ['definitionId','mappingVersion','themeId','recipeVersion','overlayPolicyId','assetPolicyDigest'].forEach(k => id(m[k]));
++    bool(m.approved); oneOf(m.presentationMode, ['overlay_only', 'overlay_and_actions']);
++    if (m.presentationMode === 'overlay_only') need(m.actionPolicyId === null, 'UNEXPECTED_ACTION_POLICY'); else id(m.actionPolicyId);
++    list(m.requiredCapabilities, LIMITS.maxRequiredCapabilities); need(m.requiredCapabilities.length > 0, 'CAPABILITIES_REQUIRED'); m.requiredCapabilities.forEach(id);
++    need(new Set(m.requiredCapabilities).size === m.requiredCapabilities.length, 'DUPLICATE_CAPABILITY_REFERENCE');
++    if (Object.hasOwn(m, 'durationSec')) {
++      positive(m.durationSec);
++      need(m.sourceKind === 'routine' ? m.durationSec >= 600 && m.durationSec <= 900 : m.durationSec === 30, 'DURATION_POLICY');
++    }
++    const present = m.requiredCapabilities.map(x => caps.get(x));
++    if (present.every(Boolean)) {
++      need(present.some(x => x.channel === 'environment.overlay'), 'OVERLAY_CAPABILITY_REQUIRED');
++      if (m.presentationMode === 'overlay_only') need(present.every(x => x.channel === 'environment.overlay'), 'MODE_CHANNEL_MISMATCH');
++      else need(present.some(x => x.channel === 'body.action'), 'ACTION_CAPABILITY_REQUIRED');
++    }
++    need(!maps.has(mappingKey(m)), 'DUPLICATE_MAPPING'); maps.set(mappingKey(m), m);
++  }
++  return {c, caps, maps};
++}
++function eventInput(e, now, namespaces) {
++  shape(e, ['schemaVersion','namespace','eventId','transactionId','sourceKind','entityId','completionGeneration','revision','operation','completionState','origin','postCommit','replayed','occurredAt','committedAt','receivedAt','timeDomain','original','deadlineOccurredAt','revokeReason']);
++  need(e.schemaVersion === 2, 'SCHEMA_VERSION');
++  ['namespace','eventId','transactionId','entityId','completionGeneration'].forEach(k => id(e[k]));
++  need(namespaces.includes(e.namespace), 'UNKNOWN_NAMESPACE');
++  oneOf(e.sourceKind, kinds); positive(e.revision);
++  oneOf(e.operation, ['complete','correct','edit','revoke']); oneOf(e.completionState, ['completed','revoked']); oneOf(e.origin, origins);
++  need(e.postCommit === true, 'NOT_POSTCOMMIT'); need(e.replayed === false, 'REPLAY_RECEIPT_NOT_EVENT');
++  need(e.timeDomain === 'trusted_utc_ms', 'UNTRUSTED_TIME');
++  ['occurredAt','committedAt','receivedAt','deadlineOccurredAt'].forEach(k => uint(e[k]));
++  need(e.occurredAt <= e.committedAt && e.committedAt <= e.receivedAt && e.receivedAt <= now, 'TIME_ORDER');
++  shape(e.original, ['occurredAt','committedAt','origin','definitionId','mappingVersion']);
++  uint(e.original.occurredAt); uint(e.original.committedAt); oneOf(e.original.origin, origins); id(e.original.definitionId); id(e.original.mappingVersion);
++  need(e.original.occurredAt <= e.original.committedAt && e.original.committedAt <= e.committedAt, 'ORIGINAL_TIME_ORDER');
++  need(e.deadlineOccurredAt <= e.original.occurredAt && e.deadlineOccurredAt <= e.occurredAt, 'DEADLINE_WATERMARK');
++  if (e.operation === 'complete') need(e.completionState === 'completed', 'OPERATION_STATE');
++  if (e.operation === 'revoke') need(e.completionState === 'revoked', 'OPERATION_STATE');
++  if (e.completionState === 'revoked') id(e.revokeReason); else need(e.revokeReason === null, 'UNEXPECTED_REVOKE_REASON');
++  need(e.original.occurredAt <= Number.MAX_SAFE_INTEGER - 900000, 'TIME_OVERFLOW');
++}
++function admission(e, maps, caps) {
++  if (e.original.origin !== 'live_completion' || ['historical_backfill','recovery_sync'].includes(e.origin)) return {reason:'nonlive_or_noncompletion',mapping:null};
++  if (e.operation !== 'complete') return {reason:'needs_reconciliation',mapping:null};
++  if (e.origin !== 'live_completion') return {reason:'nonlive_or_noncompletion',mapping:null};
++  const m = maps.get(key([e.sourceKind, e.original.definitionId, e.original.mappingVersion]));
++  if (!m) return {reason: 'unknown_mapping', mapping: null};
++  if (!m.approved) return {reason: 'mapping_not_approved', mapping: m};
++  if (!m.requiredCapabilities.every(k => caps.get(k)?.approved && caps.get(k)?.runtimeReady)) return {reason: 'capability_not_ready', mapping: m};
++  return {reason: 'eligible', mapping: m};
++}
++function duration(record) { return record.mapping?.durationSec ?? (record.first.sourceKind === 'routine' ? 600 : 30); }
++function deadline(record) { return record.latest.deadlineOccurredAt + duration(record) * 1000; }
++function originalDeadline(record) { return record.first.original.occurredAt + duration(record) * 1000; }
++
++export function createLedger(rawConfig) {
++  const {c, caps, maps} = configInput(rawConfig);
++  let records = new Map(), lastNow = 0;
++  const retainedAt = now => new Map([...records].filter(([,r]) => now < safeForgetAfter(r.first)));
++  function checkNow(now) { uint(now); need(now >= lastNow, 'CLOCK_ROLLBACK'); }
++  function insert(target, e, now) {
++    // Every valid replay is gated before admission, including unknown mappings.
++    if (now >= safeForgetAfter(e)) return 'expired';
++    const k = identity(e), old = target.get(k);
++    if (old) {
++      need(canonical(old.first.original) === canonical(e.original), 'ORIGINAL_CHANGED');
++      if (e.revision < old.latest.revision) return 'stale';
++      if (e.revision === old.latest.revision) { need(semantic(e) === semantic(old.latest), 'REVISION_CONFLICT'); return 'duplicate'; }
++      need(e.committedAt >= old.latest.committedAt, 'COMMIT_ROLLBACK');
++      need(e.deadlineOccurredAt <= old.latest.deadlineOccurredAt, 'DEADLINE_EXTENSION');
++      target.set(k, {...old, latest:e}); return 'updated';
++    }
++    need(target.size < c.maxRecords, 'WINDOW_CAPACITY_EXCEEDED');
++    const admitted = admission(e, maps, caps);
++    target.set(k, {first:e, latest:e, ...admitted}); return 'recorded';
++  }
++  const api = {
++    applyBatch(rawEvents, now) {
++      checkNow(now); const events = data(rawEvents); list(events, 100000);
++      events.forEach(e => eventInput(e, now, c.namespaces));
++      // Caller order is meaningful only for first admission. Sort each identity's
++      // events by revision so a batch is equivalent to ordered authoritative updates.
++      const ordered = events.map((e,index) => ({e,index})).sort((a,b) => compare(identity(a.e),identity(b.e)) || a.e.revision - b.e.revision || a.index-b.index);
++      const next = retainedAt(now), results = new Array(events.length);
++      for (const {e,index} of ordered) results[index] = insert(next, e, now);
++      records = next; lastNow = now;
++      return {results, recordCount: records.size};
++    },
++    project(now) {
++      checkNow(now); records = retainedAt(now); lastNow = now;
++      const sources = [], themes = new Map();
++      for (const [sourceId,r] of records) {
++        const expiresAt = deadline(r);
++        const active = r.reason === 'eligible' && r.latest.completionState === 'completed' && now < expiresAt;
++        const status = r.latest.completionState === 'revoked' ? 'revoked' : r.reason !== 'eligible' ? r.reason : now >= expiresAt ? 'expired' : 'eligible';
++        sources.push({sourceId, namespace:r.latest.namespace, sourceKind:r.latest.sourceKind, entityId:r.latest.entityId, completionGeneration:r.latest.completionGeneration, safeForgetAfter:safeForgetAfter(r.first), revision:r.latest.revision, themeId:r.mapping?.themeId ?? null, expiresAt: r.mapping ? expiresAt : null, originalDeadline: r.mapping ? originalDeadline(r) : null, active, status, admissionReason:r.reason, needsReconciliation:r.reason === 'needs_reconciliation', selected:false, visible:false, performing:false});
++        if (active) {
++          const t = themes.get(r.mapping.themeId) ?? {themeId:r.mapping.themeId, expiresAt:0, sourceIds:[], factActive:true, selected:false, visible:false, performing:false};
++          t.expiresAt = Math.max(t.expiresAt, expiresAt); t.sourceIds.push(sourceId); themes.set(t.themeId,t);
++        }
++      }
++      sources.sort((a,b) => compare(a.sourceId,b.sourceId));
++      const activeThemes = [...themes.values()].sort((a,b) => compare(a.themeId,b.themeId));
++      activeThemes.forEach(t => t.sourceIds.sort());
++      return {now, sources, themes:activeThemes};
++    },
++
++    snapshot(sourceCursor) {
++      id(sourceCursor);
++      return copy({schemaVersion:2, config:c, lastNow, sourceCursor, records:[...records.values()].map(r => ({first:r.first,latest:r.latest}))});
++    }
++  };
++  return Object.freeze(api);
++}
++
++function decodeSnapshot(rawSnapshot) {
++  const s = data(rawSnapshot);
++  shape(s, ['schemaVersion','config','lastNow','sourceCursor','records']); need(s.schemaVersion === 2, 'SCHEMA_VERSION'); uint(s.lastNow); id(s.sourceCursor);
++  const ledger = createLedger(s.config); list(s.records,LIMITS.maxRecords);
++  const identities = new Set();
++  for (const r of s.records) {
++    shape(r,['first','latest']);
++    eventInput(r.first,s.lastNow,s.config.namespaces); eventInput(r.latest,s.lastNow,s.config.namespaces);
++    need(identity(r.first) === identity(r.latest), 'SNAPSHOT_IDENTITY_MISMATCH');
++    need(!identities.has(identity(r.first)), 'DUPLICATE_SNAPSHOT_RECORD'); identities.add(identity(r.first));
++    need(r.latest.revision >= r.first.revision, 'SNAPSHOT_REVISION_ORDER');
++    need(s.lastNow < safeForgetAfter(r.first), 'SNAPSHOT_EXPIRED_RECORD');
++    ledger.applyBatch([r.first,r.latest],s.lastNow);
++  }
++  ledger.project(s.lastNow);
++  return {ledger,s};
++}
++// Serialization-only validation. Does not expose recovered eligibility.
++export function validateSnapshot(rawSnapshot) {
++  const {ledger,s}=decodeSnapshot(rawSnapshot);
++  return ledger.snapshot(s.sourceCursor);
++}
++export function restoreLedger(rawSnapshot, now, rawExpected) {
++  const expected=data(rawExpected);
++  shape(expected,['sourceCursor','minLastNow']); id(expected.sourceCursor); uint(expected.minLastNow);
++  const {ledger,s}=decodeSnapshot(rawSnapshot);
++  uint(now); need(now >= s.lastNow, 'CLOCK_ROLLBACK');
++  need(s.sourceCursor === expected.sourceCursor, 'RECOVERY_CURSOR_MISMATCH');
++  need(s.lastNow >= expected.minLastNow, 'RECOVERY_TIME_FLOOR');
++  ledger.project(now); return ledger;
++}
+--- a/src/capabilities/companion/index.js
++++ b/src/capabilities/companion/index.js
+@@ -15,7 +15,9 @@
+ const petCatalog = require('./pet-catalog');
+ const formRegistry = require('./form-registry.mjs');
+ 
++const themeLedger = require('./domain/theme-ledger.mjs');
+ module.exports = Object.freeze({
++  themeLedger,
+   applyOutfit: Object.freeze({ ...require('./application/apply-outfit') }),
+   invalidateMealCare: Object.freeze({ ...require('./application/invalidate-meal-care') }),
+   foodCommand: Object.freeze({ ...require('./domain/food-command') }),
+--- a/src/capabilities/routines/application/log-routine-occurrence.js
++++ b/src/capabilities/routines/application/log-routine-occurrence.js
+@@ -12,6 +12,7 @@
+ // have to agree. Deriving the day key from a second `clock.now()` would put a
+ // midnight-crossing tap in one day's entries with the previous day's timestamp.
+ 
++const { randomUUID } = require('node:crypto');
+ const routineLogging = require('../domain/routine-logging');
+ const { ROUTINE_LOGGABLE_STATUSES } = require('../../../core/routine-model');
+ const { runPostCommitEffect } = require('../../../shared/post-commit-effects');
+@@ -21,6 +22,8 @@
+ function createLogRoutineOccurrenceCommand({
+   unitOfWork,
+   clock,
++  generationFactory = randomUUID,
++  resolveMappingVersion = () => null,
+   publish = () => {},
+   reportEffectError = () => {}
+ } = {}) {
+@@ -41,6 +44,7 @@
+ 
+   function log({ routineId, occurrenceId, status, note, magnitude, at, expectedAt, expectedStatus, expectedRevision } = {}) {
+     const now = clock.now();
++    const generation = generationFactory();
+     const loggedAt = at === undefined ? now : at;
+     if (!Number.isSafeInteger(loggedAt) || loggedAt < 0 || !Number.isFinite(new Date(loggedAt).getTime())) {
+       return { ok: false, reason: 'invalid-occurrence-time' };
+@@ -69,13 +73,22 @@
+           return { ok: false, reason: 'invalid-occurrence-correction' };
+         }
+         return routineLogging.logOccurrence(state, {
+-          routineId, occurrenceId, status, note, magnitude, dayKey, at: loggedAt
++          routineId, occurrenceId, status, note, magnitude, dayKey, at: loggedAt,
++          completionContext: { generation, committedAt: now, origin: at === undefined ? 'live_completion' : 'historical_backfill',
++            mappingVersion: resolveMappingVersion('routine', state.routines.find(item => item.id === routineId)?.presetId) }
+         });
+       }
+     });
+     if (!transaction.ok) return { ok: false, reason: transaction.reason };
+     commit({
+       type: 'routine-logged',
++      operation: transaction.operation || 'edit',
++      origin: transaction.operation === 'complete' ? transaction.completion?.origin : 'history_edit',
++      completion: transaction.completion || null,
++      themeSuppressionReason: transaction.themeSuppressionReason || null,
++      committedAt: now,
++      postCommit: true, replayed: false,
++      commitEventId: `routine:${transaction.revision}:${transaction.operation || 'edit'}`,
+       routineId,
+       occurrenceId: transaction.occurrenceId,
+       status: transaction.status,
+@@ -99,14 +112,17 @@
+   }
+ 
+   function undo({ occurrenceId, expectedRevision } = {}) {
++    const now = clock.now();
+     const transaction = unitOfWork.run({
+       writes: LOG_ROUTINE_OCCURRENCE_WRITES,
+       expectedRevision,
+-      context: { now: clock.now() },
+-      transition: state => routineLogging.undoOccurrence(state, { occurrenceId })
++      context: { now },
++      transition: state => routineLogging.undoOccurrence(state, { occurrenceId, now })
+     });
+     if (!transaction.ok) return { ok: false, reason: transaction.reason };
+-    commit({ type: 'routine-log-undone', occurrenceId, routineId: transaction.routineId }, transaction);
++    commit({ type: 'routine-log-undone', occurrenceId, routineId: transaction.routineId,
++      operation: 'revoke', origin: 'history_edit', completion: transaction.completion || null, at: transaction.at,
++      committedAt: now, postCommit: true, replayed: false, commitEventId: `routine:${transaction.revision}:revoke` }, transaction);
+     return {
+       ok: true,
+       changed: transaction.committed,
+--- a/src/capabilities/routines/application/manage-routine.js
++++ b/src/capabilities/routines/application/manage-routine.js
+@@ -56,14 +56,14 @@
+     runPostCommitEffect(publish, Object.freeze({ ...fact, revision: transaction.revision }), reportEffectError);
+   }
+ 
+-  function add({ title, kind, customLabel, schedule, effect, maxLevel, active, now, expectedRevision } = {}) {
++  function add({ title, kind, presetId, customLabel, schedule, effect, maxLevel, active, now, expectedRevision } = {}) {
+     const createdAt = now === undefined ? clock.now() : now;
+     const transaction = unitOfWork.run({
+       writes: MANAGE_ROUTINE_WRITES,
+       expectedRevision,
+       context: { now: createdAt },
+       transition: state => routineEditing.addRoutine(state, {
+-        title, kind, customLabel, schedule, effect, maxLevel, active, profiles, idFactory, now: createdAt
++        title, kind, presetId, customLabel, schedule, effect, maxLevel, active, profiles, idFactory, now: createdAt
+       })
+     });
+     if (!transaction.ok) return { ok: false, reason: transaction.reason };
+--- /dev/null
++++ b/src/capabilities/routines/domain/completion-identity.js
+@@ -0,0 +1,20 @@
++'use strict';
++const id = x => typeof x === 'string' && x.length > 0 && x.length <= 128;
++const time = x => Number.isSafeInteger(x) && x >= 0 && x <= 8.64e15;
++function normalizeCompletion(raw) {
++  if (raw == null) return null;
++  if (!raw || typeof raw !== 'object' || Array.isArray(raw)
++      || Object.keys(raw).sort().join(',') !== 'committedAt,deadlineOccurredAt,definitionId,generation,mappingVersion,occurredAt,origin'
++      || !id(raw.generation) || !time(raw.occurredAt) || !time(raw.committedAt)
++      || !time(raw.deadlineOccurredAt) || raw.deadlineOccurredAt > raw.occurredAt
++      || raw.occurredAt > raw.committedAt
++      || !['live_completion','historical_backfill'].includes(raw.origin)
++      || !(raw.definitionId === null || id(raw.definitionId))
++      || !(raw.mappingVersion === null || id(raw.mappingVersion))) throw new TypeError('invalid-routine-completion');
++  return { ...raw };
++}
++function newCompletion({ generation, at, committedAt, origin, definitionId = null, mappingVersion = null }) {
++  if (!generation) return null; // Legacy direct callers cannot invent a live completion.
++  return normalizeCompletion({ generation, occurredAt:at, committedAt, origin, definitionId, mappingVersion, deadlineOccurredAt:at });
++}
++module.exports = { normalizeCompletion, newCompletion };
+--- /dev/null
++++ b/src/capabilities/routines/domain/completion-receipts.js
+@@ -0,0 +1,32 @@
++'use strict';
++const { normalizeCompletion } = require('./completion-identity');
++const RETENTION_MS = 72 * 60 * 60 * 1000;
++const MAX_RECEIPTS = 256;
++function normalizeReceipts(raw) {
++  if (!Array.isArray(raw) || raw.length > MAX_RECEIPTS) throw new TypeError('invalid-completion-receipts');
++  const seen = new Set();
++  return raw.map(r => {
++    if (!r || Object.keys(r).sort().join(',') !== 'completion,occurrenceId,removedAt,routineId'
++      || typeof r.occurrenceId !== 'string' || !r.occurrenceId || r.occurrenceId.length > 200
++      || typeof r.routineId !== 'string' || !r.routineId || r.routineId.length > 100
++      || !Number.isSafeInteger(r.removedAt) || r.removedAt < 0 || r.removedAt > 8.64e15
++      || seen.has(r.occurrenceId)) throw new TypeError('invalid-completion-receipt');
++    seen.add(r.occurrenceId);
++    return { occurrenceId:r.occurrenceId, routineId:r.routineId, removedAt:r.removedAt, completion:normalizeCompletion(r.completion) };
++  });
++}
++function rememberRemoval(log, entry, now, { capacity = MAX_RECEIPTS } = {}) {
++  if (!Number.isInteger(capacity) || capacity < 1 || capacity > MAX_RECEIPTS) throw new TypeError('invalid-receipt-capacity');
++  if (!Number.isSafeInteger(now) || now < 0) return;
++  const kept = (log.completionReceipts || []).filter(r => r.occurrenceId !== entry.occurrenceId && now - r.removedAt < RETENTION_MS);
++  if (kept.length >= capacity) {
++    // A presentation identity limit must never block a business undo. Until all
++    // possibly omitted slots leave the correction window, requested-slot theme
++    // creation fails closed; explicitly new free records remain independent.
++    log.completionRecoveryBlockedUntil = Math.max(log.completionRecoveryBlockedUntil || 0, now + RETENTION_MS);
++    kept.shift();
++  }
++  kept.push({ occurrenceId:entry.occurrenceId, routineId:entry.routineId, removedAt:now, completion:entry.completion || null });
++  log.completionReceipts = kept;
++}
++module.exports = { RETENTION_MS, MAX_RECEIPTS, normalizeReceipts, rememberRemoval };
+--- a/src/capabilities/routines/domain/occurrence-time.js
++++ b/src/capabilities/routines/domain/occurrence-time.js
+@@ -41,8 +41,9 @@
+   const capacity = occurrenceCapacity(state, { occurrenceId, dayKey: day.dayKey, at });
+   if (!capacity.ok) return capacity;
+   entry.at = at;
++  if (entry.completion) entry.completion.deadlineOccurredAt = Math.min(entry.completion.deadlineOccurredAt, at);
+   orderRoutineLog(state.routineLog);
+-  return { ...result, changed: true, replaced: true };
++  return { ...result, changed: true, replaced: true, operation: 'correct', completion: entry.completion || null };
+ }
+ 
+ module.exports = { validateOccurrenceTime, correctOccurrenceTime };
+--- a/src/capabilities/routines/domain/routine-editing.js
++++ b/src/capabilities/routines/domain/routine-editing.js
+@@ -121,11 +121,12 @@
+   return Math.min(Math.max(value, 1), MAX_ROUTINE_LEVEL);
+ }
+ 
+-function addRoutine(state, { title, kind, customLabel, schedule, effect, maxLevel, active, profiles, idFactory, now } = {}) {
++function addRoutine(state, { title, kind, presetId, customLabel, schedule, effect, maxLevel, active, profiles, idFactory, now } = {}) {
+   assertDraft(state);
+   assertNow(now);
+   if (typeof idFactory !== 'function') throw new TypeError('routine editing requires an id factory');
+   const kinds = profiles ? Object.keys(profiles) : [];
++  if (presetId !== undefined && (typeof presetId !== 'string' || !ID_PATTERN.test(presetId))) return { ok: false, reason: 'preset-id-invalid' };
+   const cleanTitle = titleOrNull(title);
+   if (!cleanTitle) return { ok: false, reason: 'title-required' };
+   if (customLabel !== undefined && !titleOrNull(customLabel)) return { ok: false, reason: 'title-required' };
+@@ -143,6 +144,7 @@
+     id,
+     title: cleanTitle,
+     kind,
++    ...(presetId === undefined ? {} : { presetId }),
+     ...(kind === 'custom' && customLabel ? { customLabel: titleOrNull(customLabel) } : {}),
+     schedule: normalizeSchedule(schedule),
+     effect: normalizeEffect(kind, effect, profiles),
+@@ -175,6 +177,7 @@
+   if ('kind' in source) {
+     const kinds = profiles ? Object.keys(profiles) : [];
+     if (!kinds.includes(source.kind)) return { ok: false, reason: 'kind-unknown' };
++    if (source.kind !== current.kind) delete next.presetId;
+     next.kind = source.kind;
+     // Changing the kind re-derives the effect from the new profile: keeping the
+     // old amplitude would leave a `meal` routine bumping the curve the way
+@@ -216,6 +219,7 @@
+   const log = state.routineLog && typeof state.routineLog === 'object' && !Array.isArray(state.routineLog)
+     ? state.routineLog
+     : null;
++  if (log?.completionReceipts) log.completionReceipts = log.completionReceipts.filter(r => r.routineId !== routineId);
+   const days = log && Array.isArray(log.days) ? log.days : [];
+   for (const day of days) {
+     if (!day || !Array.isArray(day.entries)) continue;
+--- a/src/capabilities/routines/domain/routine-logging.js
++++ b/src/capabilities/routines/domain/routine-logging.js
+@@ -33,6 +33,8 @@
+ const { findScheduledOccurrence } = require('./day-plan');
+ const { orderRoutineLog } = require('./log-order');
+ 
++const { newCompletion } = require('./completion-identity');
++const { rememberRemoval } = require('./completion-receipts');
+ const MAX_ROUTINE_NOTE = 200;
+ const { MAX_ROUTINE_ENTRIES_PER_DAY, allEntries, occurrenceCapacity, hasOccurrenceCapacity, rollLogForward } = require('./log-retention');
+ 
+@@ -135,7 +137,7 @@
+   return scheduled?.due ? scheduled.dayKey : null;
+ }
+ 
+-function logOccurrence(state, { routineId, occurrenceId, status, note, magnitude, dayKey, at } = {}) {
++function logOccurrence(state, { routineId, occurrenceId, status, note, magnitude, dayKey, at, completionContext = null } = {}) {
+   assertDraft(state);
+   assertNow(at);
+   assertDayKey(dayKey);
+@@ -164,6 +166,21 @@
+   const kind = routine.kind || null;
+   const { scheduled } = resolved;
+   const index = existingEntries.findIndex(existing => existing && existing.occurrenceId === entry.occurrenceId);
++  const previous = index >= 0 ? existingEntries[index] : null;
++  const requestedSlot = occurrenceId !== undefined && occurrenceId !== null;
++  const receipt = requestedSlot ? state.routineLog?.completionReceipts?.find(r => r.occurrenceId === entry.occurrenceId && r.routineId === routineId) : null;
++  const recovering = Boolean(receipt || previous?.completion || ['done','skipped'].includes(previous?.status));
++  const recoveryBlocked = requestedSlot && (state.routineLog?.completionRecoveryBlockedUntil || 0) >= (completionContext?.committedAt ?? at);
++  const priorCompletion = previous?.completion || receipt?.completion || null;
++  const completion = priorCompletion ? { ...priorCompletion,
++    deadlineOccurredAt: Math.min(priorCompletion.deadlineOccurredAt, at) }
++    : status === 'done' && completionContext && !recovering && !recoveryBlocked ? newCompletion({ ...completionContext, at,
++      definitionId: routine.presetId || null }) : null;
++  if (completion) entry.completion = completion;
++  const operation = status === 'done' ? (recovering ? 'edit' : 'complete')
++    : previous?.status === 'done' ? 'revoke' : 'edit';
++  const themeFact = { completion, operation, themeSuppressionReason: recoveryBlocked ? 'completion-recovery-capacity'
++    : recovering && !completion ? 'legacy-completion-identity-unavailable' : null };
+   // Re-reporting the same occurrence replaces it. A second row for one real event
+   // is what makes a log stop being readable.
+   if (index >= 0 && JSON.stringify(existingEntries[index]) === JSON.stringify(entry)) {
+@@ -176,11 +193,11 @@
+   if (index >= 0) {
+     day.entries[index] = entry;
+     orderRoutineLog(state.routineLog);
+-    return { ok: true, changed: true, occurrenceId: entry.occurrenceId, status, kind, scheduled, dayKey, replaced: true };
++    return { ok: true, changed: true, occurrenceId: entry.occurrenceId, status, kind, scheduled, dayKey, ...themeFact, replaced: true };
+   }
+   day.entries.push(entry);
+   orderRoutineLog(state.routineLog);
+-  return { ok: true, changed: true, occurrenceId: entry.occurrenceId, status, kind, scheduled, dayKey, replaced: false };
++  return { ok: true, changed: true, occurrenceId: entry.occurrenceId, status, kind, scheduled, dayKey, ...themeFact, replaced: false };
+ }
+ 
+ // The reminder sampler's write, and the reason `notified` is not something the
+@@ -232,7 +249,7 @@
+ 
+ // Removes the entry rather than writing a compensating one, so the curve loses
+ // the bump instead of gaining a correction nobody asked to see.
+-function undoOccurrence(state, { occurrenceId } = {}) {
++function undoOccurrence(state, { occurrenceId, now } = {}) {
+   assertDraft(state);
+   if (typeof occurrenceId !== 'string' || !occurrenceId) return { ok: false, reason: 'occurrence-required' };
+   // Read the list without repairing it: an undo that finds nothing must leave the
+@@ -244,7 +261,8 @@
+     const index = day.entries.findIndex(entry => entry && entry.occurrenceId === occurrenceId);
+     if (index < 0) continue;
+     const [removed] = day.entries.splice(index, 1);
+-    return { ok: true, changed: true, occurrenceId, routineId: removed.routineId, dayKey: day.dayKey };
++    rememberRemoval(log, removed, now);
++    return { ok: true, changed: true, occurrenceId, routineId: removed.routineId, dayKey: day.dayKey, completion: removed.completion || null, at: removed.at, operation: 'revoke' };
+   }
+   return { ok: false, reason: 'occurrence-not-found' };
+ }
+--- a/src/capabilities/routines/index.js
++++ b/src/capabilities/routines/index.js
+@@ -13,6 +13,8 @@
+ const routineReminder = require('./application/routine-reminder');
+ 
+ module.exports = Object.freeze({
++  completionReceipts: Object.freeze({ ...require('./domain/completion-receipts') }),
++  completionIdentity: Object.freeze({ ...require('./domain/completion-identity') }),
+   ...require('./contract/ipc-codec'),
+   dayPlan: Object.freeze({ ...dayPlan }),
+   routineEditing: Object.freeze({ ...routineEditing }),
+--- /dev/null
++++ b/src/content/theme-source-registry.js
+@@ -0,0 +1,4 @@
++'use strict';
++// Deliberately empty until approved preset IDs, recipe assets and capability
++// readiness are registered. Broad kind/title never select a theme.
++module.exports = Object.freeze({ mappings: Object.freeze([]), capabilities: Object.freeze([]) });
+--- a/src/main.js
++++ b/src/main.js
+@@ -151,6 +151,9 @@
+ // not writable from here at all — current-only admission or fresh initialization
+ // in src/platform/persistence establishes it before this line runs.
+ const stateUnitOfWork = createUnitOfWork({ repository: store });
++const { createThemeStateRuntime } = require('./bootstrap/theme-state-runtime');
++const themeStateRuntime = createThemeStateRuntime({ clock: { now: () => Date.now() },
++  reportError: error => reportWindowDeliveryError(error, { channel: 'theme:commit' }) });
+ const recordWorkEndReminderCommand = attention.recordWorkEndReminder.createRecordWorkEndReminderCommand({
+   unitOfWork: stateUnitOfWork,
+   clock: { now: () => Date.now() },
+@@ -209,6 +212,8 @@
+   reportEffectError: error => reportWindowDeliveryError(error, { channel: 'reviews:materialize' })
+ });
+ const companionFeeding = createCompanionFeeding({
++  publishTheme: themeStateRuntime.publishCommitted,
++  resolveMappingVersion: themeStateRuntime.resolveMappingVersion,
+   unitOfWork: stateUnitOfWork, clock: { now: () => Date.now() }, foods: FOODS,
+   announceBond: announceBondStage, publishChange: pushStateChange,
+   invalidateMealAdvice: () => companionMeals.invalidateAdvice(),
+@@ -270,7 +275,11 @@
+   .createLogRoutineOccurrenceCommand({
+     unitOfWork: stateUnitOfWork,
+     clock: { now: () => Date.now(), dayKey: timestamp => localDayKey(timestamp) },
+-    publish: routineTimelineEffects.publishCommitted,
++    resolveMappingVersion: themeStateRuntime.resolveMappingVersion,
++    publish: fact => {
++      themeStateRuntime.publishCommitted(fact);
++      routineTimelineEffects.publishCommitted(fact);
++    },
+     reportEffectError: error => reportWindowDeliveryError(error, { channel: 'routines:log' })
+   });
+ const recordTaskAvoidanceWorkflow = createRecordTaskAvoidanceWorkflow({
+@@ -335,7 +344,10 @@
+   idFactory: createDomainId, archive: factStore.inboxArchive, durability: store.authoritativeWrites, timelineRecorder,
+   taskPolicies: { inferEnergy, suggestDuration, suggestNextStep: title => breakdownTask(title)[0],
+     nextWorkStart: now => nextLocalWorkStart(now, getWorkHours().start) },
+-  publishChange: dirty => pushStateChange(dirty), publishRoutine: fact => routineTimelineEffects.publishCommitted(fact),
++  publishChange: dirty => pushStateChange(dirty), publishRoutine: fact => {
++    themeStateRuntime.publishCommitted(fact);
++    routineTimelineEffects.publishCommitted(fact);
++  },
+   reportEffectError: (error, channel) => reportWindowDeliveryError(error, { channel })
+ });
+ 
+--- a/src/platform/electron/preferences-upgrade-host.js
++++ b/src/platform/electron/preferences-upgrade-host.js
+@@ -24,11 +24,12 @@
+   async function confirm(upgrade) {
+     await appHost.whenReady();
+     const routineUpgrade = upgrade.sourceVersion === 19 && upgrade.targetVersion === 20;
+-    const versions = routineUpgrade ? '19 → 20' : '18 → 19';
+-    const purpose = routineUpgrade ? '保留跨日更正的日常记录' : '添加语言与主题设置';
+-    const purposeEnglish = routineUpgrade ? 'retaining corrected routine records across days' : 'adding language and theme preferences';
++    const themeUpgrade = upgrade.sourceVersion === 20 && upgrade.targetVersion === 21;
++    const versions = themeUpgrade ? '20 → 21' : routineUpgrade ? '19 → 20' : '18 → 19';
++    const purpose = themeUpgrade ? '保留日常完成与喂食回执的原始身份' : routineUpgrade ? '保留跨日更正的日常记录' : '添加语言与主题设置';
++    const purposeEnglish = themeUpgrade ? 'retaining original routine completion and feeding receipt identities' : routineUpgrade ? 'retaining corrected routine records across days' : 'adding language and theme preferences';
+     const result = await dialog.showMessageBox({ type: 'question', title: '小步 · bubu',
+-      message: routineUpgrade ? '为日常记录升级数据 / Upgrade data for routine records'
++      message: themeUpgrade ? '为完成记录升级数据 / Upgrade completion records' : routineUpgrade ? '为日常记录升级数据 / Upgrade data for routine records'
+         : '为语言与外观设置升级数据 / Upgrade data for language and appearance',
+       detail: `已核验此 bubu 档案（${versions}）。升级前会建立完整私有备份，${purpose}。旧版不能直接打开升级后的数据。\n\nVerified bubu profile (${versions}). A complete private backup is required before ${purposeEnglish}. Earlier versions cannot open the upgraded profile.\n\n档案 / Profile: ${upgrade.sourcePath}\n备份 / Backup: ${upgrade.backupPath}\n\n备份可能含私密内容，请妥善保存。 / The backup may contain private information. Keep it private.`,
+       buttons: ['退出 / Quit', '备份并升级 / Back up and upgrade'], defaultId: 0, cancelId: 0,
+--- a/src/platform/persistence/persisted-schema.js
++++ b/src/platform/persistence/persisted-schema.js
+@@ -90,7 +90,7 @@
+ // Schema 16 adds the guidance-owned atomic AI receipt and durable outbox ledger.
+ // Schema18 is a fresh-profile foundation, never an implicit pre18 migration.
+ // Schema20 retains stable owner buckets under a global 120-entry bound.
+-const PERSISTED_SCHEMA_VERSION = 20;
++const PERSISTED_SCHEMA_VERSION = 21;
+ // The schema at which tasks became orthogonal (tags / description / estimate
+ // instead of one mutually exclusive `category`). The task-model migration is
+ // keyed on *this* number rather than on "is not the current version": from
+@@ -548,11 +548,23 @@
+   if (!isDeepStrictEqual(raw.routineLog, normalizeRoutineLog(raw.routineLog, { legacy: true }))) {
+     throw new TypeError('config-payload-not-canonical');
+   }
+-  assertCanonicalPersistedState({ ...structuredClone(raw), schemaVersion: 20 });
++  assertCanonicalSchema20({ ...structuredClone(raw), schemaVersion: 20 });
+   return raw;
+ }
+ 
++function assertCanonicalSchema20(raw) {
++  if (!isPlainObject(raw) || raw.schemaVersion !== 20) throw new TypeError('config-payload-schema20-required');
++  if (Object.hasOwn(raw.routineLog || {}, 'completionReceipts') || Object.hasOwn(raw.routineLog || {}, 'completionRecoveryBlockedUntil')
++    || raw.routines?.some(r => Object.hasOwn(r, 'presetId'))
++    || raw.routineLog?.days?.some(d => d.entries.some(e => Object.hasOwn(e, 'completion')))
++    || raw.pet?.foodCommands?.some(r => r.kind === 'feed' && Object.hasOwn(r.result, 'fedAt'))) {
++    throw new TypeError('config-payload-not-canonical');
++  }
++  assertCanonicalPersistedState({ ...structuredClone(raw), schemaVersion: 21 });
++  return raw;
++}
+ module.exports = {
++  assertCanonicalSchema20,
+   PERSISTED_SCHEMA_VERSION,
+   assertCanonicalPersistedState,
+   assertCanonicalSchema19,
+--- a/src/platform/persistence/routine-schema.js
++++ b/src/platform/persistence/routine-schema.js
+@@ -1,4 +1,5 @@
+ 'use strict';
++const { completionIdentity: { normalizeCompletion }, completionReceipts: { normalizeReceipts } } = require('../../capabilities/routines');
+ 
+ // The persisted shapes for routines, their two-day occurrence log, and the
+ // personal energy calibration profile (ARCHITECTURE「日常与能量」).
+@@ -183,6 +184,7 @@
+       id,
+       title,
+       kind,
++      ...(typeof item.presetId === 'string' && ID_PATTERN.test(item.presetId) ? { presetId: item.presetId } : {}),
+       ...(kind === 'custom' && item.customLabel ? { customLabel: trimmedString(item.customLabel, null, MAX_ROUTINE_TITLE) } : {}),
+       schedule: normalizeRoutineSchedule(item.schedule),
+       // `custom` has no effect shape in the content table (ARCHITECTURE「日常与能量」) — it is a
+@@ -224,6 +226,7 @@
+     routineId,
+     status,
+     at: timestampOrNull(raw.at),
++    ...(raw.completion == null ? {} : { completion: normalizeCompletion(raw.completion) }),
+     note: trimmedString(raw.note, null, MAX_ROUTINE_NOTE),
+     // An optional self-reported intensity on an unitless 1–100 scale — "a big
+     // coffee", not "200 mg". See the dose note on `normalizeRoutineEffect`.
+@@ -261,7 +264,11 @@
+   if (!legacy && days.reduce((count, day) => count + day.entries.length, 0) > MAX_ROUTINE_LOG_ENTRIES) {
+     throw new TypeError('routine-log-capacity');
+   }
+-  return { days };
++  const blockedUntil = source.completionRecoveryBlockedUntil;
++  if (blockedUntil !== undefined && (!Number.isSafeInteger(blockedUntil) || blockedUntil < 0 || blockedUntil > 8.64e15)) throw new TypeError('invalid-completion-recovery-bound');
++  return { days,
++    ...(source.completionReceipts === undefined ? {} : { completionReceipts: normalizeReceipts(source.completionReceipts) }),
++    ...(blockedUntil === undefined ? {} : { completionRecoveryBlockedUntil: blockedUntil }) };
+ }
+ 
+ // Uncalibrated is `null`, not a fabricated profile written for every existing
+--- a/src/platform/persistence/sqlite/config-preferences-upgrade.js
++++ b/src/platform/persistence/sqlite/config-preferences-upgrade.js
+@@ -8,9 +8,10 @@
+ const { encodePayload, readAuthoritySnapshot, verifyEvidence } = require('./config-authority-schema');
+ const { proveConfigSnapshotDurable } = require('./config-authority-proof');
+ const { createProfileUpgradeBackup } = require('./profile-upgrade-backup-container');
+-const { assertCanonicalPersistedState, assertCanonicalSchema19 } = require('../persisted-schema');
++const { assertCanonicalPersistedState, assertCanonicalSchema19, assertCanonicalSchema20 } = require('../persisted-schema');
+ const { prepareRoutineRetentionUpgrade } = require('../../../application/workflows/upgrade-routine-retention');
+ const { prepareInterfacePreferencesUpgrade } = require('../../../application/workflows/upgrade-interface-preferences');
++const { prepareThemeIdentityUpgrade } = require('../../../application/workflows/upgrade-theme-identity');
+ const fail = reason => Object.assign(new Error(reason), { code: reason });
+ function prepareConfigPreferencesUpgrade({ userDataPath, io = fs, now = () => Date.now(), checkpoint = () => {},
+   verifyPermissions } = {}, ports) {
+@@ -21,11 +22,12 @@
+     admitConfigCopy({ filePath, identityPath, io,
+       prepareInitial() { throw fail('config-preferences-upgrade-source-invalid'); },
+       validateCurrent(snapshot, identity) {
+-        if (!identity || identity.phase !== 'READY' || ![18, 19].includes(snapshot.payloadVersion)) throw fail('config-preferences-upgrade-source-invalid');
+-        const assertTarget = snapshot.payloadVersion === 18 ? assertCanonicalSchema19 : assertCanonicalPersistedState;
++        if (!identity || identity.phase !== 'READY' || ![18, 19, 20].includes(snapshot.payloadVersion)) throw fail('config-preferences-upgrade-source-invalid');
++        const assertTarget = snapshot.payloadVersion === 18 ? assertCanonicalSchema19 : snapshot.payloadVersion === 19 ? assertCanonicalSchema20 : assertCanonicalPersistedState;
+         const candidate = snapshot.payloadVersion === 18
+           ? prepareInterfacePreferencesUpgrade(snapshot.state, assertTarget)
+-          : prepareRoutineRetentionUpgrade(snapshot.state, { assertSource: assertCanonicalSchema19, assertTarget });
++          : snapshot.payloadVersion === 19 ? prepareRoutineRetentionUpgrade(snapshot.state, { assertSource: assertCanonicalSchema19, assertTarget })
++          : prepareThemeIdentityUpgrade(snapshot.state, { assertSource: assertCanonicalSchema20, assertTarget });
+         inspected = { snapshot, identity, candidate, assertTarget };
+       } }, { ...ports, verifyPermissions });
+     if (!inspected) throw fail('config-preferences-upgrade-source-invalid');
+--- a/src/platform/persistence/sqlite/profile-upgrade-backup-container.js
++++ b/src/platform/persistence/sqlite/profile-upgrade-backup-container.js
+@@ -43,7 +43,8 @@
+     || binding.applicationId < 1 || binding.applicationId >= 2147483647 || !Number.isSafeInteger(binding.sourceRevision)
+     || binding.sourceRevision < 0 || !hashValid(binding.sourceHash) || !hashValid(binding.targetHash)
+     || !((binding.sourceVersion === 18 && binding.targetVersion === 19)
+-      || (binding.sourceVersion === 19 && binding.targetVersion === 20)) || !/^[a-f0-9-]{36}$/.test(binding.token)) throw fail('binding-invalid');
++      || (binding.sourceVersion === 19 && binding.targetVersion === 20)
++      || (binding.sourceVersion === 20 && binding.targetVersion === 21)) || !/^[a-f0-9-]{36}$/.test(binding.token)) throw fail('binding-invalid');
+   const entries = handle.all('SELECT relative_path,kind,byte_length,mode,mtime_ns,sha256,length(bytes) AS actual_length FROM upgrade_files ORDER BY relative_path');
+   if (entries.length < 1 || entries.length > LIMIT_MEMBERS || entries.length !== manifest.entries.length
+     || entries[0].relative_path !== '' || entries[0].kind !== 'directory') throw fail('members-invalid');

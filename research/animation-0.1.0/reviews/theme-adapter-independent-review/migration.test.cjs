@@ -1,0 +1,6 @@
+const test=require('node:test'),assert=require('node:assert/strict');
+const {DatabaseSync}=require('node:sqlite');
+const {fixture}=require('../bubu-theme-commit-adapter-20261017/stage/test-support/preferences-upgrade-fixture');
+const {createSqliteStateAdapter}=require('../bubu-theme-commit-adapter-20261017/stage/src/platform/persistence/sqlite-state-adapter');
+for(const live of [false,true])for(const boundary of ['backup-copied','backup-verified'])test(`independent backup failure ${boundary} live=${live}`,t=>{const f=fixture(t,{sourceVersion:20,live}),before=f.capture();const u=f.prepare({checkpoint:n=>{if(n===boundary)throw Error('review-backup-fail')}});assert.throws(()=>u.execute(u.confirmation),/review-backup-fail/);assert.deepEqual(f.capture(),before);});
+test('independent after-COMMIT uncertainty reconciles once and repeated reopen fixed point',t=>{const f=fixture(t,{sourceVersion:20}),u=f.prepare({checkpoint:n=>{if(n==='after-commit')throw Error('review-postcommit-fail')}});const result=u.execute(u.confirmation);assert.equal(result.reconciled,true);let prior;for(let i=0;i<3;i++){const x=createSqliteStateAdapter({userDataPath:f.directory}),s=x.snapshot();if(prior)assert.deepEqual(s,prior);else{assert.equal(s.schemaVersion,21);assert.deepEqual({...s,schemaVersion:20},f.state);}prior=s;x.close();}});

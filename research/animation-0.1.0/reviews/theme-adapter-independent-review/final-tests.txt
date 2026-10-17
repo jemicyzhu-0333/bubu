@@ -1,0 +1,37 @@
+✔ independent backup failure backup-copied live=false (72.599913ms)
+✔ independent backup failure backup-verified live=false (29.904421ms)
+✔ independent backup failure backup-copied live=true (36.309053ms)
+✔ independent backup failure backup-verified live=true (36.574994ms)
+✔ independent after-COMMIT uncertainty reconciles once and repeated reopen fixed point (96.37298ms)
+✔ real complete → correct → later correct → undo → recomplete retains exact generation and never extends old deadline (17.003049ms)
+✔ done edits and duplicate completion never acquire fresh original time (2.218156ms)
+✔ historical backfill, unknown preset, broad kind/title and unready capability never activate (4.236271ms)
+✔ legacy done edit and undo never fabricate completion identity (1.477058ms)
+✔ feed real workflow and command receipt preserve first time on replay and never re-emit (3.250032ms)
+✔ failed feed, failed routine, revision conflict and repository failure emit nothing (1.851313ms)
+✔ routine and feed sharing a theme have independent TTL and exact revoke (3.878781ms)
+✔ done → skipped → done restores same semantic generation without extending deadline (2.206829ms)
+✔ receipt identity corruption is rejected and old receipts replay without fabricated fedAt (1.628838ms)
+✔ explicit undo/restore within TTL keeps generation and original expiry; after expiry never restarts (3.625659ms)
+✔ undo of legacy record then same-slot restore cannot invent a live identity (1.290296ms)
+✔ small correction-receipt overflow preserves business success and diagnoses suppressed slot activation (1.724502ms)
+✔ correction cannot switch occurrence identity to create a fresh completion (1.231828ms)
+✔ headless end-to-end committed routine/feed → ledger → scene plan, no fake renderer success (18.080375ms)
+✔ real bootstrap feed hook publishes only committed fact and default production registry remains empty (16.527932ms)
+✔ real SQLite schema20→21 keeps original bytes in verified backup; live WAL=false (123.910326ms)
+✔ real SQLite schema20→21 keeps original bytes in verified backup; live WAL=true (99.177981ms)
+✔ upgrade fault admitted cannot leave mutated business payload (24.209251ms)
+✔ upgrade fault candidate-validated cannot leave mutated business payload (27.437921ms)
+✔ upgrade fault before-writer cannot leave mutated business payload (28.313641ms)
+✔ upgrade fault evidence-written cannot leave mutated business payload (35.228273ms)
+✔ upgrade fault payload-written cannot leave mutated business payload (37.304745ms)
+✔ upgrade fault before-commit cannot leave mutated business payload (42.187351ms)
+✔ pure upgrade is byte-meaning preserving, rejects corruption, and adds no historical eligibility (5.385934ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 636.383325
