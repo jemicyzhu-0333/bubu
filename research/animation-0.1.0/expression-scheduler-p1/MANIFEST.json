@@ -23,11 +23,15 @@
   "files": [
     {
       "path": "CONTRACT.md",
-      "sha256": "95707b37bdd160ee658d4b922bb5c6446057be5b14270d4a4632cef3b2150269"
+      "sha256": "51bb6c330c522997a02f691921f9cc47442283df175faf66dc72b4c8501c3a0e"
     },
     {
       "path": "README.md",
       "sha256": "76a3114161ec8b8fddbd3d416b425fd64bcb7c93c3cc150ce19b40e947c7a0ef"
+    },
+    {
+      "path": "evidence/lifecycle-candidate-tests.tap",
+      "sha256": "7d2cf722d0eb4d9813025e0c7324449701f1e02621769ed874d7b7c32faef778"
     },
     {
       "path": "evidence/p0-dependencies.sha256",
@@ -47,7 +51,7 @@
     },
     {
       "path": "evidence/review/independent-p1.json",
-      "sha256": "dd154ca76eae07550ad86d43ca8c39338191f044b1f9917a2ed1a51a79c0e9af"
+      "sha256": "5f6aa38a8421bded4bd5cb66d446af8cfab62c84e6484443f3080804326a95d4"
     },
     {
       "path": "evidence/review/independent-p1.mjs",
@@ -63,7 +67,7 @@
     },
     {
       "path": "src/p0-binding.mjs",
-      "sha256": "819b3b2d9bb092b96f142e041260c3864c6934b0472b150b1e75ec3e5773c85a"
+      "sha256": "08729af430c66c7e89f978d9da34706d41920982374482653ec29db90db9bd7f"
     },
     {
       "path": "src/production-policy.mjs",
@@ -71,11 +75,16 @@
     },
     {
       "path": "src/scheduler.mjs",
-      "sha256": "8208537ace569c8227ca86dd0389d91ac150006b541347ebeccbf06a91ce07c8"
+      "sha256": "d0dc72af4dd5d6a42caed64efe0c2b17a0c49003c4bccf5f8b983b0f6c4b7df1"
+    },
+    {
+      "path": "test/lifecycle.test.mjs",
+      "sha256": "8136e83228d5aed54615a01eaf44bb6111a3ba0457ad5d65a0144590ac416ba9"
     },
     {
       "path": "test/scheduler.test.mjs",
       "sha256": "5b90e9366c33bbd6bf1a963e9a6fe6cc3f492235d0b68a5855e65f7da74c7049"
     }
-  ]
+  ],
+  "lifecycleIntegration": "WeightedExpressionOwner / ActorPool.createWeighted; retire preserves RNG/history/cooldown and host lifetime"
 }

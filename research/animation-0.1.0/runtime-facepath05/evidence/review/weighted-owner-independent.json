@@ -1,0 +1,46 @@
+{
+  "hashes": {
+    "src/actor-pool.mjs": "bc1387894f7d1f36a0e2d5fc73b42818edc0e83db4d346b59f6b5e93a885c720",
+    "src/expression-owner.mjs": "f6617d982d0ce8cff74e98773df8006698b35172dc1acf9787dcd960574864b8",
+    "src/face-suite.mjs": "8d8d4d8f907221317f9043018e0d5fa7f1770badb711d576a14bfe830b40ac3b",
+    "src/weighted-driver.mjs": "6025a700a60afd04022919c526b472cdc4d92607981bab12895ce0568f7651f4",
+    "src/director.mjs": "8e2398af1a63017892ef85aef35afee350891f0e44043b917709a94ffa3fa4ec",
+    "src/face-timeline.mjs": "286ded8d6c6992cd0333e1985a0baee0e21dd951dcf3ab91b8bb790cd7641892",
+    "../expression-scheduler-p1/src/p0-binding.mjs": "08729af430c66c7e89f978d9da34706d41920982374482653ec29db90db9bd7f",
+    "../expression-scheduler-p1/src/scheduler.mjs": "d0dc72af4dd5d6a42caed64efe0c2b17a0c49003c4bccf5f8b983b0f6c4b7df1"
+  },
+  "actualApprovedFaces": 18,
+  "layerCount": 8,
+  "passed": 7,
+  "total": 7,
+  "checks": [
+    {
+      "name": "real full18 weighted actor writes only current semantic across all eight layers",
+      "pass": true
+    },
+    {
+      "name": "autonomous hidden freeze preserves RNG and current shape without redraw or backlog",
+      "pass": true
+    },
+    {
+      "name": "retire rebases existing cooldown to logical origin and preserves history/RNG",
+      "pass": true
+    },
+    {
+      "name": "interaction retirement preserves host lifetime and RNG, rejects stale epoch and old release",
+      "pass": true
+    },
+    {
+      "name": "observer fault is isolated on real bindings and stays disabled across retire",
+      "pass": true
+    },
+    {
+      "name": "pending actual weighted load disposal cannot attach late or leak pool accounting",
+      "pass": true
+    },
+    {
+      "name": "weighted rejects slice7 while ordinary directed full18 entry remains functional",
+      "pass": true
+    }
+  ]
+}

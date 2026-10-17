@@ -1,0 +1,48 @@
+{
+  "format": "bubu-weighted-full18-owner-integration",
+  "productionPolicy": null,
+  "runtimeTests": 289,
+  "p1Tests": 26,
+  "independentRealActorGroups": 7,
+  "canonicalDependencies": [
+    {
+      "path": "research/animation-0.1.0/expression-scheduler-p1/src/p0-binding.mjs",
+      "sha256": "08729af430c66c7e89f978d9da34706d41920982374482653ec29db90db9bd7f"
+    },
+    {
+      "path": "research/animation-0.1.0/expression-scheduler-p1/src/scheduler.mjs",
+      "sha256": "d0dc72af4dd5d6a42caed64efe0c2b17a0c49003c4bccf5f8b983b0f6c4b7df1"
+    }
+  ],
+  "runtimeSources": [
+    {
+      "path": "src/actor-pool.mjs",
+      "sha256": "bc1387894f7d1f36a0e2d5fc73b42818edc0e83db4d346b59f6b5e93a885c720"
+    },
+    {
+      "path": "src/face-suite.mjs",
+      "sha256": "8d8d4d8f907221317f9043018e0d5fa7f1770badb711d576a14bfe830b40ac3b"
+    },
+    {
+      "path": "src/expression-owner.mjs",
+      "sha256": "f6617d982d0ce8cff74e98773df8006698b35172dc1acf9787dcd960574864b8"
+    },
+    {
+      "path": "src/weighted-driver.mjs",
+      "sha256": "6025a700a60afd04022919c526b472cdc4d92607981bab12895ce0568f7651f4"
+    },
+    {
+      "path": "src/director.mjs",
+      "sha256": "8e2398af1a63017892ef85aef35afee350891f0e44043b917709a94ffa3fa4ec"
+    },
+    {
+      "path": "src/face-timeline.mjs",
+      "sha256": "286ded8d6c6992cd0333e1985a0baee0e21dd951dcf3ab91b8bb790cd7641892"
+    }
+  ],
+  "limits": [
+    "No production artistic policy",
+    "No GPU/browser or gesture acceptance",
+    "No performance optimization claim"
+  ]
+}

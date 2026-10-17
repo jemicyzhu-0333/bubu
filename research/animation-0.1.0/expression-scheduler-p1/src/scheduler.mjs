@@ -42,5 +42,6 @@ export class WeightedScheduler {
   this.#rng=rng;this.#active=c;this.#decisions++;this.#recent.push({key:c.key,faceId:c.faceId});if(this.#recent.length>LIMITS.candidates)this.#recent.shift();return Object.freeze({accepted:true,nextDeadline:Infinity,intent});
   }finally{this.#busy=false;}
  }
+ retire(time){if(this.#busy)throw Error('reentrant scheduler');this.lose(time);for(const [face,until] of this.#cooldowns)this.#cooldowns.set(face,Math.max(0,until-time));this.#time=0;}
  lose(time){if(this.#busy)throw Error('reentrant scheduler');this.#at(time);if(this.#active){const c=this.#active;this.#cooldowns.set(c.faceId,Math.max(this.#cooldowns.get(c.faceId)??0,time+c.cooldownSec));this.#active=null;}}
 }

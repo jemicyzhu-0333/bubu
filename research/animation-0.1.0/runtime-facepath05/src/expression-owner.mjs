@@ -1,5 +1,8 @@
 import {validatePolicy,assertDataRecord,assertDenseDataArray} from './director.mjs';
 
+import {validateWeightedInputs} from './weighted-driver.mjs';
+const WEIGHTED=Symbol('internal weighted full18 capability');
+const mappedRecord=(record,origin,epoch)=>{const out={...record,epoch};for(const key of ['time','logicalArrival','clockActualArrival','actualArrival','releaseAt','nextAt'])if(typeof out[key]==='number')out[key]+=origin;return Object.freeze(out);};
 const finite=t=>{if(typeof t!=='number'||!Number.isFinite(t)||t<0)throw new RangeError('wall time must be nonnegative finite seconds');return t;};
 const stopped=()=>new Error('ExpressionOwner closed or faulted');
 /** Trusted rendering host boundary. Every mutation enters here; root is render-only.
@@ -8,14 +11,15 @@ const stopped=()=>new Error('ExpressionOwner closed or faulted');
 export class ExpressionOwner {
   #actor=null;#abort=new AbortController();#status='loading';#busy=false;#epoch=1;#lifetime=0;
   #wall;#logical=0;#origin=0;#paused=false;#fault=null;#scheduler;#draw;#frame=null;#timer=null;#ticket=0;
-  #record;#pool;#ready;#cleanups=[];#observerStopped=null;
-  constructor({pool,pack,policy,visibilityPolicy,wallTime=0,onRecord=()=>{},scheduler=null,draw=()=>{}}) {
+  #record;#pool;#ready;#cleanups=[];#observerStopped=null;#weighted=false;
+  constructor({pool,pack,policy,initialFacts,visibilityPolicy,wallTime=0,onRecord=()=>{},scheduler=null,draw=()=>{}},capability) {
     if(visibilityPolicy!=='freeze')throw new TypeError('Explicit visibilityPolicy: freeze required');
-    this.#wall=finite(wallTime);policy=validatePolicy(policy);
+    this.#wall=finite(wallTime);this.#weighted=capability===WEIGHTED;
+    if(this.#weighted)({policy,initialFacts}=validateWeightedInputs(pack,policy,initialFacts));else policy=validatePolicy(policy);
     if(typeof onRecord!=='function'||typeof draw!=='function')throw new TypeError('callbacks');
     if(scheduler)for(const k of ['now','requestFrame','cancelFrame','setTimer','clearTimer'])if(typeof scheduler[k]!=='function')throw new TypeError('scheduler '+k);
     this.#pool=pool;this.#scheduler=scheduler;this.#draw=draw;this.#record=onRecord;
-    this.#ready=pool.createDirected(pack,policy,{signal:this.#abort.signal,onDispose:()=>{if(this.#actor)this.#stop('closed',null);},onRecord:r=>this.#record(Object.freeze({...r,time:r.time+this.#origin,...(r.logicalArrival!==undefined?{logicalArrival:r.logicalArrival+this.#origin}:{}),...(r.clockActualArrival!==undefined?{clockActualArrival:r.clockActualArrival+this.#origin}:{}),epoch:this.#epoch}))}).then(actor=>{
+    this.#ready=(this.#weighted?pool.createWeighted.bind(pool):pool.createDirected.bind(pool))(pack,policy,{initialFacts,signal:this.#abort.signal,onDispose:()=>{if(this.#actor)this.#stop('closed',null);},onRecord:r=>this.#record(mappedRecord(r,this.#origin,this.#epoch))}).then(actor=>{
       if(this.#status!=='loading'){actor.dispose();throw stopped();}
       this.#actor=actor;this.#status='ready';return this;
     },error=>{if(this.#status==='loading')this.#stop('faulted','load');throw error;});
@@ -29,6 +33,7 @@ export class ExpressionOwner {
   get fault(){return this.#fault;}
   get root(){return this.#actor?.root??null;}
   get state(){this.#live();const s=this.#actor.state;return Object.freeze({...s,time:s.time+this.#origin,deadline:s.deadline+this.#origin,logicalArrival:s.logicalArrival===null?null:s.logicalArrival+this.#origin,clockArrival:s.clockArrival===null?null:s.clockArrival+this.#origin,clockActualArrival:s.clockActualArrival===null?null:s.clockActualArrival+this.#origin,epoch:this.#epoch});}
+  get weightedState(){this.#live();if(!this.#weighted)return null;const s=this.#actor.weightedState;return Object.freeze({...s,time:s.time+this.#origin,director:this.state,epoch:this.#epoch});}
   get observerStatus(){this.#live();return this.#observerStopped??this.#actor.observerStatus;}
   #live(){if(this.#actor?.disposed)this.#stop('closed',null);if(this.#status!=='ready'||!this.#actor)throw stopped();}
   #enter(){this.#live();if(this.#busy)throw new Error('reentrant owner mutation');this.#busy=true;}
@@ -52,17 +57,17 @@ export class ExpressionOwner {
   #advance(logical,maxSteps){return this.#core(()=>this.#actor.advance(logical-this.#origin,maxSteps));}
   completeBatch(input,maxSteps=64){
     this.#enter();try{
-      assertDataRecord(input,['wallTime','epoch','events'],'owner batch');
+      assertDataRecord(input,this.#weighted?['wallTime','epoch','facts','events']:['wallTime','epoch','events'],'owner batch');
       const {wallTime,epoch,events}=input;
       if(epoch!==this.#epoch)return Object.freeze({accepted:false,reason:'stale-epoch'});
       if(this.#paused)throw new Error('Paused: ordinary intents require a current visible batch');
       this.#steps(maxSteps);const t=this.#time(wallTime);let high=this.#lifetime;
       // Director validates the complete data record before any queue mutation.
       // Global watermark must survive retired director instances.
-      assertDenseDataArray(events,1,32,'events');
+      assertDenseDataArray(events,this.#weighted?0:1,this.#weighted?30:32,'events');
       for(const e of events){const d=e&&typeof e==='object'?Object.getOwnPropertyDescriptors(e):{};
         if(d.type?.value==='request'){const n=d.lifetime?.value;if(!Number.isSafeInteger(n)||n<=high)throw new RangeError('global lifetime must increase');high=n;}}
-      this.#actor.submit({time:t-this.#origin,events});
+      this.#actor.submit(this.#weighted?{time:t-this.#origin,facts:input.facts,events}:{time:t-this.#origin,events});
       this.#lifetime=high;this.#commitTime(wallTime,t);
       const changed=this.#advance(t,maxSteps);return Object.freeze({accepted:true,changed,progress:this.#actor.progress});
     }finally{this.#busy=false;}
@@ -71,9 +76,9 @@ export class ExpressionOwner {
     this.#enter();try{this.#steps(maxSteps);const t=this.#time(wallTime);this.#commitTime(wallTime,t);if(this.#paused)return false;return this.#advance(t,maxSteps);}finally{this.#busy=false;}
   }
   #retire(){
-    this.#core(()=>this.#cancel());this.#epoch++;this.#origin=this.#logical;
+    this.#core(()=>this.#cancel());const oldTime=this.#logical-this.#origin;this.#epoch++;this.#origin=this.#logical;
     if(!this.#actor.observerStatus.enabled){this.#observerStopped??=this.#actor.observerStatus;this.#record=()=>{};}
-    this.#core(()=>this.#actor.retire());
+    this.#core(()=>this.#actor.retire(oldTime));
   }
   suspend(wallTime){
     this.#enter();try{const t=this.#time(wallTime);this.#commitTime(wallTime,t);if(this.#paused)return;
@@ -131,4 +136,9 @@ export class ExpressionOwner {
     }));
   }
   dispose(){if(this.#busy)throw new Error('reentrant owner mutation');this.#stop('closed',null);}
+}
+
+/** Explicit full18 weighted owner. No caller-supplied driver or factory is accepted. */
+export class WeightedExpressionOwner extends ExpressionOwner {
+  constructor(options){super(options,WEIGHTED);}
 }

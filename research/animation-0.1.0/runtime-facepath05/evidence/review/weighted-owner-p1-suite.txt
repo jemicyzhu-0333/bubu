@@ -1,0 +1,38 @@
+
+> bubu-expression-scheduler-p1@0.1.0-p1 test
+> node --test test/*.test.mjs
+
+✔ async admission freezes policy and facts without a writer (1.475786ms)
+✔ retire starts new clock at Basis, preserves RNG/history and requires fresh facts (3.698049ms)
+✔ retire rebases active and existing cooldown deadlines, no RNG reset (0.421186ms)
+✔ retire drops queued real interaction but preserves admitted host lifetime watermark (0.742941ms)
+✔ hasInteraction includes explicit facts even without queued requests (1.252339ms)
+✔ observer sees committed state; throw is isolated and remains disabled across retire (0.736181ms)
+✔ observer reentry is rejected without harming the accepted choice (0.373002ms)
+✔ native async observer rejected safely without unhandled rejection (3.768324ms)
+✔ dispose is idempotent and blocks all subsequent use (0.712655ms)
+✔ huge sparse arrays reject before index enumeration; non-enumerable indices reject (0.54312ms)
+✔ strict admission rejects missing, unknown, getters without executing (1.952926ms)
+✔ rejected decision consumes no random or history; fixed duration consumes no stream (1.185388ms)
+✔ same seed independent streams and selectionWeight separate from amount (1.814727ms)
+✔ empty/zero/source filtered sleeps and aliases cannot bypass recent face (0.350428ms)
+✔ cooldown exact boundary and owned/disabled do not draw (0.4645ms)
+✔ real P0 actualArrival hold and true Basis gap, deterministic 30/60/120 Hz and large jumps (11.024ms)
+✔ same timestamp interaction preempts autonomous decision without RNG consumption (0.539454ms)
+✔ no candidates sleeps without animation (0.436789ms)
+✔ pause invalidates active autonomous intention, resume uses current context (0.635489ms)
+✔ real release resumes autonomous with a request actually accepted by P0 (0.90129ms)
+✔ old release cannot cancel newer interaction reusing labels (0.650241ms)
+✔ scheduler acceptance is nonreentrant and exceptions do not commit RNG (0.51035ms)
+✔ diagnostic state cannot mutate repeat history (0.223788ms)
+✔ input facts do not shorten sampled gap; full hold survives large jump (1.154611ms)
+✔ binding rejects sparse/accessor event arrays before invoking them (0.290107ms)
+✔ non-enumerable config fields reject explicitly rather than disappearing during copy (0.196587ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 105.417931

@@ -1,7 +1,8 @@
+import {validateWeightedInputs} from './weighted-driver.mjs';
 import {validatePackPolicy} from './director.mjs';
 import {ResourceCache} from './resource-cache.mjs';
 import {createNeutralSuite} from './neutral-suite.mjs';
-import {createFaceSuite,createDirectedFaceSuite} from './face-suite.mjs';
+import {createFaceSuite,createDirectedFaceSuite,createWeightedFaceSuite} from './face-suite.mjs';
 import {createSuite} from './suite.mjs';
 import {preparedAdmission} from './pack-loader.mjs';
 import {exact, fail} from './contracts.mjs';
@@ -87,9 +88,13 @@ export class ActorPool {
   create(pack,options={}) {return this.#create(pack,options);}
   createDirected(pack,policy,{signal,onRecord,onDispose}={}) {
     if(!['approved-single-face-paths','approved-full-face-paths-opt-in'].includes(pack.kind))return Promise.reject(new TypeError('Directed actor requires admitted face pack'));
-    return this.#create(pack,{signal,policy:validatePackPolicy(pack,policy),onRecord,onDispose},true);
+    return this.#create(pack,{signal,policy:validatePackPolicy(pack,policy),onRecord,onDispose},'directed');
   }
-  async #create(pack,{signal,policy,onRecord,onDispose}={},directed=false) {
+  createWeighted(pack,policy,{signal,initialFacts,onRecord,onDispose}={}) {
+    const frozen=validateWeightedInputs(pack,policy,initialFacts);
+    return this.#create(pack,{signal,...frozen,onRecord,onDispose},'weighted');
+  }
+  async #create(pack,{signal,policy,initialFacts,onRecord,onDispose}={},mode='timeline') {
     if(this.#closed)fail('DISPOSED','ActorPool');
     if(signal?.aborted)throw signal.reason??new Error('Aborted');
     // Atomic reservation precedes any parse/clone promise and cannot be skipped
@@ -100,8 +105,8 @@ export class ActorPool {
     signal?.addEventListener('abort',onAbort,{once:true});
     let suite=null;
     try {
-      const factory=directed?createDirectedFaceSuite:pack.kind==='approved-art-neutral'?createNeutralSuite:['approved-single-face-paths','approved-full-face-paths-opt-in'].includes(pack.kind)?createFaceSuite:createSuite;
-      suite=await factory(pack,this.#cache,{signal:abort.signal,policy,onRecord,onDispose});
+      const factory=mode==='weighted'?createWeightedFaceSuite:mode==='directed'?createDirectedFaceSuite:pack.kind==='approved-art-neutral'?createNeutralSuite:['approved-single-face-paths','approved-full-face-paths-opt-in'].includes(pack.kind)?createFaceSuite:createSuite;
+      suite=await factory(pack,this.#cache,{signal:abort.signal,policy,initialFacts,onRecord,onDispose});
       if(this.#closed||abort.signal.aborted)throw abort.signal.reason??new Error('Pool disposed');
       const originalDispose=suite.dispose;
       suite.dispose=()=>{

@@ -63,3 +63,14 @@ clothing, contact physics, random P1 policy and gaze remain outside this patch.
 ## Explicit full18 candidate
 
 The seven-slot default is unchanged. See [FULL18](spec/FULL18.md) for the separate `prepareFullFacePack` opt-in, exact resource budgets, CPU tests and GPU evidence limits.
+
+## Weighted full18 owner integration
+
+WeightedExpressionOwner and ActorPool.createWeighted now wire the actual admitted
+full18 model directly to the canonical sibling P1 binding as the sole driver.
+The prior slice7/full18 explicit-director APIs remain. Runtime tests:289/289;
+P1 tests:26/26. Production policy remains empty, with testfixture values only.
+See spec/WEIGHTED-OWNER.md for full batches,30-event limit, lifecycle retirement,
+RNG/cooldown continuity and single-writer guarantees. Both runtime-facepath05 and
+expression-scheduler-p1 sibling directories are required in the Git layout.
+CPU/API verification does not certify WebGL, gesture UX or artistic timing.

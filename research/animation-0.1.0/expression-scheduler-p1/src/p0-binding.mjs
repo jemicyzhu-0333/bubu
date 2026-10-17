@@ -2,23 +2,40 @@ import {WeightedScheduler,LIMITS} from './scheduler.mjs';
 import {ExpressionDirector} from '../../runtime-facepath05/src/director.mjs';
 import {APPROVED_FULL_FACE_SOURCE,FULL_FACE_PROFILE_SHA256} from '../../runtime-facepath05/src/approved-full-face-source.mjs';
 export const ADMISSION=Object.freeze({sourceSha256:APPROVED_FULL_FACE_SOURCE.sha256,profileSha256:FULL_FACE_PROFILE_SHA256,faceIds:APPROVED_FULL_FACE_SOURCE.slotIds});
+export function validateBindingInputs(policy,initialFacts){const scheduler=new WeightedScheduler(policy,ADMISSION);if(!scheduler.policy.candidates.length)throw RangeError('binding requires explicit candidates; an empty production policy must remain unbound');return Object.freeze({policy:scheduler.policy,initialFacts:scheduler.validateFacts(initialFacts)});}
 const IDLE='p1_idle';
 function exact(x,keys){if(!x||Object.getPrototypeOf(x)!==Object.prototype)throw TypeError('plain input');const d=Object.getOwnPropertyDescriptors(x),ks=Reflect.ownKeys(x);if(ks.length!==keys.length||ks.some(k=>!keys.includes(k)||!Object.hasOwn(d[k],'value')||!d[k].enumerable))throw TypeError('exact data fields');}
 function id(x){if(typeof x!=='string'||!/^[A-Za-z0-9_-]{1,64}$/.test(x)||x===IDLE)throw TypeError('identifier');}
 /** Reference binding: all face writes remain inside the unmodified P0 Director. */
 export class P0SchedulerBinding {
- #scheduler;#director;#facts;#queue=[];#time=0;#sealed=-Infinity;#last=-Infinity;#next=0;#release=Infinity;#intent=null;#idleLifetime=null;#interaction=null;#records=[];#pending=null;#progress={complete:true,reached:0,target:0,steps:0};#busy=false;#hostLifetime=0;#gapUntil=0;
- constructor(policy,initialFacts,apply){
+ #scheduler;#director;#facts;#queue=[];#time=0;#sealed=-Infinity;#last=-Infinity;#next=0;#release=Infinity;#intent=null;#idleLifetime=null;#interaction=null;#records=[];#pending=null;#progress={complete:true,reached:0,target:0,steps:0};#busy=false;#hostLifetime=0;#gapUntil=0;#apply;#p0Policy;#onRecord;#observerFailure=null;#notifications=[];#disposed=false;
+ constructor(policy,initialFacts,apply,onRecord=()=>{}){
+  if(typeof apply!=='function'||typeof onRecord!=='function')throw TypeError('callbacks');this.#apply=apply;this.#onRecord=onRecord;
   this.#scheduler=new WeightedScheduler(policy,ADMISSION);this.#facts=this.#scheduler.validateFacts(initialFacts);
   const p=this.#scheduler.policy;if(p.candidates.length===0)throw RangeError('binding requires explicit candidates; an empty production policy must remain unbound');
-  this.#director=new ExpressionDirector({format:'bubu-expression-policy-p0',version:'0.1.0-p0',sourceSha256:p.sourceSha256,profileSha256:p.profileSha256,candidates:p.candidates.length?p.candidates.map(c=>({key:c.key,faceId:c.faceId,amount:c.amount,enterSec:c.enterSec,exitSec:c.exitSec,holdSec:3600,gapSec:.001})):[]},apply);
+  this.#p0Policy={format:'bubu-expression-policy-p0',version:'0.1.0-p0',sourceSha256:p.sourceSha256,profileSha256:p.profileSha256,candidates:p.candidates.length?p.candidates.map(c=>({key:c.key,faceId:c.faceId,amount:c.amount,enterSec:c.enterSec,exitSec:c.exitSec,holdSec:3600,gapSec:.001})):[]};this.#director=new ExpressionDirector(this.#p0Policy,apply);
  }
- get state(){return Object.freeze({time:this.#time,facts:this.#facts,scheduler:this.#scheduler.state,director:this.#director.state});}
- get progress(){return Object.freeze({...this.#progress});}
- drainRecords(){const out=this.#records;this.#records=[];return out;}
- #log(type,extra={}){if(this.#records.length>=2048)this.#records.shift();this.#records.push(Object.freeze({time:this.#time,type,...extra}));}
+ #live(){if(this.#disposed)throw Error('binding disposed');}
+ get disposed(){return this.#disposed;}
+ get time(){this.#live();return this.#time;}
+ get directorState(){this.#live();return this.#director.state;}
+ get maxAdmittedLifetime(){this.#live();return this.#hostLifetime;}
+ get hasInteraction(){this.#live();return this.#facts.interactionOwned||this.#interaction!==null||this.#director.hasInteraction||this.#queue.some(b=>b.facts.interactionOwned||b.events.some(e=>e.type==='request'));}
+ get observerStatus(){this.#live();return Object.freeze({enabled:this.#onRecord!==null,failure:this.#observerFailure});}
+ get state(){this.#live();return Object.freeze({time:this.#time,facts:this.#facts,scheduler:this.#scheduler.state,director:this.#director.state});}
+ get progress(){this.#live();return Object.freeze({...this.#progress});}
+ drainRecords(){this.#live();const out=this.#records;this.#records=[];return out;}
+ #log(type,extra={}){const r=Object.freeze({time:this.#time,type,...extra});if(this.#records.length>=2048)this.#records.shift();this.#records.push(r);if(this.#onRecord!==null){if(this.#notifications.length>=8)throw Error('observer boundary capacity');this.#notifications.push(r);}}
+ #deliver(){while(this.#notifications.length){const r=this.#notifications.shift();try{const result=this.#onRecord(r);if(result instanceof Promise){Promise.prototype.then.call(result,()=>undefined,()=>undefined);this.#disableObserver('async-return',r);}}catch{this.#disableObserver('throw',r);}}}
+ #disableObserver(kind,r){this.#observerFailure=Object.freeze({kind,eventType:r.type,time:r.time});this.#onRecord=null;this.#notifications.length=0;}
+ retire(time){
+  this.#live();if(this.#busy)throw Error('reentrant binding');if(!Number.isFinite(time)||time<this.#time||time>LIMITS.maxTime)throw RangeError('retire time');this.#busy=true;
+  try{this.#scheduler.retire(time);this.#director=null;this.#queue=[];this.#intent=null;this.#interaction=null;this.#idleLifetime=null;this.#release=Infinity;this.#next=Infinity;this.#gapUntil=0;this.#pending=null;this.#time=0;this.#sealed=-Infinity;this.#last=-Infinity;this.#records=[];this.#notifications=[];this.#facts=Object.freeze({...this.#facts,enabled:false,interactionOwned:false});this.#progress={complete:true,reached:0,target:0,steps:0};this.#director=new ExpressionDirector(this.#p0Policy,this.#apply);}finally{this.#busy=false;}
+ }
+ dispose(){if(this.#busy)throw Error('reentrant binding');if(this.#disposed)return;this.#disposed=true;this.#director=null;this.#scheduler=null;this.#queue=[];this.#records=[];this.#notifications=[];this.#intent=this.#interaction=this.#apply=this.#p0Policy=this.#onRecord=this.#facts=null;}
+
  submit(batch){
-  if(this.#busy||this.#pending!==null)throw Error('finish advance first');exact(batch,['time','facts','events']);if(!Number.isFinite(batch.time)||batch.time<0||batch.time>LIMITS.maxTime||batch.time<=this.#sealed||batch.time<=this.#last)throw RangeError('batch time');if(!Array.isArray(batch.events)||Object.getPrototypeOf(batch.events)!==Array.prototype||Reflect.ownKeys(batch.events).length!==batch.events.length+1||Array.from({length:batch.events.length},(_,i)=>i).some(i=>!Object.hasOwn(Object.getOwnPropertyDescriptor(batch.events,String(i))??{},'value'))||batch.events.length>30||this.#queue.length>=128)throw RangeError('batch capacity');
+  this.#live();if(this.#busy||this.#pending!==null)throw Error('finish advance first');exact(batch,['time','facts','events']);if(!Number.isFinite(batch.time)||batch.time<0||batch.time>LIMITS.maxTime||batch.time<=this.#sealed||batch.time<=this.#last)throw RangeError('batch time');if(!Array.isArray(batch.events)||Object.getPrototypeOf(batch.events)!==Array.prototype||batch.events.length>30||this.#queue.length>=128)throw RangeError('batch capacity');const ds=Object.getOwnPropertyDescriptors(batch.events);if(Reflect.ownKeys(ds).length!==batch.events.length+1)throw TypeError('dense event array');for(let i=0;i<batch.events.length;i++){const d=ds[i];if(!d||!Object.hasOwn(d,'value')||!d.enumerable)throw TypeError('enumerable event data index');}
   let hostLifetime=this.#hostLifetime;const facts=this.#scheduler.validateFacts(batch.facts),events=batch.events.map(e=>{const type=Object.getOwnPropertyDescriptor(e??{},'type')?.value;
    if(type==='request'){exact(e,['type','owner','requestId','lifetime','candidate','holdMode']);id(e.owner);id(e.requestId);if(!Number.isSafeInteger(e.lifetime)||e.lifetime<=hostLifetime)throw RangeError('host lifetime must increase');hostLifetime=e.lifetime;if(!this.#scheduler.policy.candidates.some(c=>c.key===e.candidate)||!['keep','restart'].includes(e.holdMode)||!facts.interactionOwned)throw RangeError('interaction request');}
    else if(type==='release'){exact(e,['type','owner','requestId','lifetime']);id(e.owner);id(e.requestId);if(!Number.isSafeInteger(e.lifetime)||e.lifetime<1)throw RangeError('host lifetime');}
@@ -27,10 +44,10 @@ export class P0SchedulerBinding {
   this.#queue.push({time:batch.time,facts,events});this.#last=batch.time;this.#hostLifetime=hostLifetime;return this;
  }
  #deadline(){return Math.min(this.#queue[0]?.time??Infinity,this.#next,this.#release,this.#director.nextDeadline());}
- nextDeadline(){return this.#pending!==null?this.#time:this.#deadline();}
- isAnimating(){return this.#pending!==null||this.#director.isAnimating();}
+ nextDeadline(){this.#live();return this.#pending!==null?this.#time:this.#deadline();}
+ isAnimating(){this.#live();return this.#pending!==null||this.#director.isAnimating();}
  advance(target,maxSteps=128){
-  if(this.#busy)throw Error('reentrant binding');if(!Number.isFinite(target)||target<this.#time||target>LIMITS.maxTime||(this.#pending!==null&&target<this.#pending)||!Number.isInteger(maxSteps)||maxSteps<1||maxSteps>4096)throw RangeError('advance bounds');this.#busy=true;let steps=0,changed=false;
+  this.#live();if(this.#busy)throw Error('reentrant binding');if(!Number.isFinite(target)||target<this.#time||target>LIMITS.maxTime||(this.#pending!==null&&target<this.#pending)||!Number.isInteger(maxSteps)||maxSteps<1||maxSteps>4096)throw RangeError('advance bounds');this.#busy=true;let steps=0,changed=false;
   try{
    while(this.#deadline()<=target&&steps<maxSteps){
     const at=this.#deadline();this.#time=at;const before=this.#director.state;let events=[],external=false;const input=this.#queue[0]?.time===at?this.#queue.shift():null;
@@ -55,7 +72,7 @@ export class P0SchedulerBinding {
     }
     // After interrupted/real exits, resume from current facts only, after Basis.
     if(!this.#intent&&!this.#facts.interactionOwned&&this.#facts.enabled&&this.#next===Infinity&&after.phase==='gap'&&before.phase!=='gap')this.#next=after.deadline;
-    this.#sealed=at;steps++;
+    this.#sealed=at;this.#deliver();steps++;
    }
    const complete=this.#deadline()>target;if(complete){changed=this.#director.advance(target)||changed;this.#time=target;this.#sealed=target;this.#pending=null;}else this.#pending=target;this.#progress={complete,reached:this.#time,target,steps};return changed;
   }finally{this.#busy=false;}
