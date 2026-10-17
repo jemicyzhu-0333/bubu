@@ -1,0 +1,65 @@
+{
+  "neutralFaceCup": [
+    {
+      "mesh": "A_brow_L",
+      "cupPairs": 0
+    },
+    {
+      "mesh": "A_brow_R",
+      "cupPairs": 0
+    },
+    {
+      "mesh": "A_eye_highlight_L",
+      "cupPairs": 0
+    },
+    {
+      "mesh": "A_eye_highlight_R",
+      "cupPairs": 0
+    },
+    {
+      "mesh": "A_eye_L",
+      "cupPairs": 0
+    },
+    {
+      "mesh": "A_eye_R",
+      "cupPairs": 0
+    },
+    {
+      "mesh": "A_mouth_ring",
+      "cupPairs": 0
+    },
+    {
+      "mesh": "A_tongue",
+      "cupPairs": 0
+    }
+  ],
+  "hashes": {
+    "contact-route-fit.json": "419f5d0d929edb977ce8103d4616461bf0e1c8cd09c8f8218b4c9cd611d95f0f",
+    "contact-route-pose.npy": "bf91c18cd49961179415c569278cb48482da76e285f3bf7482f1495693a0df54",
+    "contact-cup-meshes.json": "802b50adce38d0dc9752f5c63c1e40d9041552d24b19065189629eee9bbfae30"
+  },
+  "scope": "static triangle overlap in both body/cup surface directions, no continuous guarantee",
+  "fitSHA256": "419f5d0d929edb977ce8103d4616461bf0e1c8cd09c8f8218b4c9cd611d95f0f",
+  "parts": [
+    {
+      "mesh": "Sip_cup_shell",
+      "triangleIntersectionPairs": 0,
+      "examples": [],
+      "bodyVertexBounds": null
+    },
+    {
+      "mesh": "Sip_cup_handle",
+      "triangleIntersectionPairs": 0,
+      "examples": [],
+      "bodyVertexBounds": null
+    },
+    {
+      "mesh": "Sip_tea_surface",
+      "triangleIntersectionPairs": 0,
+      "examples": [],
+      "bodyVertexBounds": null
+    }
+  ],
+  "bodyNonAdjacentSelfIntersections": 0,
+  "selfExamples": []
+}

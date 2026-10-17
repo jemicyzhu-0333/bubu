@@ -1,0 +1,56 @@
+{
+  "mouthCupClosestVertexTriangle": {
+    "distance": 0.011990471743047237,
+    "cupVertex": 292,
+    "cupPoint": [
+      2.878092989627712e-11,
+      0.645000006597165,
+      0.7845000018963285
+    ],
+    "mouthPoint": [
+      -8.436536662978375e-18,
+      0.6490736603736877,
+      0.7732227444648743
+    ],
+    "mouthNormal": [
+      0.011498010717332363,
+      -0.339717835187912,
+      0.9404571652412415
+    ],
+    "mouthTriangle": 1120
+  },
+  "scope": "static hand vertex to real triangulated cup shell closest points, contact location need art review; no continuous clearance bound",
+  "hands": [
+    {
+      "side": -1,
+      "minimumVertexToCupTriangleDistance": 0.00040233891922980547,
+      "nearestBodyVertex": 8257,
+      "cupPoint": [
+        -0.1803743839263916,
+        0.594819962978363,
+        0.8677114844322205
+      ],
+      "cupTriangle": 661,
+      "verticesWithin.003": 1,
+      "verticesWithin.01": 5
+    },
+    {
+      "side": 1,
+      "minimumVertexToCupTriangleDistance": 0.0005029928288422525,
+      "nearestBodyVertex": 23833,
+      "cupPoint": [
+        0.17677289247512817,
+        0.5824770927429199,
+        0.8556960821151733
+      ],
+      "cupTriangle": 357,
+      "verticesWithin.003": 3,
+      "verticesWithin.01": 5
+    }
+  ],
+  "hashes": {
+    "contact-route-fit.json": "419f5d0d929edb977ce8103d4616461bf0e1c8cd09c8f8218b4c9cd611d95f0f",
+    "contact-route-pose.npy": "bf91c18cd49961179415c569278cb48482da76e285f3bf7482f1495693a0df54",
+    "contact-cup-meshes.json": "802b50adce38d0dc9752f5c63c1e40d9041552d24b19065189629eee9bbfae30"
+  }
+}

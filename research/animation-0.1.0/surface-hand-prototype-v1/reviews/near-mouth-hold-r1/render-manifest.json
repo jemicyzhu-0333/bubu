@@ -1,0 +1,59 @@
+{
+  "scope": "Blender CPU rendering of actual Three.js world-deformed meshes; WebGL/OS unverified",
+  "sourceGLB": "/workspace/scratch/10657b778e8b/bubu-petting-continuous-r2-20261017/research/animation-0.1.0/runtime-facepath05/fixtures/face-d2/asset.glb",
+  "fixedCamera": [
+    0,
+    -8,
+    1.5
+  ],
+  "span": 3.3,
+  "frames": [
+    {
+      "index": 0,
+      "time": 0,
+      "label": "contact candidate False yaw 0"
+    },
+    {
+      "index": 1,
+      "time": 1,
+      "label": "contact candidate False yaw 45"
+    },
+    {
+      "index": 2,
+      "time": 2,
+      "label": "contact candidate False yaw 90"
+    },
+    {
+      "index": 3,
+      "time": 3,
+      "label": "contact candidate False yaw 180"
+    },
+    {
+      "index": 4,
+      "time": 4,
+      "label": "contact candidate True yaw 0"
+    },
+    {
+      "index": 5,
+      "time": 5,
+      "label": "contact candidate True yaw 45"
+    },
+    {
+      "index": 6,
+      "time": 6,
+      "label": "contact candidate True yaw 90"
+    },
+    {
+      "index": 7,
+      "time": 7,
+      "label": "contact candidate True yaw 180"
+    }
+  ],
+  "configId": "surface-hand-visible-near-mouth-hold-r1",
+  "status": "isolated static near-mouth HOLD, no sip or continuous clearance claim",
+  "geometryHashes": {
+    "contact-route-fit.json": "419f5d0d929edb977ce8103d4616461bf0e1c8cd09c8f8218b4c9cd611d95f0f",
+    "contact-route-pose.npy": "bf91c18cd49961179415c569278cb48482da76e285f3bf7482f1495693a0df54",
+    "contact-cup-meshes.json": "802b50adce38d0dc9752f5c63c1e40d9041552d24b19065189629eee9bbfae30"
+  }
+}
