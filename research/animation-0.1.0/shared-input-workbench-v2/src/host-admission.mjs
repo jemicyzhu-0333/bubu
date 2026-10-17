@@ -1,3 +1,4 @@
+import {PET_CANDIDATES} from '../../petting-continuous-r2/src/pet-policy.mjs';
 import {APPROVED_D2_FACE_SOURCE,D2_FACE_PROFILE_SHA256} from '../../runtime-facepath05/src/approved-d2-face-source.mjs';
 // Browser-safe admission: caller supplies a bounded pack reader, never an actor,
 // eligibility claim, face owner, or body writer. No node:fs in this import graph.
@@ -17,5 +18,6 @@ export async function createAdmittedHost(readPack,{modelVariant='full18'}={}){
  // Landing-only timing never changes the ordinary petting P2 candidate.
  policy.candidates.push({key:'landingP2',faceId:'P2',amount:1,selectionWeight:1,enterSec:.10,exitSec:.40,hold:{kind:'fixed',sec:30},gap:{kind:'fixed',sec:.001},cooldownSec:0,sources:['testfixture']});
  policy.candidates.push({key:'restR0',faceId:'R0',amount:1,selectionWeight:1,enterSec:.16,exitSec:.20,hold:{kind:'fixed',sec:30},gap:{kind:'fixed',sec:.001},cooldownSec:0,sources:['testfixture']});
+ policy.candidates.push(...PET_CANDIDATES);
  let owner;try{owner=new WeightedExpressionOwner({pool,pack,policy,initialFacts:facts(false),visibilityPolicy:'freeze'});await owner.ready;return {owner,pool,pack};}catch(error){try{owner?.dispose();}finally{pool.dispose();}throw error;}
 }

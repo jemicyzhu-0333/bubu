@@ -2,7 +2,7 @@ import * as T from 'three';
 import {createAdmittedHost, facts} from './host-admission.mjs';
 import {BodyRigAdapter} from '../../drag-body-prototype-v1/src/body-adapter.mjs';
 import {DragController,smooth} from '../../drag-landing-r5/src/drag-controller.mjs';
-import {PettingController} from '../../petting-prototype-v1/src/petting-controller.mjs';
+import {PettingController} from '../../petting-continuous-r2/src/petting-controller.mjs';
 const blend=(a,b,u)=>{const out={body:{},joints:{}};for(const k of ['x','y','z'])out.body[k]=(a.body?.[k]??0)*(1-u)+(b.body?.[k]??0)*u;for(const n of ['Shoulder_L','Shoulder_R','Hip_L','Hip_R']){out.joints[n]={};for(const k of ['x','y','z'])out.joints[n][k]=(a.joints?.[n]?.[k]??0)*(1-u)+(b.joints?.[n]?.[k]??0)*u;}return out;};
 /** DOM pointer adapter, one actor/face owner/body writer. scheduler uses seconds,
  * while browser default maps performance.now and RAF milliseconds to seconds.

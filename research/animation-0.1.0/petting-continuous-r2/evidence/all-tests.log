@@ -1,0 +1,25 @@
+✔ qualification and early release do not trigger a comfort face (2.030564ms)
+✔ entry, stable sustain, sparse deterministic response and exact release (1.437808ms)
+✔ drag in pending or entering hands off once and cannot requalify (0.39128ms)
+✔ lost capture hidden and new-event interruptions release current pose continuously (0.559685ms)
+✔ stale pointer and secondary down cannot steal the session (0.303778ms)
+✔ same authored events produce equal full body across 30/60/120 Hz (5.179043ms)
+✔ long hold is bounded, calm and never turns into an autonomous face lottery (19.590232ms)
+✔ contact change is position and velocity continuous; no static geometry channels (0.379883ms)
+✔ repeated holds, invalid event rejection, disposal (0.972357ms)
+✔ quick regrab and early release during recovery still converge to exact rest (0.396338ms)
+✔ 60-second hold has one entry, at least two distinct small responses and a sparse genuine 08 look (1.503088ms)
+✔ contact movement preserves authored response phase, qualification origin, and velocity (0.212921ms)
+✔ release keeps one gentle path before idle instead of inserting R0 beat (0.239241ms)
+✔ first sparse eye response remains 32–40 seconds across sessions (2.121ms)
+✔ actual D2 60s: one owned actor, P2 same-path changes, one sparse 08 response and no idle lottery (34517.387562ms)
+✔ D2 held phase keeps continuity through small strokes; drag preempts and cleanly lands (1287.601852ms)
+✔ D2 cancellation, hidden during sparse response, and regrab have no stale pet face or capture (1976.558965ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 37977.662594

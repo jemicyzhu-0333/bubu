@@ -40,7 +40,11 @@
     "../expression-scheduler-p1/src/scheduler.mjs": "d0dc72af4dd5d6a42caed64efe0c2b17a0c49003c4bccf5f8b983b0f6c4b7df1",
     "../drag-landing-r5/src/drag-controller.mjs": "0413b3b1604b32fa4e969ce29a8ebc1885e36316b8f94e16fea8f60e7a91efb1",
     "../drag-landing-r5/src/approved-struggle-r2.mjs": "ea8c30385a9a97c19735a8d68cc027eed9ad86a36d8961c47f616175075af838",
-    "../drag-landing-r5/src/input-intent.mjs": "3edbd987838c5af6fb00cb6c62b3103c05a8d03b839d4ecdbb3a603051344f51"
+    "../drag-landing-r5/src/input-intent.mjs": "3edbd987838c5af6fb00cb6c62b3103c05a8d03b839d4ecdbb3a603051344f51",
+    "../petting-continuous-r2/src/petting-controller.mjs": "fe4e05654953f77a632b24a7c84452239bb516c67b552ea5fe8c65308f5648b4",
+    "../petting-continuous-r2/src/pet-policy.mjs": "902f2d644fb214b9c11e123a1646079dc15304edb85f9aafd091cc1b3e859885",
+    "src/pointer-host.mjs": "656ca691f68d6d74a23952611814bfb383853d4e50f62e9f528d091b05c26b60",
+    "src/host-admission.mjs": "3d3fe6fc8bdbec9b8fad99585103a3dbea2816a6b1b14938e284a20f9f1107aa"
   },
   "validationBoundary": "Actual full18 and D2 CPU/Raycaster fake EventTarget; no browser, compiled GLSL, WebGL or OS acceptance",
   "runtimeBaselineCommit": "2812a75d6055cb963d839a83f04cc899572e42f0",
@@ -49,7 +53,7 @@
     "landingP2": {
       "faceId": "P2",
       "enterSec": 0.1,
-      "exitSec": 0.12,
+      "exitSec": 0.4,
       "gapSec": 0.001
     },
     "restR0": {
@@ -68,5 +72,8 @@
     "pointer-router-v1",
     "pointer-router-v2",
     "pointer-router-v3"
-  ]
+  ],
+  "pettingBaselineCommit": "12b47ac55e54dcc40d0e9b49c16bf7526bc59a94",
+  "pettingDependency": "petting-continuous-r2",
+  "pettingScope": "P2 sustained enjoyment, sparse approved 08 response, damped four-bone posture; latest landing smile tail preserved"
 }
