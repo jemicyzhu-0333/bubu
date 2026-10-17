@@ -1,0 +1,769 @@
+{
+  "scope": "V1 44 action inventory; grouping is feasibility triage, not approved replacement choreography or supported runtime list",
+  "sourceCommit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+  "baseline": "94525d712c2dd8516e2433a86e13ea113fc9bbda",
+  "all18FacesAvailable": true,
+  "existingAcceptedInteractions": [
+    "drag-r5",
+    "petting-continuous-r2"
+  ],
+  "groups": {
+    "current-envelope-candidate": 2,
+    "locomotion-support-needed": 7,
+    "hand-contact-articulation-needed": 27,
+    "body-posture-or-scene-needed": 7,
+    "form-semantic-review-needed": 1
+  },
+  "actions": [
+    {
+      "v1Order": 1,
+      "id": "workout",
+      "name": "突然健身",
+      "motion": "pushup",
+      "prop": "headband",
+      "sourceExpression": "work.ready",
+      "group": "body-posture-or-scene-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 71,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 2,
+      "id": "chase-butterfly",
+      "name": "追蝴蝶",
+      "motion": "dash",
+      "prop": "butterfly",
+      "sourceExpression": "life.attentive",
+      "group": "locomotion-support-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 72,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 3,
+      "id": "hiccup",
+      "name": "打嗝",
+      "motion": "hiccup",
+      "prop": "cup",
+      "sourceExpression": "react.surprised",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 73,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 4,
+      "id": "juggle",
+      "name": "耍杂技",
+      "motion": "juggle",
+      "prop": "balls",
+      "sourceExpression": "react.happy",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 74,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 5,
+      "id": "carry-energy",
+      "name": "搬运能量",
+      "motion": "carry",
+      "prop": "energy",
+      "sourceExpression": "work.starting",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 75,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 6,
+      "id": "pit-fall",
+      "name": "掉进小坑",
+      "motion": "fall",
+      "prop": "hole",
+      "sourceExpression": "react.surprised",
+      "group": "body-posture-or-scene-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 76,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 7,
+      "id": "mirror-meet",
+      "name": "遇见镜像",
+      "motion": "mirror",
+      "prop": "mirror",
+      "sourceExpression": "life.attentive",
+      "group": "body-posture-or-scene-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 77,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 8,
+      "id": "sing",
+      "name": "桌角演唱会",
+      "motion": "sway",
+      "prop": "microphone",
+      "sourceExpression": "react.happy",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 78,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 9,
+      "id": "stuck-corner",
+      "name": "角落装睡",
+      "motion": "squish",
+      "prop": "ellipsis",
+      "sourceExpression": "life.peek",
+      "group": "body-posture-or-scene-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 79,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 10,
+      "id": "chase-laser",
+      "name": "追逐光点",
+      "motion": "dash",
+      "prop": "laser",
+      "sourceExpression": "life.attentive",
+      "group": "locomotion-support-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 80,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 11,
+      "id": "dig-treasure",
+      "name": "挖到收藏",
+      "motion": "dig",
+      "prop": "treasure",
+      "sourceExpression": "life.attentive",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 81,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 12,
+      "id": "yawn",
+      "name": "大大哈欠",
+      "motion": "stretch",
+      "prop": "sleep-cap",
+      "sourceExpression": "life.drowsy",
+      "group": "body-posture-or-scene-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 82,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 13,
+      "id": "sneeze",
+      "name": "像素喷嚏",
+      "motion": "recoil",
+      "prop": "tissue",
+      "sourceExpression": "react.surprised",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 83,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 14,
+      "id": "bubble-blow",
+      "name": "吹泡泡",
+      "motion": "float",
+      "prop": "bubble-wand",
+      "sourceExpression": "react.happy",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 84,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 15,
+      "id": "meditate",
+      "name": "安静打坐",
+      "motion": "breathe",
+      "prop": "cushion",
+      "sourceExpression": "life.space",
+      "group": "current-envelope-candidate",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 85,
+        "status": "code-confirmed"
+      },
+      "notes": "Cushion support, feet/body-ground transition and state lifecycle still need design; bounded body motion is only a plausible starting point."
+    },
+    {
+      "v1Order": 16,
+      "id": "wave",
+      "name": "认真挥手",
+      "motion": "wave",
+      "prop": "none",
+      "sourceExpression": "react.happy",
+      "group": "current-envelope-candidate",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 86,
+        "status": "code-confirmed"
+      },
+      "notes": "Tiny side-fin gesture may fit current shoulder envelope; V1 recognizable wave amplitude must be checked, not assumed complete."
+    },
+    {
+      "v1Order": 17,
+      "id": "stretch",
+      "name": "全身伸展",
+      "motion": "stretch",
+      "prop": "none",
+      "sourceExpression": "react.relieved",
+      "group": "body-posture-or-scene-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 87,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 18,
+      "id": "happy-hop",
+      "name": "开心蹦跳",
+      "motion": "hop",
+      "prop": "none",
+      "sourceExpression": "react.happy",
+      "group": "locomotion-support-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 88,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 19,
+      "id": "high-five",
+      "name": "开心击掌",
+      "motion": "high-five",
+      "prop": "high-five",
+      "sourceExpression": "react.happy",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 89,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 20,
+      "id": "spin",
+      "name": "原地转圈",
+      "motion": "spin",
+      "prop": "none",
+      "sourceExpression": "react.happy",
+      "group": "locomotion-support-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 90,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 21,
+      "id": "dance",
+      "name": "音乐摇摆",
+      "motion": "dance",
+      "prop": "music-notes",
+      "sourceExpression": "react.celebrate",
+      "group": "locomotion-support-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 91,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 22,
+      "id": "look-around",
+      "name": "左右张望",
+      "motion": "look",
+      "prop": "binoculars",
+      "sourceExpression": "life.space",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 92,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 23,
+      "id": "tail-wiggle",
+      "name": "开心摇尾巴",
+      "motion": "wag",
+      "prop": "tail",
+      "sourceExpression": "react.happy",
+      "group": "form-semantic-review-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 93,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 24,
+      "id": "read-book",
+      "name": "认真读书",
+      "motion": "read",
+      "prop": "book",
+      "sourceExpression": "work.focus",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 94,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 25,
+      "id": "take-note",
+      "name": "记下这一句",
+      "motion": "write",
+      "prop": "document",
+      "sourceExpression": "life.attentive",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 95,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 26,
+      "id": "type-keyboard",
+      "name": "键盘冲浪",
+      "motion": "type",
+      "prop": "keyboard",
+      "sourceExpression": "work.deep-focus",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 96,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 27,
+      "id": "sip-tea",
+      "name": "喝口热茶",
+      "motion": "sip",
+      "prop": "cup",
+      "sourceExpression": "work.rest",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 97,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 28,
+      "id": "paper-plane",
+      "name": "放纸飞机",
+      "motion": "glide",
+      "prop": "plane",
+      "sourceExpression": "work.switch",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 98,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 29,
+      "id": "paper-return",
+      "name": "回信纸飞机",
+      "motion": "glide",
+      "prop": "plane",
+      "sourceExpression": "react.happy",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 99,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 30,
+      "id": "sweep",
+      "name": "清扫桌面",
+      "motion": "sweep",
+      "prop": "broom",
+      "sourceExpression": "work.wrap-up",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 100,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 31,
+      "id": "magic-trick",
+      "name": "像素魔术",
+      "motion": "magic",
+      "prop": "hat",
+      "sourceExpression": "react.surprised",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 101,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 32,
+      "id": "telescope",
+      "name": "观察星星",
+      "motion": "telescope",
+      "prop": "telescope",
+      "sourceExpression": "life.space",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 102,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 33,
+      "id": "plant-water",
+      "name": "给小苗浇水",
+      "motion": "water",
+      "prop": "watering-can",
+      "sourceExpression": "react.encouraging",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 103,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 34,
+      "id": "knit-scarf",
+      "name": "织像素围巾",
+      "motion": "knit",
+      "prop": "yarn",
+      "sourceExpression": "work.deep-focus",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 104,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 35,
+      "id": "drum-solo",
+      "name": "迷你鼓点",
+      "motion": "drum",
+      "prop": "drum",
+      "sourceExpression": "react.happy",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 105,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 36,
+      "id": "moonwalk",
+      "name": "月球漫步",
+      "motion": "moonwalk",
+      "prop": "sparkle-shoes",
+      "sourceExpression": "react.happy",
+      "group": "locomotion-support-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 106,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 37,
+      "id": "hide-box",
+      "name": "躲进纸箱",
+      "motion": "hide",
+      "prop": "box",
+      "sourceExpression": "life.peek",
+      "group": "body-posture-or-scene-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 107,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 38,
+      "id": "build-blocks",
+      "name": "搭像素积木",
+      "motion": "build",
+      "prop": "blocks",
+      "sourceExpression": "work.focus",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 108,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 39,
+      "id": "catch-star",
+      "name": "接住流星",
+      "motion": "reach",
+      "prop": "star",
+      "sourceExpression": "react.surprised",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 109,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 40,
+      "id": "umbrella-dance",
+      "name": "雨伞转舞",
+      "motion": "umbrella",
+      "prop": "umbrella",
+      "sourceExpression": "react.happy",
+      "group": "locomotion-support-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 110,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 41,
+      "id": "snack-picnic",
+      "name": "桌角野餐",
+      "motion": "picnic",
+      "prop": "picnic",
+      "sourceExpression": "react.satisfied",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 111,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 42,
+      "id": "shadow-box",
+      "name": "影子拳击",
+      "motion": "box",
+      "prop": "gloves",
+      "sourceExpression": "work.ready",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 112,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 43,
+      "id": "tiny-chef",
+      "name": "迷你料理",
+      "motion": "cook",
+      "prop": "pan",
+      "sourceExpression": "work.focus",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 113,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "v1Order": 44,
+      "id": "photo-pose",
+      "name": "拍照定格",
+      "motion": "pose",
+      "prop": "camera",
+      "sourceExpression": "life.attentive",
+      "group": "hand-contact-articulation-needed",
+      "status": "not_migrated",
+      "runtimeReady": false,
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 114,
+        "status": "code-confirmed"
+      }
+    }
+  ]
+}

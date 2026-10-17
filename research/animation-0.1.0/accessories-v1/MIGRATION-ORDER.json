@@ -1,0 +1,1013 @@
+{
+  "sourceCommit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+  "scope": "Dango persistent wardrobe; original source order; temporary props excluded",
+  "items": [
+    {
+      "order": 1,
+      "status": "candidate-modeled-CPU-host-tested-visual-reviewed",
+      "id": "milestone.sprout",
+      "label": "小芽",
+      "slot": "head",
+      "layer": "back",
+      "z": 40,
+      "parts": [
+        "back"
+      ],
+      "minLevel": 3,
+      "formId": "dango",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "headwear",
+      "exclusivePriority": 20,
+      "renderKey": "sprout",
+      "effect": "sprout-sway",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 14,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 67,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "order": 2,
+      "status": "pending",
+      "id": "milestone.sunhat",
+      "label": "小草帽",
+      "slot": "head",
+      "layer": "back",
+      "z": 46,
+      "parts": [
+        "back",
+        "front"
+      ],
+      "minLevel": 5,
+      "formId": "dango",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "headwear",
+      "exclusivePriority": 50,
+      "renderKey": "sunhat",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 4,
+        "top": 16,
+        "right": 4,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 76,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "order": 3,
+      "status": "pending",
+      "id": "milestone.satchel",
+      "label": "小挎包",
+      "slot": "body",
+      "layer": "front",
+      "z": 24,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 8,
+      "formId": "dango",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "sidebag",
+      "exclusivePriority": 40,
+      "renderKey": "satchel",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 14,
+        "top": 0,
+        "right": 4,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 85,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "order": 4,
+      "status": "pending",
+      "id": "milestone.scarf",
+      "label": "彩虹围巾",
+      "slot": "neck",
+      "layer": "front",
+      "z": 36,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 10,
+      "formId": "dango",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "neckwear",
+      "exclusivePriority": 50,
+      "renderKey": "scarf",
+      "effect": "scarf-flutter",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 0,
+        "right": 12,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 93,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "order": 5,
+      "status": "pending",
+      "id": "milestone.halo",
+      "label": "小光环",
+      "slot": "head",
+      "layer": "front",
+      "z": 52,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 12,
+      "formId": "dango",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "head-aura",
+      "exclusivePriority": 50,
+      "renderKey": "halo",
+      "effect": "halo-glow",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 32,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 102,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "order": 6,
+      "status": "pending",
+      "id": "milestone.boots",
+      "label": "闪闪鞋",
+      "slot": "body",
+      "layer": "front",
+      "z": 38,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 15,
+      "formId": "dango",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "footwear",
+      "exclusivePriority": 50,
+      "renderKey": "boots",
+      "effect": "boots-sparkle",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 112,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "order": 7,
+      "status": "pending",
+      "id": "milestone.cape",
+      "label": "小披风",
+      "slot": "back",
+      "layer": "back",
+      "z": 14,
+      "parts": [
+        "back",
+        "front"
+      ],
+      "minLevel": 20,
+      "formId": "dango",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "backwear",
+      "exclusivePriority": 80,
+      "renderKey": "cape",
+      "effect": "cape-flutter",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 18,
+        "top": 0,
+        "right": 18,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 122,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "order": 8,
+      "status": "pending",
+      "id": "skin.forest-leaf",
+      "label": "森林叶片",
+      "slot": "head",
+      "layer": "back",
+      "z": 42,
+      "parts": [
+        "back"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": "forest",
+      "unlockKind": "skin",
+      "exclusiveGroup": "head-accent",
+      "exclusivePriority": 30,
+      "renderKey": "forest-leaf",
+      "effect": "leaf-shimmer",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 14,
+        "right": 8,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 132,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "order": 9,
+      "status": "pending",
+      "id": "skin.sakura-flower",
+      "label": "樱花发饰",
+      "slot": "head",
+      "layer": "back",
+      "z": 42,
+      "parts": [
+        "back"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": "sakura",
+      "unlockKind": "skin",
+      "exclusiveGroup": "head-accent",
+      "exclusivePriority": 30,
+      "renderKey": "sakura-flower",
+      "effect": "petal-glint",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 8,
+        "right": 8,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 142,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "order": 10,
+      "status": "pending",
+      "id": "skin.moon-crescent",
+      "label": "月牙",
+      "slot": "head",
+      "layer": "back",
+      "z": 45,
+      "parts": [
+        "back"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": "moon",
+      "unlockKind": "skin",
+      "exclusiveGroup": "head-accent",
+      "exclusivePriority": 40,
+      "renderKey": "moon-crescent",
+      "effect": "moon-glow",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 12,
+        "right": 6,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 152,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "order": 11,
+      "status": "pending",
+      "id": "skin.flame-tip",
+      "label": "火焰尖尖",
+      "slot": "head",
+      "layer": "back",
+      "z": 44,
+      "parts": [
+        "back"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": "flame",
+      "unlockKind": "skin",
+      "exclusiveGroup": "headwear",
+      "exclusivePriority": 70,
+      "renderKey": "flame-tip",
+      "effect": "flame-flicker",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 16,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 162,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "order": 12,
+      "status": "pending",
+      "id": "skin.crown",
+      "label": "王冠",
+      "slot": "head",
+      "layer": "back",
+      "z": 48,
+      "parts": [
+        "back"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": "crown",
+      "unlockKind": "skin",
+      "exclusiveGroup": "headwear",
+      "exclusivePriority": 90,
+      "renderKey": "crown",
+      "effect": "crown-shine",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 16,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 172,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "order": 13,
+      "status": "pending",
+      "id": "skin.robot-antenna",
+      "label": "信号天线",
+      "slot": "head",
+      "layer": "back",
+      "z": 44,
+      "parts": [
+        "back"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": "robot",
+      "unlockKind": "skin",
+      "exclusiveGroup": "headwear",
+      "exclusivePriority": 65,
+      "renderKey": "robot-antenna",
+      "effect": "signal-pulse",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 16,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 182,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "order": 14,
+      "status": "pending",
+      "id": "skin.woodsman-cap",
+      "label": "樵夫帽",
+      "slot": "head",
+      "layer": "back",
+      "z": 44,
+      "parts": [
+        "back"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": "woodsman",
+      "unlockKind": "skin",
+      "exclusiveGroup": "headwear",
+      "exclusivePriority": 80,
+      "renderKey": "woodsman-cap",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 16,
+        "right": 10,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 192,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "order": 15,
+      "status": "pending",
+      "id": "skin.ocean-fin",
+      "label": "海蓝鳍",
+      "slot": "back",
+      "layer": "back",
+      "z": 12,
+      "parts": [
+        "back"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": "ocean",
+      "unlockKind": "skin",
+      "exclusiveGroup": "backwear",
+      "exclusivePriority": 100,
+      "renderKey": "ocean-fin",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 8,
+        "top": 0,
+        "right": 22,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 201,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "order": 16,
+      "status": "pending",
+      "id": "skin.bat-wings",
+      "label": "夜行翼",
+      "slot": "back",
+      "layer": "back",
+      "z": 8,
+      "parts": [
+        "back"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": "bat",
+      "unlockKind": "skin",
+      "exclusiveGroup": "backwear",
+      "exclusivePriority": 100,
+      "renderKey": "bat-wings",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 18,
+        "top": 0,
+        "right": 18,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 211,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "order": 17,
+      "status": "pending",
+      "id": "seasonal.pumpkin-beret",
+      "label": "南瓜贝雷帽",
+      "slot": "head",
+      "layer": "front",
+      "z": 47,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "headwear",
+      "exclusivePriority": 50,
+      "renderKey": "pumpkin-beret",
+      "effect": null,
+      "views": [
+        "front"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 10,
+        "right": 0,
+        "bottom": 0
+      },
+      "optInOnly": true,
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 362,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "order": 18,
+      "status": "pending",
+      "id": "seasonal.plum-cape",
+      "label": "梅紫小披风",
+      "slot": "back",
+      "layer": "back",
+      "z": 14,
+      "parts": [
+        "back",
+        "front"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "backwear",
+      "exclusivePriority": 80,
+      "renderKey": "plum-cape",
+      "effect": null,
+      "views": [
+        "front"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 5,
+        "top": 0,
+        "right": 5,
+        "bottom": 0
+      },
+      "optInOnly": true,
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 365,
+        "status": "code-confirmed"
+      }
+    }
+  ]
+}
