@@ -1,3 +1,4 @@
+import {validateBodyProfile} from './body-profile.mjs';
 import {validateWeightedInputs} from './weighted-driver.mjs';
 import {validatePackPolicy} from './director.mjs';
 import {ResourceCache} from './resource-cache.mjs';
@@ -28,8 +29,10 @@ export class ActorPool {
   #used={actors:0,vertices:0,nodes:0,deformedVertices:0,sourceBytes:0,decodedArrayBytes:0,clipKeyScalars:0};
   #closed=false;
   #limits;
+  #bodyProfile;
   constructor(options={}) {
-    exact(options,[],['limits'],'ActorPool');
+    exact(options,[],['limits','bodyProfile'],'ActorPool');
+    this.#bodyProfile=validateBodyProfile(options.bodyProfile)?.id;
     const limits=options.limits??{};
     exact(limits,[],Object.keys(POOL_HARD_LIMITS),'ActorPool.limits');
     this.#limits=Object.freeze({...POOL_DEFAULT_LIMITS,...limits});
@@ -97,6 +100,7 @@ export class ActorPool {
   async #create(pack,{signal,policy,initialFacts,onRecord,onDispose}={},mode='timeline') {
     if(this.#closed)fail('DISPOSED','ActorPool');
     if(signal?.aborted)throw signal.reason??new Error('Aborted');
+    if(this.#bodyProfile&&(mode!=='weighted'||!['approved-full-face-paths-opt-in','approved-full-face-d2-opt-in'].includes(pack.kind)))fail('BODY_CAPABILITY','Body profile requires weighted full18 or D2');
     // Atomic reservation precedes any parse/clone promise and cannot be skipped
     // by concurrent callers or by supplying a second cache.
     const release=this.#reserve(pack), abort=new AbortController();
@@ -106,7 +110,7 @@ export class ActorPool {
     let suite=null;
     try {
       const factory=mode==='weighted'?createWeightedFaceSuite:mode==='directed'?createDirectedFaceSuite:pack.kind==='approved-art-neutral'?createNeutralSuite:['approved-single-face-paths','approved-full-face-paths-opt-in','approved-full-face-d2-opt-in'].includes(pack.kind)?createFaceSuite:createSuite;
-      suite=await factory(pack,this.#cache,{signal:abort.signal,policy,initialFacts,onRecord,onDispose});
+      suite=await factory(pack,this.#cache,{signal:abort.signal,policy,initialFacts,onRecord,onDispose,bodyProfile:this.#bodyProfile});
       if(this.#closed||abort.signal.aborted)throw abort.signal.reason??new Error('Pool disposed');
       const originalDispose=suite.dispose;
       suite.dispose=()=>{

@@ -1,3 +1,4 @@
+import {assertBodyQuaternion,validateBodyProfile} from './body-profile.mjs';
 import {D2_FACE_PURPOSE} from './approved-d2-face-source.mjs';
 import {bindD2FaceStyle} from './d2-face-style.mjs';
 import {Group} from 'three';
@@ -16,11 +17,11 @@ export function createFaceSuite(pack,cache,options={}) { return createFaceActor(
 export function createDirectedFaceSuite(pack,cache,{signal,policy,onRecord,onDispose}={}) {
   return createFaceActor(pack,cache,{signal,policy:validatePackPolicy(pack,policy),onRecord,onDispose},'directed');
 }
-export function createWeightedFaceSuite(pack,cache,{signal,policy,initialFacts,onRecord,onDispose}={}) {
+export function createWeightedFaceSuite(pack,cache,{signal,policy,initialFacts,onRecord,onDispose,bodyProfile}={}) {
   const frozen=validateWeightedInputs(pack,policy,initialFacts);
-  return createFaceActor(pack,cache,{signal,...frozen,onRecord,onDispose},'weighted');
+  return createFaceActor(pack,cache,{signal,...frozen,onRecord,onDispose,bodyProfile:validateBodyProfile(bodyProfile)},'weighted');
 }
-async function createFaceActor(pack,cache,{signal,policy,initialFacts,onRecord,onDispose}={},mode='timeline') {
+async function createFaceActor(pack,cache,{signal,policy,initialFacts,onRecord,onDispose,bodyProfile}={},mode='timeline') {
   const directed=mode!=='timeline',weighted=mode==='weighted';
   let lease,model,root,document,binding,style,timeline,rest,disposed=false;
   const live=()=>{if(disposed)fail('DISPOSED','Face actor');};
@@ -59,6 +60,9 @@ async function createFaceActor(pack,cache,{signal,policy,initialFacts,onRecord,o
       assertCurrent(){
         live();const state=directed?driverState():timeline;binding.assertCurrent(state.path,directed?state.amount:state.value);style?.assertCurrent(state.path,directed?state.amount:state.value);
         for(const r of rest)for(const key of ['position','quaternion','scale']) {
+          if(key==='quaternion'&&bodyProfile&&Object.hasOwn(bodyProfile.channels,r.node.name)){
+            assertBodyQuaternion(r.node,r.quaternion,bodyProfile.channels[r.node.name]);continue;
+          }
           const actual=r.node[key],expected=r[key];
           for(let i=0;i<expected.length;i++) {
             const value=actual.getComponent?actual.getComponent(i):actual[['x','y','z','w'][i]];

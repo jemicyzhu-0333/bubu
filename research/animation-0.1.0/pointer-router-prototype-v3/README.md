@@ -1,3 +1,5 @@
+> **Archived research snapshot with a known initialization cleanup defect.** Its 22 CPU tests did not cover failed initial RAF request / listener registration. Such a failure can leave an admitted actor/cache/listeners allocated. Use [shared-input-workbench-v1](../shared-input-workbench-v1/README.md) for the maintained full18 or explicit D2 research input chain, including fail-stop cleanup. See [KNOWN-ISSUES.md](KNOWN-ISSUES.md). This does not imply production src integration or browser/WebGL acceptance.
+
 # Shared DOM pointer router, continuous-flow integration
 
 One admitted full18 ActorPool actor, one WeightedExpressionOwner/face timeline, one BodyRigAdapter writer. Uses the new drag-flow-r4 controller with the user-approved R2 opposed-limb poses and the frozen petting pure controller; does not compose their incompatible host shells or modify those packages.

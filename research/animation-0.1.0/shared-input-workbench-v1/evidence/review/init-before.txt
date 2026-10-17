@@ -1,0 +1,19 @@
+{"stats":{"actors":1,"vertices":51036,"nodes":20,"deformedVertices":784140,"sourceBytes":16867596,"decodedArrayBytes":40685900,"clipKeyScalars":0,"active":1,"pending":0,"cache":{"loads":1,"hits":0,"disposals":0,"live":1,"retainedReferences":1}},"listeners":[6,4,1]}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: failed initialization leaked actor
+
+1 !== 0
+
+    at file:///workspace/scratch/10657b778e8b/bubu-shared-d2-input-independent-review-20261017/init-failure.mjs:10:334 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 1,
+  expected: 0,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0
