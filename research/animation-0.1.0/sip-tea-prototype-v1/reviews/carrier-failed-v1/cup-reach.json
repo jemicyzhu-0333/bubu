@@ -1,0 +1,44 @@
+{
+  "scope": "upright candidate cup, rim fixed to measured neutral mouth; lower bound assumes arbitrary shoulder rotation, ignores collision",
+  "cup": {
+    "radius": 0.27,
+    "height": 0.33
+  },
+  "position": [
+    0,
+    0.365000022649765,
+    1.0358989777565002
+  ],
+  "sides": {
+    "R": {
+      "shoulder": [
+        0.800000011920929,
+        0.6650000214576721,
+        -0.08500000089406967
+      ],
+      "grip": [
+        0.43740000000000007,
+        0.539900022649765,
+        1.0358989777565002
+      ],
+      "maximumMeasuredHandRadius": 0.38990037786846077,
+      "requiredRadius": 1.184712327397114,
+      "minimumReachResidual": 0.7948119495286533
+    },
+    "L": {
+      "shoulder": [
+        -0.800000011920929,
+        0.6650000214576721,
+        -0.08500000089406967
+      ],
+      "grip": [
+        -0.2214,
+        0.480500022649765,
+        1.0358989777565002
+      ],
+      "maximumMeasuredHandRadius": 0.3899004974267909,
+      "requiredRadius": 1.2748461647174953,
+      "minimumReachResidual": 0.8849456672907045
+    }
+  }
+}

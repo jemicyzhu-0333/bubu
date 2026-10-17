@@ -1,0 +1,17 @@
+import fs from 'node:fs';import path from 'node:path';import * as T from 'three';
+import {fixture} from '../../../petting-continuous-r2/tools/fixture.mjs';
+import {exportSceneFrame} from '../../../petting-continuous-r2/tools/export-scene-frame.mjs';
+import {createTeaCup} from '../../src/cup-model.mjs';
+// Offline derivative vertices only. No writes to admitted actor, bones, source or host.
+const {h}=await fixture();h.body.offset.rotation.y=0;h.frame(0);const c=createTeaCup(),root=new T.Group();root.add(h.body.root,c.root);const skin=h.body.skin,g=skin.geometry,ix=g.index.array,base=exportSceneFrame(root).meshes.find(m=>m.name==='A_mochi_skin').positions,weights={};
+for(const side of ['L','R']){const bone=skin.skeleton.bones.findIndex(b=>b.name==='Shoulder_'+side);weights[side]=Array.from({length:g.attributes.position.count},(_,i)=>{let w=0;for(let k=0;k<4;k++)if(g.attributes.skinIndex.getComponent(i,k)===bone)w+=g.attributes.skinWeight.getComponent(i,k);return w;});}
+const v=(a,i)=>new T.Vector3(...a.slice(i*3,i*3+3)),frames=[],measurements=[];
+for(const [label,amount]of [['rest',0],['prepare',.25],['grip',.7],['rim-contact',1]]){
+ const candidate=base.slice();for(let i=0;i<candidate.length/3;i++){const p=v(base,i),q=p.clone();for(const side of ['L','R']){const angle=(side==='L'?75:-65)*Math.PI/180*amount,r=p.clone().applyAxisAngle(new T.Vector3(0,1,0),angle);q.addScaledVector(r.sub(p),weights[side][i]);}q.toArray(candidate,i*3);}
+ let minEdge=Infinity,maxEdge=0,minArea=Infinity,maxArea=0,flipped=0,changed=0,footError=0;
+ for(let i=0;i<candidate.length/3;i++){const d=v(base,i).distanceTo(v(candidate,i));if(d>1e-7)changed++;if(base[i*3+1]<.35)footError=Math.max(footError,d);}
+ for(let i=0;i<ix.length;i+=3){const ids=[ix[i],ix[i+1],ix[i+2]];if(!ids.some(j=>weights.L[j]+weights.R[j]>.0001))continue;const a=ids.map(j=>v(base,j)),b=ids.map(j=>v(candidate,j));for(let k=0;k<3;k++){const len=a[k].distanceTo(a[(k+1)%3]);if(len>1e-8){const ratio=b[k].distanceTo(b[(k+1)%3])/len;minEdge=Math.min(minEdge,ratio);maxEdge=Math.max(maxEdge,ratio);}}const n1=a[1].clone().sub(a[0]).cross(a[2].clone().sub(a[0])),n2=b[1].clone().sub(b[0]).cross(b[2].clone().sub(b[0]));if(n1.length()>1e-10){const ratio=n2.length()/n1.length();minArea=Math.min(minArea,ratio);maxArea=Math.max(maxArea,ratio);if(n1.dot(n2)<0)flipped++;}}
+ measurements.push({label,amount,changed,footError,minEdge,maxEdge,minArea,maxArea,normalReversalsVsRest:flipped,pass:maxEdge<=1.35&&minArea>=.65&&maxArea<=1.5&&footError<=1e-7});
+ for(const yaw of [0,45,90,180]){root.rotation.y=0;c.root.position.set(0,.02+(.695-.33-.02)*amount,.779+.27*.95);const f=exportSceneFrame(root,{label:label+' '+yaw,time:frames.length});const m=f.meshes.find(m=>m.name==='A_mochi_skin');m.positions=candidate.slice();for(const mesh of f.meshes){const o=root.getObjectByName(mesh.name);if(mesh.name.startsWith('Sip_'))mesh.materialColor=o.material.color.toArray();for(let i=0;i<mesh.positions.length;i+=3){const p=new T.Vector3(...mesh.positions.slice(i,i+3)).applyAxisAngle(new T.Vector3(0,1,0),yaw*Math.PI/180);p.toArray(mesh.positions,i);}}frames.push(f);}
+}
+fs.writeFileSync(new URL('experiment-frames.json',import.meta.url),JSON.stringify({sourceGLB:new URL('../../../runtime-facepath05/fixtures/face-d2/asset.glb',import.meta.url).pathname,frames}));fs.writeFileSync(new URL('experiment-metrics.json',import.meta.url),JSON.stringify(measurements,null,2));console.log(measurements);c.dispose();h.dispose();

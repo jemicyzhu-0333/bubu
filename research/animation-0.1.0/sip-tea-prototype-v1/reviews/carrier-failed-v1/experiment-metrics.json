@@ -1,0 +1,50 @@
+[
+  {
+    "label": "rest",
+    "amount": 0,
+    "changed": 0,
+    "footError": 0,
+    "minEdge": 1,
+    "maxEdge": 1,
+    "minArea": 1,
+    "maxArea": 1,
+    "normalReversalsVsRest": 0,
+    "pass": true
+  },
+  {
+    "label": "prepare",
+    "amount": 0.25,
+    "changed": 6112,
+    "footError": 0,
+    "minEdge": 0.09728440943156796,
+    "maxEdge": 3.14072217661125,
+    "minArea": 0.0238015191232372,
+    "maxArea": 2.730426217495874,
+    "normalReversalsVsRest": 427,
+    "pass": false
+  },
+  {
+    "label": "grip",
+    "amount": 0.7,
+    "changed": 6112,
+    "footError": 0,
+    "minEdge": 0.08973210144402954,
+    "maxEdge": 8.094769326655532,
+    "minArea": 0.09824007542067145,
+    "maxArea": 7.112089661730205,
+    "normalReversalsVsRest": 1816,
+    "pass": false
+  },
+  {
+    "label": "rim-contact",
+    "amount": 1,
+    "changed": 6112,
+    "footError": 0,
+    "minEdge": 0.024711767123066972,
+    "maxEdge": 11.10267115541512,
+    "minArea": 0.014315373803668343,
+    "maxArea": 10.23033930907615,
+    "normalReversalsVsRest": 2653,
+    "pass": false
+  }
+]
