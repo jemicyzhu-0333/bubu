@@ -1,0 +1,115 @@
+{
+  "package": "bubu-theme-state-ledger-v1",
+  "version": "0.1.0",
+  "suggestedPublicationDirectory": "research/animation-0.1.0/theme-state-ledger-v1",
+  "baseFeatureHead": "4e053241d74f0bbef5550a63b1c06bf4561f39ef",
+  "productionMainUntouched": "1a66a0d3b7a51b19ac843b80f6629d0eb20eeb18",
+  "files": [
+    {
+      "path": "CONTRACT.md",
+      "bytes": 12361,
+      "sha256": "eab5a13d7281d162c42134e7665d7e1a3d51b2e7f8cd13aebfa78216aec61ee9"
+    },
+    {
+      "path": "COVERAGE.json",
+      "bytes": 5793,
+      "sha256": "8a9fa696ab1df406aa3409203c38108fa858dcc826392e376b09ae963f172b57"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4919,
+      "sha256": "1f20183f9e078a2838755acd9842bd1da2f1df7bee87cebb2103d979ab816ab2"
+    },
+    {
+      "path": "STATUS.md",
+      "bytes": 1783,
+      "sha256": "400f804d4d6292f8b3b590f32c5a680060ae595a9870b340c56b5b1681c42948"
+    },
+    {
+      "path": "fixtures/fixtures.mjs",
+      "bytes": 1806,
+      "sha256": "ab5f2b38ba376e1c0dc73704ba6d81f26e7665c53e6a8b2b676843c2584e29e7"
+    },
+    {
+      "path": "fixtures/production-registry.json",
+      "bytes": 113,
+      "sha256": "dc1dee9b900ec0b2c1e2dd975376fff8edb17583cb903ecac7e3418f566dd633"
+    },
+    {
+      "path": "fixtures/replay-trace.json",
+      "bytes": 9521,
+      "sha256": "2cfd6fd940e9e0b94a7792e823a36ca8fd4500bc6c38a7b70ab27f990f6ba9aa"
+    },
+    {
+      "path": "isolated-recovery.log",
+      "bytes": 113,
+      "sha256": "ff1e308fa6571648e150a6b15a551168d7944e893217d63efb716a564ca01c94"
+    },
+    {
+      "path": "isolated-results.tap",
+      "bytes": 22763,
+      "sha256": "d039919163ccea9ba09305379fcb3aaef0999a9741193af2b38aefadaa43a863"
+    },
+    {
+      "path": "package.json",
+      "bytes": 268,
+      "sha256": "6f6dfd97aee34b63d097725b87596ec739396b9e6f987b148740c05477c7cc84"
+    },
+    {
+      "path": "recovery-result.log",
+      "bytes": 113,
+      "sha256": "ff1e308fa6571648e150a6b15a551168d7944e893217d63efb716a564ca01c94"
+    },
+    {
+      "path": "src/checkpoint-file.mjs",
+      "bytes": 4329,
+      "sha256": "2e498e8185afcb4b4fd58ad73fcf731ea89e20d9492778bb38e910b8733785e2"
+    },
+    {
+      "path": "src/ledger.mjs",
+      "bytes": 16029,
+      "sha256": "380dcfc178b73808dc4de5fa2a27604d2f7dbd26ee86bcf706d33042d4e73f9a"
+    },
+    {
+      "path": "test/capacity.test.mjs",
+      "bytes": 2236,
+      "sha256": "1684073a277ffe688d36a7b61280fdde1cabc8c3cd49721773042ae7dbeb43b0"
+    },
+    {
+      "path": "test/checkpoint.test.mjs",
+      "bytes": 4380,
+      "sha256": "c944ee9c4d4c1aa965fe20ace13290413dd4bb63f02ba3a52804db03e963123d"
+    },
+    {
+      "path": "test/ledger.test.mjs",
+      "bytes": 18435,
+      "sha256": "f135ca59009d285f42537e91d3f44d35d3cce1cd94c2a11fdca4cc596932b8c5"
+    },
+    {
+      "path": "test/recovery-demo.mjs",
+      "bytes": 1461,
+      "sha256": "2d9707f66dcc6c7e20a57dab35404b623ac90af5f3ee1090f4ea8f603ba501e9"
+    },
+    {
+      "path": "test/replay.test.mjs",
+      "bytes": 827,
+      "sha256": "9fdad217fce9f1e5018765bc8f41e183583db8ee231d97cbb2cf0d8c5401b9e8"
+    },
+    {
+      "path": "test-results.tap",
+      "bytes": 22768,
+      "sha256": "2115547a9dd5e8520f10d49e7443ab826139cdb50a53d9014d3c5a432f721c0d"
+    }
+  ],
+  "deletions": [],
+  "externalRuntimeDependencies": [],
+  "nodeBuiltinsOnly": true,
+  "tests": {
+    "localPassed": 142,
+    "isolatedPassed": 142,
+    "independentPassed": 106,
+    "independentOracleSteps": 6000
+  },
+  "productionAdapterConnected": false,
+  "gpuValidated": false
+}

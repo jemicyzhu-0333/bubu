@@ -1,0 +1,13 @@
+{
+  "name": "bubu-theme-state-ledger-v1",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test --test-reporter=tap test/*.test.mjs",
+    "demo": "node test/recovery-demo.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

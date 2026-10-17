@@ -1,0 +1,646 @@
+TAP version 13
+# Subtest: file roundtrip preserves snapshot and upstream cursor together
+ok 1 - file roundtrip preserves snapshot and upstream cursor together
+  ---
+  duration_ms: 11.415189
+  type: 'test'
+  ...
+# Subtest: invalid replacement and executable snapshot cannot overwrite prior checkpoint
+ok 2 - invalid replacement and executable snapshot cannot overwrite prior checkpoint
+  ---
+  duration_ms: 6.822367
+  type: 'test'
+  ...
+# Subtest: checksum mismatch and malformed JSON fail closed
+ok 3 - checksum mismatch and malformed JSON fail closed
+  ---
+  duration_ms: 5.23006
+  type: 'test'
+  ...
+# Subtest: rollback time and invalid cursor rejected while existing checkpoint remains readable
+ok 4 - rollback time and invalid cursor rejected while existing checkpoint remains readable
+  ---
+  duration_ms: 4.465837
+  type: 'test'
+  ...
+# Subtest: fresh child Node process reads original remainder and expiry, never fresh TTL
+ok 5 - fresh child Node process reads original remainder and expiry, never fresh TTL
+  ---
+  duration_ms: 87.301992
+  type: 'test'
+  ...
+# Subtest: prepublication filesystem failure is explicit and leaves no temporary artifact
+ok 6 - prepublication filesystem failure is explicit and leaves no temporary artifact
+  ---
+  duration_ms: 3.375482
+  type: 'test'
+  ...
+# Subtest: oversized sparse checkpoint rejects and read never overwrites persisted bytes
+ok 7 - oversized sparse checkpoint rejects and read never overwrites persisted bytes
+  ---
+  duration_ms: 2.237716
+  type: 'test'
+  ...
+# Subtest: truncated checkpoint rejects without overwriting damaged input or another valid checkpoint
+ok 8 - truncated checkpoint rejects without overwriting damaged input or another valid checkpoint
+  ---
+  duration_ms: 3.935046
+  type: 'test'
+  ...
+# Subtest: bounded helper rejects pre-stat oversize before issuing any read
+ok 9 - bounded helper rejects pre-stat oversize before issuing any read
+  ---
+  duration_ms: 0.442848
+  type: 'test'
+  ...
+# Subtest: TOCTOU growth beyond bound stops at exactly limit plus one sentinel byte
+ok 10 - TOCTOU growth beyond bound stops at exactly limit plus one sentinel byte
+  ---
+  duration_ms: 0.587166
+  type: 'test'
+  ...
+# Subtest: TOCTOU growth within cap is rejected as changed instead of treated as stable checkpoint
+ok 11 - TOCTOU growth within cap is rejected as changed instead of treated as stable checkpoint
+  ---
+  duration_ms: 0.241544
+  type: 'test'
+  ...
+# Subtest: TOCTOU truncation and same-size modification both fail closed
+ok 12 - TOCTOU truncation and same-size modification both fail closed
+  ---
+  duration_ms: 0.272021
+  type: 'test'
+  ...
+# Subtest: exact bound stable content succeeds with byte-oriented UTF-8 size accounting
+ok 13 - exact bound stable content succeeds with byte-oriented UTF-8 size accounting
+  ---
+  duration_ms: 0.250498
+  type: 'test'
+  ...
+# Subtest: bounded helper rejects illegal limits and nonregular input
+ok 14 - bounded helper rejects illegal limits and nonregular input
+  ---
+  duration_ms: 0.295065
+  type: 'test'
+  ...
+# Subtest: long/short union both arrival orders, independent reversal and precise boundaries
+ok 15 - long/short union both arrival orders, independent reversal and precise boundaries
+  ---
+  duration_ms: 6.185811
+  type: 'test'
+  ...
+# Subtest: short revoke preserves long and simultaneous expiry removes entire union
+ok 16 - short revoke preserves long and simultaneous expiry removes entire union
+  ---
+  duration_ms: 0.719095
+  type: 'test'
+  ...
+# Subtest: two true completions union deadlines never accumulate
+ok 17 - two true completions union deadlines never accumulate
+  ---
+  duration_ms: 0.539534
+  type: 'test'
+  ...
+# Subtest: same semantic identity remains idempotent across event ID and delivery receive time
+ok 18 - same semantic identity remains idempotent across event ID and delivery receive time
+  ---
+  duration_ms: 1.750761
+  type: 'test'
+  ...
+# Subtest: revoke-first, edit-first, correction-first never gain admission via older or newer completion
+ok 19 - revoke-first, edit-first, correction-first never gain admission via older or newer completion
+  ---
+  duration_ms: 2.947221
+  type: 'test'
+  ...
+# Subtest: ordinary out of order revoke and same-generation recomplete preserve original deadline
+ok 20 - ordinary out of order revoke and same-generation recomplete preserve original deadline
+  ---
+  duration_ms: 0.813637
+  type: 'test'
+  ...
+# Subtest: occurrence slot reused for genuine new generation is independent, old revoke cannot hit new
+ok 21 - occurrence slot reused for genuine new generation is independent, old revoke cannot hit new
+  ---
+  duration_ms: 0.566074
+  type: 'test'
+  ...
+# Subtest: ordinal collision and identity ordinal mutation reject atomically
+ok 22 - ordinal collision and identity ordinal mutation reject atomically
+  ---
+  duration_ms: 0.993168
+  type: 'test'
+  ...
+# Subtest: edit and correction cannot extend, earlier correction shortens even after out-of-order delivery
+ok 23 - edit and correction cannot extend, earlier correction shortens even after out-of-order delivery
+  ---
+  duration_ms: 0.938916
+  type: 'test'
+  ...
+# Subtest: historical_backfill cannot initially activate or be promoted
+ok 24 - historical_backfill cannot initially activate or be promoted
+  ---
+  duration_ms: 0.822661
+  type: 'test'
+  ...
+# Subtest: history_edit cannot initially activate or be promoted
+ok 25 - history_edit cannot initially activate or be promoted
+  ---
+  duration_ms: 0.581006
+  type: 'test'
+  ...
+# Subtest: recovery_sync cannot initially activate or be promoted
+ok 26 - recovery_sync cannot initially activate or be promoted
+  ---
+  duration_ms: 0.482398
+  type: 'test'
+  ...
+# Subtest: uncommitted rejected without partial mutation
+ok 27 - uncommitted rejected without partial mutation
+  ---
+  duration_ms: 0.267393
+  type: 'test'
+  ...
+# Subtest: feed replay receipt rejected without partial mutation
+ok 28 - feed replay receipt rejected without partial mutation
+  ---
+  duration_ms: 0.27862
+  type: 'test'
+  ...
+# Subtest: failed operation rejected without partial mutation
+ok 29 - failed operation rejected without partial mutation
+  ---
+  duration_ms: 0.215284
+  type: 'test'
+  ...
+# Subtest: cancelled operation rejected without partial mutation
+ok 30 - cancelled operation rejected without partial mutation
+  ---
+  duration_ms: 0.170077
+  type: 'test'
+  ...
+# Subtest: pending operation rejected without partial mutation
+ok 31 - pending operation rejected without partial mutation
+  ---
+  duration_ms: 0.148013
+  type: 'test'
+  ...
+# Subtest: untrusted UTC rejected without partial mutation
+ok 32 - untrusted UTC rejected without partial mutation
+  ---
+  duration_ms: 0.147412
+  type: 'test'
+  ...
+# Subtest: future receive rejected without partial mutation
+ok 33 - future receive rejected without partial mutation
+  ---
+  duration_ms: 0.23221
+  type: 'test'
+  ...
+# Subtest: unknown namespace rejected without partial mutation
+ok 34 - unknown namespace rejected without partial mutation
+  ---
+  duration_ms: 0.212861
+  type: 'test'
+  ...
+# Subtest: feed transaction durable duplicate versus true second feed
+ok 35 - feed transaction durable duplicate versus true second feed
+  ---
+  duration_ms: 0.337919
+  type: 'test'
+  ...
+# Subtest: routine fixed duration default
+ok 36 - routine fixed duration default
+  ---
+  duration_ms: 0.20519
+  type: 'test'
+  ...
+# Subtest: routine fixed duration 600
+ok 37 - routine fixed duration 600
+  ---
+  duration_ms: 0.148334
+  type: 'test'
+  ...
+# Subtest: routine fixed duration 601
+ok 38 - routine fixed duration 601
+  ---
+  duration_ms: 0.390028
+  type: 'test'
+  ...
+# Subtest: routine fixed duration 750
+ok 39 - routine fixed duration 750
+  ---
+  duration_ms: 0.164889
+  type: 'test'
+  ...
+# Subtest: routine fixed duration 899
+ok 40 - routine fixed duration 899
+  ---
+  duration_ms: 0.272862
+  type: 'test'
+  ...
+# Subtest: routine fixed duration 900
+ok 41 - routine fixed duration 900
+  ---
+  duration_ms: 0.167102
+  type: 'test'
+  ...
+# Subtest: invalid routine duration 0
+ok 42 - invalid routine duration 0
+  ---
+  duration_ms: 0.161914
+  type: 'test'
+  ...
+# Subtest: invalid routine duration -1
+ok 43 - invalid routine duration -1
+  ---
+  duration_ms: 0.132921
+  type: 'test'
+  ...
+# Subtest: invalid routine duration 599
+ok 44 - invalid routine duration 599
+  ---
+  duration_ms: 0.153031
+  type: 'test'
+  ...
+# Subtest: invalid routine duration 901
+ok 45 - invalid routine duration 901
+  ---
+  duration_ms: 0.08646
+  type: 'test'
+  ...
+# Subtest: invalid routine duration 600.1
+ok 46 - invalid routine duration 600.1
+  ---
+  duration_ms: 0.142545
+  type: 'test'
+  ...
+# Subtest: invalid routine duration NaN
+ok 47 - invalid routine duration NaN
+  ---
+  duration_ms: 0.124387
+  type: 'test'
+  ...
+# Subtest: invalid routine duration Infinity
+ok 48 - invalid routine duration Infinity
+  ---
+  duration_ms: 0.088413
+  type: 'test'
+  ...
+# Subtest: invalid routine duration 9007199254740991
+ok 49 - invalid routine duration 9007199254740991
+  ---
+  duration_ms: 0.115304
+  type: 'test'
+  ...
+# Subtest: feed duration 29 rejected
+ok 50 - feed duration 29 rejected
+  ---
+  duration_ms: 0.223187
+  type: 'test'
+  ...
+# Subtest: feed duration 31 rejected
+ok 51 - feed duration 31 rejected
+  ---
+  duration_ms: 0.114934
+  type: 'test'
+  ...
+# Subtest: feed duration 600 rejected
+ok 52 - feed duration 600 rejected
+  ---
+  duration_ms: 0.125599
+  type: 'test'
+  ...
+# Subtest: mapping gate missing pins noneligible
+ok 53 - mapping gate missing pins noneligible
+  ---
+  duration_ms: 0.326643
+  type: 'test'
+  ...
+# Subtest: mapping gate unapproved pins noneligible
+ok 54 - mapping gate unapproved pins noneligible
+  ---
+  duration_ms: 0.174002
+  type: 'test'
+  ...
+# Subtest: mapping gate unready pins noneligible
+ok 55 - mapping gate unready pins noneligible
+  ---
+  duration_ms: 0.159851
+  type: 'test'
+  ...
+# Subtest: mapping gate unknowncap pins noneligible
+ok 56 - mapping gate unknowncap pins noneligible
+  ---
+  duration_ms: 1.168267
+  type: 'test'
+  ...
+# Subtest: mapping gate wrongtitle pins noneligible
+ok 57 - mapping gate wrongtitle pins noneligible
+  ---
+  duration_ms: 1.36603
+  type: 'test'
+  ...
+# Subtest: hidden elapsed facts expire and restored facts retain only original remaining time
+ok 58 - hidden elapsed facts expire and restored facts retain only original remaining time
+  ---
+  duration_ms: 1.189955
+  type: 'test'
+  ...
+# Subtest: delayed event after TTL is remembered without activation; before TTL gets remainder
+ok 59 - delayed event after TTL is remembered without activation; before TTL gets remainder
+  ---
+  duration_ms: 0.5968
+  type: 'test'
+  ...
+# Subtest: UTC rollback fails closed, forward jumps expire, exact zero is valid
+ok 60 - UTC rollback fails closed, forward jumps expire, exact zero is valid
+  ---
+  duration_ms: 1.042433
+  type: 'test'
+  ...
+# Subtest: unsafe now -1 rejected
+ok 61 - unsafe now -1 rejected
+  ---
+  duration_ms: 0.27195
+  type: 'test'
+  ...
+# Subtest: unsafe now 0.5 rejected
+ok 62 - unsafe now 0.5 rejected
+  ---
+  duration_ms: 0.200262
+  type: 'test'
+  ...
+# Subtest: unsafe now NaN rejected
+ok 63 - unsafe now NaN rejected
+  ---
+  duration_ms: 0.187764
+  type: 'test'
+  ...
+# Subtest: unsafe now Infinity rejected
+ok 64 - unsafe now Infinity rejected
+  ---
+  duration_ms: 0.182335
+  type: 'test'
+  ...
+# Subtest: unsafe now 9007199254740992 rejected
+ok 65 - unsafe now 9007199254740992 rejected
+  ---
+  duration_ms: 0.181013
+  type: 'test'
+  ...
+# Subtest: unsafe now 1 rejected
+ok 66 - unsafe now 1 rejected
+  ---
+  duration_ms: 0.15282
+  type: 'test'
+  ...
+# Subtest: unsafe now null rejected
+ok 67 - unsafe now null rejected
+  ---
+  duration_ms: 0.163166
+  type: 'test'
+  ...
+# Subtest: unsafe now [object Object] rejected
+ok 68 - unsafe now [object Object] rejected
+  ---
+  duration_ms: 0.148544
+  type: 'test'
+  ...
+# Subtest: maximum event time overflow rejected, safe endpoint accepted
+ok 69 - maximum event time overflow rejected, safe endpoint accepted
+  ---
+  duration_ms: 0.521197
+  type: 'test'
+  ...
+# Subtest: source namespace isolation; switch does not retarget prior source; only matching invalidation
+ok 70 - source namespace isolation; switch does not retarget prior source; only matching invalidation
+  ---
+  duration_ms: 0.360804
+  type: 'test'
+  ...
+# Subtest: detection/focus inputs cannot mutate ledger and projection never claims visuals
+ok 71 - detection/focus inputs cannot mutate ledger and projection never claims visuals
+  ---
+  duration_ms: 0.891074
+  type: 'test'
+  ...
+# Subtest: capacity exhaustion atomic, no eviction; seals refuse live range and preserve replay rejection
+ok 72 - capacity exhaustion atomic, no eviction; seals refuse live range and preserve replay rejection
+  ---
+  duration_ms: 4.105173
+  type: 'test'
+  ...
+# Subtest: revoked original-eligible range cannot seal before original expiry
+ok 73 - revoked original-eligible range cannot seal before original expiry
+  ---
+  duration_ms: 0.518252
+  type: 'test'
+  ...
+# Subtest: seal is namespace scoped and monotonic, unseen lower identity permanently closed
+ok 74 - seal is namespace scoped and monotonic, unseen lower identity permanently closed
+  ---
+  duration_ms: 0.434776
+  type: 'test'
+  ...
+# Subtest: bounded 200 cycles of capacity/expiry/seal/restore with no replay resurrection
+ok 75 - bounded 200 cycles of capacity/expiry/seal/restore with no replay resurrection
+  ---
+  duration_ms: 61.705012
+  type: 'test'
+  ...
+# Subtest: snapshots, input events, config and projection are isolated copies
+ok 76 - snapshots, input events, config and projection are isolated copies
+  ---
+  duration_ms: 0.581568
+  type: 'test'
+  ...
+# Subtest: invalid last batch element cannot partially add or advance clock
+ok 77 - invalid last batch element cannot partially add or advance clock
+  ---
+  duration_ms: 0.277218
+  type: 'test'
+  ...
+# Subtest: snapshot invariants reject malformed last entry without mutating original
+ok 78 - snapshot invariants reject malformed last entry without mutating original
+  ---
+  duration_ms: 3.726522
+  type: 'test'
+  ...
+# Subtest: strict event boundary getter, no user code execution
+ok 79 - strict event boundary getter, no user code execution
+  ---
+  duration_ms: 0.296297
+  type: 'test'
+  ...
+# Subtest: strict event boundary nestedGetter, no user code execution
+ok 80 - strict event boundary nestedGetter, no user code execution
+  ---
+  duration_ms: 0.179931
+  type: 'test'
+  ...
+# Subtest: strict event boundary symbol, no user code execution
+ok 81 - strict event boundary symbol, no user code execution
+  ---
+  duration_ms: 0.163216
+  type: 'test'
+  ...
+# Subtest: strict event boundary nonenumerable, no user code execution
+ok 82 - strict event boundary nonenumerable, no user code execution
+  ---
+  duration_ms: 0.299952
+  type: 'test'
+  ...
+# Subtest: strict event boundary prototype, no user code execution
+ok 83 - strict event boundary prototype, no user code execution
+  ---
+  duration_ms: 0.196506
+  type: 'test'
+  ...
+# Subtest: strict event boundary nullPrototype, no user code execution
+ok 84 - strict event boundary nullPrototype, no user code execution
+  ---
+  duration_ms: 0.187563
+  type: 'test'
+  ...
+# Subtest: strict event boundary nestedSymbol, no user code execution
+ok 85 - strict event boundary nestedSymbol, no user code execution
+  ---
+  duration_ms: 0.158699
+  type: 'test'
+  ...
+# Subtest: strict event boundary nestedNonenumerable, no user code execution
+ok 86 - strict event boundary nestedNonenumerable, no user code execution
+  ---
+  duration_ms: 0.197428
+  type: 'test'
+  ...
+# Subtest: strict event boundary toJSON, no user code execution
+ok 87 - strict event boundary toJSON, no user code execution
+  ---
+  duration_ms: 0.28557
+  type: 'test'
+  ...
+# Subtest: strict event boundary unsafeProto, no user code execution
+ok 88 - strict event boundary unsafeProto, no user code execution
+  ---
+  duration_ms: 0.186652
+  type: 'test'
+  ...
+# Subtest: strict array boundary hole
+ok 89 - strict array boundary hole
+  ---
+  duration_ms: 0.166211
+  type: 'test'
+  ...
+# Subtest: strict array boundary extra
+ok 90 - strict array boundary extra
+  ---
+  duration_ms: 0.162064
+  type: 'test'
+  ...
+# Subtest: strict array boundary symbol
+ok 91 - strict array boundary symbol
+  ---
+  duration_ms: 0.176326
+  type: 'test'
+  ...
+# Subtest: strict array boundary nonenumerable
+ok 92 - strict array boundary nonenumerable
+  ---
+  duration_ms: 0.187282
+  type: 'test'
+  ...
+# Subtest: strict array boundary proxy
+ok 93 - strict array boundary proxy
+  ---
+  duration_ms: 0.150307
+  type: 'test'
+  ...
+# Subtest: proxy event rejected before traps
+ok 94 - proxy event rejected before traps
+  ---
+  duration_ms: 0.187723
+  type: 'test'
+  ...
+# Subtest: config and restore getters do not execute
+ok 95 - config and restore getters do not execute
+  ---
+  duration_ms: 0.317909
+  type: 'test'
+  ...
+# Subtest: independent randomized set-union oracle: 40 seeds × 150 transitions
+ok 96 - independent randomized set-union oracle: 40 seeds × 150 transitions
+  ---
+  duration_ms: 903.135624
+  type: 'test'
+  ...
+# Subtest: mapping/version/delivery-generation changes cannot re-admit same instance
+ok 97 - mapping/version/delivery-generation changes cannot re-admit same instance
+  ---
+  duration_ms: 0.781188
+  type: 'test'
+  ...
+# Subtest: same-version conflict and chronological commit rollback cannot overwrite existing state
+ok 98 - same-version conflict and chronological commit rollback cannot overwrite existing state
+  ---
+  duration_ms: 0.421966
+  type: 'test'
+  ...
+# Subtest: batch sorted revisions resolves out-of-order batch; atomic conflict leaves prior admission untouched
+ok 99 - batch sorted revisions resolves out-of-order batch; atomic conflict leaves prior admission untouched
+  ---
+  duration_ms: 0.301615
+  type: 'test'
+  ...
+# Subtest: cross-field timestamps and numeric identifiers are strict
+ok 100 - cross-field timestamps and numeric identifiers are strict
+  ---
+  duration_ms: 0.969683
+  type: 'test'
+  ...
+# Subtest: nested config strict symbols/prototypes and sparse capability list are rejected
+ok 101 - nested config strict symbols/prototypes and sparse capability list are rejected
+  ---
+  duration_ms: 0.32462
+  type: 'test'
+  ...
+# Subtest: strict restored snapshot rejects hidden and executable nested fields
+ok 102 - strict restored snapshot rejects hidden and executable nested fields
+  ---
+  duration_ms: 0.763462
+  type: 'test'
+  ...
+# Subtest: regression: largest legal record capacity with max registry shape restores losslessly
+ok 103 - regression: largest legal record capacity with max registry shape restores losslessly
+  ---
+  duration_ms: 1730.727284
+  type: 'test'
+  ...
+# Subtest: complete-state snapshots after missed recompletion preserve eligibility ceiling; correction retains revoked state
+ok 104 - complete-state snapshots after missed recompletion preserve eligibility ceiling; correction retains revoked state
+  ---
+  duration_ms: 0.593175
+  type: 'test'
+  ...
+# Subtest: missing initial success is explicitly diagnosable and late events cannot clear reconciliation requirement
+ok 105 - missing initial success is explicitly diagnosable and late events cannot clear reconciliation requirement
+  ---
+  duration_ms: 1.204557
+  type: 'test'
+  ...
+# Subtest: authoritative prior-admission snapshot reconstruction clears fail-closed diagnostic without resetting TTL
+ok 106 - authoritative prior-admission snapshot reconstruction clears fail-closed diagnostic without resetting TTL
+  ---
+  duration_ms: 0.508867
+  type: 'test'
+  ...
+1..106
+# tests 106
+# suites 0
+# pass 106
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2877.412304
