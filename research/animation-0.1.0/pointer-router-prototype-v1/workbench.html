@@ -1,0 +1,16 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Shared pointer prototype workbench</title>
+<style>body{margin:0;background:#f3f2ed;font:14px system-ui}canvas{display:block;width:100vw;height:90vh;touch-action:none}p{margin:12px}#state{white-space:pre-wrap}</style>
+<script type="importmap">{"imports":{"three":"../drag-body-prototype-v1/node_modules/three/build/three.module.js","three/addons/":"../drag-body-prototype-v1/node_modules/three/examples/jsm/"}}</script>
+<canvas id="canvas"></canvas><p>Prototype fixtures. Hold the upper head to pet; move over 8 CSS pixels to drag. Browser / OS validation pending.</p><p id="state"></p>
+<script type="module">
+import * as T from 'three';
+import {createPointerHost} from './src/pointer-host.mjs';
+import {browserPackReader} from '../drag-body-prototype-v1/vendor/runtime-facepath05/src/pack-loader.mjs';
+const canvas=document.querySelector('canvas'),label=document.querySelector('#state'),renderer=new T.WebGLRenderer({canvas,antialias:true}),scene=new T.Scene();scene.background=new T.Color('#f3f2ed');scene.add(new T.HemisphereLight(0xffffff,0x777777,2));const key=new T.DirectionalLight(0xffffff,2);key.position.set(3,5,8);scene.add(key);
+const camera=new T.OrthographicCamera(-2,2,3,-1,.01,100);camera.position.set(0,0,8);camera.lookAt(0,0,0);
+function resize(){const r=canvas.getBoundingClientRect(),a=r.width/r.height;camera.left=-2*a;camera.right=2*a;camera.updateProjectionMatrix();renderer.setPixelRatio(devicePixelRatio);renderer.setSize(r.width,r.height,false);}resize();window.addEventListener('resize',resize);
+const profile=await fetch('../drag-body-prototype-v1/replay/body-poses.json').then(r=>r.json());
+let host;const scheduler={now:()=>performance.now()/1000,request:cb=>requestAnimationFrame(ms=>{cb(ms/1000);renderer.render(scene,camera);if(host)label.textContent=JSON.stringify({mode:host.state?.mode,pointer:host.state?.pointerId,captured:host.state?.captured,diagnostics:host.diagnostics});}),cancel:cancelAnimationFrame};
+host=await createPointerHost({target:canvas,camera,profile,readPack:browserPackReader(new URL('../drag-body-prototype-v1/vendor/runtime-facepath05/fixtures/face-full18/',location.href)),scheduler});scene.add(host.body.root);
+window.addEventListener('pagehide',()=>{host.dispose();renderer.dispose();window.removeEventListener('resize',resize);},{once:true});
+</script></html>

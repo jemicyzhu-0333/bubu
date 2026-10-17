@@ -1,0 +1,3 @@
+Place this package at research/animation-0.1.0/pointer-router-prototype-v1 beside drag-body-prototype-v1 and petting-prototype-v1. Restore the drag sibling with its hash-pinned hydrate_runtime.py and install its locked dependency. Install this package's locked Three.js dependency (0.186.1), then npm test. This package adds no new actor or face asset.
+
+The browser workbench must be served from a common ancestor of all three sibling folders so its module and pack URLs remain same-origin. Browser execution requires separate authorized validation; this delivery contains only CPU EventTarget/Raycaster test evidence.

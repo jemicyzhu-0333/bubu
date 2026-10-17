@@ -1,0 +1,25 @@
+✔ actual full18 actor one owner; real ray eligibility ignores caller eligible (1008.456804ms)
+✔ same-frame down/move/up are grouped once; late sealed move atomic reject (696.95486ms)
+✔ capture drag leaves canvas, follows camera plane, releases to ground (972.83498ms)
+✔ petting sustained phase can hand off to drag without second actor (1014.708326ms)
+✔ pointerId, primary and buttons cannot steal pointer (911.58703ms)
+✔ pending leave cancels even captured; missed head contact never qualifies (968.503124ms)
+✔ capture acquisition/release errors have safe cleanup; uncaptured leave cancels (1065.991614ms)
+✔ lostcapture, blur, visibility and disposal invalidate captures/listeners/queued input (1322.673888ms)
+✔ CSS rect resize and backbuffer DPR do not mix into NDC or threshold (940.493278ms)
+✔ sealed lost capture invalidates lifecycle at exact timestamp without epsilon (996.443385ms)
+✔ continuous petting requires current surface; camera movement ends contact (875.270208ms)
+✔ same-time final move is applied before release captures landing position (778.981568ms)
+✔ pointerup final finite client position is applied, cancel has no invented point (769.074184ms)
+✔ pending surface loss before qualification never emits release face (581.091359ms)
+✔ two-hour visible long press drains pure-controller boundary outputs (1097.543512ms)
+✔ visibility visible cannot resume while window remains blurred (804.254354ms)
+✔ unbounded move rejects atomically; malformed terminal coordinates still release (1065.295859ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 16063.122371
