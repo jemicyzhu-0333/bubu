@@ -1,0 +1,41 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> test
+> node tools/verify-dependencies.mjs && node --test tests/*.test.mjs
+
+Verified 4 controller/profile dependency hashes
+✔ actual full18 actor one owner; real ray eligibility ignores caller eligible (1069.729436ms)
+✔ same-frame down/move/up are grouped once; late sealed move atomic reject (665.160065ms)
+✔ capture drag leaves canvas, follows camera plane, releases to ground (977.154773ms)
+✔ petting sustained phase can hand off to drag without second actor (1027.973127ms)
+✔ pointerId, primary and buttons cannot steal pointer (861.967757ms)
+✔ pending leave cancels even captured; missed head contact never qualifies (911.597675ms)
+✔ capture acquisition/release errors have safe cleanup; uncaptured leave cancels (986.31761ms)
+✔ lostcapture, blur, visibility and disposal invalidate captures/listeners/queued input (1367.769741ms)
+✔ CSS rect resize and backbuffer DPR do not mix into NDC or threshold (900.236615ms)
+✔ sealed lost capture invalidates lifecycle at exact timestamp without epsilon (901.751541ms)
+✔ continuous petting requires current surface; camera movement ends contact (806.171224ms)
+✔ same-time final move is applied before release captures landing position (733.242798ms)
+✔ pointerup final finite client position is applied, cancel has no invented point (755.820025ms)
+✔ pending surface loss before qualification never emits release face (542.96821ms)
+✔ two-hour visible long press drains pure-controller boundary outputs (1038.144473ms)
+✔ visibility visible cannot resume while window remains blurred (688.765791ms)
+✔ unbounded move rejects atomically; malformed terminal coordinates still release (756.126102ms)
+✔ DOM router uses continuous-flow controller and passes configured seconds unchanged (834.992966ms)
+✔ invalid cadence option rejects before pack reads or actor allocation (1.698041ms)
+✔ adjustable workbench yaw keeps actual raycast and deformed surface anchor aligned (1650.923573ms)
+✔ bodyOptions cannot change pivot or nonfinite orientation before admission (1.028611ms)
+✔ only validated yaw is forwarded; inherited pivot cannot change actor stage (343.293473ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18001.050706
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

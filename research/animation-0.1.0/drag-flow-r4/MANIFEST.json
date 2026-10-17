@@ -1,0 +1,182 @@
+{
+  "version": "0.1.0-drag-flow-r4",
+  "gitDestination": "research/animation-0.1.0/drag-flow-r4",
+  "status": "user-corrected-continuous-flow-functional-reviewed",
+  "correctedUserMessage": "Sentinel_c1287eb8ea748191a15fdd8f711bd8a4",
+  "supersedes": "drag-cadence-r3 slow-held-beat interpretation",
+  "requiresSibling": "../drag-body-prototype-v1",
+  "defaultIdleCadenceSeconds": 0.82,
+  "rateRangeSeconds": [
+    0.65,
+    1
+  ],
+  "fixedPickupSeconds": 1.075,
+  "globalTimeScale": false,
+  "sourceRigChanges": false,
+  "verification": {
+    "restoredGestureAndCadenceTests": 19,
+    "independent": {
+      "cadenceTests": 4,
+      "cycles": 3,
+      "stepsPerCycle": 1800,
+      "mustFix": 0
+    }
+  },
+  "previewExcluded": {
+    "frames": 211,
+    "fps": 30,
+    "durationSeconds": 7.033333
+  },
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 140,
+      "sha256": "2c13fa8c24dac731fca1ea1ed35b2feb4c3d7c9d38daca7460f13d20e9186ada"
+    },
+    {
+      "path": "APPROVAL.json",
+      "bytes": 929,
+      "sha256": "5bc133b2544bfac1d7447b5fbeea85b55c2927ccd39d4b55e585d2dd6a98a240"
+    },
+    {
+      "path": "DEPENDENCIES.json",
+      "bytes": 488,
+      "sha256": "d71311e9d2e670bc6e6774e47791f51d34c4e6a3d65fc3ff5bc0f007a201b400"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1923,
+      "sha256": "f1583e55b8537c51e75506f85c3b4a9a7c79698f2e62a2286ece7490d50e568b"
+    },
+    {
+      "path": "STATUS.json",
+      "bytes": 1185,
+      "sha256": "4893c31797bdeec94b9e94e870f143d8bb3fd9b886856e56279758e86b56b573"
+    },
+    {
+      "path": "evidence/cadence-4.log",
+      "bytes": 462,
+      "sha256": "f914094c5769b6b99a6994c8ef18dfdd5775672f609a2481b6b2a8989c9ad958"
+    },
+    {
+      "path": "evidence/independent/cadence-4.log",
+      "bytes": 462,
+      "sha256": "ef1486e815e3709fab9b89585b39e09dab767b494af972b02d24891dea5a34e1"
+    },
+    {
+      "path": "evidence/independent/controller-sha256.txt",
+      "bytes": 353,
+      "sha256": "1575bb2e09549449b794cff4818496fcd64af4555540cb41a2555c4652cb4fa0"
+    },
+    {
+      "path": "evidence/independent/independent-probes.log",
+      "bytes": 355,
+      "sha256": "3abce4087695c02df7218dfc5cb001170dc85c7a74aacb556dd8de1a80264e12"
+    },
+    {
+      "path": "evidence/independent/review.md",
+      "bytes": 1584,
+      "sha256": "f2ce71746a59bf2d5b845fed3d04359043ef6ff1e766a91ffcd16b7f5f7b6bd2"
+    },
+    {
+      "path": "evidence/keyframe.png",
+      "bytes": 38377,
+      "sha256": "6a0aa0230aab63a9ca3bd7e31455822b5f226e06640152547847a745df1e56c7"
+    },
+    {
+      "path": "evidence/limb-relative-motion.json",
+      "bytes": 95906,
+      "sha256": "121b2d88d33f8052d829126494ef86d0f29b203bd6c18361eb638d41d8dec373"
+    },
+    {
+      "path": "evidence/regression.log",
+      "bytes": 1330,
+      "sha256": "4452b7505dece2ce91c9123e37e725b5235544b71b20c1b45d4dd1b3b95276e3"
+    },
+    {
+      "path": "evidence/restore-tests.log",
+      "bytes": 2046,
+      "sha256": "71f080275a401a2a475c98e0ef7c9736c4bafa27109c8840bdbc7525bd9f92e0"
+    },
+    {
+      "path": "evidence/trajectory.json",
+      "bytes": 605567,
+      "sha256": "d11d8c7038337c232311dc64328b83e58a5645397f5d8060878d62f328ad9ba6"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 534,
+      "sha256": "863c14baa89cfd74829daa4f3b78a7b1e79a72bd1976f0794059def79f6d90d0"
+    },
+    {
+      "path": "package.json",
+      "bytes": 255,
+      "sha256": "c21025af7ecd128a638eab95a3a80537123bf4dc6fef015ea4791b736a5e0d80"
+    },
+    {
+      "path": "render/compose_preview.py",
+      "bytes": 3640,
+      "sha256": "f6224eec26263c9648fbc5ef6fe600035b762c1f4903055a72e71e7aad602306"
+    },
+    {
+      "path": "replay/body-poses.json",
+      "bytes": 10031,
+      "sha256": "d26d457eff2145eaf2bb80d27fa9910b738c4e2b2154ec608b1339049f897d1c"
+    },
+    {
+      "path": "replay/generate.mjs",
+      "bytes": 2004,
+      "sha256": "08444e41d4763789e74307bc3fbf9558a4db80a55f7b056ef480e029653a7e89"
+    },
+    {
+      "path": "replay/scenarios.mjs",
+      "bytes": 640,
+      "sha256": "b20f82b7a9898b9c23ee4d2fffdc3dc32817c99cbbe449691da67f3c883b67f7"
+    },
+    {
+      "path": "src/approved-struggle-r2.mjs",
+      "bytes": 1051,
+      "sha256": "ea8c30385a9a97c19735a8d68cc027eed9ad86a36d8961c47f616175075af838"
+    },
+    {
+      "path": "src/body-adapter.mjs",
+      "bytes": 67,
+      "sha256": "39554f28b5892cdfb6da4d5fce5340c64790ebab606a037f9a01aa42c73a0714"
+    },
+    {
+      "path": "src/drag-controller.mjs",
+      "bytes": 6740,
+      "sha256": "b76b47359f13a335a8467a1691b70148fccfde18654651e41263b491efb9a281"
+    },
+    {
+      "path": "src/drag-session.mjs",
+      "bytes": 6096,
+      "sha256": "f9399a7df0190bf4dee715e31835243d022f57bc55249c4f26b6062a715d6185"
+    },
+    {
+      "path": "src/export-scene-frame.mjs",
+      "bytes": 73,
+      "sha256": "c08a8e4b80554eac112828c57bd8cac31d111774c014d4f5470cf631620b7df7"
+    },
+    {
+      "path": "src/fixture-host.mjs",
+      "bytes": 67,
+      "sha256": "e9f9d7d5fcb230301047fe12c9c5819488d060e0e29347cd4ba26259ec15d609"
+    },
+    {
+      "path": "src/input-intent.mjs",
+      "bytes": 2928,
+      "sha256": "3edbd987838c5af6fb00cb6c62b3103c05a8d03b839d4ecdbb3a603051344f51"
+    },
+    {
+      "path": "tests/cadence.test.mjs",
+      "bytes": 2366,
+      "sha256": "35a1eea20830737787cba863bded0e056d3808b0d16483d4ef1362f875f742cb"
+    },
+    {
+      "path": "tests/drag.test.mjs",
+      "bytes": 5488,
+      "sha256": "cd096fe2fc4687450135bd1d23ef9c12beed74b6c11eacee431105b6c7b9df2e"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "baselineCommit": "5ba731e",
+  "controllerDependency": "drag-flow-r4",
+  "supersedes": "pointer-router-prototype-v2 / drag-cadence-r3 paused slow motion, corrected by user",
+  "routerChangeScope": [
+    "controller import",
+    "constructor options pass-through",
+    "pure configuration validation before admission",
+    "bounded presentation-only yaw option"
+  ],
+  "rateConfig": {
+    "struggleCycleSeconds": 0.82,
+    "allowedRange": [
+      0.65,
+      1
+    ],
+    "status": "implementation prototype values, not precise user-specified timing",
+    "otherClocks": "unchanged monotonic seconds"
+  },
+  "view": {
+    "workbenchYawDegrees": 10,
+    "defaultAdapterYawDegrees": 52,
+    "allowedRange": [
+      -180,
+      180
+    ]
+  },
+  "artStatus": "User confirmed continuous light quick struggle and natural transitions; current implementation remains subject to visual review",
+  "sha256": {
+    "../drag-flow-r4/src/drag-controller.mjs": "b76b47359f13a335a8467a1691b70148fccfde18654651e41263b491efb9a281",
+    "../drag-flow-r4/src/approved-struggle-r2.mjs": "ea8c30385a9a97c19735a8d68cc027eed9ad86a36d8961c47f616175075af838",
+    "../drag-flow-r4/src/input-intent.mjs": "3edbd987838c5af6fb00cb6c62b3103c05a8d03b839d4ecdbb3a603051344f51",
+    "../drag-body-prototype-v1/replay/body-poses.json": "d26d457eff2145eaf2bb80d27fa9910b738c4e2b2154ec608b1339049f897d1c"
+  },
+  "validationBoundary": "actual full18 CPU/Raycaster with fake EventTarget; no browser/WebGL/OS execution"
+}

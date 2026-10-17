@@ -1,0 +1,23 @@
+✔ actual full18 slow stable ground and horizontal release (7359.926863ms)
+✔ actual full18 fast stable ground and horizontal release (8533.611988ms)
+✔ actual full18 reverse stable ground and horizontal release (9335.242571ms)
+✔ actual full18 stop stable ground and horizontal release (7482.427614ms)
+✔ actual full18 early stable ground and horizontal release (3288.317837ms)
+✔ actual full18 low stable ground and horizontal release (5364.122346ms)
+✔ actual full18 high stable ground and horizontal release (7035.45806ms)
+✔ actual full18 cancel stable ground and horizontal release (5376.639141ms)
+✔ hidden restores contact and no resurrected drag; dispose closes (755.673086ms)
+✔ controller input validation and bounded long time (0.586074ms)
+✔ same-time move/release sealed once; late input rejected atomically (786.501399ms)
+✔ pre-grab elevated floor captured and foreign hit rejected (1257.738689ms)
+✔ same-time release suspend resume does not reseal frozen logical timestamp (1108.066782ms)
+✔ falling regrab preserves original ground and settles at newest horizontal release (1484.644882ms)
+✔ forged, nonfinite and mismatched hit reject before queue or pose mutation (651.84919ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 59998.809

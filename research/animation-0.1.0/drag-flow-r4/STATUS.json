@@ -1,0 +1,49 @@
+{
+  "status": "user-corrected-continuous-flow-functional-candidate",
+  "supersedes": "drag-cadence-r3 slow held-beat interpretation",
+  "pending": "r4 visual feedback",
+  "defaults": {
+    "struggleCycleSeconds": 0.82,
+    "pickupSeconds": 1.075,
+    "phaseEntryBlendSeconds": 0.22,
+    "fastPickupBlendSeconds": 0.14
+  },
+  "view": {
+    "yawDegrees": 10,
+    "priorYawDegrees": 52,
+    "spanWorld": 5,
+    "pixels": 384
+  },
+  "sourceRigRestMaterialChanges": false,
+  "noGlobalTimeScale": true,
+  "preview": {
+    "frames": 211,
+    "fps": 30,
+    "duration": 7.033333,
+    "videoExcludedFromGit": true
+  },
+  "verification": {
+    "originalGestureTests": 15,
+    "newCadenceTests": 4,
+    "restoredTests": {
+      "passed": 19,
+      "total": 19
+    },
+    "independentReview": {
+      "cadenceTests": 4,
+      "cycles": 3,
+      "stepsPerCycle": 1800,
+      "maxQuaternionCapRatio": 0.985245,
+      "mustFix": 0
+    }
+  },
+  "limitations": [
+    "CPU/offline rendering only",
+    "WebGL/OS unverified",
+    "Final artistic feedback pending"
+  ],
+  "actualFloorMinimum": 0.006000000052152756,
+  "finalMode": "rest",
+  "finalGround": 0.006000000052152756,
+  "noNonfiniteRoot": true
+}

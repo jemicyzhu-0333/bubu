@@ -1,0 +1,30 @@
+✔ actual full18 actor one owner; real ray eligibility ignores caller eligible (938.981136ms)
+✔ same-frame down/move/up are grouped once; late sealed move atomic reject (642.567515ms)
+✔ capture drag leaves canvas, follows camera plane, releases to ground (926.47505ms)
+✔ petting sustained phase can hand off to drag without second actor (1012.276391ms)
+✔ pointerId, primary and buttons cannot steal pointer (867.92921ms)
+✔ pending leave cancels even captured; missed head contact never qualifies (890.24316ms)
+✔ capture acquisition/release errors have safe cleanup; uncaptured leave cancels (999.641837ms)
+✔ lostcapture, blur, visibility and disposal invalidate captures/listeners/queued input (1246.718302ms)
+✔ CSS rect resize and backbuffer DPR do not mix into NDC or threshold (901.741987ms)
+✔ sealed lost capture invalidates lifecycle at exact timestamp without epsilon (877.630159ms)
+✔ continuous petting requires current surface; camera movement ends contact (782.089912ms)
+✔ same-time final move is applied before release captures landing position (725.409573ms)
+✔ pointerup final finite client position is applied, cancel has no invented point (757.454579ms)
+✔ pending surface loss before qualification never emits release face (526.977021ms)
+✔ two-hour visible long press drains pure-controller boundary outputs (1019.812053ms)
+✔ visibility visible cannot resume while window remains blurred (681.616925ms)
+✔ unbounded move rejects atomically; malformed terminal coordinates still release (745.701157ms)
+✔ DOM router uses continuous-flow controller and passes configured seconds unchanged (818.660756ms)
+✔ invalid cadence option rejects before pack reads or actor allocation (1.755038ms)
+✔ adjustable workbench yaw keeps actual raycast and deformed surface anchor aligned (1566.130873ms)
+✔ bodyOptions cannot change pivot or nonfinite orientation before admission (1.010615ms)
+✔ only validated yaw is forwarded; inherited pivot cannot change actor stage (375.268556ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 17465.602547

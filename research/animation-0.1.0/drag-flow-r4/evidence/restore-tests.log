@@ -1,0 +1,37 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> bubu-drag-flow-r4@0.1.0 test
+> node --test tests/*.test.mjs
+
+✔ cadence is bounded, immutable authored poses and independent protected pickup (3.770749ms)
+✔ brisk actual motion fully suppresses cadence-driven wobble (8.203905ms)
+✔ idle loop has no holds, closes smoothly, and stays within bone caps (4.75325ms)
+✔ cadence does not change explicit release deadline or interruption cleanup (1.731172ms)
+✔ actual full18 slow stable ground and horizontal release (7990.419031ms)
+✔ actual full18 fast stable ground and horizontal release (7783.648693ms)
+✔ actual full18 reverse stable ground and horizontal release (8099.074645ms)
+✔ actual full18 stop stable ground and horizontal release (8023.409573ms)
+✔ actual full18 early stable ground and horizontal release (3703.171727ms)
+✔ actual full18 low stable ground and horizontal release (5646.043001ms)
+✔ actual full18 high stable ground and horizontal release (7495.464797ms)
+✔ actual full18 cancel stable ground and horizontal release (5523.947406ms)
+✔ hidden restores contact and no resurrected drag; dispose closes (658.28834ms)
+✔ controller input validation and bounded long time (0.691142ms)
+✔ same-time move/release sealed once; late input rejected atomically (685.720358ms)
+✔ pre-grab elevated floor captured and foreign hit rejected (735.480254ms)
+✔ same-time release suspend resume does not reseal frozen logical timestamp (686.860683ms)
+✔ falling regrab preserves original ground and settles at newest horizontal release (1021.94566ms)
+✔ forged, nonfinite and mismatched hit reject before queue or pose mutation (511.089849ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 58753.4153
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
