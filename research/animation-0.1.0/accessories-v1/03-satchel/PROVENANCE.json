@@ -1,0 +1,31 @@
+{
+  "tool": "built-in image_gen",
+  "seed": null,
+  "modelVersion": null,
+  "inputs": [
+    {
+      "historicalPath": "bubu-full18-d2-static-variant-20261017/review/01-front.png",
+      "sha256": "e143c32aac76e7a6e42bfbd15be68e38a9666120f55c8ef170095fbb223ce098"
+    },
+    {
+      "historicalPath": "bubu-full18-d2-static-variant-20261017/review/P2-quarter.png",
+      "sha256": "67f8d84a1de1bdfb58f861b06758075b741d517c36ee1c641a5484fc0cfe3bd7"
+    },
+    {
+      "historicalPath": "bubu-full18-d2-static-variant-20261017/review/P2-side.png",
+      "sha256": "e3e736f3b71b75e73e55c163c7d2006f26e8fc363875ee79a8490551cfc72328"
+    },
+    {
+      "historicalPath": "bubu-3d-a-reference-20261016/model-back.png",
+      "sha256": "fc835b4b3fff481d480aa5e348a0783c4116eaa226437b83091072435d3120dd"
+    },
+    {
+      "historicalPath": "/workspace/shared/bubu-runtime-lifecycle-audit/assets/companion/dango/raster/wardrobe/satchel-front-pouch.png",
+      "sha256": "9b15845f59c27b9214e73d110f0d9ff10e3c75da6f8fa3d56f76f09d41d5721a"
+    }
+  ],
+  "placementEvidence": "V1 sources/wardrobe/evidence/satchel/runtime-candidate.json",
+  "bodyProfileSource": "approved bubu-3d-a-reference-20261016/build_a_model.py radius profile; only used to fit accessory, never rebuilding body",
+  "bodySHA256": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
+  "status": "candidate-CPU-host-tested-not-production-equipped"
+}
