@@ -1,0 +1,157 @@
+{
+  "neutralFaceCup": [
+    {
+      "mesh": "A_brow_L",
+      "cupPairs": 0
+    },
+    {
+      "mesh": "A_brow_R",
+      "cupPairs": 0
+    },
+    {
+      "mesh": "A_eye_highlight_L",
+      "cupPairs": 0
+    },
+    {
+      "mesh": "A_eye_highlight_R",
+      "cupPairs": 0
+    },
+    {
+      "mesh": "A_eye_L",
+      "cupPairs": 0
+    },
+    {
+      "mesh": "A_eye_R",
+      "cupPairs": 0
+    },
+    {
+      "mesh": "A_mouth_ring",
+      "cupPairs": 0
+    },
+    {
+      "mesh": "A_tongue",
+      "cupPairs": 0
+    }
+  ],
+  "hashes": {
+    "contact-route-fit.json": "484271958eabdc07cb706e965a30c85df06feb6133a8fabeaa3fd1cc07c3e5a7",
+    "contact-route-pose.npy": "e93272432e3d85f93315f00ea595a03a8296e45a69bb7b180c574955fdcdf2b8",
+    "contact-cup-meshes.json": "984e67a74a7099b0ca45f08a61607fb632438c47473b55350c9a381e6fdce126"
+  },
+  "scope": "static triangle overlap in both body/cup surface directions, no continuous guarantee",
+  "fitSHA256": "484271958eabdc07cb706e965a30c85df06feb6133a8fabeaa3fd1cc07c3e5a7",
+  "parts": [
+    {
+      "mesh": "Sip_cup_shell",
+      "triangleIntersectionPairs": 40,
+      "examples": [
+        [
+          45194,
+          661
+        ],
+        [
+          45194,
+          645
+        ],
+        [
+          45194,
+          629
+        ],
+        [
+          45194,
+          644
+        ],
+        [
+          45192,
+          646
+        ],
+        [
+          45192,
+          647
+        ],
+        [
+          45196,
+          630
+        ],
+        [
+          45196,
+          631
+        ],
+        [
+          45196,
+          629
+        ],
+        [
+          45191,
+          631
+        ],
+        [
+          45191,
+          646
+        ],
+        [
+          5790,
+          661
+        ],
+        [
+          5790,
+          662
+        ],
+        [
+          5790,
+          647
+        ],
+        [
+          45383,
+          661
+        ],
+        [
+          45383,
+          660
+        ],
+        [
+          45383,
+          645
+        ],
+        [
+          5792,
+          661
+        ],
+        [
+          5792,
+          629
+        ],
+        [
+          45189,
+          661
+        ]
+      ],
+      "bodyVertexBounds": [
+        [
+          -0.21193854229798315,
+          0.6718805432319641,
+          0.8064646318596828
+        ],
+        [
+          0.21560186943969303,
+          0.7145947813987732,
+          0.9098673248842539
+        ]
+      ]
+    },
+    {
+      "mesh": "Sip_cup_handle",
+      "triangleIntersectionPairs": 0,
+      "examples": [],
+      "bodyVertexBounds": null
+    },
+    {
+      "mesh": "Sip_tea_surface",
+      "triangleIntersectionPairs": 0,
+      "examples": [],
+      "bodyVertexBounds": null
+    }
+  ],
+  "bodyNonAdjacentSelfIntersections": 0,
+  "selfExamples": []
+}

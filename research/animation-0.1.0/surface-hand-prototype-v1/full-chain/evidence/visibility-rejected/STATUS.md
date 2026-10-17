@@ -1,0 +1,1 @@
+REJECTED bounded visibility experiment. Not used by the frozen action. Cup tilt -.20 and hand height .66, unchanged cup and hand shape. Mouth front rays fully covered but40 body/cup triangle intersections and4 ceramic penetration vertices. Current action retains its previous sip pose and known mouth-corner occlusion.
