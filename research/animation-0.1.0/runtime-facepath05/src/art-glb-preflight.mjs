@@ -119,6 +119,7 @@ function checkGLB(bytes,limit,purpose='neutral') {
     if(offset%size||absolute%size||stride<size*n)fail('GLB','Accessor alignment');
     const range=(count-1)*stride+size*n;
     if(!Number.isSafeInteger(range)||range>bv.byteLength-offset)fail('GLB','Accessor range');
+    if(bv.byteStride&&stride!==size*n&&(Math.floor(offset/stride)+count)*stride>bv.byteLength)fail('GLB','Loader interleaved backing range');
     return {bv,offset:absolute,stride};
   };
   for(const a of doc.accessors) {
@@ -149,6 +150,7 @@ function checkGLB(bytes,limit,purpose='neutral') {
       sparse={count,indexType:it,
         indices:denseRange(a.sparse.indices.bufferView,a.sparse.indices.byteOffset,count,sizes[it],1,true),
         values:denseRange(a.sparse.values.bufferView,a.sparse.values.byteOffset,count,size,n,true)};
+      if(n>4||(base?.bv.byteStride&&base.stride!==size*n))fail('GLB','Loader sparse matrix/interleaved base unsupported');
       sparseIndices+=count;
       sparseScalars+=count*n;
     }

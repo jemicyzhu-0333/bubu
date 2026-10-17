@@ -71,6 +71,7 @@ function checkGLB(bytes, budget) {
     if(scalarCost>LIMITS.accessorScalars)fail('LIMIT', 'Accessor scalar cost');
     const offset=a.byteOffset??0, stride=bv.byteStride??size*n;
     if(!Number.isInteger(offset)||offset<0||offset%size||((bv.byteOffset??0)+offset)%size||stride<size*n||offset+(a.count-1)*stride+size*n>bv.byteLength)fail('GLB', 'Accessor range/alignment');
+    if(bv.byteStride&&stride!==size*n&&(Math.floor(offset/stride)+a.count)*stride>bv.byteLength)fail('GLB', 'Loader interleaved backing range');
     if(a.normalized!==undefined&&a.normalized!==false)fail('GLB', 'Normalized accessors unsupported');
     for(const k of ['min', 'max'])if(a[k])vec(a[k], n);
     access.push({

@@ -110,6 +110,7 @@ export async function preparePack(read, {
     const a=m.assets.find(x=>x.id===m.clips),key='clips-0.1.0:'+a.sha256;
     sources.set(key,Object.freeze({key,bytes:a.bytes,decodedBytes:0}));
   }
+  privatePreparedBytes.set(result,privateBytes);
   admissionRecords.set(result, Object.freeze({vertices,nodes,deformedVertices,clipKeyScalars:clipResult.clipKeyScalars,sources:Object.freeze([...sources.values()])}));
   return result;
 }
@@ -201,7 +202,7 @@ export async function acquireGLB(pack, id, cache, options= {
   if(asset?.kind!=='glb'||!pack.audits.has(id))fail('REFERENCE', 'Preflight GLB required');
   const key='gltf-0.1.0:'+asset.sha256;
   return cache.acquire(key, async()=> {
-    const bytes=pack.data.get(id);
+    const bytes=privatePreparedBytes.get(pack)?.get(id)??pack.data.get(id);
     const gltf=await new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset+bytes.byteLength), '');
     const allowance=decodedArrayReservation(asset.bytes,pack.audits.get(id).document);
     if(geometryBackingBytes(gltf.scene)>allowance){disposeSource(gltf.scene);fail('LIMIT','Decoded geometry array reservation');}

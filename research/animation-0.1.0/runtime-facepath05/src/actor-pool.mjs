@@ -14,7 +14,9 @@ export const POOL_DEFAULT_LIMITS=Object.freeze({
 
 /** One application admission/ownership domain. All application actors use this pool.
  * sourceBytes counts unique encoded GLB and clip-library sources, including pending late parses.
- * It is deliberately NOT decoded heap/VRAM or caller-owned prepared-pack memory.
+ * It covers the loader input copy; decodedArrayBytes covers its BIN-copy allowance,
+ * loaded view copies and sparse/zero-base arrays. Neither is a total heap/VRAM
+ * ceiling; caller-owned prepared-pack memory and other exclusions are separate.
  */
 export class ActorPool {
   #cache=new ResourceCache();
