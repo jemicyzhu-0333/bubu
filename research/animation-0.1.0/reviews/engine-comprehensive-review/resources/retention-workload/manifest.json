@@ -1,0 +1,46 @@
+{
+  "format": "bubu-suite",
+  "version": "0.1.0",
+  "id": "mechanical.combined-large",
+  "assets": [
+    {
+      "id": "body",
+      "path": "mechanical.glb",
+      "kind": "glb",
+      "bytes": 6624212,
+      "sha256": "9057574becd8d108da8210286f1297bbde51b778c9ed20fbdaa4fd4fb945e8cf"
+    },
+    {
+      "id": "profile",
+      "path": "character-profile.json",
+      "kind": "profile",
+      "bytes": 5616,
+      "sha256": "86fa4ede2b9ecdf43cf1e1b3eb0e61047008f02afab4f2c5f08ed26860064b18"
+    },
+    {
+      "id": "motion",
+      "path": "motion.json",
+      "kind": "motion",
+      "bytes": 12008,
+      "sha256": "7fe613bad251b67fe8d6826706b4b1b6020b29149fdc754631687395ff5b1e64"
+    }
+  ],
+  "character": {
+    "asset": "body",
+    "profile": "profile"
+  },
+  "equipment": [],
+  "motion": "motion",
+  "requiredCapabilities": [
+    "skeletal-delta",
+    "expression-single-path",
+    "canonical-events",
+    "interrupt-c0",
+    "demand-render"
+  ],
+  "budgets": {
+    "totalBytes": 6641836,
+    "vertices": 45000,
+    "nodes": 114
+  }
+}

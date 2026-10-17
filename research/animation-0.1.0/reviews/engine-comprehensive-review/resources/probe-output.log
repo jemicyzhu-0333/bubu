@@ -1,0 +1,156 @@
+{
+  "capacity": [
+    {
+      "label": "default",
+      "admitted": {
+        "actors": 2,
+        "vertices": 102072,
+        "nodes": 40,
+        "deformedVertices": 672264,
+        "sourceBytes": 8509100,
+        "decodedArrayBytes": 18756540,
+        "clipKeyScalars": 0,
+        "active": 2,
+        "pending": 0,
+        "cache": {
+          "loads": 1,
+          "hits": 1,
+          "disposals": 0,
+          "live": 1,
+          "retainedReferences": 2
+        }
+      },
+      "rejection": {
+        "code": "GLOBAL_BUDGET",
+        "message": "Application deformedVertices limit"
+      },
+      "afterDispose": {
+        "actors": 0,
+        "vertices": 0,
+        "nodes": 0,
+        "deformedVertices": 0,
+        "sourceBytes": 0,
+        "decodedArrayBytes": 0,
+        "clipKeyScalars": 0,
+        "active": 0,
+        "pending": 0,
+        "cache": {
+          "loads": 1,
+          "hits": 1,
+          "disposals": 1,
+          "live": 0,
+          "retainedReferences": 0
+        }
+      }
+    },
+    {
+      "label": "allHard",
+      "admitted": {
+        "actors": 11,
+        "vertices": 561396,
+        "nodes": 220,
+        "deformedVertices": 3697452,
+        "sourceBytes": 8509100,
+        "decodedArrayBytes": 18756540,
+        "clipKeyScalars": 0,
+        "active": 11,
+        "pending": 0,
+        "cache": {
+          "loads": 1,
+          "hits": 10,
+          "disposals": 0,
+          "live": 1,
+          "retainedReferences": 11
+        }
+      },
+      "rejection": {
+        "code": "GLOBAL_BUDGET",
+        "message": "Application deformedVertices limit"
+      },
+      "afterDispose": {
+        "actors": 0,
+        "vertices": 0,
+        "nodes": 0,
+        "deformedVertices": 0,
+        "sourceBytes": 0,
+        "decodedArrayBytes": 0,
+        "clipKeyScalars": 0,
+        "active": 0,
+        "pending": 0,
+        "cache": {
+          "loads": 1,
+          "hits": 10,
+          "disposals": 1,
+          "live": 0,
+          "retainedReferences": 0
+        }
+      }
+    }
+  ],
+  "overlappingBufferViews": {
+    "encodedGLBBytes": 527924,
+    "bufferViewCount": 15,
+    "reservedBodyDecodedBytes": 534760,
+    "observedBeforeReservationCheck": {
+      "decodedGeometryBackingBytes": 7340032
+    },
+    "ratio": 13.725843368987958,
+    "rejection": {
+      "code": "LIMIT",
+      "message": "Decoded geometry array reservation"
+    },
+    "afterFailure": {
+      "actors": 0,
+      "vertices": 0,
+      "nodes": 0,
+      "deformedVertices": 0,
+      "sourceBytes": 0,
+      "decodedArrayBytes": 0,
+      "clipKeyScalars": 0,
+      "active": 0,
+      "pending": 0,
+      "cache": {
+        "loads": 1,
+        "hits": 0,
+        "disposals": 0,
+        "live": 0,
+        "retainedReferences": 0
+      }
+    }
+  },
+  "disposedMechanicalRetention": {
+    "cycles": 3,
+    "retainedModelChildren": [
+      1,
+      1,
+      1
+    ],
+    "reachableGeometryBytesPerHandle": [
+      6615000,
+      6615000,
+      6615000
+    ],
+    "distinctGeometryObjects": 3,
+    "distinctPositionBuffers": 3,
+    "pool": {
+      "actors": 0,
+      "vertices": 0,
+      "nodes": 0,
+      "deformedVertices": 0,
+      "sourceBytes": 0,
+      "decodedArrayBytes": 0,
+      "clipKeyScalars": 0,
+      "active": 0,
+      "pending": 0,
+      "cache": {
+        "loads": 3,
+        "hits": 0,
+        "disposals": 3,
+        "live": 0,
+        "retainedReferences": 0
+      }
+    },
+    "scope": "Strong JS reachability through retained disposed actor handles. Does not claim a leak when callers drop the handles; GPU disposal is not tested."
+  },
+  "reviewedSourceUnchanged": true
+}

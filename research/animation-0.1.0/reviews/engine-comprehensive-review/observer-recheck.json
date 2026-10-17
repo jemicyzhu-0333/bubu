@@ -1,0 +1,29 @@
+{
+  "checks": 45,
+  "recordTypes": [
+    "request",
+    "arrival",
+    "exit-start",
+    "gap-start",
+    "done",
+    "release",
+    "reset"
+  ],
+  "writes": 144,
+  "final": {
+    "time": 3,
+    "phase": "idle",
+    "owner": null,
+    "requestId": null,
+    "candidate": null,
+    "token": 6,
+    "logicalArrival": null,
+    "path": null,
+    "amount": 0,
+    "clockArrival": 2.14,
+    "clockActualArrival": 2.14,
+    "deadline": null,
+    "queued": 0
+  },
+  "pass": true
+}

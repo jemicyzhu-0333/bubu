@@ -1,0 +1,6168 @@
+{
+  "schemaVersion": 1,
+  "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+  "scope": "V1 dango production-code inventory; separate forms retained and labeled; no runtime observations or asset verification",
+  "counts": {
+    "actions": 44,
+    "sessionActivities": 12,
+    "mirrors": 3,
+    "wearables": 45,
+    "dangoWearables": 18,
+    "scenes": 25
+  },
+  "actions": [
+    {
+      "id": "workout",
+      "name": "突然健身",
+      "motion": "pushup",
+      "prop": "headband",
+      "effect": "sweat",
+      "lines": [
+        "一二一二，小短腿也要锻炼！",
+        "俯卧撑进行中，帮我数到八！",
+        "今天的像素肌肉也上线啦。"
+      ],
+      "expression": "work.ready",
+      "duration": 8500,
+      "kind": "attention",
+      "familyId": "attention.motion",
+      "weight": 800,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "突然健身",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 71,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "chase-butterfly",
+      "name": "追蝴蝶",
+      "motion": "dash",
+      "prop": "butterfly",
+      "effect": "petals",
+      "lines": [
+        "蝴蝶等等，我只追一小圈！",
+        "左边！右边！差一点抓到啦。",
+        "没抓到也没关系，它飞得真好看。"
+      ],
+      "expression": "life.attentive",
+      "duration": 9000,
+      "kind": "attention",
+      "familyId": "attention.motion",
+      "weight": 650,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "追蝴蝶",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 72,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "hiccup",
+      "name": "打嗝",
+      "motion": "hiccup",
+      "prop": "cup",
+      "effect": "bubbles",
+      "lines": [
+        "嗝……刚才那口空气太大了。",
+        "等一下，嗝还没有走远。",
+        "嗝！假装什么都没发生。"
+      ],
+      "expression": "react.surprised",
+      "duration": 6500,
+      "kind": "attention",
+      "familyId": "attention.expression",
+      "weight": 900,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "打嗝",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 73,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "juggle",
+      "name": "耍杂技",
+      "motion": "juggle",
+      "prop": "balls",
+      "effect": "sparkles",
+      "lines": [
+        "三个球，一个都不能掉！",
+        "欢迎观看桌角限定杂技。",
+        "最后一下——稳稳接住！"
+      ],
+      "expression": "react.happy",
+      "duration": 9000,
+      "kind": "attention",
+      "familyId": "attention.performance",
+      "weight": 560,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "耍杂技",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 74,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "carry-energy",
+      "name": "搬运能量",
+      "motion": "carry",
+      "prop": "energy",
+      "effect": "sparks",
+      "lines": [
+        "借过借过，能量补给送达！",
+        "这颗闪电有点重，但我搬得动。",
+        "把一点亮晶晶的电量放在这里。"
+      ],
+      "expression": "work.starting",
+      "duration": 8000,
+      "kind": "attention",
+      "familyId": "attention.motion",
+      "weight": 520,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "搬运能量",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 75,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "pit-fall",
+      "name": "掉进小坑",
+      "motion": "fall",
+      "prop": "hole",
+      "effect": "dust",
+      "lines": [
+        "咦，桌面什么时候多了个坑？",
+        "我没事，只是和地板打了个招呼。",
+        "爬出来了！这次当作探险。"
+      ],
+      "expression": "react.surprised",
+      "duration": 7500,
+      "kind": "attention",
+      "familyId": "attention.motion",
+      "weight": 460,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "掉进小坑",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 76,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "mirror-meet",
+      "name": "遇见镜像",
+      "motion": "mirror",
+      "prop": "mirror",
+      "effect": "glimmer",
+      "lines": [
+        "嗨，另一个我也在眨眼。",
+        "镜子里的小家伙好像认识你。",
+        "我们两个一起陪你一会儿。"
+      ],
+      "expression": "life.attentive",
+      "duration": 9000,
+      "kind": "attention",
+      "familyId": "attention.performance",
+      "weight": 430,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "遇见镜像",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 77,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "sing",
+      "name": "桌角演唱会",
+      "motion": "sway",
+      "prop": "microphone",
+      "effect": "notes",
+      "lines": [
+        "啦啦啦，桌角演唱会开场！",
+        "这一句只唱给现在的你。",
+        "跑调也不影响我认真唱完。"
+      ],
+      "expression": "react.happy",
+      "duration": 10000,
+      "kind": "attention",
+      "familyId": "attention.performance",
+      "weight": 720,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "桌角演唱会",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 78,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "stuck-corner",
+      "name": "角落装睡",
+      "motion": "squish",
+      "prop": "ellipsis",
+      "effect": "puffs",
+      "lines": [
+        "我没有卡住，我只是在研究墙角。",
+        "如果我不动，角落就发现不了我。",
+        "好吧，研究结束，准备出来。"
+      ],
+      "expression": "life.peek",
+      "duration": 7500,
+      "kind": "attention",
+      "familyId": "attention.motion",
+      "weight": 420,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "角落装睡",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 79,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "chase-laser",
+      "name": "追逐光点",
+      "motion": "dash",
+      "prop": "laser",
+      "effect": "trail",
+      "lines": [
+        "那个小红点又跑掉了！",
+        "绕一圈，这次一定追得上。",
+        "光点停一下，我的小短腿很忙。"
+      ],
+      "expression": "life.attentive",
+      "duration": 9500,
+      "kind": "attention",
+      "familyId": "attention.motion",
+      "weight": 600,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "追逐光点",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 80,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "dig-treasure",
+      "name": "挖到收藏",
+      "motion": "dig",
+      "prop": "treasure",
+      "effect": "dust",
+      "lines": [
+        "这里有东西在发光，我挖挖看。",
+        "找到一枚属于今天的小收藏！",
+        "宝藏不是分数，是我们遇见的这一刻。"
+      ],
+      "expression": "life.attentive",
+      "duration": 10000,
+      "kind": "attention",
+      "familyId": "attention.discovery",
+      "weight": 430,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": "builtin-core.dig-treasure",
+      "staticProgress": 0.75,
+      "desc": "挖到收藏",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 81,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "yawn",
+      "name": "大大哈欠",
+      "motion": "stretch",
+      "prop": "sleep-cap",
+      "effect": "zzz",
+      "lines": [
+        "哈——欠，身体在提醒我慢一点。",
+        "这个哈欠好长，差点把我卷进去。",
+        "伸完懒腰，像素都摆整齐了。"
+      ],
+      "expression": "life.drowsy",
+      "duration": 7000,
+      "kind": "ambient",
+      "familyId": "ambient.calm",
+      "weight": 1300,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "大大哈欠",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 82,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "sneeze",
+      "name": "像素喷嚏",
+      "motion": "recoil",
+      "prop": "tissue",
+      "effect": "puffs",
+      "lines": [
+        "阿——嚏！像素都抖了一下。",
+        "没关系，只是一个很响的小喷嚏。",
+        "纸巾收到，我又精神啦。"
+      ],
+      "expression": "react.surprised",
+      "duration": 6500,
+      "kind": "attention",
+      "familyId": "attention.expression",
+      "weight": 780,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "像素喷嚏",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 83,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "bubble-blow",
+      "name": "吹泡泡",
+      "motion": "float",
+      "prop": "bubble-wand",
+      "effect": "bubbles",
+      "lines": [
+        "看，这个泡泡装下了一小片彩虹。",
+        "再吹一个，让它慢慢飘远。",
+        "最大的这颗留给你。"
+      ],
+      "expression": "react.happy",
+      "duration": 9000,
+      "kind": "attention",
+      "familyId": "attention.performance",
+      "weight": 650,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "吹泡泡",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 84,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "meditate",
+      "name": "安静打坐",
+      "motion": "breathe",
+      "prop": "cushion",
+      "effect": "halo",
+      "lines": [
+        "吸气，呼气，我们一起慢一点。",
+        "安静坐一会儿，不需要想明白什么。",
+        "这一小片平静先放在桌角。"
+      ],
+      "expression": "life.space",
+      "duration": 10000,
+      "kind": "ambient",
+      "familyId": "ambient.calm",
+      "weight": 1100,
+      "priority": 20,
+      "focusAllowed": true,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "安静打坐",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 85,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "wave",
+      "name": "认真挥手",
+      "motion": "wave",
+      "prop": "none",
+      "effect": "hearts",
+      "lines": [
+        "看到你啦，我认真挥个手！",
+        "嗨——今天也在同一张桌面见面。",
+        "这只小手专门负责欢迎你回来。"
+      ],
+      "expression": "react.happy",
+      "duration": 7000,
+      "kind": "ambient",
+      "familyId": "ambient.social",
+      "weight": 1100,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "认真挥手",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 86,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "stretch",
+      "name": "全身伸展",
+      "motion": "stretch",
+      "prop": "none",
+      "effect": "sparkles",
+      "lines": [
+        "手臂向上，像素也要伸展开。",
+        "跟我一起把肩膀慢慢放松。",
+        "伸到最高，再轻轻落下来。"
+      ],
+      "expression": "react.relieved",
+      "duration": 8000,
+      "kind": "ambient",
+      "familyId": "ambient.calm",
+      "weight": 1000,
+      "priority": 20,
+      "focusAllowed": true,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "全身伸展",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 87,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "happy-hop",
+      "name": "开心蹦跳",
+      "motion": "hop",
+      "prop": "none",
+      "effect": "stars",
+      "lines": [
+        "突然想蹦两下，咚、咚！",
+        "今天的地板弹性刚刚好。",
+        "小小开心也值得跳起来。"
+      ],
+      "expression": "react.happy",
+      "duration": 7500,
+      "kind": "attention",
+      "familyId": "attention.motion",
+      "weight": 850,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "开心蹦跳",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 88,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "high-five",
+      "name": "开心击掌",
+      "motion": "high-five",
+      "prop": "high-five",
+      "effect": "sparkles",
+      "lines": [
+        "手举高——啪！击掌成功。",
+        "这一掌接得刚刚好！",
+        "默契收到，今天也一起加油。"
+      ],
+      "expression": "react.happy",
+      "duration": 7000,
+      "kind": "attention",
+      "familyId": "attention.social",
+      "weight": 500,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "开心击掌",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 89,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "spin",
+      "name": "原地转圈",
+      "motion": "spin",
+      "prop": "none",
+      "effect": "stars",
+      "lines": [
+        "转一圈，把杂念甩到身后。",
+        "看好啦，这是我的像素陀螺！",
+        "有一点晕，但这一圈很完整。"
+      ],
+      "expression": "react.happy",
+      "duration": 7000,
+      "kind": "attention",
+      "familyId": "attention.motion",
+      "weight": 670,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "原地转圈",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 90,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "dance",
+      "name": "音乐摇摆",
+      "motion": "dance",
+      "prop": "music-notes",
+      "effect": "notes",
+      "lines": [
+        "音乐来了，左右踏两步！",
+        "小手举起来，跟着节拍摇一摇。",
+        "最后一个拍子，稳稳收住。"
+      ],
+      "expression": "react.celebrate",
+      "duration": 8500,
+      "kind": "attention",
+      "familyId": "attention.performance",
+      "weight": 620,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.25,
+      "desc": "音乐摇摆",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 91,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "look-around",
+      "name": "左右张望",
+      "motion": "look",
+      "prop": "binoculars",
+      "effect": "glimmer",
+      "lines": [
+        "左边看看，右边也没有漏掉。",
+        "桌面巡逻完成，目前一切正常。",
+        "我好像听见一个灵感从旁边经过。"
+      ],
+      "expression": "life.space",
+      "duration": 8500,
+      "kind": "ambient",
+      "familyId": "ambient.curious",
+      "weight": 1050,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "左右张望",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 92,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "tail-wiggle",
+      "name": "开心摇尾巴",
+      "motion": "wag",
+      "prop": "tail",
+      "effect": "hearts",
+      "lines": [
+        "尾巴先知道我很高兴。",
+        "摇得这么快，是因为看见你啦。",
+        "今天的开心藏不住，尾巴暴露了。"
+      ],
+      "expression": "react.happy",
+      "duration": 7500,
+      "kind": "ambient",
+      "familyId": "ambient.social",
+      "weight": 950,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "开心摇尾巴",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 93,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "read-book",
+      "name": "认真读书",
+      "motion": "read",
+      "prop": "book",
+      "effect": "letters",
+      "lines": [
+        "这一页讲到哪里了？我做个小书签。",
+        "安静读两页，故事正在打开。",
+        "遇到不懂的字，我先画一颗星。"
+      ],
+      "expression": "work.focus",
+      "duration": 11000,
+      "kind": "ambient",
+      "familyId": "ambient.work",
+      "weight": 900,
+      "priority": 20,
+      "focusAllowed": true,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "认真读书",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 94,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "take-note",
+      "name": "记下这一句",
+      "motion": "write",
+      "prop": "document",
+      "effect": "none",
+      "lines": [
+        "我记着。",
+        "记好了。",
+        "这一句收好了。"
+      ],
+      "expression": "life.attentive",
+      "duration": 11000,
+      "kind": "ambient",
+      "familyId": "ambient.work",
+      "weight": 500,
+      "priority": 20,
+      "focusAllowed": true,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "记下这一句",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 95,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "type-keyboard",
+      "name": "键盘冲浪",
+      "motion": "type",
+      "prop": "keyboard",
+      "effect": "code",
+      "lines": [
+        "哒哒哒，我来敲一小段草稿。",
+        "先把第一版打出来，再慢慢修改。",
+        "键盘声音很密，但我只写眼前一行。"
+      ],
+      "expression": "work.deep-focus",
+      "duration": 10000,
+      "kind": "ambient",
+      "familyId": "ambient.work",
+      "weight": 920,
+      "priority": 20,
+      "focusAllowed": true,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "键盘冲浪",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 96,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "sip-tea",
+      "name": "喝口热茶",
+      "motion": "sip",
+      "prop": "cup",
+      "effect": "steam",
+      "lines": [
+        "小口喝茶，热气把节奏放慢了。",
+        "这杯温度正好，你也要补水吗？",
+        "咕噜一口，再把杯子稳稳放下。"
+      ],
+      "expression": "work.rest",
+      "duration": 9000,
+      "kind": "ambient",
+      "familyId": "ambient.calm",
+      "weight": 1050,
+      "priority": 20,
+      "focusAllowed": true,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "喝口热茶",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 97,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "paper-plane",
+      "name": "放纸飞机",
+      "motion": "glide",
+      "prop": "plane",
+      "effect": "trail",
+      "lines": [
+        "把一个小念头折成纸飞机。",
+        "飞吧，落在哪里都算一次探索。",
+        "它绕过窗口，又回到桌边啦。"
+      ],
+      "expression": "work.switch",
+      "duration": 9500,
+      "kind": "attention",
+      "familyId": "attention.motion",
+      "weight": 610,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "放纸飞机",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 98,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "paper-return",
+      "name": "回信纸飞机",
+      "motion": "glide",
+      "prop": "plane",
+      "effect": "none",
+      "lines": [
+        "把一封小小的回信轻轻送出去。",
+        "咦，它绕了一圈又飞回来啦。",
+        "接住了，收好这份桌角惊喜。"
+      ],
+      "expression": "react.happy",
+      "duration": 10500,
+      "kind": "attention",
+      "familyId": "attention.performance",
+      "weight": 380,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.78,
+      "desc": "回信纸飞机",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 99,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "sweep",
+      "name": "清扫桌面",
+      "motion": "sweep",
+      "prop": "broom",
+      "effect": "dust",
+      "lines": [
+        "扫一扫，把散落的像素收整齐。",
+        "桌角清爽一点，脑袋也透气一点。",
+        "最后一小堆灰尘，送它出门。"
+      ],
+      "expression": "work.wrap-up",
+      "duration": 9000,
+      "kind": "ambient",
+      "familyId": "ambient.work",
+      "weight": 780,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "清扫桌面",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 100,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "magic-trick",
+      "name": "像素魔术",
+      "motion": "magic",
+      "prop": "hat",
+      "effect": "sparkles",
+      "lines": [
+        "帽子里会变出什么？先保密。",
+        "三、二、一——一颗像素星！",
+        "魔术结束，但亮晶晶还会留一会儿。"
+      ],
+      "expression": "react.surprised",
+      "duration": 10000,
+      "kind": "attention",
+      "familyId": "attention.performance",
+      "weight": 520,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "像素魔术",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 101,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "telescope",
+      "name": "观察星星",
+      "motion": "telescope",
+      "prop": "telescope",
+      "effect": "stars",
+      "lines": [
+        "那颗星好像也在看我们。",
+        "把远处拉近一点，今晚很清楚。",
+        "我找到一颗会慢慢闪的星。"
+      ],
+      "expression": "life.space",
+      "duration": 11000,
+      "kind": "ambient",
+      "familyId": "ambient.curious",
+      "weight": 720,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "观察星星",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 102,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "plant-water",
+      "name": "给小苗浇水",
+      "motion": "water",
+      "prop": "watering-can",
+      "effect": "leaves",
+      "lines": [
+        "一小口水，够小苗慢慢长。",
+        "今天的新叶子比昨天亮一点。",
+        "照顾成长不用催，它有自己的速度。"
+      ],
+      "expression": "react.encouraging",
+      "duration": 10000,
+      "kind": "ambient",
+      "familyId": "ambient.calm",
+      "weight": 820,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "给小苗浇水",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 103,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "knit-scarf",
+      "name": "织像素围巾",
+      "motion": "knit",
+      "prop": "yarn",
+      "effect": "thread",
+      "lines": [
+        "一针一针，围巾正在变长。",
+        "这段颜色留给今天的心情。",
+        "织歪一点也很可爱，继续接上。"
+      ],
+      "expression": "work.deep-focus",
+      "duration": 12000,
+      "kind": "ambient",
+      "familyId": "ambient.craft",
+      "weight": 620,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "织像素围巾",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 104,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "drum-solo",
+      "name": "迷你鼓点",
+      "motion": "drum",
+      "prop": "drum",
+      "effect": "notes",
+      "lines": [
+        "咚哒咚哒，桌面节拍来了！",
+        "这一小段鼓点替你赶走困意。",
+        "最后一下——咚！谢谢收听。"
+      ],
+      "expression": "react.happy",
+      "duration": 9000,
+      "kind": "attention",
+      "familyId": "attention.performance",
+      "weight": 560,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "迷你鼓点",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 105,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "moonwalk",
+      "name": "月球漫步",
+      "motion": "moonwalk",
+      "prop": "sparkle-shoes",
+      "effect": "trail",
+      "lines": [
+        "向前看，脚步却悄悄往后走。",
+        "这是桌面限定版月球漫步。",
+        "滑完这一段，我稳稳回到原位。"
+      ],
+      "expression": "react.happy",
+      "duration": 9000,
+      "kind": "attention",
+      "familyId": "attention.motion",
+      "weight": 500,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "月球漫步",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 106,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "hide-box",
+      "name": "躲进纸箱",
+      "motion": "hide",
+      "prop": "box",
+      "effect": "puffs",
+      "lines": [
+        "只要藏进箱子，就没人发现我。",
+        "纸箱里很安全，还带一点纸香。",
+        "我数到三就探头：一、二、三！"
+      ],
+      "expression": "life.peek",
+      "duration": 10000,
+      "kind": "attention",
+      "familyId": "attention.expression",
+      "weight": 660,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "躲进纸箱",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 107,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "build-blocks",
+      "name": "搭像素积木",
+      "motion": "build",
+      "prop": "blocks",
+      "effect": "sparkles",
+      "lines": [
+        "先放最下面这块，塔才站得稳。",
+        "再加一层……这次没有倒！",
+        "完成，一座桌角小城堡。"
+      ],
+      "expression": "work.focus",
+      "duration": 11000,
+      "kind": "ambient",
+      "familyId": "ambient.craft",
+      "weight": 700,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "搭像素积木",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 108,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "catch-star",
+      "name": "接住流星",
+      "motion": "reach",
+      "prop": "star",
+      "effect": "stars",
+      "lines": [
+        "那颗星掉下来了，我来接住！",
+        "差一点，再伸高手一点点。",
+        "接到了，先把愿望放在这里。"
+      ],
+      "expression": "react.surprised",
+      "duration": 9500,
+      "kind": "attention",
+      "familyId": "attention.motion",
+      "weight": 520,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "接住流星",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 109,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "umbrella-dance",
+      "name": "雨伞转舞",
+      "motion": "umbrella",
+      "prop": "umbrella",
+      "effect": "rainbow",
+      "lines": [
+        "下雨也可以转一圈小伞。",
+        "雨点在伞面上敲出节拍。",
+        "转完啦，给你留一道小彩虹。"
+      ],
+      "expression": "react.happy",
+      "duration": 10000,
+      "kind": "attention",
+      "familyId": "attention.performance",
+      "weight": 480,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "雨伞转舞",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 110,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "snack-picnic",
+      "name": "桌角野餐",
+      "motion": "picnic",
+      "prop": "picnic",
+      "effect": "crumbs",
+      "lines": [
+        "铺好小毯子，桌角野餐开始。",
+        "这一口慢慢吃，香味不会赶时间。",
+        "给你也留了一块最漂亮的点心。"
+      ],
+      "expression": "react.satisfied",
+      "duration": 11000,
+      "kind": "ambient",
+      "familyId": "ambient.calm",
+      "weight": 720,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "桌角野餐",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 111,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "shadow-box",
+      "name": "影子拳击",
+      "motion": "box",
+      "prop": "gloves",
+      "effect": "impact",
+      "lines": [
+        "左一下，右一下，空气接招！",
+        "我不是生气，只是在练习小拳法。",
+        "收拳、站稳，今天状态不错。"
+      ],
+      "expression": "work.ready",
+      "duration": 8000,
+      "kind": "attention",
+      "familyId": "attention.motion",
+      "weight": 520,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "影子拳击",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 112,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "tiny-chef",
+      "name": "迷你料理",
+      "motion": "cook",
+      "prop": "pan",
+      "effect": "steam",
+      "lines": [
+        "小锅热起来，今天做像素浓汤。",
+        "撒一点耐心，再放一颗小星星。",
+        "完成啦，香味先给你尝尝。"
+      ],
+      "expression": "work.focus",
+      "duration": 11000,
+      "kind": "attention",
+      "familyId": "attention.performance",
+      "weight": 540,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "迷你料理",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 113,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "photo-pose",
+      "name": "拍照定格",
+      "motion": "pose",
+      "prop": "camera",
+      "effect": "flash",
+      "lines": [
+        "镜头看这里——三、二、一！",
+        "这张要摆一个很有精神的姿势。",
+        "拍好了，把今天的样子收藏起来。"
+      ],
+      "expression": "life.attentive",
+      "duration": 8000,
+      "kind": "attention",
+      "familyId": "attention.social",
+      "weight": 620,
+      "priority": 20,
+      "focusAllowed": false,
+      "discoveryId": null,
+      "staticProgress": 0.5,
+      "desc": "拍照定格",
+      "evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 114,
+        "status": "code-confirmed"
+      }
+    }
+  ],
+  "activities": [
+    {
+      "id": "focus-read",
+      "state": "focused",
+      "label": "读书",
+      "icon": "📖",
+      "motion": "read",
+      "prop": "book",
+      "expression": "work.focus",
+      "durationMs": 42000,
+      "evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 16,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "focus-type",
+      "state": "focused",
+      "label": "打字",
+      "icon": "⌨",
+      "motion": "type",
+      "prop": "keyboard",
+      "expression": "work.deep-focus",
+      "durationMs": 36000,
+      "evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 17,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "focus-write",
+      "state": "focused",
+      "label": "写文档",
+      "icon": "✎",
+      "motion": "write",
+      "prop": "document",
+      "expression": "work.focus",
+      "durationMs": 44000,
+      "evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 18,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "focus-browse",
+      "state": "focused",
+      "label": "浏览网页",
+      "icon": "▣",
+      "motion": "browse",
+      "prop": "laptop",
+      "expression": "work.switch",
+      "durationMs": 38000,
+      "evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 19,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "focus-charts",
+      "state": "focused",
+      "label": "看行情",
+      "icon": "↗",
+      "motion": "trade",
+      "prop": "chart",
+      "expression": "work.deep-focus",
+      "durationMs": 34000,
+      "evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 20,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "focus-notes",
+      "state": "focused",
+      "label": "整理便签",
+      "icon": "▤",
+      "motion": "organize",
+      "prop": "notes",
+      "expression": "work.wrap-up",
+      "durationMs": 40000,
+      "evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 21,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "rest-daydream",
+      "state": "resting",
+      "label": "放空发呆",
+      "icon": "◌",
+      "motion": "daydream",
+      "prop": "none",
+      "expression": "life.space",
+      "durationMs": 38000,
+      "evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 22,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "rest-nap",
+      "state": "resting",
+      "label": "打个小盹",
+      "icon": "zZ",
+      "motion": "doze",
+      "prop": "pillow",
+      "expression": "life.sleep",
+      "durationMs": 48000,
+      "evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 23,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "rest-tea",
+      "state": "resting",
+      "label": "慢慢喝茶",
+      "icon": "♨",
+      "motion": "sip",
+      "prop": "cup",
+      "expression": "work.rest",
+      "durationMs": 36000,
+      "evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 24,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "rest-stretch",
+      "state": "resting",
+      "label": "伸展一下",
+      "icon": "↟",
+      "motion": "stretch",
+      "prop": "none",
+      "expression": "react.relieved",
+      "durationMs": 30000,
+      "evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 25,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "rest-window",
+      "state": "resting",
+      "label": "看看窗外",
+      "icon": "☁",
+      "motion": "look",
+      "prop": "none",
+      "expression": "life.space",
+      "durationMs": 40000,
+      "evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 26,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "rest-plant",
+      "state": "resting",
+      "label": "照料小苗",
+      "icon": "♧",
+      "motion": "water",
+      "prop": "watering-can",
+      "expression": "react.encouraging",
+      "durationMs": 42000,
+      "evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 27,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "mirror-music",
+      "state": "mirror-music",
+      "label": "听音乐",
+      "icon": "♪",
+      "motion": "dance",
+      "prop": "music-notes",
+      "expression": "react.happy",
+      "durationMs": 24000,
+      "evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 68,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "mirror-coding",
+      "state": "mirror-coding",
+      "label": "写代码",
+      "icon": "⌨",
+      "motion": "type",
+      "prop": "keyboard",
+      "expression": "work.deep-focus",
+      "durationMs": 36000,
+      "evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 69,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "mirror-ai",
+      "state": "mirror-ai",
+      "label": "和 AI 对话",
+      "icon": "…",
+      "motion": "browse",
+      "prop": "ai-chat",
+      "expression": "life.attentive",
+      "durationMs": 30000,
+      "evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 70,
+        "status": "code-confirmed"
+      }
+    }
+  ],
+  "stories": {
+    "focus-read": {
+      "hold": 0.5,
+      "stages": [
+        {
+          "until": 0.12,
+          "label": "翻开书页",
+          "motion": "organize",
+          "prop": "book",
+          "expression": "work.starting",
+          "cycles": 1
+        },
+        {
+          "until": 0.42,
+          "label": "逐行阅读",
+          "motion": "read",
+          "prop": "book",
+          "expression": "work.focus",
+          "cycles": 3
+        },
+        {
+          "until": 0.55,
+          "label": "记下发现",
+          "motion": "write",
+          "prop": "document",
+          "expression": "work.wrap-up",
+          "cycles": 1
+        },
+        {
+          "until": 0.84,
+          "label": "回看书页",
+          "motion": "read",
+          "prop": "book",
+          "expression": "work.focus",
+          "cycles": 3
+        },
+        {
+          "until": 1,
+          "label": "捧着书歇会",
+          "motion": "breathe",
+          "prop": "book",
+          "expression": "react.satisfied",
+          "cycles": 1
+        }
+      ]
+    },
+    "focus-type": {
+      "hold": 0.5,
+      "stages": [
+        {
+          "until": 0.12,
+          "label": "想好第一句",
+          "motion": "daydream",
+          "prop": "keyboard",
+          "expression": "work.starting",
+          "cycles": 1
+        },
+        {
+          "until": 0.38,
+          "label": "左手起稿",
+          "motion": "type",
+          "prop": "keyboard",
+          "expression": "work.focus",
+          "cycles": 3
+        },
+        {
+          "until": 0.5,
+          "label": "停下校对",
+          "motion": "browse",
+          "prop": "laptop",
+          "expression": "work.switch",
+          "cycles": 1
+        },
+        {
+          "until": 0.82,
+          "label": "继续输入",
+          "motion": "type",
+          "prop": "keyboard",
+          "expression": "work.deep-focus",
+          "cycles": 3
+        },
+        {
+          "until": 1,
+          "label": "检查并收好",
+          "motion": "organize",
+          "prop": "notes",
+          "expression": "react.satisfied",
+          "cycles": 1
+        }
+      ]
+    },
+    "focus-write": {
+      "hold": 0.5,
+      "stages": [
+        {
+          "until": 0.12,
+          "label": "摊开纸张",
+          "motion": "organize",
+          "prop": "document",
+          "expression": "work.starting",
+          "cycles": 1
+        },
+        {
+          "until": 0.28,
+          "label": "想一想",
+          "motion": "daydream",
+          "prop": "document",
+          "expression": "life.space",
+          "cycles": 1
+        },
+        {
+          "until": 0.52,
+          "label": "写下第一段",
+          "motion": "write",
+          "prop": "document",
+          "expression": "work.focus",
+          "cycles": 3
+        },
+        {
+          "until": 0.64,
+          "label": "回读一遍",
+          "motion": "read",
+          "prop": "document",
+          "expression": "work.switch",
+          "cycles": 1
+        },
+        {
+          "until": 0.86,
+          "label": "补上细节",
+          "motion": "write",
+          "prop": "document",
+          "expression": "work.deep-focus",
+          "cycles": 2
+        },
+        {
+          "until": 1,
+          "label": "整理完成",
+          "motion": "organize",
+          "prop": "notes",
+          "expression": "react.satisfied",
+          "cycles": 1
+        }
+      ]
+    },
+    "focus-browse": {
+      "hold": 0.5,
+      "stages": [
+        {
+          "until": 0.14,
+          "label": "打开小电脑",
+          "motion": "organize",
+          "prop": "laptop",
+          "expression": "work.starting",
+          "cycles": 1
+        },
+        {
+          "until": 0.43,
+          "label": "慢慢浏览",
+          "motion": "browse",
+          "prop": "laptop",
+          "expression": "work.focus",
+          "cycles": 3
+        },
+        {
+          "until": 0.61,
+          "label": "记录一条",
+          "motion": "write",
+          "prop": "notes",
+          "expression": "work.wrap-up",
+          "cycles": 2
+        },
+        {
+          "until": 0.85,
+          "label": "返回核对",
+          "motion": "browse",
+          "prop": "laptop",
+          "expression": "work.switch",
+          "cycles": 2
+        },
+        {
+          "until": 1,
+          "label": "停下浏览",
+          "motion": "breathe",
+          "prop": "laptop",
+          "expression": "react.satisfied",
+          "cycles": 1
+        }
+      ]
+    },
+    "focus-charts": {
+      "hold": 0.5,
+      "stages": [
+        {
+          "until": 0.15,
+          "label": "铺开图表",
+          "motion": "organize",
+          "prop": "chart",
+          "expression": "work.starting",
+          "cycles": 1
+        },
+        {
+          "until": 0.42,
+          "label": "查看趋势",
+          "motion": "trade",
+          "prop": "chart",
+          "expression": "work.focus",
+          "cycles": 3
+        },
+        {
+          "until": 0.57,
+          "label": "对照便签",
+          "motion": "read",
+          "prop": "notes",
+          "expression": "work.switch",
+          "cycles": 1
+        },
+        {
+          "until": 0.82,
+          "label": "标记变化",
+          "motion": "write",
+          "prop": "chart",
+          "expression": "work.deep-focus",
+          "cycles": 2
+        },
+        {
+          "until": 1,
+          "label": "核对收尾",
+          "motion": "trade",
+          "prop": "chart",
+          "expression": "work.wrap-up",
+          "cycles": 1
+        }
+      ]
+    },
+    "focus-notes": {
+      "hold": 0.5,
+      "stages": [
+        {
+          "until": 0.15,
+          "label": "摊开便签",
+          "motion": "organize",
+          "prop": "notes",
+          "expression": "work.starting",
+          "cycles": 1
+        },
+        {
+          "until": 0.34,
+          "label": "逐张读过",
+          "motion": "read",
+          "prop": "notes",
+          "expression": "work.focus",
+          "cycles": 2
+        },
+        {
+          "until": 0.55,
+          "label": "分成小叠",
+          "motion": "organize",
+          "prop": "notes",
+          "expression": "work.wrap-up",
+          "cycles": 2
+        },
+        {
+          "until": 0.76,
+          "label": "补一行字",
+          "motion": "write",
+          "prop": "notes",
+          "expression": "work.focus",
+          "cycles": 2
+        },
+        {
+          "until": 1,
+          "label": "轻轻放好",
+          "motion": "organize",
+          "prop": "notes",
+          "expression": "react.satisfied",
+          "cycles": 1
+        }
+      ]
+    },
+    "rest-daydream": {
+      "hold": 0.5,
+      "stages": [
+        {
+          "until": 0.17,
+          "label": "慢慢呼气",
+          "motion": "breathe",
+          "prop": "none",
+          "expression": "react.relieved",
+          "cycles": 1
+        },
+        {
+          "until": 0.43,
+          "label": "看看身旁",
+          "motion": "look",
+          "prop": "none",
+          "expression": "life.space",
+          "cycles": 2
+        },
+        {
+          "until": 0.77,
+          "label": "安静发呆",
+          "motion": "daydream",
+          "prop": "none",
+          "expression": "life.space",
+          "cycles": 2
+        },
+        {
+          "until": 1,
+          "label": "回过神来",
+          "motion": "stretch",
+          "prop": "none",
+          "expression": "work.rest",
+          "cycles": 1
+        }
+      ]
+    },
+    "rest-nap": {
+      "hold": 0.55,
+      "stages": [
+        {
+          "until": 0.15,
+          "label": "拍拍枕头",
+          "motion": "organize",
+          "prop": "pillow",
+          "expression": "work.rest",
+          "cycles": 1
+        },
+        {
+          "until": 0.27,
+          "label": "打个哈欠",
+          "motion": "stretch",
+          "prop": "pillow",
+          "expression": "life.drowsy",
+          "cycles": 1
+        },
+        {
+          "until": 0.77,
+          "label": "抱着枕头睡",
+          "motion": "doze",
+          "prop": "pillow",
+          "expression": "life.sleep",
+          "cycles": 4
+        },
+        {
+          "until": 0.87,
+          "label": "慢慢醒来",
+          "motion": "daydream",
+          "prop": "pillow",
+          "expression": "life.wake",
+          "cycles": 1
+        },
+        {
+          "until": 1,
+          "label": "伸展放松",
+          "motion": "stretch",
+          "prop": "none",
+          "expression": "react.relieved",
+          "cycles": 1
+        }
+      ]
+    },
+    "rest-tea": {
+      "hold": 0.5,
+      "stages": [
+        {
+          "until": 0.16,
+          "label": "双手捧杯",
+          "motion": "carry",
+          "prop": "cup",
+          "expression": "work.rest",
+          "cycles": 1
+        },
+        {
+          "until": 0.31,
+          "label": "吹散热气",
+          "motion": "breathe",
+          "prop": "cup",
+          "expression": "work.rest",
+          "cycles": 1
+        },
+        {
+          "until": 0.65,
+          "label": "小口慢喝",
+          "motion": "sip",
+          "prop": "cup",
+          "expression": "react.satisfied",
+          "cycles": 3
+        },
+        {
+          "until": 0.82,
+          "label": "捧着杯子歇会",
+          "motion": "daydream",
+          "prop": "cup",
+          "expression": "life.space",
+          "cycles": 1
+        },
+        {
+          "until": 1,
+          "label": "放低杯子歇会",
+          "motion": "organize",
+          "prop": "cup",
+          "expression": "react.relieved",
+          "cycles": 1
+        }
+      ]
+    },
+    "rest-stretch": {
+      "hold": 0.5,
+      "stages": [
+        {
+          "until": 0.15,
+          "label": "站稳呼气",
+          "motion": "breathe",
+          "prop": "none",
+          "expression": "work.rest",
+          "cycles": 1
+        },
+        {
+          "until": 0.43,
+          "label": "双臂向上",
+          "motion": "stretch",
+          "prop": "none",
+          "expression": "react.relieved",
+          "cycles": 2
+        },
+        {
+          "until": 0.66,
+          "label": "轻轻左右摆",
+          "motion": "sway",
+          "prop": "none",
+          "expression": "work.rest",
+          "cycles": 2
+        },
+        {
+          "until": 0.84,
+          "label": "放松小手",
+          "motion": "stretch",
+          "prop": "none",
+          "expression": "react.relieved",
+          "cycles": 1
+        },
+        {
+          "until": 1,
+          "label": "慢慢站好",
+          "motion": "breathe",
+          "prop": "none",
+          "expression": "work.rest",
+          "cycles": 1
+        }
+      ]
+    },
+    "rest-window": {
+      "hold": 0.5,
+      "stages": [
+        {
+          "until": 0.17,
+          "label": "转向窗边",
+          "motion": "look",
+          "prop": "none",
+          "expression": "life.attentive",
+          "cycles": 1
+        },
+        {
+          "until": 0.45,
+          "label": "跟着云看",
+          "motion": "look",
+          "prop": "none",
+          "expression": "life.space",
+          "cycles": 2
+        },
+        {
+          "until": 0.74,
+          "label": "安静坐一会",
+          "motion": "daydream",
+          "prop": "none",
+          "expression": "life.space",
+          "cycles": 2
+        },
+        {
+          "until": 1,
+          "label": "向窗外挥手",
+          "motion": "wave",
+          "prop": "none",
+          "expression": "react.happy",
+          "cycles": 1
+        }
+      ]
+    },
+    "rest-plant": {
+      "hold": 0.5,
+      "stages": [
+        {
+          "until": 0.14,
+          "label": "看看小苗",
+          "motion": "look",
+          "prop": "plant",
+          "expression": "life.attentive",
+          "cycles": 1
+        },
+        {
+          "until": 0.32,
+          "label": "扶好花盆",
+          "motion": "organize",
+          "prop": "plant",
+          "expression": "work.focus",
+          "cycles": 1
+        },
+        {
+          "until": 0.6,
+          "label": "一点点浇水",
+          "motion": "water",
+          "prop": "watering-can",
+          "expression": "react.encouraging",
+          "cycles": 3
+        },
+        {
+          "until": 0.74,
+          "label": "停下等水落",
+          "motion": "breathe",
+          "prop": "plant",
+          "expression": "work.rest",
+          "cycles": 1
+        },
+        {
+          "until": 0.89,
+          "label": "观察新叶",
+          "motion": "look",
+          "prop": "plant",
+          "expression": "life.attentive",
+          "cycles": 1
+        },
+        {
+          "until": 1,
+          "label": "轻轻挥手",
+          "motion": "wave",
+          "prop": "plant",
+          "expression": "react.satisfied",
+          "cycles": 1
+        }
+      ]
+    }
+  },
+  "rotations": {
+    "focused": [
+      "focus-write",
+      "focus-type",
+      "focus-read",
+      "focus-browse",
+      "focus-notes",
+      "focus-charts"
+    ],
+    "resting": [
+      "rest-daydream",
+      "rest-tea",
+      "rest-window",
+      "rest-nap",
+      "rest-stretch",
+      "rest-plant"
+    ],
+    "mirror-music": [
+      "mirror-music"
+    ],
+    "mirror-coding": [
+      "mirror-coding"
+    ],
+    "mirror-ai": [
+      "mirror-ai"
+    ]
+  },
+  "wearables": [
+    {
+      "id": "milestone.sprout",
+      "label": "小芽",
+      "slot": "head",
+      "layer": "back",
+      "z": 40,
+      "parts": [
+        "back"
+      ],
+      "minLevel": 3,
+      "formId": "dango",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "headwear",
+      "exclusivePriority": 20,
+      "renderKey": "sprout",
+      "effect": "sprout-sway",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 14,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 67,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "milestone.sunhat",
+      "label": "小草帽",
+      "slot": "head",
+      "layer": "back",
+      "z": 46,
+      "parts": [
+        "back",
+        "front"
+      ],
+      "minLevel": 5,
+      "formId": "dango",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "headwear",
+      "exclusivePriority": 50,
+      "renderKey": "sunhat",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 4,
+        "top": 16,
+        "right": 4,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 76,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "milestone.satchel",
+      "label": "小挎包",
+      "slot": "body",
+      "layer": "front",
+      "z": 24,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 8,
+      "formId": "dango",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "sidebag",
+      "exclusivePriority": 40,
+      "renderKey": "satchel",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 14,
+        "top": 0,
+        "right": 4,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 85,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "milestone.scarf",
+      "label": "彩虹围巾",
+      "slot": "neck",
+      "layer": "front",
+      "z": 36,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 10,
+      "formId": "dango",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "neckwear",
+      "exclusivePriority": 50,
+      "renderKey": "scarf",
+      "effect": "scarf-flutter",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 0,
+        "right": 12,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 93,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "milestone.halo",
+      "label": "小光环",
+      "slot": "head",
+      "layer": "front",
+      "z": 52,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 12,
+      "formId": "dango",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "head-aura",
+      "exclusivePriority": 50,
+      "renderKey": "halo",
+      "effect": "halo-glow",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 32,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 102,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "milestone.boots",
+      "label": "闪闪鞋",
+      "slot": "body",
+      "layer": "front",
+      "z": 38,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 15,
+      "formId": "dango",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "footwear",
+      "exclusivePriority": 50,
+      "renderKey": "boots",
+      "effect": "boots-sparkle",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 112,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "milestone.cape",
+      "label": "小披风",
+      "slot": "back",
+      "layer": "back",
+      "z": 14,
+      "parts": [
+        "back",
+        "front"
+      ],
+      "minLevel": 20,
+      "formId": "dango",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "backwear",
+      "exclusivePriority": 80,
+      "renderKey": "cape",
+      "effect": "cape-flutter",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 18,
+        "top": 0,
+        "right": 18,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 122,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "skin.forest-leaf",
+      "label": "森林叶片",
+      "slot": "head",
+      "layer": "back",
+      "z": 42,
+      "parts": [
+        "back"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": "forest",
+      "unlockKind": "skin",
+      "exclusiveGroup": "head-accent",
+      "exclusivePriority": 30,
+      "renderKey": "forest-leaf",
+      "effect": "leaf-shimmer",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 14,
+        "right": 8,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 132,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "skin.sakura-flower",
+      "label": "樱花发饰",
+      "slot": "head",
+      "layer": "back",
+      "z": 42,
+      "parts": [
+        "back"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": "sakura",
+      "unlockKind": "skin",
+      "exclusiveGroup": "head-accent",
+      "exclusivePriority": 30,
+      "renderKey": "sakura-flower",
+      "effect": "petal-glint",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 8,
+        "right": 8,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 142,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "skin.moon-crescent",
+      "label": "月牙",
+      "slot": "head",
+      "layer": "back",
+      "z": 45,
+      "parts": [
+        "back"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": "moon",
+      "unlockKind": "skin",
+      "exclusiveGroup": "head-accent",
+      "exclusivePriority": 40,
+      "renderKey": "moon-crescent",
+      "effect": "moon-glow",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 12,
+        "right": 6,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 152,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "skin.flame-tip",
+      "label": "火焰尖尖",
+      "slot": "head",
+      "layer": "back",
+      "z": 44,
+      "parts": [
+        "back"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": "flame",
+      "unlockKind": "skin",
+      "exclusiveGroup": "headwear",
+      "exclusivePriority": 70,
+      "renderKey": "flame-tip",
+      "effect": "flame-flicker",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 16,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 162,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "skin.crown",
+      "label": "王冠",
+      "slot": "head",
+      "layer": "back",
+      "z": 48,
+      "parts": [
+        "back"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": "crown",
+      "unlockKind": "skin",
+      "exclusiveGroup": "headwear",
+      "exclusivePriority": 90,
+      "renderKey": "crown",
+      "effect": "crown-shine",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 16,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 172,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "skin.robot-antenna",
+      "label": "信号天线",
+      "slot": "head",
+      "layer": "back",
+      "z": 44,
+      "parts": [
+        "back"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": "robot",
+      "unlockKind": "skin",
+      "exclusiveGroup": "headwear",
+      "exclusivePriority": 65,
+      "renderKey": "robot-antenna",
+      "effect": "signal-pulse",
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 16,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 182,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "skin.woodsman-cap",
+      "label": "樵夫帽",
+      "slot": "head",
+      "layer": "back",
+      "z": 44,
+      "parts": [
+        "back"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": "woodsman",
+      "unlockKind": "skin",
+      "exclusiveGroup": "headwear",
+      "exclusivePriority": 80,
+      "renderKey": "woodsman-cap",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 16,
+        "right": 10,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 192,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "skin.ocean-fin",
+      "label": "海蓝鳍",
+      "slot": "back",
+      "layer": "back",
+      "z": 12,
+      "parts": [
+        "back"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": "ocean",
+      "unlockKind": "skin",
+      "exclusiveGroup": "backwear",
+      "exclusivePriority": 100,
+      "renderKey": "ocean-fin",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 8,
+        "top": 0,
+        "right": 22,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 201,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "skin.bat-wings",
+      "label": "夜行翼",
+      "slot": "back",
+      "layer": "back",
+      "z": 8,
+      "parts": [
+        "back"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": "bat",
+      "unlockKind": "skin",
+      "exclusiveGroup": "backwear",
+      "exclusivePriority": 100,
+      "renderKey": "bat-wings",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 18,
+        "top": 0,
+        "right": 18,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 211,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.ear-bow",
+      "label": "薄荷耳结",
+      "slot": "head",
+      "layer": "front",
+      "z": 44,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 1,
+      "formId": "usagi",
+      "skin": "usagi",
+      "unlockKind": "skin",
+      "exclusiveGroup": "usagi.earwear",
+      "exclusivePriority": 30,
+      "renderKey": "usagi-ear-bow",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 20,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 223,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.star-collar",
+      "label": "星光颈饰",
+      "slot": "neck",
+      "layer": "front",
+      "z": 46,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 1,
+      "formId": "usagi",
+      "skin": "usagi",
+      "unlockKind": "skin",
+      "exclusiveGroup": "usagi.neckwear",
+      "exclusivePriority": 30,
+      "renderKey": "usagi-star-collar",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 228,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.travel-cape",
+      "label": "旅行短披风",
+      "slot": "back",
+      "layer": "front",
+      "z": 15,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 1,
+      "formId": "usagi",
+      "skin": "usagi",
+      "unlockKind": "skin",
+      "exclusiveGroup": "usagi.backwear",
+      "exclusivePriority": 50,
+      "renderKey": "usagi-travel-cape",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 14,
+        "top": 0,
+        "right": 12,
+        "bottom": 14
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 233,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.sprout-clip",
+      "label": "嫩芽耳夹",
+      "slot": "head",
+      "layer": "front",
+      "z": 44,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 3,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.earwear",
+      "exclusivePriority": 10,
+      "renderKey": "usagi-sprout-clip",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 20,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 240,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.sunhat",
+      "label": "麦色小草帽",
+      "slot": "head",
+      "layer": "front",
+      "z": 42,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 5,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.headwear",
+      "exclusivePriority": 30,
+      "renderKey": "usagi-sunhat",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 12,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 245,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.carrot-satchel",
+      "label": "胡萝卜小挎包",
+      "slot": "body",
+      "layer": "front",
+      "z": 24,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 8,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.sidebag",
+      "exclusivePriority": 30,
+      "renderKey": "usagi-carrot-satchel",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 6,
+        "top": 0,
+        "right": 0,
+        "bottom": 2
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 250,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.pastel-scarf",
+      "label": "云彩小围巾",
+      "slot": "neck",
+      "layer": "front",
+      "z": 46,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 10,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.neckwear",
+      "exclusivePriority": 10,
+      "renderKey": "usagi-pastel-scarf",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 255,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.halo",
+      "label": "柔光小环",
+      "slot": "head",
+      "layer": "front",
+      "z": 52,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 12,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.aura",
+      "exclusivePriority": 30,
+      "renderKey": "usagi-halo",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 31,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 260,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.soft-boots",
+      "label": "星点软靴",
+      "slot": "body",
+      "layer": "front",
+      "z": 38,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 15,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.footwear",
+      "exclusivePriority": 30,
+      "renderKey": "usagi-soft-boots",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 5
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 265,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.starlit-cape",
+      "label": "星夜短披风",
+      "slot": "back",
+      "layer": "front",
+      "z": 15,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 20,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.backwear",
+      "exclusivePriority": 10,
+      "renderKey": "usagi-starlit-cape",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 14,
+        "top": 0,
+        "right": 12,
+        "bottom": 14
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 270,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.sakura-clip",
+      "label": "樱花耳夹",
+      "slot": "head",
+      "layer": "front",
+      "z": 44,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 6,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.earwear",
+      "exclusivePriority": 10,
+      "renderKey": "usagi-sakura-clip",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 16,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 275,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.paper-plane-clip",
+      "label": "纸飞机信使夹",
+      "slot": "head",
+      "layer": "front",
+      "z": 44,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 6,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.earwear",
+      "exclusivePriority": 10,
+      "renderKey": "usagi-paper-plane-clip",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 16,
+        "right": 4,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 280,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.compass-clip",
+      "label": "小指南针耳夹",
+      "slot": "head",
+      "layer": "front",
+      "z": 44,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 8,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.earwear",
+      "exclusivePriority": 10,
+      "renderKey": "usagi-compass-clip",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 16,
+        "right": 4,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 285,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.tiny-crown",
+      "label": "奶油小王冠",
+      "slot": "head",
+      "layer": "front",
+      "z": 42,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 18,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.headwear",
+      "exclusivePriority": 10,
+      "renderKey": "usagi-tiny-crown",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 12,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 290,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.garden-beret",
+      "label": "鼠尾草贝雷帽",
+      "slot": "head",
+      "layer": "front",
+      "z": 42,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 5,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.headwear",
+      "exclusivePriority": 5,
+      "renderKey": "usagi-garden-beret",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 12,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 297,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.daisy-clip",
+      "label": "雏菊耳扣",
+      "slot": "head",
+      "layer": "front",
+      "z": 44,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 3,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.earwear",
+      "exclusivePriority": 5,
+      "renderKey": "usagi-daisy-clip",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 12,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 302,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.petal-collar",
+      "label": "叶瓣小围领",
+      "slot": "neck",
+      "layer": "front",
+      "z": 46,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 10,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.neckwear",
+      "exclusivePriority": 5,
+      "renderKey": "usagi-petal-collar",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 307,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.seed-pouch",
+      "label": "种子束口袋",
+      "slot": "body",
+      "layer": "front",
+      "z": 24,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 8,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.sidebag",
+      "exclusivePriority": 5,
+      "renderKey": "usagi-seed-pouch",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 6,
+        "top": 0,
+        "right": 0,
+        "bottom": 2
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 312,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.rain-cape",
+      "label": "蜂蜜雨披",
+      "slot": "back",
+      "layer": "front",
+      "z": 15,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 20,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.backwear",
+      "exclusivePriority": 5,
+      "renderKey": "usagi-rain-cape",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 12,
+        "top": 0,
+        "right": 12,
+        "bottom": 10
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 317,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.rain-boots",
+      "label": "薄荷雨靴",
+      "slot": "body",
+      "layer": "front",
+      "z": 38,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 15,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.footwear",
+      "exclusivePriority": 5,
+      "renderKey": "usagi-rain-boots",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 5
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 322,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.moon-beret",
+      "label": "月牙贝雷帽",
+      "slot": "head",
+      "layer": "front",
+      "z": 42,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 18,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.headwear",
+      "exclusivePriority": 5,
+      "renderKey": "usagi-moon-beret",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 12,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 327,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.envelope-pouch",
+      "label": "月光信封包",
+      "slot": "body",
+      "layer": "front",
+      "z": 24,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 8,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.sidebag",
+      "exclusivePriority": 5,
+      "renderKey": "usagi-envelope-pouch",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 6,
+        "top": 0,
+        "right": 0,
+        "bottom": 2
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 332,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.constellation",
+      "label": "三星小光弧",
+      "slot": "head",
+      "layer": "front",
+      "z": 52,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 12,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.aura",
+      "exclusivePriority": 5,
+      "renderKey": "usagi-constellation",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 33,
+        "right": 0,
+        "bottom": 0
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 337,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.garden-apron",
+      "label": "陶土小围裙",
+      "slot": "back",
+      "layer": "front",
+      "z": 15,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 20,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.backwear",
+      "exclusivePriority": 5,
+      "renderKey": "usagi-garden-apron",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 5
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 342,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.garden-clogs",
+      "label": "鼠尾草园艺鞋",
+      "slot": "body",
+      "layer": "front",
+      "z": 38,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 15,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.footwear",
+      "exclusivePriority": 5,
+      "renderKey": "usagi-garden-clogs",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 5
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 347,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.rain-satchel",
+      "label": "雨滴小挎包",
+      "slot": "body",
+      "layer": "front",
+      "z": 24,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 8,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.sidebag",
+      "exclusivePriority": 5,
+      "renderKey": "usagi-rain-satchel",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 6,
+        "top": 0,
+        "right": 0,
+        "bottom": 2
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 352,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "usagi.moon-boots",
+      "label": "月牙软靴",
+      "slot": "body",
+      "layer": "front",
+      "z": 38,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 15,
+      "formId": "usagi",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "usagi.footwear",
+      "exclusivePriority": 5,
+      "renderKey": "usagi-moon-boots",
+      "effect": null,
+      "views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 5
+      },
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 357,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "seasonal.pumpkin-beret",
+      "label": "南瓜贝雷帽",
+      "slot": "head",
+      "layer": "front",
+      "z": 47,
+      "parts": [
+        "front"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "headwear",
+      "exclusivePriority": 50,
+      "renderKey": "pumpkin-beret",
+      "effect": null,
+      "views": [
+        "front"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 0,
+        "top": 10,
+        "right": 0,
+        "bottom": 0
+      },
+      "optInOnly": true,
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 362,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "seasonal.plum-cape",
+      "label": "梅紫小披风",
+      "slot": "back",
+      "layer": "back",
+      "z": 14,
+      "parts": [
+        "back",
+        "front"
+      ],
+      "minLevel": 1,
+      "formId": "dango",
+      "skin": null,
+      "unlockKind": "level",
+      "exclusiveGroup": "backwear",
+      "exclusivePriority": 80,
+      "renderKey": "plum-cape",
+      "effect": null,
+      "views": [
+        "front"
+      ],
+      "anchor": {
+        "front": {
+          "x": 0,
+          "y": 0
+        },
+        "three-quarter": {
+          "x": 0,
+          "y": 0
+        },
+        "profile": {
+          "x": 0,
+          "y": 0
+        },
+        "back": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "bleed": {
+        "left": 5,
+        "top": 0,
+        "right": 5,
+        "bottom": 0
+      },
+      "optInOnly": true,
+      "evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 365,
+        "status": "code-confirmed"
+      }
+    }
+  ],
+  "temporaryProps": [
+    "headband",
+    "butterfly",
+    "cup",
+    "balls",
+    "energy",
+    "hole",
+    "mirror",
+    "microphone",
+    "ellipsis",
+    "laser",
+    "treasure",
+    "sleep-cap",
+    "tissue",
+    "bubble-wand",
+    "cushion",
+    "none",
+    "high-five",
+    "music-notes",
+    "binoculars",
+    "tail",
+    "book",
+    "document",
+    "keyboard",
+    "plane",
+    "broom",
+    "hat",
+    "telescope",
+    "watering-can",
+    "yarn",
+    "drum",
+    "sparkle-shoes",
+    "box",
+    "blocks",
+    "star",
+    "umbrella",
+    "picnic",
+    "gloves",
+    "pan",
+    "camera",
+    "laptop",
+    "chart",
+    "notes",
+    "pillow",
+    "ai-chat"
+  ],
+  "backgrounds": [
+    {
+      "id": "dawn-window",
+      "name": "晨曦窗边",
+      "periods": [
+        "morning"
+      ],
+      "feature": "window",
+      "sky": [
+        "#ffd6a5",
+        "#f5a7b8"
+      ],
+      "ground": "#5a4055",
+      "emitters": [
+        {
+          "type": "cloud",
+          "chance": 0.018,
+          "max": 4,
+          "colors": [
+            "#fff2dc",
+            "#f5d9dd"
+          ],
+          "speed": 0.16
+        },
+        {
+          "type": "bird",
+          "chance": 0.004,
+          "max": 2,
+          "colors": [
+            "#5f6b87"
+          ],
+          "speed": 1
+        }
+      ],
+      "accents": [
+        "#ffe09b"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 10,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "rainy-window",
+      "name": "雨滴玻璃",
+      "periods": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "feature": "window",
+      "sky": [
+        "#61738f",
+        "#34435d"
+      ],
+      "ground": "#283347",
+      "emitters": [
+        {
+          "type": "rain",
+          "chance": 0.28,
+          "max": 70,
+          "colors": [
+            "#8fc7e8",
+            "#b5dff5"
+          ],
+          "speed": 2.8
+        },
+        {
+          "type": "mist",
+          "chance": 0.018,
+          "max": 8,
+          "colors": [
+            "#b7c9dc"
+          ],
+          "speed": 0.12
+        }
+      ],
+      "accents": [
+        "#7dcfff"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 14,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "sunny-desk",
+      "name": "晴日书桌",
+      "periods": [
+        "morning",
+        "forenoon"
+      ],
+      "feature": "desk",
+      "sky": [
+        "#9fdcff",
+        "#e8f6ff"
+      ],
+      "ground": "#a77a52",
+      "emitters": [
+        {
+          "type": "dust",
+          "chance": 0.08,
+          "max": 25,
+          "colors": [
+            "#ffe29a",
+            "#ffffff"
+          ],
+          "speed": 0.08
+        },
+        {
+          "type": "sparkle",
+          "chance": 0.012,
+          "max": 8,
+          "colors": [
+            "#fff1a8"
+          ],
+          "speed": 0.18
+        }
+      ],
+      "accents": [
+        "#ffd558",
+        "#9ece6a"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 18,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "morning-library",
+      "name": "晨间书房",
+      "periods": [
+        "morning",
+        "forenoon"
+      ],
+      "feature": "library",
+      "sky": [
+        "#7996b4",
+        "#d9bc8c"
+      ],
+      "ground": "#5b3d2e",
+      "emitters": [
+        {
+          "type": "dust",
+          "chance": 0.07,
+          "max": 28,
+          "colors": [
+            "#e7c98f"
+          ],
+          "speed": 0.06
+        },
+        {
+          "type": "page",
+          "chance": 0.003,
+          "max": 2,
+          "colors": [
+            "#f4e5c3"
+          ],
+          "speed": 0.35
+        }
+      ],
+      "accents": [
+        "#c9986a",
+        "#e0af68"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 22,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "garden-breeze",
+      "name": "庭院微风",
+      "periods": [
+        "morning",
+        "forenoon",
+        "noon"
+      ],
+      "feature": "garden",
+      "sky": [
+        "#a7ddc4",
+        "#dff4cf"
+      ],
+      "ground": "#557a46",
+      "emitters": [
+        {
+          "type": "leaf",
+          "chance": 0.035,
+          "max": 22,
+          "colors": [
+            "#9ece6a",
+            "#6aa55a",
+            "#d8e88b"
+          ],
+          "speed": 0.55
+        },
+        {
+          "type": "butterfly",
+          "chance": 0.008,
+          "max": 4,
+          "colors": [
+            "#f7768e",
+            "#e0af68",
+            "#bb9af7"
+          ],
+          "speed": 0.45
+        }
+      ],
+      "accents": [
+        "#9ece6a",
+        "#f7768e"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 26,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "coffee-shop",
+      "name": "咖啡小店",
+      "periods": [
+        "forenoon",
+        "noon",
+        "afternoon"
+      ],
+      "feature": "cafe",
+      "sky": [
+        "#bd906c",
+        "#725246"
+      ],
+      "ground": "#49352e",
+      "emitters": [
+        {
+          "type": "steam",
+          "chance": 0.05,
+          "max": 14,
+          "colors": [
+            "#f4e9dc",
+            "#d9c9bd"
+          ],
+          "speed": 0.34
+        },
+        {
+          "type": "note",
+          "chance": 0.006,
+          "max": 5,
+          "colors": [
+            "#e0af68",
+            "#f7768e"
+          ],
+          "speed": 0.28
+        }
+      ],
+      "accents": [
+        "#e0af68",
+        "#c9986a"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 30,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "lunch-park",
+      "name": "午间公园",
+      "periods": [
+        "noon"
+      ],
+      "feature": "park",
+      "sky": [
+        "#7dcfff",
+        "#d4f4c7"
+      ],
+      "ground": "#6a9b52",
+      "emitters": [
+        {
+          "type": "butterfly",
+          "chance": 0.018,
+          "max": 7,
+          "colors": [
+            "#f7768e",
+            "#e0af68",
+            "#bb9af7"
+          ],
+          "speed": 0.55
+        },
+        {
+          "type": "petal",
+          "chance": 0.025,
+          "max": 18,
+          "colors": [
+            "#ffb3c8",
+            "#fff0a8"
+          ],
+          "speed": 0.52
+        }
+      ],
+      "accents": [
+        "#9ece6a",
+        "#ffd558"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 34,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "cloud-terrace",
+      "name": "云上露台",
+      "periods": [
+        "noon",
+        "afternoon"
+      ],
+      "feature": "terrace",
+      "sky": [
+        "#73c7ef",
+        "#d8f3ff"
+      ],
+      "ground": "#6f7e94",
+      "emitters": [
+        {
+          "type": "cloud",
+          "chance": 0.026,
+          "max": 7,
+          "colors": [
+            "#ffffff",
+            "#dcecff"
+          ],
+          "speed": 0.23
+        },
+        {
+          "type": "plane",
+          "chance": 0.003,
+          "max": 1,
+          "colors": [
+            "#f5f7ff"
+          ],
+          "speed": 1.3
+        }
+      ],
+      "accents": [
+        "#c0caf5"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 38,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "afternoon-studio",
+      "name": "午后工作室",
+      "periods": [
+        "afternoon"
+      ],
+      "feature": "studio",
+      "sky": [
+        "#e6b887",
+        "#d48976"
+      ],
+      "ground": "#594052",
+      "emitters": [
+        {
+          "type": "dust",
+          "chance": 0.09,
+          "max": 32,
+          "colors": [
+            "#ffe0a8",
+            "#f8c98c"
+          ],
+          "speed": 0.07
+        },
+        {
+          "type": "sparkle",
+          "chance": 0.009,
+          "max": 7,
+          "colors": [
+            "#ffcf78"
+          ],
+          "speed": 0.16
+        }
+      ],
+      "accents": [
+        "#bb9af7",
+        "#e0af68"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 42,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "summer-storm",
+      "name": "夏日阵雨",
+      "periods": [
+        "afternoon",
+        "evening"
+      ],
+      "feature": "storm",
+      "sky": [
+        "#53647c",
+        "#26354c"
+      ],
+      "ground": "#26323d",
+      "emitters": [
+        {
+          "type": "rain",
+          "chance": 0.34,
+          "max": 84,
+          "colors": [
+            "#7dcfff",
+            "#aacbea"
+          ],
+          "speed": 3.4
+        },
+        {
+          "type": "flash",
+          "chance": 0.0015,
+          "max": 1,
+          "colors": [
+            "#f4ecb8"
+          ],
+          "speed": 0
+        }
+      ],
+      "accents": [
+        "#7dcfff",
+        "#e0af68"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 46,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "sunset-rooftop",
+      "name": "落日天台",
+      "periods": [
+        "evening"
+      ],
+      "feature": "rooftop",
+      "sky": [
+        "#ff9a6c",
+        "#ad6e9b"
+      ],
+      "ground": "#34334a",
+      "emitters": [
+        {
+          "type": "bird",
+          "chance": 0.005,
+          "max": 4,
+          "colors": [
+            "#333044"
+          ],
+          "speed": 0.82
+        },
+        {
+          "type": "dragonfly",
+          "chance": 0.006,
+          "max": 4,
+          "colors": [
+            "#d7a6e8"
+          ],
+          "speed": 0.42
+        }
+      ],
+      "accents": [
+        "#ff7a5c",
+        "#bb9af7"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 50,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "train-window",
+      "name": "归途列车",
+      "periods": [
+        "evening",
+        "night"
+      ],
+      "feature": "train",
+      "sky": [
+        "#bd7f78",
+        "#36415c"
+      ],
+      "ground": "#262a38",
+      "emitters": [
+        {
+          "type": "light",
+          "chance": 0.06,
+          "max": 24,
+          "colors": [
+            "#ffd558",
+            "#f7768e",
+            "#7dcfff"
+          ],
+          "speed": 1.5
+        },
+        {
+          "type": "rain",
+          "chance": 0.06,
+          "max": 24,
+          "colors": [
+            "#8fb7d8"
+          ],
+          "speed": 2.2
+        }
+      ],
+      "accents": [
+        "#e0af68"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 54,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "city-evening",
+      "name": "城市初灯",
+      "periods": [
+        "evening"
+      ],
+      "feature": "city",
+      "sky": [
+        "#655b86",
+        "#27334f"
+      ],
+      "ground": "#1f2638",
+      "emitters": [
+        {
+          "type": "light",
+          "chance": 0.035,
+          "max": 20,
+          "colors": [
+            "#ffd558",
+            "#f7768e",
+            "#7dcfff"
+          ],
+          "speed": 0.25
+        },
+        {
+          "type": "plane",
+          "chance": 0.002,
+          "max": 1,
+          "colors": [
+            "#dce4ff"
+          ],
+          "speed": 1
+        }
+      ],
+      "accents": [
+        "#ffd558",
+        "#7dcfff"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 58,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "cozy-room",
+      "name": "暖灯房间",
+      "periods": [
+        "evening",
+        "night"
+      ],
+      "feature": "room",
+      "sky": [
+        "#755366",
+        "#332d46"
+      ],
+      "ground": "#3c2f3b",
+      "emitters": [
+        {
+          "type": "dust",
+          "chance": 0.045,
+          "max": 20,
+          "colors": [
+            "#f2c879"
+          ],
+          "speed": 0.05
+        },
+        {
+          "type": "steam",
+          "chance": 0.025,
+          "max": 8,
+          "colors": [
+            "#ead7c4"
+          ],
+          "speed": 0.26
+        }
+      ],
+      "accents": [
+        "#e0af68",
+        "#f7768e"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 62,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "night-city",
+      "name": "霓虹夜城",
+      "periods": [
+        "night",
+        "lateNight"
+      ],
+      "feature": "neon",
+      "sky": [
+        "#20274c",
+        "#111427"
+      ],
+      "ground": "#12121e",
+      "emitters": [
+        {
+          "type": "light",
+          "chance": 0.045,
+          "max": 28,
+          "colors": [
+            "#f7768e",
+            "#7dcfff",
+            "#bb9af7"
+          ],
+          "speed": 0.18
+        },
+        {
+          "type": "rain",
+          "chance": 0.1,
+          "max": 40,
+          "colors": [
+            "#526f9a"
+          ],
+          "speed": 2.1
+        }
+      ],
+      "accents": [
+        "#f7768e",
+        "#7dcfff"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 66,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "moon-balcony",
+      "name": "月光阳台",
+      "periods": [
+        "night"
+      ],
+      "feature": "moon",
+      "sky": [
+        "#272b59",
+        "#15172e"
+      ],
+      "ground": "#20273b",
+      "emitters": [
+        {
+          "type": "star",
+          "chance": 0.05,
+          "max": 20,
+          "colors": [
+            "#c0caf5",
+            "#e0af68",
+            "#bb9af7"
+          ],
+          "speed": 0
+        },
+        {
+          "type": "firefly",
+          "chance": 0.02,
+          "max": 8,
+          "colors": [
+            "#e0af68",
+            "#9ece6a"
+          ],
+          "speed": 0.18
+        }
+      ],
+      "accents": [
+        "#c0caf5",
+        "#bb9af7"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 70,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "star-camp",
+      "name": "星空营地",
+      "periods": [
+        "night",
+        "lateNight"
+      ],
+      "feature": "camp",
+      "sky": [
+        "#171c3c",
+        "#090b20"
+      ],
+      "ground": "#18251f",
+      "emitters": [
+        {
+          "type": "star",
+          "chance": 0.075,
+          "max": 30,
+          "colors": [
+            "#ffffff",
+            "#e0af68",
+            "#7dcfff"
+          ],
+          "speed": 0
+        },
+        {
+          "type": "ember",
+          "chance": 0.06,
+          "max": 18,
+          "colors": [
+            "#ff7a5c",
+            "#e0af68"
+          ],
+          "speed": 0.7
+        }
+      ],
+      "accents": [
+        "#ff7a5c",
+        "#e0af68"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 74,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "late-night-desk",
+      "name": "深夜书桌",
+      "periods": [
+        "lateNight"
+      ],
+      "feature": "lateDesk",
+      "sky": [
+        "#20243c",
+        "#11131f"
+      ],
+      "ground": "#2c2631",
+      "emitters": [
+        {
+          "type": "dust",
+          "chance": 0.035,
+          "max": 15,
+          "colors": [
+            "#d5b477"
+          ],
+          "speed": 0.04
+        },
+        {
+          "type": "star",
+          "chance": 0.035,
+          "max": 12,
+          "colors": [
+            "#c0caf5"
+          ],
+          "speed": 0
+        }
+      ],
+      "accents": [
+        "#e0af68",
+        "#c0caf5"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 78,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "aurora",
+      "name": "极光夜",
+      "periods": [
+        "night",
+        "lateNight"
+      ],
+      "feature": "aurora",
+      "sky": [
+        "#17294a",
+        "#12142d"
+      ],
+      "ground": "#172d2c",
+      "emitters": [
+        {
+          "type": "starDust",
+          "chance": 0.1,
+          "max": 38,
+          "colors": [
+            "#7dcfff",
+            "#9ece6a",
+            "#bb9af7"
+          ],
+          "speed": 0.08
+        },
+        {
+          "type": "shootingStar",
+          "chance": 0.002,
+          "max": 2,
+          "colors": [
+            "#ffffff"
+          ],
+          "speed": 2
+        }
+      ],
+      "accents": [
+        "#7dcfff",
+        "#9ece6a",
+        "#bb9af7"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 82,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "snowy-window",
+      "name": "落雪窗前",
+      "periods": [
+        "morning",
+        "evening",
+        "night",
+        "lateNight"
+      ],
+      "feature": "snow",
+      "sky": [
+        "#6d7899",
+        "#27304c"
+      ],
+      "ground": "#e8edf5",
+      "emitters": [
+        {
+          "type": "snow",
+          "chance": 0.16,
+          "max": 55,
+          "colors": [
+            "#ffffff",
+            "#dce7f5",
+            "#b9c9e4"
+          ],
+          "speed": 0.55
+        },
+        {
+          "type": "steam",
+          "chance": 0.025,
+          "max": 8,
+          "colors": [
+            "#ffffff"
+          ],
+          "speed": 0.22
+        }
+      ],
+      "accents": [
+        "#ffffff",
+        "#7dcfff"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 86,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "ocean-window",
+      "name": "海底舷窗",
+      "periods": [
+        "morning",
+        "noon",
+        "afternoon",
+        "night"
+      ],
+      "feature": "ocean",
+      "sky": [
+        "#237da0",
+        "#102e59"
+      ],
+      "ground": "#0d2944",
+      "emitters": [
+        {
+          "type": "bubble",
+          "chance": 0.11,
+          "max": 42,
+          "colors": [
+            "rgba(180,235,255,0.8)",
+            "rgba(125,207,255,0.75)"
+          ],
+          "speed": 0.72
+        },
+        {
+          "type": "fish",
+          "chance": 0.006,
+          "max": 5,
+          "colors": [
+            "#e0af68",
+            "#f7768e",
+            "#9ece6a"
+          ],
+          "speed": 0.52
+        }
+      ],
+      "accents": [
+        "#7dcfff",
+        "#9ece6a"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 90,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "forest-clearing",
+      "name": "森林空地",
+      "periods": [
+        "morning",
+        "forenoon",
+        "afternoon",
+        "evening"
+      ],
+      "feature": "forest",
+      "sky": [
+        "#75a983",
+        "#294f3e"
+      ],
+      "ground": "#27412f",
+      "emitters": [
+        {
+          "type": "leaf",
+          "chance": 0.055,
+          "max": 30,
+          "colors": [
+            "#9ece6a",
+            "#528b41",
+            "#d1dc75"
+          ],
+          "speed": 0.52
+        },
+        {
+          "type": "firefly",
+          "chance": 0.018,
+          "max": 10,
+          "colors": [
+            "#e0af68"
+          ],
+          "speed": 0.16
+        }
+      ],
+      "accents": [
+        "#9ece6a",
+        "#528b41"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 94,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "sakura-lane",
+      "name": "樱花小径",
+      "periods": [
+        "morning",
+        "noon",
+        "afternoon",
+        "evening"
+      ],
+      "feature": "sakura",
+      "sky": [
+        "#ffc4d6",
+        "#c99fc5"
+      ],
+      "ground": "#76556f",
+      "emitters": [
+        {
+          "type": "petal",
+          "chance": 0.11,
+          "max": 52,
+          "colors": [
+            "#ffb3c8",
+            "#ffe1eb",
+            "#f7768e"
+          ],
+          "speed": 0.62
+        },
+        {
+          "type": "sparkle",
+          "chance": 0.015,
+          "max": 8,
+          "colors": [
+            "#ffffff"
+          ],
+          "speed": 0.12
+        }
+      ],
+      "accents": [
+        "#ffb3c8",
+        "#f7768e"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 98,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "pixel-arcade",
+      "name": "像素游戏厅",
+      "periods": [
+        "evening",
+        "night",
+        "lateNight"
+      ],
+      "feature": "arcade",
+      "sky": [
+        "#29204d",
+        "#111125"
+      ],
+      "ground": "#171528",
+      "emitters": [
+        {
+          "type": "pixel",
+          "chance": 0.07,
+          "max": 32,
+          "colors": [
+            "#f7768e",
+            "#7dcfff",
+            "#9ece6a",
+            "#e0af68"
+          ],
+          "speed": 0.42
+        },
+        {
+          "type": "sparkle",
+          "chance": 0.025,
+          "max": 12,
+          "colors": [
+            "#ffffff"
+          ],
+          "speed": 0.2
+        }
+      ],
+      "accents": [
+        "#f7768e",
+        "#7dcfff",
+        "#9ece6a"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 102,
+        "status": "code-confirmed"
+      }
+    },
+    {
+      "id": "robot-lab",
+      "name": "机器人实验室",
+      "periods": [
+        "forenoon",
+        "afternoon",
+        "night"
+      ],
+      "feature": "lab",
+      "sky": [
+        "#27344c",
+        "#141927"
+      ],
+      "ground": "#1c2630",
+      "emitters": [
+        {
+          "type": "codeRain",
+          "chance": 0.06,
+          "max": 24,
+          "colors": [
+            "#7dcfff",
+            "#9ece6a"
+          ],
+          "speed": 1.1
+        },
+        {
+          "type": "sparkle",
+          "chance": 0.015,
+          "max": 9,
+          "colors": [
+            "#7dcfff"
+          ],
+          "speed": 0.18
+        }
+      ],
+      "accents": [
+        "#7dcfff",
+        "#a9b1d6"
+      ],
+      "evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 106,
+        "status": "code-confirmed"
+      }
+    }
+  ],
+  "backgroundPolicy": {
+    "automatic": {
+      "morning": [
+        "sunny-desk",
+        "dawn-window",
+        "morning-library",
+        "garden-breeze"
+      ],
+      "forenoon": [
+        "sunny-desk",
+        "morning-library",
+        "garden-breeze",
+        "coffee-shop"
+      ],
+      "noon": [
+        "cloud-terrace",
+        "garden-breeze",
+        "coffee-shop",
+        "lunch-park"
+      ],
+      "afternoon": [
+        "afternoon-studio",
+        "cloud-terrace",
+        "forest-clearing",
+        "coffee-shop"
+      ],
+      "evening": [
+        "cozy-room",
+        "sunset-rooftop",
+        "city-evening",
+        "forest-clearing"
+      ],
+      "night": [
+        "cozy-room",
+        "moon-balcony",
+        "star-camp"
+      ],
+      "lateNight": [
+        "late-night-desk",
+        "star-camp"
+      ]
+    },
+    "manual": {
+      "morning": [
+        "sunny-desk",
+        "dawn-window",
+        "morning-library",
+        "garden-breeze",
+        "snowy-window",
+        "ocean-window"
+      ],
+      "forenoon": [
+        "sunny-desk",
+        "morning-library",
+        "garden-breeze",
+        "coffee-shop",
+        "robot-lab"
+      ],
+      "noon": [
+        "cloud-terrace",
+        "garden-breeze",
+        "coffee-shop",
+        "lunch-park",
+        "ocean-window",
+        "sakura-lane"
+      ],
+      "afternoon": [
+        "afternoon-studio",
+        "cloud-terrace",
+        "forest-clearing",
+        "coffee-shop",
+        "rainy-window",
+        "summer-storm",
+        "robot-lab"
+      ],
+      "evening": [
+        "cozy-room",
+        "sunset-rooftop",
+        "city-evening",
+        "forest-clearing",
+        "train-window",
+        "snowy-window",
+        "summer-storm"
+      ],
+      "night": [
+        "cozy-room",
+        "moon-balcony",
+        "night-city",
+        "star-camp",
+        "aurora",
+        "pixel-arcade",
+        "ocean-window"
+      ],
+      "lateNight": [
+        "late-night-desk",
+        "star-camp",
+        "aurora",
+        "night-city",
+        "pixel-arcade"
+      ]
+    },
+    "skinPreferences": {
+      "forest": [
+        "forest-clearing",
+        "garden-breeze"
+      ],
+      "ocean": [
+        "ocean-window",
+        "cloud-terrace"
+      ],
+      "sakura": [
+        "sakura-lane",
+        "dawn-window"
+      ],
+      "moon": [
+        "moon-balcony",
+        "aurora"
+      ],
+      "flame": [
+        "star-camp",
+        "sunset-rooftop"
+      ],
+      "crown": [
+        "city-evening",
+        "sunset-rooftop"
+      ],
+      "robot": [
+        "robot-lab",
+        "pixel-arcade"
+      ],
+      "woodsman": [
+        "forest-clearing",
+        "morning-library"
+      ],
+      "bat": [
+        "night-city",
+        "moon-balcony"
+      ]
+    }
+  },
+  "interactions": {
+    "clickCount": {
+      "2": {
+        "emoji": "👀",
+        "text": "双击问候收到",
+        "effect": "glimmer",
+        "action": "look-around"
+      },
+      "3": {
+        "emoji": "👋",
+        "text": "我看到你啦",
+        "effect": "hearts",
+        "action": "wave"
+      },
+      "5": {
+        "emoji": "✨",
+        "text": "击掌 ×5",
+        "effect": "sparkles",
+        "action": "high-five"
+      },
+      "8": {
+        "emoji": "🫧",
+        "text": "八颗泡泡飞起来",
+        "effect": "bubbles",
+        "action": "bubble-blow"
+      },
+      "10": {
+        "emoji": "😊",
+        "text": "我们很有默契",
+        "effect": "hearts",
+        "action": "tail-wiggle"
+      },
+      "15": {
+        "emoji": "🎵",
+        "text": "十五拍桌角节奏",
+        "effect": "notes",
+        "action": "drum-solo"
+      },
+      "20": {
+        "emoji": "🎆",
+        "text": "小小像素烟花",
+        "effect": "explode",
+        "action": "spin"
+      },
+      "30": {
+        "emoji": "🪄",
+        "text": "三十次召唤成功",
+        "effect": "sparkles",
+        "action": "magic-trick"
+      },
+      "40": {
+        "emoji": "🌟",
+        "text": "接住第四十颗星",
+        "effect": "stars",
+        "action": "catch-star"
+      },
+      "50": {
+        "emoji": "🏆",
+        "text": "陪你玩了一会儿",
+        "effect": "confetti",
+        "action": "photo-pose",
+        "xp": 0
+      }
+    },
+    "longPress": {
+      "text": "呼噜呼噜，慢慢摸一会儿",
+      "effect": "purr",
+      "action": "tail-wiggle",
+      "duration": 7000
+    },
+    "fling": {
+      "text": "转一圈，稳稳着陆",
+      "effect": "somersault",
+      "action": "spin",
+      "duration": 7000
+    },
+    "commands": [
+      {
+        "id": "focus",
+        "icon": "⚡",
+        "label": "开始专注"
+      },
+      {
+        "id": "impulse",
+        "icon": "💭",
+        "label": "快速记录"
+      },
+      {
+        "id": "panel",
+        "icon": "📋",
+        "label": "打开面板"
+      },
+      {
+        "id": "dnd",
+        "icon": "🔕",
+        "label": "免打扰"
+      },
+      {
+        "id": "hide",
+        "icon": "🏠",
+        "label": "隐藏伙伴"
+      }
+    ]
+  },
+  "foodRituals": {
+    "basic": {
+      "durations": [
+        450,
+        850,
+        2200
+      ],
+      "expressions": [
+        "react.surprised",
+        "react.hungry",
+        "react.satisfied"
+      ],
+      "actionId": "snack-picnic",
+      "lines": [
+        "热乎乎的一小碗",
+        "慢慢吃完了",
+        "这会儿刚刚好"
+      ],
+      "favoriteLine": "是最喜欢的味道，慢慢吃完了"
+    },
+    "berry": {
+      "durations": [
+        450,
+        850,
+        2200
+      ],
+      "expressions": [
+        "react.surprised",
+        "react.hungry",
+        "react.satisfied"
+      ],
+      "actionId": "snack-picnic",
+      "lines": [
+        "酸酸甜甜的一口",
+        "小小的浆果很香",
+        "把最后一颗吃完了"
+      ],
+      "favoriteLine": "是最喜欢的味道，慢慢吃完了"
+    },
+    "carrot": {
+      "durations": [
+        450,
+        850,
+        2200
+      ],
+      "expressions": [
+        "react.surprised",
+        "react.hungry",
+        "react.satisfied"
+      ],
+      "actionId": "snack-picnic",
+      "lines": [
+        "咔嚓咔嚓",
+        "这根胡萝卜很脆",
+        "慢慢嚼完这一口"
+      ],
+      "favoriteLine": "是最喜欢的味道，慢慢吃完了"
+    },
+    "rice": {
+      "durations": [
+        450,
+        850,
+        2200
+      ],
+      "expressions": [
+        "react.surprised",
+        "react.hungry",
+        "react.satisfied"
+      ],
+      "actionId": "snack-picnic",
+      "lines": [
+        "热乎乎的饭团",
+        "小小一口很踏实",
+        "把饭团吃完了"
+      ],
+      "favoriteLine": "是最喜欢的味道，慢慢吃完了"
+    },
+    "milk": {
+      "durations": [
+        450,
+        850,
+        2200
+      ],
+      "expressions": [
+        "react.surprised",
+        "react.hungry",
+        "react.satisfied"
+      ],
+      "actionId": "sip-tea",
+      "lines": [
+        "温温的一小杯",
+        "小口喝完了",
+        "杯子放回桌上"
+      ],
+      "favoriteLine": "是最喜欢的味道，慢慢吃完了"
+    },
+    "fish": {
+      "durations": [
+        450,
+        850,
+        2200
+      ],
+      "expressions": [
+        "react.surprised",
+        "react.hungry",
+        "react.satisfied"
+      ],
+      "actionId": "snack-picnic",
+      "lines": [
+        "慢慢尝一口小鱼",
+        "这一口很鲜",
+        "小鱼吃完了"
+      ],
+      "favoriteLine": "是最喜欢的味道，慢慢吃完了"
+    },
+    "bone": {
+      "durations": [
+        450,
+        850,
+        2200
+      ],
+      "expressions": [
+        "react.surprised",
+        "react.hungry",
+        "react.satisfied"
+      ],
+      "actionId": "snack-picnic",
+      "lines": [
+        "嘎嘣脆的一口",
+        "抱着慢慢啃",
+        "咔嚓咔嚓"
+      ],
+      "favoriteLine": "是最喜欢的味道，慢慢吃完了"
+    },
+    "donut": {
+      "durations": [
+        450,
+        850,
+        2200
+      ],
+      "expressions": [
+        "react.surprised",
+        "react.hungry",
+        "react.satisfied"
+      ],
+      "actionId": "snack-picnic",
+      "lines": [
+        "圆圆的一圈点心",
+        "这一口有点甜",
+        "点心时间结束了"
+      ],
+      "favoriteLine": "是最喜欢的味道，慢慢吃完了"
+    },
+    "coffee": {
+      "durations": [
+        450,
+        850,
+        2200
+      ],
+      "expressions": [
+        "react.surprised",
+        "react.hungry",
+        "react.satisfied"
+      ],
+      "actionId": "sip-tea",
+      "lines": [
+        "暖暖的一小杯",
+        "咖啡的香气飘起来了",
+        "小口喝完了"
+      ],
+      "favoriteLine": "是最喜欢的味道，慢慢吃完了"
+    },
+    "mushroom": {
+      "durations": [
+        450,
+        850,
+        2200
+      ],
+      "expressions": [
+        "react.surprised",
+        "react.hungry",
+        "react.satisfied"
+      ],
+      "actionId": "snack-picnic",
+      "lines": [
+        "尝一口新的味道",
+        "小蘑菇软软的",
+        "慢慢吃完了"
+      ],
+      "favoriteLine": "是最喜欢的味道，慢慢吃完了"
+    },
+    "cake": {
+      "durations": [
+        450,
+        850,
+        2200
+      ],
+      "expressions": [
+        "react.surprised",
+        "react.hungry",
+        "react.satisfied"
+      ],
+      "actionId": "snack-picnic",
+      "lines": [
+        "留了一小块蛋糕",
+        "这一口甜甜的",
+        "把盘子放回桌上"
+      ],
+      "favoriteLine": "是最喜欢的味道，慢慢吃完了"
+    }
+  },
+  "specialStates": {
+    "persistentOrBase": [
+      "idle",
+      "focused",
+      "resting",
+      "sleeping",
+      "hungry",
+      "peeking"
+    ],
+    "transient": [
+      "celebrating",
+      "talking",
+      "dragged",
+      "walking"
+    ],
+    "expressionOnly": [
+      "life.drowsy"
+    ],
+    "declaredEffectWithoutCallerFound": [
+      "coffee"
+    ],
+    "evidence": {
+      "path": "src/surfaces/pet/controller.mjs",
+      "lines": [
+        415,
+        559
+      ],
+      "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a"
+    }
+  }
+}

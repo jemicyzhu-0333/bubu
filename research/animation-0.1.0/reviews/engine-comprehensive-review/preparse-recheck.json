@@ -1,0 +1,22 @@
+{
+  "pass": true,
+  "originalPlan": {
+    "inputBytes": 527924,
+    "binReservationBytes": 527924,
+    "viewBytes": 7864320,
+    "denseBytes": 0,
+    "loadedAccessors": 15,
+    "loadedBufferViews": 15,
+    "decodedBytes": 8392244
+  },
+  "tinySharedSparseUnusedPlan": {
+    "inputBytes": 100,
+    "binReservationBytes": 100,
+    "viewBytes": 112,
+    "denseBytes": 24,
+    "loadedAccessors": 3,
+    "loadedBufferViews": 3,
+    "decodedBytes": 236
+  },
+  "scope": "Independent arithmetic/dependency audit only; no parser invoked on large fixture; full regression separately logged."
+}

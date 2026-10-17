@@ -1,0 +1,106 @@
+{
+  "scope": "Node CPU assembly only. Rigid shared equipment. No collision, rendering, GPU or body-clothing fit acceptance.",
+  "preparedAdmission": {
+    "vertices": 316,
+    "nodes": 51,
+    "deformedVertices": 332,
+    "clipKeyScalars": 0,
+    "sources": [
+      {
+        "key": "gltf-0.1.0:a0a6d62bd3edf28885ce51ca6d0353ed4ba6220ab99e7a23b3855b63ad04f446",
+        "bytes": 10196,
+        "decodedBytes": 17032
+      },
+      {
+        "key": "gltf-0.1.0:f1961dbfa8838e16b31a9e84a2d43ca2728c6ce66fc15150aaae4941569ac9a7",
+        "bytes": 1688,
+        "decodedBytes": 2336
+      }
+    ]
+  },
+  "budget": {
+    "vertices": 316,
+    "nodes": 51,
+    "deformedVertices": 332,
+    "clipKeyScalars": 0,
+    "textureBytes": 0,
+    "definitions": {
+      "vertices": 148,
+      "nodes": 11,
+      "deformedVertices": 164
+    }
+  },
+  "firstActor": {
+    "nodes": 51,
+    "meshes": 10,
+    "vertices": 316,
+    "accessoryLanes": 8,
+    "uniqueGeometries": 3
+  },
+  "secondActor": {
+    "nodes": 51,
+    "meshes": 10,
+    "vertices": 316,
+    "accessoryLanes": 8,
+    "uniqueGeometries": 3
+  },
+  "pool": {
+    "actors": 2,
+    "vertices": 632,
+    "nodes": 102,
+    "deformedVertices": 664,
+    "sourceBytes": 11884,
+    "decodedArrayBytes": 19368,
+    "clipKeyScalars": 0,
+    "active": 2,
+    "pending": 0,
+    "cache": {
+      "loads": 2,
+      "hits": 16,
+      "disposals": 0,
+      "live": 2,
+      "retainedReferences": 18
+    }
+  },
+  "afterFirstDispose": {
+    "actors": 1,
+    "vertices": 316,
+    "nodes": 51,
+    "deformedVertices": 332,
+    "sourceBytes": 11884,
+    "decodedArrayBytes": 19368,
+    "clipKeyScalars": 0,
+    "active": 1,
+    "pending": 0,
+    "cache": {
+      "loads": 2,
+      "hits": 16,
+      "disposals": 0,
+      "live": 2,
+      "retainedReferences": 9
+    }
+  },
+  "siblingSurvivesDispose": true,
+  "afterAllDispose": {
+    "actors": 0,
+    "vertices": 0,
+    "nodes": 0,
+    "deformedVertices": 0,
+    "sourceBytes": 0,
+    "decodedArrayBytes": 0,
+    "clipKeyScalars": 0,
+    "active": 0,
+    "pending": 0,
+    "cache": {
+      "loads": 2,
+      "hits": 16,
+      "disposals": 2,
+      "live": 0,
+      "retainedReferences": 0
+    }
+  },
+  "ninthEquipmentRejection": {
+    "code": "LIMIT",
+    "message": "array"
+  }
+}

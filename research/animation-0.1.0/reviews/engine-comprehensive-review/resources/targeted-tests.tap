@@ -1,0 +1,25 @@
+✔ global actor budget reserves before asynchronous creation and release is idempotent (62.567873ms)
+✔ shared sources count once while render work counts for every actor (22.22085ms)
+✔ every aggregate complexity limit rejects before acquiring a source (7.661468ms)
+✔ prepared accounting and assembly metadata cannot mutate after validation (5.763564ms)
+✔ binding failure rolls back actor and source reservations (12.616462ms)
+✔ abort keeps late parse source bytes charged until completion disposes them (10.166956ms)
+✔ pool disposal cancels pending instances and active actors without resurrection (8.686914ms)
+✔ global limits are strict and cannot exceed hard ceilings (19.092091ms)
+✔ reader-owned Buffer mutation after hash cannot change the prepared snapshot (18.359365ms)
+✔ pending load dedup, cancel one waiter, late final release exactly once (5.998709ms)
+✔ all waiters cancelled before late completion dispose once (7.392021ms)
+✔ failed load evicts and can retry without leaked ownership (0.381386ms)
+✔ two actors share assets but not skeleton/morph state (69.430656ms)
+✔ demand loop sleeps with zero RAF and wakes for canonical future event (19.345403ms)
+✔ draw callback disposal schedules no trailing RAF or timer (0.449819ms)
+✔ paused scheduler preserves queued events and resumes at current canonical time (12.885077ms)
+✔ invalid resource result rejects and evicts its cache entry (0.29184ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 397.541072

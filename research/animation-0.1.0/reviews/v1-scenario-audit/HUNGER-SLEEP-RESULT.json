@@ -1,0 +1,1196 @@
+{
+  "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+  "verdict": "reproduced-in-isolated-exact-controller-code",
+  "scope": "Exact setState, maintenance callback and base-expression selection extracted, DOM/IPC/timer/speech mocked; not production app or pixel observation.",
+  "evidence": [
+    {
+      "path": "src/surfaces/pet/controller.mjs",
+      "lines": [
+        853,
+        863
+      ]
+    },
+    {
+      "path": "src/surfaces/pet/controller.mjs",
+      "lines": [
+        535,
+        559
+      ]
+    },
+    {
+      "path": "src/surfaces/pet/controller.mjs",
+      "lines": [
+        1405,
+        1421
+      ]
+    }
+  ],
+  "testsPassed": 17,
+  "cases": [
+    {
+      "id": "low_food_deep_night",
+      "config": {
+        "state": "idle",
+        "satiation": 20,
+        "hour": 2,
+        "workStart": 9,
+        "now": 120000,
+        "idleSince": 0,
+        "dragging": false,
+        "currentEgg": null,
+        "foodMenuOpen": false,
+        "dnd": false,
+        "dockedEdge": null,
+        "stopped": false,
+        "stimulationMode": "low",
+        "sessionState": "idle",
+        "sessionPaused": false
+      },
+      "history": [
+        {
+          "tick": 0,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 1,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 2,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 3,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 4,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 5,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 6,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 7,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 8,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        }
+      ],
+      "nativeStateMessages": [
+        "hungry",
+        "sleeping",
+        "hungry",
+        "sleeping",
+        "hungry",
+        "sleeping",
+        "hungry",
+        "sleeping"
+      ]
+    },
+    {
+      "id": "satiation_zero",
+      "config": {
+        "state": "idle",
+        "satiation": 0,
+        "hour": 2,
+        "workStart": 9,
+        "now": 120000,
+        "idleSince": 0,
+        "dragging": false,
+        "currentEgg": null,
+        "foodMenuOpen": false,
+        "dnd": false,
+        "dockedEdge": null,
+        "stopped": false,
+        "stimulationMode": "low",
+        "sessionState": "idle",
+        "sessionPaused": false
+      },
+      "history": [
+        {
+          "tick": 0,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 1,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 2,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 3,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 4,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 5,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 6,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 7,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 8,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        }
+      ],
+      "nativeStateMessages": [
+        "hungry",
+        "sleeping",
+        "hungry",
+        "sleeping",
+        "hungry",
+        "sleeping",
+        "hungry",
+        "sleeping"
+      ]
+    },
+    {
+      "id": "already_hungry",
+      "config": {
+        "state": "hungry",
+        "satiation": 20,
+        "hour": 2,
+        "workStart": 9,
+        "now": 120000,
+        "idleSince": 0,
+        "dragging": false,
+        "currentEgg": null,
+        "foodMenuOpen": false,
+        "dnd": false,
+        "dockedEdge": null,
+        "stopped": false,
+        "stimulationMode": "low",
+        "sessionState": "idle",
+        "sessionPaused": false
+      },
+      "history": [
+        {
+          "tick": 0,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 1,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 2,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 3,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 4,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 5,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 6,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 7,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 8,
+          "state": "hungry",
+          "expression": "react.hungry"
+        }
+      ],
+      "nativeStateMessages": [
+        "sleeping",
+        "hungry",
+        "sleeping",
+        "hungry",
+        "sleeping",
+        "hungry",
+        "sleeping",
+        "hungry"
+      ]
+    },
+    {
+      "id": "already_sleeping",
+      "config": {
+        "state": "sleeping",
+        "satiation": 20,
+        "hour": 2,
+        "workStart": 9,
+        "now": 120000,
+        "idleSince": 0,
+        "dragging": false,
+        "currentEgg": null,
+        "foodMenuOpen": false,
+        "dnd": false,
+        "dockedEdge": null,
+        "stopped": false,
+        "stimulationMode": "low",
+        "sessionState": "idle",
+        "sessionPaused": false
+      },
+      "history": [
+        {
+          "tick": 0,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 1,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 2,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 3,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 4,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 5,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 6,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 7,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 8,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        }
+      ],
+      "nativeStateMessages": [
+        "hungry",
+        "sleeping",
+        "hungry",
+        "sleeping",
+        "hungry",
+        "sleeping",
+        "hungry",
+        "sleeping"
+      ]
+    },
+    {
+      "id": "satiation_21",
+      "config": {
+        "state": "idle",
+        "satiation": 21,
+        "hour": 2,
+        "workStart": 9,
+        "now": 120000,
+        "idleSince": 0,
+        "dragging": false,
+        "currentEgg": null,
+        "foodMenuOpen": false,
+        "dnd": false,
+        "dockedEdge": null,
+        "stopped": false,
+        "stimulationMode": "low",
+        "sessionState": "idle",
+        "sessionPaused": false
+      },
+      "history": [
+        {
+          "tick": 0,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 1,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 2,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 3,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 4,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 5,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 6,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 7,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 8,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        }
+      ],
+      "nativeStateMessages": [
+        "sleeping"
+      ]
+    },
+    {
+      "id": "outside_sleep_window",
+      "config": {
+        "state": "idle",
+        "satiation": 20,
+        "hour": 22,
+        "workStart": 9,
+        "now": 120000,
+        "idleSince": 0,
+        "dragging": false,
+        "currentEgg": null,
+        "foodMenuOpen": false,
+        "dnd": false,
+        "dockedEdge": null,
+        "stopped": false,
+        "stimulationMode": "low",
+        "sessionState": "idle",
+        "sessionPaused": false
+      },
+      "history": [
+        {
+          "tick": 0,
+          "state": "idle",
+          "expression": "life.drowsy"
+        },
+        {
+          "tick": 1,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 2,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 3,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 4,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 5,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 6,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 7,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 8,
+          "state": "hungry",
+          "expression": "react.hungry"
+        }
+      ],
+      "nativeStateMessages": [
+        "hungry"
+      ]
+    },
+    {
+      "id": "docked",
+      "config": {
+        "state": "idle",
+        "satiation": 20,
+        "hour": 2,
+        "workStart": 9,
+        "now": 120000,
+        "idleSince": 0,
+        "dragging": false,
+        "currentEgg": null,
+        "foodMenuOpen": false,
+        "dnd": false,
+        "dockedEdge": "left",
+        "stopped": false,
+        "stimulationMode": "low",
+        "sessionState": "idle",
+        "sessionPaused": false
+      },
+      "history": [
+        {
+          "tick": 0,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 1,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 2,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 3,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 4,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 5,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 6,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 7,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 8,
+          "state": "hungry",
+          "expression": "react.hungry"
+        }
+      ],
+      "nativeStateMessages": [
+        "hungry"
+      ]
+    },
+    {
+      "id": "dnd",
+      "config": {
+        "state": "idle",
+        "satiation": 20,
+        "hour": 2,
+        "workStart": 9,
+        "now": 120000,
+        "idleSince": 0,
+        "dragging": false,
+        "currentEgg": null,
+        "foodMenuOpen": false,
+        "dnd": true,
+        "dockedEdge": null,
+        "stopped": false,
+        "stimulationMode": "low",
+        "sessionState": "idle",
+        "sessionPaused": false
+      },
+      "history": [
+        {
+          "tick": 0,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 1,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 2,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 3,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 4,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 5,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 6,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 7,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 8,
+          "state": "idle",
+          "expression": "life.idle"
+        }
+      ],
+      "nativeStateMessages": []
+    },
+    {
+      "id": "focused",
+      "config": {
+        "state": "focused",
+        "satiation": 20,
+        "hour": 2,
+        "workStart": 9,
+        "now": 120000,
+        "idleSince": 0,
+        "dragging": false,
+        "currentEgg": null,
+        "foodMenuOpen": false,
+        "dnd": false,
+        "dockedEdge": null,
+        "stopped": false,
+        "stimulationMode": "low",
+        "sessionState": "focused",
+        "sessionPaused": false
+      },
+      "history": [
+        {
+          "tick": 0,
+          "state": "focused",
+          "expression": "work.focus"
+        },
+        {
+          "tick": 1,
+          "state": "focused",
+          "expression": "work.focus"
+        },
+        {
+          "tick": 2,
+          "state": "focused",
+          "expression": "work.focus"
+        },
+        {
+          "tick": 3,
+          "state": "focused",
+          "expression": "work.focus"
+        },
+        {
+          "tick": 4,
+          "state": "focused",
+          "expression": "work.focus"
+        },
+        {
+          "tick": 5,
+          "state": "focused",
+          "expression": "work.focus"
+        },
+        {
+          "tick": 6,
+          "state": "focused",
+          "expression": "work.focus"
+        },
+        {
+          "tick": 7,
+          "state": "focused",
+          "expression": "work.focus"
+        },
+        {
+          "tick": 8,
+          "state": "focused",
+          "expression": "work.focus"
+        }
+      ],
+      "nativeStateMessages": []
+    },
+    {
+      "id": "active_egg",
+      "config": {
+        "state": "idle",
+        "satiation": 20,
+        "hour": 2,
+        "workStart": 9,
+        "now": 120000,
+        "idleSince": 0,
+        "dragging": false,
+        "currentEgg": {
+          "id": "sip-tea"
+        },
+        "foodMenuOpen": false,
+        "dnd": false,
+        "dockedEdge": null,
+        "stopped": false,
+        "stimulationMode": "low",
+        "sessionState": "idle",
+        "sessionPaused": false
+      },
+      "history": [
+        {
+          "tick": 0,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 1,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 2,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 3,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 4,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 5,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 6,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 7,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 8,
+          "state": "idle",
+          "expression": "life.idle"
+        }
+      ],
+      "nativeStateMessages": []
+    },
+    {
+      "id": "food_menu",
+      "config": {
+        "state": "idle",
+        "satiation": 20,
+        "hour": 2,
+        "workStart": 9,
+        "now": 120000,
+        "idleSince": 0,
+        "dragging": false,
+        "currentEgg": null,
+        "foodMenuOpen": true,
+        "dnd": false,
+        "dockedEdge": null,
+        "stopped": false,
+        "stimulationMode": "low",
+        "sessionState": "idle",
+        "sessionPaused": false
+      },
+      "history": [
+        {
+          "tick": 0,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 1,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 2,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 3,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 4,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 5,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 6,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 7,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 8,
+          "state": "idle",
+          "expression": "life.idle"
+        }
+      ],
+      "nativeStateMessages": []
+    },
+    {
+      "id": "dragging",
+      "config": {
+        "state": "idle",
+        "satiation": 20,
+        "hour": 2,
+        "workStart": 9,
+        "now": 120000,
+        "idleSince": 0,
+        "dragging": true,
+        "currentEgg": null,
+        "foodMenuOpen": false,
+        "dnd": false,
+        "dockedEdge": null,
+        "stopped": false,
+        "stimulationMode": "low",
+        "sessionState": "idle",
+        "sessionPaused": false
+      },
+      "history": [
+        {
+          "tick": 0,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 1,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 2,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 3,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 4,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 5,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 6,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 7,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 8,
+          "state": "idle",
+          "expression": "life.idle"
+        }
+      ],
+      "nativeStateMessages": []
+    },
+    {
+      "id": "idle_exact_60_seconds",
+      "config": {
+        "state": "idle",
+        "satiation": 20,
+        "hour": 2,
+        "workStart": 9,
+        "now": 60000,
+        "idleSince": 0,
+        "dragging": false,
+        "currentEgg": null,
+        "foodMenuOpen": false,
+        "dnd": false,
+        "dockedEdge": null,
+        "stopped": false,
+        "stimulationMode": "low",
+        "sessionState": "idle",
+        "sessionPaused": false
+      },
+      "history": [
+        {
+          "tick": 0,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 1,
+          "state": "hungry",
+          "expression": "react.hungry"
+        }
+      ],
+      "nativeStateMessages": [
+        "hungry"
+      ]
+    },
+    {
+      "id": "idle_over_60_seconds",
+      "config": {
+        "state": "idle",
+        "satiation": 20,
+        "hour": 2,
+        "workStart": 9,
+        "now": 60001,
+        "idleSince": 0,
+        "dragging": false,
+        "currentEgg": null,
+        "foodMenuOpen": false,
+        "dnd": false,
+        "dockedEdge": null,
+        "stopped": false,
+        "stimulationMode": "low",
+        "sessionState": "idle",
+        "sessionPaused": false
+      },
+      "history": [
+        {
+          "tick": 0,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 1,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 2,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 3,
+          "state": "hungry",
+          "expression": "react.hungry"
+        }
+      ],
+      "nativeStateMessages": [
+        "hungry",
+        "sleeping",
+        "hungry"
+      ]
+    },
+    {
+      "id": "workstart_closes_window",
+      "config": {
+        "state": "idle",
+        "satiation": 20,
+        "hour": 2,
+        "workStart": 2,
+        "now": 120000,
+        "idleSince": 0,
+        "dragging": false,
+        "currentEgg": null,
+        "foodMenuOpen": false,
+        "dnd": false,
+        "dockedEdge": null,
+        "stopped": false,
+        "stimulationMode": "low",
+        "sessionState": "idle",
+        "sessionPaused": false
+      },
+      "history": [
+        {
+          "tick": 0,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 1,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 2,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 3,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 4,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 5,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 6,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 7,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 8,
+          "state": "hungry",
+          "expression": "react.hungry"
+        }
+      ],
+      "nativeStateMessages": [
+        "hungry"
+      ]
+    },
+    {
+      "id": "upper_boundary_hour6",
+      "config": {
+        "state": "idle",
+        "satiation": 20,
+        "hour": 6,
+        "workStart": 9,
+        "now": 120000,
+        "idleSince": 0,
+        "dragging": false,
+        "currentEgg": null,
+        "foodMenuOpen": false,
+        "dnd": false,
+        "dockedEdge": null,
+        "stopped": false,
+        "stimulationMode": "low",
+        "sessionState": "idle",
+        "sessionPaused": false
+      },
+      "history": [
+        {
+          "tick": 0,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 1,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 2,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 3,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 4,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 5,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 6,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 7,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 8,
+          "state": "hungry",
+          "expression": "react.hungry"
+        }
+      ],
+      "nativeStateMessages": [
+        "hungry"
+      ]
+    },
+    {
+      "id": "lower_boundary_hour1",
+      "config": {
+        "state": "idle",
+        "satiation": 20,
+        "hour": 1,
+        "workStart": 9,
+        "now": 120000,
+        "idleSince": 0,
+        "dragging": false,
+        "currentEgg": null,
+        "foodMenuOpen": false,
+        "dnd": false,
+        "dockedEdge": null,
+        "stopped": false,
+        "stimulationMode": "low",
+        "sessionState": "idle",
+        "sessionPaused": false
+      },
+      "history": [
+        {
+          "tick": 0,
+          "state": "idle",
+          "expression": "life.idle"
+        },
+        {
+          "tick": 1,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 2,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 3,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 4,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 5,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 6,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        },
+        {
+          "tick": 7,
+          "state": "hungry",
+          "expression": "react.hungry"
+        },
+        {
+          "tick": 8,
+          "state": "sleeping",
+          "expression": "life.sleep"
+        }
+      ],
+      "nativeStateMessages": [
+        "hungry",
+        "sleeping",
+        "hungry",
+        "sleeping",
+        "hungry",
+        "sleeping",
+        "hungry",
+        "sleeping"
+      ]
+    }
+  ],
+  "extractedSource": {
+    "setState": "function setState(newState, { temporary = false } = {}) {\n  if (stopped) return state;\n  if (!temporary) transientVisualState = null;\n  if (state !== newState) {\n    state = newState;\n    clients.pet_setState(newState);\n  }\n  syncPresentationBase();\n  return state;\n}",
+    "timer": "const stateMaintenanceTimer = setInterval(() => {\n  if (dragging || currentEgg || foodMenuOpen) return;   // 喂食中不乱跑不发彩蛋\n  if (state === 'walking' || state === 'focused' || state === 'resting' || state === 'celebrating' || state === 'dragged') return;\n  if (dnd) return;\n  const now = Date.now();\n  const idleFor = now - idleSince;\n  const hour = new Date().getHours();\n\n  // Hunger is core status; low stimulation keeps its feedback static.\n  if (satiation <= 20 && state !== 'hungry') { setState('hungry'); if (stimulationMode !== 'low' && motionRandom() < 0.3) sayContextual('hungry'); return; }\n  if (satiation > 20 && state === 'hungry') { setState('idle'); idleSince = now; return; }\n  // Sleep at deep night\n  if ((hour >= 1 && hour < Math.min(6, workStart)) && idleFor > 60000 && state !== 'sleeping' && !dockedEdge) { setState('sleeping'); return; }\n  if (state === 'sleeping' && (hour >= Math.min(6, workStart) || idleFor < 60000)) { setState('idle'); idleSince = now; return; }\n}, 1000);",
+    "base": "function desiredBasePresentation() {\n  let expressionId = 'life.idle';\n  if (sessionPaused) expressionId = 'work.pause';\n  else if (sessionState === 'focused' || sessionState === 'resting') {\n    const activity = petRenderer.currentSessionActivity();\n    const fallback = sessionState === 'focused' ? 'work.focus' : 'work.rest';\n    expressionId = activity && expressionRegistry && expressionRegistry.has(activity.expression)\n      ? activity.expression\n      : fallback;\n  }\n  else if (state === 'sleeping') expressionId = 'life.sleep';\n  else if (state === 'hungry') expressionId = 'react.hungry';\n  else if (state === 'peeking') expressionId = 'life.peek';\n  else if (isLateNightIdle()) expressionId = 'life.drowsy';\n  const source = sessionPaused || sessionState === 'focused' || sessionState === 'resting'\n    ? 'session'\n    : 'base';\n  return { expressionId: mirrorBaseExpressionFor(expressionId, petRenderer.currentSessionActivity(), activityMirror), source };\n}",
+    "late": "function isLateNightIdle() {\n  if (state !== 'idle') return false;\n  const hour = new Date().getHours();\n  return hour >= 22 || hour < 1;\n}"
+  }
+}

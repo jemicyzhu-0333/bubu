@@ -1,0 +1,343 @@
+{
+  "scope": "Independent Node-only resource/lifecycle probes. No browser, renderer or GPU.",
+  "node": "v24.19.0",
+  "capacity": [
+    {
+      "name": "mechanical",
+      "cost": {
+        "vertices": 148,
+        "nodes": 16,
+        "deformedVertices": 164,
+        "clipKeyScalars": 0,
+        "sources": [
+          {
+            "key": "gltf-0.1.0:a0a6d62bd3edf28885ce51ca6d0353ed4ba6220ab99e7a23b3855b63ad04f446",
+            "bytes": 10196,
+            "decodedBytes": 17032
+          },
+          {
+            "key": "gltf-0.1.0:f1961dbfa8838e16b31a9e84a2d43ca2728c6ce66fc15150aaae4941569ac9a7",
+            "bytes": 1688,
+            "decodedBytes": 2336
+          }
+        ]
+      },
+      "sourceBytes": 11884,
+      "decodedArrayBytes": 19368,
+      "defaultSamePackCeilings": {
+        "actors": 8,
+        "vertices": 1351,
+        "nodes": 32,
+        "deformedVertices": 6097,
+        "clipKeyScalars": null
+      },
+      "hardSamePackCeilings": {
+        "actors": 32,
+        "vertices": 6756,
+        "nodes": 256,
+        "deformedVertices": 24390,
+        "clipKeyScalars": null
+      }
+    },
+    {
+      "name": "face7",
+      "cost": {
+        "vertices": 51036,
+        "nodes": 20,
+        "deformedVertices": 336132,
+        "clipKeyScalars": 0,
+        "sources": [
+          {
+            "key": "face-gltf-0.1.0:a9ae09635658ac15c55cf1571db53e284bd463eaab9a84ff24e7836270a1808e",
+            "bytes": 8509100,
+            "decodedBytes": 18756540
+          }
+        ]
+      },
+      "sourceBytes": 8509100,
+      "decodedArrayBytes": 18756540,
+      "defaultSamePackCeilings": {
+        "actors": 8,
+        "vertices": 3,
+        "nodes": 25,
+        "deformedVertices": 2,
+        "clipKeyScalars": null
+      },
+      "hardSamePackCeilings": {
+        "actors": 32,
+        "vertices": 19,
+        "nodes": 204,
+        "deformedVertices": 11,
+        "clipKeyScalars": null
+      }
+    },
+    {
+      "name": "neutralStatic05",
+      "cost": {
+        "vertices": 50265,
+        "nodes": 9,
+        "deformedVertices": 50265,
+        "clipKeyScalars": 0,
+        "sources": [
+          {
+            "key": "neutral-gltf-0.1.0:3b7adcb303c8bd3c0dfb8976f9eb8fc0e6cefb897a7c16e99acc827385591722",
+            "bytes": 2342580,
+            "decodedBytes": 4679628
+          }
+        ]
+      },
+      "sourceBytes": 2342580,
+      "decodedArrayBytes": 4679628,
+      "defaultSamePackCeilings": {
+        "actors": 8,
+        "vertices": 3,
+        "nodes": 56,
+        "deformedVertices": 19,
+        "clipKeyScalars": null
+      },
+      "hardSamePackCeilings": {
+        "actors": 32,
+        "vertices": 19,
+        "nodes": 455,
+        "deformedVertices": 79,
+        "clipKeyScalars": null
+      }
+    },
+    {
+      "name": "neutralR6",
+      "cost": {
+        "vertices": 50265,
+        "nodes": 17,
+        "deformedVertices": 246169,
+        "clipKeyScalars": 0,
+        "sources": [
+          {
+            "key": "neutral-gltf-0.1.0:fba41db41ecb0e0a959cd6923f55d5edbfaebf4558d79e1e9832b2a806cc5830",
+            "bytes": 8155940,
+            "decodedBytes": 16200432
+          }
+        ]
+      },
+      "sourceBytes": 8155940,
+      "decodedArrayBytes": 16200432,
+      "defaultSamePackCeilings": {
+        "actors": 8,
+        "vertices": 3,
+        "nodes": 30,
+        "deformedVertices": 4,
+        "clipKeyScalars": null
+      },
+      "hardSamePackCeilings": {
+        "actors": 32,
+        "vertices": 19,
+        "nodes": 240,
+        "deformedVertices": 16,
+        "clipKeyScalars": null
+      }
+    }
+  ],
+  "faceCapacityRuns": [
+    {
+      "label": "default",
+      "admitted": {
+        "actors": 2,
+        "vertices": 102072,
+        "nodes": 40,
+        "deformedVertices": 672264,
+        "sourceBytes": 8509100,
+        "decodedArrayBytes": 18756540,
+        "clipKeyScalars": 0,
+        "active": 2,
+        "pending": 0,
+        "cache": {
+          "loads": 1,
+          "hits": 1,
+          "disposals": 0,
+          "live": 1,
+          "retainedReferences": 2
+        }
+      },
+      "rejection": {
+        "code": "GLOBAL_BUDGET",
+        "message": "Application deformedVertices limit"
+      },
+      "afterDispose": {
+        "actors": 0,
+        "vertices": 0,
+        "nodes": 0,
+        "deformedVertices": 0,
+        "sourceBytes": 0,
+        "decodedArrayBytes": 0,
+        "clipKeyScalars": 0,
+        "active": 0,
+        "pending": 0,
+        "cache": {
+          "loads": 1,
+          "hits": 1,
+          "disposals": 1,
+          "live": 0,
+          "retainedReferences": 0
+        }
+      }
+    },
+    {
+      "label": "allHard",
+      "admitted": {
+        "actors": 11,
+        "vertices": 561396,
+        "nodes": 220,
+        "deformedVertices": 3697452,
+        "sourceBytes": 8509100,
+        "decodedArrayBytes": 18756540,
+        "clipKeyScalars": 0,
+        "active": 11,
+        "pending": 0,
+        "cache": {
+          "loads": 1,
+          "hits": 10,
+          "disposals": 0,
+          "live": 1,
+          "retainedReferences": 11
+        }
+      },
+      "rejection": {
+        "code": "GLOBAL_BUDGET",
+        "message": "Application deformedVertices limit"
+      },
+      "afterDispose": {
+        "actors": 0,
+        "vertices": 0,
+        "nodes": 0,
+        "deformedVertices": 0,
+        "sourceBytes": 0,
+        "decodedArrayBytes": 0,
+        "clipKeyScalars": 0,
+        "active": 0,
+        "pending": 0,
+        "cache": {
+          "loads": 1,
+          "hits": 10,
+          "disposals": 1,
+          "live": 0,
+          "retainedReferences": 0
+        }
+      }
+    }
+  ],
+  "overlappingBufferViews": {
+    "encodedGLBBytes": 527924,
+    "bufferViewCount": 15,
+    "reservedBodyDecodedBytes": 534760,
+    "observedBeforeReservationCheck": {
+      "decodedGeometryBackingBytes": 7340032
+    },
+    "ratio": 13.725843368987958,
+    "rejection": {
+      "code": "LIMIT",
+      "message": "Decoded geometry array reservation"
+    },
+    "afterFailure": {
+      "actors": 0,
+      "vertices": 0,
+      "nodes": 0,
+      "deformedVertices": 0,
+      "sourceBytes": 0,
+      "decodedArrayBytes": 0,
+      "clipKeyScalars": 0,
+      "active": 0,
+      "pending": 0,
+      "cache": {
+        "loads": 1,
+        "hits": 0,
+        "disposals": 0,
+        "live": 0,
+        "retainedReferences": 0
+      }
+    }
+  },
+  "disposedMechanicalRetention": {
+    "cycles": 3,
+    "retainedModelChildren": [
+      1,
+      1,
+      1
+    ],
+    "reachableGeometryBytesPerHandle": [
+      6615000,
+      6615000,
+      6615000
+    ],
+    "distinctGeometryObjects": 3,
+    "distinctPositionBuffers": 3,
+    "pool": {
+      "actors": 0,
+      "vertices": 0,
+      "nodes": 0,
+      "deformedVertices": 0,
+      "sourceBytes": 0,
+      "decodedArrayBytes": 0,
+      "clipKeyScalars": 0,
+      "active": 0,
+      "pending": 0,
+      "cache": {
+        "loads": 3,
+        "hits": 0,
+        "disposals": 3,
+        "live": 0,
+        "retainedReferences": 0
+      }
+    },
+    "scope": "Strong JS reachability through retained disposed actor handles. Does not claim a leak when callers drop the handles; GPU disposal is not tested."
+  },
+  "sourceBefore": {
+    "src/actor-pool.mjs": "a435e95dc2991c699b5f27d7dff0259afed2884ca2e084d5a93aebfe9e13ec08",
+    "src/approved-face-source.mjs": "a050d9b7f5a0f50d4853d5b67ca90872d769b6584a909bba6a1a409c39b8c8bb",
+    "src/art-glb-preflight.mjs": "a17d80ebd08a002220eba4cb44208405d39e7ce57f9c2d8e91c434471e85dd81",
+    "src/clip-contract.mjs": "9d70065213451637b23a503f7aa05c00defae95f1e6bf36b7d7d2388c96f386b",
+    "src/context-lifecycle.mjs": "44b5c9c394cb2de4801c90bc101008e5ae33d5b541b258e2d0cf699925e89dfa",
+    "src/contracts.mjs": "4d40cf069403eb72f1efbc1ccde5c6260bae4d8110e955c5f292199f01f8f9db",
+    "src/demand-loop.mjs": "02f8603f39c19b8aa7c0c864799ab378fca8b46695c4f00015007e75c6873b84",
+    "src/demo.mjs": "3d8d03b61b06b71a98242233917336597f0b80fbd914f89694bb25f3ed900a41",
+    "src/face-binding.mjs": "5f8216329945f3db99f9d00fcb98b719dffaefa10d8874314baa78b11f004ce2",
+    "src/face-contract.mjs": "7faa4f2b6612b99c60abc36c4111a121fef32541d9c8769e04437aec076021a8",
+    "src/face-demo.mjs": "968df7ff5f7a5a88fca054375519dc513f18926cecff3832c981e233fde243cb",
+    "src/face-suite.mjs": "df74f98fbbb0b9a85ca3212d368c8151b636c63285026f1384708f2164df8e7f",
+    "src/face-timeline.mjs": "286ded8d6c6992cd0333e1985a0baee0e21dd951dcf3ab91b8bb790cd7641892",
+    "src/geometry-accounting.mjs": "de9e57e68011a77475d329d72317622c0057b6673c088e3d81db154fac3a2318",
+    "src/glb-preflight.mjs": "d142e9ea219c63f308e0d8b467cbf547c47587bdb3034e6965c9b46a478f3568",
+    "src/neutral-contract.mjs": "ca8f9b432c1210a8d3fb2a2817b01cb9d1a71e32b99535db4f6b6637287383d8",
+    "src/neutral-demo.mjs": "eb14b6e187c469acfd1caed1d03ff642f835f8f54a55f5f3a483700d6c14f201",
+    "src/neutral-source-check.mjs": "98f3f9b34112278bd4406f13b5a274bdb65ebd3c7843860dfdd3ec5b4d3caafc",
+    "src/neutral-suite.mjs": "27243fb0d2dcc33c0946b429eae0a6ade30e2b9f1c7977324089987330705187",
+    "src/pack-loader.mjs": "d804a81874504b393dd8ff77945eb70d8850fefb4cb10424d33609952c50dbd7",
+    "src/resource-cache.mjs": "c701603ff5c7f8fe73dbc3088d42e556007c7f6476b29b4fa273fb92a581b706",
+    "src/suite.mjs": "14ce4d22f5883caac20a5e86d7f4a2e210e5626403be7d5109cbff1145a64973",
+    "src/timeline.mjs": "bbfa3c73c79a2c1393e42e1689565af04a79f31a12c84560e557af674156de49"
+  },
+  "sourceAfter": {
+    "src/actor-pool.mjs": "a435e95dc2991c699b5f27d7dff0259afed2884ca2e084d5a93aebfe9e13ec08",
+    "src/approved-face-source.mjs": "a050d9b7f5a0f50d4853d5b67ca90872d769b6584a909bba6a1a409c39b8c8bb",
+    "src/art-glb-preflight.mjs": "a17d80ebd08a002220eba4cb44208405d39e7ce57f9c2d8e91c434471e85dd81",
+    "src/clip-contract.mjs": "9d70065213451637b23a503f7aa05c00defae95f1e6bf36b7d7d2388c96f386b",
+    "src/context-lifecycle.mjs": "44b5c9c394cb2de4801c90bc101008e5ae33d5b541b258e2d0cf699925e89dfa",
+    "src/contracts.mjs": "4d40cf069403eb72f1efbc1ccde5c6260bae4d8110e955c5f292199f01f8f9db",
+    "src/demand-loop.mjs": "02f8603f39c19b8aa7c0c864799ab378fca8b46695c4f00015007e75c6873b84",
+    "src/demo.mjs": "3d8d03b61b06b71a98242233917336597f0b80fbd914f89694bb25f3ed900a41",
+    "src/face-binding.mjs": "5f8216329945f3db99f9d00fcb98b719dffaefa10d8874314baa78b11f004ce2",
+    "src/face-contract.mjs": "7faa4f2b6612b99c60abc36c4111a121fef32541d9c8769e04437aec076021a8",
+    "src/face-demo.mjs": "968df7ff5f7a5a88fca054375519dc513f18926cecff3832c981e233fde243cb",
+    "src/face-suite.mjs": "df74f98fbbb0b9a85ca3212d368c8151b636c63285026f1384708f2164df8e7f",
+    "src/face-timeline.mjs": "286ded8d6c6992cd0333e1985a0baee0e21dd951dcf3ab91b8bb790cd7641892",
+    "src/geometry-accounting.mjs": "de9e57e68011a77475d329d72317622c0057b6673c088e3d81db154fac3a2318",
+    "src/glb-preflight.mjs": "d142e9ea219c63f308e0d8b467cbf547c47587bdb3034e6965c9b46a478f3568",
+    "src/neutral-contract.mjs": "ca8f9b432c1210a8d3fb2a2817b01cb9d1a71e32b99535db4f6b6637287383d8",
+    "src/neutral-demo.mjs": "eb14b6e187c469acfd1caed1d03ff642f835f8f54a55f5f3a483700d6c14f201",
+    "src/neutral-source-check.mjs": "98f3f9b34112278bd4406f13b5a274bdb65ebd3c7843860dfdd3ec5b4d3caafc",
+    "src/neutral-suite.mjs": "27243fb0d2dcc33c0946b429eae0a6ade30e2b9f1c7977324089987330705187",
+    "src/pack-loader.mjs": "d804a81874504b393dd8ff77945eb70d8850fefb4cb10424d33609952c50dbd7",
+    "src/resource-cache.mjs": "c701603ff5c7f8fe73dbc3088d42e556007c7f6476b29b4fa273fb92a581b706",
+    "src/suite.mjs": "14ce4d22f5883caac20a5e86d7f4a2e210e5626403be7d5109cbff1145a64973",
+    "src/timeline.mjs": "bbfa3c73c79a2c1393e42e1689565af04a79f31a12c84560e557af674156de49"
+  },
+  "reviewedSourceUnchanged": true
+}

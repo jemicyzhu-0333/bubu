@@ -1,0 +1,4294 @@
+{
+  "documentKind": "human_review_coverage_matrix",
+  "status": "planned_non_executable",
+  "sourceCommit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+  "sourceInventory": "/workspace/shared/bubu-v1-scenario-audit-20261017/FULL-INDEX.json",
+  "notRuntimeSchema": true,
+  "items": [
+    {
+      "v1Group": "actions",
+      "v1Id": "workout",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 71,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "pushup",
+        "prop": "headband",
+        "effect": "sweat",
+        "expression": "work.ready",
+        "duration": 8500,
+        "kind": "attention",
+        "familyId": "attention.motion",
+        "weight": 800,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "chase-butterfly",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 10,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "dash",
+        "prop": "butterfly",
+        "effect": "petals",
+        "expression": "life.attentive",
+        "duration": 9000,
+        "kind": "attention",
+        "familyId": "attention.motion",
+        "weight": 650,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "hiccup",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 73,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "hiccup",
+        "prop": "cup",
+        "effect": "bubbles",
+        "expression": "react.surprised",
+        "duration": 6500,
+        "kind": "attention",
+        "familyId": "attention.expression",
+        "weight": 900,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "juggle",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 74,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "juggle",
+        "prop": "balls",
+        "effect": "sparkles",
+        "expression": "react.happy",
+        "duration": 9000,
+        "kind": "attention",
+        "familyId": "attention.performance",
+        "weight": 560,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "carry-energy",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 13,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "carry",
+        "prop": "energy",
+        "effect": "sparks",
+        "expression": "work.starting",
+        "duration": 8000,
+        "kind": "attention",
+        "familyId": "attention.motion",
+        "weight": 520,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "pit-fall",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 14,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "fall",
+        "prop": "hole",
+        "effect": "dust",
+        "expression": "react.surprised",
+        "duration": 7500,
+        "kind": "attention",
+        "familyId": "attention.motion",
+        "weight": 460,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "mirror-meet",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 15,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "mirror",
+        "prop": "mirror",
+        "effect": "glimmer",
+        "expression": "life.attentive",
+        "duration": 9000,
+        "kind": "attention",
+        "familyId": "attention.performance",
+        "weight": 430,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "sing",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 78,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "sway",
+        "prop": "microphone",
+        "effect": "notes",
+        "expression": "react.happy",
+        "duration": 10000,
+        "kind": "attention",
+        "familyId": "attention.performance",
+        "weight": 720,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "stuck-corner",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 17,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "squish",
+        "prop": "ellipsis",
+        "effect": "puffs",
+        "expression": "life.peek",
+        "duration": 7500,
+        "kind": "attention",
+        "familyId": "attention.motion",
+        "weight": 420,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "chase-laser",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 18,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "dash",
+        "prop": "laser",
+        "effect": "trail",
+        "expression": "life.attentive",
+        "duration": 9500,
+        "kind": "attention",
+        "familyId": "attention.motion",
+        "weight": 600,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "dig-treasure",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 19,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "dig",
+        "prop": "treasure",
+        "effect": "dust",
+        "expression": "life.attentive",
+        "duration": 10000,
+        "kind": "attention",
+        "familyId": "attention.discovery",
+        "weight": 430,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "yawn",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 82,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "stretch",
+        "prop": "sleep-cap",
+        "effect": "zzz",
+        "expression": "life.drowsy",
+        "duration": 7000,
+        "kind": "ambient",
+        "familyId": "ambient.calm",
+        "weight": 1300,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "sneeze",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 83,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "recoil",
+        "prop": "tissue",
+        "effect": "puffs",
+        "expression": "react.surprised",
+        "duration": 6500,
+        "kind": "attention",
+        "familyId": "attention.expression",
+        "weight": 780,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "bubble-blow",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 22,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "float",
+        "prop": "bubble-wand",
+        "effect": "bubbles",
+        "expression": "react.happy",
+        "duration": 9000,
+        "kind": "attention",
+        "familyId": "attention.performance",
+        "weight": 650,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "meditate",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 85,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "breathe",
+        "prop": "cushion",
+        "effect": "halo",
+        "expression": "life.space",
+        "duration": 10000,
+        "kind": "ambient",
+        "familyId": "ambient.calm",
+        "weight": 1100,
+        "priority": 20,
+        "focusAllowed": true
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "wave",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 86,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "wave",
+        "prop": "none",
+        "effect": "hearts",
+        "expression": "react.happy",
+        "duration": 7000,
+        "kind": "ambient",
+        "familyId": "ambient.social",
+        "weight": 1100,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "stretch",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 82,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "stretch",
+        "prop": "none",
+        "effect": "sparkles",
+        "expression": "react.relieved",
+        "duration": 8000,
+        "kind": "ambient",
+        "familyId": "ambient.calm",
+        "weight": 1000,
+        "priority": 20,
+        "focusAllowed": true
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "happy-hop",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 26,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "hop",
+        "prop": "none",
+        "effect": "stars",
+        "expression": "react.happy",
+        "duration": 7500,
+        "kind": "attention",
+        "familyId": "attention.motion",
+        "weight": 850,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "high-five",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 27,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "high-five",
+        "prop": "high-five",
+        "effect": "sparkles",
+        "expression": "react.happy",
+        "duration": 7000,
+        "kind": "attention",
+        "familyId": "attention.social",
+        "weight": 500,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "spin",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 90,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "spin",
+        "prop": "none",
+        "effect": "stars",
+        "expression": "react.happy",
+        "duration": 7000,
+        "kind": "attention",
+        "familyId": "attention.motion",
+        "weight": 670,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "dance",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 91,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "dance",
+        "prop": "music-notes",
+        "effect": "notes",
+        "expression": "react.celebrate",
+        "duration": 8500,
+        "kind": "attention",
+        "familyId": "attention.performance",
+        "weight": 620,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "look-around",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 30,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "look",
+        "prop": "binoculars",
+        "effect": "glimmer",
+        "expression": "life.space",
+        "duration": 8500,
+        "kind": "ambient",
+        "familyId": "ambient.curious",
+        "weight": 1050,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "tail-wiggle",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 31,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "wag",
+        "prop": "tail",
+        "effect": "hearts",
+        "expression": "react.happy",
+        "duration": 7500,
+        "kind": "ambient",
+        "familyId": "ambient.social",
+        "weight": 950,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "read-book",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 32,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "read",
+        "prop": "book",
+        "effect": "letters",
+        "expression": "work.focus",
+        "duration": 11000,
+        "kind": "ambient",
+        "familyId": "ambient.work",
+        "weight": 900,
+        "priority": 20,
+        "focusAllowed": true
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "take-note",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 33,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "write",
+        "prop": "document",
+        "effect": "none",
+        "expression": "life.attentive",
+        "duration": 11000,
+        "kind": "ambient",
+        "familyId": "ambient.work",
+        "weight": 500,
+        "priority": 20,
+        "focusAllowed": true
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "type-keyboard",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 34,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "type",
+        "prop": "keyboard",
+        "effect": "code",
+        "expression": "work.deep-focus",
+        "duration": 10000,
+        "kind": "ambient",
+        "familyId": "ambient.work",
+        "weight": 920,
+        "priority": 20,
+        "focusAllowed": true
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "sip-tea",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 35,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "sip",
+        "prop": "cup",
+        "effect": "steam",
+        "expression": "work.rest",
+        "duration": 9000,
+        "kind": "ambient",
+        "familyId": "ambient.calm",
+        "weight": 1050,
+        "priority": 20,
+        "focusAllowed": true
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "paper-plane",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 36,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "glide",
+        "prop": "plane",
+        "effect": "trail",
+        "expression": "work.switch",
+        "duration": 9500,
+        "kind": "attention",
+        "familyId": "attention.motion",
+        "weight": 610,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "paper-return",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 37,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "glide",
+        "prop": "plane",
+        "effect": "none",
+        "expression": "react.happy",
+        "duration": 10500,
+        "kind": "attention",
+        "familyId": "attention.performance",
+        "weight": 380,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "sweep",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 100,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "sweep",
+        "prop": "broom",
+        "effect": "dust",
+        "expression": "work.wrap-up",
+        "duration": 9000,
+        "kind": "ambient",
+        "familyId": "ambient.work",
+        "weight": 780,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "magic-trick",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 39,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "magic",
+        "prop": "hat",
+        "effect": "sparkles",
+        "expression": "react.surprised",
+        "duration": 10000,
+        "kind": "attention",
+        "familyId": "attention.performance",
+        "weight": 520,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "telescope",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 102,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "telescope",
+        "prop": "telescope",
+        "effect": "stars",
+        "expression": "life.space",
+        "duration": 11000,
+        "kind": "ambient",
+        "familyId": "ambient.curious",
+        "weight": 720,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "plant-water",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 41,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "water",
+        "prop": "watering-can",
+        "effect": "leaves",
+        "expression": "react.encouraging",
+        "duration": 10000,
+        "kind": "ambient",
+        "familyId": "ambient.calm",
+        "weight": 820,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "knit-scarf",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 42,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "knit",
+        "prop": "yarn",
+        "effect": "thread",
+        "expression": "work.deep-focus",
+        "duration": 12000,
+        "kind": "ambient",
+        "familyId": "ambient.craft",
+        "weight": 620,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "drum-solo",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 43,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "drum",
+        "prop": "drum",
+        "effect": "notes",
+        "expression": "react.happy",
+        "duration": 9000,
+        "kind": "attention",
+        "familyId": "attention.performance",
+        "weight": 560,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "moonwalk",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 106,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "moonwalk",
+        "prop": "sparkle-shoes",
+        "effect": "trail",
+        "expression": "react.happy",
+        "duration": 9000,
+        "kind": "attention",
+        "familyId": "attention.motion",
+        "weight": 500,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "hide-box",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 45,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "hide",
+        "prop": "box",
+        "effect": "puffs",
+        "expression": "life.peek",
+        "duration": 10000,
+        "kind": "attention",
+        "familyId": "attention.expression",
+        "weight": 660,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "build-blocks",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 46,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "build",
+        "prop": "blocks",
+        "effect": "sparkles",
+        "expression": "work.focus",
+        "duration": 11000,
+        "kind": "ambient",
+        "familyId": "ambient.craft",
+        "weight": 700,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "catch-star",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 47,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "reach",
+        "prop": "star",
+        "effect": "stars",
+        "expression": "react.surprised",
+        "duration": 9500,
+        "kind": "attention",
+        "familyId": "attention.motion",
+        "weight": 520,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "umbrella-dance",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 48,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "umbrella",
+        "prop": "umbrella",
+        "effect": "rainbow",
+        "expression": "react.happy",
+        "duration": 10000,
+        "kind": "attention",
+        "familyId": "attention.performance",
+        "weight": 480,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "snack-picnic",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 49,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "picnic",
+        "prop": "picnic",
+        "effect": "crumbs",
+        "expression": "react.satisfied",
+        "duration": 11000,
+        "kind": "ambient",
+        "familyId": "ambient.calm",
+        "weight": 720,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "shadow-box",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 50,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "box",
+        "prop": "gloves",
+        "effect": "impact",
+        "expression": "work.ready",
+        "duration": 8000,
+        "kind": "attention",
+        "familyId": "attention.motion",
+        "weight": 520,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "tiny-chef",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 51,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "cook",
+        "prop": "pan",
+        "effect": "steam",
+        "expression": "work.focus",
+        "duration": 11000,
+        "kind": "attention",
+        "familyId": "attention.performance",
+        "weight": 540,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "actions",
+      "v1Id": "photo-pose",
+      "v1Evidence": {
+        "path": "src/content/behaviors.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 52,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "pose",
+        "prop": "camera",
+        "effect": "flash",
+        "expression": "life.attentive",
+        "duration": 8000,
+        "kind": "attention",
+        "familyId": "attention.social",
+        "weight": 620,
+        "priority": 20,
+        "focusAllowed": false
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility",
+        "effect_layer_resource_and_reduced_motion"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "activities",
+      "v1Id": "focus-read",
+      "v1Evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 16,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "read",
+        "prop": "book",
+        "expression": "work.focus",
+        "durationMs": 42000,
+        "state": "focused"
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "activities",
+      "v1Id": "focus-type",
+      "v1Evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 17,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "type",
+        "prop": "keyboard",
+        "expression": "work.deep-focus",
+        "durationMs": 36000,
+        "state": "focused"
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "activities",
+      "v1Id": "focus-write",
+      "v1Evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 18,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "write",
+        "prop": "document",
+        "expression": "work.focus",
+        "durationMs": 44000,
+        "state": "focused"
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "activities",
+      "v1Id": "focus-browse",
+      "v1Evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 19,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "browse",
+        "prop": "laptop",
+        "expression": "work.switch",
+        "durationMs": 38000,
+        "state": "focused"
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "activities",
+      "v1Id": "focus-charts",
+      "v1Evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 20,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "trade",
+        "prop": "chart",
+        "expression": "work.deep-focus",
+        "durationMs": 34000,
+        "state": "focused"
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "activities",
+      "v1Id": "focus-notes",
+      "v1Evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 21,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "organize",
+        "prop": "notes",
+        "expression": "work.wrap-up",
+        "durationMs": 40000,
+        "state": "focused"
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "activities",
+      "v1Id": "rest-daydream",
+      "v1Evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 22,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "daydream",
+        "prop": "none",
+        "expression": "life.space",
+        "durationMs": 38000,
+        "state": "resting"
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "activities",
+      "v1Id": "rest-nap",
+      "v1Evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 23,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "doze",
+        "prop": "pillow",
+        "expression": "life.sleep",
+        "durationMs": 48000,
+        "state": "resting"
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "activities",
+      "v1Id": "rest-tea",
+      "v1Evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 24,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "sip",
+        "prop": "cup",
+        "expression": "work.rest",
+        "durationMs": 36000,
+        "state": "resting"
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "activities",
+      "v1Id": "rest-stretch",
+      "v1Evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 25,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "stretch",
+        "prop": "none",
+        "expression": "react.relieved",
+        "durationMs": 30000,
+        "state": "resting"
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "activities",
+      "v1Id": "rest-window",
+      "v1Evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 26,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "look",
+        "prop": "none",
+        "expression": "life.space",
+        "durationMs": 40000,
+        "state": "resting"
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "activities",
+      "v1Id": "rest-plant",
+      "v1Evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 27,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "water",
+        "prop": "watering-can",
+        "expression": "react.encouraging",
+        "durationMs": 42000,
+        "state": "resting"
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "activities",
+      "v1Id": "mirror-music",
+      "v1Evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 68,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "dance",
+        "prop": "music-notes",
+        "expression": "react.happy",
+        "durationMs": 24000,
+        "state": "mirror-music"
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "activities",
+      "v1Id": "mirror-coding",
+      "v1Evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 69,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "type",
+        "prop": "keyboard",
+        "expression": "work.deep-focus",
+        "durationMs": 36000,
+        "state": "mirror-coding"
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "activities",
+      "v1Id": "mirror-ai",
+      "v1Evidence": {
+        "path": "src/content/session-activities.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 70,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "motion": "browse",
+        "prop": "ai-chat",
+        "expression": "life.attentive",
+        "durationMs": 30000,
+        "state": "mirror-ai"
+      },
+      "requiredReview": [
+        "expression_label_to_approved_runtime_path",
+        "body_motion_asset_and_binding",
+        "scene_lifecycle_and_interruption",
+        "classify_prop_as_object_temporary_wearable_or_visual_effect",
+        "prop_resource_and_compatibility"
+      ],
+      "existingBuildingBlock": "seven_slot_face_path_only_if_art_mapping_is_approved",
+      "priorityMapping": "V1 numeric/category priority does not map directly to P0 interaction/idle"
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "milestone.sprout",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 67,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "dango_candidate",
+      "v1Fields": {
+        "formId": "dango",
+        "slot": "head",
+        "skin": null,
+        "minLevel": 3,
+        "unlockKind": "level",
+        "exclusiveGroup": "headwear",
+        "exclusivePriority": 20,
+        "layer": "back",
+        "parts": [
+          "back"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "milestone.sunhat",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 76,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "dango_candidate",
+      "v1Fields": {
+        "formId": "dango",
+        "slot": "head",
+        "skin": null,
+        "minLevel": 5,
+        "unlockKind": "level",
+        "exclusiveGroup": "headwear",
+        "exclusivePriority": 50,
+        "layer": "back",
+        "parts": [
+          "back",
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "milestone.satchel",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 85,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "dango_candidate",
+      "v1Fields": {
+        "formId": "dango",
+        "slot": "body",
+        "skin": null,
+        "minLevel": 8,
+        "unlockKind": "level",
+        "exclusiveGroup": "sidebag",
+        "exclusivePriority": 40,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "milestone.scarf",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 93,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "dango_candidate",
+      "v1Fields": {
+        "formId": "dango",
+        "slot": "neck",
+        "skin": null,
+        "minLevel": 10,
+        "unlockKind": "level",
+        "exclusiveGroup": "neckwear",
+        "exclusivePriority": 50,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "milestone.halo",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 102,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "dango_candidate",
+      "v1Fields": {
+        "formId": "dango",
+        "slot": "head",
+        "skin": null,
+        "minLevel": 12,
+        "unlockKind": "level",
+        "exclusiveGroup": "head-aura",
+        "exclusivePriority": 50,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "milestone.boots",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 112,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "dango_candidate",
+      "v1Fields": {
+        "formId": "dango",
+        "slot": "body",
+        "skin": null,
+        "minLevel": 15,
+        "unlockKind": "level",
+        "exclusiveGroup": "footwear",
+        "exclusivePriority": 50,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "milestone.cape",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 122,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "dango_candidate",
+      "v1Fields": {
+        "formId": "dango",
+        "slot": "back",
+        "skin": null,
+        "minLevel": 20,
+        "unlockKind": "level",
+        "exclusiveGroup": "backwear",
+        "exclusivePriority": 80,
+        "layer": "back",
+        "parts": [
+          "back",
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "skin.forest-leaf",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 132,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "dango_candidate",
+      "v1Fields": {
+        "formId": "dango",
+        "slot": "head",
+        "skin": "forest",
+        "minLevel": 1,
+        "unlockKind": "skin",
+        "exclusiveGroup": "head-accent",
+        "exclusivePriority": 30,
+        "layer": "back",
+        "parts": [
+          "back"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "skin.sakura-flower",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 142,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "dango_candidate",
+      "v1Fields": {
+        "formId": "dango",
+        "slot": "head",
+        "skin": "sakura",
+        "minLevel": 1,
+        "unlockKind": "skin",
+        "exclusiveGroup": "head-accent",
+        "exclusivePriority": 30,
+        "layer": "back",
+        "parts": [
+          "back"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "skin.moon-crescent",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 152,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "dango_candidate",
+      "v1Fields": {
+        "formId": "dango",
+        "slot": "head",
+        "skin": "moon",
+        "minLevel": 1,
+        "unlockKind": "skin",
+        "exclusiveGroup": "head-accent",
+        "exclusivePriority": 40,
+        "layer": "back",
+        "parts": [
+          "back"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "skin.flame-tip",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 162,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "dango_candidate",
+      "v1Fields": {
+        "formId": "dango",
+        "slot": "head",
+        "skin": "flame",
+        "minLevel": 1,
+        "unlockKind": "skin",
+        "exclusiveGroup": "headwear",
+        "exclusivePriority": 70,
+        "layer": "back",
+        "parts": [
+          "back"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "skin.crown",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 172,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "dango_candidate",
+      "v1Fields": {
+        "formId": "dango",
+        "slot": "head",
+        "skin": "crown",
+        "minLevel": 1,
+        "unlockKind": "skin",
+        "exclusiveGroup": "headwear",
+        "exclusivePriority": 90,
+        "layer": "back",
+        "parts": [
+          "back"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "skin.robot-antenna",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 182,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "dango_candidate",
+      "v1Fields": {
+        "formId": "dango",
+        "slot": "head",
+        "skin": "robot",
+        "minLevel": 1,
+        "unlockKind": "skin",
+        "exclusiveGroup": "headwear",
+        "exclusivePriority": 65,
+        "layer": "back",
+        "parts": [
+          "back"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "skin.woodsman-cap",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 192,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "dango_candidate",
+      "v1Fields": {
+        "formId": "dango",
+        "slot": "head",
+        "skin": "woodsman",
+        "minLevel": 1,
+        "unlockKind": "skin",
+        "exclusiveGroup": "headwear",
+        "exclusivePriority": 80,
+        "layer": "back",
+        "parts": [
+          "back"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "skin.ocean-fin",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 201,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "dango_candidate",
+      "v1Fields": {
+        "formId": "dango",
+        "slot": "back",
+        "skin": "ocean",
+        "minLevel": 1,
+        "unlockKind": "skin",
+        "exclusiveGroup": "backwear",
+        "exclusivePriority": 100,
+        "layer": "back",
+        "parts": [
+          "back"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "skin.bat-wings",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 211,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "dango_candidate",
+      "v1Fields": {
+        "formId": "dango",
+        "slot": "back",
+        "skin": "bat",
+        "minLevel": 1,
+        "unlockKind": "skin",
+        "exclusiveGroup": "backwear",
+        "exclusivePriority": 100,
+        "layer": "back",
+        "parts": [
+          "back"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.ear-bow",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 223,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "head",
+        "skin": "usagi",
+        "minLevel": 1,
+        "unlockKind": "skin",
+        "exclusiveGroup": "usagi.earwear",
+        "exclusivePriority": 30,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.star-collar",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 228,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "neck",
+        "skin": "usagi",
+        "minLevel": 1,
+        "unlockKind": "skin",
+        "exclusiveGroup": "usagi.neckwear",
+        "exclusivePriority": 30,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.travel-cape",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 233,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "back",
+        "skin": "usagi",
+        "minLevel": 1,
+        "unlockKind": "skin",
+        "exclusiveGroup": "usagi.backwear",
+        "exclusivePriority": 50,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.sprout-clip",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 240,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "head",
+        "skin": null,
+        "minLevel": 3,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.earwear",
+        "exclusivePriority": 10,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.sunhat",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 245,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "head",
+        "skin": null,
+        "minLevel": 5,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.headwear",
+        "exclusivePriority": 30,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.carrot-satchel",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 250,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "body",
+        "skin": null,
+        "minLevel": 8,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.sidebag",
+        "exclusivePriority": 30,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.pastel-scarf",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 255,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "neck",
+        "skin": null,
+        "minLevel": 10,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.neckwear",
+        "exclusivePriority": 10,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.halo",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 260,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "head",
+        "skin": null,
+        "minLevel": 12,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.aura",
+        "exclusivePriority": 30,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.soft-boots",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 265,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "body",
+        "skin": null,
+        "minLevel": 15,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.footwear",
+        "exclusivePriority": 30,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.starlit-cape",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 270,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "back",
+        "skin": null,
+        "minLevel": 20,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.backwear",
+        "exclusivePriority": 10,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.sakura-clip",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 275,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "head",
+        "skin": null,
+        "minLevel": 6,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.earwear",
+        "exclusivePriority": 10,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.paper-plane-clip",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 280,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "head",
+        "skin": null,
+        "minLevel": 6,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.earwear",
+        "exclusivePriority": 10,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.compass-clip",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 285,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "head",
+        "skin": null,
+        "minLevel": 8,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.earwear",
+        "exclusivePriority": 10,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.tiny-crown",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 290,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "head",
+        "skin": null,
+        "minLevel": 18,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.headwear",
+        "exclusivePriority": 10,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.garden-beret",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 297,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "head",
+        "skin": null,
+        "minLevel": 5,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.headwear",
+        "exclusivePriority": 5,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.daisy-clip",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 302,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "head",
+        "skin": null,
+        "minLevel": 3,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.earwear",
+        "exclusivePriority": 5,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.petal-collar",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 307,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "neck",
+        "skin": null,
+        "minLevel": 10,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.neckwear",
+        "exclusivePriority": 5,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.seed-pouch",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 312,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "body",
+        "skin": null,
+        "minLevel": 8,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.sidebag",
+        "exclusivePriority": 5,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.rain-cape",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 317,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "back",
+        "skin": null,
+        "minLevel": 20,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.backwear",
+        "exclusivePriority": 5,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.rain-boots",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 322,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "body",
+        "skin": null,
+        "minLevel": 15,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.footwear",
+        "exclusivePriority": 5,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.moon-beret",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 327,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "head",
+        "skin": null,
+        "minLevel": 18,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.headwear",
+        "exclusivePriority": 5,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.envelope-pouch",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 332,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "body",
+        "skin": null,
+        "minLevel": 8,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.sidebag",
+        "exclusivePriority": 5,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.constellation",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 337,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "head",
+        "skin": null,
+        "minLevel": 12,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.aura",
+        "exclusivePriority": 5,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.garden-apron",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 342,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "back",
+        "skin": null,
+        "minLevel": 20,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.backwear",
+        "exclusivePriority": 5,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.garden-clogs",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 347,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "body",
+        "skin": null,
+        "minLevel": 15,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.footwear",
+        "exclusivePriority": 5,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.rain-satchel",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 352,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "body",
+        "skin": null,
+        "minLevel": 8,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.sidebag",
+        "exclusivePriority": 5,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "usagi.moon-boots",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 357,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "other_form_do_not_auto_include",
+      "v1Fields": {
+        "formId": "usagi",
+        "slot": "body",
+        "skin": null,
+        "minLevel": 15,
+        "unlockKind": "level",
+        "exclusiveGroup": "usagi.footwear",
+        "exclusivePriority": 5,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "seasonal.pumpkin-beret",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 362,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "dango_candidate",
+      "v1Fields": {
+        "formId": "dango",
+        "slot": "head",
+        "skin": null,
+        "minLevel": 1,
+        "unlockKind": "level",
+        "exclusiveGroup": "headwear",
+        "exclusivePriority": 50,
+        "layer": "front",
+        "parts": [
+          "front"
+        ],
+        "views": [
+          "front"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "wearables",
+      "v1Id": "seasonal.plum-cape",
+      "v1Evidence": {
+        "path": "src/content/appearance.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 365,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "scope": "dango_candidate",
+      "v1Fields": {
+        "formId": "dango",
+        "slot": "back",
+        "skin": null,
+        "minLevel": 1,
+        "unlockKind": "level",
+        "exclusiveGroup": "backwear",
+        "exclusivePriority": 80,
+        "layer": "back",
+        "parts": [
+          "back",
+          "front"
+        ],
+        "views": [
+          "front"
+        ]
+      },
+      "requiredReview": [
+        "real_3d_asset",
+        "socket_or_skin_binding",
+        "occlusion_and_fit",
+        "preserve_unlock_and_exclusion_intent",
+        "redesign_2d_compositing_fields"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "dawn-window",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 10,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "morning"
+        ],
+        "feature": "window"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "rainy-window",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 14,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "morning",
+          "afternoon",
+          "evening"
+        ],
+        "feature": "window"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "sunny-desk",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 18,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "morning",
+          "forenoon"
+        ],
+        "feature": "desk"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "morning-library",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 22,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "morning",
+          "forenoon"
+        ],
+        "feature": "library"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "garden-breeze",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 26,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "morning",
+          "forenoon",
+          "noon"
+        ],
+        "feature": "garden"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "coffee-shop",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 30,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "forenoon",
+          "noon",
+          "afternoon"
+        ],
+        "feature": "cafe"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "lunch-park",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 34,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "noon"
+        ],
+        "feature": "park"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "cloud-terrace",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 38,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "noon",
+          "afternoon"
+        ],
+        "feature": "terrace"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "afternoon-studio",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 42,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "afternoon"
+        ],
+        "feature": "studio"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "summer-storm",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 46,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "afternoon",
+          "evening"
+        ],
+        "feature": "storm"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "sunset-rooftop",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 50,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "evening"
+        ],
+        "feature": "rooftop"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "train-window",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 54,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "evening",
+          "night"
+        ],
+        "feature": "train"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "city-evening",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 58,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "evening"
+        ],
+        "feature": "city"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "cozy-room",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 62,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "evening",
+          "night"
+        ],
+        "feature": "room"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "night-city",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 66,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "night",
+          "lateNight"
+        ],
+        "feature": "neon"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "moon-balcony",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 70,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "night"
+        ],
+        "feature": "moon"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "star-camp",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 74,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "night",
+          "lateNight"
+        ],
+        "feature": "camp"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "late-night-desk",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 78,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "lateNight"
+        ],
+        "feature": "lateDesk"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "aurora",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 82,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "night",
+          "lateNight"
+        ],
+        "feature": "aurora"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "snowy-window",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 86,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "morning",
+          "evening",
+          "night",
+          "lateNight"
+        ],
+        "feature": "snow"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "ocean-window",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 90,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "morning",
+          "noon",
+          "afternoon",
+          "night"
+        ],
+        "feature": "ocean"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "forest-clearing",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 94,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "morning",
+          "forenoon",
+          "afternoon",
+          "evening"
+        ],
+        "feature": "forest"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "sakura-lane",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 98,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "morning",
+          "noon",
+          "afternoon",
+          "evening"
+        ],
+        "feature": "sakura"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "pixel-arcade",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 102,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "evening",
+          "night",
+          "lateNight"
+        ],
+        "feature": "arcade"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    },
+    {
+      "v1Group": "backgrounds",
+      "v1Id": "robot-lab",
+      "v1Evidence": {
+        "path": "src/content/scenes.mjs",
+        "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+        "line": 106,
+        "status": "code-confirmed"
+      },
+      "v2Status": "not_migrated",
+      "runtimeReady": false,
+      "v1Fields": {
+        "periods": [
+          "forenoon",
+          "afternoon",
+          "night"
+        ],
+        "feature": "lab"
+      },
+      "requiredReview": [
+        "environment_asset_design",
+        "approved_selection_policy",
+        "transition_and_resource_cleanup",
+        "particles_are_separate_from_background_selection"
+      ]
+    }
+  ]
+}

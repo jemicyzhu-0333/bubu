@@ -1,0 +1,54 @@
+{
+  "scope": "Independent synthetic adapter to real admitted 7-slot eight-layer clones. CPU only; not production integration or visual/GPU pass; assertion time excluded. One sweep, no stable-device performance claim.",
+  "node": "v24.19.0",
+  "results": [
+    {
+      "actors": 1,
+      "ticks": 600,
+      "events": 128,
+      "p50us": 3.294999999980064,
+      "p95us": 28.182999999955882,
+      "maxUs": 740.918000000022,
+      "endBasis": true,
+      "countersZero": true
+    },
+    {
+      "actors": 2,
+      "ticks": 600,
+      "events": 128,
+      "p50us": 9.384000000068227,
+      "p95us": 44.87799999992603,
+      "maxUs": 2075.561999999991,
+      "endBasis": true,
+      "countersZero": true
+    },
+    {
+      "actors": 4,
+      "ticks": 600,
+      "events": 128,
+      "p50us": 8.903999999915868,
+      "p95us": 63.24600000004921,
+      "maxUs": 1088.602999999921,
+      "endBasis": true,
+      "countersZero": true
+    }
+  ],
+  "observerException": {
+    "thrown": "observer failure",
+    "recovery": {
+      "time": 1,
+      "phase": "enter",
+      "owner": "x",
+      "requestId": "r0",
+      "candidate": "c0",
+      "token": 1,
+      "logicalArrival": null,
+      "path": "04",
+      "amount": 1,
+      "clockArrival": 0.13,
+      "clockActualArrival": 0.13,
+      "deadline": null,
+      "queued": 0
+    }
+  }
+}

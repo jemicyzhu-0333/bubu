@@ -1,0 +1,95 @@
+'use strict';
+
+import { EYE_FALLBACKS, MOUTH_FALLBACKS, requestedEyes } from './rig/face.mjs';
+import { localMatrix, multiply } from './rig/pose.mjs';
+import { pivotFor } from './dango-raster-pose.mjs';
+import { projectOpenEye, apertureFor } from './dango-eye-projection.mjs';
+const clamp = (n, low, high) => Math.max(low, Math.min(high, Number(n) || 0));
+
+// Every authored open-eye glyph keeps the canonical pair’s vertical proportion. Width
+// perspective must not also shrink the far eye's height. Keep the near glyph,
+// widths and pivots; match only the canonical pair's vertical proportion.
+function eyeHeightScales(artwork, eyes) {
+  if (!['three-quarter', 'three-quarter-left', 'three-quarter-right'].includes(artwork.view)
+    || !['curious', 'focused', 'half', 'wide', 'droopy', 'sparkle', 'surprised',
+      'determined', 'pleading', 'shy', 'waiting'].includes(eyes?.key)) return [1, 1];
+  const neutral = artwork.data.face?.eyes?.neutral;
+  if (eyes.sprites.length !== 2 || neutral?.length !== 2) return [1, 1];
+  const far = neutral[0].rect[2] < neutral[1].rect[2] ? 0 : 1, near = 1 - far;
+  const scales = [1, 1];
+  scales[far] = eyes.sprites[near].rect[3] / eyes.sprites[far].rect[3]
+    * neutral[far].rect[3] / neutral[near].rect[3];
+  return scales;
+}
+
+function pick(states, requested, table, source) {
+  const chain = [...(table[requested] || [requested]), 'neutral'];
+  for (const key of new Set(chain)) {
+    const value = states?.[key]; if (!value) continue;
+    const sprites = Array.isArray(value) ? value : [value];
+    if (sprites.every(sprite => source.get(sprite))) return { key, sprites };
+  }
+  return null;
+}
+
+function drawRasterFace(context, artwork, expression, blinking, palette, { painter, source }) {
+  if (artwork.view === 'back') return 'back';
+  if (!artwork.layeredReady) return requestedEyes(expression, blinking);
+  const face = artwork.face || expression || {}, data = artwork.data.face;
+  const wanted = requestedEyes(face, artwork.calmVisual ? false : blinking);
+  const eyes = pick(data.eyes, wanted, EYE_FALLBACKS, source);
+  const mouth = pick(data.mouth, face.mouth || 'neutral', MOUTH_FALLBACKS, source);
+  const closed = ['closed', 'sleepy', 'smile', 'content'].includes(eyes?.key);
+  const x = artwork.calmVisual ? 0 : clamp(face.eyeOffsetX, -2, 2);
+  const y = artwork.calmVisual ? 0 : clamp(face.eyeOffsetY, -2, 2);
+  const inset = clamp(face.eyeInsetX, -1, 1.5);
+  const heights = eyeHeightScales(artwork, eyes);
+  for (const [i, sprite] of (eyes?.sprites || []).entries()) {
+    // The eased size belongs to the sampled glyph; a not-yet-loaded fallback
+    // (e.g. neutral while focused PNGs load) keeps its own generated size.
+    const eased = eyes.key === face.eyes ? artwork.eyeScale?.[i] : undefined;
+    const projection = projectOpenEye(artwork.data, eyes.key, sprite, i, eased);
+    if (projection) {
+      // Occlude a fixed pupil with an upper lid instead of scaling the pupil
+      // and its highlight. A single sprite avoids cross-fade double pupils.
+      const aperture = artwork.eyeAperture ?? apertureFor(face);
+      const [left, top, width, height] = projection.rect;
+      context.save();
+      if (artwork.lookback) context.transform(...artwork.lookback.matrices[i]);
+      context.translate(x + inset * (i ? -1 : 1), y);
+      if (aperture < 1) {
+        context.beginPath();
+        context.rect(left, top + height * (1 - aperture), width, height * aperture);
+        context.clip();
+      }
+      painter.paint(context, sprite, palette, projection.matrix);
+      context.restore();
+      continue;
+    }
+    const openness = closed ? 1 : Math.max(.25, Math.min(1.15, face.openness ?? 1));
+    let matrix = localMatrix(pivotFor(sprite), {
+      x: x + inset * (i ? -1 : 1), y, sy: openness
+    });
+    // Apply geometry normalization after the existing eyelid clamp. Clamping
+    // the product independently made a narrow-eyed far pupil shrink again.
+    if (heights[i] !== 1) {
+      const [, py] = pivotFor(sprite);
+      matrix = multiply(matrix, [1, 0, 0, heights[i], 0, py * (1 - heights[i])]);
+    }
+    if (artwork.lookback) matrix = multiply(artwork.lookback.matrices[i], matrix);
+    painter.paint(context, sprite, palette, matrix);
+  }
+  if (mouth) {
+    const sprite = mouth.sprites[0], sy = artwork.calmVisual ? 1 : clamp(face.mouthScaleY ?? 1, .3, 1);
+    let matrix = artwork.lookback?.matrices[2];
+    if (sy !== 1) {
+      // Flatten about the mouth centre while a quiet phrase swaps mouth glyphs.
+      const cy = sprite.rect[1] + sprite.rect[3] / 2, squash = [1, 0, 0, sy, 0, cy * (1 - sy)];
+      matrix = matrix ? multiply(matrix, squash) : squash;
+    }
+    painter.paint(context, sprite, palette, matrix);
+  }
+  return wanted;
+}
+
+export { drawRasterFace };

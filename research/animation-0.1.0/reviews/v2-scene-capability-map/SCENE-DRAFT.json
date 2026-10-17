@@ -1,0 +1,249 @@
+{
+  "documentKind": "human_review_scene_plan",
+  "status": "draft_non_executable",
+  "runtimeSchema": null,
+  "v1EvidenceStatus": "code_inventory_verified_ff711d9_not_runtime_observed",
+  "artDefaultsApproved": false,
+  "planningOnly": true,
+  "environmentDesignOptions": [
+    "fixed",
+    "contextual",
+    "deterministic_candidate_set"
+  ],
+  "scenarios": [
+    {
+      "id": "quiet_display",
+      "title": "安静展示",
+      "status": "planned",
+      "v1Source": null,
+      "triggerDraft": "显式进入或没有优先展示任务",
+      "exitDraft": "新事实/交互取代或显式结束",
+      "availableBuildingBlocks": [
+        "face.single_path7"
+      ],
+      "requiredCapabilities": [
+        "approved_mapping_and_timing",
+        "autonomous_policy_if_required"
+      ],
+      "expressionMapping": null,
+      "timing": null,
+      "wearableSelection": null,
+      "temporaryProps": null,
+      "environmentSelection": null,
+      "resumeDraft": "重新读取仍有效事实并生成新意图，不复活旧lifetime",
+      "compatibilityPolicy": null,
+      "note": "不自动播放R0；Basis与R0分别处理"
+    },
+    {
+      "id": "coffee_related",
+      "title": "喂咖啡/牛奶的饮用短动作",
+      "status": "planned",
+      "v1Source": "food-rituals.mjs:18–23; renderer.mjs:424–425; scenes.mjs coffee-shop",
+      "triggerDraft": "V1食物coffee或milk触发sip-tea；V2喂食适配待实现",
+      "exitDraft": "饮用流程完成/取消；实际食物消费提交点须依据完整喂食来源另核",
+      "availableBuildingBlocks": [
+        "face.single_path7"
+      ],
+      "requiredCapabilities": [
+        "body.authored_real",
+        "prop.hand_contact",
+        "scene.cleanup"
+      ],
+      "expressionMapping": null,
+      "timing": null,
+      "wearableSelection": null,
+      "temporaryProps": null,
+      "environmentSelection": null,
+      "resumeDraft": "重新读取仍有效事实并生成新意图，不复活旧lifetime",
+      "compatibilityPolicy": null,
+      "note": "V1三阶段450/850/2200ms与surprised→hungry→satisfied只作来源，不自动沿用；coffee-shop独立，coffee持续特效未核到生产闭环"
+    },
+    {
+      "id": "hunger_visible",
+      "title": "饥饿持续外显",
+      "status": "planned",
+      "v1Source": "controller.mjs:1405–1422",
+      "triggerDraft": "V1饱食≤20且维护门禁允许",
+      "exitDraft": "V1饱食>20退出hungry；V2展示被抢占不代表事实撤销",
+      "availableBuildingBlocks": [
+        "face.single_path7"
+      ],
+      "requiredCapabilities": [
+        "facts.lifecycle",
+        "state.presentation",
+        "approved_mapping_and_timing"
+      ],
+      "expressionMapping": null,
+      "timing": null,
+      "wearableSelection": null,
+      "temporaryProps": null,
+      "environmentSelection": null,
+      "resumeDraft": "重新读取仍有效事实并生成新意图，不复活旧lifetime",
+      "compatibilityPolicy": null,
+      "note": "表情被抢占不清除饥饿事实；不默认悲伤脸",
+      "regressionGate": "hunger_sleep_stable_arbitration"
+    },
+    {
+      "id": "sleepiness_visible",
+      "title": "困倦持续外显",
+      "status": "planned",
+      "v1Source": "controller.mjs夜间维护/idle表现分支",
+      "triggerDraft": "已授权宿主困倦事实有效",
+      "exitDraft": "事实清除/撤销/过期",
+      "availableBuildingBlocks": [
+        "face.single_path7"
+      ],
+      "requiredCapabilities": [
+        "facts.lifecycle",
+        "state.presentation",
+        "body.authored_real"
+      ],
+      "expressionMapping": null,
+      "timing": null,
+      "wearableSelection": null,
+      "temporaryProps": null,
+      "environmentSelection": null,
+      "resumeDraft": "重新读取仍有效事实并生成新意图，不复活旧lifetime",
+      "compatibilityPolicy": null,
+      "note": "V1困倦22–1点与睡眠1至min(6,workStart)、idle>60s需分开；A7不是所有困倦映射默认",
+      "regressionGate": "hunger_sleep_stable_arbitration"
+    },
+    {
+      "id": "ai_collaboration",
+      "title": "AI协作活动外显",
+      "status": "planned",
+      "v1Source": "src/content/session-activities.mjs:77–86; bootstrap/activity-mirror.js:127–134; domain/concurrent-activity.js:11–24,53–72",
+      "triggerDraft": "V1外部AI category活动有效",
+      "exitDraft": "外部活动结束/切换/撤销，具体门禁见V1完整清单",
+      "availableBuildingBlocks": [
+        "face.single_path7"
+      ],
+      "requiredCapabilities": [
+        "facts.activity",
+        "state.presentation",
+        "body.authored_real",
+        "prop.hand_contact"
+      ],
+      "expressionMapping": null,
+      "timing": null,
+      "wearableSelection": null,
+      "temporaryProps": null,
+      "environmentSelection": null,
+      "resumeDraft": "重新读取仍有效事实并生成新意图，不复活旧lifetime",
+      "compatibilityPolicy": null,
+      "note": "V1 browse/ai-chat/life.attentive/30000ms分别对应动作、临时道具、表达标签、片段时长，不能合并为脸hold"
+    },
+    {
+      "id": "web_activity",
+      "title": "网页活动外显",
+      "status": "planned",
+      "v1Source": "src/content/session-activities.mjs:19; src/content/companion/activity-stories.mjs:33–39; src/core/session-activity.mjs",
+      "triggerDraft": "V1 focused会话内轮播进入focus-browse；不是OS网页检测",
+      "exitDraft": "片段轮换或focused会话结束",
+      "availableBuildingBlocks": [
+        "face.single_path7"
+      ],
+      "requiredCapabilities": [
+        "facts.activity",
+        "state.presentation",
+        "body.authored_real",
+        "environment.policy"
+      ],
+      "expressionMapping": null,
+      "timing": null,
+      "wearableSelection": null,
+      "temporaryProps": null,
+      "environmentSelection": null,
+      "resumeDraft": "重新读取仍有效事实并生成新意图，不复活旧lifetime",
+      "compatibilityPolicy": null,
+      "note": "V1 browse/laptop/work.switch/38000ms；不能表述为任意网页浏览都会触发该场景"
+    },
+    {
+      "id": "drag_interaction",
+      "title": "拖拽",
+      "status": "planned",
+      "v1Source": "pointer与interaction完整来源见V1 inventory；原长按550ms/拖动阈值14仅作为来源",
+      "triggerDraft": "通过资格检查的真实pointer输入",
+      "exitDraft": "up/cancel/lost capture/失焦/隐藏失效",
+      "availableBuildingBlocks": [
+        "face.single_path7"
+      ],
+      "requiredCapabilities": [
+        "input.drag",
+        "body.contact",
+        "surface_grab",
+        "support",
+        "interaction.cleanup"
+      ],
+      "expressionMapping": null,
+      "timing": null,
+      "wearableSelection": null,
+      "temporaryProps": null,
+      "environmentSelection": null,
+      "resumeDraft": "重新读取仍有效事实并生成新意图，不复活旧lifetime",
+      "compatibilityPolicy": null,
+      "note": "脸层interaction优先已有，真实抓点/身体/输入仍缺失"
+    },
+    {
+      "id": "pet_interaction",
+      "title": "抚摸",
+      "status": "planned",
+      "v1Source": "Dango actual tail-wiggle 7500ms plus held content/smile; usagi-only interaction-presentation branch at form-art:80–84; complete source inventory in REPORT.md",
+      "triggerDraft": "通过资格检查的真实接触/指针输入",
+      "exitDraft": "up/cancel/lost capture/失焦/隐藏失效",
+      "availableBuildingBlocks": [
+        "face.single_path7"
+      ],
+      "requiredCapabilities": [
+        "input.pet",
+        "body.contact",
+        "gesture.qualification",
+        "interaction.cleanup"
+      ],
+      "expressionMapping": null,
+      "timing": null,
+      "wearableSelection": null,
+      "temporaryProps": null,
+      "environmentSelection": null,
+      "resumeDraft": "重新读取仍有效事实并生成新意图，不复活旧lifetime",
+      "compatibilityPolicy": null,
+      "note": "小步Dango与小奇usagi分支不得混用；小步实际7500ms动作+held满足脸，不是7000ms三阶段。V2时长/脸映射仍待审批。",
+      "v1FormBranches": {
+        "dango": {
+          "action": "tail-wiggle",
+          "actionDurationMs": 7500,
+          "heldFace": "content/smile"
+        },
+        "usagi": {
+          "presentation": "three-stage neutral/content",
+          "scope": "usagi-only; do not apply to dango"
+        }
+      }
+    }
+  ],
+  "v1EvidenceDirectory": "/workspace/shared/bubu-v1-scenario-audit-20261017",
+  "v1EvidenceInventory": "/workspace/shared/bubu-v1-scenario-audit-20261017/FULL-INDEX.json",
+  "scopeBoundary": "8 planned review scenarios only; 129-item coverage is not implementation scope",
+  "v1FinalEvidence": {
+    "report": "/workspace/shared/bubu-v1-scenario-audit-20261017/REPORT.md",
+    "scenarios": "/workspace/shared/bubu-v1-scenario-audit-20261017/SCENARIOS.json",
+    "sourceManifest": "/workspace/shared/bubu-v1-scenario-audit-20261017/SOURCE-MANIFEST.json"
+  },
+  "requiredRegressionGates": [
+    {
+      "id": "hunger_sleep_stable_arbitration",
+      "v1Evidence": "/workspace/shared/bubu-v1-scenario-audit-20261017/HUNGER-SLEEP-RESULT.json",
+      "evidenceLevel": "17 fixtures using isolated original controller source; not production app observation",
+      "fixture": "satiation<=20; localHour=2; workStart=9; idle>60s; undocked; no maintenance blockers",
+      "observedV1": "idle -> hungry -> sleeping -> hungry each second, repeated pet_setState and base-expression selection",
+      "v2Required": [
+        "needs facts coexist without clearing one another",
+        "identical current facts produce idempotent presentation",
+        "maintenance iterations do not alternate global presentation state",
+        "after interaction re-evaluate latest valid facts"
+      ],
+      "priorityPolicy": null,
+      "status": "planned_requires_formal_upper_layer_protocol"
+    }
+  ]
+}

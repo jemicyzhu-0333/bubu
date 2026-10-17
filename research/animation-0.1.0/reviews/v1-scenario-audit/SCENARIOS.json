@@ -1,0 +1,1403 @@
+{
+  "schemaVersion": 1,
+  "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+  "statusLegend": [
+    "code-confirmed",
+    "unverified",
+    "proposed"
+  ],
+  "scenarios": [
+    {
+      "id": "coffee_time",
+      "label": "咖啡时间",
+      "classification": "ambiguous umbrella: food receipt / independent backdrop / declared special effect",
+      "trigger": {
+        "value": "Accepted pet_feed coffee receipt, or post-commit automatic meal. No autonomous coffee-time trigger established.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/surfaces/pet/feeding.mjs",
+            "lines": [
+              165,
+              218
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/feeding.mjs#L165-L218"
+          }
+        ]
+      },
+      "visibleState": {
+        "value": "Food ritual shows surprised→hungry→satisfied; this hungry cue is a transient eating phase, not the persisted hunger fact.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/content/food-rituals.mjs",
+            "lines": [
+              18,
+              23
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/food-rituals.mjs#L18-L23"
+          }
+        ]
+      },
+      "actionFace": {
+        "value": "sip-tea sip/cup/steam, total 3500ms (450/850/2200); calm mode only final expression 1600ms. Dango sip raster face override applies when cup contact.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/content/food-rituals.mjs",
+            "lines": [
+              18,
+              23
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/food-rituals.mjs#L18-L23"
+          },
+          {
+            "path": "src/surfaces/pet/feeding.mjs",
+            "lines": [
+              140,
+              164
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/feeding.mjs#L140-L164"
+          },
+          {
+            "path": "src/capabilities/companion/presentation/dango-raster-pose.mjs",
+            "lines": [
+              64,
+              70
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/capabilities/companion/presentation/dango-raster-pose.mjs#L64-L70"
+          }
+        ]
+      },
+      "accessoriesProps": {
+        "wardrobe": {
+          "value": "Independent persistent wardrobe filtered by form/skin/level/view; explicit itemIds supported; exclusiveGroup resolves highest priority, then level, then z. No audited scenario-specific outfit switch.",
+          "status": "code-confirmed",
+          "evidence": [
+            {
+              "path": "src/content/appearance.mjs",
+              "lines": [
+                6,
+                54
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/appearance.mjs#L6-L54"
+            },
+            {
+              "path": "src/core/pet-appearance.mjs",
+              "lines": [
+                79,
+                113
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/core/pet-appearance.mjs#L79-L113"
+            }
+          ]
+        },
+        "temporary": {
+          "value": "cup from action; food drop on accepted receipt; coffee-shop is not linked to this action.",
+          "status": "code-confirmed",
+          "evidence": [
+            {
+              "path": "src/surfaces/pet/controller.mjs",
+              "lines": [
+                1467,
+                1480
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/controller.mjs#L1467-L1480"
+            }
+          ]
+        }
+      },
+      "background": {
+        "value": "Outside focus/rest: deterministic local-calendar-date seed + sceneOffset over time-period pool; manual skin preferences only when local day-of-month divisible by 3. Focus/rest overrides with mode room. Docked hides background. Particles stochastic, background identity is not.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/surfaces/pet/renderer.mjs",
+            "lines": [
+              473,
+              530
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/renderer.mjs#L473-L530"
+          },
+          {
+            "path": "src/content/scenes.mjs",
+            "lines": [
+              139,
+              167
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/scenes.mjs#L139-L167"
+          },
+          {
+            "path": "src/capabilities/companion/presentation/dango-raster-scenes.mjs",
+            "lines": [
+              40,
+              64
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/capabilities/companion/presentation/dango-raster-scenes.mjs#L40-L64"
+          }
+        ]
+      },
+      "exitInterruptPriority": {
+        "value": "interaction 80; replacement/press/menu/disposal/presentation policy cancel sequence+action+owned speech. Finish optionally celebrates and returns latest base.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/surfaces/pet/feeding.mjs",
+            "lines": [
+              68,
+              115
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/feeding.mjs#L68-L115"
+          },
+          {
+            "path": "src/surfaces/pet/controller.mjs",
+            "lines": [
+              1462,
+              1482
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/controller.mjs#L1462-L1482"
+          },
+          {
+            "path": "src/core/pet-presentation.mjs",
+            "lines": [
+              16,
+              42
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/core/pet-presentation.mjs#L16-L42"
+          }
+        ]
+      },
+      "gaps": [
+        "coffee status effect renderer accepts coffee but caller only found for hungry; no evidence of coffee-time special-state activation",
+        "Need product decision whether coffee_time means actual feeding, ambient sip, or independently selectable scene; do not conflate."
+      ]
+    },
+    {
+      "id": "hungry",
+      "label": "饥饿",
+      "classification": "need fact → status presentation",
+      "trigger": {
+        "value": "1s maintenance: satiation<=20; skipped during drag/egg/food menu/walking/focus/rest/celebrating/DND.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/surfaces/pet/controller.mjs",
+            "lines": [
+              1405,
+              1421
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/controller.mjs#L1405-L1421"
+          }
+        ]
+      },
+      "visibleState": {
+        "value": "state hungry; base react.hungry; pleading+wavy face plus hungry status overlay.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/surfaces/pet/controller.mjs",
+            "lines": [
+              543,
+              559
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/controller.mjs#L543-L559"
+          },
+          {
+            "path": "src/surfaces/pet/renderer.mjs",
+            "lines": [
+              424,
+              425
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/renderer.mjs#L424-L425"
+          },
+          {
+            "path": "src/content/expressions.mjs",
+            "lines": [
+              246,
+              254
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/expressions.mjs#L246-L254"
+          }
+        ]
+      },
+      "actionFace": {
+        "value": "No required finite action. Expression breathe loop; state overlay independent of face priority.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/content/expressions.mjs",
+            "lines": [
+              246,
+              254
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/expressions.mjs#L246-L254"
+          },
+          {
+            "path": "src/surfaces/pet/renderer.mjs",
+            "lines": [
+              424,
+              425
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/renderer.mjs#L424-L425"
+          }
+        ]
+      },
+      "accessoriesProps": {
+        "wardrobe": {
+          "value": "Independent persistent wardrobe filtered by form/skin/level/view; explicit itemIds supported; exclusiveGroup resolves highest priority, then level, then z. No audited scenario-specific outfit switch.",
+          "status": "code-confirmed",
+          "evidence": [
+            {
+              "path": "src/content/appearance.mjs",
+              "lines": [
+                6,
+                54
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/appearance.mjs#L6-L54"
+            },
+            {
+              "path": "src/core/pet-appearance.mjs",
+              "lines": [
+                79,
+                113
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/core/pet-appearance.mjs#L79-L113"
+            }
+          ]
+        },
+        "temporary": {
+          "value": "hungry visual effect, not worn outfit or scene.",
+          "status": "code-confirmed",
+          "evidence": [
+            {
+              "path": "src/capabilities/companion/presentation/dango-raster-art.mjs",
+              "lines": [
+                301,
+                306
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/capabilities/companion/presentation/dango-raster-art.mjs#L301-L306"
+            }
+          ]
+        }
+      },
+      "background": {
+        "value": "Outside focus/rest: deterministic local-calendar-date seed + sceneOffset over time-period pool; manual skin preferences only when local day-of-month divisible by 3. Focus/rest overrides with mode room. Docked hides background. Particles stochastic, background identity is not.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/surfaces/pet/renderer.mjs",
+            "lines": [
+              473,
+              530
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/renderer.mjs#L473-L530"
+          },
+          {
+            "path": "src/content/scenes.mjs",
+            "lines": [
+              139,
+              167
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/scenes.mjs#L139-L167"
+          },
+          {
+            "path": "src/capabilities/companion/presentation/dango-raster-scenes.mjs",
+            "lines": [
+              40,
+              64
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/capabilities/companion/presentation/dango-raster-scenes.mjs#L40-L64"
+          }
+        ]
+      },
+      "exitInterruptPriority": {
+        "value": "satiation>20 sets idle; base50 loses to transient layers. Maintenance preconditions can delay hunger update; mirror presentation blocked by hungry.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/surfaces/pet/controller.mjs",
+            "lines": [
+              1416,
+              1417
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/controller.mjs#L1416-L1417"
+          },
+          {
+            "path": "src/surfaces/pet/activity-combination.mjs",
+            "lines": [
+              29,
+              39
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/activity-combination.mjs#L29-L39"
+          }
+        ]
+      },
+      "gaps": [
+        "Hunger threshold20 differs from appetiteLabel<=45 textual “有点饿了”; preserve meanings",
+        "Check coexistence of state hungry overlay with higher-priority face in runtime tests; static code does not prove conflict-free."
+      ]
+    },
+    {
+      "id": "sleepy",
+      "label": "想睡觉",
+      "classification": "time-context drowsiness / sleep state / nap story are distinct",
+      "trigger": {
+        "value": "Idle at local22:00–01:00 becomes drowsy expression; deep night01:00–min(06:00,workStart), idle>60s, undocked becomes sleeping. Separately rest-nap selected by rest rotation.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/surfaces/pet/controller.mjs",
+            "lines": [
+              535,
+              555
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/controller.mjs#L535-L555"
+          },
+          {
+            "path": "src/surfaces/pet/controller.mjs",
+            "lines": [
+              1419,
+              1420
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/controller.mjs#L1419-L1420"
+          },
+          {
+            "path": "src/content/session-activities.mjs",
+            "lines": [
+              24,
+              37
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/session-activities.mjs#L24-L37"
+          }
+        ]
+      },
+      "visibleState": {
+        "value": "life.drowsy droopy/wavy/0.45; life.sleep closed/closed/0; rest-nap phases drowsy→sleep→wake→relieved.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/content/expressions.mjs",
+            "lines": [
+              73,
+              94
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/expressions.mjs#L73-L94"
+          },
+          {
+            "path": "src/content/companion/activity-stories.mjs",
+            "lines": [
+              60,
+              66
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/companion/activity-stories.mjs#L60-L66"
+          }
+        ]
+      },
+      "actionFace": {
+        "value": "rest-nap 48000ms pillow story; ambient yawn is stretch/sleep-cap/zzz7000ms. Dango bare sleep transition240ms, reset by action/calm/drag/stale>500ms.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/content/session-activities.mjs",
+            "lines": [
+              24,
+              24
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/session-activities.mjs#L24-L24"
+          },
+          {
+            "path": "src/content/behaviors.mjs",
+            "lines": [
+              82,
+              82
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/behaviors.mjs#L82-L82"
+          },
+          {
+            "path": "src/surfaces/pet/sleep-transition.mjs",
+            "lines": [
+              3,
+              37
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/sleep-transition.mjs#L3-L37"
+          }
+        ]
+      },
+      "accessoriesProps": {
+        "wardrobe": {
+          "value": "Independent persistent wardrobe filtered by form/skin/level/view; explicit itemIds supported; exclusiveGroup resolves highest priority, then level, then z. No audited scenario-specific outfit switch.",
+          "status": "code-confirmed",
+          "evidence": [
+            {
+              "path": "src/content/appearance.mjs",
+              "lines": [
+                6,
+                54
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/appearance.mjs#L6-L54"
+            },
+            {
+              "path": "src/core/pet-appearance.mjs",
+              "lines": [
+                79,
+                113
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/core/pet-appearance.mjs#L79-L113"
+            }
+          ]
+        },
+        "temporary": {
+          "value": "pillow for rest-nap; sleep-cap for yawn; neither a persistent wardrobe mutation.",
+          "status": "code-confirmed",
+          "evidence": [
+            {
+              "path": "src/content/companion/activity-stories.mjs",
+              "lines": [
+                60,
+                66
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/companion/activity-stories.mjs#L60-L66"
+            },
+            {
+              "path": "src/content/behaviors.mjs",
+              "lines": [
+                82,
+                82
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/behaviors.mjs#L82-L82"
+            }
+          ]
+        }
+      },
+      "background": {
+        "value": "Outside focus/rest: deterministic local-calendar-date seed + sceneOffset over time-period pool; manual skin preferences only when local day-of-month divisible by 3. Focus/rest overrides with mode room. Docked hides background. Particles stochastic, background identity is not.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/surfaces/pet/renderer.mjs",
+            "lines": [
+              473,
+              530
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/renderer.mjs#L473-L530"
+          },
+          {
+            "path": "src/content/scenes.mjs",
+            "lines": [
+              139,
+              167
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/scenes.mjs#L139-L167"
+          },
+          {
+            "path": "src/capabilities/companion/presentation/dango-raster-scenes.mjs",
+            "lines": [
+              40,
+              64
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/capabilities/companion/presentation/dango-raster-scenes.mjs#L40-L64"
+          }
+        ]
+      },
+      "exitInterruptPriority": {
+        "value": "Sleep exits at waking boundary or idle<60s; hunger check precedes sleep. Session base overrides sleep/drowsy. Interaction drag input-safe can interrupt. Nap rotates after48s.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/surfaces/pet/controller.mjs",
+            "lines": [
+              543,
+              559
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/controller.mjs#L543-L559"
+          },
+          {
+            "path": "src/surfaces/pet/controller.mjs",
+            "lines": [
+              1408,
+              1420
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/controller.mjs#L1408-L1420"
+          },
+          {
+            "path": "src/core/session-activity.mjs",
+            "lines": [
+              49,
+              69
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/core/session-activity.mjs#L49-L69"
+          }
+        ]
+      },
+      "gaps": [
+        "“想睡觉” must not be inferred user health/intent: V1 only clock/state/activity facts",
+        "Confirmed in isolated exact-controller execution: low satiation + deep-night idle alternates hungry/sleeping every1s. See HUNGER-SLEEP-RESULT.json; not production app observation."
+      ]
+    },
+    {
+      "id": "ai_collaboration",
+      "label": "AI协作",
+      "classification": "external activity facts, not AI request spinner",
+      "trigger": {
+        "value": "activityMirrorEnabled; bounded prompt/stop per source, max10min promptTTL, idle>=120s ends AI. Multiple sources retained; stop only ends its source. Foreground AI app alone does not prove chat activity.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/bootstrap/activity-mirror.js",
+            "lines": [
+              127,
+              134
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/bootstrap/activity-mirror.js#L127-L134"
+          },
+          {
+            "path": "src/capabilities/companion/domain/activity-mirror.js",
+            "lines": [
+              12,
+              17
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/capabilities/companion/domain/activity-mirror.js#L12-L17"
+          },
+          {
+            "path": "src/capabilities/companion/domain/concurrent-activity.js",
+            "lines": [
+              11,
+              24
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/capabilities/companion/domain/concurrent-activity.js#L11-L24"
+          },
+          {
+            "path": "src/capabilities/companion/domain/concurrent-activity.js",
+            "lines": [
+              53,
+              72
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/capabilities/companion/domain/concurrent-activity.js#L53-L72"
+          }
+        ]
+      },
+      "visibleState": {
+        "value": "mirror-ai / life.attentive; badge AI协作中. Session focus/rest retains primary; AI may add quiet extra under focused compatible context.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/content/session-activities.mjs",
+            "lines": [
+              77,
+              81
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/session-activities.mjs#L77-L81"
+          },
+          {
+            "path": "src/surfaces/pet/context-emphasis.mjs",
+            "lines": [
+              6,
+              18
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/context-emphasis.mjs#L6-L18"
+          },
+          {
+            "path": "src/surfaces/pet/activity-combination.mjs",
+            "lines": [
+              42,
+              60
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/activity-combination.mjs#L42-L60"
+          }
+        ]
+      },
+      "actionFace": {
+        "value": "browse/ai-chat30000ms repeated while signal active; not system.processing. Mirror expression only replaces life.idle.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/content/session-activities.mjs",
+            "lines": [
+              77,
+              86
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/session-activities.mjs#L77-L86"
+          },
+          {
+            "path": "src/surfaces/pet/activity-mirror.mjs",
+            "lines": [
+              25,
+              32
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/activity-mirror.mjs#L25-L32"
+          }
+        ]
+      },
+      "accessoriesProps": {
+        "wardrobe": {
+          "value": "Independent persistent wardrobe filtered by form/skin/level/view; explicit itemIds supported; exclusiveGroup resolves highest priority, then level, then z. No audited scenario-specific outfit switch.",
+          "status": "code-confirmed",
+          "evidence": [
+            {
+              "path": "src/content/appearance.mjs",
+              "lines": [
+                6,
+                54
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/appearance.mjs#L6-L54"
+            },
+            {
+              "path": "src/core/pet-appearance.mjs",
+              "lines": [
+                79,
+                113
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/core/pet-appearance.mjs#L79-L113"
+            }
+          ]
+        },
+        "temporary": {
+          "value": "AI robot extra; music headphones concurrent, one primary hand-tool set. Separate from persistent wardrobe.",
+          "status": "code-confirmed",
+          "evidence": [
+            {
+              "path": "src/surfaces/pet/activity-combination.mjs",
+              "lines": [
+                42,
+                60
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/activity-combination.mjs#L42-L60"
+            }
+          ]
+        }
+      },
+      "background": {
+        "value": "Outside focus/rest: deterministic local-calendar-date seed + sceneOffset over time-period pool; manual skin preferences only when local day-of-month divisible by 3. Focus/rest overrides with mode room. Docked hides background. Particles stochastic, background identity is not.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/surfaces/pet/renderer.mjs",
+            "lines": [
+              473,
+              530
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/renderer.mjs#L473-L530"
+          },
+          {
+            "path": "src/content/scenes.mjs",
+            "lines": [
+              139,
+              167
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/scenes.mjs#L139-L167"
+          },
+          {
+            "path": "src/capabilities/companion/presentation/dango-raster-scenes.mjs",
+            "lines": [
+              40,
+              64
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/capabilities/companion/presentation/dango-raster-scenes.mjs#L40-L64"
+          }
+        ]
+      },
+      "exitInterruptPriority": {
+        "value": "Signal stop/TTL/idle/disabled ends AI. Drag/pause/lock/dock/menu/preview/currentEgg/status/external speech block combination. Replacement wins without queued exit.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/capabilities/companion/domain/concurrent-activity.js",
+            "lines": [
+              64,
+              72
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/capabilities/companion/domain/concurrent-activity.js#L64-L72"
+          },
+          {
+            "path": "src/surfaces/pet/activity-combination.mjs",
+            "lines": [
+              29,
+              39
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/activity-combination.mjs#L29-L39"
+          },
+          {
+            "path": "src/surfaces/pet/mirror-playback.mjs",
+            "lines": [
+              82,
+              103
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/mirror-playback.mjs#L82-L103"
+          }
+        ]
+      },
+      "gaps": [
+        "Need verify all model assets for robot/ai-chat in V2; declaration alone is not render proof",
+        "Do not map system.thinking/processing/unavailable onto mirror-ai lifecycle."
+      ]
+    },
+    {
+      "id": "web_browsing",
+      "label": "网页浏览",
+      "classification": "session activity, not detected browser usage",
+      "trigger": {
+        "value": "focused session rotation; entry index by wall minute modulo count; sequential duration-driven rotation.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/content/session-activities.mjs",
+            "lines": [
+              19,
+              36
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/session-activities.mjs#L19-L36"
+          },
+          {
+            "path": "src/core/session-activity.mjs",
+            "lines": [
+              24,
+              69
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/core/session-activity.mjs#L24-L69"
+          }
+        ]
+      },
+      "visibleState": {
+        "value": "focus-browse work.switch base; authored phase face cues.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/content/session-activities.mjs",
+            "lines": [
+              19,
+              19
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/session-activities.mjs#L19-L19"
+          },
+          {
+            "path": "src/content/companion/activity-stories.mjs",
+            "lines": [
+              33,
+              39
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/companion/activity-stories.mjs#L33-L39"
+          }
+        ]
+      },
+      "actionFace": {
+        "value": "38000ms: organize/laptop→browse/laptop→write/notes→browse/laptop→breathe/laptop, phased starting/focus/wrap-up/switch/satisfied.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/content/companion/activity-stories.mjs",
+            "lines": [
+              33,
+              39
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/companion/activity-stories.mjs#L33-L39"
+          }
+        ]
+      },
+      "accessoriesProps": {
+        "wardrobe": {
+          "value": "Independent persistent wardrobe filtered by form/skin/level/view; explicit itemIds supported; exclusiveGroup resolves highest priority, then level, then z. No audited scenario-specific outfit switch.",
+          "status": "code-confirmed",
+          "evidence": [
+            {
+              "path": "src/content/appearance.mjs",
+              "lines": [
+                6,
+                54
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/appearance.mjs#L6-L54"
+            },
+            {
+              "path": "src/core/pet-appearance.mjs",
+              "lines": [
+                79,
+                113
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/core/pet-appearance.mjs#L79-L113"
+            }
+          ]
+        },
+        "temporary": {
+          "value": "laptop, notes; source activity owns view even tools change.",
+          "status": "code-confirmed",
+          "evidence": [
+            {
+              "path": "src/content/companion/activity-stories.mjs",
+              "lines": [
+                3,
+                9
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/companion/activity-stories.mjs#L3-L9"
+            },
+            {
+              "path": "src/content/companion/activity-stories.mjs",
+              "lines": [
+                33,
+                39
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/companion/activity-stories.mjs#L33-L39"
+            }
+          ]
+        }
+      },
+      "background": {
+        "value": "Outside focus/rest: deterministic local-calendar-date seed + sceneOffset over time-period pool; manual skin preferences only when local day-of-month divisible by 3. Focus/rest overrides with mode room. Docked hides background. Particles stochastic, background identity is not.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/surfaces/pet/renderer.mjs",
+            "lines": [
+              473,
+              530
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/renderer.mjs#L473-L530"
+          },
+          {
+            "path": "src/content/scenes.mjs",
+            "lines": [
+              139,
+              167
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/scenes.mjs#L139-L167"
+          },
+          {
+            "path": "src/capabilities/companion/presentation/dango-raster-scenes.mjs",
+            "lines": [
+              40,
+              64
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/capabilities/companion/presentation/dango-raster-scenes.mjs#L40-L64"
+          }
+        ]
+      },
+      "exitInterruptPriority": {
+        "value": "Rotation after38s; mode change clears current mode. Manual egg/preview can take rendering precedence; focused session body/face compatibility needs tests.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/core/session-activity.mjs",
+            "lines": [
+              31,
+              69
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/core/session-activity.mjs#L31-L69"
+          },
+          {
+            "path": "src/surfaces/pet/action-playback.mjs",
+            "lines": [
+              20,
+              46
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/action-playback.mjs#L20-L46"
+          }
+        ]
+      },
+      "gaps": [
+        "No audited browser foreground detector binds arbitrary web usage to focus-browse",
+        "Focused backdrop fixed by mode, not webpage or browser content."
+      ]
+    },
+    {
+      "id": "drag",
+      "label": "拖拽",
+      "classification": "pointer-owned interaction and native placement",
+      "trigger": {
+        "value": "Pointer drag threshold14; begin native drag + read bounds; asynchronous owner guards.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/surfaces/pet/pointer.mjs",
+            "lines": [
+              5,
+              6
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/pointer.mjs#L5-L6"
+          },
+          {
+            "path": "src/surfaces/pet/pointer.mjs",
+            "lines": [
+              116,
+              135
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/pointer.mjs#L116-L135"
+          },
+          {
+            "path": "src/surfaces/pet/pointer.mjs",
+            "lines": [
+              225,
+              240
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/pointer.mjs#L225-L240"
+          }
+        ]
+      },
+      "visibleState": {
+        "value": "state dragged → react.surprised input-safe100, TTL600000 fallback; resets squash; gaze follows drag velocity.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/surfaces/pet/controller.mjs",
+            "lines": [
+              415,
+              429
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/controller.mjs#L415-L429"
+          },
+          {
+            "path": "src/surfaces/pet/pointer.mjs",
+            "lines": [
+              225,
+              235
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/pointer.mjs#L225-L235"
+          },
+          {
+            "path": "src/surfaces/pet/renderer.mjs",
+            "lines": [
+              307,
+              341
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/renderer.mjs#L307-L341"
+          }
+        ]
+      },
+      "actionFace": {
+        "value": "Form-specific dragged3/4 view; speed tilt, surprised face. Release velocity>2 triggers spin, else satisfied1600ms.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/core/pet-appearance.mjs",
+            "lines": [
+              116,
+              124
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/core/pet-appearance.mjs#L116-L124"
+          },
+          {
+            "path": "src/surfaces/pet/pointer.mjs",
+            "lines": [
+              138,
+              170
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/pointer.mjs#L138-L170"
+          }
+        ]
+      },
+      "accessoriesProps": {
+        "wardrobe": {
+          "value": "Independent persistent wardrobe filtered by form/skin/level/view; explicit itemIds supported; exclusiveGroup resolves highest priority, then level, then z. No audited scenario-specific outfit switch.",
+          "status": "code-confirmed",
+          "evidence": [
+            {
+              "path": "src/content/appearance.mjs",
+              "lines": [
+                6,
+                54
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/appearance.mjs#L6-L54"
+            },
+            {
+              "path": "src/core/pet-appearance.mjs",
+              "lines": [
+                79,
+                113
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/core/pet-appearance.mjs#L79-L113"
+            }
+          ]
+        },
+        "temporary": {
+          "value": "No drag-specific wardrobe set found; interrupted previous action cancelled at press.",
+          "status": "code-confirmed",
+          "evidence": [
+            {
+              "path": "src/surfaces/pet/pointer.mjs",
+              "lines": [
+                195,
+                204
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/pointer.mjs#L195-L204"
+            }
+          ]
+        }
+      },
+      "background": {
+        "value": "Outside focus/rest: deterministic local-calendar-date seed + sceneOffset over time-period pool; manual skin preferences only when local day-of-month divisible by 3. Focus/rest overrides with mode room. Docked hides background. Particles stochastic, background identity is not.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/surfaces/pet/renderer.mjs",
+            "lines": [
+              473,
+              530
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/renderer.mjs#L473-L530"
+          },
+          {
+            "path": "src/content/scenes.mjs",
+            "lines": [
+              139,
+              167
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/scenes.mjs#L139-L167"
+          },
+          {
+            "path": "src/capabilities/companion/presentation/dango-raster-scenes.mjs",
+            "lines": [
+              40,
+              64
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/capabilities/companion/presentation/dango-raster-scenes.mjs#L40-L64"
+          }
+        ]
+      },
+      "exitInterruptPriority": {
+        "value": "pointerup restores current session state, flushes final move, ends native drag, saves final position. pointercancel/lostcapture/blur/lock/dispose cancel ownership; late receipts guarded.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/surfaces/pet/pointer.mjs",
+            "lines": [
+              138,
+              183
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/pointer.mjs#L138-L183"
+          },
+          {
+            "path": "src/surfaces/pet/pointer.mjs",
+            "lines": [
+              285,
+              287
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/pointer.mjs#L285-L287"
+          },
+          {
+            "path": "src/surfaces/pet/pointer.mjs",
+            "lines": [
+              325,
+              355
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/pointer.mjs#L325-L355"
+          }
+        ]
+      },
+      "gaps": [
+        "Actual native placement not exercised; source audit only",
+        "V2 needs distinct pointer facts/pose/wardrobe/background ownership, not dragging as emotion."
+      ]
+    },
+    {
+      "id": "long_press",
+      "label": "长按抚摸",
+      "classification": "pointer-held facial state plus finite action",
+      "trigger": {
+        "value": "Hold550ms without drag; press cancels feed/current action, attentive while charging.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/surfaces/pet/pointer.mjs",
+            "lines": [
+              5,
+              6
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/pointer.mjs#L5-L6"
+          },
+          {
+            "path": "src/surfaces/pet/pointer.mjs",
+            "lines": [
+              195,
+              222
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/pointer.mjs#L195-L222"
+          }
+        ]
+      },
+      "visibleState": {
+        "value": "held react.petted interaction80, TTL600000 minHold300; Dango final face content+smile full-open and zero offsets.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/surfaces/pet/pointer.mjs",
+            "lines": [
+              207,
+              222
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/pointer.mjs#L207-L222"
+          },
+          {
+            "path": "src/capabilities/companion/presentation/dango-face.mjs",
+            "lines": [
+              49,
+              54
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/capabilities/companion/presentation/dango-face.mjs#L49-L54"
+          }
+        ]
+      },
+      "actionFace": {
+        "value": "Dango original tail-wiggle7500ms; content longPress7000ms only selected for redesigned usagi. Neutral/content three-phase interaction-presentation also usagi-only.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/content/behaviors.mjs",
+            "lines": [
+              93,
+              93
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/behaviors.mjs#L93-L93"
+          },
+          {
+            "path": "src/surfaces/pet/interaction-playback.mjs",
+            "lines": [
+              11,
+              21
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/interaction-playback.mjs#L11-L21"
+          },
+          {
+            "path": "src/capabilities/companion/presentation/form-art.mjs",
+            "lines": [
+              80,
+              84
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/capabilities/companion/presentation/form-art.mjs#L80-L84"
+          }
+        ]
+      },
+      "accessoriesProps": {
+        "wardrobe": {
+          "value": "Independent persistent wardrobe filtered by form/skin/level/view; explicit itemIds supported; exclusiveGroup resolves highest priority, then level, then z. No audited scenario-specific outfit switch.",
+          "status": "code-confirmed",
+          "evidence": [
+            {
+              "path": "src/content/appearance.mjs",
+              "lines": [
+                6,
+                54
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/appearance.mjs#L6-L54"
+            },
+            {
+              "path": "src/core/pet-appearance.mjs",
+              "lines": [
+                79,
+                113
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/core/pet-appearance.mjs#L79-L113"
+            }
+          ]
+        },
+        "temporary": {
+          "value": "tail action prop plus five one-shot purr hearts unless calmVisual; not persistent outfit.",
+          "status": "code-confirmed",
+          "evidence": [
+            {
+              "path": "src/surfaces/pet/interaction-playback.mjs",
+              "lines": [
+                24,
+                38
+              ],
+              "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+              "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/interaction-playback.mjs#L24-L38"
+            }
+          ]
+        }
+      },
+      "background": {
+        "value": "Outside focus/rest: deterministic local-calendar-date seed + sceneOffset over time-period pool; manual skin preferences only when local day-of-month divisible by 3. Focus/rest overrides with mode room. Docked hides background. Particles stochastic, background identity is not.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/surfaces/pet/renderer.mjs",
+            "lines": [
+              473,
+              530
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/renderer.mjs#L473-L530"
+          },
+          {
+            "path": "src/content/scenes.mjs",
+            "lines": [
+              139,
+              167
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/content/scenes.mjs#L139-L167"
+          },
+          {
+            "path": "src/capabilities/companion/presentation/dango-raster-scenes.mjs",
+            "lines": [
+              40,
+              64
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/capabilities/companion/presentation/dango-raster-scenes.mjs#L40-L64"
+          }
+        ]
+      },
+      "exitInterruptPriority": {
+        "value": "Pointer reset cancels held face, but finite action expiration tracked independently; manual action can continue after release until duration or next cancellation. Higher essential/input-safe wins.",
+        "status": "code-confirmed",
+        "evidence": [
+          {
+            "path": "src/surfaces/pet/pointer.mjs",
+            "lines": [
+              283,
+              288
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/pointer.mjs#L283-L288"
+          },
+          {
+            "path": "src/surfaces/pet/controller.mjs",
+            "lines": [
+              464,
+              474
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/surfaces/pet/controller.mjs#L464-L474"
+          },
+          {
+            "path": "src/core/pet-presentation.mjs",
+            "lines": [
+              16,
+              42
+            ],
+            "commit": "ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a",
+            "url": "https://github.com/jemicyzhu-0333/bubu/blob/ff711d9d8a9c03a7c54d72983eb0b4f582a2a99a/src/core/pet-presentation.mjs#L16-L42"
+          }
+        ]
+      },
+      "gaps": [
+        "Old expression inventory incorrectly implied usagi facing interaction phases were Dango production behavior; corrected here",
+        "Need decide whether V2 release should stop body immediately or complete authored exit, retaining V1 distinction as evidence."
+      ]
+    }
+  ],
+  "commonPriority": {
+    "input-safe": 100,
+    "essential": 90,
+    "interaction": 80,
+    "session": 70,
+    "cue": 60,
+    "base": 50
+  },
+  "globalGaps": [
+    "No Electron/OS playback, GPU asset draw or screenshot evidence in this pass.",
+    "Complete within retrieved catalogs, not proof of every historical branch or dynamic external payload.",
+    "No scenario-to-outfit preset catalog or universal scene-owner contract found in audited V1 sources.",
+    "Durations, status maintenance, action ownership and background ownership are independent.",
+    "Per-form branches must stay explicit; do not promote shared generic definitions into Dango runtime evidence."
+  ],
+  "isolatedRegressionEvidence": {
+    "file": "HUNGER-SLEEP-RESULT.json",
+    "script": "reproduce-hunger-sleep.mjs",
+    "verdict": "reproduced-in-isolated-exact-controller-code",
+    "cases": 17,
+    "productionRuntimeObserved": false
+  }
+}
