@@ -9,3 +9,5 @@ def sheet(names,cols,out):
 sheet(['worn-'+v for v in ['front','quarter','side','back']]+['isolated-'+v for v in ['front','quarter','side','back']],4,'sprout-contact-sheet.png')
 sheet(['turn-%03d'%a for a in range(0,360,30)],4,'sprout-360-sheet.png')
 sheet(['motion-%02d'%i for i in range(8)],4,'sprout-motion-sheet.png')
+
+sheet(['worn-'+v for v in ['front','quarter','quarter-opposite','side']],4,'sprout-revised-angle-sheet.png')

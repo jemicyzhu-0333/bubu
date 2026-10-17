@@ -22,11 +22,11 @@ def build():
   verts=[];faces=[];N=48;M=24
   for surface in [-1,1]:
    for i in range(N+1):
-    t=i/N;w=.15*math.sin(math.pi*t)**.55;th=.018*math.sin(math.pi*t)**.55
+    t=i/N;w=.185*math.sin(math.pi*t)**.55;th=.018*math.sin(math.pi*t)**.55
     for j in range(M+1):
      u=-1+2*j/M
-     x=side*(.01+.49*t-.52*w*u);z=.18+(.28 if side<0 else .32)*t+.85*w*u
-     y=.045*math.sin(math.pi*t)+.065*u*u*math.sin(math.pi*t)+surface*th*math.sqrt(max(0,1-u*u))
+     x=side*(.01+.52*t-.45*w*u);z=.18+(.32 if side<0 else .36)*t+.70*w*u
+     y=(-.30 if side<0 else .05)*t+(.30+.65*math.cos(math.pi*t))*w*u+.055*math.sin(math.pi*t)+.095*u*u*math.sin(math.pi*t)+surface*th*math.sqrt(max(0,1-u*u))
      verts.append((x,y,z))
   layer=(N+1)*(M+1)
   for k in range(2):
@@ -41,11 +41,11 @@ def build():
     a=i*(M+1)+j;faces.append((a,a+layer,a+1+layer,a+1))
   mesh=bpy.data.meshes.new('curved sealed leaf');mesh.from_pydata(verts,[],faces);mesh.update();o=bpy.data.objects.new('sprout_leaf_'+str(side),mesh);bpy.context.collection.objects.link(o);mesh.materials.append(green)
   for f in mesh.polygons:f.use_smooth=True
-  o.rotation_euler.z=math.radians(side*28)
+  o.rotation_euler.z=0
   objects.append(o)
   pts=[]
-  for t in [.10,.25,.45,.65,.83,.93]:pts.append((side*(.01+.49*t),.045*math.sin(math.pi*t)-.018*math.sin(math.pi*t)**.55-.002,.18+(.28 if side<0 else .32)*t))
-  v=tube('sprout_vein_'+str(side),pts,.004,vein);v.rotation_euler.z=math.radians(side*28);objects.append(v)
+  for t in [.10,.25,.45,.65,.83,.93]:pts.append((side*(.01+.52*t),(-.30 if side<0 else .05)*t+.055*math.sin(math.pi*t)-.018*math.sin(math.pi*t)**.55-.002,.18+(.32 if side<0 else .36)*t))
+  v=tube('sprout_vein_'+str(side),pts,.004,vein);v.rotation_euler.z=0;objects.append(v)
  bpy.ops.mesh.primitive_uv_sphere_add(segments=20, ring_count=12, radius=.028, location=(0,0,-.04))
  cap=bpy.context.object;cap.name='sprout_round_root';cap.data.materials.append(stem)
  for f in cap.data.polygons:f.use_smooth=True

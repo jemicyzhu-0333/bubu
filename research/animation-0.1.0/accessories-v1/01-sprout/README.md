@@ -9,7 +9,7 @@ Reference-first independent 3D wardrobe candidate. V1 catalog order is retained 
 - Parent reviewed the generated reference as usable on 2026-10-17. Generated image has a wider rounded leaf design; current modeled candidate uses gently tapered curved leaves, not ellipsoids or flat planes.
 
 ## Geometry and fit
-sprout.glb is accessory only, under 400KB. Source build_sprout.py creates closed curved blades, softened root cap, short stem and subtle central veins. Blades are 0.036 units thick at the center and taper at edges; cupping max 0.065 units. Opposed ±28° yaw prevents the pair behaving like one paper plane. Left/right rise differs slightly (.28/.32) for readable side overlap. No base, hat band or scalp deformation.
+sprout.glb is accessory only, under 400KB. Source build_sprout.py creates closed curved blades, softened root cap, short stem and subtle central veins. Blades are 0.036 units thick at the center and taper at edges; cupping .095 sin(pi*t) u² plus a longitudinal twist (.30+.65 cos(pi*t)) across the blade. Leaf half-width .185; centerline forward/back sweep differs (-.30t/.05t), with .32/.36 rise. This replaces the rejected opposed rigid-yaw design. Strict side and both ±45 views are retained for review. No base, hat band or scalp deformation.
 
 Blender Z-up root is (0,0,1.62766); Three.js Y-up equivalent (0,1.62766,0). Actual nearest body surface point is used at runtime. Root begins 0.04 units beneath contact plus a rounded cap: intentional hidden insertion. Leaves/stem above surface; face, hands and feet stay exposed. Back/side occlusion comes from depth, not permanent cutouts.
 
@@ -21,7 +21,7 @@ The existing wardrobe selector remains responsible for headwear mutual exclusion
 ## Verification
 - src/test-sprout.mjs: 361 samples over 12-radian rotation, exact source hash and body geometry/material nonmutation, contact error below 1e-6, reduced-motion, enable/disable, invalid time and idempotent disposal.
 - src/test-host.mjs: actual shared-r5 weighted D2 ActorPool + BodyRigAdapter; 241 frames within four-bone and body limits. a.assertCurrent and second actor invariants at every frame; clean cache release. No shared API modified.
-- render_sprout.py imports the actual final GLB and unchanged D2 source. Four worn views, four isolated views, 12-angle full turn and eight bounded motion fixture frames. Fixed approved look/lighting, 384px RGBA. Blender CPU evidence, not a WebGL/Electron claim.
+- render_sprout.py imports the actual final GLB and unchanged D2 source. Five worn views (including both ±45), five isolated views, 12-angle full turn and eight bounded motion fixture frames. Fixed approved look/lighting, 384px RGBA. Blender CPU evidence, not a WebGL/Electron claim.
 
 ## Remaining limits
 Not wired into the production wardrobe/UI. Actual pointer hand touching a worn sprout, drag proxy hit testing, cold loading/fallback under host resource admission and Electron window clipping are unverified. The bounded body fixture and host invariant tests do not establish those. Do not label this production-integrated. Full18 face geometry remains untouched; this package does not rerun all 18 facial visual endpoints because the accessory stays above the head and outside facial mesh ownership.
@@ -41,3 +41,6 @@ Default body input is ../../runtime-facepath05/fixtures/face-d2/asset.glb; test-
 The host must keep accessory geometry/materials alive until its last adapter has been disposed. This candidate has no resource-manager admission or budget wiring and makes no bounded-cache/lease-count promise.
 
 The published GLB is checksum-locked. Rebuilding with Blender may change export triangle ordering or tiny normal values even when positions are identical; the build is not promised to reproduce identical bytes.
+
+## Current acceptance status
+User rejected the original side leaf shape. This revised geometry is a technical candidate pending user visual feedback; earlier pushed commits are checkpoints, not user art acceptance. The exact reviewed four-angle sheet is sprout-revised-angle-sheet.png.
