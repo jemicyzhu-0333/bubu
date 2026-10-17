@@ -1,0 +1,208 @@
+TAP version 13
+# Subtest: file snapshot cursor binding, old-file rollback mismatch, corruption and failed replacement preserve bytes
+ok 1 - file snapshot cursor binding, old-file rollback mismatch, corruption and failed replacement preserve bytes
+  ---
+  duration_ms: 17.895982
+  type: 'test'
+  ...
+# Subtest: fresh process verifies authority cursor then restores only original remainder
+ok 2 - fresh process verifies authority cursor then restores only original remainder
+  ---
+  duration_ms: 70.217099
+  type: 'test'
+  ...
+# Subtest: strict write and recovery evidence inputs never execute getters
+ok 3 - strict write and recovery evidence inputs never execute getters
+  ---
+  duration_ms: 4.230482
+  type: 'test'
+  ...
+# Subtest: retained bounded reader hard-stops stat-to-read growth, truncation and oversize
+ok 4 - retained bounded reader hard-stops stat-to-read growth, truncation and oversize
+  ---
+  duration_ms: 0.540806
+  type: 'test'
+  ...
+# Subtest: hard horizons are half-open routine900/feed30 independently of shorter display duration
+ok 5 - hard horizons are half-open routine900/feed30 independently of shorter display duration
+  ---
+  duration_ms: 2.690749
+  type: 'test'
+  ...
+# Subtest: shortened deadline does not permit original revision resurrection before hard horizon
+ok 6 - shortened deadline does not permit original revision resurrection before hard horizon
+  ---
+  duration_ms: 1.132548
+  type: 'test'
+  ...
+# Subtest: revoked records stay through safe horizon, never through current visible eligibility only
+ok 7 - revoked records stay through safe horizon, never through current visible eligibility only
+  ---
+  duration_ms: 1.656339
+  type: 'test'
+  ...
+# Subtest: unknown and unready first-admission results persist through hard horizon and cannot be remapped
+ok 8 - unknown and unready first-admission results persist through hard horizon and cannot be remapped
+  ---
+  duration_ms: 3.222291
+  type: 'test'
+  ...
+# Subtest: continuous history across 1000 windows never consumes live-window capacity
+ok 9 - continuous history across 1000 windows never consumes live-window capacity
+  ---
+  duration_ms: 51.661692
+  type: 'test'
+  ...
+# Subtest: many obsolete deliveries do not insert identities or block fresh completion
+ok 10 - many obsolete deliveries do not insert identities or block fresh completion
+  ---
+  duration_ms: 15.735868
+  type: 'test'
+  ...
+# Subtest: within-window overload rejects atomically without evicting revocation tombstone
+ok 11 - within-window overload rejects atomically without evicting revocation tombstone
+  ---
+  duration_ms: 0.614697
+  type: 'test'
+  ...
+# Subtest: cleanup is part of transaction: invalid final event does not delete expired records or advance time
+ok 12 - cleanup is part of transaction: invalid final event does not delete expired records or advance time
+  ---
+  duration_ms: 0.458782
+  type: 'test'
+  ...
+# Subtest: same theme union, independent revocations, no additive lifetime
+ok 13 - same theme union, independent revocations, no additive lifetime
+  ---
+  duration_ms: 0.900208
+  type: 'test'
+  ...
+# Subtest: genuine generation is new while duplicates/reconnect/revision never allocate a new lifetime
+ok 14 - genuine generation is new while duplicates/reconnect/revision never allocate a new lifetime
+  ---
+  duration_ms: 0.911765
+  type: 'test'
+  ...
+# Subtest: edit later never extends and watermark can only decrease
+ok 15 - edit later never extends and watermark can only decrease
+  ---
+  duration_ms: 0.758324
+  type: 'test'
+  ...
+# Subtest: missing first success remains needs-reconciliation despite late lower or newer complete
+ok 16 - missing first success remains needs-reconciliation despite late lower or newer complete
+  ---
+  duration_ms: 0.675439
+  type: 'test'
+  ...
+# Subtest: history imports never activate; feed replay receipts and unsuccessful transactions reject
+ok 17 - history imports never activate; feed replay receipts and unsuccessful transactions reject
+  ---
+  duration_ms: 1.089723
+  type: 'test'
+  ...
+# Subtest: trusted time rollback after horizon cleanup rejects, including restored lastNow floor
+ok 18 - trusted time rollback after horizon cleanup rejects, including restored lastNow floor
+  ---
+  duration_ms: 0.753557
+  type: 'test'
+  ...
+# Subtest: restoration keeps original remainder and drops elapsed horizon records
+ok 19 - restoration keeps original remainder and drops elapsed horizon records
+  ---
+  duration_ms: 0.820628
+  type: 'test'
+  ...
+# Subtest: old complete checkpoint blocked by newer authoritative cursor/epoch and minimum observed time
+ok 20 - old complete checkpoint blocked by newer authoritative cursor/epoch and minimum observed time
+  ---
+  duration_ms: 1.503038
+  type: 'test'
+  ...
+# Subtest: immutable originals reject rewriting before forget horizon and genuine namespace separation works
+ok 21 - immutable originals reject rewriting before forget horizon and genuine namespace separation works
+  ---
+  duration_ms: 0.681948
+  type: 'test'
+  ...
+# Subtest: snapshots and projections are defensive copies; malformed recovery stays atomic
+ok 22 - snapshots and projections are defensive copies; malformed recovery stays atomic
+  ---
+  duration_ms: 0.482377
+  type: 'test'
+  ...
+# Subtest: safe clock rejects NaN
+ok 23 - safe clock rejects NaN
+  ---
+  duration_ms: 0.25854
+  type: 'test'
+  ...
+# Subtest: safe clock rejects Infinity
+ok 24 - safe clock rejects Infinity
+  ---
+  duration_ms: 0.131178
+  type: 'test'
+  ...
+# Subtest: safe clock rejects -1
+ok 25 - safe clock rejects -1
+  ---
+  duration_ms: 0.144948
+  type: 'test'
+  ...
+# Subtest: safe clock rejects 0.5
+ok 26 - safe clock rejects 0.5
+  ---
+  duration_ms: 0.414976
+  type: 'test'
+  ...
+# Subtest: safe clock rejects 9007199254740992
+ok 27 - safe clock rejects 9007199254740992
+  ---
+  duration_ms: 0.137117
+  type: 'test'
+  ...
+# Subtest: safe clock rejects null
+ok 28 - safe clock rejects null
+  ---
+  duration_ms: 0.179911
+  type: 'test'
+  ...
+# Subtest: safe clock rejects 1
+ok 29 - safe clock rejects 1
+  ---
+  duration_ms: 0.151579
+  type: 'test'
+  ...
+# Subtest: time overflow/invalid order and duration policy remain strict
+ok 30 - time overflow/invalid order and duration policy remain strict
+  ---
+  duration_ms: 1.409526
+  type: 'test'
+  ...
+# Subtest: strict event/config/checkpoint descriptors, prototypes, symbols and proxy boundaries do not execute code
+ok 31 - strict event/config/checkpoint descriptors, prototypes, symbols and proxy boundaries do not execute code
+  ---
+  duration_ms: 1.60444
+  type: 'test'
+  ...
+# Subtest: source-specific module cannot mutate focus/detection/inventory and never claims visual selection
+ok 32 - source-specific module cannot mutate focus/detection/inventory and never claims visual selection
+  ---
+  duration_ms: 0.764563
+  type: 'test'
+  ...
+# Subtest: independent finite-window oracle and v1 active-fact equivalence over 20 × 120 transitions
+ok 33 - independent finite-window oracle and v1 active-fact equivalence over 20 × 120 transitions
+  ---
+  duration_ms: 594.009443
+  type: 'test'
+  ...
+1..33
+# tests 33
+# suites 0
+# pass 33
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 793.125492

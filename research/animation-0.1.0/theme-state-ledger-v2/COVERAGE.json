@@ -1,0 +1,201 @@
+{
+  "scope": "Mapping of original 39 design cases to this pure-state boundary, not 39 end-to-end passes",
+  "cases": [
+    {
+      "id": "routine_success",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "routine_click_only",
+      "scope": "pure_state_subcondition_tested_integration_deferred",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "routine_failure",
+      "scope": "pure_state_subcondition_tested_integration_deferred",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "unsupported_mapping",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "unsupported_recipe",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "fixed_duration",
+      "scope": "pure_state_tested",
+      "note": "Original r3 policy is superseded only by user-confirmed defaults; renderer/source proof remains separate."
+    },
+    {
+      "id": "feed_success",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "feed_failure_cancel",
+      "scope": "pure_state_subcondition_tested_integration_deferred",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "duplicate_event",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "duplicate_business",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "feed_retry_receipt",
+      "scope": "pure_state_subcondition_tested_integration_deferred",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "routine_then_feed",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "feed_then_routine",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "revoke_one_source",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "source_expiry",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "last_source_expiry",
+      "scope": "pure_state_subcondition_tested_integration_deferred",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "history_backfill",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "late_live_event",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "history_text_edit",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "completion_time_correction",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "undo_recomplete",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "new_occurrence",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "out_of_order_revoke",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "mapping_upgrade_replay",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "hidden_ttl",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "restart_replay",
+      "scope": "pure_state_subcondition_tested_integration_deferred",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "detection_disabled",
+      "scope": "deferred_renderer_or_source_integration",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "focus_background",
+      "scope": "deferred_renderer_or_source_integration",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "body_conflict",
+      "scope": "deferred_renderer_or_source_integration",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "sparse_action",
+      "scope": "deferred_renderer_or_source_integration",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "late_asset",
+      "scope": "deferred_renderer_or_source_integration",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "multiple_theme_overlay",
+      "scope": "deferred_renderer_or_source_integration",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "future_timestamp",
+      "scope": "pure_state_subcondition_tested_integration_deferred",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "feed_reversal",
+      "scope": "pure_state_subcondition_tested_integration_deferred",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "same_time_batch",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "same_transaction_reconnected",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "accepted_ledger_restore",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "never_accepted_history_import",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    },
+    {
+      "id": "reused_raw_occurrence_id",
+      "scope": "pure_state_tested",
+      "note": "No GPU/production execution claim."
+    }
+  ],
+  "revision": "v2 finite original-horizon ledger; no ordinal/seal"
+}

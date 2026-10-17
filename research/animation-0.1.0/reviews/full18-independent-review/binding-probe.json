@@ -1,0 +1,52 @@
+{
+  "scope": "CPU source-mapper parity only; no GPU or visual transitions",
+  "samples": 4626,
+  "scalarChecks": 5329152,
+  "geometryBackingBytes": 20999184,
+  "prepareMs": 157.037495,
+  "coldCreateMs": 251.80775500000001,
+  "budget": {
+    "vertices": 51036,
+    "nodes": 20,
+    "deformedVertices": 784140,
+    "clipKeyScalars": 0,
+    "textureBytes": 0,
+    "decodedArrayReservation": 38211404
+  },
+  "activeStats": {
+    "actors": 1,
+    "vertices": 51036,
+    "nodes": 20,
+    "deformedVertices": 784140,
+    "sourceBytes": 16867596,
+    "decodedArrayBytes": 38211404,
+    "clipKeyScalars": 0,
+    "active": 1,
+    "pending": 0,
+    "cache": {
+      "loads": 1,
+      "hits": 0,
+      "disposals": 0,
+      "live": 1,
+      "retainedReferences": 1
+    }
+  },
+  "disposedStats": {
+    "actors": 0,
+    "vertices": 0,
+    "nodes": 0,
+    "deformedVertices": 0,
+    "sourceBytes": 0,
+    "decodedArrayBytes": 0,
+    "clipKeyScalars": 0,
+    "active": 0,
+    "pending": 0,
+    "cache": {
+      "loads": 1,
+      "hits": 0,
+      "disposals": 1,
+      "live": 0,
+      "retainedReferences": 0
+    }
+  }
+}

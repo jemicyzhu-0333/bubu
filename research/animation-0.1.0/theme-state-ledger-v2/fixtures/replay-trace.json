@@ -1,0 +1,301 @@
+{
+  "fixtureOnly": true,
+  "config": {
+    "schemaVersion": 2,
+    "namespaces": [
+      "fixture:account-a",
+      "fixture:account-b"
+    ],
+    "maxRecords": 128,
+    "capabilities": [
+      {
+        "id": "fixture:overlay",
+        "approved": true,
+        "runtimeReady": true,
+        "channel": "environment.overlay"
+      }
+    ],
+    "mappings": [
+      {
+        "sourceKind": "routine",
+        "definitionId": "fixture:preset-coffee",
+        "mappingVersion": "fixture:v1",
+        "themeId": "fixture:coffee",
+        "recipeVersion": "fixture:r1",
+        "approved": true,
+        "presentationMode": "overlay_only",
+        "overlayPolicyId": "fixture:compatible-budget-1",
+        "actionPolicyId": null,
+        "requiredCapabilities": [
+          "fixture:overlay"
+        ],
+        "assetPolicyDigest": "fixture:not-a-production-digest"
+      },
+      {
+        "sourceKind": "feed",
+        "definitionId": "fixture:food-coffee",
+        "mappingVersion": "fixture:v1",
+        "themeId": "fixture:coffee",
+        "recipeVersion": "fixture:r1",
+        "approved": true,
+        "presentationMode": "overlay_only",
+        "overlayPolicyId": "fixture:compatible-budget-1",
+        "actionPolicyId": null,
+        "requiredCapabilities": [
+          "fixture:overlay"
+        ],
+        "assetPolicyDigest": "fixture:not-a-production-digest"
+      }
+    ]
+  },
+  "steps": [
+    {
+      "at": 1800000000000,
+      "events": [
+        {
+          "schemaVersion": 2,
+          "namespace": "fixture:account-a",
+          "eventId": "fixture:event-1",
+          "transactionId": "fixture:transaction-1",
+          "sourceKind": "routine",
+          "entityId": "fixture:occurrence-1",
+          "completionGeneration": "fixture:g1",
+          "revision": 1,
+          "operation": "complete",
+          "completionState": "completed",
+          "origin": "live_completion",
+          "postCommit": true,
+          "replayed": false,
+          "occurredAt": 1800000000000,
+          "committedAt": 1800000000000,
+          "receivedAt": 1800000000000,
+          "timeDomain": "trusted_utc_ms",
+          "original": {
+            "occurredAt": 1800000000000,
+            "committedAt": 1800000000000,
+            "origin": "live_completion",
+            "definitionId": "fixture:preset-coffee",
+            "mappingVersion": "fixture:v1"
+          },
+          "deadlineOccurredAt": 1800000000000,
+          "revokeReason": null
+        }
+      ],
+      "expectedDeadline": 1800000600000,
+      "expectedActiveSources": 1
+    },
+    {
+      "at": 1800000010000,
+      "events": [
+        {
+          "schemaVersion": 2,
+          "namespace": "fixture:account-a",
+          "eventId": "fixture:event-1",
+          "transactionId": "fixture:transaction-1",
+          "sourceKind": "feed",
+          "entityId": "fixture:feed-2",
+          "completionGeneration": "fixture:g1",
+          "revision": 1,
+          "operation": "complete",
+          "completionState": "completed",
+          "origin": "live_completion",
+          "postCommit": true,
+          "replayed": false,
+          "occurredAt": 1800000010000,
+          "committedAt": 1800000010000,
+          "receivedAt": 1800000010000,
+          "timeDomain": "trusted_utc_ms",
+          "original": {
+            "occurredAt": 1800000010000,
+            "committedAt": 1800000010000,
+            "origin": "live_completion",
+            "definitionId": "fixture:food-coffee",
+            "mappingVersion": "fixture:v1"
+          },
+          "deadlineOccurredAt": 1800000010000,
+          "revokeReason": null
+        }
+      ],
+      "expectedDeadline": 1800000600000,
+      "expectedActiveSources": 2
+    },
+    {
+      "at": 1800000015000,
+      "events": [
+        {
+          "schemaVersion": 2,
+          "namespace": "fixture:account-a",
+          "eventId": "fixture:retry",
+          "transactionId": "fixture:transaction-1",
+          "sourceKind": "routine",
+          "entityId": "fixture:occurrence-1",
+          "completionGeneration": "fixture:g1",
+          "revision": 1,
+          "operation": "complete",
+          "completionState": "completed",
+          "origin": "live_completion",
+          "postCommit": true,
+          "replayed": false,
+          "occurredAt": 1800000000000,
+          "committedAt": 1800000000000,
+          "receivedAt": 1800000015000,
+          "timeDomain": "trusted_utc_ms",
+          "original": {
+            "occurredAt": 1800000000000,
+            "committedAt": 1800000000000,
+            "origin": "live_completion",
+            "definitionId": "fixture:preset-coffee",
+            "mappingVersion": "fixture:v1"
+          },
+          "deadlineOccurredAt": 1800000000000,
+          "revokeReason": null
+        }
+      ],
+      "expectedDeadline": 1800000600000,
+      "expectedActiveSources": 2
+    },
+    {
+      "at": 1800000020000,
+      "events": [
+        {
+          "schemaVersion": 2,
+          "namespace": "fixture:account-a",
+          "eventId": "fixture:event-1:next",
+          "transactionId": "fixture:transaction-1:next",
+          "sourceKind": "routine",
+          "entityId": "fixture:occurrence-1",
+          "completionGeneration": "fixture:g1",
+          "revision": 2,
+          "operation": "revoke",
+          "completionState": "revoked",
+          "origin": "live_completion",
+          "postCommit": true,
+          "replayed": false,
+          "occurredAt": 1800000000000,
+          "committedAt": 1800000020000,
+          "receivedAt": 1800000020000,
+          "timeDomain": "trusted_utc_ms",
+          "original": {
+            "occurredAt": 1800000000000,
+            "committedAt": 1800000000000,
+            "origin": "live_completion",
+            "definitionId": "fixture:preset-coffee",
+            "mappingVersion": "fixture:v1"
+          },
+          "deadlineOccurredAt": 1800000000000,
+          "revokeReason": "user-undo"
+        }
+      ],
+      "expectedDeadline": 1800000040000,
+      "expectedActiveSources": 1
+    },
+    {
+      "at": 1800000039999,
+      "events": [],
+      "expectedDeadline": 1800000040000,
+      "expectedActiveSources": 1
+    },
+    {
+      "at": 1800000040000,
+      "events": [],
+      "expectedDeadline": null,
+      "expectedActiveSources": 0
+    },
+    {
+      "at": 1800000050000,
+      "events": [
+        {
+          "schemaVersion": 2,
+          "namespace": "fixture:account-a",
+          "eventId": "fixture:event-1:next:next",
+          "transactionId": "fixture:transaction-1:next:next",
+          "sourceKind": "routine",
+          "entityId": "fixture:occurrence-1",
+          "completionGeneration": "fixture:g1",
+          "revision": 3,
+          "operation": "complete",
+          "completionState": "completed",
+          "origin": "live_completion",
+          "postCommit": true,
+          "replayed": false,
+          "occurredAt": 1800000050000,
+          "committedAt": 1800000050000,
+          "receivedAt": 1800000050000,
+          "timeDomain": "trusted_utc_ms",
+          "original": {
+            "occurredAt": 1800000000000,
+            "committedAt": 1800000000000,
+            "origin": "live_completion",
+            "definitionId": "fixture:preset-coffee",
+            "mappingVersion": "fixture:v1"
+          },
+          "deadlineOccurredAt": 1800000000000,
+          "revokeReason": null
+        }
+      ],
+      "expectedDeadline": 1800000600000,
+      "expectedActiveSources": 1
+    },
+    {
+      "at": 1800000060000,
+      "events": [
+        {
+          "schemaVersion": 2,
+          "namespace": "fixture:account-a",
+          "eventId": "fixture:event-1:next:next:next",
+          "transactionId": "fixture:transaction-1:next:next:next",
+          "sourceKind": "routine",
+          "entityId": "fixture:occurrence-1",
+          "completionGeneration": "fixture:g1",
+          "revision": 4,
+          "operation": "correct",
+          "completionState": "completed",
+          "origin": "history_edit",
+          "postCommit": true,
+          "replayed": false,
+          "occurredAt": 1799999990000,
+          "committedAt": 1800000060000,
+          "receivedAt": 1800000060000,
+          "timeDomain": "trusted_utc_ms",
+          "original": {
+            "occurredAt": 1800000000000,
+            "committedAt": 1800000000000,
+            "origin": "live_completion",
+            "definitionId": "fixture:preset-coffee",
+            "mappingVersion": "fixture:v1"
+          },
+          "deadlineOccurredAt": 1799999990000,
+          "revokeReason": null
+        }
+      ],
+      "expectedDeadline": 1800000590000,
+      "expectedActiveSources": 1
+    },
+    {
+      "at": 1800000100000,
+      "restore": true,
+      "events": [],
+      "expectedDeadline": 1800000590000,
+      "expectedActiveSources": 1
+    },
+    {
+      "at": 1800000590000,
+      "events": [],
+      "expectedDeadline": null,
+      "expectedActiveSources": 0
+    },
+    {
+      "at": 1800000600000,
+      "events": [],
+      "expectedDeadline": null,
+      "expectedActiveSources": 0
+    },
+    {
+      "at": 1800000700000,
+      "restore": true,
+      "events": [],
+      "expectedDeadline": null,
+      "expectedActiveSources": 0
+    }
+  ]
+}

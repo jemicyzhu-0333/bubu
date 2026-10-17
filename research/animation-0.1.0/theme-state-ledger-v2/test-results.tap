@@ -1,0 +1,910 @@
+TAP version 13
+# Subtest: maximum admitted config and records export/restore within bounded validation budget
+ok 1 - maximum admitted config and records export/restore within bounded validation budget
+  ---
+  duration_ms: 2540.54639
+  type: 'test'
+  ...
+# Subtest: configuration beyond recoverable record ceiling is rejected before any writes
+ok 2 - configuration beyond recoverable record ceiling is rejected before any writes
+  ---
+  duration_ms: 0.489208
+  type: 'test'
+  ...
+# Subtest: checkpoint stores source cursor with snapshot and restores remaining interval
+ok 3 - checkpoint stores source cursor with snapshot and restores remaining interval
+  ---
+  duration_ms: 12.602257
+  type: 'test'
+  ...
+# Subtest: invalid replacement checkpoint leaves existing file unchanged
+ok 4 - invalid replacement checkpoint leaves existing file unchanged
+  ---
+  duration_ms: 4.247767
+  type: 'test'
+  ...
+# Subtest: checksum detects corrupted snapshot before import
+ok 5 - checksum detects corrupted snapshot before import
+  ---
+  duration_ms: 9.365036
+  type: 'test'
+  ...
+# Subtest: truncated checkpoint fails closed
+ok 6 - truncated checkpoint fails closed
+  ---
+  duration_ms: 2.078294
+  type: 'test'
+  ...
+# Subtest: unknown envelope fields reject
+ok 7 - unknown envelope fields reject
+  ---
+  duration_ms: 4.605406
+  type: 'test'
+  ...
+# Subtest: snapshot getter is not invoked by file adapter
+ok 8 - snapshot getter is not invoked by file adapter
+  ---
+  duration_ms: 0.905055
+  type: 'test'
+  ...
+# Subtest: bounded reader rejects pre-stat oversized file before reading
+ok 9 - bounded reader rejects pre-stat oversized file before reading
+  ---
+  duration_ms: 0.424831
+  type: 'test'
+  ...
+# Subtest: bounded reader detects growth after stat with one-byte sentinel
+ok 10 - bounded reader detects growth after stat with one-byte sentinel
+  ---
+  duration_ms: 0.262536
+  type: 'test'
+  ...
+# Subtest: bounded reader detects truncation during read
+ok 11 - bounded reader detects truncation during read
+  ---
+  duration_ms: 0.378391
+  type: 'test'
+  ...
+# Subtest: bounded reader detects same-size modification by mtime
+ok 12 - bounded reader detects same-size modification by mtime
+  ---
+  duration_ms: 0.375737
+  type: 'test'
+  ...
+# Subtest: bounded reader accepts stable file exactly at byte cap
+ok 13 - bounded reader accepts stable file exactly at byte cap
+  ---
+  duration_ms: 0.274925
+  type: 'test'
+  ...
+# Subtest: routine default is exactly 600 seconds and strict endpoint
+ok 14 - routine default is exactly 600 seconds and strict endpoint
+  ---
+  duration_ms: 4.804016
+  type: 'test'
+  ...
+# Subtest: explicit routine duration 600
+ok 15 - explicit routine duration 600
+  ---
+  duration_ms: 0.483319
+  type: 'test'
+  ...
+# Subtest: explicit routine duration 601
+ok 16 - explicit routine duration 601
+  ---
+  duration_ms: 0.448726
+  type: 'test'
+  ...
+# Subtest: explicit routine duration 750
+ok 17 - explicit routine duration 750
+  ---
+  duration_ms: 0.426783
+  type: 'test'
+  ...
+# Subtest: explicit routine duration 899
+ok 18 - explicit routine duration 899
+  ---
+  duration_ms: 0.434195
+  type: 'test'
+  ...
+# Subtest: explicit routine duration 900
+ok 19 - explicit routine duration 900
+  ---
+  duration_ms: 0.335877
+  type: 'test'
+  ...
+# Subtest: feed default is exactly 30 seconds
+ok 20 - feed default is exactly 30 seconds
+  ---
+  duration_ms: 0.452633
+  type: 'test'
+  ...
+# Subtest: feed and routine union retains independent deadlines
+ok 21 - feed and routine union retains independent deadlines
+  ---
+  duration_ms: 1.496897
+  type: 'test'
+  ...
+# Subtest: reverse arrival order gives same source union
+ok 22 - reverse arrival order gives same source union
+  ---
+  duration_ms: 2.114239
+  type: 'test'
+  ...
+# Subtest: revoking long source retains only short original deadline
+ok 23 - revoking long source retains only short original deadline
+  ---
+  duration_ms: 0.876783
+  type: 'test'
+  ...
+# Subtest: revoking short source does not remove long
+ok 24 - revoking short source does not remove long
+  ---
+  duration_ms: 0.481506
+  type: 'test'
+  ...
+# Subtest: many independent same-theme instances never sum durations
+ok 25 - many independent same-theme instances never sum durations
+  ---
+  duration_ms: 4.642402
+  type: 'test'
+  ...
+# Subtest: same event replay does not restart
+ok 26 - same event replay does not restart
+  ---
+  duration_ms: 0.357309
+  type: 'test'
+  ...
+# Subtest: different delivery id and receivedAt remain business duplicate
+ok 27 - different delivery id and receivedAt remain business duplicate
+  ---
+  duration_ms: 0.346363
+  type: 'test'
+  ...
+# Subtest: same revision conflicting payload rejected atomically
+ok 28 - same revision conflicting payload rejected atomically
+  ---
+  duration_ms: 1.18705
+  type: 'test'
+  ...
+# Subtest: older version cannot resurrect revoke
+ok 29 - older version cannot resurrect revoke
+  ---
+  duration_ms: 0.411781
+  type: 'test'
+  ...
+# Subtest: undo and recomplete same generation cannot renew
+ok 30 - undo and recomplete same generation cannot renew
+  ---
+  duration_ms: 0.658162
+  type: 'test'
+  ...
+# Subtest: reused raw occurrence with genuinely new generation gets independent source
+ok 31 - reused raw occurrence with genuinely new generation gets independent source
+  ---
+  duration_ms: 0.416408
+  type: 'test'
+  ...
+# Subtest: namespace separates same entity
+ok 32 - namespace separates same entity
+  ---
+  duration_ms: 0.389387
+  type: 'test'
+  ...
+# Subtest: source kind is part of identity
+ok 33 - source kind is part of identity
+  ---
+  duration_ms: 0.285761
+  type: 'test'
+  ...
+# Subtest: historical_backfill original never activates
+ok 34 - historical_backfill original never activates
+  ---
+  duration_ms: 0.273223
+  type: 'test'
+  ...
+# Subtest: history_edit original never activates
+ok 35 - history_edit original never activates
+  ---
+  duration_ms: 0.313012
+  type: 'test'
+  ...
+# Subtest: recovery_sync original never activates
+ok 36 - recovery_sync original never activates
+  ---
+  duration_ms: 0.233602
+  type: 'test'
+  ...
+# Subtest: first-seen correct is pinned ineligible
+ok 37 - first-seen correct is pinned ineligible
+  ---
+  duration_ms: 0.319613
+  type: 'test'
+  ...
+# Subtest: first-seen edit is pinned ineligible
+ok 38 - first-seen edit is pinned ineligible
+  ---
+  duration_ms: 0.244378
+  type: 'test'
+  ...
+# Subtest: late live delivery retains only original remaining interval
+ok 39 - late live delivery retains only original remaining interval
+  ---
+  duration_ms: 0.348005
+  type: 'test'
+  ...
+# Subtest: expired first arrival is recorded but cannot activate
+ok 40 - expired first arrival is recorded but cannot activate
+  ---
+  duration_ms: 0.280082
+  type: 'test'
+  ...
+# Subtest: note edit retains original deadline
+ok 41 - note edit retains original deadline
+  ---
+  duration_ms: 0.301816
+  type: 'test'
+  ...
+# Subtest: earlier correction shortens and later correction cannot extend
+ok 42 - earlier correction shortens and later correction cannot extend
+  ---
+  duration_ms: 0.546274
+  type: 'test'
+  ...
+# Subtest: out of order higher complete carries previous shorten watermark
+ok 43 - out of order higher complete carries previous shorten watermark
+  ---
+  duration_ms: 0.44393
+  type: 'test'
+  ...
+# Subtest: snapshot state in edit preserves revoked status even missing intermediate revoke
+ok 44 - snapshot state in edit preserves revoked status even missing intermediate revoke
+  ---
+  duration_ms: 0.606806
+  type: 'test'
+  ...
+# Subtest: unknown exact preset stays unsupported; names not fuzzy matched
+ok 45 - unknown exact preset stays unsupported; names not fuzzy matched
+  ---
+  duration_ms: 0.212411
+  type: 'test'
+  ...
+# Subtest: registry config is detached from caller mutations
+ok 46 - registry config is detached from caller mutations
+  ---
+  duration_ms: 0.255235
+  type: 'test'
+  ...
+# Subtest: capability approved=false blocks activation
+ok 47 - capability approved=false blocks activation
+  ---
+  duration_ms: 0.790643
+  type: 'test'
+  ...
+# Subtest: capability runtimeReady=false blocks activation
+ok 48 - capability runtimeReady=false blocks activation
+  ---
+  duration_ms: 0.216857
+  type: 'test'
+  ...
+# Subtest: unapproved mapping remains ineligible
+ok 49 - unapproved mapping remains ineligible
+  ---
+  duration_ms: 0.204048
+  type: 'test'
+  ...
+# Subtest: missing required capability blocks, no alternate theme
+ok 50 - missing required capability blocks, no alternate theme
+  ---
+  duration_ms: 0.250478
+  type: 'test'
+  ...
+# Subtest: fact eligibility never claims visual/selection/action ownership
+ok 51 - fact eligibility never claims visual/selection/action ownership
+  ---
+  duration_ms: 0.284209
+  type: 'test'
+  ...
+# Subtest: no hidden clock: long observation gap expires eligibility
+ok 52 - no hidden clock: long observation gap expires eligibility
+  ---
+  duration_ms: 0.241624
+  type: 'test'
+  ...
+# Subtest: clock rollback on mutation is atomic
+ok 53 - clock rollback on mutation is atomic
+  ---
+  duration_ms: 0.287894
+  type: 'test'
+  ...
+# Subtest: batch with valid event then invalid event rolls back all
+ok 54 - batch with valid event then invalid event rolls back all
+  ---
+  duration_ms: 0.417479
+  type: 'test'
+  ...
+# Subtest: batch conflict does not change records or clock
+ok 55 - batch conflict does not change records or clock
+  ---
+  duration_ms: 0.493505
+  type: 'test'
+  ...
+# Subtest: batch revoke and complete atomically ends revoked regardless input order
+ok 56 - batch revoke and complete atomically ends revoked regardless input order
+  ---
+  duration_ms: 0.525313
+  type: 'test'
+  ...
+# Subtest: capacity blocks new identity without evicting dedup records
+ok 57 - capacity blocks new identity without evicting dedup records
+  ---
+  duration_ms: 0.612453
+  type: 'test'
+  ...
+# Subtest: snapshot restoration preserves deadlines and duplicate outcomes
+ok 58 - snapshot restoration preserves deadlines and duplicate outcomes
+  ---
+  duration_ms: 1.026208
+  type: 'test'
+  ...
+# Subtest: restoring expired eligibility cannot give full TTL again
+ok 59 - restoring expired eligibility cannot give full TTL again
+  ---
+  duration_ms: 0.539734
+  type: 'test'
+  ...
+# Subtest: snapshot mutations cannot modify live ledger
+ok 60 - snapshot mutations cannot modify live ledger
+  ---
+  duration_ms: 0.242696
+  type: 'test'
+  ...
+# Subtest: project output mutations cannot modify ledger
+ok 61 - project output mutations cannot modify ledger
+  ---
+  duration_ms: 0.230788
+  type: 'test'
+  ...
+# Subtest: snapshot unknown fields and revision mismatch fail
+ok 62 - snapshot unknown fields and revision mismatch fail
+  ---
+  duration_ms: 0.644622
+  type: 'test'
+  ...
+# Subtest: snapshot duplicate records rejected
+ok 63 - snapshot duplicate records rejected
+  ---
+  duration_ms: 0.633275
+  type: 'test'
+  ...
+# Subtest: snapshot import clock rollback rejected
+ok 64 - snapshot import clock rollback rejected
+  ---
+  duration_ms: 0.326733
+  type: 'test'
+  ...
+# Subtest: strict event rejects unknown root field
+ok 65 - strict event rejects unknown root field
+  ---
+  duration_ms: 0.405491
+  type: 'test'
+  ...
+# Subtest: strict event rejects missing generation
+ok 66 - strict event rejects missing generation
+  ---
+  duration_ms: 0.335786
+  type: 'test'
+  ...
+# Subtest: strict event rejects empty generation
+ok 67 - strict event rejects empty generation
+  ---
+  duration_ms: 0.264829
+  type: 'test'
+  ...
+# Subtest: strict event rejects raw numeric generation
+ok 68 - strict event rejects raw numeric generation
+  ---
+  duration_ms: 0.326552
+  type: 'test'
+  ...
+# Subtest: strict event rejects optimistic result
+ok 69 - strict event rejects optimistic result
+  ---
+  duration_ms: 0.256577
+  type: 'test'
+  ...
+# Subtest: strict event rejects cancelled result
+ok 70 - strict event rejects cancelled result
+  ---
+  duration_ms: 0.241144
+  type: 'test'
+  ...
+# Subtest: strict event rejects replayed receipt
+ok 71 - strict event rejects replayed receipt
+  ---
+  duration_ms: 0.290648
+  type: 'test'
+  ...
+# Subtest: strict event rejects future occurrence
+ok 72 - strict event rejects future occurrence
+  ---
+  duration_ms: 0.249136
+  type: 'test'
+  ...
+# Subtest: strict event rejects future commit
+ok 73 - strict event rejects future commit
+  ---
+  duration_ms: 0.308105
+  type: 'test'
+  ...
+# Subtest: strict event rejects future receive
+ok 74 - strict event rejects future receive
+  ---
+  duration_ms: 0.256307
+  type: 'test'
+  ...
+# Subtest: strict event rejects missing time domain
+ok 75 - strict event rejects missing time domain
+  ---
+  duration_ms: 0.349577
+  type: 'test'
+  ...
+# Subtest: strict event rejects untrusted wall domain
+ok 76 - strict event rejects untrusted wall domain
+  ---
+  duration_ms: 0.243568
+  type: 'test'
+  ...
+# Subtest: strict event rejects unknown namespace
+ok 77 - strict event rejects unknown namespace
+  ---
+  duration_ms: 0.408887
+  type: 'test'
+  ...
+# Subtest: strict event rejects unknown kind
+ok 78 - strict event rejects unknown kind
+  ---
+  duration_ms: 0.37802
+  type: 'test'
+  ...
+# Subtest: strict event rejects unknown operation
+ok 79 - strict event rejects unknown operation
+  ---
+  duration_ms: 0.25234
+  type: 'test'
+  ...
+# Subtest: strict event rejects unknown origin
+ok 80 - strict event rejects unknown origin
+  ---
+  duration_ms: 0.310348
+  type: 'test'
+  ...
+# Subtest: strict event rejects unknown completion state
+ok 81 - strict event rejects unknown completion state
+  ---
+  duration_ms: 0.276287
+  type: 'test'
+  ...
+# Subtest: strict event rejects mismatched revoke
+ok 82 - strict event rejects mismatched revoke
+  ---
+  duration_ms: 0.283778
+  type: 'test'
+  ...
+# Subtest: strict event rejects unexpected revoke reason
+ok 83 - strict event rejects unexpected revoke reason
+  ---
+  duration_ms: 0.339121
+  type: 'test'
+  ...
+# Subtest: strict event rejects fractional revision
+ok 84 - strict event rejects fractional revision
+  ---
+  duration_ms: 0.280383
+  type: 'test'
+  ...
+# Subtest: strict event rejects unsafe revision
+ok 85 - strict event rejects unsafe revision
+  ---
+  duration_ms: 0.312712
+  type: 'test'
+  ...
+# Subtest: strict event rejects NaN time
+ok 86 - strict event rejects NaN time
+  ---
+  duration_ms: 0.33844
+  type: 'test'
+  ...
+# Subtest: strict event rejects infinity time
+ok 87 - strict event rejects infinity time
+  ---
+  duration_ms: 0.28502
+  type: 'test'
+  ...
+# Subtest: strict event rejects numeric string time
+ok 88 - strict event rejects numeric string time
+  ---
+  duration_ms: 0.383349
+  type: 'test'
+  ...
+# Subtest: strict event rejects extra original field
+ok 89 - strict event rejects extra original field
+  ---
+  duration_ms: 0.426273
+  type: 'test'
+  ...
+# Subtest: strict event rejects missing original mapping
+ok 90 - strict event rejects missing original mapping
+  ---
+  duration_ms: 0.268315
+  type: 'test'
+  ...
+# Subtest: strict event rejects future original
+ok 91 - strict event rejects future original
+  ---
+  duration_ms: 0.320253
+  type: 'test'
+  ...
+# Subtest: strict event rejects original commit exceeds commit
+ok 92 - strict event rejects original commit exceeds commit
+  ---
+  duration_ms: 0.253613
+  type: 'test'
+  ...
+# Subtest: strict event rejects deadline beyond original
+ok 93 - strict event rejects deadline beyond original
+  ---
+  duration_ms: 0.300994
+  type: 'test'
+  ...
+# Subtest: strict event rejects oversized id
+ok 94 - strict event rejects oversized id
+  ---
+  duration_ms: 0.251369
+  type: 'test'
+  ...
+# Subtest: strict event rejects undefined original
+ok 95 - strict event rejects undefined original
+  ---
+  duration_ms: 0.943834
+  type: 'test'
+  ...
+# Subtest: strict event rejects null original
+ok 96 - strict event rejects null original
+  ---
+  duration_ms: 0.263588
+  type: 'test'
+  ...
+# Subtest: strict event rejects Date original
+ok 97 - strict event rejects Date original
+  ---
+  duration_ms: 0.223977
+  type: 'test'
+  ...
+# Subtest: strict event rejects function value
+ok 98 - strict event rejects function value
+  ---
+  duration_ms: 0.194403
+  type: 'test'
+  ...
+# Subtest: strict event rejects symbol value
+ok 99 - strict event rejects symbol value
+  ---
+  duration_ms: 0.221674
+  type: 'test'
+  ...
+# Subtest: strict event rejects BigInt value
+ok 100 - strict event rejects BigInt value
+  ---
+  duration_ms: 0.271459
+  type: 'test'
+  ...
+# Subtest: strict event rejects hidden property
+ok 101 - strict event rejects hidden property
+  ---
+  duration_ms: 0.246562
+  type: 'test'
+  ...
+# Subtest: strict event rejects symbol key
+ok 102 - strict event rejects symbol key
+  ---
+  duration_ms: 0.211068
+  type: 'test'
+  ...
+# Subtest: strict event rejects custom prototype
+ok 103 - strict event rejects custom prototype
+  ---
+  duration_ms: 0.240683
+  type: 'test'
+  ...
+# Subtest: getter never executes
+ok 104 - getter never executes
+  ---
+  duration_ms: 0.247834
+  type: 'test'
+  ...
+# Subtest: proxy traps never execute
+ok 105 - proxy traps never execute
+  ---
+  duration_ms: 0.184338
+  type: 'test'
+  ...
+# Subtest: strict arrays reject extra keys, holes or hidden items
+ok 106 - strict arrays reject extra keys, holes or hidden items
+  ---
+  duration_ms: 0.216797
+  type: 'test'
+  ...
+# Subtest: strict arrays reject extra keys, holes or hidden items
+ok 107 - strict arrays reject extra keys, holes or hidden items
+  ---
+  duration_ms: 0.178169
+  type: 'test'
+  ...
+# Subtest: strict arrays reject extra keys, holes or hidden items
+ok 108 - strict arrays reject extra keys, holes or hidden items
+  ---
+  duration_ms: 0.254954
+  type: 'test'
+  ...
+# Subtest: invalid routine duration 0
+ok 109 - invalid routine duration 0
+  ---
+  duration_ms: 0.259732
+  type: 'test'
+  ...
+# Subtest: invalid routine duration 30
+ok 110 - invalid routine duration 30
+  ---
+  duration_ms: 0.164238
+  type: 'test'
+  ...
+# Subtest: invalid routine duration 599
+ok 111 - invalid routine duration 599
+  ---
+  duration_ms: 0.149936
+  type: 'test'
+  ...
+# Subtest: invalid routine duration 901
+ok 112 - invalid routine duration 901
+  ---
+  duration_ms: 0.180843
+  type: 'test'
+  ...
+# Subtest: invalid routine duration 600.1
+ok 113 - invalid routine duration 600.1
+  ---
+  duration_ms: 0.114913
+  type: 'test'
+  ...
+# Subtest: invalid routine duration 600
+ok 114 - invalid routine duration 600
+  ---
+  duration_ms: 0.137427
+  type: 'test'
+  ...
+# Subtest: invalid routine duration null
+ok 115 - invalid routine duration null
+  ---
+  duration_ms: 0.150957
+  type: 'test'
+  ...
+# Subtest: invalid feed duration 0
+ok 116 - invalid feed duration 0
+  ---
+  duration_ms: 0.290718
+  type: 'test'
+  ...
+# Subtest: invalid feed duration 29
+ok 117 - invalid feed duration 29
+  ---
+  duration_ms: 0.198249
+  type: 'test'
+  ...
+# Subtest: invalid feed duration 31
+ok 118 - invalid feed duration 31
+  ---
+  duration_ms: 0.129615
+  type: 'test'
+  ...
+# Subtest: invalid feed duration 600
+ok 119 - invalid feed duration 600
+  ---
+  duration_ms: 0.1325
+  type: 'test'
+  ...
+# Subtest: invalid configuration fails closed
+ok 120 - invalid configuration fails closed
+  ---
+  duration_ms: 0.190297
+  type: 'test'
+  ...
+# Subtest: invalid configuration fails closed
+ok 121 - invalid configuration fails closed
+  ---
+  duration_ms: 0.214864
+  type: 'test'
+  ...
+# Subtest: invalid configuration fails closed
+ok 122 - invalid configuration fails closed
+  ---
+  duration_ms: 0.149977
+  type: 'test'
+  ...
+# Subtest: invalid configuration fails closed
+ok 123 - invalid configuration fails closed
+  ---
+  duration_ms: 0.160041
+  type: 'test'
+  ...
+# Subtest: invalid configuration fails closed
+ok 124 - invalid configuration fails closed
+  ---
+  duration_ms: 0.156376
+  type: 'test'
+  ...
+# Subtest: invalid configuration fails closed
+ok 125 - invalid configuration fails closed
+  ---
+  duration_ms: 0.181303
+  type: 'test'
+  ...
+# Subtest: invalid configuration fails closed
+ok 126 - invalid configuration fails closed
+  ---
+  duration_ms: 0.168664
+  type: 'test'
+  ...
+# Subtest: invalid configuration fails closed
+ok 127 - invalid configuration fails closed
+  ---
+  duration_ms: 0.137918
+  type: 'test'
+  ...
+# Subtest: invalid configuration fails closed
+ok 128 - invalid configuration fails closed
+  ---
+  duration_ms: 0.147082
+  type: 'test'
+  ...
+# Subtest: invalid configuration fails closed
+ok 129 - invalid configuration fails closed
+  ---
+  duration_ms: 0.150677
+  type: 'test'
+  ...
+# Subtest: first-seen noncompletion explicitly requires reconciliation
+ok 130 - first-seen noncompletion explicitly requires reconciliation
+  ---
+  duration_ms: 0.343147
+  type: 'test'
+  ...
+# Subtest: authoritative original accepted ledger replacement resolves reconciliation without renewal
+ok 131 - authoritative original accepted ledger replacement resolves reconciliation without renewal
+  ---
+  duration_ms: 0.869691
+  type: 'test'
+  ...
+# Subtest: explicit JSON trace replays deadlines, undo, remaining recovery and horizon cleanup
+ok 132 - explicit JSON trace replays deadlines, undo, remaining recovery and horizon cleanup
+  ---
+  duration_ms: 4.230636
+  type: 'test'
+  ...
+# Subtest: routine H-1 retains, H cleans and old replay never allocates
+ok 133 - routine H-1 retains, H cleans and old replay never allocates
+  ---
+  duration_ms: 4.593408
+  type: 'test'
+  ...
+# Subtest: feed H-1 retains, H cleans and old replay never allocates
+ok 134 - feed H-1 retains, H cleans and old replay never allocates
+  ---
+  duration_ms: 0.781368
+  type: 'test'
+  ...
+# Subtest: shortened/revoked state retained through original hard horizon
+ok 135 - shortened/revoked state retained through original hard horizon
+  ---
+  duration_ms: 1.579072
+  type: 'test'
+  ...
+# Subtest: unknown mapping remains recorded through hard horizon then drops without replay activation
+ok 136 - unknown mapping remains recorded through hard horizon then drops without replay activation
+  ---
+  duration_ms: 1.569377
+  type: 'test'
+  ...
+# Subtest: many sequential windows do not accumulate expired history
+ok 137 - many sequential windows do not accumulate expired history
+  ---
+  duration_ms: 4.990137
+  type: 'test'
+  ...
+# Subtest: window capacity rejects atomically without evicting a revoked identity
+ok 138 - window capacity rejects atomically without evicting a revoked identity
+  ---
+  duration_ms: 3.430924
+  type: 'test'
+  ...
+# Subtest: invalid batch cannot partially cleanup expired records or advance clock
+ok 139 - invalid batch cannot partially cleanup expired records or advance clock
+  ---
+  duration_ms: 0.641257
+  type: 'test'
+  ...
+# Subtest: clock cannot return behind cleanup horizon
+ok 140 - clock cannot return behind cleanup horizon
+  ---
+  duration_ms: 0.436879
+  type: 'test'
+  ...
+# Subtest: 1000 over-horizon historical replays never consume window capacity
+ok 141 - 1000 over-horizon historical replays never consume window capacity
+  ---
+  duration_ms: 30.875829
+  type: 'test'
+  ...
+# Subtest: current raw occurrence can be reused with genuinely new generation after cleanup
+ok 142 - current raw occurrence can be reused with genuinely new generation after cleanup
+  ---
+  duration_ms: 0.586685
+  type: 'test'
+  ...
+# Subtest: restoring older complete snapshot requires independently current authority cursor
+ok 143 - restoring older complete snapshot requires independently current authority cursor
+  ---
+  duration_ms: 1.322565
+  type: 'test'
+  ...
+# Subtest: missing expected authority evidence and stale trusted time floor block recovery
+ok 144 - missing expected authority evidence and stale trusted time floor block recovery
+  ---
+  duration_ms: 0.679735
+  type: 'test'
+  ...
+# Subtest: recovery cleans old window rather than restoring expired identities
+ok 145 - recovery cleans old window rather than restoring expired identities
+  ---
+  duration_ms: 0.546645
+  type: 'test'
+  ...
+# Subtest: original occurredAt cannot change within window
+ok 146 - original occurredAt cannot change within window
+  ---
+  duration_ms: 0.421055
+  type: 'test'
+  ...
+# Subtest: original committedAt cannot change within window
+ok 147 - original committedAt cannot change within window
+  ---
+  duration_ms: 0.312952
+  type: 'test'
+  ...
+# Subtest: original origin cannot change within window
+ok 148 - original origin cannot change within window
+  ---
+  duration_ms: 0.413584
+  type: 'test'
+  ...
+# Subtest: original definitionId cannot change within window
+ok 149 - original definitionId cannot change within window
+  ---
+  duration_ms: 0.314144
+  type: 'test'
+  ...
+# Subtest: original mappingVersion cannot change within window
+ok 150 - original mappingVersion cannot change within window
+  ---
+  duration_ms: 0.317278
+  type: 'test'
+  ...
+1..150
+# tests 150
+# suites 0
+# pass 150
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2646.109949
