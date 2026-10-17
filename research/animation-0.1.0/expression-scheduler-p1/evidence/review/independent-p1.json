@@ -1,0 +1,47 @@
+{
+  "dependencyRoot": "runtime-facepath05/src",
+  "dependencies": {
+    "director.mjs": "8e2398af1a63017892ef85aef35afee350891f0e44043b917709a94ffa3fa4ec",
+    "face-timeline.mjs": "286ded8d6c6992cd0333e1985a0baee0e21dd951dcf3ab91b8bb790cd7641892",
+    "approved-full-face-source.mjs": "d7ad8d998bfd0c7845a6796b7f49df360a2b5c4888abe0d4f3573d29c27d0bc3"
+  },
+  "admittedFaceCount": 18,
+  "schedulerSha256": "8208537ace569c8227ca86dd0389d91ac150006b541347ebeccbf06a91ce07c8",
+  "bindingSha256": "819b3b2d9bb092b96f142e041260c3864c6934b0472b150b1e75ec3e5773c85a",
+  "passed": 8,
+  "total": 8,
+  "checks": [
+    {
+      "name": "weighted choice, independent random streams and fixed durations",
+      "pass": true
+    },
+    {
+      "name": "same seed replay and rejected/owned decision consume no random state",
+      "pass": true
+    },
+    {
+      "name": "zero weights and recent semantic aliases sleep; cooldown provides exact wake",
+      "pass": true
+    },
+    {
+      "name": "seed and weight input boundaries are strict",
+      "pass": true
+    },
+    {
+      "name": "real same-time owner wins with zero RNG, then autonomous recovery actually arrives",
+      "pass": true
+    },
+    {
+      "name": "old same-label release cannot cancel newer lifetime",
+      "pass": true
+    },
+    {
+      "name": "actual arrival controls sampled hold and actual exit controls gap; frame and budget replay agree",
+      "pass": true
+    },
+    {
+      "name": "empty eligibility produces true static sleep and no random consumption",
+      "pass": true
+    }
+  ]
+}

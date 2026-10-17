@@ -1,0 +1,28 @@
+
+> bubu-expression-scheduler-p1@0.1.0-p1 test
+> node --test test/*.test.mjs
+
+✔ strict admission rejects missing, unknown, getters without executing (2.38694ms)
+✔ rejected decision consumes no random or history; fixed duration consumes no stream (1.588937ms)
+✔ same seed independent streams and selectionWeight separate from amount (1.706224ms)
+✔ empty/zero/source filtered sleeps and aliases cannot bypass recent face (0.339943ms)
+✔ cooldown exact boundary and owned/disabled do not draw (0.354224ms)
+✔ real P0 actualArrival hold and true Basis gap, deterministic 30/60/120 Hz and large jumps (16.095845ms)
+✔ same timestamp interaction preempts autonomous decision without RNG consumption (0.633055ms)
+✔ no candidates sleeps without animation (0.446153ms)
+✔ pause invalidates active autonomous intention, resume uses current context (0.724583ms)
+✔ real release resumes autonomous with a request actually accepted by P0 (0.959538ms)
+✔ old release cannot cancel newer interaction reusing labels (0.779756ms)
+✔ scheduler acceptance is nonreentrant and exceptions do not commit RNG (0.613956ms)
+✔ diagnostic state cannot mutate repeat history (0.346392ms)
+✔ input facts do not shorten sampled gap; full hold survives large jump (0.657001ms)
+✔ binding rejects sparse/accessor event arrays before invoking them (0.266201ms)
+✔ non-enumerable config fields reject explicitly rather than disappearing during copy (0.287674ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 115.385231
