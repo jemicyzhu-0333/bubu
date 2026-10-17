@@ -1,0 +1,14 @@
+✔ hidden restores contact and no resurrected drag; dispose closes (767.506191ms)
+✔ same-time move/release sealed once; late input rejected atomically (666.426574ms)
+✔ pre-grab elevated floor captured and foreign hit rejected (777.822602ms)
+✔ same-time release suspend resume does not reseal frozen logical timestamp (715.00579ms)
+✔ falling regrab preserves original ground and settles at newest horizontal release (971.411866ms)
+✔ forged, nonfinite and mismatched hit reject before queue or pose mutation (525.718302ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4583.573424

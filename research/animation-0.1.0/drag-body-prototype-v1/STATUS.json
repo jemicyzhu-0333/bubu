@@ -1,0 +1,41 @@
+{
+  "status": "functional prototype checkpoint; art readability not accepted",
+  "verification": {
+    "newTests": {
+      "passed": 20,
+      "total": 20
+    },
+    "unchangedFaceRuntimeRegression": {
+      "passed": 289,
+      "total": 289
+    },
+    "weightedP1Regression": {
+      "passed": 26,
+      "total": 26
+    },
+    "independentDragBoundaryReview": {
+      "passed": 6,
+      "total": 6
+    },
+    "isolatedOverlayRestoreTargeted": {
+      "passed": 4,
+      "total": 4
+    }
+  },
+  "sourceSessionSHA256": "f9399a7df0190bf4dee715e31835243d022f57bc55249c4f26b6062a715d6185",
+  "privatePreview": {
+    "frames": 151,
+    "fps": 30,
+    "durationSeconds": 5.033333,
+    "width": 384,
+    "height": 384,
+    "excludedFromGit": true
+  },
+  "limits": [
+    "CPU deformation and offline render only",
+    "No WebGL GPU browser pointer latency or OS verification",
+    "No artistic approval; limb-local centroid excursion only about 2px at current fixed scale",
+    "No production policy default change",
+    "No original approved GLB or face-only profile overwrite"
+  ]
+}

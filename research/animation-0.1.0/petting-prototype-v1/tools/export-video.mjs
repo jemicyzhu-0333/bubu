@@ -1,0 +1,11 @@
+import {writeFile,mkdir} from 'node:fs/promises';
+import {createPettingHost} from '../src/petting-host.mjs';
+import {exportSceneFrame} from '../../drag-body-prototype-v1/src/export-scene-frame.mjs';
+const root=new URL('../preview/video/',import.meta.url);await mkdir(root,{recursive:true});const h=await createPettingHost(),fps=24,manifest=[],frames=[];let anchor=null,next=0,chunk=0,segment='';
+const events=[{time:.2,type:'down',x:0,rayX:0},{time:4,type:'move',x:2,rayX:-.4},{time:7,type:'move',x:4,rayX:.4},{time:21.680068733077498,type:'up'}];
+async function save(){if(!frames.length)return;const name=`chunk-${String(chunk++).padStart(3,'0')}.json`;await writeFile(new URL(name,root),JSON.stringify({sourceGLB:new URL('../../drag-body-prototype-v1/vendor/runtime-facepath05/fixtures/face-full18/asset.glb',import.meta.url).pathname,frames}));manifest.push({name,segment,frames:frames.map(({meshes,...f})=>f)});frames.length=0;}
+try{for(let f=0;f<=24.5*fps;f++){
+ const time=f/fps;while(next<events.length&&events[next].time<=time){const e=events[next++];if(e.type==='up'){h.input({type:'up',time:e.time,pointerId:1});anchor=null;}else {const hit=h.body.hitRay(e.rayX,1.45);if(!hit)throw Error('Actual contact hit absent');anchor=h.body.surfaceAnchor(hit);h.inputHit({type:e.type,time:e.time,pointerId:1,screenX:e.x,screenY:0},hit);}}
+ const s=h.tick(time);if(time>8&&time<16)continue;const desired=time<=8?'entry-contact-0-8':'response-release-16-24.5';if(segment&&segment!==desired)await save();segment=desired;
+ const frame={...exportSceneFrame(h.body.root,{time,label:s.state.phase}),contact:anchor?h.body.surfacePoint(anchor).toArray():null,face:s.face.path,amount:s.face.amount,phase:s.state.phase,minimumFootY:s.body.minimumFootY};if(frames.length)for(const m of frame.meshes){delete m.indices;delete m.colors;delete m.faceWeights;}frames.push(frame);if(frames.length===24)await save();
+}await save();await writeFile(new URL('manifest.json',root),JSON.stringify({fps,speed:1,scope:'Two real-time excerpts; original timeline gap 8–16 seconds is omitted, not accelerated; actual surface-hit input and actual Three.js geometry',chunks:manifest},null,2));console.log('chunks',manifest.length);}finally{h.dispose();}

@@ -1,0 +1,34 @@
+✔ async admission freezes policy and facts without a writer (1.618171ms)
+✔ retire starts new clock at Basis, preserves RNG/history and requires fresh facts (5.028696ms)
+✔ retire rebases active and existing cooldown deadlines, no RNG reset (0.542158ms)
+✔ retire drops queued real interaction but preserves admitted host lifetime watermark (1.005807ms)
+✔ hasInteraction includes explicit facts even without queued requests (1.341283ms)
+✔ observer sees committed state; throw is isolated and remains disabled across retire (0.915672ms)
+✔ observer reentry is rejected without harming the accepted choice (0.432263ms)
+✔ native async observer rejected safely without unhandled rejection (5.5022ms)
+✔ dispose is idempotent and blocks all subsequent use (1.082603ms)
+✔ huge sparse arrays reject before index enumeration; non-enumerable indices reject (0.86863ms)
+✔ strict admission rejects missing, unknown, getters without executing (2.127229ms)
+✔ rejected decision consumes no random or history; fixed duration consumes no stream (1.191998ms)
+✔ same seed independent streams and selectionWeight separate from amount (0.849982ms)
+✔ empty/zero/source filtered sleeps and aliases cannot bypass recent face (0.937113ms)
+✔ cooldown exact boundary and owned/disabled do not draw (0.368656ms)
+✔ real P0 actualArrival hold and true Basis gap, deterministic 30/60/120 Hz and large jumps (9.648294ms)
+✔ same timestamp interaction preempts autonomous decision without RNG consumption (0.605063ms)
+✔ no candidates sleeps without animation (0.375506ms)
+✔ pause invalidates active autonomous intention, resume uses current context (0.915031ms)
+✔ real release resumes autonomous with a request actually accepted by P0 (0.599214ms)
+✔ old release cannot cancel newer interaction reusing labels (0.593335ms)
+✔ scheduler acceptance is nonreentrant and exceptions do not commit RNG (0.487886ms)
+✔ diagnostic state cannot mutate repeat history (0.216787ms)
+✔ input facts do not shorten sampled gap; full hold survives large jump (0.685514ms)
+✔ binding rejects sparse/accessor event arrays before invoking them (0.333273ms)
+✔ non-enumerable config fields reject explicitly rather than disappearing during copy (0.207944ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 112.895149

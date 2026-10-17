@@ -1,0 +1,12 @@
+✔ wrapper transforms preserve model source and finite floor (679.318447ms)
+✔ same-time move/release sealed once; late input rejected atomically (1169.365919ms)
+✔ same-time release suspend resume does not reseal frozen logical timestamp (832.4364ms)
+✔ forged, nonfinite and mismatched hit reject before queue or pose mutation (595.13768ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2759.55105

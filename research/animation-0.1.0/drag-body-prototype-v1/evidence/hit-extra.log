@@ -1,0 +1,12 @@
+✔ same-time move/release sealed once; late input rejected atomically (697.123861ms)
+✔ same-time release suspend resume does not reseal frozen logical timestamp (827.492254ms)
+✔ falling regrab preserves original ground and settles at newest horizontal release (1023.787599ms)
+✔ forged, nonfinite and mismatched hit reject before queue or pose mutation (559.481865ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3244.072904

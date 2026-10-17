@@ -1,0 +1,28 @@
+✔ body-enabled exact channels, caps and immutable rest (605.597364ms)
+✔ face-only does not gain body capability (474.573895ms)
+✔ unsupported profile rejects before loading (0.366133ms)
+✔ out of cap and non-unit bone fail closed (1252.399189ms)
+✔ wrapper transforms preserve model source and finite floor (540.773567ms)
+✔ actual full18 slow stable ground and horizontal release (8129.359651ms)
+✔ actual full18 fast stable ground and horizontal release (8259.363173ms)
+✔ actual full18 reverse stable ground and horizontal release (8070.372145ms)
+✔ actual full18 stop stable ground and horizontal release (7637.548409ms)
+✔ actual full18 early stable ground and horizontal release (3479.619607ms)
+✔ actual full18 low stable ground and horizontal release (5417.601739ms)
+✔ actual full18 high stable ground and horizontal release (7396.870429ms)
+✔ actual full18 cancel stable ground and horizontal release (4838.776838ms)
+✔ hidden restores contact and no resurrected drag; dispose closes (665.753599ms)
+✔ controller input validation and bounded long time (0.562148ms)
+✔ same-time move/release sealed once; late input rejected atomically (641.989453ms)
+✔ pre-grab elevated floor captured and foreign hit rejected (737.631217ms)
+✔ same-time release suspend resume does not reseal frozen logical timestamp (690.946032ms)
+✔ falling regrab preserves original ground and settles at newest horizontal release (958.646771ms)
+✔ forged, nonfinite and mismatched hit reject before queue or pose mutation (519.598588ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 57594.443935

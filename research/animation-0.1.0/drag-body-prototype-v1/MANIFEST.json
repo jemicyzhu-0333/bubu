@@ -1,0 +1,229 @@
+{
+  "format": "bubu-functional-prototype-source-closure",
+  "version": "0.1.0-drag-body-v1",
+  "gitDestination": "research/animation-0.1.0/drag-body-prototype-v1",
+  "baselineCommit": "9d987939db2d0b2d20264803ab26b8c39aa8c251",
+  "baselineDirectories": [
+    "../runtime-facepath05",
+    "../expression-scheduler-p1"
+  ],
+  "restore": "python3 tools/hydrate_runtime.py /absolute/path/to/research/animation-0.1.0",
+  "status": "functional checkpoint; visual acting amplitude remains unapproved",
+  "scope": "body quaternion opt-in, pointer replay and existing sole weighted full18 face owner",
+  "publicationExclusions": [
+    "videos",
+    "raw frame geometry",
+    "render sequences",
+    "approved GLB copies",
+    "node_modules/cache"
+  ],
+  "tests": {
+    "new": 20,
+    "runtime": 289,
+    "p1": 26,
+    "independentBoundary": 6,
+    "isolatedHydrateTargeted": 4
+  },
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 120,
+      "sha256": "f9cbde56188c5318d1b9c051fb7db06987aed2270a5a2770dcfe3b79ec217d67"
+    },
+    {
+      "path": "NEXT-ACTING.md",
+      "bytes": 2039,
+      "sha256": "07fc884b4b2992f1ae9b1841427a858069dfa74c5812aeb3b58064c59d8241b9"
+    },
+    {
+      "path": "PROVENANCE.json",
+      "bytes": 1801,
+      "sha256": "a6a3b60cbded7cb4bd78045070e6eea50f5abc7c00a514d4a67d085c5c68ba59"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4051,
+      "sha256": "3412fb0418ec4638b0e6ce7b8b92de8faea90ef6415fe1aefb076ecbc910eb44"
+    },
+    {
+      "path": "RESTORE.md",
+      "bytes": 1565,
+      "sha256": "2a294c2d28018f89a725c6a0e145b8b3448b9710604ae338ba883a51e7a84f63"
+    },
+    {
+      "path": "STATUS.json",
+      "bytes": 1076,
+      "sha256": "6c23d85e5131896eaac602082b7444e4e699c728b62b219f31c96b1fc55796cb"
+    },
+    {
+      "path": "evidence/drag-keyframes.png",
+      "bytes": 210503,
+      "sha256": "d3cc8214c5d40dc8cb5fc13dc042289a215216fbd704f8b459307287920908fd"
+    },
+    {
+      "path": "evidence/drag-targeted-6.log",
+      "bytes": 648,
+      "sha256": "0fe0c6a46b660852175740648c9e8d005940d4c0145da69286555898b93d7c29"
+    },
+    {
+      "path": "evidence/hit-extra.log",
+      "bytes": 490,
+      "sha256": "b0a5224ceeb22c64158a5501dc3bfe91a470bbbb82b5c1a53d63c7d87e03cc37"
+    },
+    {
+      "path": "evidence/hover-stop-centered-diagnostic.png",
+      "bytes": 433369,
+      "sha256": "e6e4c4cdf3e088cbcb3d28c7cb96938435b3d13260af8e0ed56115547b6e8eb9"
+    },
+    {
+      "path": "evidence/lifecycle-extra.log",
+      "bytes": 480,
+      "sha256": "acbe33ddc075ae54fc5c63a7e7575d88f95233b4d2344607b4c5fa08fb5bf0ac"
+    },
+    {
+      "path": "evidence/limb-relative-motion.json",
+      "bytes": 69186,
+      "sha256": "db9d2812d5aa2573be083b8be4dcd02a356f448152d6bb5741c8831c664431cd"
+    },
+    {
+      "path": "evidence/p1-regression.log",
+      "bytes": 2364,
+      "sha256": "582886e7f1c46a50f083c93b719153759ce2eebeb29bbd79eb1aca455750abb0"
+    },
+    {
+      "path": "evidence/render-equivalence.json",
+      "bytes": 952,
+      "sha256": "b52e7726c273958378d5855452921519be5803ba56d2840834d287bd714ecdd8"
+    },
+    {
+      "path": "evidence/restore-test.log",
+      "bytes": 462,
+      "sha256": "873291a752d4c35cf8dd6468b60db3e49773b6f101e913ff6dbcba7c82be29d2"
+    },
+    {
+      "path": "evidence/review.md",
+      "bytes": 2193,
+      "sha256": "496d9098f61ba849d8e33e93afed0f31a960736ce4063480ac3214be4512397e"
+    },
+    {
+      "path": "evidence/runtime-regression.log",
+      "bytes": 26830,
+      "sha256": "c5ac60a13d5e39f51ad48b70b223014fd1cd9bf88f10f335c6c3f5907219e0e4"
+    },
+    {
+      "path": "evidence/source-sha256.txt",
+      "bytes": 625,
+      "sha256": "01781b584abc316c199075ea9d249921c5ec4d870f7df535e9001ab7a0fa922b"
+    },
+    {
+      "path": "evidence/tests.log",
+      "bytes": 1661,
+      "sha256": "201591d2b0f2065394268fcfaa5532e421271ece009eb6566d6c2f2ee74a58ef"
+    },
+    {
+      "path": "evidence/trajectory.json",
+      "bytes": 423976,
+      "sha256": "5484dc4f39344a4b2b159d071319dda6fb0b6a848738e5b4863fc1ab7fa21ae6"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 547,
+      "sha256": "4e595197a4974c331af7663a15cbf63318c9edde6674c91af0a6b6097bdd403c"
+    },
+    {
+      "path": "package.json",
+      "bytes": 253,
+      "sha256": "9b35d7f98c53cf9e49a0fa4558acd56751db4b4a20810b33bff98e9c16fe7f6f"
+    },
+    {
+      "path": "render/compose_preview.py",
+      "bytes": 3619,
+      "sha256": "9da862ae8248d1be884e89dfe2f9619c84bdd553bead9992974d68cb2b184b42"
+    },
+    {
+      "path": "render/render_actual.py",
+      "bytes": 3689,
+      "sha256": "51c8dc846bfa86d724d0931f71c64050ad0ee09c15066e31d9c3a0a193fcd902"
+    },
+    {
+      "path": "replay/body-poses.json",
+      "bytes": 10031,
+      "sha256": "d26d457eff2145eaf2bb80d27fa9910b738c4e2b2154ec608b1339049f897d1c"
+    },
+    {
+      "path": "replay/generate.mjs",
+      "bytes": 1963,
+      "sha256": "d24d250b2b638ec49176c54aa20dede6b50647fd6c523444522ec25bf0cf8708"
+    },
+    {
+      "path": "replay/scenarios.mjs",
+      "bytes": 640,
+      "sha256": "b20f82b7a9898b9c23ee4d2fffdc3dc32817c99cbbe449691da67f3c883b67f7"
+    },
+    {
+      "path": "src/body-adapter.mjs",
+      "bytes": 4386,
+      "sha256": "14b86c4e79d8eebf4ec81e005dbd9a423fd00cd0bf1471e7a20a317048731a65"
+    },
+    {
+      "path": "src/drag-controller.mjs",
+      "bytes": 5124,
+      "sha256": "c1d5834ca4ba582ca277cbe756cecd19daccf24a84aeb1432cc13d2385492f23"
+    },
+    {
+      "path": "src/drag-session.mjs",
+      "bytes": 6096,
+      "sha256": "f9399a7df0190bf4dee715e31835243d022f57bc55249c4f26b6062a715d6185"
+    },
+    {
+      "path": "src/export-scene-frame.mjs",
+      "bytes": 893,
+      "sha256": "02f574dc586c0697787462568049dadc5ebd425a132b7e268faae11a249c197a"
+    },
+    {
+      "path": "src/fixture-host.mjs",
+      "bytes": 1674,
+      "sha256": "30e7c38bf7e7b8373567bb9d2f9b1c49d2d9362d187ccdf68a0006212e7261ea"
+    },
+    {
+      "path": "src/input-intent.mjs",
+      "bytes": 2928,
+      "sha256": "3edbd987838c5af6fb00cb6c62b3103c05a8d03b839d4ecdbb3a603051344f51"
+    },
+    {
+      "path": "tests/body.test.mjs",
+      "bytes": 2185,
+      "sha256": "4d01ffb9f6525389bfc3cbd265940444a19609c473b8b9ad6ad660abe5f62307"
+    },
+    {
+      "path": "tests/drag.test.mjs",
+      "bytes": 5488,
+      "sha256": "cd096fe2fc4687450135bd1d23ef9c12beed74b6c11eacee431105b6c7b9df2e"
+    },
+    {
+      "path": "tools/baseline-hashes.json",
+      "bytes": 580,
+      "sha256": "80cbd7da2ed905028991393f4af80c04da9b4c236f8701afbb2699ab3c9ae9ac"
+    },
+    {
+      "path": "tools/hydrate_runtime.py",
+      "bytes": 1059,
+      "sha256": "3c11b0ac90e5e22a15bc78fee30da82439cbbc5200e66dcd7b7ae2a0638fb3fc"
+    },
+    {
+      "path": "vendor/runtime-facepath05/src/actor-pool.mjs",
+      "bytes": 7034,
+      "sha256": "6f0155153adfd939a646cafc44d69cde66ac9ef3acbaf444a5c65ca1b9055e86"
+    },
+    {
+      "path": "vendor/runtime-facepath05/src/body-profile.mjs",
+      "bytes": 983,
+      "sha256": "ae5d88c45590d9a8eae02654d075aee2ae56cc96d23b7b83d19ef4d4850063c0"
+    },
+    {
+      "path": "vendor/runtime-facepath05/src/face-suite.mjs",
+      "bytes": 5332,
+      "sha256": "094f27639139fb9620764d6797ca86cbc0779d6b126c97ccbf237c5e01faedf9"
+    }
+  ]
+}

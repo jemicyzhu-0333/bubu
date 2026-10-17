@@ -1,0 +1,25 @@
+✔ actual full18 actor, one face owner and true body rig share logical time; cleanup (5942.41882ms)
+✔ actual visibility suspension freezes shared logical time and clears capture (520.778005ms)
+✔ missed foreground frames catch up a two-hour hold with bounded output and no idle draws (508.467306ms)
+✔ hidden at last rendered timestamp is atomic; late same-time ordinary input is rejected before mutation (469.204926ms)
+✔ surface input raycasts real body, upper region only, and misses cannot qualify (691.800113ms)
+✔ foreign actor and fabricated out-of-triangle hits cannot acquire petting (1049.814485ms)
+✔ losing real surface during qualification cancels pending hold without a comfort face (482.998754ms)
+✔ qualification and early release do not trigger a comfort face (1.22601ms)
+✔ entry, stable sustain, sparse deterministic response and exact release (0.880418ms)
+✔ drag in pending or entering hands off once and cannot requalify (0.243007ms)
+✔ lost capture hidden and new-event interruptions release current pose continuously (0.674918ms)
+✔ stale pointer and secondary down cannot steal the session (0.19845ms)
+✔ same authored events produce equal full body across 30/60/120 Hz (3.864569ms)
+✔ long hold is bounded, calm and never turns into an autonomous face lottery (12.644514ms)
+✔ contact change is position and velocity continuous; no static geometry channels (0.199642ms)
+✔ repeated holds, invalid event rejection, disposal (0.704473ms)
+✔ quick regrab and early release during recovery still converge to exact rest (0.305931ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9823.577853
