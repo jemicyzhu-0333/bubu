@@ -1,0 +1,210 @@
+{
+  "documentKind": "human_review_scene_policy_plan",
+  "revision": "r2",
+  "status": "planned_non_executable",
+  "runtimeSchema": null,
+  "userDecisionSource": "Sentinel_fe4149c556f08191af2218bda54542aa",
+  "supersedesPlanningOnly": "bubu-v2-scene-capability-map-20261017/SCENE-DRAFT.json background and coffee design; previous history preserved",
+  "notImplementationScope": "129 inventory entries are coverage only",
+  "unresolved": [
+    "coffee fact source",
+    "coffee overlay/action linkage",
+    "art assets and timings",
+    "channel-specific priority and interruption policy",
+    "focus pause/resume identity",
+    "explicit mid-session background override",
+    "cross-restart restoration"
+  ],
+  "factEnvelopeDraft": {
+    "key": [
+      "source",
+      "sourceInstance",
+      "category"
+    ],
+    "generation": "source enablement epoch; rejects old callbacks",
+    "version": "strict ordering contract TBD per source",
+    "observedAt": "when source observed fact; time-domain contract required",
+    "receivedAt": "ingestion diagnostic time, not automatically event order",
+    "validUntil": "source-specific validity deadline, independent of animation freeze",
+    "clearedBy": "matching source event or authorized validity/enablement manager; record reason; never unrelated source clear-all"
+  },
+  "focusBackgroundDraft": {
+    "selection": "once per session; capture local date/timezone/period/candidate-policy version",
+    "lock": "sessionId + immutable backgroundSelectionSnapshot",
+    "invalidators": [
+      "focus session end"
+    ],
+    "notInvalidators": [
+      "new activity",
+      "detection off/on",
+      "midnight",
+      "period transition",
+      "skin change",
+      "coffee overlay add/remove"
+    ],
+    "loadFailure": "blocked; no silent reselection or unapproved fallback",
+    "pauseAndRestart": "product decision pending"
+  },
+  "coffeeConceptDraft": {
+    "theme": "coffee",
+    "variants": [
+      "coffee_overlay",
+      "coffee_drink"
+    ],
+    "factTrigger": null,
+    "autoLinkVariants": null,
+    "objectIdentityTransfer": "required if same visible cup moves environment->hand->environment"
+  },
+  "scenarios": [
+    {
+      "id": "focus_base",
+      "label": "专注基础背景",
+      "status": "planned",
+      "runtimeReady": false,
+      "triggerDraft": "focus session start",
+      "endDraft": "focus session end",
+      "resourceClaimsDraft": [
+        "environment.base"
+      ],
+      "arbitrationDraft": "session_locked",
+      "faceId": null,
+      "timing": null,
+      "assetIds": null,
+      "priorityRule": null,
+      "note": "日期/时段选择一次；不跟活动、coffee、跨日或skin更新重选"
+    },
+    {
+      "id": "coffee_overlay",
+      "label": "coffee环境叠加",
+      "status": "planned",
+      "runtimeReady": false,
+      "triggerDraft": "UNDECIDED coffee fact/source",
+      "endDraft": "own fact revoked or own overlay explicit end",
+      "resourceClaimsDraft": [
+        "environment.overlay.coffee"
+      ],
+      "arbitrationDraft": "independent_overlay",
+      "faceId": null,
+      "timing": null,
+      "assetIds": null,
+      "priorityRule": null,
+      "note": "不替换基础背景，不占body/face/hand；遮挡兼容仍需验证"
+    },
+    {
+      "id": "coffee_drink",
+      "label": "coffee饮用短动作",
+      "status": "planned",
+      "runtimeReady": false,
+      "triggerDraft": "UNDECIDED explicit action trigger",
+      "endDraft": "action completes or approved interruption",
+      "resourceClaimsDraft": [
+        "body.approved_mask_TBD",
+        "hand.socket_TBD",
+        "prop.cup",
+        "contact.cup_hand"
+      ],
+      "arbitrationDraft": "exclusive_where_conflicting",
+      "faceId": null,
+      "timing": null,
+      "assetIds": null,
+      "priorityRule": null,
+      "note": "脸通道是否占用待批准；与overlay是否联动未定，不自动重喝"
+    },
+    {
+      "id": "ai_activity",
+      "label": "AI协作表现",
+      "status": "planned",
+      "runtimeReady": false,
+      "triggerDraft": "enabled fresh AI prompt source",
+      "endDraft": "all relevant sources stop/expire/idle/disconnect policy",
+      "resourceClaimsDraft": [
+        "body.plan_TBD",
+        "prop.plan_TBD",
+        "face.optional_mapping_TBD"
+      ],
+      "arbitrationDraft": "conflict_policy_TBD",
+      "faceId": null,
+      "timing": null,
+      "assetIds": null,
+      "priorityRule": null,
+      "note": "多source事实并存；仅AI前台窗口不能生成AI active"
+    },
+    {
+      "id": "coding_activity",
+      "label": "编码活动表现",
+      "status": "planned",
+      "runtimeReady": false,
+      "triggerDraft": "enabled qualified foreground coding sample",
+      "endDraft": "source release/stale/idle/disabled",
+      "resourceClaimsDraft": [
+        "body.plan_TBD",
+        "hand.plan_TBD",
+        "face.optional_mapping_TBD"
+      ],
+      "arbitrationDraft": "conflict_policy_TBD",
+      "faceId": null,
+      "timing": null,
+      "assetIds": null,
+      "priorityRule": null,
+      "note": "继承粗类别信号意图，不读取代码；具体身体/手占用由资产决定"
+    },
+    {
+      "id": "music_activity",
+      "label": "音乐活动表现",
+      "status": "planned",
+      "runtimeReady": false,
+      "triggerDraft": "enabled qualified dedicated-player audio sample",
+      "endDraft": "source release/stale/disabled",
+      "resourceClaimsDraft": [
+        "visual.feedback_or_wearable_TBD",
+        "body.optional_plan_TBD"
+      ],
+      "arbitrationDraft": "conflict_policy_TBD",
+      "faceId": null,
+      "timing": null,
+      "assetIds": null,
+      "priorityRule": null,
+      "note": "可作为安静额外表现的方案待艺术批准；耳机不能默认与帽子兼容"
+    },
+    {
+      "id": "browse_future",
+      "label": "未来真实浏览活动",
+      "status": "planned",
+      "runtimeReady": false,
+      "triggerDraft": "UNAVAILABLE new authorized source required",
+      "endDraft": "source revoke/stale/disabled when implemented",
+      "resourceClaimsDraft": [
+        "body.plan_TBD",
+        "hand.plan_TBD",
+        "face.optional_mapping_TBD"
+      ],
+      "arbitrationDraft": "disabled_until_source_exists",
+      "faceId": null,
+      "timing": null,
+      "assetIds": null,
+      "priorityRule": null,
+      "note": "V1 focus-browse是会话轮播，禁止拿来伪造真实浏览检测"
+    },
+    {
+      "id": "needs_recovery",
+      "label": "需要状态稳定恢复",
+      "status": "planned",
+      "runtimeReady": false,
+      "triggerDraft": "hunger/deepNightIdle facts valid",
+      "endDraft": "each fact own clear condition",
+      "resourceClaimsDraft": [
+        "face.mapping_TBD",
+        "body.optional_plan_TBD"
+      ],
+      "arbitrationDraft": "needs_priority_TBD",
+      "faceId": null,
+      "timing": null,
+      "assetIds": null,
+      "priorityRule": null,
+      "note": "同事实幂等；两事实可并存不互清，交互后重求当前展示"
+    }
+  ],
+  "arbitrationValidationDraft": "reject undefined conflicts, cyclic preference or any policy that cannot produce a stable compatible plan; approved stable tie rule required; never channel iteration order",
+  "asyncCompletionDraft": "load result carries sessionId/source epoch/plan generation; stale result cannot attach and must release its acquired leases",
+  "scopeClarification": "These eight policy recipes are not a replacement first-batch total inventory. Original drag/pet scenarios remain in first-batch scope; referenced here for preemption regression, not downgraded or cancelled."
+}

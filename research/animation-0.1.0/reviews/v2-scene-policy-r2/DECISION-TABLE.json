@@ -1,0 +1,176 @@
+{
+  "documentKind": "planned_acceptance_truth_table",
+  "revision": "r2",
+  "status": "design_not_executed_tests",
+  "testResults": null,
+  "cases": [
+    {
+      "id": "focus_start",
+      "given": "new focus session; approved background selection inputs",
+      "requiredResult": "select once, lock snapshot",
+      "approvalOrBoundary": "art candidate set and selection policy required",
+      "status": "planned"
+    },
+    {
+      "id": "focus_date_rollover",
+      "given": "locked focus; date/period/skin changes",
+      "requiredResult": "base ID and selection token unchanged",
+      "approvalOrBoundary": "reselect next session only",
+      "status": "planned"
+    },
+    {
+      "id": "focus_activity_switch",
+      "given": "locked focus; valid activity changes coding -> AI",
+      "requiredResult": "re-evaluate presentation channels; base unchanged",
+      "approvalOrBoundary": "action priority only if conflicting owners overlap",
+      "status": "planned"
+    },
+    {
+      "id": "coffee_overlay_plus_activity",
+      "given": "coffee overlay active; coding or AI active; compatible overlay layout",
+      "requiredResult": "overlay and selected activity coexist; base unchanged",
+      "approvalOrBoundary": "overlay must claim no hand/body/face and pass visual constraints",
+      "status": "planned"
+    },
+    {
+      "id": "coffee_drink_vs_typing",
+      "given": "coffee drink and coding both claim same hand/body",
+      "requiredResult": "requires approved conflict policy; never concurrent conflicting ownership",
+      "approvalOrBoundary": "winner / wait / discard / safe interruption undecided",
+      "status": "planned"
+    },
+    {
+      "id": "coffee_drink_independent_overlay",
+      "given": "coffee overlay visible; approved drink admitted",
+      "requiredResult": "may coexist only if scene assets and cup identity protocol compatible",
+      "approvalOrBoundary": "not automatic linkage; never duplicate same logical cup",
+      "status": "planned"
+    },
+    {
+      "id": "ai_music_no_resource_conflict",
+      "given": "AI and music facts active; approved recipes have disjoint claims",
+      "requiredResult": "both facts retained and both presentations allowed",
+      "approvalOrBoundary": "needs approved assets; do not assume headphones compatible",
+      "status": "planned"
+    },
+    {
+      "id": "ai_music_body_conflict",
+      "given": "AI and music both require same body channel",
+      "requiredResult": "one compatible presentation set selected by approved policy",
+      "approvalOrBoundary": "do not infer AI always wins from V1 legacy primary",
+      "status": "planned"
+    },
+    {
+      "id": "multi_face_conflict",
+      "given": "two selected activity recipes require different semantic faces",
+      "requiredResult": "at most one face owner; conflict policy or recipe without face needed",
+      "approvalOrBoundary": "never mix semantic face paths",
+      "status": "planned"
+    },
+    {
+      "id": "ai_source_stop",
+      "given": "AI sources A and B active; A stop",
+      "requiredResult": "remove A only; AI stays true due to B; re-evaluate once",
+      "approvalOrBoundary": "stop must identify source instance/order; no clear-all",
+      "status": "planned"
+    },
+    {
+      "id": "all_ai_end",
+      "given": "last AI source stops/expires",
+      "requiredResult": "AI fact inactive; release its eligible presentation; re-evaluate others",
+      "approvalOrBoundary": "focus base and unrelated coffee/music persist",
+      "status": "planned"
+    },
+    {
+      "id": "detection_off",
+      "given": "music/coding/AI active; user disables detection",
+      "requiredResult": "invalidate detection epoch, revoke detection facts, release derived intents",
+      "approvalOrBoundary": "manual coffee, needs, focus base persist",
+      "status": "planned"
+    },
+    {
+      "id": "detection_reenable",
+      "given": "off -> on; old sample queued",
+      "requiredResult": "reject old epoch; wait fresh qualified sample",
+      "approvalOrBoundary": "do not restore cached old activity",
+      "status": "planned"
+    },
+    {
+      "id": "ttl_while_hidden",
+      "given": "AI signal expires while renderer hidden/frozen",
+      "requiredResult": "expire fact by fact clock; before visible resume re-evaluate and cancel old intent",
+      "approvalOrBoundary": "owner face freeze does not freeze TTL",
+      "status": "planned"
+    },
+    {
+      "id": "browsing_without_source",
+      "given": "browser foreground or V1 focus-browse selected; no new detector",
+      "requiredResult": "no detected browse fact",
+      "approvalOrBoundary": "focus-browse source is not OS detection",
+      "status": "planned"
+    },
+    {
+      "id": "ai_window_only",
+      "given": "AI application foreground; no valid prompt hook",
+      "requiredResult": "no AI-active fact solely from foreground",
+      "approvalOrBoundary": "consistent with V1 classifier source",
+      "status": "planned"
+    },
+    {
+      "id": "needs_stable",
+      "given": "hunger and deepNightIdle persist without input changes",
+      "requiredResult": "facts coexist; idempotent stable presentation decision",
+      "approvalOrBoundary": "product chooses display priority; no alternating maintenance state",
+      "status": "planned"
+    },
+    {
+      "id": "interaction_interrupt",
+      "given": "drag/pet suppresses coffee action or activity",
+      "requiredResult": "retain underlying valid facts; own action resources cleanly interrupted",
+      "approvalOrBoundary": "body-wide interaction priority and resumption policy require approval",
+      "status": "planned"
+    },
+    {
+      "id": "interaction_release",
+      "given": "interaction ends after AI expired and coffee fact remains",
+      "requiredResult": "re-evaluate current facts; do not resume expired AI or repeat consumed drink",
+      "approvalOrBoundary": "new lifetime for any newly selected face",
+      "status": "planned"
+    },
+    {
+      "id": "same_time_batch",
+      "given": "multiple source changes at identical canonical time",
+      "requiredResult": "apply complete fact batch then evaluate once",
+      "approvalOrBoundary": "no intermediate flicker or source-order-dependent oscillation",
+      "status": "planned"
+    },
+    {
+      "id": "partial_asset_failure",
+      "given": "cup or background load fails before compound action admission",
+      "requiredResult": "no partial channel ownership; rollback acquired leases; report blocked",
+      "approvalOrBoundary": "no automatic unapproved replacement asset",
+      "status": "planned"
+    },
+    {
+      "id": "focus_end_restart",
+      "given": "locked session ends; new focus begins",
+      "requiredResult": "release old session base; choose from new captured context once",
+      "approvalOrBoundary": "same art ID allowed if deterministic selection repeats",
+      "status": "planned"
+    },
+    {
+      "id": "late_asset_after_session_change",
+      "given": "old focus or action loading; session ends/restarts or plan revoked; old result resolves late",
+      "requiredResult": "reject stale session/plan generation, release acquired leases; current locked base and owners unchanged",
+      "approvalOrBoundary": "each async result must identify session/source epoch/plan generation",
+      "status": "planned"
+    },
+    {
+      "id": "invalid_conflict_policy",
+      "given": "missing conflict rule, cyclic preference or ambiguous unstable equal-rank plan",
+      "requiredResult": "reject configuration before activation; no resource acquisition or channel-order-dependent winner",
+      "approvalOrBoundary": "stable tie rule remains product decision; no implicit priority constants",
+      "status": "planned"
+    }
+  ]
+}
