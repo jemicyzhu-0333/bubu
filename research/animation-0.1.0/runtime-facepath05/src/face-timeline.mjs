@@ -159,14 +159,21 @@ export class FaceTimeline {
     this.#brakingSec = 0;
     this.#brakeEndsAt = null;
     if (this.#phase === 'withdraw') {
+      // Returning to the still-active semantic can reverse on that same path.
+      // Brake inherited velocity first; never snap or visit an unrelated face.
+      if (cue.id !== null && cue.id === this.#path) {
+        this.#neutralAt = null;
+        if (this.#velocity !== 0) this.#beginBrake(cue.time, false);
+        else if (this.#value === cue.amount) this.#hold(cue.time);
+        else this.#smooth(cue.time, cue.amount, cue.inSec, 'adjust');
+      }
       this.#forecast();
       return;
     }
     if (this.#phase === 'brake') {
-      if (cue.id !== this.#path && !this.#withdrawAfterBrake) {
-        this.#withdrawAfterBrake = true;
-        this.#withdrawSec = cue.outSec;
-      }
+      const withdraw = cue.id === null || cue.id !== this.#path;
+      if (withdraw && !this.#withdrawAfterBrake) this.#withdrawSec = cue.outSec;
+      this.#withdrawAfterBrake = withdraw;
       this.#brakingSec = this.#end - cue.time;
       this.#brakeEndsAt = this.#end;
       this.#forecast();

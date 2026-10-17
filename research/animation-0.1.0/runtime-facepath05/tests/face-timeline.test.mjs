@@ -133,7 +133,7 @@ test('interrupting a downward same-face adjustment preserves its negative veloci
   assert.deepEqual(current(s), ['A', .9, 0]);
 });
 
-test('destination replacements during brake and withdrawal never restart the visible trajectory', () => {
+test('cross-face replacements during brake and withdrawal never restart the visible trajectory', () => {
   const a = rig().timeline, b = rig().timeline;
   for (const s of [a, b]) {
     s.enqueue(face(0));
@@ -148,7 +148,7 @@ test('destination replacements during brake and withdrawal never restart the vis
   assert.equal(a.state.neutralAt, b.state.neutralAt);
   a.advance(.21); b.advance(.21);
   const before = current(a), neutralAt = a.state.neutralAt;
-  a.enqueue(face(.21, 'A', .3, 2, .4)); // Returning to the outgoing ID still completes the bridge.
+  a.enqueue(face(.21, 'C', .3, 2, .4)); // Another semantic still completes the bridge.
   a.advance(.21);
   assert.deepEqual(current(a), before);
   for (const t of [.25, .3, .4]) {
@@ -157,9 +157,9 @@ test('destination replacements during brake and withdrawal never restart the vis
   }
   assert.equal(a.state.neutralAt, neutralAt);
   a.advance(neutralAt);
-  assert.deepEqual(current(a), ['A', 0, 0]);
+  assert.deepEqual(current(a), ['C', 0, 0]);
   a.advance(a.arrivalTime);
-  assert.deepEqual(current(a), ['A', .3, 0]);
+  assert.deepEqual(current(a), ['C', .3, 0]);
 });
 
 test('same-face retarget during an existing brake changes only the pending goal', () => {
@@ -424,4 +424,39 @@ test('end-of-clock admission reserves completion time for an inherited withdrawa
   s.advance(max);
   assert.deepEqual(current(s), ['B', .8, 0]);
   assert(s.actualArrival < max);
+});
+
+test('return to outgoing face brakes withdrawal continuously and reverses without Basis', () => {
+  const {timeline:s,writes}=rig();
+  s.enqueue(face(0,'A',1,.28,.1)); s.enqueue(face(.8,'B',1,.28,.42));
+  s.advance(.92); const before=current(s); const mark=writes.length;
+  s.enqueue(face(.92,'A',1,.28,.42)); s.advance(.92);
+  assert.deepEqual(current(s),before); assert.equal(s.phase,'brake');
+  assert.equal(s.state.neutralAt,null); const end=s.state.brakeEndsAt;
+  assert(end-.92 <= L.maxBrakeSec+1e-15);
+  const dt=1e-7;s.advance(.92+dt);close((s.value-before[1])/dt,before[2],.0001);
+  s.advance(end);assert.equal(s.phase,'adjust');assert(s.value>0);assert.equal(s.velocity,0);
+  const bottom=s.value;s.advance(end+dt);close((s.value-bottom)/dt,0,.0001);
+  s.advance(s.arrivalTime);assert.deepEqual(current(s),['A',1,0]);
+  assert(writes.slice(mark).every(([id,value])=>id==='A'&&value>0));
+});
+
+test('same-face return during cross-face brake revokes withdrawal without extending brake', () => {
+  const {timeline:s,writes}=rig();s.enqueue(face(0));s.enqueue(face(.1,'B'));
+  s.advance(.11);const before=current(s),end=s.state.brakeEndsAt,mark=writes.length;
+  s.enqueue(face(.11,'A',.8));s.advance(.11);
+  assert.deepEqual(current(s),before);assert.equal(s.state.brakeEndsAt,end);assert.equal(s.state.neutralAt,null);
+  s.advance(s.arrivalTime);assert.deepEqual(current(s),['A',.8,0]);
+  assert(writes.slice(mark).every(([id,value])=>id==='A'&&value>0));
+});
+
+for(const replacement of ['B',null]) test(`new ${replacement??'cancel'} intent after reversal restores Basis requirement`,()=>{
+ const {timeline:s,writes}=rig();s.enqueue(face(0,'A',1,.2,.04));s.enqueue(face(.2,'B',1,.4,.2));s.advance(.3);
+ s.enqueue(face(.3,'A'));s.advance(.3);const end=s.state.brakeEndsAt;
+ s.advance(.31);const before=current(s),mark=writes.length;
+ s.enqueue(replacement===null?cancel(.31,.2):face(.31,replacement,1,.2,.2));s.advance(.31);
+ assert.deepEqual(current(s),before);assert.equal(s.state.brakeEndsAt,end);
+ assert(s.state.neutralAt>=end);s.advance(s.arrivalTime);
+ assert.deepEqual(current(s),replacement===null?[null,0,0]:['B',1,0]);
+ assert(writes.slice(mark).some(([id,value])=>id===null&&value===0));
 });

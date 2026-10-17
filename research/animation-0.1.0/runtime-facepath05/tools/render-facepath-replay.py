@@ -215,7 +215,7 @@ def main(argv=None):
     parser.add_argument("--gate", type=Path, default=LIBRARY / "RENDER-PARITY.json")
     parser.add_argument("--only", choices=SCENARIOS, action="append")
     parser.add_argument("--main-view", choices=VIEWS, default="front")
-    parser.add_argument("--main-resolution", choices=("native", "source"), default="native")
+    parser.add_argument("--main-resolution", choices=("native", "source"), default="source")
     parser.add_argument("--calibration-only", action="store_true", help="Render only actual Basis and N3-half samples at both resolutions")
     parser.add_argument("--samples", type=int, default=96, help="Cycles samples; approved parity renderer uses96")
     args = parser.parse_args(argv)

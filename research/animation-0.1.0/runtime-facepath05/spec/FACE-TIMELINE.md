@@ -72,12 +72,16 @@ Cross-ID change follows:
    fade-out. At that canonical endpoint, write `(oldId, 0)` then `(null, 0)`.
 4. Only then write `(newId, 0)` and enter the new path over its fade-in.
 
-New intent during a committed withdrawal changes only its destination and
-incoming fade; it never restarts or shortens the outgoing trajectory. This also
-applies during its preceding brake. If a newer intent requests the old/current
-ID again, the original withdrawal still finishes and that ID re-enters from
-Basis. This deliberate rule prevents repeated input from indefinitely resetting
-withdrawal or removing the neutral bridge.
+A new cross-ID or cancel intent during withdrawal changes only its destination
+and incoming fade; it never restarts or shortens that outgoing trajectory.
+Returning to the still-active non-null ID instead cancels the pending Basis
+bridge: preserve the current value and velocity, apply the bounded brake, then
+adjust directly on that same semantic path. This avoids an unnecessary
+small-O/round-eye detour when the user returns to the face already on screen.
+If already braking, a same-ID return cancels the pending withdrawal without
+restarting or extending the brake. A subsequent cross-ID or cancel intent
+reinstates withdrawal after that same brake; distinct semantic paths still
+never overlap and still meet only at Basis.
 
 A same-ID amount change preserves its current value/velocity, brakes if moving,
 then adjusts to the new amount. An updated goal during this brake does not
@@ -175,10 +179,12 @@ explicit in the API rather than hidden by a derivative reset.
   non-idempotent intent (cancel always counts).
 - `brakingSec`, `brakeEndsAt`: actual canonical brake duration/end for that
   intent. Updating a pending intent mid-brake reports the remaining brake time;
-  it does not extend it. A new intent during withdrawal has no new brake.
+  it does not extend it. A cross-ID/cancel update during withdrawal has no new
+  brake. A same-ID return brakes the currently inherited withdrawal velocity.
 - `neutralAt`: the planned/achieved neutral bridge for the current intent, or
-  null for a direct same-ID adjustment. During a committed withdrawal, its
-  original neutral deadline is retained when the destination changes.
+  null for a direct same-ID adjustment or same-ID return. During withdrawal,
+  its original neutral deadline is retained for cross-ID/cancel replacements;
+  returning to the current semantic removes that planned bridge.
 - `arrivalTime`: predicted canonical attainment of the current intent,
   including required brake and withdrawal. Replacing the destination can
   change its incoming duration and arrival without changing the current value.
@@ -214,11 +220,13 @@ clock checks the entire admitted group for cancel:
   after another `advance` at that time. Later timestamps may set a new target.
 
 A later fresh face can replace cancel's pending neutral destination during an
-ongoing withdrawal, but must still complete that withdrawal before entering.
+ongoing withdrawal. A different ID still completes the withdrawal before entry;
+the currently active non-null ID may brake and reverse directly on its own path.
+This does not resurrect canceled queued work or bypass same-timestamp cancel.
 
 ## Focused verification
 
-Run `node --test tests/face-timeline.test.mjs` from the facepath05 checkout.
+Run `node --test tests/face-timeline.test.mjs` from the facepath06 checkout.
 The focused tests cover:
 
 - Exact entry/hold endpoints and actual rather than sampled arrival timestamps.

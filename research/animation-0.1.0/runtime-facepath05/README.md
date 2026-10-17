@@ -1,6 +1,19 @@
-# bubu runtime 0.1.0 — seven-path expression checkpoint 05 (candidate)
+# bubu runtime 0.1.0 — seven-path expression checkpoint 06 (candidate)
 
 This is a new isolated engine foundation, not a port of V1 and not the completed bubu interaction. The mechanical fixture still plays authored tracks, and the separate neutral04 adapter remains neutral-only. This candidate adds a distinct hash-locked seven-slot expression adapter with complete brow/tongue layers and a single-semantic clock. The 18-slot static library is approved; this smaller runtime and its transition appearance have their own gates. Final drag/pet behavior is not enabled.
+
+## Current checkpoint status
+
+Checkpoint06 is a technical overlay on commit d3c5c76664d9a664e0cfdf22342476a880d8a301, under the retained research/animation-0.1.0/runtime-facepath05 directory. That directory name is historical; STATUS.json identifies the current revision. Unlisted source files, fixtures, model hashes and approved artwork remain unchanged. Checkout the base commit to reproduce checkpoint05 exactly.
+
+- Current full suite: 167/167 passed; independent10-group reversal review passed.
+- Safe return to the still-active face now brakes and reverses on the same path. Cross-face requests still require Basis and never mix semantics.
+- The old tool-capacity interruption is no longer the current blocker: file reads, tests and offline rendering execute successfully in this task.
+- Source-resolution Basis is pixel-exact to the approved reference. Fixed-scale source downsampling resolves the direct-small-render grain discrepancy without changing artwork.
+- The same-scenario before/after continuous offline renders have been produced; comparative visual review is pending. No overall transition visual pass is claimed.
+- Real WebGL/GPU, full18 runtime, drag and long-press remain untested.
+
+See STATUS.json, spec/FACEPATH06.md, evidence/tests-final.log and evidence/review/SAME-FACE-REVERSAL-REVIEW.md. Historical05 evidence is retained with its original source hashes and must not be read as the current test or visual status.
 
 ## Run
 
@@ -27,7 +40,7 @@ Open `http://127.0.0.1:8040/face.html` for the seven-slot semantic diagnostic, `
 - Static rig/body, semantic face/cancel API only; no arbitrary morph arrays, direct dual-face mixing, gaze, skeletal playback or pointer interaction in this adapter.
 - One application ActorPool retains shared-source admission/cache ownership across all purposes. No runtime morph-bank swapping or body duplication.
 
-See `spec/FACEPATH05.md`, `spec/FACE-TIMELINE.md` and `spec/FACEPATH05-API.md`. Tests and renderer evidence must retain their individual scope: source/numeric compatibility, scalar behavior, offline facial imagery and real WebGL are separate gates.
+See `spec/FACEPATH06.md`, the historical `spec/FACEPATH05.md`, `spec/FACE-TIMELINE.md` and `spec/FACEPATH05-API.md`. Tests and renderer evidence must retain their individual scope: source/numeric compatibility, scalar behavior, offline facial imagery and real WebGL are separate gates.
 
 ## Retained neutral-only compatibility
 

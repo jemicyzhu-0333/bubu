@@ -1,0 +1,47 @@
+{
+  "sourceSha256": "286ded8d6c6992cd0333e1985a0baee0e21dd951dcf3ab91b8bb790cd7641892",
+  "passed": 10,
+  "total": 10,
+  "checks": [
+    {
+      "name": "return during withdrawal reverses without Basis and preserves exact value/velocity",
+      "pass": true
+    },
+    {
+      "name": "return during outgoing entry-brake does not restart brake",
+      "pass": true
+    },
+    {
+      "name": "repeated cross and same goals during reversal brake keep endpoint and restore bridge on cross",
+      "pass": true
+    },
+    {
+      "name": "cancel after reversal invalidates queue, exact Basis; fresh same-face work may reverse withdrawal",
+      "pass": true
+    },
+    {
+      "name": "near-end return never forces zero; exact-end return legitimately starts from Basis",
+      "pass": true
+    },
+    {
+      "name": "withdrawal reversal finite-difference derivative agrees on both sides and zero at join",
+      "pass": true
+    },
+    {
+      "name": "large absolute clock keeps same-path reversal bounded, finite and frame independent",
+      "pass": true
+    },
+    {
+      "name": "30/60/120/240Hz and single-jump exact state parity at event and arbitrary times",
+      "pass": true
+    },
+    {
+      "name": "seeded 6000 retarget interruptions retain exact continuity and finite scalar bounds",
+      "pass": true
+    },
+    {
+      "name": "Actual eight-layer source tick assertions, cadence parity and cancellation all-zero",
+      "pass": true
+    }
+  ]
+}
