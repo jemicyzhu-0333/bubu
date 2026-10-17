@@ -1,0 +1,64 @@
+{
+  "finding": "late cancellation reconstruction loses prior release history",
+  "normal": {
+    "time": 7.5,
+    "faceState": {
+      "time": 7.5,
+      "phase": "idle",
+      "owner": null,
+      "requestId": null,
+      "candidate": null,
+      "token": 2,
+      "logicalArrival": null,
+      "path": null,
+      "amount": 0,
+      "clockArrival": 7.4,
+      "clockActualArrival": 7.4,
+      "deadline": null,
+      "queued": 0,
+      "epoch": 1
+    },
+    "cue": {
+      "time": 7.5,
+      "phase": "hands-exit",
+      "handEntry": 0.5000000000000004,
+      "lift": 0,
+      "cupScale": 0,
+      "cupOpacity": 0,
+      "faceRequestAt": 0.2,
+      "faceReleaseAt": 7.2,
+      "done": false
+    }
+  },
+  "cancel": {
+    "time": 7.5,
+    "faceState": {
+      "time": 7.5,
+      "phase": "exit",
+      "owner": "interaction",
+      "requestId": "tea08",
+      "candidate": "08",
+      "token": 2,
+      "logicalArrival": null,
+      "path": "08",
+      "amount": 1,
+      "clockArrival": 7.7,
+      "clockActualArrival": null,
+      "deadline": 7.7,
+      "queued": 0,
+      "epoch": 1
+    },
+    "cue": {
+      "time": 7.5,
+      "phase": "cancel-hands",
+      "handEntry": 0.5000000000000004,
+      "lift": 0,
+      "cupScale": 0,
+      "cupOpacity": 0,
+      "faceRequestAt": 0.2,
+      "faceReleaseAt": 7.5,
+      "done": false
+    }
+  },
+  "scope": "initial FINAL-FREEZE isolated-rest-chain-r1; pending repair; no production host"
+}
