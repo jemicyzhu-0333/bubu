@@ -1,5 +1,7 @@
 # Shared D2 input workbench v1
 
+> Historical baseline (03023e9). The maintained entry is [shared-input-workbench-v2](../shared-input-workbench-v2/README.md), with drag-landing-r5, reviewed landing settle, existing-P1 rest idle handoff, and hidden-from-idle cleanup. V1 is retained for reproducibility only.
+
 One actual admitted actor combines the frozen r4 continuous light drag loop, petting, pointer capture and D2 N3 cavity tint. `workbench.html` explicitly uses `createD2PointerHost`. `createPointerHost({modelVariant:"full18", ...})` retains original gold full18; `modelVariant:"d2"` or the named D2 entry selects both the strict prepared pack and matching policy. Unknown variants and crossed asset/profile pairs reject without fallback.
 
 The browser entry takes a bounded pack reader, real target and camera. It does not take a caller-owned actor, face driver, eligibility claim or body writer. The single canonical P1 owns one canonical Director/Timeline and writes morph plus D2 style through the same actor apply. BodyRigAdapter owns only four permitted bone quaternion channels and host wrapper transforms. Historical prototypes remain archival dependencies for their pure controllers/adapter; their vendored runtimes are not imported.

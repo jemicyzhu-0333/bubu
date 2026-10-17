@@ -1,0 +1,77 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> test
+> node tools/verify-dependencies.mjs && node --test tests/*.test.mjs
+
+Verified 15 controller/profile dependency hashes
+✔ same D2 actor: N3 gate + four legal joints coexist, each reset preserves other channel (549.643917ms)
+✔ two D2 actors isolate joint and material writes and retained geometry (886.927121ms)
+✔ body opt-in never weakens face-only rest or non-quaternion/cap checks (1372.301481ms)
+✔ explicit shared model admission rejects wrong pack and unknown variant without fallback (2.646283ms)
+✔ same-pool D2 actors share prepared geometry while joints and style remain private (575.328088ms)
+✔ D2 shared: actual full18 actor one owner; real ray eligibility ignores caller eligible (1324.303195ms)
+✔ D2 shared: same-frame down/move/up are grouped once; late sealed move atomic reject (722.91877ms)
+✔ D2 shared: capture drag leaves canvas, follows camera plane, releases to ground (1320.51112ms)
+✔ D2 shared: petting sustained phase can hand off to drag without second actor (1049.878083ms)
+✔ D2 shared: pointerId, primary and buttons cannot steal pointer (903.817476ms)
+✔ D2 shared: pending leave cancels even captured; missed head contact never qualifies (980.620857ms)
+✔ D2 shared: capture acquisition/release errors have safe cleanup; uncaptured leave cancels (1059.539548ms)
+✔ D2 shared: lostcapture, blur, visibility and disposal invalidate captures/listeners/queued input (1627.600936ms)
+✔ D2 shared: CSS rect resize and backbuffer DPR do not mix into NDC or threshold (1007.705943ms)
+✔ D2 shared: sealed lost capture invalidates lifecycle at exact timestamp without epsilon (1006.993243ms)
+✔ D2 shared: continuous petting requires current surface; camera movement ends contact (1024.810907ms)
+✔ D2 shared: same-time final move is applied before release captures landing position (1046.711112ms)
+✔ D2 shared: pointerup final finite client position is applied, cancel has no invented point (1095.268453ms)
+✔ D2 shared: pending surface loss before qualification never emits release face (902.104963ms)
+✔ D2 shared: two-hour visible long press drains pure-controller boundary outputs (1201.760116ms)
+✔ D2 shared: visibility visible cannot resume while window remains blurred (797.151715ms)
+✔ D2 shared: unbounded move rejects atomically; malformed terminal coordinates still release (1148.26891ms)
+✔ D2 shared: DOM router uses continuous-flow controller and passes configured seconds unchanged (1363.517929ms)
+✔ D2 shared: invalid cadence option rejects before pack reads or actor allocation (1.563409ms)
+✔ D2 shared: adjustable workbench yaw keeps actual raycast and deformed surface anchor aligned (1989.907917ms)
+✔ D2 shared: bodyOptions cannot change pivot or nonfinite orientation before admission (0.889733ms)
+✔ D2 shared: only validated yaw is forwarded; inherited pivot cannot change actor stage (376.115811ms)
+✔ D2 shared initialization request/listener faults release admitted actor and all registered listeners (889.711049ms)
+✔ D2 shared cleanup failures still free actor; body invariant fault stops queued RAF and input (922.028643ms)
+✔ D2 actual pointer pickup drives N3 cavity gate on same live four-joint actor, then clears (859.502024ms)
+✔ actual full18 actor one owner; real ray eligibility ignores caller eligible (1263.76115ms)
+✔ same-frame down/move/up are grouped once; late sealed move atomic reject (920.259015ms)
+✔ capture drag leaves canvas, follows camera plane, releases to ground (1378.027088ms)
+✔ petting sustained phase can hand off to drag without second actor (1185.195015ms)
+✔ pointerId, primary and buttons cannot steal pointer (927.159735ms)
+✔ pending leave cancels even captured; missed head contact never qualifies (958.12403ms)
+✔ capture acquisition/release errors have safe cleanup; uncaptured leave cancels (1123.239257ms)
+✔ lostcapture, blur, visibility and disposal invalidate captures/listeners/queued input (1619.734913ms)
+✔ CSS rect resize and backbuffer DPR do not mix into NDC or threshold (990.31607ms)
+✔ sealed lost capture invalidates lifecycle at exact timestamp without epsilon (1273.68847ms)
+✔ continuous petting requires current surface; camera movement ends contact (1214.108652ms)
+✔ same-time final move is applied before release captures landing position (1080.358437ms)
+✔ pointerup final finite client position is applied, cancel has no invented point (1118.295972ms)
+✔ pending surface loss before qualification never emits release face (632.687829ms)
+✔ two-hour visible long press drains pure-controller boundary outputs (1380.932974ms)
+✔ visibility visible cannot resume while window remains blurred (928.112517ms)
+✔ unbounded move rejects atomically; malformed terminal coordinates still release (1181.409104ms)
+✔ DOM router uses continuous-flow controller and passes configured seconds unchanged (1236.837043ms)
+✔ invalid cadence option rejects before pack reads or actor allocation (1.970813ms)
+✔ adjustable workbench yaw keeps actual raycast and deformed surface anchor aligned (2072.788388ms)
+✔ bodyOptions cannot change pivot or nonfinite orientation before admission (1.097085ms)
+✔ only validated yaw is forwarded; inherited pivot cannot change actor stage (414.513258ms)
+✔ full18 and D2 landing stays grounded through short settle and returns normal R0 (2223.977827ms)
+✔ cancel descends and settles without blink; hidden immediately retires tail (906.785137ms)
+✔ settle regrab interrupts tail, preserves original floor and permits new drag (1384.435807ms)
+✔ settle snapshots agree at 30/60/120 Hz without a second actor clock (7840.945727ms)
+✔ normal R0 uses existing P1 idle and supports owner-level takeover (not scene UI) (1065.034008ms)
+✔ new gesture and hidden clear rest-context facts without reviving landing blink (1285.076016ms)
+ℹ tests 58
+ℹ suites 0
+ℹ pass 58
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 37796.558451
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

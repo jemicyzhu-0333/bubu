@@ -1,0 +1,172 @@
+{
+  "version": "0.1.0-drag-landing-r5",
+  "gitDestination": "research/animation-0.1.0/drag-landing-r5",
+  "baseline": "03023e9dd356012efcee007965206b9f84790ea0",
+  "requiresSibling": "shared-input-workbench-v2",
+  "sourceController": "e402e71b925449585ef808c2161b9dbac3d8dabb82d1c01c01792d4dcf860ffa",
+  "status": "functional-reviewed; visual-preview-delivered-pending-feedback",
+  "preservesAcceptedR4Held": true,
+  "runtimeOrRigChanges": false,
+  "verification": {
+    "preIdleHiddenFix": {
+      "passed": 58,
+      "total": 58
+    },
+    "independentFinalDelta": {
+      "passed": 5,
+      "total": 5
+    },
+    "independentActualD2FrameRates": [
+      30,
+      60,
+      120
+    ],
+    "idleHiddenFix": "independently passed",
+    "initFailureCleanup": "all resource and listener counters zero"
+  },
+  "previewExcluded": {
+    "durationSeconds": 7.833333,
+    "frames": 235,
+    "fps": 30,
+    "width": 384,
+    "yawDegrees": 10,
+    "videoExcludedFromGit": true
+  },
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 119,
+      "sha256": "7aaf61994422cce972300cc532aa3184d02cc004eac2db2dec248dbbc6407310"
+    },
+    {
+      "path": "APPROVAL.json",
+      "bytes": 545,
+      "sha256": "1da7eb58f9969d928d8bb41705f70b81408dbeabae7848ba23876927be0dc93a"
+    },
+    {
+      "path": "DEPENDENCIES.json",
+      "bytes": 1100,
+      "sha256": "b4b1a115f948e5bf79bff1d1d6412dbbf1a7febd5418cda3e7a56837b7eaeea7"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2201,
+      "sha256": "0c1e1d0bd44a511f7f81cc4302c32c08d433b822f49df47f519d4c775b3f428c"
+    },
+    {
+      "path": "STATUS.json",
+      "bytes": 1383,
+      "sha256": "d81d821a9e8a5fdb1d5cb584ed6b258fb22432efc034ef4849834d7ed3406567"
+    },
+    {
+      "path": "evidence/controller-tests.log",
+      "bytes": 501,
+      "sha256": "1167e9bd103681faae08008656c3d92291b59a0b72420bf920d326cb94064f1f"
+    },
+    {
+      "path": "evidence/independent/REVIEW.md",
+      "bytes": 2972,
+      "sha256": "b7eda3a7c2e38361f7fd02bf331c5261cbaa825a4a06319390eb6ebedee77a2a"
+    },
+    {
+      "path": "evidence/independent/SOURCE-SHA256SUMS",
+      "bytes": 505,
+      "sha256": "488ed356e91a6890ba81cdbab2550ba24379768651561bae017eb2393b5164e6"
+    },
+    {
+      "path": "evidence/independent/actual-tail-probe.log",
+      "bytes": 6160,
+      "sha256": "c046266dfe1952b76072cdd2257533eede34e70337537402e05b7156e22589af"
+    },
+    {
+      "path": "evidence/independent/controller-final-tests.log",
+      "bytes": 500,
+      "sha256": "7ff7cf961d317786ee225cb1e66d2a0ec6361c1f0de2c9769878227711561c92"
+    },
+    {
+      "path": "evidence/independent/final-delta-tests.log",
+      "bytes": 659,
+      "sha256": "2f9e449f1091e8685e176c32316bea3fc67a304cd0d9358b9406b6470ff996ba"
+    },
+    {
+      "path": "evidence/independent/init-failure.log",
+      "bytes": 242,
+      "sha256": "669a03f6784a7369ab254e6c187fd956079eb77d5b66b0d2d30f285745ffd3f7"
+    },
+    {
+      "path": "evidence/independent/shared-final-tests.log",
+      "bytes": 6266,
+      "sha256": "2af4fd3d28b34767235befcb2a92ece00d84b3886c1aaa9d6ea8b6d60fbf0e0e"
+    },
+    {
+      "path": "evidence/landing-keyframes.png",
+      "bytes": 195126,
+      "sha256": "9d6f166e58257c9f67f65c5d50f650c61633cb76ee85aade3517307c8bb4259e"
+    },
+    {
+      "path": "evidence/replay-metrics.json",
+      "bytes": 95875,
+      "sha256": "cc82740b0baa3fdda383ab14e9c34b8e376c014c78cfcee4d6efdc54357f63cc"
+    },
+    {
+      "path": "evidence/resources.json",
+      "bytes": 285,
+      "sha256": "fc617e1190794dad195dbf8f14d62a4c500bbfc622b1fe5a248cd272e0133369"
+    },
+    {
+      "path": "evidence/restore-controller-tests.log",
+      "bytes": 500,
+      "sha256": "56bf0fdc86b95da2d52c4898d6f90c9e2d562e95a6798835a34056b4e2df9e9d"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 541,
+      "sha256": "4c58a9017656339da499defeba7dfdc97d5992f8aaac6655588955dd2e38f82d"
+    },
+    {
+      "path": "package.json",
+      "bytes": 151,
+      "sha256": "67418226bbb7b9d2cae0a4c22b5870b794a9862801fc0721bf6dfb637a021a2f"
+    },
+    {
+      "path": "render/compose_preview.py",
+      "bytes": 1207,
+      "sha256": "7c499bd83ef1a83fc8d843bf2967929543a621e2135d860ff2d6fa544841877d"
+    },
+    {
+      "path": "render/render_actual.py",
+      "bytes": 4370,
+      "sha256": "a61d1b7a4f18826568c5d0aa2f68ed775aa1cf2676d25784eaaa08486e68e216"
+    },
+    {
+      "path": "replay/generate.mjs",
+      "bytes": 3267,
+      "sha256": "d772340413e2146adf830a3f594b894f4e308fff9b6131f4c54298a91bfd47a2"
+    },
+    {
+      "path": "src/approved-struggle-r2.mjs",
+      "bytes": 1051,
+      "sha256": "ea8c30385a9a97c19735a8d68cc027eed9ad86a36d8961c47f616175075af838"
+    },
+    {
+      "path": "src/drag-controller.mjs",
+      "bytes": 7698,
+      "sha256": "e402e71b925449585ef808c2161b9dbac3d8dabb82d1c01c01792d4dcf860ffa"
+    },
+    {
+      "path": "src/export-scene-frame.mjs",
+      "bytes": 893,
+      "sha256": "02f574dc586c0697787462568049dadc5ebd425a132b7e268faae11a249c197a"
+    },
+    {
+      "path": "src/input-intent.mjs",
+      "bytes": 2928,
+      "sha256": "3edbd987838c5af6fb00cb6c62b3103c05a8d03b839d4ecdbb3a603051344f51"
+    },
+    {
+      "path": "tests/landing.test.mjs",
+      "bytes": 2192,
+      "sha256": "3613d90c660865e48dd1e4fc819c976d22253a2517e7b25ba122433df1ae2d0f"
+    }
+  ]
+}

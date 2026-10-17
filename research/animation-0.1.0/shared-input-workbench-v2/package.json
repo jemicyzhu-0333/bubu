@@ -1,0 +1,11 @@
+{
+  "name": "bubu-shared-pointer-router-prototype",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node tools/verify-dependencies.mjs && node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "three": "0.186.1"
+  }
+}
