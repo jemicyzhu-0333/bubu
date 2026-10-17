@@ -1,0 +1,54 @@
+{
+  "documentKind": "symbolic_configuration_examples",
+  "status": "planned_non_executable",
+  "routineDurationSymbol": "D_routine: explicit integer in [600,900], still unselected",
+  "examples": [
+    {
+      "mapping": "designed coffee routine",
+      "presetId": null,
+      "themeId": "coffee",
+      "durationSec": null,
+      "durationConstraint": "600..900 explicit fixed",
+      "capabilitiesApproved": false
+    },
+    {
+      "mapping": "designed fitness routine",
+      "presetId": null,
+      "themeId": "fitness",
+      "durationSec": null,
+      "durationConstraint": "600..900 explicit fixed",
+      "capabilitiesApproved": false
+    },
+    {
+      "mapping": "matching successful food transaction",
+      "foodId": null,
+      "themeId": null,
+      "durationSec": 30,
+      "durationApproval": "proposed first value from user example",
+      "capabilitiesApproved": false
+    }
+  ],
+  "symbolicTimeline": [
+    {
+      "at": "t0",
+      "event": "unique routine success A",
+      "sourceExpiry": "t0+D_routine"
+    },
+    {
+      "at": "t0+10",
+      "event": "unique matching feed success B",
+      "sourceExpiry": "t0+40",
+      "aggregateExpiry": "max(t0+D_routine,t0+40)"
+    },
+    {
+      "at": "t0+20",
+      "event": "routine A revoked",
+      "aggregateExpiry": "t0+40 if B remains eligible"
+    },
+    {
+      "at": "t0+40",
+      "event": "B reaches deadline",
+      "aggregateActive": false
+    }
+  ]
+}

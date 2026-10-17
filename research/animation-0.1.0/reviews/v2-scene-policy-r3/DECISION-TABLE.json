@@ -1,0 +1,240 @@
+{
+  "documentKind": "planned_acceptance_truth_table",
+  "status": "not_executed",
+  "cases": [
+    {
+      "id": "routine_success",
+      "given": "live committed success; exact designed mapping; approved ready recipe",
+      "expected": "create one source ending completionAt + explicit preset duration",
+      "status": "planned"
+    },
+    {
+      "id": "routine_click_only",
+      "given": "button click/optimistic UI/request pending",
+      "expected": "no theme source activation",
+      "status": "planned"
+    },
+    {
+      "id": "routine_failure",
+      "given": "transaction fails or rolls back",
+      "expected": "no theme source activation",
+      "status": "planned"
+    },
+    {
+      "id": "unsupported_mapping",
+      "given": "committed completion; no approved exact mapping",
+      "expected": "record business success and handled unsupported outcome; no theme; no transaction rollback",
+      "status": "planned"
+    },
+    {
+      "id": "unsupported_recipe",
+      "given": "mapping exists; required runtime capability missing",
+      "expected": "preserve business success; presentation ineligible; no implicit alternate theme",
+      "status": "planned"
+    },
+    {
+      "id": "fixed_duration",
+      "given": "preset duration omitted or outside600..900 or random range",
+      "expected": "reject mapping activation; never choose hidden default",
+      "status": "planned"
+    },
+    {
+      "id": "feed_success",
+      "given": "matching committed feed transaction; explicit approved duration",
+      "expected": "source expires from actual successful completion time; never animation start",
+      "status": "planned"
+    },
+    {
+      "id": "feed_failure_cancel",
+      "given": "feed failed/cancelled before commit",
+      "expected": "no source; no feed animation can override outcome",
+      "status": "planned"
+    },
+    {
+      "id": "duplicate_event",
+      "given": "same eventId delivered repeatedly",
+      "expected": "no new source or restart",
+      "status": "planned"
+    },
+    {
+      "id": "duplicate_business",
+      "given": "new eventIds refer to same routine occurrence/feed transaction",
+      "expected": "deduplicate business instance; reconcile version without new duration",
+      "status": "planned"
+    },
+    {
+      "id": "feed_retry_receipt",
+      "given": "same successful feed command retried/replayed",
+      "expected": "one source; no repeated inventory action or duration reset",
+      "status": "planned"
+    },
+    {
+      "id": "routine_then_feed",
+      "given": "routine source long; same-theme feed source short",
+      "expected": "union independent deadlines; short cannot overwrite long or append duration",
+      "status": "planned"
+    },
+    {
+      "id": "feed_then_routine",
+      "given": "short source exists; new legitimate long routine source",
+      "expected": "theme remains; aggregate latest deadline without resetting first source",
+      "status": "planned"
+    },
+    {
+      "id": "revoke_one_source",
+      "given": "two same-theme sources; one revoked",
+      "expected": "remove only matching source; remaining source defines active duration",
+      "status": "planned"
+    },
+    {
+      "id": "source_expiry",
+      "given": "one source expired; another valid",
+      "expected": "remove expired eligibility; theme continues only under remaining source",
+      "status": "planned"
+    },
+    {
+      "id": "last_source_expiry",
+      "given": "now equals last valid source deadline",
+      "expected": "theme inactive; revoke pending presentation and safely retire active action",
+      "status": "planned"
+    },
+    {
+      "id": "history_backfill",
+      "given": "committed historical backfill/import",
+      "expected": "recommended no current activation; proposed rule requires approval",
+      "status": "planned"
+    },
+    {
+      "id": "late_live_event",
+      "given": "original live event arrives late",
+      "expected": "remaining original interval only; if already expired no display",
+      "status": "planned"
+    },
+    {
+      "id": "history_text_edit",
+      "given": "notes/title update; same completion instance",
+      "expected": "no restart or extension",
+      "status": "planned"
+    },
+    {
+      "id": "completion_time_correction",
+      "given": "completed time corrected",
+      "expected": "proposed recompute may shorten/expire, never exceed first accepted deadline; approval pending",
+      "status": "planned"
+    },
+    {
+      "id": "undo_recomplete",
+      "given": "same routine occurrence undone then completed again",
+      "expected": "proposed same business key and original deadline cap; no infinite renewal; approval pending",
+      "status": "planned"
+    },
+    {
+      "id": "new_occurrence",
+      "given": "legitimate distinct routine occurrence completed",
+      "expected": "independent source if mapping and capability gates pass; no additive duration",
+      "status": "planned"
+    },
+    {
+      "id": "out_of_order_revoke",
+      "given": "revoke v2 arrives before success v1",
+      "expected": "tombstone rejects older success; no resurrection",
+      "status": "planned"
+    },
+    {
+      "id": "mapping_upgrade_replay",
+      "given": "previous unsupported event replayed after map added",
+      "expected": "handled outcome prevents retroactive activation",
+      "status": "planned"
+    },
+    {
+      "id": "hidden_ttl",
+      "given": "renderer hidden while theme deadline passes",
+      "expected": "expiry uses fact clock; resume cannot restore full interval",
+      "status": "planned"
+    },
+    {
+      "id": "restart_replay",
+      "given": "process restarts and business history is resent",
+      "expected": "durable idempotency/deadlines prevent replay; no full interval restart",
+      "status": "planned"
+    },
+    {
+      "id": "detection_disabled",
+      "given": "routine/feed theme plus AI/music; detection off",
+      "expected": "revoke detection only; routine/feed sources remain",
+      "status": "planned"
+    },
+    {
+      "id": "focus_background",
+      "given": "theme activated within locked focus session",
+      "expected": "base snapshot unchanged; only approved compatible overlay/action can change",
+      "status": "planned"
+    },
+    {
+      "id": "body_conflict",
+      "given": "valid theme action conflicts with current activity hands/body",
+      "expected": "apply approved resource policy; keep source with original ticking expiry",
+      "status": "planned"
+    },
+    {
+      "id": "sparse_action",
+      "given": "theme remains active",
+      "expected": "only approved sparse opportunities; no repeated business transaction, no looping assumption",
+      "status": "planned"
+    },
+    {
+      "id": "late_asset",
+      "given": "asset load completes after source revoked/expired",
+      "expected": "reject stale plan generation and release acquired lease; no catch-up theme",
+      "status": "planned"
+    },
+    {
+      "id": "multiple_theme_overlay",
+      "given": "coffee and fitness valid but overlay capacity/conflict undefined",
+      "expected": "do not assume coexistence; configuration requires approved compatible plan",
+      "status": "planned"
+    },
+    {
+      "id": "future_timestamp",
+      "given": "source supplies future or untrusted completion time",
+      "expected": "no automatic activation; business validation path",
+      "status": "planned"
+    },
+    {
+      "id": "feed_reversal",
+      "given": "committed feed later reversed by actual business mechanism",
+      "expected": "if reversal supported, revoke matching source; do not invent inventory rollback",
+      "status": "planned"
+    },
+    {
+      "id": "same_time_batch",
+      "given": "multiple success/revoke/expiry events same canonical instant",
+      "expected": "apply complete ordered source updates then compute one stable aggregate",
+      "status": "planned"
+    },
+    {
+      "id": "same_transaction_reconnected",
+      "given": "same transaction arrives after reconnect/process epoch change with fresh eventId",
+      "expected": "global business ledger deduplicates before source/theme projection; no new deadline; delivery generation is not business source identity",
+      "status": "planned"
+    },
+    {
+      "id": "accepted_ledger_restore",
+      "given": "previously accepted source ledger restored before its original deadline",
+      "expected": "restore original remaining eligibility only; no full interval restart; automatic reappearance policy pending",
+      "status": "planned"
+    },
+    {
+      "id": "never_accepted_history_import",
+      "given": "historical completion first seen during restore/import, never accepted in theme ledger",
+      "expected": "recommended no new current theme activation; record handled history outcome; do not confuse with restoring accepted source",
+      "status": "planned"
+    },
+    {
+      "id": "reused_raw_occurrence_id",
+      "given": "raw V1 occurrenceId reused after undo; semantic completion incarnation not known",
+      "expected": "do not permanently suppress genuine new completion or auto-renew old one; require explicit upstream completion identity/revision contract before activation",
+      "status": "planned"
+    }
+  ]
+}

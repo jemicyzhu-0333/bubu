@@ -1,0 +1,159 @@
+{
+  "documentKind": "proposed_machine_readable_contract",
+  "revision": "r3",
+  "status": "draft_not_runtime_supported",
+  "runtimeSchema": null,
+  "userDecisionSource": "Sentinel_a99016d86ab48191becd2b526218a5c9",
+  "acceptedProductDirection": [
+    "mapped designed routine success creates temporary theme",
+    "routine duration configured per preset within 600..900 seconds",
+    "matching successful feeding may create shorter theme around 30 seconds"
+  ],
+  "proposedNotYetApproved": [
+    "historical backfill does not activate current theme",
+    "time correction may shorten but never extend first accepted deadline",
+    "same routine occurrence undo/recomplete never extends first accepted deadline",
+    "feed duration explicitly 30 seconds in first implementation"
+  ],
+  "mappingRecordDraft": {
+    "requiredFields": [
+      "mappingId",
+      "mappingVersion",
+      "sourceKind",
+      "stableSourceDefinitionId",
+      "themeId",
+      "themeRecipeVersion",
+      "durationSec",
+      "approvedPresentationMode",
+      "requiredCapabilityIds",
+      "assetPolicyDigests"
+    ],
+    "sourceKind": [
+      "routine",
+      "feed"
+    ],
+    "stableSourceDefinitionId": "exact preset identifier for routine or food identifier for feed; no title substring/kind-to-preset guessing",
+    "durationSec": {
+      "routine": {
+        "type": "explicit_fixed_integer",
+        "minimum": 600,
+        "maximum": 900,
+        "default": null,
+        "random": false
+      },
+      "feed": {
+        "proposedFirstValue": 30,
+        "default": null,
+        "status": "proposal_from_user_example"
+      }
+    },
+    "approvedPresentationMode": [
+      "overlay_only_if_explicitly_approved",
+      "overlay_and_actions_with_explicit_capabilities"
+    ],
+    "unknownOrMissing": "reject presentation activation; preserve already committed business success"
+  },
+  "sourceEventDraft": {
+    "requiredFields": [
+      "eventId",
+      "transactionId",
+      "sourceKind",
+      "sourceInstance",
+      "businessInstanceId",
+      "sourceVersion",
+      "sourceDefinitionId",
+      "outcome",
+      "completionOrigin",
+      "committedAt",
+      "effectiveCompletedAt"
+    ],
+    "outcome": [
+      "committed_success",
+      "revoke",
+      "correct"
+    ],
+    "completionOrigin": [
+      "live_completion",
+      "historical_backfill",
+      "history_edit",
+      "recovery_sync"
+    ],
+    "identity": "eventId deduplicates delivery; sourceKind+businessInstanceId deduplicates business completion even with new eventId",
+    "sourceVersion": "strict source ordering including tombstones; lower versions cannot resurrect revoked instance",
+    "timeDomain": "must be explicit and trusted; receivedAt is diagnostic only; never infer live completion from recency alone",
+    "currentV1Compatibility": "required fields are NOT all present in V1; adapter contract upgrade required",
+    "sourceInstanceMeaning": "stable business namespace/producer identity, NOT reconnect, process or delivery epoch",
+    "deliveryGeneration": "separate transport lifecycle token; never part of business dedup identity",
+    "businessInstanceIdMeaning": "semantic completion instance/incarnation, not raw reusable V1 occurrenceId; upstream identity/revision adapter required; genuine new completion must not be permanently suppressed"
+  },
+  "sourceRecordDraft": {
+    "key": [
+      "sourceKind",
+      "sourceInstance",
+      "businessInstanceId",
+      "themeId"
+    ],
+    "fields": [
+      "mappingSnapshot",
+      "firstAcceptedCompletionAt",
+      "firstAcceptedDeadline",
+      "currentDeadline",
+      "lastSourceVersion",
+      "revoked",
+      "revocationReason",
+      "presentationEligibility",
+      "handledOutcome"
+    ],
+    "routineDeadline": "effectiveCompletedAt + explicit preset duration; proposed correction/recomplete cap=current firstAcceptedDeadline",
+    "feedDeadline": "effectiveCompletedAt + explicit configured feed duration",
+    "unsupported": "business transaction remains valid; theme presentation unsupported/ineligible; no rollback",
+    "expiry": "fact clock, independent from visible animation freeze"
+  },
+  "aggregationDraft": {
+    "active": "any eligible nonrevoked source with now < currentDeadline",
+    "displayUntil": "max currentDeadline among currently valid sources; projection only, not sole stored timer",
+    "merge": "union independent sources; never additive duration; feed never overwrites routine",
+    "revoke": "matching source or authorized validity manager only; recompute union",
+    "detectionOff": "revoke detection-derived facts only; leave routine/feed/manual sources intact"
+  },
+  "idempotencyDraft": {
+    "duplicateEvent": "no new source; no duration reset",
+    "newEventSameBusinessInstance": "reconcile version; never new lifetime from delivery identity alone",
+    "recovery": "restore previously accepted source ledger with original deadline and remaining eligibility only; no new full duration; automatic visual reappearance policy pending",
+    "retention": "durable bounded strategy coordinated with business redelivery/history windows; exact limits unchosen",
+    "mappingChanged": "do not retroactively activate previously handled unsupported events",
+    "futureOrUntrustedTime": "no automatic activation",
+    "ledgerOrdering": "global handled business-instance ledger checked before theme/mapping/source projection; changed delivery generation cannot bypass it",
+    "newHistoryImport": "history/recovery import of events never previously accepted cannot create current theme activation under proposed history policy",
+    "routineIdentityBoundary": "same semantic completion is idempotent; raw occurrenceId reuse after undo may denote genuine new completion and cannot be decided by renderer"
+  },
+  "presentationDraft": {
+    "backgroundBase": "r2 focus-session lock unchanged",
+    "overlay": "own bounded compatible layer lease",
+    "sparseAction": "optional separately approved opportunity/cooldown/budget; no loop or catch-up backlog by default",
+    "actionValues": null,
+    "actionCannot": "reexecute routine completion, feeding, inventory mutation, extend source TTL, or consume another source",
+    "lateAssetResult": "reject expired/revoked/stale generation and release leases",
+    "conflictRule": null
+  },
+  "unresolved": [
+    "exact stable preset/food mappings and capability readiness",
+    "explicit fixed duration for each routine preset",
+    "approval of history/edit/recomplete rules",
+    "overlay/action recipes and sparse budget",
+    "durable event identity/version/time adapter and dedup retention"
+  ],
+  "sourceInterfaceEvidenceStatus": {
+    "historicalBaseline": "ff711d9",
+    "currentMain": "1a66a0d3b7a51b19ac843b80f6629d0eb20eeb18",
+    "checkedAt": "2026-10-17T08:30:00Z",
+    "finding": "10 relevant core files unchanged; no fine-grained stable preset/typeId registry located in inspected scope; does not rule out user designs or local content",
+    "evidenceDirectory": "/workspace/shared/bubu-event-source-audit-20261017",
+    "activationGate": "establish stable preset registry mapping + explicit operation/origin/transaction identity adapter; no title or broad-kind guessing",
+    "finalEvidence": [
+      "EVENT-SOURCE-AUDIT.md",
+      "CURRENT-VERSION-COMPARISON.json"
+    ],
+    "durability": "canonical postcommit observed in code; durable disk outbox NOT certified"
+  }
+}
