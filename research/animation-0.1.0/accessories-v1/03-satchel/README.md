@@ -38,3 +38,12 @@ The published GLB is checksum-locked. Blender exports are not guaranteed byte-id
 
 ## Limits
 Production wardrobe/UI and resource-admission wiring, pointer-hand interactions, arbitrary future body poses, dynamic facial transition occlusion, WebGL/native window presentation, and complete cloth collision remain unverified. The low strap is rigid within this bounded approved actor; it is not a cloth simulation. No physics engine or new body skeleton is introduced.
+
+## Acceptance record · 2026-10-17
+The user approved the actual satchel and lavender/mint scarf appearance with “可以”, message Sentinel_399ea445ad4481919406fb8778c51017, replying to the actual-model presentation Sentinel_ff70efb30d3c8191919ab34e3d923f54. Appearance is now user-approved and frozen. This documentation update does not change the GLB, material, geometry or adapter.
+
+A separate independent combined-runtime audit exercised both accessories with actual drag/landing, settling smile and petting-r2 timing: 2162 numeric frames and 722 geometry frames. Within three frontal view angles, it found zero additional face/head-tip occlusion and zero non-strap limb penetration; following, mid-sequence unload/rebuild and shared-resource lifetime checks passed. This is bounded tested coverage, not global pose/camera/interaction acceptance.
+
+Known stable inner-layer overlap remains: strap into collar up to .019929 model units; collar/body overlap in 30 sampled frames up to .009079. Same-angle close-ups and central-strap visibility checks did not show obvious popping or flicker in the tested sequences. Contact/inner-layer embedding is not a guarantee of disjoint closed volumes. Production UI, arbitrary future combinations and untested poses remain outside this result.
+
+Combined audit evidence: [independent review](../../accessory-action-review-v1/REVIEW.md), [exact statistics](../../accessory-action-review-v1/evidence/robust-summary.json), and [frozen input hashes](../../accessory-action-review-v1/evidence/source-hashes.json).

@@ -1,0 +1,19 @@
+{
+  "frames": 722,
+  "upperHeadVertices": 9376,
+  "rigidFitAnchorVertices": 4489,
+  "hatVertices": 11445,
+  "maxUpperHeadRigidResidual": 1.4982616467541208e-07,
+  "maxHatSameRigidTransformResidual": 1.9872040315469342e-07,
+  "worst": {
+    "id": 17,
+    "scenario": "drag-landing",
+    "time": 1.7,
+    "mode": "drag",
+    "phase": "hover",
+    "pet": "idle",
+    "face": "01",
+    "amount": 1
+  },
+  "scope": "Kabsch rigid transform of actual exported head points; verifies static hat/head relative fit is preserved within sampled CPU geometry precision"
+}

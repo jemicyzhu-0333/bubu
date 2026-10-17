@@ -31,6 +31,15 @@ For limb audit, run EXPORT_LIMB_POINTS=/absolute/temp.json node src/test-host.mj
 No production wardrobe integration, WebGL/native window or pointer interaction validation. Body pose caps and face endpoints only; future poses and in-between facial transitions require renewed checks. Tail deformation is a bounded visual adapter, not physical cloth. Ray parity checks limb vertices, not full continuous triangle-triangle collision. Body itself legitimately occludes back cloth.
 
 ## Visual acceptance
-The first technical candidate was not visually accepted. This revised narrow-side/broad-front candidate was reviewed by root for continued validation; final user visual acceptance remains pending. Prior low-side experiments were rejected as waist-belt-like and are not published geometry. Node uses a clearly labeled metadata-only texture hook; real texture decoding is exercised by actual GLB Blender renders.
+The first technical candidate was not visually accepted. This revised narrow-side/broad-front candidate was reviewed by root for continued validation; the user subsequently approved the actual appearance on 2026-10-17 (see acceptance record below). Prior low-side experiments were rejected as waist-belt-like and are not published geometry. Node uses a clearly labeled metadata-only texture hook; real texture decoding is exercised by actual GLB Blender renders.
 
 Frozen candidate measurements: 255 limb/envelope combinations; minimum cloth/limb surface separation 0.007248003967106342; minimum animated ground clearance 0.16947828828862385. All18 audit has 270 reports × five tail-envelope positions.
+
+## Acceptance record · 2026-10-17
+The user approved the actual satchel and lavender/mint scarf appearance with “可以”, message Sentinel_399ea445ad4481919406fb8778c51017, replying to the actual-model presentation Sentinel_ff70efb30d3c8191919ab34e3d923f54. Appearance is now user-approved and frozen. This documentation update does not change the GLB, material, geometry or adapter.
+
+A separate independent combined-runtime audit exercised both accessories with actual drag/landing, settling smile and petting-r2 timing: 2162 numeric frames and 722 geometry frames. Within three frontal view angles, it found zero additional face/head-tip occlusion and zero non-strap limb penetration; following, mid-sequence unload/rebuild and shared-resource lifetime checks passed. This is bounded tested coverage, not global pose/camera/interaction acceptance.
+
+Known stable inner-layer overlap remains: strap into collar up to .019929 model units; collar/body overlap in 30 sampled frames up to .009079. Same-angle close-ups and central-strap visibility checks did not show obvious popping or flicker in the tested sequences. Contact/inner-layer embedding is not a guarantee of disjoint closed volumes. Production UI, arbitrary future combinations and untested poses remain outside this result.
+
+Combined audit evidence: [independent review](../../accessory-action-review-v1/REVIEW.md), [exact statistics](../../accessory-action-review-v1/evidence/robust-summary.json), and [frozen input hashes](../../accessory-action-review-v1/evidence/source-hashes.json).

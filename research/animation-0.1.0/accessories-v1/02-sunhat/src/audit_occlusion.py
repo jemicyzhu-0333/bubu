@@ -14,7 +14,7 @@ def tree(objects):
 hat=tree(hats);skin=tree([bpy.data.objects['A_mochi_skin']]);results=[]
 for state in STATES:
  apply_blender(state,1);bpy.context.view_layer.update();dg=bpy.context.evaluated_depsgraph_get();points=[]
- for name in ['A_eye_L','A_eye_R','A_brow_L','A_brow_R','A_eye_highlight_L','A_eye_highlight_R']:
+ for name in ['A_eye_L','A_eye_R','A_brow_L','A_brow_R','A_eye_highlight_L','A_eye_highlight_R','A_mouth_ring','A_tongue']:
   o=bpy.data.objects[name].evaluated_get(dg);m=o.to_mesh();ids=set(i for f in m.polygons if f.area>1e-10 for i in f.vertices);points.extend((name,o.matrix_world@m.vertices[i].co) for i in ids);o.to_mesh_clear()
  for angle,elev in [(a,e) for a in [0,-45,45,-85,85] for e in [-6,0,6]]:
   aa=math.radians(angle);ee=math.radians(elev);direction=Vector((math.sin(aa)*math.cos(ee),-math.cos(aa)*math.cos(ee),math.sin(ee)));visible=occluded=0;names={}

@@ -1,0 +1,49 @@
+{
+  "frames": 722,
+  "scenarioCounts": {
+    "drag-landing": 91,
+    "petting-r2": 631
+  },
+  "featureOrTipOcclusionFrames": 0,
+  "nonStrapLimbPenetrationFrames": 0,
+  "bodyIntersections": {
+    "scarf_tail": {
+      "frames": 722,
+      "maxCount": 25,
+      "maxDepth": 0.017080355435609818
+    },
+    "satchel_continuous_strap": {
+      "frames": 722,
+      "maxCount": 33,
+      "maxDepth": 0.007766136899590492
+    },
+    "satchel_pouch": {
+      "frames": 722,
+      "maxCount": 315,
+      "maxDepth": 0.087840236723423
+    },
+    "scarf_collar": {
+      "frames": 30,
+      "maxCount": 80,
+      "maxDepth": 0.009078764356672764
+    }
+  },
+  "crossIntersections": {
+    "satchel_continuous_strap -> scarf_collar": {
+      "maxCount": 212,
+      "maxDepth": 0.019928891211748123
+    },
+    "satchel_continuous_strap -> scarf_tail": {
+      "maxCount": 1,
+      "maxDepth": 0.009710644371807575
+    },
+    "scarf_collar -> satchel_continuous_strap": {
+      "maxCount": 71,
+      "maxDepth": 0.006638342514634132
+    },
+    "scarf_tail -> satchel_continuous_strap": {
+      "maxCount": 2,
+      "maxDepth": 0.006786154117435217
+    }
+  }
+}

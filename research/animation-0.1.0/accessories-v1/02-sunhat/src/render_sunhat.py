@@ -2,7 +2,7 @@ import bpy,sys,math,json,argparse
 from pathlib import Path
 from mathutils import Vector,Matrix
 P=Path(__file__).resolve().parents[1];ROOT=P.parents[1];sys.path.insert(0,str(P/'src'));
-ap=argparse.ArgumentParser();ap.add_argument('--body',default=str(ROOT/'runtime-facepath05/fixtures/face-d2/asset.glb'));ap.add_argument('--look',default=None);ap.add_argument('--mapper');args=ap.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
+ap=argparse.ArgumentParser();ap.add_argument('--body',default=str(ROOT/'runtime-facepath05/fixtures/face-d2/asset.glb'));ap.add_argument('--look',default=None);ap.add_argument('--core-only',action='store_true');ap.add_argument('--mapper');args=ap.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
 if args.look:bpy.ops.wm.open_mainfile(filepath=args.look)
 else:
  bpy.ops.wm.read_factory_settings(use_empty=True);studio=json.loads((P/'src/review-studio.json').read_text());s=bpy.context.scene;s.render.engine='CYCLES';s.world=bpy.data.worlds.new('Approved review world');s.world.use_nodes=True;bg=s.world.node_tree.nodes.get('Background');bg.inputs[0].default_value=studio['worldColor'];bg.inputs[1].default_value=studio['worldStrength'];s.view_settings.view_transform=studio['viewTransform'];s.view_settings.look=studio['look'];s.view_settings.exposure=studio['exposure'];s.view_settings.gamma=studio['gamma']
@@ -22,13 +22,14 @@ out=P/'review';out.mkdir(exist_ok=True)
 frames=[]
 def render(name,angle,target=(0,0,1.10),span=2.9):
  aa=math.radians(angle);cam.location=(math.sin(aa)*7,-math.cos(aa)*7,target[2]);cam.rotation_euler=(Vector(target)-cam.location).to_track_quat('-Z','Y').to_euler();cam.data.ortho_scale=span;s.render.filepath=str(out/(name+'.png'));bpy.ops.render.render(write_still=True);frames.append({'name':name,'angle':angle,'rootRotation':list(root.rotation_euler),'sway':list(anchor.rotation_euler)})
-for n,a in [('front',0),('quarter',-45),('side',-90),('back',180)]:render('worn-'+n,a)
+for n,a in [('front',0),('quarter',-45),('quarter-opposite',45),('side',-90),('back',180)]:render('worn-'+n,a)
+if args.core_only:raise SystemExit(0)
 for angle in range(0,360,30):render('turn-%03d'%angle,angle)
-for n,a in [('front',0),('quarter',-45),('side',-90),('back',180)]:
+for n,a in [('front',0),('quarter',-45),('quarter-opposite',45),('side',-90),('back',180)]:
  for o in body:
   if o.type=='MESH':o.hide_render=True
- render('isolated-'+n,a,(0,0,1.69),2.7)
-cam.location=(0,5,.4);cam.rotation_euler=(Vector((0,0,1.7))-cam.location).to_track_quat('-Z','Y').to_euler();cam.data.ortho_scale=2.7;s.render.filepath=str(out/'isolated-underside.png');bpy.ops.render.render(write_still=True)
+ render('isolated-'+n,a,(0,0,1.79),1.05)
+cam.location=(0,5,.4);cam.rotation_euler=(Vector((0,0,1.7))-cam.location).to_track_quat('-Z','Y').to_euler();cam.data.ortho_scale=1.05;s.render.filepath=str(out/'isolated-underside.png');bpy.ops.render.render(write_still=True)
 for o in body:
  if o.type=='MESH':o.hide_render=False
 for i in range(8):

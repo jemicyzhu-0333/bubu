@@ -4,6 +4,12 @@
   "allBodyInvariantChecksPass": true,
   "secondActorIsolated": true,
   "cleanup": true,
+  "lifecycle": {
+    "samples": 361,
+    "sharedGeometryMaterialTexture": true,
+    "privateTransformTree": true,
+    "sharedDisposals": 0
+  },
   "maxError": 6.71891344611886e-16,
   "embeddedTextureBytes": 14739,
   "textureDecode": "Not tested by Node; CPU binding uses metadata-only texture hook. Actual GLB texture rendered in Blender.",

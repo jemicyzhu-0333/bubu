@@ -11,3 +11,5 @@ sheet(['turn-%03d'%a for a in range(0,360,30)],4,'sunhat-360-sheet.png')
 sheet(['motion-%02d'%i for i in range(8)],4,'sunhat-motion-sheet.png')
 
 if (r/'expression-N2-front.png').exists():sheet(['expression-'+s+'-'+v for s in ['N2','N3','S3','S5'] for v in ['front','quarter']],4,'sunhat-expression-clearance-sheet.png')
+
+sheet(['worn-'+v for v in ['front','quarter','quarter-opposite','side']],4,'sunhat-ear-views-sheet.png')

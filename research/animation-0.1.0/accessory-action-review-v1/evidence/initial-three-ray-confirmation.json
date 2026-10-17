@@ -1,0 +1,314 @@
+[
+  {
+    "direction": [
+      1,
+      0.137,
+      0.319
+    ],
+    "body": [
+      {
+        "mesh": "satchel_continuous_strap",
+        "count": 22,
+        "limbCount": 22,
+        "maxDepth": 0.007697518914937973,
+        "examples": [
+          {
+            "vertex": 32126,
+            "limb": true,
+            "depth": 0.0024634317960590124
+          },
+          {
+            "vertex": 32135,
+            "limb": true,
+            "depth": 0.0046144165098667145
+          },
+          {
+            "vertex": 32136,
+            "limb": true,
+            "depth": 0.0006517062429338694
+          }
+        ]
+      },
+      {
+        "mesh": "satchel_pouch",
+        "count": 313,
+        "limbCount": 0,
+        "maxDepth": 0.08784015476703644,
+        "examples": [
+          {
+            "vertex": 899,
+            "limb": false,
+            "depth": 0.0020556526724249125
+          },
+          {
+            "vertex": 906,
+            "limb": false,
+            "depth": 0.004245753865689039
+          },
+          {
+            "vertex": 907,
+            "limb": false,
+            "depth": 0.01432245597243309
+          }
+        ]
+      },
+      {
+        "mesh": "scarf_tail",
+        "count": 25,
+        "limbCount": 0,
+        "maxDepth": 0.016621271148324013,
+        "examples": [
+          {
+            "vertex": 42229,
+            "limb": false,
+            "depth": 0.001660158741287887
+          },
+          {
+            "vertex": 42232,
+            "limb": false,
+            "depth": 0.0008140176068991423
+          },
+          {
+            "vertex": 42235,
+            "limb": false,
+            "depth": 0.004499337635934353
+          }
+        ]
+      }
+    ],
+    "pairs": [
+      {
+        "from": "satchel_continuous_strap",
+        "inside": "scarf_collar",
+        "count": 212,
+        "maxDepth": 0.019928772002458572
+      },
+      {
+        "from": "satchel_continuous_strap",
+        "inside": "scarf_tail",
+        "count": 1,
+        "maxDepth": 0.006758850999176502
+      },
+      {
+        "from": "scarf_collar",
+        "inside": "satchel_continuous_strap",
+        "count": 71,
+        "maxDepth": 0.006638247985392809
+      },
+      {
+        "from": "scarf_tail",
+        "inside": "satchel_continuous_strap",
+        "count": 1,
+        "maxDepth": 0.006723551545292139
+      }
+    ]
+  },
+  {
+    "direction": [
+      -0.421,
+      0.871,
+      0.225
+    ],
+    "body": [
+      {
+        "mesh": "satchel_continuous_strap",
+        "count": 22,
+        "limbCount": 22,
+        "maxDepth": 0.007697518914937973,
+        "examples": [
+          {
+            "vertex": 32126,
+            "limb": true,
+            "depth": 0.0024634317960590124
+          },
+          {
+            "vertex": 32135,
+            "limb": true,
+            "depth": 0.0046144165098667145
+          },
+          {
+            "vertex": 32136,
+            "limb": true,
+            "depth": 0.0006517062429338694
+          }
+        ]
+      },
+      {
+        "mesh": "satchel_pouch",
+        "count": 313,
+        "limbCount": 0,
+        "maxDepth": 0.08784015476703644,
+        "examples": [
+          {
+            "vertex": 899,
+            "limb": false,
+            "depth": 0.0020556526724249125
+          },
+          {
+            "vertex": 906,
+            "limb": false,
+            "depth": 0.004245753865689039
+          },
+          {
+            "vertex": 907,
+            "limb": false,
+            "depth": 0.01432245597243309
+          }
+        ]
+      },
+      {
+        "mesh": "scarf_tail",
+        "count": 25,
+        "limbCount": 0,
+        "maxDepth": 0.016621271148324013,
+        "examples": [
+          {
+            "vertex": 42229,
+            "limb": false,
+            "depth": 0.001660158741287887
+          },
+          {
+            "vertex": 42232,
+            "limb": false,
+            "depth": 0.0008140176068991423
+          },
+          {
+            "vertex": 42235,
+            "limb": false,
+            "depth": 0.004499337635934353
+          }
+        ]
+      }
+    ],
+    "pairs": [
+      {
+        "from": "satchel_continuous_strap",
+        "inside": "scarf_collar",
+        "count": 212,
+        "maxDepth": 0.019928772002458572
+      },
+      {
+        "from": "satchel_continuous_strap",
+        "inside": "scarf_tail",
+        "count": 1,
+        "maxDepth": 0.006758850999176502
+      },
+      {
+        "from": "scarf_collar",
+        "inside": "satchel_continuous_strap",
+        "count": 71,
+        "maxDepth": 0.006638247985392809
+      },
+      {
+        "from": "scarf_tail",
+        "inside": "satchel_continuous_strap",
+        "count": 1,
+        "maxDepth": 0.006723551545292139
+      }
+    ]
+  },
+  {
+    "direction": [
+      0.102,
+      -0.341,
+      0.934
+    ],
+    "body": [
+      {
+        "mesh": "satchel_continuous_strap",
+        "count": 22,
+        "limbCount": 22,
+        "maxDepth": 0.007697518914937973,
+        "examples": [
+          {
+            "vertex": 32126,
+            "limb": true,
+            "depth": 0.0024634317960590124
+          },
+          {
+            "vertex": 32135,
+            "limb": true,
+            "depth": 0.0046144165098667145
+          },
+          {
+            "vertex": 32136,
+            "limb": true,
+            "depth": 0.0006517062429338694
+          }
+        ]
+      },
+      {
+        "mesh": "satchel_pouch",
+        "count": 313,
+        "limbCount": 0,
+        "maxDepth": 0.08784015476703644,
+        "examples": [
+          {
+            "vertex": 899,
+            "limb": false,
+            "depth": 0.0020556526724249125
+          },
+          {
+            "vertex": 906,
+            "limb": false,
+            "depth": 0.004245753865689039
+          },
+          {
+            "vertex": 907,
+            "limb": false,
+            "depth": 0.01432245597243309
+          }
+        ]
+      },
+      {
+        "mesh": "scarf_tail",
+        "count": 25,
+        "limbCount": 0,
+        "maxDepth": 0.016621271148324013,
+        "examples": [
+          {
+            "vertex": 42229,
+            "limb": false,
+            "depth": 0.001660158741287887
+          },
+          {
+            "vertex": 42232,
+            "limb": false,
+            "depth": 0.0008140176068991423
+          },
+          {
+            "vertex": 42235,
+            "limb": false,
+            "depth": 0.004499337635934353
+          }
+        ]
+      }
+    ],
+    "pairs": [
+      {
+        "from": "satchel_continuous_strap",
+        "inside": "scarf_collar",
+        "count": 212,
+        "maxDepth": 0.019928772002458572
+      },
+      {
+        "from": "satchel_continuous_strap",
+        "inside": "scarf_tail",
+        "count": 1,
+        "maxDepth": 0.006758850999176502
+      },
+      {
+        "from": "scarf_collar",
+        "inside": "satchel_continuous_strap",
+        "count": 71,
+        "maxDepth": 0.006638247985392809
+      },
+      {
+        "from": "scarf_tail",
+        "inside": "satchel_continuous_strap",
+        "count": 1,
+        "maxDepth": 0.006723551545292139
+      }
+    ]
+  }
+]
