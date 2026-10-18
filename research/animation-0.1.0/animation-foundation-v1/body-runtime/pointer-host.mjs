@@ -146,7 +146,6 @@ export function createPointerHostFactory({
           return null;
         camera.updateMatrixWorld(true);
         body.root.updateMatrixWorld(true);
-        body.skin.computeBoundingSphere();
         raycaster.setFromCamera(
           new T.Vector2(
             ((x - r.left) / r.width) * 2 - 1,
@@ -166,7 +165,36 @@ export function createPointerHostFactory({
       function hit(x, y) {
         const r = ray(x, y);
         if (!r?.inside) return null;
+        body.skin.computeBoundingSphere();
         return raycaster.intersectObject(body.skin, false)[0] ?? null;
+      }
+      function viewStamp() {
+        const rect = target.getBoundingClientRect();
+        camera.updateMatrixWorld(true);
+        return [
+          rect.left, rect.top, rect.width, rect.height,
+          ...camera.matrixWorld.elements,
+          ...camera.projectionMatrix.elements,
+        ];
+      }
+      function sameStamp(left, right) {
+        return left?.length === right.length &&
+          right.every((value, index) => value === left[index]);
+      }
+      function pendingSurfaceChanged() {
+        body.root.updateMatrixWorld(true);
+        const skin = body.skin;
+        const stamp = [
+          ...viewStamp(), ...skin.matrixWorld.elements,
+          skin.geometry.attributes.position.version,
+          ...skin.bindMatrix.elements, ...skin.bindMatrixInverse.elements,
+          ...(skin.morphTargetInfluences ?? []),
+        ];
+        for (const bone of skin.skeleton.bones)
+          stamp.push(...bone.matrixWorld.elements);
+        const changed = !sameStamp(active.pendingSurfaceStamp, stamp);
+        active.pendingSurfaceStamp = stamp;
+        return changed;
       }
       function contact(h) {
         if (!h) return { eligible: false, side: 0 };
@@ -345,6 +373,7 @@ export function createPointerHostFactory({
           active &&
           mode === "pending" &&
           pet.phase === "pending" &&
+          pendingSurfaceChanged() &&
           !contact(hit(active.latest.x, active.latest.y)).eligible
         ) {
           petInput("cancel", pet.time);
@@ -355,12 +384,25 @@ export function createPointerHostFactory({
         }
         drag.advance(t);
         advancePet(t);
-        if (active && (mode === "pending" || mode === "petting")) {
-          // Recheck actual current deformed surface before long-press qualification.
+        if (active && mode === "pending") {
+          // Qualify against the current surface once. A held gesture owns its
+          // admitted target until pointer movement or a lifecycle event revokes
+          // it; the character's own animation must not repeatedly retarget it.
+          // The move handler still checks the actual deformed surface.
           if (pet.snapshot().held) {
             if (!contact(hit(active.latest.x, active.latest.y)).eligible) {
               finish(t, "cancel");
-            } else mode = "petting";
+            } else {
+              mode = "petting";
+              active.heldViewStamp = viewStamp();
+            }
+          }
+        } else if (active && mode === "petting") {
+          const stamp = viewStamp();
+          if (!sameStamp(active.heldViewStamp, stamp)) {
+            if (!contact(hit(active.latest.x, active.latest.y)).eligible)
+              finish(t, "cancel");
+            else active.heldViewStamp = stamp;
           }
         }
         if (mode === "landing" && drag.mode === "rest") {

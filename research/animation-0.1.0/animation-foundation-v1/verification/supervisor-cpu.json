@@ -1,0 +1,331 @@
+{
+  "status": "CPU research verification; no bulk/native admission",
+  "codeSHA256": {
+    "package.json": "dede0ef6cfd81d763011dc2e2c97906c78d69f12a62410c2e4e4b71a0cb39dd0",
+    "secondary-motion/recovery-evidence.json": "9f105eb09db9e57c4b98375c2c6611319953a51a5b52fe252c3ce1b6beb235be",
+    "secondary-motion/asset-admission.mjs": "36624b663bc95f6a767d16b9514e56da635f47efc267986bd009bfa235134081",
+    "secondary-motion/rapier.mjs": "6b37b7e9ba205697c8ebd0fa8dafc290c49e89a46d274bc4ce86e88ab54af62d",
+    "secondary-motion/test-recovery.mjs": "d4687d958be01b433fdef8f9f5360bf596ac02ebfb7481bf62896a2daf977554",
+    "secondary-motion/test.mjs": "7d5dd1e4f75a81c5c0d2f4472a3b6047abd48fb35040e710b29c13c96e98aa72",
+    "secondary-motion/package.json": "428a5406d1076381747de0c0e0c412cfab9d200f2c7410d3bf2ca4818c1835e4",
+    "secondary-motion/evidence.json": "297c83fd4322b0450f47f777c06add4d6d99e19b7c9c0f8f9f6c8c6c72333915",
+    "secondary-motion/index.mjs": "e0ee30ee55742b392f26cb59e77afde07bd95553de2a2b11e1455678606324e2",
+    "secondary-motion/author-fixtures.mjs": "e3c5a63386cf25a650d386e12a9690be54f428e200cc3b212ed781f58cdacc00",
+    "secondary-motion/package-lock.json": "483ec45db011132de57de972653ef368a02e398da0a52a14c586269d91c122d7",
+    "anchors/weighted-frame.mjs": "2cfc9d91ce437d52d5c8d4296e8a2da7002753e1a9bf4614f07147c1193e0308",
+    "anchors/profile-admission.mjs": "97f7d7fb037e81d4cf717845eef93f07bf37f790954b95a38588b999c9afb77c",
+    "anchors/bubu-d2-profile.mjs": "a4323d2cd00f72ef050e49a4201102f958dcb006205eaab81069cfb83e6021e8",
+    "anchors/definitions.mjs": "4163345980f7581d93e8cad12374a3bb7484fc38b2f594e2c75ffebacb6ec276",
+    "anchors/index.mjs": "b1165eef2766b457eea54fbe5fdd760a5c98c995657a0e3afb32b617026a0c7b",
+    "anchors/registry.mjs": "40038a7a5ee67bf22c6e0aa57681dda362a06fbb8cc5c64306169984d35deeea",
+    "anchors/definitions.json": "cb449cde765a83866cdf8a68d1865acbc570067d30488a133e6a65e00738ed23",
+    "effects/cpu-evidence.json": "f565a993e24bf7401c8a1d3d9d12d92cb53661149336ad3fe628e124ec57cf90",
+    "effects/export-prototypes.mjs": "625c020c37970cf480b25d08c0e4552fe25d9eddba7c7eb8cb072a236bae6481",
+    "effects/bounded-effects.mjs": "a5fcffb8f333b5a29b610c1319b259b000f2cfb7dae8a51b1b72df6cd9c4ed72",
+    "effects/sha256.json": "af29a9f431cc68144760453bfe9ff558f6ffe8310e7da264c46f3eb9497351ba",
+    "effects/test-effects.mjs": "f6ce768e6c364bcf35860400fc575dcb69b60022a1231b8e162719354a651eda",
+    "configuration/catalogue.json": "deb8f6f1a4e13987108ca46c0d591e97f2c5b7ed76d0f4f02cc9e959832c5e0d",
+    "configuration/generate-catalogue.mjs": "8eed8cecab8ad9d336163baf1b9d9d1f182f928545053c1b5d6a5096d69ca017",
+    "configuration/runtime-admission.mjs": "37e3be2edb1f299160a9cc784fec6110ca77fc8b45ad7f9f172b0ae5e1a772f8",
+    "configuration/catalogue.mjs": "587f3141c9762335a487d713bc70185ecaaa34acbdd7a2a1330ee2c80782f2ed",
+    "configuration/action-strategy.mjs": "9f6272925256eadd8d2543f178dbd8c9c4a6009c4d718a1716e12c540440072b",
+    "configuration/index.mjs": "99de62573a9b4a4a9e08eec3079d666863268e7cd12a3b5b5e22e3239b2c4989",
+    "body-runtime/floor-evidence.json": "ca096053a84d586b6bcf913695aa2807be9cbbb53fe29617ee49b97f9e56b355",
+    "body-runtime/pointer-host.mjs": "d6247325e9b4602eb1a52d70ac1e7c81fee2b037beb1908b43d65f11492576dc",
+    "body-runtime/body-adapter.mjs": "db2915ec9cfe5936764dd5857a89da1300934dcda4bb0b67b7b4af431109733d",
+    "body-runtime/fixture.mjs": "78b2f8233e4725760d887071df445268bcf66d8913132bdbc7000225662e2e31",
+    "body-runtime/approved-pointer.test.mjs": "609420636bca114a9db33a0e45b19398479963c3a38e08beeb154a231b6dabba",
+    "body-runtime/floor-query.mjs": "a99a85e78ff74f290ad13ce6a18fdec26e07a8f6542ec9dd6448cc79a9f6d66e",
+    "body-runtime/held-target.test.mjs": "c42483ad48a22620fd287d5c1c3078d0cab024ce2f698bc0fbefebb65e6d40d5",
+    "body-runtime/host-admission.mjs": "81422e6f38a0ec15824dbd3e0bb10bb9e5ee9fd7bef4a8d0fc65036a4e0ae107",
+    "body-runtime/verify-floor.mjs": "ea4b7b36a856d2852cfb4b4f37b38c8e70e09909fd3ddd0457ed22c6573949ef",
+    "body-runtime/authored-face-port.mjs": "169262ed9064f9e1c2dbcaa26cb5fc2352fc330676882a41998b176d8ec66df4",
+    "body-runtime/authored-face.test.mjs": "2010b4a45e00ecf8cd31da98f50258d03b3ea44ae5c524d2c9dac891d7d843c2",
+    "integration/foundation-host.mjs": "49e536ad6cb5f80277f9bbed7223d60653dd0c07d1161fdd69f3b97ac9d41cf0",
+    "integration/scene-budget.mjs": "a0f5e72e025a6a3b2cce497c83338b60d975b37d42bb92526e42b2270192ba4c",
+    "integration/export-evidence.mjs": "be437aeff3880d8cda8de7e6e455172ec0926977d719ce871719d94c275843bd",
+    "integration/verify.mjs": "54440e52f110f53be6c94f1e136682a8c7d05d375aad1974be19b5b7ef991bd5",
+    "integration/verify-bindings.mjs": "239d8cda66944670e2c13c87c0a8a8b2eddd1a42ef2d2ff6097ced8035fb5cb2",
+    "integration/verify-contract.mjs": "85013a08ebcd9e8c7be21696e91030953739ff414acab63e7416d29b46541e4e",
+    "integration/scene-budget.test.mjs": "be148acedf3edf3bcef7ea19fb81f2f8e20ea63d4ff405b2ffe28de38ee73c1b",
+    "integration/asset-bindings.mjs": "84ca086ca50e2175a5e20ae4e6b8e1868a907236a0669263f190be523fb7ea68",
+    "integration/transform-sampling.mjs": "31ef0bfcf7b6dce5e11e736187c1fccf2cf6d242b8409ac188f96889041c2988",
+    "integration/asset-fixtures.mjs": "49911788e4fc58781e6c176d61ece6db3fcac320d99ee9a7c6f260999f13c333",
+    "integration/resource-admission.mjs": "aba4a732734da652ca522ac422a49b999b53587b059ff3c98386336aeb5f405a",
+    "integration/verify-release.mjs": "19c932b95fb0af189cbabceb109305509177766cfa691f1b9a19383d42cc192d",
+    "integration/verify-authored.mjs": "aac1f9512ace8707256ef7f666c2c19b8288bd13c01577064c51c31553dbc1b6",
+    "integration/frame-owner.mjs": "863fef7ed276b258e38bb764cadaac4c715da6039c7870d5fafc42ec850c192b",
+    "integration/frame-owner.test.mjs": "2f0d67e4dfbe297c165fcdfdaf212786cff60eef8d8d2c81fec9b5703aa5e4c6",
+    "integration/cleanup-owned.mjs": "7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b",
+    "secondary-motion/descriptors/satchel.json": "7e6f29a1cf4be15d825ec6b5ecffa40eaa5e046e42aead7d83b266d202ba74f0",
+    "secondary-motion/descriptors/cape.json": "d45535336bdb7f10d3ea309dd583e1205d3bb3b04d24b6c22dac8b44c4bc7823",
+    "anchors/tests/actual-pose.mjs": "c9320b7440e4cd505abe30b75f09d6510dddbf7e2c5dda1bae46b5aa21b52bc1",
+    "anchors/tests/profile-extension.mjs": "471d07a32efc3207afe015b41efe1d9fb443b55285f2d7c1157081f29f40d0be",
+    "configuration/tests/configuration.test.mjs": "84d0f168744b7a44e1c04a8eb910c4f3b87296e94df1ae7460d7e100816be388",
+    "configuration/tests/action-strategy.test.mjs": "abca30f522acab05134c1d2eeb6b9692088e1ef52e47484a4a9cfb5461a8cb59",
+    "configuration/fixtures/halo-particles.json": "f287eceb88142d273f1b02b1f29b44f6f8090ed8665849fe9231c014c8a89824",
+    "configuration/fixtures/cape-tail.json": "05022a12abcb29e6b87b74c068e04617dd5ab59b7346899a4fa526b1978f0ec4",
+    "configuration/fixtures/ear-sakura-leaf.json": "b715a64e04a44aa1f5bd9044842578ec49334350a16abcbde92353e600921c89",
+    "configuration/fixtures/held-book-release.json": "f478f03e9fa653abbb0f9e3cb48ee18b5fff907277e2edb77b0d79f8c16f0b2a",
+    "configuration/fixtures/satchel.json": "da9db82ccd6fc41275cc2999231f4af0f3da720c292e060c5050adcf0ad8f2c9",
+    "configuration/fixtures/index.mjs": "843000cead6fc2b6982607b0e3b4b9e3a86129745147219d0c6f0c08754a02c9",
+    "configuration/fixtures/authored.mjs": "2d9a35fb35ca31905327731714413bb44eaa96ee4992dea2439a800e0025e6b8"
+  },
+  "integration": {
+    "scope": "CPU actual D2 pointer host + unchanged hybrid + real revised accessory meshes. Not native input, WebGL, GPU, or complete contact acceptance.",
+    "tests": {
+      "fiveRealAssetFixtures": true,
+      "bodyGeometryImmutable": true,
+      "hold62SecondsThenFastDrag": {
+        "pettingFrames": 1849
+      },
+      "cancelLostCaptureHiddenResume": true,
+      "regrab": true,
+      "frameGapReset": true,
+      "staleAsyncAndPendingBudget": true,
+      "twoActorIsolation": true,
+      "disposalResourceZero": true
+    },
+    "scenarios": {
+      "ear-sakura-leaf": {
+        "frames": 180,
+        "modes": [
+          "idle",
+          "pending",
+          "petting",
+          "drag",
+          "landing"
+        ],
+        "maxSubsteps": 0,
+        "resources": [
+          {
+            "id": "sakura",
+            "nodes": 15,
+            "vertices": 6464,
+            "bytes": 271992,
+            "textures": 0
+          },
+          {
+            "id": "leaf",
+            "nodes": 4,
+            "vertices": 1379,
+            "bytes": 53432,
+            "textures": 0
+          }
+        ],
+        "researchOnly": true
+      },
+      "satchel": {
+        "frames": 180,
+        "modes": [
+          "idle",
+          "pending",
+          "petting",
+          "drag",
+          "landing"
+        ],
+        "maxSubsteps": 1,
+        "resources": [
+          {
+            "id": "satchel",
+            "nodes": 5,
+            "vertices": 1590,
+            "bytes": 61288,
+            "textures": 0
+          }
+        ],
+        "researchOnly": true
+      },
+      "cape-tail": {
+        "frames": 180,
+        "modes": [
+          "idle",
+          "pending",
+          "petting",
+          "drag",
+          "landing"
+        ],
+        "maxSubsteps": 1,
+        "resources": [
+          {
+            "id": "cape",
+            "nodes": 6,
+            "vertices": 4807,
+            "bytes": 191624,
+            "textures": 0
+          }
+        ],
+        "researchOnly": true
+      },
+      "held-book-release": {
+        "frames": 180,
+        "modes": [
+          "idle",
+          "pending",
+          "drag",
+          "landing"
+        ],
+        "maxSubsteps": 0,
+        "resources": [
+          {
+            "id": "book",
+            "nodes": 25,
+            "vertices": 29988,
+            "bytes": 959616,
+            "textures": 0
+          }
+        ],
+        "researchOnly": "Grip/contact not authored; release tested separately"
+      },
+      "halo-particles": {
+        "frames": 180,
+        "modes": [
+          "idle",
+          "pending",
+          "drag",
+          "landing"
+        ],
+        "maxSubsteps": 0,
+        "resources": [
+          {
+            "id": "halo",
+            "nodes": 2,
+            "vertices": 1649,
+            "bytes": 71200,
+            "textures": 0
+          }
+        ],
+        "researchOnly": true
+      }
+    },
+    "inputHashes": {
+      "source": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
+      "hybrid": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67"
+    },
+    "modules": {
+      "../secondary-motion/index.mjs": "e0ee30ee55742b392f26cb59e77afde07bd95553de2a2b11e1455678606324e2",
+      "../secondary-motion/rapier.mjs": "6b37b7e9ba205697c8ebd0fa8dafc290c49e89a46d274bc4ce86e88ab54af62d",
+      "./foundation-host.mjs": "49e536ad6cb5f80277f9bbed7223d60653dd0c07d1161fdd69f3b97ac9d41cf0",
+      "./asset-fixtures.mjs": "49911788e4fc58781e6c176d61ece6db3fcac320d99ee9a7c6f260999f13c333"
+    },
+    "churn": {
+      "cycles": 60,
+      "elapsedMs": 165.67911699999968,
+      "heapBefore": 25576312,
+      "heapAfter": 25926856,
+      "gcAvailable": true
+    },
+    "cpuFrameMs": {
+      "samples": 900,
+      "median": 1.9025730000003023,
+      "p95": 137.23175400000036,
+      "max": 338.40215299999954,
+      "includes": "body + hybrid + anchors + secondary + effects; excludes GPU"
+    }
+  },
+  "pointerRegression": {
+    "passed": 26,
+    "failed": 0,
+    "logSHA256": "362c2a92b747db85c5cd6c2c2a22676dfea09e5db4081006ec15b3d6fb47c15a"
+  },
+  "remaining": [
+    "slow changed-surface picking and cold interaction latency",
+    "wearable-palm contact",
+    "actual motion visual review",
+    "native GPU and alpha/context recovery",
+    "portable clean-checkout wiring"
+  ],
+  "pickingComparison": {
+    "buildMs": 217.0706019999999,
+    "queries": [
+      {
+        "referenceMs": 148.5885720000001,
+        "bvhMs": 3.3799629999998615,
+        "hit": true
+      },
+      {
+        "referenceMs": 132.25717599999984,
+        "bvhMs": 0.2922510000000784,
+        "hit": true
+      },
+      {
+        "referenceMs": 116.96541200000001,
+        "bvhMs": 0.37427099999990787,
+        "hit": true
+      },
+      {
+        "referenceMs": 0.014795999999932974,
+        "bvhMs": 0.04314399999998386,
+        "hit": false
+      },
+      {
+        "referenceMs": 117.85129800000004,
+        "bvhMs": 0.29486099999985527,
+        "hit": true
+      },
+      {
+        "referenceMs": 133.98552600000016,
+        "bvhMs": 0.41583799999989424,
+        "hit": true
+      },
+      {
+        "referenceMs": 124.87826500000028,
+        "bvhMs": 0.3348829999999907,
+        "hit": true
+      },
+      {
+        "referenceMs": 0.02362700000003315,
+        "bvhMs": 0.021154000000024098,
+        "hit": false
+      },
+      {
+        "referenceMs": 175.77911900000026,
+        "bvhMs": 0.351423000000068,
+        "hit": true
+      },
+      {
+        "referenceMs": 132.45296099999996,
+        "bvhMs": 0.4851770000000215,
+        "hit": true
+      },
+      {
+        "referenceMs": 135.47011999999995,
+        "bvhMs": 0.31502099999988786,
+        "hit": true
+      },
+      {
+        "referenceMs": 0.008534999999938009,
+        "bvhMs": 0.01443199999994249,
+        "hit": false
+      },
+      {
+        "referenceMs": 136.61843099999987,
+        "bvhMs": 0.32502000000022235,
+        "hit": true
+      },
+      {
+        "referenceMs": 138.3954289999997,
+        "bvhMs": 0.33863800000017363,
+        "hit": true
+      },
+      {
+        "referenceMs": 125.99177899999995,
+        "bvhMs": 0.21085900000025504,
+        "hit": true
+      },
+      {
+        "referenceMs": 0.01443199999994249,
+        "bvhMs": 0.01805899999999383,
+        "hit": false
+      }
+    ],
+    "refitMs": [
+      170.70910000000003,
+      158.2915250000001,
+      175.78523899999982,
+      159.23245899999984
+    ],
+    "maxDistanceError": 0,
+    "geometryUnchanged": true
+  }
+}
