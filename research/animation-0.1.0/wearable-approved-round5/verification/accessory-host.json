@@ -1,0 +1,74 @@
+{
+  "sourceSHA256": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
+  "hybridSHA256": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67",
+  "scope": "Approved source actor plus native/rigid hybrid; accessory host replay, CPU only; no production wardrobe integration",
+  "scenarios": {
+    "drag": {
+      "frames": 271,
+      "bodyUnchanged": true,
+      "maxShoeOffset": 0.0020000314235716125,
+      "minShoeRelativeGround": -0.0016370472209399738,
+      "minShoeMinusFoot": -0.001999855628038727,
+      "allFootVerticesChecked": true
+    },
+    "longpress": {
+      "frames": 1891,
+      "bodyUnchanged": true,
+      "maxShoeOffset": 0.002000031423571751,
+      "minShoeRelativeGround": -0.0006889843482457501,
+      "minShoeMinusFoot": -0.0006889843482457449,
+      "allFootVerticesChecked": true
+    }
+  },
+  "lifecycle": {
+    "halo": {
+      "detach": true,
+      "idempotent": true,
+      "borrowedNotDisposed": true,
+      "explicitRelease": {
+        "geometries": 1,
+        "materials": 1,
+        "textures": 0
+      }
+    },
+    "boots": {
+      "detach": true,
+      "idempotent": true,
+      "borrowedNotDisposed": true,
+      "explicitRelease": {
+        "geometries": 2,
+        "materials": 1,
+        "textures": 0
+      }
+    },
+    "cape": {
+      "detach": true,
+      "idempotent": true,
+      "borrowedNotDisposed": true,
+      "explicitRelease": {
+        "geometries": 6,
+        "materials": 3,
+        "textures": 0
+      }
+    }
+  },
+  "bodyHash": "5129309ce95715cf04df85c8986f7040cfe03db2ab6b079cace1e1d1ef66cd9a",
+  "resources": {
+    "actors": 0,
+    "vertices": 0,
+    "nodes": 0,
+    "deformedVertices": 0,
+    "sourceBytes": 0,
+    "decodedArrayBytes": 0,
+    "clipKeyScalars": 0,
+    "active": 0,
+    "pending": 0,
+    "cache": {
+      "loads": 1,
+      "hits": 0,
+      "disposals": 1,
+      "live": 0,
+      "retainedReferences": 0
+    }
+  }
+}
