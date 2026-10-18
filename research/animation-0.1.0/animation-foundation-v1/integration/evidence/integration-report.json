@@ -1,0 +1,230 @@
+{
+  "scope": "CPU actual D2 pointer host + unchanged hybrid + real revised accessory meshes. Not native input, WebGL, GPU, or complete contact acceptance.",
+  "tests": {
+    "fiveRealAssetFixtures": true,
+    "bodyGeometryImmutable": true,
+    "hold62SecondsThenFastDrag": {
+      "pettingFrames": 1849
+    },
+    "cancelLostCaptureHiddenResume": true,
+    "regrab": true,
+    "frameGapReset": true,
+    "staleAsyncAndPendingBudget": true,
+    "twoActorIsolation": true,
+    "disposalResourceZero": true
+  },
+  "scenarios": {
+    "ear-sakura-leaf": {
+      "frames": 180,
+      "modes": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "maxSubsteps": 0,
+      "resources": [
+        {
+          "id": "sakura",
+          "nodes": 15,
+          "vertices": 6464,
+          "bytes": 271992,
+          "textures": 0
+        },
+        {
+          "id": "leaf",
+          "nodes": 4,
+          "vertices": 1379,
+          "bytes": 53432,
+          "textures": 0
+        }
+      ],
+      "researchOnly": true
+    },
+    "satchel": {
+      "frames": 180,
+      "modes": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "maxSubsteps": 1,
+      "resources": [
+        {
+          "id": "satchel",
+          "nodes": 5,
+          "vertices": 1590,
+          "bytes": 61288,
+          "textures": 0
+        }
+      ],
+      "researchOnly": true
+    },
+    "cape-tail": {
+      "frames": 180,
+      "modes": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "maxSubsteps": 1,
+      "resources": [
+        {
+          "id": "cape",
+          "nodes": 6,
+          "vertices": 4807,
+          "bytes": 191624,
+          "textures": 0
+        }
+      ],
+      "researchOnly": true
+    },
+    "held-book-release": {
+      "frames": 180,
+      "modes": [
+        "idle",
+        "pending",
+        "drag",
+        "landing"
+      ],
+      "maxSubsteps": 0,
+      "resources": [
+        {
+          "id": "book",
+          "nodes": 25,
+          "vertices": 29988,
+          "bytes": 959616,
+          "textures": 0
+        }
+      ],
+      "researchOnly": "Grip/contact not authored; release tested separately"
+    },
+    "halo-particles": {
+      "frames": 180,
+      "modes": [
+        "idle",
+        "pending",
+        "drag",
+        "landing"
+      ],
+      "maxSubsteps": 0,
+      "resources": [
+        {
+          "id": "halo",
+          "nodes": 2,
+          "vertices": 1649,
+          "bytes": 71200,
+          "textures": 0
+        }
+      ],
+      "researchOnly": true
+    }
+  },
+  "inputHashes": {
+    "source": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
+    "hybrid": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67"
+  },
+  "modules": {
+    "../secondary-motion/index.mjs": "e0ee30ee55742b392f26cb59e77afde07bd95553de2a2b11e1455678606324e2",
+    "../secondary-motion/rapier.mjs": "6b37b7e9ba205697c8ebd0fa8dafc290c49e89a46d274bc4ce86e88ab54af62d",
+    "../body-runtime/surface-query.mjs": "36f3db7b9ee68911d7cae82adabdba8ce9a94c77880b53a450bbb64f59bab266",
+    "../body-runtime/pointer-host.mjs": "5930a96d60f4f97cbb34d3eeeb6ab89b422fea4db5bee170d295236a3c799fa6",
+    "../package-lock.json": "03d5d3fcea5c31a2b6df2c4bab4532d5c2523481c2715884b3729b45a438f96b",
+    "./foundation-host.mjs": "1c052a4f1bf55319e1848a0ac8e525f90e0829eed06ddfb478f15487a480c0dc",
+    "./asset-fixtures.mjs": "49911788e4fc58781e6c176d61ece6db3fcac320d99ee9a7c6f260999f13c333"
+  },
+  "slowFrames": [
+    {
+      "fixture": "satchel",
+      "frame": 3,
+      "mode": "pending",
+      "elapsedMs": 30.12246200000004,
+      "queries": 1,
+      "refits": 1
+    },
+    {
+      "fixture": "cape-tail",
+      "frame": 3,
+      "mode": "pending",
+      "elapsedMs": 88.63367799999969,
+      "queries": 1,
+      "refits": 1
+    },
+    {
+      "fixture": "cape-tail",
+      "frame": 18,
+      "mode": "pending",
+      "elapsedMs": 135.5245130000003,
+      "queries": 0,
+      "refits": 0
+    },
+    {
+      "fixture": "held-book-release",
+      "frame": 3,
+      "mode": "pending",
+      "elapsedMs": 32.42683799999986,
+      "queries": 1,
+      "refits": 1
+    },
+    {
+      "fixture": "halo-particles",
+      "frame": 3,
+      "mode": "pending",
+      "elapsedMs": 19.900026000000253,
+      "queries": 1,
+      "refits": 1
+    },
+    {
+      "fixture": "halo-particles",
+      "frame": 28,
+      "mode": "drag",
+      "elapsedMs": 19.1657009999999,
+      "queries": 1,
+      "refits": 0
+    },
+    {
+      "fixture": "halo-particles",
+      "frame": 52,
+      "mode": "drag",
+      "elapsedMs": 43.237756000000445,
+      "queries": 0,
+      "refits": 0
+    },
+    {
+      "fixture": "halo-particles",
+      "frame": 63,
+      "mode": "drag",
+      "elapsedMs": 137.57649499999934,
+      "queries": 0,
+      "refits": 0
+    }
+  ],
+  "churn": {
+    "cycles": 60,
+    "elapsedMs": 198.81187300000056,
+    "heapBefore": 26724104,
+    "heapAfter": 27044800,
+    "gcAvailable": true
+  },
+  "surfaceQuery": {
+    "preparations": 1,
+    "refits": 6,
+    "cacheHits": 49,
+    "queries": 55,
+    "vertexBytes": 1102680,
+    "residentUpperBoundBytes": 10358608,
+    "vertices": 45945
+  },
+  "cpuFrameMs": {
+    "samples": 900,
+    "median": 2.337170000000242,
+    "p95": 6.542939999999817,
+    "max": 137.57649499999934,
+    "includes": "body + hybrid + anchors + secondary + effects; excludes GPU"
+  }
+}

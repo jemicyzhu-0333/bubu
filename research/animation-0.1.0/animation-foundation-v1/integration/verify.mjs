@@ -16,6 +16,9 @@ report.modules = Object.fromEntries(
   [
     "../secondary-motion/index.mjs",
     "../secondary-motion/rapier.mjs",
+    "../body-runtime/surface-query.mjs",
+    "../body-runtime/pointer-host.mjs",
+    "../package-lock.json",
     "./foundation-host.mjs",
     "./asset-fixtures.mjs",
   ].map((p) => [p, sha256(new URL(p, import.meta.url))]),
@@ -59,6 +62,7 @@ function hit(a) {
   return { clientX: (p.x + 1) * 192, clientY: (1 - p.y) * 192 };
 }
 const timings = [];
+report.slowFrames = [];
 for (const config of FIXTURES) {
   await actor.equip(config);
   const start = actor.time;
@@ -73,9 +77,16 @@ for (const config of FIXTURES) {
       actor.f.emit("pointermove", t, p);
     }
     if (i === 90) actor.f.emit("pointerup", t, p);
+    const queriesBefore = actor.f.h.diagnostics.surface.queries;
+    const refitsBefore = actor.f.h.diagnostics.surface.refits;
     const begin = performance.now();
     const s = actor.step(t);
-    timings.push(performance.now() - begin);
+    const elapsedMs = performance.now() - begin;
+    timings.push(elapsedMs);
+    if (elapsedMs > 16.667)
+      report.slowFrames.push({ fixture: config.id, frame: i, mode: s.mode, elapsedMs,
+        queries: actor.f.h.diagnostics.surface.queries - queriesBefore,
+        refits: actor.f.h.diagnostics.surface.refits - refitsBefore });
     modes.add(s.mode);
     verifyFrame(actor);
     for (const x of actor.mounts.values())
@@ -214,9 +225,12 @@ report.churn = {
   gcAvailable: typeof global.gc === "function",
 };
 verifyOriginals();
+report.surfaceQuery = { ...actor.f.h.diagnostics.surface };
 pool.dispose();
 assert.equal(pool.diagnostics().actors, 0);
 assert.equal(pool.pending, 0);
+assert.equal(pool.budget.diagnostics().claimedBytes, 0);
+assert.equal(actor.f.h.diagnostics.surface.vertexBytes, 0);
 for (const key of ["actors", "vertices", "nodes", "active", "pending"])
   assert.equal(actor.f.h.pool.stats[key], 0, key);
 report.tests.disposalResourceZero = true;

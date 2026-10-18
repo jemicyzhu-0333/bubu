@@ -1,6 +1,7 @@
 import * as T from "three";
 import { cleanupOwned } from "./cleanup-owned.mjs";
 import { SceneBudget } from "./scene-budget.mjs";
+import { SURFACE_QUERY_RESERVATION_BYTES } from "../body-runtime/surface-query.mjs";
 import { createAnchorRegistry } from "../anchors/index.mjs";
 import { BUBU_D2_PROFILE, ANCHOR_IDS } from "../anchors/bubu-d2-profile.mjs";
 import { createActionStrategy } from "../configuration/action-strategy.mjs";
@@ -74,8 +75,12 @@ export class FoundationActor {
       32 * 1024 * 1024,
       "actor accessory cache and admission staging",
     );
-    let actor, body;
+    let actor, body, surfaceLease;
     try {
+      surfaceLease = budget.reserve(
+        SURFACE_QUERY_RESERVATION_BYTES,
+        "actor posed surface query and build staging",
+      );
       body = await createBody({
         ...bodyOptions,
         beforeCommit: (context) => {
@@ -88,12 +93,14 @@ export class FoundationActor {
       });
     } catch (error) {
       cacheLease.release();
+      surfaceLease?.release();
       throw error;
     }
     try {
       actor = new FoundationActor(body);
       actor.budget = budget;
       actor.cacheLease = cacheLease;
+      actor.surfaceLease = surfaceLease;
       actor.bindings = await createD2BindingProvider(
         body,
         actor.anchors,
@@ -101,11 +108,13 @@ export class FoundationActor {
       );
       await actor.attachAnatomicalTail();
       cacheLease.commit(actor.bindings.residentBytes + 64 * 1024);
+      surfaceLease.commit(body.f.h.diagnostics.surface.residentUpperBoundBytes);
       return actor;
     } catch (e) {
       actor?.dispose();
       body.dispose();
       cacheLease.release();
+      surfaceLease?.release();
       throw e;
     }
   }
@@ -453,6 +462,7 @@ export class FoundationActor {
         },
         () => this.bindings?.dispose(),
         () => this.cacheLease?.release(),
+        () => this.surfaceLease?.release(),
         () => this.body.dispose(),
         () => this.scene.clear(),
         () => this.onDispose?.(),

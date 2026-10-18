@@ -23,6 +23,21 @@ with Blender CPU. `evidence/*report.json` are machine-readable measured results.
 
 ## Ownership
 
+Surface picking uses pinned three-mesh-bvh 0.9.16 over a private, source-derived
+Float64 posed-position buffer. Bone matrices are prepared once per pose; shared
+triangles reuse those vertices. The rendered skin and its methods/topology are not
+patched. Queries compare the complete skeleton/bind/morph snapshot before reusing
+the tree, and versioned geometry or layout changes require readmission. This is
+full-resolution picking, not a coarse collider substituted for the actual surface.
+Direct raw buffer writes must use Three.js's `needsUpdate` contract.
+
+Each actor reserves an additional bounded 32 MiB query/build envelope before
+construction, then commits a conservative resident bound for the posed buffer,
+BVH nodes, primitive bounds and indirect indices. Disposal releases that claim
+and drops the private tree/buffer. This is CPU accounting, not GPU measurement.
+The source still uses recovered fixture paths: a portable clean checkout remains
+a separate incomplete gate. Install the root pinned dependencies before running.
+
 Each frame advances the real pointer host once, updates the hybrid and matrices,
 samples anatomical anchors with a fresh revision, updates secondary motion from
 copied/interpolated anchor snapshots, commits accessory transforms, advances

@@ -1,5 +1,7 @@
 import { createBodyAdapterClass } from "./body-adapter.mjs";
 import { createAuthoredFacePort } from "./authored-face-port.mjs";
+import { MeshBVH } from "three-mesh-bvh";
+import { createSurfaceQuery } from "./surface-query.mjs";
 export function createPointerHostFactory({
   THREE: T,
   createAdmittedHost,
@@ -95,8 +97,10 @@ export function createPointerHostFactory({
     const { owner, pool, pack } = admitted;
     const faceInput = createAuthoredFacePort(authoredFaces);
     const facePort = faceInput.port;
+    let surfaceQuery = null;
     let cleanup = () => {
       for (const fn of [
+        () => surfaceQuery?.dispose(),
         () => drag.dispose(),
         () => pet.dispose(),
         () => body.dispose(),
@@ -110,6 +114,12 @@ export function createPointerHostFactory({
     };
     try {
       const raycaster = new T.Raycaster();
+      surfaceQuery = createSurfaceQuery({
+        THREE: T,
+        MeshBVH,
+        skin: body.skin,
+        assertCurrent: () => owner.assertCurrent(),
+      });
       let queue = [],
         sealed = -Infinity,
         lastReceived = -Infinity,
@@ -130,6 +140,7 @@ export function createPointerHostFactory({
       let ground = body.minimumFoot();
       const listeners = [];
       const diagnostics = {
+        surface: surfaceQuery.diagnostics,
         rejected: 0,
         captureFailures: 0,
         releaseFailures: 0,
@@ -165,29 +176,35 @@ export function createPointerHostFactory({
       function hit(x, y) {
         const r = ray(x, y);
         if (!r?.inside) return null;
-        body.skin.computeBoundingSphere();
-        return raycaster.intersectObject(body.skin, false)[0] ?? null;
+        return surfaceQuery.firstHit(raycaster);
       }
       function viewStamp() {
         const rect = target.getBoundingClientRect();
         camera.updateMatrixWorld(true);
         return [
-          rect.left, rect.top, rect.width, rect.height,
+          rect.left,
+          rect.top,
+          rect.width,
+          rect.height,
           ...camera.matrixWorld.elements,
           ...camera.projectionMatrix.elements,
         ];
       }
       function sameStamp(left, right) {
-        return left?.length === right.length &&
-          right.every((value, index) => value === left[index]);
+        return (
+          left?.length === right.length &&
+          right.every((value, index) => value === left[index])
+        );
       }
       function pendingSurfaceChanged() {
         body.root.updateMatrixWorld(true);
         const skin = body.skin;
         const stamp = [
-          ...viewStamp(), ...skin.matrixWorld.elements,
+          ...viewStamp(),
+          ...skin.matrixWorld.elements,
           skin.geometry.attributes.position.version,
-          ...skin.bindMatrix.elements, ...skin.bindMatrixInverse.elements,
+          ...skin.bindMatrix.elements,
+          ...skin.bindMatrixInverse.elements,
           ...(skin.morphTargetInfluences ?? []),
         ];
         for (const bone of skin.skeleton.bones)
@@ -653,6 +670,7 @@ export function createPointerHostFactory({
             if (ticket !== null) scheduler.cancel(ticket);
           },
           ...listeners.splice(0),
+          () => surfaceQuery.dispose(),
           () => drag.dispose(),
           () => pet.dispose(),
           () => body.dispose(),
