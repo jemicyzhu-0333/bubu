@@ -1,0 +1,117 @@
+{
+  "format": "bubu-action-configuration",
+  "version": "0.1.0-foundation",
+  "id": "cape-tail",
+  "actor": {
+    "id": "xiaobu-approved-d2",
+    "modelVariant": "d2",
+    "bodyOwner": "shared-input-workbench-v2",
+    "faceOwner": "WeightedExpressionOwner"
+  },
+  "mounts": [
+    {
+      "id": "cape",
+      "assetId": "milestone.cape",
+      "anchor": "back.upper",
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "layer": "back",
+      "writer": "mount-registry"
+    }
+  ],
+  "secondaryMotion": [
+    {
+      "mountId": "cape",
+      "mode": "authored-chain",
+      "writer": "secondary-motion",
+      "maxAngleRad": 0.25,
+      "reset": "rest-local-transform",
+      "status": "research-blocked"
+    }
+  ],
+  "effects": [],
+  "actions": [
+    {
+      "id": "baseline",
+      "factKey": "idle",
+      "priority": 0,
+      "resources": [
+        "body.action"
+      ],
+      "body": "baseline-idle",
+      "bones": [],
+      "expressions": [],
+      "contactWindows": [],
+      "enterSec": 0.16,
+      "exitSec": 0.2,
+      "loop": "while-fact-active",
+      "interrupt": "sample-current-release-owner",
+      "durationSec": 1,
+      "maxLoops": 1,
+      "effectTracks": []
+    },
+    {
+      "id": "longpress",
+      "factKey": "longpress",
+      "priority": 50,
+      "resources": [
+        "body.action",
+        "face.semantic"
+      ],
+      "body": "pointer-longpress",
+      "bones": [],
+      "expressions": [],
+      "contactWindows": [],
+      "enterSec": 0.16,
+      "exitSec": 0.2,
+      "loop": "while-input-held",
+      "interrupt": "sample-current-release-owner",
+      "durationSec": 1,
+      "maxLoops": 1,
+      "effectTracks": []
+    },
+    {
+      "id": "drag",
+      "factKey": "drag",
+      "priority": 100,
+      "resources": [
+        "body.action",
+        "face.semantic"
+      ],
+      "body": "pointer-drag",
+      "bones": [],
+      "expressions": [],
+      "contactWindows": [],
+      "enterSec": 0.22,
+      "exitSec": 1.5,
+      "loop": "while-input-held",
+      "interrupt": "sample-current-release-owner",
+      "durationSec": 1,
+      "maxLoops": 1,
+      "effectTracks": []
+    }
+  ],
+  "input": {
+    "owner": "shared-input-workbench-v2",
+    "drag": "continuous",
+    "longpress": "continuous",
+    "cancel": "synthetic-release",
+    "lostcapture": "synthetic-release",
+    "blur": "suspend-reset",
+    "hidden": "suspend-reset",
+    "resume": "fresh-input",
+    "dispose": "release-and-clear"
+  },
+  "lifecycle": {
+    "enter": "capture-current",
+    "loop": "while-owned",
+    "exit": "bounded-recovery",
+    "pause": "suspend-reset-no-catchup",
+    "reset": "neutral-and-clear",
+    "dispose": "release-and-clear",
+    "cleanupSec": 3
+  }
+}

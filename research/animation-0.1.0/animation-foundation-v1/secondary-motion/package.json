@@ -1,0 +1,19 @@
+{
+  "name": "bubu-secondary-motion-research",
+  "version": "1.0.0",
+  "description": "Research-only admitted accessory chains and isolated rigid prop proof",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "node test.mjs",
+    "author:fixtures": "node author-fixtures.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "type": "module",
+  "dependencies": {
+    "@dimforge/rapier3d-compat": "0.21.0",
+    "@pixiv/three-vrm-springbone": "3.5.5",
+    "three": "0.186.1"
+  },
+  "private": true
+}
