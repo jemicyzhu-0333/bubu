@@ -1,6 +1,6 @@
 # Mature secondary-motion research proof
 
-Not production admission. Exact npm artifacts: @pixiv/three-vrm-springbone 3.5.5 (MIT), @dimforge/rapier3d-compat 0.21.0 (Apache-2.0), Three.js 0.186.1 (MIT). Springbone peer range is Three >=0.137. package-lock.json records registry integrity. Local Three module is linked to the frozen source runtime singleton; a consuming build must deduplicate Three to that same instance. An earlier 0.180.0 exploratory run was superseded and is not compatibility evidence.
+Not production admission. Exact npm artifacts: @pixiv/three-vrm-springbone 3.5.5 (MIT), @dimforge/rapier3d-compat 0.21.0 (Apache-2.0), Three.js 0.186.1 (MIT). Springbone peer range is Three >=0.137. The shared research-root package-lock.json records official registry integrity. Run npm ci --ignore-scripts at research/animation-0.1.0; repo-relative fixture imports and bare package imports resolve the shared Three instance. Run the research-root foundation:preflight check to verify it. An earlier 0.180.0 exploratory run was superseded and is not compatibility evidence.
 
 ## V2 authored admission and runtime
 
@@ -17,7 +17,7 @@ Not production admission. Exact npm artifacts: @pixiv/three-vrm-springbone 3.5.5
 
 ## Reproduce
 
-Run node secondary-motion/test.mjs from the foundation directory in this source workspace. Integration/asset-fixtures supplies a bake of the revised quiet-rest satchel, and the current corrected cape GLB. Source fixture modules are external frozen inputs, not copied/modified by this module. Integration has the real drag/longpress/tea tests and actual book geometry; this local test uses a cuboid book collider for contact solving.
+Run node secondary-motion/test.mjs from the animation-foundation-v1 directory after shared research-root installation and fixture preparation. Integration/asset-fixtures supplies a bake of the revised quiet-rest satchel, and the current corrected cape GLB. Source fixture modules and assets are same-repository inputs, not modified by this module. Integration has the real drag/longpress/tea tests and actual book geometry; this local test uses a cuboid book collider for contact solving.
 
 evidence.json records runtime CPU, measured timing, 30/60/120 sampling, pin/angle/displacement, reset tolerance, 601 hidden frames, invalid-source/weight rejection, deliberately crossing horizontal-chain authoring, angle fallback, malformed time, long gaps and 30 equip/dispose cycles. Geometry SHA-256 values are embedded in each descriptor. Timings include vertex normal work; Node/Linux CPU measurements cannot predict Electron transparent-window or GPU cost. Process heap is one observed sample, not a leak plateau or WASM allocation measurement.
 
@@ -25,10 +25,28 @@ evidence.json records runtime CPU, measured timing, 30/60/120 sampling, pin/angl
 
 Corrected satchel: 1,590 vertices, 228 pinned. Cape: 4,807 vertices, 1,474 pinned. Test trace pin error zero, chain stretch below 3e-16, rate difference zero. Maximum local displacement approximately .1334 / .1424 model units; joint angles .0753 / .0973 radians. The isolated book proxy settles with .0001165 units floor penetration and zero velocity; it is not a high-speed thin-object proof.
 
-Existing palm/wearable seam contacts remain unresolved. Sphere proxies constrain chain tails only; zero measured tail-proxy penetration does NOT establish mesh penetration, triangle contacts, seam continuity, grasp closure, fabric self-collision or correct tea interactions. Silhouette/motion/native visual acceptance remains blocked until reviewed. Body/face/source poses remain authoritative. No production files, publication or main branch changed.
+Existing palm/wearable seam contacts remain unresolved. Sphere proxies constrain chain tails only; zero measured tail-proxy penetration does NOT establish mesh penetration, triangle contacts, seam continuity, grasp closure, fabric self-collision or correct tea interactions. Silhouette/motion/native visual acceptance remains blocked until reviewed. Body/face/source poses remain authoritative. This is research-branch checkpoint material, not production admission; main/release integration remains outside this scope.
 
 Safety caps: 4 chains, 8 nodes each, 12 proxies, 512 source nodes, 64 meshes, 100k vertices and 32MiB geometry attribute bytes; finite bounded model coordinates and matrices. These are research resource limits, not product performance budgets. Fixed CPU work and memory ownership are bounded; allocation-free updates are not claimed.
 
 ## Recovery regression
 
 The prior permanent-rest fallback has been removed. test-recovery.mjs replays the actual cape under x=.3*sin(8t), roll=.7*sin(4t), then stops movement at t=3. At 60/120Hz rejected-tick local mesh jump is zero; at30Hz a rejection frame may also include one accepted tick (maximum .05813 component change). Full active30Hz frame changes can reach .10991 in this deliberately aggressive trace; this is not visual/native approval. Final tails agree across30/60/120Hz; linked-tail penetration is zero. 107 rejections occur during motion and only one after stopping; recovery clears without manual reset. The intentionally impossible .055-penetrating rest profile now rejects before instance allocation. This only validates declared chain-tail spheres, not cloth triangles or wearable/palm seams.
+
+
+## World-transform and failure contract
+
+Secondary instances require finite rigid, unit-scale world transforms for both
+parent and sampled attachment root. Translation and proper rotation are allowed;
+scale, shear and reflection are rejected (orthonormal/determinant tolerance 1e-6).
+This preserves the authored sphere and joint radii in world units. The check runs
+on initialization, reset, every display update (including no-substep, pause and
+resume), and sampled substeps/final poses. This does not add dynamic proxies or
+whole-garment collision validation.
+
+Any reset/update error invalidates and disposes that instance; callers must create
+a new admitted instance rather than continue from partially modified state.
+Disposal marks it invalid first, attempts every independent joint/geometry/root
+release, then reports aggregated cleanup errors. Admission-token cleanup likewise
+attempts every owned geometry even if one disposal observer throws. Retrying a
+disposed instance is harmless and does not re-run failed observers.

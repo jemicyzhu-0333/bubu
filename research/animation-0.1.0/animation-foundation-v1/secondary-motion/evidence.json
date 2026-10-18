@@ -1,0 +1,86 @@
+{
+  "scope": "V2 explicit binding admission; CPU only, no native/cloth/palm-contact acceptance",
+  "versions": {
+    "springbone": "3.5.5",
+    "three": "0.186.1",
+    "step": 0.016666666666666666,
+    "maxSubsteps": 6,
+    "rapier": "0.21.0"
+  },
+  "runtime": {
+    "node": "v24.19.0",
+    "os": "linux",
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C"
+  },
+  "fixtures": {
+    "satchel": {
+      "vertices": 1590,
+      "maxPin": 0,
+      "maxDisplacement": 0.13336727813776147,
+      "maxAngle": 0.07526515985158558,
+      "rateError": 0,
+      "cpuMs": {
+        "p50": 0.3358889999999519,
+        "p95": 0.7826649999999518,
+        "p99": 1.1982000000000426
+      },
+      "admissionAndReplayMs": 879.7123550000001
+    },
+    "cape": {
+      "vertices": 4807,
+      "maxPin": 0,
+      "maxDisplacement": 0.1423770317083385,
+      "maxAngle": 0.09729225812008802,
+      "rateError": 0,
+      "cpuMs": {
+        "p50": 0.9994799999994939,
+        "p95": 2.1337000000003172,
+        "p99": 5.140585000000101
+      },
+      "admissionAndReplayMs": 6351.828707999999
+    },
+    "rapierBookProxy": {
+      "disposed": false,
+      "released": true,
+      "steps": 300,
+      "discardedSeconds": 0,
+      "bodies": 3,
+      "colliders": 3,
+      "position": {
+        "x": -0.0013276238460093737,
+        "y": 0.03488350659608841,
+        "z": -0.0007470036507584155
+      },
+      "rotation": {
+        "x": -8.241523801189032e-7,
+        "y": -0.00007452270801877603,
+        "z": -3.456458159689646e-7,
+        "w": 1
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    }
+  },
+  "tests": {
+    "hidden601Frames": {
+      "vertexPasses": 0,
+      "normalPasses": 0,
+      "extraRestCopies": 0,
+      "cpuMs": {
+        "p50": 0.0022390000012819655,
+        "p95": 0.0026359999992564553,
+        "p99": 0.010013000000981265
+      }
+    },
+    "noTickAndLongGap": true,
+    "sourceMismatchRejected": true,
+    "invalidInfluenceRejected": true,
+    "crossingHorizontalAuthoredBinding": true,
+    "angleRestFallback": true,
+    "churn30": true
+  },
+  "processHeapUsed": 44991840
+}

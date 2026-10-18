@@ -8,6 +8,39 @@ import {
 import { admittedState, assertMatrix } from "./asset-admission.mjs";
 export { admitSecondaryAsset } from "./asset-admission.mjs";
 
+function assertRigidWorld(matrix) {
+  assertMatrix(matrix);
+  const e = matrix.elements;
+  if (
+    Math.abs(e[0] * e[0] + e[1] * e[1] + e[2] * e[2] - 1) > 1e-6 ||
+    Math.abs(e[4] * e[4] + e[5] * e[5] + e[6] * e[6] - 1) > 1e-6 ||
+    Math.abs(e[8] * e[8] + e[9] * e[9] + e[10] * e[10] - 1) > 1e-6 ||
+    Math.abs(e[0] * e[4] + e[1] * e[5] + e[2] * e[6]) > 1e-6 ||
+    Math.abs(e[0] * e[8] + e[1] * e[9] + e[2] * e[10]) > 1e-6 ||
+    Math.abs(e[4] * e[8] + e[5] * e[9] + e[6] * e[10]) > 1e-6 ||
+    Math.abs(matrix.determinant() - 1) > 1e-6 ||
+    Math.abs(e[3]) > 1e-9 ||
+    Math.abs(e[7]) > 1e-9 ||
+    Math.abs(e[11]) > 1e-9 ||
+    Math.abs(e[15] - 1) > 1e-9
+  )
+    throw new Error(
+      "Secondary motion requires rigid unit-scale world transforms",
+    );
+}
+function cleanupAll(operations) {
+  const errors = [];
+  for (const operation of operations) {
+    try {
+      operation();
+    } catch (error) {
+      errors.push(error);
+    }
+  }
+  if (errors.length)
+    throw new AggregateError(errors, "Secondary motion cleanup failures");
+}
+
 export const ENGINE = Object.freeze({
   springbone: "3.5.5",
   three: "0.186.1",
@@ -36,9 +69,10 @@ export function createSecondaryMotion({
     throw new Error("Instance angle bound may only tighten admitted profile");
   }
   assertCurrent();
+  parent.updateWorldMatrix(true, false);
+  assertRigidWorld(parent.matrixWorld);
   const root = new THREE.Group();
   root.name = "secondary-motion";
-  parent.add(root);
   const manager = new VRMSpringBoneManager();
   const chains = [];
   const parts = [];
@@ -80,15 +114,18 @@ export function createSecondaryMotion({
     if (disposed) throw new Error("Secondary motion disposed");
     assertCurrent();
     parent.updateWorldMatrix(true, false);
-    assertMatrix(parent.matrixWorld);
+    assertRigidWorld(parent.matrixWorld);
   }
 
   function validateRoot() {
+    parent.updateWorldMatrix(true, false);
+    assertRigidWorld(parent.matrixWorld);
     root.updateWorldMatrix(true, true);
-    assertMatrix(root.matrixWorld);
+    assertRigidWorld(root.matrixWorld);
   }
 
   try {
+    parent.add(root);
     for (const proxy of profile.proxies) {
       const collider = new VRMSpringBoneCollider(
         new VRMSpringBoneColliderShapeSphere({
@@ -165,9 +202,14 @@ export function createSecondaryMotion({
     }
     manager.setInitState();
   } catch (error) {
-    for (const joint of [...manager.joints]) manager.deleteJoint(joint);
-    for (const part of parts) part.mesh.geometry.dispose();
-    root.removeFromParent();
+    try {
+      dispose();
+    } catch (cleanupError) {
+      throw new AggregateError(
+        [error, cleanupError],
+        "Secondary construction and cleanup failed",
+      );
+    }
     throw error;
   }
 
@@ -266,7 +308,7 @@ export function createSecondaryMotion({
     atRest = false;
   }
 
-  function reset(time = 0) {
+  function resetInternal(time = 0) {
     guard();
     if (!Number.isFinite(time)) throw new Error("Finite reset time required");
     validateRoot();
@@ -287,7 +329,7 @@ export function createSecondaryMotion({
     stats.resets++;
   }
 
-  function update({
+  function updateInternal({
     time,
     paused = false,
     reducedMotion = false,
@@ -397,11 +439,38 @@ export function createSecondaryMotion({
 
   function dispose() {
     if (disposed) return;
-    for (const joint of [...manager.joints]) manager.deleteJoint(joint);
-    for (const part of parts) part.mesh.geometry.dispose();
-    root.removeFromParent();
     disposed = true;
+    cleanupAll([
+      ...[...manager.joints].map((joint) => () => manager.deleteJoint(joint)),
+      ...parts.map((part) => () => part.mesh.geometry.dispose()),
+      () => root.removeFromParent(),
+    ]);
   }
 
+  function failAndDispose(error) {
+    try {
+      dispose();
+    } catch (cleanupError) {
+      throw new AggregateError(
+        [error, cleanupError],
+        "Secondary update and cleanup failed",
+      );
+    }
+    throw error;
+  }
+  function reset(time = 0) {
+    try {
+      return resetInternal(time);
+    } catch (error) {
+      failAndDispose(error);
+    }
+  }
+  function update(options) {
+    try {
+      return updateInternal(options);
+    } catch (error) {
+      failAndDispose(error);
+    }
+  }
   return { root, parts, chains, update, reset, dispose, diagnostics };
 }

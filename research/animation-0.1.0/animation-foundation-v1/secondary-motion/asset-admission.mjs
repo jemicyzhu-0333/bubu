@@ -1,5 +1,22 @@
 import * as THREE from "three";
 
+function releaseParts(parts, originalError) {
+  const errors = [];
+  for (const part of parts) {
+    try {
+      part.geometry.dispose();
+    } catch (error) {
+      errors.push(error);
+    }
+  }
+  if (errors.length)
+    throw new AggregateError(
+      originalError ? [originalError, ...errors] : errors,
+      "Secondary asset cleanup failures",
+    );
+  if (originalError) throw originalError;
+}
+
 const admissions = new WeakMap();
 const MAX_VERTICES = 100000;
 const MAX_BYTES = 32 * 1024 * 1024;
@@ -109,8 +126,7 @@ export function bakeAccessory(asset) {
     if (!parts.length) throw new Error("Accessory contains no meshes");
     return parts;
   } catch (error) {
-    for (const part of parts) part.geometry.dispose();
-    throw error;
+    releaseParts(parts, error);
   }
 }
 
@@ -308,14 +324,13 @@ export async function admitSecondaryAsset({ asset, descriptor }) {
       dispose() {
         if (state.disposed) return;
         state.disposed = true;
-        for (const part of parts) part.geometry.dispose();
+        releaseParts(parts);
       },
     });
     admissions.set(token, state);
     return token;
   } catch (error) {
-    for (const part of parts) part.geometry.dispose();
-    throw error;
+    releaseParts(parts, error);
   }
 }
 

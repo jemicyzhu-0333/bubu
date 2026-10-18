@@ -130,68 +130,23 @@
     "hybrid": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67"
   },
   "modules": {
-    "../secondary-motion/index.mjs": "e0ee30ee55742b392f26cb59e77afde07bd95553de2a2b11e1455678606324e2",
+    "../secondary-motion/index.mjs": "a8f63e1f8899f73f9022e99456d0661d474df30540ecef783aca56635ca15cab",
     "../secondary-motion/rapier.mjs": "6b37b7e9ba205697c8ebd0fa8dafc290c49e89a46d274bc4ce86e88ab54af62d",
     "../body-runtime/surface-query.mjs": "55a4948bfdfe0889c5a1756deb3f64f20ca97a0925c0ad1cdce48f91cc317176",
     "../body-runtime/attribute-layout.mjs": "e6aef366ee91a85db561c55e831c932c49be6a998d76313ddfb2c435f4a39aca",
     "../body-runtime/rigid-surface-partition.mjs": "fe5b873ff030e08d593aecea7e4673b0876c9f4ee7acd3f9c74fa57d3809d53f",
     "../body-runtime/pointer-host.mjs": "5930a96d60f4f97cbb34d3eeeb6ab89b422fea4db5bee170d295236a3c799fa6",
     "../../package-lock.json": "31d67b670b90a0d64698bc5667d08da9fc2293ed3b10b75d96b00f2898f86102",
-    "./foundation-host.mjs": "e5e7b301ce1aeec39da762e37035bee3a17990e2e9e85931204f43216957d37b",
+    "./foundation-host.mjs": "1c285876636fbbb863d688b7ddf377172085ce7575125f3e3ddac9c11d052737",
     "./asset-fixtures.mjs": "adbe22fdc5bf2c014106adf9cd8243027f6cd8e8b2066b52aa11b03d998e66b7"
   },
   "slowFrames": [
     {
       "fixture": "ear-sakura-leaf",
-      "frame": 3,
-      "mode": "pending",
-      "beginMs": 2262.658702,
-      "elapsedMs": 17.550536999999622,
-      "queries": 1,
-      "refits": 0
-    },
-    {
-      "fixture": "satchel",
-      "frame": 3,
-      "mode": "pending",
-      "beginMs": 2945.366247,
-      "elapsedMs": 18.53948100000025,
-      "queries": 1,
-      "refits": 1
-    },
-    {
-      "fixture": "satchel",
-      "frame": 100,
-      "mode": "landing",
-      "beginMs": 3346.239649,
-      "elapsedMs": 44.44722999999976,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "satchel",
-      "frame": 105,
-      "mode": "landing",
-      "beginMs": 3452.77727,
-      "elapsedMs": 57.577256000000034,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "satchel",
-      "frame": 113,
-      "mode": "landing",
-      "beginMs": 3556.610285,
-      "elapsedMs": 115.86510799999996,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "satchel",
-      "frame": 114,
-      "mode": "landing",
-      "beginMs": 3672.589527,
-      "elapsedMs": 18.679753999999775,
+      "frame": 28,
+      "mode": "drag",
+      "beginMs": 1607.429442,
+      "elapsedMs": 17.4304639999998,
       "queries": 0,
       "refits": 0
     },
@@ -199,242 +154,17 @@
       "fixture": "cape-tail",
       "frame": 3,
       "mode": "pending",
-      "beginMs": 4035.526023,
-      "elapsedMs": 209.8023020000005,
+      "beginMs": 2581.338719,
+      "elapsedMs": 23.210667000000285,
       "queries": 1,
       "refits": 1
-    },
-    {
-      "fixture": "cape-tail",
-      "frame": 59,
-      "mode": "drag",
-      "beginMs": 4600.278258,
-      "elapsedMs": 17.943473999999696,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "cape-tail",
-      "frame": 85,
-      "mode": "drag",
-      "beginMs": 4910.924119,
-      "elapsedMs": 18.56799299999966,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "cape-tail",
-      "frame": 89,
-      "mode": "drag",
-      "beginMs": 4972.096359,
-      "elapsedMs": 17.88202900000033,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "cape-tail",
-      "frame": 90,
-      "mode": "landing",
-      "beginMs": 4991.235985,
-      "elapsedMs": 19.747307999999975,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "held-book-release",
-      "frame": 92,
-      "mode": "landing",
-      "beginMs": 5916.317067,
-      "elapsedMs": 23.539402000000337,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "held-book-release",
-      "frame": 93,
-      "mode": "landing",
-      "beginMs": 5949.67349,
-      "elapsedMs": 24.39144099999976,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "held-book-release",
-      "frame": 94,
-      "mode": "landing",
-      "beginMs": 6066.002581,
-      "elapsedMs": 98.17583999999988,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "held-book-release",
-      "frame": 96,
-      "mode": "landing",
-      "beginMs": 6203.004716,
-      "elapsedMs": 21.03369399999974,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "held-book-release",
-      "frame": 98,
-      "mode": "landing",
-      "beginMs": 6246.017693,
-      "elapsedMs": 22.445643000000018,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "halo-particles",
-      "frame": 3,
-      "mode": "pending",
-      "beginMs": 6950.808126,
-      "elapsedMs": 33.48029300000053,
-      "queries": 1,
-      "refits": 1
-    },
-    {
-      "fixture": "halo-particles",
-      "frame": 82,
-      "mode": "drag",
-      "beginMs": 7367.311895,
-      "elapsedMs": 47.10478200000034,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "halo-particles",
-      "frame": 83,
-      "mode": "drag",
-      "beginMs": 7415.856895,
-      "elapsedMs": 26.974151999999776,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "halo-particles",
-      "frame": 84,
-      "mode": "drag",
-      "beginMs": 7444.636851,
-      "elapsedMs": 208.84931899999992,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "halo-particles",
-      "frame": 85,
-      "mode": "drag",
-      "beginMs": 7653.846152,
-      "elapsedMs": 54.44216200000028,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "halo-particles",
-      "frame": 86,
-      "mode": "drag",
-      "beginMs": 7709.033605,
-      "elapsedMs": 29.820301000000654,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "halo-particles",
-      "frame": 87,
-      "mode": "drag",
-      "beginMs": 7743.201701,
-      "elapsedMs": 17.36977999999999,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "halo-particles",
-      "frame": 88,
-      "mode": "drag",
-      "beginMs": 7760.751676,
-      "elapsedMs": 52.02691400000003,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "halo-particles",
-      "frame": 90,
-      "mode": "landing",
-      "beginMs": 7823.761675,
-      "elapsedMs": 24.071115000000646,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "halo-particles",
-      "frame": 92,
-      "mode": "landing",
-      "beginMs": 7864.302719,
-      "elapsedMs": 20.044232000000193,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "halo-particles",
-      "frame": 93,
-      "mode": "landing",
-      "beginMs": 7884.558127,
-      "elapsedMs": 16.68787699999939,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "halo-particles",
-      "frame": 146,
-      "mode": "landing",
-      "beginMs": 8088.098654,
-      "elapsedMs": 106.5032799999999,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "halo-particles",
-      "frame": 153,
-      "mode": "landing",
-      "beginMs": 8218.74627,
-      "elapsedMs": 25.09866300000067,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "halo-particles",
-      "frame": 154,
-      "mode": "landing",
-      "beginMs": 8245.714349,
-      "elapsedMs": 19.013708000000406,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "halo-particles",
-      "frame": 157,
-      "mode": "landing",
-      "beginMs": 8280.084092,
-      "elapsedMs": 32.40557700000136,
-      "queries": 0,
-      "refits": 0
-    },
-    {
-      "fixture": "halo-particles",
-      "frame": 165,
-      "mode": "landing",
-      "beginMs": 8365.697576,
-      "elapsedMs": 42.408158999998705,
-      "queries": 0,
-      "refits": 0
     }
   ],
   "churn": {
     "cycles": 60,
-    "elapsedMs": 259.8882880000019,
-    "heapBefore": 24980352,
-    "heapAfter": 25282184,
+    "elapsedMs": 186.64567599999918,
+    "heapBefore": 24973920,
+    "heapAfter": 25293432,
     "gcAvailable": true
   },
   "surfaceQuery": {
@@ -450,9 +180,9 @@
   },
   "cpuFrameMs": {
     "samples": 900,
-    "median": 3.45924100000002,
-    "p95": 13.649433999999928,
-    "max": 209.8023020000005,
+    "median": 2.1277169999998478,
+    "p95": 4.652505999999903,
+    "max": 23.210667000000285,
     "includes": "body + hybrid + anchors + secondary + effects; excludes GPU"
   }
 }

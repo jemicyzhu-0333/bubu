@@ -238,6 +238,7 @@ export class FoundationActor {
     let generation;
     const pending = [];
     const unclaimed = new Set();
+    let equipError = null;
     try {
       this.remove();
       generation = this.generation;
@@ -325,18 +326,41 @@ export class FoundationActor {
       this.configuration = plan;
       return { stale: false, plan };
     } catch (error) {
-      if (generation === this.generation) this.remove();
-      throw error;
+      equipError = error;
+      try {
+        if (generation === this.generation) this.remove();
+      } catch (cleanupError) {
+        equipError = new AggregateError(
+          [error, cleanupError],
+          "Equipment failure and cleanup",
+        );
+      }
+      throw equipError;
     } finally {
       this.pendingEquips--;
-      if (this.equipLease !== lease) lease.release();
-      for (const asset of unclaimed) disposeAsset(asset);
+      const cleanup = [
+        () => {
+          if (this.equipLease !== lease) lease.release();
+        },
+        ...[...unclaimed].map((asset) => () => disposeAsset(asset)),
+      ];
       for (const item of pending)
-        if (![...this.mounts.values()].includes(item)) {
-          item.secondary?.dispose();
-          item.root.removeFromParent();
-          disposeAsset(item.asset);
-        }
+        if (![...this.mounts.values()].includes(item))
+          cleanup.push(
+            () => item.secondary?.dispose(),
+            () => item.root.removeFromParent(),
+            () => disposeAsset(item.asset),
+          );
+      try {
+        cleanupOwned(cleanup, "Pending equipment cleanup failures");
+      } catch (cleanupError) {
+        if (equipError)
+          throw new AggregateError(
+            [equipError, cleanupError],
+            "Equipment failure and pending cleanup",
+          );
+        throw cleanupError;
+      }
     }
   }
   get time() {
