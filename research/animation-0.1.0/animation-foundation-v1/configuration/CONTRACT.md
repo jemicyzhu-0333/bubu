@@ -51,7 +51,7 @@ The face port is `request({time,candidate,amount,enterSec,exitSec})` and `releas
 
 ## Evidence
 
-Run `node --test bubu-animation-foundation-20261018/configuration/tests/*.test.mjs` from workspace root. Tests exercise the real existing SceneCoordinator and QuaternionLane, including changed timing changing actual quaternion output; configured finite loops/effects/contact/face-port calls; sampled drag interruption and recovery; stale replay prevention; all five finite strategies terminating; missing ports and unsupported pointer knobs failing closed; numeric, array, accessor and writer admission.
+Run `node --test animation-foundation-v1/configuration/tests/*.test.mjs` from `research/animation-0.1.0` after the [shared setup](../integration/README.md#running). Tests exercise the real existing SceneCoordinator and QuaternionLane, including changed timing changing actual quaternion output; configured finite loops/effects/contact/face-port calls; sampled drag interruption and recovery; stale replay prevention; all five finite strategies terminating; missing ports and unsupported pointer knobs failing closed; numeric, array, accessor and writer admission.
 
 Face-port unit calls alone are not actual D2 facial animation evidence. Full-host integration must verify the single-owner batch changes rendered facial state, preserves gesture priority and drops stale intents. CPU evidence is not native Windows/macOS or GPU performance evidence.
 

@@ -8,7 +8,7 @@ import {
   bakeGroup,
   disposeAsset,
 } from "./asset-fixtures.mjs";
-import { AccessoryAdapter as EarAdapter } from "../../bubu-asset-physics-revision-20261018/headwear-expansion/src/accessory-adapter.mjs";
+import { AccessoryAdapter as EarAdapter } from "../../external-assets-v1/headwear-expansion/src/accessory-adapter.mjs";
 
 const descriptors = Object.freeze({
   "skin.sakura-flower": {

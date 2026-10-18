@@ -1,0 +1,132 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> foundation:test
+> node --test animation-foundation-v1/body-runtime/*.test.mjs animation-foundation-v1/integration/*.test.mjs animation-foundation-v1/configuration/tests/*.test.mjs
+
+✔ D2 shared: actual full18 actor one owner; real ray eligibility ignores caller eligible (1089.406282ms)
+✔ D2 shared: same-frame down/move/up are grouped once; late sealed move atomic reject (959.761779ms)
+✔ D2 shared: capture drag leaves canvas, follows camera plane, releases to ground (825.549201ms)
+✔ D2 shared: petting sustained phase can hand off to drag without second actor (1117.749694ms)
+✔ D2 shared: pointerId, primary and buttons cannot steal pointer (778.767923ms)
+✔ D2 shared: pending leave cancels even captured; missed head contact never qualifies (794.569475ms)
+✔ D2 shared: capture acquisition/release errors have safe cleanup; uncaptured leave cancels (712.734733ms)
+✔ D2 shared: lostcapture, blur, visibility and disposal invalidate captures/listeners/queued input (711.077093ms)
+✔ D2 shared: CSS rect resize and backbuffer DPR do not mix into NDC or threshold (770.038742ms)
+✔ D2 shared: sealed lost capture invalidates lifecycle at exact timestamp without epsilon (727.149588ms)
+✔ D2 shared: continuous petting requires current surface; camera movement ends contact (756.2ms)
+✔ D2 shared: same-time final move is applied before release captures landing position (716.814842ms)
+✔ D2 shared: pointerup final finite client position is applied, cancel has no invented point (746.155333ms)
+✔ D2 shared: pending surface loss before qualification never emits release face (765.460022ms)
+✔ D2 shared: two-hour visible long press drains pure-controller boundary outputs (1532.378127ms)
+✔ D2 shared: visibility visible cannot resume while window remains blurred (1229.462135ms)
+✔ D2 shared: unbounded move rejects atomically; malformed terminal coordinates still release (1721.682967ms)
+✔ D2 shared: DOM router uses continuous-flow controller and passes configured seconds unchanged (1585.08584ms)
+✔ D2 shared: invalid cadence option rejects before pack reads or actor allocation (513.543705ms)
+✔ D2 shared: adjustable workbench yaw keeps actual raycast and deformed surface anchor aligned (3137.746082ms)
+✔ D2 shared: bodyOptions cannot change pivot or nonfinite orientation before admission (1.429156ms)
+✔ D2 shared: only validated yaw is forwarded; inherited pivot cannot change actor stage (835.068437ms)
+✔ D2 shared initialization request/listener faults release admitted actor and all registered listeners (1432.237996ms)
+✔ D2 shared cleanup failures still free actor; body invariant fault stops queued RAF and input (1401.30898ms)
+✔ D2 actual pointer pickup drives N3 cavity gate on same live four-joint actor, then clears (663.45217ms)
+Authored comparison {
+  time: 0.15,
+  phase: 'hold',
+  owner: 'authored',
+  requestId: 'authored1',
+  candidate: 'authored0',
+  token: 1,
+  logicalArrival: 0.1,
+  path: 'P2',
+  amount: 0.25,
+  clockArrival: 0.1,
+  clockActualArrival: 0.1,
+  deadline: 3600.1,
+  queued: 0,
+  epoch: 1
+} {
+  time: 0.15,
+  phase: 'enter',
+  owner: 'authored',
+  requestId: 'authored1',
+  candidate: 'authored0',
+  token: 1,
+  logicalArrival: null,
+  path: 'P2',
+  amount: 0.253125,
+  clockArrival: 0.4,
+  clockActualArrival: null,
+  deadline: 0.4,
+  queued: 0,
+  epoch: 1
+}
+✔ authored amounts and enter timing reach actual expression owner (2273.139886ms)
+✔ same-time pointer preempts authored port, lifecycle prevents resurrection (884.457961ms)
+✔ qualified held target is stable without repeated surface queries (1571.016708ms)
+✔ approved D2 surface matches native hits and never mutates source geometry (5104.507619ms)
+✔ morph relative, nonuniform scale, reflection, ray interval and layers (21.392984ms)
+✔ morph absolute, nonuniform scale, reflection, ray interval and layers (12.528997ms)
+✔ morph mode changes require readmission, invalid pose fails closed (2.186864ms)
+✔ attribute normalization, backing replacement and NaN draw ranges cannot reuse cached hits (2.440643ms)
+✔ rigid partitions preserve reflected-bone winding and native face normals (14.833863ms)
+✔ non-indexed geometry keeps source topology and native hit metadata (2.296982ms)
+✔ authored timing changes actual existing QuaternionLane output (63.527183ms)
+✔ finite strategy dispatches configured effects and restores neutral without replay (3.77972ms)
+✔ drag priority interrupts from sampled value then obeys configured exit duration (6.788592ms)
+✔ contacts and face requests execute and release on lifecycle reset (2.259528ms)
+✔ loop bound, pause and disposal leave no queued work (1.976231ms)
+✔ runtime admission rejects full18, ignored pointer knobs and missing executable ports (2.782693ms)
+✔ all five authored fixture strategies execute their declared ports and terminate (8.600969ms)
+✔ throwing release ports cannot retain action ownership or prevent other cleanup (8.126828ms)
+✔ reentrant disposal during dispatch cannot revive contacts or queued action (2.84897ms)
+✔ late face keys coalesce at the observed owner frame without backdating or queue amplification (3.691318ms)
+✔ ear-sakura-leaf: immutable compilation and existing scene owner admission (36.79367ms)
+✔ satchel: immutable compilation and existing scene owner admission (1.053852ms)
+✔ cape-tail: immutable compilation and existing scene owner admission (1.161756ms)
+✔ held-book-release: immutable compilation and existing scene owner admission (1.438582ms)
+✔ halo-particles: immutable compilation and existing scene owner admission (1.038507ms)
+✔ unknown anchor fails closed (0.822721ms)
+✔ unknown asset fails closed (0.520571ms)
+✔ unbounded lifetime rejected (0.38199ms)
+✔ NaN rate rejected (0.906748ms)
+✔ unbounded duration rejected (0.595628ms)
+✔ fractional capacity rejected (0.435589ms)
+✔ unknown emitter rejected (0.257996ms)
+✔ unknown root field rejected (0.222401ms)
+✔ second body owner rejected (0.383237ms)
+✔ input lifecycle override rejected (0.285392ms)
+✔ equal priority shared writers rejected (0.371137ms)
+✔ body bone writer rejected (0.348154ms)
+✔ unknown clip rejected (0.356235ms)
+✔ cleanup shorter than particle TTL rejected (0.193492ms)
+✔ duplicate mount rejected (0.170844ms)
+✔ invalid offset rejected (0.112955ms)
+✔ invalid contact interval rejected (1.605901ms)
+✔ authored and secondary writers conflict (0.46628ms)
+✔ admitted accessory clip and face references preserve existing wire semantics (2.291296ms)
+✔ catalogue exhaustively maps 18 wearables, 39 props, 2 variants without false action completion (1.167438ms)
+✔ oversized input rejects before cloning (7.211869ms)
+✔ configuration getter is rejected without invocation (0.354347ms)
+✔ array getters are rejected without invocation (1.385194ms)
+✔ compiled plans do not freeze or alias caller input (4.635491ms)
+✔ mount nested getter rejected before uniqueness (1.311298ms)
+✔ secondary nested getter rejected before uniqueness (1.080663ms)
+✔ effect nested getter rejected before uniqueness (0.282085ms)
+✔ action nested getter rejected before uniqueness (0.886979ms)
+✔ bone nested getter rejected before uniqueness (0.698125ms)
+✔ frame owner commits one time/revision and preserves ordered ownership (3.451057ms)
+✔ frame owner refuses reentrant updates without multiple body ownership (0.982373ms)
+✔ pending reservations bound aggregate allocation and commits cannot expand (2.690357ms)
+✔ closed ledger still releases pending work but rejects commit and new allocation (0.441281ms)
+ℹ tests 83
+ℹ suites 0
+ℹ pass 83
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 25970.629962
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

@@ -19,7 +19,7 @@ report.modules = Object.fromEntries(
     "../body-runtime/surface-query.mjs",
     "../body-runtime/rigid-surface-partition.mjs",
     "../body-runtime/pointer-host.mjs",
-    "../package-lock.json",
+    "../../package-lock.json",
     "./foundation-host.mjs",
     "./asset-fixtures.mjs",
   ].map((p) => [p, sha256(new URL(p, import.meta.url))]),

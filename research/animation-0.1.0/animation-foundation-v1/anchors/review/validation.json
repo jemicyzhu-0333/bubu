@@ -1,0 +1,29 @@
+{
+  "tests": {
+    "movedD2VertexIndexRejected": true,
+    "realSurfacePositionMaxError": 0,
+    "nonidentityInverseBind": true,
+    "actorIsolationAndPoseFreshness": true,
+    "copyIsolationMissingAndBounds": true,
+    "noGeometryMutation": true,
+    "reflectedNonuniformFrames": true,
+    "callerOwnedTarget": true,
+    "disposedFailsClosed": true
+  },
+  "scenarios": {
+    "drag": {
+      "frames": 271
+    },
+    "longpress": {
+      "frames": 1891
+    },
+    "tea": {
+      "frames": 271,
+      "maxPalmError": 0
+    }
+  },
+  "profile": {
+    "scope": "CPU Node only, 500 iterations of sampling 25 anchors and reading all 25 into one caller target",
+    "milliseconds": 420.48607300000003
+  }
+}

@@ -135,35 +135,26 @@
     "../body-runtime/surface-query.mjs": "72cf2c30da1f47f50d9e09c1065d7ac7053c971526d435c35ee4eff0dc06a1d9",
     "../body-runtime/rigid-surface-partition.mjs": "fe5b873ff030e08d593aecea7e4673b0876c9f4ee7acd3f9c74fa57d3809d53f",
     "../body-runtime/pointer-host.mjs": "5930a96d60f4f97cbb34d3eeeb6ab89b422fea4db5bee170d295236a3c799fa6",
-    "../package-lock.json": "03d5d3fcea5c31a2b6df2c4bab4532d5c2523481c2715884b3729b45a438f96b",
-    "./foundation-host.mjs": "1c052a4f1bf55319e1848a0ac8e525f90e0829eed06ddfb478f15487a480c0dc",
-    "./asset-fixtures.mjs": "49911788e4fc58781e6c176d61ece6db3fcac320d99ee9a7c6f260999f13c333"
+    "../../package-lock.json": "31d67b670b90a0d64698bc5667d08da9fc2293ed3b10b75d96b00f2898f86102",
+    "./foundation-host.mjs": "e5e7b301ce1aeec39da762e37035bee3a17990e2e9e85931204f43216957d37b",
+    "./asset-fixtures.mjs": "adbe22fdc5bf2c014106adf9cd8243027f6cd8e8b2066b52aa11b03d998e66b7"
   },
   "slowFrames": [
     {
       "fixture": "cape-tail",
       "frame": 3,
       "mode": "pending",
-      "beginMs": 2745.792155,
-      "elapsedMs": 20.072826000000077,
-      "queries": 1,
-      "refits": 1
-    },
-    {
-      "fixture": "halo-particles",
-      "frame": 3,
-      "mode": "pending",
-      "beginMs": 3985.265066,
-      "elapsedMs": 19.553333000000293,
+      "beginMs": 2402.130159,
+      "elapsedMs": 21.991680000000088,
       "queries": 1,
       "refits": 1
     }
   ],
   "churn": {
     "cycles": 60,
-    "elapsedMs": 161.65425400000095,
-    "heapBefore": 26803128,
-    "heapAfter": 27101536,
+    "elapsedMs": 178.9989970000006,
+    "heapBefore": 24981272,
+    "heapAfter": 25293152,
     "gcAvailable": true
   },
   "surfaceQuery": {
@@ -179,9 +170,9 @@
   },
   "cpuFrameMs": {
     "samples": 900,
-    "median": 2.1149289999998473,
-    "p95": 4.331109000000197,
-    "max": 20.072826000000077,
+    "median": 1.9810499999998683,
+    "p95": 4.013063999999758,
+    "max": 21.991680000000088,
     "includes": "body + hybrid + anchors + secondary + effects; excludes GPU"
   }
 }

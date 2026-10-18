@@ -1,14 +1,15 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import * as T from '../../bubu-recovery-20261017/runtime/node_modules/three/build/three.module.js';
+import * as T from 'three';
 import { createEffectRuntime } from './bounded-effects.mjs';
-const base = path.resolve('bubu-asset-physics-revision-20261018');
+if (!process.argv[2]) throw new Error('Provide a directory containing forest.json, sakura.json and halo.json scene snapshots');
+const base = path.resolve(process.argv[2]);
 const output = new URL('./renders/', import.meta.url); fs.mkdirSync(output, { recursive: true });
 const p = new T.Vector3(), im = new T.Matrix4();
 for (const [kind, effectId, file, anchorName] of [
-  ['forest', 'leaf-stream', 'headwear-expansion/.replay-final/headwear-expansion/review/forest-static.json', 'forest_leaf'],
-  ['sakura', 'petal-stream', 'headwear-expansion/.replay-final/headwear-expansion/review/sakura-static.json', 'sakura'],
-  ['halo', 'halo-sparks', '.cache/weight/accessory/review/halo-static.json', 'halo_ring']]) {
+  ['forest', 'leaf-stream', 'forest.json', 'forest_leaf'],
+  ['sakura', 'petal-stream', 'sakura.json', 'sakura'],
+  ['halo', 'halo-sparks', 'halo.json', 'halo_ring']]) {
   const source = JSON.parse(fs.readFileSync(path.join(base, file)));
   const meshes = source.frames[0].meshes;
   const sourceMesh = meshes.find(m => m.name.startsWith(anchorName));

@@ -1,0 +1,23 @@
+{
+  "scope": "Synthetic CPU controller replay, body pose projection only; not user input recordings",
+  "inputs": {
+    "drag": {
+      "sourceSHA256": "be15789114f5613d21a612247c113efa11ef0d6ae2a909d987fd8f462191f18b",
+      "projectionSHA256": "bae4ef23c1542d6a1f6367affc38c8b4cb54cf632e51c9d9d732f12a725f9c00",
+      "frames": 271,
+      "fields": [
+        "time",
+        "body"
+      ]
+    },
+    "longpress": {
+      "sourceSHA256": "e9061fa24a7cfb584f725c31b3999158009eaa6189995850bcaaec369868342d",
+      "projectionSHA256": "e3ba6e3dd56e0e93b08b9fad886c244a1bd74bca23f009a2435ab78156b72cef",
+      "frames": 1891,
+      "fields": [
+        "time",
+        "body"
+      ]
+    }
+  }
+}

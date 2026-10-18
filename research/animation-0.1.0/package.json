@@ -1,0 +1,17 @@
+{
+  "name": "bubu-animation-research",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "three": "0.186.1",
+    "three-mesh-bvh": "0.9.16",
+    "@pixiv/three-vrm-springbone": "3.5.5",
+    "@dimforge/rapier3d-compat": "0.21.0"
+  },
+  "scripts": {
+    "foundation:prepare": "python3 runtime-facepath05/tools/materialize-d2.py",
+    "foundation:test": "node --test animation-foundation-v1/body-runtime/*.test.mjs animation-foundation-v1/integration/*.test.mjs animation-foundation-v1/configuration/tests/*.test.mjs",
+    "foundation:integration": "node --expose-gc animation-foundation-v1/integration/verify.mjs",
+    "foundation:preflight": "node animation-foundation-v1/integration/verify-portability.mjs"
+  }
+}

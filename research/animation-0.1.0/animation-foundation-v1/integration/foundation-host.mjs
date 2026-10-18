@@ -17,7 +17,7 @@ import {
 } from "./asset-fixtures.mjs";
 import { createD2BindingProvider } from "./asset-bindings.mjs";
 import { createFrameOwner } from "./frame-owner.mjs";
-import { createRoundTail } from "../../bubu-asset-physics-revision-20261018/body-tail/round-tail-adapter.mjs";
+import { createRoundTail } from "../../external-assets-v1/body-tail/round-tail-adapter.mjs";
 
 import { admitAsset } from "./resource-admission.mjs";
 export { RESOURCE_LIMITS } from "./resource-admission.mjs";

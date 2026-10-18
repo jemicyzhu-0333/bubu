@@ -1,6 +1,6 @@
-import { QuaternionLane } from "../../bubu-recovery-20261017/repo-check/research/animation-0.1.0/runtime/src/timeline.mjs";
-import { validateClipLibrary } from "../../bubu-recovery-20261017/repo-check/research/animation-0.1.0/runtime/src/clip-contract.mjs";
-import { createSceneCoordinator } from "../../bubu-recovery-20261017/repo-check/research/animation-0.1.0/scene-coordinator-v1/src/coordinator.mjs";
+import { QuaternionLane } from "../../runtime/src/timeline.mjs";
+import { validateClipLibrary } from "../../runtime/src/clip-contract.mjs";
+import { createSceneCoordinator } from "../../scene-coordinator-v1/src/coordinator.mjs";
 
 const IDENTITY = [0, 0, 0, 1];
 const clock = (time) => Math.round(time * 1e6);

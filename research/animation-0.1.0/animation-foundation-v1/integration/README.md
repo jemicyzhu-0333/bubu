@@ -8,18 +8,29 @@ pools is not an application-global budget enforcement mechanism.
 
 ## Running
 
-From the workspace root:
+From `research/animation-0.1.0`, run:
 
-- `node --expose-gc bubu-animation-foundation-20261018/integration/verify.mjs`
-- `node bubu-animation-foundation-20261018/integration/verify-contract.mjs`
-- `node bubu-animation-foundation-20261018/integration/verify-release.mjs`
-- `node bubu-animation-foundation-20261018/integration/verify-authored.mjs`
-- `node bubu-animation-foundation-20261018/integration/export-evidence.mjs`
+- `npm ci --ignore-scripts`
+- `npm run foundation:prepare` (hash-checked local D2 archive; no download)
+- `npm run foundation:preflight`
+- `npm run foundation:test`
+- `npm run foundation:integration`
+- `node animation-foundation-v1/integration/verify-contract.mjs`
+- `node animation-foundation-v1/integration/verify-release.mjs`
+- `node animation-foundation-v1/integration/verify-authored.mjs`
 
-The integration Three.js link resolves through secondary-motion to the same
-physical Three.js 0.186.1 module as the unchanged source fixture. Geometry export
-can be rendered using the existing revision accessory-expansion/src/render_actual.py
-with Blender CPU. `evidence/*report.json` are machine-readable measured results.
+Install at this shared research root, not separately inside sibling snapshots:
+the runtime, fixture, accessory adapters and spring-bone package must resolve one
+physical Three.js 0.186.1 instance. The preflight rejects duplicate installations.
+All model/runtime imports use repository-relative paths. Historical body-pose
+projections for floor/anchor regression live in `body-runtime/replay`, with source
+and projection hashes; these are synthetic CPU fixtures, not native-input proof.
+
+`effects/export-prototypes.mjs <scene-directory>` is an optional offline export.
+It requires caller-provided `forest.json`, `sakura.json`, `halo.json` scene snapshots;
+those art-preview inputs are not required by the reproducible foundation tests.
+Geometry export uses `integration/export-evidence.mjs`; Blender CPU renders do not
+certify native input, GPU timing, appearance or contact acceptance.
 
 ## Ownership
 

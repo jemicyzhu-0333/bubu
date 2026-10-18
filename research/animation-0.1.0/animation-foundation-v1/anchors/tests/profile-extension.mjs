@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import * as T from '../../../bubu-asset-physics-revision-20261018/node_modules/three/build/three.module.js';
+import * as T from 'three';
 import { createAnchorRegistry } from '../registry.mjs';
 
 const scene = new T.Group();

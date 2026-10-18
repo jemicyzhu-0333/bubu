@@ -1,0 +1,80 @@
+{
+  "scope": "Isolated repository-relative CPU research layout; no workspace symlinks, no native/GPU claim",
+  "remoteSourceBaseline": "eb043c6260b01a0181eb065d32c671a869595549",
+  "sourceAudit": {
+    "coreFilesMatchingRemoteGitBlob": 468,
+    "includingHistoricalEvidence": 723,
+    "materializedD2ExcludedFromGitComparison": true
+  },
+  "setup": {
+    "npmCiIgnoreScripts": "passed",
+    "sharedThreePreflight": "passed",
+    "D2": "hash-verified from repository gzip",
+    "sourceAndHybrid": "unchanged approved SHA256",
+    "unicodeAndSpaceCheckout": "83 tests and 900-frame integration passed after fileURLToPath fix; Linux execution only"
+  },
+  "validation": {
+    "nodeTests": {
+      "passed": 83,
+      "failed": 0
+    },
+    "mixedIntegrationFrames": 900,
+    "anchorFrames": {
+      "drag": 271,
+      "longpress": 1891,
+      "tea": 271
+    },
+    "anchorMaxPointError": 0,
+    "floorMaxError": 3.3306690738754696e-16,
+    "secondaryMotion": "passed",
+    "secondaryRecovery": "passed",
+    "effectsChurnFrames": 120000,
+    "contract": "passed",
+    "detachedPropRelease": "passed with existing detailed-contact limits",
+    "authoredCases": 5
+  },
+  "open": [
+    "Native browser/GPU, Windows and macOS validation",
+    "Continuous-moving longpress occasional CPU spikes",
+    "Wearable contact failures and new asset binding admission",
+    "Historical unused drag-body-prototype-v1 fixture-host has missing vendor inputs; not in foundation execution graph",
+    "Optional effects preview export needs caller-provided scene snapshots"
+  ],
+  "modules": {
+    "animation-foundation-v1/effects/export-prototypes.mjs": "741bb093ceb0158fbeb4c7a0fdc17e98d16c30e27b7a294a3bd8bbe3a7c858ac",
+    "animation-foundation-v1/effects/test-effects.mjs": "6ea1e17d83c517fb8c86fc223353d3cf859a7dc162e3728957ad3c4c7a7e25c9",
+    "animation-foundation-v1/configuration/generate-catalogue.mjs": "d0f56593c70f323445bdad0b60d1f12560a32a73289a001891c3bcebd76b0ea6",
+    "animation-foundation-v1/configuration/action-strategy.mjs": "2082991c6490a30864b77741d25da147f5167294f8fbabf46e7297b5d8a3a957",
+    "animation-foundation-v1/body-runtime/fixture.mjs": "57e0b897a269999c536e20e2a1cebf4b3e6df4d87413b66f1d3ca1877ef586d7",
+    "animation-foundation-v1/body-runtime/approved-pointer.test.mjs": "a1ee74995398b041df8bea532f4e5688e2676cf355171455fada539aec16a2a0",
+    "animation-foundation-v1/body-runtime/verify-floor.mjs": "52b9f5795f0a9f619c349e6e35123b7e9d163f1ec71d7b730e2869e83042124a",
+    "animation-foundation-v1/integration/foundation-host.mjs": "e5e7b301ce1aeec39da762e37035bee3a17990e2e9e85931204f43216957d37b",
+    "animation-foundation-v1/integration/verify.mjs": "d4acf86bfb23a1badaeb2530797f7cd8354273ebd1626e4214aabd4d477d47f2",
+    "animation-foundation-v1/integration/verify-portability.mjs": "e237faa9d1381612c1375c3d38c5e956c0dcff151b71d5c091d320a45ae91437",
+    "animation-foundation-v1/integration/asset-bindings.mjs": "ee010f337265d3ee01b4bbb9742b244e4cf8cbb2f0a5888e8e6aadf4906c0ab2",
+    "animation-foundation-v1/integration/asset-fixtures.mjs": "adbe22fdc5bf2c014106adf9cd8243027f6cd8e8b2066b52aa11b03d998e66b7",
+    "animation-foundation-v1/anchors/tests/actual-pose.mjs": "94686bce59c0ad5c6c77f8c0d1946e5d89f6f4bf74bea5c73a54d7b8bb1c5033",
+    "animation-foundation-v1/anchors/tests/profile-extension.mjs": "2fb18c232c02c327a257aa15f3e1ad4956415da2b0f8d78f4e9447b0f2ed8a7d",
+    "animation-foundation-v1/configuration/tests/configuration.test.mjs": "08e319f4cf3f9242e33a57c6dd5b83d80d0dd6ea57db6dc4073549c259783ed2",
+    "animation-foundation-v1/configuration/tests/action-strategy.test.mjs": "99cbd097963d7ef378db5c3a96fe1597e12bec2f4a551a8459a2ea857b5c832b",
+    "animation-foundation-v1/integration/README.md": "25a7267863241a5cf45d484dbd773b7dc7a45e204ca9797ff77ad8888fe17409",
+    "animation-foundation-v1/effects/README.md": "fba7fad300b2762258ba474dd041c5aaa2a65eab561a2d3b0b887ec7902c193b",
+    "animation-foundation-v1/configuration/CONTRACT.md": "e2767958761cc51c1789163003013952c4a10ff4d74f3a1f51bbc2c635f15549",
+    "animation-foundation-v1/body-runtime/replay/drag.json": "bae4ef23c1542d6a1f6367affc38c8b4cb54cf632e51c9d9d732f12a725f9c00",
+    "animation-foundation-v1/body-runtime/replay/longpress.json": "e3ba6e3dd56e0e93b08b9fad886c244a1bd74bca23f009a2435ab78156b72cef",
+    "animation-foundation-v1/body-runtime/replay/provenance.json": "b4986e4e9c53202346571e77cb7f644ef6ab659c623459a1eebccd7491b8ca50",
+    "animation-foundation-v1/integration/evidence/integration-report.json": "3dd08e0f7be4dc34fd67540b53aaf8bce4e0babc6e702c4738847dd6dcf6bd60",
+    "animation-foundation-v1/integration/evidence/contract-report.json": "42d4c62a46171c0529e85978f7917b7fe45a76d3ae715c5ed8ec402d405ce21b",
+    "animation-foundation-v1/integration/evidence/book-release-report.json": "dd85e8d13a30d8a0dbaa29eab86a000c9dbfb543d58b6e4b625634d38671ae9d",
+    "animation-foundation-v1/integration/evidence/authored-actions-report.json": "67e075a0cf128f6800f10d20d66c571ee2007cb9227da4615db97c80f2abbeb3",
+    "animation-foundation-v1/anchors/review/validation.json": "b3d39de18d5caf8249bdefa33de255d9e96f1fcd2f3d7de5263847828bb82775",
+    "package.json": "903e9c04b0d2a91b02d5a385d867af6e0f736ea38c5a16a4bac7560f7d56cd6c",
+    "package-lock.json": "31d67b670b90a0d64698bc5667d08da9fc2293ed3b10b75d96b00f2898f86102",
+    "animation-foundation-v1/integration/export-evidence.mjs": "4268f08d39dcaa43fc44700dbcea18ee83023392fe67daf6a00c3338f0200d89"
+  },
+  "independentReview": {
+    "finding": "URL.pathname was used as an OS path in fixture and optional export",
+    "resolution": "Both use fileURLToPath; full suite rerun under a directory containing Chinese characters and spaces",
+    "remaining": "No native Windows/macOS execution"
+  }
+}

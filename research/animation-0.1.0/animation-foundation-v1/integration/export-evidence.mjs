@@ -1,11 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import * as T from "three";
 import { FoundationPool } from "./foundation-host.mjs";
 import { AUTHORED_CASES } from "../configuration/fixtures/authored.mjs";
 import { FIXTURES } from "../configuration/fixtures/index.mjs";
 import { source } from "./asset-fixtures.mjs";
-const out = path.resolve(new URL("./evidence", import.meta.url).pathname);
+const out = fileURLToPath(new URL("./evidence", import.meta.url));
 fs.mkdirSync(out + "/geometry", { recursive: true });
 function exportFrame(root, label, index, shared) {
   let ordinal = 0;

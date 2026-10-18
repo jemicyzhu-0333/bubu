@@ -1,35 +1,36 @@
-import { PET_CANDIDATES } from "../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/petting-continuous-r2/src/pet-policy.mjs";
+import { PET_CANDIDATES } from "../../petting-continuous-r2/src/pet-policy.mjs";
 import {
   APPROVED_D2_FACE_SOURCE,
   D2_FACE_PROFILE_SHA256,
-} from "../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/runtime-facepath05/src/approved-d2-face-source.mjs";
+} from "../../runtime-facepath05/src/approved-d2-face-source.mjs";
 // Browser-safe admission: caller supplies a bounded pack reader, never an actor,
 // eligibility claim, face owner, or body writer. No node:fs in this import graph.
-import { ActorPool } from "../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/runtime-facepath05/src/actor-pool.mjs";
-import { WeightedExpressionOwner } from "../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/runtime-facepath05/src/expression-owner.mjs";
+import { ActorPool } from "../../runtime-facepath05/src/actor-pool.mjs";
+import { WeightedExpressionOwner } from "../../runtime-facepath05/src/expression-owner.mjs";
 import {
   prepareFullFacePack,
   prepareD2FacePack,
-} from "../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/runtime-facepath05/src/pack-loader.mjs";
-import { FULL_FACE_SLOT_IDS } from "../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/runtime-facepath05/src/face-contract.mjs";
-import { BODY_PROFILE_ID } from "../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/runtime-facepath05/src/body-profile.mjs";
-import { ADMISSION } from "../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/expression-scheduler-p1/src/p0-binding.mjs";
+} from "../../runtime-facepath05/src/pack-loader.mjs";
+import { FULL_FACE_SLOT_IDS } from "../../runtime-facepath05/src/face-contract.mjs";
+import { BODY_PROFILE_ID } from "../../runtime-facepath05/src/body-profile.mjs";
+import { ADMISSION } from "../../expression-scheduler-p1/src/p0-binding.mjs";
 
 import { createAdmissionFactory } from "./host-admission.mjs";
 import { createPointerHostFactory } from "./pointer-host.mjs";
 import {
   DragController,
   smooth,
-} from "../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/drag-landing-r5/src/drag-controller.mjs";
-import { PettingController } from "../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/petting-continuous-r2/src/petting-controller.mjs";
-import { localPackReader } from "../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/runtime-facepath05/tools/read-local-pack.mjs";
+} from "../../drag-landing-r5/src/drag-controller.mjs";
+import { PettingController } from "../../petting-continuous-r2/src/petting-controller.mjs";
+import { localPackReader } from "../../runtime-facepath05/tools/read-local-pack.mjs";
 import fs from "node:fs";
-import * as T from "../../bubu-asset-physics-revision-20261018/node_modules/three/build/three.module.js";
+import { fileURLToPath } from "node:url";
+import * as T from "three";
 
 const profile = JSON.parse(
   fs.readFileSync(
     new URL(
-      "../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/drag-body-prototype-v1/replay/body-poses.json",
+      "../../drag-body-prototype-v1/replay/body-poses.json",
       import.meta.url,
     ),
   ),
@@ -57,10 +58,10 @@ export const createD2PointerHost = (options) =>
   host.createD2PointerHost({
     ...options,
     readPack: localPackReader(
-      new URL(
-        "../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/runtime-facepath05/fixtures/face-d2/",
+      fileURLToPath(new URL(
+        "../../runtime-facepath05/fixtures/face-d2/",
         import.meta.url,
-      ).pathname,
+      )),
     ),
   });
 export class Target extends EventTarget {

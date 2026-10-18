@@ -5,20 +5,10 @@ import { createHash } from "node:crypto";
 import * as T from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { fixture } from "../body-runtime/fixture.mjs";
-import { createContractCheckedMixedBindingAdapter } from "../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/original-parts-hybrid-v1/runtime/mixed-binding-contract.mjs";
-import { SatchelAdapter } from "../../bubu-asset-physics-revision-20261018/existing-wearables/src/local-adapters/satchel-adapter.mjs";
-export const workspace = path.resolve(
-  fileURLToPath(new URL("../../", import.meta.url)),
-);
-export const reference = path.join(
-  workspace,
-  "bubu-external-assets-staging-20261018/.cache/clean-a",
-);
-export const research = path.join(reference, "research/animation-0.1.0");
-export const revised = path.join(
-  workspace,
-  "bubu-asset-physics-revision-20261018",
-);
+import { createContractCheckedMixedBindingAdapter } from "../../original-parts-hybrid-v1/runtime/mixed-binding-contract.mjs";
+import { SatchelAdapter } from "../../external-assets-v1/existing-wearables/src/local-adapters/satchel-adapter.mjs";
+export const research = fileURLToPath(new URL("../../", import.meta.url));
+export const revised = path.join(research, "external-assets-v1");
 export const source = path.join(
   research,
   "runtime-facepath05/fixtures/face-d2/asset.glb",
@@ -115,8 +105,8 @@ export function bakeGroup(root, frame = new T.Matrix4()) {
 export async function correctedSatchel(body) {
   const raw = await loadGLB(
     path.join(
-      workspace,
-      "bubu-publication-20261018/research/animation-0.1.0/accessories-v1/03-satchel/satchel.glb",
+      research,
+      "accessories-v1/03-satchel/satchel.glb",
     ),
   );
   let adapter;

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { Object3D } from "../../secondary-motion/node_modules/three/build/three.module.js";
+import { Object3D } from "three";
 import { compileRuntimeConfiguration } from "../index.mjs";
 import { createActionStrategy } from "../action-strategy.mjs";
 import { FIXTURES, CATALOGUE } from "../fixtures/index.mjs";

@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { compileActionConfiguration } from "../index.mjs";
 import { FIXTURES, CATALOGUE } from "../fixtures/index.mjs";
-import { createSceneCoordinator } from "../../../bubu-recovery-20261017/repo-check/research/animation-0.1.0/scene-coordinator-v1/src/coordinator.mjs";
+import { createSceneCoordinator } from "../../../scene-coordinator-v1/src/coordinator.mjs";
 const anchorIds = [
   "crown",
   "earR.front",

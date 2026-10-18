@@ -1,13 +1,13 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
-import * as T from '../../../bubu-asset-physics-revision-20261018/node_modules/three/build/three.module.js';
-import { GLTFLoader } from '../../../bubu-asset-physics-revision-20261018/node_modules/three/examples/jsm/loaders/GLTFLoader.js';
+import * as T from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { createBubuD2AnchorRegistry as createAnchorRegistry, createAnchorRegistry as createGenericAnchorRegistry, BUBU_D2_PROFILE } from '../index.mjs';
-import { createMixedBindingAdapter } from '../../../bubu-recovery-20261017/delivery-package/runtime/mixed-binding-adapter.mjs';
-import { fixture } from '../../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/petting-continuous-r2/tools/fixture.mjs';
-const base=new URL('../../../',import.meta.url),ref=new URL('bubu-external-assets-staging-20261018/.cache/clean-a/',base);
+import { createMixedBindingAdapter } from '../../../original-parts-hybrid-v1/runtime/mixed-binding-adapter.mjs';
+import { fixture } from '../../../petting-continuous-r2/tools/fixture.mjs';
+const base=new URL('../../../',import.meta.url),ref=new URL('../../body-runtime/replay/',import.meta.url);
 async function setup(){
- const f=await fixture(), bytes=fs.readFileSync(new URL('bubu-recovery-20261017/delivery-package/geometry/bubu-hybrid-binding.glb',base));
+ const f=await fixture(), bytes=fs.readFileSync(new URL('original-parts-hybrid-v1/geometry/bubu-hybrid-binding.glb',base));
  const parts=(await new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength),'')).scene;
  const skin=f.h.body.skin,owner=createMixedBindingAdapter({THREE:T,sourceSkin:skin,parts,assertSourceCurrent:()=>f.h.owner.assertCurrent()});
  let revision=0;const registry=createAnchorRegistry({THREE:T,sourceSkin:skin,hybridRoot:owner.root,assertSourceCurrent:()=>f.h.owner.assertCurrent(),assertPoseCurrent:r=>assert.equal(r,revision)});
@@ -24,7 +24,7 @@ report.tests.movedD2VertexIndexRejected=true;
 function pose(a,r,revision){a.f.h.body.root.position.fromArray(r.body.root);a.f.h.body.pivot.quaternion.fromArray(r.body.pivot);for(const[n,q]of Object.entries(r.body.jointQuaternions))a.f.h.body.bones[n].quaternion.fromArray(q);a.f.h.body.root.updateMatrixWorld(true);a.owner.update();a.setRevision(revision);a.registry.sampleFinalPose(revision);}
 const snapshots=new Map();a.owner.root.traverse(o=>{if(o.isMesh)snapshots.set(o.geometry,Array.from(o.geometry.attributes.position.array));});
 let maxError=0;
-for(const scenario of ['drag','longpress']){const rows=JSON.parse(fs.readFileSync(new URL(`pointer/${scenario}/trajectory.json`,ref)));for(let i=0;i<rows.length;i++){
+for(const scenario of ['drag','longpress']){const rows=JSON.parse(fs.readFileSync(new URL(`${scenario}.json`,ref)));for(let i=0;i<rows.length;i++){
  pose(a,rows[i],`${scenario}:${i}`);
  for(const d of a.registry.definitions){const mesh=a.owner.root.getObjectByName(d.part),actual=mesh.getVertexPosition(d.vertex,new T.Vector3()).applyMatrix4(mesh.matrixWorld),matrix=a.registry.getTransform(d.id),pos=new T.Vector3().setFromMatrixPosition(matrix);maxError=Math.max(maxError,actual.distanceTo(pos));assert(actual.distanceTo(pos)<1e-7);assert(matrix.elements.every(Number.isFinite));assert(Math.abs(matrix.determinant()-1)<1e-6);}
 }report.scenarios[scenario]={frames:rows.length};}
@@ -34,7 +34,7 @@ b.registry.sampleFinalPose(0);const bm=b.registry.getTransform('crown');a.f.h.bo
 a.registry.sampleFinalPose('longpress:1890');const one=a.registry.getTransform('crown');one.elements.fill(NaN);assert(a.registry.getTransform('crown').elements.every(Number.isFinite));assert.throws(()=>a.registry.getTransform('missing'));assert.throws(()=>a.registry.getTransform('crown',{offset:[0,0,99]}));report.tests.copyIsolationMissingAndBounds=true;
 for(const[g,values]of snapshots)assert.deepEqual(Array.from(g.attributes.position.array),values);report.tests.noGeometryMutation=true;
 // Actual rigid tea trajectory uses the approved controller and hand override matrices.
-const teaBase=new URL('research/animation-0.1.0/original-parts-hybrid-v1/tea/',ref);
+const teaBase=new URL('original-parts-hybrid-v1/tea/',base);
 const {createRigidTeaController}=await import(new URL('src/rigid-tea.mjs',teaBase));const read=n=>JSON.parse(fs.readFileSync(new URL('inputs/'+n+'.json',teaBase)));const tea=createRigidTeaController({config:read('rigid-config'),hold:read('hold-fit'),sip:read('sip-fit')});
 let teaError=0;for(let i=0;i<=270;i++){const s=tea.sample(i/30);a.owner.update({limbMatrices:{'Bubu_hand-left':s.matrices.handL,'Bubu_hand-right':s.matrices.handR}});a.setRevision('tea:'+i);a.registry.sampleFinalPose('tea:'+i);for(const id of ['palm.gripL','palm.gripR']){const d=a.registry.definitions.find(d=>d.id===id),m=a.owner.root.getObjectByName(d.part),p=m.getVertexPosition(d.vertex,new T.Vector3()).applyMatrix4(m.matrixWorld),q=new T.Vector3().setFromMatrixPosition(a.registry.getTransform(id));teaError=Math.max(teaError,p.distanceTo(q));}}assert(teaError<1e-7);report.scenarios.tea={frames:271,maxPalmError:teaError};
 // Reflected and nonuniform parents still produce finite, orthonormal world support frames.

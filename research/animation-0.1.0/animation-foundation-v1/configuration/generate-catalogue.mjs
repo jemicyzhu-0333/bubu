@@ -2,7 +2,7 @@ import fs from "node:fs";
 const source = JSON.parse(
   fs.readFileSync(
     new URL(
-      "../../bubu-asset-physics-revision-20261018/catalog.json",
+      "../../external-assets-v1/catalog.json",
       import.meta.url,
     ),
   ),

@@ -1,13 +1,13 @@
-import { DragController as CadenceController } from "../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/drag-landing-r5/src/drag-controller.mjs";
+import { DragController as CadenceController } from "../../drag-landing-r5/src/drag-controller.mjs";
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import * as T from "../../bubu-asset-physics-revision-20261018/node_modules/three/build/three.module.js";
+import * as T from "three";
 import { createD2PointerHost as createPointerHost } from "./fixture.mjs";
 const profile = JSON.parse(
   fs.readFileSync(
     new URL(
-      "../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/drag-body-prototype-v1/replay/body-poses.json",
+      "../../drag-body-prototype-v1/replay/body-poses.json",
       import.meta.url,
     ),
   ),
@@ -558,7 +558,7 @@ test("D2 shared: only validated yaw is forwarded; inherited pivot cannot change 
 
 test("D2 shared initialization request/listener faults release admitted actor and all registered listeners", async () => {
   const { ActorPool } =
-    await import("../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/runtime-facepath05/src/actor-pool.mjs");
+    await import("../../runtime-facepath05/src/actor-pool.mjs");
   const original = ActorPool.prototype.createWeighted;
   let pool;
   ActorPool.prototype.createWeighted = function (...args) {

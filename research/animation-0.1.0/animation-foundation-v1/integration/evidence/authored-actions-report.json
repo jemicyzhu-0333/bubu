@@ -1,0 +1,204 @@
+{
+  "scope": "Real D2 sole face owner, existing QuaternionLane, config event/contact ports, optional synthetic Rapier book release; CPU research only",
+  "results": [
+    {
+      "fixture": "ear-sakura-leaf-authored",
+      "faceAmount": 0.5,
+      "faceOwners": [
+        "none",
+        "authored"
+      ],
+      "maxQuaternion": 0.0799146939691727,
+      "contactEvents": [],
+      "releaseDelta": null,
+      "secondary": []
+    },
+    {
+      "fixture": "satchel-authored",
+      "faceAmount": 0.5,
+      "faceOwners": [
+        "none",
+        "authored"
+      ],
+      "maxQuaternion": 0,
+      "contactEvents": [],
+      "releaseDelta": null,
+      "secondary": [
+        {
+          "steps": 120,
+          "discardedSeconds": 0,
+          "resets": 1,
+          "maxSubsteps": 1,
+          "vertices": 1590,
+          "pinnedVertices": 228,
+          "angleFallbacks": 0,
+          "contactRejects": 0,
+          "recoveryTicks": 0,
+          "deformationPasses": 120,
+          "normalPasses": 480,
+          "restCopies": 0,
+          "disposed": false,
+          "staticFallback": false,
+          "recovering": false,
+          "recoveryPolicy": "last-accepted-pose-library-rebase-retry",
+          "atRest": false,
+          "monitoredAngleBound": 0.25,
+          "joints": 2,
+          "colliders": 1,
+          "ownedGeometries": 4,
+          "tails": [
+            [
+              [
+                -0.8353981930576838,
+                0.5699999999999998,
+                0.5027025552311795
+              ],
+              [
+                -0.8627545670074782,
+                0.3499268289296458,
+                0.517515663593629
+              ],
+              [
+                -0.8623308415706997,
+                0.1399273817558584,
+                0.5172862219716343
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "fixture": "cape-tail-authored",
+      "faceAmount": 0.5,
+      "faceOwners": [
+        "none",
+        "authored"
+      ],
+      "maxQuaternion": 0,
+      "contactEvents": [],
+      "releaseDelta": null,
+      "secondary": [
+        {
+          "steps": 120,
+          "discardedSeconds": 0,
+          "resets": 1,
+          "maxSubsteps": 1,
+          "vertices": 4807,
+          "pinnedVertices": 1474,
+          "angleFallbacks": 0,
+          "contactRejects": 0,
+          "recoveryTicks": 0,
+          "deformationPasses": 120,
+          "normalPasses": 600,
+          "restCopies": 0,
+          "disposed": false,
+          "staticFallback": false,
+          "recovering": false,
+          "recoveryPolicy": "last-accepted-pose-library-rebase-retry",
+          "atRest": false,
+          "monitoredAngleBound": 0.25,
+          "joints": 6,
+          "colliders": 1,
+          "ownedGeometries": 5,
+          "tails": [
+            [
+              [
+                -0.5664536949990141,
+                1.23,
+                -0.621071824688549
+              ],
+              [
+                -0.6001183325135218,
+                0.7574371819510574,
+                -0.8119934713885992
+              ],
+              [
+                -0.5669768397110135,
+                0.21773851134026134,
+                -0.6240387257827461
+              ]
+            ],
+            [
+              [
+                -0.13370909680353635,
+                1.23,
+                -0.7583019698194002
+              ],
+              [
+                -0.15724537313699904,
+                0.7586944677188867,
+                -0.891782825890866
+              ],
+              [
+                -0.12442519855584336,
+                0.21834500330610862,
+                -0.7056503664720787
+              ]
+            ],
+            [
+              [
+                0.31987328271197313,
+                1.23,
+                -0.7773551845887864
+              ],
+              [
+                0.2862086451974648,
+                0.7574371819510576,
+                -0.968276831288837
+              ],
+              [
+                0.31935013799997225,
+                0.21773851134026112,
+                -0.7803220856829852
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "fixture": "held-book-release-authored",
+      "faceAmount": 0.5,
+      "faceOwners": [
+        "none",
+        "authored"
+      ],
+      "maxQuaternion": 0.0799146939691727,
+      "contactEvents": [
+        {
+          "mountId": "book",
+          "anchor": "palm.gripR",
+          "start": 0,
+          "end": 0.8,
+          "release": "synthetic-release",
+          "active": true,
+          "time": 0.11666666666666667
+        },
+        {
+          "mountId": "book",
+          "anchor": "palm.gripR",
+          "start": 0,
+          "end": 0.8,
+          "release": "synthetic-release",
+          "active": false,
+          "time": 0.9166666666666667
+        }
+      ],
+      "releaseDelta": 0,
+      "secondary": []
+    },
+    {
+      "fixture": "halo-particles-authored",
+      "faceAmount": 0.5,
+      "faceOwners": [
+        "none",
+        "authored"
+      ],
+      "maxQuaternion": 0.0799146939691727,
+      "contactEvents": [],
+      "releaseDelta": null,
+      "secondary": []
+    }
+  ]
+}

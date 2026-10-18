@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { performance } from 'node:perf_hooks';
-import * as T from '../../bubu-recovery-20261017/runtime/node_modules/three/build/three.module.js';
+import * as T from 'three';
 import { createEffectRuntime, EFFECT_IDS } from './bounded-effects.mjs';
 const scene = new T.Scene(), anchor = new T.Object3D(); scene.add(anchor); scene.updateMatrixWorld(true);
 const r = createEffectRuntime({ THREE: T, scene, seed: 77 }); let revision = 0;

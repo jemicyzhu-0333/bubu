@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import * as T from "../../bubu-asset-physics-revision-20261018/node_modules/three/build/three.module.js";
+import * as T from "three";
 import { fixture } from "./fixture.mjs";
 const f = await fixture();
 const body = f.h.body;
@@ -26,7 +26,7 @@ for (const scenario of ["drag", "longpress"]) {
   const rows = JSON.parse(
     fs.readFileSync(
       new URL(
-        `../../bubu-external-assets-staging-20261018/.cache/clean-a/pointer/${scenario}/trajectory.json`,
+        `./replay/${scenario}.json`,
         import.meta.url,
       ),
     ),
