@@ -8,6 +8,8 @@ Evidence: normal271 samples at30Hz (0..9 inclusive), nine cancellation times ×7
 
 Limits: discrete samples do NOT prove continuous safety. Full-chain shared-vertex fan folding is not completely audited. Selected18 poses retain max edge ratio3.50418/min area ratio.066423; do not claim the old strain thresholds passed. Body shape/art remains subject to review. The approved08 smile corners remain partly exposed above the cup and read as two dark tips; this known visual issue is pending user review. A bounded -.20 tilt experiment fully covered the mouth but introduced40 hand/cup triangle intersections and4 ceramic penetration points, so it was rejected and is not included in this action. No host capability extension has been admitted.
 
+The local private package pins Three.js 0.186.1. Run `npm ci --ignore-scripts` in both `research/animation-0.1.0/sip-tea-prototype-v1` and this directory before `npm test`; the sibling cup module resolves its own locked dependency. The lockfile belongs to this isolated research package and does not change production dependencies.
+
 Reproduce inside the restored research/animation-0.1.0 tree (Node/Three, Python NumPy/SciPy, Blender):
 1. node tools/export-base.mjs; node tools/export-tea-face.mjs
 2. node --test tests/*.test.mjs

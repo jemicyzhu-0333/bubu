@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createLedger,restoreLedger} from '../bubu-theme-state-ledger-v1-20261017/src/ledger.mjs';
-import {T,config,event,revise} from '../bubu-theme-state-ledger-v1-20261017/fixtures/fixtures.mjs';
+import {createLedger,restoreLedger} from '../../theme-state-ledger-v1/src/ledger.mjs';
+import {T,config,event,revise} from '../../theme-state-ledger-v1/fixtures/fixtures.mjs';
 const clone = structuredClone;
 const theme = (l,n=T) => l.project(n).themes[0];
 const active = (l,n=T) => l.project(n).sources.filter(x=>x.active);

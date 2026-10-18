@@ -1,4 +1,4 @@
-import * as T from '../../../node_modules/three/build/three.module.js';
+import * as T from 'three';
 import {createTeaCup} from '../../../sip-tea-prototype-v1/src/cup-model.mjs';
 /** Owns only prop/effect resources. Host supplies pose, visibility and its time.
  * Isolated experiment; never mutates approved body, face, owner or source GLB. */

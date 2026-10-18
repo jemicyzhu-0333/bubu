@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createLedger,restoreLedger} from '../bubu-theme-state-ledger-v2-20261017/src/ledger.mjs';
-import {createLedger as createV1} from '../bubu-theme-state-ledger-v1-20261017/src/ledger.mjs';
-import {T,config,event,revise} from '../bubu-theme-state-ledger-v2-20261017/fixtures/fixtures.mjs';
+import {createLedger,restoreLedger} from '../../theme-state-ledger-v2/src/ledger.mjs';
+import {createLedger as createV1} from '../../theme-state-ledger-v1/src/ledger.mjs';
+import {T,config,event,revise} from '../../theme-state-ledger-v2/fixtures/fixtures.mjs';
 const C='fixture:epoch1:cursor1';
 const snap=l=>l.snapshot(C);
 const recover=(s,n,proof={sourceCursor:C,minLastNow:s.lastNow})=>restoreLedger(s,n,proof);
