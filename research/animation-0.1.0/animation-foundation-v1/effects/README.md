@@ -26,4 +26,26 @@ Run `node --expose-gc animation-foundation-v1/effects/test-effects.mjs` from `re
 
 `export-prototypes.mjs` reconstructs actual existing exported forest/sakura/halo accessory geometry, anchors the runtime to its actual accessory bounds (outer edge for petals/leaves, top edge for halo), runs real runtime emission, and exports the exact resulting instance matrices. `render-prototypes.py` renders that geometry using Blender CPU, preserving the existing source-body geometry. These renders are **not** the live registry integration, Three WebGL shader acceptance, native-window evidence, or GPU performance evidence. The separate integration worker checks the anatomical registry pipeline.
 
-Remaining release gates: actual 99 CSS-pixel body width and DPR checks, native transparent-window alpha over light/dark/color backgrounds, occlusion and halo overlay z-fighting, hardware GPU timings/counters and context loss, actual event/wardrobe lifecycle wiring. No production/publication push is part of this candidate.
+Remaining release gates: actual 99 CSS-pixel body width and DPR checks, native transparent-window alpha over light/dark/color backgrounds, occlusion and halo overlay z-fighting, hardware GPU timings/counters and context loss, actual event/wardrobe lifecycle wiring. This candidate may be backed up on the research branch; it is not production acceptance.
+
+### Enter, burst and release contract
+
+All `burst(count)` calls enqueue bounded requests, for both entering and emitting
+handles. The return value is the accepted request count, not particles already
+spawned. Pending requests total at most `maxBurst` and never exceed emitter
+capacity. The next ordinary `tick` samples the current anchor, consumes the queue
+once and spawns only if the current frame policy allows it. No call manufactures
+an extra tick or uses the preceding frame's anchor/suppression policy.
+
+Hidden, paused and reduced-motion ticks discard pending requests. A resume-frame
+request can emit on that frame; a hide-frame request cannot emit early. Discarded
+requests never replay on resume. Stop cancels pending requests; reset and disposal clear them.
+Draining or disposed handles cannot restart themselves; authored action re-entry
+creates a fresh generation. Lifetime, capacity and normal rate limits still apply.
+
+Disposal invalidates the runtime before cleanup. Each instanced mesh, owned geometry
+and material is released independently; observer errors are aggregated after all
+cleanup attempts. Borrowed glow geometry remains outside this ownership. Diagnostics
+of zero ownership mean cleanup was attempted, not proof that an external observer or
+GPU driver completed reclamation. Foundation frame lifecycle preparation (including
+suspend/resume and strategy pause/resume) shares the frame failure cleanup boundary.

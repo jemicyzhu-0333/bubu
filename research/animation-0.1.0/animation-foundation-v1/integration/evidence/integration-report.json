@@ -137,7 +137,7 @@
     "../body-runtime/rigid-surface-partition.mjs": "fe5b873ff030e08d593aecea7e4673b0876c9f4ee7acd3f9c74fa57d3809d53f",
     "../body-runtime/pointer-host.mjs": "5930a96d60f4f97cbb34d3eeeb6ab89b422fea4db5bee170d295236a3c799fa6",
     "../../package-lock.json": "31d67b670b90a0d64698bc5667d08da9fc2293ed3b10b75d96b00f2898f86102",
-    "./foundation-host.mjs": "054256e215123bca4e1a0a9a6f2a64fe49531b140e14f30b2edb8718348496b6",
+    "./foundation-host.mjs": "901056cb22f7b66c2518cb6300cd88f0b93a16e54f7f34ef44dadfb3c9d9150f",
     "./asset-fixtures.mjs": "cd12b6597182abc09e8875e7ca0cb8ee92c02fc81f34003e2eebe25e3de3c995"
   },
   "slowFrames": [
@@ -145,17 +145,17 @@
       "fixture": "cape-tail",
       "frame": 3,
       "mode": "pending",
-      "beginMs": 2439.794603,
-      "elapsedMs": 18.022350000000188,
+      "beginMs": 2777.463028,
+      "elapsedMs": 19.01559899999984,
       "queries": 1,
       "refits": 1
     }
   ],
   "churn": {
     "cycles": 60,
-    "elapsedMs": 174.08511699999963,
-    "heapBefore": 25015096,
-    "heapAfter": 25336296,
+    "elapsedMs": 172.92904399999952,
+    "heapBefore": 25023824,
+    "heapAfter": 25348160,
     "gcAvailable": true
   },
   "surfaceQuery": {
@@ -171,9 +171,9 @@
   },
   "cpuFrameMs": {
     "samples": 900,
-    "median": 2.0894029999999475,
-    "p95": 4.2546729999999116,
-    "max": 18.022350000000188,
+    "median": 2.1550000000002,
+    "p95": 5.30590600000005,
+    "max": 19.01559899999984,
     "includes": "body + hybrid + anchors + secondary + effects; excludes GPU"
   }
 }

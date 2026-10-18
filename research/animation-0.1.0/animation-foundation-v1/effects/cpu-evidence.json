@@ -1,0 +1,56 @@
+{
+  "threeVersion": "186",
+  "scope": "Node CPU only; no GPU/native/window performance claim",
+  "frames": 120000,
+  "simulatedSeconds": 2000,
+  "deterministicChurn": true,
+  "invariantChecks": "lifecycle, stale handles, aggregate caps, borrowed ownership, local/world detachment, hidden/pause/resume/reduced motion",
+  "maxObservedLive": 77,
+  "maxObservedEmitters": 4,
+  "poolBytes": 13056,
+  "cpuUpdateMs": {
+    "median": 0.00415900000007241,
+    "p95": 0.0064220000000432265,
+    "p99": 0.030362999999965723,
+    "max": 3.694826999999975
+  },
+  "postGcSamples": [
+    {
+      "frames": 20000,
+      "heapUsed": 12220288,
+      "arrayBuffers": 1138439,
+      "poolBytes": 13056
+    },
+    {
+      "frames": 40000,
+      "heapUsed": 12020032,
+      "arrayBuffers": 1138439,
+      "poolBytes": 13056
+    },
+    {
+      "frames": 60000,
+      "heapUsed": 11748712,
+      "arrayBuffers": 1138439,
+      "poolBytes": 13056
+    },
+    {
+      "frames": 80000,
+      "heapUsed": 14747536,
+      "arrayBuffers": 1138439,
+      "poolBytes": 13056
+    },
+    {
+      "frames": 100000,
+      "heapUsed": 13731864,
+      "arrayBuffers": 1138439,
+      "poolBytes": 13056
+    },
+    {
+      "frames": 120000,
+      "heapUsed": 12701032,
+      "arrayBuffers": 1138439,
+      "poolBytes": 13056
+    }
+  ],
+  "memoryPlateauClaim": "Fixed typed pool and stable ArrayBuffer count; heap samples are descriptive, not proof of native/GPU leak absence"
+}

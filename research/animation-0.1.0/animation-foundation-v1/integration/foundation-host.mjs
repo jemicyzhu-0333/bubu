@@ -420,12 +420,12 @@ export class FoundationActor {
     { hidden = this.f.doc.hidden, reducedMotion = false, facts = [] } = {},
   ) {
     this.assertActive();
-    if (hidden || reducedMotion) this.f.h.suspend();
-    else this.f.h.resume();
-    this.actionFacts = facts;
-    if (hidden || reducedMotion) this.strategy?.pause(time);
-    else if (this.strategy?.snapshot().paused) this.strategy.resume(time);
     try {
+      if (hidden || reducedMotion) this.f.h.suspend();
+      else this.f.h.resume();
+      this.actionFacts = facts;
+      if (hidden || reducedMotion) this.strategy?.pause(time);
+      else if (this.strategy?.snapshot().paused) this.strategy.resume(time);
       return this.frame.step(time, { hidden, reducedMotion });
     } catch (error) {
       try {
