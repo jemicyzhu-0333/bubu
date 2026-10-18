@@ -1,0 +1,70 @@
+{
+  "assetSHA256": "361a9fa6b425c52d16cd3e0ebe16579db3be63a9e762b52a5ddbec2c8018bf4c",
+  "binding": "Exactly five parts: body and feet retain source-native skinning; hands reuse byte-exact original core plus tested hidden root geometry under proper rigid transforms. Tea keeps body/feet at source rest. No artificial foot bridge.",
+  "hands": {
+    "handL": {
+      "allArrayKeysEqual": true,
+      "arrays": {
+        "triangles": {
+          "exact": true,
+          "sha256": "c020307b17f95ebff39a886663142977b7c7ba889d4e051149d3e9ca69d98014"
+        },
+        "POSITION": {
+          "exact": true,
+          "sha256": "80e923ef56a86fe52cb58fdbf63ee1186f1b30d14697e440075b82bfa96a684d"
+        },
+        "NORMAL": {
+          "exact": true,
+          "sha256": "692fdd05ef44cd1f81b699545834df2fb46917a28583f8999355595f7d26f07d"
+        },
+        "COLOR_0": {
+          "exact": true,
+          "sha256": "d3262a3ebb4ee0d67599bb5ed0c2182400404ced9a70b975bce102f1742f9105"
+        },
+        "JOINTS_0": {
+          "exact": true,
+          "sha256": "8993a6ee55a12309c40f2a966ed743d85b0c2491ab01cdcb0a6bd764d028e06f"
+        },
+        "WEIGHTS_0": {
+          "exact": true,
+          "sha256": "41c7e7ccc22607d94321f109150aa4f9025b748adfaf99fe6a917a623b9c419e"
+        }
+      }
+    },
+    "handR": {
+      "allArrayKeysEqual": true,
+      "arrays": {
+        "triangles": {
+          "exact": true,
+          "sha256": "853675f116910bc6ffa1996432494fe40b8953533c3818a3a86724d6ebdddae8"
+        },
+        "POSITION": {
+          "exact": true,
+          "sha256": "0c1c7c8310f701ffed15782c21a1eccb0938a02ad2c179ea691ddb310c1e61e1"
+        },
+        "NORMAL": {
+          "exact": true,
+          "sha256": "8173dd1c35c79a8d550991220a4f180beaac6e4733d7ef410d9044c663097ae9"
+        },
+        "COLOR_0": {
+          "exact": true,
+          "sha256": "7527d19fd2a4092a0146c54fe5766497863e09b9235839458200303e6f2adebe"
+        },
+        "JOINTS_0": {
+          "exact": true,
+          "sha256": "04b783f8f463c31eb2b16e3265629cb2849c4d723d10103db6fc00171648f370"
+        },
+        "WEIGHTS_0": {
+          "exact": true,
+          "sha256": "d72a41bcc70c73f69c813b7342e53bca1de5832fd7869f04e5096e7f7e2e877c"
+        }
+      }
+    }
+  },
+  "configSHA256": "b63aa7b4d3367c97bd72163329737061d62f3d787dae39f2cd971ff7a48fcc9c",
+  "samplesSHA256": "7a80b9fc2c1194f4dab4920ba653b259165a8406d4e683bd42935ab113e7aabb",
+  "unchangedCupSHA256": "5146c1f34dc00723e0218dfeb5fdb40c3fa8c9b37ca0c302d0ca24a30e37da58",
+  "contactReportSHA256": "af1565d368a5b1e21c67fb08a87c560ea47a006978ef1cd844bd78ab9e0706b9",
+  "bodyEvidence": "hybrid-revision-proof.json: closed rest body+feet composite; exact geometry difference is below all tested crown samples and parity rays. Applies only to source-rest body/feet.",
+  "visualEvidence": "Parent reported hybrid rest/t3/t3.5 visual and independent source-foot vertex checks passed. Final tea normal-speed render remains separate."
+}

@@ -1,0 +1,64 @@
+{
+  "method": "Actual rest body+feet exact-position weld; closed-composite topology audit. Exact float32 geometric triangle set difference against old tested closed body. Crown transfer requires all changed triangles below all protected crown points and their +Z parity rays. No single open-body parity is used.",
+  "oldAssetSHA256": "18d6d923d66cebc5a7757acb8fdc20787fb2ae06f08bedda84fa22eb29e4808d",
+  "newAssetSHA256": "361a9fa6b425c52d16cd3e0ebe16579db3be63a9e762b52a5ddbec2c8018bf4c",
+  "restCompositeTopology": {
+    "vertices": 40484,
+    "triangles": 80964,
+    "boundary_edges": 0,
+    "boundary_loops": [],
+    "boundary_branch_vertices": [],
+    "nonmanifold_edges": 0,
+    "winding_conflicts": 0,
+    "degenerate_triangles": 0,
+    "finite": true,
+    "minimum_double_area": 4.401636033435352e-06
+  },
+  "handsAllArraysExact": {
+    "handL": true,
+    "handR": true
+  },
+  "removedTriangles": 810,
+  "addedTriangles": 17354,
+  "changedBounds": {
+    "min": [
+      -0.7501789927482605,
+      0.006000000052154064,
+      -0.5562744736671448
+    ],
+    "max": [
+      0.7502634525299072,
+      0.3045226037502289,
+      0.555737316608429
+    ]
+  },
+  "crownSweptBounds": {
+    "handL": {
+      "min": [
+        -1.1922755070781688,
+        0.43269176984179203,
+        -0.22815470397472382
+      ],
+      "max": [
+        -0.14224416875514911,
+        0.7959847450256348,
+        0.9191693937731835
+      ],
+      "changedTrianglesBelowAllCrownSamples": true
+    },
+    "handR": {
+      "min": [
+        0.14570370277332745,
+        0.43194750854261477,
+        -0.228154718875885
+      ],
+      "max": [
+        1.1925284764060544,
+        0.7959847450256348,
+        0.9363423938506702
+      ],
+      "changedTrianglesBelowAllCrownSamples": true
+    }
+  },
+  "status": "geometric transfer proven for tea rest body/feet; parent approved hybrid rest/t3/t3.5 visuals; final tea rendering separate"
+}

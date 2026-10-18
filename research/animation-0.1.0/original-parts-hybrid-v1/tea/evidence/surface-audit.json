@@ -1,0 +1,25 @@
+{
+  "scope": "Noncoplanar triangle-edge surface intersection, actual static candidate; protected triangles have ALL three original source vertices outward >= .07; collars excluded. Point containment separately tested.",
+  "candidateSHA256": "18d6d923d66cebc5a7757acb8fdc20787fb2ae06f08bedda84fa22eb29e4808d",
+  "samples": 1001,
+  "hands": {
+    "handL": {
+      "protectedTriangles": 2580,
+      "uniqueTransforms": 404,
+      "failingSamples": 0,
+      "failures": []
+    },
+    "handR": {
+      "protectedTriangles": 2580,
+      "uniqueTransforms": 403,
+      "failingSamples": 0,
+      "failures": []
+    }
+  },
+  "cupFace": {
+    "face": "08 exact owner morph, fixed at full 08 for conservative cup lifecycle test",
+    "uniquePoses": 144,
+    "failingSamples": 0,
+    "failures": []
+  }
+}

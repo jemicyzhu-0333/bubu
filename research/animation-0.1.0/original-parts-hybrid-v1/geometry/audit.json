@@ -1,0 +1,253 @@
+{
+  "source_sha256": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
+  "binding": "body and feet native-skin original actor skeleton; hands rigid",
+  "patch_policy": "469 new hand-cap interior vertices Body1; original shoulder influence redirected to Body only where sourceY>.43. Original hip support ends belowY.424; original lower-body and foot skin attributes remain exact.",
+  "source_skin": {
+    "inverseBindMatrices": 2350,
+    "joints": [
+      6,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "name": "A_Rig05"
+  },
+  "body": {
+    "vertices": 32036,
+    "triangles": 63610,
+    "new_hand_patch_vertices": 469,
+    "redirected_shoulder_vertices": 293,
+    "changed_skin_attribute_vertices": 637,
+    "retained_lower_source_attributes_exact": {
+      "POSITION": true,
+      "NORMAL": true,
+      "COLOR_0": true,
+      "JOINTS_0": true,
+      "WEIGHTS_0": true
+    },
+    "removed_source_body_triangles": 3798,
+    "removed_source_body_vertices": 1833,
+    "removed_hip_influenced_source_vertex_ids": [
+      1622,
+      1623,
+      1625,
+      1626,
+      13041,
+      13042,
+      13043,
+      13044,
+      13046,
+      13047,
+      13048,
+      13049,
+      13205,
+      13207,
+      13218,
+      31731,
+      31734,
+      31737,
+      31738,
+      41728,
+      41730,
+      41731,
+      41732,
+      41734,
+      41735,
+      41736,
+      41892,
+      41900,
+      41902
+    ],
+    "removed_hip_influenced_count": 29,
+    "removed_hip_max_weight": 0.0020326313097029924,
+    "removed_hip_y_range": [
+      0.4099864959716797,
+      0.42226481437683105
+    ],
+    "new_hand_patch_vertices_below_verification_y": 16
+  },
+  "parts": {
+    "Bubu_hand-left": {
+      "core_vertices": 2144,
+      "core_triangles": 4194,
+      "exact_attributes": {
+        "POSITION": true,
+        "NORMAL": true,
+        "COLOR_0": true,
+        "JOINTS_0": true,
+        "WEIGHTS_0": true
+      },
+      "core_attribute_sha256": {
+        "POSITION": "26f953d3eaf9648265a289cdf2b996fe7ba1c9e5649864479c54d2f1c3b1a4ab",
+        "NORMAL": "31554cf29dcbd0648ac6c775877dfeeafed7e78dc3d7ad793f6a8e22c3e1527f",
+        "COLOR_0": "00fec2bf3dc0cd9c77992e283571deee636a0ff9910d2009dc37eb3d468a0919",
+        "JOINTS_0": "baffc32268c3151e198259d5df85ac67783dcea502f5afbbf20aa775c5652f68",
+        "WEIGHTS_0": "42ecfc628c7a5320fac6b6a5bef7f7fff2259a18da52e57ae3a02573023f7941"
+      },
+      "exact_source_triangles": true,
+      "all_exact": true
+    },
+    "Bubu_hand-right": {
+      "core_vertices": 2136,
+      "core_triangles": 4179,
+      "exact_attributes": {
+        "POSITION": true,
+        "NORMAL": true,
+        "COLOR_0": true,
+        "JOINTS_0": true,
+        "WEIGHTS_0": true
+      },
+      "core_attribute_sha256": {
+        "POSITION": "fdf5a22770829ed85bf0f8ba3744f0cc757dab951bc9959149d22402ec61d663",
+        "NORMAL": "fc9d112427e171bbd1ec747bb7cc2c6e01ddc6a9dcba2df93d07500ea9d7a3e1",
+        "COLOR_0": "e02331b63dd470729374f3c7256b8f0d93f168e4177e0180a22f9d0fe229e8f3",
+        "JOINTS_0": "232896fd2781ebf85dbf08429e8c65d3a5ef2e4f1822e91615cf9b940fab2c8b",
+        "WEIGHTS_0": "4c59f82ee3044205638995cb26363c97c54bb4f96213fb754ef465d574af1d7b"
+      },
+      "exact_source_triangles": true,
+      "all_exact": true
+    },
+    "Bubu_foot-left": {
+      "core_vertices": 4440,
+      "core_triangles": 8648,
+      "exact_attributes": {
+        "POSITION": true,
+        "NORMAL": true,
+        "COLOR_0": true,
+        "JOINTS_0": true,
+        "WEIGHTS_0": true
+      },
+      "core_attribute_sha256": {
+        "POSITION": "750431c2493ec463e54513f12d5d5585ddbf71be16f7ff172a2e7dc70cf25fe7",
+        "NORMAL": "38ad53baad10c52e7233bf925cbc6fd5b1dca4a72944814d811da49c0c90fd8a",
+        "COLOR_0": "0a51876ff304ea2cc687c49f0aca2781cd831a180dea6bb7e44b89170d1261aa",
+        "JOINTS_0": "5358b7b44771705e5659fdda42be57d0e705171d10097ff8d179d9af27ca23a4",
+        "WEIGHTS_0": "5947bfd6187e674a0115f7de35017e9ffc3550baf73e5fd00d84bf169815a280"
+      },
+      "exact_source_triangles": true,
+      "all_exact": true
+    },
+    "Bubu_foot-right": {
+      "core_vertices": 4470,
+      "core_triangles": 8706,
+      "exact_attributes": {
+        "POSITION": true,
+        "NORMAL": true,
+        "COLOR_0": true,
+        "JOINTS_0": true,
+        "WEIGHTS_0": true
+      },
+      "core_attribute_sha256": {
+        "POSITION": "d7948610c2c280fb1792e598321d5be23caed88fa13dceb127a7b9401680043d",
+        "NORMAL": "8973f0b312aa9e738514c76d20a291c9598f0e1e928ee8667e2f15677853b96e",
+        "COLOR_0": "149c262d50094012a0df0e9f65b5ce12c8b87d31a01c6d3d7caf1e791473fba0",
+        "JOINTS_0": "517748b28a7405d5e4f2533bdc0ca91acf1b663447c9b76da98dd28575450330",
+        "WEIGHTS_0": "3c3c20f109981ec6b5b24f142f7404f5f5d1f4713e53a220ee3725e5a13cf89f"
+      },
+      "exact_source_triangles": true,
+      "all_exact": true
+    }
+  },
+  "hip_support_max_y": 0.42277708649635315,
+  "shoulder_redirect_min_y": 0.43067246675491333,
+  "hip_and_redirect_domains_disjoint": true,
+  "foot_seams": {
+    "footL": {
+      "shared_vertices": 230,
+      "source_attributes_exact": {
+        "POSITION": true,
+        "NORMAL": true,
+        "COLOR_0": true,
+        "JOINTS_0": true,
+        "WEIGHTS_0": true
+      }
+    },
+    "footR": {
+      "shared_vertices": 232,
+      "source_attributes_exact": {
+        "POSITION": true,
+        "NORMAL": true,
+        "COLOR_0": true,
+        "JOINTS_0": true,
+        "WEIGHTS_0": true
+      }
+    }
+  },
+  "rigid_mask_diagnosis": {
+    "footL": {
+      "old_weight_partition_vertices": 4440,
+      "pure_hip_vertices": 1406,
+      "mixed_root_vertices_misclassified_rigid": 3034
+    },
+    "footR": {
+      "old_weight_partition_vertices": 4470,
+      "pure_hip_vertices": 1402,
+      "mixed_root_vertices_misclassified_rigid": 3068
+    }
+  },
+  "output_sha256": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67",
+  "rest_assembly_topology": {
+    "vertices": 44949,
+    "triangles": 89886,
+    "boundary_edges": 0,
+    "boundary_loops": [],
+    "boundary_branch_vertices": [],
+    "nonmanifold_edges": 0,
+    "winding_conflicts": 0,
+    "degenerate_triangles": 0,
+    "finite": true,
+    "minimum_double_area": 4.401636033435352e-06
+  },
+  "omitted_hip_motion_measurement": {
+    "scope": "Hip contribution relative to Body at the29 omitted source positions, reconstructed from proper-rigid pure-weight original-source world vertices. This is NOT total geometric replacement error.",
+    "keyposes": [
+      {
+        "time": 0,
+        "maximum_removed_hip_motion_contribution": 1.9910936984056834e-11,
+        "fit_max_residual": {
+          "0": 4.141929496770846e-08,
+          "3": 3.1687262832051696e-08,
+          "4": 3.286426618820103e-08
+        }
+      },
+      {
+        "time": 3,
+        "maximum_removed_hip_motion_contribution": 3.827530529124887e-05,
+        "fit_max_residual": {
+          "0": 1.3481302523832486e-07,
+          "3": 6.43081232618642e-08,
+          "4": 8.216229426462379e-08
+        }
+      },
+      {
+        "time": 3.5,
+        "maximum_removed_hip_motion_contribution": 4.222842858084474e-05,
+        "fit_max_residual": {
+          "0": 1.3340293682586633e-07,
+          "3": 6.72001836241555e-08,
+          "4": 8.396551948428521e-08
+        }
+      }
+    ],
+    "max_contribution": 4.222842858084474e-05
+  },
+  "storage_lineage": {
+    "source_sha256": "361a9fa6b425c52d16cd3e0ebe16579db3be63a9e762b52a5ddbec2c8018bf4c",
+    "compact_sha256": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67",
+    "source_bytes": 20345416,
+    "compact_bytes": 3540376,
+    "old_counts": {
+      "accessors": 2377,
+      "bufferViews": 2135,
+      "materials": 4
+    },
+    "compact_counts": {
+      "accessors": 26,
+      "bufferViews": 26,
+      "materials": 1
+    }
+  }
+}

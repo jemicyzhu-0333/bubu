@@ -1,0 +1,34 @@
+{
+  "rigidSamples": 1001,
+  "sourceGeometryImmutable": true,
+  "tests": {
+    "runtime": 9,
+    "geometryAuditAlgorithms": 3
+  },
+  "contact": {
+    "handL": {
+      "maximumWholeSurfaceGapUpperBound": 0.0009860590194524681,
+      "maximumVertexPenetrationDepth": 0.0006914567458881172,
+      "sourceAnchorIndex": 22,
+      "maximumCupLocalVertexStep30fps": 0.0015293502377797027
+    },
+    "handR": {
+      "maximumWholeSurfaceGapUpperBound": 0.0,
+      "maximumVertexPenetrationDepth": 0.0005889814513838196,
+      "sourceAnchorIndex": 32665,
+      "maximumCupLocalVertexStep30fps": 0.0014248472312140444
+    }
+  },
+  "crownPointFailures": 0,
+  "crownTriangleFailures": 0,
+  "cupFull08FaceTriangleFailures": 0,
+  "limits": [
+    "Discrete CPU/offscreen evidence only",
+    "Coplanar and continuous-time intersection proof not claimed",
+    "Contact penetration measured at original core vertices",
+    "No OS/WebGL validation",
+    "Tea collision transfer limited to native body/feet at source rest; dynamic native-skin regressions are separate"
+  ],
+  "selectedAssetSHA256": "361a9fa6b425c52d16cd3e0ebe16579db3be63a9e762b52a5ddbec2c8018bf4c",
+  "binding": "Exactly five parts: body and feet retain source-native skinning; hands reuse byte-exact original core plus tested hidden root geometry under proper rigid transforms. Tea keeps body/feet at source rest. No artificial foot bridge."
+}

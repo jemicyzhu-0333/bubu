@@ -1,0 +1,12 @@
+{
+  "name": "bubu-separated-parts-experiment",
+  "version": "0.1.0-dev",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test runtime/tests/*.test.mjs tea/tests/*.test.mjs"
+  },
+  "dependencies": {
+    "three": "0.186.1"
+  }
+}
