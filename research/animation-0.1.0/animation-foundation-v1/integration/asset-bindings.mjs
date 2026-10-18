@@ -1,4 +1,5 @@
 import * as T from "three";
+import { cleanupOwned } from "./cleanup-owned.mjs";
 import { admitSecondaryAsset } from "../secondary-motion/index.mjs";
 import fs from "node:fs";
 import {
@@ -7,6 +8,7 @@ import {
   correctedSatchel,
   bakeGroup,
   disposeAsset,
+  disposeAssets,
 } from "./asset-fixtures.mjs";
 import { AccessoryAdapter as EarAdapter } from "../../external-assets-v1/headwear-expansion/src/accessory-adapter.mjs";
 
@@ -76,6 +78,7 @@ export async function createD2BindingProvider(body, anchors, admitAsset) {
         descriptor.kind === "satchel"
           ? await correctedSatchel(body)
           : await loadGLB(`${revised}/${descriptor.path}`);
+      let admission = null;
       try {
         admitAsset(asset);
         if (descriptor.earKind) {
@@ -110,7 +113,7 @@ export async function createD2BindingProvider(body, anchors, admitAsset) {
               new T.Matrix4().makeTranslation(-center.x, -center.y, -center.z),
             );
         }
-        const admission = descriptor.kind
+        admission = descriptor.kind
           ? await admitSecondaryAsset({
               asset,
               descriptor: JSON.parse(
@@ -131,14 +134,36 @@ export async function createD2BindingProvider(body, anchors, admitAsset) {
           calibration: restAnchor.clone().invert().multiply(authoredWorld),
         });
       } catch (error) {
-        disposeAsset(asset);
+        try {
+          cleanupOwned(
+            [() => admission?.dispose(), () => disposeAsset(asset)],
+            "Partial binding cleanup failures",
+          );
+        } catch (cleanupError) {
+          throw new AggregateError(
+            [error, cleanupError],
+            "Binding preparation and cleanup failed",
+          );
+        }
         throw error;
       }
     }
   } catch (error) {
-    for (const entry of entries.values()) {
-      entry.admission?.dispose();
-      disposeAsset(entry.asset);
+    const owned = [...entries.values()];
+    entries.clear();
+    try {
+      cleanupOwned(
+        [
+          ...owned.map((entry) => () => entry.admission?.dispose()),
+          () => disposeAssets(owned.map((entry) => entry.asset)),
+        ],
+        "Binding preparation cleanup failures",
+      );
+    } catch (cleanupError) {
+      throw new AggregateError(
+        [error, cleanupError],
+        "Binding preparation and cleanup failed",
+      );
     }
     throw error;
   }
@@ -175,11 +200,15 @@ export async function createD2BindingProvider(body, anchors, admitAsset) {
         : cloneOwned(entry.asset);
     },
     dispose() {
-      for (const entry of entries.values()) {
-        entry.admission?.dispose();
-        disposeAsset(entry.asset);
-      }
+      const owned = [...entries.values()];
       entries.clear();
+      cleanupOwned(
+        [
+          ...owned.map((entry) => () => entry.admission?.dispose()),
+          () => disposeAssets(owned.map((entry) => entry.asset)),
+        ],
+        "Binding cache cleanup failures",
+      );
     },
   });
 }

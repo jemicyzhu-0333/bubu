@@ -113,3 +113,29 @@ Rapier world. It tests ownership transfer/reset/disposal and rate replay. It doe
 not establish detailed mesh contact, authored grasp/release choreography, or a
 fast thin-edge CCD acceptance sweep. Cloth proxies and rest fallback are research
 mechanisms, not production cloth/contact acceptance.
+
+
+## Equipment ownership and cancellation
+
+An equip request owns its staged mounts, secondary instances, effect handles and
+strategy locally until construction finishes and its generation still matches.
+The live SceneBudget lease is then committed and ownership transfers synchronously
+to the actor without external callbacks. Stale requests release only their staged
+resources; an older request cannot remove a replacement request's equipment.
+Roots are registered before attachment callbacks. Cleanup attempts independent
+geometry, material and texture releases even if a disposal observer throws,
+aggregating cleanup failures alongside the original operation error.
+
+The binding provider's default loader clones owned resources for each instance.
+An override loader must transfer independently owned geometry/material/texture
+snapshots to one equip request, never borrowed source objects or resources shared
+with another actor/request. Release-time deduplication covers resources shared
+within that disposal batch only. It is not general cross-actor reference counting.
+Rendered rigid clones may borrow their owning asset's resources; only the owning
+asset is passed to asset disposal.
+
+Pool disposal closes admission immediately but in-flight reservations remain
+visible until pending construction settles and releases them. A zero SceneBudget
+ledger alone is not proof of resource disposal: regression tests also count each
+geometry/material/texture release and verify scene detachment. These CPU tests do
+not establish GPU allocation release or native behavior.

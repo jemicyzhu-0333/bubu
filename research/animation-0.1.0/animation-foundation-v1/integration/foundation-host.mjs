@@ -14,6 +14,7 @@ import {
   loadGLB,
   revised,
   disposeAsset,
+  disposeAssets,
 } from "./asset-fixtures.mjs";
 import { createD2BindingProvider } from "./asset-bindings.mjs";
 import { createFrameOwner } from "./frame-owner.mjs";
@@ -110,12 +111,23 @@ export class FoundationActor {
       cacheLease.commit(actor.bindings.residentBytes + 64 * 1024);
       surfaceLease.commit(body.f.h.diagnostics.surface.residentUpperBoundBytes);
       return actor;
-    } catch (e) {
-      actor?.dispose();
-      body.dispose();
-      cacheLease.release();
-      surfaceLease?.release();
-      throw e;
+    } catch (error) {
+      try {
+        cleanupOwned(
+          [
+            () => (actor ? actor.dispose() : body.dispose()),
+            () => cacheLease.release(),
+            () => surfaceLease?.release(),
+          ],
+          "Actor construction cleanup failures",
+        );
+      } catch (cleanupError) {
+        throw new AggregateError(
+          [error, cleanupError],
+          "Actor construction and cleanup failed",
+        );
+      }
+      throw error;
     }
   }
   constructor(body) {
@@ -237,6 +249,10 @@ export class FoundationActor {
     this.pendingEquips++;
     let generation;
     const pending = [];
+    const pendingHandles = [];
+    let pendingStrategy = null;
+    let committedStrategy = null;
+    let committed = false;
     const unclaimed = new Set();
     let equipError = null;
     try {
@@ -252,7 +268,7 @@ export class FoundationActor {
         unclaimed.add(asset);
         if (this.disposed || generation !== this.generation)
           return { stale: true };
-        admitAsset(asset);
+        const resources = admitAsset(asset);
         const calibration = descriptor.calibration;
         const authoredWorld = this.anchors
           .getTransform(spec.anchor, {
@@ -269,18 +285,9 @@ export class FoundationActor {
             })
           : null;
         const root = secondary?.root ?? asset.clone(true);
-        if (!secondary) this.mountRoot.add(root);
-        root.traverse((m) => {
-          if (m.isMesh)
-            m.renderOrder = { back: -1, body: 0, front: 1 }[spec.layer];
-        });
         const delta = new T.Group();
         delta.name = "authored-delta:" + spec.id;
-        if (!secondary) {
-          for (const child of [...root.children]) delta.add(child);
-          root.add(delta);
-        }
-        setWorld(root, authoredWorld);
+        // Own the root before any attach/traverse callback can throw.
         const record = {
           spec,
           asset,
@@ -288,26 +295,48 @@ export class FoundationActor {
           secondary,
           delta,
           calibration,
-          resources: admitAsset(asset),
+          resources,
           last: authoredWorld.clone(),
         };
         pending.push(record);
         unclaimed.delete(asset);
+        if (!secondary) this.mountRoot.add(root);
+        root.traverse((m) => {
+          if (m.isMesh)
+            m.renderOrder = { back: -1, body: 0, front: 1 }[spec.layer];
+        });
+        if (!secondary) {
+          for (const child of [...root.children]) delta.add(child);
+          root.add(delta);
+        }
+        setWorld(root, authoredWorld);
+        if (this.disposed || generation !== this.generation)
+          return { stale: true };
       }
-      for (const item of pending) this.mounts.set(item.spec.id, item);
+      const stagedMounts = new Map(pending.map((item) => [item.spec.id, item]));
       for (const spec of raw.effects) {
-        const item = this.mounts.get(spec.mountId);
-        this.handles.push(this.effects.enter({ ...spec, anchor: item.delta }));
+        const item = stagedMounts.get(spec.mountId);
+        pendingHandles.push(
+          this.effects.enter({ ...spec, anchor: item.delta }),
+        );
+        if (this.disposed || generation !== this.generation)
+          return { stale: true };
       }
-      this.strategy = createActionStrategy({
+      pendingStrategy = createActionStrategy({
         plan,
         clipLibrary,
         nodes: new Map(
-          [...this.mounts].map(([id, item]) => ["accessory:" + id, item.delta]),
+          [...stagedMounts].map(([id, item]) => [
+            "accessory:" + id,
+            item.delta,
+          ]),
         ),
         facePort,
         contactPort,
         effectPort: (event) => {
+          if (!committed)
+            throw Error("Effect callback before equipment commit");
+          if (this.strategy !== committedStrategy) return;
           const index = raw.effects.findIndex((e) => e.id === event.effectId),
             spec = raw.effects[index];
           let handle = this.handles[index];
@@ -321,9 +350,22 @@ export class FoundationActor {
           } else handle?.stop({ immediate: true });
         },
       });
+      if (this.disposed || generation !== this.generation)
+        return { stale: true };
       lease.commit(residentBytes);
+      // No external callbacks below: transfer all staged ownership atomically.
+      while (pending.length) {
+        const item = pending[0];
+        this.mounts.set(item.spec.id, item);
+        pending.shift();
+      }
+      this.handles = pendingHandles.splice(0);
+      this.strategy = pendingStrategy;
+      committedStrategy = pendingStrategy;
+      pendingStrategy = null;
       this.equipLease = lease;
       this.configuration = plan;
+      committed = true;
       return { stale: false, plan };
     } catch (error) {
       equipError = error;
@@ -342,15 +384,16 @@ export class FoundationActor {
         () => {
           if (this.equipLease !== lease) lease.release();
         },
-        ...[...unclaimed].map((asset) => () => disposeAsset(asset)),
+        () => pendingStrategy?.dispose(),
+        ...pendingHandles.map((handle) => () => handle?.dispose()),
+        () =>
+          disposeAssets([...unclaimed, ...pending.map((item) => item.asset)]),
       ];
       for (const item of pending)
-        if (![...this.mounts.values()].includes(item))
-          cleanup.push(
-            () => item.secondary?.dispose(),
-            () => item.root.removeFromParent(),
-            () => disposeAsset(item.asset),
-          );
+        cleanup.push(
+          () => item.secondary?.dispose(),
+          () => item.root.removeFromParent(),
+        );
       try {
         cleanupOwned(cleanup, "Pending equipment cleanup failures");
       } catch (cleanupError) {
@@ -385,7 +428,14 @@ export class FoundationActor {
     try {
       return this.frame.step(time, { hidden, reducedMotion });
     } catch (error) {
-      this.dispose();
+      try {
+        this.dispose();
+      } catch (cleanupError) {
+        throw new AggregateError(
+          [error, cleanupError],
+          "Frame failure and actor cleanup",
+        );
+      }
       throw error;
     }
   }
@@ -432,9 +482,11 @@ export class FoundationActor {
       operations.push(
         () => item.secondary?.dispose(),
         () => item.root.removeFromParent(),
-        () => disposeAsset(item.asset),
       );
 
+    operations.push(() =>
+      disposeAssets([...mounts.values()].map((item) => item.asset)),
+    );
     cleanupOwned(operations, "Equipment cleanup failures");
   }
   reset() {

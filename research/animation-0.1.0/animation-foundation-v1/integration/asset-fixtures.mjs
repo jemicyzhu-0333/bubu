@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { cleanupOwned } from "./cleanup-owned.mjs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
@@ -104,10 +105,7 @@ export function bakeGroup(root, frame = new T.Matrix4()) {
 }
 export async function correctedSatchel(body) {
   const raw = await loadGLB(
-    path.join(
-      research,
-      "accessories-v1/03-satchel/satchel.glb",
-    ),
+    path.join(research, "accessories-v1/03-satchel/satchel.glb"),
   );
   let adapter;
   try {
@@ -123,22 +121,28 @@ export async function correctedSatchel(body) {
     disposeAsset(raw);
   }
 }
-export function disposeAsset(root) {
+/** Release owned asset resources once per batch; never pass borrowed source roots. */
+export function disposeAssets(roots) {
   const gs = new Set(),
     ms = new Set(),
     ts = new Set();
-  root.traverse((m) => {
-    if (m.geometry) gs.add(m.geometry);
-    for (const mat of Array.isArray(m.material)
-      ? m.material
-      : m.material
-        ? [m.material]
-        : []) {
-      ms.add(mat);
-      for (const v of Object.values(mat)) if (v?.isTexture) ts.add(v);
-    }
-  });
-  gs.forEach((x) => x.dispose());
-  ms.forEach((x) => x.dispose());
-  ts.forEach((x) => x.dispose());
+  for (const root of new Set(roots))
+    root.traverse((m) => {
+      if (m.geometry) gs.add(m.geometry);
+      for (const mat of Array.isArray(m.material)
+        ? m.material
+        : m.material
+          ? [m.material]
+          : []) {
+        ms.add(mat);
+        for (const v of Object.values(mat)) if (v?.isTexture) ts.add(v);
+      }
+    });
+  cleanupOwned(
+    [...gs, ...ms, ...ts].map((resource) => () => resource.dispose()),
+    "Owned asset disposal failures",
+  );
+}
+export function disposeAsset(root) {
+  disposeAssets([root]);
 }
