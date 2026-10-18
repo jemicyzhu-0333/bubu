@@ -1,0 +1,38 @@
+{
+  "scope": "Conservative boxes around actual revised source-local garment geometry, padded .18 units in every direction and transformed by every recorded source-to-world actor matrix. This exceeds measured/analytic bounded secondary deformations. Four camera directions, span5.264, targetY1.05; no stage expansion. Body/face itself is unchanged and not recertified by this envelope.",
+  "padding": 0.18,
+  "inputs": {
+    "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/existing-wearables/.physics-final/existing-wearables/review/sprout-static.json": "d07a3c632f693a173b70c0c940c85eb530edd021cce0396b8c94c7e3d515586f",
+    "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/existing-wearables/.physics-final/existing-wearables/review/sunhat-static.json": "b05c58dc589a3ce4c5389ce3caa4c318e1a86bb8016d17b38e90b96be34073a4",
+    "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/existing-wearables/.physics-final/existing-wearables/review/satchel-static.json": "5d7d469591a712457eec7b68d91603d7e281506ebe4008c72f20ebd945bb03a5",
+    "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/existing-wearables/.physics-final/existing-wearables/review/scarf-static.json": "0681230dbdcdbdb6914670a0278becc9fdf05a38ac9f4cf8bc3bd08138df35ce",
+    "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-a/pointer/drag/trajectory.json": "be15789114f5613d21a612247c113efa11ef0d6ae2a909d987fd8f462191f18b",
+    "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-a/pointer/longpress/trajectory.json": "e9061fa24a7cfb584f725c31b3999158009eaa6189995850bcaaec369868342d"
+  },
+  "results": [
+    {
+      "scenario": "drag",
+      "frames": 271,
+      "conservativeMinimumMargin": 0.07031308576642692,
+      "marginCSS": 2.9252594572278676,
+      "worst": {
+        "frame": 54,
+        "time": 1.8,
+        "kind": "sprout",
+        "yaw": 0
+      }
+    },
+    {
+      "scenario": "longpress",
+      "frames": 1891,
+      "conservativeMinimumMargin": 0.8681140959245419,
+      "marginCSS": 36.11644889959625,
+      "worst": {
+        "frame": 462,
+        "time": 15.4,
+        "kind": "scarf",
+        "yaw": 45
+      }
+    }
+  ]
+}

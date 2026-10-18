@@ -1,0 +1,172 @@
+{
+  "scope": "CPU research host only; external eligibility owner required; no production/native acceptance",
+  "inputs": {
+    "sprout": {
+      "path": "../../../../bubu-publication-20261018/research/animation-0.1.0/accessories-v1/01-sprout/sprout.glb",
+      "sha256": "662bb84939e71515305ab18c70c2ae4db2c3e0355993b6de725e63b09ffcd309"
+    },
+    "sunhat": {
+      "path": "../../../../bubu-publication-20261018/research/animation-0.1.0/accessories-v1/02-sunhat/sunhat.glb",
+      "sha256": "06516ab90d747416c1749469b76aa24bff8e5ecea529f4e47134726112fa5227"
+    },
+    "satchel": {
+      "path": "../../../../bubu-publication-20261018/research/animation-0.1.0/accessories-v1/03-satchel/satchel.glb",
+      "sha256": "8ba471d1218fd1f848720f32242c74b397adeaba5f9dbaa911b482cfc3aad9a6"
+    },
+    "scarf": {
+      "path": "../../../../bubu-publication-20261018/research/animation-0.1.0/accessories-v1/04-scarf/scarf.glb",
+      "sha256": "b0a797290977fe8b275d95707f0ec70aa9e1a74c1cd34b25d470b9111a84f09e"
+    },
+    "source": {
+      "path": "../../../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/runtime-facepath05/fixtures/face-d2/asset.glb",
+      "sha256": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a"
+    },
+    "hybrid": {
+      "path": "../../../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/original-parts-hybrid-v1/geometry/bubu-hybrid-binding.glb",
+      "sha256": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67"
+    },
+    "wrapper": {
+      "path": "../../src/existing-wearable-host.mjs",
+      "sha256": "a7b6cd59d69078a8f08cb4eb8a5efef2b6a3f596fcc05d4dc01be611602eeee8"
+    },
+    "test": {
+      "path": "../../src/test-and-export.mjs",
+      "sha256": "3d4a4d77b384bdc6450198319e52c3710b39f361f16ad0a14e9a7be9645df3b5"
+    },
+    "sproutOriginalAdapter": {
+      "path": "../../../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/accessories-v1/01-sprout/src/sprout-adapter.mjs",
+      "sha256": "5860dd7482fdbbca6aa9eb3afb74cd03f60e503a384b2abac16e9c1a2fd1bcd5"
+    },
+    "sproutAdapter": {
+      "path": "../../src/local-adapters/sprout-adapter.mjs",
+      "sha256": "f11764adcdd5e045ea6fa91ee5138fef987ce61cac474ee125e47ead0fb789c7"
+    },
+    "sunhatOriginalAdapter": {
+      "path": "../../../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/accessories-v1/02-sunhat/src/sunhat-adapter.mjs",
+      "sha256": "7a6d4bd5e95ad464cd3e66b48d85fa91eabbb32799b2b2415f2933fd2f579f7b"
+    },
+    "sunhatAdapter": {
+      "path": "../../src/local-adapters/sunhat-adapter.mjs",
+      "sha256": "92b7b1960c8e87dbe267f01f8ea73565082853791e18aa7406cb2efbc8e48c77"
+    },
+    "satchelOriginalAdapter": {
+      "path": "../../../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/accessories-v1/03-satchel/src/satchel-adapter.mjs",
+      "sha256": "bab7fc0ce856d57eae4cfc18d6d19fd870c12281a8272104a42e554b62ce1932"
+    },
+    "satchelAdapter": {
+      "path": "../../src/local-adapters/satchel-adapter.mjs",
+      "sha256": "e771a8501378d5a9d2fa913bb57276e53f6a6fc25d1424eb641d3117dd5e6fe2"
+    },
+    "scarfOriginalAdapter": {
+      "path": "../../../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/accessories-v1/04-scarf/src/scarf-adapter.mjs",
+      "sha256": "2043489e26baed24edcc12c6b60f6a4ac6f6166894b6add79dd3ebf5b21b6749"
+    },
+    "scarfAdapter": {
+      "path": "../../src/local-adapters/scarf-adapter.mjs",
+      "sha256": "d9ba85fc31dfbab7f83b2b55f2764a89b549d17f256a2ab1b9079fce06f5ac78"
+    },
+    "supportMotion": {
+      "path": "../../src/local-adapters/support-motion.mjs",
+      "sha256": "9b3d07984d7aea3faf34fc4a796b18dcbb6425f634ed7301ccfbe582fc8d7ac0"
+    },
+    "drag": {
+      "path": "../../../../bubu-external-assets-staging-20261018/.cache/clean-a/pointer/drag/trajectory.json",
+      "sha256": "be15789114f5613d21a612247c113efa11ef0d6ae2a909d987fd8f462191f18b"
+    },
+    "longpress": {
+      "path": "../../../../bubu-external-assets-staging-20261018/.cache/clean-a/pointer/longpress/trajectory.json",
+      "sha256": "e9061fa24a7cfb584f725c31b3999158009eaa6189995850bcaaec369868342d"
+    }
+  },
+  "tests": {
+    "foreignHybridRejected": true,
+    "externalEligibilityEnforced": true,
+    "headwearExclusion": true,
+    "crossHostExclusion": true,
+    "independentActorAndBorrowedLifetime": true,
+    "original13Meshes": true,
+    "physics": {
+      "injectedTime": true,
+      "reducedMotionExact": true,
+      "disabledClearsMomentum": true,
+      "rewindAndDtSpikeReset": true,
+      "repeatedTimeStable": true,
+      "resetIdempotent": true,
+      "privateGeometry": true,
+      "sourceArraysUnchanged": true,
+      "supports": {
+        "satchel": {
+          "kind": "torso",
+          "vertex": 9178,
+          "sourcePosition": [
+            -0.000016140000298009438,
+            0.5535348653793335,
+            0.7492362260818483
+          ]
+        },
+        "scarf": {
+          "kind": "torso",
+          "vertex": 21392,
+          "sourcePosition": [
+            -0.0018128769006580114,
+            1.1259607076644897,
+            -0.744107484817505
+          ]
+        },
+        "sprout": {
+          "kind": "scalp",
+          "vertex": 11213,
+          "sourcePosition": [
+            0.0020816877949982886,
+            1.6276628971099854,
+            0.0007604088750667871
+          ]
+        }
+      },
+      "geometryCacheHits": 1760,
+      "maxDeformation": 0.16422102419007897,
+      "maxDynamic": 0.010639099795832111
+    },
+    "failedInstallRecovery": true,
+    "staleGeometryRevokes": true,
+    "ownerRevocation": true,
+    "staleSkeletonRevokes": true,
+    "singularParentRevokes": true,
+    "invalidContactsRevoke": true,
+    "explicitFinalRelease": true,
+    "allInputBytesUnchanged": true
+  },
+  "scenarios": {
+    "drag": {
+      "frames": 271,
+      "maxAnchorError": 9.222205069512407e-16,
+      "allSourceGuards": true,
+      "sproutFrames": 271
+    },
+    "longpress": {
+      "frames": 1891,
+      "maxAnchorError": 8.882161118664954e-16,
+      "allSourceGuards": true,
+      "sproutFrames": 1891
+    }
+  },
+  "pool": {
+    "actors": 0,
+    "vertices": 0,
+    "nodes": 0,
+    "deformedVertices": 0,
+    "sourceBytes": 0,
+    "decodedArrayBytes": 0,
+    "clipKeyScalars": 0,
+    "active": 0,
+    "pending": 0,
+    "cache": {
+      "loads": 1,
+      "hits": 0,
+      "disposals": 1,
+      "live": 0,
+      "retainedReferences": 0
+    }
+  },
+  "elapsedSeconds": 35.83975726999999
+}

@@ -1,0 +1,140 @@
+{
+  "sourceSHA256": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
+  "hybridSHA256": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67",
+  "scope": "Approved source actor plus native/rigid hybrid; accessory host replay, CPU only; no production wardrobe integration",
+  "scenarios": {
+    "drag": {
+      "frames": 271,
+      "bodyUnchanged": true,
+      "maxShoeOffset": 0
+    },
+    "longpress": {
+      "frames": 1891,
+      "bodyUnchanged": true,
+      "maxShoeOffset": 0
+    }
+  },
+  "lifecycle": {
+    "cap": {
+      "detach": true,
+      "idempotent": true,
+      "borrowedNotDisposed": true,
+      "ownershipRevocationDetaches": true,
+      "explicitRelease": {
+        "geometries": 4,
+        "materials": 4,
+        "textures": 0
+      }
+    },
+    "fin": {
+      "detach": true,
+      "idempotent": true,
+      "borrowedNotDisposed": true,
+      "ownershipRevocationDetaches": true,
+      "explicitRelease": {
+        "geometries": 4,
+        "materials": 2,
+        "textures": 0
+      }
+    },
+    "wings": {
+      "detach": true,
+      "idempotent": true,
+      "borrowedNotDisposed": true,
+      "ownershipRevocationDetaches": true,
+      "explicitRelease": {
+        "geometries": 10,
+        "materials": 2,
+        "textures": 0
+      }
+    },
+    "plum": {
+      "detach": true,
+      "idempotent": true,
+      "borrowedNotDisposed": true,
+      "ownershipRevocationDetaches": true,
+      "explicitRelease": {
+        "geometries": 4,
+        "materials": 3,
+        "textures": 0
+      }
+    }
+  },
+  "bodyHash": "5129309ce95715cf04df85c8986f7040cfe03db2ab6b079cace1e1d1ef66cd9a",
+  "exclusivity": {
+    "headPlusBack": true,
+    "backwearConflictRejected": true
+  },
+  "resources": {
+    "actors": 0,
+    "vertices": 0,
+    "nodes": 0,
+    "deformedVertices": 0,
+    "sourceBytes": 0,
+    "decodedArrayBytes": 0,
+    "clipKeyScalars": 0,
+    "active": 0,
+    "pending": 0,
+    "cache": {
+      "loads": 1,
+      "hits": 0,
+      "disposals": 1,
+      "live": 0,
+      "retainedReferences": 0
+    }
+  },
+  "allSampledAccessoryBounds": {
+    "cap": {
+      "min": [
+        -0.727322125565792,
+        1.531988402378949,
+        -0.6988523155999596
+      ],
+      "max": [
+        1.6036309767907557,
+        3.4685887967843874,
+        0.5017180245957208
+      ],
+      "finite": true
+    },
+    "fin": {
+      "min": [
+        -1.2331393838491482,
+        0.5836962992733205,
+        -1.044062314759526
+      ],
+      "max": [
+        1.2498201401019036,
+        2.6231317392954097,
+        -0.28781129199121874
+      ],
+      "finite": true
+    },
+    "wings": {
+      "min": [
+        -1.5346976698413408,
+        0.33023029159934336,
+        -0.9968988879458979
+      ],
+      "max": [
+        2.20471162275729,
+        2.3165101047321306,
+        -0.284830132848015
+      ],
+      "finite": true
+    },
+    "plum": {
+      "min": [
+        -0.8644283493705139,
+        0.12427476950518938,
+        -1.0657272287982964
+      ],
+      "max": [
+        1.5246077470332633,
+        2.535669262424381,
+        -0.3612172466136793
+      ],
+      "finite": true
+    }
+  }
+}

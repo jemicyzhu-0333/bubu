@@ -1,3 +1,4 @@
+import {settleOnWorldPlane} from '../../prop-expansion/src/support-geometry.mjs';
 import {paths} from '../../shared/paths.mjs';import {pathToFileURL} from 'node:url';import path from 'node:path';
 const cfg=paths(),cacheRoot=pathToFileURL(path.join(cfg.cache,'fantasy-props')+'/');
 import fs from 'node:fs';
@@ -39,7 +40,7 @@ for(const [id,f]of Object.entries(factories)){
     r.root.getObjectByName('Needle_left').position.set(-2.405,0,.33);
   }r.root.position.fromArray(c.position);
   r.root.updateMatrixWorld(true);
-  const meshes=[];
+  if(["magic-hat", "yarn", "pumpkin-lantern"].includes(id))settleOnWorldPlane(r.root,.006);const meshes=[];
   r.root.traverse(o=>{
     if(!o.isMesh)return;
     const positions=[],v=new T.Vector3();
@@ -60,7 +61,7 @@ for(const [id,f]of Object.entries(factories)){
     }]
   }));
   report.items.push({
-    id,...c,originalActorMeshes:13,originalActorPositionsByteIdentical:true,fullActions:'pending',wardrobe:'pending',nativeRuntime:'pending'
+    id,...c,mountedWorldPosition:r.root.getWorldPosition(new T.Vector3()).toArray(),originalActorMeshes:13,originalActorPositionsByteIdentical:true,fullActions:'pending',wardrobe:'pending',nativeRuntime:'pending'
   });
   r.dispose();
 }fs.writeFileSync(new URL('reports/mount-contracts.json',root),JSON.stringify(report,null,2));

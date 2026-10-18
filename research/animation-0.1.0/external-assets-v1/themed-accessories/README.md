@@ -23,3 +23,12 @@ The previous center-clasp design was rejected because the gold clasp entered the
 ## Remaining acceptance
 
 All four remain pending final batch user review, runtime wardrobe integration, full multi-accessory combinations, browser/WebGL and native desktop checks. Collision evidence is recorded sampled geometry, not a continuous cloth solve. No new actions were designed.
+
+
+## Weight/contact revision candidate
+
+The v2 candidate preserves the source body and accepted materials/design identity. Cape necklines are supported upper-back arcs with tapered vertical drape, soft hems and local clearance for the restored round tail. Wing roots sit on the back; the fin retains a rear root while its lateral lobes curve toward the silhouette. The basic boots use an open ankle shell plus a rolled native-foot cross-section rim, keeping the real foot visible instead of painting the upper foot/body junction.
+
+`update({time, reducedMotion, calmVisual, reset, enabled})` uses externally supplied seconds. Local free sections alone receive bounded world-gravity/inertial response; collars, clasps, roots and native footwear binding remain supported. Halo emission and boot-star glints use privately owned material/geometry. No autonomous clock, source actor mutation, wardrobe write, IPC or production entry is added.
+
+This secondary-motion/effect implementation is an experimental comparison candidate, not a settled production interface or a substitute for a mature cloth/physics/particle evaluation. `reports/weight-v2/current-evidence.json` binds the current files and actual CPU exports. Old reports outside `weight-v2` are prior-stage provenance. Actual four-view, before/after and selected drag/longpress/tea evidence is under `review/weight-v2`; it does not certify native browser/Electron rendering or continuous collision.

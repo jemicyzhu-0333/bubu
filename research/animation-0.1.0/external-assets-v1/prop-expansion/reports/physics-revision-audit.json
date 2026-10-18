@@ -1,0 +1,2610 @@
+{
+  "schema": "bubu-prop-support-physics/1",
+  "scope": "41 geometry families/variants, actual mounted geometry; no density/friction or full grip simulation; unchanged original body and hand sources. Static research only.",
+  "items": [
+    {
+      "id": "mirror",
+      "kind": "hand-constraint",
+      "input": "/tmp/bubu-prop-physics-20261018/comfort-props/reports/mirror-mounted.json",
+      "frame": 0,
+      "inputSha256": "7e4b6b7f3eaa5d28e392f3c33197793d92cd596558e32750862b7024e646fa1a",
+      "bounds": [
+        [
+          1.1299067735671997,
+          1.6325346231460571
+        ],
+        [
+          0.5620818138122559,
+          1.269757866859436
+        ],
+        [
+          -0.2549999952316284,
+          -0.14499999582767487
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.033939838409424,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 8.413154864683747e-05,
+          "verticesWithin001": 64,
+          "triangleCentroidPatchAreaWithin001": 0.006031280617946947,
+          "finitePatch": true
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 0.00277196238388,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "finiteSurfaceContact": true,
+      "graspClosure": "not certified: original fin hands retained; no invented fingers or new action",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/comfort-props/reports/mirror-mounted.json"
+    },
+    {
+      "id": "tissue",
+      "kind": "ground",
+      "input": "/tmp/bubu-prop-physics-20261018/comfort-props/reports/tissue-mounted.json",
+      "frame": 0,
+      "inputSha256": "87618a953a8095c46025fd4b432138e4b339261bff7902f50b08e449c296b78a",
+      "bounds": [
+        [
+          1.350000023841858,
+          1.9500000476837158
+        ],
+        [
+          0.006000000052154064,
+          0.6009373664855957
+        ],
+        [
+          0.16999998688697815,
+          0.5300000309944153
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.2321763038635254,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.5577661395072937,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": 0.006,
+      "groundError": 5.2154064053566707e-11,
+      "nearBottomSupportHullArea": 0.170742833281095,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/comfort-props/reports/tissue-mounted.json"
+    },
+    {
+      "id": "cushion",
+      "kind": "ground",
+      "input": "/tmp/bubu-prop-physics-20261018/comfort-props/reports/cushion-mounted.json",
+      "frame": 0,
+      "inputSha256": "ea104158f6ea27734b20488b3c28fbef586fc3b5a937b46fbbb30addc1aabc3d",
+      "bounds": [
+        [
+          1.1399999856948853,
+          2.4600000381469727
+        ],
+        [
+          0.006000000052154064,
+          0.26100000739097595
+        ],
+        [
+          -0.3100000321865082,
+          1.0099999904632568
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.0510573387145996,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.4379189908504486,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": 0.006,
+      "groundError": 5.2154064053566707e-11,
+      "nearBottomSupportHullArea": 0.6351510623445804,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/comfort-props/reports/cushion-mounted.json"
+    },
+    {
+      "id": "binoculars",
+      "kind": "hand-constraint",
+      "input": "/tmp/bubu-prop-physics-20261018/comfort-props/reports/binoculars-mounted.json",
+      "frame": 0,
+      "inputSha256": "3b17ddbe36c7592e9767f90d43a8f1d44854c799e6104d232ab29311f6079c46",
+      "bounds": [
+        [
+          1.1490000486373901,
+          1.8009999990463257
+        ],
+        [
+          0.5640000104904175,
+          0.8650000095367432
+        ],
+        [
+          -0.49300000071525574,
+          -0.007999999448657036
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.03196382522583,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 3.449996802373789e-05,
+          "verticesWithin001": 101,
+          "triangleCentroidPatchAreaWithin001": 0.010243288643721435,
+          "finitePatch": true
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 0.165829415,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "finiteSurfaceContact": true,
+      "graspClosure": "not certified: original fin hands retained; no invented fingers or new action",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/comfort-props/reports/binoculars-mounted.json"
+    },
+    {
+      "id": "telescope",
+      "kind": "ground",
+      "input": "/tmp/bubu-prop-physics-20261018/comfort-props/reports/telescope-mounted.json",
+      "frame": 0,
+      "inputSha256": "419d13781ed72928731f4f64f259f146b4ed15d47007c24659b116564994753d",
+      "bounds": [
+        [
+          1.503999948501587,
+          2.196000099182129
+        ],
+        [
+          0.006000000052154064,
+          1.2552602291107178
+        ],
+        [
+          -0.20464393496513367,
+          0.7643555998802185
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.39898681640625,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.507460355758667,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": 0.006,
+      "groundError": 5.2154064053566707e-11,
+      "nearBottomSupportHullArea": 0.2659613684303851,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/comfort-props/reports/telescope-mounted.json"
+    },
+    {
+      "id": "pillow",
+      "kind": "ground",
+      "input": "/tmp/bubu-prop-physics-20261018/comfort-props/reports/pillow-mounted.json",
+      "frame": 0,
+      "inputSha256": "8678b328b033e6d8754adf5288739d68cae98d47469b7c8799df47fe22a4dc7f",
+      "bounds": [
+        [
+          1.1679999828338623,
+          2.431999921798706
+        ],
+        [
+          0.006000000052154064,
+          0.3060000240802765
+        ],
+        [
+          -0.04200165718793869,
+          0.7420016527175903
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.071028709411621,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.4603866934776306,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": 0.006,
+      "groundError": 5.2154064053566707e-11,
+      "nearBottomSupportHullArea": 0.3484476130832997,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/comfort-props/reports/pillow-mounted.json"
+    },
+    {
+      "id": "tissue-sheet",
+      "kind": "hand-constraint",
+      "input": "/tmp/bubu-prop-physics-20261018/comfort-props/reports/tissue-sheet-mounted.json",
+      "frame": 0,
+      "inputSha256": "c3ddeb86aea0e8cf35a29e5831148981be60ef822f75c6752f2ef64ada3e0753",
+      "bounds": [
+        [
+          1.0989999771118164,
+          1.4290000200271606
+        ],
+        [
+          0.4200626015663147,
+          0.7194382548332214
+        ],
+        [
+          -0.24499574303627014,
+          -0.1808215081691742
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.0168275833129883,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.00010735797695815563,
+          "verticesWithin001": 41,
+          "triangleCentroidPatchAreaWithin001": 0.0037415442173817743,
+          "finitePatch": true
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 0.0006453315000000265,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "finiteSurfaceContact": true,
+      "graspClosure": "not certified: original fin hands retained; no invented fingers or new action",
+      "gravityOrientation": "Pinned original corner; free sheet lies below grip, original ripple geometry retained",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/comfort-props/reports/tissue-sheet-mounted.json"
+    },
+    {
+      "id": "telescope-handheld",
+      "kind": "hand-constraint",
+      "input": "/tmp/bubu-prop-physics-20261018/comfort-props/reports/telescope-handheld-mounted.json",
+      "frame": 0,
+      "inputSha256": "6bd18308ddc638a02bbfc075af16216114ff822ca7a82a80922c54562a560ea8",
+      "bounds": [
+        [
+          1.1430000066757202,
+          1.5369999408721924
+        ],
+        [
+          0.41043660044670105,
+          1.0192601680755615
+        ],
+        [
+          -0.7546439170837402,
+          0.21435558795928955
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.014575481414795,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.0008708493551239371,
+          "verticesWithin001": 63,
+          "triangleCentroidPatchAreaWithin001": 0.005784512188239577,
+          "finitePatch": true
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 0.017255825146575032,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "finiteSurfaceContact": true,
+      "graspClosure": "not certified: original fin hands retained; no invented fingers or new action",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/comfort-props/reports/telescope-handheld-mounted.json"
+    },
+    {
+      "id": "umbrella",
+      "kind": "hand-constraint",
+      "input": "/tmp/bubu-prop-physics-20261018/leisure-props/reports/umbrella-mounted.json",
+      "frame": 0,
+      "inputSha256": "224f5ce27ddaf3159a9c4ff527acca3066b4fe9ee6d7f480a5098d4259db84b4",
+      "bounds": [
+        [
+          0.17000000178813934,
+          2.1600000858306885
+        ],
+        [
+          0.258210152387619,
+          2.2874999046325684
+        ],
+        [
+          -1.1950000524520874,
+          0.7950000166893005
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 1.4364597797393799,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.00022720480046700686,
+          "verticesWithin001": 72,
+          "triangleCentroidPatchAreaWithin001": 0.006563940601931428,
+          "finitePatch": true
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 0.001632749853959975,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "finiteSurfaceContact": true,
+      "graspClosure": "not certified: original fin hands retained; no invented fingers or new action",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/leisure-props/reports/umbrella-mounted.json"
+    },
+    {
+      "id": "picnic-mat",
+      "kind": "feet-on-mat",
+      "input": "/tmp/bubu-prop-physics-20261018/leisure-props/reports/picnic-mat-mounted.json",
+      "frame": 0,
+      "inputSha256": "a7333f77f140155ed56067e97201893c7a8364e8e0d296923f1c8d3026e23302",
+      "bounds": [
+        [
+          -1.1699999570846558,
+          1.1699999570846558
+        ],
+        [
+          -0.03400000184774399,
+          0.006000000052154064
+        ],
+        [
+          -0.824999988079071,
+          0.824999988079071
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 0.5280479192733765,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.5280479192733765,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": -0.034,
+      "groundError": 1.8477439855946187e-09,
+      "nearBottomSupportHullArea": 3.84171335444248,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": "Mat thickness 0.04; its top meets original feet at 0.006, scene floor must be -0.034",
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/leisure-props/reports/picnic-mat-mounted.json"
+    },
+    {
+      "id": "snack",
+      "kind": "hand-constraint",
+      "input": "/tmp/bubu-prop-physics-20261018/leisure-props/reports/snack-mounted.json",
+      "frame": 0,
+      "inputSha256": "12cda6a30e1d897ef9508cce72bd3ec1d5c811b2ce8445078b3cbc886d413bba",
+      "bounds": [
+        [
+          1.1431894302368164,
+          1.6528105735778809
+        ],
+        [
+          0.5942287445068359,
+          1.0413137674331665
+        ],
+        [
+          -0.3630000054836273,
+          -0.04600000008940697
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.0360162258148193,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.001319133210927248,
+          "verticesWithin001": 27,
+          "triangleCentroidPatchAreaWithin001": 0.0029060090910298913,
+          "finitePatch": true
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 0.13848339842592,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "finiteSurfaceContact": true,
+      "graspClosure": "not certified: original fin hands retained; no invented fingers or new action",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/leisure-props/reports/snack-mounted.json"
+    },
+    {
+      "id": "pan",
+      "kind": "hand-constraint",
+      "input": "/tmp/bubu-prop-physics-20261018/leisure-props/reports/pan-mounted.json",
+      "frame": 0,
+      "inputSha256": "dbbefece3b8609e79fda5749c9c6a36d268c0d6d2b09a29aa325c2d6b0000dc9",
+      "bounds": [
+        [
+          1.1399999856948853,
+          2.1700000762939453
+        ],
+        [
+          0.6000000238418579,
+          0.7549999952316284
+        ],
+        [
+          -0.5199999809265137,
+          0.11999998986721039
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.0391743183135986,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.00010270959319313988,
+          "verticesWithin001": 59,
+          "triangleCentroidPatchAreaWithin001": 0.005889396813204849,
+          "finitePatch": true
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 0.15142854357608015,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "finiteSurfaceContact": true,
+      "graspClosure": "not certified: original fin hands retained; no invented fingers or new action",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/leisure-props/reports/pan-mounted.json"
+    },
+    {
+      "id": "camera",
+      "kind": "ground",
+      "input": "/tmp/bubu-prop-physics-20261018/leisure-props/reports/camera-mounted.json",
+      "frame": 0,
+      "inputSha256": "3b3826bfed799e217aa43b38d92a00c07618b2f7eeea310add91224d5450d86c",
+      "bounds": [
+        [
+          1.284999966621399,
+          1.687000036239624
+        ],
+        [
+          0.006000000052154064,
+          0.4385000169277191
+        ],
+        [
+          0.10999999940395355,
+          0.6899999976158142
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.17185378074646,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.5154401063919067,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": 0.006,
+      "groundError": 5.2154064053566707e-11,
+      "nearBottomSupportHullArea": 0.10078482290583513,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/leisure-props/reports/camera-mounted.json"
+    },
+    {
+      "id": "ball",
+      "kind": "ground",
+      "input": "/tmp/bubu-prop-physics-20261018/play-props/reports/ball-mounted.json",
+      "frame": 0,
+      "inputSha256": "8c247ff4baa89f55ea8e1abd9fd1df03fc92cb7e049de5b20ae6911dc1dbd2de",
+      "bounds": [
+        [
+          1.090000033378601,
+          1.6100000143051147
+        ],
+        [
+          0.006000000052154064,
+          0.5259999632835388
+        ],
+        [
+          0.12000001221895218,
+          0.6399999856948853
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 1.973422646522522,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.4160681664943695,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": 0.006,
+      "groundError": 5.2154064053566707e-11,
+      "nearBottomSupportHullArea": 0.014216049260854513,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/play-props/reports/ball-mounted.json"
+    },
+    {
+      "id": "energy-token",
+      "kind": "hand-constraint",
+      "input": "/tmp/bubu-prop-physics-20261018/play-props/reports/energy-token-mounted.json",
+      "frame": 0,
+      "inputSha256": "05e38ea3546b82ec8684fec9eb144af722171142f81b78c210e2193746f4252b",
+      "bounds": [
+        [
+          1.1432077884674072,
+          1.3602968454360962
+        ],
+        [
+          0.4940206706523895,
+          0.8959716558456421
+        ],
+        [
+          -0.277096152305603,
+          -0.10443572700023651
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.0471692085266113,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.0015196203021332622,
+          "verticesWithin001": 25,
+          "triangleCentroidPatchAreaWithin001": 0.002267157465175517,
+          "finitePatch": true
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 0.00017115035017505054,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "finiteSurfaceContact": true,
+      "graspClosure": "not certified: original fin hands retained; no invented fingers or new action",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/play-props/reports/energy-token-mounted.json"
+    },
+    {
+      "id": "treasure-chest",
+      "kind": "ground",
+      "input": "/tmp/bubu-prop-physics-20261018/play-props/reports/treasure-chest-mounted.json",
+      "frame": 0,
+      "inputSha256": "f2464c51d6178eee1afb7fd95d098670f9b844dba612072df759b2a3685f5f05",
+      "bounds": [
+        [
+          1.3075000047683716,
+          1.9924999475479126
+        ],
+        [
+          0.006000000052154064,
+          0.5199999809265137
+        ],
+        [
+          -0.25392717123031616,
+          0.2605000138282776
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.172351837158203,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.23774945735931396,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": 0.006,
+      "groundError": 5.2154064053566707e-11,
+      "nearBottomSupportHullArea": 0.24551461409980999,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/play-props/reports/treasure-chest-mounted.json"
+    },
+    {
+      "id": "paper-plane",
+      "kind": "hand-constraint",
+      "input": "/tmp/bubu-prop-physics-20261018/play-props/reports/paper-plane-mounted.json",
+      "frame": 0,
+      "inputSha256": "bb4e6dc16af37d88fd2dbdaab29d394cc714892ecc84ba27f6ae64987a96c85e",
+      "bounds": [
+        [
+          1.0670000314712524,
+          1.6069999933242798
+        ],
+        [
+          0.5408570170402527,
+          0.8520058393478394
+        ],
+        [
+          -0.4615849256515503,
+          0.16280633211135864
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.0208423137664795,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.0002523681032471359,
+          "verticesWithin001": 48,
+          "triangleCentroidPatchAreaWithin001": 0.004695271210241817,
+          "finitePatch": true
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 0,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "finiteSurfaceContact": true,
+      "graspClosure": "not certified: original fin hands retained; no invented fingers or new action",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/play-props/reports/paper-plane-mounted.json"
+    },
+    {
+      "id": "cardboard-box",
+      "kind": "ground",
+      "input": "/tmp/bubu-prop-physics-20261018/play-props/reports/cardboard-box-mounted.json",
+      "frame": 0,
+      "inputSha256": "d75c62857e3c7f31f87803641f946e1753d6d66f2f30ac6925bd37e9550a3db6",
+      "bounds": [
+        [
+          1.2971941232681274,
+          2.1028058528900146
+        ],
+        [
+          0.006000000052154064,
+          0.5185617804527283
+        ],
+        [
+          -0.3846902847290039,
+          0.3846902847290039
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.1542980670928955,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.1819617599248886,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": 0.006,
+      "groundError": 5.2154064053566707e-11,
+      "nearBottomSupportHullArea": 0.24639999999999995,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/play-props/reports/cardboard-box-mounted.json"
+    },
+    {
+      "id": "building-block",
+      "kind": "ground",
+      "input": "/tmp/bubu-prop-physics-20261018/play-props/reports/building-block-mounted.json",
+      "frame": 0,
+      "inputSha256": "07a7843acbcd4711681b3163a3a6383ca12306b725ee19a1fafa3466accc2389",
+      "bounds": [
+        [
+          1.274999976158142,
+          1.5850000381469727
+        ],
+        [
+          0.006000000052154064,
+          0.3160000145435333
+        ],
+        [
+          -0.005000001285225153,
+          0.3050000071525574
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.153500556945801,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.392495334148407,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": 0.006,
+      "groundError": 5.2154064053566707e-11,
+      "nearBottomSupportHullArea": 0.08333038501675,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/play-props/reports/building-block-mounted.json"
+    },
+    {
+      "id": "butterfly",
+      "kind": "intentional-flight",
+      "input": "/tmp/bubu-prop-physics-20261018/fantasy-props/reports/butterfly-mounted.json",
+      "frame": 0,
+      "inputSha256": "c0a8f9ffc97b75b05a80ed7337965bf5599221bd056561b043994783681ed8be",
+      "bounds": [
+        [
+          1.2422369718551636,
+          1.8577630519866943
+        ],
+        [
+          1.4692575931549072,
+          1.9597338438034058
+        ],
+        [
+          0.1550000011920929,
+          0.24500000476837158
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.3207929134368896,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.7927334904670715,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 0.010001385215435005,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": "independent flying creature",
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/fantasy-props/reports/butterfly-mounted.json"
+    },
+    {
+      "id": "ground-hole",
+      "kind": "scene-cutout",
+      "input": "/tmp/bubu-prop-physics-20261018/fantasy-props/reports/ground-hole-mounted.json",
+      "frame": 0,
+      "inputSha256": "399148fa7cb01532a44be49ea7161b11f1b448e006845649ce82ae5463008410",
+      "bounds": [
+        [
+          0.9699999690055847,
+          2.3299999237060547
+        ],
+        [
+          -0.3400000035762787,
+          0.03928697854280472
+        ],
+        [
+          -0.4599999785423279,
+          0.5600000023841858
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 1.9204918146133423,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.5331789255142212,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 1.3871998980000002,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": "Requires host ground cutout; cannot be placed on opaque solid floor as a physical hole",
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/fantasy-props/reports/ground-hole-mounted.json"
+    },
+    {
+      "id": "bubble-wand",
+      "kind": "hand-constraint",
+      "input": "/tmp/bubu-prop-physics-20261018/fantasy-props/reports/bubble-wand-mounted.json",
+      "frame": 0,
+      "inputSha256": "e3ffc253e6d37d7655792c8047e297164334ef65c4ec328e91dd10bf70264c55",
+      "bounds": [
+        [
+          0.9829999804496765,
+          1.3969999551773071
+        ],
+        [
+          0.3919999897480011,
+          1.2419999837875366
+        ],
+        [
+          -0.25200000405311584,
+          -0.14800000190734863
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 1.917228102684021,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.004387564025819302,
+          "verticesWithin001": 26,
+          "triangleCentroidPatchAreaWithin001": 0.0025599105364936398,
+          "finitePatch": true
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 0.0015273373302799875,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "finiteSurfaceContact": true,
+      "graspClosure": "not certified: original fin hands retained; no invented fingers or new action",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/fantasy-props/reports/bubble-wand-mounted.json"
+    },
+    {
+      "id": "magic-hat",
+      "kind": "ground",
+      "input": "/tmp/bubu-prop-physics-20261018/fantasy-props/reports/magic-hat-mounted.json",
+      "frame": 0,
+      "inputSha256": "8374dcf424cf9a049869d2035208b56f8086d15a639d1ee04bfef1bc739ed4b7",
+      "bounds": [
+        [
+          1.2200000286102295,
+          2.0799999237060547
+        ],
+        [
+          0.006000000052154064,
+          0.4635000228881836
+        ],
+        [
+          -0.33000001311302185,
+          0.5300000309944153
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.148937225341797,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.3606182336807251,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": 0.006,
+      "groundError": 5.2154064053566707e-11,
+      "nearBottomSupportHullArea": 0.57922302330073,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/fantasy-props/reports/magic-hat-mounted.json"
+    },
+    {
+      "id": "star",
+      "kind": "intentional-flight",
+      "input": "/tmp/bubu-prop-physics-20261018/fantasy-props/reports/star-mounted.json",
+      "frame": 0,
+      "inputSha256": "a617fe52da25cf9c3a398ee9b930793f84b09bd80c4210af1abfdf0c54936ab1",
+      "bounds": [
+        [
+          1.2962870597839355,
+          1.8037129640579224
+        ],
+        [
+          1.4641789197921753,
+          1.9467695951461792
+        ],
+        [
+          0.14249999821186066,
+          0.2574999928474426
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.360480546951294,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.7765373587608337,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 0.03131124814906995,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": "intentional magic effect",
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/fantasy-props/reports/star-mounted.json"
+    },
+    {
+      "id": "yarn",
+      "kind": "ground",
+      "input": "/tmp/bubu-prop-physics-20261018/fantasy-props/reports/yarn-mounted.json",
+      "frame": 0,
+      "inputSha256": "0f65828c06d8d9d9e92a4ba5aaf1b40a7168bed98286fce05a688927dda749c8",
+      "bounds": [
+        [
+          1.3359999656677246,
+          1.8922619819641113
+        ],
+        [
+          0.006000000052154064,
+          0.4904184937477112
+        ],
+        [
+          -0.14278055727481842,
+          0.6428253650665283
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.2598016262054443,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.47072532773017883,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": 0.006,
+      "groundError": 5.2154064053566707e-11,
+      "nearBottomSupportHullArea": 0.20252161199803992,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/fantasy-props/reports/yarn-mounted.json"
+    },
+    {
+      "id": "knitting-needle",
+      "kind": "hand-constraint",
+      "input": "/tmp/bubu-prop-physics-20261018/fantasy-props/reports/knitting-needle-mounted.json",
+      "frame": 0,
+      "inputSha256": "257361d1b2c45969aebe536237aa6671828073bd03e6d962cd2485dc8568f3f6",
+      "bounds": [
+        [
+          -1.2669999599456787,
+          1.2319999933242798
+        ],
+        [
+          0.39000001549720764,
+          1.190000057220459
+        ],
+        [
+          -0.24699999392032623,
+          0.1770000010728836
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 0.0066663892939686775,
+          "verticesWithin001": 13,
+          "triangleCentroidPatchAreaWithin001": 0.0016653719034043877,
+          "finitePatch": true
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.009588192217051983,
+          "verticesWithin001": 2,
+          "triangleCentroidPatchAreaWithin001": 0.00023072092867191206,
+          "finitePatch": true
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 0.13521706259181002,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "finiteSurfaceContact": true,
+      "graspClosure": "not certified: original fin hands retained; no invented fingers or new action",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/fantasy-props/reports/knitting-needle-mounted.json"
+    },
+    {
+      "id": "pumpkin-lantern",
+      "kind": "ground",
+      "input": "/tmp/bubu-prop-physics-20261018/fantasy-props/reports/pumpkin-lantern-mounted.json",
+      "frame": 0,
+      "inputSha256": "910c60e023d36c033e8f3f04f901ad676e7ffc153c487cfdf078506a06518559",
+      "bounds": [
+        [
+          1.1770261526107788,
+          1.922973871231079
+        ],
+        [
+          0.006000000052154064,
+          0.8390000462532043
+        ],
+        [
+          -0.22273945808410645,
+          0.4428461790084839
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.050593376159668,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.27442002296447754,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": 0.006,
+      "groundError": 5.2154064053566707e-11,
+      "nearBottomSupportHullArea": 0.012882923147219973,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/fantasy-props/reports/pumpkin-lantern-mounted.json"
+    },
+    {
+      "id": "ghost",
+      "kind": "intentional-flight",
+      "input": "/tmp/bubu-prop-physics-20261018/fantasy-props/reports/ghost-mounted.json",
+      "frame": 0,
+      "inputSha256": "65abe5659acf46d596b445349c4f32c3a3ae24bdedf692532ddc297dcb6d68f7",
+      "bounds": [
+        [
+          1.3899999856948853,
+          1.909999966621399
+        ],
+        [
+          0.6751136183738708,
+          1.2200000286102295
+        ],
+        [
+          -0.1599999964237213,
+          0.35999998450279236
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.255371570587158,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.33138030767440796,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 0.16220700394152,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": "intentional supernatural hover",
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/fantasy-props/reports/ghost-mounted.json"
+    },
+    {
+      "id": "shovel",
+      "kind": "ground",
+      "input": "/tmp/bubu-prop-physics-20261018/garden-props/reports/shovel-depth-v2.json",
+      "frame": 0,
+      "inputSha256": "3db76690e818ea4850d68b2913785e22293064463009dac83a909c9c213132c9",
+      "bounds": [
+        [
+          0.9049999713897705,
+          1.375
+        ],
+        [
+          0.006000000052154064,
+          1.3651976585388184
+        ],
+        [
+          -0.26499998569488525,
+          -0.13500000536441803
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 1.8136849403381348,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 4.284927126718685e-05,
+          "verticesWithin001": 198,
+          "triangleCentroidPatchAreaWithin001": 0.01827834438842843,
+          "finitePatch": true
+        }
+      },
+      "groundPlane": 0.006,
+      "groundError": 5.2154064053566707e-11,
+      "nearBottomSupportHullArea": 0,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/garden-props/reports/shovel-depth-v2.json"
+    },
+    {
+      "id": "dirt-mound",
+      "kind": "ground",
+      "input": "/tmp/bubu-prop-physics-20261018/garden-props/reports/dirt-mound-mounted.json",
+      "frame": 0,
+      "inputSha256": "0584c9bae15e333b41d1a725d106df2e50b8b8c5ce46578eb1df46efe3291a18",
+      "bounds": [
+        [
+          1.0,
+          2.119999885559082
+        ],
+        [
+          0.006000000052154064,
+          0.29100000858306885
+        ],
+        [
+          -0.03999999910593033,
+          0.5450000166893005
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 1.9419606924057007,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.5399824380874634,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": 0.006,
+      "groundError": 5.2154064053566707e-11,
+      "nearBottomSupportHullArea": 0.5498155259773502,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/garden-props/reports/dirt-mound-mounted.json"
+    },
+    {
+      "id": "broom",
+      "kind": "ground",
+      "input": "/tmp/bubu-prop-physics-20261018/garden-props/reports/broom-depth-v2.json",
+      "frame": 0,
+      "inputSha256": "36db37938081811648c158a43516ec48e865b37bad6c63cbb85f0c9e4951e27c",
+      "bounds": [
+        [
+          0.8063706159591675,
+          1.473629355430603
+        ],
+        [
+          0.006000000052154064,
+          1.562000036239624
+        ],
+        [
+          -0.27649998664855957,
+          -0.12349999696016312
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 1.7821241617202759,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 2.581619264674373e-05,
+          "verticesWithin001": 126,
+          "triangleCentroidPatchAreaWithin001": 0.011246268150562252,
+          "finitePatch": true
+        }
+      },
+      "groundPlane": 0.006,
+      "groundError": 5.2154064053566707e-11,
+      "nearBottomSupportHullArea": 0.017843532630579986,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/garden-props/reports/broom-depth-v2.json"
+    },
+    {
+      "id": "watering-can",
+      "kind": "hand-constraint",
+      "input": "/tmp/bubu-prop-physics-20261018/garden-props/reports/watering-can-fixed-stage-v2.json",
+      "frame": 0,
+      "inputSha256": "3fe8ed361e566b53a59c6d5137479f77a7f84d17d2629f0e0936db944aa34da6",
+      "bounds": [
+        [
+          1.1021203994750977,
+          2.1656014919281006
+        ],
+        [
+          0.44999998807907104,
+          1.0047515630722046
+        ],
+        [
+          -0.43199998140335083,
+          0.031999994069337845
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.0053157806396484,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.0002293911384185776,
+          "verticesWithin001": 105,
+          "triangleCentroidPatchAreaWithin001": 0.009721341537900679,
+          "finitePatch": true
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 0.10592490349217995,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "finiteSurfaceContact": true,
+      "graspClosure": "not certified: original fin hands retained; no invented fingers or new action",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/garden-props/reports/watering-can-fixed-stage-v2.json"
+    },
+    {
+      "id": "plant-pot",
+      "kind": "ground",
+      "input": "/tmp/bubu-prop-physics-20261018/garden-props/reports/plant-pot-mounted.json",
+      "frame": 0,
+      "inputSha256": "1f31d69e63a8847ade3931b73732e861e0f99ee96ed505dab26867db75b8ea15",
+      "bounds": [
+        [
+          1.15378737449646,
+          1.84621262550354
+        ],
+        [
+          0.006000000052154064,
+          1.0055956840515137
+        ],
+        [
+          -0.12000001221895218,
+          0.42000001668930054
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.0122342109680176,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.267724871635437,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": 0.006,
+      "groundError": 5.2154064053566707e-11,
+      "nearBottomSupportHullArea": 0.10113481383358001,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/garden-props/reports/plant-pot-mounted.json"
+    },
+    {
+      "id": "keyboard",
+      "kind": "ground",
+      "input": "/tmp/bubu-prop-physics-20261018/work-props/review/keyboard-static.json",
+      "frame": 0,
+      "inputSha256": "33915b287caae153ee13d932b1beddb07979e0a9ec771f0f7502a83f87d54c70",
+      "bounds": [
+        [
+          -0.800000011920929,
+          0.800000011920929
+        ],
+        [
+          0.005999999586492777,
+          0.3779999911785126
+        ],
+        [
+          0.550000011920929,
+          1.2100000381469727
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 0.008657854050397873,
+          "verticesWithin001": 5,
+          "triangleCentroidPatchAreaWithin001": 0.0003274443702645886,
+          "finitePatch": true
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 6.619095802307129e-05,
+          "verticesWithin001": 78,
+          "triangleCentroidPatchAreaWithin001": 0.008201402563120328,
+          "finitePatch": true
+        }
+      },
+      "groundPlane": 0.006,
+      "groundError": 4.1350722325417255e-10,
+      "nearBottomSupportHullArea": 0.8415,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/work-props/review/keyboard-static.json"
+    },
+    {
+      "id": "laptop",
+      "kind": "ground",
+      "input": "/tmp/bubu-prop-physics-20261018/work-props/review/laptop-static.json",
+      "frame": 0,
+      "inputSha256": "52ea1d176a604f0149b574de870cfb9ef06c6cf7730cdfcf210daedc88ce1870",
+      "bounds": [
+        [
+          -0.6000000238418579,
+          0.6000000238418579
+        ],
+        [
+          0.00599999725818634,
+          0.8141366243362427
+        ],
+        [
+          0.5983474254608154,
+          1.251071810722351
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 0.002808302640914917,
+          "verticesWithin001": 27,
+          "triangleCentroidPatchAreaWithin001": 0.0026071475925842397,
+          "finitePatch": true
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.005786072462797165,
+          "verticesWithin001": 15,
+          "triangleCentroidPatchAreaWithin001": 0.0013906411676049694,
+          "finitePatch": true
+        }
+      },
+      "groundPlane": 0.006,
+      "groundError": 2.741813659792869e-09,
+      "nearBottomSupportHullArea": 0.4407,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/work-props/review/laptop-static.json"
+    },
+    {
+      "id": "microphone",
+      "kind": "hand-constraint",
+      "input": "/tmp/bubu-prop-physics-20261018/work-props/review/microphone-static.json",
+      "frame": 0,
+      "inputSha256": "b7aac4c86cb0edd7e152449ae28b0e50fafd75985087408e2bafb5badf838b3f",
+      "bounds": [
+        [
+          -0.25999999046325684,
+          0.020000001415610313
+        ],
+        [
+          0.2199999988079071,
+          0.8256000280380249
+        ],
+        [
+          0.8100000023841858,
+          1.090000033378601
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 1.3656432201969437e-05,
+          "verticesWithin001": 96,
+          "triangleCentroidPatchAreaWithin001": 0.008585422420155349,
+          "finitePatch": true
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 1.276893138885498,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 0.0032805316740799964,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "finiteSurfaceContact": true,
+      "graspClosure": "not certified: original fin hands retained; no invented fingers or new action",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/work-props/review/microphone-static.json"
+    },
+    {
+      "id": "drum",
+      "kind": "ground",
+      "input": "/tmp/bubu-prop-physics-20261018/work-props/review/drum-static.json",
+      "frame": 0,
+      "inputSha256": "c21ca54d197ec39dd50a04807c3698f95d1868f7ee9178d8661b856237d45795",
+      "bounds": [
+        [
+          -0.5049999952316284,
+          0.5049999952316284
+        ],
+        [
+          0.006000000983476639,
+          0.4059999883174896
+        ],
+        [
+          0.6970000267028809,
+          1.7070000171661377
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 1.0398234735475853e-05,
+          "verticesWithin001": 48,
+          "triangleCentroidPatchAreaWithin001": 0.00444929063134739,
+          "finitePatch": true
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.008681539446115494,
+          "verticesWithin001": 2,
+          "triangleCentroidPatchAreaWithin001": 0.0003861857689589914,
+          "finitePatch": true
+        }
+      },
+      "groundPlane": 0.006,
+      "groundError": 9.834766386690452e-10,
+      "nearBottomSupportHullArea": 0.7675723251238901,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": true,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/work-props/review/drum-static.json"
+    },
+    {
+      "id": "open-book",
+      "kind": "hand-constraint",
+      "input": "/tmp/bubu-prop-physics-20261018/prop-expansion/reports/static-render-input.json",
+      "frame": 0,
+      "inputSha256": "699768cd5c5f3f224e8245e391d4a551d5f81930a81c2899b5f491e2b9321601",
+      "bounds": [
+        [
+          -0.3373035192489624,
+          0.3373035192489624
+        ],
+        [
+          0.02839423157274723,
+          0.6505312919616699
+        ],
+        [
+          0.6411182284355164,
+          1.1103705167770386
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 7.99924509919947e-06,
+          "verticesWithin001": 180,
+          "triangleCentroidPatchAreaWithin001": 0.016305351441404742,
+          "finitePatch": true
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 3.5543027479434386e-05,
+          "verticesWithin001": 178,
+          "triangleCentroidPatchAreaWithin001": 0.016332529106726383,
+          "finitePatch": true
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 0.0006949919095599992,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": false,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "finiteSurfaceContact": true,
+      "graspClosure": "not certified: original fin hands retained; no invented fingers or new action",
+      "bodyMaximumCoordinateDeltaVsStaticBaseline": 0.17420971001419638,
+      "actorBodyUnchangedWithinFloat32": false,
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/prop-expansion/reports/static-render-input.json",
+      "idleBaselineDifferenceExplanation": "Existing basic-prop workflow uses original local hybrid pose; comparison against previous same-pose export is authoritative"
+    },
+    {
+      "id": "paper-board",
+      "kind": "hand-constraint",
+      "input": "/tmp/bubu-prop-physics-20261018/prop-expansion/reports/static-render-input.json",
+      "frame": 1,
+      "inputSha256": "699768cd5c5f3f224e8245e391d4a551d5f81930a81c2899b5f491e2b9321601",
+      "bounds": [
+        [
+          -0.3527999818325043,
+          0.3527999818325043
+        ],
+        [
+          0.2800000011920929,
+          0.34426000714302063
+        ],
+        [
+          0.6732000112533569,
+          1.1268000602722168
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 6.854534149169922e-07,
+          "verticesWithin001": 206,
+          "triangleCentroidPatchAreaWithin001": 0.0198067723186535,
+          "finitePatch": true
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 3.008654857694637e-05,
+          "verticesWithin001": 83,
+          "triangleCentroidPatchAreaWithin001": 0.007762319420062389,
+          "finitePatch": true
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 0.31780673437634,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": false,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "finiteSurfaceContact": true,
+      "graspClosure": "not certified: original fin hands retained; no invented fingers or new action",
+      "bodyMaximumCoordinateDeltaVsStaticBaseline": 0.17420971001419638,
+      "actorBodyUnchangedWithinFloat32": false,
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/prop-expansion/reports/static-render-input.json",
+      "idleBaselineDifferenceExplanation": "Existing basic-prop workflow uses original local hybrid pose; comparison against previous same-pose export is authoritative"
+    },
+    {
+      "id": "pencil",
+      "kind": "hand-constraint",
+      "input": "/tmp/bubu-prop-physics-20261018/prop-expansion/reports/static-render-input.json",
+      "frame": 1,
+      "inputSha256": "699768cd5c5f3f224e8245e391d4a551d5f81930a81c2899b5f491e2b9321601",
+      "bounds": [
+        [
+          -0.3362881541252136,
+          -0.10080000013113022
+        ],
+        [
+          0.34426000714302063,
+          0.6068917512893677
+        ],
+        [
+          0.7656000256538391,
+          0.9669901132583618
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 0.00014829191786702722,
+          "verticesWithin001": 100,
+          "triangleCentroidPatchAreaWithin001": 0.008935954459830722,
+          "finitePatch": true
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 0.28544268012046814,
+          "verticesWithin001": 0,
+          "triangleCentroidPatchAreaWithin001": 0,
+          "finitePatch": false
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 0,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": false,
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "finiteSurfaceContact": true,
+      "graspClosure": "not certified: original fin hands retained; no invented fingers or new action",
+      "bodyMaximumCoordinateDeltaVsStaticBaseline": 0.17420971001419638,
+      "actorBodyUnchangedWithinFloat32": false,
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/prop-expansion/reports/static-render-input.json",
+      "idleBaselineDifferenceExplanation": "Existing basic-prop workflow uses original local hybrid pose; comparison against previous same-pose export is authoritative"
+    },
+    {
+      "id": "cup",
+      "kind": "hand-constraint",
+      "input": "/tmp/bubu-prop-physics-20261018/tea/reports/keyframes-compact.json",
+      "frame": 7,
+      "inputSha256": "c9bd1df31c129f62d12f4f3a171ae0cb12b0dc46aa0ad6916c3288a62117bace",
+      "bounds": [
+        [
+          -0.23623007535934448,
+          0.4069937765598297
+        ],
+        [
+          0.40713822841644287,
+          0.7395709753036499
+        ],
+        [
+          0.7848929762840271,
+          1.2455682754516602
+        ]
+      ],
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handContacts": {
+        "Bubu_hand-left": {
+          "minimumDistance": 2.958036566269584e-05,
+          "verticesWithin001": 64,
+          "triangleCentroidPatchAreaWithin001": 0.0056044096194745215,
+          "finitePatch": true
+        },
+        "Bubu_hand-right": {
+          "minimumDistance": 9.355881775263697e-05,
+          "verticesWithin001": 69,
+          "triangleCentroidPatchAreaWithin001": 0.006078046605992359,
+          "finitePatch": true
+        }
+      },
+      "groundPlane": null,
+      "groundError": null,
+      "nearBottomSupportHullArea": 0.04998796280993496,
+      "supportHullTolerance": 0.012,
+      "actorBodyUnchanged": "old tea action pose; different from idle by design, source checked separately",
+      "exception": null,
+      "claim": "geometric support only; contact patch is not a force-closure proof",
+      "finiteSurfaceContact": true,
+      "graspClosure": "not certified: original fin hands retained; no invented fingers or new action",
+      "originalActorArraysUnchangedVsPriorPose": true,
+      "priorPoseBaseline": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/keyframes-compact.json"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/comfort-props/reports/mirror-mounted.json",
+      "sha256": "7e4b6b7f3eaa5d28e392f3c33197793d92cd596558e32750862b7024e646fa1a"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/comfort-props/reports/mirror-mounted.json",
+      "sha256": "7e4b6b7f3eaa5d28e392f3c33197793d92cd596558e32750862b7024e646fa1a"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/comfort-props/reports/tissue-mounted.json",
+      "sha256": "87618a953a8095c46025fd4b432138e4b339261bff7902f50b08e449c296b78a"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/comfort-props/reports/tissue-mounted.json",
+      "sha256": "d1869f4f7ced51d18264eab26163ba30fdd2248874bdea1c781a9749d893c809"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/comfort-props/reports/cushion-mounted.json",
+      "sha256": "ea104158f6ea27734b20488b3c28fbef586fc3b5a937b46fbbb30addc1aabc3d"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/comfort-props/reports/cushion-mounted.json",
+      "sha256": "04111b44495776babe702a9556f68fb19015093b8bb7d8b338e6f2b788086e8a"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/comfort-props/reports/binoculars-mounted.json",
+      "sha256": "3b17ddbe36c7592e9767f90d43a8f1d44854c799e6104d232ab29311f6079c46"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/comfort-props/reports/binoculars-mounted.json",
+      "sha256": "3b17ddbe36c7592e9767f90d43a8f1d44854c799e6104d232ab29311f6079c46"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/comfort-props/reports/telescope-mounted.json",
+      "sha256": "419d13781ed72928731f4f64f259f146b4ed15d47007c24659b116564994753d"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/comfort-props/reports/telescope-mounted.json",
+      "sha256": "144f30ae1336e2bdcd7b18e9cb5015a140adcf5186fc6c3e9b6aec5fa146d457"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/comfort-props/reports/pillow-mounted.json",
+      "sha256": "8678b328b033e6d8754adf5288739d68cae98d47469b7c8799df47fe22a4dc7f"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/comfort-props/reports/pillow-mounted.json",
+      "sha256": "8678b328b033e6d8754adf5288739d68cae98d47469b7c8799df47fe22a4dc7f"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/comfort-props/reports/tissue-sheet-mounted.json",
+      "sha256": "c3ddeb86aea0e8cf35a29e5831148981be60ef822f75c6752f2ef64ada3e0753"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/comfort-props/reports/tissue-sheet-mounted.json",
+      "sha256": "2139a8c8be9e4dc6e58083f3dc21c96d77dabbc237dbfd32ab137e64a4b085e8"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/comfort-props/reports/telescope-handheld-mounted.json",
+      "sha256": "6bd18308ddc638a02bbfc075af16216114ff822ca7a82a80922c54562a560ea8"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/comfort-props/reports/telescope-handheld-mounted.json",
+      "sha256": "6bd18308ddc638a02bbfc075af16216114ff822ca7a82a80922c54562a560ea8"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/leisure-props/reports/umbrella-mounted.json",
+      "sha256": "224f5ce27ddaf3159a9c4ff527acca3066b4fe9ee6d7f480a5098d4259db84b4"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/leisure-props/reports/umbrella-mounted.json",
+      "sha256": "224f5ce27ddaf3159a9c4ff527acca3066b4fe9ee6d7f480a5098d4259db84b4"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/leisure-props/reports/picnic-mat-mounted.json",
+      "sha256": "a7333f77f140155ed56067e97201893c7a8364e8e0d296923f1c8d3026e23302"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/leisure-props/reports/picnic-mat-mounted.json",
+      "sha256": "a7333f77f140155ed56067e97201893c7a8364e8e0d296923f1c8d3026e23302"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/leisure-props/reports/snack-mounted.json",
+      "sha256": "12cda6a30e1d897ef9508cce72bd3ec1d5c811b2ce8445078b3cbc886d413bba"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/leisure-props/reports/snack-mounted.json",
+      "sha256": "12cda6a30e1d897ef9508cce72bd3ec1d5c811b2ce8445078b3cbc886d413bba"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/leisure-props/reports/pan-mounted.json",
+      "sha256": "dbbefece3b8609e79fda5749c9c6a36d268c0d6d2b09a29aa325c2d6b0000dc9"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/leisure-props/reports/pan-mounted.json",
+      "sha256": "dbbefece3b8609e79fda5749c9c6a36d268c0d6d2b09a29aa325c2d6b0000dc9"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/leisure-props/reports/camera-mounted.json",
+      "sha256": "3b3826bfed799e217aa43b38d92a00c07618b2f7eeea310add91224d5450d86c"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/leisure-props/reports/camera-mounted.json",
+      "sha256": "cf89e51a1bcf5341ba37eb2288c553300ad47e8a0307a7b80001d52a63cb5593"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/play-props/reports/ball-mounted.json",
+      "sha256": "8c247ff4baa89f55ea8e1abd9fd1df03fc92cb7e049de5b20ae6911dc1dbd2de"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/play-props/reports/ball-mounted.json",
+      "sha256": "32d1b412995b26edb49f92db9bf010fa515aca8b813c4397a8576ae7bc84b2be"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/play-props/reports/energy-token-mounted.json",
+      "sha256": "05e38ea3546b82ec8684fec9eb144af722171142f81b78c210e2193746f4252b"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/play-props/reports/energy-token-mounted.json",
+      "sha256": "05e38ea3546b82ec8684fec9eb144af722171142f81b78c210e2193746f4252b"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/play-props/reports/treasure-chest-mounted.json",
+      "sha256": "f2464c51d6178eee1afb7fd95d098670f9b844dba612072df759b2a3685f5f05"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/play-props/reports/treasure-chest-mounted.json",
+      "sha256": "ad7b997bc17a89e4d48e7845c43d795fa32de4ddbfc35f23ed053b17040798f1"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/play-props/reports/paper-plane-mounted.json",
+      "sha256": "bb4e6dc16af37d88fd2dbdaab29d394cc714892ecc84ba27f6ae64987a96c85e"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/play-props/reports/paper-plane-mounted.json",
+      "sha256": "bb4e6dc16af37d88fd2dbdaab29d394cc714892ecc84ba27f6ae64987a96c85e"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/play-props/reports/cardboard-box-mounted.json",
+      "sha256": "d75c62857e3c7f31f87803641f946e1753d6d66f2f30ac6925bd37e9550a3db6"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/play-props/reports/cardboard-box-mounted.json",
+      "sha256": "c7572c85679d4cbb03ed9e29bcce9c8903738039120edeeba823244657f2d3b8"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/play-props/reports/building-block-mounted.json",
+      "sha256": "07a7843acbcd4711681b3163a3a6383ca12306b725ee19a1fafa3466accc2389"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/play-props/reports/building-block-mounted.json",
+      "sha256": "4a41e69ef4868670c658e3eb7c7282ff410daba324a43bf667919980dcbdc4b4"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/fantasy-props/reports/butterfly-mounted.json",
+      "sha256": "c0a8f9ffc97b75b05a80ed7337965bf5599221bd056561b043994783681ed8be"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/fantasy-props/reports/butterfly-mounted.json",
+      "sha256": "c0a8f9ffc97b75b05a80ed7337965bf5599221bd056561b043994783681ed8be"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/fantasy-props/reports/ground-hole-mounted.json",
+      "sha256": "399148fa7cb01532a44be49ea7161b11f1b448e006845649ce82ae5463008410"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/fantasy-props/reports/ground-hole-mounted.json",
+      "sha256": "399148fa7cb01532a44be49ea7161b11f1b448e006845649ce82ae5463008410"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/fantasy-props/reports/bubble-wand-mounted.json",
+      "sha256": "e3ffc253e6d37d7655792c8047e297164334ef65c4ec328e91dd10bf70264c55"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/fantasy-props/reports/bubble-wand-mounted.json",
+      "sha256": "e3ffc253e6d37d7655792c8047e297164334ef65c4ec328e91dd10bf70264c55"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/fantasy-props/reports/magic-hat-mounted.json",
+      "sha256": "8374dcf424cf9a049869d2035208b56f8086d15a639d1ee04bfef1bc739ed4b7"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/fantasy-props/reports/magic-hat-mounted.json",
+      "sha256": "8408fcc2fd0cc5662b9060e49cbe45d94f019087ab6c315cd0fd983b4f3f5d64"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/fantasy-props/reports/star-mounted.json",
+      "sha256": "a617fe52da25cf9c3a398ee9b930793f84b09bd80c4210af1abfdf0c54936ab1"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/fantasy-props/reports/star-mounted.json",
+      "sha256": "a617fe52da25cf9c3a398ee9b930793f84b09bd80c4210af1abfdf0c54936ab1"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/fantasy-props/reports/yarn-mounted.json",
+      "sha256": "0f65828c06d8d9d9e92a4ba5aaf1b40a7168bed98286fce05a688927dda749c8"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/fantasy-props/reports/yarn-mounted.json",
+      "sha256": "e05b25933f2a121678dea2dc4a145b160593fc958fe205c78594d7b550ee66d1"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/fantasy-props/reports/knitting-needle-mounted.json",
+      "sha256": "257361d1b2c45969aebe536237aa6671828073bd03e6d962cd2485dc8568f3f6"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/fantasy-props/reports/knitting-needle-mounted.json",
+      "sha256": "257361d1b2c45969aebe536237aa6671828073bd03e6d962cd2485dc8568f3f6"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/fantasy-props/reports/pumpkin-lantern-mounted.json",
+      "sha256": "910c60e023d36c033e8f3f04f901ad676e7ffc153c487cfdf078506a06518559"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/fantasy-props/reports/pumpkin-lantern-mounted.json",
+      "sha256": "441e33a722a10ba2f3d6d0bb078aaa908469de4e1b016d3cefa88fa871ec6b49"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/fantasy-props/reports/ghost-mounted.json",
+      "sha256": "65abe5659acf46d596b445349c4f32c3a3ae24bdedf692532ddc297dcb6d68f7"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/fantasy-props/reports/ghost-mounted.json",
+      "sha256": "65abe5659acf46d596b445349c4f32c3a3ae24bdedf692532ddc297dcb6d68f7"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/garden-props/reports/shovel-depth-v2.json",
+      "sha256": "3db76690e818ea4850d68b2913785e22293064463009dac83a909c9c213132c9"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/garden-props/reports/shovel-depth-v2.json",
+      "sha256": "4c2ca9571d64c4809982db22475ce89f50b09303a3e02821cb5f5d0d2c593348"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/garden-props/reports/dirt-mound-mounted.json",
+      "sha256": "0584c9bae15e333b41d1a725d106df2e50b8b8c5ce46578eb1df46efe3291a18"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/garden-props/reports/dirt-mound-mounted.json",
+      "sha256": "f1cf58da5ffa528f66645748d9e4b67e7d844c96bb144f1eabdc01f37d7e9f32"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/garden-props/reports/broom-depth-v2.json",
+      "sha256": "36db37938081811648c158a43516ec48e865b37bad6c63cbb85f0c9e4951e27c"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/garden-props/reports/broom-depth-v2.json",
+      "sha256": "65c6dbb61daa0dfa55f6a603e8394c48915b2b97d23dd9c808f13f26950f00dd"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/garden-props/reports/watering-can-fixed-stage-v2.json",
+      "sha256": "3fe8ed361e566b53a59c6d5137479f77a7f84d17d2629f0e0936db944aa34da6"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/garden-props/reports/watering-can-fixed-stage-v2.json",
+      "sha256": "3fe8ed361e566b53a59c6d5137479f77a7f84d17d2629f0e0936db944aa34da6"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/garden-props/reports/plant-pot-mounted.json",
+      "sha256": "1f31d69e63a8847ade3931b73732e861e0f99ee96ed505dab26867db75b8ea15"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/garden-props/reports/plant-pot-mounted.json",
+      "sha256": "1f31d69e63a8847ade3931b73732e861e0f99ee96ed505dab26867db75b8ea15"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/work-props/review/keyboard-static.json",
+      "sha256": "33915b287caae153ee13d932b1beddb07979e0a9ec771f0f7502a83f87d54c70"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/work-props/review/keyboard-static.json",
+      "sha256": "c07228209aa7b94d2f545f74db7615837ec492b32b89bc955ce9775e50ce9a0f"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/work-props/review/laptop-static.json",
+      "sha256": "52ea1d176a604f0149b574de870cfb9ef06c6cf7730cdfcf210daedc88ce1870"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/work-props/review/laptop-static.json",
+      "sha256": "f313cb655224a16c30a0140a410b7778af34a1a5f2fbc0d5493d6ac88756da5a"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/work-props/review/microphone-static.json",
+      "sha256": "b7aac4c86cb0edd7e152449ae28b0e50fafd75985087408e2bafb5badf838b3f"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/work-props/review/microphone-static.json",
+      "sha256": "b7aac4c86cb0edd7e152449ae28b0e50fafd75985087408e2bafb5badf838b3f"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/work-props/review/drum-static.json",
+      "sha256": "c21ca54d197ec39dd50a04807c3698f95d1868f7ee9178d8661b856237d45795"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/work-props/review/drum-static.json",
+      "sha256": "c21ca54d197ec39dd50a04807c3698f95d1868f7ee9178d8661b856237d45795"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/prop-expansion/reports/static-render-input.json",
+      "sha256": "699768cd5c5f3f224e8245e391d4a551d5f81930a81c2899b5f491e2b9321601"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/prop-expansion/reports/static-binary/open-book-Bubu_body-positions.bin",
+      "sha256": "ee7e3dcb0c3b615e2bb813d59399db31b6f6e71a4374a0d5bd9e863eb6999382"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/prop-expansion/reports/static-binary/open-book-Bubu_foot-left-positions.bin",
+      "sha256": "750431c2493ec463e54513f12d5d5585ddbf71be16f7ff172a2e7dc70cf25fe7"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/prop-expansion/reports/static-binary/open-book-Bubu_foot-right-positions.bin",
+      "sha256": "d7948610c2c280fb1792e598321d5be23caed88fa13dceb127a7b9401680043d"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/prop-expansion/reports/static-binary/open-book-Bubu_hand-left-positions.bin",
+      "sha256": "9e2c8ee275289f79e6894344f12c9b642bf7f7f29c5dbd5231b712c7d88f31ed"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/prop-expansion/reports/static-binary/open-book-Bubu_hand-right-positions.bin",
+      "sha256": "1ec30b894cdf46c85545d65d89e95fac9a3ea830d04bb272b3105cb137604009"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/face-000-A_brow_L.bin",
+      "sha256": "acb4f70d8a79d92795827ffe2a235c9e784763d63c9ed6a8598ce3815afac29f"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/face-000-A_brow_R.bin",
+      "sha256": "9ce52ed300afd5ef8e1d38ed1bf77b34a73d69a5d043ee5330bfbf0cefc07137"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/face-000-A_eye_highlight_L.bin",
+      "sha256": "7b65c464d537b827d13529a1db67742ad704746323762506bcb7c5b310f3c3f5"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/face-000-A_eye_highlight_R.bin",
+      "sha256": "bf7f21e3381e0fc587211a5dd86746fb212b0b306d749d3b7d8ccec5ae07d725"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/face-000-A_eye_L.bin",
+      "sha256": "10a79a470012880c6322a751e66214d37d271180e0beab88f69266ff2dba5d85"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/face-000-A_eye_R.bin",
+      "sha256": "82b2a2ba36419604e335acc6b85a0787f478fb20ea29a13d27d1578a65c25331"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/face-000-A_mouth_ring.bin",
+      "sha256": "00996f07960a231f57c1bbaf7684bffdf56ac2c67c98cee98cf6661ad5e46fbb"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/face-000-A_tongue.bin",
+      "sha256": "d4626bff4f8202fb5f3de12fb92bb1855207cd53080af6f812f7ee008dec5abf"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/prop-expansion/reports/static-render-input.json",
+      "sha256": "61f31f1be230cc435e8c1e92afb0e15139cedaeff43e3d2cb0b69233bd29f013"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/prop-expansion/reports/static-binary/paper-board-Bubu_body-positions.bin",
+      "sha256": "ee7e3dcb0c3b615e2bb813d59399db31b6f6e71a4374a0d5bd9e863eb6999382"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/prop-expansion/reports/static-binary/paper-board-Bubu_foot-left-positions.bin",
+      "sha256": "750431c2493ec463e54513f12d5d5585ddbf71be16f7ff172a2e7dc70cf25fe7"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/prop-expansion/reports/static-binary/paper-board-Bubu_foot-right-positions.bin",
+      "sha256": "d7948610c2c280fb1792e598321d5be23caed88fa13dceb127a7b9401680043d"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/prop-expansion/reports/static-binary/paper-board-Bubu_hand-left-positions.bin",
+      "sha256": "d040f53427075306361eb59c57729eab8297507e708d7eebee417f235b33ac27"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/prop-expansion/reports/static-binary/paper-board-Bubu_hand-right-positions.bin",
+      "sha256": "39982687ad4245f11d7f4a19395bb2bad4cb8f435a471becb107321d1563c796"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/tea/reports/keyframes-compact.json",
+      "sha256": "c9bd1df31c129f62d12f4f3a171ae0cb12b0dc46aa0ad6916c3288a62117bace"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/body-POSITION.bin",
+      "sha256": "ee7e3dcb0c3b615e2bb813d59399db31b6f6e71a4374a0d5bd9e863eb6999382"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/handL-123-POSITION.bin",
+      "sha256": "6600a469415abe35e1e0e7dc875b5f7816a70bcbe28bdfb51bd2ccb934bfaffd"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/handR-123-POSITION.bin",
+      "sha256": "760b0cf88173775f6b5aef529640187cff2b069ccddcf3298c94240dcd3a4ede"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/footL-POSITION.bin",
+      "sha256": "750431c2493ec463e54513f12d5d5585ddbf71be16f7ff172a2e7dc70cf25fe7"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/footR-POSITION.bin",
+      "sha256": "d7948610c2c280fb1792e598321d5be23caed88fa13dceb127a7b9401680043d"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/face-123-A_brow_L.bin",
+      "sha256": "acb4f70d8a79d92795827ffe2a235c9e784763d63c9ed6a8598ce3815afac29f"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/face-123-A_brow_R.bin",
+      "sha256": "9ce52ed300afd5ef8e1d38ed1bf77b34a73d69a5d043ee5330bfbf0cefc07137"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/face-123-A_eye_highlight_L.bin",
+      "sha256": "246ff02ac96370493f3291b0eeb79616ba54df45a458a6213572e5f12d8420ba"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/face-123-A_eye_highlight_R.bin",
+      "sha256": "c886a7cc4c4a53e96bf11b868aa5dde5f15e33def63f8357517d563fc312435f"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/face-123-A_eye_L.bin",
+      "sha256": "ef9380ba5d4b1566c08ac8cedecb82f8330c865c386c3dbe47f71f13d686ca3d"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/face-123-A_eye_R.bin",
+      "sha256": "7aa3787d4d41d083a33b544dd53b4e5e4ca219ce8a154ffd2dd178d02ca42c6a"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/face-123-A_mouth_ring.bin",
+      "sha256": "fe5d4a11f354d5c273bdfc76629ae482d7004b5e4e475c1920bbc1c6702e44d1"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/face-123-A_tongue.bin",
+      "sha256": "d4626bff4f8202fb5f3de12fb92bb1855207cd53080af6f812f7ee008dec5abf"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/Sip_cup_shell-123.bin",
+      "sha256": "b5332d57cc5d7df7e82648720f62932d2bd5b4b488ea217efb6e110bbb2b918e"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/Sip_cup_handle-123.bin",
+      "sha256": "f529501783a1b68c91fc4532db7bb8b13b56859f4e803a8fbf2ad4156f1e3c3f"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/frames/Sip_tea_surface-123.bin",
+      "sha256": "7607567343592e55f132194f6d003d9b875020b01d260d17d795830b2e244e47"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-external-assets-staging-20261018/.cache/clean-b/tea/reports/keyframes-compact.json",
+      "sha256": "c9bd1df31c129f62d12f4f3a171ae0cb12b0dc46aa0ad6916c3288a62117bace"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/prop-expansion/src/audit-support-physics.py",
+      "sha256": "07dd67ae646ee9ee4c99d9dd03d264655f1c72dd1d2915d469beb9adb93d29b7"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/prop-expansion/src/support-geometry.mjs",
+      "sha256": "2a018d564eb8d97c828869700ee6185daf6ef3fb6d55bbc58e3e3674f1d260f7"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/prop-expansion/mount-profiles.json",
+      "sha256": "e28283d0c33b036357e4a429d2c8302177843e822c20d03fb466090f4d810831"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/prop-expansion/src/build-static-fit.mjs",
+      "sha256": "9be957d0d795fe8063d4f5178a9161c2f2e4b13a5b2b8ad414dd94139c77247d"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/prop-expansion/src/prepare-static-render.py",
+      "sha256": "652e9c718b43de6128818eab7ecb0eb2d4f1ea806048548a12e927113967456a"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/prop-expansion/src/check-book-facing.mjs",
+      "sha256": "325c992675db1763b86f1fdb36ede4593c3ca8bd44f050b8304f60b926d24cc6"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/comfort-props/src/test-variant-contracts.mjs",
+      "sha256": "19d5cfd933d02b1306c23e2e37a79a7e24dc9d6a8e21898fdfd3adcd3c34e902"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/comfort-props/src/prop-models.mjs",
+      "sha256": "aa1d2abdf913d28823472a92a8f2438c336a87061e7a13ab740194b07417d929"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/comfort-props/src/export-variant-mounts.mjs",
+      "sha256": "3a7e82c0d4845408743b4ae53f0a1aaf8e92b0e9a78902eb740df2270ee178fc"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/comfort-props/src/static-install.mjs",
+      "sha256": "4bd1ed87ddb9e29ef42bd9b4b1215742b48551bfa6a21d196f52d15e51089df5"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/comfort-props/src/variant-models.mjs",
+      "sha256": "943ed54d9f0062883ff8259213e1f311dced4cb9c2592249654a1cce73c77ddd"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/comfort-props/src/test-variant-models.mjs",
+      "sha256": "bc043bc987d4a03e06040fecebaff9d66fd06642f9e8b15bb6b9fc08f74baec0"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/comfort-props/src/test-install.mjs",
+      "sha256": "2d94ccaee2b5761ba882fe1a16b437737b14ba38912c4bc094f62d0f345bd4e7"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/comfort-props/src/test-static-mounts.mjs",
+      "sha256": "c1fd28463879f986f2293dd0100d53bd5b142ed54f3df52c972c6c0aede9239e"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/comfort-props/src/export-variants.mjs",
+      "sha256": "cd70c782268639a46a56977154bd769265b3f63123bf51eb8bbe03f11c6e5315"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/comfort-props/src/export-models.mjs",
+      "sha256": "e8734c0d4731a54a22ea294fa9d69f49dee3633627e42939c126d9881cb06313"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/comfort-props/src/verify-static-evidence.mjs",
+      "sha256": "ba7d8130c48e7276f151318792720ccd36a5c21638ae6cfc579eccab490b53fb"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/comfort-props/src/export-mounts.mjs",
+      "sha256": "f0fe69d641862ca460f6cf44e87e776ee266be40f4de6887af482cad52e95e01"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/comfort-props/src/test-models.mjs",
+      "sha256": "942ee7bc6db4fb62744bb578c861c0e3a10faa89d7afa50149647dbbcb8eb747"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/leisure-props/src/prop-models.mjs",
+      "sha256": "92cb4706fd8f9a552857c47cbb454928d0f5291ca429e4a5071cb360d437d19b"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/leisure-props/src/test-static-mounts.mjs",
+      "sha256": "e13e5b4703c98704fe524dee0cec48a29358599540da91f2b62d8c40bbee0041"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/leisure-props/src/export-models.mjs",
+      "sha256": "b24c57cc2175e94a24d2e1f32302cdb6f27a35216b4e22dd00160efd2c259724"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/leisure-props/src/export-mounts.mjs",
+      "sha256": "81d9bfb4b7ac6a6c0bbe3177b90dbf89758e3f1b9cd19cf5f930233974dccead"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/leisure-props/src/test-models.mjs",
+      "sha256": "942ee7bc6db4fb62744bb578c861c0e3a10faa89d7afa50149647dbbcb8eb747"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/play-props/src/energy-crystal-data.mjs",
+      "sha256": "bf4bb43e9f9aba9d37a3fe0ecf028e881aa40a08b8e1cd7804de7bd3b15e3b3e"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/play-props/src/prop-models.mjs",
+      "sha256": "7e14500071f87507a925d32b0d077a838a00620d7fb323dbbb77991d011bb4f6"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/play-props/src/test-shared.mjs",
+      "sha256": "7bf4c4a7be6b0ea3beca3fba9a1d76e21bbb01aaf27c4c986f6e0654e2000416"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/play-props/src/export-shared.mjs",
+      "sha256": "4bff67ff20682c2b6a9989a807e45d6e5d15eb9829ae41dfc9f9a78e11b538f4"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/play-props/src/shared-prop-pool.mjs",
+      "sha256": "4df14ccac4252f9be814741da6c29f5f43173152e68e45b459f3a3fce706bbd0"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/play-props/src/test-parts.mjs",
+      "sha256": "0356a470510bd68a44bf0f90b8cac6f9f1b3b9ce594f32e336189304efb484e9"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/play-props/src/export-models.mjs",
+      "sha256": "a318f243e0eec00b0b3db8fdf6b74c0d2ab9780a57118a2593c1629c4022ac59"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/play-props/src/test-mount.mjs",
+      "sha256": "581ff9c4eaf47865e5106ab2699152c6390a952f58371f4f0baae6ef802809c4"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/play-props/src/prop-mount.mjs",
+      "sha256": "610d71179f46514555197dbea837c6823493272a7506f4e424edbaa4d8a8da68"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/play-props/src/test-static-audits.mjs",
+      "sha256": "3ea7493ca769d1527f80b42dfe743c0ffd0c1b17b1d6ec5f54595198dc8b613f"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/play-props/src/export-mounts.mjs",
+      "sha256": "fb82e4b3f45b91a17e6c1474b220e688f4b421a7aadf346360b94fa467591156"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/play-props/src/test-models.mjs",
+      "sha256": "942ee7bc6db4fb62744bb578c861c0e3a10faa89d7afa50149647dbbcb8eb747"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/fantasy-props/src/ground-hole-contract.mjs",
+      "sha256": "2753faf6766028dcd564b410627e3cb7d75c0ce8e7689b2f7973a0c8c1adaaed"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/fantasy-props/src/prop-models.mjs",
+      "sha256": "93b536d601394bd451c31e609ce08d71c6f48be013c76f439f149a58441ecfbb"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/fantasy-props/src/export-models.mjs",
+      "sha256": "f9742c8c4acba90f3d2efc2a92a75e91565235f030b41cabef531f6bf6839ffa"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/fantasy-props/src/prop-pool.mjs",
+      "sha256": "b7db0eebdb33b90bb10f5abdc3d493630a078c6bc22b3b2f91e9d724a6938c45"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/fantasy-props/src/export-mounts.mjs",
+      "sha256": "e9d72cd13725212f40784e72fd3b5bdaf75466397cf95348a716e273612d1a2f"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/fantasy-props/src/test-models.mjs",
+      "sha256": "2c42bc41f9391fd1373ef3fe6a59b7e92d5fea34303e346197d500235a7b14ed"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/garden-props/src/test-watering-can-v2.mjs",
+      "sha256": "a81bf85d01c7284e6880390a5ea9f231f2a01d79e555916a33f38aa676dc46bd"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/garden-props/src/prop-models.mjs",
+      "sha256": "8f86c9b80393950c7aa76d664718993e6749fd0d1717b5a8ccea5b363ed4ee0c"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/garden-props/src/test-static-body-intersection.mjs",
+      "sha256": "98ef9f7dcd68c1a368b01204523447373822db11d6c02b02b6eb9bfe27752a7e"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/garden-props/src/repair-shaft-depth.mjs",
+      "sha256": "21f8f404ea86ffb5778d762333e769bce34c3393988bfd820e678a17fc21e479"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/garden-props/src/export-models.mjs",
+      "sha256": "400dad18357eabe3baee1647b37b4d7e39ba3742b0447cdc8427305ca70fc8bf"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/garden-props/src/export-mounts.mjs",
+      "sha256": "cca02b885d7d85d01a8f9bddaee6e37924fd266dc67f63faa8ef146508b1b16a"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/garden-props/src/test-models.mjs",
+      "sha256": "7f5b9c836fdebde959a5f7c64183121c09990cace190328c6a3e79399ee5a8ef"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/garden-props/src/repair-watering-can.mjs",
+      "sha256": "eb236972e6a4aa9570c5606c0c034a070513bc55f8cdfb6a212490f1fcefdbb7"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/work-props/src/read-hands.mjs",
+      "sha256": "e7bcd13daa058684ad5f685453b85003f924bde74e123914df148b719b2ca87b"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/work-props/src/prop-models.mjs",
+      "sha256": "83b708918944933ad8e2f791a670d5e639b2beebb2345ad64bd5612153b1daf1"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/work-props/src/export-models.mjs",
+      "sha256": "13cb73a38c22201aa43c8014627040a4d76489fb5663d13b0db33d6ff85ca17b"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/work-props/src/export-static.mjs",
+      "sha256": "d72d478e273c1e4f0ba104cd0410eec19f1a1d64910c8a4e8b0c051ef2076717"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/work-props/src/test-models.mjs",
+      "sha256": "ffa11d5e7fc805a793461289bbd2a8228492591d0aa778a3a57a4f8243703e1b"
+    },
+    {
+      "path": "/workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/work-props/src/test-static.mjs",
+      "sha256": "0359352ebd73f7786ba1de8de84cab5fa0aacb52ad99f7024d0a598f75882834"
+    }
+  ]
+}

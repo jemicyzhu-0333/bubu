@@ -47,7 +47,7 @@ assert.ok(first.root.matrixWorld.elements.every((x,i)=>Math.abs(x-sourceMatrix.e
 assert.throws(()=>disposeAsset(asset),/borrowed/);
 first.dispose();
 assert.ok(feet.get(a).every(m=>m.visible));
-assert.ok(feet.get(b).every(m=>!m.visible));
+assert.ok(feet.get(b).every(m=>m.visible));
 second.update();
 assert.throws(()=>disposeAsset(asset),/borrowed/);
 const altered=asset.clone(true);

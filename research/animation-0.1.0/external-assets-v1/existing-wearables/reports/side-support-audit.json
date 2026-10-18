@@ -1,0 +1,37 @@
+{
+  "scope": "Static source-local contact diagnostic. Vertex proximity is not a watertight sewn-joint proof; overlapping strap/pouch triangles are intended stitching embed, not hand/cup collisions. Actual both-side and back images are separate evidence.",
+  "results": [
+    {
+      "variant": "original",
+      "inputSHA256": "3b7d2eb0c0ce2bc21998bf35e2019382e2407de410a0fefb61a8d67319bc6085",
+      "upperPouchVertexToStrapVertexMinimum": 0.10982171882462095,
+      "pouchPoint": [
+        -0.6720667525660249,
+        0.4700125753879547,
+        0.4914899792638609
+      ],
+      "strapPoint": [
+        -0.658969943178818,
+        0.36133843660354614,
+        0.48258969449671
+      ],
+      "strapPouchTrianglePairs": 76
+    },
+    {
+      "variant": "revised",
+      "inputSHA256": "5d7d469591a712457eec7b68d91603d7e281506ebe4008c72f20ebd945bb03a5",
+      "upperPouchVertexToStrapVertexMinimum": 0.02085488940404898,
+      "pouchPoint": [
+        -0.6950098743600395,
+        0.4683765172958374,
+        0.5242560207843784
+      ],
+      "strapPoint": [
+        -0.7014665475053337,
+        0.45158207416534424,
+        0.5137116163969043
+      ],
+      "strapPouchTrianglePairs": 44
+    }
+  ]
+}

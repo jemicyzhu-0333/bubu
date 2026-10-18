@@ -1,0 +1,101 @@
+{
+  "scope": "Actual book transform; page normals toward measured original eyes, ground clearance, original hands contact. Static only.",
+  "eyeCenter": [
+    0.1248077406863038,
+    1.0209999995099173,
+    0.7078198707017969
+  ],
+  "pages": [
+    {
+      "side": "left",
+      "center": [
+        -0.1510165507940563,
+        0.34532451218097265,
+        0.860955851521987
+      ],
+      "pageFacingNormal": [
+        0.4968801378437369,
+        0.45359800223858865,
+        -0.7398371313887607
+      ],
+      "dotTowardEyes": 0.7467253287722513
+    },
+    {
+      "side": "right",
+      "center": [
+        0.1510165507940563,
+        0.34532451218097265,
+        0.860955851521987
+      ],
+      "pageFacingNormal": [
+        -0.4968801378437369,
+        0.45359800223858865,
+        -0.7398371313887607
+      ],
+      "dotTowardEyes": 0.6242591505204619
+    }
+  ],
+  "bounds": {
+    "min": [
+      -0.3373035281835589,
+      0.02839423110501496,
+      0.641118210699804
+    ],
+    "max": [
+      0.3373035281835589,
+      0.6505313183630588,
+      1.1103705625685696
+    ]
+  },
+  "groundClearance": 0.022394231105014963,
+  "hands": {
+    "handL": {
+      "maxLocalRayInsidePenetration": 0.022311588749289513,
+      "actualHandNeighborhoodVertexCount": 281,
+      "actualHandNeighborhoodMinimumPropDistance": 0.00000799924509919947,
+      "actualHandNeighborhoodVerticesWithin001": 102,
+      "actualHandPropBoundaryIntersections": 607,
+      "contactNearestPropSurfaceDistance": 0.007839670404791832,
+      "rootNearestSurfaceDistance": 0.014629391953349113,
+      "rootSignedAlongNearestNormal": -0.014629392127972096,
+      "bodyBoundaryTriangleIntersections": 285,
+      "rigidContactGap": 0,
+      "translationFromTeaCarrier": [
+        -0.009910467286115388,
+        -0.013557676695693466,
+        0.025256441131469187
+      ]
+    },
+    "handR": {
+      "maxLocalRayInsidePenetration": 0.02107127383351326,
+      "actualHandNeighborhoodVertexCount": 278,
+      "actualHandNeighborhoodMinimumPropDistance": 0.000035543027479434386,
+      "actualHandNeighborhoodVerticesWithin001": 101,
+      "actualHandPropBoundaryIntersections": 578,
+      "contactNearestPropSurfaceDistance": 0.007839662954211235,
+      "rootNearestSurfaceDistance": 0.006258752662688494,
+      "rootSignedAlongNearestNormal": -0.00625875307014212,
+      "bodyBoundaryTriangleIntersections": 355,
+      "rigidContactGap": 0,
+      "translationFromTeaCarrier": [
+        0.013071754808171854,
+        -0.020644988882844217,
+        0.03188784157901514
+      ]
+    }
+  },
+  "inputHashes": [
+    {
+      "path": "file:///workspace/scratch/10657b778e8b/bubu-asset-physics-revision-20261018/prop-expansion/mount-profiles.json",
+      "sha256": "e28283d0c33b036357e4a429d2c8302177843e822c20d03fb466090f4d810831"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/prop-expansion/reports/static-render-input.json",
+      "sha256": "699768cd5c5f3f224e8245e391d4a551d5f81930a81c2899b5f491e2b9321601"
+    },
+    {
+      "path": "/tmp/bubu-prop-physics-20261018/prop-expansion/reports/static-fit-audit.json",
+      "sha256": "58ebc2c804d060a8594739d5ec22f85368f5ec4584dc9bab68b7740aa1b946e4"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-/** Inject the four unchanged adapters from the intended repository. Browser-safe:
+/** Inject the four candidate-local supported adapters. Browser-safe:
  * this module performs no filesystem reads and has no Node-only imports. */
 export function createExistingWearableHostClass({sprout,sunhat,satchel,scarf}) {
 const {SproutAdapter,SPROUT_SPEC}=sprout;
@@ -40,7 +40,10 @@ class ExistingWearableHost {
   catch(e){adapter?.dispose();for(const child of this.parent.children.slice())if(!before.has(child))child.removeFromParent();throw e;}
  }
  update(time,options={}){
-  try{this.assertCurrent();for(const {adapter} of this.items.values())adapter.update(time,options);this.assertCurrent();return this;}
+  try{this.assertCurrent();const first=this.items.values().next().value?.adapter;
+   const contacts=options.contacts??first?.surfaceContacts?.(this.hybrid.nativeMeshes)??[];
+   if(!Array.isArray(contacts)||contacts.some(c=>!Array.isArray(c?.center)||c.center.length!==3||!c.center.every(Number.isFinite)||!Array.isArray(c?.radii)||c.radii.length!==3||!c.radii.every(v=>Number.isFinite(v)&&v>0)))throw Error('Invalid contact envelope');
+   for(const {adapter} of this.items.values())adapter.update(time,{...options,contacts});this.assertCurrent();return this;}
   catch(e){this.dispose();throw e;}
  }
  remove(kind){const item=this.items.get(kind);if(!item)return;item.adapter.dispose();state(item.asset).count--;this.items.delete(kind);if(this.groups.get(SPECS[kind].exclusiveGroup)===this)this.groups.delete(SPECS[kind].exclusiveGroup);}

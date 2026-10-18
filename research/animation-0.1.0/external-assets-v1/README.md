@@ -88,3 +88,10 @@ Optional pointer mesh regeneration (not executed in this staging pass):
 `node "$CACHE/research/animation-0.1.0/original-parts-hybrid-v1/integration/actual-pointer-regression.mjs" --research-root "$CACHE/research/animation-0.1.0" --output "$CACHE/pointer-mesh" --scenario drag,longpress --windows-only`
 
 Replace `--windows-only` with `--full-export` for all2162 frames. Do not combine either with `--numeric-only`. Then pass `--pointer-root "$CACHE/pointer-mesh" --reference-root "$CACHE" --cache-root "$CACHE"` to accessory `audit_pointer_clearance.py` / `prepare_motion_review.py`. Full export writes positions+normals (24 bytes per exported vertex per frame), plus mouth diffuse data and topology/manifests. At100,000 exported vertices this is about5.19GB for2162 frames, before JSON overhead; this is a sizing example, not a measured run. Window output is smaller (historically142+218 sampled frames). Reserve adequate cache disk; never include generated binaries in the publication payload.
+
+
+## Physical mounting correction candidate
+
+Ear-side anchors and continuous effects, supported garment shapes, compact fin visibility, open shoe rims, the separate round tail, readable book orientation and ground supports have been revised. Representative actual CPU-rendered views and scoped tests accompany the source.
+
+Bag/scarf palm-edge crossings during early tea motion remain unresolved. Static tail/cloth edge checks and chain-tail proxy checks do not establish complete cloth/contact collision. This candidate is separate from the experimental animation foundation and is not admitted to production, main or a release.

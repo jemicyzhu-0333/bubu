@@ -1,3 +1,4 @@
+import {hangTissue,settleOnWorldPlane,setWorldMatrix} from '../../prop-expansion/src/support-geometry.mjs';
 import * as T from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 export const placements=Object.freeze(Object.fromEntries(Object.entries({'tissue-sheet':[1.264,.67,-.20],'telescope-handheld':[1.34,.40,-.20],mirror:[1.23,.55,-.20],tissue:[1.65,.006,.35],cushion:[1.80,-.019,.35],binoculars:[1.475,.54,-.20],telescope:[1.75,.006,.35],pillow:[1.80,.006,.35]}).map(([k,v])=>[k,Object.freeze(v)])));
@@ -39,7 +40,7 @@ export class StaticPropInstallation {
   try{
    const result=await this.parse(buffer);root=result?.scene;
    if(this.disposed||generation!==this.generation){release(root);return false;}
-   validateAsset(root);root.position.set(...placements[id]);validateWorld(root);
+   validateAsset(root);root.position.set(...placements[id]);if(id==='tissue-sheet')hangTissue(root);root.updateMatrix();const desired=root.matrix.clone();this.parent.add(root);setWorldMatrix(root,desired);if(['tissue','cushion','telescope','pillow'].includes(id))settleOnWorldPlane(root,.006);validateWorld(root);
   }catch(error){release(root);if(generation===this.generation)this.status='failed';throw error;}
   if(this.root)release(this.root);this.root=root;this.parent.add(root);this.status='ready';return true;
  }

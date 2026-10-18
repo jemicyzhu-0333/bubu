@@ -1,5 +1,8 @@
 import json,math,array
 from pathlib import Path
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+if "--" in sys.argv:sys.argv=[sys.argv[0],*sys.argv[sys.argv.index("--")+1:]]
 from mathutils import Vector
 from mathutils.bvhtree import BVHTree
 from portable_paths import P;d=json.loads((P/'reports/contact-point-classification.json').read_text());rows=[]

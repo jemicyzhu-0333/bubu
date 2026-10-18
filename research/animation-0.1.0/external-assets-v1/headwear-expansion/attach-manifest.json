@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0-research",
+  "version": "0.2.0-research-mount-motion",
   "sourceBodySHA256": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
   "hybridSHA256": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67",
   "referenceBodyImageSHA256": "25835cd5bb1eb94bea23cc4fdfc399dca4c0cd9c393e95c8bfb29aa4253ef9b3",
@@ -21,7 +21,7 @@
         "sideHasRealDepth": true,
         "referenceOnly": true
       },
-      "modelStatus": "research-host-installable-awaiting-final-batch-review",
+      "modelStatus": "mount-motion-revision-awaiting-review",
       "userAcceptance": "pending",
       "productionWardrobe": "not-integrated",
       "binding": {
@@ -43,11 +43,19 @@
           1
         ],
         "nominalHeadAttachPoint": [
-          0,
-          1.64,
-          0
+          0.61,
+          1.67,
+          -0.13
         ],
-        "geometryAuthoredAtAttachPoint": true
+        "geometryAuthoredAtAttachPoint": true,
+        "assetPivot": [
+          0.45,
+          1.64,
+          -0.02
+        ],
+        "mountMethod": "nearest source-skin vertex weighted bone frame, bind-corrected; actor-owned",
+        "motion": "injected time/dt, bounded spring + gravity/acceleration; reducedMotion freezes effects",
+        "placement": "right-ear-side"
       },
       "bounds": {
         "min": [
@@ -147,7 +155,7 @@
         "sideHasRealDepth": true,
         "referenceOnly": true
       },
-      "modelStatus": "research-host-installable-awaiting-final-batch-review",
+      "modelStatus": "mount-motion-revision-awaiting-review",
       "userAcceptance": "pending",
       "productionWardrobe": "not-integrated",
       "binding": {
@@ -169,11 +177,19 @@
           1
         ],
         "nominalHeadAttachPoint": [
+          0.68,
+          1.72,
+          -0.12
+        ],
+        "geometryAuthoredAtAttachPoint": true,
+        "assetPivot": [
           0,
-          1.64,
+          1.75,
           0
         ],
-        "geometryAuthoredAtAttachPoint": true
+        "mountMethod": "nearest source-skin vertex weighted bone frame, bind-corrected; actor-owned",
+        "motion": "injected time/dt, bounded spring + gravity/acceleration; reducedMotion freezes effects",
+        "placement": "right-ear-side"
       },
       "bounds": {
         "min": [
@@ -273,7 +289,7 @@
         "sideHasRealDepth": true,
         "referenceOnly": true
       },
-      "modelStatus": "research-host-installable-awaiting-final-batch-review",
+      "modelStatus": "mount-motion-revision-awaiting-review",
       "userAcceptance": "pending",
       "productionWardrobe": "not-integrated",
       "binding": {
@@ -295,11 +311,19 @@
           1
         ],
         "nominalHeadAttachPoint": [
+          0.66,
+          1.66,
+          -0.1
+        ],
+        "geometryAuthoredAtAttachPoint": true,
+        "assetPivot": [
           0,
           1.64,
           0
         ],
-        "geometryAuthoredAtAttachPoint": true
+        "mountMethod": "nearest source-skin vertex weighted bone frame, bind-corrected; actor-owned",
+        "motion": "injected time/dt, bounded spring + gravity/acceleration; reducedMotion freezes effects",
+        "placement": "right-ear-side"
       },
       "bounds": {
         "min": [
@@ -389,7 +413,7 @@
         "sideHasRealDepth": true,
         "referenceOnly": true
       },
-      "modelStatus": "research-host-installable-awaiting-final-batch-review",
+      "modelStatus": "mount-motion-revision-awaiting-review",
       "userAcceptance": "pending",
       "productionWardrobe": "not-integrated",
       "binding": {
@@ -412,10 +436,18 @@
         ],
         "nominalHeadAttachPoint": [
           0,
+          1.62,
+          0
+        ],
+        "geometryAuthoredAtAttachPoint": true,
+        "assetPivot": [
+          0,
           1.64,
           0
         ],
-        "geometryAuthoredAtAttachPoint": true
+        "mountMethod": "nearest source-skin vertex weighted bone frame, bind-corrected; actor-owned",
+        "motion": "injected time/dt, bounded spring + gravity/acceleration; reducedMotion freezes effects",
+        "placement": "central-head"
       },
       "bounds": {
         "min": [
@@ -505,7 +537,7 @@
         "sideHasRealDepth": true,
         "referenceOnly": true
       },
-      "modelStatus": "research-host-installable-awaiting-final-batch-review",
+      "modelStatus": "mount-motion-revision-awaiting-review",
       "userAcceptance": "pending",
       "productionWardrobe": "not-integrated",
       "binding": {
@@ -528,10 +560,18 @@
         ],
         "nominalHeadAttachPoint": [
           0,
+          1.61,
+          0
+        ],
+        "geometryAuthoredAtAttachPoint": true,
+        "assetPivot": [
+          0,
           1.64,
           0
         ],
-        "geometryAuthoredAtAttachPoint": true
+        "mountMethod": "nearest source-skin vertex weighted bone frame, bind-corrected; actor-owned",
+        "motion": "injected time/dt, bounded spring + gravity/acceleration; reducedMotion freezes effects",
+        "placement": "central-head"
       },
       "bounds": {
         "min": [
@@ -631,7 +671,7 @@
         "sideHasRealDepth": true,
         "referenceOnly": true
       },
-      "modelStatus": "research-host-installable-awaiting-final-batch-review",
+      "modelStatus": "mount-motion-revision-awaiting-review",
       "userAcceptance": "pending",
       "productionWardrobe": "not-integrated",
       "binding": {
@@ -654,10 +694,18 @@
         ],
         "nominalHeadAttachPoint": [
           0,
-          1.64,
+          1.62,
           0
         ],
-        "geometryAuthoredAtAttachPoint": true
+        "geometryAuthoredAtAttachPoint": true,
+        "assetPivot": [
+          0,
+          1.65,
+          0
+        ],
+        "mountMethod": "nearest source-skin vertex weighted bone frame, bind-corrected; actor-owned",
+        "motion": "injected time/dt, bounded spring + gravity/acceleration; reducedMotion freezes effects",
+        "placement": "central-head"
       },
       "bounds": {
         "min": [
@@ -767,7 +815,7 @@
         "sideHasRealDepth": true,
         "referenceOnly": true
       },
-      "modelStatus": "research-host-installable-awaiting-final-batch-review",
+      "modelStatus": "mount-motion-revision-awaiting-review",
       "userAcceptance": "pending",
       "productionWardrobe": "not-integrated",
       "binding": {
@@ -790,10 +838,18 @@
         ],
         "nominalHeadAttachPoint": [
           0,
-          1.64,
+          1.62,
           0
         ],
-        "geometryAuthoredAtAttachPoint": true
+        "geometryAuthoredAtAttachPoint": true,
+        "assetPivot": [
+          0,
+          1.65,
+          0
+        ],
+        "mountMethod": "nearest source-skin vertex weighted bone frame, bind-corrected; actor-owned",
+        "motion": "injected time/dt, bounded spring + gravity/acceleration; reducedMotion freezes effects",
+        "placement": "central-head"
       },
       "bounds": {
         "min": [

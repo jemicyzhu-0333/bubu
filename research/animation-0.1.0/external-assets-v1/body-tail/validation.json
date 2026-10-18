@@ -1,0 +1,27 @@
+{
+  "sourceGeometryUnchanged": true,
+  "scenarios": {
+    "drag": {
+      "frames": 271,
+      "maxNativeSurfaceAnchorError": 9.330077871140737e-11
+    },
+    "longpress": {
+      "frames": 1891,
+      "maxNativeSurfaceAnchorError": 9.330063249107325e-11
+    },
+    "tea": {
+      "frames": 271,
+      "maxNativeSurfaceAnchorError": 9.330030153728276e-11,
+      "body": "Recorded stationary native body; source hands move independently"
+    }
+  },
+  "lifecycle": {
+    "duplicateRejected": true,
+    "hidden": true,
+    "restored": true,
+    "disposeIdempotent": true,
+    "disposedUpdateRejected": true,
+    "reattach": true
+  },
+  "scope": "Actual old host skeleton replay; CPU attachment continuity, not native GPU validation"
+}

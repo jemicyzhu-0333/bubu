@@ -1,39 +1,46 @@
-# Existing four wearables: new hybrid research-host installation
+# Existing four wearables: contact/weight candidate
 
-This candidate adds a thin lifecycle/admission owner over the unchanged original Sprout, Sunhat, Satchel and Scarf adapters. It does not replace the original four GLBs, their materials, attachment points or accepted artwork. Sprout visual approval remains pending unified user acceptance. No production wardrobe/native integration is claimed.
+This is an isolated research candidate for the approved Sprout, Sunhat, Satchel and Scarf. The original GLBs, original adapters, body, face, materials and publication checkout remain unchanged. The candidate's own per-actor geometry is revised at runtime. No production/native acceptance, user visual approval of the revision, or stable solver interface is implied.
 
-## Ownership and installation contract
-- Owning capability: research wearable installation. Writes only its private attachment tree, resource lease counts and same-actor exclusive-group admissions. No persistent state paths; no original actor geometry/material edits.
-- Caller supplies the actual source actor root/skin, external BodyRigAdapter.offset parent, contract-checked mixed-binding owner, source assertCurrent callback, and explicit external eligibility callback. Matching source/hybrid SHA admission happens in the mixed-binding constructor; wrapper also rejects a foreign actor skeleton.
-- The external wardrobe owner remains responsible for level, skin, form, opt-in and cross-family policy. The wrapper calls that owner before installation and enforces occupied exclusive groups across wrapper instances for the same actor. It does not invent an unlock rule or make a production selector.
-- Every update checks source ownership, geometry/skeleton/bind identity, valid transforms and live mixed owner before calling original accessory update. Revocation detaches its complete wearable set. Finite host time and reduced-motion behavior remain in original adapters.
-- GLB assets are borrowed and may serve independent actors. Detach never disposes shared geometry/material/texture. Scarf's original adapter disposes its own cloned tail geometry. Explicit final release rejects outstanding leases. Failed construction removes only newly attached nodes and leaves retry possible.
+## Retained corrections
 
-## Fresh evidence
-host-audit.json binds actual GLBs, sourceD2, hybrid, original adapter code, wrapper/test code and trajectory hashes. The run replays each of all four wearables over 271 drag and 1891 longpress records. Maximum attachment-anchor error is below 1e-15. The numeric replay checks source invariants and transform ownership every frame; six complete-actor geometry keyframes are exported. This is not full per-frame swept-triangle collision testing or native pointer execution.
+- Bag and scarf attach to torso surface vertices, independently of head-local deformation. Sprout and hat retain scalp support. GLB coordinates keep the original scalp-origin convention, with explicit compensation to the new support frame.
+- The bag-side continuous strap rises into the pouch's upper seam. It no longer enters the pouch at the original low middle section. The pouch outline, leather/brass materials and continuous rear return are retained. Fresh ±90°, -45° and back comparisons show this change.
+- The scarf tail has a small downward/inward resting drape and a pinned root. Its original low-U collar geometry is retained. An attempted inward collar/contact compression increased tea intersection peaks and was reverted; it is not a successful seam fix.
+- All geometry changes are actor-private. Cross-material scarf normals share the same seam map. Source geometry, shared materials/textures, body and face are read-only.
 
-Static files contain original 13 meshes (five hybrid body/limbs plus eight original face meshes), never a faceless body proxy. Four views use actual exported geometry and original GLB materials, CPU Blender, yaw 0/45/90/180, orthographic span5.264, targetY1.05, CSS219. static-stage.json checks every exported vertex at those views. Rendering now explicitly includes source vertex colors and resolves multi-material accessory primitives by original material name. Early black-body/white-scarf diagnostic images were overwritten and are not acceptance evidence.
+## Experimental motion only
 
-tea-collision.json reruns 271 source-space frames. Actual inverse sourceToWorld is applied to accessory geometry, with all five hybrid meshes independently compared against source-local NPZ vertices (<1e-6). All input hashes are bound; input changes during the audit reject. verify-evidence.py recomputes source vertex correspondence and byte freshness, and proves a +.32 world-matrix shift, +.32 body-vertex change and stale wrapper hash are rejected.
+`src/local-adapters/` is a bounded kinematic experiment awaiting comparison with mature Three.js-compatible physics/cloth solutions. It is not a physically calibrated cloth simulation and must not be promoted as a locked production interface. Gravity is evaluated in the current local frame; supplied pose acceleration drives a damped response. There is no self-running sine wave, random wind, new timer or independent clock. The hat crown and attachment roots remain supported; only free regions receive small secondary movement.
 
-## Tea compatibility findings, not a zero-collision claim
-No sampled cup/accessory crossings and no sprout/sunhat hand crossings. Satchel strap/right-hand intersections occur in190 frames, pouch/left-hand in20, flap/left-hand in12. Scarf collar1/left and right hand intersections occur in143/137 frames; collar2 intersects either hand in32 frames. These are triangle-pair observations, not counts of visible bad pixels.
+Reduced motion, disable, seeks and >250 ms gaps clear momentum. Identical shape/contact inputs cache geometry. The host validates live actor ownership, transforms and finite positive three-component contact envelopes; invalid state revokes the wearable set. The original catalog descriptors remain provenance-compatible; experimental deformation limits are defined and tested in the candidate adapter code, not a new catalog contract.
 
-The satchel strap has the same104-pair overlap at rest t0 and final t9. This is a stable attachment seam, but cannot simply be called body-internal: actual crossing-point local signed-distance diagnostics locate the strap crossings outside the body. At the t0.6 entry peak, part of pouch/hand overlap is body-internal and part is outside; flap crossings are outside. Scarf entry crossings at t0.5 and t0.6667 also sit outside the body. Source body signed-nearest-triangle classification is explicitly a local diagnostic, not watertight inside or visibility proof.
+Owner: research wearable installation. State: per-instance geometry/rest buffers, motion state, shape cache, lease counts and same-actor exclusive-group admissions only. No persistent state, body-rig, wardrobe eligibility, main, publication or production renderer changes.
 
-contact-keyframe-index.json selects first, maximum total triangle-pair and high-cup sip(t3.4) frames for each of satchel/scarf. Each is rendered front/45 at512px,64 samples, with magnified orthographic span3.0 clearly separate from stage-size evidence. contact-visibility.json casts orthographic rays from actual crossing points against the full visible scene to distinguish hidden contact seams from sampled exposed crossing seams. Read the corresponding actual images; no blanket action-compatibility pass is awarded. High-cup t3.4 has no crossings in either item.
+## Current evidence
 
-All original accepted artwork remains unchanged. Any visible action incompatibility needs a separate mounting/hand-path decision. No cloth simulation, complete gesture library, all-new-prop combinations, production wardrobe, WebGL/GPU memory or Windows/macOS acceptance follows from this work.
+The final run is in `.physics-final/existing-wearables/`; `.physics-validation/` preserves the rejected compression experiment and is not the final candidate. Compact final reports are copied under `reports/final-*` and indexed by `reports/physics-revision-summary.json`.
+
+- All four items replay all 271 drag and 1,891 longpress poses. Same-actor exclusion, independent actors, source bytes, private geometry, source identity/revocation, failed installation, exact reduced/reset behavior, repeated time, dt spikes, and final disposal are tested.
+- Separate support-motion tests cover head-only deformation leaving torso attachments fixed, no unforced idle motion, deterministic replay, gravity, 30/60 Hz peak agreement, caching and exactly-once private disposal.
+- Actual static vertex stage checks use four camera directions. A conservative .18-unit garment envelope is transformed through every recorded pointer pose without enlarging span5.264/targetY1.05/CSS219.
+- Fresh actual geometry is rendered by Blender CPU: four views, selected drag/longpress frames, both bag sides/back before-after, and selected tea contact frames. Geometry-based images are not native pointer/WebGL evidence.
+- Tea is audited on all 271 source-coordinate frames using the actual per-frame candidate geometry and unchanged source hand/cup/face data. Known palm/strap and palm/collar seams remain unresolved. Zero cup crossings in these samples is not continuous collision or arbitrary-action acceptance.
+
+The six pointer images are labeled by exact scenario/frame/time. They are representative frames, not a rendered movie or an assertion that every phase is shown. Enlarged bag/tea diagnostics use span3.0 and must not be treated as stage-size evidence.
 
 ## Reproduce
-Use the sibling bubu-recovery-20261017 dependency layout, Three.js0.186.1, Python numpy/scipy/Pillow and Blender. The dependency manifest references original assets by relative path and SHA; do not copy source GLBs into this candidate.
 
-1. node src/test-and-export.mjs
-2. python src/audit-tea.py
-3. python src/verify-evidence.py && python src/audit-stage.py
-4. bash src/render-all.sh && python src/compose-review.py
-5. python src/prepare-contact-review.py && bash src/render-contact-review.sh
-6. python src/classify-contact-points.py
-7. blender -b --python-exit-code 1 --python src/audit-contact-visibility.py
+Use the existing pinned Three.js 0.186.1 runtime, Python numpy/scipy/Pillow, Blender, the unchanged repository, and SHA-manifest-verified references. `POINTER_REFERENCE` supplies fixture modules and pointer trajectories; `TEA_REFERENCE` supplies tea snapshots and hybrid input arrays. Both may be the same complete prepared reference tree. `CACHE` is an isolated output directory.
 
-CANDIDATE-ALLOWLIST.txt contains only scripts, compact reports and final actual images. Large regenerated JSON geometry and transient render logs are intentionally excluded; regenerate before rerunning byte/geometry verification. Input/source provenance is retained in dependency-manifest.json and hash-bound reports.
+1. `node src/test-support-motion.mjs`
+2. `node src/test-and-export.mjs --repo-root "$REPO" --reference-root "$POINTER_REFERENCE" --cache-root "$CACHE"`
+3. `node src/export-tea-physics.mjs --repo-root "$REPO" --reference-root "$TEA_REFERENCE" --cache-root "$CACHE"`
+4. `python src/audit-tea.py --reference-root "$TEA_REFERENCE" --cache-root "$CACHE"`
+5. `python src/verify-evidence.py --reference-root "$TEA_REFERENCE" --cache-root "$CACHE"`
+6. `python src/audit-stage.py --reference-root "$TEA_REFERENCE" --cache-root "$CACHE"`
+7. `python src/audit-motion-bounds.py --reference-root "$POINTER_REFERENCE" --cache-root "$CACHE"`
+8. `CACHE_ROOT="$CACHE" bash src/render-all.sh`
+9. Prepare/render contact evidence using `prepare-contact-review.py`, `render-contact-review.sh`, `classify-contact-points.py`, and `audit-contact-visibility.py` with the same explicit cache/reference arguments.
+
+The source GLBs are borrowed from the repository rather than duplicated. Do not run legacy model builders over approved originals. This candidate does not run or modify the production application; no production aggregate test or native OS qualification is claimed.

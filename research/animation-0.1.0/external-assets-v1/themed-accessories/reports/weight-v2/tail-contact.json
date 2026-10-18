@@ -1,0 +1,23 @@
+{
+  "scope": "Static rest-pose triangle edge intersection test; not continuous dynamics, inside/outside containment proof or cloth simulation. Original body omitted because tail base is intentionally buried.",
+  "items": {
+    "fin": {
+      "triangleEdgeIntersectionPairs": {
+        "fin_continuous_membrane": 0,
+        "fin_rib_-1": 0,
+        "fin_rib_1": 0,
+        "fin_hidden_root": 0
+      },
+      "allTestedClear": true
+    },
+    "plum": {
+      "triangleEdgeIntersectionPairs": {
+        "plum_cloth": 0,
+        "plum_soft_hem": 0,
+        "plum_rear_band": 0,
+        "plum_side_gold_clasp": 0
+      },
+      "allTestedClear": true
+    }
+  }
+}

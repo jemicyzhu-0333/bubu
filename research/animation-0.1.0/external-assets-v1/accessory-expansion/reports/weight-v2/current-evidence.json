@@ -1,0 +1,286 @@
+{
+  "status": "research candidate only; not production integration or engine selection",
+  "scope": "Static support/contact geometry and experimental bounded secondary deformation. CPU Three.js mesh exports and Blender renders; no native desktop/GPU acceptance and no cloth solver claim.",
+  "sourceSHA256": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
+  "hybridSHA256": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67",
+  "files": [
+    {
+      "path": "accessory-expansion/models/05-halo.glb",
+      "sha256": "a58fdd0d1011a413b142efa66a4d5599966051e8fdd5ce3fd5a10c4f28e552c1"
+    },
+    {
+      "path": "accessory-expansion/models/06-boots.glb",
+      "sha256": "275cea31fed35d9cc9aebbdb9253ae6fcb52a5ead8fdb959c9aadec17b7560c8"
+    },
+    {
+      "path": "accessory-expansion/models/07-cape.glb",
+      "sha256": "d70f4e734a7bcf1e4274773c9971d63b983e9c2e21dff07f7313a151c6ed2fa3"
+    },
+    {
+      "path": "accessory-expansion/src/accessory-adapter.mjs",
+      "sha256": "176f8836ce47d04217acf8e48cd1ce60325aae5eda6a4e1d9945101203f432fd"
+    },
+    {
+      "path": "accessory-expansion/src/supported-deformation.mjs",
+      "sha256": "06d3f62bd1027058c50c4412d447048669b1e53bbc60e5718454396967e2f92f"
+    },
+    {
+      "path": "accessory-expansion/src/test_and_export.mjs",
+      "sha256": "574acd504d114e4ad971425837c740be50331f5190db151ad24dea81f78b4de0"
+    },
+    {
+      "path": "accessory-expansion/src/test-weight-effects.mjs",
+      "sha256": "cd45846e24c818640db0a9ef40be5c369a24009a99112acba672804e5f8d6ba6"
+    },
+    {
+      "path": "accessory-expansion/src/test-supported-deformation.mjs",
+      "sha256": "782a2377fd417ba571ac7c9771d154e128d28b2197825080271b32d961911886"
+    },
+    {
+      "path": "accessory-expansion/src/test_lifecycle.mjs",
+      "sha256": "759d222402e89240893b593c4a27c35b772f20b1ba02845039949887f467faa3"
+    },
+    {
+      "path": "accessory-expansion/src/audit-tail-contact.py",
+      "sha256": "010f39c8765ab6e82256d033d7cebd6616a510ec140b0ac1d579d23100f85cce"
+    },
+    {
+      "path": "accessory-expansion/src/compose_reviews.py",
+      "sha256": "1c68b2b809d32ac0fc3ddc2ef957b0f76d96f4b6575f28a336efbc055ca37e8e"
+    },
+    {
+      "path": "accessory-expansion/src/build_boots.py",
+      "sha256": "23f9ad345c82643239a92f9296306366120232b0a302c542670f290651f48686"
+    },
+    {
+      "path": "accessory-expansion/src/write-weight-evidence.py",
+      "sha256": "24a178ded30270e8e2b148426c54418b187509d66e2f157dfff0926bc55879ec"
+    },
+    {
+      "path": "accessory-expansion/src/finalize_evidence.py",
+      "sha256": "c91fc3c2f70bf416fb1cb4cf17cc85f7bc7f574939c5b57ae387719bbd59706b"
+    },
+    {
+      "path": "accessory-expansion/src/render-weight-review.py",
+      "sha256": "49dab0bd3d1ca5a333aa82ebe001e3fc21cbaf35818bac46e3ae016ce3860e6d"
+    },
+    {
+      "path": "accessory-expansion/src/verify_tea_coordinates.py",
+      "sha256": "8b757c99dc6faa2af832b9e2405b0a0669b464219803608fd97b15b909410d2c"
+    },
+    {
+      "path": "accessory-expansion/src/compose-weight-review-cn.py",
+      "sha256": "b6d22b9634e9fce300def9bcf2b9479383d0bd94f61385c54774568e405d2da3"
+    },
+    {
+      "path": "accessory-expansion/src/build_models.py",
+      "sha256": "72f62e07bb325d58a28558616ad7a04ad75f676825ebfd99499164ad8b2f93e2"
+    },
+    {
+      "path": "accessory-expansion/src/render_actual.py",
+      "sha256": "44a065016f84f66b71483d9060aae66fb555843a9e447d63f4aae3f4392af4af"
+    },
+    {
+      "path": "accessory-expansion/src/render-weight-comparison.py",
+      "sha256": "c4c55523bb290b0028bca7df2eeb699c7632176ae731e33e12c0461ead6a2534"
+    },
+    {
+      "path": "accessory-expansion/src/audit_tea.py",
+      "sha256": "3beb763fe72ec1cbd5f96eb8958c806b0fcdc97cb451745f91f48f1182657074"
+    },
+    {
+      "path": "accessory-expansion/src/render-weight-motion.py",
+      "sha256": "97f042224ed860b3b07098a8fdfa233c9a61ba9414edde25cf5a3fe3e2b79892"
+    },
+    {
+      "path": "accessory-expansion/src/audit_models.py",
+      "sha256": "0f088f6f645194069adc9d7da4636c4962b4b42f82aa8268b528605185d337eb"
+    },
+    {
+      "path": "accessory-expansion/src/render-weight-final.py",
+      "sha256": "fa30e0455382df4acf55c5c32dbaf73ee40c7e9fe7d0e346d73ff3f90aaadb58"
+    },
+    {
+      "path": "accessory-expansion/src/audit_pointer_clearance.py",
+      "sha256": "64b131f4faf5e8261c2e79d8fab5f6db673b0378bf51af8be5dbae3479dd5570"
+    },
+    {
+      "path": "accessory-expansion/src/prepare_motion_review.py",
+      "sha256": "a8753543eed1e7e804bbc7de189573b9054cef038a6602fa31278afdc9c60200"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/geometry-review-cn.png",
+      "sha256": "54a0b0c346e2d111de36bddbf221f1a3f93af1f32bbfaff4978386f98714250d"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/interaction-sheet.png",
+      "sha256": "14f7ad7d5599e64585e8fcbb3801a608cd2326ef30afbfc586390dd3a3cb89a4"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/multiview.png",
+      "sha256": "23bdff510c827d39b5999abdfe51d2b9bb457fb96519e92965c875b042e2e059"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/before-after-contact.png",
+      "sha256": "33fae1ec52bb8a574c81ce8a12e851fc17abe3ed71b15f9ea282add4b85f0f96"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/boots-bottom/0000.png",
+      "sha256": "f79abcdf02599ed514b95ff582b32c2f562ec89b9647867d61104c704b820cd5"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/boots-90/0000.png",
+      "sha256": "189a717d6422ab64289fad53a54f631c8b33cb27f724894bb2b9724b00cc7d6e"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/cape-tail-90/0000.png",
+      "sha256": "577754dc30df280359337a15eb72f091c7b654c6ab921a721bd3745973117b55"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/halo-90/0000.png",
+      "sha256": "2bb7935bbd40b1fd1732f5276da66021a0e4f48799678420918740ba03e0f5a7"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/boots-0/0000.png",
+      "sha256": "95615fe32d4a290eebecbf60eca339002e1e3ad89562a224a9dda793a5acad17"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/halo-180/0000.png",
+      "sha256": "05bf7f9bfc5e8a212c9fc6b59af045ae4052fa4467cc4964dcfd486d13024522"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/before-boots-90/0000.png",
+      "sha256": "c81d6a814aab06faa6b0e3df513c1565089870f27392e2273c347f59a81458b3"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/cape-tail-180/0000.png",
+      "sha256": "7287fcc49abbd94acd851e8a0cf10989acef31ec2d8f4fdb024f53901f6769e4"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/halo-45/0000.png",
+      "sha256": "a74e73b7450fef523fc2f315eeedd153653aef7311eeb791b8d817da6226e590"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/cape-180/0000.png",
+      "sha256": "8ca67a100a997fa62781450d2b6ae50b1975cc0b99f6d9354008c8a96156f104"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/boots-180/0000.png",
+      "sha256": "b643c5437e0f6fc0bb51797802c3aa5cb9156ee4d62c0c9768b894c017a14c34"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/halo-0/0000.png",
+      "sha256": "587335360fbda7b1827ad77b3db999724c7efb19ffda9aeab1acf8b76c0b6534"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/cape-0/0000.png",
+      "sha256": "b36d4a7dba9a734542b3645181082c7abc6fb7cf4064bd078d2c5945b21b5e27"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/cape-45/0000.png",
+      "sha256": "bbebc00e30475d332b0b2fb7498629b4f082e9a28d86502efd3588c40f1cfabd"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/before-cape-90/0000.png",
+      "sha256": "d82f7194367be377ffa8775bf12c565e8314fc5272548466af2dac50128d866b"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/cape-90/0000.png",
+      "sha256": "894ef7cfda1a8ee4779f50244b207388a37aa83c25cb01a38610eb4ec25160a4"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/before-boots-0/0000.png",
+      "sha256": "f948ab933ec80467e8d5a71fe601dfa600ca58a8765eb5833656c9c8c44fc733"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/cape-tail-45/0000.png",
+      "sha256": "fb013a886c33cfa1bd4530f29440a42683d584eb5c76655bc0efd325453eb5e8"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/boots-45/0000.png",
+      "sha256": "b11c92d4130c5515cf136a1da017acef37ef9029e70c168a1f3e015ef80ab7d0"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/tea-45/0002.png",
+      "sha256": "19bbbef88ad96e20b095d88adcce9cd516ad2b9272bdfab5988c656e9618c1f0"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/tea-45/0001.png",
+      "sha256": "2b1b750958380948ee7c4655ab24c0a5f29f4e20f71225d51b0bceaae8f0fca6"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/tea-45/0000.png",
+      "sha256": "661bbd828f3006a1955e8f9f1455405bc21fa59f5d34d037ca4f6ab600577eab"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/cape-motion-90/0001.png",
+      "sha256": "661570f1480b55a81f21c19b19d5de4d85d91ea5d9b61af644ae3a042dee81c5"
+    },
+    {
+      "path": "accessory-expansion/review/weight-v2/cape-motion-90/0000.png",
+      "sha256": "f84b8765c561acecba44ac11b95673b4de4f0f6629a6199f5d8f0537ae247e6a"
+    },
+    {
+      "path": "accessory-expansion/reports/weight-v2/host-audit.json",
+      "sha256": "973fb8a9ca68470cdf3b43b438ae7fb55f933dd5914219501639e8e9f31bc63f"
+    },
+    {
+      "path": "accessory-expansion/reports/weight-v2/tea-collision.json",
+      "sha256": "43d290fb5c335a772e9ef178ea788da1d2ab85098742dbda525638d2991e30ca"
+    },
+    {
+      "path": "accessory-expansion/reports/weight-v2/tail-contact.json",
+      "sha256": "fccbde0d049ad6b2390f53e0e2445366765bf63d5c57398a8cba642a70870ed9"
+    },
+    {
+      "path": "body-tail/tail-mesh.json",
+      "sha256": "0052ba27010cb843eb4f398ea03515877b43d3c972ba3a1062296e7d02016863"
+    },
+    {
+      "path": "body-tail/bubu-round-tail.glb",
+      "sha256": "112b095ec7fbc4514df732ff49c7a2117ccbb341f4d9ccf20a1668f36999490e"
+    },
+    {
+      "path": ".cache/weight/accessory/review/tea-combined.json",
+      "sha256": "2ea6a0a97cf8ae11f24b31299fc487dc03f641944ee81cdc702d249718f0c4cb"
+    },
+    {
+      "path": ".cache/weight/accessory/review/halo-static.json",
+      "sha256": "e519c55a18a8afe2451ddbba133bfae0ab3130d0759a5916bac65606f41969ca"
+    },
+    {
+      "path": ".cache/weight/accessory/review/combined-static.json",
+      "sha256": "ef328862f65e35db7c0584a97e88c1e9a6e41c8880c7ddd01a24822578e115c5"
+    },
+    {
+      "path": ".cache/weight/accessory/review/cape-with-tail.json",
+      "sha256": "58a8b248f79d6b3e572baa603fc57926d1f0f7fbc67125f38cf43601b362b98a"
+    },
+    {
+      "path": ".cache/weight/accessory/review/boots-static.json",
+      "sha256": "72e9a327139105824d79896e4f4850b26b30bd43b089637b1111d3e0a0aafeb0"
+    },
+    {
+      "path": ".cache/weight/accessory/review/trajectory-keyframes.json",
+      "sha256": "b53eabef385ec4f8668d16964b257b5629f4b0ec45c951fa2a0f16d37c889d04"
+    },
+    {
+      "path": ".cache/weight/accessory/review/cape-static.json",
+      "sha256": "b5f36290879ea86d417aec385a7ea57733d266e1bb9e12b832563107acde925f"
+    },
+    {
+      "path": ".cache/weight/accessory/review/tea-weight-selected.json",
+      "sha256": "81a68b694a4c5106706409ed3f504f6dab9458d93772639b3580d35f956cd36d"
+    },
+    {
+      "path": ".cache/weight/accessory/review/cape-motion-weight.json",
+      "sha256": "d0201426b50681b6aa23d859ff655f3417932623ce6f1eeecc972b01c409b7d3"
+    }
+  ],
+  "bounds": "Secondary offset clamped to 0.16 local units; all recorded poses finite. Boots source-shell offset max 0.003; native feet retained.",
+  "limitations": [
+    "Mature physics/particle library comparison pending; experimental adapter API not frozen.",
+    "Tea audit is 16 discrete samples against hands/cup; not continuous collision or all wardrobe combinations.",
+    "Cape/fin+tail images are static actual source geometry, not a new tail dynamics integration."
+  ]
+}

@@ -34,7 +34,7 @@ bpy.ops.wm.read_factory_settings(use_empty=True)
 lavender = material('cape soft lavender', (0.48, 0.36, 0.65), 0.9)
 mint = material('cape pale mint piping', (0.57, 0.79, 0.66), 0.85)
 ivory = material('cape ivory clasp', (0.9, 0.85, 0.63), 0.5)
-profile = [(0.125, 0), (0.14, 0.32), (0.17, 0.54), (0.23, 0.69), (0.32, 0.81), (0.44, 0.9), (0.6, 0.969), (0.78, 1.0), (0.98, 0.985), (1.16, 0.935)]
+profile = [(0.125, 0), (0.14, 0.32), (0.17, 0.54), (0.23, 0.69), (0.32, 0.81), (0.44, 0.9), (0.6, 0.969), (0.78, 1.0), (0.98, 0.985), (1.16, 0.935), (1.35,.82)]
 
 def radius(z):
     for (a, b), (c, d) in zip(profile, profile[1:]):
@@ -44,18 +44,18 @@ def radius(z):
 
 def point(a, t):
     back = (math.sin(a) + 1) / 2
-    top = 0.98 - 0.045 * math.sin(a) ** 2 - 0.035 * abs(math.cos(a)) ** 8
-    bottom = 0.235 + 0.06 * math.cos(4 * a) + 0.015 * math.cos(8 * a)
+    top = 1.16 + 0.09 * math.sin(a) ** 2
+    bottom = 0.195 + 0.20*math.cos(a)**4 + 0.014*math.cos(6*a)
     z = top * (1 - t) + bottom * t
-    r = radius(z) + 0.045 + 0.25 * t + 0.055 * math.sin(a * 8) * math.sin(t * math.pi) + 0.035 * math.sin(a * 8) * t
-    return (r * math.cos(a), r * 0.8 * math.sin(a), z)
+    r = max(radius(z) + 0.055, 0.91 + 0.04*t) + 0.026*math.sin(a*8)*t*t
+    return (r * math.cos(a), r * 0.8 * math.sin(a) + .15*math.exp(-((z-.43)/.21)**2)*math.sin(a)**8, z)
 N = 120
 M = 14
 vs = []
 fs = []
 for i in range(N + 1):
     for j in range(M + 1):
-        corner = 0.5 + 0.1 * abs(2 * j / M - 1) ** 8
+        corner = 0.98 - 0.28*(j/M) + 0.035*abs(2*j/M-1)**8
         a = corner + (math.pi - 2 * corner) * i / N
         vs.append(point(a, j / M))
 for i in range(N):

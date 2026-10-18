@@ -11,6 +11,7 @@ p.add_argument('--out', required=True)
 p.add_argument('--size', type=int, default=384)
 p.add_argument('--samples', type=int, default=16)
 p.add_argument('--angle', type=float, default=0)
+p.add_argument('--elevation', type=float, default=0)
 p.add_argument('--span', type=float, default=5.0)
 p.add_argument('--target-y', type=float, default=1.05)
 a = p.parse_args(sys.argv[sys.argv.index('--') + 1:])
@@ -44,7 +45,7 @@ for name, loc, power, size in [('key', (-3, -4, 6), 450, 5), ('fill', (4, -2, 3)
 camd = bpy.data.cameras.new('Camera')
 cam = bpy.data.objects.new('Camera', camd)
 scene.collection.objects.link(cam)
-cam.location = (8 * math.sin(math.radians(a.angle)), -8 * math.cos(math.radians(a.angle)), a.target_y)
+cam.location = (8 * math.sin(math.radians(a.angle)), -8 * math.cos(math.radians(a.angle)), a.target_y + 8 * math.sin(math.radians(a.elevation)))
 cam.rotation_euler = (Vector((0, 0, a.target_y)) - cam.location).to_track_quat('-Z', 'Y').to_euler()
 camd.type = 'ORTHO'
 camd.ortho_scale = a.span
@@ -86,6 +87,9 @@ for i, frame in enumerate(data['frames']):
                 rgb = m.get('materialColor', [0.8, 0.8, 0.8])
                 bsdf.inputs['Base Color'].default_value = (*rgb[:3], 1)
                 bsdf.inputs['Roughness'].default_value = 0.55
+                if m.get('materialEmission'):
+                    bsdf.inputs['Emission Color'].default_value=(*m['materialEmission'],1)
+                    bsdf.inputs['Emission Strength'].default_value=m.get('emissiveIntensity',0)
                 mesh.materials.append(mat)
             if m.get('colors'):
                 colors = mesh.color_attributes.new(name='Color', type='FLOAT_COLOR', domain='POINT')

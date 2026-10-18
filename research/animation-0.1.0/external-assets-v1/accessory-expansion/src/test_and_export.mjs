@@ -80,7 +80,7 @@ function exportMeshes(root) {
       ,(_,i)=>i)),colors:c?Array.from( {
         length:c.count
       }
-      ,(_,i)=>[c.getX(i),c.getY(i),c.getZ(i),c.itemSize>3?c.getW(i):1]).flat():null,materialColor:m.material.color?.toArray(),opacity:m.material.opacity
+      ,(_,i)=>[c.getX(i),c.getY(i),c.getZ(i),c.itemSize>3?c.getW(i):1]).flat():null,materialColor:m.material.color?.toArray(),materialEmission:m.material.emissive?.toArray(),emissiveIntensity:m.material.emissiveIntensity,opacity:m.material.opacity
     }
     );
   }
@@ -95,7 +95,7 @@ function bodyMeshes() {
   feet.forEach((m,i)=>m.visible=visibility[i]);
   return result;
 }
-const withoutFeet=meshes=>meshes.filter(m=>!m.name.startsWith('Bubu_foot-'));
+const withoutFeet=meshes=>meshes; // Open ankle boots retain the real feet beneath.
 const selected=[];
 for(const kind of (cfg.staticOnly?[]:['drag','longpress'])) {
   const records=JSON.parse(fs.readFileSync(cfg.reference+'/pointer/'+kind+'/trajectory.json'));
@@ -109,7 +109,7 @@ for(const kind of (cfg.staticOnly?[]:['drag','longpress'])) {
     for(const [name,q]of Object.entries(r.body.jointQuaternions))f.h.body.bones[name].quaternion.fromArray(q);
     f.h.body.root.updateMatrixWorld(true);
     owner.update();
-    for(const a of Object.values(adapters))a.update();
+    for(const a of Object.values(adapters))a.update({time:r.time});
     f.h.owner.assertCurrent();
     assert.equal(crypto.createHash('sha256').update(Buffer.from(skin.geometry.attributes.position.array.buffer)).digest('hex'),bodyHash);
     for(const shoe of adapters.boots.parts) {

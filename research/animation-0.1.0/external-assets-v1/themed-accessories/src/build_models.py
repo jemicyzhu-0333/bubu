@@ -35,12 +35,27 @@ def cap():
 def fin():
  reset();aqua=mat('continuous aqua fin membrane',(.12,.61,.68));rib=mat('deep teal fin ribs',(.025,.20,.25))
  points=[(-.13,.34),(-.32,.43),(-.43,.67),(-.34,.79),(-.21,.81),(-.16,.98),(0,1.08),(.16,.98),(.21,.81),(.34,.79),(.43,.67),(.32,.43),(.13,.34)]
- outline=[(x,.71+.14*(z-.34)/.74,z) for x,z in smooth_loop(points)]
+ def tip(x):
+  t=max(0,min(1,(-x-.27)/.16));return x-.65*t*t*(3-2*t)
+ outline=[(tip(x),.71+.14*(z-.34)/.74-.34*(abs(x)/.43)**2,z-.04*(abs(x)/.43)**2) for x,z in smooth_loop(points)]
  pillow('fin_continuous_membrane',outline,.055,aqua)
  for side in [-1,1]:
   tube('fin_rib_'+str(side),[(side*.19*t,.73+.10*t+.035*math.sin(t*math.pi),.35+.53*t) for t in [j/30 for j in range(31)]],.020,rib)
  # Compact root intersects back skin deliberately; no visible shelf or disc.
  ell('fin_hidden_root',(0,.685,.37),(.12,.10,.075),rib)
+ for o in bpy.data.objects:
+  if o.type=='MESH':
+   for v in o.data.vertices:v.co.z+=.30;v.co.y+=.065
+   if o.name=='fin_continuous_membrane':
+    half=len(o.data.vertices)//2
+    for i in range(half):
+     a=o.data.vertices[i].co;b=o.data.vertices[i+half].co
+     mid=(a.y+b.y)/2;target=.85*math.sqrt(max(0,1-(a.x/1.02)**2))+.065
+     delta=max(0,target-mid);a.y+=delta;b.y+=delta
+   elif o.name.startswith('fin_rib'):
+    for v in o.data.vertices:v.co.y=max(v.co.y,.85*math.sqrt(max(0,1-(v.co.x/1.02)**2))+.14)
+   elif o.name=='fin_hidden_root':
+    for v in o.data.vertices:v.co.y+=.035
  export('ocean-fin')
 def smooth_loop(points,steps=8):
  out=[];n=len(points)
@@ -71,28 +86,28 @@ def wings():
  reset();membrane=mat('lavender soft membrane',(.48,.34,.66));rib=mat('rounded plum wing ribs',(.22,.12,.34))
  points=[(.61,.73),(.91,1.00),(1.17,.94),(1.41,.73),(1.48,.47),(1.30,.51),(1.23,.35),(1.06,.44),(.95,.33),(.82,.48),(.64,.47)]
  for side in [-1,1]:
-  label='left' if side<0 else 'right';outline=[(side*x,.66+.05*(1.4-x),z) for x,z in smooth_loop(points)]
+  label='left' if side<0 else 'right';outline=[(side*(x-.08),.68+.05*(1.4-x),z+.08-.09*max(0,(x-.61)/.87)) for x,z in smooth_loop(points)]
   pillow('wings_'+label+'_membrane',outline,.045,membrane)
   tube('wings_'+label+'_rim',outline+[outline[0]],.023,rib)
   for k,(x,z) in enumerate([(1.23,.35),(.95,.33)]):
-   tube('wings_'+label+'_rib'+str(k),[(side*(.91+(x-.91)*t),.72+.035*math.sin(t*math.pi),1.0+(z-1.0)*t) for t in [j/30 for j in range(31)]],.023,rib)
-  ell('wings_'+label+'_root',(side*.62,.62,.72),(.12,.13,.12),rib)
+   tube('wings_'+label+'_rib'+str(k),[(side*(.83+(x-.91)*t),.74+.035*math.sin(t*math.pi),1.08+(z-1.0)*t-.09*max(0,(.91+(x-.91)*t-.61)/.87)) for t in [j/30 for j in range(31)]],.023,rib)
+  ell('wings_'+label+'_root',(side*.54,.58,.80),(.16,.16,.14),rib)
  export('bat-wings')
 def plum():
  reset();cloth=mat('deep plum soft cloth',(.13,.003,.045));edge=mat('plum soft folded edge',(.095,.002,.031));gold=mat('warm gold side clasp',(.95,.55,.07));bsdf=gold.node_tree.nodes.get('Principled BSDF');bsdf.inputs['Metallic'].default_value=.25;bsdf.inputs['Roughness'].default_value=.30
- profile=[(.125,0),(.14,.32),(.17,.54),(.23,.69),(.32,.81),(.44,.90),(.60,.969),(.78,1.),(.98,.985),(1.16,.935)]
+ profile=[(.125,0),(.14,.32),(.17,.54),(.23,.69),(.32,.81),(.44,.90),(.60,.969),(.78,1.),(.98,.985),(1.16,.935),(1.35,.82)]
  def radius(z):
   for (a,b),(c,d) in zip(profile,profile[1:]):
    if a<=z<=c:return b+(d-b)*(z-a)/(c-a)
   return .97
  def point(a,t):
-  top=.98-.035*math.sin(a)**2;bottom=.245+.035*math.cos(6*a)+.012*math.sin(a)
-  z=top*(1-t)+bottom*t;r=radius(z)+.055+.28*t+.075*math.cos(6*a)*math.sin(math.pi*t)+.045*math.cos(6*a)*t
-  return (r*math.cos(a),r*.80*math.sin(a),z)
+  top=1.16+.09*math.sin(a)**2;bottom=.195+.20*math.cos(a)**4+.014*math.cos(6*a)
+  z=top*(1-t)+bottom*t;r=max(radius(z)+.055,.91+.04*t)+.026*math.cos(6*a)*t*t
+  return (r*math.cos(a),r*.80*math.sin(a)+.19*math.exp(-((z-.43)/.21)**2)*math.sin(a)**8,z)
  N=120;M=22;vs=[];fs=[]
  for i in range(N+1):
   for j in range(M+1):
-   t=j/M;corner=.54+.08*abs(2*t-1)**8;a=corner+(math.pi-2*corner)*i/N;vs.append(point(a,t))
+   t=j/M;corner=.98-.28*t+.035*abs(2*t-1)**8;a=corner+(math.pi-2*corner)*i/N;vs.append(point(a,t))
  for i in range(N):
   for j in range(M):
    k=i*(M+1)+j;fs.append((k,k+M+1,k+M+2,k+1))
@@ -101,16 +116,16 @@ def plum():
  # Real folded band restricted to the back arc; no front chest bridge.
  bandvs=[];bandfs=[];A=120;B=10
  for i in range(A+1):
-  a=.64+(math.pi-1.28)*i/A;mid=.98-.035*math.sin(a)**2
+  a=1.00+(math.pi-2.00)*i/A;mid=1.16+.09*math.sin(a)**2
   for j in range(B+1):
-   t=j/B;z=mid+.048-.105*t;r=radius(z)+.065+.023*math.sin(math.pi*t)
+   t=j/B;z=mid+.048-.105*t;r=radius(z)+.055+.010*math.sin(math.pi*t)
    bandvs.append((r*math.cos(a),r*.8*math.sin(a),z))
  for i in range(A):
   for j in range(B):
    k=i*(B+1)+j;q=k+B+1;bandfs.append((k,q,q+1,k+1))
  d=bpy.data.meshes.new('plum side-open folded band');d.from_pydata(bandvs,[],bandfs);d.update();o=bpy.data.objects.new('plum_rear_band',d);bpy.context.collection.objects.link(o);finish(o,'plum_rear_band',edge);sol=o.modifiers.new('folded cloth thickness','SOLIDIFY');sol.thickness=.026;bevel=o.modifiers.new('soft round band rim','BEVEL');bevel.width=.012;bevel.segments=3
  # Gold clasp on rear right shoulder, outside existing tea hand/prop corridor.
- a=.72;z=.98-.035*math.sin(a)**2;r=radius(z)+.10
+ a=1.04;z=1.16+.09*math.sin(a)**2;r=radius(z)+.06
  ell('plum_side_gold_clasp',(r*math.cos(a),r*.8*math.sin(a),z),(.047,.038,.047),gold)
  export('plum-cape')
 if __name__=='__main__':

@@ -5,22 +5,22 @@
     {
       "id": "open-book",
       "propMatrix": [
-        0.8,
-        0,
-        0,
-        0,
-        0,
-        0.7642691913004849,
-        -0.23641616532907164,
-        0,
-        0,
-        0.23641616532907164,
-        0.7642691913004849,
-        0,
-        0,
-        0.1,
-        1.16,
-        1
+        0.776,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.6615590291181764,
+        0.40560528965019144,
+        0.0,
+        0.0,
+        -0.4056052896501915,
+        0.6615590291181765,
+        0.0,
+        0.0,
+        0.04747950279654594,
+        0.812284630342968,
+        1.0
       ],
       "hands": {
         "handL": {
@@ -98,7 +98,17 @@
           "contactPivotRotationX": 0.2
         }
       },
-      "scope": "Independent static fit. Original hands transformed rigidly; no deformation, no new action timing. Surface/occlusion checks required."
+      "scope": "Independent static fit. Original hands transformed rigidly; no deformation, no new action timing. Surface/occlusion checks required.",
+      "physicsRevision": {
+        "reason": "Page normal faces reader eyes; rigid book lifted to clear world ground, original hand transforms retained and actual contact re-audited",
+        "gripAxisWorldY": 0.42066639266468386,
+        "gripAxisWorldZ": 0.843081927597338,
+        "rotationDeltaX": 0.85,
+        "handsUnchanged": true,
+        "verticalClearanceCorrection": 0.065,
+        "forwardContactRelief": 0,
+        "uniformFitScale": 0.97
+      }
     },
     {
       "id": "paper-board",

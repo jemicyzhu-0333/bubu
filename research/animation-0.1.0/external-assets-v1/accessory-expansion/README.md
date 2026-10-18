@@ -33,3 +33,12 @@ CPU Three.js trajectory replay and Blender rendering are supported here. Browser
 Dependencies reused read-only from sibling recovery package: Three.js 0.186.1, approved source and original recorded trajectories. Blender 4.3.2 and Python/NumPy are present in the task environment. No remote commit or paid generation service was used. The image-generation tool outputs and exact prompts are under `references/`.
 
 For a relocated candidate, set `BUBU_RECOVERY_ROOT` to the read-only approved research support root containing `research/animation-0.1.0/`, `delivery-package/geometry/`, `runtime/`, `split-tools/` and `tea-runtime/`. That support data is deliberately not duplicated into this three-item accessory patch. The test scripts accept this explicit override; the local sibling fallback is only a task-workspace convenience.
+
+
+## Weight/contact revision candidate
+
+The v2 candidate preserves the source body and accepted materials/design identity. Cape necklines are supported upper-back arcs with tapered vertical drape, soft hems and local clearance for the restored round tail. Wing roots sit on the back; the fin retains a rear root while its lateral lobes curve toward the silhouette. The basic boots use an open ankle shell plus a rolled native-foot cross-section rim, keeping the real foot visible instead of painting the upper foot/body junction.
+
+`update({time, reducedMotion, calmVisual, reset, enabled})` uses externally supplied seconds. Local free sections alone receive bounded world-gravity/inertial response; collars, clasps, roots and native footwear binding remain supported. Halo emission and boot-star glints use privately owned material/geometry. No autonomous clock, source actor mutation, wardrobe write, IPC or production entry is added.
+
+This secondary-motion/effect implementation is an experimental comparison candidate, not a settled production interface or a substitute for a mature cloth/physics/particle evaluation. `reports/weight-v2/current-evidence.json` binds the current files and actual CPU exports. Old reports outside `weight-v2` are prior-stage provenance. Actual four-view, before/after and selected drag/longpress/tea evidence is under `review/weight-v2`; it does not certify native browser/Electron rendering or continuous collision.

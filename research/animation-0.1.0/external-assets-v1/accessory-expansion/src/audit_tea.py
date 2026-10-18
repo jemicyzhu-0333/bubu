@@ -26,8 +26,7 @@ for f in d['frames']:
     meshes = []
     for m0 in f['meshes']:
         m = {**d['sharedMeshes'].get(m0['name'], {}), **m0}
-        if not m['name'].startswith('Bubu_foot-'):
-            meshes.append(m)
+        meshes.append(m) # Open ankle shells retain the native foot.
         if m['name'].startswith(('Bubu_hand', 'Sip_')) and m.get('opacity', 1) > 0:
             v = np.array(m['positions']).reshape(-1, 3) if 'positions' in m else np.fromfile(m['positionsFile'], dtype='<f4').reshape(-1, 3)
             t = v[np.array(m['indices']).reshape(-1, 3)]

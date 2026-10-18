@@ -1,0 +1,303 @@
+{
+  "createdUTC": "2026-10-18T10:00:59.148288+00:00",
+  "status": "Isolated research candidate; experimental dynamics awaiting mature Three.js-compatible solver comparison. Not production integration or user visual acceptance.",
+  "retainedCorrections": [
+    "Torso-local bag/scarf supports; headwear scalp support.",
+    "Bag-side continuous return lifted into upper pouch seam; approved pouch shape/materials retained.",
+    "Pinned scarf tail with small resting drape; approved collar surface restored."
+  ],
+  "rejectedExperiment": "Inward scarf collar/palm compression increased collision-pair peaks. Removed in final code; every final scarf contact frame exactly matches original baseline again.",
+  "runtimeTests": {
+    "foreignHybridRejected": true,
+    "externalEligibilityEnforced": true,
+    "headwearExclusion": true,
+    "crossHostExclusion": true,
+    "independentActorAndBorrowedLifetime": true,
+    "original13Meshes": true,
+    "physics": {
+      "injectedTime": true,
+      "reducedMotionExact": true,
+      "disabledClearsMomentum": true,
+      "rewindAndDtSpikeReset": true,
+      "repeatedTimeStable": true,
+      "resetIdempotent": true,
+      "privateGeometry": true,
+      "sourceArraysUnchanged": true,
+      "supports": {
+        "satchel": {
+          "kind": "torso",
+          "vertex": 9178,
+          "sourcePosition": [
+            -1.6140000298009438e-05,
+            0.5535348653793335,
+            0.7492362260818483
+          ]
+        },
+        "scarf": {
+          "kind": "torso",
+          "vertex": 21392,
+          "sourcePosition": [
+            -0.0018128769006580114,
+            1.1259607076644897,
+            -0.744107484817505
+          ]
+        },
+        "sprout": {
+          "kind": "scalp",
+          "vertex": 11213,
+          "sourcePosition": [
+            0.0020816877949982886,
+            1.6276628971099854,
+            0.0007604088750667871
+          ]
+        }
+      },
+      "geometryCacheHits": 1760,
+      "maxDeformation": 0.16422102419007897,
+      "maxDynamic": 0.010639099795832111
+    },
+    "failedInstallRecovery": true,
+    "staleGeometryRevokes": true,
+    "ownerRevocation": true,
+    "staleSkeletonRevokes": true,
+    "singularParentRevokes": true,
+    "invalidContactsRevoke": true,
+    "explicitFinalRelease": true,
+    "allInputBytesUnchanged": true
+  },
+  "scenarios": {
+    "drag": {
+      "frames": 271,
+      "maxAnchorError": 9.222205069512407e-16,
+      "allSourceGuards": true,
+      "sproutFrames": 271
+    },
+    "longpress": {
+      "frames": 1891,
+      "maxAnchorError": 8.882161118664954e-16,
+      "allSourceGuards": true,
+      "sproutFrames": 1891
+    }
+  },
+  "fullHarnessElapsedSeconds": 35.83975726999999,
+  "sourceHashes": {
+    "sprout": {
+      "path": "../../../../bubu-publication-20261018/research/animation-0.1.0/accessories-v1/01-sprout/sprout.glb",
+      "sha256": "662bb84939e71515305ab18c70c2ae4db2c3e0355993b6de725e63b09ffcd309"
+    },
+    "sunhat": {
+      "path": "../../../../bubu-publication-20261018/research/animation-0.1.0/accessories-v1/02-sunhat/sunhat.glb",
+      "sha256": "06516ab90d747416c1749469b76aa24bff8e5ecea529f4e47134726112fa5227"
+    },
+    "satchel": {
+      "path": "../../../../bubu-publication-20261018/research/animation-0.1.0/accessories-v1/03-satchel/satchel.glb",
+      "sha256": "8ba471d1218fd1f848720f32242c74b397adeaba5f9dbaa911b482cfc3aad9a6"
+    },
+    "scarf": {
+      "path": "../../../../bubu-publication-20261018/research/animation-0.1.0/accessories-v1/04-scarf/scarf.glb",
+      "sha256": "b0a797290977fe8b275d95707f0ec70aa9e1a74c1cd34b25d470b9111a84f09e"
+    },
+    "source": {
+      "path": "../../../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/runtime-facepath05/fixtures/face-d2/asset.glb",
+      "sha256": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a"
+    },
+    "hybrid": {
+      "path": "../../../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/original-parts-hybrid-v1/geometry/bubu-hybrid-binding.glb",
+      "sha256": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67"
+    },
+    "wrapper": {
+      "path": "../../src/existing-wearable-host.mjs",
+      "sha256": "a7b6cd59d69078a8f08cb4eb8a5efef2b6a3f596fcc05d4dc01be611602eeee8"
+    },
+    "test": {
+      "path": "../../src/test-and-export.mjs",
+      "sha256": "3d4a4d77b384bdc6450198319e52c3710b39f361f16ad0a14e9a7be9645df3b5"
+    },
+    "sproutOriginalAdapter": {
+      "path": "../../../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/accessories-v1/01-sprout/src/sprout-adapter.mjs",
+      "sha256": "5860dd7482fdbbca6aa9eb3afb74cd03f60e503a384b2abac16e9c1a2fd1bcd5"
+    },
+    "sproutAdapter": {
+      "path": "../../src/local-adapters/sprout-adapter.mjs",
+      "sha256": "f11764adcdd5e045ea6fa91ee5138fef987ce61cac474ee125e47ead0fb789c7"
+    },
+    "sunhatOriginalAdapter": {
+      "path": "../../../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/accessories-v1/02-sunhat/src/sunhat-adapter.mjs",
+      "sha256": "7a6d4bd5e95ad464cd3e66b48d85fa91eabbb32799b2b2415f2933fd2f579f7b"
+    },
+    "sunhatAdapter": {
+      "path": "../../src/local-adapters/sunhat-adapter.mjs",
+      "sha256": "92b7b1960c8e87dbe267f01f8ea73565082853791e18aa7406cb2efbc8e48c77"
+    },
+    "satchelOriginalAdapter": {
+      "path": "../../../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/accessories-v1/03-satchel/src/satchel-adapter.mjs",
+      "sha256": "bab7fc0ce856d57eae4cfc18d6d19fd870c12281a8272104a42e554b62ce1932"
+    },
+    "satchelAdapter": {
+      "path": "../../src/local-adapters/satchel-adapter.mjs",
+      "sha256": "e771a8501378d5a9d2fa913bb57276e53f6a6fc25d1424eb641d3117dd5e6fe2"
+    },
+    "scarfOriginalAdapter": {
+      "path": "../../../../bubu-external-assets-staging-20261018/.cache/clean-a/research/animation-0.1.0/accessories-v1/04-scarf/src/scarf-adapter.mjs",
+      "sha256": "2043489e26baed24edcc12c6b60f6a4ac6f6166894b6add79dd3ebf5b21b6749"
+    },
+    "scarfAdapter": {
+      "path": "../../src/local-adapters/scarf-adapter.mjs",
+      "sha256": "d9ba85fc31dfbab7f83b2b55f2764a89b549d17f256a2ab1b9079fce06f5ac78"
+    },
+    "supportMotion": {
+      "path": "../../src/local-adapters/support-motion.mjs",
+      "sha256": "9b3d07984d7aea3faf34fc4a796b18dcbb6425f634ed7301ccfbe582fc8d7ac0"
+    },
+    "drag": {
+      "path": "../../../../bubu-external-assets-staging-20261018/.cache/clean-a/pointer/drag/trajectory.json",
+      "sha256": "be15789114f5613d21a612247c113efa11ef0d6ae2a909d987fd8f462191f18b"
+    },
+    "longpress": {
+      "path": "../../../../bubu-external-assets-staging-20261018/.cache/clean-a/pointer/longpress/trajectory.json",
+      "sha256": "e9061fa24a7cfb584f725c31b3999158009eaa6189995850bcaaec369868342d"
+    }
+  },
+  "sourceHashPathsRelativeTo": ".physics-final/existing-wearables",
+  "scarfAll271ContactFramesMatchOriginal": true,
+  "teaComparison": {
+    "satchel/satchel_continuous_strap/Bubu_hand-right": {
+      "original": {
+        "frames": 190,
+        "min": 36,
+        "max": 188
+      },
+      "final": {
+        "frames": 188,
+        "min": 39,
+        "max": 177
+      }
+    },
+    "satchel/satchel_pouch/Bubu_hand-left": {
+      "original": {
+        "frames": 20,
+        "min": 51,
+        "max": 163
+      },
+      "final": {
+        "frames": 20,
+        "min": 51,
+        "max": 160
+      }
+    },
+    "scarf/scarf_collar_1/Bubu_hand-left": {
+      "original": {
+        "frames": 143,
+        "min": 22,
+        "max": 259
+      },
+      "final": {
+        "frames": 143,
+        "min": 22,
+        "max": 259
+      }
+    },
+    "scarf/scarf_collar_1/Bubu_hand-right": {
+      "original": {
+        "frames": 137,
+        "min": 38,
+        "max": 253
+      },
+      "final": {
+        "frames": 137,
+        "min": 38,
+        "max": 253
+      }
+    },
+    "scarf/scarf_collar_2/Bubu_hand-left": {
+      "original": {
+        "frames": 32,
+        "min": 16,
+        "max": 192
+      },
+      "final": {
+        "frames": 32,
+        "min": 16,
+        "max": 192
+      }
+    },
+    "scarf/scarf_collar_2/Bubu_hand-right": {
+      "original": {
+        "frames": 32,
+        "min": 20,
+        "max": 178
+      },
+      "final": {
+        "frames": 32,
+        "min": 20,
+        "max": 178
+      }
+    },
+    "satchel/satchel_flap/Bubu_hand-left": {
+      "original": {
+        "frames": 12,
+        "min": 30,
+        "max": 134
+      },
+      "final": {
+        "frames": 12,
+        "min": 22,
+        "max": 132
+      }
+    }
+  },
+  "noCupCrossingsIn271Samples": true,
+  "noSproutOrHatHandCrossingsIn271Samples": true,
+  "reports": {
+    "host-audit": "reports/final-host-audit.json",
+    "tea-collision": "reports/final-tea-collision.json",
+    "static-stage": "reports/final-static-stage.json",
+    "independent-rejection": "reports/final-independent-rejection.json",
+    "contact-keyframe-index": "reports/final-contact-keyframe-index.json",
+    "contact-point-classification": "reports/final-contact-point-classification.json",
+    "contact-visibility": "reports/final-contact-visibility.json"
+  },
+  "additionalReports": [
+    "reports/support-motion-tests.json",
+    "reports/side-support-audit.json",
+    "reports/motion-bounds.json",
+    "reports/final-visible-seams.md"
+  ],
+  "artifacts": [
+    {
+      "path": "review/satchel-side-before-after.png",
+      "sha256": "6ce141498ff50c30193218a7be9d08cafde05ae87b0dbd7f3c1ae59e04fafdcc",
+      "scope": "Fresh actual original/revised GLB-derived geometry, -90/-45/90/180 degrees, enlarged span3.0"
+    },
+    {
+      "path": "review/weight-contact-actual-fourviews.png",
+      "sha256": "b615cae712e927cd50a0d85a51ed18a08c5f7b44e4b20866c25fe42af43becb9",
+      "scope": "Actual final source actor plus candidate wearables, four views, stage span5.264"
+    },
+    {
+      "path": "review/weight-contact-motion-keyframes.png",
+      "sha256": "0f3e2c2fdb56569aabeadb239605afd4b0b1418b3c98ef55bbd101d2ef61324b",
+      "scope": "Actual final geometry at six exact recorded drag/longpress frame/times, front and 45 degrees; representative stills only"
+    },
+    {
+      "path": "review/weight-contact-tea-actual-sheet.png",
+      "sha256": "21cde7f27a719eda490395ef33bfb182836ff42ce5b18d145a67a670088c3cc9",
+      "scope": "Actual final first/peak/high-cup contact snapshots, front and 45 degrees, enlarged span3.0"
+    }
+  ],
+  "geometrySourceHashes": {
+    "combined-static.json": "499b611f6b4b98f8c949dbb380c3b8e593d1b29fa8b649f087eebb0774a7078b",
+    "sunhat-static.json": "b05c58dc589a3ce4c5389ce3caa4c318e1a86bb8016d17b38e90b96be34073a4",
+    "scarf-static.json": "0681230dbdcdbdb6914670a0278becc9fdf05a38ac9f4cf8bc3bd08138df35ce",
+    "sprout-static.json": "d07a3c632f693a173b70c0c940c85eb530edd021cce0396b8c94c7e3d515586f",
+    "satchel-static.json": "5d7d469591a712457eec7b68d91603d7e281506ebe4008c72f20ebd945bb03a5"
+  },
+  "limits": [
+    "Palm/garment seams remain nonzero and partly visible; no continuous collision or full action compatibility.",
+    "Bounded local lag/gravity is an experiment, not calibrated cloth or a frozen integration interface.",
+    "Rendering is Blender CPU using actual exported geometry; no browser/WebGL/native OS validation.",
+    "Production app and npm aggregate suite were not modified/run for this isolated candidate.",
+    "Source body still has the original 13 exported meshes; separately restoring a body tail requires integrated rerendering.",
+    "Full-harness elapsed time includes loading, checking and geometry export; it is not a frame-time benchmark."
+  ]
+}

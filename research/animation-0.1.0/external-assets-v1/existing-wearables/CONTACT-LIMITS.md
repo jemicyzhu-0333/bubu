@@ -1,16 +1,16 @@
-# Unified-review candidate: original four wearables
+# Contact limits for the weight/attachment candidate
 
-Status: static appearance preserved and new research-host installation checks passed. Eligible for the unified visual-review candidate; this is not user acceptance, production wardrobe/native qualification, or complete dynamic compatibility. Sprout side-profile approval remains with the final visual review.
+The bag-side support route and torso attachment are revised. The scarf collar keeps its approved rest surface. A trial that compressed the collar inward under palm envelopes increased discrete intersection peaks, so that collar compression was reverted. The tail retains a small supported rest drape and a pinned root.
 
-Keep the original accepted hat/bag/scarf art. Do not alter it merely to make triangle-intersection counts zero.
+Tea still has localized nonzero palm/strap, palm/pouch/flap and palm/collar intersections. Full dynamic compatibility remains unqualified. Do not say “no clipping,” “seams fixed,” or count all triangle contacts as visible failures. Selected actual images and ray-visibility reports complement the numeric counts but cannot establish continuous collision safety.
 
-## Constraints for the next action stage
-- Satchel rest/first frame0, t0.000, hands-enter: right palm/strap overlap104 triangle pairs. Same104 at final frame270/t9.000. It is stable, but sampled crossing seams can be visible; do not label it wholly inside the body.
-- Satchel peak frame18, t0.600, hands-enter: left palm/pouch162 and flap107; right palm/strap127 pairs. Some pouch intersections are body-internal; flap/strap contact seams are outside the body. Actual front/45 renders read chiefly as the hand pressing the bag edge/strap, with no large palm breakthrough or black stripe identified in these views.
-- Scarf first frame15, t0.500: collar1/left and right palm114 pairs each.
-- Scarf peak frame20, t0.666667: collar1/left259/right253, collar2/left126/right127. These contact points are outside the body and some seams are camera-visible. Actual front/45 renders read chiefly as palms pressing/occluding the collar edge; no broad cloth strip across the palm center was identified in these selected views.
-- Both high-cup frame102, t3.400, sip: zero sampled accessory/hand/cup triangle crossings. The full271-frame audit records no cup crossings against any of the original four wearables and no sprout/sunhat hand crossings.
+The candidate's spring/lag mechanism is an experimental kinematic study, awaiting comparison with mature Three.js-compatible physics and cloth solutions. It is not a calibrated physical cloth solver, a production contract, or an approved new wardrobe shape.
 
-Required language: “Tea has localized nonzero, partly visible contact-seam overlaps; full dynamic compatibility remains unqualified.” Do not say “no clipping” or treat all triangle contacts as blocking visual failures.
+Final per-frame tea results, first/maximum/high-cup frame selection and fresh source-byte checks are under `.physics-final/existing-wearables/reports/`, with compact copies indexed by `reports/physics-revision-summary.json`. Earlier root-level `tea-collision.json`, `contact-visibility.json`, and original sheets are retained historical evidence; the `final-*` reports and `weight-contact-*` images identify the current candidate.
 
-Use review/tea-contact-actual-sheet.png and the twelve separate512px/64sample renders, indexed by reports/contact-keyframe-index.json. They are magnified span3.0 diagnostics; the separate four-view sheet uses the fixed production research-stage span5.264. Next-action changes must preserve the accepted garment silhouette and reassess hand paths/occlusion across intermediate poses, both camera directions and cloth motion. This pass does not approve every pose or arbitrary new prop combination.
+Bag side before/after: `review/satchel-side-before-after.png` (actual geometry, magnified span3.0).
+Current static overview: `review/weight-contact-actual-fourviews.png` (fixed stage span5.264).
+Current pointer representatives: `review/weight-contact-motion-keyframes.png` (exact scenario/frame/time labels).
+Current tea contact overview: `review/weight-contact-tea-actual-sheet.png` (magnified span3.0).
+
+Neither source-body alterations nor native/production integration are included. Approved source assets and original adapters remain unchanged.

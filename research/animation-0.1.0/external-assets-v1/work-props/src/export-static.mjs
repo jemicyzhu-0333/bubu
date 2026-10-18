@@ -10,7 +10,7 @@ const original=baseline.frames[0].meshes.filter(m=>m.name.startsWith('Bubu_')||m
 const rawHands=JSON.parse(fs.readFileSync(new URL('reports/source-hands.json',portable.root)));
 const finalHands=JSON.parse(fs.readFileSync(new URL('final-hand-transforms.json',import.meta.url)));
 const bodyHash=crypto.createHash('sha256').update(JSON.stringify(original.filter(m=>!m.name.startsWith('Bubu_hand')))).digest('hex');
-const placements={keyboard:{p:[0,.223,.96],yaw:.16,hands:[[-.40,.527,.77],[.40,.531,.70]],support:'Reserved tabletop plane y=0.223. No new desk asset; physical support integration pending.'},laptop:{p:[0,.24,.91],yaw:.16,scale:.7,hands:[[-.30,.4725,.75],[.30,.4765,.70]],support:'Reserved low tabletop plane y=0.24, diagnostic proxy only.'},microphone:{p:[-.12,.22,.95],hands:[[-.25,.53,.795],null],support:'Single hand grip candidate; no floor support required.'},drum:{p:[0,.006,1.24],hands:[[-.25,.558,.80],[.25,.559,.76]],support:'Floor y=0.006. Direct palm top contacts, no drumsticks.'}};
+const placements={keyboard:{p:[0,.223,.96],yaw:.16,hands:[[-.40,.527,.77],[.40,.531,.70]],support:'Research stage stand with four legs to world ground y=0.006; tabletop y=0.223.'},laptop:{p:[0,.24,.91],yaw:.16,scale:.7,hands:[[-.30,.4725,.75],[.30,.4765,.70]],support:'Research stage stand with four legs to world ground y=0.006; tabletop y=0.24.'},microphone:{p:[-.12,.22,.95],hands:[[-.25,.53,.795],null],support:'Single hand grip candidate; no floor support required.'},drum:{p:[0,.006,1.24],hands:[[-.25,.558,.80],[.25,.559,.76]],support:'Floor y=0.006. Direct palm top contacts, no drumsticks.'}};
 for(const id of ['keyboard','laptop','drum']){placements[id].p[2]-=id==='drum'?.038:.08;for(const hand of placements[id].hands)if(hand){hand[2]-=id==='drum'?.074:.08;if(id==='drum')hand[1]-=.015;}}
 fs.mkdirSync(new URL('review/',portable.root),{recursive:true});
 const reports=[];
@@ -26,7 +26,16 @@ for(const [id,f] of Object.entries(factories)){
   m.indices=raw.indices;transforms.push(transform);
  }
  const propMeshes=[];r.root.traverse(o=>{if(!o.isMesh)return;const g=o.geometry,p=new T.Vector3(),pos=[];for(let i=0;i<g.attributes.position.count;i++){p.fromBufferAttribute(g.attributes.position,i).applyMatrix4(o.matrixWorld);pos.push(...p.toArray());}propMeshes.push({name:o.name,positions:pos,indices:g.index?Array.from(g.index.array):Array.from({length:g.attributes.position.count},(_,i)=>i),materialColor:o.material.color.toArray(),opacity:1});});
- if(id==='keyboard'||id==='laptop'){const g=new T.BoxGeometry(1.6,.04,id==='keyboard'?.66:.68),p=g.attributes.position,pos=[];for(let i=0;i<p.count;i++)pos.push(p.getX(i),p.getY(i)+cfg.p[1]-.02,p.getZ(i)+cfg.p[2]);propMeshes.push({name:'Diagnostic_support_proxy_NOT_BACKGROUND',positions:pos,indices:Array.from(g.index.array),materialColor:[.5,.5,.5],opacity:1});g.dispose();}
+ if(id==='keyboard'||id==='laptop'){const g=new T.BoxGeometry(id==='keyboard'?1.6:1.2,.04,id==='keyboard'?.66:.45),p=g.attributes.position,pos=[];for(let i=0;i<p.count;i++)pos.push(p.getX(i),p.getY(i)+cfg.p[1]-.02,p.getZ(i)+cfg.p[2]+(id==='laptop'?.12:0));propMeshes.push({name:'Research_stage_support_top_NOT_APPROVED_ART',positions:pos,indices:Array.from(g.index.array),materialColor:[.5,.5,.5],opacity:1});g.dispose();}
+ if(id==='keyboard'||id==='laptop'){
+  // Plain stage support, not a new wardrobe/prop design. Original hand transforms stay intact.
+  const h=cfg.p[1]-.04-.006;
+  for(const x of (id==='keyboard'?[-.73,.73]:[-.53,.53]))for(const dz of (id==='keyboard'?[-.24,.24]:[-.16,.16])){
+   const g=new T.BoxGeometry(.07,h,.07),p=g.attributes.position,pos=[];
+   for(let i=0;i<p.count;i++)pos.push(p.getX(i)+x,p.getY(i)+.006+h/2,p.getZ(i)+cfg.p[2]+dz+(id==='laptop'?.12:0));
+   propMeshes.push({name:`Research_stage_support_leg_${x}_${dz}`,positions:pos,indices:Array.from(g.index.array),materialColor:[.5,.5,.5],opacity:1});g.dispose();
+  }
+ }
  const contacts=Object.fromEntries(Object.entries(r.sockets).map(([k,v])=>[k,v.clone().applyMatrix4(r.root.matrixWorld).toArray()]));
  const b=new T.Box3().setFromObject(r.root);
  const report={id,propPosition:cfg.p,propRotation:[0,cfg.yaw??0,0],handTransforms:transforms,socketsWorld:contacts,worldBounds:{min:b.min.toArray(),max:b.max.toArray()},support:cfg.support,bodyAndFaceUnchangedHash:bodyHash,status:'Static candidate only. Body continuity, garment clearance and action range not admitted; inspect actual render.',orientation:id==='laptop'?'Outer lid +Z toward viewer, screen -Z toward pet, opening angle 101.46 degrees':null};

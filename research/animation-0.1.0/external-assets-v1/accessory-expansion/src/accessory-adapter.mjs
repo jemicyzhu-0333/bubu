@@ -1,3 +1,4 @@
+import {SupportedDeformation} from './supported-deformation.mjs';
 import * as T from 'three';
 export const SPECS=Object.freeze( {
   halo: {
@@ -80,7 +81,7 @@ export class AccessoryAdapter  {
     try {
       if(kind==='boots')asset.traverse(o=> {
         if(!o.isMesh)return;
-        const m=new T.SkinnedMesh(o.geometry,o.material);
+        const m=new T.SkinnedMesh(o.geometry.clone(),o.material.clone());
         m.name=o.name;
         m.bindMode=sourceSkin.bindMode;
         m.bind(this.skeleton,sourceSkin.bindMatrix);
@@ -89,7 +90,12 @@ export class AccessoryAdapter  {
         this.parts.push(m);
       }
       );
-      else this.root.add(asset.clone(true));
+      else {
+        const clone=asset.clone(true);
+        if(kind==='halo')clone.traverse(m=>{if(m.isMesh){m.material=m.material.clone();this.parts.push(m);}});
+        this.root.add(clone);
+      }
+      this.deformation=new SupportedDeformation(this.root,kind);
       for(const f of this.feet)footOwners.set(f.mesh,this);
       parent.add(this.root);
       state.references++;
@@ -102,7 +108,7 @@ export class AccessoryAdapter  {
     }
   }
   update( {
-    enabled=true
+    enabled=true,time,reducedMotion=false,calmVisual=false,reset=false
   }
   = {
   }
@@ -116,8 +122,20 @@ export class AccessoryAdapter  {
       checkMatrix(this.parent.matrixWorld);
       checkMatrix(this.skin.matrixWorld);
       this.root.matrix.copy(this.parent.matrixWorld).invert().multiply(this.skin.matrixWorld);
+      this.deformation.update(this.skin.matrixWorld,{time,enabled,reducedMotion:reducedMotion||calmVisual,reset});
+      const quiet=reducedMotion||calmVisual||!Number.isFinite(time);
+      if(this.kind==='halo')for(const m of this.parts){
+        m.material.emissive.setRGB(.32,.15,.015);
+        m.material.emissiveIntensity=quiet?.18:.24+.10*Math.sin(time*1.3);
+      }
+      if(this.kind==='boots')for(const m of this.parts){
+        const c=m.geometry.attributes.color;
+        const glow=quiet?0:Math.max(0,Math.sin(time*2.2+(m.name.endsWith('left')?0:2.4)))**12;
+        for(let i=c.count-9;i<c.count;i++)c.setXYZ(i,.95+glow*.05,.86+glow*.14,.58+glow*.42);
+        c.needsUpdate=true;
+      }
       this.root.visible=enabled;
-      for(const f of this.feet)f.mesh.visible=enabled?false:f.visible;
+      for(const f of this.feet)f.mesh.visible=f.visible; // Open ankle shells do not replace the native foot.
       this.root.updateMatrixWorld(true);
       return this;
     }
@@ -128,8 +146,10 @@ export class AccessoryAdapter  {
   }
   dispose() {
     if(this.disposed)return;
+    this.deformation?.dispose();
     this.root.removeFromParent();
     this.root.clear();
+    for(const m of this.parts){if(this.kind==='boots')m.geometry.dispose();m.material.dispose();}
     this.parts=[];
     for(const f of this.feet??[]) {
       if(footOwners.get(f.mesh)===this) {

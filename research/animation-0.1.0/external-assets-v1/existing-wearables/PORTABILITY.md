@@ -1,20 +1,11 @@
 # Portable research entrypoints
 
-Run from any directory, with Node and the pinned Three dependency installed for this package/reference cache:
+Use explicit `--repo-root`, `--reference-root`, and `--cache-root` as shown in README. A reference tree must pass its `fixture-source-manifest.json`; source and hybrid actor SHA admission remain mandatory. Tea references also need `tea/reports` and `hybrid-inputs`. Outputs go only into the selected cache's `existing-wearables` directory. `--static-only` is not full replay evidence.
 
-    node existing-wearables/src/test-and-export.mjs --repo-root "$REPO" --reference-root "$REFERENCE" --cache-root "$CACHE"
+The browser-safe wrapper exports `createExistingWearableHostClass({sprout,sunhat,satchel,scarf})`. The revised test entrypoint injects only the candidate-local adapter modules. Original adapter modules and GLBs are read for preservation/provenance checks; no original source is rewritten. The original baseline export uses original modules only.
 
-REFERENCE is a prepared, SHA-manifest-verified reference tree containing the unchanged source/hybrid actor, fixture modules and pointer/drag plus pointer/longpress trajectories. Outputs go only to CACHE/existing-wearables/review and reports. Add --static-only to skip pointer replay while retaining static export and lifecycle checks. It is not full replay evidence.
+The local candidate geometry, support-frame and bounded-motion APIs are experimental. They must be compared against mature Three.js-compatible physics/cloth alternatives before production integration. There is no final solver choice or interface commitment here. Known tea palm seams remain unresolved; no continuous collision or complete gesture coverage is certified.
 
-Python audits use the same output CACHE and an explicit reference tree with tea/reports and hybrid-inputs:
+Node requires Three.js 0.186.1 from the existing runtime. Python audits require numpy/scipy/Pillow. Blender CPU rendering is optional to host import, but required to reproduce the delivered actual images. The local `node_modules` symlink is a workspace convenience, not a portable distribution dependency.
 
-    python existing-wearables/src/audit-tea.py --reference-root "$TEA_REFERENCE" --cache-root "$CACHE"
-
-The bundled shared/tea/triangle-collision.py is read directly. Tea tests cover 271 discrete sampled frames, not continuous collision or cloth simulation. Existing reports and image files remain historical evidence; fresh reports are separate cache outputs. Original provenance paths and hashes are deliberately retained in those historical reports.
-
-The browser-safe wrapper exports createExistingWearableHostClass({sprout, sunhat, satchel, scarf}), which returns {ExistingWearableHost, SPECS}. Inject the four unchanged repository adapter modules. Leases and actor exclusion remain shared across factories. The CLI imports SHA-verified reference-cache copies and checks equality against supplied repository adapter files. Original-four GLBs are read in place from repo-root; they are not copied here.
-
-CONTACT-LIMITS.md remains authoritative. Static attachment triangle tests do not certify animated cloth, continuous collision, or remove known satchel/scarf tea seams.
-Blender rendering remains an optional tool dependency, not a host-import requirement. Render scripts use CACHE_ROOT for output; Python composition tools accept --reference-root/--cache-root. Fresh render images were not produced as part of portability validation. Authoring build_models.py is retained for model regeneration and was not run; do not run it over approved packaged geometry. Themed finalize.py requires an isolated complete authoring cache with source/model/reference copies and freshly rendered review images and deliberately fails otherwise.
-
-No browser/WebGL, native desktop, production wardrobe, or user visual acceptance is implied by CPU host and discrete tea checks.
+Final evidence uses `.physics-final/`; `.physics-validation/` is an earlier rejected collar-compression experiment. Static/representative CPU output is distinct from real browser/WebGL/native acceptance. Source-body upgrades (including a separately restored tail) require new integrated composition evidence and are not hidden inside this package.
