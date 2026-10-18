@@ -17,6 +17,7 @@ report.modules = Object.fromEntries(
     "../secondary-motion/index.mjs",
     "../secondary-motion/rapier.mjs",
     "../body-runtime/surface-query.mjs",
+    "../body-runtime/rigid-surface-partition.mjs",
     "../body-runtime/pointer-host.mjs",
     "../package-lock.json",
     "./foundation-host.mjs",
@@ -84,9 +85,15 @@ for (const config of FIXTURES) {
     const elapsedMs = performance.now() - begin;
     timings.push(elapsedMs);
     if (elapsedMs > 16.667)
-      report.slowFrames.push({ fixture: config.id, frame: i, mode: s.mode, elapsedMs,
+      report.slowFrames.push({
+        fixture: config.id,
+        frame: i,
+        mode: s.mode,
+        beginMs: begin,
+        elapsedMs,
         queries: actor.f.h.diagnostics.surface.queries - queriesBefore,
-        refits: actor.f.h.diagnostics.surface.refits - refitsBefore });
+        refits: actor.f.h.diagnostics.surface.refits - refitsBefore,
+      });
     modes.add(s.mode);
     verifyFrame(actor);
     for (const x of actor.mounts.values())

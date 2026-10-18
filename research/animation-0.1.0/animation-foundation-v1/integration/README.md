@@ -25,7 +25,11 @@ with Blender CPU. `evidence/*report.json` are machine-readable measured results.
 
 Surface picking uses pinned three-mesh-bvh 0.9.16 over a private, source-derived
 Float64 posed-position buffer. Bone matrices are prepared once per pose; shared
-triangles reuse those vertices. The rendered skin and its methods/topology are not
+triangles reuse those vertices. Single-bone rigid triangles use separate upstream
+BVHs in their bone-local frames; only blended vertices are re-skinned/refitted.
+Morph and grouped-material meshes retain the general posed-buffer strategy.
+Every source face remains present exactly once; this is not a lower-detail mesh.
+The rendered skin and its methods/topology are not
 patched. Queries compare the complete skeleton/bind/morph snapshot before reusing
 the tree, and versioned geometry or layout changes require readmission. This is
 full-resolution picking, not a coarse collider substituted for the actual surface.

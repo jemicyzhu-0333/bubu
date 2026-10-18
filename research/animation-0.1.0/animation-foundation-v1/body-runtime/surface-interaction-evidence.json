@@ -1,17 +1,27 @@
 {
   "scope": "CPU-only actual longpress with continuous sub-drag-threshold pointer movement; not GPU",
   "samples": 180,
-  "p50": 19.803675000000112,
-  "p95": 30.69994699999961,
-  "max": 47.8074059999999,
-  "over16ms": 175,
+  "p50": 8.72440500000016,
+  "p95": 12.464651000000003,
+  "max": 25.037294999999858,
+  "over16ms": 3,
   "surface": {
     "preparations": 1,
     "refits": 180,
     "cacheHits": 3,
     "queries": 183,
     "vertexBytes": 1102680,
-    "residentUpperBoundBytes": 10358608,
-    "vertices": 45945
+    "residentUpperBoundBytes": 12012564,
+    "vertices": 45945,
+    "deformedVertices": 16955,
+    "rigidGroups": 5
+  },
+  "heapBefore": 18257008,
+  "heapAfter": 19014512,
+  "gcAvailable": true,
+  "moduleHashes": {
+    "surface-query.mjs": "72cf2c30da1f47f50d9e09c1065d7ac7053c971526d435c35ee4eff0dc06a1d9",
+    "rigid-surface-partition.mjs": "fe5b873ff030e08d593aecea7e4673b0876c9f4ee7acd3f9c74fa57d3809d53f",
+    "pointer-host.mjs": "5930a96d60f4f97cbb34d3eeeb6ab89b422fea4db5bee170d295236a3c799fa6"
   }
 }

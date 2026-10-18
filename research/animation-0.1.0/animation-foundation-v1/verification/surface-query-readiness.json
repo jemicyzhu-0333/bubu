@@ -1,7 +1,7 @@
 {
-  "scope": "Source-only research checkpoint, no main/release. CPU fixtures only. Full-performance acceptance still blocked.",
+  "scope": "Second CPU surface-query checkpoint. No main/release. No blanket performance or GPU acceptance.",
   "unitTests": {
-    "passed": 37,
+    "passed": 39,
     "failed": 0
   },
   "authoredCasesPassed": 5,
@@ -139,7 +139,8 @@
     "modules": {
       "../secondary-motion/index.mjs": "e0ee30ee55742b392f26cb59e77afde07bd95553de2a2b11e1455678606324e2",
       "../secondary-motion/rapier.mjs": "6b37b7e9ba205697c8ebd0fa8dafc290c49e89a46d274bc4ce86e88ab54af62d",
-      "../body-runtime/surface-query.mjs": "36f3db7b9ee68911d7cae82adabdba8ce9a94c77880b53a450bbb64f59bab266",
+      "../body-runtime/surface-query.mjs": "72cf2c30da1f47f50d9e09c1065d7ac7053c971526d435c35ee4eff0dc06a1d9",
+      "../body-runtime/rigid-surface-partition.mjs": "fe5b873ff030e08d593aecea7e4673b0876c9f4ee7acd3f9c74fa57d3809d53f",
       "../body-runtime/pointer-host.mjs": "5930a96d60f4f97cbb34d3eeeb6ab89b422fea4db5bee170d295236a3c799fa6",
       "../package-lock.json": "03d5d3fcea5c31a2b6df2c4bab4532d5c2523481c2715884b3729b45a438f96b",
       "./foundation-host.mjs": "1c052a4f1bf55319e1848a0ac8e525f90e0829eed06ddfb478f15487a480c0dc",
@@ -147,34 +148,11 @@
     },
     "slowFrames": [
       {
-        "fixture": "satchel",
-        "frame": 3,
-        "mode": "pending",
-        "elapsedMs": 30.12246200000004,
-        "queries": 1,
-        "refits": 1
-      },
-      {
         "fixture": "cape-tail",
         "frame": 3,
         "mode": "pending",
-        "elapsedMs": 88.63367799999969,
-        "queries": 1,
-        "refits": 1
-      },
-      {
-        "fixture": "cape-tail",
-        "frame": 18,
-        "mode": "pending",
-        "elapsedMs": 135.5245130000003,
-        "queries": 0,
-        "refits": 0
-      },
-      {
-        "fixture": "held-book-release",
-        "frame": 3,
-        "mode": "pending",
-        "elapsedMs": 32.42683799999986,
+        "beginMs": 2745.792155,
+        "elapsedMs": 20.072826000000077,
         "queries": 1,
         "refits": 1
       },
@@ -182,40 +160,17 @@
         "fixture": "halo-particles",
         "frame": 3,
         "mode": "pending",
-        "elapsedMs": 19.900026000000253,
+        "beginMs": 3985.265066,
+        "elapsedMs": 19.553333000000293,
         "queries": 1,
         "refits": 1
-      },
-      {
-        "fixture": "halo-particles",
-        "frame": 28,
-        "mode": "drag",
-        "elapsedMs": 19.1657009999999,
-        "queries": 1,
-        "refits": 0
-      },
-      {
-        "fixture": "halo-particles",
-        "frame": 52,
-        "mode": "drag",
-        "elapsedMs": 43.237756000000445,
-        "queries": 0,
-        "refits": 0
-      },
-      {
-        "fixture": "halo-particles",
-        "frame": 63,
-        "mode": "drag",
-        "elapsedMs": 137.57649499999934,
-        "queries": 0,
-        "refits": 0
       }
     ],
     "churn": {
       "cycles": 60,
-      "elapsedMs": 198.81187300000056,
-      "heapBefore": 26724104,
-      "heapAfter": 27044800,
+      "elapsedMs": 161.65425400000095,
+      "heapBefore": 26803128,
+      "heapAfter": 27101536,
       "gcAvailable": true
     },
     "surfaceQuery": {
@@ -224,44 +179,90 @@
       "cacheHits": 49,
       "queries": 55,
       "vertexBytes": 1102680,
-      "residentUpperBoundBytes": 10358608,
-      "vertices": 45945
+      "residentUpperBoundBytes": 12012564,
+      "vertices": 45945,
+      "deformedVertices": 16955,
+      "rigidGroups": 5
     },
     "cpuFrameMs": {
       "samples": 900,
-      "median": 2.337170000000242,
-      "p95": 6.542939999999817,
-      "max": 137.57649499999934,
+      "median": 2.1149289999998473,
+      "p95": 4.331109000000197,
+      "max": 20.072826000000077,
       "includes": "body + hybrid + anchors + secondary + effects; excludes GPU"
     }
   },
-  "continuousMovingHold": {
+  "continuousMovingHold180": {
     "scope": "CPU-only actual longpress with continuous sub-drag-threshold pointer movement; not GPU",
     "samples": 180,
-    "p50": 19.803675000000112,
-    "p95": 30.69994699999961,
-    "max": 47.8074059999999,
-    "over16ms": 175,
+    "p50": 8.72440500000016,
+    "p95": 12.464651000000003,
+    "max": 25.037294999999858,
+    "over16ms": 3,
     "surface": {
       "preparations": 1,
       "refits": 180,
       "cacheHits": 3,
       "queries": 183,
       "vertexBytes": 1102680,
-      "residentUpperBoundBytes": 10358608,
-      "vertices": 45945
+      "residentUpperBoundBytes": 12012564,
+      "vertices": 45945,
+      "deformedVertices": 16955,
+      "rigidGroups": 5
+    },
+    "heapBefore": 18257008,
+    "heapAfter": 19014512,
+    "gcAvailable": true,
+    "moduleHashes": {
+      "surface-query.mjs": "72cf2c30da1f47f50d9e09c1065d7ac7053c971526d435c35ee4eff0dc06a1d9",
+      "rigid-surface-partition.mjs": "fe5b873ff030e08d593aecea7e4673b0876c9f4ee7acd3f9c74fa57d3809d53f",
+      "pointer-host.mjs": "5930a96d60f4f97cbb34d3eeeb6ab89b422fea4db5bee170d295236a3c799fa6"
     }
   },
-  "baseline900Frames": {
-    "p95Ms": 137.231754,
-    "maxMs": 338.402153
+  "continuousMovingHold1800": {
+    "scope": "CPU-only actual longpress with continuous sub-drag-threshold pointer movement; not GPU",
+    "samples": 1800,
+    "p50": 8.853499000000738,
+    "p95": 17.011469999997644,
+    "max": 70.50353799999903,
+    "over16ms": 102,
+    "surface": {
+      "preparations": 1,
+      "refits": 1800,
+      "cacheHits": 3,
+      "queries": 1803,
+      "vertexBytes": 1102680,
+      "residentUpperBoundBytes": 12012564,
+      "vertices": 45945,
+      "deformedVertices": 16955,
+      "rigidGroups": 5
+    },
+    "heapBefore": 18252744,
+    "heapAfter": 19486344,
+    "gcAvailable": true,
+    "moduleHashes": {
+      "surface-query.mjs": "72cf2c30da1f47f50d9e09c1065d7ac7053c971526d435c35ee4eff0dc06a1d9",
+      "rigid-surface-partition.mjs": "fe5b873ff030e08d593aecea7e4673b0876c9f4ee7acd3f9c74fa57d3809d53f",
+      "pointer-host.mjs": "5930a96d60f4f97cbb34d3eeeb6ab89b422fea4db5bee170d295236a3c799fa6"
+    }
   },
+  "baseline": {
+    "native900P95Ms": 137.231754,
+    "fullPosedBufferMovingHoldP95Ms": 30.699947
+  },
+  "rigidPartition": {
+    "rigidGroups": 5,
+    "totalVertices": 45945,
+    "deformedVertices": 16955,
+    "mixedTriangles": 32981,
+    "sourceTriangleLoss": 0
+  },
+  "nearestHitContract": "Native nearest point/distance within 1e-8; co-nearest triangles need not preserve native traversal tie order. Selected face normals, UV and barycentric coordinates match that source face.",
   "remainingGates": [
-    "continuous sub-threshold moving longpress remains p95 about 31 ms",
-    "isolated mixed-workload spikes without surface queries need profiling",
-    "new query module has not received a fresh independent multi-agent review",
+    "occasional CPU spikes including held-movement cases",
+    "fresh independent review of new query modules",
     "cape/hand/cup and bag/scarf contact",
     "portable clean checkout fixture inputs",
-    "native Windows/macOS GPU/transparent-window validation"
+    "native Windows/macOS GPU and transparent-window validation"
   ]
 }

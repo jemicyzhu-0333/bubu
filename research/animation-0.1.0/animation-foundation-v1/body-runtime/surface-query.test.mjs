@@ -7,16 +7,37 @@ import { fixture } from "./fixture.mjs";
 
 function compare(skin, query, caster) {
   skin.computeBoundingSphere();
-  const expected = caster.intersectObject(skin, false)[0] ?? null;
+  const nativeHits = caster.intersectObject(skin, false);
+  let expected = nativeHits[0] ?? null;
   const actual = query.firstHit(caster);
   assert.equal(!!actual, !!expected);
   if (actual) {
     assert.equal(actual.object, skin);
     assert.ok(actual.point.distanceTo(expected.point) < 1e-8);
     assert.ok(Math.abs(actual.distance - expected.distance) < 1e-8);
-    assert.equal(actual.faceIndex, expected.faceIndex);
+    // Shared edges and overlapping reflected faces can be co-nearest. BVH
+    // traversal need not reproduce the native triangle iteration tie order,
+    // but the reported face must itself be a native co-nearest intersection.
+    expected = nativeHits.find(
+      (hit) =>
+        hit.faceIndex === actual.faceIndex &&
+        Math.abs(hit.distance - nativeHits[0].distance) < 1e-8,
+    );
+    assert.ok(expected, "reported face must be a native co-nearest face");
     assert.ok(actual.face.normal.distanceTo(expected.face.normal) < 1e-7);
+    assert.deepEqual(
+      [actual.face.a, actual.face.b, actual.face.c, actual.face.materialIndex],
+      [
+        expected.face.a,
+        expected.face.b,
+        expected.face.c,
+        expected.face.materialIndex,
+      ],
+    );
     if (expected.uv) assert.ok(actual.uv.distanceTo(expected.uv) < 1e-7);
+    if (expected.normal)
+      assert.ok(actual.normal.distanceTo(expected.normal) < 1e-7);
+    assert.ok(actual.barycoord.distanceTo(expected.barycoord) < 1e-7);
   }
 }
 
@@ -204,6 +225,73 @@ test("attribute normalization, backing replacement and NaN draw ranges cannot re
     assert.throws(() => query.firstHit(caster), /source changed/);
   } finally {
     query.dispose();
+    close();
+  }
+});
+
+test("rigid partitions preserve reflected-bone winding and native face normals", () => {
+  const { skin, child, close } = synthetic();
+  delete skin.geometry.morphAttributes.position;
+  skin.morphTargetInfluences = undefined;
+  skin.geometry.clearGroups();
+  const sw = skin.geometry.attributes.skinWeight,
+    si = skin.geometry.attributes.skinIndex,
+    position = skin.geometry.attributes.position;
+  for (let i = 0; i < sw.count; i++) {
+    sw.setXYZW(i, 1, 0, 0, 0);
+    si.setXYZW(i, position.getX(i) > 0 ? 0 : 1, 0, 0, 0);
+  }
+  const query = createSurfaceQuery({
+    THREE: T,
+    MeshBVH,
+    skin,
+    assertCurrent: () => {},
+  });
+  assert(query.diagnostics.rigidGroups > 0);
+  try {
+    for (const scale of [1, -1])
+      for (const side of [T.FrontSide, T.BackSide, T.DoubleSide]) {
+        child.scale.set(scale, 1, 1);
+        child.rotation.z = 0.23;
+        skin.material.side = side;
+        skin.updateMatrixWorld(true);
+        for (const x of [-0.29, 0.17, 0.41])
+          compare(
+            skin,
+            query,
+            new T.Raycaster(
+              new T.Vector3(x, 0.137, 3),
+              new T.Vector3(0, 0, -1),
+            ),
+          );
+      }
+  } finally {
+    query.dispose();
+    close();
+  }
+});
+
+test("non-indexed geometry keeps source topology and native hit metadata", () => {
+  const { skin, close } = synthetic();
+  const nonIndexed = skin.geometry.toNonIndexed();
+  skin.geometry = nonIndexed;
+  skin.updateMorphTargets();
+  const query = createSurfaceQuery({
+    THREE: T,
+    MeshBVH,
+    skin,
+    assertCurrent: () => {},
+  });
+  try {
+    compare(
+      skin,
+      query,
+      new T.Raycaster(new T.Vector3(0.17, 0.13, 3), new T.Vector3(0, 0, -1)),
+    );
+    assert.equal(nonIndexed.index, null);
+  } finally {
+    query.dispose();
+    nonIndexed.dispose();
     close();
   }
 });

@@ -1,0 +1,78 @@
+✔ D2 shared: actual full18 actor one owner; real ray eligibility ignores caller eligible (1556.241072ms)
+✔ D2 shared: same-frame down/move/up are grouped once; late sealed move atomic reject (1477.257014ms)
+✔ D2 shared: capture drag leaves canvas, follows camera plane, releases to ground (1594.563439ms)
+✔ D2 shared: petting sustained phase can hand off to drag without second actor (1062.944784ms)
+✔ D2 shared: pointerId, primary and buttons cannot steal pointer (1068.869983ms)
+✔ D2 shared: pending leave cancels even captured; missed head contact never qualifies (762.909051ms)
+✔ D2 shared: capture acquisition/release errors have safe cleanup; uncaptured leave cancels (682.356481ms)
+✔ D2 shared: lostcapture, blur, visibility and disposal invalidate captures/listeners/queued input (688.395583ms)
+✔ D2 shared: CSS rect resize and backbuffer DPR do not mix into NDC or threshold (780.07684ms)
+✔ D2 shared: sealed lost capture invalidates lifecycle at exact timestamp without epsilon (769.528189ms)
+✔ D2 shared: continuous petting requires current surface; camera movement ends contact (681.422287ms)
+✔ D2 shared: same-time final move is applied before release captures landing position (691.304866ms)
+✔ D2 shared: pointerup final finite client position is applied, cancel has no invented point (703.722577ms)
+✔ D2 shared: pending surface loss before qualification never emits release face (768.189441ms)
+✔ D2 shared: two-hour visible long press drains pure-controller boundary outputs (726.026723ms)
+✔ D2 shared: visibility visible cannot resume while window remains blurred (696.486536ms)
+✔ D2 shared: unbounded move rejects atomically; malformed terminal coordinates still release (737.777968ms)
+✔ D2 shared: DOM router uses continuous-flow controller and passes configured seconds unchanged (784.299178ms)
+✔ D2 shared: invalid cadence option rejects before pack reads or actor allocation (3.373383ms)
+✔ D2 shared: adjustable workbench yaw keeps actual raycast and deformed surface anchor aligned (1754.468476ms)
+✔ D2 shared: bodyOptions cannot change pivot or nonfinite orientation before admission (2.189601ms)
+✔ D2 shared: only validated yaw is forwarded; inherited pivot cannot change actor stage (691.511329ms)
+✔ D2 shared initialization request/listener faults release admitted actor and all registered listeners (1526.833997ms)
+✔ D2 shared cleanup failures still free actor; body invariant fault stops queued RAF and input (1521.13789ms)
+✔ D2 actual pointer pickup drives N3 cavity gate on same live four-joint actor, then clears (779.611084ms)
+Authored comparison {
+  time: 0.15,
+  phase: 'hold',
+  owner: 'authored',
+  requestId: 'authored1',
+  candidate: 'authored0',
+  token: 1,
+  logicalArrival: 0.1,
+  path: 'P2',
+  amount: 0.25,
+  clockArrival: 0.1,
+  clockActualArrival: 0.1,
+  deadline: 3600.1,
+  queued: 0,
+  epoch: 1
+} {
+  time: 0.15,
+  phase: 'enter',
+  owner: 'authored',
+  requestId: 'authored1',
+  candidate: 'authored0',
+  token: 1,
+  logicalArrival: null,
+  path: 'P2',
+  amount: 0.253125,
+  clockArrival: 0.4,
+  clockActualArrival: null,
+  deadline: 0.4,
+  queued: 0,
+  epoch: 1
+}
+✔ authored amounts and enter timing reach actual expression owner (2584.689577ms)
+✔ same-time pointer preempts authored port, lifecycle prevents resurrection (1358.277749ms)
+✔ qualified held target is stable without repeated surface queries (1665.814291ms)
+✔ approved D2 surface matches native hits and never mutates source geometry (7063.110458ms)
+✔ morph relative, nonuniform scale, reflection, ray interval and layers (11.999928ms)
+✔ morph absolute, nonuniform scale, reflection, ray interval and layers (6.070496ms)
+✔ morph mode changes require readmission, invalid pose fails closed (1.699236ms)
+✔ attribute normalization, backing replacement and NaN draw ranges cannot reuse cached hits (1.270409ms)
+✔ rigid partitions preserve reflected-bone winding and native face normals (11.902973ms)
+✔ non-indexed geometry keeps source topology and native hit metadata (2.987852ms)
+✔ frame owner commits one time/revision and preserves ordered ownership (2.471639ms)
+✔ frame owner refuses reentrant updates without multiple body ownership (0.239073ms)
+✔ pending reservations bound aggregate allocation and commits cannot expand (1.833937ms)
+✔ closed ledger still releases pending work but rejects commit and new allocation (0.563084ms)
+ℹ tests 39
+ℹ suites 0
+ℹ pass 39
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 22980.540913

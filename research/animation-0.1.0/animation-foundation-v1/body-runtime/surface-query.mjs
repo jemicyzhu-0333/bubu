@@ -2,11 +2,17 @@
  * the render mesh, topology, normals, materials and skinning methods stay owned
  * by the actor. Pose caching never reuses a stale skeleton or morph snapshot.
  */
+import { createRigidSurfacePartition } from "./rigid-surface-partition.mjs";
 export const SURFACE_QUERY_RESERVATION_BYTES = 32 * 1024 * 1024;
 export function createSurfaceQuery({ THREE: T, MeshBVH, skin, assertCurrent }) {
   assertCurrent();
   if (!skin?.isSkinnedMesh || typeof MeshBVH !== "function")
     throw Error("Skinned surface and MeshBVH required");
+  if (
+    skin.getVertexPosition !== T.SkinnedMesh.prototype.getVertexPosition ||
+    skin.applyBoneTransform !== T.SkinnedMesh.prototype.applyBoneTransform
+  )
+    throw Error("Standard Three.js skinning required");
   const source = skin.geometry,
     skeleton = skin.skeleton;
   const count = source.attributes.position.count,
@@ -57,6 +63,8 @@ export function createSurfaceQuery({ THREE: T, MeshBVH, skin, assertCurrent }) {
     bvh = null,
     closed = false,
     stamp = null;
+  let partition = null;
+  const materialArray = Array.isArray(skin.material);
   for (const [name, a] of attributes)
     if (!["skinIndex", "skinWeight"].includes(name))
       geometry.setAttribute(name, a);
@@ -74,10 +82,13 @@ export function createSurfaceQuery({ THREE: T, MeshBVH, skin, assertCurrent }) {
     inverse = new T.Matrix4(),
     ray = new T.Ray(),
     direction = new T.Vector4();
+  const triangleA = new T.Vector3(),
+    triangleB = new T.Vector3(),
+    triangleC = new T.Vector3();
   // Covers the posed buffer, worst-case binary BVH nodes, primitive bounds and
   // indirect indices. Source-owned shared attributes are accounted by the actor.
   const residentUpperBoundBytes =
-    count * 24 + triangles * 100 + bones.length * 256 + 65536;
+    count * 28 + triangles * 116 + bones.length * 256 + 65536;
   const diagnostics = {
     preparations: 0,
     refits: 0,
@@ -86,10 +97,19 @@ export function createSurfaceQuery({ THREE: T, MeshBVH, skin, assertCurrent }) {
     vertexBytes: vertices.byteLength,
     residentUpperBoundBytes,
     vertices: count,
+    deformedVertices: count,
+    rigidGroups: 0,
   };
   function guard() {
     if (closed) throw Error("Surface query disposed");
     assertCurrent();
+    if (
+      skin.getVertexPosition !== T.SkinnedMesh.prototype.getVertexPosition ||
+      skin.applyBoneTransform !== T.SkinnedMesh.prototype.applyBoneTransform
+    )
+      throw Error("Surface skinning method changed");
+    if (Array.isArray(skin.material) !== materialArray)
+      throw Error("Surface material layout changed");
     if (
       skin.geometry !== source ||
       skin.skeleton !== skeleton ||
@@ -186,7 +206,13 @@ export function createSurfaceQuery({ THREE: T, MeshBVH, skin, assertCurrent }) {
       diagnostics.cacheHits++;
       return;
     }
-    for (let i = 0; i < count; i++) {
+    const dynamicVertices = partition?.dynamicVertices;
+    for (
+      let cursor = 0;
+      cursor < (dynamicVertices?.length ?? count);
+      cursor++
+    ) {
+      const i = dynamicVertices ? dynamicVertices[cursor] : cursor;
       T.Mesh.prototype.getVertexPosition.call(skin, i, point);
       base.set(point.x, point.y, point.z, 1).applyMatrix4(skin.bindMatrix);
       point.set(0, 0, 0);
@@ -229,12 +255,20 @@ export function createSurfaceQuery({ THREE: T, MeshBVH, skin, assertCurrent }) {
     bvh = null;
     stamp = null;
     vertices = null;
+    partition?.dispose();
+    partition = null;
     geometry.dispose();
     geometry = null;
     diagnostics.vertexBytes = 0;
     diagnostics.residentUpperBoundBytes = 0;
   }
   try {
+    partition = createRigidSurfacePartition({ THREE: T, MeshBVH, skin });
+    if (partition) {
+      geometry.setIndex(new T.Uint32BufferAttribute(partition.mixedIndex, 1));
+      diagnostics.deformedVertices = partition.dynamicVertices.length;
+      diagnostics.rigidGroups = partition.groupCount;
+    }
     prepare();
   } catch (error) {
     dispose();
@@ -268,16 +302,68 @@ export function createSurfaceQuery({ THREE: T, MeshBVH, skin, assertCurrent }) {
       const scale = Math.hypot(direction.x, direction.y, direction.z);
       if (!Number.isFinite(scale) || scale <= 0)
         throw Error("Invalid surface ray");
-      const hit = bvh.raycastFirst(
+      let hit = bvh.raycastFirst(
         ray,
         skin.material,
         caster.near * scale,
         caster.far * scale,
       );
+      if (hit) {
+        hit.point.applyMatrix4(skin.matrixWorld);
+        hit.distance = caster.ray.origin.distanceTo(hit.point);
+        hit.object = skin;
+        if (partition) hit.faceIndex = partition.mixedTriangles[hit.faceIndex];
+      }
+      const rigid = partition?.firstHit(caster, matrices);
+      if (
+        rigid &&
+        (!hit ||
+          rigid.distance < hit.distance ||
+          (rigid.distance === hit.distance && rigid.faceIndex < hit.faceIndex))
+      )
+        hit = rigid;
       if (!hit) return null;
-      hit.point.applyMatrix4(skin.matrixWorld);
-      hit.distance = caster.ray.origin.distanceTo(hit.point);
-      hit.object = skin;
+      // Return native mesh-space face/attribute semantics even when a rigid
+      // partition was intersected in its bone-local frame.
+      {
+        const first = hit.faceIndex * 3;
+        const a = source.index ? source.index.getX(first) : first,
+          b = source.index ? source.index.getX(first + 1) : first + 1,
+          c = source.index ? source.index.getX(first + 2) : first + 2;
+        skin.getVertexPosition(a, triangleA);
+        skin.getVertexPosition(b, triangleB);
+        skin.getVertexPosition(c, triangleC);
+        point.copy(hit.point).applyMatrix4(inverse);
+        hit.barycoord = T.Triangle.getBarycoord(
+          point,
+          triangleA,
+          triangleB,
+          triangleC,
+          new T.Vector3(),
+        );
+        T.Triangle.getNormal(triangleA, triangleB, triangleC, hit.face.normal);
+        for (const key of ["uv", "uv1"])
+          if (source.attributes[key])
+            hit[key] = T.Triangle.getInterpolatedAttribute(
+              source.attributes[key],
+              a,
+              b,
+              c,
+              hit.barycoord,
+              new T.Vector2(),
+            );
+        if (source.attributes.normal) {
+          hit.normal = T.Triangle.getInterpolatedAttribute(
+            source.attributes.normal,
+            a,
+            b,
+            c,
+            hit.barycoord,
+            new T.Vector3(),
+          );
+          if (hit.normal.dot(ray.direction) > 0) hit.normal.multiplyScalar(-1);
+        }
+      }
       if (
         !Number.isFinite(hit.distance) ||
         !hit.point.toArray().every(Number.isFinite)
