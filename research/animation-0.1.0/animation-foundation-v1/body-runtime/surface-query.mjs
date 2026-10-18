@@ -2,6 +2,10 @@
  * the render mesh, topology, normals, materials and skinning methods stay owned
  * by the actor. Pose caching never reuses a stale skeleton or morph snapshot.
  */
+import {
+  captureAttributeLayout,
+  sameAttributeLayout,
+} from "./attribute-layout.mjs";
 import { createRigidSurfacePartition } from "./rigid-surface-partition.mjs";
 export const SURFACE_QUERY_RESERVATION_BYTES = 32 * 1024 * 1024;
 export function createSurfaceQuery({ THREE: T, MeshBVH, skin, assertCurrent }) {
@@ -27,30 +31,13 @@ export function createSurfaceQuery({ THREE: T, MeshBVH, skin, assertCurrent }) {
     throw Error("Surface query admission budget exceeded");
   const attributes = Object.entries(source.attributes).map(([name, a]) => [
     name,
-    a,
-    a.version,
-    a.count,
-    a.itemSize,
-    a.normalized,
-    a.array,
-    a.data,
-    a.data?.version,
+    captureAttributeLayout(a),
   ]);
   const index = source.index,
-    indexVersion = index?.version,
-    indexArray = index?.array,
-    indexCount = index?.count;
+    indexLayout = captureAttributeLayout(index);
   const morphs = Object.entries(source.morphAttributes).flatMap(
     ([name, items]) =>
-      items.map((a, i) => [
-        name,
-        i,
-        a,
-        a.version,
-        a.array,
-        a.normalized,
-        a.data?.version,
-      ]),
+      items.map((a, i) => [name, i, captureAttributeLayout(a)]),
   );
   const groups = source.groups.map((g) => [g.start, g.count, g.materialIndex]),
     range = [source.drawRange.start, source.drawRange.count],
@@ -65,7 +52,7 @@ export function createSurfaceQuery({ THREE: T, MeshBVH, skin, assertCurrent }) {
     stamp = null;
   let partition = null;
   const materialArray = Array.isArray(skin.material);
-  for (const [name, a] of attributes)
+  for (const [name, { attribute: a }] of attributes)
     if (!["skinIndex", "skinWeight"].includes(name))
       geometry.setAttribute(name, a);
   geometry.setIndex(index);
@@ -114,9 +101,7 @@ export function createSurfaceQuery({ THREE: T, MeshBVH, skin, assertCurrent }) {
       skin.geometry !== source ||
       skin.skeleton !== skeleton ||
       source.index !== index ||
-      index?.version !== indexVersion ||
-      index?.array !== indexArray ||
-      index?.count !== indexCount ||
+      !sameAttributeLayout(index, indexLayout) ||
       source.morphTargetsRelative !== relative ||
       source.drawRange.start !== range[0] ||
       source.drawRange.count !== range[1] ||
@@ -131,36 +116,11 @@ export function createSurfaceQuery({ THREE: T, MeshBVH, skin, assertCurrent }) {
       throw Error("Surface source changed; readmission required");
     if (Object.keys(source.attributes).length !== attributes.length)
       throw Error("Surface attribute layout changed");
-    for (const [
-      name,
-      a,
-      version,
-      n,
-      size,
-      normalized,
-      array,
-      data,
-      dataVersion,
-    ] of attributes)
-      if (
-        source.attributes[name] !== a ||
-        a.version !== version ||
-        a.count !== n ||
-        a.itemSize !== size ||
-        a.normalized !== normalized ||
-        a.array !== array ||
-        a.data !== data ||
-        a.data?.version !== dataVersion
-      )
+    for (const [name, layout] of attributes)
+      if (!sameAttributeLayout(source.attributes[name], layout))
         throw Error("Surface attribute changed");
-    for (const [name, i, a, version, array, normalized, dataVersion] of morphs)
-      if (
-        source.morphAttributes[name]?.[i] !== a ||
-        a.version !== version ||
-        a.array !== array ||
-        a.normalized !== normalized ||
-        a.data?.version !== dataVersion
-      )
+    for (const [name, i, layout] of morphs)
+      if (!sameAttributeLayout(source.morphAttributes[name]?.[i], layout))
         throw Error("Surface morph source changed");
     if (
       Object.values(source.morphAttributes).reduce(
@@ -237,7 +197,10 @@ export function createSurfaceQuery({ THREE: T, MeshBVH, skin, assertCurrent }) {
         Math.max(Math.abs(point.x), Math.abs(point.y), Math.abs(point.z)) > 1e6
       )
         throw Error("Posed surface exceeds bounded scene coordinates");
-      point.toArray(vertices, i * 3);
+      const offset = i * 3;
+      vertices[offset] = point.x;
+      vertices[offset + 1] = point.y;
+      vertices[offset + 2] = point.z;
     }
     geometry.attributes.position.needsUpdate = true;
     if (bvh) {

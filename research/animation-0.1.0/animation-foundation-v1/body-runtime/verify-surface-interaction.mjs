@@ -49,6 +49,7 @@ try {
     moduleHashes: Object.fromEntries(
       [
         "surface-query.mjs",
+        "attribute-layout.mjs",
         "rigid-surface-partition.mjs",
         "pointer-host.mjs",
       ].map((name) => [

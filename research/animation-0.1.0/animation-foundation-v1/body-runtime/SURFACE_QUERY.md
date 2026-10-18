@@ -1,17 +1,50 @@
 # Source-derived surface query
 
-Uses pinned upstream MeshBVH with a private Float64 position buffer. Original actor geometry, vertex methods and index order are unchanged. Current skeleton/bind/morph snapshot gates reuse. Geometry/layout mutation fails closed and requires readmission. Ray layers, distance limits, materials, UV and face indices retain native semantics in the tested cases. No coarse collider is substituted.
+Pinned upstream MeshBVH reads a private Float 64 posed-position buffer. Actor
+geometry, skinning methods, source topology and render fidelity remain unchanged.
+Skeleton/bind/morph snapshots gate reuse. Ordinary, morph and index attributes
+share a layout guard, including interleaved offset, stride, data count/identity/
+version, item size, normalization and backing-array identity. Structural changes
+require readmission before cached hits can be returned.
 
-The scene reserves 32 MiB CPU staging per actor, then commits a conservative resident bound and releases it at disposal. Original actor geometry is borrowed, never disposed by the picker.
+## Rigid and blended surfaces
 
-The initial checkpoint had 37 related tests passed, plus the 900-frame integration and five authored cases. The mixed 900-frame replay P95 improved from about 137 ms to about 6–7 ms, but the more demanding 180-frame continuous moving longpress remains P95 about 31 ms. This is NOT a blanket performance pass. Mixed-workload maximum spikes varied between runs; trace evidence includes spikes with zero surface queries/refits, so they cannot all be attributed to picking. CPU timing on the shared workspace is not native/GPU timing.
+D2 partitions into five single-bone rigid groups and 32,981 blended triangles.
+Only 16,955 of 45,945 vertices need per-pose deformation. Rigid groups use their
+exact affine bone transform and upstream BVH. Morphs, material groups and
+unsupported partition structures use the full-resolution posed-buffer path.
+Direct component stores pack the same Three skinning result into that buffer.
 
-The next performance work is reducing per-pose refresh cost during continuous held movement and profiling non-query spikes, without weakening surface-hit or cancellation semantics. Fresh independent review is still pending. Clean fixture path portability and native testing remain incomplete.
+Nearest point/distance and triangle metadata are compared with native raycasting.
+Co-nearest shared-edge faces may differ in traversal order; the selected face
+must itself be native co-nearest, with matching normal, UV and barycentric data.
+Independent review reproduced three stale-layout cases in the prior guard; the
+revised guard rejects all three. The suite includes 3,000 seeded affine rays,
+reflections, grouped materials, morphs, non-indexed geometry and disposal cases.
+Repository-relative setup and Chinese/space-path checks are documented in the
+[integration guide](../integration/README.md).
 
-## Rigid/blended partition refinement
+## Allocation scope
 
-The admitted D2 mesh splits into five single-bone rigid groups and 32,981 blended triangles. Only 16,955 of the 45,945 vertices need per-pose CPU deformation. Each rigid group is queried through its exact affine bone transform with the upstream BVH; source topology and render geometry remain unchanged. Meshes with morph attributes, material groups, or unsupported partition structure use the general full-resolution posed-buffer strategy. This is a capability choice, not legacy rendering compatibility.
+The actor reserves 32 MiB for query construction, commits a resident estimate,
+and releases its ledger claim at disposal. Borrowed source attributes stay owned
+by the actor. At 100,000 vertices/200,000 triangles, an independent synthetic probe
+counted 9,356,736 bytes of query-owned typed buffers versus a 26,066,048-byte resident
+bound; sampled construction ArrayBuffer growth was about 12.7 MB. These observations
+do not prove instantaneous JavaScript heap or concurrent construction maxima.
 
-Nearest point/distance and selected triangle metadata are tested against native raycasting. Shared-edge or overlapping co-nearest faces may have a different traversal tie order; the reported face must be a native co-nearest face, with its matching normal, UV and barycentric coordinates. This does not promise stable face identity across acceleration algorithms. Reflected bones, nonuniform/root reflections, near/far, layers, non-indexed geometry and invalidation are covered.
+Upstream three-mesh-bvh 0.9.16 retains the last built root through module-level
+build views. In that probe, dispose plus explicit GC retained 801,696 bytes;
+constructing a tiny replacement tree reduced this cache to 32 bytes. This is a
+single bounded upstream cache, not demonstrated per-actor accumulating leakage.
+An empty actor resource ledger therefore does not mean every upstream byte has
+been released. No cache-reset workaround or OOM guarantee is claimed.
 
-The 1,800-frame continuously moving longpress is the stronger acceptance fixture. Measured P95 was about 13–17 ms across repeated 1,800-frame runs, with occasional larger spikes; see its hash-bound evidence. The older 31 ms figure above describes the first full-pose-buffer checkpoint. Mixed replay and native/GPU testing are distinct. Allocation/resource guards and zero release checks do not constitute an OOM guarantee. Fresh independent review and residual spikes remain open.
+## Remaining acceptance gates
+
+86 tests and 900 mixed functional frames pass. Timing remains non-passing for
+stable frame-time acceptance: a 1,800-frame moving hold measured P 95~11.3 ms and
+max~49.3 ms, while a separate mixed run had a~210 ms spike. Some mixed spikes occur
+with no surface query/refit. These uncontrolled shared-host CPU measurements
+cannot certify native/GPU timing. Native Windows/macOS input/GPU, wearable
+contact, and extreme/concurrent peak allocation validation remain open.

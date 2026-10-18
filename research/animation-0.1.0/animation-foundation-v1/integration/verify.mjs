@@ -17,6 +17,7 @@ report.modules = Object.fromEntries(
     "../secondary-motion/index.mjs",
     "../secondary-motion/rapier.mjs",
     "../body-runtime/surface-query.mjs",
+    "../body-runtime/attribute-layout.mjs",
     "../body-runtime/rigid-surface-partition.mjs",
     "../body-runtime/pointer-host.mjs",
     "../../package-lock.json",

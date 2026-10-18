@@ -1,0 +1,126 @@
+✔ D2 shared: actual full18 actor one owner; real ray eligibility ignores caller eligible (1516.264021ms)
+✔ D2 shared: same-frame down/move/up are grouped once; late sealed move atomic reject (1151.397682ms)
+✔ D2 shared: capture drag leaves canvas, follows camera plane, releases to ground (1408.885292ms)
+✔ D2 shared: petting sustained phase can hand off to drag without second actor (2038.436599ms)
+✔ D2 shared: pointerId, primary and buttons cannot steal pointer (1320.337278ms)
+✔ D2 shared: pending leave cancels even captured; missed head contact never qualifies (1087.547149ms)
+✔ D2 shared: capture acquisition/release errors have safe cleanup; uncaptured leave cancels (1123.695253ms)
+✔ D2 shared: lostcapture, blur, visibility and disposal invalidate captures/listeners/queued input (1088.966946ms)
+✔ D2 shared: CSS rect resize and backbuffer DPR do not mix into NDC or threshold (929.381639ms)
+✔ D2 shared: sealed lost capture invalidates lifecycle at exact timestamp without epsilon (982.074247ms)
+✔ D2 shared: continuous petting requires current surface; camera movement ends contact (807.985042ms)
+✔ D2 shared: same-time final move is applied before release captures landing position (832.425ms)
+✔ D2 shared: pointerup final finite client position is applied, cancel has no invented point (863.276688ms)
+✔ D2 shared: pending surface loss before qualification never emits release face (936.668245ms)
+✔ D2 shared: two-hour visible long press drains pure-controller boundary outputs (832.72639ms)
+✔ D2 shared: visibility visible cannot resume while window remains blurred (884.770252ms)
+✔ D2 shared: unbounded move rejects atomically; malformed terminal coordinates still release (851.380385ms)
+✔ D2 shared: DOM router uses continuous-flow controller and passes configured seconds unchanged (726.751143ms)
+✔ D2 shared: invalid cadence option rejects before pack reads or actor allocation (3.256894ms)
+✔ D2 shared: adjustable workbench yaw keeps actual raycast and deformed surface anchor aligned (1929.166158ms)
+✔ D2 shared: bodyOptions cannot change pivot or nonfinite orientation before admission (1.373877ms)
+✔ D2 shared: only validated yaw is forwarded; inherited pivot cannot change actor stage (814.333438ms)
+✔ D2 shared initialization request/listener faults release admitted actor and all registered listeners (2654.936103ms)
+✔ D2 shared cleanup failures still free actor; body invariant fault stops queued RAF and input (2409.315484ms)
+✔ D2 actual pointer pickup drives N3 cavity gate on same live four-joint actor, then clears (824.94728ms)
+Authored comparison {
+  time: 0.15,
+  phase: 'hold',
+  owner: 'authored',
+  requestId: 'authored1',
+  candidate: 'authored0',
+  token: 1,
+  logicalArrival: 0.1,
+  path: 'P2',
+  amount: 0.25,
+  clockArrival: 0.1,
+  clockActualArrival: 0.1,
+  deadline: 3600.1,
+  queued: 0,
+  epoch: 1
+} {
+  time: 0.15,
+  phase: 'enter',
+  owner: 'authored',
+  requestId: 'authored1',
+  candidate: 'authored0',
+  token: 1,
+  logicalArrival: null,
+  path: 'P2',
+  amount: 0.253125,
+  clockArrival: 0.4,
+  clockActualArrival: null,
+  deadline: 0.4,
+  queued: 0,
+  epoch: 1
+}
+✔ authored amounts and enter timing reach actual expression owner (2404.677441ms)
+✔ same-time pointer preempts authored port, lifecycle prevents resurrection (1030.796553ms)
+✔ qualified held target is stable without repeated surface queries (1134.089701ms)
+{"checks":3000,"passed":true,"scope":"Nearest hit and native co-nearest face across synthetic partition/all-rigid/blended/morph/grouped reflected affine poses"}
+✔ independent seeded affine ray matrix matches native co-nearest surfaces (293.682863ms)
+✔ approved D2 surface matches native hits and never mutates source geometry (6092.426986ms)
+✔ morph relative, nonuniform scale, reflection, ray interval and layers (20.977434ms)
+✔ morph absolute, nonuniform scale, reflection, ray interval and layers (5.91586ms)
+✔ morph mode changes require readmission, invalid pose fails closed (2.605407ms)
+✔ attribute normalization, backing replacement and NaN draw ranges cannot reuse cached hits (23.491465ms)
+✔ rigid partitions preserve reflected-bone winding and native face normals (51.990532ms)
+✔ non-indexed geometry keeps source topology and native hit metadata (3.68286ms)
+✔ interleaved position addressing changes cannot reuse a posed BVH (3.076547ms)
+✔ morph and index attribute layouts also require readmission (1.673246ms)
+✔ authored timing changes actual existing QuaternionLane output (57.342606ms)
+✔ finite strategy dispatches configured effects and restores neutral without replay (4.506552ms)
+✔ drag priority interrupts from sampled value then obeys configured exit duration (6.819207ms)
+✔ contacts and face requests execute and release on lifecycle reset (11.622433ms)
+✔ loop bound, pause and disposal leave no queued work (1.773622ms)
+✔ runtime admission rejects full18, ignored pointer knobs and missing executable ports (3.356251ms)
+✔ all five authored fixture strategies execute their declared ports and terminate (10.903375ms)
+✔ throwing release ports cannot retain action ownership or prevent other cleanup (5.275872ms)
+✔ reentrant disposal during dispatch cannot revive contacts or queued action (2.274028ms)
+✔ late face keys coalesce at the observed owner frame without backdating or queue amplification (3.454546ms)
+✔ ear-sakura-leaf: immutable compilation and existing scene owner admission (59.749616ms)
+✔ satchel: immutable compilation and existing scene owner admission (8.153918ms)
+✔ cape-tail: immutable compilation and existing scene owner admission (2.310662ms)
+✔ held-book-release: immutable compilation and existing scene owner admission (2.739138ms)
+✔ halo-particles: immutable compilation and existing scene owner admission (1.757997ms)
+✔ unknown anchor fails closed (1.452706ms)
+✔ unknown asset fails closed (1.288601ms)
+✔ unbounded lifetime rejected (0.778717ms)
+✔ NaN rate rejected (0.710863ms)
+✔ unbounded duration rejected (0.821842ms)
+✔ fractional capacity rejected (0.910592ms)
+✔ unknown emitter rejected (0.494352ms)
+✔ unknown root field rejected (0.702984ms)
+✔ second body owner rejected (1.180889ms)
+✔ input lifecycle override rejected (0.549662ms)
+✔ equal priority shared writers rejected (0.581089ms)
+✔ body bone writer rejected (0.439045ms)
+✔ unknown clip rejected (1.84059ms)
+✔ cleanup shorter than particle TTL rejected (0.977327ms)
+✔ duplicate mount rejected (0.445902ms)
+✔ invalid offset rejected (0.283294ms)
+✔ invalid contact interval rejected (7.270079ms)
+✔ authored and secondary writers conflict (0.522451ms)
+✔ admitted accessory clip and face references preserve existing wire semantics (2.775456ms)
+✔ catalogue exhaustively maps 18 wearables, 39 props, 2 variants without false action completion (0.339904ms)
+✔ oversized input rejects before cloning (8.305186ms)
+✔ configuration getter is rejected without invocation (0.593595ms)
+✔ array getters are rejected without invocation (0.455129ms)
+✔ compiled plans do not freeze or alias caller input (0.498639ms)
+✔ mount nested getter rejected before uniqueness (0.403153ms)
+✔ secondary nested getter rejected before uniqueness (0.722289ms)
+✔ effect nested getter rejected before uniqueness (0.717973ms)
+✔ action nested getter rejected before uniqueness (0.5301ms)
+✔ bone nested getter rejected before uniqueness (0.645243ms)
+✔ frame owner commits one time/revision and preserves ordered ownership (4.277698ms)
+✔ frame owner refuses reentrant updates without multiple body ownership (0.339401ms)
+✔ pending reservations bound aggregate allocation and commits cannot expand (2.655813ms)
+✔ closed ledger still releases pending work but rejects commit and new allocation (0.417241ms)
+ℹ tests 86
+ℹ suites 0
+ℹ pass 86
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 28552.624755

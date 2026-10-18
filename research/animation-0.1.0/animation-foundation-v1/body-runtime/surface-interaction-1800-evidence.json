@@ -1,10 +1,10 @@
 {
   "scope": "CPU-only actual longpress with continuous sub-drag-threshold pointer movement; not GPU",
   "samples": 1800,
-  "p50": 8.853499000000738,
-  "p95": 17.011469999997644,
-  "max": 70.50353799999903,
-  "over16ms": 102,
+  "p50": 6.7107599999999366,
+  "p95": 11.323965999999928,
+  "max": 49.31234500000028,
+  "over16ms": 19,
   "surface": {
     "preparations": 1,
     "refits": 1800,
@@ -16,11 +16,12 @@
     "deformedVertices": 16955,
     "rigidGroups": 5
   },
-  "heapBefore": 18252744,
-  "heapAfter": 19486344,
+  "heapBefore": 18300624,
+  "heapAfter": 19532984,
   "gcAvailable": true,
   "moduleHashes": {
-    "surface-query.mjs": "72cf2c30da1f47f50d9e09c1065d7ac7053c971526d435c35ee4eff0dc06a1d9",
+    "surface-query.mjs": "55a4948bfdfe0889c5a1756deb3f64f20ca97a0925c0ad1cdce48f91cc317176",
+    "attribute-layout.mjs": "e6aef366ee91a85db561c55e831c932c49be6a998d76313ddfb2c435f4a39aca",
     "rigid-surface-partition.mjs": "fe5b873ff030e08d593aecea7e4673b0876c9f4ee7acd3f9c74fa57d3809d53f",
     "pointer-host.mjs": "5930a96d60f4f97cbb34d3eeeb6ab89b422fea4db5bee170d295236a3c799fa6"
   }

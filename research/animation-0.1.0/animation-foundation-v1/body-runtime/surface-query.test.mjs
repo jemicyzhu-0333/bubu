@@ -295,3 +295,88 @@ test("non-indexed geometry keeps source topology and native hit metadata", () =>
     close();
   }
 });
+
+test("interleaved position addressing changes cannot reuse a posed BVH", () => {
+  const { skin, close } = synthetic();
+  const position = skin.geometry.attributes.position;
+  const packed = new Float32Array(position.count * 6);
+  for (let i = 0; i < position.count; i++) {
+    packed.set(
+      [
+        position.getX(i),
+        position.getY(i),
+        position.getZ(i),
+        position.getX(i) + 10,
+        position.getY(i),
+        position.getZ(i),
+      ],
+      i * 6,
+    );
+  }
+  const data = new T.InterleavedBuffer(packed, 6);
+  const attribute = new T.InterleavedBufferAttribute(data, 3, 0);
+  skin.geometry.setAttribute("position", attribute);
+  const query = createSurfaceQuery({
+    THREE: T,
+    MeshBVH,
+    skin,
+    assertCurrent() {},
+  });
+  const caster = new T.Raycaster(
+    new T.Vector3(0, 0, 5),
+    new T.Vector3(0, 0, -1),
+  );
+  try {
+    compare(skin, query, caster);
+    for (const [object, key, changed] of [
+      [attribute, "offset", 3],
+      [data, "stride", 3],
+      [data, "count", data.count - 1],
+      [attribute, "itemSize", 2],
+      [attribute, "data", new T.InterleavedBuffer(packed, 6)],
+    ]) {
+      const old = object[key];
+      object[key] = changed;
+      assert.throws(() => query.firstHit(caster), /attribute changed/, key);
+      object[key] = old;
+    }
+    compare(skin, query, caster);
+  } finally {
+    query.dispose();
+    close();
+  }
+});
+
+test("morph and index attribute layouts also require readmission", () => {
+  const { skin, close } = synthetic();
+  const morph = skin.geometry.morphAttributes.position[0];
+  const packed = new Float32Array(morph.count * 6);
+  for (let i = 0; i < morph.count; i++)
+    packed.set([morph.getX(i), morph.getY(i), morph.getZ(i), 9, 9, 9], i * 6);
+  const attribute = new T.InterleavedBufferAttribute(
+    new T.InterleavedBuffer(packed, 6),
+    3,
+    0,
+  );
+  skin.geometry.morphAttributes.position[0] = attribute;
+  const query = createSurfaceQuery({
+    THREE: T,
+    MeshBVH,
+    skin,
+    assertCurrent() {},
+  });
+  const caster = new T.Raycaster();
+  try {
+    attribute.offset = 3;
+    assert.throws(() => query.firstHit(caster), /morph source changed/);
+    attribute.offset = 0;
+    attribute.data.stride = 3;
+    assert.throws(() => query.firstHit(caster), /morph source changed/);
+    attribute.data.stride = 6;
+    skin.geometry.index.normalized = true;
+    assert.throws(() => query.firstHit(caster), /source changed/);
+  } finally {
+    query.dispose();
+    close();
+  }
+});

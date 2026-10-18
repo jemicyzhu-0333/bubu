@@ -1,0 +1,51 @@
+{
+  "runs": [
+    {
+      "vertices": 20000,
+      "triangles": 40000,
+      "buildMs": 75.01409699999999,
+      "residentTypedBytes": 1832932,
+      "reportedResidentBoundBytes": 5266048,
+      "observedMaxArrayBufferDelta": 2591508,
+      "observedMaxHeapUsedDelta": 4912584,
+      "observedMaxRSSDelta": 5316608,
+      "reservation": 33554432
+    },
+    {
+      "vertices": 46000,
+      "triangles": 90000,
+      "buildMs": 186.7352199999999,
+      "residentTypedBytes": 4123504,
+      "reportedResidentBoundBytes": 11794048,
+      "observedMaxArrayBufferDelta": 5645440,
+      "observedMaxHeapUsedDelta": 9724776,
+      "observedMaxRSSDelta": 19456000,
+      "reservation": 33554432
+    },
+    {
+      "vertices": 100000,
+      "triangles": 200000,
+      "buildMs": 222.07375599999995,
+      "residentTypedBytes": 9356736,
+      "reportedResidentBoundBytes": 26066048,
+      "observedMaxArrayBufferDelta": 12724032,
+      "observedMaxHeapUsedDelta": 14135872,
+      "observedMaxRSSDelta": 30285824,
+      "reservation": 33554432
+    }
+  ],
+  "limitations": [
+    "Per-phase snapshots are not instantaneous high-water measurement.",
+    "Heap/RSS include V8/runtime and uncollected temporary objects; they are not exact query ownership.",
+    "Synthetic mesh distributions do not exhaust all admitted topology, pathological BVH trees or concurrent actors."
+  ],
+  "dependencyRetention": {
+    "library": "three-mesh-bvh 0.9.16",
+    "location": "src/core/build/buildUtils.js:3,22-25",
+    "cause": "Module-scoped typed views retain the most recently populated root buffer",
+    "observedBytesAfterDisposeGC": 801696,
+    "afterBuildingTinyBVH": 32,
+    "boundedNotPerActorAccumulation": true
+  },
+  "scope": "Independent bounded synthetic Node CPU allocation probe; samples are not instantaneous high-water measurements"
+}

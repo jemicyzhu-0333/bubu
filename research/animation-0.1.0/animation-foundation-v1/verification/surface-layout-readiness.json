@@ -1,0 +1,46 @@
+{
+  "baseCommit": "780433bba58cb004ea87a039d896760041b46440",
+  "scope": "Interleaved source-layout fail-closed fix and equivalent posed-buffer packing; CPU only",
+  "validation": {
+    "nodeTests": 86,
+    "failures": 0,
+    "independentAffineRays": 3000,
+    "independentInvalidationCases": 3,
+    "mixedFunctionalFrames": 900
+  },
+  "findingsFixed": [
+    "position.offset stale hit",
+    "interleaved data.stride stale hit",
+    "morph.offset stale hit"
+  ],
+  "open": [
+    "Mixed CPU replay contains approximately210 ms spike; stable performance not accepted",
+    "Native input/GPU and Windows/macOS validation",
+    "Wearable contact and new mesh binding admission",
+    "Maximum-capacity construction/allocation envelope validation"
+  ],
+  "modules": {
+    "body-runtime/SURFACE_QUERY.md": "f26a4b3faf321f9a0c2f1e9f9fb568095b1d7ecd3ab05f5af3b9a20741a711c3",
+    "body-runtime/attribute-layout.mjs": "e6aef366ee91a85db561c55e831c932c49be6a998d76313ddfb2c435f4a39aca",
+    "body-runtime/surface-affine.test.mjs": "2cf91ab2fd189e77aa77c3b6c7ab46f9d976da715cfad7d32250a20d16153031",
+    "body-runtime/surface-interaction-1800-evidence.json": "b1153683487a75c94da8cd734741437863012bd366c9c7fff6d2b9fc80bb714c",
+    "body-runtime/surface-query.mjs": "55a4948bfdfe0889c5a1756deb3f64f20ca97a0925c0ad1cdce48f91cc317176",
+    "body-runtime/surface-query.test.mjs": "51508ab2816fe22d803363c321028b92634460b247baa05775f621808ca5b198",
+    "body-runtime/verify-memory-envelope.mjs": "968fc2f85d643bf28a645b0ac45fcbd3c7d4064a27c12155bd8d9f374490463a",
+    "body-runtime/verify-surface-interaction.mjs": "b78fab79a7955be52f9b1cb2ad630ba5e5e106dbfddd1be23059ae949dea68d7",
+    "integration/evidence/integration-report.json": "fde5a856b60fcc311e08097474a843b14c9b4290eca8f93064c70ca1ef158296",
+    "integration/verify.mjs": "7d9024083586441ffc000232517f7191af9a7f4e4e26a9a8e36b3a8a0fd5da51",
+    "verification/surface-layout-tests.txt": "6ec201f838fb3ffc758c396d60efedb54fa7e9cd975a6f5163b20dba8c7389a2",
+    "verification/surface-memory-evidence.json": "2ea29d05a8b43f4f9461ac808c70339025b4e55f1d005851e4eac67cf8a2e7e3"
+  },
+  "resourceProbe": {
+    "maxVertices": 100000,
+    "maxTriangles": 200000,
+    "typedBuffers": 9356736,
+    "residentBound": 26066048,
+    "sampledArrayBufferGrowth": 12724032,
+    "upstreamRetainedAfterDisposeGC": 801696,
+    "upstreamCacheReplacementResult": 32,
+    "conclusion": "Single bounded upstream build cache observed; actor ledger zero does not mean all library memory zero; instantaneous/concurrent peaks remain unverified"
+  }
+}
