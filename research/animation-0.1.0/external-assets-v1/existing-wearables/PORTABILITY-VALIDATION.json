@@ -1,0 +1,103 @@
+{
+  "scope": [
+    "existing-wearables",
+    "headwear-expansion",
+    "themed-accessories"
+  ],
+  "modifiedPackagedFiles": [
+    "existing-wearables/src/audit-contact-visibility.py",
+    "existing-wearables/src/audit-stage.py",
+    "existing-wearables/src/audit-tea.py",
+    "existing-wearables/src/classify-contact-points.py",
+    "existing-wearables/src/compose-contact-review.py",
+    "existing-wearables/src/compose-review.py",
+    "existing-wearables/src/existing-wearable-host.mjs",
+    "existing-wearables/src/prepare-contact-review.py",
+    "existing-wearables/src/render-all.sh",
+    "existing-wearables/src/render-contact-review.sh",
+    "existing-wearables/src/test-and-export.mjs",
+    "existing-wearables/src/verify-evidence.py",
+    "headwear-expansion/src/audit_tea.py",
+    "headwear-expansion/src/contact_sheets.py",
+    "headwear-expansion/src/render_batch.sh",
+    "headwear-expansion/src/test_and_export.mjs",
+    "headwear-expansion/src/verify_tea_coordinates.py",
+    "headwear-expansion/src/write_manifest.mjs",
+    "themed-accessories/src/audit_tea.py",
+    "themed-accessories/src/finalize.py",
+    "themed-accessories/src/test_and_export.mjs",
+    "themed-accessories/src/verify_catalog.mjs",
+    "themed-accessories/src/verify_tea_coordinates.py"
+  ],
+  "addedSourceAndDocumentation": [
+    "existing-wearables/src/portable_paths.py",
+    "existing-wearables/PORTABILITY.md",
+    "headwear-expansion/src/portable_paths.py",
+    "headwear-expansion/PORTABILITY.md",
+    "themed-accessories/src/portable_paths.py",
+    "themed-accessories/PORTABILITY.md"
+  ],
+  "binarySHA256Preservation": {
+    "checkedFiles": 68,
+    "allUnchanged": true
+  },
+  "checks": {
+    "existing-wearables": {
+      "hostReport": "existing-wearables/.validation/existing-wearables/reports/host-audit.json",
+      "dragFrames": 271,
+      "longpressFrames": 1891,
+      "staticExports": 5,
+      "teaFrames": 271,
+      "teaAllSampledClear": false,
+      "freshTeaReport": "existing-wearables/.validation/existing-wearables/reports/tea-collision.json"
+    },
+    "headwear-expansion": {
+      "hostReport": "headwear-expansion/.validation/headwear-expansion/reports/host-audit.json",
+      "dragFrames": 271,
+      "longpressFrames": 1891,
+      "staticExports": 8,
+      "teaFrames": 271,
+      "teaAllSampledClear": true,
+      "freshTeaReport": "headwear-expansion/.validation/headwear-expansion/reports/tea-collision-full.json"
+    },
+    "themed-accessories": {
+      "hostReport": "themed-accessories/.validation/themed-accessories/reports/host-audit.json",
+      "dragFrames": 271,
+      "longpressFrames": 1891,
+      "staticExports": 5,
+      "teaFrames": 271,
+      "teaAllSampledClear": true,
+      "freshTeaReport": "themed-accessories/.validation/themed-accessories/reports/tea-collision-full.json"
+    }
+  },
+  "existingEvidenceRejectionChecks": {
+    "hostFresh": true,
+    "teaFresh": true,
+    "recomputedOriginalVertexProof": true,
+    "counterexamples": {
+      "wrongWorldMatrix": "rejected",
+      "changedBodyVertex": "rejected",
+      "staleWrapperHash": "rejected"
+    },
+    "verifierSHA256": "8663894b6c9e1b195471ee2d096d87bd94f8306ad0716bae032ce31f9d9e9971"
+  },
+  "metadataPolicyFields": [
+    "id",
+    "slot",
+    "exclusiveGroup",
+    "exclusivePriority",
+    "minLevel",
+    "unlockKind",
+    "optInOnly",
+    "formId",
+    "skin"
+  ],
+  "limitations": [
+    "All checks are CPU research only; no browser/WebGL/native/production integration or final visual acceptance.",
+    "Existing satchel/scarf discrete tea overlaps retained; CONTACT-LIMITS unchanged.",
+    "Packaged historical reports, hashes and source-path strings were not rewritten; new evidence goes to explicit cache outputs.",
+    "Optional Blender rendering/composition was not rerun. Legacy model builders were not run; original GLB/prototype bytes preserved.",
+    "Themed finalize requires a complete isolated authoring cache and rendered frames; fails explicitly otherwise."
+  ],
+  "entrypointScan": "No hardcoded recovery sibling or workspace imports remain in these groups src files."
+}

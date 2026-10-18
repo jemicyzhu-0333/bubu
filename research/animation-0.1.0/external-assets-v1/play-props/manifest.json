@@ -1,0 +1,767 @@
+{
+  "schema": "bubu-props/1",
+  "coordinates": "glTF X right Y up Z front, approved05 design units",
+  "bodyWidth": 2.3797432184,
+  "status": "local isolated assets; no production integration or native acceptance",
+  "items": [
+    {
+      "id": "ball",
+      "file": "models/ball.glb",
+      "vertices": 2600,
+      "triangles": 4416,
+      "bounds": {
+        "min": [
+          -0.25999999046325684,
+          9.536743172944284e-09,
+          -0.25999999046325684
+        ],
+        "max": [
+          0.25999999046325684,
+          0.5199999904632568,
+          0.25999999046325684
+        ]
+      },
+      "sockets": {
+        "center": [
+          0,
+          0.26,
+          0
+        ],
+        "support": [
+          0,
+          0,
+          0
+        ],
+        "touch": [
+          -0.26,
+          0.26,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Ball_panel_0",
+          "color": "#f5e7ce",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Ball_panel_1",
+          "color": "#a4d3c1",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Ball_panel_2",
+          "color": "#f5e7ce",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Ball_panel_3",
+          "color": "#a4d3c1",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Ball_panel_4",
+          "color": "#f5e7ce",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Ball_panel_5",
+          "color": "#a4d3c1",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Ball_panel_6",
+          "color": "#f5e7ce",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Ball_panel_7",
+          "color": "#a4d3c1",
+          "roughness": 0.65,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.29499999046325687,
+          -0.03499999046325683,
+          -0.29499999046325687
+        ],
+        "max": [
+          0.29499999046325687,
+          0.5549999904632569,
+          0.29499999046325687
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "separate built-in imagegen concept inspected; user acceptance pending",
+        "model": "editable real 3D exported",
+        "staticMount": "actual original 13 meshes unchanged; static contact audit passed",
+        "animation": "pending, not authored",
+        "wardrobe": "pending",
+        "nativeRuntime": "pending"
+      },
+      "prototype": "prototypes/ball.png",
+      "sha256": "214a65365b5e3d6abb4609eb109f83ee6d3bca77e543d92c82cbb294cbd125ff",
+      "renders": {
+        "front": "renders/ball-front.png",
+        "quarter": "renders/ball-quarter.png",
+        "side": "renders/ball-side.png",
+        "back": "renders/ball-back.png"
+      },
+      "mountedRenders": {
+        "0": "renders/mounted-ball-0/0000.png",
+        "45": "renders/mounted-ball-45/0000.png",
+        "90": "renders/mounted-ball-90/0000.png",
+        "180": "renders/mounted-ball-180/0000.png"
+      },
+      "provenance": "Built-in image_gen per family; hand-authored editable Three.js geometry from inspected design, no PNG plane or claimed automatic reconstruction.",
+      "scaleRelativeToBodyWidth": 0.2185109624038056
+    },
+    {
+      "id": "energy-token",
+      "file": "models/energy-token.glb",
+      "vertices": 420,
+      "triangles": 140,
+      "bounds": {
+        "min": [
+          -0.10079222917556763,
+          0.014020679518580437,
+          -0.07709614932537079
+        ],
+        "max": [
+          0.11629682034254074,
+          0.41597163677215576,
+          0.09556427597999573
+        ]
+      },
+      "sockets": {
+        "grip": [
+          -0.1,
+          0.21,
+          0
+        ],
+        "support": [
+          0.01,
+          0,
+          0
+        ],
+        "tip": [
+          0,
+          0.43,
+          0
+        ],
+        "center": [
+          0,
+          0.215,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Energy_crystal_facets_0",
+          "color": "#ffc236",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Energy_crystal_facets_1",
+          "color": "#ffe990",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Energy_crystal_facets_2",
+          "color": "#ec991f",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Energy_crystal_facets_3",
+          "color": "#fff0b0",
+          "roughness": 0.65,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.13579222917556763,
+          -0.020979320481419567,
+          -0.11209614932537079
+        ],
+        "max": [
+          0.15129682034254074,
+          0.4509716367721558,
+          0.13056427597999573
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "separate built-in imagegen concept inspected; user acceptance pending",
+        "model": "editable real 3D exported",
+        "staticMount": "actual original 13 meshes unchanged; static contact audit passed",
+        "animation": "pending, not authored",
+        "wardrobe": "pending",
+        "nativeRuntime": "pending"
+      },
+      "prototype": "prototypes/energy-token.png",
+      "sha256": "34bb6bd0720ddf64e82192da92b1576f5f279dd297a35bb7656f78aaa28b7da6",
+      "renders": {
+        "front": "renders/energy-token-front.png",
+        "quarter": "renders/energy-token-quarter.png",
+        "side": "renders/energy-token-side.png",
+        "back": "renders/energy-token-back.png"
+      },
+      "mountedRenders": {
+        "0": "renders/mounted-energy-token-0/0000.png",
+        "45": "renders/mounted-energy-token-45/0000.png",
+        "90": "renders/mounted-energy-token-90/0000.png",
+        "180": "renders/mounted-energy-token-180/0000.png"
+      },
+      "provenance": "Built-in image_gen per family; hand-authored editable Three.js geometry from inspected design, no PNG plane or claimed automatic reconstruction.",
+      "scaleRelativeToBodyWidth": 0.09122372861054578,
+      "semanticIdentity": "golden energy crystal; not coin or currency",
+      "sourceIdentity": "original V1 assets/companion/dango/raster/tools/energy.png",
+      "rejectedPriorVersion": "rejected/energy-coin-v1",
+      "physicalBevel": 0.008
+    },
+    {
+      "id": "treasure-chest",
+      "file": "models/treasure-chest.glb",
+      "vertices": 15138,
+      "triangles": 5664,
+      "bounds": {
+        "min": [
+          -0.3425000008940697,
+          -8.940696724635266e-10,
+          -0.2539271745085716
+        ],
+        "max": [
+          0.3425000008940697,
+          0.514000005722046,
+          0.2605000001862645
+        ]
+      },
+      "sockets": {
+        "support": [
+          0,
+          0,
+          0
+        ],
+        "lidHinge": [
+          0,
+          0.32,
+          -0.23
+        ],
+        "latch": [
+          0,
+          0.3,
+          0.27
+        ],
+        "interior": [
+          0,
+          0.15,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Chest_floor",
+          "color": "#6f4e31",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Chest_wall_z-0.215",
+          "color": "#997044",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Chest_wall_z0.215",
+          "color": "#997044",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Chest_wall_x-0.32",
+          "color": "#997044",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Chest_wall_x0.32",
+          "color": "#997044",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Chest_domed_lid",
+          "color": "#997044",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Chest_lid_band_-0.23",
+          "color": "#d8ac56",
+          "roughness": 0.65,
+          "metalness": 0.4
+        },
+        {
+          "mesh": "Chest_lid_band_0.23",
+          "color": "#d8ac56",
+          "roughness": 0.65,
+          "metalness": 0.4
+        },
+        {
+          "mesh": "Chest_base_band_-0.23_-0.237",
+          "color": "#d8ac56",
+          "roughness": 0.65,
+          "metalness": 0.4
+        },
+        {
+          "mesh": "Chest_base_band_-0.23_0.237",
+          "color": "#d8ac56",
+          "roughness": 0.65,
+          "metalness": 0.4
+        },
+        {
+          "mesh": "Chest_bottom_band_-0.23",
+          "color": "#d8ac56",
+          "roughness": 0.65,
+          "metalness": 0.4
+        },
+        {
+          "mesh": "Chest_base_band_0.23_-0.237",
+          "color": "#d8ac56",
+          "roughness": 0.65,
+          "metalness": 0.4
+        },
+        {
+          "mesh": "Chest_base_band_0.23_0.237",
+          "color": "#d8ac56",
+          "roughness": 0.65,
+          "metalness": 0.4
+        },
+        {
+          "mesh": "Chest_bottom_band_0.23",
+          "color": "#d8ac56",
+          "roughness": 0.65,
+          "metalness": 0.4
+        },
+        {
+          "mesh": "Chest_latch",
+          "color": "#d8ac56",
+          "roughness": 0.65,
+          "metalness": 0.4
+        },
+        {
+          "mesh": "Chest_foot_-0.26_-0.16",
+          "color": "#997044",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Chest_foot_-0.26_0.16",
+          "color": "#997044",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Chest_foot_0.26_-0.16",
+          "color": "#997044",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Chest_foot_0.26_0.16",
+          "color": "#997044",
+          "roughness": 0.65,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.37750000089406965,
+          -0.035000000894069676,
+          -0.28892717450857164
+        ],
+        "max": [
+          0.37750000089406965,
+          0.549000005722046,
+          0.29550000018626454
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "separate built-in imagegen concept inspected; user acceptance pending",
+        "model": "editable real 3D exported",
+        "staticMount": "actual original 13 meshes unchanged; static contact audit passed",
+        "animation": "pending, not authored",
+        "wardrobe": "pending",
+        "nativeRuntime": "pending"
+      },
+      "prototype": "prototypes/treasure-chest.png",
+      "sha256": "b08718532735a0683d3785bce543f517888b9407fe6ff6ad902a34fd5fcb0fd3",
+      "renders": {
+        "front": "renders/treasure-chest-front.png",
+        "quarter": "renders/treasure-chest-quarter.png",
+        "side": "renders/treasure-chest-side.png",
+        "back": "renders/treasure-chest-back.png"
+      },
+      "mountedRenders": {
+        "0": "renders/mounted-treasure-chest-0/0000.png",
+        "45": "renders/mounted-treasure-chest-45/0000.png",
+        "90": "renders/mounted-treasure-chest-90/0000.png",
+        "180": "renders/mounted-treasure-chest-180/0000.png"
+      },
+      "provenance": "Built-in image_gen per family; hand-authored editable Three.js geometry from inspected design, no PNG plane or claimed automatic reconstruction.",
+      "scaleRelativeToBodyWidth": 0.2878461829376252
+    },
+    {
+      "id": "paper-plane",
+      "file": "models/paper-plane.glb",
+      "vertices": 60,
+      "triangles": 32,
+      "bounds": {
+        "min": [
+          -0.27000001072883606,
+          0,
+          -0.27000001072883606
+        ],
+        "max": [
+          0.27000001072883606,
+          0.12300000339746475,
+          0.3799999952316284
+        ]
+      },
+      "sockets": {
+        "grip": [
+          0,
+          0.035,
+          -0.1
+        ],
+        "nose": [
+          0,
+          0.06,
+          0.38
+        ],
+        "support": [
+          0,
+          0,
+          0
+        ],
+        "foldAxis": [
+          0,
+          0.09,
+          -0.22
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Plane_folded_wing_-1",
+          "color": "#f5eedc",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Plane_keel_fold_-1",
+          "color": "#e7ddc4",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Plane_folded_wing_1",
+          "color": "#f5eedc",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Plane_keel_fold_1",
+          "color": "#e7ddc4",
+          "roughness": 0.65,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.3050000107288361,
+          -0.035,
+          -0.3050000107288361
+        ],
+        "max": [
+          0.3050000107288361,
+          0.15800000339746476,
+          0.41499999523162845
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "separate built-in imagegen concept inspected; user acceptance pending",
+        "model": "editable real 3D exported",
+        "staticMount": "actual original 13 meshes unchanged; static contact audit passed",
+        "animation": "pending, not authored",
+        "wardrobe": "pending",
+        "nativeRuntime": "pending"
+      },
+      "prototype": "prototypes/paper-plane.png",
+      "sha256": "3321b1ff61dcc20e5d53bc1a24ff6b7077cb0d36354e3f08ac50b190f2b8461f",
+      "renders": {
+        "front": "renders/paper-plane-front.png",
+        "quarter": "renders/paper-plane-quarter.png",
+        "side": "renders/paper-plane-side.png",
+        "back": "renders/paper-plane-back.png"
+      },
+      "mountedRenders": {
+        "0": "renders/mounted-paper-plane-0/0000.png",
+        "45": "renders/mounted-paper-plane-45/0000.png",
+        "90": "renders/mounted-paper-plane-90/0000.png",
+        "180": "renders/mounted-paper-plane-180/0000.png"
+      },
+      "provenance": "Built-in image_gen per family; hand-authored editable Three.js geometry from inspected design, no PNG plane or claimed automatic reconstruction.",
+      "scaleRelativeToBodyWidth": 0.22691524752857015
+    },
+    {
+      "id": "cardboard-box",
+      "file": "models/cardboard-box.glb",
+      "vertices": 216,
+      "triangles": 108,
+      "bounds": {
+        "min": [
+          -0.402805854729028,
+          -7.152557379708213e-09,
+          -0.38469027487108426
+        ],
+        "max": [
+          0.402805854729028,
+          0.5125617717374669,
+          0.38469027487108426
+        ]
+      },
+      "sockets": {
+        "support": [
+          0,
+          0,
+          0
+        ],
+        "interior": [
+          0,
+          0.02,
+          0
+        ],
+        "rim": [
+          0,
+          0.36,
+          0.22
+        ],
+        "flapFront": [
+          0,
+          0.36,
+          0.22
+        ],
+        "flapBack": [
+          0,
+          0.36,
+          -0.22
+        ],
+        "flapLeft": [
+          -0.28,
+          0.36,
+          0
+        ],
+        "flapRight": [
+          0.28,
+          0.36,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Carton_floor",
+          "color": "#c5a16b",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Carton_wall_x-1",
+          "color": "#c5a16b",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Carton_wall_z-1",
+          "color": "#c5a16b",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Carton_flap_x_-1",
+          "color": "#c5a16b",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Carton_flap_z_-1",
+          "color": "#c5a16b",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Carton_wall_x1",
+          "color": "#c5a16b",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Carton_wall_z1",
+          "color": "#c5a16b",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Carton_flap_x_1",
+          "color": "#c5a16b",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Carton_flap_z_1",
+          "color": "#c5a16b",
+          "roughness": 0.65,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.437805854729028,
+          -0.03500000715255738,
+          -0.41969027487108423
+        ],
+        "max": [
+          0.437805854729028,
+          0.5475617717374669,
+          0.41969027487108423
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "separate built-in imagegen concept inspected; user acceptance pending",
+        "model": "editable real 3D exported",
+        "staticMount": "actual original 13 meshes unchanged; static contact audit passed",
+        "animation": "pending, not authored",
+        "wardrobe": "pending",
+        "nativeRuntime": "pending"
+      },
+      "prototype": "prototypes/cardboard-box.png",
+      "sha256": "0576a428780702b70caf707c44c1d79720309c2e51f9d526be66a28d0e8b28dd",
+      "renders": {
+        "front": "renders/cardboard-box-front.png",
+        "quarter": "renders/cardboard-box-quarter.png",
+        "side": "renders/cardboard-box-side.png",
+        "back": "renders/cardboard-box-back.png"
+      },
+      "mountedRenders": {
+        "0": "renders/mounted-cardboard-box-0/0000.png",
+        "45": "renders/mounted-cardboard-box-45/0000.png",
+        "90": "renders/mounted-cardboard-box-90/0000.png",
+        "180": "renders/mounted-cardboard-box-180/0000.png"
+      },
+      "provenance": "Built-in image_gen per family; hand-authored editable Three.js geometry from inspected design, no PNG plane or claimed automatic reconstruction.",
+      "scaleRelativeToBodyWidth": 0.33852883925842314
+    },
+    {
+      "id": "building-block",
+      "file": "models/building-block.glb",
+      "vertices": 900,
+      "triangles": 300,
+      "bounds": {
+        "min": [
+          -0.1550000011920929,
+          -1.1920928966180355e-09,
+          -0.1550000011920929
+        ],
+        "max": [
+          0.1550000011920929,
+          0.3100000011920929,
+          0.1550000011920929
+        ]
+      },
+      "sockets": {
+        "support": [
+          0,
+          0,
+          0
+        ],
+        "stack": [
+          0,
+          0.31,
+          0
+        ],
+        "grip": [
+          -0.155,
+          0.155,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Block_rounded_cube",
+          "color": "#a8ccbc",
+          "roughness": 0.65,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.1900000011920929,
+          -0.0350000011920929,
+          -0.1900000011920929
+        ],
+        "max": [
+          0.1900000011920929,
+          0.34500000119209295,
+          0.1900000011920929
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "separate built-in imagegen concept inspected; user acceptance pending",
+        "model": "editable real 3D exported",
+        "staticMount": "actual original 13 meshes unchanged; static contact audit passed",
+        "animation": "pending, not authored",
+        "wardrobe": "pending",
+        "nativeRuntime": "pending"
+      },
+      "prototype": "prototypes/building-block.png",
+      "sha256": "3263cc7917a8e01e154cd6eabe0ab28cc0593973307925e86918ad3426417c8e",
+      "renders": {
+        "front": "renders/building-block-front.png",
+        "quarter": "renders/building-block-quarter.png",
+        "side": "renders/building-block-side.png",
+        "back": "renders/building-block-back.png"
+      },
+      "mountedRenders": {
+        "0": "renders/mounted-building-block-0/0000.png",
+        "45": "renders/mounted-building-block-45/0000.png",
+        "90": "renders/mounted-building-block-90/0000.png",
+        "180": "renders/mounted-building-block-180/0000.png"
+      },
+      "provenance": "Built-in image_gen per family; hand-authored editable Three.js geometry from inspected design, no PNG plane or claimed automatic reconstruction.",
+      "scaleRelativeToBodyWidth": 0.13026615644380812
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "count": 9,
+  "tests": {
+    "nodeTests": 49,
+    "passed": 49,
+    "log": "reports/model-tests.log",
+    "staticBVH": "reports/mount-audit.json",
+    "sourceActor": "../bubu-accessory-expansion-20261018/review/halo-static.json"
+  },
+  "allStaticPass": true,
+  "allBodyAndFaceCrossingsZero": true,
+  "batches": [
+    [
+      "butterfly",
+      "ground-hole",
+      "bubble-wand"
+    ],
+    [
+      "magic-hat",
+      "star",
+      "yarn"
+    ],
+    [
+      "knitting-needle",
+      "pumpkin-lantern",
+      "ghost"
+    ]
+  ],
+  "limitations": [
+    "No new action timelines",
+    "No production integration or OS/GPU claims",
+    "Ground-hole is environmental cutaway geometry plus pure clipping contract; runtime material integration pending",
+    "No wardrobe combination certification",
+    "Generated character reference pixels never replace original actor"
+  ]
+}

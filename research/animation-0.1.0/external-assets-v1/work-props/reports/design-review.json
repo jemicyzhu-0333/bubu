@@ -1,0 +1,31 @@
+{
+  "tool": "official built-in image_gen; no paid external service or API credentials",
+  "bodyReference": "../bubu-publication-20261018/research/animation-0.1.0/expression-references/revisions-01/approved-r6-rest-front.png",
+  "items": [
+    {
+      "id": "keyboard",
+      "image": "prototypes/keyboard.png",
+      "review": "Two hands and two feet. Keyboard standalone design accepted as modelling reference; generated body never used in model. View panels are illustrative, not exact orthographic evidence. Final shell depth narrowed to .47 design units while retaining 19 independent keys, to maintain body clearance after rigid palm-root fitting."
+    },
+    {
+      "id": "laptop",
+      "image": "prototypes/laptop.png",
+      "rejected": "prototypes/laptop-v1-rejected.png",
+      "review": "First character usage did not show hands typing; regenerated. Second still leaves side hands visible despite prompt. Accept only laptop shape/orientation reference; character hand contact NOT accepted from image. Replaced usage evidence with actual approved mesh static fit and real 4-view renders. Lid outward, screen inward. Final base depth .58 and local base center z=.05 preserve inward keyboard access while avoiding body intersections; screen and outer lid remain independent."
+    },
+    {
+      "id": "microphone",
+      "image": "prototypes/microphone.png",
+      "review": "Two existing hands, single grip, no wire/stand. Simple handle, collar and grille. Actual mount moved toward mouth after initial real render showed it too near left eye."
+    },
+    {
+      "id": "drum",
+      "image": "prototypes/drum.png",
+      "review": "Two hand contacts on top; no sticks or new semantics. Short cylinder and soft cream rims. Actual mount moved forward after real triangle audit found body intersections. Final actual model reduced 20% in height with ground unchanged after independent review found hands obscuring mouth. Both hands lower rigidly with drumhead; mouth clear in corrected real front/quarter renders."
+    }
+  ],
+  "geometry": "Actual independently modelled Three.js solid meshes exported GLB; no prototype texture or PNG planes.",
+  "nativeAcceptance": "pending",
+  "allGarmentCombinations": "pending",
+  "newActionTiming": "not authored; static rigid contact poses only"
+}

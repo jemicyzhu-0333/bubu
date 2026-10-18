@@ -1,0 +1,467 @@
+{
+  "schema": "bubu-props/1",
+  "coordinates": "glTF X right Y up Z front, approved05 design units",
+  "bodyWidth": 2.3797432184,
+  "status": "local isolated assets; no production integration or native acceptance",
+  "items": [
+    {
+      "id": "cup",
+      "file": "models/cup.glb",
+      "triangles": 2048,
+      "bounds": {
+        "min": [
+          -0.23081979155540466,
+          0,
+          -0.23081979155540466
+        ],
+        "max": [
+          0.41276299953460693,
+          0.30914849042892456,
+          0.23081979155540466
+        ]
+      },
+      "sockets": {
+        "rim": [
+          0,
+          0.3091484835864778,
+          -0.21927879592599406
+        ],
+        "handle": [
+          0.37392805200011625,
+          0.16384869630083324,
+          0
+        ],
+        "support": [
+          -0.18927222385191067,
+          0.10820196925526722,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Sip_cup_shell",
+          "color": "#9bcdbf",
+          "roughness": 0.52,
+          "metalness": 0
+        },
+        {
+          "mesh": "Sip_cup_handle",
+          "color": "#9bcdbf",
+          "roughness": 0.52,
+          "metalness": 0
+        },
+        {
+          "mesh": "Sip_tea_surface",
+          "color": "#613220",
+          "roughness": 0.28,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.2658197915554047,
+          -0.035,
+          -0.2658197915554047
+        ],
+        "max": [
+          0.44776299953460696,
+          0.3441484904289246,
+          0.2658197915554047
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "existing tea cup reused",
+        "model": "GLB cold-loaded, material and socket verified",
+        "mount": "existing tea contact reused",
+        "validation": "46 local Node tests + 1 frame-visibility test; actual static four-angle CPU rendering reviewed",
+        "wardrobeCombinations": "reserved clearance envelopes; final cross-worker wardrobe audit pending",
+        "nativeAcceptance": "not performed"
+      },
+      "prototype": null,
+      "sha256": "b3feb308e97470a25e841f66c2a03981cf4a79416d3714dbfb64cbd6d0e890c2",
+      "bytes": 53976,
+      "mountProfiles": "mount-profiles.json",
+      "evidence": [
+        "reports/static-fit-audit.json",
+        "reports/model-tests.log",
+        "renders/model-review.png",
+        "renders/static-fit-review.png"
+      ]
+    },
+    {
+      "id": "open-book",
+      "file": "models/open-book.glb",
+      "triangles": 9996,
+      "bounds": {
+        "min": [
+          -0.44200970379091964,
+          1.1920928966180355e-08,
+          -0.3059267109855507
+        ],
+        "max": [
+          0.44200970379091964,
+          0.7249999880790711,
+          0.05999999910593033
+        ]
+      },
+      "sockets": {
+        "left": [
+          -0.41,
+          0.5,
+          -0.26
+        ],
+        "right": [
+          0.41,
+          0.5,
+          -0.26
+        ],
+        "support": [
+          0,
+          0,
+          0
+        ],
+        "page": [
+          0.22,
+          0.43,
+          -0.11
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Book_left_leaf_cover",
+          "color": "#608985",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Book_left_leaf_pages",
+          "color": "#fff1d5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Book_left_leaf_page_edge_0",
+          "color": "#e5d5b8",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Book_left_leaf_fanned_leaf_0",
+          "color": "#fff1d5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Book_left_leaf_page_edge_1",
+          "color": "#e5d5b8",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Book_left_leaf_fanned_leaf_1",
+          "color": "#fff1d5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Book_left_leaf_page_edge_2",
+          "color": "#e5d5b8",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Book_left_leaf_fanned_leaf_2",
+          "color": "#fff1d5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Book_right_leaf_cover",
+          "color": "#608985",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Book_right_leaf_pages",
+          "color": "#fff1d5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Book_right_leaf_page_edge_0",
+          "color": "#e5d5b8",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Book_right_leaf_fanned_leaf_0",
+          "color": "#fff1d5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Book_right_leaf_page_edge_1",
+          "color": "#e5d5b8",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Book_right_leaf_fanned_leaf_1",
+          "color": "#fff1d5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Book_right_leaf_page_edge_2",
+          "color": "#e5d5b8",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Book_right_leaf_fanned_leaf_2",
+          "color": "#fff1d5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Book_spine",
+          "color": "#608985",
+          "roughness": 0.65,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.47700970379091967,
+          -0.03499998807907104,
+          -0.3409267109855507
+        ],
+        "max": [
+          0.47700970379091967,
+          0.7599999880790711,
+          0.09499999910593034
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "generated and self-reviewed; final user acceptance pending",
+        "model": "GLB cold-loaded, material and socket verified",
+        "mount": "independent static fit; actual hand meshes audited; no action choreography",
+        "validation": "46 local Node tests + 1 frame-visibility test; actual static four-angle CPU rendering reviewed",
+        "wardrobeCombinations": "reserved clearance envelopes; final cross-worker wardrobe audit pending",
+        "nativeAcceptance": "not performed"
+      },
+      "prototype": "prototypes/book-v3.png",
+      "sha256": "145b5f0f8a30e55a36fc3c4a53981b11a888db6c85c40d34ab3e4c8feb822e04",
+      "bytes": 975300,
+      "mountProfiles": "mount-profiles.json",
+      "evidence": [
+        "reports/static-fit-audit.json",
+        "reports/model-tests.log",
+        "renders/model-review.png",
+        "renders/static-fit-review.png"
+      ]
+    },
+    {
+      "id": "paper-board",
+      "file": "models/paper-board.glb",
+      "triangles": 2352,
+      "bounds": {
+        "min": [
+          -0.41999998688697815,
+          -8.940696724635266e-10,
+          -0.27000001072883606
+        ],
+        "max": [
+          0.41999998688697815,
+          0.07649999980628491,
+          0.27000001072883606
+        ]
+      },
+      "sockets": {
+        "support": [
+          0.4,
+          0.024,
+          0
+        ],
+        "writeSurface": [
+          0,
+          0.076,
+          0
+        ],
+        "left": [
+          -0.4,
+          0.024,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Paper_board",
+          "color": "#608985",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Paper_sheet_0",
+          "color": "#fff1d5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Paper_sheet_1",
+          "color": "#fff1d5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Paper_sheet_2",
+          "color": "#fff1d5",
+          "roughness": 0.65,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.4549999868869782,
+          -0.035000000894069676,
+          -0.3050000107288361
+        ],
+        "max": [
+          0.4549999868869782,
+          0.11149999980628492,
+          0.3050000107288361
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "generated and self-reviewed; final user acceptance pending",
+        "model": "GLB cold-loaded, material and socket verified",
+        "mount": "independent static fit; actual hand meshes audited; no action choreography",
+        "validation": "46 local Node tests + 1 frame-visibility test; actual static four-angle CPU rendering reviewed",
+        "wardrobeCombinations": "reserved clearance envelopes; final cross-worker wardrobe audit pending",
+        "nativeAcceptance": "not performed"
+      },
+      "prototype": "prototypes/paper-pen-v2.png",
+      "sha256": "e86e6983875446fcdf7cb951e6541661f27e976aa48ae141bc4463e7921a8b59",
+      "bytes": 229884,
+      "mountProfiles": "mount-profiles.json",
+      "evidence": [
+        "reports/static-fit-audit.json",
+        "reports/model-tests.log",
+        "renders/model-review.png",
+        "renders/static-fit-review.png"
+      ]
+    },
+    {
+      "id": "pencil",
+      "file": "models/pencil.glb",
+      "triangles": 124,
+      "bounds": {
+        "min": [
+          -0.039000000804662704,
+          3.3527612630646075e-10,
+          -0.039000000804662704
+        ],
+        "max": [
+          0.039000000804662704,
+          0.43000000037252906,
+          0.039000000804662704
+        ]
+      },
+      "sockets": {
+        "tip": [
+          0,
+          0,
+          0
+        ],
+        "grip": [
+          0,
+          0.17,
+          0
+        ],
+        "end": [
+          0,
+          0.43,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Pencil_painted_shaft",
+          "color": "#efc76d",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Pencil_wood_tip",
+          "color": "#d4b08a",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Pencil_graphite",
+          "color": "#27272b",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Pencil_endcap",
+          "color": "#608985",
+          "roughness": 0.65,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.07400000080466271,
+          -0.03499999966472388,
+          -0.07400000080466271
+        ],
+        "max": [
+          0.07400000080466271,
+          0.4650000003725291,
+          0.07400000080466271
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "generated and self-reviewed; final user acceptance pending",
+        "model": "GLB cold-loaded, material and socket verified",
+        "mount": "independent static fit; actual hand meshes audited; no action choreography",
+        "validation": "46 local Node tests + 1 frame-visibility test; actual static four-angle CPU rendering reviewed",
+        "wardrobeCombinations": "reserved clearance envelopes; final cross-worker wardrobe audit pending",
+        "nativeAcceptance": "not performed"
+      },
+      "prototype": "prototypes/paper-pen-v2.png",
+      "sha256": "04e0a05911f79c81ac21f04deb2489d13c9ac51fb4d850113b0a14e7aeb28535",
+      "bytes": 12468,
+      "mountProfiles": "mount-profiles.json",
+      "evidence": [
+        "reports/static-fit-audit.json",
+        "reports/model-tests.log",
+        "renders/model-review.png",
+        "renders/static-fit-review.png"
+      ]
+    }
+  ],
+  "sourceHashes": {
+    "cupFactory": "054a2d0d4d159d2cf575d715ffd01911c9638d62b5135f2af4df603ad4599fc5",
+    "canonicalImage": "1a7a1240ea6c14f0df780dec0178ac4ccddc3bff01aee4318ee623652af60259",
+    "originalBodyGLB": "3b7adcb303c8bd3c0dfb8976f9eb8fc0e6cefb897a7c16e99acc827385591722"
+  },
+  "regression": {
+    "existingTeaTests": 9,
+    "newLocalNodeTests": 46,
+    "frameVisibilityTests": 1,
+    "existingDOMDragFrames": 271,
+    "existingDOMLongpressFrames": 1891,
+    "allBaselineResourcesReleased": true,
+    "scope": "Original-host compatibility baseline, not a new prop full action replay"
+  }
+}

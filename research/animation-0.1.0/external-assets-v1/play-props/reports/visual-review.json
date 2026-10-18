@@ -1,0 +1,48 @@
+{
+  "scope": "Self-reviewed actual asset CPU renders, not user acceptance or native runtime validation",
+  "singleModelViews": [
+    "front",
+    "quarter",
+    "side",
+    "back"
+  ],
+  "mountedViews": [
+    0,
+    45,
+    90,
+    180
+  ],
+  "reviewedFiles": [
+    "renders/single-model-contact-sheet.png",
+    "renders/mounted-contact-sheet.png",
+    "renders/repeated-contact-sheet.png"
+  ],
+  "notes": [
+    "All six separate generated studies visually inspected before modeling.",
+    "Original 13 actor meshes including both hands and face retained unchanged.",
+    "Paper plane first static candidate was too edge-on in front view; pitched only the prop -0.4 radians and repeated triangle/contact/stage checks and all four actual renders.",
+    "Cardboard box simplified to clean kraft solid panels; no microscopic corrugation at 99px body scale.",
+    "Chest compact scale corrected relative to oversized generated placement; exterior band solids no longer partition the hollow base.",
+    "Ball depth-row naturally self-occludes from front/back; block stack naturally hides behind original body at 90 degrees. No visibility cheat.",
+    "Energy coin rejected after checking original V1 energy.png. Replaced with regenerated soft-beveled golden crystal, original short hand unchanged. Crystal front, quarter, side and back actual meshes inspected. Other five GLB hashes unchanged."
+  ],
+  "staticAuditPass": true,
+  "fixedStagePass": true,
+  "tests": "76 passed",
+  "pending": [
+    "User final acceptance",
+    "Production integration",
+    "Full wardrobe combinations",
+    "New complete action choreography",
+    "Native GPU/Windows/macOS runtime acceptance"
+  ],
+  "energyCrystal": {
+    "semanticIdentity": "golden energy crystal, not currency",
+    "triangles": 140,
+    "physicalBevel": 0.008,
+    "minimumHandSurfaceDistance": 0.0015196203021332622,
+    "maxHandPenetration": 0,
+    "bodyTriangleCrossings": 0,
+    "faceTriangleCrossings": 0
+  }
+}

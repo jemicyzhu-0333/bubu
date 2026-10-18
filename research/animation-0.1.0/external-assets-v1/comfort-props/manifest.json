@@ -1,0 +1,1085 @@
+{
+  "schema": "bubu-props/1",
+  "coordinates": "glTF X right Y up Z front, approved05 design units",
+  "bodyWidth": 2.3797432184,
+  "status": "local isolated assets; no production integration or native acceptance",
+  "items": [
+    {
+      "id": "mirror",
+      "file": "models/mirror.glb",
+      "vertices": 2041,
+      "triangles": 3584,
+      "bounds": {
+        "min": [
+          -0.18247928738921096,
+          -0.008005793994706828,
+          -0.054999999701976776
+        ],
+        "max": [
+          0.4989001428679849,
+          0.8074064536103818,
+          0.054999999701976776
+        ]
+      },
+      "sockets": {
+        "grip": [
+          0,
+          0.15,
+          0
+        ],
+        "reflectionPlane": [
+          0.158,
+          0.44,
+          0.03
+        ],
+        "support": [
+          0,
+          0,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Mirror_handle",
+          "color": "#a5c9b0",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mirror_back",
+          "color": "#efe6cd",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mirror_oval_frame",
+          "color": "#a5c9b0",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mirror_silver_surface",
+          "color": "#c9d3d5",
+          "roughness": 0.12,
+          "metalness": 0.9
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.21747928738921096,
+          -0.04300579399470683,
+          -0.08999999970197678
+        ],
+        "max": [
+          0.5339001428679849,
+          0.8424064536103818,
+          0.08999999970197678
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "individual generated prototype reviewed",
+        "model": "real GLB geometry and materials exported",
+        "mount": "isolated actual approved body + hybrid + 8 face meshes static assembly; 13 original actor meshes unchanged",
+        "validation": "79 Node tests plus actual mesh triangle and surface audit passed; native integration pending"
+      },
+      "prototype": "prototypes/mirror.png",
+      "sha256": "d80e4597f31284e841276c9304ceaa004ea460165145a3c8fd3de0a56fb7c888",
+      "prototypeSha256": "8f186490712897da786b16757dd8cc38021bb53069163cb15efd5ad7ec362765",
+      "staticMount": {
+        "id": "mirror",
+        "position": [
+          1.23,
+          0.55,
+          -0.2
+        ],
+        "kind": "unchanged right hand handle contact",
+        "originalActorMeshes": 13,
+        "originalActorPositionsByteIdentical": true,
+        "fullActions": "pending",
+        "wardrobe": "pending",
+        "nativeRuntime": "pending"
+      },
+      "staticAudit": {
+        "id": "mirror",
+        "inputSha256": "1474e16014d955ecef46a2181106997b321ef9a5c8d6a5bbca3f104c4a73f24f",
+        "referenceSha256": "fd51c0fc3a780c12016e8628ac0658606f0e45d0aa594d095c29d84ed4f67106",
+        "unchanged13ActorMeshes": true,
+        "bodyTriangleCrossings": 0,
+        "faceTriangleCrossings": 0,
+        "handMinimumSurfaceDistance": 8.413154864683747e-05,
+        "handVerticesWithin001": 64,
+        "handMaxInsidePenetration": 0.010302103124558926,
+        "footMinSurfaceDistance": null,
+        "bounds": [
+          [
+            1.1299067735671997,
+            1.6325346231460571
+          ],
+          [
+            0.5620818138122559,
+            1.269757866859436
+          ],
+          [
+            -0.2549999952316284,
+            -0.14499999582767487
+          ]
+        ],
+        "fixedBodyScaleSafeEnvelope": true,
+        "bodyCrossingByPart": {},
+        "groundSupportPlane": null,
+        "groundMinimumError": null,
+        "originalFeetUnmoved": true,
+        "staticAuditPass": true
+      },
+      "safeBounds": {
+        "min": [
+          -0.21747928738921096,
+          -0.04300579399470683,
+          -0.08999999970197678
+        ],
+        "max": [
+          0.5339001428679849,
+          0.8424064536103818,
+          0.08999999970197678
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "pending": [
+        "new action timing",
+        "complete wardrobe compatibility",
+        "production installation",
+        "native renderer/GPU/OS acceptance",
+        "live reflected scene GPU mirror effect; static metallic material only"
+      ],
+      "renderEvidence": {
+        "isolated": [
+          "renders/mirror-front.png",
+          "renders/mirror-side.png",
+          "renders/mirror-quarter.png",
+          "renders/mirror-back.png"
+        ],
+        "assembled": [
+          "renders/mirror-mounted-0/0000.png",
+          "renders/mirror-mounted-45/0000.png",
+          "renders/mirror-mounted-90/0000.png",
+          "renders/mirror-mounted-180/0000.png"
+        ]
+      }
+    },
+    {
+      "id": "tissue",
+      "file": "models/tissue.glb",
+      "vertices": 3996,
+      "triangles": 1944,
+      "bounds": {
+        "min": [
+          -0.30000001192092896,
+          2.384185793236071e-09,
+          -0.18000000715255737
+        ],
+        "max": [
+          0.30000001192092896,
+          0.5949373841285706,
+          0.18000000715255737
+        ]
+      },
+      "sockets": {
+        "support": [
+          0,
+          0,
+          0
+        ],
+        "dispense": [
+          0,
+          0.32,
+          0
+        ],
+        "sheetTip": [
+          0,
+          0.57,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Tissue_box_base",
+          "color": "#a5c9b0",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Tissue_box_lid",
+          "color": "#efe6cd",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Tissue_dispense_slot",
+          "color": "#857c65",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Tissue_single_sheet",
+          "color": "#fffaf0",
+          "roughness": 0.7,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.335000011920929,
+          -0.03499999761581421,
+          -0.21500000715255738
+        ],
+        "max": [
+          0.335000011920929,
+          0.6299373841285706,
+          0.21500000715255738
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "individual generated prototype reviewed",
+        "model": "real GLB geometry and materials exported",
+        "mount": "isolated actual approved body + hybrid + 8 face meshes static assembly; 13 original actor meshes unchanged",
+        "validation": "79 Node tests plus actual mesh triangle and surface audit passed; native integration pending"
+      },
+      "prototype": "prototypes/tissue.png",
+      "sha256": "8b8ebbe6c47fd1518c1ef5c12c0e6ebbf6b9be5c22a92c7babfde2801e5528e5",
+      "prototypeSha256": "5ece3d51082466c09047fca5c1920a00949497db06cd3e84adad9c0382733282",
+      "staticMount": {
+        "id": "tissue",
+        "position": [
+          1.65,
+          0.006,
+          0.35
+        ],
+        "kind": "grounded scene tissue box",
+        "originalActorMeshes": 13,
+        "originalActorPositionsByteIdentical": true,
+        "fullActions": "pending",
+        "wardrobe": "pending",
+        "nativeRuntime": "pending"
+      },
+      "staticAudit": {
+        "id": "tissue",
+        "inputSha256": "04d7ebb7c2fc81129ad97f9cb4dfacb17f254ba2f0eacc2a195b1fede6980c56",
+        "referenceSha256": "fd51c0fc3a780c12016e8628ac0658606f0e45d0aa594d095c29d84ed4f67106",
+        "unchanged13ActorMeshes": true,
+        "bodyTriangleCrossings": 0,
+        "faceTriangleCrossings": 0,
+        "handMinimumSurfaceDistance": null,
+        "handVerticesWithin001": null,
+        "handMaxInsidePenetration": null,
+        "footMinSurfaceDistance": null,
+        "bounds": [
+          [
+            1.350000023841858,
+            1.9500000476837158
+          ],
+          [
+            0.006000002380460501,
+            0.6009373664855957
+          ],
+          [
+            0.16999998688697815,
+            0.5300000309944153
+          ]
+        ],
+        "fixedBodyScaleSafeEnvelope": true,
+        "bodyCrossingByPart": {},
+        "groundSupportPlane": 0.006,
+        "groundMinimumError": 2.380460500592263e-09,
+        "originalFeetUnmoved": true,
+        "staticAuditPass": true
+      },
+      "safeBounds": {
+        "min": [
+          -0.335000011920929,
+          -0.03499999761581421,
+          -0.21500000715255738
+        ],
+        "max": [
+          0.335000011920929,
+          0.6299373841285706,
+          0.21500000715255738
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "pending": [
+        "new action timing",
+        "complete wardrobe compatibility",
+        "production installation",
+        "native renderer/GPU/OS acceptance"
+      ],
+      "renderEvidence": {
+        "isolated": [
+          "renders/tissue-front.png",
+          "renders/tissue-side.png",
+          "renders/tissue-quarter.png",
+          "renders/tissue-back.png"
+        ],
+        "assembled": [
+          "renders/tissue-mounted-0/0000.png",
+          "renders/tissue-mounted-45/0000.png",
+          "renders/tissue-mounted-90/0000.png",
+          "renders/tissue-mounted-180/0000.png"
+        ]
+      }
+    },
+    {
+      "id": "cushion",
+      "file": "models/cushion.glb",
+      "vertices": 1170,
+      "triangles": 2048,
+      "bounds": {
+        "min": [
+          -0.6600000262260437,
+          0.02500000037252903,
+          -0.6600000262260437
+        ],
+        "max": [
+          0.6600000262260437,
+          0.2800000011920929,
+          0.6600000262260437
+        ]
+      },
+      "sockets": {
+        "support": [
+          0,
+          0.025,
+          0
+        ],
+        "seatSurface": [
+          0,
+          0.18,
+          0
+        ],
+        "floor": [
+          0,
+          0,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Cushion_tufted_shell",
+          "color": "#9ec1b1",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Cushion_cream_piping",
+          "color": "#eee3c9",
+          "roughness": 1,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.6950000262260437,
+          -0.009999999627470973,
+          -0.6950000262260437
+        ],
+        "max": [
+          0.6950000262260437,
+          0.3150000011920929,
+          0.6950000262260437
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "individual generated prototype reviewed",
+        "model": "real GLB geometry and materials exported",
+        "mount": "isolated actual approved body + hybrid + 8 face meshes static assembly; 13 original actor meshes unchanged",
+        "validation": "79 Node tests plus actual mesh triangle and surface audit passed; native integration pending"
+      },
+      "prototype": "prototypes/cushion.png",
+      "sha256": "f7e9e29b960210633ee739fdef6b478f46b4c9ad3d9c0834900283efa6fdadb8",
+      "prototypeSha256": "828190f5ead8ae36673d9c899a8ba1ac57853ed25245f2d88a8163b1b214c696",
+      "staticMount": {
+        "id": "cushion",
+        "position": [
+          1.8,
+          -0.019,
+          0.35
+        ],
+        "kind": "grounded empty cushion beside original actor; seated action pending",
+        "originalActorMeshes": 13,
+        "originalActorPositionsByteIdentical": true,
+        "fullActions": "pending",
+        "wardrobe": "pending",
+        "nativeRuntime": "pending"
+      },
+      "staticAudit": {
+        "id": "cushion",
+        "inputSha256": "e959c3383789e5b232ce293020bd9229d48a700bc7c0e1e9aa897b41d3301df4",
+        "referenceSha256": "fd51c0fc3a780c12016e8628ac0658606f0e45d0aa594d095c29d84ed4f67106",
+        "unchanged13ActorMeshes": true,
+        "bodyTriangleCrossings": 0,
+        "faceTriangleCrossings": 0,
+        "handMinimumSurfaceDistance": null,
+        "handVerticesWithin001": null,
+        "handMaxInsidePenetration": null,
+        "footMinSurfaceDistance": null,
+        "bounds": [
+          [
+            1.1399999856948853,
+            2.4600000381469727
+          ],
+          [
+            0.0060000005178153515,
+            0.26100000739097595
+          ],
+          [
+            -0.3100000321865082,
+            1.0099999904632568
+          ]
+        ],
+        "fixedBodyScaleSafeEnvelope": true,
+        "bodyCrossingByPart": {},
+        "groundSupportPlane": 0.006,
+        "groundMinimumError": 5.17815351361306e-10,
+        "originalFeetUnmoved": true,
+        "staticAuditPass": true
+      },
+      "safeBounds": {
+        "min": [
+          -0.6950000262260437,
+          -0.009999999627470973,
+          -0.6950000262260437
+        ],
+        "max": [
+          0.6950000262260437,
+          0.3150000011920929,
+          0.6950000262260437
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "pending": [
+        "new action timing",
+        "complete wardrobe compatibility",
+        "production installation",
+        "native renderer/GPU/OS acceptance",
+        "actual seated/sleeping body support pose; feet cannot be silently moved or penetrate floor"
+      ],
+      "renderEvidence": {
+        "isolated": [
+          "renders/cushion-front.png",
+          "renders/cushion-side.png",
+          "renders/cushion-quarter.png",
+          "renders/cushion-back.png"
+        ],
+        "assembled": [
+          "renders/cushion-mounted-0/0000.png",
+          "renders/cushion-mounted-45/0000.png",
+          "renders/cushion-mounted-90/0000.png",
+          "renders/cushion-mounted-180/0000.png"
+        ]
+      }
+    },
+    {
+      "id": "binoculars",
+      "file": "models/binoculars.glb",
+      "vertices": 3848,
+      "triangles": 1948,
+      "bounds": {
+        "min": [
+          -0.3259999978542328,
+          0.024000002145767196,
+          -0.2930000002160668
+        ],
+        "max": [
+          0.3259999978542328,
+          0.3249999997019768,
+          0.19200000021606686
+        ]
+      },
+      "sockets": {
+        "grip": [
+          -0.326,
+          0.17,
+          0
+        ],
+        "focus": [
+          0,
+          0.27,
+          -0.08
+        ],
+        "opticalAxis": [
+          0,
+          0.17,
+          0.2
+        ],
+        "support": [
+          0,
+          0.024,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Binocular_bridge",
+          "color": "#efe3c6",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Binocular_housing_-1",
+          "color": "#efe3c6",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Binocular_grip_-1",
+          "color": "#9cb9a2",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Binocular_eyecup_-1",
+          "color": "#414c50",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Binocular_objective_-1",
+          "color": "#163b52",
+          "roughness": 0.18,
+          "metalness": 0.35
+        },
+        {
+          "mesh": "Binocular_eyepiece_-1",
+          "color": "#163b52",
+          "roughness": 0.18,
+          "metalness": 0.35
+        },
+        {
+          "mesh": "Binocular_housing_1",
+          "color": "#efe3c6",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Binocular_grip_1",
+          "color": "#9cb9a2",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Binocular_eyecup_1",
+          "color": "#414c50",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Binocular_objective_1",
+          "color": "#163b52",
+          "roughness": 0.18,
+          "metalness": 0.35
+        },
+        {
+          "mesh": "Binocular_eyepiece_1",
+          "color": "#163b52",
+          "roughness": 0.18,
+          "metalness": 0.35
+        },
+        {
+          "mesh": "Binocular_focus_wheel",
+          "color": "#9cb9a2",
+          "roughness": 0.7,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.36099999785423276,
+          -0.010999997854232807,
+          -0.3280000002160668
+        ],
+        "max": [
+          0.36099999785423276,
+          0.3599999997019768,
+          0.22700000021606687
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "individual generated prototype reviewed",
+        "model": "real GLB geometry and materials exported",
+        "mount": "isolated actual approved body + hybrid + 8 face meshes static assembly; 13 original actor meshes unchanged",
+        "validation": "79 Node tests plus actual mesh triangle and surface audit passed; native integration pending"
+      },
+      "prototype": "prototypes/binoculars.png",
+      "sha256": "5e08086890f6e48334a8b7cd36990af58c480bec7b8eb235e5654f6764bd0859",
+      "prototypeSha256": "05552e34e7f2310c056bee67aa710279950e96d515c9b3be659b55b947a1f90f",
+      "staticMount": {
+        "id": "binoculars",
+        "position": [
+          1.475,
+          0.54,
+          -0.2
+        ],
+        "kind": "unchanged right hand supporting binocular side grip; eye use pending",
+        "originalActorMeshes": 13,
+        "originalActorPositionsByteIdentical": true,
+        "fullActions": "pending",
+        "wardrobe": "pending",
+        "nativeRuntime": "pending"
+      },
+      "staticAudit": {
+        "id": "binoculars",
+        "inputSha256": "98ea7198e3b3b55df96521e7b192384cf3a84c4c7439881cf3868e4f9e212002",
+        "referenceSha256": "fd51c0fc3a780c12016e8628ac0658606f0e45d0aa594d095c29d84ed4f67106",
+        "unchanged13ActorMeshes": true,
+        "bodyTriangleCrossings": 0,
+        "faceTriangleCrossings": 0,
+        "handMinimumSurfaceDistance": 3.449996802373789e-05,
+        "handVerticesWithin001": 101,
+        "handMaxInsidePenetration": 0.006802173797041178,
+        "footMinSurfaceDistance": null,
+        "bounds": [
+          [
+            1.1490000486373901,
+            1.8009999990463257
+          ],
+          [
+            0.5640000104904175,
+            0.8650000095367432
+          ],
+          [
+            -0.49300000071525574,
+            -0.007999999448657036
+          ]
+        ],
+        "fixedBodyScaleSafeEnvelope": true,
+        "bodyCrossingByPart": {},
+        "groundSupportPlane": null,
+        "groundMinimumError": null,
+        "originalFeetUnmoved": true,
+        "staticAuditPass": true
+      },
+      "safeBounds": {
+        "min": [
+          -0.36099999785423276,
+          -0.010999997854232807,
+          -0.3280000002160668
+        ],
+        "max": [
+          0.36099999785423276,
+          0.3599999997019768,
+          0.22700000021606687
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "pending": [
+        "new action timing",
+        "complete wardrobe compatibility",
+        "production installation",
+        "native renderer/GPU/OS acceptance",
+        "two-handed eye-level optical use; current original-hand side grip only"
+      ],
+      "renderEvidence": {
+        "isolated": [
+          "renders/binoculars-front.png",
+          "renders/binoculars-side.png",
+          "renders/binoculars-quarter.png",
+          "renders/binoculars-back.png"
+        ],
+        "assembled": [
+          "renders/binoculars-mounted-0/0000.png",
+          "renders/binoculars-mounted-45/0000.png",
+          "renders/binoculars-mounted-90/0000.png",
+          "renders/binoculars-mounted-180/0000.png"
+        ]
+      }
+    },
+    {
+      "id": "telescope",
+      "file": "models/telescope.glb",
+      "vertices": 2189,
+      "triangles": 1920,
+      "bounds": {
+        "min": [
+          -0.2468308739636244,
+          -8.940696794024205e-11,
+          -0.5546439382524471
+        ],
+        "max": [
+          0.446000000089407,
+          1.2492602033922164,
+          0.41435558628289704
+        ]
+      },
+      "sockets": {
+        "support": [
+          0,
+          0,
+          0
+        ],
+        "altitude": [
+          0,
+          0.93,
+          0
+        ],
+        "eyepiece": [
+          0,
+          0.73,
+          -0.5
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Telescope_leg_0",
+          "color": "#c89b61",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Telescope_foot_0",
+          "color": "#c89b61",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Telescope_leg_1",
+          "color": "#c89b61",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Telescope_foot_1",
+          "color": "#c89b61",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Telescope_leg_2",
+          "color": "#c89b61",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Telescope_foot_2",
+          "color": "#c89b61",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Telescope_mount",
+          "color": "#f0e1c2",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Telescope_fork",
+          "color": "#c89b61",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Telescope_tube",
+          "color": "#f0e1c2",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Telescope_front_rim",
+          "color": "#9cc7b6",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Telescope_objective",
+          "color": "#233e50",
+          "roughness": 0.16,
+          "metalness": 0.4
+        },
+        {
+          "mesh": "Telescope_rear_cap",
+          "color": "#f0e1c2",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Telescope_eyepiece",
+          "color": "#39494c",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Telescope_eyecup",
+          "color": "#9cc7b6",
+          "roughness": 0.7,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.2818308739636244,
+          -0.03500000008940697,
+          -0.5896439382524471
+        ],
+        "max": [
+          0.481000000089407,
+          1.2842602033922164,
+          0.44935558628289707
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "individual generated prototype reviewed",
+        "model": "real GLB geometry and materials exported",
+        "mount": "isolated actual approved body + hybrid + 8 face meshes static assembly; 13 original actor meshes unchanged",
+        "validation": "79 Node tests plus actual mesh triangle and surface audit passed; native integration pending"
+      },
+      "prototype": "prototypes/telescope.png",
+      "sha256": "362f1c8cc0b38c06546b85854611c6b192a45f1db5201ba828753c89e300cef9",
+      "prototypeSha256": "dfff7920e9aea4536afe853cf2a32ffbdf6c336ecf1477a7393b9918dd8cfeba",
+      "staticMount": {
+        "id": "telescope",
+        "position": [
+          1.75,
+          0.006,
+          0.35
+        ],
+        "kind": "three foot ground-supported stargazing telescope",
+        "originalActorMeshes": 13,
+        "originalActorPositionsByteIdentical": true,
+        "fullActions": "pending",
+        "wardrobe": "pending",
+        "nativeRuntime": "pending"
+      },
+      "staticAudit": {
+        "id": "telescope",
+        "inputSha256": "6a22587ec80d12a76eafa82cd8085c2424277a9930ad783b9e8a7a51591ce9ea",
+        "referenceSha256": "fd51c0fc3a780c12016e8628ac0658606f0e45d0aa594d095c29d84ed4f67106",
+        "unchanged13ActorMeshes": true,
+        "bodyTriangleCrossings": 0,
+        "faceTriangleCrossings": 0,
+        "handMinimumSurfaceDistance": null,
+        "handVerticesWithin001": null,
+        "handMaxInsidePenetration": null,
+        "footMinSurfaceDistance": null,
+        "bounds": [
+          [
+            1.503999948501587,
+            2.196000099182129
+          ],
+          [
+            0.006000000052154064,
+            1.2552602291107178
+          ],
+          [
+            -0.20464393496513367,
+            0.7643555998802185
+          ]
+        ],
+        "fixedBodyScaleSafeEnvelope": true,
+        "bodyCrossingByPart": {},
+        "groundSupportPlane": 0.006,
+        "groundMinimumError": 5.2154064053566707e-11,
+        "originalFeetUnmoved": true,
+        "staticAuditPass": true
+      },
+      "safeBounds": {
+        "min": [
+          -0.2818308739636244,
+          -0.03500000008940697,
+          -0.5896439382524471
+        ],
+        "max": [
+          0.481000000089407,
+          1.2842602033922164,
+          0.44935558628289707
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "pending": [
+        "new action timing",
+        "complete wardrobe compatibility",
+        "production installation",
+        "native renderer/GPU/OS acceptance"
+      ],
+      "renderEvidence": {
+        "isolated": [
+          "renders/telescope-front.png",
+          "renders/telescope-side.png",
+          "renders/telescope-quarter.png",
+          "renders/telescope-back.png"
+        ],
+        "assembled": [
+          "renders/telescope-mounted-0/0000.png",
+          "renders/telescope-mounted-45/0000.png",
+          "renders/telescope-mounted-90/0000.png",
+          "renders/telescope-mounted-180/0000.png"
+        ]
+      }
+    },
+    {
+      "id": "pillow",
+      "file": "models/pillow.glb",
+      "vertices": 2526,
+      "triangles": 4576,
+      "bounds": {
+        "min": [
+          -0.6320000290870667,
+          0,
+          -0.3920016586780548
+        ],
+        "max": [
+          0.6319999694824219,
+          0.30000001192092896,
+          0.3920016586780548
+        ]
+      },
+      "sockets": {
+        "support": [
+          0,
+          0,
+          0
+        ],
+        "headSurface": [
+          0,
+          0.3,
+          0
+        ],
+        "seam": [
+          0,
+          0.15,
+          0.38
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Pillow_soft_shell",
+          "color": "#c7b6df",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Pillow_cream_piping",
+          "color": "#eee1cd",
+          "roughness": 1,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.6670000290870667,
+          -0.035,
+          -0.42700165867805484
+        ],
+        "max": [
+          0.6669999694824219,
+          0.335000011920929,
+          0.42700165867805484
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "individual generated prototype reviewed",
+        "model": "real GLB geometry and materials exported",
+        "mount": "isolated actual approved body + hybrid + 8 face meshes static assembly; 13 original actor meshes unchanged",
+        "validation": "79 Node tests plus actual mesh triangle and surface audit passed; native integration pending"
+      },
+      "prototype": "prototypes/pillow.png",
+      "sha256": "c4754da7ff901855ffa062c17e0b50b3c26e2bf42f7f6b2adaff8f9faf624e90",
+      "prototypeSha256": "587811e0abb5d3873db4b8c1aa3ae3737e319f245e1db24e9609492e404d0360",
+      "staticMount": {
+        "id": "pillow",
+        "position": [
+          1.8,
+          0.006,
+          0.35
+        ],
+        "kind": "grounded empty pillow beside actor; sleeping pose pending",
+        "originalActorMeshes": 13,
+        "originalActorPositionsByteIdentical": true,
+        "fullActions": "pending",
+        "wardrobe": "pending",
+        "nativeRuntime": "pending"
+      },
+      "staticAudit": {
+        "id": "pillow",
+        "inputSha256": "5ce2cd2d8ce172f2ac2da3e4f12849fd5cbcf08e6123f8fa4b1641714fd83b82",
+        "referenceSha256": "fd51c0fc3a780c12016e8628ac0658606f0e45d0aa594d095c29d84ed4f67106",
+        "unchanged13ActorMeshes": true,
+        "bodyTriangleCrossings": 0,
+        "faceTriangleCrossings": 0,
+        "handMinimumSurfaceDistance": null,
+        "handVerticesWithin001": null,
+        "handMaxInsidePenetration": null,
+        "footMinSurfaceDistance": null,
+        "bounds": [
+          [
+            1.1679999828338623,
+            2.431999921798706
+          ],
+          [
+            0.006000000052154064,
+            0.3060000240802765
+          ],
+          [
+            -0.04200165718793869,
+            0.7420016527175903
+          ]
+        ],
+        "fixedBodyScaleSafeEnvelope": true,
+        "bodyCrossingByPart": {},
+        "groundSupportPlane": 0.006,
+        "groundMinimumError": 5.2154064053566707e-11,
+        "originalFeetUnmoved": true,
+        "staticAuditPass": true
+      },
+      "safeBounds": {
+        "min": [
+          -0.6670000290870667,
+          -0.035,
+          -0.42700165867805484
+        ],
+        "max": [
+          0.6669999694824219,
+          0.335000011920929,
+          0.42700165867805484
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "pending": [
+        "new action timing",
+        "complete wardrobe compatibility",
+        "production installation",
+        "native renderer/GPU/OS acceptance",
+        "actual seated/sleeping body support pose; feet cannot be silently moved or penetrate floor"
+      ],
+      "renderEvidence": {
+        "isolated": [
+          "renders/pillow-front.png",
+          "renders/pillow-side.png",
+          "renders/pillow-quarter.png",
+          "renders/pillow-back.png"
+        ],
+        "assembled": [
+          "renders/pillow-mounted-0/0000.png",
+          "renders/pillow-mounted-45/0000.png",
+          "renders/pillow-mounted-90/0000.png",
+          "renders/pillow-mounted-180/0000.png"
+        ]
+      }
+    }
+  ]
+}

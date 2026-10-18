@@ -1,0 +1,34 @@
+{
+  "tool": "built-in image_gen",
+  "canonicalReference": "../bubu-recovery-20261017/repo-check/research/animation-0.1.0/approved-assets/r6/selected-first-large.png",
+  "seed": null,
+  "modelVersion": null,
+  "assets": [
+    {
+      "id": "open-book",
+      "prompt": "Create one production concept sheet for a small open hardcover book prop for Bubu, the exact pink rounded little character in the attached canonical reference. Use case stylized-concept. Six clean panels on neutral light gray. Top row: independent book front, side, rear, and 45 degree product views, no character in these panels. Bottom row: two static contact studies showing canonical Bubu holding the same open book low below its mouth with both tiny paws, front and 45 degree. Preserve character silhouette, tiny ears, small feet, facial landmarks and short paws. Book: simple muted teal hard cover, warm ivory page block, softly beveled corners, plain blank pages, modest spine seam, no lettering, logos or decoration. Modelable real thickness, two open page halves, consistent geometry across views; book width about 40 percent of body width. Static prop fit only, no new animation or action sequence. Keep all objects fully visible with ample margins. No extra accessories, no background scene.",
+      "master": "prototypes/book.png",
+      "revisions": [
+        "prototypes/book-v2.png",
+        "prototypes/book-v3.png"
+      ],
+      "selected": "prototypes/book-v3.png",
+      "review": "Original scene had extra side paw and duplicated front/rear book; directed edits remove side paw and show inside pages vs outer cover. Selected has two hands and clear quarter fit. Character pixels are never runtime body."
+    },
+    {
+      "id": "paper-board-and-pencil",
+      "prompt": "Use case stylized-concept. Produce a consistent six-panel modelmaking sheet for one small paper-and-pencil writing kit for the exact canonical pink Bubu character attached. Top four panels show independent kit orthographic front, side, rear, and 45 degrees. Bottom two show canonical Bubu in static writing-contact fit front and 45 degrees. Keep exact character rounded silhouette, short ears, tiny paws, small feet and face. Kit: two or three warm ivory blank sheets stacked on a thin muted teal rounded rectangular writing board, one short pale yellow wooden pencil with dark graphite tip and muted teal end cap. No notebook spiral or writing. Board about 35 percent body width, held low below the mouth; one tiny paw supports paper, other touches pencil. This is independent model geometry reference, not a replacement character, not animation sequencing. Soft matte 3D look and neutral light gray backdrop, generous margins, consistent scale, no text labels or extra props.",
+      "master": "prototypes/paper-pen.png",
+      "revisions": [
+        "prototypes/paper-pen-v2.png"
+      ],
+      "selected": "prototypes/paper-pen-v2.png",
+      "review": "Original extra side paw removed by directed edit. Actual 3D board and pencil are separate geometry, no PNG billboards."
+    },
+    {
+      "id": "cup",
+      "master": null,
+      "review": "Existing cup factory reused without new image generation; same .23081978518525692 radius/.3091484835864778 height as accepted tea scene. Reuse does not imply independent coffee scene approval."
+    }
+  ]
+}

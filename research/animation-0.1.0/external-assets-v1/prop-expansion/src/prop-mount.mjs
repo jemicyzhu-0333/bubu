@@ -1,0 +1,7 @@
+import * as T from 'three';
+/** Pure caller-driven mounting. No clock, action registration, body mutation or borrowed disposal. */
+export function mountProp(resource,parent,{matrix=new T.Matrix4(),mode='static'}={}){
+ if(!resource?.root?.isObject3D||typeof resource.dispose!=='function'||!parent?.isObject3D||!matrix?.isMatrix4||!matrix.elements.every(Number.isFinite)||!['static','action'].includes(mode))throw TypeError('Owned prop, parent, finite matrix and explicit mode required');
+ let disposed=false;resource.root.matrixAutoUpdate=false;resource.root.matrix.copy(matrix);parent.add(resource.root);
+ return {root:resource.root,socketWorld(name){if(disposed)throw Error('Disposed mount');const socket=resource.sockets[name];if(!socket)throw Error('Unknown socket');resource.root.updateWorldMatrix(true,false);return socket.clone().applyMatrix4(resource.root.matrixWorld);},apply({matrix:next=matrix,interruption=null}={}){if(disposed)throw Error('Disposed mount');if(!next?.isMatrix4||!next.elements.every(Number.isFinite))throw TypeError('Finite matrix required');if(interruption!==null&&!['drag','longpress','cancel','switch','reduced-motion'].includes(interruption))throw TypeError('Known interruption required');if(interruption&&mode==='action'){this.dispose();return;}resource.root.matrix.copy(next);resource.root.updateWorldMatrix(true,true);},dispose(){if(disposed)return;disposed=true;resource.dispose();},get disposed(){return disposed;}};
+}

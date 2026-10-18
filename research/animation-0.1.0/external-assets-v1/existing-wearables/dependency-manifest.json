@@ -1,0 +1,76 @@
+{
+  "scope": "reference original files; no duplicate source GLBs",
+  "inputs": {
+    "sprout": {
+      "path": "../bubu-recovery-20261017/repo-check/research/animation-0.1.0/accessories-v1/01-sprout/sprout.glb",
+      "sha256": "662bb84939e71515305ab18c70c2ae4db2c3e0355993b6de725e63b09ffcd309"
+    },
+    "sunhat": {
+      "path": "../bubu-recovery-20261017/repo-check/research/animation-0.1.0/accessories-v1/02-sunhat/sunhat.glb",
+      "sha256": "06516ab90d747416c1749469b76aa24bff8e5ecea529f4e47134726112fa5227"
+    },
+    "satchel": {
+      "path": "../bubu-recovery-20261017/repo-check/research/animation-0.1.0/accessories-v1/03-satchel/satchel.glb",
+      "sha256": "8ba471d1218fd1f848720f32242c74b397adeaba5f9dbaa911b482cfc3aad9a6"
+    },
+    "scarf": {
+      "path": "../bubu-recovery-20261017/repo-check/research/animation-0.1.0/accessories-v1/04-scarf/scarf.glb",
+      "sha256": "b0a797290977fe8b275d95707f0ec70aa9e1a74c1cd34b25d470b9111a84f09e"
+    },
+    "source": {
+      "path": "../bubu-recovery-20261017/research/animation-0.1.0/runtime-facepath05/fixtures/face-d2/asset.glb",
+      "sha256": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a"
+    },
+    "hybrid": {
+      "path": "../bubu-recovery-20261017/delivery-package/geometry/bubu-hybrid-binding.glb",
+      "sha256": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67"
+    },
+    "wrapper": {
+      "path": "src/existing-wearable-host.mjs",
+      "sha256": "cd7015ad8620752324c185d87d9381de56593b34409780d04104ae57973b287d"
+    },
+    "test": {
+      "path": "src/test-and-export.mjs",
+      "sha256": "effc3e51ae5ca242c2ce4efcbaf892f0f29066b9e481c47fcaa595ccdcf8a034"
+    },
+    "sproutAdapter": {
+      "path": "../bubu-recovery-20261017/repo-check/research/animation-0.1.0/accessories-v1/01-sprout/src/sprout-adapter.mjs",
+      "sha256": "5860dd7482fdbbca6aa9eb3afb74cd03f60e503a384b2abac16e9c1a2fd1bcd5"
+    },
+    "sunhatAdapter": {
+      "path": "../bubu-recovery-20261017/repo-check/research/animation-0.1.0/accessories-v1/02-sunhat/src/sunhat-adapter.mjs",
+      "sha256": "7a6d4bd5e95ad464cd3e66b48d85fa91eabbb32799b2b2415f2933fd2f579f7b"
+    },
+    "satchelAdapter": {
+      "path": "../bubu-recovery-20261017/repo-check/research/animation-0.1.0/accessories-v1/03-satchel/src/satchel-adapter.mjs",
+      "sha256": "bab7fc0ce856d57eae4cfc18d6d19fd870c12281a8272104a42e554b62ce1932"
+    },
+    "scarfAdapter": {
+      "path": "../bubu-recovery-20261017/repo-check/research/animation-0.1.0/accessories-v1/04-scarf/src/scarf-adapter.mjs",
+      "sha256": "2043489e26baed24edcc12c6b60f6a4ac6f6166894b6add79dd3ebf5b21b6749"
+    },
+    "drag": {
+      "path": "../bubu-recovery-20261017/runtime/evidence/actual-pointer/drag/trajectory.json",
+      "sha256": "a7c56a1efc121595c8db147ba40299eb6d3dd1d0f7c98504187d97a0017d5a09"
+    },
+    "longpress": {
+      "path": "../bubu-recovery-20261017/runtime/evidence/actual-pointer/longpress/trajectory.json",
+      "sha256": "cd0fdc9d928943a76772d75aadacec7b391414948519e9893bb28738e656a6ee"
+    }
+  },
+  "additionalRuntimeRoots": [
+    "../bubu-recovery-20261017/runtime",
+    "../bubu-recovery-20261017/research/animation-0.1.0",
+    "../bubu-recovery-20261017/tea-runtime",
+    "../bubu-recovery-20261017/split-tools/hybrid-prototype"
+  ],
+  "runtime": "three 0.186.1; Blender; Python numpy scipy Pillow",
+  "runtimeFiles": {
+    "bubu-recovery-20261017/runtime/mixed-binding-adapter.mjs": "06e8ef8e233cd756ff1d345f1f07518e48d2af154316cd5a5e47129cb24a9b3c",
+    "bubu-recovery-20261017/runtime/mixed-binding-contract.mjs": "d200d18fb0f4126f94118e649165ef373e4827d4edef0cdd6049832693ba13ae",
+    "bubu-recovery-20261017/runtime/split-limb-adapter.mjs": "859360c36de3dff137c70a8ff4fc586be46613c3d7f7963937b59c99e9001aad",
+    "bubu-recovery-20261017/delivery-package/geometry/binding-manifest.json": "19b856aa9b3acd9fa95879daff54e521d18b93e05ba2669bf13df9c803b69555",
+    "bubu-recovery-20261017/research/animation-0.1.0/petting-continuous-r2/tools/fixture.mjs": "7eedb0a00d164612af6af74c61bcefdb495345f8d3afdab91d1ad4d438d2ab46",
+    "bubu-recovery-20261017/tea-runtime/tools/triangle-collision.py": "91753abde3c388894aa16dbb2542268682731cddaf29d743971b0a774e8fd018"
+  }
+}

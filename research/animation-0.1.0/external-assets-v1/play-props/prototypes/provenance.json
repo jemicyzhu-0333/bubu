@@ -1,0 +1,47 @@
+{
+  "tool": "built-in image_gen",
+  "reference": "bubu-accessory-expansion-20261018/references/05-halo-prototype.png",
+  "referenceSha256": "0c6a90dc756c90c29c7a2cc322a32f0325c0d15626c7333de4820d39262dc065",
+  "invariants": "halo removed; original body, face, ears, two short hands and feet retained; no extra limbs; one family per tool call",
+  "items": [
+    {
+      "family": "ball",
+      "file": "prototypes/ball.png",
+      "sha256": "a6834a2d95aa66fdefac12dfc9ec74720350f7e51a27a34a40e4c891d6f59018",
+      "review": "isolated and character placement inspected; reference only, original runtime actor used for actual checks"
+    },
+    {
+      "family": "building-block",
+      "file": "prototypes/building-block.png",
+      "sha256": "1d6f7b8c15fe3c6ab0406b09294c73b8aea9eaa77cfb930c11e80aba5dd0bd85",
+      "review": "isolated and character placement inspected; reference only, original runtime actor used for actual checks"
+    },
+    {
+      "family": "cardboard-box",
+      "file": "prototypes/cardboard-box.png",
+      "sha256": "e81f2a01b21b653c8079cc5b894c101c04223db27086afe5293ef7a36feda517",
+      "review": "isolated and character placement inspected; reference only, original runtime actor used for actual checks"
+    },
+    {
+      "family": "energy-token",
+      "file": "prototypes/energy-token.png",
+      "sha256": "7df06d21db873f199e136ca79414d9237d7160762c842d5c53027f09c1eafd84",
+      "review": "V1 golden crystal read first; regenerated crystal inspected; old coin explicitly rejected; actual original short hand unchanged",
+      "identityReference": "bubu-recovery-20261017/repo-check/assets/companion/dango/raster/tools/energy.png",
+      "identityReferenceSha256": "82efbaa432f789b004c4c86ed0f5ebc15c4956c87a0ed2cdfd259b5736db203f",
+      "replaces": "rejected/energy-coin-v1/energy-token.png"
+    },
+    {
+      "family": "paper-plane",
+      "file": "prototypes/paper-plane.png",
+      "sha256": "490843aee024482202445b62af357dfc9921e30b308ef03ab7597dd26b83863a",
+      "review": "isolated and character placement inspected; reference only, original runtime actor used for actual checks"
+    },
+    {
+      "family": "treasure-chest",
+      "file": "prototypes/treasure-chest.png",
+      "sha256": "3393716f8b042792550f610513d46547ccb9e17de2142af974ba4acb81866a0b",
+      "review": "isolated and character placement inspected; reference only, original runtime actor used for actual checks"
+    }
+  ]
+}

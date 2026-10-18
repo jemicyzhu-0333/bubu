@@ -1,0 +1,37 @@
+{
+  "wearables": [
+    "halo",
+    "boots",
+    "cape"
+  ],
+  "oldHostScenarios": {
+    "drag": {
+      "frames": 271,
+      "bodyUnchanged": true,
+      "maxShoeOffset": 0,
+      "minShoeRelativeGround": -7.979727989493313e-17,
+      "minShoeMinusFoot": 0,
+      "allFootVerticesChecked": true
+    },
+    "longpress": {
+      "frames": 1891,
+      "bodyUnchanged": true,
+      "maxShoeOffset": 0,
+      "minShoeRelativeGround": -1.1102230246251565e-16,
+      "minShoeMinusFoot": 0,
+      "allFootVerticesChecked": true
+    }
+  },
+  "teaFrames": 271,
+  "teaAuditScope": "cape triangles versus visible original hands and cup; not all accessory-pair collision tests",
+  "teaAllSampledClear": true,
+  "nativeAcceptance": false,
+  "sha256": {
+    "accessory-expansion/src/test_and_export.mjs": "2ce05f8311b73d43056e11b86b2339f95e6d03c98f40c8e56d593893d344655c",
+    "accessory-expansion/src/audit_tea.py": "b0cff91598633662436331d948460c106fcabf1bc10705975f0f759c03bc29b8"
+  },
+  "reportSHA256": {
+    "host-audit.json": "19b2cf2bd906f4a3037482cbe7a43ca1b7f2c6fd95f3323acc6cd128b0825fc4",
+    "tea-collision-full.json": "c55d8955e5513d5c6029d159a6ff86f200610a041e3b96d908aa2da14574e06c"
+  }
+}

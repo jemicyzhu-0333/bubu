@@ -1,0 +1,304 @@
+TAP version 13
+# Subtest: focus base + coffee attach, environment only; idempotent refresh has no extra load/commit
+ok 1 - focus base + coffee attach, environment only; idempotent refresh has no extra load/commit
+  ---
+  duration_ms: 107.811489
+  type: 'test'
+  ...
+# Subtest: two actors share resource; first dispose cannot destroy second environment or actor resources
+ok 2 - two actors share resource; first dispose cannot destroy second environment or actor resources
+  ---
+  duration_ms: 1.401176
+  type: 'test'
+  ...
+# Subtest: cancel before prepare completion releases late result exactly once
+ok 3 - cancel before prepare completion releases late result exactly once
+  ---
+  duration_ms: 14.82908
+  type: 'test'
+  ...
+# Subtest: dispose before prepare completion releases late result exactly once
+ok 4 - dispose before prepare completion releases late result exactly once
+  ---
+  duration_ms: 0.848734
+  type: 'test'
+  ...
+# Subtest: suspend before prepare completion releases late result exactly once
+ok 5 - suspend before prepare completion releases late result exactly once
+  ---
+  duration_ms: 0.806381
+  type: 'test'
+  ...
+# Subtest: stale old session with reused session id rejected by selectionToken
+ok 6 - stale old session with reused session id rejected by selectionToken
+  ---
+  duration_ms: 1.442738
+  type: 'test'
+  ...
+# Subtest: same-display source revision invalidates async result through validityGeneration
+ok 7 - same-display source revision invalidates async result through validityGeneration
+  ---
+  duration_ms: 6.904708
+  type: 'test'
+  ...
+# Subtest: coffee expires between load and commit; no overlay resurrected
+ok 8 - coffee expires between load and commit; no overlay resurrected
+  ---
+  duration_ms: 1.348404
+  type: 'test'
+  ...
+# Subtest: hidden/context lost resume re-plans TTL before attaching; no actor reset
+ok 9 - hidden/context lost resume re-plans TTL before attaching; no actor reset
+  ---
+  duration_ms: 1.204185
+  type: 'test'
+  ...
+# Subtest: resource rejection is blocked, selected identity retained, no fallback
+ok 10 - resource rejection is blocked, selected identity retained, no fallback
+  ---
+  duration_ms: 5.374136
+  type: 'test'
+  ...
+# Subtest: atomic commit failure releases environment resources and does not touch actor
+ok 11 - atomic commit failure releases environment resources and does not touch actor
+  ---
+  duration_ms: 1.012979
+  type: 'test'
+  ...
+# Subtest: 100 mount/unmount cycles return to baseline; no timer or idle redraw
+ok 12 - 100 mount/unmount cycles return to baseline; no timer or idle redraw
+  ---
+  duration_ms: 29.896903
+  type: 'test'
+  ...
+# Subtest: old generation completion cannot dispose newer same-resource generation
+ok 13 - old generation completion cannot dispose newer same-resource generation
+  ---
+  duration_ms: 0.97219
+  type: 'test'
+  ...
+# Subtest: one failed parallel load releases another late successful resource
+ok 14 - one failed parallel load releases another late successful resource
+  ---
+  duration_ms: 23.079406
+  type: 'test'
+  ...
+# Subtest: disposed host cannot be revived by cancel, suspend, resume or reconcile
+ok 15 - disposed host cannot be revived by cancel, suspend, resume or reconcile
+  ---
+  duration_ms: 0.80616
+  type: 'test'
+  ...
+# Subtest: identical overlapping refreshes share one pending preparation and cannot starve decode
+ok 16 - identical overlapping refreshes share one pending preparation and cannot starve decode
+  ---
+  duration_ms: 8.885172
+  type: 'test'
+  ...
+# Subtest: existing coordinator keeps focus across midnight, detection/coffee changes; selection invoked once
+ok 17 - existing coordinator keeps focus across midnight, detection/coffee changes; selection invoked once
+  ---
+  duration_ms: 94.197338
+  type: 'test'
+  ...
+# Subtest: external fact TTL 30000 is exact; duplicates don't extend
+ok 18 - external fact TTL 30000 is exact; duplicates don't extend
+  ---
+  duration_ms: 8.414414
+  type: 'test'
+  ...
+# Subtest: external fact TTL 600000 is exact; duplicates don't extend
+ok 19 - external fact TTL 600000 is exact; duplicates don't extend
+  ---
+  duration_ms: 5.526125
+  type: 'test'
+  ...
+# Subtest: external fact TTL 900000 is exact; duplicates don't extend
+ok 20 - external fact TTL 900000 is exact; duplicates don't extend
+  ---
+  duration_ms: 1.121376
+  type: 'test'
+  ...
+# Subtest: independent feed/routine origins: expiry and revocation do not erase another origin
+ok 21 - independent feed/routine origins: expiry and revocation do not erase another origin
+  ---
+  duration_ms: 5.843941
+  type: 'test'
+  ...
+# Subtest: asset hashes match source copies and screen descriptor admits no contact depth
+ok 22 - asset hashes match source copies and screen descriptor admits no contact depth
+  ---
+  duration_ms: 45.930296
+  type: 'test'
+  ...
+# Subtest: separate proxy top is real indexed geometry with explicit calibration; not imported PNG depth
+ok 23 - separate proxy top is real indexed geometry with explicit calibration; not imported PNG depth
+  ---
+  duration_ms: 2.289086
+  type: 'test'
+  ...
+# Subtest: composition uses back layers only and one V1 mask, no CSS+3D shadows or hit growth
+ok 24 - composition uses back layers only and one V1 mask, no CSS+3D shadows or hit growth
+  ---
+  duration_ms: 1.741559
+  type: 'test'
+  ...
+# Subtest: metrics 220x220 DPR 1
+ok 25 - metrics 220x220 DPR 1
+  ---
+  duration_ms: 9.542434
+  type: 'test'
+  ...
+# Subtest: metrics 220x220 DPR 1.25
+ok 26 - metrics 220x220 DPR 1.25
+  ---
+  duration_ms: 0.431881
+  type: 'test'
+  ...
+# Subtest: metrics 220x220 DPR 1.5
+ok 27 - metrics 220x220 DPR 1.5
+  ---
+  duration_ms: 6.280408
+  type: 'test'
+  ...
+# Subtest: metrics 220x220 DPR 2
+ok 28 - metrics 220x220 DPR 2
+  ---
+  duration_ms: 0.589136
+  type: 'test'
+  ...
+# Subtest: metrics 220x220 DPR 3
+ok 29 - metrics 220x220 DPR 3
+  ---
+  duration_ms: 2.337255
+  type: 'test'
+  ...
+# Subtest: metrics 440x440 DPR 1
+ok 30 - metrics 440x440 DPR 1
+  ---
+  duration_ms: 7.738408
+  type: 'test'
+  ...
+# Subtest: metrics 440x440 DPR 1.25
+ok 31 - metrics 440x440 DPR 1.25
+  ---
+  duration_ms: 0.511313
+  type: 'test'
+  ...
+# Subtest: metrics 440x440 DPR 1.5
+ok 32 - metrics 440x440 DPR 1.5
+  ---
+  duration_ms: 0.419734
+  type: 'test'
+  ...
+# Subtest: metrics 440x440 DPR 2
+ok 33 - metrics 440x440 DPR 2
+  ---
+  duration_ms: 0.498634
+  type: 'test'
+  ...
+# Subtest: metrics 440x440 DPR 3
+ok 34 - metrics 440x440 DPR 3
+  ---
+  duration_ms: 7.588278
+  type: 'test'
+  ...
+# Subtest: metrics 120x220 DPR 1
+ok 35 - metrics 120x220 DPR 1
+  ---
+  duration_ms: 0.244275
+  type: 'test'
+  ...
+# Subtest: metrics 120x220 DPR 1.25
+ok 36 - metrics 120x220 DPR 1.25
+  ---
+  duration_ms: 0.157327
+  type: 'test'
+  ...
+# Subtest: metrics 120x220 DPR 1.5
+ok 37 - metrics 120x220 DPR 1.5
+  ---
+  duration_ms: 0.528098
+  type: 'test'
+  ...
+# Subtest: metrics 120x220 DPR 2
+ok 38 - metrics 120x220 DPR 2
+  ---
+  duration_ms: 0.154687
+  type: 'test'
+  ...
+# Subtest: metrics 120x220 DPR 3
+ok 39 - metrics 120x220 DPR 3
+  ---
+  duration_ms: 0.804336
+  type: 'test'
+  ...
+# Subtest: metrics 500x150 DPR 1
+ok 40 - metrics 500x150 DPR 1
+  ---
+  duration_ms: 0.13933
+  type: 'test'
+  ...
+# Subtest: metrics 500x150 DPR 1.25
+ok 41 - metrics 500x150 DPR 1.25
+  ---
+  duration_ms: 0.089761
+  type: 'test'
+  ...
+# Subtest: metrics 500x150 DPR 1.5
+ok 42 - metrics 500x150 DPR 1.5
+  ---
+  duration_ms: 0.324706
+  type: 'test'
+  ...
+# Subtest: metrics 500x150 DPR 2
+ok 43 - metrics 500x150 DPR 2
+  ---
+  duration_ms: 0.25346
+  type: 'test'
+  ...
+# Subtest: metrics 500x150 DPR 3
+ok 44 - metrics 500x150 DPR 3
+  ---
+  duration_ms: 0.200886
+  type: 'test'
+  ...
+# Subtest: explicit 2x preview only; arbitrary viewport never auto-fits actor
+ok 45 - explicit 2x preview only; arbitrary viewport never auto-fits actor
+  ---
+  duration_ms: 0.538526
+  type: 'test'
+  ...
+# Subtest: zero-size delays and invalid calibration rejects
+ok 46 - zero-size delays and invalid calibration rejects
+  ---
+  duration_ms: 0.947359
+  type: 'test'
+  ...
+# Subtest: resize commits backing/projection/hit as one bundle; failed swap retains previous; disposal idempotent
+ok 47 - resize commits backing/projection/hit as one bundle; failed swap retains previous; disposal idempotent
+  ---
+  duration_ms: 17.156368
+  type: 'test'
+  ...
+# Subtest: body projected world width calibrates exactly to 99 CSS; safety rect does not promise geometry fit
+ok 48 - body projected world width calibrates exactly to 99 CSS; safety rect does not promise geometry fit
+  ---
+  duration_ms: 0.347576
+  type: 'test'
+  ...
+# Subtest: caller input mutation cannot change already published projection
+ok 49 - caller input mutation cannot change already published projection
+  ---
+  duration_ms: 0.424845
+  type: 'test'
+  ...
+1..49
+# tests 49
+# suites 0
+# pass 49
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 797.005106

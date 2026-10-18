@@ -1,0 +1,1071 @@
+{
+  "schema": "bubu-props/1",
+  "coordinates": "glTF X right Y up Z front, approved05 design units",
+  "bodyWidth": 2.3797432184,
+  "status": "local isolated assets; no production integration or native acceptance",
+  "items": [
+    {
+      "id": "umbrella",
+      "file": "models/umbrella.glb",
+      "vertices": 2873,
+      "triangles": 4392,
+      "bounds": {
+        "min": [
+          -0.995000000372529,
+          0.018210146576166153,
+          -0.995000000372529
+        ],
+        "max": [
+          0.995000000372529,
+          2.047500002682209,
+          0.995000000372529
+        ]
+      },
+      "sockets": {
+        "grip": [
+          0,
+          0.46,
+          0
+        ],
+        "canopyHub": [
+          0,
+          1.94,
+          0
+        ],
+        "runner": [
+          0,
+          1.5,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Umbrella_shaft",
+          "color": "#caa06b",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Umbrella_hook",
+          "color": "#649c92",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Umbrella_canopy_0",
+          "color": "#b0d6cb",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Umbrella_rib_0",
+          "color": "#c9c6b7",
+          "roughness": 0.55,
+          "metalness": 0.15
+        },
+        {
+          "mesh": "Umbrella_tip_0",
+          "color": "#649c92",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Umbrella_canopy_1",
+          "color": "#f7e8c6",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Umbrella_rib_1",
+          "color": "#c9c6b7",
+          "roughness": 0.55,
+          "metalness": 0.15
+        },
+        {
+          "mesh": "Umbrella_tip_1",
+          "color": "#649c92",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Umbrella_canopy_2",
+          "color": "#b0d6cb",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Umbrella_rib_2",
+          "color": "#c9c6b7",
+          "roughness": 0.55,
+          "metalness": 0.15
+        },
+        {
+          "mesh": "Umbrella_tip_2",
+          "color": "#649c92",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Umbrella_canopy_3",
+          "color": "#f7e8c6",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Umbrella_rib_3",
+          "color": "#c9c6b7",
+          "roughness": 0.55,
+          "metalness": 0.15
+        },
+        {
+          "mesh": "Umbrella_tip_3",
+          "color": "#649c92",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Umbrella_canopy_4",
+          "color": "#b0d6cb",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Umbrella_rib_4",
+          "color": "#c9c6b7",
+          "roughness": 0.55,
+          "metalness": 0.15
+        },
+        {
+          "mesh": "Umbrella_tip_4",
+          "color": "#649c92",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Umbrella_canopy_5",
+          "color": "#f7e8c6",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Umbrella_rib_5",
+          "color": "#c9c6b7",
+          "roughness": 0.55,
+          "metalness": 0.15
+        },
+        {
+          "mesh": "Umbrella_tip_5",
+          "color": "#649c92",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Umbrella_canopy_6",
+          "color": "#b0d6cb",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Umbrella_rib_6",
+          "color": "#c9c6b7",
+          "roughness": 0.55,
+          "metalness": 0.15
+        },
+        {
+          "mesh": "Umbrella_tip_6",
+          "color": "#649c92",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Umbrella_canopy_7",
+          "color": "#f7e8c6",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Umbrella_rib_7",
+          "color": "#c9c6b7",
+          "roughness": 0.55,
+          "metalness": 0.15
+        },
+        {
+          "mesh": "Umbrella_tip_7",
+          "color": "#649c92",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Umbrella_finial",
+          "color": "#649c92",
+          "roughness": 0.7,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -1.030000000372529,
+          -0.01678985342383385,
+          -1.030000000372529
+        ],
+        "max": [
+          1.030000000372529,
+          2.082500002682209,
+          1.030000000372529
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "separate built-in imagegen concepts visually inspected; user acceptance pending",
+        "model": "editable actual 3D exported",
+        "staticMount": "original 13 actor meshes unchanged; actual contact audit passed",
+        "animation": "not in this batch",
+        "wardrobe": "pending",
+        "nativeRuntime": "pending"
+      },
+      "prototype": "prototypes/umbrella.png",
+      "sha256": "36743b985186c265666381796abf446b6543ff8f5e5edd9a024f1a7cf3954632",
+      "renders": {
+        "front": "renders/umbrella-front.png",
+        "quarter": "renders/umbrella-quarter.png",
+        "side": "renders/umbrella-side.png",
+        "back": "renders/umbrella-back.png"
+      },
+      "mountedRenders": {
+        "0": "renders/mounted-umbrella-0/0000.png",
+        "45": "renders/mounted-umbrella-45/0000.png",
+        "90": "renders/mounted-umbrella-90/0000.png",
+        "180": "renders/mounted-umbrella-180/0000.png"
+      },
+      "provenance": "Built-in image_gen per item; then authored editable Three.js geometry, no PNG plane."
+    },
+    {
+      "id": "picnic-mat",
+      "file": "models/picnic-mat.glb",
+      "vertices": 4436,
+      "triangles": 2124,
+      "bounds": {
+        "min": [
+          -1.1700000017881393,
+          -7.450580430390374e-11,
+          -0.824999988079071
+        ],
+        "max": [
+          1.1700000017881393,
+          0.04000000002607703,
+          0.824999988079071
+        ]
+      },
+      "sockets": {
+        "support": [
+          0,
+          0,
+          0
+        ],
+        "footSurface": [
+          0,
+          0.04,
+          0
+        ],
+        "foldAxis": [
+          0,
+          0.02,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Mat_padded_base",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_0_0",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_0_1",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_0_2",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_0_3",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_0_4",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_0_5",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_1_0",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_1_1",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_1_2",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_1_3",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_1_4",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_1_5",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_2_0",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_2_1",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_2_2",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_2_3",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_2_4",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_2_5",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_3_0",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_3_1",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_3_2",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_3_3",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_3_4",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_3_5",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_4_0",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_4_1",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_4_2",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_4_3",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_4_4",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_4_5",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_5_0",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_5_1",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_5_2",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_5_3",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_5_4",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_5_5",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_6_0",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_6_1",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_6_2",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_6_3",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_6_4",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_6_5",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_7_0",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_7_1",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_7_2",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_7_3",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_7_4",
+          "color": "#a6bfa8",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_check_7_5",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_fringe_-1_0",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_fringe_-1_1",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_fringe_-1_2",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_fringe_-1_3",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_fringe_-1_4",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_fringe_-1_5",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_fringe_-1_6",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_fringe_-1_7",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_fringe_-1_8",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_fringe_-1_9",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_fringe_1_0",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_fringe_1_1",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_fringe_1_2",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_fringe_1_3",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_fringe_1_4",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_fringe_1_5",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_fringe_1_6",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_fringe_1_7",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_fringe_1_8",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Mat_fringe_1_9",
+          "color": "#ede4cd",
+          "roughness": 1,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -1.2050000017881393,
+          -0.03500000007450581,
+          -0.8599999880790711
+        ],
+        "max": [
+          1.2050000017881393,
+          0.07500000002607704,
+          0.8599999880790711
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "separate built-in imagegen concepts visually inspected; user acceptance pending",
+        "model": "editable actual 3D exported",
+        "staticMount": "original 13 actor meshes unchanged; actual contact audit passed",
+        "animation": "not in this batch",
+        "wardrobe": "pending",
+        "nativeRuntime": "pending"
+      },
+      "prototype": "prototypes/picnic-mat.png",
+      "sha256": "7864931d4d3190df7b4129da772e4bfd60b69a9ac8b474b4d88a37b0f61ff249",
+      "renders": {
+        "front": "renders/picnic-mat-front.png",
+        "quarter": "renders/picnic-mat-quarter.png",
+        "side": "renders/picnic-mat-side.png",
+        "back": "renders/picnic-mat-back.png"
+      },
+      "mountedRenders": {
+        "0": "renders/mounted-picnic-mat-0/0000.png",
+        "45": "renders/mounted-picnic-mat-45/0000.png",
+        "90": "renders/mounted-picnic-mat-90/0000.png",
+        "180": "renders/mounted-picnic-mat-180/0000.png"
+      },
+      "provenance": "Built-in image_gen per item; then authored editable Three.js geometry, no PNG plane."
+    },
+    {
+      "id": "snack",
+      "file": "models/snack.glb",
+      "vertices": 672,
+      "triangles": 224,
+      "bounds": {
+        "min": [
+          -0.2548106014728546,
+          0.0042287160083651545,
+          -0.1630000003799796
+        ],
+        "max": [
+          0.2548106014728546,
+          0.4513137137889862,
+          0.15399999982118606
+        ]
+      },
+      "sockets": {
+        "grip": [
+          -0.22,
+          0.1,
+          0
+        ],
+        "biteTarget": [
+          0,
+          0.44,
+          0
+        ],
+        "support": [
+          0,
+          0,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Sandwich_back_crust",
+          "color": "#cf984b",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Sandwich_back_bread",
+          "color": "#f3dc9e",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Sandwich_lettuce",
+          "color": "#8ba34c",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Sandwich_cheese",
+          "color": "#e9bd4e",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Sandwich_tomato",
+          "color": "#b96045",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Sandwich_front_crust",
+          "color": "#cf984b",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Sandwich_front_bread",
+          "color": "#f3dc9e",
+          "roughness": 0.7,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.28981060147285465,
+          -0.030771283991634847,
+          -0.1980000003799796
+        ],
+        "max": [
+          0.28981060147285465,
+          0.48631371378898625,
+          0.18899999982118607
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "separate built-in imagegen concepts visually inspected; user acceptance pending",
+        "model": "editable actual 3D exported",
+        "staticMount": "original 13 actor meshes unchanged; actual contact audit passed",
+        "animation": "not in this batch",
+        "wardrobe": "pending",
+        "nativeRuntime": "pending"
+      },
+      "prototype": "prototypes/snack.png",
+      "sha256": "742991dad6ff7831ab079ed7eff28428e83018c4c7a97fc99e9a239ccbb99713",
+      "renders": {
+        "front": "renders/snack-front.png",
+        "quarter": "renders/snack-quarter.png",
+        "side": "renders/snack-side.png",
+        "back": "renders/snack-back.png"
+      },
+      "mountedRenders": {
+        "0": "renders/mounted-snack-0/0000.png",
+        "45": "renders/mounted-snack-45/0000.png",
+        "90": "renders/mounted-snack-90/0000.png",
+        "180": "renders/mounted-snack-180/0000.png"
+      },
+      "provenance": "Built-in image_gen per item; then authored editable Three.js geometry, no PNG plane."
+    },
+    {
+      "id": "pan",
+      "file": "models/pan.glb",
+      "vertices": 2578,
+      "triangles": 1916,
+      "bounds": {
+        "min": [
+          -0.7100000071525574,
+          0,
+          -0.3199999928474426
+        ],
+        "max": [
+          0.3199999928474426,
+          0.15499999966472397,
+          0.3199999928474426
+        ]
+      },
+      "sockets": {
+        "grip": [
+          -0.6,
+          0.09,
+          0
+        ],
+        "bowl": [
+          0,
+          0.04,
+          0
+        ],
+        "support": [
+          0,
+          0,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Pan_bowl",
+          "color": "#444a49",
+          "roughness": 0.55,
+          "metalness": 0.25
+        },
+        {
+          "mesh": "Pan_rim",
+          "color": "#b4bdb9",
+          "roughness": 0.35,
+          "metalness": 0.6
+        },
+        {
+          "mesh": "Pan_handle_neck",
+          "color": "#b4bdb9",
+          "roughness": 0.35,
+          "metalness": 0.6
+        },
+        {
+          "mesh": "Pan_handle",
+          "color": "#91bfae",
+          "roughness": 0.7,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.7450000071525574,
+          -0.035,
+          -0.35499999284744266
+        ],
+        "max": [
+          0.35499999284744266,
+          0.18999999966472397,
+          0.35499999284744266
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "separate built-in imagegen concepts visually inspected; user acceptance pending",
+        "model": "editable actual 3D exported",
+        "staticMount": "original 13 actor meshes unchanged; actual contact audit passed",
+        "animation": "not in this batch",
+        "wardrobe": "pending",
+        "nativeRuntime": "pending"
+      },
+      "prototype": "prototypes/pan.png",
+      "sha256": "eb414b1f52da078176f0d0eff1da2b1cdefd6298944a0efb284ed78d3c454078",
+      "renders": {
+        "front": "renders/pan-front.png",
+        "quarter": "renders/pan-quarter.png",
+        "side": "renders/pan-side.png",
+        "back": "renders/pan-back.png"
+      },
+      "mountedRenders": {
+        "0": "renders/mounted-pan-0/0000.png",
+        "45": "renders/mounted-pan-45/0000.png",
+        "90": "renders/mounted-pan-90/0000.png",
+        "180": "renders/mounted-pan-180/0000.png"
+      },
+      "provenance": "Built-in image_gen per item; then authored editable Three.js geometry, no PNG plane."
+    },
+    {
+      "id": "camera",
+      "file": "models/camera.glb",
+      "vertices": 7677,
+      "triangles": 3072,
+      "bounds": {
+        "min": [
+          -0.29000000178813934,
+          -2.980232227667301e-09,
+          -0.13700000021606684
+        ],
+        "max": [
+          0.29000000178813934,
+          0.4325000000745058,
+          0.265
+        ]
+      },
+      "sockets": {
+        "support": [
+          0,
+          0,
+          0
+        ],
+        "opticalAxis": [
+          0,
+          0.21,
+          0.27
+        ],
+        "shutter": [
+          -0.17,
+          0.435,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Camera_body",
+          "color": "#e9dcc1",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Camera_grip_-1",
+          "color": "#7eaaa1",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Camera_grip_1",
+          "color": "#7eaaa1",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Camera_lens_barrel",
+          "color": "#424847",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Camera_lens_glass",
+          "color": "#35607c",
+          "roughness": 0.22,
+          "metalness": 0.35
+        },
+        {
+          "mesh": "Camera_rear_screen",
+          "color": "#424847",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Camera_shutter",
+          "color": "#7eaaa1",
+          "roughness": 0.7,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.32500000178813937,
+          -0.03500000298023223,
+          -0.17200000021606685
+        ],
+        "max": [
+          0.32500000178813937,
+          0.46750000007450576,
+          0.30000000000000004
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "separate built-in imagegen concepts visually inspected; user acceptance pending",
+        "model": "editable actual 3D exported",
+        "staticMount": "original 13 actor meshes unchanged; actual contact audit passed",
+        "animation": "not in this batch",
+        "wardrobe": "pending",
+        "nativeRuntime": "pending"
+      },
+      "prototype": "prototypes/camera.png",
+      "sha256": "1078a76eca2bc17a26b05fe6cb1248e8bc1e46e8213c95ee9b40c57599682a02",
+      "renders": {
+        "front": "renders/camera-front.png",
+        "quarter": "renders/camera-quarter.png",
+        "side": "renders/camera-side.png",
+        "back": "renders/camera-back.png"
+      },
+      "mountedRenders": {
+        "0": "renders/mounted-camera-0/0000.png",
+        "45": "renders/mounted-camera-45/0000.png",
+        "90": "renders/mounted-camera-90/0000.png",
+        "180": "renders/mounted-camera-180/0000.png"
+      },
+      "provenance": "Built-in image_gen per item; then authored editable Three.js geometry, no PNG plane."
+    }
+  ],
+  "evidence": {
+    "assetTests": "reports/unit-tests.log",
+    "staticTests": "reports/static-tests.log",
+    "triangleAudit": "reports/mount-audit.json",
+    "singleFourViews": "renders/single-model-contact-sheet.png",
+    "mountedFourViews": "renders/mounted-contact-sheet.png",
+    "matElevated": "renders/mounted-picnic-mat-elevated/0000.png",
+    "review": "reports/review-notes.md"
+  }
+}

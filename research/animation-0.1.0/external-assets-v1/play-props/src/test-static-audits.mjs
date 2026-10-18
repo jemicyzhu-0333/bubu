@@ -1,0 +1,2 @@
+import test from 'node:test';import {execFileSync} from 'node:child_process';import path from 'node:path';import {paths} from '../../shared/paths.mjs';
+const cfg=paths();test('current generated play geometry and stage evidence',()=>execFileSync('python',[new URL('../../shared/verify-prop-evidence.py',import.meta.url).pathname,'--proof',path.join(cfg.cache,'play-props/reports/current-evidence.json')],{stdio:'inherit'}));

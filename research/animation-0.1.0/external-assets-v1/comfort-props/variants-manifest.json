@@ -1,0 +1,356 @@
+{
+  "schema": "bubu-props/1",
+  "coordinates": "glTF X right Y up Z front, approved05 design units",
+  "bodyWidth": 2.3797432184,
+  "status": "local isolated assets; no production integration or native acceptance",
+  "items": [
+    {
+      "id": "tissue-sheet",
+      "file": "models/tissue-sheet.glb",
+      "vertices": 143,
+      "triangles": 240,
+      "bounds": {
+        "min": [
+          -0.16500000655651093,
+          0.0005617606802843511,
+          -0.0191784854978323
+        ],
+        "max": [
+          0.16500000655651093,
+          0.2999373972415924,
+          0.044995736330747604
+        ]
+      },
+      "sockets": {
+        "grip": [
+          -0.125,
+          0.025,
+          0
+        ],
+        "support": [
+          0,
+          0,
+          0
+        ],
+        "tip": [
+          0,
+          0.275,
+          0.025
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Tissue_single_sheet",
+          "color": "#fffaf0",
+          "roughness": 0.7,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.20000000655651093,
+          -0.03443823931971565,
+          -0.0541784854978323
+        ],
+        "max": [
+          0.20000000655651093,
+          0.33493739724159244,
+          0.07999573633074761
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "existing generated prototype; original shape reused",
+        "model": "independent derived GLB, original six GLBs unchanged",
+        "mount": "original unmodified right hand static contact",
+        "validation": "79 full group tests pass; actual geometry CPU rendering only"
+      },
+      "prototype": "prototypes/tissue.png",
+      "family": "tissue",
+      "variant": "detached-handheld",
+      "prototypeSha256": "5ece3d51082466c09047fca5c1920a00949497db06cd3e84adad9c0382733282",
+      "sha256": "9f394a04ed801f87ca69a62b37aa0a26c12ac6173e382b2fdbc397041dd03488",
+      "sourceGeometry": {
+        "parentModel": "models/tissue.glb",
+        "parentSha256": "8b8ebbe6c47fd1518c1ef5c12c0e6ebbf6b9be5c22a92c7babfde2801e5528e5",
+        "partNode": "Tissue_single_sheet",
+        "operation": "clone existing geometry/materials, detach, translate only; original node rotation preserved",
+        "newImageGeneration": false
+      },
+      "staticMount": {
+        "id": "tissue-sheet",
+        "position": [
+          1.264,
+          0.67,
+          -0.2
+        ],
+        "kind": "original right hand holding detached single tissue sheet",
+        "originalActorMeshes": 13,
+        "originalActorPositionsByteIdentical": true,
+        "fullActions": "pending",
+        "wardrobe": "pending",
+        "nativeRuntime": "pending"
+      },
+      "staticAudit": {
+        "id": "tissue-sheet",
+        "inputSha256": "4c08181366b1c351f09e374c13b98ac88a4c4681b5f5c9f544cb20175209913a",
+        "referenceSha256": "fd51c0fc3a780c12016e8628ac0658606f0e45d0aa594d095c29d84ed4f67106",
+        "unchanged13ActorMeshes": true,
+        "bodyTriangleCrossings": 0,
+        "faceTriangleCrossings": 0,
+        "handMinimumSurfaceDistance": 0.0016439883038401604,
+        "handVerticesWithin001": 9,
+        "handMaxInsidePenetration": 0.0014434667536988854,
+        "footMinSurfaceDistance": null,
+        "bounds": [
+          [
+            1.0989999771118164,
+            1.4290000200271606
+          ],
+          [
+            0.6705617904663086,
+            0.9699373841285706
+          ],
+          [
+            -0.2191784828901291,
+            -0.15500426292419434
+          ]
+        ],
+        "fixedBodyScaleSafeEnvelope": true,
+        "bodyCrossingByPart": {},
+        "contactMethod": "sheet vertices versus closed original hand",
+        "groundSupportPlane": null,
+        "groundMinimumError": null,
+        "originalFeetUnmoved": true,
+        "staticAuditPass": true
+      },
+      "safeBounds": {
+        "min": [
+          -0.20000000655651093,
+          -0.03443823931971565,
+          -0.0541784854978323
+        ],
+        "max": [
+          0.20000000655651093,
+          0.33493739724159244,
+          0.07999573633074761
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "pending": [
+        "new action timing",
+        "paper extraction/return sequence",
+        "wardrobe combinations",
+        "production/native integration"
+      ],
+      "renderEvidence": {
+        "isolated": [
+          "renders/tissue-sheet-front.png",
+          "renders/tissue-sheet-side.png",
+          "renders/tissue-sheet-quarter.png",
+          "renders/tissue-sheet-back.png"
+        ],
+        "assembled": [
+          "renders/tissue-sheet-mounted-0/0000.png",
+          "renders/tissue-sheet-mounted-45/0000.png",
+          "renders/tissue-sheet-mounted-90/0000.png",
+          "renders/tissue-sheet-mounted-180/0000.png"
+        ]
+      }
+    },
+    {
+      "id": "telescope-handheld",
+      "file": "models/telescope-handheld.glb",
+      "vertices": 1176,
+      "triangles": 768,
+      "bounds": {
+        "min": [
+          -0.19699999690055847,
+          0.010436599183728523,
+          -0.5546439382524471
+        ],
+        "max": [
+          0.19699999690055847,
+          0.6192602033922165,
+          0.41435558628289704
+        ]
+      },
+      "sockets": {
+        "grip": [
+          -0.18,
+          0.3,
+          0
+        ],
+        "support": [
+          0,
+          0,
+          0
+        ],
+        "eyepiece": [
+          0,
+          0.096,
+          -0.502
+        ],
+        "altitude": [
+          0,
+          0.3,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Telescope_tube",
+          "color": "#f0e1c2",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Telescope_front_rim",
+          "color": "#9cc7b6",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Telescope_objective",
+          "color": "#233e50",
+          "roughness": 0.16,
+          "metalness": 0.4
+        },
+        {
+          "mesh": "Telescope_rear_cap",
+          "color": "#f0e1c2",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Telescope_eyepiece",
+          "color": "#39494c",
+          "roughness": 0.7,
+          "metalness": 0
+        },
+        {
+          "mesh": "Telescope_eyecup",
+          "color": "#9cc7b6",
+          "roughness": 0.7,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.23199999690055848,
+          -0.02456340081627148,
+          -0.5896439382524471
+        ],
+        "max": [
+          0.23199999690055848,
+          0.6542602033922166,
+          0.44935558628289707
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "existing generated prototype; original shape reused",
+        "model": "independent derived GLB, original six GLBs unchanged",
+        "mount": "original unmodified right hand static contact",
+        "validation": "79 full group tests pass; actual geometry CPU rendering only"
+      },
+      "prototype": "prototypes/telescope.png",
+      "family": "telescope",
+      "variant": "detached-handheld",
+      "prototypeSha256": "dfff7920e9aea4536afe853cf2a32ffbdf6c336ecf1477a7393b9918dd8cfeba",
+      "sha256": "4a2c72f0418a770539bc6ab16c2a2c3a59d42d85800ef17c96cb2ec84033689e",
+      "sourceGeometry": {
+        "parentModel": "models/telescope.glb",
+        "parentSha256": "362f1c8cc0b38c06546b85854611c6b192a45f1db5201ba828753c89e300cef9",
+        "partNode": "Telescope_altitude_pivot",
+        "operation": "clone existing geometry/materials, detach, translate only; original node rotation preserved",
+        "newImageGeneration": false
+      },
+      "staticMount": {
+        "id": "telescope-handheld",
+        "position": [
+          1.34,
+          0.4,
+          -0.2
+        ],
+        "kind": "original right hand supporting independently detached telescope tube",
+        "originalActorMeshes": 13,
+        "originalActorPositionsByteIdentical": true,
+        "fullActions": "pending",
+        "wardrobe": "pending",
+        "nativeRuntime": "pending"
+      },
+      "staticAudit": {
+        "id": "telescope-handheld",
+        "inputSha256": "5d013da223b14e8233928e4266c2a883543d4016c627637f4cd9a7c6e891d29b",
+        "referenceSha256": "fd51c0fc3a780c12016e8628ac0658606f0e45d0aa594d095c29d84ed4f67106",
+        "unchanged13ActorMeshes": true,
+        "bodyTriangleCrossings": 0,
+        "faceTriangleCrossings": 0,
+        "handMinimumSurfaceDistance": 0.0008708493551239371,
+        "handVerticesWithin001": 63,
+        "handMaxInsidePenetration": 0,
+        "footMinSurfaceDistance": null,
+        "bounds": [
+          [
+            1.1430000066757202,
+            1.5369999408721924
+          ],
+          [
+            0.41043660044670105,
+            1.0192601680755615
+          ],
+          [
+            -0.7546439170837402,
+            0.21435558795928955
+          ]
+        ],
+        "fixedBodyScaleSafeEnvelope": true,
+        "bodyCrossingByPart": {},
+        "contactMethod": "original hand vertices versus closed prop",
+        "groundSupportPlane": null,
+        "groundMinimumError": null,
+        "originalFeetUnmoved": true,
+        "staticAuditPass": true
+      },
+      "safeBounds": {
+        "min": [
+          -0.23199999690055848,
+          -0.02456340081627148,
+          -0.5896439382524471
+        ],
+        "max": [
+          0.23199999690055848,
+          0.6542602033922166,
+          0.44935558628289707
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "pending": [
+        "new action timing",
+        "eye-level optical use sequence",
+        "wardrobe combinations",
+        "production/native integration"
+      ],
+      "renderEvidence": {
+        "isolated": [
+          "renders/telescope-handheld-front.png",
+          "renders/telescope-handheld-side.png",
+          "renders/telescope-handheld-quarter.png",
+          "renders/telescope-handheld-back.png"
+        ],
+        "assembled": [
+          "renders/telescope-handheld-mounted-0/0000.png",
+          "renders/telescope-handheld-mounted-45/0000.png",
+          "renders/telescope-handheld-mounted-90/0000.png",
+          "renders/telescope-handheld-mounted-180/0000.png"
+        ]
+      }
+    }
+  ],
+  "scope": "Derived handheld static variants alongside original six; no new animation timing, original actor and original six models unchanged."
+}

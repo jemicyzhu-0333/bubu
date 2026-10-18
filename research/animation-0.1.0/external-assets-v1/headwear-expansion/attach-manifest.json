@@ -1,0 +1,887 @@
+{
+  "version": "0.1.0-research",
+  "sourceBodySHA256": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
+  "hybridSHA256": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67",
+  "referenceBodyImageSHA256": "25835cd5bb1eb94bea23cc4fdfc399dca4c0cd9c393e95c8bfb29aa4253ef9b3",
+  "sourceIdentity": "unchanged approved D2 original plus hybrid pack; generated bodies are reference-only",
+  "applicationEntry": "src/accessory-adapter.mjs",
+  "items": [
+    {
+      "order": 8,
+      "id": "skin.forest-leaf",
+      "kind": "forest",
+      "model": "models/08-forest-leaf.glb",
+      "sha256": "7bf3931c00a9c5fae3bbdfba1c2e0a3a0472aa5fb7ab30d7605b39b8853efa4a",
+      "prototype": "references/08-forest-leaf-prototype.png",
+      "prototypeSHA256": "fe548d50064b624bbfd361180e73f46db20728b8f97d35873f65e05b005dacd7",
+      "prompt": "references/08-forest-leaf-prompt.txt",
+      "conceptReview": {
+        "earsVisible": true,
+        "eyesClear": true,
+        "sideHasRealDepth": true,
+        "referenceOnly": true
+      },
+      "modelStatus": "research-host-installable-awaiting-final-batch-review",
+      "userAcceptance": "pending",
+      "productionWardrobe": "not-integrated",
+      "binding": {
+        "space": "same approved source skin actor-local coordinates",
+        "rootMatrix": "inverse(parent.matrixWorld) * sourceSkin.matrixWorld",
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "nominalHeadAttachPoint": [
+          0,
+          1.64,
+          0
+        ],
+        "geometryAuthoredAtAttachPoint": true
+      },
+      "bounds": {
+        "min": [
+          -0.43187737464904785,
+          1.615652285516262,
+          -0.10000000149011612
+        ],
+        "max": [
+          0.46984952688217163,
+          2.0179476365447044,
+          0.0020000040531158447
+        ]
+      },
+      "triangles": 2480,
+      "materials": [
+        {
+          "name": "jade leaf",
+          "color": [
+            0.18000000715255737,
+            0.36000001430511475,
+            0.09000000357627869
+          ],
+          "roughness": 0.47999998927116394,
+          "metalness": 0
+        },
+        {
+          "name": "pale leaf vein",
+          "color": [
+            0.550000011920929,
+            0.6700000166893005,
+            0.27000001072883606
+          ],
+          "roughness": 0.47999998927116394,
+          "metalness": 0
+        },
+        {
+          "name": "brown petiole",
+          "color": [
+            0.23000000417232513,
+            0.12999999523162842,
+            0.054999999701976776
+          ],
+          "roughness": 0.47999998927116394,
+          "metalness": 0
+        }
+      ],
+      "constraints": {
+        "exclusiveGroup": "head-accent",
+        "exclusivePriority": 30,
+        "minLevel": 1,
+        "formId": "dango",
+        "skin": "forest",
+        "unlockKind": "skin",
+        "optInOnly": false,
+        "productionViews": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "reviewViews": [
+          0,
+          45,
+          90,
+          180
+        ],
+        "effect": "leaf-shimmer",
+        "effectImplemented": false
+      },
+      "tests": {
+        "dragFrames": 271,
+        "longpressFrames": 1891,
+        "finiteBoundsPerReplayFrame": true,
+        "maxAccessoryBoundsDiagonal": 3,
+        "sourceGeometryHashUnchanged": true,
+        "detachAndIdempotentDisposal": true,
+        "borrowedAssetReleaseExplicit": true,
+        "tea": "Corrected actor-local frame: 16 keyframes plus 271 30fps discrete frames; see reports; not continuous collision",
+        "browserWebGL": "not-tested",
+        "nativeDesktop": "not-tested",
+        "wardrobeCombinations": "not-tested"
+      },
+      "visualReview": "review/forest-actual-fourviews.png"
+    },
+    {
+      "order": 9,
+      "id": "skin.sakura-flower",
+      "kind": "sakura",
+      "model": "models/09-sakura-flower.glb",
+      "sha256": "f0038412cec4cce735f991d1e82f9a37d274efb0e14174be69d2f63e62f543ff",
+      "prototype": "references/09-sakura-flower-prototype.png",
+      "prototypeSHA256": "eb33473a36745a164039aa993d149350fba655eb423eb5b227d35739dc4ea856",
+      "prompt": "references/09-sakura-flower-prompt.txt",
+      "conceptReview": {
+        "earsVisible": true,
+        "eyesClear": true,
+        "sideHasRealDepth": true,
+        "referenceOnly": true
+      },
+      "modelStatus": "research-host-installable-awaiting-final-batch-review",
+      "userAcceptance": "pending",
+      "productionWardrobe": "not-integrated",
+      "binding": {
+        "space": "same approved source skin actor-local coordinates",
+        "rootMatrix": "inverse(parent.matrixWorld) * sourceSkin.matrixWorld",
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "nominalHeadAttachPoint": [
+          0,
+          1.64,
+          0
+        ],
+        "geometryAuthoredAtAttachPoint": true
+      },
+      "bounds": {
+        "min": [
+          -0.36397285789440037,
+          1.5540400370955467,
+          -0.05999993402510917
+        ],
+        "max": [
+          0.36397294995647067,
+          2.085913620889187,
+          0.3073394000530243
+        ]
+      },
+      "triangles": 11184,
+      "materials": [
+        {
+          "name": "cream pink petals",
+          "color": [
+            0.9800000190734863,
+            0.6200000047683716,
+            0.6499999761581421
+          ],
+          "roughness": 0.47999998927116394,
+          "metalness": 0
+        },
+        {
+          "name": "warm yellow stamens",
+          "color": [
+            0.9800000190734863,
+            0.6499999761581421,
+            0.1599999964237213
+          ],
+          "roughness": 0.47999998927116394,
+          "metalness": 0
+        },
+        {
+          "name": "muted mint leaves",
+          "color": [
+            0.3400000035762787,
+            0.5299999713897705,
+            0.36000001430511475
+          ],
+          "roughness": 0.47999998927116394,
+          "metalness": 0
+        }
+      ],
+      "constraints": {
+        "exclusiveGroup": "head-accent",
+        "exclusivePriority": 30,
+        "minLevel": 1,
+        "formId": "dango",
+        "skin": "sakura",
+        "unlockKind": "skin",
+        "optInOnly": false,
+        "productionViews": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "reviewViews": [
+          0,
+          45,
+          90,
+          180
+        ],
+        "effect": "petal-glint",
+        "effectImplemented": false
+      },
+      "tests": {
+        "dragFrames": 271,
+        "longpressFrames": 1891,
+        "finiteBoundsPerReplayFrame": true,
+        "maxAccessoryBoundsDiagonal": 3,
+        "sourceGeometryHashUnchanged": true,
+        "detachAndIdempotentDisposal": true,
+        "borrowedAssetReleaseExplicit": true,
+        "tea": "Corrected actor-local frame: 16 keyframes plus 271 30fps discrete frames; see reports; not continuous collision",
+        "browserWebGL": "not-tested",
+        "nativeDesktop": "not-tested",
+        "wardrobeCombinations": "not-tested"
+      },
+      "visualReview": "review/sakura-actual-fourviews.png"
+    },
+    {
+      "order": 10,
+      "id": "skin.moon-crescent",
+      "kind": "moon",
+      "model": "models/10-moon-crescent.glb",
+      "sha256": "86e9b1cdb303d41e9b939e55773e2c44f4383ec8ff61efdc207001fa3d7fdca8",
+      "prototype": "references/10-moon-crescent-prototype.png",
+      "prototypeSHA256": "101a86b2600dc344f815b9f40472f52bd2ba0b8466478ca84f10d1e23d132937",
+      "prompt": "references/10-moon-crescent-prompt.txt",
+      "conceptReview": {
+        "earsVisible": true,
+        "eyesClear": true,
+        "sideHasRealDepth": true,
+        "referenceOnly": true
+      },
+      "modelStatus": "research-host-installable-awaiting-final-batch-review",
+      "userAcceptance": "pending",
+      "productionWardrobe": "not-integrated",
+      "binding": {
+        "space": "same approved source skin actor-local coordinates",
+        "rootMatrix": "inverse(parent.matrixWorld) * sourceSkin.matrixWorld",
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "nominalHeadAttachPoint": [
+          0,
+          1.64,
+          0
+        ],
+        "geometryAuthoredAtAttachPoint": true
+      },
+      "bounds": {
+        "min": [
+          -0.25,
+          1.6149999853223562,
+          -0.06999991685152018
+        ],
+        "max": [
+          0.125,
+          2.1549999341368675,
+          0.06999995440244655
+        ]
+      },
+      "triangles": 1732,
+      "materials": [
+        {
+          "name": "lavender mount",
+          "color": [
+            0.4300000071525574,
+            0.3199999928474426,
+            0.49000000953674316
+          ],
+          "roughness": 0.47999998927116394,
+          "metalness": 0
+        },
+        {
+          "name": "butter gold moon",
+          "color": [
+            0.949999988079071,
+            0.7300000190734863,
+            0.2800000011920929
+          ],
+          "roughness": 0.47999998927116394,
+          "metalness": 0
+        }
+      ],
+      "constraints": {
+        "exclusiveGroup": "head-accent",
+        "exclusivePriority": 40,
+        "minLevel": 1,
+        "formId": "dango",
+        "skin": "moon",
+        "unlockKind": "skin",
+        "optInOnly": false,
+        "productionViews": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "reviewViews": [
+          0,
+          45,
+          90,
+          180
+        ],
+        "effect": "moon-glow",
+        "effectImplemented": false
+      },
+      "tests": {
+        "dragFrames": 271,
+        "longpressFrames": 1891,
+        "finiteBoundsPerReplayFrame": true,
+        "maxAccessoryBoundsDiagonal": 3,
+        "sourceGeometryHashUnchanged": true,
+        "detachAndIdempotentDisposal": true,
+        "borrowedAssetReleaseExplicit": true,
+        "tea": "Corrected actor-local frame: 16 keyframes plus 271 30fps discrete frames; see reports; not continuous collision",
+        "browserWebGL": "not-tested",
+        "nativeDesktop": "not-tested",
+        "wardrobeCombinations": "not-tested"
+      },
+      "visualReview": "review/moon-actual-fourviews.png"
+    },
+    {
+      "order": 11,
+      "id": "skin.flame-tip",
+      "kind": "flame",
+      "model": "models/11-flame-tip.glb",
+      "sha256": "3f0ee0c92a35b709a637bf573ae4e626ecaf2398091e2bbf2c9bc41ef9e954fc",
+      "prototype": "references/11-flame-tip-prototype.png",
+      "prototypeSHA256": "9c47f00f340f54d2da74e5e08ead4370a3797c58b79f46b72d7d0bc143aa75e7",
+      "prompt": "references/11-flame-tip-prompt.txt",
+      "conceptReview": {
+        "earsVisible": true,
+        "eyesClear": true,
+        "sideHasRealDepth": true,
+        "referenceOnly": true
+      },
+      "modelStatus": "research-host-installable-awaiting-final-batch-review",
+      "userAcceptance": "pending",
+      "productionWardrobe": "not-integrated",
+      "binding": {
+        "space": "same approved source skin actor-local coordinates",
+        "rootMatrix": "inverse(parent.matrixWorld) * sourceSkin.matrixWorld",
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "nominalHeadAttachPoint": [
+          0,
+          1.64,
+          0
+        ],
+        "geometryAuthoredAtAttachPoint": true
+      },
+      "bounds": {
+        "min": [
+          -0.2539578378200531,
+          1.6049999855458736,
+          -0.1299998402595577
+        ],
+        "max": [
+          0.2517605721950531,
+          2.249999962747097,
+          0.14346520602703094
+        ]
+      },
+      "triangles": 13504,
+      "materials": [
+        {
+          "name": "flame orange",
+          "color": [
+            0.9800000190734863,
+            0.2800000011920929,
+            0.03500000014901161
+          ],
+          "roughness": 0.47999998927116394,
+          "metalness": 0
+        },
+        {
+          "name": "flame warm center",
+          "color": [
+            0.9800000190734863,
+            0.7200000286102295,
+            0.20000000298023224
+          ],
+          "roughness": 0.47999998927116394,
+          "metalness": 0
+        }
+      ],
+      "constraints": {
+        "exclusiveGroup": "headwear",
+        "exclusivePriority": 70,
+        "minLevel": 1,
+        "formId": "dango",
+        "skin": "flame",
+        "unlockKind": "skin",
+        "optInOnly": false,
+        "productionViews": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "reviewViews": [
+          0,
+          45,
+          90,
+          180
+        ],
+        "effect": "flame-flicker",
+        "effectImplemented": false
+      },
+      "tests": {
+        "dragFrames": 271,
+        "longpressFrames": 1891,
+        "finiteBoundsPerReplayFrame": true,
+        "maxAccessoryBoundsDiagonal": 3,
+        "sourceGeometryHashUnchanged": true,
+        "detachAndIdempotentDisposal": true,
+        "borrowedAssetReleaseExplicit": true,
+        "tea": "Corrected actor-local frame: 16 keyframes plus 271 30fps discrete frames; see reports; not continuous collision",
+        "browserWebGL": "not-tested",
+        "nativeDesktop": "not-tested",
+        "wardrobeCombinations": "not-tested"
+      },
+      "visualReview": "review/flame-actual-fourviews.png"
+    },
+    {
+      "order": 12,
+      "id": "skin.crown",
+      "kind": "crown",
+      "model": "models/12-crown.glb",
+      "sha256": "f2f3500b8d8a97d6b74a12b4124aa184fb02bda7afcefd16217ec154401de224",
+      "prototype": "references/12-crown-prototype.png",
+      "prototypeSHA256": "efae6b34c5184c88aae95a322c63c0b74064d064ebaca36c1c769f1fd203675a",
+      "prompt": "references/12-crown-prompt.txt",
+      "conceptReview": {
+        "earsVisible": true,
+        "eyesClear": true,
+        "sideHasRealDepth": true,
+        "referenceOnly": true
+      },
+      "modelStatus": "research-host-installable-awaiting-final-batch-review",
+      "userAcceptance": "pending",
+      "productionWardrobe": "not-integrated",
+      "binding": {
+        "space": "same approved source skin actor-local coordinates",
+        "rootMatrix": "inverse(parent.matrixWorld) * sourceSkin.matrixWorld",
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "nominalHeadAttachPoint": [
+          0,
+          1.64,
+          0
+        ],
+        "geometryAuthoredAtAttachPoint": true
+      },
+      "bounds": {
+        "min": [
+          -0.33933806434273706,
+          1.6362236365675926,
+          -0.3199999928474426
+        ],
+        "max": [
+          0.3393380872905254,
+          2.005000028759241,
+          0.3549999700486659
+        ]
+      },
+      "triangles": 10576,
+      "materials": [
+        {
+          "name": "crown antique gold",
+          "color": [
+            0.7699999809265137,
+            0.4699999988079071,
+            0.11999999731779099
+          ],
+          "roughness": 0.47999998927116394,
+          "metalness": 0
+        },
+        {
+          "name": "crown muted mint",
+          "color": [
+            0.44999998807907104,
+            0.6499999761581421,
+            0.41999998688697815
+          ],
+          "roughness": 0.47999998927116394,
+          "metalness": 0
+        },
+        {
+          "name": "crown lavender jewel",
+          "color": [
+            0.5199999809265137,
+            0.30000001192092896,
+            0.6800000071525574
+          ],
+          "roughness": 0.47999998927116394,
+          "metalness": 0
+        }
+      ],
+      "constraints": {
+        "exclusiveGroup": "headwear",
+        "exclusivePriority": 90,
+        "minLevel": 1,
+        "formId": "dango",
+        "skin": "crown",
+        "unlockKind": "skin",
+        "optInOnly": false,
+        "productionViews": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "reviewViews": [
+          0,
+          45,
+          90,
+          180
+        ],
+        "effect": "crown-shine",
+        "effectImplemented": false
+      },
+      "tests": {
+        "dragFrames": 271,
+        "longpressFrames": 1891,
+        "finiteBoundsPerReplayFrame": true,
+        "maxAccessoryBoundsDiagonal": 3,
+        "sourceGeometryHashUnchanged": true,
+        "detachAndIdempotentDisposal": true,
+        "borrowedAssetReleaseExplicit": true,
+        "tea": "Corrected actor-local frame: 16 keyframes plus 271 30fps discrete frames; see reports; not continuous collision",
+        "browserWebGL": "not-tested",
+        "nativeDesktop": "not-tested",
+        "wardrobeCombinations": "not-tested"
+      },
+      "visualReview": "review/crown-actual-fourviews.png"
+    },
+    {
+      "order": 13,
+      "id": "skin.robot-antenna",
+      "kind": "antenna",
+      "model": "models/13-robot-antenna.glb",
+      "sha256": "0b3464f463ab13f6d3db232533af29dcc79795630c6f6159491b58ecbdbb079f",
+      "prototype": "references/13-robot-antenna-prototype.png",
+      "prototypeSHA256": "18802d808fe019da3d900780aeb755be39920c8e24adae9230f24472a893ff1e",
+      "prompt": "references/13-robot-antenna-prompt.txt",
+      "conceptReview": {
+        "earsVisible": true,
+        "eyesClear": true,
+        "sideHasRealDepth": true,
+        "referenceOnly": true
+      },
+      "modelStatus": "research-host-installable-awaiting-final-batch-review",
+      "userAcceptance": "pending",
+      "productionWardrobe": "not-integrated",
+      "binding": {
+        "space": "same approved source skin actor-local coordinates",
+        "rootMatrix": "inverse(parent.matrixWorld) * sourceSkin.matrixWorld",
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "nominalHeadAttachPoint": [
+          0,
+          1.64,
+          0
+        ],
+        "geometryAuthoredAtAttachPoint": true
+      },
+      "bounds": {
+        "min": [
+          -0.16999983966350385,
+          1.5800000950694084,
+          -0.13249999284744263
+        ],
+        "max": [
+          0.19249357283115387,
+          2.1499999687075615,
+          0.13249999284744263
+        ]
+      },
+      "triangles": 5152,
+      "materials": [
+        {
+          "name": "antenna lavender base",
+          "color": [
+            0.47999998927116394,
+            0.30000001192092896,
+            0.6800000071525574
+          ],
+          "roughness": 0.47999998927116394,
+          "metalness": 0
+        },
+        {
+          "name": "antenna satin silver",
+          "color": [
+            0.6499999761581421,
+            0.6899999976158142,
+            0.699999988079071
+          ],
+          "roughness": 0.47999998927116394,
+          "metalness": 0
+        },
+        {
+          "name": "antenna mint sphere",
+          "color": [
+            0.30000001192092896,
+            0.8199999928474426,
+            0.5799999833106995
+          ],
+          "roughness": 0.47999998927116394,
+          "metalness": 0
+        },
+        {
+          "name": "antenna teal stripe",
+          "color": [
+            0.014999999664723873,
+            0.20000000298023224,
+            0.17000000178813934
+          ],
+          "roughness": 0.47999998927116394,
+          "metalness": 0
+        }
+      ],
+      "constraints": {
+        "exclusiveGroup": "headwear",
+        "exclusivePriority": 65,
+        "minLevel": 1,
+        "formId": "dango",
+        "skin": "robot",
+        "unlockKind": "skin",
+        "optInOnly": false,
+        "productionViews": [
+          "front",
+          "three-quarter",
+          "profile",
+          "back"
+        ],
+        "reviewViews": [
+          0,
+          45,
+          90,
+          180
+        ],
+        "effect": "signal-pulse",
+        "effectImplemented": false
+      },
+      "tests": {
+        "dragFrames": 271,
+        "longpressFrames": 1891,
+        "finiteBoundsPerReplayFrame": true,
+        "maxAccessoryBoundsDiagonal": 3,
+        "sourceGeometryHashUnchanged": true,
+        "detachAndIdempotentDisposal": true,
+        "borrowedAssetReleaseExplicit": true,
+        "tea": "Corrected actor-local frame: 16 keyframes plus 271 30fps discrete frames; see reports; not continuous collision",
+        "browserWebGL": "not-tested",
+        "nativeDesktop": "not-tested",
+        "wardrobeCombinations": "not-tested"
+      },
+      "visualReview": "review/antenna-actual-fourviews.png"
+    },
+    {
+      "order": 17,
+      "id": "seasonal.pumpkin-beret",
+      "kind": "pumpkin",
+      "model": "models/17-pumpkin-beret.glb",
+      "sha256": "1c5957ae570001261f5e15b87659d7b94624004ea1c7d71e2b92aec42699de60",
+      "prototype": "references/17-pumpkin-beret-prototype.png",
+      "prototypeSHA256": "85ae3af2bf056b987233f7866fc897eb9b2e9c7a15df58892fdad17b1b544320",
+      "prompt": "references/17-pumpkin-beret-prompt.txt",
+      "conceptReview": {
+        "earsVisible": true,
+        "eyesClear": true,
+        "sideHasRealDepth": true,
+        "referenceOnly": true
+      },
+      "modelStatus": "research-host-installable-awaiting-final-batch-review",
+      "userAcceptance": "pending",
+      "productionWardrobe": "not-integrated",
+      "binding": {
+        "space": "same approved source skin actor-local coordinates",
+        "rootMatrix": "inverse(parent.matrixWorld) * sourceSkin.matrixWorld",
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "nominalHeadAttachPoint": [
+          0,
+          1.64,
+          0
+        ],
+        "geometryAuthoredAtAttachPoint": true
+      },
+      "bounds": {
+        "min": [
+          -0.3797999918460846,
+          1.6050000935792923,
+          -0.2994515001773834
+        ],
+        "max": [
+          0.3797999918460846,
+          2.0052411183714867,
+          0.2994515001773834
+        ]
+      },
+      "triangles": 12632,
+      "materials": [
+        {
+          "name": "burnt orange rim",
+          "color": [
+            0.5600000023841858,
+            0.14000000059604645,
+            0.02500000037252903
+          ],
+          "roughness": 0.47999998927116394,
+          "metalness": 0
+        },
+        {
+          "name": "pumpkin soft orange",
+          "color": [
+            0.9200000166893005,
+            0.27000001072883606,
+            0.03500000014901161
+          ],
+          "roughness": 0.47999998927116394,
+          "metalness": 0
+        },
+        {
+          "name": "pumpkin sage stem",
+          "color": [
+            0.18000000715255737,
+            0.2800000011920929,
+            0.11999999731779099
+          ],
+          "roughness": 0.47999998927116394,
+          "metalness": 0
+        }
+      ],
+      "constraints": {
+        "exclusiveGroup": "headwear",
+        "exclusivePriority": 50,
+        "minLevel": 1,
+        "formId": "dango",
+        "skin": null,
+        "unlockKind": "level",
+        "optInOnly": true,
+        "productionViews": [
+          "front"
+        ],
+        "reviewViews": [
+          0,
+          45,
+          90,
+          180
+        ],
+        "effect": null,
+        "effectImplemented": false
+      },
+      "tests": {
+        "dragFrames": 271,
+        "longpressFrames": 1891,
+        "finiteBoundsPerReplayFrame": true,
+        "maxAccessoryBoundsDiagonal": 3,
+        "sourceGeometryHashUnchanged": true,
+        "detachAndIdempotentDisposal": true,
+        "borrowedAssetReleaseExplicit": true,
+        "tea": "Corrected actor-local frame: 16 keyframes plus 271 30fps discrete frames; see reports; not continuous collision",
+        "browserWebGL": "not-tested",
+        "nativeDesktop": "not-tested",
+        "wardrobeCombinations": "not-tested"
+      },
+      "visualReview": "review/pumpkin-actual-fourviews.png"
+    }
+  ],
+  "scope": "Seven head ornaments only; no new action design; no production wardrobe changes; no remote publication",
+  "reproduce": [
+    "blender -b --python src/build_models.py",
+    "node src/test_and_export.mjs",
+    "python src/audit_tea.py",
+    "bash src/render_batch.sh",
+    "node src/write_manifest.mjs"
+  ]
+}

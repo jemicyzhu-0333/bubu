@@ -1,0 +1,241 @@
+{
+  "05-halo.glb": {
+    "sha256": "a58fdd0d1011a413b142efa66a4d5599966051e8fdd5ce3fd5a10c4f28e552c1",
+    "bytes": 72480,
+    "meshes": [
+      {
+        "name": "Torus",
+        "vertices": 1649,
+        "triangles": 3072,
+        "degenerateTriangles": 0,
+        "bounds": [
+          [
+            -0.6650000214576721,
+            1.9165529012680054,
+            -0.5252431631088257
+          ],
+          [
+            0.6650000214576721,
+            2.1634469032287598,
+            0.5252431631088257
+          ]
+        ],
+        "nativeWeights": false,
+        "materialIndex": 0
+      }
+    ],
+    "materials": [
+      {
+        "doubleSided": true,
+        "name": "halo warm satin gold",
+        "pbrMetallicRoughness": {
+          "baseColorFactor": [
+            0.8799999952316284,
+            0.5600000023841858,
+            0.11999999731779099,
+            1
+          ],
+          "metallicFactor": 0.30000001192092896,
+          "roughnessFactor": 0.3199999928474426
+        }
+      }
+    ]
+  },
+  "06-boots.glb": {
+    "sha256": "27c5772fb961b7f3e9cd09ea07d7678725e328cf96eb33b869bee3d30c253b5c",
+    "bytes": 746760,
+    "meshes": [
+      {
+        "name": "boots_left",
+        "vertices": 4449,
+        "triangles": 8656,
+        "degenerateTriangles": 0,
+        "bounds": [
+          [
+            -0.7501789927482605,
+            0.006000000052154064,
+            -0.5562744736671448
+          ],
+          [
+            -0.12712255120277405,
+            0.2705036997795105,
+            0.5538559556007385
+          ]
+        ],
+        "nativeWeights": true,
+        "materialIndex": 0
+      },
+      {
+        "name": "boots_right",
+        "vertices": 4479,
+        "triangles": 8714,
+        "degenerateTriangles": 0,
+        "bounds": [
+          [
+            0.12687629461288452,
+            0.006000000052154064,
+            -0.5536953210830688
+          ],
+          [
+            0.7502634525299072,
+            0.2698001265525818,
+            0.555737316608429
+          ]
+        ],
+        "nativeWeights": true,
+        "materialIndex": 0
+      }
+    ],
+    "materials": [
+      {
+        "name": "lavender satin with mint soles",
+        "pbrMetallicRoughness": {
+          "baseColorFactor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "metallicFactor": 0.08,
+          "roughnessFactor": 0.48
+        }
+      }
+    ]
+  },
+  "07-cape.glb": {
+    "sha256": "ad80ba0bd5969479dc7828a986a3b36d6f44c26da4533473f055bcf01b6359fb",
+    "bytes": 179884,
+    "meshes": [
+      {
+        "name": "cape shell",
+        "vertices": 1815,
+        "triangles": 3360,
+        "degenerateTriangles": 0,
+        "bounds": [
+          [
+            -1.0396889448165894,
+            0.1900000125169754,
+            -0.9580965638160706
+          ],
+          [
+            0.9433861970901489,
+            0.9581175446510315,
+            -0.3859894573688507
+          ]
+        ],
+        "nativeWeights": false,
+        "materialIndex": 0
+      },
+      {
+        "name": "cape_back_edge",
+        "vertices": 1331,
+        "triangles": 2400,
+        "degenerateTriangles": 0,
+        "bounds": [
+          [
+            -0.8620133399963379,
+            0.9215969443321228,
+            -0.8406968712806702
+          ],
+          [
+            0.8620133399963379,
+            0.9714323282241821,
+            -0.45681869983673096
+          ]
+        ],
+        "nativeWeights": false,
+        "materialIndex": 1
+      },
+      {
+        "name": "cape_hem",
+        "vertices": 1331,
+        "triangles": 2400,
+        "degenerateTriangles": 0,
+        "bounds": [
+          [
+            -0.7725262641906738,
+            0.17625382542610168,
+            -0.8950892686843872
+          ],
+          [
+            0.7158752083778381,
+            0.3235842287540436,
+            -0.37651562690734863
+          ]
+        ],
+        "nativeWeights": false,
+        "materialIndex": 1
+      },
+      {
+        "name": "cape_edge_0",
+        "vertices": 165,
+        "triangles": 280,
+        "degenerateTriangles": 0,
+        "bounds": [
+          [
+            0.699774980545044,
+            0.17972469329833984,
+            -0.4777910113334656
+          ],
+          [
+            0.9569400548934937,
+            0.9683340191841125,
+            -0.37212997674942017
+          ]
+        ],
+        "nativeWeights": false,
+        "materialIndex": 1
+      },
+      {
+        "name": "cape_edge_120",
+        "vertices": 165,
+        "triangles": 280,
+        "degenerateTriangles": 0,
+        "bounds": [
+          [
+            -1.0536868572235107,
+            0.17937424778938293,
+            -0.4784872829914093
+          ],
+          [
+            -0.7576904892921448,
+            0.9690082669258118,
+            -0.40421199798583984
+          ]
+        ],
+        "nativeWeights": false,
+        "materialIndex": 1
+      }
+    ],
+    "materials": [
+      {
+        "doubleSided": true,
+        "name": "cape soft lavender",
+        "pbrMetallicRoughness": {
+          "baseColorFactor": [
+            0.47999998927116394,
+            0.36000001430511475,
+            0.6499999761581421,
+            1
+          ],
+          "metallicFactor": 0,
+          "roughnessFactor": 0.8999999761581421
+        }
+      },
+      {
+        "doubleSided": true,
+        "name": "cape pale mint piping",
+        "pbrMetallicRoughness": {
+          "baseColorFactor": [
+            0.5699999928474426,
+            0.7900000214576721,
+            0.6600000262260437,
+            1
+          ],
+          "metallicFactor": 0,
+          "roughnessFactor": 0.8500000238418579
+        }
+      }
+    ]
+  }
+}

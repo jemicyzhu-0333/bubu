@@ -1,0 +1,12 @@
+{
+  "name": "bubu-work-music-prop-candidates",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "three": "0.186.1"
+  },
+  "scripts": {
+    "test": "python ../shared/check-work-garden.py --group work-props",
+    "export": "node src/export-models.mjs"
+  }
+}

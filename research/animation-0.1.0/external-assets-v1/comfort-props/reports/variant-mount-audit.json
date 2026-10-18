@@ -1,0 +1,71 @@
+{
+  "scope": "Actual world triangle BVH + surface proximity + unchanged original geometry. Static only, no wardrobe or motion certification. Fixed units, no auto fit.",
+  "items": [
+    {
+      "id": "tissue-sheet",
+      "inputSha256": "4c08181366b1c351f09e374c13b98ac88a4c4681b5f5c9f544cb20175209913a",
+      "referenceSha256": "fd51c0fc3a780c12016e8628ac0658606f0e45d0aa594d095c29d84ed4f67106",
+      "unchanged13ActorMeshes": true,
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handMinimumSurfaceDistance": 0.0016439883038401604,
+      "handVerticesWithin001": 9,
+      "handMaxInsidePenetration": 0.0014434667536988854,
+      "footMinSurfaceDistance": null,
+      "bounds": [
+        [
+          1.0989999771118164,
+          1.4290000200271606
+        ],
+        [
+          0.6705617904663086,
+          0.9699373841285706
+        ],
+        [
+          -0.2191784828901291,
+          -0.15500426292419434
+        ]
+      ],
+      "fixedBodyScaleSafeEnvelope": true,
+      "bodyCrossingByPart": {},
+      "contactMethod": "sheet vertices versus closed original hand",
+      "groundSupportPlane": null,
+      "groundMinimumError": null,
+      "originalFeetUnmoved": true,
+      "staticAuditPass": true
+    },
+    {
+      "id": "telescope-handheld",
+      "inputSha256": "5d013da223b14e8233928e4266c2a883543d4016c627637f4cd9a7c6e891d29b",
+      "referenceSha256": "fd51c0fc3a780c12016e8628ac0658606f0e45d0aa594d095c29d84ed4f67106",
+      "unchanged13ActorMeshes": true,
+      "bodyTriangleCrossings": 0,
+      "faceTriangleCrossings": 0,
+      "handMinimumSurfaceDistance": 0.0008708493551239371,
+      "handVerticesWithin001": 63,
+      "handMaxInsidePenetration": 0,
+      "footMinSurfaceDistance": null,
+      "bounds": [
+        [
+          1.1430000066757202,
+          1.5369999408721924
+        ],
+        [
+          0.41043660044670105,
+          1.0192601680755615
+        ],
+        [
+          -0.7546439170837402,
+          0.21435558795928955
+        ]
+      ],
+      "fixedBodyScaleSafeEnvelope": true,
+      "bodyCrossingByPart": {},
+      "contactMethod": "original hand vertices versus closed prop",
+      "groundSupportPlane": null,
+      "groundMinimumError": null,
+      "originalFeetUnmoved": true,
+      "staticAuditPass": true
+    }
+  ]
+}

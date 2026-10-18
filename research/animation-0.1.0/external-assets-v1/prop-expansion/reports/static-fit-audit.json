@@ -1,0 +1,142 @@
+{
+  "fits": [
+    {
+      "id": "open-book",
+      "propBodyBoundaryIntersections": {
+        "Book_left_leaf_cover": 0,
+        "Book_left_leaf_pages": 0,
+        "Book_left_leaf_page_edge_0": 0,
+        "Book_left_leaf_fanned_leaf_0": 0,
+        "Book_left_leaf_page_edge_1": 0,
+        "Book_left_leaf_fanned_leaf_1": 0,
+        "Book_left_leaf_page_edge_2": 0,
+        "Book_left_leaf_fanned_leaf_2": 0,
+        "Book_right_leaf_cover": 0,
+        "Book_right_leaf_pages": 0,
+        "Book_right_leaf_page_edge_0": 0,
+        "Book_right_leaf_fanned_leaf_0": 0,
+        "Book_right_leaf_page_edge_1": 0,
+        "Book_right_leaf_fanned_leaf_1": 0,
+        "Book_right_leaf_page_edge_2": 0,
+        "Book_right_leaf_fanned_leaf_2": 0,
+        "Book_spine": 0
+      },
+      "propFaceBoundaryIntersections": {
+        "Book_left_leaf_cover": 0,
+        "Book_left_leaf_pages": 0,
+        "Book_left_leaf_page_edge_0": 0,
+        "Book_left_leaf_fanned_leaf_0": 0,
+        "Book_left_leaf_page_edge_1": 0,
+        "Book_left_leaf_fanned_leaf_1": 0,
+        "Book_left_leaf_page_edge_2": 0,
+        "Book_left_leaf_fanned_leaf_2": 0,
+        "Book_right_leaf_cover": 0,
+        "Book_right_leaf_pages": 0,
+        "Book_right_leaf_page_edge_0": 0,
+        "Book_right_leaf_fanned_leaf_0": 0,
+        "Book_right_leaf_page_edge_1": 0,
+        "Book_right_leaf_fanned_leaf_1": 0,
+        "Book_right_leaf_page_edge_2": 0,
+        "Book_right_leaf_fanned_leaf_2": 0,
+        "Book_spine": 0
+      },
+      "hands": {
+        "handL": {
+          "maxLocalRayInsidePenetration": 0.006165534257888794,
+          "actualHandNeighborhoodVertexCount": 281,
+          "actualHandNeighborhoodMinimumPropDistance": 6.23752930550836e-05,
+          "actualHandNeighborhoodVerticesWithin001": 84,
+          "actualHandPropBoundaryIntersections": 345,
+          "contactNearestPropSurfaceDistance": 0.014395765028893948,
+          "rootNearestSurfaceDistance": 0.014629391953349113,
+          "rootSignedAlongNearestNormal": -0.014629392127972096,
+          "bodyBoundaryTriangleIntersections": 285,
+          "rigidContactGap": 0,
+          "translationFromTeaCarrier": [
+            -0.009910467286115388,
+            -0.013557676695693466,
+            0.025256441131469187
+          ]
+        },
+        "handR": {
+          "maxLocalRayInsidePenetration": 0.0013357332209125161,
+          "actualHandNeighborhoodVertexCount": 278,
+          "actualHandNeighborhoodMinimumPropDistance": 6.0224829212529585e-05,
+          "actualHandNeighborhoodVerticesWithin001": 66,
+          "actualHandPropBoundaryIntersections": 260,
+          "contactNearestPropSurfaceDistance": 0.014395765028893948,
+          "rootNearestSurfaceDistance": 0.006258752662688494,
+          "rootSignedAlongNearestNormal": -0.00625875307014212,
+          "bodyBoundaryTriangleIntersections": 355,
+          "rigidContactGap": 0,
+          "translationFromTeaCarrier": [
+            0.013071754808171854,
+            -0.020644988882844217,
+            0.03188784157901514
+          ]
+        }
+      },
+      "scope": "Actual triangle BVH boundary overlap and nearest body-surface root test. Hand/body overlap expected at attachment. Negative root sign means locally inside. No OS/GPU claim."
+    },
+    {
+      "id": "paper-board",
+      "propBodyBoundaryIntersections": {
+        "Paper_board": 0,
+        "Paper_sheet_0": 0,
+        "Paper_sheet_1": 0,
+        "Paper_sheet_2": 0,
+        "Pencil_painted_shaft": 0,
+        "Pencil_wood_tip": 0,
+        "Pencil_graphite": 0,
+        "Pencil_endcap": 0
+      },
+      "propFaceBoundaryIntersections": {
+        "Paper_board": 0,
+        "Paper_sheet_0": 0,
+        "Paper_sheet_1": 0,
+        "Paper_sheet_2": 0,
+        "Pencil_painted_shaft": 0,
+        "Pencil_wood_tip": 0,
+        "Pencil_graphite": 0,
+        "Pencil_endcap": 0
+      },
+      "hands": {
+        "handL": {
+          "maxLocalRayInsidePenetration": 0.026916058734059334,
+          "actualHandNeighborhoodVertexCount": 281,
+          "actualHandNeighborhoodMinimumPropDistance": 0.00014829191786702722,
+          "actualHandNeighborhoodVerticesWithin001": 95,
+          "actualHandPropBoundaryIntersections": 122,
+          "contactNearestPropSurfaceDistance": 0.026916058734059334,
+          "rootNearestSurfaceDistance": 0.0592862032353878,
+          "rootSignedAlongNearestNormal": -0.05928620381746441,
+          "bodyBoundaryTriangleIntersections": 281,
+          "rigidContactGap": 0,
+          "translationFromTeaCarrier": [
+            0.1490276907034503,
+            0.041671036209004475,
+            0.03824059066678964
+          ]
+        },
+        "handR": {
+          "maxLocalRayInsidePenetration": 0.01871076226234436,
+          "actualHandNeighborhoodVertexCount": 278,
+          "actualHandNeighborhoodMinimumPropDistance": 3.008654857694637e-05,
+          "actualHandNeighborhoodVerticesWithin001": 82,
+          "actualHandPropBoundaryIntersections": 359,
+          "contactNearestPropSurfaceDistance": 0.017640024423599243,
+          "rootNearestSurfaceDistance": 0.04566248878836632,
+          "rootSignedAlongNearestNormal": -0.04566248715855181,
+          "bodyBoundaryTriangleIntersections": 240,
+          "rigidContactGap": 0,
+          "translationFromTeaCarrier": [
+            -0.010062125637419428,
+            -0.10365138154752807,
+            -0.05725047381499926
+          ]
+        }
+      },
+      "scope": "Actual triangle BVH boundary overlap and nearest body-surface root test. Hand/body overlap expected at attachment. Negative root sign means locally inside. No OS/GPU claim."
+    }
+  ]
+}

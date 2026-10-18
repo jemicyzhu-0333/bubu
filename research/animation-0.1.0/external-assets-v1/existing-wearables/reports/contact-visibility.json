@@ -1,0 +1,337 @@
+{
+  "method": "Orthographic +Z front / 45deg rays from actual edge-intersection points, offset0.0002 to skip surface numerical self hit; all visible triangle meshes occlude. Visibility is sampled crossing-seam evidence, not full pixel artifact severity.",
+  "rows": [
+    {
+      "cloth": "satchel_continuous_strap",
+      "hand": "Bubu_hand-right",
+      "trianglePairs": 104,
+      "intersectionPointSamples": 208,
+      "insideBodyBeyond002": 0,
+      "nearBodySurface002": 0,
+      "outsideBodyBeyond002": 208,
+      "signedDistanceRange": [
+        0.02180455433094033,
+        0.03871703669663558
+      ],
+      "kind": "satchel",
+      "phase": "first",
+      "time": 0,
+      "views": {
+        "0": {
+          "unoccludedIntersectionSamples": 52,
+          "occluders": {
+            "satchel_continuous_strap": 102,
+            "Bubu_hand-right": 14,
+            "Bubu_body": 40
+          }
+        },
+        "45": {
+          "unoccludedIntersectionSamples": 52,
+          "occluders": {
+            "satchel_continuous_strap": 106,
+            "Bubu_hand-right": 50
+          }
+        }
+      }
+    },
+    {
+      "cloth": "satchel_continuous_strap",
+      "hand": "Bubu_hand-right",
+      "trianglePairs": 127,
+      "intersectionPointSamples": 254,
+      "insideBodyBeyond002": 0,
+      "nearBodySurface002": 0,
+      "outsideBodyBeyond002": 254,
+      "signedDistanceRange": [
+        0.019020275876464085,
+        0.037797886036166295
+      ],
+      "kind": "satchel",
+      "phase": "max",
+      "time": 0.6,
+      "views": {
+        "0": {
+          "unoccludedIntersectionSamples": 70,
+          "occluders": {
+            "satchel_continuous_strap": 122,
+            "Bubu_hand-right": 62
+          }
+        },
+        "45": {
+          "unoccludedIntersectionSamples": 0,
+          "occluders": {
+            "satchel_continuous_strap": 122,
+            "Bubu_hand-right": 132
+          }
+        }
+      }
+    },
+    {
+      "cloth": "satchel_pouch",
+      "hand": "Bubu_hand-left",
+      "trianglePairs": 162,
+      "intersectionPointSamples": 324,
+      "insideBodyBeyond002": 100,
+      "nearBodySurface002": 6,
+      "outsideBodyBeyond002": 218,
+      "signedDistanceRange": [
+        -0.06663210966375417,
+        0.13382883791661687
+      ],
+      "kind": "satchel",
+      "phase": "max",
+      "time": 0.6,
+      "views": {
+        "0": {
+          "unoccludedIntersectionSamples": 38,
+          "occluders": {
+            "satchel_flap": 134,
+            "Bubu_hand-left": 62,
+            "satchel_pouch": 48,
+            "Bubu_body": 42
+          }
+        },
+        "45": {
+          "unoccludedIntersectionSamples": 112,
+          "occluders": {
+            "Bubu_hand-left": 150,
+            "satchel_pouch": 30,
+            "Bubu_body": 32
+          }
+        }
+      }
+    },
+    {
+      "cloth": "satchel_flap",
+      "hand": "Bubu_hand-left",
+      "trianglePairs": 107,
+      "intersectionPointSamples": 214,
+      "insideBodyBeyond002": 0,
+      "nearBodySurface002": 0,
+      "outsideBodyBeyond002": 214,
+      "signedDistanceRange": [
+        0.1341558752557125,
+        0.187969793621298
+      ],
+      "kind": "satchel",
+      "phase": "max",
+      "time": 0.6,
+      "views": {
+        "0": {
+          "unoccludedIntersectionSamples": 46,
+          "occluders": {
+            "satchel_flap": 168
+          }
+        },
+        "45": {
+          "unoccludedIntersectionSamples": 34,
+          "occluders": {
+            "satchel_flap": 110,
+            "Bubu_hand-left": 70
+          }
+        }
+      }
+    },
+    {
+      "cloth": "scarf_collar_1",
+      "hand": "Bubu_hand-left",
+      "trianglePairs": 114,
+      "intersectionPointSamples": 228,
+      "insideBodyBeyond002": 0,
+      "nearBodySurface002": 0,
+      "outsideBodyBeyond002": 228,
+      "signedDistanceRange": [
+        0.011766569151362693,
+        0.04886386053623332
+      ],
+      "kind": "scarf",
+      "phase": "first",
+      "time": 0.5,
+      "views": {
+        "0": {
+          "unoccludedIntersectionSamples": 96,
+          "occluders": {
+            "scarf_collar_1": 78,
+            "scarf_collar_2": 54
+          }
+        },
+        "45": {
+          "unoccludedIntersectionSamples": 0,
+          "occluders": {
+            "scarf_collar_1": 186,
+            "scarf_collar_2": 38,
+            "Bubu_body": 4
+          }
+        }
+      }
+    },
+    {
+      "cloth": "scarf_collar_1",
+      "hand": "Bubu_hand-right",
+      "trianglePairs": 114,
+      "intersectionPointSamples": 228,
+      "insideBodyBeyond002": 0,
+      "nearBodySurface002": 0,
+      "outsideBodyBeyond002": 228,
+      "signedDistanceRange": [
+        0.014250382662979278,
+        0.05161843690257759
+      ],
+      "kind": "scarf",
+      "phase": "first",
+      "time": 0.5,
+      "views": {
+        "0": {
+          "unoccludedIntersectionSamples": 92,
+          "occluders": {
+            "scarf_collar_1": 72,
+            "scarf_collar_2": 64
+          }
+        },
+        "45": {
+          "unoccludedIntersectionSamples": 106,
+          "occluders": {
+            "scarf_collar_1": 80,
+            "Bubu_hand-right": 42
+          }
+        }
+      }
+    },
+    {
+      "cloth": "scarf_collar_1",
+      "hand": "Bubu_hand-left",
+      "trianglePairs": 259,
+      "intersectionPointSamples": 518,
+      "insideBodyBeyond002": 0,
+      "nearBodySurface002": 0,
+      "outsideBodyBeyond002": 518,
+      "signedDistanceRange": [
+        0.004823425833620395,
+        0.05091323674712548
+      ],
+      "kind": "scarf",
+      "phase": "max",
+      "time": 0.6666666666666666,
+      "views": {
+        "0": {
+          "unoccludedIntersectionSamples": 180,
+          "occluders": {
+            "scarf_collar_2": 40,
+            "scarf_collar_1": 206,
+            "Bubu_hand-left": 92
+          }
+        },
+        "45": {
+          "unoccludedIntersectionSamples": 238,
+          "occluders": {
+            "scarf_collar_2": 97,
+            "scarf_collar_1": 85,
+            "Bubu_hand-left": 98
+          }
+        }
+      }
+    },
+    {
+      "cloth": "scarf_collar_1",
+      "hand": "Bubu_hand-right",
+      "trianglePairs": 253,
+      "intersectionPointSamples": 506,
+      "insideBodyBeyond002": 0,
+      "nearBodySurface002": 0,
+      "outsideBodyBeyond002": 506,
+      "signedDistanceRange": [
+        0.007692820471380033,
+        0.05336290537048817
+      ],
+      "kind": "scarf",
+      "phase": "max",
+      "time": 0.6666666666666666,
+      "views": {
+        "0": {
+          "unoccludedIntersectionSamples": 170,
+          "occluders": {
+            "scarf_collar_2": 42,
+            "scarf_collar_1": 208,
+            "Bubu_hand-right": 86
+          }
+        },
+        "45": {
+          "unoccludedIntersectionSamples": 54,
+          "occluders": {
+            "Bubu_hand-right": 199,
+            "scarf_collar_1": 250,
+            "scarf_collar_2": 3
+          }
+        }
+      }
+    },
+    {
+      "cloth": "scarf_collar_2",
+      "hand": "Bubu_hand-left",
+      "trianglePairs": 126,
+      "intersectionPointSamples": 252,
+      "insideBodyBeyond002": 0,
+      "nearBodySurface002": 0,
+      "outsideBodyBeyond002": 252,
+      "signedDistanceRange": [
+        0.0035843734263334634,
+        0.05125108476582463
+      ],
+      "kind": "scarf",
+      "phase": "max",
+      "time": 0.6666666666666666,
+      "views": {
+        "0": {
+          "unoccludedIntersectionSamples": 64,
+          "occluders": {
+            "scarf_collar_2": 78,
+            "scarf_collar_1": 38,
+            "Bubu_hand-left": 72
+          }
+        },
+        "45": {
+          "unoccludedIntersectionSamples": 64,
+          "occluders": {
+            "scarf_collar_1": 61,
+            "scarf_collar_2": 71,
+            "Bubu_hand-left": 56
+          }
+        }
+      }
+    },
+    {
+      "cloth": "scarf_collar_2",
+      "hand": "Bubu_hand-right",
+      "trianglePairs": 127,
+      "intersectionPointSamples": 254,
+      "insideBodyBeyond002": 0,
+      "nearBodySurface002": 0,
+      "outsideBodyBeyond002": 254,
+      "signedDistanceRange": [
+        0.006232104407497182,
+        0.05432595617185538
+      ],
+      "kind": "scarf",
+      "phase": "max",
+      "time": 0.6666666666666666,
+      "views": {
+        "0": {
+          "unoccludedIntersectionSamples": 60,
+          "occluders": {
+            "scarf_collar_2": 92,
+            "scarf_collar_1": 36,
+            "Bubu_hand-right": 66
+          }
+        },
+        "45": {
+          "unoccludedIntersectionSamples": 66,
+          "occluders": {
+            "scarf_collar_2": 95,
+            "Bubu_hand-right": 89,
+            "scarf_collar_1": 4
+          }
+        }
+      }
+    }
+  ]
+}

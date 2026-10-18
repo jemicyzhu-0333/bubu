@@ -1,0 +1,1987 @@
+{
+  "schema": "bubu-props/1",
+  "coordinates": "glTF X right Y up Z front, approved05 design units",
+  "bodyWidth": 2.3797432184,
+  "status": "Local geometry and static assembly candidates. User final review, wardrobe, action, clipping integration and native runtime acceptance pending.",
+  "items": [
+    {
+      "id": "butterfly",
+      "file": "models/butterfly.glb",
+      "vertices": 3713,
+      "triangles": 6320,
+      "bounds": {
+        "min": [
+          -0.3077630176067718,
+          0.019257548281019207,
+          -0.045
+        ],
+        "max": [
+          0.3077630176067718,
+          0.5097338520906699,
+          0.045
+        ]
+      },
+      "sockets": {
+        "flightOrigin": [
+          0,
+          0.24,
+          0
+        ],
+        "wingLeft": [
+          -0.025,
+          0.24,
+          0
+        ],
+        "wingRight": [
+          0.025,
+          0.24,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Butterfly_body",
+          "color": "#8c5a76",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Butterfly_upper_-1",
+          "color": "#bf99dc",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Butterfly_lower_-1",
+          "color": "#bf99dc",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Butterfly_antenna_-1",
+          "color": "#8c5a76",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Butterfly_antenna_tip_-1",
+          "color": "#8c5a76",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Butterfly_upper_1",
+          "color": "#bf99dc",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Butterfly_lower_1",
+          "color": "#bf99dc",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Butterfly_antenna_1",
+          "color": "#8c5a76",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Butterfly_antenna_tip_1",
+          "color": "#8c5a76",
+          "roughness": 0.65,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.34276301760677186,
+          -0.015742451718980796,
+          -0.08
+        ],
+        "max": [
+          0.34276301760677186,
+          0.5447338520906699,
+          0.08
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "individual built-in generated concept reviewed; final user review pending",
+        "model": "editable real 3D GLB exported",
+        "staticMount": "passed",
+        "animation": "not implemented",
+        "wardrobe": "not certified",
+        "nativeRuntime": "not tested"
+      },
+      "prototype": "prototypes/butterfly.png",
+      "sha256": "b3e6a03df7a2f9d18b9682a28cdec322188be28c9b184933b654de97d31fd2a4",
+      "safeBounds": {
+        "local": {
+          "min": [
+            -0.3077630176067718,
+            0.019257548281019207,
+            -0.045
+          ],
+          "max": [
+            0.3077630176067718,
+            0.5097338520906699,
+            0.045
+          ]
+        },
+        "worldStatic": [
+          [
+            1.2422369718551636,
+            1.8577630519866943
+          ],
+          [
+            1.4692575931549072,
+            1.9597338438034058
+          ],
+          [
+            0.1550000011920929,
+            0.24500000476837158
+          ]
+        ],
+        "fixedStageLimit": {
+          "x": [
+            -2.63,
+            2.63
+          ],
+          "y": [
+            -0.4,
+            3.1
+          ],
+          "z": [
+            -2.63,
+            2.63
+          ]
+        },
+        "scope": "static mount reservation, no motion envelope certification"
+      },
+      "renders": {
+        "front": "renders/butterfly-front.png",
+        "quarter": "renders/butterfly-quarter.png",
+        "side": "renders/butterfly-side.png",
+        "back": "renders/butterfly-back.png"
+      },
+      "mountedRenders": {
+        "0": "renders/mounted-butterfly-0/0000.png",
+        "45": "renders/mounted-butterfly-45/0000.png",
+        "90": "renders/mounted-butterfly-90/0000.png",
+        "180": "renders/mounted-butterfly-180/0000.png"
+      },
+      "mountAudit": {
+        "id": "butterfly",
+        "unchanged13ActorMeshes": true,
+        "bodyTriangleCrossings": 0,
+        "faceTriangleCrossings": 0,
+        "handMinimumSurfaceDistance": null,
+        "handVerticesWithin001": null,
+        "handMaxInsidePenetration": null,
+        "footMinSurfaceDistance": null,
+        "bounds": [
+          [
+            1.2422369718551636,
+            1.8577630519866943
+          ],
+          [
+            1.4692575931549072,
+            1.9597338438034058
+          ],
+          [
+            0.1550000011920929,
+            0.24500000476837158
+          ]
+        ],
+        "fixedBodyScaleSafeEnvelope": true,
+        "bodyCrossingByPart": {},
+        "staticAuditPass": true
+      },
+      "actorInvariant": "All 13 original hybrid body/limb/face meshes: vertex arrays and indices byte-identical. No hand matrix modification, deformation or extra limbs; full original root closure preserved rather than testing one root point.",
+      "classification": "supporting-creature"
+    },
+    {
+      "id": "ground-hole",
+      "file": "models/ground-hole.glb",
+      "vertices": 1984,
+      "triangles": 1744,
+      "bounds": {
+        "min": [
+          -0.6800000071525574,
+          -0.3400000035762788,
+          -0.5099999904632568
+        ],
+        "max": [
+          0.6800000071525574,
+          0.03928697755932816,
+          0.509999990463257
+        ]
+      },
+      "sockets": {
+        "opening": [
+          0,
+          0,
+          0
+        ],
+        "clipPlane": [
+          0,
+          0,
+          0
+        ],
+        "depthLimit": [
+          0,
+          -0.34,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Hole_soil_rim",
+          "color": "#a27a50",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Hole_surrounding_ground",
+          "color": "#a27a50",
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "mesh": "Hole_descending_interior",
+          "color": "#302319",
+          "roughness": 1,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.7150000071525574,
+          -0.37500000357627883,
+          -0.5449999904632569
+        ],
+        "max": [
+          0.7150000071525574,
+          0.07428697755932817,
+          0.544999990463257
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "individual built-in generated concept reviewed; final user review pending",
+        "model": "editable real 3D GLB exported",
+        "staticMount": "passed",
+        "animation": "not implemented",
+        "wardrobe": "not certified",
+        "nativeRuntime": "not tested"
+      },
+      "prototype": "prototypes/ground-hole.png",
+      "sha256": "87836aedf088985b12703922610e8795d07504790d2cf9a02bc99ffbbebb5789",
+      "safeBounds": {
+        "local": {
+          "min": [
+            -0.6800000071525574,
+            -0.3400000035762788,
+            -0.5099999904632568
+          ],
+          "max": [
+            0.6800000071525574,
+            0.03928697755932816,
+            0.509999990463257
+          ]
+        },
+        "worldStatic": [
+          [
+            0.9699999690055847,
+            2.3299999237060547
+          ],
+          [
+            -0.3400000035762787,
+            0.03928697854280472
+          ],
+          [
+            -0.4599999785423279,
+            0.5600000023841858
+          ]
+        ],
+        "fixedStageLimit": {
+          "x": [
+            -2.63,
+            2.63
+          ],
+          "y": [
+            -0.4,
+            3.1
+          ],
+          "z": [
+            -2.63,
+            2.63
+          ]
+        },
+        "scope": "static mount reservation, no motion envelope certification"
+      },
+      "renders": {
+        "front": "renders/ground-hole-front.png",
+        "quarter": "renders/ground-hole-quarter.png",
+        "side": "renders/ground-hole-side.png",
+        "back": "renders/ground-hole-back.png"
+      },
+      "mountedRenders": {
+        "0": "renders/mounted-ground-hole-0/0000.png",
+        "45": "renders/mounted-ground-hole-45/0000.png",
+        "90": "renders/mounted-ground-hole-90/0000.png",
+        "180": "renders/mounted-ground-hole-180/0000.png"
+      },
+      "mountAudit": {
+        "id": "ground-hole",
+        "unchanged13ActorMeshes": true,
+        "bodyTriangleCrossings": 0,
+        "faceTriangleCrossings": 0,
+        "handMinimumSurfaceDistance": null,
+        "handVerticesWithin001": null,
+        "handMaxInsidePenetration": null,
+        "footMinSurfaceDistance": null,
+        "bounds": [
+          [
+            0.9699999690055847,
+            2.3299999237060547
+          ],
+          [
+            -0.3400000035762787,
+            0.03928697854280472
+          ],
+          [
+            -0.4599999785423279,
+            0.5600000023841858
+          ]
+        ],
+        "fixedBodyScaleSafeEnvelope": true,
+        "bodyCrossingByPart": {},
+        "staticAuditPass": true
+      },
+      "actorInvariant": "All 13 original hybrid body/limb/face meshes: vertex arrays and indices byte-identical. No hand matrix modification, deformation or extra limbs; full original root closure preserved rather than testing one root point.",
+      "classification": "environment",
+      "environmentContract": {
+        "module": "src/ground-hole-contract.mjs",
+        "portable": false,
+        "geometry": "soil cutaway sample with actual oval hole and descending walls",
+        "missing": "production renderer ground-mask and actor-fragment clipping integration",
+        "camera": "mounted evidence uses elevation 3.3 to expose opening"
+      }
+    },
+    {
+      "id": "bubble-wand",
+      "file": "models/bubble-wand.glb",
+      "vertices": 989,
+      "triangles": 1600,
+      "bounds": {
+        "min": [
+          -0.2070000022649765,
+          0.0019999998807907204,
+          -0.052000001072883606
+        ],
+        "max": [
+          0.2070000022649765,
+          0.8520000022649765,
+          0.052000001072883606
+        ]
+      },
+      "sockets": {
+        "grip": [
+          0,
+          0.23,
+          0
+        ],
+        "bubbleOrigin": [
+          0,
+          0.645,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Wand_handle",
+          "color": "#b89ad8",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Wand_collar",
+          "color": "#8c70a6",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Wand_ring",
+          "color": "#b89ad8",
+          "roughness": 0.65,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.2420000022649765,
+          -0.03300000011920928,
+          -0.08700000107288361
+        ],
+        "max": [
+          0.2420000022649765,
+          0.8870000022649766,
+          0.08700000107288361
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "individual built-in generated concept reviewed; final user review pending",
+        "model": "editable real 3D GLB exported",
+        "staticMount": "passed",
+        "animation": "not implemented",
+        "wardrobe": "not certified",
+        "nativeRuntime": "not tested"
+      },
+      "prototype": "prototypes/bubble-wand.png",
+      "sha256": "5a08c3a8c7cd4dc00707b6f0b570feabd161a2115c97b29c662519613af7de6f",
+      "safeBounds": {
+        "local": {
+          "min": [
+            -0.2070000022649765,
+            0.0019999998807907204,
+            -0.052000001072883606
+          ],
+          "max": [
+            0.2070000022649765,
+            0.8520000022649765,
+            0.052000001072883606
+          ]
+        },
+        "worldStatic": [
+          [
+            0.9829999804496765,
+            1.3969999551773071
+          ],
+          [
+            0.3919999897480011,
+            1.2419999837875366
+          ],
+          [
+            -0.25200000405311584,
+            -0.14800000190734863
+          ]
+        ],
+        "fixedStageLimit": {
+          "x": [
+            -2.63,
+            2.63
+          ],
+          "y": [
+            -0.4,
+            3.1
+          ],
+          "z": [
+            -2.63,
+            2.63
+          ]
+        },
+        "scope": "static mount reservation, no motion envelope certification"
+      },
+      "renders": {
+        "front": "renders/bubble-wand-front.png",
+        "quarter": "renders/bubble-wand-quarter.png",
+        "side": "renders/bubble-wand-side.png",
+        "back": "renders/bubble-wand-back.png"
+      },
+      "mountedRenders": {
+        "0": "renders/mounted-bubble-wand-0/0000.png",
+        "45": "renders/mounted-bubble-wand-45/0000.png",
+        "90": "renders/mounted-bubble-wand-90/0000.png",
+        "180": "renders/mounted-bubble-wand-180/0000.png"
+      },
+      "mountAudit": {
+        "id": "bubble-wand",
+        "unchanged13ActorMeshes": true,
+        "bodyTriangleCrossings": 0,
+        "faceTriangleCrossings": 0,
+        "handMinimumSurfaceDistance": 0.004387564025819302,
+        "handVerticesWithin001": 26,
+        "handMaxInsidePenetration": 0,
+        "footMinSurfaceDistance": null,
+        "bounds": [
+          [
+            0.9829999804496765,
+            1.3969999551773071
+          ],
+          [
+            0.3919999897480011,
+            1.2419999837875366
+          ],
+          [
+            -0.25200000405311584,
+            -0.14800000190734863
+          ]
+        ],
+        "fixedBodyScaleSafeEnvelope": true,
+        "bodyCrossingByPart": {},
+        "staticAuditPass": true
+      },
+      "actorInvariant": "All 13 original hybrid body/limb/face meshes: vertex arrays and indices byte-identical. No hand matrix modification, deformation or extra limbs; full original root closure preserved rather than testing one root point.",
+      "classification": "prop"
+    },
+    {
+      "id": "magic-hat",
+      "file": "models/magic-hat.glb",
+      "vertices": 1026,
+      "triangles": 1120,
+      "bounds": {
+        "min": [
+          -0.4300000071525574,
+          0.002500000149011611,
+          -0.4300000071525574
+        ],
+        "max": [
+          0.4300000071525574,
+          0.46000000834465027,
+          0.4300000071525574
+        ]
+      },
+      "sockets": {
+        "support": [
+          0,
+          0,
+          0
+        ],
+        "opening": [
+          0,
+          0.46,
+          0
+        ],
+        "rim": [
+          0.27,
+          0.46,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Hat_brim",
+          "color": "#b998d4",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Hat_hollow_crown",
+          "color": "#b998d4",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Hat_inner_floor",
+          "color": "#604775",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Hat_band",
+          "color": "#e2bd6d",
+          "roughness": 0.65,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.4650000071525574,
+          -0.03249999985098839,
+          -0.4650000071525574
+        ],
+        "max": [
+          0.4650000071525574,
+          0.4950000083446503,
+          0.4650000071525574
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "individual built-in generated concept reviewed; final user review pending",
+        "model": "editable real 3D GLB exported",
+        "staticMount": "passed",
+        "animation": "not implemented",
+        "wardrobe": "not certified",
+        "nativeRuntime": "not tested"
+      },
+      "prototype": "prototypes/magic-hat.png",
+      "sha256": "4bdd9bfcfcbbf2620c1ed5512054d31f535facdb3c74a0264c208d3de30061d0",
+      "safeBounds": {
+        "local": {
+          "min": [
+            -0.4300000071525574,
+            0.002500000149011611,
+            -0.4300000071525574
+          ],
+          "max": [
+            0.4300000071525574,
+            0.46000000834465027,
+            0.4300000071525574
+          ]
+        },
+        "worldStatic": [
+          [
+            1.2200000286102295,
+            2.0799999237060547
+          ],
+          [
+            0.008500000461935997,
+            0.4660000205039978
+          ],
+          [
+            -0.33000001311302185,
+            0.5300000309944153
+          ]
+        ],
+        "fixedStageLimit": {
+          "x": [
+            -2.63,
+            2.63
+          ],
+          "y": [
+            -0.4,
+            3.1
+          ],
+          "z": [
+            -2.63,
+            2.63
+          ]
+        },
+        "scope": "static mount reservation, no motion envelope certification"
+      },
+      "renders": {
+        "front": "renders/magic-hat-front.png",
+        "quarter": "renders/magic-hat-quarter.png",
+        "side": "renders/magic-hat-side.png",
+        "back": "renders/magic-hat-back.png"
+      },
+      "mountedRenders": {
+        "0": "renders/mounted-magic-hat-0/0000.png",
+        "45": "renders/mounted-magic-hat-45/0000.png",
+        "90": "renders/mounted-magic-hat-90/0000.png",
+        "180": "renders/mounted-magic-hat-180/0000.png"
+      },
+      "mountAudit": {
+        "id": "magic-hat",
+        "unchanged13ActorMeshes": true,
+        "bodyTriangleCrossings": 0,
+        "faceTriangleCrossings": 0,
+        "handMinimumSurfaceDistance": null,
+        "handVerticesWithin001": null,
+        "handMaxInsidePenetration": null,
+        "footMinSurfaceDistance": null,
+        "bounds": [
+          [
+            1.2200000286102295,
+            2.0799999237060547
+          ],
+          [
+            0.008500000461935997,
+            0.4660000205039978
+          ],
+          [
+            -0.33000001311302185,
+            0.5300000309944153
+          ]
+        ],
+        "fixedBodyScaleSafeEnvelope": true,
+        "bodyCrossingByPart": {},
+        "staticAuditPass": true
+      },
+      "actorInvariant": "All 13 original hybrid body/limb/face meshes: vertex arrays and indices byte-identical. No hand matrix modification, deformation or extra limbs; full original root closure preserved rather than testing one root point.",
+      "classification": "prop"
+    },
+    {
+      "id": "star",
+      "file": "models/star.glb",
+      "vertices": 588,
+      "triangles": 196,
+      "bounds": {
+        "min": [
+          -0.253712922334671,
+          0.014178898185491562,
+          -0.05750000037252903
+        ],
+        "max": [
+          0.253712922334671,
+          0.4967695474624634,
+          0.057500003576278685
+        ]
+      },
+      "sockets": {
+        "origin": [
+          0,
+          0.23,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Star_beveled_body",
+          "color": "#f3cf70",
+          "roughness": 0.65,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.28871292233467105,
+          -0.02082110181450844,
+          -0.09250000037252903
+        ],
+        "max": [
+          0.28871292233467105,
+          0.5317695474624634,
+          0.09250000357627869
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "individual built-in generated concept reviewed; final user review pending",
+        "model": "editable real 3D GLB exported",
+        "staticMount": "passed",
+        "animation": "not implemented",
+        "wardrobe": "not certified",
+        "nativeRuntime": "not tested"
+      },
+      "prototype": "prototypes/star.png",
+      "sha256": "8d04e5ec635e1179db2a52b6f241ad911ecab19fa687759e1d7459a1e72f1dfe",
+      "safeBounds": {
+        "local": {
+          "min": [
+            -0.253712922334671,
+            0.014178898185491562,
+            -0.05750000037252903
+          ],
+          "max": [
+            0.253712922334671,
+            0.4967695474624634,
+            0.057500003576278685
+          ]
+        },
+        "worldStatic": [
+          [
+            1.2962870597839355,
+            1.8037129640579224
+          ],
+          [
+            1.4641789197921753,
+            1.9467695951461792
+          ],
+          [
+            0.14249999821186066,
+            0.2574999928474426
+          ]
+        ],
+        "fixedStageLimit": {
+          "x": [
+            -2.63,
+            2.63
+          ],
+          "y": [
+            -0.4,
+            3.1
+          ],
+          "z": [
+            -2.63,
+            2.63
+          ]
+        },
+        "scope": "static mount reservation, no motion envelope certification"
+      },
+      "renders": {
+        "front": "renders/star-front.png",
+        "quarter": "renders/star-quarter.png",
+        "side": "renders/star-side.png",
+        "back": "renders/star-back.png"
+      },
+      "mountedRenders": {
+        "0": "renders/mounted-star-0/0000.png",
+        "45": "renders/mounted-star-45/0000.png",
+        "90": "renders/mounted-star-90/0000.png",
+        "180": "renders/mounted-star-180/0000.png"
+      },
+      "mountAudit": {
+        "id": "star",
+        "unchanged13ActorMeshes": true,
+        "bodyTriangleCrossings": 0,
+        "faceTriangleCrossings": 0,
+        "handMinimumSurfaceDistance": null,
+        "handVerticesWithin001": null,
+        "handMaxInsidePenetration": null,
+        "footMinSurfaceDistance": null,
+        "bounds": [
+          [
+            1.2962870597839355,
+            1.8037129640579224
+          ],
+          [
+            1.4641789197921753,
+            1.9467695951461792
+          ],
+          [
+            0.14249999821186066,
+            0.2574999928474426
+          ]
+        ],
+        "fixedBodyScaleSafeEnvelope": true,
+        "bodyCrossingByPart": {},
+        "staticAuditPass": true
+      },
+      "actorInvariant": "All 13 original hybrid body/limb/face meshes: vertex arrays and indices byte-identical. No hand matrix modification, deformation or extra limbs; full original root closure preserved rather than testing one root point.",
+      "classification": "effect-geometry"
+    },
+    {
+      "id": "yarn",
+      "file": "models/yarn.glb",
+      "vertices": 10457,
+      "triangles": 17372,
+      "bounds": {
+        "min": [
+          -0.31400000020861624,
+          0.0027907604379152073,
+          -0.24278055643154797
+        ],
+        "max": [
+          0.24226196142575418,
+          0.4872092395620848,
+          0.5428253565728665
+        ]
+      },
+      "sockets": {
+        "support": [
+          0,
+          0,
+          0
+        ],
+        "tail": [
+          -0.035,
+          0.04,
+          0.37
+        ],
+        "swatch": [
+          -0.17,
+          0.04,
+          0.38
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Yarn_ball_core",
+          "color": "#b89bd0",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_wrap_0_-2",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_wrap_0_-1",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_wrap_0_0",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_wrap_0_1",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_wrap_0_2",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_wrap_1_-2",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_wrap_1_-1",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_wrap_1_0",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_wrap_1_1",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_wrap_1_2",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_wrap_2_-2",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_wrap_2_-1",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_wrap_2_0",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_wrap_2_1",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_wrap_2_2",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_swatch",
+          "color": "#b89bd0",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_0_0",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_0_1",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_0_2",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_0_3",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_0_4",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_0_5",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_0_6",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_0_7",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_1_0",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_1_1",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_1_2",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_1_3",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_1_4",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_1_5",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_1_6",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_1_7",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_2_0",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_2_1",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_2_2",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_2_3",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_2_4",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_2_5",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_2_6",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_2_7",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_3_0",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_3_1",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_3_2",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_3_3",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_3_4",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_3_5",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_3_6",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_3_7",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_4_0",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_4_1",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_4_2",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_4_3",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_4_4",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_4_5",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_4_6",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_4_7",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_5_0",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_5_1",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_5_2",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_5_3",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_5_4",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_5_5",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_5_6",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_5_7",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_6_0",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_6_1",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_6_2",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_6_3",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_6_4",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_6_5",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_6_6",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_stitch_6_7",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Yarn_tail",
+          "color": "#a98bc5",
+          "roughness": 0.65,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.3490000002086162,
+          -0.032209239562084796,
+          -0.277780556431548
+        ],
+        "max": [
+          0.2772619614257542,
+          0.5222092395620848,
+          0.5778253565728665
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "individual built-in generated concept reviewed; final user review pending",
+        "model": "editable real 3D GLB exported",
+        "staticMount": "passed",
+        "animation": "not implemented",
+        "wardrobe": "not certified",
+        "nativeRuntime": "not tested"
+      },
+      "prototype": "prototypes/yarn.png",
+      "sha256": "bb4a377537700ae751136100b70b375edfef3e088c170d9077ed2cb29f20cc92",
+      "safeBounds": {
+        "local": {
+          "min": [
+            -0.31400000020861624,
+            0.0027907604379152073,
+            -0.24278055643154797
+          ],
+          "max": [
+            0.24226196142575418,
+            0.4872092395620848,
+            0.5428253565728665
+          ]
+        },
+        "worldStatic": [
+          [
+            1.3359999656677246,
+            1.8922619819641113
+          ],
+          [
+            0.008790760301053524,
+            0.49320924282073975
+          ],
+          [
+            -0.14278055727481842,
+            0.6428253650665283
+          ]
+        ],
+        "fixedStageLimit": {
+          "x": [
+            -2.63,
+            2.63
+          ],
+          "y": [
+            -0.4,
+            3.1
+          ],
+          "z": [
+            -2.63,
+            2.63
+          ]
+        },
+        "scope": "static mount reservation, no motion envelope certification"
+      },
+      "renders": {
+        "front": "renders/yarn-front.png",
+        "quarter": "renders/yarn-quarter.png",
+        "side": "renders/yarn-side.png",
+        "back": "renders/yarn-back.png"
+      },
+      "mountedRenders": {
+        "0": "renders/mounted-yarn-0/0000.png",
+        "45": "renders/mounted-yarn-45/0000.png",
+        "90": "renders/mounted-yarn-90/0000.png",
+        "180": "renders/mounted-yarn-180/0000.png"
+      },
+      "mountAudit": {
+        "id": "yarn",
+        "unchanged13ActorMeshes": true,
+        "bodyTriangleCrossings": 0,
+        "faceTriangleCrossings": 0,
+        "handMinimumSurfaceDistance": null,
+        "handVerticesWithin001": null,
+        "handMaxInsidePenetration": null,
+        "footMinSurfaceDistance": null,
+        "bounds": [
+          [
+            1.3359999656677246,
+            1.8922619819641113
+          ],
+          [
+            0.008790760301053524,
+            0.49320924282073975
+          ],
+          [
+            -0.14278055727481842,
+            0.6428253650665283
+          ]
+        ],
+        "fixedBodyScaleSafeEnvelope": true,
+        "bodyCrossingByPart": {},
+        "staticAuditPass": true
+      },
+      "actorInvariant": "All 13 original hybrid body/limb/face meshes: vertex arrays and indices byte-identical. No hand matrix modification, deformation or extra limbs; full original root closure preserved rather than testing one root point.",
+      "classification": "prop"
+    },
+    {
+      "id": "knitting-needle",
+      "file": "models/knitting-needle.glb",
+      "vertices": 708,
+      "triangles": 768,
+      "bounds": {
+        "min": [
+          -0.1319999983906746,
+          1.6093254090465692e-09,
+          -0.04699999839067459
+        ],
+        "max": [
+          0.1319999983906746,
+          0.7999999986588955,
+          0.04699999839067459
+        ]
+      },
+      "sockets": {
+        "leftGrip": [
+          -0.085,
+          0.23,
+          0
+        ],
+        "rightGrip": [
+          0.085,
+          0.23,
+          0
+        ],
+        "leftTip": [
+          -0.085,
+          0.8,
+          0
+        ],
+        "rightTip": [
+          0.085,
+          0.8,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Needle_shaft_left",
+          "color": "#dbbb84",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Needle_tip_left",
+          "color": "#dbbb84",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Needle_stop_left",
+          "color": "#b89bd0",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Needle_shaft_right",
+          "color": "#dbbb84",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Needle_tip_right",
+          "color": "#dbbb84",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Needle_stop_right",
+          "color": "#b89bd0",
+          "roughness": 0.65,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.16699999839067461,
+          -0.034999998390674594,
+          -0.0819999983906746
+        ],
+        "max": [
+          0.16699999839067461,
+          0.8349999986588955,
+          0.0819999983906746
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "individual built-in generated concept reviewed; final user review pending",
+        "model": "editable real 3D GLB exported",
+        "staticMount": "passed",
+        "animation": "not implemented",
+        "wardrobe": "not certified",
+        "nativeRuntime": "not tested"
+      },
+      "prototype": "prototypes/knitting-needle.png",
+      "sha256": "a275b9977891a2dc6d9dd9fa826c11896fa3e3a46fc595016537ce5b17d621e3",
+      "safeBounds": {
+        "local": {
+          "min": [
+            -0.1319999983906746,
+            1.6093254090465692e-09,
+            -0.04699999839067459
+          ],
+          "max": [
+            0.1319999983906746,
+            0.7999999986588955,
+            0.04699999839067459
+          ]
+        },
+        "worldStatic": [
+          [
+            -1.2669999599456787,
+            1.2319999933242798
+          ],
+          [
+            0.39000001549720764,
+            1.190000057220459
+          ],
+          [
+            -0.24699999392032623,
+            0.1770000010728836
+          ]
+        ],
+        "fixedStageLimit": {
+          "x": [
+            -2.63,
+            2.63
+          ],
+          "y": [
+            -0.4,
+            3.1
+          ],
+          "z": [
+            -2.63,
+            2.63
+          ]
+        },
+        "scope": "static mount reservation, no motion envelope certification"
+      },
+      "renders": {
+        "front": "renders/knitting-needle-front.png",
+        "quarter": "renders/knitting-needle-quarter.png",
+        "side": "renders/knitting-needle-side.png",
+        "back": "renders/knitting-needle-back.png"
+      },
+      "mountedRenders": {
+        "0": "renders/mounted-knitting-needle-0/0000.png",
+        "45": "renders/mounted-knitting-needle-45/0000.png",
+        "90": "renders/mounted-knitting-needle-90/0000.png",
+        "180": "renders/mounted-knitting-needle-180/0000.png"
+      },
+      "mountAudit": {
+        "id": "knitting-needle",
+        "unchanged13ActorMeshes": true,
+        "bodyTriangleCrossings": 0,
+        "faceTriangleCrossings": 0,
+        "handMinimumSurfaceDistance": 0.009588192217051983,
+        "handVerticesWithin001": 2,
+        "handMaxInsidePenetration": 0,
+        "footMinSurfaceDistance": null,
+        "bounds": [
+          [
+            -1.2669999599456787,
+            1.2319999933242798
+          ],
+          [
+            0.39000001549720764,
+            1.190000057220459
+          ],
+          [
+            -0.24699999392032623,
+            0.1770000010728836
+          ]
+        ],
+        "fixedBodyScaleSafeEnvelope": true,
+        "bodyCrossingByPart": {},
+        "staticAuditPass": true,
+        "leftNeedleSurfaceDistance": 0.0066663892939686775,
+        "rightNeedleSurfaceDistance": 0.009588192217051983
+      },
+      "actorInvariant": "All 13 original hybrid body/limb/face meshes: vertex arrays and indices byte-identical. No hand matrix modification, deformation or extra limbs; full original root closure preserved rather than testing one root point.",
+      "classification": "prop",
+      "mountNote": "Independent left/right group transforms in static fixture; shafts/tips/stops share geometry and material. GLB stores pair side by side for isolated inspection."
+    },
+    {
+      "id": "pumpkin-lantern",
+      "file": "models/pumpkin-lantern.glb",
+      "vertices": 6886,
+      "triangles": 8256,
+      "bounds": {
+        "min": [
+          -0.37297388911247253,
+          0.009999999776482582,
+          -0.32273945212364197
+        ],
+        "max": [
+          0.37297388911247253,
+          0.843000020980835,
+          0.34284618496894836
+        ]
+      },
+      "sockets": {
+        "support": [
+          0,
+          0.01,
+          0
+        ],
+        "handleGrip": [
+          0,
+          0.82,
+          0
+        ],
+        "handlePivot": [
+          0,
+          0.34,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Pumpkin_ribbed_shell",
+          "color": "#e59a43",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Pumpkin_stem",
+          "color": "#60844a",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Pumpkin_handle_arch",
+          "color": "#654637",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Pumpkin_handle_hinge_-1",
+          "color": "#654637",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Pumpkin_handle_hinge_1",
+          "color": "#654637",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Pumpkin_eye_-1",
+          "color": "#654637",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Pumpkin_eye_1",
+          "color": "#654637",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Pumpkin_smile",
+          "color": "#654637",
+          "roughness": 0.65,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.40797388911247257,
+          -0.02500000022351742,
+          -0.357739452123642
+        ],
+        "max": [
+          0.40797388911247257,
+          0.8780000209808351,
+          0.3778461849689484
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "individual built-in generated concept reviewed; final user review pending",
+        "model": "editable real 3D GLB exported",
+        "staticMount": "passed",
+        "animation": "not implemented",
+        "wardrobe": "not certified",
+        "nativeRuntime": "not tested"
+      },
+      "prototype": "prototypes/pumpkin-lantern.png",
+      "sha256": "8cec3db67328a4545f5f0b373d97faaeb3b232899e33a50a93bc6f713e41fc69",
+      "safeBounds": {
+        "local": {
+          "min": [
+            -0.37297388911247253,
+            0.009999999776482582,
+            -0.32273945212364197
+          ],
+          "max": [
+            0.37297388911247253,
+            0.843000020980835,
+            0.34284618496894836
+          ]
+        },
+        "worldStatic": [
+          [
+            1.1770261526107788,
+            1.922973871231079
+          ],
+          [
+            0.01599999889731407,
+            0.8490000367164612
+          ],
+          [
+            -0.22273945808410645,
+            0.4428461790084839
+          ]
+        ],
+        "fixedStageLimit": {
+          "x": [
+            -2.63,
+            2.63
+          ],
+          "y": [
+            -0.4,
+            3.1
+          ],
+          "z": [
+            -2.63,
+            2.63
+          ]
+        },
+        "scope": "static mount reservation, no motion envelope certification"
+      },
+      "renders": {
+        "front": "renders/pumpkin-lantern-front.png",
+        "quarter": "renders/pumpkin-lantern-quarter.png",
+        "side": "renders/pumpkin-lantern-side.png",
+        "back": "renders/pumpkin-lantern-back.png"
+      },
+      "mountedRenders": {
+        "0": "renders/mounted-pumpkin-lantern-0/0000.png",
+        "45": "renders/mounted-pumpkin-lantern-45/0000.png",
+        "90": "renders/mounted-pumpkin-lantern-90/0000.png",
+        "180": "renders/mounted-pumpkin-lantern-180/0000.png"
+      },
+      "mountAudit": {
+        "id": "pumpkin-lantern",
+        "unchanged13ActorMeshes": true,
+        "bodyTriangleCrossings": 0,
+        "faceTriangleCrossings": 0,
+        "handMinimumSurfaceDistance": null,
+        "handVerticesWithin001": null,
+        "handMaxInsidePenetration": null,
+        "footMinSurfaceDistance": null,
+        "bounds": [
+          [
+            1.1770261526107788,
+            1.922973871231079
+          ],
+          [
+            0.01599999889731407,
+            0.8490000367164612
+          ],
+          [
+            -0.22273945808410645,
+            0.4428461790084839
+          ]
+        ],
+        "fixedBodyScaleSafeEnvelope": true,
+        "bodyCrossingByPart": {},
+        "staticAuditPass": true
+      },
+      "actorInvariant": "All 13 original hybrid body/limb/face meshes: vertex arrays and indices byte-identical. No hand matrix modification, deformation or extra limbs; full original root closure preserved rather than testing one root point.",
+      "classification": "prop"
+    },
+    {
+      "id": "ghost",
+      "file": "models/ghost.glb",
+      "vertices": 1754,
+      "triangles": 3040,
+      "bounds": {
+        "min": [
+          -0.25999999046325684,
+          0.02511363849043846,
+          -0.25999999046325684
+        ],
+        "max": [
+          0.25999999046325684,
+          0.5699999928474426,
+          0.25999999046325684
+        ]
+      },
+      "sockets": {
+        "floatOrigin": [
+          0,
+          0.28,
+          0
+        ],
+        "hem": [
+          0,
+          0.045,
+          0
+        ]
+      },
+      "materials": [
+        {
+          "mesh": "Ghost_scalloped_body",
+          "color": "#f5ecd8",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Ghost_eye_-1",
+          "color": "#282627",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Ghost_eye_1",
+          "color": "#282627",
+          "roughness": 0.65,
+          "metalness": 0
+        },
+        {
+          "mesh": "Ghost_mouth",
+          "color": "#282627",
+          "roughness": 0.65,
+          "metalness": 0
+        }
+      ],
+      "clearanceEnvelope": {
+        "min": [
+          -0.29499999046325687,
+          -0.009886361509561542,
+          -0.29499999046325687
+        ],
+        "max": [
+          0.29499999046325687,
+          0.6049999928474427,
+          0.29499999046325687
+        ],
+        "margin": 0.035,
+        "meaning": "prop-local reservation; requires transformed garment collision audit"
+      },
+      "status": {
+        "design": "individual built-in generated concept reviewed; final user review pending",
+        "model": "editable real 3D GLB exported",
+        "staticMount": "passed",
+        "animation": "not implemented",
+        "wardrobe": "not certified",
+        "nativeRuntime": "not tested"
+      },
+      "prototype": "prototypes/ghost.png",
+      "sha256": "0b31c7eda5698a3c9f5cf52977085b697f5df068e532010af2e11124eeced55d",
+      "safeBounds": {
+        "local": {
+          "min": [
+            -0.25999999046325684,
+            0.02511363849043846,
+            -0.25999999046325684
+          ],
+          "max": [
+            0.25999999046325684,
+            0.5699999928474426,
+            0.25999999046325684
+          ]
+        },
+        "worldStatic": [
+          [
+            1.3899999856948853,
+            1.909999966621399
+          ],
+          [
+            0.6751136183738708,
+            1.2200000286102295
+          ],
+          [
+            -0.1599999964237213,
+            0.35999998450279236
+          ]
+        ],
+        "fixedStageLimit": {
+          "x": [
+            -2.63,
+            2.63
+          ],
+          "y": [
+            -0.4,
+            3.1
+          ],
+          "z": [
+            -2.63,
+            2.63
+          ]
+        },
+        "scope": "static mount reservation, no motion envelope certification"
+      },
+      "renders": {
+        "front": "renders/ghost-front.png",
+        "quarter": "renders/ghost-quarter.png",
+        "side": "renders/ghost-side.png",
+        "back": "renders/ghost-back.png"
+      },
+      "mountedRenders": {
+        "0": "renders/mounted-ghost-0/0000.png",
+        "45": "renders/mounted-ghost-45/0000.png",
+        "90": "renders/mounted-ghost-90/0000.png",
+        "180": "renders/mounted-ghost-180/0000.png"
+      },
+      "mountAudit": {
+        "id": "ghost",
+        "unchanged13ActorMeshes": true,
+        "bodyTriangleCrossings": 0,
+        "faceTriangleCrossings": 0,
+        "handMinimumSurfaceDistance": null,
+        "handVerticesWithin001": null,
+        "handMaxInsidePenetration": null,
+        "footMinSurfaceDistance": null,
+        "bounds": [
+          [
+            1.3899999856948853,
+            1.909999966621399
+          ],
+          [
+            0.6751136183738708,
+            1.2200000286102295
+          ],
+          [
+            -0.1599999964237213,
+            0.35999998450279236
+          ]
+        ],
+        "fixedBodyScaleSafeEnvelope": true,
+        "bodyCrossingByPart": {},
+        "staticAuditPass": true
+      },
+      "actorInvariant": "All 13 original hybrid body/limb/face meshes: vertex arrays and indices byte-identical. No hand matrix modification, deformation or extra limbs; full original root closure preserved rather than testing one root point.",
+      "classification": "supporting-creature"
+    }
+  ],
+  "tests": {
+    "nodeTests": 49,
+    "passed": 49,
+    "log": "reports/model-tests.log",
+    "staticBVH": "reports/mount-audit.json",
+    "sourceActor": "../bubu-accessory-expansion-20261018/review/halo-static.json"
+  }
+}

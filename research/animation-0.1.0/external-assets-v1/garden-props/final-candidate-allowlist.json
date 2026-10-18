@@ -1,0 +1,153 @@
+{
+  "schema": "bubu-garden-final-candidates/2",
+  "items": [
+    {
+      "id": "shovel",
+      "file": "models/shovel.glb",
+      "sha256": "68b8d7e769ff0c7d51190a091f392f37d14d21df084e7e487d729112d92211d6",
+      "acceptance": "candidate; user final review pending",
+      "mount": {
+        "translation": [
+          1.14,
+          0.006,
+          -0.2
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "frame": "reports/shovel-depth-v2.json",
+        "audit": "reports/shaft-depth-v2-audit.json",
+        "safeBounds": {
+          "min": [
+            0.8700000005960463,
+            -0.030840744763612753,
+            -0.2999999976158142
+          ],
+          "max": [
+            1.4099999994039534,
+            1.3983569059371947,
+            -0.1000000023841858
+          ]
+        },
+        "supersedes": "original +0.12 Z static contact was visually apparent but had about 0.158 depth gap"
+      }
+    },
+    {
+      "id": "dirt-mound",
+      "file": "models/dirt-mound.glb",
+      "sha256": "479d233d1176cd91c0d431179f931b219b5391e15d16613fd8b7a2dd5c3bf3b3",
+      "acceptance": "candidate; user final review pending",
+      "mount": {
+        "id": "dirt-mound",
+        "position": [
+          1.55,
+          0.006,
+          0.25
+        ],
+        "contact": [
+          0,
+          0,
+          0
+        ],
+        "kind": "ground placement, no hand contact",
+        "worldContact": [
+          1.55,
+          0.006,
+          0.25
+        ],
+        "handGeometryUnchanged": true,
+        "animationCompatibility": "pending",
+        "clothingClearance": "pending",
+        "nativeRuntime": "pending"
+      }
+    },
+    {
+      "id": "watering-can",
+      "file": "models/watering-can-fixed-stage-v2.glb",
+      "sha256": "9e352437cce5145b5ae6105474a1e024275d00fd444bef0c293c69cd3c3cebdb",
+      "acceptance": "candidate; user final review pending",
+      "mount": {
+        "translation": [
+          1.14,
+          0.69,
+          -0.2
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "origin": "grip pivot; scale 0.8 baked as GLB scene transform",
+        "frame": "reports/watering-can-fixed-stage-v2.json"
+      }
+    },
+    {
+      "id": "plant-pot",
+      "file": "models/plant-pot.glb",
+      "sha256": "dbd246a489476b94353fd00df0531fbb965a9d7b73128316c7297a63cdcbbe88",
+      "acceptance": "candidate; user final review pending",
+      "mount": {
+        "id": "plant-pot",
+        "position": [
+          1.5,
+          0.006,
+          0.15
+        ],
+        "contact": [
+          0,
+          0,
+          0
+        ],
+        "kind": "ground placement, no hand contact",
+        "worldContact": [
+          1.5,
+          0.006,
+          0.15
+        ],
+        "handGeometryUnchanged": true,
+        "animationCompatibility": "pending",
+        "clothingClearance": "pending",
+        "nativeRuntime": "pending"
+      }
+    },
+    {
+      "id": "broom",
+      "file": "models/broom.glb",
+      "sha256": "32b66f6f8220c52346f3091437010e550886c5a9fd142eb24db04f2cdcb8a2bf",
+      "acceptance": "candidate; user final review pending",
+      "mount": {
+        "translation": [
+          1.14,
+          0.006,
+          -0.2
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "frame": "reports/broom-depth-v2.json",
+        "audit": "reports/shaft-depth-v2-audit.json",
+        "safeBounds": {
+          "min": [
+            0.7713706041436033,
+            -0.015000012159347514,
+            -0.3115000008046628
+          ],
+          "max": [
+            1.5086293958563965,
+            1.6110000035762786,
+            -0.0884999991953373
+          ]
+        },
+        "supersedes": "original +0.12 Z static contact was visually apparent but had about 0.158 depth gap"
+      }
+    }
+  ],
+  "excluded": [
+    "models/watering-can.glb"
+  ],
+  "scope": "five static prop candidates; no animation timing added; final user review pending"
+}

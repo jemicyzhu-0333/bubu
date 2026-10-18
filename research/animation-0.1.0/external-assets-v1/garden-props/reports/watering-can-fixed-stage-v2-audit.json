@@ -1,0 +1,97 @@
+{
+  "id": "watering-can",
+  "version": "fixed-stage-v2",
+  "sourceGLBSHA256": "3ee6031151da0efb2482874d48665e97bb74040fc4b5a3509a70c82b8245f249",
+  "candidateGLBSHA256": "9e352437cce5145b5ae6105474a1e024275d00fd444bef0c293c69cd3c3cebdb",
+  "scaleAboutGrip": 0.8,
+  "localOrigin": "grip pivot; attach root directly at worldGrip",
+  "worldGrip": [
+    1.14,
+    0.69,
+    -0.2
+  ],
+  "socketGripWorld": [
+    1.1400000000000001,
+    0.69,
+    -0.2
+  ],
+  "gripError": 2.220446049250313e-16,
+  "handHandleSurfaceDistance": 0.0010942514455447737,
+  "bodyFaceSeparation": [
+    {
+      "mesh": "Bubu_body",
+      "axisXSeparation": 0.10530697255066057
+    },
+    {
+      "mesh": "A_brow_L",
+      "axisXSeparation": 1.3825157655501212
+    },
+    {
+      "mesh": "A_brow_R",
+      "axisXSeparation": 0.6093988352925975
+    },
+    {
+      "mesh": "A_eye_highlight_L",
+      "axisXSeparation": 1.369392141998882
+    },
+    {
+      "mesh": "A_eye_highlight_R",
+      "axisXSeparation": 0.6061897874714779
+    },
+    {
+      "mesh": "A_eye_L",
+      "axisXSeparation": 1.1908859693484324
+    },
+    {
+      "mesh": "A_eye_R",
+      "axisXSeparation": 0.4462280800726641
+    },
+    {
+      "mesh": "A_mouth_ring",
+      "axisXSeparation": 0.9184481611640674
+    },
+    {
+      "mesh": "A_tongue",
+      "axisXSeparation": 0.9666049571286804
+    }
+  ],
+  "bounds": {
+    "min": [
+      1.1021204051971436,
+      0.44999999999999996,
+      -0.4319999933242798
+    ],
+    "max": [
+      2.165601408554606,
+      1.0047515375337543,
+      0.031999993324279774
+    ]
+  },
+  "safeBounds": {
+    "min": [
+      1.0671204051971437,
+      0.4149999999999999,
+      -0.46699999332427977
+    ],
+    "max": [
+      2.200601408554606,
+      1.0397515375337543,
+      0.06699999332427978
+    ]
+  },
+  "fixedReviewViewportX": [
+    -2.35,
+    2.35
+  ],
+  "reviewSpan": 4.7,
+  "declaredBodyWidth": 2.3797432184,
+  "native99Render": {
+    "width": 196,
+    "bodyPixelWidth": 99.2403554907234,
+    "span": 4.7
+  },
+  "actorArraysSHA256": "3259a3191d76a1031e575e13b2b266356969fe2a52aa84461178e9fcf8a60887",
+  "actorUnchanged": true,
+  "vertices": 1780,
+  "scope": "static fixed scale crop, body/face separating planes, handle contact; not animation/wardrobe/native runtime acceptance"
+}

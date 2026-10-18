@@ -1,0 +1,58 @@
+{
+  "results": [
+    {
+      "id": "shovel",
+      "beforeSurfaceDistance": 0.1585964629159898,
+      "afterSurfaceDistance": 0.00004281527777028214,
+      "translation": [
+        1.14,
+        0.006,
+        -0.2
+      ],
+      "actorUnchanged": true,
+      "modelGeometryUnchanged": true,
+      "bounds": {
+        "min": [
+          0.9050000005960464,
+          0.004159255236387251,
+          -0.2649999976158142
+        ],
+        "max": [
+          1.3749999994039535,
+          1.3633569059371948,
+          -0.1350000023841858
+        ]
+      },
+      "shaftBodyXGap": 0.09918656759193545,
+      "scope": "shaft hand surface, shaft/body clearance, static bounds; full blade/bristle body intersection across all future actions pending"
+    },
+    {
+      "id": "broom",
+      "beforeSurfaceDistance": 0.15759660189996022,
+      "afterSurfaceDistance": 0.000025798928564896397,
+      "translation": [
+        1.14,
+        0.006,
+        -0.2
+      ],
+      "actorUnchanged": true,
+      "modelGeometryUnchanged": true,
+      "bounds": {
+        "min": [
+          0.8063706041436033,
+          0.01999998784065249,
+          -0.27650000080466275
+        ],
+        "max": [
+          1.4736293958563966,
+          1.5760000035762787,
+          -0.1234999991953373
+        ]
+      },
+      "shaftBodyXGap": 0.09818656556537753,
+      "scope": "shaft hand surface, shaft/body clearance, static bounds; full blade/bristle body intersection across all future actions pending"
+    }
+  ],
+  "oldTestGap": "Previous 21 tests covered standalone finite geometry, GLB cold-load, resource ownership, socket round-trip and rigid inverse transforms only. They did not measure actual character surface-to-prop geometry contact. Static 2D apparent contact hid Z separation.",
+  "newCoverage": "Actual source 13-mesh world coordinates, prop vertex to original hand triangle closest point, actor-array identity, shaft/body X separating plane and fixed static bounds; same tests should gate future hand mounts."
+}

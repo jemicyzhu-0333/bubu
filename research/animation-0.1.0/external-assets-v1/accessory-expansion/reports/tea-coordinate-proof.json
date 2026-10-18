@@ -1,0 +1,67 @@
+{
+  "method": "Compare inverse-transformed host exports with independent approved source-local hybrid NPZ positions, including left/right foot identity. Cup geometry remains in its existing tea source frame.",
+  "sourceToWorldColumnMajor": [
+    0.984807753012208,
+    0,
+    -0.17364817766693033,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0.17364817766693033,
+    0,
+    0.984807753012208,
+    0,
+    0,
+    0,
+    0,
+    1
+  ],
+  "checks": {
+    "Bubu_body": {
+      "vertices": 32036,
+      "maxSourceCoordinateError": 4.6955512256197096e-08,
+      "firstExpectedAnchor": [
+        -0.959764301776886,
+        0.7966073751449585,
+        0.24310700595378876
+      ],
+      "firstActualAnchor": [
+        -0.9597643017768862,
+        0.7966073751449585,
+        0.24310700595378879
+      ]
+    },
+    "boots_left": {
+      "vertices": 4440,
+      "maxSourceCoordinateError": 2.7924419554459234e-08,
+      "firstExpectedAnchor": [
+        -0.5392314195632935,
+        0.006645060144364834,
+        0.05449249595403671
+      ],
+      "firstActualAnchor": [
+        -0.5392314108210154,
+        0.0066450601443635285,
+        0.05449249954917197
+      ]
+    },
+    "boots_right": {
+      "vertices": 4470,
+      "maxSourceCoordinateError": 2.8035758492528373e-08,
+      "firstExpectedAnchor": [
+        0.37446558475494385,
+        0.006000000052154064,
+        0.12802216410636902
+      ],
+      "firstActualAnchor": [
+        0.37446559349722214,
+        0.006000000052152756,
+        0.12802216051123522
+      ]
+    }
+  },
+  "teaAuditScriptSHA256": "7ec54d88826e20a055ffb5af2a6e70844902f818cd0425f97d619ff6849eb89b",
+  "allPassed": true
+}

@@ -1,0 +1,32 @@
+{
+  "character": "approved D2 small pink round body, two short pointed ears, tiny side fins, two short feet; no humanoid anatomy",
+  "referenceAttachmentOrder": [
+    {
+      "path": "bubu-recovery-20261017/repo-check/research/animation-0.1.0/expression-library/d2-style-variant/review/01-front.png",
+      "sha256": "e143c32aac76e7a6e42bfbd15be68e38a9666120f55c8ef170095fbb223ce098",
+      "role": "face/material identity"
+    },
+    {
+      "path": "bubu-recovery-20261017/repo-check/research/animation-0.1.0/approved-assets/body/body-gray-fourviews-large.png",
+      "sha256": "5df4c6c12e67f21558479b541e32aad1b137538d9b91e5f08357cc5b8dc2dcd3",
+      "role": "four-view anatomical identity"
+    }
+  ],
+  "target": "99 CSS px main-body width and 2x; front, quarter, profile, back",
+  "generationTool": "built-in image_gen; individual call per accessory; additional revised back-only cape call",
+  "modelVersion": "not exposed by tool",
+  "seed": "not exposed by tool",
+  "generatedWearPolicy": "Design prototype only; never used as replacement body mesh",
+  "conversion": "Procedural 3D model constructed from inspected generated design; source body and original action trajectories preserved",
+  "superseded": "Initial cape clasp/wrap generated design retained only as provenance; final uses 07-cape-revised-backonly.png",
+  "artifactHashes": {
+    "references/05-halo-prototype.png": "0c6a90dc756c90c29c7a2cc322a32f0325c0d15626c7333de4820d39262dc065",
+    "references/06-boots-prototype.png": "d218555aabf92e65b4d756affab88150200e5ce55fa19f26fb0f456e5fa8770c",
+    "references/07-cape-prototype.png": "69cd39e080424eb63c750ebf36c93fdf14bf6aac6edd3a80b6dc8027951f2b9d",
+    "references/07-cape-revised-backonly.png": "b559b1374879b9b70202e19acf31e777b6ec9b8871db31bead1f3ffacc894184",
+    "references/boots-prompt.txt": "d661c752fe7811533d9dfec02be37d4f4cb8d35124e284ed5a0e914326072ce9",
+    "references/cape-prompt.txt": "7571f8f3ee3468783703f36bb0a1407bc31277e33982910d96834b73161b89e0",
+    "references/cape-revised-prompt.txt": "e023a1dd4485b4903814f69218125fac53a50efd71cb043502ebeed6f5034935",
+    "references/halo-prompt.txt": "27d7ddf91460718eaf9b2589caaeb3447c5aec2efca1619b109af3f3a88ed612"
+  }
+}

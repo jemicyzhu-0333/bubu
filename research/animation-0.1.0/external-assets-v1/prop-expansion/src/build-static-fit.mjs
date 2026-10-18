@@ -1,0 +1,9 @@
+import fs from 'node:fs';import path from 'node:path';import * as T from 'three';import {factories} from './prop-models.mjs';import {paths} from '../../shared/paths.mjs';
+// Reproduce recorded final fits; do not rerun the superseded contact-search experiment.
+const cfg=paths(),assetRoot=new URL('../',import.meta.url),profiles=JSON.parse(fs.readFileSync(new URL('mount-profiles.json',assetRoot))).profiles,out=path.join(cfg.cache,'prop-expansion/reports');fs.mkdirSync(out,{recursive:true});
+const fits=[];
+for(const profile of profiles){const fit=structuredClone(profile),meshes=[];const resource=factories[fit.id]();resource.root.applyMatrix4(new T.Matrix4().fromArray(fit.propMatrix));
+ const add=r=>{r.root.updateMatrixWorld(true);r.root.traverse(o=>{if(!o.isMesh)return;const p=o.geometry.attributes.position,n=o.geometry.attributes.normal,vertices=[],normals=[],nm=new T.Matrix3().getNormalMatrix(o.matrixWorld);for(let i=0;i<p.count;i++){vertices.push(...new T.Vector3().fromBufferAttribute(p,i).applyMatrix4(o.matrixWorld).toArray());normals.push(...new T.Vector3().fromBufferAttribute(n,i).applyMatrix3(nm).normalize().toArray());}meshes.push({name:o.name,positions:vertices,normals,indices:Array.from(o.geometry.index?.array??Array.from({length:p.count},(_,i)=>i)),materialColor:o.material.color.toArray()});});};add(resource);
+ if(fit.id==='paper-board'){const pencil=factories.pencil();pencil.root.position.fromArray(fit.pencilTip);pencil.root.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),new T.Vector3(-.58,.66,.48).normalize());pencil.root.scale.setScalar(.84);add(pencil);pencil.dispose();}
+ fit.meshes=meshes;fits.push(fit);resource.dispose();}
+fs.writeFileSync(path.join(out,'static-fit.json'),JSON.stringify({fits}));console.log('Final recorded book/writing fits regenerated without optimization');

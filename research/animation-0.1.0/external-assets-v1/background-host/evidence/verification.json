@@ -1,0 +1,91 @@
+{
+  "date": "2026-10-18",
+  "scope": "independent research CPU contract candidate",
+  "environment": {
+    "node": "v24.19.0",
+    "os": "Linux 6.18.55 x86_64"
+  },
+  "sourceRepositoryHead": "e7ac3952df0abf47e2dbee8689dd3a92e6345e30",
+  "candidateTests": {
+    "passed": 49,
+    "failed": 0,
+    "skipped": 0,
+    "command": "node --test --test-reporter=tap tests/*.test.mjs",
+    "cwd": "/workspace/scratch/10657b778e8b/bubu-background-host-20261018",
+    "includesNewCandidate": true
+  },
+  "isolatedReproduction": {
+    "passed": 49,
+    "failed": 0,
+    "dependencies": "Node built-ins; exact upstream coordinator fixture"
+  },
+  "independentReview": {
+    "findingsFixed": 3,
+    "rerunPassed": 49,
+    "remainingActionableFindings": 0
+  },
+  "repositoryIntegration": {
+    "passed": 71,
+    "failed": 0,
+    "command": "npm run test:integration",
+    "note": "Existing working tree regression only; not production background integration",
+    "cwd": "/workspace/scratch/10657b778e8b/bubu-recovery-20261017/repo-check",
+    "head": "e7ac3952df0abf47e2dbee8689dd3a92e6345e30",
+    "includesNewCandidate": false,
+    "scope": "unchanged baseline working tree only"
+  },
+  "repositoryAggregate": {
+    "status": "failed",
+    "command": "npm run check",
+    "cwd": "/workspace/scratch/10657b778e8b/bubu-recovery-20261017/repo-check",
+    "head": "e7ac3952df0abf47e2dbee8689dd3a92e6345e30",
+    "includesNewCandidate": false,
+    "scope": "original concurrent working-tree baseline; NOT new candidate integration",
+    "tests": 8391,
+    "passed": 8359,
+    "failed": 3,
+    "skipped": 29,
+    "exitCode": 1,
+    "durationMs": 307728.06539,
+    "log": "evidence/repo-check.log",
+    "laterCheckStages": "not-reached: npm test failed before lint/boundaries/architecture/asset checks",
+    "failures": [
+      {
+        "test": "research/animation-0.1.0/reviews/theme-adapter-independent-review/migration.test.cjs",
+        "reason": "MODULE_NOT_FOUND: ../bubu-theme-commit-adapter-20261017/stage/test-support/preferences-upgrade-fixture"
+      },
+      {
+        "test": "research/animation-0.1.0/theme-commit-adapter/tests/commit-integration.test.cjs",
+        "reason": "MODULE_NOT_FOUND: ../stage/src/application/state/unit-of-work"
+      },
+      {
+        "test": "research/animation-0.1.0/theme-commit-adapter/tests/schema21-upgrade.test.cjs",
+        "reason": "MODULE_NOT_FOUND: ../stage/test-support/preferences-upgrade-fixture"
+      }
+    ]
+  },
+  "repositoryDiffCheck": {
+    "status": "passed",
+    "note": "Concurrent working tree; candidate writes limited to its standalone directory"
+  },
+  "syntax": {
+    "status": "passed",
+    "scope": "all src/*.mjs"
+  },
+  "upstreamCoordinatorByteComparison": "passed",
+  "gpu": {
+    "status": "not-run",
+    "blockers": [
+      "new Chromium AF_UNIX EPERM",
+      "existing cloud CDP and shellserver isolated",
+      "data: rejected by safety policy"
+    ]
+  },
+  "visual": {
+    "status": "not-run",
+    "note": "No new render or approved 13mesh placement claim"
+  },
+  "nativeTransparencyAndDPI": "not-run",
+  "productionIntegration": "not-implemented",
+  "remotePublication": "not-performed"
+}

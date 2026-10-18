@@ -1,0 +1,27 @@
+{
+  "scope": "Paper + pencil static installation visual recheck; unchanged hand and prop geometry",
+  "finding": "Dark jagged line persists at 192 samples before correction, so it is a geometric boundary seam rather than low-sample noise.",
+  "correction": "Paper-kit position Z 0.95 to 0.90; original hand meshes rigidly refitted. No book change.",
+  "highSample": {
+    "samples": 192,
+    "resolution": [
+      1024,
+      1024
+    ],
+    "angles": [
+      0,
+      45
+    ],
+    "seed": 0,
+    "denoising": false,
+    "comparison": "renders/paper-high-sample-comparison.png"
+  },
+  "boundaryAudit": "reports/hand-cap-audit.json",
+  "boundaryCaveat": "Left hand closure+adjacent old boundary ring: 53 outside to 0. Right ring still has 19 nearest-normal-positive points (max 0.01351); no claim that every right-ring point is inside. Surface distances are diagnostic, paired with actual rendered evidence.",
+  "visualResult": "Front and quarter reviewed: previous jagged line absent; side/back reviewed separately.",
+  "tests": {
+    "nodePassed": 46,
+    "frameVisibilityPassed": 1
+  },
+  "scopeLimits": "CPU static rendering only; native GPU and future choreography not validated."
+}

@@ -1,0 +1,60 @@
+{
+  "status": "research-host-installable; final user batch acceptance pending",
+  "models": {
+    "05-halo.glb": "a58fdd0d1011a413b142efa66a4d5599966051e8fdd5ce3fd5a10c4f28e552c1",
+    "06-boots.glb": "27c5772fb961b7f3e9cd09ea07d7678725e328cf96eb33b869bee3d30c253b5c",
+    "07-cape.glb": "ad80ba0bd5969479dc7828a986a3b36d6f44c26da4533473f055bcf01b6359fb"
+  },
+  "originalFootVertexChecks": {
+    "drag": 271,
+    "longpress": 1891,
+    "maxWorldCoordinateDifference": 0,
+    "minimumRelativeGround": -1.1102230246251565e-16,
+    "groundTolerance": 1e-06,
+    "starVerticesIncludedInGroundCheck": true
+  },
+  "triangleCollisionSamples": {
+    "drag": 142,
+    "longpress": 218,
+    "tea": 271,
+    "intersections": 0,
+    "notContinuousCollision": true
+  },
+  "teaCoordinateProof": "reports/tea-coordinate-proof.json",
+  "lifecycleProof": "reports/lifecycle-edge-cases.json",
+  "visualReview": {
+    "rootStaticApproved": [
+      "halo",
+      "boots",
+      "cape"
+    ],
+    "size": "99 CSS main-body width and 2x, light/dark composites",
+    "combinedMotionKeys": 6,
+    "combinedTeaKeys": 7
+  },
+  "remaining": [
+    "production wardrobe integration",
+    "other wardrobe combinations",
+    "browser WebGL",
+    "native desktop",
+    "original semantic effects dispatch",
+    "final user batch acceptance"
+  ],
+  "scope": "Only original migration items 05–07. No new action design, remote push or publication.",
+  "scripts": {
+    "accessory-adapter.mjs": "0a5e4ad36ab7f347b1482686170c033c48a1723a22471424145bafb4a048c937",
+    "audit_models.py": "d34ba41dd227c3e2f7718e320d2093a69d26198da15eb2175e79ba43822db35c",
+    "audit_pointer_clearance.py": "1069192cc4002fa13651656ff3b7d6015e3311216fdea362aea4978c96e733a8",
+    "audit_tea.py": "7ec54d88826e20a055ffb5af2a6e70844902f818cd0425f97d619ff6849eb89b",
+    "build_boots.py": "d063bcf8c0e309a92eb761ac4e9ff32c75ae6c45dac12e49417553dd12f425e0",
+    "build_models.py": "a2bedf9e863efd83d7b1782b60fbf3de48e519745afd4037d8818198264f31ca",
+    "compose_reviews.py": "26869d639690398c86e84ed231fbafb3de7946f9edf10069d3a7be4ff77f597e",
+    "finalize_evidence.py": "c91fc3c2f70bf416fb1cb4cf17cc85f7bc7f574939c5b57ae387719bbd59706b",
+    "prepare_motion_review.py": "afc67695f1a96a592a742f755b5e74a344561397602527440eaaf6a6830f528c",
+    "render_actual.py": "c297ba73d941002f9c8231a3aaf837b294ee8d9d71c04d69c1a8effe001c1f10",
+    "test_and_export.mjs": "6ae409c11823e1cbc5357fbdb0580390f0a0a45383b018c80daebf3ee81b8fcc",
+    "test_lifecycle.mjs": "9b14ca842b80cc87aaac4c576304baab7e6912188077c47fe772c5d5f2b5aead",
+    "verify_tea_coordinates.py": "226888abc56f2b41c8badf78113f25c89a56047d83b1d4b8d4492690acbc5ff2",
+    "write_manifest.py": "615bfe8cfd45c1dc3a6a4c03a0c731b23201032a21fac9df21412f461c922e0d"
+  }
+}

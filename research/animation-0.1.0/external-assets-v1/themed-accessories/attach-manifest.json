@@ -1,0 +1,365 @@
+{
+  "version": "0.1.0-research",
+  "scope": "Four themed accessories only; no new actions, no production wardrobe changes or remote writes",
+  "sourceBodySHA256": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
+  "hybridSHA256": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67",
+  "applicationEntry": "src/accessory-adapter.mjs",
+  "bodyPolicy": "Unchanged approved D2 source body and hybrid rig; generated wearing sheets are concepts only",
+  "coordinateFrame": "source actor geometry-local; Blender Z-up exports standard GLTF Y-up; accessory root inherits exact sourceSkin world transform",
+  "mutualExclusion": "cap may combine with one backwear item; fin/wings/plum are mutually exclusive. combined-static and tea-combined are collision diagnostics, not valid outfits. assertCompatible rejects same-group selection.",
+  "reproduce": [
+    "blender -b --python src/build_models.py",
+    "node src/test_and_export.mjs",
+    "python src/audit_tea.py",
+    "python src/finalize.py"
+  ],
+  "items": [
+    {
+      "id": "skin.woodsman-cap",
+      "name": "樵夫帽",
+      "kind": "cap",
+      "model": "models/woodsman-cap.glb",
+      "sha256": "57da326b4634e1709cb56b6fea7520f6d266d07bd8296893647a49994e97de6f",
+      "generatedReference": "references/woodsman-cap-prototype.png",
+      "prompt": "references/cap-prompt.txt",
+      "modelRevision": "final-candidate-v1",
+      "slot": "head",
+      "layer": "back",
+      "exclusiveGroup": "headwear",
+      "exclusivePriority": 80,
+      "skin": "woodsman",
+      "unlockKind": "skin",
+      "minLevel": 1,
+      "optInOnly": false,
+      "formId": "dango",
+      "canonicalV1Views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "candidate3DViews": [
+        0,
+        45,
+        90,
+        180
+      ],
+      "binding": {
+        "anchor": "sourceSkin actor-local head crown",
+        "rootPosition": [
+          0,
+          0,
+          0
+        ],
+        "rootScale": [
+          1,
+          1,
+          1
+        ],
+        "noSkeletonOrGeometryMutation": true,
+        "borrowedAssetOwnership": "adapter detaches only; caller explicitly disposeAsset after final use"
+      },
+      "materials": [
+        "moss green felt",
+        "forest underside",
+        "cream feather",
+        "warm shaft"
+      ],
+      "actualStaticWorldBounds": {
+        "min": [
+          -0.6481766688401184,
+          1.5400776863098145,
+          -0.5885562231810781
+        ],
+        "max": [
+          0.6134452738956595,
+          2.2240114212036133,
+          0.391584622595135
+        ]
+      },
+      "tests": {
+        "dragFrames": 271,
+        "longpressFrames": 1891,
+        "sourceBodyUnchanged": true,
+        "finiteBounds": true,
+        "explicitRelease": {
+          "geometries": 4,
+          "materials": 4,
+          "textures": 0
+        },
+        "teaSampledClear": true,
+        "teaFrames": 271,
+        "teaContinuousCollision": "not-tested",
+        "clothSimulation": "not-implemented",
+        "browserWebGL": "not-tested",
+        "nativeDesktop": "not-tested",
+        "productionWardrobe": "not-integrated"
+      },
+      "visualReview": "review/cap-actual-fourviews.png",
+      "status": "static-host-candidate; sampled-tea-clear",
+      "userAcceptance": "pending-final-batch-review"
+    },
+    {
+      "id": "skin.ocean-fin",
+      "name": "海蓝鳍",
+      "kind": "fin",
+      "model": "models/ocean-fin.glb",
+      "sha256": "c2cee65567a231764984021a0baa19901cecb56b07f72b51f2607aadebdb81fd",
+      "generatedReference": "references/ocean-fin-prototype.png",
+      "prompt": "references/fin-prompt.txt",
+      "modelRevision": "final-candidate-v1",
+      "slot": "back",
+      "layer": "back",
+      "exclusiveGroup": "backwear",
+      "exclusivePriority": 100,
+      "skin": "ocean",
+      "unlockKind": "skin",
+      "minLevel": 1,
+      "optInOnly": false,
+      "formId": "dango",
+      "canonicalV1Views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "candidate3DViews": [
+        0,
+        45,
+        90,
+        180
+      ],
+      "binding": {
+        "anchor": "sourceSkin actor-local rear body surface",
+        "rootPosition": [
+          0,
+          0,
+          0
+        ],
+        "rootScale": [
+          1,
+          1,
+          1
+        ],
+        "noSkeletonOrGeometryMutation": true,
+        "borrowedAssetOwnership": "adapter detaches only; caller explicitly disposeAsset after final use"
+      },
+      "materials": [
+        "aqua continuous membrane",
+        "deep teal ribs"
+      ],
+      "actualStaticWorldBounds": {
+        "min": [
+          -0.5588143594855156,
+          0.29500001668930054,
+          -0.870375269361453
+        ],
+        "max": [
+          0.2905513964317025,
+          1.0800000429153442,
+          -0.5740651924955128
+        ]
+      },
+      "tests": {
+        "dragFrames": 271,
+        "longpressFrames": 1891,
+        "sourceBodyUnchanged": true,
+        "finiteBounds": true,
+        "explicitRelease": {
+          "geometries": 4,
+          "materials": 2,
+          "textures": 0
+        },
+        "teaSampledClear": true,
+        "teaFrames": 271,
+        "teaContinuousCollision": "not-tested",
+        "clothSimulation": "not-implemented",
+        "browserWebGL": "not-tested",
+        "nativeDesktop": "not-tested",
+        "productionWardrobe": "not-integrated"
+      },
+      "visualReview": "review/fin-actual-fourviews.png",
+      "status": "static-host-candidate; sampled-tea-clear",
+      "userAcceptance": "pending-final-batch-review"
+    },
+    {
+      "id": "skin.bat-wings",
+      "name": "夜行翼",
+      "kind": "wings",
+      "model": "models/bat-wings.glb",
+      "sha256": "a6671064ca9e5b5bae4b0294dce4f32896ff9219ce8ecd1a840f56b272bdb731",
+      "generatedReference": "references/bat-wings-prototype.png",
+      "prompt": "references/wings-prompt.txt",
+      "modelRevision": "final-candidate-v1",
+      "slot": "back",
+      "layer": "back",
+      "exclusiveGroup": "backwear",
+      "exclusivePriority": 100,
+      "skin": "bat",
+      "unlockKind": "skin",
+      "minLevel": 1,
+      "optInOnly": false,
+      "formId": "dango",
+      "canonicalV1Views": [
+        "front",
+        "three-quarter",
+        "profile",
+        "back"
+      ],
+      "candidate3DViews": [
+        0,
+        45,
+        90,
+        180
+      ],
+      "binding": {
+        "anchor": "sourceSkin actor-local rear body surface",
+        "rootPosition": [
+          0,
+          0,
+          0
+        ],
+        "rootScale": [
+          1,
+          1,
+          1
+        ],
+        "noSkeletonOrGeometryMutation": true,
+        "borrowedAssetOwnership": "adapter detaches only; caller explicitly disposeAsset after final use"
+      },
+      "materials": [
+        "lavender-gray membrane",
+        "plum rounded ribs"
+      ],
+      "actualStaticWorldBounds": {
+        "min": [
+          -1.5979854646416283,
+          0.30721619725227356,
+          -0.9569174406860638
+        ],
+        "max": [
+          1.370631465160228,
+          1.0347156524658203,
+          -0.36563662620101817
+        ]
+      },
+      "tests": {
+        "dragFrames": 271,
+        "longpressFrames": 1891,
+        "sourceBodyUnchanged": true,
+        "finiteBounds": true,
+        "explicitRelease": {
+          "geometries": 10,
+          "materials": 2,
+          "textures": 0
+        },
+        "teaSampledClear": true,
+        "teaFrames": 271,
+        "teaContinuousCollision": "not-tested",
+        "clothSimulation": "not-implemented",
+        "browserWebGL": "not-tested",
+        "nativeDesktop": "not-tested",
+        "productionWardrobe": "not-integrated"
+      },
+      "visualReview": "review/wings-actual-fourviews.png",
+      "status": "static-host-candidate; sampled-tea-clear",
+      "userAcceptance": "pending-final-batch-review"
+    },
+    {
+      "id": "seasonal.plum-cape",
+      "name": "梅紫小披风",
+      "kind": "plum",
+      "model": "models/plum-cape.glb",
+      "sha256": "7c249b6a6fdeb9affb06c716f66fb813841a0e13da0eb08f6ac15649429c7d1a",
+      "generatedReference": "references/plum-side-clasp-r2-prototype.png",
+      "prompt": "references/plum-side-clasp-r2-prompt.txt",
+      "modelRevision": "side-shoulder-clasp-r2",
+      "slot": "back",
+      "layer": "back",
+      "exclusiveGroup": "backwear",
+      "exclusivePriority": 80,
+      "skin": null,
+      "unlockKind": "level",
+      "minLevel": 1,
+      "optInOnly": true,
+      "formId": "dango",
+      "canonicalV1Views": [
+        "front"
+      ],
+      "candidate3DViews": [
+        0,
+        45,
+        90,
+        180
+      ],
+      "binding": {
+        "anchor": "sourceSkin actor-local rear body surface",
+        "rootPosition": [
+          0,
+          0,
+          0
+        ],
+        "rootScale": [
+          1,
+          1,
+          1
+        ],
+        "noSkeletonOrGeometryMutation": true,
+        "borrowedAssetOwnership": "adapter detaches only; caller explicitly disposeAsset after final use"
+      },
+      "materials": [
+        "deep plum soft drape",
+        "wide rear folded band",
+        "gold side-shoulder clasp"
+      ],
+      "actualStaticWorldBounds": {
+        "min": [
+          -0.9749033233240313,
+          0.21202747523784637,
+          -0.990192962071453
+        ],
+        "max": [
+          0.8228883642917569,
+          1.0155174732208252,
+          -0.2686861776802624
+        ]
+      },
+      "tests": {
+        "dragFrames": 271,
+        "longpressFrames": 1891,
+        "sourceBodyUnchanged": true,
+        "finiteBounds": true,
+        "explicitRelease": {
+          "geometries": 4,
+          "materials": 3,
+          "textures": 0
+        },
+        "teaSampledClear": true,
+        "teaFrames": 271,
+        "teaContinuousCollision": "not-tested",
+        "clothSimulation": "not-implemented",
+        "browserWebGL": "not-tested",
+        "nativeDesktop": "not-tested",
+        "productionWardrobe": "not-integrated"
+      },
+      "visualReview": "review/plum-actual-fourviews.png",
+      "status": "static-host-candidate; sampled-tea-clear",
+      "userAcceptance": "pending-final-batch-review"
+    }
+  ],
+  "canonicalCatalog": {
+    "path": "/workspace/scratch/10657b778e8b/bubu-recovery-20261017/repo-check/src/content/appearance.mjs",
+    "sha256": "abcf2a1bf46037b8714a19a9789df2d2de584812dd310e2f5ac2aa4e78995ae9",
+    "metadataFields": [
+      "id",
+      "slot",
+      "exclusiveGroup",
+      "exclusivePriority",
+      "minLevel",
+      "unlockKind",
+      "optInOnly",
+      "formId",
+      "skin"
+    ]
+  }
+}
