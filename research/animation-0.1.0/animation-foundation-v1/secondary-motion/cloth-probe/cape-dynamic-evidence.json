@@ -1,0 +1,78 @@
+{
+  "runId": "0d5291cd-0ed8-409b-85ef-612ba6ff3b5e",
+  "status": "completed",
+  "scope": "Actual cape research with rigidly translated body; not drag/petting/tea or garment admission",
+  "accepted": false,
+  "inputHashes": {
+    "model": "e29010956b989a60e196472b2206e6c397b34f12f3b7092d67f53f189c128e21",
+    "simulation": "740619e1ca28dc8824c070bbc3b23df6ba7430b956dd4f64d2a411f8549ab8a8"
+  },
+  "moduleHashes": {
+    "./run-cape.mjs": "b46bd494e7bc7e68e816c01f994d02b5540ad14181355c966d084d5d79075a9d",
+    "./thin-surface-mapper.mjs": "4ea3c516e3a56407763ddc80205f06d9184bc6f3f9010ef52b0967eca798eb9e",
+    "../asset-admission.mjs": "36624b663bc95f6a767d16b9514e56da635f47efc267986bd009bfa235134081",
+    "../../integration/asset-fixtures.mjs": "adbe22fdc5bf2c014106adf9cd8243027f6cd8e8b2066b52aa11b03d998e66b7",
+    "../../../package-lock.json": "31d67b670b90a0d64698bc5667d08da9fc2293ed3b10b75d96b00f2898f86102"
+  },
+  "particles": 444,
+  "renderVertices": 7739,
+  "frames": 30,
+  "contactSkipped": false,
+  "bodyCollider": "trimesh",
+  "contacts": [
+    {
+      "frame": 0,
+      "intersections": {
+        "cape_cloth": false,
+        "cape_back_edge": false,
+        "cape_hem": false,
+        "cape_front_edge_0": false,
+        "cape_front_edge_1": false
+      }
+    },
+    {
+      "frame": 7,
+      "intersections": {
+        "cape_cloth": false,
+        "cape_back_edge": false,
+        "cape_hem": false,
+        "cape_front_edge_0": false,
+        "cape_front_edge_1": false
+      }
+    },
+    {
+      "frame": 15,
+      "intersections": {
+        "cape_cloth": false,
+        "cape_back_edge": false,
+        "cape_hem": false,
+        "cape_front_edge_0": false,
+        "cape_front_edge_1": false
+      }
+    },
+    {
+      "frame": 29,
+      "intersections": {
+        "cape_cloth": false,
+        "cape_back_edge": false,
+        "cape_hem": false,
+        "cape_front_edge_0": false,
+        "cape_front_edge_1": false
+      }
+    }
+  ],
+  "stepMs": {
+    "p50": 347.8739179999993,
+    "p95": 584.6010670000001,
+    "max": 2278.8277130000006
+  },
+  "mapMs": {
+    "p50": 2.4279319999996005,
+    "p95": 11.314726000000064,
+    "max": 37.456429999999955
+  },
+  "maxPinError": 2.9501495622287488e-8,
+  "maxStretch": 1.241508764781796,
+  "minStretch": 0.5846791369080627,
+  "anySampledRenderBodyIntersection": false
+}

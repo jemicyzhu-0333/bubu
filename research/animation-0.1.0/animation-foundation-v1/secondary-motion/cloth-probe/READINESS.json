@@ -1,0 +1,73 @@
+{
+  "status": "research-blocked",
+  "accepted": false,
+  "decision": "Keep isolated; do not register with FoundationActor or replace lightweight spring modes",
+  "baselineCommit": "158f62f5423f8d19cd49fd8bee3effe37c1da07e",
+  "validated": {
+    "apiProbe": {
+      "particles": 100,
+      "frames": 600,
+      "sampledSimulationSurfaceSpherePenetration": 0
+    },
+    "actualModel": {
+      "particles": 444,
+      "renderVertices": 7739,
+      "partsMapped": 5,
+      "claspFixed": true,
+      "restModelBytesUnchanged": true,
+      "bodySurfaceIntersectionsAtRest": false
+    },
+    "mapperTests": 6,
+    "independentVectorComparisons": 38695,
+    "vectorMaxError": 8.324165199552149e-08,
+    "dynamicProbe": {
+      "frames": 30,
+      "bodyOnlyContactSamples": [
+        0,
+        7,
+        15,
+        29
+      ],
+      "sampledMappedRenderBodyIntersections": false,
+      "physicsP95Ms": 584.6010670000001,
+      "physicsMaxMs": 2278.8277130000006
+    }
+  },
+  "failuresAndLimits": [
+    "Initial 120-second-capped uniform pilot produced no completion report; explicit 30-second retry exited124. Later short probes measured high world.step cost; BVH hang was not reproduced.",
+    "Low-density32-column surface intersected approved body at rest; rejected",
+    "Full body collider cloth performance is far outside real-time budget",
+    "Fixed clasp/hand/cup contact is excluded; prior tea conflict remains",
+    "No containment, continuous collision, full seam, self-contact or native/GPU acceptance",
+    "No pause/hidden/time-jump/multi-instance acceptance for this adapter",
+    "Hard process timeout does not establish cleanup"
+  ],
+  "independentReviewFixes": [
+    "Model and geometry hashes/record bounds checked before World",
+    "NPZ positions and triangles verified against approved hybrid GLB",
+    "Angular panel/front-opening mapping guard",
+    "Output detached buffers fail closed before any write",
+    "Overlapping output byte ranges reject; disjoint packed outputs allowed",
+    "Unsynchronized shared buffers rejected",
+    "Failure/running status cannot be mistaken for a prior successful run"
+  ],
+  "modules": {
+    "DESIGN.md": "d25acf89ca88d4f9c61279c9371c00036d870ce0d35ebbd9407a00767678f59c",
+    "README.md": "378de843cf54baf4bcbdfd10032a2bf9eb5ab6a5ce1868fd365b124699fbf8f4",
+    "author-coarse.py": "79dd53014293d78199eb791179671bad09790639241ee8e749f1cf58643f1115",
+    "bind-render.mjs": "dee4422750e2e708e07ef3cd7683455d04aa3d735296eca4785d8a2aff1bf053",
+    "cape-binding.json": "4aae28f29833e6af5fb44327ef2c66f1489ee9e3c98a0cec4c368f45d3b3bec9",
+    "cape-coarse.json": "740619e1ca28dc8824c070bbc3b23df6ba7430b956dd4f64d2a411f8549ab8a8",
+    "cape-dynamic-evidence.json": "58d74323ddb67d76f8154e241c98520bdf079fd5f27f3888a2f8fa610c0c8ed1",
+    "check-rest-clearance.mjs": "a071164f6249d911ebd79ab6c8cfc4e2250a2ec55d85f28ac390ad3cf9333398",
+    "evidence.json": "850c4778be0dd1d72d9256b621c782cada9fcfc3861b82acd1cc9c15d77126c1",
+    "mapper-evidence.json": "0b7a01fddb1a55913d141fe78f2203750fc15ca6d59e05d9c9242d182d3e3c54",
+    "mapper-tests.txt": "947d7d5a32b9d6110fd37b79808a878894d4c0609fd2d77a48910bdd8470a77f",
+    "rest-clearance.json": "1a6cbba7fb864820495008bdac06890143b80740867cd1c386337f5a4f437519",
+    "run-cape.mjs": "b46bd494e7bc7e68e816c01f994d02b5540ad14181355c966d084d5d79075a9d",
+    "run.mjs": "8c5eb344581dbfebc0ac8b82e8172bc936c5ea9dec5681bc81e81e23aba714b2",
+    "thin-surface-mapper.mjs": "4ea3c516e3a56407763ddc80205f06d9184bc6f3f9010ef52b0967eca798eb9e",
+    "thin-surface-mapper.test.mjs": "7556b1ea535e3de6aa1b6f197c58cd935bcc87b409def311be0acd805155fb5a",
+    "verify-mapper.mjs": "8a907dea01bc7fd470e0274f7f17e447f8b6626eb2f2fad7836530eb762718d3"
+  }
+}
