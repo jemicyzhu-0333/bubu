@@ -1,0 +1,386 @@
+[
+  {
+    "run": 1,
+    "warmCount": 0,
+    "warmupMs": 0.0009889999998904386,
+    "initializationTotalMs": 1145.295032,
+    "sampledWarmupHeapDeltaBytes": 3384,
+    "sampledWarmupPeakHeapIncreaseBytes": 0,
+    "warmupRSSDeltaBytes": 0,
+    "frameMs": {
+      "median": 2.1233729999999014,
+      "p95": 4.250868000000082,
+      "max": 21.763359000000037,
+      "sum": 2092.4203950000033
+    },
+    "slowFrames": 2,
+    "slowQueryFrames": 2,
+    "refitFrames": [
+      {
+        "fixture": "satchel",
+        "frameMs": 19.648145999999997,
+        "refitMs": 9.777149999999892,
+        "gcOverlap": []
+      },
+      {
+        "fixture": "cape-tail",
+        "frameMs": 21.763359000000037,
+        "refitMs": 15.612253999999666,
+        "gcOverlap": []
+      },
+      {
+        "fixture": "held-book-release",
+        "frameMs": 6.680127999999968,
+        "refitMs": 3.260925000000043,
+        "gcOverlap": []
+      },
+      {
+        "fixture": "halo-particles",
+        "frameMs": 7.103292000000238,
+        "refitMs": 3.575332000000344,
+        "gcOverlap": []
+      }
+    ],
+    "stateDigest": "35a21d4910fe51085e9fca21f50df1c6c794826bee9a39eeecd68966f25d532d",
+    "poseAndGeometryUnchanged": true,
+    "initialActorTime": 0,
+    "finalSurface": {
+      "preparations": 1,
+      "refits": 4,
+      "cacheHits": 46,
+      "queries": 50,
+      "vertexBytes": 1102680,
+      "residentUpperBoundBytes": 12012564,
+      "vertices": 45945,
+      "deformedVertices": 16955,
+      "rigidGroups": 5
+    }
+  },
+  {
+    "run": 2,
+    "warmCount": 8,
+    "warmupMs": 45.696999000000005,
+    "initializationTotalMs": 1065.326235,
+    "sampledWarmupHeapDeltaBytes": 10158880,
+    "sampledWarmupPeakHeapIncreaseBytes": 10158304,
+    "warmupRSSDeltaBytes": 0,
+    "frameMs": {
+      "median": 2.073972000000026,
+      "p95": 4.289939000000231,
+      "max": 13.497863999999936,
+      "sum": 2022.6705359999996
+    },
+    "slowFrames": 0,
+    "slowQueryFrames": 0,
+    "refitFrames": [
+      {
+        "fixture": "satchel",
+        "frameMs": 13.497863999999936,
+        "refitMs": 2.582059000000072,
+        "gcOverlap": []
+      },
+      {
+        "fixture": "cape-tail",
+        "frameMs": 8.760614999999689,
+        "refitMs": 2.723978999999872,
+        "gcOverlap": []
+      },
+      {
+        "fixture": "held-book-release",
+        "frameMs": 5.745997999999872,
+        "refitMs": 2.3552209999998013,
+        "gcOverlap": []
+      },
+      {
+        "fixture": "halo-particles",
+        "frameMs": 5.896970000000238,
+        "refitMs": 2.3952039999999215,
+        "gcOverlap": []
+      }
+    ],
+    "stateDigest": "35a21d4910fe51085e9fca21f50df1c6c794826bee9a39eeecd68966f25d532d",
+    "poseAndGeometryUnchanged": true,
+    "initialActorTime": 0,
+    "finalSurface": {
+      "preparations": 1,
+      "refits": 4,
+      "cacheHits": 46,
+      "queries": 50,
+      "vertexBytes": 1102680,
+      "residentUpperBoundBytes": 12012564,
+      "vertices": 45945,
+      "deformedVertices": 16955,
+      "rigidGroups": 5
+    }
+  },
+  {
+    "run": 3,
+    "warmCount": 8,
+    "warmupMs": 45.30332099999987,
+    "initializationTotalMs": 1318.239711,
+    "sampledWarmupHeapDeltaBytes": -8183952,
+    "sampledWarmupPeakHeapIncreaseBytes": 0,
+    "warmupRSSDeltaBytes": -974848,
+    "frameMs": {
+      "median": 2.083761000000095,
+      "p95": 6.033147999999983,
+      "max": 130.76777500000003,
+      "sum": 2612.5161340000013
+    },
+    "slowFrames": 4,
+    "slowQueryFrames": 0,
+    "refitFrames": [
+      {
+        "fixture": "satchel",
+        "frameMs": 14.514173000000028,
+        "refitMs": 2.511544999999842,
+        "gcOverlap": [
+          {
+            "start": 2392.70411,
+            "duration": 0.924562007188797,
+            "kind": 1
+          }
+        ]
+      },
+      {
+        "fixture": "cape-tail",
+        "frameMs": 11.233680000000277,
+        "refitMs": 3.3163290000002235,
+        "gcOverlap": []
+      },
+      {
+        "fixture": "held-book-release",
+        "frameMs": 6.409596999999849,
+        "refitMs": 2.6407939999999144,
+        "gcOverlap": []
+      },
+      {
+        "fixture": "halo-particles",
+        "frameMs": 7.14195699999982,
+        "refitMs": 2.8295929999999316,
+        "gcOverlap": []
+      }
+    ],
+    "stateDigest": "35a21d4910fe51085e9fca21f50df1c6c794826bee9a39eeecd68966f25d532d",
+    "poseAndGeometryUnchanged": true,
+    "initialActorTime": 0,
+    "finalSurface": {
+      "preparations": 1,
+      "refits": 4,
+      "cacheHits": 46,
+      "queries": 50,
+      "vertexBytes": 1102680,
+      "residentUpperBoundBytes": 12012564,
+      "vertices": 45945,
+      "deformedVertices": 16955,
+      "rigidGroups": 5
+    }
+  },
+  {
+    "run": 4,
+    "warmCount": 0,
+    "warmupMs": 0.0010400000001027365,
+    "initializationTotalMs": 1067.867255,
+    "sampledWarmupHeapDeltaBytes": 3384,
+    "sampledWarmupPeakHeapIncreaseBytes": 0,
+    "warmupRSSDeltaBytes": 0,
+    "frameMs": {
+      "median": 2.0622110000000475,
+      "p95": 4.4491599999998925,
+      "max": 92.68617799999993,
+      "sum": 2188.964334000002
+    },
+    "slowFrames": 5,
+    "slowQueryFrames": 2,
+    "refitFrames": [
+      {
+        "fixture": "satchel",
+        "frameMs": 22.365759000000025,
+        "refitMs": 8.359774000000016,
+        "gcOverlap": [
+          {
+            "start": 1757.411288,
+            "duration": 0.8648840039968491,
+            "kind": 1
+          }
+        ]
+      },
+      {
+        "fixture": "cape-tail",
+        "frameMs": 22.867907000000287,
+        "refitMs": 15.549796000000242,
+        "gcOverlap": []
+      },
+      {
+        "fixture": "held-book-release",
+        "frameMs": 8.769841999999699,
+        "refitMs": 4.9927169999996295,
+        "gcOverlap": []
+      },
+      {
+        "fixture": "halo-particles",
+        "frameMs": 13.265187999999853,
+        "refitMs": 7.536461000000145,
+        "gcOverlap": [
+          {
+            "start": 3298.673704,
+            "duration": 3.1126600056886673,
+            "kind": 4
+          }
+        ]
+      }
+    ],
+    "stateDigest": "35a21d4910fe51085e9fca21f50df1c6c794826bee9a39eeecd68966f25d532d",
+    "poseAndGeometryUnchanged": true,
+    "initialActorTime": 0,
+    "finalSurface": {
+      "preparations": 1,
+      "refits": 4,
+      "cacheHits": 46,
+      "queries": 50,
+      "vertexBytes": 1102680,
+      "residentUpperBoundBytes": 12012564,
+      "vertices": 45945,
+      "deformedVertices": 16955,
+      "rigidGroups": 5
+    }
+  },
+  {
+    "run": 5,
+    "warmCount": 0,
+    "warmupMs": 0.001031999999895561,
+    "initializationTotalMs": 1074.9537489999998,
+    "sampledWarmupHeapDeltaBytes": 3384,
+    "sampledWarmupPeakHeapIncreaseBytes": 0,
+    "warmupRSSDeltaBytes": 0,
+    "frameMs": {
+      "median": 2.0347774999999046,
+      "p95": 4.22532799999999,
+      "max": 25.626480000000356,
+      "sum": 2070.1119809999955
+    },
+    "slowFrames": 4,
+    "slowQueryFrames": 3,
+    "refitFrames": [
+      {
+        "fixture": "satchel",
+        "frameMs": 24.51559499999985,
+        "refitMs": 10.354160999999976,
+        "gcOverlap": []
+      },
+      {
+        "fixture": "cape-tail",
+        "frameMs": 25.626480000000356,
+        "refitMs": 16.0488620000001,
+        "gcOverlap": []
+      },
+      {
+        "fixture": "held-book-release",
+        "frameMs": 6.172879000000194,
+        "refitMs": 3.0955870000002506,
+        "gcOverlap": []
+      },
+      {
+        "fixture": "halo-particles",
+        "frameMs": 18.89696499999991,
+        "refitMs": 5.188449000000219,
+        "gcOverlap": [
+          {
+            "start": 3199.589251,
+            "duration": 4.983539000153542,
+            "kind": 4
+          }
+        ]
+      }
+    ],
+    "stateDigest": "35a21d4910fe51085e9fca21f50df1c6c794826bee9a39eeecd68966f25d532d",
+    "poseAndGeometryUnchanged": true,
+    "initialActorTime": 0,
+    "finalSurface": {
+      "preparations": 1,
+      "refits": 4,
+      "cacheHits": 46,
+      "queries": 50,
+      "vertexBytes": 1102680,
+      "residentUpperBoundBytes": 12012564,
+      "vertices": 45945,
+      "deformedVertices": 16955,
+      "rigidGroups": 5
+    }
+  },
+  {
+    "run": 6,
+    "warmCount": 8,
+    "warmupMs": 41.07851400000004,
+    "initializationTotalMs": 1132.642529,
+    "sampledWarmupHeapDeltaBytes": 9991656,
+    "sampledWarmupPeakHeapIncreaseBytes": 9991080,
+    "warmupRSSDeltaBytes": 262144,
+    "frameMs": {
+      "median": 2.279166499999974,
+      "p95": 4.775660000000016,
+      "max": 107.88041300000032,
+      "sum": 2415.265164000006
+    },
+    "slowFrames": 5,
+    "slowQueryFrames": 1,
+    "refitFrames": [
+      {
+        "fixture": "satchel",
+        "frameMs": 18.121128999999883,
+        "refitMs": 3.1408940000001166,
+        "gcOverlap": [
+          {
+            "start": 1851.34113,
+            "duration": 0.8238490074872971,
+            "kind": 1
+          }
+        ]
+      },
+      {
+        "fixture": "cape-tail",
+        "frameMs": 10.586585000000014,
+        "refitMs": 2.8712610000002314,
+        "gcOverlap": [
+          {
+            "start": 2335.868597,
+            "duration": 1.0255580097436905,
+            "kind": 1
+          }
+        ]
+      },
+      {
+        "fixture": "held-book-release",
+        "frameMs": 11.799840000000131,
+        "refitMs": 2.7434840000000804,
+        "gcOverlap": [
+          {
+            "start": 2986.238547,
+            "duration": 3.348018988966942,
+            "kind": 4
+          }
+        ]
+      },
+      {
+        "fixture": "halo-particles",
+        "frameMs": 6.300458000000162,
+        "refitMs": 2.499876999999742,
+        "gcOverlap": []
+      }
+    ],
+    "stateDigest": "35a21d4910fe51085e9fca21f50df1c6c794826bee9a39eeecd68966f25d532d",
+    "poseAndGeometryUnchanged": true,
+    "initialActorTime": 0,
+    "finalSurface": {
+      "preparations": 1,
+      "refits": 4,
+      "cacheHits": 46,
+      "queries": 50,
+      "vertexBytes": 1102680,
+      "residentUpperBoundBytes": 12012564,
+      "vertices": 45945,
+      "deformedVertices": 16955,
+      "rigidGroups": 5
+    }
+  }
+]

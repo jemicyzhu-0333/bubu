@@ -1,0 +1,141 @@
+{
+  "scope": "diagnostic only, no acceptance gate changes",
+  "runs": [
+    {
+      "run": 1,
+      "frames": 2700,
+      "instrumentation": "stage timing",
+      "passes": {
+        "0": {
+          "n": 900,
+          "median": 2.284053999999742,
+          "p95": 5.789307000000008,
+          "p99": 10.236663000000135,
+          "max": 21.391823999999815
+        },
+        "1": {
+          "n": 900,
+          "median": 1.9642360000007102,
+          "p95": 4.221075000000383,
+          "p99": 8.479209000000083,
+          "max": 109.96380099999988
+        },
+        "2": {
+          "n": 900,
+          "median": 1.8985150000007707,
+          "p95": 4.044757000000573,
+          "p99": 6.983111000000463,
+          "max": 11.488024000000223
+        }
+      },
+      "slowFrames": 5,
+      "slowWithRefit": 3,
+      "slowWithGCOverlap": 1
+    },
+    {
+      "run": 2,
+      "frames": 2700,
+      "instrumentation": "stage timing",
+      "passes": {
+        "0": {
+          "n": 900,
+          "median": 2.228780999999799,
+          "p95": 4.88268300000027,
+          "p99": 11.080609000000095,
+          "max": 22.641777999999704
+        },
+        "1": {
+          "n": 900,
+          "median": 2.1374379999997473,
+          "p95": 4.666957999999795,
+          "p99": 6.6981949999999415,
+          "max": 17.605720000000474
+        },
+        "2": {
+          "n": 900,
+          "median": 2.550868999999693,
+          "p95": 9.03756599999906,
+          "p99": 25.13676100000066,
+          "max": 165.92167399999926
+        }
+      },
+      "slowFrames": 19,
+      "slowWithRefit": 4,
+      "slowWithGCOverlap": 6
+    },
+    {
+      "run": 3,
+      "frames": 2700,
+      "instrumentation": "stage/body timing + V8 sampling",
+      "passes": {
+        "0": {
+          "n": 900,
+          "median": 2.5659530000002633,
+          "p95": 6.087128000000121,
+          "p99": 10.669128999999884,
+          "max": 43.95067800000015
+        },
+        "1": {
+          "n": 900,
+          "median": 2.397527000000082,
+          "p95": 4.676101000000017,
+          "p99": 9.175705000000562,
+          "max": 15.319368000000395
+        },
+        "2": {
+          "n": 900,
+          "median": 2.2096870000004856,
+          "p95": 4.514283000000432,
+          "p99": 7.675303999998505,
+          "max": 23.178461999999854
+        }
+      },
+      "slowFrames": 5,
+      "slowWithRefit": 3,
+      "slowWithGCOverlap": 3
+    },
+    {
+      "run": 4,
+      "frames": 2700,
+      "instrumentation": "stage/body/BVH-refit timing",
+      "passes": {
+        "0": {
+          "n": 900,
+          "median": 2.29224400000021,
+          "p95": 5.9105359999998655,
+          "p99": 12.561147999999775,
+          "max": 32.914024000000154
+        },
+        "1": {
+          "n": 900,
+          "median": 1.898613999999725,
+          "p95": 3.743953999999576,
+          "p99": 4.859762000000046,
+          "max": 30.634009999999762
+        },
+        "2": {
+          "n": 900,
+          "median": 1.863644999999451,
+          "p95": 3.9500749999997424,
+          "p99": 7.158386000000064,
+          "max": 15.003442000000177
+        }
+      },
+      "slowFrames": 6,
+      "slowWithRefit": 3,
+      "slowWithGCOverlap": 4
+    }
+  ],
+  "sourceSHA256": {
+    "animation-foundation-v1/integration/foundation-host.mjs": "901056cb22f7b66c2518cb6300cd88f0b93a16e54f7f34ef44dadfb3c9d9150f",
+    "animation-foundation-v1/integration/frame-owner.mjs": "863fef7ed276b258e38bb764cadaac4c715da6039c7870d5fafc42ec850c192b",
+    "animation-foundation-v1/body-runtime/pointer-host.mjs": "5930a96d60f4f97cbb34d3eeeb6ab89b422fea4db5bee170d295236a3c799fa6",
+    "animation-foundation-v1/body-runtime/body-adapter.mjs": "db2915ec9cfe5936764dd5857a89da1300934dcda4bb0b67b7b4af431109733d",
+    "animation-foundation-v1/body-runtime/surface-query.mjs": "55a4948bfdfe0889c5a1756deb3f64f20ca97a0925c0ad1cdce48f91cc317176",
+    "animation-foundation-v1/body-runtime/floor-query.mjs": "a99a85e78ff74f290ad13ce6a18fdec26e07a8f6542ec9dd6448cc79a9f6d66e",
+    "animation-foundation-v1/anchors/registry.mjs": "40038a7a5ee67bf22c6e0aa57681dda362a06fbb8cc5c64306169984d35deeea",
+    "package-lock.json": "31d67b670b90a0d64698bc5667d08da9fc2293ed3b10b75d96b00f2898f86102",
+    "runtime-facepath05/fixtures/face-d2/asset.glb": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
+    "original-parts-hybrid-v1/geometry/bubu-hybrid-binding.glb": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67"
+  }
+}

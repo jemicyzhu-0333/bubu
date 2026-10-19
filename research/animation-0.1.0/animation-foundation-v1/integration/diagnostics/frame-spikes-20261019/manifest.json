@@ -1,0 +1,101 @@
+{
+  "scope": "Bounded CPU diagnostics; rejected warm-up optimization; no production change",
+  "suggestedRepositoryDirectory": "research/animation-0.1.0/animation-foundation-v1/integration/diagnostics/frame-spikes-20261019",
+  "files": [
+    {
+      "name": "README.md",
+      "bytes": 1981,
+      "sha256": "6face53490d063bd614010584db0bef93893f8467453e211b1f12e42405fa751"
+    },
+    {
+      "name": "REPORT.md",
+      "bytes": 4266,
+      "sha256": "a8f85eafb6c7b2a46377e927083a8b91592490ed2755fdc62ac5b83ead1c1fd4"
+    },
+    {
+      "name": "WARMUP-RESULT.md",
+      "bytes": 3396,
+      "sha256": "646cc9f989ee9de660095812080824470fe94910de094c365ab405ac534a03a2"
+    },
+    {
+      "name": "stage-profile.mjs",
+      "bytes": 4673,
+      "sha256": "905315ed27d49255715bf25f4e1121dc57030cb9bcc1aa949fb341a62c87330a"
+    },
+    {
+      "name": "stage-profile.before-refit.mjs",
+      "bytes": 4338,
+      "sha256": "96bdf336dd792fae419433b484b9df63a6337cd34848305cb4fb3cab777e98ee"
+    },
+    {
+      "name": "warmup-compare.mjs",
+      "bytes": 5270,
+      "sha256": "c0ac415ebe23a8cd2c5c17f80cabc5733c3efe5e53a164ddb7077c8adb9937cd"
+    },
+    {
+      "name": "summary.json",
+      "bytes": 4484,
+      "sha256": "e14d89c589ce924a2e391e4938fd7dbb7db014bc5b155dcb4ba093ca3580de9f"
+    },
+    {
+      "name": "warmup-summary.json",
+      "bytes": 9975,
+      "sha256": "935dce7b17e60f09e25bad027de0b0f04e66387730929c3b32958e30f75350df"
+    },
+    {
+      "name": "run1.json",
+      "bytes": 1406524,
+      "sha256": "1edb88f3f0260b3f87a24a6374ffe0dd9975b07398b43341fad8a37906e71dda"
+    },
+    {
+      "name": "run2.json",
+      "bytes": 1418599,
+      "sha256": "99bcc4d4ab90e8af2d03b93b7b9a34076ba8b621e5c5466d0304a07911a44dcf"
+    },
+    {
+      "name": "run3.json",
+      "bytes": 2032897,
+      "sha256": "00d90fb7c4febc25d6f97fc826981bd2e4ddc51b33460b9bfb47250561ec0319"
+    },
+    {
+      "name": "run4.json",
+      "bytes": 2035295,
+      "sha256": "54f291983530f9e3b84830a2d9bc5b61ea893ac4e708cf0d8f3418a80fb3a0e8"
+    },
+    {
+      "name": "warm-1.json",
+      "bytes": 235102,
+      "sha256": "5c5b1ba61d778e41dcb08fbac3221bf777f3836b02bca7fd96ee90645a84652e"
+    },
+    {
+      "name": "warm-2.json",
+      "bytes": 235811,
+      "sha256": "b4a8cf110e5324b3aed09f05e9b942ec65c6647d4277c8309d7aebf2ab3c6918"
+    },
+    {
+      "name": "warm-3.json",
+      "bytes": 235856,
+      "sha256": "efad066c76b1af43d5532fe112c758e62bb08481fed0ba36eabb1aa99f85293d"
+    },
+    {
+      "name": "warm-4.json",
+      "bytes": 236721,
+      "sha256": "93a844ab95e4f3c13072ef05c5e6ec30e58fe566f68bc2fec30746779c976722"
+    },
+    {
+      "name": "warm-5.json",
+      "bytes": 235604,
+      "sha256": "e30722a6151ad9847b044b1795311f0e852fca73ee6ab89c9a54675b9b45ea87"
+    },
+    {
+      "name": "warm-6.json",
+      "bytes": 235398,
+      "sha256": "8a6d2d4aef14586e15e1432e32b88bd9a539e2823dd015388b64483a0bd3c3dd"
+    }
+  ],
+  "portableSmoke": {
+    "frames": 900,
+    "stateDigest": "35a21d4910fe51085e9fca21f50df1c6c794826bee9a39eeecd68966f25d532d",
+    "poseAndGeometryUnchanged": true
+  }
+}
