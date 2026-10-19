@@ -1,0 +1,66 @@
+{
+  "pinDepths": [
+    {
+      "time": 1.5,
+      "name": "Bubu_hand-left",
+      "pinParticleIds": [
+        427,
+        431,
+        435
+      ],
+      "depths": [
+        0.047769137000579616,
+        0.08461999921832283,
+        0.04199309766023522
+      ],
+      "necessaryRigidTranslationNormLowerBound": 0.08461999921832283
+    },
+    {
+      "time": 1.5,
+      "name": "Bubu_hand-right",
+      "pinParticleIds": [
+        6,
+        9,
+        13
+      ],
+      "depths": [
+        0.03637408025903738,
+        0.08286006732953646,
+        0.05105709218044623
+      ],
+      "necessaryRigidTranslationNormLowerBound": 0.08286006732953646
+    },
+    {
+      "time": 3.4,
+      "name": "Bubu_hand-left",
+      "pinParticleIds": [
+        427,
+        431,
+        435
+      ],
+      "depths": [
+        0.06109836102403729,
+        0.08463741751787848,
+        0.03224855499586673
+      ],
+      "necessaryRigidTranslationNormLowerBound": 0.08463741751787848
+    },
+    {
+      "time": 3.4,
+      "name": "Bubu_hand-right",
+      "pinParticleIds": [
+        6,
+        9,
+        13
+      ],
+      "depths": [
+        0.02927616740061936,
+        0.08168554957664251,
+        0.0544635589052415
+      ],
+      "necessaryRigidTranslationNormLowerBound": 0.08168554957664251
+    }
+  ],
+  "claspUnorientedTriangleSetsIdentical": true,
+  "interpretation": "Minimum hand-boundary distance for each pinned point currently inside a hand. Maximum depth is a necessary lower bound on rigid hand translation magnitude, not a sufficient displacement or a global correction."
+}

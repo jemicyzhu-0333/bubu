@@ -1,0 +1,1522 @@
+{
+  "units": "approved GLTF source units; no metric scale asserted",
+  "frozenCapeSHA256": "e29010956b989a60e196472b2206e6c397b34f12f3b7092d67f53f189c128e21",
+  "cachedStaticVsFrozenProof": {
+    "cape_cloth": {
+      "maxPositionError": 3.3306690738754696e-16,
+      "identicalIndices": true
+    },
+    "cape_back_edge": {
+      "maxPositionError": 3.3306690738754696e-16,
+      "identicalIndices": true
+    },
+    "cape_hem": {
+      "maxPositionError": 4.440892098500626e-16,
+      "identicalIndices": true
+    },
+    "cape_front_edge_0": {
+      "maxPositionError": 1.1102230246251565e-16,
+      "identicalIndices": true
+    },
+    "cape_front_edge_1": {
+      "maxPositionError": 1.1102230246251565e-16,
+      "identicalIndices": true
+    },
+    "cape_clasp": {
+      "maxPositionError": 1.1102230246251565e-16,
+      "identicalIndices": false
+    }
+  },
+  "frames": [
+    {
+      "time": 0,
+      "phase": "hands-enter",
+      "contacts": {},
+      "pinsInsideHands": {
+        "Bubu_hand-left": {
+          "count": 0,
+          "pinParticleIds": [],
+          "positions": [],
+          "maxAbsWinding": 8.890092078396289e-17
+        },
+        "Bubu_hand-right": {
+          "count": 0,
+          "pinParticleIds": [],
+          "positions": [],
+          "maxAbsWinding": 1.0463804030162091e-16
+        }
+      }
+    },
+    {
+      "time": 0.6,
+      "phase": "hands-enter",
+      "contacts": {
+        "Bubu_hand-left/cape_cloth": {
+          "trianglePairs": 140,
+          "garmentTriangleEnvelopeMin": [
+            -0.8940151929855347,
+            0.46084943413734436,
+            0.41760557889938354
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.7049842476844788,
+            0.8065685033798218,
+            0.5468415021896362
+          ]
+        },
+        "Bubu_hand-left/cape_hem": {
+          "trianglePairs": 71,
+          "garmentTriangleEnvelopeMin": [
+            -0.902425229549408,
+            0.45520448684692383,
+            0.4126589894294739
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.7167941331863403,
+            0.7722354531288147,
+            0.4986003339290619
+          ]
+        },
+        "Bubu_hand-right/cape_cloth": {
+          "trianglePairs": 140,
+          "garmentTriangleEnvelopeMin": [
+            0.7119367718696594,
+            0.46085408329963684,
+            0.41815903782844543
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.8940154314041138,
+            0.8000352382659912,
+            0.5490481853485107
+          ]
+        },
+        "Bubu_hand-right/cape_hem": {
+          "trianglePairs": 71,
+          "garmentTriangleEnvelopeMin": [
+            0.7168198823928833,
+            0.4552091956138611,
+            0.41265761852264404
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.9024249911308289,
+            0.772240936756134,
+            0.4985872507095337
+          ]
+        }
+      },
+      "pinsInsideHands": {
+        "Bubu_hand-left": {
+          "count": 0,
+          "pinParticleIds": [],
+          "positions": [],
+          "maxAbsWinding": 2.208718528794109e-17
+        },
+        "Bubu_hand-right": {
+          "count": 0,
+          "pinParticleIds": [],
+          "positions": [],
+          "maxAbsWinding": 1.8774107494749925e-17
+        }
+      }
+    },
+    {
+      "time": 1.2,
+      "phase": "cup-enter",
+      "contacts": {
+        "Bubu_hand-left/cape_cloth": {
+          "trianglePairs": 175,
+          "garmentTriangleEnvelopeMin": [
+            -0.4375587999820709,
+            0.44736412167549133,
+            0.6840384006500244
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.12718915939331055,
+            0.6314179301261902,
+            0.7643313407897949
+          ]
+        },
+        "Bubu_hand-left/cape_back_edge": {
+          "trianglePairs": 73,
+          "garmentTriangleEnvelopeMin": [
+            -0.41036081314086914,
+            0.5835543870925903,
+            0.7106812000274658
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.13001015782356262,
+            0.640209436416626,
+            0.773311197757721
+          ]
+        },
+        "Bubu_hand-right/cape_cloth": {
+          "trianglePairs": 184,
+          "garmentTriangleEnvelopeMin": [
+            0.1282109022140503,
+            0.43636876344680786,
+            0.6739276647567749
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.4375664293766022,
+            0.6314404606819153,
+            0.7643341422080994
+          ]
+        },
+        "Bubu_hand-right/cape_back_edge": {
+          "trianglePairs": 70,
+          "garmentTriangleEnvelopeMin": [
+            0.13010072708129883,
+            0.583584189414978,
+            0.7106555104255676
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.41042134165763855,
+            0.640232264995575,
+            0.7733138799667358
+          ]
+        }
+      },
+      "pinsInsideHands": {
+        "Bubu_hand-left": {
+          "count": 3,
+          "pinParticleIds": [
+            427,
+            431,
+            435
+          ],
+          "positions": [
+            [
+              -0.34433743357658386,
+              0.618739128112793,
+              0.7345931529998779
+            ],
+            [
+              -0.2669305205345154,
+              0.6064643859863281,
+              0.7490599751472473
+            ],
+            [
+              -0.190915048122406,
+              0.597551703453064,
+              0.7590977549552917
+            ]
+          ],
+          "maxAbsWinding": 1.0
+        },
+        "Bubu_hand-right": {
+          "count": 3,
+          "pinParticleIds": [
+            6,
+            9,
+            13
+          ],
+          "positions": [
+            [
+              0.1908257007598877,
+              0.5975437164306641,
+              0.7591485977172852
+            ],
+            [
+              0.2669341266155243,
+              0.6064656972885132,
+              0.7490773797035217
+            ],
+            [
+              0.34442999958992004,
+              0.6187388896942139,
+              0.7345687747001648
+            ]
+          ],
+          "maxAbsWinding": 1.0000000000000002
+        }
+      }
+    },
+    {
+      "time": 1.5,
+      "phase": "hold",
+      "contacts": {
+        "Bubu_hand-left/cape_cloth": {
+          "trianglePairs": 175,
+          "garmentTriangleEnvelopeMin": [
+            -0.4375587999820709,
+            0.44736412167549133,
+            0.6840384006500244
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.12718915939331055,
+            0.6314179301261902,
+            0.7643313407897949
+          ]
+        },
+        "Bubu_hand-left/cape_back_edge": {
+          "trianglePairs": 73,
+          "garmentTriangleEnvelopeMin": [
+            -0.41036081314086914,
+            0.5835543870925903,
+            0.7106812000274658
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.13001015782356262,
+            0.640209436416626,
+            0.773311197757721
+          ]
+        },
+        "Bubu_hand-right/cape_cloth": {
+          "trianglePairs": 184,
+          "garmentTriangleEnvelopeMin": [
+            0.1282109022140503,
+            0.43636876344680786,
+            0.6739276647567749
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.4375664293766022,
+            0.6314404606819153,
+            0.7643341422080994
+          ]
+        },
+        "Bubu_hand-right/cape_back_edge": {
+          "trianglePairs": 70,
+          "garmentTriangleEnvelopeMin": [
+            0.13010072708129883,
+            0.583584189414978,
+            0.7106555104255676
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.41042134165763855,
+            0.640232264995575,
+            0.7733138799667358
+          ]
+        },
+        "Sip_cup_shell/cape_clasp": {
+          "trianglePairs": 108,
+          "garmentTriangleEnvelopeMin": [
+            -0.02192494459450245,
+            0.5607460141181946,
+            0.775041401386261
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.023975711315870285,
+            0.6102086901664734,
+            0.7787221074104309
+          ]
+        }
+      },
+      "pinsInsideHands": {
+        "Bubu_hand-left": {
+          "count": 3,
+          "pinParticleIds": [
+            427,
+            431,
+            435
+          ],
+          "positions": [
+            [
+              -0.34433743357658386,
+              0.618739128112793,
+              0.7345931529998779
+            ],
+            [
+              -0.2669305205345154,
+              0.6064643859863281,
+              0.7490599751472473
+            ],
+            [
+              -0.190915048122406,
+              0.597551703453064,
+              0.7590977549552917
+            ]
+          ],
+          "maxAbsWinding": 1.0
+        },
+        "Bubu_hand-right": {
+          "count": 3,
+          "pinParticleIds": [
+            6,
+            9,
+            13
+          ],
+          "positions": [
+            [
+              0.1908257007598877,
+              0.5975437164306641,
+              0.7591485977172852
+            ],
+            [
+              0.2669341266155243,
+              0.6064656972885132,
+              0.7490773797035217
+            ],
+            [
+              0.34442999958992004,
+              0.6187388896942139,
+              0.7345687747001648
+            ]
+          ],
+          "maxAbsWinding": 1.0000000000000002
+        }
+      }
+    },
+    {
+      "time": 2,
+      "phase": "lift",
+      "contacts": {
+        "Bubu_hand-left/cape_cloth": {
+          "trianglePairs": 175,
+          "garmentTriangleEnvelopeMin": [
+            -0.4375587999820709,
+            0.44736412167549133,
+            0.6840384006500244
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.12718915939331055,
+            0.6314179301261902,
+            0.7643313407897949
+          ]
+        },
+        "Bubu_hand-left/cape_back_edge": {
+          "trianglePairs": 73,
+          "garmentTriangleEnvelopeMin": [
+            -0.41036081314086914,
+            0.5835543870925903,
+            0.7106812000274658
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.13001015782356262,
+            0.640209436416626,
+            0.773311197757721
+          ]
+        },
+        "Bubu_hand-right/cape_cloth": {
+          "trianglePairs": 184,
+          "garmentTriangleEnvelopeMin": [
+            0.1282109022140503,
+            0.43636876344680786,
+            0.6739276647567749
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.4375664293766022,
+            0.6314404606819153,
+            0.7643341422080994
+          ]
+        },
+        "Bubu_hand-right/cape_back_edge": {
+          "trianglePairs": 70,
+          "garmentTriangleEnvelopeMin": [
+            0.13010072708129883,
+            0.583584189414978,
+            0.7106555104255676
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.41042134165763855,
+            0.640232264995575,
+            0.7733138799667358
+          ]
+        },
+        "Sip_cup_shell/cape_clasp": {
+          "trianglePairs": 108,
+          "garmentTriangleEnvelopeMin": [
+            -0.02192494459450245,
+            0.5607460141181946,
+            0.775041401386261
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.023975711315870285,
+            0.6102086901664734,
+            0.7787221074104309
+          ]
+        }
+      },
+      "pinsInsideHands": {
+        "Bubu_hand-left": {
+          "count": 3,
+          "pinParticleIds": [
+            427,
+            431,
+            435
+          ],
+          "positions": [
+            [
+              -0.34433743357658386,
+              0.618739128112793,
+              0.7345931529998779
+            ],
+            [
+              -0.2669305205345154,
+              0.6064643859863281,
+              0.7490599751472473
+            ],
+            [
+              -0.190915048122406,
+              0.597551703453064,
+              0.7590977549552917
+            ]
+          ],
+          "maxAbsWinding": 1.0
+        },
+        "Bubu_hand-right": {
+          "count": 3,
+          "pinParticleIds": [
+            6,
+            9,
+            13
+          ],
+          "positions": [
+            [
+              0.1908257007598877,
+              0.5975437164306641,
+              0.7591485977172852
+            ],
+            [
+              0.2669341266155243,
+              0.6064656972885132,
+              0.7490773797035217
+            ],
+            [
+              0.34442999958992004,
+              0.6187388896942139,
+              0.7345687747001648
+            ]
+          ],
+          "maxAbsWinding": 1.0000000000000002
+        }
+      }
+    },
+    {
+      "time": 2.7,
+      "phase": "lift",
+      "contacts": {
+        "Bubu_hand-left/cape_cloth": {
+          "trianglePairs": 148,
+          "garmentTriangleEnvelopeMin": [
+            -0.4392244815826416,
+            0.48577484488487244,
+            0.6977803111076355
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.12912020087242126,
+            0.6389826536178589,
+            0.7643313407897949
+          ]
+        },
+        "Bubu_hand-left/cape_back_edge": {
+          "trianglePairs": 69,
+          "garmentTriangleEnvelopeMin": [
+            -0.44241029024124146,
+            0.5835543870925903,
+            0.7018194198608398
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.13001015782356262,
+            0.6477318406105042,
+            0.773311197757721
+          ]
+        },
+        "Bubu_hand-right/cape_cloth": {
+          "trianglePairs": 151,
+          "garmentTriangleEnvelopeMin": [
+            0.12970304489135742,
+            0.47758617997169495,
+            0.6933950781822205
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.43922919034957886,
+            0.6389834880828857,
+            0.7643341422080994
+          ]
+        },
+        "Bubu_hand-right/cape_back_edge": {
+          "trianglePairs": 72,
+          "garmentTriangleEnvelopeMin": [
+            0.13010072708129883,
+            0.583584189414978,
+            0.7063959240913391
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.44241276383399963,
+            0.6477329134941101,
+            0.7733138799667358
+          ]
+        }
+      },
+      "pinsInsideHands": {
+        "Bubu_hand-left": {
+          "count": 3,
+          "pinParticleIds": [
+            427,
+            431,
+            435
+          ],
+          "positions": [
+            [
+              -0.34433743357658386,
+              0.618739128112793,
+              0.7345931529998779
+            ],
+            [
+              -0.2669305205345154,
+              0.6064643859863281,
+              0.7490599751472473
+            ],
+            [
+              -0.190915048122406,
+              0.597551703453064,
+              0.7590977549552917
+            ]
+          ],
+          "maxAbsWinding": 1.0
+        },
+        "Bubu_hand-right": {
+          "count": 3,
+          "pinParticleIds": [
+            6,
+            9,
+            13
+          ],
+          "positions": [
+            [
+              0.1908257007598877,
+              0.5975437164306641,
+              0.7591485977172852
+            ],
+            [
+              0.2669341266155243,
+              0.6064656972885132,
+              0.7490773797035217
+            ],
+            [
+              0.34442999958992004,
+              0.6187388896942139,
+              0.7345687747001648
+            ]
+          ],
+          "maxAbsWinding": 1.0000000000000002
+        }
+      }
+    },
+    {
+      "time": 3.4,
+      "phase": "sip",
+      "contacts": {
+        "Bubu_hand-left/cape_cloth": {
+          "trianglePairs": 120,
+          "garmentTriangleEnvelopeMin": [
+            -0.4392244815826416,
+            0.5178004503250122,
+            0.7055162787437439
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.13040751218795776,
+            0.6389826536178589,
+            0.7643313407897949
+          ]
+        },
+        "Bubu_hand-left/cape_back_edge": {
+          "trianglePairs": 70,
+          "garmentTriangleEnvelopeMin": [
+            -0.44241029024124146,
+            0.5835543870925903,
+            0.7018194198608398
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.13001015782356262,
+            0.6477318406105042,
+            0.773311197757721
+          ]
+        },
+        "Bubu_hand-right/cape_cloth": {
+          "trianglePairs": 118,
+          "garmentTriangleEnvelopeMin": [
+            0.13094960153102875,
+            0.5136393308639526,
+            0.7055168151855469
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.40750473737716675,
+            0.6314404606819153,
+            0.7643341422080994
+          ]
+        },
+        "Bubu_hand-right/cape_back_edge": {
+          "trianglePairs": 75,
+          "garmentTriangleEnvelopeMin": [
+            0.13010072708129883,
+            0.5847967863082886,
+            0.7106555104255676
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.44032374024391174,
+            0.6477329134941101,
+            0.7733138799667358
+          ]
+        }
+      },
+      "pinsInsideHands": {
+        "Bubu_hand-left": {
+          "count": 3,
+          "pinParticleIds": [
+            427,
+            431,
+            435
+          ],
+          "positions": [
+            [
+              -0.34433743357658386,
+              0.618739128112793,
+              0.7345931529998779
+            ],
+            [
+              -0.2669305205345154,
+              0.6064643859863281,
+              0.7490599751472473
+            ],
+            [
+              -0.190915048122406,
+              0.597551703453064,
+              0.7590977549552917
+            ]
+          ],
+          "maxAbsWinding": 1.0
+        },
+        "Bubu_hand-right": {
+          "count": 3,
+          "pinParticleIds": [
+            6,
+            9,
+            13
+          ],
+          "positions": [
+            [
+              0.1908257007598877,
+              0.5975437164306641,
+              0.7591485977172852
+            ],
+            [
+              0.2669341266155243,
+              0.6064656972885132,
+              0.7490773797035217
+            ],
+            [
+              0.34442999958992004,
+              0.6187388896942139,
+              0.7345687747001648
+            ]
+          ],
+          "maxAbsWinding": 1.0000000000000002
+        }
+      }
+    },
+    {
+      "time": 4.1,
+      "phase": "sip",
+      "contacts": {
+        "Bubu_hand-left/cape_cloth": {
+          "trianglePairs": 120,
+          "garmentTriangleEnvelopeMin": [
+            -0.4392244815826416,
+            0.5178004503250122,
+            0.7055162787437439
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.13040751218795776,
+            0.6389826536178589,
+            0.7643313407897949
+          ]
+        },
+        "Bubu_hand-left/cape_back_edge": {
+          "trianglePairs": 70,
+          "garmentTriangleEnvelopeMin": [
+            -0.44241029024124146,
+            0.5835543870925903,
+            0.7018194198608398
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.13001015782356262,
+            0.6477318406105042,
+            0.773311197757721
+          ]
+        },
+        "Bubu_hand-right/cape_cloth": {
+          "trianglePairs": 118,
+          "garmentTriangleEnvelopeMin": [
+            0.13094960153102875,
+            0.5136393308639526,
+            0.7055168151855469
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.40750473737716675,
+            0.6314404606819153,
+            0.7643341422080994
+          ]
+        },
+        "Bubu_hand-right/cape_back_edge": {
+          "trianglePairs": 75,
+          "garmentTriangleEnvelopeMin": [
+            0.13010072708129883,
+            0.5847967863082886,
+            0.7106555104255676
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.44032374024391174,
+            0.6477329134941101,
+            0.7733138799667358
+          ]
+        }
+      },
+      "pinsInsideHands": {
+        "Bubu_hand-left": {
+          "count": 3,
+          "pinParticleIds": [
+            427,
+            431,
+            435
+          ],
+          "positions": [
+            [
+              -0.34433743357658386,
+              0.618739128112793,
+              0.7345931529998779
+            ],
+            [
+              -0.2669305205345154,
+              0.6064643859863281,
+              0.7490599751472473
+            ],
+            [
+              -0.190915048122406,
+              0.597551703453064,
+              0.7590977549552917
+            ]
+          ],
+          "maxAbsWinding": 1.0
+        },
+        "Bubu_hand-right": {
+          "count": 3,
+          "pinParticleIds": [
+            6,
+            9,
+            13
+          ],
+          "positions": [
+            [
+              0.1908257007598877,
+              0.5975437164306641,
+              0.7591485977172852
+            ],
+            [
+              0.2669341266155243,
+              0.6064656972885132,
+              0.7490773797035217
+            ],
+            [
+              0.34442999958992004,
+              0.6187388896942139,
+              0.7345687747001648
+            ]
+          ],
+          "maxAbsWinding": 1.0000000000000002
+        }
+      }
+    },
+    {
+      "time": 4.8,
+      "phase": "return",
+      "contacts": {
+        "Bubu_hand-left/cape_cloth": {
+          "trianglePairs": 120,
+          "garmentTriangleEnvelopeMin": [
+            -0.4392244815826416,
+            0.5178004503250122,
+            0.7055162787437439
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.13040751218795776,
+            0.6389826536178589,
+            0.7643313407897949
+          ]
+        },
+        "Bubu_hand-left/cape_back_edge": {
+          "trianglePairs": 70,
+          "garmentTriangleEnvelopeMin": [
+            -0.44241029024124146,
+            0.5835543870925903,
+            0.7018194198608398
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.13001015782356262,
+            0.6477318406105042,
+            0.773311197757721
+          ]
+        },
+        "Bubu_hand-right/cape_cloth": {
+          "trianglePairs": 118,
+          "garmentTriangleEnvelopeMin": [
+            0.13094960153102875,
+            0.5136393308639526,
+            0.7055168151855469
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.40750473737716675,
+            0.6314404606819153,
+            0.7643341422080994
+          ]
+        },
+        "Bubu_hand-right/cape_back_edge": {
+          "trianglePairs": 75,
+          "garmentTriangleEnvelopeMin": [
+            0.13010072708129883,
+            0.5847967863082886,
+            0.7106555104255676
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.44032374024391174,
+            0.6477329134941101,
+            0.7733138799667358
+          ]
+        }
+      },
+      "pinsInsideHands": {
+        "Bubu_hand-left": {
+          "count": 3,
+          "pinParticleIds": [
+            427,
+            431,
+            435
+          ],
+          "positions": [
+            [
+              -0.34433743357658386,
+              0.618739128112793,
+              0.7345931529998779
+            ],
+            [
+              -0.2669305205345154,
+              0.6064643859863281,
+              0.7490599751472473
+            ],
+            [
+              -0.190915048122406,
+              0.597551703453064,
+              0.7590977549552917
+            ]
+          ],
+          "maxAbsWinding": 1.0
+        },
+        "Bubu_hand-right": {
+          "count": 3,
+          "pinParticleIds": [
+            6,
+            9,
+            13
+          ],
+          "positions": [
+            [
+              0.1908257007598877,
+              0.5975437164306641,
+              0.7591485977172852
+            ],
+            [
+              0.2669341266155243,
+              0.6064656972885132,
+              0.7490773797035217
+            ],
+            [
+              0.34442999958992004,
+              0.6187388896942139,
+              0.7345687747001648
+            ]
+          ],
+          "maxAbsWinding": 1.0000000000000002
+        }
+      }
+    },
+    {
+      "time": 5.5,
+      "phase": "return",
+      "contacts": {
+        "Bubu_hand-left/cape_cloth": {
+          "trianglePairs": 148,
+          "garmentTriangleEnvelopeMin": [
+            -0.4392244815826416,
+            0.48577484488487244,
+            0.6977803111076355
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.12912020087242126,
+            0.6389826536178589,
+            0.7643313407897949
+          ]
+        },
+        "Bubu_hand-left/cape_back_edge": {
+          "trianglePairs": 69,
+          "garmentTriangleEnvelopeMin": [
+            -0.44241029024124146,
+            0.5835543870925903,
+            0.7018194198608398
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.13001015782356262,
+            0.6477318406105042,
+            0.773311197757721
+          ]
+        },
+        "Bubu_hand-right/cape_cloth": {
+          "trianglePairs": 151,
+          "garmentTriangleEnvelopeMin": [
+            0.12970304489135742,
+            0.47758617997169495,
+            0.6933950781822205
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.43922919034957886,
+            0.6389834880828857,
+            0.7643341422080994
+          ]
+        },
+        "Bubu_hand-right/cape_back_edge": {
+          "trianglePairs": 72,
+          "garmentTriangleEnvelopeMin": [
+            0.13010072708129883,
+            0.583584189414978,
+            0.7063959240913391
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.44241276383399963,
+            0.6477329134941101,
+            0.7733138799667358
+          ]
+        }
+      },
+      "pinsInsideHands": {
+        "Bubu_hand-left": {
+          "count": 3,
+          "pinParticleIds": [
+            427,
+            431,
+            435
+          ],
+          "positions": [
+            [
+              -0.34433743357658386,
+              0.618739128112793,
+              0.7345931529998779
+            ],
+            [
+              -0.2669305205345154,
+              0.6064643859863281,
+              0.7490599751472473
+            ],
+            [
+              -0.190915048122406,
+              0.597551703453064,
+              0.7590977549552917
+            ]
+          ],
+          "maxAbsWinding": 1.0
+        },
+        "Bubu_hand-right": {
+          "count": 3,
+          "pinParticleIds": [
+            6,
+            9,
+            13
+          ],
+          "positions": [
+            [
+              0.1908257007598877,
+              0.5975437164306641,
+              0.7591485977172852
+            ],
+            [
+              0.2669341266155243,
+              0.6064656972885132,
+              0.7490773797035217
+            ],
+            [
+              0.34442999958992004,
+              0.6187388896942139,
+              0.7345687747001648
+            ]
+          ],
+          "maxAbsWinding": 1.0000000000000002
+        }
+      }
+    },
+    {
+      "time": 6.2,
+      "phase": "hold",
+      "contacts": {
+        "Bubu_hand-left/cape_cloth": {
+          "trianglePairs": 175,
+          "garmentTriangleEnvelopeMin": [
+            -0.4375587999820709,
+            0.44736412167549133,
+            0.6840384006500244
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.12718915939331055,
+            0.6314179301261902,
+            0.7643313407897949
+          ]
+        },
+        "Bubu_hand-left/cape_back_edge": {
+          "trianglePairs": 73,
+          "garmentTriangleEnvelopeMin": [
+            -0.41036081314086914,
+            0.5835543870925903,
+            0.7106812000274658
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.13001015782356262,
+            0.640209436416626,
+            0.773311197757721
+          ]
+        },
+        "Bubu_hand-right/cape_cloth": {
+          "trianglePairs": 184,
+          "garmentTriangleEnvelopeMin": [
+            0.1282109022140503,
+            0.43636876344680786,
+            0.6739276647567749
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.4375664293766022,
+            0.6314404606819153,
+            0.7643341422080994
+          ]
+        },
+        "Bubu_hand-right/cape_back_edge": {
+          "trianglePairs": 70,
+          "garmentTriangleEnvelopeMin": [
+            0.13010072708129883,
+            0.583584189414978,
+            0.7106555104255676
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.41042134165763855,
+            0.640232264995575,
+            0.7733138799667358
+          ]
+        },
+        "Sip_cup_shell/cape_clasp": {
+          "trianglePairs": 108,
+          "garmentTriangleEnvelopeMin": [
+            -0.02192494459450245,
+            0.5607460141181946,
+            0.775041401386261
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.023975711315870285,
+            0.6102086901664734,
+            0.7787221074104309
+          ]
+        }
+      },
+      "pinsInsideHands": {
+        "Bubu_hand-left": {
+          "count": 3,
+          "pinParticleIds": [
+            427,
+            431,
+            435
+          ],
+          "positions": [
+            [
+              -0.34433743357658386,
+              0.618739128112793,
+              0.7345931529998779
+            ],
+            [
+              -0.2669305205345154,
+              0.6064643859863281,
+              0.7490599751472473
+            ],
+            [
+              -0.190915048122406,
+              0.597551703453064,
+              0.7590977549552917
+            ]
+          ],
+          "maxAbsWinding": 1.0
+        },
+        "Bubu_hand-right": {
+          "count": 3,
+          "pinParticleIds": [
+            6,
+            9,
+            13
+          ],
+          "positions": [
+            [
+              0.1908257007598877,
+              0.5975437164306641,
+              0.7591485977172852
+            ],
+            [
+              0.2669341266155243,
+              0.6064656972885132,
+              0.7490773797035217
+            ],
+            [
+              0.34442999958992004,
+              0.6187388896942139,
+              0.7345687747001648
+            ]
+          ],
+          "maxAbsWinding": 1.0000000000000002
+        }
+      }
+    },
+    {
+      "time": 6.6,
+      "phase": "cup-exit",
+      "contacts": {
+        "Bubu_hand-left/cape_cloth": {
+          "trianglePairs": 175,
+          "garmentTriangleEnvelopeMin": [
+            -0.4375587999820709,
+            0.44736412167549133,
+            0.6840384006500244
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.12718915939331055,
+            0.6314179301261902,
+            0.7643313407897949
+          ]
+        },
+        "Bubu_hand-left/cape_back_edge": {
+          "trianglePairs": 73,
+          "garmentTriangleEnvelopeMin": [
+            -0.41036081314086914,
+            0.5835543870925903,
+            0.7106812000274658
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.13001015782356262,
+            0.640209436416626,
+            0.773311197757721
+          ]
+        },
+        "Bubu_hand-right/cape_cloth": {
+          "trianglePairs": 184,
+          "garmentTriangleEnvelopeMin": [
+            0.1282109022140503,
+            0.43636876344680786,
+            0.6739276647567749
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.4375664293766022,
+            0.6314404606819153,
+            0.7643341422080994
+          ]
+        },
+        "Bubu_hand-right/cape_back_edge": {
+          "trianglePairs": 70,
+          "garmentTriangleEnvelopeMin": [
+            0.13010072708129883,
+            0.583584189414978,
+            0.7106555104255676
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.41042134165763855,
+            0.640232264995575,
+            0.7733138799667358
+          ]
+        },
+        "Sip_cup_shell/cape_clasp": {
+          "trianglePairs": 108,
+          "garmentTriangleEnvelopeMin": [
+            -0.02192494459450245,
+            0.5607460141181946,
+            0.775041401386261
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.023975711315870285,
+            0.6102086901664734,
+            0.7787221074104309
+          ]
+        }
+      },
+      "pinsInsideHands": {
+        "Bubu_hand-left": {
+          "count": 3,
+          "pinParticleIds": [
+            427,
+            431,
+            435
+          ],
+          "positions": [
+            [
+              -0.34433743357658386,
+              0.618739128112793,
+              0.7345931529998779
+            ],
+            [
+              -0.2669305205345154,
+              0.6064643859863281,
+              0.7490599751472473
+            ],
+            [
+              -0.190915048122406,
+              0.597551703453064,
+              0.7590977549552917
+            ]
+          ],
+          "maxAbsWinding": 1.0
+        },
+        "Bubu_hand-right": {
+          "count": 3,
+          "pinParticleIds": [
+            6,
+            9,
+            13
+          ],
+          "positions": [
+            [
+              0.1908257007598877,
+              0.5975437164306641,
+              0.7591485977172852
+            ],
+            [
+              0.2669341266155243,
+              0.6064656972885132,
+              0.7490773797035217
+            ],
+            [
+              0.34442999958992004,
+              0.6187388896942139,
+              0.7345687747001648
+            ]
+          ],
+          "maxAbsWinding": 1.0000000000000002
+        }
+      }
+    },
+    {
+      "time": 6.9,
+      "phase": "hands-exit",
+      "contacts": {
+        "Bubu_hand-left/cape_cloth": {
+          "trianglePairs": 175,
+          "garmentTriangleEnvelopeMin": [
+            -0.4375587999820709,
+            0.44736412167549133,
+            0.6840384006500244
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.12718915939331055,
+            0.6314179301261902,
+            0.7643313407897949
+          ]
+        },
+        "Bubu_hand-left/cape_back_edge": {
+          "trianglePairs": 73,
+          "garmentTriangleEnvelopeMin": [
+            -0.41036081314086914,
+            0.5835543870925903,
+            0.7106812000274658
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.13001015782356262,
+            0.640209436416626,
+            0.773311197757721
+          ]
+        },
+        "Bubu_hand-right/cape_cloth": {
+          "trianglePairs": 184,
+          "garmentTriangleEnvelopeMin": [
+            0.1282109022140503,
+            0.43636876344680786,
+            0.6739276647567749
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.4375664293766022,
+            0.6314404606819153,
+            0.7643341422080994
+          ]
+        },
+        "Bubu_hand-right/cape_back_edge": {
+          "trianglePairs": 70,
+          "garmentTriangleEnvelopeMin": [
+            0.13010072708129883,
+            0.583584189414978,
+            0.7106555104255676
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.41042134165763855,
+            0.640232264995575,
+            0.7733138799667358
+          ]
+        }
+      },
+      "pinsInsideHands": {
+        "Bubu_hand-left": {
+          "count": 3,
+          "pinParticleIds": [
+            427,
+            431,
+            435
+          ],
+          "positions": [
+            [
+              -0.34433743357658386,
+              0.618739128112793,
+              0.7345931529998779
+            ],
+            [
+              -0.2669305205345154,
+              0.6064643859863281,
+              0.7490599751472473
+            ],
+            [
+              -0.190915048122406,
+              0.597551703453064,
+              0.7590977549552917
+            ]
+          ],
+          "maxAbsWinding": 1.0
+        },
+        "Bubu_hand-right": {
+          "count": 3,
+          "pinParticleIds": [
+            6,
+            9,
+            13
+          ],
+          "positions": [
+            [
+              0.1908257007598877,
+              0.5975437164306641,
+              0.7591485977172852
+            ],
+            [
+              0.2669341266155243,
+              0.6064656972885132,
+              0.7490773797035217
+            ],
+            [
+              0.34442999958992004,
+              0.6187388896942139,
+              0.7345687747001648
+            ]
+          ],
+          "maxAbsWinding": 1.0000000000000002
+        }
+      }
+    },
+    {
+      "time": 7.5,
+      "phase": "hands-exit",
+      "contacts": {
+        "Bubu_hand-left/cape_cloth": {
+          "trianglePairs": 140,
+          "garmentTriangleEnvelopeMin": [
+            -0.8940151929855347,
+            0.46084943413734436,
+            0.41760557889938354
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.7049842476844788,
+            0.8065685033798218,
+            0.5468415021896362
+          ]
+        },
+        "Bubu_hand-left/cape_hem": {
+          "trianglePairs": 71,
+          "garmentTriangleEnvelopeMin": [
+            -0.902425229549408,
+            0.45520448684692383,
+            0.4126589894294739
+          ],
+          "garmentTriangleEnvelopeMax": [
+            -0.7167941331863403,
+            0.7722354531288147,
+            0.4986003339290619
+          ]
+        },
+        "Bubu_hand-right/cape_cloth": {
+          "trianglePairs": 140,
+          "garmentTriangleEnvelopeMin": [
+            0.7119367718696594,
+            0.46085408329963684,
+            0.41815903782844543
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.8940154314041138,
+            0.8000352382659912,
+            0.5490481853485107
+          ]
+        },
+        "Bubu_hand-right/cape_hem": {
+          "trianglePairs": 71,
+          "garmentTriangleEnvelopeMin": [
+            0.7168198823928833,
+            0.4552091956138611,
+            0.41265761852264404
+          ],
+          "garmentTriangleEnvelopeMax": [
+            0.9024249911308289,
+            0.772240936756134,
+            0.4985872507095337
+          ]
+        }
+      },
+      "pinsInsideHands": {
+        "Bubu_hand-left": {
+          "count": 0,
+          "pinParticleIds": [],
+          "positions": [],
+          "maxAbsWinding": 2.208718528794109e-17
+        },
+        "Bubu_hand-right": {
+          "count": 0,
+          "pinParticleIds": [],
+          "positions": [],
+          "maxAbsWinding": 1.8774107494749925e-17
+        }
+      }
+    },
+    {
+      "time": 8.1,
+      "phase": "rest",
+      "contacts": {},
+      "pinsInsideHands": {
+        "Bubu_hand-left": {
+          "count": 0,
+          "pinParticleIds": [],
+          "positions": [],
+          "maxAbsWinding": 8.890092078396289e-17
+        },
+        "Bubu_hand-right": {
+          "count": 0,
+          "pinParticleIds": [],
+          "positions": [],
+          "maxAbsWinding": 1.0463804030162091e-16
+        }
+      }
+    },
+    {
+      "time": 9,
+      "phase": "rest",
+      "contacts": {},
+      "pinsInsideHands": {
+        "Bubu_hand-left": {
+          "count": 0,
+          "pinParticleIds": [],
+          "positions": [],
+          "maxAbsWinding": 8.890092078396289e-17
+        },
+        "Bubu_hand-right": {
+          "count": 0,
+          "pinParticleIds": [],
+          "positions": [],
+          "maxAbsWinding": 1.0463804030162091e-16
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Triangle-edge intersections are not penetration depth or complete containment test.",
+    "Pin winding inside assumes closed consistently wound hand surfaces; exact boundary points excluded by practical tolerance.",
+    "No continuous-time proof."
+  ]
+}
