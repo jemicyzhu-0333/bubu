@@ -1,0 +1,283 @@
+{
+  "status": "checkpoint-ready",
+  "updatedAt": "2026-10-24T16:31:40.344046+00:00",
+  "productionAccepted": false,
+  "workingTreeBackup": "working-tree-before.tar.gz",
+  "remainingSurfacePairs": [
+    "body/Bubu_hand-right <> satchel/satchel_continuous_strap",
+    "body/Bubu_body <> sakura/sakura_petal_1",
+    "body/Bubu_body <> sakura/sakura_petal_2",
+    "body/Bubu_body <> sakura/sakura_leaf_-019",
+    "body/Bubu_body <> satchel/satchel_pouch",
+    "satchel/satchel_continuous_strap <> cape/cape_edge_0",
+    "body/Bubu_body <> cape/cape_edge_0",
+    "satchel/satchel_continuous_strap <> cape/cape_cloth",
+    "body/Bubu_body <> satchel/satchel_continuous_strap"
+  ],
+  "fitCandidate": {
+    "sakura": [
+      0,
+      0.0125,
+      0
+    ],
+    "leaf": [
+      -0.0125,
+      0,
+      0
+    ],
+    "sampledFrames": 481,
+    "previousPairs": 11,
+    "currentPairs": 9,
+    "defaultIntegrated": true,
+    "pending": "Whole-outfit nine other pairs remain; local fit and real rendered three-phase visual checks passed"
+  },
+  "performanceFinding": {
+    "baselineRAF": "16.7 ms",
+    "bodyOnlyMedianFrameInterval": "83\u2013100 ms",
+    "bodyTriangleCount": 91886,
+    "sparseSkinningCandidate": "Nine pixel comparisons passed, balanced timings show no stable improvement; excluded from default renderer"
+  },
+  "blockedCommands": [],
+  "environmentIssues": [
+    "No hardware GPU/native Windows or macOS environment; software SwiftShader available"
+  ],
+  "clothImplementationGaps": [
+    "fixed pins inside hands",
+    "fixed clasp/cup overlap",
+    "actual mesh contact and strain failures",
+    "existing Rapier full-chain frame cost far above 16.667 ms"
+  ],
+  "nativeAcceptance": "not-run",
+  "videoRegeneration": "not performed this phase",
+  "fitObstruction": {
+    "scope": "Exact closed body+feet and right-hand volumes at rest",
+    "maxAllowedTranslation": 0.05338539126015657,
+    "pouchInsideBodyDepth": 0.08916755782078453,
+    "strapInsideRightHandDepth": 0.11679357469530507,
+    "connectedOutsideWitnesses": true,
+    "result": "These two crossings cannot be removed within the existing translation box; rotations/deformation not excluded"
+  },
+  "teaCandidate": {
+    "offset": 0.0098,
+    "scope": "coherent hold offset, exact sip/rest preserved",
+    "contractTest": "passed",
+    "meshContactScan": {
+      "samples": 1173,
+      "beforeContactFrames": 112,
+      "afterContactFrames": 0,
+      "minimumClaspGap": {
+        "distance": 0.005985347673785218,
+        "time": 1.5,
+        "trajectory": "normal",
+        "piece": "Sip_cup_shell"
+      },
+      "continuousFixedClasp": "certified",
+      "certifiedIntervals": 295
+    },
+    "runtimeIntegrated": false
+  },
+  "cancellationBoundaryFix": {
+    "integratedIntoDemo": true,
+    "frozenControllerModified": false,
+    "description": "Normalize only <=1e-12 endpoint roundoff before strict cup admission; reject larger errors",
+    "test": "exact cancellation-endpoint regressions passed"
+  },
+  "clothCostCandidate": {
+    "status": "failed-acceptance",
+    "physicsMs": {
+      "p50": 24.69688899999983,
+      "p95": 36.868089000000055,
+      "max": 95.93720300000041
+    },
+    "fullIncludingContactMs": {
+      "p50": 79.45256800000061,
+      "p95": 95.08455300000014,
+      "max": 211.87462900000037
+    },
+    "contactClear": false,
+    "strainAccepted": false,
+    "sourceModelsUnchanged": true,
+    "defaultIntegrated": false,
+    "certificate": {
+      "directions": 1024,
+      "selectedSourceVertices": 980,
+      "sourceVertices": 32036,
+      "triangles": 1956,
+      "scaleFactor": 1.007788588454669,
+      "maximumPlaneViolation": -8.214272835260772e-07,
+      "maximumOuterDistance": 0.00796060074755975,
+      "maxError": 0.01,
+      "requiredInwardMargin": 1e-08
+    },
+    "evidence": "cloth-final-source/endpoint-cloth.json"
+  },
+  "runningValidation": null,
+  "validation": {
+    "research": {
+      "status": "passed",
+      "stages": 36,
+      "nodePassed": 805,
+      "pythonPassed": 2,
+      "sourcesUnchanged": true
+    },
+    "application": {
+      "status": "passed",
+      "passed": 6742,
+      "skipped": 29
+    },
+    "integration": {
+      "status": "passed",
+      "passed": 71
+    },
+    "demoState": "passed",
+    "completeDemo": {
+      "status": "passed",
+      "steps": 1193,
+      "fetchedFiles": 123,
+      "resourceCycles": [
+        {
+          "geometries": 15,
+          "textures": 18
+        },
+        {
+          "geometries": 15,
+          "textures": 18
+        }
+      ]
+    },
+    "offlinePackage": {
+      "status": "passed",
+      "verifiedFiles": 136,
+      "scenes": 8,
+      "externalRequests": 0
+    }
+  },
+  "gates": {
+    "capeTea": {
+      "status": "blocked",
+      "reason": "endpoint-attachment-conflict"
+    },
+    "dynamicCloth": {
+      "status": "blocked",
+      "reason": "real-time-budget-not-met"
+    },
+    "nativeInput": {
+      "status": "not-run"
+    },
+    "webglAndGPURecovery": {
+      "status": "partial",
+      "browserWebGL": "passed",
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "hardwareGPURecovery": "not-run",
+      "nativeDesktop": "not-run",
+      "reason": "Browser object lifecycle counts do not establish physical GPU memory or desktop-window acceptance"
+    },
+    "stableFrameTime": {
+      "status": "failed",
+      "evidence": {
+        "samples": 900,
+        "median": 1.3834529999999177,
+        "p95": 3.2715810000001966,
+        "max": 13.116007999999965,
+        "includes": "body + hybrid + anchors + secondary + effects; excludes GPU"
+      },
+      "profilePasses": {
+        "0": {
+          "n": 900,
+          "median": 1.420377000000144,
+          "p95": 2.6217229999999745,
+          "p99": 3.622568999999885,
+          "max": 15.307866000000104
+        },
+        "1": {
+          "n": 900,
+          "median": 1.3391670000000886,
+          "p95": 2.721900000000005,
+          "p99": 3.4860380000000077,
+          "max": 8.41861199999994
+        },
+        "2": {
+          "n": 900,
+          "median": 1.2232160000003205,
+          "p95": 2.5235270000002856,
+          "p99": 4.133344000000761,
+          "max": 5.71086299999979
+        }
+      },
+      "profileOverBudgetFrames": 0,
+      "reason": "Observed browser frame intervals exceed the 60 Hz budget; renderer identity remains explicit",
+      "browserFrameIntervals": {
+        "p50": 108,
+        "p95": 201.20000000018626,
+        "max": 258.1000000005588
+      }
+    },
+    "fullWardrobeContact": {
+      "status": "failed",
+      "samples": 481,
+      "framesWithContacts": 481,
+      "observedPairs": [
+        "body/Bubu_hand-right <> satchel/satchel_continuous_strap",
+        "body/Bubu_body <> sakura/sakura_petal_1",
+        "body/Bubu_body <> sakura/sakura_petal_2",
+        "body/Bubu_body <> sakura/sakura_leaf_-019",
+        "body/Bubu_body <> satchel/satchel_pouch",
+        "satchel/satchel_continuous_strap <> cape/cape_edge_0",
+        "body/Bubu_body <> cape/cape_edge_0",
+        "satchel/satchel_continuous_strap <> cape/cape_cloth",
+        "body/Bubu_body <> satchel/satchel_continuous_strap"
+      ],
+      "haloContactPairs": [],
+      "floraContactPairs": [],
+      "floraMinimumSurfaceGap": {
+        "pair": [
+          "sakura/sakura_leaf_019",
+          "leaf/forest_leaf"
+        ],
+        "distance": 0.00042099430786059655
+      },
+      "continuousContact": "not-run",
+      "containment": "not-run",
+      "reason": "Sampled full-outfit surfaces still require intentional-contact classification and continuous/containment verification"
+    },
+    "cupClaspCandidate": {
+      "status": "partial",
+      "sampledCupCapeClear": true,
+      "samples": 1173,
+      "continuousFixedClasp": "certified",
+      "certifiedIntervals": 295,
+      "scope": "Derived bounded motion candidate; hands/cloth/body and runtime admission remain unaccepted"
+    }
+  },
+  "nextMinimumWork": [
+    "Version a measured rest-fit/attachment or private deformation contract for the satchel; current translation exclusion does not imply a frozen model must change.",
+    "Resolve remaining flower/body and cape/bag/body crossings, including declared attachment regions and continuous/containment evidence.",
+    "Initialize cloth in a feasible pose, then validate hands, seams, strain, self-contact and the full tea/cancellation trajectory; keep current failed gates.",
+    "Validate native host and physical GPU behavior on target hardware."
+  ],
+  "saving": {
+    "branch": "feature/pet-animation-v2",
+    "localUncommitted": true,
+    "pushed": false,
+    "originalModelsAndFrozenControllersUnchanged": true
+  },
+  "artifacts": {
+    "interactive": {
+      "path": "/workspace/artifacts/bubu-v2-remaining-20261024/bubu-v2-interactive.zip",
+      "sha256": "68b04c29c4e82f6253d593288e55aceee4920821fd475feb97e5bb0398ebef71",
+      "bytes": 15803830
+    },
+    "poster": "/workspace/artifacts/bubu-v2-remaining-20261024/demo/poster.png",
+    "priorFullVideo": {
+      "path": "/workspace/artifacts/bubu-v2-final-demo-20261024/bubu-v2-demo.mp4",
+      "seconds": 49.083333,
+      "regeneratedThisPhase": false
+    },
+    "audit": "/workspace/artifacts/bubu-v2-remaining-20261024/audit.json",
+    "sourceBackup": "working-tree-after.tar.gz"
+  },
+  "sourceInventory": {
+    "recordedFiles": 1924,
+    "mismatchesAfterDemo": 0
+  }
+}

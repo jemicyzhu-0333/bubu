@@ -1,0 +1,48 @@
+{
+  "status": "rendered",
+  "captures": [
+    {
+      "file": "00-before.png",
+      "mode": "before",
+      "time": 0,
+      "angle": 135,
+      "zoom": 1,
+      "sourceGeometryChecked": true,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "file": "01-failure.png",
+      "mode": "failure",
+      "time": 0.21666666666666667,
+      "angle": 135,
+      "zoom": 1,
+      "sourceGeometryChecked": true,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "file": "02-before.png",
+      "mode": "before",
+      "time": 0,
+      "angle": 135,
+      "zoom": 5,
+      "sourceGeometryChecked": true,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "file": "03-failure.png",
+      "mode": "failure",
+      "time": 0.21666666666666667,
+      "angle": 135,
+      "zoom": 5,
+      "sourceGeometryChecked": true,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    }
+  ],
+  "errors": [],
+  "productionAccepted": false,
+  "inspected": [
+    "02-before.png",
+    "03-failure.png"
+  ],
+  "finding": "Same source-verified view shows a pink body triangle through the purple free cloth at .2166667 s. Contact failure is visible and agrees with 14 intersecting triangle pairs in the independent native/render surface audit. No production visual pass."
+}

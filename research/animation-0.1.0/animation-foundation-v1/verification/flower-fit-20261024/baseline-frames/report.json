@@ -1,0 +1,3144 @@
+{
+  "status": "rendered",
+  "productionAccepted": false,
+  "scope": "Original pre-fit baseline frames; candidate records are retained in raw evidence",
+  "captures": [
+    {
+      "file": "baseline-dpr1-idle-0-light.png",
+      "variant": "baseline",
+      "dpr": 1,
+      "phase": "idle",
+      "angle": 0,
+      "dark": false,
+      "state": {
+        "ready": true,
+        "selected": "wardrobe",
+        "busy": false,
+        "paused": false,
+        "reducedMotion": false,
+        "chapterTime": 0,
+        "time": 0,
+        "renderedFrames": 3,
+        "state": {
+          "time": 0,
+          "mode": "idle",
+          "hidden": false,
+          "pointerId": null,
+          "captured": false,
+          "drag": {
+            "time": 0,
+            "mode": "rest",
+            "held": false,
+            "pose": {
+              "body": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "joints": {
+                "Shoulder_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Shoulder_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            "lag": {
+              "x": 0,
+              "y": 0
+            },
+            "faceIntent": null
+          },
+          "pet": {
+            "time": 0,
+            "phase": "idle",
+            "session": 0,
+            "held": false,
+            "qualifiedAt": null,
+            "holdAge": 0,
+            "responseIndex": 0,
+            "responseKind": null,
+            "interactionOwned": false,
+            "face": null,
+            "body": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "joints": {
+              "Shoulder_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Shoulder_R": {
+                "x": 0,
+                "y": 0,
+                "z": -0.0
+              },
+              "Hip_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Hip_R": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            }
+          },
+          "body": {
+            "root": [
+              0,
+              0,
+              0
+            ],
+            "pivot": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "jointQuaternions": {
+              "Shoulder_L": [
+                -0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "Shoulder_R": [
+                -0.5,
+                -0.5,
+                -0.5,
+                0.5
+              ],
+              "Hip_L": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ],
+              "Hip_R": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ]
+            },
+            "minimumFootY": 0.006000000052152756,
+            "actorMatrix": [
+              0.984807753012208,
+              0,
+              -0.17364817766693033,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0.17364817766693033,
+              0,
+              0.984807753012208,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "face": {
+            "time": 0,
+            "phase": "idle",
+            "owner": null,
+            "requestId": null,
+            "candidate": null,
+            "token": 0,
+            "logicalArrival": null,
+            "path": null,
+            "amount": 0,
+            "clockArrival": 0,
+            "clockActualArrival": 0,
+            "deadline": Infinity,
+            "queued": 0,
+            "epoch": 1
+          }
+        },
+        "mounts": [
+          "sakura",
+          "leaf",
+          "satchel",
+          "cape",
+          "halo"
+        ],
+        "resources": {
+          "geometries": 42,
+          "textures": 18
+        },
+        "pool": {
+          "budget": {
+            "maxBytes": 134217728,
+            "claimedBytes": 20037298,
+            "residentBytes": 20037298,
+            "pendingReservations": 0,
+            "claims": 4,
+            "closed": false
+          },
+          "parts": {
+            "closed": false,
+            "references": 1,
+            "resident": true
+          },
+          "actors": 1,
+          "pending": 0,
+          "mounts": 5,
+          "emitters": [
+            {
+              "disposed": false,
+              "liveParticles": 0,
+              "activeEmitters": 4,
+              "allocatedParticleSlots": 96,
+              "poolBytes": 13056,
+              "ownedGeometries": 1,
+              "ownedMaterials": 4,
+              "maxDrawCalls": 8
+            }
+          ]
+        },
+        "book": null,
+        "errors": [],
+        "cleanupWarnings": [],
+        "contactAccepted": false,
+        "nativePerformanceAccepted": false
+      }
+    },
+    {
+      "file": "baseline-dpr1-idle-0-dark.png",
+      "variant": "baseline",
+      "dpr": 1,
+      "phase": "idle",
+      "angle": 0,
+      "dark": true,
+      "state": {
+        "ready": true,
+        "selected": "wardrobe",
+        "busy": false,
+        "paused": false,
+        "reducedMotion": false,
+        "chapterTime": 0,
+        "time": 0,
+        "renderedFrames": 3,
+        "state": {
+          "time": 0,
+          "mode": "idle",
+          "hidden": false,
+          "pointerId": null,
+          "captured": false,
+          "drag": {
+            "time": 0,
+            "mode": "rest",
+            "held": false,
+            "pose": {
+              "body": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "joints": {
+                "Shoulder_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Shoulder_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            "lag": {
+              "x": 0,
+              "y": 0
+            },
+            "faceIntent": null
+          },
+          "pet": {
+            "time": 0,
+            "phase": "idle",
+            "session": 0,
+            "held": false,
+            "qualifiedAt": null,
+            "holdAge": 0,
+            "responseIndex": 0,
+            "responseKind": null,
+            "interactionOwned": false,
+            "face": null,
+            "body": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "joints": {
+              "Shoulder_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Shoulder_R": {
+                "x": 0,
+                "y": 0,
+                "z": -0.0
+              },
+              "Hip_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Hip_R": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            }
+          },
+          "body": {
+            "root": [
+              0,
+              0,
+              0
+            ],
+            "pivot": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "jointQuaternions": {
+              "Shoulder_L": [
+                -0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "Shoulder_R": [
+                -0.5,
+                -0.5,
+                -0.5,
+                0.5
+              ],
+              "Hip_L": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ],
+              "Hip_R": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ]
+            },
+            "minimumFootY": 0.006000000052152756,
+            "actorMatrix": [
+              0.984807753012208,
+              0,
+              -0.17364817766693033,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0.17364817766693033,
+              0,
+              0.984807753012208,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "face": {
+            "time": 0,
+            "phase": "idle",
+            "owner": null,
+            "requestId": null,
+            "candidate": null,
+            "token": 0,
+            "logicalArrival": null,
+            "path": null,
+            "amount": 0,
+            "clockArrival": 0,
+            "clockActualArrival": 0,
+            "deadline": Infinity,
+            "queued": 0,
+            "epoch": 1
+          }
+        },
+        "mounts": [
+          "sakura",
+          "leaf",
+          "satchel",
+          "cape",
+          "halo"
+        ],
+        "resources": {
+          "geometries": 42,
+          "textures": 18
+        },
+        "pool": {
+          "budget": {
+            "maxBytes": 134217728,
+            "claimedBytes": 20037298,
+            "residentBytes": 20037298,
+            "pendingReservations": 0,
+            "claims": 4,
+            "closed": false
+          },
+          "parts": {
+            "closed": false,
+            "references": 1,
+            "resident": true
+          },
+          "actors": 1,
+          "pending": 0,
+          "mounts": 5,
+          "emitters": [
+            {
+              "disposed": false,
+              "liveParticles": 0,
+              "activeEmitters": 4,
+              "allocatedParticleSlots": 96,
+              "poolBytes": 13056,
+              "ownedGeometries": 1,
+              "ownedMaterials": 4,
+              "maxDrawCalls": 8
+            }
+          ]
+        },
+        "book": null,
+        "errors": [],
+        "cleanupWarnings": [],
+        "contactAccepted": false,
+        "nativePerformanceAccepted": false
+      }
+    },
+    {
+      "file": "baseline-dpr1-idle-60-light.png",
+      "variant": "baseline",
+      "dpr": 1,
+      "phase": "idle",
+      "angle": 60,
+      "dark": false,
+      "state": {
+        "ready": true,
+        "selected": "wardrobe",
+        "busy": false,
+        "paused": false,
+        "reducedMotion": false,
+        "chapterTime": 0,
+        "time": 0,
+        "renderedFrames": 4,
+        "state": {
+          "time": 0,
+          "mode": "idle",
+          "hidden": false,
+          "pointerId": null,
+          "captured": false,
+          "drag": {
+            "time": 0,
+            "mode": "rest",
+            "held": false,
+            "pose": {
+              "body": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "joints": {
+                "Shoulder_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Shoulder_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            "lag": {
+              "x": 0,
+              "y": 0
+            },
+            "faceIntent": null
+          },
+          "pet": {
+            "time": 0,
+            "phase": "idle",
+            "session": 0,
+            "held": false,
+            "qualifiedAt": null,
+            "holdAge": 0,
+            "responseIndex": 0,
+            "responseKind": null,
+            "interactionOwned": false,
+            "face": null,
+            "body": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "joints": {
+              "Shoulder_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Shoulder_R": {
+                "x": 0,
+                "y": 0,
+                "z": -0.0
+              },
+              "Hip_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Hip_R": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            }
+          },
+          "body": {
+            "root": [
+              0,
+              0,
+              0
+            ],
+            "pivot": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "jointQuaternions": {
+              "Shoulder_L": [
+                -0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "Shoulder_R": [
+                -0.5,
+                -0.5,
+                -0.5,
+                0.5
+              ],
+              "Hip_L": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ],
+              "Hip_R": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ]
+            },
+            "minimumFootY": 0.006000000052152756,
+            "actorMatrix": [
+              0.984807753012208,
+              0,
+              -0.17364817766693033,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0.17364817766693033,
+              0,
+              0.984807753012208,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "face": {
+            "time": 0,
+            "phase": "idle",
+            "owner": null,
+            "requestId": null,
+            "candidate": null,
+            "token": 0,
+            "logicalArrival": null,
+            "path": null,
+            "amount": 0,
+            "clockArrival": 0,
+            "clockActualArrival": 0,
+            "deadline": Infinity,
+            "queued": 0,
+            "epoch": 1
+          }
+        },
+        "mounts": [
+          "sakura",
+          "leaf",
+          "satchel",
+          "cape",
+          "halo"
+        ],
+        "resources": {
+          "geometries": 42,
+          "textures": 18
+        },
+        "pool": {
+          "budget": {
+            "maxBytes": 134217728,
+            "claimedBytes": 20037298,
+            "residentBytes": 20037298,
+            "pendingReservations": 0,
+            "claims": 4,
+            "closed": false
+          },
+          "parts": {
+            "closed": false,
+            "references": 1,
+            "resident": true
+          },
+          "actors": 1,
+          "pending": 0,
+          "mounts": 5,
+          "emitters": [
+            {
+              "disposed": false,
+              "liveParticles": 0,
+              "activeEmitters": 4,
+              "allocatedParticleSlots": 96,
+              "poolBytes": 13056,
+              "ownedGeometries": 1,
+              "ownedMaterials": 4,
+              "maxDrawCalls": 8
+            }
+          ]
+        },
+        "book": null,
+        "errors": [],
+        "cleanupWarnings": [],
+        "contactAccepted": false,
+        "nativePerformanceAccepted": false
+      }
+    },
+    {
+      "file": "baseline-dpr1-idle--60-light.png",
+      "variant": "baseline",
+      "dpr": 1,
+      "phase": "idle",
+      "angle": -60,
+      "dark": false,
+      "state": {
+        "ready": true,
+        "selected": "wardrobe",
+        "busy": false,
+        "paused": false,
+        "reducedMotion": false,
+        "chapterTime": 0,
+        "time": 0,
+        "renderedFrames": 5,
+        "state": {
+          "time": 0,
+          "mode": "idle",
+          "hidden": false,
+          "pointerId": null,
+          "captured": false,
+          "drag": {
+            "time": 0,
+            "mode": "rest",
+            "held": false,
+            "pose": {
+              "body": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "joints": {
+                "Shoulder_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Shoulder_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            "lag": {
+              "x": 0,
+              "y": 0
+            },
+            "faceIntent": null
+          },
+          "pet": {
+            "time": 0,
+            "phase": "idle",
+            "session": 0,
+            "held": false,
+            "qualifiedAt": null,
+            "holdAge": 0,
+            "responseIndex": 0,
+            "responseKind": null,
+            "interactionOwned": false,
+            "face": null,
+            "body": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "joints": {
+              "Shoulder_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Shoulder_R": {
+                "x": 0,
+                "y": 0,
+                "z": -0.0
+              },
+              "Hip_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Hip_R": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            }
+          },
+          "body": {
+            "root": [
+              0,
+              0,
+              0
+            ],
+            "pivot": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "jointQuaternions": {
+              "Shoulder_L": [
+                -0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "Shoulder_R": [
+                -0.5,
+                -0.5,
+                -0.5,
+                0.5
+              ],
+              "Hip_L": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ],
+              "Hip_R": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ]
+            },
+            "minimumFootY": 0.006000000052152756,
+            "actorMatrix": [
+              0.984807753012208,
+              0,
+              -0.17364817766693033,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0.17364817766693033,
+              0,
+              0.984807753012208,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "face": {
+            "time": 0,
+            "phase": "idle",
+            "owner": null,
+            "requestId": null,
+            "candidate": null,
+            "token": 0,
+            "logicalArrival": null,
+            "path": null,
+            "amount": 0,
+            "clockArrival": 0,
+            "clockActualArrival": 0,
+            "deadline": Infinity,
+            "queued": 0,
+            "epoch": 1
+          }
+        },
+        "mounts": [
+          "sakura",
+          "leaf",
+          "satchel",
+          "cape",
+          "halo"
+        ],
+        "resources": {
+          "geometries": 42,
+          "textures": 18
+        },
+        "pool": {
+          "budget": {
+            "maxBytes": 134217728,
+            "claimedBytes": 20037298,
+            "residentBytes": 20037298,
+            "pendingReservations": 0,
+            "claims": 4,
+            "closed": false
+          },
+          "parts": {
+            "closed": false,
+            "references": 1,
+            "resident": true
+          },
+          "actors": 1,
+          "pending": 0,
+          "mounts": 5,
+          "emitters": [
+            {
+              "disposed": false,
+              "liveParticles": 0,
+              "activeEmitters": 4,
+              "allocatedParticleSlots": 96,
+              "poolBytes": 13056,
+              "ownedGeometries": 1,
+              "ownedMaterials": 4,
+              "maxDrawCalls": 8
+            }
+          ]
+        },
+        "book": null,
+        "errors": [],
+        "cleanupWarnings": [],
+        "contactAccepted": false,
+        "nativePerformanceAccepted": false
+      }
+    },
+    {
+      "file": "baseline-dpr1-idle-150-light.png",
+      "variant": "baseline",
+      "dpr": 1,
+      "phase": "idle",
+      "angle": 150,
+      "dark": false,
+      "state": {
+        "ready": true,
+        "selected": "wardrobe",
+        "busy": false,
+        "paused": false,
+        "reducedMotion": false,
+        "chapterTime": 0,
+        "time": 0,
+        "renderedFrames": 6,
+        "state": {
+          "time": 0,
+          "mode": "idle",
+          "hidden": false,
+          "pointerId": null,
+          "captured": false,
+          "drag": {
+            "time": 0,
+            "mode": "rest",
+            "held": false,
+            "pose": {
+              "body": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "joints": {
+                "Shoulder_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Shoulder_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            "lag": {
+              "x": 0,
+              "y": 0
+            },
+            "faceIntent": null
+          },
+          "pet": {
+            "time": 0,
+            "phase": "idle",
+            "session": 0,
+            "held": false,
+            "qualifiedAt": null,
+            "holdAge": 0,
+            "responseIndex": 0,
+            "responseKind": null,
+            "interactionOwned": false,
+            "face": null,
+            "body": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "joints": {
+              "Shoulder_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Shoulder_R": {
+                "x": 0,
+                "y": 0,
+                "z": -0.0
+              },
+              "Hip_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Hip_R": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            }
+          },
+          "body": {
+            "root": [
+              0,
+              0,
+              0
+            ],
+            "pivot": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "jointQuaternions": {
+              "Shoulder_L": [
+                -0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "Shoulder_R": [
+                -0.5,
+                -0.5,
+                -0.5,
+                0.5
+              ],
+              "Hip_L": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ],
+              "Hip_R": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ]
+            },
+            "minimumFootY": 0.006000000052152756,
+            "actorMatrix": [
+              0.984807753012208,
+              0,
+              -0.17364817766693033,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0.17364817766693033,
+              0,
+              0.984807753012208,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "face": {
+            "time": 0,
+            "phase": "idle",
+            "owner": null,
+            "requestId": null,
+            "candidate": null,
+            "token": 0,
+            "logicalArrival": null,
+            "path": null,
+            "amount": 0,
+            "clockArrival": 0,
+            "clockActualArrival": 0,
+            "deadline": Infinity,
+            "queued": 0,
+            "epoch": 1
+          }
+        },
+        "mounts": [
+          "sakura",
+          "leaf",
+          "satchel",
+          "cape",
+          "halo"
+        ],
+        "resources": {
+          "geometries": 42,
+          "textures": 18
+        },
+        "pool": {
+          "budget": {
+            "maxBytes": 134217728,
+            "claimedBytes": 20037298,
+            "residentBytes": 20037298,
+            "pendingReservations": 0,
+            "claims": 4,
+            "closed": false
+          },
+          "parts": {
+            "closed": false,
+            "references": 1,
+            "resident": true
+          },
+          "actors": 1,
+          "pending": 0,
+          "mounts": 5,
+          "emitters": [
+            {
+              "disposed": false,
+              "liveParticles": 0,
+              "activeEmitters": 4,
+              "allocatedParticleSlots": 96,
+              "poolBytes": 13056,
+              "ownedGeometries": 1,
+              "ownedMaterials": 4,
+              "maxDrawCalls": 8
+            }
+          ]
+        },
+        "book": null,
+        "errors": [],
+        "cleanupWarnings": [],
+        "contactAccepted": false,
+        "nativePerformanceAccepted": false
+      }
+    },
+    {
+      "file": "baseline-dpr1-petting-0-light.png",
+      "variant": "baseline",
+      "dpr": 1,
+      "phase": "petting",
+      "angle": 0,
+      "dark": false,
+      "state": {
+        "ready": true,
+        "selected": "wardrobe",
+        "busy": false,
+        "paused": false,
+        "reducedMotion": false,
+        "chapterTime": 1.0000000000000013,
+        "time": 1.0010000000000014,
+        "renderedFrames": 68,
+        "state": {
+          "time": 1.0010000000000014,
+          "mode": "petting",
+          "hidden": false,
+          "pointerId": 1,
+          "captured": true,
+          "drag": {
+            "time": 1.0010000000000014,
+            "mode": "rest",
+            "held": false,
+            "pose": {
+              "body": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "joints": {
+                "Shoulder_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Shoulder_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            "lag": {
+              "x": 0,
+              "y": 0
+            },
+            "faceIntent": null
+          },
+          "pet": {
+            "time": 1.0010000000000014,
+            "phase": "enter",
+            "session": 1,
+            "held": true,
+            "qualifiedAt": 0.401,
+            "holdAge": 0.6000000000000014,
+            "responseIndex": 0,
+            "responseKind": null,
+            "interactionOwned": true,
+            "face": "petRelax",
+            "body": {
+              "x": 0.010142253005868681,
+              "y": -0.003043653259947811,
+              "z": 0.0019368702563304255
+            },
+            "joints": {
+              "Shoulder_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0.0387249660224077
+              },
+              "Shoulder_R": {
+                "x": 0,
+                "y": 0,
+                "z": -0.039970096901477264
+              },
+              "Hip_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Hip_R": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            }
+          },
+          "body": {
+            "root": [
+              0,
+              0.003289585317233245,
+              0
+            ],
+            "pivot": [
+              0.0050725702882239545,
+              -0.00151689473154918,
+              0.0009761387387903528,
+              0.9999855075020873
+            ],
+            "jointQuaternions": {
+              "Shoulder_L": [
+                -0.5095869130825147,
+                0.49022563989966256,
+                0.5095869130825147,
+                0.49022563989966256
+              ],
+              "Shoulder_R": [
+                -0.5098920118489615,
+                -0.4899082937169144,
+                -0.5098920118489615,
+                0.4899082937169144
+              ],
+              "Hip_L": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ],
+              "Hip_R": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ]
+            },
+            "minimumFootY": 0.006000000052152773,
+            "actorMatrix": [
+              0.9853264289725738,
+              0.0036696087009575164,
+              -0.17064103357673732,
+              0,
+              -0.0019676382944946763,
+              0.9999466323676673,
+              0.010142032148599017,
+              0,
+              0.17066914415821444,
+              -0.009657452487226369,
+              0.9852810648965905,
+              0,
+              0.0017708744650452087,
+              0.0033376161863326592,
+              -0.009127828933739117,
+              1
+            ]
+          },
+          "face": {
+            "time": 1.0010000000000014,
+            "phase": "enter",
+            "owner": "interaction",
+            "requestId": "pointer2",
+            "candidate": "petRelax",
+            "token": 2,
+            "logicalArrival": null,
+            "path": "08",
+            "amount": 0.6535197113313079,
+            "clockArrival": 1.5176666666666665,
+            "clockActualArrival": null,
+            "deadline": 1.5176666666666665,
+            "queued": 0,
+            "epoch": 1
+          }
+        },
+        "mounts": [
+          "sakura",
+          "leaf",
+          "satchel",
+          "cape",
+          "halo"
+        ],
+        "resources": {
+          "geometries": 42,
+          "textures": 18
+        },
+        "pool": {
+          "budget": {
+            "maxBytes": 134217728,
+            "claimedBytes": 20037298,
+            "residentBytes": 20037298,
+            "pendingReservations": 0,
+            "claims": 4,
+            "closed": false
+          },
+          "parts": {
+            "closed": false,
+            "references": 1,
+            "resident": true
+          },
+          "actors": 1,
+          "pending": 0,
+          "mounts": 5,
+          "emitters": [
+            {
+              "disposed": false,
+              "liveParticles": 16,
+              "activeEmitters": 4,
+              "allocatedParticleSlots": 96,
+              "poolBytes": 13056,
+              "ownedGeometries": 1,
+              "ownedMaterials": 4,
+              "maxDrawCalls": 8
+            }
+          ]
+        },
+        "book": null,
+        "errors": [],
+        "cleanupWarnings": [],
+        "contactAccepted": false,
+        "nativePerformanceAccepted": false
+      }
+    },
+    {
+      "file": "baseline-dpr1-petting--60-light.png",
+      "variant": "baseline",
+      "dpr": 1,
+      "phase": "petting",
+      "angle": -60,
+      "dark": false,
+      "state": {
+        "ready": true,
+        "selected": "wardrobe",
+        "busy": false,
+        "paused": false,
+        "reducedMotion": false,
+        "chapterTime": 1.0000000000000013,
+        "time": 1.0010000000000014,
+        "renderedFrames": 69,
+        "state": {
+          "time": 1.0010000000000014,
+          "mode": "petting",
+          "hidden": false,
+          "pointerId": 1,
+          "captured": true,
+          "drag": {
+            "time": 1.0010000000000014,
+            "mode": "rest",
+            "held": false,
+            "pose": {
+              "body": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "joints": {
+                "Shoulder_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Shoulder_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            "lag": {
+              "x": 0,
+              "y": 0
+            },
+            "faceIntent": null
+          },
+          "pet": {
+            "time": 1.0010000000000014,
+            "phase": "enter",
+            "session": 1,
+            "held": true,
+            "qualifiedAt": 0.401,
+            "holdAge": 0.6000000000000014,
+            "responseIndex": 0,
+            "responseKind": null,
+            "interactionOwned": true,
+            "face": "petRelax",
+            "body": {
+              "x": 0.010142253005868681,
+              "y": -0.003043653259947811,
+              "z": 0.0019368702563304255
+            },
+            "joints": {
+              "Shoulder_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0.0387249660224077
+              },
+              "Shoulder_R": {
+                "x": 0,
+                "y": 0,
+                "z": -0.039970096901477264
+              },
+              "Hip_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Hip_R": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            }
+          },
+          "body": {
+            "root": [
+              0,
+              0.003289585317233245,
+              0
+            ],
+            "pivot": [
+              0.0050725702882239545,
+              -0.00151689473154918,
+              0.0009761387387903528,
+              0.9999855075020873
+            ],
+            "jointQuaternions": {
+              "Shoulder_L": [
+                -0.5095869130825147,
+                0.49022563989966256,
+                0.5095869130825147,
+                0.49022563989966256
+              ],
+              "Shoulder_R": [
+                -0.5098920118489615,
+                -0.4899082937169144,
+                -0.5098920118489615,
+                0.4899082937169144
+              ],
+              "Hip_L": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ],
+              "Hip_R": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ]
+            },
+            "minimumFootY": 0.006000000052152773,
+            "actorMatrix": [
+              0.9853264289725738,
+              0.0036696087009575164,
+              -0.17064103357673732,
+              0,
+              -0.0019676382944946763,
+              0.9999466323676673,
+              0.010142032148599017,
+              0,
+              0.17066914415821444,
+              -0.009657452487226369,
+              0.9852810648965905,
+              0,
+              0.0017708744650452087,
+              0.0033376161863326592,
+              -0.009127828933739117,
+              1
+            ]
+          },
+          "face": {
+            "time": 1.0010000000000014,
+            "phase": "enter",
+            "owner": "interaction",
+            "requestId": "pointer2",
+            "candidate": "petRelax",
+            "token": 2,
+            "logicalArrival": null,
+            "path": "08",
+            "amount": 0.6535197113313079,
+            "clockArrival": 1.5176666666666665,
+            "clockActualArrival": null,
+            "deadline": 1.5176666666666665,
+            "queued": 0,
+            "epoch": 1
+          }
+        },
+        "mounts": [
+          "sakura",
+          "leaf",
+          "satchel",
+          "cape",
+          "halo"
+        ],
+        "resources": {
+          "geometries": 42,
+          "textures": 18
+        },
+        "pool": {
+          "budget": {
+            "maxBytes": 134217728,
+            "claimedBytes": 20037298,
+            "residentBytes": 20037298,
+            "pendingReservations": 0,
+            "claims": 4,
+            "closed": false
+          },
+          "parts": {
+            "closed": false,
+            "references": 1,
+            "resident": true
+          },
+          "actors": 1,
+          "pending": 0,
+          "mounts": 5,
+          "emitters": [
+            {
+              "disposed": false,
+              "liveParticles": 16,
+              "activeEmitters": 4,
+              "allocatedParticleSlots": 96,
+              "poolBytes": 13056,
+              "ownedGeometries": 1,
+              "ownedMaterials": 4,
+              "maxDrawCalls": 8
+            }
+          ]
+        },
+        "book": null,
+        "errors": [],
+        "cleanupWarnings": [],
+        "contactAccepted": false,
+        "nativePerformanceAccepted": false
+      }
+    },
+    {
+      "file": "baseline-dpr1-drag-0-light.png",
+      "variant": "baseline",
+      "dpr": 1,
+      "phase": "drag",
+      "angle": 0,
+      "dark": false,
+      "state": {
+        "ready": true,
+        "selected": "wardrobe",
+        "busy": false,
+        "paused": false,
+        "reducedMotion": false,
+        "chapterTime": 2.9999999999999942,
+        "time": 3.0629999999999877,
+        "renderedFrames": 191,
+        "state": {
+          "time": 3.0629999999999877,
+          "mode": "drag",
+          "hidden": false,
+          "pointerId": 1,
+          "captured": true,
+          "drag": {
+            "time": 3.0629999999999877,
+            "mode": "pickup",
+            "held": true,
+            "pose": {
+              "body": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "joints": {
+                "Shoulder_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Shoulder_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            "lag": {
+              "x": 0.1885154270205803,
+              "y": 0.14138655850302387
+            },
+            "faceIntent": "N3"
+          },
+          "pet": {
+            "time": 3.0629999999999877,
+            "phase": "release",
+            "session": 2,
+            "held": false,
+            "qualifiedAt": null,
+            "holdAge": 0,
+            "responseIndex": 0,
+            "responseKind": null,
+            "interactionOwned": true,
+            "face": "petRelax",
+            "body": {
+              "x": -3.507427757065327e-11,
+              "y": 1.0525663203871988e-11,
+              "z": -6.698149311554881e-12
+            },
+            "joints": {
+              "Shoulder_L": {
+                "x": 0,
+                "y": 0,
+                "z": -1.339199689061303e-10
+              },
+              "Shoulder_R": {
+                "x": 0,
+                "y": 0,
+                "z": 1.3822592203498678e-10
+              },
+              "Hip_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Hip_R": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            }
+          },
+          "body": {
+            "root": [
+              0.30517178139719836,
+              0.22887878705821163,
+              1.046521830860847e-06
+            ],
+            "pivot": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "jointQuaternions": {
+              "Shoulder_L": [
+                -0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "Shoulder_R": [
+                -0.5,
+                -0.5,
+                -0.5,
+                0.5
+              ],
+              "Hip_L": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ],
+              "Hip_R": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ]
+            },
+            "minimumFootY": 0.23487878711036445,
+            "actorMatrix": [
+              0.984807753012208,
+              0,
+              -0.17364817766693033,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0.17364817766693033,
+              0,
+              0.984807753012208,
+              0,
+              0.30517178139719836,
+              0.22887878705821174,
+              1.046521830860847e-06,
+              1
+            ]
+          },
+          "face": {
+            "time": 3.0629999999999877,
+            "phase": "hold",
+            "owner": "interaction",
+            "requestId": "pointer3",
+            "candidate": "N3",
+            "token": 4,
+            "logicalArrival": 2.8629999999999978,
+            "path": "N3",
+            "amount": 1,
+            "clockArrival": 2.8629999999999978,
+            "clockActualArrival": 2.8629999999999978,
+            "deadline": 3602.863,
+            "queued": 0,
+            "epoch": 1
+          }
+        },
+        "mounts": [
+          "sakura",
+          "leaf",
+          "satchel",
+          "cape",
+          "halo"
+        ],
+        "resources": {
+          "geometries": 42,
+          "textures": 18
+        },
+        "pool": {
+          "budget": {
+            "maxBytes": 134217728,
+            "claimedBytes": 20037298,
+            "residentBytes": 20037298,
+            "pendingReservations": 0,
+            "claims": 4,
+            "closed": false
+          },
+          "parts": {
+            "closed": false,
+            "references": 1,
+            "resident": true
+          },
+          "actors": 1,
+          "pending": 0,
+          "mounts": 5,
+          "emitters": [
+            {
+              "disposed": false,
+              "liveParticles": 20,
+              "activeEmitters": 4,
+              "allocatedParticleSlots": 96,
+              "poolBytes": 13056,
+              "ownedGeometries": 1,
+              "ownedMaterials": 4,
+              "maxDrawCalls": 8
+            }
+          ]
+        },
+        "book": null,
+        "errors": [],
+        "cleanupWarnings": [],
+        "contactAccepted": false,
+        "nativePerformanceAccepted": false
+      }
+    },
+    {
+      "file": "baseline-dpr1-drag--60-light.png",
+      "variant": "baseline",
+      "dpr": 1,
+      "phase": "drag",
+      "angle": -60,
+      "dark": false,
+      "state": {
+        "ready": true,
+        "selected": "wardrobe",
+        "busy": false,
+        "paused": false,
+        "reducedMotion": false,
+        "chapterTime": 2.9999999999999942,
+        "time": 3.0629999999999877,
+        "renderedFrames": 192,
+        "state": {
+          "time": 3.0629999999999877,
+          "mode": "drag",
+          "hidden": false,
+          "pointerId": 1,
+          "captured": true,
+          "drag": {
+            "time": 3.0629999999999877,
+            "mode": "pickup",
+            "held": true,
+            "pose": {
+              "body": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "joints": {
+                "Shoulder_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Shoulder_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            "lag": {
+              "x": 0.1885154270205803,
+              "y": 0.14138655850302387
+            },
+            "faceIntent": "N3"
+          },
+          "pet": {
+            "time": 3.0629999999999877,
+            "phase": "release",
+            "session": 2,
+            "held": false,
+            "qualifiedAt": null,
+            "holdAge": 0,
+            "responseIndex": 0,
+            "responseKind": null,
+            "interactionOwned": true,
+            "face": "petRelax",
+            "body": {
+              "x": -3.507427757065327e-11,
+              "y": 1.0525663203871988e-11,
+              "z": -6.698149311554881e-12
+            },
+            "joints": {
+              "Shoulder_L": {
+                "x": 0,
+                "y": 0,
+                "z": -1.339199689061303e-10
+              },
+              "Shoulder_R": {
+                "x": 0,
+                "y": 0,
+                "z": 1.3822592203498678e-10
+              },
+              "Hip_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Hip_R": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            }
+          },
+          "body": {
+            "root": [
+              0.30517178139719836,
+              0.22887878705821163,
+              1.046521830860847e-06
+            ],
+            "pivot": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "jointQuaternions": {
+              "Shoulder_L": [
+                -0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "Shoulder_R": [
+                -0.5,
+                -0.5,
+                -0.5,
+                0.5
+              ],
+              "Hip_L": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ],
+              "Hip_R": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ]
+            },
+            "minimumFootY": 0.23487878711036445,
+            "actorMatrix": [
+              0.984807753012208,
+              0,
+              -0.17364817766693033,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0.17364817766693033,
+              0,
+              0.984807753012208,
+              0,
+              0.30517178139719836,
+              0.22887878705821174,
+              1.046521830860847e-06,
+              1
+            ]
+          },
+          "face": {
+            "time": 3.0629999999999877,
+            "phase": "hold",
+            "owner": "interaction",
+            "requestId": "pointer3",
+            "candidate": "N3",
+            "token": 4,
+            "logicalArrival": 2.8629999999999978,
+            "path": "N3",
+            "amount": 1,
+            "clockArrival": 2.8629999999999978,
+            "clockActualArrival": 2.8629999999999978,
+            "deadline": 3602.863,
+            "queued": 0,
+            "epoch": 1
+          }
+        },
+        "mounts": [
+          "sakura",
+          "leaf",
+          "satchel",
+          "cape",
+          "halo"
+        ],
+        "resources": {
+          "geometries": 42,
+          "textures": 18
+        },
+        "pool": {
+          "budget": {
+            "maxBytes": 134217728,
+            "claimedBytes": 20037298,
+            "residentBytes": 20037298,
+            "pendingReservations": 0,
+            "claims": 4,
+            "closed": false
+          },
+          "parts": {
+            "closed": false,
+            "references": 1,
+            "resident": true
+          },
+          "actors": 1,
+          "pending": 0,
+          "mounts": 5,
+          "emitters": [
+            {
+              "disposed": false,
+              "liveParticles": 20,
+              "activeEmitters": 4,
+              "allocatedParticleSlots": 96,
+              "poolBytes": 13056,
+              "ownedGeometries": 1,
+              "ownedMaterials": 4,
+              "maxDrawCalls": 8
+            }
+          ]
+        },
+        "book": null,
+        "errors": [],
+        "cleanupWarnings": [],
+        "contactAccepted": false,
+        "nativePerformanceAccepted": false
+      }
+    },
+    {
+      "file": "baseline-dpr1-landing-0-light.png",
+      "variant": "baseline",
+      "dpr": 1,
+      "phase": "landing",
+      "angle": 0,
+      "dark": false,
+      "state": {
+        "ready": true,
+        "selected": "wardrobe",
+        "busy": false,
+        "paused": false,
+        "reducedMotion": false,
+        "chapterTime": 3.1666666666666603,
+        "time": 3.2306666666666537,
+        "renderedFrames": 203,
+        "state": {
+          "time": 3.2306666666666537,
+          "mode": "landing",
+          "hidden": false,
+          "pointerId": null,
+          "captured": false,
+          "drag": {
+            "time": 3.2306666666666537,
+            "mode": "descending",
+            "held": false,
+            "pose": {
+              "body": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "joints": {
+                "Shoulder_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Shoulder_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            "lag": {
+              "x": 0.04913871483248245,
+              "y": 0.036854052441408644
+            },
+            "faceIntent": null
+          },
+          "pet": {
+            "time": 3.2306666666666537,
+            "phase": "release",
+            "session": 2,
+            "held": false,
+            "qualifiedAt": null,
+            "holdAge": 0,
+            "responseIndex": 0,
+            "responseKind": null,
+            "interactionOwned": true,
+            "face": "petRelax",
+            "body": {
+              "x": -7.103665386615349e-12,
+              "y": 2.1317841606829637e-12,
+              "z": -1.3565899204346088e-12
+            },
+            "joints": {
+              "Shoulder_L": {
+                "x": 0,
+                "y": 0,
+                "z": -2.7123086021622172e-11
+              },
+              "Shoulder_R": {
+                "x": 0,
+                "y": 0,
+                "z": 2.7995179541901538e-11
+              },
+              "Hip_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Hip_R": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            }
+          },
+          "body": {
+            "root": [
+              -0.4373139097301141,
+              0.19310142568201707,
+              1.046521830860847e-06
+            ],
+            "pivot": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "jointQuaternions": {
+              "Shoulder_L": [
+                -0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "Shoulder_R": [
+                -0.5,
+                -0.5,
+                -0.5,
+                0.5
+              ],
+              "Hip_L": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ],
+              "Hip_R": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ]
+            },
+            "minimumFootY": 0.19910142573416975,
+            "actorMatrix": [
+              0.984807753012208,
+              0,
+              -0.17364817766693033,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0.17364817766693033,
+              0,
+              0.984807753012208,
+              0,
+              -0.4373139097301141,
+              0.19310142568201705,
+              1.046521830860847e-06,
+              1
+            ]
+          },
+          "face": {
+            "time": 3.2306666666666537,
+            "phase": "exit",
+            "owner": "interaction",
+            "requestId": "pointer3",
+            "candidate": "N3",
+            "token": 5,
+            "logicalArrival": null,
+            "path": "N3",
+            "amount": 0.07407407407407719,
+            "clockArrival": 3.263999999999988,
+            "clockActualArrival": null,
+            "deadline": 3.263999999999988,
+            "queued": 0,
+            "epoch": 1
+          }
+        },
+        "mounts": [
+          "sakura",
+          "leaf",
+          "satchel",
+          "cape",
+          "halo"
+        ],
+        "resources": {
+          "geometries": 42,
+          "textures": 18
+        },
+        "pool": {
+          "budget": {
+            "maxBytes": 134217728,
+            "claimedBytes": 20037298,
+            "residentBytes": 20037298,
+            "pendingReservations": 0,
+            "claims": 4,
+            "closed": false
+          },
+          "parts": {
+            "closed": false,
+            "references": 1,
+            "resident": true
+          },
+          "actors": 1,
+          "pending": 0,
+          "mounts": 5,
+          "emitters": [
+            {
+              "disposed": false,
+              "liveParticles": 16,
+              "activeEmitters": 4,
+              "allocatedParticleSlots": 96,
+              "poolBytes": 13056,
+              "ownedGeometries": 1,
+              "ownedMaterials": 4,
+              "maxDrawCalls": 8
+            }
+          ]
+        },
+        "book": null,
+        "errors": [],
+        "cleanupWarnings": [],
+        "contactAccepted": false,
+        "nativePerformanceAccepted": false
+      }
+    },
+    {
+      "file": "baseline-dpr1-landing--60-light.png",
+      "variant": "baseline",
+      "dpr": 1,
+      "phase": "landing",
+      "angle": -60,
+      "dark": false,
+      "state": {
+        "ready": true,
+        "selected": "wardrobe",
+        "busy": false,
+        "paused": false,
+        "reducedMotion": false,
+        "chapterTime": 3.1666666666666603,
+        "time": 3.2306666666666537,
+        "renderedFrames": 204,
+        "state": {
+          "time": 3.2306666666666537,
+          "mode": "landing",
+          "hidden": false,
+          "pointerId": null,
+          "captured": false,
+          "drag": {
+            "time": 3.2306666666666537,
+            "mode": "descending",
+            "held": false,
+            "pose": {
+              "body": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "joints": {
+                "Shoulder_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Shoulder_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            "lag": {
+              "x": 0.04913871483248245,
+              "y": 0.036854052441408644
+            },
+            "faceIntent": null
+          },
+          "pet": {
+            "time": 3.2306666666666537,
+            "phase": "release",
+            "session": 2,
+            "held": false,
+            "qualifiedAt": null,
+            "holdAge": 0,
+            "responseIndex": 0,
+            "responseKind": null,
+            "interactionOwned": true,
+            "face": "petRelax",
+            "body": {
+              "x": -7.103665386615349e-12,
+              "y": 2.1317841606829637e-12,
+              "z": -1.3565899204346088e-12
+            },
+            "joints": {
+              "Shoulder_L": {
+                "x": 0,
+                "y": 0,
+                "z": -2.7123086021622172e-11
+              },
+              "Shoulder_R": {
+                "x": 0,
+                "y": 0,
+                "z": 2.7995179541901538e-11
+              },
+              "Hip_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Hip_R": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            }
+          },
+          "body": {
+            "root": [
+              -0.4373139097301141,
+              0.19310142568201707,
+              1.046521830860847e-06
+            ],
+            "pivot": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "jointQuaternions": {
+              "Shoulder_L": [
+                -0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "Shoulder_R": [
+                -0.5,
+                -0.5,
+                -0.5,
+                0.5
+              ],
+              "Hip_L": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ],
+              "Hip_R": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ]
+            },
+            "minimumFootY": 0.19910142573416975,
+            "actorMatrix": [
+              0.984807753012208,
+              0,
+              -0.17364817766693033,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0.17364817766693033,
+              0,
+              0.984807753012208,
+              0,
+              -0.4373139097301141,
+              0.19310142568201705,
+              1.046521830860847e-06,
+              1
+            ]
+          },
+          "face": {
+            "time": 3.2306666666666537,
+            "phase": "exit",
+            "owner": "interaction",
+            "requestId": "pointer3",
+            "candidate": "N3",
+            "token": 5,
+            "logicalArrival": null,
+            "path": "N3",
+            "amount": 0.07407407407407719,
+            "clockArrival": 3.263999999999988,
+            "clockActualArrival": null,
+            "deadline": 3.263999999999988,
+            "queued": 0,
+            "epoch": 1
+          }
+        },
+        "mounts": [
+          "sakura",
+          "leaf",
+          "satchel",
+          "cape",
+          "halo"
+        ],
+        "resources": {
+          "geometries": 42,
+          "textures": 18
+        },
+        "pool": {
+          "budget": {
+            "maxBytes": 134217728,
+            "claimedBytes": 20037298,
+            "residentBytes": 20037298,
+            "pendingReservations": 0,
+            "claims": 4,
+            "closed": false
+          },
+          "parts": {
+            "closed": false,
+            "references": 1,
+            "resident": true
+          },
+          "actors": 1,
+          "pending": 0,
+          "mounts": 5,
+          "emitters": [
+            {
+              "disposed": false,
+              "liveParticles": 16,
+              "activeEmitters": 4,
+              "allocatedParticleSlots": 96,
+              "poolBytes": 13056,
+              "ownedGeometries": 1,
+              "ownedMaterials": 4,
+              "maxDrawCalls": 8
+            }
+          ]
+        },
+        "book": null,
+        "errors": [],
+        "cleanupWarnings": [],
+        "contactAccepted": false,
+        "nativePerformanceAccepted": false
+      }
+    },
+    {
+      "file": "baseline-dpr2-idle-0-light.png",
+      "variant": "baseline",
+      "dpr": 2,
+      "phase": "idle",
+      "angle": 0,
+      "dark": false,
+      "state": {
+        "ready": true,
+        "selected": "wardrobe",
+        "busy": false,
+        "paused": false,
+        "reducedMotion": false,
+        "chapterTime": 0,
+        "time": 0,
+        "renderedFrames": 3,
+        "state": {
+          "time": 0,
+          "mode": "idle",
+          "hidden": false,
+          "pointerId": null,
+          "captured": false,
+          "drag": {
+            "time": 0,
+            "mode": "rest",
+            "held": false,
+            "pose": {
+              "body": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "joints": {
+                "Shoulder_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Shoulder_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            "lag": {
+              "x": 0,
+              "y": 0
+            },
+            "faceIntent": null
+          },
+          "pet": {
+            "time": 0,
+            "phase": "idle",
+            "session": 0,
+            "held": false,
+            "qualifiedAt": null,
+            "holdAge": 0,
+            "responseIndex": 0,
+            "responseKind": null,
+            "interactionOwned": false,
+            "face": null,
+            "body": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "joints": {
+              "Shoulder_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Shoulder_R": {
+                "x": 0,
+                "y": 0,
+                "z": -0.0
+              },
+              "Hip_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Hip_R": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            }
+          },
+          "body": {
+            "root": [
+              0,
+              0,
+              0
+            ],
+            "pivot": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "jointQuaternions": {
+              "Shoulder_L": [
+                -0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "Shoulder_R": [
+                -0.5,
+                -0.5,
+                -0.5,
+                0.5
+              ],
+              "Hip_L": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ],
+              "Hip_R": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ]
+            },
+            "minimumFootY": 0.006000000052152756,
+            "actorMatrix": [
+              0.984807753012208,
+              0,
+              -0.17364817766693033,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0.17364817766693033,
+              0,
+              0.984807753012208,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "face": {
+            "time": 0,
+            "phase": "idle",
+            "owner": null,
+            "requestId": null,
+            "candidate": null,
+            "token": 0,
+            "logicalArrival": null,
+            "path": null,
+            "amount": 0,
+            "clockArrival": 0,
+            "clockActualArrival": 0,
+            "deadline": Infinity,
+            "queued": 0,
+            "epoch": 1
+          }
+        },
+        "mounts": [
+          "sakura",
+          "leaf",
+          "satchel",
+          "cape",
+          "halo"
+        ],
+        "resources": {
+          "geometries": 42,
+          "textures": 18
+        },
+        "pool": {
+          "budget": {
+            "maxBytes": 134217728,
+            "claimedBytes": 20037298,
+            "residentBytes": 20037298,
+            "pendingReservations": 0,
+            "claims": 4,
+            "closed": false
+          },
+          "parts": {
+            "closed": false,
+            "references": 1,
+            "resident": true
+          },
+          "actors": 1,
+          "pending": 0,
+          "mounts": 5,
+          "emitters": [
+            {
+              "disposed": false,
+              "liveParticles": 0,
+              "activeEmitters": 4,
+              "allocatedParticleSlots": 96,
+              "poolBytes": 13056,
+              "ownedGeometries": 1,
+              "ownedMaterials": 4,
+              "maxDrawCalls": 8
+            }
+          ]
+        },
+        "book": null,
+        "errors": [],
+        "cleanupWarnings": [],
+        "contactAccepted": false,
+        "nativePerformanceAccepted": false
+      }
+    },
+    {
+      "file": "baseline-dpr2-idle-0-dark.png",
+      "variant": "baseline",
+      "dpr": 2,
+      "phase": "idle",
+      "angle": 0,
+      "dark": true,
+      "state": {
+        "ready": true,
+        "selected": "wardrobe",
+        "busy": false,
+        "paused": false,
+        "reducedMotion": false,
+        "chapterTime": 0,
+        "time": 0,
+        "renderedFrames": 3,
+        "state": {
+          "time": 0,
+          "mode": "idle",
+          "hidden": false,
+          "pointerId": null,
+          "captured": false,
+          "drag": {
+            "time": 0,
+            "mode": "rest",
+            "held": false,
+            "pose": {
+              "body": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "joints": {
+                "Shoulder_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Shoulder_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            "lag": {
+              "x": 0,
+              "y": 0
+            },
+            "faceIntent": null
+          },
+          "pet": {
+            "time": 0,
+            "phase": "idle",
+            "session": 0,
+            "held": false,
+            "qualifiedAt": null,
+            "holdAge": 0,
+            "responseIndex": 0,
+            "responseKind": null,
+            "interactionOwned": false,
+            "face": null,
+            "body": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "joints": {
+              "Shoulder_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Shoulder_R": {
+                "x": 0,
+                "y": 0,
+                "z": -0.0
+              },
+              "Hip_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Hip_R": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            }
+          },
+          "body": {
+            "root": [
+              0,
+              0,
+              0
+            ],
+            "pivot": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "jointQuaternions": {
+              "Shoulder_L": [
+                -0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "Shoulder_R": [
+                -0.5,
+                -0.5,
+                -0.5,
+                0.5
+              ],
+              "Hip_L": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ],
+              "Hip_R": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ]
+            },
+            "minimumFootY": 0.006000000052152756,
+            "actorMatrix": [
+              0.984807753012208,
+              0,
+              -0.17364817766693033,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0.17364817766693033,
+              0,
+              0.984807753012208,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "face": {
+            "time": 0,
+            "phase": "idle",
+            "owner": null,
+            "requestId": null,
+            "candidate": null,
+            "token": 0,
+            "logicalArrival": null,
+            "path": null,
+            "amount": 0,
+            "clockArrival": 0,
+            "clockActualArrival": 0,
+            "deadline": Infinity,
+            "queued": 0,
+            "epoch": 1
+          }
+        },
+        "mounts": [
+          "sakura",
+          "leaf",
+          "satchel",
+          "cape",
+          "halo"
+        ],
+        "resources": {
+          "geometries": 42,
+          "textures": 18
+        },
+        "pool": {
+          "budget": {
+            "maxBytes": 134217728,
+            "claimedBytes": 20037298,
+            "residentBytes": 20037298,
+            "pendingReservations": 0,
+            "claims": 4,
+            "closed": false
+          },
+          "parts": {
+            "closed": false,
+            "references": 1,
+            "resident": true
+          },
+          "actors": 1,
+          "pending": 0,
+          "mounts": 5,
+          "emitters": [
+            {
+              "disposed": false,
+              "liveParticles": 0,
+              "activeEmitters": 4,
+              "allocatedParticleSlots": 96,
+              "poolBytes": 13056,
+              "ownedGeometries": 1,
+              "ownedMaterials": 4,
+              "maxDrawCalls": 8
+            }
+          ]
+        },
+        "book": null,
+        "errors": [],
+        "cleanupWarnings": [],
+        "contactAccepted": false,
+        "nativePerformanceAccepted": false
+      }
+    },
+    {
+      "file": "baseline-dpr2-idle--60-light.png",
+      "variant": "baseline",
+      "dpr": 2,
+      "phase": "idle",
+      "angle": -60,
+      "dark": false,
+      "state": {
+        "ready": true,
+        "selected": "wardrobe",
+        "busy": false,
+        "paused": false,
+        "reducedMotion": false,
+        "chapterTime": 0,
+        "time": 0,
+        "renderedFrames": 4,
+        "state": {
+          "time": 0,
+          "mode": "idle",
+          "hidden": false,
+          "pointerId": null,
+          "captured": false,
+          "drag": {
+            "time": 0,
+            "mode": "rest",
+            "held": false,
+            "pose": {
+              "body": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "joints": {
+                "Shoulder_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Shoulder_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            "lag": {
+              "x": 0,
+              "y": 0
+            },
+            "faceIntent": null
+          },
+          "pet": {
+            "time": 0,
+            "phase": "idle",
+            "session": 0,
+            "held": false,
+            "qualifiedAt": null,
+            "holdAge": 0,
+            "responseIndex": 0,
+            "responseKind": null,
+            "interactionOwned": false,
+            "face": null,
+            "body": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "joints": {
+              "Shoulder_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Shoulder_R": {
+                "x": 0,
+                "y": 0,
+                "z": -0.0
+              },
+              "Hip_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Hip_R": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            }
+          },
+          "body": {
+            "root": [
+              0,
+              0,
+              0
+            ],
+            "pivot": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "jointQuaternions": {
+              "Shoulder_L": [
+                -0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "Shoulder_R": [
+                -0.5,
+                -0.5,
+                -0.5,
+                0.5
+              ],
+              "Hip_L": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ],
+              "Hip_R": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ]
+            },
+            "minimumFootY": 0.006000000052152756,
+            "actorMatrix": [
+              0.984807753012208,
+              0,
+              -0.17364817766693033,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0.17364817766693033,
+              0,
+              0.984807753012208,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "face": {
+            "time": 0,
+            "phase": "idle",
+            "owner": null,
+            "requestId": null,
+            "candidate": null,
+            "token": 0,
+            "logicalArrival": null,
+            "path": null,
+            "amount": 0,
+            "clockArrival": 0,
+            "clockActualArrival": 0,
+            "deadline": Infinity,
+            "queued": 0,
+            "epoch": 1
+          }
+        },
+        "mounts": [
+          "sakura",
+          "leaf",
+          "satchel",
+          "cape",
+          "halo"
+        ],
+        "resources": {
+          "geometries": 42,
+          "textures": 18
+        },
+        "pool": {
+          "budget": {
+            "maxBytes": 134217728,
+            "claimedBytes": 20037298,
+            "residentBytes": 20037298,
+            "pendingReservations": 0,
+            "claims": 4,
+            "closed": false
+          },
+          "parts": {
+            "closed": false,
+            "references": 1,
+            "resident": true
+          },
+          "actors": 1,
+          "pending": 0,
+          "mounts": 5,
+          "emitters": [
+            {
+              "disposed": false,
+              "liveParticles": 0,
+              "activeEmitters": 4,
+              "allocatedParticleSlots": 96,
+              "poolBytes": 13056,
+              "ownedGeometries": 1,
+              "ownedMaterials": 4,
+              "maxDrawCalls": 8
+            }
+          ]
+        },
+        "book": null,
+        "errors": [],
+        "cleanupWarnings": [],
+        "contactAccepted": false,
+        "nativePerformanceAccepted": false
+      }
+    }
+  ],
+  "errors": [],
+  "modules": {
+    "baseline": "2085fc405cd4a872a12176c955ce939709d4f6b6ccef99b341037fd382df37cf",
+    "candidate": "c1e40f3713af8dddc2d344a1eaa58f0a3cd7e0e1b70edbf09b7b26fd9d0f959f"
+  },
+  "graphics": {
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "error": 0
+  },
+  "visualReview": {
+    "status": "reviewed",
+    "observed": "Both corrected petals remain recognizably the same flower, visibly separate from the ear/body in front and oblique views, with retained flower centre. Idle, drag, landing, light/dark and 1x/2x frames inspected. Existing leaf/body and satchel conflicts remain.",
+    "scope": "Two-petal candidate only; not whole-wardrobe or native acceptance"
+  },
+  "fitModuleSHA256": "3506cd4e2ee159b44cfaf5b354d6d1cd606f16ebc6b300e50820969170a45220"
+}

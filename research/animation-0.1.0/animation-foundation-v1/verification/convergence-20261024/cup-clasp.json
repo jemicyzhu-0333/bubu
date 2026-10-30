@@ -1,0 +1,2465 @@
+{
+  "status": "completed",
+  "productionAccepted": false,
+  "sourceHashes": {
+    "original-parts-hybrid-v1/tea/inputs/rigid-config.json": "b63aa7b4d3367c97bd72163329737061d62f3d787dae39f2cd971ff7a48fcc9c",
+    "original-parts-hybrid-v1/tea/inputs/hold-fit.json": "419f5d0d929edb977ce8103d4616461bf0e1c8cd09c8f8218b4c9cd611d95f0f",
+    "original-parts-hybrid-v1/tea/inputs/sip-fit.json": "7012a0c1869afde8704ba4d084d41407bbf7ee1662edc501d4bc99860b38acb6",
+    "wearable-approved-round5/accessory-expansion/models/07-cape.glb": "e29010956b989a60e196472b2206e6c397b34f12f3b7092d67f53f189c128e21",
+    "animation-foundation-v1/contact/tea-clearance-candidate.mjs": "c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745",
+    "animation-foundation-v1/integration/tea-sample-boundary.mjs": "1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166",
+    "animation-foundation-v1/contact/tea-cup-motion-bound.mjs": "a7641d8e9e73e33b1911e1375dfb7c701dc05669b44724619b2a91414279a80f",
+    "animation-foundation-v1/contact/tea-clearance-sweep.mjs": "372355a74cb6bf5836427a26d2d9535bb94d0e6ab2cbd9f26d04a715a04df43e",
+    "original-parts-hybrid-v1/tea/src/rigid-tea.mjs": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+    "original-parts-hybrid-v1/tea/src/timeline.mjs": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+    "original-parts-hybrid-v1/tea/src/cup-model.mjs": "66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca",
+    "original-parts-hybrid-v1/tea/src/scene-resources.mjs": "bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d"
+  },
+  "hz": 60,
+  "scope": "Rigid cup assembly versus exact frozen round5 cape; coherent derived motion candidate only",
+  "variants": {
+    "baseline": {
+      "samples": 1173,
+      "visibleSamples": 407,
+      "framesWithContacts": 112,
+      "pairs": {
+        "cape_clasp <> Sip_cup_shell": {
+          "samples": 112,
+          "phases": [
+            "cup-enter",
+            "hold",
+            "lift",
+            "return",
+            "cup-exit",
+            "cancel-cup"
+          ],
+          "first": {
+            "time": 1.4666666666666666,
+            "trajectory": "normal"
+          }
+        }
+      },
+      "phases": {
+        "hands-enter": 72,
+        "cup-enter": 18,
+        "hold": 54,
+        "lift": 84,
+        "sip": 84,
+        "return": 84,
+        "cup-exit": 18,
+        "hands-exit": 72,
+        "rest": 273,
+        "cancel-hands": 291,
+        "cancel-cup": 66,
+        "cancel-lift": 57
+      },
+      "minimumClaspSurfaceGap": {
+        "distance": 0,
+        "time": 1.4666666666666666,
+        "trajectory": "normal",
+        "piece": "Sip_cup_shell"
+      }
+    },
+    "candidate": {
+      "samples": 1173,
+      "visibleSamples": 407,
+      "framesWithContacts": 0,
+      "pairs": {},
+      "phases": {
+        "hands-enter": 72,
+        "cup-enter": 18,
+        "hold": 54,
+        "lift": 84,
+        "sip": 84,
+        "return": 84,
+        "cup-exit": 18,
+        "hands-exit": 72,
+        "rest": 273,
+        "cancel-hands": 291,
+        "cancel-cup": 66,
+        "cancel-lift": 57
+      },
+      "minimumClaspSurfaceGap": {
+        "distance": 0.005985347673785218,
+        "time": 1.5,
+        "trajectory": "normal",
+        "piece": "Sip_cup_shell"
+      }
+    }
+  },
+  "limitations": [
+    "Discrete surface checks do not establish continuous separation or containment.",
+    "Hands, body and cloth deformation remain separate failing gates.",
+    "No runtime admission or default tea animation is changed."
+  ],
+  "sampledCupClaspClear": true,
+  "continuousCupClasp": {
+    "status": "certified",
+    "margin": 0.000001,
+    "cupRadius": 0.46522764327482163,
+    "intervals": [
+      {
+        "cancelAt": null,
+        "begin": 6.75,
+        "end": 6.9,
+        "distance": 0.2814353728643804,
+        "bound": 0.18445549137754041,
+        "certifiedGap": 0.09697988148684
+      },
+      {
+        "cancelAt": null,
+        "begin": 6.7125,
+        "end": 6.75,
+        "distance": 0.0953632887343684,
+        "bound": 0.053953621663213776,
+        "certifiedGap": 0.04140966707115463
+      },
+      {
+        "cancelAt": null,
+        "begin": 6.69375,
+        "end": 6.7125,
+        "distance": 0.05088971200366247,
+        "bound": 0.02310393831273552,
+        "certifiedGap": 0.02778577369092695
+      },
+      {
+        "cancelAt": null,
+        "begin": 6.675,
+        "end": 6.69375,
+        "distance": 0.03175535362795972,
+        "bound": 0.018995224453175297,
+        "certifiedGap": 0.012760129174784422
+      },
+      {
+        "cancelAt": null,
+        "begin": 6.65625,
+        "end": 6.675,
+        "distance": 0.018994498541615352,
+        "bound": 0.014041308471461204,
+        "certifiedGap": 0.004953190070154148
+      },
+      {
+        "cancelAt": null,
+        "begin": 6.637499999999999,
+        "end": 6.65625,
+        "distance": 0.011265265869196706,
+        "bound": 0.008841152501405797,
+        "certifiedGap": 0.002424113367790909
+      },
+      {
+        "cancelAt": null,
+        "begin": 6.6187499999999995,
+        "end": 6.637499999999999,
+        "distance": 0.007249042734434703,
+        "bound": 0.004153441912496727,
+        "certifiedGap": 0.0030956008219379756
+      },
+      {
+        "cancelAt": null,
+        "begin": 6.6,
+        "end": 6.6187499999999995,
+        "distance": 0.006036970056131232,
+        "bound": 0.0008965853099096511,
+        "certifiedGap": 0.005140384746221581
+      },
+      {
+        "cancelAt": null,
+        "begin": 6.2,
+        "end": 6.6,
+        "distance": 0.005985347673785218,
+        "bound": 1e-12,
+        "certifiedGap": 0.0059853476727852175
+      },
+      {
+        "cancelAt": null,
+        "begin": 6.025,
+        "end": 6.2,
+        "distance": 0.006007781341586658,
+        "bound": 0.004259822371053741,
+        "certifiedGap": 0.001747958970532917
+      },
+      {
+        "cancelAt": null,
+        "begin": 5.9375,
+        "end": 6.025,
+        "distance": 0.006303787663083576,
+        "bound": 0.0058517680009284225,
+        "certifiedGap": 0.0004520196621551533
+      },
+      {
+        "cancelAt": null,
+        "begin": 5.89375,
+        "end": 5.9375,
+        "distance": 0.006651366989948123,
+        "bound": 0.003998672612211079,
+        "certifiedGap": 0.0026526943777370445
+      },
+      {
+        "cancelAt": null,
+        "begin": 5.85,
+        "end": 5.89375,
+        "distance": 0.006997708640391962,
+        "bound": 0.004861669729931163,
+        "certifiedGap": 0.0021360389104607986
+      },
+      {
+        "cancelAt": null,
+        "begin": 5.8062499999999995,
+        "end": 5.85,
+        "distance": 0.007455042546924501,
+        "bound": 0.005696448020554771,
+        "certifiedGap": 0.0017585945263697295
+      },
+      {
+        "cancelAt": null,
+        "begin": 5.762499999999999,
+        "end": 5.8062499999999995,
+        "distance": 0.00803481147499006,
+        "bound": 0.006477404060470062,
+        "certifiedGap": 0.0015574074145199984
+      },
+      {
+        "cancelAt": null,
+        "begin": 5.71875,
+        "end": 5.762499999999999,
+        "distance": 0.008710407392190606,
+        "bound": 0.007182238093630803,
+        "certifiedGap": 0.001528169298559803
+      },
+      {
+        "cancelAt": null,
+        "begin": 5.675,
+        "end": 5.71875,
+        "distance": 0.009516761515862773,
+        "bound": 0.007791954031552202,
+        "certifiedGap": 0.0017248074843105709
+      },
+      {
+        "cancelAt": null,
+        "begin": 5.63125,
+        "end": 5.675,
+        "distance": 0.010437361251593063,
+        "bound": 0.00829085945331043,
+        "certifiedGap": 0.002146501798282633
+      },
+      {
+        "cancelAt": null,
+        "begin": 5.5875,
+        "end": 5.63125,
+        "distance": 0.01143196440476198,
+        "bound": 0.008666565605546924,
+        "certifiedGap": 0.0027653987992150558
+      },
+      {
+        "cancelAt": null,
+        "begin": 5.54375,
+        "end": 5.5875,
+        "distance": 0.012518344784358459,
+        "bound": 0.008909987402464596,
+        "certifiedGap": 0.0036083573818938633
+      },
+      {
+        "cancelAt": null,
+        "begin": 5.5,
+        "end": 5.54375,
+        "distance": 0.013638807078015588,
+        "bound": 0.009015343425827967,
+        "certifiedGap": 0.004623463652187621
+      },
+      {
+        "cancelAt": null,
+        "begin": 5.45625,
+        "end": 5.5,
+        "distance": 0.014793914946032122,
+        "bound": 0.0090153434258279,
+        "certifiedGap": 0.005778571520204223
+      },
+      {
+        "cancelAt": null,
+        "begin": 5.4125,
+        "end": 5.45625,
+        "distance": 0.01597155487149681,
+        "bound": 0.008909987402464696,
+        "certifiedGap": 0.007061567469032115
+      },
+      {
+        "cancelAt": null,
+        "begin": 5.325,
+        "end": 5.4125,
+        "distance": 0.017691201459050194,
+        "bound": 0.017161323290236744,
+        "certifiedGap": 0.0005298781688134503
+      },
+      {
+        "cancelAt": null,
+        "begin": 5.237500000000001,
+        "end": 5.325,
+        "distance": 0.01991072502734703,
+        "bound": 0.015291998061064621,
+        "certifiedGap": 0.00461872696628241
+      },
+      {
+        "cancelAt": null,
+        "begin": 5.15,
+        "end": 5.237500000000001,
+        "distance": 0.021889998469960738,
+        "bound": 0.012572529045782545,
+        "certifiedGap": 0.009317469424178193
+      },
+      {
+        "cancelAt": null,
+        "begin": 4.975,
+        "end": 5.15,
+        "distance": 0.024180524519428218,
+        "bound": 0.016857808009777344,
+        "certifiedGap": 0.0073227165096508735
+      },
+      {
+        "cancelAt": null,
+        "begin": 4.8,
+        "end": 4.975,
+        "distance": 0.025435838081518992,
+        "bound": 0.0042598223710540485,
+        "certifiedGap": 0.021176015710464943
+      },
+      {
+        "cancelAt": null,
+        "begin": 3.4,
+        "end": 4.8,
+        "distance": 0.02549773106844322,
+        "bound": 1e-12,
+        "certifiedGap": 0.02549773106744322
+      },
+      {
+        "cancelAt": null,
+        "begin": 3.2249999999999996,
+        "end": 3.4,
+        "distance": 0.025435838081518777,
+        "bound": 0.004259822371053912,
+        "certifiedGap": 0.021176015710464863
+      },
+      {
+        "cancelAt": null,
+        "begin": 3.05,
+        "end": 3.2249999999999996,
+        "distance": 0.024180524519428218,
+        "bound": 0.01685780800977741,
+        "certifiedGap": 0.007322716509650808
+      },
+      {
+        "cancelAt": null,
+        "begin": 2.9625,
+        "end": 3.05,
+        "distance": 0.021889998469960738,
+        "bound": 0.01257252904578234,
+        "certifiedGap": 0.009317469424178397
+      },
+      {
+        "cancelAt": null,
+        "begin": 2.875,
+        "end": 2.9625,
+        "distance": 0.019910725027346924,
+        "bound": 0.01529199806106472,
+        "certifiedGap": 0.004618726966282204
+      },
+      {
+        "cancelAt": null,
+        "begin": 2.7875,
+        "end": 2.875,
+        "distance": 0.017691201459050194,
+        "bound": 0.017161323290236848,
+        "certifiedGap": 0.0005298781688133462
+      },
+      {
+        "cancelAt": null,
+        "begin": 2.7437500000000004,
+        "end": 2.7875,
+        "distance": 0.01597155487149681,
+        "bound": 0.008909987402464252,
+        "certifiedGap": 0.007061567469032559
+      },
+      {
+        "cancelAt": null,
+        "begin": 2.7,
+        "end": 2.7437500000000004,
+        "distance": 0.014793914946032011,
+        "bound": 0.009015343425828172,
+        "certifiedGap": 0.00577857152020384
+      },
+      {
+        "cancelAt": null,
+        "begin": 2.65625,
+        "end": 2.7,
+        "distance": 0.013638807078015588,
+        "bound": 0.009015343425828054,
+        "certifiedGap": 0.004623463652187534
+      },
+      {
+        "cancelAt": null,
+        "begin": 2.6125000000000003,
+        "end": 2.65625,
+        "distance": 0.012518344784358681,
+        "bound": 0.008909987402464339,
+        "certifiedGap": 0.003608357381894342
+      },
+      {
+        "cancelAt": null,
+        "begin": 2.5687500000000005,
+        "end": 2.6125000000000003,
+        "distance": 0.01143196440476209,
+        "bound": 0.008666565605547145,
+        "certifiedGap": 0.0027653987992149447
+      },
+      {
+        "cancelAt": null,
+        "begin": 2.5250000000000004,
+        "end": 2.5687500000000005,
+        "distance": 0.010437361251593063,
+        "bound": 0.008290859453310585,
+        "certifiedGap": 0.0021465017982824786
+      },
+      {
+        "cancelAt": null,
+        "begin": 2.48125,
+        "end": 2.5250000000000004,
+        "distance": 0.009516761515862773,
+        "bound": 0.007791954031551954,
+        "certifiedGap": 0.001724807484310819
+      },
+      {
+        "cancelAt": null,
+        "begin": 2.4375,
+        "end": 2.48125,
+        "distance": 0.008710407392190606,
+        "bound": 0.007182238093631077,
+        "certifiedGap": 0.0015281692985595289
+      },
+      {
+        "cancelAt": null,
+        "begin": 2.39375,
+        "end": 2.4375,
+        "distance": 0.008034811474990172,
+        "bound": 0.0064774040604702494,
+        "certifiedGap": 0.001557407414519922
+      },
+      {
+        "cancelAt": null,
+        "begin": 2.35,
+        "end": 2.39375,
+        "distance": 0.007455042546924501,
+        "bound": 0.00569644802055437,
+        "certifiedGap": 0.0017585945263701311
+      },
+      {
+        "cancelAt": null,
+        "begin": 2.3062500000000004,
+        "end": 2.35,
+        "distance": 0.006997708640391851,
+        "bound": 0.0048616697299313045,
+        "certifiedGap": 0.002136038910460546
+      },
+      {
+        "cancelAt": null,
+        "begin": 2.2625,
+        "end": 2.3062500000000004,
+        "distance": 0.006651366989948122,
+        "bound": 0.003998672612210932,
+        "certifiedGap": 0.00265269437773719
+      },
+      {
+        "cancelAt": null,
+        "begin": 2.175,
+        "end": 2.2625,
+        "distance": 0.006303787663083576,
+        "bound": 0.005851768000928693,
+        "certifiedGap": 0.0004520196621548827
+      },
+      {
+        "cancelAt": null,
+        "begin": 2,
+        "end": 2.175,
+        "distance": 0.006007781341586658,
+        "bound": 0.004259822371054036,
+        "certifiedGap": 0.0017479589705326213
+      },
+      {
+        "cancelAt": null,
+        "begin": 1.5,
+        "end": 2,
+        "distance": 0.005985347673785218,
+        "bound": 1e-12,
+        "certifiedGap": 0.0059853476727852175
+      },
+      {
+        "cancelAt": null,
+        "begin": 1.48125,
+        "end": 1.5,
+        "distance": 0.006036970056131009,
+        "bound": 0.0008965853099103743,
+        "certifiedGap": 0.005140384746220634
+      },
+      {
+        "cancelAt": null,
+        "begin": 1.4625,
+        "end": 1.48125,
+        "distance": 0.007249042734434814,
+        "bound": 0.0041534419124963145,
+        "certifiedGap": 0.0030956008219384995
+      },
+      {
+        "cancelAt": null,
+        "begin": 1.44375,
+        "end": 1.4625,
+        "distance": 0.011265265869196706,
+        "bound": 0.008841152501405384,
+        "certifiedGap": 0.002424113367791322
+      },
+      {
+        "cancelAt": null,
+        "begin": 1.425,
+        "end": 1.44375,
+        "distance": 0.018994498541614908,
+        "bound": 0.014041308471461721,
+        "certifiedGap": 0.004953190070153187
+      },
+      {
+        "cancelAt": null,
+        "begin": 1.40625,
+        "end": 1.425,
+        "distance": 0.03175535362795994,
+        "bound": 0.01899522445317442,
+        "certifiedGap": 0.012760129174785521
+      },
+      {
+        "cancelAt": null,
+        "begin": 1.3875000000000002,
+        "end": 1.40625,
+        "distance": 0.05088971200366173,
+        "bound": 0.023103938312734384,
+        "certifiedGap": 0.027785773690927343
+      },
+      {
+        "cancelAt": null,
+        "begin": 1.35,
+        "end": 1.3875000000000002,
+        "distance": 0.09536328873436692,
+        "bound": 0.05395362166321439,
+        "certifiedGap": 0.041409667071152526
+      },
+      {
+        "cancelAt": null,
+        "begin": 1.2,
+        "end": 1.35,
+        "distance": 0.2814353728643797,
+        "bound": 0.18445549137754108,
+        "certifiedGap": 0.09697988148683861
+      },
+      {
+        "cancelAt": 1.3,
+        "begin": 1.3,
+        "end": 1.48,
+        "distance": 0.2808986998469522,
+        "bound": 0.04882018478909876,
+        "certifiedGap": 0.23207851505785343
+      },
+      {
+        "cancelAt": 1.3,
+        "begin": 1.2,
+        "end": 1.3,
+        "distance": 0.3071377914005001,
+        "bound": 0.08112766001651692,
+        "certifiedGap": 0.2260101313839832
+      },
+      {
+        "cancelAt": 1.7,
+        "begin": 1.79,
+        "end": 1.88,
+        "distance": 0.2814353728643797,
+        "bound": 0.18445549137754025,
+        "certifiedGap": 0.09697988148683945
+      },
+      {
+        "cancelAt": 1.7,
+        "begin": 1.7675,
+        "end": 1.79,
+        "distance": 0.09536328873436771,
+        "bound": 0.053953621663214185,
+        "certifiedGap": 0.041409667071153525
+      },
+      {
+        "cancelAt": 1.7,
+        "begin": 1.75625,
+        "end": 1.7675,
+        "distance": 0.05088971200366226,
+        "bound": 0.023103938312734537,
+        "certifiedGap": 0.027785773690927724
+      },
+      {
+        "cancelAt": 1.7,
+        "begin": 1.745,
+        "end": 1.75625,
+        "distance": 0.03175535362796016,
+        "bound": 0.018995224453174676,
+        "certifiedGap": 0.012760129174785487
+      },
+      {
+        "cancelAt": 1.7,
+        "begin": 1.7337500000000001,
+        "end": 1.745,
+        "distance": 0.018994498541615126,
+        "bound": 0.014041308471461927,
+        "certifiedGap": 0.004953190070153199
+      },
+      {
+        "cancelAt": 1.7,
+        "begin": 1.7225000000000001,
+        "end": 1.7337500000000001,
+        "distance": 0.011265265869196817,
+        "bound": 0.008841152501405436,
+        "certifiedGap": 0.002424113367791381
+      },
+      {
+        "cancelAt": 1.7,
+        "begin": 1.7112500000000002,
+        "end": 1.7225000000000001,
+        "distance": 0.007249042734434814,
+        "bound": 0.004153441912496727,
+        "certifiedGap": 0.0030956008219380866
+      },
+      {
+        "cancelAt": 1.7,
+        "begin": 1.7,
+        "end": 1.7112500000000002,
+        "distance": 0.006036970056131232,
+        "bound": 0.0008965853099097544,
+        "certifiedGap": 0.005140384746221477
+      },
+      {
+        "cancelAt": 1.7,
+        "begin": 1.5,
+        "end": 1.7,
+        "distance": 0.005985347673785218,
+        "bound": 1e-12,
+        "certifiedGap": 0.0059853476727852175
+      },
+      {
+        "cancelAt": 1.7,
+        "begin": 1.48125,
+        "end": 1.5,
+        "distance": 0.006036970056131009,
+        "bound": 0.0008965853099103743,
+        "certifiedGap": 0.005140384746220634
+      },
+      {
+        "cancelAt": 1.7,
+        "begin": 1.4625,
+        "end": 1.48125,
+        "distance": 0.007249042734434814,
+        "bound": 0.0041534419124963145,
+        "certifiedGap": 0.0030956008219384995
+      },
+      {
+        "cancelAt": 1.7,
+        "begin": 1.44375,
+        "end": 1.4625,
+        "distance": 0.011265265869196706,
+        "bound": 0.008841152501405384,
+        "certifiedGap": 0.002424113367791322
+      },
+      {
+        "cancelAt": 1.7,
+        "begin": 1.425,
+        "end": 1.44375,
+        "distance": 0.018994498541614908,
+        "bound": 0.014041308471461721,
+        "certifiedGap": 0.004953190070153187
+      },
+      {
+        "cancelAt": 1.7,
+        "begin": 1.40625,
+        "end": 1.425,
+        "distance": 0.03175535362795994,
+        "bound": 0.01899522445317442,
+        "certifiedGap": 0.012760129174785521
+      },
+      {
+        "cancelAt": 1.7,
+        "begin": 1.3875000000000002,
+        "end": 1.40625,
+        "distance": 0.05088971200366173,
+        "bound": 0.023103938312734384,
+        "certifiedGap": 0.027785773690927343
+      },
+      {
+        "cancelAt": 1.7,
+        "begin": 1.35,
+        "end": 1.3875000000000002,
+        "distance": 0.09536328873436692,
+        "bound": 0.05395362166321439,
+        "certifiedGap": 0.041409667071152526
+      },
+      {
+        "cancelAt": 1.7,
+        "begin": 1.2,
+        "end": 1.35,
+        "distance": 0.2814353728643797,
+        "bound": 0.18445549137754108,
+        "certifiedGap": 0.09697988148683861
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 2.79,
+        "end": 2.8800000000000003,
+        "distance": 0.26388785101968426,
+        "bound": 0.18445549137754055,
+        "certifiedGap": 0.07943235964214371
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 2.7675,
+        "end": 2.79,
+        "distance": 0.0931327699236942,
+        "bound": 0.05395362166321414,
+        "certifiedGap": 0.03917914826048006
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 2.745,
+        "end": 2.7675,
+        "distance": 0.049074059444447975,
+        "bound": 0.04429036590442735,
+        "certifiedGap": 0.004783693540020624
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 2.73375,
+        "end": 2.745,
+        "distance": 0.02722006376125719,
+        "bound": 0.01404130847146229,
+        "certifiedGap": 0.013178755289794898
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 2.7225,
+        "end": 2.73375,
+        "distance": 0.019491499664757373,
+        "bound": 0.008841152501405023,
+        "certifiedGap": 0.01065034716335235
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 2.7,
+        "end": 2.7225,
+        "distance": 0.014605054256524237,
+        "bound": 0.00643595904769238,
+        "certifiedGap": 0.008169095208831856
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 2.65625,
+        "end": 2.7,
+        "distance": 0.013638807078015588,
+        "bound": 0.009015343425828054,
+        "certifiedGap": 0.004623463652187534
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 2.6125000000000003,
+        "end": 2.65625,
+        "distance": 0.012518344784358681,
+        "bound": 0.008909987402464339,
+        "certifiedGap": 0.003608357381894342
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 2.5687500000000005,
+        "end": 2.6125000000000003,
+        "distance": 0.01143196440476209,
+        "bound": 0.008666565605547145,
+        "certifiedGap": 0.0027653987992149447
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 2.5250000000000004,
+        "end": 2.5687500000000005,
+        "distance": 0.010437361251593063,
+        "bound": 0.008290859453310585,
+        "certifiedGap": 0.0021465017982824786
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 2.48125,
+        "end": 2.5250000000000004,
+        "distance": 0.009516761515862773,
+        "bound": 0.007791954031551954,
+        "certifiedGap": 0.001724807484310819
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 2.4375,
+        "end": 2.48125,
+        "distance": 0.008710407392190606,
+        "bound": 0.007182238093631077,
+        "certifiedGap": 0.0015281692985595289
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 2.39375,
+        "end": 2.4375,
+        "distance": 0.008034811474990172,
+        "bound": 0.0064774040604702494,
+        "certifiedGap": 0.001557407414519922
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 2.35,
+        "end": 2.39375,
+        "distance": 0.007455042546924501,
+        "bound": 0.00569644802055437,
+        "certifiedGap": 0.0017585945263701311
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 2.3062500000000004,
+        "end": 2.35,
+        "distance": 0.006997708640391851,
+        "bound": 0.0048616697299313045,
+        "certifiedGap": 0.002136038910460546
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 2.2625,
+        "end": 2.3062500000000004,
+        "distance": 0.006651366989948122,
+        "bound": 0.003998672612210932,
+        "certifiedGap": 0.00265269437773719
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 2.175,
+        "end": 2.2625,
+        "distance": 0.006303787663083576,
+        "bound": 0.005851768000928693,
+        "certifiedGap": 0.0004520196621548827
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 2,
+        "end": 2.175,
+        "distance": 0.006007781341586658,
+        "bound": 0.004259822371054036,
+        "certifiedGap": 0.0017479589705326213
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 1.5,
+        "end": 2,
+        "distance": 0.005985347673785218,
+        "bound": 1e-12,
+        "certifiedGap": 0.0059853476727852175
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 1.48125,
+        "end": 1.5,
+        "distance": 0.006036970056131009,
+        "bound": 0.0008965853099103743,
+        "certifiedGap": 0.005140384746220634
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 1.4625,
+        "end": 1.48125,
+        "distance": 0.007249042734434814,
+        "bound": 0.0041534419124963145,
+        "certifiedGap": 0.0030956008219384995
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 1.44375,
+        "end": 1.4625,
+        "distance": 0.011265265869196706,
+        "bound": 0.008841152501405384,
+        "certifiedGap": 0.002424113367791322
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 1.425,
+        "end": 1.44375,
+        "distance": 0.018994498541614908,
+        "bound": 0.014041308471461721,
+        "certifiedGap": 0.004953190070153187
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 1.40625,
+        "end": 1.425,
+        "distance": 0.03175535362795994,
+        "bound": 0.01899522445317442,
+        "certifiedGap": 0.012760129174785521
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 1.3875000000000002,
+        "end": 1.40625,
+        "distance": 0.05088971200366173,
+        "bound": 0.023103938312734384,
+        "certifiedGap": 0.027785773690927343
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 1.35,
+        "end": 1.3875000000000002,
+        "distance": 0.09536328873436692,
+        "bound": 0.05395362166321439,
+        "certifiedGap": 0.041409667071152526
+      },
+      {
+        "cancelAt": 2.7,
+        "begin": 1.2,
+        "end": 1.35,
+        "distance": 0.2814353728643797,
+        "bound": 0.18445549137754108,
+        "certifiedGap": 0.09697988148683861
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 4.1899999999999995,
+        "end": 4.279999999999999,
+        "distance": 0.257507271253615,
+        "bound": 0.18445549137754055,
+        "certifiedGap": 0.07305177987607445
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 4.1674999999999995,
+        "end": 4.1899999999999995,
+        "distance": 0.0997293587020582,
+        "bound": 0.05395362166321631,
+        "certifiedGap": 0.045775737038841885
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 4.145,
+        "end": 4.1674999999999995,
+        "distance": 0.057659980318019874,
+        "bound": 0.04429036590442575,
+        "certifiedGap": 0.013369614413594126
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 4.1225,
+        "end": 4.145,
+        "distance": 0.034149479763870096,
+        "bound": 0.02546964463318223,
+        "certifiedGap": 0.008679835130687867
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 4.1,
+        "end": 4.1225,
+        "distance": 0.02589124896032902,
+        "bound": 0.006435959047692277,
+        "certifiedGap": 0.019455289912636745
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 3.4,
+        "end": 4.1,
+        "distance": 0.02549773106844322,
+        "bound": 1e-12,
+        "certifiedGap": 0.02549773106744322
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 3.2249999999999996,
+        "end": 3.4,
+        "distance": 0.025435838081518777,
+        "bound": 0.004259822371053912,
+        "certifiedGap": 0.021176015710464863
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 3.05,
+        "end": 3.2249999999999996,
+        "distance": 0.024180524519428218,
+        "bound": 0.01685780800977741,
+        "certifiedGap": 0.007322716509650808
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 2.9625,
+        "end": 3.05,
+        "distance": 0.021889998469960738,
+        "bound": 0.01257252904578234,
+        "certifiedGap": 0.009317469424178397
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 2.875,
+        "end": 2.9625,
+        "distance": 0.019910725027346924,
+        "bound": 0.01529199806106472,
+        "certifiedGap": 0.004618726966282204
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 2.7875,
+        "end": 2.875,
+        "distance": 0.017691201459050194,
+        "bound": 0.017161323290236848,
+        "certifiedGap": 0.0005298781688133462
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 2.7437500000000004,
+        "end": 2.7875,
+        "distance": 0.01597155487149681,
+        "bound": 0.008909987402464252,
+        "certifiedGap": 0.007061567469032559
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 2.7,
+        "end": 2.7437500000000004,
+        "distance": 0.014793914946032011,
+        "bound": 0.009015343425828172,
+        "certifiedGap": 0.00577857152020384
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 2.65625,
+        "end": 2.7,
+        "distance": 0.013638807078015588,
+        "bound": 0.009015343425828054,
+        "certifiedGap": 0.004623463652187534
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 2.6125000000000003,
+        "end": 2.65625,
+        "distance": 0.012518344784358681,
+        "bound": 0.008909987402464339,
+        "certifiedGap": 0.003608357381894342
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 2.5687500000000005,
+        "end": 2.6125000000000003,
+        "distance": 0.01143196440476209,
+        "bound": 0.008666565605547145,
+        "certifiedGap": 0.0027653987992149447
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 2.5250000000000004,
+        "end": 2.5687500000000005,
+        "distance": 0.010437361251593063,
+        "bound": 0.008290859453310585,
+        "certifiedGap": 0.0021465017982824786
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 2.48125,
+        "end": 2.5250000000000004,
+        "distance": 0.009516761515862773,
+        "bound": 0.007791954031551954,
+        "certifiedGap": 0.001724807484310819
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 2.4375,
+        "end": 2.48125,
+        "distance": 0.008710407392190606,
+        "bound": 0.007182238093631077,
+        "certifiedGap": 0.0015281692985595289
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 2.39375,
+        "end": 2.4375,
+        "distance": 0.008034811474990172,
+        "bound": 0.0064774040604702494,
+        "certifiedGap": 0.001557407414519922
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 2.35,
+        "end": 2.39375,
+        "distance": 0.007455042546924501,
+        "bound": 0.00569644802055437,
+        "certifiedGap": 0.0017585945263701311
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 2.3062500000000004,
+        "end": 2.35,
+        "distance": 0.006997708640391851,
+        "bound": 0.0048616697299313045,
+        "certifiedGap": 0.002136038910460546
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 2.2625,
+        "end": 2.3062500000000004,
+        "distance": 0.006651366989948122,
+        "bound": 0.003998672612210932,
+        "certifiedGap": 0.00265269437773719
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 2.175,
+        "end": 2.2625,
+        "distance": 0.006303787663083576,
+        "bound": 0.005851768000928693,
+        "certifiedGap": 0.0004520196621548827
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 2,
+        "end": 2.175,
+        "distance": 0.006007781341586658,
+        "bound": 0.004259822371054036,
+        "certifiedGap": 0.0017479589705326213
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 1.5,
+        "end": 2,
+        "distance": 0.005985347673785218,
+        "bound": 1e-12,
+        "certifiedGap": 0.0059853476727852175
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 1.48125,
+        "end": 1.5,
+        "distance": 0.006036970056131009,
+        "bound": 0.0008965853099103743,
+        "certifiedGap": 0.005140384746220634
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 1.4625,
+        "end": 1.48125,
+        "distance": 0.007249042734434814,
+        "bound": 0.0041534419124963145,
+        "certifiedGap": 0.0030956008219384995
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 1.44375,
+        "end": 1.4625,
+        "distance": 0.011265265869196706,
+        "bound": 0.008841152501405384,
+        "certifiedGap": 0.002424113367791322
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 1.425,
+        "end": 1.44375,
+        "distance": 0.018994498541614908,
+        "bound": 0.014041308471461721,
+        "certifiedGap": 0.004953190070153187
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 1.40625,
+        "end": 1.425,
+        "distance": 0.03175535362795994,
+        "bound": 0.01899522445317442,
+        "certifiedGap": 0.012760129174785521
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 1.3875000000000002,
+        "end": 1.40625,
+        "distance": 0.05088971200366173,
+        "bound": 0.023103938312734384,
+        "certifiedGap": 0.027785773690927343
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 1.35,
+        "end": 1.3875000000000002,
+        "distance": 0.09536328873436692,
+        "bound": 0.05395362166321439,
+        "certifiedGap": 0.041409667071152526
+      },
+      {
+        "cancelAt": 4.1,
+        "begin": 1.2,
+        "end": 1.35,
+        "distance": 0.2814353728643797,
+        "bound": 0.18445549137754108,
+        "certifiedGap": 0.09697988148683861
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 5.59,
+        "end": 5.68,
+        "distance": 0.26388785101968426,
+        "bound": 0.18445549137754055,
+        "certifiedGap": 0.07943235964214371
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 5.5675,
+        "end": 5.59,
+        "distance": 0.09313276992369304,
+        "bound": 0.05395362166321631,
+        "certifiedGap": 0.039179148260476734
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 5.545,
+        "end": 5.5675,
+        "distance": 0.04907405944444852,
+        "bound": 0.04429036590442575,
+        "certifiedGap": 0.004783693540022775
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 5.5337499999999995,
+        "end": 5.545,
+        "distance": 0.02722006376125719,
+        "bound": 0.01404130847146229,
+        "certifiedGap": 0.013178755289794898
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 5.5225,
+        "end": 5.5337499999999995,
+        "distance": 0.01949149966475682,
+        "bound": 0.008841152501405488,
+        "certifiedGap": 0.010650347163351333
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 5.5,
+        "end": 5.5225,
+        "distance": 0.014605054256524249,
+        "bound": 0.006435959047692277,
+        "certifiedGap": 0.008169095208831972
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 5.45625,
+        "end": 5.5,
+        "distance": 0.014793914946032122,
+        "bound": 0.0090153434258279,
+        "certifiedGap": 0.005778571520204223
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 5.4125,
+        "end": 5.45625,
+        "distance": 0.01597155487149681,
+        "bound": 0.008909987402464696,
+        "certifiedGap": 0.007061567469032115
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 5.325,
+        "end": 5.4125,
+        "distance": 0.017691201459050194,
+        "bound": 0.017161323290236744,
+        "certifiedGap": 0.0005298781688134503
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 5.237500000000001,
+        "end": 5.325,
+        "distance": 0.01991072502734703,
+        "bound": 0.015291998061064621,
+        "certifiedGap": 0.00461872696628241
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 5.15,
+        "end": 5.237500000000001,
+        "distance": 0.021889998469960738,
+        "bound": 0.012572529045782545,
+        "certifiedGap": 0.009317469424178193
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 4.975,
+        "end": 5.15,
+        "distance": 0.024180524519428218,
+        "bound": 0.016857808009777344,
+        "certifiedGap": 0.0073227165096508735
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 4.8,
+        "end": 4.975,
+        "distance": 0.025435838081518992,
+        "bound": 0.0042598223710540485,
+        "certifiedGap": 0.021176015710464943
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 3.4,
+        "end": 4.8,
+        "distance": 0.02549773106844322,
+        "bound": 1e-12,
+        "certifiedGap": 0.02549773106744322
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 3.2249999999999996,
+        "end": 3.4,
+        "distance": 0.025435838081518777,
+        "bound": 0.004259822371053912,
+        "certifiedGap": 0.021176015710464863
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 3.05,
+        "end": 3.2249999999999996,
+        "distance": 0.024180524519428218,
+        "bound": 0.01685780800977741,
+        "certifiedGap": 0.007322716509650808
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 2.9625,
+        "end": 3.05,
+        "distance": 0.021889998469960738,
+        "bound": 0.01257252904578234,
+        "certifiedGap": 0.009317469424178397
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 2.875,
+        "end": 2.9625,
+        "distance": 0.019910725027346924,
+        "bound": 0.01529199806106472,
+        "certifiedGap": 0.004618726966282204
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 2.7875,
+        "end": 2.875,
+        "distance": 0.017691201459050194,
+        "bound": 0.017161323290236848,
+        "certifiedGap": 0.0005298781688133462
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 2.7437500000000004,
+        "end": 2.7875,
+        "distance": 0.01597155487149681,
+        "bound": 0.008909987402464252,
+        "certifiedGap": 0.007061567469032559
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 2.7,
+        "end": 2.7437500000000004,
+        "distance": 0.014793914946032011,
+        "bound": 0.009015343425828172,
+        "certifiedGap": 0.00577857152020384
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 2.65625,
+        "end": 2.7,
+        "distance": 0.013638807078015588,
+        "bound": 0.009015343425828054,
+        "certifiedGap": 0.004623463652187534
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 2.6125000000000003,
+        "end": 2.65625,
+        "distance": 0.012518344784358681,
+        "bound": 0.008909987402464339,
+        "certifiedGap": 0.003608357381894342
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 2.5687500000000005,
+        "end": 2.6125000000000003,
+        "distance": 0.01143196440476209,
+        "bound": 0.008666565605547145,
+        "certifiedGap": 0.0027653987992149447
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 2.5250000000000004,
+        "end": 2.5687500000000005,
+        "distance": 0.010437361251593063,
+        "bound": 0.008290859453310585,
+        "certifiedGap": 0.0021465017982824786
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 2.48125,
+        "end": 2.5250000000000004,
+        "distance": 0.009516761515862773,
+        "bound": 0.007791954031551954,
+        "certifiedGap": 0.001724807484310819
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 2.4375,
+        "end": 2.48125,
+        "distance": 0.008710407392190606,
+        "bound": 0.007182238093631077,
+        "certifiedGap": 0.0015281692985595289
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 2.39375,
+        "end": 2.4375,
+        "distance": 0.008034811474990172,
+        "bound": 0.0064774040604702494,
+        "certifiedGap": 0.001557407414519922
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 2.35,
+        "end": 2.39375,
+        "distance": 0.007455042546924501,
+        "bound": 0.00569644802055437,
+        "certifiedGap": 0.0017585945263701311
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 2.3062500000000004,
+        "end": 2.35,
+        "distance": 0.006997708640391851,
+        "bound": 0.0048616697299313045,
+        "certifiedGap": 0.002136038910460546
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 2.2625,
+        "end": 2.3062500000000004,
+        "distance": 0.006651366989948122,
+        "bound": 0.003998672612210932,
+        "certifiedGap": 0.00265269437773719
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 2.175,
+        "end": 2.2625,
+        "distance": 0.006303787663083576,
+        "bound": 0.005851768000928693,
+        "certifiedGap": 0.0004520196621548827
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 2,
+        "end": 2.175,
+        "distance": 0.006007781341586658,
+        "bound": 0.004259822371054036,
+        "certifiedGap": 0.0017479589705326213
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 1.5,
+        "end": 2,
+        "distance": 0.005985347673785218,
+        "bound": 1e-12,
+        "certifiedGap": 0.0059853476727852175
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 1.48125,
+        "end": 1.5,
+        "distance": 0.006036970056131009,
+        "bound": 0.0008965853099103743,
+        "certifiedGap": 0.005140384746220634
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 1.4625,
+        "end": 1.48125,
+        "distance": 0.007249042734434814,
+        "bound": 0.0041534419124963145,
+        "certifiedGap": 0.0030956008219384995
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 1.44375,
+        "end": 1.4625,
+        "distance": 0.011265265869196706,
+        "bound": 0.008841152501405384,
+        "certifiedGap": 0.002424113367791322
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 1.425,
+        "end": 1.44375,
+        "distance": 0.018994498541614908,
+        "bound": 0.014041308471461721,
+        "certifiedGap": 0.004953190070153187
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 1.40625,
+        "end": 1.425,
+        "distance": 0.03175535362795994,
+        "bound": 0.01899522445317442,
+        "certifiedGap": 0.012760129174785521
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 1.3875000000000002,
+        "end": 1.40625,
+        "distance": 0.05088971200366173,
+        "bound": 0.023103938312734384,
+        "certifiedGap": 0.027785773690927343
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 1.35,
+        "end": 1.3875000000000002,
+        "distance": 0.09536328873436692,
+        "bound": 0.05395362166321439,
+        "certifiedGap": 0.041409667071152526
+      },
+      {
+        "cancelAt": 5.5,
+        "begin": 1.2,
+        "end": 1.35,
+        "distance": 0.2814353728643797,
+        "bound": 0.18445549137754108,
+        "certifiedGap": 0.09697988148683861
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 6.9,
+        "end": 6.9799999999999995,
+        "distance": 0.3145032722539689,
+        "bound": 0.03127190417253539,
+        "certifiedGap": 0.2832313680814335
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 6.8,
+        "end": 6.9,
+        "distance": 0.25206178825004616,
+        "bound": 0.04573094330387942,
+        "certifiedGap": 0.20633084494616674
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 6.75,
+        "end": 6.8,
+        "distance": 0.19049903579304223,
+        "bound": 0.07135689233489216,
+        "certifiedGap": 0.11914214345815007
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 6.699999999999999,
+        "end": 6.75,
+        "distance": 0.08364060990506784,
+        "bound": 0.07135689233489237,
+        "certifiedGap": 0.012283717570175476
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 6.674999999999999,
+        "end": 6.699999999999999,
+        "distance": 0.034071481610220486,
+        "bound": 0.026818079019801443,
+        "certifiedGap": 0.007253402590419043
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 6.6625,
+        "end": 6.674999999999999,
+        "distance": 0.02066911831334186,
+        "bound": 0.00964979212078385,
+        "certifiedGap": 0.011019326192558009
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 6.6499999999999995,
+        "end": 6.6625,
+        "distance": 0.014636563958625249,
+        "bound": 0.007327889527993266,
+        "certifiedGap": 0.007308674430631983
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 6.637499999999999,
+        "end": 6.6499999999999995,
+        "distance": 0.01035364219501356,
+        "bound": 0.005055941527433088,
+        "certifiedGap": 0.0052977006675804725
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 6.625,
+        "end": 6.637499999999999,
+        "distance": 0.007689985847047487,
+        "bound": 0.002996957841114802,
+        "certifiedGap": 0.004693028005932685
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 6.6,
+        "end": 6.625,
+        "distance": 0.006105765903765915,
+        "bound": 0.002051118030032416,
+        "certifiedGap": 0.004054647873733499
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 6.2,
+        "end": 6.6,
+        "distance": 0.005985347673785218,
+        "bound": 1e-12,
+        "certifiedGap": 0.0059853476727852175
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 6.025,
+        "end": 6.2,
+        "distance": 0.006007781341586658,
+        "bound": 0.004259822371053741,
+        "certifiedGap": 0.001747958970532917
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 5.9375,
+        "end": 6.025,
+        "distance": 0.006303787663083576,
+        "bound": 0.0058517680009284225,
+        "certifiedGap": 0.0004520196621551533
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 5.89375,
+        "end": 5.9375,
+        "distance": 0.006651366989948123,
+        "bound": 0.003998672612211079,
+        "certifiedGap": 0.0026526943777370445
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 5.85,
+        "end": 5.89375,
+        "distance": 0.006997708640391962,
+        "bound": 0.004861669729931163,
+        "certifiedGap": 0.0021360389104607986
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 5.8062499999999995,
+        "end": 5.85,
+        "distance": 0.007455042546924501,
+        "bound": 0.005696448020554771,
+        "certifiedGap": 0.0017585945263697295
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 5.762499999999999,
+        "end": 5.8062499999999995,
+        "distance": 0.00803481147499006,
+        "bound": 0.006477404060470062,
+        "certifiedGap": 0.0015574074145199984
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 5.71875,
+        "end": 5.762499999999999,
+        "distance": 0.008710407392190606,
+        "bound": 0.007182238093630803,
+        "certifiedGap": 0.001528169298559803
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 5.675,
+        "end": 5.71875,
+        "distance": 0.009516761515862773,
+        "bound": 0.007791954031552202,
+        "certifiedGap": 0.0017248074843105709
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 5.63125,
+        "end": 5.675,
+        "distance": 0.010437361251593063,
+        "bound": 0.00829085945331043,
+        "certifiedGap": 0.002146501798282633
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 5.5875,
+        "end": 5.63125,
+        "distance": 0.01143196440476198,
+        "bound": 0.008666565605546924,
+        "certifiedGap": 0.0027653987992150558
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 5.54375,
+        "end": 5.5875,
+        "distance": 0.012518344784358459,
+        "bound": 0.008909987402464596,
+        "certifiedGap": 0.0036083573818938633
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 5.5,
+        "end": 5.54375,
+        "distance": 0.013638807078015588,
+        "bound": 0.009015343425827967,
+        "certifiedGap": 0.004623463652187621
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 5.45625,
+        "end": 5.5,
+        "distance": 0.014793914946032122,
+        "bound": 0.0090153434258279,
+        "certifiedGap": 0.005778571520204223
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 5.4125,
+        "end": 5.45625,
+        "distance": 0.01597155487149681,
+        "bound": 0.008909987402464696,
+        "certifiedGap": 0.007061567469032115
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 5.325,
+        "end": 5.4125,
+        "distance": 0.017691201459050194,
+        "bound": 0.017161323290236744,
+        "certifiedGap": 0.0005298781688134503
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 5.237500000000001,
+        "end": 5.325,
+        "distance": 0.01991072502734703,
+        "bound": 0.015291998061064621,
+        "certifiedGap": 0.00461872696628241
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 5.15,
+        "end": 5.237500000000001,
+        "distance": 0.021889998469960738,
+        "bound": 0.012572529045782545,
+        "certifiedGap": 0.009317469424178193
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 4.975,
+        "end": 5.15,
+        "distance": 0.024180524519428218,
+        "bound": 0.016857808009777344,
+        "certifiedGap": 0.0073227165096508735
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 4.8,
+        "end": 4.975,
+        "distance": 0.025435838081518992,
+        "bound": 0.0042598223710540485,
+        "certifiedGap": 0.021176015710464943
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 3.4,
+        "end": 4.8,
+        "distance": 0.02549773106844322,
+        "bound": 1e-12,
+        "certifiedGap": 0.02549773106744322
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 3.2249999999999996,
+        "end": 3.4,
+        "distance": 0.025435838081518777,
+        "bound": 0.004259822371053912,
+        "certifiedGap": 0.021176015710464863
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 3.05,
+        "end": 3.2249999999999996,
+        "distance": 0.024180524519428218,
+        "bound": 0.01685780800977741,
+        "certifiedGap": 0.007322716509650808
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 2.9625,
+        "end": 3.05,
+        "distance": 0.021889998469960738,
+        "bound": 0.01257252904578234,
+        "certifiedGap": 0.009317469424178397
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 2.875,
+        "end": 2.9625,
+        "distance": 0.019910725027346924,
+        "bound": 0.01529199806106472,
+        "certifiedGap": 0.004618726966282204
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 2.7875,
+        "end": 2.875,
+        "distance": 0.017691201459050194,
+        "bound": 0.017161323290236848,
+        "certifiedGap": 0.0005298781688133462
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 2.7437500000000004,
+        "end": 2.7875,
+        "distance": 0.01597155487149681,
+        "bound": 0.008909987402464252,
+        "certifiedGap": 0.007061567469032559
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 2.7,
+        "end": 2.7437500000000004,
+        "distance": 0.014793914946032011,
+        "bound": 0.009015343425828172,
+        "certifiedGap": 0.00577857152020384
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 2.65625,
+        "end": 2.7,
+        "distance": 0.013638807078015588,
+        "bound": 0.009015343425828054,
+        "certifiedGap": 0.004623463652187534
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 2.6125000000000003,
+        "end": 2.65625,
+        "distance": 0.012518344784358681,
+        "bound": 0.008909987402464339,
+        "certifiedGap": 0.003608357381894342
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 2.5687500000000005,
+        "end": 2.6125000000000003,
+        "distance": 0.01143196440476209,
+        "bound": 0.008666565605547145,
+        "certifiedGap": 0.0027653987992149447
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 2.5250000000000004,
+        "end": 2.5687500000000005,
+        "distance": 0.010437361251593063,
+        "bound": 0.008290859453310585,
+        "certifiedGap": 0.0021465017982824786
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 2.48125,
+        "end": 2.5250000000000004,
+        "distance": 0.009516761515862773,
+        "bound": 0.007791954031551954,
+        "certifiedGap": 0.001724807484310819
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 2.4375,
+        "end": 2.48125,
+        "distance": 0.008710407392190606,
+        "bound": 0.007182238093631077,
+        "certifiedGap": 0.0015281692985595289
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 2.39375,
+        "end": 2.4375,
+        "distance": 0.008034811474990172,
+        "bound": 0.0064774040604702494,
+        "certifiedGap": 0.001557407414519922
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 2.35,
+        "end": 2.39375,
+        "distance": 0.007455042546924501,
+        "bound": 0.00569644802055437,
+        "certifiedGap": 0.0017585945263701311
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 2.3062500000000004,
+        "end": 2.35,
+        "distance": 0.006997708640391851,
+        "bound": 0.0048616697299313045,
+        "certifiedGap": 0.002136038910460546
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 2.2625,
+        "end": 2.3062500000000004,
+        "distance": 0.006651366989948122,
+        "bound": 0.003998672612210932,
+        "certifiedGap": 0.00265269437773719
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 2.175,
+        "end": 2.2625,
+        "distance": 0.006303787663083576,
+        "bound": 0.005851768000928693,
+        "certifiedGap": 0.0004520196621548827
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 2,
+        "end": 2.175,
+        "distance": 0.006007781341586658,
+        "bound": 0.004259822371054036,
+        "certifiedGap": 0.0017479589705326213
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 1.5,
+        "end": 2,
+        "distance": 0.005985347673785218,
+        "bound": 1e-12,
+        "certifiedGap": 0.0059853476727852175
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 1.48125,
+        "end": 1.5,
+        "distance": 0.006036970056131009,
+        "bound": 0.0008965853099103743,
+        "certifiedGap": 0.005140384746220634
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 1.4625,
+        "end": 1.48125,
+        "distance": 0.007249042734434814,
+        "bound": 0.0041534419124963145,
+        "certifiedGap": 0.0030956008219384995
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 1.44375,
+        "end": 1.4625,
+        "distance": 0.011265265869196706,
+        "bound": 0.008841152501405384,
+        "certifiedGap": 0.002424113367791322
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 1.425,
+        "end": 1.44375,
+        "distance": 0.018994498541614908,
+        "bound": 0.014041308471461721,
+        "certifiedGap": 0.004953190070153187
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 1.40625,
+        "end": 1.425,
+        "distance": 0.03175535362795994,
+        "bound": 0.01899522445317442,
+        "certifiedGap": 0.012760129174785521
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 1.3875000000000002,
+        "end": 1.40625,
+        "distance": 0.05088971200366173,
+        "bound": 0.023103938312734384,
+        "certifiedGap": 0.027785773690927343
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 1.35,
+        "end": 1.3875000000000002,
+        "distance": 0.09536328873436692,
+        "bound": 0.05395362166321439,
+        "certifiedGap": 0.041409667071152526
+      },
+      {
+        "cancelAt": 6.8,
+        "begin": 1.2,
+        "end": 1.35,
+        "distance": 0.2814353728643797,
+        "bound": 0.18445549137754108,
+        "certifiedGap": 0.09697988148683861
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 6.75,
+        "end": 6.9,
+        "distance": 0.2814353728643804,
+        "bound": 0.18445549137754041,
+        "certifiedGap": 0.09697988148684
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 6.7125,
+        "end": 6.75,
+        "distance": 0.0953632887343684,
+        "bound": 0.053953621663213776,
+        "certifiedGap": 0.04140966707115463
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 6.69375,
+        "end": 6.7125,
+        "distance": 0.05088971200366247,
+        "bound": 0.02310393831273552,
+        "certifiedGap": 0.02778577369092695
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 6.675,
+        "end": 6.69375,
+        "distance": 0.03175535362795972,
+        "bound": 0.018995224453175297,
+        "certifiedGap": 0.012760129174784422
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 6.65625,
+        "end": 6.675,
+        "distance": 0.018994498541615352,
+        "bound": 0.014041308471461204,
+        "certifiedGap": 0.004953190070154148
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 6.637499999999999,
+        "end": 6.65625,
+        "distance": 0.011265265869196706,
+        "bound": 0.008841152501405797,
+        "certifiedGap": 0.002424113367790909
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 6.6187499999999995,
+        "end": 6.637499999999999,
+        "distance": 0.007249042734434703,
+        "bound": 0.004153441912496727,
+        "certifiedGap": 0.0030956008219379756
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 6.6,
+        "end": 6.6187499999999995,
+        "distance": 0.006036970056131232,
+        "bound": 0.0008965853099096511,
+        "certifiedGap": 0.005140384746221581
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 6.2,
+        "end": 6.6,
+        "distance": 0.005985347673785218,
+        "bound": 1e-12,
+        "certifiedGap": 0.0059853476727852175
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 6.025,
+        "end": 6.2,
+        "distance": 0.006007781341586658,
+        "bound": 0.004259822371053741,
+        "certifiedGap": 0.001747958970532917
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 5.9375,
+        "end": 6.025,
+        "distance": 0.006303787663083576,
+        "bound": 0.0058517680009284225,
+        "certifiedGap": 0.0004520196621551533
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 5.89375,
+        "end": 5.9375,
+        "distance": 0.006651366989948123,
+        "bound": 0.003998672612211079,
+        "certifiedGap": 0.0026526943777370445
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 5.85,
+        "end": 5.89375,
+        "distance": 0.006997708640391962,
+        "bound": 0.004861669729931163,
+        "certifiedGap": 0.0021360389104607986
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 5.8062499999999995,
+        "end": 5.85,
+        "distance": 0.007455042546924501,
+        "bound": 0.005696448020554771,
+        "certifiedGap": 0.0017585945263697295
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 5.762499999999999,
+        "end": 5.8062499999999995,
+        "distance": 0.00803481147499006,
+        "bound": 0.006477404060470062,
+        "certifiedGap": 0.0015574074145199984
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 5.71875,
+        "end": 5.762499999999999,
+        "distance": 0.008710407392190606,
+        "bound": 0.007182238093630803,
+        "certifiedGap": 0.001528169298559803
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 5.675,
+        "end": 5.71875,
+        "distance": 0.009516761515862773,
+        "bound": 0.007791954031552202,
+        "certifiedGap": 0.0017248074843105709
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 5.63125,
+        "end": 5.675,
+        "distance": 0.010437361251593063,
+        "bound": 0.00829085945331043,
+        "certifiedGap": 0.002146501798282633
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 5.5875,
+        "end": 5.63125,
+        "distance": 0.01143196440476198,
+        "bound": 0.008666565605546924,
+        "certifiedGap": 0.0027653987992150558
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 5.54375,
+        "end": 5.5875,
+        "distance": 0.012518344784358459,
+        "bound": 0.008909987402464596,
+        "certifiedGap": 0.0036083573818938633
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 5.5,
+        "end": 5.54375,
+        "distance": 0.013638807078015588,
+        "bound": 0.009015343425827967,
+        "certifiedGap": 0.004623463652187621
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 5.45625,
+        "end": 5.5,
+        "distance": 0.014793914946032122,
+        "bound": 0.0090153434258279,
+        "certifiedGap": 0.005778571520204223
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 5.4125,
+        "end": 5.45625,
+        "distance": 0.01597155487149681,
+        "bound": 0.008909987402464696,
+        "certifiedGap": 0.007061567469032115
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 5.325,
+        "end": 5.4125,
+        "distance": 0.017691201459050194,
+        "bound": 0.017161323290236744,
+        "certifiedGap": 0.0005298781688134503
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 5.237500000000001,
+        "end": 5.325,
+        "distance": 0.01991072502734703,
+        "bound": 0.015291998061064621,
+        "certifiedGap": 0.00461872696628241
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 5.15,
+        "end": 5.237500000000001,
+        "distance": 0.021889998469960738,
+        "bound": 0.012572529045782545,
+        "certifiedGap": 0.009317469424178193
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 4.975,
+        "end": 5.15,
+        "distance": 0.024180524519428218,
+        "bound": 0.016857808009777344,
+        "certifiedGap": 0.0073227165096508735
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 4.8,
+        "end": 4.975,
+        "distance": 0.025435838081518992,
+        "bound": 0.0042598223710540485,
+        "certifiedGap": 0.021176015710464943
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 3.4,
+        "end": 4.8,
+        "distance": 0.02549773106844322,
+        "bound": 1e-12,
+        "certifiedGap": 0.02549773106744322
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 3.2249999999999996,
+        "end": 3.4,
+        "distance": 0.025435838081518777,
+        "bound": 0.004259822371053912,
+        "certifiedGap": 0.021176015710464863
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 3.05,
+        "end": 3.2249999999999996,
+        "distance": 0.024180524519428218,
+        "bound": 0.01685780800977741,
+        "certifiedGap": 0.007322716509650808
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 2.9625,
+        "end": 3.05,
+        "distance": 0.021889998469960738,
+        "bound": 0.01257252904578234,
+        "certifiedGap": 0.009317469424178397
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 2.875,
+        "end": 2.9625,
+        "distance": 0.019910725027346924,
+        "bound": 0.01529199806106472,
+        "certifiedGap": 0.004618726966282204
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 2.7875,
+        "end": 2.875,
+        "distance": 0.017691201459050194,
+        "bound": 0.017161323290236848,
+        "certifiedGap": 0.0005298781688133462
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 2.7437500000000004,
+        "end": 2.7875,
+        "distance": 0.01597155487149681,
+        "bound": 0.008909987402464252,
+        "certifiedGap": 0.007061567469032559
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 2.7,
+        "end": 2.7437500000000004,
+        "distance": 0.014793914946032011,
+        "bound": 0.009015343425828172,
+        "certifiedGap": 0.00577857152020384
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 2.65625,
+        "end": 2.7,
+        "distance": 0.013638807078015588,
+        "bound": 0.009015343425828054,
+        "certifiedGap": 0.004623463652187534
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 2.6125000000000003,
+        "end": 2.65625,
+        "distance": 0.012518344784358681,
+        "bound": 0.008909987402464339,
+        "certifiedGap": 0.003608357381894342
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 2.5687500000000005,
+        "end": 2.6125000000000003,
+        "distance": 0.01143196440476209,
+        "bound": 0.008666565605547145,
+        "certifiedGap": 0.0027653987992149447
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 2.5250000000000004,
+        "end": 2.5687500000000005,
+        "distance": 0.010437361251593063,
+        "bound": 0.008290859453310585,
+        "certifiedGap": 0.0021465017982824786
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 2.48125,
+        "end": 2.5250000000000004,
+        "distance": 0.009516761515862773,
+        "bound": 0.007791954031551954,
+        "certifiedGap": 0.001724807484310819
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 2.4375,
+        "end": 2.48125,
+        "distance": 0.008710407392190606,
+        "bound": 0.007182238093631077,
+        "certifiedGap": 0.0015281692985595289
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 2.39375,
+        "end": 2.4375,
+        "distance": 0.008034811474990172,
+        "bound": 0.0064774040604702494,
+        "certifiedGap": 0.001557407414519922
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 2.35,
+        "end": 2.39375,
+        "distance": 0.007455042546924501,
+        "bound": 0.00569644802055437,
+        "certifiedGap": 0.0017585945263701311
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 2.3062500000000004,
+        "end": 2.35,
+        "distance": 0.006997708640391851,
+        "bound": 0.0048616697299313045,
+        "certifiedGap": 0.002136038910460546
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 2.2625,
+        "end": 2.3062500000000004,
+        "distance": 0.006651366989948122,
+        "bound": 0.003998672612210932,
+        "certifiedGap": 0.00265269437773719
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 2.175,
+        "end": 2.2625,
+        "distance": 0.006303787663083576,
+        "bound": 0.005851768000928693,
+        "certifiedGap": 0.0004520196621548827
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 2,
+        "end": 2.175,
+        "distance": 0.006007781341586658,
+        "bound": 0.004259822371054036,
+        "certifiedGap": 0.0017479589705326213
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 1.5,
+        "end": 2,
+        "distance": 0.005985347673785218,
+        "bound": 1e-12,
+        "certifiedGap": 0.0059853476727852175
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 1.48125,
+        "end": 1.5,
+        "distance": 0.006036970056131009,
+        "bound": 0.0008965853099103743,
+        "certifiedGap": 0.005140384746220634
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 1.4625,
+        "end": 1.48125,
+        "distance": 0.007249042734434814,
+        "bound": 0.0041534419124963145,
+        "certifiedGap": 0.0030956008219384995
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 1.44375,
+        "end": 1.4625,
+        "distance": 0.011265265869196706,
+        "bound": 0.008841152501405384,
+        "certifiedGap": 0.002424113367791322
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 1.425,
+        "end": 1.44375,
+        "distance": 0.018994498541614908,
+        "bound": 0.014041308471461721,
+        "certifiedGap": 0.004953190070153187
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 1.40625,
+        "end": 1.425,
+        "distance": 0.03175535362795994,
+        "bound": 0.01899522445317442,
+        "certifiedGap": 0.012760129174785521
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 1.3875000000000002,
+        "end": 1.40625,
+        "distance": 0.05088971200366173,
+        "bound": 0.023103938312734384,
+        "certifiedGap": 0.027785773690927343
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 1.35,
+        "end": 1.3875000000000002,
+        "distance": 0.09536328873436692,
+        "bound": 0.05395362166321439,
+        "certifiedGap": 0.041409667071152526
+      },
+      {
+        "cancelAt": 7.4,
+        "begin": 1.2,
+        "end": 1.35,
+        "distance": 0.2814353728643797,
+        "bound": 0.18445549137754108,
+        "certifiedGap": 0.09697988148683861
+      }
+    ],
+    "unresolved": [],
+    "scope": "Surface separation from the fixed round5 clasp; exact normal and eight declared cancellation trajectories only"
+  }
+}

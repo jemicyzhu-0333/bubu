@@ -1,3 +1,5 @@
+import { bakeGroup, disposeAsset } from "./asset-resources.mjs";
+export { bakeGroup, disposeAsset, disposeAssets } from "./asset-resources.mjs";
 import fs from "node:fs";
 import { cleanupOwned } from "./cleanup-owned.mjs";
 import path from "node:path";
@@ -8,6 +10,9 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { fixture } from "../body-runtime/fixture.mjs";
 import { createContractCheckedMixedBindingAdapter } from "../../original-parts-hybrid-v1/runtime/mixed-binding-contract.mjs";
 import { SatchelAdapter } from "../../external-assets-v1/existing-wearables/src/local-adapters/satchel-adapter.mjs";
+import { createPartsSource } from "./parts-source.mjs";
+import { admitAsset } from "./resource-admission.mjs";
+import { SceneBudget } from "./scene-budget.mjs";
 export const research = fileURLToPath(new URL("../../", import.meta.url));
 export const revised = path.join(research, "external-assets-v1");
 export const source = path.join(
@@ -51,8 +56,15 @@ export async function loadGLB(p) {
     )
   ).scene;
 }
-let sharedParts;
-export async function createBody(options = {}) {
+export function createHybridSource(budget) {
+  return createPartsSource({
+    budget,
+    load: () => loadGLB(hybrid),
+    measure: (asset) => admitAsset(asset).bytes,
+    dispose: disposeAsset,
+  });
+}
+export async function createBody({ partsSource, ...options } = {}) {
   if (
     sha256(source) !==
       "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a" ||
@@ -60,13 +72,16 @@ export async function createBody(options = {}) {
       "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67"
   )
     throw Error("Unapproved body bytes");
-  sharedParts ??= loadGLB(hybrid);
-  const parts = await sharedParts;
-  const f = await fixture(options);
-  const owner = createContractCheckedMixedBindingAdapter({
+  const ownsSource = !partsSource;
+  partsSource ??= createHybridSource(new SceneBudget());
+  const lease = await partsSource.acquire();
+  let f, owner;
+  try {
+    f = await fixture(options);
+    owner = createContractCheckedMixedBindingAdapter({
     THREE: T,
     sourceSkin: f.h.body.skin,
-    parts,
+    parts: lease.asset,
     assertSourceCurrent: () => f.h.owner.assertCurrent(),
     contract: JSON.parse(
       fs.readFileSync(
@@ -78,30 +93,36 @@ export async function createBody(options = {}) {
     ),
     admittedSourceSHA256: sha256(source),
     candidateSHA256: sha256(hybrid),
-  });
+    });
+  } catch (error) {
+    try {
+      cleanupOwned([
+        () => owner?.dispose(),
+        () => f?.h.dispose(),
+        () => lease.release(),
+        () => { if (ownsSource) partsSource.close(); },
+      ], "Body construction cleanup failures");
+    } catch (cleanupError) {
+      throw new AggregateError([error, cleanupError], "Body construction and cleanup failed");
+    }
+    throw error;
+  }
+  let disposed = false;
   return {
     f,
     owner,
     authoredFaces: options.authoredFaces ?? [],
     dispose() {
-      owner.dispose();
-      f.h.dispose();
+      if (disposed) return;
+      disposed = true;
+      cleanupOwned([
+        () => owner.dispose(),
+        () => f.h.dispose(),
+        () => lease.release(),
+        () => { if (ownsSource) partsSource.close(); },
+      ], "Body disposal failures");
     },
   };
-}
-export function bakeGroup(root, frame = new T.Matrix4()) {
-  root.updateWorldMatrix(true, true);
-  const result = new T.Group(),
-    inv = frame.clone().invert();
-  root.traverse((m) => {
-    if (!m.isMesh) return;
-    const geometry = m.geometry.clone();
-    geometry.applyMatrix4(inv.clone().multiply(m.matrixWorld));
-    const mesh = new T.Mesh(geometry, m.material.clone());
-    mesh.name = m.name;
-    result.add(mesh);
-  });
-  return result;
 }
 export async function correctedSatchel(body) {
   const raw = await loadGLB(
@@ -120,29 +141,4 @@ export async function correctedSatchel(body) {
     adapter?.dispose();
     disposeAsset(raw);
   }
-}
-/** Release owned asset resources once per batch; never pass borrowed source roots. */
-export function disposeAssets(roots) {
-  const gs = new Set(),
-    ms = new Set(),
-    ts = new Set();
-  for (const root of new Set(roots))
-    root.traverse((m) => {
-      if (m.geometry) gs.add(m.geometry);
-      for (const mat of Array.isArray(m.material)
-        ? m.material
-        : m.material
-          ? [m.material]
-          : []) {
-        ms.add(mat);
-        for (const v of Object.values(mat)) if (v?.isTexture) ts.add(v);
-      }
-    });
-  cleanupOwned(
-    [...gs, ...ms, ...ts].map((resource) => () => resource.dispose()),
-    "Owned asset disposal failures",
-  );
-}
-export function disposeAsset(root) {
-  disposeAssets([root]);
 }

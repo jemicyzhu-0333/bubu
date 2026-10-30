@@ -1,0 +1,220 @@
+{
+  "status": "checkpoint-complete",
+  "productionAccepted": false,
+  "completedAt": "2026-10-24T15:01:44.503973+00:00",
+  "scope": "同一 V2 工作树的增量修复、审计和完整研究演示交付；生产闭环仍未完成",
+  "repository": {
+    "path": "/workspace/bubu",
+    "branch": "feature/pet-animation-v2",
+    "head": "c0a8281bbc721f1f7d01afdb0ece6920aebc90f9",
+    "saveState": "已保存到本地工作树，尚未提交或推送；未发布、合并或部署",
+    "productionSourceDiff": "",
+    "trackedModelDiff": ""
+  },
+  "frozenAssets": {
+    "research/animation-0.1.0/runtime-facepath05/fixtures/face-d2/asset.glb": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
+    "research/animation-0.1.0/original-parts-hybrid-v1/geometry/bubu-hybrid-binding.glb": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67",
+    "research/animation-0.1.0/wearable-approved-round5/accessory-expansion/models/07-cape.glb": "e29010956b989a60e196472b2206e6c397b34f12f3b7092d67f53f189c128e21"
+  },
+  "fixes": [
+    "整套穿搭独立组合 fixture 将光环沿 crown 法线移出 0.04 模型单位，遵守原挂点限制；481 帧对照中光环/花瓣交叉由 481 帧降为 0",
+    "接触身份绑定规范化完整配置、实例偏移、次级运动参数和独立动画轨道快照",
+    "自定义素材加载不能复用 canonical 来源的接触准入",
+    "换装切回自动表情时释放实际手动请求；暂停、低动效和取消同步界面状态",
+    "暂停停止重复 WebGL 提交，相机修改仍可重绘一次；暂停换场后不积累指针手势"
+  ],
+  "passed": {
+    "researchStages": 33,
+    "nodeCases": 799,
+    "pythonCases": 2,
+    "sourceInventoryUnchangedDuringRun": true,
+    "pinnedDependencyHashes": 19,
+    "applicationTests": {
+      "passed": 6742,
+      "skipped": 29,
+      "failed": 0
+    },
+    "applicationIntegration": 71,
+    "fullDemo": {
+      "status": "passed",
+      "sampledSteps": 1193,
+      "expressions": 18,
+      "dpr": [
+        1,
+        1.25,
+        2
+      ],
+      "warmedResources": [
+        {
+          "geometries": 15,
+          "textures": 18
+        },
+        {
+          "geometries": 15,
+          "textures": 18
+        }
+      ],
+      "sourceFiles": 122
+    },
+    "demoStateRegressions": "passed",
+    "offlinePackage": {
+      "filesHashVerified": 135,
+      "scenes": 8,
+      "externalRequests": []
+    }
+  },
+  "stillFailedOrBlocked": {
+    "gates": {
+      "capeTea": {
+        "status": "blocked",
+        "reason": "endpoint-attachment-conflict"
+      },
+      "dynamicCloth": {
+        "status": "blocked",
+        "reason": "real-time-budget-not-met"
+      },
+      "nativeInput": {
+        "status": "not-run"
+      },
+      "webglAndGPURecovery": {
+        "status": "partial",
+        "browserWebGL": "passed",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "hardwareGPURecovery": "not-run",
+        "nativeDesktop": "not-run",
+        "reason": "Browser object lifecycle counts do not establish physical GPU memory or desktop-window acceptance"
+      },
+      "stableFrameTime": {
+        "status": "failed",
+        "evidence": {
+          "samples": 900,
+          "median": 1.2737409999999727,
+          "p95": 2.4103809999999157,
+          "max": 16.952121000000034,
+          "includes": "body + hybrid + anchors + secondary + effects; excludes GPU"
+        },
+        "profilePasses": {
+          "0": {
+            "n": 900,
+            "median": 1.3477740000002996,
+            "p95": 2.688386000000037,
+            "p99": 4.12173800000005,
+            "max": 15.536724999999933
+          },
+          "1": {
+            "n": 900,
+            "median": 1.1900410000002921,
+            "p95": 2.2791819999997642,
+            "p99": 2.7829070000002503,
+            "max": 8.219329000000016
+          },
+          "2": {
+            "n": 900,
+            "median": 1.188948999999866,
+            "p95": 2.4919959999997445,
+            "p99": 3.173804999999902,
+            "max": 5.822313000000122
+          }
+        },
+        "profileOverBudgetFrames": 0,
+        "reason": "Observed browser frame intervals exceed the 60 Hz budget; renderer identity remains explicit",
+        "browserFrameIntervals": {
+          "p50": 106.20000000018626,
+          "p95": 206.60000000009313,
+          "max": 291.6999999997206
+        }
+      },
+      "fullWardrobeContact": {
+        "status": "failed",
+        "samples": 481,
+        "framesWithContacts": 481,
+        "observedPairs": [
+          "body/Bubu_hand-right <> satchel/satchel_continuous_strap",
+          "body/Bubu_body <> sakura/sakura_petal_1",
+          "body/Bubu_body <> sakura/sakura_petal_2",
+          "body/Bubu_body <> sakura/sakura_leaf_-019",
+          "body/Bubu_body <> satchel/satchel_pouch",
+          "sakura/sakura_leaf_-019 <> leaf/forest_petiole",
+          "sakura/sakura_leaf_019 <> leaf/forest_leaf",
+          "satchel/satchel_continuous_strap <> cape/cape_edge_0",
+          "body/Bubu_body <> cape/cape_edge_0",
+          "satchel/satchel_continuous_strap <> cape/cape_cloth",
+          "body/Bubu_body <> satchel/satchel_continuous_strap"
+        ],
+        "haloContactPairs": [],
+        "continuousContact": "not-run",
+        "containment": "not-run",
+        "reason": "Sampled full-outfit surfaces still require intentional-contact classification and continuous/containment verification"
+      }
+    },
+    "clothDetail": "沿用已归档的失败实验：实际接触、应变和实时预算均未通过；本轮没有新的布料通过证据",
+    "outfitDetail": "除已修正光环外仍有 11 组表面交叉，包含右手/包带、包袋/身体、耳饰之间及包带/披风。部分贴合需定义允许接触区域；不能将全部交叉直接当成允许接触。"
+  },
+  "notRun": [
+    "完整穿搭连续时间分离证明",
+    "包含关系与服装自接触验收",
+    "Windows/macOS 原生输入、透明窗口及完整安装运行",
+    "硬件 GPU 性能、显存回收与恢复"
+  ],
+  "minimalRemainingWork": [
+    "先定义允许贴合区域与间距/深度标准，完成挎包、耳饰、披风的整套组合贴合",
+    "披风/喝茶保持拒绝准入，从无穿插初态验证完整布料路径；仍沿用原接触、应变和 16.667 ms 帧预算",
+    "在目标原生设备上运行实时性能与窗口/GPU 验收；当前环境无 /dev/dri，仅有 SwiftShader"
+  ],
+  "experiment": {
+    "defaultEnabled": false,
+    "historicalPixelComparisons": 612,
+    "historicalPixelMismatches": 0,
+    "currentCompositionSmoke": 6,
+    "performanceConclusion": "未建立稳定提速；客户端 GL 调用耗时不是物理 GPU 时长",
+    "sourceHandling": "固定依赖门禁曾拒绝 D2 样式回调修改；已恢复冻结源码，实验源码与旧结果单独归档"
+  },
+  "artifacts": {
+    "bubu-v2-demo.mp4": {
+      "path": "/workspace/artifacts/bubu-v2-final-demo-20261024/bubu-v2-demo.mp4",
+      "bytes": 725045,
+      "sha256": "336c363dd1c6f687ef0ebeacfeffdb6157058e1b2452beeedbfa70da4514bfc9"
+    },
+    "bubu-v2-interactive.zip": {
+      "path": "/workspace/artifacts/bubu-v2-final-demo-20261024/bubu-v2-interactive.zip",
+      "bytes": 15802850,
+      "sha256": "9ca82b980a40c8c333977102b859c25d3c58e1885f8ac0edce863e84bf143281"
+    },
+    "preview.gif": {
+      "path": "/workspace/artifacts/bubu-v2-final-demo-20261024/preview.gif",
+      "bytes": 307366,
+      "sha256": "311c8bbc9d6bb3d90c8b29fd4c0a6383278bd139d6c9383803ab9752dd9001f7"
+    },
+    "poster.png": {
+      "path": "/workspace/artifacts/bubu-v2-final-demo-20261024/poster.png",
+      "bytes": 114630,
+      "sha256": "1f3202e40e5a104738553b5ddafec72042c4205b7a09082f3f4ae32bc4189043"
+    }
+  },
+  "video": {
+    "seconds": 49.083333,
+    "frames": 1178,
+    "dimensions": [
+      1100,
+      900
+    ],
+    "fps": 24,
+    "clock": "明确的逐帧采样时钟，不代表实时帧率",
+    "decode": "ffmpeg 完整解码通过",
+    "sourceIdentity": "最终浏览器加载文件与总回归源码哈希一致"
+  },
+  "reproduction": {
+    "researchDirectory": "/workspace/bubu/research/animation-0.1.0",
+    "fullVerification": "npm run foundation:verify -- --output NEW_EXTERNAL_DIRECTORY --browser /usr/bin/chromium --software",
+    "demoServer": "npm run foundation:demo",
+    "record": "python3 animation-foundation-v1/demo/capture.py --record --output NEW_EXTERNAL_DIRECTORY",
+    "outfitReference": "node animation-foundation-v1/contact/outfit-sweep.mjs NEW_EXTERNAL_DIRECTORY --reference",
+    "offline": "解压 bubu-v2-interactive.zip，运行 python3 run-demo.py（Windows 可用 python run-demo.py）"
+  },
+  "evidenceArchive": "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/verification/followup-20261024",
+  "initialFailuresPreserved": [
+    "沙箱内应用测试因本机监听/同步子进程限制失败；批准本地执行后完整重跑通过",
+    "首次研究总回归因固定 D2 样式源码哈希变化失败；恢复后 33 阶段通过"
+  ],
+  "intermediateDeliveries": "bubu-v2-followup-demo-20261024 保留为恢复冻结依赖前的中间产物；最终交付采用 bubu-v2-final-demo-20261024"
+}

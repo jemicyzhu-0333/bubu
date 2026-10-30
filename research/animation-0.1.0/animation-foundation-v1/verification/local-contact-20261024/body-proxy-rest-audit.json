@@ -1,0 +1,111 @@
+{
+  "status": "completed",
+  "accepted": false,
+  "parts": [
+    {
+      "name": "cape_cloth",
+      "proxyCrossingTriangles": 0,
+      "actualGap": 0.009871240022328151,
+      "proxyGap": 0.0035485300176746697,
+      "witnesses": []
+    },
+    {
+      "name": "cape_back_edge",
+      "proxyCrossingTriangles": 365,
+      "actualGap": 0.0011412786533137576,
+      "proxyGap": 0,
+      "witnesses": [
+        {
+          "partTriangle": 1262,
+          "proxyTriangle": 412
+        },
+        {
+          "partTriangle": 1262,
+          "proxyTriangle": 416
+        },
+        {
+          "partTriangle": 1263,
+          "proxyTriangle": 416
+        }
+      ]
+    },
+    {
+      "name": "cape_hem",
+      "proxyCrossingTriangles": 162,
+      "actualGap": 0.0010959075292556544,
+      "proxyGap": 0,
+      "witnesses": [
+        {
+          "partTriangle": 1596,
+          "proxyTriangle": 467
+        },
+        {
+          "partTriangle": 1598,
+          "proxyTriangle": 467
+        },
+        {
+          "partTriangle": 1599,
+          "proxyTriangle": 467
+        }
+      ]
+    },
+    {
+      "name": "cape_front_edge_0",
+      "proxyCrossingTriangles": 74,
+      "actualGap": 0.0009917384346156178,
+      "proxyGap": 0,
+      "witnesses": [
+        {
+          "partTriangle": 2,
+          "proxyTriangle": 1298
+        },
+        {
+          "partTriangle": 3,
+          "proxyTriangle": 1298
+        },
+        {
+          "partTriangle": 4,
+          "proxyTriangle": 1298
+        }
+      ]
+    },
+    {
+      "name": "cape_front_edge_1",
+      "proxyCrossingTriangles": 80,
+      "actualGap": 0.0009870084281133117,
+      "proxyGap": 0,
+      "witnesses": [
+        {
+          "partTriangle": 2,
+          "proxyTriangle": 517
+        },
+        {
+          "partTriangle": 3,
+          "proxyTriangle": 517
+        },
+        {
+          "partTriangle": 4,
+          "proxyTriangle": 517
+        }
+      ]
+    },
+    {
+      "name": "cape_clasp",
+      "proxyCrossingTriangles": 0,
+      "actualGap": 0.006287396976115397,
+      "proxyGap": 0.0028547118255980997,
+      "witnesses": []
+    }
+  ],
+  "certificate": {
+    "directions": 1024,
+    "selectedSourceVertices": 980,
+    "sourceVertices": 32036,
+    "triangles": 1956,
+    "scaleFactor": 1.007788588454669,
+    "maximumPlaneViolation": -8.214272835260772e-7,
+    "maximumOuterDistance": 0.00796060074755975,
+    "maxError": 0.01,
+    "requiredInwardMargin": 1e-8
+  }
+}

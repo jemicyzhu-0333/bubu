@@ -1,3 +1,4 @@
+import { evidencePath } from "../verification/evidence-output.mjs";
 import fs from "node:fs";
 import assert from "node:assert/strict";
 import * as T from "three";
@@ -97,8 +98,7 @@ for (const authored of AUTHORED_CASES) {
   pool.dispose();
   assert.equal(pool.diagnostics().budget.claimedBytes, 0);
 }
-fs.writeFileSync(
-  new URL("./evidence/authored-actions-report.json", import.meta.url),
+fs.writeFileSync(evidencePath(new URL("./evidence/authored-actions-report.json", import.meta.url)),
   JSON.stringify(
     {
       scope:

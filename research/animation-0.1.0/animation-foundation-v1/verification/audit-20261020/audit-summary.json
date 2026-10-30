@@ -1,0 +1,161 @@
+{
+  "schema": "bubu-foundation-audit/1",
+  "branch": "feature/pet-animation-v2",
+  "baselineCommit": "c0a8281bbc721f1f7d01afdb0ece6920aebc90f9",
+  "workingTreeChanges": true,
+  "productionAccepted": false,
+  "requestedClosure": "incomplete",
+  "auditScope": "V2 foundation contact/resource/equipment contracts, verification outputs, and D2 browser body path; not an exhaustive review of every historical snapshot or production feature",
+  "validation": {
+    "researchStagesPassed": 31,
+    "jsonFormatRegressionTestsPassed": 2,
+    "researchNodeTestsPassed": 783,
+    "application": {
+      "check": {
+        "tests": 6771,
+        "pass": 6742,
+        "fail": 0,
+        "skipped": 29
+      },
+      "integration": {
+        "tests": 71,
+        "pass": 71,
+        "fail": 0,
+        "skipped": 0
+      }
+    },
+    "browserDPRs": [
+      1,
+      1.25,
+      2
+    ],
+    "browserRecreationCycles": 9,
+    "browserRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  "resolved": [
+    "V2 workbench broken Three.js import path; shared browser/Node body-host composition.",
+    "Failed or stale replacement I/O preserves committed equipment; decoded admission precedes retirement.",
+    "Non-finite asset attributes/transforms and invalid triangle indices rejected; backing allocations charged once.",
+    "Explicit complete wardrobe evidence can be registered without treating individual evidence as combination approval.",
+    "Non-finite initial host time rejected.",
+    "Browser evidence uses strict JSON with explicit non-finite observation strings; performance gate aggregates all CPU passes and browser intervals.",
+    "HTML/CSS included in source inventory; canonical output path and nested symlink protections preserve research evidence."
+  ],
+  "gates": {
+    "fixedCapeTea": {
+      "status": "blocked",
+      "evidence": "endpoint-exclusion.json",
+      "minimumCertifiedMargin": 0.0030214278125992033,
+      "scope": "Every rigid twist with each root/grip within 0.01 source units; not a global impossibility claim for redesigned garments or larger refits."
+    },
+    "localArcCloth": {
+      "status": "failed",
+      "evidence": [
+        "cloth-trimesh.json",
+        "cloth-convex.json"
+      ],
+      "reason": "Both 60-frame experiments retain actual render-mesh intersections, excessive strain, and physics time far beyond 16.667 ms."
+    },
+    "browserBodyPath": {
+      "status": "passed",
+      "evidence": "browser/browser-report.json",
+      "scope": "Real Chromium input and WebGL; SwiftShader software renderer."
+    },
+    "completeWardrobeAndHybridBrowserScene": {
+      "status": "not-accepted",
+      "reason": "No full outfit/transition/cancellation/continuous-contact evidence; current browser probe covers D2 body, not all FoundationActor attachments."
+    },
+    "nativeDesktopAndHardwareGPU": {
+      "status": "not-run",
+      "reason": "No Windows/macOS target session, desktop display or hardware GPU verification; browser object counts are not physical VRAM measurement."
+    },
+    "stableFrameRate": {
+      "status": "failed-in-current-environment",
+      "cpuEvidence": "frame-profile.json",
+      "cpuPasses": {
+        "0": {
+          "n": 900,
+          "median": 1.4679470000000947,
+          "p95": 3.2819750000001022,
+          "p99": 5.793241999999964,
+          "max": 47.40477400000009
+        },
+        "1": {
+          "n": 900,
+          "median": 1.310465000000022,
+          "p95": 2.5844959999999446,
+          "p99": 3.461471000000074,
+          "max": 9.801042999999936
+        },
+        "2": {
+          "n": 900,
+          "median": 1.2572060000002239,
+          "p95": 3.619923999999628,
+          "p99": 4.1432480000003125,
+          "max": 6.840310999999929
+        }
+      },
+      "cpuOverBudgetFrames": 2,
+      "browserIntervalsMs": {
+        "p50": 111.40000000037253,
+        "p95": 227.80000000074506,
+        "max": 384.5
+      },
+      "reason": "CPU sampled passes cannot erase historical spikes; software WebGL frame intervals fail a 60 Hz budget."
+    },
+    "atomicSynchronousEquipRollback": {
+      "status": "open",
+      "reason": "I/O/admission failures preserve old equipment, but attachment/effect/strategy construction failure after retirement still fails closed to no outfit."
+    }
+  },
+  "additionalProfiling": {
+    "evidence": "diagnostics/sampling-summary.json",
+    "previousRunOverallStatus": "failed-during-JSON-summary",
+    "reproducedOverBudgetFrames": 13,
+    "maximumObservedFrameMs": 29.93357300000025,
+    "timingCause": "Not uniquely established; recorded CPU consumption rules out simple scheduling-only attribution for those particular spikes."
+  },
+  "largerEndpointExploration": {
+    "accepted": false,
+    "evidence": "diagnostics/larger-endpoint-probe.json",
+    "cases": [
+      {
+        "time": 1.5,
+        "hand": "Bubu_hand-left",
+        "candidatesTested": 307,
+        "surfaceClearCandidates": 0,
+        "minimumIntersectionPairs": 131
+      },
+      {
+        "time": 1.5,
+        "hand": "Bubu_hand-right",
+        "candidatesTested": 335,
+        "surfaceClearCandidates": 0,
+        "minimumIntersectionPairs": 99
+      },
+      {
+        "time": 3.4,
+        "hand": "Bubu_hand-left",
+        "candidatesTested": 444,
+        "surfaceClearCandidates": 52,
+        "minimumIntersectionPairs": 0
+      },
+      {
+        "time": 3.4,
+        "hand": "Bubu_hand-right",
+        "candidatesTested": 389,
+        "surfaceClearCandidates": 46,
+        "minimumIntersectionPairs": 0
+      }
+    ],
+    "limits": "Exploratory larger rigid endpoint refits preserving source grip point with coordinated .012 forward hold shift. Coarse carrier root filter only; NO anatomical, containment, full cup-contact, transition or visual approval. Grid search failure is not infeasibility proof."
+  },
+  "correctedHypotheses": [
+    "One retained texture is Three.js renderer fallback storage. All nine actor bone textures/eight morph textures release; no increasing actor leak reproduced."
+  ],
+  "nextRequiredWork": [
+    "Design and review a contact-safe garment attachment/deformation envelope or larger anatomical endpoint refit; do not simply unpin more points without strain/visual evidence.",
+    "Select a cloth pipeline that meets the declared whole-frame budget and test safely initialized transitions, containment, seams, self-contact and interruption paths.",
+    "Integrate original-parts/wardrobe/business adapters in the browser/Electron composition, then validate real target desktops and hardware GPU behavior."
+  ]
+}

@@ -1,0 +1,365 @@
+{
+  "status": "completed",
+  "productionAccepted": false,
+  "scope": "Rest-pose obstruction of the existing translation-only mount fit; no rotation/deformation exclusion",
+  "obstacles": [
+    {
+      "names": [
+        "Bubu_body",
+        "Bubu_foot-left",
+        "Bubu_foot-right"
+      ],
+      "topology": {
+        "vertices": 40484,
+        "triangles": 80964,
+        "degenerate": 0,
+        "invalidEdges": 0
+      },
+      "status": "closed"
+    },
+    {
+      "names": [
+        "Bubu_hand-right"
+      ],
+      "topology": {
+        "vertices": 2228,
+        "triangles": 4452,
+        "degenerate": 0,
+        "invalidEdges": 0
+      },
+      "status": "closed"
+    },
+    {
+      "names": [
+        "Bubu_hand-left"
+      ],
+      "topology": {
+        "vertices": 2237,
+        "triangles": 4470,
+        "degenerate": 0,
+        "invalidEdges": 0
+      },
+      "status": "closed"
+    }
+  ],
+  "rows": [
+    {
+      "obstacle": [
+        "Bubu_body",
+        "Bubu_foot-left",
+        "Bubu_foot-right"
+      ],
+      "mount": "satchel",
+      "part": "satchel_pouch",
+      "maxTranslation": 0.061152059944635066,
+      "inside": {
+        "index": 290,
+        "position": [
+          -0.6070084313459565,
+          0.46046997265386125,
+          0.47630915288264786
+        ],
+        "location": "vertex",
+        "distance": 0.0843793393041701,
+        "winding": 0.999999999999998
+      },
+      "outside": {
+        "index": 13,
+        "position": [
+          -1.0838622846580515,
+          0.13826955513524553,
+          0.4905743034783888
+        ],
+        "location": "vertex",
+        "distance": 0.4141286898534193,
+        "winding": -1.1634570444661927e-16
+      },
+      "connectedOutside": true,
+      "necessaryExtraTranslation": 0.023227279359535037
+    },
+    {
+      "obstacle": [
+        "Bubu_hand-right"
+      ],
+      "mount": "satchel",
+      "part": "satchel_continuous_strap",
+      "maxTranslation": 0.061152059944635066,
+      "inside": {
+        "index": 482,
+        "position": [
+          0.9803655298732071,
+          0.6659381504492716,
+          -0.2508108829683908
+        ],
+        "location": "vertex",
+        "distance": 0.11587993457624733,
+        "winding": 1
+      },
+      "outside": {
+        "index": 562,
+        "position": [
+          -0.9113148376686918,
+          0.4273718710379555,
+          0.22372779752081373
+        ],
+        "location": "vertex",
+        "distance": 1.8301825567696741,
+        "winding": 2.640108866449208e-18
+      },
+      "connectedOutside": true,
+      "necessaryExtraTranslation": 0.054727874631612265
+    }
+  ],
+  "sourceHashes": {
+    "animation-foundation-v1/contact/fit-obstruction.mjs": "d249f3b9de2a7e832f379cccfd78ec52ff06738b4e1fff5fd1e14f17f3fae85c",
+    "animation-foundation-v1/configuration/fixtures/complete-outfit.mjs": "80d9aa3a7a89c829549580b4448e0ff909544806af81438e53eb7b4ae0192798",
+    "runtime-facepath05/fixtures/face-d2/asset.glb": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
+    "original-parts-hybrid-v1/geometry/bubu-hybrid-binding.glb": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67"
+  },
+  "limitations": [
+    "An inside witness proves containment persists; it establishes a surface crossing only when a connected outside witness is also present.",
+    "No conclusion about rotations, re-authoring, deformed garments or intended attachment masks."
+  ],
+  "configuration": {
+    "format": "bubu-action-configuration",
+    "version": "0.1.0-foundation",
+    "id": "complete-outfit-v1",
+    "actor": {
+      "id": "xiaobu-approved-d2",
+      "modelVariant": "d2",
+      "bodyOwner": "shared-input-workbench-v2",
+      "faceOwner": "WeightedExpressionOwner"
+    },
+    "mounts": [
+      {
+        "id": "sakura",
+        "assetId": "skin.sakura-flower",
+        "anchor": "earR.front",
+        "offset": [
+          0,
+          0.0125,
+          0
+        ],
+        "layer": "front",
+        "writer": "mount-registry"
+      },
+      {
+        "id": "leaf",
+        "assetId": "skin.forest-leaf",
+        "anchor": "earR.rear",
+        "offset": [
+          -0.0125,
+          0,
+          0
+        ],
+        "layer": "front",
+        "writer": "mount-registry"
+      },
+      {
+        "id": "satchel",
+        "assetId": "milestone.satchel",
+        "anchor": "hip.sideR",
+        "offset": [
+          0.005258461059488644,
+          -0.009985710937233348,
+          0
+        ],
+        "layer": "front",
+        "writer": "mount-registry"
+      },
+      {
+        "id": "cape",
+        "assetId": "milestone.cape",
+        "anchor": "back.upper",
+        "offset": [
+          0,
+          -0.025,
+          0.04
+        ],
+        "layer": "back",
+        "writer": "mount-registry"
+      },
+      {
+        "id": "halo",
+        "assetId": "milestone.halo",
+        "anchor": "crown",
+        "offset": [
+          0,
+          0,
+          0.04
+        ],
+        "layer": "front",
+        "writer": "mount-registry"
+      }
+    ],
+    "secondaryMotion": [
+      {
+        "mountId": "sakura",
+        "mode": "rigid-follow",
+        "writer": "secondary-motion",
+        "maxAngleRad": 0.25,
+        "reset": "rest-local-transform",
+        "status": "supported"
+      },
+      {
+        "mountId": "leaf",
+        "mode": "rigid-follow",
+        "writer": "secondary-motion",
+        "maxAngleRad": 0.25,
+        "reset": "rest-local-transform",
+        "status": "supported"
+      },
+      {
+        "mountId": "satchel",
+        "mode": "spring-chain",
+        "writer": "secondary-motion",
+        "maxAngleRad": 0.25,
+        "reset": "rest-local-transform",
+        "status": "research-blocked"
+      },
+      {
+        "mountId": "cape",
+        "mode": "authored-chain",
+        "writer": "secondary-motion",
+        "maxAngleRad": 0.25,
+        "reset": "rest-local-transform",
+        "status": "research-blocked"
+      },
+      {
+        "mountId": "halo",
+        "mode": "rigid-follow",
+        "writer": "secondary-motion",
+        "maxAngleRad": 0.25,
+        "reset": "rest-local-transform",
+        "status": "supported"
+      }
+    ],
+    "effects": [
+      {
+        "id": "petals",
+        "effectId": "petal-stream",
+        "mountId": "sakura",
+        "space": "world",
+        "maxParticles": 12,
+        "lifetimeSec": 1.2,
+        "rateHz": 4,
+        "durationSec": 8,
+        "cleanup": "immediate-on-reset-dispose"
+      },
+      {
+        "id": "leaves",
+        "effectId": "leaf-stream",
+        "mountId": "leaf",
+        "space": "local",
+        "maxParticles": 12,
+        "lifetimeSec": 1.2,
+        "rateHz": 4,
+        "durationSec": 8,
+        "cleanup": "immediate-on-reset-dispose"
+      },
+      {
+        "id": "halo-local",
+        "effectId": "halo-sparks",
+        "mountId": "halo",
+        "space": "local",
+        "maxParticles": 12,
+        "lifetimeSec": 1.2,
+        "rateHz": 4,
+        "durationSec": 8,
+        "cleanup": "immediate-on-reset-dispose"
+      },
+      {
+        "id": "halo-world",
+        "effectId": "halo-sparks",
+        "mountId": "halo",
+        "space": "world",
+        "maxParticles": 12,
+        "lifetimeSec": 1.2,
+        "rateHz": 4,
+        "durationSec": 8,
+        "cleanup": "immediate-on-reset-dispose"
+      }
+    ],
+    "actions": [
+      {
+        "id": "baseline",
+        "factKey": "idle",
+        "priority": 0,
+        "resources": [
+          "body.action"
+        ],
+        "body": "baseline-idle",
+        "bones": [],
+        "expressions": [],
+        "contactWindows": [],
+        "enterSec": 0.16,
+        "exitSec": 0.2,
+        "loop": "while-fact-active",
+        "interrupt": "sample-current-release-owner",
+        "durationSec": 1,
+        "maxLoops": 1,
+        "effectTracks": []
+      },
+      {
+        "id": "longpress",
+        "factKey": "longpress",
+        "priority": 50,
+        "resources": [
+          "body.action",
+          "face.semantic"
+        ],
+        "body": "pointer-longpress",
+        "bones": [],
+        "expressions": [],
+        "contactWindows": [],
+        "enterSec": 0.16,
+        "exitSec": 0.2,
+        "loop": "while-input-held",
+        "interrupt": "sample-current-release-owner",
+        "durationSec": 1,
+        "maxLoops": 1,
+        "effectTracks": []
+      },
+      {
+        "id": "drag",
+        "factKey": "drag",
+        "priority": 100,
+        "resources": [
+          "body.action",
+          "face.semantic"
+        ],
+        "body": "pointer-drag",
+        "bones": [],
+        "expressions": [],
+        "contactWindows": [],
+        "enterSec": 0.22,
+        "exitSec": 1.5,
+        "loop": "while-input-held",
+        "interrupt": "sample-current-release-owner",
+        "durationSec": 1,
+        "maxLoops": 1,
+        "effectTracks": []
+      }
+    ],
+    "input": {
+      "owner": "shared-input-workbench-v2",
+      "drag": "continuous",
+      "longpress": "continuous",
+      "cancel": "synthetic-release",
+      "lostcapture": "synthetic-release",
+      "blur": "suspend-reset",
+      "hidden": "suspend-reset",
+      "resume": "fresh-input",
+      "dispose": "release-and-clear"
+    },
+    "lifecycle": {
+      "enter": "capture-current",
+      "loop": "while-owned",
+      "exit": "bounded-recovery",
+      "pause": "suspend-reset-no-catchup",
+      "reset": "neutral-and-clear",
+      "dispose": "release-and-clear",
+      "cleanupSec": 3
+    }
+  }
+}

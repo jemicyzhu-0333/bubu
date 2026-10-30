@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "nodeTests": {
+    "passed": 6742,
+    "skipped": 29,
+    "failed": 0
+  },
+  "integration": {
+    "passed": 71,
+    "failed": 0
+  },
+  "checks": [
+    "lint",
+    "boundaries",
+    "architecture",
+    "icons",
+    "raster",
+    "usagi-wardrobe",
+    "limb-trace",
+    "application-icons"
+  ],
+  "optionalLimbPixelScan": "skipped: USAGI_CANVAS_PACKAGE not configured",
+  "initialSandboxRun": "18 files failed; reproduced local listener and synchronous child process restrictions; full rerun passed after approved execution",
+  "productionSourceDiff": "",
+  "nativeAcceptance": false
+}

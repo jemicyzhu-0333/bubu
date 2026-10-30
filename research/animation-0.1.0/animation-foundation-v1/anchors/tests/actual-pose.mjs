@@ -1,3 +1,4 @@
+import { evidencePath } from "../../verification/evidence-output.mjs";
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 import * as T from 'three';
@@ -48,4 +49,4 @@ const target=new T.Matrix4();assert.equal(a.registry.getTransform('crown',{targe
 const started=performance.now();for(let i=0;i<500;i++){a.registry.sampleFinalPose('affine');for(const id of a.registry.ids)a.registry.getTransform(id,{target});}report.profile={scope:'CPU Node only, 500 iterations of sampling 25 anchors and reading all 25 into one caller target',milliseconds:performance.now()-started};
 a.registry.dispose();assert.throws(()=>a.registry.getTransform('crown'));report.tests.disposedFailsClosed=true;
 for(const actor of[a,b]){actor.registry.dispose();actor.owner.dispose();actor.f.h.dispose();}
-fs.writeFileSync(new URL('../review/validation.json',import.meta.url),JSON.stringify(report,null,2));console.log(report);
+fs.writeFileSync(evidencePath(new URL('../review/validation.json',import.meta.url)),JSON.stringify(report,null,2));console.log(report);

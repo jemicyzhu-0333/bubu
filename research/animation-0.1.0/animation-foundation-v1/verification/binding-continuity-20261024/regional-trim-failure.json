@@ -1,0 +1,2434 @@
+{
+  "status": "completed",
+  "accepted": false,
+  "inputHashes": {
+    "animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs": "fa9d03f07f5304e53ddded6cfc03cb76825304bc10e99573fc5758fbf68d08bf",
+    "animation-foundation-v1/secondary-motion/cloth-probe/attachment-profile.mjs": "bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a",
+    "animation-foundation-v1/secondary-motion/cloth-probe/attachment-profiles.json": "9c3508d1c3217fe5745fcbe7bbc80f6c3eb3bdf45bd4c65e561f9a2849793409",
+    "animation-foundation-v1/secondary-motion/cloth-probe/thin-surface-mapper.mjs": "4ea3c516e3a56407763ddc80205f06d9184bc6f3f9010ef52b0967eca798eb9e",
+    "animation-foundation-v1/integration/asset-fixtures.mjs": "2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac",
+    "animation-foundation-v1/integration/asset-resources.mjs": "1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679",
+    "animation-foundation-v1/integration/cleanup-owned.mjs": "7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b",
+    "animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.mjs": "14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984",
+    "package-lock.json": "29914de54006d3f2bfb8f5ffb7ed05f16921a00c2af3abb07f2eb476eebeb427",
+    "original-parts-hybrid-v1/geometry/bubu-hybrid-binding.glb": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67",
+    "animation-foundation-v1/secondary-motion/cloth-probe/cape-coarse.json": "740619e1ca28dc8824c070bbc3b23df6ba7430b956dd4f64d2a411f8549ab8a8",
+    "animation-foundation-v1/secondary-motion/cloth-probe/cape-binding.json": "4aae28f29833e6af5fb44327ef2c66f1489ee9e3c98a0cec4c368f45d3b3bec9",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/frozen-cape.json": "5888814c2bd2b4627b3abab0e6133388e60fccb26b14e887e5556352d9c50d01",
+    "wearable-approved-round5/accessory-expansion/models/07-cape.glb": "e29010956b989a60e196472b2206e6c397b34f12f3b7092d67f53f189c128e21",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/inputs/tea-keyframes.json": "1b37c436f623ced2289411b5f0192e15feed91715bacc2bac3008336923e04d1",
+    "animation-foundation-v1/secondary-motion/cloth-probe/tea-obstacles.mjs": "0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a",
+    "animation-foundation-v1/contact/tea-clearance-candidate.mjs": "c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745",
+    "animation-foundation-v1/integration/tea-sample-boundary.mjs": "1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166",
+    "original-parts-hybrid-v1/tea/src/rigid-tea.mjs": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+    "original-parts-hybrid-v1/tea/src/timeline.mjs": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+    "original-parts-hybrid-v1/tea/src/scene-resources.mjs": "bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d",
+    "original-parts-hybrid-v1/tea/src/cup-model.mjs": "66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca",
+    "original-parts-hybrid-v1/tea/inputs/rigid-config.json": "b63aa7b4d3367c97bd72163329737061d62f3d787dae39f2cd971ff7a48fcc9c",
+    "original-parts-hybrid-v1/tea/inputs/hold-fit.json": "419f5d0d929edb977ce8103d4616461bf0e1c8cd09c8f8218b4c9cd611d95f0f",
+    "original-parts-hybrid-v1/tea/inputs/sip-fit.json": "7012a0c1869afde8704ba4d084d41407bbf7ee1662edc501d4bc99860b38acb6",
+    "animation-foundation-v1/secondary-motion/cloth-probe/collision-skin.mjs": "91f8468f5bf4b03be8394cdc68dc31ca399eb60236c61a66a53daa20e5943713",
+    "../../../artifacts/bubu-v2-binding-continuity-20261024/collision-skin-51.json": "f6a3dfdfe65e916517dada5fcef54fac1c4309b21205f4dab15ad5ee46e68fdd",
+    "animation-foundation-v1/secondary-motion/cloth-probe/local-body-proxy.mjs": "409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df",
+    "../../../artifacts/bubu-v2-local-contact-20261024/local-body-proxy-welded.json": "b5979e84c0e138d7f1476fa8cfabaf2ed5dacea93049a8aadaee64f70bcedd80",
+    "animation-foundation-v1/secondary-motion/cloth-probe/regional-collision-skin.mjs": "9a608666e563c42fce6d482a2f6d748722f60dd85ba78dda929b5b1522a7da90"
+  },
+  "scope": "Rest-initialized normal tea trajectory, coherent clearance candidate, stop at first contact/pin/strain failure",
+  "time": 0,
+  "frames": 540,
+  "attachment": {
+    "profile": "tea-swept-51-v1",
+    "simulationSHA256": "740619e1ca28dc8824c070bbc3b23df6ba7430b956dd4f64d2a411f8549ab8a8",
+    "pins": [
+      0,
+      3,
+      41,
+      48,
+      53,
+      56,
+      58,
+      60,
+      62,
+      64,
+      66,
+      68,
+      70,
+      72,
+      75,
+      81,
+      91,
+      104,
+      117,
+      131,
+      145,
+      159,
+      173,
+      187,
+      201,
+      215,
+      229,
+      243,
+      257,
+      271,
+      285,
+      299,
+      313,
+      327,
+      340,
+      353,
+      363,
+      369,
+      372,
+      374,
+      376,
+      378,
+      380,
+      382,
+      384,
+      386,
+      388,
+      391,
+      396,
+      438,
+      441
+    ],
+    "releasedPins": [
+      6,
+      9,
+      13,
+      17,
+      22,
+      28,
+      34,
+      403,
+      410,
+      416,
+      422,
+      427,
+      431,
+      435
+    ],
+    "reason": "Release the fourteen supports with exact inside-hand witnesses; dynamic cloth remains unaccepted",
+    "productionAccepted": false
+  },
+  "releasedPins": [
+    6,
+    9,
+    13,
+    17,
+    22,
+    28,
+    34,
+    403,
+    410,
+    416,
+    422,
+    427,
+    431,
+    435
+  ],
+  "handCollider": "convex-hull-diagnostic",
+  "bodyCollider": "locally-fitted-certified-body-proxy",
+  "obstacleFilter": "all",
+  "exactBodyHull": false,
+  "localBodyProxy": true,
+  "rigidPipingSections": false,
+  "declaredLimits": {
+    "maximumEdgeStretch": 1.2,
+    "minimumEdgeStretch": 0.8,
+    "pinError": 0.00001,
+    "frameBudgetMs": 16.667
+  },
+  "rows": [
+    {
+      "frame": 0,
+      "physicsMs": 1084.4377929999998,
+      "internalTimings": {
+        "Step": 1039.660997,
+        "CollisionDetection": 183.755104,
+        "BroadPhase": 1.187886,
+        "NarrowPhase": 182.336317,
+        "Solver": 80.811049,
+        "VelocityAssembly": 10.420492999999999,
+        "VelocityResolution": 69.839862,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 744.748818,
+        "UserChanges": 22.88656
+      },
+      "mapMs": 26.41861000000017,
+      "simulationPipelineMs": 1125.880661,
+      "totalIncludingContactMs": 1181.564309,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9953129522537206,
+        "max": 1.008029654781125
+      },
+      "cageStrain": {
+        "min": 0.9939982370083491,
+        "max": 1.0124991346226935,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9939982370083491
+        },
+        "maxWitness": {
+          "a": 1489,
+          "b": 1492,
+          "restLength": 0.004686065339685011,
+          "ratio": 1.0124991346226935
+        }
+      },
+      "renderStrain": {
+        "min": 0.9953440597105353,
+        "max": 1.0089834244699551,
+        "minWitness": {
+          "a": 4865,
+          "b": 4864,
+          "restLength": 0.004658714216654387,
+          "ratio": 0.9953440597105353
+        },
+        "maxWitness": {
+          "a": 2083,
+          "b": 2084,
+          "restLength": 0.010677433284008792,
+          "ratio": 1.0089834244699551
+        }
+      },
+      "maxStretch": 1.0124991346226935,
+      "minStretch": 0.9939982370083491,
+      "contacts": []
+    },
+    {
+      "frame": 1,
+      "physicsMs": 272.200969,
+      "internalTimings": {
+        "Step": 271.808148,
+        "CollisionDetection": 154.036666,
+        "BroadPhase": 0.09449,
+        "NarrowPhase": 153.93158200000002,
+        "Solver": 116.61438100000001,
+        "VelocityAssembly": 6.944505,
+        "VelocityResolution": 109.228124,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.016806,
+        "UserChanges": 0.048480999999999996
+      },
+      "mapMs": 14.400075999999899,
+      "simulationPipelineMs": 293.79572899999994,
+      "totalIncludingContactMs": 343.72809499999994,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9849582073208056,
+        "max": 1.021199847027859
+      },
+      "cageStrain": {
+        "min": 0.9827547728237135,
+        "max": 1.021199847027859,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9827547728237135
+        },
+        "maxWitness": {
+          "a": 132,
+          "b": 133,
+          "restLength": 0.07362199406848091,
+          "ratio": 1.021199847027859
+        }
+      },
+      "renderStrain": {
+        "min": 0.9888810392119837,
+        "max": 1.022258537393142,
+        "minWitness": {
+          "a": 3110,
+          "b": 3109,
+          "restLength": 0.004658751677187919,
+          "ratio": 0.9888810392119837
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.022258537393142
+        }
+      },
+      "maxStretch": 1.022258537393142,
+      "minStretch": 0.9827547728237135,
+      "contacts": []
+    },
+    {
+      "frame": 2,
+      "physicsMs": 279.126346,
+      "internalTimings": {
+        "Step": 278.626747,
+        "CollisionDetection": 157.58321899999999,
+        "BroadPhase": 0.009984,
+        "NarrowPhase": 157.479556,
+        "Solver": 120.09737,
+        "VelocityAssembly": 6.578955,
+        "VelocityResolution": 112.99593300000001,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.015722999999999997,
+        "UserChanges": 0.028633
+      },
+      "mapMs": 14.005220999999892,
+      "simulationPipelineMs": 299.110635,
+      "totalIncludingContactMs": 349.730047,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9711108433083864,
+        "max": 1.0356326453272762
+      },
+      "cageStrain": {
+        "min": 0.9678791814986457,
+        "max": 1.0356326453272762,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9678791814986457
+        },
+        "maxWitness": {
+          "a": 132,
+          "b": 133,
+          "restLength": 0.07362199406848091,
+          "ratio": 1.0356326453272762
+        }
+      },
+      "renderStrain": {
+        "min": 0.9803228272519698,
+        "max": 1.041010814625746,
+        "minWitness": {
+          "a": 3110,
+          "b": 3109,
+          "restLength": 0.004658751677187919,
+          "ratio": 0.9803228272519698
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.041010814625746
+        }
+      },
+      "maxStretch": 1.041010814625746,
+      "minStretch": 0.9678791814986457,
+      "contacts": []
+    },
+    {
+      "frame": 3,
+      "physicsMs": 288.78637500000013,
+      "internalTimings": {
+        "Step": 288.589504,
+        "CollisionDetection": 160.48231399999997,
+        "BroadPhase": 0.009394,
+        "NarrowPhase": 160.461414,
+        "Solver": 127.068984,
+        "VelocityAssembly": 7.859147,
+        "VelocityResolution": 118.435173,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.015361999999999999,
+        "UserChanges": 0.029824
+      },
+      "mapMs": 15.505970000000161,
+      "simulationPipelineMs": 310.633237,
+      "totalIncludingContactMs": 361.67342099999996,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9551800932022148,
+        "max": 1.050101061977566
+      },
+      "cageStrain": {
+        "min": 0.9508375849914593,
+        "max": 1.050101061977566,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9508375849914593
+        },
+        "maxWitness": {
+          "a": 132,
+          "b": 133,
+          "restLength": 0.07362199406848091,
+          "ratio": 1.050101061977566
+        }
+      },
+      "renderStrain": {
+        "min": 0.9701062244784932,
+        "max": 1.0574981764487101,
+        "minWitness": {
+          "a": 3104,
+          "b": 3103,
+          "restLength": 0.004658751677187919,
+          "ratio": 0.9701062244784932
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.0574981764487101
+        }
+      },
+      "maxStretch": 1.0574981764487101,
+      "minStretch": 0.9508375849914593,
+      "contacts": []
+    },
+    {
+      "frame": 4,
+      "physicsMs": 289.9095849999999,
+      "internalTimings": {
+        "Step": 289.612486,
+        "CollisionDetection": 163.414107,
+        "BroadPhase": 0.009294,
+        "NarrowPhase": 163.39384800000002,
+        "Solver": 125.249716,
+        "VelocityAssembly": 6.21083,
+        "VelocityResolution": 118.32053400000001,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.014012,
+        "UserChanges": 0.028653
+      },
+      "mapMs": 15.03568499999983,
+      "simulationPipelineMs": 311.0559619999999,
+      "totalIncludingContactMs": 373.44570299999987,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9388977204065171,
+        "max": 1.0639593294484884
+      },
+      "cageStrain": {
+        "min": 0.9334248398133423,
+        "max": 1.0681876400472858,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9334248398133423
+        },
+        "maxWitness": {
+          "a": 913,
+          "b": 916,
+          "restLength": 0.03039078148949159,
+          "ratio": 1.0681876400472858
+        }
+      },
+      "renderStrain": {
+        "min": 0.9593100458291705,
+        "max": 1.0708884023064285,
+        "minWitness": {
+          "a": 3104,
+          "b": 3103,
+          "restLength": 0.004658751677187919,
+          "ratio": 0.9593100458291705
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.0708884023064285
+        }
+      },
+      "maxStretch": 1.0708884023064285,
+      "minStretch": 0.9334248398133423,
+      "contacts": []
+    },
+    {
+      "frame": 5,
+      "physicsMs": 300.206185,
+      "internalTimings": {
+        "Step": 300.015543,
+        "CollisionDetection": 168.743416,
+        "BroadPhase": 0.009833999999999999,
+        "NarrowPhase": 168.716826,
+        "Solver": 130.332749,
+        "VelocityAssembly": 5.9556130000000005,
+        "VelocityResolution": 123.562061,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.015243,
+        "UserChanges": 0.02784
+      },
+      "mapMs": 16.900620999999774,
+      "simulationPipelineMs": 323.15211199999976,
+      "totalIncludingContactMs": 374.47515399999975,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9248237976784481,
+        "max": 1.076633620601315
+      },
+      "cageStrain": {
+        "min": 0.9182501851726201,
+        "max": 1.0879488693600756,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9182501851726201
+        },
+        "maxWitness": {
+          "a": 913,
+          "b": 916,
+          "restLength": 0.03039078148949159,
+          "ratio": 1.0879488693600756
+        }
+      },
+      "renderStrain": {
+        "min": 0.9460882813853392,
+        "max": 1.0807924629604424,
+        "minWitness": {
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.9460882813853392
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.0807924629604424
+        }
+      },
+      "maxStretch": 1.0879488693600756,
+      "minStretch": 0.9182501851726201,
+      "contacts": []
+    },
+    {
+      "frame": 6,
+      "physicsMs": 301.6525820000006,
+      "internalTimings": {
+        "Step": 301.446508,
+        "CollisionDetection": 167.018476,
+        "BroadPhase": 0.028622,
+        "NarrowPhase": 166.979648,
+        "Solver": 133.483246,
+        "VelocityAssembly": 6.323195999999999,
+        "VelocityResolution": 126.579331,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.014371,
+        "UserChanges": 0.042774
+      },
+      "mapMs": 14.836811000000125,
+      "simulationPipelineMs": 323.8629029999993,
+      "totalIncludingContactMs": 374.7745159999995,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9149231668203083,
+        "max": 1.0876062625056353
+      },
+      "cageStrain": {
+        "min": 0.9073429930098871,
+        "max": 1.1031701072206248,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9073429930098871
+        },
+        "maxWitness": {
+          "a": 913,
+          "b": 916,
+          "restLength": 0.03039078148949159,
+          "ratio": 1.1031701072206248
+        }
+      },
+      "renderStrain": {
+        "min": 0.9318750377445856,
+        "max": 1.0925152988385038,
+        "minWitness": {
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.9318750377445856
+        },
+        "maxWitness": {
+          "a": 2995,
+          "b": 2976,
+          "restLength": 0.02951910140762877,
+          "ratio": 1.0925152988385038
+        }
+      },
+      "maxStretch": 1.1031701072206248,
+      "minStretch": 0.9073429930098871,
+      "contacts": []
+    },
+    {
+      "frame": 7,
+      "physicsMs": 298.4659419999998,
+      "internalTimings": {
+        "Step": 298.267819,
+        "CollisionDetection": 166.957966,
+        "BroadPhase": 0.015853,
+        "NarrowPhase": 166.930946,
+        "Solver": 130.356984,
+        "VelocityAssembly": 6.008952,
+        "VelocityResolution": 123.750059,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.014952,
+        "UserChanges": 0.029243
+      },
+      "mapMs": 14.327438000000257,
+      "simulationPipelineMs": 318.4286400000001,
+      "totalIncludingContactMs": 372.95416600000044,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9101047408628226,
+        "max": 1.0962187016506206
+      },
+      "cageStrain": {
+        "min": 0.9017981515162489,
+        "max": 1.1119996926639455,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9017981515162489
+        },
+        "maxWitness": {
+          "a": 913,
+          "b": 916,
+          "restLength": 0.03039078148949159,
+          "ratio": 1.1119996926639455
+        }
+      },
+      "renderStrain": {
+        "min": 0.919057244320062,
+        "max": 1.0997411993670974,
+        "minWitness": {
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.919057244320062
+        },
+        "maxWitness": {
+          "a": 2995,
+          "b": 2976,
+          "restLength": 0.02951910140762877,
+          "ratio": 1.0997411993670974
+        }
+      },
+      "maxStretch": 1.1119996926639455,
+      "minStretch": 0.9017981515162489,
+      "contacts": []
+    },
+    {
+      "frame": 8,
+      "physicsMs": 299.3889770000005,
+      "internalTimings": {
+        "Step": 299.122793,
+        "CollisionDetection": 166.1489,
+        "BroadPhase": 0.010145,
+        "NarrowPhase": 166.12796899999998,
+        "Solver": 132.00780500000002,
+        "VelocityAssembly": 6.667425000000001,
+        "VelocityResolution": 124.579606,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.014421,
+        "UserChanges": 0.028963
+      },
+      "mapMs": 14.238255999999637,
+      "simulationPipelineMs": 319.38020700000015,
+      "totalIncludingContactMs": 375.3280850000001,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9099189079080832,
+        "max": 1.1018845462767983
+      },
+      "cageStrain": {
+        "min": 0.9014776980721867,
+        "max": 1.1134172311301276,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9014776980721867
+        },
+        "maxWitness": {
+          "a": 913,
+          "b": 916,
+          "restLength": 0.03039078148949159,
+          "ratio": 1.1134172311301276
+        }
+      },
+      "renderStrain": {
+        "min": 0.903884471691095,
+        "max": 1.1035697351887286,
+        "minWitness": {
+          "a": 1972,
+          "b": 1952,
+          "restLength": 0.03510531043512588,
+          "ratio": 0.903884471691095
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.1035697351887286
+        }
+      },
+      "maxStretch": 1.1134172311301276,
+      "minStretch": 0.9014776980721867,
+      "contacts": []
+    },
+    {
+      "frame": 9,
+      "physicsMs": 298.0129220000008,
+      "internalTimings": {
+        "Step": 297.77658299999996,
+        "CollisionDetection": 166.606798,
+        "BroadPhase": 0.013791000000000001,
+        "NarrowPhase": 166.580529,
+        "Solver": 130.120696,
+        "VelocityAssembly": 6.121818,
+        "VelocityResolution": 123.274767,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.014,
+        "UserChanges": 0.034231
+      },
+      "mapMs": 15.049315000000206,
+      "simulationPipelineMs": 319.6359140000004,
+      "totalIncludingContactMs": 376.40366500000073,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9136932060794485,
+        "max": 1.1013746486600395
+      },
+      "cageStrain": {
+        "min": 0.9066251301639628,
+        "max": 1.109083658008003,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9066251301639628
+        },
+        "maxWitness": {
+          "a": 913,
+          "b": 916,
+          "restLength": 0.03039078148949159,
+          "ratio": 1.109083658008003
+        }
+      },
+      "renderStrain": {
+        "min": 0.8857124819487431,
+        "max": 1.1050321101141096,
+        "minWitness": {
+          "a": 1972,
+          "b": 1952,
+          "restLength": 0.03510531043512588,
+          "ratio": 0.8857124819487431
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.1050321101141096
+        }
+      },
+      "maxStretch": 1.109083658008003,
+      "minStretch": 0.8857124819487431,
+      "contacts": []
+    },
+    {
+      "frame": 10,
+      "physicsMs": 301.5291899999993,
+      "internalTimings": {
+        "Step": 301.383324,
+        "CollisionDetection": 166.467291,
+        "BroadPhase": 0.010105000000000001,
+        "NarrowPhase": 166.447011,
+        "Solver": 133.971758,
+        "VelocityAssembly": 6.353561,
+        "VelocityResolution": 127.048815,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.014131999999999999,
+        "UserChanges": 0.028953
+      },
+      "mapMs": 13.542828000000554,
+      "simulationPipelineMs": 320.71683200000007,
+      "totalIncludingContactMs": 379.2227320000002,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9203238258449474,
+        "max": 1.1007484036115038
+      },
+      "cageStrain": {
+        "min": 0.9136271727019926,
+        "max": 1.1007484036115038,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9136271727019926
+        },
+        "maxWitness": {
+          "a": 132,
+          "b": 133,
+          "restLength": 0.07362199406848091,
+          "ratio": 1.1007484036115038
+        }
+      },
+      "renderStrain": {
+        "min": 0.8741351859714023,
+        "max": 1.1048202835441803,
+        "minWitness": {
+          "a": 1972,
+          "b": 1952,
+          "restLength": 0.03510531043512588,
+          "ratio": 0.8741351859714023
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.1048202835441803
+        }
+      },
+      "maxStretch": 1.1048202835441803,
+      "minStretch": 0.8741351859714023,
+      "contacts": []
+    },
+    {
+      "frame": 11,
+      "physicsMs": 299.5358040000001,
+      "internalTimings": {
+        "Step": 299.38428,
+        "CollisionDetection": 166.959777,
+        "BroadPhase": 0.009965,
+        "NarrowPhase": 166.93922899999998,
+        "Solver": 131.486404,
+        "VelocityAssembly": 6.352119,
+        "VelocityResolution": 124.365698,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.013380000000000001,
+        "UserChanges": 0.029484
+      },
+      "mapMs": 14.772385000000213,
+      "simulationPipelineMs": 319.995586,
+      "totalIncludingContactMs": 379.83108100000027,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9286859650497312,
+        "max": 1.0995315553142069
+      },
+      "cageStrain": {
+        "min": 0.9223638246544632,
+        "max": 1.0995315553142069,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9223638246544632
+        },
+        "maxWitness": {
+          "a": 132,
+          "b": 133,
+          "restLength": 0.07362199406848091,
+          "ratio": 1.0995315553142069
+        }
+      },
+      "renderStrain": {
+        "min": 0.8681467874002547,
+        "max": 1.1025084790910007,
+        "minWitness": {
+          "a": 1972,
+          "b": 1952,
+          "restLength": 0.03510531043512588,
+          "ratio": 0.8681467874002547
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.1025084790910007
+        }
+      },
+      "maxStretch": 1.1025084790910007,
+      "minStretch": 0.8681467874002547,
+      "contacts": []
+    },
+    {
+      "frame": 12,
+      "physicsMs": 306.0518860000002,
+      "internalTimings": {
+        "Step": 305.89191999999997,
+        "CollisionDetection": 167.322676,
+        "BroadPhase": 0.009904,
+        "NarrowPhase": 167.296377,
+        "Solver": 137.484451,
+        "VelocityAssembly": 6.429634,
+        "VelocityResolution": 130.517093,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.014861000000000001,
+        "UserChanges": 0.029834
+      },
+      "mapMs": 16.932409000000007,
+      "simulationPipelineMs": 329.4721239999999,
+      "totalIncludingContactMs": 394.7443750000002,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9376152074400165,
+        "max": 1.096297988658119
+      },
+      "cageStrain": {
+        "min": 0.9319699663236486,
+        "max": 1.096297988658119,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9319699663236486
+        },
+        "maxWitness": {
+          "a": 132,
+          "b": 133,
+          "restLength": 0.07362199406848091,
+          "ratio": 1.096297988658119
+        }
+      },
+      "renderStrain": {
+        "min": 0.8666180336419641,
+        "max": 1.0985220690339823,
+        "minWitness": {
+          "a": 1987,
+          "b": 1967,
+          "restLength": 0.03751326804500927,
+          "ratio": 0.8666180336419641
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.0985220690339823
+        }
+      },
+      "maxStretch": 1.0985220690339823,
+      "minStretch": 0.8666180336419641,
+      "contacts": []
+    },
+    {
+      "frame": 13,
+      "physicsMs": 312.1129550000005,
+      "internalTimings": {
+        "Step": 311.951928,
+        "CollisionDetection": 176.05157799999998,
+        "BroadPhase": 0.018497,
+        "NarrowPhase": 176.023807,
+        "Solver": 134.846461,
+        "VelocityAssembly": 6.568348,
+        "VelocityResolution": 127.724535,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.015823,
+        "UserChanges": 0.061210999999999995
+      },
+      "mapMs": 14.03041900000062,
+      "simulationPipelineMs": 332.68655599999965,
+      "totalIncludingContactMs": 392.1095809999997,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9459990613519268,
+        "max": 1.091138478559264
+      },
+      "cageStrain": {
+        "min": 0.940926685545101,
+        "max": 1.091138478559264,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.940926685545101
+        },
+        "maxWitness": {
+          "a": 132,
+          "b": 133,
+          "restLength": 0.07362199406848091,
+          "ratio": 1.091138478559264
+        }
+      },
+      "renderStrain": {
+        "min": 0.8703150075492889,
+        "max": 1.0945912027409181,
+        "minWitness": {
+          "a": 1987,
+          "b": 1967,
+          "restLength": 0.03751326804500927,
+          "ratio": 0.8703150075492889
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.0945912027409181
+        }
+      },
+      "maxStretch": 1.0945912027409181,
+      "minStretch": 0.8703150075492889,
+      "contacts": []
+    },
+    {
+      "frame": 14,
+      "physicsMs": 305.5119480000003,
+      "internalTimings": {
+        "Step": 305.361806,
+        "CollisionDetection": 171.422406,
+        "BroadPhase": 0.009514,
+        "NarrowPhase": 171.403367,
+        "Solver": 133.011419,
+        "VelocityAssembly": 6.72418,
+        "VelocityResolution": 125.641726,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.013179,
+        "UserChanges": 0.022703
+      },
+      "mapMs": 14.608723999999711,
+      "simulationPipelineMs": 325.65516300000036,
+      "totalIncludingContactMs": 384.4835890000004,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9530473830915721,
+        "max": 1.0848481269631578
+      },
+      "cageStrain": {
+        "min": 0.9482584402373471,
+        "max": 1.0848481269631578,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9482584402373471
+        },
+        "maxWitness": {
+          "a": 132,
+          "b": 133,
+          "restLength": 0.07362199406848091,
+          "ratio": 1.0848481269631578
+        }
+      },
+      "renderStrain": {
+        "min": 0.8795586599603259,
+        "max": 1.0909152681763057,
+        "minWitness": {
+          "a": 1987,
+          "b": 1967,
+          "restLength": 0.03751326804500927,
+          "ratio": 0.8795586599603259
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.0909152681763057
+        }
+      },
+      "maxStretch": 1.0909152681763057,
+      "minStretch": 0.8795586599603259,
+      "contacts": []
+    },
+    {
+      "frame": 15,
+      "physicsMs": 303.6483329999992,
+      "internalTimings": {
+        "Step": 303.479403,
+        "CollisionDetection": 170.80543400000002,
+        "BroadPhase": 0.01359,
+        "NarrowPhase": 170.780537,
+        "Solver": 131.75689400000002,
+        "VelocityAssembly": 6.1133560000000005,
+        "VelocityResolution": 124.842434,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.01383,
+        "UserChanges": 0.024396
+      },
+      "mapMs": 13.72769100000005,
+      "simulationPipelineMs": 323.4225830000014,
+      "totalIncludingContactMs": 382.3158650000005,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9580071160792125,
+        "max": 1.0786698978313052
+      },
+      "cageStrain": {
+        "min": 0.9536581463997416,
+        "max": 1.0786698978313052,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9536581463997416
+        },
+        "maxWitness": {
+          "a": 132,
+          "b": 133,
+          "restLength": 0.07362199406848091,
+          "ratio": 1.0786698978313052
+        }
+      },
+      "renderStrain": {
+        "min": 0.8906938405859061,
+        "max": 1.0870190118907357,
+        "minWitness": {
+          "a": 1987,
+          "b": 1967,
+          "restLength": 0.03751326804500927,
+          "ratio": 0.8906938405859061
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.0870190118907357
+        }
+      },
+      "maxStretch": 1.0870190118907357,
+      "minStretch": 0.8906938405859061,
+      "contacts": []
+    },
+    {
+      "frame": 16,
+      "physicsMs": 300.55918699999893,
+      "internalTimings": {
+        "Step": 300.40281600000003,
+        "CollisionDetection": 168.533315,
+        "BroadPhase": 0.010706,
+        "NarrowPhase": 168.507958,
+        "Solver": 130.919828,
+        "VelocityAssembly": 6.519617,
+        "VelocityResolution": 123.835886,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.014771,
+        "UserChanges": 0.022333000000000002
+      },
+      "mapMs": 14.135363999999754,
+      "simulationPipelineMs": 320.77508900000066,
+      "totalIncludingContactMs": 381.43519300000116,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9605970944385338,
+        "max": 1.0739835571566738
+      },
+      "cageStrain": {
+        "min": 0.9566588590500368,
+        "max": 1.0739835571566738,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9566588590500368
+        },
+        "maxWitness": {
+          "a": 118,
+          "b": 119,
+          "restLength": 0.07273559992359206,
+          "ratio": 1.0739835571566738
+        }
+      },
+      "renderStrain": {
+        "min": 0.901237205940287,
+        "max": 1.0832542978578454,
+        "minWitness": {
+          "a": 1987,
+          "b": 1967,
+          "restLength": 0.03751326804500927,
+          "ratio": 0.901237205940287
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.0832542978578454
+        }
+      },
+      "maxStretch": 1.0832542978578454,
+      "minStretch": 0.901237205940287,
+      "contacts": []
+    },
+    {
+      "frame": 17,
+      "physicsMs": 325.72949300000073,
+      "internalTimings": {
+        "Step": 325.56614099999996,
+        "CollisionDetection": 176.866723,
+        "BroadPhase": 0.022183,
+        "NarrowPhase": 176.83378399999998,
+        "Solver": 147.598671,
+        "VelocityAssembly": 6.259042,
+        "VelocityResolution": 140.751059,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.015933000000000003,
+        "UserChanges": 0.022673000000000002
+      },
+      "mapMs": 15.848766000000978,
+      "simulationPipelineMs": 348.1346200000007,
+      "totalIncludingContactMs": 406.6465680000001,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9607891823736063,
+        "max": 1.0705341608334802
+      },
+      "cageStrain": {
+        "min": 0.9568470630726438,
+        "max": 1.0705341608334802,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9568470630726438
+        },
+        "maxWitness": {
+          "a": 118,
+          "b": 119,
+          "restLength": 0.07273559992359206,
+          "ratio": 1.0705341608334802
+        }
+      },
+      "renderStrain": {
+        "min": 0.910181202353779,
+        "max": 1.0802351580811724,
+        "minWitness": {
+          "a": 1987,
+          "b": 1967,
+          "restLength": 0.03751326804500927,
+          "ratio": 0.910181202353779
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.0802351580811724
+        }
+      },
+      "maxStretch": 1.0802351580811724,
+      "minStretch": 0.910181202353779,
+      "contacts": []
+    },
+    {
+      "frame": 18,
+      "physicsMs": 312.3868000000002,
+      "internalTimings": {
+        "Step": 312.230008,
+        "CollisionDetection": 174.887547,
+        "BroadPhase": 0.009694000000000001,
+        "NarrowPhase": 174.867007,
+        "Solver": 136.36097,
+        "VelocityAssembly": 6.362405,
+        "VelocityResolution": 129.43991,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.013900000000000001,
+        "UserChanges": 0.022983
+      },
+      "mapMs": 14.045891000001575,
+      "simulationPipelineMs": 332.69911499999944,
+      "totalIncludingContactMs": 388.40165999999954,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9587884874661414,
+        "max": 1.0676956953359993
+      },
+      "cageStrain": {
+        "min": 0.9544469803363107,
+        "max": 1.0676956953359993,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9544469803363107
+        },
+        "maxWitness": {
+          "a": 118,
+          "b": 119,
+          "restLength": 0.07273559992359206,
+          "ratio": 1.0676956953359993
+        }
+      },
+      "renderStrain": {
+        "min": 0.9173438652596336,
+        "max": 1.078485393662516,
+        "minWitness": {
+          "a": 1987,
+          "b": 1967,
+          "restLength": 0.03751326804500927,
+          "ratio": 0.9173438652596336
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.078485393662516
+        }
+      },
+      "maxStretch": 1.078485393662516,
+      "minStretch": 0.9173438652596336,
+      "contacts": []
+    },
+    {
+      "frame": 19,
+      "physicsMs": 312.709898000001,
+      "internalTimings": {
+        "Step": 312.539075,
+        "CollisionDetection": 176.02975500000002,
+        "BroadPhase": 0.009464,
+        "NarrowPhase": 176.00596,
+        "Solver": 135.59196300000002,
+        "VelocityAssembly": 7.189497,
+        "VelocityResolution": 127.82305,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.014882000000000001,
+        "UserChanges": 0.022442999999999998
+      },
+      "mapMs": 14.342248999999356,
+      "simulationPipelineMs": 332.93592499999977,
+      "totalIncludingContactMs": 389.4088890000003,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9549985910597506,
+        "max": 1.0655346773710905
+      },
+      "cageStrain": {
+        "min": 0.950111150044655,
+        "max": 1.0655346773710905,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.950111150044655
+        },
+        "maxWitness": {
+          "a": 118,
+          "b": 119,
+          "restLength": 0.07273559992359206,
+          "ratio": 1.0655346773710905
+        }
+      },
+      "renderStrain": {
+        "min": 0.9229664562777449,
+        "max": 1.0780879286192415,
+        "minWitness": {
+          "a": 1987,
+          "b": 1967,
+          "restLength": 0.03751326804500927,
+          "ratio": 0.9229664562777449
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.0780879286192415
+        }
+      },
+      "maxStretch": 1.0780879286192415,
+      "minStretch": 0.9229664562777449,
+      "contacts": []
+    },
+    {
+      "frame": 20,
+      "physicsMs": 316.19680199999857,
+      "internalTimings": {
+        "Step": 316.027371,
+        "CollisionDetection": 175.173251,
+        "BroadPhase": 0.017356,
+        "NarrowPhase": 175.14601,
+        "Solver": 139.924477,
+        "VelocityAssembly": 6.403614999999999,
+        "VelocityResolution": 132.95839,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.013309999999999999,
+        "UserChanges": 0.023604
+      },
+      "mapMs": 14.524059000001216,
+      "simulationPipelineMs": 336.21873700000106,
+      "totalIncludingContactMs": 390.19273799999974,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9500601914674291,
+        "max": 1.0645064046753747
+      },
+      "cageStrain": {
+        "min": 0.9445495231197361,
+        "max": 1.0645064046753747,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9445495231197361
+        },
+        "maxWitness": {
+          "a": 132,
+          "b": 133,
+          "restLength": 0.07362199406848091,
+          "ratio": 1.0645064046753747
+        }
+      },
+      "renderStrain": {
+        "min": 0.9283930093379982,
+        "max": 1.0785569112259656,
+        "minWitness": {
+          "a": 1987,
+          "b": 1967,
+          "restLength": 0.03751326804500927,
+          "ratio": 0.9283930093379982
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.0785569112259656
+        }
+      },
+      "maxStretch": 1.0785569112259656,
+      "minStretch": 0.9283930093379982,
+      "contacts": []
+    },
+    {
+      "frame": 21,
+      "physicsMs": 306.34046300000045,
+      "internalTimings": {
+        "Step": 306.149671,
+        "CollisionDetection": 172.834344,
+        "BroadPhase": 0.009394,
+        "NarrowPhase": 172.81426299999998,
+        "Solver": 132.360187,
+        "VelocityAssembly": 6.611963,
+        "VelocityResolution": 125.17571699999999,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.014171,
+        "UserChanges": 0.022793
+      },
+      "mapMs": 14.148874999998952,
+      "simulationPipelineMs": 326.23236499999985,
+      "totalIncludingContactMs": 377.8329479999993,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9446527733474681,
+        "max": 1.0649248878181268
+      },
+      "cageStrain": {
+        "min": 0.9384625775049046,
+        "max": 1.0649248878181268,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9384625775049046
+        },
+        "maxWitness": {
+          "a": 132,
+          "b": 133,
+          "restLength": 0.07362199406848091,
+          "ratio": 1.0649248878181268
+        }
+      },
+      "renderStrain": {
+        "min": 0.933449295607686,
+        "max": 1.0793545526346489,
+        "minWitness": {
+          "a": 1987,
+          "b": 1967,
+          "restLength": 0.03751326804500927,
+          "ratio": 0.933449295607686
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.0793545526346489
+        }
+      },
+      "maxStretch": 1.0793545526346489,
+      "minStretch": 0.933449295607686,
+      "contacts": []
+    },
+    {
+      "frame": 22,
+      "physicsMs": 300.68128699999943,
+      "internalTimings": {
+        "Step": 300.432299,
+        "CollisionDetection": 168.61500600000002,
+        "BroadPhase": 0.009845,
+        "NarrowPhase": 168.59061,
+        "Solver": 130.87367899999998,
+        "VelocityAssembly": 6.479287,
+        "VelocityResolution": 123.825381,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.014602,
+        "UserChanges": 0.022293
+      },
+      "mapMs": 16.098135000000184,
+      "simulationPipelineMs": 322.5538180000003,
+      "totalIncludingContactMs": 373.35242500000095,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9394875761440712,
+        "max": 1.066156488690088
+      },
+      "cageStrain": {
+        "min": 0.93270501561424,
+        "max": 1.070210272528131,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.93270501561424
+        },
+        "maxWitness": {
+          "a": 913,
+          "b": 916,
+          "restLength": 0.03039078148949159,
+          "ratio": 1.070210272528131
+        }
+      },
+      "renderStrain": {
+        "min": 0.9376743879759061,
+        "max": 1.0799389278832738,
+        "minWitness": {
+          "a": 1987,
+          "b": 1967,
+          "restLength": 0.03751326804500927,
+          "ratio": 0.9376743879759061
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.0799389278832738
+        }
+      },
+      "maxStretch": 1.0799389278832738,
+      "minStretch": 0.93270501561424,
+      "contacts": []
+    },
+    {
+      "frame": 23,
+      "physicsMs": 295.4219240000002,
+      "internalTimings": {
+        "Step": 295.264631,
+        "CollisionDetection": 165.589764,
+        "BroadPhase": 0.017285000000000002,
+        "NarrowPhase": 165.561993,
+        "Solver": 128.72357100000002,
+        "VelocityAssembly": 6.001672,
+        "VelocityResolution": 121.922798,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.014552,
+        "UserChanges": 0.020951
+      },
+      "mapMs": 13.841459999999643,
+      "simulationPipelineMs": 314.7656360000001,
+      "totalIncludingContactMs": 368.828128000001,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9351301521145414,
+        "max": 1.067911280314849
+      },
+      "cageStrain": {
+        "min": 0.9279891382062878,
+        "max": 1.0769028448325528,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9279891382062878
+        },
+        "maxWitness": {
+          "a": 913,
+          "b": 916,
+          "restLength": 0.03039078148949159,
+          "ratio": 1.0769028448325528
+        }
+      },
+      "renderStrain": {
+        "min": 0.9384144629362721,
+        "max": 1.0799526663949295,
+        "minWitness": {
+          "a": 1987,
+          "b": 1967,
+          "restLength": 0.03751326804500927,
+          "ratio": 0.9384144629362721
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.0799526663949295
+        }
+      },
+      "maxStretch": 1.0799526663949295,
+      "minStretch": 0.9279891382062878,
+      "contacts": []
+    },
+    {
+      "frame": 24,
+      "physicsMs": 284.61822500000017,
+      "internalTimings": {
+        "Step": 284.465288,
+        "CollisionDetection": 160.043968,
+        "BroadPhase": 0.010185,
+        "NarrowPhase": 160.023537,
+        "Solver": 123.37815,
+        "VelocityAssembly": 5.710691000000001,
+        "VelocityResolution": 117.16820999999999,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.014902,
+        "UserChanges": 0.022734
+      },
+      "mapMs": 14.590187000001606,
+      "simulationPipelineMs": 305.2899899999993,
+      "totalIncludingContactMs": 357.64839199999915,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.931979904032036,
+        "max": 1.070654323273501
+      },
+      "cageStrain": {
+        "min": 0.9247409114232867,
+        "max": 1.0816811533862065,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9247409114232867
+        },
+        "maxWitness": {
+          "a": 913,
+          "b": 916,
+          "restLength": 0.03039078148949159,
+          "ratio": 1.0816811533862065
+        }
+      },
+      "renderStrain": {
+        "min": 0.9352163653220794,
+        "max": 1.0800172274281614,
+        "minWitness": {
+          "a": 1972,
+          "b": 1952,
+          "restLength": 0.03510531043512588,
+          "ratio": 0.9352163653220794
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.0800172274281614
+        }
+      },
+      "maxStretch": 1.0816811533862065,
+      "minStretch": 0.9247409114232867,
+      "contacts": []
+    },
+    {
+      "frame": 25,
+      "physicsMs": 277.52078299999994,
+      "internalTimings": {
+        "Step": 277.363961,
+        "CollisionDetection": 157.18455,
+        "BroadPhase": 0.009684000000000002,
+        "NarrowPhase": 157.160474,
+        "Solver": 119.227024,
+        "VelocityAssembly": 5.483175,
+        "VelocityResolution": 113.25851100000001,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.014452,
+        "UserChanges": 0.021692
+      },
+      "mapMs": 14.139419999999518,
+      "simulationPipelineMs": 297.20812399999886,
+      "totalIncludingContactMs": 351.3590759999988,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9302513111221735,
+        "max": 1.0731692685811733
+      },
+      "cageStrain": {
+        "min": 0.9231520220378718,
+        "max": 1.084248037840945,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9231520220378718
+        },
+        "maxWitness": {
+          "a": 913,
+          "b": 916,
+          "restLength": 0.03039078148949159,
+          "ratio": 1.084248037840945
+        }
+      },
+      "renderStrain": {
+        "min": 0.9319706416930328,
+        "max": 1.0802828166168643,
+        "minWitness": {
+          "a": 1972,
+          "b": 1952,
+          "restLength": 0.03510531043512588,
+          "ratio": 0.9319706416930328
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.0802828166168643
+        }
+      },
+      "maxStretch": 1.084248037840945,
+      "minStretch": 0.9231520220378718,
+      "contacts": []
+    },
+    {
+      "frame": 26,
+      "physicsMs": 284.5786559999997,
+      "internalTimings": {
+        "Step": 284.279834,
+        "CollisionDetection": 159.77517999999998,
+        "BroadPhase": 0.017837,
+        "NarrowPhase": 159.744584,
+        "Solver": 123.17289600000001,
+        "VelocityAssembly": 6.542461,
+        "VelocityResolution": 116.055465,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.014582,
+        "UserChanges": 0.021912
+      },
+      "mapMs": 14.121764999999868,
+      "simulationPipelineMs": 304.65124600000127,
+      "totalIncludingContactMs": 358.7679280000011,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9299611260729203,
+        "max": 1.0750417948588917
+      },
+      "cageStrain": {
+        "min": 0.9231802681377301,
+        "max": 1.0845897569431246,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9231802681377301
+        },
+        "maxWitness": {
+          "a": 913,
+          "b": 916,
+          "restLength": 0.03039078148949159,
+          "ratio": 1.0845897569431246
+        }
+      },
+      "renderStrain": {
+        "min": 0.9292071579999784,
+        "max": 1.0806931778120843,
+        "minWitness": {
+          "a": 1972,
+          "b": 1952,
+          "restLength": 0.03510531043512588,
+          "ratio": 0.9292071579999784
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.0806931778120843
+        }
+      },
+      "maxStretch": 1.0845897569431246,
+      "minStretch": 0.9231802681377301,
+      "contacts": []
+    },
+    {
+      "frame": 27,
+      "physicsMs": 296.10822799999914,
+      "internalTimings": {
+        "Step": 295.956033,
+        "CollisionDetection": 165.892031,
+        "BroadPhase": 0.009133,
+        "NarrowPhase": 165.87190099999998,
+        "Solver": 129.132135,
+        "VelocityAssembly": 5.76417,
+        "VelocityResolution": 122.58046999999999,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.014561,
+        "UserChanges": 0.022153
+      },
+      "mapMs": 14.737223999998605,
+      "simulationPipelineMs": 316.42629099999976,
+      "totalIncludingContactMs": 372.47424800000044,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.931186463185475,
+        "max": 1.0761510105563776
+      },
+      "cageStrain": {
+        "min": 0.9250836017382068,
+        "max": 1.0830663897878776,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9250836017382068
+        },
+        "maxWitness": {
+          "a": 913,
+          "b": 916,
+          "restLength": 0.03039078148949159,
+          "ratio": 1.0830663897878776
+        }
+      },
+      "renderStrain": {
+        "min": 0.9279020397069097,
+        "max": 1.0810647992171796,
+        "minWitness": {
+          "a": 1972,
+          "b": 1952,
+          "restLength": 0.03510531043512588,
+          "ratio": 0.9279020397069097
+        },
+        "maxWitness": {
+          "a": 2124,
+          "b": 2125,
+          "restLength": 0.004986307687905514,
+          "ratio": 1.0810647992171796
+        }
+      },
+      "maxStretch": 1.0830663897878776,
+      "minStretch": 0.9250836017382068,
+      "contacts": []
+    },
+    {
+      "frame": 28,
+      "physicsMs": 330.2857980000008,
+      "internalTimings": {
+        "Step": 330.018312,
+        "CollisionDetection": 184.332568,
+        "BroadPhase": 0.009594,
+        "NarrowPhase": 184.303495,
+        "Solver": 144.487412,
+        "VelocityAssembly": 8.021196,
+        "VelocityResolution": 135.653605,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.014391,
+        "UserChanges": 0.022684000000000003
+      },
+      "mapMs": 13.782202000000325,
+      "simulationPipelineMs": 349.77317200000107,
+      "totalIncludingContactMs": 405.18652099999963,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9331584744838655,
+        "max": 1.0770857428648066
+      },
+      "cageStrain": {
+        "min": 0.9277682483945153,
+        "max": 1.0983729578364367,
+        "minWitness": {
+          "a": 439,
+          "b": 914,
+          "restLength": 0.061379138944221166,
+          "ratio": 0.9277682483945153
+        },
+        "maxWitness": {
+          "a": 1322,
+          "b": 1325,
+          "restLength": 0.07384142522483647,
+          "ratio": 1.0983729578364367
+        }
+      },
+      "renderStrain": {
+        "min": 0.9055676896605931,
+        "max": 1.0872048055528567,
+        "minWitness": {
+          "a": 2495,
+          "b": 2496,
+          "restLength": 0.004009439451241621,
+          "ratio": 0.9055676896605931
+        },
+        "maxWitness": {
+          "a": 6876,
+          "b": 6864,
+          "restLength": 0.07524394164751422,
+          "ratio": 1.0872048055528567
+        }
+      },
+      "maxStretch": 1.0983729578364367,
+      "minStretch": 0.9055676896605931,
+      "contacts": []
+    },
+    {
+      "frame": 29,
+      "physicsMs": 324.858975000001,
+      "internalTimings": {
+        "Step": 324.701833,
+        "CollisionDetection": 180.307309,
+        "BroadPhase": 0.017756,
+        "NarrowPhase": 180.28078,
+        "Solver": 143.45147,
+        "VelocityAssembly": 7.216848,
+        "VelocityResolution": 135.580947,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.017426,
+        "UserChanges": 0.023743999999999998
+      },
+      "mapMs": 14.168963999998596,
+      "simulationPipelineMs": 344.6194539999997,
+      "totalIncludingContactMs": 399.79948800000057,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9219201582528317,
+        "max": 1.0782059589631967
+      },
+      "cageStrain": {
+        "min": 0.9065560738111332,
+        "max": 1.1666660001938691,
+        "minWitness": {
+          "a": 390,
+          "b": 1323,
+          "restLength": 0.04728586175750448,
+          "ratio": 0.9065560738111332
+        },
+        "maxWitness": {
+          "a": 1322,
+          "b": 1325,
+          "restLength": 0.07384142522483647,
+          "ratio": 1.1666660001938691
+        }
+      },
+      "renderStrain": {
+        "min": 0.8893152562611181,
+        "max": 1.1584264040506322,
+        "minWitness": {
+          "a": 2495,
+          "b": 2496,
+          "restLength": 0.004009439451241621,
+          "ratio": 0.8893152562611181
+        },
+        "maxWitness": {
+          "a": 6875,
+          "b": 6863,
+          "restLength": 0.0759660753394596,
+          "ratio": 1.1584264040506322
+        }
+      },
+      "maxStretch": 1.1666660001938691,
+      "minStretch": 0.8893152562611181,
+      "contacts": []
+    },
+    {
+      "frame": 30,
+      "physicsMs": 344.87460699999974,
+      "internalTimings": {
+        "Step": 344.69275799999997,
+        "CollisionDetection": 189.94681799999998,
+        "BroadPhase": 0.017435000000000003,
+        "NarrowPhase": 189.91861600000001,
+        "Solver": 153.55482,
+        "VelocityAssembly": 7.718959,
+        "VelocityResolution": 144.702375,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.014482,
+        "UserChanges": 0.022724
+      },
+      "mapMs": 15.554151999998794,
+      "simulationPipelineMs": 367.1064979999992,
+      "totalIncludingContactMs": 429.69786699999895,
+      "pinError": 0,
+      "renderPinError": 0,
+      "coarseStrain": {
+        "min": 0.9032568366468143,
+        "max": 1.0907067975817322
+      },
+      "cageStrain": {
+        "min": 0.9032568366468143,
+        "max": 1.1462004165112114,
+        "minWitness": {
+          "a": 43,
+          "b": 50,
+          "restLength": 0.10124219979692164,
+          "ratio": 0.9032568366468143
+        },
+        "maxWitness": {
+          "a": 1022,
+          "b": 1025,
+          "restLength": 0.04527742982582337,
+          "ratio": 1.1462004165112114
+        }
+      },
+      "renderStrain": {
+        "min": 0.873332314572142,
+        "max": 1.2336470632433056,
+        "minWitness": {
+          "a": 497,
+          "b": 498,
+          "restLength": 0.012359516819756933,
+          "ratio": 0.873332314572142
+        },
+        "maxWitness": {
+          "a": 2561,
+          "b": 2562,
+          "restLength": 0.012842031072673187,
+          "ratio": 1.2336470632433056
+        }
+      },
+      "maxStretch": 1.2336470632433056,
+      "minStretch": 0.873332314572142,
+      "contacts": []
+    }
+  ],
+  "limitations": [
+    "60 Hz samples only; cancellation and continuous contact not established",
+    "Self-contact and containment not established.",
+    "Body obstacle is Bubu_body; feet and the complete foundation wardrobe are not included.",
+    "Not production cloth or visual approval.",
+    "Render-pin witnesses cover matching source vertices only; other attachment locations and seams remain unverified.",
+    "Research pin map and mapping only; exact fixed-particle counts are reported in collisionSkin. No original 65-pin or production admission.",
+    "A failed trajectory is a solver/mapping counterexample, not a proof that all private-copy cloth implementations are infeasible."
+  ],
+  "collisionRadius": 0,
+  "collisionRadiusBasis": "Explicit candidate surface scope is recorded in collisionSkin; no additional particle dilation",
+  "renderPinWitnesses": [
+    {
+      "pin": 0,
+      "vertex": 0,
+      "sourceGap": 0,
+      "position": [
+        0.041935887187719345,
+        0.5883482694625854,
+        0.7679809927940369
+      ]
+    },
+    {
+      "pin": 48,
+      "vertex": 475,
+      "sourceGap": 0,
+      "position": [
+        0.8116413354873657,
+        0.8145222067832947,
+        0.5024121403694153
+      ]
+    },
+    {
+      "pin": 56,
+      "vertex": 570,
+      "sourceGap": 0,
+      "position": [
+        0.9196619391441345,
+        0.9277142882347107,
+        0.3467874228954315
+      ]
+    },
+    {
+      "pin": 60,
+      "vertex": 665,
+      "sourceGap": 0,
+      "position": [
+        0.9736678600311279,
+        1.0367995500564575,
+        0.16372238099575043
+      ]
+    },
+    {
+      "pin": 64,
+      "vertex": 760,
+      "sourceGap": 0,
+      "position": [
+        0.9704834818840027,
+        1.1138055324554443,
+        -0.02703273668885231
+      ]
+    },
+    {
+      "pin": 68,
+      "vertex": 855,
+      "sourceGap": 0,
+      "position": [
+        0.9305008053779602,
+        1.1473034620285034,
+        -0.20983698964118958
+      ]
+    },
+    {
+      "pin": 72,
+      "vertex": 950,
+      "sourceGap": 0,
+      "position": [
+        0.851483941078186,
+        1.1496578454971313,
+        -0.3771156072616577
+      ]
+    },
+    {
+      "pin": 81,
+      "vertex": 1045,
+      "sourceGap": 0,
+      "position": [
+        0.7349971532821655,
+        1.145480990409851,
+        -0.515905499458313
+      ]
+    },
+    {
+      "pin": 104,
+      "vertex": 1140,
+      "sourceGap": 0,
+      "position": [
+        0.592972993850708,
+        1.152458906173706,
+        -0.6174450516700745
+      ]
+    },
+    {
+      "pin": 131,
+      "vertex": 1235,
+      "sourceGap": 0,
+      "position": [
+        0.4401357173919678,
+        1.1728302240371704,
+        -0.6828787326812744
+      ]
+    },
+    {
+      "pin": 159,
+      "vertex": 1330,
+      "sourceGap": 0,
+      "position": [
+        0.2874075472354889,
+        1.1978635787963867,
+        -0.7180818319320679
+      ]
+    },
+    {
+      "pin": 187,
+      "vertex": 1425,
+      "sourceGap": 0,
+      "position": [
+        0.141018345952034,
+        1.2154065370559692,
+        -0.7332668304443359
+      ]
+    },
+    {
+      "pin": 215,
+      "vertex": 1520,
+      "sourceGap": 0,
+      "position": [
+        0.00010099566134158522,
+        1.2218737602233887,
+        -0.7367182374000549
+      ]
+    },
+    {
+      "pin": 243,
+      "vertex": 1615,
+      "sourceGap": 0,
+      "position": [
+        -0.14086493849754333,
+        1.215560793876648,
+        -0.7332127094268799
+      ]
+    },
+    {
+      "pin": 271,
+      "vertex": 1710,
+      "sourceGap": 0,
+      "position": [
+        -0.28740113973617554,
+        1.197893500328064,
+        -0.7180583477020264
+      ]
+    },
+    {
+      "pin": 299,
+      "vertex": 1805,
+      "sourceGap": 0,
+      "position": [
+        -0.43990206718444824,
+        1.173126220703125,
+        -0.6828599572181702
+      ]
+    },
+    {
+      "pin": 327,
+      "vertex": 1900,
+      "sourceGap": 0,
+      "position": [
+        -0.592978835105896,
+        1.152462124824524,
+        -0.6174360513687134
+      ]
+    },
+    {
+      "pin": 353,
+      "vertex": 1995,
+      "sourceGap": 0,
+      "position": [
+        -0.7352178692817688,
+        1.1454607248306274,
+        -0.5156304240226746
+      ]
+    },
+    {
+      "pin": 369,
+      "vertex": 2090,
+      "sourceGap": 0,
+      "position": [
+        -0.851471483707428,
+        1.149642825126648,
+        -0.3771410286426544
+      ]
+    },
+    {
+      "pin": 374,
+      "vertex": 2185,
+      "sourceGap": 0,
+      "position": [
+        -0.9303658604621887,
+        1.1475346088409424,
+        -0.21013009548187256
+      ]
+    },
+    {
+      "pin": 378,
+      "vertex": 2280,
+      "sourceGap": 0,
+      "position": [
+        -0.9704225063323975,
+        1.1138445138931274,
+        -0.027044598013162613
+      ]
+    },
+    {
+      "pin": 382,
+      "vertex": 2375,
+      "sourceGap": 0,
+      "position": [
+        -0.9736304879188538,
+        1.0369060039520264,
+        0.16361510753631592
+      ]
+    },
+    {
+      "pin": 386,
+      "vertex": 2470,
+      "sourceGap": 0,
+      "position": [
+        -0.9196597933769226,
+        0.927685022354126,
+        0.34673628211021423
+      ]
+    },
+    {
+      "pin": 391,
+      "vertex": 2565,
+      "sourceGap": 0,
+      "position": [
+        -0.8117253184318542,
+        0.8144936561584473,
+        0.5023942589759827
+      ]
+    },
+    {
+      "pin": 441,
+      "vertex": 3040,
+      "sourceGap": 0,
+      "position": [
+        -0.04192444682121277,
+        0.588341474533081,
+        0.7679985165596008
+      ]
+    }
+  ],
+  "collisionSkin": {
+    "particleCount": 1524,
+    "cellCount": 1068,
+    "renderCount": 7739,
+    "minimumCellVolume": 6.988310418605562e-7,
+    "minimumBarycentric": -9.931474115876249e-7,
+    "sourceRenderUnchanged": true,
+    "collisionSurface": "original coarse cloth triangles plus actual detailed piping",
+    "massModel": "lumped-rest-cell-volume, invariant total garment mass",
+    "totalMass": 0.444,
+    "minimumParticleMass": 0.0000024212703880131266,
+    "maximumParticleMass": 0.0012623605867670762,
+    "mapping": "original thin cloth mapping plus regional piping cells",
+    "crossSectionClusters": 360,
+    "fixedParticles": 420,
+    "additionalPgsIterations": 12,
+    "refinementHistory": [],
+    "axialMaterial": {
+      "referenceLength": 0.08,
+      "referenceFrequency": 30,
+      "minFrequency": 6.180945342933826,
+      "maxFrequency": 523.4097635132971
+    },
+    "restError": 5.960464477539063e-8,
+    "solver": "structural-edges-and-volume-constraints"
+  },
+  "initialEnvelopePinSurfaceConflicts": [],
+  "physicsContactSettings": {
+    "allowedLinearError": 9.999999974752427e-7,
+    "predictionDistance": 0.019999999552965164,
+    "lengthUnit": 1
+  },
+  "bodyHullCertificate": {
+    "sourceVertices": 32036,
+    "vertices": 930,
+    "triangles": 1852,
+    "maximumPlaneViolation": -0.000001520356305961812,
+    "maximumOuterDistance": 0.008918800019703108,
+    "maxError": 0.01,
+    "minimumInitialGarmentGap": 0.00006469100768339604,
+    "gaps": [
+      {
+        "part": "cape_cloth",
+        "distance": 0.0032428159480518905
+      },
+      {
+        "part": "cape_back_edge",
+        "distance": 0.0001700053777477082
+      },
+      {
+        "part": "cape_hem",
+        "distance": 0.00006469100768339604
+      },
+      {
+        "part": "cape_front_edge_0",
+        "distance": 0.0007433028777456147
+      },
+      {
+        "part": "cape_front_edge_1",
+        "distance": 0.0006870218993582496
+      },
+      {
+        "part": "cape_clasp",
+        "distance": 0.005961105950462078
+      }
+    ]
+  },
+  "initialContacts": [],
+  "maximumRenderDisplacement": 0.08114834788666507,
+  "stoppedAt": {
+    "frame": 30,
+    "time": 0.5166666666666667,
+    "reason": "first-contact-pin-or-strain-failure",
+    "coarseContacts": []
+  },
+  "contactWitnesses": [],
+  "timing": {
+    "physicsMs": {
+      "p50": 300.68128699999943,
+      "p95": 344.87460699999974,
+      "max": 1084.4377929999998
+    },
+    "mapMs": {
+      "p50": 14.400075999999899,
+      "p95": 16.932409000000007,
+      "max": 26.41861000000017
+    },
+    "simulationPipelineMs": {
+      "p50": 322.5538180000003,
+      "p95": 367.1064979999992,
+      "max": 1125.880661
+    },
+    "totalIncludingContactMs": {
+      "p50": 377.8329479999993,
+      "p95": 429.69786699999895,
+      "max": 1181.564309
+    }
+  },
+  "completedRequestedSteps": false,
+  "lastSampleClear": true,
+  "reachedActionEndpoint": false,
+  "finalEndpointClear": false,
+  "strainAccepted": false,
+  "realtimeAccepted": false,
+  "resourcesReleased": true
+}

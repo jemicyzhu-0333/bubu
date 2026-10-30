@@ -1,0 +1,28 @@
+{
+  "check": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "passed": 6742,
+    "skipped": 29,
+    "failed": 0,
+    "log": "application-check-final.log",
+    "notes": [
+      "Existing optional limb pixel scan is skipped without USAGI_CANVAS_PACKAGE; all required check commands exited successfully."
+    ]
+  },
+  "integration": {
+    "command": "npm run test:integration",
+    "exitCode": 0,
+    "passed": 71,
+    "failed": 0,
+    "log": "application-integration.log"
+  },
+  "retainedSandboxFailure": {
+    "log": "application-check.log",
+    "failedFileWrappers": 18,
+    "diagnosisLog": "application-failure-diagnosis.log",
+    "evidence": "Loopback listen returned EPERM under the default sandbox; the same unchanged application tests pass under execution that allows local services and subprocess I/O.",
+    "testsRemoved": false,
+    "autoReviewRejected": false
+  }
+}

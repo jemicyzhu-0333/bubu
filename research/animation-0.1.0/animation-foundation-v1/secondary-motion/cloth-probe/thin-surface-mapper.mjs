@@ -1,6 +1,6 @@
 /** Bounded render-only adapter. The physics library owns particle integration;
  * this adapter writes only explicitly bound private position attributes. */
-export function createThinSurfaceMapper({ indices, vertexCount }) {
+export function createThinSurfaceMapper({ indices, vertexCount, restPositions = null }) {
   if (
     !Number.isSafeInteger(vertexCount) ||
     vertexCount < 3 ||
@@ -20,6 +20,7 @@ export function createThinSurfaceMapper({ indices, vertexCount }) {
     triangles[i] = v;
   }
   let frames = new Float64Array((triangles.length / 3) * 18),
+    restFrames = null,
     closed = false,
     ready = false,
     total = 0;
@@ -27,7 +28,7 @@ export function createThinSurfaceMapper({ indices, vertexCount }) {
   const guard = () => {
     if (closed) throw Error("Surface mapper disposed");
   };
-  return {
+  const mapper = {
     bind(records, attribute) {
       guard();
       if (
@@ -90,9 +91,13 @@ export function createThinSurfaceMapper({ indices, vertexCount }) {
       });
       total += attribute.count;
     },
-    prepare(vertices) {
+    prepare(vertices, bodyRotation = [0, 0, 0, 1]) {
       guard();
       ready = false;
+      if (restFrames && (!Array.isArray(bodyRotation) || bodyRotation.length !== 4 ||
+          !bodyRotation.every(Number.isFinite) ||
+          Math.abs(Math.hypot(...bodyRotation) - 1) > 1e-8))
+        throw Error("Unit body rotation required for rest-detail transport");
       if (
         !(
           vertices instanceof Float32Array || vertices instanceof Float64Array
@@ -144,6 +149,21 @@ export function createThinSurfaceMapper({ indices, vertexCount }) {
         frames[k + 15] = ux;
         frames[k + 16] = uy;
         frames[k + 17] = uz;
+        if (restFrames) {
+          // The rest detail belongs to the declared body frame. Interpolated
+          // particle displacement is continuous across shared triangle edges;
+          // independent face rotations must not add a discontinuous offset.
+          // This candidate is not a finite-thickness collision representation.
+          const [qx, qy, qz, qw] = bodyRotation;
+          for (let j = 9; j < 18; j += 3) {
+            const x = restFrames[k + j], y = restFrames[k + j + 1], z = restFrames[k + j + 2];
+            const cx = 2 * (qy * z - qz * y),
+              cy = 2 * (qz * x - qx * z), cz = 2 * (qx * y - qy * x);
+            frames[k + j] = x + qw * cx + qy * cz - qz * cy;
+            frames[k + j + 1] = y + qw * cy + qz * cx - qx * cz;
+            frames[k + j + 2] = z + qw * cz + qx * cy - qy * cx;
+          }
+        }
       }
       ready = true;
     },
@@ -192,6 +212,7 @@ export function createThinSurfaceMapper({ indices, vertexCount }) {
         ownedBytes: closed
           ? 0
           : frames.byteLength +
+            (restFrames?.byteLength ?? 0) +
             triangles.byteLength +
             bindings.reduce((n, b) => n + b.data.byteLength, 0),
       };
@@ -201,9 +222,16 @@ export function createThinSurfaceMapper({ indices, vertexCount }) {
       closed = true;
       ready = false;
       frames = null;
+      restFrames = null;
       triangles = null;
       bindings.length = 0;
       total = 0;
     },
   };
+  if (restPositions !== null) {
+    mapper.prepare(restPositions);
+    restFrames = frames.slice();
+    ready = false;
+  }
+  return mapper;
 }

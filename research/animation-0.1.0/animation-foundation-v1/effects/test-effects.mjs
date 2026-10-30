@@ -1,3 +1,4 @@
+import { evidencePath } from "../verification/evidence-output.mjs";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import { performance } from "node:perf_hooks";
@@ -167,8 +168,7 @@ assert.throws(() => r.enter({ effectId: EFFECT_IDS[0], anchor }));
 assert.equal(scene.getObjectByName("BoundedAccessoryEffects"), undefined);
 source.material.dispose();
 borrowedGeometry.dispose();
-fs.writeFileSync(
-  new URL("./cpu-evidence.json", import.meta.url),
+fs.writeFileSync(evidencePath(new URL("./cpu-evidence.json", import.meta.url)),
   JSON.stringify(report, null, 2),
 );
 console.log(JSON.stringify(report, null, 2));

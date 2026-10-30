@@ -1,0 +1,84 @@
+{
+  "scope": "Post-hoc seam audit of retained actual geometry; does not change earlier results or imply full-path acceptance",
+  "numericalCoincidenceLimit": 0.00001,
+  "rows": [
+    {
+      "run": "body-frame-normal",
+      "time": 0.5333333333333333,
+      "seams": {
+        "maximum": 0.00432714496952324,
+        "witness": {
+          "part": "cape_hem",
+          "section": 135,
+          "clothVertex": 2583,
+          "gap": 0.00432714496952324
+        }
+      }
+    },
+    {
+      "run": "body-frame-cancel-05",
+      "time": 0.5666666666666667,
+      "seams": {
+        "maximum": 0.001341060575417711,
+        "witness": {
+          "part": "cape_hem",
+          "section": 135,
+          "clothVertex": 2583,
+          "gap": 0.001341060575417711
+        }
+      }
+    },
+    {
+      "run": "regional-body-detail",
+      "time": 0.55,
+      "seams": {
+        "maximum": 0.018324777978478462,
+        "witness": {
+          "part": "cape_hem",
+          "section": 134,
+          "clothVertex": 2564,
+          "gap": 0.018324777978478462
+        }
+      }
+    },
+    {
+      "run": "regional-body-detail-120",
+      "time": 0.5583333333333333,
+      "seams": {
+        "maximum": 0.016020511243739332,
+        "witness": {
+          "part": "cape_hem",
+          "section": 26,
+          "clothVertex": 512,
+          "gap": 0.016020511243739332
+        }
+      }
+    },
+    {
+      "run": "regional-body-detail-240",
+      "time": 0.5583333333333333,
+      "seams": {
+        "maximum": 0.016112615391203015,
+        "witness": {
+          "part": "cape_hem",
+          "section": 26,
+          "clothVertex": 512,
+          "gap": 0.016112615391203015
+        }
+      }
+    },
+    {
+      "run": "joined-normal",
+      "time": 0.5333333333333333,
+      "seams": {
+        "maximum": 2.9905623638517714e-8,
+        "witness": {
+          "part": "cape_back_edge",
+          "section": 71,
+          "clothVertex": 1349,
+          "gap": 2.9905623638517714e-8
+        }
+      }
+    }
+  ]
+}

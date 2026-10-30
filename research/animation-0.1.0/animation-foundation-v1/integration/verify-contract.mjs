@@ -1,3 +1,4 @@
+import { evidencePath } from "../verification/evidence-output.mjs";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import { FoundationPool } from "./foundation-host.mjs";
@@ -38,8 +39,7 @@ assert(a.handles.every((h) => h.state !== "disposed"));
 a.step(10.05);
 p.dispose();
 assert.equal(p.diagnostics().actors, 0);
-fs.writeFileSync(
-  new URL("./evidence/contract-report.json", import.meta.url),
+fs.writeFileSync(evidencePath(new URL("./evidence/contract-report.json", import.meta.url)),
   JSON.stringify(
     {
       snapshotImmutable: true,

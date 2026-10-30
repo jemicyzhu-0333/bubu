@@ -1,0 +1,58 @@
+{
+  "before": "joined-cancel-02",
+  "after": "joined-cancel-02-final",
+  "samples": [
+    540,
+    540
+  ],
+  "geometryCheckDifferences": [],
+  "lastRenderedBytesEqual": true,
+  "timing": {
+    "before": {
+      "physicsMs": {
+        "p50": 0.12313200000062352,
+        "p95": 23.782546999999795,
+        "max": 87.00404300000014
+      },
+      "mapMs": {
+        "p50": 11.639186000000336,
+        "p95": 12.91799500000343,
+        "max": 36.357656000000134
+      },
+      "simulationPipelineMs": {
+        "p50": 18.0550230000008,
+        "p95": 41.339460999999574,
+        "max": 138.2741719999999
+      },
+      "totalIncludingContactMs": {
+        "p50": 75.32920100000047,
+        "p95": 100.16268499999933,
+        "max": 195.96591799999987
+      }
+    },
+    "after": {
+      "physicsMs": {
+        "p50": 0.12281199999961245,
+        "p95": 24.55465499999991,
+        "max": 86.96958799999993
+      },
+      "mapMs": {
+        "p50": 4.321704000001773,
+        "p95": 5.120661000000837,
+        "max": 36.03533400000015
+      },
+      "simulationPipelineMs": {
+        "p50": 10.846968999998353,
+        "p95": 35.83281100000022,
+        "max": 137.66945600000008
+      },
+      "totalIncludingContactMs": {
+        "p50": 66.15160999999716,
+        "p95": 93.00522199999978,
+        "max": 193.3812270000003
+      }
+    }
+  },
+  "accepted": false,
+  "scope": "Full nine-second cancellation at 0.2 s, isolated runs, startup included, unchanged geometry checks; not native/GPU performance"
+}

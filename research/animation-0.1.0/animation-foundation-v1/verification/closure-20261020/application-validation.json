@@ -1,0 +1,35 @@
+{
+  "scope": "Application tests and source/asset gates; no native UI or real profile used",
+  "commit": "c0a8281bbc721f1f7d01afdb0ece6920aebc90f9",
+  "commands": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "counts": {
+        "tests": 6771,
+        "pass": 6742,
+        "fail": 0,
+        "skipped": 29
+      },
+      "log": "project-check.log.gz",
+      "logSHA256": "804858410b6e33bf847c3827abc17d17df4393ec9d79ada2ae5e18ab9b7ee917"
+    },
+    {
+      "command": "npm run test:integration",
+      "exitCode": 0,
+      "counts": {
+        "tests": 71,
+        "pass": 71,
+        "fail": 0,
+        "skipped": 0
+      },
+      "log": "project-integration.log.gz",
+      "logSHA256": "8e01bb70047f24a1e2a73d41573507948297bd16d9e1f53155857cf3d8c73ec0"
+    }
+  ],
+  "inputs": {
+    "package.json": "43aeac51cd9611465ba5503e2f8e2ede91e25cd42d3ac9add52e62a0c42803ea",
+    "package-lock.json": "d0f537bb9ec0f0b8caf6657660c79382d0466c86165e5a3f142ffeb1281781e9",
+    "scripts/run-project-tests.js": "ca57129f82d2230cd66bda8edb8db2d1591c14669a9ffe13dc254548fea9e782"
+  }
+}

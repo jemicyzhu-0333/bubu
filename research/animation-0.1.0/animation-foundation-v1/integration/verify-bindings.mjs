@@ -1,3 +1,4 @@
+import { evidencePath } from "../verification/evidence-output.mjs";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import * as T from "three";
@@ -66,8 +67,7 @@ const report = {
   authoredExitNeutral: true,
   hiddenPolicySuspendsBody: true,
 };
-fs.writeFileSync(
-  new URL("./evidence/binding-report.json", import.meta.url),
+fs.writeFileSync(evidencePath(new URL("./evidence/binding-report.json", import.meta.url)),
   JSON.stringify(report, null, 2),
 );
 console.log(report);

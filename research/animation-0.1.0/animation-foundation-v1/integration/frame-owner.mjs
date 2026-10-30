@@ -18,6 +18,8 @@ export function createFrameOwner({
   ];
   if (ports.some((port) => typeof port !== "function"))
     throw new TypeError("Complete frame ports required");
+  if (!Number.isFinite(initialTime))
+    throw new TypeError("Finite initial host time required");
   let time = initialTime;
   let revision = 0;
   let disposed = false;
@@ -27,8 +29,8 @@ export function createFrameOwner({
   function step(nextTime, policy = {}) {
     if (disposed) throw new Error("Frame owner disposed");
     if (stepping) throw new Error("Reentrant frame update");
-    if (!Number.isFinite(nextTime))
-      throw new TypeError("Finite injected host time required");
+    if (!Number.isFinite(nextTime) || nextTime < time)
+      throw new TypeError("Finite monotonic injected host time required");
     stepping = true;
     trace = [];
     try {

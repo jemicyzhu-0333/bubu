@@ -1,0 +1,19 @@
+{
+  "check": {
+    "status": "passed",
+    "pass": 6742,
+    "skipped": 29,
+    "fail": 0,
+    "log": "bubu-v2-convergence-application-check-final.log"
+  },
+  "integration": {
+    "status": "passed",
+    "pass": 71,
+    "fail": 0,
+    "log": "bubu-v2-convergence-integration-final.log"
+  },
+  "logsArchive": "diagnostic-logs.tar.gz",
+  "initialSandboxAttempt": "failed; retained in archive, not substituted for final full-environment validation",
+  "optionalPixelScan": "not-run; USAGI_CANVAS_PACKAGE absent",
+  "productionSourceChangedThisPhase": false
+}

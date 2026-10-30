@@ -1,0 +1,91 @@
+{
+  "status": "passed",
+  "packageSHA256": "9ca82b980a40c8c333977102b859c25d3c58e1885f8ac0edce863e84bf143281",
+  "productionAccepted": false,
+  "errors": [],
+  "scenes": [
+    {
+      "name": "bare",
+      "mounts": [],
+      "resources": {
+        "geometries": 14,
+        "textures": 18
+      }
+    },
+    {
+      "name": "ear",
+      "mounts": [
+        "sakura",
+        "leaf"
+      ],
+      "resources": {
+        "geometries": 32,
+        "textures": 18
+      }
+    },
+    {
+      "name": "satchel",
+      "mounts": [
+        "satchel"
+      ],
+      "resources": {
+        "geometries": 18,
+        "textures": 18
+      }
+    },
+    {
+      "name": "cape",
+      "mounts": [
+        "cape"
+      ],
+      "resources": {
+        "geometries": 19,
+        "textures": 18
+      }
+    },
+    {
+      "name": "book",
+      "mounts": [
+        "book"
+      ],
+      "resources": {
+        "geometries": 31,
+        "textures": 18
+      }
+    },
+    {
+      "name": "halo",
+      "mounts": [
+        "halo"
+      ],
+      "resources": {
+        "geometries": 16,
+        "textures": 18
+      }
+    },
+    {
+      "name": "wardrobe",
+      "mounts": [
+        "sakura",
+        "leaf",
+        "satchel",
+        "cape",
+        "halo"
+      ],
+      "resources": {
+        "geometries": 42,
+        "textures": 18
+      }
+    },
+    {
+      "name": "tea",
+      "mounts": [],
+      "resources": {
+        "geometries": 16,
+        "textures": 18
+      }
+    }
+  ],
+  "externalRequests": [],
+  "hashVerifiedFiles": 135
+}

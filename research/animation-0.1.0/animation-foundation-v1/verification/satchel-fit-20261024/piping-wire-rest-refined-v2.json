@@ -1,0 +1,131 @@
+{
+  "scope": "New local capsule-envelope rest nomination for the actual frozen round5 piping. This neither releases pins nor changes a source mesh/controller.",
+  "accepted": false,
+  "inputHashes": {
+    "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/diagnostics/contact-contract-20261019/frozen-cape.json": "5888814c2bd2b4627b3abab0e6133388e60fccb26b14e887e5556352d9c50d01",
+    "/workspace/artifacts/bubu-v2-satchel-fit-20261024/wire-local-body-proxy-v2.json": "0d5ed43bc67faa53d8ae11c71664a9148114596841050e6d4c890ac370cdcc41"
+  },
+  "parts": [
+    {
+      "part": "cape_back_edge",
+      "sections": 161,
+      "segments": 160,
+      "minimumRadius": 0.009375486572779907,
+      "maximumRadius": 0.00937560469348688,
+      "coverageExcess": 0,
+      "gaps": {
+        "actual-body": {
+          "minimumGap": 0.0005558968686311463,
+          "intersectingSegments": 0,
+          "worst": 159
+        },
+        "local-body-proxy": {
+          "minimumGap": 0.00006337598207127072,
+          "intersectingSegments": 0,
+          "worst": 144
+        }
+      }
+    },
+    {
+      "part": "cape_hem",
+      "sections": 161,
+      "segments": 160,
+      "minimumRadius": 0.009375500270559384,
+      "maximumRadius": 0.009375598103805304,
+      "coverageExcess": 0,
+      "gaps": {
+        "actual-body": {
+          "minimumGap": 0.000562282308663847,
+          "intersectingSegments": 0,
+          "worst": 0
+        },
+        "local-body-proxy": {
+          "minimumGap": 0.0001358491135212605,
+          "intersectingSegments": 0,
+          "worst": 146
+        }
+      }
+    },
+    {
+      "part": "cape_front_edge_0",
+      "sections": 19,
+      "segments": 18,
+      "minimumRadius": 0.00937551810408162,
+      "maximumRadius": 0.009375574059218631,
+      "coverageExcess": 0,
+      "gaps": {
+        "actual-body": {
+          "minimumGap": 0.00023176937583443448,
+          "intersectingSegments": 0,
+          "worst": 1
+        },
+        "local-body-proxy": {
+          "minimumGap": 0.00002007867140425834,
+          "intersectingSegments": 0,
+          "worst": 14
+        }
+      }
+    },
+    {
+      "part": "cape_front_edge_1",
+      "sections": 19,
+      "segments": 18,
+      "minimumRadius": 0.009375514794676824,
+      "maximumRadius": 0.009375559873298793,
+      "coverageExcess": 0,
+      "gaps": {
+        "actual-body": {
+          "minimumGap": 0.00023408401539693965,
+          "intersectingSegments": 0,
+          "worst": 1
+        },
+        "local-body-proxy": {
+          "minimumGap": 0.000017377854936129547,
+          "intersectingSegments": 0,
+          "worst": 7
+        }
+      }
+    }
+  ],
+  "limits": [
+    "Static geometric necessary checks only; no Rapier wire dynamics, strain, seams, active pin map or performance has passed.",
+    "Each original piping triangle must fit inside an adjacent-section capsule; a clear capsule bounds the detailed surface only under that mapping."
+  ],
+  "proxyCertificate": {
+    "sourceVertices": 32036,
+    "vertices": 1490,
+    "triangles": 2392,
+    "maximumPlaneViolation": -0.000008990966349993468,
+    "maximumOuterDistance": 0.008935593774408206,
+    "maxError": 0.01,
+    "minimumInitialGarmentGap": 0.00063173606644485,
+    "gaps": [
+      {
+        "part": "cape_cloth",
+        "distance": 0.003227819952311202
+      },
+      {
+        "part": "cape_back_edge",
+        "distance": 0.00063173606644485
+      },
+      {
+        "part": "cape_hem",
+        "distance": 0.0006327003810212145
+      },
+      {
+        "part": "cape_front_edge_0",
+        "distance": 0.0007758428252029624
+      },
+      {
+        "part": "cape_front_edge_1",
+        "distance": 0.0007696329799544894
+      },
+      {
+        "part": "cape_clasp",
+        "distance": 0.0059419284645862705
+      }
+    ]
+  },
+  "status": "completed",
+  "restEnvelopeClear": true
+}

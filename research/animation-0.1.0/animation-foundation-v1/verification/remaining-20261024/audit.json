@@ -1,0 +1,672 @@
+{
+  "productionAccepted": false,
+  "scope": "Continue existing V2 research under approved model/controller identities; no publication",
+  "integratedFixes": [
+    {
+      "name": "Complete-outfit flower/leaf fit",
+      "offsets": {
+        "sakura": [
+          0,
+          0.0125,
+          0
+        ],
+        "leaf": [
+          -0.0125,
+          0,
+          0
+        ]
+      },
+      "sampledFrames": 481,
+      "remainingPairs": 9,
+      "minimumFloraGap": {
+        "pair": [
+          "sakura/sakura_leaf_019",
+          "leaf/forest_leaf"
+        ],
+        "distance": 0.00042099430786059655
+      },
+      "relativeMatrixDrift": 1.1813466871402056e-15,
+      "visualReview": "fit-visual-verified/report.json"
+    },
+    {
+      "name": "Tea cancellation endpoint roundoff",
+      "owner": "integration/tea-sample-boundary.mjs",
+      "maximumNormalizedExcursion": 1e-12,
+      "frozenControllerUnchanged": true,
+      "largerErrorsRejected": true
+    }
+  ],
+  "researchCandidates": [
+    {
+      "name": "Coherent cup and hands hold clearance",
+      "defaultIntegrated": false,
+      "offset": 0.0098,
+      "sampledBeforeContactFrames": 112,
+      "sampledAfterContactFrames": 0,
+      "samples": 1173,
+      "fixedClaspCertificate": {
+        "status": "certified",
+        "intervals": 295,
+        "minimumCertifiedSurfaceGap": 0.0004520196621548827
+      },
+      "notEstablished": [
+        "hand/cloth contact",
+        "body contact over derived motion",
+        "full garment acceptance",
+        "runtime admission"
+      ]
+    },
+    {
+      "name": "Conservative body collision proxy",
+      "defaultIntegrated": false,
+      "certificate": {
+        "directions": 1024,
+        "selectedSourceVertices": 980,
+        "sourceVertices": 32036,
+        "triangles": 1956,
+        "scaleFactor": 1.007788588454669,
+        "maximumPlaneViolation": -8.214272835260772e-07,
+        "maximumOuterDistance": 0.00796060074755975,
+        "maxError": 0.01,
+        "requiredInwardMargin": 1e-08
+      },
+      "timing": {
+        "physicsMs": {
+          "p50": 24.69688899999983,
+          "p95": 36.868089000000055,
+          "max": 95.93720300000041
+        },
+        "mapMs": {
+          "p50": 2.9496359999998276,
+          "p95": 5.704987000000074,
+          "max": 30.15531400000009
+        },
+        "totalIncludingContactMs": {
+          "p50": 79.45256800000061,
+          "p95": 95.08455300000014,
+          "max": 211.87462900000037
+        }
+      },
+      "finalContacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ],
+      "strainRange": [
+        0.6206205529153969,
+        1.433656296202647
+      ],
+      "accepted": false,
+      "evidence": "cloth-final-source/endpoint-cloth.json"
+    }
+  ],
+  "remainingPairs": {
+    "body/Bubu_hand-right <> satchel/satchel_continuous_strap": {
+      "samples": 481,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0,
+      "lastTime": 8,
+      "witness": {
+        "a": [
+          [
+            0.9203665140072838,
+            0.6034117418205176,
+            -0.34153847334131193
+          ],
+          [
+            0.9247966349276454,
+            0.5961784199475767,
+            -0.3375290014504763
+          ],
+          [
+            0.8509360607891207,
+            0.5961784199475767,
+            -0.3245053894192365
+          ]
+        ],
+        "b": [
+          [
+            0.9235243194412409,
+            0.6017769575119019,
+            -0.32967196962272693
+          ],
+          [
+            0.9108804270871969,
+            0.6031996011734008,
+            -0.358438194639205
+          ],
+          [
+            0.9256734965974107,
+            0.6031996011734009,
+            -0.3642792668962549
+          ]
+        ]
+      }
+    },
+    "body/Bubu_body <> sakura/sakura_petal_1": {
+      "samples": 481,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0,
+      "lastTime": 8,
+      "witness": {
+        "a": [
+          [
+            0.40897757641978466,
+            1.7629183530807495,
+            -0.03561918344685612
+          ],
+          [
+            0.405661420591215,
+            1.7567808628082275,
+            -0.032341710123044966
+          ],
+          [
+            0.41293588031644807,
+            1.756903052330017,
+            -0.026978422910279347
+          ]
+        ],
+        "b": [
+          [
+            0.6756736274578078,
+            1.788501331899092,
+            -0.06570779524399367
+          ],
+          [
+            0.3974315441559931,
+            1.7697127557729935,
+            -0.03116906756770317
+          ],
+          [
+            0.41290228439574755,
+            1.756222794148848,
+            -0.029176259810135476
+          ]
+        ]
+      }
+    },
+    "body/Bubu_body <> sakura/sakura_petal_2": {
+      "samples": 481,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0,
+      "lastTime": 8,
+      "witness": {
+        "a": [
+          [
+            0.5609818767728274,
+            1.6257848739624023,
+            0.03884624031193119
+          ],
+          [
+            0.5495338617061387,
+            1.625483512878418,
+            0.045214235302895325
+          ],
+          [
+            0.5627512042052873,
+            1.6171112060546875,
+            0.04408986197388769
+          ]
+        ],
+        "b": [
+          [
+            0.6756736274578078,
+            1.788501331899092,
+            -0.06570779524399367
+          ],
+          [
+            0.5238281492443204,
+            1.575821707341597,
+            0.0716851972568751
+          ],
+          [
+            0.5316117525026496,
+            1.5602169729208206,
+            0.07921069480448724
+          ]
+        ]
+      }
+    },
+    "body/Bubu_body <> sakura/sakura_leaf_-019": {
+      "samples": 481,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0,
+      "lastTime": 8,
+      "witness": {
+        "a": [
+          [
+            0.3256921259004429,
+            1.646286964416504,
+            -0.19342637514289227
+          ],
+          [
+            0.33570691529399627,
+            1.6430671215057373,
+            -0.20419319135673314
+          ],
+          [
+            0.32401359045565564,
+            1.6426746845245361,
+            -0.20153077675858383
+          ]
+        ],
+        "b": [
+          [
+            0.3355477391956158,
+            1.639064500424788,
+            -0.19118177384076668
+          ],
+          [
+            0.32543942852527913,
+            1.6456278062795853,
+            -0.18939940594020305
+          ],
+          [
+            0.32622344784648244,
+            1.6470835901235794,
+            -0.20029900867727365
+          ]
+        ]
+      }
+    },
+    "body/Bubu_body <> satchel/satchel_pouch": {
+      "samples": 481,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0,
+      "lastTime": 8,
+      "witness": {
+        "a": [
+          [
+            -0.7742062084379524,
+            0.38325968384742737,
+            0.36035794421799017
+          ],
+          [
+            -0.7685065789289119,
+            0.39015501737594604,
+            0.37887219354526225
+          ],
+          [
+            -0.7833485911230501,
+            0.39650893211364746,
+            0.3632441623322158
+          ]
+        ],
+        "b": [
+          [
+            -0.9281218599671297,
+            0.22345745563507063,
+            0.3043617516918025
+          ],
+          [
+            -0.9281218599671297,
+            0.40713930130004866,
+            0.3043617516918025
+          ],
+          [
+            -0.6199772030920294,
+            0.40713930130004866,
+            0.44805196751065385
+          ]
+        ]
+      }
+    },
+    "satchel/satchel_continuous_strap <> cape/cape_edge_0": {
+      "samples": 479,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0.03333333333333333,
+      "lastTime": 8,
+      "witness": {
+        "a": [
+          [
+            0.5816941534745312,
+            0.594225525856018,
+            -0.6954978566322033
+          ],
+          [
+            0.5605156461325967,
+            0.66964852809906,
+            -0.7228707447509792
+          ],
+          [
+            0.592634467355194,
+            0.6722255945205687,
+            -0.7086341846129396
+          ]
+        ],
+        "b": [
+          [
+            0.575367855950495,
+            0.724617600440979,
+            -0.7240806485518315
+          ],
+          [
+            0.5850878322172279,
+            0.6561487317085266,
+            -0.709332702150048
+          ],
+          [
+            0.5936601890081394,
+            0.6572709679603577,
+            -0.708984877758897
+          ]
+        ]
+      }
+    },
+    "body/Bubu_body <> cape/cape_edge_0": {
+      "samples": 200,
+      "phases": [
+        "drag",
+        "landing",
+        "idle"
+      ],
+      "firstTime": 3.183333333333333,
+      "lastTime": 8,
+      "witness": {
+        "a": [
+          [
+            0.5848799857182644,
+            0.8553121949151354,
+            -0.7329695456369187
+          ],
+          [
+            0.5750120257874314,
+            0.8796975220695985,
+            -0.7360052157515172
+          ],
+          [
+            0.5915667482660059,
+            0.8803598325496538,
+            -0.7299366019745962
+          ]
+        ],
+        "b": [
+          [
+            0.5867452702895076,
+            0.8996067870181836,
+            -0.7299780739411429
+          ],
+          [
+            0.6018663234255308,
+            0.8278519203266776,
+            -0.7297795301559717
+          ],
+          [
+            0.6103878697983379,
+            0.8292797805273234,
+            -0.7300937749097979
+          ]
+        ]
+      }
+    },
+    "satchel/satchel_continuous_strap <> cape/cape_cloth": {
+      "samples": 290,
+      "phases": [
+        "drag",
+        "landing",
+        "idle"
+      ],
+      "firstTime": 3.183333333333333,
+      "lastTime": 8,
+      "witness": {
+        "a": [
+          [
+            0.6051154667558175,
+            0.7312639123184982,
+            -0.7242125327359299
+          ],
+          [
+            0.6134029105504605,
+            0.7312645276843621,
+            -0.7358272181913064
+          ],
+          [
+            0.5795772185078928,
+            0.7282275669299993,
+            -0.7477246965350344
+          ]
+        ],
+        "b": [
+          [
+            0.5933636541839509,
+            0.7574916896218116,
+            -0.7444587918522794
+          ],
+          [
+            0.5887645018724327,
+            0.6875117863636602,
+            -0.7402861647568559
+          ],
+          [
+            0.5996406468987415,
+            0.6866957724013029,
+            -0.7350867255376345
+          ]
+        ]
+      }
+    },
+    "body/Bubu_body <> satchel/satchel_continuous_strap": {
+      "samples": 4,
+      "phases": [
+        "landing"
+      ],
+      "firstTime": 5.1,
+      "lastTime": 5.15,
+      "witness": {
+        "a": [
+          [
+            -0.7655778033620079,
+            0.4479988047129937,
+            -0.35099875683917553
+          ],
+          [
+            -0.7512015662408914,
+            0.43379742084187817,
+            -0.3577023176788154
+          ],
+          [
+            -0.7622845182390398,
+            0.43347706820414605,
+            -0.3434045920976804
+          ]
+        ],
+        "b": [
+          [
+            -0.7258529484470438,
+            0.3971264468301306,
+            -0.3550035411880092
+          ],
+          [
+            -0.7639687109303076,
+            0.46868129427140875,
+            -0.37304716057446374
+          ],
+          [
+            -0.7805312077002193,
+            0.4639262558132193,
+            -0.34781443451117694
+          ]
+        ]
+      }
+    }
+  },
+  "translationObstructions": [
+    {
+      "obstacle": [
+        "Bubu_body",
+        "Bubu_foot-left",
+        "Bubu_foot-right"
+      ],
+      "mount": "satchel",
+      "part": "satchel_pouch",
+      "maxTranslation": 0.05338539126015657,
+      "inside": {
+        "index": 290,
+        "position": [
+          -0.6003375421740909,
+          0.46856439113616927,
+          0.48047394131978316
+        ],
+        "location": "vertex",
+        "distance": 0.08916755782078453,
+        "winding": 0.9999999999999922
+      },
+      "outside": {
+        "index": 13,
+        "position": [
+          -1.0771913954861858,
+          0.14636397361755354,
+          0.4947390919155241
+        ],
+        "location": "vertex",
+        "distance": 0.4061711660138416,
+        "winding": 9.392715745556686e-18
+      },
+      "connectedOutside": true,
+      "necessaryExtraTranslation": 0.035782166560627965
+    },
+    {
+      "obstacle": [
+        "Bubu_hand-right"
+      ],
+      "mount": "satchel",
+      "part": "satchel_continuous_strap",
+      "maxTranslation": 0.05338539126015657,
+      "inside": {
+        "index": 162,
+        "position": [
+          0.9788643110133962,
+          0.6747519572575886,
+          -0.2561892141740625
+        ],
+        "location": {
+          "triangle": 964,
+          "weights": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ]
+        },
+        "distance": 0.11777016813778596,
+        "winding": 1.0000000000000007
+      },
+      "outside": {
+        "index": 562,
+        "position": [
+          -0.9046439484968262,
+          0.4354662895202635,
+          0.22789258595794906
+        ],
+        "location": "vertex",
+        "distance": 1.823605979751841,
+        "winding": -5.539051935491476e-18
+      },
+      "connectedOutside": true,
+      "necessaryExtraTranslation": 0.06438477687762939
+    }
+  ],
+  "designFindings": [
+    {
+      "finding": "One small universal anchor offset box cannot repair the current satchel fit",
+      "evidence": "Exact closed-volume inside/outside witnesses persist for every translation in the existing box",
+      "nextStep": "Version a measured attachment/rest-fit or private deformation contract; this does not establish that approved source models must change"
+    },
+    {
+      "finding": "A frozen smooth timeline can emit tiny out-of-range floating-point scalars at exact cancellation endpoints",
+      "resolution": "Normalize only endpoint roundoff at the owned render boundary; keep the frozen controller and strict resource admission"
+    },
+    {
+      "finding": "Cloth endpoint simulation starts in an intersecting pose and excludes self-contact",
+      "nextStep": "Validate feasible initialization, actual cloth/trim seams and full trajectory/cancellations before any runtime admission"
+    },
+    {
+      "finding": "Real mesh narrow-phase collision, not JS mapping, dominates this cloth prototype",
+      "resolution": "Add internal profiling and bounded conservative proxy experiment; preserve failed 16.667 ms/contact/strain gates"
+    },
+    {
+      "finding": "Software drawing cost dominates the body renderer; sparse shader variants lack a stable gain",
+      "resolution": "Keep both experiments isolated and record hardware GPU acceptance as not run"
+    }
+  ],
+  "notRun": [
+    "Native Windows/macOS input and transparent-window acceptance",
+    "Physical GPU recovery and stable native frame rate"
+  ],
+  "saving": {
+    "branch": "feature/pet-animation-v2",
+    "commit": "c0a8281bbc721f1f7d01afdb0ece6920aebc90f9",
+    "changes": "local uncommitted",
+    "pushed": false,
+    "workingTreeBackup": "working-tree-before.tar.gz"
+  },
+  "reproduction": [
+    "npm run foundation:verify -- --output NEW_EXTERNAL_DIRECTORY --browser /usr/bin/chromium --software",
+    "python3 animation-foundation-v1/verification/demo-state-verify.py --output NEW_EXTERNAL_DIRECTORY",
+    "node animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs --output NEW_EXTERNAL_DIRECTORY --frames 60 --profile --bounded-body-hull --convex-hands"
+  ],
+  "validation": {
+    "research": {
+      "stages": 36,
+      "nodePassed": 805,
+      "pythonPassed": 2,
+      "sourcesUnchanged": true
+    },
+    "application": {
+      "passed": 6742,
+      "skipped": 29,
+      "failed": 0
+    },
+    "integration": {
+      "passed": 71,
+      "failed": 0
+    },
+    "demoState": "passed",
+    "completeDemo": {
+      "status": "passed",
+      "steps": 1193
+    },
+    "offlinePackage": {
+      "status": "passed",
+      "hashVerifiedFiles": 136,
+      "scenes": 8,
+      "externalRequests": 0
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "commands": [
+    "npm run check",
+    "npm run test:integration"
+  ],
+  "status": "passed",
+  "counts": {
+    "check": {
+      "tests": 6771,
+      "pass": 6742,
+      "fail": 0,
+      "skipped": 29
+    },
+    "integration": {
+      "tests": 71,
+      "pass": 71,
+      "fail": 0,
+      "skipped": 0
+    }
+  },
+  "inputHashes": {
+    "package.json": "43aeac51cd9611465ba5503e2f8e2ede91e25cd42d3ac9add52e62a0c42803ea",
+    "package-lock.json": "d0f537bb9ec0f0b8caf6657660c79382d0466c86165e5a3f142ffeb1281781e9",
+    "scripts/run-project-tests.js": "ca57129f82d2230cd66bda8edb8db2d1591c14669a9ffe13dc254548fea9e782"
+  },
+  "limitations": [
+    "29 optional/environment cases skipped in application test run; see logs for additional optional pixel checks.",
+    "Not native desktop acceptance."
+  ]
+}

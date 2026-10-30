@@ -55,6 +55,37 @@ Run `node --test animation-foundation-v1/configuration/tests/*.test.mjs` from `r
 
 Face-port unit calls alone are not actual D2 facial animation evidence. Full-host integration must verify the single-owner batch changes rendered facial state, preserves gesture priority and drops stale intents. CPU evidence is not native Windows/macOS or GPU performance evidence.
 
+## Contact admission and action ownership
+
+`contact/admission.mjs` compares three independent contracts: approved actor
+source/parts hashes, action trajectory/attachment hashes, and garment
+model/attachment hashes. Evidence comes from trusted composition, never from a
+request's claimed `supported` flag. Bare-body contact needs explicit evidence too.
+Positive admission requires endpoints, transitions, cancellation, reduced motion,
+attachment, containment and continuous contact coverage. Partial sampling may
+establish a blocker, but cannot authorize complete action playback.
+Separate positive records for two garments do not establish their combined
+clearance. An explicit record with `garments: [...]` can cover two to five exact
+identities; it requires the same complete coverage as a single-garment record.
+Order is irrelevant, but every version and the entire set must match. Bare-body
+and individual compatibility are still required, and a known blocker wins.
+No real positive combination has been registered; synthetic tests only verify
+this admission mechanism.
+
+`FoundationActor.checkContactAction` returns immutable supported/blocked/untested
+findings. `beginContactAction` calls a synchronous owned action port only after
+positive admission. `endContactAction` releases its handle. Pending equipment
+construction prevents action admission; active actions check candidate equipment
+before old equipment is touched and again before commit. Cancel, hidden,
+reduced motion, unequip, reset and disposal retire the contact handle.
+This contract is distinct from lifecycle-only `contactWindows` callbacks.
+
+The current hash-verified registry contains only the round5 static cape/rigid-tea
+endpoint blocker. No complete tea/wardrobe combination is silently approved.
+The earlier cape used by the foundation's existing secondary fixture has a
+different model and attachment identity and is untested by that audit.
+Synthetic positive-evidence tests establish contract behavior only.
+
 ### Explicit late face delivery policy
 
 The D2 owner cannot backdate an already sealed batch. When a display frame crosses authored face key times, the adapter coalesces them to the last relevant face intent and delivers at the current observed owner frame. Its entry/exit transition starts there. A fully skipped completed face segment does not flash retroactively. This bounds pending face work to one intent per strategy tick, including long frame gaps and eight-cycle loops. Quaternion tracks still sample exact authored time through QuaternionLane; no frame-perfect historical face replay is claimed. Port cleanup remains immediate and attempts every owned release even if one callback throws.

@@ -47,7 +47,7 @@ export function admitAuthoredFaces(definitions, faceIds) {
 }
 
 /** A bounded input port, not an expression owner. Only the pointer host drains it. */
-export function createAuthoredFacePort(definitions) {
+export function createAuthoredFacePort(definitions, admittedKeys = null) {
   const keys = new Map(
     definitions.map((value, index) => [tuple(value), `authored${index}`]),
   );
@@ -58,6 +58,7 @@ export function createAuthoredFacePort(definitions) {
     )
       keys.set(tuple(value), `authored${index}`);
   });
+  if (admittedKeys) definitions.forEach((value, index) => keys.set(tuple(value), admittedKeys[index]));
   let queue = [],
     current = null,
     sealed = -Infinity,

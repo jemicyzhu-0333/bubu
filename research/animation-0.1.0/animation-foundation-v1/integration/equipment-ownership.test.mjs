@@ -61,6 +61,13 @@ function released(x) {
 function errors(error) {
   return [error, ...(error.errors ?? []).flatMap(errors)];
 }
+test("failed private assembly fit releases pending assets and reservations", async () => {
+  const x = asset("fit"), a = actor(async () => x.a);
+  a.bindings.describe = () => ({ bytes: 100, calibration: new T.Matrix4(),
+    fitParts() { throw Error("assembly fit failed"); } });
+  await assert.rejects(a.equip(FIXTURES[4]), /assembly fit failed/);
+  empty(a); released(x);
+});
 test("attachment is owned before a childadded observer can fail", async () => {
   const x = asset("mount"),
     a = actor(async () => x.a);
@@ -113,6 +120,47 @@ test("successful ownership transfer survives until explicit removal", async () =
   a.remove();
   empty(a);
   released(x);
+});
+test("failed replacement load preserves the current outfit and releases partial new assets", async () => {
+  const previous = asset("previous"), partial = asset("partial replacement");
+  const a = actor(async () => previous.a);
+  await a.equip(FIXTURES[4]);
+  const oldMount = [...a.mounts.values()][0];
+  const oldPlan = a.configuration, oldBytes = a.budget.diagnostics().claimedBytes;
+  let rejectLast, loads = 0;
+  a.bindings.load = () => ++loads === 1
+    ? Promise.resolve(partial.a)
+    : new Promise((resolve, reject) => { rejectLast = reject; });
+  const request = a.equip(FIXTURES[0]);
+  while (!rejectLast) await Promise.resolve();
+  assert.equal(a.mounts.get(oldMount.spec.id), oldMount);
+  assert.equal(oldMount.root.parent, a.mountRoot);
+  assert.equal(a.mountRoot.children.length, 1, "staged load must not appear");
+  rejectLast(Error("replacement unavailable"));
+  await assert.rejects(request, /replacement unavailable/);
+  assert.equal(a.configuration, oldPlan);
+  assert.equal(a.mounts.get(oldMount.spec.id), oldMount);
+  assert.equal(previous.counts.geometry, 0);
+  assert.equal(a.budget.diagnostics().claimedBytes, oldBytes);
+  released(partial);
+  a.remove();
+  empty(a);
+  released(previous);
+});
+test("invalid decoded replacement preserves the current outfit", async () => {
+  const previous = asset("previous"), invalid = asset("invalid");
+  const a = actor(async () => previous.a);
+  await a.equip(FIXTURES[4]);
+  const oldPlan = a.configuration;
+  invalid.a.children[0].geometry.attributes.position.array[0] = NaN;
+  a.bindings.load = async () => invalid.a;
+  await assert.rejects(a.equip(FIXTURES[4]));
+  assert.equal(a.configuration, oldPlan);
+  assert.equal(a.mounts.size, 1);
+  assert.equal(previous.counts.geometry, 0);
+  released(invalid);
+  a.remove();
+  empty(a);
 });
 test("two invalidated pending loads release late assets once and retain reservations until settled", async () => {
   let r1,
@@ -274,4 +322,64 @@ test("observer-started replacement equip is not cleared by the older stale reque
     empty(a);
     released(newAsset);
   }
+});
+
+for (const stage of ["anchor", "attachment", "effect"]) {
+  test(`synchronous ${stage} failure preserves committed equipment`, async () => {
+    const previous = asset("previous"), replacement = asset("replacement");
+    const a = actor(async () => previous.a);
+    await a.equip(FIXTURES[4]);
+    const oldMount = [...a.mounts.values()][0], oldPlan = a.configuration;
+    const oldStrategy = a.strategy, oldBytes = a.budget.diagnostics().claimedBytes;
+    a.bindings.load = async () => replacement.a;
+    if (stage === "anchor") a.anchors.getTransform = () => { throw Error("stage failure"); };
+    if (stage === "attachment") a.mountRoot.addEventListener("childadded", () => { throw Error("stage failure"); });
+    if (stage === "effect") a.effects.enter = () => { throw Error("stage failure"); };
+    await assert.rejects(a.equip(FIXTURES[4]), /stage failure/);
+    assert.equal(a.configuration, oldPlan);
+    assert.equal(a.strategy, oldStrategy);
+    assert.equal(a.mounts.get(oldMount.spec.id), oldMount);
+    assert.equal(a.mountRoot.children.length, 1);
+    assert.equal(a.budget.diagnostics().claimedBytes, oldBytes);
+    assert.equal(previous.counts.geometry, 0);
+    released(replacement);
+    a.remove();
+    released(previous);
+    empty(a);
+  });
+}
+test("retirement failure reports an applied replacement without rejecting or retrying", async () => {
+  const previous = asset("previous", true), replacement = asset("replacement");
+  const a = actor(async () => previous.a);
+  await a.equip(FIXTURES[4]);
+  a.bindings.load = async () => replacement.a;
+  const result = await a.equip(FIXTURES[4]);
+  assert.equal(result.stale, false);
+  assert(result.cleanupError instanceof AggregateError);
+  assert.equal([...a.mounts.values()][0].asset, replacement.a);
+  assert.equal(a.mountRoot.children.length, 1);
+  released(previous);
+  assert.equal(replacement.counts.geometry, 0);
+  a.remove();
+  released(replacement);
+  empty(a);
+});
+test('complete outfit replacement retains all four bounded effects', async () => {
+  const pool = new FoundationPool(), a = await pool.create();
+  try {
+    await a.equip(FIXTURES[4]);
+    const oldEffects = a.effects;
+    const outfit = structuredClone(FIXTURES[4]); outfit.id = 'all-effects-replacement';
+    for (const field of ['mounts', 'secondaryMotion', 'effects'])
+      outfit[field] = [0,1,2,4].flatMap(i => structuredClone(FIXTURES[i][field]));
+    await a.equip(outfit);
+    assert.notEqual(a.effects, oldEffects);
+    assert.equal(a.handles.length, 4);
+    assert(a.handles.every(handle => handle && handle.state !== 'disposed'));
+    assert.equal(oldEffects.diagnostics().disposed, true);
+    a.step(.1);
+    a.remove();
+    assert.equal(a.mounts.size, 0);
+  } finally { pool.dispose(); }
+  assert.equal(pool.diagnostics().budget.claimedBytes, 0);
 });

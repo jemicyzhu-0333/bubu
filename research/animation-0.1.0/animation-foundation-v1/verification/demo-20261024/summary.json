@@ -1,0 +1,215 @@
+{
+  "schema": "bubu-v2-demo-handoff/1",
+  "branch": "feature/pet-animation-v2",
+  "commit": "c0a8281bbc721f1f7d01afdb0ece6920aebc90f9",
+  "workingTreeChanges": true,
+  "productionAccepted": false,
+  "changes": [
+    "Synchronous equipment staging preserves the previous outfit; retirement errors return after commit without a retryable rejection.",
+    "Each equipment candidate owns an independent bounded four-emitter runtime.",
+    "Node/browser share FoundationActor, asset binding, resource ownership and frame coordination.",
+    "Exact existing expression tuples reuse admitted scheduler candidates; all 18 expressions fit.",
+    "Tea cancellation retains its cycle epoch; reduced-motion exit does not restart a cancelled cup. Repeated cancellation is idempotent during and after completion."
+  ],
+  "validation": {
+    "foundationStages": 31,
+    "foundationNodeTests": 789,
+    "pythonJSONRegressions": 2,
+    "application": {
+      "check": {
+        "tests": 6771,
+        "pass": 6742,
+        "fail": 0,
+        "skipped": 29
+      },
+      "integration": {
+        "tests": 71,
+        "pass": 71,
+        "fail": 0,
+        "skipped": 0
+      }
+    },
+    "demo": "passed",
+    "dprs": [
+      1,
+      1.25,
+      2
+    ],
+    "resourceCycles": [
+      {
+        "geometries": 15,
+        "textures": 18
+      },
+      {
+        "geometries": 15,
+        "textures": 18
+      }
+    ],
+    "offlinePackage": {
+      "status": "passed",
+      "filesVerified": 134,
+      "scenes": [
+        {
+          "scene": "ear",
+          "mounts": [
+            "sakura",
+            "leaf"
+          ]
+        },
+        {
+          "scene": "satchel",
+          "mounts": [
+            "satchel"
+          ]
+        },
+        {
+          "scene": "cape",
+          "mounts": [
+            "cape"
+          ]
+        },
+        {
+          "scene": "halo",
+          "mounts": [
+            "halo"
+          ]
+        },
+        {
+          "scene": "book",
+          "mounts": [
+            "book"
+          ]
+        },
+        {
+          "scene": "wardrobe",
+          "mounts": [
+            "sakura",
+            "leaf",
+            "satchel",
+            "cape",
+            "halo"
+          ]
+        },
+        {
+          "scene": "tea",
+          "mounts": []
+        },
+        {
+          "scene": "bare",
+          "mounts": []
+        }
+      ],
+      "errors": []
+    },
+    "targetedRepeatCancellationCases": 2,
+    "changesSinceFoundationRun": {
+      "animation-foundation-v1/demo/capture.py": {
+        "before": "7158645e771af50cdbce98fcb098d39e930d7e75e8efe446b445573313cc8121",
+        "after": "552ace5ad4a6ac5a548bdc394b2b79c0b0aea6a461846e707571f618862fd1fe"
+      },
+      "animation-foundation-v1/demo/tea-preview.mjs": {
+        "before": "47d06c0684189cd6badfbd431ed8afc0a4aa2b366c7f05d523069fb226daa90c",
+        "after": "5a83333c6574a8f924256dc74cafde9e6138bfcb597ad2eb39076f18a5d1281e"
+      }
+    },
+    "currentCompositionEvidence": "final-validation.json"
+  },
+  "video": {
+    "file": "bubu-v2-demo.mp4",
+    "seconds": 49.083333333333336,
+    "frames": 1178,
+    "width": 1100,
+    "height": 900,
+    "sampleFPS": 24,
+    "realtimeThroughputClaim": false,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "sourceNote": "The 49-second recording precedes the final idempotent-cancel guard. Normal choreography/rendering is unchanged. Its original rejected cold/warm resource comparison is preserved as recording-run.json; subsequent same-use comparison and targeted repeated-cancel follow-up both passed."
+  },
+  "remaining": [
+    "Cape/tea compatibility and continuous complete-outfit contact are not accepted.",
+    "Real-time full cloth is not implemented or accepted; current demo cape uses its existing authored chain.",
+    "Native desktop and hardware GPU behavior remain unverified; sampled video FPS is not a target-device frame-rate result."
+  ],
+  "foundationGates": {
+    "capeTea": {
+      "status": "blocked",
+      "reason": "endpoint-attachment-conflict"
+    },
+    "dynamicCloth": {
+      "status": "blocked",
+      "reason": "real-time-budget-not-met"
+    },
+    "nativeInput": {
+      "status": "not-run"
+    },
+    "webglAndGPURecovery": {
+      "status": "partial",
+      "browserWebGL": "passed",
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "hardwareGPURecovery": "not-run",
+      "nativeDesktop": "not-run",
+      "reason": "Browser object lifecycle counts do not establish physical GPU memory or desktop-window acceptance"
+    },
+    "stableFrameTime": {
+      "status": "failed",
+      "evidence": {
+        "samples": 900,
+        "median": 1.2338509999999587,
+        "p95": 2.322785000000067,
+        "max": 11.730236000000104,
+        "includes": "body + hybrid + anchors + secondary + effects; excludes GPU"
+      },
+      "profilePasses": {
+        "0": {
+          "n": 900,
+          "median": 1.2065610000000788,
+          "p95": 2.3443600000000515,
+          "p99": 3.024362999999994,
+          "max": 15.327244999999948
+        },
+        "1": {
+          "n": 900,
+          "median": 1.1485649999999623,
+          "p95": 2.48476699999992,
+          "p99": 3.8640129999998862,
+          "max": 13.582296000000042
+        },
+        "2": {
+          "n": 900,
+          "median": 1.108245999999781,
+          "p95": 2.287174999999934,
+          "p99": 2.782126000000062,
+          "max": 7.25115199999982
+        }
+      },
+      "profileOverBudgetFrames": 0,
+      "reason": "Observed browser frame intervals exceed the 60 Hz budget; renderer identity remains explicit",
+      "browserFrameIntervals": {
+        "p50": 110.5,
+        "p95": 242.70000000018626,
+        "max": 373.39999999990687
+      }
+    },
+    "fullWardrobeContact": {
+      "status": "not-run"
+    }
+  },
+  "artifacts": {
+    "bubu-v2-demo.mp4": {
+      "bytes": 724710,
+      "sha256": "6700b7978e4c5f998158c9b667b5b6d9ee4f7c54ed93a1cc724e52fe5d08833c"
+    },
+    "bubu-v2-interactive.zip": {
+      "bytes": 15802654,
+      "sha256": "86533032f64fd1bc98cb6a12d88eb99bc871bf86a789083e1a47374f3f28952b"
+    },
+    "preview.gif": {
+      "bytes": 278976,
+      "sha256": "f25764e8351511f0d6e5ee7534b2a469bae569ab67d2fbc6c0bd5e349e46aad1"
+    },
+    "poster.png": {
+      "bytes": 114530,
+      "sha256": "668367f4fc851500a49ce5e258ee4b792715c5c04ac58df2d7e363ed6c910fe6"
+    }
+  }
+}

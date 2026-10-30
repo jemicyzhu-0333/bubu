@@ -1,0 +1,2167 @@
+{
+  "scope": "Failed opt-in follow-up candidates, not promoted. Complete normal and cancellation paths remain blocked. Historical modules match every report hash.",
+  "rows": [
+    {
+      "name": "transfinite-normal-240",
+      "adopted": false,
+      "executionStatus": "completed",
+      "productionAccepted": false,
+      "stoppedAt": {
+        "frame": 22,
+        "time": 0.09583333333333334,
+        "reason": "first-contact-pin-or-strain-failure",
+        "coarseContacts": []
+      },
+      "firstSeamFailure": null,
+      "lastFinite": {
+        "frame": 22,
+        "renderStrain": {
+          "min": 0.8617149384452889,
+          "max": 1.2182063202281217,
+          "minWitness": {
+            "a": 7617,
+            "b": 7630,
+            "restLength": 0.005005680995582084,
+            "ratio": 0.8617149384452889
+          },
+          "maxWitness": {
+            "a": 7600,
+            "b": 7613,
+            "restLength": 0.004829840004375029,
+            "ratio": 1.2182063202281217
+          }
+        },
+        "seams": {
+          "maximum": 7.981399622796973e-06,
+          "witness": {
+            "part": "cape_front_edge_1",
+            "section": 18,
+            "clothVertex": 3058,
+            "gap": 7.981399622796973e-06
+          }
+        },
+        "contacts": [],
+        "pinError": 0,
+        "renderPinError": 8.149072527885437e-10
+      },
+      "reachedActionEndpoint": false,
+      "nonFiniteSimulation": null,
+      "sourceVersions": [
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs",
+          "sha256": "3ca8947bbf1b635fd0412ea3d0b9857383bca68070e4b38a93cb6bf82e36916a",
+          "preserved": "candidate-source-versions/3ca8947bbf1b635fd0412ea3d0b9857383bca68070e4b38a93cb6bf82e36916a/endpoint-probe.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/edge-strain.mjs",
+          "sha256": "6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7",
+          "preserved": "candidate-source-versions/6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7/edge-strain.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/action-horizon.mjs",
+          "sha256": "5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a",
+          "preserved": "candidate-source-versions/5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a/action-horizon.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/attachment-profile.mjs",
+          "sha256": "bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a",
+          "preserved": "candidate-source-versions/bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a/attachment-profile.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/thin-surface-mapper.mjs",
+          "sha256": "54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884",
+          "preserved": "candidate-source-versions/54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884/thin-surface-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/piping-section-mapper.mjs",
+          "sha256": "cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302",
+          "preserved": "candidate-source-versions/cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302/piping-section-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-fixtures.mjs",
+          "sha256": "2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac",
+          "preserved": "candidate-source-versions/2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac/asset-fixtures.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-resources.mjs",
+          "sha256": "1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679",
+          "preserved": "candidate-source-versions/1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679/asset-resources.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/cleanup-owned.mjs",
+          "sha256": "7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b",
+          "preserved": "candidate-source-versions/7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b/cleanup-owned.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.mjs",
+          "sha256": "14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984",
+          "preserved": "candidate-source-versions/14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984/conservative-hull.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/tea-obstacles.mjs",
+          "sha256": "0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a",
+          "preserved": "candidate-source-versions/0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a/tea-obstacles.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/contact/tea-clearance-candidate.mjs",
+          "sha256": "c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745",
+          "preserved": "candidate-source-versions/c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745/tea-clearance-candidate.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/tea-sample-boundary.mjs",
+          "sha256": "1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166",
+          "preserved": "candidate-source-versions/1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166/tea-sample-boundary.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/rigid-tea.mjs",
+          "sha256": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+          "preserved": "candidate-source-versions/b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642/rigid-tea.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/timeline.mjs",
+          "sha256": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+          "preserved": "candidate-source-versions/b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa/timeline.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/scene-resources.mjs",
+          "sha256": "bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d",
+          "preserved": "candidate-source-versions/bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d/scene-resources.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/cup-model.mjs",
+          "sha256": "66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca",
+          "preserved": "candidate-source-versions/66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca/cup-model.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/local-body-proxy.mjs",
+          "sha256": "409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df",
+          "preserved": "candidate-source-versions/409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df/local-body-proxy.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-wire-cloth.mjs",
+          "sha256": "2a5df321a64e03fca44bd8c9fc225607e996446e29908266c206dc8c8dffeae3",
+          "preserved": "candidate-source-versions/2a5df321a64e03fca44bd8c9fc225607e996446e29908266c206dc8c8dffeae3/conforming-wire-cloth.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-seam-surface.mjs",
+          "sha256": "9f4dc294f2b8a82c0c18b8fc8a455ea603c0add5f37c3916d7943b920ceb56ee",
+          "preserved": "candidate-source-versions/9f4dc294f2b8a82c0c18b8fc8a455ea603c0add5f37c3916d7943b920ceb56ee/conforming-seam-surface.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-cloth-binding.mjs",
+          "sha256": "73c410f5c7e9a9c7918886e9bffff1f3ea57d9e82a127304d8049c31e2defb9f",
+          "preserved": "candidate-source-versions/73c410f5c7e9a9c7918886e9bffff1f3ea57d9e82a127304d8049c31e2defb9f/conforming-cloth-binding.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/wire-section-mapper.mjs",
+          "sha256": "b1c44549a12b80f556a30df768a8954594acfb6ddd25785a06ec21aaca1c3669",
+          "preserved": "candidate-source-versions/b1c44549a12b80f556a30df768a8954594acfb6ddd25785a06ec21aaca1c3669/wire-section-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/transfinite-cloth-mapper.mjs",
+          "sha256": "b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a",
+          "preserved": "candidate-source-versions/b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a/transfinite-cloth-mapper.mjs"
+        }
+      ]
+    },
+    {
+      "name": "transfinite-bend-normal-240",
+      "adopted": false,
+      "executionStatus": "completed",
+      "productionAccepted": false,
+      "stoppedAt": {
+        "frame": 22,
+        "time": 0.09583333333333334,
+        "reason": "first-contact-pin-or-strain-failure",
+        "coarseContacts": []
+      },
+      "firstSeamFailure": {
+        "frame": 21,
+        "time": 0.09166666666666666,
+        "maximum": 1.0105470821095795e-05,
+        "witness": {
+          "part": "cape_hem",
+          "section": 160,
+          "clothVertex": 3058,
+          "gap": 1.0105470821095795e-05
+        }
+      },
+      "lastFinite": {
+        "frame": 22,
+        "renderStrain": {
+          "min": 0.8684746561204244,
+          "max": 1.2158277869962988,
+          "minWitness": {
+            "a": 7617,
+            "b": 7630,
+            "restLength": 0.005005680995582084,
+            "ratio": 0.8684746561204244
+          },
+          "maxWitness": {
+            "a": 7600,
+            "b": 7613,
+            "restLength": 0.004829840004375029,
+            "ratio": 1.2158277869962988
+          }
+        },
+        "seams": {
+          "maximum": 1.0718540076702952e-05,
+          "witness": {
+            "part": "cape_hem",
+            "section": 160,
+            "clothVertex": 3058,
+            "gap": 1.0718540076702952e-05
+          }
+        },
+        "contacts": [],
+        "pinError": 0,
+        "renderPinError": 8.149072527885437e-10
+      },
+      "reachedActionEndpoint": false,
+      "nonFiniteSimulation": null,
+      "sourceVersions": [
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs",
+          "sha256": "d13753ec904762b4710edbcb9c8f33fdb7ced6f7905dfb320452c8955d3fb0c8",
+          "preserved": "candidate-source-versions/d13753ec904762b4710edbcb9c8f33fdb7ced6f7905dfb320452c8955d3fb0c8/endpoint-probe.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/edge-strain.mjs",
+          "sha256": "6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7",
+          "preserved": "candidate-source-versions/6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7/edge-strain.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/action-horizon.mjs",
+          "sha256": "5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a",
+          "preserved": "candidate-source-versions/5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a/action-horizon.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/attachment-profile.mjs",
+          "sha256": "bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a",
+          "preserved": "candidate-source-versions/bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a/attachment-profile.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/thin-surface-mapper.mjs",
+          "sha256": "54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884",
+          "preserved": "candidate-source-versions/54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884/thin-surface-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/piping-section-mapper.mjs",
+          "sha256": "cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302",
+          "preserved": "candidate-source-versions/cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302/piping-section-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-fixtures.mjs",
+          "sha256": "2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac",
+          "preserved": "candidate-source-versions/2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac/asset-fixtures.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-resources.mjs",
+          "sha256": "1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679",
+          "preserved": "candidate-source-versions/1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679/asset-resources.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/cleanup-owned.mjs",
+          "sha256": "7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b",
+          "preserved": "candidate-source-versions/7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b/cleanup-owned.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.mjs",
+          "sha256": "14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984",
+          "preserved": "candidate-source-versions/14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984/conservative-hull.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/tea-obstacles.mjs",
+          "sha256": "0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a",
+          "preserved": "candidate-source-versions/0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a/tea-obstacles.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/contact/tea-clearance-candidate.mjs",
+          "sha256": "c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745",
+          "preserved": "candidate-source-versions/c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745/tea-clearance-candidate.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/tea-sample-boundary.mjs",
+          "sha256": "1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166",
+          "preserved": "candidate-source-versions/1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166/tea-sample-boundary.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/rigid-tea.mjs",
+          "sha256": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+          "preserved": "candidate-source-versions/b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642/rigid-tea.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/timeline.mjs",
+          "sha256": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+          "preserved": "candidate-source-versions/b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa/timeline.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/scene-resources.mjs",
+          "sha256": "bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d",
+          "preserved": "candidate-source-versions/bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d/scene-resources.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/cup-model.mjs",
+          "sha256": "66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca",
+          "preserved": "candidate-source-versions/66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca/cup-model.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/local-body-proxy.mjs",
+          "sha256": "409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df",
+          "preserved": "candidate-source-versions/409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df/local-body-proxy.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-wire-cloth.mjs",
+          "sha256": "ce21246dda4826bfefff6067270c101bfacffed1c41cc22a99a5b7722a741251",
+          "preserved": "candidate-source-versions/ce21246dda4826bfefff6067270c101bfacffed1c41cc22a99a5b7722a741251/conforming-wire-cloth.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-seam-surface.mjs",
+          "sha256": "9f4dc294f2b8a82c0c18b8fc8a455ea603c0add5f37c3916d7943b920ceb56ee",
+          "preserved": "candidate-source-versions/9f4dc294f2b8a82c0c18b8fc8a455ea603c0add5f37c3916d7943b920ceb56ee/conforming-seam-surface.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-cloth-binding.mjs",
+          "sha256": "73c410f5c7e9a9c7918886e9bffff1f3ea57d9e82a127304d8049c31e2defb9f",
+          "preserved": "candidate-source-versions/73c410f5c7e9a9c7918886e9bffff1f3ea57d9e82a127304d8049c31e2defb9f/conforming-cloth-binding.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/wire-section-mapper.mjs",
+          "sha256": "b1c44549a12b80f556a30df768a8954594acfb6ddd25785a06ec21aaca1c3669",
+          "preserved": "candidate-source-versions/b1c44549a12b80f556a30df768a8954594acfb6ddd25785a06ec21aaca1c3669/wire-section-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/transfinite-cloth-mapper.mjs",
+          "sha256": "b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a",
+          "preserved": "candidate-source-versions/b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a/transfinite-cloth-mapper.mjs"
+        }
+      ]
+    },
+    {
+      "name": "transfinite-rod-normal-240",
+      "adopted": false,
+      "executionStatus": "completed",
+      "productionAccepted": false,
+      "stoppedAt": {
+        "frame": 20,
+        "time": 0.0875,
+        "reason": "first-contact-pin-or-strain-failure",
+        "coarseContacts": []
+      },
+      "firstSeamFailure": {
+        "frame": 15,
+        "time": 0.06666666666666667,
+        "maximum": 1.1155374805312767e-05,
+        "witness": {
+          "part": "cape_hem",
+          "section": 160,
+          "clothVertex": 3058,
+          "gap": 1.1155374805312767e-05
+        }
+      },
+      "lastFinite": {
+        "frame": 20,
+        "renderStrain": {
+          "min": 0.8607636917211888,
+          "max": 1.2045496264926518,
+          "minWitness": {
+            "a": 7627,
+            "b": 7640,
+            "restLength": 0.0048364321807332624,
+            "ratio": 0.8607636917211888
+          },
+          "maxWitness": {
+            "a": 7600,
+            "b": 7613,
+            "restLength": 0.004829840004375029,
+            "ratio": 1.2045496264926518
+          }
+        },
+        "seams": {
+          "maximum": 2.2361643842264044e-05,
+          "witness": {
+            "part": "cape_hem",
+            "section": 160,
+            "clothVertex": 3058,
+            "gap": 2.2361643842264044e-05
+          }
+        },
+        "contacts": [],
+        "pinError": 0,
+        "renderPinError": 8.149072527885437e-10
+      },
+      "reachedActionEndpoint": false,
+      "nonFiniteSimulation": null,
+      "sourceVersions": [
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs",
+          "sha256": "d13753ec904762b4710edbcb9c8f33fdb7ced6f7905dfb320452c8955d3fb0c8",
+          "preserved": "candidate-source-versions/d13753ec904762b4710edbcb9c8f33fdb7ced6f7905dfb320452c8955d3fb0c8/endpoint-probe.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/edge-strain.mjs",
+          "sha256": "6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7",
+          "preserved": "candidate-source-versions/6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7/edge-strain.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/action-horizon.mjs",
+          "sha256": "5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a",
+          "preserved": "candidate-source-versions/5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a/action-horizon.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/attachment-profile.mjs",
+          "sha256": "bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a",
+          "preserved": "candidate-source-versions/bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a/attachment-profile.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/thin-surface-mapper.mjs",
+          "sha256": "54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884",
+          "preserved": "candidate-source-versions/54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884/thin-surface-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/piping-section-mapper.mjs",
+          "sha256": "cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302",
+          "preserved": "candidate-source-versions/cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302/piping-section-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-fixtures.mjs",
+          "sha256": "2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac",
+          "preserved": "candidate-source-versions/2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac/asset-fixtures.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-resources.mjs",
+          "sha256": "1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679",
+          "preserved": "candidate-source-versions/1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679/asset-resources.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/cleanup-owned.mjs",
+          "sha256": "7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b",
+          "preserved": "candidate-source-versions/7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b/cleanup-owned.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.mjs",
+          "sha256": "14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984",
+          "preserved": "candidate-source-versions/14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984/conservative-hull.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/tea-obstacles.mjs",
+          "sha256": "0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a",
+          "preserved": "candidate-source-versions/0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a/tea-obstacles.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/contact/tea-clearance-candidate.mjs",
+          "sha256": "c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745",
+          "preserved": "candidate-source-versions/c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745/tea-clearance-candidate.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/tea-sample-boundary.mjs",
+          "sha256": "1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166",
+          "preserved": "candidate-source-versions/1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166/tea-sample-boundary.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/rigid-tea.mjs",
+          "sha256": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+          "preserved": "candidate-source-versions/b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642/rigid-tea.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/timeline.mjs",
+          "sha256": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+          "preserved": "candidate-source-versions/b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa/timeline.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/scene-resources.mjs",
+          "sha256": "bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d",
+          "preserved": "candidate-source-versions/bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d/scene-resources.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/cup-model.mjs",
+          "sha256": "66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca",
+          "preserved": "candidate-source-versions/66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca/cup-model.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/local-body-proxy.mjs",
+          "sha256": "409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df",
+          "preserved": "candidate-source-versions/409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df/local-body-proxy.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-wire-cloth.mjs",
+          "sha256": "baca7736f35917c50ed58f2cd3cc6c7be7eb32c19ddd55ea599fe35ff38fb37c",
+          "preserved": "candidate-source-versions/baca7736f35917c50ed58f2cd3cc6c7be7eb32c19ddd55ea599fe35ff38fb37c/conforming-wire-cloth.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-seam-surface.mjs",
+          "sha256": "9f4dc294f2b8a82c0c18b8fc8a455ea603c0add5f37c3916d7943b920ceb56ee",
+          "preserved": "candidate-source-versions/9f4dc294f2b8a82c0c18b8fc8a455ea603c0add5f37c3916d7943b920ceb56ee/conforming-seam-surface.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-cloth-binding.mjs",
+          "sha256": "73c410f5c7e9a9c7918886e9bffff1f3ea57d9e82a127304d8049c31e2defb9f",
+          "preserved": "candidate-source-versions/73c410f5c7e9a9c7918886e9bffff1f3ea57d9e82a127304d8049c31e2defb9f/conforming-cloth-binding.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/wire-section-mapper.mjs",
+          "sha256": "b1c44549a12b80f556a30df768a8954594acfb6ddd25785a06ec21aaca1c3669",
+          "preserved": "candidate-source-versions/b1c44549a12b80f556a30df768a8954594acfb6ddd25785a06ec21aaca1c3669/wire-section-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/transfinite-cloth-mapper.mjs",
+          "sha256": "b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a",
+          "preserved": "candidate-source-versions/b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a/transfinite-cloth-mapper.mjs"
+        }
+      ]
+    },
+    {
+      "name": "transfinite-framed-normal-240",
+      "adopted": false,
+      "executionStatus": "completed",
+      "productionAccepted": false,
+      "stoppedAt": {
+        "frame": 5,
+        "time": 0.025,
+        "reason": "first-contact-pin-or-strain-failure",
+        "coarseContacts": []
+      },
+      "firstSeamFailure": null,
+      "lastFinite": {
+        "frame": 5,
+        "renderStrain": {
+          "min": 0.7334504469940312,
+          "max": 1.2218376777746347,
+          "minWitness": {
+            "a": 7516,
+            "b": 7504,
+            "restLength": 0.006623356816620119,
+            "ratio": 0.7334504469940312
+          },
+          "maxWitness": {
+            "a": 7510,
+            "b": 7498,
+            "restLength": 0.0066145015347797735,
+            "ratio": 1.2218376777746347
+          }
+        },
+        "seams": {
+          "maximum": 4.29897868542005e-06,
+          "witness": {
+            "part": "cape_front_edge_0",
+            "section": 18,
+            "clothVertex": 18,
+            "gap": 4.29897868542005e-06
+          }
+        },
+        "contacts": [],
+        "pinError": 0,
+        "renderPinError": 8.149072527885437e-10
+      },
+      "reachedActionEndpoint": false,
+      "nonFiniteSimulation": null,
+      "sourceVersions": [
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs",
+          "sha256": "7a7b24ca29118396041e52ab63ef00f59c005850e006afaee355fb6a11435019",
+          "preserved": "candidate-source-versions/7a7b24ca29118396041e52ab63ef00f59c005850e006afaee355fb6a11435019/endpoint-probe.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/edge-strain.mjs",
+          "sha256": "6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7",
+          "preserved": "candidate-source-versions/6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7/edge-strain.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/action-horizon.mjs",
+          "sha256": "5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a",
+          "preserved": "candidate-source-versions/5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a/action-horizon.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/attachment-profile.mjs",
+          "sha256": "bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a",
+          "preserved": "candidate-source-versions/bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a/attachment-profile.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/thin-surface-mapper.mjs",
+          "sha256": "54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884",
+          "preserved": "candidate-source-versions/54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884/thin-surface-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/piping-section-mapper.mjs",
+          "sha256": "cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302",
+          "preserved": "candidate-source-versions/cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302/piping-section-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-fixtures.mjs",
+          "sha256": "2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac",
+          "preserved": "candidate-source-versions/2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac/asset-fixtures.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-resources.mjs",
+          "sha256": "1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679",
+          "preserved": "candidate-source-versions/1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679/asset-resources.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/cleanup-owned.mjs",
+          "sha256": "7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b",
+          "preserved": "candidate-source-versions/7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b/cleanup-owned.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.mjs",
+          "sha256": "14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984",
+          "preserved": "candidate-source-versions/14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984/conservative-hull.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/tea-obstacles.mjs",
+          "sha256": "0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a",
+          "preserved": "candidate-source-versions/0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a/tea-obstacles.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/contact/tea-clearance-candidate.mjs",
+          "sha256": "c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745",
+          "preserved": "candidate-source-versions/c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745/tea-clearance-candidate.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/tea-sample-boundary.mjs",
+          "sha256": "1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166",
+          "preserved": "candidate-source-versions/1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166/tea-sample-boundary.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/rigid-tea.mjs",
+          "sha256": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+          "preserved": "candidate-source-versions/b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642/rigid-tea.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/timeline.mjs",
+          "sha256": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+          "preserved": "candidate-source-versions/b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa/timeline.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/scene-resources.mjs",
+          "sha256": "bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d",
+          "preserved": "candidate-source-versions/bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d/scene-resources.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/cup-model.mjs",
+          "sha256": "66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca",
+          "preserved": "candidate-source-versions/66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca/cup-model.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/local-body-proxy.mjs",
+          "sha256": "409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df",
+          "preserved": "candidate-source-versions/409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df/local-body-proxy.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-wire-cloth.mjs",
+          "sha256": "2c7a06dd51831b22d679b18367f28da0479ee62c0e8a417fd9e5c5c127576942",
+          "preserved": "candidate-source-versions/2c7a06dd51831b22d679b18367f28da0479ee62c0e8a417fd9e5c5c127576942/conforming-wire-cloth.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-seam-surface.mjs",
+          "sha256": "9f4dc294f2b8a82c0c18b8fc8a455ea603c0add5f37c3916d7943b920ceb56ee",
+          "preserved": "candidate-source-versions/9f4dc294f2b8a82c0c18b8fc8a455ea603c0add5f37c3916d7943b920ceb56ee/conforming-seam-surface.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-cloth-binding.mjs",
+          "sha256": "73c410f5c7e9a9c7918886e9bffff1f3ea57d9e82a127304d8049c31e2defb9f",
+          "preserved": "candidate-source-versions/73c410f5c7e9a9c7918886e9bffff1f3ea57d9e82a127304d8049c31e2defb9f/conforming-cloth-binding.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/wire-section-mapper.mjs",
+          "sha256": "497f21ac2e57d4a47cebf544960f6ccc227322fc04a9fd673716ff2bd9733820",
+          "preserved": "candidate-source-versions/497f21ac2e57d4a47cebf544960f6ccc227322fc04a9fd673716ff2bd9733820/wire-section-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/transfinite-cloth-mapper.mjs",
+          "sha256": "b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a",
+          "preserved": "candidate-source-versions/b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a/transfinite-cloth-mapper.mjs"
+        }
+      ]
+    },
+    {
+      "name": "transfinite-balanced-normal-240",
+      "adopted": false,
+      "executionStatus": "completed",
+      "productionAccepted": false,
+      "stoppedAt": {
+        "frame": 17,
+        "time": 0.075,
+        "reason": "first-contact-pin-or-strain-failure",
+        "coarseContacts": []
+      },
+      "firstSeamFailure": null,
+      "lastFinite": {
+        "frame": 17,
+        "renderStrain": {
+          "min": 0.8139036861795081,
+          "max": 1.2023705757688645,
+          "minWitness": {
+            "a": 7517,
+            "b": 7492,
+            "restLength": 0.006596439300420518,
+            "ratio": 0.8139036861795081
+          },
+          "maxWitness": {
+            "a": 7526,
+            "b": 7539,
+            "restLength": 0.004780773512254685,
+            "ratio": 1.2023705757688645
+          }
+        },
+        "seams": {
+          "maximum": 4.656808239759582e-06,
+          "witness": {
+            "part": "cape_front_edge_0",
+            "section": 18,
+            "clothVertex": 18,
+            "gap": 4.656808239759582e-06
+          }
+        },
+        "contacts": [],
+        "pinError": 0,
+        "renderPinError": 8.149072527885437e-10
+      },
+      "reachedActionEndpoint": false,
+      "nonFiniteSimulation": null,
+      "sourceVersions": [
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs",
+          "sha256": "7a7b24ca29118396041e52ab63ef00f59c005850e006afaee355fb6a11435019",
+          "preserved": "candidate-source-versions/7a7b24ca29118396041e52ab63ef00f59c005850e006afaee355fb6a11435019/endpoint-probe.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/edge-strain.mjs",
+          "sha256": "6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7",
+          "preserved": "candidate-source-versions/6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7/edge-strain.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/action-horizon.mjs",
+          "sha256": "5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a",
+          "preserved": "candidate-source-versions/5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a/action-horizon.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/attachment-profile.mjs",
+          "sha256": "bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a",
+          "preserved": "candidate-source-versions/bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a/attachment-profile.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/thin-surface-mapper.mjs",
+          "sha256": "54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884",
+          "preserved": "candidate-source-versions/54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884/thin-surface-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/piping-section-mapper.mjs",
+          "sha256": "cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302",
+          "preserved": "candidate-source-versions/cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302/piping-section-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-fixtures.mjs",
+          "sha256": "2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac",
+          "preserved": "candidate-source-versions/2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac/asset-fixtures.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-resources.mjs",
+          "sha256": "1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679",
+          "preserved": "candidate-source-versions/1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679/asset-resources.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/cleanup-owned.mjs",
+          "sha256": "7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b",
+          "preserved": "candidate-source-versions/7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b/cleanup-owned.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.mjs",
+          "sha256": "14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984",
+          "preserved": "candidate-source-versions/14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984/conservative-hull.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/tea-obstacles.mjs",
+          "sha256": "0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a",
+          "preserved": "candidate-source-versions/0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a/tea-obstacles.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/contact/tea-clearance-candidate.mjs",
+          "sha256": "c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745",
+          "preserved": "candidate-source-versions/c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745/tea-clearance-candidate.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/tea-sample-boundary.mjs",
+          "sha256": "1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166",
+          "preserved": "candidate-source-versions/1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166/tea-sample-boundary.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/rigid-tea.mjs",
+          "sha256": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+          "preserved": "candidate-source-versions/b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642/rigid-tea.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/timeline.mjs",
+          "sha256": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+          "preserved": "candidate-source-versions/b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa/timeline.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/scene-resources.mjs",
+          "sha256": "bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d",
+          "preserved": "candidate-source-versions/bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d/scene-resources.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/cup-model.mjs",
+          "sha256": "66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca",
+          "preserved": "candidate-source-versions/66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca/cup-model.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/local-body-proxy.mjs",
+          "sha256": "409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df",
+          "preserved": "candidate-source-versions/409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df/local-body-proxy.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-wire-cloth.mjs",
+          "sha256": "63c8979f32f77d386bddd4bd13520680d860b04e6d71da5392b5e8c0b3882cf6",
+          "preserved": "candidate-source-versions/63c8979f32f77d386bddd4bd13520680d860b04e6d71da5392b5e8c0b3882cf6/conforming-wire-cloth.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-seam-surface.mjs",
+          "sha256": "9f4dc294f2b8a82c0c18b8fc8a455ea603c0add5f37c3916d7943b920ceb56ee",
+          "preserved": "candidate-source-versions/9f4dc294f2b8a82c0c18b8fc8a455ea603c0add5f37c3916d7943b920ceb56ee/conforming-seam-surface.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-cloth-binding.mjs",
+          "sha256": "73c410f5c7e9a9c7918886e9bffff1f3ea57d9e82a127304d8049c31e2defb9f",
+          "preserved": "candidate-source-versions/73c410f5c7e9a9c7918886e9bffff1f3ea57d9e82a127304d8049c31e2defb9f/conforming-cloth-binding.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/wire-section-mapper.mjs",
+          "sha256": "497f21ac2e57d4a47cebf544960f6ccc227322fc04a9fd673716ff2bd9733820",
+          "preserved": "candidate-source-versions/497f21ac2e57d4a47cebf544960f6ccc227322fc04a9fd673716ff2bd9733820/wire-section-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/transfinite-cloth-mapper.mjs",
+          "sha256": "b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a",
+          "preserved": "candidate-source-versions/b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a/transfinite-cloth-mapper.mjs"
+        }
+      ]
+    },
+    {
+      "name": "transfinite-resolved-normal-240",
+      "adopted": false,
+      "executionStatus": "completed",
+      "productionAccepted": false,
+      "stoppedAt": {
+        "frame": 0,
+        "time": 0.004166666666666667,
+        "reason": "first-contact-pin-or-strain-failure",
+        "coarseContacts": []
+      },
+      "firstSeamFailure": {
+        "frame": 0,
+        "time": 0.004166666666666667,
+        "maximum": 4.416368363873665e-05,
+        "witness": {
+          "part": "cape_back_edge",
+          "section": 158,
+          "clothVertex": 3002,
+          "gap": 4.416368363873665e-05
+        }
+      },
+      "lastFinite": {
+        "frame": 0,
+        "renderStrain": {
+          "min": 0.9974644708753158,
+          "max": 1.0015580676206202,
+          "minWitness": {
+            "a": 2205,
+            "b": 2206,
+            "restLength": 0.003261227263993891,
+            "ratio": 0.9974644708753158
+          },
+          "maxWitness": {
+            "a": 1255,
+            "b": 1235,
+            "restLength": 0.05722172968476881,
+            "ratio": 1.0015580676206202
+          }
+        },
+        "seams": {
+          "maximum": 4.416368363873665e-05,
+          "witness": {
+            "part": "cape_back_edge",
+            "section": 158,
+            "clothVertex": 3002,
+            "gap": 4.416368363873665e-05
+          }
+        },
+        "contacts": [],
+        "pinError": 0,
+        "renderPinError": 4.415874644715763e-05
+      },
+      "reachedActionEndpoint": false,
+      "nonFiniteSimulation": null,
+      "sourceVersions": [
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs",
+          "sha256": "96ce859504db593d8a5ee7989d718270c7f896b4a33ef6d03f4ea340f7a76617",
+          "preserved": "candidate-source-versions/96ce859504db593d8a5ee7989d718270c7f896b4a33ef6d03f4ea340f7a76617/endpoint-probe.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/edge-strain.mjs",
+          "sha256": "6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7",
+          "preserved": "candidate-source-versions/6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7/edge-strain.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/action-horizon.mjs",
+          "sha256": "5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a",
+          "preserved": "candidate-source-versions/5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a/action-horizon.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/attachment-profile.mjs",
+          "sha256": "bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a",
+          "preserved": "candidate-source-versions/bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a/attachment-profile.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/thin-surface-mapper.mjs",
+          "sha256": "54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884",
+          "preserved": "candidate-source-versions/54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884/thin-surface-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/piping-section-mapper.mjs",
+          "sha256": "cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302",
+          "preserved": "candidate-source-versions/cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302/piping-section-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-fixtures.mjs",
+          "sha256": "2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac",
+          "preserved": "candidate-source-versions/2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac/asset-fixtures.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-resources.mjs",
+          "sha256": "1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679",
+          "preserved": "candidate-source-versions/1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679/asset-resources.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/cleanup-owned.mjs",
+          "sha256": "7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b",
+          "preserved": "candidate-source-versions/7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b/cleanup-owned.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.mjs",
+          "sha256": "14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984",
+          "preserved": "candidate-source-versions/14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984/conservative-hull.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/tea-obstacles.mjs",
+          "sha256": "0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a",
+          "preserved": "candidate-source-versions/0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a/tea-obstacles.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/contact/tea-clearance-candidate.mjs",
+          "sha256": "c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745",
+          "preserved": "candidate-source-versions/c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745/tea-clearance-candidate.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/tea-sample-boundary.mjs",
+          "sha256": "1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166",
+          "preserved": "candidate-source-versions/1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166/tea-sample-boundary.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/rigid-tea.mjs",
+          "sha256": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+          "preserved": "candidate-source-versions/b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642/rigid-tea.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/timeline.mjs",
+          "sha256": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+          "preserved": "candidate-source-versions/b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa/timeline.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/scene-resources.mjs",
+          "sha256": "bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d",
+          "preserved": "candidate-source-versions/bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d/scene-resources.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/cup-model.mjs",
+          "sha256": "66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca",
+          "preserved": "candidate-source-versions/66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca/cup-model.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/local-body-proxy.mjs",
+          "sha256": "409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df",
+          "preserved": "candidate-source-versions/409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df/local-body-proxy.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-wire-cloth.mjs",
+          "sha256": "246d33e1ad9084cd38c1dbc738616e62eb0693ef25bc51cb66fdb83c28b6dd23",
+          "preserved": "candidate-source-versions/246d33e1ad9084cd38c1dbc738616e62eb0693ef25bc51cb66fdb83c28b6dd23/conforming-wire-cloth.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-seam-surface.mjs",
+          "sha256": "9f4dc294f2b8a82c0c18b8fc8a455ea603c0add5f37c3916d7943b920ceb56ee",
+          "preserved": "candidate-source-versions/9f4dc294f2b8a82c0c18b8fc8a455ea603c0add5f37c3916d7943b920ceb56ee/conforming-seam-surface.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-cloth-binding.mjs",
+          "sha256": "73c410f5c7e9a9c7918886e9bffff1f3ea57d9e82a127304d8049c31e2defb9f",
+          "preserved": "candidate-source-versions/73c410f5c7e9a9c7918886e9bffff1f3ea57d9e82a127304d8049c31e2defb9f/conforming-cloth-binding.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/wire-section-mapper.mjs",
+          "sha256": "497f21ac2e57d4a47cebf544960f6ccc227322fc04a9fd673716ff2bd9733820",
+          "preserved": "candidate-source-versions/497f21ac2e57d4a47cebf544960f6ccc227322fc04a9fd673716ff2bd9733820/wire-section-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/transfinite-cloth-mapper.mjs",
+          "sha256": "b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a",
+          "preserved": "candidate-source-versions/b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a/transfinite-cloth-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/piping-collision-volume.mjs",
+          "sha256": "c9741a9f7ad37580706ad3776700a43a564a1e7c9db64f69698e0c29573b3421",
+          "preserved": "candidate-source-versions/c9741a9f7ad37580706ad3776700a43a564a1e7c9db64f69698e0c29573b3421/piping-collision-volume.mjs"
+        }
+      ]
+    },
+    {
+      "name": "transfinite-centroid-normal-240",
+      "adopted": false,
+      "executionStatus": "completed",
+      "productionAccepted": false,
+      "stoppedAt": {
+        "frame": 19,
+        "time": 0.08333333333333333,
+        "reason": "first-contact-pin-or-strain-failure",
+        "coarseContacts": []
+      },
+      "firstSeamFailure": {
+        "frame": 19,
+        "time": 0.08333333333333333,
+        "maximum": 1.0835247466097981e-05,
+        "witness": {
+          "part": "cape_back_edge",
+          "section": 160,
+          "clothVertex": 3040,
+          "gap": 1.0835247466097981e-05
+        }
+      },
+      "lastFinite": {
+        "frame": 19,
+        "renderStrain": {
+          "min": 0.884808928011954,
+          "max": 1.1606603595819447,
+          "minWitness": {
+            "a": 2407,
+            "b": 2408,
+            "restLength": 0.0032920700550317754,
+            "ratio": 0.884808928011954
+          },
+          "maxWitness": {
+            "a": 5090,
+            "b": 5103,
+            "restLength": 0.03009422252791335,
+            "ratio": 1.1606603595819447
+          }
+        },
+        "seams": {
+          "maximum": 1.0835247466097981e-05,
+          "witness": {
+            "part": "cape_back_edge",
+            "section": 160,
+            "clothVertex": 3040,
+            "gap": 1.0835247466097981e-05
+          }
+        },
+        "contacts": [],
+        "pinError": 0,
+        "renderPinError": 1.0835247466097983e-05
+      },
+      "reachedActionEndpoint": false,
+      "nonFiniteSimulation": null,
+      "sourceVersions": [
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs",
+          "sha256": "96ce859504db593d8a5ee7989d718270c7f896b4a33ef6d03f4ea340f7a76617",
+          "preserved": "candidate-source-versions/96ce859504db593d8a5ee7989d718270c7f896b4a33ef6d03f4ea340f7a76617/endpoint-probe.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/edge-strain.mjs",
+          "sha256": "6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7",
+          "preserved": "candidate-source-versions/6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7/edge-strain.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/action-horizon.mjs",
+          "sha256": "5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a",
+          "preserved": "candidate-source-versions/5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a/action-horizon.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/attachment-profile.mjs",
+          "sha256": "bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a",
+          "preserved": "candidate-source-versions/bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a/attachment-profile.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/thin-surface-mapper.mjs",
+          "sha256": "54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884",
+          "preserved": "candidate-source-versions/54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884/thin-surface-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/piping-section-mapper.mjs",
+          "sha256": "cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302",
+          "preserved": "candidate-source-versions/cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302/piping-section-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-fixtures.mjs",
+          "sha256": "2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac",
+          "preserved": "candidate-source-versions/2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac/asset-fixtures.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-resources.mjs",
+          "sha256": "1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679",
+          "preserved": "candidate-source-versions/1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679/asset-resources.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/cleanup-owned.mjs",
+          "sha256": "7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b",
+          "preserved": "candidate-source-versions/7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b/cleanup-owned.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.mjs",
+          "sha256": "14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984",
+          "preserved": "candidate-source-versions/14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984/conservative-hull.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/tea-obstacles.mjs",
+          "sha256": "0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a",
+          "preserved": "candidate-source-versions/0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a/tea-obstacles.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/contact/tea-clearance-candidate.mjs",
+          "sha256": "c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745",
+          "preserved": "candidate-source-versions/c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745/tea-clearance-candidate.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/tea-sample-boundary.mjs",
+          "sha256": "1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166",
+          "preserved": "candidate-source-versions/1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166/tea-sample-boundary.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/rigid-tea.mjs",
+          "sha256": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+          "preserved": "candidate-source-versions/b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642/rigid-tea.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/timeline.mjs",
+          "sha256": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+          "preserved": "candidate-source-versions/b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa/timeline.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/scene-resources.mjs",
+          "sha256": "bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d",
+          "preserved": "candidate-source-versions/bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d/scene-resources.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/cup-model.mjs",
+          "sha256": "66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca",
+          "preserved": "candidate-source-versions/66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca/cup-model.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/local-body-proxy.mjs",
+          "sha256": "409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df",
+          "preserved": "candidate-source-versions/409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df/local-body-proxy.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-wire-cloth.mjs",
+          "sha256": "9789bd2deff128cc97e97ae20ba114a59d7966887e6751832e5e2893a8781565",
+          "preserved": "candidate-source-versions/9789bd2deff128cc97e97ae20ba114a59d7966887e6751832e5e2893a8781565/conforming-wire-cloth.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-seam-surface.mjs",
+          "sha256": "9f4dc294f2b8a82c0c18b8fc8a455ea603c0add5f37c3916d7943b920ceb56ee",
+          "preserved": "candidate-source-versions/9f4dc294f2b8a82c0c18b8fc8a455ea603c0add5f37c3916d7943b920ceb56ee/conforming-seam-surface.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-cloth-binding.mjs",
+          "sha256": "73c410f5c7e9a9c7918886e9bffff1f3ea57d9e82a127304d8049c31e2defb9f",
+          "preserved": "candidate-source-versions/73c410f5c7e9a9c7918886e9bffff1f3ea57d9e82a127304d8049c31e2defb9f/conforming-cloth-binding.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/wire-section-mapper.mjs",
+          "sha256": "497f21ac2e57d4a47cebf544960f6ccc227322fc04a9fd673716ff2bd9733820",
+          "preserved": "candidate-source-versions/497f21ac2e57d4a47cebf544960f6ccc227322fc04a9fd673716ff2bd9733820/wire-section-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/transfinite-cloth-mapper.mjs",
+          "sha256": "b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a",
+          "preserved": "candidate-source-versions/b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a/transfinite-cloth-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/piping-collision-volume.mjs",
+          "sha256": "c9741a9f7ad37580706ad3776700a43a564a1e7c9db64f69698e0c29573b3421",
+          "preserved": "candidate-source-versions/c9741a9f7ad37580706ad3776700a43a564a1e7c9db64f69698e0c29573b3421/piping-collision-volume.mjs"
+        }
+      ]
+    },
+    {
+      "name": "transfinite-joint-normal-240",
+      "adopted": false,
+      "executionStatus": "completed",
+      "productionAccepted": false,
+      "stoppedAt": {
+        "frame": 24,
+        "time": 0.10416666666666667,
+        "reason": "first-contact-pin-or-strain-failure",
+        "coarseContacts": []
+      },
+      "firstSeamFailure": null,
+      "lastFinite": {
+        "frame": 24,
+        "renderStrain": {
+          "min": 0.874429594881639,
+          "max": 1.2018658604173615,
+          "minWitness": {
+            "a": 2164,
+            "b": 2165,
+            "restLength": 0.004018845762372907,
+            "ratio": 0.874429594881639
+          },
+          "maxWitness": {
+            "a": 5090,
+            "b": 5103,
+            "restLength": 0.03009422252791335,
+            "ratio": 1.2018658604173615
+          }
+        },
+        "seams": {
+          "maximum": 1.3377638259545889e-06,
+          "witness": {
+            "part": "cape_back_edge",
+            "section": 158,
+            "clothVertex": 3002,
+            "gap": 1.3377638259545889e-06
+          }
+        },
+        "contacts": [],
+        "pinError": 0,
+        "renderPinError": 1.3329305248569582e-06
+      },
+      "reachedActionEndpoint": false,
+      "nonFiniteSimulation": null,
+      "sourceVersions": [
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs",
+          "sha256": "96ce859504db593d8a5ee7989d718270c7f896b4a33ef6d03f4ea340f7a76617",
+          "preserved": "candidate-source-versions/96ce859504db593d8a5ee7989d718270c7f896b4a33ef6d03f4ea340f7a76617/endpoint-probe.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/edge-strain.mjs",
+          "sha256": "6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7",
+          "preserved": "candidate-source-versions/6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7/edge-strain.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/action-horizon.mjs",
+          "sha256": "5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a",
+          "preserved": "candidate-source-versions/5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a/action-horizon.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/attachment-profile.mjs",
+          "sha256": "bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a",
+          "preserved": "candidate-source-versions/bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a/attachment-profile.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/thin-surface-mapper.mjs",
+          "sha256": "54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884",
+          "preserved": "candidate-source-versions/54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884/thin-surface-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/piping-section-mapper.mjs",
+          "sha256": "cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302",
+          "preserved": "candidate-source-versions/cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302/piping-section-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-fixtures.mjs",
+          "sha256": "2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac",
+          "preserved": "candidate-source-versions/2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac/asset-fixtures.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-resources.mjs",
+          "sha256": "1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679",
+          "preserved": "candidate-source-versions/1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679/asset-resources.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/cleanup-owned.mjs",
+          "sha256": "7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b",
+          "preserved": "candidate-source-versions/7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b/cleanup-owned.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.mjs",
+          "sha256": "14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984",
+          "preserved": "candidate-source-versions/14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984/conservative-hull.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/tea-obstacles.mjs",
+          "sha256": "0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a",
+          "preserved": "candidate-source-versions/0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a/tea-obstacles.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/contact/tea-clearance-candidate.mjs",
+          "sha256": "c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745",
+          "preserved": "candidate-source-versions/c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745/tea-clearance-candidate.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/tea-sample-boundary.mjs",
+          "sha256": "1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166",
+          "preserved": "candidate-source-versions/1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166/tea-sample-boundary.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/rigid-tea.mjs",
+          "sha256": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+          "preserved": "candidate-source-versions/b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642/rigid-tea.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/timeline.mjs",
+          "sha256": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+          "preserved": "candidate-source-versions/b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa/timeline.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/scene-resources.mjs",
+          "sha256": "bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d",
+          "preserved": "candidate-source-versions/bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d/scene-resources.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/cup-model.mjs",
+          "sha256": "66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca",
+          "preserved": "candidate-source-versions/66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca/cup-model.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/local-body-proxy.mjs",
+          "sha256": "409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df",
+          "preserved": "candidate-source-versions/409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df/local-body-proxy.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-wire-cloth.mjs",
+          "sha256": "c6392114e692b34a7600b8f0feb78556047b00906ba1087363fe5d53570ee19b",
+          "preserved": "candidate-source-versions/c6392114e692b34a7600b8f0feb78556047b00906ba1087363fe5d53570ee19b/conforming-wire-cloth.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-seam-surface.mjs",
+          "sha256": "9f4dc294f2b8a82c0c18b8fc8a455ea603c0add5f37c3916d7943b920ceb56ee",
+          "preserved": "candidate-source-versions/9f4dc294f2b8a82c0c18b8fc8a455ea603c0add5f37c3916d7943b920ceb56ee/conforming-seam-surface.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-cloth-binding.mjs",
+          "sha256": "73c410f5c7e9a9c7918886e9bffff1f3ea57d9e82a127304d8049c31e2defb9f",
+          "preserved": "candidate-source-versions/73c410f5c7e9a9c7918886e9bffff1f3ea57d9e82a127304d8049c31e2defb9f/conforming-cloth-binding.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/wire-section-mapper.mjs",
+          "sha256": "497f21ac2e57d4a47cebf544960f6ccc227322fc04a9fd673716ff2bd9733820",
+          "preserved": "candidate-source-versions/497f21ac2e57d4a47cebf544960f6ccc227322fc04a9fd673716ff2bd9733820/wire-section-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/transfinite-cloth-mapper.mjs",
+          "sha256": "b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a",
+          "preserved": "candidate-source-versions/b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a/transfinite-cloth-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/piping-collision-volume.mjs",
+          "sha256": "c9741a9f7ad37580706ad3776700a43a564a1e7c9db64f69698e0c29573b3421",
+          "preserved": "candidate-source-versions/c9741a9f7ad37580706ad3776700a43a564a1e7c9db64f69698e0c29573b3421/piping-collision-volume.mjs"
+        }
+      ]
+    },
+    {
+      "name": "regional-coupled-nonfinite-capture",
+      "adopted": false,
+      "executionStatus": "failed",
+      "productionAccepted": false,
+      "stoppedAt": {
+        "frame": 27,
+        "time": 0.11666666666666667,
+        "reason": "non-finite-physical-state"
+      },
+      "firstSeamFailure": null,
+      "lastFinite": {
+        "frame": 26,
+        "renderStrain": {
+          "min": 0.8941529547533877,
+          "max": 1.1720124679744874,
+          "minWitness": {
+            "a": 6540,
+            "b": 6539,
+            "restLength": 0.004658748660288773,
+            "ratio": 0.8941529547533877
+          },
+          "maxWitness": {
+            "a": 982,
+            "b": 983,
+            "restLength": 0.011474875018840473,
+            "ratio": 1.1720124679744874
+          }
+        },
+        "seams": {
+          "maximum": 2.199286462992683e-06,
+          "witness": {
+            "part": "cape_back_edge",
+            "section": 160,
+            "clothVertex": 3040,
+            "gap": 2.199286462992683e-06
+          }
+        },
+        "contacts": [],
+        "pinError": 0,
+        "renderPinError": 2.07742977076823e-06
+      },
+      "reachedActionEndpoint": false,
+      "nonFiniteSimulation": {
+        "frame": 27,
+        "time": 0.11666666666666667,
+        "lastFiniteTime": 0.1125,
+        "invalidCoordinates": 4572,
+        "examples": [
+          {
+            "coordinate": 0,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 1,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 2,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 3,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 4,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 5,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 6,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 7,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 8,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 9,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 10,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 11,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 12,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 13,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 14,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 15,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 16,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 17,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 18,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 19,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 20,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 21,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 22,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 23,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 24,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 25,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 26,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 27,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 28,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 29,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 30,
+            "value": "NaN"
+          },
+          {
+            "coordinate": 31,
+            "value": "NaN"
+          }
+        ],
+        "physicsMs": 574.7583310000009,
+        "internalTimings": {
+          "Step": 574.550064,
+          "CollisionDetection": 280.307436,
+          "BroadPhase": 0.017957,
+          "NarrowPhase": 280.282449,
+          "Solver": 294.033819,
+          "VelocityAssembly": 7.153375,
+          "VelocityResolution": 286.271586,
+          "VelocityUpdate": 0,
+          "VelocityWriteback": 0,
+          "Ccd": 0,
+          "IslandConstruction": 0.02624,
+          "UserChanges": 0.023545
+        }
+      },
+      "sourceVersions": [
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs",
+          "sha256": "e177d86627d965aa607c853dfd123d2727c074b1cd6fe5e5e4cdccb3ba00b5e8",
+          "preserved": "candidate-source-versions/e177d86627d965aa607c853dfd123d2727c074b1cd6fe5e5e4cdccb3ba00b5e8/endpoint-probe.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/edge-strain.mjs",
+          "sha256": "6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7",
+          "preserved": "candidate-source-versions/6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7/edge-strain.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/action-horizon.mjs",
+          "sha256": "5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a",
+          "preserved": "candidate-source-versions/5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a/action-horizon.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/attachment-profile.mjs",
+          "sha256": "bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a",
+          "preserved": "candidate-source-versions/bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a/attachment-profile.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/thin-surface-mapper.mjs",
+          "sha256": "54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884",
+          "preserved": "candidate-source-versions/54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884/thin-surface-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/piping-section-mapper.mjs",
+          "sha256": "cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302",
+          "preserved": "candidate-source-versions/cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302/piping-section-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-fixtures.mjs",
+          "sha256": "2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac",
+          "preserved": "candidate-source-versions/2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac/asset-fixtures.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-resources.mjs",
+          "sha256": "1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679",
+          "preserved": "candidate-source-versions/1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679/asset-resources.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/cleanup-owned.mjs",
+          "sha256": "7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b",
+          "preserved": "candidate-source-versions/7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b/cleanup-owned.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.mjs",
+          "sha256": "14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984",
+          "preserved": "candidate-source-versions/14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984/conservative-hull.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/tea-obstacles.mjs",
+          "sha256": "0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a",
+          "preserved": "candidate-source-versions/0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a/tea-obstacles.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/contact/tea-clearance-candidate.mjs",
+          "sha256": "c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745",
+          "preserved": "candidate-source-versions/c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745/tea-clearance-candidate.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/tea-sample-boundary.mjs",
+          "sha256": "1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166",
+          "preserved": "candidate-source-versions/1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166/tea-sample-boundary.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/rigid-tea.mjs",
+          "sha256": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+          "preserved": "candidate-source-versions/b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642/rigid-tea.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/timeline.mjs",
+          "sha256": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+          "preserved": "candidate-source-versions/b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa/timeline.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/scene-resources.mjs",
+          "sha256": "bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d",
+          "preserved": "candidate-source-versions/bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d/scene-resources.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/cup-model.mjs",
+          "sha256": "66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca",
+          "preserved": "candidate-source-versions/66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca/cup-model.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/collision-skin.mjs",
+          "sha256": "91f8468f5bf4b03be8394cdc68dc31ca399eb60236c61a66a53daa20e5943713",
+          "preserved": "candidate-source-versions/91f8468f5bf4b03be8394cdc68dc31ca399eb60236c61a66a53daa20e5943713/collision-skin.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/local-body-proxy.mjs",
+          "sha256": "409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df",
+          "preserved": "candidate-source-versions/409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df/local-body-proxy.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/regional-collision-skin.mjs",
+          "sha256": "6d6806f19b62d6ae6109fd7152a9b1c395f2544768c0d3c30bae364fa6833eec",
+          "preserved": "candidate-source-versions/6d6806f19b62d6ae6109fd7152a9b1c395f2544768c0d3c30bae364fa6833eec/regional-collision-skin.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/piping-collision-volume.mjs",
+          "sha256": "c9741a9f7ad37580706ad3776700a43a564a1e7c9db64f69698e0c29573b3421",
+          "preserved": "candidate-source-versions/c9741a9f7ad37580706ad3776700a43a564a1e7c9db64f69698e0c29573b3421/piping-collision-volume.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/transfinite-cloth-mapper.mjs",
+          "sha256": "b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a",
+          "preserved": "candidate-source-versions/b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a/transfinite-cloth-mapper.mjs"
+        }
+      ]
+    },
+    {
+      "name": "regional-boundary-normal-240",
+      "adopted": false,
+      "executionStatus": "completed",
+      "productionAccepted": false,
+      "stoppedAt": {
+        "frame": 51,
+        "time": 0.21666666666666667,
+        "reason": "first-contact-pin-or-strain-failure",
+        "coarseContacts": []
+      },
+      "firstSeamFailure": null,
+      "lastFinite": {
+        "frame": 51,
+        "renderStrain": {
+          "min": 0.8666364868660934,
+          "max": 1.1854569652033478,
+          "minWitness": {
+            "a": 891,
+            "b": 892,
+            "restLength": 0.003978021554072346,
+            "ratio": 0.8666364868660934
+          },
+          "maxWitness": {
+            "a": 340,
+            "b": 341,
+            "restLength": 0.019193085484296168,
+            "ratio": 1.1854569652033478
+          }
+        },
+        "seams": {
+          "maximum": 7.352689327380032e-07,
+          "witness": {
+            "part": "cape_hem",
+            "section": 0,
+            "clothVertex": 18,
+            "gap": 7.352689327380032e-07
+          }
+        },
+        "contacts": [
+          "cape_cloth/body"
+        ],
+        "pinError": 0,
+        "renderPinError": 6.03864846168522e-07
+      },
+      "reachedActionEndpoint": false,
+      "nonFiniteSimulation": null,
+      "sourceVersions": [
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs",
+          "sha256": "7b141b5c8960856c7546d6ba8d0f69124704822bcf9d59db8315cc101c932ce2",
+          "preserved": "candidate-source-versions/7b141b5c8960856c7546d6ba8d0f69124704822bcf9d59db8315cc101c932ce2/endpoint-probe.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/edge-strain.mjs",
+          "sha256": "6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7",
+          "preserved": "candidate-source-versions/6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7/edge-strain.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/action-horizon.mjs",
+          "sha256": "5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a",
+          "preserved": "candidate-source-versions/5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a/action-horizon.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/attachment-profile.mjs",
+          "sha256": "bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a",
+          "preserved": "candidate-source-versions/bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a/attachment-profile.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/thin-surface-mapper.mjs",
+          "sha256": "54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884",
+          "preserved": "candidate-source-versions/54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884/thin-surface-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/piping-section-mapper.mjs",
+          "sha256": "cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302",
+          "preserved": "candidate-source-versions/cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302/piping-section-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-fixtures.mjs",
+          "sha256": "2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac",
+          "preserved": "candidate-source-versions/2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac/asset-fixtures.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-resources.mjs",
+          "sha256": "1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679",
+          "preserved": "candidate-source-versions/1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679/asset-resources.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/cleanup-owned.mjs",
+          "sha256": "7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b",
+          "preserved": "candidate-source-versions/7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b/cleanup-owned.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.mjs",
+          "sha256": "14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984",
+          "preserved": "candidate-source-versions/14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984/conservative-hull.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/tea-obstacles.mjs",
+          "sha256": "0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a",
+          "preserved": "candidate-source-versions/0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a/tea-obstacles.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/contact/tea-clearance-candidate.mjs",
+          "sha256": "c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745",
+          "preserved": "candidate-source-versions/c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745/tea-clearance-candidate.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/tea-sample-boundary.mjs",
+          "sha256": "1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166",
+          "preserved": "candidate-source-versions/1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166/tea-sample-boundary.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/rigid-tea.mjs",
+          "sha256": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+          "preserved": "candidate-source-versions/b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642/rigid-tea.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/timeline.mjs",
+          "sha256": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+          "preserved": "candidate-source-versions/b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa/timeline.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/scene-resources.mjs",
+          "sha256": "bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d",
+          "preserved": "candidate-source-versions/bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d/scene-resources.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/cup-model.mjs",
+          "sha256": "66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca",
+          "preserved": "candidate-source-versions/66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca/cup-model.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/collision-skin.mjs",
+          "sha256": "91f8468f5bf4b03be8394cdc68dc31ca399eb60236c61a66a53daa20e5943713",
+          "preserved": "candidate-source-versions/91f8468f5bf4b03be8394cdc68dc31ca399eb60236c61a66a53daa20e5943713/collision-skin.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/local-body-proxy.mjs",
+          "sha256": "409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df",
+          "preserved": "candidate-source-versions/409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df/local-body-proxy.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/regional-collision-skin.mjs",
+          "sha256": "ad151c298c22078300d6946f12feb731579190d41b7f69f8c2e167e0b0dcd800",
+          "preserved": "candidate-source-versions/ad151c298c22078300d6946f12feb731579190d41b7f69f8c2e167e0b0dcd800/regional-collision-skin.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-seam-surface.mjs",
+          "sha256": "467f25630f9ea0ff48b2d8553411ea5c0147e1d2937d40a402cd961f4e247427",
+          "preserved": "candidate-source-versions/467f25630f9ea0ff48b2d8553411ea5c0147e1d2937d40a402cd961f4e247427/conforming-seam-surface.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/piping-collision-volume.mjs",
+          "sha256": "c9741a9f7ad37580706ad3776700a43a564a1e7c9db64f69698e0c29573b3421",
+          "preserved": "candidate-source-versions/c9741a9f7ad37580706ad3776700a43a564a1e7c9db64f69698e0c29573b3421/piping-collision-volume.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/transfinite-cloth-mapper.mjs",
+          "sha256": "b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a",
+          "preserved": "candidate-source-versions/b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a/transfinite-cloth-mapper.mjs"
+        }
+      ]
+    },
+    {
+      "name": "regional-boundary-cancel02-240",
+      "adopted": false,
+      "executionStatus": "completed",
+      "productionAccepted": false,
+      "stoppedAt": {
+        "frame": 51,
+        "time": 0.21666666666666667,
+        "reason": "first-contact-pin-or-strain-failure",
+        "coarseContacts": []
+      },
+      "firstSeamFailure": null,
+      "lastFinite": {
+        "frame": 51,
+        "renderStrain": {
+          "min": 0.8666364868660934,
+          "max": 1.1854569652033478,
+          "minWitness": {
+            "a": 891,
+            "b": 892,
+            "restLength": 0.003978021554072346,
+            "ratio": 0.8666364868660934
+          },
+          "maxWitness": {
+            "a": 340,
+            "b": 341,
+            "restLength": 0.019193085484296168,
+            "ratio": 1.1854569652033478
+          }
+        },
+        "seams": {
+          "maximum": 7.352689327380032e-07,
+          "witness": {
+            "part": "cape_hem",
+            "section": 0,
+            "clothVertex": 18,
+            "gap": 7.352689327380032e-07
+          }
+        },
+        "contacts": [
+          "cape_cloth/body"
+        ],
+        "pinError": 0,
+        "renderPinError": 6.03864846168522e-07
+      },
+      "reachedActionEndpoint": false,
+      "nonFiniteSimulation": null,
+      "sourceVersions": [
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs",
+          "sha256": "7b141b5c8960856c7546d6ba8d0f69124704822bcf9d59db8315cc101c932ce2",
+          "preserved": "candidate-source-versions/7b141b5c8960856c7546d6ba8d0f69124704822bcf9d59db8315cc101c932ce2/endpoint-probe.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/edge-strain.mjs",
+          "sha256": "6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7",
+          "preserved": "candidate-source-versions/6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7/edge-strain.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/action-horizon.mjs",
+          "sha256": "5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a",
+          "preserved": "candidate-source-versions/5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a/action-horizon.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/attachment-profile.mjs",
+          "sha256": "bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a",
+          "preserved": "candidate-source-versions/bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a/attachment-profile.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/thin-surface-mapper.mjs",
+          "sha256": "54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884",
+          "preserved": "candidate-source-versions/54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884/thin-surface-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/piping-section-mapper.mjs",
+          "sha256": "cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302",
+          "preserved": "candidate-source-versions/cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302/piping-section-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-fixtures.mjs",
+          "sha256": "2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac",
+          "preserved": "candidate-source-versions/2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac/asset-fixtures.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-resources.mjs",
+          "sha256": "1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679",
+          "preserved": "candidate-source-versions/1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679/asset-resources.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/cleanup-owned.mjs",
+          "sha256": "7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b",
+          "preserved": "candidate-source-versions/7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b/cleanup-owned.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.mjs",
+          "sha256": "14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984",
+          "preserved": "candidate-source-versions/14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984/conservative-hull.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/tea-obstacles.mjs",
+          "sha256": "0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a",
+          "preserved": "candidate-source-versions/0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a/tea-obstacles.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/contact/tea-clearance-candidate.mjs",
+          "sha256": "c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745",
+          "preserved": "candidate-source-versions/c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745/tea-clearance-candidate.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/tea-sample-boundary.mjs",
+          "sha256": "1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166",
+          "preserved": "candidate-source-versions/1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166/tea-sample-boundary.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/rigid-tea.mjs",
+          "sha256": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+          "preserved": "candidate-source-versions/b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642/rigid-tea.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/timeline.mjs",
+          "sha256": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+          "preserved": "candidate-source-versions/b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa/timeline.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/scene-resources.mjs",
+          "sha256": "bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d",
+          "preserved": "candidate-source-versions/bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d/scene-resources.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/cup-model.mjs",
+          "sha256": "66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca",
+          "preserved": "candidate-source-versions/66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca/cup-model.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/collision-skin.mjs",
+          "sha256": "91f8468f5bf4b03be8394cdc68dc31ca399eb60236c61a66a53daa20e5943713",
+          "preserved": "candidate-source-versions/91f8468f5bf4b03be8394cdc68dc31ca399eb60236c61a66a53daa20e5943713/collision-skin.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/local-body-proxy.mjs",
+          "sha256": "409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df",
+          "preserved": "candidate-source-versions/409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df/local-body-proxy.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/regional-collision-skin.mjs",
+          "sha256": "df8f95ebc9c752bd1dac43ebd03c99aac901f587af3ca51001d2fa0ebc8b6efc",
+          "preserved": "candidate-source-versions/df8f95ebc9c752bd1dac43ebd03c99aac901f587af3ca51001d2fa0ebc8b6efc/regional-collision-skin.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-seam-surface.mjs",
+          "sha256": "467f25630f9ea0ff48b2d8553411ea5c0147e1d2937d40a402cd961f4e247427",
+          "preserved": "candidate-source-versions/467f25630f9ea0ff48b2d8553411ea5c0147e1d2937d40a402cd961f4e247427/conforming-seam-surface.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/piping-collision-volume.mjs",
+          "sha256": "c9741a9f7ad37580706ad3776700a43a564a1e7c9db64f69698e0c29573b3421",
+          "preserved": "candidate-source-versions/c9741a9f7ad37580706ad3776700a43a564a1e7c9db64f69698e0c29573b3421/piping-collision-volume.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/transfinite-cloth-mapper.mjs",
+          "sha256": "b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a",
+          "preserved": "candidate-source-versions/b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a/transfinite-cloth-mapper.mjs"
+        }
+      ]
+    },
+    {
+      "name": "regional-boundary-native-audit-240",
+      "adopted": false,
+      "executionStatus": "completed",
+      "productionAccepted": false,
+      "stoppedAt": {
+        "frame": 51,
+        "time": 0.21666666666666667,
+        "reason": "first-contact-pin-or-strain-failure",
+        "coarseContacts": [],
+        "nativeClothContacts": []
+      },
+      "firstSeamFailure": null,
+      "lastFinite": {
+        "frame": 51,
+        "renderStrain": {
+          "min": 0.8666364868660934,
+          "max": 1.1854569652033478,
+          "minWitness": {
+            "a": 891,
+            "b": 892,
+            "restLength": 0.003978021554072346,
+            "ratio": 0.8666364868660934
+          },
+          "maxWitness": {
+            "a": 340,
+            "b": 341,
+            "restLength": 0.019193085484296168,
+            "ratio": 1.1854569652033478
+          }
+        },
+        "seams": {
+          "maximum": 7.352689327380032e-07,
+          "witness": {
+            "part": "cape_hem",
+            "section": 0,
+            "clothVertex": 18,
+            "gap": 7.352689327380032e-07
+          }
+        },
+        "contacts": [
+          "cape_cloth/body"
+        ],
+        "pinError": 0,
+        "renderPinError": 6.03864846168522e-07
+      },
+      "reachedActionEndpoint": false,
+      "nonFiniteSimulation": null,
+      "sourceVersions": [
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs",
+          "sha256": "1e906f559df8b74f08779e17bcc4ac7b52185f50ccc732b3c7702ce53e412804",
+          "preserved": "candidate-source-versions/1e906f559df8b74f08779e17bcc4ac7b52185f50ccc732b3c7702ce53e412804/endpoint-probe.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/edge-strain.mjs",
+          "sha256": "6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7",
+          "preserved": "candidate-source-versions/6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7/edge-strain.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/action-horizon.mjs",
+          "sha256": "5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a",
+          "preserved": "candidate-source-versions/5dafbd85cf0e28cea3dc05c572c349046561709f43e79b9e6e0569d0e845015a/action-horizon.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/attachment-profile.mjs",
+          "sha256": "bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a",
+          "preserved": "candidate-source-versions/bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a/attachment-profile.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/thin-surface-mapper.mjs",
+          "sha256": "54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884",
+          "preserved": "candidate-source-versions/54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884/thin-surface-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/piping-section-mapper.mjs",
+          "sha256": "cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302",
+          "preserved": "candidate-source-versions/cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302/piping-section-mapper.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-fixtures.mjs",
+          "sha256": "2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac",
+          "preserved": "candidate-source-versions/2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac/asset-fixtures.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/asset-resources.mjs",
+          "sha256": "1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679",
+          "preserved": "candidate-source-versions/1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679/asset-resources.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/cleanup-owned.mjs",
+          "sha256": "7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b",
+          "preserved": "candidate-source-versions/7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b/cleanup-owned.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.mjs",
+          "sha256": "14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984",
+          "preserved": "candidate-source-versions/14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984/conservative-hull.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/tea-obstacles.mjs",
+          "sha256": "0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a",
+          "preserved": "candidate-source-versions/0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a/tea-obstacles.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/contact/tea-clearance-candidate.mjs",
+          "sha256": "c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745",
+          "preserved": "candidate-source-versions/c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745/tea-clearance-candidate.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/integration/tea-sample-boundary.mjs",
+          "sha256": "1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166",
+          "preserved": "candidate-source-versions/1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166/tea-sample-boundary.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/rigid-tea.mjs",
+          "sha256": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+          "preserved": "candidate-source-versions/b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642/rigid-tea.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/timeline.mjs",
+          "sha256": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+          "preserved": "candidate-source-versions/b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa/timeline.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/scene-resources.mjs",
+          "sha256": "bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d",
+          "preserved": "candidate-source-versions/bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d/scene-resources.mjs"
+        },
+        {
+          "path": "original-parts-hybrid-v1/tea/src/cup-model.mjs",
+          "sha256": "66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca",
+          "preserved": "candidate-source-versions/66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca/cup-model.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/collision-skin.mjs",
+          "sha256": "91f8468f5bf4b03be8394cdc68dc31ca399eb60236c61a66a53daa20e5943713",
+          "preserved": "candidate-source-versions/91f8468f5bf4b03be8394cdc68dc31ca399eb60236c61a66a53daa20e5943713/collision-skin.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/local-body-proxy.mjs",
+          "sha256": "409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df",
+          "preserved": "candidate-source-versions/409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df/local-body-proxy.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/regional-collision-skin.mjs",
+          "sha256": "df8f95ebc9c752bd1dac43ebd03c99aac901f587af3ca51001d2fa0ebc8b6efc",
+          "preserved": "candidate-source-versions/df8f95ebc9c752bd1dac43ebd03c99aac901f587af3ca51001d2fa0ebc8b6efc/regional-collision-skin.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/conforming-seam-surface.mjs",
+          "sha256": "467f25630f9ea0ff48b2d8553411ea5c0147e1d2937d40a402cd961f4e247427",
+          "preserved": "candidate-source-versions/467f25630f9ea0ff48b2d8553411ea5c0147e1d2937d40a402cd961f4e247427/conforming-seam-surface.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/piping-collision-volume.mjs",
+          "sha256": "c9741a9f7ad37580706ad3776700a43a564a1e7c9db64f69698e0c29573b3421",
+          "preserved": "candidate-source-versions/c9741a9f7ad37580706ad3776700a43a564a1e7c9db64f69698e0c29573b3421/piping-collision-volume.mjs"
+        },
+        {
+          "path": "animation-foundation-v1/secondary-motion/cloth-probe/transfinite-cloth-mapper.mjs",
+          "sha256": "b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a",
+          "preserved": "candidate-source-versions/b8a5e58b6ebb804a83531cbd11e8fec207e5f705f667d79f1e07451a664a3b6a/transfinite-cloth-mapper.mjs"
+        }
+      ]
+    }
+  ]
+}

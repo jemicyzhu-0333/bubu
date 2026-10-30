@@ -1,0 +1,1811 @@
+{
+  "status": "completed",
+  "accepted": false,
+  "inputHashes": {
+    "animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs": "f1c95735687fdd2eff06b217e2945b642a189fb603a59123761c1ea3aec48466",
+    "animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.mjs": "14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984",
+    "package-lock.json": "29914de54006d3f2bfb8f5ffb7ed05f16921a00c2af3abb07f2eb476eebeb427",
+    "original-parts-hybrid-v1/geometry/bubu-hybrid-binding.glb": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67",
+    "animation-foundation-v1/secondary-motion/cloth-probe/cape-coarse.json": "740619e1ca28dc8824c070bbc3b23df6ba7430b956dd4f64d2a411f8549ab8a8",
+    "animation-foundation-v1/secondary-motion/cloth-probe/cape-binding.json": "4aae28f29833e6af5fb44327ef2c66f1489ee9e3c98a0cec4c368f45d3b3bec9",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/frozen-cape.json": "5888814c2bd2b4627b3abab0e6133388e60fccb26b14e887e5556352d9c50d01",
+    "wearable-approved-round5/accessory-expansion/models/07-cape.glb": "e29010956b989a60e196472b2206e6c397b34f12f3b7092d67f53f189c128e21",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/inputs/tea-keyframes.json": "1b37c436f623ced2289411b5f0192e15feed91715bacc2bac3008336923e04d1",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/inputs/6600a469415abe35e1e0e7dc875b5f7816a70bcbe28bdfb51bd2ccb934bfaffd.bin": "6600a469415abe35e1e0e7dc875b5f7816a70bcbe28bdfb51bd2ccb934bfaffd",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/inputs/760b0cf88173775f6b5aef529640187cff2b069ccddcf3298c94240dcd3a4ede.bin": "760b0cf88173775f6b5aef529640187cff2b069ccddcf3298c94240dcd3a4ede",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/inputs/b5332d57cc5d7df7e82648720f62932d2bd5b4b488ea217efb6e110bbb2b918e.bin": "b5332d57cc5d7df7e82648720f62932d2bd5b4b488ea217efb6e110bbb2b918e",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/inputs/f529501783a1b68c91fc4532db7bb8b13b56859f4e803a8fbf2ad4156f1e3c3f.bin": "f529501783a1b68c91fc4532db7bb8b13b56859f4e803a8fbf2ad4156f1e3c3f"
+  },
+  "scope": "Local free upper-border arcs; static sip endpoint; all render pieces checked against actual meshes",
+  "time": 3.4,
+  "frames": 60,
+  "releasedPins": [
+    3,
+    6,
+    9,
+    13,
+    17,
+    422,
+    427,
+    431,
+    435,
+    438
+  ],
+  "handCollider": "convex-hull-diagnostic",
+  "bodyCollider": "conservative-bounded-hull",
+  "obstacleFilter": "all",
+  "declaredLimits": {
+    "maximumEdgeStretch": 1.2,
+    "minimumEdgeStretch": 0.8,
+    "pinError": 0.00001,
+    "frameBudgetMs": 16.667
+  },
+  "rows": [
+    {
+      "frame": 0,
+      "physicsMs": 95.93720300000041,
+      "internalTimings": {
+        "Step": 49.832468999999996,
+        "CollisionDetection": 26.437062,
+        "BroadPhase": 0.745201,
+        "NarrowPhase": 25.637279999999997,
+        "Solver": 18.092024000000002,
+        "VelocityAssembly": 2.947975,
+        "VelocityResolution": 14.995601,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.06843199999999999,
+        "UserChanges": 0.336437
+      },
+      "mapMs": 30.15531400000009,
+      "totalIncludingContactMs": 211.87462900000037,
+      "pinError": 0,
+      "maxStretch": 1.433656296202647,
+      "minStretch": 0.6206205529153969,
+      "contacts": [
+        "cape_cloth/Bubu_hand-left",
+        "cape_cloth/Bubu_hand-right",
+        "cape_back_edge/Bubu_hand-left",
+        "cape_back_edge/Bubu_hand-right",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 1,
+      "physicsMs": 35.23650899999984,
+      "internalTimings": {
+        "Step": 35.044997,
+        "CollisionDetection": 22.381802,
+        "BroadPhase": 0.013149000000000001,
+        "NarrowPhase": 22.012926,
+        "Solver": 12.513404000000001,
+        "VelocityAssembly": 2.302632,
+        "VelocityResolution": 10.073841,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0054280000000000005,
+        "UserChanges": 0.007411
+      },
+      "mapMs": 6.204224999999951,
+      "totalIncludingContactMs": 95.08455300000014,
+      "pinError": 0,
+      "maxStretch": 1.2770158312589537,
+      "minStretch": 0.741391213464876,
+      "contacts": [
+        "cape_cloth/Bubu_hand-left",
+        "cape_cloth/Bubu_hand-right",
+        "cape_back_edge/Bubu_hand-left",
+        "cape_back_edge/Bubu_hand-right",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 2,
+      "physicsMs": 32.57126299999982,
+      "internalTimings": {
+        "Step": 32.262386,
+        "CollisionDetection": 21.038428,
+        "BroadPhase": 0.008663,
+        "NarrowPhase": 20.942745,
+        "Solver": 11.077473,
+        "VelocityAssembly": 1.154526,
+        "VelocityResolution": 9.625108,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.005358,
+        "UserChanges": 0.007352
+      },
+      "mapMs": 4.5048039999996945,
+      "totalIncludingContactMs": 84.17834300000004,
+      "pinError": 0,
+      "maxStretch": 1.2049982912123178,
+      "minStretch": 0.8263207506464607,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_back_edge/Bubu_hand-right",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 3,
+      "physicsMs": 31.52016999999978,
+      "internalTimings": {
+        "Step": 31.320064000000002,
+        "CollisionDetection": 20.338473,
+        "BroadPhase": 0.00706,
+        "NarrowPhase": 20.321678,
+        "Solver": 10.822346999999999,
+        "VelocityAssembly": 1.1936740000000001,
+        "VelocityResolution": 9.515506,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.005729,
+        "UserChanges": 0.007552
+      },
+      "mapMs": 3.586888999999701,
+      "totalIncludingContactMs": 83.18067999999994,
+      "pinError": 0,
+      "maxStretch": 1.2677699606603638,
+      "minStretch": 0.8310184195448872,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 4,
+      "physicsMs": 36.98744500000021,
+      "internalTimings": {
+        "Step": 36.791827,
+        "CollisionDetection": 24.184104,
+        "BroadPhase": 0.006240000000000001,
+        "NarrowPhase": 24.167939,
+        "Solver": 12.363373000000001,
+        "VelocityAssembly": 1.913426,
+        "VelocityResolution": 10.281096999999999,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.007992,
+        "UserChanges": 0.007522
+      },
+      "mapMs": 5.704987000000074,
+      "totalIncludingContactMs": 117.7943680000003,
+      "pinError": 0,
+      "maxStretch": 1.2678047704994437,
+      "minStretch": 0.8002914706946636,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 5,
+      "physicsMs": 36.868089000000055,
+      "internalTimings": {
+        "Step": 36.677586999999995,
+        "CollisionDetection": 28.307115,
+        "BroadPhase": 0.010756,
+        "NarrowPhase": 28.287084,
+        "Solver": 8.183698,
+        "VelocityAssembly": 1.489139,
+        "VelocityResolution": 6.598276,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0067610000000000005,
+        "UserChanges": 0.028482
+      },
+      "mapMs": 3.3085869999999886,
+      "totalIncludingContactMs": 86.15748600000006,
+      "pinError": 0,
+      "maxStretch": 1.234000716936866,
+      "minStretch": 0.7671758435411339,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 6,
+      "physicsMs": 26.463811000000078,
+      "internalTimings": {
+        "Step": 26.159551,
+        "CollisionDetection": 18.267153,
+        "BroadPhase": 0.0066,
+        "NarrowPhase": 18.252712000000002,
+        "Solver": 7.553979,
+        "VelocityAssembly": 1.138361,
+        "VelocityResolution": 6.31624,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.005208,
+        "UserChanges": 0.007321
+      },
+      "mapMs": 3.566077999999834,
+      "totalIncludingContactMs": 85.21479499999987,
+      "pinError": 0,
+      "maxStretch": 1.2371195926191925,
+      "minStretch": 0.7333521719400296,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 7,
+      "physicsMs": 24.508502000000135,
+      "internalTimings": {
+        "Step": 24.303430000000002,
+        "CollisionDetection": 18.213385,
+        "BroadPhase": 0.0067800000000000004,
+        "NarrowPhase": 18.198000999999998,
+        "Solver": 5.9464239999999995,
+        "VelocityAssembly": 1.080316,
+        "VelocityResolution": 4.770387,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.00692,
+        "UserChanges": 0.007571
+      },
+      "mapMs": 3.338181000000077,
+      "totalIncludingContactMs": 76.44901600000003,
+      "pinError": 0,
+      "maxStretch": 1.2511701529316424,
+      "minStretch": 0.7465605494915547,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 8,
+      "physicsMs": 25.132974999999988,
+      "internalTimings": {
+        "Step": 24.902474,
+        "CollisionDetection": 18.877565,
+        "BroadPhase": 0.181929,
+        "NarrowPhase": 18.688225,
+        "Solver": 5.847327,
+        "VelocityAssembly": 0.7108,
+        "VelocityResolution": 5.07031,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0041860000000000005,
+        "UserChanges": 0.007771000000000001
+      },
+      "mapMs": 2.9496359999998276,
+      "totalIncludingContactMs": 75.47821199999998,
+      "pinError": 0,
+      "maxStretch": 1.2531260894175675,
+      "minStretch": 0.7525389599136433,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 9,
+      "physicsMs": 23.869289000000208,
+      "internalTimings": {
+        "Step": 23.639978999999997,
+        "CollisionDetection": 18.208216999999998,
+        "BroadPhase": 0.006069,
+        "NarrowPhase": 18.196759,
+        "Solver": 5.316082,
+        "VelocityAssembly": 0.742497,
+        "VelocityResolution": 4.452165999999999,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003517,
+        "UserChanges": 0.00655
+      },
+      "mapMs": 3.167688999999882,
+      "totalIncludingContactMs": 77.74459800000022,
+      "pinError": 0,
+      "maxStretch": 1.2528933734979417,
+      "minStretch": 0.7572612970832282,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 10,
+      "physicsMs": 22.811924999999974,
+      "internalTimings": {
+        "Step": 22.698117,
+        "CollisionDetection": 17.489914,
+        "BroadPhase": 0.0066,
+        "NarrowPhase": 17.478908,
+        "Solver": 5.101445,
+        "VelocityAssembly": 0.701987,
+        "VelocityResolution": 4.340511,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004135,
+        "UserChanges": 0.00639
+      },
+      "mapMs": 2.8414569999999912,
+      "totalIncludingContactMs": 72.30464900000015,
+      "pinError": 0,
+      "maxStretch": 1.2520882326706844,
+      "minStretch": 0.7571979910335698,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 11,
+      "physicsMs": 23.71093299999984,
+      "internalTimings": {
+        "Step": 23.598406999999998,
+        "CollisionDetection": 17.800242,
+        "BroadPhase": 0.006179,
+        "NarrowPhase": 17.789316,
+        "Solver": 5.687501,
+        "VelocityAssembly": 0.7125830000000001,
+        "VelocityResolution": 4.9114450000000005,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003776,
+        "UserChanges": 0.00615
+      },
+      "mapMs": 2.876278000000184,
+      "totalIncludingContactMs": 72.20508299999983,
+      "pinError": 0,
+      "maxStretch": 1.2516404278194135,
+      "minStretch": 0.754419888730256,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 12,
+      "physicsMs": 23.54662099999996,
+      "internalTimings": {
+        "Step": 23.413995,
+        "CollisionDetection": 18.128088,
+        "BroadPhase": 0.006860000000000001,
+        "NarrowPhase": 18.115148,
+        "Solver": 5.177157,
+        "VelocityAssembly": 0.7256819999999999,
+        "VelocityResolution": 4.393269,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003917,
+        "UserChanges": 0.006259
+      },
+      "mapMs": 2.8511720000001333,
+      "totalIncludingContactMs": 72.88079100000004,
+      "pinError": 0,
+      "maxStretch": 1.2511852295355335,
+      "minStretch": 0.7509633667026812,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 13,
+      "physicsMs": 36.08301799999981,
+      "internalTimings": {
+        "Step": 35.517903000000004,
+        "CollisionDetection": 21.782886,
+        "BroadPhase": 0.007021,
+        "NarrowPhase": 21.768955,
+        "Solver": 13.550194999999999,
+        "VelocityAssembly": 2.9632579999999997,
+        "VelocityResolution": 10.50039,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004346,
+        "UserChanges": 0.006189
+      },
+      "mapMs": 3.0104569999998603,
+      "totalIncludingContactMs": 86.91049399999974,
+      "pinError": 0,
+      "maxStretch": 1.2507220279653029,
+      "minStretch": 0.747405367838865,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 14,
+      "physicsMs": 22.798185000000103,
+      "internalTimings": {
+        "Step": 22.691277,
+        "CollisionDetection": 17.512517,
+        "BroadPhase": 0.005568,
+        "NarrowPhase": 17.502312,
+        "Solver": 5.042749,
+        "VelocityAssembly": 0.6937249999999999,
+        "VelocityResolution": 4.29203,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003565,
+        "UserChanges": 0.00627
+      },
+      "mapMs": 2.7890090000000782,
+      "totalIncludingContactMs": 73.29573299999993,
+      "pinError": 0,
+      "maxStretch": 1.2501168576166133,
+      "minStretch": 0.7419518489702951,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 15,
+      "physicsMs": 23.179739000000154,
+      "internalTimings": {
+        "Step": 23.068754000000002,
+        "CollisionDetection": 17.771721,
+        "BroadPhase": 0.006429,
+        "NarrowPhase": 17.760133,
+        "Solver": 5.149466,
+        "VelocityAssembly": 0.719823,
+        "VelocityResolution": 4.371417,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003785,
+        "UserChanges": 0.005929
+      },
+      "mapMs": 2.7912230000001728,
+      "totalIncludingContactMs": 73.85007200000018,
+      "pinError": 0,
+      "maxStretch": 1.250394642690154,
+      "minStretch": 0.7393589238014601,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 16,
+      "physicsMs": 22.911251999999877,
+      "internalTimings": {
+        "Step": 22.796272,
+        "CollisionDetection": 17.650661000000003,
+        "BroadPhase": 0.005798,
+        "NarrowPhase": 17.640245999999998,
+        "Solver": 5.027366,
+        "VelocityAssembly": 0.698291,
+        "VelocityResolution": 4.2676739999999995,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003555,
+        "UserChanges": 0.0065899999999999995
+      },
+      "mapMs": 2.863778999999795,
+      "totalIncludingContactMs": 72.96578599999975,
+      "pinError": 0,
+      "maxStretch": 1.251019385370243,
+      "minStretch": 0.7374713584240631,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 17,
+      "physicsMs": 22.8295320000002,
+      "internalTimings": {
+        "Step": 22.717766,
+        "CollisionDetection": 17.140759,
+        "BroadPhase": 0.006018,
+        "NarrowPhase": 17.130162000000002,
+        "Solver": 5.4679660000000005,
+        "VelocityAssembly": 0.735937,
+        "VelocityResolution": 4.67129,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0037359999999999997,
+        "UserChanges": 0.006139
+      },
+      "mapMs": 2.9632070000002386,
+      "totalIncludingContactMs": 73.4152610000001,
+      "pinError": 0,
+      "maxStretch": 1.251704795096995,
+      "minStretch": 0.736491568327909,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 18,
+      "physicsMs": 22.708842999999888,
+      "internalTimings": {
+        "Step": 22.595045000000002,
+        "CollisionDetection": 17.415833,
+        "BroadPhase": 0.005608,
+        "NarrowPhase": 17.405898999999998,
+        "Solver": 5.088826999999999,
+        "VelocityAssembly": 0.759392,
+        "VelocityResolution": 4.249537,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0039759999999999995,
+        "UserChanges": 0.0063289999999999996
+      },
+      "mapMs": 2.8379919999997583,
+      "totalIncludingContactMs": 73.41018299999996,
+      "pinError": 0,
+      "maxStretch": 1.2526105919486843,
+      "minStretch": 0.7375058936727403,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 19,
+      "physicsMs": 24.595202999999856,
+      "internalTimings": {
+        "Step": 24.460935,
+        "CollisionDetection": 18.383719,
+        "BroadPhase": 0.005938,
+        "NarrowPhase": 18.370629,
+        "Solver": 5.95749,
+        "VelocityAssembly": 0.892639,
+        "VelocityResolution": 4.955,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.005718,
+        "UserChanges": 0.00696
+      },
+      "mapMs": 3.0254790000003595,
+      "totalIncludingContactMs": 80.74681299999975,
+      "pinError": 0,
+      "maxStretch": 1.2539746853331568,
+      "minStretch": 0.7413587958858735,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 20,
+      "physicsMs": 26.57099799999969,
+      "internalTimings": {
+        "Step": 26.439784,
+        "CollisionDetection": 20.109623,
+        "BroadPhase": 0.006259,
+        "NarrowPhase": 20.097626,
+        "Solver": 6.237954,
+        "VelocityAssembly": 0.887081,
+        "VelocityResolution": 5.250495,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004045,
+        "UserChanges": 0.005968
+      },
+      "mapMs": 3.0261099999997896,
+      "totalIncludingContactMs": 82.71283399999993,
+      "pinError": 0,
+      "maxStretch": 1.2555603939131197,
+      "minStretch": 0.7459506236984553,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 21,
+      "physicsMs": 26.442047000000002,
+      "internalTimings": {
+        "Step": 26.286697,
+        "CollisionDetection": 20.027811999999997,
+        "BroadPhase": 0.00709,
+        "NarrowPhase": 20.015454,
+        "Solver": 6.168361,
+        "VelocityAssembly": 0.816256,
+        "VelocityResolution": 5.284246,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003926,
+        "UserChanges": 0.0063289999999999996
+      },
+      "mapMs": 3.5626009999996313,
+      "totalIncludingContactMs": 83.54351999999972,
+      "pinError": 0,
+      "maxStretch": 1.25662098592305,
+      "minStretch": 0.7486357450219694,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 22,
+      "physicsMs": 26.177316000000246,
+      "internalTimings": {
+        "Step": 26.049417,
+        "CollisionDetection": 20.350718999999998,
+        "BroadPhase": 0.0069500000000000004,
+        "NarrowPhase": 20.337601,
+        "Solver": 5.606802,
+        "VelocityAssembly": 0.834482,
+        "VelocityResolution": 4.699482,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0039770000000000005,
+        "UserChanges": 0.0059889999999999995
+      },
+      "mapMs": 2.8277570000000196,
+      "totalIncludingContactMs": 83.17250200000035,
+      "pinError": 0,
+      "maxStretch": 1.2574990426706871,
+      "minStretch": 0.7512265442047825,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 23,
+      "physicsMs": 27.75432600000022,
+      "internalTimings": {
+        "Step": 27.619716,
+        "CollisionDetection": 21.584702,
+        "BroadPhase": 0.00677,
+        "NarrowPhase": 21.571192999999997,
+        "Solver": 5.938721999999999,
+        "VelocityAssembly": 1.0780919999999998,
+        "VelocityResolution": 4.789935000000001,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0040149999999999995,
+        "UserChanges": 0.005848
+      },
+      "mapMs": 2.9987099999998463,
+      "totalIncludingContactMs": 83.71299100000033,
+      "pinError": 0,
+      "maxStretch": 1.2570253774604299,
+      "minStretch": 0.7542391351152353,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 24,
+      "physicsMs": 25.4279489999999,
+      "internalTimings": {
+        "Step": 25.195114,
+        "CollisionDetection": 19.260979000000003,
+        "BroadPhase": 0.006129,
+        "NarrowPhase": 19.249803,
+        "Solver": 5.843471999999999,
+        "VelocityAssembly": 0.740173,
+        "VelocityResolution": 5.014507,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0040149999999999995,
+        "UserChanges": 0.005608
+      },
+      "mapMs": 2.954163999999764,
+      "totalIncludingContactMs": 84.3448129999997,
+      "pinError": 0,
+      "maxStretch": 1.2565871252543133,
+      "minStretch": 0.7581596056607113,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 25,
+      "physicsMs": 25.92308099999991,
+      "internalTimings": {
+        "Step": 25.773169,
+        "CollisionDetection": 19.354748,
+        "BroadPhase": 0.007150999999999999,
+        "NarrowPhase": 19.342931,
+        "Solver": 6.329609,
+        "VelocityAssembly": 0.828885,
+        "VelocityResolution": 5.434257,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003685,
+        "UserChanges": 0.006179
+      },
+      "mapMs": 3.0406309999998484,
+      "totalIncludingContactMs": 83.09644000000026,
+      "pinError": 0,
+      "maxStretch": 1.2559180989900103,
+      "minStretch": 0.7591503459878519,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 26,
+      "physicsMs": 26.08530999999948,
+      "internalTimings": {
+        "Step": 25.954136,
+        "CollisionDetection": 19.872953,
+        "BroadPhase": 0.0061990000000000005,
+        "NarrowPhase": 19.861057000000002,
+        "Solver": 5.705338,
+        "VelocityAssembly": 0.852439,
+        "VelocityResolution": 4.764748,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004236,
+        "UserChanges": 0.00627
+      },
+      "mapMs": 2.719145999999455,
+      "totalIncludingContactMs": 83.99401500000022,
+      "pinError": 0,
+      "maxStretch": 1.255030660343989,
+      "minStretch": 0.7597383732829178,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 27,
+      "physicsMs": 26.364612999999736,
+      "internalTimings": {
+        "Step": 26.24086,
+        "CollisionDetection": 20.387313,
+        "BroadPhase": 0.006149,
+        "NarrowPhase": 20.374454,
+        "Solver": 5.762512,
+        "VelocityAssembly": 0.836095,
+        "VelocityResolution": 4.857545,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003875,
+        "UserChanges": 0.005969
+      },
+      "mapMs": 2.809269999999742,
+      "totalIncludingContactMs": 84.91339400000015,
+      "pinError": 0,
+      "maxStretch": 1.2543091672753226,
+      "minStretch": 0.7601846045599164,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 28,
+      "physicsMs": 25.206011000000217,
+      "internalTimings": {
+        "Step": 25.091061,
+        "CollisionDetection": 19.329210999999997,
+        "BroadPhase": 0.005548,
+        "NarrowPhase": 19.319266000000002,
+        "Solver": 5.674962000000001,
+        "VelocityAssembly": 0.783657,
+        "VelocityResolution": 4.827741,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0037459999999999998,
+        "UserChanges": 0.005759
+      },
+      "mapMs": 2.9283660000000964,
+      "totalIncludingContactMs": 85.47421200000008,
+      "pinError": 0,
+      "maxStretch": 1.2538284616348083,
+      "minStretch": 0.760396452829672,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 29,
+      "physicsMs": 26.49695800000063,
+      "internalTimings": {
+        "Step": 26.355269,
+        "CollisionDetection": 20.415516,
+        "BroadPhase": 0.005808,
+        "NarrowPhase": 20.403698000000002,
+        "Solver": 5.851211999999999,
+        "VelocityAssembly": 0.882864,
+        "VelocityResolution": 4.901269,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004036,
+        "UserChanges": 0.006239
+      },
+      "mapMs": 2.9520199999997203,
+      "totalIncludingContactMs": 84.42645400000038,
+      "pinError": 0,
+      "maxStretch": 1.253548459216886,
+      "minStretch": 0.7603384878925227,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 30,
+      "physicsMs": 26.298163999999815,
+      "internalTimings": {
+        "Step": 26.167912,
+        "CollisionDetection": 19.78891,
+        "BroadPhase": 0.005458,
+        "NarrowPhase": 19.77631,
+        "Solver": 6.289280000000001,
+        "VelocityAssembly": 0.9199689999999999,
+        "VelocityResolution": 5.291366,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0038959999999999997,
+        "UserChanges": 0.0053879999999999996
+      },
+      "mapMs": 3.0664489999999205,
+      "totalIncludingContactMs": 83.59068000000025,
+      "pinError": 0,
+      "maxStretch": 1.253398349590777,
+      "minStretch": 0.7600156630764753,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 31,
+      "physicsMs": 24.981900000000678,
+      "internalTimings": {
+        "Step": 24.822985,
+        "CollisionDetection": 18.841070000000002,
+        "BroadPhase": 0.005789,
+        "NarrowPhase": 18.830505000000002,
+        "Solver": 5.882889,
+        "VelocityAssembly": 1.004504,
+        "VelocityResolution": 4.794331,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003726,
+        "UserChanges": 0.009174
+      },
+      "mapMs": 3.0446170000004713,
+      "totalIncludingContactMs": 82.17294500000025,
+      "pinError": 0,
+      "maxStretch": 1.2534644798527728,
+      "minStretch": 0.7594731926314049,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 32,
+      "physicsMs": 25.441499000000476,
+      "internalTimings": {
+        "Step": 25.271268,
+        "CollisionDetection": 19.215272,
+        "BroadPhase": 0.006179,
+        "NarrowPhase": 19.203335,
+        "Solver": 5.962888,
+        "VelocityAssembly": 0.842835,
+        "VelocityResolution": 5.0436700000000005,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004076,
+        "UserChanges": 0.0063
+      },
+      "mapMs": 2.745694999999614,
+      "totalIncludingContactMs": 84.9434680000004,
+      "pinError": 0,
+      "maxStretch": 1.2533010353760963,
+      "minStretch": 0.7587741326959542,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 33,
+      "physicsMs": 25.582617999999457,
+      "internalTimings": {
+        "Step": 25.393038,
+        "CollisionDetection": 19.105679000000002,
+        "BroadPhase": 0.006109000000000001,
+        "NarrowPhase": 19.093222,
+        "Solver": 6.19465,
+        "VelocityAssembly": 0.799901,
+        "VelocityResolution": 5.316974,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003856,
+        "UserChanges": 0.00694
+      },
+      "mapMs": 3.0653879999999845,
+      "totalIncludingContactMs": 84.84248899999966,
+      "pinError": 0,
+      "maxStretch": 1.2537019542859265,
+      "minStretch": 0.757985627284117,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 34,
+      "physicsMs": 24.944966000000022,
+      "internalTimings": {
+        "Step": 24.823926999999998,
+        "CollisionDetection": 19.242714,
+        "BroadPhase": 0.0061990000000000005,
+        "NarrowPhase": 19.232228,
+        "Solver": 5.492182,
+        "VelocityAssembly": 0.759171,
+        "VelocityResolution": 4.653864,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0038859999999999997,
+        "UserChanges": 0.006279000000000001
+      },
+      "mapMs": 3.060269999999946,
+      "totalIncludingContactMs": 79.45256800000061,
+      "pinError": 0,
+      "maxStretch": 1.2507911994262633,
+      "minStretch": 0.7451314618225228,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 35,
+      "physicsMs": 23.916847000000416,
+      "internalTimings": {
+        "Step": 23.808166,
+        "CollisionDetection": 18.086665,
+        "BroadPhase": 0.005889,
+        "NarrowPhase": 18.077121,
+        "Solver": 5.636786000000001,
+        "VelocityAssembly": 0.749527,
+        "VelocityResolution": 4.824827,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003275,
+        "UserChanges": 0.006809
+      },
+      "mapMs": 2.8848109999998996,
+      "totalIncludingContactMs": 78.33348400000068,
+      "pinError": 0,
+      "maxStretch": 1.2506912676778257,
+      "minStretch": 0.749376014597457,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 36,
+      "physicsMs": 23.54595900000004,
+      "internalTimings": {
+        "Step": 23.437820000000002,
+        "CollisionDetection": 17.965605999999998,
+        "BroadPhase": 0.00654,
+        "NarrowPhase": 17.954751,
+        "Solver": 5.383412,
+        "VelocityAssembly": 0.723899,
+        "VelocityResolution": 4.595989,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0038449999999999995,
+        "UserChanges": 0.00662
+      },
+      "mapMs": 2.7548289999995177,
+      "totalIncludingContactMs": 77.48220700000002,
+      "pinError": 0,
+      "maxStretch": 1.2517957949298097,
+      "minStretch": 0.7555198044401857,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 37,
+      "physicsMs": 23.784881999999925,
+      "internalTimings": {
+        "Step": 23.677082,
+        "CollisionDetection": 18.205161,
+        "BroadPhase": 0.005098,
+        "NarrowPhase": 18.195346,
+        "Solver": 5.385074,
+        "VelocityAssembly": 0.729086,
+        "VelocityResolution": 4.588006,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003836,
+        "UserChanges": 0.005738
+      },
+      "mapMs": 2.738274000000274,
+      "totalIncludingContactMs": 77.90739500000018,
+      "pinError": 0,
+      "maxStretch": 1.2530617187853232,
+      "minStretch": 0.7547438507962017,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 38,
+      "physicsMs": 24.36907499999961,
+      "internalTimings": {
+        "Step": 24.228387,
+        "CollisionDetection": 18.315642999999998,
+        "BroadPhase": 0.00689,
+        "NarrowPhase": 18.301353,
+        "Solver": 5.821649,
+        "VelocityAssembly": 0.763207,
+        "VelocityResolution": 4.999074,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003825,
+        "UserChanges": 0.00643
+      },
+      "mapMs": 2.8738750000002256,
+      "totalIncludingContactMs": 77.2580769999995,
+      "pinError": 0,
+      "maxStretch": 1.2534994613018833,
+      "minStretch": 0.7540127785120371,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 39,
+      "physicsMs": 23.678885000000264,
+      "internalTimings": {
+        "Step": 23.568663,
+        "CollisionDetection": 18.268353,
+        "BroadPhase": 0.005738999999999999,
+        "NarrowPhase": 18.257967999999998,
+        "Solver": 5.21329,
+        "VelocityAssembly": 0.6999839999999999,
+        "VelocityResolution": 4.455902,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0037960000000000003,
+        "UserChanges": 0.006
+      },
+      "mapMs": 2.7840529999994033,
+      "totalIncludingContactMs": 74.68731800000023,
+      "pinError": 0,
+      "maxStretch": 1.2540136138678628,
+      "minStretch": 0.7533394534938526,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 40,
+      "physicsMs": 23.42522100000042,
+      "internalTimings": {
+        "Step": 23.307507,
+        "CollisionDetection": 17.815866,
+        "BroadPhase": 0.005348,
+        "NarrowPhase": 17.804198,
+        "Solver": 5.403982,
+        "VelocityAssembly": 0.723268,
+        "VelocityResolution": 4.619784,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0037960000000000003,
+        "UserChanges": 0.005348
+      },
+      "mapMs": 3.088713000000098,
+      "totalIncludingContactMs": 74.47820000000047,
+      "pinError": 0,
+      "maxStretch": 1.2543250858374422,
+      "minStretch": 0.7527112212083581,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 41,
+      "physicsMs": 22.821509000000333,
+      "internalTimings": {
+        "Step": 22.717285,
+        "CollisionDetection": 17.361314999999998,
+        "BroadPhase": 0.006289,
+        "NarrowPhase": 17.350127,
+        "Solver": 5.267942000000001,
+        "VelocityAssembly": 0.711521,
+        "VelocityResolution": 4.498134,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003526,
+        "UserChanges": 0.006319999999999999
+      },
+      "mapMs": 2.742551000000276,
+      "totalIncludingContactMs": 73.45621099999971,
+      "pinError": 0,
+      "maxStretch": 1.2545853486807836,
+      "minStretch": 0.7521837590415207,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 42,
+      "physicsMs": 22.71004400000038,
+      "internalTimings": {
+        "Step": 22.594963999999997,
+        "CollisionDetection": 17.267845,
+        "BroadPhase": 0.0065699999999999995,
+        "NarrowPhase": 17.255117000000002,
+        "Solver": 5.237676,
+        "VelocityAssembly": 0.710049,
+        "VelocityResolution": 4.470543,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003675,
+        "UserChanges": 0.006421
+      },
+      "mapMs": 2.7454850000003717,
+      "totalIncludingContactMs": 73.75749499999984,
+      "pinError": 0,
+      "maxStretch": 1.2548489534233287,
+      "minStretch": 0.7517838535240225,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 43,
+      "physicsMs": 22.358173999999963,
+      "internalTimings": {
+        "Step": 22.251417,
+        "CollisionDetection": 17.084445,
+        "BroadPhase": 0.006209,
+        "NarrowPhase": 17.075212,
+        "Solver": 5.080615,
+        "VelocityAssembly": 0.680536,
+        "VelocityResolution": 4.344207,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003715,
+        "UserChanges": 0.006038
+      },
+      "mapMs": 2.7722850000000108,
+      "totalIncludingContactMs": 75.92637899999954,
+      "pinError": 0,
+      "maxStretch": 1.255110733409034,
+      "minStretch": 0.7515019522886286,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 44,
+      "physicsMs": 22.177467000000433,
+      "internalTimings": {
+        "Step": 22.051672,
+        "CollisionDetection": 16.954402,
+        "BroadPhase": 0.006519,
+        "NarrowPhase": 16.945319,
+        "Solver": 5.010792,
+        "VelocityAssembly": 0.6792429999999999,
+        "VelocityResolution": 4.278630000000001,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0033150000000000002,
+        "UserChanges": 0.006209
+      },
+      "mapMs": 2.911471000000347,
+      "totalIncludingContactMs": 71.66666700000042,
+      "pinError": 0,
+      "maxStretch": 1.2553662125084675,
+      "minStretch": 0.7513140520217745,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 45,
+      "physicsMs": 22.852304000000004,
+      "internalTimings": {
+        "Step": 22.740489999999998,
+        "CollisionDetection": 17.652074,
+        "BroadPhase": 0.005829,
+        "NarrowPhase": 17.641588,
+        "Solver": 5.0001560000000005,
+        "VelocityAssembly": 0.667315,
+        "VelocityResolution": 4.277358,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004005,
+        "UserChanges": 0.006018
+      },
+      "mapMs": 2.7626409999993484,
+      "totalIncludingContactMs": 71.50733200000013,
+      "pinError": 0,
+      "maxStretch": 1.2556202958731861,
+      "minStretch": 0.7512873509572295,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 46,
+      "physicsMs": 22.425052999999934,
+      "internalTimings": {
+        "Step": 22.315261,
+        "CollisionDetection": 17.190542,
+        "BroadPhase": 0.007521,
+        "NarrowPhase": 17.178174000000002,
+        "Solver": 5.033424,
+        "VelocityAssembly": 0.731942,
+        "VelocityResolution": 4.244149,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0036950000000000004,
+        "UserChanges": 0.006019
+      },
+      "mapMs": 2.925981999999749,
+      "totalIncludingContactMs": 72.86545800000022,
+      "pinError": 0,
+      "maxStretch": 1.255867797894202,
+      "minStretch": 0.7514213741701035,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 47,
+      "physicsMs": 23.837550000000192,
+      "internalTimings": {
+        "Step": 23.693446,
+        "CollisionDetection": 18.550231,
+        "BroadPhase": 0.006520000000000001,
+        "NarrowPhase": 18.537982000000003,
+        "Solver": 5.055246,
+        "VelocityAssembly": 0.699133,
+        "VelocityResolution": 4.2988100000000005,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0037560000000000002,
+        "UserChanges": 0.007260999999999999
+      },
+      "mapMs": 2.7317549999997937,
+      "totalIncludingContactMs": 73.88897999999972,
+      "pinError": 0,
+      "maxStretch": 1.2561001246446877,
+      "minStretch": 0.7516735127422834,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 48,
+      "physicsMs": 22.850703000000067,
+      "internalTimings": {
+        "Step": 22.727631000000002,
+        "CollisionDetection": 17.463656,
+        "BroadPhase": 0.005929,
+        "NarrowPhase": 17.452538999999998,
+        "Solver": 5.175635,
+        "VelocityAssembly": 0.7695160000000001,
+        "VelocityResolution": 4.338679,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003795,
+        "UserChanges": 0.005729
+      },
+      "mapMs": 2.7303529999999228,
+      "totalIncludingContactMs": 72.52601700000014,
+      "pinError": 0,
+      "maxStretch": 1.2563259741169823,
+      "minStretch": 0.7520107259661108,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 49,
+      "physicsMs": 22.142726999999468,
+      "internalTimings": {
+        "Step": 22.032494,
+        "CollisionDetection": 16.99304,
+        "BroadPhase": 0.005929,
+        "NarrowPhase": 16.983767,
+        "Solver": 4.951905,
+        "VelocityAssembly": 0.689869,
+        "VelocityResolution": 4.2049009999999996,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004036,
+        "UserChanges": 0.006438999999999999
+      },
+      "mapMs": 2.7323660000001837,
+      "totalIncludingContactMs": 72.29526600000008,
+      "pinError": 0,
+      "maxStretch": 1.2565626976253215,
+      "minStretch": 0.7524218319446065,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 50,
+      "physicsMs": 22.117549999999937,
+      "internalTimings": {
+        "Step": 21.928771,
+        "CollisionDetection": 16.894855,
+        "BroadPhase": 0.005608,
+        "NarrowPhase": 16.8846,
+        "Solver": 4.947789,
+        "VelocityAssembly": 0.678772,
+        "VelocityResolution": 4.215046,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004056,
+        "UserChanges": 0.005708
+      },
+      "mapMs": 3.246595000000525,
+      "totalIncludingContactMs": 73.75377000000026,
+      "pinError": 0,
+      "maxStretch": 1.2567248246425897,
+      "minStretch": 0.7522938436522875,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 51,
+      "physicsMs": 22.259829999999965,
+      "internalTimings": {
+        "Step": 22.154805,
+        "CollisionDetection": 17.048101,
+        "BroadPhase": 0.006469,
+        "NarrowPhase": 17.037295,
+        "Solver": 4.984993,
+        "VelocityAssembly": 0.700324,
+        "VelocityResolution": 4.225852000000001,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004257,
+        "UserChanges": 0.006348
+      },
+      "mapMs": 2.717142999999851,
+      "totalIncludingContactMs": 72.96646799999962,
+      "pinError": 0,
+      "maxStretch": 1.2571223187123064,
+      "minStretch": 0.752634868310079,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 52,
+      "physicsMs": 25.028620000000046,
+      "internalTimings": {
+        "Step": 24.893399,
+        "CollisionDetection": 18.936311,
+        "BroadPhase": 0.006438999999999999,
+        "NarrowPhase": 18.923802,
+        "Solver": 5.871312,
+        "VelocityAssembly": 0.917215,
+        "VelocityResolution": 4.857476,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003545,
+        "UserChanges": 0.0060090000000000005
+      },
+      "mapMs": 3.096542999999656,
+      "totalIncludingContactMs": 82.09429,
+      "pinError": 0,
+      "maxStretch": 1.2573360566612022,
+      "minStretch": 0.7526445825153769,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 53,
+      "physicsMs": 24.49229699999978,
+      "internalTimings": {
+        "Step": 24.363507,
+        "CollisionDetection": 18.331698,
+        "BroadPhase": 0.007251,
+        "NarrowPhase": 18.318578,
+        "Solver": 5.943949,
+        "VelocityAssembly": 0.77844,
+        "VelocityResolution": 5.045362,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003625,
+        "UserChanges": 0.005958000000000001
+      },
+      "mapMs": 3.0931089999994583,
+      "totalIncludingContactMs": 78.65012299999944,
+      "pinError": 0,
+      "maxStretch": 1.2576599133700466,
+      "minStretch": 0.7531037073825857,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 54,
+      "physicsMs": 24.479808000000048,
+      "internalTimings": {
+        "Step": 24.345641,
+        "CollisionDetection": 18.877173,
+        "BroadPhase": 0.006229,
+        "NarrowPhase": 18.866026,
+        "Solver": 5.316713,
+        "VelocityAssembly": 0.727525,
+        "VelocityResolution": 4.52918,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003795,
+        "UserChanges": 0.005929
+      },
+      "mapMs": 3.103664000000208,
+      "totalIncludingContactMs": 78.61742400000003,
+      "pinError": 0,
+      "maxStretch": 1.2580841112911938,
+      "minStretch": 0.753968175877043,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 55,
+      "physicsMs": 25.702864999999292,
+      "internalTimings": {
+        "Step": 25.567766,
+        "CollisionDetection": 19.658278000000003,
+        "BroadPhase": 0.00636,
+        "NarrowPhase": 19.644968,
+        "Solver": 5.813978,
+        "VelocityAssembly": 0.830577,
+        "VelocityResolution": 4.903201999999999,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0038859999999999997,
+        "UserChanges": 0.00696
+      },
+      "mapMs": 3.312801999999465,
+      "totalIncludingContactMs": 80.61087899999984,
+      "pinError": 0,
+      "maxStretch": 1.2573958166177421,
+      "minStretch": 0.7550913501491349,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 56,
+      "physicsMs": 26.01288300000033,
+      "internalTimings": {
+        "Step": 25.876342,
+        "CollisionDetection": 19.74143,
+        "BroadPhase": 0.006379,
+        "NarrowPhase": 19.727549,
+        "Solver": 6.040191999999999,
+        "VelocityAssembly": 0.867221,
+        "VelocityResolution": 5.0042919999999995,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003967,
+        "UserChanges": 0.00666
+      },
+      "mapMs": 2.927133999999569,
+      "totalIncludingContactMs": 80.42177900000024,
+      "pinError": 0,
+      "maxStretch": 1.2565913462307188,
+      "minStretch": 0.7562346195951687,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 57,
+      "physicsMs": 26.39194299999963,
+      "internalTimings": {
+        "Step": 26.215303,
+        "CollisionDetection": 19.351024000000002,
+        "BroadPhase": 0.0058579999999999995,
+        "NarrowPhase": 19.338054,
+        "Solver": 6.7692890000000006,
+        "VelocityAssembly": 0.936233,
+        "VelocityResolution": 5.747419,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004025,
+        "UserChanges": 0.006148000000000001
+      },
+      "mapMs": 2.9430069999998523,
+      "totalIncludingContactMs": 85.67743200000041,
+      "pinError": 0,
+      "maxStretch": 1.2564003166284994,
+      "minStretch": 0.7566377770330784,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 58,
+      "physicsMs": 24.69688899999983,
+      "internalTimings": {
+        "Step": 24.461342000000002,
+        "CollisionDetection": 18.856973,
+        "BroadPhase": 0.0067599999999999995,
+        "NarrowPhase": 18.843232,
+        "Solver": 5.510399,
+        "VelocityAssembly": 0.8795689999999999,
+        "VelocityResolution": 4.550952,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004097,
+        "UserChanges": 0.006861
+      },
+      "mapMs": 2.951720000000023,
+      "totalIncludingContactMs": 81.45896099999936,
+      "pinError": 0,
+      "maxStretch": 1.2572083253656479,
+      "minStretch": 0.7569521950647718,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 59,
+      "physicsMs": 26.201742000000195,
+      "internalTimings": {
+        "Step": 26.000375,
+        "CollisionDetection": 20.042415000000002,
+        "BroadPhase": 0.00679,
+        "NarrowPhase": 20.028233,
+        "Solver": 5.820707,
+        "VelocityAssembly": 0.925677,
+        "VelocityResolution": 4.818067,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0040160000000000005,
+        "UserChanges": 0.00619
+      },
+      "mapMs": 2.90883599999961,
+      "totalIncludingContactMs": 85.61943600000086,
+      "pinError": 0,
+      "maxStretch": 1.2570695752585337,
+      "minStretch": 0.7571641589848859,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    }
+  ],
+  "limitations": [
+    "Not a continuous tea/cancellation trajectory.",
+    "Self-contact and containment not established.",
+    "Not production cloth or visual approval.",
+    "Starts with the existing intersecting sip pose; failure does not prove that every collision-free initialized path is infeasible."
+  ],
+  "bodyHullCertificate": {
+    "directions": 1024,
+    "selectedSourceVertices": 980,
+    "sourceVertices": 32036,
+    "triangles": 1956,
+    "scaleFactor": 1.007788588454669,
+    "maximumPlaneViolation": -8.214272835260772e-7,
+    "maximumOuterDistance": 0.00796060074755975,
+    "maxError": 0.01,
+    "requiredInwardMargin": 1e-8
+  },
+  "timing": {
+    "physicsMs": {
+      "p50": 24.69688899999983,
+      "p95": 36.868089000000055,
+      "max": 95.93720300000041
+    },
+    "mapMs": {
+      "p50": 2.9496359999998276,
+      "p95": 5.704987000000074,
+      "max": 30.15531400000009
+    },
+    "totalIncludingContactMs": {
+      "p50": 79.45256800000061,
+      "p95": 95.08455300000014,
+      "max": 211.87462900000037
+    }
+  },
+  "finalEndpointClear": false,
+  "strainAccepted": false,
+  "realtimeAccepted": false,
+  "resourcesReleased": true
+}

@@ -1,0 +1,361 @@
+{
+  "status": "completed",
+  "accepted": false,
+  "inputHashes": {
+    "animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs": "6bf53caf6a1a6742a34f466109d9d656fa33f78b02c57e32f0017372fc1da5f2",
+    "animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.mjs": "14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984",
+    "package-lock.json": "29914de54006d3f2bfb8f5ffb7ed05f16921a00c2af3abb07f2eb476eebeb427",
+    "original-parts-hybrid-v1/geometry/bubu-hybrid-binding.glb": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67",
+    "animation-foundation-v1/secondary-motion/cloth-probe/cape-coarse.json": "740619e1ca28dc8824c070bbc3b23df6ba7430b956dd4f64d2a411f8549ab8a8",
+    "animation-foundation-v1/secondary-motion/cloth-probe/cape-binding.json": "4aae28f29833e6af5fb44327ef2c66f1489ee9e3c98a0cec4c368f45d3b3bec9",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/frozen-cape.json": "5888814c2bd2b4627b3abab0e6133388e60fccb26b14e887e5556352d9c50d01",
+    "wearable-approved-round5/accessory-expansion/models/07-cape.glb": "e29010956b989a60e196472b2206e6c397b34f12f3b7092d67f53f189c128e21",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/inputs/tea-keyframes.json": "1b37c436f623ced2289411b5f0192e15feed91715bacc2bac3008336923e04d1",
+    "animation-foundation-v1/secondary-motion/cloth-probe/tea-obstacles.mjs": "0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a",
+    "animation-foundation-v1/contact/tea-clearance-candidate.mjs": "c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745",
+    "animation-foundation-v1/integration/tea-sample-boundary.mjs": "1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166",
+    "original-parts-hybrid-v1/tea/src/rigid-tea.mjs": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+    "original-parts-hybrid-v1/tea/src/timeline.mjs": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+    "original-parts-hybrid-v1/tea/src/scene-resources.mjs": "bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d",
+    "original-parts-hybrid-v1/tea/src/cup-model.mjs": "66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca",
+    "original-parts-hybrid-v1/tea/inputs/rigid-config.json": "b63aa7b4d3367c97bd72163329737061d62f3d787dae39f2cd971ff7a48fcc9c",
+    "original-parts-hybrid-v1/tea/inputs/hold-fit.json": "419f5d0d929edb977ce8103d4616461bf0e1c8cd09c8f8218b4c9cd611d95f0f",
+    "original-parts-hybrid-v1/tea/inputs/sip-fit.json": "7012a0c1869afde8704ba4d084d41407bbf7ee1662edc501d4bc99860b38acb6"
+  },
+  "scope": "Rest-initialized normal tea trajectory, coherent clearance candidate, stop at first contact/pin/strain failure",
+  "time": 0,
+  "frames": 540,
+  "releasedPins": [
+    3,
+    6,
+    9,
+    13,
+    17,
+    422,
+    427,
+    431,
+    435,
+    438
+  ],
+  "handCollider": "convex-hull-diagnostic",
+  "bodyCollider": "conservative-bounded-hull",
+  "obstacleFilter": "all",
+  "declaredLimits": {
+    "maximumEdgeStretch": 1.2,
+    "minimumEdgeStretch": 0.8,
+    "pinError": 0.00001,
+    "frameBudgetMs": 16.667
+  },
+  "rows": [
+    {
+      "frame": 0,
+      "physicsMs": 108.7011399999999,
+      "internalTimings": null,
+      "mapMs": 16.978225999999722,
+      "simulationPipelineMs": 138.31485500000008,
+      "totalIncludingContactMs": 191.45820099999992,
+      "pinError": 0,
+      "maxStretch": 1.2712364325139798,
+      "minStretch": 0.934441508040029,
+      "contacts": []
+    }
+  ],
+  "limitations": [
+    "60 Hz samples only; cancellation and continuous contact not established",
+    "Self-contact and containment not established.",
+    "Body obstacle is Bubu_body; feet and the complete foundation wardrobe are not included.",
+    "Not production cloth or visual approval.",
+    "A failed trajectory is a solver/mapping counterexample, not a proof that all private-copy cloth implementations are infeasible."
+  ],
+  "collisionRadius": 0.02397777606720214,
+  "collisionRadiusBasis": "Maximum unchanged render-binding detail offset plus 1e-5 margin",
+  "initialEnvelopePinSurfaceConflicts": [
+    {
+      "pin": 0,
+      "obstacle": "body",
+      "distance": 0.010012132529329807,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 22,
+      "obstacle": "body",
+      "distance": 0.011553460664243391,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 28,
+      "obstacle": "body",
+      "distance": 0.012039461826092961,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 34,
+      "obstacle": "body",
+      "distance": 0.012581259378830015,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 41,
+      "obstacle": "body",
+      "distance": 0.013173089503190662,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 48,
+      "obstacle": "body",
+      "distance": 0.013810080122391221,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 53,
+      "obstacle": "body",
+      "distance": 0.014485797509188292,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 56,
+      "obstacle": "body",
+      "distance": 0.01519425218299053,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 58,
+      "obstacle": "body",
+      "distance": 0.015928810337872173,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 60,
+      "obstacle": "body",
+      "distance": 0.016682713888482987,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 62,
+      "obstacle": "body",
+      "distance": 0.017448737746947954,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 64,
+      "obstacle": "body",
+      "distance": 0.018219968085847943,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 66,
+      "obstacle": "body",
+      "distance": 0.018989091726145785,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 68,
+      "obstacle": "body",
+      "distance": 0.019748925698659586,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 70,
+      "obstacle": "body",
+      "distance": 0.020492846349667863,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 72,
+      "obstacle": "body",
+      "distance": 0.021213189785203496,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 75,
+      "obstacle": "body",
+      "distance": 0.021903862100108272,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 81,
+      "obstacle": "body",
+      "distance": 0.02255823296678275,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 91,
+      "obstacle": "body",
+      "distance": 0.02317023234971558,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 104,
+      "obstacle": "body",
+      "distance": 0.023734142677303935,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 327,
+      "obstacle": "body",
+      "distance": 0.023734111761560654,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 340,
+      "obstacle": "body",
+      "distance": 0.02317023222711376,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 353,
+      "obstacle": "body",
+      "distance": 0.02255821933957139,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 363,
+      "obstacle": "body",
+      "distance": 0.02190392044727035,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 369,
+      "obstacle": "body",
+      "distance": 0.021213236766184584,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 372,
+      "obstacle": "body",
+      "distance": 0.02049278112929452,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 374,
+      "obstacle": "body",
+      "distance": 0.01974894609655658,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 376,
+      "obstacle": "body",
+      "distance": 0.018989157434249344,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 378,
+      "obstacle": "body",
+      "distance": 0.018220116495140017,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 380,
+      "obstacle": "body",
+      "distance": 0.01744882457500468,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 382,
+      "obstacle": "body",
+      "distance": 0.016682671237200394,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 384,
+      "obstacle": "body",
+      "distance": 0.015928969863304946,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 386,
+      "obstacle": "body",
+      "distance": 0.01519433477063684,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 388,
+      "obstacle": "body",
+      "distance": 0.014485785321395854,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 391,
+      "obstacle": "body",
+      "distance": 0.013810055040349418,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 396,
+      "obstacle": "body",
+      "distance": 0.013173324101373455,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 403,
+      "obstacle": "body",
+      "distance": 0.012581202904229073,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 410,
+      "obstacle": "body",
+      "distance": 0.012039532031939833,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 416,
+      "obstacle": "body",
+      "distance": 0.01155348059244469,
+      "radius": 0.02397777606720214
+    },
+    {
+      "pin": 441,
+      "obstacle": "body",
+      "distance": 0.01001212189969134,
+      "radius": 0.02397777606720214
+    }
+  ],
+  "bodyHullCertificate": {
+    "directions": 1024,
+    "selectedSourceVertices": 980,
+    "sourceVertices": 32036,
+    "triangles": 1956,
+    "scaleFactor": 1.007788588454669,
+    "maximumPlaneViolation": -8.214272835260772e-7,
+    "maximumOuterDistance": 0.00796060074755975,
+    "maxError": 0.01,
+    "requiredInwardMargin": 1e-8
+  },
+  "initialContacts": [],
+  "stoppedAt": {
+    "frame": 0,
+    "time": 0.016666666666666666,
+    "reason": "first-contact-pin-or-strain-failure",
+    "coarseContacts": []
+  },
+  "contactWitnesses": [],
+  "timing": {
+    "physicsMs": {
+      "p50": 108.7011399999999,
+      "p95": 108.7011399999999,
+      "max": 108.7011399999999
+    },
+    "mapMs": {
+      "p50": 16.978225999999722,
+      "p95": 16.978225999999722,
+      "max": 16.978225999999722
+    },
+    "simulationPipelineMs": {
+      "p50": 138.31485500000008,
+      "p95": 138.31485500000008,
+      "max": 138.31485500000008
+    },
+    "totalIncludingContactMs": {
+      "p50": 191.45820099999992,
+      "p95": 191.45820099999992,
+      "max": 191.45820099999992
+    }
+  },
+  "completedRequestedSteps": false,
+  "lastSampleClear": true,
+  "finalEndpointClear": false,
+  "strainAccepted": false,
+  "realtimeAccepted": false,
+  "resourcesReleased": true
+}

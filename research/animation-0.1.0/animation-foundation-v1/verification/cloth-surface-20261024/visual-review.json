@@ -1,0 +1,66 @@
+{
+  "status": "rendered",
+  "captures": [
+    {
+      "file": "00-before.png",
+      "mode": "before",
+      "time": 0.5166666666666667,
+      "angle": -40,
+      "zoom": 1,
+      "sourceGeometryChecked": true,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "file": "01-after.png",
+      "mode": "after",
+      "time": 0.5166666666666667,
+      "angle": -40,
+      "zoom": 1,
+      "sourceGeometryChecked": true,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "file": "02-before.png",
+      "mode": "before",
+      "time": 0.5166666666666667,
+      "angle": -40,
+      "zoom": 4,
+      "sourceGeometryChecked": true,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "file": "03-after.png",
+      "mode": "after",
+      "time": 0.5166666666666667,
+      "angle": -40,
+      "zoom": 4,
+      "sourceGeometryChecked": true,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "file": "04-failure.png",
+      "mode": "failure",
+      "time": 0.5333333333333333,
+      "angle": 25,
+      "zoom": 4,
+      "sourceGeometryChecked": true,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "file": "05-finished.png",
+      "mode": "finished",
+      "time": 9,
+      "angle": 25,
+      "zoom": 1,
+      "sourceGeometryChecked": true,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    }
+  ],
+  "errors": [],
+  "productionAccepted": false,
+  "review": {
+    "status": "inspected",
+    "scope": "Six actual GLB diagnostic views: same 0.5167 s particles before/after mapping, retained contact-failure pose, and final early-cancellation pose. Source geometry was verified before deformation.",
+    "finding": "The narrow shoulder cloth is smoother and the trim remains joined. The remaining numerical triangle crossing is small in the ordinary shaded view; no visual/full-motion approval is claimed. Pink original hybrid material is diagnostic, not the styled D2 character or a replacement model."
+  }
+}

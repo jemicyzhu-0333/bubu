@@ -19,6 +19,13 @@ From `research/animation-0.1.0`, run:
 - `node animation-foundation-v1/integration/verify-release.mjs`
 - `node animation-foundation-v1/integration/verify-authored.mjs`
 
+For the complete current CPU/replay gate, use Node 24+ and run
+`npm run foundation:verify -- --output /tmp/bubu-foundation-new-run`.
+Python 3, NumPy and SciPy are required for the isolated contact replay. The output
+directory must not exist. Individual verification scripts write to a fresh
+temporary directory by default; `BUBU_FOUNDATION_EVIDENCE_DIR` selects an external
+output directory. These runs never replace checked-in historical measurements.
+
 Install at this shared research root, not separately inside sibling snapshots:
 the runtime, fixture, accessory adapters and spring-bone package must resolve one
 physical Three.js 0.186.1 instance. The preflight rejects duplicate installations.
@@ -50,8 +57,9 @@ Each actor reserves an additional bounded 32 MiB query/build envelope before
 construction, then commits a conservative resident bound for the posed buffer,
 BVH nodes, primitive bounds and indirect indices. Disposal releases that claim
 and drops the private tree/buffer. This is CPU accounting, not GPU measurement.
-The source still uses recovered fixture paths: a portable clean checkout remains
-a separate incomplete gate. Install the root pinned dependencies before running.
+Source imports use the repository layout. The shared preflight verifies dependency
+identity and restored model hashes. Install the research-root pinned dependencies
+before running; native/browser execution remains a separate gate.
 
 Each frame advances the real pointer host once, updates the hybrid and matrices,
 samples anatomical anchors with a fresh revision, updates secondary motion from
@@ -100,6 +108,17 @@ and 100,000 vertices per asset. CPU texture metadata placeholders do not prove
 real GPU texture memory. Known assets are bounded; this is not a hostile arbitrary
 asset ingestion service. Shared immutable source templates remain a bounded cache;
 zero live actor/effect/physics handles is distinct from freeing that cache.
+Post-parse admission rejects non-finite attributes/transforms and out-of-range
+indices. Geometry byte accounting charges each retained backing buffer once;
+short or overlapping typed-array views cannot understate retained allocation.
+
+The original hybrid parts now have a pool-owned source lease, rather than a
+module-global promise cache. Concurrent actors share geometry but keep private
+skeletons. Parse staging is reserved before loading; the decoded source is counted
+once in the scene ledger. The last actor releases the actual source resources and
+the claim. Failed loads can retry. Closing during a load retains reservations
+until that load settles and cleans up. The separately admitted full face/body
+baseline and upstream BVH module cache still have their documented boundaries.
 
 ## Validation boundaries
 
@@ -116,6 +135,17 @@ mechanisms, not production cloth/contact acceptance.
 
 
 ## Equipment ownership and cancellation
+
+Replacement loading and decoded-asset admission finish before retiring the old
+outfit. A failed or stale load preserves the current outfit and its configuration.
+Loaded candidates remain off-scene during I/O. Attachment, effect and strategy
+construction now finishes while the old outfit remains owned. A construction
+failure releases only the candidate. Each replacement stages its own bounded
+four-emitter runtime, so a full old outfit cannot consume the new outfit's slots.
+The actor transfers the complete equipment snapshot before retiring old resources.
+A retirement exception is returned as `cleanupError` on the applied result, not
+as a retryable equip rejection. Reentrant explicit removal/disposal can still
+invalidate the request; `stale` reports that cancellation.
 
 An equip request owns its staged mounts, secondary instances, effect handles and
 strategy locally until construction finishes and its generation still matches.
@@ -139,3 +169,29 @@ visible until pending construction settles and releases them. A zero SceneBudget
 ledger alone is not proof of resource disposal: regression tests also count each
 geometry/material/texture release and verify scene detachment. These CPU tests do
 not establish GPU allocation release or native behavior.
+
+The browser demo and Node fixture instantiate the same `foundation-runtime.mjs`
+coordinator and `binding-provider.mjs`. Filesystem/hash/texture-loading adapters
+stay at their composition boundaries. The browser uses actual GLTF textures;
+Node's metadata-only texture reader remains a CPU fixture. Neither composition
+writes canonical state or creates application IPC.
+
+## Flower/body rest fit
+
+`sakura-part-fit.mjs` corrects three measured flower/body intersections on the
+private baked binding asset. Two petals rotate 30 and 25 degrees around their
+authored centre vertices; the inward small leaf rotates 10 degrees around its
+original proximal tip. Only child mesh transforms change. Source GLBs, position,
+normal and index buffers, materials, mount offsets and action controllers remain
+unchanged. Rigid part shape and fixed connection points have behavior checks.
+The binding provider validates all three parts before applying the fit, clones
+the prepared frames with owned instance resources, and includes the fit module
+hash in the flower contact identity. There is no new per-frame writer or solver.
+
+The full 481-frame idle/pending/petting/drag/landing replay clears all three
+target pairs, retaining the original satchel/cape swing. Minimum actual triangle
+gaps are 0.00481819, 0.00336543 and 0.00768002. Fourteen default-browser frames
+match the reviewed candidate exactly at 1x/2x, including light/dark and action
+views. The remaining two satchel intersections and whole-outfit continuous
+contact/native/GPU gates stay open; this fit does not admit cape plus tea.
+See [flower-fit evidence](../verification/flower-fit-20261024/audit.json).

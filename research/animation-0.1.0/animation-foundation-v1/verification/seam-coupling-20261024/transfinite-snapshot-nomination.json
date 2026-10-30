@@ -1,0 +1,48 @@
+{
+  "scope": "Four-boundary transfinite displacement replay of the SAME failed physical snapshot; not a dynamics fix, not a collision-envelope proof",
+  "accepted": false,
+  "inputHashes": {
+    "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/cape-coarse.json": "740619e1ca28dc8824c070bbc3b23df6ba7430b956dd4f64d2a411f8549ab8a8",
+    "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/cape-binding.json": "4aae28f29833e6af5fb44327ef2c66f1489ee9e3c98a0cec4c368f45d3b3bec9",
+    "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/diagnostics/contact-contract-20261019/frozen-cape.json": "5888814c2bd2b4627b3abab0e6133388e60fccb26b14e887e5556352d9c50d01",
+    "/workspace/artifacts/bubu-v2-seam-coupling-20261024/conforming-wire-neighbours-240/endpoint-cloth.json": "590c57679edf1e10b386b30e22cd1538021d99c9b0399601fa76c1bbd2c2ab69",
+    "/workspace/artifacts/bubu-v2-seam-coupling-20261024/conforming-wire-neighbours-240/failed-render-parts.json": "df32514987a881438d9db65306b8ff0a87e8dc5a02fd93b109f2442591ad7db5",
+    "/workspace/artifacts/bubu-v2-seam-coupling-20261024/conforming-wire-neighbours-240/failed-particles.json": "2a41d26feb1117aebd39a903fc37cd33e573f795416a27b7815694acf783e3bf",
+    "/workspace/bubu/research/animation-0.1.0/original-parts-hybrid-v1/tea/inputs/rigid-config.json": "b63aa7b4d3367c97bd72163329737061d62f3d787dae39f2cd971ff7a48fcc9c",
+    "/workspace/bubu/research/animation-0.1.0/original-parts-hybrid-v1/tea/inputs/hold-fit.json": "419f5d0d929edb977ce8103d4616461bf0e1c8cd09c8f8218b4c9cd611d95f0f",
+    "/workspace/bubu/research/animation-0.1.0/original-parts-hybrid-v1/tea/inputs/sip-fit.json": "7012a0c1869afde8704ba4d084d41407bbf7ee1662edc501d4bc99860b38acb6"
+  },
+  "time": 0.016666666666666666,
+  "strain": {
+    "min": 0.9806505913451438,
+    "max": 1.0199538627825313,
+    "minWitness": {
+      "a": 2259,
+      "b": 2260,
+      "restLength": 0.0038072864989729636,
+      "ratio": 0.9806505913451438
+    },
+    "maxWitness": {
+      "a": 807,
+      "b": 808,
+      "restLength": 0.003398532503577882,
+      "ratio": 1.0199538627825313
+    }
+  },
+  "seams": {
+    "maximum": 0.000003753579738176583,
+    "witness": {
+      "part": "cape_front_edge_0",
+      "section": 18,
+      "clothVertex": 18,
+      "gap": 0.000003753579738176583
+    }
+  },
+  "contacts": [],
+  "limits": {
+    "minimum": 0.8,
+    "maximum": 1.2,
+    "seam": 0.00001
+  },
+  "savedSnapshotPass": true
+}

@@ -2,6 +2,15 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { createFrameOwner } from "./frame-owner.mjs";
 
+test("invalid initial time cannot disable monotonic frame admission", () => {
+  const ports = Object.fromEntries([
+    "advanceBody", "finalizeBody", "sampleAnchors", "updateAttachments",
+    "updateEffects", "render",
+  ].map(name => [name, () => {}]));
+  for (const initialTime of [NaN, Infinity, -Infinity])
+    assert.throws(() => createFrameOwner({ ...ports, initialTime }), /Finite initial/);
+});
+
 test("frame owner commits one time/revision and preserves ordered ownership", () => {
   const events = [];
   let owner;

@@ -1,0 +1,871 @@
+{
+  "format": "bubu-foundation-validation-v1",
+  "status": "passed",
+  "startedAt": "2026-10-25T01:04:03.934Z",
+  "scope": "Research CPU contracts, numeric contact evidence, and optional real Chromium D2 body-path verification",
+  "productionAccepted": false,
+  "environment": {
+    "node": "v24.19.0",
+    "platform": "linux",
+    "arch": "x64",
+    "cpu": "AMD EPYC 9V74 80-Core Processor"
+  },
+  "commit": "c0a8281bbc721f1f7d01afdb0ece6920aebc90f9",
+  "workingTree": " M .gitignore\n M docs/ARCHITECTURE.md\n M docs/VALIDATION.md\n M package-lock.json\n M package.json\n M research/animation-0.1.0/README.md\n M research/animation-0.1.0/animation-foundation-v1/README.md\n M research/animation-0.1.0/animation-foundation-v1/anchors/tests/actual-pose.mjs\n M research/animation-0.1.0/animation-foundation-v1/anchors/tests/profile-extension.mjs\n M research/animation-0.1.0/animation-foundation-v1/body-runtime/authored-face-port.mjs\n M research/animation-0.1.0/animation-foundation-v1/body-runtime/authored-face.test.mjs\n M research/animation-0.1.0/animation-foundation-v1/body-runtime/fixture.mjs\n M research/animation-0.1.0/animation-foundation-v1/body-runtime/host-admission.mjs\n M research/animation-0.1.0/animation-foundation-v1/body-runtime/pointer-host.mjs\n M research/animation-0.1.0/animation-foundation-v1/body-runtime/surface-query.mjs\n M research/animation-0.1.0/animation-foundation-v1/body-runtime/surface-query.test.mjs\n M research/animation-0.1.0/animation-foundation-v1/body-runtime/verify-floor.mjs\n M research/animation-0.1.0/animation-foundation-v1/configuration/CONTRACT.md\n M research/animation-0.1.0/animation-foundation-v1/effects/test-effects.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/README.md\n M research/animation-0.1.0/animation-foundation-v1/integration/asset-bindings.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/asset-fixtures.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/diagnostics/contact-contract-20261019/README.md\n M research/animation-0.1.0/animation-foundation-v1/integration/diagnostics/contact-contract-20261019/RECOVERY-STATUS.md\n M research/animation-0.1.0/animation-foundation-v1/integration/equipment-ownership.test.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/foundation-host.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/frame-owner.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/frame-owner.test.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/resource-admission.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/secondary-world-contract.test.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/verify-authored.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/verify-bindings.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/verify-contract.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/verify-release.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/verify.mjs\n M research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/DESIGN.md\n M research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/README.md\n M research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/thin-surface-mapper.mjs\n M research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/thin-surface-mapper.test.mjs\n M research/animation-0.1.0/animation-foundation-v1/secondary-motion/test-recovery.mjs\n M research/animation-0.1.0/animation-foundation-v1/secondary-motion/test.mjs\n M research/animation-0.1.0/package-lock.json\n M research/animation-0.1.0/package.json\n M research/animation-0.1.0/shared-input-workbench-v2/workbench.html\n?? research/animation-0.1.0/animation-foundation-v1/body-runtime/browser-host.mjs\n?? research/animation-0.1.0/animation-foundation-v1/configuration/fixtures/complete-outfit.mjs\n?? research/animation-0.1.0/animation-foundation-v1/contact/\n?? research/animation-0.1.0/animation-foundation-v1/demo/\n?? research/animation-0.1.0/animation-foundation-v1/integration/asset-resources.mjs\n?? research/animation-0.1.0/animation-foundation-v1/integration/binding-provider.mjs\n?? research/animation-0.1.0/animation-foundation-v1/integration/diagnostics/contact-contract-20261019/export-paths.mjs\n?? research/animation-0.1.0/animation-foundation-v1/integration/diagnostics/contact-contract-20261019/portable-smoke.py\n?? research/animation-0.1.0/animation-foundation-v1/integration/diagnostics/contact-contract-20261019/requirements-replay.txt\n?? research/animation-0.1.0/animation-foundation-v1/integration/evidence-output.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/integration/foundation-lifecycle.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/integration/foundation-runtime.mjs\n?? research/animation-0.1.0/animation-foundation-v1/integration/parts-source.mjs\n?? research/animation-0.1.0/animation-foundation-v1/integration/parts-source.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/integration/resource-admission.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/integration/sakura-part-fit.mjs\n?? research/animation-0.1.0/animation-foundation-v1/integration/sakura-part-fit.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/integration/satchel-part-fit.mjs\n?? research/animation-0.1.0/animation-foundation-v1/integration/satchel-part-fit.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/integration/tea-sample-boundary.mjs\n?? research/animation-0.1.0/animation-foundation-v1/integration/tea-sample-boundary.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/integration/wearable-calibration-fit.mjs\n?? research/animation-0.1.0/animation-foundation-v1/integration/wearable-calibration-fit.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/action-horizon.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/action-horizon.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/attachment-profile.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/attachment-profile.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/attachment-profiles.json\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/author-body-proxy.py\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/author-collision-skin.py\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/body-hull-patches.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/body-hull-patches.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/body-proxy-audit.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/collision-skin.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/collision-skin.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/conforming-cloth-binding.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/conforming-seam-surface.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/conforming-seam-surface.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/conforming-wire-cloth.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/conforming-wire-cloth.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/edge-strain.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/edge-strain.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/export-body-supports.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/fixtures/\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/local-body-proxy.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/local-body-proxy.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/piping-collision-volume.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/piping-collision-volume.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/piping-section-mapper.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/piping-section-mapper.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/regional-collision-skin.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/regional-collision-skin.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/tea-obstacles.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/tea-obstacles.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/transfinite-cloth-mapper.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/transfinite-cloth-mapper.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/wire-section-mapper.mjs\n?? research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/wire-section-mapper.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/verification/audit-20261020/\n?? research/animation-0.1.0/animation-foundation-v1/verification/binding-continuity-20261024/\n?? research/animation-0.1.0/animation-foundation-v1/verification/browser-probe.html\n?? research/animation-0.1.0/animation-foundation-v1/verification/browser-probe.mjs\n?? research/animation-0.1.0/animation-foundation-v1/verification/browser-verify.py\n?? research/animation-0.1.0/animation-foundation-v1/verification/closure-20261020/\n?? research/animation-0.1.0/animation-foundation-v1/verification/cloth-surface-20261024/\n?? research/animation-0.1.0/animation-foundation-v1/verification/convergence-20261024/\n?? research/animation-0.1.0/animation-foundation-v1/verification/demo-20261024/\n?? research/animation-0.1.0/animation-foundation-v1/verification/demo-state-verify.py\n?? research/animation-0.1.0/animation-foundation-v1/verification/evidence-output.mjs\n?? research/animation-0.1.0/animation-foundation-v1/verification/face-render-probe.html\n?? research/animation-0.1.0/animation-foundation-v1/verification/face-render-probe.mjs\n?? research/animation-0.1.0/animation-foundation-v1/verification/face-render-verify.py\n?? research/animation-0.1.0/animation-foundation-v1/verification/flower-fit-20261024/\n?? research/animation-0.1.0/animation-foundation-v1/verification/followup-20261024/\n?? research/animation-0.1.0/animation-foundation-v1/verification/frame-profile.mjs\n?? research/animation-0.1.0/animation-foundation-v1/verification/json_evidence.py\n?? research/animation-0.1.0/animation-foundation-v1/verification/local-contact-20261024/\n?? research/animation-0.1.0/animation-foundation-v1/verification/outfit-fit-visual.py\n?? research/animation-0.1.0/animation-foundation-v1/verification/remaining-20261024/\n?? research/animation-0.1.0/animation-foundation-v1/verification/render-controls.py\n?? research/animation-0.1.0/animation-foundation-v1/verification/requirements.txt\n?? research/animation-0.1.0/animation-foundation-v1/verification/run.mjs\n?? research/animation-0.1.0/animation-foundation-v1/verification/satchel-fit-20261024/\n?? research/animation-0.1.0/animation-foundation-v1/verification/seam-coupling-20261024/\n?? research/animation-0.1.0/animation-foundation-v1/verification/sparse-skinning.mjs\n?? research/animation-0.1.0/animation-foundation-v1/verification/test_json_evidence.py\n?? research/animation-0.1.0/animation-foundation-v1/verification/verify-contact-exports.mjs\n?? research/animation-0.1.0/runtime-facepath05/src/sparse-face-rendering.mjs\n?? research/animation-0.1.0/runtime-facepath05/tests/sparse-face-rendering.test.mjs\n?? scripts/run-project-tests.js\n",
+  "stages": [
+    {
+      "id": "prepare-d2",
+      "status": "passed",
+      "command": [
+        "python3",
+        "runtime-facepath05/tools/materialize-d2.py"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 38.44754600000002,
+      "counts": {},
+      "log": "prepare-d2.log"
+    },
+    {
+      "id": "prepare-full18",
+      "status": "passed",
+      "command": [
+        "python3",
+        "runtime-facepath05/tools/materialize-full18.py"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 37.70840900000002,
+      "counts": {},
+      "log": "prepare-full18.log"
+    },
+    {
+      "id": "preflight",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/verify-portability.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 59.42967200000004,
+      "counts": {},
+      "log": "preflight.log"
+    },
+    {
+      "id": "foundation",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/body-runtime/approved-pointer.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/body-runtime/authored-face.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/body-runtime/held-target.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/body-runtime/surface-affine.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/body-runtime/surface-query.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/configuration/tests/action-strategy.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/configuration/tests/configuration.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/action-effect-lifecycle.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/equipment-ownership.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/evidence-output.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/foundation-lifecycle.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/frame-owner.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/parts-source.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/resource-admission.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/sakura-part-fit.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/satchel-part-fit.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/scene-budget.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/secondary-world-contract.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/tea-sample-boundary.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/wearable-calibration-fit.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/contact/admission.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/contact/rigid-fit-snapshot.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/contact/rigid-mount-domain.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/contact/surface-probe.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/contact/tea-clearance-candidate.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/contact/tea-cup-motion-bound.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/contact/tea-hand-motion-bound.test.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 27552.445691,
+      "counts": {
+        "tests": 172,
+        "pass": 172,
+        "fail": 0,
+        "skipped": 0
+      },
+      "log": "foundation.log"
+    },
+    {
+      "id": "expression-owner",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/actor-pool.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/art-preflight.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/authored-clip.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/clip-contract.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/context-lifecycle.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/contracts.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/d2-owner.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/d2-style.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/d2-weighted-owner.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/expression-owner.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/face-binding.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/face-suite.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/face-timeline.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/full18-owner.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/full18.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/lifecycle.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/measurement.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/neutral-suite.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/preparse-budget.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/smoke.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/sparse-face-rendering.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/timeline.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/weighted-owner.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/test/director.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/test/observer.test.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 54582.55644700001,
+      "counts": {
+        "tests": 337,
+        "pass": 337,
+        "fail": 0,
+        "skipped": 0
+      },
+      "log": "expression-owner.log"
+    },
+    {
+      "id": "expression-policy",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "/workspace/bubu/research/animation-0.1.0/expression-scheduler-p1/test/lifecycle.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/expression-scheduler-p1/test/scheduler.test.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 94.75343799999973,
+      "counts": {
+        "tests": 26,
+        "pass": 26,
+        "fail": 0,
+        "skipped": 0
+      },
+      "log": "expression-policy.log"
+    },
+    {
+      "id": "input-source-identity",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/shared-input-workbench-v2/tools/verify-dependencies.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 35.89428799999587,
+      "counts": {},
+      "log": "input-source-identity.log"
+    },
+    {
+      "id": "input",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "/workspace/bubu/research/animation-0.1.0/shared-input-workbench-v2/tests/d2-body.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/shared-input-workbench-v2/tests/d2-pointer.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/shared-input-workbench-v2/tests/pointer.test.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 57029.31353900001,
+      "counts": {
+        "tests": 62,
+        "pass": 62,
+        "fail": 0,
+        "skipped": 0
+      },
+      "log": "input.log"
+    },
+    {
+      "id": "original-parts-tea",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "/workspace/bubu/research/animation-0.1.0/original-parts-hybrid-v1/runtime/tests/mixed-binding-adapter.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/original-parts-hybrid-v1/runtime/tests/mixed-binding-contract.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/original-parts-hybrid-v1/runtime/tests/split-limb-adapter.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/original-parts-hybrid-v1/tea/tests/rigid-tea.test.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 147.4249439999985,
+      "counts": {
+        "tests": 30,
+        "pass": 30,
+        "fail": 0,
+        "skipped": 0
+      },
+      "log": "original-parts-tea.log"
+    },
+    {
+      "id": "theme-ledger",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "/workspace/bubu/research/animation-0.1.0/theme-state-ledger-v2/test/capacity.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/theme-state-ledger-v2/test/checkpoint.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/theme-state-ledger-v2/test/ledger.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/theme-state-ledger-v2/test/replay.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/theme-state-ledger-v2/test/window.test.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 2746.0530499999877,
+      "counts": {
+        "tests": 150,
+        "pass": 150,
+        "fail": 0,
+        "skipped": 0
+      },
+      "log": "theme-ledger.log"
+    },
+    {
+      "id": "scene-coordinator",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "/workspace/bubu/research/animation-0.1.0/scene-coordinator-v1/test/coordinator.test.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 83.2818059999845,
+      "counts": {
+        "tests": 19,
+        "pass": 19,
+        "fail": 0,
+        "skipped": 0
+      },
+      "log": "scene-coordinator.log"
+    },
+    {
+      "id": "theme-adapter-restore",
+      "status": "passed",
+      "command": [
+        "python3",
+        "theme-commit-adapter/restore-harness.py",
+        "--repo",
+        "/workspace/bubu",
+        "--out",
+        "/tmp/bubu-boundary-coupling-verification-20261025/theme-adapter"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 1384.4592019999982,
+      "counts": {},
+      "log": "theme-adapter-restore.log"
+    },
+    {
+      "id": "theme-adapter-tests",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "/tmp/bubu-boundary-coupling-verification-20261025/theme-adapter/tests/commit-integration.test.cjs",
+        "/tmp/bubu-boundary-coupling-verification-20261025/theme-adapter/tests/schema21-upgrade.test.cjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 608.4940750000242,
+      "counts": {
+        "tests": 24,
+        "pass": 24,
+        "fail": 0,
+        "skipped": 0
+      },
+      "log": "theme-adapter-tests.log"
+    },
+    {
+      "id": "anchor-profile",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/anchors/tests/profile-extension.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 64.9677720000036,
+      "counts": {},
+      "log": "anchor-profile.log"
+    },
+    {
+      "id": "anchor-actual-pose",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/anchors/tests/actual-pose.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 2542.5753609999956,
+      "counts": {},
+      "log": "anchor-actual-pose.log"
+    },
+    {
+      "id": "floor",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/body-runtime/verify-floor.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 34386.22817000002,
+      "counts": {},
+      "log": "floor.log"
+    },
+    {
+      "id": "secondary-motion",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/test.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 3594.126381000009,
+      "counts": {},
+      "log": "secondary-motion.log"
+    },
+    {
+      "id": "secondary-recovery",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/test-recovery.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 961.1652469999972,
+      "counts": {},
+      "log": "secondary-recovery.log"
+    },
+    {
+      "id": "effects",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/effects/test-effects.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 659.6240939999989,
+      "counts": {},
+      "log": "effects.log"
+    },
+    {
+      "id": "contract",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/verify-contract.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 906.1142920000129,
+      "counts": {},
+      "log": "contract.log"
+    },
+    {
+      "id": "authored-actions",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/verify-authored.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 3898.873404999991,
+      "counts": {},
+      "log": "authored-actions.log"
+    },
+    {
+      "id": "prop-release",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/verify-release.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 3023.358046999987,
+      "counts": {},
+      "log": "prop-release.log"
+    },
+    {
+      "id": "integration",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--expose-gc",
+        "animation-foundation-v1/integration/verify.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 5088.610525999975,
+      "counts": {},
+      "log": "integration.log"
+    },
+    {
+      "id": "contact-replay",
+      "status": "passed",
+      "command": [
+        "python3",
+        "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/portable-smoke.py",
+        "--output",
+        "/tmp/bubu-boundary-coupling-verification-20261025/contact-replay.json"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 35363.80975399999,
+      "counts": {},
+      "log": "contact-replay.log"
+    },
+    {
+      "id": "contact-cape-source",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/diagnostics/contact-contract-20261019/export.mjs",
+        "--output-dir",
+        "/tmp/bubu-boundary-coupling-verification-20261025/contact-source"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 149.23934000000008,
+      "counts": {},
+      "log": "contact-cape-source.log"
+    },
+    {
+      "id": "contact-motion-source",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/diagnostics/contact-contract-20261019/export-motion.mjs",
+        "--output-dir",
+        "/tmp/bubu-boundary-coupling-verification-20261025/contact-source"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 63.72593700001016,
+      "counts": {},
+      "log": "contact-motion-source.log"
+    },
+    {
+      "id": "contact-source-equivalence",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/verification/verify-contact-exports.mjs",
+        "/tmp/bubu-boundary-coupling-verification-20261025/contact-source"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 41.633050999982515,
+      "counts": {},
+      "log": "contact-source-equivalence.log"
+    },
+    {
+      "id": "contact-endpoint-feasibility",
+      "status": "passed",
+      "command": [
+        "python3",
+        "animation-foundation-v1/contact/endpoint-feasibility.py",
+        "--output",
+        "/tmp/bubu-boundary-coupling-verification-20261025/endpoint-exclusion.json"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 10208.755699000001,
+      "counts": {},
+      "log": "contact-endpoint-feasibility.log"
+    },
+    {
+      "id": "frame-profile",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/verification/frame-profile.mjs",
+        "--output",
+        "/tmp/bubu-boundary-coupling-verification-20261025/frame-profile.json"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 4835.730674999999,
+      "counts": {},
+      "log": "frame-profile.log"
+    },
+    {
+      "id": "outfit-surface-sweep",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/contact/outfit-sweep.mjs",
+        "/tmp/bubu-boundary-coupling-verification-20261025/outfit-contact"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 66339.995921,
+      "counts": {},
+      "log": "outfit-surface-sweep.log"
+    },
+    {
+      "id": "outfit-reference-sweep",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/contact/outfit-sweep.mjs",
+        "/tmp/bubu-boundary-coupling-verification-20261025/outfit-reference",
+        "--reference"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 57336.13345199998,
+      "counts": {},
+      "log": "outfit-reference-sweep.log"
+    },
+    {
+      "id": "tea-cup-clearance",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/contact/tea-clearance-sweep.mjs",
+        "/tmp/bubu-boundary-coupling-verification-20261025/tea-cup-clearance"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 38736.74544900004,
+      "counts": {},
+      "log": "tea-cup-clearance.log"
+    },
+    {
+      "id": "cape-fixed-support-continuity",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/contact/cape-pin-sweep.mjs",
+        "/tmp/bubu-boundary-coupling-verification-20261025/cape-fixed-supports"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 1929.6099739999627,
+      "counts": {},
+      "log": "cape-fixed-support-continuity.log"
+    },
+    {
+      "id": "bounded-fit-obstruction",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/contact/fit-obstruction.mjs",
+        "/tmp/bubu-boundary-coupling-verification-20261025/fit-obstruction"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 2975.7327840000507,
+      "counts": {},
+      "log": "bounded-fit-obstruction.log"
+    },
+    {
+      "id": "cloth-probe-contracts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/action-horizon.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/attachment-profile.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/body-hull-patches.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/collision-skin.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/conforming-seam-surface.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/conforming-wire-cloth.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/edge-strain.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/local-body-proxy.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/piping-collision-volume.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/piping-section-mapper.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/regional-collision-skin.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/tea-obstacles.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/thin-surface-mapper.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/transfinite-cloth-mapper.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/wire-section-mapper.test.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 36916.83252600004,
+      "counts": {
+        "tests": 45,
+        "pass": 45,
+        "fail": 0,
+        "skipped": 0
+      },
+      "log": "cloth-probe-contracts.log"
+    },
+    {
+      "id": "browser-evidence-format",
+      "status": "passed",
+      "command": [
+        "python3",
+        "animation-foundation-v1/verification/test_json_evidence.py"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 54.690941000008024,
+      "counts": {},
+      "log": "browser-evidence-format.log"
+    },
+    {
+      "id": "browser-webgl",
+      "status": "passed",
+      "command": [
+        "python3",
+        "animation-foundation-v1/verification/browser-verify.py",
+        "--output",
+        "/tmp/bubu-boundary-coupling-verification-20261025/browser",
+        "--browser",
+        "/usr/bin/chromium",
+        "--software"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 65741.63052,
+      "counts": {},
+      "log": "browser-webgl.log"
+    }
+  ],
+  "gates": {
+    "capeTea": {
+      "status": "blocked",
+      "reason": "original-65-pin-conflict; repaired-private-51-pin-profile-still-needs-free-cloth-and-render-contact"
+    },
+    "dynamicCloth": {
+      "status": "blocked",
+      "reason": "real-time-budget-not-met"
+    },
+    "nativeInput": {
+      "status": "not-run"
+    },
+    "webglAndGPURecovery": {
+      "status": "partial",
+      "browserWebGL": "passed",
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "hardwareGPURecovery": "not-run",
+      "nativeDesktop": "not-run",
+      "reason": "Browser object lifecycle counts do not establish physical GPU memory or desktop-window acceptance"
+    },
+    "stableFrameTime": {
+      "status": "failed",
+      "evidence": {
+        "samples": 900,
+        "median": 1.2651489999998375,
+        "p95": 2.493823999999904,
+        "max": 14.128401000000167,
+        "includes": "body + hybrid + anchors + secondary + effects; excludes GPU"
+      },
+      "profilePasses": {
+        "0": {
+          "n": 900,
+          "median": 1.4164620000001378,
+          "p95": 2.5751430000000255,
+          "p99": 3.5617919999999685,
+          "max": 13.849448000000166
+        },
+        "1": {
+          "n": 900,
+          "median": 1.260682000000088,
+          "p95": 2.455155999999988,
+          "p99": 3.2503719999999703,
+          "max": 11.651462000000265
+        },
+        "2": {
+          "n": 900,
+          "median": 1.2468610000005356,
+          "p95": 2.4438199999999597,
+          "p99": 3.173047000000224,
+          "max": 6.824450999999954
+        }
+      },
+      "profileOverBudgetFrames": 0,
+      "reason": "Observed browser frame intervals exceed the 60 Hz budget; renderer identity remains explicit",
+      "browserFrameIntervals": {
+        "p50": 117.19999999552965,
+        "p95": 197.39999999850988,
+        "max": 257.8999999985099
+      }
+    },
+    "fullWardrobeContact": {
+      "status": "not-established",
+      "samples": 481,
+      "framesWithContacts": 0,
+      "observedPairs": [],
+      "haloContactPairs": [],
+      "floraContactPairs": [],
+      "floraMinimumSurfaceGap": {
+        "pair": [
+          "sakura/sakura_leaf_019",
+          "leaf/forest_leaf"
+        ],
+        "distance": 0.00042099430786059655
+      },
+      "continuousContact": "partial-rigid-domain-only",
+      "containment": "not-run",
+      "rigidMountContinuousDomain": {
+        "scope": "Conditional continuous surface separation under a common proper rigid transform",
+        "proof": "(G C_a)^-1 (G C_b) = C_a^-1 C_b; proper rigid transforms preserve all triangle distances",
+        "boneIndex": 0,
+        "pairs": [
+          {
+            "groups": [
+              "sakura",
+              "leaf"
+            ],
+            "pair": [
+              "sakura/sakura_leaf_019",
+              "leaf/forest_leaf"
+            ],
+            "distance": 0.00042099430786059655,
+            "clearanceAfterNumericalAllowance": 0.00041999430786059653
+          },
+          {
+            "groups": [
+              "sakura",
+              "halo"
+            ],
+            "pair": [
+              "sakura/sakura_petal_0",
+              "halo/halo_ring"
+            ],
+            "distance": 0.005553063883293605,
+            "clearanceAfterNumericalAllowance": 0.005552063883293605
+          },
+          {
+            "groups": [
+              "leaf",
+              "halo"
+            ],
+            "pair": [
+              "leaf/forest_leaf",
+              "halo/halo_ring"
+            ],
+            "distance": 0.18005952841476075,
+            "clearanceAfterNumericalAllowance": 0.18005852841476075
+          }
+        ],
+        "premiseChecks": 481,
+        "maximumRelativeDrift": 1.3426759704060487e-15,
+        "wholeWardrobeAccepted": false,
+        "exclusions": [
+          "No guarantee for non-rigid common transforms or changed anchors/geometry.",
+          "Body, tail, cape and satchel pairs, containment, self-contact and finite material thickness remain outside this certificate."
+        ]
+      },
+      "reason": "Sampled full-outfit surfaces still require intentional-contact classification and continuous/containment verification"
+    },
+    "cupClaspCandidate": {
+      "status": "partial",
+      "sampledCupCapeClear": true,
+      "samples": 1173,
+      "continuousFixedClasp": "certified",
+      "certifiedIntervals": 295,
+      "scope": "Derived bounded motion candidate; hands/cloth/body and runtime admission remain unaccepted"
+    },
+    "capeFixedSupportCandidate": {
+      "status": "partial",
+      "profile": "tea-swept-51-v1",
+      "retained": 51,
+      "released": 14,
+      "variants": {
+        "baseline": {
+          "continuous": "certified",
+          "certifiedIntervals": 60,
+          "originalInsideSupports": 14,
+          "legacyInsideSupports": 6
+        },
+        "candidate": {
+          "continuous": "certified",
+          "certifiedIntervals": 64,
+          "originalInsideSupports": 14,
+          "legacyInsideSupports": 6
+        }
+      },
+      "scope": "Fixed points with original 0.003 radius only; free cloth, finite attachment patches, render contact and production admission remain unaccepted"
+    }
+  },
+  "sourcesUnchanged": true,
+  "finishedAt": "2026-10-25T01:12:44.304Z"
+}

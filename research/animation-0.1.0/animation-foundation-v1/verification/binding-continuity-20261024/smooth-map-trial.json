@@ -1,0 +1,263 @@
+{
+  "scope": "Saved poses only, no full dynamics/acceptance",
+  "accepted": false,
+  "rows": [
+    {
+      "run": "trajectory-51-render-audit",
+      "time": 0.06666666666666667,
+      "strain": [
+        {
+          "part": "cape_cloth",
+          "min": 0.940466703192746,
+          "max": 1.0712384169106455,
+          "minWitness": [
+            982,
+            983
+          ],
+          "maxWitness": [
+            2966,
+            2967
+          ]
+        },
+        {
+          "part": "cape_back_edge",
+          "min": 0.9910066266213223,
+          "max": 1.0525142719224658,
+          "minWitness": [
+            2027,
+            2002
+          ],
+          "maxWitness": [
+            2046,
+            2034
+          ]
+        },
+        {
+          "part": "cape_hem",
+          "min": 0.9863881688103175,
+          "max": 1.0495408021990986,
+          "minWitness": [
+            59,
+            47
+          ],
+          "maxWitness": [
+            2048,
+            2036
+          ]
+        },
+        {
+          "part": "cape_front_edge_0",
+          "min": 0.9911114313160762,
+          "max": 1.0543982436515922,
+          "minWitness": [
+            125,
+            113
+          ],
+          "maxWitness": [
+            6,
+            19
+          ]
+        },
+        {
+          "part": "cape_front_edge_1",
+          "min": 0.9999878902464631,
+          "max": 1.036228976936494,
+          "minWitness": [
+            110,
+            109
+          ],
+          "maxWitness": [
+            246,
+            233
+          ]
+        },
+        {
+          "part": "cape_clasp",
+          "min": 1,
+          "max": 1,
+          "minWitness": [
+            10,
+            1020
+          ],
+          "maxWitness": [
+            10,
+            1020
+          ]
+        }
+      ],
+      "contacts": []
+    },
+    {
+      "run": "trajectory-rigid-sections-v3",
+      "time": 0.5166666666666667,
+      "strain": [
+        {
+          "part": "cape_cloth",
+          "min": 0.815603134500999,
+          "max": 1.1219009878057857,
+          "minWitness": [
+            2561,
+            2562
+          ],
+          "maxWitness": [
+            607,
+            588
+          ]
+        },
+        {
+          "part": "cape_back_edge",
+          "min": 0.9560885657140465,
+          "max": 1.0907988349393751,
+          "minWitness": [
+            375,
+            363
+          ],
+          "maxWitness": [
+            2033,
+            2021
+          ]
+        },
+        {
+          "part": "cape_hem",
+          "min": 0.9860521652599137,
+          "max": 1.1416321198666037,
+          "minWitness": [
+            59,
+            47
+          ],
+          "maxWitness": [
+            399,
+            412
+          ]
+        },
+        {
+          "part": "cape_front_edge_0",
+          "min": 0.9899449676653193,
+          "max": 1.062382847669974,
+          "minWitness": [
+            125,
+            113
+          ],
+          "maxWitness": [
+            6,
+            19
+          ]
+        },
+        {
+          "part": "cape_front_edge_1",
+          "min": 0.999989773817892,
+          "max": 1.0637644399296227,
+          "minWitness": [
+            103,
+            102
+          ],
+          "maxWitness": [
+            246,
+            233
+          ]
+        },
+        {
+          "part": "cape_clasp",
+          "min": 1,
+          "max": 1,
+          "minWitness": [
+            10,
+            1020
+          ],
+          "maxWitness": [
+            10,
+            1020
+          ]
+        }
+      ],
+      "contacts": []
+    },
+    {
+      "run": "trajectory-51",
+      "time": 0.5333333333333333,
+      "strain": [
+        {
+          "part": "cape_cloth",
+          "min": 0.7194818067469095,
+          "max": 1.146478375554453,
+          "minWitness": [
+            2501,
+            2502
+          ],
+          "maxWitness": [
+            607,
+            588
+          ]
+        },
+        {
+          "part": "cape_back_edge",
+          "min": 0.9608886226787878,
+          "max": 1.0834077623388736,
+          "minWitness": [
+            1748,
+            1736
+          ],
+          "maxWitness": [
+            2033,
+            2021
+          ]
+        },
+        {
+          "part": "cape_hem",
+          "min": 0.9859814877945725,
+          "max": 1.169753021857017,
+          "minWitness": [
+            59,
+            47
+          ],
+          "maxWitness": [
+            399,
+            412
+          ]
+        },
+        {
+          "part": "cape_front_edge_0",
+          "min": 0.9893547700779718,
+          "max": 1.0634446680670813,
+          "minWitness": [
+            125,
+            113
+          ],
+          "maxWitness": [
+            6,
+            19
+          ]
+        },
+        {
+          "part": "cape_front_edge_1",
+          "min": 0.9999881783296117,
+          "max": 1.0620290735077387,
+          "minWitness": [
+            150,
+            149
+          ],
+          "maxWitness": [
+            246,
+            233
+          ]
+        },
+        {
+          "part": "cape_clasp",
+          "min": 1,
+          "max": 1,
+          "minWitness": [
+            10,
+            1020
+          ],
+          "maxWitness": [
+            10,
+            1020
+          ]
+        }
+      ],
+      "contacts": [
+        "cape_back_edge/body"
+      ]
+    }
+  ]
+}

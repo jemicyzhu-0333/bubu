@@ -85,9 +85,20 @@ export function createAdmissionFactory({
       sources: ["testfixture"],
     });
     policy.candidates.push(...PET_CANDIDATES);
-    policy.candidates.push(
-      ...admitAuthoredFaces(authoredFaces, FULL_FACE_SLOT_IDS),
-    );
+    const authoredCandidates = admitAuthoredFaces(authoredFaces, FULL_FACE_SLOT_IDS);
+    const aliases = new Map();
+    for (const candidate of authoredCandidates) {
+      const existing = policy.candidates.find(item =>
+        item.faceId === candidate.faceId && item.amount === candidate.amount &&
+        item.enterSec === candidate.enterSec && item.exitSec === candidate.exitSec);
+      aliases.set(candidate.key, existing?.key ?? candidate.key);
+      if (!existing) policy.candidates.push(candidate);
+    }
+    const authoredFaceKeys = authoredFaces.map((value, index) => {
+      const first = authoredFaces.findIndex(other => other.candidate === value.candidate &&
+        other.amount === value.amount && other.enterSec === value.enterSec && other.exitSec === value.exitSec);
+      return aliases.get(`authored${first}`);
+    });
     let owner;
     try {
       owner = new WeightedExpressionOwner({
@@ -98,7 +109,7 @@ export function createAdmissionFactory({
         visibilityPolicy: "freeze",
       });
       await owner.ready;
-      return { owner, pool, pack };
+      return { owner, pool, pack, authoredFaceKeys };
     } catch (error) {
       try {
         owner?.dispose();

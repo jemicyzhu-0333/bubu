@@ -1,0 +1,34 @@
+{
+  "status": "completed",
+  "accepted": false,
+  "scope": "Independent saved actual render geometry replay; no realtime or full-trajectory claim",
+  "time": 0.06666666666666667,
+  "sourceHash": "5888814c2bd2b4627b3abab0e6133388e60fccb26b14e887e5556352d9c50d01",
+  "savedRenderHash": "d54d535fd44b7fe7a1578fa4dd3492338d9ebe6d2cf2980e5bc3b0aaf57c534c",
+  "limits": {
+    "minimumStrain": 0.8,
+    "maximumStrain": 1.2,
+    "pinError": 0.00001
+  },
+  "strain": {
+    "minimum": 0.8482988634328105,
+    "maximum": 1.2064641337584325,
+    "minimumWitness": {
+      "part": "cape_cloth",
+      "a": 57,
+      "b": 58,
+      "restLength": 0.00620694565732033,
+      "ratio": 0.8482988634328105
+    },
+    "maximumWitness": {
+      "part": "cape_cloth",
+      "a": 3002,
+      "b": 3003,
+      "restLength": 0.005571074198785495,
+      "ratio": 1.2064641337584325
+    }
+  },
+  "contacts": [],
+  "renderPinError": 1.3328003749250113e-7,
+  "failureReproduced": true
+}

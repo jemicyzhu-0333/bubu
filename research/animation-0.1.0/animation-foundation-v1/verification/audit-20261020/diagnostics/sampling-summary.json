@@ -1,0 +1,128 @@
+{
+  "scope": "Whole-process sampled CPU including startup; not exact attribution of the earlier 29.9 ms spikes. Instrumentation changes timing.",
+  "command": "DETAIL=1 node --cpu-prof --cpu-prof-name=foundation.cpuprofile --trace-deopt animation-foundation-v1/verification/frame-profile.mjs --output frame-profile.json",
+  "scriptSHA256": "a628db1cd42f254dc885c1d610c04fb49ec750ee1ffcde058077ba7f8388f03b",
+  "deoptimizationEvents": 317,
+  "hotSelfSamples": [
+    {
+      "function": "applyBoneTransform",
+      "url": "file:///workspace/bubu/research/animation-0.1.0/node_modules/three/build/three.core.js",
+      "line": 24775,
+      "sampledMs": 753.509
+    },
+    {
+      "function": "minimum",
+      "url": "file:///workspace/bubu/research/animation-0.1.0/animation-foundation-v1/body-runtime/floor-query.mjs",
+      "line": 117,
+      "sampledMs": 344.288
+    },
+    {
+      "function": "computeVertexNormals",
+      "url": "file:///workspace/bubu/research/animation-0.1.0/node_modules/three/build/three.core.js",
+      "line": 19366,
+      "sampledMs": 329.39
+    },
+    {
+      "function": "multiplyMatrices",
+      "url": "file:///workspace/bubu/research/animation-0.1.0/node_modules/three/build/three.core.js",
+      "line": 10570,
+      "sampledMs": 242.432
+    },
+    {
+      "function": "fromBufferAttribute",
+      "url": "file:///workspace/bubu/research/animation-0.1.0/node_modules/three/build/three.core.js",
+      "line": 5997,
+      "sampledMs": 207.86
+    },
+    {
+      "function": "(garbage collector)",
+      "url": "",
+      "line": 0,
+      "sampledMs": 197.88
+    },
+    {
+      "function": "",
+      "url": "file:///workspace/bubu/research/animation-0.1.0/node_modules/three/build/three.core.js",
+      "line": 6044,
+      "sampledMs": 149.974
+    },
+    {
+      "function": "assertCurrent",
+      "url": "file:///workspace/bubu/research/animation-0.1.0/runtime-facepath05/src/face-suite.mjs",
+      "line": 60,
+      "sampledMs": 139.847
+    },
+    {
+      "function": "deform",
+      "url": "file:///workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/index.mjs",
+      "line": 265,
+      "sampledMs": 137.515
+    },
+    {
+      "function": "decodePrepared",
+      "url": "file:///workspace/bubu/research/animation-0.1.0/runtime-facepath05/src/art-glb-preflight.mjs",
+      "line": 360,
+      "sampledMs": 119.013
+    },
+    {
+      "function": "compare",
+      "url": "file:///workspace/bubu/research/animation-0.1.0/runtime-facepath05/src/neutral-source-check.mjs",
+      "line": 37,
+      "sampledMs": 108.394
+    },
+    {
+      "function": "assertCurrent",
+      "url": "file:///workspace/bubu/research/animation-0.1.0/runtime-facepath05/src/face-binding.mjs",
+      "line": 33,
+      "sampledMs": 107.197
+    },
+    {
+      "function": "getVertexPosition",
+      "url": "file:///workspace/bubu/research/animation-0.1.0/node_modules/three/build/three.core.js",
+      "line": 24669,
+      "sampledMs": 103.025
+    },
+    {
+      "function": "getX",
+      "url": "file:///workspace/bubu/research/animation-0.1.0/node_modules/three/build/three.core.js",
+      "line": 17333,
+      "sampledMs": 101.957
+    },
+    {
+      "function": "compileSourceTextModule",
+      "url": "node:internal/modules/esm/utils",
+      "line": 316,
+      "sampledMs": 99.871
+    },
+    {
+      "function": "updateMatrixWorld",
+      "url": "file:///workspace/bubu/research/animation-0.1.0/node_modules/three/build/three.core.js",
+      "line": 13067,
+      "sampledMs": 99.668
+    },
+    {
+      "function": "minimumFoot",
+      "url": "file:///workspace/bubu/research/animation-0.1.0/animation-foundation-v1/body-runtime/body-adapter.mjs",
+      "line": 91,
+      "sampledMs": 77.431
+    },
+    {
+      "function": "assertCurrent",
+      "url": "file:///workspace/bubu/research/animation-0.1.0/runtime-facepath05/src/d2-face-style.mjs",
+      "line": 41,
+      "sampledMs": 74.857
+    },
+    {
+      "function": "plan",
+      "url": "file:///workspace/bubu/research/animation-0.1.0/scene-coordinator-v1/src/coordinator.mjs",
+      "line": 137,
+      "sampledMs": 66.755
+    },
+    {
+      "function": "sampleWeightedFrame",
+      "url": "file:///workspace/bubu/research/animation-0.1.0/animation-foundation-v1/anchors/weighted-frame.mjs",
+      "line": 12,
+      "sampledMs": 65.296
+    }
+  ]
+}

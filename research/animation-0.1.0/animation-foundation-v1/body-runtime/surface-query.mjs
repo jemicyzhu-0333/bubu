@@ -86,6 +86,7 @@ export function createSurfaceQuery({ THREE: T, MeshBVH, skin, assertCurrent }) {
     vertices: count,
     deformedVertices: count,
     rigidGroups: 0,
+    preparationRefitMs:0,
   };
   function guard() {
     if (closed) throw Error("Surface query disposed");
@@ -208,6 +209,9 @@ export function createSurfaceQuery({ THREE: T, MeshBVH, skin, assertCurrent }) {
       diagnostics.refits++;
     } else {
       bvh = new MeshBVH(geometry, { indirect: true });
+      // Exercise the unchanged refit path once while this query is still
+      // being prepared. The first pointer event must not initialize it.
+      const begin=performance.now();bvh.refit();diagnostics.preparationRefitMs=performance.now()-begin;
       diagnostics.preparations++;
     }
     stamp = next;

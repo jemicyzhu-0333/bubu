@@ -1,0 +1,10 @@
+{
+  "scope": "Private diagnostic variant; triangle shape matching; no default admission",
+  "sha256": {
+    "temporary-triangle-metric-20261024-region.mjs": "0ce20d3adfff246d0e1a70e1d97171b7eb0ac4129cd38e792515b422a14f454b",
+    "temporary-triangle-metric-20261024-endpoint.mjs": "25de09169be9d07ffadbe4791bb58fd654c750e35dc4b78bbca8425d8525b6e5"
+  },
+  "adopted": false,
+  "preservedOutsideResearchTree": true,
+  "reproduction": "Copy the two archived diagnostic sources into the cloth-probe directory only in an isolated checkout; run the recorded endpoint command; remove those two files after the diagnostic."
+}

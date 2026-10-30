@@ -1,0 +1,388 @@
+{
+  "updatedAt": "2026-10-24T17:51:50.323021+00:00",
+  "status": "checkpoint-ready",
+  "productionAccepted": false,
+  "repository": "bubu",
+  "branch": "feature/pet-animation-v2",
+  "pairs": [
+    {
+      "pair": "body/Bubu_hand-right <> satchel/satchel_continuous_strap",
+      "samples": 481,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0,
+      "rootCause": "pre-existing rest fit",
+      "repairScope": "New versioned attachment/fit candidate, preserving source models and controller; current translation-only box insufficient for proven satchel pairs",
+      "authorization": "Private diagnostic and owned-copy implementation allowed; no frozen-source rewrite authorized",
+      "status": "failed"
+    },
+    {
+      "pair": "body/Bubu_body <> sakura/sakura_petal_1",
+      "samples": 481,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0,
+      "rootCause": "pre-existing rest fit",
+      "repairScope": "New versioned attachment/fit candidate, preserving source models and controller; current translation-only box insufficient for proven satchel pairs",
+      "authorization": "Private diagnostic and owned-copy implementation allowed; no frozen-source rewrite authorized",
+      "status": "failed"
+    },
+    {
+      "pair": "body/Bubu_body <> sakura/sakura_petal_2",
+      "samples": 481,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0,
+      "rootCause": "pre-existing rest fit",
+      "repairScope": "New versioned attachment/fit candidate, preserving source models and controller; current translation-only box insufficient for proven satchel pairs",
+      "authorization": "Private diagnostic and owned-copy implementation allowed; no frozen-source rewrite authorized",
+      "status": "failed"
+    },
+    {
+      "pair": "body/Bubu_body <> sakura/sakura_leaf_-019",
+      "samples": 481,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0,
+      "rootCause": "pre-existing rest fit",
+      "repairScope": "New versioned attachment/fit candidate, preserving source models and controller; current translation-only box insufficient for proven satchel pairs",
+      "authorization": "Private diagnostic and owned-copy implementation allowed; no frozen-source rewrite authorized",
+      "status": "failed"
+    },
+    {
+      "pair": "body/Bubu_body <> satchel/satchel_pouch",
+      "samples": 481,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0,
+      "rootCause": "pre-existing rest fit",
+      "repairScope": "New versioned attachment/fit candidate, preserving source models and controller; current translation-only box insufficient for proven satchel pairs",
+      "authorization": "Private diagnostic and owned-copy implementation allowed; no frozen-source rewrite authorized",
+      "status": "failed"
+    },
+    {
+      "pair": "satchel/satchel_continuous_strap <> cape/cape_edge_0",
+      "samples": 479,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0.03333333333333333,
+      "rootCause": "secondary deformation; endpoint-sphere guard does not cover rendered surfaces",
+      "repairScope": "Shape-aware, pair-aware secondary constraints; uniform cap tested and rejected because all motion stops",
+      "authorization": "Private diagnostic and owned-copy implementation allowed; no frozen-source rewrite authorized",
+      "status": "failed"
+    },
+    {
+      "pair": "body/Bubu_body <> cape/cape_edge_0",
+      "samples": 200,
+      "phases": [
+        "drag",
+        "landing",
+        "idle"
+      ],
+      "firstTime": 3.183333333333333,
+      "rootCause": "secondary deformation; endpoint-sphere guard does not cover rendered surfaces",
+      "repairScope": "Shape-aware, pair-aware secondary constraints; uniform cap tested and rejected because all motion stops",
+      "authorization": "Private diagnostic and owned-copy implementation allowed; no frozen-source rewrite authorized",
+      "status": "failed"
+    },
+    {
+      "pair": "satchel/satchel_continuous_strap <> cape/cape_cloth",
+      "samples": 290,
+      "phases": [
+        "drag",
+        "landing",
+        "idle"
+      ],
+      "firstTime": 3.183333333333333,
+      "rootCause": "secondary deformation; endpoint-sphere guard does not cover rendered surfaces",
+      "repairScope": "Shape-aware, pair-aware secondary constraints; uniform cap tested and rejected because all motion stops",
+      "authorization": "Private diagnostic and owned-copy implementation allowed; no frozen-source rewrite authorized",
+      "status": "failed"
+    },
+    {
+      "pair": "body/Bubu_body <> satchel/satchel_continuous_strap",
+      "samples": 4,
+      "phases": [
+        "landing"
+      ],
+      "firstTime": 5.1,
+      "rootCause": "secondary deformation; endpoint-sphere guard does not cover rendered surfaces",
+      "repairScope": "Shape-aware, pair-aware secondary constraints; uniform cap tested and rejected because all motion stops",
+      "authorization": "Private diagnostic and owned-copy implementation allowed; no frozen-source rewrite authorized",
+      "status": "failed"
+    }
+  ],
+  "boundedAttempts": {
+    "flowerPlaneFit": "328 local separating-plane constraints infeasible within existing translation bounds; not a global infeasibility proof",
+    "uniformAngleCap": {
+      "rad": 5.391260486427593e-05,
+      "dynamicPairsRemoved": 4,
+      "deformationPasses": 0,
+      "fallbackSteps": 480,
+      "adopted": false,
+      "reason": "Disables secondary motion"
+    },
+    "clothWarmStart": {
+      "initialContacts": 0,
+      "firstFailureTime": 0.55,
+      "coarseContacts": 0,
+      "renderContacts": [
+        "cape_back_edge/body",
+        "cape_front_edge_1/body"
+      ],
+      "strain": [
+        0.8343615785838612,
+        1.1419238277310906
+      ],
+      "rootCause": "Rendered detail/thickness extends beyond collision envelope"
+    },
+    "uniformRenderEnvelope": {
+      "radius": 0.023977776067202135,
+      "firstFailureTime": 0.016666666666666666,
+      "maximumStretch": 1.2712364325139798,
+      "adopted": false,
+      "reason": "Global radius violates unchanged 1.2 strain limit at first step"
+    }
+  },
+  "sparseBoneReads": {
+    "status": "isolated-prototype-not-adopted",
+    "pixelComparisons": 9,
+    "pixelDifferences": 0,
+    "stablePerformanceBenefit": false,
+    "defaultActorOrDemoEnabled": false
+  },
+  "cupClasp": {
+    "status": "partial-research-only",
+    "sampledFrames": 1173,
+    "cupCapeContacts": 0,
+    "certifiedFixedClaspIntervals": 295,
+    "remaining": [
+      "hands",
+      "body",
+      "moving cloth",
+      "arbitrary cancellation",
+      "runtime admission"
+    ]
+  },
+  "nativeHardware": {
+    "status": "not-run",
+    "missing": [
+      "physical GPU",
+      "native Windows/macOS input and transparent window"
+    ]
+  },
+  "activeWork": "Bounded fixes and final validation completed; five static contacts, real cloth, cape/tea combination, stable frame time and native hardware remain open. No production acceptance claimed.",
+  "savedState": "Local working tree on feature/pet-animation-v2; not committed or pushed; existing demo package/video retained without rebuilding.",
+  "adopted": {
+    "capeOffset": [
+      0,
+      -0.025,
+      0.04
+    ],
+    "satchelOffset": [
+      0.005258461059488644,
+      -0.009985710937233348,
+      0
+    ],
+    "sampledDynamicPairsRemoved": 4,
+    "samples": 481,
+    "remainingStaticPairs": 5,
+    "secondaryMotionRetained": true,
+    "sourceModelsOrFrozenControllersChanged": false,
+    "visualChecks": 6,
+    "preparationRefit": {
+      "count": 1,
+      "measuredPreparationMs": 5.733956000000035,
+      "nativeEquivalenceCases": 10,
+      "renderingOrSourceMeshChanged": false
+    }
+  },
+  "remainingWorkClassification": {
+    "staticFit": {
+      "status": "failed",
+      "localWorkPossible": "Versioned private fit/attachment candidate and actual surface/shape/seam validation",
+      "decisionOnlyIf": "Candidate requires changing approved appearance, source model geometry, or frozen contract; current evidence does not prove that it must"
+    },
+    "cloth": {
+      "status": "failed",
+      "localWorkPossible": "Localized cloth and trim collision representation, preserving source geometry; full trajectory/strain/self-contact tests",
+      "evidence": "Warm-start render contact at 0.55 s; uniform render envelope overlaps 40 retained pins and violates stretch at first step"
+    },
+    "nativeAndGPU": {
+      "status": "not-run",
+      "required": "Native Windows/macOS target and physical GPU/display; unavailable in current container"
+    }
+  },
+  "executionIssues": {
+    "solverSandboxTimeouts": 2,
+    "sameInputOutsideSandbox": "completed successfully",
+    "approvalRejection": false,
+    "hungCommand": false
+  },
+  "validation": {
+    "researchStages": 36,
+    "nodePass": 815,
+    "pythonPass": 2,
+    "sourcesUnchanged": true,
+    "applicationCheck": {
+      "pass": 6742,
+      "skipped": 29,
+      "fail": 0
+    },
+    "applicationIntegration": {
+      "pass": 71,
+      "fail": 0
+    },
+    "visualChecks": 6,
+    "softwareBrowser": "passed",
+    "nativeHardware": "not-run"
+  },
+  "currentGates": {
+    "capeTea": {
+      "status": "blocked",
+      "reason": "endpoint-attachment-conflict"
+    },
+    "dynamicCloth": {
+      "status": "blocked",
+      "reason": "real-time-budget-not-met"
+    },
+    "nativeInput": {
+      "status": "not-run"
+    },
+    "webglAndGPURecovery": {
+      "status": "partial",
+      "browserWebGL": "passed",
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "hardwareGPURecovery": "not-run",
+      "nativeDesktop": "not-run",
+      "reason": "Browser object lifecycle counts do not establish physical GPU memory or desktop-window acceptance"
+    },
+    "stableFrameTime": {
+      "status": "failed",
+      "evidence": {
+        "samples": 900,
+        "median": 1.4257580000000871,
+        "p95": 2.8844520000000102,
+        "max": 16.677806999999802,
+        "includes": "body + hybrid + anchors + secondary + effects; excludes GPU"
+      },
+      "profilePasses": {
+        "0": {
+          "n": 900,
+          "median": 1.3958639999998468,
+          "p95": 2.801390999999967,
+          "p99": 3.8211780000001454,
+          "max": 13.14314800000011
+        },
+        "1": {
+          "n": 900,
+          "median": 1.2569180000000415,
+          "p95": 2.4722249999999804,
+          "p99": 3.3366619999997056,
+          "max": 8.690947000000051
+        },
+        "2": {
+          "n": 900,
+          "median": 1.2230479999998352,
+          "p95": 2.4061970000002475,
+          "p99": 2.9336960000000545,
+          "max": 6.652394000000186
+        }
+      },
+      "profileOverBudgetFrames": 0,
+      "reason": "Observed browser frame intervals exceed the 60 Hz budget; renderer identity remains explicit",
+      "browserFrameIntervals": {
+        "p50": 108.70000000111759,
+        "p95": 199.5,
+        "max": 263.5
+      }
+    },
+    "fullWardrobeContact": {
+      "status": "failed",
+      "samples": 481,
+      "framesWithContacts": 481,
+      "observedPairs": [
+        "body/Bubu_hand-right <> satchel/satchel_continuous_strap",
+        "body/Bubu_body <> sakura/sakura_petal_1",
+        "body/Bubu_body <> sakura/sakura_petal_2",
+        "body/Bubu_body <> sakura/sakura_leaf_-019",
+        "body/Bubu_body <> satchel/satchel_pouch"
+      ],
+      "haloContactPairs": [],
+      "floraContactPairs": [],
+      "floraMinimumSurfaceGap": {
+        "pair": [
+          "sakura/sakura_leaf_019",
+          "leaf/forest_leaf"
+        ],
+        "distance": 0.00042099430786059655
+      },
+      "continuousContact": "not-run",
+      "containment": "not-run",
+      "reason": "Sampled full-outfit surfaces still require intentional-contact classification and continuous/containment verification"
+    },
+    "cupClaspCandidate": {
+      "status": "partial",
+      "sampledCupCapeClear": true,
+      "samples": 1173,
+      "continuousFixedClasp": "certified",
+      "certifiedIntervals": 295,
+      "scope": "Derived bounded motion candidate; hands/cloth/body and runtime admission remain unaccepted"
+    }
+  },
+  "privateFitProposals": {
+    "pouch": "Rigid private translation 0.108808 along outward side clears pouch/body at rest; outside current attachment contract",
+    "flower": "No clear sample along either tested backward or ear-outward direction within 0.25; not a global impossibility proof",
+    "strap": "Section-preserving rest fit removes hand/body contact but adds two cape crossings and edge ratio reaches 1.2834 > 1.2. Not adopted",
+    "status": "All prototypes isolated in external artifacts; no source model or default binding changed"
+  },
+  "cpuSpike": {
+    "fixture": "cape-tail",
+    "phase": "pending",
+    "frame": 3,
+    "totalMs": 17.258726000000024,
+    "bodyMs": 15.84029099999998,
+    "gcOverlap": false,
+    "detailRunBVHRefitMs": 11.65730799999983
+  },
+  "queryFramePrototype": {
+    "status": "rejected-restored-original",
+    "failedNativeEquivalenceTests": 3,
+    "scope": "Affine coordinate factoring was not equivalent to the attached-bind skinning semantics; no threshold changes or model edits"
+  },
+  "remainingMinimumScope": [
+    "Versioned joint rest fit for flower and satchel, respecting shape/seams and exact contact; no viable candidate adopted",
+    "Localized simulation collision envelope covering high-model trim, feasible retained pins, full action/cancellation and strain verification",
+    "Physical GPU and native OS/device validation"
+  ]
+}

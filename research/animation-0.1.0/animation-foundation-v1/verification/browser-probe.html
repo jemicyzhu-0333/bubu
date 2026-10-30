@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<title>V2 浏览器验证</title>
+<link rel="icon" href="data:,">
+<style>
+  body { margin: 0; background: #f3f2ed; }
+  canvas { display: block; width: 384px; height: 384px; touch-action: none; }
+</style>
+<script type="importmap">
+{"imports":{
+  "three":"../../node_modules/three/build/three.module.js",
+  "three/addons/":"../../node_modules/three/examples/jsm/",
+  "three-mesh-bvh":"../../node_modules/three-mesh-bvh/build/index.module.js"
+}}
+</script>
+<canvas></canvas>
+<script type="module">
+  import { create } from './browser-probe.mjs';
+  await create();
+  document.documentElement.dataset.ready = 'true';
+</script>
+</html>

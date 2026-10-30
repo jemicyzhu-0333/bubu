@@ -1,0 +1,24 @@
+{
+  "commands": [
+    "npm run check",
+    "npm run test:integration"
+  ],
+  "head": "c0a8281bbc721f1f7d01afdb0ece6920aebc90f9",
+  "scope": "Application regression only, separate from research and platform gates",
+  "check": {
+    "passed": 6742,
+    "failed": 0,
+    "skipped": 29,
+    "log": "application-check.log",
+    "sha256": "cf7dacf586494943a68b647ec0a5fd332839b99008451d2339dff56b74667031",
+    "exitCode": 0
+  },
+  "integration": {
+    "passed": 71,
+    "failed": 0,
+    "skipped": 0,
+    "log": "application-integration.log",
+    "sha256": "fd08596f52b0fe40878008529fbf555d31f5cdb38571acda71f3c0fdf2246738",
+    "exitCode": 0
+  }
+}

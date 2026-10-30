@@ -1,0 +1,1152 @@
+{
+  "status": "completed",
+  "productionAccepted": false,
+  "scope": "Sampled rendered surfaces of the existing five-mount outfit; no tea, no cloth simulation",
+  "hz": 60,
+  "samples": 481,
+  "framesWithContacts": 481,
+  "byPhase": {
+    "idle": {
+      "samples": 221,
+      "framesWithContacts": 221
+    },
+    "pending": {
+      "samples": 35,
+      "framesWithContacts": 35
+    },
+    "petting": {
+      "samples": 96,
+      "framesWithContacts": 96
+    },
+    "drag": {
+      "samples": 79,
+      "framesWithContacts": 79
+    },
+    "landing": {
+      "samples": 50,
+      "framesWithContacts": 50
+    }
+  },
+  "pairs": {
+    "body/Bubu_hand-right <> satchel/satchel_continuous_strap": {
+      "samples": 481,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0,
+      "lastTime": 8,
+      "witness": {
+        "a": [
+          [
+            0.9203665140072838,
+            0.6034117418205176,
+            -0.34153847334131193
+          ],
+          [
+            0.9247966349276454,
+            0.5961784199475767,
+            -0.3375290014504763
+          ],
+          [
+            0.8509360607891207,
+            0.5961784199475767,
+            -0.3245053894192365
+          ]
+        ],
+        "b": [
+          [
+            0.9235243194412409,
+            0.6017769575119019,
+            -0.32967196962272693
+          ],
+          [
+            0.9108804270871969,
+            0.6031996011734008,
+            -0.358438194639205
+          ],
+          [
+            0.9256734965974107,
+            0.6031996011734009,
+            -0.3642792668962549
+          ]
+        ]
+      }
+    },
+    "body/Bubu_body <> sakura/sakura_petal_1": {
+      "samples": 481,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0,
+      "lastTime": 8,
+      "witness": {
+        "a": [
+          [
+            0.40897757641978466,
+            1.7629183530807495,
+            -0.03561918344685612
+          ],
+          [
+            0.405661420591215,
+            1.7567808628082275,
+            -0.032341710123044966
+          ],
+          [
+            0.41293588031644807,
+            1.756903052330017,
+            -0.026978422910279347
+          ]
+        ],
+        "b": [
+          [
+            0.6796766214174629,
+            1.777500033378601,
+            -0.06132630346355989
+          ],
+          [
+            0.40143453811564805,
+            1.7587114572525024,
+            -0.02678757578726937
+          ],
+          [
+            0.4169052783554026,
+            1.745221495628357,
+            -0.024794768029701687
+          ]
+        ]
+      }
+    },
+    "body/Bubu_body <> sakura/sakura_petal_2": {
+      "samples": 481,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0,
+      "lastTime": 8,
+      "witness": {
+        "a": [
+          [
+            0.582835538055042,
+            1.598249912261963,
+            0.045707953602055276
+          ],
+          [
+            0.5744715251713578,
+            1.6017612218856812,
+            0.048825001691918
+          ],
+          [
+            0.5770403223129105,
+            1.5937535762786865,
+            0.05406522664979781
+          ]
+        ],
+        "b": [
+          [
+            0.6796766214174629,
+            1.777500033378601,
+            -0.06132630346355989
+          ],
+          [
+            0.5356147464623046,
+            1.5492156744003296,
+            0.08359218658492103
+          ],
+          [
+            0.5423862536243232,
+            1.5325418710708618,
+            0.09142551433596961
+          ]
+        ]
+      }
+    },
+    "body/Bubu_body <> sakura/sakura_leaf_-019": {
+      "samples": 481,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0,
+      "lastTime": 8,
+      "witness": {
+        "a": [
+          [
+            0.3223650138773892,
+            1.6391472816467285,
+            -0.21032751586534396
+          ],
+          [
+            0.33570691529399627,
+            1.6430671215057373,
+            -0.20419319135673314
+          ],
+          [
+            0.33411505959023047,
+            1.639202356338501,
+            -0.21274771265121678
+          ]
+        ],
+        "b": [
+          [
+            0.33022644180613747,
+            1.6360822916030884,
+            -0.1959175168968399
+          ],
+          [
+            0.3294409794594485,
+            1.6491310596466064,
+            -0.20638994491395762
+          ],
+          [
+            0.3362289232920976,
+            1.640393614768982,
+            -0.2073236987146463
+          ]
+        ]
+      }
+    },
+    "body/Bubu_body <> satchel/satchel_pouch": {
+      "samples": 481,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0,
+      "lastTime": 8,
+      "witness": {
+        "a": [
+          [
+            -0.7742062084379524,
+            0.38325968384742737,
+            0.36035794421799017
+          ],
+          [
+            -0.7685065789289119,
+            0.39015501737594604,
+            0.37887219354526225
+          ],
+          [
+            -0.7833485911230501,
+            0.39650893211364746,
+            0.3632441623322158
+          ]
+        ],
+        "b": [
+          [
+            -0.9281218599671297,
+            0.22345745563507063,
+            0.3043617516918025
+          ],
+          [
+            -0.9281218599671297,
+            0.40713930130004866,
+            0.3043617516918025
+          ],
+          [
+            -0.6199772030920294,
+            0.40713930130004866,
+            0.44805196751065385
+          ]
+        ]
+      }
+    },
+    "sakura/sakura_petal_0 <> halo/halo_ring": {
+      "samples": 481,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0,
+      "lastTime": 8,
+      "witness": {
+        "a": [
+          [
+            0.6796766214174628,
+            1.777500033378601,
+            -0.061326303463559884
+          ],
+          [
+            0.6195562082199261,
+            2.046374797821045,
+            -0.22342842251269002
+          ],
+          [
+            0.6048974338753504,
+            2.044480800628662,
+            -0.22096565636979126
+          ]
+        ],
+        "b": [
+          [
+            0.6112628717706112,
+            2.024794101715088,
+            -0.21491077668019792
+          ],
+          [
+            0.6053643249679742,
+            2.044822931289673,
+            -0.24684696501962466
+          ],
+          [
+            0.6208277345274625,
+            2.0394492149353027,
+            -0.21576174643624524
+          ]
+        ]
+      }
+    },
+    "sakura/sakura_leaf_-019 <> leaf/forest_petiole": {
+      "samples": 481,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0,
+      "lastTime": 8,
+      "witness": {
+        "a": [
+          [
+            0.5719709875940652,
+            1.7266738414764404,
+            -0.24289472875557544
+          ],
+          [
+            0.5806744000196951,
+            1.7412261962890625,
+            -0.24660742724441304
+          ],
+          [
+            0.5884899607135683,
+            1.7447576522827148,
+            -0.2395096146315882
+          ]
+        ],
+        "b": [
+          [
+            0.5823777434166014,
+            1.7301212549209595,
+            -0.25276731158129
+          ],
+          [
+            0.5704014808251174,
+            1.7151107788085938,
+            -0.23948588825366068
+          ],
+          [
+            0.5769370404328842,
+            1.7329773902893066,
+            -0.2406382837465384
+          ]
+        ]
+      }
+    },
+    "sakura/sakura_leaf_019 <> leaf/forest_leaf": {
+      "samples": 481,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0,
+      "lastTime": 8,
+      "witness": {
+        "a": [
+          [
+            0.7587194446355775,
+            1.7905691862106323,
+            -0.22315305109528544
+          ],
+          [
+            0.7689768347643332,
+            1.796217918395996,
+            -0.22733313998139892
+          ],
+          [
+            0.7523647812667236,
+            1.804717779159546,
+            -0.23194465183090118
+          ]
+        ],
+        "b": [
+          [
+            0.7601468113100692,
+            1.7935943603515625,
+            -0.22690427809812397
+          ],
+          [
+            0.7593328362535233,
+            1.8033651113510132,
+            -0.23152056003793497
+          ],
+          [
+            0.739341695806974,
+            1.8186705112457275,
+            -0.23259982812872704
+          ]
+        ]
+      }
+    },
+    "satchel/satchel_continuous_strap <> cape/cape_edge_0": {
+      "samples": 479,
+      "phases": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "firstTime": 0.03333333333333333,
+      "lastTime": 8,
+      "witness": {
+        "a": [
+          [
+            0.5816941534745312,
+            0.594225525856018,
+            -0.6954978566322033
+          ],
+          [
+            0.5605156461325967,
+            0.66964852809906,
+            -0.7228707447509792
+          ],
+          [
+            0.592634467355194,
+            0.6722255945205687,
+            -0.7086341846129396
+          ]
+        ],
+        "b": [
+          [
+            0.575367855950495,
+            0.724617600440979,
+            -0.7240806485518315
+          ],
+          [
+            0.5850878322172279,
+            0.6561487317085266,
+            -0.709332702150048
+          ],
+          [
+            0.5936601890081394,
+            0.6572709679603577,
+            -0.708984877758897
+          ]
+        ]
+      }
+    },
+    "body/Bubu_body <> cape/cape_edge_0": {
+      "samples": 200,
+      "phases": [
+        "drag",
+        "landing",
+        "idle"
+      ],
+      "firstTime": 3.183333333333333,
+      "lastTime": 8,
+      "witness": {
+        "a": [
+          [
+            0.5848799857182644,
+            0.8553121949151354,
+            -0.7329695456369187
+          ],
+          [
+            0.5750120257874314,
+            0.8796975220695985,
+            -0.7360052157515172
+          ],
+          [
+            0.5915667482660059,
+            0.8803598325496538,
+            -0.7299366019745962
+          ]
+        ],
+        "b": [
+          [
+            0.5867452702895076,
+            0.8996067870181836,
+            -0.7299780739411429
+          ],
+          [
+            0.6018663234255308,
+            0.8278519203266776,
+            -0.7297795301559717
+          ],
+          [
+            0.6103878697983379,
+            0.8292797805273234,
+            -0.7300937749097979
+          ]
+        ]
+      }
+    },
+    "satchel/satchel_continuous_strap <> cape/cape_cloth": {
+      "samples": 290,
+      "phases": [
+        "drag",
+        "landing",
+        "idle"
+      ],
+      "firstTime": 3.183333333333333,
+      "lastTime": 8,
+      "witness": {
+        "a": [
+          [
+            0.6051154667558175,
+            0.7312639123184982,
+            -0.7242125327359299
+          ],
+          [
+            0.6134029105504605,
+            0.7312645276843621,
+            -0.7358272181913064
+          ],
+          [
+            0.5795772185078928,
+            0.7282275669299993,
+            -0.7477246965350344
+          ]
+        ],
+        "b": [
+          [
+            0.5933636541839509,
+            0.7574916896218116,
+            -0.7444587918522794
+          ],
+          [
+            0.5887645018724327,
+            0.6875117863636602,
+            -0.7402861647568559
+          ],
+          [
+            0.5996406468987415,
+            0.6866957724013029,
+            -0.7350867255376345
+          ]
+        ]
+      }
+    },
+    "body/Bubu_body <> satchel/satchel_continuous_strap": {
+      "samples": 4,
+      "phases": [
+        "landing"
+      ],
+      "firstTime": 5.1,
+      "lastTime": 5.15,
+      "witness": {
+        "a": [
+          [
+            -0.7655778033620079,
+            0.4479988047129937,
+            -0.35099875683917553
+          ],
+          [
+            -0.7512015662408914,
+            0.43379742084187817,
+            -0.3577023176788154
+          ],
+          [
+            -0.7622845182390398,
+            0.43347706820414605,
+            -0.3434045920976804
+          ]
+        ],
+        "b": [
+          [
+            -0.7258529484470438,
+            0.3971264468301306,
+            -0.3550035411880092
+          ],
+          [
+            -0.7639687109303076,
+            0.46868129427140875,
+            -0.37304716057446374
+          ],
+          [
+            -0.7805312077002193,
+            0.4639262558132193,
+            -0.34781443451117694
+          ]
+        ]
+      }
+    }
+  },
+  "limitations": [
+    "Discrete 60 Hz samples do not establish continuous-time separation.",
+    "Surface crossing only; containment, thickness, same-garment self-contact and intended attachment contact classification are not established.",
+    "Foundation cape identity is distinct from the frozen round5 cape. No acceptance registry entries are created."
+  ],
+  "sourceHashes": {
+    "contact/outfit-sweep.mjs": "819fc6998896b11b1799857f8c4c80ae13a158626339956f3462dccda2db2861",
+    "contact/surface-probe.mjs": "57a8d465acd96022589f4746919397903177250bfc21cf35bef81edb396585ae",
+    "integration/foundation-runtime.mjs": "319fa910699f3d528e64708c43d8aceed118da1b0c0fa10e963aed284e6c683c",
+    "integration/binding-provider.mjs": "2085fc405cd4a872a12176c955ce939709d4f6b6ccef99b341037fd382df37cf",
+    "integration/asset-resources.mjs": "1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679",
+    "configuration/fixtures/index.mjs": "843000cead6fc2b6982607b0e3b4b9e3a86129745147219d0c6f0c08754a02c9",
+    "configuration/fixtures/complete-outfit.mjs": "abcb53058f4b7562b1934977a6287da6adc38b6f8b3103bb15900fe419bc0a5a"
+  },
+  "reference": true,
+  "configuration": {
+    "format": "bubu-action-configuration",
+    "version": "0.1.0-foundation",
+    "id": "complete-outfit-v1",
+    "actor": {
+      "id": "xiaobu-approved-d2",
+      "modelVariant": "d2",
+      "bodyOwner": "shared-input-workbench-v2",
+      "faceOwner": "WeightedExpressionOwner"
+    },
+    "mounts": [
+      {
+        "id": "sakura",
+        "assetId": "skin.sakura-flower",
+        "anchor": "earR.front",
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "layer": "front",
+        "writer": "mount-registry"
+      },
+      {
+        "id": "leaf",
+        "assetId": "skin.forest-leaf",
+        "anchor": "earR.rear",
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "layer": "front",
+        "writer": "mount-registry"
+      },
+      {
+        "id": "satchel",
+        "assetId": "milestone.satchel",
+        "anchor": "hip.sideR",
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "layer": "front",
+        "writer": "mount-registry"
+      },
+      {
+        "id": "cape",
+        "assetId": "milestone.cape",
+        "anchor": "back.upper",
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "layer": "back",
+        "writer": "mount-registry"
+      },
+      {
+        "id": "halo",
+        "assetId": "milestone.halo",
+        "anchor": "crown",
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "layer": "front",
+        "writer": "mount-registry"
+      }
+    ],
+    "secondaryMotion": [
+      {
+        "mountId": "sakura",
+        "mode": "rigid-follow",
+        "writer": "secondary-motion",
+        "maxAngleRad": 0.25,
+        "reset": "rest-local-transform",
+        "status": "supported"
+      },
+      {
+        "mountId": "leaf",
+        "mode": "rigid-follow",
+        "writer": "secondary-motion",
+        "maxAngleRad": 0.25,
+        "reset": "rest-local-transform",
+        "status": "supported"
+      },
+      {
+        "mountId": "satchel",
+        "mode": "spring-chain",
+        "writer": "secondary-motion",
+        "maxAngleRad": 0.25,
+        "reset": "rest-local-transform",
+        "status": "research-blocked"
+      },
+      {
+        "mountId": "cape",
+        "mode": "authored-chain",
+        "writer": "secondary-motion",
+        "maxAngleRad": 0.25,
+        "reset": "rest-local-transform",
+        "status": "research-blocked"
+      },
+      {
+        "mountId": "halo",
+        "mode": "rigid-follow",
+        "writer": "secondary-motion",
+        "maxAngleRad": 0.25,
+        "reset": "rest-local-transform",
+        "status": "supported"
+      }
+    ],
+    "effects": [
+      {
+        "id": "petals",
+        "effectId": "petal-stream",
+        "mountId": "sakura",
+        "space": "world",
+        "maxParticles": 12,
+        "lifetimeSec": 1.2,
+        "rateHz": 4,
+        "durationSec": 8,
+        "cleanup": "immediate-on-reset-dispose"
+      },
+      {
+        "id": "leaves",
+        "effectId": "leaf-stream",
+        "mountId": "leaf",
+        "space": "local",
+        "maxParticles": 12,
+        "lifetimeSec": 1.2,
+        "rateHz": 4,
+        "durationSec": 8,
+        "cleanup": "immediate-on-reset-dispose"
+      },
+      {
+        "id": "halo-local",
+        "effectId": "halo-sparks",
+        "mountId": "halo",
+        "space": "local",
+        "maxParticles": 12,
+        "lifetimeSec": 1.2,
+        "rateHz": 4,
+        "durationSec": 8,
+        "cleanup": "immediate-on-reset-dispose"
+      },
+      {
+        "id": "halo-world",
+        "effectId": "halo-sparks",
+        "mountId": "halo",
+        "space": "world",
+        "maxParticles": 12,
+        "lifetimeSec": 1.2,
+        "rateHz": 4,
+        "durationSec": 8,
+        "cleanup": "immediate-on-reset-dispose"
+      }
+    ],
+    "actions": [
+      {
+        "id": "baseline",
+        "factKey": "idle",
+        "priority": 0,
+        "resources": [
+          "body.action"
+        ],
+        "body": "baseline-idle",
+        "bones": [],
+        "expressions": [],
+        "contactWindows": [],
+        "enterSec": 0.16,
+        "exitSec": 0.2,
+        "loop": "while-fact-active",
+        "interrupt": "sample-current-release-owner",
+        "durationSec": 1,
+        "maxLoops": 1,
+        "effectTracks": []
+      },
+      {
+        "id": "longpress",
+        "factKey": "longpress",
+        "priority": 50,
+        "resources": [
+          "body.action",
+          "face.semantic"
+        ],
+        "body": "pointer-longpress",
+        "bones": [],
+        "expressions": [],
+        "contactWindows": [],
+        "enterSec": 0.16,
+        "exitSec": 0.2,
+        "loop": "while-input-held",
+        "interrupt": "sample-current-release-owner",
+        "durationSec": 1,
+        "maxLoops": 1,
+        "effectTracks": []
+      },
+      {
+        "id": "drag",
+        "factKey": "drag",
+        "priority": 100,
+        "resources": [
+          "body.action",
+          "face.semantic"
+        ],
+        "body": "pointer-drag",
+        "bones": [],
+        "expressions": [],
+        "contactWindows": [],
+        "enterSec": 0.22,
+        "exitSec": 1.5,
+        "loop": "while-input-held",
+        "interrupt": "sample-current-release-owner",
+        "durationSec": 1,
+        "maxLoops": 1,
+        "effectTracks": []
+      }
+    ],
+    "input": {
+      "owner": "shared-input-workbench-v2",
+      "drag": "continuous",
+      "longpress": "continuous",
+      "cancel": "synthetic-release",
+      "lostcapture": "synthetic-release",
+      "blur": "suspend-reset",
+      "hidden": "suspend-reset",
+      "resume": "fresh-input",
+      "dispose": "release-and-clear"
+    },
+    "lifecycle": {
+      "enter": "capture-current",
+      "loop": "while-owned",
+      "exit": "bounded-recovery",
+      "pause": "suspend-reset-no-catchup",
+      "reset": "neutral-and-clear",
+      "dispose": "release-and-clear",
+      "cleanupSec": 3
+    }
+  },
+  "garments": [
+    {
+      "id": "skin.sakura-flower",
+      "modelSHA256": "f0038412cec4cce735f991d1e82f9a37d274efb0e14174be69d2f63e62f543ff",
+      "attachmentSHA256": "3acdd6748170bbd0a8eaba6a02c8a83c58da9ede56dd0b28927718f719043054"
+    },
+    {
+      "id": "skin.forest-leaf",
+      "modelSHA256": "7bf3931c00a9c5fae3bbdfba1c2e0a3a0472aa5fb7ab30d7605b39b8853efa4a",
+      "attachmentSHA256": "66c6cdf7cef32d9a2fa0f0ccb4c9bbada67bc4ddede9c065e4e2eb4527795361"
+    },
+    {
+      "id": "milestone.satchel",
+      "modelSHA256": "8ba471d1218fd1f848720f32242c74b397adeaba5f9dbaa911b482cfc3aad9a6",
+      "attachmentSHA256": "02a9fbb4f3864e16a90283115eb5687dc48904b622c96906dcbf161872b84aa4"
+    },
+    {
+      "id": "milestone.cape",
+      "modelSHA256": "d70f4e734a7bcf1e4274773c9971d63b983e9c2e21dff07f7313a151c6ed2fa3",
+      "attachmentSHA256": "90b42c72cbf4c5440f492e7d0d41181b42d90db8841bc13344e296e61170793d"
+    },
+    {
+      "id": "milestone.halo",
+      "modelSHA256": "a58fdd0d1011a413b142efa66a4d5599966051e8fdd5ce3fd5a10c4f28e552c1",
+      "attachmentSHA256": "4ffde9d3432bfb300fbbf7383b1ca17fec5ff01d94eb49cd3701cc6b7bd99539"
+    }
+  ],
+  "modelHashes": {
+    "source": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
+    "parts": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67"
+  },
+  "roster": [
+    {
+      "group": "body",
+      "name": "A_brow_L",
+      "vertices": 257,
+      "triangles": 448
+    },
+    {
+      "group": "body",
+      "name": "A_brow_R",
+      "vertices": 257,
+      "triangles": 448
+    },
+    {
+      "group": "body",
+      "name": "A_eye_highlight_L",
+      "vertices": 440,
+      "triangles": 800
+    },
+    {
+      "group": "body",
+      "name": "A_eye_highlight_R",
+      "vertices": 440,
+      "triangles": 800
+    },
+    {
+      "group": "body",
+      "name": "A_eye_L",
+      "vertices": 1368,
+      "triangles": 2592
+    },
+    {
+      "group": "body",
+      "name": "A_eye_R",
+      "vertices": 1368,
+      "triangles": 2592
+    },
+    {
+      "group": "body",
+      "name": "A_mochi_skin",
+      "vertices": 45945,
+      "triangles": 91886
+    },
+    {
+      "group": "body",
+      "name": "A_mouth_ring",
+      "vertices": 704,
+      "triangles": 1280
+    },
+    {
+      "group": "body",
+      "name": "A_tongue",
+      "vertices": 257,
+      "triangles": 448
+    },
+    {
+      "group": "body",
+      "name": "Bubu_hand-left",
+      "vertices": 2237,
+      "triangles": 4470
+    },
+    {
+      "group": "body",
+      "name": "Bubu_hand-right",
+      "vertices": 2228,
+      "triangles": 4452
+    },
+    {
+      "group": "body",
+      "name": "Bubu_body",
+      "vertices": 32036,
+      "triangles": 63610
+    },
+    {
+      "group": "body",
+      "name": "Bubu_foot-left",
+      "vertices": 4440,
+      "triangles": 8648
+    },
+    {
+      "group": "body",
+      "name": "Bubu_foot-right",
+      "vertices": 4470,
+      "triangles": 8706
+    },
+    {
+      "group": "sakura",
+      "name": "sakura_petal_0",
+      "vertices": 49,
+      "triangles": 48
+    },
+    {
+      "group": "sakura",
+      "name": "sakura_petal_1",
+      "vertices": 49,
+      "triangles": 48
+    },
+    {
+      "group": "sakura",
+      "name": "sakura_petal_2",
+      "vertices": 49,
+      "triangles": 48
+    },
+    {
+      "group": "sakura",
+      "name": "sakura_petal_3",
+      "vertices": 49,
+      "triangles": 48
+    },
+    {
+      "group": "sakura",
+      "name": "sakura_petal_4",
+      "vertices": 49,
+      "triangles": 48
+    },
+    {
+      "group": "sakura",
+      "name": "sakura_stamen_0",
+      "vertices": 691,
+      "triangles": 1216
+    },
+    {
+      "group": "sakura",
+      "name": "sakura_stamen_1",
+      "vertices": 691,
+      "triangles": 1216
+    },
+    {
+      "group": "sakura",
+      "name": "sakura_stamen_2",
+      "vertices": 691,
+      "triangles": 1216
+    },
+    {
+      "group": "sakura",
+      "name": "sakura_stamen_3",
+      "vertices": 691,
+      "triangles": 1216
+    },
+    {
+      "group": "sakura",
+      "name": "sakura_stamen_4",
+      "vertices": 691,
+      "triangles": 1216
+    },
+    {
+      "group": "sakura",
+      "name": "sakura_stamen_5",
+      "vertices": 691,
+      "triangles": 1216
+    },
+    {
+      "group": "sakura",
+      "name": "sakura_stamen_6",
+      "vertices": 691,
+      "triangles": 1216
+    },
+    {
+      "group": "sakura",
+      "name": "sakura_leaf_-019",
+      "vertices": 691,
+      "triangles": 1216
+    },
+    {
+      "group": "sakura",
+      "name": "sakura_leaf_019",
+      "vertices": 691,
+      "triangles": 1216
+    },
+    {
+      "group": "leaf",
+      "name": "forest_leaf",
+      "vertices": 697,
+      "triangles": 1280
+    },
+    {
+      "group": "leaf",
+      "name": "forest_leaf_vein",
+      "vertices": 451,
+      "triangles": 800
+    },
+    {
+      "group": "leaf",
+      "name": "forest_petiole",
+      "vertices": 231,
+      "triangles": 400
+    },
+    {
+      "group": "satchel",
+      "name": "satchel_continuous_strap",
+      "vertices": 640,
+      "triangles": 1280
+    },
+    {
+      "group": "satchel",
+      "name": "satchel_pouch",
+      "vertices": 346,
+      "triangles": 588
+    },
+    {
+      "group": "satchel",
+      "name": "satchel_flap",
+      "vertices": 288,
+      "triangles": 572
+    },
+    {
+      "group": "satchel",
+      "name": "satchel_square_catch",
+      "vertices": 316,
+      "triangles": 532
+    },
+    {
+      "group": "cape",
+      "name": "cape_cloth",
+      "vertices": 1815,
+      "triangles": 3360
+    },
+    {
+      "group": "cape",
+      "name": "cape_back_edge",
+      "vertices": 1331,
+      "triangles": 2400
+    },
+    {
+      "group": "cape",
+      "name": "cape_hem",
+      "vertices": 1331,
+      "triangles": 2400
+    },
+    {
+      "group": "cape",
+      "name": "cape_edge_0",
+      "vertices": 165,
+      "triangles": 280
+    },
+    {
+      "group": "cape",
+      "name": "cape_edge_120",
+      "vertices": 165,
+      "triangles": 280
+    },
+    {
+      "group": "halo",
+      "name": "halo_ring",
+      "vertices": 1649,
+      "triangles": 3072
+    }
+  ],
+  "floraMinimumSurfaceGap": {
+    "pair": [
+      "sakura/sakura_leaf_-019",
+      "leaf/forest_petiole"
+    ],
+    "distance": 0
+  },
+  "maximumFloraRelativeMatrixDrift": 1.1101925314390554e-15,
+  "surfaceCrossingsObserved": true,
+  "haloContactPairs": [
+    "sakura/sakura_petal_0 <> halo/halo_ring"
+  ],
+  "floraContactPairs": [
+    "sakura/sakura_leaf_-019 <> leaf/forest_petiole",
+    "sakura/sakura_leaf_019 <> leaf/forest_leaf"
+  ]
+}

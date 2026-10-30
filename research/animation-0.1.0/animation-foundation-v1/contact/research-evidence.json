@@ -1,0 +1,54 @@
+{
+  "scope": "Frozen static round5 cape with original rigid tea; sampled blocking evidence only",
+  "sources": {
+    "runtime-facepath05/fixtures/face-d2/asset.glb": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
+    "original-parts-hybrid-v1/geometry/bubu-hybrid-binding.glb": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67",
+    "original-parts-hybrid-v1/tea/src/rigid-tea.mjs": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+    "original-parts-hybrid-v1/tea/src/timeline.mjs": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+    "original-parts-hybrid-v1/tea/inputs/rigid-config.json": "b63aa7b4d3367c97bd72163329737061d62f3d787dae39f2cd971ff7a48fcc9c",
+    "original-parts-hybrid-v1/tea/inputs/hold-fit.json": "419f5d0d929edb977ce8103d4616461bf0e1c8cd09c8f8218b4c9cd611d95f0f",
+    "original-parts-hybrid-v1/tea/inputs/sip-fit.json": "7012a0c1869afde8704ba4d084d41407bbf7ee1662edc501d4bc99860b38acb6",
+    "wearable-approved-round5/accessory-expansion/models/07-cape.glb": "e29010956b989a60e196472b2206e6c397b34f12f3b7092d67f53f189c128e21",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/inputs/cape-coarse.json": "740619e1ca28dc8824c070bbc3b23df6ba7430b956dd4f64d2a411f8549ab8a8",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/contact-report.json": "d4da9acb9fa254306fcb1f75745a6655e0805cb707156f23f668bb5a861256e1",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/pin-depth-report.json": "24d7ca16b2e9ae775d5488c6846c65938fa18d61b868bdc2194652411ef5868a"
+  },
+  "actor": {
+    "sourceSHA256": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
+    "partsSHA256": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67"
+  },
+  "action": {
+    "id": "tea.original-rigid-v1",
+    "trajectorySHA256": "fcf3deaca7105c21f7bd7285fbfdde67244f907d04d96050aa7aca171b1fe209",
+    "attachmentSHA256": "b63aa7b4d3367c97bd72163329737061d62f3d787dae39f2cd971ff7a48fcc9c"
+  },
+  "garment": {
+    "id": "milestone.cape",
+    "modelSHA256": "e29010956b989a60e196472b2206e6c397b34f12f3b7092d67f53f189c128e21",
+    "attachmentSHA256": "740619e1ca28dc8824c070bbc3b23df6ba7430b956dd4f64d2a411f8549ab8a8"
+  },
+  "record": {
+    "actor": {
+      "sourceSHA256": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
+      "partsSHA256": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67"
+    },
+    "action": {
+      "id": "tea.original-rigid-v1",
+      "trajectorySHA256": "fcf3deaca7105c21f7bd7285fbfdde67244f907d04d96050aa7aca171b1fe209",
+      "attachmentSHA256": "b63aa7b4d3367c97bd72163329737061d62f3d787dae39f2cd971ff7a48fcc9c"
+    },
+    "garment": {
+      "id": "milestone.cape",
+      "modelSHA256": "e29010956b989a60e196472b2206e6c397b34f12f3b7092d67f53f189c128e21",
+      "attachmentSHA256": "740619e1ca28dc8824c070bbc3b23df6ba7430b956dd4f64d2a411f8549ab8a8"
+    },
+    "status": "blocked",
+    "reason": "endpoint-attachment-conflict",
+    "coverage": [
+      "endpoints"
+    ]
+  },
+  "sampledFrames": 16,
+  "intersectingFrames": 13,
+  "compatibilityAccepted": false
+}

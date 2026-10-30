@@ -1,0 +1,588 @@
+{
+  "status": "completed",
+  "accepted": false,
+  "inputHashes": {
+    "animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs": "6bf53caf6a1a6742a34f466109d9d656fa33f78b02c57e32f0017372fc1da5f2",
+    "animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.mjs": "14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984",
+    "package-lock.json": "29914de54006d3f2bfb8f5ffb7ed05f16921a00c2af3abb07f2eb476eebeb427",
+    "original-parts-hybrid-v1/geometry/bubu-hybrid-binding.glb": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67",
+    "animation-foundation-v1/secondary-motion/cloth-probe/cape-coarse.json": "740619e1ca28dc8824c070bbc3b23df6ba7430b956dd4f64d2a411f8549ab8a8",
+    "animation-foundation-v1/secondary-motion/cloth-probe/cape-binding.json": "4aae28f29833e6af5fb44327ef2c66f1489ee9e3c98a0cec4c368f45d3b3bec9",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/frozen-cape.json": "5888814c2bd2b4627b3abab0e6133388e60fccb26b14e887e5556352d9c50d01",
+    "wearable-approved-round5/accessory-expansion/models/07-cape.glb": "e29010956b989a60e196472b2206e6c397b34f12f3b7092d67f53f189c128e21",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/inputs/tea-keyframes.json": "1b37c436f623ced2289411b5f0192e15feed91715bacc2bac3008336923e04d1",
+    "animation-foundation-v1/secondary-motion/cloth-probe/tea-obstacles.mjs": "0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a",
+    "animation-foundation-v1/contact/tea-clearance-candidate.mjs": "c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745",
+    "animation-foundation-v1/integration/tea-sample-boundary.mjs": "1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166",
+    "original-parts-hybrid-v1/tea/src/rigid-tea.mjs": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+    "original-parts-hybrid-v1/tea/src/timeline.mjs": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+    "original-parts-hybrid-v1/tea/src/scene-resources.mjs": "bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d",
+    "original-parts-hybrid-v1/tea/src/cup-model.mjs": "66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca",
+    "original-parts-hybrid-v1/tea/inputs/rigid-config.json": "b63aa7b4d3367c97bd72163329737061d62f3d787dae39f2cd971ff7a48fcc9c",
+    "original-parts-hybrid-v1/tea/inputs/hold-fit.json": "419f5d0d929edb977ce8103d4616461bf0e1c8cd09c8f8218b4c9cd611d95f0f",
+    "original-parts-hybrid-v1/tea/inputs/sip-fit.json": "7012a0c1869afde8704ba4d084d41407bbf7ee1662edc501d4bc99860b38acb6"
+  },
+  "scope": "Rest-initialized normal tea trajectory, coherent clearance candidate, stop at first contact/pin/strain failure",
+  "time": 0,
+  "frames": 540,
+  "releasedPins": [
+    3,
+    6,
+    9,
+    13,
+    17,
+    422,
+    427,
+    431,
+    435,
+    438
+  ],
+  "handCollider": "convex-hull-diagnostic",
+  "bodyCollider": "conservative-bounded-hull",
+  "obstacleFilter": "all",
+  "declaredLimits": {
+    "maximumEdgeStretch": 1.2,
+    "minimumEdgeStretch": 0.8,
+    "pinError": 0.00001,
+    "frameBudgetMs": 16.667
+  },
+  "rows": [
+    {
+      "frame": 0,
+      "physicsMs": 86.11773999999991,
+      "internalTimings": null,
+      "mapMs": 19.814930000000004,
+      "simulationPipelineMs": 119.217535,
+      "totalIncludingContactMs": 183.23053299999992,
+      "pinError": 0,
+      "maxStretch": 1.0117472350475087,
+      "minStretch": 0.9961291875725571,
+      "contacts": []
+    },
+    {
+      "frame": 1,
+      "physicsMs": 21.5814290000003,
+      "internalTimings": null,
+      "mapMs": 5.735681999999997,
+      "simulationPipelineMs": 36.79320899999993,
+      "totalIncludingContactMs": 99.4811709999999,
+      "pinError": 0,
+      "maxStretch": 1.0262249411811917,
+      "minStretch": 0.989586502548253,
+      "contacts": []
+    },
+    {
+      "frame": 2,
+      "physicsMs": 29.16605299999992,
+      "internalTimings": null,
+      "mapMs": 4.995398999999907,
+      "simulationPipelineMs": 40.752027,
+      "totalIncludingContactMs": 120.28753500000039,
+      "pinError": 0,
+      "maxStretch": 1.0444283632627154,
+      "minStretch": 0.9791908076984344,
+      "contacts": []
+    },
+    {
+      "frame": 3,
+      "physicsMs": 46.71534700000029,
+      "internalTimings": null,
+      "mapMs": 4.477242999999817,
+      "simulationPipelineMs": 59.413754000000154,
+      "totalIncludingContactMs": 113.38217500000019,
+      "pinError": 0,
+      "maxStretch": 1.0613260233481707,
+      "minStretch": 0.9668141676622405,
+      "contacts": []
+    },
+    {
+      "frame": 4,
+      "physicsMs": 22.93485899999996,
+      "internalTimings": null,
+      "mapMs": 2.8403450000000703,
+      "simulationPipelineMs": 31.334335999999894,
+      "totalIncludingContactMs": 82.4173139999998,
+      "pinError": 0,
+      "maxStretch": 1.0768726915951048,
+      "minStretch": 0.954462358100171,
+      "contacts": []
+    },
+    {
+      "frame": 5,
+      "physicsMs": 24.786213999999745,
+      "internalTimings": null,
+      "mapMs": 2.6670689999996284,
+      "simulationPipelineMs": 33.007878999999775,
+      "totalIncludingContactMs": 83.56834499999968,
+      "pinError": 0,
+      "maxStretch": 1.0931119478211209,
+      "minStretch": 0.9444130492858331,
+      "contacts": []
+    },
+    {
+      "frame": 6,
+      "physicsMs": 24.967920999999933,
+      "internalTimings": null,
+      "mapMs": 2.692617000000155,
+      "simulationPipelineMs": 33.16916600000013,
+      "totalIncludingContactMs": 85.83895800000028,
+      "pinError": 0,
+      "maxStretch": 1.1038556498728427,
+      "minStretch": 0.9381967136432489,
+      "contacts": []
+    },
+    {
+      "frame": 7,
+      "physicsMs": 23.13039800000024,
+      "internalTimings": null,
+      "mapMs": 2.85325499999999,
+      "simulationPipelineMs": 31.45661700000028,
+      "totalIncludingContactMs": 83.79396799999995,
+      "pinError": 0,
+      "maxStretch": 1.1079256299182327,
+      "minStretch": 0.9360612045358538,
+      "contacts": []
+    },
+    {
+      "frame": 8,
+      "physicsMs": 23.927474000000075,
+      "internalTimings": null,
+      "mapMs": 3.1099239999998645,
+      "simulationPipelineMs": 32.35016599999972,
+      "totalIncludingContactMs": 86.92664399999967,
+      "pinError": 0,
+      "maxStretch": 1.1060651148352085,
+      "minStretch": 0.9372864689996789,
+      "contacts": []
+    },
+    {
+      "frame": 9,
+      "physicsMs": 22.973835999999665,
+      "internalTimings": null,
+      "mapMs": 2.862308000000212,
+      "simulationPipelineMs": 31.33370500000001,
+      "totalIncludingContactMs": 85.34175400000004,
+      "pinError": 0,
+      "maxStretch": 1.1013406399197534,
+      "minStretch": 0.9407890570583466,
+      "contacts": []
+    },
+    {
+      "frame": 10,
+      "physicsMs": 23.582516000000396,
+      "internalTimings": null,
+      "mapMs": 2.801187999999911,
+      "simulationPipelineMs": 31.624313999999686,
+      "totalIncludingContactMs": 82.40801999999985,
+      "pinError": 0,
+      "maxStretch": 1.1006522373979406,
+      "minStretch": 0.9455133228786539,
+      "contacts": []
+    },
+    {
+      "frame": 11,
+      "physicsMs": 26.744686,
+      "internalTimings": null,
+      "mapMs": 2.7039740000000165,
+      "simulationPipelineMs": 35.369776999999885,
+      "totalIncludingContactMs": 87.44336900000008,
+      "pinError": 0,
+      "maxStretch": 1.0990602162641636,
+      "minStretch": 0.9505754708525549,
+      "contacts": []
+    },
+    {
+      "frame": 12,
+      "physicsMs": 23.784823999999844,
+      "internalTimings": null,
+      "mapMs": 2.6599089999999705,
+      "simulationPipelineMs": 31.641689999999926,
+      "totalIncludingContactMs": 80.1990679999999,
+      "pinError": 0,
+      "maxStretch": 1.0977647033775226,
+      "minStretch": 0.9552767510281216,
+      "contacts": []
+    },
+    {
+      "frame": 13,
+      "physicsMs": 23.328410000000076,
+      "internalTimings": null,
+      "mapMs": 3.06340500000033,
+      "simulationPipelineMs": 32.10803799999985,
+      "totalIncludingContactMs": 82.36284299999988,
+      "pinError": 0,
+      "maxStretch": 1.0956906897278014,
+      "minStretch": 0.9591011249839513,
+      "contacts": []
+    },
+    {
+      "frame": 14,
+      "physicsMs": 34.02271699999983,
+      "internalTimings": null,
+      "mapMs": 4.71875,
+      "simulationPipelineMs": 45.35208300000022,
+      "totalIncludingContactMs": 125.44513300000017,
+      "pinError": 0,
+      "maxStretch": 1.0923933862440653,
+      "minStretch": 0.9617265918582426,
+      "contacts": []
+    },
+    {
+      "frame": 15,
+      "physicsMs": 22.380620000000363,
+      "internalTimings": null,
+      "mapMs": 3.287587000000258,
+      "simulationPipelineMs": 45.72855899999968,
+      "totalIncludingContactMs": 134.86165399999982,
+      "pinError": 0,
+      "maxStretch": 1.088971362244135,
+      "minStretch": 0.9630299864840712,
+      "contacts": []
+    },
+    {
+      "frame": 16,
+      "physicsMs": 62.61840799999982,
+      "internalTimings": null,
+      "mapMs": 7.633695999999873,
+      "simulationPipelineMs": 79.66020100000014,
+      "totalIncludingContactMs": 137.08544800000027,
+      "pinError": 0,
+      "maxStretch": 1.0875369663535013,
+      "minStretch": 0.9630841410751142,
+      "contacts": []
+    },
+    {
+      "frame": 17,
+      "physicsMs": 22.798538000000008,
+      "internalTimings": null,
+      "mapMs": 2.918091000000004,
+      "simulationPipelineMs": 31.046401999999944,
+      "totalIncludingContactMs": 89.50767899999983,
+      "pinError": 0,
+      "maxStretch": 1.0860615600214047,
+      "minStretch": 0.9621284078649402,
+      "contacts": []
+    },
+    {
+      "frame": 18,
+      "physicsMs": 22.863512999999784,
+      "internalTimings": null,
+      "mapMs": 3.6116149999998015,
+      "simulationPipelineMs": 32.886649000000034,
+      "totalIncludingContactMs": 96.91949700000032,
+      "pinError": 0,
+      "maxStretch": 1.0837207437641059,
+      "minStretch": 0.9605056277468303,
+      "contacts": []
+    },
+    {
+      "frame": 19,
+      "physicsMs": 22.984362000000147,
+      "internalTimings": null,
+      "mapMs": 2.6715970000000198,
+      "simulationPipelineMs": 30.953983999999764,
+      "totalIncludingContactMs": 82.31740600000012,
+      "pinError": 0,
+      "maxStretch": 1.080818361926892,
+      "minStretch": 0.9586287584170728,
+      "contacts": []
+    },
+    {
+      "frame": 20,
+      "physicsMs": 23.017941999999948,
+      "internalTimings": null,
+      "mapMs": 2.6757920000000013,
+      "simulationPipelineMs": 31.71254399999998,
+      "totalIncludingContactMs": 84.609872,
+      "pinError": 0,
+      "maxStretch": 1.0784163579423265,
+      "minStretch": 0.9568960151081288,
+      "contacts": []
+    },
+    {
+      "frame": 21,
+      "physicsMs": 27.060203,
+      "internalTimings": null,
+      "mapMs": 3.2060359999995853,
+      "simulationPipelineMs": 36.47900600000003,
+      "totalIncludingContactMs": 89.55432699999983,
+      "pinError": 0,
+      "maxStretch": 1.07725387893981,
+      "minStretch": 0.9556068082193888,
+      "contacts": []
+    },
+    {
+      "frame": 22,
+      "physicsMs": 26.974106000000575,
+      "internalTimings": null,
+      "mapMs": 3.0483830000002854,
+      "simulationPipelineMs": 36.276937000000544,
+      "totalIncludingContactMs": 86.24080200000026,
+      "pinError": 0,
+      "maxStretch": 1.076679567792609,
+      "minStretch": 0.9549101855042998,
+      "contacts": []
+    },
+    {
+      "frame": 23,
+      "physicsMs": 27.460785000000214,
+      "internalTimings": null,
+      "mapMs": 2.6251179999999295,
+      "simulationPipelineMs": 35.46462799999972,
+      "totalIncludingContactMs": 87.35407799999939,
+      "pinError": 0,
+      "maxStretch": 1.0769051340965572,
+      "minStretch": 0.9547955362212153,
+      "contacts": []
+    },
+    {
+      "frame": 24,
+      "physicsMs": 31.70069699999931,
+      "internalTimings": null,
+      "mapMs": 5.373436999999285,
+      "simulationPipelineMs": 45.636743000000024,
+      "totalIncludingContactMs": 113.78882499999963,
+      "pinError": 0,
+      "maxStretch": 1.0774639573844207,
+      "minStretch": 0.9551560963090842,
+      "contacts": []
+    },
+    {
+      "frame": 25,
+      "physicsMs": 27.310222999999496,
+      "internalTimings": null,
+      "mapMs": 3.267627000000175,
+      "simulationPipelineMs": 35.99457099999927,
+      "totalIncludingContactMs": 96.53005099999973,
+      "pinError": 0,
+      "maxStretch": 1.078597191339974,
+      "minStretch": 0.9558121998025465,
+      "contacts": []
+    },
+    {
+      "frame": 26,
+      "physicsMs": 28.280464999999822,
+      "internalTimings": null,
+      "mapMs": 2.8444719999997687,
+      "simulationPipelineMs": 37.78419400000075,
+      "totalIncludingContactMs": 98.54939400000058,
+      "pinError": 0,
+      "maxStretch": 1.079793823784148,
+      "minStretch": 0.9565566576550031,
+      "contacts": []
+    },
+    {
+      "frame": 27,
+      "physicsMs": 25.32484899999963,
+      "internalTimings": null,
+      "mapMs": 3.76876700000048,
+      "simulationPipelineMs": 34.76123800000005,
+      "totalIncludingContactMs": 100.5668740000001,
+      "pinError": 0,
+      "maxStretch": 1.0811428672878105,
+      "minStretch": 0.9573451609036324,
+      "contacts": []
+    },
+    {
+      "frame": 28,
+      "physicsMs": 26.292749000000185,
+      "internalTimings": null,
+      "mapMs": 2.678186000000096,
+      "simulationPipelineMs": 34.955135000000155,
+      "totalIncludingContactMs": 95.26175799999965,
+      "pinError": 0,
+      "maxStretch": 1.0824501667825508,
+      "minStretch": 0.9579834858746288,
+      "contacts": []
+    },
+    {
+      "frame": 29,
+      "physicsMs": 31.379031999999825,
+      "internalTimings": null,
+      "mapMs": 2.9741039999998975,
+      "simulationPipelineMs": 39.873390000000654,
+      "totalIncludingContactMs": 100.39286700000048,
+      "pinError": 0,
+      "maxStretch": 1.081296777866057,
+      "minStretch": 0.9275873561498379,
+      "contacts": []
+    },
+    {
+      "frame": 30,
+      "physicsMs": 34.16859300000033,
+      "internalTimings": null,
+      "mapMs": 2.8848010000001523,
+      "simulationPipelineMs": 42.83802899999955,
+      "totalIncludingContactMs": 109.52440599999954,
+      "pinError": 0,
+      "maxStretch": 1.1055779828932117,
+      "minStretch": 0.9016302114098289,
+      "contacts": []
+    },
+    {
+      "frame": 31,
+      "physicsMs": 37.07878100000016,
+      "internalTimings": null,
+      "mapMs": 2.8992330000000948,
+      "simulationPipelineMs": 52.50446800000009,
+      "totalIncludingContactMs": 113.52397399999973,
+      "pinError": 0,
+      "maxStretch": 1.1350274341179776,
+      "minStretch": 0.8567155703505377,
+      "contacts": []
+    },
+    {
+      "frame": 32,
+      "physicsMs": 37.677246000000196,
+      "internalTimings": null,
+      "mapMs": 2.8128649999998743,
+      "simulationPipelineMs": 46.9607390000001,
+      "totalIncludingContactMs": 101.39480699999967,
+      "pinError": 0,
+      "maxStretch": 1.1419238277310906,
+      "minStretch": 0.8343615785838612,
+      "contacts": [
+        "cape_back_edge/body",
+        "cape_front_edge_1/body"
+      ]
+    }
+  ],
+  "limitations": [
+    "60 Hz samples only; cancellation and continuous contact not established",
+    "Self-contact and containment not established.",
+    "Body obstacle is Bubu_body; feet and the complete foundation wardrobe are not included.",
+    "Not production cloth or visual approval.",
+    "A failed trajectory is a solver/mapping counterexample, not a proof that all private-copy cloth implementations are infeasible."
+  ],
+  "collisionRadius": 0.003,
+  "collisionRadiusBasis": "Original particle radius",
+  "initialEnvelopePinSurfaceConflicts": [],
+  "bodyHullCertificate": {
+    "directions": 1024,
+    "selectedSourceVertices": 980,
+    "sourceVertices": 32036,
+    "triangles": 1956,
+    "scaleFactor": 1.007788588454669,
+    "maximumPlaneViolation": -8.214272835260772e-7,
+    "maximumOuterDistance": 0.00796060074755975,
+    "maxError": 0.01,
+    "requiredInwardMargin": 1e-8
+  },
+  "initialContacts": [],
+  "stoppedAt": {
+    "frame": 32,
+    "time": 0.55,
+    "reason": "first-contact-pin-or-strain-failure",
+    "coarseContacts": []
+  },
+  "contactWitnesses": [
+    {
+      "part": "cape_back_edge",
+      "obstacle": "body",
+      "partTriangle": 2988,
+      "obstacleTriangle": 40241,
+      "a": [
+        [
+          0.12963789701461792,
+          0.5834901332855225,
+          0.7520523071289062
+        ],
+        [
+          0.15905532240867615,
+          0.5835301876068115,
+          0.7490341067314148
+        ],
+        [
+          0.15907873213291168,
+          0.5789906978607178,
+          0.7480034828186035
+        ]
+      ],
+      "b": [
+        [
+          0.10796302556991577,
+          0.5816155672073364,
+          0.7532658576965332
+        ],
+        [
+          0.13193641602993011,
+          0.5816596150398254,
+          0.7514411807060242
+        ],
+        [
+          0.12539222836494446,
+          0.5943670272827148,
+          0.7548263072967529
+        ]
+      ]
+    },
+    {
+      "part": "cape_front_edge_1",
+      "obstacle": "body",
+      "partTriangle": 1,
+      "obstacleTriangle": 12964,
+      "a": [
+        [
+          -0.04017731174826622,
+          0.5074146389961243,
+          0.7333305478096008
+        ],
+        [
+          -0.040109146386384964,
+          0.5025584101676941,
+          0.7314879298210144
+        ],
+        [
+          -0.044631436467170715,
+          0.5015244483947754,
+          0.7321916222572327
+        ]
+      ],
+      "b": [
+        [
+          -0.025471597909927368,
+          0.5170745253562927,
+          0.7371392250061035
+        ],
+        [
+          -0.04676790162920952,
+          0.5036786198616028,
+          0.7318063974380493
+        ],
+        [
+          -0.023729689419269562,
+          0.49916380643844604,
+          0.7305575013160706
+        ]
+      ]
+    }
+  ],
+  "timing": {
+    "physicsMs": {
+      "p50": 26.292749000000185,
+      "p95": 62.61840799999982,
+      "max": 86.11773999999991
+    },
+    "mapMs": {
+      "p50": 2.918091000000004,
+      "p95": 7.633695999999873,
+      "max": 19.814930000000004
+    },
+    "simulationPipelineMs": {
+      "p50": 35.46462799999972,
+      "p95": 79.66020100000014,
+      "max": 119.217535
+    },
+    "totalIncludingContactMs": {
+      "p50": 95.26175799999965,
+      "p95": 137.08544800000027,
+      "max": 183.23053299999992
+    }
+  },
+  "completedRequestedSteps": false,
+  "lastSampleClear": false,
+  "finalEndpointClear": false,
+  "strainAccepted": true,
+  "realtimeAccepted": false,
+  "resourcesReleased": true
+}

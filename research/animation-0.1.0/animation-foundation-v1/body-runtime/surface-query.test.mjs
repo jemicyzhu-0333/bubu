@@ -136,6 +136,20 @@ function synthetic(relative = true) {
     },
   };
 }
+
+test("query preparation exercises refit once without altering cached hit semantics",()=>{
+  const {skin,child,close}=synthetic();let calls=0;
+  class CountingBVH extends MeshBVH {refit(...args){calls++;return super.refit(...args);}}
+  const query=createSurfaceQuery({THREE:T,MeshBVH:CountingBVH,skin,assertCurrent:()=>{}});
+  try{
+    assert.equal(calls,1);assert.equal(query.diagnostics.refits,0);
+    assert(Number.isFinite(query.diagnostics.preparationRefitMs)&&query.diagnostics.preparationRefitMs>=0);
+    const caster=new T.Raycaster(new T.Vector3(.17,.13,3),new T.Vector3(0,0,-1));
+    compare(skin,query,caster);assert.equal(calls,1);
+    child.rotation.z=.2;skin.updateMatrixWorld(true);compare(skin,query,caster);
+    assert.equal(calls,2);assert.equal(query.diagnostics.refits,1);
+  }finally{query.dispose();close();}
+});
 for (const relative of [true, false])
   test(`morph ${relative ? "relative" : "absolute"}, nonuniform scale, reflection, ray interval and layers`, () => {
     const { skin, child, close } = synthetic(relative),

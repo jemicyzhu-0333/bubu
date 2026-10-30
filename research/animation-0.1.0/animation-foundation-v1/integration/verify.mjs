@@ -1,3 +1,4 @@
+import { evidencePath } from "../verification/evidence-output.mjs";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import { performance } from "node:perf_hooks";
@@ -252,8 +253,7 @@ report.cpuFrameMs = {
 };
 assert.equal(sha256(source), report.inputHashes.source);
 assert.equal(sha256(hybrid), report.inputHashes.hybrid);
-fs.writeFileSync(
-  new URL("./evidence/integration-report.json", import.meta.url),
+fs.writeFileSync(evidencePath(new URL("./evidence/integration-report.json", import.meta.url)),
   JSON.stringify(report, null, 2),
 );
 console.log(JSON.stringify(report, null, 2));

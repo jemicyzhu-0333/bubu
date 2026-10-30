@@ -95,7 +95,7 @@ export function createPointerHostFactory({
       throw error;
     }
     const { owner, pool, pack } = admitted;
-    const faceInput = createAuthoredFacePort(authoredFaces);
+    const faceInput = createAuthoredFacePort(authoredFaces, admitted.authoredFaceKeys);
     const facePort = faceInput.port;
     let surfaceQuery = null;
     let cleanup = () => {

@@ -1,0 +1,110 @@
+{
+  "status": "passed",
+  "scope": "Repeated tea cancellation during and after completion, including crossing the loop seam",
+  "cases": [
+    {
+      "cancelAt": 2.25,
+      "repeatDuringCancellation": true,
+      "repeatAfterCompletion": true,
+      "snapshot": {
+        "ready": true,
+        "selected": "tea",
+        "busy": false,
+        "paused": false,
+        "reducedMotion": false,
+        "chapterTime": 7.3,
+        "time": 7.3,
+        "state": {
+          "phase": "rest",
+          "time": 7.3,
+          "isolatedResearchReplay": true,
+          "wardrobeCompatible": false
+        },
+        "mounts": [],
+        "resources": {
+          "geometries": 16,
+          "textures": 18
+        },
+        "pool": {
+          "budget": {
+            "maxBytes": 134217728,
+            "claimedBytes": 0,
+            "residentBytes": 0,
+            "pendingReservations": 0,
+            "claims": 0,
+            "closed": false
+          },
+          "parts": {
+            "closed": false,
+            "references": 0,
+            "resident": false
+          },
+          "actors": 0,
+          "pending": 0,
+          "mounts": 0,
+          "emitters": []
+        },
+        "book": null,
+        "errors": [],
+        "cleanupWarnings": [],
+        "contactAccepted": false,
+        "nativePerformanceAccepted": false
+      }
+    },
+    {
+      "cancelAt": 8.75,
+      "repeatDuringCancellation": true,
+      "repeatAfterCompletion": true,
+      "snapshot": {
+        "ready": true,
+        "selected": "tea",
+        "busy": false,
+        "paused": false,
+        "reducedMotion": false,
+        "chapterTime": 13.8,
+        "time": 21.1,
+        "state": {
+          "phase": "rest",
+          "time": 13.8,
+          "isolatedResearchReplay": true,
+          "wardrobeCompatible": false
+        },
+        "mounts": [],
+        "resources": {
+          "geometries": 16,
+          "textures": 18
+        },
+        "pool": {
+          "budget": {
+            "maxBytes": 134217728,
+            "claimedBytes": 0,
+            "residentBytes": 0,
+            "pendingReservations": 0,
+            "claims": 0,
+            "closed": false
+          },
+          "parts": {
+            "closed": false,
+            "references": 0,
+            "resident": false
+          },
+          "actors": 0,
+          "pending": 0,
+          "mounts": 0,
+          "emitters": []
+        },
+        "book": null,
+        "errors": [],
+        "cleanupWarnings": [],
+        "contactAccepted": false,
+        "nativePerformanceAccepted": false
+      }
+    }
+  ],
+  "source": {
+    "file": "animation-foundation-v1/demo/tea-preview.mjs",
+    "before": "47d06c0684189cd6badfbd431ed8afc0a4aa2b366c7f05d523069fb226daa90c",
+    "after": "5a83333c6574a8f924256dc74cafde9e6138bfcb597ad2eb39076f18a5d1281e"
+  },
+  "scriptSHA256": "054ec1060ec086c3efbcc076bbc0435e55c05ba0076348f66a1c28de21df14df"
+}

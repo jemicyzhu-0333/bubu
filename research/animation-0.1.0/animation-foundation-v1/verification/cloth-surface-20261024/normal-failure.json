@@ -1,0 +1,5131 @@
+{
+  "status": "completed",
+  "accepted": false,
+  "inputHashes": {
+    "animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs": "ae96ccaac53495b1ceb0ea1a9e3787f4bac010d086b12ae1adefbe1b40d38dd3",
+    "animation-foundation-v1/secondary-motion/cloth-probe/edge-strain.mjs": "6cce5a5cd1785e4dac15915d10abafd4b1e75b92be488f864b8219ff619475d7",
+    "animation-foundation-v1/secondary-motion/cloth-probe/attachment-profile.mjs": "bfff0ff829a53f77112d50061daeed278d76bb736e2607bf894ff6a937973b7a",
+    "animation-foundation-v1/secondary-motion/cloth-probe/attachment-profiles.json": "9c3508d1c3217fe5745fcbe7bbc80f6c3eb3bdf45bd4c65e561f9a2849793409",
+    "animation-foundation-v1/secondary-motion/cloth-probe/thin-surface-mapper.mjs": "54cf25f43bd508223b4d450a7a68f2f2c029117a9bf320371f2cfc61f89c6884",
+    "animation-foundation-v1/secondary-motion/cloth-probe/piping-section-mapper.mjs": "cd471ba8e1c69982617af693660462cd9b1ab4f9d1c5ef8eb2f4f8b84d2ab302",
+    "animation-foundation-v1/integration/asset-fixtures.mjs": "2637d20f94115f2267918f447d2cb37e52a1a001fa3ed96b93fe6831287e15ac",
+    "animation-foundation-v1/integration/asset-resources.mjs": "1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679",
+    "animation-foundation-v1/integration/cleanup-owned.mjs": "7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b",
+    "animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.mjs": "14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984",
+    "package-lock.json": "29914de54006d3f2bfb8f5ffb7ed05f16921a00c2af3abb07f2eb476eebeb427",
+    "original-parts-hybrid-v1/geometry/bubu-hybrid-binding.glb": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67",
+    "animation-foundation-v1/secondary-motion/cloth-probe/cape-coarse.json": "740619e1ca28dc8824c070bbc3b23df6ba7430b956dd4f64d2a411f8549ab8a8",
+    "animation-foundation-v1/secondary-motion/cloth-probe/cape-binding.json": "4aae28f29833e6af5fb44327ef2c66f1489ee9e3c98a0cec4c368f45d3b3bec9",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/frozen-cape.json": "5888814c2bd2b4627b3abab0e6133388e60fccb26b14e887e5556352d9c50d01",
+    "wearable-approved-round5/accessory-expansion/models/07-cape.glb": "e29010956b989a60e196472b2206e6c397b34f12f3b7092d67f53f189c128e21",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/inputs/tea-keyframes.json": "1b37c436f623ced2289411b5f0192e15feed91715bacc2bac3008336923e04d1",
+    "animation-foundation-v1/secondary-motion/cloth-probe/tea-obstacles.mjs": "0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a",
+    "animation-foundation-v1/contact/tea-clearance-candidate.mjs": "c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745",
+    "animation-foundation-v1/integration/tea-sample-boundary.mjs": "1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166",
+    "original-parts-hybrid-v1/tea/src/rigid-tea.mjs": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+    "original-parts-hybrid-v1/tea/src/timeline.mjs": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+    "original-parts-hybrid-v1/tea/src/scene-resources.mjs": "bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d",
+    "original-parts-hybrid-v1/tea/src/cup-model.mjs": "66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca",
+    "original-parts-hybrid-v1/tea/inputs/rigid-config.json": "b63aa7b4d3367c97bd72163329737061d62f3d787dae39f2cd971ff7a48fcc9c",
+    "original-parts-hybrid-v1/tea/inputs/hold-fit.json": "419f5d0d929edb977ce8103d4616461bf0e1c8cd09c8f8218b4c9cd611d95f0f",
+    "original-parts-hybrid-v1/tea/inputs/sip-fit.json": "7012a0c1869afde8704ba4d084d41407bbf7ee1662edc501d4bc99860b38acb6"
+  },
+  "scope": "Rest-initialized declared tea path, coherent clearance candidate, stop at first contact/pin/strain failure",
+  "time": 0,
+  "frames": 540,
+  "sampleHz": 60,
+  "attachment": {
+    "profile": "tea-swept-51-v1",
+    "simulationSHA256": "740619e1ca28dc8824c070bbc3b23df6ba7430b956dd4f64d2a411f8549ab8a8",
+    "pins": [
+      0,
+      3,
+      41,
+      48,
+      53,
+      56,
+      58,
+      60,
+      62,
+      64,
+      66,
+      68,
+      70,
+      72,
+      75,
+      81,
+      91,
+      104,
+      117,
+      131,
+      145,
+      159,
+      173,
+      187,
+      201,
+      215,
+      229,
+      243,
+      257,
+      271,
+      285,
+      299,
+      313,
+      327,
+      340,
+      353,
+      363,
+      369,
+      372,
+      374,
+      376,
+      378,
+      380,
+      382,
+      384,
+      386,
+      388,
+      391,
+      396,
+      438,
+      441
+    ],
+    "releasedPins": [
+      6,
+      9,
+      13,
+      17,
+      22,
+      28,
+      34,
+      403,
+      410,
+      416,
+      422,
+      427,
+      431,
+      435
+    ],
+    "reason": "Release the fourteen supports with exact inside-hand witnesses; dynamic cloth remains unaccepted",
+    "productionAccepted": false
+  },
+  "releasedPins": [
+    6,
+    9,
+    13,
+    17,
+    22,
+    28,
+    34,
+    403,
+    410,
+    416,
+    422,
+    427,
+    431,
+    435
+  ],
+  "handCollider": "convex-hull-diagnostic",
+  "bodyCollider": "conservative-bounded-hull",
+  "obstacleFilter": "all",
+  "exactBodyHull": false,
+  "localBodyProxy": false,
+  "rigidPipingSections": true,
+  "bodyFrameDetail": true,
+  "joinClothSeams": true,
+  "sampleOptions": {},
+  "declaredLimits": {
+    "maximumEdgeStretch": 1.2,
+    "minimumEdgeStretch": 0.8,
+    "pinError": 0.00001,
+    "seamCoincidenceError": 0.00001,
+    "frameBudgetMs": 16.667
+  },
+  "rows": [
+    {
+      "frame": 0,
+      "physicsMs": 83.45324600000026,
+      "internalTimings": {
+        "Step": 37.346288,
+        "CollisionDetection": 21.369270999999998,
+        "BroadPhase": 0.744259,
+        "NarrowPhase": 20.560747,
+        "Solver": 11.293149000000001,
+        "VelocityAssembly": 2.188903,
+        "VelocityResolution": 9.044267999999999,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.054209999999999994,
+        "UserChanges": 0.5982729999999999
+      },
+      "mapMs": 27.490511999999853,
+      "simulationPipelineMs": 123.72639499999968,
+      "totalIncludingContactMs": 177.4674070000001,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 2.0479687361708706e-8,
+        "witness": {
+          "part": "cape_hem",
+          "section": 36,
+          "clothVertex": 702,
+          "gap": 2.0479687361708706e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9960752990168795,
+        "max": 1.011816115276954
+      },
+      "renderStrain": {
+        "min": 0.9926873819348979,
+        "max": 1.0122596983241818,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.9926873819348979
+        },
+        "maxWitness": {
+          "part": "cape_cloth",
+          "a": 2595,
+          "b": 2596,
+          "restLength": 0.019573760179740936,
+          "ratio": 1.0122596983241818
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9926873819348979,
+            "max": 1.0122596983241818,
+            "minWitness": {
+              "a": 982,
+              "b": 983,
+              "restLength": 0.011474875018840473,
+              "ratio": 0.9926873819348979
+            },
+            "maxWitness": {
+              "a": 2595,
+              "b": 2596,
+              "restLength": 0.019573760179740936,
+              "ratio": 1.0122596983241818
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.997544206950718,
+            "max": 1.0040577785671394,
+            "minWitness": {
+              "a": 71,
+              "b": 59,
+              "restLength": 0.03083690598199554,
+              "ratio": 0.997544206950718
+            },
+            "maxWitness": {
+              "a": 292,
+              "b": 280,
+              "restLength": 0.04199531828779324,
+              "ratio": 1.0040577785671394
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9966956395887007,
+            "max": 1.0051472803242925,
+            "minWitness": {
+              "a": 1707,
+              "b": 1695,
+              "restLength": 0.05852627762941259,
+              "ratio": 0.9966956395887007
+            },
+            "maxWitness": {
+              "a": 1450,
+              "b": 1438,
+              "restLength": 0.06067875901233381,
+              "ratio": 1.0051472803242925
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.999989055411177,
+            "max": 1.0090932346889074,
+            "minWitness": {
+              "a": 39,
+              "b": 51,
+              "restLength": 0.004658765416504786,
+              "ratio": 0.999989055411177
+            },
+            "maxWitness": {
+              "a": 0,
+              "b": 13,
+              "restLength": 0.004690225542785106,
+              "ratio": 1.0090932346889074
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9987117857634934,
+            "max": 1.0081884347334187,
+            "minWitness": {
+              "a": 123,
+              "b": 111,
+              "restLength": 0.006787284367295036,
+              "ratio": 0.9987117857634934
+            },
+            "maxWitness": {
+              "a": 120,
+              "b": 133,
+              "restLength": 0.004847980757747475,
+              "ratio": 1.0081884347334187
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.0122596983241818,
+      "minStretch": 0.9926873819348979,
+      "contacts": []
+    },
+    {
+      "frame": 1,
+      "physicsMs": 21.876149999999598,
+      "internalTimings": {
+        "Step": 21.410973,
+        "CollisionDetection": 16.099297,
+        "BroadPhase": 0.01334,
+        "NarrowPhase": 16.074291000000002,
+        "Solver": 5.048436,
+        "VelocityAssembly": 1.157619,
+        "VelocityResolution": 3.8335019999999997,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0058189999999999995,
+        "UserChanges": 0.10676899999999999
+      },
+      "mapMs": 5.83733200000006,
+      "simulationPipelineMs": 36.796706000000086,
+      "totalIncludingContactMs": 87.8001449999997,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 2.2213339747585797e-8,
+        "witness": {
+          "part": "cape_hem",
+          "section": 40,
+          "clothVertex": 778,
+          "gap": 2.2213339747585797e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9882132798914329,
+        "max": 1.0233709520775751
+      },
+      "renderStrain": {
+        "min": 0.974867027013206,
+        "max": 1.0240650124392685,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.974867027013206
+        },
+        "maxWitness": {
+          "part": "cape_cloth",
+          "a": 2983,
+          "b": 2984,
+          "restLength": 0.0062465176728174225,
+          "ratio": 1.0240650124392685
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.974867027013206,
+            "max": 1.0240650124392685,
+            "minWitness": {
+              "a": 982,
+              "b": 983,
+              "restLength": 0.011474875018840473,
+              "ratio": 0.974867027013206
+            },
+            "maxWitness": {
+              "a": 2983,
+              "b": 2984,
+              "restLength": 0.0062465176728174225,
+              "ratio": 1.0240650124392685
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9944810948798858,
+            "max": 1.0156044938540543,
+            "minWitness": {
+              "a": 71,
+              "b": 59,
+              "restLength": 0.03083690598199554,
+              "ratio": 0.9944810948798858
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.0156044938540543
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9929649533206167,
+            "max": 1.0147064701274933,
+            "minWitness": {
+              "a": 1707,
+              "b": 1695,
+              "restLength": 0.05852627762941259,
+              "ratio": 0.9929649533206167
+            },
+            "maxWitness": {
+              "a": 1451,
+              "b": 1439,
+              "restLength": 0.058502362936113855,
+              "ratio": 1.0147064701274933
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9965916217130201,
+            "max": 1.0185887839662298,
+            "minWitness": {
+              "a": 240,
+              "b": 228,
+              "restLength": 0.006792351441187962,
+              "ratio": 0.9965916217130201
+            },
+            "maxWitness": {
+              "a": 142,
+              "b": 117,
+              "restLength": 0.006788065720326443,
+              "ratio": 1.0185887839662298
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9947081743876369,
+            "max": 1.0177364313781978,
+            "minWitness": {
+              "a": 123,
+              "b": 111,
+              "restLength": 0.006787284367295036,
+              "ratio": 0.9947081743876369
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 116,
+              "restLength": 0.004905815436640919,
+              "ratio": 1.0177364313781978
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.0240650124392685,
+      "minStretch": 0.974867027013206,
+      "contacts": []
+    },
+    {
+      "frame": 2,
+      "physicsMs": 22.127981999999975,
+      "internalTimings": {
+        "Step": 21.940274,
+        "CollisionDetection": 16.401635000000002,
+        "BroadPhase": 0.008343,
+        "NarrowPhase": 16.263741000000003,
+        "Solver": 5.355259,
+        "VelocityAssembly": 1.010683,
+        "VelocityResolution": 4.273011,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.005417999999999999,
+        "UserChanges": 0.024125
+      },
+      "mapMs": 4.655917000000045,
+      "simulationPipelineMs": 32.82333800000015,
+      "totalIncludingContactMs": 82.67568200000005,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.4049806747972728e-8,
+        "witness": {
+          "part": "cape_hem",
+          "section": 40,
+          "clothVertex": 778,
+          "gap": 1.4049806747972728e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9766062645514699,
+        "max": 1.0393829163133699
+      },
+      "renderStrain": {
+        "min": 0.9563050453654858,
+        "max": 1.0406616736950154,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.9563050453654858
+        },
+        "maxWitness": {
+          "part": "cape_cloth",
+          "a": 2986,
+          "b": 2987,
+          "restLength": 0.006128918558886701,
+          "ratio": 1.0406616736950154
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9563050453654858,
+            "max": 1.0406616736950154,
+            "minWitness": {
+              "a": 982,
+              "b": 983,
+              "restLength": 0.011474875018840473,
+              "ratio": 0.9563050453654858
+            },
+            "maxWitness": {
+              "a": 2986,
+              "b": 2987,
+              "restLength": 0.006128918558886701,
+              "ratio": 1.0406616736950154
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9912914139475167,
+            "max": 1.034644859336852,
+            "minWitness": {
+              "a": 2014,
+              "b": 1989,
+              "restLength": 0.031102210026668353,
+              "ratio": 0.9912914139475167
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.034644859336852
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9885869414332188,
+            "max": 1.0326389140502072,
+            "minWitness": {
+              "a": 58,
+              "b": 46,
+              "restLength": 0.030602412018523078,
+              "ratio": 0.9885869414332188
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.0326389140502072
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9892418162189452,
+            "max": 1.0270815883866118,
+            "minWitness": {
+              "a": 240,
+              "b": 228,
+              "restLength": 0.006792351441187962,
+              "ratio": 0.9892418162189452
+            },
+            "maxWitness": {
+              "a": 142,
+              "b": 117,
+              "restLength": 0.006788065720326443,
+              "ratio": 1.0270815883866118
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9879249717163667,
+            "max": 1.0285080748336446,
+            "minWitness": {
+              "a": 123,
+              "b": 111,
+              "restLength": 0.006787284367295036,
+              "ratio": 0.9879249717163667
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 104,
+              "restLength": 0.006746467186822947,
+              "ratio": 1.0285080748336446
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.0406616736950154,
+      "minStretch": 0.9563050453654858,
+      "contacts": []
+    },
+    {
+      "frame": 3,
+      "physicsMs": 21.771574999999757,
+      "internalTimings": {
+        "Step": 21.606361,
+        "CollisionDetection": 16.299144000000002,
+        "BroadPhase": 0.010866,
+        "NarrowPhase": 16.279514,
+        "Solver": 5.103537,
+        "VelocityAssembly": 0.9455870000000001,
+        "VelocityResolution": 4.093516,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004987,
+        "UserChanges": 0.035642999999999994
+      },
+      "mapMs": 4.090390999999727,
+      "simulationPipelineMs": 34.60365700000011,
+      "totalIncludingContactMs": 81.81951200000003,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.9868215073159945e-8,
+        "witness": {
+          "part": "cape_hem",
+          "section": 120,
+          "clothVertex": 2298,
+          "gap": 1.9868215073159945e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9630352785602442,
+        "max": 1.0576486071569324
+      },
+      "renderStrain": {
+        "min": 0.9429805689794518,
+        "max": 1.0596082349660918,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.9429805689794518
+        },
+        "maxWitness": {
+          "part": "cape_cloth",
+          "a": 2986,
+          "b": 2987,
+          "restLength": 0.006128918558886701,
+          "ratio": 1.0596082349660918
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9429805689794518,
+            "max": 1.0596082349660918,
+            "minWitness": {
+              "a": 982,
+              "b": 983,
+              "restLength": 0.011474875018840473,
+              "ratio": 0.9429805689794518
+            },
+            "maxWitness": {
+              "a": 2986,
+              "b": 2987,
+              "restLength": 0.006128918558886701,
+              "ratio": 1.0596082349660918
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9892803681514047,
+            "max": 1.058910185334903,
+            "minWitness": {
+              "a": 2014,
+              "b": 1989,
+              "restLength": 0.031102210026668353,
+              "ratio": 0.9892803681514047
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.058910185334903
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.980879507260906,
+            "max": 1.0542518294011232,
+            "minWitness": {
+              "a": 784,
+              "b": 772,
+              "restLength": 0.030739282787470235,
+              "ratio": 0.980879507260906
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.0542518294011232
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9814904319523365,
+            "max": 1.0344573333303024,
+            "minWitness": {
+              "a": 240,
+              "b": 228,
+              "restLength": 0.006792351441187962,
+              "ratio": 0.9814904319523365
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.0344573333303024
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9816046642022761,
+            "max": 1.0405005427476572,
+            "minWitness": {
+              "a": 123,
+              "b": 111,
+              "restLength": 0.006787284367295036,
+              "ratio": 0.9816046642022761
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 104,
+              "restLength": 0.006746467186822947,
+              "ratio": 1.0405005427476572
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.0596082349660918,
+      "minStretch": 0.9429805689794518,
+      "contacts": []
+    },
+    {
+      "frame": 4,
+      "physicsMs": 24.976106999999956,
+      "internalTimings": {
+        "Step": 24.841518999999998,
+        "CollisionDetection": 18.875288,
+        "BroadPhase": 0.008331999999999999,
+        "NarrowPhase": 18.856250000000003,
+        "Solver": 5.7982830000000005,
+        "VelocityAssembly": 0.975511,
+        "VelocityResolution": 4.727261,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.005419,
+        "UserChanges": 0.030796
+      },
+      "mapMs": 6.030576999999994,
+      "simulationPipelineMs": 36.58010599999989,
+      "totalIncludingContactMs": 89.42686700000013,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 2.9802322387695312e-8,
+        "witness": {
+          "part": "cape_back_edge",
+          "section": 46,
+          "clothVertex": 874,
+          "gap": 2.9802322387695312e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9493717363194165,
+        "max": 1.0764895577191258
+      },
+      "renderStrain": {
+        "min": 0.9339942334702117,
+        "max": 1.084988400728652,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.9339942334702117
+        },
+        "maxWitness": {
+          "part": "cape_back_edge",
+          "a": 2047,
+          "b": 2035,
+          "restLength": 0.030769094652259313,
+          "ratio": 1.084988400728652
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9339942334702117,
+            "max": 1.0791134463951104,
+            "minWitness": {
+              "a": 982,
+              "b": 983,
+              "restLength": 0.011474875018840473,
+              "ratio": 0.9339942334702117
+            },
+            "maxWitness": {
+              "a": 2986,
+              "b": 2987,
+              "restLength": 0.006128918558886701,
+              "ratio": 1.0791134463951104
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.988862183428531,
+            "max": 1.084988400728652,
+            "minWitness": {
+              "a": 2014,
+              "b": 1989,
+              "restLength": 0.031102210026668353,
+              "ratio": 0.988862183428531
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.084988400728652
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9697403831004424,
+            "max": 1.0761711313871458,
+            "minWitness": {
+              "a": 784,
+              "b": 772,
+              "restLength": 0.030739282787470235,
+              "ratio": 0.9697403831004424
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.0761711313871458
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9745549482495863,
+            "max": 1.0415358916976754,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006808566538518912,
+              "ratio": 0.9745549482495863
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.0415358916976754
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9772034314306527,
+            "max": 1.0532356622414518,
+            "minWitness": {
+              "a": 123,
+              "b": 111,
+              "restLength": 0.006787284367295036,
+              "ratio": 0.9772034314306527
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 116,
+              "restLength": 0.004905815436640919,
+              "ratio": 1.0532356622414518
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.084988400728652,
+      "minStretch": 0.9339942334702117,
+      "contacts": []
+    },
+    {
+      "frame": 5,
+      "physicsMs": 23.307534000000032,
+      "internalTimings": {
+        "Step": 23.158604,
+        "CollisionDetection": 17.051173,
+        "BroadPhase": 0.008923,
+        "NarrowPhase": 17.030512,
+        "Solver": 5.894426,
+        "VelocityAssembly": 1.4654239999999998,
+        "VelocityResolution": 4.338979,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0052569999999999995,
+        "UserChanges": 0.031016000000000002
+      },
+      "mapMs": 3.9182770000002165,
+      "simulationPipelineMs": 32.64262099999996,
+      "totalIncludingContactMs": 83.16293599999972,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 2.0489096578459674e-8,
+        "witness": {
+          "part": "cape_hem",
+          "section": 36,
+          "clothVertex": 702,
+          "gap": 2.0489096578459674e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9378189813097473,
+        "max": 1.0930857814637434
+      },
+      "renderStrain": {
+        "min": 0.9224476818905728,
+        "max": 1.1090803690265867,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.9224476818905728
+        },
+        "maxWitness": {
+          "part": "cape_back_edge",
+          "a": 2047,
+          "b": 2035,
+          "restLength": 0.030769094652259313,
+          "ratio": 1.1090803690265867
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9224476818905728,
+            "max": 1.0962853516183217,
+            "minWitness": {
+              "a": 982,
+              "b": 983,
+              "restLength": 0.011474875018840473,
+              "ratio": 0.9224476818905728
+            },
+            "maxWitness": {
+              "a": 2986,
+              "b": 2987,
+              "restLength": 0.006128918558886701,
+              "ratio": 1.0962853516183217
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9901145909697985,
+            "max": 1.1090803690265867,
+            "minWitness": {
+              "a": 2014,
+              "b": 1989,
+              "restLength": 0.031102210026668353,
+              "ratio": 0.9901145909697985
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.1090803690265867
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9623390860806863,
+            "max": 1.0954289651472493,
+            "minWitness": {
+              "a": 785,
+              "b": 773,
+              "restLength": 0.03221321938242726,
+              "ratio": 0.9623390860806863
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.0954289651472493
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9695310748842528,
+            "max": 1.0467959081177172,
+            "minWitness": {
+              "a": 228,
+              "b": 216,
+              "restLength": 0.006806870105871377,
+              "ratio": 0.9695310748842528
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.0467959081177172
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.973210961585859,
+            "max": 1.06583900629446,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006748050124597831,
+              "ratio": 0.973210961585859
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 116,
+              "restLength": 0.004905815436640919,
+              "ratio": 1.06583900629446
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.1090803690265867,
+      "minStretch": 0.9224476818905728,
+      "contacts": []
+    },
+    {
+      "frame": 6,
+      "physicsMs": 26.219174000000294,
+      "internalTimings": {
+        "Step": 26.06734,
+        "CollisionDetection": 19.878329,
+        "BroadPhase": 0.12299199999999999,
+        "NarrowPhase": 19.746695000000003,
+        "Solver": 6.004799,
+        "VelocityAssembly": 1.173994,
+        "VelocityResolution": 4.730417,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.006059,
+        "UserChanges": 0.023935
+      },
+      "mapMs": 4.204258999999638,
+      "simulationPipelineMs": 35.95655599999964,
+      "totalIncludingContactMs": 85.35893899999974,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.9868215073159945e-8,
+        "witness": {
+          "part": "cape_back_edge",
+          "section": 46,
+          "clothVertex": 874,
+          "gap": 1.9868215073159945e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9299026379914054,
+        "max": 1.1050275872687083
+      },
+      "renderStrain": {
+        "min": 0.9150149261697905,
+        "max": 1.1281487793023162,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.9150149261697905
+        },
+        "maxWitness": {
+          "part": "cape_back_edge",
+          "a": 2047,
+          "b": 2035,
+          "restLength": 0.030769094652259313,
+          "ratio": 1.1281487793023162
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9150149261697905,
+            "max": 1.1122055939055593,
+            "minWitness": {
+              "a": 982,
+              "b": 983,
+              "restLength": 0.011474875018840473,
+              "ratio": 0.9150149261697905
+            },
+            "maxWitness": {
+              "a": 2986,
+              "b": 2967,
+              "restLength": 0.029843353379430636,
+              "ratio": 1.1122055939055593
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9894606389972171,
+            "max": 1.1281487793023162,
+            "minWitness": {
+              "a": 109,
+              "b": 97,
+              "restLength": 0.03175774702947356,
+              "ratio": 0.9894606389972171
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.1281487793023162
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9554351739671356,
+            "max": 1.1097881021656335,
+            "minWitness": {
+              "a": 786,
+              "b": 774,
+              "restLength": 0.033736396224896076,
+              "ratio": 0.9554351739671356
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.1097881021656335
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9671157425742472,
+            "max": 1.049390339385351,
+            "minWitness": {
+              "a": 228,
+              "b": 216,
+              "restLength": 0.006806870105871377,
+              "ratio": 0.9671157425742472
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.049390339385351
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9671055862755297,
+            "max": 1.0761084721457663,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006748050124597831,
+              "ratio": 0.9671055862755297
+            },
+            "maxWitness": {
+              "a": 118,
+              "b": 106,
+              "restLength": 0.006707567823382302,
+              "ratio": 1.0761084721457663
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.1281487793023162,
+      "minStretch": 0.9150149261697905,
+      "contacts": []
+    },
+    {
+      "frame": 7,
+      "physicsMs": 22.489676000000145,
+      "internalTimings": {
+        "Step": 22.364371000000002,
+        "CollisionDetection": 16.958146,
+        "BroadPhase": 0.083063,
+        "NarrowPhase": 16.869474999999998,
+        "Solver": 5.252237,
+        "VelocityAssembly": 0.767193,
+        "VelocityResolution": 4.4244840000000005,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003946,
+        "UserChanges": 0.022063
+      },
+      "mapMs": 4.966976000000159,
+      "simulationPipelineMs": 33.050484000000324,
+      "totalIncludingContactMs": 82.31523400000015,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.9868215073159945e-8,
+        "witness": {
+          "part": "cape_back_edge",
+          "section": 71,
+          "clothVertex": 1349,
+          "gap": 1.9868215073159945e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9259965444637547,
+        "max": 1.1112594854919366
+      },
+      "renderStrain": {
+        "min": 0.9109893510683108,
+        "max": 1.1404895724277893,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.9109893510683108
+        },
+        "maxWitness": {
+          "part": "cape_back_edge",
+          "a": 2047,
+          "b": 2035,
+          "restLength": 0.030769094652259313,
+          "ratio": 1.1404895724277893
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9109893510683108,
+            "max": 1.1242233863400999,
+            "minWitness": {
+              "a": 982,
+              "b": 983,
+              "restLength": 0.011474875018840473,
+              "ratio": 0.9109893510683108
+            },
+            "maxWitness": {
+              "a": 2986,
+              "b": 2967,
+              "restLength": 0.029843353379430636,
+              "ratio": 1.1242233863400999
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9876272955050835,
+            "max": 1.1404895724277893,
+            "minWitness": {
+              "a": 1891,
+              "b": 1879,
+              "restLength": 0.03676712683527085,
+              "ratio": 0.9876272955050835
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.1404895724277893
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9511764598611692,
+            "max": 1.1181174646650913,
+            "minWitness": {
+              "a": 786,
+              "b": 774,
+              "restLength": 0.033736396224896076,
+              "ratio": 0.9511764598611692
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.1181174646650913
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9668711405905848,
+            "max": 1.049668582098595,
+            "minWitness": {
+              "a": 240,
+              "b": 228,
+              "restLength": 0.006792351441187962,
+              "ratio": 0.9668711405905848
+            },
+            "maxWitness": {
+              "a": 142,
+              "b": 117,
+              "restLength": 0.006788065720326443,
+              "ratio": 1.049668582098595
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9625524563355117,
+            "max": 1.0838250851517015,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006748050124597831,
+              "ratio": 0.9625524563355117
+            },
+            "maxWitness": {
+              "a": 118,
+              "b": 106,
+              "restLength": 0.006707567823382302,
+              "ratio": 1.0838250851517015
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.1404895724277893,
+      "minStretch": 0.9109893510683108,
+      "contacts": []
+    },
+    {
+      "frame": 8,
+      "physicsMs": 22.615081000000373,
+      "internalTimings": {
+        "Step": 22.372473,
+        "CollisionDetection": 16.91366,
+        "BroadPhase": 0.008042,
+        "NarrowPhase": 16.897847000000002,
+        "Solver": 5.265866999999999,
+        "VelocityAssembly": 0.814513,
+        "VelocityResolution": 4.388412000000001,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003786,
+        "UserChanges": 0.022102
+      },
+      "mapMs": 4.157040000000052,
+      "simulationPipelineMs": 32.38881600000013,
+      "totalIncludingContactMs": 82.26191600000038,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.9868215073159945e-8,
+        "witness": {
+          "part": "cape_back_edge",
+          "section": 71,
+          "clothVertex": 1349,
+          "gap": 1.9868215073159945e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9255940777421143,
+        "max": 1.1120606956694012
+      },
+      "renderStrain": {
+        "min": 0.9110724103174092,
+        "max": 1.1455750910451254,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.9110724103174092
+        },
+        "maxWitness": {
+          "part": "cape_back_edge",
+          "a": 2047,
+          "b": 2035,
+          "restLength": 0.030769094652259313,
+          "ratio": 1.1455750910451254
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9110724103174092,
+            "max": 1.1294821697740067,
+            "minWitness": {
+              "a": 982,
+              "b": 983,
+              "restLength": 0.011474875018840473,
+              "ratio": 0.9110724103174092
+            },
+            "maxWitness": {
+              "a": 2986,
+              "b": 2967,
+              "restLength": 0.029843353379430636,
+              "ratio": 1.1294821697740067
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9859493797472098,
+            "max": 1.1455750910451254,
+            "minWitness": {
+              "a": 1891,
+              "b": 1879,
+              "restLength": 0.03676712683527085,
+              "ratio": 0.9859493797472098
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.1455750910451254
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9516530340579766,
+            "max": 1.1203803685749631,
+            "minWitness": {
+              "a": 786,
+              "b": 774,
+              "restLength": 0.033736396224896076,
+              "ratio": 0.9516530340579766
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.1203803685749631
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9688363573314726,
+            "max": 1.0476795818658142,
+            "minWitness": {
+              "a": 240,
+              "b": 228,
+              "restLength": 0.006792351441187962,
+              "ratio": 0.9688363573314726
+            },
+            "maxWitness": {
+              "a": 142,
+              "b": 117,
+              "restLength": 0.006788065720326443,
+              "ratio": 1.0476795818658142
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9598126810919874,
+            "max": 1.0873377053810436,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006748050124597831,
+              "ratio": 0.9598126810919874
+            },
+            "maxWitness": {
+              "a": 118,
+              "b": 106,
+              "restLength": 0.006707567823382302,
+              "ratio": 1.0873377053810436
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.1455750910451254,
+      "minStretch": 0.9110724103174092,
+      "contacts": []
+    },
+    {
+      "frame": 9,
+      "physicsMs": 22.614990999999918,
+      "internalTimings": {
+        "Step": 22.380324,
+        "CollisionDetection": 16.937215,
+        "BroadPhase": 0.008723,
+        "NarrowPhase": 16.923344999999998,
+        "Solver": 5.252858,
+        "VelocityAssembly": 0.7739729999999999,
+        "VelocityResolution": 4.417584,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004436000000000001,
+        "UserChanges": 0.025367
+      },
+      "mapMs": 3.930735999999797,
+      "simulationPipelineMs": 32.37056900000016,
+      "totalIncludingContactMs": 81.37345300000015,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.9868215073159945e-8,
+        "witness": {
+          "part": "cape_back_edge",
+          "section": 75,
+          "clothVertex": 1425,
+          "gap": 1.9868215073159945e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9279108127672052,
+        "max": 1.1085499548520892
+      },
+      "renderStrain": {
+        "min": 0.9167309076181918,
+        "max": 1.1439314731542995,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 1991,
+          "b": 1971,
+          "restLength": 0.04482141796501451,
+          "ratio": 0.9167309076181918
+        },
+        "maxWitness": {
+          "part": "cape_back_edge",
+          "a": 2047,
+          "b": 2035,
+          "restLength": 0.030769094652259313,
+          "ratio": 1.1439314731542995
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9167309076181918,
+            "max": 1.1283763755708496,
+            "minWitness": {
+              "a": 1991,
+              "b": 1971,
+              "restLength": 0.04482141796501451,
+              "ratio": 0.9167309076181918
+            },
+            "maxWitness": {
+              "a": 2986,
+              "b": 2967,
+              "restLength": 0.029843353379430636,
+              "ratio": 1.1283763755708496
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9859643562589756,
+            "max": 1.1439314731542995,
+            "minWitness": {
+              "a": 1891,
+              "b": 1879,
+              "restLength": 0.03676712683527085,
+              "ratio": 0.9859643562589756
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.1439314731542995
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9548575570058635,
+            "max": 1.1173472538900158,
+            "minWitness": {
+              "a": 776,
+              "b": 789,
+              "restLength": 0.03518722094854448,
+              "ratio": 0.9548575570058635
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.1173472538900158
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9724665599944264,
+            "max": 1.0439194416283462,
+            "minWitness": {
+              "a": 240,
+              "b": 228,
+              "restLength": 0.006792351441187962,
+              "ratio": 0.9724665599944264
+            },
+            "maxWitness": {
+              "a": 142,
+              "b": 117,
+              "restLength": 0.006788065720326443,
+              "ratio": 1.0439194416283462
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9601879748785832,
+            "max": 1.086181065396086,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006748050124597831,
+              "ratio": 0.9601879748785832
+            },
+            "maxWitness": {
+              "a": 118,
+              "b": 106,
+              "restLength": 0.006707567823382302,
+              "ratio": 1.086181065396086
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.1439314731542995,
+      "minStretch": 0.9167309076181918,
+      "contacts": []
+    },
+    {
+      "frame": 10,
+      "physicsMs": 22.635431000000153,
+      "internalTimings": {
+        "Step": 22.545879000000003,
+        "CollisionDetection": 16.662999000000003,
+        "BroadPhase": 0.007961000000000001,
+        "NarrowPhase": 16.649279999999997,
+        "Solver": 5.729472,
+        "VelocityAssembly": 0.7692960000000001,
+        "VelocityResolution": 4.897143,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0044870000000000005,
+        "UserChanges": 0.021522000000000003
+      },
+      "mapMs": 4.010052999999971,
+      "simulationPipelineMs": 32.53981900000008,
+      "totalIncludingContactMs": 83.0105510000003,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.9868215073159945e-8,
+        "witness": {
+          "part": "cape_back_edge",
+          "section": 111,
+          "clothVertex": 2109,
+          "gap": 1.9868215073159945e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9321454649992775,
+        "max": 1.1020984289619373
+      },
+      "renderStrain": {
+        "min": 0.9137424346952913,
+        "max": 1.137139049156483,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 1991,
+          "b": 1971,
+          "restLength": 0.04482141796501451,
+          "ratio": 0.9137424346952913
+        },
+        "maxWitness": {
+          "part": "cape_back_edge",
+          "a": 2047,
+          "b": 2035,
+          "restLength": 0.030769094652259313,
+          "ratio": 1.137139049156483
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9137424346952913,
+            "max": 1.122327716217416,
+            "minWitness": {
+              "a": 1991,
+              "b": 1971,
+              "restLength": 0.04482141796501451,
+              "ratio": 0.9137424346952913
+            },
+            "maxWitness": {
+              "a": 2986,
+              "b": 2967,
+              "restLength": 0.029843353379430636,
+              "ratio": 1.122327716217416
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9862010143532676,
+            "max": 1.137139049156483,
+            "minWitness": {
+              "a": 1891,
+              "b": 1879,
+              "restLength": 0.03676712683527085,
+              "ratio": 0.9862010143532676
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.137139049156483
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9592695787377817,
+            "max": 1.1103990792346623,
+            "minWitness": {
+              "a": 776,
+              "b": 789,
+              "restLength": 0.03518722094854448,
+              "ratio": 0.9592695787377817
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.1103990792346623
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9766005630256612,
+            "max": 1.0393973909113958,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006808566538518912,
+              "ratio": 0.9766005630256612
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.0393973909113958
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9636832419161694,
+            "max": 1.0809615244357602,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006748050124597831,
+              "ratio": 0.9636832419161694
+            },
+            "maxWitness": {
+              "a": 118,
+              "b": 106,
+              "restLength": 0.006707567823382302,
+              "ratio": 1.0809615244357602
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.137139049156483,
+      "minStretch": 0.9137424346952913,
+      "contacts": []
+    },
+    {
+      "frame": 11,
+      "physicsMs": 22.6429720000001,
+      "internalTimings": {
+        "Step": 22.55356,
+        "CollisionDetection": 17.025966999999998,
+        "BroadPhase": 0.009604,
+        "NarrowPhase": 17.010233,
+        "Solver": 5.390181,
+        "VelocityAssembly": 0.887992,
+        "VelocityResolution": 4.437984,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004346,
+        "UserChanges": 0.022362
+      },
+      "mapMs": 3.998986000000059,
+      "simulationPipelineMs": 32.40938599999981,
+      "totalIncludingContactMs": 84.66598599999998,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.9868821393686964e-8,
+        "witness": {
+          "part": "cape_hem",
+          "section": 120,
+          "clothVertex": 2298,
+          "gap": 1.9868821393686964e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9373773199153715,
+        "max": 1.098853395592735
+      },
+      "renderStrain": {
+        "min": 0.914994184462459,
+        "max": 1.12621602303199,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 1991,
+          "b": 1971,
+          "restLength": 0.04482141796501451,
+          "ratio": 0.914994184462459
+        },
+        "maxWitness": {
+          "part": "cape_back_edge",
+          "a": 2047,
+          "b": 2035,
+          "restLength": 0.030769094652259313,
+          "ratio": 1.12621602303199
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.914994184462459,
+            "max": 1.1122336870104355,
+            "minWitness": {
+              "a": 1991,
+              "b": 1971,
+              "restLength": 0.04482141796501451,
+              "ratio": 0.914994184462459
+            },
+            "maxWitness": {
+              "a": 2986,
+              "b": 2967,
+              "restLength": 0.029843353379430636,
+              "ratio": 1.1122336870104355
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9869541435828957,
+            "max": 1.12621602303199,
+            "minWitness": {
+              "a": 1891,
+              "b": 1879,
+              "restLength": 0.03676712683527085,
+              "ratio": 0.9869541435828957
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.12621602303199
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9641858331805061,
+            "max": 1.101067186689756,
+            "minWitness": {
+              "a": 776,
+              "b": 789,
+              "restLength": 0.03518722094854448,
+              "ratio": 0.9641858331805061
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.101067186689756
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9805728164234886,
+            "max": 1.0351565123006043,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006808566538518912,
+              "ratio": 0.9805728164234886
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.0351565123006043
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9690398983923793,
+            "max": 1.0731809079391257,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006748050124597831,
+              "ratio": 0.9690398983923793
+            },
+            "maxWitness": {
+              "a": 118,
+              "b": 106,
+              "restLength": 0.006707567823382302,
+              "ratio": 1.0731809079391257
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.12621602303199,
+      "minStretch": 0.914994184462459,
+      "contacts": []
+    },
+    {
+      "frame": 12,
+      "physicsMs": 22.55623400000013,
+      "internalTimings": {
+        "Step": 22.446621999999998,
+        "CollisionDetection": 16.679282999999998,
+        "BroadPhase": 0.008943000000000001,
+        "NarrowPhase": 16.659224000000002,
+        "Solver": 5.619199,
+        "VelocityAssembly": 0.88007,
+        "VelocityResolution": 4.643759,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003986,
+        "UserChanges": 0.023104
+      },
+      "mapMs": 4.061017999999876,
+      "simulationPipelineMs": 32.09793600000012,
+      "totalIncludingContactMs": 83.4437310000003,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.1175870975568515e-8,
+        "witness": {
+          "part": "cape_hem",
+          "section": 124,
+          "clothVertex": 2374,
+          "gap": 1.1175870975568515e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9430430269989033,
+        "max": 1.0977451732725536
+      },
+      "renderStrain": {
+        "min": 0.9212801183614592,
+        "max": 1.112307819338347,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 1991,
+          "b": 1971,
+          "restLength": 0.04482141796501451,
+          "ratio": 0.9212801183614592
+        },
+        "maxWitness": {
+          "part": "cape_back_edge",
+          "a": 2047,
+          "b": 2035,
+          "restLength": 0.030769094652259313,
+          "ratio": 1.112307819338347
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9212801183614592,
+            "max": 1.099166779787622,
+            "minWitness": {
+              "a": 1991,
+              "b": 1971,
+              "restLength": 0.04482141796501451,
+              "ratio": 0.9212801183614592
+            },
+            "maxWitness": {
+              "a": 2986,
+              "b": 2967,
+              "restLength": 0.029843353379430636,
+              "ratio": 1.099166779787622
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9885443149132812,
+            "max": 1.112307819338347,
+            "minWitness": {
+              "a": 1891,
+              "b": 1879,
+              "restLength": 0.03676712683527085,
+              "ratio": 0.9885443149132812
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.112307819338347
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9691751323689124,
+            "max": 1.0906868342317113,
+            "minWitness": {
+              "a": 776,
+              "b": 789,
+              "restLength": 0.03518722094854448,
+              "ratio": 0.9691751323689124
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.0906868342317113
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9841923369663144,
+            "max": 1.0312799269725885,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006808566538518912,
+              "ratio": 0.9841923369663144
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.0312799269725885
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9750749964373359,
+            "max": 1.0658207017359198,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006748050124597831,
+              "ratio": 0.9750749964373359
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 116,
+              "restLength": 0.004905815436640919,
+              "ratio": 1.0658207017359198
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.112307819338347,
+      "minStretch": 0.9212801183614592,
+      "contacts": []
+    },
+    {
+      "frame": 13,
+      "physicsMs": 23.306111999999757,
+      "internalTimings": {
+        "Step": 23.168959,
+        "CollisionDetection": 17.097742999999998,
+        "BroadPhase": 0.014972,
+        "NarrowPhase": 17.077312,
+        "Solver": 5.884982000000001,
+        "VelocityAssembly": 0.969983,
+        "VelocityResolution": 4.849442,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0060290000000000005,
+        "UserChanges": 0.023134
+      },
+      "mapMs": 4.0017399999997,
+      "simulationPipelineMs": 32.91227899999967,
+      "totalIncludingContactMs": 84.23703299999988,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.9868215073159945e-8,
+        "witness": {
+          "part": "cape_back_edge",
+          "section": 46,
+          "clothVertex": 874,
+          "gap": 1.9868215073159945e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9487958506865557,
+        "max": 1.095743350032342
+      },
+      "renderStrain": {
+        "min": 0.9322366398769869,
+        "max": 1.0970147281498748,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 1991,
+          "b": 1971,
+          "restLength": 0.04482141796501451,
+          "ratio": 0.9322366398769869
+        },
+        "maxWitness": {
+          "part": "cape_back_edge",
+          "a": 2047,
+          "b": 2035,
+          "restLength": 0.030769094652259313,
+          "ratio": 1.0970147281498748
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9322366398769869,
+            "max": 1.0957904335958193,
+            "minWitness": {
+              "a": 1991,
+              "b": 1971,
+              "restLength": 0.04482141796501451,
+              "ratio": 0.9322366398769869
+            },
+            "maxWitness": {
+              "a": 1371,
+              "b": 1372,
+              "restLength": 0.0553656703928379,
+              "ratio": 1.0957904335958193
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9908882320361805,
+            "max": 1.0970147281498748,
+            "minWitness": {
+              "a": 1891,
+              "b": 1879,
+              "restLength": 0.03676712683527085,
+              "ratio": 0.9908882320361805
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.0970147281498748
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9742172176480698,
+            "max": 1.0802816898310896,
+            "minWitness": {
+              "a": 776,
+              "b": 789,
+              "restLength": 0.03518722094854448,
+              "ratio": 0.9742172176480698
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.0802816898310896
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9871484448649657,
+            "max": 1.0281073136192689,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006808566538518912,
+              "ratio": 0.9871484448649657
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.0281073136192689
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9807621358586149,
+            "max": 1.0589364402987826,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006748050124597831,
+              "ratio": 0.9807621358586149
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 116,
+              "restLength": 0.004905815436640919,
+              "ratio": 1.0589364402987826
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.0970147281498748,
+      "minStretch": 0.9322366398769869,
+      "contacts": []
+    },
+    {
+      "frame": 14,
+      "physicsMs": 22.92425800000001,
+      "internalTimings": {
+        "Step": 22.806374,
+        "CollisionDetection": 17.224981,
+        "BroadPhase": 0.008733,
+        "NarrowPhase": 17.209367,
+        "Solver": 5.403902,
+        "VelocityAssembly": 0.8205709999999999,
+        "VelocityResolution": 4.520987,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004476,
+        "UserChanges": 0.022694
+      },
+      "mapMs": 4.098443000000316,
+      "simulationPipelineMs": 32.67362600000024,
+      "totalIncludingContactMs": 84.85288200000014,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.9868215073159945e-8,
+        "witness": {
+          "part": "cape_back_edge",
+          "section": 75,
+          "clothVertex": 1425,
+          "gap": 1.9868215073159945e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9542693593516025,
+        "max": 1.092366890837303
+      },
+      "renderStrain": {
+        "min": 0.9461948719517519,
+        "max": 1.0924108008263869,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 1991,
+          "b": 1971,
+          "restLength": 0.04482141796501451,
+          "ratio": 0.9461948719517519
+        },
+        "maxWitness": {
+          "part": "cape_cloth",
+          "a": 1276,
+          "b": 1277,
+          "restLength": 0.05316262400085068,
+          "ratio": 1.0924108008263869
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9461948719517519,
+            "max": 1.0924108008263869,
+            "minWitness": {
+              "a": 1991,
+              "b": 1971,
+              "restLength": 0.04482141796501451,
+              "ratio": 0.9461948719517519
+            },
+            "maxWitness": {
+              "a": 1276,
+              "b": 1277,
+              "restLength": 0.05316262400085068,
+              "ratio": 1.0924108008263869
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9935071080433932,
+            "max": 1.0822267011914997,
+            "minWitness": {
+              "a": 1891,
+              "b": 1879,
+              "restLength": 0.03676712683527085,
+              "ratio": 0.9935071080433932
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.0822267011914997
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9784067556397286,
+            "max": 1.0706369865843042,
+            "minWitness": {
+              "a": 776,
+              "b": 789,
+              "restLength": 0.03518722094854448,
+              "ratio": 0.9784067556397286
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.0706369865843042
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9892189178184083,
+            "max": 1.025885001699547,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006808566538518912,
+              "ratio": 0.9892189178184083
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.025885001699547
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9852679550703141,
+            "max": 1.0521934748092805,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006748050124597831,
+              "ratio": 0.9852679550703141
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 116,
+              "restLength": 0.004905815436640919,
+              "ratio": 1.0521934748092805
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.0924108008263869,
+      "minStretch": 0.9461948719517519,
+      "contacts": []
+    },
+    {
+      "frame": 15,
+      "physicsMs": 22.709739999999783,
+      "internalTimings": {
+        "Step": 22.612587,
+        "CollisionDetection": 16.897366,
+        "BroadPhase": 0.008973,
+        "NarrowPhase": 16.883606,
+        "Solver": 5.5514589999999995,
+        "VelocityAssembly": 0.7782089999999999,
+        "VelocityResolution": 4.70557,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.0037749999999999997,
+        "UserChanges": 0.022202
+      },
+      "mapMs": 4.078743999999915,
+      "simulationPipelineMs": 32.268066999999974,
+      "totalIncludingContactMs": 83.92652399999997,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.9906982358946515e-8,
+        "witness": {
+          "part": "cape_back_edge",
+          "section": 75,
+          "clothVertex": 1425,
+          "gap": 1.9906982358946515e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9589979584243801,
+        "max": 1.0891380059211555
+      },
+      "renderStrain": {
+        "min": 0.9490216296775366,
+        "max": 1.0895711784656303,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 2096,
+          "b": 2076,
+          "restLength": 0.04077909866389447,
+          "ratio": 0.9490216296775366
+        },
+        "maxWitness": {
+          "part": "cape_cloth",
+          "a": 1238,
+          "b": 1239,
+          "restLength": 0.05222660021639519,
+          "ratio": 1.0895711784656303
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9490216296775366,
+            "max": 1.0895711784656303,
+            "minWitness": {
+              "a": 2096,
+              "b": 2076,
+              "restLength": 0.04077909866389447,
+              "ratio": 0.9490216296775366
+            },
+            "maxWitness": {
+              "a": 1238,
+              "b": 1239,
+              "restLength": 0.05222660021639519,
+              "ratio": 1.0895711784656303
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.991764869291599,
+            "max": 1.069572749819711,
+            "minWitness": {
+              "a": 2027,
+              "b": 2002,
+              "restLength": 0.030741187461973553,
+              "ratio": 0.991764869291599
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.069572749819711
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.980798024751264,
+            "max": 1.0624595767454756,
+            "minWitness": {
+              "a": 776,
+              "b": 789,
+              "restLength": 0.03518722094854448,
+              "ratio": 0.980798024751264
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.0624595767454756
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9902334904278969,
+            "max": 1.024772235586439,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006808566538518912,
+              "ratio": 0.9902334904278969
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.024772235586439
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9855132243946727,
+            "max": 1.046170915755125,
+            "minWitness": {
+              "a": 124,
+              "b": 112,
+              "restLength": 0.006826288918624816,
+              "ratio": 0.9855132243946727
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 116,
+              "restLength": 0.004905815436640919,
+              "ratio": 1.046170915755125
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.0895711784656303,
+      "minStretch": 0.9490216296775366,
+      "contacts": []
+    },
+    {
+      "frame": 16,
+      "physicsMs": 23.920388999999886,
+      "internalTimings": {
+        "Step": 23.777027,
+        "CollisionDetection": 17.742084000000002,
+        "BroadPhase": 0.008522,
+        "NarrowPhase": 17.723746,
+        "Solver": 5.91072,
+        "VelocityAssembly": 0.7921900000000001,
+        "VelocityResolution": 5.052032,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004035,
+        "UserChanges": 0.022874000000000002
+      },
+      "mapMs": 4.569228000000294,
+      "simulationPipelineMs": 34.69402099999979,
+      "totalIncludingContactMs": 89.07600999999977,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 2.22133394496817e-8,
+        "witness": {
+          "part": "cape_hem",
+          "section": 40,
+          "clothVertex": 778,
+          "gap": 2.22133394496817e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.962546757579968,
+        "max": 1.0876761783953828
+      },
+      "renderStrain": {
+        "min": 0.9498580838436411,
+        "max": 1.0879465422964472,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 2096,
+          "b": 2076,
+          "restLength": 0.04077909866389447,
+          "ratio": 0.9498580838436411
+        },
+        "maxWitness": {
+          "part": "cape_cloth",
+          "a": 1200,
+          "b": 1201,
+          "restLength": 0.051584452103191306,
+          "ratio": 1.0879465422964472
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9498580838436411,
+            "max": 1.0879465422964472,
+            "minWitness": {
+              "a": 2096,
+              "b": 2076,
+              "restLength": 0.04077909866389447,
+              "ratio": 0.9498580838436411
+            },
+            "maxWitness": {
+              "a": 1200,
+              "b": 1201,
+              "restLength": 0.051584452103191306,
+              "ratio": 1.0879465422964472
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9888532676527682,
+            "max": 1.060253047851721,
+            "minWitness": {
+              "a": 2014,
+              "b": 1989,
+              "restLength": 0.031102210026668353,
+              "ratio": 0.9888532676527682
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.060253047851721
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9812738798501441,
+            "max": 1.0563560631162843,
+            "minWitness": {
+              "a": 776,
+              "b": 789,
+              "restLength": 0.03518722094854448,
+              "ratio": 0.9812738798501441
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.0563560631162843
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9901827835028465,
+            "max": 1.0248332718246425,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006808566538518912,
+              "ratio": 0.9901827835028465
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.0248332718246425
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9828908124164926,
+            "max": 1.0414725538278446,
+            "minWitness": {
+              "a": 123,
+              "b": 111,
+              "restLength": 0.006787284367295036,
+              "ratio": 0.9828908124164926
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 116,
+              "restLength": 0.004905815436640919,
+              "ratio": 1.0414725538278446
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.0879465422964472,
+      "minStretch": 0.9498580838436411,
+      "contacts": []
+    },
+    {
+      "frame": 17,
+      "physicsMs": 24.334380999999667,
+      "internalTimings": {
+        "Step": 24.152001,
+        "CollisionDetection": 18.567874000000003,
+        "BroadPhase": 0.039959,
+        "NarrowPhase": 18.520554,
+        "Solver": 5.400786999999999,
+        "VelocityAssembly": 0.831619,
+        "VelocityResolution": 4.497812000000001,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004295,
+        "UserChanges": 0.068241
+      },
+      "mapMs": 3.9380660000001626,
+      "simulationPipelineMs": 34.23944900000015,
+      "totalIncludingContactMs": 87.73757300000034,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.987791398229764e-8,
+        "witness": {
+          "part": "cape_hem",
+          "section": 37,
+          "clothVertex": 721,
+          "gap": 1.987791398229764e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9645918859865978,
+        "max": 1.0862069219320218
+      },
+      "renderStrain": {
+        "min": 0.9457276192402967,
+        "max": 1.0864453083097354,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.9457276192402967
+        },
+        "maxWitness": {
+          "part": "cape_cloth",
+          "a": 1200,
+          "b": 1201,
+          "restLength": 0.051584452103191306,
+          "ratio": 1.0864453083097354
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9457276192402967,
+            "max": 1.0864453083097354,
+            "minWitness": {
+              "a": 982,
+              "b": 983,
+              "restLength": 0.011474875018840473,
+              "ratio": 0.9457276192402967
+            },
+            "maxWitness": {
+              "a": 1200,
+              "b": 1201,
+              "restLength": 0.051584452103191306,
+              "ratio": 1.0864453083097354
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9871041985019431,
+            "max": 1.054940297387765,
+            "minWitness": {
+              "a": 2014,
+              "b": 1989,
+              "restLength": 0.031102210026668353,
+              "ratio": 0.9871041985019431
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.054940297387765
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9795930064734691,
+            "max": 1.0530702045173856,
+            "minWitness": {
+              "a": 785,
+              "b": 773,
+              "restLength": 0.03221321938242726,
+              "ratio": 0.9795930064734691
+            },
+            "maxWitness": {
+              "a": 1451,
+              "b": 1439,
+              "restLength": 0.058502362936113855,
+              "ratio": 1.0530702045173856
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9891632677514659,
+            "max": 1.0259147145364076,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006808566538518912,
+              "ratio": 0.9891632677514659
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.0259147145364076
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9798741360603884,
+            "max": 1.0399389141691482,
+            "minWitness": {
+              "a": 123,
+              "b": 111,
+              "restLength": 0.006787284367295036,
+              "ratio": 0.9798741360603884
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 104,
+              "restLength": 0.006746467186822947,
+              "ratio": 1.0399389141691482
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.0864453083097354,
+      "minStretch": 0.9457276192402967,
+      "contacts": []
+    },
+    {
+      "frame": 18,
+      "physicsMs": 22.613196999999673,
+      "internalTimings": {
+        "Step": 22.498779,
+        "CollisionDetection": 16.79864,
+        "BroadPhase": 0.008242,
+        "NarrowPhase": 16.78456,
+        "Solver": 5.566701,
+        "VelocityAssembly": 0.827913,
+        "VelocityResolution": 4.664459,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.019479,
+        "UserChanges": 0.016082999999999997
+      },
+      "mapMs": 3.9595290000002024,
+      "simulationPipelineMs": 32.0080039999998,
+      "totalIncludingContactMs": 84.94139300000006,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.9868215073159945e-8,
+        "witness": {
+          "part": "cape_back_edge",
+          "section": 85,
+          "clothVertex": 1615,
+          "gap": 1.9868215073159945e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9649847148503051,
+        "max": 1.083894857845993
+      },
+      "renderStrain": {
+        "min": 0.9415230973105863,
+        "max": 1.0841232069867914,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.9415230973105863
+        },
+        "maxWitness": {
+          "part": "cape_cloth",
+          "a": 1200,
+          "b": 1201,
+          "restLength": 0.051584452103191306,
+          "ratio": 1.0841232069867914
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9415230973105863,
+            "max": 1.0841232069867914,
+            "minWitness": {
+              "a": 982,
+              "b": 983,
+              "restLength": 0.011474875018840473,
+              "ratio": 0.9415230973105863
+            },
+            "maxWitness": {
+              "a": 1200,
+              "b": 1201,
+              "restLength": 0.051584452103191306,
+              "ratio": 1.0841232069867914
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9866155731303237,
+            "max": 1.0538233477790737,
+            "minWitness": {
+              "a": 2014,
+              "b": 1989,
+              "restLength": 0.031102210026668353,
+              "ratio": 0.9866155731303237
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.0538233477790737
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9763425513693264,
+            "max": 1.051723914854256,
+            "minWitness": {
+              "a": 785,
+              "b": 773,
+              "restLength": 0.03221321938242726,
+              "ratio": 0.9763425513693264
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.051723914854256
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9873699139011386,
+            "max": 1.0278372264261368,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006808566538518912,
+              "ratio": 0.9873699139011386
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.0278372264261368
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9771240817957506,
+            "max": 1.0421299794569334,
+            "minWitness": {
+              "a": 123,
+              "b": 111,
+              "restLength": 0.006787284367295036,
+              "ratio": 0.9771240817957506
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 104,
+              "restLength": 0.006746467186822947,
+              "ratio": 1.0421299794569334
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.0841232069867914,
+      "minStretch": 0.9415230973105863,
+      "contacts": []
+    },
+    {
+      "frame": 19,
+      "physicsMs": 22.924548000000414,
+      "internalTimings": {
+        "Step": 22.821806,
+        "CollisionDetection": 17.14941,
+        "BroadPhase": 0.008162,
+        "NarrowPhase": 17.131663,
+        "Solver": 5.5575470000000005,
+        "VelocityAssembly": 0.8191700000000001,
+        "VelocityResolution": 4.668945,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004116,
+        "UserChanges": 0.016023
+      },
+      "mapMs": 3.9509649999999965,
+      "simulationPipelineMs": 32.61712299999999,
+      "totalIncludingContactMs": 85.39489299999968,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.9868215073159945e-8,
+        "witness": {
+          "part": "cape_back_edge",
+          "section": 71,
+          "clothVertex": 1349,
+          "gap": 1.9868215073159945e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9637502677276115,
+        "max": 1.0809855758595002
+      },
+      "renderStrain": {
+        "min": 0.9398112819172656,
+        "max": 1.0812251031326392,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.9398112819172656
+        },
+        "maxWitness": {
+          "part": "cape_cloth",
+          "a": 1200,
+          "b": 1201,
+          "restLength": 0.051584452103191306,
+          "ratio": 1.0812251031326392
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9398112819172656,
+            "max": 1.0812251031326392,
+            "minWitness": {
+              "a": 982,
+              "b": 983,
+              "restLength": 0.011474875018840473,
+              "ratio": 0.9398112819172656
+            },
+            "maxWitness": {
+              "a": 1200,
+              "b": 1201,
+              "restLength": 0.051584452103191306,
+              "ratio": 1.0812251031326392
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.987196523866878,
+            "max": 1.0565550549664493,
+            "minWitness": {
+              "a": 2014,
+              "b": 1989,
+              "restLength": 0.031102210026668353,
+              "ratio": 0.987196523866878
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.0565550549664493
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9741157897484694,
+            "max": 1.0532051938490508,
+            "minWitness": {
+              "a": 785,
+              "b": 773,
+              "restLength": 0.03221321938242726,
+              "ratio": 0.9741157897484694
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.0532051938490508
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9851388571795782,
+            "max": 1.0302091284584933,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006808566538518912,
+              "ratio": 0.9851388571795782
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.0302091284584933
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9753832262943702,
+            "max": 1.0452664766158528,
+            "minWitness": {
+              "a": 123,
+              "b": 111,
+              "restLength": 0.006787284367295036,
+              "ratio": 0.9753832262943702
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 104,
+              "restLength": 0.006746467186822947,
+              "ratio": 1.0452664766158528
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.0812251031326392,
+      "minStretch": 0.9398112819172656,
+      "contacts": []
+    },
+    {
+      "frame": 20,
+      "physicsMs": 23.740764000000127,
+      "internalTimings": {
+        "Step": 23.639414000000002,
+        "CollisionDetection": 17.423574000000002,
+        "BroadPhase": 0.012409,
+        "NarrowPhase": 17.404867,
+        "Solver": 6.093369,
+        "VelocityAssembly": 1.260352,
+        "VelocityResolution": 4.762504,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004216999999999999,
+        "UserChanges": 0.016975
+      },
+      "mapMs": 3.9871290000000954,
+      "simulationPipelineMs": 33.99208299999964,
+      "totalIncludingContactMs": 87.50155399999994,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 2.048027557954785e-8,
+        "witness": {
+          "part": "cape_hem",
+          "section": 40,
+          "clothVertex": 778,
+          "gap": 2.048027557954785e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.961232394680417,
+        "max": 1.0784834531484238
+      },
+      "renderStrain": {
+        "min": 0.9405514031819192,
+        "max": 1.0788744107482429,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.9405514031819192
+        },
+        "maxWitness": {
+          "part": "cape_cloth",
+          "a": 1238,
+          "b": 1239,
+          "restLength": 0.05222660021639519,
+          "ratio": 1.0788744107482429
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9405514031819192,
+            "max": 1.0788744107482429,
+            "minWitness": {
+              "a": 982,
+              "b": 983,
+              "restLength": 0.011474875018840473,
+              "ratio": 0.9405514031819192
+            },
+            "maxWitness": {
+              "a": 1238,
+              "b": 1239,
+              "restLength": 0.05222660021639519,
+              "ratio": 1.0788744107482429
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9887100566552107,
+            "max": 1.0625183578046813,
+            "minWitness": {
+              "a": 2014,
+              "b": 1989,
+              "restLength": 0.031102210026668353,
+              "ratio": 0.9887100566552107
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.0625183578046813
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9730630456542253,
+            "max": 1.0568656186844054,
+            "minWitness": {
+              "a": 785,
+              "b": 773,
+              "restLength": 0.03221321938242726,
+              "ratio": 0.9730630456542253
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.0568656186844054
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9828251106751628,
+            "max": 1.0326724700170242,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006808566538518912,
+              "ratio": 0.9828251106751628
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.0326724700170242
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9751189980296349,
+            "max": 1.0485242716477678,
+            "minWitness": {
+              "a": 123,
+              "b": 111,
+              "restLength": 0.006787284367295036,
+              "ratio": 0.9751189980296349
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 104,
+              "restLength": 0.006746467186822947,
+              "ratio": 1.0485242716477678
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.0788744107482429,
+      "minStretch": 0.9405514031819192,
+      "contacts": []
+    },
+    {
+      "frame": 21,
+      "physicsMs": 24.16394900000023,
+      "internalTimings": {
+        "Step": 24.070180999999998,
+        "CollisionDetection": 18.21303,
+        "BroadPhase": 0.011837,
+        "NarrowPhase": 18.195755000000002,
+        "Solver": 5.682993,
+        "VelocityAssembly": 0.825179,
+        "VelocityResolution": 4.78725,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004026,
+        "UserChanges": 0.016884999999999997
+      },
+      "mapMs": 3.8278330000002825,
+      "simulationPipelineMs": 34.05684900000006,
+      "totalIncludingContactMs": 87.19404900000018,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.4901363302413767e-8,
+        "witness": {
+          "part": "cape_hem",
+          "section": 39,
+          "clothVertex": 759,
+          "gap": 1.4901363302413767e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9577801526643686,
+        "max": 1.077184802881903
+      },
+      "renderStrain": {
+        "min": 0.9429538181954648,
+        "max": 1.0776201061138242,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.9429538181954648
+        },
+        "maxWitness": {
+          "part": "cape_cloth",
+          "a": 1276,
+          "b": 1277,
+          "restLength": 0.05316262400085068,
+          "ratio": 1.0776201061138242
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9429538181954648,
+            "max": 1.0776201061138242,
+            "minWitness": {
+              "a": 982,
+              "b": 983,
+              "restLength": 0.011474875018840473,
+              "ratio": 0.9429538181954648
+            },
+            "maxWitness": {
+              "a": 1276,
+              "b": 1277,
+              "restLength": 0.05316262400085068,
+              "ratio": 1.0776201061138242
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9902636070056097,
+            "max": 1.0707204369576733,
+            "minWitness": {
+              "a": 109,
+              "b": 97,
+              "restLength": 0.03175774702947356,
+              "ratio": 0.9902636070056097
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.0707204369576733
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9723511239286622,
+            "max": 1.062947701952663,
+            "minWitness": {
+              "a": 785,
+              "b": 773,
+              "restLength": 0.03221321938242726,
+              "ratio": 0.9723511239286622
+            },
+            "maxWitness": {
+              "a": 163,
+              "b": 151,
+              "restLength": 0.03127600068019148,
+              "ratio": 1.062947701952663
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9807564410078513,
+            "max": 1.0348861596495524,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006808566538518912,
+              "ratio": 0.9807564410078513
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.0348861596495524
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9763888674721143,
+            "max": 1.0512353275494595,
+            "minWitness": {
+              "a": 123,
+              "b": 111,
+              "restLength": 0.006787284367295036,
+              "ratio": 0.9763888674721143
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 104,
+              "restLength": 0.006746467186822947,
+              "ratio": 1.0512353275494595
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.0776201061138242,
+      "minStretch": 0.9429538181954648,
+      "contacts": []
+    },
+    {
+      "frame": 22,
+      "physicsMs": 24.717125000000124,
+      "internalTimings": {
+        "Step": 24.612381,
+        "CollisionDetection": 18.51135,
+        "BroadPhase": 0.008303,
+        "NarrowPhase": 18.494635,
+        "Solver": 5.934084,
+        "VelocityAssembly": 0.844027,
+        "VelocityResolution": 5.014526,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004207,
+        "UserChanges": 0.066839
+      },
+      "mapMs": 4.844395000000077,
+      "simulationPipelineMs": 35.447973999999704,
+      "totalIncludingContactMs": 90.8409459999998,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 3.027076954235315e-8,
+        "witness": {
+          "part": "cape_hem",
+          "section": 36,
+          "clothVertex": 702,
+          "gap": 3.027076954235315e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9538355721672839,
+        "max": 1.0764301645356313
+      },
+      "renderStrain": {
+        "min": 0.946458340166276,
+        "max": 1.0801031578279945,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.946458340166276
+        },
+        "maxWitness": {
+          "part": "cape_back_edge",
+          "a": 2047,
+          "b": 2035,
+          "restLength": 0.030769094652259313,
+          "ratio": 1.0801031578279945
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.946458340166276,
+            "max": 1.0769355042188096,
+            "minWitness": {
+              "a": 982,
+              "b": 983,
+              "restLength": 0.011474875018840473,
+              "ratio": 0.946458340166276
+            },
+            "maxWitness": {
+              "a": 224,
+              "b": 205,
+              "restLength": 0.030592339393566523,
+              "ratio": 1.0769355042188096
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9897590406811705,
+            "max": 1.0801031578279945,
+            "minWitness": {
+              "a": 109,
+              "b": 97,
+              "restLength": 0.03175774702947356,
+              "ratio": 0.9897590406811705
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.0801031578279945
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9714263261096565,
+            "max": 1.069554195047212,
+            "minWitness": {
+              "a": 786,
+              "b": 774,
+              "restLength": 0.033736396224896076,
+              "ratio": 0.9714263261096565
+            },
+            "maxWitness": {
+              "a": 150,
+              "b": 138,
+              "restLength": 0.03152511604121525,
+              "ratio": 1.069554195047212
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9791507056440971,
+            "max": 1.0366001358932975,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006808566538518912,
+              "ratio": 0.9791507056440971
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.0366001358932975
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9776688236397059,
+            "max": 1.0532147663878766,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006748050124597831,
+              "ratio": 0.9776688236397059
+            },
+            "maxWitness": {
+              "a": 118,
+              "b": 106,
+              "restLength": 0.006707567823382302,
+              "ratio": 1.0532147663878766
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.0801031578279945,
+      "minStretch": 0.946458340166276,
+      "contacts": []
+    },
+    {
+      "frame": 23,
+      "physicsMs": 24.82055799999989,
+      "internalTimings": {
+        "Step": 24.701963,
+        "CollisionDetection": 18.623445999999998,
+        "BroadPhase": 0.016274,
+        "NarrowPhase": 18.600130999999998,
+        "Solver": 5.9431579999999995,
+        "VelocityAssembly": 0.9218409999999999,
+        "VelocityResolution": 4.939235,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004136,
+        "UserChanges": 0.017095000000000003
+      },
+      "mapMs": 4.096299999999246,
+      "simulationPipelineMs": 34.41155400000025,
+      "totalIncludingContactMs": 87.34398099999999,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.9868215073159945e-8,
+        "witness": {
+          "part": "cape_back_edge",
+          "section": 75,
+          "clothVertex": 1425,
+          "gap": 1.9868215073159945e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9498435098913275,
+        "max": 1.0766326248709055
+      },
+      "renderStrain": {
+        "min": 0.9502570172873523,
+        "max": 1.089625839309649,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.9502570172873523
+        },
+        "maxWitness": {
+          "part": "cape_back_edge",
+          "a": 2047,
+          "b": 2035,
+          "restLength": 0.030769094652259313,
+          "ratio": 1.089625839309649
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9502570172873523,
+            "max": 1.0818789845061914,
+            "minWitness": {
+              "a": 982,
+              "b": 983,
+              "restLength": 0.011474875018840473,
+              "ratio": 0.9502570172873523
+            },
+            "maxWitness": {
+              "a": 224,
+              "b": 205,
+              "restLength": 0.030592339393566523,
+              "ratio": 1.0818789845061914
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9895199759339182,
+            "max": 1.089625839309649,
+            "minWitness": {
+              "a": 109,
+              "b": 97,
+              "restLength": 0.03175774702947356,
+              "ratio": 0.9895199759339182
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.089625839309649
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9703487468910545,
+            "max": 1.0754162461451076,
+            "minWitness": {
+              "a": 786,
+              "b": 774,
+              "restLength": 0.033736396224896076,
+              "ratio": 0.9703487468910545
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.0754162461451076
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9780927766088604,
+            "max": 1.037718999291533,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006808566538518912,
+              "ratio": 0.9780927766088604
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.037718999291533
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9771593230965614,
+            "max": 1.0562110969089706,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006748050124597831,
+              "ratio": 0.9771593230965614
+            },
+            "maxWitness": {
+              "a": 118,
+              "b": 106,
+              "restLength": 0.006707567823382302,
+              "ratio": 1.0562110969089706
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.089625839309649,
+      "minStretch": 0.9498435098913275,
+      "contacts": []
+    },
+    {
+      "frame": 24,
+      "physicsMs": 24.44865899999968,
+      "internalTimings": {
+        "Step": 24.339377,
+        "CollisionDetection": 17.961728,
+        "BroadPhase": 0.008522,
+        "NarrowPhase": 17.947307,
+        "Solver": 6.255018000000001,
+        "VelocityAssembly": 1.097892,
+        "VelocityResolution": 5.074425,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004167,
+        "UserChanges": 0.017665
+      },
+      "mapMs": 3.9485709999999017,
+      "simulationPipelineMs": 34.01326599999993,
+      "totalIncludingContactMs": 86.97746000000006,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.9868215073159945e-8,
+        "witness": {
+          "part": "cape_back_edge",
+          "section": 103,
+          "clothVertex": 1957,
+          "gap": 1.9868215073159945e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9462047335452971,
+        "max": 1.0803393302255175
+      },
+      "renderStrain": {
+        "min": 0.9537620540398352,
+        "max": 1.098317523091001,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.9537620540398352
+        },
+        "maxWitness": {
+          "part": "cape_back_edge",
+          "a": 2047,
+          "b": 2035,
+          "restLength": 0.030769094652259313,
+          "ratio": 1.098317523091001
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9537620540398352,
+            "max": 1.0852844406132744,
+            "minWitness": {
+              "a": 982,
+              "b": 983,
+              "restLength": 0.011474875018840473,
+              "ratio": 0.9537620540398352
+            },
+            "maxWitness": {
+              "a": 2986,
+              "b": 2967,
+              "restLength": 0.029843353379430636,
+              "ratio": 1.0852844406132744
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.989526562346858,
+            "max": 1.098317523091001,
+            "minWitness": {
+              "a": 109,
+              "b": 97,
+              "restLength": 0.03175774702947356,
+              "ratio": 0.989526562346858
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.098317523091001
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9689360924990217,
+            "max": 1.0818662109943504,
+            "minWitness": {
+              "a": 787,
+              "b": 775,
+              "restLength": 0.03491791919681204,
+              "ratio": 0.9689360924990217
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.0818662109943504
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9776085005925848,
+            "max": 1.038251165873431,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006808566538518912,
+              "ratio": 0.9776085005925848
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.038251165873431
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9771052134993785,
+            "max": 1.0594054040107288,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006748050124597831,
+              "ratio": 0.9771052134993785
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 116,
+              "restLength": 0.004905815436640919,
+              "ratio": 1.0594054040107288
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.098317523091001,
+      "minStretch": 0.9462047335452971,
+      "contacts": []
+    },
+    {
+      "frame": 25,
+      "physicsMs": 24.425274000000172,
+      "internalTimings": {
+        "Step": 24.307941,
+        "CollisionDetection": 18.295801,
+        "BroadPhase": 0.008423,
+        "NarrowPhase": 18.276022,
+        "Solver": 5.888608,
+        "VelocityAssembly": 0.895893,
+        "VelocityResolution": 4.907148,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004245,
+        "UserChanges": 0.016864999999999998
+      },
+      "mapMs": 3.8829750000004424,
+      "simulationPipelineMs": 34.1798119999994,
+      "totalIncludingContactMs": 92.54079699999966,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.7908966957180034e-8,
+        "witness": {
+          "part": "cape_hem",
+          "section": 124,
+          "clothVertex": 2374,
+          "gap": 1.7908966957180034e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.94325145467374,
+        "max": 1.0846010716226004
+      },
+      "renderStrain": {
+        "min": 0.9567088010130944,
+        "max": 1.1053495426740207,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.9567088010130944
+        },
+        "maxWitness": {
+          "part": "cape_back_edge",
+          "a": 2047,
+          "b": 2035,
+          "restLength": 0.030769094652259313,
+          "ratio": 1.1053495426740207
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9567088010130944,
+            "max": 1.0918648402736084,
+            "minWitness": {
+              "a": 982,
+              "b": 983,
+              "restLength": 0.011474875018840473,
+              "ratio": 0.9567088010130944
+            },
+            "maxWitness": {
+              "a": 2986,
+              "b": 2967,
+              "restLength": 0.029843353379430636,
+              "ratio": 1.0918648402736084
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9897318241952732,
+            "max": 1.1053495426740207,
+            "minWitness": {
+              "a": 109,
+              "b": 97,
+              "restLength": 0.03175774702947356,
+              "ratio": 0.9897318241952732
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.1053495426740207
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.967589157861191,
+            "max": 1.0873324755735023,
+            "minWitness": {
+              "a": 787,
+              "b": 775,
+              "restLength": 0.03491791919681204,
+              "ratio": 0.967589157861191
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.0873324755735023
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9776023334648068,
+            "max": 1.0382650661447685,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006808566538518912,
+              "ratio": 0.9776023334648068
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.0382650661447685
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9774286215095581,
+            "max": 1.0630430876278427,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006748050124597831,
+              "ratio": 0.9774286215095581
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 116,
+              "restLength": 0.004905815436640919,
+              "ratio": 1.0630430876278427
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.1053495426740207,
+      "minStretch": 0.94325145467374,
+      "contacts": []
+    },
+    {
+      "frame": 26,
+      "physicsMs": 25.921715000000404,
+      "internalTimings": {
+        "Step": 25.801406999999998,
+        "CollisionDetection": 19.467841999999997,
+        "BroadPhase": 0.012789,
+        "NarrowPhase": 19.448724000000002,
+        "Solver": 5.8510919999999995,
+        "VelocityAssembly": 0.986568,
+        "VelocityResolution": 4.780531,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004948,
+        "UserChanges": 0.017936
+      },
+      "mapMs": 3.975672000000486,
+      "simulationPipelineMs": 37.25238900000022,
+      "totalIncludingContactMs": 95.83277799999996,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.9868215073159945e-8,
+        "witness": {
+          "part": "cape_back_edge",
+          "section": 75,
+          "clothVertex": 1425,
+          "gap": 1.9868215073159945e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9412511612123029,
+        "max": 1.0876570428922196
+      },
+      "renderStrain": {
+        "min": 0.9588755653447676,
+        "max": 1.1101174640122349,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.9588755653447676
+        },
+        "maxWitness": {
+          "part": "cape_back_edge",
+          "a": 2047,
+          "b": 2035,
+          "restLength": 0.030769094652259313,
+          "ratio": 1.1101174640122349
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9588755653447676,
+            "max": 1.0963024366114225,
+            "minWitness": {
+              "a": 982,
+              "b": 983,
+              "restLength": 0.011474875018840473,
+              "ratio": 0.9588755653447676
+            },
+            "maxWitness": {
+              "a": 2986,
+              "b": 2967,
+              "restLength": 0.029843353379430636,
+              "ratio": 1.0963024366114225
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9899400401507195,
+            "max": 1.1101174640122349,
+            "minWitness": {
+              "a": 1891,
+              "b": 1879,
+              "restLength": 0.03676712683527085,
+              "ratio": 0.9899400401507195
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.1101174640122349
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9667995727207237,
+            "max": 1.0913225923389038,
+            "minWitness": {
+              "a": 787,
+              "b": 775,
+              "restLength": 0.03491791919681204,
+              "ratio": 0.9667995727207237
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.0913225923389038
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9779232441570852,
+            "max": 1.0379245777280104,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006808566538518912,
+              "ratio": 0.9779232441570852
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.0379245777280104
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.977531895216974,
+            "max": 1.0655527668007658,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006748050124597831,
+              "ratio": 0.977531895216974
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 116,
+              "restLength": 0.004905815436640919,
+              "ratio": 1.0655527668007658
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.1101174640122349,
+      "minStretch": 0.9412511612123029,
+      "contacts": []
+    },
+    {
+      "frame": 27,
+      "physicsMs": 26.089692999999897,
+      "internalTimings": {
+        "Step": 25.97257,
+        "CollisionDetection": 19.071248,
+        "BroadPhase": 0.008592,
+        "NarrowPhase": 19.056465000000003,
+        "Solver": 6.775257,
+        "VelocityAssembly": 1.095728,
+        "VelocityResolution": 5.583897,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004707,
+        "UserChanges": 0.016694999999999998
+      },
+      "mapMs": 4.307380999999623,
+      "simulationPipelineMs": 35.92169399999966,
+      "totalIncludingContactMs": 92.56588399999964,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.9868215073159945e-8,
+        "witness": {
+          "part": "cape_back_edge",
+          "section": 71,
+          "clothVertex": 1349,
+          "gap": 1.9868215073159945e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9402748276716861,
+        "max": 1.0893057211360282
+      },
+      "renderStrain": {
+        "min": 0.953102511684158,
+        "max": 1.1122684147056674,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 982,
+          "b": 983,
+          "restLength": 0.011474875018840473,
+          "ratio": 0.953102511684158
+        },
+        "maxWitness": {
+          "part": "cape_back_edge",
+          "a": 2047,
+          "b": 2035,
+          "restLength": 0.030769094652259313,
+          "ratio": 1.1122684147056674
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.953102511684158,
+            "max": 1.0982689153564769,
+            "minWitness": {
+              "a": 982,
+              "b": 983,
+              "restLength": 0.011474875018840473,
+              "ratio": 0.953102511684158
+            },
+            "maxWitness": {
+              "a": 2986,
+              "b": 2967,
+              "restLength": 0.029843353379430636,
+              "ratio": 1.0982689153564769
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9896593626558973,
+            "max": 1.1122684147056674,
+            "minWitness": {
+              "a": 1891,
+              "b": 1879,
+              "restLength": 0.03676712683527085,
+              "ratio": 0.9896593626558973
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.1122684147056674
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.966688617119633,
+            "max": 1.0934237257559627,
+            "minWitness": {
+              "a": 787,
+              "b": 775,
+              "restLength": 0.03491791919681204,
+              "ratio": 0.966688617119633
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.0934237257559627
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9783336256756187,
+            "max": 1.037503314640964,
+            "minWitness": {
+              "a": 240,
+              "b": 228,
+              "restLength": 0.006792351441187962,
+              "ratio": 0.9783336256756187
+            },
+            "maxWitness": {
+              "a": 142,
+              "b": 117,
+              "restLength": 0.006788065720326443,
+              "ratio": 1.037503314640964
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9780496966448547,
+            "max": 1.0668282752648568,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006748050124597831,
+              "ratio": 0.9780496966448547
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 116,
+              "restLength": 0.004905815436640919,
+              "ratio": 1.0668282752648568
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.1122684147056674,
+      "minStretch": 0.9402748276716861,
+      "contacts": []
+    },
+    {
+      "frame": 28,
+      "physicsMs": 28.602163999999902,
+      "internalTimings": {
+        "Step": 28.395128,
+        "CollisionDetection": 19.477707,
+        "BroadPhase": 0.008493,
+        "NarrowPhase": 19.45958,
+        "Solver": 8.792615999999999,
+        "VelocityAssembly": 0.8847860000000001,
+        "VelocityResolution": 7.816113,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004237,
+        "UserChanges": 0.016394
+      },
+      "mapMs": 4.155977999999777,
+      "simulationPipelineMs": 38.65797600000042,
+      "totalIncludingContactMs": 96.5581200000006,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.4952811819258857e-8,
+        "witness": {
+          "part": "cape_hem",
+          "section": 36,
+          "clothVertex": 702,
+          "gap": 1.4952811819258857e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9381186241801098,
+        "max": 1.086076435437998
+      },
+      "renderStrain": {
+        "min": 0.9075613443959756,
+        "max": 1.1092200096542257,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 2561,
+          "b": 2562,
+          "restLength": 0.012842031072673187,
+          "ratio": 0.9075613443959756
+        },
+        "maxWitness": {
+          "part": "cape_back_edge",
+          "a": 2047,
+          "b": 2035,
+          "restLength": 0.030769094652259313,
+          "ratio": 1.1092200096542257
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.9075613443959756,
+            "max": 1.0949739513469396,
+            "minWitness": {
+              "a": 2561,
+              "b": 2562,
+              "restLength": 0.012842031072673187,
+              "ratio": 0.9075613443959756
+            },
+            "maxWitness": {
+              "a": 2986,
+              "b": 2967,
+              "restLength": 0.029843353379430636,
+              "ratio": 1.0949739513469396
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9903803762325434,
+            "max": 1.1092200096542257,
+            "minWitness": {
+              "a": 1891,
+              "b": 1879,
+              "restLength": 0.03676712683527085,
+              "ratio": 0.9903803762325434
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.1092200096542257
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9645552100755271,
+            "max": 1.0905905875313584,
+            "minWitness": {
+              "a": 787,
+              "b": 775,
+              "restLength": 0.03491791919681204,
+              "ratio": 0.9645552100755271
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.0905905875313584
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9787413368269284,
+            "max": 1.036634040580066,
+            "minWitness": {
+              "a": 240,
+              "b": 228,
+              "restLength": 0.006792351441187962,
+              "ratio": 0.9787413368269284
+            },
+            "maxWitness": {
+              "a": 142,
+              "b": 117,
+              "restLength": 0.006788065720326443,
+              "ratio": 1.036634040580066
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9774307935528025,
+            "max": 1.0640228000732301,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006748050124597831,
+              "ratio": 0.9774307935528025
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 116,
+              "restLength": 0.004905815436640919,
+              "ratio": 1.0640228000732301
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.1092200096542257,
+      "minStretch": 0.9075613443959756,
+      "contacts": []
+    },
+    {
+      "frame": 29,
+      "physicsMs": 36.74391800000012,
+      "internalTimings": {
+        "Step": 36.622659,
+        "CollisionDetection": 25.176885,
+        "BroadPhase": 0.016985,
+        "NarrowPhase": 25.152108,
+        "Solver": 11.321941,
+        "VelocityAssembly": 0.888532,
+        "VelocityResolution": 10.318739,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.007141,
+        "UserChanges": 0.016263999999999997
+      },
+      "mapMs": 4.491644000000633,
+      "simulationPipelineMs": 46.95870500000001,
+      "totalIncludingContactMs": 101.22143799999958,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 1.5902331116829807e-8,
+        "witness": {
+          "part": "cape_hem",
+          "section": 124,
+          "clothVertex": 2374,
+          "gap": 1.5902331116829807e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.9204671598506118,
+        "max": 1.082771323036676
+      },
+      "renderStrain": {
+        "min": 0.8683891448172975,
+        "max": 1.1105453504182274,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 2561,
+          "b": 2562,
+          "restLength": 0.012842031072673187,
+          "ratio": 0.8683891448172975
+        },
+        "maxWitness": {
+          "part": "cape_cloth",
+          "a": 2496,
+          "b": 2477,
+          "restLength": 0.048540396631122536,
+          "ratio": 1.1105453504182274
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.8683891448172975,
+            "max": 1.1105453504182274,
+            "minWitness": {
+              "a": 2561,
+              "b": 2562,
+              "restLength": 0.012842031072673187,
+              "ratio": 0.8683891448172975
+            },
+            "maxWitness": {
+              "a": 2496,
+              "b": 2477,
+              "restLength": 0.048540396631122536,
+              "ratio": 1.1105453504182274
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9645001240573666,
+            "max": 1.1052258258932648,
+            "minWitness": {
+              "a": 1737,
+              "b": 1725,
+              "restLength": 0.045074985897266585,
+              "ratio": 0.9645001240573666
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.1052258258932648
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9625693302797305,
+            "max": 1.087545323163794,
+            "minWitness": {
+              "a": 787,
+              "b": 775,
+              "restLength": 0.03491791919681204,
+              "ratio": 0.9625693302797305
+            },
+            "maxWitness": {
+              "a": 2034,
+              "b": 2022,
+              "restLength": 0.030957604197782602,
+              "ratio": 1.087545323163794
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9796364346062867,
+            "max": 1.0357697147900746,
+            "minWitness": {
+              "a": 240,
+              "b": 228,
+              "restLength": 0.006792351441187962,
+              "ratio": 0.9796364346062867
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.0357697147900746
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9775626548557734,
+            "max": 1.0612219304410313,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006748050124597831,
+              "ratio": 0.9775626548557734
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 116,
+              "restLength": 0.004905815436640919,
+              "ratio": 1.0612219304410313
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.1105453504182274,
+      "minStretch": 0.8683891448172975,
+      "contacts": []
+    },
+    {
+      "frame": 30,
+      "physicsMs": 31.610827000000427,
+      "internalTimings": {
+        "Step": 31.406836000000002,
+        "CollisionDetection": 20.314683,
+        "BroadPhase": 0.008662,
+        "NarrowPhase": 20.297318,
+        "Solver": 10.97505,
+        "VelocityAssembly": 0.8696440000000001,
+        "VelocityResolution": 10.025537,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.004216,
+        "UserChanges": 0.016382999999999998
+      },
+      "mapMs": 3.9972130000005563,
+      "simulationPipelineMs": 41.381358000000546,
+      "totalIncludingContactMs": 95.8403100000005,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 2.9802322387695312e-8,
+        "witness": {
+          "part": "cape_back_edge",
+          "section": 103,
+          "clothVertex": 1957,
+          "gap": 2.9802322387695312e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.8989131329479182,
+        "max": 1.1178206416687928
+      },
+      "renderStrain": {
+        "min": 0.8713846143462736,
+        "max": 1.1260700242760455,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 459,
+          "b": 439,
+          "restLength": 0.03798997418654854,
+          "ratio": 0.8713846143462736
+        },
+        "maxWitness": {
+          "part": "cape_hem",
+          "a": 399,
+          "b": 412,
+          "restLength": 0.04515015157140011,
+          "ratio": 1.1260700242760455
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.8713846143462736,
+            "max": 1.120268292551534,
+            "minWitness": {
+              "a": 459,
+              "b": 439,
+              "restLength": 0.03798997418654854,
+              "ratio": 0.8713846143462736
+            },
+            "maxWitness": {
+              "a": 623,
+              "b": 604,
+              "restLength": 0.04484834557871475,
+              "ratio": 1.120268292551534
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.9628578249803815,
+            "max": 1.0990290929348612,
+            "minWitness": {
+              "a": 374,
+              "b": 362,
+              "restLength": 0.0445254942987252,
+              "ratio": 0.9628578249803815
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.0990290929348612
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9461343483574557,
+            "max": 1.1260700242760455,
+            "minWitness": {
+              "a": 1828,
+              "b": 1816,
+              "restLength": 0.037135514921800714,
+              "ratio": 0.9461343483574557
+            },
+            "maxWitness": {
+              "a": 399,
+              "b": 412,
+              "restLength": 0.04515015157140011,
+              "ratio": 1.1260700242760455
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9808656506284873,
+            "max": 1.0346988540314053,
+            "minWitness": {
+              "a": 240,
+              "b": 228,
+              "restLength": 0.006792351441187962,
+              "ratio": 0.9808656506284873
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.0346988540314053
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.978480774092839,
+            "max": 1.0585562980932266,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006748050124597831,
+              "ratio": 0.978480774092839
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 116,
+              "restLength": 0.004905815436640919,
+              "ratio": 1.0585562980932266
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.1260700242760455,
+      "minStretch": 0.8713846143462736,
+      "contacts": []
+    },
+    {
+      "frame": 31,
+      "physicsMs": 32.58639799999946,
+      "internalTimings": {
+        "Step": 32.41867,
+        "CollisionDetection": 20.592234,
+        "BroadPhase": 0.011798,
+        "NarrowPhase": 20.574107,
+        "Solver": 11.707681,
+        "VelocityAssembly": 1.020407,
+        "VelocityResolution": 10.605323,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.003916,
+        "UserChanges": 0.015834
+      },
+      "mapMs": 4.26430800000071,
+      "simulationPipelineMs": 42.68181800000002,
+      "totalIncludingContactMs": 92.28288600000087,
+      "pinError": 0,
+      "renderPinError": 0,
+      "seams": {
+        "maximum": 2.9905623638517714e-8,
+        "witness": {
+          "part": "cape_back_edge",
+          "section": 71,
+          "clothVertex": 1349,
+          "gap": 2.9905623638517714e-8
+        }
+      },
+      "coarseStrain": {
+        "min": 0.8597650716569266,
+        "max": 1.140662902729236
+      },
+      "renderStrain": {
+        "min": 0.8333719461051785,
+        "max": 1.164355084506698,
+        "minWitness": {
+          "part": "cape_cloth",
+          "a": 459,
+          "b": 439,
+          "restLength": 0.03798997418654854,
+          "ratio": 0.8333719461051785
+        },
+        "maxWitness": {
+          "part": "cape_cloth",
+          "a": 530,
+          "b": 531,
+          "restLength": 0.009430011111501553,
+          "ratio": 1.164355084506698
+        },
+        "parts": [
+          {
+            "part": "cape_cloth",
+            "min": 0.8333719461051785,
+            "max": 1.164355084506698,
+            "minWitness": {
+              "a": 459,
+              "b": 439,
+              "restLength": 0.03798997418654854,
+              "ratio": 0.8333719461051785
+            },
+            "maxWitness": {
+              "a": 530,
+              "b": 531,
+              "restLength": 0.009430011111501553,
+              "ratio": 1.164355084506698
+            }
+          },
+          {
+            "part": "cape_back_edge",
+            "min": 0.964452220190671,
+            "max": 1.0906846239720045,
+            "minWitness": {
+              "a": 375,
+              "b": 363,
+              "restLength": 0.0443344268062889,
+              "ratio": 0.964452220190671
+            },
+            "maxWitness": {
+              "a": 2047,
+              "b": 2035,
+              "restLength": 0.030769094652259313,
+              "ratio": 1.0906846239720045
+            }
+          },
+          {
+            "part": "cape_hem",
+            "min": 0.9056812895832188,
+            "max": 1.1505308630582147,
+            "minWitness": {
+              "a": 1827,
+              "b": 1815,
+              "restLength": 0.036212925755153266,
+              "ratio": 0.9056812895832188
+            },
+            "maxWitness": {
+              "a": 399,
+              "b": 412,
+              "restLength": 0.04515015157140011,
+              "ratio": 1.1505308630582147
+            }
+          },
+          {
+            "part": "cape_front_edge_0",
+            "min": 0.9826296099768317,
+            "max": 1.0331086301497452,
+            "minWitness": {
+              "a": 240,
+              "b": 228,
+              "restLength": 0.006792351441187962,
+              "ratio": 0.9826296099768317
+            },
+            "maxWitness": {
+              "a": 131,
+              "b": 119,
+              "restLength": 0.006759327162305448,
+              "ratio": 1.0331086301497452
+            }
+          },
+          {
+            "part": "cape_front_edge_1",
+            "min": 0.9802659575057493,
+            "max": 1.0560159975052363,
+            "minWitness": {
+              "a": 241,
+              "b": 229,
+              "restLength": 0.006748050124597831,
+              "ratio": 0.9802659575057493
+            },
+            "maxWitness": {
+              "a": 129,
+              "b": 116,
+              "restLength": 0.004905815436640919,
+              "ratio": 1.0560159975052363
+            }
+          }
+        ]
+      },
+      "maxStretch": 1.164355084506698,
+      "minStretch": 0.8333719461051785,
+      "contacts": [
+        "cape_back_edge/body"
+      ]
+    }
+  ],
+  "limitations": [
+    "60 Hz samples of this declared path only; all cancellation times and continuous contact not established",
+    "Self-contact and containment not established.",
+    "Body obstacle is Bubu_body; feet and the complete foundation wardrobe are not included.",
+    "Not production cloth or visual approval.",
+    "Rest detail follows the identity body frame in this fixture; large local bending, seams and matching collision thickness remain unaccepted.",
+    "Rigid section mapping preserves local cross sections only; no matching piping collision envelope is implemented by this comparison.",
+    "Render-pin witnesses cover matching source vertices only; other attachment locations and seams remain unverified.",
+    "A failed trajectory is a solver/mapping counterexample, not a proof that all private-copy cloth implementations are infeasible."
+  ],
+  "collisionRadius": 0.003,
+  "collisionRadiusBasis": "Original particle radius",
+  "restSeams": {
+    "maximum": 1.4049806747972728e-8,
+    "witness": {
+      "part": "cape_hem",
+      "section": 40,
+      "clothVertex": 778,
+      "gap": 1.4049806747972728e-8
+    }
+  },
+  "pipingSections": 360,
+  "renderPinWitnesses": [
+    {
+      "pin": 0,
+      "vertex": 0,
+      "sourceGap": 0,
+      "position": [
+        0.041935887187719345,
+        0.5883482694625854,
+        0.7679809927940369
+      ]
+    },
+    {
+      "pin": 48,
+      "vertex": 475,
+      "sourceGap": 0,
+      "position": [
+        0.8116413354873657,
+        0.8145222067832947,
+        0.5024121403694153
+      ]
+    },
+    {
+      "pin": 56,
+      "vertex": 570,
+      "sourceGap": 0,
+      "position": [
+        0.9196619391441345,
+        0.9277142882347107,
+        0.3467874228954315
+      ]
+    },
+    {
+      "pin": 60,
+      "vertex": 665,
+      "sourceGap": 0,
+      "position": [
+        0.9736678600311279,
+        1.0367995500564575,
+        0.16372238099575043
+      ]
+    },
+    {
+      "pin": 64,
+      "vertex": 760,
+      "sourceGap": 0,
+      "position": [
+        0.9704834818840027,
+        1.1138055324554443,
+        -0.02703273668885231
+      ]
+    },
+    {
+      "pin": 68,
+      "vertex": 855,
+      "sourceGap": 0,
+      "position": [
+        0.9305008053779602,
+        1.1473034620285034,
+        -0.20983698964118958
+      ]
+    },
+    {
+      "pin": 72,
+      "vertex": 950,
+      "sourceGap": 0,
+      "position": [
+        0.851483941078186,
+        1.1496578454971313,
+        -0.3771156072616577
+      ]
+    },
+    {
+      "pin": 81,
+      "vertex": 1045,
+      "sourceGap": 0,
+      "position": [
+        0.7349971532821655,
+        1.145480990409851,
+        -0.515905499458313
+      ]
+    },
+    {
+      "pin": 104,
+      "vertex": 1140,
+      "sourceGap": 0,
+      "position": [
+        0.592972993850708,
+        1.152458906173706,
+        -0.6174450516700745
+      ]
+    },
+    {
+      "pin": 131,
+      "vertex": 1235,
+      "sourceGap": 0,
+      "position": [
+        0.4401357173919678,
+        1.1728302240371704,
+        -0.6828787326812744
+      ]
+    },
+    {
+      "pin": 159,
+      "vertex": 1330,
+      "sourceGap": 0,
+      "position": [
+        0.2874075472354889,
+        1.1978635787963867,
+        -0.7180818319320679
+      ]
+    },
+    {
+      "pin": 187,
+      "vertex": 1425,
+      "sourceGap": 0,
+      "position": [
+        0.141018345952034,
+        1.2154065370559692,
+        -0.7332668304443359
+      ]
+    },
+    {
+      "pin": 215,
+      "vertex": 1520,
+      "sourceGap": 0,
+      "position": [
+        0.00010099566134158522,
+        1.2218737602233887,
+        -0.7367182374000549
+      ]
+    },
+    {
+      "pin": 243,
+      "vertex": 1615,
+      "sourceGap": 0,
+      "position": [
+        -0.14086493849754333,
+        1.215560793876648,
+        -0.7332127094268799
+      ]
+    },
+    {
+      "pin": 271,
+      "vertex": 1710,
+      "sourceGap": 0,
+      "position": [
+        -0.28740113973617554,
+        1.197893500328064,
+        -0.7180583477020264
+      ]
+    },
+    {
+      "pin": 299,
+      "vertex": 1805,
+      "sourceGap": 0,
+      "position": [
+        -0.43990206718444824,
+        1.173126220703125,
+        -0.6828599572181702
+      ]
+    },
+    {
+      "pin": 327,
+      "vertex": 1900,
+      "sourceGap": 0,
+      "position": [
+        -0.592978835105896,
+        1.152462124824524,
+        -0.6174360513687134
+      ]
+    },
+    {
+      "pin": 353,
+      "vertex": 1995,
+      "sourceGap": 0,
+      "position": [
+        -0.7352178692817688,
+        1.1454607248306274,
+        -0.5156304240226746
+      ]
+    },
+    {
+      "pin": 369,
+      "vertex": 2090,
+      "sourceGap": 0,
+      "position": [
+        -0.851471483707428,
+        1.149642825126648,
+        -0.3771410286426544
+      ]
+    },
+    {
+      "pin": 374,
+      "vertex": 2185,
+      "sourceGap": 0,
+      "position": [
+        -0.9303658604621887,
+        1.1475346088409424,
+        -0.21013009548187256
+      ]
+    },
+    {
+      "pin": 378,
+      "vertex": 2280,
+      "sourceGap": 0,
+      "position": [
+        -0.9704225063323975,
+        1.1138445138931274,
+        -0.027044598013162613
+      ]
+    },
+    {
+      "pin": 382,
+      "vertex": 2375,
+      "sourceGap": 0,
+      "position": [
+        -0.9736304879188538,
+        1.0369060039520264,
+        0.16361510753631592
+      ]
+    },
+    {
+      "pin": 386,
+      "vertex": 2470,
+      "sourceGap": 0,
+      "position": [
+        -0.9196597933769226,
+        0.927685022354126,
+        0.34673628211021423
+      ]
+    },
+    {
+      "pin": 391,
+      "vertex": 2565,
+      "sourceGap": 0,
+      "position": [
+        -0.8117253184318542,
+        0.8144936561584473,
+        0.5023942589759827
+      ]
+    },
+    {
+      "pin": 441,
+      "vertex": 3040,
+      "sourceGap": 0,
+      "position": [
+        -0.04192444682121277,
+        0.588341474533081,
+        0.7679985165596008
+      ]
+    }
+  ],
+  "initialEnvelopePinSurfaceConflicts": [],
+  "physicsContactSettings": {
+    "allowedLinearError": 0.004999999888241291,
+    "predictionDistance": 0.019999999552965164,
+    "lengthUnit": 1
+  },
+  "bodyHullCertificate": {
+    "directions": 1024,
+    "selectedSourceVertices": 980,
+    "sourceVertices": 32036,
+    "triangles": 1956,
+    "scaleFactor": 1.007788588454669,
+    "maximumPlaneViolation": -8.214272835260772e-7,
+    "maximumOuterDistance": 0.00796060074755975,
+    "maxError": 0.01,
+    "requiredInwardMargin": 1e-8
+  },
+  "initialContacts": [],
+  "lastActionSample": {
+    "time": 0.5333333333333333,
+    "phase": "hands-enter",
+    "done": false
+  },
+  "stoppedAt": {
+    "frame": 31,
+    "time": 0.5333333333333333,
+    "reason": "first-contact-pin-or-strain-failure",
+    "coarseContacts": []
+  },
+  "contactWitnesses": [
+    {
+      "part": "cape_back_edge",
+      "obstacle": "body",
+      "partTriangle": 3097,
+      "obstacleTriangle": 40767,
+      "a": [
+        [
+          0.27855613827705383,
+          0.5934350490570068,
+          0.7334272265434265
+        ],
+        [
+          0.3089461624622345,
+          0.5927411913871765,
+          0.7262912392616272
+        ],
+        [
+          0.27898699045181274,
+          0.5889632701873779,
+          0.7321940064430237
+        ]
+      ],
+      "b": [
+        [
+          0.2647775411605835,
+          0.5945282578468323,
+          0.736221969127655
+        ],
+        [
+          0.2759644687175751,
+          0.5837724804878235,
+          0.7315993309020996
+        ],
+        [
+          0.2863776981830597,
+          0.5939533114433289,
+          0.7317945957183838
+        ]
+      ]
+    }
+  ],
+  "timing": {
+    "physicsMs": {
+      "p50": 23.920388999999886,
+      "p95": 36.74391800000012,
+      "max": 83.45324600000026
+    },
+    "mapMs": {
+      "p50": 4.090390999999727,
+      "p95": 6.030576999999994,
+      "max": 27.490511999999853
+    },
+    "simulationPipelineMs": {
+      "p50": 34.1798119999994,
+      "p95": 46.95870500000001,
+      "max": 123.72639499999968
+    },
+    "totalIncludingContactMs": {
+      "p50": 87.19404900000018,
+      "p95": 101.22143799999958,
+      "max": 177.4674070000001
+    }
+  },
+  "completedRequestedSteps": false,
+  "lastSampleClear": false,
+  "reachedActionEndpoint": false,
+  "finalEndpointClear": false,
+  "strainAccepted": true,
+  "seamsAccepted": true,
+  "realtimeAccepted": false,
+  "resourcesReleased": true
+}

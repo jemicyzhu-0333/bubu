@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>小步 · V2 动画演示</title><link rel="icon" href="data:,"><link rel="stylesheet" href="./style.css">
+<script type="importmap">{"imports":{"three":"../../node_modules/three/build/three.module.js","three/addons/":"../../node_modules/three/examples/jsm/","three-mesh-bvh":"../../node_modules/three-mesh-bvh/build/index.module.js","@dimforge/rapier3d-compat":"../../node_modules/@dimforge/rapier3d-compat/dist/rapier.mjs","@pixiv/three-vrm-springbone":"../../node_modules/@pixiv/three-vrm-springbone/lib/three-vrm-springbone.module.js"}}</script>
+</head><body>
+<header><a class="brand" href="./">小步<span>bubu</span></a><span class="version">V2 · 动画演示</span><select id="view" aria-label="观察角度"><option value="0">正面</option><option value="45">四分之三侧面</option><option value="150">背面</option></select><button id="theme" aria-label="切换深浅背景">深色背景</button></header>
+<main><section class="stage" aria-label="动画舞台"><div class="caption"><span class="eyebrow">ANIMATION STUDY / V2</span><h1 id="chapter">自然待机</h1><p id="description">轻轻摸摸它，或按住身体拖动。</p></div><canvas aria-label="小步，可抚摸与拖动" tabindex="0"></canvas><div class="stage-footer"><span id="phase">正在加载角色…</span><span id="mode">实时交互</span></div></section>
+<aside><h2>动作与交互</h2><div class="row"><button id="idle">自然待机</button><button id="tea">喝茶回放</button></div><p class="hint">按住身体并轻移可抚摸；向外拖动可提起，松开后落地。</p><label for="face">表情</label><select id="face"><option value="">自然表情</option></select><div class="row"><button id="greet">配件回应</button><button id="cancel">恢复 / 中断</button></div>
+<h2>配件与穿搭</h2><div id="outfits" class="outfits"></div><p class="hint">披风为既有摆动方案。喝茶独立回放，不与穿搭叠加。</p>
+<h2>播放</h2><div class="row"><button id="pause">暂停</button><button id="tour">连续演示</button></div><label class="check"><input id="reduced" type="checkbox">减少动效</label><p id="notice" role="status">当前研究效果；完整接触与原生性能尚未验收。</p></aside></main>
+<footer><span>同一角色 · 实际浏览器渲染</span><span>拖动 · 抚摸 · 18 种表情 · 配件 · 喝茶回放</span></footer>
+<script type="module" src="./app.mjs"></script></body></html>

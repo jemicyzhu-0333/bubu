@@ -1,3 +1,4 @@
+import { evidencePath } from "../verification/evidence-output.mjs";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import * as T from "three";
@@ -78,8 +79,7 @@ assert.equal(body.floorDiagnostics.scans, idleScans);
 report.maxFloorError = maxError;
 report.diagnostics = body.floorDiagnostics;
 f.h.dispose();
-fs.writeFileSync(
-  new URL("./floor-evidence.json", import.meta.url),
+fs.writeFileSync(evidencePath(new URL("./floor-evidence.json", import.meta.url)),
   JSON.stringify(report, null, 2),
 );
 console.log(report);

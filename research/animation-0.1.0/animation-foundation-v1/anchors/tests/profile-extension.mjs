@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { evidencePath } from '../../verification/evidence-output.mjs';
 import fs from 'node:fs';
 import * as T from 'three';
 import { createAnchorRegistry } from '../registry.mjs';
@@ -67,5 +68,5 @@ const report = {
   descriptorMutationIsolated: true,
   requestedSubsetFailsClosed: true
 };
-fs.writeFileSync(new URL('../review/profile-extension.json', import.meta.url), JSON.stringify(report, null, 2));
+fs.writeFileSync(evidencePath(new URL('../review/profile-extension.json', import.meta.url)), JSON.stringify(report, null, 2));
 console.log(report);

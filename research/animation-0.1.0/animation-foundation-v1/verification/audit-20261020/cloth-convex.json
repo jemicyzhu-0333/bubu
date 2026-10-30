@@ -1,0 +1,960 @@
+{
+  "status": "completed",
+  "accepted": false,
+  "inputHashes": {
+    "animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs": "fd8e85e32a5731c17f5413ca9627b3cab2c7206296a235db41baa4bd9671e80a",
+    "package-lock.json": "29914de54006d3f2bfb8f5ffb7ed05f16921a00c2af3abb07f2eb476eebeb427",
+    "original-parts-hybrid-v1/geometry/bubu-hybrid-binding.glb": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67",
+    "animation-foundation-v1/secondary-motion/cloth-probe/cape-coarse.json": "740619e1ca28dc8824c070bbc3b23df6ba7430b956dd4f64d2a411f8549ab8a8",
+    "animation-foundation-v1/secondary-motion/cloth-probe/cape-binding.json": "4aae28f29833e6af5fb44327ef2c66f1489ee9e3c98a0cec4c368f45d3b3bec9",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/frozen-cape.json": "5888814c2bd2b4627b3abab0e6133388e60fccb26b14e887e5556352d9c50d01",
+    "wearable-approved-round5/accessory-expansion/models/07-cape.glb": "e29010956b989a60e196472b2206e6c397b34f12f3b7092d67f53f189c128e21",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/inputs/tea-keyframes.json": "1b37c436f623ced2289411b5f0192e15feed91715bacc2bac3008336923e04d1",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/inputs/6600a469415abe35e1e0e7dc875b5f7816a70bcbe28bdfb51bd2ccb934bfaffd.bin": "6600a469415abe35e1e0e7dc875b5f7816a70bcbe28bdfb51bd2ccb934bfaffd",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/inputs/760b0cf88173775f6b5aef529640187cff2b069ccddcf3298c94240dcd3a4ede.bin": "760b0cf88173775f6b5aef529640187cff2b069ccddcf3298c94240dcd3a4ede",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/inputs/b5332d57cc5d7df7e82648720f62932d2bd5b4b488ea217efb6e110bbb2b918e.bin": "b5332d57cc5d7df7e82648720f62932d2bd5b4b488ea217efb6e110bbb2b918e",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/inputs/f529501783a1b68c91fc4532db7bb8b13b56859f4e803a8fbf2ad4156f1e3c3f.bin": "f529501783a1b68c91fc4532db7bb8b13b56859f4e803a8fbf2ad4156f1e3c3f"
+  },
+  "scope": "Local free upper-border arcs; static sip endpoint; convex body is a diagnostic proxy; all render pieces checked against actual meshes",
+  "time": 3.4,
+  "frames": 60,
+  "releasedPins": [
+    3,
+    6,
+    9,
+    13,
+    17,
+    422,
+    427,
+    431,
+    435,
+    438
+  ],
+  "handCollider": "convex-hull-diagnostic",
+  "declaredLimits": {
+    "maximumEdgeStretch": 1.2,
+    "minimumEdgeStretch": 0.8,
+    "pinError": 0.00001,
+    "frameBudgetMs": 16.667
+  },
+  "rows": [
+    {
+      "frame": 0,
+      "physicsMs": 402.59351699999996,
+      "mapMs": 30.592062000000055,
+      "totalIncludingContactMs": 523.3048980000001,
+      "pinError": 0,
+      "maxStretch": 1.4341044837781909,
+      "minStretch": 0.6205772044364605,
+      "contacts": [
+        "cape_cloth/Bubu_hand-left",
+        "cape_cloth/Bubu_hand-right",
+        "cape_back_edge/Bubu_hand-left",
+        "cape_back_edge/Bubu_hand-right",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 1,
+      "physicsMs": 537.4803539999999,
+      "mapMs": 6.419540999999981,
+      "totalIncludingContactMs": 607.6093,
+      "pinError": 0,
+      "maxStretch": 1.278826421457131,
+      "minStretch": 0.7410418070199463,
+      "contacts": [
+        "cape_cloth/Bubu_hand-left",
+        "cape_cloth/Bubu_hand-right",
+        "cape_back_edge/Bubu_hand-left",
+        "cape_back_edge/Bubu_hand-right",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 2,
+      "physicsMs": 416.2438420000001,
+      "mapMs": 5.4850810000000365,
+      "totalIncludingContactMs": 470.7359630000001,
+      "pinError": 0,
+      "maxStretch": 1.204963127552752,
+      "minStretch": 0.8262154660194625,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_back_edge/Bubu_hand-right",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 3,
+      "physicsMs": 400.5812639999999,
+      "mapMs": 3.4534309999999095,
+      "totalIncludingContactMs": 458.59389999999985,
+      "pinError": 0,
+      "maxStretch": 1.2673947176124514,
+      "minStretch": 0.8316753843576307,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 4,
+      "physicsMs": 400.7180619999999,
+      "mapMs": 3.5055969999998524,
+      "totalIncludingContactMs": 456.330097,
+      "pinError": 0,
+      "maxStretch": 1.2672420462048608,
+      "minStretch": 0.8022536328937057,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 5,
+      "physicsMs": 390.84382900000037,
+      "mapMs": 2.915715999999975,
+      "totalIncludingContactMs": 448.2072800000001,
+      "pinError": 0,
+      "maxStretch": 1.232305819612557,
+      "minStretch": 0.7688749731386268,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 6,
+      "physicsMs": 442.9043979999997,
+      "mapMs": 3.254026000000067,
+      "totalIncludingContactMs": 495.0070999999998,
+      "pinError": 0,
+      "maxStretch": 1.2344010839249253,
+      "minStretch": 0.7363169336854154,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 7,
+      "physicsMs": 380.6053869999996,
+      "mapMs": 3.772081000000071,
+      "totalIncludingContactMs": 442.02033200000005,
+      "pinError": 0,
+      "maxStretch": 1.2481658982309403,
+      "minStretch": 0.7479065161516132,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 8,
+      "physicsMs": 400.87539800000013,
+      "mapMs": 2.8903900000004796,
+      "totalIncludingContactMs": 467.49481299999934,
+      "pinError": 0,
+      "maxStretch": 1.2502350659056114,
+      "minStretch": 0.7637103503365396,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 9,
+      "physicsMs": 421.77177699999993,
+      "mapMs": 3.5889319999996587,
+      "totalIncludingContactMs": 485.379543,
+      "pinError": 0,
+      "maxStretch": 1.2421835362349098,
+      "minStretch": 0.7392147844306356,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 10,
+      "physicsMs": 412.81587600000057,
+      "mapMs": 5.724957000000359,
+      "totalIncludingContactMs": 484.69246699999985,
+      "pinError": 0,
+      "maxStretch": 1.2459481537676962,
+      "minStretch": 0.7660058329171741,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 11,
+      "physicsMs": 469.6816170000002,
+      "mapMs": 3.3299400000005335,
+      "totalIncludingContactMs": 547.901339,
+      "pinError": 0,
+      "maxStretch": 1.2472256740176588,
+      "minStretch": 0.7548412286534099,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 12,
+      "physicsMs": 419.77883699999984,
+      "mapMs": 4.043823999999404,
+      "totalIncludingContactMs": 485.4930949999998,
+      "pinError": 0,
+      "maxStretch": 1.2464350953274212,
+      "minStretch": 0.7609655738864436,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 13,
+      "physicsMs": 444.34381200000007,
+      "mapMs": 3.2612680000002,
+      "totalIncludingContactMs": 511.1918340000002,
+      "pinError": 0,
+      "maxStretch": 1.2459098538849966,
+      "minStretch": 0.7504864561466501,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 14,
+      "physicsMs": 453.1170579999998,
+      "mapMs": 3.60812100000021,
+      "totalIncludingContactMs": 519.7094429999997,
+      "pinError": 0,
+      "maxStretch": 1.245900324275435,
+      "minStretch": 0.7531533415207488,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 15,
+      "physicsMs": 462.27423400000043,
+      "mapMs": 4.2181020000007265,
+      "totalIncludingContactMs": 527.2017489999998,
+      "pinError": 0,
+      "maxStretch": 1.2459944260016587,
+      "minStretch": 0.7482259100572299,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 16,
+      "physicsMs": 454.83483499999966,
+      "mapMs": 3.373833999999988,
+      "totalIncludingContactMs": 523.9026470000008,
+      "pinError": 0,
+      "maxStretch": 1.2461299388763387,
+      "minStretch": 0.7475201555495212,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 17,
+      "physicsMs": 407.1540760000007,
+      "mapMs": 2.7307739999996556,
+      "totalIncludingContactMs": 470.4999050000006,
+      "pinError": 0,
+      "maxStretch": 1.2463438050211282,
+      "minStretch": 0.7454393293343372,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 18,
+      "physicsMs": 603.6935659999999,
+      "mapMs": 3.558936999999787,
+      "totalIncludingContactMs": 673.4201400000002,
+      "pinError": 0,
+      "maxStretch": 1.24667213983442,
+      "minStretch": 0.744052190990554,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 19,
+      "physicsMs": 409.81112199999916,
+      "mapMs": 4.656818000001294,
+      "totalIncludingContactMs": 488.00496199999907,
+      "pinError": 0,
+      "maxStretch": 1.2470782003200345,
+      "minStretch": 0.7438296397377386,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 20,
+      "physicsMs": 485.9943170000006,
+      "mapMs": 2.9866210000000137,
+      "totalIncludingContactMs": 555.7905750000009,
+      "pinError": 0,
+      "maxStretch": 1.2475655798239473,
+      "minStretch": 0.7444175188100306,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 21,
+      "physicsMs": 497.94447799999944,
+      "mapMs": 4.546084999999948,
+      "totalIncludingContactMs": 616.6334989999996,
+      "pinError": 0,
+      "maxStretch": 1.2481826109448138,
+      "minStretch": 0.7455775237217271,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 22,
+      "physicsMs": 612.9732719999993,
+      "mapMs": 5.738855999999942,
+      "totalIncludingContactMs": 706.2867239999996,
+      "pinError": 0,
+      "maxStretch": 1.2489136585504617,
+      "minStretch": 0.7477035210008203,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 23,
+      "physicsMs": 545.9929400000001,
+      "mapMs": 2.9418060000007245,
+      "totalIncludingContactMs": 627.7277610000001,
+      "pinError": 0,
+      "maxStretch": 1.2497183914901695,
+      "minStretch": 0.7508411525403528,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 24,
+      "physicsMs": 511.274175999999,
+      "mapMs": 2.6214920000002166,
+      "totalIncludingContactMs": 607.569089999999,
+      "pinError": 0,
+      "maxStretch": 1.2505702249454045,
+      "minStretch": 0.754646326953564,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 25,
+      "physicsMs": 436.90848200000073,
+      "mapMs": 2.738865999999689,
+      "totalIncludingContactMs": 505.36005999999907,
+      "pinError": 0,
+      "maxStretch": 1.2514416743201504,
+      "minStretch": 0.7585648176606168,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 26,
+      "physicsMs": 427.16415699999925,
+      "mapMs": 2.9116009999997914,
+      "totalIncludingContactMs": 495.7080210000004,
+      "pinError": 0,
+      "maxStretch": 1.2522863095969459,
+      "minStretch": 0.7620751152509087,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 27,
+      "physicsMs": 446.52201200000127,
+      "mapMs": 3.4296459999986837,
+      "totalIncludingContactMs": 514.3546460000016,
+      "pinError": 0,
+      "maxStretch": 1.2529916886838723,
+      "minStretch": 0.7648019662777423,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 28,
+      "physicsMs": 460.568362,
+      "mapMs": 3.318612999999459,
+      "totalIncludingContactMs": 533.5253859999993,
+      "pinError": 0,
+      "maxStretch": 1.253385437519534,
+      "minStretch": 0.7661483293204248,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 29,
+      "physicsMs": 462.5372810000008,
+      "mapMs": 3.2613970000002155,
+      "totalIncludingContactMs": 530.8169450000005,
+      "pinError": 0,
+      "maxStretch": 1.2516635913583254,
+      "minStretch": 0.7664632794027239,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 30,
+      "physicsMs": 493.78021400000216,
+      "mapMs": 2.943308000001707,
+      "totalIncludingContactMs": 562.8015440000017,
+      "pinError": 0,
+      "maxStretch": 1.250708398424653,
+      "minStretch": 0.7659512886373676,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 31,
+      "physicsMs": 528.3299450000013,
+      "mapMs": 3.068136999998387,
+      "totalIncludingContactMs": 602.3538500000031,
+      "pinError": 0,
+      "maxStretch": 1.2502502576211243,
+      "minStretch": 0.7651309569333054,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 32,
+      "physicsMs": 520.1001369999976,
+      "mapMs": 2.7894300000007206,
+      "totalIncludingContactMs": 605.2952519999999,
+      "pinError": 0,
+      "maxStretch": 1.2501331174081596,
+      "minStretch": 0.7642621925469281,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 33,
+      "physicsMs": 481.7182580000008,
+      "mapMs": 3.393022000000201,
+      "totalIncludingContactMs": 549.0633479999997,
+      "pinError": 0,
+      "maxStretch": 1.2507429331019464,
+      "minStretch": 0.763540276913633,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 34,
+      "physicsMs": 436.07507199999964,
+      "mapMs": 3.2495789999993576,
+      "totalIncludingContactMs": 508.0586629999998,
+      "pinError": 0,
+      "maxStretch": 1.2512252632319252,
+      "minStretch": 0.7630524569252088,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 35,
+      "physicsMs": 403.85081600000194,
+      "mapMs": 3.1092919999973674,
+      "totalIncludingContactMs": 476.6422100000018,
+      "pinError": 0,
+      "maxStretch": 1.2516176968815593,
+      "minStretch": 0.7627228460338832,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 36,
+      "physicsMs": 440.22139099999913,
+      "mapMs": 3.435955000000831,
+      "totalIncludingContactMs": 514.6587269999982,
+      "pinError": 0,
+      "maxStretch": 1.251963628463218,
+      "minStretch": 0.7625012230096916,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 37,
+      "physicsMs": 439.86525999999867,
+      "mapMs": 3.0912459999999555,
+      "totalIncludingContactMs": 508.835962000001,
+      "pinError": 0,
+      "maxStretch": 1.252290467839986,
+      "minStretch": 0.7623338562223703,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 38,
+      "physicsMs": 415.2105690000026,
+      "mapMs": 4.159116999999242,
+      "totalIncludingContactMs": 498.49575800000093,
+      "pinError": 0,
+      "maxStretch": 1.2526100211586737,
+      "minStretch": 0.7621653345046767,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 39,
+      "physicsMs": 464.07609199999933,
+      "mapMs": 3.7657060000019555,
+      "totalIncludingContactMs": 534.5418849999987,
+      "pinError": 0,
+      "maxStretch": 1.2529077929561636,
+      "minStretch": 0.7614011082115307,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 40,
+      "physicsMs": 432.32911799999783,
+      "mapMs": 2.9749640000009094,
+      "totalIncludingContactMs": 501.08176099999764,
+      "pinError": 0,
+      "maxStretch": 1.2532033993201332,
+      "minStretch": 0.7606772749645935,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 41,
+      "physicsMs": 417.9015990000007,
+      "mapMs": 3.274065999998129,
+      "totalIncludingContactMs": 486.8788830000012,
+      "pinError": 0,
+      "maxStretch": 1.2534836668084781,
+      "minStretch": 0.7600217655935047,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 42,
+      "physicsMs": 444.8064090000007,
+      "mapMs": 2.9168489999974554,
+      "totalIncludingContactMs": 508.8379079999977,
+      "pinError": 0,
+      "maxStretch": 1.2537448430374114,
+      "minStretch": 0.7594494308777215,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 43,
+      "physicsMs": 417.70433799999955,
+      "mapMs": 4.079055000001972,
+      "totalIncludingContactMs": 485.37856699999975,
+      "pinError": 0,
+      "maxStretch": 1.2539848334555594,
+      "minStretch": 0.7589732336143545,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 44,
+      "physicsMs": 422.2482400000008,
+      "mapMs": 3.0619019999976445,
+      "totalIncludingContactMs": 481.4699950000031,
+      "pinError": 0,
+      "maxStretch": 1.2542035568913585,
+      "minStretch": 0.7588611920836439,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 45,
+      "physicsMs": 393.47592099999747,
+      "mapMs": 3.0726680000007036,
+      "totalIncludingContactMs": 448.4275779999989,
+      "pinError": 0,
+      "maxStretch": 1.254402444206277,
+      "minStretch": 0.7475752238471508,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 46,
+      "physicsMs": 346.8890790000005,
+      "mapMs": 2.5758050000004005,
+      "totalIncludingContactMs": 403.3444869999985,
+      "pinError": 0,
+      "maxStretch": 1.2545883592245917,
+      "minStretch": 0.756889277992321,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 47,
+      "physicsMs": 402.8070039999984,
+      "mapMs": 2.977699000002758,
+      "totalIncludingContactMs": 464.7354259999993,
+      "pinError": 0,
+      "maxStretch": 1.2547686890253673,
+      "minStretch": 0.7499578584436203,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 48,
+      "physicsMs": 407.0052450000003,
+      "mapMs": 3.1683299999967858,
+      "totalIncludingContactMs": 470.0954530000017,
+      "pinError": 0,
+      "maxStretch": 1.2549528288677976,
+      "minStretch": 0.7550076088661205,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 49,
+      "physicsMs": 420.2947029999996,
+      "mapMs": 3.705692999999883,
+      "totalIncludingContactMs": 483.3342269999994,
+      "pinError": 0,
+      "maxStretch": 1.2551506294142807,
+      "minStretch": 0.7492907565557988,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 50,
+      "physicsMs": 394.4994820000029,
+      "mapMs": 3.0729599999976926,
+      "totalIncludingContactMs": 456.7280490000012,
+      "pinError": 0,
+      "maxStretch": 1.2553668225302779,
+      "minStretch": 0.7536763980664464,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 51,
+      "physicsMs": 388.12040999999954,
+      "mapMs": 2.8016480000005686,
+      "totalIncludingContactMs": 451.2623649999987,
+      "pinError": 0,
+      "maxStretch": 1.255609963476215,
+      "minStretch": 0.7502694356643236,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 52,
+      "physicsMs": 387.83352699999887,
+      "mapMs": 3.2451529999998456,
+      "totalIncludingContactMs": 453.0468209999999,
+      "pinError": 0,
+      "maxStretch": 1.2558808577542095,
+      "minStretch": 0.7532505306247674,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 53,
+      "physicsMs": 391.3630940000003,
+      "mapMs": 3.0703250000005937,
+      "totalIncludingContactMs": 453.86354199999914,
+      "pinError": 0,
+      "maxStretch": 1.2561801345826729,
+      "minStretch": 0.7513351970069331,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body"
+      ]
+    },
+    {
+      "frame": 54,
+      "physicsMs": 408.44849599999725,
+      "mapMs": 3.8139329999976326,
+      "totalIncludingContactMs": 475.0254649999988,
+      "pinError": 0,
+      "maxStretch": 1.2565014521444358,
+      "minStretch": 0.7538333074507475,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 55,
+      "physicsMs": 419.47955,
+      "mapMs": 2.7653449999997974,
+      "totalIncludingContactMs": 481.54725600000165,
+      "pinError": 0,
+      "maxStretch": 1.2568577498138733,
+      "minStretch": 0.7529687089107213,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 56,
+      "physicsMs": 435.35988200000065,
+      "mapMs": 3.2759289999994508,
+      "totalIncludingContactMs": 500.3602299999984,
+      "pinError": 0,
+      "maxStretch": 1.2572750051030999,
+      "minStretch": 0.755351595366428,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 57,
+      "physicsMs": 440.3789949999991,
+      "mapMs": 2.6664180000007036,
+      "totalIncludingContactMs": 509.65927400000146,
+      "pinError": 0,
+      "maxStretch": 1.2559252941856363,
+      "minStretch": 0.7541589247943247,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 58,
+      "physicsMs": 416.7729189999991,
+      "mapMs": 2.9699059999984456,
+      "totalIncludingContactMs": 479.5586650000005,
+      "pinError": 0,
+      "maxStretch": 1.2550365357803688,
+      "minStretch": 0.757227888413449,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    },
+    {
+      "frame": 59,
+      "physicsMs": 414.7886380000018,
+      "mapMs": 3.0779060000022582,
+      "totalIncludingContactMs": 479.5093930000003,
+      "pinError": 0,
+      "maxStretch": 1.254586732958151,
+      "minStretch": 0.75820998185037,
+      "contacts": [
+        "cape_back_edge/Bubu_hand-left",
+        "cape_hem/body",
+        "cape_front_edge_0/body",
+        "cape_front_edge_1/body"
+      ]
+    }
+  ],
+  "limitations": [
+    "Not a continuous tea/cancellation trajectory.",
+    "Self-contact and containment not established.",
+    "Not production cloth or visual approval.",
+    "Starts with the existing intersecting sip pose; failure does not prove that every collision-free initialized path is infeasible."
+  ],
+  "timing": {
+    "physicsMs": {
+      "p50": 427.16415699999925,
+      "p95": 545.9929400000001,
+      "max": 612.9732719999993
+    },
+    "mapMs": {
+      "p50": 3.2612680000002,
+      "p95": 5.738855999999942,
+      "max": 30.592062000000055
+    },
+    "totalIncludingContactMs": {
+      "p50": 498.49575800000093,
+      "p95": 627.7277610000001,
+      "max": 706.2867239999996
+    }
+  },
+  "finalEndpointClear": false,
+  "strainAccepted": false,
+  "realtimeAccepted": false,
+  "resourcesReleased": true
+}

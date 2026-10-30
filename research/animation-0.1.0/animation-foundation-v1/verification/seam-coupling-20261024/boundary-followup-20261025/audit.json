@@ -1,0 +1,527 @@
+{
+  "state": "verified-checkpoint-implementation-work-remains",
+  "createdAt": "2026-10-25T01:13:05.100347+00:00",
+  "productionAccepted": false,
+  "currentUnifiedGates": {
+    "capeTea": {
+      "status": "blocked",
+      "reason": "original-65-pin-conflict; repaired-private-51-pin-profile-still-needs-free-cloth-and-render-contact"
+    },
+    "dynamicCloth": {
+      "status": "blocked",
+      "reason": "real-time-budget-not-met"
+    },
+    "nativeInput": {
+      "status": "not-run"
+    },
+    "webglAndGPURecovery": {
+      "status": "partial",
+      "browserWebGL": "passed",
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "hardwareGPURecovery": "not-run",
+      "nativeDesktop": "not-run",
+      "reason": "Browser object lifecycle counts do not establish physical GPU memory or desktop-window acceptance"
+    },
+    "stableFrameTime": {
+      "status": "failed",
+      "evidence": {
+        "samples": 900,
+        "median": 1.2651489999998375,
+        "p95": 2.493823999999904,
+        "max": 14.128401000000167,
+        "includes": "body + hybrid + anchors + secondary + effects; excludes GPU"
+      },
+      "profilePasses": {
+        "0": {
+          "n": 900,
+          "median": 1.4164620000001378,
+          "p95": 2.5751430000000255,
+          "p99": 3.5617919999999685,
+          "max": 13.849448000000166
+        },
+        "1": {
+          "n": 900,
+          "median": 1.260682000000088,
+          "p95": 2.455155999999988,
+          "p99": 3.2503719999999703,
+          "max": 11.651462000000265
+        },
+        "2": {
+          "n": 900,
+          "median": 1.2468610000005356,
+          "p95": 2.4438199999999597,
+          "p99": 3.173047000000224,
+          "max": 6.824450999999954
+        }
+      },
+      "profileOverBudgetFrames": 0,
+      "reason": "Observed browser frame intervals exceed the 60 Hz budget; renderer identity remains explicit",
+      "browserFrameIntervals": {
+        "p50": 117.19999999552965,
+        "p95": 197.39999999850988,
+        "max": 257.8999999985099
+      }
+    },
+    "fullWardrobeContact": {
+      "status": "not-established",
+      "samples": 481,
+      "framesWithContacts": 0,
+      "observedPairs": [],
+      "haloContactPairs": [],
+      "floraContactPairs": [],
+      "floraMinimumSurfaceGap": {
+        "pair": [
+          "sakura/sakura_leaf_019",
+          "leaf/forest_leaf"
+        ],
+        "distance": 0.00042099430786059655
+      },
+      "continuousContact": "partial-rigid-domain-only",
+      "containment": "not-run",
+      "rigidMountContinuousDomain": {
+        "scope": "Conditional continuous surface separation under a common proper rigid transform",
+        "proof": "(G C_a)^-1 (G C_b) = C_a^-1 C_b; proper rigid transforms preserve all triangle distances",
+        "boneIndex": 0,
+        "pairs": [
+          {
+            "groups": [
+              "sakura",
+              "leaf"
+            ],
+            "pair": [
+              "sakura/sakura_leaf_019",
+              "leaf/forest_leaf"
+            ],
+            "distance": 0.00042099430786059655,
+            "clearanceAfterNumericalAllowance": 0.00041999430786059653
+          },
+          {
+            "groups": [
+              "sakura",
+              "halo"
+            ],
+            "pair": [
+              "sakura/sakura_petal_0",
+              "halo/halo_ring"
+            ],
+            "distance": 0.005553063883293605,
+            "clearanceAfterNumericalAllowance": 0.005552063883293605
+          },
+          {
+            "groups": [
+              "leaf",
+              "halo"
+            ],
+            "pair": [
+              "leaf/forest_leaf",
+              "halo/halo_ring"
+            ],
+            "distance": 0.18005952841476075,
+            "clearanceAfterNumericalAllowance": 0.18005852841476075
+          }
+        ],
+        "premiseChecks": 481,
+        "maximumRelativeDrift": 1.3426759704060487e-15,
+        "wholeWardrobeAccepted": false,
+        "exclusions": [
+          "No guarantee for non-rigid common transforms or changed anchors/geometry.",
+          "Body, tail, cape and satchel pairs, containment, self-contact and finite material thickness remain outside this certificate."
+        ]
+      },
+      "reason": "Sampled full-outfit surfaces still require intentional-contact classification and continuous/containment verification"
+    },
+    "cupClaspCandidate": {
+      "status": "partial",
+      "sampledCupCapeClear": true,
+      "samples": 1173,
+      "continuousFixedClasp": "certified",
+      "certifiedIntervals": 295,
+      "scope": "Derived bounded motion candidate; hands/cloth/body and runtime admission remain unaccepted"
+    },
+    "capeFixedSupportCandidate": {
+      "status": "partial",
+      "profile": "tea-swept-51-v1",
+      "retained": 51,
+      "released": 14,
+      "variants": {
+        "baseline": {
+          "continuous": "certified",
+          "certifiedIntervals": 60,
+          "originalInsideSupports": 14,
+          "legacyInsideSupports": 6
+        },
+        "candidate": {
+          "continuous": "certified",
+          "certifiedIntervals": 64,
+          "originalInsideSupports": 14,
+          "legacyInsideSupports": 6
+        }
+      },
+      "scope": "Fixed points with original 0.003 radius only; free cloth, finite attachment patches, render contact and production admission remain unaccepted"
+    }
+  },
+  "verified": {
+    "stages": 37,
+    "sourceFiles": 2089,
+    "sourcesUnchanged": true,
+    "suiteCounts": {
+      "tests": 865,
+      "pass": 865,
+      "fail": 0,
+      "skipped": 0
+    },
+    "application": {
+      "check": {
+        "tests": 6771,
+        "pass": 6742,
+        "fail": 0,
+        "skipped": 29
+      },
+      "integration": {
+        "tests": 71,
+        "pass": 71,
+        "fail": 0,
+        "skipped": 0
+      }
+    }
+  },
+  "ownership": "Research-only private geometry, native world, mapping and external diagnostic output. No application persistence, IPC, model source, canonical controller or production admission changes.",
+  "locallyRepaired": [
+    "The saved 1/60-second failure clears actual cloth strain and seam thresholds through a continuous four-boundary displacement field. This is not a full-path pass.",
+    "Direct front surfaces now render exactly their native exterior particles; real ring-centroid supports and explicit rigid-proxy solver iterations clear the earlier front failures.",
+    "Actual cloth boundary particles replace mixed fixed/free triangle proxy attachments in the full regional candidate; the observed .1167-second nonfinite state no longer occurs before the next failure.",
+    "Raw NaN buffers and last-finite snapshots survive failure; actual refined native collision geometry is checked separately from the original coarse reference."
+  ],
+  "retainedOutcome": {
+    "normal": {
+      "frame": 51,
+      "time": 0.21666666666666667,
+      "reason": "first-contact-pin-or-strain-failure",
+      "coarseContacts": [],
+      "nativeClothContacts": []
+    },
+    "cancelAt02": {
+      "frame": 51,
+      "time": 0.21666666666666667,
+      "reason": "first-contact-pin-or-strain-failure",
+      "coarseContacts": []
+    },
+    "actualSurfaceAudit": {
+      "status": "completed",
+      "productionAccepted": false,
+      "time": 0.21666666666666667,
+      "scope": "Same saved native snapshot: actual boundary-refined native triangles versus actual rendered triangles; original coarse contact is separately labelled.",
+      "rows": [
+        {
+          "name": "original-coarse-reference",
+          "triangles": 754,
+          "crossingPairs": 0,
+          "witnesses": [],
+          "minimumGap": 0.0004968983640984973
+        },
+        {
+          "name": "actual-native-cloth",
+          "triangles": 1042,
+          "crossingPairs": 0,
+          "witnesses": [],
+          "minimumGap": 0.0004968983640984973
+        },
+        {
+          "name": "actual-render-cloth",
+          "triangles": 5760,
+          "crossingPairs": 14,
+          "witnesses": [
+            {
+              "clothTriangle": 3693,
+              "bodyTriangle": 36792
+            },
+            {
+              "clothTriangle": 3694,
+              "bodyTriangle": 36792
+            },
+            {
+              "clothTriangle": 3694,
+              "bodyTriangle": 36795
+            },
+            {
+              "clothTriangle": 3704,
+              "bodyTriangle": 36792
+            },
+            {
+              "clothTriangle": 3733,
+              "bodyTriangle": 36792
+            },
+            {
+              "clothTriangle": 3733,
+              "bodyTriangle": 36795
+            },
+            {
+              "clothTriangle": 3704,
+              "bodyTriangle": 36800
+            },
+            {
+              "clothTriangle": 3704,
+              "bodyTriangle": 36802
+            },
+            {
+              "clothTriangle": 3733,
+              "bodyTriangle": 36802
+            },
+            {
+              "clothTriangle": 3737,
+              "bodyTriangle": 36800
+            },
+            {
+              "clothTriangle": 3740,
+              "bodyTriangle": 36800
+            },
+            {
+              "clothTriangle": 3737,
+              "bodyTriangle": 36802
+            },
+            {
+              "clothTriangle": 3737,
+              "bodyTriangle": 36818
+            },
+            {
+              "clothTriangle": 3740,
+              "bodyTriangle": 36818
+            }
+          ],
+          "minimumGap": 0
+        }
+      ]
+    },
+    "normalFailedPrefixStrain": {
+      "min": 0.8666364868660934,
+      "max": 1.1854569652033478,
+      "minWitness": {
+        "a": 891,
+        "b": 892,
+        "restLength": 0.003978021554072346,
+        "ratio": 0.8666364868660934
+      },
+      "maxWitness": {
+        "a": 340,
+        "b": 341,
+        "restLength": 0.019193085484296168,
+        "ratio": 1.1854569652033478
+      }
+    },
+    "normalFailedPrefixSeams": {
+      "maximum": 7.352689327380032e-07,
+      "witness": {
+        "part": "cape_hem",
+        "section": 0,
+        "clothVertex": 18,
+        "gap": 7.352689327380032e-07
+      }
+    },
+    "completeNormalAccepted": false,
+    "completeCancellationAccepted": false
+  },
+  "adoption": "All new dynamic candidates remain explicit research options and are not defaults. Stronger spring/rod stiffness, sparse frame sections, and triangle-proxy coupling did not close the problem; retained source versions reproduce each failure.",
+  "designAudit": [
+    {
+      "defect": "Mapped free cloth is not enclosed by the native collision surface.",
+      "evidence": "At .2166667 s native 1042-triangle cloth has no crossing and a .000496898 gap; displayed 5760-triangle cloth has 14 intersecting triangle pairs. The saved shaded view visibly exposes a body triangle.",
+      "minimumNextWork": "Make the actual free-surface deformation participate in native contact through a matching finite-surface or enclosing-volume binding, together with the already coupled seams. Re-run actual strain, pin, contact and complete cancellation gates. This remains authorized implementation work; no model/controller unfreeze is requested."
+    },
+    {
+      "defect": "Native cluster proxy and solver settings were assumed to equal soft-particle and soft-solver semantics.",
+      "evidence": "Pinned-only proxies collapse toward the origin; soft additional PGS does not propagate to rigid joint proxies; mixed triangle proxy candidate becomes nonfinite at .1167 s.",
+      "repair": "Real fixed references at existing support points, actual centroid/material-point coupling, explicit declared rigid-proxy budget. The generic native NaN cause is not claimed solved beyond the retained trajectory prefix."
+    },
+    {
+      "defect": "Centerline collision and sparse section orientation do not constrain every actual finite-width piping edge.",
+      "repair": "Actual front exterior particles and collision caps are independently tested. Back/hem wire-only variant still fails; no global radius inflation or reduced swing adopted."
+    },
+    {
+      "defect": "Discrete outfit samples do not prove continuous dynamic contact.",
+      "evidence": {
+        "status": "not-established",
+        "wholeWardrobeAccepted": false,
+        "unchangedEvidence": "481 exact rendered samples with zero crossing; three common-rigid head-mount pair certificates retained",
+        "dynamicCape": {
+          "scope": "Foundation cape is distinct from round5 tea cloth",
+          "missing": "Swept bounds for all rendered skin vertices across accepted spring poses; local particle proxy contact does not certify displayed triangles",
+          "existingAngleLimitRad": 0.25,
+          "minimumChange": "Read-only interval/envelope analysis tied to the actual spring skinning and sampled anchor contract; no controller or model unfreeze needed"
+        },
+        "satchel": {
+          "anchor": "hip.sideR",
+          "skinIndices": [
+            0,
+            4,
+            0,
+            0
+          ],
+          "skinWeights": [
+            0.9832578301429749,
+            0.016742167994379997,
+            0,
+            0
+          ],
+          "missing": "Relative-frame interval bounds for the mixed-bone anchor, plus continuous strap deformation. Common bone-0 rigid cancellation is inapplicable even when the pouch itself is rigid.",
+          "minimumChange": "Bound the actual weighted-anchor construction and strap motion, preserving original maximum swing; no source-asset change needed"
+        },
+        "body": {
+          "vertices": 32036,
+          "blendedVertices": 5883,
+          "missing": "Body triangles cannot all borrow the single-bone certificate"
+        },
+        "failedVsUnknown": "No new sampled outfit crossing observed. These are unestablished continuous guarantees, not additional measured crossings or hardware-only blockers."
+      },
+      "minimumNextWork": "Bounds for the actual blended hip anchor and accepted spring skinning, with source/transform guards. Do not assume a common rigid domain for all body or satchel vertices."
+    }
+  ],
+  "performance": {
+    "lastSameConditionFullPathCacheComparison": {
+      "before": "joined-cancel-02",
+      "after": "joined-cancel-02-final",
+      "samples": [
+        540,
+        540
+      ],
+      "geometryCheckDifferences": [],
+      "lastRenderedBytesEqual": true,
+      "timing": {
+        "before": {
+          "physicsMs": {
+            "p50": 0.12313200000062352,
+            "p95": 23.782546999999795,
+            "max": 87.00404300000014
+          },
+          "mapMs": {
+            "p50": 11.639186000000336,
+            "p95": 12.91799500000343,
+            "max": 36.357656000000134
+          },
+          "simulationPipelineMs": {
+            "p50": 18.0550230000008,
+            "p95": 41.339460999999574,
+            "max": 138.2741719999999
+          },
+          "totalIncludingContactMs": {
+            "p50": 75.32920100000047,
+            "p95": 100.16268499999933,
+            "max": 195.96591799999987
+          }
+        },
+        "after": {
+          "physicsMs": {
+            "p50": 0.12281199999961245,
+            "p95": 24.55465499999991,
+            "max": 86.96958799999993
+          },
+          "mapMs": {
+            "p50": 4.321704000001773,
+            "p95": 5.120661000000837,
+            "max": 36.03533400000015
+          },
+          "simulationPipelineMs": {
+            "p50": 10.846968999998353,
+            "p95": 35.83281100000022,
+            "max": 137.66945600000008
+          },
+          "totalIncludingContactMs": {
+            "p50": 66.15160999999716,
+            "p95": 93.00522199999978,
+            "max": 193.3812270000003
+          }
+        }
+      },
+      "accepted": false,
+      "scope": "Full nine-second cancellation at 0.2 s, isolated runs, startup included, unchanged geometry checks; not native/GPU performance"
+    },
+    "newCandidateTimingScope": "Failed prefixes only; construction and per-step costs remain far above budget. Some diagnostic trials overlapped application checks, so they do not establish a new comparative speedup. Raw reports retained.",
+    "stableFrameRateAccepted": false
+  },
+  "wardrobe": {
+    "samples": 481,
+    "crossingFrames": 0,
+    "rigidDomain": {
+      "scope": "Conditional continuous surface separation under a common proper rigid transform",
+      "proof": "(G C_a)^-1 (G C_b) = C_a^-1 C_b; proper rigid transforms preserve all triangle distances",
+      "boneIndex": 0,
+      "pairs": [
+        {
+          "groups": [
+            "sakura",
+            "leaf"
+          ],
+          "pair": [
+            "sakura/sakura_leaf_019",
+            "leaf/forest_leaf"
+          ],
+          "distance": 0.00042099430786059655,
+          "clearanceAfterNumericalAllowance": 0.00041999430786059653
+        },
+        {
+          "groups": [
+            "sakura",
+            "halo"
+          ],
+          "pair": [
+            "sakura/sakura_petal_0",
+            "halo/halo_ring"
+          ],
+          "distance": 0.005553063883293605,
+          "clearanceAfterNumericalAllowance": 0.005552063883293605
+        },
+        {
+          "groups": [
+            "leaf",
+            "halo"
+          ],
+          "pair": [
+            "leaf/forest_leaf",
+            "halo/halo_ring"
+          ],
+          "distance": 0.18005952841476075,
+          "clearanceAfterNumericalAllowance": 0.18005852841476075
+        }
+      ],
+      "premiseChecks": 481,
+      "maximumRelativeDrift": 1.3426759704060487e-15,
+      "wholeWardrobeAccepted": false,
+      "exclusions": [
+        "No guarantee for non-rigid common transforms or changed anchors/geometry.",
+        "Body, tail, cape and satchel pairs, containment, self-contact and finite material thickness remain outside this certificate."
+      ]
+    },
+    "dynamicContinuousContact": "not-established",
+    "containment": "not-run",
+    "sameGarmentSelfContact": "not-established"
+  },
+  "externalOnly": [
+    {
+      "item": "Native Windows/macOS and physical GPU acceptance",
+      "status": "not-run",
+      "minimumEnvironment": "Original application on real Windows/macOS and physical GPU; no /dev/dri in this executor, browser uses SwiftShader. Offline video and software P95 cannot substitute."
+    }
+  ],
+  "requiredUserDecision": null,
+  "remainingAreNotAllExternal": true,
+  "reproduction": [
+    "From repository root: npm run check; npm run test:integration",
+    "From research/animation-0.1.0: node animation-foundation-v1/verification/run.mjs --output NEW_EXTERNAL_DIRECTORY --browser /usr/bin/chromium --software",
+    "python3 animation-foundation-v1/secondary-motion/cloth-probe/author-collision-skin.py --attachment-profile tea-swept-51-v1 --output NEW_EXTERNAL_JSON",
+    "node animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs --trajectory --convex-hands --collision-skin NEW_EXTERNAL_JSON --local-body-proxy animation-foundation-v1/secondary-motion/cloth-probe/fixtures/wire-local-body-proxy-v2.json --regional-trim --thin-cloth --body-frame-detail --closed-piping --coupled-regional-seams --mesh-scaled-material --constraint-pgs 12 --sample-hz 240 --profile --output NEW_EXTERNAL_DIRECTORY",
+    "Add --cancel-at 0.2 for the retained cancellation failure. All full trajectories request the unchanged controller endpoint and stop only upon recorded failure."
+  ],
+  "savedState": {
+    "branch": "feature/pet-animation-v2",
+    "head": "c0a8281bbc721f1f7d01afdb0ece6920aebc90f9",
+    "committed": false,
+    "pushed": false,
+    "previousVerifiedBackupSHA256": "6465e69cedd690007df003a7b3effd183e8046e2dd2daa760e8cdf64f1f4d9f3",
+    "finalBackupManifest": "/workspace/artifacts/bubu-v2-seam-coupling-20261024/source-backup-boundary-verified.json"
+  },
+  "limits": [
+    "New evidence archived after verification is not part of the executed source snapshot.",
+    "The static/behavior test pass does not admit any failed dynamic candidate.",
+    "The baseline full nine-second cancellation pass and 481 outfit samples are preserved; neither claims universal cancellation or continuous cloth acceptance.",
+    "No demo video/package was regenerated. Existing 49.083-second demo is an earlier checkpoint, not an animation of these failed opt-in candidates."
+  ]
+}

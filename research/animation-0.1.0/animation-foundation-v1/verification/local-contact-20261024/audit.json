@@ -1,0 +1,559 @@
+{
+  "format": "bubu-v2-local-contact-audit/1",
+  "updatedAtUTC": "2026-10-24T19:31:18.903883+00:00",
+  "taskComplete": false,
+  "productionAccepted": false,
+  "branch": "feature/pet-animation-v2",
+  "phase": "Local-contact research checkpoint verified; production implementation gaps remain",
+  "scope": {
+    "fullOutfit": "Existing Foundation five-mount fixture, distinct from the frozen round5 cape",
+    "localCloth": "Frozen round5 cape, original hybrid body and frozen tea controller; private simulation/collision buffers only",
+    "unchanged": [
+      "Approved GLB/model files",
+      "Frozen controller/timeline",
+      "Default complete-outfit offsets and secondary motion",
+      "Contact/strain/frame acceptance limits",
+      "Production admission registry"
+    ],
+    "excludedActions": [
+      "No new video recording",
+      "No new interactive distribution package",
+      "No commit/push/publication"
+    ]
+  },
+  "closedWithinResearchScope": [
+    {
+      "finding": "Conservative body containment alone admitted four initial trim intersections",
+      "repair": "Independent closed/convex/full-containment/global-error/whole-garment-rest-gap admission",
+      "evidence": {
+        "sourceVertices": 32036,
+        "vertices": 930,
+        "triangles": 1852,
+        "maximumPlaneViolation": -1.520356305961812e-06,
+        "maximumOuterDistance": 0.008918800019703108,
+        "maxError": 0.01,
+        "minimumInitialGarmentGap": 6.469100768339604e-05,
+        "gaps": [
+          {
+            "part": "cape_cloth",
+            "distance": 0.0032428159480518905
+          },
+          {
+            "part": "cape_back_edge",
+            "distance": 0.0001700053777477082
+          },
+          {
+            "part": "cape_hem",
+            "distance": 6.469100768339604e-05
+          },
+          {
+            "part": "cape_front_edge_0",
+            "distance": 0.0007433028777456147
+          },
+          {
+            "part": "cape_front_edge_1",
+            "distance": 0.0006870218993582496
+          },
+          {
+            "part": "cape_clasp",
+            "distance": 0.005961105950462078
+          }
+        ]
+      }
+    },
+    {
+      "finding": "Fixed simulation particles did not imply fixed rendered garment points",
+      "repair": "29 matching rendered anchor witnesses now checked at 1e-5; centered mapping keeps them within 1.33e-7 in tested prefix",
+      "historicalCounterexample": {
+        "status": "completed",
+        "accepted": false,
+        "scope": "Independent saved actual render geometry replay; no realtime or full-trajectory claim",
+        "time": 0.016666666666666666,
+        "sourceHash": "5888814c2bd2b4627b3abab0e6133388e60fccb26b14e887e5556352d9c50d01",
+        "savedRenderHash": "9cf9f9249ddcc27208a04d85f7f64aaca723514e610e127590ba24f4d862da03",
+        "limits": {
+          "minimumStrain": 0.8,
+          "maximumStrain": 1.2,
+          "pinError": 1e-05
+        },
+        "strain": {
+          "minimum": 0.9831902469033383,
+          "maximum": 1.027261182249751,
+          "minimumWitness": {
+            "part": "cape_front_edge_1",
+            "a": 7734,
+            "b": 7722,
+            "restLength": 0.006748027747185887,
+            "ratio": 0.9831902469033383
+          },
+          "maximumWitness": {
+            "part": "cape_front_edge_0",
+            "a": 7360,
+            "b": 7373,
+            "restLength": 0.00486194743352035,
+            "ratio": 1.027261182249751
+          }
+        },
+        "contacts": [],
+        "renderPinError": 0.0003568099997158432,
+        "failureReproduced": true
+      },
+      "correctedPrefix": {
+        "status": "completed",
+        "accepted": false,
+        "scope": "Independent saved actual render geometry replay; no realtime or full-trajectory claim",
+        "time": 0.06666666666666667,
+        "sourceHash": "5888814c2bd2b4627b3abab0e6133388e60fccb26b14e887e5556352d9c50d01",
+        "savedRenderHash": "d54d535fd44b7fe7a1578fa4dd3492338d9ebe6d2cf2980e5bc3b0aaf57c534c",
+        "limits": {
+          "minimumStrain": 0.8,
+          "maximumStrain": 1.2,
+          "pinError": 1e-05
+        },
+        "strain": {
+          "minimum": 0.8482988634328105,
+          "maximum": 1.2064641337584325,
+          "minimumWitness": {
+            "part": "cape_cloth",
+            "a": 57,
+            "b": 58,
+            "restLength": 0.00620694565732033,
+            "ratio": 0.8482988634328105
+          },
+          "maximumWitness": {
+            "part": "cape_cloth",
+            "a": 3002,
+            "b": 3003,
+            "restLength": 0.005571074198785495,
+            "ratio": 1.2064641337584325
+          }
+        },
+        "contacts": [],
+        "renderPinError": 1.3328003749250113e-07,
+        "failureReproduced": true
+      }
+    },
+    {
+      "finding": "Short diagnostic runs could be reported as reaching the full action endpoint",
+      "repair": "Endpoint and realtime claims require all 540 normal-trajectory samples; unknown/duplicate CLI options fail before output creation"
+    },
+    {
+      "finding": "Region embedding could silently couple overlapping cloth and piping cells",
+      "repair": "Separate region cluster bindings, independent coverage and source geometry checks, private render buffers and idempotent disposal"
+    }
+  ],
+  "notClosed": {
+    "fullWardrobe": {
+      "status": "failed",
+      "samples": 481,
+      "pairs": [
+        "body/Bubu_hand-right <> satchel/satchel_continuous_strap",
+        "body/Bubu_body <> sakura/sakura_petal_1",
+        "body/Bubu_body <> sakura/sakura_petal_2",
+        "body/Bubu_body <> sakura/sakura_leaf_-019",
+        "body/Bubu_body <> satchel/satchel_pouch"
+      ],
+      "constraintEvidence": "Existing bounded-translation obstruction remains valid for pouch/body and strap/right-hand only; it does not exclude rotations or all private fitting methods."
+    },
+    "clothMaterial": {
+      "status": "failed",
+      "evidence": [
+        {
+          "status": "completed",
+          "accepted": false,
+          "scope": "Independent saved actual render geometry replay; no realtime or full-trajectory claim",
+          "time": 0.5166666666666667,
+          "sourceHash": "5888814c2bd2b4627b3abab0e6133388e60fccb26b14e887e5556352d9c50d01",
+          "savedRenderHash": "4f3b3f023646e185157685f70cf56dddfb302824974d6f7f624bba2d3e1c73bd",
+          "limits": {
+            "minimumStrain": 0.8,
+            "maximumStrain": 1.2,
+            "pinError": 1e-05
+          },
+          "strain": {
+            "minimum": 0.8708684640957532,
+            "maximum": 1.2879405183516521,
+            "minimumWitness": {
+              "part": "cape_cloth",
+              "a": 497,
+              "b": 498,
+              "restLength": 0.012359516819756933,
+              "ratio": 0.8708684640957532
+            },
+            "maximumWitness": {
+              "part": "cape_cloth",
+              "a": 2561,
+              "b": 2562,
+              "restLength": 0.012842031072673187,
+              "ratio": 1.2879405183516521
+            }
+          },
+          "contacts": [],
+          "renderPinError": 0,
+          "failureReproduced": true
+        },
+        {
+          "status": "completed",
+          "accepted": false,
+          "scope": "Independent saved actual render geometry replay; no realtime or full-trajectory claim",
+          "time": 0.5166666666666667,
+          "sourceHash": "5888814c2bd2b4627b3abab0e6133388e60fccb26b14e887e5556352d9c50d01",
+          "savedRenderHash": "602f93ab163879732761e0e6b9b726431064f25fcdb20f857bd801b6f9d6b2da",
+          "limits": {
+            "minimumStrain": 0.8,
+            "maximumStrain": 1.2,
+            "pinError": 1e-05
+          },
+          "strain": {
+            "minimum": 0.8715301897906454,
+            "maximum": 1.282878244358113,
+            "minimumWitness": {
+              "part": "cape_cloth",
+              "a": 497,
+              "b": 498,
+              "restLength": 0.012359516819756933,
+              "ratio": 0.8715301897906454
+            },
+            "maximumWitness": {
+              "part": "cape_cloth",
+              "a": 2561,
+              "b": 2562,
+              "restLength": 0.012842031072673187,
+              "ratio": 1.282878244358113
+            }
+          },
+          "contacts": [],
+          "renderPinError": 0,
+          "failureReproduced": true
+        }
+      ],
+      "rootGap": "Actual render edges can exceed the 1.2 strain limit while simulation edges remain below it. Collision coverage and coarse edge constraints are insufficient to enforce the visible cloth material metric.",
+      "nextLocalWork": "Revise thin-surface topology/material transfer and seam coupling with explicit actual-render strain bounds; do not continue unbounded frequency searches.",
+      "triangleMetricComparison": {
+        "adopted": false,
+        "savedSources": "triangle-metric-source.json",
+        "failure": {
+          "status": "completed",
+          "accepted": false,
+          "scope": "Independently reconstructed rest edge metric for saved cloth-to-piping failure; not a full trajectory or performance pass",
+          "time": 0.08333333333333333,
+          "maximum": 1.2765885350237447,
+          "witness": {
+            "a": 73,
+            "b": 596,
+            "restLength": 0.03865432469943542,
+            "ratio": 1.2765885350237447
+          },
+          "maximumAllowed": 1.2,
+          "failureReproduced": true
+        },
+        "actualRenderAtFailure": {
+          "min": 0.8686934510647252,
+          "max": 1.198876160901801,
+          "minWitness": {
+            "a": 982,
+            "b": 983,
+            "restLength": 0.011474875018840473,
+            "ratio": 0.8686934510647252
+          },
+          "maxWitness": {
+            "a": 974,
+            "b": 975,
+            "restLength": 0.010476852574084728,
+            "ratio": 1.198876160901801
+          }
+        },
+        "firstFrameInternal": {
+          "Step": 19107.469569,
+          "CollisionDetection": 206.43089700000002,
+          "BroadPhase": 0.816136,
+          "NarrowPhase": 205.503275,
+          "Solver": 121.513262,
+          "VelocityAssembly": 7.40827,
+          "VelocityResolution": 113.530162,
+          "VelocityUpdate": 0,
+          "VelocityWriteback": 0,
+          "Ccd": 0,
+          "IslandConstruction": 18619.044375,
+          "UserChanges": 153.873711
+        },
+        "physicsMs": {
+          "p50": 333.27688200000193,
+          "p95": 19159.029541,
+          "max": 19159.029541
+        },
+        "scope": "Five samples only; no complete trajectory or general infeasibility claim",
+        "conclusion": "Local cloth metric constraints overstretch cloth-to-piping links and add prohibitive initial island construction; revise seam coupling jointly instead of tuning scalar frequency."
+      }
+    },
+    "contactPerformance": {
+      "status": "failed",
+      "baseline": {
+        "physicsMs": {
+          "p50": 286.9097360000005,
+          "p95": 337.06818999999996,
+          "max": 1158.744053
+        },
+        "mapMs": {
+          "p50": 14.11782999999923,
+          "p95": 17.11579299999994,
+          "max": 22.622539999999844
+        },
+        "simulationPipelineMs": {
+          "p50": 307.0104500000007,
+          "p95": 358.35459400000036,
+          "max": 1196.1915490000001
+        },
+        "totalIncludingContactMs": {
+          "p50": 359.47045999999955,
+          "p95": 412.868289,
+          "max": 1252.444445
+        }
+      },
+      "compound": {
+        "physicsMs": {
+          "p50": 222.02040100000022,
+          "p95": 350.80068799999935,
+          "max": 1033.0854630000001
+        },
+        "mapMs": {
+          "p50": 14.645513999999821,
+          "p95": 19.606870999999956,
+          "max": 20.113168999999743
+        },
+        "simulationPipelineMs": {
+          "p50": 242.96066900000005,
+          "p95": 371.6565439999995,
+          "max": 1066.202029
+        },
+        "totalIncludingContactMs": {
+          "p50": 296.15628599999945,
+          "p95": 432.60505100000046,
+          "max": 1125.9187850000003
+        }
+      },
+      "baselineLastInternal": {
+        "Step": 333.705164,
+        "CollisionDetection": 184.075882,
+        "BroadPhase": 0.021232,
+        "NarrowPhase": 184.04406500000002,
+        "Solver": 148.640882,
+        "VelocityAssembly": 7.829211000000001,
+        "VelocityResolution": 139.809449,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.01371,
+        "UserChanges": 0.022423
+      },
+      "compoundLastInternal": {
+        "Step": 350.636977,
+        "CollisionDetection": 69.00107,
+        "BroadPhase": 0.019659,
+        "NarrowPhase": 68.969405,
+        "Solver": 280.43010400000003,
+        "VelocityAssembly": 17.544735,
+        "VelocityResolution": 260.362653,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 0.051215,
+        "UserChanges": 0.024216
+      },
+      "conclusion": "Same-volume patches reduce narrow-phase cost, but increase solver cost and do not improve tail frame time. Diagnostic only, not default adoption."
+    },
+    "capeTea": {
+      "status": "blocked",
+      "reason": "Original 65-support endpoint exclusion unchanged; released-55-support candidates remain unaccepted. Cup/clasp clearance is only partial evidence."
+    }
+  },
+  "notRun": [
+    "Full successful cloth trajectory and cancellation after early safety stops",
+    "Complete seam/attachment/containment/self-contact/continuous-time acceptance",
+    "Native Windows/macOS input/window behavior",
+    "Physical GPU recovery/memory/frame-rate acceptance"
+  ],
+  "externalOnlyBlockers": [
+    "Native desktop and physical GPU environment unavailable; /dev/dri absent"
+  ],
+  "implementationGapsAreNotHardwareBlockers": true,
+  "frozenBoundary": {
+    "sourceHashes": {
+      "matched": true,
+      "sha256": {
+        "runtime-facepath05/fixtures/face-d2/asset.glb": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
+        "original-parts-hybrid-v1/geometry/bubu-hybrid-binding.glb": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67",
+        "wearable-approved-round5/accessory-expansion/models/07-cape.glb": "e29010956b989a60e196472b2206e6c397b34f12f3b7092d67f53f189c128e21",
+        "original-parts-hybrid-v1/tea/src/rigid-tea.mjs": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+        "original-parts-hybrid-v1/tea/src/timeline.mjs": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa"
+      },
+      "devDriPresent": false
+    },
+    "unfreezeRequiredByCurrentEvidence": false,
+    "note": "No proof that every private-copy method is impossible. Do not infer a mandatory source-model change from failed local candidates or bounded translation exclusions."
+  },
+  "previousOptimization": "Zero-weight shader/bone-fetch optimization remains not adopted; no repeated shader experiment this phase",
+  "preservation": {
+    "branch": "feature/pet-animation-v2",
+    "head": "c0a8281bbc721f1f7d01afdb0ece6920aebc90f9",
+    "previousBackupIntact": true,
+    "previousBackupSHA256": "23f0d010d3e738a071e85003c351407b954392cb90967bb55c8a66cf3d1153ff",
+    "bytes": 18518409,
+    "verifiedMembers": 358,
+    "changedPreviousFiles": [
+      "research/animation-0.1.0/animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs"
+    ],
+    "committed": false,
+    "pushed": false,
+    "midPhaseBackup": "/workspace/artifacts/bubu-v2-local-contact-20261024/working-tree-checkpoint.tar.gz",
+    "midPhaseBackupSHA256": "4df5f6fc1f1a929cfd9517e707e479dffa2cefc96789b7bc41d8d16f6fe7d4ab",
+    "finalSourceBackupRecord": "/workspace/artifacts/bubu-v2-local-contact-20261024/source-backup.json"
+  },
+  "evidenceReproducibility": {
+    "independentReplayScript": "replay-failed-render.mjs",
+    "replayed": [
+      "thin-cloth-failure-replay.json",
+      "centered-failure-replay.json",
+      "render-pin-failure-replay.json",
+      "compound-failure-replay.json",
+      "triangle-coupling-failure-replay.json"
+    ],
+    "historicalRuns": "Earlier diagnostic source hashes and failure snapshots are retained. These are failed historical candidates, not current production evidence."
+  },
+  "verification": {
+    "status": "passed",
+    "nodePass": 828,
+    "pythonPass": 2,
+    "stages": 36,
+    "sourcesUnchanged": true,
+    "summary": "summary.json",
+    "application": "application-validation.json",
+    "gates": {
+      "capeTea": {
+        "status": "blocked",
+        "reason": "endpoint-attachment-conflict"
+      },
+      "dynamicCloth": {
+        "status": "blocked",
+        "reason": "real-time-budget-not-met"
+      },
+      "nativeInput": {
+        "status": "not-run"
+      },
+      "webglAndGPURecovery": {
+        "status": "partial",
+        "browserWebGL": "passed",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "hardwareGPURecovery": "not-run",
+        "nativeDesktop": "not-run",
+        "reason": "Browser object lifecycle counts do not establish physical GPU memory or desktop-window acceptance"
+      },
+      "stableFrameTime": {
+        "status": "failed",
+        "evidence": {
+          "samples": 900,
+          "median": 1.3665790000000015,
+          "p95": 2.6548609999999826,
+          "max": 12.408458999999993,
+          "includes": "body + hybrid + anchors + secondary + effects; excludes GPU"
+        },
+        "profilePasses": {
+          "0": {
+            "n": 900,
+            "median": 1.2817329999998037,
+            "p95": 2.3979320000000826,
+            "p99": 3.3566379999999754,
+            "max": 11.861290999999937
+          },
+          "1": {
+            "n": 900,
+            "median": 1.1666540000001078,
+            "p95": 2.2336599999998725,
+            "p99": 2.9510489999997844,
+            "max": 12.729584000000159
+          },
+          "2": {
+            "n": 900,
+            "median": 1.1774890000001506,
+            "p95": 2.302581000000373,
+            "p99": 2.801849000000402,
+            "max": 18.617591000000175
+          }
+        },
+        "profileOverBudgetFrames": 1,
+        "reason": "Observed browser frame intervals exceed the 60 Hz budget; renderer identity remains explicit",
+        "browserFrameIntervals": {
+          "p50": 114.39999999850988,
+          "p95": 194.89999999850988,
+          "max": 227
+        }
+      },
+      "fullWardrobeContact": {
+        "status": "failed",
+        "samples": 481,
+        "framesWithContacts": 481,
+        "observedPairs": [
+          "body/Bubu_hand-right <> satchel/satchel_continuous_strap",
+          "body/Bubu_body <> sakura/sakura_petal_1",
+          "body/Bubu_body <> sakura/sakura_petal_2",
+          "body/Bubu_body <> sakura/sakura_leaf_-019",
+          "body/Bubu_body <> satchel/satchel_pouch"
+        ],
+        "haloContactPairs": [],
+        "floraContactPairs": [],
+        "floraMinimumSurfaceGap": {
+          "pair": [
+            "sakura/sakura_leaf_019",
+            "leaf/forest_leaf"
+          ],
+          "distance": 0.00042099430786059655
+        },
+        "continuousContact": "not-run",
+        "containment": "not-run",
+        "reason": "Sampled full-outfit surfaces still require intentional-contact classification and continuous/containment verification"
+      },
+      "cupClaspCandidate": {
+        "status": "partial",
+        "sampledCupCapeClear": true,
+        "samples": 1173,
+        "continuousFixedClasp": "certified",
+        "certifiedIntervals": 295,
+        "scope": "Derived bounded motion candidate; hands/cloth/body and runtime admission remain unaccepted"
+      }
+    }
+  },
+  "minimumRemainingWork": [
+    {
+      "item": "Five outfit intersections",
+      "kind": "implementation",
+      "minimumNextStep": "Joint private-copy fitting with preserved strap width, seams and visual shape, followed by the full moving outfit sweep; bounded translations alone are excluded for pouch and strap.",
+      "requiresFrozenSourceChangeProven": false
+    },
+    {
+      "item": "Cloth material and seam coupling",
+      "kind": "implementation",
+      "minimumNextStep": "A bounded representation that enforces actual visible edge strain and cloth-to-piping coupling together while preserving rendered anchors; current cages, higher material frequency and triangle shape matching fail.",
+      "requiresFrozenSourceChangeProven": false
+    },
+    {
+      "item": "Cape plus tea",
+      "kind": "implementation-and-attachment-contract",
+      "minimumNextStep": "A versioned runtime attachment candidate that meets hand/body/cloth contact, strain, continuous motion, cancellation and ownership criteria. Original 65-support endpoint is excluded; released-55 research is still unaccepted.",
+      "requiresFrozenSourceChangeProven": false
+    },
+    {
+      "item": "CPU cloth cost",
+      "kind": "implementation",
+      "minimumNextStep": "Reduce joint contact/constraint work with unchanged occupied geometry and motion; same-volume body partition only shifts the bottleneck.",
+      "requiresHardwareToInvestigate": false
+    },
+    {
+      "item": "Native and physical GPU acceptance",
+      "kind": "external-environment",
+      "minimumNextStep": "Supported Windows/macOS desktop with an actual GPU and native input/window lifecycle; this executor exposes no /dev/dri.",
+      "requiresHardwareToRun": true
+    }
+  ],
+  "noIndependentWorkRemains": false,
+  "noNewUserPermissionRequested": "Current failed experiments do not establish a necessary change to frozen source models; implementation work remains within the private research scope."
+}

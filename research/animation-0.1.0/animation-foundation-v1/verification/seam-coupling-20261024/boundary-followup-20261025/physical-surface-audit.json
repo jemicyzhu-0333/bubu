@@ -1,0 +1,86 @@
+{
+  "status": "completed",
+  "productionAccepted": false,
+  "time": 0.21666666666666667,
+  "scope": "Same saved native snapshot: actual boundary-refined native triangles versus actual rendered triangles; original coarse contact is separately labelled.",
+  "rows": [
+    {
+      "name": "original-coarse-reference",
+      "triangles": 754,
+      "crossingPairs": 0,
+      "witnesses": [],
+      "minimumGap": 0.0004968983640984973
+    },
+    {
+      "name": "actual-native-cloth",
+      "triangles": 1042,
+      "crossingPairs": 0,
+      "witnesses": [],
+      "minimumGap": 0.0004968983640984973
+    },
+    {
+      "name": "actual-render-cloth",
+      "triangles": 5760,
+      "crossingPairs": 14,
+      "witnesses": [
+        {
+          "clothTriangle": 3693,
+          "bodyTriangle": 36792
+        },
+        {
+          "clothTriangle": 3694,
+          "bodyTriangle": 36792
+        },
+        {
+          "clothTriangle": 3694,
+          "bodyTriangle": 36795
+        },
+        {
+          "clothTriangle": 3704,
+          "bodyTriangle": 36792
+        },
+        {
+          "clothTriangle": 3733,
+          "bodyTriangle": 36792
+        },
+        {
+          "clothTriangle": 3733,
+          "bodyTriangle": 36795
+        },
+        {
+          "clothTriangle": 3704,
+          "bodyTriangle": 36800
+        },
+        {
+          "clothTriangle": 3704,
+          "bodyTriangle": 36802
+        },
+        {
+          "clothTriangle": 3733,
+          "bodyTriangle": 36802
+        },
+        {
+          "clothTriangle": 3737,
+          "bodyTriangle": 36800
+        },
+        {
+          "clothTriangle": 3740,
+          "bodyTriangle": 36800
+        },
+        {
+          "clothTriangle": 3737,
+          "bodyTriangle": 36802
+        },
+        {
+          "clothTriangle": 3737,
+          "bodyTriangle": 36818
+        },
+        {
+          "clothTriangle": 3740,
+          "bodyTriangle": 36818
+        }
+      ],
+      "minimumGap": 0
+    }
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "scope": "CPU actual D2 pointer host + unchanged hybrid + real revised accessory meshes. Not native input, WebGL, GPU, or complete contact acceptance.",
+  "tests": {
+    "fiveRealAssetFixtures": true,
+    "bodyGeometryImmutable": true,
+    "hold62SecondsThenFastDrag": {
+      "pettingFrames": 1849
+    },
+    "cancelLostCaptureHiddenResume": true,
+    "regrab": true,
+    "frameGapReset": true,
+    "staleAsyncAndPendingBudget": true,
+    "twoActorIsolation": true,
+    "disposalResourceZero": true
+  },
+  "scenarios": {
+    "ear-sakura-leaf": {
+      "frames": 180,
+      "modes": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "maxSubsteps": 0,
+      "resources": [
+        {
+          "id": "sakura",
+          "nodes": 15,
+          "vertices": 6464,
+          "bytes": 271992,
+          "textures": 0
+        },
+        {
+          "id": "leaf",
+          "nodes": 4,
+          "vertices": 1379,
+          "bytes": 53432,
+          "textures": 0
+        }
+      ],
+      "researchOnly": true
+    },
+    "satchel": {
+      "frames": 180,
+      "modes": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "maxSubsteps": 1,
+      "resources": [
+        {
+          "id": "satchel",
+          "nodes": 5,
+          "vertices": 1590,
+          "bytes": 61288,
+          "textures": 0
+        }
+      ],
+      "researchOnly": true
+    },
+    "cape-tail": {
+      "frames": 180,
+      "modes": [
+        "idle",
+        "pending",
+        "petting",
+        "drag",
+        "landing"
+      ],
+      "maxSubsteps": 1,
+      "resources": [
+        {
+          "id": "cape",
+          "nodes": 6,
+          "vertices": 4807,
+          "bytes": 191624,
+          "textures": 0
+        }
+      ],
+      "researchOnly": true
+    },
+    "held-book-release": {
+      "frames": 180,
+      "modes": [
+        "idle",
+        "pending",
+        "drag",
+        "landing"
+      ],
+      "maxSubsteps": 0,
+      "resources": [
+        {
+          "id": "book",
+          "nodes": 25,
+          "vertices": 29988,
+          "bytes": 959616,
+          "textures": 0
+        }
+      ],
+      "researchOnly": "Grip/contact not authored; release tested separately"
+    },
+    "halo-particles": {
+      "frames": 180,
+      "modes": [
+        "idle",
+        "pending",
+        "drag",
+        "landing"
+      ],
+      "maxSubsteps": 0,
+      "resources": [
+        {
+          "id": "halo",
+          "nodes": 2,
+          "vertices": 1649,
+          "bytes": 71200,
+          "textures": 0
+        }
+      ],
+      "researchOnly": true
+    }
+  },
+  "inputHashes": {
+    "source": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
+    "hybrid": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67"
+  },
+  "modules": {
+    "../secondary-motion/index.mjs": "9d2007ece89f970e684967a1db1efa098de59878a11b9fa82fef14bb67c8b1a2",
+    "../secondary-motion/rapier.mjs": "6b37b7e9ba205697c8ebd0fa8dafc290c49e89a46d274bc4ce86e88ab54af62d",
+    "../body-runtime/surface-query.mjs": "55a4948bfdfe0889c5a1756deb3f64f20ca97a0925c0ad1cdce48f91cc317176",
+    "../body-runtime/attribute-layout.mjs": "e6aef366ee91a85db561c55e831c932c49be6a998d76313ddfb2c435f4a39aca",
+    "../body-runtime/rigid-surface-partition.mjs": "fe5b873ff030e08d593aecea7e4673b0876c9f4ee7acd3f9c74fa57d3809d53f",
+    "../body-runtime/pointer-host.mjs": "5930a96d60f4f97cbb34d3eeeb6ab89b422fea4db5bee170d295236a3c799fa6",
+    "../../package-lock.json": "29914de54006d3f2bfb8f5ffb7ed05f16921a00c2af3abb07f2eb476eebeb427",
+    "./foundation-host.mjs": "fd6baac11f8ef8ff1e11779e8d18aaa2f9ecd10055a61154f32113486ed566b1",
+    "./asset-fixtures.mjs": "f8f0a12ca35385d067ef13c7a9c9e8ea88679b6f62292dd912ecbbb84af42baa"
+  },
+  "slowFrames": [],
+  "churn": {
+    "cycles": 60,
+    "elapsedMs": 104.25860199999988,
+    "heapBefore": 23394808,
+    "heapAfter": 23736360,
+    "gcAvailable": true
+  },
+  "surfaceQuery": {
+    "preparations": 1,
+    "refits": 6,
+    "cacheHits": 49,
+    "queries": 55,
+    "vertexBytes": 1102680,
+    "residentUpperBoundBytes": 12012564,
+    "vertices": 45945,
+    "deformedVertices": 16955,
+    "rigidGroups": 5
+  },
+  "cpuFrameMs": {
+    "samples": 900,
+    "median": 1.3459379999999328,
+    "p95": 3.0584570000000895,
+    "max": 16.150380999999925,
+    "includes": "body + hybrid + anchors + secondary + effects; excludes GPU"
+  }
+}

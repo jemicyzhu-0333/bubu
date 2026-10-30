@@ -1,3 +1,4 @@
+import { evidencePath } from "../verification/evidence-output.mjs";
 import fs from "node:fs";
 import os from "node:os";
 import assert from "node:assert/strict";
@@ -320,8 +321,7 @@ for (const admission of Object.values(admissions)) admission.dispose();
 for (const asset of Object.values(assets)) disposeAsset(asset);
 body.dispose();
 report.processHeapUsed = process.memoryUsage().heapUsed;
-fs.writeFileSync(
-  new URL("./evidence.json", import.meta.url),
+fs.writeFileSync(evidencePath(new URL("./evidence.json", import.meta.url)),
   JSON.stringify(report, null, 2),
 );
 console.log(JSON.stringify(report, null, 2));

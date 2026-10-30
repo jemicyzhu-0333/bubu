@@ -2,6 +2,9 @@
   "name": "bubu-animation-research",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
   "dependencies": {
     "three": "0.186.1",
     "three-mesh-bvh": "0.9.16",
@@ -10,8 +13,10 @@
   },
   "scripts": {
     "foundation:prepare": "python3 runtime-facepath05/tools/materialize-d2.py",
-    "foundation:test": "node --test animation-foundation-v1/body-runtime/*.test.mjs animation-foundation-v1/integration/*.test.mjs animation-foundation-v1/configuration/tests/*.test.mjs",
+    "foundation:test": "node --test --test-isolation=none animation-foundation-v1/body-runtime/*.test.mjs animation-foundation-v1/integration/*.test.mjs animation-foundation-v1/configuration/tests/*.test.mjs animation-foundation-v1/contact/*.test.mjs",
+    "foundation:verify": "node animation-foundation-v1/verification/run.mjs",
     "foundation:integration": "node --expose-gc animation-foundation-v1/integration/verify.mjs",
-    "foundation:preflight": "node animation-foundation-v1/integration/verify-portability.mjs"
+    "foundation:preflight": "node animation-foundation-v1/integration/verify-portability.mjs",
+    "foundation:demo": "python3 -m http.server 8766 --bind 127.0.0.1"
   }
 }

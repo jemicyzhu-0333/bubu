@@ -1,0 +1,370 @@
+{
+  "status": "research-stage-completed",
+  "productionAccepted": false,
+  "updatedAt": "2026-10-24T21:22:18.519890+00:00",
+  "repo": "/workspace/bubu",
+  "branch": "feature/pet-animation-v2",
+  "head": "c0a8281bbc721f1f7d01afdb0ece6920aebc90f9",
+  "ownership": "Foundation binding preparation and staged equipment assembly; no canonical persistence or IPC writes",
+  "repairedPairs": 2,
+  "before": {
+    "samples": 481,
+    "pairs": {
+      "body/Bubu_hand-right <> satchel/satchel_continuous_strap": 481,
+      "body/Bubu_body <> satchel/satchel_pouch": 481
+    },
+    "targets": {
+      "satchel_continuous_strap": {
+        "crossingFrames": 481,
+        "maximumTrianglePairs": 171,
+        "deepestVertex": {
+          "vertex": 482,
+          "depth": 0.12081375430259131,
+          "position": [
+            0.9811823405313894,
+            0.671137257980793,
+            -0.2503940775432194
+          ],
+          "nearest": [
+            0.990574114599071,
+            0.7915295231111386,
+            -0.24672524866561873
+          ],
+          "frame": 102,
+          "time": 1.7,
+          "phase": "petting"
+        },
+        "minimumGap": 0,
+        "worstCrossingFrame": {
+          "frame": 266,
+          "time": 4.433333333333334,
+          "phase": "drag"
+        }
+      },
+      "satchel_pouch": {
+        "crossingFrames": 481,
+        "maximumTrianglePairs": 186,
+        "deepestVertex": {
+          "vertex": 338,
+          "depth": 0.08471270822615773,
+          "position": [
+            -0.6073569372788677,
+            0.45858167223450846,
+            0.47093930954396845
+          ],
+          "nearest": [
+            -0.6534352043270322,
+            0.41621509639127585,
+            0.5280191614373274
+          ],
+          "frame": 155,
+          "time": 2.5833333333333335,
+          "phase": "petting"
+        },
+        "minimumGap": 0,
+        "worstCrossingFrame": {
+          "frame": 306,
+          "time": 5.1,
+          "phase": "landing"
+        }
+      }
+    },
+    "baselineSourceBackup": "/workspace/artifacts/bubu-v2-flower-fit-20261024/working-tree-after.tar.gz",
+    "baselineSourceBackupSHA256": "0fcacb84d4a1ec9100e3cb30b543d524b947dc1a0c912b1e94b8d86299adcc9a",
+    "restReproduction": {
+      "vertices": 66391,
+      "maximumError": 0
+    },
+    "all481TriangleAndVertexWitnessRowsExactlyReproduced": true
+  },
+  "after": {
+    "samples": 481,
+    "phases": {
+      "idle": 221,
+      "pending": 35,
+      "petting": 96,
+      "drag": 79,
+      "landing": 50
+    },
+    "pairs": {},
+    "targets": {
+      "satchel_continuous_strap": {
+        "crossingFrames": 0,
+        "maximumTrianglePairs": 0,
+        "deepestVertex": {
+          "depth": 0
+        },
+        "minimumGap": 0.019338076806866566
+      },
+      "satchel_pouch": {
+        "crossingFrames": 0,
+        "maximumTrianglePairs": 0,
+        "deepestVertex": {
+          "depth": 0
+        },
+        "minimumGap": 0.0387758900375903
+      }
+    },
+    "maximumSecondaryDisplacement": {
+      "satchel": 0.20014728191489853,
+      "cape": 0.1288968560755694
+    },
+    "stitching": {
+      "variant": "integrated",
+      "minimumStitchTrianglePairs": 42,
+      "maximumStitchTrianglePairs": 55,
+      "detachedFrames": 0,
+      "rows": "See raw seam-motion-integrated.json"
+    },
+    "minimumPouchBodyGapSharedProbe": 0.03877589003759046,
+    "visualDefaultCaptures": 14,
+    "candidatePixelsExactlyMatched": true
+  },
+  "sourceGeometryAndControllers": {
+    "matched": true,
+    "sha256": {
+      "runtime-facepath05/fixtures/face-d2/asset.glb": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
+      "original-parts-hybrid-v1/geometry/bubu-hybrid-binding.glb": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67",
+      "wearable-approved-round5/accessory-expansion/models/07-cape.glb": "e29010956b989a60e196472b2206e6c397b34f12f3b7092d67f53f189c128e21",
+      "original-parts-hybrid-v1/tea/src/rigid-tea.mjs": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+      "original-parts-hybrid-v1/tea/src/timeline.mjs": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+      "external-assets-v1/headwear-expansion/models/09-sakura-flower.glb": "f0038412cec4cce735f991d1e82f9a37d274efb0e14174be69d2f63e62f543ff",
+      "external-assets-v1/headwear-expansion/models/08-forest-leaf.glb": "7bf3931c00a9c5fae3bbdfba1c2e0a3a0472aa5fb7ab30d7605b39b8853efa4a",
+      "accessories-v1/03-satchel/satchel.glb": "8ba471d1218fd1f848720f32242c74b397adeaba5f9dbaa911b482cfc3aad9a6"
+    }
+  },
+  "researchVerification": {
+    "stages": 36,
+    "nodeTests": 838,
+    "pythonTests": 2,
+    "sourcesUnchanged": true,
+    "testedSourceFiles": 2014,
+    "summary": "summary.json"
+  },
+  "applicationValidation": {
+    "check": {
+      "passed": 6742,
+      "skipped": 29,
+      "failed": 0,
+      "log": "application-check.log"
+    },
+    "integration": {
+      "passed": 71,
+      "skipped": 0,
+      "failed": 0,
+      "log": "application-integration.log"
+    },
+    "commands": [
+      "npm run check",
+      "npm run test:integration"
+    ],
+    "head": "c0a8281bbc721f1f7d01afdb0ece6920aebc90f9",
+    "scope": "Application checks, separate from research and platform acceptance",
+    "logs": {
+      "bubu-satchel-fit-application-check-final.log": "e069a6e0e7c429186450171cc8aa9a515802d34fd3128ab5ca88fa70c23b5ec9",
+      "bubu-satchel-fit-application-integration-final.log": "a5e52da93344891f36f5f6930590c265896fc97cf9d5ea5ee404564538fb7b15"
+    }
+  },
+  "gates": {
+    "capeTea": {
+      "status": "blocked",
+      "reason": "endpoint-attachment-conflict"
+    },
+    "dynamicCloth": {
+      "status": "blocked",
+      "reason": "real-time-budget-not-met"
+    },
+    "nativeInput": {
+      "status": "not-run"
+    },
+    "webglAndGPURecovery": {
+      "status": "partial",
+      "browserWebGL": "passed",
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "hardwareGPURecovery": "not-run",
+      "nativeDesktop": "not-run",
+      "reason": "Browser object lifecycle counts do not establish physical GPU memory or desktop-window acceptance"
+    },
+    "stableFrameTime": {
+      "status": "failed",
+      "evidence": {
+        "samples": 900,
+        "median": 1.2662399999999252,
+        "p95": 2.5548220000000583,
+        "max": 12.253333999999995,
+        "includes": "body + hybrid + anchors + secondary + effects; excludes GPU"
+      },
+      "profilePasses": {
+        "0": {
+          "n": 900,
+          "median": 1.3358629999997902,
+          "p95": 2.88742400000001,
+          "p99": 4.509529999999813,
+          "max": 13.992995999999948
+        },
+        "1": {
+          "n": 900,
+          "median": 1.2743319999999585,
+          "p95": 2.393344999999954,
+          "p99": 3.982571999999891,
+          "max": 7.457784000000174
+        },
+        "2": {
+          "n": 900,
+          "median": 1.1765780000000632,
+          "p95": 2.3971910000000207,
+          "p99": 3.4950519999997596,
+          "max": 7.460368999999446
+        }
+      },
+      "profileOverBudgetFrames": 0,
+      "reason": "Observed browser frame intervals exceed the 60 Hz budget; renderer identity remains explicit",
+      "browserFrameIntervals": {
+        "p50": 109.59999999776483,
+        "p95": 248.40000000223517,
+        "max": 355.19999999925494
+      }
+    },
+    "fullWardrobeContact": {
+      "status": "not-established",
+      "samples": 481,
+      "framesWithContacts": 0,
+      "observedPairs": [],
+      "haloContactPairs": [],
+      "floraContactPairs": [],
+      "floraMinimumSurfaceGap": {
+        "pair": [
+          "sakura/sakura_leaf_019",
+          "leaf/forest_leaf"
+        ],
+        "distance": 0.00042099430786059655
+      },
+      "continuousContact": "not-run",
+      "containment": "not-run",
+      "reason": "Sampled full-outfit surfaces still require intentional-contact classification and continuous/containment verification"
+    },
+    "cupClaspCandidate": {
+      "status": "partial",
+      "sampledCupCapeClear": true,
+      "samples": 1173,
+      "continuousFixedClasp": "certified",
+      "certifiedIntervals": 295,
+      "scope": "Derived bounded motion candidate; hands/cloth/body and runtime admission remain unaccepted"
+    }
+  },
+  "auditFindings": [
+    {
+      "issue": "Static-only fit concealed dynamic crossings",
+      "resolution": "Reject initial whole tilt: 10 hand crossing frames, 288 cape-edge crossing frames and 15 cape-cloth crossing frames; retain failures. Nominees require full controller replay and actual renderer inspection."
+    },
+    {
+      "issue": "External closest-surface diagnostic reused stale geometry bounding boxes after posing",
+      "resolution": "Refresh bounds before every distance query, recheck all flower gaps and pouch gap, and use the shared probe in the hard regression gate. Earlier crossing and inside-vertex witnesses remain valid."
+    },
+    {
+      "issue": "Partial asset fit could fail during staged equipment construction",
+      "resolution": "Apply only after pending cleanup owns the root; test real secondary buffer disposal and retention of previous equipment."
+    },
+    {
+      "issue": "Rigid fit changed executable contact placement",
+      "resolution": "Hash part-fit and calibration-fit modules and exact calibration matrices into attachment identity; no new accepted action registry entries."
+    },
+    {
+      "issue": "Loose waist sling is sampled separation, not complete cloth contact",
+      "resolution": "Record the changed secondary excursion and looser visual placement, keep continuous/containment/self-contact and sewn-joint classification unestablished."
+    }
+  ],
+  "rejectedNominees": {
+    "wholeTilt": "tilt-motion/report.json",
+    "orientationTrials": 125,
+    "staticallyClearOrientations": 17,
+    "keyframeClearWithoutCapeTilt": 0,
+    "boundedOffsetTrials": 27,
+    "allOriginalBoundsRetained": true,
+    "slowDiagnostic": {
+      "script": "strap-rotations.mjs",
+      "exitCode": 130,
+      "reason": "Cancelled slow other-geometry fallback; completed identical finite predicate using its existing BVH in strap-rotations-bvh.mjs"
+    }
+  },
+  "capeTeaBoundary": {
+    "separateFrozenModel": true,
+    "savedKeyframes": 16,
+    "interiorFixedSupportIDs": [
+      6,
+      9,
+      13,
+      427,
+      431,
+      435
+    ],
+    "maximumRequiredExitDisplacement": 0.11738958973517052,
+    "originalPinCount": 65,
+    "scopeClarificationPending": "Whether frozen scope permits a new local arm-adjacent attachment mapping while approved geometry and tea controller remain unchanged",
+    "existingReleased10Candidate": "Research only; not accepted. Material/contact/CPU failures remain. It is not asserted to be the minimal sufficient set."
+  },
+  "independentNextClothWork": {
+    "kind": "Local capsule coverage of original piping triangles, rest only",
+    "initialProxyOverlapSegments": 10,
+    "firstRefinement": "Rejected by unchanged degenerate-face check",
+    "quantizationCorrectedProxy": {
+      "sourceVertices": 32036,
+      "vertices": 1490,
+      "triangles": 2392,
+      "maximumPlaneViolation": -8.990966349993468e-06,
+      "maximumOuterDistance": 0.008935593774408206,
+      "maxError": 0.01,
+      "minimumInitialGarmentGap": 0.00063173606644485,
+      "gaps": [
+        {
+          "part": "cape_cloth",
+          "distance": 0.003227819952311202
+        },
+        {
+          "part": "cape_back_edge",
+          "distance": 0.00063173606644485
+        },
+        {
+          "part": "cape_hem",
+          "distance": 0.0006327003810212145
+        },
+        {
+          "part": "cape_front_edge_0",
+          "distance": 0.0007758428252029624
+        },
+        {
+          "part": "cape_front_edge_1",
+          "distance": 0.0007696329799544894
+        },
+        {
+          "part": "cape_clasp",
+          "distance": 0.0059419284645862705
+        }
+      ]
+    },
+    "capsuleEnvelopeRestClear": true,
+    "minimumCapsuleProxyGap": 1.7377854936129547e-05,
+    "runtimeAdopted": false,
+    "notRun": [
+      "Rapier wire dynamics",
+      "joint/seam coupling",
+      "full tea action",
+      "strain",
+      "CPU cost"
+    ]
+  },
+  "saved": {
+    "workingTree": "uncommitted",
+    "commitCreated": false,
+    "pushed": false,
+    "newVideo": false,
+    "newDistributionPackage": false
+  },
+  "limitations": [
+    "481 samples do not establish continuous-time contact or all configurations.",
+    "Inside-witness tests target the two repaired pairs only; full wardrobe containment remains not-run.",
+    "Default foundation cape differs from the round5 tea cape.",
+    "CPU-only cloth/material failures are implementation gaps, not physical-GPU-only blockers.",
+    "Software rendering and recorded frames cannot certify native/hardware performance."
+  ]
+}

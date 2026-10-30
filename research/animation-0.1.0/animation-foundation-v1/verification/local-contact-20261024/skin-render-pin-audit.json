@@ -1,0 +1,522 @@
+{
+  "status": "completed",
+  "accepted": false,
+  "inputHashes": {
+    "animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs": "9cc3daf7dc94b14f5a27414b03afe2006a356aa0044924475a597cc5d779c4db",
+    "animation-foundation-v1/secondary-motion/cloth-probe/conservative-hull.mjs": "14d8785c231dfca548834ede3b716fb174295b58430eb23064b856dbc2979984",
+    "package-lock.json": "29914de54006d3f2bfb8f5ffb7ed05f16921a00c2af3abb07f2eb476eebeb427",
+    "original-parts-hybrid-v1/geometry/bubu-hybrid-binding.glb": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67",
+    "animation-foundation-v1/secondary-motion/cloth-probe/cape-coarse.json": "740619e1ca28dc8824c070bbc3b23df6ba7430b956dd4f64d2a411f8549ab8a8",
+    "animation-foundation-v1/secondary-motion/cloth-probe/cape-binding.json": "4aae28f29833e6af5fb44327ef2c66f1489ee9e3c98a0cec4c368f45d3b3bec9",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/frozen-cape.json": "5888814c2bd2b4627b3abab0e6133388e60fccb26b14e887e5556352d9c50d01",
+    "wearable-approved-round5/accessory-expansion/models/07-cape.glb": "e29010956b989a60e196472b2206e6c397b34f12f3b7092d67f53f189c128e21",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/inputs/tea-keyframes.json": "1b37c436f623ced2289411b5f0192e15feed91715bacc2bac3008336923e04d1",
+    "animation-foundation-v1/secondary-motion/cloth-probe/tea-obstacles.mjs": "0c9ddca07b05dd3d830d57f71a831be43546c69ae7678fd19d758dab9aa8a02a",
+    "animation-foundation-v1/contact/tea-clearance-candidate.mjs": "c524e680214686772d75c5474122f7a8ebb3e9f516c972a8f0aa2c8b6971e745",
+    "animation-foundation-v1/integration/tea-sample-boundary.mjs": "1891b86356aadd5c832b04926c1137896d250757ced21248544269a6b1bde166",
+    "original-parts-hybrid-v1/tea/src/rigid-tea.mjs": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+    "original-parts-hybrid-v1/tea/src/timeline.mjs": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+    "original-parts-hybrid-v1/tea/src/scene-resources.mjs": "bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d",
+    "original-parts-hybrid-v1/tea/src/cup-model.mjs": "66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca",
+    "original-parts-hybrid-v1/tea/inputs/rigid-config.json": "b63aa7b4d3367c97bd72163329737061d62f3d787dae39f2cd971ff7a48fcc9c",
+    "original-parts-hybrid-v1/tea/inputs/hold-fit.json": "419f5d0d929edb977ce8103d4616461bf0e1c8cd09c8f8218b4c9cd611d95f0f",
+    "original-parts-hybrid-v1/tea/inputs/sip-fit.json": "7012a0c1869afde8704ba4d084d41407bbf7ee1662edc501d4bc99860b38acb6",
+    "animation-foundation-v1/secondary-motion/cloth-probe/collision-skin.mjs": "91f8468f5bf4b03be8394cdc68dc31ca399eb60236c61a66a53daa20e5943713",
+    "../../../artifacts/bubu-v2-local-contact-20261024/collision-skin.json": "647819b97305181a5f769fc0d7c1f89da43881a1555af68da9add8cb0a57ccf3",
+    "animation-foundation-v1/secondary-motion/cloth-probe/local-body-proxy.mjs": "409c90d9c89ded2f5b53015a50ea36338ffbfe7732962b421c1215e5c59d61df",
+    "../../../artifacts/bubu-v2-local-contact-20261024/local-body-proxy-welded.json": "b5979e84c0e138d7f1476fa8cfabaf2ed5dacea93049a8aadaee64f70bcedd80",
+    "animation-foundation-v1/secondary-motion/cloth-probe/regional-collision-skin.mjs": "40d89335a6e77257ea58e85f9e4d9f904075806486a2f375a6310971f4f9fdf8"
+  },
+  "scope": "Rest-initialized normal tea trajectory, coherent clearance candidate, stop at first contact/pin/strain failure",
+  "time": 0,
+  "frames": 540,
+  "releasedPins": [
+    3,
+    6,
+    9,
+    13,
+    17,
+    422,
+    427,
+    431,
+    435,
+    438
+  ],
+  "handCollider": "convex-hull-diagnostic",
+  "bodyCollider": "locally-fitted-certified-body-proxy",
+  "obstacleFilter": "all",
+  "exactBodyHull": false,
+  "localBodyProxy": true,
+  "declaredLimits": {
+    "maximumEdgeStretch": 1.2,
+    "minimumEdgeStretch": 0.8,
+    "pinError": 0.00001,
+    "frameBudgetMs": 16.667
+  },
+  "rows": [
+    {
+      "frame": 0,
+      "physicsMs": 1074.676676,
+      "internalTimings": {
+        "Step": 1020.1026609999999,
+        "CollisionDetection": 303.929334,
+        "BroadPhase": 0.87356,
+        "NarrowPhase": 302.95788899999997,
+        "Solver": 110.830415,
+        "VelocityAssembly": 16.389364999999998,
+        "VelocityResolution": 93.63457799999999,
+        "VelocityUpdate": 0,
+        "VelocityWriteback": 0,
+        "Ccd": 0,
+        "IslandConstruction": 582.33795,
+        "UserChanges": 14.987705
+      },
+      "mapMs": 18.65342099999998,
+      "simulationPipelineMs": 1109.634222,
+      "totalIncludingContactMs": 1169.7731999999999,
+      "pinError": 0,
+      "renderPinError": 0.0003568099997158432,
+      "cageStrain": {
+        "min": 0.9925009885281927,
+        "max": 1.0358706957045603,
+        "minWitness": {
+          "a": 890,
+          "b": 893,
+          "restLength": 0.029775406175337502,
+          "ratio": 0.9925009885281927
+        },
+        "maxWitness": {
+          "a": 1882,
+          "b": 1885,
+          "restLength": 0.004860359849821242,
+          "ratio": 1.0358706957045603
+        }
+      },
+      "renderStrain": {
+        "min": 0.9831902469033383,
+        "max": 1.027261182249751,
+        "minWitness": {
+          "a": 7734,
+          "b": 7722,
+          "restLength": 0.006748027747185887,
+          "ratio": 0.9831902469033383
+        },
+        "maxWitness": {
+          "a": 7360,
+          "b": 7373,
+          "restLength": 0.00486194743352035,
+          "ratio": 1.027261182249751
+        }
+      },
+      "maxStretch": 1.0358706957045603,
+      "minStretch": 0.9831902469033383,
+      "contacts": []
+    }
+  ],
+  "limitations": [
+    "60 Hz samples only; cancellation and continuous contact not established",
+    "Self-contact and containment not established.",
+    "Body obstacle is Bubu_body; feet and the complete foundation wardrobe are not included.",
+    "Not production cloth or visual approval.",
+    "Render-pin witnesses cover matching source vertices only; other attachment locations and seams remain unverified.",
+    "Private volumetric cage with 55 doubled fixed supports; new research binding only. No original 65-pin or production admission.",
+    "A failed trajectory is a solver/mapping counterexample, not a proof that all private-copy cloth implementations are infeasible."
+  ],
+  "collisionRadius": 0,
+  "collisionRadiusBasis": "Actual detailed collision surface includes trim thickness; no additional particle dilation",
+  "renderPinWitnesses": [
+    {
+      "pin": 0,
+      "vertex": 0,
+      "sourceGap": 0,
+      "position": [
+        0.041935887187719345,
+        0.5883482694625854,
+        0.7679809927940369
+      ]
+    },
+    {
+      "pin": 22,
+      "vertex": 285,
+      "sourceGap": 0,
+      "position": [
+        0.5036220550537109,
+        0.6565908193588257,
+        0.6896318197250366
+      ]
+    },
+    {
+      "pin": 34,
+      "vertex": 380,
+      "sourceGap": 0,
+      "position": [
+        0.6652228236198425,
+        0.7200731635093689,
+        0.6166245937347412
+      ]
+    },
+    {
+      "pin": 48,
+      "vertex": 475,
+      "sourceGap": 0,
+      "position": [
+        0.8116413354873657,
+        0.8145222067832947,
+        0.5024121403694153
+      ]
+    },
+    {
+      "pin": 56,
+      "vertex": 570,
+      "sourceGap": 0,
+      "position": [
+        0.9196619391441345,
+        0.9277142882347107,
+        0.3467874228954315
+      ]
+    },
+    {
+      "pin": 60,
+      "vertex": 665,
+      "sourceGap": 0,
+      "position": [
+        0.9736678600311279,
+        1.0367995500564575,
+        0.16372238099575043
+      ]
+    },
+    {
+      "pin": 64,
+      "vertex": 760,
+      "sourceGap": 0,
+      "position": [
+        0.9704834818840027,
+        1.1138055324554443,
+        -0.02703273668885231
+      ]
+    },
+    {
+      "pin": 68,
+      "vertex": 855,
+      "sourceGap": 0,
+      "position": [
+        0.9305008053779602,
+        1.1473034620285034,
+        -0.20983698964118958
+      ]
+    },
+    {
+      "pin": 72,
+      "vertex": 950,
+      "sourceGap": 0,
+      "position": [
+        0.851483941078186,
+        1.1496578454971313,
+        -0.3771156072616577
+      ]
+    },
+    {
+      "pin": 81,
+      "vertex": 1045,
+      "sourceGap": 0,
+      "position": [
+        0.7349971532821655,
+        1.145480990409851,
+        -0.515905499458313
+      ]
+    },
+    {
+      "pin": 104,
+      "vertex": 1140,
+      "sourceGap": 0,
+      "position": [
+        0.592972993850708,
+        1.152458906173706,
+        -0.6174450516700745
+      ]
+    },
+    {
+      "pin": 131,
+      "vertex": 1235,
+      "sourceGap": 0,
+      "position": [
+        0.4401357173919678,
+        1.1728302240371704,
+        -0.6828787326812744
+      ]
+    },
+    {
+      "pin": 159,
+      "vertex": 1330,
+      "sourceGap": 0,
+      "position": [
+        0.2874075472354889,
+        1.1978635787963867,
+        -0.7180818319320679
+      ]
+    },
+    {
+      "pin": 187,
+      "vertex": 1425,
+      "sourceGap": 0,
+      "position": [
+        0.141018345952034,
+        1.2154065370559692,
+        -0.7332668304443359
+      ]
+    },
+    {
+      "pin": 215,
+      "vertex": 1520,
+      "sourceGap": 0,
+      "position": [
+        0.00010099566134158522,
+        1.2218737602233887,
+        -0.7367182374000549
+      ]
+    },
+    {
+      "pin": 243,
+      "vertex": 1615,
+      "sourceGap": 0,
+      "position": [
+        -0.14086493849754333,
+        1.215560793876648,
+        -0.7332127094268799
+      ]
+    },
+    {
+      "pin": 271,
+      "vertex": 1710,
+      "sourceGap": 0,
+      "position": [
+        -0.28740113973617554,
+        1.197893500328064,
+        -0.7180583477020264
+      ]
+    },
+    {
+      "pin": 299,
+      "vertex": 1805,
+      "sourceGap": 0,
+      "position": [
+        -0.43990206718444824,
+        1.173126220703125,
+        -0.6828599572181702
+      ]
+    },
+    {
+      "pin": 327,
+      "vertex": 1900,
+      "sourceGap": 0,
+      "position": [
+        -0.592978835105896,
+        1.152462124824524,
+        -0.6174360513687134
+      ]
+    },
+    {
+      "pin": 353,
+      "vertex": 1995,
+      "sourceGap": 0,
+      "position": [
+        -0.7352178692817688,
+        1.1454607248306274,
+        -0.5156304240226746
+      ]
+    },
+    {
+      "pin": 369,
+      "vertex": 2090,
+      "sourceGap": 0,
+      "position": [
+        -0.851471483707428,
+        1.149642825126648,
+        -0.3771410286426544
+      ]
+    },
+    {
+      "pin": 374,
+      "vertex": 2185,
+      "sourceGap": 0,
+      "position": [
+        -0.9303658604621887,
+        1.1475346088409424,
+        -0.21013009548187256
+      ]
+    },
+    {
+      "pin": 378,
+      "vertex": 2280,
+      "sourceGap": 0,
+      "position": [
+        -0.9704225063323975,
+        1.1138445138931274,
+        -0.027044598013162613
+      ]
+    },
+    {
+      "pin": 382,
+      "vertex": 2375,
+      "sourceGap": 0,
+      "position": [
+        -0.9736304879188538,
+        1.0369060039520264,
+        0.16361510753631592
+      ]
+    },
+    {
+      "pin": 386,
+      "vertex": 2470,
+      "sourceGap": 0,
+      "position": [
+        -0.9196597933769226,
+        0.927685022354126,
+        0.34673628211021423
+      ]
+    },
+    {
+      "pin": 391,
+      "vertex": 2565,
+      "sourceGap": 0,
+      "position": [
+        -0.8117253184318542,
+        0.8144936561584473,
+        0.5023942589759827
+      ]
+    },
+    {
+      "pin": 403,
+      "vertex": 2660,
+      "sourceGap": 0,
+      "position": [
+        -0.6652213931083679,
+        0.720104455947876,
+        0.6165891885757446
+      ]
+    },
+    {
+      "pin": 416,
+      "vertex": 2755,
+      "sourceGap": 0,
+      "position": [
+        -0.5035033822059631,
+        0.6565971970558167,
+        0.6896690726280212
+      ]
+    },
+    {
+      "pin": 441,
+      "vertex": 3040,
+      "sourceGap": 0,
+      "position": [
+        -0.04192444682121277,
+        0.588341474533081,
+        0.7679985165596008
+      ]
+    }
+  ],
+  "collisionSkin": {
+    "particleCount": 1968,
+    "cellCount": 3330,
+    "renderCount": 7739,
+    "minimumCellVolume": 6.988310418605562e-7,
+    "minimumBarycentric": -9.931474115876249e-7,
+    "sourceRenderUnchanged": true,
+    "collisionSurface": "actual-detailed-skin",
+    "massModel": "lumped-rest-cell-volume, invariant total garment mass",
+    "totalMass": 0.444,
+    "minimumParticleMass": 4.2582891281729645e-7,
+    "maximumParticleMass": 0.0011461018387797794,
+    "mapping": "separate cloth and piping cell regions",
+    "crossSectionClusters": 360,
+    "fixedParticles": 515,
+    "additionalPgsIterations": 12,
+    "axialMaterial": {
+      "referenceLength": 0.08,
+      "referenceFrequency": 30,
+      "minFrequency": 5.9811346348781385,
+      "maxFrequency": 523.4097635132971
+    },
+    "restError": 5.960464477539063e-8,
+    "solver": "structural-edges-and-volume-constraints"
+  },
+  "initialEnvelopePinSurfaceConflicts": [],
+  "physicsContactSettings": {
+    "allowedLinearError": 9.999999974752427e-7,
+    "predictionDistance": 0.019999999552965164,
+    "lengthUnit": 1
+  },
+  "bodyHullCertificate": {
+    "sourceVertices": 32036,
+    "vertices": 930,
+    "triangles": 1852,
+    "maximumPlaneViolation": -0.000001520356305961812,
+    "maximumOuterDistance": 0.008918800019703108,
+    "maxError": 0.01,
+    "minimumInitialGarmentGap": 0.00006469100768339604,
+    "gaps": [
+      {
+        "part": "cape_cloth",
+        "distance": 0.0032428159480518905
+      },
+      {
+        "part": "cape_back_edge",
+        "distance": 0.0001700053777477082
+      },
+      {
+        "part": "cape_hem",
+        "distance": 0.00006469100768339604
+      },
+      {
+        "part": "cape_front_edge_0",
+        "distance": 0.0007433028777456147
+      },
+      {
+        "part": "cape_front_edge_1",
+        "distance": 0.0006870218993582496
+      },
+      {
+        "part": "cape_clasp",
+        "distance": 0.005961105950462078
+      }
+    ]
+  },
+  "initialContacts": [],
+  "stoppedAt": {
+    "frame": 0,
+    "time": 0.016666666666666666,
+    "reason": "first-contact-pin-or-strain-failure",
+    "coarseContacts": []
+  },
+  "contactWitnesses": [],
+  "timing": {
+    "physicsMs": {
+      "p50": 1074.676676,
+      "p95": 1074.676676,
+      "max": 1074.676676
+    },
+    "mapMs": {
+      "p50": 18.65342099999998,
+      "p95": 18.65342099999998,
+      "max": 18.65342099999998
+    },
+    "simulationPipelineMs": {
+      "p50": 1109.634222,
+      "p95": 1109.634222,
+      "max": 1109.634222
+    },
+    "totalIncludingContactMs": {
+      "p50": 1169.7731999999999,
+      "p95": 1169.7731999999999,
+      "max": 1169.7731999999999
+    }
+  },
+  "completedRequestedSteps": false,
+  "lastSampleClear": true,
+  "reachedActionEndpoint": false,
+  "finalEndpointClear": false,
+  "strainAccepted": true,
+  "realtimeAccepted": false,
+  "resourcesReleased": true
+}

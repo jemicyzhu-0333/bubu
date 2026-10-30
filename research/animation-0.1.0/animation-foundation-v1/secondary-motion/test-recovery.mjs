@@ -1,3 +1,4 @@
+import { evidencePath } from "../verification/evidence-output.mjs";
 import fs from "node:fs";
 import assert from "node:assert/strict";
 import * as T from "three";
@@ -102,8 +103,7 @@ for (const row of report.rates)
   );
 admission.dispose();
 disposeAsset(asset);
-fs.writeFileSync(
-  new URL("./recovery-evidence.json", import.meta.url),
+fs.writeFileSync(evidencePath(new URL("./recovery-evidence.json", import.meta.url)),
   JSON.stringify(report, null, 2),
 );
 console.log(JSON.stringify(report, null, 2));

@@ -1,0 +1,65 @@
+{
+  "scope": "Actual open-book mesh and actual palm anchor; synthetic cuboid+ground contact only, no authored hand action or native acceptance",
+  "rates": {
+    "30": {
+      "position": {
+        "x": 1.0282906293869019,
+        "y": 0.3624410331249237,
+        "z": -0.15839949250221252
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "minMeshY": -0.00007588725952961672,
+      "releasePoseDelta": 0,
+      "steps": 240,
+      "resetRegrab": true,
+      "disposed": true
+    },
+    "60": {
+      "position": {
+        "x": 1.0282906293869019,
+        "y": 0.3624410331249237,
+        "z": -0.15839949250221252
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "minMeshY": -0.00007588725952961672,
+      "releasePoseDelta": 0,
+      "steps": 240,
+      "resetRegrab": true,
+      "disposed": true
+    },
+    "120": {
+      "position": {
+        "x": 1.0282906293869019,
+        "y": 0.3624410331249237,
+        "z": -0.15839949250221252
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "minMeshY": -0.00007588725952961672,
+      "releasePoseDelta": 0,
+      "steps": 240,
+      "resetRegrab": true,
+      "disposed": true
+    }
+  },
+  "rateError30vs120": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "outstanding": [
+    "Fast thin-edge CCD acceptance not covered",
+    "Synthetic cuboid does not establish detailed book contact"
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "status": "passed",
+  "scope": "Six N3 pixel comparisons after restoring the pinned D2 style and changing only experimental hook composition; no timing claim",
+  "productionAccepted": false,
+  "samples": [
+    {
+      "path": "N3",
+      "amount": 0,
+      "angle": 0,
+      "different": 0,
+      "maxDelta": 0
+    },
+    {
+      "path": "N3",
+      "amount": 0,
+      "angle": 45,
+      "different": 0,
+      "maxDelta": 0
+    },
+    {
+      "path": "N3",
+      "amount": 0.4375,
+      "angle": 0,
+      "different": 0,
+      "maxDelta": 0
+    },
+    {
+      "path": "N3",
+      "amount": 0.4375,
+      "angle": 45,
+      "different": 0,
+      "maxDelta": 0
+    },
+    {
+      "path": "N3",
+      "amount": 1,
+      "angle": 0,
+      "different": 0,
+      "maxDelta": 0
+    },
+    {
+      "path": "N3",
+      "amount": 1,
+      "angle": 45,
+      "different": 0,
+      "maxDelta": 0
+    }
+  ],
+  "errors": [],
+  "browser": {
+    "errors": [],
+    "graphics": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "resources": {
+      "geometries": 9,
+      "textures": 28
+    },
+    "paths": [
+      "R0",
+      "D1",
+      "A7",
+      "D4",
+      "01",
+      "N2",
+      "N3",
+      "T05",
+      "07",
+      "P2",
+      "08",
+      "A4",
+      "04",
+      "A8",
+      "S2",
+      "S3",
+      "T5",
+      "S5"
+    ]
+  },
+  "sourceHashes": {
+    "runtime-facepath05/src/d2-face-style.mjs": "edf0d865f55868eac67f560da77fd6b8e28041315c5ac9f4b2c1c27708cd4ee9",
+    "runtime-facepath05/src/sparse-face-rendering.mjs": "59cf60b32ebdd9dd84e56eef8f42ca567ee972750c94265c7563a3f66ecab823",
+    "animation-foundation-v1/verification/face-render-probe.mjs": "f1d01b2246bf99376a36c99b9b46d4d1d2b392660baa161b00982f99c593edfb"
+  }
+}

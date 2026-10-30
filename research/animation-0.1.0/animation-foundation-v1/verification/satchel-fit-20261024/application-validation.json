@@ -1,0 +1,24 @@
+{
+  "check": {
+    "passed": 6742,
+    "skipped": 29,
+    "failed": 0,
+    "log": "application-check.log"
+  },
+  "integration": {
+    "passed": 71,
+    "skipped": 0,
+    "failed": 0,
+    "log": "application-integration.log"
+  },
+  "commands": [
+    "npm run check",
+    "npm run test:integration"
+  ],
+  "head": "c0a8281bbc721f1f7d01afdb0ece6920aebc90f9",
+  "scope": "Application checks, separate from research and platform acceptance",
+  "logs": {
+    "bubu-satchel-fit-application-check-final.log": "e069a6e0e7c429186450171cc8aa9a515802d34fd3128ab5ca88fa70c23b5ec9",
+    "bubu-satchel-fit-application-integration-final.log": "a5e52da93344891f36f5f6930590c265896fc97cf9d5ea5ee404564538fb7b15"
+  }
+}

@@ -1,0 +1,551 @@
+{
+  "format": "bubu-foundation-validation-v1",
+  "status": "passed",
+  "startedAt": "2026-10-20T10:53:21.655Z",
+  "scope": "Research CPU contracts and sampled contact reproducibility",
+  "productionAccepted": false,
+  "environment": {
+    "node": "v24.19.0",
+    "platform": "linux",
+    "arch": "x64",
+    "cpu": "AMD EPYC 9V74 80-Core Processor"
+  },
+  "commit": "c0a8281bbc721f1f7d01afdb0ece6920aebc90f9",
+  "workingTree": " M .gitignore\n M docs/ARCHITECTURE.md\n M docs/VALIDATION.md\n M package-lock.json\n M package.json\n M research/animation-0.1.0/README.md\n M research/animation-0.1.0/animation-foundation-v1/README.md\n M research/animation-0.1.0/animation-foundation-v1/anchors/tests/actual-pose.mjs\n M research/animation-0.1.0/animation-foundation-v1/anchors/tests/profile-extension.mjs\n M research/animation-0.1.0/animation-foundation-v1/body-runtime/verify-floor.mjs\n M research/animation-0.1.0/animation-foundation-v1/configuration/CONTRACT.md\n M research/animation-0.1.0/animation-foundation-v1/effects/test-effects.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/README.md\n M research/animation-0.1.0/animation-foundation-v1/integration/asset-bindings.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/asset-fixtures.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/diagnostics/contact-contract-20261019/README.md\n M research/animation-0.1.0/animation-foundation-v1/integration/diagnostics/contact-contract-20261019/RECOVERY-STATUS.md\n M research/animation-0.1.0/animation-foundation-v1/integration/foundation-host.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/frame-owner.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/verify-authored.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/verify-bindings.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/verify-contract.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/verify-release.mjs\n M research/animation-0.1.0/animation-foundation-v1/integration/verify.mjs\n M research/animation-0.1.0/animation-foundation-v1/secondary-motion/test-recovery.mjs\n M research/animation-0.1.0/animation-foundation-v1/secondary-motion/test.mjs\n M research/animation-0.1.0/package-lock.json\n M research/animation-0.1.0/package.json\n?? research/animation-0.1.0/animation-foundation-v1/contact/\n?? research/animation-0.1.0/animation-foundation-v1/integration/diagnostics/contact-contract-20261019/export-paths.mjs\n?? research/animation-0.1.0/animation-foundation-v1/integration/diagnostics/contact-contract-20261019/portable-smoke.py\n?? research/animation-0.1.0/animation-foundation-v1/integration/diagnostics/contact-contract-20261019/requirements-replay.txt\n?? research/animation-0.1.0/animation-foundation-v1/integration/foundation-lifecycle.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/integration/parts-source.mjs\n?? research/animation-0.1.0/animation-foundation-v1/integration/parts-source.test.mjs\n?? research/animation-0.1.0/animation-foundation-v1/verification/evidence-output.mjs\n?? research/animation-0.1.0/animation-foundation-v1/verification/run.mjs\n?? research/animation-0.1.0/animation-foundation-v1/verification/verify-contact-exports.mjs\n?? scripts/run-project-tests.js\n",
+  "stages": [
+    {
+      "id": "prepare-d2",
+      "status": "passed",
+      "command": [
+        "python3",
+        "runtime-facepath05/tools/materialize-d2.py"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 45.31696599999998,
+      "counts": {},
+      "log": "prepare-d2.log"
+    },
+    {
+      "id": "prepare-full18",
+      "status": "passed",
+      "command": [
+        "python3",
+        "runtime-facepath05/tools/materialize-full18.py"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 42.898224,
+      "counts": {},
+      "log": "prepare-full18.log"
+    },
+    {
+      "id": "preflight",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/verify-portability.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 61.85889700000001,
+      "counts": {},
+      "log": "preflight.log"
+    },
+    {
+      "id": "foundation",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/body-runtime/approved-pointer.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/body-runtime/authored-face.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/body-runtime/held-target.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/body-runtime/surface-affine.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/body-runtime/surface-query.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/configuration/tests/action-strategy.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/configuration/tests/configuration.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/action-effect-lifecycle.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/equipment-ownership.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/foundation-lifecycle.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/frame-owner.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/parts-source.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/scene-budget.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/secondary-world-contract.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/contact/admission.test.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 22895.329251000003,
+      "counts": {
+        "tests": 131,
+        "pass": 131,
+        "fail": 0,
+        "skipped": 0
+      },
+      "log": "foundation.log"
+    },
+    {
+      "id": "expression-owner",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/actor-pool.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/art-preflight.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/authored-clip.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/clip-contract.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/context-lifecycle.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/contracts.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/d2-owner.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/d2-style.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/d2-weighted-owner.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/expression-owner.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/face-binding.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/face-suite.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/face-timeline.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/full18-owner.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/full18.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/lifecycle.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/measurement.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/neutral-suite.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/preparse-budget.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/smoke.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/timeline.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/tests/weighted-owner.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/test/director.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/runtime-facepath05/test/observer.test.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 58414.793169,
+      "counts": {
+        "tests": 333,
+        "pass": 333,
+        "fail": 0,
+        "skipped": 0
+      },
+      "log": "expression-owner.log"
+    },
+    {
+      "id": "expression-policy",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "/workspace/bubu/research/animation-0.1.0/expression-scheduler-p1/test/lifecycle.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/expression-scheduler-p1/test/scheduler.test.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 93.89206600000034,
+      "counts": {
+        "tests": 26,
+        "pass": 26,
+        "fail": 0,
+        "skipped": 0
+      },
+      "log": "expression-policy.log"
+    },
+    {
+      "id": "input-source-identity",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/shared-input-workbench-v2/tools/verify-dependencies.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 39.20355700000073,
+      "counts": {},
+      "log": "input-source-identity.log"
+    },
+    {
+      "id": "input",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "/workspace/bubu/research/animation-0.1.0/shared-input-workbench-v2/tests/d2-body.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/shared-input-workbench-v2/tests/d2-pointer.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/shared-input-workbench-v2/tests/pointer.test.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 61326.246463999996,
+      "counts": {
+        "tests": 62,
+        "pass": 62,
+        "fail": 0,
+        "skipped": 0
+      },
+      "log": "input.log"
+    },
+    {
+      "id": "original-parts-tea",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "/workspace/bubu/research/animation-0.1.0/original-parts-hybrid-v1/runtime/tests/mixed-binding-adapter.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/original-parts-hybrid-v1/runtime/tests/mixed-binding-contract.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/original-parts-hybrid-v1/runtime/tests/split-limb-adapter.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/original-parts-hybrid-v1/tea/tests/rigid-tea.test.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 162.27876499999547,
+      "counts": {
+        "tests": 30,
+        "pass": 30,
+        "fail": 0,
+        "skipped": 0
+      },
+      "log": "original-parts-tea.log"
+    },
+    {
+      "id": "theme-ledger",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "/workspace/bubu/research/animation-0.1.0/theme-state-ledger-v2/test/capacity.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/theme-state-ledger-v2/test/checkpoint.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/theme-state-ledger-v2/test/ledger.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/theme-state-ledger-v2/test/replay.test.mjs",
+        "/workspace/bubu/research/animation-0.1.0/theme-state-ledger-v2/test/window.test.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 2820.1243979999854,
+      "counts": {
+        "tests": 150,
+        "pass": 150,
+        "fail": 0,
+        "skipped": 0
+      },
+      "log": "theme-ledger.log"
+    },
+    {
+      "id": "scene-coordinator",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "/workspace/bubu/research/animation-0.1.0/scene-coordinator-v1/test/coordinator.test.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 89.0183010000037,
+      "counts": {
+        "tests": 19,
+        "pass": 19,
+        "fail": 0,
+        "skipped": 0
+      },
+      "log": "scene-coordinator.log"
+    },
+    {
+      "id": "theme-adapter-restore",
+      "status": "passed",
+      "command": [
+        "python3",
+        "theme-commit-adapter/restore-harness.py",
+        "--repo",
+        "/workspace/bubu",
+        "--out",
+        "/tmp/bubu-foundation-verified-20261020/theme-adapter"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 1468.5999209999864,
+      "counts": {},
+      "log": "theme-adapter-restore.log"
+    },
+    {
+      "id": "theme-adapter-tests",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "/tmp/bubu-foundation-verified-20261020/theme-adapter/tests/commit-integration.test.cjs",
+        "/tmp/bubu-foundation-verified-20261020/theme-adapter/tests/schema21-upgrade.test.cjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 692.266094999999,
+      "counts": {
+        "tests": 24,
+        "pass": 24,
+        "fail": 0,
+        "skipped": 0
+      },
+      "log": "theme-adapter-tests.log"
+    },
+    {
+      "id": "anchor-profile",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/anchors/tests/profile-extension.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 69.8863189999829,
+      "counts": {},
+      "log": "anchor-profile.log"
+    },
+    {
+      "id": "anchor-actual-pose",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/anchors/tests/actual-pose.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 2768.477583,
+      "counts": {},
+      "log": "anchor-actual-pose.log"
+    },
+    {
+      "id": "floor",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/body-runtime/verify-floor.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 37015.99497999999,
+      "counts": {},
+      "log": "floor.log"
+    },
+    {
+      "id": "secondary-motion",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/test.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 4031.158404000016,
+      "counts": {},
+      "log": "secondary-motion.log"
+    },
+    {
+      "id": "secondary-recovery",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/secondary-motion/test-recovery.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 1033.5811020000256,
+      "counts": {},
+      "log": "secondary-recovery.log"
+    },
+    {
+      "id": "effects",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/effects/test-effects.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 658.5863909999898,
+      "counts": {},
+      "log": "effects.log"
+    },
+    {
+      "id": "contract",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/verify-contract.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 964.4719389999809,
+      "counts": {},
+      "log": "contract.log"
+    },
+    {
+      "id": "authored-actions",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/verify-authored.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 4184.336914999993,
+      "counts": {},
+      "log": "authored-actions.log"
+    },
+    {
+      "id": "prop-release",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/verify-release.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 3168.809573000006,
+      "counts": {},
+      "log": "prop-release.log"
+    },
+    {
+      "id": "integration",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--expose-gc",
+        "animation-foundation-v1/integration/verify.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 5392.424731999985,
+      "counts": {},
+      "log": "integration.log"
+    },
+    {
+      "id": "contact-replay",
+      "status": "passed",
+      "command": [
+        "python3",
+        "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/portable-smoke.py",
+        "--output",
+        "/tmp/bubu-foundation-verified-20261020/contact-replay.json"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 37757.263292999996,
+      "counts": {},
+      "log": "contact-replay.log"
+    },
+    {
+      "id": "contact-cape-source",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/diagnostics/contact-contract-20261019/export.mjs",
+        "--output-dir",
+        "/tmp/bubu-foundation-verified-20261020/contact-source"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 150.5327699999907,
+      "counts": {},
+      "log": "contact-cape-source.log"
+    },
+    {
+      "id": "contact-motion-source",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/integration/diagnostics/contact-contract-20261019/export-motion.mjs",
+        "--output-dir",
+        "/tmp/bubu-foundation-verified-20261020/contact-source"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 69.34484400000656,
+      "counts": {},
+      "log": "contact-motion-source.log"
+    },
+    {
+      "id": "contact-source-equivalence",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/bubu/research/animation-0.1.0/animation-foundation-v1/verification/verify-contact-exports.mjs",
+        "/tmp/bubu-foundation-verified-20261020/contact-source"
+      ],
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "durationMs": 46.02204099998926,
+      "counts": {},
+      "log": "contact-source-equivalence.log"
+    }
+  ],
+  "gates": {
+    "capeTea": {
+      "status": "blocked",
+      "reason": "endpoint-attachment-conflict"
+    },
+    "dynamicCloth": {
+      "status": "blocked",
+      "reason": "real-time-budget-not-met"
+    },
+    "nativeInput": {
+      "status": "not-run"
+    },
+    "webglAndGPURecovery": {
+      "status": "not-run"
+    },
+    "stableFrameTime": {
+      "status": "not-established",
+      "evidence": {
+        "samples": 900,
+        "median": 1.3459379999999328,
+        "p95": 3.0584570000000895,
+        "max": 16.150380999999925,
+        "includes": "body + hybrid + anchors + secondary + effects; excludes GPU"
+      },
+      "reason": "One shared-host CPU run cannot establish native frame stability"
+    },
+    "fullWardrobeContact": {
+      "status": "not-run"
+    }
+  },
+  "sourcesUnchanged": true,
+  "finishedAt": "2026-10-20T10:57:27.253Z"
+}

@@ -12,9 +12,12 @@ export function admitAsset(asset) {
     vertices = 0,
     bytes = 0;
   const arrays = new Set(),
+    buffers = new Set(),
     textures = new Set();
   asset.traverse((m) => {
     if (++nodes > 128) throw Error("Fixture node budget exceeded");
+    if (![...m.position, ...m.quaternion, ...m.scale].every(Number.isFinite))
+      throw Error("Non-finite asset transform");
     vertices += m.geometry?.attributes.position?.count ?? 0;
     const attributes = [
       ...Object.values(m.geometry?.attributes ?? {}),
@@ -23,9 +26,22 @@ export function admitAsset(asset) {
     ].filter(Boolean);
     for (const a of attributes)
       if (!arrays.has(a.array)) {
+        if (!ArrayBuffer.isView(a.array) || !(a.array.buffer instanceof ArrayBuffer) ||
+            typeof a.array.every !== "function" || !a.array.every(Number.isFinite))
+          throw Error("Non-finite asset attribute");
         arrays.add(a.array);
-        bytes += a.array.byteLength;
+        // A short view retains its whole backing allocation; overlapping views
+        // share that allocation and must not be charged repeatedly.
+        if (!buffers.has(a.array.buffer)) {
+          buffers.add(a.array.buffer);
+          bytes += a.array.buffer.byteLength;
+        }
       }
+    const index = m.geometry?.index;
+    const position = m.geometry?.attributes.position;
+    if (index && (!position || !index.array.every(i =>
+      Number.isSafeInteger(i) && i >= 0 && i < position.count)))
+      throw Error("Invalid asset triangle index");
     for (const mat of Array.isArray(m.material)
       ? m.material
       : m.material

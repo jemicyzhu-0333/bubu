@@ -1,0 +1,894 @@
+{
+  "status": "passed",
+  "scope": "Real Chromium WebGL and DOM input, shared FoundationActor with original parts/accessories; isolated tea replay and synthetic book collision",
+  "sampleClockFPS": 24,
+  "realtimeFPSClaim": false,
+  "productionAccepted": false,
+  "chapters": [
+    {
+      "id": "bare",
+      "firstFrame": 0,
+      "timeSeconds": 0.0
+    },
+    {
+      "id": "petting",
+      "firstFrame": 36,
+      "timeSeconds": 1.5
+    },
+    {
+      "id": "drag",
+      "firstFrame": 96,
+      "timeSeconds": 4.0
+    },
+    {
+      "id": "expressions",
+      "firstFrame": 192,
+      "timeSeconds": 8.0
+    },
+    {
+      "id": "ear",
+      "firstFrame": 524,
+      "timeSeconds": 21.833333333333332
+    },
+    {
+      "id": "satchel",
+      "firstFrame": 578,
+      "timeSeconds": 24.083333333333332
+    },
+    {
+      "id": "cape",
+      "firstFrame": 632,
+      "timeSeconds": 26.333333333333332
+    },
+    {
+      "id": "halo",
+      "firstFrame": 686,
+      "timeSeconds": 28.583333333333332
+    },
+    {
+      "id": "book",
+      "firstFrame": 740,
+      "timeSeconds": 30.833333333333332
+    },
+    {
+      "id": "wardrobe",
+      "firstFrame": 794,
+      "timeSeconds": 33.083333333333336
+    },
+    {
+      "id": "tea",
+      "firstFrame": 896,
+      "timeSeconds": 37.333333333333336
+    },
+    {
+      "id": "wardrobe",
+      "firstFrame": 1142,
+      "timeSeconds": 47.583333333333336
+    }
+  ],
+  "errors": [],
+  "captureScriptSHA256": "7158645e771af50cdbce98fcb098d39e930d7e75e8efe446b445573313cc8121",
+  "dprChecks": [
+    {
+      "dpr": 1.25,
+      "snapshot": {
+        "ready": true,
+        "selected": "wardrobe",
+        "busy": false,
+        "paused": false,
+        "reducedMotion": false,
+        "chapterTime": 0.05,
+        "time": 0.05,
+        "state": {
+          "time": 0.05,
+          "mode": "idle",
+          "hidden": false,
+          "pointerId": null,
+          "captured": false,
+          "drag": {
+            "time": 0.05,
+            "mode": "rest",
+            "held": false,
+            "pose": {
+              "body": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "joints": {
+                "Shoulder_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Shoulder_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            "lag": {
+              "x": 0,
+              "y": 0
+            },
+            "faceIntent": null
+          },
+          "pet": {
+            "time": 0.05,
+            "phase": "idle",
+            "session": 0,
+            "held": false,
+            "qualifiedAt": null,
+            "holdAge": 0,
+            "responseIndex": 0,
+            "responseKind": null,
+            "interactionOwned": false,
+            "face": null,
+            "body": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "joints": {
+              "Shoulder_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Shoulder_R": {
+                "x": 0,
+                "y": 0,
+                "z": -0.0
+              },
+              "Hip_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Hip_R": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            }
+          },
+          "body": {
+            "root": [
+              0,
+              0,
+              0
+            ],
+            "pivot": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "jointQuaternions": {
+              "Shoulder_L": [
+                -0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "Shoulder_R": [
+                -0.5,
+                -0.5,
+                -0.5,
+                0.5
+              ],
+              "Hip_L": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ],
+              "Hip_R": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ]
+            },
+            "minimumFootY": 0.006000000052152756,
+            "actorMatrix": [
+              0.984807753012208,
+              0,
+              -0.17364817766693033,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0.17364817766693033,
+              0,
+              0.984807753012208,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "face": {
+            "time": 0.05,
+            "phase": "idle",
+            "owner": null,
+            "requestId": null,
+            "candidate": null,
+            "token": 0,
+            "logicalArrival": null,
+            "path": null,
+            "amount": 0,
+            "clockArrival": 0,
+            "clockActualArrival": 0,
+            "deadline": "Infinity",
+            "queued": 0,
+            "epoch": 1
+          }
+        },
+        "mounts": [
+          "sakura",
+          "leaf",
+          "satchel",
+          "cape",
+          "halo"
+        ],
+        "resources": {
+          "geometries": 42,
+          "textures": 18
+        },
+        "pool": {
+          "budget": {
+            "maxBytes": 134217728,
+            "claimedBytes": 20037298,
+            "residentBytes": 20037298,
+            "pendingReservations": 0,
+            "claims": 4,
+            "closed": false
+          },
+          "parts": {
+            "closed": false,
+            "references": 1,
+            "resident": true
+          },
+          "actors": 1,
+          "pending": 0,
+          "mounts": 5,
+          "emitters": [
+            {
+              "disposed": false,
+              "liveParticles": 0,
+              "activeEmitters": 4,
+              "allocatedParticleSlots": 96,
+              "poolBytes": 13056,
+              "ownedGeometries": 1,
+              "ownedMaterials": 4,
+              "maxDrawCalls": 8
+            }
+          ]
+        },
+        "book": null,
+        "errors": [],
+        "cleanupWarnings": [],
+        "contactAccepted": false,
+        "nativePerformanceAccepted": false
+      }
+    },
+    {
+      "dpr": 2,
+      "snapshot": {
+        "ready": true,
+        "selected": "wardrobe",
+        "busy": false,
+        "paused": false,
+        "reducedMotion": false,
+        "chapterTime": 0.05,
+        "time": 0.05,
+        "state": {
+          "time": 0.05,
+          "mode": "idle",
+          "hidden": false,
+          "pointerId": null,
+          "captured": false,
+          "drag": {
+            "time": 0.05,
+            "mode": "rest",
+            "held": false,
+            "pose": {
+              "body": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "joints": {
+                "Shoulder_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Shoulder_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_L": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "Hip_R": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            "lag": {
+              "x": 0,
+              "y": 0
+            },
+            "faceIntent": null
+          },
+          "pet": {
+            "time": 0.05,
+            "phase": "idle",
+            "session": 0,
+            "held": false,
+            "qualifiedAt": null,
+            "holdAge": 0,
+            "responseIndex": 0,
+            "responseKind": null,
+            "interactionOwned": false,
+            "face": null,
+            "body": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "joints": {
+              "Shoulder_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Shoulder_R": {
+                "x": 0,
+                "y": 0,
+                "z": -0.0
+              },
+              "Hip_L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "Hip_R": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            }
+          },
+          "body": {
+            "root": [
+              0,
+              0,
+              0
+            ],
+            "pivot": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "jointQuaternions": {
+              "Shoulder_L": [
+                -0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "Shoulder_R": [
+                -0.5,
+                -0.5,
+                -0.5,
+                0.5
+              ],
+              "Hip_L": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ],
+              "Hip_R": [
+                1,
+                0,
+                -4.371138828673793e-08,
+                0
+              ]
+            },
+            "minimumFootY": 0.006000000052152756,
+            "actorMatrix": [
+              0.984807753012208,
+              0,
+              -0.17364817766693033,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0.17364817766693033,
+              0,
+              0.984807753012208,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "face": {
+            "time": 0.05,
+            "phase": "idle",
+            "owner": null,
+            "requestId": null,
+            "candidate": null,
+            "token": 0,
+            "logicalArrival": null,
+            "path": null,
+            "amount": 0,
+            "clockArrival": 0,
+            "clockActualArrival": 0,
+            "deadline": "Infinity",
+            "queued": 0,
+            "epoch": 1
+          }
+        },
+        "mounts": [
+          "sakura",
+          "leaf",
+          "satchel",
+          "cape",
+          "halo"
+        ],
+        "resources": {
+          "geometries": 42,
+          "textures": 18
+        },
+        "pool": {
+          "budget": {
+            "maxBytes": 134217728,
+            "claimedBytes": 20037298,
+            "residentBytes": 20037298,
+            "pendingReservations": 0,
+            "claims": 4,
+            "closed": false
+          },
+          "parts": {
+            "closed": false,
+            "references": 1,
+            "resident": true
+          },
+          "actors": 1,
+          "pending": 0,
+          "mounts": 5,
+          "emitters": [
+            {
+              "disposed": false,
+              "liveParticles": 0,
+              "activeEmitters": 4,
+              "allocatedParticleSlots": 96,
+              "poolBytes": 13056,
+              "ownedGeometries": 1,
+              "ownedMaterials": 4,
+              "maxDrawCalls": 8
+            }
+          ]
+        },
+        "book": null,
+        "errors": [],
+        "cleanupWarnings": [],
+        "contactAccepted": false,
+        "nativePerformanceAccepted": false
+      }
+    }
+  ],
+  "graphics": {
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "error": 0
+  },
+  "frames": 1193,
+  "elapsedSeconds": 198.25460129500016,
+  "fetchedFiles": {
+    "accessories-v1/03-satchel/satchel.glb": "8ba471d1218fd1f848720f32242c74b397adeaba5f9dbaa911b482cfc3aad9a6",
+    "animation-foundation-v1/anchors/bubu-d2-profile.mjs": "a4323d2cd00f72ef050e49a4201102f958dcb006205eaab81069cfb83e6021e8",
+    "animation-foundation-v1/anchors/definitions.mjs": "4163345980f7581d93e8cad12374a3bb7484fc38b2f594e2c75ffebacb6ec276",
+    "animation-foundation-v1/anchors/index.mjs": "b1165eef2766b457eea54fbe5fdd760a5c98c995657a0e3afb32b617026a0c7b",
+    "animation-foundation-v1/anchors/profile-admission.mjs": "97f7d7fb037e81d4cf717845eef93f07bf37f790954b95a38588b999c9afb77c",
+    "animation-foundation-v1/anchors/registry.mjs": "40038a7a5ee67bf22c6e0aa57681dda362a06fbb8cc5c64306169984d35deeea",
+    "animation-foundation-v1/anchors/weighted-frame.mjs": "2cfc9d91ce437d52d5c8d4296e8a2da7002753e1a9bf4614f07147c1193e0308",
+    "animation-foundation-v1/body-runtime/attribute-layout.mjs": "e6aef366ee91a85db561c55e831c932c49be6a998d76313ddfb2c435f4a39aca",
+    "animation-foundation-v1/body-runtime/authored-face-port.mjs": "b483c7b8816631ccd4cae6c5d75fa3d1d53a1e200d9cd74959bcad6cfd3b94e7",
+    "animation-foundation-v1/body-runtime/body-adapter.mjs": "db2915ec9cfe5936764dd5857a89da1300934dcda4bb0b67b7b4af431109733d",
+    "animation-foundation-v1/body-runtime/browser-host.mjs": "fb0c171c92bceee6cc9ec018bf4fb5f9339213ab48fc9cf19887b26c261ffb6b",
+    "animation-foundation-v1/body-runtime/floor-query.mjs": "a99a85e78ff74f290ad13ce6a18fdec26e07a8f6542ec9dd6448cc79a9f6d66e",
+    "animation-foundation-v1/body-runtime/host-admission.mjs": "6135364e541ac752d3d2313bb48724a68e98313fb89edbfed262bbd9a244b809",
+    "animation-foundation-v1/body-runtime/pointer-host.mjs": "0cf4875d0f41e000c33ab065d8ca48eacb41e418d3122fa0ad99afc35ec4936d",
+    "animation-foundation-v1/body-runtime/rigid-surface-partition.mjs": "fe5b873ff030e08d593aecea7e4673b0876c9f4ee7acd3f9c74fa57d3809d53f",
+    "animation-foundation-v1/body-runtime/surface-query.mjs": "55a4948bfdfe0889c5a1756deb3f64f20ca97a0925c0ad1cdce48f91cc317176",
+    "animation-foundation-v1/configuration/action-strategy.mjs": "2082991c6490a30864b77741d25da147f5167294f8fbabf46e7297b5d8a3a957",
+    "animation-foundation-v1/configuration/catalogue.mjs": "587f3141c9762335a487d713bc70185ecaaa34acbdd7a2a1330ee2c80782f2ed",
+    "animation-foundation-v1/configuration/fixtures/authored.mjs": "2d9a35fb35ca31905327731714413bb44eaa96ee4992dea2439a800e0025e6b8",
+    "animation-foundation-v1/configuration/fixtures/index.mjs": "843000cead6fc2b6982607b0e3b4b9e3a86129745147219d0c6f0c08754a02c9",
+    "animation-foundation-v1/configuration/index.mjs": "99de62573a9b4a4a9e08eec3079d666863268e7cd12a3b5b5e22e3239b2c4989",
+    "animation-foundation-v1/configuration/runtime-admission.mjs": "37e3be2edb1f299160a9cc784fec6110ca77fc8b45ad7f9f172b0ae5e1a772f8",
+    "animation-foundation-v1/contact/admission.mjs": "01e7ff2e84530e56aa5b5621ae9a003c644374e954d9dcc7c6cf8ad6a1d61cfe",
+    "animation-foundation-v1/contact/owner.mjs": "80429e9d9b52b21fb370db8398ea9ba6d431f4f1ac5a9bb16625f7c230f2352f",
+    "animation-foundation-v1/contact/research-evidence.json": "3547f1aba80fe4fabb52fa3b7726223c581c3e46dee990a2f8713367956f8d05",
+    "animation-foundation-v1/demo/app.mjs": "3f3b45c3ab710c068856a59f716fd128f21090dc21c2f593693f4cafb4a88f7e",
+    "animation-foundation-v1/demo/book-preview.mjs": "85f2a5f812ebd349fcd5733869909ab944408b687dfd99647185b69d9c4a8e37",
+    "animation-foundation-v1/demo/browser-assets.mjs": "aad4f067f20e04780b219d1c781625377788d176da414196c8111599038e94f4",
+    "animation-foundation-v1/demo/index.html": "dda632bef6e900ab5599639af529dfda7dd4a7f0deb7e3ec78b186273ad0eebe",
+    "animation-foundation-v1/demo/style.css": "b9cc3ec56bb2ab08f1f0397edb699fcc90f7575b78c290a92b8dc800c93fcd8a",
+    "animation-foundation-v1/demo/tea-preview.mjs": "47d06c0684189cd6badfbd431ed8afc0a4aa2b366c7f05d523069fb226daa90c",
+    "animation-foundation-v1/effects/bounded-effects.mjs": "7df9f452edbb37c6c2fb9f77991425b27ce3e8383e52dfb5718b4b01bd5509c1",
+    "animation-foundation-v1/integration/asset-resources.mjs": "1ec173aeed399d78e54b0e9f7e378bdb2026f4127f74786a4ee2a2e4d3257679",
+    "animation-foundation-v1/integration/binding-provider.mjs": "f3375a09f3b1fb74ea2ea6ab7c048ca68f35ae59cde2ff0501d8c7eb1f079bf3",
+    "animation-foundation-v1/integration/cleanup-owned.mjs": "7957af0691de5c50f79ecad8280c798752419b315528490fd728bfe7cf1f321b",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/contact-report.json": "d4da9acb9fa254306fcb1f75745a6655e0805cb707156f23f668bb5a861256e1",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/inputs/cape-coarse.json": "740619e1ca28dc8824c070bbc3b23df6ba7430b956dd4f64d2a411f8549ab8a8",
+    "animation-foundation-v1/integration/diagnostics/contact-contract-20261019/pin-depth-report.json": "24d7ca16b2e9ae775d5488c6846c65938fa18d61b868bdc2194652411ef5868a",
+    "animation-foundation-v1/integration/foundation-runtime.mjs": "55fabd6ef9e9fc1a482acec18636f582c290d59bdecc941e388b8a57875e768e",
+    "animation-foundation-v1/integration/frame-owner.mjs": "b3d516d08ed6e2289420741a1bc941ca08e40b35aec6e1ba34a57f0a9b287738",
+    "animation-foundation-v1/integration/parts-source.mjs": "be146f102c9b01887ff32e077ef9f970ef20141f5aba4dcae5315c02957674ae",
+    "animation-foundation-v1/integration/resource-admission.mjs": "5be881f0ab0058704453cb9415f702df3f2f2e9a8455fc39166f12b6fec1cc3e",
+    "animation-foundation-v1/integration/scene-budget.mjs": "a0f5e72e025a6a3b2cce497c83338b60d975b37d42bb92526e42b2270192ba4c",
+    "animation-foundation-v1/integration/transform-sampling.mjs": "31ef0bfcf7b6dce5e11e736187c1fccf2cf6d242b8409ac188f96889041c2988",
+    "animation-foundation-v1/secondary-motion/asset-admission.mjs": "52bab5bff2fd69f016fb3d03c47caa267818042f5255c42c36eb98f96a6be817",
+    "animation-foundation-v1/secondary-motion/descriptors/cape.json": "d45535336bdb7f10d3ea309dd583e1205d3bb3b04d24b6c22dac8b44c4bc7823",
+    "animation-foundation-v1/secondary-motion/descriptors/satchel.json": "7e6f29a1cf4be15d825ec6b5ecffa40eaa5e046e42aead7d83b266d202ba74f0",
+    "animation-foundation-v1/secondary-motion/index.mjs": "9d2007ece89f970e684967a1db1efa098de59878a11b9fa82fef14bb67c8b1a2",
+    "animation-foundation-v1/secondary-motion/rapier.mjs": "6b37b7e9ba205697c8ebd0fa8dafc290c49e89a46d274bc4ce86e88ab54af62d",
+    "drag-body-prototype-v1/replay/body-poses.json": "d26d457eff2145eaf2bb80d27fa9910b738c4e2b2154ec608b1339049f897d1c",
+    "drag-landing-r5/src/approved-struggle-r2.mjs": "ea8c30385a9a97c19735a8d68cc027eed9ad86a36d8961c47f616175075af838",
+    "drag-landing-r5/src/drag-controller.mjs": "0413b3b1604b32fa4e969ce29a8ebc1885e36316b8f94e16fea8f60e7a91efb1",
+    "drag-landing-r5/src/input-intent.mjs": "3edbd987838c5af6fb00cb6c62b3103c05a8d03b839d4ecdbb3a603051344f51",
+    "expression-scheduler-p1/src/p0-binding.mjs": "9b41651d8514a912ea56c6db573b6cf98992f6ae849759f1ba5ada15df4ad698",
+    "expression-scheduler-p1/src/scheduler.mjs": "d0dc72af4dd5d6a42caed64efe0c2b17a0c49003c4bccf5f8b983b0f6c4b7df1",
+    "external-assets-v1/accessory-expansion/models/05-halo.glb": "a58fdd0d1011a413b142efa66a4d5599966051e8fdd5ce3fd5a10c4f28e552c1",
+    "external-assets-v1/accessory-expansion/models/07-cape.glb": "d70f4e734a7bcf1e4274773c9971d63b983e9c2e21dff07f7313a151c6ed2fa3",
+    "external-assets-v1/body-tail/bubu-round-tail.glb": "112b095ec7fbc4514df732ff49c7a2117ccbb341f4d9ccf20a1668f36999490e",
+    "external-assets-v1/body-tail/round-tail-adapter.mjs": "639ce1cc339e3544530bda8fda1d2d86705041ef8e2a885348794a86c51bbfcb",
+    "external-assets-v1/existing-wearables/src/local-adapters/satchel-adapter.mjs": "e771a8501378d5a9d2fa913bb57276e53f6a6fc25d1424eb641d3117dd5e6fe2",
+    "external-assets-v1/existing-wearables/src/local-adapters/support-motion.mjs": "9b3d07984d7aea3faf34fc4a796b18dcbb6425f634ed7301ccfbe582fc8d7ac0",
+    "external-assets-v1/headwear-expansion/models/08-forest-leaf.glb": "7bf3931c00a9c5fae3bbdfba1c2e0a3a0472aa5fb7ab30d7605b39b8853efa4a",
+    "external-assets-v1/headwear-expansion/models/09-sakura-flower.glb": "f0038412cec4cce735f991d1e82f9a37d274efb0e14174be69d2f63e62f543ff",
+    "external-assets-v1/headwear-expansion/src/accessory-adapter.mjs": "b7962606773239d26c9a105817547d82db4441010aedbcb409683562899a52bc",
+    "external-assets-v1/prop-expansion/models/open-book.glb": "145b5f0f8a30e55a36fc3c4a53981b11a888db6c85c40d34ab3e4c8feb822e04",
+    "node_modules/@dimforge/rapier3d-compat/dist/rapier.mjs": "02dc6a4e2fffc013bab08fbb44fa68f501d8303615e9afe4c7d89ad4eedda0d0",
+    "node_modules/@pixiv/three-vrm-springbone/lib/three-vrm-springbone.module.js": "bfbde90b326aa80575e5001edf52c4500d80596032d213fb0fc93e72a7b47f66",
+    "node_modules/three-mesh-bvh/build/index.module.js": "b47c47fe8f4a734b0acdf037aaffe318dbfab602d6033704261457cce680a97c",
+    "node_modules/three/build/three.core.js": "9edde002b066a9a05676a6127f67735b62baf399bdea529f2f7e31657da769e6",
+    "node_modules/three/build/three.module.js": "9052042d676cb0fdc1ddfefe193053f34b7ac0513a616fdac4535d49987812ea",
+    "node_modules/three/examples/jsm/loaders/GLTFLoader.js": "131c0f78c01d19368ae495caa65b3adaa10487810a36a05bb5901b769a35ac16",
+    "node_modules/three/examples/jsm/utils/BufferGeometryUtils.js": "9fb63427ce6641fa14fd0baff9cc4d1b5f9c3d85fd084bf2e90e803c44ec1797",
+    "node_modules/three/examples/jsm/utils/SkeletonUtils.js": "b1632a703206c3d830de9fcbe515696770d04b71a15ee6b50afa6d2c3298c86f",
+    "original-parts-hybrid-v1/geometry/binding-manifest.json": "19b856aa9b3acd9fa95879daff54e521d18b93e05ba2669bf13df9c803b69555",
+    "original-parts-hybrid-v1/geometry/bubu-hybrid-binding.glb": "52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67",
+    "original-parts-hybrid-v1/runtime/mixed-binding-adapter.mjs": "4dd866970edc78f413a360383ff558d772956483229f0e428a89764dffaf7774",
+    "original-parts-hybrid-v1/runtime/mixed-binding-contract.mjs": "a7f4054aa678a3d4fbee83f25fa61bb2e76d0474322979e3f6db927471fa6451",
+    "original-parts-hybrid-v1/runtime/split-limb-adapter.mjs": "96724a0dd3169ca31c29dd3909e4d32664a39765a317f4d07c04a9c5f760ba4d",
+    "original-parts-hybrid-v1/tea/inputs/hold-fit.json": "419f5d0d929edb977ce8103d4616461bf0e1c8cd09c8f8218b4c9cd611d95f0f",
+    "original-parts-hybrid-v1/tea/inputs/rigid-config.json": "b63aa7b4d3367c97bd72163329737061d62f3d787dae39f2cd971ff7a48fcc9c",
+    "original-parts-hybrid-v1/tea/inputs/sip-fit.json": "7012a0c1869afde8704ba4d084d41407bbf7ee1662edc501d4bc99860b38acb6",
+    "original-parts-hybrid-v1/tea/src/cup-model.mjs": "66bce6a540d949b89c68e93895239c708af116dc02836f56c28efbc96c3c52ca",
+    "original-parts-hybrid-v1/tea/src/rigid-tea.mjs": "b19b9f68f796cad766bc653ca174123f0b2e95e78680e03264639b7d4573a642",
+    "original-parts-hybrid-v1/tea/src/scene-resources.mjs": "bfbd90138926ee03b122a211e16db19be3d9d76a9bff60131a8b34a74d39df8d",
+    "original-parts-hybrid-v1/tea/src/timeline.mjs": "b53f198d6e3a464be3abd505758712094d083352ac8fe587051719a1fe2b11fa",
+    "petting-continuous-r2/src/pet-policy.mjs": "902f2d644fb214b9c11e123a1646079dc15304edb85f9aafd091cc1b3e859885",
+    "petting-continuous-r2/src/petting-controller.mjs": "fe4e05654953f77a632b24a7c84452239bb516c67b552ea5fe8c65308f5648b4",
+    "runtime-facepath05/fixtures/face-d2/asset.glb": "84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a",
+    "runtime-facepath05/fixtures/face-d2/manifest.json": "ad0c790a8acf15587d22eaf9aae5083c7b01c3d6b4247c491ab7d68a0db78043",
+    "runtime-facepath05/fixtures/face-d2/profile.json": "9b282a72282245add92f65d85ffb15e1d67e6a4a4f5706c554cddc23f591ab02",
+    "runtime-facepath05/src/actor-pool.mjs": "2b12eb858736ff9fb40fae97ea4957fb7360acb09f88dff5af3936d5953e423b",
+    "runtime-facepath05/src/approved-d2-face-source.mjs": "406cc42677dc1d0f6951099ebcd90d49b17248cb28bcc4e22ceacdd305c903d2",
+    "runtime-facepath05/src/approved-face-source.mjs": "a050d9b7f5a0f50d4853d5b67ca90872d769b6584a909bba6a1a409c39b8c8bb",
+    "runtime-facepath05/src/approved-full-face-source.mjs": "d7ad8d998bfd0c7845a6796b7f49df360a2b5c4888abe0d4f3573d29c27d0bc3",
+    "runtime-facepath05/src/art-glb-preflight.mjs": "ba58bbfa8f0591851094cfa5dd3e3f8174ce5acfb49221e80b6f12b606363b5c",
+    "runtime-facepath05/src/body-profile.mjs": "ae5d88c45590d9a8eae02654d075aee2ae56cc96d23b7b83d19ef4d4850063c0",
+    "runtime-facepath05/src/clip-contract.mjs": "9d70065213451637b23a503f7aa05c00defae95f1e6bf36b7d7d2388c96f386b",
+    "runtime-facepath05/src/contracts.mjs": "884931bd04bc05eaad9089269318156fe34c864059833a6ced731386e7f15d2f",
+    "runtime-facepath05/src/d2-face-style.mjs": "edf0d865f55868eac67f560da77fd6b8e28041315c5ac9f4b2c1c27708cd4ee9",
+    "runtime-facepath05/src/director.mjs": "7b545f52a4721d3b5c1d312d442d4a55a95378561921fc3ab70364d1b585da72",
+    "runtime-facepath05/src/expression-owner.mjs": "f6617d982d0ce8cff74e98773df8006698b35172dc1acf9787dcd960574864b8",
+    "runtime-facepath05/src/face-binding.mjs": "5f8216329945f3db99f9d00fcb98b719dffaefa10d8874314baa78b11f004ce2",
+    "runtime-facepath05/src/face-contract.mjs": "ed098474048943e4da7cc07a90c333d29f20e53339640558edbecc3237752d78",
+    "runtime-facepath05/src/face-suite.mjs": "9761344d5564b40ac88e8b8dbf23136b13d51fbc2e5a4afd82de94538922e7d4",
+    "runtime-facepath05/src/face-timeline.mjs": "286ded8d6c6992cd0333e1985a0baee0e21dd951dcf3ab91b8bb790cd7641892",
+    "runtime-facepath05/src/geometry-accounting.mjs": "59b2ad82f16db8771fa683788387f2eeb17f16fb0e6a0a5abff9dfe66c9f268f",
+    "runtime-facepath05/src/glb-preflight.mjs": "f03d585698a5c80c71c528d7e6fe55da55d48838a65773723ef1877f2248d8c1",
+    "runtime-facepath05/src/n3-cavity-mask.mjs": "8f1680515fae234bf57bd453e86d500f8b32f18103018d22136fb0dfeedb8349",
+    "runtime-facepath05/src/neutral-contract.mjs": "ca8f9b432c1210a8d3fb2a2817b01cb9d1a71e32b99535db4f6b6637287383d8",
+    "runtime-facepath05/src/neutral-source-check.mjs": "98f3f9b34112278bd4406f13b5a274bdb65ebd3c7843860dfdd3ec5b4d3caafc",
+    "runtime-facepath05/src/neutral-suite.mjs": "27243fb0d2dcc33c0946b429eae0a6ade30e2b9f1c7977324089987330705187",
+    "runtime-facepath05/src/pack-loader.mjs": "ff7b0e8e19da1b4c9d9ef644723892e03794a1019a9a41d1ace3f5da46825b5b",
+    "runtime-facepath05/src/resource-cache.mjs": "c701603ff5c7f8fe73dbc3088d42e556007c7f6476b29b4fa273fb92a581b706",
+    "runtime-facepath05/src/suite.mjs": "14ce4d22f5883caac20a5e86d7f4a2e210e5626403be7d5109cbff1145a64973",
+    "runtime-facepath05/src/timeline.mjs": "bbfa3c73c79a2c1393e42e1689565af04a79f31a12c84560e557af674156de49",
+    "runtime-facepath05/src/weighted-driver.mjs": "4e73aab3083be6275e629371f987ba198546b62fb0c668c075292554b28a1b38",
+    "runtime/src/clip-contract.mjs": "9d70065213451637b23a503f7aa05c00defae95f1e6bf36b7d7d2388c96f386b",
+    "runtime/src/contracts.mjs": "4d40cf069403eb72f1efbc1ccde5c6260bae4d8110e955c5f292199f01f8f9db",
+    "runtime/src/timeline.mjs": "bbfa3c73c79a2c1393e42e1689565af04a79f31a12c84560e557af674156de49",
+    "scene-coordinator-v1/src/coordinator.mjs": "4765f22fe513eecb7d3fa82379505254c4b96321d30ebb02f4bece65db697ad7",
+    "wearable-approved-round5/accessory-expansion/models/07-cape.glb": "e29010956b989a60e196472b2206e6c397b34f12f3b7092d67f53f189c128e21"
+  },
+  "expressions": [
+    "R0",
+    "D1",
+    "A7",
+    "D4",
+    "01",
+    "N2",
+    "N3",
+    "T05",
+    "07",
+    "P2",
+    "08",
+    "A4",
+    "04",
+    "A8",
+    "S2",
+    "S3",
+    "T5",
+    "S5"
+  ],
+  "videoFrames": 1178,
+  "resourceCycles": [
+    {
+      "geometries": 15,
+      "textures": 18
+    },
+    {
+      "geometries": 15,
+      "textures": 18
+    }
+  ],
+  "final": {
+    "ready": true,
+    "selected": "bare",
+    "busy": false,
+    "paused": false,
+    "reducedMotion": false,
+    "chapterTime": 0.16666666666666666,
+    "time": 0.4666666666666668,
+    "state": {
+      "time": 0.4666666666666668,
+      "mode": "idle",
+      "hidden": false,
+      "pointerId": null,
+      "captured": false,
+      "drag": {
+        "time": 0.4666666666666668,
+        "mode": "rest",
+        "held": false,
+        "pose": {
+          "body": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "joints": {
+            "Shoulder_L": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "Shoulder_R": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "Hip_L": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "Hip_R": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          }
+        },
+        "lag": {
+          "x": 0,
+          "y": 0
+        },
+        "faceIntent": null
+      },
+      "pet": {
+        "time": 0.4666666666666668,
+        "phase": "idle",
+        "session": 0,
+        "held": false,
+        "qualifiedAt": null,
+        "holdAge": 0,
+        "responseIndex": 0,
+        "responseKind": null,
+        "interactionOwned": false,
+        "face": null,
+        "body": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "joints": {
+          "Shoulder_L": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "Shoulder_R": {
+            "x": 0,
+            "y": 0,
+            "z": -0.0
+          },
+          "Hip_L": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "Hip_R": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        }
+      },
+      "body": {
+        "root": [
+          0,
+          0,
+          0
+        ],
+        "pivot": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "jointQuaternions": {
+          "Shoulder_L": [
+            -0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          "Shoulder_R": [
+            -0.5,
+            -0.5,
+            -0.5,
+            0.5
+          ],
+          "Hip_L": [
+            1,
+            0,
+            -4.371138828673793e-08,
+            0
+          ],
+          "Hip_R": [
+            1,
+            0,
+            -4.371138828673793e-08,
+            0
+          ]
+        },
+        "minimumFootY": 0.006000000052152756,
+        "actorMatrix": [
+          0.984807753012208,
+          0,
+          -0.17364817766693033,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0.17364817766693033,
+          0,
+          0.984807753012208,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "face": {
+        "time": 0.4250000000000001,
+        "phase": "idle",
+        "owner": null,
+        "requestId": null,
+        "candidate": null,
+        "token": 0,
+        "logicalArrival": null,
+        "path": null,
+        "amount": 0,
+        "clockArrival": 0,
+        "clockActualArrival": 0,
+        "deadline": "Infinity",
+        "queued": 0,
+        "epoch": 1
+      }
+    },
+    "mounts": [],
+    "resources": {
+      "geometries": 14,
+      "textures": 18
+    },
+    "pool": {
+      "budget": {
+        "maxBytes": 134217728,
+        "claimedBytes": 17702629,
+        "residentBytes": 17702629,
+        "pendingReservations": 0,
+        "claims": 3,
+        "closed": false
+      },
+      "parts": {
+        "closed": false,
+        "references": 1,
+        "resident": true
+      },
+      "actors": 1,
+      "pending": 0,
+      "mounts": 0,
+      "emitters": [
+        {
+          "disposed": false,
+          "liveParticles": 0,
+          "activeEmitters": 0,
+          "allocatedParticleSlots": 96,
+          "poolBytes": 13056,
+          "ownedGeometries": 1,
+          "ownedMaterials": 4,
+          "maxDrawCalls": 8
+        }
+      ]
+    },
+    "book": null,
+    "errors": [],
+    "cleanupWarnings": [],
+    "contactAccepted": false,
+    "nativePerformanceAccepted": false
+  },
+  "disposedPool": {
+    "budget": {
+      "maxBytes": 134217728,
+      "claimedBytes": 0,
+      "residentBytes": 0,
+      "pendingReservations": 0,
+      "claims": 0,
+      "closed": true
+    },
+    "parts": {
+      "closed": true,
+      "references": 0,
+      "resident": false
+    },
+    "actors": 0,
+    "pending": 0,
+    "mounts": 0,
+    "emitters": []
+  }
+}

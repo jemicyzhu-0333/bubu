@@ -1,0 +1,203 @@
+{
+  "schema": "bubu-v2-convergence-audit/1",
+  "updatedAt": "2026-10-24T17:51:50.323021+00:00",
+  "productionAccepted": false,
+  "constraints": {
+    "sourceModels": "unchanged",
+    "frozenControllers": "unchanged",
+    "defaultPinsAndSpringProfiles": "unchanged",
+    "mountBounds": "unchanged",
+    "strain": [
+      0.8,
+      1.2
+    ],
+    "frameBudgetMs": 16.667
+  },
+  "acceptedRepairs": [
+    {
+      "item": "four dynamic outfit pairs",
+      "status": "sampled-pass",
+      "configuration": "configuration/fixtures/complete-outfit.mjs",
+      "samples": 481,
+      "motionRetained": true,
+      "continuousContact": "not-run",
+      "containment": "not-run"
+    },
+    {
+      "item": "initial CPU surface-query refit",
+      "status": "adopted-validated",
+      "scope": "One exact refit during preparation, no mesh or hit semantics changes",
+      "equivalenceTests": 10,
+      "preparationRefitMs": 5.733956000000035
+    }
+  ],
+  "currentFailures": [
+    {
+      "item": "sakura/body",
+      "parts": [
+        "sakura_petal_1",
+        "sakura_petal_2",
+        "sakura_leaf_-019"
+      ],
+      "phases": "all 481 samples",
+      "evidence": "328 local planes infeasible under original bounds; two declared rigid directions still intersect within 0.25",
+      "exclusionScope": "No global proof for rotations or private refitting",
+      "minimumNextWork": "Versioned flower attachment/rest fit with explicit contact regions and approved appearance checks",
+      "hardwareBlocked": false
+    },
+    {
+      "item": "satchel pouch/body and strap/right hand",
+      "phases": "all 481 samples",
+      "proof": [
+        {
+          "part": "satchel_pouch",
+          "insideDepth": 0.0843793393041701,
+          "maximumAllowedTranslation": 0.061152059944635066,
+          "extraTranslationNecessary": 0.023227279359535037
+        },
+        {
+          "part": "satchel_continuous_strap",
+          "insideDepth": 0.11587993457624733,
+          "maximumAllowedTranslation": 0.061152059944635066,
+          "extraTranslationNecessary": 0.054727874631612265
+        }
+      ],
+      "privateProposal": {
+        "pouchRigidOutward": 0.10880822075366973,
+        "sectionPreservingStrapEdgeRatios": [
+          0.8944319783700719,
+          1.2834322322712466
+        ],
+        "newCapeCrossingPairs": 2,
+        "adopted": false
+      },
+      "minimumNextWork": "Joint private rest-fit and section/seam constraints; simple displacement/point projection fails declared shape/contact gates",
+      "hardwareBlocked": false
+    },
+    {
+      "item": "frozen round5 cape with tea",
+      "fixedPinCase": "Original 65-pin map excluded at hold/sip with both hand root/grip tolerances 0.01; all rigid twists covered",
+      "releasedPinCase": "55-pin private experiment is not excluded by that proof",
+      "cupAndClasp": "1173 samples clear and 295 fixed-clasp intervals certified; not default-enabled",
+      "remaining": [
+        "hand/cloth contact",
+        "body/cloth contact",
+        "moving trim",
+        "all cancellations",
+        "seams and self-contact",
+        "runtime admission"
+      ]
+    },
+    {
+      "item": "real-time cloth implementation",
+      "warmStart": "Exact rest pose clear, first render contact at t=0.55; coarse surface clear; strain still within bounds",
+      "uniformEnvelope": "Radius 0.023977776 overlaps 40 fixed pin spheres with actual body at rest; first-step stretch 1.271236 > 1.2",
+      "minimumNextWork": "Localized collision representation covering trim offsets, with feasible pins and existing strain budget",
+      "hardwareBlocked": false
+    },
+    {
+      "item": "stable frame time",
+      "CPU": "900-frame max 12.285 ms; independent 2700-frame profile includes 17.259 ms at first cape pointer-down; 15.840 ms body stage, no overlapping GC",
+      "detail": "Same phase has BVH refit 11.657 ms in a detailed run. Single preparation refit under final verification.",
+      "softwareWebGL": "SwiftShader P95 199.5 ms; physical GPU not run.",
+      "minimumEnvironment": "Physical GPU plus native Windows/macOS for actual rendering/input/window acceptance",
+      "finalCPU": {
+        "samples": 900,
+        "median": 1.4257580000000871,
+        "p95": 2.8844520000000102,
+        "max": 16.677806999999802,
+        "includes": "body + hybrid + anchors + secondary + effects; excludes GPU"
+      },
+      "finalProfilePasses": {
+        "0": {
+          "n": 900,
+          "median": 1.3958639999998468,
+          "p95": 2.801390999999967,
+          "p99": 3.8211780000001454,
+          "max": 13.14314800000011
+        },
+        "1": {
+          "n": 900,
+          "median": 1.2569180000000415,
+          "p95": 2.4722249999999804,
+          "p99": 3.3366619999997056,
+          "max": 8.690947000000051
+        },
+        "2": {
+          "n": 900,
+          "median": 1.2230479999998352,
+          "p95": 2.4061970000002475,
+          "p99": 2.9336960000000545,
+          "max": 6.652394000000186
+        }
+      },
+      "finalSoftwareBrowserIntervals": {
+        "p50": 108.70000000111759,
+        "p95": 199.5,
+        "max": 263.5
+      },
+      "status": "failed"
+    }
+  ],
+  "rejectedOrIsolated": [
+    {
+      "item": "uniform secondary angle cap",
+      "reason": "All 480 motion steps rejected, zero deformation; not a functional repair"
+    },
+    {
+      "item": "zero-weight GPU bone reads",
+      "state": "isolated, never enabled in actor/demo",
+      "pixelCases": 9,
+      "byteDifferences": 0,
+      "drawSyncMedianMs": {
+        "reference": [
+          126.7,
+          113.4
+        ],
+        "candidate": [
+          132.2,
+          121.0
+        ]
+      },
+      "performanceConclusion": "No stable benefit; not adopted"
+    },
+    {
+      "item": "common rigid-frame CPU query cache",
+      "state": "withdrawn and original exact path restored",
+      "reason": "Three native-equivalence cases failed; attached-bind semantics and nonexact weight sums require a different exact query design",
+      "defaultEnabled": false
+    }
+  ],
+  "decisionBoundary": {
+    "noBlanketUnfreezeRequest": true,
+    "continueWithoutSourceChanges": "Private diagnostic work can continue; failed finite fits are not proof that source models must change",
+    "requiresExplicitDecisionOnlyIf": "A proposed solution changes approved rest shape or frozen model/controller/attachment requirements; no failing proposal is promoted by approval alone",
+    "nativeRequirement": "Access to target native OS and real GPU/display"
+  },
+  "publication": "No commit, push, merge, deployment, new video or distribution package this round",
+  "validation": {
+    "researchStages": 36,
+    "nodePass": 815,
+    "pythonPass": 2,
+    "sourcesUnchanged": true,
+    "applicationCheck": {
+      "pass": 6742,
+      "skipped": 29,
+      "fail": 0
+    },
+    "applicationIntegration": {
+      "pass": 71,
+      "fail": 0
+    },
+    "visualChecks": 6,
+    "softwareBrowser": "passed",
+    "nativeHardware": "not-run"
+  },
+  "reproduction": {
+    "cwd": "/workspace/bubu/research/animation-0.1.0",
+    "all": "node animation-foundation-v1/verification/run.mjs --output NEW_EXTERNAL_DIRECTORY --browser /usr/bin/chromium --software",
+    "outfit": "node animation-foundation-v1/contact/outfit-sweep.mjs NEW_EXTERNAL_DIRECTORY",
+    "cloth": "node animation-foundation-v1/secondary-motion/cloth-probe/endpoint-probe.mjs --output NEW_EXTERNAL_DIRECTORY --trajectory --convex-hands --bounded-body-hull",
+    "demo": "npm run foundation:demo; open http://127.0.0.1:8766/animation-foundation-v1/demo/"
+  }
+}

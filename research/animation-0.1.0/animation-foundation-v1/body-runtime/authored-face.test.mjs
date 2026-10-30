@@ -53,3 +53,23 @@ test("same-time pointer preempts authored port, lifecycle prevents resurrection"
     f.h.dispose();
   }
 });
+test('complete existing expression roster reuses admitted candidates within the scheduler budget', async () => {
+  const { FULL_FACE_SLOT_IDS } = await import('../../runtime-facepath05/src/face-contract.mjs');
+  const definitions = FULL_FACE_SLOT_IDS.map(candidate => ({ candidate, amount: 1, enterSec: .16, exitSec: .2 }));
+  const f = await fixture({ authoredFaces: [...definitions, low, definitions[0]] });
+  try {
+    let time = 0;
+    for (const value of definitions) {
+      f.h.facePort.request({ time, ...value });
+      f.tick(time); time += .5; f.tick(time);
+      assert.equal(f.h.owner.state.path, value.candidate);
+      assert.equal(f.h.owner.state.owner, 'authored');
+      time += .01;
+    }
+    f.h.facePort.request({ time, ...low }); f.tick(time); f.tick(time + .3);
+    assert.equal(f.h.owner.state.path, 'P2');
+    assert.equal(f.h.owner.state.amount, .25);
+    f.h.facePort.release({ time: time + .4 }); f.tick(time + .4); f.tick(time + 1);
+    assert.notEqual(f.h.owner.state.owner, 'authored');
+  } finally { f.h.dispose(); }
+});

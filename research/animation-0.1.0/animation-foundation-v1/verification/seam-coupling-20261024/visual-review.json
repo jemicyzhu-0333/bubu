@@ -1,0 +1,49 @@
+{
+  "status": "rendered",
+  "captures": [
+    {
+      "file": "00-before.png",
+      "mode": "before",
+      "time": 0,
+      "angle": -100,
+      "zoom": 1,
+      "sourceGeometryChecked": true,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "file": "01-failure.png",
+      "mode": "failure",
+      "time": 0.016666666666666666,
+      "angle": -100,
+      "zoom": 1,
+      "sourceGeometryChecked": true,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "file": "02-before.png",
+      "mode": "before",
+      "time": 0,
+      "angle": -100,
+      "zoom": 6,
+      "sourceGeometryChecked": true,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "file": "03-failure.png",
+      "mode": "failure",
+      "time": 0.016666666666666666,
+      "angle": -100,
+      "zoom": 6,
+      "sourceGeometryChecked": true,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    }
+  ],
+  "errors": [],
+  "productionAccepted": false,
+  "review": {
+    "status": "inspected",
+    "scope": "Four actual frozen-GLB stills: rest and failed 240 Hz output at 1/60 s, including the actual strained shoulder strip closeup. No demo or full-motion approval.",
+    "finding": "The tiny initial deformation is subtle in the ordinary shaded image; a slight uneven strip and local ripples appear. Numerical actual-edge and seam failures remain decisive; appearance is not used to waive them.",
+    "material": "Original unstyled hybrid diagnostic material; not a replacement D2 model."
+  }
+}

@@ -1,3 +1,4 @@
+import { evidencePath } from "../verification/evidence-output.mjs";
 import fs from "node:fs";
 import assert from "node:assert/strict";
 import * as T from "three";
@@ -105,8 +106,7 @@ for (const axis of ["x", "y", "z"])
       report.rates[30].position[axis] - report.rates[120].position[axis],
     ) < 0.06,
   );
-fs.writeFileSync(
-  new URL("./evidence/book-release-report.json", import.meta.url),
+fs.writeFileSync(evidencePath(new URL("./evidence/book-release-report.json", import.meta.url)),
   JSON.stringify(report, null, 2),
 );
 console.log(JSON.stringify(report, null, 2));

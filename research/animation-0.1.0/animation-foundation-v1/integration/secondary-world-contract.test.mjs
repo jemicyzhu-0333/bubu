@@ -212,6 +212,9 @@ test("equip preserves original failure when lease cleanup also fails", async () 
       describe() {
         return { bytes: 0 };
       },
+      async load() {
+        throw original;
+      },
     },
     pendingEquips: 0,
     generation: 1,
