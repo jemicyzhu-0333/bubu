@@ -2,6 +2,7 @@
 
 const { createHardenedWindow } = require('./window-host');
 const { createPetViewport } = require('./pet-viewport');
+const { selectPetRendererPage, readPetRendererSelection } = require('./pet-renderer-selection');
 
 function createPetWindowHost({
   BrowserWindow,
@@ -13,6 +14,7 @@ function createPetWindowHost({
   onClosed,
   onDeliveryError,
   enableReload = false,
+  rendererSelection = readPetRendererSelection(enableReload),
   platform = process.platform,
   screen = require('electron').screen
 }) {
@@ -21,7 +23,7 @@ function createPetWindowHost({
   const host = createHardenedWindow({
     BrowserWindow,
     preloadPath,
-    pagePath,
+    pagePath: selectPetRendererPage({ ...rendererSelection, pagePath, development: enableReload }),
     onDeliveryError,
     allowReload: enableReload,
     options: {

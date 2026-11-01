@@ -219,6 +219,120 @@ macOS 构建门禁必须对产出 app 和 DMG 复制出的 app 分别执行 `cod
 
 ## V2 研究基础能力验证
 
+### 实时桌宠分批验收（2026-11-01）
+
+本节是当前实时路线的门禁与踩坑台账；后文旧计数、求解实验和帧率仅为历史证据。
+当前本地分支从远端 `feature/pet-animation-v2` 的
+`33a04d35ba66984663604961c0c619937d70ede0` 隔离创建；同次远端默认 HEAD 为
+`1a66a0d3b7a51b19ac843b80f6629d0eb20eeb18`，不将两者混为同一基线，不合并、发布或覆盖
+其他分支。结果还须绑定最终本地提交、工作树状态、精确命令和输出，不能沿用旧通过数字。
+
+| 要求 | 首要门禁 | 必需证据与否决条件 | 当前状态 |
+| --- | --- | --- | --- |
+| 已批准角色身份/动态 rig | G0/G1 | source/parts SHA、七关节顺序、单 actor skeleton、四关节/wrapper 写权限；不可伪造替代 GLB | 恢复和 preflight 通过；实际渲染核验未运行 |
+| 真正应用渲染链 | G1 | development 显式选项经 pet window/preload/scoped context/viewport 到最终 WebGL；默认路径不变 | 代码候选已接入；选择门禁初测通过；实际应用帧阻塞 |
+| 单一时钟与状态所有者 | G1/G2 | 暂停不补播；隐藏/锁屏/低动效中断；失捕、取消、再抓取、重复恢复/销毁与迟到加载行为测试 | 本批 surface/指针端口定向测试通过；原生输入/显示未运行 |
+| 拖动/提起/惯性/释放/落地 | G2 | 实际 OS 输入、窗口 DIP/渲染坐标一致、DPR 切换、同一手势互斥和回稳 | 复用既有窗口内 V2 owner；原生窗口移动/DIP 尚未实现，OS 验收未运行 |
+| 长按抚摸/取消/再抓取 | G2 | 长按不会开菜单或误触拖动；pointercancel/失捕/隐藏后可再抓，不能复活旧指针 | 未运行 |
+| 配件与轻量次级运动 | G3 | 既有 springbone 的实际可见几何、支撑与摆动；正常/中断/重抓，整帧增量成本 | 未运行；旧 Node 单项成本不是通过 |
+| 换装和安全资源归属 | G3/G4 | 失败保留旧装，stale 不撤新装，装备/纹理/骨骼/场景/监听/RAF 精确释放；重建和资源增长 | 本批既有 CPU ownership 回归通过；canonical 换装映射、实际 GPU 释放/增长未运行 |
+| 统一动作描述 | G4 | 同一动作身份与阶段编排 body/expression/accessory/props/particles；取消/切装/低动效撤销全部所有权 | 未运行 |
+| 实际衣物/衣缝/握持/释放 | G4 | 最终渲染 mesh、接缝和接触意图检查；整套及动作/中断组合，保留真实反例 | 未运行；代理间隙、单帧或单件不可替代 |
+| 60 fps 目标及 idle/增长 | G1→G5 | 标明设备/renderer 的 frame interval、CPU update/render submission P95/P99、超预算帧、idle 绘制/唤醒、资源增长与重建 | 未运行；目标约 16.7 ms，不承诺必达 |
+| 原生桌面与默认功能/打包 | G5 | 透明合成、输入、显示器/DPI、可访问交互、2D/业务回归、包内活动资产及同档重开 | 原生目标硬件阻塞；其余待逐批运行 |
+
+资产恢复无需重新生成模型：研究根目录既有 `npm run foundation:prepare` 使用跟踪的
+`expression-library/d2-style-variant/asset/bubu-full18-d2-static-blush.glb.gz`，
+归档大小 10,915,162 bytes，SHA256
+`a0ce0c1acdca8d3d7240d91b7b2285a0de0e65c09e0ed7a9f221a5c905b5f839`。
+预期恢复 `runtime-facepath05/fixtures/face-d2/asset.glb` 为 16,867,596 bytes、SHA256
+`84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a`。
+hybrid 为 `original-parts-hybrid-v1/geometry/bubu-hybrid-binding.glb`，3,540,376 bytes、
+SHA256 `52a080d81606fbe92e9cd71593bd703f356eb50a0e1c74ccc34547a0db308e67`。
+归档只读展开、正式 `foundation:prepare` 与 `foundation:preflight` 均已通过，
+preflight 确认单一物理 Three.js 0.186.1；真实渲染启动仍未运行。
+依赖沿用锁文件中的 Three.js 0.186.1、springbone 3.5.5，保持单一物理 Three 实例；
+不升级工具链、不重装同库冒领修复、不为 G0/G1 启动 QP/长时布料研究。
+
+本批可复现准备与拟运行入口如下；最后一条属于待执行的真实应用验证，不代表已启动成功：
+
+```bash
+# 研究依赖及已完成的素材/合同准备
+cd research/animation-0.1.0
+npm ci --ignore-scripts --cache=/tmp/bubu-npm-cache
+npm run foundation:prepare
+npm run foundation:preflight
+cd ../..
+# 应用依赖（本次安装 237 packages；不等于测试或渲染通过）
+npm ci --cache=/tmp/bubu-npm-cache
+# 仅在已有 Electron 二进制默认缓存安装失败时，使用可写的项目外缓存
+# 本次已按锁文件恢复 Electron 44.4.5；没有升级或关闭任何系统保护
+electron_config_cache=/tmp/bubu-electron-cache node node_modules/electron/install.js
+# 待有可用桌面时，经 dev-bench 的独立 SQL/身份 fixture 启动，绝不试开用户 profile
+BUBU_DEV_REALTIME_PET=1 npm run dev:bench -- --scenario=all
+```
+
+本批验证记录（Linux / Node v24.22.1 / npm 11.9.0；锁文件 Electron 44.4.5；不是 WebGL/GPU 帧率）：
+
+| 命令 / 范围 | 当前结果 | 证据边界 |
+| --- | --- | --- |
+| `timeout 480s npm run check` 封板最终复跑 | exit 0；6,812 tests，6,783 pass / 29 skip / 0 fail；lint、151 条 IPC boundaries、805 模块 architecture、icons/raster/wardrobe/limbs/app-icons 均完成 | 封板代码的 aggregate 检查通过；29 skip 和 limb pixel 环境跳过单列，不代表实际 GUI/原生通过 |
+| `node --test test/pet-realtime-*.test.js` | 41/41，0 skip | 指标/选择 15，真实窗口宿主/preload/scoped client/IPC 注册器 9，surface 15，指针端口 2；合成环境不等于真实 OS 输入 |
+| `npm run test:integration` | 71/71，0 skip，约 456 ms | 应用 IPC/workflow/security 合同；不是原生 UI |
+| 下列 120 秒上限的研究定向命令 | 55/55，0 skip，22.8 s | 实际恢复 D2 + hybrid 的 CPU/所有权回归，不是 GPU 或原生帧率 |
+
+```bash
+cd research/animation-0.1.0
+timeout 120s node --test --test-isolation=none \
+  animation-foundation-v1/body-runtime/approved-pointer.test.mjs \
+  animation-foundation-v1/body-runtime/held-target.test.mjs \
+  animation-foundation-v1/integration/frame-owner.test.mjs \
+  animation-foundation-v1/integration/foundation-lifecycle.test.mjs \
+  animation-foundation-v1/integration/equipment-ownership.test.mjs
+```
+
+最终定向 41/41 包含终态一次撤回运行态用例；旧的 36/36、40/40 和首轮全量结果不作为最终代码的替代证据。
+本次封板 aggregate 的本机日志为 `/tmp/bubu-realtime-sealed-check.log`，最终交付证据需同时保留源码/文档哈希、提交身份与日志。
+29 个 skip 和 `limbs:check` 中因未设置 `USAGI_CANVAS_PACKAGE` 而跳过的像素扫描单列，
+不能写成该像素检查已通过。canonical 感官/context 接入不等于外观装备和业务 base 语义已完成；后两者在 G4。
+G1 当前只达到应用接入代码候选，未完成实际应用帧及原生输入/显示证明，不能记作完成。
+默认 sandbox 的 Chromium 探测在独立 `/tmp` profile 下因
+`process_singleton: socket() Operation not permitted` 中止，环境同时无 DISPLAY/Xvfb。
+未追加 `--no-sandbox`、未绕过策略；实际 WebGL、截图、帧时间及原生性能均无本轮证据。
+
+性能取样必须固定源码、窗口/画布大小、DPR、可见状态、取样时长和交互轨迹，
+区分准备/首帧/稳定运行；每个指标至少报告样本数、P95/P99 和最大值。
+`renderer.render` 的客户端耗时仅称 CPU render submission，不称 GPU 执行时长。
+有界 ring 的统计须标明保留窗口，不能把超出容量的整轮运行写成全程分位数；
+丢帧、长任务、错误、idle 是否停止重绘及关闭后残留句柄/资源另列。
+Linux Node、离屏 Chromium、云端 SwiftShader 与目标原生 Electron/物理 GPU 分开报告。
+当前无已连接用户电脑（可用 environments 列表为空），目标硬件 60 fps、原生输入与透明合成
+因此为 **blocked / 未运行**，不是 failed 或 passed；云端测量只能给出对应环境的结果。
+
+| 坑 / 根因 | 决策或修复 | 复查与仍未覆盖的边界 |
+| --- | --- | --- |
+| 把高精度全局接触求解前置，研究精度挤占产品帧预算 | 移出在线前置，保留原研究/失败证据；先裸角色整帧，后既有 springbone，必要时才低分辨率布料 | 检查 G1 启动/帧链不依赖 QP；实际 mesh/衣缝/握持门禁仍保留 |
+| 公开树未直接带 source GLB，被误判为素材丢失 | 找回既有、已跟踪的 lossless gzip 与 hash-checked materializer，不制造替代角色 | 归档展开、正式恢复和 preflight 通过；真实应用加载未运行 |
+| hybrid GLB 静态部件被误判为运行时无骨骼 | 保留 mixed binding 与本 actor skeleton/bindMatrix 的七关节合同 | 要核验真实渲染身体/双脚，不以 GLB 静态元数据代替运行时结论 |
+| 浏览器 demo、CPU 回放、录像采样 fps 被当成桌面实时通过 | 接入真正 pet 窗口边界，分开 frame interval/update/render submission/设备类别 | 当前目标原生硬件未连接；禁止将软件 WebGL 或 Node 数字改写为 native pass |
+| 代理尾端安全被扩大为布面/接缝/握持安全 | 保留代理用于运行时近似，但由最终渲染几何和真实动作验收决定准入 | 每件、整套、动作及中断分别记录；零交叉采样不外推数学连续证明 |
+| Electron 二进制默认缓存安装报 ENOENT | 保留首次失败，明确用 `electron_config_cache=/tmp/bubu-electron-cache` 重跑既有安装脚本 | 锁文件 Electron 44.4.5 二进制安装成功；未升级工具链，也不等于 GUI 可运行 |
+| Chromium 的 process_singleton socket 被环境限制，且无 DISPLAY/Xvfb | 停止实际 GUI 验证，不关闭 sandbox、不换路径规避策略 | 实际帧/截图/WebGL 未运行，G1 未完成；准备工作和 Node 测试可独立继续 |
+| dev surface 位于 src 就被当成可分发 3D 产品 | 当前包仍不含研究资源；显式开发选择也拒绝打包模式 | 转生产前须 runtime 边界抽取、批准素材/依赖/恢复构建和 artifact layout 测试；本批未运行 |
+| 新 pet 页面未被原 IPC 精确文件授权承认 | 窗口与 pet IPC 共用闭合开发选择器；只在相同三重条件下替换 pet 文件身份，不扩成目录 allowlist | 真实 preload/scoped client/注册器测试拒绝旧页面、兄弟路径、popover、HTTP；原生发送者实际运行仍待验收 |
+| pagehide 清理器先移除了自己依赖的 unsubscribe handler | viewport 订阅由独立 owner 显式释放，pagehide/dispose 不靠将被销毁的监听器触发后续释放 | surface 测试覆盖 pagehide、重复 dispose、失败和迟到资源清理；终态只发一次 visible/dragging=false 呈现撤回，不写业务、不重试 |
+| 异步 hydration 先拒绝，而 stage 仍在加载 | 立即接拒绝处理；终态后迟到 stage 只清理，清理异常另记，不复活实例 | 早期拒绝、迟到成功/失败、抛错 cleanup 和帧失败回归通过 |
+| cue ACK 携带多余 reason 被闭合合同拒绝 | G1 不支持的 cue 只用 `decisionId/status` 明确 rejected，释放原 Director 所有权 | 实际 codec/IPC 测试通过；没有增加自报成功或宽泛 ACK |
+| 原身体宿主 blur 会冻结未聚焦桌宠 | surface 独占 blur 的手势取消，窄 pointerWindowPort 过滤身体宿主 blur/focus；可见 idle 继续 | 端口和 surface 用例通过；原生后台输入仍未验收 |
+| sealed frame 后 leave/失捕/窗口外释放使用了旧时刻 | canvas leave/lostcapture 及 window 外 up/cancel 在 capture 阶段采样同一实际时钟，不造 epsilon | 定向时钟边界用例通过；真实 OS 失捕/再抓仍待验收 |
+| 一个局部可运行结果被当作实时化完成 | G0→G5 保留完整范围，每批提交可审查的纵向结果与未关闭项 | 当前只是首批；未运行/失败/阻塞不折叠成“完成” |
+
+### 历史研究验证与归档（不属于本批在线前置）
+
+下面保留原研究入口与历史证据，用于有明确目的、范围和预算的离线复查。
+G0/G1 按上面的定向命令推进，不自动运行包含长时接触/布料研究的全量入口；
+需要重跑历史研究时先说明预期证据、运行上限和停止条件，不把旧方案重新设为启动依赖。
+
 应用的 `npm test` 明确覆盖 `test/`、`tools/` 和 `docs/reviews/` 的现有行为测试。
 `research/animation-0.1.0/` 是独立依赖与资产恢复包，不把旧快照自动混入应用测试。
 两套验证都需要运行，研究测试通过不能替代应用检查。

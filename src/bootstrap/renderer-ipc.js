@@ -3,13 +3,17 @@ const path = require('node:path');
 const { fileURLToPath } = require('node:url');
 const { createInterfacePreferencesRuntime } = require('./interface-preferences');
 const { createIpcRegistrar } = require('../application/ipc');
+const { selectPetRendererPage, readPetRendererSelection } = require('../platform/electron/windows/pet-renderer-selection');
 
 // Main supplies the renderer root and canonical reads; the existing registrar
 // still owns sender allowlists and closed payload admission.
-function createRendererIpcRegistrar({ rendererDirectory, ipcHost, allowedSurfacesFor, assertIpcPayload, readTasks, getSettings, interfaceHost }) {
+function createRendererIpcRegistrar({ rendererDirectory, ipcHost, allowedSurfacesFor, assertIpcPayload, readTasks, getSettings, interfaceHost, petRendererSelection = readPetRendererSelection() }) {
   const pages = Object.freeze(Object.fromEntries(Object.entries({ popover: 'popover', impulse: 'impulse', pet: 'pet',
     nudgeCorner: 'nudge-corner', nudgeFullscreen: 'nudge-fullscreen' })
-    .map(([surface, page]) => [surface, path.resolve(rendererDirectory, `${page}.html`)])));
+    .map(([surface, page]) => {
+      const pagePath = path.resolve(rendererDirectory, `${page}.html`);
+      return [surface, surface === 'pet' ? selectPetRendererPage({ ...petRendererSelection, pagePath }) : pagePath];
+    })));
   function senderPage(event) {
     try {
       const raw = event.senderFrame && event.senderFrame.url ? event.senderFrame.url : event.sender.getURL();

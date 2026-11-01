@@ -1,0 +1,175 @@
+import { createPetLifecycle } from '../lifecycle.mjs';
+import { createPetSync } from '../sync.mjs';
+import { resolveSensoryPolicy } from '../../../core/sensory-policy.mjs';
+import { createFrameMetrics } from './frame-metrics.mjs';
+
+/** One presentation owner in the actual pet surface. No canonical writes or private IPC. */
+export function createRealtimePetSurface({ environment, clients, loadStage }) {
+  const { document, window } = environment;
+  const canvas = document.getElementById('character'), status = document.getElementById('status');
+  const lifecycle = createPetLifecycle(environment), clock = { time: 0 };
+  const metrics = createFrameMetrics();
+  const context = { motionMode: 'reduced', stimulationMode: 'low', dnd: false, paused: false, screenLocked: false };
+  const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let stage = null, startPromise = null, closed = false, frame = null, ready = false;
+  let manualPaused = false, contextLost = false, dirty = true;
+  let lastNow = environment.performance.now(), lastFrame = null, failure = null;
+  let viewport = null, docked = false, unsubscribeViewport = null, lastPublication = null;
+  const errors = [];
+  const note = error => {
+    if (closed) return;
+    const message = error instanceof Error ? error.message : String(error);
+    if (errors.length === 8) errors.shift();
+    errors.push(message); status.textContent = `角色不可用：${message}`;
+    document.body.dataset.error = 'true';
+  };
+  const policy = () => {
+    const sensory = resolveSensoryPolicy({ ...context, systemReducedMotion: media.matches });
+    return { reducedMotion: sensory.calmVisuals, hidden: document.hidden || context.screenLocked || docked,
+      paused: manualPaused || context.paused || contextLost };
+  };
+  const continuous = () => { const value = policy(); return !value.hidden && !value.paused && !value.reducedMotion; };
+  function publishRuntime() {
+    if (closed) return;
+    const value = policy();
+    const runtime = { visible: ready && !value.hidden, menuOpen: false,
+      dragging: (stage?.readMode?.() ?? stage?.snapshot().state?.mode) === 'drag', prefersReducedMotion: value.reducedMotion };
+    const key = JSON.stringify(runtime);
+    if (key === lastPublication) return;
+    lastPublication = key;
+    Promise.resolve().then(() => { if (!closed) return clients.pet_updateRuntime(runtime); }).catch(note);
+  }
+  function cancelFrame() {
+    if (frame !== null) lifecycle.cancelAnimationFrame(frame);
+    frame = null;
+  }
+  function advanceClock(now) {
+    if (continuous()) clock.time += Math.min(.1, Math.max(0, (now - lastNow) / 1000));
+    lastNow = now;
+  }
+  function schedule() {
+    if (!closed && ready && frame === null && !failure && (dirty || continuous()) && !policy().hidden)
+      frame = lifecycle.requestAnimationFrame(drawFrame);
+  }
+  function fail(error) {
+    failure = error; note(error); cancelFrame();
+    try { stage?.suspend(); } catch (cleanup) { note(cleanup); }
+    dispose();
+  }
+  function drawFrame(now) {
+    frame = null;
+    if (closed || !stage || failure) return;
+    try {
+      advanceClock(now);
+      const value = policy();
+      if (!value.hidden && (dirty || continuous())) {
+        const before = environment.performance.now();
+        stage.update(clock.time, { hidden: value.paused, reducedMotion: value.reducedMotion });
+        const updated = environment.performance.now();
+        stage.render();
+        const rendered = environment.performance.now();
+        // No zero/paused interval is mixed into the continuous frame distribution.
+        if (continuous() && lastFrame !== null) metrics.record(now - lastFrame, updated - before, rendered - updated);
+        lastFrame = continuous() ? now : null;
+        status.textContent = value.paused ? '开发角色 · 已暂停' : value.reducedMotion ? '开发角色 · 静态策略' : '开发角色 · 实时';
+        dirty = false; publishRuntime();
+      }
+    } catch (error) { fail(error); }
+    schedule();
+  }
+  function refresh() {
+    if (closed) return;
+    lastNow = environment.performance.now(); lastFrame = null; dirty = true;
+    cancelFrame();
+    try { if (!continuous()) stage?.suspend(); } catch (error) { fail(error); }
+    publishRuntime(); schedule();
+  }
+  function cancel() {
+    if (closed || !stage || failure) return;
+    try { stage.cancel(); refresh(); } catch (error) { fail(error); }
+  }
+  function pause(value = !manualPaused) {
+    if (closed) return;
+    manualPaused = Boolean(value);
+    document.getElementById('pause').textContent = manualPaused ? '继续' : '暂停';
+    refresh();
+  }
+  function applyViewport(value) {
+    if (closed || !value || !Number.isFinite(value.stageOffset?.x) || !Number.isFinite(value.stageOffset?.y)) return;
+    viewport = { width: value.width, height: value.height, stageOffset: { ...value.stageOffset } };
+    document.documentElement.style.setProperty('--stage-dx', `${value.stageOffset.x}px`);
+    document.documentElement.style.setProperty('--stage-dy', `${value.stageOffset.y}px`);
+    try { stage?.resize(); refresh(); } catch (error) { fail(error); }
+  }
+  const sync = createPetSync({ client: clients,
+    onSync(data) { Object.assign(context, data); refresh(); },
+    onDock(data) { docked = Boolean(data?.edge); refresh(); },
+    onCue(cue) {
+      // G1 has no action adapter: explicitly reject, never leave Director's lease pending.
+      if (cue?.decisionId) Promise.resolve().then(() => { if (!closed) return clients.pet_ackCue({ decisionId: cue.decisionId, status: 'rejected' }); }).catch(note);
+    }
+  });
+  function dispose() {
+    if (closed) return;
+    closed = true; ready = false;
+    // Retire the published presentation lease; no business mutation or retry.
+    Promise.resolve().then(() => clients.pet_updateRuntime({ visible: false, menuOpen: false,
+      dragging: false, prefersReducedMotion: policy().reducedMotion })).catch(error => {
+      if (errors.length === 8) errors.shift();
+      errors.push(`Terminal runtime publication failed: ${error.message}`);
+    });
+    const failures = [];
+    for (const release of [() => lifecycle.dispose(), () => sync.dispose(),
+      () => { unsubscribeViewport?.(); unsubscribeViewport = null; }, () => stage?.dispose()]) {
+      try { release(); } catch (error) { failures.push(error); }
+    }
+    frame = null;
+    if (failures.length) errors.push(`Realtime surface cleanup failed: ${failures.map(error => error.message).join('; ')}`);
+  }
+  async function initialize() {
+    try {
+      sync.connect();
+      unsubscribeViewport = clients.onPetViewport(applyViewport);
+      lifecycle.listen(window, 'pagehide', dispose, { once: true });
+      lifecycle.listen(window, 'blur', cancel);
+      lifecycle.listen(window, 'focus', refresh);
+      lifecycle.listen(document, 'visibilitychange', refresh);
+      lifecycle.listen(window, 'resize', () => { try { stage?.resize(); refresh(); } catch (error) { fail(error); } });
+      lifecycle.listen(media, 'change', refresh);
+      lifecycle.listen(window, 'keydown', event => { if (event.key === 'Escape') { event.preventDefault(); cancel(); } });
+      lifecycle.listen(canvas, 'webglcontextlost', event => { event.preventDefault(); contextLost = true; refresh(); });
+      lifecycle.listen(canvas, 'webglcontextrestored', () => { contextLost = false; refresh(); });
+      lifecycle.listen(document.getElementById('pause'), 'click', () => pause());
+      lifecycle.listen(document.getElementById('cancel'), 'click', cancel);
+      lifecycle.listen(document.getElementById('panel'), 'click', () => { Promise.resolve().then(() => { if (!closed) return clients.pet_openPanel(); }).catch(note); });
+      for (const type of ['pointerdown', 'pointermove', 'pointerup', 'pointercancel', 'pointerleave', 'lostpointercapture'])
+        lifecycle.listen(canvas, type, () => advanceClock(environment.performance.now()), { capture: true });
+      for (const type of ['pointerup', 'pointercancel'])
+        lifecycle.listen(window, type, () => advanceClock(environment.performance.now()), { capture: true });
+      const ticket = sync.beginHydration();
+      // Attach a rejection handler before awaiting the independent stage load.
+      const hydration = Promise.resolve().then(() => clients.pet_getState()).then(
+        value => ({ value }), error => ({ error }));
+      stage = await loadStage({ canvas, clock, environment });
+      if (closed) {
+        const late = stage; stage = null;
+        try { late.dispose(); } catch (error) { errors.push(`Late stage cleanup failed: ${error.message}`); }
+        return false;
+      }
+      const hydrated = await hydration;
+      if (closed) return false;
+      if (hydrated.error) throw hydrated.error;
+      sync.hydrate(hydrated.value, ticket);
+      ready = true; document.documentElement.dataset.ready = 'true'; refresh();
+      return true;
+    } catch (error) { if (!closed) { fail(error); dispose(); } return false; }
+  }
+  return Object.freeze({
+    start() { if (closed) return Promise.resolve(false); return startPromise ??= initialize(); },
+    pause, cancel, dispose,
+    snapshot: () => ({ ready, closed, time: clock.time, policy: policy(), context: { ...context }, viewport,
+      frameScheduled: frame !== null, error: failure?.message ?? null, errors: [...errors],
+      metrics: metrics.snapshot(), stage: stage?.snapshot() ?? null,
+      productionAccepted: false, nativePerformanceAccepted: false })
+  });
+}
