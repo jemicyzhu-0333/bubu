@@ -8,13 +8,16 @@ export async function createThreeStage({ canvas, clock, environment }) {
   const pool = new FoundationPool({ maxActors: 1 });
   const scene = new T.Scene();
   const camera = new T.OrthographicCamera(-2.5, 2.5, 4, -1, .01, 100);
-  camera.position.set(0, 0, 8); camera.lookAt(0, 0, 0);
+  camera.position.set(0, 0, 8); camera.lookAt(0, 0, 0); camera.updateMatrixWorld(true);
   scene.add(new T.HemisphereLight(0xfff9e6, 0x718778, 2.1));
   const key = new T.DirectionalLight(0xfff9ed, 2.4); key.position.set(3, 5, 8); scene.add(key);
   const fill = new T.DirectionalLight(0xffffff, .8); fill.position.set(-3, 2, 4); scene.add(fill);
   let actor, disposed = false, renderedFrames = 0;
   const errors = [];
-  renderer.debug.onShaderError = (gl, program) => { errors.push(gl.getProgramInfoLog(program) || 'shader failure'); };
+  renderer.debug.onShaderError = (gl, program) => {
+    if (errors.length === 8) errors.shift();
+    errors.push((gl.getProgramInfoLog(program) || 'shader failure').slice(0, 2048));
+  };
   const resize = () => {
     const rect = canvas.getBoundingClientRect();
     renderer.setPixelRatio(Math.min(environment.devicePixelRatio || 1, 2));
@@ -51,7 +54,28 @@ export async function createThreeStage({ canvas, clock, environment }) {
     renderer: extension ? gl.getParameter(extension.UNMASKED_RENDERER_WEBGL) : 'unavailable',
     vendor: extension ? gl.getParameter(extension.UNMASKED_VENDOR_WEBGL) : 'unavailable',
     userAgent: environment.navigator.userAgent, targetHardware: 'unverified' });
+  function bodyTarget() {
+    if (disposed) return null;
+    const rect = canvas.getBoundingClientRect();
+    if (![rect.left, rect.top, rect.width, rect.height].every(Number.isFinite) || rect.width <= 0 || rect.height <= 0) return null;
+    const projected = actor.f.h.body.skin.localToWorld(new T.Vector3(-.2, 1.4, 0)).project(camera);
+    if (![projected.x, projected.y, projected.z].every(Number.isFinite)
+      || Math.abs(projected.x) > 1 || Math.abs(projected.y) > 1 || Math.abs(projected.z) > 1) return null;
+    const x = rect.left + (projected.x + 1) * rect.width / 2;
+    const y = rect.top + (1 - projected.y) * rect.height / 2;
+    if (x < 0 || y < 0 || Number.isFinite(environment.innerWidth) && x > environment.innerWidth
+      || Number.isFinite(environment.innerHeight) && y > environment.innerHeight) return null;
+    return { x, y };
+  }
+  function readDiagnostics() {
+    const state = actor.f.h.state;
+    return { mode: state.mode, pointerId: state.pointerId, captured: state.captured,
+      pendingCount: actor.f.h.pendingCount, renderedFrames, errors: [...errors],
+      resources: { geometries: renderer.info.memory.geometries, textures: renderer.info.memory.textures },
+      pool: pool.diagnostics(), graphics: { ...graphics }, inputTargets: { body: bodyTarget() } };
+  }
   return Object.freeze({
+    readDiagnostics,
     update(time, policy) { actor.step(time, policy); },
     render() { renderer.render(scene, camera); if (errors.length) throw new Error(errors.join('; ')); renderedFrames++; },
     readMode: () => actor.f.h.state.mode,

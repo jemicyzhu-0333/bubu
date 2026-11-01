@@ -1129,6 +1129,61 @@ companion/execution/preferences 能力负责。surface 拥有一个时钟、一�
 四关节四元数和 wrapper：肩 0.2 rad、髋 0.14 rad、整体 0.1 rad，不写 mesh、face
 或 material。任何兼容性变更须先记录具体反例、影响及独立复查，不能借实时化重画角色。
 
+### 脚本化真实应用采集边界（G1 证据补齐）
+
+`tools/pet-realtime-capture/` 是有界的开发验证工具，不是另一套角色演示或生产运行时。
+`run.mjs` 用 Node 在本次私有 runRoot 下固定派生 `fixture/profile-dev`，通过窄的
+`createDisposableProfile` 目录分配能力铸造 canonical schema20、idle、空业务、全部 AI 关闭的
+SQL/身份 fixture，不接受外部 profile 或任意 inode JSON 作为所有权证据。
+`handoff.cjs` 用本次新铸 HMAC token 绑定 request、初始目录 inode、两数据库哈希及 fixture
+身份；token 仅经本次子进程环境传递，不写文件/报告。子进程一次性原子 claim 后，只接受
+WeakMap 中精确的 consumed request 对象；外部 proof 路径在任何对应 FS 访问前拒绝。
+后续 ownership 核目录/claim marker/凭据缺席，不重新读取已由真实应用接管并可能写入的 SQL。
+`electron-main.cjs` 复用 `tools/dev-bench/orchestration.js` 启动真实应用 main 和既有 pet window。
+`window-port.cjs` 只接触本次精确页面、持有的 webContents 与仍匹配身份的 fixture；
+每次 await 后检查代次/instance 身份，旧 reload、截图或诊断响应不能落入新实例。
+只从固定模块的只读诊断口读取 seq/epoch、帧、有限事件与资源计数，不导出 canonical context，
+不添加业务 IPC 或 `window` 全局。固定 pause/cancel/dispose 控制只属于采集器自己的呈现实例。
+
+fixture isolation 必须同时满足 development、未打包/defaultApp、精确 userData/sessionData
+及创建者提供的目录身份核验；任何漂移使隔离失败关闭。它只在本次进程限制既有 OS 适配器，
+不是通用服务替换器。全局快捷键、tray、通知、开机启动读写与开发热重载被抑制；
+AI 全部关闭，自动更新、活动镜像、quick panel、声音关闭，DND 开启、自动伙伴活动关闭。
+只允许七条已有初始化/呈现 IPC：`settings:get-interface`、`pet:getState`、`pet:getContent`、
+`pet:getBounds`、`pet:getFeedState`、`pet:updateRuntime`、`pet:cueAck`；仍执行原 sender/payload
+校验，其他业务、AI、凭据、更新路径拒绝。新 profile 凭据文件必须不存在；子进程环境
+仅转发固定 OS/display/locale 白名单，另传新铸一次性 handoff token，使用私有 HOME，
+不继承 API 密钥、NODE_OPTIONS 或外部 npm token，不枚举/导出环境。报告不含 hostname、
+账户或其他桌面窗口内容；renderer console 仅记固定错误码，不收自由文本，其他诊断进行
+secret/auth-URL/path 脱敏。不得增加 remote debugging、`--no-sandbox`
+或关闭 webSecurity 来让采集“成功”。正常应用路径在未安装该严格 scope 时保持原行为。
+
+默认准备段只做前置检查，不隐式安装依赖或恢复模型。显式 `--prepare` 才在独立 300 秒
+预算内执行 root/research 锁文件 `npm ci --ignore-scripts`、锁定 Electron 二进制安装、
+Node 内建 fs/zlib/crypto 的 D2 恢复及既有 preflight；不升级工具链，要求已有 Node 24+/npm，
+不要求安装 Python。脚本管理的准备子进程使用私有空 npm userconfig/globalconfig；
+root/research 若存在项目 `.npmrc` 或 `npm-shrinkwrap.json` 则不读取并拒绝 prepare，
+不向这些子进程继承未知注册表/安装钩子配置。用户最外层启动的 `npm run` 本身仍可能按
+npm 正常规则读取配置；本工具不接管这一外层行为，也不收集其配置内容。
+Node `materialize-d2.mjs` 和保留的 Python materializer 共读
+`runtime-facepath05/tools/approved-d2-source.json`：原 archive/output 的大小和 SHA 不变，
+正确目标不重写，错误目标不覆盖；拒绝符号链接、身份漂移、解压超限和取消，独占临时文件
+经完整校验后原子发布。失败不得拿替代素材继续。
+
+采集应用另有 180 秒总预算，包含启动、固定场景、dispose、两次 reload 与进程树清理；
+准备预算不与稳定帧样本混计。父进程只监督自己创建的进程/private group，超时或中断后
+等待真实 close 与可确认清理；无法确认则报告 unknown/failure 并保留自有目录，不删除
+仍可能在用的 profile。Windows 仅在根进程正常 code0/exited、已实际 reaped，且唯一未知原因
+精确为“正常退出后的 descendants 未验证”时，允许在原预算内继续准备/采集；unknown 在整轮
+保持 sticky，保留全部自有目录，最终 `capture-complete-cleanup-unverified` / exit2，不是 pass，
+也不自动等同已经泄漏。非零、timeout 或权限拒绝仍停止，不能将任意 unknown 放宽成可继续。
+profile 清理拒绝后不得继续递归删除 runRoot；runRoot 删除异常也必须记录
+`directoryCleanup.confirmed=false` 及固定原因码，继续生成合法结果包。若删除已部分执行，
+只保留剩余项，不能承诺目录完整未删；完成结果降为 cleanup-unverified/exit2，已有 partial
+保持 partial，不因清理分支升级。普通 `exited` 不是 timeout。报表通过 schema/canonical SHA256
+核验后以单一 `.json.gz` 独占原子发布，不覆盖旧结果；setup failure/中断同样尽量保留失败包。
+具体场景、限额、用户执行入口和证据解释见 VALIDATION「脚本采集与回传」。
+
 ### 历史研究合同与证据边界
 
 以下研究实现和精确接触合同保留用于身份校验、失败复现和必要的离线审计；

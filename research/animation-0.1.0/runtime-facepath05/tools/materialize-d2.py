@@ -9,12 +9,16 @@ import os
 from pathlib import Path
 
 RUNTIME = Path(__file__).resolve().parents[1]
-ARCHIVE = RUNTIME.parent / 'expression-library/d2-style-variant/asset/bubu-full18-d2-static-blush.glb.gz'
-TARGET = RUNTIME / 'fixtures/face-d2/asset.glb'
-EXPECTED = '84ec5d8608f21e43bf06df26b8b2f81124909ebb39c77bb9cc153aca17319a3a'
-ARCHIVE_SHA = 'a0ce0c1acdca8d3d7240d91b7b2285a0de0e65c09e0ed7a9f221a5c905b5f839'
-SIZE = 16867596
-ARCHIVE_SIZE = 10915162
+# The capture Node adapter and this historical research entry share exact identities.
+CONTRACT = json.loads((Path(__file__).parent / 'approved-d2-source.json').read_text())
+if CONTRACT.get('schemaVersion') != 1:
+    raise SystemExit('Unsupported approved D2 source contract')
+ARCHIVE = RUNTIME.parent / CONTRACT['archive']['path']
+TARGET = RUNTIME.parent / CONTRACT['output']['path']
+EXPECTED = CONTRACT['output']['sha256']
+ARCHIVE_SHA = CONTRACT['archive']['sha256']
+SIZE = CONTRACT['output']['bytes']
+ARCHIVE_SIZE = CONTRACT['archive']['bytes']
 
 def sha(path):
     h = hashlib.sha256()
@@ -56,7 +60,8 @@ def main():
             os.fsync(out.fileno())
         if count != SIZE or h.hexdigest() != EXPECTED:
             raise ValueError('Expanded asset size/hash mismatch')
-        temp.replace(TARGET)
+        # Exclusive atomic publication; never overwrite a concurrently created target.
+        os.link(temp, TARGET)
     finally:
         if temp.exists():
             temp.unlink()

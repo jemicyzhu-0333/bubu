@@ -2,6 +2,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { defaultStoragePath } = require('../../core/runtime-profile');
+const { readFixtureIsolation, recordFixtureSuppression } = require('./dev/fixture-isolation');
 const { configureNativeBranding } = require('./native-branding');
 
 const APP_EVENTS = Object.freeze({
@@ -143,9 +144,16 @@ function createAppHost({ app = require('electron').app, platform = process.platf
       else app.once('ready', hide);
       return true;
     },
-    openAtLogin: () => app.getLoginItemSettings().openAtLogin === true,
+    openAtLogin: () => {
+      if (readFixtureIsolation()) { recordFixtureSuppression('loginRead'); return false; }
+      return app.getLoginItemSettings().openAtLogin === true;
+    },
     setOpenAtLogin: enabled => {
       if (typeof enabled !== 'boolean') throw new TypeError('open-at-login must be boolean');
+      if (readFixtureIsolation()) {
+        recordFixtureSuppression('loginWrite');
+        throw new Error('fixture-login-write-disabled');
+      }
       app.setLoginItemSettings({ openAtLogin: enabled });
       return true;
     },

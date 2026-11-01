@@ -9,6 +9,47 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
   const canvas = document.getElementById('character'), status = document.getElementById('status');
   const lifecycle = createPetLifecycle(environment), clock = { time: 0 };
   const metrics = createFrameMetrics();
+  let instanceId = 'unavailable';
+  try {
+    const id = environment.crypto?.randomUUID?.();
+    if (typeof id === 'string' && id.length > 0 && id.length <= 128) instanceId = id;
+  } catch { /* A collector must reject unknown generation identity, not guess it. */ }
+  const auditRows = new Array(512);
+  let auditTotal = 0, auditCount = 0, auditCursor = 0, lastMode = null, lastPolicy = null, terminalStage = null;
+  function audit(type, fields = {}) {
+    const atMs = environment.performance.now();
+    const row = { sequence: ++auditTotal, atMs: Number.isFinite(atMs) && atMs >= 0 ? atMs : null, type };
+    if (Number.isSafeInteger(fields.pointerId) && fields.pointerId >= 0) row.pointerId = fields.pointerId;
+    if (typeof fields.isTrusted === 'boolean') row.isTrusted = fields.isTrusted;
+    if (typeof fields.mode === 'string' && fields.mode.length <= 64) row.mode = fields.mode;
+    auditRows[auditCursor] = Object.freeze(row); auditCursor = (auditCursor + 1) % 512;
+    auditCount = Math.min(512, auditCount + 1);
+  }
+  function readEvents() {
+    const oldest = (auditCursor - auditCount + 512) % 512;
+    return { total: auditTotal, overwritten: auditTotal - auditCount,
+      rows: Array.from({ length: auditCount }, (_, index) => ({ ...auditRows[(oldest + index) % 512] })) };
+  }
+  // Terminal retention contains only bounded counters/flags, never scene or buffer references.
+  function counters(value, depth = 0) {
+    if (value === null || typeof value === 'boolean') return value;
+    if (typeof value === 'number') return Number.isFinite(value) ? value : null;
+    if (!value || typeof value !== 'object' || depth > 4) return null;
+    if (Array.isArray(value)) return value.slice(0, 8).map(child => counters(child, depth + 1));
+    return Object.fromEntries(Object.entries(value).slice(0, 32)
+      .filter(([, child]) => typeof child !== 'string' && typeof child !== 'function')
+      .map(([key, child]) => [key, counters(child, depth + 1)]));
+  }
+  function captureTerminal(owner) {
+    try {
+      const value = owner?.readDiagnostics?.();
+      if (value) terminalStage = { mode: typeof value.mode === 'string' ? value.mode.slice(0, 64) : 'unavailable',
+        pointerId: Number.isSafeInteger(value.pointerId) && value.pointerId >= 0 ? value.pointerId : null,
+        captured: Boolean(value.captured), pendingCount: counters(value.pendingCount),
+        renderedFrames: counters(value.renderedFrames), resources: counters(value.resources), pool: counters(value.pool) };
+    } catch (error) { errors.push(`Terminal diagnostics failed: ${error.message}`); }
+  }
+  audit('created');
   const context = { motionMode: 'reduced', stimulationMode: 'low', dnd: false, paused: false, screenLocked: false };
   const media = window.matchMedia('(prefers-reduced-motion: reduce)');
   let stage = null, startPromise = null, closed = false, frame = null, ready = false;
@@ -52,7 +93,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
       frame = lifecycle.requestAnimationFrame(drawFrame);
   }
   function fail(error) {
-    failure = error; note(error); cancelFrame();
+    failure = error; audit('failed'); note(error); cancelFrame();
     try { stage?.suspend(); } catch (cleanup) { note(cleanup); }
     dispose();
   }
@@ -65,11 +106,13 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
       if (!value.hidden && (dirty || continuous())) {
         const before = environment.performance.now();
         stage.update(clock.time, { hidden: value.paused, reducedMotion: value.reducedMotion });
+        const mode = stage.readMode?.() ?? stage.snapshot().state?.mode;
+        if (mode !== lastMode) { lastMode = mode; audit('mode', { mode }); }
         const updated = environment.performance.now();
         stage.render();
         const rendered = environment.performance.now();
         // No zero/paused interval is mixed into the continuous frame distribution.
-        if (continuous() && lastFrame !== null) metrics.record(now - lastFrame, updated - before, rendered - updated);
+        if (continuous() && lastFrame !== null) metrics.record(now - lastFrame, updated - before, rendered - updated, now);
         lastFrame = continuous() ? now : null;
         status.textContent = value.paused ? '开发角色 · 已暂停' : value.reducedMotion ? '开发角色 · 静态策略' : '开发角色 · 实时';
         dirty = false; publishRuntime();
@@ -81,12 +124,15 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
     if (closed) return;
     lastNow = environment.performance.now(); lastFrame = null; dirty = true;
     cancelFrame();
-    try { if (!continuous()) stage?.suspend(); } catch (error) { fail(error); }
+    try { if (!continuous()) stage?.suspend(); } catch (error) { fail(error); return; }
+    const value = policy(), policyKey = [value.hidden ? 'hidden' : 'visible', value.paused ? 'paused' : 'running',
+      value.reducedMotion ? 'reduced' : 'full'].join('/');
+    if (policyKey !== lastPolicy) { lastPolicy = policyKey; audit('policy', { mode: policyKey }); }
     publishRuntime(); schedule();
   }
   function cancel() {
     if (closed || !stage || failure) return;
-    try { stage.cancel(); refresh(); } catch (error) { fail(error); }
+    try { stage.cancel(); audit('cancel'); refresh(); } catch (error) { fail(error); }
   }
   function pause(value = !manualPaused) {
     if (closed) return;
@@ -123,7 +169,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
       () => { unsubscribeViewport?.(); unsubscribeViewport = null; }, () => stage?.dispose()]) {
       try { release(); } catch (error) { failures.push(error); }
     }
-    frame = null;
+    frame = null; captureTerminal(stage); audit('disposed');
     if (failures.length) errors.push(`Realtime surface cleanup failed: ${failures.map(error => error.message).join('; ')}`);
   }
   async function initialize() {
@@ -143,9 +189,15 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
       lifecycle.listen(document.getElementById('cancel'), 'click', cancel);
       lifecycle.listen(document.getElementById('panel'), 'click', () => { Promise.resolve().then(() => { if (!closed) return clients.pet_openPanel(); }).catch(note); });
       for (const type of ['pointerdown', 'pointermove', 'pointerup', 'pointercancel', 'pointerleave', 'lostpointercapture'])
-        lifecycle.listen(canvas, type, () => advanceClock(environment.performance.now()), { capture: true });
+        lifecycle.listen(canvas, type, event => {
+          advanceClock(environment.performance.now());
+          if (type !== 'pointermove') audit(type, { pointerId: event.pointerId, isTrusted: event.isTrusted });
+        }, { capture: true });
       for (const type of ['pointerup', 'pointercancel'])
-        lifecycle.listen(window, type, () => advanceClock(environment.performance.now()), { capture: true });
+        lifecycle.listen(window, type, event => {
+          advanceClock(environment.performance.now());
+          if (event.target !== canvas) audit(type, { pointerId: event.pointerId, isTrusted: event.isTrusted });
+        }, { capture: true });
       const ticket = sync.beginHydration();
       // Attach a rejection handler before awaiting the independent stage load.
       const hydration = Promise.resolve().then(() => clients.pet_getState()).then(
@@ -154,19 +206,26 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
       if (closed) {
         const late = stage; stage = null;
         try { late.dispose(); } catch (error) { errors.push(`Late stage cleanup failed: ${error.message}`); }
+        captureTerminal(late);
         return false;
       }
       const hydrated = await hydration;
       if (closed) return false;
       if (hydrated.error) throw hydrated.error;
       sync.hydrate(hydrated.value, ticket);
-      ready = true; document.documentElement.dataset.ready = 'true'; refresh();
+      ready = true; document.documentElement.dataset.ready = 'true'; audit('ready'); refresh();
       return true;
     } catch (error) { if (!closed) { fail(error); dispose(); } return false; }
   }
   return Object.freeze({
     start() { if (closed) return Promise.resolve(false); return startPromise ??= initialize(); },
     pause, cancel, dispose,
+    readDiagnostics(options) {
+      const frames = metrics.readSince(options);
+      return { schemaVersion: 1, instanceId, ready, closed, time: clock.time, frameScheduled: frame !== null, policy: policy(), frames,
+        stage: closed ? (terminalStage ? structuredClone(terminalStage) : null) : stage?.readDiagnostics?.() ?? null,
+        events: readEvents(), errors: errors.slice(-8).map(message => String(message).slice(0, 2048)) };
+    },
     snapshot: () => ({ ready, closed, time: clock.time, policy: policy(), context: { ...context }, viewport,
       frameScheduled: frame !== null, error: failure?.message ?? null, errors: [...errors],
       metrics: metrics.snapshot(), stage: stage?.snapshot() ?? null,

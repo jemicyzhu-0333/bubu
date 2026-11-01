@@ -7,7 +7,7 @@ const { GROWTH, levelCost } = require('../../src/content/growth-policy.mjs');
 const { localDayKey, addDaysToKey } = require('../../src/core/calendar');
 
 const SCENARIOS = Object.freeze([
-  'all', 'hungry', 'full', 'flame-near',
+  'all', 'hungry', 'full', 'flame-near', 'realtime-capture',
   'recurring', 'menu', 'heatmap', 'level-up', 'form-usagi', 'focus-landing'
 ]);
 
@@ -15,6 +15,16 @@ function buildScenario(scenario, now) {
   if (!SCENARIOS.includes(scenario)) throw new RangeError(`unknown dev scenario: ${scenario}`);
   const state = normalizePersistedState({}, { now });
   state.settings.autoCheckUpdates = false;
+  if (scenario === 'realtime-capture') {
+    Object.assign(state.settings, {
+      motionMode: 'full', stimulationMode: 'balanced', petActivityMode: 'off',
+      dnd: true, soundEnabled: false, quickPanelEnabled: false,
+      routineRemindersEnabled: false, workEndReminder: false,
+      activityMirrorEnabled: false, aiBreakdownEnabled: false, aiClarifyEnabled: false,
+      aiMemoryEnabled: false, aiImpulseEnergyEnabled: false,
+      aiCaptureTriageEnabled: false, aiPetMealsEnabled: false, aiBaseUrl: null
+    });
+  }
   const today = localDayKey(now);
   let sequence = 0;
   const policy = {

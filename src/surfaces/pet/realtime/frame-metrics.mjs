@@ -41,26 +41,70 @@ export function createFrameMetrics({ capacity = 600, frameTargetMs = 16.7, runti
   }
   const labels = runtimeLabels(runtime);
   const columns = Object.fromEntries(Object.keys(SOURCES).map(key => [key, new Float64Array(capacity)]));
-  let cursor = 0, count = 0, totalRecorded = 0;
+  const timestamps = new Float64Array(capacity);
+  let cursor = 0, count = 0, totalRecorded = 0, lastSequence = 0, epoch = 0;
+  const firstRetainedSequence = () => count ? lastSequence - count + 1 : null;
+  function readSince(options = {}) {
+    if (!options || Object.getPrototypeOf(options) !== Object.prototype
+      || Reflect.ownKeys(options).some(key => !['afterSequence', 'limit'].includes(key))) {
+      throw new TypeError('sample cursor accepts only afterSequence and limit');
+    }
+    const { afterSequence = 0, limit = 600 } = options;
+    if (!Number.isSafeInteger(afterSequence) || afterSequence < 0 || afterSequence > lastSequence) {
+      throw new RangeError('sample cursor must be a nonnegative safe integer no later than lastSequence');
+    }
+    if (!Number.isInteger(limit) || limit < 1 || limit > 3600) {
+      throw new RangeError('sample page limit must be an integer in 1..3600');
+    }
+    const first = firstRetainedSequence();
+    const start = count ? Math.max(0, afterSequence - first + 1) : 0;
+    const length = Math.min(limit, count - start);
+    const oldest = (cursor - count + capacity) % capacity;
+    const rows = [];
+    for (let offset = start; offset < start + length; offset++) {
+      const index = (oldest + offset) % capacity;
+      rows.push(Object.freeze({ sequence: first + offset,
+        atMs: Number.isNaN(timestamps[index]) ? null : timestamps[index],
+        frameIntervalMs: columns.frameIntervalMs[index], updateMs: columns.updateMs[index],
+        renderSubmissionMs: columns.renderSubmissionMs[index] }));
+    }
+    return Object.freeze({ schemaVersion: 1, rows: Object.freeze(rows), epoch, totalRecorded,
+      firstRetainedSequence: first, lastSequence,
+      // Counts all missing recorded rows after the cursor, including reset-cleared
+      // rows. Reading never advances a cursor or removes samples. Empty resets
+      // have no missing rows but remain observable through the changed epoch.
+      overwrittenSinceCursor: Math.max(0, (first === null ? lastSequence : first - 1) - afterSequence),
+      remaining: count - start - length, windowCapacity: capacity });
+  }
   return Object.freeze({
-    record(frameIntervalMs, updateMs, renderSubmissionMs) {
+    record(frameIntervalMs, updateMs, renderSubmissionMs, atMs = null) {
       const values = [frameIntervalMs, updateMs, renderSubmissionMs];
       if (values.some(value => !Number.isFinite(value) || value < 0)) {
         throw new TypeError('frame durations must be finite and nonnegative');
       }
+      if (atMs !== null && (!Number.isFinite(atMs) || atMs < 0)) {
+        throw new TypeError('sample timestamp must be null or finite and nonnegative');
+      }
+      if (lastSequence === Number.MAX_SAFE_INTEGER) throw new RangeError('sample sequence exhausted');
       Object.keys(columns).forEach((key, index) => { columns[key][cursor] = values[index]; });
+      timestamps[cursor] = atMs === null ? NaN : atMs;
       cursor = (cursor + 1) % capacity;
       count = Math.min(capacity, count + 1);
-      totalRecorded++;
+      totalRecorded++; lastSequence++;
     },
+    readSince,
     snapshot() {
       return Object.freeze({
-        capacity, samples: count, totalRecorded, frameTargetMs, runtime: labels,
+        capacity, samples: count, totalRecorded, epoch, lastSequence,
+        firstRetainedSequence: firstRetainedSequence(), frameTargetMs, runtime: labels,
         window: 'most recent samples; counts and quantiles exclude overwritten samples',
         quantileMethod: 'nearest-rank', units: 'milliseconds', sources: SOURCES,
         ...Object.fromEntries(Object.entries(columns).map(([key, buffer]) => [key, summarize(buffer, count, frameTargetMs)]))
       });
     },
-    reset() { cursor = 0; count = 0; totalRecorded = 0; }
+    reset() {
+      if (epoch === Number.MAX_SAFE_INTEGER) throw new RangeError('sample epoch exhausted');
+      cursor = 0; count = 0; totalRecorded = 0; epoch++;
+    }
   });
 }

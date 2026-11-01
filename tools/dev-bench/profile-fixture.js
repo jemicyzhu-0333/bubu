@@ -43,13 +43,14 @@ function assertAuthority(profile, owned) {
   if (hash(owned.identityPath) !== owned.identityHash) throw new Error('fixture-identity-changed');
 }
 
-function createDisposableProfile(options = {}, { repositoryFactory = createSqliteStateAdapter } = {}) {
+function createDisposableProfile(options = {}, { repositoryFactory = createSqliteStateAdapter, allocateDirectory = fs.mkdtempSync } = {}) {
+  if (typeof allocateDirectory !== 'function') throw new TypeError('fixture-directory-port-invalid');
   const { scenario = 'all', purpose = 'bench', now = Date.now() } = options;
   if (Object.keys(options).some(key => !['scenario', 'purpose', 'now'].includes(key))) throw new TypeError('fixture-options-invalid');
   if (!SCENARIOS.includes(scenario) || !['bench', 'install'].includes(purpose)
     || !Number.isSafeInteger(now) || now < 0) throw new TypeError('fixture-options-invalid');
   const initial = buildScenario(scenario, now);
-  const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), `bubu-${purpose}-`)));
+  const root = fs.realpathSync(allocateDirectory(path.join(os.tmpdir(), `bubu-${purpose}-`)));
   const userDataPath = path.join(root, 'profile-dev');
   fs.mkdirSync(userDataPath);
   const repository = repositoryFactory({ userDataPath, now: () => now });
@@ -119,4 +120,5 @@ function removeDisposableProfile(profile) {
   ownedProfiles.delete(profile);
 }
 
-module.exports = { createDisposableProfile, readDisposableProfile, removeDisposableProfile };
+function assertDisposableProfileOwnership(profile) { assertOwned(profile); return true; }
+module.exports = { createDisposableProfile, readDisposableProfile, removeDisposableProfile, assertDisposableProfileOwnership };

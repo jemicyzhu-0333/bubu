@@ -1,4 +1,5 @@
 'use strict';
+const { readFixtureIsolation, recordFixtureSuppression } = require('./dev/fixture-isolation');
 
 function createShortcutHost({ globalShortcut = require('electron').globalShortcut } = {}) {
   if (!globalShortcut
@@ -30,6 +31,10 @@ function createShortcutHost({ globalShortcut = require('electron').globalShortcu
       seen.add(binding.accelerator);
     }
 
+    if (readFixtureIsolation()) {
+      recordFixtureSuppression('shortcutRegisterAll');
+      return Object.freeze({ ok: true, failed: Object.freeze([]), suppressed: true });
+    }
     const failed = [];
     for (const { accelerator, handler } of bindings) {
       try {
@@ -57,6 +62,7 @@ function createShortcutHost({ globalShortcut = require('electron').globalShortcu
     if (typeof accelerator !== 'string' || accelerator.length === 0 || typeof handler !== 'function') {
       throw new TypeError('a claimed shortcut requires an accelerator and handler');
     }
+    if (readFixtureIsolation()) { recordFixtureSuppression('shortcutClaim'); return null; }
     // Never take a chord an app-wide binding already owns: releasing it later
     // would silently disarm that binding for the rest of the session.
     try {
@@ -92,7 +98,8 @@ function createShortcutHost({ globalShortcut = require('electron').globalShortcu
   function dispose() {
     if (disposed) return false;
     disposed = true;
-    globalShortcut.unregisterAll();
+    if (readFixtureIsolation()) recordFixtureSuppression('shortcutDispose');
+    else globalShortcut.unregisterAll();
     return true;
   }
 

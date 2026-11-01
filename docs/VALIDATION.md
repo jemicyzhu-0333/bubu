@@ -222,10 +222,11 @@ macOS 构建门禁必须对产出 app 和 DMG 复制出的 app 分别执行 `cod
 ### 实时桌宠分批验收（2026-11-01）
 
 本节是当前实时路线的门禁与踩坑台账；后文旧计数、求解实验和帧率仅为历史证据。
-当前本地分支从远端 `feature/pet-animation-v2` 的
-`33a04d35ba66984663604961c0c619937d70ede0` 隔离创建；同次远端默认 HEAD 为
-`1a66a0d3b7a51b19ac843b80f6629d0eb20eeb18`，不将两者混为同一基线，不合并、发布或覆盖
-其他分支。结果还须绑定最终本地提交、工作树状态、精确命令和输出，不能沿用旧通过数字。
+首批从远端 `feature/pet-animation-v2` 的 `33a04d35ba66984663604961c0c619937d70ede0`
+隔离创建，已交付底座提交为 `0a3a827d86a702938eba590e870e2b7ff0661d41`。
+脚本采集批次在该不可变基线上使用独立本地分支 `dot/realtime-validation-scripts-20261101`；
+不将历史默认 HEAD `1a66a0d3b7a51b19ac843b80f6629d0eb20eeb18` 或其他保留分支混作同一基线，
+不覆盖用户工作。以下首批计数只证明该底座；脚本批次的最终提交/检查另记，不能沿用旧通过数字。
 
 | 要求 | 首要门禁 | 必需证据与否决条件 | 当前状态 |
 | --- | --- | --- | --- |
@@ -254,7 +255,7 @@ preflight 确认单一物理 Three.js 0.186.1；真实渲染启动仍未运行�
 依赖沿用锁文件中的 Three.js 0.186.1、springbone 3.5.5，保持单一物理 Three 实例；
 不升级工具链、不重装同库冒领修复、不为 G0/G1 启动 QP/长时布料研究。
 
-本批可复现准备与拟运行入口如下；最后一条属于待执行的真实应用验证，不代表已启动成功：
+首批底座的手工准备记录如下，仅保留复现依据；本批面向用户的首选入口见下方「脚本采集与回传」，不再要求依次执行这些步骤：
 
 ```bash
 # 研究依赖及已完成的素材/合同准备
@@ -272,7 +273,7 @@ electron_config_cache=/tmp/bubu-electron-cache node node_modules/electron/instal
 BUBU_DEV_REALTIME_PET=1 npm run dev:bench -- --scenario=all
 ```
 
-本批验证记录（Linux / Node v24.22.1 / npm 11.9.0；锁文件 Electron 44.4.5；不是 WebGL/GPU 帧率）：
+首批 `0a3a827` 验证记录（Linux / Node v24.22.1 / npm 11.9.0；锁文件 Electron 44.4.5；不是本批脚本或 WebGL/GPU 帧率）：
 
 | 命令 / 范围 | 当前结果 | 证据边界 |
 | --- | --- | --- |
@@ -292,7 +293,7 @@ timeout 120s node --test --test-isolation=none \
 ```
 
 最终定向 41/41 包含终态一次撤回运行态用例；旧的 36/36、40/40 和首轮全量结果不作为最终代码的替代证据。
-本次封板 aggregate 的本机日志为 `/tmp/bubu-realtime-sealed-check.log`，最终交付证据需同时保留源码/文档哈希、提交身份与日志。
+首批封板 aggregate 的本机日志为 `/tmp/bubu-realtime-sealed-check.log`，最终交付证据需同时保留源码/文档哈希、提交身份与日志。
 29 个 skip 和 `limbs:check` 中因未设置 `USAGI_CANVAS_PACKAGE` 而跳过的像素扫描单列，
 不能写成该像素检查已通过。canonical 感官/context 接入不等于外观装备和业务 base 语义已完成；后两者在 G4。
 G1 当前只达到应用接入代码候选，未完成实际应用帧及原生输入/显示证明，不能记作完成。
@@ -326,6 +327,113 @@ Linux Node、离屏 Chromium、云端 SwiftShader 与目标原生 Electron/物�
 | 原身体宿主 blur 会冻结未聚焦桌宠 | surface 独占 blur 的手势取消，窄 pointerWindowPort 过滤身体宿主 blur/focus；可见 idle 继续 | 端口和 surface 用例通过；原生后台输入仍未验收 |
 | sealed frame 后 leave/失捕/窗口外释放使用了旧时刻 | canvas leave/lostcapture 及 window 外 up/cancel 在 capture 阶段采样同一实际时钟，不造 epsilon | 定向时钟边界用例通过；真实 OS 失捕/再抓仍待验收 |
 | 一个局部可运行结果被当作实时化完成 | G0→G5 保留完整范围，每批提交可审查的纵向结果与未关闭项 | 当前只是首批；未运行/失败/阻塞不折叠成“完成” |
+
+### 脚本采集与回传（当前批次，尚未取得真实 GUI 结果）
+
+本批补齐“用户运行、dot 读包分析”的闭环，不把云端 CUA 或用户手工长测设为默认前置。
+交付时必须给出**本批包含采集工具的完整提交 SHA**；先 fetch 并在独立 checkout/工作树
+确认该 SHA，保留自己已有工作。`0a3a827` 只是脚本批次的输入基线，不包含此命令。
+在给定提交的仓库根目录、已有 Node 24+/npm 的目标电脑上运行：
+
+```bash
+npm run pet:realtime:capture -- --prepare
+```
+
+必须通过该 `npm run` 入口传入已存在 npm 的固定 CLI 路径；直接执行
+`node tools/pet-realtime-capture/run.mjs --prepare` 缺少该受限入口，不是有效 prepare 命令。
+
+首次 `--prepare` 会下载锁文件依赖和锁定 Electron 二进制，并恢复批准的 D2 原始字节；
+准备段独立上限 300 秒。依赖/素材齐备后后续可不加 `--prepare`：默认准备段只运行
+preflight，不偷偷安装、下载、恢复或升级。缺项时返回失败包和原因，而不是换模型继续。
+现在使用 Node 内建恢复适配器，无 Python 安装前置；旧 Python 工具保留供历史复查，
+与 Node 共读同一 `approved-d2-source.json`。锁文件、archive/source/hybrid SHA 沿用上文身份。
+脚本管理的 prepare 子进程使用私有空 npm userconfig/globalconfig，不继承用户 npm 配置；
+若 root/research 存在项目 `.npmrc` 或 `npm-shrinkwrap.json` 则拒绝，不读取/收集其内容。
+用户外层启动的 `npm run` 仍可能按 npm 的正常规则读取配置，这不属于脚本对子进程的隔离保证；
+本工具不收集该外层配置。
+不继承 NODE_OPTIONS、API/npm token；一次新铸的 handoff token 只用于本次受限子进程认证，
+不序列化到 request、报表或日志。
+
+命令结束会打印 `.json.gz` 的路径（默认 `dist/pet-realtime-capture/capture-<runId>.json.gz`），
+只需回传该文件；失败、超时或中断也回传生成的失败包，不要为了成功反复改变系统设置。
+dot 负责核验包、源码身份和每阶段数据、解释失败并继续修复。CLI 只有 `--prepare`、
+`--out=NEW_FILE.json.gz`、`--no-screenshots`、`--help`；输出必须为新的本地文件，拒绝覆盖，
+不接受 profile/session、URL、任意 duration、remote debugging 或 sandbox/webSecurity 开关。
+GUI 采集前会聚焦它自己持有的 fixture pet 窗口以满足 Electron `sendInputEvent`，不会采集
+其他窗口或整个桌面。没有可用 GUI 时保留 setup failure，不通过禁用 sandbox 来绕过。
+脚本 exit0 仅表示 `completed`（或 `--help` 正常返回），不表示 native/GPU/OS/视觉准入；
+exit2 表示 setup failure、中断、observations 或清理未验证等非完整通过结果，按包内 status 分析。
+
+| 固定阶段 | 采集内容 | 证据边界 |
+| --- | --- | --- |
+| 启动与 warmup 5s | 独立记录 startup/cold first-frame、预热和源码/环境身份 | 不计入稳定性能分位数 |
+| idle 10s | 实际页面帧间隔、CPU update/render submission、主进程/渲染器可用计数 | 可见连续 idle 与暂停停止重绘分开，不伪造 GPU 执行时长 |
+| longpress、pet release、drag、release、cancel/regrab | 固定 Electron 注入输入，检查可观察 mode 与事件顺序 | 标记 `Electron-injected-not-OS`；不等于真实鼠标/OS 输入，也不实现 G2 原生窗口移动/DIP |
+| pause 2s / resume 2s | 时钟冻结、停止重绘、恢复及多余调度 | 原生前后台/锁屏/多 DPI 仍需独立验收 |
+| dispose + 两次 reload | 每代独立 instanceId/epoch、CPU owner/pending/actor/claimed-byte 归零、重建后短 warmup/idle 与资源样本 | 代次检查拒绝迟到响应；WebGL 计数/CPU 清零不证明实体 GPU 内存释放 |
+| 阶段外截图与 cooldown | 当前固定五张 fixture `capturePage()` PNG（上限六张），截图后 cooldown，不混入 performance phase | 只证明该窗口当时可见画面；未做人工视觉验收 |
+
+应用采集总上限 180 秒，包含 startup、全部阶段、reload、退出和进程树清理；不以
+“每阶段各 180 秒”放大预算。超时/取消须等待新建根进程实际 close 和自身进程树清理确认，
+不能将普通 `stopReason=exited` 误判超时；不能按进程名或不明 PID 杀旧实例。
+只有已确认回收才删除本次 profile/private HOME；清理 unknown 必须保留并报失败。
+Windows 的窄例外仅允许 root 正常 code0/exited 且实际 reaped、唯一精确原因为 normal
+Windows descendants unverified 时继续同一预算内的准备/采集；清理 unknown 整轮 sticky，
+保留全部自有目录，最终 `capture-complete-cleanup-unverified`、exit2，不能算通过或断言泄漏。
+非零退出、timeout、权限拒绝和其他未知原因仍立即停止，不启用通用忽略清理失败选项。
+
+目录清理另记 `directoryCleanup: {confirmed:false, code}`：`fixture-cleanup-rejected` 表示
+profile 清理拒绝，随后禁止递归删 runRoot；`run-directory-cleanup-incomplete` 表示 runRoot
+删除异常，仍生成合法结果包并保留剩余目录。root rm 可能已经部分执行，
+`retainedOwnedDirectories`/`fixtureRemoved=false` 不是“所有目录完整未删”的证明。
+完成结果降为 `capture-complete-cleanup-unverified`/exit2，已有 partial 只保留原失败状态，不升级。
+
+fixture 使用本次 runRoot 固定派生的 `fixture/profile-dev`；父端仅从已知 canonical empty/idle/
+all-AI-off 配方铸造，不接受用户 profile。一次性 HMAC handoff 绑定请求、目录 inode 和
+初始两 DB 哈希，原子 claim 拒绝重放/篡改/替换；子端只承认自己 consume 的精确 request
+对象，不再提供任意 inode JSON 的开放所有权 API。后续只查目录/claim/凭据缺席，不读
+已由应用接管的 SQL；对外部 proof 的路径访问必须在进入 FS 之前拒绝。
+
+原始帧最多 18,000 行，renderer ring 为 600 行；每阶段用 seq cursor 取增量，记录 epoch、
+覆盖/loss、事件序号与代次。按**本阶段原始样本**计算 nearest-rank P50/P95/P99/max，
+同时给出超过 16.7/33.3/50/100 ms 的长帧计数，不平均分位数。任何样本丢失使该阶段
+分位数无效；coldstart、warmup、截图/cooldown、暂停不混入稳定帧样本。
+renderer 的诊断仍为只读有限数据，不导出 context、业务内容或密钥；事件最多 512、错误最多 64。
+PNG 验结构、宽高各不超过 4096、每张 1 MiB，上限六张；整个单一 gzip 包 decoded
+不超过 16 MiB、compressed 不超过 8 MiB，日志合计 64 KiB，带 schema 和 canonical SHA256，
+独占原子写入、读回核验且不覆盖历史结果；中断/setup failure 也走相同失败记录边界。
+
+环境/身份只记录白名单：commit/tree/dirty、明确关键工具/锁文件/GLB 的前后摘要、
+Node/Electron/OS/CPU/RAM、graphics 分类、窗口/DPR/刷新率、appMetrics/主进程 RSS 等可用项。
+renderer heap 不可用时写 supported=false；不推算。源码摘要只覆盖明确关键文件集合，
+不是所有未跟踪文件都已证明不变。graphics 为 software/unavailable/unknown 时不能写成
+native pass；hardware-candidate 也不是自动 GPU 准入。包永远不自动授予 OS 输入、人工视觉
+或发布资格。G1 实际应用帧/原生门禁仍未关闭，G2 的窗口/DIP 尚未实现，G3/G4/G5 不跳过。
+
+| 当前脚本批次结果（cleanup-finally 修复后的封板终态） | 状态 |
+| --- | --- |
+| `npm run check` 封板最终复跑 | exit0；6,899 total / 6,870 pass / 29 skip / 0 fail；lint、boundaries、architecture、全部资产及 app-icons 检查均通过。29 skip 不写成通过 |
+| `npm run test:integration` | 封板 71/71 通过；应用合同，不是原生 UI |
+| `node --test test/pet-realtime-*.test.js test/dev-bench-profile.test.js` | 封板 179/179 通过，包含两类末端清理失败注入及确定性计时器回归，不另行加总 |
+| 独立审查与跨进程验证 | 最终 40-file manifest 审查 CLEAR；原 48 项定向与 canonical fixture 跨进程 HMAC 往返属于较早审查快照，不与封板 179 项另行加总 |
+| 真实 D2 只读 hash/preflight、CLI `--help`、setup failure 包 | 通过；失败包可核验，不代表已经采到真实 GPU 帧 |
+| 实际 `--prepare`/依赖下载、完整真实应用采集、截图、目标硬件帧率/资源增长 | 本脚本批次均为 **NOT RUN**；GUI/native/GPU/OS-input/视觉不得记通过 |
+| 不可变版本 | 脚本批次输入基线为完整 `0a3a827d86a702938eba590e870e2b7ff0661d41`；交付时另给本批完整提交 SHA/manifest，采集包记录实际 commit/tree/dirty 与前后 critical digest；首批 6,812/41/71/55 不是本批计数 |
+
+| 本批坑 / 根因 | 修复与复查要求 |
+| --- | --- |
+| cleanup finally 中 profile 清理拒绝后仍递归删 root，或 root rm 抛错导致结果包丢失 | profile 拒绝立即阻止后续 root rm；root 删除异常写固定 `directoryCleanup` 原因并继续合法出包，只承诺保留剩余项、不承诺未部分删除；完成降 exit2，partial 不升级。两类失败注入及封板受影响复跑通过，已计入 179 项，不另行加总 |
+| 用真实墙钟等待 9ms 断言 supervisor 已完成 TERM→KILL，在并行负载下失效 | 改用 Node 内建 `mock.timers` 明确推进 3ms timeout + 2ms grace，继续检查 TERM→KILL 且必须收到 root close；生产期限不变，不降低清理断言 |
+| 任意 inode JSON 可能把外部 profile 冒充本次 fixture | 删除旧开放 proof API；固定 runRoot 派生路径、窄 mint 配方、HMAC 一次 claim、精确 consumed-request WeakMap，并覆盖重放/篡改/外部路径先拒绝 |
+| Windows 根已退出但后代无法在安全边界内验证 | 区分根实际 reaped 与 descendants unknown；仅正常0/exited的精确单原因允许预算内继续，sticky unknown/保留目录/最终exit2，拒绝权限失败旁路 |
+| 用户 npm 配置、诊断自由文本可能携带副作用或秘密 | 私有空 user/global npmrc，拒绝项目配置存在、不继承外部 NODE_OPTIONS/token；console 只收固定code，其他诊断 secret/authURL/path 脱敏 |
+| supervisor 的正常 `exited` 被当成异常停止 | 用 code/signal/明确 stopReason 和清理确认共同判断；分别测试正常退出、timeout、abort、启动失败与未知清理 |
+| 只哈希角色而遗漏采集器自身 | critical allowlist 纳入 capture tools、共享恢复合同/适配器、锁文件和实际 GLB，前后重核；漂移不得作为稳定样本 |
+| dispose 诊断缺少调度状态 | 闭合诊断纳入 `frameScheduled`，与 CPU owner 归零、代次、重复 dispose 一并测试，不以截图猜测无后台工作 |
+| `sendInputEvent` 未聚焦时不能建立预期输入 | 只聚焦本次持有且身份通过的 fixture 窗口；阻塞就报失败，不操作未知窗口；注入源仍明确不是 OS 证明 |
+| 截图耗时污染性能 phase | 截图放 phase 外，并设 cooldown/光标边界；实际采集后按原始帧序号复查，不从截图 fps 推断运行帧率 |
+| 新 Node/旧 Python 恢复可能漂移或增加 Python 安装负担 | 共读已批准大小/hash 合同；正确不重写、错误不覆、独占原子发布、取消/超限/链接与身份反例测试 |
+| 复用原 bench 会注册全局快捷键和其他 OS 副作用 | 先验证 owned fixture scope，再限制真实 app adapters 的 shortcut/tray/通知/开机启动/热重载和 IPC；正常应用未安装 scope 时保持不变 |
 
 ### 历史研究验证与归档（不属于本批在线前置）
 

@@ -1,6 +1,7 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const { randomUUID } = require('node:crypto');
 const { createRealtimePetSurface } = require('../src/surfaces/pet/realtime/surface.mjs');
 const deferred = () => { let resolve, reject; const promise = new Promise((yes, no) => { resolve = yes; reject = no; }); return { promise, resolve, reject }; };
 const flush = async () => { for (let i = 0; i < 5; i++) await Promise.resolve(); };
@@ -17,7 +18,7 @@ function fixture(options = {}) {
   window.matchMedia = () => media;
   const frames = new Map(), callbacks = [], subscriptions = new Map(), calls = [];
   let next = 0, now = 0, mode = 'idle';
-  const environment = { window, document, performance: { now: () => now },
+  const environment = { window, document, crypto: options.noCrypto ? undefined : { randomUUID: () => options.instanceId ?? randomUUID() }, performance: { now: () => now },
     requestAnimationFrame(fn) { frames.set(++next, fn); callbacks.push(fn); return next; }, cancelAnimationFrame(id) { frames.delete(id); } };
   const clients = { pet_getState: options.getState || (() => ({ contextRevision: 1, motionMode: 'full', stimulationMode: 'balanced' })),
     pet_updateRuntime: value => { calls.push(['runtime', value]); }, pet_ackCue: value => { calls.push(['ack', value]); },
@@ -29,7 +30,14 @@ function fixture(options = {}) {
   const stage = { updates: [], renders: 0, suspends: 0, cancels: 0, disposals: 0, resizes: 0,
     update(time, policy) { this.updates.push({ time, policy }); if (options.updateError) throw new Error('update unavailable'); },
     render() { this.renders++; }, suspend() { this.suspends++; mode = 'idle'; }, cancel() { this.cancels++; mode = 'idle'; }, resize() { this.resizes++; },
-    dispose() { this.disposals++; if (options.disposeError) throw new Error('cleanup unavailable'); }, snapshot: () => ({ state: { mode } }) };
+    dispose() { this.disposals++; if (options.disposeError) throw new Error('cleanup unavailable'); }, snapshot: () => ({ state: { mode } }),
+    readDiagnostics() {
+      return { mode: this.disposals ? 'disposed' : mode, pointerId: null, captured: false, pendingCount: 0,
+        renderedFrames: this.renders, errors: [], resources: { geometries: this.disposals ? 0 : 2, textures: 0 },
+        pool: { actors: this.disposals ? 0 : 1, pending: 0, parts: { references: this.disposals ? 0 : 1 },
+          budget: { residentBytes: this.disposals ? 0 : 100, claims: this.disposals ? 0 : 2 } },
+        graphics: { renderer: 'test only; not GPU evidence' }, inputTargets: { body: { x: 12, y: 14 } } };
+    } };
   const surface = createRealtimePetSurface({ environment, clients, loadStage: options.loadStage || (() => Promise.resolve(stage)) });
   return { surface, stage, window, document, media, elements, frames, callbacks, calls,
     setMode: value => { mode = value; }, setNow: value => { now = value; },
@@ -138,4 +146,97 @@ test('terminal disposal withdraws published visibility and dragging once without
   assert.deepEqual(f.calls.filter(([kind]) => kind === 'runtime').at(-1)[1],
     { visible: false, menuOpen: false, dragging: false, prefersReducedMotion: false });
   assert.equal(f.calls.filter(([kind, value]) => kind === 'runtime' && !value.visible).length, 2);
+});
+
+test('diagnostic read is closed, readonly and excludes business projections or raw actor state', async () => {
+  const f = fixture({ instanceId: 'known-generation-id' }); await f.surface.start();
+  f.emit('onPetSync', { contextRevision: 2, privateText: 'secret business text', appearanceItemIds: ['private-look'] });
+  f.tick(16); f.tick(32); f.tick(48); await flush();
+  const calls = f.calls.length, before = f.surface.snapshot(), first = f.surface.readDiagnostics({ limit: 1 });
+  assert.deepEqual(Object.keys(first), ['schemaVersion', 'instanceId', 'ready', 'closed', 'time', 'frameScheduled', 'policy', 'frames', 'stage', 'events', 'errors']);
+  assert.equal(first.instanceId, 'known-generation-id'); assert.equal(first.schemaVersion, 1);
+  assert.equal(first.frames.rows.length, 1); assert.equal(first.frames.rows[0].atMs, 32);
+  assert.equal(first.frames.remaining, 1); assert.equal(first.stage.mode, 'idle');
+  assert.equal('context' in first, false); assert.equal('state' in first.stage, false);
+  assert.doesNotMatch(JSON.stringify(first), /secret business text|private-look|privateText|appearanceItemIds/);
+  const second = f.surface.readDiagnostics({ afterSequence: first.frames.rows[0].sequence });
+  assert.equal(second.frames.rows[0].atMs, 48);
+  const unchanged = f.surface.readDiagnostics();
+  first.events.rows[0].type = 'caller-mutation'; first.policy.hidden = true;
+  assert.deepEqual(f.surface.readDiagnostics(), unchanged);
+  assert.deepEqual(f.surface.snapshot(), before); assert.equal(f.calls.length, calls, 'reads must issue no IPC');
+  for (const options of [null, [], { context: true }, { limit: 0 }, { afterSequence: 3 }]) {
+    assert.throws(() => f.surface.readDiagnostics(options));
+  }
+  f.surface.dispose();
+});
+
+test('diagnostic generation identity changes for recreated surfaces and never guesses unavailable crypto', async () => {
+  const first = fixture(), next = fixture(), unavailable = fixture({ noCrypto: true });
+  assert.notEqual(first.surface.readDiagnostics().instanceId, next.surface.readDiagnostics().instanceId);
+  assert.equal(unavailable.surface.readDiagnostics().instanceId, 'unavailable');
+  assert.equal(first.surface.readDiagnostics().ready, false);
+  for (const f of [first, next, unavailable]) f.surface.dispose();
+});
+
+test('diagnostic event audit is bounded, chronological and records no pointer moves or screen coordinates', async () => {
+  const f = fixture(); await f.surface.start(); f.tick(16);
+  const baseline = f.surface.readDiagnostics().events.total;
+  for (let i = 0; i < 1000; i++) f.elements.character.emit('pointermove', { pointerId: 2, screenX: 9000, screenY: 8000 });
+  assert.equal(f.surface.readDiagnostics().events.total, baseline);
+  for (let i = 0; i < 600; i++) {
+    f.setNow(20 + i);
+    f.elements.character.emit('pointerdown', { pointerId: i, screenX: 9000, clientX: 10, text: 'private', mode: 'forged' });
+  }
+  const events = f.surface.readDiagnostics().events;
+  assert.equal(events.rows.length, 512); assert.equal(events.total, baseline + 600);
+  assert.equal(events.overwritten, events.total - 512);
+  assert.equal(events.rows[0].sequence, events.total - 511);
+  assert.equal(events.rows.at(-1).sequence, events.total);
+  assert.equal(events.rows.at(-1).pointerId, 599); assert.equal(events.rows.at(-1).isTrusted, false);
+  for (const row of events.rows) assert.deepEqual(Object.keys(row), ['sequence', 'atMs', 'type', 'pointerId', 'isTrusted']);
+  assert.doesNotMatch(JSON.stringify(events), /screenX|screenY|clientX|private|forged/);
+  f.surface.dispose();
+});
+
+test('diagnostic audit observes actual mode and policy transitions once rather than every rendered frame', async () => {
+  const f = fixture(); await f.surface.start(); f.tick(16); f.tick(32);
+  f.setMode('drag'); f.tick(48); f.tick(64);
+  assert.deepEqual(f.surface.readDiagnostics().events.rows.filter(row => row.type === 'mode').map(row => row.mode), ['idle', 'drag']);
+  f.surface.pause(true); f.tick(80); f.surface.pause(true); f.tick(96);
+  const policies = f.surface.readDiagnostics().events.rows.filter(row => row.type === 'policy');
+  assert.equal(policies.length, 2); assert.equal(policies.at(-1).mode, 'visible/paused/full');
+  for (const type of ['pointerup', 'pointercancel', 'pointerleave', 'lostpointercapture']) {
+    f.elements.character.emit(type, { pointerId: 3 });
+    assert(f.surface.readDiagnostics().events.rows.some(row => row.type === type));
+  }
+  f.surface.dispose();
+});
+
+test('terminal diagnostics read final post-disposal counters without retaining graphics or input objects', async () => {
+  const f = fixture(); await f.surface.start(); f.tick(16); f.tick(32);
+  assert.equal(f.surface.readDiagnostics().stage.pool.actors, 1);
+  f.surface.dispose(); await flush();
+  const final = f.surface.readDiagnostics();
+  assert.equal(final.ready, false); assert.equal(final.closed, true);
+  assert.equal(final.stage.mode, 'disposed'); assert.equal(final.stage.pendingCount, 0);
+  assert.equal(final.stage.pool.actors, 0); assert.equal(final.stage.pool.parts.references, 0);
+  assert.equal(final.stage.pool.budget.residentBytes, 0); assert.equal(final.stage.resources.geometries, 0);
+  assert.equal(final.stage.renderedFrames, 2);
+  assert.equal('graphics' in final.stage, false); assert.equal('inputTargets' in final.stage, false);
+  assert.equal(final.events.rows.at(-1).type, 'disposed');
+  const copied = JSON.parse(JSON.stringify(final));
+  final.stage.pool.actors = 99;
+  assert.deepEqual(f.surface.readDiagnostics(), copied, 'terminal counters are detached on every read');
+});
+
+test('late loaded stages update terminal diagnostic counters after cleanup without revival', async () => {
+  const load = deferred(), f = fixture({ loadStage: () => load.promise });
+  const start = f.surface.start(); f.surface.dispose();
+  assert.equal(f.surface.readDiagnostics().stage, null);
+  load.resolve(f.stage); await start;
+  const value = f.surface.readDiagnostics();
+  assert.equal(value.closed, true); assert.equal(value.ready, false);
+  assert.equal(value.stage.pool.actors, 0); assert.equal(value.stage.pool.parts.references, 0);
+  assert.equal(value.events.rows.filter(row => row.type === 'disposed').length, 1);
 });

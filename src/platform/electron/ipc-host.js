@@ -1,4 +1,5 @@
 'use strict';
+const { assertFixtureIpcAllowed } = require('./dev/fixture-isolation');
 
 function createIpcHost({ ipcMain = require('electron').ipcMain } = {}) {
   if (!ipcMain
@@ -17,7 +18,10 @@ function createIpcHost({ ipcMain = require('electron').ipcMain } = {}) {
     }
     if (channels.has(channel)) throw new TypeError(`duplicate IPC handler: ${channel}`);
 
-    ipcMain.handle(channel, handler);
+    ipcMain.handle(channel, (event, payload) => {
+      assertFixtureIpcAllowed(channel);
+      return handler(event, payload);
+    });
     channels.add(channel);
     return true;
   }

@@ -1,4 +1,5 @@
 'use strict';
+const { readFixtureIsolation, recordFixtureSuppression } = require('./dev/fixture-isolation');
 
 function createNotificationHost({
   Notification = require('electron').Notification,
@@ -60,6 +61,11 @@ function createNotificationHost({
     }
 
     try {
+      if (readFixtureIsolation()) {
+        recordFixtureSuppression('notificationShow');
+        settle({ shown: false, reason: 'fixture-suppressed' });
+        return null;
+      }
       if (isSuppressed()) {
         settle({ shown: false, reason: 'suppressed' });
         return null;

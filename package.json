@@ -64,7 +64,8 @@
     "pack:linux": "node scripts/build-app.js --platform=linux --dir",
     "validate:mac": "npm run check && npm run pack:mac -- --arm64 && npm run verify:mac-app",
     "app-icons:check": "node scripts/make-icon.js --check",
-    "verify:win-install": "node scripts/verify-windows-install.js"
+    "verify:win-install": "node scripts/verify-windows-install.js",
+    "pet:realtime:capture": "node tools/pet-realtime-capture/run.mjs"
   },
   "devDependencies": {
     "@napi-rs/canvas": "1.0.10",
