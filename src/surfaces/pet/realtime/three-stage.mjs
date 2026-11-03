@@ -1,11 +1,11 @@
 import * as T from 'three';
 import { createDesktopPointerWindow } from './pointer-window-port.mjs';
-import { FoundationPool } from '../../../../research/animation-0.1.0/animation-foundation-v1/integration/browser-assets.mjs';
+import { createActorPool } from './runtime/index.mjs';
 
 /** WebGL composition only; canonical state and the sole frame clock belong to the surface. */
 export async function createThreeStage({ canvas, clock, environment }) {
   const renderer = new T.WebGLRenderer({ canvas, antialias: true, alpha: true });
-  const pool = new FoundationPool({ maxActors: 1 });
+  const pool = createActorPool({ maxActors: 1 });
   const scene = new T.Scene();
   const camera = new T.OrthographicCamera(-2.5, 2.5, 4, -1, .01, 100);
   camera.position.set(0, 0, 8); camera.lookAt(0, 0, 0); camera.updateMatrixWorld(true);
