@@ -5,6 +5,8 @@ import { displaySatiation } from '../companion/satiation-display.mjs';
 import petMotion from '../../core/pet-motion.mjs';
 import petExpression from '../../core/pet-expression.mjs';
 import petPresentation from '../../core/pet-presentation.mjs';
+import { createExpressionRotation } from '../../core/expression-rotation.mjs';
+import { EXPRESSION_SCENARIOS } from '../../content/expression-scenarios.mjs';
 import petSprite from '../../core/pet-sprite.mjs';
 import petPlayerCore from '../../core/pet-player.mjs';
 import petSessionActivity from '../../core/session-activity.mjs';
@@ -12,8 +14,9 @@ import petArt from '../../core/pet-art.mjs';
 import petSceneArt from '../../core/pet-scene-art.mjs';
 import petFace from '../../core/pet-face.mjs';
 import sensoryPolicy from '../../core/sensory-policy.mjs';
+import { outfitWearAction } from '../../content/companion/outfit-sets.mjs';
 import { classifyWorkPeriod } from '../../content/work-period.mjs';
-import { forms } from '../../capabilities/companion/index.mjs';
+import { forms, formArt } from '../../capabilities/companion/index.mjs';
 import { createPetLifecycle } from './lifecycle.mjs';
 import { createPetCompositor } from './compositor.mjs';
 import { createPetScene } from './scene.mjs';
@@ -245,6 +248,11 @@ function legacyFramesAt(timeMs) { return timeMs / LEGACY_FRAME_MS; }
 const randomSeed = Math.floor(environment.Math.random() * 0x100000000);
 const motionSeed = randomSeed;
 const motionRandom = petMotion.createSeededRandom(randomSeed);
+// 表情轮播：场景 → 表情池（content/expression-scenarios.mjs）。
+const expressionRotation = createExpressionRotation({
+  scenarios: EXPRESSION_SCENARIOS, random: motionRandom,
+  has: id => Boolean(expressionRegistry && expressionRegistry.has(id))
+});
 // 眨眼走独立子流：粒子生成的抽样次数随帧率变化，不能让它挤动眨眼排程。
 const blinkRandom = petMotion.createSeededRandom(motionSeed ^ 0x9e3779b9);
 
@@ -385,6 +393,7 @@ let currentActionProgress = 0;
 // 每次都拿到新 eventId（不会被导演的去重窗口吞掉），状态结束时取消。
 let stateExprSeq = Object.create(null);
 let stateExprActive = Object.create(null);
+let stateExprChosen = Object.create(null);
 // 一次性/互动表情的事件序号（喂食、抚摸、启动、唤醒等）。
 let manualExprSeq = 0;
 // 会话起始边沿检测：从非专注切到专注时短暂呈现 work.starting。
@@ -413,6 +422,7 @@ let heldExpressionEventId = null;
 
 // 状态 → 临时表情。优先级取自来源档位；事件 ID 由出现序号保证唯一。
 const STATE_TRANSIENT_EXPR = Object.freeze({
+  // [eventId 前缀, 默认表情, 来源]；带 transientScenario 的事实改由场景池抽取。
   celebrating: Object.freeze(['state.celebrating', 'react.celebrate', 'essential']),
   talking: Object.freeze(['state.talking', 'react.happy', 'interaction']),
   dragged: Object.freeze(['state.dragged', 'react.surprised', 'input-safe']),
@@ -523,9 +533,13 @@ function presentStructuredPetExpression(presentation) {
   if (!expressionRegistry || !expressionRegistry.has(presentation.expressionId)) {
     return { ok: false, reason: 'unknown-expression' };
   }
+  // main 只说“发生了什么场景”，具体表情由场景池抽取；expressionId 是兜底。
+  const expressionId = typeof presentation.scenario === 'string'
+    ? expressionRotation.pickEvent(presentation.scenario, presentation.expressionId)
+    : presentation.expressionId;
   return presentExpressionEvent(
     presentation.eventId,
-    presentation.expressionId,
+    expressionId,
     presentation.source,
     presentation.ttlMs,
     presentation.minHoldMs
@@ -539,24 +553,42 @@ function isLateNightIdle() {
   return hour >= 22 || hour < 1;
 }
 
-function desiredBasePresentation() {
-  let expressionId = 'life.idle';
-  if (sessionPaused) expressionId = 'work.pause';
-  else if (sessionState === 'focused' || sessionState === 'resting') {
+// 当前 base 场景键（见 content/expression-scenarios.mjs）。会话活动自带
+// 表情与分镜（activity-stories 的 faceCue），此时返回 null，由活动接管。
+function baseExpressionScenario() {
+  if (sessionPaused) return { key: 'paused', fallback: 'work.pause' };
+  if (sessionState === 'focused' || sessionState === 'resting') {
     const activity = petRenderer.currentSessionActivity();
-    const fallback = sessionState === 'focused' ? 'work.focus' : 'work.rest';
-    expressionId = activity && expressionRegistry && expressionRegistry.has(activity.expression)
-      ? activity.expression
-      : fallback;
+    if (activity && expressionRegistry && expressionRegistry.has(activity.expression)) {
+      return { key: null, fallback: activity.expression };
+    }
+    return sessionState === 'focused'
+      ? { key: 'focus', fallback: 'work.focus' }
+      : { key: 'rest', fallback: 'work.rest' };
   }
-  else if (state === 'sleeping') expressionId = 'life.sleep';
-  else if (state === 'hungry') expressionId = 'react.hungry';
-  else if (state === 'peeking') expressionId = 'life.peek';
-  else if (isLateNightIdle()) expressionId = 'life.drowsy';
+  if (state === 'sleeping') return { key: 'sleeping', fallback: 'life.sleep' };
+  if (state === 'hungry') return { key: 'hungry', fallback: 'react.hungry' };
+  if (state === 'peeking') return { key: 'peeking', fallback: 'life.peek' };
+  if (isLateNightIdle()) return { key: 'idle.late-night', fallback: 'life.drowsy' };
+  return { key: 'idle', fallback: 'life.idle' };
+}
+
+function desiredBasePresentation() {
+  const scenario = baseExpressionScenario();
   const source = sessionPaused || sessionState === 'focused' || sessionState === 'resting'
     ? 'session'
     : 'base';
-  return { expressionId: mirrorBaseExpressionFor(expressionId, petRenderer.currentSessionActivity(), activityMirror), source };
+  // 活动镜像只认 life.idle：先让镜像判断，镜像接管时不轮播。
+  const mirrored = mirrorBaseExpressionFor(scenario.fallback, petRenderer.currentSessionActivity(), activityMirror);
+  // 镜像、活动、状态瞬态（拖动/说话/庆祝/走路）或彩蛋接管时不轮播，结束后从 home 重新开始。
+  if (mirrored !== scenario.fallback || !scenario.key || transientVisualState || currentEgg
+      || STATE_TRANSIENT_EXPR[state]) {
+    expressionRotation.restart();
+    return { expressionId: mirrored, source };
+  }
+  const calm = dnd || stimulationMode === 'low' || reducedMotion();
+  const expressionId = expressionRotation.resolveBase(scenario.key, animNow, { fallback: scenario.fallback, calm });
+  return { expressionId, source };
 }
 
 function syncPresentationBase() {
@@ -644,13 +676,16 @@ function updatePresentation() {
       if (!stateExprActive[st]) {
         stateExprSeq[st] = (stateExprSeq[st] || 0) + 1;
         stateExprActive[st] = `${info[0]}.${stateExprSeq[st]}`;
+        // 上升沿抽一次场景表情，整个状态期间保持不变。
+        const scenario = transientVisualState && transientVisualState.state === st ? transientVisualState.scenario : null;
+        stateExprChosen[st] = scenario ? expressionRotation.pickEvent(scenario, info[1]) : info[1];
       }
       const transientSource = transientVisualState && transientVisualState.state === st
         ? transientVisualState.source
         : info[2];
       presentationDirector.presentTransient({
         eventId: stateExprActive[st],
-        expressionId: info[1],
+        expressionId: stateExprChosen[st] || info[1],
         source: transientSource,
         issuedAt: now,
         ttlMs: transientVisualState && transientVisualState.state === st
@@ -911,7 +946,8 @@ function setTemporaryState(newState, durationMs, restoreState = sessionState, op
     cancelCurrentAction('interaction', { autonomousOnly: true });
   }
   const ttlMs = Math.max(0, Number(durationMs) || 0);
-  transientVisualState = Object.freeze({ state: newState, source: nextSource, expiresAt: animNow + ttlMs });
+  const scenario = typeof options.scenario === 'string' ? options.scenario : null;
+  transientVisualState = Object.freeze({ state: newState, source: nextSource, expiresAt: animNow + ttlMs, scenario });
   setState(newState, { temporary: true });
   return true;
 }
@@ -1087,6 +1123,17 @@ const petCommands = createPetCommands({
   setState: patch => { if (patch.sessionState) setSessionState(patch.sessionState); }
 });
 
+// Outfit wear performance (e.g. 南瓜之夜 → halloween-lantern): once per wear,
+// never during sessions/DND/low stimulation; reduced motion freezes it (calm path).
+function startOutfitAction(actionId) {
+  const action = formArt.previewAction(forms.resolvePetForm(currentSkin), actionId);
+  if (!action || dnd || stimulationMode === 'low' || sessionState !== 'idle' || sessionPaused || dragging) return false;
+  cancelCurrentAction('interaction');
+  resetPetActionEmitters();
+  beginActionPlayback({ id: actionId, duration: action.duration, manual: true });
+  return true;
+}
+
 function startManualAction(actionId, text, { speak = true, interactionId } = {}) {
   const playback = createManualActionPlayback(petContent, actionId, { interactionId, formId: forms.resolvePetForm(currentSkin).id });
   if (!playback) return false;
@@ -1230,6 +1277,7 @@ function suspendRenderer(reason) {
     presentationDirector.cancelTransient(presentationDirector.transient.eventId, reason);
   }
   stateExprActive = Object.create(null);
+  stateExprChosen = Object.create(null);
   if (transientVisualState) {
     transientVisualState = null;
     setState(sessionState);
@@ -1337,7 +1385,11 @@ function handlePetSync(data = {}) {
   if (data.work) { workStart = data.work.start; workEnd = data.work.end; }
   if (data.energyLevel !== undefined) energyLevel = data.energyLevel;
   if (data.level !== undefined) level = data.level;
-  if (Array.isArray(data.appearanceItemIds)) appearanceItemIds = data.appearanceItemIds;
+  if (Array.isArray(data.appearanceItemIds)) {
+    const wearAction = outfitWearAction(forms.resolvePetForm(data.skin || currentSkin).id, appearanceItemIds, data.appearanceItemIds);
+    appearanceItemIds = data.appearanceItemIds;
+    if (wearAction) startOutfitAction(wearAction);
+  }
   if (data.stimulationMode) stimulationMode = data.stimulationMode;
   if (data.motionMode) motionMode = data.motionMode;
   if (data.petActivityMode) petActivityMode = data.petActivityMode;
@@ -1375,7 +1427,8 @@ function handlePetSync(data = {}) {
     syncSessionActivityMode();
   }
   if (data.transientState) {
-    setTemporaryState(data.transientState, data.transientDurationMs, data.baseState);
+    setTemporaryState(data.transientState, data.transientDurationMs, data.baseState,
+      typeof data.transientScenario === 'string' ? { scenario: data.transientScenario } : {});
   } else if (data.baseState) {
     if (normalizeSessionState(data.baseState) !== sessionState || pausedChanged || data.forcedState) {
       setSessionState(data.baseState);

@@ -18,8 +18,10 @@ function thumbLabel(skin) {
     : t('{name}，未解锁', { name: skin.name });
 }
 function thumbDetail(skin) {
-  return `${skin.unlockLevel ? `Lv.${skin.unlockLevel}` : t('成就解锁')} · ${skin.unlocked ? t('已解锁') : t('未解锁')}`;
+  if (skin.unlocked) return skin.current ? t('使用中') : t('已解锁');
+  return skin.unlockLevel ? t('Lv.{level} 解锁', { level: skin.unlockLevel }) : t('成就解锁');
 }
+const thumbIcon = skin => skin.unlocked ? 'check' : 'lock';
 function applyLabel(skin) {
   return skin.current ? t('当前形态') : skin.unlocked ? t('换成这个形态')
     : t('未解锁 · {detail}', { detail: unlockDescription(skin) });
@@ -130,7 +132,7 @@ function createPopoverSkinPicker({
       return `<button type="button" class="${classes.join(' ')}" role="option"`
         + ` data-skin="${escapeHTML(skin.id)}" aria-selected="false" tabindex="-1"`
         + ` aria-label="${escapeHTML(label)}"><canvas></canvas>`
-        + `<span class="skin-thumb-name">${escapeHTML(skin.name)}</span><small>${escapeHTML(thumbDetail(skin))}</small>`
+        + `<span class="skin-thumb-name">${escapeHTML(skin.name)}</span><small data-icon="${thumbIcon(skin)}">${escapeHTML(thumbDetail(skin))}</small>`
         + '</button>';
     }).join('');
 

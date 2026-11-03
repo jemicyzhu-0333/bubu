@@ -1,7 +1,7 @@
 'use strict';
 
 import { t } from '../../shared/interface/i18n.mjs';
-import { USAGI_OUTFIT_SETS } from '../../../content/companion/usagi-wardrobe.mjs';
+import { outfitSetsFor } from '../../../content/companion/outfit-sets.mjs';
 
 // Passive styling references only. The canonical appearance projection still
 // decides ownership, selected slots and worn IDs; this module sends no commands.
@@ -9,8 +9,7 @@ function renderWardrobeOutfitPreviews({ container, state, formId, escapeHTML, dr
   if (!container) return () => {};
   const options = new Map((state?.appearance?.choices || [])
     .flatMap(choice => choice.options || []).map(option => [option.id, option]));
-  const looks = formId === 'usagi'
-    ? USAGI_OUTFIT_SETS.filter(look => look.itemIds.every(id => options.has(id))) : [];
+  const looks = outfitSetsFor(formId).filter(look => look.itemIds.every(id => options.has(id)));
   const disclosure = container.querySelector('details');
   const expanded = disclosure ? Boolean(disclosure.open) : true;
   if (!looks.length) { container.innerHTML = ''; return () => {}; }

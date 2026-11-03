@@ -16,6 +16,19 @@ import { createSleepTransition } from './sleep-transition.mjs';
 import { contextMirrorBlocked } from './context-emphasis.mjs';
 import { projectEffectOrigins } from './effect-origin.mjs';
 
+// Views in which every worn piece is drawn; null when no piece restricts views.
+function wornOutfitViews(runtimeState) {
+  const ids = runtimeState.appearanceItemIds, items = runtimeState.petContent?.PET_APPEARANCE_ITEMS;
+  if (!Array.isArray(ids) || !ids.length || !Array.isArray(items)) return null;
+  let views = null;
+  for (const id of ids) {
+    const item = items.find(candidate => candidate.id === id);
+    if (!item || !Array.isArray(item.views) || item.views.length >= 4) continue;
+    views = views ? views.filter(view => item.views.includes(view)) : [...item.views];
+  }
+  return views;
+}
+
 export function createPetRenderer({
   readEngines = () => ({}),
   window,
@@ -210,7 +223,9 @@ function drawPet() {
   const requestedView = runtimeState.devPreview && (runtimeState.devPreview.category === 'view'
     ? runtimeState.devPreview.id : runtimeState.devPreview.view)
     || actionConfig?.exitTransitionView || viewHint || 'auto';
-  const view = formArt.resolveView(form, requestedView, { action: actionConfig, state: runtimeState.state });
+  const view = formArt.resolveView(form, requestedView, { action: actionConfig, state: runtimeState.state,
+    outfitViews: runtimeState.devPreview && (runtimeState.devPreview.category === 'view' || runtimeState.devPreview.view)
+      ? null : wornOutfitViews(runtimeState) });
   // 三种口径,优先级从高到低:
   //   devtools 单件预览 —— 只画那一件,这是它存在的意义;
   //   devtools 等级预览 —— 问的就是“Lv.N 自动会戴什么”,所以要绕开橱窗回到自动规则;

@@ -17,7 +17,7 @@ function resolveActionPlayback({ content, preview, egg, sessionSnapshot, now,
     previewConfig = [...Object.values(content?.PET_ACTIONS || {}), ...Object.values(content?.SESSION_ACTIVITIES || {})]
       .find(action => action.prop === preview.id) || null;
   }
-  let source = preview ? previewConfig : egg ? content?.PET_ACTIONS?.[egg.id] : sessionSnapshot?.activity;
+  let source = preview ? previewConfig : egg ? content?.PET_ACTIONS?.[egg.id] || formArt.previewAction(form, egg.id) : sessionSnapshot?.activity;
   // Diagnostic action previews may carry the same validated manual record as input.
   if (form?.id === 'usagi' && egg?.manual && egg.interactionId && source?.id === egg.id) {
     source = { ...source, interactionId: egg.interactionId };

@@ -50,7 +50,9 @@ test('locked clothes remain an explicitly labelled preview instead of appearing 
 test('lookbook preserves its local disclosure and never leaks to another form', () => {
   assert.match(render(25, 'usagi', true).container.innerHTML, /<details class="wardrobe-lookbook" open>/);
   assert.match(render(25, 'usagi', false).container.innerHTML, /<details class="wardrobe-lookbook">/);
+  // Each form lists only its own registered sets (dango: 南瓜之夜), never usagi looks.
   const other = render(25, 'dango', true);
-  assert.equal(other.container.innerHTML, '');
-  assert.equal(other.previews.length, 0);
+  assert.doesNotMatch(other.container.innerHTML, /usagi\./);
+  assert.match(other.container.innerHTML, /data-outfit-preview="halloween-night"/);
+  assert.ok(other.previews.every(preview => preview.options.itemIds.every(id => !id.startsWith('usagi.'))));
 });

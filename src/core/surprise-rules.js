@@ -24,6 +24,8 @@ function normalizeContext(context = {}) {
     reduceMotion: context.reduceMotion === true,
     focused: context.focused === true,
     sessionActive: context.sessionActive === true,
+    month: Number.isInteger(context.month) && context.month >= 1 && context.month <= 12 ? context.month : null,
+    wornOutfitSetIds: Array.isArray(context.wornOutfitSetIds) ? context.wornOutfitSetIds.filter(id => typeof id === 'string') : [],
     activityMode: Object.prototype.hasOwnProperty.call(MODE_BUDGETS, context.activityMode)
       ? context.activityMode
       : 'balanced'
@@ -68,10 +70,21 @@ function latestCueTime(recent, cueId) {
   return latest;
 }
 
+// Optional content conditions (seasonal / outfit-linked cues). Absent = always.
+function requirementReason(cue, context) {
+  const requires = cue.requires;
+  if (!requires) return null;
+  if (Array.isArray(requires.months) && !requires.months.includes(context.month)) return 'out-of-season';
+  if (requires.outfitSetId && !context.wornOutfitSetIds.includes(requires.outfitSetId)) return 'outfit-not-worn';
+  return null;
+}
+
 function cueEligibility(cue, companion, rawContext, now) {
   const gate = hardGateReason(cue, rawContext);
   if (gate) return gate;
   const context = normalizeContext(rawContext);
+  const required = requirementReason(cue, context);
+  if (required) return required;
   const budget = MODE_BUDGETS[context.activityMode];
   const spent = cue.kind === 'attention'
     ? companion.surprise.attentionSpent
@@ -161,6 +174,7 @@ module.exports = {
   hardGateReason,
   rollBudgetForward,
   cueEligibility,
+  requirementReason,
   weightedChoice,
   selectSurprise,
   recordIssued
