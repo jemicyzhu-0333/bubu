@@ -673,3 +673,13 @@ wire 候选修复了固定粒子代理关节塌向原点、细化铰链无外力
 - 两条升级路径分别核验完整备份、拒绝前原字节、源漂移、取消、损坏/未来版本、未知 COMMIT、恢复到新目录和二次启动固定点；18→19 的历史目标不能被 current-only20 自动接纳。
 - 真实云浏览器的合成配置验证与 Node/SQLite 测试分别记证据。收件建议 UI 的合成响应不代表真实 Provider；现有原生 Windows/macOS schema19 发布记录不能证明这次 schema20 的原生升级、真人确认框或重启验收。
 - 已保存记录仅支持用户改时间；模型只处理当前随手记文本的明确时间建议，不扩大既有日常历史披露。
+
+## G1 实机验收清单（需用户在目标 Mac/Windows 上执行）
+
+1. `git checkout fix/v2-known-issues && npm ci && (cd research/animation-0.1.0 && npm ci --ignore-scripts)`
+2. 恢复 D2 素材并采集：`npm run pet:realtime:capture -- --prepare`（Node 22.12+；输出 `.json.gz` 结果包）。
+3. 手动观察：macOS/Linux `BUBU_DEV_REALTIME_PET=1 npm run dev`；Windows PowerShell
+   `$env:BUBU_DEV_REALTIME_PET=1; npm run dev`。
+4. 逐项确认：角色在透明宠物窗口实际显示；拖动/提起/释放、长按抚摸可用；隐藏/锁屏回来仍可点击；
+   低动效时停止；关闭重开无残留；帧间隔 P95 接近 16.7 ms（记下设备与 GPU）。
+5. 去掉环境变量重启，确认回到默认 2D。结果包与截图回传后再判定 G1 通过。
