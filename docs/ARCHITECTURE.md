@@ -1160,7 +1160,7 @@ secret/auth-URL/path 脱敏。不得增加 remote debugging、`--no-sandbox`
 
 默认准备段只做前置检查，不隐式安装依赖或恢复模型。显式 `--prepare` 才在独立 300 秒
 预算内执行 root/research 锁文件 `npm ci --ignore-scripts`、锁定 Electron 二进制安装、
-Node 内建 fs/zlib/crypto 的 D2 恢复及既有 preflight；不升级工具链，要求已有 Node 24+/npm，
+Node 内建 fs/zlib/crypto 的 D2 恢复及既有 preflight；不升级工具链，要求已有 package.json engines 所述 Node（22.12+）/npm，
 不要求安装 Python。脚本管理的准备子进程使用私有空 npm userconfig/globalconfig；
 root/research 若存在项目 `.npmrc` 或 `npm-shrinkwrap.json` 则不读取并拒绝 prepare，
 不向这些子进程继承未知注册表/安装钩子配置。用户最外层启动的 `npm run` 本身仍可能按

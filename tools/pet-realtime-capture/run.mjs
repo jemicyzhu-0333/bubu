@@ -1,3 +1,4 @@
+import { nodeSatisfiesEngine } from './node-engine.mjs';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -60,7 +61,7 @@ export async function runCapture(argv, {
     fs.mkdirSync(path.dirname(output), { recursive: true });
     if (fs.existsSync(output)) throw new Error('capture-output-exists');
     log('Explicit preparation limit: 300s; collector/root supervision limit: 180s (Windows descendant cleanup may remain unverified). Local capture makes no model/provider or paid AI API calls; --prepare downloads pinned dependencies.');
-    if (Number(process.versions.node.split('.')[0]) < 24) throw new Error('capture-requires-existing-Node-24-or-newer');
+    if (!nodeSatisfiesEngine(process.versions.node)) throw new Error('capture-requires-project-engine-node');
     privateRoot = fs.realpathSync(fs.mkdtempSync(path.join(process.platform === 'win32' ? os.tmpdir() : '/tmp', 'bubu-rt-')));
     const home = path.join(privateRoot, 'home'); fs.mkdirSync(home, { mode: 0o700 });
     const childEnv = captureEnvironment(env, home);

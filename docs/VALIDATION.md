@@ -333,7 +333,7 @@ Linux Node、离屏 Chromium、云端 SwiftShader 与目标原生 Electron/物�
 本批补齐“用户运行、dot 读包分析”的闭环，不把云端 CUA 或用户手工长测设为默认前置。
 交付时必须给出**本批包含采集工具的完整提交 SHA**；先 fetch 并在独立 checkout/工作树
 确认该 SHA，保留自己已有工作。`0a3a827` 只是脚本批次的输入基线，不包含此命令。
-在给定提交的仓库根目录、已有 Node 24+/npm 的目标电脑上运行：
+在给定提交的仓库根目录、已有 Node 22.12+（与 package.json engines 一致）/npm 的目标电脑上运行：
 
 ```bash
 npm run pet:realtime:capture -- --prepare
