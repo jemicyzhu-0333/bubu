@@ -73,6 +73,78 @@ test('capture finalization preserves phase tables and raw data, never averages q
   assert.match(result.measurementSources.renderSubmissionMs,/not GPU/);
 });
 
+test('capture reports startup and reload boundary records without changing phase statistics', () => {
+  const report = draft();
+  report.frames = [frame(1,659.8),frame(2,1),frame(3,1),frame(4,86.206),frame(5,1),frame(6,83.4)]
+    .map((row,index) => ({ ...row, instanceId: index < 3 ? 'initial' : index < 5 ? 'reload-1' : 'reload-2',
+      epoch: 1, atMs: index < 3 ? index : index < 5 ? index - 3 : 0 }));
+  report.phases = [phase(2,3),{...phase(5,5),id:'reload-1-idle'}];
+  const result = finalizeReport(report);
+  assert.deepEqual(result.sampleCoverage, {totalSampleCount:6,phaseSampleCount:3,unphasedSampleCount:3,overlappingPhaseSampleCount:0});
+  assert.equal(result.unphasedSummary.quantilesValid,true);
+  assert.deepEqual(result.unphasedSummary.metrics.frameIntervalMs, {count:3,p50:86.206,p95:659.8,p99:659.8,max:659.8,
+    over16_7ms:3,over33_3ms:3,over50ms:3,over100ms:1});
+  assert.deepEqual(result.firstObservedFrames.rows.map(row => row.frameIntervalMs),[659.8,86.206,83.4]);
+  assert.match(result.firstObservedFrames.scope,/not proof/);
+  assert.match(result.unphasedSummary.scope,/not steady-state/);
+  assert.equal(result.firstObservedFrames.truncatedInstances,0);
+  assert.deepEqual(result.phaseSummaries,report.phases.map(item => summarizePhase(report.frames,item)));
+  assert.equal(result.productionAccepted,false);
+  assert.deepEqual(result.frames,report.frames);
+  assert.equal(report.sampleCoverage,undefined);
+});
+
+test('capture coverage uses the union of all declared phases including failed phases', () => {
+  const report = draft(); report.frames = Array.from({length:7},(_,index) => frame(index+1));
+  report.phases = [phase(2,4),{...phase(3,5),id:'overlap',status:'partial'},
+    {...phase(),id:'not-run',status:'not-run',startSequence:null,endSequence:null}];
+  const result = finalizeReport(report);
+  assert.deepEqual(result.sampleCoverage,{totalSampleCount:7,phaseSampleCount:4,unphasedSampleCount:3,overlappingPhaseSampleCount:2});
+  assert.equal(result.unphasedSummary.metrics.frameIntervalMs.count,3);
+  assert.equal(result.unphasedSummary.metrics.frameIntervalMs.p50,6);
+  assert.equal(result.phaseSummaries[1].quantilesValid,false);
+  report.phases = [phase(1,7)];
+  const covered = finalizeReport(report);
+  assert.equal(covered.unphasedSummary.sampleCount,0);
+  assert.equal(covered.unphasedSummary.metrics,null);
+  assert.deepEqual(covered.unphasedSummary.invalidReasons,['no-samples']);
+});
+
+test('capture outside-phase quantiles fail closed for missing, duplicate, reordered or boundary-lost records', () => {
+  for (const [frames,events,reason] of [
+    [[frame(1),frame(3)],[],'lost-samples'],
+    [[frame(1),frame(1)],[],'duplicate-sequence'],
+    [[frame(2),frame(1)],[],'nonmonotonic-samples'],
+    [[frame(1),{...frame(2),atMs:0}],[],'nonmonotonic-samples'],
+    [[frame(1)],[{type:'frame-loss',phase:'boundary',count:1}],'lost-samples']
+  ]) {
+    const report=draft(); report.frames=frames; report.events=events;
+    const result=finalizeReport(report).unphasedSummary;
+    assert.equal(result.quantilesValid,false);
+    assert.equal(result.metrics,null);
+    assert.ok(result.invalidReasons.includes(reason));
+  }
+  const report=draft(); report.frames=[frame(1),frame(5)];
+  report.phases=[phase(2,3),{...phase(3,4),id:'overlap'}];
+  const result=finalizeReport(report);
+  assert.equal(result.unphasedSummary.sequenceGaps,0);
+  assert.equal(result.unphasedSummary.quantilesValid,true);
+  assert.equal(result.phaseSummaries[0].quantilesValid,false);
+});
+
+test('capture first-observed diagnostics are bounded and finalization replaces stale derived data', () => {
+  const report=draft(); report.frames=Array.from({length:CAPTURE_LIMITS.phases+2},(_,index)=>({
+    ...frame(index+1),instanceId:`renderer-${index}`,epoch:1,atMs:0}));
+  report.unphasedSummary={metrics:'stale'};report.firstObservedFrames={rows:['stale']};
+  report.sampleCoverage={totalSampleCount:-1};
+  const result=finalizeReport(report);
+  assert.equal(result.firstObservedFrames.rows.length,CAPTURE_LIMITS.phases);
+  assert.equal(result.firstObservedFrames.truncatedInstances,2);
+  assert.equal(result.unphasedSummary.sampleCount,CAPTURE_LIMITS.phases+2);
+  assert.equal(result.sampleCoverage.totalSampleCount,report.frames.length);
+  assert.deepEqual(finalizeReport(result),result);
+});
+
 test('capture renderer classification is software, unknown or hardware candidate, never hardware acceptance', () => {
   for (const renderer of ['SwiftShader','llvmpipe (LLVM)','softpipe','Software Rasterizer','lavapipe','swrast']) {
     assert.equal(classifyGraphics({renderer}),'software');

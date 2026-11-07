@@ -114,7 +114,8 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
         // No zero/paused interval is mixed into the continuous frame distribution.
         if (continuous() && lastFrame !== null) metrics.record(now - lastFrame, updated - before, rendered - updated, now);
         lastFrame = continuous() ? now : null;
-        status.textContent = value.paused ? '开发角色 · 已暂停' : value.reducedMotion ? '开发角色 · 静态策略' : '开发角色 · 实时';
+        const statusText = value.paused ? '开发角色 · 已暂停' : value.reducedMotion ? '开发角色 · 静态策略' : '开发角色 · 实时';
+        if (status.textContent !== statusText) status.textContent = statusText;
         dirty = false; publishRuntime();
       }
     } catch (error) { fail(error); }
@@ -164,12 +165,14 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
       if (errors.length === 8) errors.shift();
       errors.push(`Terminal runtime publication failed: ${error.message}`);
     });
+    // Retire the heavy owner before callbacks; retain only copied terminal counters.
+    const retiredStage = stage; stage = null;
     const failures = [];
     for (const release of [() => lifecycle.dispose(), () => sync.dispose(),
-      () => { unsubscribeViewport?.(); unsubscribeViewport = null; }, () => stage?.dispose()]) {
+      () => { unsubscribeViewport?.(); unsubscribeViewport = null; }, () => retiredStage?.dispose()]) {
       try { release(); } catch (error) { failures.push(error); }
     }
-    frame = null; captureTerminal(stage); audit('disposed');
+    frame = null; captureTerminal(retiredStage); audit('disposed');
     if (failures.length) errors.push(`Realtime surface cleanup failed: ${failures.map(error => error.message).join('; ')}`);
   }
   async function initialize() {

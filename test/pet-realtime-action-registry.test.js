@@ -37,6 +37,17 @@ test('new channels are added by registration, before actions', async () => {
   assert.deepEqual(r.plan('wave').tracks.map(t => t.channel), ['body', 'sound']);
   assert.throws(() => r.registerChannel('haptic', { validate: () => true }), /before actions/);
 });
+test('a track cannot override the canonical channel that owns its plan', async () => {
+  const { createActionRegistry } = await load();
+  const r = createActionRegistry();
+  r.register({ id: 'wave', durationMs: 900, channels: {
+    body: { clip: 'wave', channel: 'particle' }, particle: { effect: 'spark', channel: 'body' }
+  } });
+  assert.deepEqual(r.plan('wave').tracks, [
+    { clip: 'wave', channel: 'body' }, { effect: 'spark', channel: 'particle' }
+  ]);
+  assert.equal(r.get('wave').channels.body.channel, 'particle', 'planning does not mutate the registered descriptor');
+});
 test('only the runtime backend module references research/ from production JS', () => {
   const root = path.join(__dirname, '../src');
   const walk = d => fs.readdirSync(d, { withFileTypes: true }).flatMap(e => e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]);

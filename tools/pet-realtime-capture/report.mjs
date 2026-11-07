@@ -125,6 +125,64 @@ export function summarizePhase(frames, phase, { lostSamples = 0 } = {}) {
       ? Object.fromEntries(COLUMNS.map(key => [key, metric(selected.map(frame => frame[key]))])) : null };
 }
 
+/** Boundary records include startup/reload and screenshot work, never steady-state phase samples. */
+function summarizeCoverage(report) {
+  const ranges = report.phases.filter(phase => phase.startSequence !== null);
+  const unphased = [];
+  let phaseSampleCount = 0, overlappingPhaseSampleCount = 0;
+  for (const frame of report.frames) {
+    const matches = ranges.filter(phase => frame.sequence >= phase.startSequence && frame.sequence <= phase.endSequence).length;
+    if (matches) phaseSampleCount++;
+    else unphased.push(frame);
+    if (matches > 1) overlappingPhaseSampleCount++;
+  }
+  const invalidReasons = [];
+  const sequences = new Set(report.frames.map(frame => frame.sequence));
+  if (sequences.size !== report.frames.length) invalidReasons.push('duplicate-sequence');
+  if (report.frames.some((frame, index) => index && frame.sequence <= report.frames[index - 1].sequence))
+    invalidReasons.push('nonmonotonic-samples');
+  const firstObserved = [], lastTimes = new Map();
+  let clockRegressed = false;
+  for (const frame of report.frames) {
+    const instanceId = typeof frame.instanceId === 'string' ? frame.instanceId : null;
+    const epoch = frame.epoch ?? null, key = JSON.stringify([instanceId, epoch]);
+    if (!lastTimes.has(key) && firstObserved.length < CAPTURE_LIMITS.phases) firstObserved.push({
+      instanceId, epoch, sequence: frame.sequence, atMs: frame.atMs,
+      ...Object.fromEntries(COLUMNS.map(column => [column, frame[column]])) });
+    if (lastTimes.has(key) && frame.atMs < lastTimes.get(key)) clockRegressed = true;
+    lastTimes.set(key, frame.atMs);
+  }
+  if (clockRegressed && !invalidReasons.includes('nonmonotonic-samples')) invalidReasons.push('nonmonotonic-samples');
+  // A gap inside a declared phase belongs to that phase. Any uncovered gap or
+  // boundary loss makes the outside-phase quantiles incomplete as well.
+  const sorted = [...sequences].sort((a, b) => a - b);
+  const merged = [];
+  for (const range of [...ranges].sort((a, b) => a.startSequence - b.startSequence)) {
+    const previous = merged.at(-1);
+    if (previous && range.startSequence <= previous.end + 1) previous.end = Math.max(previous.end, range.endSequence);
+    else merged.push({ start: range.startSequence, end: range.endSequence });
+  }
+  let sequenceGaps = 0;
+  for (let index = 1; index < sorted.length; index++) {
+    const start = sorted[index - 1] + 1, end = sorted[index] - 1;
+    const covered = merged.reduce((sum, range) => sum + Math.max(0, Math.min(end, range.end) - Math.max(start, range.start) + 1), 0);
+    sequenceGaps += end - start + 1 - covered;
+  }
+  const boundaryLossObserved = report.events.some(event => event?.type === 'frame-loss' && event.phase === 'boundary');
+  if (sequenceGaps || boundaryLossObserved) invalidReasons.push('lost-samples');
+  if (!unphased.length) invalidReasons.push('no-samples');
+  const quantilesValid = invalidReasons.length === 0;
+  return {
+    sampleCoverage: { totalSampleCount: report.frames.length, phaseSampleCount,
+      unphasedSampleCount: unphased.length, overlappingPhaseSampleCount },
+    firstObservedFrames: { scope: 'first available record per renderer instance/epoch; not proof of complete startup capture',
+      rows: firstObserved, truncatedInstances: Math.max(0, lastTimes.size - firstObserved.length) },
+    unphasedSummary: { scope: 'observed records outside every phase; may include startup, reload, screenshots and transitions; not steady-state or complete startup timing',
+      sampleCount: unphased.length, sequenceGaps, boundaryLossObserved, quantilesValid, invalidReasons,
+      metrics: quantilesValid ? Object.fromEntries(COLUMNS.map(key => [key, metric(unphased.map(frame => frame[key]))])) : null }
+  };
+}
+
 export function createCaptureReport({ runId, source = {}, environment = {}, options = {} }) {
   text(runId, 'runId', 128);
   if (![source, environment, options].every(plain)) throw new TypeError('Capture labels must be objects');
@@ -183,10 +241,12 @@ export function finalizeReport(report) {
   validateCapturePayload(report);
   const copy = JSON.parse(canonicalCaptureJSON(report));
   copy.phaseSummaries = copy.phases.map(phase => summarizePhase(copy.frames, phase, { lostSamples: phase.lostSamples ?? 0 }));
+  Object.assign(copy, summarizeCoverage(copy));
   copy.graphicsClassification = classifyGraphics(copy.environment.graphics);
   copy.gates = { nativeGPU: 'not-accepted', osInput: 'not-accepted', manualVisual: 'not-accepted' };
   copy.productionAccepted = false;
   copy.quantileMethod = 'nearest-rank; per phase from raw records only; never averaged across phases';
+  copy.unphasedQuantileMethod = 'nearest-rank from raw records outside the union of all phase ranges; never combined with phase quantiles';
   copy.measurementSources = { frameIntervalMs: 'presentation callback interval; not displayed-frame or GPU duration',
     updateMs: 'CPU update duration', renderSubmissionMs: 'CPU render submission duration; not GPU execution' };
   canonicalCaptureJSON(copy);

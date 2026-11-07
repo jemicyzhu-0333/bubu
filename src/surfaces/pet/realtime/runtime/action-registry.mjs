@@ -47,7 +47,7 @@ export function createActionRegistry({ channels = DEFAULT_CHANNELS } = {}) {
     const action = actions.get(id);
     if (!action) return { ok: false, reason: 'unknown-action' };
     if (!action.views.includes(view)) return { ok: false, reason: 'view-unsupported', fallback: action.views[0] };
-    return { ok: true, action, tracks: [...channelTable.keys()].filter(c => action.channels[c]).map(c => ({ channel: c, ...action.channels[c] })) };
+    return { ok: true, action, tracks: [...channelTable.keys()].filter(c => action.channels[c]).map(c => ({ ...action.channels[c], channel: c })) };
   }
 
   const interrupts = (id, reason) => actions.get(id)?.interruptBy.includes(reason) ?? false;

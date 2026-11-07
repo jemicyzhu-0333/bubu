@@ -240,3 +240,55 @@ test('late loaded stages update terminal diagnostic counters after cleanup witho
   assert.equal(value.stage.pool.actors, 0); assert.equal(value.stage.pool.parts.references, 0);
   assert.equal(value.events.rows.filter(row => row.type === 'disposed').length, 1);
 });
+
+
+test('stable animation frames do not rewrite unchanged status text', async () => {
+  const f = fixture();
+  let text = '', writes = 0;
+  Object.defineProperty(f.elements.status, 'textContent', {
+    get: () => text, set(value) { text = value; writes++; },
+  });
+  await f.surface.start();
+  for (let frame = 1; frame <= 144; frame++) f.tick(frame * 1000 / 144);
+  assert.equal(f.stage.renders, 144);
+  assert.equal(text, '开发角色 · 实时'); assert.equal(writes, 1);
+  f.surface.pause(true); f.tick(1016);
+  assert.equal(text, '开发角色 · 已暂停'); assert.equal(writes, 2);
+  f.surface.pause(true); f.tick(1032); assert.equal(writes, 2);
+  f.surface.pause(false); f.tick(1048);
+  assert.equal(text, '开发角色 · 实时'); assert.equal(writes, 3);
+  f.emit('onPetSync', { contextRevision: 2, motionMode: 'reduced' }); f.tick(1064);
+  assert.equal(text, '开发角色 · 静态策略'); assert.equal(writes, 4);
+  f.window.emit('focus'); f.tick(1080); assert.equal(writes, 4);
+  f.surface.dispose();
+});
+
+test('disposal detaches the retired stage and keeps only copied terminal counters', async () => {
+  for (const disposeError of [false, true]) {
+    const f = fixture({ disposeError }); await f.surface.start(); f.tick(16);
+    let diagnosticReads = 0;
+    const read = f.stage.readDiagnostics.bind(f.stage);
+    f.stage.readDiagnostics = () => { diagnosticReads++; return read(); };
+    f.surface.dispose();
+    assert.equal(diagnosticReads, 1);
+    f.stage.snapshot = () => { throw new Error('retired stage must not be read'); };
+    f.stage.readDiagnostics = () => { throw new Error('retired diagnostics must not be read'); };
+    const final = f.surface.readDiagnostics();
+    assert.equal(final.stage.pool.actors, 0); assert.equal(final.stage.mode, 'disposed');
+    assert.equal(f.surface.snapshot().stage, null);
+    f.surface.dispose(); f.surface.cancel(); f.surface.pause(false); f.tick(32);
+    assert.deepEqual(f.surface.readDiagnostics(), final); assert.equal(f.stage.disposals, 1);
+    if (disposeError) assert.match(final.errors.join(' '), /cleanup unavailable/);
+  }
+});
+
+test('failed terminal diagnostics do not retain or revisit a retired stage', async () => {
+  const f = fixture(); await f.surface.start(); f.tick(16);
+  f.stage.readDiagnostics = () => { throw new Error('diagnostics unavailable'); };
+  f.surface.dispose();
+  f.stage.snapshot = () => { throw new Error('retired stage must not be read'); };
+  assert.equal(f.surface.snapshot().stage, null);
+  assert.equal(f.surface.readDiagnostics().stage, null);
+  assert.match(f.surface.readDiagnostics().errors.join(' '), /Terminal diagnostics failed: diagnostics unavailable/);
+  assert.equal(f.stage.disposals, 1);
+});

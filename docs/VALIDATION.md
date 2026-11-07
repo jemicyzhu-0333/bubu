@@ -364,6 +364,16 @@ GUI 采集前会聚焦它自己持有的 fixture pet 窗口以满足 Electron `s
 脚本 exit0 仅表示 `completed`（或 `--help` 正常返回），不表示 native/GPU/OS/视觉准入；
 exit2 表示 setup failure、中断、observations 或清理未验证等非完整通过结果，按包内 status 分析。
 
+报告的 `sampleCoverage` 按全部阶段区间的并集核对记录数量，重叠阶段不会重复计数。
+`unphasedSummary` 单列区间外的原始记录，包括可能的首帧、reload、截图与过渡开销，
+不混入稳态阶段分位数；缺样、重复、乱序或已观察到的边界丢样使其分位数无效。
+`firstObservedFrames` 最多保留 64 个 renderer instance/epoch 的首个已取得记录，并报告截断数量。
+这些记录可能晚于真正初始化，不能据此宣称完整启动时间、显示帧耗时或 GPU 执行耗时。
+surface 的合成回归还覆盖销毁后断开 stage 引用、保留复制的有界终态计数，以及状态文案
+不变时 144 个模拟帧只写一次 DOM；暂停/低动效/恢复仍正常更新文案。这不证明目标机
+帧率提升、原生进程回收或 GPU 内存释放。动作计划的 channel 由注册表的通道键决定，
+轨道内的同名字段不能改写所有者；注册表尚未接入实际动作播放，不能据此关闭 G4。
+
 | 固定阶段 | 采集内容 | 证据边界 |
 | --- | --- | --- |
 | 启动与 warmup 5s | 独立记录 startup/cold first-frame、预热和源码/环境身份 | 不计入稳定性能分位数 |
