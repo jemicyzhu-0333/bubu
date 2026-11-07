@@ -812,6 +812,24 @@ G2C `e87eefb` 的 Windows 95 项非 GUI 测试通过、1 skip；由于采集入�
 本段同样不抢焦点，原生 foreground/OS-input/GPU/视觉及进程树清理门禁继续保留，
 不拿 G2B 的旧数据替代新源码运行证据。
 
+### G2 开发态点击穿透租约
+
+`pet-input-lease` 与 `pet-input-lease-host` 覆盖闭合不可变字段、期限边界、tick前到期续租、
+当前文档/mainFrame/webContents身份、同URL重载、单独pointerSpace变化、不可用几何、
+blur/hide/crash/close、普通end后再抓、旧序号/旧contact拒绝和native调用抛错后的未知结果。
+`pet-realtime-input-lease` 覆盖单在途请求、end优先、旧epoch不重贴、永久未结算请求、
+不明结果只补一次终止、缺能力/时钟异常、terminal响应换epoch不重复end及原业务字段隔离。
+
+真实 surface、闭合codec、bootstrap 和真实 viewport 代码通过模拟Electron端口组成往返，
+核对租约期间不切穿透、blur撤销、无窗口移动/聚焦。实际 D2 的 `input-lease-owner` 验证
+contactGeneration只在命中接纳时分配、同帧松手再抓复用pointerId仍不同代次，及迟到拒绝、
+输入epoch改变与无主排队事件丢弃不破坏原landing/表情。原 approved-pointer 回归保持不改。
+采集包新增 `capture.inputLease` 保存实际renderer请求状态；它不是OS捕获或native flag读回。
+
+以上为CPU/模拟端口合同验证，没有执行本轮Windows前台采集。新租约的真实点击穿透、
+初次异步接纳空隙、窗外释放、失焦/捕获被抢、GPU和进程树清理门禁保持开放。
+同进程期限不是主进程挂死后的恢复保证，不以模拟TTL通过升级原生安全或正式产品验收。
+
 ## G1/G2 实机验收清单（目标 Mac/Windows，逐源码记录）
 
 1. 在独立工作树取已交付的 `feature/pet-animation-v2` 精确提交，记录完整 HEAD 并确认工作树干净；

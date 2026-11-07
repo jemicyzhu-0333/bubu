@@ -22,7 +22,7 @@ function createPetWindowHost({
   const selectedPage = selectPetRendererPage({ ...rendererSelection, pagePath, development: enableReload });
   const readPointerSpace = selectedPage !== pagePath ? createPetPointerSpace({ screen, platform }) : null;
   const viewport = (platform === 'win32' || platform === 'darwin') && screen?.getDisplayNearestPoint
-    ? createPetViewport({ bounds, screen, readPointerSpace }) : null;
+    ? createPetViewport({ bounds, screen, readPointerSpace, selectedPage, onDeliveryError }) : null;
   const host = createHardenedWindow({
     BrowserWindow,
     preloadPath,
@@ -55,7 +55,7 @@ function createPetWindowHost({
     isAlive: host.isAlive,
     isVisible: host.isVisible,
     getBounds: viewport ? viewport.getBounds : host.getBounds,
-    ...(readPointerSpace && viewport ? { readPresentationView: viewport.readPresentationView } : {}),
+    ...(readPointerSpace && viewport ? { readPresentationView: viewport.readPresentationView, applyInputLease: viewport.applyInputLease } : {}),
     setPosition: viewport ? viewport.setPosition : host.setPosition,
     setBounds: viewport ? viewport.setBounds : host.setBounds,
     setMenuOpen: viewport ? viewport.setMenuOpen : null,

@@ -1193,6 +1193,36 @@ body host 在接收时复制 DOM rect 与 camera world/projection/inverse 矩阵
 当前光标轮询与 pass-through 定时器不能作为这些合同的替代。原生落点未被用户指定，
 不把预拖动基线、屏幕底部或回到原 X/Y 写成用户选择；先保留已接受的视觉动作。
 
+G2 的输入租约段只协调开发态窗口的点击穿透，不提供原生捕获或窗口位移。唯一 body
+pointer owner 在真实命中并接纳 active 时递增 `contactGeneration`；重复 mouse pointerId
+不是手势身份。pending、petting、drag 中的 active pointer 且当前 DOM capture 才能请求租约，
+排队但未命中的 down、松手后的 petting/landing/笑脸均不续租。只读代次不增加动作所有者。
+
+现有 `pet:updateRuntime` 可附带闭合 `inputLease` 请求（host epoch、viewRevision、
+contactGeneration、sequence、begin/renew/end），原四布尔字段保持含义。bootstrap 的专用
+runtime 路由负责协调，租约字段不进入 companion 业务投影或持久化；main 只组合该入口。
+viewport 仅在选定 V2 开发页暴露内部处理端口；生产 2D 不提供租约能力。
+平台额外核验本窗口 webContents、已完成加载的原/当前 mainFrame 与精确文件 URL；
+同 URL/frame 对象也不能越过导航 epoch。每次接纳重新观察实际几何和独立 pointerSpace
+上下文，不能拿最后发布的旧 revision 续期。未就绪或崩溃的开发页面保持穿透意图。
+
+host epoch 通过既有 `pet:viewport.inputLease` 发布，与 geometry revision 独立；失焦、隐藏、
+导航、崩溃、关闭、观测到的几何/输入空间变化、到期均撤销旧租约。普通 end 只退役对应
+contact，保留 epoch 以容许快速再抓取。每个文档保留已接纳 contact 的递增下界，旧 begin、
+renew、end 不能复活旧接触或结束新接触。桌宠通常不聚焦，准入不依赖 isFocused。
+
+租期由主机固定为300ms，在既有24ms hitTest 和每次命令处理时检查；renderer 利用现有
+RAF 以100ms间隔请求续期，没有新增计时器或全局输入钩子。renderer 最多一个在途租约请求，
+合并待发状态且 end 优先；请求创建时复制身份，不在 await 后给旧意图换 epoch。
+到期/拒绝后该 contact 不自动重新 begin；网络结果不明时最多补一个 end，不重放运动。
+迟到回复只撤销仍匹配的 active contact；已释放的落地/收尾不被重置，新 contact 也不受
+旧回复影响。输入 epoch 屏障可仅丢弃无主队列，真正映射变化仍走完整几何生命周期屏障。
+
+setIgnoreMouseEvents 成功返回后才更新缓存；失败撤销准入并报告 native state unknown，
+不能宣称 OS 标志已恢复。期限也只能在主进程再次运行时执行，不是主进程挂死后的 OS
+watchdog。首次 down 到主机接纳仍有异步空隙；DOM capture 不等于 Win32 capture，
+窗外释放、Alt-Tab、捕获被抢、实际 API/输入行为仍待原生验证。本段没有移动、落点或持久化。
+
 
 
 | 批次 | 完整目标及退出条件 | 不可冒领的下一层结果 |

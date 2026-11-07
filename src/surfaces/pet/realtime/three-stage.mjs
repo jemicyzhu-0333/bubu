@@ -75,13 +75,24 @@ export async function createThreeStage({ canvas, clock, environment }) {
   }
   function readDiagnostics() {
     const state = actor.f.h.state;
-    return { mode: state.mode, pointerId: state.pointerId, captured: state.captured,
+    return { mode: state.mode, pointerId: state.pointerId, contactGeneration: state.contactGeneration, captured: state.captured,
       pendingCount: actor.f.h.pendingCount, inputMotion: motionSource.snapshot(), renderedFrames, errors: [...errors], construction: { ...construction },
       resources: { geometries: renderer.info.memory.geometries, textures: renderer.info.memory.textures },
       pool: pool.diagnostics(), graphics: { ...graphics }, inputTargets: { body: bodyTarget() } };
   }
   return Object.freeze({
     readDiagnostics,
+    readInteraction() {
+      const state = actor.f.h.state;
+      return { mode: state.mode, pointerId: state.pointerId, contactGeneration: state.contactGeneration,
+        captured: state.captured, domCaptured: Number.isSafeInteger(state.pointerId) && canvas.hasPointerCapture(state.pointerId) };
+    },
+    cancelInput(contactGeneration = null) {
+      if (disposed) return;
+      const state = actor.f.h.state;
+      if (contactGeneration === null && state.pointerId === null) actor.f.h.discardUnownedInput();
+      else if (state.pointerId !== null && (contactGeneration === null || state.contactGeneration === contactGeneration)) actor.reset();
+    },
     observePresentationView(value, receivedAtMs) { if (!disposed) motionSource.observeView(receivedAtMs, value?.available === true, () => actor.reset()); },
     revokePointerSpace() { if (!disposed) motionSource.revoke(() => actor.reset()); },
     setPointerSpace(value, receivedAtMs) { if (!disposed) motionSource.setSpace(value, receivedAtMs, () => actor.reset()); },

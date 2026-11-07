@@ -153,7 +153,7 @@ test('diagnostic read is closed, readonly and excludes business projections or r
   f.emit('onPetSync', { contextRevision: 2, privateText: 'secret business text', appearanceItemIds: ['private-look'] });
   f.tick(16); f.tick(32); f.tick(48); await flush();
   const calls = f.calls.length, before = f.surface.snapshot(), first = f.surface.readDiagnostics({ limit: 1 });
-  assert.deepEqual(Object.keys(first), ['schemaVersion', 'instanceId', 'ready', 'closed', 'time', 'frameScheduled', 'pendingOperations', 'policy', 'frames', 'startup', 'stage', 'events', 'errorLog', 'errors']);
+  assert.deepEqual(Object.keys(first), ['schemaVersion', 'instanceId', 'ready', 'closed', 'time', 'frameScheduled', 'pendingOperations', 'policy', 'frames', 'startup', 'stage', 'inputLease', 'events', 'errorLog', 'errors']);
   assert.equal(first.instanceId, 'known-generation-id'); assert.equal(first.schemaVersion, 1);
   assert.equal(first.frames.rows.length, 1); assert.equal(first.frames.rows[0].atMs, 32);
   assert.equal(first.frames.remaining, 1); assert.equal(first.stage.mode, 'idle');
@@ -589,4 +589,44 @@ test('missing or non-object viewport payload after receipt activation cancels ra
     f.emit('onPetViewport', payload); assert.equal(observations.length, 2); assert.equal(observations.at(-1), null);
     f.surface.dispose();
   }
+});
+
+test('unavailable receipt with no validated geometry cannot apply conflicting outer legacy geometry', async () => {
+  const f = fixture(), tracker = createPresentationViewTracker(); await f.surface.start();
+  const valid = viewReceipt(tracker, 5); f.emit('onPetViewport', viewportFor(valid));
+  const unavailable = tracker.record({ ...valid, geometry: null });
+  f.emit('onPetViewport', { presentationView: unavailable, width: 999, height: 999, stageOffset: { x: 999, y: 999 } });
+  assert.equal(f.document.documentElement.style['--stage-dx'], '5px'); f.surface.dispose();
+});
+
+test('actual surface, scoped codec, bootstrap and viewport lease compose without moving or focusing the window', async () => {
+  const { EventEmitter } = require('node:events');
+  const { pathToFileURL } = require('node:url');
+  const { createPetViewport } = require('../src/platform/electron/windows/pet-viewport');
+  const { registerPetRuntimeIpc } = require('../src/bootstrap/pet-runtime');
+  const { assertIpcPayload } = require('../src/application/ipc');
+  const page = '/fixture/realtime/index.html', url = pathToFileURL(page).href;
+  const f = fixture(); let interaction = null, at = 0, tick, lastIgnored;
+  const commands = [], native = new EventEmitter(), contents = new EventEmitter(); native.webContents = contents;
+  contents.mainFrame = { url }; contents.getURL = () => url; contents.isDestroyed = () => false; contents.isLoading = () => false;
+  contents.send = (channel, value) => { assert.equal(channel, 'pet:viewport'); f.emit('onPetViewport', value); };
+  const viewport = createPetViewport({ bounds: { x: 100, y: 100, width: 220, height: 220 }, selectedPage: page,
+    readPointerSpace: () => ({ schemaVersion: 1, kind: 'client', revision: 1 }), now: () => at,
+    screen: { getCursorScreenPoint: () => ({ x: 1000, y: 900 }), getDisplayNearestPoint: () => ({ workArea: { x: 0, y: 0, width: 1920, height: 1080 } }) },
+    interval: callback => { tick = callback; return 1; }, cancelInterval() {} });
+  const bounds = { ...viewport.initialBounds };
+  Object.assign(native, { isDestroyed: () => false, isVisible: () => true, getBounds: () => ({ ...bounds }), getContentBounds: () => ({ ...bounds }),
+    setIgnoreMouseEvents: value => { lastIgnored = value; }, setPosition: () => assert.fail('no window travel'), focus: () => assert.fail('no focus') });
+  f.stage.readInteraction = () => interaction;
+  f.stage.cancelInput = generation => { if (interaction && (generation == null || interaction.contactGeneration === generation)) { interaction = null; f.setMode('idle'); } };
+  let handler; registerPetRuntimeIpc({ registerIpc: (_, fn) => { handler = fn; }, getWindow: () => viewport, applyRuntime: value => commands.push(value) });
+  f.clients.pet_updateRuntime = value => handler({ sender: contents, senderFrame: contents.mainFrame }, assertIpcPayload('pet:updateRuntime', value));
+  await f.surface.start(); viewport.attach(native); contents.emit('did-finish-load'); native.emit('show'); await flush();
+  assert.equal(lastIgnored, true);
+  interaction = { mode: 'pending', pointerId: 1, contactGeneration: 1, captured: true, domCaptured: true };
+  at = 16; f.tick(16); await flush(); await flush(); assert.equal(lastIgnored, false);
+  at = 116; f.tick(116); await flush(); await flush(); assert.equal(lastIgnored, false); assert.equal(f.surface.readDiagnostics().inputLease.requests, 2);
+  at = 120; native.emit('blur'); await flush(); await flush(); assert.equal(interaction, null); assert.equal(lastIgnored, true);
+  at = 130; tick(); assert.equal(lastIgnored, true); assert(commands.every(value => !Object.hasOwn(value, 'inputLease')));
+  f.surface.dispose(); native.emit('closed'); await flush();
 });

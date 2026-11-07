@@ -5,6 +5,7 @@ import { createFrameMetrics } from './frame-metrics.mjs';
 import { createStartupMetrics } from './startup-metrics.mjs';
 import { createErrorJournal, errorMessage } from './error-journal.mjs';
 import { readPresentationView } from '../../../core/pet-presentation-view.mjs';
+import { createInputLeasePublisher } from './input-lease-publisher.mjs';
 
 /** One presentation owner in the actual pet surface. No canonical writes or private IPC. */
 export function createRealtimePetSurface({ environment, clients, loadStage }) {
@@ -83,11 +84,25 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
       paused: manualPaused || context.paused || contextLost };
   };
   const continuous = () => { const value = policy(); return !value.hidden && !value.paused && !value.reducedMotion; };
+  function runtimeProjection() {
+    const value = policy();
+    return { visible: !closed && ready && !value.hidden, menuOpen: false,
+      dragging: !closed && (stage?.readMode?.() ?? stage?.snapshot().state?.mode) === 'drag', prefersReducedMotion: value.reducedMotion };
+  }
+  const inputLease = createInputLeasePublisher({ now: () => environment.performance.now(),
+    send(request) {
+      pendingOperations++;
+      return Promise.resolve().then(() => clients.pet_updateRuntime({ ...runtimeProjection(), inputLease: request }))
+        .finally(() => { pendingOperations--; });
+    },
+    cancelContact: generation => { if (!closed) stage?.cancelInput?.(generation); },
+    cancelInput: () => { if (!closed) stage?.cancelInput?.(); },
+    onError: error => recordError('runtime-publication', `Input lease publication failed: ${errorMessage(error)}`)
+  });
   function publishRuntime() {
     if (closed) return;
-    const value = policy();
-    const runtime = { visible: ready && !value.hidden, menuOpen: false,
-      dragging: (stage?.readMode?.() ?? stage?.snapshot().state?.mode) === 'drag', prefersReducedMotion: value.reducedMotion };
+    inputLease.update(stage?.readInteraction?.() ?? null, ready && continuous());
+    const runtime = runtimeProjection();
     const key = JSON.stringify(runtime);
     if (key === lastPublication) return;
     lastPublication = key;
@@ -176,12 +191,14 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
         try { stage?.observePresentationView?.(presentationViewBlocked ? null : next, presentationViewAt); }
         catch (error) { fail(error, 'resize'); return; }
       }
-      if (presentationViewBlocked) return;
+      if (presentationViewBlocked) { inputLease.observe(null); return; }
       // The validated observation and the applied mapping have one source. Outer
       // legacy fields cannot bypass an unchanged receipt's lifecycle barrier.
-      if (!presentationView.geometry) return;
       value = { ...value, ...presentationView.geometry };
     }
+    if (inputLease.snapshot().observed || Object.hasOwn(value, 'inputLease'))
+      inputLease.observe(presentationView && value.inputLease?.viewRevision === presentationView.revision ? value.inputLease : null);
+    if (observedPresentation && !presentationView?.geometry) return;
     if (!Number.isFinite(value.stageOffset?.x) || !Number.isFinite(value.stageOffset?.y)) return;
     viewport = { width: value.width, height: value.height, stageOffset: { ...value.stageOffset } };
     viewportRevision++;
@@ -203,6 +220,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
   function dispose() {
     if (closed) return;
     closed = true; ready = false;
+    inputLease.dispose();
     // Retire the published presentation lease; no business mutation or retry.
     invokeClient('terminal-runtime-publication', () => clients.pet_updateRuntime({ visible: false, menuOpen: false,
       dragging: false, prefersReducedMotion: policy().reducedMotion }), true);
@@ -302,7 +320,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
       const frames = metrics.readSince(options);
       return { schemaVersion: 1, instanceId, ready, closed, time: clock.time, frameScheduled: frame !== null, pendingOperations, policy: policy(), frames, startup: startup.snapshot(),
         stage: closed ? (terminalStage ? structuredClone(terminalStage) : null) : stage?.readDiagnostics?.() ?? null,
-        events: readEvents(), errorLog: errors.snapshot(), errors: errors.messages() };
+        inputLease: inputLease.snapshot(), events: readEvents(), errorLog: errors.snapshot(), errors: errors.messages() };
     },
     snapshot: () => ({ ready, closed, time: clock.time, policy: policy(), context: { ...context }, viewport,
       frameScheduled: frame !== null, error: failure?.message ?? null, errors: errors.messages(),

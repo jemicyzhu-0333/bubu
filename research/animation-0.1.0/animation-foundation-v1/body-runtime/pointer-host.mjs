@@ -154,6 +154,7 @@ export function createPointerHostFactory({
         lifecycleInvalidations: 0,
         viewInvalidations: 0,
       };
+      let contactGeneration = 0;
       let currentView = readPointerView(target, camera);
       function admitView(queuedView = null) {
         const observed = readPointerView(target, camera);
@@ -344,6 +345,7 @@ export function createPointerHostFactory({
           const normal = camera.getWorldDirection(new T.Vector3());
           active = {
             id: e.id,
+            contactGeneration: ++contactGeneration,
             downMotion: { x: e.motionX, y: e.motionY },
             latest: { x: e.x, y: e.y },
             anchor: body.surfaceAnchor(h),
@@ -492,6 +494,7 @@ export function createPointerHostFactory({
           mode,
           hidden,
           pointerId: active?.id ?? null,
+          contactGeneration: active?.contactGeneration ?? null,
           captured: active?.captured ?? false,
           drag: drag.snapshot(),
           pet: pet.snapshot(),
@@ -703,6 +706,7 @@ export function createPointerHostFactory({
           ...last,
           mode: "disposed",
           pointerId: null,
+          contactGeneration: null,
           captured: false,
           disposed: true,
         };
@@ -800,6 +804,12 @@ export function createPointerHostFactory({
         },
         get pendingCount() {
           return queue.length;
+        },
+        discardUnownedInput() {
+          if (closed || active || queue.length === 0) return false;
+          queue = [];
+          diagnostics.lifecycleInvalidations++;
+          return true;
         },
         dispose,
         suspend,

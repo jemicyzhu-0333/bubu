@@ -35,6 +35,7 @@ module.exports = {
   ...require('./session-start-publication'),
   ...require('./surface-publication'),
   ...require('./pet-queries'),
+  ...require('./pet-runtime'),
   ...require('./companion-feeding'),
   ...require('./companion-meals'),
   ...require('./renderer-ipc'),

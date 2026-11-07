@@ -1,20 +1,33 @@
 'use strict';
 const { planOpen } = require('../pet-menu-expansion');
 const { createPresentationViewTracker } = require('../../../core/pet-presentation-view.mjs');
+const { readInputLeaseRequest } = require('../../../core/pet-input-lease.mjs');
+const { createPetInputLease } = require('./pet-input-lease');
+const { createPetInputDocument } = require('./pet-input-document');
 
 // Windows and macOS transparent surfaces keep a stable backing store across menu toggles.
 // Public bounds remain the 220 DIP pet anchor, including persisted positions.
-function createPetViewport({ bounds, screen, readPointerSpace = null, size = { w: 520, h: 360 }, interval = setInterval, cancelInterval = clearInterval }) {
+function createPetViewport({ bounds, screen, readPointerSpace = null, selectedPage = null,
+  onDeliveryError = () => {}, now, newEpoch, size = { w: 520, h: 360 }, interval = setInterval, cancelInterval = clearInterval }) {
   let anchor = { ...bounds };
   const views = createPresentationViewTracker();
-  let expanded = false;
-  let native = null;
-  let ignored = null;
-  let timer = null;
+  const lease = readPointerSpace && selectedPage ? createPetInputLease({ now, newEpoch }) : null;
+  let expanded = false, native = null, document = null, ignored = null, timer = null;
+  let hidden = false, nativeUnknown = false, lastPublishedEpoch = null;
+  function report(error) {
+    try { onDeliveryError(error, { channel: 'pet:input-lease', reason: 'native-state-unknown' }); } catch { /* Reporting is best effort. */ }
+  }
+  function nativeError(error) {
+    ignored = null;
+    if (!nativeUnknown) { lease?.fail(); report(error); }
+    nativeUnknown = true;
+  }
   function layout(logical = anchor) {
     const center = { x: Math.round(logical.x + logical.width / 2), y: Math.round(logical.y + logical.height / 2) };
     return planOpen({ bounds: logical, size, workArea: screen.getDisplayNearestPoint(center).workArea });
   }
+  function visible() { return !hidden && (typeof native?.isVisible !== 'function' || native.isVisible()); }
+  function ready() { return Boolean(document?.isReady() && visible()); }
   function geometry() {
     const plan = layout();
     let viewport = native ? native.getBounds() : plan.bounds;
@@ -32,22 +45,74 @@ function createPetViewport({ bounds, screen, readPointerSpace = null, size = { w
     if (readPointerSpace) value.presentationView = views.record({ logicalAnchor: anchor,
       backingBounds: native ? viewport : null, contentBounds: content, stableNativeRead,
       geometry: { width: value.width, height: value.height, stageOffset: value.stageOffset } });
+    if (lease) value.inputLease = lease.observe(value.presentationView, value.pointerSpace, ready() && !nativeUnknown);
     return value;
   }
+  function deliver(value) {
+    if (!native || native.isDestroyed() || native.webContents.isDestroyed?.()) return false;
+    try {
+      native.webContents.send('pet:viewport', value);
+      lastPublishedEpoch = value.inputLease?.epoch ?? null;
+      return true;
+    } catch (error) { report(error); return false; }
+  }
+  function writeIgnored(value) {
+    if (ignored === value) return true;
+    try {
+      native.setIgnoreMouseEvents(value, { forward: true });
+      // This caches an API return, not independent readback of the OS flag.
+      ignored = value; nativeUnknown = false; return true;
+    } catch (error) { nativeError(error); return false; }
+  }
   function hitTest() {
-    if (!native || native.isDestroyed()) return;
-    const cursor = screen.getCursorScreenPoint();
-    const area = expanded ? native.getBounds() : anchor;
-    const outside = cursor.x < area.x || cursor.y < area.y || cursor.x >= area.x + area.width || cursor.y >= area.y + area.height;
-    if (ignored === outside) return;
-    ignored = outside;
-    native.setIgnoreMouseEvents(outside, { forward: true });
+    if (!native) return false;
+    try {
+      if (native.isDestroyed()) return false;
+      const value = lease ? geometry() : null;
+      const cursor = screen.getCursorScreenPoint();
+      const area = expanded ? native.getBounds() : anchor;
+      const outside = cursor.x < area.x || cursor.y < area.y || cursor.x >= area.x + area.width || cursor.y >= area.y + area.height;
+      const ignore = lease ? (!ready() || nativeUnknown || !value.presentationView.available ? true : lease.isActive() ? false : outside) : outside;
+      const success = writeIgnored(ignore);
+      // A successful recovery must first restore pass-through, then issue a
+      // fresh capability. A failed write never leaves a cached success/grant.
+      if (lease) {
+        value.inputLease = lease.observe(value.presentationView, value.pointerSpace, ready() && !nativeUnknown);
+        if (value.inputLease.epoch !== lastPublishedEpoch) deliver(value);
+      }
+      return success;
+    } catch (error) {
+      nativeError(error);
+      // Geometry/cursor failures must not leave a previously interactive dead
+      // anchor as the intentional policy. The OS outcome remains unverified.
+      try { native.setIgnoreMouseEvents(true, { forward: true }); } catch { /* Unknown native state. */ }
+      return false;
+    }
   }
   function publish() {
     if (native && !native.isDestroyed()) {
-      const value = geometry(); native.webContents.send('pet:viewport', value); return value;
+      const value = geometry(); deliver(value); return value;
     }
     return null;
+  }
+  function revoke() { lease?.revoke(); ignored = null; }
+  function applyInputLease(event, value) {
+    const request = readInputLeaseRequest(value);
+    let reason = null, result = null;
+    try {
+      // Re-read native bounds and source context even when publication has not
+      // caught up. A queued command cannot renew a last-published stale view.
+      const observation = geometry();
+      if (!request) reason = 'invalid-request';
+      else if (!ready() || event?.sender !== native.webContents || event?.senderFrame !== native.webContents.mainFrame) reason = 'foreign-document';
+      else result = lease.apply(request);
+      const success = hitTest();
+      if (!success) reason = 'native-state-unknown';
+      else if (result?.ok && request.phase !== 'end' && result.capability.epoch !== lease.capability().epoch) reason = 'context-changed';
+      if (observation.inputLease.epoch !== lastPublishedEpoch) publish();
+    } catch (error) { nativeError(error); reason = 'native-state-unknown'; }
+    return Object.freeze({ ok: !reason && Boolean(result?.ok), request,
+      capability: lease.capability(), reason: reason || result?.reason || null });
   }
   function move(x, y) {
     const nextAnchor = { ...anchor, x, y };
@@ -65,40 +130,44 @@ function createPetViewport({ bounds, screen, readPointerSpace = null, size = { w
     return readPointerSpace ? Object.freeze({ requestedLogicalAnchor: Object.freeze({ ...nextAnchor }),
       view: published?.presentationView ?? null }) : undefined;
   }
-  // Unified resume path (unlock-screen, resume, display change, show): the
-  // native pass-through state is not trusted after the OS took the screen.
-  // Forget the cached value and re-assert it, restart polling if it was
-  // stopped by a 'hide' that had no matching 'show', re-apply the floating
-  // level, and re-layout/publish for a possibly changed display.
+  // Unified resume path (unlock-screen, resume, display change, show). Native
+  // pass-through is not trusted after the OS took the screen.
   function resync(reason = 'resync') {
     if (!native || native.isDestroyed()) return false;
-    const visible = typeof native.isVisible === 'function' ? native.isVisible() : true;
-    if (visible && timer === null) timer = interval(hitTest, 24);
-    native.setAlwaysOnTop?.(true, 'floating');
-    native.setVisibleOnAllWorkspaces?.(true, { visibleOnFullScreen: false });
-    // A late native 'show' must not fight the small OS position nudge macOS
-    // applies after showInactive (no frame writes while visible); only a size
-    // mismatch is corrected there. Explicit resumes also re-position.
-    const plan = layout(), current = native.getBounds();
-    const sized = current.width !== plan.bounds.width || current.height !== plan.bounds.height;
-    const moved = current.x !== plan.bounds.x || current.y !== plan.bounds.y;
-    if (sized || (moved && reason !== 'show')) native.setBounds(plan.bounds, false);
-    ignored = null;
-    publish(); hitTest();
-    return true;
+    try {
+      const isVisible = typeof native.isVisible === 'function' ? native.isVisible() : true;
+      if (isVisible) hidden = false;
+      if (isVisible && timer === null) timer = interval(hitTest, 24);
+      native.setAlwaysOnTop?.(true, 'floating');
+      native.setVisibleOnAllWorkspaces?.(true, { visibleOnFullScreen: false });
+      // A late native show must not fight the OS position nudge after showInactive.
+      const plan = layout(), current = native.getBounds();
+      const sized = current.width !== plan.bounds.width || current.height !== plan.bounds.height;
+      const moved = current.x !== plan.bounds.x || current.y !== plan.bounds.y;
+      if (sized || (moved && reason !== 'show')) native.setBounds(plan.bounds, false);
+      revoke();
+      publish(); return hitTest();
+    } catch (error) { nativeError(error); return false; }
   }
   return {
     initialBounds: layout().bounds,
     attach(window) {
       native = window;
-      native.webContents.on('did-finish-load', publish);
+      if (lease) {
+        document = createPetInputDocument({ window, selectedPage,
+          onInvalidate: () => { revoke(); hitTest(); },
+          onReady: newDocument => { if (newDocument) lease.revoke({ newDocument }); publish(); hitTest(); } });
+        native.on('blur', () => { revoke(); hitTest(); });
+        hitTest();
+      } else native.webContents.on('did-finish-load', publish);
       native.webContents.on('input-event', hitTest);
       native.on('show', () => resync('show'));
-      native.on('hide', () => { if (timer !== null) cancelInterval(timer); timer = null; });
-      native.on('closed', () => { if (timer !== null) cancelInterval(timer); timer = null; native = null; });
+      native.on('hide', () => { hidden = true; revoke(); hitTest(); if (timer !== null) cancelInterval(timer); timer = null; });
+      native.on('closed', () => { revoke(); if (timer !== null) cancelInterval(timer); timer = null; native = null; });
     },
     getBounds: () => ({ ...anchor }),
     readPresentationView: () => readPointerSpace ? geometry().presentationView : null,
+    ...(lease ? { applyInputLease } : {}),
     setPosition: move,
     setBounds: next => move(next.x ?? anchor.x, next.y ?? anchor.y),
     setMenuOpen(open) { expanded = Boolean(open); hitTest(); return geometry(); },

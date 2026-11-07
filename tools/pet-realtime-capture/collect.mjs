@@ -143,6 +143,7 @@ export async function collectRealtime(report, ports, { screenshots = true } = {}
     await ports.pause(false); await phase('resume', () => wait(2000)); await shot('resumed');
     await sample('before-dispose');
     report.capture.inputMotion = last.stage?.inputMotion ?? null;
+    report.capture.inputLease = last.inputLease ?? null;
     for (let generation = 0; generation < 3; generation++) {
       disposing = true; await ports.dispose(); const operations = await drainTerminalOperations();
       const stage = last.stage, cpu = stage?.pool;

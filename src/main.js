@@ -12,7 +12,7 @@ const {
   createSittingReminderTimer, createCurrentEnergyReader,
   createWorkBoundaryReminder,
   registerAppMaintenance, registerProcessLifecycle,
-  createSessionResumeAdapter, createSessionStartPublisher, createSurfacePublisher, createPetQueries
+  createSessionResumeAdapter, createSessionStartPublisher, createSurfacePublisher, createPetQueries, registerPetRuntimeIpc
 } = require('./bootstrap');
 const {
   'app-maintenance': appMaintenance,
@@ -1777,11 +1777,8 @@ registerIpc('pet:dragEnd', () => {
   updatePetDockState();
   refreshSurprisePolicy();
 });
-registerIpc('pet:updateRuntime', (_, runtime) => {
-  petRuntime = { ...runtime };
-  refreshSurprisePolicy();
-  return { ok: true };
-});
+registerPetRuntimeIpc({ registerIpc, getWindow: () => petWindow,
+  applyRuntime(runtime) { petRuntime = runtime; refreshSurprisePolicy(); } });
 registerIpc('pet:cueAck', (_, acknowledgement) => surpriseDirector.acknowledge(acknowledgement));
 
 // 菜单与喂食面板打开时窗口临时扩容；几何（收进屏幕、宠物不跳、面板朝空的一侧）

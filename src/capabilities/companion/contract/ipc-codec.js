@@ -5,6 +5,7 @@ const { MAX_NATIVE_COORDINATE, numberInRange, nonNegativeInteger } = require('..
 const { createCapabilityCodec, emptyPayload } = require('../../../shared/ipc-validation');
 const { describeRoutes } = require('../../../shared/ipc-routes');
 const { FOOD_IDS, PET_STATES } = require('./constants');
+const { readInputLeaseRequest } = require('../../../core/pet-input-lease.mjs');
 const { AGENT_PLUGIN_TOOLS } = require('../../../content/agent-plugin');
 const AGENT_PLUGIN_TOOL_IDS = AGENT_PLUGIN_TOOLS.map(tool => tool.id);
 function decodePosition(validation, allowNull) {
@@ -47,7 +48,9 @@ const codec = createCapabilityCodec({
     const object = validation.requireObject();
     if (!object) return undefined;
     const fields = ['visible', 'menuOpen', 'dragging', 'prefersReducedMotion'];
-    validation.rejectUnknown(object, fields);
+    validation.rejectUnknown(object, [...fields, 'inputLease']);
+    const lease = Object.hasOwn(object, 'inputLease') ? readInputLeaseRequest(object.inputLease) : undefined;
+    if (lease === null) validation.fail('inputLease must be a closed V2 contact request');
     for (const field of fields) {
       if (typeof object[field] !== 'boolean') validation.fail(`${field} must be boolean`);
     }
@@ -55,7 +58,8 @@ const codec = createCapabilityCodec({
       visible: object.visible,
       menuOpen: object.menuOpen,
       dragging: object.dragging,
-      prefersReducedMotion: object.prefersReducedMotion
+      prefersReducedMotion: object.prefersReducedMotion,
+      ...(lease === undefined ? {} : { inputLease: lease })
     };
   },
   'pet:cueAck': validation => {
