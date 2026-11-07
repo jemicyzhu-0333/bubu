@@ -4,6 +4,7 @@ import { resolveSensoryPolicy } from '../../../core/sensory-policy.mjs';
 import { createFrameMetrics } from './frame-metrics.mjs';
 import { createStartupMetrics } from './startup-metrics.mjs';
 import { createErrorJournal, errorMessage } from './error-journal.mjs';
+import { readPresentationView } from '../../../core/pet-presentation-view.mjs';
 
 /** One presentation owner in the actual pet surface. No canonical writes or private IPC. */
 export function createRealtimePetSurface({ environment, clients, loadStage }) {
@@ -60,6 +61,8 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
   let manualPaused = false, contextLost = false, dirty = true, pendingOperations = 0;
   let lastNow = environment.performance.now(), lastFrame = null, failure = null;
   let viewport = null, viewportRevision = 0, pointerSpace = null, pointerSpaceReceivedAt = 0, docked = false, unsubscribeViewport = null, lastPublication = null;
+  let presentationView = null, presentationViewRevision = 0, presentationViewAt = 0, presentationViewBlocked = false;
+  let observedPresentation = false;
   const note = (error, operation) => {
     const message = recordError(operation, error);
     if (closed) return;
@@ -155,7 +158,31 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
     refresh();
   }
   function applyViewport(value) {
-    if (closed || !value || !Number.isFinite(value.stageOffset?.x) || !Number.isFinite(value.stageOffset?.y)) return;
+    if (closed) return;
+    if (!value || typeof value !== 'object') {
+      if (!observedPresentation) return;
+      value = {};
+    }
+    if (observedPresentation || Object.hasOwn(value, 'presentationView')) {
+      const next = readPresentationView(value.presentationView);
+      if (next && (next.revision < presentationViewRevision || presentationViewBlocked && next.revision <= presentationViewRevision)) return;
+      const conflict = next && presentationView && next.revision === presentationViewRevision
+        && JSON.stringify(next) !== JSON.stringify(presentationView);
+      const changed = !next || conflict || JSON.stringify(next) !== JSON.stringify(presentationView);
+      if (changed) {
+        observedPresentation = true; presentationViewAt = environment.performance.now();
+        presentationViewBlocked = !next || Boolean(conflict);
+        if (!presentationViewBlocked) { presentationView = next; presentationViewRevision = next.revision; }
+        try { stage?.observePresentationView?.(presentationViewBlocked ? null : next, presentationViewAt); }
+        catch (error) { fail(error, 'resize'); return; }
+      }
+      if (presentationViewBlocked) return;
+      // The validated observation and the applied mapping have one source. Outer
+      // legacy fields cannot bypass an unchanged receipt's lifecycle barrier.
+      if (!presentationView.geometry) return;
+      value = { ...value, ...presentationView.geometry };
+    }
+    if (!Number.isFinite(value.stageOffset?.x) || !Number.isFinite(value.stageOffset?.y)) return;
     viewport = { width: value.width, height: value.height, stageOffset: { ...value.stageOffset } };
     viewportRevision++;
     try { pointerSpace = value.pointerSpace ? structuredClone(value.pointerSpace) : null; }
@@ -231,7 +258,10 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
         }).finally(() => { pendingOperations--; });
       startup.stageStarted(environment.performance.now());
       stage = await loadStage({ canvas, clock, environment });
-      if (!closed) stage.setPointerSpace?.(pointerSpace, pointerSpaceReceivedAt);
+      if (!closed) {
+        stage.setPointerSpace?.(pointerSpace, pointerSpaceReceivedAt);
+        if (observedPresentation) stage.observePresentationView?.(presentationViewBlocked ? null : presentationView, presentationViewAt);
+      }
       startup.stageReady(environment.performance.now());
       if (closed) {
         const late = stage; stage = null;
@@ -261,6 +291,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
       const rect = canvas.getBoundingClientRect();
       const finite = value => Number.isFinite(value) ? value : null;
       return { instanceId, ready, closed, paused: policy().paused, viewportRevision,
+        presentationView: presentationView ? structuredClone(presentationView) : null, presentationViewBlocked,
         pointerId: state?.pointerId ?? null, captured: state?.captured ?? null, pendingCount: state?.pendingCount ?? null,
         domPointerCapture: Number.isSafeInteger(state?.pointerId) ? canvas.hasPointerCapture(state.pointerId) : false,
         screen: { x: finite(window.screenX), y: finite(window.screenY) },

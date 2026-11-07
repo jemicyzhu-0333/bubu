@@ -19,6 +19,7 @@ function readSpace(value) {
  */
 export function createEventMotionSource({ document, target }) {
   let space = null, notBefore = 0, total = 0, rejected = 0, activated = false, revoked = false;
+  let viewAvailable = true, viewBarrier = false;
   const rows = [];
   function audit(event, motion, reason) {
     total++; if (reason) rejected++;
@@ -42,8 +43,12 @@ export function createEventMotionSource({ document, target }) {
       if (activated) revoked = true;
       space = next;
       if (next?.kind === 'event-screen-dip') { activated = true; if (document.pointerLockElement !== null) revoked = true; }
-      notBefore = Number.isFinite(receivedAtMs) && receivedAtMs >= 0 ? receivedAtMs : Infinity;
+      notBefore = Number.isFinite(receivedAtMs) && receivedAtMs >= 0 ? Math.max(notBefore, receivedAtMs) : Infinity;
       return true;
+    },
+    observeView(receivedAtMs, available, cancelContact) {
+      cancelContact(); viewAvailable = available === true; viewBarrier = true;
+      notBefore = Number.isFinite(receivedAtMs) && receivedAtMs >= 0 ? Math.max(notBefore, receivedAtMs) : Infinity;
     },
     revoke(cancelContact) {
       if (!activated || revoked) return false;
@@ -52,6 +57,8 @@ export function createEventMotionSource({ document, target }) {
     read(event) {
       let reason = null, motion = null;
       if (revoked) reason = 'revoked-space';
+      else if (!viewAvailable) reason = 'view-unavailable';
+      else if (viewBarrier && (!Number.isFinite(event.timeStamp) || event.timeStamp < notBefore)) reason = 'prior-view-event';
       else if (space?.kind !== 'event-screen-dip') motion = { x: event.clientX, y: event.clientY };
       else {
         const b = space.bounds;
@@ -66,6 +73,6 @@ export function createEventMotionSource({ document, target }) {
       audit(event, motion, reason); return motion;
     },
     snapshot: () => ({ scope: 'same-delivered-DOM-event-not-OS-provenance', mode: revoked ? 'revoked' : space?.kind ?? 'client',
-      revision: space?.revision ?? null, capability: space ? structuredClone(space) : null, total, rejected, dropped: Math.max(0, total - rows.length), rows: structuredClone(rows) })
+      revision: space?.revision ?? null, viewAvailable, capability: space ? structuredClone(space) : null, total, rejected, dropped: Math.max(0, total - rows.length), rows: structuredClone(rows) })
   });
 }

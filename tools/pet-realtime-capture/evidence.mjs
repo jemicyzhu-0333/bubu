@@ -9,7 +9,7 @@ const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const SOURCE_FILES = Object.freeze([
   ...['run.mjs', 'diagnostics.mjs', 'collect.mjs', 'electron-main.cjs', 'window-port.cjs', 'movement-probe.cjs', 'options.mjs', 'supervisor.mjs', 'report.mjs', 'package.mjs', 'evidence.mjs', 'materialize-d2.mjs', 'fixture-policy.cjs', 'handoff.cjs'].map(name => `tools/pet-realtime-capture/${name}`),
   'tools/dev-bench/orchestration.js', 'tools/dev-bench/profile-fixture.js', 'tools/dev-bench/scenarios.js',
-  'src/platform/electron/dev/fixture-isolation.js',
+  'src/platform/electron/dev/fixture-isolation.js', 'src/core/pet-presentation-view.mjs',
   'src/platform/electron/windows/pet-pointer-space.js', 'src/platform/electron/windows/pet-viewport.js', 'src/platform/electron/windows/pet-window.js',
   'research/animation-0.1.0/runtime-facepath05/tools/approved-d2-source.json',
   'package.json', 'package-lock.json', 'research/animation-0.1.0/package-lock.json',
@@ -19,6 +19,7 @@ const SOURCE_FILES = Object.freeze([
   'research/animation-0.1.0/animation-foundation-v1/integration/foundation-runtime.mjs',
   'research/animation-0.1.0/animation-foundation-v1/body-runtime/pointer-host.mjs',
   'research/animation-0.1.0/animation-foundation-v1/body-runtime/pointer-coordinates.mjs',
+  'research/animation-0.1.0/animation-foundation-v1/body-runtime/pointer-view.mjs',
   'src/platform/electron/windows/pet-renderer-selection.js', 'src/bootstrap/renderer-ipc.js',
   'research/animation-0.1.0/runtime-facepath05/fixtures/face-d2/asset.glb',
   'research/animation-0.1.0/original-parts-hybrid-v1/geometry/bubu-hybrid-binding.glb'

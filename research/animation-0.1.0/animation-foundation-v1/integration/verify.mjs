@@ -22,6 +22,7 @@ report.modules = Object.fromEntries(
     "../body-runtime/rigid-surface-partition.mjs",
     "../body-runtime/pointer-host.mjs",
     "../body-runtime/pointer-coordinates.mjs",
+    "../body-runtime/pointer-view.mjs",
     "../../package-lock.json",
     "./foundation-host.mjs",
     "./asset-fixtures.mjs",

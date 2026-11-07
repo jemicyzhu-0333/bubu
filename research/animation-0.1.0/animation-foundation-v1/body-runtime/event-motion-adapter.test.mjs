@@ -66,3 +66,19 @@ test('real D2 malformed motion cancels current gesture and still permits clean l
     assert.equal(f.h.state.pointerId, null); assert.equal(f.target.captured.size, 0);
   } finally { f.h.dispose(); }
 });
+
+test('real D2 observed view barrier cannot qualify pending contact across a frame gap and rejects old event timestamps', async () => {
+  const f = await setup();
+  try {
+    f.emit('pointerdown', 0); f.tick(0); f.at(.5);
+    f.source.observeView(500, true, f.reset);
+    const state = f.tick(.5); assert.equal(state.mode, 'idle'); assert.equal(state.pet.phase, 'idle');
+    assert.equal(state.pet.face, null); assert.equal(f.target.captured.size, 0); assert.equal(f.h.pendingCount, 0);
+    f.emit('pointerdown', .51, { sampleTime: 499 }); assert.equal(f.tick(.51).pointerId, null);
+    f.emit('pointerdown', .52); assert.equal(f.tick(.52).mode, 'pending');
+    assert.equal(f.source.snapshot().mode, 'event-screen-dip');
+    f.at(.53); f.source.observeView(530, false, f.reset);
+    f.emit('pointerup', .54, { screenX: NaN }); assert.equal(f.tick(.54).pointerId, null);
+    assert.equal(f.target.captured.size, 0);
+  } finally { f.h.dispose(); }
+});

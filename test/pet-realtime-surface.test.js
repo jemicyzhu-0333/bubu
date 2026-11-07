@@ -536,3 +536,57 @@ test('surface delivers latest pointer space to a late stage and revokes on point
   f.surface.dispose(); f.document.pointerLockElement = {}; f.document.emit('pointerlockchange');
   assert.equal(calls.filter(call => call[0] === 'revoke').length, 1);
 });
+
+const { createPresentationViewTracker } = require('../src/core/pet-presentation-view.mjs');
+function viewReceipt(tracker, dx = 0) {
+  return tracker.record({ logicalAnchor: { x: 100 + dx, y: 100, width: 220, height: 220 },
+    backingBounds: { x: 0, y: 0, width: 520, height: 360 }, contentBounds: { x: 0, y: 0, width: 520, height: 360 },
+    geometry: { width: 520, height: 360, stageOffset: { x: dx, y: 0 } }, stableNativeRead: true });
+}
+const viewportFor = presentationView => ({ ...presentationView.geometry, presentationView });
+test('surface applies receipt geometry only, ignores stale revisions and barriers conflicting or missing receipts', async () => {
+  const f = fixture(), tracker = createPresentationViewTracker(), observations = [];
+  f.stage.observePresentationView = (view, at) => observations.push({ view, at }); await f.surface.start();
+  const one = viewReceipt(tracker), two = viewReceipt(tracker, 10);
+  f.setNow(10); f.emit('onPetViewport', viewportFor(one));
+  f.setNow(20); f.emit('onPetViewport', viewportFor(two));
+  assert.equal(observations.length, 2); assert.equal(f.document.documentElement.style['--stage-dx'], '10px');
+  f.setNow(30); f.emit('onPetViewport', viewportFor(one)); assert.equal(observations.length, 2);
+  f.emit('onPetViewport', { ...viewportFor(two), stageOffset: { x: 999, y: 999 } });
+  assert.equal(observations.length, 2); assert.equal(f.document.documentElement.style['--stage-dx'], '10px');
+  f.emit('onPetViewport', viewportFor({ ...one, revision: two.revision }));
+  assert.equal(observations.length, 3); assert.equal(observations.at(-1).view, null);
+  f.emit('onPetViewport', viewportFor(two)); assert.equal(observations.length, 3, 'same revision cannot recover a conflict');
+  const three = viewReceipt(tracker, 20); f.setNow(40); f.emit('onPetViewport', viewportFor(three));
+  assert.equal(observations.at(-1).view.revision, 3); assert.equal(observations.at(-1).at, 40);
+  f.emit('onPetViewport', { width: 520, height: 360, stageOffset: { x: 888, y: 888 } });
+  assert.equal(observations.at(-1).view, null); assert.equal(f.document.documentElement.style['--stage-dx'], '20px');
+  f.surface.dispose();
+});
+test('late stage receives copied latest presentation view and timestamp, never stale or mutable originals', async () => {
+  const gate = deferred(), f = fixture({ loadStage: () => gate.promise }), tracker = createPresentationViewTracker(), observations = [];
+  f.stage.observePresentationView = (view, at) => observations.push({ view, at }); const started = f.surface.start(); await flush();
+  f.setNow(10); f.emit('onPetViewport', viewportFor(viewReceipt(tracker)));
+  const second = structuredClone(viewReceipt(tracker, -5)); f.setNow(20); f.emit('onPetViewport', viewportFor(second)); second.geometry.stageOffset.x = 999;
+  gate.resolve(f.stage); assert.equal(await started, true);
+  assert.equal(observations.length, 1); assert.equal(observations[0].at, 20); assert.equal(observations[0].view.geometry.stageOffset.x, -5);
+  f.elements.character.getBoundingClientRect = () => ({ x: 0, y: 0, width: 220, height: 220 });
+  const diagnostic = f.surface.readWindowGeometry(); diagnostic.presentationView.geometry.stageOffset.x = 888;
+  assert.equal(f.surface.readWindowGeometry().presentationView.geometry.stageOffset.x, -5); f.surface.dispose();
+});
+test('unavailable native content observation is forwarded as unavailable rather than guessed backing bounds', async () => {
+  const f = fixture(), tracker = createPresentationViewTracker(), observations = []; f.stage.observePresentationView = view => observations.push(view);
+  await f.surface.start(); const valid = viewReceipt(tracker);
+  const missing = tracker.record({ ...valid, contentBounds: null }); f.emit('onPetViewport', viewportFor(missing));
+  assert.equal(observations.at(-1).available, false); assert.equal(observations.at(-1).contentBounds, null); f.surface.dispose();
+});
+
+test('missing or non-object viewport payload after receipt activation cancels rather than silently preserving contact', async () => {
+  for (const payload of [null, undefined, false, 7, 'missing']) {
+    const f = fixture(), tracker = createPresentationViewTracker(), observations = [];
+    f.stage.observePresentationView = view => observations.push(view); await f.surface.start();
+    f.emit('onPetViewport', viewportFor(viewReceipt(tracker)));
+    f.emit('onPetViewport', payload); assert.equal(observations.length, 2); assert.equal(observations.at(-1), null);
+    f.surface.dispose();
+  }
+});

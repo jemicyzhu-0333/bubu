@@ -121,3 +121,55 @@ test('optional V2 pointer-space metadata rides the existing viewport publication
   revision = 2; window.webContents.emit('did-finish-load'); assert.equal(messages.at(-1).payload.pointerSpace.revision, 2);
   window.emit('closed');
 });
+
+function receiptHarness() {
+  const h = harness(), screen = { getDisplayNearestPoint: () => ({ workArea: { x: -1920, y: -1000, width: 3840, height: 2080 } }), getCursorScreenPoint: () => ({ x: 0, y: 0 }) };
+  const viewport = createPetViewport({ bounds: { x: -400, y: -100, width: 220, height: 220 }, screen, readPointerSpace: () => ({ kind: 'client', revision: 1 }) });
+  let bounds = { ...viewport.initialBounds }; const native = h.native;
+  native.getBounds = () => ({ ...bounds });
+  native.getContentBounds = () => ({ ...bounds, x: bounds.x + 2, y: bounds.y + 22, width: bounds.width - 4, height: bounds.height - 24 });
+  native.setPosition = (x, y) => { bounds = { ...bounds, x, y }; };
+  native.setBounds = next => { bounds = { ...next }; };
+  viewport.attach(native);
+  return { viewport, native, calls: h.calls };
+}
+test('V2 move receipt reads actual clamped bounds and keeps logical intent separate', () => {
+  const h = receiptHarness(), before = h.viewport.readPresentationView();
+  assert.equal(before.available, true); assert.notDeepEqual(before.contentBounds, before.backingBounds);
+  assert.equal(h.viewport.readPresentationView().revision, before.revision);
+  const original = h.native.setPosition; h.native.setPosition = (x, y) => original(Math.round(x) + 7, Math.round(y) - 3);
+  const receipt = h.viewport.setPosition(-300.25, -120.75), view = receipt.view;
+  assert.deepEqual(view.logicalAnchor, h.viewport.getBounds());
+  assert.deepEqual(view.backingBounds, h.native.getBounds()); assert.deepEqual(view.contentBounds, h.native.getContentBounds());
+  assert.equal(view.backingBounds.x + view.geometry.width / 2 + view.geometry.stageOffset.x, -190.25);
+  assert.equal(view.backingBounds.y + view.geometry.height / 2 + view.geometry.stageOffset.y, -10.75);
+  assert.equal(view.revision, before.revision + 1); assert(Object.isFrozen(receipt.requestedLogicalAnchor));
+  assert.equal(h.calls.filter(c => c[0] === 'send').at(-1)[2].presentationView.revision, view.revision);
+  assert.equal(h.viewport.readPresentationView().revision, view.revision);
+});
+test('V2 noop native command is reported as actual unmoved bounds, not fabricated success', () => {
+  const h = receiptHarness(), before = h.viewport.readPresentationView(); h.native.setPosition = () => {};
+  const receipt = h.viewport.setPosition(-200, -50);
+  assert.deepEqual(receipt.view.backingBounds, before.backingBounds);
+  assert.equal(receipt.view.logicalAnchor.x, -200); assert.equal(receipt.view.available, true, 'available observation is not movement success');
+});
+test('V2 partial native throw preserves old logical anchor but independently reports actual changed bounds', () => {
+  const h = receiptHarness(), before = h.viewport.readPresentationView(); const original = h.native.setPosition; let calls = 0;
+  h.native.setPosition = (x, y) => { calls++; original(x, y); throw new Error('after OS call'); };
+  assert.throws(() => h.viewport.setPosition(-200, -50), /after OS call/);
+  const after = h.viewport.readPresentationView(); assert.deepEqual(after.logicalAnchor, before.logicalAnchor);
+  assert.notDeepEqual(after.backingBounds, before.backingBounds); assert.equal(calls, 1, 'no implicit rollback or retry');
+});
+test('V2 missing content bounds and unstable sandwich read are unavailable, without guessed content', () => {
+  const h = receiptHarness(); delete h.native.getContentBounds;
+  let view = h.viewport.readPresentationView(); assert.equal(view.available, false); assert.equal(view.contentBounds, null);
+  const original = h.native.getBounds; let n = 0; h.native.getBounds = () => ({ ...original(), x: ++n });
+  h.native.getContentBounds = () => original(); view = h.viewport.readPresentationView();
+  assert.equal(view.stableNativeRead, false); assert.equal(view.available, false);
+  assert.equal(view.backingBounds.x, 2);
+});
+test('legacy viewport retains its payload and makes no content bounds read', () => {
+  const h = harness(); h.native.getContentBounds = () => { throw new Error('must not be called'); };
+  const value = h.viewport.setMenuOpen(false); assert.equal(Object.hasOwn(value, 'presentationView'), false);
+  assert.equal(h.viewport.readPresentationView(), null); assert.equal(h.viewport.setPosition(1400, 700), undefined);
+});

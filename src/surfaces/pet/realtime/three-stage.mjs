@@ -82,6 +82,7 @@ export async function createThreeStage({ canvas, clock, environment }) {
   }
   return Object.freeze({
     readDiagnostics,
+    observePresentationView(value, receivedAtMs) { if (!disposed) motionSource.observeView(receivedAtMs, value?.available === true, () => actor.reset()); },
     revokePointerSpace() { if (!disposed) motionSource.revoke(() => actor.reset()); },
     setPointerSpace(value, receivedAtMs) { if (!disposed) motionSource.setSpace(value, receivedAtMs, () => actor.reset()); },
     update(time, policy) { actor.step(time, policy); },

@@ -1169,6 +1169,30 @@ DOM `hasPointerCapture` 只是 Chromium 的 DOM 待定捕获映射，不等于 W
 失捕、窗外释放、Alt-Tab 与捕获被抢仍必须实机验证。此段没有 native window travel、
 落点政策或持久化写入，唯一 actor、动作 profile 与时钟不变。
 
+G2 的几何回执与队列屏障段仍不接通实时窗口随角色移动。现有 `pet:viewport` 仅在显式
+V2 开发 surface 附带不可变 `presentationView`：逻辑 anchor、实际 backing/content bounds、
+实际用于 stage 的 geometry、前后 backing 读数一致标记及按事实变化递增的 revision。
+content 读不到就标 unavailable，不用逻辑 bounds 冒充；`available` 只说明观测完整，
+不是移动成功、renderer 或 compositor ACK。native move 返回后才提交逻辑意图，并读回
+实际结果；clamp/noop 不改写为请求成功。若命令抛错，不猜 OS 是否执行、不隐式回滚或重试，
+可另行只读观测实际 bounds，逻辑 anchor 仍保留原值。生产 2D 不增加回执或 content 读取。
+
+renderer 应用校验回执自身的 geometry，不让外层兼容字段绕过其身份；旧 revision 忽略，
+同 revision 不同内容或协议启用后缺失/损坏回执取消输入并阻断，只有更新 revision 可恢复。
+同一事实的重发不撤销手势；变化先复用 actor 生命周期屏障，再应用映射。事件自身时间戳
+早于该次观察的，不进入新视图；不可用视图不接纳运动样本，但终止事件仍能释放捕获。
+body host 在接收时复制 DOM rect 与 camera world/projection/inverse 矩阵，在消费队列前、
+每次 frame 及每个事件前复核。平移、相机变化或不可用映射清空整个旧队列和唯一捕获，
+包括尚未成为 active 的 queued down；DPR/backbuffer 像素变化不属于 CSS/ray 映射变更。
+屏障使用原 lifecycle 时钟，不添加 epsilon、不重放或重采运动，不改动作 profile。
+这是接收与消费时映射一致性保护，不能识别映射改变前生成、改变后才送达的所有事件；
+跨进程延迟和瞬时变化也不能由两次读数证明不存在。
+
+真正 native travel 前仍需明确 capture/pass-through 的协作与失效恢复、角色局部空间与窗口
+位移的单次计入、release/landing 的坐标政策及实机 OS 捕获证据。旧 `pet:setPosition`
+当前光标轮询与 pass-through 定时器不能作为这些合同的替代。原生落点未被用户指定，
+不把预拖动基线、屏幕底部或回到原 X/Y 写成用户选择；先保留已接受的视觉动作。
+
 
 
 | 批次 | 完整目标及退出条件 | 不可冒领的下一层结果 |

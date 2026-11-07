@@ -3,6 +3,7 @@ import { createAuthoredFacePort } from "./authored-face-port.mjs";
 import { MeshBVH } from "three-mesh-bvh";
 import { createSurfaceQuery } from "./surface-query.mjs";
 import { createPointerCoordinateReader, readClientPoint } from "./pointer-coordinates.mjs";
+import { readPointerView, samePointerView } from "./pointer-view.mjs";
 export function createPointerHostFactory({
   THREE: T,
   createAdmittedHost,
@@ -151,7 +152,23 @@ export function createPointerHostFactory({
         releaseFailures: 0,
         commits: 0,
         lifecycleInvalidations: 0,
+        viewInvalidations: 0,
       };
+      let currentView = readPointerView(target, camera);
+      function admitView(queuedView = null) {
+        const observed = readPointerView(target, camera);
+        const changed = !samePointerView(currentView, observed)
+          || (queuedView !== null && !samePointerView(queuedView, observed));
+        currentView = observed;
+        if (changed && (active || queue.length || mode !== "idle")) {
+          diagnostics.viewInvalidations++;
+          // Same lifecycle barrier as blur/hidden. No fake timestamps or replay
+          // of old local coordinates under a new camera/rect mapping.
+          suspend(); resume();
+          return null;
+        }
+        return observed;
+      }
       function ray(x, y) {
         const r = target.getBoundingClientRect();
         if (
@@ -540,11 +557,16 @@ export function createPointerHostFactory({
         if (closed || hidden) return;
         if (!Number.isFinite(t) || t < sealed)
           throw Error("Monotonic frame time");
+        if (!admitView()) return last;
         while (queue.length && queue[0].t <= t) {
+          if (!admitView(queue[0].view)) return last;
           const at = queue[0].t;
           advanceControllers(at);
           apply(at);
-          while (queue.length && queue[0].t === at) process(queue.shift());
+          while (queue.length && queue[0].t === at) {
+            if (!admitView(queue[0].view)) return last;
+            process(queue.shift());
+          }
           commit(at);
         }
         if (t > sealed) {
@@ -594,6 +616,8 @@ export function createPointerHostFactory({
           diagnostics.rejected++;
           return false;
         }
+        const view = admitView();
+        if (!view) { diagnostics.rejected++; return false; }
         const clientPoint = readClientPoint(event);
         if (["down", "move"].includes(type) && !clientPoint) {
           diagnostics.rejected++;
@@ -606,7 +630,7 @@ export function createPointerHostFactory({
           // Revoke this pointer in queue order, including a down not yet framed.
           // Never reuse the last motion sample or change coordinate spaces.
           if (type === "move") {
-            queue.push({ type: "cancel", t, id: event.pointerId });
+            queue.push({ type: "cancel", t, id: event.pointerId, view });
             lastReceived = t;
           }
           return false;
@@ -614,6 +638,7 @@ export function createPointerHostFactory({
         queue.push({
           type,
           t,
+          view,
           id: event.pointerId,
           primary: event.isPrimary,
           button: event.button,
@@ -632,6 +657,11 @@ export function createPointerHostFactory({
         faceInput.reset();
         queue = [];
         const a = active;
+        // A lifecycle/view barrier revokes unqualified contact before advancing
+        // over its deadline. It must not manufacture a held/release expression
+        // during a frame gap; no face/body intent has been emitted for pending.
+        if (active && mode === "pending" && pet.phase === "pending")
+          petInput("cancel", pet.time);
         active = null;
         dropCapture(a);
         drag.suspend(t);

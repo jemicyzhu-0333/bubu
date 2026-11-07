@@ -55,6 +55,7 @@ function createPetWindowHost({
     isAlive: host.isAlive,
     isVisible: host.isVisible,
     getBounds: viewport ? viewport.getBounds : host.getBounds,
+    ...(readPointerSpace && viewport ? { readPresentationView: viewport.readPresentationView } : {}),
     setPosition: viewport ? viewport.setPosition : host.setPosition,
     setBounds: viewport ? viewport.setBounds : host.setBounds,
     setMenuOpen: viewport ? viewport.setMenuOpen : null,

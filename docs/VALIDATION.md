@@ -792,6 +792,26 @@ pointer lock、失效最终释放点和 32 条有界副本。真实 D2 的 `even
 renderer 窗口位置读数一致，native 输入观察为零。该结果仅证明自有窗口往返，
 `eventMatched/compositorAcknowledged/actorMotionConnected` 均为 false，清理未知及三项准入门禁仍开放。
 
+### G2 几何回执与旧视图输入屏障
+
+`pet-presentation-view`、`pet-viewport` 检查不可变副本、事实不变不升 revision、负/小数坐标、
+逻辑/backing/content 分离、clamp/noop、命令部分执行后抛错、缺失 content 与不稳定回读。
+`pet-realtime-surface` 检查旧回执、同 revision 冲突、缺失回执降级、迟到异步 stage 与外层
+几何不能绕过校验回执。`pet-realtime-event-motion` 覆盖 client/screen 视图观察时间屏障，
+不可用后恢复及能力永久撤销不能被视图恢复绕过。
+
+实际 D2 的 `body-runtime/pointer-view.test.mjs` 检查 queued down 尚无 owner、相同尺寸平移、
+相机变化、无新输入时 frame 撤销、同一时间批次 motion/up 清空、缺坐标终止释放、DPR 与
+backbuffer 变化不误撤销、视图副本及不重采运动、sealed-time 无 epsilon 的生命周期屏障。
+这些均为 CPU/模拟原生端口证据，不证明 OS event matching、Win32 capture、live window travel
+或 compositor ACK。`readWindowGeometry().presentationView` 是收到的 host 观测副本，
+不能把它标为真实已呈现帧的确认。
+
+G2C `e87eefb` 的 Windows 95 项非 GUI 测试通过、1 skip；由于采集入口会 focus 自有窗口，
+非干扰要求下没有执行新实采，没有 G2C 的 raw 包、inputMotion 或实际 bounds。
+本段同样不抢焦点，原生 foreground/OS-input/GPU/视觉及进程树清理门禁继续保留，
+不拿 G2B 的旧数据替代新源码运行证据。
+
 ## G1/G2 实机验收清单（目标 Mac/Windows，逐源码记录）
 
 1. 在独立工作树取已交付的 `feature/pet-animation-v2` 精确提交，记录完整 HEAD 并确认工作树干净；

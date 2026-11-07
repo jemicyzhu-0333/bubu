@@ -101,3 +101,26 @@ test('valid release retains its final event-owned endpoint; revoked release stil
   assert.equal(f.value.snapshot().rows.at(-1).type, 'pointerup'); assert.equal(f.value.snapshot().rejected, 0);
   f.value.revoke(f.cancel); assert.equal(f.value.read(event({ type: 'pointerup' })), null);
 });
+
+test('view barrier rejects pre-observation client and screen events without permanently revoking the source', () => {
+  for (const screen of [false, true]) {
+    const f = source(); if (screen) f.value.setSpace(projection()(), 0, f.cancel);
+    f.value.observeView(150, true, f.cancel);
+    assert.equal(f.value.read(event({ timeStamp: 149 })), null);
+    assert.equal(f.value.snapshot().rows.at(-1).reason, 'prior-view-event');
+    assert.equal(f.value.read(event({ timeStamp: NaN })), null);
+    assert.deepEqual(f.value.read(event({ timeStamp: 150 })), screen ? { x: -1200.25, y: -100.5 } : { x: 30.5, y: 41.25 });
+    f.value.observeView(200, false, f.cancel); assert.equal(f.value.read(event({ timeStamp: 210 })), null);
+    assert.equal(f.value.snapshot().rows.at(-1).reason, 'view-unavailable');
+    f.value.observeView(250, true, f.cancel); assert.equal(f.value.read(event({ timeStamp: 249 })), null);
+    assert.notEqual(f.value.read(event({ timeStamp: 250 })), null);
+    assert.equal(f.value.snapshot().mode, screen ? 'event-screen-dip' : 'client');
+  }
+});
+test('view barrier cannot lower its time cutoff or revive permanently revoked screen space', () => {
+  const f = source(); f.value.setSpace(projection()(), 0, f.cancel);
+  f.value.observeView(200, true, f.cancel); f.value.observeView(100, true, f.cancel);
+  assert.equal(f.value.read(event({ timeStamp: 150 })), null);
+  f.value.revoke(f.cancel); f.value.observeView(300, true, f.cancel);
+  assert.equal(f.value.read(event({ timeStamp: 400 })), null); assert.equal(f.value.snapshot().mode, 'revoked');
+});
