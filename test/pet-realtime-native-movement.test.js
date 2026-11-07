@@ -144,7 +144,7 @@ test('probe cannot overtake earlier input awaiting focus, and stale navigation i
     Object.assign(contents, { isDestroyed: () => false, getURL: () => pathToFileURL('/fixture/index.html').href,
       executeJavaScript: async () => ({ instanceId: 'one' }), sendInputEvent() { sent++; } });
     const window = { webContents: contents, isDestroyed: () => false, isFocused: () => focused,
-      focus() { focused = true; }, getContentBounds: () => ({ width: 520, height: 360 }) };
+      focus() { focused = true; }, getContentBounds: () => ({ x: -800, y: 40, width: 520, height: 360 }) };
     const port = createOwnedWindowPort({ window, pagePath: '/fixture/index.html', readProfileOwnership: () => true,
       readWorkArea: () => AREA, timeoutMs: 1000 });
     await port.read({}); const input = port.input('mouseDown', { x: 10, y: 10 });

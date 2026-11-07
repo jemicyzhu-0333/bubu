@@ -769,8 +769,28 @@ wire 候选修复了固定粒子代理关节塌向原点、细化铰链无外力
 viewportRevision；collector 将探针放在暂停非性能阶段。Node 模拟全部通过仍不是实机证据。
 原生采集必须逐次核对 `capture.windowMovement` 的实际位移、`inputQuiescent`、restoration
 和当次源码身份；原生输入流一律 unknown/unmatched，不因 Electron 注入或 isTrusted 升级。
-没有共享事件身份前不将该观察值接入 actor，也不把窗口当前位置或光标轮询充作历史输入。
+没有共享事件身份前不将该独立 native 观察流接入 actor，也不把窗口当前位置或光标轮询充作历史输入。
 Windows 进程树清理、人工视觉、GPU/OS-input 以及真实混合 DPI 门禁仍分别保留。
+
+### G2 DOM 同事件坐标合同
+
+`pet-realtime-event-motion` 验证精确运行时/单屏投影、负/小数坐标、client 与 screen 相互
+独立、未观察到能力前的 client 兼容、旧时间戳拒绝、源 epoch 取消、永久撤销、不混回、
+pointer lock、失效最终释放点和 32 条有界副本。真实 D2 的 `event-motion-adapter` 另核验
+唯一 owner、惯性/落地、抚摸与拖动互斥、无关指针不能撤销接触、队列失效及松手/再抓。
+这些测试的 trusted/time 字段是明确构造的测试信封，不能记为 OS 输入证据。
+
+采集器现在为 Electron 注入显式提供 `globalX/globalY`，并保存
+`caller-supplied-controlled-fixture-not-OS` 的坐标回执，避免把默认零 screen 坐标当实机点。
+`capture.inputMotion` 保存实际运行的 source mode/capability 和最新最多 32 条同事件观察；
+它证明采样源选择及本次送达的数据，不证明硬件来源、native capture 或混合 DPI。
+能力变化到 renderer 撤销之间存在跨进程通知延迟，不声明与 OS 拓扑变化原子同步。
+真正 OS 路径的窗外拖动、捕获丢失、Alt-Tab、release/regrab 和实际显示器变化仍需独立验证。
+
+前一段 `74b02f7` Windows fixture 捕获为 5,060 帧/14 个完成阶段/零错误；
+其 backing window 从 (1528,744) 实际移动 (-24,-16) DIP 后回读恢复，
+renderer 窗口位置读数一致，native 输入观察为零。该结果仅证明自有窗口往返，
+`eventMatched/compositorAcknowledged/actorMotionConnected` 均为 false，清理未知及三项准入门禁仍开放。
 
 ## G1/G2 实机验收清单（目标 Mac/Windows，逐源码记录）
 

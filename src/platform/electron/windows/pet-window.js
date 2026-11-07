@@ -2,6 +2,7 @@
 
 const { createHardenedWindow } = require('./window-host');
 const { createPetViewport } = require('./pet-viewport');
+const { createPetPointerSpace } = require('./pet-pointer-space');
 const { selectPetRendererPage, readPetRendererSelection } = require('./pet-renderer-selection');
 
 function createPetWindowHost({
@@ -18,12 +19,14 @@ function createPetWindowHost({
   platform = process.platform,
   screen = require('electron').screen
 }) {
+  const selectedPage = selectPetRendererPage({ ...rendererSelection, pagePath, development: enableReload });
+  const readPointerSpace = selectedPage !== pagePath ? createPetPointerSpace({ screen, platform }) : null;
   const viewport = (platform === 'win32' || platform === 'darwin') && screen?.getDisplayNearestPoint
-    ? createPetViewport({ bounds, screen }) : null;
+    ? createPetViewport({ bounds, screen, readPointerSpace }) : null;
   const host = createHardenedWindow({
     BrowserWindow,
     preloadPath,
-    pagePath: selectPetRendererPage({ ...rendererSelection, pagePath, development: enableReload }),
+    pagePath: selectedPage,
     onDeliveryError,
     allowReload: enableReload,
     options: {

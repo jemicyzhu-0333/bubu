@@ -518,3 +518,21 @@ test('disposed geometry stays closed and cannot revive or revisit a retired stag
   assert.equal(receipt.closed, true); assert.equal(receipt.captured, null); assert.equal(receipt.pendingCount, null);
   assert.equal(receipt.domPointerCapture, false);
 });
+
+test('surface delivers latest pointer space to a late stage and revokes on pointer lock through its lifecycle', async () => {
+  const pending = deferred(), f = fixture({ loadStage: () => pending.promise }), calls = [];
+  f.document.pointerLockElement = null;
+  f.stage.setPointerSpace = (...values) => calls.push(['space', ...values]);
+  f.stage.revokePointerSpace = () => calls.push(['revoke']);
+  const starting = f.surface.start();
+  f.setNow(25); f.emit('onPetViewport', { width: 520, height: 360, stageOffset: { x: 0, y: 0 }, pointerSpace: { revision: 1 } });
+  f.setNow(30); const pointerSpace = { revision: 2 };
+  f.emit('onPetViewport', { width: 520, height: 360, stageOffset: { x: 0, y: 0 }, pointerSpace }); pointerSpace.revision = 999;
+  pending.resolve(f.stage); await starting;
+  assert.deepEqual(calls, [['space', { revision: 2 }, 30]]);
+  f.document.pointerLockElement = f.elements.character; f.document.emit('pointerlockchange');
+  assert.equal(calls.at(-1)[0], 'revoke'); assert.equal(f.stage.cancels, 1);
+  f.document.pointerLockElement = null; f.document.emit('pointerlockchange'); assert.equal(f.stage.cancels, 1);
+  f.surface.dispose(); f.document.pointerLockElement = {}; f.document.emit('pointerlockchange');
+  assert.equal(calls.filter(call => call[0] === 'revoke').length, 1);
+});

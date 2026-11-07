@@ -6,7 +6,8 @@ export function readClientPoint(event) {
 
 /** The host keeps ray coordinates in CSS client space. An optional synchronous
  * adapter supplies the matching event's motion point in one stable DIP space.
- * Never derive native motion from Chromium screenX or render-pixel/DPR values.
+ * Never use unverified screen coordinates or render-pixel/DPR arithmetic.
+ * An adapter must prove the delivered event field belongs to its declared space.
  * A missing sample fails closed; switching to client coordinates mid-gesture
  * would inject a discontinuity into the inertia controller.
  */

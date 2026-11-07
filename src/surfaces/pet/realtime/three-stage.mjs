@@ -1,6 +1,7 @@
 import * as T from 'three';
 import { createDesktopPointerWindow } from './pointer-window-port.mjs';
 import { createActorPool } from './runtime/index.mjs';
+import { createEventMotionSource } from './event-motion-source.mjs';
 
 /** WebGL composition only; canonical state and the sole frame clock belong to the surface. */
 export async function createThreeStage({ canvas, clock, environment }) {
@@ -12,6 +13,7 @@ export async function createThreeStage({ canvas, clock, environment }) {
   scene.add(new T.HemisphereLight(0xfff9e6, 0x718778, 2.1));
   const key = new T.DirectionalLight(0xfff9ed, 2.4); key.position.set(3, 5, 8); scene.add(key);
   const fill = new T.DirectionalLight(0xffffff, .8); fill.position.set(-3, 2, 4); scene.add(fill);
+  const motionSource = createEventMotionSource({ document: environment.document, target: canvas });
   let actor, disposed = false, renderedFrames = 0;
   const errors = [], construction = { actorCreateMs: null, shaderCompileWaitMs: null };
   renderer.debug.onShaderError = (gl, program) => {
@@ -42,7 +44,7 @@ export async function createThreeStage({ canvas, clock, environment }) {
     // blur; the body owner must not treat ordinary deactivation as a hidden page.
     const pointerWindow = createDesktopPointerWindow(environment.window);
     const actorStarted = environment.performance.now();
-    actor = await pool.create({ target: canvas, camera, clock, windowTarget: pointerWindow, equipmentMode: 'bare' });
+    actor = await pool.create({ target: canvas, camera, clock, windowTarget: pointerWindow, equipmentMode: 'bare', readMotionPoint: event => motionSource.read(event) });
     construction.actorCreateMs = environment.performance.now() - actorStarted;
     scene.add(actor.scene);
     const compileStarted = environment.performance.now();
@@ -74,12 +76,14 @@ export async function createThreeStage({ canvas, clock, environment }) {
   function readDiagnostics() {
     const state = actor.f.h.state;
     return { mode: state.mode, pointerId: state.pointerId, captured: state.captured,
-      pendingCount: actor.f.h.pendingCount, renderedFrames, errors: [...errors], construction: { ...construction },
+      pendingCount: actor.f.h.pendingCount, inputMotion: motionSource.snapshot(), renderedFrames, errors: [...errors], construction: { ...construction },
       resources: { geometries: renderer.info.memory.geometries, textures: renderer.info.memory.textures },
       pool: pool.diagnostics(), graphics: { ...graphics }, inputTargets: { body: bodyTarget() } };
   }
   return Object.freeze({
     readDiagnostics,
+    revokePointerSpace() { if (!disposed) motionSource.revoke(() => actor.reset()); },
+    setPointerSpace(value, receivedAtMs) { if (!disposed) motionSource.setSpace(value, receivedAtMs, () => actor.reset()); },
     update(time, policy) { actor.step(time, policy); },
     render() { renderer.render(scene, camera); if (errors.length) throw new Error(errors.join('; ')); renderedFrames++; },
     readMode: () => actor.f.h.state.mode,

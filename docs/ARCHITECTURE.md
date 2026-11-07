@@ -1124,7 +1124,7 @@ move 在原队列顺序中取消对应指针；up/cancel/失捕不依赖新 moti
 
 此端口尚未接通原生窗口移动。后续 native 适配必须先证明运动样本与对应输入事件的
 匹配及原生捕获语义，再按同一手势代次和实际移动回执协调 CSS/逻辑 anchor/world 三种空间，序列化有界请求并处理
-clamp/viewport 变更；不能用 Chromium screenX、DPR、请求位移或过期轮询样本代替事实。
+clamp/viewport 变更；不能用未核实的 screen 坐标、DPR、请求位移或过期轮询样本代替事实。
 设备像素只属于 renderer。原 actor 仍是唯一手势/骨骼所有者，窗口旅行只分配一次；
 原生最终落点策略不得被未说明地等同于旧 2D 的 spin、贴边或持久化策略。已认可的提起、
 连续挣扎、拖动惯性、平稳落地和收尾表情保持原 profile 与时间参数。
@@ -1132,7 +1132,8 @@ clamp/viewport 变更；不能用 Chromium screenX、DPR、请求位移或过期
 Electron 44.10.1 的 `input-event`/`before-mouse-event` 没有与 DOM PointerEvent 共用的
 事件 ID/时间戳；`getCursorScreenPoint()` 只读调用当时的 DIP 光标。[原生事件转换](https://github.com/electron/electron/blob/v44.10.1/shell/common/gin_converters/blink_converter.cc#L382-L399)
 未提供共同身份；FIFO 配对、同步或异步
-查询当前光标、DOM `screenX` 均不能冒充历史事件匹配。原生输入桥因此保持未接通。
+查询当前光标均不能冒充历史事件匹配。原生输入桥保持未接通；下述受限 DOM 同事件采样
+不做 native/DOM 事件配对，也不声明原始硬件事件身份。
 G2 的下一段仅在现有隔离采集器内运行一次自有窗口小幅往返探针：固定目标距原点 ≤32 DIP，
 在同一显示器 workArea 内且不改尺寸；只允许暂停、无指针/捕获/待处理输入的 renderer。
 精确 URL/profile、instance/generation 和独占 lease 跨 await 复核；先前在途 mutation 阻止探针，
@@ -1144,6 +1145,30 @@ mutation 超时不等于底层执行取消，结果不明时永久拒绝本 port
 只读 `readWindowGeometry()` 给出 renderer instance、viewportRevision、当前 CSS rect、
 当前 screen 观察值及 DOM/actor 捕获状态；这些不是运动输入源。native 输入最多保留
 128 条字段白名单观察，溢出计数、来源 unknown、事件流 unmatched；监听在探针结束释放。
+
+G2 的 DOM 同事件采样段仅在 Windows、Electron 44.10.1 / Chromium 152.0.7977.169、
+单显示器条件下启用。平台窗口经现有 `pet:viewport` 投影附加只读 `pointerSpace`，不增加
+IPC；默认生产 2D 不生成此投影。原生 display id/bounds/scaleFactor/rotation 变化递增 revision，
+renderer 只保留复制的闭合能力。既有 `readMotionPoint(event)` 读取该 PointerEvent 自身
+`screenX/Y`，client 坐标继续负责真实皮肤命中；不读当前光标，不换算 DPR，不读取
+`window.screenX/Y` 作为运动。pointerdown/move/up 支持可选最终释放点，失效样本仍允许释放。
+
+这一路径依据精确 Chromium 源码：[Windows 事件转换](https://github.com/chromium/chromium/blob/152.0.7977.169/ui/events/blink/web_input_event_builders_win.cc#L149-L159)
+将事件屏幕点转成 DIP；[PointerEventFactory](https://github.com/chromium/chromium/blob/152.0.7977.169/third_party/blink/renderer/core/events/pointer_event_factory.cc#L76-L87)
+经 [MouseEvent 坐标转换](https://github.com/chromium/chromium/blob/152.0.7977.169/third_party/blink/renderer/core/events/mouse_event.cc#L198-L224)
+保留该字段。Chromium 自建的边界/leave 派生事件也属于已送达事件，并不证明原始物理消息。
+`isTrusted` 只是路由准入，Electron 注入也可能为 true，不能作为 OS 来源证明。
+
+未支持的平台/版本/多屏启动仍保留既有 client 模式。首次切到 screen 源前清空原 actor
+输入；收到能力/拓扑变化或 pointer lock 后取消并永久撤销本 surface 的 screen 源，
+不能混回 client，也不能以迟到旧 revision 复活，重载新 surface 才能重新启用。
+旧投影收到前的事件时间戳不进入新空间；但 main→renderer 通知是异步的，这不证明排除
+全部与真实 OS 拓扑切换竞争的输入。单屏不变拓扑是当前适用条件，混合 DPI/实际切屏仍未验收。
+采样仅接受单屏 bounds 内有限 mouse PointerEvent，pointer lock 坐标被排除。
+DOM `hasPointerCapture` 只是 Chromium 的 DOM 待定捕获映射，不等于 Win32 `GetCapture`；
+失捕、窗外释放、Alt-Tab 与捕获被抢仍必须实机验证。此段没有 native window travel、
+落点政策或持久化写入，唯一 actor、动作 profile 与时钟不变。
+
 
 
 | 批次 | 完整目标及退出条件 | 不可冒领的下一层结果 |

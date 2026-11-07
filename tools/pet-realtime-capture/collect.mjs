@@ -105,7 +105,7 @@ export async function collectRealtime(report, ports, { screenshots = true } = {}
     if (!point || !Number.isFinite(point.x) || !Number.isFinite(point.y)) throw new Error('body-input-target-unavailable');
     return point;
   };
-  const input = async (type, point) => { assertActive(); await ports.input(type, point); appendEvent({ type, source: 'Electron-injected-not-OS' }); };
+  const input = async (type, point) => { assertActive(); const receipt = await ports.input(type, point); appendEvent({ type, source: 'Electron-injected-not-OS', ...(receipt ? { coordinateReceipt: receipt } : {}) }); };
   await poll(); report.environment.graphics = last.stage?.graphics ?? {};
   report.capture = { status: 'running', resourceSamples: [], lifecycle: [], truncatedEvents: 0 };
   const sample = async name => { await poll(); const { errors: stageErrors = [], ...stage } = last.stage;
@@ -142,6 +142,7 @@ export async function collectRealtime(report, ports, { screenshots = true } = {}
     }
     await ports.pause(false); await phase('resume', () => wait(2000)); await shot('resumed');
     await sample('before-dispose');
+    report.capture.inputMotion = last.stage?.inputMotion ?? null;
     for (let generation = 0; generation < 3; generation++) {
       disposing = true; await ports.dispose(); const operations = await drainTerminalOperations();
       const stage = last.stage, cpu = stage?.pool;

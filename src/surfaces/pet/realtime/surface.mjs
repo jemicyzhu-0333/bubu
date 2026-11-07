@@ -59,7 +59,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
   let stage = null, startPromise = null, closed = false, frame = null, ready = false;
   let manualPaused = false, contextLost = false, dirty = true, pendingOperations = 0;
   let lastNow = environment.performance.now(), lastFrame = null, failure = null;
-  let viewport = null, viewportRevision = 0, docked = false, unsubscribeViewport = null, lastPublication = null;
+  let viewport = null, viewportRevision = 0, pointerSpace = null, pointerSpaceReceivedAt = 0, docked = false, unsubscribeViewport = null, lastPublication = null;
   const note = (error, operation) => {
     const message = recordError(operation, error);
     if (closed) return;
@@ -158,9 +158,12 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
     if (closed || !value || !Number.isFinite(value.stageOffset?.x) || !Number.isFinite(value.stageOffset?.y)) return;
     viewport = { width: value.width, height: value.height, stageOffset: { ...value.stageOffset } };
     viewportRevision++;
+    try { pointerSpace = value.pointerSpace ? structuredClone(value.pointerSpace) : null; }
+    catch { pointerSpace = null; }
+    pointerSpaceReceivedAt = environment.performance.now();
     document.documentElement.style.setProperty('--stage-dx', `${value.stageOffset.x}px`);
     document.documentElement.style.setProperty('--stage-dy', `${value.stageOffset.y}px`);
-    try { stage?.resize(); refresh(); } catch (error) { fail(error, 'resize'); }
+    try { stage?.setPointerSpace?.(pointerSpace, pointerSpaceReceivedAt); stage?.resize(); refresh(); } catch (error) { fail(error, 'resize'); }
   }
   const sync = createPetSync({ client: clients,
     onSync(data) { Object.assign(context, data); refresh(); },
@@ -194,6 +197,11 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
       lifecycle.listen(window, 'pagehide', dispose, { once: true });
       lifecycle.listen(window, 'blur', cancel);
       lifecycle.listen(window, 'focus', refresh);
+      lifecycle.listen(document, 'pointerlockchange', () => {
+        if (document.pointerLockElement !== null) {
+          try { stage?.revokePointerSpace?.(); cancel(); } catch (error) { fail(error, 'cancel'); }
+        }
+      });
       lifecycle.listen(document, 'visibilitychange', refresh);
       lifecycle.listen(window, 'resize', () => { try { stage?.resize(); refresh(); } catch (error) { fail(error, 'resize'); } });
       lifecycle.listen(media, 'change', refresh);
@@ -223,6 +231,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
         }).finally(() => { pendingOperations--; });
       startup.stageStarted(environment.performance.now());
       stage = await loadStage({ canvas, clock, environment });
+      if (!closed) stage.setPointerSpace?.(pointerSpace, pointerSpaceReceivedAt);
       startup.stageReady(environment.performance.now());
       if (closed) {
         const late = stage; stage = null;

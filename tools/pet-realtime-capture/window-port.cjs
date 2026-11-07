@@ -120,9 +120,12 @@ function createOwnedWindowPort({ window, pagePath, readProfileOwnership, signal,
       if (ticket !== generation || instance !== expectedInstance) throw new Error('capture-late-input-generation');
       const actualBounds = window.getContentBounds();
       if (point.x >= actualBounds.width || point.y >= actualBounds.height) throw new Error('capture-input-outside-owned-window');
+      if (!Number.isFinite(actualBounds.x) || !Number.isFinite(actualBounds.y)) throw new Error('capture-input-screen-origin-unavailable');
       if (!window.isFocused()) throw new Error('capture-owned-window-focus-blocked');
-      window.webContents.sendInputEvent({ type, x: Math.round(point.x), y: Math.round(point.y),
+      const global = { x: actualBounds.x + point.x, y: actualBounds.y + point.y };
+      window.webContents.sendInputEvent({ type, x: point.x, y: point.y, globalX: global.x, globalY: global.y,
         ...(type === 'mouseMove' ? { modifiers: ['leftButtonDown'] } : { button: 'left', clickCount: 1 }) });
+      return { local: point, global, coordinateSource: 'caller-supplied-controlled-fixture-not-OS' };
     }); },
     async screenshot() { assertCurrent(); const ticket = generation; const image = await bounded(window.webContents.capturePage(), timeoutMs);
       assertCurrent(); if (ticket !== generation) throw new Error('capture-late-screenshot'); return image.toPNG(); },

@@ -3,7 +3,7 @@ const { planOpen } = require('../pet-menu-expansion');
 
 // Windows and macOS transparent surfaces keep a stable backing store across menu toggles.
 // Public bounds remain the 220 DIP pet anchor, including persisted positions.
-function createPetViewport({ bounds, screen, size = { w: 520, h: 360 }, interval = setInterval, cancelInterval = clearInterval }) {
+function createPetViewport({ bounds, screen, readPointerSpace = null, size = { w: 520, h: 360 }, interval = setInterval, cancelInterval = clearInterval }) {
   let anchor = { ...bounds };
   let expanded = false;
   let native = null;
@@ -17,6 +17,7 @@ function createPetViewport({ bounds, screen, size = { w: 520, h: 360 }, interval
     const plan = layout();
     const viewport = native ? native.getBounds() : plan.bounds;
     return { side: plan.side, width: viewport.width, height: viewport.height,
+      ...(readPointerSpace ? { pointerSpace: readPointerSpace() } : {}),
       stageOffset: { x: anchor.x + anchor.width / 2 - viewport.x - viewport.width / 2,
         y: anchor.y + anchor.height / 2 - viewport.y - viewport.height / 2 } };
   }

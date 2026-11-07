@@ -155,7 +155,7 @@ test('owned window port denies foreign URLs and late responses from prior naviga
   const contents = new EventEmitter(); let url = pathToFileURL('/fixture/index.html').href, resolve;
   Object.assign(contents, { isDestroyed: () => false, getURL: () => url,
     executeJavaScript: () => new Promise(yes => { resolve = yes; }), sendInputEvent() {} });
-  const window = { isDestroyed: () => false, webContents: contents, getContentBounds: () => ({ width: 220, height: 220 }) };
+  const window = { isDestroyed: () => false, webContents: contents, getContentBounds: () => ({ x: 50, y: 80, width: 220, height: 220 }) };
   const port = createOwnedWindowPort({ window, pagePath: '/fixture/index.html', readProfileOwnership: () => true, timeoutMs: 30, startupTimeoutMs: 30 });
   const pending = port.read({ afterSequence: 0 }); port.close(); resolve({ instanceId: 'old' }); await assert.rejects(pending, /owner-invalid/);
   const foreign = createOwnedWindowPort({ window, pagePath: '/fixture/index.html', readProfileOwnership: () => true });
@@ -222,7 +222,7 @@ test('collector timeout/abort returns promptly and late renderer completion cann
 test('injected input uses the focused owned window and never changes global OS cursor state', async () => {
   const events = [], contents = new EventEmitter(); let focused = false;
   Object.assign(contents, { isDestroyed: () => false, getURL: () => pathToFileURL('/fixture/index.html').href, sendInputEvent: event => events.push(event) });
-  const window = { isDestroyed: () => false, webContents: contents, getContentBounds: () => ({ width: 220, height: 220 }),
+  const window = { isDestroyed: () => false, webContents: contents, getContentBounds: () => ({ x: 50, y: 80, width: 220, height: 220 }),
     isFocused: () => focused, focus: () => { focused = true; } };
   const port = createOwnedWindowPort({ window, pagePath: '/fixture/index.html', readProfileOwnership: () => true });
   await port.input('mouseDown', { x: 90, y: 90 }); assert.equal(events[0].type, 'mouseDown'); assert.equal(focused, true);
@@ -377,4 +377,17 @@ test('owned movement probe stays in paused non-performance phase and cannot upgr
     assert.equal(result.gates.osInput, 'not-accepted'); assert.equal(result.productionAccepted, false);
     assert.equal(result.capture.windowMovement.eventMatched, false);
   }
+});
+
+test('controlled Electron input carries explicitly supplied global DIP and labels them synthetic rather than sampled OS coordinates', async () => {
+  const contents = new EventEmitter(), events = [];
+  Object.assign(contents, { isDestroyed: () => false, getURL: () => pathToFileURL('/fixture/index.html').href,
+    sendInputEvent: event => events.push(event) });
+  const window = { webContents: contents, isDestroyed: () => false, isFocused: () => true,
+    getContentBounds: () => ({ x: -1250, y: -80, width: 520, height: 360 }) };
+  const port = createOwnedWindowPort({ window, pagePath: '/fixture/index.html', readProfileOwnership: () => true });
+  const receipt = await port.input('mouseMove', { x: 100.25, y: 75.9 });
+  assert.equal(events[0].globalX, -1150); assert.equal(events[0].globalY, -4);
+  assert.deepEqual(receipt, { local: { x: 100, y: 76 }, global: { x: -1150, y: -4 }, coordinateSource: 'caller-supplied-controlled-fixture-not-OS' });
+  port.close();
 });

@@ -107,3 +107,17 @@ test('late native show after an OS position nudge writes no frame; explicit resu
   h.viewport.resync('unlock-screen');
   assert.ok(h.calls.slice(before).some(c => c[0] === 'resize'));
 });
+
+test('optional V2 pointer-space metadata rides the existing viewport publication without changing legacy geometry', () => {
+  const screen = { getDisplayNearestPoint: () => ({ workArea: { x: 0, y: 0, width: 1920, height: 1080 } }), getCursorScreenPoint: () => ({ x: 0, y: 0 }) };
+  let revision = 1;
+  const viewport = createPetViewport({ bounds: { x: 100, y: 100, width: 220, height: 220 }, screen,
+    readPointerSpace: () => ({ schemaVersion: 1, kind: 'client', revision }) });
+  const window = new EventEmitter(), messages = []; window.webContents = new EventEmitter();
+  Object.assign(window, { isDestroyed: () => false, getBounds: () => viewport.initialBounds, setIgnoreMouseEvents() {} });
+  window.webContents.send = (channel, payload) => messages.push({ channel, payload }); viewport.attach(window);
+  window.webContents.emit('did-finish-load'); assert.equal(messages.at(-1).channel, 'pet:viewport');
+  assert.equal(messages.at(-1).payload.pointerSpace.revision, 1);
+  revision = 2; window.webContents.emit('did-finish-load'); assert.equal(messages.at(-1).payload.pointerSpace.revision, 2);
+  window.emit('closed');
+});
