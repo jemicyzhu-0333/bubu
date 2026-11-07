@@ -1,3 +1,4 @@
+import { ERROR_OPERATIONS } from '../../src/surfaces/pet/realtime/error-journal.mjs';
 // VALIDATION「实时桌宠分批验收」: diagnostics never grant native or visual acceptance.
 export const CAPTURE_LIMITS = Object.freeze({
   frames: 18000, phases: 64, events: 512, errors: 64, screenshots: 6,
@@ -190,6 +191,87 @@ export function createCaptureReport({ runId, source = {}, environment = {}, opti
     frames: [], phases: [], screenshots: [], events: [], errors: [] }));
 }
 
+/** Bounded detail retention never erases the number of report observations. */
+export function appendCaptureError(report, detail) {
+  report.errorAccounting ??= { total: report.errors.length, retained: report.errors.length, truncated: 0 };
+  const accounting = report.errorAccounting;
+  if (!Number.isSafeInteger(accounting.total) || accounting.total >= Number.MAX_SAFE_INTEGER)
+    throw new Error('capture-error-count-exhausted');
+  accounting.total++;
+  if (report.capture?.status === 'completed') report.capture.status = 'completed-with-observations';
+  if (report.status === 'completed') report.status = 'completed-with-observations';
+  if (report.errors.length < CAPTURE_LIMITS.errors) {
+    report.errors.push(detail); accounting.retained++; return true;
+  }
+  accounting.truncated++; return false;
+}
+
+function validateErrorEvidence(report) {
+  if (report.errorAccounting !== undefined) {
+    const value = report.errorAccounting;
+    if (!plain(value) || Object.keys(value).some(key => !['total', 'retained', 'truncated'].includes(key)))
+      throw new TypeError('Invalid error accounting');
+    for (const key of ['total', 'retained', 'truncated']) integer(value[key], `error accounting ${key}`);
+    if (value.retained !== report.errors.length || value.total !== value.retained + value.truncated)
+      throw new TypeError('Inconsistent error accounting');
+  }
+  if (report.rendererDiagnostics === undefined) {
+    if (report.errors.some(error => error?.code === 'renderer-diagnostic-legacy-observation'
+      || error?.code === 'renderer-diagnostic-detail-loss'
+      || error?.code === 'renderer-diagnostic-error' && 'sequence' in error))
+      throw new TypeError('Missing renderer diagnostic summary');
+    return;
+  }
+  if (!Array.isArray(report.rendererDiagnostics) || report.rendererDiagnostics.length > 8)
+    throw new TypeError('Invalid renderer diagnostics');
+  const ids = new Set(), retained = new Map(), sequences = new Set();
+  for (const item of report.rendererDiagnostics) {
+    if (!plain(item) || Object.keys(item).some(key => !['instanceId', 'evidence', 'totalOccurrences', 'observedRows',
+      'missingDetails', 'retainedDetails', 'droppedDetails', 'lastSequence', 'lastPendingOperations'].includes(key))) throw new TypeError('Invalid renderer diagnostic fields');
+    text(item.instanceId, 'diagnostic instance', 128);
+    if (ids.has(item.instanceId)) throw new TypeError('Duplicate diagnostic instance');
+    ids.add(item.instanceId);
+    if (item.lastPendingOperations !== null) integer(item.lastPendingOperations, 'last pending operations');
+    for (const key of ['observedRows', 'missingDetails', 'retainedDetails', 'droppedDetails']) integer(item[key], key);
+    if (item.observedRows !== item.retainedDetails + item.droppedDetails) throw new TypeError('Inconsistent diagnostic detail count');
+    if (item.evidence === 'sequence-journal') {
+      integer(item.totalOccurrences, 'diagnostic occurrences'); integer(item.lastSequence, 'diagnostic last sequence');
+      if (item.totalOccurrences !== item.lastSequence || item.totalOccurrences !== item.observedRows + item.missingDetails)
+        throw new TypeError('Inconsistent diagnostic occurrences');
+    } else if (item.evidence !== 'legacy-occurrence-count-unknown' || item.totalOccurrences !== null
+      || item.lastSequence !== null || item.missingDetails !== 0) throw new TypeError('Invalid legacy diagnostic evidence');
+  }
+  for (const error of report.errors) {
+    if (!['renderer-diagnostic-error', 'renderer-diagnostic-legacy-observation', 'renderer-diagnostic-detail-loss'].includes(error?.code)) continue;
+    if (!plain(error) || !ids.has(error.instanceId)) throw new TypeError('Invalid renderer error identity');
+    const summary = report.rendererDiagnostics.find(item => item.instanceId === error.instanceId);
+    text(error.phase, 'renderer error phase', 128);
+    const allowed = ['code', 'phase', 'instanceId'];
+    if (error.code === 'renderer-diagnostic-detail-loss') {
+      allowed.push('count'); integer(error.count, 'renderer missing details');
+      if (!error.count) throw new TypeError('Empty renderer detail loss');
+    } else {
+      retained.set(error.instanceId, (retained.get(error.instanceId) ?? 0) + 1);
+      allowed.push('message');
+      if (typeof error.message !== 'string' || error.message.length > 512) throw new TypeError('Invalid renderer error message');
+      if (error.code === 'renderer-diagnostic-error') {
+        allowed.push('sequence', 'atMs', 'operation'); integer(error.sequence, 'renderer error sequence');
+        const identity = JSON.stringify([error.instanceId, error.sequence]);
+        if (sequences.has(identity) || summary.evidence !== 'sequence-journal' || error.sequence > summary.lastSequence)
+          throw new TypeError('Inconsistent renderer error sequence');
+        sequences.add(identity);
+        if (!error.sequence || !ERROR_OPERATIONS.includes(error.operation)
+          || !(error.atMs === null || Number.isFinite(error.atMs) && error.atMs >= 0)) throw new TypeError('Invalid renderer error detail');
+      } else {
+        allowed.push('occurrenceCount'); if (summary.evidence !== 'legacy-occurrence-count-unknown' || error.occurrenceCount !== null) throw new TypeError('Legacy occurrences must be unknown');
+      }
+    }
+    if (Object.keys(error).some(key => !allowed.includes(key))) throw new TypeError('Unexpected renderer error field');
+  }
+  for (const item of report.rendererDiagnostics) if ((retained.get(item.instanceId) ?? 0) !== item.retainedDetails)
+    throw new TypeError('Inconsistent retained renderer errors');
+}
+
 // Structural bounds only, not a PNG decoder or proof of the screenshot's visual contents.
 function validatePNG(bytes) {
   if (bytes.length < 57 || !bytes.subarray(0, 8).equals(PNG_SIGNATURE)
@@ -218,6 +300,7 @@ export function validateCapturePayload(report) {
   for (const key of ['frames', 'phases', 'events', 'errors', 'screenshots']) {
     if (!Array.isArray(report[key]) || report[key].length > CAPTURE_LIMITS[key]) throw new RangeError(`Capture ${key} exceeds limit`);
   }
+  validateErrorEvidence(report);
   report.frames.forEach(validateFrame);
   report.phases.forEach(validatePhase);
   if (new Set(report.phases.map(phase => phase.id)).size !== report.phases.length) throw new TypeError('Duplicate capture phase id');

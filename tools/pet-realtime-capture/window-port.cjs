@@ -21,12 +21,14 @@ function createOwnedWindowPort({ window, pagePath, readProfileOwnership, signal,
       })]);
     } finally { clearTimeout(timer); signal?.removeEventListener('abort', abort); }
   }
-  async function evaluate(method, argument) {
+  async function evaluate(method, argument, readTimeoutMs = null) {
     assertCurrent();
     if (!['readDiagnostics', 'pause', 'cancel', 'dispose'].includes(method)) throw new Error('capture-method-rejected');
+    if (readTimeoutMs !== null && (method !== 'readDiagnostics' || !Number.isFinite(readTimeoutMs) || readTimeoutMs <= 0 || readTimeoutMs > timeoutMs))
+      throw new Error('capture-read-timeout-invalid');
     const ticket = generation;
     const expression = `import(${JSON.stringify(pathToFileURL(path.join(path.dirname(pagePath), 'entry.mjs')).href)}).then(module => module.surface.${method}(${argument === undefined ? '' : JSON.stringify(argument)}))`;
-    const value = await bounded(window.webContents.executeJavaScript(expression), expectedInstance === null ? startupTimeoutMs : timeoutMs);
+    const value = await bounded(window.webContents.executeJavaScript(expression), readTimeoutMs ?? (expectedInstance === null ? startupTimeoutMs : timeoutMs));
     assertCurrent(); if (ticket !== generation) throw new Error('capture-late-generation-response');
     if (method === 'readDiagnostics') {
       if (typeof value?.instanceId !== 'string' || value.instanceId === 'unavailable') throw new Error('capture-instance-unavailable');
@@ -36,7 +38,7 @@ function createOwnedWindowPort({ window, pagePath, readProfileOwnership, signal,
     return value;
   }
   return Object.freeze({
-    read: options => evaluate('readDiagnostics', options),
+    read: (options, limits) => evaluate('readDiagnostics', options, limits?.timeoutMs ?? null),
     pause: value => { if (typeof value !== 'boolean') return Promise.reject(new Error('capture-pause-boolean')); return evaluate('pause', value); },
     cancel: () => evaluate('cancel'), dispose: () => evaluate('dispose'),
     async input(type, point) {

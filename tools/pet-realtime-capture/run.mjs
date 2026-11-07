@@ -8,7 +8,7 @@ import { createRequire } from 'node:module';
 import { performance } from 'node:perf_hooks';
 import { parseCaptureOptions, LIMITS } from './options.mjs';
 import { runOwnedProcess } from './supervisor.mjs';
-import { createCaptureReport, finalizeReport } from './report.mjs';
+import { createCaptureReport, finalizeReport, appendCaptureError } from './report.mjs';
 import { sourceIdentity, hostMetadata, saveCapture, safeMessage } from './evidence.mjs';
 const require = createRequire(import.meta.url);
 const ordinaryCleanupUnknown = result => result.code === 0 && result.stopReason === 'exited'
@@ -124,7 +124,7 @@ export async function runCapture(argv, {
       if (collected.runId !== runId || collected.source?.commit !== report.source.commit) throw new Error('partial-run-identity-mismatch');
       const preparation = report.preparation; report = collected; report.preparation = preparation;
     } else {
-      if (processResult.stderr || processResult.startError) report.errors.push(safeMessage(processResult.startError || processResult.stderr));
+      if (processResult.stderr || processResult.startError) appendCaptureError(report, safeMessage(processResult.startError || processResult.stderr));
       throw new Error('application-did-not-produce-report');
     }
     report.launch = { code: processResult.code, signal: processResult.signal, stopReason: processResult.stopReason,
@@ -134,10 +134,10 @@ export async function runCapture(argv, {
       || report.endSource.commit !== report.source.commit || report.endSource.dirty !== report.source.dirty)
       throw new Error('source-changed-or-end-identity-missing');
     report.status = !cleanupConfirmed ? 'capture-complete-cleanup-unverified'
-      : report.capture?.status === 'completed' ? 'completed' : 'completed-with-observations';
+      : report.capture?.status === 'completed' && !(report.errorAccounting?.total ?? report.errors.length) ? 'completed' : 'completed-with-observations';
   } catch (error) {
     report ??= createCaptureReport({ runId, source: {}, environment: {}, options: {} });
-    if (report.errors.length < LIMITS.errors) report.errors.push(safeMessage(error));
+    appendCaptureError(report, safeMessage(error));
     report.status = abort.signal.aborted ? 'interrupted' : 'partial-or-setup-failed';
     report.launch ??= processResult ? { code: processResult.code, signal: processResult.signal, stopReason: processResult.stopReason, cleanup: processResult.cleanup } : { executed: false };
     if (options?.out || fs.existsSync(output)) output = path.join(root, 'dist/pet-realtime-capture', `failure-${runId}.json.gz`);
@@ -146,7 +146,7 @@ export async function runCapture(argv, {
     function retainAfterCleanupFailure(code) {
       cleanupConfirmed = false;
       report.directoryCleanup = { confirmed: false, code };
-      if (report.errors.length < LIMITS.errors) report.errors.push({ name: 'Error', message: code });
+      appendCaptureError(report, { name: 'Error', message: code });
       if (['completed', 'completed-with-observations'].includes(report.status)) report.status = 'capture-complete-cleanup-unverified';
     }
     if (profile && cleanupConfirmed) {

@@ -13,7 +13,7 @@ const { consumeCaptureHandoff, assertCaptureOwnership } = require('./handoff.cjs
 const token = process.env.BUBU_CAPTURE_TOKEN; delete process.env.BUBU_CAPTURE_TOKEN;
 const request = consumeCaptureHandoff(requestArg.slice('--capture-request='.length), token);
 if (app.commandLine.getSwitchValue('user-data-dir') !== request.fixture.userDataPath) throw new Error('capture-native-profile-mismatch');
-let report, evidence, isolation, port, exiting = false;
+let report, evidence, isolation, port, appendCaptureError, diagnostics, exiting = false;
 const stop = new AbortController();
 const started = performance.now();
 const timer = setTimeout(() => stop.abort(new Error('capture-internal-deadline')), 165000);
@@ -30,7 +30,7 @@ const flush = () => { if (report && evidence) evidence.writePrivateJSON(request.
 async function finish(error) {
   if (exiting) return; exiting = true;
   clearTimeout(timer); port?.close();
-  if (error && report?.errors.length < 64) report.errors.push(evidence.safeMessage(error));
+  if (error && report) appendCaptureError(report, evidence.safeMessage(error));
   if (report) {
     report.capture ??= { status: 'startup-failed' };
     if (error) report.capture.status = stop.signal.aborted ? 'interrupted' : 'partial';
@@ -46,7 +46,9 @@ app.on('window-all-closed', () => {});
 app.on('will-quit', () => { clearTimeout(timer); if (report) { report.shutdownRequested = true; flush(); } });
 (async () => {
   evidence = await import('./evidence.mjs');
-  const { createCaptureReport } = await import('./report.mjs');
+  const reportTools = await import('./report.mjs');
+  const { createCaptureReport } = reportTools; appendCaptureError = reportTools.appendCaptureError;
+  const { diagnosticReporter } = await import('./diagnostics.mjs');
   const { collectRealtime } = await import('./collect.mjs');
   assertCaptureOwnership(request);
   if (!process.argv.includes('--dev')) process.argv.push('--dev');
@@ -56,6 +58,7 @@ app.on('will-quit', () => { clearTimeout(timer); if (report) { report.shutdownRe
     assertOwnedProfile: () => assertCaptureOwnership(request), argv: process.argv });
   report = createCaptureReport({ runId: request.runId, source: request.source,
     environment: evidence.hostMetadata(), options: { screenshots: request.screenshots, collectionHardLimitMs: 180000 } });
+  diagnostics = diagnosticReporter(report);
   report.fixture = { isolated: true, schema: 20, credentialsAbsent: true, AI: false, updates: false, mirror: false, OSWrites: false };
   flush();
   let petResolve; const petWindow = new Promise(resolve => { petResolve = resolve; });
@@ -71,12 +74,13 @@ app.on('will-quit', () => { clearTimeout(timer); if (report) { report.shutdownRe
   if (!BrowserWindow.getAllWindows().includes(window)) throw new Error('capture-window-not-owned');
   port = createOwnedWindowPort({ window, pagePath, readProfileOwnership: () => assertCaptureOwnership(request), signal: stop.signal });
   window.webContents.on('render-process-gone', () => stop.abort(new Error('capture-renderer-gone')));
-  window.webContents.on('console-message', details => { if (details.level === 'error' && report.errors.length < 64)
-    report.errors.push({ code: 'selected-renderer-console-error', level: 'error' }); });
+  window.webContents.on('console-message', details => { if (details.level === 'error')
+    appendCaptureError(report, { code: 'selected-renderer-console-error', level: 'error' }); });
   const until = performance.now() + 35000;
   while (true) {
     const diagnostics = await port.read({ afterSequence: 0, limit: 1 });
-    if (diagnostics.closed) { for (const message of diagnostics.errors.slice(0, 8)) report.errors.push(evidence.safeMessage(message)); throw new Error('capture-surface-closed-before-first-frame'); }
+    diagnosticReporter(report).observe(diagnostics, 'startup');
+    if (diagnostics.closed) throw new Error('capture-surface-closed-before-first-frame');
     if (diagnostics.ready && diagnostics.stage?.renderedFrames > 0) break;
     if (performance.now() > until) throw new Error('capture-first-frame-timeout');
     await sleep(200);
@@ -87,7 +91,7 @@ app.on('will-quit', () => { clearTimeout(timer); if (report) { report.shutdownRe
     windowWidth: window.getContentBounds().width, windowHeight: window.getContentBounds().height };
   let gpu = null;
   try { gpu = await Promise.race([app.getGPUInfo('basic'), sleep(5000).then(() => null)]); }
-  catch { report.errors.push({ code: 'GPU-metadata-unavailable' }); }
+  catch { appendCaptureError(report, { code: 'GPU-metadata-unavailable' }); }
   report.environment.gpu = { featureStatus: app.getGPUFeatureStatus(), devices: (gpu?.gpuDevice ?? []).slice(0, 4).map(item =>
     ({ active: item.active === true, vendorId: item.vendorId ?? null, deviceId: item.deviceId ?? null })) };
   const processes = async () => { const metrics = app.getAppMetrics(); const memory = process.memoryUsage(); return {
@@ -98,11 +102,11 @@ app.on('will-quit', () => { clearTimeout(timer); if (report) { report.shutdownRe
     main: { rssBytes: memory.rss, heapUsedBytes: memory.heapUsed }, window: { visible: window.isVisible(), minimized: window.isMinimized(), focused: window.isFocused() },
     rendererHeap: { supported: false, reason: 'not-exposed-by-WebContents' } }; };
   await collectRealtime(report, { ...port, signal: stop.signal, delay: sleep, now: () => performance.now() - started,
-    processes, read: async options => { const value = await port.read(options);
-      if (value.closed) for (const message of value.errors.slice(0, 8)) if (report.errors.length < 64) report.errors.push(evidence.safeMessage(message));
+    processes, read: async (options, limits) => { const value = await port.read(options, limits);
       flush(); return value; },
     reload: async previous => { await port.reload(previous); const deadline = performance.now() + 35000;
       while (true) { const value = await port.read({ afterSequence: 0, limit: 1 });
+        diagnostics.observe(value, 'reload');
         if (value.closed) throw new Error('capture-reload-closed');
         if (value.ready && value.stage?.renderedFrames > 0) return;
         if (performance.now() > deadline) throw new Error('capture-reload-ready-timeout'); await sleep(200); }

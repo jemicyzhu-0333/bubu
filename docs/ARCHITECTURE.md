@@ -1146,6 +1146,14 @@ WeakMap 中精确的 consumed request 对象；外部 proof 路径在任何对�
 每次 await 后检查代次/instance 身份，旧 reload、截图或诊断响应不能落入新实例。
 只从固定模块的只读诊断口读取 seq/epoch、帧、有限事件与资源计数，不导出 canonical context，
 不添加业务 IPC 或 `window` 全局。固定 pause/cancel/dispose 控制只属于采集器自己的呈现实例。
+呈现异常由单一 `error-journal` 记录固定 operation、实例内单调 sequence、时间戳及有界 message，
+仅留最后8条；兼容 errors 字符串从同一日志派生，不保留 Error/stack/scene/payload。相同文本的
+新异常仍有新序号；关闭后已发请求的迟到异常仍记账但不恢复UI。采集器以 instanceId/sequence
+识别重复观察，启动、分页、reload及销毁共用同一游标；先保留异常，再拒绝意外关闭。
+详情入包前脱敏，报告的64条详情上限不截断总计数；原日志淘汰和包内详情截断分别记录。
+无序号旧诊断明确标为 occurrence count unknown，不反推真实异常次数或还原已经丢失的原因。
+`pendingOperations` 只计本呈现已安排/发出的 scoped-client 请求；销毁后的采集在原总预算内
+最多等待2秒结清，超时/计数不可用保留未结清状态，不宣称完整终结。该等待不重试任何业务请求。
 
 fixture isolation 必须同时满足 development、未打包/defaultApp、精确 userData/sessionData
 及创建者提供的目录身份核验；任何漂移使隔离失败关闭。它只在本次进程限制既有 OS 适配器，

@@ -25,7 +25,7 @@ function fixture(options = {}) {
     pet_openPanel: () => { calls.push(['panel']); if (options.panelError) throw new Error('panel unavailable'); } };
   for (const name of ['onPetSync', 'onPetDock', 'onPetCue', 'onPetViewport']) clients[name] = fn => {
     if (!subscriptions.has(name)) subscriptions.set(name, new Set()); subscriptions.get(name).add(fn);
-    return () => subscriptions.get(name).delete(fn);
+    return () => { subscriptions.get(name).delete(fn); if (name === 'onPetViewport' && options.viewportDisposeError) throw new Error('viewport cleanup unavailable'); };
   };
   const stage = { updates: [], renders: 0, suspends: 0, cancels: 0, disposals: 0, resizes: 0,
     update(time, policy) { this.updates.push({ time, policy }); if (options.updateError) throw new Error('update unavailable'); },
@@ -39,7 +39,7 @@ function fixture(options = {}) {
         graphics: { renderer: 'test only; not GPU evidence' }, inputTargets: { body: { x: 12, y: 14 } } };
     } };
   const surface = createRealtimePetSurface({ environment, clients, loadStage: options.loadStage || (() => Promise.resolve(stage)) });
-  return { surface, stage, window, document, media, elements, frames, callbacks, calls,
+  return { surface, stage, window, document, media, elements, frames, callbacks, calls, clients,
     setMode: value => { mode = value; }, setNow: value => { now = value; },
     emit(name, value) { for (const fn of [...(subscriptions.get(name) || [])]) fn(value); },
     subscriptions: () => [...subscriptions.values()].reduce((sum, set) => sum + set.size, 0),
@@ -153,7 +153,7 @@ test('diagnostic read is closed, readonly and excludes business projections or r
   f.emit('onPetSync', { contextRevision: 2, privateText: 'secret business text', appearanceItemIds: ['private-look'] });
   f.tick(16); f.tick(32); f.tick(48); await flush();
   const calls = f.calls.length, before = f.surface.snapshot(), first = f.surface.readDiagnostics({ limit: 1 });
-  assert.deepEqual(Object.keys(first), ['schemaVersion', 'instanceId', 'ready', 'closed', 'time', 'frameScheduled', 'policy', 'frames', 'startup', 'stage', 'events', 'errors']);
+  assert.deepEqual(Object.keys(first), ['schemaVersion', 'instanceId', 'ready', 'closed', 'time', 'frameScheduled', 'pendingOperations', 'policy', 'frames', 'startup', 'stage', 'events', 'errorLog', 'errors']);
   assert.equal(first.instanceId, 'known-generation-id'); assert.equal(first.schemaVersion, 1);
   assert.equal(first.frames.rows.length, 1); assert.equal(first.frames.rows[0].atMs, 32);
   assert.equal(first.frames.remaining, 1); assert.equal(first.stage.mode, 'idle');
@@ -334,4 +334,162 @@ test('reduced-motion first draw and failed or late stage loading report startup 
   await failed.surface.start();
   assert.equal(failed.surface.readDiagnostics().startup.stageLoadMs, null);
   assert.equal(failed.surface.readDiagnostics().startup.firstFrame, null);
+});
+
+
+test('surface journals each actual panel error once and preserves identical repeated failures', async () => {
+  const f = fixture({ panelError: true }); await f.surface.start();
+  f.setNow(20); f.elements.panel.emit('click'); await flush();
+  for (let i = 0; i < 100; i++) assert.equal(f.surface.readDiagnostics().errorLog.total, 1);
+  f.setNow(40); f.elements.panel.emit('click'); await flush();
+  const value = f.surface.readDiagnostics();
+  assert.deepEqual(value.errorLog.rows, [
+    { sequence: 1, atMs: 20, operation: 'panel-open', message: 'panel unavailable' },
+    { sequence: 2, atMs: 40, operation: 'panel-open', message: 'panel unavailable' }
+  ]);
+  assert.deepEqual(value.errors, value.errorLog.rows.map(row => row.message));
+  value.errorLog.rows[0].message = 'mutation'; value.errorLog.total = 300;
+  assert.equal(f.surface.readDiagnostics().errorLog.total, 2);
+  assert.equal(f.surface.readDiagnostics().errorLog.rows[0].message, 'panel unavailable');
+  f.surface.dispose();
+});
+
+test('late panel and cue rejections remain diagnosable without reviving or rewriting closed UI', async () => {
+  for (const operation of ['panel-open', 'cue-ack']) {
+    const pending = deferred(), f = fixture(); await f.surface.start();
+    if (operation === 'panel-open') { f.clients.pet_openPanel = () => pending.promise; f.elements.panel.emit('click'); }
+    else { f.clients.pet_ackCue = () => pending.promise; f.emit('onPetCue', { decisionId: 'owned-cue' }); }
+    await flush(); f.surface.dispose(); const text = f.elements.status.textContent;
+    pending.reject(new Error('late failure')); await flush();
+    const diagnostic = f.surface.readDiagnostics();
+    assert.equal(diagnostic.closed, true); assert.equal(diagnostic.errorLog.total, 1);
+    assert.equal(diagnostic.errorLog.rows[0].operation, operation);
+    assert.equal(f.elements.status.textContent, text); assert.equal(f.frames.size, 0);
+  }
+});
+
+test('cleanup errors are separate occurrences and terminal rejections use the same bounded journal', async () => {
+  const f = fixture({ disposeError: true, viewportDisposeError: true }); await f.surface.start(); await flush();
+  f.window.removeEventListener = () => { throw new Error('listener cleanup unavailable'); };
+  f.stage.readDiagnostics = () => { throw new Error('diagnostic unavailable'); };
+  f.clients.pet_updateRuntime = async () => { throw new Error('publication unavailable'); };
+  f.surface.dispose(); await flush();
+  const rows = f.surface.readDiagnostics().errorLog.rows;
+  assert.deepEqual(rows.map(row => row.operation), ['cleanup-lifecycle', 'cleanup-viewport', 'cleanup-stage',
+    'terminal-diagnostics', 'terminal-runtime-publication']);
+  assert.equal(f.stage.disposals, 1); assert.equal(f.subscriptions(), 0);
+  f.surface.dispose(); await flush(); assert.equal(f.surface.readDiagnostics().errorLog.total, 5);
+});
+
+test('non-Error terminal and cleanup failures cannot interrupt disposal or diagnostic retention', async () => {
+  for (const error of [null, undefined, 'rejected text', Object.create(null)]) {
+    const f = fixture(); await f.surface.start(); await flush();
+    f.window.removeEventListener = () => { throw error; };
+    f.stage.dispose = () => { f.stage.disposals++; throw error; };
+    f.stage.readDiagnostics = () => { throw error; };
+    f.clients.pet_updateRuntime = () => Promise.reject(error);
+    assert.doesNotThrow(() => f.surface.dispose()); await flush();
+    const value = f.surface.readDiagnostics();
+    assert.deepEqual(value.errorLog.rows.map(row => row.operation), ['cleanup-lifecycle', 'cleanup-stage',
+      'terminal-diagnostics', 'terminal-runtime-publication']);
+    assert.equal(value.pendingOperations, 0); assert.equal(value.closed, true); assert.equal(value.stage, null);
+    assert.equal(f.stage.disposals, 1); assert.equal(f.subscriptions(), 0);
+    const expected = typeof error === 'object' && error !== null ? '[unprintable error]' : String(error);
+    assert(value.errors.every(message => message.endsWith(expected)));
+    const load = deferred(), late = fixture({ loadStage: () => load.promise });
+    late.stage.dispose = () => { throw error; };
+    const started = late.surface.start(); await flush(); late.surface.dispose(); load.resolve(late.stage);
+    assert.equal(await started, false);
+    assert.deepEqual(late.surface.readDiagnostics().errorLog.rows.map(row => row.operation), ['late-stage-cleanup']);
+  }
+});
+
+test('surface error window stays bounded across regular errors and late initialization failure', async () => {
+  const f = fixture({ panelError: true }); await f.surface.start();
+  for (let i = 0; i < 15; i++) { f.elements.panel.emit('click'); await flush(); }
+  f.surface.dispose();
+  const value = f.surface.readDiagnostics();
+  assert.equal(value.errorLog.total, 15); assert.equal(value.errorLog.overwritten, 7);
+  assert.equal(value.errors.length, 8); assert.equal(value.errorLog.rows[0].sequence, 8);
+  const load = deferred(), late = fixture({ loadStage: () => load.promise });
+  const started = late.surface.start(); await flush(); late.surface.dispose();
+  load.reject(new Error('load rejected after closure')); assert.equal(await started, false);
+  assert.equal(late.surface.readDiagnostics().errorLog.rows[0].operation, 'late-initialization');
+  assert.equal(late.surface.readDiagnostics().ready, false);
+});
+
+test('initialization, frame, resize and cancellation failures retain fixed operation provenance', async () => {
+  for (const operation of ['initialization', 'frame', 'resize', 'cancel']) {
+    const f = fixture(operation === 'initialization' ? { loadStage: async () => { throw new Error('same'); } }
+      : operation === 'frame' ? { updateError: true } : {});
+    await f.surface.start();
+    if (operation === 'frame') f.tick(16);
+    if (operation === 'resize') { f.stage.resize = () => { throw new Error('same'); }; f.window.emit('resize'); }
+    if (operation === 'cancel') { f.stage.cancel = () => { throw new Error('same'); }; f.surface.cancel(); }
+    assert.equal(f.surface.readDiagnostics().errorLog.rows[0].operation, operation);
+    assert.equal(f.surface.readDiagnostics().closed, true);
+  }
+});
+
+test('an in-flight runtime rejection after disposal stays distinct from terminal publication failure', async () => {
+  const publication = deferred(), f = fixture(); await f.surface.start(); await flush();
+  let calls = 0;
+  f.clients.pet_updateRuntime = () => ++calls === 1 ? publication.promise : Promise.reject(new Error('terminal rejected'));
+  f.setMode('drag'); f.tick(16); await flush(); assert.equal(calls, 1);
+  f.surface.dispose(); await flush();
+  const text = f.elements.status.textContent;
+  publication.reject(new Error('in-flight rejected')); await flush();
+  assert.deepEqual(f.surface.readDiagnostics().errorLog.rows.map(row => row.operation),
+    ['terminal-runtime-publication', 'runtime-publication']);
+  assert.equal(f.elements.status.textContent, text); assert.equal(f.surface.readDiagnostics().closed, true);
+});
+
+
+test('pending operations remain visible until late client promises settle after disposal', async () => {
+  const panel = deferred(), terminal = deferred(), f = fixture(); await f.surface.start(); await flush();
+  assert.equal(f.surface.readDiagnostics().pendingOperations, 0);
+  f.clients.pet_openPanel = () => panel.promise;
+  f.elements.panel.emit('click'); await flush(); assert.equal(f.surface.readDiagnostics().pendingOperations, 1);
+  f.clients.pet_updateRuntime = () => terminal.promise;
+  f.surface.dispose(); await flush(); assert.equal(f.surface.readDiagnostics().pendingOperations, 2);
+  panel.reject(new Error('late panel')); await flush();
+  assert.equal(f.surface.readDiagnostics().pendingOperations, 1);
+  terminal.resolve(); await flush(); assert.equal(f.surface.readDiagnostics().pendingOperations, 0);
+  assert.equal(f.surface.readDiagnostics().errorLog.rows[0].operation, 'panel-open');
+  assert.equal(f.surface.readDiagnostics().closed, true); assert.equal(f.frames.size, 0);
+});
+
+test('hydration remains pending and journals rejection once across either disposal ordering', async () => {
+  for (const stageResolvesBeforeDisposal of [true, false]) {
+    const load = deferred(), hydration = deferred();
+    const f = fixture({ loadStage: () => load.promise, getState: () => hydration.promise });
+    const started = f.surface.start(); await flush();
+    if (stageResolvesBeforeDisposal) { load.resolve(f.stage); await flush(); }
+    f.surface.dispose(); await flush();
+    assert.equal(f.surface.readDiagnostics().pendingOperations, 1);
+    const text = f.elements.status.textContent;
+    hydration.reject(new Error('late hydration failure')); await flush();
+    assert.equal(f.surface.readDiagnostics().pendingOperations, 0);
+    assert.equal(f.surface.readDiagnostics().errorLog.total, 1);
+    assert.equal(f.surface.readDiagnostics().errorLog.rows[0].operation, 'hydration');
+    if (!stageResolvesBeforeDisposal) load.resolve(f.stage);
+    assert.equal(await started, false);
+    assert.equal(f.surface.readDiagnostics().errorLog.total, 1);
+    assert.equal(f.elements.status.textContent, text); assert.equal(f.stage.disposals, 1);
+  }
+});
+
+test('active hydration rejection is recorded at settlement, then fails initialization without double counting', async () => {
+  for (const reason of [new Error('hydrate failed'), undefined]) {
+    const hydration = deferred(), load = deferred();
+    const f = fixture({ loadStage: () => load.promise, getState: () => hydration.promise });
+    const started = f.surface.start(); await flush();
+    hydration.reject(reason); await flush();
+    assert.equal(f.surface.readDiagnostics().errorLog.total, 1);
+    assert.equal(f.surface.readDiagnostics().errorLog.rows[0].operation, 'hydration');
+    load.resolve(f.stage); assert.equal(await started, false); await flush();
+    assert.equal(f.surface.readDiagnostics().errorLog.total, 1);
+    assert.equal(f.surface.readDiagnostics().pendingOperations, 0);
+    assert.equal(f.surface.readDiagnostics().closed, true); assert.equal(f.stage.disposals, 1);
+  }
 });

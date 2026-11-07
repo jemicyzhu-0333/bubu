@@ -3,6 +3,7 @@ import { createPetSync } from '../sync.mjs';
 import { resolveSensoryPolicy } from '../../../core/sensory-policy.mjs';
 import { createFrameMetrics } from './frame-metrics.mjs';
 import { createStartupMetrics } from './startup-metrics.mjs';
+import { createErrorJournal, errorMessage } from './error-journal.mjs';
 
 /** One presentation owner in the actual pet surface. No canonical writes or private IPC. */
 export function createRealtimePetSurface({ environment, clients, loadStage }) {
@@ -10,6 +11,8 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
   const canvas = document.getElementById('character'), status = document.getElementById('status');
   const lifecycle = createPetLifecycle(environment), clock = { time: 0 };
   const metrics = createFrameMetrics(), startup = createStartupMetrics(environment.performance.now());
+  const errors = createErrorJournal();
+  const recordError = (operation, error) => errors.record(operation, error, environment.performance.now());
   let instanceId = 'unavailable';
   try {
     const id = environment.crypto?.randomUUID?.();
@@ -48,23 +51,29 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
         pointerId: Number.isSafeInteger(value.pointerId) && value.pointerId >= 0 ? value.pointerId : null,
         captured: Boolean(value.captured), pendingCount: counters(value.pendingCount),
         renderedFrames: counters(value.renderedFrames), construction: counters(value.construction), resources: counters(value.resources), pool: counters(value.pool) };
-    } catch (error) { errors.push(`Terminal diagnostics failed: ${error.message}`); }
+    } catch (error) { recordError('terminal-diagnostics', `Terminal diagnostics failed: ${errorMessage(error)}`); }
   }
   audit('created');
   const context = { motionMode: 'reduced', stimulationMode: 'low', dnd: false, paused: false, screenLocked: false };
   const media = window.matchMedia('(prefers-reduced-motion: reduce)');
   let stage = null, startPromise = null, closed = false, frame = null, ready = false;
-  let manualPaused = false, contextLost = false, dirty = true;
+  let manualPaused = false, contextLost = false, dirty = true, pendingOperations = 0;
   let lastNow = environment.performance.now(), lastFrame = null, failure = null;
   let viewport = null, docked = false, unsubscribeViewport = null, lastPublication = null;
-  const errors = [];
-  const note = error => {
+  const note = (error, operation) => {
+    const message = recordError(operation, error);
     if (closed) return;
-    const message = error instanceof Error ? error.message : String(error);
-    if (errors.length === 8) errors.shift();
-    errors.push(message); status.textContent = `角色不可用：${message}`;
+    status.textContent = `角色不可用：${message}`;
     document.body.dataset.error = 'true';
   };
+  function invokeClient(operation, callback, terminal = false) {
+    pendingOperations++;
+    Promise.resolve().then(() => { if (!closed || terminal) return callback(); }).catch(error => {
+      if (operation === 'terminal-runtime-publication')
+        recordError(operation, `Terminal runtime publication failed: ${errorMessage(error)}`);
+      else note(error, operation);
+    }).finally(() => { pendingOperations--; });
+  }
   const policy = () => {
     const sensory = resolveSensoryPolicy({ ...context, systemReducedMotion: media.matches });
     return { reducedMotion: sensory.calmVisuals, hidden: document.hidden || context.screenLocked || docked,
@@ -79,7 +88,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
     const key = JSON.stringify(runtime);
     if (key === lastPublication) return;
     lastPublication = key;
-    Promise.resolve().then(() => { if (!closed) return clients.pet_updateRuntime(runtime); }).catch(note);
+    invokeClient('runtime-publication', () => clients.pet_updateRuntime(runtime));
   }
   function cancelFrame() {
     if (frame !== null) lifecycle.cancelAnimationFrame(frame);
@@ -93,9 +102,11 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
     if (!closed && ready && frame === null && !failure && (dirty || continuous()) && !policy().hidden)
       frame = lifecycle.requestAnimationFrame(drawFrame);
   }
-  function fail(error) {
-    failure = error; audit('failed'); note(error); cancelFrame();
-    try { stage?.suspend(); } catch (cleanup) { note(cleanup); }
+  function fail(error, operation, alreadyRecorded = false) {
+    failure = error; audit('failed');
+    if (!alreadyRecorded) note(error, operation);
+    cancelFrame();
+    try { stage?.suspend(); } catch (cleanup) { note(cleanup, 'suspend'); }
     dispose();
   }
   function drawFrame(now) {
@@ -120,14 +131,14 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
         if (status.textContent !== statusText) status.textContent = statusText;
         dirty = false; publishRuntime();
       }
-    } catch (error) { fail(error); }
+    } catch (error) { fail(error, 'frame'); }
     schedule();
   }
   function refresh() {
     if (closed) return;
     lastNow = environment.performance.now(); lastFrame = null; dirty = true;
     cancelFrame();
-    try { if (!continuous()) stage?.suspend(); } catch (error) { fail(error); return; }
+    try { if (!continuous()) stage?.suspend(); } catch (error) { fail(error, 'suspend'); return; }
     const value = policy(), policyKey = [value.hidden ? 'hidden' : 'visible', value.paused ? 'paused' : 'running',
       value.reducedMotion ? 'reduced' : 'full'].join('/');
     if (policyKey !== lastPolicy) { lastPolicy = policyKey; audit('policy', { mode: policyKey }); }
@@ -135,7 +146,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
   }
   function cancel() {
     if (closed || !stage || failure) return;
-    try { stage.cancel(); audit('cancel'); refresh(); } catch (error) { fail(error); }
+    try { stage.cancel(); audit('cancel'); refresh(); } catch (error) { fail(error, 'cancel'); }
   }
   function pause(value = !manualPaused) {
     if (closed) return;
@@ -148,34 +159,32 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
     viewport = { width: value.width, height: value.height, stageOffset: { ...value.stageOffset } };
     document.documentElement.style.setProperty('--stage-dx', `${value.stageOffset.x}px`);
     document.documentElement.style.setProperty('--stage-dy', `${value.stageOffset.y}px`);
-    try { stage?.resize(); refresh(); } catch (error) { fail(error); }
+    try { stage?.resize(); refresh(); } catch (error) { fail(error, 'resize'); }
   }
   const sync = createPetSync({ client: clients,
     onSync(data) { Object.assign(context, data); refresh(); },
     onDock(data) { docked = Boolean(data?.edge); refresh(); },
     onCue(cue) {
       // G1 has no action adapter: explicitly reject, never leave Director's lease pending.
-      if (cue?.decisionId) Promise.resolve().then(() => { if (!closed) return clients.pet_ackCue({ decisionId: cue.decisionId, status: 'rejected' }); }).catch(note);
+      if (cue?.decisionId) invokeClient('cue-ack', () => clients.pet_ackCue({ decisionId: cue.decisionId, status: 'rejected' }));
     }
   });
   function dispose() {
     if (closed) return;
     closed = true; ready = false;
     // Retire the published presentation lease; no business mutation or retry.
-    Promise.resolve().then(() => clients.pet_updateRuntime({ visible: false, menuOpen: false,
-      dragging: false, prefersReducedMotion: policy().reducedMotion })).catch(error => {
-      if (errors.length === 8) errors.shift();
-      errors.push(`Terminal runtime publication failed: ${error.message}`);
-    });
+    invokeClient('terminal-runtime-publication', () => clients.pet_updateRuntime({ visible: false, menuOpen: false,
+      dragging: false, prefersReducedMotion: policy().reducedMotion }), true);
     // Retire the heavy owner before callbacks; retain only copied terminal counters.
     const retiredStage = stage; stage = null;
-    const failures = [];
-    for (const release of [() => lifecycle.dispose(), () => sync.dispose(),
-      () => { unsubscribeViewport?.(); unsubscribeViewport = null; }, () => retiredStage?.dispose()]) {
-      try { release(); } catch (error) { failures.push(error); }
+    for (const [operation, release] of [
+      ['cleanup-lifecycle', () => lifecycle.dispose()], ['cleanup-sync', () => sync.dispose()],
+      ['cleanup-viewport', () => { const unsubscribe = unsubscribeViewport; unsubscribeViewport = null; unsubscribe?.(); }],
+      ['cleanup-stage', () => retiredStage?.dispose()]
+    ]) {
+      try { release(); } catch (error) { recordError(operation, `Realtime surface cleanup failed: ${errorMessage(error)}`); }
     }
     frame = null; captureTerminal(retiredStage); audit('disposed');
-    if (failures.length) errors.push(`Realtime surface cleanup failed: ${failures.map(error => error.message).join('; ')}`);
   }
   async function initialize() {
     try {
@@ -185,14 +194,14 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
       lifecycle.listen(window, 'blur', cancel);
       lifecycle.listen(window, 'focus', refresh);
       lifecycle.listen(document, 'visibilitychange', refresh);
-      lifecycle.listen(window, 'resize', () => { try { stage?.resize(); refresh(); } catch (error) { fail(error); } });
+      lifecycle.listen(window, 'resize', () => { try { stage?.resize(); refresh(); } catch (error) { fail(error, 'resize'); } });
       lifecycle.listen(media, 'change', refresh);
       lifecycle.listen(window, 'keydown', event => { if (event.key === 'Escape') { event.preventDefault(); cancel(); } });
       lifecycle.listen(canvas, 'webglcontextlost', event => { event.preventDefault(); contextLost = true; refresh(); });
       lifecycle.listen(canvas, 'webglcontextrestored', () => { contextLost = false; refresh(); });
       lifecycle.listen(document.getElementById('pause'), 'click', () => pause());
       lifecycle.listen(document.getElementById('cancel'), 'click', cancel);
-      lifecycle.listen(document.getElementById('panel'), 'click', () => { Promise.resolve().then(() => { if (!closed) return clients.pet_openPanel(); }).catch(note); });
+      lifecycle.listen(document.getElementById('panel'), 'click', () => invokeClient('panel-open', () => clients.pet_openPanel()));
       for (const type of ['pointerdown', 'pointermove', 'pointerup', 'pointercancel', 'pointerleave', 'lostpointercapture'])
         lifecycle.listen(canvas, type, event => {
           advanceClock(environment.performance.now());
@@ -204,37 +213,45 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
           if (event.target !== canvas) audit(type, { pointerId: event.pointerId, isTrusted: event.isTrusted });
         }, { capture: true });
       const ticket = sync.beginHydration();
-      // Attach a rejection handler before awaiting the independent stage load.
+      // Track and handle hydration before awaiting the independent stage load:
+      // a late rejection remains observable even if disposal skips hydration use.
+      pendingOperations++;
       const hydration = Promise.resolve().then(() => clients.pet_getState()).then(
-        value => ({ value }), error => ({ error }));
+        value => ({ ok: true, value }), error => {
+          note(error, 'hydration'); return { ok: false, error };
+        }).finally(() => { pendingOperations--; });
       startup.stageStarted(environment.performance.now());
       stage = await loadStage({ canvas, clock, environment });
       startup.stageReady(environment.performance.now());
       if (closed) {
         const late = stage; stage = null;
-        try { late.dispose(); } catch (error) { errors.push(`Late stage cleanup failed: ${error.message}`); }
+        try { late.dispose(); } catch (error) { recordError('late-stage-cleanup', `Late stage cleanup failed: ${errorMessage(error)}`); }
         captureTerminal(late);
         return false;
       }
       const hydrated = await hydration;
       if (closed) return false;
-      if (hydrated.error) throw hydrated.error;
+      if (!hydrated.ok) { fail(hydrated.error, 'hydration', true); return false; }
       sync.hydrate(hydrated.value, ticket);
       ready = true; startup.ready(environment.performance.now()); document.documentElement.dataset.ready = 'true'; audit('ready'); refresh();
       return true;
-    } catch (error) { if (!closed) { fail(error); dispose(); } return false; }
+    } catch (error) {
+      if (!closed) fail(error, 'initialization');
+      else recordError('late-initialization', error);
+      return false;
+    }
   }
   return Object.freeze({
     start() { if (closed) return Promise.resolve(false); return startPromise ??= initialize(); },
     pause, cancel, dispose,
     readDiagnostics(options) {
       const frames = metrics.readSince(options);
-      return { schemaVersion: 1, instanceId, ready, closed, time: clock.time, frameScheduled: frame !== null, policy: policy(), frames, startup: startup.snapshot(),
+      return { schemaVersion: 1, instanceId, ready, closed, time: clock.time, frameScheduled: frame !== null, pendingOperations, policy: policy(), frames, startup: startup.snapshot(),
         stage: closed ? (terminalStage ? structuredClone(terminalStage) : null) : stage?.readDiagnostics?.() ?? null,
-        events: readEvents(), errors: errors.slice(-8).map(message => String(message).slice(0, 2048)) };
+        events: readEvents(), errorLog: errors.snapshot(), errors: errors.messages() };
     },
     snapshot: () => ({ ready, closed, time: clock.time, policy: policy(), context: { ...context }, viewport,
-      frameScheduled: frame !== null, error: failure?.message ?? null, errors: [...errors],
+      frameScheduled: frame !== null, error: failure?.message ?? null, errors: errors.messages(),
       metrics: metrics.snapshot(), stage: stage?.snapshot() ?? null,
       productionAccepted: false, nativePerformanceAccepted: false })
   });

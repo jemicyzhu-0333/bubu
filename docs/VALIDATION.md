@@ -414,7 +414,13 @@ all-AI-off 配方铸造，不接受用户 profile。一次性 HMAC handoff 绑�
 `readyMs` 还包含初始化/等待 hydration；舞台 `construction.actorCreateMs` 与 `shaderCompileWaitMs`
 分别记录 actor 创建及 `compileAsync` 的经过时间。后者不是 GPU 执行时长；这些分段有包含关系，不能相加。
 资源样本保留对应 `instanceId` 和独立 startup 副本；未完成/不可用的测量为 null，销毁后不保留资源对象。
-renderer 的诊断仍为只读有限数据，不导出 context、业务内容或密钥；事件最多 512、错误最多 64。
+renderer 的诊断仍为只读有限数据，不导出 context、业务内容或密钥；事件最多 512、包内错误详情最多 64。
+`errorLog` 的序号区分真实异常与重复读取，最后8条以外的淘汰计数继续保留。
+`rendererDiagnostics` 分代报告真实出现数、已观察行、错过详情及详情截断；`errorAccounting`
+只统计报告观察项，不等于独立根因数。未知旧格式明确保留较弱证据，不把消息字符串去重当作次数证明。
+所有详情先做有界秘密/凭据URL/路径脱敏；退出、迟到加载、各清理操作失败通过同一日志，
+记录异常不能在关闭后改写UI。终止阶段记录 pendingOperations及结清状态，等待不延长原180秒预算。
+应回归重复读取、同文异次、reload重置、ring淘汰、64条饱和、分页、意外关闭、迟到拒绝、未结清和脱敏往返。
 PNG 验结构、宽高各不超过 4096、每张 1 MiB，上限六张；整个单一 gzip 包 decoded
 不超过 16 MiB、compressed 不超过 8 MiB，日志合计 64 KiB，带 schema 和 canonical SHA256，
 独占原子写入、读回核验且不覆盖历史结果；中断/setup failure 也走相同失败记录边界。
@@ -472,7 +478,20 @@ Three 186，ANGLE NVIDIA RTX 4080 Direct3D11。硬件字段仍为 unverified，�
 - 独立Node v24.22.1实际资产CPU夹具12组交替测试，每次新建pool并在计时前显式GC；排除前2组后，
   prepared创建中位633.35ms（542.69–688.77），bare中位535.90ms（510.66–600.61），其中1组bare较慢。
   仅是有噪声的CPU夹具创建比较，不是Windows首帧改善证明；几何/材质/骨骼、拖动/抚摸/取消等价及所有者归零单独断言。
-  当前优化后的Windows/macOS复采、真实OS输入、多DPI、GPU/长期工作集仍待验证。
+  优化后的Windows复采结果如下；macOS、真实OS输入、多DPI、GPU/长期工作集门禁仍未关闭。
+- Windows后续包 `capture-b5ce8f24-9d82-4930-bb6d-43b5c3888b5b.json.gz`：138,595 bytes，SHA256
+  `1177f939bca7bcdd05fe66c769976e17cada95f39b0aa36b32384f9993db619a`，源码
+  `85fc75e45b5a8985fb61b324939233ed084d9d2d`。实际预算确认15,610,448字节（少11.82%），
+  几何/纹理计数仍14/18；不是GPU显存或整个进程工作集降幅。
+  初代/reload首帧submission为725.3/92.4/94.4ms，actor创建587.6/619.2/602.4ms，
+  compileAsync等待321/342.5/358.5ms。首帧render调用是明确的阻塞段，但没有上传、驱动、
+  shader、GPU执行或JS profile分解，不能擅定根因。计时是调用周围经过时间，不是纯CPU占用或GPU时间。
+  原包没有首帧submission且Electron44.4.5→44.10.1、Chromium也变化，不做首帧回归或加速的受控A/B结论。
+- 本次idle/longpress有采集期间本人确认的额外触碰/暂停干扰，保留原phase失败，不归咎代码或改写通过。
+  包内64条错误达到上限，其中62条是采集器重复读取同一非空errors数组时生成的通用项，
+  不是62次已证实独立异常。原message未写入包且现有日志无法恢复，真实原因与次数仍未知。
+  后续改用上述序号日志及溢出计数；不能用修复后的解释回填旧包。该包CLI exit2且后代清理未完全确认，
+  不授予native/GPU/OS-input准入。
 
 ### 历史研究验证与归档（不属于本批在线前置）
 

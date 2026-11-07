@@ -7,14 +7,14 @@ import { sanitizeDiagnosticText } from './supervisor.mjs';
 import { encodeCapturePackage, decodeCapturePackage } from './package.mjs';
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const SOURCE_FILES = Object.freeze([
-  ...['run.mjs', 'collect.mjs', 'electron-main.cjs', 'window-port.cjs', 'options.mjs', 'supervisor.mjs', 'report.mjs', 'package.mjs', 'evidence.mjs', 'materialize-d2.mjs', 'fixture-policy.cjs', 'handoff.cjs'].map(name => `tools/pet-realtime-capture/${name}`),
+  ...['run.mjs', 'diagnostics.mjs', 'collect.mjs', 'electron-main.cjs', 'window-port.cjs', 'options.mjs', 'supervisor.mjs', 'report.mjs', 'package.mjs', 'evidence.mjs', 'materialize-d2.mjs', 'fixture-policy.cjs', 'handoff.cjs'].map(name => `tools/pet-realtime-capture/${name}`),
   'tools/dev-bench/orchestration.js', 'tools/dev-bench/profile-fixture.js', 'tools/dev-bench/scenarios.js',
   'src/platform/electron/dev/fixture-isolation.js',
   'research/animation-0.1.0/runtime-facepath05/tools/approved-d2-source.json',
   'package.json', 'package-lock.json', 'research/animation-0.1.0/package-lock.json',
   'src/surfaces/pet/realtime/entry.mjs', 'src/surfaces/pet/realtime/surface.mjs',
   'src/surfaces/pet/realtime/three-stage.mjs', 'src/surfaces/pet/realtime/frame-metrics.mjs',
-  'src/surfaces/pet/realtime/startup-metrics.mjs', 'src/surfaces/pet/realtime/runtime/actor-backend.mjs',
+  'src/surfaces/pet/realtime/startup-metrics.mjs', 'src/surfaces/pet/realtime/error-journal.mjs', 'src/surfaces/pet/realtime/runtime/actor-backend.mjs',
   'research/animation-0.1.0/animation-foundation-v1/integration/foundation-runtime.mjs',
   'src/platform/electron/windows/pet-renderer-selection.js', 'src/bootstrap/renderer-ipc.js',
   'research/animation-0.1.0/runtime-facepath05/fixtures/face-d2/asset.glb',

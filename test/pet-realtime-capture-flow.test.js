@@ -24,7 +24,7 @@ function capturePorts({ gap = false, stale = false } = {}) {
     async read({ afterSequence }) { const filtered = rows.filter(item => item.sequence > afterSequence);
       if (gap && filtered.length) filtered.shift();
       return { schemaVersion: 1, instanceId: stale && generation ? 'generation-0' : `generation-${generation}`, ready: true, closed,
-        time: paused ? 0 : now / 1000, frameScheduled: !paused && !closed,
+        time: paused ? 0 : now / 1000, frameScheduled: !paused && !closed, pendingOperations: 0,
         startup: { readyMs: 100 + generation, firstFrame: { renderSubmissionMs: 50 + generation } },
         frames: { epoch: 0, rows: filtered, lastSequence: sequence, overwrittenSinceCursor: gap && filtered.length ? 1 : 0, remaining: 0 },
         stage: { mode, pointerId: down ? 1 : null, captured: down, pendingCount: 0, renderedFrames: rendered,
@@ -243,4 +243,119 @@ test('actual canonical fixture, authenticated handoff and opaque ownership compo
     const request = consumeCaptureHandoff(handoff.requestFile, handoff.token); assert.equal(assertCaptureOwnership(request), true);
     assert.equal(request.fixture.userDataPath, profile.userDataPath); assert.equal(Object.hasOwn(request, 'initial'), false);
   } finally { if (profile) removeDisposableProfile(profile); fs.rmSync(directory, { recursive: true, force: true }); }
+});
+
+test('collector preserves error details before unexpected closure rejects the phase', async () => {
+  const report = createCaptureReport({ runId: 'closed-detail' }), ports = capturePorts(), read = ports.read;
+  let polls = 0;
+  ports.read = async options => {
+    const value = await read(options); polls++;
+    value.errorLog = { schemaVersion: 1, total: polls >= 3 ? 1 : 0, overwritten: 0,
+      rows: polls >= 3 ? [{ sequence: 1, atMs: 1, operation: 'frame', message: 'render failed' }] : [] };
+    if (polls >= 3) value.closed = true;
+    return value;
+  };
+  await assert.rejects(collectRealtime(report, ports, { screenshots: false }), /surface-closed-unexpectedly/);
+  assert.equal(report.capture.status, 'partial');
+  assert.equal(report.errors[0].message, 'render failed');
+  assert.equal(report.rendererDiagnostics[0].totalOccurrences, 1);
+});
+
+test('collector consumes journal on every frame page and reports completed observations with a full detail cap', async () => {
+  const report = createCaptureReport({ runId: 'page-detail' }), ports = capturePorts(), read = ports.read;
+  const { appendCaptureError } = require('../tools/pet-realtime-capture/report.mjs');
+  for (let i = 0; i < 64; i++) appendCaptureError(report, { code: 'earlier' });
+  const totals = new Map();
+  ports.read = async options => {
+    const value = await read(options);
+    const total = (totals.get(value.instanceId) ?? 0) + 1; totals.set(value.instanceId, total);
+    value.errorLog = { schemaVersion: 1, total, overwritten: Math.max(0, total - 8),
+      rows: Array.from({ length: Math.min(8, total) }, (_, index) => ({ sequence: Math.max(0, total - 8) + index + 1,
+        atMs: 1, operation: 'runtime-publication', message: 'repeated failure' })) };
+    const rows = value.frames.rows;
+    value.frames.rows = rows.slice(0, 10); value.frames.remaining = Math.max(0, rows.length - 10);
+    return value;
+  };
+  await collectRealtime(report, ports, { screenshots: false });
+  assert.equal(report.capture.status, 'completed-with-observations');
+  assert.equal(report.rendererDiagnostics.length, 3);
+  assert(report.rendererDiagnostics.every(row => row.missingDetails === 0 && row.totalOccurrences === totals.get(row.instanceId)));
+  const occurrences = [...totals.values()].reduce((sum, value) => sum + value, 0);
+  assert.equal(report.rendererDiagnostics.reduce((sum, value) => sum + value.droppedDetails, 0), occurrences);
+  assert(report.errorAccounting.truncated >= occurrences, 'other capture failures remain counted too');
+  assert.equal(report.errors.length, 64);
+});
+
+
+test('terminal drain retains late client rejection before navigating away from each generation', async () => {
+  const report = createCaptureReport({ runId: 'late-terminal-detail' }), ports = capturePorts();
+  const read = ports.read, dispose = ports.dispose; let settlesAt = Infinity;
+  ports.dispose = async () => { settlesAt = ports.now() + 150; await dispose(); };
+  ports.read = async options => {
+    const value = await read(options), settled = value.closed && ports.now() >= settlesAt;
+    value.pendingOperations = value.closed && !settled ? 1 : 0;
+    value.errorLog = { schemaVersion: 1, total: settled ? 1 : 0, overwritten: 0,
+      rows: settled ? [{ sequence: 1, atMs: ports.now(), operation: 'runtime-publication', message: 'late runtime rejection' }] : [] };
+    return value;
+  };
+  await collectRealtime(report, ports, { screenshots: false });
+  assert.equal(report.errors.filter(row => row.message === 'late runtime rejection').length, 3);
+  assert(report.capture.lifecycle.every(row => row.operationsSettled && row.pendingOperations === 0 && row.operationDrainElapsedMs === 150));
+  assert.equal(report.capture.status, 'completed-with-observations');
+});
+
+test('terminal drain times out within its bounded wait and preserves unsettled operations as observations', async () => {
+  const report = createCaptureReport({ runId: 'unsettled-terminal' }), ports = capturePorts(), read = ports.read;
+  ports.read = async options => {
+    const value = await read(options); value.pendingOperations = value.closed ? 2 : 0; return value;
+  };
+  await collectRealtime(report, ports, { screenshots: false });
+  const errors = report.errors.filter(row => row.code === 'terminal-operations-unsettled');
+  assert.equal(errors.length, 3); assert(errors.every(row => row.phase === 'boundary'));
+  assert(report.capture.lifecycle.every(row => !row.operationsSettled && row.pendingOperations === 2 && row.operationDrainElapsedMs === 2000));
+  assert.equal(report.capture.status, 'completed-with-observations');
+});
+
+test('missing or malformed terminal operation count never claims settled ownership', async () => {
+  for (const counter of [undefined, -1, 0.5, '0']) {
+    const report = createCaptureReport({ runId: 'unknown-terminal' }), ports = capturePorts(), read = ports.read;
+    ports.read = async options => { const value = await read(options); if (value.closed) value.pendingOperations = counter; return value; };
+    await collectRealtime(report, ports, { screenshots: false });
+    assert(report.capture.lifecycle.every(row => row.pendingOperations === null && row.operationsSettled === false));
+    assert.equal(report.errors.filter(row => row.code === 'terminal-operations-counter-unavailable').length, 3);
+    assert.equal(report.capture.status, 'completed-with-observations');
+  }
+});
+
+
+test('terminal drain forwards a decreasing read deadline and never claims settlement after read timeout', async () => {
+  const report = createCaptureReport({ runId: 'terminal-read-timeout' }), ports = capturePorts(), read = ports.read;
+  const budgets = [];
+  ports.read = async (options, limits) => {
+    const value = await read(options);
+    if (value.closed) {
+      budgets.push(limits.timeoutMs);
+      if (limits.timeoutMs < 2000) throw new Error('capture-collector-timeout');
+      value.pendingOperations = 1;
+    }
+    return value;
+  };
+  await collectRealtime(report, ports, { screenshots: false });
+  assert.deepEqual(budgets, [2000, 1950, 2000, 1950, 2000, 1950]);
+  assert.equal(report.errors.filter(row => row.code === 'terminal-operations-read-timeout').length, 3);
+  assert(report.capture.lifecycle.every(row => row.operationsSettled === false && row.pendingOperations === 1));
+});
+
+test('owned-window narrow diagnostic timeout rejects without accepting a late result', async () => {
+  const contents = new EventEmitter(); let complete;
+  Object.assign(contents, { isDestroyed: () => false, getURL: () => pathToFileURL('/fixture/index.html').href,
+    executeJavaScript: () => new Promise(resolve => { complete = resolve; }) });
+  const window = { isDestroyed: () => false, webContents: contents };
+  const port = createOwnedWindowPort({ window, pagePath: '/fixture/index.html', readProfileOwnership: () => true, timeoutMs: 100, startupTimeoutMs: 100 });
+  await assert.rejects(port.read({ afterSequence: 0 }, { timeoutMs: 5 }), /collector-timeout/);
+  complete({ instanceId: 'late-instance' }); await Promise.resolve();
+  contents.executeJavaScript = async () => ({ instanceId: 'current-instance' });
+  assert.equal((await port.read({ afterSequence: 0 })).instanceId, 'current-instance');
+  for (const timeoutMs of [0, -1, Infinity, 101]) await assert.rejects(port.read({}, { timeoutMs }), /read-timeout-invalid/);
+  port.close();
 });
