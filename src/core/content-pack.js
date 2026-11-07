@@ -2,13 +2,15 @@
 
 const { ID_PATTERN } = require('./companion-state');
 const { PET_ACTIONS } = require('../content/behaviors.mjs');
+const { FRONT_STORY_PREVIEWS } = require('../content/companion/front-stories.mjs');
+const { outfitSeasonalCues } = require('../content/companion/outfit-sets.mjs');
 
 const MAX_MANIFEST_BYTES = 256 * 1024;
 const MAX_ASSET_BYTES = 1024 * 1024;
 const MAX_TOTAL_ASSET_BYTES = 8 * 1024 * 1024;
 const MAX_CUES = 256;
 const MAX_VARIANTS_PER_CUE = 8;
-const KNOWN_ANIMATIONS = Object.freeze(new Set(['static-pose', ...Object.keys(PET_ACTIONS)]));
+const KNOWN_ANIMATIONS = Object.freeze(new Set(['static-pose', ...Object.keys(PET_ACTIONS), ...Object.keys(FRONT_STORY_PREVIEWS)]));
 const CUE_KINDS = Object.freeze(new Set(['attention', 'ambient']));
 const COOLDOWN_FIELDS = Object.freeze(new Set([
   'globalCooldownMs', 'familyCooldownMs', 'cooldownMs'
@@ -72,8 +74,17 @@ function validateContentManifest(manifest) {
     manifest.cues.forEach((cue, cueIndex) => {
       if (!exactKeys(cue, [
         'id', 'familyId', 'kind', 'weight', 'priority', 'cost', 'globalCooldownMs',
-        'familyCooldownMs', 'cooldownMs', 'focusAllowed', 'discoveryId', 'variants'
+        'familyCooldownMs', 'cooldownMs', 'focusAllowed', 'discoveryId', 'variants', 'requires'
       ], `cue[${cueIndex}]`, errors)) return;
+      if (cue.requires !== undefined) {
+        const requires = cue.requires;
+        if (!exactKeys(requires, ['months', 'outfitSetId'], `cue[${cueIndex}].requires`, errors)) return;
+        if (requires.months !== undefined && (!Array.isArray(requires.months) || !requires.months.length
+            || requires.months.some(month => !validInteger(month, 1, 12)))) errors.push(`cue[${cueIndex}].requires.months is invalid`);
+        if (requires.outfitSetId !== undefined && (typeof requires.outfitSetId !== 'string' || !ID_PATTERN.test(requires.outfitSetId))) {
+          errors.push(`cue[${cueIndex}].requires.outfitSetId is invalid`);
+        }
+      }
       if (typeof cue.id !== 'string' || !ID_PATTERN.test(cue.id)) errors.push(`cue[${cueIndex}].id is invalid`);
       else if (cueIds.has(cue.id)) errors.push(`duplicate cue id: ${cue.id}`);
       else cueIds.add(cue.id);
@@ -191,6 +202,14 @@ function adaptLegacyPetContent(content) {
       variants
     };
   });
+  for (const seasonal of outfitSeasonalCues()) {
+    const { actionId, message, ...cue } = seasonal;
+    const durationMs = Math.max(6_000, Math.min(60_000, FRONT_STORY_PREVIEWS[actionId]?.duration || 7_200));
+    cues.push({ ...cue, variants: [
+      { id: 'default', animationId: actionId, message, durationMs, assetIds: [], static: false },
+      { id: 'static', animationId: 'static-pose', message, durationMs, assetIds: [], static: true }
+    ] });
+  }
   return lintContentManifest({ version: 1, packId: 'builtin-core', assets: [], cues });
 }
 

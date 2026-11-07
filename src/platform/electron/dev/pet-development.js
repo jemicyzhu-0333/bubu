@@ -1,5 +1,5 @@
 'use strict';
-const { readFixtureIsolation, recordFixtureSuppression } = require('./fixture-isolation');
+const { suppressOsEffect } = require('../os-effect-gate');
 
 const { createPetHotReload } = require('./pet-hot-reload');
 
@@ -51,7 +51,7 @@ function createPetDevelopment({ profile, sourceRoot, getWindow, showPet } = {}) 
   }
 
   function start() {
-    if (readFixtureIsolation()) { recordFixtureSuppression('developmentStart'); return () => {}; }
+    if (suppressOsEffect('developmentStart')) { return () => {}; }
     if (hotReload) return () => hotReload.stop();
     hotReload = createPetHotReload({
       sourceRoot,

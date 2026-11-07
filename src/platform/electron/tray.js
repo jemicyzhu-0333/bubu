@@ -1,5 +1,5 @@
 'use strict';
-const { readFixtureIsolation, recordFixtureSuppression } = require('./dev/fixture-isolation');
+const { suppressOsEffect } = require('./os-effect-gate');
 
 const { nativeCopy, onNativeLocaleChanged } = require('./interface-copy');
 const { createTrayIcon } = require('./tray-icon');
@@ -30,16 +30,15 @@ function createTrayHost({
   onClick,
   onRightClick
 }) {
-  if (readFixtureIsolation()) {
-    recordFixtureSuppression('trayCreate');
+  if (suppressOsEffect('trayCreate')) {
     let disposed = false;
-    const operation = () => { recordFixtureSuppression('trayOperation'); return false; };
+    const operation = () => { suppressOsEffect('trayOperation'); return false; };
     return Object.freeze({
       getBounds: () => { operation(); return Object.freeze({ x: 0, y: 0, width: 0, height: 0 }); },
       setIcon: operation, setTitle: operation, showMenu: operation,
       dispose() {
         if (disposed) return false;
-        recordFixtureSuppression('trayDispose'); disposed = true; return true;
+        suppressOsEffect('trayDispose'); disposed = true; return true;
       }
     });
   }

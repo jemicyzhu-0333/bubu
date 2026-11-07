@@ -37,8 +37,21 @@ test('packaging uses the pinned upstream fetch downloader without vulnerable leg
   }
   assert.equal(pkg.dependencies['electron-updater'], '6.8.10');
   assert.equal(lock.packages['node_modules/electron-updater'].version, '6.8.10');
-  assert.equal(pkg.overrides, undefined, 'security fixes must come from upstream dependencies');
-  assert.equal(pkg.version, '0.0.2-dev.4');
+  // Only these build-tool-scoped overrides are allowed, until electron-builder ships patched
+  // glob/minimatch/ejs upstream (GHSA-3g3m-2fjr-6pw4 chain). Remove them when it does.
+  assert.deepEqual(pkg.overrides, {
+    '@electron/asar': { glob: '^14.0.3', minimatch: '^11.0.4' },
+    'app-builder-lib': { minimatch: '^11.0.4', ejs: '^7.0.2' }
+  }, 'overrides are limited to the documented build-tool security allowlist');
+  for (const [key, min] of Object.entries({ glob: [14, 0, 2], minimatch: [11, 0, 1] })) {
+    for (const [at, entry] of Object.entries(lock.packages)) {
+      if (!at.endsWith(`node_modules/${key}`)) continue;
+      const v = entry.version.split('.').map(Number);
+      const ok = v[0] !== min[0] ? v[0] > min[0] : v[1] !== min[1] ? v[1] > min[1] : v[2] >= min[2];
+      assert.ok(ok, `${at}@${entry.version} is below patched ${min.join('.')}`);
+    }
+  }
+  assert.equal(pkg.version, '0.0.2-dev.6');
   assert.equal(lock.version, pkg.version);
   assert.equal(lock.packages[''].version, pkg.version);
 });

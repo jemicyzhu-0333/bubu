@@ -21,7 +21,9 @@ function checkContract(contract) {
   return structuredClone(contract);
 }
 async function inspectParents(root, relative, create = false) {
-  const absolute = path.resolve(root), parsed = path.parse(absolute);
+  // Canonicalize the caller-owned root once (macOS /var -> /private/var, /tmp -> /private/tmp);
+  // every component below the root is still rejected if it is a link.
+  const absolute = await fs.realpath(path.resolve(root)), parsed = path.parse(absolute);
   let current = parsed.root;
   for (const part of path.relative(parsed.root, absolute).split(path.sep).filter(Boolean)) {
     current = path.join(current, part);
