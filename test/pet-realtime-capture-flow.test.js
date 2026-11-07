@@ -25,6 +25,7 @@ function capturePorts({ gap = false, stale = false } = {}) {
       if (gap && filtered.length) filtered.shift();
       return { schemaVersion: 1, instanceId: stale && generation ? 'generation-0' : `generation-${generation}`, ready: true, closed,
         time: paused ? 0 : now / 1000, frameScheduled: !paused && !closed,
+        startup: { readyMs: 100 + generation, firstFrame: { renderSubmissionMs: 50 + generation } },
         frames: { epoch: 0, rows: filtered, lastSequence: sequence, overwrittenSinceCursor: gap && filtered.length ? 1 : 0, remaining: 0 },
         stage: { mode, pointerId: down ? 1 : null, captured: down, pendingCount: 0, renderedFrames: rendered,
           inputTargets: { body: { x: 110, y: 90 } }, graphics: { renderer: 'SwiftShader' }, resources: { geometries: closed ? 0 : 5, textures: 2 },
@@ -46,6 +47,10 @@ test('fixed collector completes all bounded phases/reloads and packages raw obse
   assert(report.phases.filter(p => p.id.startsWith('synthetic')).every(p => p.inputSource === 'Electron-injected-not-OS'));
   assert(report.phases.some(p => p.id === 'warmup' && p.performancePhase === false));
   assert.equal(new Set(report.frames.map(p => p.sequence)).size, report.frames.length);
+  assert.deepEqual(report.capture.resourceSamples.map(sample => [sample.instanceId, sample.startup.readyMs]),
+    [['generation-0', 100], ['generation-0', 100], ['generation-1', 101], ['generation-2', 102]]);
+  const packaged = require('../tools/pet-realtime-capture/report.mjs').finalizeReport(report);
+  assert.equal(packaged.capture.resourceSamples.at(-1).startup.firstFrame.renderSubmissionMs, 52);
 });
 test('collector records lost frames and rejects reuse of a prior navigation instance', async () => {
   const report = createCaptureReport({ runId: 'loss' }); await collectRealtime(report, capturePorts({ gap: true }), { screenshots: false });

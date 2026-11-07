@@ -2,13 +2,14 @@ import { createPetLifecycle } from '../lifecycle.mjs';
 import { createPetSync } from '../sync.mjs';
 import { resolveSensoryPolicy } from '../../../core/sensory-policy.mjs';
 import { createFrameMetrics } from './frame-metrics.mjs';
+import { createStartupMetrics } from './startup-metrics.mjs';
 
 /** One presentation owner in the actual pet surface. No canonical writes or private IPC. */
 export function createRealtimePetSurface({ environment, clients, loadStage }) {
   const { document, window } = environment;
   const canvas = document.getElementById('character'), status = document.getElementById('status');
   const lifecycle = createPetLifecycle(environment), clock = { time: 0 };
-  const metrics = createFrameMetrics();
+  const metrics = createFrameMetrics(), startup = createStartupMetrics(environment.performance.now());
   let instanceId = 'unavailable';
   try {
     const id = environment.crypto?.randomUUID?.();
@@ -46,7 +47,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
       if (value) terminalStage = { mode: typeof value.mode === 'string' ? value.mode.slice(0, 64) : 'unavailable',
         pointerId: Number.isSafeInteger(value.pointerId) && value.pointerId >= 0 ? value.pointerId : null,
         captured: Boolean(value.captured), pendingCount: counters(value.pendingCount),
-        renderedFrames: counters(value.renderedFrames), resources: counters(value.resources), pool: counters(value.pool) };
+        renderedFrames: counters(value.renderedFrames), construction: counters(value.construction), resources: counters(value.resources), pool: counters(value.pool) };
     } catch (error) { errors.push(`Terminal diagnostics failed: ${error.message}`); }
   }
   audit('created');
@@ -111,6 +112,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
         const updated = environment.performance.now();
         stage.render();
         const rendered = environment.performance.now();
+        startup.frame(now, before, updated, rendered);
         // No zero/paused interval is mixed into the continuous frame distribution.
         if (continuous() && lastFrame !== null) metrics.record(now - lastFrame, updated - before, rendered - updated, now);
         lastFrame = continuous() ? now : null;
@@ -205,7 +207,9 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
       // Attach a rejection handler before awaiting the independent stage load.
       const hydration = Promise.resolve().then(() => clients.pet_getState()).then(
         value => ({ value }), error => ({ error }));
+      startup.stageStarted(environment.performance.now());
       stage = await loadStage({ canvas, clock, environment });
+      startup.stageReady(environment.performance.now());
       if (closed) {
         const late = stage; stage = null;
         try { late.dispose(); } catch (error) { errors.push(`Late stage cleanup failed: ${error.message}`); }
@@ -216,7 +220,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
       if (closed) return false;
       if (hydrated.error) throw hydrated.error;
       sync.hydrate(hydrated.value, ticket);
-      ready = true; document.documentElement.dataset.ready = 'true'; audit('ready'); refresh();
+      ready = true; startup.ready(environment.performance.now()); document.documentElement.dataset.ready = 'true'; audit('ready'); refresh();
       return true;
     } catch (error) { if (!closed) { fail(error); dispose(); } return false; }
   }
@@ -225,7 +229,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
     pause, cancel, dispose,
     readDiagnostics(options) {
       const frames = metrics.readSince(options);
-      return { schemaVersion: 1, instanceId, ready, closed, time: clock.time, frameScheduled: frame !== null, policy: policy(), frames,
+      return { schemaVersion: 1, instanceId, ready, closed, time: clock.time, frameScheduled: frame !== null, policy: policy(), frames, startup: startup.snapshot(),
         stage: closed ? (terminalStage ? structuredClone(terminalStage) : null) : stage?.readDiagnostics?.() ?? null,
         events: readEvents(), errors: errors.slice(-8).map(message => String(message).slice(0, 2048)) };
     },

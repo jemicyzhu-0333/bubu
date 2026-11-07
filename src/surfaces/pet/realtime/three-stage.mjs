@@ -13,7 +13,7 @@ export async function createThreeStage({ canvas, clock, environment }) {
   const key = new T.DirectionalLight(0xfff9ed, 2.4); key.position.set(3, 5, 8); scene.add(key);
   const fill = new T.DirectionalLight(0xffffff, .8); fill.position.set(-3, 2, 4); scene.add(fill);
   let actor, disposed = false, renderedFrames = 0;
-  const errors = [];
+  const errors = [], construction = { actorCreateMs: null, shaderCompileWaitMs: null };
   renderer.debug.onShaderError = (gl, program) => {
     if (errors.length === 8) errors.shift();
     errors.push((gl.getProgramInfoLog(program) || 'shader failure').slice(0, 2048));
@@ -41,9 +41,13 @@ export async function createThreeStage({ canvas, clock, environment }) {
     // A desktop window normally stays unfocused. The surface cancels capture on
     // blur; the body owner must not treat ordinary deactivation as a hidden page.
     const pointerWindow = createDesktopPointerWindow(environment.window);
-    actor = await pool.create({ target: canvas, camera, clock, windowTarget: pointerWindow });
+    const actorStarted = environment.performance.now();
+    actor = await pool.create({ target: canvas, camera, clock, windowTarget: pointerWindow, equipmentMode: 'bare' });
+    construction.actorCreateMs = environment.performance.now() - actorStarted;
     scene.add(actor.scene);
+    const compileStarted = environment.performance.now();
     await renderer.compileAsync(scene, camera);
+    construction.shaderCompileWaitMs = environment.performance.now() - compileStarted;
     if (errors.length) throw new Error(errors.join('; '));
   } catch (error) {
     try { dispose(); } catch (cleanup) { throw new AggregateError([error, cleanup], 'Stage construction failed'); }
@@ -70,7 +74,7 @@ export async function createThreeStage({ canvas, clock, environment }) {
   function readDiagnostics() {
     const state = actor.f.h.state;
     return { mode: state.mode, pointerId: state.pointerId, captured: state.captured,
-      pendingCount: actor.f.h.pendingCount, renderedFrames, errors: [...errors],
+      pendingCount: actor.f.h.pendingCount, renderedFrames, errors: [...errors], construction: { ...construction },
       resources: { geometries: renderer.info.memory.geometries, textures: renderer.info.memory.textures },
       pool: pool.diagnostics(), graphics: { ...graphics }, inputTargets: { body: bodyTarget() } };
   }
@@ -82,7 +86,7 @@ export async function createThreeStage({ canvas, clock, environment }) {
     resize, suspend: () => actor.f.h.suspend(), cancel: () => actor.reset(), dispose,
     snapshot: () => ({ state: actor.f.h.state, graphics, renderedFrames, errors: [...errors],
       resources: { ...renderer.info.memory }, pool: pool.diagnostics(),
-      residentScope: 'bare rendered actor; existing coordinator eagerly prepares accessory templates',
+      residentScope: 'bare rendered actor; accessory templates not prepared',
       nativePerformanceAccepted: false, contactAccepted: false })
   });
 }

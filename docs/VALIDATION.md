@@ -408,6 +408,12 @@ all-AI-off 配方铸造，不接受用户 profile。一次性 HMAC handoff 绑�
 覆盖/loss、事件序号与代次。按**本阶段原始样本**计算 nearest-rank P50/P95/P99/max，
 同时给出超过 16.7/33.3/50/100 ms 的长帧计数，不平均分位数。任何样本丢失使该阶段
 分位数无效；coldstart、warmup、截图/cooldown、暂停不混入稳定帧样本。
+每代首个完成绘制的 `startup.firstFrame` 单独保留 `updateMs`、`renderSubmissionMs`、
+`totalCpuMs`、RAF timestamp 到 update 开始的 `callbackDelayMs` 及 ready 到提交完成的耗时；
+没有前帧就不伪造零间隔，不混入连续帧分布。`startup.stageLoadMs` 包含动态模块加载和舞台构造，
+`readyMs` 还包含初始化/等待 hydration；舞台 `construction.actorCreateMs` 与 `shaderCompileWaitMs`
+分别记录 actor 创建及 `compileAsync` 的经过时间。后者不是 GPU 执行时长；这些分段有包含关系，不能相加。
+资源样本保留对应 `instanceId` 和独立 startup 副本；未完成/不可用的测量为 null，销毁后不保留资源对象。
 renderer 的诊断仍为只读有限数据，不导出 context、业务内容或密钥；事件最多 512、错误最多 64。
 PNG 验结构、宽高各不超过 4096、每张 1 MiB，上限六张；整个单一 gzip 包 decoded
 不超过 16 MiB、compressed 不超过 8 MiB，日志合计 64 KiB，带 schema 和 canonical SHA256，
@@ -444,6 +450,29 @@ native pass；hardware-candidate 也不是自动 GPU 准入。包永远不自动
 | 截图耗时污染性能 phase | 截图放 phase 外，并设 cooldown/光标边界；实际采集后按原始帧序号复查，不从截图 fps 推断运行帧率 |
 | 新 Node/旧 Python 恢复可能漂移或增加 Python 安装负担 | 共读已批准大小/hash 合同；正确不重写、错误不覆、独占原子发布、取消/超限/链接与身份反例测试 |
 | 复用原 bench 会注册全局快捷键和其他 OS 副作用 | 先验证 owned fixture scope，再限制真实 app adapters 的 shortcut/tray/通知/开机启动/热重载和 IPC；正常应用未安装 scope 时保持不变 |
+
+### Windows G1 基线与裸角色资源优化（2026-11-07）
+
+原始捕获 `capture-b0c37a98-1550-4c2c-b495-f2530c2ed124.json.gz`：139,380 bytes，SHA256
+`f8c3e42738d8bfe5586760f7dfd29beefa52d3482ccd028180f99773e1b737ba`；源码
+`d41917157298474094a2678a4a010bc7a0638ea2`，Electron 44.4.5 / Chromium 152.0.7977.130 /
+Three 186，ANGLE NVIDIA RTX 4080 Direct3D11。硬件字段仍为 unverified，不授予原生/GPU准入。
+
+- 首个记录的间隔 659.8ms 对应的是**当前帧** update 3.7ms、submission 1.3ms；warmup 的
+  298.6ms 对应 1.1/0.7ms。旧计量省略第一次 update/render，不能由长回调间隔断定 shader 编译或配件加载是根因。
+  两次 reload 的首个间隔为 86.206/83.4ms；created→ready 为 1655.9/1022.3/1008.9ms。
+  包内无 CPU/GPU trace，后续需要上述首帧及构造分段，而不是把间隔冒充当前帧 CPU 耗时。
+- 初始 idle 1442个样本，间隔P95为7ms、max7.7ms；update/submission P95均0.7ms。
+  四次资源样本的14 geometries、18 textures、17,702,629 accounted bytes、1 actor、0 mounts不变；
+  renderer working set却从246,204增至339,364KiB（约90.98MiB）。固定应用计数不证明无泄漏，工作集增长也不能独立证明泄漏。
+- G1现显式使用 bare actor，不预备六件当前未穿配件模板，保留身体、表情、尾巴和同一指针所有者。
+  bare actor拒绝equip，研究衣柜默认预备方式不变；contact证据核验仍保留，不能宣称删除所有配件相关I/O。
+  实际资产CPU对照每次从17,702,629降为15,610,448 accounted bytes，精确少2,092,181字节；
+  这不等于进程工作集或GPU显存减少，也不能解释原90.98MiB增长。
+- 独立Node v24.22.1实际资产CPU夹具12组交替测试，每次新建pool并在计时前显式GC；排除前2组后，
+  prepared创建中位633.35ms（542.69–688.77），bare中位535.90ms（510.66–600.61），其中1组bare较慢。
+  仅是有噪声的CPU夹具创建比较，不是Windows首帧改善证明；几何/材质/骨骼、拖动/抚摸/取消等价及所有者归零单独断言。
+  当前优化后的Windows/macOS复采、真实OS输入、多DPI、GPU/长期工作集仍待验证。
 
 ### 历史研究验证与归档（不属于本批在线前置）
 

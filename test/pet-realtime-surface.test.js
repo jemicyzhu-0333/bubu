@@ -153,7 +153,7 @@ test('diagnostic read is closed, readonly and excludes business projections or r
   f.emit('onPetSync', { contextRevision: 2, privateText: 'secret business text', appearanceItemIds: ['private-look'] });
   f.tick(16); f.tick(32); f.tick(48); await flush();
   const calls = f.calls.length, before = f.surface.snapshot(), first = f.surface.readDiagnostics({ limit: 1 });
-  assert.deepEqual(Object.keys(first), ['schemaVersion', 'instanceId', 'ready', 'closed', 'time', 'frameScheduled', 'policy', 'frames', 'stage', 'events', 'errors']);
+  assert.deepEqual(Object.keys(first), ['schemaVersion', 'instanceId', 'ready', 'closed', 'time', 'frameScheduled', 'policy', 'frames', 'startup', 'stage', 'events', 'errors']);
   assert.equal(first.instanceId, 'known-generation-id'); assert.equal(first.schemaVersion, 1);
   assert.equal(first.frames.rows.length, 1); assert.equal(first.frames.rows[0].atMs, 32);
   assert.equal(first.frames.remaining, 1); assert.equal(first.stage.mode, 'idle');
@@ -291,4 +291,47 @@ test('failed terminal diagnostics do not retain or revisit a retired stage', asy
   assert.equal(f.surface.readDiagnostics().stage, null);
   assert.match(f.surface.readDiagnostics().errors.join(' '), /Terminal diagnostics failed: diagnostics unavailable/);
   assert.equal(f.stage.disposals, 1);
+});
+
+
+test('startup timings retain the omitted first render without adding a fabricated interval', async () => {
+  const load = deferred(), hydration = deferred();
+  const f = fixture({ loadStage: () => load.promise, getState: () => hydration.promise });
+  const started = f.surface.start(); await flush();
+  f.setNow(100); load.resolve(f.stage); await flush();
+  f.setNow(150); hydration.resolve({ contextRevision: 1, motionMode: 'full', stimulationMode: 'balanced' });
+  await started;
+  const update = f.stage.update.bind(f.stage), render = f.stage.render.bind(f.stage);
+  f.stage.update = (...args) => { update(...args); f.setNow(170); };
+  f.stage.render = () => { render(); f.setNow(800); };
+  f.tick(160);
+  const startup = f.surface.readDiagnostics().startup;
+  assert.equal(startup.stageLoadMs, 100); assert.equal(startup.readyMs, 150);
+  assert.deepEqual(startup.firstFrame, { callbackAtMs: 160, updateStartedAtMs: 160, renderFinishedAtMs: 800,
+    callbackDelayMs: 0, updateMs: 10, renderSubmissionMs: 630, totalCpuMs: 640, readyToRenderFinishedMs: 650 });
+  assert.equal(f.surface.readDiagnostics().frames.totalRecorded, 0);
+  f.stage.update = update; f.stage.render = render; f.tick(810);
+  assert.equal(f.surface.readDiagnostics().frames.rows[0].frameIntervalMs, 650);
+  assert.equal(f.surface.readDiagnostics().frames.rows[0].renderSubmissionMs, 0);
+  assert.deepEqual(f.surface.readDiagnostics().startup, startup);
+  startup.firstFrame.renderSubmissionMs = -1;
+  assert.equal(f.surface.readDiagnostics().startup.firstFrame.renderSubmissionMs, 630);
+  f.surface.dispose(); assert.equal(f.surface.readDiagnostics().startup.firstFrame.renderSubmissionMs, 630);
+});
+
+test('reduced-motion first draw and failed or late stage loading report startup separately', async () => {
+  const f = fixture({ getState: () => ({ motionMode: 'reduced' }) });
+  await f.surface.start(); f.tick(16);
+  assert.equal(f.surface.readDiagnostics().startup.firstFrame.callbackAtMs, 16);
+  assert.equal(f.surface.readDiagnostics().frames.totalRecorded, 0); f.surface.dispose();
+  const load = deferred(), late = fixture({ loadStage: () => load.promise });
+  const started = late.surface.start(); await flush(); late.surface.dispose();
+  late.setNow(100); load.resolve(late.stage); await started;
+  assert.equal(late.surface.readDiagnostics().startup.stageLoadMs, 100);
+  assert.equal(late.surface.readDiagnostics().startup.readyMs, null);
+  assert.equal(late.surface.readDiagnostics().startup.firstFrame, null);
+  const failed = fixture({ loadStage: async () => { throw new Error('failed'); } });
+  await failed.surface.start();
+  assert.equal(failed.surface.readDiagnostics().startup.stageLoadMs, null);
+  assert.equal(failed.surface.readDiagnostics().startup.firstFrame, null);
 });

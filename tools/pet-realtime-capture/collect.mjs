@@ -83,8 +83,8 @@ export async function collectRealtime(report, ports, { screenshots = true } = {}
   await poll(); report.environment.graphics = last.stage?.graphics ?? {};
   report.capture = { status: 'running', resourceSamples: [], lifecycle: [], truncatedEvents: 0 };
   const sample = async name => { await poll(); const { errors: stageErrors = [], ...stage } = last.stage;
-    report.capture.resourceSamples.push({ name, elapsedMs: ports.now() - started,
-      stage: { ...stage, errorCount: stageErrors.length }, processes: await ports.processes() }); };
+    report.capture.resourceSamples.push({ name, instanceId: instance, elapsedMs: ports.now() - started,
+      startup: last.startup ?? null, stage: { ...stage, errorCount: stageErrors.length }, processes: await ports.processes() }); };
   const started = ports.now();
   try {
     await phase('warmup', () => wait(5000, 1000), { performance: false });

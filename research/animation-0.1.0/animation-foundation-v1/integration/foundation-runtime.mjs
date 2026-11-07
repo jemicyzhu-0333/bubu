@@ -73,12 +73,14 @@ class FoundationPool {
   }
 }
 class FoundationActor {
-  static async create({ budget = new SceneBudget(), partsSource, ...bodyOptions } = {}) {
+  static async create({ budget = new SceneBudget(), partsSource, equipmentMode = "prepared", ...bodyOptions } = {}) {
+    if (!["prepared", "bare"].includes(equipmentMode))
+      throw new TypeError("Equipment mode must be prepared or bare");
     const ownPartsSource = !partsSource;
     partsSource ??= createHybridSource(budget);
     const cacheLease = budget.reserve(
-      32 * 1024 * 1024,
-      "actor accessory cache and admission staging",
+      equipmentMode === "prepared" ? 32 * 1024 * 1024 : 64 * 1024,
+      equipmentMode === "prepared" ? "actor accessory cache and admission staging" : "bare actor anatomical tail",
     );
     let actor, body, surfaceLease;
     try {
@@ -107,6 +109,7 @@ class FoundationActor {
     try {
       actor = new FoundationActor(body);
       actor.budget = budget;
+      actor.equipmentMode = equipmentMode;
       actor.cacheLease = cacheLease;
       actor.surfaceLease = surfaceLease;
       actor.ownedPartsSource = ownPartsSource ? partsSource : null;
@@ -116,13 +119,14 @@ class FoundationActor {
         registry: contactEvidence.registry,
         readGarments: () => [...actor.mounts.values()].map(item => item.contact),
       });
-      actor.bindings = await createD2BindingProvider(
-        body,
-        actor.anchors,
-        admitAsset,
-      );
+      // G1 has no wardrobe mapping. Keep the approved anatomy and pointer owner,
+      // without preparing templates that this actor cannot equip. Preparation is
+      // still eager for wardrobe actors because calibration requires the rest pose.
+      actor.bindings = equipmentMode === "prepared"
+        ? await createD2BindingProvider(body, actor.anchors, admitAsset)
+        : null;
       await actor.attachAnatomicalTail();
-      cacheLease.commit(actor.bindings.residentBytes + 64 * 1024);
+      cacheLease.commit((actor.bindings?.residentBytes ?? 0) + 64 * 1024);
       surfaceLease.commit(body.f.h.diagnostics.surface.residentUpperBoundBytes);
       return actor;
     } catch (error) {
@@ -248,6 +252,8 @@ class FoundationActor {
     { load, clipLibrary, facePort, faceIds = [], contactPort } = {},
   ) {
     this.assertActive();
+    if (this.equipmentMode === "bare")
+      throw new Error("Bare actor has no prepared equipment; create a wardrobe actor before equipping");
     // A caller-owned clip library must not change while async loading/hashing
     // is in flight or after its contact identity has been admitted.
     if (clipLibrary) {
