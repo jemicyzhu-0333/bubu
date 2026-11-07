@@ -1122,12 +1122,29 @@ move 在原队列顺序中取消对应指针；up/cancel/失捕不依赖新 moti
 其他指针不能撤销当前手势。
 大幅、未协调的 viewport 变化仍按既有真实表面检查取消待定接触，不猜测重定位。
 
-此端口尚未接通原生窗口移动。后续 native 适配必须以 Electron cursor DIP 为权威、按
-同一手势代次和实际移动回执协调 CSS/逻辑 anchor/world 三种空间，序列化有界请求并处理
+此端口尚未接通原生窗口移动。后续 native 适配必须先证明运动样本与对应输入事件的
+匹配及原生捕获语义，再按同一手势代次和实际移动回执协调 CSS/逻辑 anchor/world 三种空间，序列化有界请求并处理
 clamp/viewport 变更；不能用 Chromium screenX、DPR、请求位移或过期轮询样本代替事实。
 设备像素只属于 renderer。原 actor 仍是唯一手势/骨骼所有者，窗口旅行只分配一次；
 原生最终落点策略不得被未说明地等同于旧 2D 的 spin、贴边或持久化策略。已认可的提起、
 连续挣扎、拖动惯性、平稳落地和收尾表情保持原 profile 与时间参数。
+
+Electron 44.10.1 的 `input-event`/`before-mouse-event` 没有与 DOM PointerEvent 共用的
+事件 ID/时间戳；`getCursorScreenPoint()` 只读调用当时的 DIP 光标。[原生事件转换](https://github.com/electron/electron/blob/v44.10.1/shell/common/gin_converters/blink_converter.cc#L382-L399)
+未提供共同身份；FIFO 配对、同步或异步
+查询当前光标、DOM `screenX` 均不能冒充历史事件匹配。原生输入桥因此保持未接通。
+G2 的下一段仅在现有隔离采集器内运行一次自有窗口小幅往返探针：固定目标距原点 ≤32 DIP，
+在同一显示器 workArea 内且不改尺寸；只允许暂停、无指针/捕获/待处理输入的 renderer。
+精确 URL/profile、instance/generation 和独占 lease 跨 await 复核；先前在途 mutation 阻止探针，
+mutation 超时不等于底层执行取消，结果不明时永久拒绝本 port 的探针。期间输入使证据受污染，
+不截获、不配对事件。记录请求、实际 native bounds、前后夹住 renderer 读数的 bounds，
+并在仍属同一 owner 时恢复原点、读回确认。取消采样不阻止仍合法的恢复，失去所有权则
+禁止恢复。探针不经过逻辑 pet anchor/持久化或 actor，不规定产品落点；它只测试 backing
+窗口的程序移动能力，不能计为原生拖拽、viewport/compositor ACK 或 OS capture。
+只读 `readWindowGeometry()` 给出 renderer instance、viewportRevision、当前 CSS rect、
+当前 screen 观察值及 DOM/actor 捕获状态；这些不是运动输入源。native 输入最多保留
+128 条字段白名单观察，溢出计数、来源 unknown、事件流 unmatched；监听在探针结束释放。
+
 
 | 批次 | 完整目标及退出条件 | 不可冒领的下一层结果 |
 | --- | --- | --- |

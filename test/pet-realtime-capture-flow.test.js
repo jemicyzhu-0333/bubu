@@ -359,3 +359,22 @@ test('owned-window narrow diagnostic timeout rejects without accepting a late re
   for (const timeoutMs of [0, -1, Infinity, 101]) await assert.rejects(port.read({}, { timeoutMs }), /read-timeout-invalid/);
   port.close();
 });
+
+test('owned movement probe stays in paused non-performance phase and cannot upgrade input acceptance', async () => {
+  for (const verified of [true, false]) {
+    const report = createCaptureReport({ runId: `move-${verified}` }), ports = capturePorts();
+    ports.probeMovement = async () => {
+      const state = await ports.read({ afterSequence: 0 }); assert.equal(state.frameScheduled, false);
+      return { status: 'movement-observed', inputQuiescent: verified, restoration: { confirmed: verified },
+        actorMotionConnected: false, eventMatched: false, compositorAcknowledged: false };
+    };
+    await collectRealtime(report, ports, { screenshots: false });
+    const phase = report.phases.find(item => item.id === 'native-window-movement-probe');
+    assert.equal(phase.performancePhase, false); assert.equal(phase.inputSource, 'none');
+    assert.equal(report.errors.some(item => item.code === 'native-window-movement-or-restoration-unverified'), !verified);
+    if (!verified) assert.equal(report.capture.status, 'completed-with-observations');
+    const result = require('../tools/pet-realtime-capture/report.mjs').finalizeReport(report);
+    assert.equal(result.gates.osInput, 'not-accepted'); assert.equal(result.productionAccepted, false);
+    assert.equal(result.capture.windowMovement.eventMatched, false);
+  }
+});

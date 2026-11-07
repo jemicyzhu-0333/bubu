@@ -72,7 +72,8 @@ app.on('will-quit', () => { clearTimeout(timer); if (report) { report.shutdownRe
   await app.whenReady();
   const window = await Promise.race([petWindow, sleep(35000).then(() => { throw new Error('capture-pet-window-timeout'); })]);
   if (!BrowserWindow.getAllWindows().includes(window)) throw new Error('capture-window-not-owned');
-  port = createOwnedWindowPort({ window, pagePath, readProfileOwnership: () => assertCaptureOwnership(request), signal: stop.signal });
+  port = createOwnedWindowPort({ window, pagePath, readProfileOwnership: () => assertCaptureOwnership(request), signal: stop.signal,
+    readWorkArea: bounds => screen.getDisplayMatching(bounds).workArea });
   window.webContents.on('render-process-gone', () => stop.abort(new Error('capture-renderer-gone')));
   window.webContents.on('console-message', details => { if (details.level === 'error')
     appendCaptureError(report, { code: 'selected-renderer-console-error', level: 'error' }); });

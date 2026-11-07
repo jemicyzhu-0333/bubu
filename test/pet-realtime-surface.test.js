@@ -493,3 +493,28 @@ test('active hydration rejection is recorded at settlement, then fails initializ
     assert.equal(f.surface.readDiagnostics().closed, true); assert.equal(f.stage.disposals, 1);
   }
 });
+
+test('window geometry is a copied current-renderer observation with explicit capture state, never historical motion', async () => {
+  const f = fixture(); await f.surface.start();
+  f.elements.character.getBoundingClientRect = () => ({ x: 150, y: 70, width: 220, height: 220 });
+  f.elements.character.hasPointerCapture = () => false;
+  f.window.screenX = -900; f.window.screenY = 40;
+  f.emit('onPetViewport', { width: 520, height: 360, stageOffset: { x: 2, y: 4 } });
+  f.surface.pause(true); const first = f.surface.readWindowGeometry();
+  assert.equal(first.paused, true); assert.equal(first.domPointerCapture, false); assert.equal(first.viewportRevision, 1);
+  assert.deepEqual(first.screen, { x: -900, y: 40 }); assert.deepEqual(first.stageClientRect, { x: 150, y: 70, width: 220, height: 220 });
+  first.viewport.stageOffset.x = 500;
+  assert.equal(f.surface.readWindowGeometry().viewport.stageOffset.x, 2);
+  assert.equal(f.surface.readWindowGeometry().viewportRevision, 1);
+  f.emit('onPetViewport', { width: 520, height: 360, stageOffset: { x: 4, y: 4 } });
+  assert.equal(f.surface.readWindowGeometry().viewportRevision, 2); f.surface.dispose();
+});
+
+test('disposed geometry stays closed and cannot revive or revisit a retired stage for movement admission', async () => {
+  const f = fixture(); await f.surface.start(); f.surface.dispose();
+  f.elements.character.getBoundingClientRect = () => ({ x: 0, y: 0, width: 220, height: 220 });
+  f.stage.readDiagnostics = () => assert.fail('retired stage must not be revisited');
+  const receipt = f.surface.readWindowGeometry();
+  assert.equal(receipt.closed, true); assert.equal(receipt.captured, null); assert.equal(receipt.pendingCount, null);
+  assert.equal(receipt.domPointerCapture, false);
+});

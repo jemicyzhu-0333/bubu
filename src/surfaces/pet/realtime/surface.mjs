@@ -59,7 +59,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
   let stage = null, startPromise = null, closed = false, frame = null, ready = false;
   let manualPaused = false, contextLost = false, dirty = true, pendingOperations = 0;
   let lastNow = environment.performance.now(), lastFrame = null, failure = null;
-  let viewport = null, docked = false, unsubscribeViewport = null, lastPublication = null;
+  let viewport = null, viewportRevision = 0, docked = false, unsubscribeViewport = null, lastPublication = null;
   const note = (error, operation) => {
     const message = recordError(operation, error);
     if (closed) return;
@@ -157,6 +157,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
   function applyViewport(value) {
     if (closed || !value || !Number.isFinite(value.stageOffset?.x) || !Number.isFinite(value.stageOffset?.y)) return;
     viewport = { width: value.width, height: value.height, stageOffset: { ...value.stageOffset } };
+    viewportRevision++;
     document.documentElement.style.setProperty('--stage-dx', `${value.stageOffset.x}px`);
     document.documentElement.style.setProperty('--stage-dy', `${value.stageOffset.y}px`);
     try { stage?.resize(); refresh(); } catch (error) { fail(error, 'resize'); }
@@ -244,6 +245,19 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
   return Object.freeze({
     start() { if (closed) return Promise.resolve(false); return startPromise ??= initialize(); },
     pause, cancel, dispose,
+    // Read-only diagnostic receipt. screenX/Y and client rect are observations at this
+    // renderer turn, never a historical pointer sample or native/compositor ACK.
+    readWindowGeometry() {
+      const state = stage?.readDiagnostics?.() ?? null;
+      const rect = canvas.getBoundingClientRect();
+      const finite = value => Number.isFinite(value) ? value : null;
+      return { instanceId, ready, closed, paused: policy().paused, viewportRevision,
+        pointerId: state?.pointerId ?? null, captured: state?.captured ?? null, pendingCount: state?.pendingCount ?? null,
+        domPointerCapture: Number.isSafeInteger(state?.pointerId) ? canvas.hasPointerCapture(state.pointerId) : false,
+        screen: { x: finite(window.screenX), y: finite(window.screenY) },
+        stageClientRect: Object.fromEntries(['x', 'y', 'width', 'height'].map(key => [key, finite(rect[key])])),
+        viewport: viewport ? structuredClone(viewport) : null };
+    },
     readDiagnostics(options) {
       const frames = metrics.readSince(options);
       return { schemaVersion: 1, instanceId, ready, closed, time: clock.time, frameScheduled: frame !== null, pendingOperations, policy: policy(), frames, startup: startup.snapshot(),

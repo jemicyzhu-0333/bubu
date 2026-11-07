@@ -408,6 +408,7 @@ surface 的合成回归还覆盖销毁后断开 stage 引用、保留复制的�
 | idle 10s | 实际页面帧间隔、CPU update/render submission、主进程/渲染器可用计数 | 可见连续 idle 与暂停停止重绘分开，不伪造 GPU 执行时长 |
 | longpress、pet release、drag、release、cancel/regrab | 固定 Electron 注入输入，检查可观察 mode 与事件顺序 | 标记 `Electron-injected-not-OS`；不等于真实鼠标/OS 输入，也不实现 G2 原生窗口移动/DIP |
 | pause 2s / resume 2s | 时钟冻结、停止重绘、恢复及多余调度 | 原生前后台/锁屏/多 DPI 仍需独立验收 |
+| 暂停期间自有窗口移动/恢复探针 | 一次 ≤32 DIP 同 workArea 往返，记录实际 bounds、renderer 几何、独立输入观察和恢复回读 | 独立非性能阶段；不是 actor 窗口拖动、逻辑 anchor 落点、历史事件匹配或 compositor ACK；未观察到移动、输入污染或恢复不明均记非通过 |
 | dispose + 两次 reload | 每代独立 instanceId/epoch、CPU owner/pending/actor/claimed-byte 归零、重建后短 warmup/idle 与资源样本 | 代次检查拒绝迟到响应；WebGL 计数/CPU 清零不证明实体 GPU 内存释放 |
 | 阶段外截图与 cooldown | 当前固定五张 fixture `capturePage()` PNG（上限六张），截图后 cooldown，不混入 performance phase | 只证明该窗口当时可见画面；未做人工视觉验收 |
 
@@ -458,7 +459,7 @@ Node/Electron/OS/CPU/RAM、graphics 分类、窗口/DPR/刷新率、appMetrics/�
 renderer heap 不可用时写 supported=false；不推算。源码摘要只覆盖明确关键文件集合，
 不是所有未跟踪文件都已证明不变。graphics 为 software/unavailable/unknown 时不能写成
 native pass；hardware-candidate 也不是自动 GPU 准入。包永远不自动授予 OS 输入、人工视觉
-或发布资格。G1 实际应用帧/原生门禁仍未关闭，G2 的窗口/DIP 尚未实现，G3/G4/G5 不跳过。
+或发布资格。G1 实际应用帧/原生门禁仍未关闭，G2 的原生拖拽/DIP 桥尚未实现，G3/G4/G5 不跳过。
 
 | 当前脚本批次结果（cleanup-finally 修复后的封板终态） | 状态 |
 | --- | --- |
@@ -759,6 +760,17 @@ wire 候选修复了固定粒子代理关节塌向原点、细化铰链无外力
 - 两条升级路径分别核验完整备份、拒绝前原字节、源漂移、取消、损坏/未来版本、未知 COMMIT、恢复到新目录和二次启动固定点；18→19 的历史目标不能被 current-only20 自动接纳。
 - 真实云浏览器的合成配置验证与 Node/SQLite 测试分别记证据。收件建议 UI 的合成响应不代表真实 Provider；现有原生 Windows/macOS schema19 发布记录不能证明这次 schema20 的原生升级、真人确认框或重启验收。
 - 已保存记录仅支持用户改时间；模型只处理当前随手记文本的明确时间建议，不扩大既有日常历史披露。
+
+### G2 原生移动观测的证据边界
+
+`pet-realtime-native-movement` 行为回归覆盖实际回读与请求被 clamp 的区别、无操作平台、
+超时/取消后的恢复、owner/同 URL 导航失效禁止迟到恢复、单次独占/并发拒绝、负坐标显示器、
+工作区边界、非静止输入拒绝与 128 条观察上限。真实 surface 的只读几何回归检查复制和
+viewportRevision；collector 将探针放在暂停非性能阶段。Node 模拟全部通过仍不是实机证据。
+原生采集必须逐次核对 `capture.windowMovement` 的实际位移、`inputQuiescent`、restoration
+和当次源码身份；原生输入流一律 unknown/unmatched，不因 Electron 注入或 isTrusted 升级。
+没有共享事件身份前不将该观察值接入 actor，也不把窗口当前位置或光标轮询充作历史输入。
+Windows 进程树清理、人工视觉、GPU/OS-input 以及真实混合 DPI 门禁仍分别保留。
 
 ## G1/G2 实机验收清单（目标 Mac/Windows，逐源码记录）
 

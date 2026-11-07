@@ -133,6 +133,13 @@ export async function collectRealtime(report, ports, { screenshots = true } = {}
     await phase('paused-idle', () => wait(2000, 1000), { performance: false });
     report.capture.pause = { timeFrozen: last.time === frozen.time, redrawsStopped: last.stage.renderedFrames === frozen.frames };
     if (!report.capture.pause.timeFrozen || !report.capture.pause.redrawsStopped) error('pause-did-not-freeze');
+    if (ports.probeMovement) {
+      await phase('native-window-movement-probe', async () => {
+        report.capture.windowMovement = await ports.probeMovement();
+        if (report.capture.windowMovement.status !== 'movement-observed' || !report.capture.windowMovement.restoration.confirmed || !report.capture.windowMovement.inputQuiescent)
+          error('native-window-movement-or-restoration-unverified');
+      }, { performance: false });
+    }
     await ports.pause(false); await phase('resume', () => wait(2000)); await shot('resumed');
     await sample('before-dispose');
     for (let generation = 0; generation < 3; generation++) {

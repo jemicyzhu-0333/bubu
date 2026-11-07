@@ -7,7 +7,7 @@ import { sanitizeDiagnosticText } from './supervisor.mjs';
 import { encodeCapturePackage, decodeCapturePackage } from './package.mjs';
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const SOURCE_FILES = Object.freeze([
-  ...['run.mjs', 'diagnostics.mjs', 'collect.mjs', 'electron-main.cjs', 'window-port.cjs', 'options.mjs', 'supervisor.mjs', 'report.mjs', 'package.mjs', 'evidence.mjs', 'materialize-d2.mjs', 'fixture-policy.cjs', 'handoff.cjs'].map(name => `tools/pet-realtime-capture/${name}`),
+  ...['run.mjs', 'diagnostics.mjs', 'collect.mjs', 'electron-main.cjs', 'window-port.cjs', 'movement-probe.cjs', 'options.mjs', 'supervisor.mjs', 'report.mjs', 'package.mjs', 'evidence.mjs', 'materialize-d2.mjs', 'fixture-policy.cjs', 'handoff.cjs'].map(name => `tools/pet-realtime-capture/${name}`),
   'tools/dev-bench/orchestration.js', 'tools/dev-bench/profile-fixture.js', 'tools/dev-bench/scenarios.js',
   'src/platform/electron/dev/fixture-isolation.js',
   'research/animation-0.1.0/runtime-facepath05/tools/approved-d2-source.json',
