@@ -58,6 +58,11 @@ function readFixtureIsolation() {
   return true;
 }
 
+// Closing keeps OS-effect denial active, but retires mutation authority.
+function readActiveFixtureIsolation() {
+  return Boolean(readFixtureIsolation() && !scope.closed && !scope.invalidated);
+}
+
 function recordFixtureSuppression(effect) {
   if (!EFFECTS.includes(effect)) throw new TypeError('fixture-effect-unknown');
   if (!readFixtureIsolation()) return false;
@@ -77,5 +82,5 @@ function readFixtureIsolationDiagnostics() {
     closed: scope?.closed ?? false, invalidated: scope?.invalidated ?? false,
     suppressed: Object.freeze({ ...(scope?.suppressed ?? Object.fromEntries(EFFECTS.map(effect => [effect, 0]))) }) });
 }
-module.exports = { installFixtureIsolation, readFixtureIsolation, recordFixtureSuppression,
+module.exports = { installFixtureIsolation, readFixtureIsolation, readActiveFixtureIsolation, recordFixtureSuppression,
   assertFixtureIpcAllowed, readFixtureIsolationDiagnostics };

@@ -76,6 +76,8 @@ export async function createThreeStage({ canvas, clock, environment }) {
   function readDiagnostics() {
     const state = actor.f.h.state;
     return { mode: state.mode, pointerId: state.pointerId, contactGeneration: state.contactGeneration, captured: state.captured,
+      interactionTailActive: actor.f.h.interactionTailActive,
+      contactGenerationHighWater: actor.f.h.contactGenerationHighWater,
       pendingCount: actor.f.h.pendingCount, inputMotion: motionSource.snapshot(), renderedFrames, errors: [...errors], construction: { ...construction },
       resources: { geometries: renderer.info.memory.geometries, textures: renderer.info.memory.textures },
       pool: pool.diagnostics(), graphics: { ...graphics }, inputTargets: { body: bodyTarget() } };
@@ -87,6 +89,14 @@ export async function createThreeStage({ canvas, clock, environment }) {
       return { mode: state.mode, pointerId: state.pointerId, contactGeneration: state.contactGeneration,
         captured: state.captured, domCaptured: Number.isSafeInteger(state.pointerId) && canvas.hasPointerCapture(state.pointerId) };
     },
+    prepareFixtureGrip(options) { return actor.f.h.prepareFixtureGrip(options); },
+    readFixtureGrip(probeId) { return actor.f.h.readFixtureGrip(probeId); },
+    finishFixtureGrip(probeId, { eventNotBefore } = {}) {
+      const now = environment.performance.now();
+      return actor.f.h.finishFixtureGrip(probeId, { eventNotBefore:
+        Number.isFinite(now) && Number.isFinite(eventNotBefore) ? Math.max(now, eventNotBefore) : NaN });
+    },
+    cancelFixtureGrip(probeId) { return actor.f.h.cancelFixtureGrip(probeId); },
     cancelInput(contactGeneration = null) {
       if (disposed) return;
       const state = actor.f.h.state;

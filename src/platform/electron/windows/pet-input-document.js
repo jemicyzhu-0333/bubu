@@ -5,7 +5,7 @@ const { pathToFileURL } = require('node:url');
 // is necessary; URL admission alone cannot make a crashed/loading page ready.
 function createPetInputDocument({ window, selectedPage, onInvalidate, onReady }) {
   const contents = window.webContents, expectedURL = pathToFileURL(selectedPage).href;
-  let frame = null, ready = false;
+  let frame = null, ready = false, generation = 0, token = null;
   function identity() {
     try {
       if (window.isDestroyed() || window.webContents !== contents || contents.isDestroyed?.()) return null;
@@ -14,7 +14,7 @@ function createPetInputDocument({ window, selectedPage, onInvalidate, onReady })
       return current && !current.detached && current.url === expectedURL && contents.getURL() === expectedURL ? current : null;
     } catch { return null; }
   }
-  function invalidate() { ready = false; frame = null; onInvalidate(); }
+  function invalidate() { ready = false; frame = null; token = null; generation++; onInvalidate(); }
   function mainNavigation(event, url, isInPlace, isMainFrame) {
     if (isMainFrame === true || event?.isMainFrame === true) invalidate();
   }
@@ -34,12 +34,14 @@ function createPetInputDocument({ window, selectedPage, onInvalidate, onReady })
     if (!current) { invalidate(); return; }
     const newDocument = !ready || frame !== current;
     frame = current; ready = true;
+    if (newDocument) token = Object.freeze({ generation: ++generation });
     onReady(newDocument);
   });
-  return Object.freeze({ isReady() {
+  function isReady() {
     if (!ready) return false;
     if (identity() !== frame) { invalidate(); return false; }
     return true;
-  } });
+  }
+  return Object.freeze({ isReady, capture: () => isReady() ? token : null });
 }
 module.exports = { createPetInputDocument };

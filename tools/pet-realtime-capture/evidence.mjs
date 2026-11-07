@@ -7,10 +7,11 @@ import { sanitizeDiagnosticText } from './supervisor.mjs';
 import { encodeCapturePackage, decodeCapturePackage } from './package.mjs';
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const SOURCE_FILES = Object.freeze([
-  ...['run.mjs', 'diagnostics.mjs', 'collect.mjs', 'electron-main.cjs', 'window-port.cjs', 'movement-probe.cjs', 'options.mjs', 'supervisor.mjs', 'report.mjs', 'package.mjs', 'evidence.mjs', 'materialize-d2.mjs', 'fixture-policy.cjs', 'handoff.cjs'].map(name => `tools/pet-realtime-capture/${name}`),
+  ...['run.mjs', 'diagnostics.mjs', 'collect.mjs', 'electron-main.cjs', 'window-port.cjs', 'movement-probe.cjs', 'held-transport-probe.cjs', 'transport-handoff.cjs', 'options.mjs', 'supervisor.mjs', 'report.mjs', 'package.mjs', 'evidence.mjs', 'materialize-d2.mjs', 'fixture-policy.cjs', 'handoff.cjs'].map(name => `tools/pet-realtime-capture/${name}`),
   'tools/dev-bench/orchestration.js', 'tools/dev-bench/profile-fixture.js', 'tools/dev-bench/scenarios.js',
   'src/platform/electron/dev/fixture-isolation.js', 'src/core/pet-presentation-view.mjs',
-  'src/core/pet-input-lease.mjs', 'src/bootstrap/pet-runtime.js', 'src/bootstrap/index.js', 'src/main.js',
+  'src/core/pet-fixture-transport.mjs', 'src/platform/electron/windows/pet-fixture-transport.js',
+  'src/surfaces/pet/realtime/fixture-transport.mjs', 'src/core/pet-input-lease.mjs', 'src/bootstrap/pet-runtime.js', 'src/bootstrap/index.js', 'src/main.js',
   'src/capabilities/companion/contract/ipc-codec.js',
   'src/platform/electron/windows/pet-input-lease.js', 'src/platform/electron/windows/pet-input-document.js',
   'src/surfaces/pet/realtime/input-lease-publisher.mjs',

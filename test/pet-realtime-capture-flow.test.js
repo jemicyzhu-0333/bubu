@@ -391,3 +391,27 @@ test('controlled Electron input carries explicitly supplied global DIP and label
   assert.deepEqual(receipt, { local: { x: 100, y: 76 }, global: { x: -1150, y: -4 }, coordinateSource: 'caller-supplied-controlled-fixture-not-OS' });
   port.close();
 });
+
+test('held fixture phase preserves unavailable/incomplete status and never upgrades native gates', async () => {
+  for (const status of ['completed', 'unavailable', 'incomplete']) {
+    const report = createCaptureReport({ runId: `held-${status}` }), ports = capturePorts();
+    ports.probeHeldTransport = async () => ({ status, requiresDispose: false, pointerDriven: false,
+      OSInputProven: false, eventMatched: false, compositorAcknowledged: false });
+    await collectRealtime(report, ports, { screenshots: false });
+    const phase = report.phases.find(item => item.id === 'synthetic-held-window-roundtrip');
+    assert.equal(phase.performancePhase, false); assert.equal(phase.inputSource, 'Electron-injected-not-OS');
+    assert.equal(phase.status, status === 'incomplete' ? 'partial' : status);
+    assert.equal(report.capture.heldTransport.status, status);
+    assert.equal(report.capture.lifecycle.length, 3, 'unsupported native handoff does not stop ordinary G1 capture');
+    const result = require('../tools/pet-realtime-capture/report.mjs').finalizeReport(report);
+    assert.equal(result.productionAccepted, false); assert.equal(result.gates.osInput, 'not-accepted');
+  }
+});
+test('held fixture unknown outcome preserves result and stops before new input, probes or reload', async () => {
+  const report = createCaptureReport({ runId: 'held-unknown' }), ports = capturePorts(); let called = 0;
+  ports.probeHeldTransport = async () => { called++; return { status: 'incomplete', requiresDispose: true,
+    mutationOutcomeUnknown: true, disposal: { attempted: true, confirmed: true } }; };
+  await assert.rejects(collectRealtime(report, ports, { screenshots: false }), /held-window-roundtrip-owner-unsettled/);
+  assert.equal(called, 1); assert.equal(report.capture.status, 'partial'); assert.equal(report.capture.heldTransport.mutationOutcomeUnknown, true);
+  assert.equal(report.capture.lifecycle.length, 0); assert.equal(report.phases.at(-1).status, 'partial');
+});

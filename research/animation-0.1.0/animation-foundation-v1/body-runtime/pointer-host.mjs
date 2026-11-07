@@ -153,8 +153,12 @@ export function createPointerHostFactory({
         commits: 0,
         lifecycleInvalidations: 0,
         viewInvalidations: 0,
+        fixtureDownRejections: 0,
       };
       let contactGeneration = 0;
+      // Collector-only ownership fence. It outlives release/cancellation until a
+      // verified return disarms it; ordinary gestures never enter this branch.
+      let fixtureGrip = null, finishedFixtureGrip = null, downNotBefore = null;
       let currentView = readPointerView(target, camera);
       function admitView(queuedView = null) {
         const observed = readPointerView(target, camera);
@@ -283,6 +287,9 @@ export function createPointerHostFactory({
         pet.drain();
       }
       function updatePointer(e) {
+        // Keep the original surface target, not a frozen body/root pose. The
+        // ordinary applyPose -> surfaceAnchor correction remains the only writer.
+        if (fixtureGrip?.contact === active) return;
         const r = ray(e.x, e.y);
         if (r && active) {
           const p = r.ray.intersectPlane(active.plane, new T.Vector3());
@@ -323,12 +330,18 @@ export function createPointerHostFactory({
         }
         active = null;
         dropCapture(a);
+        if (fixtureGrip?.contact === a) fixtureGrip.releaseObserved = reason === "up";
+        if (finishedFixtureGrip?.contactGeneration === a.contactGeneration) {
+          finishedFixtureGrip = reason === "up" ? { ...finishedFixtureGrip, releaseObserved: true,
+            terminal: true, captured: false, domCaptured: target.hasPointerCapture(a.id) } : null;
+        }
       }
       function process(e) {
         const t = e.t;
         if (e.type === "down") {
           const regrabbing = mode === "landing" && drag.mode === "settle";
           if (
+            fixtureGrip ||
             active ||
             e.primary === false ||
             e.button !== 0 ||
@@ -343,6 +356,7 @@ export function createPointerHostFactory({
           if (regrabbing || drag.snapshot().faceIntent) drag.interrupt(t);
           if (!regrabbing) ground = body.minimumFoot();
           const normal = camera.getWorldDirection(new T.Vector3());
+          finishedFixtureGrip = null;
           active = {
             id: e.id,
             contactGeneration: ++contactGeneration,
@@ -377,7 +391,10 @@ export function createPointerHostFactory({
           return;
         }
         if (e.type === "leave") {
-          if (mode === "pending" || !active.captured) finish(t, "cancel");
+          // A fixture terminal releases DOM capture on receipt, but a leave
+          // queued before it still belongs to the previously captured drag.
+          const captured = active.captured || fixtureGrip?.contact === active && fixtureGrip.terminalPending;
+          if (mode === "pending" || !captured) finish(t, "cancel");
           return;
         }
         if (e.type === "move") {
@@ -590,7 +607,14 @@ export function createPointerHostFactory({
       }
       function receive(type, event) {
         if (closed || hidden) return false;
+        if (type === "down" && (fixtureGrip || downNotBefore !== null
+          && (!Number.isFinite(event.timeStamp) || event.timeStamp <= downNotBefore))) {
+          diagnostics.fixtureDownRejections++;
+          return false;
+        }
         const t = scheduler.now();
+        if (fixtureGrip?.contact === active && event.pointerId === active?.id
+          && type === "move" && event.buttons === 0) type = "cancel";
         if (
           Number.isFinite(t) &&
           t <= sealed &&
@@ -600,6 +624,15 @@ export function createPointerHostFactory({
           diagnostics.lifecycleInvalidations++;
           suspend();
           resume();
+          return true;
+        }
+        if (fixtureGrip?.contact === active && active?.id === event.pointerId
+          && ["up", "cancel", "lostcapture"].includes(type) && queue.length >= 1024
+          && Number.isFinite(t) && t >= lastReceived) {
+          // No room for a terminal batch: retain the fence and use the existing
+          // lifecycle fallback rather than leave native capture stranded.
+          diagnostics.lifecycleInvalidations++;
+          suspend(); resume();
           return true;
         }
         if (
@@ -635,6 +668,7 @@ export function createPointerHostFactory({
           if (type === "move") {
             queue.push({ type: "cancel", t, id: event.pointerId, view });
             lastReceived = t;
+            releaseFixtureCapture(event.pointerId);
           }
           return false;
         }
@@ -649,12 +683,88 @@ export function createPointerHostFactory({
           ...point,
         });
         lastReceived = t;
+        // Release DOM capture even while a host receipt is in flight. Keep the
+        // original queue order and clock: the next ordinary frame owns landing.
+        if (fixtureGrip?.contact === active && event.pointerId === active?.id
+          && ["up", "cancel", "lostcapture"].includes(type)) {
+          releaseFixtureCapture(event.pointerId);
+        }
+        return true;
+      }
+      function releaseFixtureCapture(pointerId) {
+        if (fixtureGrip?.contact !== active || active?.id !== pointerId) return;
+        fixtureGrip.terminalPending = true;
+        dropCapture(active);
+        last = snapshot(sealed);
+      }
+      function projectFixtureGrip(contact) {
+        const stamp = readPointerView(target, camera);
+        if (!stamp) return null;
+        const world = body.surfacePoint(contact.anchor);
+        const projected = world.clone().project(camera);
+        const client = { x: stamp[0] + (projected.x + 1) * stamp[2] / 2,
+          y: stamp[1] + (1 - projected.y) * stamp[3] / 2 };
+        if (![...world.toArray(), projected.z, client.x, client.y].every(Number.isFinite)) return null;
+        return { stamp: [...stamp], gripWorld: { x: world.x, y: world.y, z: world.z }, gripClient: client };
+      }
+      function readFixtureGrip(probeId) {
+        if (!closed && !fixtureGrip && finishedFixtureGrip?.probeId === probeId)
+          return structuredClone(finishedFixtureGrip);
+        if (closed || !fixtureGrip || fixtureGrip.probeId !== probeId)
+          return { ok: false, reason: closed ? "disposed" : "not-armed" };
+        const current = projectFixtureGrip(fixtureGrip.contact);
+        if (!current) return { ok: false, reason: "invalid-view" };
+        const owns = fixtureGrip.contact === active;
+        return { ok: true, probeId, contactGeneration: fixtureGrip.contact.contactGeneration,
+          pointerId: fixtureGrip.contact.id, mode, pendingCount: queue.length,
+          captured: owns && active.captured, domCaptured: target.hasPointerCapture(fixtureGrip.contact.id),
+          terminal: !owns || fixtureGrip.terminalPending, terminalPending: owns && fixtureGrip.terminalPending,
+          releaseObserved: fixtureGrip.releaseObserved,
+          cancelled: fixtureGrip.cancelled, fenced: true, finished: false,
+          localGrip: { ...fixtureGrip.localGrip }, ...current };
+      }
+      function prepareFixtureGrip({ probeId } = {}) {
+        if (typeof probeId !== "string" || !probeId || probeId.length > 128)
+          return { ok: false, reason: "invalid-probe" };
+        if (closed || hidden || fixtureGrip || queue.length || !admitView() || mode !== "drag"
+          || !active?.captured || !target.hasPointerCapture(active.id))
+          return { ok: false, reason: "contact-unavailable" };
+        const current = projectFixtureGrip(active);
+        if (!current) return { ok: false, reason: "invalid-view" };
+        fixtureGrip = { probeId, contact: active, stamp: current.stamp,
+          localGrip: { x: active.point.x, y: active.point.y, z: active.point.z },
+          cancelled: false, terminalPending: false, releaseObserved: false };
+        finishedFixtureGrip = null;
+        return readFixtureGrip(probeId);
+      }
+      function finishFixtureGrip(probeId, { eventNotBefore } = {}) {
+        if (!fixtureGrip) return { ok: false, reason: closed ? "disposed" : "not-armed" };
+        const current = readFixtureGrip(probeId);
+        if (!current.ok) return current;
+        if (!Number.isFinite(eventNotBefore) || eventNotBefore < 0 || queue.length
+          || !samePointerView(fixtureGrip.stamp, current.stamp))
+          return { ok: false, reason: "unsafe-disarm" };
+        // The bound is a real DOM timestamp supplied by the browser facade, not
+        // actor time. Events generated inside the fence cannot arrive after it.
+        downNotBefore = Math.max(downNotBefore ?? 0, eventNotBefore);
+        if (fixtureGrip.contact === active) active.latest = { ...current.gripClient };
+        fixtureGrip = null;
+        // Retain one copied completion observation, never a retired actor/anchor.
+        finishedFixtureGrip = { ...current, fenced: false, finished: true };
+        return structuredClone(finishedFixtureGrip);
+      }
+      function cancelFixtureGrip(probeId) {
+        if (closed || fixtureGrip?.probeId !== probeId) return false;
+        fixtureGrip.cancelled = true;
+        if (fixtureGrip.contact !== active) return true;
+        suspend(); resume();
         return true;
       }
       // Lifecycle barriers invalidate queued input/capture synchronously, even when the
       // current clock equals a sealed frame. They do not invent epsilon timestamps.
       function suspend() {
         if (closed || hidden) return;
+        finishedFixtureGrip = null;
         const t = Math.max(sealed, drag.time, pet.time, scheduler.now());
         hidden = true;
         faceInput.reset();
@@ -713,6 +823,8 @@ export function createPointerHostFactory({
         const a = active;
         active = null;
         dropCapture(a);
+        fixtureGrip = null;
+        finishedFixtureGrip = null;
         const ticket = raf;
         raf = null;
         let error;
@@ -799,11 +911,27 @@ export function createPointerHostFactory({
         facePort,
         diagnostics,
         frame,
+        prepareFixtureGrip,
+        readFixtureGrip,
+        finishFixtureGrip,
+        cancelFixtureGrip,
         get state() {
           return last;
         },
         get pendingCount() {
           return queue.length;
+        },
+        get contactGenerationHighWater() {
+          return contactGeneration;
+        },
+        get interactionTailActive() {
+          if (closed) return false;
+          const weighted = owner.weightedState, director = weighted.director;
+          // Body rest precedes the smile deadline. Its owner's fade and the
+          // existing gentle rest-face entry must also complete before pausing.
+          return Boolean(active || queue.length || mode !== "idle" || drag.snapshot().faceIntent
+            || pet.phase !== "idle" || weighted.facts.interactionOwned || director.owner === "interaction"
+            || ["enter", "exit", "reset"].includes(director.phase));
         },
         discardUnownedInput() {
           if (closed || active || queue.length === 0) return false;

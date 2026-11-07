@@ -630,3 +630,112 @@ test('actual surface, scoped codec, bootstrap and viewport lease compose without
   at = 130; tick(); assert.equal(lastIgnored, true); assert(commands.every(value => !Object.hasOwn(value, 'inputLease')));
   f.surface.dispose(); native.emit('closed'); await flush();
 });
+
+async function fixtureTransportSurface() {
+  const { EventEmitter } = require('node:events');
+  const { pathToFileURL } = require('node:url');
+  const { createPetViewport } = require('../src/platform/electron/windows/pet-viewport');
+  const { FIXTURE_TRANSPORT_SCOPE } = require('../src/core/pet-fixture-transport.mjs');
+  const page = '/fixture/realtime/index.html', url = pathToFileURL(page).href;
+  const f = fixture({ instanceId: 'fixture-surface-id' });
+  const probeId = '00000000-0000-4000-8000-000000000500';
+  const source = { schemaVersion: 1, revision: 1, kind: 'event-screen-dip', runtime: { platform: 'win32', electron: '44.10.1', chromium: '152.0.7977.169' },
+    bounds: { x: 0, y: 0, width: 1920, height: 1080 }, scaleFactor: 1 };
+  let at = 0, interaction = null, epoch = 0, bounds, port, observations = 0, gripCancels = 0;
+  const requests = [];
+  const native = new EventEmitter(), contents = new EventEmitter();
+  const display = { id: 1, rotation: 0, scaleFactor: 1, bounds: source.bounds, workArea: source.bounds };
+  native.webContents = contents; contents.mainFrame = { url }; contents.getURL = () => url;
+  contents.isDestroyed = () => false; contents.isLoading = () => false;
+  contents.send = (_channel, value) => f.emit('onPetViewport', value);
+  const viewport = createPetViewport({ bounds: { x: 300, y: 300, width: 220, height: 220 }, selectedPage: page,
+    readPointerSpace: () => structuredClone(source), readFixtureActive: () => true, now: () => at,
+    newEpoch: () => `00000000-0000-4000-8000-${String(++epoch).padStart(12, '0')}`,
+    screen: { getCursorScreenPoint: () => ({ x: 1000, y: 900 }), getDisplayNearestPoint: () => display },
+    interval: () => 1, cancelInterval() {} });
+  bounds = { ...viewport.initialBounds };
+  Object.assign(native, { isDestroyed: () => false, isVisible: () => true, getBounds: () => ({ ...bounds }), getContentBounds: () => ({ ...bounds }),
+    setIgnoreMouseEvents() {}, setPosition(x, y) { bounds = { ...bounds, x, y }; }, focus: () => assert.fail('no focus in Node integration') });
+  const grip = { ok: true, probeId, contactGeneration: 1, mode: 'drag', pendingCount: 0, captured: true, domCaptured: true,
+    terminal: false, stamp: [0, 0, 220, 220, 1, 2], gripClient: { x: 260, y: 120 } };
+  f.stage.readInteraction = () => interaction;
+  f.stage.observePresentationView = () => { observations++; };
+  f.stage.cancelInput = () => { if (interaction) { interaction = null; f.setMode('idle'); } };
+  f.stage.prepareFixtureGrip = () => structuredClone(grip);
+  f.stage.readFixtureGrip = () => structuredClone(grip);
+  f.stage.finishFixtureGrip = () => ({ ok: true, gripClient: { ...grip.gripClient } });
+  f.stage.cancelFixtureGrip = () => { gripCancels++; if (interaction) { interaction = null; f.setMode('idle'); } };
+  const read = f.stage.readDiagnostics.bind(f.stage);
+  f.stage.readDiagnostics = () => ({ ...read(), inputMotion: { mode: 'event-screen-dip', capability: { kind: source.kind, ...source } } });
+  f.clients.pet_updateRuntime = value => {
+    if (!value.inputLease) return undefined;
+    requests.push(value.inputLease);
+    return viewport.applyInputLease({ sender: contents, senderFrame: contents.mainFrame }, value.inputLease);
+  };
+  await f.surface.start(); port = viewport.attach(native); contents.emit('did-finish-load'); native.emit('show'); await flush();
+  f.surface.pause(true); const setup = port.prepareFixture(); assert(setup.ok, setup.reason); f.surface.pause(false);
+  interaction = { mode: 'drag', pointerId: 1, contactGeneration: 1, captured: true, domCaptured: true }; f.setMode('drag');
+  at = 16; f.tick(16); await flush(); await flush();
+  const prepared = f.surface.prepareFixtureTransport({ probeId }); assert(prepared.ok, prepared.reason);
+  assert.equal(prepared.scope, FIXTURE_TRANSPORT_SCOPE); assert.equal(prepared.instanceId, 'fixture-surface-id');
+  assert(port.arm({ setupId: setup.setupId, probeId, epoch: prepared.epoch,
+    contactGeneration: prepared.contactGeneration, viewRevision: prepared.viewRevision }).ok);
+  return { f, grip, port, probeId, setup, requests, counts: () => ({ observations, gripCancels }),
+    tick(value) { at = value; f.tick(value); },
+    release() { interaction = null; grip.terminal = true; grip.captured = false; grip.domCaptured = false; grip.mode = 'landing'; f.setMode('landing'); },
+    close() { f.surface.dispose(); native.emit('closed'); } };
+}
+test('actual host, surface and lease compose expected roundtrip without clock reset or actor rebase', async () => {
+  const h = await fixtureTransportSurface(), before = h.counts(), resizes = h.f.stage.resizes;
+  const first = h.port.translate({ probeId: h.probeId, step: 1 }); assert(first.ok, first.reason);
+  assert.equal(h.f.surface.readFixtureTransport({ probeId: h.probeId }).step, 1);
+  assert.equal(h.f.stage.resizes, resizes); assert.deepEqual(h.counts(), before);
+  h.tick(32); assert.equal(h.f.surface.snapshot().time, .032);
+  const second = h.port.translate({ probeId: h.probeId, step: 2 }); assert(second.ok, second.reason);
+  assert.equal(h.f.surface.readFixtureTransport({ probeId: h.probeId }).step, 2);
+  assert(h.port.finish({ probeId: h.probeId }).ok);
+  assert(h.f.surface.finishFixtureTransport({ probeId: h.probeId }).ok);
+  h.release(); h.tick(48); await flush(); await flush();
+  assert.equal(h.f.surface.readDiagnostics().inputLease.contactGeneration, null);
+  assert.equal(h.f.surface.snapshot().stage.state.mode, 'landing');
+  assert.deepEqual(h.f.surface.readDiagnostics().errors, []); h.close();
+});
+test('real lease stale end after early release never turns a known late translation into actor reset', async () => {
+  const h = await fixtureTransportSurface(), before = h.counts();
+  h.release(); const moved = h.port.translate({ probeId: h.probeId, step: 1 }); assert(moved.ok, moved.reason);
+  const receipt = h.f.surface.readFixtureTransport({ probeId: h.probeId }); assert(receipt.ok); assert(receipt.terminal);
+  assert.deepEqual(h.counts(), before);
+  h.tick(32); await flush(); await flush();
+  assert.equal(h.f.surface.snapshot().stage.state.mode, 'landing');
+  assert.equal(h.f.surface.readDiagnostics().inputLease.contactGeneration, null);
+  assert.equal(h.f.surface.readDiagnostics().inputLease.held, false);
+  assert.equal(h.f.surface.readDiagnostics().inputLease.rejected, 1, 'old terminal is not relabelled onto migrated lease');
+  h.port.abort({ probeId: h.probeId }); h.close();
+});
+
+ test('fixture abort after normal renewal interval sends end first and never extends cancelled lease', async () => {
+  const h = await fixtureTransportSurface(); h.f.setNow(150);
+  assert(h.f.surface.cancelFixtureTransport({ probeId: h.probeId }).ok);
+  await flush(); await flush();
+  assert.deepEqual(h.requests.map(value => value.phase), ['begin', 'end']);
+  assert.equal(h.f.surface.readDiagnostics().inputLease.fixtureHold, null); h.close();
+});
+
+test('late older viewport without fixture capability is ignored before it can cancel current probe', async () => {
+  const h = await fixtureTransportSurface();
+  const moved = h.port.translate({ probeId: h.probeId, step: 1 }); assert(moved.ok);
+  const before = h.counts();
+  h.f.emit('onPetViewport', { presentationView: moved.receipt.before, ...moved.receipt.before.geometry });
+  assert.deepEqual(h.counts(), before);
+  const current = h.f.surface.readFixtureTransport({ probeId: h.probeId }); assert(current.ok); assert.equal(current.step, 1);
+  assert.equal(h.f.surface.readDiagnostics().inputLease.held, true); h.close();
+});
+
+test('same-revision forged fixture receipt never preserves a cancelled probe', async () => {
+  const h = await fixtureTransportSurface(); const moved = h.port.translate({ probeId: h.probeId, step: 1 }); assert(moved.ok);
+  h.f.emit('onPetViewport', { ...moved.view.geometry, presentationView: moved.view,
+    fixtureTranslation: { ...moved.receipt, probeId: '00000000-0000-4000-8000-000000000999' },
+    fixtureTransport: { schemaVersion: 1, scope: moved.scope, available: true } });
+  assert.equal(h.f.surface.readFixtureTransport({ probeId: h.probeId }).ok, false);
+  assert.equal(h.counts().gripCancels, 1); h.close();
+});

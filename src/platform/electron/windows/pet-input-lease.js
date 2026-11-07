@@ -5,7 +5,7 @@ const { INPUT_LEASE_SCOPE, readInputLeaseRequest } = require('../../../core/pet-
 
 // ARCHITECTURE「V2 动画研究底座」: process-local input ownership only. This
 // deadline is enforced when the main loop runs, not by an OS capture/watchdog.
-function createPetInputLease({ now = () => performance.now(), newEpoch = randomUUID } = {}) {
+function createPetInputLease({ now = () => performance.now(), newEpoch = randomUUID, fixtureAuthority = null } = {}) {
   let epoch = newEpoch(), viewRevision = 0, available = false, context = null;
   let active = null, generationFloor = 0, lastTime = null;
   function revoke() { active = null; epoch = newEpoch(); }
@@ -35,6 +35,25 @@ function createPetInputLease({ now = () => performance.now(), newEpoch = randomU
   return Object.freeze({
     capability,
     observe,
+    // Only the owning viewport's collector transaction receives this authority.
+    fixtureSnapshot(authority) {
+      if (!fixtureAuthority || authority !== fixtureAuthority) return null;
+      time();
+      return Object.freeze({ epoch, viewRevision, available, generationFloor,
+        active: active ? Object.freeze({ ...active }) : null });
+    },
+    migrateFixture(authority, expected, view, pointerSpace, ready) {
+      if (!fixtureAuthority || authority !== fixtureAuthority) return false;
+      const at = time();
+      if (at === null || !ready || !available || !view?.available || !active || !expected?.active
+          || epoch !== expected.epoch || viewRevision !== expected.viewRevision
+          || view.revision !== viewRevision + 1 || active.generation !== expected.active.generation
+          || active.sequence !== expected.active.sequence || active.deadline !== expected.active.deadline
+          || context !== JSON.stringify([viewRevision, pointerSpace])) return false;
+      // Migration does not renew, re-begin or replace contact identity.
+      viewRevision = view.revision; context = JSON.stringify([viewRevision, pointerSpace]);
+      return true;
+    },
     revoke({ newDocument = false } = {}) { revoke(); if (newDocument) generationFloor = 0; },
     fail() { revoke(); available = false; },
     isActive() { time(); return Boolean(active); },

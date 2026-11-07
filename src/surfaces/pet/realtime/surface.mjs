@@ -6,6 +6,7 @@ import { createStartupMetrics } from './startup-metrics.mjs';
 import { createErrorJournal, errorMessage } from './error-journal.mjs';
 import { readPresentationView } from '../../../core/pet-presentation-view.mjs';
 import { createInputLeasePublisher } from './input-lease-publisher.mjs';
+import { createFixtureTransport } from './fixture-transport.mjs';
 
 /** One presentation owner in the actual pet surface. No canonical writes or private IPC. */
 export function createRealtimePetSurface({ environment, clients, loadStage }) {
@@ -99,6 +100,10 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
     cancelInput: () => { if (!closed) stage?.cancelInput?.(); },
     onError: error => recordError('runtime-publication', `Input lease publication failed: ${errorMessage(error)}`)
   });
+  const fixtureTransport = createFixtureTransport({ now: () => environment.performance.now(), inputLease,
+    onError: error => recordError('cancel', `Fixture cancellation failed: ${errorMessage(error)}`),
+    readState: () => ({ stage, enabled: !closed && ready && continuous(), view: presentationView,
+      blocked: presentationViewBlocked, pointerSpace }) });
   function publishRuntime() {
     if (closed) return;
     inputLease.update(stage?.readInteraction?.() ?? null, ready && continuous());
@@ -154,6 +159,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
   }
   function refresh() {
     if (closed) return;
+    if (!continuous()) fixtureTransport.invalidate();
     lastNow = environment.performance.now(); lastFrame = null; dirty = true;
     cancelFrame();
     try { if (!continuous()) stage?.suspend(); } catch (error) { fail(error, 'suspend'); return; }
@@ -164,7 +170,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
   }
   function cancel() {
     if (closed || !stage || failure) return;
-    try { stage.cancel(); audit('cancel'); refresh(); } catch (error) { fail(error, 'cancel'); }
+    try { fixtureTransport.invalidate(); stage.cancel(); audit('cancel'); refresh(); } catch (error) { fail(error, 'cancel'); }
   }
   function pause(value = !manualPaused) {
     if (closed) return;
@@ -178,6 +184,18 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
       if (!observedPresentation) return;
       value = {};
     }
+    const incomingView = readPresentationView(value.presentationView);
+    if (incomingView && (incomingView.revision < presentationViewRevision
+        || presentationViewBlocked && incomingView.revision <= presentationViewRevision)) return;
+    fixtureTransport.observeCapability(value.fixtureTransport);
+    if (fixtureTransport.acceptViewport(value)) {
+      // Verified pure translation changes no CSS/ray mapping, actor target, input
+      // timestamp barrier, or animation clock. Main and renderer still lack a compositor ACK.
+      presentationView = readPresentationView(value.presentationView);
+      presentationViewRevision = presentationView.revision;
+      viewportRevision++; dirty = true; schedule(); return;
+    }
+    if (Object.hasOwn(value, 'fixtureTranslation')) fixtureTransport.invalidate();
     if (observedPresentation || Object.hasOwn(value, 'presentationView')) {
       const next = readPresentationView(value.presentationView);
       if (next && (next.revision < presentationViewRevision || presentationViewBlocked && next.revision <= presentationViewRevision)) return;
@@ -185,6 +203,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
         && JSON.stringify(next) !== JSON.stringify(presentationView);
       const changed = !next || conflict || JSON.stringify(next) !== JSON.stringify(presentationView);
       if (changed) {
+        fixtureTransport.invalidate();
         observedPresentation = true; presentationViewAt = environment.performance.now();
         presentationViewBlocked = !next || Boolean(conflict);
         if (!presentationViewBlocked) { presentationView = next; presentationViewRevision = next.revision; }
@@ -196,8 +215,11 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
       // legacy fields cannot bypass an unchanged receipt's lifecycle barrier.
       value = { ...value, ...presentationView.geometry };
     }
-    if (inputLease.snapshot().observed || Object.hasOwn(value, 'inputLease'))
-      inputLease.observe(presentationView && value.inputLease?.viewRevision === presentationView.revision ? value.inputLease : null);
+    if (inputLease.snapshot().observed || Object.hasOwn(value, 'inputLease')) {
+      const nextLease = presentationView && value.inputLease?.viewRevision === presentationView.revision ? value.inputLease : null;
+      if (JSON.stringify(nextLease) !== JSON.stringify(inputLease.snapshot().capability)) fixtureTransport.invalidate();
+      inputLease.observe(nextLease);
+    }
     if (observedPresentation && !presentationView?.geometry) return;
     if (!Number.isFinite(value.stageOffset?.x) || !Number.isFinite(value.stageOffset?.y)) return;
     viewport = { width: value.width, height: value.height, stageOffset: { ...value.stageOffset } };
@@ -219,6 +241,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
   });
   function dispose() {
     if (closed) return;
+    fixtureTransport.dispose();
     closed = true; ready = false;
     inputLease.dispose();
     // Retire the published presentation lease; no business mutation or retry.
@@ -248,7 +271,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
         }
       });
       lifecycle.listen(document, 'visibilitychange', refresh);
-      lifecycle.listen(window, 'resize', () => { try { stage?.resize(); refresh(); } catch (error) { fail(error, 'resize'); } });
+      lifecycle.listen(window, 'resize', () => { try { fixtureTransport.invalidate(); stage?.resize(); refresh(); } catch (error) { fail(error, 'resize'); } });
       lifecycle.listen(media, 'change', refresh);
       lifecycle.listen(window, 'keydown', event => { if (event.key === 'Escape') { event.preventDefault(); cancel(); } });
       lifecycle.listen(canvas, 'webglcontextlost', event => { event.preventDefault(); contextLost = true; refresh(); });
@@ -302,6 +325,10 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
   return Object.freeze({
     start() { if (closed) return Promise.resolve(false); return startPromise ??= initialize(); },
     pause, cancel, dispose,
+    prepareFixtureTransport: value => ({ instanceId, ...fixtureTransport.prepare(value) }),
+    readFixtureTransport: value => ({ instanceId, ...fixtureTransport.read(value) }),
+    finishFixtureTransport: value => ({ instanceId, ...fixtureTransport.finish(value) }),
+    cancelFixtureTransport: value => ({ instanceId, ...fixtureTransport.cancel(value) }),
     // Read-only diagnostic receipt. screenX/Y and client rect are observations at this
     // renderer turn, never a historical pointer sample or native/compositor ACK.
     readWindowGeometry() {

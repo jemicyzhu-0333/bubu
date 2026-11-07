@@ -1224,6 +1224,38 @@ watchdog。首次 down 到主机接纳仍有异步空隙；DOM capture 不等于
 窗外释放、Alt-Tab、捕获被抢、实际 API/输入行为仍待原生验证。本段没有移动、落点或持久化。
 
 
+G2 的捕获中窗口往返实验限定于实际安装且尚未关闭的采集隔离 scope，以及选定 V2 页。
+`pet-window` 在 configure 时向该 BrowserWindow 发出固定的一次性主进程端口；采集器在
+window-created 时监听并绑定确切窗口，重复/错窗/畸形交接拒绝，无能力平台仅跳过该探针。
+它不是 renderer IPC、通用服务注册表或生产移动入口，不写持久化位置，不增加平台依赖。
+
+`pet-fixture-transport` 先在同一显示器工作区内部准备有余量的自有窗口，再绑定已确认的
+原接触租约，只允许固定 (+24,+16) DIP 和精确返回两步。逻辑anchor、backing与content
+必须经实际读回同量平移，尺寸、stageOffset、pointerSpace和显示器上下文不变；clamp、
+no-op、部分执行异常、文档变更或未知结果均不能重放。显式迁移只改viewRevision/context，
+不改epoch/contact/sequence/deadline；持有期间暂停普通renew，end仍优先，取消先设置end
+再解除hold。清理拥有独立文档/窗口/profile证明，租约过期可清理但新contact不可覆盖。
+
+角色仍由原pointer owner和时钟驱动。fixture grip lock只保留原局部抓握目标，姿势后原
+surfaceAnchor校正和ground约束照常执行，同事件screen motion仍驱动惯性；不另写root、
+ground、关节或表情。实际DOM rect与camera矩阵不变且严格匹配本事务的回执才绕过普通
+几何屏障，不重置动画时钟、不重复计入窗口位移。实际变形后的grip projection须独立观察，
+不能把固定目标当成已经满足抓握，尤其地面约束生效时。
+
+原owner内的临时fence只拒绝新down，不排队、不分配contactGeneration，也不拦终止事件。
+松手立即释放DOM捕获，仍由原帧队列处理正常尾段；sealed-time保留原生命周期兜底，
+不制造epsilon。合法迟到纯平移可保留已排队终止/无主尾段，但绝不恢复或迁移已终止租约。
+确认原生读回已返回且renderer已观察后才能解锁，并用真实DOM时间下界拒绝fence期间
+生成、解锁后才送达的down。结果未知则保持fence并销毁自有surface，不尝试第二次探针。
+blur/隐藏/相机或CSS变化仍执行原取消规则，不能被该例外覆盖。
+
+该实验只建立受控窗口平移与实际角色抓握观察的闭环。它不证明窗口由指针驱动、静止光标
+抓握、OS输入事件关联、Win32 capture、compositor同步、多DPI、生产原生拖动或落点政策。
+完整往返后先让普通落地、笑脸退出和缓慢回归自然结束，再暂停并恢复实验前位置。
+只读尾段事实涵盖原face owner的退出/回归阶段，不能把body idle当尾段完成；完成记录在
+生命周期屏障、非up终止或新contact时失效，累计contact高水位防止轮询间短暂再抓被漏掉。
+这不是用户的落点选择。
+
 
 | 批次 | 完整目标及退出条件 | 不可冒领的下一层结果 |
 | --- | --- | --- |

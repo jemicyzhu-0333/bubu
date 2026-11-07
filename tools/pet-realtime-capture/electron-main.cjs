@@ -4,6 +4,7 @@ const path = require('node:path');
 const { performance } = require('node:perf_hooks');
 const { app, BrowserWindow, screen } = require('electron');
 const { createOwnedWindowPort } = require('./window-port.cjs');
+const { captureTransportHandoff } = require('./transport-handoff.cjs');
 const { launchBench } = require('../dev-bench/orchestration');
 const { installFixtureIsolation, readFixtureIsolationDiagnostics } = require('../../src/platform/electron/dev/fixture-isolation');
 const ROOT = path.resolve(__dirname, '../..');
@@ -13,7 +14,7 @@ const { consumeCaptureHandoff, assertCaptureOwnership } = require('./handoff.cjs
 const token = process.env.BUBU_CAPTURE_TOKEN; delete process.env.BUBU_CAPTURE_TOKEN;
 const request = consumeCaptureHandoff(requestArg.slice('--capture-request='.length), token);
 if (app.commandLine.getSwitchValue('user-data-dir') !== request.fixture.userDataPath) throw new Error('capture-native-profile-mismatch');
-let report, evidence, isolation, port, appendCaptureError, diagnostics, exiting = false;
+let report, evidence, isolation, port, transportHandoff, appendCaptureError, diagnostics, exiting = false;
 const stop = new AbortController();
 const started = performance.now();
 const timer = setTimeout(() => stop.abort(new Error('capture-internal-deadline')), 165000);
@@ -29,7 +30,7 @@ const sleep = ms => new Promise((resolve, reject) => {
 const flush = () => { if (report && evidence) evidence.writePrivateJSON(request.reportFile, report); };
 async function finish(error) {
   if (exiting) return; exiting = true;
-  clearTimeout(timer); port?.close();
+  clearTimeout(timer); port?.close(); transportHandoff?.close();
   if (error && report) appendCaptureError(report, evidence.safeMessage(error));
   if (report) {
     report.capture ??= { status: 'startup-failed' };
@@ -64,6 +65,7 @@ app.on('will-quit', () => { clearTimeout(timer); if (report) { report.shutdownRe
   let petResolve; const petWindow = new Promise(resolve => { petResolve = resolve; });
   const pagePath = path.join(ROOT, 'src/surfaces/pet/realtime/index.html');
   const expectedURL = require('node:url').pathToFileURL(pagePath).href;
+  transportHandoff = captureTransportHandoff(app);
   app.on('browser-window-created', (_event, window) => {
     window.webContents.on('did-finish-load', () => { if (window.webContents.getURL() === expectedURL) petResolve(window); });
   });
@@ -73,7 +75,7 @@ app.on('will-quit', () => { clearTimeout(timer); if (report) { report.shutdownRe
   const window = await Promise.race([petWindow, sleep(35000).then(() => { throw new Error('capture-pet-window-timeout'); })]);
   if (!BrowserWindow.getAllWindows().includes(window)) throw new Error('capture-window-not-owned');
   port = createOwnedWindowPort({ window, pagePath, readProfileOwnership: () => assertCaptureOwnership(request), signal: stop.signal,
-    readWorkArea: bounds => screen.getDisplayMatching(bounds).workArea });
+    readWorkArea: bounds => screen.getDisplayMatching(bounds).workArea, transportHandoff: transportHandoff.take(window) });
   window.webContents.on('render-process-gone', () => stop.abort(new Error('capture-renderer-gone')));
   window.webContents.on('console-message', details => { if (details.level === 'error')
     appendCaptureError(report, { code: 'selected-renderer-console-error', level: 'error' }); });

@@ -43,7 +43,9 @@ function createPetWindowHost({
       fullscreenable: false
     },
     configure: (nativeWindow) => {
-      viewport?.attach(nativeWindow);
+      const fixturePort = viewport?.attach(nativeWindow);
+      // Fixed, one-time main-process handoff. No renderer or generic registry.
+      if (fixturePort) nativeWindow.emit('bubu:fixture-transport-port', fixturePort);
       nativeWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: false });
       nativeWindow.setAlwaysOnTop(true, 'floating');
       if (typeof onLoaded === 'function') nativeWindow.webContents.on('did-finish-load', onLoaded);

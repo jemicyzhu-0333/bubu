@@ -82,7 +82,7 @@ export async function collectRealtime(report, ports, { screenshots = true } = {}
       lostSamples: 0, observedModes: new Set(), instanceId: instance, epoch, performancePhase: performance };
     const item = current;
     try {
-      await action(); await poll(); item.status = 'completed';
+      await action(); await poll(); if (item.status === 'running') item.status = 'completed';
       if (item.performancePhase && (item.policyInterrupted || globalLast < start)) { item.status = 'failed'; error('performance-phase-interrupted-or-empty'); }
       if (expectedMode && !item.observedModes.has(expectedMode)) { item.status = 'failed'; error('expected-mode-not-observed'); }
     } catch (cause) { item.status = 'partial'; throw cause; }
@@ -138,6 +138,16 @@ export async function collectRealtime(report, ports, { screenshots = true } = {}
         report.capture.windowMovement = await ports.probeMovement();
         if (report.capture.windowMovement.status !== 'movement-observed' || !report.capture.windowMovement.restoration.confirmed || !report.capture.windowMovement.inputQuiescent)
           error('native-window-movement-or-restoration-unverified');
+      }, { performance: false });
+    }
+    if (ports.probeHeldTransport) {
+      await phase('synthetic-held-window-roundtrip', async () => {
+        const held = await ports.probeHeldTransport(); report.capture.heldTransport = held;
+        if (held.status !== 'completed') {
+          current.status = held.status === 'unavailable' ? 'unavailable' : 'partial';
+          error('held-window-roundtrip-unverified');
+        }
+        if (held.requiresDispose) throw new Error('held-window-roundtrip-owner-unsettled');
       }, { performance: false });
     }
     await ports.pause(false); await phase('resume', () => wait(2000)); await shot('resumed');

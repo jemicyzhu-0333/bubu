@@ -830,6 +830,28 @@ contactGeneration只在命中接纳时分配、同帧松手再抓复用pointerId
 初次异步接纳空隙、窗外释放、失焦/捕获被抢、GPU和进程树清理门禁保持开放。
 同进程期限不是主进程挂死后的恢复保证，不以模拟TTL通过升级原生安全或正式产品验收。
 
+
+### G2 捕获中受控窗口往返
+
+`pet-fixture-transport` 验证严格同量平移、文档/profile/窗口身份、期限与sequence不变、
+clamp/no-op/content偏移、partial-throw、同步blur/新contact/过期及清理边界。
+`pet-realtime-fixture-transport` 和真实surface/host/publisher组合验证严格回执例外、
+实际DOM/camera stamp、旧revision不撤销当前事务、失效先end不先renew、迟到终止不复活
+租约或重置已释放尾段。实际D2的 `body-runtime/fixture-grip.test.mjs` 验证原owner内锁定、
+惯性与实际grip投影、fence/down时间下界、立即松捕获、sealed-time和队列容量兜底。
+既有approved-pointer、pointer-view和input-lease-owner测试继续保留。
+
+`pet-realtime-held-transport` 通过模拟端口验证固定两步、同事件受控输入回执、原300ms
+剩余租期、逐await身份、迟到/未知结果不重试、恢复失败不升级和无能力平台继续旧采集。
+`capture.heldTransport` 单独记录setup、两步native与renderer实际抓握读数、局部抓握偏差、
+全局位移及清理；正常up后需观察原landing与尾段，并等待无contact/queue、body idle及真实
+interactionTailActive=false；face owner退出/回归也需结束。原up完成记录仍有效、contact
+高水位未变才可通过，sealed-time取消、blur截断或轮询间新手势不能冒充自然完成。探针未运行、能力不足、途中失败分别报告，不用旧实采代替。
+
+本段仅有CPU/模拟端口与实际模型算法验证，没有本轮Windows前台采集。新的原生往返
+结果仍待运行，所有OS-input/GPU/人工视觉/进程树清理门禁保持开放。受控global坐标来自
+采集器且native hop由程序固定发出，不能标为真实指针驱动窗口、OS事件匹配或compositor ACK。
+
 ## G1/G2 实机验收清单（目标 Mac/Windows，逐源码记录）
 
 1. 在独立工作树取已交付的 `feature/pet-animation-v2` 精确提交，记录完整 HEAD 并确认工作树干净；

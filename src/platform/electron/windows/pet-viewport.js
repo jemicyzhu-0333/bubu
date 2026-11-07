@@ -4,16 +4,20 @@ const { createPresentationViewTracker } = require('../../../core/pet-presentatio
 const { readInputLeaseRequest } = require('../../../core/pet-input-lease.mjs');
 const { createPetInputLease } = require('./pet-input-lease');
 const { createPetInputDocument } = require('./pet-input-document');
+const { createPetFixtureTransport } = require('./pet-fixture-transport');
+const { readActiveFixtureIsolation } = require('../dev/fixture-isolation');
+const { FIXTURE_TRANSPORT_SCOPE } = require('../../../core/pet-fixture-transport.mjs');
 
 // Windows and macOS transparent surfaces keep a stable backing store across menu toggles.
 // Public bounds remain the 220 DIP pet anchor, including persisted positions.
 function createPetViewport({ bounds, screen, readPointerSpace = null, selectedPage = null,
-  onDeliveryError = () => {}, now, newEpoch, size = { w: 520, h: 360 }, interval = setInterval, cancelInterval = clearInterval }) {
+  onDeliveryError = () => {}, now, newEpoch, readFixtureActive = readActiveFixtureIsolation, size = { w: 520, h: 360 }, interval = setInterval, cancelInterval = clearInterval }) {
   let anchor = { ...bounds };
   const views = createPresentationViewTracker();
-  const lease = readPointerSpace && selectedPage ? createPetInputLease({ now, newEpoch }) : null;
+  const fixtureAuthority = Object.freeze({});
+  const lease = readPointerSpace && selectedPage ? createPetInputLease({ now, newEpoch, fixtureAuthority }) : null;
   let expanded = false, native = null, document = null, ignored = null, timer = null;
-  let hidden = false, nativeUnknown = false, lastPublishedEpoch = null;
+  let hidden = false, nativeUnknown = false, lastPublishedEpoch = null, fixturePortInstalled = false;
   function report(error) {
     try { onDeliveryError(error, { channel: 'pet:input-lease', reason: 'native-state-unknown' }); } catch { /* Reporting is best effort. */ }
   }
@@ -28,7 +32,10 @@ function createPetViewport({ bounds, screen, readPointerSpace = null, selectedPa
   }
   function visible() { return !hidden && (typeof native?.isVisible !== 'function' || native.isVisible()); }
   function ready() { return Boolean(document?.isReady() && visible()); }
-  function geometry() {
+  function fixtureActive() {
+    try { return Boolean(lease && readFixtureActive()); } catch { return false; }
+  }
+  function geometry(observeLease = true) {
     const plan = layout();
     let viewport = native ? native.getBounds() : plan.bounds;
     let content = null, stableNativeRead = false;
@@ -45,7 +52,8 @@ function createPetViewport({ bounds, screen, readPointerSpace = null, selectedPa
     if (readPointerSpace) value.presentationView = views.record({ logicalAnchor: anchor,
       backingBounds: native ? viewport : null, contentBounds: content, stableNativeRead,
       geometry: { width: value.width, height: value.height, stageOffset: value.stageOffset } });
-    if (lease) value.inputLease = lease.observe(value.presentationView, value.pointerSpace, ready() && !nativeUnknown);
+    if (fixturePortInstalled && fixtureActive() && ready()) value.fixtureTransport = Object.freeze({ schemaVersion: 1, scope: FIXTURE_TRANSPORT_SCOPE, available: true });
+    if (lease && observeLease) value.inputLease = lease.observe(value.presentationView, value.pointerSpace, ready() && !nativeUnknown);
     return value;
   }
   function deliver(value) {
@@ -164,6 +172,23 @@ function createPetViewport({ bounds, screen, readPointerSpace = null, selectedPa
       native.on('show', () => resync('show'));
       native.on('hide', () => { hidden = true; revoke(); hitTest(); if (timer !== null) cancelInterval(timer); timer = null; });
       native.on('closed', () => { revoke(); if (timer !== null) cancelInterval(timer); timer = null; native = null; });
+      if (!fixtureActive()) return null;
+      fixturePortInstalled = true;
+      const fixtureDocument = document;
+      return createPetFixtureTransport({ isActive: fixtureActive,
+        captureDocument: () => native === window && document === fixtureDocument && ready() ? fixtureDocument.capture() : null,
+        observe: geometry, observeRaw: () => geometry(false),
+        leaseSnapshot: () => lease.fixtureSnapshot(fixtureAuthority),
+        migrateLease: (expected, value) => lease.migrateFixture(fixtureAuthority, expected,
+          value.presentationView, value.pointerSpace, ready() && fixtureActive() && !nativeUnknown),
+        moveNative: (x, y) => window.setPosition(x, y, false),
+        commitAnchor: value => { anchor = { ...value }; },
+        publish: (value, receipt = null) => {
+          value.inputLease = lease.observe(value.presentationView, value.pointerSpace, ready() && !nativeUnknown);
+          if (receipt) value.fixtureTranslation = receipt;
+          return deliver(value);
+        },
+        revoke, displayAt: point => screen.getDisplayNearestPoint(point) });
     },
     getBounds: () => ({ ...anchor }),
     readPresentationView: () => readPointerSpace ? geometry().presentationView : null,
