@@ -124,3 +124,21 @@ test('pool disposal while a bare tail loads rejects the late actor and releases 
   const rejected = assert.rejects(pending, /Reservation no longer live|Pool disposed/);
   await entered; pool.dispose(); resolveTail(); await rejected; assertReleased(pool);
 });
+
+test('bare foundation forwards event-matched DIP motion to its sole body owner without changing ray placement', async () => {
+  let motion = { x: -1000, y: 400 }, calls = 0;
+  const pool = new FoundationPool({ maxActors: 1 });
+  try {
+    const actor = await pool.create({ equipmentMode: 'bare', readMotionPoint: () => { calls++; return motion; } });
+    const p = target(actor);
+    actor.f.emit('pointerdown', .01, p); actor.step(.01);
+    motion = { x: -980, y: 390 };
+    actor.f.emit('pointermove', .08, p); actor.step(.08);
+    assert.equal(actor.f.h.state.mode, 'drag');
+    actor.step(.18); assert.equal(calls, 2, 'the single frame owner never resamples pointer motion');
+    actor.step(.2, { hidden: true });
+    assert.equal(actor.f.h.state.pointerId, null); assert.equal(actor.f.target.captured.size, 0);
+    assert.equal(pool.diagnostics().actors, 1);
+  } finally { pool.dispose(); }
+  assertReleased(pool);
+});

@@ -222,6 +222,7 @@ macOS 构建门禁必须对产出 app 和 DMG 复制出的 app 分别执行 `cod
 ### 实时桌宠分批验收（2026-11-01）
 
 本节是当前实时路线的门禁与踩坑台账；后文旧计数、求解实验和帧率仅为历史证据。
+最新 Windows 源码证据见下节；“首批”表中的状态只描述该批次，不覆盖后续原生采集。
 首批从远端 `feature/pet-animation-v2` 的 `33a04d35ba66984663604961c0c619937d70ede0`
 隔离创建，已交付底座提交为 `0a3a827d86a702938eba590e870e2b7ff0661d41`。
 脚本采集批次在该不可变基线上使用独立本地分支 `dot/realtime-validation-scripts-20261101`；
@@ -296,7 +297,7 @@ timeout 120s node --test --test-isolation=none \
 首批封板 aggregate 的本机日志为 `/tmp/bubu-realtime-sealed-check.log`，最终交付证据需同时保留源码/文档哈希、提交身份与日志。
 29 个 skip 和 `limbs:check` 中因未设置 `USAGI_CANVAS_PACKAGE` 而跳过的像素扫描单列，
 不能写成该像素检查已通过。canonical 感官/context 接入不等于外观装备和业务 base 语义已完成；后两者在 G4。
-G1 当前只达到应用接入代码候选，未完成实际应用帧及原生输入/显示证明，不能记作完成。
+G1 首批当时只达到应用接入代码候选，未完成实际应用帧及原生输入/显示证明，不能记作完成。
 默认 sandbox 的 Chromium 探测在独立 `/tmp` profile 下因
 `process_singleton: socket() Operation not permitted` 中止，环境同时无 DISPLAY/Xvfb。
 未追加 `--no-sandbox`、未绕过策略；实际 WebGL、截图、帧时间及原生性能均无本轮证据。
@@ -307,7 +308,7 @@ G1 当前只达到应用接入代码候选，未完成实际应用帧及原生�
 有界 ring 的统计须标明保留窗口，不能把超出容量的整轮运行写成全程分位数；
 丢帧、长任务、错误、idle 是否停止重绘及关闭后残留句柄/资源另列。
 Linux Node、离屏 Chromium、云端 SwiftShader 与目标原生 Electron/物理 GPU 分开报告。
-当前无已连接用户电脑（可用 environments 列表为空），目标硬件 60 fps、原生输入与透明合成
+首批当时无已连接用户电脑（可用 environments 列表为空），目标硬件 60 fps、原生输入与透明合成
 因此为 **blocked / 未运行**，不是 failed 或 passed；云端测量只能给出对应环境的结果。
 
 | 坑 / 根因 | 决策或修复 | 复查与仍未覆盖的边界 |
@@ -328,7 +329,34 @@ Linux Node、离屏 Chromium、云端 SwiftShader 与目标原生 Electron/物�
 | sealed frame 后 leave/失捕/窗口外释放使用了旧时刻 | canvas leave/lostcapture 及 window 外 up/cancel 在 capture 阶段采样同一实际时钟，不造 epsilon | 定向时钟边界用例通过；真实 OS 失捕/再抓仍待验收 |
 | 一个局部可运行结果被当作实时化完成 | G0→G5 保留完整范围，每批提交可审查的纵向结果与未关闭项 | 当前只是首批；未运行/失败/阻塞不折叠成“完成” |
 
-### 脚本采集与回传（当前批次，尚未取得真实 GUI 结果）
+### 最新 Windows 采集与 G2 输入空间边界（2026-11-07）
+
+原生 Windows 采集的起止源码均为 `fe0cfe2dbe306e0a65e9c1a9eb49364a68553338`，
+两端 `dirty=false`；runId 为 `7b75774a-7aeb-4e64-919a-603a64f9192d`。
+结果包 139,695 bytes，SHA256 为
+`ecddb7dfec1f3cf9a8dd16a41ee274fea16bcf177c137d3d5b0106b37cab85b2`。
+实际应用采集完成 13 阶段、5,049 帧、60 事件和5张窗口截图，`errors=[]`；三个 renderer
+实例的诊断日志均无错误，已发呈现操作结清。此无错误样本未触发新异常详情/去重的非零路径。
+
+`capture.status=completed`，但顶层仍为 `capture-complete-cleanup-unverified`、CLI exit2。
+Electron 根进程 code0、已 reaped；Windows 正常退出后 descendants 仍未由采集器证明，
+自有目录保留。随后一次宿主只读检查未发现6个已记录 PID 或关联进程，属于该时刻观察，
+不能改写原包的清理判定。输入明确为 `Electron-injected-not-OS`；`manualVisual`、
+`nativeGPU`、`osInput` 均为 `not-accepted`，`productionAccepted=false`。
+首帧 `startup.firstFrame.renderSubmissionMs=601.5` 仅指本次 CPU 侧 render 调用经过时间
+（render submission）；不是测得的 CPU 消耗、GPU 执行、完整帧耗时或启动时间，不能从
+历史单轮数字推断优化收益。
+
+后续 G2 第一段只分离真实表面命中所用 client 坐标与拖动/惯性所用 motion DIP。
+新增回归用批准 D2 实际 actor/骨骼和 FoundationPool，检查默认/显式相同运动源一致、
+局部点固定仍能按合成 DIP 旅行产生惯性、相同 DIP 旅行不被局部偏移改变、复制采样、
+异指针隔离、缺样取消、迟到/畸形输入原子拒绝和终态释放。所谓 DPR 字段变化仅是测试输入，
+不是实际渲染/DPI 切换验收；当前 surface 尚未提供原生 motion 源或移动窗口。
+不协调的大幅 viewport 变化仍保守取消待定接触，下一段必须用实际位移回执处理重定位。
+素材、动作 profile、单一时钟/骨骼所有权不变；原生拖动、透明合成、多屏、长期资源增长和
+G1/G5 未关闭门禁继续独立保留。
+
+### 脚本采集与回传（采集协议；早期批次尚未取得 GUI 结果）
 
 本批补齐“用户运行、dot 读包分析”的闭环，不把云端 CUA 或用户手工长测设为默认前置。
 交付时必须给出**本批包含采集工具的完整提交 SHA**；先 fetch 并在独立 checkout/工作树
@@ -732,12 +760,15 @@ wire 候选修复了固定粒子代理关节塌向原点、细化铰链无外力
 - 真实云浏览器的合成配置验证与 Node/SQLite 测试分别记证据。收件建议 UI 的合成响应不代表真实 Provider；现有原生 Windows/macOS schema19 发布记录不能证明这次 schema20 的原生升级、真人确认框或重启验收。
 - 已保存记录仅支持用户改时间；模型只处理当前随手记文本的明确时间建议，不扩大既有日常历史披露。
 
-## G1 实机验收清单（需用户在目标 Mac/Windows 上执行）
+## G1/G2 实机验收清单（目标 Mac/Windows，逐源码记录）
 
-1. `git checkout fix/v2-known-issues && npm ci && (cd research/animation-0.1.0 && npm ci --ignore-scripts)`
+1. 在独立工作树取已交付的 `feature/pet-animation-v2` 精确提交，记录完整 HEAD 并确认工作树干净；
+   不直接切换或覆盖已有工作。下一步的显式 `--prepare` 负责锁定依赖和已批准素材恢复。
 2. 恢复 D2 素材并采集：`npm run pet:realtime:capture -- --prepare`（Node 22.12+；输出 `.json.gz` 结果包）。
 3. 手动观察：macOS/Linux `BUBU_DEV_REALTIME_PET=1 npm run dev`；Windows PowerShell
    `$env:BUBU_DEV_REALTIME_PET=1; npm run dev`。
-4. 逐项确认：角色在透明宠物窗口实际显示；拖动/提起/释放、长按抚摸可用；隐藏/锁屏回来仍可点击；
-   低动效时停止；关闭重开无残留；帧间隔 P95 接近 16.7 ms（记下设备与 GPU）。
-5. 去掉环境变量重启，确认回到默认 2D。结果包与截图回传后再判定 G1 通过。
+4. 分别记录窗口内拖动/提起/释放、长按抚摸，以及尚待接入的原生窗口移动；不能将前者记成后者。
+   记录隐藏/锁屏、低动效、关闭重开、实际 OS 输入和多 DPI；性能记录设备、renderer、样本数、
+   P95/P99/max，而不是只凭 P95 接近16.7ms判定全部通过。
+5. 去掉环境变量重启，确认回到默认 2D。结果包、截图和逐项证据回传后分别判定各门禁；
+   exit2/清理未知、注入输入或单轮帧率不升级为 native/GPU/OS-input 通过。

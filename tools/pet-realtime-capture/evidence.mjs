@@ -16,6 +16,8 @@ const SOURCE_FILES = Object.freeze([
   'src/surfaces/pet/realtime/three-stage.mjs', 'src/surfaces/pet/realtime/frame-metrics.mjs',
   'src/surfaces/pet/realtime/startup-metrics.mjs', 'src/surfaces/pet/realtime/error-journal.mjs', 'src/surfaces/pet/realtime/runtime/actor-backend.mjs',
   'research/animation-0.1.0/animation-foundation-v1/integration/foundation-runtime.mjs',
+  'research/animation-0.1.0/animation-foundation-v1/body-runtime/pointer-host.mjs',
+  'research/animation-0.1.0/animation-foundation-v1/body-runtime/pointer-coordinates.mjs',
   'src/platform/electron/windows/pet-renderer-selection.js', 'src/bootstrap/renderer-ipc.js',
   'research/animation-0.1.0/runtime-facepath05/fixtures/face-d2/asset.glb',
   'research/animation-0.1.0/original-parts-hybrid-v1/geometry/bubu-hybrid-binding.glb'

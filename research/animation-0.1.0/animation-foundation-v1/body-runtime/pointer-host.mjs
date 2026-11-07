@@ -2,6 +2,7 @@ import { createBodyAdapterClass } from "./body-adapter.mjs";
 import { createAuthoredFacePort } from "./authored-face-port.mjs";
 import { MeshBVH } from "three-mesh-bvh";
 import { createSurfaceQuery } from "./surface-query.mjs";
+import { createPointerCoordinateReader, readClientPoint } from "./pointer-coordinates.mjs";
 export function createPointerHostFactory({
   THREE: T,
   createAdmittedHost,
@@ -26,7 +27,9 @@ export function createPointerHostFactory({
   /** DOM pointer adapter, one actor/face owner/body writer. scheduler uses seconds,
    * while browser default maps performance.now and RAF milliseconds to seconds.
    * Admission is internal Raycaster against owned skin; no public eligible/hit input.
-   * CSS client coordinates are DIP; rect maps CSS to NDC. Backbuffer/DPR never enters.
+   * CSS client coordinates map through rect to the ray. Motion DIP are separate:
+   * native window travel must not be counted twice or disappear from inertia.
+   * Backbuffer/DPR never enters either space. The default remains client DIP.
    */
   async function createPointerHost({
     target,
@@ -47,6 +50,7 @@ export function createPointerHostFactory({
     qualifySec = 0.4,
     authoredFaces = [],
     beforeCommit = () => {},
+    readMotionPoint,
   } = {}) {
     if (
       !target?.addEventListener ||
@@ -58,6 +62,7 @@ export function createPointerHostFactory({
       throw Error(
         "DOM target, camera, profile and bounded thresholds required",
       );
+    const readCoordinates = createPointerCoordinateReader(readMotionPoint);
     const yawDegrees =
       bodyOptions?.yawDegrees === undefined ? 52 : bodyOptions.yawDegrees;
     if (
@@ -253,8 +258,8 @@ export function createPointerHostFactory({
           type,
           time: t,
           pointerId: active?.id ?? 0,
-          x: e.x ?? 0,
-          y: e.y ?? 0,
+          x: e.motionX ?? 0,
+          y: e.motionY ?? 0,
           ...c,
         });
         pet.drain();
@@ -271,8 +276,8 @@ export function createPointerHostFactory({
         petInput("interrupt", t);
         mode = "drag";
         transition = { from, time: t };
-        drag.begin(t, { x: active.down.x, y: -active.down.y });
-        drag.move(t, { x: e.x, y: -e.y });
+        drag.begin(t, { x: active.downMotion.x, y: -active.downMotion.y });
+        drag.move(t, { x: e.motionX, y: -e.motionY });
         updatePointer(e);
       }
       function finish(t, reason) {
@@ -322,7 +327,7 @@ export function createPointerHostFactory({
           const normal = camera.getWorldDirection(new T.Vector3());
           active = {
             id: e.id,
-            down: { x: e.x, y: e.y },
+            downMotion: { x: e.motionX, y: e.motionY },
             latest: { x: e.x, y: e.y },
             anchor: body.surfaceAnchor(h),
             point: h.point.clone(),
@@ -344,9 +349,9 @@ export function createPointerHostFactory({
           if (
             e.type === "up" &&
             mode === "drag" &&
-            [e.x, e.y].every(Number.isFinite)
+            [e.x, e.y, e.motionX, e.motionY].every(Number.isFinite)
           ) {
-            drag.move(t, { x: e.x, y: -e.y });
+            drag.move(t, { x: e.motionX, y: -e.motionY });
             updatePointer(e);
           }
           finish(t, e.type);
@@ -363,13 +368,13 @@ export function createPointerHostFactory({
           }
           active.latest = { x: e.x, y: e.y };
           if (mode === "drag") {
-            drag.move(t, { x: e.x, y: -e.y });
+            drag.move(t, { x: e.motionX, y: -e.motionY });
             updatePointer(e);
             return;
           }
           // Once a held gesture exceeds drag threshold, capture permits leaving skin.
           if (
-            Math.hypot(e.x - active.down.x, e.y - active.down.y) > dragPixels
+            Math.hypot(e.motionX - active.downMotion.x, e.motionY - active.downMotion.y) > dragPixels
           ) {
             if (active.captured || hit(e.x, e.y)) startDrag(t, e);
             else finish(t, "cancel");
@@ -582,15 +587,28 @@ export function createPointerHostFactory({
           diagnostics.rejected++;
           return false;
         }
-        const validPoint = [event.clientX, event.clientY].every(
-          (v) => Number.isFinite(v) && Math.abs(v) <= 1e5,
-        );
         if (
           !Number.isSafeInteger(event.pointerId) ||
-          event.pointerId < 0 ||
-          (["down", "move"].includes(type) && !validPoint)
+          event.pointerId < 0
         ) {
           diagnostics.rejected++;
+          return false;
+        }
+        const clientPoint = readClientPoint(event);
+        if (["down", "move"].includes(type) && !clientPoint) {
+          diagnostics.rejected++;
+          return false;
+        }
+        const point = ["down", "move", "up"].includes(type)
+          ? readCoordinates(event, clientPoint) : null;
+        if (["down", "move"].includes(type) && !point) {
+          diagnostics.rejected++;
+          // Revoke this pointer in queue order, including a down not yet framed.
+          // Never reuse the last motion sample or change coordinate spaces.
+          if (type === "move") {
+            queue.push({ type: "cancel", t, id: event.pointerId });
+            lastReceived = t;
+          }
           return false;
         }
         queue.push({
@@ -600,8 +618,7 @@ export function createPointerHostFactory({
           primary: event.isPrimary,
           button: event.button,
           buttons: event.buttons,
-          x: validPoint ? event.clientX : undefined,
-          y: validPoint ? event.clientY : undefined,
+          ...point,
         });
         lastReceived = t;
         return true;
