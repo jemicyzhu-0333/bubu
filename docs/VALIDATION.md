@@ -848,6 +848,14 @@ clamp/no-op/content偏移、partial-throw、同步blur/新contact/过期及清�
 interactionTailActive=false；face owner退出/回归也需结束。原up完成记录仍有效、contact
 高水位未变才可通过，sealed-time取消、blur截断或轮询间新手势不能冒充自然完成。探针未运行、能力不足、途中失败分别报告，不用旧实采代替。
 
+清理回归在旧诊断回复之后、实际pause/dispose任务之前插入已接纳新contact、尚未分配
+代次的queued down、已结束的新contact和同URL新实例，验证实际renderer清理边界拒绝，
+不改capture/queue、不恢复旧窗口。真实surface生命周期另验成功路径与拒绝路径。
+原D2 owner与真实fixture transport组合覆盖末次terminal=false读取后到达的up/cancel/
+lostcapture：取消、暂停、销毁均不能清除原终止队列；普通帧消费后，landing与body idle
+但表情退出仍活跃的阶段继续受保护。完整尾段结束后才可清理。销毁实际执行但回执丢失
+的测试仍保留attempted=null，不重试或伪报已确认。以上仍为CPU/模拟端口证据。
+
 本段仅有CPU/模拟端口与实际模型算法验证，没有本轮Windows前台采集。新的原生往返
 结果仍待运行，所有OS-input/GPU/人工视觉/进程树清理门禁保持开放。受控global坐标来自
 采集器且native hop由程序固定发出，不能标为真实指针驱动窗口、OS事件匹配或compositor ACK。

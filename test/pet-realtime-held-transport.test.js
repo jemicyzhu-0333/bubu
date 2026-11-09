@@ -8,6 +8,7 @@ const { captureTransportHandoff } = require('../tools/pet-realtime-capture/trans
 const { createOwnedWindowPort } = require('../tools/pet-realtime-capture/window-port.cjs');
 const { createPresentationViewTracker } = require('../src/core/pet-presentation-view.mjs');
 const { FIXTURE_TRANSPORT_SCOPE: scope } = require('../src/core/pet-fixture-transport.mjs');
+const { createFixtureTransport } = require('../src/surfaces/pet/realtime/fixture-transport.mjs');
 const uuid = n => `00000000-0000-4000-8000-${String(n).padStart(12, '0')}`;
 const probeId = uuid(1), epoch = uuid(2), setupId = uuid(3);
 function harness(options = {}) {
@@ -18,10 +19,11 @@ function harness(options = {}) {
   const makeView = () => tracker.record({ logicalAnchor: { ...native, width: 220, height: 220 }, backingBounds: { ...native },
     contentBounds: { ...native }, geometry: { width: 220, height: 220, stageOffset: { x: 150, y: 70 } }, stableNativeRead: true });
   let view = makeView(); const origin = view, calls = [], deadlines = [], rows = [];
+  let instanceId = 'one', disposed = false, cleanupPauses = 0;
   const motion = () => ({ mode: options.unavailable ? 'client' : 'event-screen-dip', total, revision: 1, capability: { revision: 1 }, rows: [...rows] });
   const lease = () => ({ held, inFlight: false, pendingEnd: false, remainingMs: 280 - time,
     capability: { available: true }, fixtureHold: fixture ? { probeId, step, epoch, contactGeneration: options.newContact && step === 1 ? 2 : 1, viewRevision: view.revision } : null });
-  const diagnostics = () => ({ instanceId: 'one', ready: true, closed: false,
+  const diagnostics = () => ({ instanceId, ready: !disposed, closed: disposed,
     inputLease: lease(), stage: { mode, contactGenerationHighWater: highWater, interactionTailActive: options.missingTail ? undefined : !tailReset && tailAt !== null && time < tailAt + 80, pointerId: captured || terminalQueued ? 1 : null, captured, pendingCount, renderedFrames: frames,
       contactGeneration: options.newContact && step === 1 ? 2 : captured || terminalQueued ? 1 : null, inputMotion: motion(), inputTargets: { body: { x: 140, y: 180 } } } });
   function beginTerminal() {
@@ -30,6 +32,25 @@ function harness(options = {}) {
     terminalQueued = true; captured = false; pendingCount = 1;
   }
   const ok = fields => ({ ok: true, scope, ...fields });
+  function pause(value) {
+    paused = value;
+    if (paused) { captured = false; held = false; fixture = false; pendingCount = 0; }
+  }
+  // Use the actual synchronous renderer boundary, rather than duplicating its
+  // validator in a mock. The race is inserted after the prior collector reply.
+  const cleanup = createFixtureTransport({ now: () => time, inputLease: {},
+    readState: () => ({ instanceId, stage: { readDiagnostics: () => diagnostics().stage } }),
+    pauseSurface() { calls.push(['cleanup-apply', 'pause']); pause(true); },
+    disposeSurface() { calls.push(['cleanup-apply', 'dispose']); disposed = true; }
+  });
+  cleanup.observeCapability({ schemaVersion: 1, scope, available: true });
+  function race() {
+    calls.push(['race', options.race]);
+    if (options.race === 'document') instanceId = 'replacement';
+    if (options.race === 'active' || options.race === 'completed') highWater++;
+    if (options.race === 'active') { captured = true; mode = 'pending'; }
+    if (options.race === 'queued' || options.race === 'terminal') pendingCount = 1;
+  }
   const ports = { identity: { instanceId: 'one', generation: 0 }, probeId, now: () => time,
     assertCurrent() { if (!active) throw Error('owner-changed'); }, readNative: () => ({ ...native }),
     async delay(ms) {
@@ -53,7 +74,13 @@ function harness(options = {}) {
       if (method === 'readDiagnostics') return diagnostics();
       if (method === 'readWindowGeometry') return { instanceId: 'one', ready: true, closed: false, paused,
         pointerId: captured ? 1 : null, captured, domPointerCapture: captured, pendingCount, presentationView: view };
-      if (method === 'pause') { paused = arg; if (paused) { captured = false; held = false; fixture = false; pendingCount = 0; } return; }
+      if (method === 'pause') { pause(arg); return; }
+      if (method === 'cleanupFixtureTransport') {
+        if (arg.action === 'pause') cleanupPauses++;
+        if (options.raceAt === 'dispose' && arg.action === 'dispose'
+            || options.raceAt === cleanupPauses && arg.action === 'pause') race();
+        return { instanceId, ...cleanup.cleanup(arg) };
+      }
       if (method === 'prepareFixtureTransport') { fixture = true;
         return ok({ probeId, epoch, contactGeneration: 1, viewRevision: view.revision, gripClient: { ...grip }, remainingMs: 250, view }); }
       if (method === 'readFixtureTransport') {
@@ -63,7 +90,10 @@ function harness(options = {}) {
           pendingCount, renderedFrames: frames, inputLease: lease(), inputMotion: motion() });
       }
       if (method === 'finishFixtureTransport') { fixture = false; finished = true; return ok({ probeId, gripClient: { ...grip } }); }
-      if (method === 'cancelFixtureTransport') { captured = false; held = false; fixture = false; return ok({ probeId }); }
+      if (method === 'cancelFixtureTransport') {
+        if (options.terminalBeforeCancel) { beginTerminal(); return { ok: false, scope, attempted: false, reason: 'fixture-cancel-input-unsettled-or-owner-changed' }; }
+        captured = false; held = false; fixture = false; return ok({ probeId });
+      }
       throw Error(method);
     },
     async host(method, arg, ms) {
@@ -99,7 +129,7 @@ function harness(options = {}) {
       }
       return { local: { ...client }, global: { x: native.x + client.x, y: native.y + client.y }, coordinateSource: 'caller-supplied-controlled-fixture-not-OS' };
     } };
-  return { ports, calls, deadlines };
+  return { ports, calls, deadlines, diagnostics, disposed: () => disposed };
 }
 test('held actor fixture records actual grip/global displacement once per fixed native leg and restores staging', async () => {
   const h = harness(), r = await probeHeldTransport(h.ports);
@@ -234,19 +264,21 @@ test('owned port rejects missing handoff as unavailable and consumes its single 
 });
 
 function windowHarness(options = {}) {
-  const h = harness(), contents = new EventEmitter(); let resolve, disposed = false, awaitingMutation = false;
+  const h = harness(options), contents = new EventEmitter(); let resolve, awaitingMutation = false;
   Object.assign(contents, { isDestroyed: () => false, getURL: () => pathToFileURL('/fixture/index.html').href,
     async executeJavaScript(expression) {
       const [, method, json] = /module\.surface\.(\w+)\((.*)\)\)/.exec(expression);
       const argument = json ? JSON.parse(json) : undefined;
       if (method === options.pendingMethod) { awaitingMutation = true; return new Promise(yes => { resolve = yes; }); }
-      if (method === 'dispose') { disposed = true; return; }
+      if (method === 'dispose') assert.fail('held probe must not use unguarded disposal');
       await h.ports.delay(1);
       const result = await h.ports.renderer(method, argument, 1000);
+      if (options.dropDisposeReceipt && method === 'cleanupFixtureTransport' && argument.action === 'dispose')
+        return new Promise(yes => { resolve = yes; });
       if (awaitingMutation && options.fleetingBeforeDispose && method === 'readDiagnostics')
         result.stage = { ...result.stage, pointerId: null, captured: false, contactGeneration: null, contactGenerationHighWater: 2 };
       if (options.navigateMethod === method) contents.emit('did-start-navigation', { isMainFrame: true });
-      if (result && typeof result === 'object') return { ...result, instanceId: 'one', ...(disposed ? { closed: true } : {}) };
+      if (result && typeof result === 'object') return { instanceId: 'one', ...result, ...(h.disposed() ? { closed: true } : {}) };
       return result;
     },
     sendInputEvent(event) { h.ports.input(event.type, { x: event.x, y: event.y }); }
@@ -257,7 +289,7 @@ function windowHarness(options = {}) {
     .map(method => [method, arg => h.ports.host(method, arg, 1000)])));
   const port = createOwnedWindowPort({ window, pagePath: '/fixture/index.html', readProfileOwnership: () => true, timeoutMs: 20,
     transportHandoff: { window, port: nativePort, assertCurrent() {} } });
-  return { ...h, port, contents, resolve: value => resolve(value), disposed: () => disposed };
+  return { ...h, port, contents, resolve: value => resolve(value) };
 }
 test('held port excludes concurrent mutation and poisons late mutator receipt without retry', async () => {
   const h = windowHarness({ pendingMethod: 'prepareFixtureTransport' }); await h.port.read({});
@@ -286,4 +318,53 @@ test('uncertain mutation does not dispose a newer contact which already ended be
   assert.equal(result.status, 'incomplete'); assert.equal(result.mutationOutcomeUnknown, true);
   assert.equal(result.disposal.attempted, false); assert.equal(h.disposed(), false);
   h.resolve({ instanceId: 'one', ok: false, scope }); await Promise.resolve(); h.port.close();
+});
+
+test('initial and final pause reject intervening admitted, queued or already-ended contact without erasing it', async () => {
+  for (const raceAt of [1, 2]) for (const race of ['active', 'queued', 'completed', 'document', 'terminal']) {
+    const h = harness({ raceAt, race }), r = await probeHeldTransport(h.ports);
+    assert.equal(r.status, 'incomplete', `${raceAt}/${race}`);
+    assert.equal(h.calls.filter(c => c[0] === 'cleanup-apply').length, raceAt - 1);
+    assert.equal(h.calls.filter(c => c[1] === 'restoreFixture').length, 0);
+    if (raceAt === 1) assert.equal(h.calls.filter(c => c[0] === 'host' || c[0] === 'input').length, 0);
+    if (race === 'active') assert.equal(h.diagnostics().stage.captured, true);
+    if (race === 'queued' || race === 'terminal') assert.equal(h.diagnostics().stage.pendingCount, 1);
+    if (race === 'completed') assert.equal(h.diagnostics().stage.contactGenerationHighWater, raceAt);
+    assert.equal(h.disposed(), false);
+  }
+});
+
+test('unknown mutation disposal rechecks owner inside renderer task, after the last diagnostics response', async () => {
+  for (const race of ['active', 'queued', 'completed', 'document', 'terminal']) {
+    const h = windowHarness({ pendingMethod: 'prepareFixtureTransport', raceAt: 'dispose', race }); await h.port.read({});
+    const r = await h.port.probeHeldTransport();
+    assert.equal(r.status, 'incomplete'); assert.equal(r.mutationOutcomeUnknown, true);
+    assert.equal(r.disposal.attempted, race === 'document' ? null : false); assert.equal(r.disposal.confirmed, false); assert.equal(h.disposed(), false);
+    assert.equal(h.calls.filter(c => c[0] === 'cleanup-apply' && c[1] === 'dispose').length, 0);
+    assert.equal(h.calls.filter(c => c[1] === 'restoreFixture').length, 0);
+    if (race === 'active') assert.equal(h.diagnostics().stage.captured, true);
+    if (race === 'queued' || race === 'terminal') assert.equal(h.diagnostics().stage.pendingCount, 1);
+    h.resolve({ instanceId: 'one', ok: false, scope }); await Promise.resolve(); h.port.close();
+  }
+});
+
+test('late-terminal cancellation refusal does not fall through to disposal of the consumed original tail', async () => {
+  const h = windowHarness({ gripSlip: true, terminalBeforeCancel: true }); await h.port.read({});
+  const result = await h.port.probeHeldTransport();
+  assert.equal(result.status, 'incomplete'); assert.equal(result.requiresDispose, true);
+  assert.equal(h.diagnostics().stage.mode, 'landing'); assert.equal(h.diagnostics().stage.interactionTailActive, true);
+  assert.equal(result.disposal.attempted, false); assert.equal(result.disposal.confirmed, false); assert.equal(h.disposed(), false);
+  assert.equal(h.calls.filter(c => c[1] === 'restoreFixture' || c[1] === 'abort').length, 0);
+  assert.equal(h.calls.filter(c => c[0] === 'cleanup-apply').length, 1, 'only the initial safe pause ran');
+  h.port.close();
+});
+
+test('lost conditional disposal receipt stays unknown and is never reported as unattempted or retried', async () => {
+  const h = windowHarness({ gripSlip: true, throwRenderer: 'cancelFixtureTransport', dropDisposeReceipt: true }); await h.port.read({});
+  const result = await h.port.probeHeldTransport();
+  assert.equal(result.status, 'incomplete'); assert.equal(result.mutationOutcomeUnknown, true);
+  assert.equal(result.disposal.requested, true); assert.equal(result.disposal.attempted, null); assert.equal(result.disposal.confirmed, false);
+  assert.equal(h.disposed(), true, 'test independently knows mutation ran, but its receipt never reached the collector');
+  assert.equal(h.calls.filter(c => c[0] === 'cleanup-apply' && c[1] === 'dispose').length, 1);
+  h.resolve({ instanceId: 'one', ok: true, attempted: true, scope }); await Promise.resolve(); h.port.close();
 });

@@ -1246,7 +1246,8 @@ ground、关节或表情。实际DOM rect与camera矩阵不变且严格匹配本
 松手立即释放DOM捕获，仍由原帧队列处理正常尾段；sealed-time保留原生命周期兜底，
 不制造epsilon。合法迟到纯平移可保留已排队终止/无主尾段，但绝不恢复或迁移已终止租约。
 确认原生读回已返回且renderer已观察后才能解锁，并用真实DOM时间下界拒绝fence期间
-生成、解锁后才送达的down。结果未知则保持fence并销毁自有surface，不尝试第二次探针。
+生成、解锁后才送达的down。结果未知不尝试第二次探针，仅在仍能证明原owner且没有
+排队输入或已释放尾段时销毁自有surface；证明不足保留清理未确认，不能覆盖后来的输入。
 blur/隐藏/相机或CSS变化仍执行原取消规则，不能被该例外覆盖。
 
 该实验只建立受控窗口平移与实际角色抓握观察的闭环。它不证明窗口由指针驱动、静止光标
@@ -1255,6 +1256,16 @@ blur/隐藏/相机或CSS变化仍执行原取消规则，不能被该例外覆�
 只读尾段事实涵盖原face owner的退出/回归阶段，不能把body idle当尾段完成；完成记录在
 生命周期屏障、非up终止或新contact时失效，累计contact高水位防止轮询间短暂再抓被漏掉。
 这不是用户的落点选择。
+
+探针的准备暂停、收尾暂停和失败销毁使用固定的 `cleanupFixtureTransport` 闭合请求，
+携带文档instanceId、原contact高水位和pause/dispose操作。renderer在同一同步调用中
+复核当前隔离能力、实例、sole actor高水位、空队列及当前接触身份，再调用原生命周期；
+不能用上一个executeJavaScript的读数授权下一个任务中的无条件清理。queued down尚未
+分配代次，所以高水位相同也不能跳过队列检查；无active时还须确认capture已释放和
+interactionTailActive=false。取消fixture同样先检查队列和尾段，保留刚到达的up/cancel/
+lostcapture；拒绝后不先invalidate或end租约，后备销毁也不得截断已消费的原尾段。
+没有回执的销毁记录requested=true、attempted=null和confirmed=false，不能把超时当未执行。
+这些仅关闭renderer任务间的已知清理竞态，不是跨进程原子性或OS输入捕获保证。
 
 
 | 批次 | 完整目标及退出条件 | 不可冒领的下一层结果 |

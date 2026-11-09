@@ -20,7 +20,9 @@ function fixture() {
     stamp: [0, 0, 220, 220, 1, 2], terminal: false, gripClient: { x: 260, y: 160 } };
   const state = { enabled: true, blocked: false, view: view(40, 40), pointerSpace: source,
     stage: { readInteraction: () => ({ mode: grip.mode, contactGeneration: 1 }),
-      readDiagnostics: () => ({ renderedFrames: 4, inputMotion: { mode: 'event-screen-dip', capability: { kind: source.kind, ...source } } }),
+      readDiagnostics: () => ({ renderedFrames: 4, contactGenerationHighWater: 1, contactGeneration: grip.terminal ? null : 1,
+        pointerId: grip.terminal ? null : 1, captured: grip.captured, pendingCount: grip.pendingCount, interactionTailActive: false,
+        inputMotion: { mode: 'event-screen-dip', capability: { kind: source.kind, ...source } } }),
       prepareFixtureGrip: () => structuredClone(grip), readFixtureGrip: () => structuredClone(grip),
       finishFixtureGrip(_id, value) { assert.equal(value.eventNotBefore, now); finished++; return { ok: true, gripClient: { ...grip.gripClient } }; },
       cancelFixtureGrip() { cancels++; grip.terminal = true; grip.captured = false; } } };
@@ -122,4 +124,66 @@ test('completion observation preserves failed DOM release instead of inferring f
   f.grip.releaseObserved = true;
   const value = f.transport.read({ probeId }); assert(value.ok); assert(value.releaseObserved);
   assert.equal(value.domCaptured, true); assert.equal(value.gripObservation, 'lock-completion-snapshot');
+});
+
+function cleanupFixture() {
+  const owner = { contactGenerationHighWater: 3, contactGeneration: null, pointerId: null,
+    captured: false, pendingCount: 0, interactionTailActive: false };
+  const state = { instanceId: 'exact-document', stage: { readDiagnostics: () => owner } }, calls = [];
+  const transport = createFixtureTransport({ now: () => 0, readState: () => state, inputLease: {},
+    pauseSurface: () => calls.push('pause'), disposeSurface: () => calls.push('dispose') });
+  transport.observeCapability(capability);
+  const intent = action => ({ instanceId: state.instanceId, contactGenerationHighWater: 3, action });
+  return { transport, owner, state, calls, intent };
+}
+test('fixture cleanup accepts only a closed copied intent with current document and owner proof', () => {
+  for (const action of ['pause', 'dispose']) {
+    const f = cleanupFixture(), intent = f.intent(action);
+    const receipt = f.transport.cleanup(intent);
+    assert.deepEqual(receipt, { ok: true, scope, attempted: true, ...intent });
+    assert.deepEqual(f.calls, [action]); intent.contactGenerationHighWater = 99;
+    assert.equal(receipt.contactGenerationHighWater, 3);
+  }
+  let gets = 0;
+  for (const malformed of [null, [], {}, { instanceId: 'exact-document', action: 'cancel', contactGenerationHighWater: 3 },
+    { instanceId: 'unavailable', action: 'pause', contactGenerationHighWater: 3 },
+    { instanceId: 'exact-document', action: 'pause', contactGenerationHighWater: -1 },
+    { instanceId: 'exact-document', action: 'pause', contactGenerationHighWater: 1.5 },
+    { instanceId: 'exact-document', action: 'pause', contactGenerationHighWater: Number.MAX_SAFE_INTEGER + 1 },
+    { instanceId: 'exact-document', action: 'pause', contactGenerationHighWater: 3, extra: true },
+    { instanceId: 'exact-document', action: 'pause', get contactGenerationHighWater() { gets++; return 3; } }]) {
+    const f = cleanupFixture(); assert.equal(f.transport.cleanup(malformed).attempted, false); assert.deepEqual(f.calls, []);
+  }
+  assert.equal(gets, 0);
+});
+test('fixture cleanup rejects unavailable capability, new document, queued input, missing history and active tail before mutation', () => {
+  for (const action of ['pause', 'dispose']) for (const mutate of [
+    f => f.transport.observeCapability(null), f => f.transport.dispose(), f => { f.state.instanceId = 'new-document'; },
+    f => { f.owner.contactGenerationHighWater++; }, f => { delete f.owner.contactGenerationHighWater; },
+    f => { f.owner.pendingCount = 1; }, f => { delete f.owner.pendingCount; },
+    f => { f.owner.interactionTailActive = true; }, f => { delete f.owner.interactionTailActive; },
+    f => { f.owner.captured = true; }, f => { f.owner.pointerId = undefined; },
+    f => { f.owner.pointerId = 1; f.owner.contactGeneration = 4; }
+  ]) {
+    const f = cleanupFixture(), intent = f.intent(action); mutate(f);
+    const r = f.transport.cleanup(intent); assert.equal(r.ok, false); assert.equal(r.attempted, false); assert.deepEqual(f.calls, []);
+  }
+});
+test('failed-probe cleanup may retire only the exact original active contact without queued input', () => {
+  const f = cleanupFixture(); Object.assign(f.owner, { pointerId: 1, contactGeneration: 3, captured: true, interactionTailActive: true });
+  assert.equal(f.transport.cleanup(f.intent('dispose')).ok, true); assert.deepEqual(f.calls, ['dispose']);
+});
+test('cancel cannot erase a terminal queued after its prior read or an already-consumed original tail', () => {
+  for (const mode of ['queued-up', 'tail']) {
+    const f = fixture(); assert(f.prepare().ok); assert.equal(f.transport.read({ probeId }).terminal, false);
+    f.grip.terminal = true; f.grip.captured = false; f.grip.domCaptured = false;
+    if (mode === 'queued-up') f.grip.pendingCount = 1;
+    else {
+      const read = f.state.stage.readDiagnostics;
+      f.state.stage.readDiagnostics = () => ({ ...read(), interactionTailActive: true });
+    }
+    const before = f.counts(); assert.equal(f.transport.cancel({ probeId }).ok, false);
+    assert.deepEqual(f.counts(), before); assert.equal(f.transport.read({ probeId }).ok, true, 'refusal did not invalidate the old transaction');
+    assert.equal(f.publisher.snapshot().held, true, 'refusal did not end the original publisher before its terminal frame');
+  }
 });

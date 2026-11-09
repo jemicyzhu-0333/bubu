@@ -39,7 +39,7 @@ function createOwnedWindowPort({ window, pagePath, readProfileOwnership, signal,
   async function evaluate(method, argument, readTimeoutMs = null, transport = false) {
     assertCurrent();
     if (!['readDiagnostics', 'readWindowGeometry', 'pause', 'cancel', 'dispose',
-      ...(transport ? ['prepareFixtureTransport', 'readFixtureTransport', 'finishFixtureTransport', 'cancelFixtureTransport'] : [])].includes(method)) throw new Error('capture-method-rejected');
+      ...(transport ? ['prepareFixtureTransport', 'readFixtureTransport', 'finishFixtureTransport', 'cancelFixtureTransport', 'cleanupFixtureTransport'] : [])].includes(method)) throw new Error('capture-method-rejected');
     if (readTimeoutMs !== null && ((method !== 'readDiagnostics' && !transport) || !Number.isFinite(readTimeoutMs) || readTimeoutMs <= 0 || readTimeoutMs > timeoutMs))
       throw new Error('capture-read-timeout-invalid');
     const ticket = generation;
@@ -173,7 +173,16 @@ function createOwnedWindowPort({ window, pagePath, readProfileOwnership, signal,
               throw Error('capture-held-transport-contact-replaced');
             if (before.stage?.pointerId !== null && before.stage?.contactGeneration !== ownedContact)
               throw Error('capture-held-transport-contact-replaced');
-            result.disposal.attempted = true; await evaluate('dispose'); check();
+            result.disposal.requested = true;
+            result.disposal.attempted = null; // No receipt yet: the mutation may or may not have run.
+            const receipt = await evaluate('cleanupFixtureTransport', {
+              instanceId, contactGenerationHighWater: ownedContact, action: 'dispose'
+            }, null, true); check();
+            result.disposal.receipt = receipt;
+            result.disposal.attempted = typeof receipt?.attempted === 'boolean' ? receipt.attempted : null;
+            if (receipt?.ok !== true || receipt.attempted !== true || receipt.action !== 'dispose'
+                || receipt.instanceId !== instanceId || receipt.contactGenerationHighWater !== ownedContact)
+              throw Error('capture-held-transport-disposal-rejected');
             const state = await evaluate('readDiagnostics', { afterSequence: 0, limit: 1 }); check();
             result.disposal.confirmed = state.closed === true;
           } catch { mutationOutcomeUnknown = true; }

@@ -51,6 +51,14 @@ async function probeHeldTransport({ assertCurrent, renderer, host, input, readNa
     if (value?.scope !== scope || value.ok !== true) throw Error('held-transport-operation-rejected');
     return value;
   }
+  async function pauseOwned() {
+    const intent = { instanceId: identity.instanceId, action: 'pause',
+      contactGenerationHighWater: result.contactGeneration ?? result.initialContactGenerationHighWater };
+    const receipt = accepted(await render('cleanupFixtureTransport', intent, true));
+    if (receipt.attempted !== true || receipt.instanceId !== intent.instanceId || receipt.action !== intent.action
+        || receipt.contactGenerationHighWater !== intent.contactGenerationHighWater) throw Error('held-transport-cleanup-receipt-invalid');
+    return receipt;
+  }
   async function until(read, predicate, cadence = 4) {
     // Fixed count is a second bound for malformed/frozen clocks in injected ports.
     for (let i = 0; i < 512; i++) {
@@ -115,7 +123,7 @@ async function probeHeldTransport({ assertCurrent, renderer, host, input, readNa
       throw Error('held-transport-contact-history-unavailable');
     if (first.stage?.pointerId !== null || first.stage?.captured !== false || first.stage?.pendingCount !== 0)
       throw Error('held-transport-unowned-contact');
-    await render('pause', true, true); paused = true; await quiescent();
+    result.preparationPause = await pauseOwned(); paused = true; await quiescent();
     const setup = await native('prepareFixture', undefined, true); result.setup = setup;
     setupId = setup?.setupId ?? null; accepted(setup);
     await until(() => render('readWindowGeometry'), value => same(value.presentationView, setup.prepared));
@@ -218,7 +226,7 @@ async function probeHeldTransport({ assertCurrent, renderer, host, input, readNa
         }
         if (failed && prepared) accepted(await render('cancelFixtureTransport', { probeId }, true));
         if (failed && armed) accepted(await native('abort', { probeId }, true));
-        await render('pause', true, true); paused = true;
+        result.cleanup.pause = await pauseOwned(); paused = true;
         const settled = await quiescent();
         result.cleanup.contactGenerationHighWater = settled.diagnostics.stage.contactGenerationHighWater;
         if (setupId) {

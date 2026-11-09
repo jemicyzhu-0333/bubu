@@ -2,6 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { fixture } from './fixture.mjs';
 import { createEventMotionSource } from '../../../../src/surfaces/pet/realtime/event-motion-source.mjs';
+import { createFixtureTransport } from '../../../../src/surfaces/pet/realtime/fixture-transport.mjs';
+import { FIXTURE_TRANSPORT_SCOPE } from '../../../../src/core/pet-fixture-transport.mjs';
 
 const probeId = 'fixture-grip-test';
 const SPACE = { schemaVersion: 1, revision: 1, kind: 'event-screen-dip',
@@ -307,4 +309,65 @@ test('actual D2 fixture normal up and complete original gentle tail retain only 
     assert.equal(f.h.contactGenerationHighWater, 1);
     f.h.suspend(); f.h.resume(); assert.equal(f.read().ok, false, 'a later lifecycle reset invalidates the memo too');
   } finally { f.h.dispose(); }
+});
+
+test('fixture transport refuses raced D2 terminals and preserves their queued and consumed tails before cleanup', async () => {
+  for (const type of ['pointerup', 'pointercancel', 'lostpointercapture']) {
+    const f = await setup(), id = '00000000-0000-4000-8000-000000000123';
+    const counts = { cancelled: 0, updated: 0, released: 0, paused: 0, disposed: 0 };
+    // The native view and lease are injected; queue/capture/landing/tail are the real D2 owner.
+    const stage = {
+      readInteraction: () => f.h.state,
+      readDiagnostics: () => ({ ...f.h.state, pendingCount: f.h.pendingCount,
+        contactGenerationHighWater: f.h.contactGenerationHighWater,
+        interactionTailActive: f.h.interactionTailActive, inputMotion: f.source.snapshot() }),
+      prepareFixtureGrip: value => f.h.prepareFixtureGrip(value),
+      readFixtureGrip: value => f.h.readFixtureGrip(value),
+      cancelFixtureGrip(value) { counts.cancelled++; return f.h.cancelFixtureGrip(value); }
+    };
+    const state = { instanceId: 'real-d2-cleanup', enabled: true, blocked: false,
+      view: { available: true, revision: 1 }, pointerSpace: SPACE, stage };
+    const transport = createFixtureTransport({ now: () => 1600, readState: () => state,
+      inputLease: {
+        holdFixture: ({ contactGeneration }) => ({ ok: true, contactGeneration, viewRevision: 1,
+          epoch: '00000000-0000-4000-8000-000000000456', remainingMs: 280 }),
+        snapshot: () => ({ held: true }),
+        update() { counts.updated++; }, releaseFixtureHold() { counts.released++; }
+      },
+      pauseSurface() { counts.paused++; f.h.suspend(); },
+      disposeSurface() { counts.disposed++; f.h.dispose(); }
+    });
+    transport.observeCapability({ schemaVersion: 1, scope: FIXTURE_TRANSPORT_SCOPE, available: true });
+    const cleanup = action => transport.cleanup({ instanceId: state.instanceId,
+      contactGenerationHighWater: 1, action });
+    try {
+      f.lift(); assert.equal(transport.prepare({ probeId: id }).ok, true);
+      assert.equal(transport.read({ probeId: id }).terminal, false, 'last collector read precedes the racing terminal');
+      f.emit(type, 1.7, { ...f.point(.4, 2.4), screenX: 730, screenY: 370 });
+      assert.equal(f.h.pendingCount, 1); assert.equal(f.target.captured.size, 0);
+      const queued = structuredClone(f.h.state);
+      for (const attempt of [() => transport.cancel({ probeId: id }), () => cleanup('pause'), () => cleanup('dispose')]) {
+        assert.equal(attempt().ok, false); assert.equal(f.h.pendingCount, 1);
+        assert.deepEqual(f.h.state, queued); assert.equal(transport.read({ probeId: id }).ok, true);
+      }
+      f.tick(1.7); assert.equal(f.h.state.mode, 'landing'); assert.equal(f.h.state.pointerId, null);
+      assert.equal(f.h.pendingCount, 0); assert.equal(f.h.interactionTailActive, true);
+      assert.equal(f.h.readFixtureGrip(id).releaseObserved, type === 'pointerup');
+      let settled = false, idleTailSeen = false;
+      for (let frame = 171; frame <= 650; frame++) {
+        f.tick(frame / 100);
+        if (!f.h.interactionTailActive) { settled = true; break; }
+        idleTailSeen ||= f.h.state.mode === 'idle';
+        const tail = structuredClone(f.h.state);
+        assert.equal(transport.cancel({ probeId: id }).ok, false);
+        assert.equal(cleanup('pause').ok, false); assert.equal(cleanup('dispose').ok, false);
+        assert.deepEqual(f.h.state, tail); assert.equal(transport.read({ probeId: id }).ok, true);
+      }
+      assert.equal(settled, true); assert.equal(idleTailSeen, true, 'body idle still has an unowned expression tail');
+      assert.deepEqual(counts, { cancelled: 0, updated: 0, released: 0, paused: 0, disposed: 0 });
+      assert.equal(transport.cancel({ probeId: id }).ok, true);
+      assert.equal(cleanup('dispose').ok, true);
+      assert.deepEqual(counts, { cancelled: 1, updated: 1, released: 1, paused: 0, disposed: 1 });
+    } finally { f.h.dispose(); }
+  }
 });

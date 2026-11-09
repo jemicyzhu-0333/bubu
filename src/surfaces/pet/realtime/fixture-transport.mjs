@@ -17,10 +17,27 @@ function request(value) {
   } catch { return null; }
 }
 const returned = (a, b) => ['logicalAnchor', 'backingBounds', 'contentBounds', 'geometry'].every(key => same(a[key], b[key]));
+function cleanupRequest(value) {
+  try {
+    if (!value || Object.getPrototypeOf(value) !== Object.prototype) return null;
+    const d = Object.getOwnPropertyDescriptors(value), keys = ['instanceId', 'contactGenerationHighWater', 'action'];
+    if (Reflect.ownKeys(d).length !== keys.length || keys.some(key => !Object.hasOwn(d[key] ?? {}, 'value'))) return null;
+    const instanceId = d.instanceId.value, contactGenerationHighWater = d.contactGenerationHighWater.value, action = d.action.value;
+    if (typeof instanceId !== 'string' || !instanceId.length || instanceId.length > 128 || instanceId === 'unavailable'
+        || !Number.isSafeInteger(contactGenerationHighWater) || contactGenerationHighWater < 0
+        || !['pause', 'dispose'].includes(action)) return null;
+    return { instanceId, contactGenerationHighWater, action };
+  } catch { return null; }
+}
+function cleanupOwner(owner, generation) {
+  return Boolean(owner && owner.contactGenerationHighWater === generation && owner.pendingCount === 0
+    && (owner.pointerId === null ? owner.captured === false && owner.interactionTailActive === false
+      : Number.isSafeInteger(owner.pointerId) && owner.pointerId >= 0 && generation > 0 && owner.contactGeneration === generation));
+}
 
 /** Collector-only coordination. The actor owns the grip and clock; this owns only
  * one bounded geometry transaction. No pointer/native capture or landing policy. */
-export function createFixtureTransport({ now, readState, inputLease, onError = () => {} }) {
+export function createFixtureTransport({ now, readState, inputLease, pauseSurface, disposeSurface, onError = () => {} }) {
   let capability = null, session = null, used = false, closed = false;
   const result = (ok, fields = {}) => ({ ok, scope, ...fields });
   function currentGrip() {
@@ -128,10 +145,29 @@ export function createFixtureTransport({ now, readState, inputLease, onError = (
     return result(true, { probeId, terminal: session.terminal || grip.terminal === true, gripClient: ended.gripClient ?? grip.gripClient,
       view: structuredClone(session.current) });
   }
-  return Object.freeze({ observeCapability, prepare, acceptViewport, read, finish, invalidate,
+  function cleanup(value) {
+    const intent = cleanupRequest(value), state = readState();
+    if (!intent || closed || !capability || intent.instanceId !== state.instanceId)
+      return result(false, { attempted: false, reason: 'fixture-cleanup-owner-unavailable' });
+    const owner = state.stage?.readDiagnostics?.();
+    // This check and the existing lifecycle mutation share one renderer task.
+    // A prior collector read cannot authorize erasing a newer or queued contact:
+    // queued down has not yet incremented the sole actor's generation counter.
+    if (!cleanupOwner(owner, intent.contactGenerationHighWater))
+      return result(false, { attempted: false, reason: 'fixture-cleanup-owner-changed-or-input-unsettled' });
+    const apply = intent.action === 'pause' ? pauseSurface : disposeSurface;
+    if (typeof apply !== 'function') return result(false, { attempted: false, reason: 'fixture-cleanup-unavailable' });
+    apply();
+    return result(true, { attempted: true, ...intent });
+  }
+  return Object.freeze({ observeCapability, prepare, acceptViewport, read, finish, invalidate, cleanup,
     cancel(value) {
       const probeId = request(value);
       if (!session || probeId !== session.probeId) return result(false, { reason: 'fixture-probe-unavailable' });
+      // A terminal can arrive after the collector's last read but before this
+      // call. Leave its queue and unowned tail to the original frame owner.
+      if (!session.finished && !session.invalid && !cleanupOwner(readState().stage?.readDiagnostics?.(), session.contactGeneration))
+        return result(false, { attempted: false, reason: 'fixture-cancel-input-unsettled-or-owner-changed' });
       invalidate(); return result(true, { probeId });
     },
     dispose() { if (closed) return; invalidate(); capability = null; closed = true; }

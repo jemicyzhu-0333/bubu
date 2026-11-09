@@ -101,8 +101,9 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
     onError: error => recordError('runtime-publication', `Input lease publication failed: ${errorMessage(error)}`)
   });
   const fixtureTransport = createFixtureTransport({ now: () => environment.performance.now(), inputLease,
+    pauseSurface: () => pause(true), disposeSurface: dispose,
     onError: error => recordError('cancel', `Fixture cancellation failed: ${errorMessage(error)}`),
-    readState: () => ({ stage, enabled: !closed && ready && continuous(), view: presentationView,
+    readState: () => ({ instanceId, stage, enabled: !closed && ready && continuous(), view: presentationView,
       blocked: presentationViewBlocked, pointerSpace }) });
   function publishRuntime() {
     if (closed) return;
@@ -329,6 +330,7 @@ export function createRealtimePetSurface({ environment, clients, loadStage }) {
     readFixtureTransport: value => ({ instanceId, ...fixtureTransport.read(value) }),
     finishFixtureTransport: value => ({ instanceId, ...fixtureTransport.finish(value) }),
     cancelFixtureTransport: value => ({ instanceId, ...fixtureTransport.cancel(value) }),
+    cleanupFixtureTransport: value => ({ instanceId, ...fixtureTransport.cleanup(value) }),
     // Read-only diagnostic receipt. screenX/Y and client rect are observations at this
     // renderer turn, never a historical pointer sample or native/compositor ACK.
     readWindowGeometry() {

@@ -641,7 +641,7 @@ async function fixtureTransportSurface() {
   const probeId = '00000000-0000-4000-8000-000000000500';
   const source = { schemaVersion: 1, revision: 1, kind: 'event-screen-dip', runtime: { platform: 'win32', electron: '44.10.1', chromium: '152.0.7977.169' },
     bounds: { x: 0, y: 0, width: 1920, height: 1080 }, scaleFactor: 1 };
-  let at = 0, interaction = null, epoch = 0, bounds, port, observations = 0, gripCancels = 0;
+  let at = 0, interaction = null, epoch = 0, bounds, port, observations = 0, gripCancels = 0, highWater = 0;
   const requests = [];
   const native = new EventEmitter(), contents = new EventEmitter();
   const display = { id: 1, rotation: 0, scaleFactor: 1, bounds: source.bounds, workArea: source.bounds };
@@ -666,7 +666,8 @@ async function fixtureTransportSurface() {
   f.stage.finishFixtureGrip = () => ({ ok: true, gripClient: { ...grip.gripClient } });
   f.stage.cancelFixtureGrip = () => { gripCancels++; if (interaction) { interaction = null; f.setMode('idle'); } };
   const read = f.stage.readDiagnostics.bind(f.stage);
-  f.stage.readDiagnostics = () => ({ ...read(), inputMotion: { mode: 'event-screen-dip', capability: { kind: source.kind, ...source } } });
+  f.stage.readDiagnostics = () => ({ ...read(), ...interaction, contactGenerationHighWater: highWater, interactionTailActive: false,
+    inputMotion: { mode: 'event-screen-dip', capability: { kind: source.kind, ...source } } });
   f.clients.pet_updateRuntime = value => {
     if (!value.inputLease) return undefined;
     requests.push(value.inputLease);
@@ -675,6 +676,7 @@ async function fixtureTransportSurface() {
   await f.surface.start(); port = viewport.attach(native); contents.emit('did-finish-load'); native.emit('show'); await flush();
   f.surface.pause(true); const setup = port.prepareFixture(); assert(setup.ok, setup.reason); f.surface.pause(false);
   interaction = { mode: 'drag', pointerId: 1, contactGeneration: 1, captured: true, domCaptured: true }; f.setMode('drag');
+  highWater = 1;
   at = 16; f.tick(16); await flush(); await flush();
   const prepared = f.surface.prepareFixtureTransport({ probeId }); assert(prepared.ok, prepared.reason);
   assert.equal(prepared.scope, FIXTURE_TRANSPORT_SCOPE); assert.equal(prepared.instanceId, 'fixture-surface-id');
@@ -738,4 +740,40 @@ test('same-revision forged fixture receipt never preserves a cancelled probe', a
     fixtureTransport: { schemaVersion: 1, scope: moved.scope, available: true } });
   assert.equal(h.f.surface.readFixtureTransport({ probeId: h.probeId }).ok, false);
   assert.equal(h.counts().gripCancels, 1); h.close();
+});
+
+async function cleanupSurface() {
+  const { FIXTURE_TRANSPORT_SCOPE: scope } = require('../src/core/pet-fixture-transport.mjs');
+  const f = fixture({ instanceId: 'cleanup-document' });
+  const owner = { contactGenerationHighWater: 1, contactGeneration: null, pointerId: null,
+    captured: false, pendingCount: 0, interactionTailActive: false };
+  const read = f.stage.readDiagnostics.bind(f.stage);
+  f.stage.readDiagnostics = () => ({ ...read(), ...owner });
+  await f.surface.start(); f.tick(16);
+  f.emit('onPetViewport', { fixtureTransport: { schemaVersion: 1, scope, available: true } });
+  return { f, owner, intent: action => ({ instanceId: f.surface.readDiagnostics().instanceId, contactGenerationHighWater: 1, action }) };
+}
+test('conditional fixture cleanup invokes the actual surface lifecycle only after same-turn owner validation', async () => {
+  const { f, intent } = await cleanupSurface(), suspends = f.stage.suspends;
+  assert(f.surface.cleanupFixtureTransport(intent('pause')).ok);
+  assert.equal(f.surface.snapshot().policy.paused, true); assert.equal(f.stage.suspends, suspends + 1);
+  const receipt = f.surface.cleanupFixtureTransport(intent('dispose'));
+  assert(receipt.ok); assert.equal(receipt.instanceId, 'cleanup-document');
+  assert.equal(f.surface.readDiagnostics().closed, true); assert.equal(f.stage.disposals, 1);
+});
+test('actual surface leaves newer and queued contacts and original release tails untouched by stale cleanup', async () => {
+  for (const action of ['pause', 'dispose']) for (const replace of [
+    owner => Object.assign(owner, { contactGenerationHighWater: 2, pointerId: 1, contactGeneration: 2, captured: true }),
+    owner => { owner.contactGenerationHighWater = 2; }, owner => { owner.pendingCount = 1; },
+    owner => { owner.interactionTailActive = true; }
+  ]) {
+    const { f, owner, intent } = await cleanupSurface(), old = intent(action);
+    replace(owner);
+    const suspends = f.stage.suspends, state = structuredClone(owner);
+    const result = f.surface.cleanupFixtureTransport(old);
+    assert.equal(result.ok, false); assert.equal(result.attempted, false);
+    assert.equal(f.stage.suspends, suspends); assert.equal(f.stage.disposals, 0); assert.deepEqual(owner, state);
+    assert.equal(f.surface.snapshot().policy.paused, false); assert.equal(f.surface.readDiagnostics().closed, false);
+    f.surface.dispose();
+  }
 });
