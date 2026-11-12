@@ -13,7 +13,11 @@
 
 ## 任务表
 
-2026-11-12：dot 在独立 `review/dot-lifecycle-cleanup-isolation` 分支核验并修复共享 `src/surfaces/pet/lifecycle.mjs` 的宿主清理失败隔离，基线 `3751977ceac5c9bdcefd76a47aa5fa482f207a7a`。范围为该模块、资源行为测试、V2 surface 故障注入回归及本记录；不改动画算法、UI、原生输入协议、共享分支或用户本机。验证属于云端 CPU/模拟宿主，不是实机验收。 本轮 `npm run check` exit0：7,149 total / 7,138 pass / 11 skip / 0 fail，后续语法、边界、架构及资源门禁均通过；调用方定向 76/76、集成 71/71 通过。全量中5项动效 Canvas 跳过后，单独启用 `PET_MOTION_CANVAS_PACKAGE` 补跑相关10项全部通过，不与全量重复加总。其余跳过为3项 Windows 原生、1项旧眼睛基线、1项未恢复 D2 资产和1项可选 SQLite 驱动。异常清理汇总为 AggregateError，V2 日志保留一条 cleanup-lifecycle 汇总，其他异常语义不变。2D controller 原有外层 stop 遇异常中断问题没有扩修；不声称所有宿主释放成功、原生进程清理或 GPU 验收完成。
+2026-11-12 R1 复审修正：dot 在独立审查分支基于 `1d9affd42b7b3ccff610d6f55ed2c05d1bb5656f` 修复 AggregateError 根因在 V2 日志丢失的问题。范围扩展到 `realtime/error-journal.mjs`、日志/采集诊断/初始化故障回归及本记录，不改原生协议或动画。保留一个失败发生记录，按顺序提取有界子错误文本（总长2048、单层最多8项、总访问16节点、深度3），每段最多256字符，不读取 stack/cause/payload，不保留原始对象；逐片段脱敏后再拼接，防止截断引号跨子项造成敏感值遗漏，采集封包仍走既有二次脱敏。初始化只注册部分监听后失败也逐项清理并保留原始错误文本。最终云端 `npm run check` exit0：7,155 total / 7,149 pass / 6 skip / 0 fail（启用 Dango、Usagi 与 PET_MOTION Canvas）；语法/边界/架构/资源门禁通过。定向80/80、集成71/71通过。6项跳过仍为3项 Windows 原生、旧眼睛基线、D2资产和可选SQLite驱动；无CI或原生/GPU验收。
+
+R2 独立遗留项：2D `controller.stop()` 在 `petSync.dispose()` 或 `lifetime.dispose()` 抛错时仍可能跳过后续 owner，重复 stop 不能补做。这不是本候选新引入，留待单独改造与注入回归，本轮不扩修；宿主释放失败后回调已失效，但未证明宿主已移除引用，不能承诺内存已回收。
+
+2026-11-12：dot 在独立 `review/dot-lifecycle-cleanup-isolation` 分支核验并修复共享 `src/surfaces/pet/lifecycle.mjs` 的宿主清理失败隔离，基线 `3751977ceac5c9bdcefd76a47aa5fa482f207a7a`。范围为该模块、资源行为测试、V2 surface 故障注入回归及本记录；不改动画算法、UI、原生输入协议、共享分支或用户本机。验证属于云端 CPU/模拟宿主，不是实机验收。 本轮 `npm run check` exit0：7,149 total / 7,138 pass / 11 skip / 0 fail，后续语法、边界、架构及资源门禁均通过；调用方定向 76/76、集成 71/71 通过。全量中5项动效 Canvas 跳过后，单独启用 `PET_MOTION_CANVAS_PACKAGE` 补跑相关10项全部通过，不与全量重复加总。其余跳过为3项 Windows 原生、1项旧眼睛基线、1项未恢复 D2 资产和1项可选 SQLite 驱动。异常清理汇总为 AggregateError，该初版 V2 日志只保留一条 cleanup-lifecycle 汇总，根因文本的不足由下述 R1 修正。2D controller 原有外层 stop 遇异常中断问题没有扩修；不声称所有宿主释放成功、原生进程清理或 GPU 验收完成。
 
 | 任务 | 负责人 | 范围（文件/功能） | 基线提交 | 状态 | 测试及真实结果 | 未验证事项 | 阻塞 | 下一步 | 需主人决定 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |

@@ -1,7 +1,55 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { createErrorJournal, ERROR_OPERATIONS } = require('../src/surfaces/pet/realtime/error-journal.mjs');
+const { createErrorJournal, ERROR_OPERATIONS, errorMessage } = require('../src/surfaces/pet/realtime/error-journal.mjs');
+
+test('aggregate summaries retain ordered root causes without multiplying occurrences or retaining errors', () => {
+  const journal = createErrorJournal(), child = new Error('listener release failed');
+  const single = new AggregateError([child], 'Pet lifecycle cleanup failed');
+  assert.equal(errorMessage(single), 'Pet lifecycle cleanup failed (1 errors): 1: listener release failed');
+  const aggregate = new AggregateError([child, new Error('frame cancellation failed')], 'cleanup');
+  journal.record('cleanup-lifecycle', aggregate);
+  child.message = 'mutated'; aggregate.errors.length = 0;
+  assert.deepEqual(journal.messages(), ['cleanup (2 errors): 1: listener release failed; 2: frame cancellation failed']);
+  assert.equal(journal.snapshot().total, 1);
+  assert.equal(errorMessage(new AggregateError([], 'empty')), 'empty (0 errors): ');
+});
+
+test('aggregate summaries tolerate non-Error children and unreadable aggregate accessors', () => {
+  const message = errorMessage(new AggregateError([null, undefined, 'text', Object.create(null)], 'mixed'));
+  assert.equal(message, 'mixed (4 errors): 1: null; 2: undefined; 3: text; 4: [unprintable error]');
+  const aggregate = new AggregateError([], 'broken'); let reads = 0;
+  Object.defineProperty(aggregate, 'errors', { get() { reads++; throw null; } });
+  assert.match(errorMessage(aggregate), /unreadable aggregate errors/); assert.equal(reads, 0);
+  const array = [];
+  Object.defineProperty(array, '0', { get() { reads++; throw null; } });
+  const item = new AggregateError([], 'bad item'); item.errors = array;
+  assert.match(errorMessage(item), /unreadable error item/); assert.equal(reads, 0);
+});
+
+test('aggregate traversal and text remain bounded for cycles, depth, width and long messages', () => {
+  const cycle = new AggregateError([], 'cycle'); cycle.errors.push(cycle);
+  assert.match(errorMessage(cycle), /circular aggregate/);
+  let deep = new Error('unreachable');
+  for (let i = 0; i < 100; i++) deep = new AggregateError([deep], 'nested');
+  assert.match(errorMessage(deep), /aggregate depth limit/);
+  const wide = new AggregateError(Array.from({ length: 1000 }, (_, i) => new Error(`child${i}`)), 'wide');
+  assert.match(errorMessage(wide), /992 more errors omitted/); assert.doesNotMatch(errorMessage(wide), /child8/);
+  const long = new AggregateError(Array.from({ length: 8 }, () => Error('x'.repeat(10000))), 'y'.repeat(10000));
+  assert(errorMessage(long).length <= 2048);
+  const bad = new AggregateError([new Error('usable child')], 'header');
+  Object.defineProperty(bad, 'message', { get() { throw null; } });
+  assert.match(errorMessage(bad), /unprintable error.*usable child/);
+});
+
+test('aggregate fragments are redacted separately before truncated quotes can cross child boundaries', () => {
+  const error = new AggregateError([new Error('token="' + 'sensitive-one-'.repeat(100)),
+    new Error('password="sensitive-two"'), new Error('Authorization: Bearer sensitive-three'),
+    new Error('https://user:sensitive-four@example.com/path')], 'cleanup');
+  const message = errorMessage(error);
+  assert.doesNotMatch(message, /sensitive-one|sensitive-two|sensitive-three|sensitive-four/);
+  assert.match(message, /redacted/); assert(message.length <= 2048);
+});
 
 test('presentation error identity counts occurrences even when messages are identical', () => {
   const journal = createErrorJournal();
