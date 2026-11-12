@@ -1,0 +1,494 @@
+{
+ "label": "Grok 电脑验收 (software rendering, synthetic input)",
+ "scenario": "f2live-3-s1",
+ "variant": "baseline-3751977",
+ "rows": [
+  {
+   "ms": 63,
+   "note": "mouseDown",
+   "input": {
+    "x": 500,
+    "y": 114
+   },
+   "mode": "pending",
+   "pointerId": 1,
+   "dragMode": "rest",
+   "faceIntent": null,
+   "petPhase": "pending",
+   "petFace": null,
+   "faceOwner": null,
+   "faceCandidate": null,
+   "faceRequest": null,
+   "facePhase": "idle",
+   "rootY": -4.7704895589362195e-17,
+   "policy": {
+    "reducedMotion": false,
+    "hidden": false,
+    "paused": false
+   }
+  },
+  {
+   "ms": 3574,
+   "note": "mouseUp",
+   "input": {
+    "x": 754,
+    "y": 114
+   },
+   "mode": "drag",
+   "pointerId": 1,
+   "dragMode": "recover",
+   "faceIntent": "01",
+   "petPhase": "idle",
+   "petFace": null,
+   "faceOwner": "interaction",
+   "faceCandidate": "01",
+   "faceRequest": "pointer26",
+   "facePhase": "enter",
+   "rootY": 0.02489335139752315,
+   "policy": {
+    "reducedMotion": false,
+    "hidden": false,
+    "paused": false
+   }
+  }
+ ],
+ "frames": [],
+ "summary": {
+  "log": "f2live-3-s1-renderer-log.json",
+  "v2": {
+   "hysteresis": {
+    "analyzer": "f2-analyzer v2.1",
+    "contract": "hysteresis",
+    "inBandFraction": 0.4286,
+    "coverage": {
+     "settledBandMoves": 49,
+     "inBandMoves": 21,
+     "bandFrames": 54,
+     "problems": []
+    },
+    "controllerViolations": 11,
+    "displayedSwitches": 21,
+    "displayedExplained": 10,
+    "displayedUnexplained": 11,
+    "restartsWithoutSwitch": 0,
+    "switchesWithoutRestart": 0,
+    "expectedTransitionsNotDisplayed": 0,
+    "ownerRequestRestartsInBand": 15,
+    "pass": false,
+    "details": {
+     "controller": [
+      {
+       "at": 13712.6,
+       "kind": "controller-face",
+       "expected": "T05",
+       "logged": "01",
+       "speed": 65.46,
+       "mode": "drag"
+      },
+      {
+       "at": 13870,
+       "kind": "controller-face",
+       "expected": "01",
+       "logged": "T05",
+       "speed": 70,
+       "mode": "recover"
+      },
+      {
+       "at": 14329.6,
+       "kind": "controller-face",
+       "expected": "01",
+       "logged": "T05",
+       "speed": 70,
+       "mode": "recover"
+      },
+      {
+       "at": 14345.6,
+       "kind": "controller-face",
+       "expected": "T05",
+       "logged": "01",
+       "speed": 67.45,
+       "mode": "drag"
+      },
+      {
+       "at": 14612.9,
+       "kind": "controller-face",
+       "expected": "01",
+       "logged": "T05",
+       "speed": 70.79,
+       "mode": "recover"
+      },
+      {
+       "at": 14703.7,
+       "kind": "controller-face",
+       "expected": "T05",
+       "logged": "01",
+       "speed": 65.5,
+       "mode": "drag"
+      },
+      {
+       "at": 14812.7,
+       "kind": "controller-face",
+       "expected": "01",
+       "logged": "T05",
+       "speed": 70,
+       "mode": "recover"
+      },
+      {
+       "at": 15229.5,
+       "kind": "controller-face",
+       "expected": "01",
+       "logged": "T05",
+       "speed": 70,
+       "mode": "recover"
+      },
+      {
+       "at": 15823.8,
+       "kind": "controller-face",
+       "expected": "01",
+       "logged": "T05",
+       "speed": 73.61,
+       "mode": "recover"
+      },
+      {
+       "at": 16057.2,
+       "kind": "controller-face",
+       "expected": "T05",
+       "logged": "01",
+       "speed": 68.61,
+       "mode": "drag"
+      },
+      {
+       "at": 16242.9,
+       "kind": "controller-face",
+       "expected": "T05",
+       "logged": "01",
+       "speed": 65.8,
+       "mode": "drag"
+      }
+     ],
+     "switches": [
+      {
+       "at": 13443.1,
+       "from": null,
+       "to": "N3",
+       "explained": true,
+       "reason": "session-boundary"
+      },
+      {
+       "at": 13562.2,
+       "from": "N3",
+       "to": "T05",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 13764.6,
+       "from": "T05",
+       "to": "01",
+       "explained": false,
+       "reason": null
+      },
+      {
+       "at": 13925.7,
+       "from": "01",
+       "to": "T05",
+       "explained": false,
+       "reason": null
+      },
+      {
+       "at": 13976.3,
+       "from": "T05",
+       "to": "01",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 14345.1,
+       "from": "01",
+       "to": "T05",
+       "explained": false,
+       "reason": null
+      },
+      {
+       "at": 14361.8,
+       "from": "T05",
+       "to": "01",
+       "explained": false,
+       "reason": null
+      },
+      {
+       "at": 14703,
+       "from": "01",
+       "to": "T05",
+       "explained": false,
+       "reason": null
+      },
+      {
+       "at": 14712,
+       "from": "T05",
+       "to": "01",
+       "explained": false,
+       "reason": null
+      },
+      {
+       "at": 14861.9,
+       "from": "01",
+       "to": "T05",
+       "explained": false,
+       "reason": null
+      },
+      {
+       "at": 14966.7,
+       "from": "T05",
+       "to": "01",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 15278.5,
+       "from": "01",
+       "to": "T05",
+       "explained": false,
+       "reason": null
+      },
+      {
+       "at": 15445,
+       "from": "T05",
+       "to": "01",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 15828.9,
+       "from": "01",
+       "to": "T05",
+       "explained": false,
+       "reason": null
+      },
+      {
+       "at": 16061.5,
+       "from": "T05",
+       "to": "01",
+       "explained": false,
+       "reason": null
+      },
+      {
+       "at": 16242.2,
+       "from": "01",
+       "to": "T05",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 16250,
+       "from": "T05",
+       "to": "01",
+       "explained": false,
+       "reason": null
+      },
+      {
+       "at": 16695.9,
+       "from": "01",
+       "to": "T05",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 16768.1,
+       "from": "T05",
+       "to": "01",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 17103,
+       "from": "01",
+       "to": null,
+       "explained": true,
+       "reason": "session-boundary"
+      },
+      {
+       "at": 17266.3,
+       "from": null,
+       "to": "landingP2",
+       "explained": true,
+       "reason": "session-boundary"
+      }
+     ]
+    }
+   },
+   "threshold": {
+    "analyzer": "f2-analyzer v2.1",
+    "contract": "threshold",
+    "inBandFraction": 0.4286,
+    "coverage": {
+     "settledBandMoves": 49,
+     "inBandMoves": 21,
+     "bandFrames": 54,
+     "problems": []
+    },
+    "controllerViolations": 0,
+    "displayedSwitches": 21,
+    "displayedExplained": 21,
+    "displayedUnexplained": 0,
+    "restartsWithoutSwitch": 0,
+    "switchesWithoutRestart": 0,
+    "expectedTransitionsNotDisplayed": 0,
+    "ownerRequestRestartsInBand": 15,
+    "pass": true,
+    "details": {
+     "controller": [],
+     "switches": [
+      {
+       "at": 13443.1,
+       "from": null,
+       "to": "N3",
+       "explained": true,
+       "reason": "session-boundary"
+      },
+      {
+       "at": 13562.2,
+       "from": "N3",
+       "to": "T05",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 13764.6,
+       "from": "T05",
+       "to": "01",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 13925.7,
+       "from": "01",
+       "to": "T05",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 13976.3,
+       "from": "T05",
+       "to": "01",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 14345.1,
+       "from": "01",
+       "to": "T05",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 14361.8,
+       "from": "T05",
+       "to": "01",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 14703,
+       "from": "01",
+       "to": "T05",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 14712,
+       "from": "T05",
+       "to": "01",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 14861.9,
+       "from": "01",
+       "to": "T05",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 14966.7,
+       "from": "T05",
+       "to": "01",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 15278.5,
+       "from": "01",
+       "to": "T05",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 15445,
+       "from": "T05",
+       "to": "01",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 15828.9,
+       "from": "01",
+       "to": "T05",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 16061.5,
+       "from": "T05",
+       "to": "01",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 16242.2,
+       "from": "01",
+       "to": "T05",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 16250,
+       "from": "T05",
+       "to": "01",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 16695.9,
+       "from": "01",
+       "to": "T05",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 16768.1,
+       "from": "T05",
+       "to": "01",
+       "explained": true,
+       "reason": "move"
+      },
+      {
+       "at": 17103,
+       "from": "01",
+       "to": null,
+       "explained": true,
+       "reason": "session-boundary"
+      },
+      {
+       "at": 17266.3,
+       "from": null,
+       "to": "landingP2",
+       "explained": true,
+       "reason": "session-boundary"
+      }
+     ]
+    }
+   }
+  }
+ }
+}

@@ -185,14 +185,92 @@ const scenarios = {
   async f2() { // F2 in-band acceptance B: straight horizontal line, 1px steps
     // timed at 1/speed, so the controller's 80ms net-displacement speed equals the
     // planned speed up to delivery jitter. Renderer-side logs are the evidence.
-    await settle();
+    await f2Straight('f2');
+  },
+  async f2live() { // F2 acceptance B, LIVE with screen capture (G-20261112-017).
+    // Test-side only: the window is widened and the canvas widened to
+    // GROK_CANVAS_WIDTH (same 220px height, so DIP per world unit is unchanged)
+    // so the whole straight line stays on screen; ffmpeg x11grab records the
+    // window region from the Xvfb screen for the whole scenario. One calibration
+    // contact (110 DIP/s -> T05, then 40 DIP/s -> 01) gives the
+    // live reference faces, then GROK_SESSIONS straight-line F2 contacts follow.
+    await widenStage();
+    const rep = process.env.GROK_REP || 1, sessions = Number(process.env.GROK_SESSIONS || 3);
+    const rec = await startScreenCapture(`f2live-screen-${rep}.mkv`);
+    const out = { calibration: await f2Calibration(`f2live-calibration-${rep}`), sessions: [] };
+    for (let k = 1; k <= sessions; k++) out.sessions.push(await f2Straight(`f2live-${rep}-s${k}`, { perSession: true }));
+    out.capture = await rec.stop();
+    const { COVERAGE } = await import(require('node:url').pathToFileURL(path.join(__dirname, 'f2-analyzer.mjs')).href);
+    // coverage is required over the whole run (sum of sessions); per-session logs
+    // still must be non-empty and strictly bounded.
+    const sum = k => out.sessions.reduce((n, x) => n + x.v2.hysteresis.coverage[k], 0);
+    out.runCoverage = { settledBandMoves: sum('settledBandMoves'), inBandMoves: sum('inBandMoves'), bandFrames: sum('bandFrames') };
+    out.runCoverage.ok = out.runCoverage.settledBandMoves >= COVERAGE.minSettledBandMoves && out.runCoverage.inBandMoves >= COVERAGE.minInBandMoves
+      && out.runCoverage.bandFrames >= COVERAGE.minBandFrames;
+    fs.writeFileSync(path.join(OUT, `f2live-run-${rep}.json`), JSON.stringify({ label: LABEL, ...out }, null, 1));
+    console.log('[f2live-run]', JSON.stringify(out.runCoverage));
+  },
+};
+// The dev bench leaves the pet where it was dropped. For repeated live contacts,
+// find the pet in the window pixels (pink body mask in a capturePage frame) and
+// drag it back to the start point in a separate, unlogged contact.
+async function petCenterX() {
+  const img = await pet.webContents.capturePage(); const { width, height } = img.getSize(); const px = img.toBitmap();
+  let lo = Infinity, hi = -Infinity;
+  for (let y = 0; y < Math.min(height, 150); y++) for (let x = 0; x < width; x++) {
+    const i = (y * width + x) * 4; const b = px[i], g = px[i + 1], r = px[i + 2];
+    if (r > 180 && g < 150 && b < 150) { if (x < lo) lo = x; if (x > hi) hi = x; }
+  }
+  return lo <= hi ? (lo + hi) / 2 : null;
+}
+async function returnHome() {
+  await settle();
+  const home = client(0, 1.4), cx = await petCenterX();
+  if (cx === null || Math.abs(cx - home.x) < 4) return;
+  const y = Math.round(home.y); let x = Math.round(cx);
+  const b = pet.getContentBounds();
+  const send = (type) => pet.webContents.sendInputEvent(type === 'mouseMove' ? { type, x, y, globalX: b.x + x, globalY: b.y + y, modifiers: ['leftButtonDown'] }
+    : { type, x, y, globalX: b.x + x, globalY: b.y + y, button: 'left', clickCount: 1 });
+  send('mouseDown'); await wait(50);
+  while (Math.abs(x - home.x) > 2) { x += x > home.x ? -2 : 2; send('mouseMove'); await wait(10); }
+  await wait(200); send('mouseUp'); await wait(2500);
+  await settle();
+}
+async function f2Calibration(name) {
+  await returnHome();
+  await installRendererLog();
+  const r = makeRecorder(name), start = client(0, 1.4);
+  const y = Math.round(start.y); let x = Math.round(start.x);
+  const step = () => { x += 1; const b = pet.getContentBounds();
+    pet.webContents.sendInputEvent({ type: 'mouseMove', x, y, globalX: b.x + x, globalY: b.y + y, modifiers: ['leftButtonDown'] }); };
+  const mark = tag => js(`globalThis.__grok.mark(${JSON.stringify(tag)})`);
+  await mark('down');
+  await r.input('mouseDown', { x, y });
+  await wait(150);
+  const run = async (speed, seconds, tag) => { await mark(tag); const t0 = Date.now(), n = Math.round(seconds * speed);
+    for (let i = 1; i <= n; i++) { const due = t0 + i * 1000 / speed - Date.now(); if (due > 0) await wait(due); step(); } };
+  await run(110, 0.9, 'cal-T05');
+  await run(40, 1.0, 'cal-01');
+  await mark('end');
+  await r.input('mouseUp', { x, y });
+  await wait(600);
+  const rl = await js('globalThis.__grok.take()');
+  rl.timeOrigin = await pet.webContents.executeJavaScript('performance.timeOrigin');
+  fs.writeFileSync(path.join(OUT, `${name}.json`), JSON.stringify({ label: LABEL, ...rl }, null, 1));
+  const phase = tag => [...new Set(rl.moves.filter(m => m.tag === tag).map(m => `${m.mode}:${m.face}`))];
+  const summary = { loggedFaces: { 'cal-T05': phase('cal-T05'), 'cal-01': phase('cal-01') } };
+  console.log(`[${name}]`, JSON.stringify(summary));
+  await wait(900);
+  return summary;
+}
+async function f2Straight(name, { perSession = false } = {}) {
+    if (perSession) await returnHome(); else await settle();
     await installRendererLog();
-    const r = makeRecorder('f2'), start = client(0, 1.4);
+    const r = makeRecorder(name), start = client(0, 1.4);
     const y = Math.round(start.y);
     let x = Math.round(start.x);
     await r.input('mouseDown', { x, y });
     await js('globalThis.__grok.mark("down")');
-    const marks = [];
     const run = async (speed, seconds, tag) => {
       await js(`globalThis.__grok.mark(${JSON.stringify(tag)})`);
       const t0 = Date.now(), n = Math.round(seconds * speed);
@@ -207,16 +285,25 @@ const scenarios = {
     for (let k = 0; k < 10; k++) await run(k % 2 ? 74 : 66, 0.3, k % 2 ? 'band-74' : 'band-66');
     await js('globalThis.__grok.mark("end")');
     await wait(100);
-    await r.frame('band-end');
+    if (!perSession) await r.frame('band-end');
     await r.input('mouseUp', { x, y });
+    if (perSession) await wait(600); // keep logging through release/landing for the screen cross-check
     const rl = await js('globalThis.__grok.take()');
-    fs.writeFileSync(path.join(OUT, `f2-renderer-log-${process.env.GROK_REP || 1}.json`), JSON.stringify({ label: LABEL, ...rl }, null, 1));
-    // analyzer v2 (BUBU-V2-20261112-012) is authoritative; v1 kept only for comparison.
+    rl.timeOrigin = await pet.webContents.executeJavaScript('performance.timeOrigin');
+    const logName = perSession ? `${name}-renderer-log.json` : `${name}-renderer-log-${process.env.GROK_REP || 1}.json`;
+    fs.writeFileSync(path.join(OUT, logName), JSON.stringify({ label: LABEL, ...rl }, null, 1));
+    // analyzer v2.1 (BUBU-V2-20261112-012/-013) is authoritative; v1 kept only for comparison.
     const { analyseF2: analyseF2v2 } = await import(require('node:url').pathToFileURL(path.join(__dirname, 'f2-analyzer.mjs')).href);
-    const summary = { v2: analyseF2v2(rl, { contract: process.env.GROK_F2_CONTRACT || 'hysteresis' }), v1: analyseF2(rl) };
+    let summary;
+    if (perSession) {
+      const coverage = { minSettledBandMoves: 1, minInBandMoves: 0, minBandFrames: 1, strictBoundaries: true };
+      summary = { log: logName, v2: { hysteresis: analyseF2v2(rl, { contract: 'hysteresis', coverage }), threshold: analyseF2v2(rl, { contract: 'threshold', coverage }) } };
+    } else summary = { v2: analyseF2v2(rl, { contract: process.env.GROK_F2_CONTRACT || 'hysteresis' }), v1: analyseF2(rl) };
     r.save(summary);
-    await wait(1500);
-  },
+    await wait(perSession ? 900 : 1500);
+    return summary;
+}
+const scenarios2 = {
   async f2circle() { // STRESS scenario only (G-20261112-013): integer-pixel circle; its
     // controller-measured speed really leaves 64..76, so it is NOT an in-band check.
     // Drag around the 70 DIP/s threshold. sendInputEvent only takes
@@ -356,6 +443,47 @@ const scenarios = {
     await wait(1500);
   }
 };
+Object.assign(scenarios, scenarios2);
+// Test-side only: widen the pet WINDOW (the 220x220 canvas and its rendering cost
+// are unchanged) so the bench's own stage offset (--stage-dx) keeps the dragged pet
+// inside the window for the whole straight line, and paint an opaque page
+// background so the X screen capture shows no stale transparent pixels.
+async function widenStage() {
+  await settle();
+  const w = Number(process.env.GROK_WINDOW_WIDTH || 1000);
+  const cw = Number(process.env.GROK_CANVAS_WIDTH || 680);
+  await pet.webContents.insertCSS('html,body{background:#fff!important}' + (cw !== 220
+    ? `#stage{width:${cw}px!important;left:calc(50% - ${cw / 2}px)!important} canvas{width:${cw}px!important}` : ''));
+  pet.setContentBounds({ x: 0, y: 700, width: w, height: 220 });
+  await wait(1500);
+  rect = (await js('m.surface.readWindowGeometry()')).stageClientRect;
+  fs.writeFileSync(path.join(OUT, 'environment-widened.json'), JSON.stringify({ stageClientRect: rect, windowBounds: pet.getContentBounds(),
+    canvasWidth: cw, note: 'test-side window/canvas widening (height 220 unchanged) + opaque background for on-screen capture' }, null, 1));
+  await pet.webContents.capturePage().then(img => fs.writeFileSync(path.join(OUT, 'idle-widened.png'), img.toPNG()));
+}
+// Screen capture of the pet window region from the X server (what Xvfb shows),
+// timestamps are the capture wall clock (x11grab), stored as mkv pts in ms.
+async function startScreenCapture(file) {
+  const { spawn } = require('node:child_process');
+  const b = pet.getContentBounds();
+  const fps = Number(process.env.GROK_CAPTURE_FPS || 60);
+  const out = path.join(OUT, file);
+  const args = ['-y', '-loglevel', 'error', '-f', 'x11grab', '-draw_mouse', '0', '-framerate', String(fps), '-video_size', `${b.width}x${b.height}`,
+    '-i', `${process.env.DISPLAY}+${b.x},${b.y}`, '-copyts', '-c:v', 'ffv1', '-f', 'matroska', out];
+  const ff = spawn('ffmpeg', args, { stdio: ['pipe', 'ignore', 'pipe'] });
+  let err = ''; ff.stderr.on('data', d => { err += d; });
+  const startedEpochMs = Date.now();
+  await wait(700);
+  return {
+    async stop() {
+      await wait(300);
+      const stopEpochMs = Date.now();
+      ff.stdin.write('q');
+      await new Promise(res => { ff.on('exit', res); setTimeout(() => { ff.kill('SIGINT'); }, 5000); });
+      return { file, fps, bounds: b, startedEpochMs, stopEpochMs, ffmpegErrors: err.trim() || null };
+    }
+  };
+}
 function runs(values) {
   const out = [];
   for (const v of values) { if (out.at(-1)?.[0] === v) out.at(-1)[1]++; else out.push([v, 1]); }

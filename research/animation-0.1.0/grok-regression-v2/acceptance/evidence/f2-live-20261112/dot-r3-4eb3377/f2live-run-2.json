@@ -1,0 +1,706 @@
+{
+ "label": "Grok 电脑验收 (software rendering, synthetic input)",
+ "calibration": {
+  "loggedFaces": {
+   "cal-T05": [
+    "pickup:N3",
+    "drag:T05"
+   ],
+   "cal-01": [
+    "drag:T05",
+    "recover:01"
+   ]
+  }
+ },
+ "sessions": [
+  {
+   "log": "f2live-2-s1-renderer-log.json",
+   "v2": {
+    "hysteresis": {
+     "analyzer": "f2-analyzer v2.1",
+     "contract": "hysteresis",
+     "inBandFraction": 0.451,
+     "coverage": {
+      "settledBandMoves": 51,
+      "inBandMoves": 23,
+      "bandFrames": 57,
+      "problems": []
+     },
+     "controllerViolations": 0,
+     "displayedSwitches": 9,
+     "displayedExplained": 9,
+     "displayedUnexplained": 0,
+     "restartsWithoutSwitch": 0,
+     "switchesWithoutRestart": 0,
+     "expectedTransitionsNotDisplayed": 0,
+     "ownerRequestRestartsInBand": 4,
+     "pass": true,
+     "details": {
+      "controller": [],
+      "switches": [
+       {
+        "at": 13236.2,
+        "from": null,
+        "to": "N3",
+        "explained": true,
+        "reason": "session-boundary"
+       },
+       {
+        "at": 13349,
+        "from": "N3",
+        "to": "T05",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 13687.6,
+        "from": "T05",
+        "to": "01",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 15747.3,
+        "from": "01",
+        "to": "T05",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 15849.4,
+        "from": "T05",
+        "to": "01",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 16436.7,
+        "from": "01",
+        "to": "T05",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 16586.8,
+        "from": "T05",
+        "to": "01",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 16914.9,
+        "from": "01",
+        "to": null,
+        "explained": true,
+        "reason": "session-boundary"
+       },
+       {
+        "at": 17021.8,
+        "from": null,
+        "to": "landingP2",
+        "explained": true,
+        "reason": "session-boundary"
+       }
+      ]
+     }
+    },
+    "threshold": {
+     "analyzer": "f2-analyzer v2.1",
+     "contract": "threshold",
+     "inBandFraction": 0.451,
+     "coverage": {
+      "settledBandMoves": 51,
+      "inBandMoves": 23,
+      "bandFrames": 57,
+      "problems": []
+     },
+     "controllerViolations": 9,
+     "displayedSwitches": 9,
+     "displayedExplained": 9,
+     "displayedUnexplained": 0,
+     "restartsWithoutSwitch": 0,
+     "switchesWithoutRestart": 0,
+     "expectedTransitionsNotDisplayed": 0,
+     "ownerRequestRestartsInBand": 4,
+     "pass": false,
+     "details": {
+      "controller": [
+       {
+        "at": 14149.8,
+        "kind": "controller-face",
+        "expected": "T05",
+        "logged": "01",
+        "speed": 72.84,
+        "mode": "recover"
+       },
+       {
+        "at": 14589.6,
+        "kind": "controller-face",
+        "expected": "T05",
+        "logged": "01",
+        "speed": 70,
+        "mode": "recover"
+       },
+       {
+        "at": 14697.6,
+        "kind": "controller-face",
+        "expected": "T05",
+        "logged": "01",
+        "speed": 74.55,
+        "mode": "recover"
+       },
+       {
+        "at": 14704.3,
+        "kind": "controller-face",
+        "expected": "T05",
+        "logged": "01",
+        "speed": 70.93,
+        "mode": "drag"
+       },
+       {
+        "at": 15102.4,
+        "kind": "controller-face",
+        "expected": "T05",
+        "logged": "01",
+        "speed": 71.07,
+        "mode": "recover"
+       },
+       {
+        "at": 15321.4,
+        "kind": "controller-face",
+        "expected": "T05",
+        "logged": "01",
+        "speed": 71.26,
+        "mode": "recover"
+       },
+       {
+        "at": 15688.1,
+        "kind": "controller-face",
+        "expected": "T05",
+        "logged": "01",
+        "speed": 71.17,
+        "mode": "recover"
+       },
+       {
+        "at": 16210.2,
+        "kind": "controller-face",
+        "expected": "T05",
+        "logged": "01",
+        "speed": 70,
+        "mode": "recover"
+       },
+       {
+        "at": 16308.2,
+        "kind": "controller-face",
+        "expected": "T05",
+        "logged": "01",
+        "speed": 70,
+        "mode": "drag"
+       }
+      ],
+      "switches": [
+       {
+        "at": 13236.2,
+        "from": null,
+        "to": "N3",
+        "explained": true,
+        "reason": "session-boundary"
+       },
+       {
+        "at": 13349,
+        "from": "N3",
+        "to": "T05",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 13687.6,
+        "from": "T05",
+        "to": "01",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 15747.3,
+        "from": "01",
+        "to": "T05",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 15849.4,
+        "from": "T05",
+        "to": "01",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 16436.7,
+        "from": "01",
+        "to": "T05",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 16586.8,
+        "from": "T05",
+        "to": "01",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 16914.9,
+        "from": "01",
+        "to": null,
+        "explained": true,
+        "reason": "session-boundary"
+       },
+       {
+        "at": 17021.8,
+        "from": null,
+        "to": "landingP2",
+        "explained": true,
+        "reason": "session-boundary"
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "log": "f2live-2-s2-renderer-log.json",
+   "v2": {
+    "hysteresis": {
+     "analyzer": "f2-analyzer v2.1",
+     "contract": "hysteresis",
+     "inBandFraction": 0.42,
+     "coverage": {
+      "settledBandMoves": 50,
+      "inBandMoves": 21,
+      "bandFrames": 55,
+      "problems": []
+     },
+     "controllerViolations": 0,
+     "displayedSwitches": 9,
+     "displayedExplained": 9,
+     "displayedUnexplained": 0,
+     "restartsWithoutSwitch": 0,
+     "switchesWithoutRestart": 0,
+     "expectedTransitionsNotDisplayed": 0,
+     "ownerRequestRestartsInBand": 5,
+     "pass": true,
+     "details": {
+      "controller": [],
+      "switches": [
+       {
+        "at": 22531.3,
+        "from": null,
+        "to": "N3",
+        "explained": true,
+        "reason": "session-boundary"
+       },
+       {
+        "at": 22604.1,
+        "from": "N3",
+        "to": "T05",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 22920.1,
+        "from": "T05",
+        "to": "01",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 24570.4,
+        "from": "01",
+        "to": "T05",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 24765.3,
+        "from": "T05",
+        "to": "01",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 25624.4,
+        "from": "01",
+        "to": "T05",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 25727.7,
+        "from": "T05",
+        "to": "01",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 26149.3,
+        "from": "01",
+        "to": null,
+        "explained": true,
+        "reason": "session-boundary"
+       },
+       {
+        "at": 26287.2,
+        "from": null,
+        "to": "landingP2",
+        "explained": true,
+        "reason": "session-boundary"
+       }
+      ]
+     }
+    },
+    "threshold": {
+     "analyzer": "f2-analyzer v2.1",
+     "contract": "threshold",
+     "inBandFraction": 0.42,
+     "coverage": {
+      "settledBandMoves": 50,
+      "inBandMoves": 21,
+      "bandFrames": 55,
+      "problems": []
+     },
+     "controllerViolations": 3,
+     "displayedSwitches": 9,
+     "displayedExplained": 9,
+     "displayedUnexplained": 0,
+     "restartsWithoutSwitch": 0,
+     "switchesWithoutRestart": 0,
+     "expectedTransitionsNotDisplayed": 0,
+     "ownerRequestRestartsInBand": 5,
+     "pass": false,
+     "details": {
+      "controller": [
+       {
+        "at": 23301.4,
+        "kind": "controller-face",
+        "expected": "T05",
+        "logged": "01",
+        "speed": 71.36,
+        "mode": "recover"
+       },
+       {
+        "at": 23893.6,
+        "kind": "controller-face",
+        "expected": "T05",
+        "logged": "01",
+        "speed": 71.13,
+        "mode": "recover"
+       },
+       {
+        "at": 24660.8,
+        "kind": "controller-face",
+        "expected": "01",
+        "logged": "T05",
+        "speed": 66.23,
+        "mode": "drag"
+       }
+      ],
+      "switches": [
+       {
+        "at": 22531.3,
+        "from": null,
+        "to": "N3",
+        "explained": true,
+        "reason": "session-boundary"
+       },
+       {
+        "at": 22604.1,
+        "from": "N3",
+        "to": "T05",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 22920.1,
+        "from": "T05",
+        "to": "01",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 24570.4,
+        "from": "01",
+        "to": "T05",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 24765.3,
+        "from": "T05",
+        "to": "01",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 25624.4,
+        "from": "01",
+        "to": "T05",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 25727.7,
+        "from": "T05",
+        "to": "01",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 26149.3,
+        "from": "01",
+        "to": null,
+        "explained": true,
+        "reason": "session-boundary"
+       },
+       {
+        "at": 26287.2,
+        "from": null,
+        "to": "landingP2",
+        "explained": true,
+        "reason": "session-boundary"
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "log": "f2live-2-s3-renderer-log.json",
+   "v2": {
+    "hysteresis": {
+     "analyzer": "f2-analyzer v2.1",
+     "contract": "hysteresis",
+     "inBandFraction": 0.3962,
+     "coverage": {
+      "settledBandMoves": 53,
+      "inBandMoves": 21,
+      "bandFrames": 57,
+      "problems": []
+     },
+     "controllerViolations": 0,
+     "displayedSwitches": 7,
+     "displayedExplained": 7,
+     "displayedUnexplained": 0,
+     "restartsWithoutSwitch": 0,
+     "switchesWithoutRestart": 0,
+     "expectedTransitionsNotDisplayed": 0,
+     "ownerRequestRestartsInBand": 3,
+     "pass": true,
+     "details": {
+      "controller": [],
+      "switches": [
+       {
+        "at": 31650.9,
+        "from": null,
+        "to": "N3",
+        "explained": true,
+        "reason": "session-boundary"
+       },
+       {
+        "at": 31752,
+        "from": "N3",
+        "to": "T05",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 32036.8,
+        "from": "T05",
+        "to": "01",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 33736.1,
+        "from": "01",
+        "to": "T05",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 33803.6,
+        "from": "T05",
+        "to": "01",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 35319.6,
+        "from": "01",
+        "to": null,
+        "explained": true,
+        "reason": "session-boundary"
+       },
+       {
+        "at": 35428.1,
+        "from": null,
+        "to": "landingP2",
+        "explained": true,
+        "reason": "session-boundary"
+       }
+      ]
+     }
+    },
+    "threshold": {
+     "analyzer": "f2-analyzer v2.1",
+     "contract": "threshold",
+     "inBandFraction": 0.3962,
+     "coverage": {
+      "settledBandMoves": 53,
+      "inBandMoves": 21,
+      "bandFrames": 57,
+      "problems": []
+     },
+     "controllerViolations": 7,
+     "displayedSwitches": 7,
+     "displayedExplained": 7,
+     "displayedUnexplained": 0,
+     "restartsWithoutSwitch": 0,
+     "switchesWithoutRestart": 0,
+     "expectedTransitionsNotDisplayed": 0,
+     "ownerRequestRestartsInBand": 3,
+     "pass": false,
+     "details": {
+      "controller": [
+       {
+        "at": 32575.1,
+        "kind": "controller-face",
+        "expected": "T05",
+        "logged": "01",
+        "speed": 70,
+        "mode": "recover"
+       },
+       {
+        "at": 33529.5,
+        "kind": "controller-face",
+        "expected": "T05",
+        "logged": "01",
+        "speed": 73.06,
+        "mode": "recover"
+       },
+       {
+        "at": 33736.7,
+        "kind": "controller-face",
+        "expected": "01",
+        "logged": "T05",
+        "speed": 67.2,
+        "mode": "drag"
+       },
+       {
+        "at": 34076.1,
+        "kind": "controller-face",
+        "expected": "T05",
+        "logged": "01",
+        "speed": 71.72,
+        "mode": "recover"
+       },
+       {
+        "at": 34237.3,
+        "kind": "controller-face",
+        "expected": "T05",
+        "logged": "01",
+        "speed": 73.7,
+        "mode": "recover"
+       },
+       {
+        "at": 34294.5,
+        "kind": "controller-face",
+        "expected": "T05",
+        "logged": "01",
+        "speed": 70.55,
+        "mode": "drag"
+       },
+       {
+        "at": 34777.4,
+        "kind": "controller-face",
+        "expected": "T05",
+        "logged": "01",
+        "speed": 70.11,
+        "mode": "recover"
+       }
+      ],
+      "switches": [
+       {
+        "at": 31650.9,
+        "from": null,
+        "to": "N3",
+        "explained": true,
+        "reason": "session-boundary"
+       },
+       {
+        "at": 31752,
+        "from": "N3",
+        "to": "T05",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 32036.8,
+        "from": "T05",
+        "to": "01",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 33736.1,
+        "from": "01",
+        "to": "T05",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 33803.6,
+        "from": "T05",
+        "to": "01",
+        "explained": true,
+        "reason": "move"
+       },
+       {
+        "at": 35319.6,
+        "from": "01",
+        "to": null,
+        "explained": true,
+        "reason": "session-boundary"
+       },
+       {
+        "at": 35428.1,
+        "from": null,
+        "to": "landingP2",
+        "explained": true,
+        "reason": "session-boundary"
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "capture": {
+  "file": "f2live-screen-2.mkv",
+  "fps": 60,
+  "bounds": {
+   "x": 0,
+   "y": 700,
+   "width": 1000,
+   "height": 220
+  },
+  "startedEpochMs": 1794481886947,
+  "stopEpochMs": 1794481918648,
+  "ffmpegErrors": null
+ },
+ "runCoverage": {
+  "settledBandMoves": 154,
+  "inBandMoves": 65,
+  "bandFrames": 169,
+  "ok": true
+ }
+}

@@ -13,6 +13,12 @@
 //     in that window may collapse into one displayed switch.
 //  3. owner restarts: every requestId change must coincide with a displayed
 //     candidate change, and every candidate change must carry a new requestId.
+//  4. hardening after BUBU-V2-20261112-013: pending moves must log face null and
+//     pickup moves N3; a displayed null is only legal before the first displayed
+//     face (start pending) or after the 'end' mark, and N3 only before the first
+//     airborne face, so a mid-run T05->null->T05 or a late N3 is unexplained;
+//     empty or low-coverage logs fail (coverage block), and the session must open
+//     with the 'down' mark and close with the 'end' mark.
 // Anything else is counted as unexplained. Same 64/76 rule as r3, so this
 // proves conformance to the contract, not that no switch is visible.
 export const CONTRACTS = Object.freeze({
@@ -48,6 +54,8 @@ export function controllerLayer(moves, contract = 'hysteresis') {
     var hit = true;
     if (['pending', 'pickup'].includes(m.mode)) {
       if (leftPickup) violations.push({ at: m.now, kind: 'mode-regressed-to-' + m.mode });
+      const want = m.mode === 'pending' ? null : 'N3';
+      if (m.face !== want) { hit = false; violations.push({ at: +m.now.toFixed(1), kind: 'controller-face', expected: want, logged: m.face, speed: +m.speed.toFixed(2), mode: m.mode }); }
       air = null;
     } else {
       const candidates = [];
@@ -64,9 +72,10 @@ export function controllerLayer(moves, contract = 'hysteresis') {
       } else candidates.push({ air: step(air, m.speed, c), via: 'move' });
       var hit = candidates.find(k => shown(m.mode, k.air) === m.face);
       const chosen = hit ?? candidates[0];
+      const expected = shown(m.mode, chosen.air);
       air = chosen.air;
       if (!hit) air = m.face === 'T05' ? 'T05' : m.face === '01' ? (chosen.air === null ? null : '01') : null;
-      if (!hit) violations.push({ at: +m.now.toFixed(1), kind: 'controller-face', expected: shown(m.mode, air), logged: m.face, speed: +m.speed.toFixed(2), mode: m.mode });
+      if (!hit) violations.push({ at: +m.now.toFixed(1), kind: 'controller-face', expected, logged: m.face, speed: +m.speed.toFixed(2), mode: m.mode });
     }
     const after = m.face; // follow the logged state so one violation is not double counted
     if (before !== null && before !== after && !(events.at(-1)?.hi === m.now && events.at(-1)?.to === after && events.at(-1)?.from === before))
@@ -80,13 +89,23 @@ export function controllerLayer(moves, contract = 'hysteresis') {
 export function displayLayer(frames, events) {
   const seq = frames.filter(f => f.candidate !== undefined);
   const used = new Set(); const switches = []; let restartsWithoutSwitch = 0, switchesWithoutRestart = 0;
+  const atEnd = f => f.tag === 'end';
   for (let i = 1; i < seq.length; i++) {
     const a = seq[i - 1], b = seq[i];
     const changed = a.candidate !== b.candidate, restarted = a.requestId !== b.requestId;
     if (restarted && !changed) restartsWithoutSwitch++;
     if (!changed) continue;
     if (!restarted && b.candidate !== null) switchesWithoutRestart++;
-    if (a.candidate === null || b.candidate === null) { switches.push({ at: +b.now.toFixed(1), from: a.candidate, to: b.candidate, explained: true, reason: 'session-boundary' }); continue; }
+    if (a.candidate === null || b.candidate === null) {
+      // null -> face is only legal while nothing has been displayed yet (start pending);
+      // face -> null only after the 'end' mark (release). Mid-run nulls are unexplained.
+      const legal = b.candidate === null ? atEnd(b) : !seq.slice(0, i).some(f => f.candidate !== null && !atEnd(f)) || atEnd(b);
+      switches.push({ at: +b.now.toFixed(1), from: a.candidate, to: b.candidate, explained: legal, reason: legal ? 'session-boundary' : 'mid-session-null' });
+      continue;
+    }
+    if (b.candidate === 'N3' && !atEnd(b) && seq.slice(0, i).some(f => f.candidate === 'T05' || f.candidate === '01')) {
+      switches.push({ at: +b.now.toFixed(1), from: a.candidate, to: b.candidate, explained: false, reason: 'late-pickup-face' }); continue;
+    }
     const lo = (seq[i - 2] ?? a).now, hi = b.now;
     // candidate expected transitions overlapping (lo, hi], in order, unused
     const win = events.map((e, k) => ({ e, k })).filter(({ e, k }) => !used.has(k) && !e.invalid && e.from !== null && e.lo <= hi && e.hi >= lo);
@@ -107,7 +126,12 @@ export function displayLayer(frames, events) {
   return { switches, restartsWithoutSwitch, switchesWithoutRestart, missedExpected };
 }
 
-export function analyseF2(rl, { contract = 'hysteresis' } = {}) {
+export const COVERAGE = Object.freeze({ minSettledBandMoves: 30, minInBandMoves: 20, minBandFrames: 20, strictBoundaries: true });
+
+export function analyseF2(rl, { contract = 'hysteresis', coverage: cov = {} } = {}) {
+  cov = { ...COVERAGE, ...cov };
+  rl = { moves: rl?.moves ?? [], frames: rl?.frames ?? [], marks: rl?.marks ?? [], inputs: rl?.inputs ?? [] };
+  const markNames = rl.marks.map(m => m.name);
   const session = rl.moves.filter(m => m.tag && m.tag !== 'down'); // includes moves delivered after the 'end' mark
   const ctl = controllerLayer(session, contract);
   const frames = rl.frames.filter(f => f.tag && f.tag !== 'down');
@@ -119,9 +143,19 @@ export function analyseF2(rl, { contract = 'hysteresis' } = {}) {
   const bandFrames = frames.filter(f => f.tag.startsWith('band'));
   const bandRestarts = bandFrames.reduce((n, f, i, arr) => n + (i && f.requestId !== arr[i - 1].requestId ? 1 : 0), 0);
   const unexplained = disp.switches.filter(s => !s.explained).length;
+  const coverageProblems = [];
+  if (!rl.moves.length) coverageProblems.push('no-moves');
+  if (!rl.frames.length) coverageProblems.push('no-frames');
+  if (markNames[0] !== 'down') coverageProblems.push('session-not-opened-by-down-mark');
+  if (cov.strictBoundaries && markNames.at(-1) !== 'end') coverageProblems.push('session-not-closed-by-end-mark');
+  if (cov.strictBoundaries && session.length && !['pending', 'pickup'].includes(session[0].mode)) coverageProblems.push('session-does-not-start-in-pending-or-pickup');
+  if (settled.length < cov.minSettledBandMoves) coverageProblems.push(`settled-band-moves ${settled.length} < ${cov.minSettledBandMoves}`);
+  if (inBand < cov.minInBandMoves) coverageProblems.push(`in-band-moves ${inBand} < ${cov.minInBandMoves}`);
+  if (bandFrames.length < cov.minBandFrames) coverageProblems.push(`band-frames ${bandFrames.length} < ${cov.minBandFrames}`);
   return {
-    analyzer: 'f2-analyzer v2', contract,
+    analyzer: 'f2-analyzer v2.1', contract,
     inBandFraction: settled.length ? +(inBand / settled.length).toFixed(4) : null,
+    coverage: { settledBandMoves: settled.length, inBandMoves: inBand, bandFrames: bandFrames.length, problems: coverageProblems },
     controllerViolations: ctl.violations.length,
     displayedSwitches: disp.switches.length,
     displayedExplained: disp.switches.length - unexplained,
@@ -130,7 +164,7 @@ export function analyseF2(rl, { contract = 'hysteresis' } = {}) {
     switchesWithoutRestart: disp.switchesWithoutRestart,
     expectedTransitionsNotDisplayed: disp.missedExpected,
     ownerRequestRestartsInBand: bandRestarts,
-    pass: ctl.violations.length === 0 && unexplained === 0 && disp.restartsWithoutSwitch === 0 && disp.switchesWithoutRestart === 0,
+    pass: coverageProblems.length === 0 && ctl.violations.length === 0 && unexplained === 0 && disp.restartsWithoutSwitch === 0 && disp.switchesWithoutRestart === 0,
     details: { controller: ctl.violations, switches: disp.switches },
   };
 }

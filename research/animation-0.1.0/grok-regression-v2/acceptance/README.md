@@ -66,3 +66,37 @@ cd research/animation-0.1.0
 node grok-regression-v2/acceptance/reanalyse-f2.mjs [--details]
 node --test grok-regression-v2/f2-analyzer.test.mjs
 ```
+
+## F2 live run with screen capture (`f2live`, G-20261112-017)
+
+Live Grok 电脑验收 of F2 acceptance B with pixel evidence. `GROK_SCENARIOS=f2live`
+(test-side only): widens the window to 1000x220 and the canvas to 680x220 (height
+unchanged, so DIP per world unit and the controller's DIP/s are unchanged; the
+dev bench leaves the pet where it lands, and a 220px canvas loses it off-screen),
+paints an opaque page background, and records the window region of the Xvfb
+screen with `ffmpeg -f x11grab` (60fps requested, wall-clock pts) for the whole
+run. Each run is one calibration contact (110 DIP/s -> T05, then 40 DIP/s -> 01)
+followed by `GROK_SESSIONS` (default 3) straight-line F2 contacts; between
+contacts the pet is dragged back to the start point in an unlogged contact.
+Analyzer v2.1 checks every session (both contracts); coverage minimums apply to
+the run total. Wider canvas = slower SwiftShader frames (about 16 presented
+frames/s instead of about 60), so this is not G1 evidence either.
+
+`f2-pixel-faces.mjs <variant-dir> <rep>` classifies the face on screen in every
+captured frame: pink body mask -> pet, the two largest dark blobs -> eyes, a face
+patch resampled in eye coordinates, nearest of the two live reference patches
+from the same run's calibration contact (margin 0.85, else `ambiguous`). It
+reports per session: in-band samples, controller / owner / pixel face switches
+in the band window and how many are not explained by the 64/76 rule (a pixel
+switch inherits the explanation of the latest owner switch to the same face
+within 600ms before it), leave-one-out accuracy on the calibration frames, and
+agreement with frames whose owner candidate was constant for 400ms. Capture and
+renderer clocks are aligned only by the motion onset; no latency is derived.
+Evidence (renderer logs, per-run pixel results, frame strips, short mp4 clips;
+the full mkv recordings are not committed) is in `evidence/f2-live-20261112/`.
+
+Analyzer v2.1 (BUBU-V2-20261112-013): pending moves must log null and pickup
+moves N3; a displayed null is only legal before the first displayed face or
+after `end`, N3 only before the first airborne face (so a mid-run
+T05->null->T05 or late N3 is unexplained); empty or low-coverage logs fail
+(`coverage.problems`), and sessions must open with `down` and close with `end`.
