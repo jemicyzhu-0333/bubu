@@ -238,6 +238,14 @@ foundation-v1 的 browser-host/pointer-host 同样直接使用 r5 faceIntent，�
 按研究根 lockfile 安装、保持唯一物理 Three 实例后，body-runtime/*.test.mjs 原始测试（--test-isolation=none）87/87、零跳过；涵盖 approved-pointer、interaction-tail、fixture-grip。
 原始 npm run foundation:test（body-runtime + integration + configuration + contact）224/224、零跳过。
 这些是实际资产 CPU/Node 测试，不是 foundation:verify、浏览器/WebGL 或 Windows 实机验收。
+r4 新增真实 D2 pointer-host 正向用例：公开 pointer 输入以 69/71 DIP/s 交替 100 次，
+实际表情 owner 保持同一个 T05 requestId 并进入 hold；不注入控制器、owner 或 raycast。
+变异对照：临时换回 3751977 旧控制器，原 body-runtime 87/87 仍通过，新增用例在实际
+state.face.candidate（01 而非 T05）断言失败；恢复后控制器与候选提交逐字节一致。
+新增后的 body-runtime 原始通配测试 88/88，原始 foundation:test 225/225，均零跳过；
+r5 原始 npm test 19/19，workbench 原始 npm test（含 19 依赖哈希）62/62，两包 SUMS 通过。Grok 独立测试固定于
+c3362ba61022e0ee8fb53c31bfc6f72f887b1ba1，原样运行 f2*.test.mjs 在候选上 2/2；
+其阈值带用例观察 host.drag.faceIntent，新用例另外观察实际 face owner/requestId/hold，覆盖互补。
 这些阈值尚未通过目标角色视觉与原生输入验收，不能据此关闭 G2。
 
 本节是当前实时路线的门禁与踩坑台账；后文旧计数、求解实验和帧率仅为历史证据。
