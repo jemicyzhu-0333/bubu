@@ -103,7 +103,8 @@ async function installRendererLog() {
     return true;
   })()`);
 }
-// Classify displayed face switches using the controller-measured speed at the
+// v1 classifier, SUPERSEDED by f2-analyzer.mjs (too wide: move state only and any
+// >=120ms gap accepted). Classify displayed face switches using the controller-measured speed at the
 // move that produced them (T05->01 explained only if <64, 01->T05 only if >76).
 function analyseF2(rl) {
   const band = rl.moves.filter(m => m.tag && m.tag.startsWith('band'));
@@ -210,7 +211,9 @@ const scenarios = {
     await r.input('mouseUp', { x, y });
     const rl = await js('globalThis.__grok.take()');
     fs.writeFileSync(path.join(OUT, `f2-renderer-log-${process.env.GROK_REP || 1}.json`), JSON.stringify({ label: LABEL, ...rl }, null, 1));
-    const summary = analyseF2(rl);
+    // analyzer v2 (BUBU-V2-20261112-012) is authoritative; v1 kept only for comparison.
+    const { analyseF2: analyseF2v2 } = await import(require('node:url').pathToFileURL(path.join(__dirname, 'f2-analyzer.mjs')).href);
+    const summary = { v2: analyseF2v2(rl, { contract: process.env.GROK_F2_CONTRACT || 'hysteresis' }), v1: analyseF2(rl) };
     r.save(summary);
     await wait(1500);
   },

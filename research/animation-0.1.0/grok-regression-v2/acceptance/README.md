@@ -42,3 +42,27 @@ about 50ms, max about 100ms) and pointer moves are coalesced per frame, so the
 controller-measured speed spreads well beyond the planned value; report the
 logged in-band fraction with any result. Add `GROK_REP=<n>` to keep one
 renderer log per repeat.
+
+## F2 analyzer v2 and raw evidence (BUBU-V2-20261112-012)
+
+`f2-analyzer.mjs` replaces the v1 inline classifier, which only looked at the
+post-move controller state and accepted any transition after a >=120ms gap.
+v2 checks three layers: (1) every logged `DragController.move` snapshot against
+the faceIntent contract (`hysteresis` = r3 64/76 with enter >70 and a >=120ms
+gap that only clears the latch; `threshold` = the single-70 baseline);
+(2) every per-frame change of the owner candidate against an expected controller
+transition with the same from/to inside a two-frame window (a timeout or timed
+pickup exit may land anywhere in its gap); (3) every owner requestId change
+paired with a candidate change and vice versa. It uses the same 64/76 rule as
+r3, so it proves conformance to the contract, not that no switch is visible.
+The frame layer reads the owner state per rAF (candidate/requestId), not the
+rendered blend weights.
+
+Raw renderer logs from the six F2 acceptance-B runs (3 baseline, 3 r3; synthetic
+input, SwiftShader) are in `evidence/f2-straight-20261112/`. Re-run:
+
+```bash
+cd research/animation-0.1.0
+node grok-regression-v2/acceptance/reanalyse-f2.mjs [--details]
+node --test grok-regression-v2/f2-analyzer.test.mjs
+```

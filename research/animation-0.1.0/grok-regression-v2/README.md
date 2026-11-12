@@ -18,6 +18,7 @@ only: no product code is changed here.
 | `f2-face-hysteresis.test.mjs` | F2 face intent flickers around the speed threshold | fail on baseline (159 switches / 160 frames); passes with dot's fix on `review/dot-face-intent-hysteresis-r3` (`4eb3377`) |
 | `f2-foundation-hysteresis-64-76.test.mjs` | F2 adoption gate for foundation-v1 (owner decision 2026-11-12): 64/76 DIP/s band exercised through the foundation-v1 pointer host | fail on baseline (67 DIP/s drops T05); passes with dot's `4eb3377` controller |
 | `f2-inband-straight-line.test.mjs` | F2 acceptance A (G-20261112-013): straight line at 66/74 DIP/s whose controller-measured speed (logged from the real DragController) stays in 64..76; 0 switches not explained by crossing 64/76 | fail on baseline (205/205 in band, 10 unexplained); passes with dot's `4eb3377` controller (205/205 in band, 0 unexplained) |
+| `f2-analyzer.test.mjs` | Analyzer v2 for F2 acceptance B (BUBU-V2-20261112-012): dot's two synthetic counterexamples against analyzer v1, timeout scope, owner restart pairing | passes (tests the analyzer, not product code) |
 | `f3-reduced-motion-interaction.test.mjs` | F3 reduced motion disables V2 interaction | fail |
 | `f4-fall-regrab.test.mjs` | F4 no re-grab while falling; blank face mid-air | 2 fail; 1 guard (re-grab once settled) passes |
 | `f6-petting-stroke.test.mjs` | F6 lateral stroking while petting turns into pick-up | 1 fail; 1 guard (deliberate upward pull still picks up) passes |
