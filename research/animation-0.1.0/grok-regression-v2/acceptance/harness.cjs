@@ -66,6 +66,74 @@ function makeRecorder(name) {
     }
   };
 }
+
+// Renderer-side instrumentation (test tooling): wraps DragController.prototype.move
+// of the module instance the pet page already loaded, and logs inbound pointer
+// events and the displayed face owner every animation frame.
+async function installRendererLog() {
+  await pet.webContents.executeJavaScript(`(async () => {
+    if (globalThis.__grok) { globalThis.__grok.reset(); return true; }
+    const url = new URL('../../../../research/animation-0.1.0/drag-landing-r5/src/drag-controller.mjs', location.href).href;
+    const { DragController } = await import(url);
+    const entry = await import('./entry.mjs');
+    const L = { moves: [], inputs: [], frames: [], marks: [] };
+    let tag = null;
+    const original = DragController.prototype.move;
+    DragController.prototype.move = function (t, p) {
+      const out = original.call(this, t, p);
+      const s = this.snapshot();
+      L.moves.push({ now: performance.now(), t, x: p.x, y: p.y, speed: Math.hypot(this.velocity.x, this.velocity.y), face: s.faceIntent, mode: s.mode, tag });
+      return out;
+    };
+    addEventListener('pointermove', e => L.inputs.push({ ts: e.timeStamp, now: performance.now(), x: e.clientX, y: e.clientY, tag }), { capture: true });
+    const frame = () => {
+      const st = entry.surface.snapshot().stage?.state;
+      const f = st?.face ?? null;
+      L.frames.push({ now: performance.now(), tag, faceIntent: st?.drag?.faceIntent ?? null, mode: st?.mode,
+        owner: f?.owner ?? null, requestId: f?.requestId ?? null, phase: f?.phase ?? null, candidate: f?.candidate ?? f?.expression ?? null });
+      requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+    globalThis.__grok = {
+      mark(name) { tag = name; L.marks.push({ name, now: performance.now() }); },
+      reset() { for (const k of Object.keys(L)) L[k].length = 0; tag = null; },
+      take() { return JSON.parse(JSON.stringify(L)); },
+      faceKeys() { return Object.keys(entry.surface.snapshot().stage?.state?.face ?? {}); }
+    };
+    return true;
+  })()`);
+}
+// Classify displayed face switches using the controller-measured speed at the
+// move that produced them (T05->01 explained only if <64, 01->T05 only if >76).
+function analyseF2(rl) {
+  const band = rl.moves.filter(m => m.tag && m.tag.startsWith('band'));
+  const firstBandNow = rl.marks.find(m => m.name.startsWith('band'))?.now ?? 0;
+  const settled = band.filter(m => m.now >= firstBandNow + 80);
+  const inBand = settled.filter(m => m.speed >= 64 && m.speed <= 76).length;
+  let explained = 0, unexplained = 0; const details = [];
+  for (let i = 1; i < band.length; i++) {
+    const a = band[i - 1].face, b = band[i].face;
+    if (a === b) continue;
+    const gap = band[i].t - band[i - 1].t;
+    const reason = (a === 'T05' && b === '01' && band[i].speed < 64) ? 'speed<64'
+      : (a === '01' && b === 'T05' && band[i].speed > 76) ? 'speed>76'
+      : gap >= 0.12 ? 'stationary-timeout-reset' : null;
+    const ok = reason !== null;
+    if (ok) explained++; else unexplained++;
+    details.push({ at: +(band[i].now - firstBandNow).toFixed(1), from: a, to: b, speed: +band[i].speed.toFixed(2), gapMs: +(gap * 1000).toFixed(1), reason });
+  }
+  const frames = rl.frames.filter(f => f.tag && f.tag.startsWith('band'));
+  const requestRestarts = frames.reduce((n, f, i, arr) => n + (i && f.requestId !== arr[i - 1].requestId ? 1 : 0), 0);
+  const displayedRuns = runs(frames.map(f => f.faceIntent));
+  const gaps = band.slice(1).map((m, i) => m.t - band[i].t);
+  const speeds = settled.map(m => m.speed).sort((p, q) => p - q);
+  const q = k => speeds.length ? +speeds[Math.min(speeds.length - 1, Math.floor(k * speeds.length))].toFixed(2) : null;
+  return { bandMoves: band.length, settledMoves: settled.length, inBandFraction: settled.length ? +(inBand / settled.length).toFixed(4) : null,
+    measuredSpeed: { min: q(0), p05: q(0.05), p50: q(0.5), p95: q(0.95), max: speeds.length ? +speeds.at(-1).toFixed(2) : null },
+    maxEventGapMs: gaps.length ? +(Math.max(...gaps) * 1000).toFixed(1) : null,
+    faceSwitches: { explained, unexplained, details }, ownerRequestRestartsInBand: requestRestarts,
+    displayedFaceIntentPerFrame: displayedRuns, inputsSeen: rl.inputs.length, maxInputX: Math.max(...rl.inputs.map(i => i.x)) };
+}
 const switches = vals => vals.reduce((n, v, i, a) => n + (i && v !== a[i - 1] ? 1 : 0), 0);
 async function settle() {
   try { await js('m.surface.cancel()'); } catch {}
@@ -113,11 +181,46 @@ const scenarios = {
     }
     return results;
   },
-  async f2() { // drag around the 70 DIP/s threshold. sendInputEvent only takes
+  async f2() { // F2 in-band acceptance B: straight horizontal line, 1px steps
+    // timed at 1/speed, so the controller's 80ms net-displacement speed equals the
+    // planned speed up to delivery jitter. Renderer-side logs are the evidence.
+    await settle();
+    await installRendererLog();
+    const r = makeRecorder('f2'), start = client(0, 1.4);
+    const y = Math.round(start.y);
+    let x = Math.round(start.x);
+    await r.input('mouseDown', { x, y });
+    await js('globalThis.__grok.mark("down")');
+    const marks = [];
+    const run = async (speed, seconds, tag) => {
+      await js(`globalThis.__grok.mark(${JSON.stringify(tag)})`);
+      const t0 = Date.now(), n = Math.round(seconds * speed);
+      for (let i = 1; i <= n; i++) {
+        const due = t0 + i * 1000 / speed - Date.now(); if (due > 0) await wait(due);
+        x += 1;
+        const b = pet.getContentBounds();
+        pet.webContents.sendInputEvent({ type: 'mouseMove', x, y, globalX: b.x + x, globalY: b.y + y, modifiers: ['leftButtonDown'] });
+      }
+    };
+    await run(110, 0.4, 'enter-110');
+    for (let k = 0; k < 10; k++) await run(k % 2 ? 74 : 66, 0.3, k % 2 ? 'band-74' : 'band-66');
+    await js('globalThis.__grok.mark("end")');
+    await wait(100);
+    await r.frame('band-end');
+    await r.input('mouseUp', { x, y });
+    const rl = await js('globalThis.__grok.take()');
+    fs.writeFileSync(path.join(OUT, `f2-renderer-log-${process.env.GROK_REP || 1}.json`), JSON.stringify({ label: LABEL, ...rl }, null, 1));
+    const summary = analyseF2(rl);
+    r.save(summary);
+    await wait(1500);
+  },
+  async f2circle() { // STRESS scenario only (G-20261112-013): integer-pixel circle; its
+    // controller-measured speed really leaves 64..76, so it is NOT an in-band check.
+    // Drag around the 70 DIP/s threshold. sendInputEvent only takes
     // integer DIP, so the path is an integer-pixel circle and each event is
     // timed by its true step length / target speed (constant real speed).
     await settle();
-    const r = makeRecorder('f2'), start = client(0, 1.4), radius = 50;
+    const r = makeRecorder('f2circle'), start = client(0, 1.4), radius = 50;
     const center = { x: Math.round(start.x - radius), y: Math.round(start.y) };
     const pts = [];
     for (let k = 0; k <= 4000; k++) {
