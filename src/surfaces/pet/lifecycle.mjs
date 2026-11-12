@@ -14,8 +14,8 @@ function createPetLifecycle(environment) {
     const remove = () => {
       if (!active) return;
       active = false;
-      target.removeEventListener(type, handler, options);
       removers.delete(remove);
+      target.removeEventListener(type, handler, options);
     };
     target.addEventListener(type, handler, options);
     removers.add(remove);
@@ -55,10 +55,16 @@ function createPetLifecycle(environment) {
   function dispose() {
     if (disposed) return;
     disposed = true;
-    for (const remove of [...removers]) remove();
-    for (const id of [...timeouts.keys()]) clear(id, false);
-    for (const id of [...intervals.keys()]) clear(id, true);
-    for (const id of [...frames.keys()]) cancelAnimationFrame(id);
+    // ARCHITECTURE「实时桌宠路线与分批边界」: one failed host release
+    // must not retain unrelated resources. Retire handles before calling the
+    // host and never retry an uncertain release on a second disposal.
+    const failures = [];
+    const attempt = release => { try { release(); } catch (error) { failures.push(error); } };
+    for (const remove of [...removers]) attempt(remove);
+    for (const id of [...timeouts.keys()]) attempt(() => clear(id, false));
+    for (const id of [...intervals.keys()]) attempt(() => clear(id, true));
+    for (const id of [...frames.keys()]) attempt(() => cancelAnimationFrame(id));
+    if (failures.length) throw new AggregateError(failures, 'Pet lifecycle cleanup failed');
   }
   return Object.freeze({ listen, requestAnimationFrame, cancelAnimationFrame, dispose,
     setTimeout: (callback, delay) => schedule(callback, delay, false), clearTimeout: id => clear(id, false),

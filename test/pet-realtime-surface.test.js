@@ -378,6 +378,9 @@ test('cleanup errors are separate occurrences and terminal rejections use the sa
   assert.deepEqual(rows.map(row => row.operation), ['cleanup-lifecycle', 'cleanup-viewport', 'cleanup-stage',
     'terminal-diagnostics', 'terminal-runtime-publication']);
   assert.equal(f.stage.disposals, 1); assert.equal(f.subscriptions(), 0);
+  assert.equal(f.frames.size, 0, 'listener failure cannot skip owned frame cancellation');
+  for (const target of [f.document, f.media, ...Object.values(f.elements)])
+    assert.equal(target.listeners.size, 0, 'unrelated targets are still released');
   f.surface.dispose(); await flush(); assert.equal(f.surface.readDiagnostics().errorLog.total, 5);
 });
 
@@ -395,7 +398,10 @@ test('non-Error terminal and cleanup failures cannot interrupt disposal or diagn
     assert.equal(value.pendingOperations, 0); assert.equal(value.closed, true); assert.equal(value.stage, null);
     assert.equal(f.stage.disposals, 1); assert.equal(f.subscriptions(), 0);
     const expected = typeof error === 'object' && error !== null ? '[unprintable error]' : String(error);
-    assert(value.errors.every(message => message.endsWith(expected)));
+    assert(value.errorLog.rows.find(row => row.operation === 'cleanup-lifecycle').message.endsWith('Pet lifecycle cleanup failed'));
+    assert(value.errorLog.rows.filter(row => row.operation !== 'cleanup-lifecycle').every(row => row.message.endsWith(expected)));
+    assert.equal(f.frames.size, 0);
+    for (const target of [f.document, f.media, ...Object.values(f.elements)]) assert.equal(target.listeners.size, 0);
     const load = deferred(), late = fixture({ loadStage: () => load.promise });
     late.stage.dispose = () => { throw error; };
     const started = late.surface.start(); await flush(); late.surface.dispose(); load.resolve(late.stage);

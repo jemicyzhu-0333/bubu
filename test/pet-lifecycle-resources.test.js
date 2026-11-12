@@ -3,6 +3,52 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const { createPetLifecycle } = require('../src/surfaces/pet/lifecycle.mjs');
 
+test('terminal cleanup attempts every owned resource even if a host release throws', () => {
+  for (const failing of ['listener', 'timeout', 'interval', 'frame']) {
+    const attempts = [], callbacks = [], expected = ['listener', 'second-listener', 'timeout', 'interval', 'frame'];
+    let calls = 0;
+    const failure = new Error(`${failing} release failed`);
+    const release = kind => { attempts.push(kind); if (kind === failing) throw failure; };
+    const set = fn => { callbacks.push(fn); return 1; };
+    const life = createPetLifecycle({ setTimeout: set, clearTimeout: () => release('timeout'),
+      setInterval: set, clearInterval: () => release('interval'),
+      requestAnimationFrame: set, cancelAnimationFrame: () => release('frame') });
+    for (const kind of ['listener', 'second-listener']) life.listen({
+      addEventListener(_type, fn) { callbacks.push(fn); },
+      removeEventListener() { release(kind); }
+    }, 'change', () => calls++);
+    life.setTimeout(() => calls++, 1); life.setInterval(() => calls++, 1); life.requestAnimationFrame(() => calls++);
+    assert.throws(() => life.dispose(), error => error instanceof AggregateError && error.errors[0] === failure);
+    assert.deepEqual(attempts, expected);
+    life.dispose();
+    callbacks.forEach(fn => fn(1));
+    assert.equal(calls, 0);
+    assert.deepEqual(attempts, expected, 'uncertain host releases must not be retried');
+  }
+});
+
+test('terminal cleanup retains every failure, including non-Error throws', () => {
+  const first = new Error('timeout release failed'), last = { code: 'frame-release-unknown' };
+  const life = createPetLifecycle({ setTimeout: () => 1, clearTimeout() { throw first; },
+    setInterval: () => 1, clearInterval() { throw null; },
+    requestAnimationFrame: () => 1, cancelAnimationFrame() { throw last; } });
+  life.setTimeout(() => {}, 1); life.setInterval(() => {}, 1); life.requestAnimationFrame(() => {});
+  assert.throws(() => life.dispose(), error => error instanceof AggregateError
+    && error.errors.length === 3 && error.errors[0] === first && error.errors[1] === null && error.errors[2] === last);
+  assert.doesNotThrow(() => life.dispose());
+});
+
+test('failed independent listener removal invalidates callbacks and is not retried at disposal', () => {
+  let callback, removals = 0, runs = 0;
+  const failure = new Error('listener release unknown');
+  const life = createPetLifecycle({});
+  const remove = life.listen({ addEventListener(_type, fn) { callback = fn; },
+    removeEventListener() { removals++; throw failure; } }, 'change', () => runs++);
+  assert.throws(remove, failure);
+  callback(); remove(); life.dispose();
+  assert.equal(runs, 0); assert.equal(removals, 1);
+});
+
 test('presentation resources cancel exactly their own handles and suppress already captured callbacks', () => {
   let id = 0, runs = 0;
   const active = new Map(), queued = [], removed = [];
