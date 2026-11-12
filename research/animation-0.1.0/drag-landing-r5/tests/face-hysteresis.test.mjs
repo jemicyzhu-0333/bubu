@@ -42,3 +42,14 @@ test('frame schedules do not introduce near-threshold face restarts',()=>{
  for(let i=0;i<60;i++){const end=t+.1;for(let frame=1;t+frame/fps<end-1e-9;frame++)assert.equal(c.advance(t+frame/fps).faceIntent,'T05');
  x+=(i%2?71:69)*.1;assert.equal(c.move(end,{x,y:0}).faceIntent,'T05');t=end;}}
 });
+test('after stationary timeout, resumed steady 72 DIP/s reaches fast face',()=>{
+ const f=gesture(),c=f.controller;f.step(100);let t=c.time+.3,x=c.intent.points.at(-1).x;c.advance(t);
+ const faces=[];for(let i=0;i<40;i++){t+=1/60;x+=72/60;faces.push(c.move(t,{x,y:0}).faceIntent);if(Math.hypot(c.velocity.x,c.velocity.y)>70)assert.equal(faces.at(-1),'T05');}
+ assert.ok(faces.indexOf('T05')>=0&&faces.indexOf('T05')<12,'entry must not wait for a 76 DIP/s crossing');
+ assert.equal(faces.at(-1),'T05');
+});
+test('after stationary timeout, 69/71 jitter settles without repeated switches',()=>{
+ const f=gesture(),c=f.controller;f.step(100);let t=c.time+.3,x=c.intent.points.at(-1).x;c.advance(t);
+ const faces=[];for(let i=0;i<160;i++){t+=1/60;x+=(i%2?71:69)/60;faces.push(c.move(t,{x,y:0}).faceIntent);}
+ assert(faces.slice(12).every(face=>face===faces[12]));
+});

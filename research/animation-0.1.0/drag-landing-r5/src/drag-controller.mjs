@@ -9,12 +9,15 @@ const finitePoint=p=>p&&Number.isFinite(p.x)&&Number.isFinite(p.y)&&Math.max(Mat
 export class DragController {
  constructor(profile,{struggleCycleSeconds=.82}={}){if(!Number.isFinite(struggleCycleSeconds)||struggleCycleSeconds<.65||struggleCycleSeconds>1)throw RangeError('Struggle cadence must be within .65–1 seconds');this.struggleCycleSeconds=struggleCycleSeconds;this.profile=profile;this.time=0;this.mode='rest';this.held=false;this.disposed=false;this.hidden=false;this.intent=new InputIntent();this.pickupAt=null;this.lastMove=0;this.velocity={x:0,y:0};this.lag={x:0,y:0};this.lagV={x:0,y:0};this.events=[];this.releaseAt=0;this.releaseDuration=.5;this.releasePose=null;this.landingFaceUntil=-Infinity;this.airborneFace=null;}
  // PRODUCT「直接交互」: stabilize only expression intent, never the body mode/pose.
- // Candidate 64/76 DIP/s band needs visual validation; first response retains 70.
+ // Candidate 64/76 DIP/s band needs visual validation. New motion segments first
+ // enter above 70; until then null displays 01 without latching the warm-up sample.
+ // Thresholds compare computed DIP/s strictly; decimal sampling can round at edges.
+ // Physical mode is independent: consumers must use faceIntent, not infer it.
  updateAirborneFace(){
   if(this.hidden||!this.held||['pending','pickup'].includes(this.mode)){this.airborneFace=null;return;}
   const speed=Math.hypot(this.velocity.x,this.velocity.y);
-  if(this.time-this.lastMove>=.12){this.airborneFace='01';return;}
-  if(this.airborneFace===null)this.airborneFace=speed>70?'T05':'01';
+  if(this.time-this.lastMove>=.12){this.airborneFace=null;return;}
+  if(this.airborneFace===null){if(speed>70)this.airborneFace='T05';}
   else if(this.airborneFace==='T05'&&speed<64)this.airborneFace='01';
   else if(this.airborneFace==='01'&&speed>76)this.airborneFace='T05';
  }

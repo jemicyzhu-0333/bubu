@@ -34,5 +34,22 @@
   "runtimeChanges": false,
   "restRigGeometryChanges": false,
   "verificationLimit": "CPU plus offline rendering; browser/WebGL/OS unverified",
-  "independentReview": "no remaining functional blockers; artistic feedback separate"
+  "independentReview": "no remaining functional blockers; artistic feedback separate",
+  "historicalValidationNote": "Existing top-level test/preview/approval fields describe the historical baseline, not the current F2 candidate.",
+  "faceIntentCandidate": {
+    "controllerSha256": "317c1d44879db6ce5f94ef4e3909024c7eeb84a4d5a911a0ff8eb427515ac735",
+    "pureTests": {
+      "passed": 19,
+      "total": 19
+    },
+    "visualStatus": "unverified",
+    "policy": "70 first entry after pickup/pause; then 64/76 hysteresis; physical trajectory unchanged",
+    "workbenchTests": {
+      "command": "npm test (including dependency verifier)",
+      "passed": 62,
+      "total": 62,
+      "dependencyHashes": 19,
+      "scope": "actual full18/D2 CPU, no WebGL/OS acceptance"
+    }
+  }
 }

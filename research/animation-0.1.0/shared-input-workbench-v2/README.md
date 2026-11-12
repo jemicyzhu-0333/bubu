@@ -37,3 +37,7 @@ Initial R5 physical sibling-layout restore: 59/59 tests and 15 dependency hashes
 ## Bounded smile-tail delta
 
 The current V2 keeps the interaction face through body rest only until the controller’s absolute contact + .90 deadline. On the next frame at or after this deadline, it releases interaction and enables the existing P1 rest context. landingP2 exit is .40 seconds; ordinary P2 remains unchanged. Actual new grab clears the tail before pending recognition; hidden clears the tail immediately. A long frame gap cannot restart or extend the deadline. The body settle, held struggle, inertia, descent and ground placement are unchanged.
+
+## Face intent contract (F2 candidate)
+
+`mode` describes the unchanged physical trajectory, not an expression ID. Consumers must use `snapshot().faceIntent`; do not derive T05/01 from `mode`. At a new movement segment the first speed above 70 DIP/s selects T05; subthreshold warm-up samples display 01 without latching it. Thereafter T05 exits below 64 and 01 re-enters above 76. A stationary interval of 0.12 s clears the latch. Pickup N3, descent null and landing P2 retain precedence. Thresholds compare computed DIP/s strictly and remain subject to visual validation; no body or clock changes.
