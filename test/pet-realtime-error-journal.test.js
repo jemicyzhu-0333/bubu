@@ -93,3 +93,42 @@ test('non-Error rejections and unprintable exceptions still produce bounded occu
   assert.equal(journal.snapshot().total, 5);
   assert.deepEqual(journal.messages(), ['null', 'undefined', 'rejected text', '[unprintable error]', '[unprintable error]']);
 });
+
+test('path redaction preserves numeric progress and URL error context without exposing URL components', () => {
+  assert.equal(errorMessage('loaded 3/4 textures, then WebGL lost'), 'loaded 3/4 textures, then WebGL lost');
+  assert.equal(errorMessage('fetch https://u:p@host/a/b failed code=7'), 'fetch [url] failed code=7');
+  for (const input of [
+    'https://private.example/user/alice?access_token=secret#private failed code=7',
+    'HTTP://private.example/private failed code=7'
+  ]) {
+    const output = errorMessage(input);
+    assert.equal(output, '[url] failed code=7');
+    assert.equal(errorMessage(output), output);
+  }
+  // Do not adopt whitespace-delimited path matching: spaces can be private names.
+  for (const input of ['C:/Users/Alice Smith/private.txt failed',
+    '/home/Alice Smith/private.txt failed', 'file:///home/Alice Smith/private.txt failed',
+    '/home/alice/3/4/private.txt failed', '3/4/private.txt failed']) {
+    const output = errorMessage(input);
+    assert.doesNotMatch(output, /Alice|Smith|alice|private/);
+    assert.equal(errorMessage(output), output);
+  }
+});
+
+test('repeated aggregate sanitization preserves separators and never trusts a redaction prefix', () => {
+  const input = new AggregateError([Error('token="sensitive-one"'),
+    Error('password="sensitive-two"'), Error('fetch https://u:p@host/a failed code=7'),
+    Error('loaded 3/4 textures, then WebGL lost')], 'cleanup');
+  const first = errorMessage(input);
+  assert.match(first, /token=\[redacted\]; 2: password=\[redacted\]; 3:/);
+  assert.doesNotMatch(first, /sensitive|host|u:p/);
+  const journal = createErrorJournal(); journal.record('cleanup-lifecycle', first);
+  assert.equal(journal.messages()[0], first);
+  assert.equal(errorMessage(errorMessage(first)), first);
+  for (const value of ['token=[redacted]sensitive', 'token=[redacted]/sensitive', 'token=[redacted];sensitive', 'token=[redacted],sensitive',
+    'Authorization: Bearer [redacted]sensitive', 'Bearer [redacted]sensitive']) {
+    const output = errorMessage(value);
+    assert.doesNotMatch(output, /sensitive/);
+    assert.equal(errorMessage(output), output);
+  }
+});

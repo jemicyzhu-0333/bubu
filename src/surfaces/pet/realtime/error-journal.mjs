@@ -15,11 +15,15 @@ function scalarMessage(error, limit) {
     // Redact each bounded fragment before joining: a truncated quoted secret
     // must not consume another child's opening quote and expose its value.
     return String(error instanceof Error ? error.message : error).slice(0, limit)
-      .replace(/(authorization\s*:\s*(?:bearer|basic)\s+)\S+/gi, '$1[redacted]')
-      .replace(/((?:api[_-]?key|(?:access[_-]?)?token|password|secret)["']?\s*[=:]\s*)(?:"[^"]*(?:"|$)|'[^']*(?:'|$)|[^\s"']+)/gi, '$1[redacted]')
+      // URLs are removed completely: hosts can also identify private services.
+      .replace(/https?:\/\/[^\s"']+/gi, '[url]')
+      .replace(/(authorization\s*:\s*(?:bearer|basic)\s+)(?:\[redacted\](?=[;,]\s|\s|$)|\S+)/gi, '$1[redacted]')
+      .replace(/((?:api[_-]?key|(?:access[_-]?)?token|password|secret)["']?\s*[=:]\s*)(?:\[redacted\](?=[;,]\s|\s|$)|"[^"]*(?:"|$)|'[^']*(?:'|$)|[^\s"']+)/gi, '$1[redacted]')
       .replace(/(\b[a-z][a-z\d+.-]{0,31}:\/\/)[^\s/:]+:[^\s@]+@/gi, '$1[redacted]@')
-      .replace(/(?:file:\/\/\/|[A-Za-z]:[\\/]|\/)[^\r\n"']+/g, '[path]')
-      .replace(/(?:sk-[A-Za-z0-9_-]+|Bearer\s+\S+)/gi, '[redacted]').slice(0, limit);
+      // Ordinary paths still consume spaces conservatively; only an isolated
+      // numeric ratio is unambiguously non-path diagnostic context.
+      .replace(/\b\d+\/\d+\b(?![\/\\\w])|(?:file:\/\/\/|[A-Za-z]:[\\/]|\/)[^\r\n"']+/g, match => /^\d+\/\d+$/.test(match) ? match : '[path]')
+      .replace(/(?:sk-[A-Za-z0-9_-]+|Bearer\s+(?:\[redacted\](?=[;,]\s|\s|$)|\S+))/gi, '[redacted]').slice(0, limit);
   }
   catch { return '[unprintable error]'; }
 }

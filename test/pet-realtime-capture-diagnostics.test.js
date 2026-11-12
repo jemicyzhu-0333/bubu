@@ -155,3 +155,16 @@ test('diagnostic summaries preserve latest pending count without confusing unkno
   assert.equal(report.rendererDiagnostics[0].lastPendingOperations, null);
   validateCapturePayload(report);
 });
+
+test('journal context and aggregate separators survive collector sanitization and packaging', () => {
+  const journal = createErrorJournal();
+  journal.record('cleanup-lifecycle', new AggregateError([
+    Error('token="sensitive-one"'), Error('loaded 3/4 textures, then WebGL lost'),
+    Error('fetch https://u:p@private.example/a?token=secret failed code=7')
+  ], 'cleanup'));
+  const report = draft(); diagnosticReporter(report).observe({ instanceId: 'context', errorLog: journal.snapshot() });
+  const packaged = decodeCapturePackage(encodeCapturePackage(finalizeReport(report)));
+  assert.equal(packaged.errors[0].message, journal.messages()[0]);
+  assert.match(packaged.errors[0].message, /then WebGL lost; 3: fetch \[url\] failed code=7/);
+  assert.doesNotMatch(JSON.stringify(packaged), /sensitive-one|private.example|u:p|token=secret/);
+});
