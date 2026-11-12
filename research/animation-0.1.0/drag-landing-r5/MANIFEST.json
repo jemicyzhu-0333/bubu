@@ -1,27 +1,21 @@
 {
-  "version": "0.1.0-drag-landing-r5-smile-tail",
+  "version": "0.1.0-drag-landing-r5-face-hysteresis-candidate",
   "gitDestination": "research/animation-0.1.0/drag-landing-r5",
   "baseline": "1325d43ea4491b734991fa703fdcf209a8813bb5",
   "requiresSibling": "shared-input-workbench-v2",
-  "sourceController": "0413b3b1604b32fa4e969ce29a8ebc1885e36316b8f94e16fea8f60e7a91efb1",
-  "status": "functional-reviewed; visual-preview-delivered-pending-feedback",
+  "sourceController": "317c1d44879db6ce5f94ef4e3909024c7eeb84a4d5a911a0ff8eb427515ac735",
+  "status": "face-hysteresis-candidate; CPU checks only; visual and native-input acceptance pending",
   "preservesAcceptedR4Held": true,
   "runtimeOrRigChanges": false,
   "verification": {
-    "restoredController": 9,
-    "sharedHost": 62,
-    "independentControllerNew": 4,
-    "independentHost": 62,
-    "actualD2FrameRates": [
-      30,
-      60,
-      120
-    ]
+    "currentCandidateRecord": "STATUS.json#faceIntentCandidate",
+    "historicalRunRecords": "historicalValidation; evidence/ remains unchanged"
   },
   "previewExcluded": {
     "frames": 271,
     "fps": 30,
-    "durationSeconds": 9.033333
+    "durationSeconds": 9.033333,
+    "scope": "historical preview only; not a preview of this candidate"
   },
   "files": [
     {
@@ -46,8 +40,8 @@
     },
     {
       "path": "STATUS.json",
-      "bytes": 1211,
-      "sha256": "e71a9124e654f9bba97183d99a0da41b8d0f39b505a944e3e448b1af7de23d43"
+      "bytes": 1906,
+      "sha256": "ad721e8134d032daf417f150b9f71e01351f5597f8e3d4502ac046578850f1c7"
     },
     {
       "path": "evidence/controller-tests.log",
@@ -186,8 +180,8 @@
     },
     {
       "path": "src/drag-controller.mjs",
-      "bytes": 7935,
-      "sha256": "0413b3b1604b32fa4e969ce29a8ebc1885e36316b8f94e16fea8f60e7a91efb1"
+      "bytes": 8972,
+      "sha256": "317c1d44879db6ce5f94ef4e3909024c7eeb84a4d5a911a0ff8eb427515ac735"
     },
     {
       "path": "src/export-scene-frame.mjs",
@@ -206,18 +200,51 @@
     },
     {
       "path": "tests/landing.test.mjs",
-      "bytes": 2192,
-      "sha256": "3613d90c660865e48dd1e4fc819c976d22253a2517e7b25ba122433df1ae2d0f"
+      "bytes": 2749,
+      "sha256": "7cb3d6f019cae9f780c05e98ab9d2d6354a76dd35b77f90988e299bc15614a17"
     },
     {
       "path": "tests/smile-tail.test.mjs",
       "bytes": 2144,
       "sha256": "d974c3f14fb5636e2866176fe2ebc9bfb6aff223df758229d05bc500b421a8b1"
+    },
+    {
+      "path": "tests/face-hysteresis.test.mjs",
+      "bytes": 3825,
+      "sha256": "db120f0562dfe6b18459840a158c1b88e9f3b0cc00fdc6bbf3f13b0fb9fa7dad"
     }
   ],
   "faceTail": {
     "intentUntilContactPlusSeconds": 0.9,
     "exitSeconds": 0.4,
     "bodySettleSecondsUnchanged": 0.48
-  }
+  },
+  "historicalValidation": {
+    "version": "0.1.0-drag-landing-r5-smile-tail",
+    "baseline": "1325d43ea4491b734991fa703fdcf209a8813bb5",
+    "sourceController": "0413b3b1604b32fa4e969ce29a8ebc1885e36316b8f94e16fea8f60e7a91efb1",
+    "status": "functional-reviewed; visual-preview-delivered-pending-feedback",
+    "verification": {
+      "restoredController": 9,
+      "sharedHost": 62,
+      "independentControllerNew": 4,
+      "independentHost": 62,
+      "actualD2FrameRates": [
+        30,
+        60,
+        120
+      ]
+    },
+    "previewExcluded": {
+      "frames": 271,
+      "fps": 30,
+      "durationSeconds": 9.033333
+    },
+    "manifestAtCommit": "3751977ceac5c9bdcefd76a47aa5fa482f207a7a",
+    "manifestSha256": "1af8172c36660e41987260575c06b9a260b8a6a0a2942c3d6fb56aaf36a74af3"
+  },
+  "historicalSourceController": "0413b3b1604b32fa4e969ce29a8ebc1885e36316b8f94e16fea8f60e7a91efb1",
+  "manifestRole": "Current file inventory. Historical verification and preview results are retained separately and are not current candidate acceptance.",
+  "baselineRole": "Historical R5 baseline; current F2 code is fixed by currentCandidateCodeCommit.",
+  "currentCandidateCodeCommit": "18cf046825c4d7c87ac9be58396ad4966e6025b6"
 }

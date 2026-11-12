@@ -232,6 +232,12 @@ macOS 构建门禁必须对产出 app 和 DMG 复制出的 app 分别执行 `cod
 不是 shared-input-workbench-v2；当前 PROVENANCE 和包 SHA256SUMS 同步候选，历史 evidence 保留不改。
 shared-input-workbench-v2 原始 npm test：19 个依赖哈希通过，62/62 测试通过；
 从仓库归档按哈希恢复 full18/D2，使用锁定 Three 0.186.1。仅 CPU/Raycaster，不含 WebGL/OS。
+r2 同时修正 workbench SHA256SUMS 三项历史遗留过期条目（host-admission、pointer-host、workbench.html），没有改动对应源文件。
+r3 将 r5 MANIFEST 定义为当前文件清单，原验证/预览记录另存 historicalValidation 并附历史提交与原 manifest 哈希；未改写历史 evidence。
+foundation-v1 的 browser-host/pointer-host 同样直接使用 r5 faceIntent，不能用根测试数替代覆盖。
+按研究根 lockfile 安装、保持唯一物理 Three 实例后，body-runtime/*.test.mjs 原始测试（--test-isolation=none）87/87、零跳过；涵盖 approved-pointer、interaction-tail、fixture-grip。
+原始 npm run foundation:test（body-runtime + integration + configuration + contact）224/224、零跳过。
+这些是实际资产 CPU/Node 测试，不是 foundation:verify、浏览器/WebGL 或 Windows 实机验收。
 这些阈值尚未通过目标角色视觉与原生输入验收，不能据此关闭 G2。
 
 本节是当前实时路线的门禁与踩坑台账；后文旧计数、求解实验和帧率仅为历史证据。
