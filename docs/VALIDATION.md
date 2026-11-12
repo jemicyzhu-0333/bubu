@@ -221,6 +221,33 @@ macOS 构建门禁必须对产出 app 和 DMG 复制出的 app 分别执行 `cod
 
 ### 实时桌宠分批验收（2026-11-01）
 
+**空中表情迟滞候选（2026-11-12，基线 3751977）。** 纯控制器公开输入复现了
+69/71 DIP/s 交替时 160 次采样、159 次表情切换。候选仅为持续空中表情意图增加
+64/76 DIP/s 迟滞；初次或停顿后的运动段首次超过 70 即进入 T05，速度窗预热低速不锁存 01。
+不改变物理模式、姿态、速度窗或动作时间参数，消费者读取 faceIntent，不能从 mode 推导表情。
+研究包原始 npm test 19 项通过，包含双向阈值抖动、停止后 72 恢复、69/71 恢复抖动、
+取消、释放、重抓和 30/60/120 帧调度；R4 物理/时间字段逐项一致。固定 R4 轨迹的
+表情差异另限于 64–76 阈值带、01/T05 且至多一帧，此约束不外推到其他轨迹。
+此前 71 项指根目录 npm run test:integration（IPC/main workflow/Electron security），
+不是 shared-input-workbench-v2；当前 PROVENANCE 和包 SHA256SUMS 同步候选，历史 evidence 保留不改。
+shared-input-workbench-v2 原始 npm test：19 个依赖哈希通过，62/62 测试通过；
+从仓库归档按哈希恢复 full18/D2，使用锁定 Three 0.186.1。仅 CPU/Raycaster，不含 WebGL/OS。
+r2 同时修正 workbench SHA256SUMS 三项历史遗留过期条目（host-admission、pointer-host、workbench.html），没有改动对应源文件。
+r3 将 r5 MANIFEST 定义为当前文件清单，原验证/预览记录另存 historicalValidation 并附历史提交与原 manifest 哈希；未改写历史 evidence。
+foundation-v1 的 browser-host/pointer-host 同样直接使用 r5 faceIntent，不能用根测试数替代覆盖。
+按研究根 lockfile 安装、保持唯一物理 Three 实例后，body-runtime/*.test.mjs 原始测试（--test-isolation=none）87/87、零跳过；涵盖 approved-pointer、interaction-tail、fixture-grip。
+原始 npm run foundation:test（body-runtime + integration + configuration + contact）224/224、零跳过。
+这些是实际资产 CPU/Node 测试，不是 foundation:verify、浏览器/WebGL 或 Windows 实机验收。
+r4 新增真实 D2 pointer-host 正向用例：公开 pointer 输入以 69/71 DIP/s 交替 100 次，
+实际表情 owner 保持同一个 T05 requestId 并进入 hold；不注入控制器、owner 或 raycast。
+变异对照：临时换回 3751977 旧控制器，原 body-runtime 87/87 仍通过，新增用例在实际
+state.face.candidate（01 而非 T05）断言失败；恢复后控制器与候选提交逐字节一致。
+新增后的 body-runtime 原始通配测试 88/88，原始 foundation:test 225/225，均零跳过；
+r5 原始 npm test 19/19，workbench 原始 npm test（含 19 依赖哈希）62/62，两包 SUMS 通过。Grok 独立测试固定于
+c3362ba61022e0ee8fb53c31bfc6f72f887b1ba1，原样运行 f2*.test.mjs 在候选上 2/2；
+其阈值带用例观察 host.drag.faceIntent，新用例另外观察实际 face owner/requestId/hold，覆盖互补。
+这些阈值尚未通过目标角色视觉与原生输入验收，不能据此关闭 G2。
+
 本节是当前实时路线的门禁与踩坑台账；后文旧计数、求解实验和帧率仅为历史证据。
 最新 Windows 源码证据见下节；“首批”表中的状态只描述该批次，不覆盖后续原生采集。
 首批从远端 `feature/pet-animation-v2` 的 `33a04d35ba66984663604961c0c619937d70ede0`

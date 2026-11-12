@@ -7,8 +7,8 @@ const cleanError = error => sanitizeDiagnosticText(String(error?.message ?? erro
 export function sanitizeDiagnosticText(text) {
   return text.replace(/\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)/g, '')
     .replace(/\x1b\[[0-?]*[ -/]*[@-~]/g, '').replace(/[\x00-\x08\x0b-\x1f\x7f]/g, '')
-    .replace(/(authorization\s*:\s*(?:bearer|basic)\s+)\S+/gi, '$1[redacted]')
-    .replace(/((?:api[_-]?key|(?:access[_-]?)?token|password|secret)["']?\s*[=:]\s*)(?:"[^"]*(?:"|$)|'[^']*(?:'|$)|[^\s"']+)/gi, '$1[redacted]')
+    .replace(/(authorization\s*:\s*(?:bearer|basic)\s+)(?:\[redacted\](?=[;,]\s|\s|$)|\S+)/gi, '$1[redacted]')
+    .replace(/((?:api[_-]?key|(?:access[_-]?)?token|password|secret)["']?\s*[=:]\s*)(?:\[redacted\](?=[;,]\s|\s|$)|"[^"]*(?:"|$)|'[^']*(?:'|$)|[^\s"']+)/gi, '$1[redacted]')
     .replace(/(\b[a-z][a-z\d+.-]{0,31}:\/\/)[^\s/:]+:[^\s@]+@/gi, '$1[redacted]@');
 }
 const utf8Prefix = (text, bytes) => new TextDecoder().decode(Buffer.from(text).subarray(0, bytes), { stream: true });

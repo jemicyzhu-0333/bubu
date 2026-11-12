@@ -4,6 +4,7 @@ const assert = require('node:assert/strict');
 const { diagnosticReporter } = require('../tools/pet-realtime-capture/diagnostics.mjs');
 const { createCaptureReport, appendCaptureError, finalizeReport, validateCapturePayload } = require('../tools/pet-realtime-capture/report.mjs');
 const { encodeCapturePackage, decodeCapturePackage } = require('../tools/pet-realtime-capture/package.mjs');
+const { createErrorJournal } = require('../src/surfaces/pet/realtime/error-journal.mjs');
 const value = (total, { instanceId = 'renderer-0', message = 'runtime unavailable', operation = 'runtime-publication' } = {}) => ({
   instanceId, errorLog: { schemaVersion: 1, total, overwritten: Math.max(0, total - 8),
     rows: Array.from({ length: Math.min(total, 8) }, (_, index) => ({ sequence: Math.max(0, total - 8) + index + 1,
@@ -78,6 +79,23 @@ test('retained diagnostics are bounded and sanitized before package persistence'
   assert.equal(report.errors.at(-1).message.length, 512);
 });
 
+test('expanded aggregate causes remain one occurrence and are sanitized before package persistence', () => {
+  const journal = createErrorJournal();
+  const child = new Error('release failed token=synthetic-token password="synthetic-password"');
+  child.stack = 'unrecorded-stack'; child.payload = 'unrecorded-payload';
+  journal.record('cleanup-lifecycle', new AggregateError([
+    child, new AggregateError([new Error('C:\\Users\\Private\\secret.txt'),
+      'https://name:synthetic-credential@example.com/path'], 'nested cleanup')
+  ], 'Pet lifecycle cleanup failed'));
+  const report = draft(); diagnosticReporter(report).observe({ instanceId: 'aggregate-renderer', errorLog: journal.snapshot() });
+  const packaged = decodeCapturePackage(encodeCapturePackage(finalizeReport(report)));
+  assert.equal(packaged.rendererDiagnostics[0].totalOccurrences, 1);
+  const serialized = JSON.stringify(packaged);
+  assert.doesNotMatch(serialized, /synthetic-token|synthetic-password|synthetic-credential|Private|secret.txt|unrecorded-stack|unrecorded-payload/);
+  assert.match(packaged.errors[0].message, /release failed/);
+  assert(packaged.errors[0].message.length <= 512);
+});
+
 test('legacy observations retain useful details without asserting an occurrence count', () => {
   const report = draft(), reporter = diagnosticReporter(report);
   const input = { instanceId: 'legacy', errors: ['panel unavailable'] };
@@ -136,4 +154,17 @@ test('diagnostic summaries preserve latest pending count without confusing unkno
   delete input.pendingOperations; reporter.observe(input);
   assert.equal(report.rendererDiagnostics[0].lastPendingOperations, null);
   validateCapturePayload(report);
+});
+
+test('journal context and aggregate separators survive collector sanitization and packaging', () => {
+  const journal = createErrorJournal();
+  journal.record('cleanup-lifecycle', new AggregateError([
+    Error('token="sensitive-one"'), Error('loaded 3/4 textures, then WebGL lost'),
+    Error('fetch https://u:p@private.example/a?token=secret failed code=7')
+  ], 'cleanup'));
+  const report = draft(); diagnosticReporter(report).observe({ instanceId: 'context', errorLog: journal.snapshot() });
+  const packaged = decodeCapturePackage(encodeCapturePackage(finalizeReport(report)));
+  assert.equal(packaged.errors[0].message, journal.messages()[0]);
+  assert.match(packaged.errors[0].message, /then WebGL lost; 3: fetch \[url\] failed code=7/);
+  assert.doesNotMatch(JSON.stringify(packaged), /sensitive-one|private.example|u:p|token=secret/);
 });

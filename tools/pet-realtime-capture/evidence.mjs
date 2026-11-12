@@ -59,7 +59,7 @@ export function hostMetadata() {
 }
 export function safeMessage(error) {
   const code = ['ENOENT', 'EACCES', 'EPERM', 'ENOSPC', 'EEXIST', 'ABORT_ERR', 'ETIMEDOUT'].includes(error?.code) ? error.code : 'capture-error';
-  return { code, message: sanitizeDiagnosticText(String(error?.message ?? error).slice(0, 65536)).replace(/(?:file:\/\/\/|[A-Za-z]:[\\/]|\/)[^\r\n"']+/g, '[path]')
+  return { code, message: sanitizeDiagnosticText(String(error?.message ?? error).slice(0, 65536)).replace(/\b\d+\/\d+\b(?![\/\\\w])|(?:file:\/\/\/|[A-Za-z]:[\\/]|\/)[^\r\n"']+/g, match => /^\d+\/\d+$/.test(match) ? match : '[path]')
     .replace(/(?:sk-[A-Za-z0-9_-]+|Bearer\s+\S+)/gi, '[redacted]').slice(0, 512) };
 }
 export function writePrivateJSON(file, value) {

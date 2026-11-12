@@ -13,6 +13,22 @@
 
 ## 任务表
 
+2026-11-12 集成候选：dot 在独立分支基于最新 V2 `3751977ceac5c9bdcefd76a47aa5fa482f207a7a`，完整集成生命周期候选 `2cfbf2a26e4bae130ccc5e0523a664cb6c4ba0d7` 与 F2 候选 `fbe87410fe9d4dfcf8e873584fa74b9c1ca29a6a`（包含其全部前置修正），无代码或文档冲突，保留原记录与各轮历史证据。Grok 固定 `c3362ba61022e0ee8fb53c31bfc6f72f887b1ba1` 的原始 f2*.test.mjs 及辅助文件临时按原路径物化、逐字节核对，原命令执行2/2通过后移除临时副本，不修改其测试分支。64/76扫段约束阈值，69/71实际owner用例约束 requestId/hold，后续验收必须保留两组互补覆盖。本候选不引入 Grok 测试目录。组合最终云端 `npm run check` exit0：7,158 total / 7,153 pass / 5 skip / 0 fail，语法/边界/架构/资源门禁通过；集成71/71。r5原命令19/19、workbench原命令62/62，两包SHA256SUMS通过；foundation原命令225/225、零跳过。D2与full18按仓库脚本重新物化并校验；workbench首跑缺full18失败，补物化后上述复跑通过。5项主门禁跳过为3项Windows原生、旧眼睛基线、可选SQLite；比单独生命周期少1项是D2已物化，不是原生能力改善。所有结果是云端CPU，不是CI或体验验收。
+
+未独立复现的外部风险：Grok 在 [6821121371](https://github.com/jemicyzhu-0333/evolutionary-specialization-lab/pull/1#issuecomment-6821121371) 报告 Linux/Xvfb/Electron/SwiftShader 合成输入下 F2 候选仍有3/9/4次短切换，软件负载与事件计时使测量速度偶尔越阈值。不是 Windows、GPU 或真实 OS 验收，也不能据此断言候选不合格；最短保持时间与轻量平滑仅列后续对照实验，本轮不凭此调参。
+
+不改共享分支。Windows 原生输入、G2 与目标角色视觉阈值仍待验收。
+
+独立后续项：M2 为 UNC/相对路径与跨模块脱敏规则统一；N1 为采集工具原始错误 URL 上下文（renderer journal 已遮罩的 URL 不受影响）；N2 为非 HTTP(S) scheme 的上下文保留。合并进统一脱敏后续任务，配套契约测试，本集成不扩修、不声称任意敏感输入安全。2D stop 的逐 owner 失败隔离仍是另一个独立后续项。
+
+2026-11-12 M1/L1 复审修正：dot 基于 `bbfd4e51e9fca55d383521637437463e700fb361`，修改 journal 错误文本脱敏、采集 evidence/supervisor 的对应窄边界、回归与本记录。不修改状态路径、IPC 或原生协议。不把普通路径截断在空格以免泄露含空格路径；独立数字比例保留；HTTP(S) URL 整体遮罩（含 host、凭据、查询和片段），保留其后错误上下文。已脱敏标记只有遇空白/终点或分隔符加空白才作稳定标记，紧邻标记的任意秘密仍被遮罩。journal → collector → 封包反例覆盖上下文与分号保留。M2（UNC/相对路径及 guidance/采集规则统一）另立后续项，不跨模块扩修；本轮不声称日志可接受任意敏感输入。最终云端 `npm run check` exit0：7,158 total / 7,152 pass / 6 skip / 0 fail，语法/边界/架构/资源门禁通过；定向75/75、集成71/71。6项跳过与 R1 相同；不是 CI、GPU 或真实 OS 输入验收。
+
+2026-11-12 R1 复审修正：dot 在独立审查分支基于 `1d9affd42b7b3ccff610d6f55ed2c05d1bb5656f` 修复 AggregateError 根因在 V2 日志丢失的问题。范围扩展到 `realtime/error-journal.mjs`、日志/采集诊断/初始化故障回归及本记录，不改原生协议或动画。保留一个失败发生记录，按顺序提取有界子错误文本（总长2048、单层最多8项、总访问16节点、深度3），每段最多256字符，不读取 stack/cause/payload，不保留原始对象；逐片段脱敏后再拼接，防止截断引号跨子项造成敏感值遗漏，采集封包仍走既有二次脱敏。初始化只注册部分监听后失败也逐项清理并保留原始错误文本。最终云端 `npm run check` exit0：7,155 total / 7,149 pass / 6 skip / 0 fail（启用 Dango、Usagi 与 PET_MOTION Canvas）；语法/边界/架构/资源门禁通过。定向80/80、集成71/71通过。6项跳过仍为3项 Windows 原生、旧眼睛基线、D2资产和可选SQLite驱动；无CI或原生/GPU验收。
+
+R2 独立遗留项：2D `controller.stop()` 在 `petSync.dispose()` 或 `lifetime.dispose()` 抛错时仍可能跳过后续 owner，重复 stop 不能补做。这不是本候选新引入，留待单独改造与注入回归，本轮不扩修；宿主释放失败后回调已失效，但未证明宿主已移除引用，不能承诺内存已回收。
+
+2026-11-12：dot 在独立 `review/dot-lifecycle-cleanup-isolation` 分支核验并修复共享 `src/surfaces/pet/lifecycle.mjs` 的宿主清理失败隔离，基线 `3751977ceac5c9bdcefd76a47aa5fa482f207a7a`。范围为该模块、资源行为测试、V2 surface 故障注入回归及本记录；不改动画算法、UI、原生输入协议、共享分支或用户本机。验证属于云端 CPU/模拟宿主，不是实机验收。 本轮 `npm run check` exit0：7,149 total / 7,138 pass / 11 skip / 0 fail，后续语法、边界、架构及资源门禁均通过；调用方定向 76/76、集成 71/71 通过。全量中5项动效 Canvas 跳过后，单独启用 `PET_MOTION_CANVAS_PACKAGE` 补跑相关10项全部通过，不与全量重复加总。其余跳过为3项 Windows 原生、1项旧眼睛基线、1项未恢复 D2 资产和1项可选 SQLite 驱动。异常清理汇总为 AggregateError，该初版 V2 日志只保留一条 cleanup-lifecycle 汇总，根因文本的不足由下述 R1 修正。2D controller 原有外层 stop 遇异常中断问题没有扩修；不声称所有宿主释放成功、原生进程清理或 GPU 验收完成。
+
 | 任务 | 负责人 | 范围（文件/功能） | 基线提交 | 状态 | 测试及真实结果 | 未验证事项 | 阻塞 | 下一步 | 需主人决定 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 手势清理竞态修复 | dot | 完成于 `5cdb6bb`。主要改动：`src/surfaces/pet/realtime/fixture-transport.mjs`、`src/surfaces/pet/realtime/surface.mjs`、`tools/pet-realtime-capture/held-transport-probe.cjs`、`tools/pet-realtime-capture/window-port.cjs`；以及 `test/pet-realtime-fixture-transport.test.js`、`test/pet-realtime-held-transport.test.js`、`test/pet-realtime-surface.test.js`、`research/animation-0.1.0/animation-foundation-v1/body-runtime/fixture-grip.test.mjs`、`docs/ARCHITECTURE.md`、`docs/VALIDATION.md`。修复旧手势清理可能误取消新手势、截断松手收尾。 | `5cdb6bb` | 已完成（代码已合入 V2 头） | **云端完整检查** 7,141 项通过、5 项跳过；**本地针对性测试** 91 项通过。以上来自 dot 记录，Grok 未复跑。本分支**无自动 CI**。 | Windows 实机采集已生成但未解析；该次采集 CLI 返回 2；清理未验证；人工式拖拽未完成。 | 电脑端实机工作暂停，待主人恢复。 | 恢复后先只读解析已有采集，并检查残留进程，不重复采集。采集文件在 dot 本机，路径不公开。 | 何时恢复电脑端实机工作。 |
