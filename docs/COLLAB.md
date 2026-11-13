@@ -13,6 +13,49 @@
 
 ## 任务表
 
+2026-11-13 F1 复审补充登记：dot 在原独立审查分支基于
+`ff52ec22e04d14bda124833d6e4712bca223f0af`，仅补身体down后client滑到头部但motion固定、
+长按3秒不重新获得抚摸资格的实际D2回归，并明确down时的资格合同。范围为原
+`pending-body-drag.test.mjs`、ARCHITECTURE与本记录；不改运行时、持久化、IPC或抚摸语义。
+另只读核对V2与生命周期/F2/document-ready/F1的祖先及差异，不改共享分支。
+
+已读取Grok复审 [G-20261113-013](https://github.com/jemicyzhu-0333/evolutionary-specialization-lab/pull/1#issuecomment-6852612639)：
+其结论是`ff52ec2`无阻塞；原F1测试在`eaea426`为2通过/4失败、补丁为6/6。
+其58文件的更广glob为基线277通过/280总计、补丁288通过/291总计；两边均有3项失败，
+Grok归因为本地缺少被gitignore的coupled-solver/两项regional cage资产。这是外部报告，
+本轮未独立复跑该更广glob，不写成全绿，也不与下方foundation脚本的统计合并。
+
+新增回归固定motion=(0,0)，实际D2身体y=0.8按下后client移至头部y=1.4，持有3秒全程
+pending、pet idle/未held、face为空；同一pointer/contactGeneration、同一owner和唯一actor。
+正常up释放后，在同一头部点新down才进入petting，证明不是射线未命中造成的假阴性。
+最后再次up并等待idle，无capture残留。运行时文件相对`ff52ec2`逐字节未变。
+
+本次最终云端Linux / Node v24.19.0检查（与下方前轮结果分别记录）：
+- `node --test research/animation-0.1.0/animation-foundation-v1/body-runtime/pending-body-drag.test.mjs`：12/12；research目录 `npm run foundation:test`：237/237，零失败/跳过。
+- 根目录启用三个Canvas包变量（与前轮同命令）的 `npm run check`：exit0，7,170 total / 7,165 pass / 5 skip / 0 fail；语法、边界、架构、全部资源门禁通过。5项跳过仍是Windows原生3项、旧眼睛基线及可选SQLite驱动；新增研究测试不在根测试扫描口径内。
+- `npm run test:integration`：71/71；r5和workbench各自 `npm test`：19/19、62/62；两个 `sha256sum -c SHA256SUMS` 均exit0，workbench依赖校验通过。D2/full18按仓库脚本再次核验为already-verified。
+- 原字节物化Grok `a10c81d` 的helpers、F1及F2两文件，执行 `node --test grok-regression-v2/f1-lower-body-drag.test.mjs grok-regression-v2/f2-face-hysteresis.test.mjs grok-regression-v2/f2-foundation-hysteresis-64-76.test.mjs`：8/8；哈希复核后移除临时文件。实际owner的69/71与原64/76扫段覆盖均保留。
+- `git diff --check`通过；本补充仅修改本记录、ARCHITECTURE及原F1测试文件。所有结果为云端CPU/合成输入和既有离屏门禁，不是CI、GPU或原生体验验收。
+
+只读集成核对：刷新远端后V2仍为`3751977ceac5c9bdcefd76a47aa5fa482f207a7a`。
+`merge-base --is-ancestor`确认它以及生命周期`2cfbf2a`、F2完整候选`fbe8741`、
+组合`9f8dc324`和document-ready终点`eaea426`均为`ff52ec2`的祖先。
+`rev-list --left-right --count 3751977...ff52ec2`为0/14；本次仅测试/文档补充再增加1提交。
+`merge-tree --write-tree 3751977 ff52ec2`得到`ff52ec2`原树，无冲突，也未更新任何分支。
+从V2到候选的差异限25文件：7个实现/采集模块、9个测试、5个身份/哈希清单及4份文档；
+没有持久化schema、IPC目录、资源美术或默认生产准入变化。生命周期组包含AggregateError
+根因保留与脱敏后续修正；F2组包含暂停复位、实际owner回归和清单修正，不宜只摘首个fix。
+
+多屏研究头`1cc29f0`与topology fixture头`cea8a5d`均不是候选祖先；候选没有
+`research/multidisplay-contract`目录，`pet-pointer-space.js`和`event-motion.mjs`与V2完全相同，
+单屏能力保护仍在。推荐在owner决定集成后，对新fetch的V2头再次核对祖先、精确候选SHA、
+完整差异和检查结果，在独立集成工作区仅采用`merge --ff-only <已核验候选SHA>`，保留已审查
+历史；远端V2若前进或分叉则停止这份快进方案，重新比较和组合验证，禁止强推。
+不另合并多屏研究分支，也不从旧V2重新cherry-pick F1而遗漏其已审查前置修正。
+本轮只评估，无实际集成。F3/F4/F6、既有F2软件负载观察、M2/N1/N2脱敏与2D stop隔离
+后续仍独立保留；G1/G2/G5的原生输入/捕获/透明合成/混合DPI/资源及性能、G3/G4完整穿搭、
+目标平台打包和体验准入不能由本次CPU测试关闭。
+
 2026-11-13 F1 独立修复登记：dot 基于 `eaea426df1c1948389ce7c930e33fe24b320eb87`
 （已包含 `9f8dc324` 集成候选和页面就绪许可修正）建立独立审查分支。
 范围限定为实际 D2 `body-runtime/pointer-host.mjs` 中非抚摸接触的小幅移动误取消拖拽、

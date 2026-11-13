@@ -53,6 +53,53 @@ test('actual D2: body drift without DOM capture can still start drag while on sk
   } finally { f.h.dispose(); }
 });
 
+test('actual D2: body down cannot gain petting eligibility by sliding client onto the head with fixed motion', async () => {
+  const f = await fixture({ readMotionPoint: () => ({ x: 0, y: 0 }) });
+  const owner = f.h.owner;
+  try {
+    f.emit('pointerdown', .01, f.point(0, .8));
+    const down = f.tick(.01);
+    assert.equal(down.mode, 'pending');
+    assert.equal(down.pointerId, 1);
+    assert.equal(down.pet.phase, 'idle');
+    assert(Number.isSafeInteger(down.contactGeneration));
+    const head = f.point(0, 1.4);
+    f.emit('pointermove', .1, head);
+    for (const t of [.1, .5, 1.1, 2.1, 3.1]) {
+      const s = f.tick(t);
+      assert.equal(s.mode, 'pending', 'three seconds over the head do not requalify a body-origin gesture');
+      assert.equal(s.pointerId, down.pointerId);
+      assert.equal(s.contactGeneration, down.contactGeneration);
+      assert.equal(s.captured, true);
+      assert.equal(s.pet.phase, 'idle');
+      assert.equal(s.pet.held, false);
+      assert.equal(s.face.path, null);
+      assert.strictEqual(f.h.owner, owner);
+      assert.equal(f.h.pool.stats.active, 1);
+      owner.assertCurrent();
+    }
+    f.emit('pointerup', 3.2, { ...head, buttons: 0 });
+    const released = f.tick(3.2);
+    assert.equal(released.mode, 'idle');
+    assert.equal(released.pointerId, null);
+    assert.equal(released.contactGeneration, null);
+    assert.equal(f.target.captured.size, 0);
+    assert.strictEqual(f.h.owner, owner);
+    // A fresh down at the same client point proves that it really hits the head;
+    // the earlier lack of petting was not caused by a missed ray or invalid input.
+    f.emit('pointerdown', 3.3, head);
+    const next = f.tick(3.3);
+    assert.equal(next.pet.phase, 'pending');
+    assert.equal(next.contactGeneration, down.contactGeneration + 1);
+    assert.equal(f.tick(3.8).mode, 'petting');
+    assert.strictEqual(f.h.owner, owner);
+    f.emit('pointerup', 3.9, { ...head, buttons: 0 });
+    assert.equal(f.tick(3.9).pointerId, null);
+    assert.equal(f.target.captured.size, 0);
+    assert.equal(f.tick(6).mode, 'idle');
+  } finally { f.h.dispose(); }
+});
+
 for (const terminal of ['pointerup', 'pointercancel', 'lostpointercapture', 'pointerleave', 'buttons-zero', 'blur', 'hidden']) {
   test(`actual D2: pending body drift still terminates on ${terminal}`, async () => {
     const f = await fixture();
