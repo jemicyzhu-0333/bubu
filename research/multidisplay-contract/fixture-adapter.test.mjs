@@ -3,7 +3,7 @@ import {createFixtureTopologyAdapter} from './fixture-adapter.mjs';
 const displays=()=>[{id:1,rotation:0,scaleFactor:1.25,bounds:{x:0,y:0,width:2048,height:1152}}];
 function fixture(ready=false){const app=new EventEmitter(),screen=new EventEmitter(),powerMonitor=new EventEmitter(),rows=[];let reads=0;
  app.isReady=()=>ready;screen.getAllDisplays=()=>{reads++;return displays();};
- const adapter=createFixtureTopologyAdapter({app,screen,powerMonitor,onSnapshot:s=>rows.push(s)});
+ const adapter=createFixtureTopologyAdapter({app,screen,powerMonitor,readBarrierState:()=>({locked:false,suspended:false}),onSnapshot:s=>rows.push(s)});
  return{app,screen,powerMonitor,rows,adapter,reads:()=>reads};}
 test('no enumeration or admission before app ready; listeners exist before first read',()=>{
  const f=fixture();assert.equal(f.reads(),0);assert.equal(f.adapter.snapshot().reason,'app-not-ready');
@@ -108,3 +108,23 @@ test('point getter exception returns closed result and point fields are read onc
  assert.equal(f.adapter.commitSegment({get x(){throw Error('private error')},y:1},{x:2,y:2},s.revision,s.epoch).reason,'invalid-point-read');
  let reads=0;assert.equal(f.adapter.commitSegment({get x(){reads++;return 1},y:1},{x:2,y:2},s.revision,s.epoch).accepted,true);assert.equal(reads,1);
 });
+function barrierFixture(readBarrierState){const app=new EventEmitter(),screen=new EventEmitter(),powerMonitor=new EventEmitter();let reads=0;
+ app.isReady=()=>false;screen.getAllDisplays=()=>{reads++;return displays();};
+ const adapter=createFixtureTopologyAdapter({app,screen,powerMonitor,readBarrierState});return{app,screen,powerMonitor,adapter,reads:()=>reads};}
+for(const state of [null,{locked:true,suspended:false},{locked:false,suspended:true},{locked:'unknown',suspended:false},{locked:false},{locked:false,suspended:'unknown'}])test(`initial barrier is closed for ${JSON.stringify(state)}`,()=>{
+ const f=barrierFixture(()=>state);f.app.emit('ready');assert.equal(f.reads(),0);assert.equal(f.adapter.snapshot().reason,'barrier-state-unverified');assert.equal(f.adapter.commitSegment({x:1,y:1},{x:2,y:2},1,1).accepted,false);
+});
+test('missing sampler does not interpret idle API active as unlock proof',()=>{const f=barrierFixture(undefined);f.powerMonitor.getSystemIdleState=()=> 'active';f.app.emit('ready');assert.equal(f.reads(),0);});
+test('failed subscription then missed lock is recovered by retry sampling',()=>{let locked=false;const f=barrierFixture(()=>({locked,suspended:false})),on=f.powerMonitor.on;
+ f.powerMonitor.on=()=>{throw Error('subscribe')};f.app.emit('ready');locked=true;f.powerMonitor.emit('lock-screen');f.powerMonitor.on=on;f.adapter.retryStart();assert.equal(f.reads(),0);
+ locked=false;f.powerMonitor.emit('unlock-screen');assert.equal(f.reads(),1);
+});
+test('unknown or throwing sampler remains closed after unlock until positive fresh sample',()=>{let mode=0;const f=barrierFixture(()=>{if(mode===0)throw Error('private');return mode===1?null:{locked:false,suspended:false}});
+ f.app.emit('ready');mode=1;f.powerMonitor.emit('unlock-screen');assert.equal(f.reads(),0);mode=2;f.adapter.refresh();assert.equal(f.reads(),1);
+});
+test('sampler reentry disposal cannot publish a clear result',()=>{let f;f=barrierFixture(()=>{f.adapter.dispose();return{locked:false,suspended:false}});f.app.emit('ready');assert.equal(f.reads(),0);assert.equal(f.adapter.snapshot().reason,'adapter-disposed');});
+test('sampler event ABA discards old result and uses new sample',()=>{let f,n=0;f=barrierFixture(()=>{if(++n===1){f.powerMonitor.emit('lock-screen');f.powerMonitor.emit('unlock-screen');return{locked:false,suspended:false}}return null});f.app.emit('ready');assert.equal(n,2);assert.equal(f.reads(),0);assert.equal(f.adapter.snapshot().reason,'barrier-state-unverified');});
+test('newListener dispose before registration leaves no ghost listener',()=>{const f=fixture();f.screen.on('newListener',e=>{if(e==='display-removed')f.adapter.dispose()});f.app.emit('ready');assert.equal(f.screen.listenerCount('display-removed'),0);assert.equal(f.adapter.snapshot().reason,'adapter-disposed');});
+test('newListener dispose with failed late cleanup reports unverified then retries',()=>{const f=fixture(),remove=f.screen.removeListener;f.screen.on('newListener',e=>{if(e==='display-removed'){f.adapter.dispose();f.screen.removeListener=()=>{throw Error('remove')}}});f.app.emit('ready');assert.equal(f.screen.listenerCount('display-removed'),1);assert.equal(f.adapter.snapshot().reason,'adapter-disposed-cleanup-unverified');f.screen.removeListener=remove;f.adapter.dispose();assert.equal(f.screen.listenerCount('display-removed'),0);});
+test('isReady exception returns terminal adapter and removes ready callback',()=>{const app=new EventEmitter(),screen=new EventEmitter(),powerMonitor=new EventEmitter();let reads=0;app.isReady=()=>{throw Error('private')};screen.getAllDisplays=()=>{reads++;return displays()};const a=createFixtureTopologyAdapter({app,screen,powerMonitor});assert.equal(a.snapshot().reason,'app-readiness-unverified');assert.equal(app.listenerCount('ready'),0);app.emit('ready');a.retryStart();assert.equal(reads,0);assert.equal(powerMonitor.listenerCount('suspend'),0);});
+test('isReady exception plus failed ready removal still cannot activate',()=>{const app=new EventEmitter(),screen=new EventEmitter(),powerMonitor=new EventEmitter();let reads=0;app.isReady=()=>{throw Error('private')};const remove=app.removeListener;app.removeListener=()=>{throw Error('remove')};screen.getAllDisplays=()=>{reads++;return displays()};const a=createFixtureTopologyAdapter({app,screen,powerMonitor});app.removeListener=remove;app.emit('ready');assert.equal(reads,0);a.dispose();});
