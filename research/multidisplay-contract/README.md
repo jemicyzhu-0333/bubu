@@ -17,7 +17,7 @@ Read Electron getAllDisplays metadata without changing settings, then use isolat
 
 ## Reproduce
 `node --test research/multidisplay-contract/oracle.test.mjs`
-30 synthetic/production-gate regression tests; no Electron launch, GPU or native cross-screen acceptance.
+35 synthetic/production-gate regression tests; no Electron launch, GPU or native cross-screen acceptance.
 
 ## Event epoch and commit boundary (research only)
 Content-deduplicated revisions alone cannot see removal/re-addition returning identical content. invalidateEvent therefore synchronously discards the snapshot and increments both epoch and revision for every display-added, display-removed, display-metrics-changed, suspend, lock-screen, resume or unlock-screen notification, even repeated identical ones. Re-enumeration must happen after this revocation and before publication. commitSegment models main-process commit-time epoch plus revision revalidation; segment alone is only the geometry oracle. A new snapshot does not authorize recycling a contact: production integration must require a new contact and bind lease ownership separately. None of these APIs is wired to production or actual Electron event listeners yet.
@@ -27,8 +27,13 @@ Queued proposals must be rechecked at the final mutation, not only on admission.
 Bounds establish coordinate ownership. workArea controls permitted placement/clamping and taskbar exclusion, a distinct policy not implemented by this coordinate oracle. Future placement policy needs its own version so workArea-only changes revoke affected placement actions even when screen-coordinate bounds remain unchanged.
 
 ## Enumeration ownership (research only)
-Call beginEnumeration BEFORE invoking the real enumeration, then observe(result, ticket). A ticket is an opaque, frozen, per-oracle one-shot identity bound to the current epoch and a monotonically increasing request sequence. Newer requests supersede older in-flight requests. Display/power/lock events invalidate pending tickets. Missing, copied, foreign, replayed and out-of-order tickets return stale-enumeration without publishing or disturbing a newer snapshot. Normalization is followed by a second ticket/epoch check to reject synchronous getter reentry that revokes or starts a newer enumeration. State is published only after consuming the ticket.
+Call beginEnumeration BEFORE invoking the real enumeration, then observe(result, ticket). A ticket is a frozen, per-oracle one-shot reference identity (not secret or structurally opaque: epoch and sequence are readable, but copying fields does not grant identity) bound to the current epoch and a monotonically increasing request sequence. Newer requests supersede older in-flight requests. Display/power/lock events invalidate pending tickets. Missing, copied, foreign, replayed and out-of-order tickets return stale-enumeration without publishing or disturbing a newer snapshot. Normalization is followed by a second ticket/epoch check to reject synchronous getter reentry that revokes or starts a newer enumeration. State is published only after consuming the ticket.
 
 An adapter must not attach a newly issued ticket to cached old data; an in-process token cannot prove sensor freshness if the trusted adapter lies about when it read. No API can detect an OS transition that has not yet become observable. Production integration, actual Electron event wiring, OS provenance and G2 remain unimplemented/unverified.
 
 Diagnostics distinguish revoked-awaiting-enumeration (no admitted snapshot), stale-topology (revision mismatch), stale-epoch (commit ownership mismatch) and stale-enumeration (response ownership mismatch). Invalid topology reason codes remain separate. suspend/lock revoke immediately without depending on a future wake/unlock notification.
+
+## Enumeration failure semantics
+An admitted ticket is consumed before any normalization attempt, including an exception. Epoch/sequence are checked again after normalization so a reentrant event or newer request cannot be overwritten. Getter exceptions become enumeration-failed with displays=null; invalid topology also stores no caller values. Failure-state cloning therefore cannot leak or serialize caller objects/functions. Clone the detached candidate before publishing state/revision/key. A stale failing operation leaves any newer published state untouched. These protections are synchronous research invariants, not OS guarantees.
+
+Use one main-process enumeration owner, starting the ticket and real synchronous getAllDisplays in one block. Do not serialize, persist, recreate, compare only fields of, or send tickets over IPC. The authority is reference identity plus epoch/sequence freshness, not confidentiality.
