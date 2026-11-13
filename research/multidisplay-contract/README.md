@@ -17,7 +17,7 @@ Read Electron getAllDisplays metadata without changing settings, then use isolat
 
 ## Reproduce
 `node --test research/multidisplay-contract/oracle.test.mjs`
-35 synthetic/production-gate regression tests; no Electron launch, GPU or native cross-screen acceptance.
+39 synthetic/production-gate regression tests; no Electron launch, GPU or native cross-screen acceptance.
 
 ## Event epoch and commit boundary (research only)
 Content-deduplicated revisions alone cannot see removal/re-addition returning identical content. invalidateEvent therefore synchronously discards the snapshot and increments both epoch and revision for every display-added, display-removed, display-metrics-changed, suspend, lock-screen, resume or unlock-screen notification, even repeated identical ones. Re-enumeration must happen after this revocation and before publication. commitSegment models main-process commit-time epoch plus revision revalidation; segment alone is only the geometry oracle. A new snapshot does not authorize recycling a contact: production integration must require a new contact and bind lease ownership separately. None of these APIs is wired to production or actual Electron event listeners yet.
