@@ -237,3 +237,39 @@ test('duplicate stop-loading preserves completed document token and active lease
   assert.deepEqual(h.capability(), before);
   assert.equal(h.apply({ ...begin, phase: 'renew', sequence: 2 }).ok, true);
 });
+
+test('pending completion recovers on capability read after early stop-loading', () => {
+  const h = harness({ loaded: false }); h.contents.loading = true;
+  h.contents.emit('did-finish-load'); h.contents.emit('did-stop-loading');
+  assert.equal(h.capability().available, false);
+  h.contents.loading = false;
+  assert.equal(h.capability().available, true);
+});
+test('active old epoch cannot renew after pending reload crashes', () => {
+  const h = harness(), begin = h.request(); assert.equal(h.apply(begin).ok, true);
+  h.contents.loading = true; h.contents.emit('did-start-navigation', {}, URL, false, true);
+  h.contents.emit('did-finish-load'); h.contents.emit('render-process-gone', {}, { reason: 'crashed' });
+  h.contents.loading = false; h.contents.emit('did-stop-loading');
+  assert.equal(h.capability().available, false); assert.notEqual(h.capability().epoch, begin.epoch);
+  assert.equal(h.apply({ ...begin, phase: 'renew', sequence: 2 }).ok, false);
+});
+test('stop before finish cannot grant readiness but later finish may complete', () => {
+  const h = harness({ loaded: false }); h.contents.emit('did-stop-loading');
+  assert.equal(h.capability().available, false);
+  h.contents.emit('did-finish-load'); assert.equal(h.capability().available, true);
+});
+test('lazy completion supports synchronous onReady capture and increasing reload token', () => {
+  const { createPetInputDocument } = require('../src/platform/electron/windows/pet-input-document');
+  const contents = new EventEmitter(); let loading = true, callbacks = 0, captured = null, document;
+  Object.assign(contents, { mainFrame: { url: URL }, getURL: () => URL, isLoadingMainFrame: () => loading });
+  const window = { webContents: contents, isDestroyed: () => false };
+  document = createPetInputDocument({ window, selectedPage: PAGE, onInvalidate() {},
+    onReady() { callbacks++; captured = document.capture(); } });
+  contents.emit('did-finish-load'); contents.emit('did-stop-loading'); loading = false;
+  const first = document.capture(); assert.ok(first); assert.equal(captured, first); assert.equal(callbacks, 1);
+  contents.emit('did-stop-loading'); assert.equal(document.capture(), first); assert.equal(callbacks, 1);
+  contents.emit('did-start-navigation', {}, URL, false, true); assert.equal(document.capture(), null);
+  loading = true; contents.emit('did-finish-load'); loading = false;
+  const second = document.capture(); assert.ok(second.generation > first.generation);
+  assert.notEqual(second, first); assert.equal(captured, second); assert.equal(callbacks, 2);
+});
