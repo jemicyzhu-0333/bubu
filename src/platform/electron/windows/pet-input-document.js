@@ -51,6 +51,7 @@ function createPetInputDocument({ window, selectedPage, onInvalidate, onReady })
   });
   contents.on('did-stop-loading', completePending);
   function isReady() {
+    if (!ready && pendingCompletion) completePending();
     if (!ready) return false;
     if (identity() !== frame) { invalidate(); return false; }
     return true;
