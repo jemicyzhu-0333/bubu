@@ -2,8 +2,8 @@
 const inside = (p, b) => p.x >= b.x && p.y >= b.y && p.x < b.x + b.width && p.y < b.y + b.height;
 const number = x => Number.isFinite(x) && Math.abs(x) <= 100000;
 export function createTopologyOracle() {
-  let revision = 0, key = null, state = null;
-  return Object.freeze({
+  let revision = 0, epoch = 1, key = null, state = null;
+  const oracle = {
     observe(displays) {
       let reason = null, canonical = null;
       if (!Array.isArray(displays) || displays.length < 1 || displays.length > 8) reason = 'invalid-topology';
@@ -23,8 +23,18 @@ export function createTopologyOracle() {
       }
       const next = JSON.stringify([reason, canonical]);
       if (next !== key) { revision++; key = next; }
-      state = { revision, reason, displays: canonical, productionCapability: false };
+      state = { revision, epoch, reason, displays: canonical, productionCapability: false };
       return structuredClone(state);
+    },
+    invalidateEvent(event) {
+      if (!['display-added', 'display-removed', 'display-metrics-changed', 'resume', 'unlock-screen'].includes(event)) throw new TypeError('unsupported-event');
+      // Revoke synchronously before a caller re-enumerates or publishes anything.
+      epoch++; revision++; state = null; key = null;
+      return { epoch, revision, requiresNewContact: true, productionCapability: false };
+    },
+    commitSegment(from, to, expectedRevision, expectedEpoch) {
+      if (expectedEpoch !== epoch) return { accepted: false, reason: 'stale-epoch' };
+      return oracle.segment(from, to, expectedRevision);
     },
     segment(from, to, expectedRevision) {
       if (!state || expectedRevision !== revision) return { accepted: false, reason: 'stale-topology' };
@@ -35,5 +45,6 @@ export function createTopologyOracle() {
       if (a[0].id !== b[0].id) return { accepted: false, reason: 'cross-display-unverified' };
       return { accepted: true, productionCapability: false, scope: 'synthetic-same-display-DIP-only', delta: { x: to.x - from.x, y: to.y - from.y } };
     }
-  });
+  };
+  return Object.freeze(oracle);
 }
