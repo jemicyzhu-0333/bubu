@@ -100,3 +100,34 @@ for (const cause of ['event', 'new-enumeration']) test(`normalization reentry ca
  Object.defineProperty(d[0], 'id', {get() { if(cause==='event') o.invalidateEvent('lock-screen'); else o.beginEnumeration(); return 1; }});
  assert.equal(o.observe(d,ticket).reason,'stale-enumeration');
 });
+test('throwing getter consumes ticket and produces a classified fail-closed snapshot', () => {
+ const o=createTopologyOracle(), t=o.beginEnumeration();
+ const bad=[{get id(){throw new Error('private diagnostic must not escape');}}];
+ const s=o.observe(bad,t); assert.equal(s.reason,'enumeration-failed'); assert.equal(s.displays,null);
+ assert.equal(o.observe(fixture(),t).reason,'stale-enumeration');
+ assert.equal(o.commitSegment({x:1,y:1},{x:2,y:2},s.revision,s.epoch).reason,'enumeration-failed');
+});
+test('invalid function or object values return cloneable failure state, never a partial publication exception', () => {
+ for(const id of [()=>1, {toJSON(){throw Error('must not serialize caller object');}}]) {
+  const o=createTopologyOracle(),d=fixture();d[0].id=id;
+  const s=o.observe(d,o.beginEnumeration());assert.equal(s.reason,'invalid-topology');assert.equal(s.displays,null);
+  assert.doesNotThrow(()=>structuredClone(s));
+ }
+});
+test('reentrant replay during normalization cannot reuse a consumed ticket', () => {
+ const o=createTopologyOracle(),t=o.beginEnumeration(),d=fixture();let nested;
+ Object.defineProperty(d[0],'id',{get(){nested=o.observe(fixture(),t);return 1;}});
+ assert.equal(o.observe(d,t).reason,null);assert.equal(nested.reason,'stale-enumeration');
+});
+test('exception after reentrant newer publication cannot clobber newer snapshot', () => {
+ const o=createTopologyOracle(),t=o.beginEnumeration(),d=fixture();let newer;
+ Object.defineProperty(d[0],'id',{get(){newer=o.observe(fixture(),o.beginEnumeration());throw Error('old read failed');}});
+ assert.equal(o.observe(d,t).reason,'stale-enumeration');
+ assert.equal(o.commitSegment({x:1,y:1},{x:2,y:2},newer.revision,newer.epoch).accepted,true);
+});
+test('exception after revocation leaves oracle awaiting enumeration', () => {
+ const o=createTopologyOracle(),t=o.beginEnumeration();let revoked;
+ const d=[{get id(){revoked=o.invalidateEvent('suspend');throw Error('old read failed');}}];
+ assert.equal(o.observe(d,t).reason,'stale-enumeration');
+ assert.equal(o.commitSegment({x:1,y:1},{x:2,y:2},revoked.revision,revoked.epoch).reason,'revoked-awaiting-enumeration');
+});
