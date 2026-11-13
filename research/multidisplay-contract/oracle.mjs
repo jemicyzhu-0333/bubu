@@ -12,10 +12,13 @@ export function createTopologyOracle() {
       const current = () => ticket && ticket === pendingEnumeration && ticket.epoch === epoch;
       const stale = () => ({ accepted: false, reason: 'stale-enumeration', productionCapability: false });
       if (!current()) return stale();
+      pendingEnumeration = null; // Consume on the first attempt, including exceptions.
+      const owned = () => ticket.epoch === epoch && ticket.sequence === sequence;
       let reason = null, canonical = null;
+      try {
       if (!Array.isArray(displays) || displays.length < 1 || displays.length > 8) reason = 'invalid-topology';
       else {
-        canonical = displays.map(d => ({ id: d?.id, scale: d?.scaleFactor, rotation: d?.rotation,
+        canonical = Array.prototype.map.call(displays, d => ({ id: d?.id, scale: d?.scaleFactor, rotation: d?.rotation,
           bounds: d?.bounds && { x: d.bounds.x, y: d.bounds.y, width: d.bounds.width, height: d.bounds.height } }));
         if (canonical.some(d => !Number.isSafeInteger(d.id) || !d.bounds || !Object.values(d.bounds).every(x => Number.isSafeInteger(x) && number(x))
           || d.bounds.width <= 0 || d.bounds.height <= 0 || !Number.isFinite(d.scale) || d.scale < .5 || d.scale > 4
@@ -28,14 +31,17 @@ export function createTopologyOracle() {
             && Math.max(a.bounds.y, b.bounds.y) < Math.min(a.bounds.y + a.bounds.height, b.bounds.y + b.bounds.height)))) reason = 'overlap-unverified';
         }
       }
+      } catch { reason = 'enumeration-failed'; canonical = null; }
+      if (reason) canonical = null; // No caller objects/functions in failure state.
       const next = JSON.stringify([reason, canonical]);
       // Normalization may call getters. Recheck after any caller-controlled work,
-      // then consume this exact one-shot ticket before publishing.
-      if (!current()) return stale();
-      pendingEnumeration = null;
-      if (next !== key) { revision++; key = next; }
-      state = { revision, epoch, reason, displays: canonical, productionCapability: false };
-      return structuredClone(state);
+      // with the consumed request epoch/sequence before publishing.
+      if (!owned()) return stale();
+      const nextRevision = revision + (next !== key ? 1 : 0);
+      const candidate = { revision: nextRevision, epoch, reason, displays: canonical, productionCapability: false };
+      const output = structuredClone(candidate);
+      revision = nextRevision; key = next; state = candidate;
+      return output;
     },
     invalidateEvent(event) {
       if (!['display-added', 'display-removed', 'display-metrics-changed', 'resume', 'unlock-screen', 'suspend', 'lock-screen'].includes(event)) throw new TypeError('unsupported-event');
