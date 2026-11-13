@@ -51,6 +51,9 @@ function createPetInputDocument({ window, selectedPage, onInvalidate, onReady })
   });
   contents.on('did-stop-loading', completePending);
   function isReady() {
+    // A readiness read may synchronously complete a proven document and invoke
+    // onReady. Completion clears pending and installs ready/token before that
+    // callback, so capture()/isReady() reentry cannot complete it twice.
     if (!ready && pendingCompletion) completePending();
     if (!ready) return false;
     if (identity() !== frame) { invalidate(); return false; }
