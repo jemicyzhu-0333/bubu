@@ -13,6 +13,30 @@
 
 ## 任务表
 
+2026-11-13 F1 独立修复登记：dot 基于 `eaea426df1c1948389ce7c930e33fe24b320eb87`
+（已包含 `9f8dc324` 集成候选和页面就绪许可修正）建立独立审查分支。
+范围限定为实际 D2 `body-runtime/pointer-host.mjs` 中非抚摸接触的小幅移动误取消拖拽、
+对应行为回归及现有协作文档。owner 为 companion 的实时 pet 呈现切片；持久化写集为空，
+不改 IPC、原生协议、双屏保护或艺术资源。
+Windows 离线，本轮只做云端 CPU/模拟输入验证，不重复发送审查消息，不合并共享分支。
+
+复现：实际 D2 模型从身体 y=0.8 按下，在原坐标上移动 1 DIP 后，旧实现把 pointerId
+从 1 清成 null；新增11项回归在修改实现前为2通过/9失败。修复仅在起始非头部命中、
+当前仍命中皮肤且未超过原8 DIP阈值时保留同一待定接触；不启动抚摸、不另分配owner。
+松手、取消、失捕、离开、buttons=0、blur/hidden，以及头部失去资格/射线离开皮肤仍释放。
+持有超过抚摸资格时间和恰好8 DIP仍待定，超过阈值进入原拖动/落地路径。
+
+最终云端 Linux / Node v24.19.0：
+- `node --test research/animation-0.1.0/animation-foundation-v1/body-runtime/pending-body-drag.test.mjs`：11/11。
+- 根目录启用 `DANGO_CANVAS_PACKAGE=@napi-rs/canvas USAGI_CANVAS_PACKAGE=@napi-rs/canvas PET_MOTION_CANVAS_PACKAGE=@napi-rs/canvas npm run check`：exit0，7,170 total / 7,165 pass / 5 skip / 0 fail；语法、边界、架构和全部资源门禁通过。跳过为3项Windows原生、旧眼睛基线和可选SQLite驱动。
+- 根目录 `npm run test:integration`：71/71；research目录 `npm run foundation:test`：236/236，零跳过。
+- `drag-landing-r5`、`shared-input-workbench-v2` 各自原命令 `npm test`：19/19、62/62，零跳过；workbench依赖身份检查通过。D2/full18按仓库脚本恢复并校验精确哈希。
+- 固定 Grok `a10c81dbc3068c22b471d6f9dd5059a572f152a8` 的 `f1-lower-body-drag.test.mjs` 与 `helpers.mjs` 原字节临时物化，运行 `node --test grok-regression-v2/f1-lower-body-drag.test.mjs`：6/6，覆盖y=0.3/0.6/0.9/1.1的1px/8ms慢拖及2个保护用例；完成后核对原字节并移除，不引入或改写Grok测试分支。
+- `git diff --check` 通过。基础套件首轮234通过/2失败来自新增测试在blur/hidden后读取无返回值的frame；改为读取公开state后，定向11/11及完整236/236复跑通过，未为此改动运行时代码。
+
+上述均非CI、GPU、OS输入或Windows/macOS体验验收；F4下降阶段再抓取、G1/G2原生门禁
+和真实双屏/混合DPI继续待验，本修复未引入任何多屏原型。
+
 2026-11-12 集成候选：dot 在独立分支基于最新 V2 `3751977ceac5c9bdcefd76a47aa5fa482f207a7a`，完整集成生命周期候选 `2cfbf2a26e4bae130ccc5e0523a664cb6c4ba0d7` 与 F2 候选 `fbe87410fe9d4dfcf8e873584fa74b9c1ca29a6a`（包含其全部前置修正），无代码或文档冲突，保留原记录与各轮历史证据。Grok 固定 `c3362ba61022e0ee8fb53c31bfc6f72f887b1ba1` 的原始 f2*.test.mjs 及辅助文件临时按原路径物化、逐字节核对，原命令执行2/2通过后移除临时副本，不修改其测试分支。64/76扫段约束阈值，69/71实际owner用例约束 requestId/hold，后续验收必须保留两组互补覆盖。本候选不引入 Grok 测试目录。组合最终云端 `npm run check` exit0：7,158 total / 7,153 pass / 5 skip / 0 fail，语法/边界/架构/资源门禁通过；集成71/71。r5原命令19/19、workbench原命令62/62，两包SHA256SUMS通过；foundation原命令225/225、零跳过。D2与full18按仓库脚本重新物化并校验；workbench首跑缺full18失败，补物化后上述复跑通过。5项主门禁跳过为3项Windows原生、旧眼睛基线、可选SQLite；比单独生命周期少1项是D2已物化，不是原生能力改善。所有结果是云端CPU，不是CI或体验验收。
 
 未独立复现的外部风险：Grok 在 [6821121371](https://github.com/jemicyzhu-0333/evolutionary-specialization-lab/pull/1#issuecomment-6821121371) 报告 Linux/Xvfb/Electron/SwiftShader 合成输入下 F2 候选仍有3/9/4次短切换，软件负载与事件计时使测量速度偶尔越阈值。不是 Windows、GPU 或真实 OS 验收，也不能据此断言候选不合格；最短保持时间与轻量平滑仅列后续对照实验，本轮不凭此调参。

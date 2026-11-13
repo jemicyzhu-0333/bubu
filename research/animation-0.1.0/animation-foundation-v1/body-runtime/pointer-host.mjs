@@ -416,7 +416,11 @@ export function createPointerHostFactory({
             else finish(t, "cancel");
             return;
           }
-          const c = contact(hit(e.x, e.y));
+          const h = hit(e.x, e.y);
+          // A body hit can wait for drag without ever qualifying for petting.
+          // Keep its original contact while still on skin below the threshold.
+          if (mode === "pending" && !active.petEligible && h) return;
+          const c = contact(h);
           if (!c.eligible) {
             finish(t, "cancel");
             return;

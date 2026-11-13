@@ -1113,8 +1113,12 @@ companion/execution/preferences 能力负责。surface 拥有一个时钟、一�
 
 G2 的第一段合同将命中空间与运动空间分离：`pointer-host` 仍以当前 canvas 的 CSS
 `clientX/clientY` 和真实变形表面确定接触；拖动门槛、抚摸距离和惯性只使用同一事件的
-motion DIP。默认 motion 为 client DIP，保持当前静止窗口行为；内部可选
-`readMotionPoint(event)` 必须同步提供该事件在整段手势内不变的 DIP 参考空间中的
+motion DIP。默认 motion 为 client DIP，保持当前静止窗口行为。
+非头部皮肤命中可保留待定拖拽：小幅移动仍命中皮肤时保留原 contactGeneration，
+不启动抚摸、不重置运动原点；超过原 dragPixels 阈值才进入拖动。已按头部接纳的
+抚摸仍在失去资格时取消；待定阶段离开皮肤/画布、松手、失捕和生命周期失效仍按既有规则释放。
+
+内部可选 `readMotionPoint(event)` 必须同步提供该事件在整段手势内不变的 DIP 参考空间中的
 闭合 `{x,y}`，收到时复制，帧推进不再次采样。它不能提供命中、骨骼写入或另一个时钟。
 保留原时间/队列与 client 坐标准入；过期输入或畸形 client 点仍原子拒绝，不触发采样。
 通过这些准入后，自定义 motion 采样缺失/非有限/超界时不切回 client 空间：拒绝 down，
