@@ -48,3 +48,30 @@ for (const kind of ['mixed-DPI', 'rotation', 'overlap', 'duplicate-id', 'invalid
  if (kind === 'invalid-number') d[1].bounds.x = Infinity;
  const s = o.observe(d); assert.ok(s.reason); assert.equal(o.segment({ x: 10, y: 10 }, { x: 20, y: 20 }, s.revision).accepted, false);
 });
+for (const event of ['display-added', 'display-removed', 'display-metrics-changed', 'resume', 'unlock-screen']) test(`same snapshot cannot preserve authority across ${event}`, () => {
+ const o = createTopologyOracle(), a = o.observe(fixture()), from = { x: 10, y: 10 }, to = { x: 20, y: 20 };
+ assert.equal(o.commitSegment(from, to, a.revision, a.epoch).accepted, true);
+ const revoked = o.invalidateEvent(event);
+ assert.equal(o.commitSegment(from, to, a.revision, a.epoch).reason, 'stale-epoch');
+ assert.equal(o.commitSegment(from, to, revoked.revision, revoked.epoch).accepted, false, 'no grant before re-enumeration');
+ const b = o.observe(fixture()); assert.ok(b.epoch > a.epoch); assert.ok(b.revision > a.revision);
+ assert.equal(o.commitSegment(from, to, b.revision, a.epoch).reason, 'stale-epoch');
+ assert.equal(o.commitSegment(from, to, b.revision, b.epoch).accepted, true);
+});
+test('queued proposal must recheck epoch at commit; no observed event means unknowable gap', () => {
+ const o = createTopologyOracle(), a = o.observe(fixture()), from = { x: 10, y: 10 }, to = { x: 20, y: 20 };
+ const queued = { revision: a.revision, epoch: a.epoch };
+ assert.equal(o.observe(fixture()).epoch, a.epoch, 'content alone cannot detect unobserved removal+addition');
+ o.invalidateEvent('display-removed'); o.invalidateEvent('display-added'); o.observe(fixture());
+ assert.equal(o.commitSegment(from, to, queued.revision, queued.epoch).reason, 'stale-epoch');
+});
+test('gap points fail but valid same-screen segments do not reject whole gapped topology', () => {
+ const o = createTopologyOracle(), d = fixture(); d[1].bounds.x = 3000; const s = o.observe(d);
+ assert.equal(s.reason, null);
+ assert.equal(o.segment({ x: 2500, y: 10 }, { x: 2501, y: 10 }, s.revision).accepted, false);
+ assert.equal(o.segment({ x: 10, y: 10 }, { x: 20, y: 10 }, s.revision).accepted, true);
+});
+test('bounds attribution does not implement workArea placement clamp', () => {
+ const o = createTopologyOracle(), d = fixture(); d[0].workArea = { ...d[0].bounds, height: 1100 }; const s = o.observe(d);
+ assert.equal(o.segment({ x: 10, y: 1120 }, { x: 20, y: 1120 }, s.revision).accepted, true);
+});
