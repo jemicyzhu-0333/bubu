@@ -204,3 +204,36 @@ test('only the selected V2 window facade exposes the host lease command', () => 
   assert.equal('applyInputLease' in createPetWindowHost(base), false);
   assert.equal(typeof createPetWindowHost({ ...base, enableReload: true }).applyInputLease, 'function');
 });
+
+test('finish-load while loading waits for stop on the same completed document', () => {
+  const h = harness({ loaded: false }); h.contents.loading = true;
+  h.contents.emit('did-finish-load'); assert.equal(h.capability().available, false);
+  h.contents.loading = false; h.contents.emit('did-stop-loading');
+  assert.equal(h.capability().available, true);
+});
+for (const change of ['no-finish', 'replacement', 'navigation', 'crash']) test(`stop-loading cannot admit ${change}`, () => {
+  const h = harness({ loaded: false }); h.contents.loading = true;
+  if (change !== 'no-finish') h.contents.emit('did-finish-load');
+  if (change === 'replacement') h.contents.mainFrame = { url: URL };
+  if (change === 'navigation') h.contents.emit('did-start-navigation', {}, URL, false, true);
+  if (change === 'crash') h.contents.emit('render-process-gone', {}, { reason: 'crashed' });
+  h.contents.loading = false; h.contents.emit('did-stop-loading');
+  assert.equal(h.capability().available, false);
+});
+for (const change of ['main-load-failure', 'same-page-navigation']) test(`pending completed document is revoked by ${change}`, () => {
+  const h = harness({ loaded: false }); h.contents.loading = true;
+  h.contents.emit('did-finish-load');
+  if (change === 'main-load-failure') h.contents.emit('did-fail-load', {}, -2, 'failed', URL, true);
+  else h.contents.emit('did-navigate-in-page', {}, URL, true);
+  h.contents.loading = false; h.contents.emit('did-stop-loading');
+  assert.equal(h.capability().available, false);
+});
+test('duplicate stop-loading preserves completed document token and active lease epoch', () => {
+  const h = harness({ loaded: false }); h.contents.loading = true;
+  h.contents.emit('did-finish-load'); h.contents.loading = false; h.contents.emit('did-stop-loading');
+  const begin = h.request(); assert.equal(h.apply(begin).ok, true);
+  const before = h.capability();
+  h.contents.emit('did-stop-loading'); h.contents.emit('did-stop-loading');
+  assert.deepEqual(h.capability(), before);
+  assert.equal(h.apply({ ...begin, phase: 'renew', sequence: 2 }).ok, true);
+});
