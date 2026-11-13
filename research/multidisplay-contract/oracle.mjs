@@ -2,9 +2,16 @@
 const inside = (p, b) => p.x >= b.x && p.y >= b.y && p.x < b.x + b.width && p.y < b.y + b.height;
 const number = x => Number.isFinite(x) && Math.abs(x) <= 100000;
 export function createTopologyOracle() {
-  let revision = 0, epoch = 1, key = null, state = null;
+  let revision = 0, epoch = 1, sequence = 0, pendingEnumeration = null, key = null, state = null;
   const oracle = {
-    observe(displays) {
+    beginEnumeration() {
+      pendingEnumeration = Object.freeze({ epoch, sequence: ++sequence });
+      return pendingEnumeration;
+    },
+    observe(displays, ticket) {
+      const current = () => ticket && ticket === pendingEnumeration && ticket.epoch === epoch;
+      const stale = () => ({ accepted: false, reason: 'stale-enumeration', productionCapability: false });
+      if (!current()) return stale();
       let reason = null, canonical = null;
       if (!Array.isArray(displays) || displays.length < 1 || displays.length > 8) reason = 'invalid-topology';
       else {
@@ -22,14 +29,18 @@ export function createTopologyOracle() {
         }
       }
       const next = JSON.stringify([reason, canonical]);
+      // Normalization may call getters. Recheck after any caller-controlled work,
+      // then consume this exact one-shot ticket before publishing.
+      if (!current()) return stale();
+      pendingEnumeration = null;
       if (next !== key) { revision++; key = next; }
       state = { revision, epoch, reason, displays: canonical, productionCapability: false };
       return structuredClone(state);
     },
     invalidateEvent(event) {
-      if (!['display-added', 'display-removed', 'display-metrics-changed', 'resume', 'unlock-screen'].includes(event)) throw new TypeError('unsupported-event');
+      if (!['display-added', 'display-removed', 'display-metrics-changed', 'resume', 'unlock-screen', 'suspend', 'lock-screen'].includes(event)) throw new TypeError('unsupported-event');
       // Revoke synchronously before a caller re-enumerates or publishes anything.
-      epoch++; revision++; state = null; key = null;
+      epoch++; revision++; pendingEnumeration = null; state = null; key = null;
       return { epoch, revision, requiresNewContact: true, productionCapability: false };
     },
     commitSegment(from, to, expectedRevision, expectedEpoch) {
@@ -37,7 +48,8 @@ export function createTopologyOracle() {
       return oracle.segment(from, to, expectedRevision);
     },
     segment(from, to, expectedRevision) {
-      if (!state || expectedRevision !== revision) return { accepted: false, reason: 'stale-topology' };
+      if (!state) return { accepted: false, reason: 'revoked-awaiting-enumeration' };
+      if (expectedRevision !== revision) return { accepted: false, reason: 'stale-topology' };
       if (state.reason) return { accepted: false, reason: state.reason };
       if (![from?.x, from?.y, to?.x, to?.y].every(number)) return { accepted: false, reason: 'invalid-DIP-point' };
       const a = state.displays.filter(d => inside(from, d.bounds)), b = state.displays.filter(d => inside(to, d.bounds));
