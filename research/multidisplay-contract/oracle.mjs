@@ -16,10 +16,17 @@ export function createTopologyOracle() {
       const owned = () => ticket.epoch === epoch && ticket.sequence === sequence;
       let reason = null, canonical = null;
       try {
-      if (!Array.isArray(displays) || displays.length < 1 || displays.length > 8) reason = 'invalid-topology';
+      const length = Array.isArray(displays) ? displays.length : 0;
+      if (!Number.isSafeInteger(length) || length < 1 || length > 8) reason = 'invalid-topology';
       else {
-        canonical = Array.prototype.map.call(displays, d => ({ id: d?.id, scale: d?.scaleFactor, rotation: d?.rotation,
-          bounds: d?.bounds && { x: d.bounds.x, y: d.bounds.y, width: d.bounds.width, height: d.bounds.height } }));
+        // Visit every original slot; map/some would skip holes or deleted entries.
+        canonical = [];
+        for (let i = 0; i < length; i++) {
+          if (!Object.prototype.hasOwnProperty.call(displays, i)) throw new TypeError('sparse-display-array');
+          const d = displays[i];
+          canonical.push({ id: d?.id, scale: d?.scaleFactor, rotation: d?.rotation,
+            bounds: d?.bounds && { x: d.bounds.x, y: d.bounds.y, width: d.bounds.width, height: d.bounds.height } });
+        }
         if (canonical.some(d => !Number.isSafeInteger(d.id) || !d.bounds || !Object.values(d.bounds).every(x => Number.isSafeInteger(x) && number(x))
           || d.bounds.width <= 0 || d.bounds.height <= 0 || !Number.isFinite(d.scale) || d.scale < .5 || d.scale > 4
           || ![0, 90, 180, 270].includes(d.rotation)) || new Set(canonical.map(d => d.id)).size !== canonical.length) reason = 'invalid-topology';
