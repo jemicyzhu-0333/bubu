@@ -273,3 +273,31 @@ test('lazy completion supports synchronous onReady capture and increasing reload
   const second = document.capture(); assert.ok(second.generation > first.generation);
   assert.notEqual(second, first); assert.equal(captured, second); assert.equal(callbacks, 2);
 });
+
+function pendAfterStop(h) {
+  h.contents.loading = true; h.contents.emit('did-finish-load'); h.contents.emit('did-stop-loading');
+}
+test('lazy completion inside applyInputLease fails closed for stale request, then fresh request works', () => {
+  const h = harness({ loaded: false }); const stale = h.request(); pendAfterStop(h); h.contents.loading = false;
+  const r = h.apply(stale); assert.equal(r.ok, false); assert.equal(r.capability.available, true);
+  assert.equal(h.apply(h.request()).ok, true);
+});
+test('lazy completion via presentation tick publishes available capability with one epoch, no recursion', () => {
+  const h = harness({ loaded: false }); pendAfterStop(h); h.contents.loading = false; const n = h.messages.length;
+  h.tick(); const after = h.messages.slice(n);
+  assert.ok(after.length >= 1); assert.equal(after.at(-1).value.inputLease.available, true);
+  assert.equal(new Set(after.map((x) => x.value.inputLease.epoch)).size, 1);
+});
+test('lazy completion on readPresentationView only grants after main frame stops loading', () => {
+  const h = harness({ loaded: false }); pendAfterStop(h);
+  h.viewport.readPresentationView(); assert.equal(h.capability().available, false);
+  h.contents.loading = false; h.viewport.readPresentationView(); assert.equal(h.capability().available, true);
+});
+test('old-document renew and begin are rejected after lazy completion of reloaded document', () => {
+  const h = harness(); const begin = h.request(); assert.equal(h.apply(begin).ok, true);
+  h.contents.loading = true; h.contents.emit('did-start-navigation', {}, h.contents.url, false, true);
+  h.contents.emit('did-finish-load'); h.contents.emit('did-stop-loading'); h.contents.loading = false;
+  assert.equal(h.apply({ ...begin, phase: 'renew', sequence: 2 }).ok, false);
+  assert.equal(h.apply({ ...begin, contactGeneration: 2 }).ok, false);
+  assert.notEqual(h.capability().epoch, begin.epoch); assert.equal(h.capability().available, true);
+});
