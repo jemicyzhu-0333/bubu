@@ -131,3 +131,24 @@ test('exception after revocation leaves oracle awaiting enumeration', () => {
  assert.equal(o.observe(d,t).reason,'stale-enumeration');
  assert.equal(o.commitSegment({x:1,y:1},{x:2,y:2},revoked.revision,revoked.epoch).reason,'revoked-awaiting-enumeration');
 });
+test('sparse topology slots fail closed, even when an inherited entry fills a hole', () => {
+ for (const d of [new Array(1), new Array(2), [fixture()[0], , fixture()[1]]]) {
+  const o=createTopologyOracle(),s=o.observe(d,o.beginEnumeration());
+  assert.equal(s.reason,'enumeration-failed');assert.equal(s.displays,null);
+ }
+ const d=new Array(1),proto=Object.create(Array.prototype);proto[0]=fixture()[0];Object.setPrototypeOf(d,proto);
+ const o=createTopologyOracle();assert.equal(o.observe(d,o.beginEnumeration()).reason,'enumeration-failed');
+});
+test('proxy slot-presence reentry cannot publish after revocation', () => {
+ const o=createTopologyOracle(),ticket=o.beginEnumeration();
+ const d=new Proxy(fixture(),{getOwnPropertyDescriptor(target,key){if(key==='0')o.invalidateEvent('lock-screen');return Reflect.getOwnPropertyDescriptor(target,key);}});
+ assert.equal(o.observe(d,ticket).reason,'stale-enumeration');
+});
+test('a getter deleting a later display slot cannot publish a partial topology', () => {
+ const o=createTopologyOracle(),d=fixture();Object.defineProperty(d[0],'id',{get(){delete d[1];return 1;}});
+ assert.equal(o.observe(d,o.beginEnumeration()).reason,'enumeration-failed');
+});
+test('proxy length is captured once so changes cannot fabricate an empty accepted topology', () => {
+ let reads=0;const d=new Proxy(fixture(),{get(target,key,receiver){if(key==='length')return ++reads===1?2:0;return Reflect.get(target,key,receiver);}});
+ const o=createTopologyOracle(),s=o.observe(d,o.beginEnumeration());assert.equal(reads,1);assert.equal(s.displays.length,2);
+});
